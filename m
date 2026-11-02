@@ -2,134 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB7C606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:00:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F012E606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=exnL2Y8/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YaMRKxLh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmZttzRc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E31710F182;
-	Mon,  2 Nov 2026 19:00:46 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C4410F181
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 19:00:25 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A2IuWT1558525
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 19:00:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=UttVKb7MWsl
- vuojwoH1mw96vCZ9byntzzqymS3UyJsI=; b=exnL2Y8/JnVvjbjSfuTYD8Xumt0
- Zlgs47QV8kvS56AE11qpAnVESj7x434Ofy60fnejMpiPwSHlcrDrPWOnvrWOoJxE
- X/h3SHAXPRY7uTlZL9N8S7jNiXvMMmqIFWEn7cXKhz1u/3zGeYFs+d5m3j4x6iom
- EU+8pU2jJRJ9j1XirOHjQfc8V+qHACm9Ssj05EMrK/H5CaJ3kUOFZzWqkB+h9w1B
- YiQME+56ZvDYoWS6zO89GlG7HEUrphkU/05Tko+V4BfzLCbjuyzjuRFPOMHJgrzz
- PLA2+QhRY9TjeTzAZtYky/CwLrVT92gGp4bMXV6I+Q5u0GOddkUNIQErcRw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq08700k4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 19:00:23 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-cdb155f3229so977207a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:00:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793646023; x=1794250823;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=UttVKb7MWslvuojwoH1mw96vCZ9byntzzqymS3UyJsI=;
- b=YaMRKxLhGMKVbKI6jC1Ec8BMOZaoeJVxREXT3OhHgyEQzC4tf4LbQzLpGK2DgOQQCD
- AMd3iQlQ6DLBJtsMrPM1Y+rVKKc1HxnzI+Dz6UdGQZp9fpFesNTAWT+3kCoeixp2qADp
- /qfSIyJ9MSok6ErHiWrInn1bMZJ7M9tLlvg90emEGCDskarimasYZ3KHA1gbBClwCOuk
- 599bLbg549xowQLaeLyKjNylNQXMtA3V572Xs9MU1R5W9in/1DmL1T3gYQR3ST3hiOeN
- 3HLNtRknZqIpNUA0DHstlkrF5j4x7UEMbdGyiRj+OstnGnziq5r4nu+bv7GNn8Tiii7n
- qutQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793646023; x=1794250823;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=UttVKb7MWslvuojwoH1mw96vCZ9byntzzqymS3UyJsI=;
- b=iN6htnRPGMXWY6n/n44qW/4d3QS3Se9yp004q0PFl8ffejxSKGkOGKJSkUYukp9y78
- Nbujp4OGLgwiYmzWNpnaFxAR5sx7cskEOmspWqBZbG04wmLzulIAZttJpPaS6mmFp2Mw
- Gmf0PgOqFwW7XRdQuiOQXNfNGjRMruQqyEstUvAmcRdSJ04R/oWO0WMO70BhtsKWamMs
- M1M7/llNK3eKnik0YQGvGhg8WYnSMogHasFp2i58kzOBqJRxt6IaLZPIA7heMGY1G3oY
- mQfrjGvIIttZRhq2WLbwagHXKiaZbo0vIB8aR1AXxGwfaJxwbq6EbhTzu6CVSeT72lrU
- CTwA==
-X-Gm-Message-State: APuU4Z9DdzR7FdWlcckBMxWd1kBkJ9NAOn4sHE/XO58QjeOsuJWD8Y/4
- RhXDGcZ4G6nRKRLAFN3o5pnGOPuqF0NrGZY2ZUSmHNcjhMfTwZPTlbeFhwxVZQnhBRee0j82CM/
- K28a4n48EnwC3ZfLgA+wLWXrvRzvpaxAmJCmGfUioMDg91AEPhZ/02CrAnCaa4saMU9WPI0iaLE
- cvX9Zrwg==
-X-Gm-Gg: AYBFou3K+Mmg8IQfx/Z0enLCr8biXi8uVR2goESG6hPkCvY7S/lenW38/6rNWcSJdm+
- dwF4bz/9/K96AWCB+AHLG6orSFI8w9mOg/U61/LqnzO33SxLMTogykoYN8dvrh7Cn8GuMMNbqj6
- cf+IOT9z8bKeuKSdvKVyxSmAPfTuMZVuhLZoDoZLlQXfBfYWMpkq0fQxshgnS+9/MQdJy9+sObF
- e5zCHhw0bcQVTfjmA2T2XwBo+hY4pdyAF6ts74sDUY24277hbodoBq+8LohMgOlKSa6/LmggWHp
- AKlsdYGwAGkFT57OVuzw9hGSlzEz1zDz1UOsuhtVrCcOFPRuol/Y37dSfpYtTWKsoE5DgxwfzWa
- W/7HpRN+lSbKBEjMpdCsnbOuQPRGLMYMD+NkiRlL3jSsn+MdYrDdTviCbs7pTf5zPdwOUqZxptD
- AGN8SC9eKMc/W4Q2LxX4676Q==
-X-Received: by 2002:a17:90b:1d47:b0:3a0:c85a:ee02 with SMTP id
- 98e67ed59e1d1-3ae896f87c2mr9662319a91.17.1793646022610; 
- Mon, 02 Nov 2026 11:00:22 -0800 (PST)
-X-Received: by 2002:a17:90b:1d47:b0:3a0:c85a:ee02 with SMTP id
- 98e67ed59e1d1-3ae896f87c2mr9662286a91.17.1793646022177; 
- Mon, 02 Nov 2026 11:00:22 -0800 (PST)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b07c62984bsm444552a91.9.2026.11.02.11.00.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 11:00:21 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Alexander Koskovich <akoskovich@pm.me>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 4/4] drm/msm: Inhibit IFPC for state snapshot
-Date: Mon,  2 Nov 2026 11:00:07 -0800
-Message-ID: <20261102190010.720443-5-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
-References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3NSBTYWx0ZWRfXycZYFeQKG8UC
- yU8C/XNScZsAcXEDdQk1Ff9OFMr2dQKphsYRQRCU+ii0ib6Wevz1RLENoZpWu9wGbL1MJGkyEd1
- IgT83W6RsxzpLfI7WjWaJ+6opu8z8es=
-X-Authority-Analysis: v=2.4 cv=K9m3jCWI c=1 sm=1 tr=0 ts=6ae8ddc7 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=jgQnFmZX3A3noQDnNKkA:9 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3NSBTYWx0ZWRfXwWG1Rbja+4Gw
- TKqDpRZMsZoFfSgUDSCQr9ZbvBm9r9f91howgAXenH6VVyvpXo7Iybs+v7/QAjl1pkpx4kGXGHR
- aNOUao2axQXJnCa133QEFZTYDtR4Ba2Qu4N2/O/NG80ObP1rnCw8yB7UMD2JIW0CqvMNwWM9JZG
- Cqd4Ev01ePODYo5V2WM8GH/C/LZz1bmlyE6FZbQ9NHDhscSqMj36gJUHQstOgIXGScuNZ/pDsTb
- HwFqwlO9ZjbNY8tyxz7aP9NYY4T+kG6L7C9UT899t8smfP+aLwuuWXl9N+8eXvZdAo920VyPpn8
- qsKLDdouWsVzATshPiaV5fG4D8HGuzvp4VEkEEaplFOIKXky1oYmKAM0KtwadBvsHFy8WJTWOf9
- 8HNIUrRhyHbR7/KXy4DG4TCDmaXQGP/XlLPGQLnPreNFnBRArFFkZN8binHFeLzv6enR8Iydbd+
- 6j+2/Svgmg2eick0g+Q==
-X-Proofpoint-ORIG-GUID: APVTVgpnbMyw1wlOOGea61qcWh54RHHf
-X-Proofpoint-GUID: APVTVgpnbMyw1wlOOGea61qcWh54RHHf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020075
+	by gabe.freedesktop.org (Postfix) with ESMTP id 372CC10F18D;
+	Mon,  2 Nov 2026 19:02:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DDF10F17F;
+ Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A76C440483;
+ Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591761F00A1B;
+ Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793646147;
+ bh=Npr8mo0kpFcFHzFdvS8bnH5roxx1REoEZUHU2KKWOvU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DmZttzRc6musLLlTnY4Y++ketEgb91wMNlN+BYtmpitB+vJAOkDuz2BZFl757+Ecj
+ clsBWCp/+6FjV71SYZwglAo4RG0IOE0h/whjcNFCQnrB7OEwXMu+bKUsCujZDlazqi
+ 6ch7MXUAefsdQfd6ZgRdjhIAiT3jM/zrDvaaBXqssuhTgmPIjzNiHKLJq4DABiTYiN
+ NCltJN/Erdc087H/cfANv+qPoGBRQPi2PtHww4nnO9PP/H9vI8TL/Qvg/TDWQ4NwtI
+ YUdWZ4dKmPM/vGoQDsuwWfjmxsreaX3L24MyyFhVSkslv/eNN6UT8q8bYse+sDAsuj
+ Tl6ZNUzHa5xWw==
+Message-ID: <sashiko-outbox-193969@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 11/15] drm/gud: add connector luminance support
+To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261102-superm1-backlight-property-v10-11-b2a6f24131f5@kernel.org>
+References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-11-b2a6f24131f5@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 19:02:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,36 +49,332 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-We need the GPU to stay awake for this.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] drm/gud: use-after-free on disconnect via gud_connector_disabl=
+e_luminance()
+- [High] drm/gud: infinite commit loop in gud_connector_set_luminance()
+- [High] drm/gud: brightness clobbered to 0 in gud_connector_disable_lumina=
+nce()
+- [Medium] drm/gud: late property creation in gud_connector_backlight_regis=
+ter()
+- [Low] drm/gud: undefined reference to backlight_device_unregister()
+--
 
-Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone 3a)
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_debugfs.c | 2 ++
- 1 file changed, 2 insertions(+)
+commit 58c61672659ddff3d1dca17855a27dcf7212a5b6
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-index aa59b28a3392..29209c23fcfa 100644
---- a/drivers/gpu/drm/msm/msm_debugfs.c
-+++ b/drivers/gpu/drm/msm/msm_debugfs.c
-@@ -81,6 +81,8 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
- 		return -ENOMEM;
- 
- 	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
-+		guard(ifpc_disable)(gpu);
-+
- 		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
- 			msm_gpu_hw_init(gpu);
- 			show_priv->state = gpu->funcs->gpu_state_get(gpu);
--- 
-2.56.0
+drm/gud: add connector luminance support
 
+This commit exposes GUD display brightness through the connector LUMINANCE
+property when CONFIG_DRM_LUMINANCE is enabled, storing brightness state on
+struct gud_connector and reusing the asynchronous backlight workqueue path.
+
+> diff --git a/drivers/gpu/drm/gud/Kconfig b/drivers/gpu/drm/gud/Kconfig
+> index b4d2136942f0e..6c250d3d5e203 100644
+> --- a/drivers/gpu/drm/gud/Kconfig
+> +++ b/drivers/gpu/drm/gud/Kconfig
+> @@ -7,7 +7,7 @@ config DRM_GUD
+>  	select DRM_CLIENT_SELECTION
+>  	select DRM_KMS_HELPER
+>  	select DRM_GEM_SHMEM_HELPER
+> -	select BACKLIGHT_CLASS_DEVICE
+> +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+>  	help
+>  	  This is a DRM display driver for GUD USB Displays or display
+>  	  adapters.
+> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
+d_connector.c
+> index 8141c3a1e30ad..bd7688676e9e1 100644
+> --- a/drivers/gpu/drm/gud/gud_connector.c
+> +++ b/drivers/gpu/drm/gud/gud_connector.c
+
+[ ... ]
+
+> @@ -84,7 +86,7 @@ static void gud_connector_backlight_update_status_work(=
+struct work_struct *work)
+>  	}
+> =20
+>  	/* Reuse tv.brightness to avoid having to subclass */
+> -	connector_state->tv.brightness =3D gconn->backlight->props.brightness;
+> +	connector_state->tv.brightness =3D READ_ONCE(gconn->brightness);
+> =20
+>  	ret =3D drm_atomic_commit(state);
+>  out:
+
+[ ... ]
+
+> @@ -132,6 +136,19 @@ static int gud_connector_backlight_register(struct g=
+ud_connector *gconn)
+>  		.brightness =3D gconn->initial_brightness,
+>  	};
+> =20
+> +	gconn->brightness =3D props.brightness;
+> +
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		int ret;
+> +
+> +		ret =3D drm_connector_attach_luminance_property(connector, 0, props.ma=
+x_brightness,
+> +							      props.brightness);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+Won't attaching the LUMINANCE property in gud_connector_backlight_register()
+trigger a WARN_ON in __drm_mode_object_add() on every probe when
+CONFIG_DRM_LUMINANCE is enabled?
+
+During gud_probe(), drm_dev_register() registers the DRM minor nodes and se=
+ts
+dev->registered =3D true before calling:
+
+  drm_modeset_register_all()
+    -> drm_connector_register_all()
+      -> drm_connector_register()
+        -> gud_connector_late_register()
+          -> gud_connector_backlight_register()
+            -> drm_connector_attach_luminance_property()
+              -> drm_property_create_range()
+                -> drm_property_create()
+                  -> drm_mode_object_add()
+                    -> __drm_mode_object_add()
+
+In drivers/gpu/drm/drm_mode_object.c:__drm_mode_object_add():
+
+	WARN_ON(!dev->driver->load && dev->registered && !obj_free_cb);
+
+Because gud_drm_driver.load is NULL, dev->registered is already true, and
+obj_free_cb is NULL for DRM properties, this warning fires unconditionally =
+and
+mutates dev->mode_config.property_list, connector->base.properties, and
+connector->state->luminance after userspace already has access to the DRM
+device. Should drm_connector_attach_luminance_property() be called during
+connector initialization in gud_connector_add_properties() before
+drm_mode_config_reset() and drm_dev_register() instead?
+
+> +
+>  	name =3D kasprintf(GFP_KERNEL, "card%d-%s-backlight",
+>  			 connector->dev->primary->index, connector->name);
+>  	if (!name)
+> @@ -314,12 +331,37 @@ static int gud_connector_atomic_check(struct drm_co=
+nnector *connector,
+>  	return 0;
+>  }
+> =20
+> +static void gud_connector_set_luminance(const struct drm_connector_state=
+ *conn_state);
+> +static void gud_connector_disable_luminance(const struct drm_connector_s=
+tate *conn_state);
+> +
+>  static const struct drm_connector_helper_funcs gud_connector_helper_func=
+s =3D {
+>  	.detect_ctx =3D gud_connector_detect,
+>  	.get_modes =3D gud_connector_get_modes,
+>  	.atomic_check =3D gud_connector_atomic_check,
+> +	.set_luminance =3D gud_connector_set_luminance,
+> +	.disable_luminance =3D gud_connector_disable_luminance,
+>  };
+> =20
+> +static void gud_connector_set_luminance(const struct drm_connector_state=
+ *conn_state)
+> +{
+> +	struct drm_connector *connector =3D conn_state->connector;
+> +	struct gud_connector *gconn =3D to_gud_connector(connector);
+> +	unsigned int luminance =3D conn_state->luminance;
+> +
+> +	WRITE_ONCE(gconn->brightness, luminance);
+> +
+> +	/* The workqueue will apply it to the hardware */
+> +	queue_work(system_long_wq, &gconn->backlight_work);
+> +}
+
+[Severity: High]
+Does queueing gconn->backlight_work from gud_connector_set_luminance() cause
+an infinite loop of atomic commits on system_long_wq whenever the connector=
+ is
+active on a CRTC?
+
+When gconn->backlight_work runs gud_connector_backlight_update_status_work(=
+),
+the workqueue core clears WORK_STRUCT_PENDING_BIT before invoking the work
+callback. gud_connector_backlight_update_status_work() then adds the connec=
+tor
+to a new commit state via drm_atomic_get_connector_state(state, connector) =
+and
+calls drm_atomic_commit(state) synchronously:
+
+  gud_connector_backlight_update_status_work()
+    -> drm_atomic_commit()
+      -> drm_atomic_helper_commit_tail_rpm()
+        -> drm_atomic_helper_commit_modeset_enables()
+          -> drm_atomic_helper_commit_luminance_enables()
+            -> gud_connector_set_luminance()
+
+In drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_commit_luminance_e=
+nables():
+
+	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
+		const struct drm_connector_helper_funcs *funcs;
+
+		if (!connector->luminance_property || !new_conn_state->crtc ||
+		    !new_conn_state->crtc->state->active)
+			continue;
+
+		funcs =3D connector->helper_private;
+		if (funcs && funcs->set_luminance)
+			funcs->set_luminance(new_conn_state);
+	}
+
+Because the connector is in the commit state, connector->luminance_property=
+ is
+non-NULL, and new_conn_state->crtc->state->active is true,
+drm_atomic_helper_commit_luminance_enables() unconditionally invokes
+gud_connector_set_luminance() again during the work item's own
+drm_atomic_commit() call. That re-queues gconn->backlight_work while the wo=
+rk
+function is still executing, so system_long_wq immediately runs
+gud_connector_backlight_update_status_work() again in an unbounded loop.
+
+In addition, when old_state->tv.brightness !=3D new_state->tv.brightness,
+gud_connector_atomic_check() sets new_crtc_state->connectors_changed =3D tr=
+ue,
+causing drm_atomic_helper_commit_modeset_disables() to also call
+drm_atomic_helper_commit_luminance_disables() ->
+gud_connector_disable_luminance() before
+drm_atomic_helper_commit_luminance_enables() runs.
+
+> +
+> +static void gud_connector_disable_luminance(const struct drm_connector_s=
+tate *conn_state)
+> +{
+> +	struct gud_connector *gconn =3D to_gud_connector(conn_state->connector);
+> +
+> +	WRITE_ONCE(gconn->brightness, 0);
+> +	queue_work(system_long_wq, &gconn->backlight_work);
+> +}
+
+[Severity: Critical]
+Can gud_connector_disable_luminance() re-queue gconn->backlight_work after
+gud_connector_early_unregister() has already canceled it, leading to a
+use-after-free of struct gud_connector on USB disconnect?
+
+In drivers/gpu/drm/gud/gud_drv.c:gud_disconnect():
+
+	drm_kms_helper_poll_fini(drm);
+	drm_dev_unplug(drm);
+	drm_atomic_helper_shutdown(drm);
+
+First, drm_dev_unplug() runs:
+
+  drm_dev_unplug()
+    -> drm_dev_unregister()
+      -> drm_modeset_unregister_all()
+        -> drm_connector_unregister()
+          -> gud_connector_early_unregister()
+            -> cancel_work_sync(&gconn->backlight_work)
+
+Next, drm_atomic_helper_shutdown() disables all active outputs:
+
+  drm_atomic_helper_shutdown()
+    -> drm_atomic_helper_disable_all()
+      -> drm_atomic_commit()
+        -> drm_atomic_helper_commit_modeset_disables()
+          -> disable_outputs()
+            -> drm_atomic_helper_commit_luminance_disables()
+              -> gud_connector_disable_luminance()
+                -> queue_work(system_long_wq, &gconn->backlight_work)
+
+When gud_disconnect() finishes and devres releases the drm_device,
+drm_mode_config_cleanup() calls gud_connector_destroy(), which cleans up the
+connector (zeroing connector->dev) and calls kfree(gconn) without canceling
+gconn->backlight_work. If gud_connector_backlight_update_status_work() is
+still queued or running on system_long_wq, won't it access freed gconn memo=
+ry
+and dereference a NULL or freed connector->dev in drm_dev_enter()?
+
+[Severity: High]
+Also in gud_connector_disable_luminance(), doesn't setting gconn->brightness
+to 0 and queueing gconn->backlight_work clobber connector_state->tv.brightn=
+ess
+and send an unpaired GUD_REQ_SET_STATE_CHECK over USB when a CRTC enters DP=
+MS
+off?
+
+When a CRTC is set to DPMS off (new_crtc_state->enable =3D=3D true,
+new_crtc_state->active =3D=3D false), drm_atomic_helper_commit_luminance_di=
+sables()
+calls gud_connector_disable_luminance(), whereas
+drm_atomic_helper_commit_luminance_enables() does not run because
+new_crtc_state->active is false.
+
+When gud_connector_backlight_update_status_work() subsequently runs on
+system_long_wq, it sets connector_state->tv.brightness =3D 0 and commits:
+
+1. gud_connector_atomic_check() sees old_state->tv.brightness !=3D
+   new_state->tv.brightness and sets new_crtc_state->connectors_changed =3D=
+ true.
+2. Because crtc_state->enable is still true, gud_plane_atomic_check()
+   serializes connector_state->tv.brightness =3D 0 into GUD_REQ_SET_STATE_C=
+HECK
+   and sends it to the USB device.
+3. Because new_crtc_state->active is false,
+   drm_atomic_helper_commit_crtc_enable() skips gud_crtc_atomic_enable(),
+   leaving GUD_REQ_SET_STATE_CHECK unpaired with GUD_REQ_SET_STATE_COMMIT.
+4. When a later commit re-enables the CRTC (active =3D true),
+   gud_plane_atomic_check() and gud_crtc_atomic_enable() run before
+   drm_atomic_helper_commit_luminance_enables(), so the display is first
+   enabled with tv.brightness =3D=3D 0 before gud_connector_set_luminance()=
+ queues
+   a second full modeset commit to restore conn_state->luminance.
+
+> +
+>  static int gud_connector_late_register(struct drm_connector *connector)
+>  {
+>  	struct gud_connector *gconn =3D to_gud_connector(connector);
+> @@ -334,7 +376,9 @@ static void gud_connector_early_unregister(struct drm=
+_connector *connector)
+>  {
+>  	struct gud_connector *gconn =3D to_gud_connector(connector);
+> =20
+> -	backlight_device_unregister(gconn->backlight);
+> +	if (gconn->backlight)
+> +		backlight_device_unregister(gconn->backlight);
+> +
+>  	cancel_work_sync(&gconn->backlight_work);
+>  }
+
+[Severity: Low]
+Will gud_connector_early_unregister() fail to link when CONFIG_DRM_LUMINANC=
+E=3Dy
+and CONFIG_BACKLIGHT_CLASS_DEVICE is disabled (or when CONFIG_DRM_GUD=3Dy a=
+nd
+CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm)?
+
+The Kconfig change updates DRM_GUD to:
+
+	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+
+However, include/linux/backlight.h declares backlight_device_unregister() as
+an external function without an inline stub when CONFIG_BACKLIGHT_CLASS_DEV=
+ICE
+is not enabled. Because if (gconn->backlight) is a runtime check on a struct
+member rather than !IS_ENABLED(CONFIG_DRM_LUMINANCE), the compiler cannot
+eliminate the call to backlight_device_unregister() at compile time.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D11
