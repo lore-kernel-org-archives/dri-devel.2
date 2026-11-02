@@ -2,65 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD556093287
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C83B606DE9E
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f2oaTzZa
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkwsCH5N
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22DDA10E63B;
-	Mon,  2 Nov 2026 15:11:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 155BE10EF75
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793632311; x=1825168311;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=A1Z8YVADStasxeVGsvKlCx9NW4+VyRaCaoIqgq9WuaI=;
- b=f2oaTzZaWQqmk9rkZSoItVo7cUqrW8SFgTljfYBp18JZY3qyi790Ifg9
- BeuGr99V9EVbDP0KBixdtm7MRg/Fuc+VXPzOXRa7HH3CmIVDTJpCx7TSi
- Pug2jM5ZVgayce20DLYtBTRrDZEDzzg1s/VUuQnzuUFW5XL5hrM81x/bv
- lps6F8WJEJHj5vWrCXp+9aBNwbGerpaRXWnKgO1GxmIa+Egc+rKyBAl3A
- HTub9YwLFPu8jGa9I9Tab6VMWWXJsomyhePaeI1RLYi7cMH8s5gsPPvgg
- osBNTd4a5L9CvH/F+CEztIGNVhFMtIL+ItVsuvNG9MINHjhOoJlydycdD w==;
-X-CSE-ConnectionGUID: DZ25XpI1T2KrJzhiGpSmxQ==
-X-CSE-MsgGUID: Im0tAPF2SfekTcpU79xS9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2338026"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2338026"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 07:11:50 -0800
-X-CSE-ConnectionGUID: 14KMMsgeT4qr9BW02qAynQ==
-X-CSE-MsgGUID: 0sF9zJAHQhaktVbw3e4vzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6315995"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.10])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 07:11:48 -0800
-Date: Mon, 2 Nov 2026 17:11:43 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
- louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-Message-ID: <auioL8zR9O5u4TCF@intel.com>
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 052BB10E0B5;
+	Mon,  2 Nov 2026 15:12:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 609BD10EF69
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:12:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 489F743DCB;
+ Mon,  2 Nov 2026 15:12:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7A31F00A1A;
+ Mon,  2 Nov 2026 15:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793632325;
+ bh=ymYBzOXC+1qnPq3+H1dG+MOV1EJ0vnAFrYigKbllIFM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=SkwsCH5NX6Vwuc8YrkplsbXUYGZlDfQ9CBIwHzcNKyVojyOkIh1miTD756wE+V94K
+ qbWnPBCFoEsk5Vnl3IISVP4GtRJh7t/+O5UXryDxT4dLTsrhtBDQtWOzMD+XlPQhS1
+ 5THCVq9/EcREtyMc1/N5VSwvG3Q1CrUodeGrQPLGHFNfVpmv58FNgX24+XU26JY7OW
+ sUsvQbz2VbjL7MwP3kVNJQ4yIC+/SktiBLhGC+6TRx0O6yviVfRR7mxZOD/Hx4nWfU
+ 5GaDkAcE0fW19SSj+Gk/9Y8llQ2bd+zIEgssZ8CrEgkZbej1DhvNKvROVGhxK2nbP0
+ DIw+cl37jf3tQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:13 +0100
+Subject: [PATCH RFC 06/23] md: let procfs own the seq_file of /proc/mdstat
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102143919.1672293-1-tzimmermann@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-drivers-v1-6-a994bd4d3b1a@kernel.org>
+References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1303; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=98AwGD4IED7vI5/KgxxfmkGNQYsM7jyTpJ1BeJQdwqI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG5wa9eb9mvKGcqFdjwLmF1n7FyoUu4/zTbeKoP9V
+ 5jBq1ePOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbyaQLD//zX1pfyeqN/TEhI
+ Ob3+1Rm/J2p79l/hyunq2m7Kda/Ix4uRoXfzjTPHbDmCeqqTG/in+s5mk9vmK2YguPrLjge1T+z
+ 2swMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,122 +89,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
-> Return -EDEADLK when trying to cancel a running hrtimer as part of
-> enable_vblank(). Reacquire vblank_time_lock and try again.
-> 
-> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
-> handler hold the spin lock vblank_time_lock at some point. This
-> can result in a deadlock if vblank timer's disable code in
-> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
-> helper wais for the timer function to complete and the timer function
-> waits for the helper to release vblank.time_lock.
-> 
-> drm_crtc_vblank_cancel_timer() works around this problem by calling
-> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
-> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
-> It runs into the same deadlock problem while waiting for the timer
-> function to complete.
-> 
-> The solution to this problem is to release and reacquire the spin
-> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
-> timer function. Releasing the lock allows for the timer function to
-> make progress.
-> 
-> Signal the possible deadlock with -EDEADLK and perform the necessary
-> steps. No other driver uses -EDEADLK in their enable_vblank, so the
-> change should not interfere.
-> 
-> Tested with bochs on qemu.
-> 
-> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.19+
-> ---
-> I also tried to move hrtimer_cancel() out of the critical section. The
-> result was fairly fragile. So returning an error and re-acquiring the
-> lock was the easier solution.
-> ---
->  drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
->  1 file changed, 15 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index 5162250e8813..135efde86298 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
->  static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  {
->  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
-> -	int ret = 0;
-> +	int ret;
->  
->  	assert_spin_locked(&dev->vbl_lock);
->  
-> +retry:
-> +	ret = 0;
->  	spin_lock(&dev->vblank_time_lock);
->  
->  	if (!vblank->enabled) {
-> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  		ret = __enable_vblank(dev, pipe);
->  		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
->  			     pipe, ret);
-> -		if (ret) {
-> +		if (ret == -EDEADLK) {
-> +			spin_unlock(&dev->vblank_time_lock);
-> +			cpu_relax();
-> +			goto retry;
-> +		} else if (ret) {
->  			atomic_dec(&vblank->refcount);
->  		} else {
->  			drm_update_vblank_count(dev, pipe, 0);
-> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->  			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
->  	} else {
->  		/*
-> -		 * Timer should not be active. If it is, wait for the
-> -		 * previous cancel operations to finish.
-> +		 * Timer should not be running. If it is, signal cancellation
-> +		 * again and restart to release locks.
->  		 */
-> -		while (hrtimer_active(&vtimer->timer))
-> -			hrtimer_try_to_cancel(&vtimer->timer);
+Declare the seq_operations and let procfs open and free the seq_file.
+->proc_open() only records the event count for ->proc_poll() now.
 
-Why do you even have to cancel the timer here? Just let it run?
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/md/md.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
-> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
-> +				vtimer->interval = 0;
-
-Does this interval_lock serve some actual purpose? Looks like it's just
-protecting a single variable, and there are no read-modify-writes
-happening to it that I can see.
-
-> +			return -EDEADLK;
-> +		}
->  	}
->  
->  	drm_calc_timestamping_constants(crtc, &crtc->mode);
-> -- 
-> 2.56.0
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..e642b763ebc2 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -9141,18 +9141,13 @@ static const struct seq_operations md_seq_ops = {
+ 	.show   = md_seq_show,
+ };
+ 
++/* procfs opens the seq_file */
+ static int md_seq_open(struct inode *inode, struct file *file)
+ {
+-	struct seq_file *seq;
+-	int error;
+-
+-	error = seq_open(file, &md_seq_ops);
+-	if (error)
+-		return error;
++	struct seq_file *seq = file->private_data;
+ 
+-	seq = file->private_data;
+ 	seq->poll_event = atomic_read(&md_event_count);
+-	return error;
++	return 0;
+ }
+ 
+ static int md_unloading;
+@@ -9174,10 +9169,8 @@ static __poll_t mdstat_poll(struct file *filp, poll_table *wait)
+ }
+ 
+ static const struct proc_ops mdstat_proc_ops = {
++	.proc_seq_ops	= &md_seq_ops,
+ 	.proc_open	= md_seq_open,
+-	.proc_read	= seq_read,
+-	.proc_lseek	= seq_lseek,
+-	.proc_release	= seq_release,
+ 	.proc_poll	= mdstat_poll,
+ };
+ 
 
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
