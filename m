@@ -2,54 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E991F606A32D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AF3606A333
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmB6Smbf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E669210EB81;
-	Mon,  2 Nov 2026 07:57:33 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2C8C10E5A9
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 07:57:30 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
- by APP-01 (Coremail) with SMTP id qwCowADH8PpcQuhqxn0oAA--.14870S6;
- Mon, 02 Nov 2026 15:57:25 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Joey Lu <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v2 4/4] drm/verisilicon: check old state CRTC in plane
- atomic_disable
-Date: Mon,  2 Nov 2026 15:57:10 +0800
-Message-ID: <20261102075710.1286456-5-zhengxingda@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08CE310E593;
+	Mon,  2 Nov 2026 08:03:43 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F4A10E593
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:03:36 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2e9ae391a05so17828425ad.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 00:03:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793606616; x=1794211416; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ULB0fdcScE3pyVzoGp78pW1Fsjx9L22KYr7UY+zqZWE=;
+ b=JmB6Smbfkmv20y97j6dZ8SOcx8a1PwUn4xaUhSdlwZWKP3PP9I8//Zu0SYYfex8EAc
+ rmc/+DSkpiycIWqLzfUYLGy2HP8uZO6oE8ylth86/bKxpipvOOnA5YLFAuH9bxR7mtwC
+ iFaQRuT/JwjXCr+WUIgbNuSHyfWAGXaIkoZt8urcYwpnqilj/3lez12hAOTsvgf0c0W6
+ u8H/W1ZVbgLEKggyPcNAq3nCHb/UxqsnvFifA2QKHTONi8eMiO5gtArl8ON/d9IqsktS
+ yLwBmBb6s20LSa5uoYJVmuAoR4ChZlJh4cRy+1fDB/v88QNWoxH2jaP7tAqLIdY84qOp
+ 1WtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793606616; x=1794211416;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ULB0fdcScE3pyVzoGp78pW1Fsjx9L22KYr7UY+zqZWE=;
+ b=cbrgGiEnjwfTkCkyVEA5CfKhvDqf+nD8kkYukgzvnJhudtbamlLqOuFIWWwkyIU/h0
+ cA+9eMaOZYB2SiLLCUTN79uLy2JDWYs5K1EkuJYMBymzJcLj4+Hpxw8ZeBtAclw3upPx
+ pfUWda4PZyhgjROJAluCWKnDrFJpYm8hLlGzlHq6O3AEzb9KW7jLXKIb5HjHGMpNF9cu
+ UXGPTxIHKKs69AWUiP12Ggwqy8VFZ04XA8B85Z+W7wf2wM2KydFquK91IGBESNR7AoDs
+ j/rEqRsSWLadv3l0hcPe7msNh/F2BODh9LtnZ9HACDQ3wMMtfusDWw1m7N5cJOyp5oPI
+ YbKQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwd6FbMkoYB+ps/R4mGyo3GlfSMqVLtEfF1+vYf24qMRTfUCQoT3ZDbOc/F1tPiFYObjLFaU/FdBkM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+BOkifWsn7dbemzxhyLYjTxKV49gXyGAWfYj2YcfGU6mi5i96p
+ ra+neh1FSry4XODe8J4T1RWbrRKly/3PZ6uwqjx2EQ7zXepgjXzdjf+v
+X-Gm-Gg: AYBFou3o6WidfQJq638t0YZKg4Zge6esWFQ03CZY8zvXlrjnwOHQQfFqezxreStUj4g
+ r1Hfb8jBlOUZZTkLh/g+9KMM2vfnkBZMtuMwtGOZkF9X1UXoGGx6QjWdctdyWv7Fofzp1+GMcpW
+ //XoF+h2tT9Uo2W2GBhO5fD7dq4Ld5XXIPMH1nnzrLHIKwFAYRn0JOjfoU24+QcRjJhfreGvw+g
+ F7aWn3T6RYNc6M6cqSc7ahjlKnY127iECa+sdO5xUR/e5USeuo4ZcgMf/1rqOdr2SYSEuGdcb9x
+ 2hU5cvNfTp/Xuv14WSnTp00c+JYNYMUUmV9LJJKWb7fwCyvK/NFOSuUEAhL/ll6pAMS5f0mlgmy
+ gFat6XNqVFpek7u/kBvWQobqKt/DZMjqMi07oJv2dpNVGZORBtddQfpU5RGMvhKtqwg0wVn0UGk
+ 6pkh3UFrGEIKZ5gXPHMPgHVQwYPXN1NkrpXO0trvsoMJj2jeb0o6jZwsHCDOAYixmJHmhI+c6u5
+ vdoJQiQow+VYuzZMXVbV4o3n+NSG4wxhCWcyrRiQTTHxca6NyJcemb0/sDauMH0zhn6dN23WWhq
+ nrJRdpn+1evt9HN8gileOYLN/hpT8Wg92BlZSY2cTRRXC4DVEUWMVf9Zbb7LgWmX8Y/ZylCO9vf
+ t1LCc1OCxiuhV+zQoIXEvJUxvQ0xZhphY1XM5ZeOYXcCYCKDfa6D38AfZfsDup9wNKzmclDOl1J
+ 7sb1k3W9nwNHfB1g==
+X-Received: by 2002:a17:903:984:b0:2e5:cd0f:518f with SMTP id
+ d9443c01a7336-2eb1a57e22bmr78324565ad.0.1793606616223; 
+ Mon, 02 Nov 2026 00:03:36 -0800 (PST)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2eb392afa5asm23573655ad.72.2026.11.02.00.03.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 00:03:35 -0800 (PST)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] fbdev: pxafb: fix teardown and early-interrupt
+ lifetimes
+Date: Mon,  2 Nov 2026 16:03:29 +0800
+Message-ID: <20261102080332.1466689-1-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADH8PpcQuhqxn0oAA--.14870S6
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1ktr45WFyUuw4UWF13XFb_yoW5GrW7pr
- 4DAFyxKr4kJan5Xr9rJr4vqay3C3WfJa4Igrs3GwsIvrn8tw4Uua1rAry3ua1DJr9rWayf
- KFn2krn8Cr1IvFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
- 3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
- IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
- M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
- kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
- bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
- AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
- 42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
- CI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnI
- WIevJa73UjIFyTuYvjfUOyIUUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,76 +85,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As atomic_update hooks of both planes would utilize atomic_disable
-functions to disable the plane when it's set to invisible (even when
-technically enabled), the atomic_disable functions need to check whether
-the plane is really enabled before.
+Three lifetime fixes for problems Sashiko, the AI review bot, pointed
+out while reviewing a pxafb cleanup [1].  Removal leaves the cpufreq
+notifier registered on freed memory and the smart-panel thread running,
+and the interrupt handler can signal completions before probe has
+initialised them.
 
-Add such a check to prevent NULL dereference.
+v2: v1 went out before it was ready, as separate patches without my
+Signed-off-by or Fixes tags, and the completion patch depended on the
+others without saying so; sorry about that.  This version adds the tags,
+sends the patches as a series, and says in each commit message what goes
+wrong and how it is reached.  The notifier fix is now a patch of its
+own, and the smart-panel patch stops the thread after the controller is
+disabled and no longer changes the thread's freezer loop.  Patch 3 is
+unchanged.
 
-Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
-Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c  | 13 ++++++++++---
- drivers/gpu/drm/verisilicon/vs_primary_plane.c | 13 ++++++++++---
- 2 files changed, 20 insertions(+), 6 deletions(-)
+I have dropped "fbdev: pxafb: preserve IRQ probe errors".  On the
+in-tree PXA platforms the interrupt controller is registered from
+init_IRQ(), before any driver probes, so I could not find a way for
+platform_get_irq() to return -EPROBE_DEFER here, and the patch changed
+nothing users would see.
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-index 5295dc2f9ee2e..bee19b65b9a4e 100644
---- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-@@ -104,9 +104,16 @@ static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
- 								       plane);
- 	struct drm_crtc *crtc = state->crtc;
--	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
--	unsigned int output = vcrtc->id;
--	struct vs_dc *dc = vcrtc->dc;
-+	struct vs_crtc *vcrtc;
-+	unsigned int output;
-+	struct vs_dc *dc;
-+
-+	if (!crtc)
-+		return;
-+
-+	vcrtc = drm_crtc_to_vs_crtc(crtc);
-+	output = vcrtc->id;
-+	dc = vcrtc->dc;
- 
- 	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
- 			   VSDC_CURSOR_CONFIG_FMT_MASK,
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-index e687313d6f057..01725e60e5fbd 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-@@ -65,9 +65,16 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
- 								       plane);
- 	struct drm_crtc *crtc = state->crtc;
--	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
--	unsigned int output = vcrtc->id;
--	struct vs_dc *dc = vcrtc->dc;
-+	struct vs_crtc *vcrtc;
-+	unsigned int output;
-+	struct vs_dc *dc;
-+
-+	if (!crtc)
-+		return;
-+
-+	vcrtc = drm_crtc_to_vs_crtc(crtc);
-+	output = vcrtc->id;
-+	dc = vcrtc->dc;
- 
- 	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
- 			  VSDC_FB_CONFIG_EX_FB_EN);
+[1] https://lore.kernel.org/all/20260722081427.413EF1F000E9@smtp.kernel.org/
+
+v1 of patches 1 and 2 ("stop smart-panel thread and notifier"):
+https://lore.kernel.org/all/20261031033248.2491098-1-matthias.goergens@gmail.com/
+v1 of patch 3:
+https://lore.kernel.org/all/20261031003424.1796478-1-matthias.goergens@gmail.com/
+v1 of the dropped patch:
+https://lore.kernel.org/all/20261031033236.2490968-1-matthias.goergens@gmail.com/
+
+Thanks,
+Matthias
+
+Matthias Goergens (3):
+  fbdev: pxafb: unregister cpufreq notifier on removal
+  fbdev: pxafb: stop the smart-panel thread
+  fbdev: pxafb: initialize IRQ completions before requesting IRQ
+
+ drivers/video/fbdev/pxafb.c | 46 +++++++++++++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 10 deletions(-)
+
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
 2.56.0
 
