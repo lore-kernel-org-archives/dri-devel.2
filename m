@@ -2,66 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7D9608B7DC
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:38:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76EE606B92C
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:40:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ksEBhQVW
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=ZJfGaKte
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A319610F044;
-	Mon,  2 Nov 2026 15:38:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 595A210F01F;
- Mon,  2 Nov 2026 15:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793633919; x=1825169919;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=hTYZdetg0DVplDyNYLvgAVyDM9iUmyOuE+J0YYj/dX8=;
- b=ksEBhQVWNbsR7b9vEN+hN45do7VgzKMrSRXYa7Of1orTGCDgmB6eG5yZ
- SLtThOzrDI/Vg9CSKWDTDIZdh64S440Wqm4iZjr9AY8WfEaf7IcjatPY9
- UU+QgYaxRCkbAuAp4WT6vNh4BqHIFd8o4VQuc1PYI3SREh8obsvBAVSx6
- qOsIJaV+bwFwztIVIq7yZ3s/FdJG2K+RVyQM1UxtFgZVfF0u/Sk11euuv
- Y5nQpy+TC+ak/9D1yuAy451ymYdW5MFry2Is1Q10vcLhp46klejpmb2QG
- agHgMvL65GBr9di2xs/TPtDWMljHwwdzIPjJHDSz/QWx735ktqjduNnSE g==;
-X-CSE-ConnectionGUID: iC1UHrW5RP6wuWr5COp9ug==
-X-CSE-MsgGUID: iujZY7DvRpWwy1X6ver9dw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235193"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2235193"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 07:38:39 -0800
-X-CSE-ConnectionGUID: k6ktoBSPQW+rVY+t7HSheA==
-X-CSE-MsgGUID: 82Q0zRELTwesE46+ATslGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6249005"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.10])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 07:38:36 -0800
-Date: Mon, 2 Nov 2026 17:38:32 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hugo Sales <hugo@hsal.es>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
- the modeset locks
-Message-ID: <auiuePf6RbhdV65A@intel.com>
-References: <20261031161952.660049-1-hugo@hsal.es> <auh8pUx_kXUYSdZ8@intel.com>
- <2112993263.278931.1793633202457@app.mailbox.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22E6F10F01D;
+	Mon,  2 Nov 2026 15:40:20 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4478310F01D;
+ Mon,  2 Nov 2026 15:40:14 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jJG9l5Jtfz8t53;
+ Mon, 02 Nov 2026 16:40:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1793634011; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dUGqfqfNXJ+NeO+UdV4+i/sAm1iD+FfxTNuQmN5fXq0=;
+ b=ZJfGaKteF192khBUuklQ6Xw5liAqkmoqqW286YTqNFHiTpfFVKhU6vHZWBov2skspqFpeL
+ mLfoBIlwy61eMvsxsX82pHork/l398irXUM25j+A9vWkcejGFpaQBawPEvRKm1dCUVacI+
+ zGmXMusCtsqZd/ZKrq1C68kLF4lfEKuvaLfZ32jmJLFYVb9uMa1Ny9PWjLT5sHnZxIK1Fm
+ pSjD6lfRNeLVW/3PUwoot9U0SbkPaMRTdj4+qn4jWWBbx6AzYIfKe6H5ZiVUJvKLggSQ9h
+ 3av+HfeZfxm2MqF7YW6PvfYr91VF+xPDmwhJZQznfA8bQVy5ObGQi2jHOwljMA==
+Message-ID: <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
+ priority at runtime
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 16:40:09 +0100
+In-Reply-To: <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+ <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+ <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2112993263.278931.1793633202457@app.mailbox.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-MBO-RS-ID: e456fc94603ff365fc3
+X-MBO-RS-META: 9zsm311osryyku1ki34bkx49oi936zaj
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +65,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 02, 2026 at 03:26:42PM +0000, Hugo Sales wrote:
-> On 11/02/2026 12:05 PM WET Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
-> > > amdgpu walks connector->modes from its atomic_check, in
-> >
-> > That is just wrong. connector->modes is protected by mode_config.mutex
-> 
-> You're right, I should have fixed the real issue rather than work around
-> it. Please drop this one
-> 
-> I'll try to fix it in amdgpu instead. atomic_check can't take
-> mode_config.mutex there, so amdgpu would pick the mode it needs while
-> probing and keep its own copy, like it already does for freesync_vid_base
+On Mon, 2026-11-02 at 14:47 +0000, Tvrtko Ursulin wrote:
+> With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if*=20
+> there exists userspace which does dynamic priority changes (calls=20
+> DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on=20
+> entities using those SDMA engines directly. All clear now? :))
 
-Yeah, that should be doable.
 
-> 
-> > And regardless of changing the locking rules or not, someone
-> > should probably sprinkle lockdep asserts to bunch of places
-> > where connector->modes is consulted. Perhaps even introduce
-> > custom list iterator macros that include the assert...
-> 
-> Makes sense. amdgpu would trip them today, so I'll look at that once
-> the amdgpu side is fixed
+Argh, maybe I should not have asked, but since we are here already=E2=80=A6
 
-Sounds good.
 
--- 
-Ville Syrjälä
-Intel
+It seems that all this is inconsistent already.
+Why do we even have both, priority and rq_priority? Both should always
+be identical.
+
+I suppose it is because we're in the "transition to CFS" phase where
+you will actually need a per-RQ-priority (rq_priority), later phasing
+entity->priority out.
+
+Right?
+
+If so, I wonder if we can't leave it be until we are at CFS?
+
+
+P.
