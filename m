@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6564606A329
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F379E60A260E
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:48:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKmJRlxh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pklyxlag
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D2310E557;
-	Mon,  2 Nov 2026 07:45:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F29A10E557;
- Mon,  2 Nov 2026 07:45:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35B8610E598;
+	Mon,  2 Nov 2026 07:48:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67FC810E574;
+ Mon,  2 Nov 2026 07:48:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1863F43749;
- Mon,  2 Nov 2026 07:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 058221F000C1;
- Mon,  2 Nov 2026 07:45:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 74607609A2;
+ Mon,  2 Nov 2026 07:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619C51F00A17;
+ Mon,  2 Nov 2026 07:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793605537;
- bh=rNLFtKEPB1Fui1lARc25zwjBP1SgCWoDsJiIweYWhk0=;
+ s=k20260515; t=1793605715;
+ bh=nVQ8uQ8EBtB66FVkdkeahhd5McyzCUW6GqWt7KinKNs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=PKmJRlxhjUN4+FXCVR+nLcRzXVYMPh6XmvvOmLkQl507NH3pJ9igSl/sxu1zt0Mba
- FFsjLF2cdMR0iIfR8r2jb03qvEPkLVBBnBzQAd1o2pCmXz0/w8YwsszUEamdQCKfid
- GBpTcaXvGjw82jA3x+MRFJNQ43IMou1i41rcpLWMlN5E6pSZIb2N+ylgICw1B6LinY
- 1ezU1IO1svD8akn6RObmGfkY+UQMDTUJMPWGZ5ruOz92LaU9ABSDWLYsjmzsFJfUzo
- 8mzOFHnNaCL5HXkRqPHwrysDQwRCYPMUeiHVk23R1EsUu5AKR2jEAFOLzvhD7PZ1ZB
- Sxo6QVLotPbWA==
-Date: Mon, 2 Nov 2026 08:45:33 +0100
+ b=PklyxlagO6tQm2cVGswU8nU4eOuTBHos/OweD9u3f/ca41Lm4iCyJbL9U0qxRikrv
+ yWIzLO0cmC0d3VFz7QKkFx/ZpZyze+NuakSCqqTiQncEkJzAYycdkwXah3+Ak6jbLn
+ ydjJSC/rhs+gzXiXIlcAT2zsnnqDq5A6KF54Bzm1Yjt5j7Z3I4Gh0vwikrkrcafJ+m
+ vGIV+APXdN+V5kbITNlGnC2StM2e37BY/UJ1Hv3oC2jCUQJgnIr3tsubFPEdwx9kYi
+ THAeVc7SUobHqUdx9NYyAUxKfaMB31YgcEPaxZxODLGkzafDxC82RdKtEwT8Sw3lzs
+ B8rW6g7YgU4Og==
+Date: Mon, 2 Nov 2026 08:48:31 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Muzaffer Kadir <muzafferkadir@mainlining.org>
 Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -59,16 +59,16 @@ Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-remoteproc@vger.kernel.org,
  linux-input@vger.kernel.org
-Subject: Re: [PATCH v7 08/11] dt-bindings: remoteproc: qcom: adsp: Add
- MSM8952 ADSP compatible
-Message-ID: <20261102-first-ambrosial-urchin-3a4bcb@quoll>
+Subject: Re: [PATCH v7 07/11] dt-bindings: display: msm: dsi-controller-main:
+ Add MSM8952 compatible
+Message-ID: <20261102-blazing-tortoise-of-vitality-6f92cf@quoll>
 References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
- <20261030-msm8952-initial-support-v7-8-ad748ace375d@mainlining.org>
+ <20261030-msm8952-initial-support-v7-7-ad748ace375d@mainlining.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261030-msm8952-initial-support-v7-8-ad748ace375d@mainlining.org>
+In-Reply-To: <20261030-msm8952-initial-support-v7-7-ad748ace375d@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,13 +87,13 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 12:02:39AM +0300, Muzaffer Kadir wrote:
-> Document the ADSP remoteproc found on the MSM8952.
+On Fri, Oct 30, 2026 at 12:02:38AM +0300, Muzaffer Kadir wrote:
+> Document the DSI Controller found on the MSM8952.
 > 
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 > ---
->  .../devicetree/bindings/remoteproc/qcom,adsp.yaml  | 31 +++++++++++++---------
->  1 file changed, 18 insertions(+), 13 deletions(-)
+>  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
