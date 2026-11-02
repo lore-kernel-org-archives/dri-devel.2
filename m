@@ -2,142 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737B6606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:06:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B922606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f/7QXLQZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g/9JFEEa
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bMNgNqrd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52FEE89C28;
-	Mon,  2 Nov 2026 12:06:40 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7FC510ED71
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 12:06:28 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A29ALTd4039632
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 12:06:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6MljPg5apEnzZuIOweleKga/OQMxPXsuquwAJikFRpI=; b=f/7QXLQZPnwmp4m1
- ZUVYDFMF/eoPWW7FrjclGu6np/3fhIlm418hZsTYVl0UPZjXN2sLW+5BPJx0S8r0
- zs/97Vbad7g3Qr2Knm/qCTgB5ehvfrRoMbd1IH4NO9RYjicr2yl0YWP434iNQ0El
- OjmxptxCL8K0Q1vJeNYjfYeNTYFVIhFzMfzyeDxCrsf/+24iMNn/dTkrqgA5TkcQ
- nrnApZbUEAh+sB13cyupW/r9CUBNaDr5C59Rp+rR36+9avYbgPtNtCHyzoyw80J/
- Y2IN6ryDe5jdYhM/3AfiTRj+aPsCnM+etYp+M20nMw3N7gnPFihH8WXDiMG0CbTp
- UdgDkw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpph191gj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 12:06:27 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cd750de6e8eso263705a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 04:06:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793621187; x=1794225987;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=6MljPg5apEnzZuIOweleKga/OQMxPXsuquwAJikFRpI=;
- b=g/9JFEEaxt6JYGwndFpf25u+TyG8BrO0iat5s5uwDh/A/CSufHiJvkWQqLFu1nxjfu
- Jt01v2rXNDUR4Qq0BG24teXxBhgO7UIiD99N89QWoxisCk30Wv7dPrj97CSnU0BEV0lY
- UOYUtH+91pCCa9qvf82P7+M2E1rkBvgJusSQwDRsZcmoEqebBcRLU4EEHOY4hLYNlYhk
- zugRUEDX8SQLsPg0sWQJeUa1e6FxIpOVXgosJ1xFnk+w21PQPrIPkAQen8Y54jak9HVR
- nnRFnMToX2bX8mDzi7R0xmk/7UGWbn15w59lAPwyn0hf7qobkKppEcnS9SHMferFQDSX
- Bh9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793621187; x=1794225987;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6MljPg5apEnzZuIOweleKga/OQMxPXsuquwAJikFRpI=;
- b=Off10IbTVuXxkDNW+J2Gj+hDQxMEF5Py4L8jE1F/PMxCLEIlkPPirdhV7IEO2+ZH/u
- 56Z0TO/i1Ykp2gcMoDPMhKYenCHlbKwwEs2ZXN1Z1XB4BUvWvlaYkylatR5ecFcmtzSf
- Zm9AHyQVZrw6hNSgFNrfE3AvZ1lvIPbAOzAsajQZrIdLRfKFgNZbSQ5SqbkMwAv3WyIc
- vWzB0i8iFwPUtivkE8KPUgUcsQZJZYVQh2jBS4fdoC8QAFDl/P0xqDzaxQIhsDUqRoeA
- 4es9HmHulick4bkow3ffVIOYV1hZu0nFFkEP6gLw/F93m5LfaselUQOK5GHonYg6Gyvb
- NiCA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw6xg8AaLiGIul59u66/vGkSZ6T1e3FODR+U30UsXwxrru2o2zduJ2rHzdUp3vquBn3nZ/jHUr59CA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKMk4wvS7N8HU7qtMINsvosbGU9Zn20KxAO60BcVC2+JBWnaIR5
- n4WixMYZh5zbcbunl73t47/oSHxvDrYEXXAYWJNt7Hvf6B/nuCPgwNfzrzlZdPOACu1HX7+RDg8
- IMzGHHBfr/vsa2/W28i54FSsRmbDr1D83kllIFON0xO+39kqoNTQCLVKlywonLVmZY+vdimH4MW
- 847jA=
-X-Gm-Gg: AYBFou0SDyeJUxQAB4oOlj8OUX3dGzMJCuRPTM4uQxojGCJSFXG3dKifAGGvisggZUQ
- KWY0IPHBCLkFAxKdDr0Y53FNjc8yeuQ4R3eGkqXcTh9RQa2cPMU0VhftX44/YkK8E+fKt74/EL6
- kOvWKrxFZnahepteRiOqX28c9ahvRn1dUqqPihO3224sHatVl5I7d4TXmphTy+USYa/pQzVkabw
- 94wpkbYbwO+Crno2CBk1FhbE8HniWqyeFQTwVSxnP40KT9FaQsUMWwLfXSiHFj6JY8qM/0ASlcw
- wS0+fsHvwdfxiPZ4XyaHJNaF1pQb4HroKyS/CP/VJ5Y6NaFZp0AEfGxHt9QBh4zGpSCiJkx5fmC
- 3UzH8HRgErb0Y7XN2wZLiNGWEfG3XaAFiW7yoxmuPPwKrYVR6fTnD7Jd8vDd0mL4qEzG3eMw=
-X-Received: by 2002:a05:620a:a40e:10b0:92e:6485:f640 with SMTP id
- af79cd13be357-94421762860mr1606916285a.4.1793620826282; 
- Mon, 02 Nov 2026 04:00:26 -0800 (PST)
-X-Received: by 2002:a05:620a:a40e:10b0:92e:6485:f640 with SMTP id
- af79cd13be357-94421762860mr1606909685a.4.1793620825694; 
- Mon, 02 Nov 2026 04:00:25 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cabe4cf60sm377507566b.53.2026.11.02.04.00.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 04:00:24 -0800 (PST)
-Message-ID: <7264dc6f-ff30-46d7-865e-32d050c8c4a2@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 13:00:21 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA32110ED68;
+	Mon,  2 Nov 2026 12:14:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A4110E61F;
+ Mon,  2 Nov 2026 12:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793621679; x=1825157679;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=uPRIF83KVdNs9SclzuHRgjeihTQw1Qgbmzk9cUO1prk=;
+ b=bMNgNqrdyN6mmPNVDbAOJhgZ4fEVZ11bKepx3YXLniWdIJRlrHQ5Q1Bx
+ O7U1fKk/Hh73hRfkj736/W+1SszZBFO8iWNX3E0/wom0+/RWgoC7LKy5K
+ ts7SEjsaSrDbSbGdc/ps/EdnRQO91KUWJBzWBltt1gxRI4tXtKlQKzUen
+ GOHduxrWRlE6c7lQydtuks8mXucwbkibGSmChMnS1g7m8sGabuBLtkV22
+ qN5/a1W4dCAx031PPkHxjztoaKoH69+MOr+qlGWVSgZo+W42R4KtgpYl8
+ uMgWXjB6ym5hz/TBPFucLVARvFNOcqRDgOMmYX5YqUlGWx74tOlXfjI5T Q==;
+X-CSE-ConnectionGUID: KUJJkloKTsyEoozokw048A==
+X-CSE-MsgGUID: THtgTSQbR72eh53YfnW6Rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2197590"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2197590"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 04:14:38 -0800
+X-CSE-ConnectionGUID: 3W09fTi/TlCt8+3lDJHXrA==
+X-CSE-MsgGUID: uytE/XsJQ+C3U/JeJWiblA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6201714"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.10])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 04:14:36 -0800
+Date: Mon, 2 Nov 2026 14:14:33 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 00/13] drm/dp, drm/i915: conversions from seq_file to
+ drm_printer
+Message-ID: <auh-qcn8xkDBX5sY@intel.com>
+References: <cover.1793361738.git.jani.nikula@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-To: erebion <erebion@erebion.eu>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ZKUCzy9JWVcAA8W6OY1-7UBk9yxKGOf-
-X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6ae87cc3 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=JgZe5hknAAAA:8 a=EUspDBNiAAAA:8 a=XQlgmqBj-IynFr2M_OMA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=ODtDA1adfiiB3BH7YLNA:22
-X-Proofpoint-ORIG-GUID: ZKUCzy9JWVcAA8W6OY1-7UBk9yxKGOf-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfX7mqDyvkrCllq
- i4KzaW1Gq9+WBTB6vI/EHXU83vMI8c3tk6a33A00j64SIeDH3cN8FqclLFSZTFOqqaZMM1du2ja
- IRY3BjStgA6Tot7mdjWofSk4hqJ8oiliIyhN9h+kdXJFuu4o9wpKXAa0xnieab4ciMOoo1wCkHJ
- eDMzSGXSnaeGAQtUvDo+cjb5jKxu8xYOBYaeG+PVqGrtCKT0vurSxKIpiDFv1l5sRpAwItL7wz8
- MLwrS6OO8CCIDhoTWPKeWP7o0Py5jJxw77+3S4iZJeYB/gZLSmf+5wRFONOdAbfPrzrqgeoSaf6
- RMPWetM2JXqkqw9+jky+8pvubzKKXNMWFAPQlSdaYred40kQJZIkElii0pvc4wfx9+v8iWuYzkd
- TxQkovV3WXd7LgNrfwND+fW28xGHuokwt1dFBys1MxTCyGDlAJu5nv2At5vVj6JCT+OIVvaAnGE
- 6tgw8D36HjDE9wVhusA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfXzTxfq3GRMIeV
- DdZ98GOZc7xUIBlkf/rF80XNQo6e4SWfpLLcvGBevQpD9Mqr3L5apXj+cssQDn6LqFUum+yFd8P
- 1JLza3RfUr4wM/JLtSP4r8RQ1MfRUMI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020048
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.1793361738.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,22 +70,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/2/26 12:32 AM, erebion wrote:
-> Enable all i2c busses where something is connected on this phone. Add
-> comments as placeholders for which components are still missing.
+On Fri, Oct 30, 2026 at 02:03:03PM +0200, Jani Nikula wrote:
+> I've had this in a branch since at least April, seems useful.
 > 
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
+> Jani Nikula (13):
+>   drm/dp: pass struct drm_printer to drm_dp_downstream_debug()
+>   drm/dp: prefer drm_printf_indent() over inline \t
+>   drm/i915/debugfs: pass struct drm_printer to intel_plane_info()
+>   drm/i915/debugfs: pass struct drm_printer to crtc_updates_info()
+>   drm/i915/debugfs: convert crtc_updates_info() to use
+>     drm_printf_indent()
+>   drm/i915/debugfs: pass struct drm_printer to intel_scaler_info()
+>   drm/i915/debugfs: pass struct drm_printer to intel_encoder_info()
+>   drm/i915/debugfs: pass struct drm_printer to intel_crtc_info()
+>   drm/i915/debugfs: pass struct drm_printer to
+>     intel_{dp,dp_mst,hdmi}_crtc_info()
+>   drm/i915/debugfs: pass struct drm_printer to intel_hdcp_info()
+>   drm/i915/debugfs: refactor intel_seq_print_mode() into
+>     intel_print_mode()
+>   drm/i915/debugfs: pass struct drm_printer to intel_connector_info()
+>   drm/i915/debugfs: prefer drm_printf_indent() over inline \t
 
-Many of these are fairly low-hanging fruits
+Looked fine with --color-words
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Series is
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Konrad
+> 
+>  drivers/gpu/drm/display/drm_dp_helper.c       |  39 ++-
+>  .../drm/i915/display/intel_display_debugfs.c  | 250 +++++++++---------
+>  drivers/gpu/drm/i915/display/intel_hdcp.c     |  27 +-
+>  drivers/gpu/drm/i915/display/intel_hdcp.h     |   4 +-
+>  include/drm/display/drm_dp_helper.h           |   3 +-
+>  5 files changed, 160 insertions(+), 163 deletions(-)
+> 
+> 
+> base-commit: 29f9258a2788a1066c0910c480e65c80887f4d20
+> -- 
+> 2.47.3
+
+-- 
+Ville Syrjälä
+Intel
