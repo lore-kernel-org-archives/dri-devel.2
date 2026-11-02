@@ -2,82 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDCB606D818
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD556093287
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoCb1xon
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f2oaTzZa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D1E10E356;
-	Mon,  2 Nov 2026 15:11:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A85BC10E63B
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:11:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 905ED4396E;
- Mon,  2 Nov 2026 15:11:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834C51F00A1A;
- Mon,  2 Nov 2026 15:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632308;
- bh=Q/r9Fhg2Z0/w3CqoKnG0DKCxv08Z9PpiFGMKT+radK4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eoCb1xonaSPckn24MdF4TgpzPnhB0gLnhwB3+q7VZZ4/VwLP7qSPXNuTMQ/2dNldh
- eVFE9vGUSsn5YYaxGqoLLphvtZLuTJd+KylQIE7mCxvO73SPam6GZq8mc3b9CVyDie
- 3exBK5rK2UuFrqmUvsRYmGiv0WPcd+dv1jT5VIdTEL0j46lSeijrTe4sxEh10rR5bK
- zOsOn6lvifS4MnTOAh0Y2SzLal5mx1R7DipSgL85s9IzFy3jc8hi6gaFxlmb2VYUgw
- Yg+IrbZgj5ldjUEp69Bi1JJ+66r8wybqWUuSMQZmJ6kfSVqJ9+zpEm7bXhkzV6eqzB
- WMso6y2HpsKNQ==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:12 +0100
-Subject: [PATCH RFC 05/23] PCI/proc: let procfs handle the ioctls
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22DDA10E63B;
+	Mon,  2 Nov 2026 15:11:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 155BE10EF75
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793632311; x=1825168311;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=A1Z8YVADStasxeVGsvKlCx9NW4+VyRaCaoIqgq9WuaI=;
+ b=f2oaTzZaWQqmk9rkZSoItVo7cUqrW8SFgTljfYBp18JZY3qyi790Ifg9
+ BeuGr99V9EVbDP0KBixdtm7MRg/Fuc+VXPzOXRa7HH3CmIVDTJpCx7TSi
+ Pug2jM5ZVgayce20DLYtBTRrDZEDzzg1s/VUuQnzuUFW5XL5hrM81x/bv
+ lps6F8WJEJHj5vWrCXp+9aBNwbGerpaRXWnKgO1GxmIa+Egc+rKyBAl3A
+ HTub9YwLFPu8jGa9I9Tab6VMWWXJsomyhePaeI1RLYi7cMH8s5gsPPvgg
+ osBNTd4a5L9CvH/F+CEztIGNVhFMtIL+ItVsuvNG9MINHjhOoJlydycdD w==;
+X-CSE-ConnectionGUID: DZ25XpI1T2KrJzhiGpSmxQ==
+X-CSE-MsgGUID: Im0tAPF2SfekTcpU79xS9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2338026"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2338026"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 07:11:50 -0800
+X-CSE-ConnectionGUID: 14KMMsgeT4qr9BW02qAynQ==
+X-CSE-MsgGUID: 0sF9zJAHQhaktVbw3e4vzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6315995"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.10])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 07:11:48 -0800
+Date: Mon, 2 Nov 2026 17:11:43 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
+ louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
+ sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
+ deadlock
+Message-ID: <auioL8zR9O5u4TCF@intel.com>
+References: <20261102143919.1672293-1-tzimmermann@suse.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-drivers-v1-5-a994bd4d3b1a@kernel.org>
-References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2106; i=brauner@kernel.org;
- h=from:subject:message-id; bh=2F6i7ISm6IP0WfraLShTjEfHw8rrOdRgm90gAFJMkQE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG6wz+y23KkZj6QTN7spL27IM+Bm2tTyUNrgV7+Tr
- M+uN3Y9HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMJymT477j82eGua2tPP5/u
- /iU1KyGvJs8tjK3vYeGHHaWzRJ14ZzH8U7obxHZv93mOC8mXehiflUxYs0bd3NzPJcDnTdn/mMJ
- 9vAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261102143919.1672293-1-tzimmermann@suse.de>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,69 +72,122 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The PCIIOC_* commands take and return plain values and don't touch
-userspace memory. Implement ->proc_ioctl_buf() and list them with
-nothing to copy. 32-bit tasks go through the same table, so the compat
-hook goes away. Unknown commands fail with -ENOTTY from procfs now
-instead of -EINVAL, and instead of -EPERM under lockdown, since they
-never reach the handler.
+On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
+> Return -EDEADLK when trying to cancel a running hrtimer as part of
+> enable_vblank(). Reacquire vblank_time_lock and try again.
+> 
+> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
+> handler hold the spin lock vblank_time_lock at some point. This
+> can result in a deadlock if vblank timer's disable code in
+> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
+> helper wais for the timer function to complete and the timer function
+> waits for the helper to release vblank.time_lock.
+> 
+> drm_crtc_vblank_cancel_timer() works around this problem by calling
+> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
+> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
+> It runs into the same deadlock problem while waiting for the timer
+> function to complete.
+> 
+> The solution to this problem is to release and reacquire the spin
+> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
+> timer function. Releasing the lock allows for the timer function to
+> make progress.
+> 
+> Signal the possible deadlock with -EDEADLK and perform the necessary
+> steps. No other driver uses -EDEADLK in their enable_vblank, so the
+> change should not interfere.
+> 
+> Tested with bochs on qemu.
+> 
+> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.19+
+> ---
+> I also tried to move hrtimer_cancel() out of the critical section. The
+> result was fairly fragile. So returning an error and re-acquiring the
+> lock was the easier solution.
+> ---
+>  drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
+>  1 file changed, 15 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 5162250e8813..135efde86298 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
+>  static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+>  {
+>  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
+> -	int ret = 0;
+> +	int ret;
+>  
+>  	assert_spin_locked(&dev->vbl_lock);
+>  
+> +retry:
+> +	ret = 0;
+>  	spin_lock(&dev->vblank_time_lock);
+>  
+>  	if (!vblank->enabled) {
+> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+>  		ret = __enable_vblank(dev, pipe);
+>  		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
+>  			     pipe, ret);
+> -		if (ret) {
+> +		if (ret == -EDEADLK) {
+> +			spin_unlock(&dev->vblank_time_lock);
+> +			cpu_relax();
+> +			goto retry;
+> +		} else if (ret) {
+>  			atomic_dec(&vblank->refcount);
+>  		} else {
+>  			drm_update_vblank_count(dev, pipe, 0);
+> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
+>  			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+>  	} else {
+>  		/*
+> -		 * Timer should not be active. If it is, wait for the
+> -		 * previous cancel operations to finish.
+> +		 * Timer should not be running. If it is, signal cancellation
+> +		 * again and restart to release locks.
+>  		 */
+> -		while (hrtimer_active(&vtimer->timer))
+> -			hrtimer_try_to_cancel(&vtimer->timer);
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/pci/proc.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+Why do you even have to cancel the timer here? Just let it run?
 
-diff --git a/drivers/pci/proc.c b/drivers/pci/proc.c
-index a8d7469f222b..6b0cb5bcbea3 100644
---- a/drivers/pci/proc.c
-+++ b/drivers/pci/proc.c
-@@ -192,8 +192,7 @@ struct pci_filp_private {
- };
- #endif /* HAVE_PCI_MMAP */
- 
--static long proc_bus_pci_ioctl(struct file *file, unsigned int cmd,
--			       unsigned long arg)
-+static long proc_bus_pci_ioctl(struct file *file, unsigned int cmd, void *arg)
- {
- 	struct pci_dev *dev = pde_data(file_inode(file));
- #ifdef HAVE_PCI_MMAP
-@@ -321,16 +320,23 @@ static int proc_bus_pci_release(struct inode *inode, struct file *file)
- }
- #endif /* HAVE_PCI_MMAP */
- 
-+/* The commands take and return plain values. */
-+static const struct proc_ioctl_arg proc_bus_pci_ioctl_args[] = {
-+	PROC_IOCTL_ARG(PCIIOC_CONTROLLER, 0, 0),
-+	PROC_IOCTL_ARG(PCIIOC_MMAP_IS_IO, 0, 0),
-+	PROC_IOCTL_ARG(PCIIOC_MMAP_IS_MEM, 0, 0),
-+	PROC_IOCTL_ARG(PCIIOC_WRITE_COMBINE, 0, 0),
-+};
-+
- static const struct proc_ops proc_bus_pci_ops = {
- 	.proc_flags	= PROC_ENTRY_SHORT_WRITES,
- 	.proc_lseek	= proc_bus_pci_lseek,
- 	.proc_read_buf	= proc_bus_pci_read,
- 	.proc_write_buf	= proc_bus_pci_write,
- 	.proc_write_size = PCI_CFG_SPACE_EXP_SIZE,
--	.proc_ioctl	= proc_bus_pci_ioctl,
--#ifdef CONFIG_COMPAT
--	.proc_compat_ioctl = proc_bus_pci_ioctl,
--#endif
-+	.proc_ioctl_buf	= proc_bus_pci_ioctl,
-+	.proc_ioctl_args = proc_bus_pci_ioctl_args,
-+	.proc_nr_ioctl_args = ARRAY_SIZE(proc_bus_pci_ioctl_args),
- #ifdef HAVE_PCI_MMAP
- 	.proc_open	= proc_bus_pci_open,
- 	.proc_release	= proc_bus_pci_release,
+> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
+> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
+> +				vtimer->interval = 0;
+
+Does this interval_lock serve some actual purpose? Looks like it's just
+protecting a single variable, and there are no read-modify-writes
+happening to it that I can see.
+
+> +			return -EDEADLK;
+> +		}
+>  	}
+>  
+>  	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> -- 
+> 2.56.0
 
 -- 
-2.53.0
-
+Ville Syrjälä
+Intel
