@@ -2,55 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FFB60A6C36
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:08:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB158608B7C5
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBRRGcw8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyNIQCxY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9E810EF9B;
-	Mon,  2 Nov 2026 15:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBF410EF9C;
+	Mon,  2 Nov 2026 15:08:32 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A009E10EF9B
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:08:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526D710EF9C
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:08:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81E1843BD0;
- Mon,  2 Nov 2026 15:08:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B30B1F00A18;
- Mon,  2 Nov 2026 15:08:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 39FC443A0A;
+ Mon,  2 Nov 2026 15:08:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E931F00A20;
+ Mon,  2 Nov 2026 15:08:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632091;
- bh=nrM/uUf4HdTSRJMfQyJdPJ//6muAeY8Jt8qA4ElcX4M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=oBRRGcw8ROwqhrET8KcqKuAjekSVKjxNq9Q0Q751SFL+LSUrJpxsC913yy5VOwUXi
- bdKiVpK9mZxauiFIwdUcDRbZIFP9OvJ9dyjD+Tglv5N2t5iGLI29Ay1L/Bq3DHVs5o
- XAvycYvaGF8N5poqs68eHyLCLfiztRIU+ndpeFQT8WjtDdDrNMieh9PNCRgnjXrwVI
- F++7JSqENNOsj+IuiSaWxFDvRby3VhBmPllhcuRHbt7Vun0AJi+JeLtjQyObSl7Iz4
- 9OTpDV3EeUJErTLY6313UhvMhpXmtLKHpq04j3nyRdu4kbeeEo1viU0hwy9Akmn/VK
- iWKHKet3HOhkA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] rust: DmaFence: Replace call_rcu() with synchronize_rcu()
-Date: Mon,  2 Nov 2026 16:06:18 +0100
-Message-ID: <20261102150617.527772-4-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102150617.527772-2-phasta@kernel.org>
-References: <20261102150617.527772-2-phasta@kernel.org>
+ s=k20260515; t=1793632106;
+ bh=Dp7sSooWMguSrSQWYm7n5WBM775aoRxhTJFL+eJzfGM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=eyNIQCxYEcRLLrGyZcPtIprIvg2rkuSpaKrMvW58hJQxt/VyWt7hS3Qal6zoUQ/gl
+ 0f9cCCPMX1bOMUh9BIWeFK5f4ATpN0EM/aPUrffzJ9XwWlsu4eKD6ZgzUlwDjfLjwL
+ Uvn00wNomN8/SMqh9jXER44dMwsdR9yWd6JSqBhqRXPHK14atBxuYmQ+rYaoEBUKUD
+ vDmMOPV29JIfjjL6fBW6U6eWYBA/B7Lc6f6IJGDxAZNs993WFUAYbhkuu/ueCEe0L/
+ Yqu69q4QgN/VaqD5PYjScQjBFfvU4mejG6swjL58FVzjyKA2XiENQnp0sJJnQeShIQ
+ zmvRe7kDYECMg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:47 +0100
+Subject: [PATCH RFC 20/22] platform/x86: toshiba_acpi: let procfs copy in
+ writes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-arch-v1-20-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,184 +90,150 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The C dma_fence contract demands that a fence's data disappears no
-earlier than 1 RCU grace period after the DriverFence was signaled.
+Implement ->proc_write_buf() for the files in /proc/acpi/toshiba so
+procfs copies in what is written before it pins the entry, and parse
+what was written from that copy. Commands longer than PAGE_SIZE - 1
+bytes are rejected now.
 
-So far, we achieved this with dropping the DriverFence's data in a
-deferred manner with a manual, raw binding call to call_rcu().
-
-However, this call_rcu() does not solve one problem: It is conceivable
-that some driver data must not drop in atomic context; but call_rcu()'s
-payload *can* be executed in atomic context.
-
-Moreover, the current developments in drm::JobQueue, where a DriverFence
-is always coupled 1:1 with a Job, allows for dropping job and fence
-through a work item.
-
-The undesirable blocking behavior of synchronize_rcu() would, thus, not
-be annoying any thread anymore. The direct users of DmaFence could
-achieve the same by dropping their DriverFences through work items.
-
-The only conceivable other solution, queue_rcu_work(), would, for many
-users, schedule a work_item from another work_item, which seems
-undesirable.
-
-Additionally, using the existing synchronize_rcu() abstraction has the
-advantage of us getting rid of a raw bindings call.
-
-Replace DriverFence::drop()'s call_rcu() with synchronize_rcu().
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 89 ++++++++++----------------------
- 1 file changed, 26 insertions(+), 63 deletions(-)
+ drivers/platform/x86/toshiba_acpi.c | 36 ++++++++++++------------------------
+ 1 file changed, 12 insertions(+), 24 deletions(-)
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 3022bdb5f7c3..ad9cebf8428c 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -42,7 +42,10 @@
-             Atomic,
-             Relaxed, //
-         },
--        rcu::rcu_barrier, //
-+        rcu::{
-+            rcu_barrier,
-+            synchronize_rcu, //
-+        }, //
-     }, //
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index 560e62da05a9..895e321ada03 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -1478,7 +1478,7 @@ static int set_lcd_status(struct backlight_device *bd)
+ 	return set_lcd_brightness(dev, bd->props.brightness);
+ }
+ 
+-static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
++static ssize_t lcd_proc_write(struct file *file, char *buf,
+ 			      size_t count, loff_t *pos)
+ {
+ 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
+@@ -1488,8 +1488,7 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
+ 	int value;
+ 
+ 	len = min(count, sizeof(cmd) - 1);
+-	if (copy_from_user(cmd, buf, len))
+-		return -EFAULT;
++	memcpy(cmd, buf, len);
+ 	cmd[len] = '\0';
+ 
+ 	levels = dev->backlight_dev->props.max_brightness + 1;
+@@ -1505,7 +1504,7 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
+ 
+ static const struct proc_ops lcd_proc_ops = {
+ 	.proc_show	= lcd_proc_show,
+-	.proc_write	= lcd_proc_write,
++	.proc_write_buf	= lcd_proc_write,
  };
  
-@@ -65,7 +68,7 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
-     /// The sequence number for the next fence created.
-     seqno: Atomic<u64>,
-     // The name parameters can be accessed by the dma_fence backend_ops. UAF
--    // errors are prevented by the `call_rcu()` in `drop_driver_fence_data()`.
-+    // errors are prevented by the `synchronize_rcu()` in `drop_driver_fence_data()`.
-     /// The name of the driver this FenceContext's fences belong to.
-     driver_name: CString,
-     /// The name of the timeline this FenceContext's fences belong to.
-@@ -142,7 +145,6 @@ pub fn new_fence_allocation(
-         data: T::FenceDataType,
-     ) -> Result<DriverFenceAllocation<'_, T>> {
-         let fence_data = DriverFenceData {
--            rcu_head: Default::default(),
-             // `inner` remains uninitialized until a `DriverFence` takes over.
-             inner: Fence {
-                 inner: Opaque::uninit(),
-@@ -600,8 +602,6 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
-     // necessary so that the C backend can free the allocation (coming from our
-     // Rust code) with kfree_rcu().
-     inner: Fence,
--    /// Callback head for dropping this in a deferred manner through RCU.
--    rcu_head: bindings::callback_head,
-     /// Reference to access the FenceContext.
-     fctx: &'a FenceContext<T>,
-     /// The API user's data. It is essential that the data only performs
-@@ -644,6 +644,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///
- /// In the unlikely case of such violations, a panic is thrown.
- ///
-+/// For requirements imposed by the C backend, a [`DriverFence`] might perform
-+/// a call to [`rcu::synchronize_rcu`] when it drops. Thus, avoid dropping a
-+/// [`DriverFence`] in atomic context.
-+///
- /// # Examples
- ///
- /// ```
-@@ -940,15 +944,15 @@ fn drop(&mut self) {
-         // dma_fence_is_signaled_locked() because the C backend wants to get rid
-         // of the latter.
- 
--        // SAFETY: `guard` is valid until the `call_rcu()` below.
-+        // SAFETY: `guard` is valid.
-         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
-         if !signaled {
-             pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
--            // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
--            // must not have been signaled yet, which we check directly above.
-+            // SAFETY: `guard` is valid. The fence must not have been signaled
-+            // yet, which we check directly above.
-             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
--            // SAFETY: `guard` is valid until the `call_rcu()` below. The lock
--            // must be held, which we acquired above.
-+            // SAFETY: `guard` is valid. The lock must be held, which we
-+            // acquired above.
-             unsafe { bindings::dma_fence_signal_locked(guard.as_raw()) };
- 
-             // SAFETY: `self.data` is valid because `self` is valid.
-@@ -973,59 +977,18 @@ fn drop(&mut self) {
-             return;
-         }
- 
--        // SAFETY: Valid because `self` is valid.
--        let rcu_head_ptr = unsafe { &raw mut (*self.data.as_ptr()).rcu_head };
-+        // Make sure none of the fence backend_ops can access data anymore.
-+        //
-+        // TODO:
-+        // This would not be necessary if the C dma_fence backend were using a
-+        // spinlock to properly synchronize its signaled state. Fix it in C and
-+        // then remove synchronize_rcu().
-+        synchronize_rcu();
- 
--        // SAFETY: `call_rcu()` is always safe to be called. `rcu_head_ptr` was
--        // created validly above. The module must perform a `synchronize_rcu()`
--        // or `rcu_barrier()` call to guard against module unload.
--        unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence_data::<T>)) };
-+        // SAFETY: Valid because `self` is valid.
-+        unsafe { drop_in_place(&raw mut self.data) };
-+
-+        // SAFETY: The `synchronize_rcu()` above ensures all accessors are gone.
-+        unsafe { bindings::dma_fence_put(self.as_raw()) };
-     }
+ /* Video-Out */
+@@ -1541,24 +1540,17 @@ static int video_proc_show(struct seq_file *m, void *v)
+ 	return 0;
  }
+ 
+-static ssize_t video_proc_write(struct file *file, const char __user *buf,
++static ssize_t video_proc_write(struct file *file, char *buf,
+ 				size_t count, loff_t *pos)
+ {
+ 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
+-	char *buffer;
+-	char *cmd;
++	char *buffer = buf;
+ 	int lcd_out = -1, crt_out = -1, tv_out = -1;
+ 	int remain = count;
+ 	int value;
+ 	int ret;
+ 	u32 video_out;
+ 
+-	cmd = memdup_user_nul(buf, count);
+-	if (IS_ERR(cmd))
+-		return PTR_ERR(cmd);
 -
--// TODO:
--// The entire call_rcu() mechanism in the drop above and the code below would be
--// unnecessary if C's dma_fence_signal() could be reworked in a way that after it
--// ran, the caller knows that no fence_ops callbacks can be running anymore.
--// In other words, if the dma_fence backend would use its spinlock for full
--// synchronization.
--//
--// Then we could move the drop_in_place() and dma_fence_put() upwards into the
--// drop() implementation and call it a day.
+-	buffer = cmd;
 -
--/// Finally really drop this `DriverFence<T>`
--///
--/// # Safety
--///
--/// `head` references the `rcu_head` field of an `DriverFenceData<T>`. All
--/// accessors to that `DriverFenceData<T>` must be gone by now. This must be
--/// ensured by signalling the associated `DriverFence<T>` and then waiting
--/// for a grace period until calling this function here.
--unsafe extern "C" fn drop_driver_fence_data<T: Send + Sync + FenceContextOps>(
--    head: *mut bindings::callback_head,
--) {
--    // SAFETY: Caller provides a pointer to the `rcu_head` field of a `DriverFenceData<C>`.
--    let fence_data = unsafe { container_of!(head, DriverFenceData<'_, T>, rcu_head) };
+ 	/*
+ 	 * Scan expression.  Multiple expressions may be delimited with ;
+ 	 * NOTE: To keep scanning simple, invalid fields are ignored.
+@@ -1577,8 +1569,6 @@ static ssize_t video_proc_write(struct file *file, const char __user *buf,
+ 		} while (remain && *(buffer - 1) != ';');
+ 	}
+ 
+-	kfree(cmd);
 -
--    // SAFETY: `fence_data` was created validly above. All the fence's data will
--    // only drop below, but the raw pointer to the raw C `dma_fence` remains
--    // valid because the reference count is only decremented at the end of the
--    // function.
--    let fence = unsafe { (*fence_data).inner.inner.get() };
--
--    // SAFETY: `fence_data` was created validly above. The user has already
--    // dropped the only conventional accessor to the user data, the `DriverFence`,
--    // one grace period ago. All accessors are gone now.
--    unsafe { drop_in_place(&raw mut (*fence_data).data) };
--
--    // The inner `Fence` explicitly does not get dropped because there may be
--    // many more users / consumers, each holding their own reference.
--
--    // SAFETY: Once a `DriverFence` is initialized, the inner `fence` is valid
--    // and initialized. It is valid until the refcount drops to 0, which can
--    // earliest happen once we drop the `DriverFence`'s reference here.
--    unsafe { bindings::dma_fence_put(fence) };
--
--    // The actual memory the data associated with a `DriverFence` lives in
--    // gets freed by the C dma_fence backend once the fence's refcount reaches 0.
--}
+ 	ret = get_video_status(dev, &video_out);
+ 	if (!ret) {
+ 		unsigned int new_video_out = video_out;
+@@ -1602,7 +1592,7 @@ static ssize_t video_proc_write(struct file *file, const char __user *buf,
+ 
+ static const struct proc_ops video_proc_ops = {
+ 	.proc_show	= video_proc_show,
+-	.proc_write	= video_proc_write,
++	.proc_write_buf	= video_proc_write,
+ };
+ 
+ /* Fan status */
+@@ -1644,7 +1634,7 @@ static int fan_proc_show(struct seq_file *m, void *v)
+ 	return 0;
+ }
+ 
+-static ssize_t fan_proc_write(struct file *file, const char __user *buf,
++static ssize_t fan_proc_write(struct file *file, char *buf,
+ 			      size_t count, loff_t *pos)
+ {
+ 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
+@@ -1653,8 +1643,7 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
+ 	int value;
+ 
+ 	len = min(count, sizeof(cmd) - 1);
+-	if (copy_from_user(cmd, buf, len))
+-		return -EFAULT;
++	memcpy(cmd, buf, len);
+ 	cmd[len] = '\0';
+ 
+ 	if (sscanf(cmd, " force_on : %i", &value) != 1 ||
+@@ -1671,7 +1660,7 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
+ 
+ static const struct proc_ops fan_proc_ops = {
+ 	.proc_show	= fan_proc_show,
+-	.proc_write	= fan_proc_write,
++	.proc_write_buf	= fan_proc_write,
+ };
+ 
+ /* Fan RPM */
+@@ -1707,7 +1696,7 @@ static int keys_proc_show(struct seq_file *m, void *v)
+ 	return 0;
+ }
+ 
+-static ssize_t keys_proc_write(struct file *file, const char __user *buf,
++static ssize_t keys_proc_write(struct file *file, char *buf,
+ 			       size_t count, loff_t *pos)
+ {
+ 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
+@@ -1716,8 +1705,7 @@ static ssize_t keys_proc_write(struct file *file, const char __user *buf,
+ 	int value;
+ 
+ 	len = min(count, sizeof(cmd) - 1);
+-	if (copy_from_user(cmd, buf, len))
+-		return -EFAULT;
++	memcpy(cmd, buf, len);
+ 	cmd[len] = '\0';
+ 
+ 	if (sscanf(cmd, " hotkey_ready : %i", &value) == 1 && value == 0)
+@@ -1730,7 +1718,7 @@ static ssize_t keys_proc_write(struct file *file, const char __user *buf,
+ 
+ static const struct proc_ops keys_proc_ops = {
+ 	.proc_show	= keys_proc_show,
+-	.proc_write	= keys_proc_write,
++	.proc_write_buf	= keys_proc_write,
+ };
+ 
+ static int __maybe_unused version_proc_show(struct seq_file *m, void *v)
+
 -- 
-2.56.0
+2.53.0
 
