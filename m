@@ -2,137 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFFF606D80B
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:05:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F829606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qfm7HRpK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=URnwt80C
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Pn/1a2DY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87FF910F26A;
-	Mon,  2 Nov 2026 22:05:46 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F5110F271
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 22:05:11 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A2LIEHH879654
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 22:05:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=gIzkbjDhFpI
- 59wKeEOyvGZrWbWXse9FWOdJm9bjq3As=; b=Qfm7HRpKQ5VZqEMm+FWJ+oU87zt
- DAXYsKUehoT6EzN6nBis/jo0wPujP/mUDElQijsYDUURNNsL213xNOF9gC48Vj6b
- E8H+gsvwski5SAknyOF6apNL+DtnezzJkzLf2kpSS+s1vYUDNUE7O8pHzFqT6WR8
- GNqP93Vw1DAiSQi1yCAGffHLdrRpfpp6ugmHoskWHDJyHAuXqZpzk2ShnSJWGyNE
- vOETjeXcdNlsd5usYeMv4wMUYHiepbRkgtoJvPlII1OwLip3tFBxPhK1f3P3JMmd
- EmVkGpUex/65EgS0IBGCnPn9I0BS6sXp+eHqiaXi5+T0sAAvzUNzfkQqw9g==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq2acg4jv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 22:05:10 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3ada6ccd402so2905046a91.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 14:05:10 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E6B10E2A8;
+	Mon,  2 Nov 2026 22:09:00 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B4BB10E2A8
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 22:08:54 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1b12de661so3168a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 14:08:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793657332; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Aqnqog+yj+dQTGkt6TIcwgY/U09A6JXO2CVsuL5UN8Zgt6LrD2CRPfzLfHdxWmOl1d
+ uq4SvUeAYRGK/8ZJZcivUsnfLPVBqLBm6TBBkdYC+m46ylLfFFjK1HZw4NYGenpKYt+Z
+ c+FVf3p3C/ILbmAgKUW8c4TLWvVFeHBHyU1xprKZwiYP5LvKLagz9QtozTsbc2DLSFgY
+ QHU8YTLDg1l4VZmpuwzfUWfLXvBlw743uNzItvXZ5l/hNA7ycTKBvOZLXv11sMcUDBH6
+ DRBK1G35xEXkM9NeOolEerZ1C+bG+BbXc/fr1z8SDYdBJvd2bzjSuuDybhSmsYgMaocA
+ edFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=04iaPr/Q4xOZpTpewylydaBAPbXSsxNLl37nHemVSI4=;
+ fh=/pN+TUbXPwbo/nXWRb5no59ZuukluQoRO70daPiNs48=;
+ b=dPrX37frYmy7Mp8yKsgxQHUR46P6mILKQDqolM1oMlixfvA/b+xv9IZ9nUpIGuj8FA
+ tHtOFV8KbzrzckXbWaQKfaEkoeaUxX9ofb210H84byId4s8uI+1ya1ZBVOM8KBAqE546
+ hGHwfkNzp+EG8zcnYXd3OinuWVCSkF1GwWToxNhICO5m+qDcWImoS5sG25mtr0HAm0xE
+ eG5KGKQaSIVgwAtamRaoeb7yIReKyiT4Sckhrmykou4BrAE0WnorCXKsJ/GGw1d17DXD
+ 2/y1JQCM/SplurpXfcF5FeTGqDmaJA0mNZnjVurt7NHYkAT1PEhGAnmoAxWR9Su77yWO
+ 4qEg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793657109; x=1794261909;
+ d=google.com; s=20260707; t=1793657332; x=1794262132;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gIzkbjDhFpI59wKeEOyvGZrWbWXse9FWOdJm9bjq3As=;
- b=URnwt80CT/CO+LuPp9M4LYgXORYSthw30k3ZWB4wOWOIdVEPjtS8L46QKmGgR12JhR
- maeD2vTnYQsLUAkaVDtNDrpxcAOkY2s/JTH3xltRxEgIV5sd7lDS+0Vz2v8C9L4wQj12
- BV+dWh49LNiL8szqb4oBNXqjCSKLpIj5xlmxOP2A88ZdqMu9V0SYyZBqJ9tK/Aijhjjp
- Wq6Tp3mhlOpZs2P2AH88l0SE82xsNEToP/yRQnmFcJinyPyPoxn9N4lp55rOeDG5HLSz
- VlJT2WlXrxFZs8UPGxWGK+f4rTj+ZwMhgrFnil+ww4ShwAotATlj4A9bMjDkY8Tuhw5/
- QfJg==
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=04iaPr/Q4xOZpTpewylydaBAPbXSsxNLl37nHemVSI4=;
+ b=Pn/1a2DY0a4Wq0YfQepCg+bmqIAz9u4J6n53zFMwpMaxsm+VgsqAjCexOwK1dQBVFo
+ PIO+cFK6ZVzMmd+UetrvwSU5gk5hE12qQwwizPJiSHbt1JRvrXPKgoTwlt9NL43xDb2C
+ cjh8hbQYNyFXHv4CetKIkZQ3ldij8oR/LvLRO33/QKgMjOfCxG8ZRX/gYVT+sakZuZK3
+ E07LFMYY9t4hDyEvJvCJNJ678OHB4xcrvyYj3DoJW8Ysv0LyF/tU6ZC9Sa/oMaD1Ha8O
+ dOT2DEBPzDfLKeX3I6hCbDdxITq5mBsX7I4aMN/7nJ2Xme3CDYkMiT/1gNC9+fc7Z5+H
+ XWww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793657109; x=1794261909;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gIzkbjDhFpI59wKeEOyvGZrWbWXse9FWOdJm9bjq3As=;
- b=vRJTObaNHpUKcjQ2P+hU41DD8CMPtvyJwhyGhF4Mudtt436GJg/O2d548u9JS02OMl
- AryXQsfWbFMLGiu0qI/NonanVebLDwzNk8ssGfd8tcIpaH67BroY+nM6eoA4LEXKe6YW
- yBO9/6TgYY16/H9if/LfaWdYqVnp5LqqTUMbQtyPZ2Scnb6Nit946tj1jnAaeR567Y+g
- F2GqhAiriGKNTK9XjLsEriUdB9VgisMgxVORx3T/+QQfHpO6Wgx7UY9KJhnMk2CppDSG
- C8HVw9dmSqfZ2qDqdhqdl6VWf0ZQ7st/Irjprx+MVNGx4qY9rmThgS7Gt7Em/jkuFqLc
- g5JQ==
-X-Gm-Message-State: APuU4Z9SIR6bHced+GBN8cznHe4JBfdFYLif/O5SFI66qxmSl8amXa99
- QzkjNn048MqXH6Yw8mTZmseTGGTzKXFNVQH38YlEodSoh1QlZ3J+58zgWCC3Xj7v/b+Nnz0hHbU
- 79FDCNWebNJXF87HDLS4Eqd1uYwkuskkAC59CNBArdnXCMwtLaqy5lfFYAaBb0k9twIaoGaz9n5
- RlyXBuQg==
-X-Gm-Gg: AYBFou0cDzffgpsADxzoK936YSCZkvetT4ufQOk7wYP2EhxJvCOr0AcXC7dLaIF9BbY
- RaFJcZUrqJCf6lLS9z2587JBnWKbR3OeDDj8eIT6mjRhHGeTUJ3BuaL44iq2FLEAMQDz7UFIGfc
- xM02GMHQYCkX8yrkdbchgSiiAR6dEBAZxP8bhjpITPdIMrlV7U73DPdrireEvP+xaoXJ41mBIf7
- b97ey5hlavTNtpPMcjf6bdL2aq+gQ0WWtpEDYBRU0Y0kf9ajcMxNLA2hurvP5JgVzOmqhZeOpEH
- SRpJuXHVFRaYFGoJn8A5Ks0+E8fEQ12TkG3YztpC+tftRz0ES6yz851itJL2TJAHfPjvcwdbvld
- +dYHQudvTtiXLBFZ1L//XWdRp/ZcZeIrKkRfiPjsCbe+m6KY/NyUpqkn/Tyyi11Q6cCyKMRChZp
- egZuOBhK8b7andkzuiddM4KrI=
-X-Received: by 2002:a17:90b:4a11:b0:3a8:c0cd:57f3 with SMTP id
- 98e67ed59e1d1-3ae896f8539mr8634108a91.18.1793657109373; 
- Mon, 02 Nov 2026 14:05:09 -0800 (PST)
-X-Received: by 2002:a17:90b:4a11:b0:3a8:c0cd:57f3 with SMTP id
- 98e67ed59e1d1-3ae896f8539mr8634079a91.18.1793657108947; 
- Mon, 02 Nov 2026 14:05:08 -0800 (PST)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ae85d24261sm9255505a91.0.2026.11.02.14.05.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 14:05:08 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5 15/15] drm/msm/adreno: Remove temporary __maybe_unused
-Date: Mon,  2 Nov 2026 14:02:59 -0800
-Message-ID: <20261102220405.30730-16-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102220405.30730-1-robin.clark@oss.qualcomm.com>
-References: <20261102220405.30730-1-robin.clark@oss.qualcomm.com>
+ d=1e100.net; s=20260707; t=1793657332; x=1794262132;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=04iaPr/Q4xOZpTpewylydaBAPbXSsxNLl37nHemVSI4=;
+ b=RCmJiqhOkayQCktw7tOszL+cNvXQ1mZM0O4ZpCx9ryz5tPX+5kQKdDHPtNCsSe1qCr
+ 6z0+XpQ56+ijGY94pkwzz7HbkI6/biXROQEG7UcF8kKz9Td13TcDAYJfd8p+sc+tpsCr
+ o7awt1nz5D5avA3WNQLU7P3Aq3i8L0muSrIo1dHPa91xAcWMsOokdmXwQfkpsveOOdtt
+ aw3ys9rgkHHTj+N9JXdQLwHkUivQszbRzRzRbfjYL66PWpOeOUfaGYSsv7KFqIMLwuLC
+ b9qJfwshVsHdimPAUwgbYifUayv26PuUXfftNPeIEZUBgHCwBJ3VNQTFWAcvHQZ2BkPW
+ P0HA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzSrzMzQvr76LGjSCQg5Eyh4pqy3DxcZAoNVSx8t8wXsohhaGOdjiRNjrYytVVhYqjc5dOpojitkNM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/kI0IjsaWsJTQ66N9vpUG8eROXiGtYL/R0mqRiYC0pM6duLk07
+ RpdjQxjHGUzAiqYwqKfUQgJGURIweHmXnaGvGnmXTIefMdVnaJ3rEDNKy5GmtY2xNsXJ2YSF9pA
+ gkqGiyX7p6/2ZfuaoFCuurGd4qCbwzea3KXcC9gEK
+X-Gm-Gg: AYBFou0+OiMjlhkYvYtVChFqtRFV8VD2KFrmNf3hO4w45IVgOSELM30K0oksN8ILpZ8
+ 57fzDYzRDagyrSY9HtuBrIGy1jAHEEH8L/KeQWyF/x0Hc/hFxElVb/NnWepE29cqh6dN0UH/Rsy
+ 0hdkhqYult/oOLEGhGv5b34PvOOAsEUTA/wZjmp+hpttC3oXHfxS0VSYbzYSLGLgmj3U6VGM7fw
+ 9JdIpL73OI6s9G9twe9Gdr1NXfaALKv37QGXrkj+DBnGeTQqL7t9Ra+14WCcvL6eG26Z2DjQUgA
+ zj4wVLMJ/+OxblESXN6CslvIHpkrHpsSZsEa5rs8RnqaF4YLKMS6ADztgSN1wOl5222Efg83hCl
+ b9icdwq5JjwaHxB97fCZ/DcGK9PHNRMSVaAoDsQKUjA+jEYiYaRjEWXZNS/2dI8NHXuw=
+X-Received: by 2002:a05:6402:438d:b0:6b3:f12d:7405 with SMTP id
+ 4fb4d7f45d1cf-6b53e778d41mr6126a12.14.1793657332128; Mon, 02 Nov 2026
+ 14:08:52 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=T4gZ3PKQ c=1 sm=1 tr=0 ts=6ae90916 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=SI4bJWXHUBEfUJKjJlYA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA4NyBTYWx0ZWRfX9+mqhrFqPv8s
- c4wpr4l5c9r/JJpI7gFI6yekioF7NPYaefEBGBNweapS4uwHEA84RwBBeHNJbMHkeS/MKbCVe2m
- g4qeMp14ONQGRAydFfnnKUf+pdKvIq99L/U/Al4AFdwQlkdqYOLvsKmGm56BU/HawdfFK5eXqbW
- SYpoR1ficSI3SRCeOUuboHCCpAgZjHdQEvzLghBP2GI3VaOVVe+IWDQdhDFvgQ2r0JLmqOmC/SM
- KoBKWX88OaWm69NUCEYcyz0bNcsnI74FEiZBNBR+1Tymnrz6YIEpOu8BzRI/FHxNkAdsjZ30jfI
- OoCvvoluJ6lXDdeS8af9ow94tsPSoD+1YTSGaiTIHRKANeDqp1s7hy05viRWlQHWsTSsBsoEC86
- ldm/QlCur2yYzUeQx0wig7T0KjlDbX095flb3IoERdMgQ8DJPN3cGYfuw+IO8s1gb6V1ZS2DXdr
- vwDelcSJMRlONCTZArQ==
-X-Proofpoint-GUID: MbTuhaO12Nfvomwp64t5Q1H3xZghXXao
-X-Proofpoint-ORIG-GUID: MbTuhaO12Nfvomwp64t5Q1H3xZghXXao
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA4NyBTYWx0ZWRfX7KnFHk3jBBE4
- 0J4sZOkqplA7L2uaxT5x8bgstH+GGzlySVcOz0m1mHtRG0yhVKPY3pJkNZ9L84elnSGcfPS8x+n
- Teflt4INkZ4iWIlNf1qlLyRH1YuiCwI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_06,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020087
+References: <20261030083539.777877-2-almasrymina@google.com>
+ <179357408146.3131.2882435952119280563@kernel.org>
+ <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
+ <9afff44d-f8eb-4549-8aae-f99a53339319@redhat.com>
+ <20261102185856.1824792-1-almasrymina@google.com>
+ <f4f0fbd6-63e4-42d3-87bf-9f888a8de1a8@redhat.com>
+In-Reply-To: <f4f0fbd6-63e4-42d3-87bf-9f888a8de1a8@redhat.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 2 Nov 2026 14:08:40 -0800
+X-Gm-Features: AclHuK_l2m6u_KEy2pbXoZVvzOwIMj8tI1lJiwLeWg-R9MKJCqxW8rPbMreP4XU
+Message-ID: <CAHS8izNQjF6nzPym-kXO2Nr6jv5oKsnFGCNYWZH_zBTGoT98ew@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, sdf@fomichev.me, 
+ kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com, 
+ asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com, 
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, 
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
+ andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org, 
+ ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org, 
+ tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,35 +116,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Now that is unneeded.
+On Mon, Nov 2, 2026 at 2:01=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wrot=
+e:
+>
+> On 11/2/26 19:58, Mina Almasry wrote:
+> > On Mon, Nov 2, 2026 at 7:29 AM Paolo Abeni <pabeni@redhat.com> wrote:
+> >> On 11/2/26 00:16, Mina Almasry wrote:
+> >>> On Sun, Nov 1, 2026 at 3:01 PM <netdev-bot+sashiko@kernel.org> wrote:
+> >>>>
+> >>>> - [High] The dma_dev use-after-free this patch says it fixes can sti=
+ll
+> >>>>     happen for RX bindings made on a virtual device that leases queu=
+es,...
+> >>>>
+> >>>
+> >>> I know about the issues with leased devices. That needs a bit of a
+> >>> rework, which I have done locally, and would like to send out as a
+> >>> follow up fix.
+> >> Will such follow-up rework the code touched by  current patch/series?
+> >> how much? I'm under the impression that at least the fix for the issue
+> >> reported here would be quite overlapping.
+> >>
+> >> /P
+> >
+> > I pushed the follow-up branch on top of v5 here so you can see the exac=
+t diff:
+> > https://github.com/mina/linux/compare/devmem-teardown-v4...devmem-lease=
+-bind-map-dev
+> > (commits: https://github.com/mina/linux/commits/devmem-lease-bind-map-d=
+ev)
+> >
+> > There is some overlap (~55 lines of v5 touched across a 6-patch +262/-9=
+9
+> > follow-up): it renames binding->dev/vdev to binding->map_dev/bind_dev, =
+passes
+> > the net_device explicitly to net_devmem_lock_dev(), factors out
+> > net_devmem_close_rxqs(), and replaces the !rxq->lease / !netif_is_queue=
+_leasee()
+> > skips in net_devmem_dev_unregister() and mp_dmabuf_devmem_uninstall().
+> >
+> > I kept it separate only to keep this net fix smaller and easier to revi=
+ew,
+> > since the lease issue is pre-existing. Happy to either land v5 first an=
+d send
+> > those 6 patches right after, or fold them into a v6 if you prefer avoid=
+ing the
+> > churn.
+> I hoped for something smaller :)
+>
+> I definitely would not fold the 2 series.
+>
+> I'm wondering if this could be considered net-next material? pointing to
+> net-next will offer better guarantees for all the work to land in the sam=
+e
+> release (no need to repost in such a case, I can apply this one to net-ne=
+xt
+> directly).
+>
 
-Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone 3a)
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm more than happy with net-next. Honestly so many AI-foudn fixes
+requiring so many refactors that net-next makes sense most of the time
+now, for me at least. Thank you Paolo!
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index ed83dd927b54..3ef3ac2d86f9 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -170,7 +170,7 @@ struct adreno_protect {
- };
- 
- #define DECLARE_ADRENO_PROTECT(name, __count_max)	\
--static const struct adreno_protect name __maybe_unused = {		\
-+static const struct adreno_protect name = {		\
- 	.regs = name ## _regs,				\
- 	.count = ARRAY_SIZE(name ## _regs),		\
- 	.count_max = __count_max,			\
--- 
-2.56.0
-
+--=20
+Thanks,
+Mina
