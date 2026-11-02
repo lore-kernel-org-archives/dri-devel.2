@@ -2,38 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A7606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2EE606A334
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD3vegNV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkgljhrV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5644A10EC37;
-	Mon,  2 Nov 2026 08:50:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C35610E5C4;
+	Mon,  2 Nov 2026 08:53:38 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB1A10EC37
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:50:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BACE10E5C4
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:53:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D9694391E;
- Mon,  2 Nov 2026 08:50:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D681F000C1;
- Mon,  2 Nov 2026 08:50:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D2CA24064B;
+ Mon,  2 Nov 2026 08:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DDEA1F0093A;
+ Mon,  2 Nov 2026 08:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793609438;
- bh=QaWYWUrLhUfwC4NyrykAqy2T/OO+U82Y2EmtMkUqbZk=;
+ s=k20260515; t=1793609611;
+ bh=oYYP3lK9ndIzshGQaIxwuIG/4WySmOAiuLgTfIPt85E=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=eD3vegNVhbx15mhQYNYj1Lbl/xaM6BD1eAxTN9bCnpcWXK9J7fCQGKhkq7ad7ZFs2
- El6xYwwcjTqrKVhMoICNoQJbGw5b8hbgvFYhZ29g1kujzgTbvK7acgWruYQ/ZITE3g
- h5Q5ie2PSEhOzTwirMDCC8SITikqEj90dr5BveB7OLKB41nEyerqOZot9GQZOxNN2U
- EdUuyip8aow+qEv+zTiMZK50CZIN4sabSA8i1mnwrHsP5OYaDSC+36Gq68v3r4RhSu
- xJA/PH0M4G+Ht2Z1ZcKs+ZZRkayCjgjdwXBNTZSZ7J8DeEP+plHAwkeBSvUmp1UHuy
- u7REK5fRtjEVQ==
-Message-ID: <a231be58-d42a-4d16-9e94-625457031d43@kernel.org>
-Date: Mon, 2 Nov 2026 09:50:24 +0100
+ b=SkgljhrVlMkigM187kml4RIuWzUhCNfNRB1WWapYtJu506IB54itPx4UTX+oAJvZy
+ EjjyrlyeUK8VnX4ctKLUvacWcKtHyE47aBf8pRTtz6RgaCGnaHrRJ9Lu8mxJZgOxug
+ 3o7xQih30i69llZOKoUtRXiPfS6KmvN1vM9HRotmAP5sTlHgj313FF4AAqsFMHX3aZ
+ of212pwWwFfrAHNM+HtTPEqxKvxhhNmACICBjBzQhFO3fvLXbSakDgbD46hQY1dhGq
+ VW2IIF8yX1SEb7NkSKYLLQB2BM1qkXEu99DEhrQZNLUDdKgP4j+y/Tt7LqXldtvkkP
+ SyooD4lG2mdDw==
+Message-ID: <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
+Date: Mon, 2 Nov 2026 09:53:18 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 21/25] accel/qda: Add Audio protection domain attach
- and its remote heap
+Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
@@ -57,7 +56,6 @@ Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
  Chenna Kesava Raju <quic_chennak@quicinc.com>,
  Ekansh Gupta <ekangupt@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -103,7 +101,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,39 +115,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 01/11/2026 23:21, Ekansh Gupta wrote:
->  
-> +/*
-> + * The Audio PD keeps the remote heap across daemon restarts, so only the first
-> + * attach on a device hands it to the DSP. The lock is held across the attach
-> + * so that a concurrent one cannot skip the heap while the first is still in
-> + * flight, and the flag is set only once the DSP has accepted it.
-> + */
-> +static int qda_attach_audio_pd(struct qda_session *session, struct drm_qda_remote_attach *args)
-> +{
-> +	struct qda_dev *qdev = session->qda_dev;
-> +	struct qda_static_pd_args sargs = {};
-> +	char *name;
-> +	int err;
-> +
-> +	if (strcmp(qdev->dsp_name, "adsp") || !qdev->remote_heap_size)
+>  drivers/accel/qda/qda_soc.c            |   66 ++
+>  drivers/accel/qda/qda_soc.h            |   61 ++
+>  drivers/misc/Kconfig                   |    1 +
+>  include/uapi/drm/qda_accel.h           |  282 +++++++
+>  33 files changed, 5877 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> change-id: 20261102-v4-e8feb321263f
 
-That's value from DTB, so where did you document the ABI?
+What is happening here? How are we supposed to work with this?
 
-I see such undocumented ABI in multiple places. Usually requirement
-would be to document it, but not label. Why label 'ADSP' is not correct?
-Why "Audio DSP" would not be correct?
+v1: 20260223-qda-firstpost-4ab05249e2cc
+v2: 20260519-qda-series-78c2bf0ed78b
+v2 again: 20260817-qda-v2-78e2d1f10529
 
-Drop all this label dependency, completely (and do not introduce other
-names, like node name).
+And now completely different one?
 
+This makes the change id completely unusable. b4 diff obviously does not
+work. Any tracking of this does not work.
+
+NAK, really, I already complained internally months ago about such
+practice, so apparently not enough.
 
 Best regards,
 Krzysztof
