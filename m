@@ -2,47 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DD0606A337
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F46606A331
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Pm27GTy7
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJ0+vbMX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA1D10F42E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBBE810F436;
 	Tue,  3 Nov 2026 08:21:47 +0000 (UTC)
-X-Greylist: delayed 388 seconds by postgrey-1.36 at gabe;
- Mon, 02 Nov 2026 09:56:14 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CCE10E06A;
- Mon,  2 Nov 2026 09:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9F
- KIHAQ/E8h7h4R1mCpmlzoDTcPyVcRB9nxtDEjvxD0=; b=Pm27GTy7Hu7oJXMqZa
- yEWUBG05uYjMgKBxOAljN2ZJVQEDW/RhFYSBAOooN7FQ3VjYxwisvJlX3YnUKDQ7
- zvzZGD8TI5TWd57Bx7Rh9FV5kMFn1jjMrNMPqvrE+x3BeAT5exhcPHg92IrHtOhQ
- Dc6XezuBlHKX0FLRPTLlqfHIU=
-Received: from pan-u.. (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgDXnzGrXOhqyJRBDQ--.20170S2;
- Mon, 02 Nov 2026 17:49:32 +0800 (CST)
-From: rppxj178543@163.com
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tzimmermann@suse.de, timur.kristof@gmail.com,
- lijo.lazar@amd.com, renpanpan <renpanpan@kylinos.cn>
-Subject: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
-Date: Mon,  2 Nov 2026 17:49:29 +0800
-Message-ID: <20261102094929.251563-1-rppxj178543@163.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3778F10E676
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:48:11 +0000 (UTC)
+Received: by mail-oo2-f6.google.com with SMTP id
+ 46e09a7af769-8217177c5daso694828a34.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 08:48:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793638090; x=1794242890; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Z7VS6al0JzZMFGXrqJsbyoWOE59PZK4uhHY6gGIKbAw=;
+ b=PJ0+vbMXlCdsTjOI+6JZTm5ehOzwrG6Zx2FpjeqvdWQtS0Wzrpxrie32jlq+7u+8Lc
+ SFvQNIhjClPldQW2reZKP2us2HuVSFi3tEOVGnhVMeOD+FE9F3HgvN/4UE+Ud1J90GaX
+ EAC+56occn4J0X2ujkpLISY7peY1u7fbK6/RMphgH6GyI78wVjIMn2vwv7pdaWrEEhR0
+ aTUI+fY4R1nTt7I4VV+6p/9y0f8Cbado7QZoiNGWKJlMWKbFVW8fP/pFj1ZuStb9VlI3
+ CapsrCjnLAyDnbDBDQxt5yOpKYmnNccuHuINfFTC1mEwqh+Cbgn2p95UV+8dmul5H14K
+ h0AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793638090; x=1794242890;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z7VS6al0JzZMFGXrqJsbyoWOE59PZK4uhHY6gGIKbAw=;
+ b=OrfAq3Gfl8GPX6QRdrXJK38hEblXZwwkzRZzHF1PGExMnOHWD1koBiu4y5CwqQfiUh
+ GkoZn6AkNeq5PA0VkZ3Go77rVFfNTKN5JeWr7cS9b1ZdGqkPqOfhOBg0A8HXPUxm3Dsn
+ r1GV1JUNlLrXw+p2s1qqC46mwDB2cAEHYSBTCvCEBjcQ2h5Uge86i8Ijt+ocTlrB848l
+ GrS73BuXgdBNY3My5XZWJ+9ENehcOKZQn91oltPiLRsSQn/bP0HKXJPejsBJKqPUY6Yo
+ oWpXZ7EiB2sDNQjny2KQ0Qsa68k5sOLRQMgWFqfLHzj6iL2pZ7o2ko0/+6Xlyzu1dJ+G
+ KeeA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByx82rpmVqEpz2N/prsOR0BZI0htyyKHn0iCLbPHmFaoM5vw0PsgprtpfXzNle1CwlOrUcTVREVw1E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKfHTs4BpZvRtpVLqnERYkYVQKWP7nlyG1GFprOsHALqPrgebTe
+ 7WnI8QZlDcbcTs8h3bNiX+Jh5cOYlM4cc2WES6/uNiJOwlbjPhGh3ts9
+X-Gm-Gg: AYBFou386jjgasa80f9EnCoAQvQ0rDwXNCnEhcUymIuRput/LI2ZP563GXxRc52kd9B
+ jiy3y9meVy0UPg82Sw1kJHe7nWZIGUZEibCRuBOw4F+VMag1i6hw+7O511GSWjDS9dsPP9qO6Lm
+ me7LAJkeE4HZWiCcQ97wqoN/8Ny34GO32cg2q8rjpPGKNXuNniep4TyN6sj2treUNQNYorpwlav
+ LgvLVEuso/MzX4veozBJd5k2WicZbI+QZZv7NKatySduxBl8Xjnji8YRZY5Y5aYOA6B/g1S2Hrc
+ Nx4XfuxhH4X7kW0k3GuDGVDjauUBzN/HumGWWPeq3X1e/RbnY6UFgJ9VL9eUIkF2O70WmeYejkC
+ m5BjRfA4sr7iXFEecBS57QnKxoO4VM9jrMclUbkhjTdL0abj7vfC2FliXS2gmu/o0yHKtRSU3Ng
+ Vk6W0zMqzKV5uAhniGdpOVuPSkgD0hyR8KBhmQ4Vq3GoWLIceAxkkWe+95KzYH5GFWAKIbxrFfo
+ 3Oa9HU7HMP9F7bAa1NiTqh1VdQBGA8/jUOj81z0A4/rnIU3b2BwErVGctv1AJOaqMS2LPJYWEdY
+ kqD6j9UdOfGZei9tUZoz+9vV/ZM3Nr1quToQ45V8vkva2XbIjh0mH4Uon8gf2DhqxyyH8h7Yyd2
+ qNL/hmR2akDURoGPHbuzN
+X-Received: by 2002:a05:6808:c232:b0:4cb:ae51:5971 with SMTP id
+ 5614622812f47-5640ddade81mr7293574b6e.32.1793638090243; 
+ Mon, 02 Nov 2026 08:48:10 -0800 (PST)
+Received: from [10.10.121.179] (wsip-64-207-253-118.tu.ok.cox.net.
+ [64.207.253.118]) by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4a92167b03csm6972479fac.2.2026.11.02.08.48.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2026 08:48:09 -0800 (PST)
+Message-ID: <74880003-29c9-4f8e-a7b8-b5ecce9d4230@gmail.com>
+Date: Mon, 2 Nov 2026 10:48:08 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PSgvCgDXnzGrXOhqyJRBDQ--.20170S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF43tF4rWF1rAr4xurWruFg_yoW5uFW8pr
- 48Xr9YkrWkJay7K347CFykXrW5Aa4qgFyxG3yDW34fuw1qyryvg34rJFZYga4DGa95uF42
- vr1DXrW7WrnIkaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jF7KxUUUUU=
-X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6QwXFmroXKwIkQAA3P
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
+ callbacks on drm_dev_enter()
+To: Gyeyoung Baek <gye976@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
+ <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+ <CAKbEznugM-HxPxHwZ7RxC2iLC0TDH0qi9649hWATiPYXF+urfw@mail.gmail.com>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <CAKbEznugM-HxPxHwZ7RxC2iLC0TDH0qi9649hWATiPYXF+urfw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,86 +97,24 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: renpanpan <renpanpan@kylinos.cn>
+Hi Gyeyoung,
 
-The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
-audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-whether the connected display advertises audio support in its EDID.
+On 10/12/26 10:43 PM, Gyeyoung Baek wrote:
+> 'lost' looks protected by reset_sem, but it's read here without the
+> lock. Shouldn't this at least be READ_ONCE()?
+Thanks for looking, you're right. Lost isn't fully covered by reset_sem 
+anyway, as pvr_mmu_flush_exec() marks the device lost without it, and 
+the watchdog worker already reads it unlocked. I'll make it a 
+READ_ONCE(), with a matching WRITE_ONCE() in pvr_device_lost() in the 
+next revision.
 
-This causes a phantom HDMI audio output to appear for displays that
-have no audio capability (no basic audio bit, no Audio Data Block in
-EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-drives the HDA codec's ELDV pin sense, making the codec report the
-jack as audio-available.
-
-The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-display_info.has_audio. Apply the same check to amdgpu's DCE
-afmt_setmode functions.
-
-Signed-off-by: renpanpan <renpanpan@kylinos.cn>
----
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
- 3 files changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index f2977fe6d824..04b18056a906 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
- 
--	/* enable audio after to setting up hw */
--	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it */
-+	if (connector->display_info.has_audio)
-+		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index c68de0fe1d7d..585b0a50279f 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
- 		dce_v6_0_audio_dp_enable(encoder, 1);
- 	}
- 
--	/* enable audio after setting up hw */
--	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it */
-+	if (connector->display_info.has_audio)
-+		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index c3906270f25e..1390efa4ea51 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
- 
--	/* enable audio after setting up hw */
--	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it */
-+	if (connector->display_info.has_audio)
-+		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
--- 
-2.43.0
-
+Thanks again,
+Ryan Brue
