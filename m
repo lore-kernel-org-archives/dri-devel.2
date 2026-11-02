@@ -2,52 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE576075280
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DD3606A5A3
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bLoGyWGd
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Rn5s9j9l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1C910E092;
-	Mon,  2 Nov 2026 16:59:08 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B4110E092
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793638741;
- bh=CL8t3c6JLDGRR3T0QVgRjVlabSJH7qyJQ3Ydz55euyg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bLoGyWGd5rx6L7H9iLz5O1gc9zmLZqtiSNZ9D4eZXoFydq10BOPzjlAdV695cDKNV
- YMtUccFIMB6MHKsja8kI2ISszG8miTcchRB3RrG/X9EVBIGEV5jxRKMvBp1uC2H2QE
- NMpSfaOQSf8UlUmk/BhITRogrby+JF7I00lia6DLMfkniAZuOLVrrwSezIhPaXqxU3
- mBEZiV8Bj3IJVn3bkT7NNzoxoBHjqtP+sC7MED3HnejtV5zE3eg5QuLxL8mNsYkKNu
- U8jJFwd+r1ihj/bzSZk39sWpK4sg2xKDkRY50TySvENmSgNNWOTk8AoryXU42JXjUG
- TlhnPGpicFtlw==
-Received: from fedora1.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9911817E0240;
- Mon, 02 Nov 2026 17:59:00 +0100 (CET)
-Date: Mon, 2 Nov 2026 17:58:56 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Akash Goel
- <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, Lukas
- Zapolskas <lukas.zapolskas@arm.com>, Florent Tomasin
- <florent.tomasin@arm.com>, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
-Message-ID: <20261102175856.39e4b36d@fedora1.home>
-In-Reply-To: <20261030144805.667158-1-liviu.dudau@arm.com>
-References: <20261030144305.666845-1-liviu.dudau@arm.com>
- <20261030144805.667158-1-liviu.dudau@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 066D910E0E2;
+	Mon,  2 Nov 2026 17:02:42 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 14FB710E691
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:02:35 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67AE416F3;
+ Mon,  2 Nov 2026 09:02:31 -0800 (PST)
+Received: from [10.57.58.9] (unknown [10.57.58.9])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 679C23F59E;
+ Mon,  2 Nov 2026 09:02:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1793638954; bh=EAEGPCUEjp9DZayF0ozcFHCgquqk3FNBZ41Ra9Fk05c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Rn5s9j9ls5bKvEVDBXCKJuqjXnnZU6XbwHCxBXXUyo00zD3F0BGCuzcwfA74GX8zR
+ bxDdTRMru51skMIObZ/cJ+dQPCVMXFZ8Qn4nLo/1g3qDrxKlYEEhVroxn+eFVMOgjD
+ ExB9/ip8YgfNgluxtu7nCRRltVHb9CgcNsI3Ylk0=
+Message-ID: <b43d7467-e6a2-42db-b6dd-bc58996e9d81@arm.com>
+Date: Mon, 2 Nov 2026 17:02:30 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+To: Liviu Dudau <liviu.dudau@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>,
+ Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Florent Tomasin <florent.tomasin@arm.com>,
+ Daniel Stone <daniels@collabora.com>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+ <20261030144805.667158-1-liviu.dudau@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261030144805.667158-1-liviu.dudau@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,23 +56,21 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 30 Oct 2026 14:48:05 +0000
-Liviu Dudau <liviu.dudau@arm.com> wrote:
-
+On 30/10/2026 14:48, Liviu Dudau wrote:
 > We now have more people that can do reviews and contribute patches
 > to Panthor, so add their names to the list.
 > 
 > Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+Acked-by: Steven Price <steven.price@arm.com>
 
 > 
 > ---
