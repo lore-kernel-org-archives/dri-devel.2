@@ -2,118 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD1F606A58B
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F34606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 18:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=L/QwZfF+
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PL+cwV2M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE69210E61D;
-	Mon,  2 Nov 2026 17:59:19 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1523D10E61D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:59:13 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c434376dbebso693434366b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 09:59:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1793642351; x=1794247151;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
- b=L/QwZfF+AwqVSBhoJvzKWd7xLTHUZwxH6K7Ng+MyiMjF23E3uHoW0gK8ilsfVg57rb
- TeMNNyy7K9mPuVII5E6ARoh5kt5N2YErdIQCBEoqIGZqJisMODyN/COWgr8ZQwDCMYQj
- nsWM5SnrqqjdXv64Fdoe9jPVG8Z2NY9FiLfhU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793642351; x=1794247151;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
- b=RfuuXloSYnfWlsLCd7S/endfJuozbrONoRFvckiCev1U8rsEJJ9xPiDY4F03rPzbmJ
- ImaqCqtxXQHU+Gn9zzafpzRVsQFG94c0zm3aliqI5y2LuzKT6AoAWoqr9sbVytXoJWRQ
- HaQX6zWdI33H3LiBlEK4bTOiAamsOtAEbB/dMW+aP47dRhkRndvkCSx1kAzbn7pocHuI
- OA6aJjScqSz9kxssWshnpFhSaLrv33xyqJxbx466iKrl0UiC4Z3JKFN9WC2bfNWYaA0y
- IHGStvLol2luLqNn+v5mHC912U4pyEbpdkClwuWnt6wrK4TU20x0w/baEX4lHuwXLRz+
- d1PQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy9/FpM7tLNtcJmOWDS+Zh29ToQndnUzCO3GzCvbeXhwnORnzio8z9n3ryIGS7vVXnVA49+BS1sVQQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJm3+2cCioVNIdoxO7EHOrRMl8cuvDH9kvMN6RcmMOh/0R9zVoM
- 32ZLxlRyupQ+uvikanmJRibhiTMCb7nIovs6qkNW9OKHtn4sOLl8PsrM9p31wqoF1u2KFZ3n71P
- ZCbfe9Yc=
-X-Gm-Gg: AYBFou2PhRvyhqou5QtNSYflTnVgRSM6WsUvDx3pynqKGFAd4zOJXkd3z8EcPeVww3W
- OZgi2IdcLo3MjnhAN/gpV4NzbEXLG4IKTQTvauP0XXUWBjKM2GD7/MQ7WKIa+WCKv5np5cu3C9g
- q+srJX4fsLBvI8tHQBFrlx8SO0lJ5ebmf/LDGJQPqtLhNTdkIIxqnGyUkmA3GY+9NJ7qEFH6JUY
- SegpeQvwkHgAL0JGO9bSMYNCEsCaevFORwPXW1A4c40HC5rq/nheAN75Q+0h08EV3Nyix6fEhPB
- ZUm0y0xogOby4lsHh9Fm28YhSoJySIdaH6FGFwJHcxsxPO8Yk1OYm3+TNXuQ49XWRX5sbK5X2xO
- vcJgJTWq5xVBbU/UOwtMazHofTOLGqwWa2NN/3rlEZWzOWwO7Gb8c+8cDfmC93nDAQ0CKKV6+RR
- iIRRauZQ/Qyu3YgRNIj3OYfRwCgDuko/RlGRfhtOgtzIhOQCYXPehbqtIypfjBJYl0JUgvWC+Ai
- 4PBcXOhLYaqc7VxtQKCsg8g+BBw1D8Y1jmjCtPCzThhzhoM7h4AY3Skn2gywvHhKK/KrOG8TXHK
- pw/Y11cg62OsER4r9ri8OHvDwptZRC5DVpyWEBo2WFamAcyG5XmM0UEKBdldGE8CXtgtER69b18
- 73RjDjk6C0O4yOZiHwn8LfvA=
-X-Received: by 2002:a17:907:d308:b0:c2e:2275:1168 with SMTP id
- a640c23a62f3a-c49d13b7f8amr1166861166b.19.1793642351326; 
- Mon, 02 Nov 2026 09:59:11 -0800 (PST)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com.
- [209.85.208.53]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cebefdee4sm12370866b.38.2026.11.02.09.59.08
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 09:59:09 -0800 (PST)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-6b1aa27963eso7716050a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 09:59:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AKwUvBy7JF9UZXDkGmth6SneC/5iPGQc2f6lRvXOIna5onY5FBSA7Zou8jOmb5ZI5oyTZnU2E4vEbq32SFs=@lists.freedesktop.org
-X-Received: by 2002:a17:907:d94:b0:c2d:c80e:8366 with SMTP id
- a640c23a62f3a-c4ca7426f6emr874452266b.0.1793642348398; Mon, 02 Nov 2026
- 09:59:08 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 2 Nov 2026 09:58:51 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-X-Gm-Features: AclHuK_qZTBVsLQIdymgRHScSFenC6XsGggUDmcuOugjrSTbuVkeASUmC_hYPZo
-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of config
- space accesses
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
- Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, 
- Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
- platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
- kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
- linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
- jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
- linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
- Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
- linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2001B10F0C4;
+	Mon,  2 Nov 2026 18:00:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C973810F0A5;
+ Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8209F411BA;
+ Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA731F00A16;
+ Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793642430;
+ bh=xfQXiR0waxNaVgKjR2iU+kFlkn7FoWk8VuMm344wi/g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PL+cwV2MxNmCokocZk8VeKqEYcDzYO3Rn1udgStGWcnmT8rArEneCRwOW8mfKEswv
+ Nr1T+PrHET1byOf3dU+acZt1OUTmwhN+It3kSuUlvoI0vI56CbJEWZN4WwDDRQ5pBV
+ KRI4vJzl1zPuhP7+JyoXuKnzhcotn2wzlQXhVavBXWOpdr3NIBFszAXI423jm3auHs
+ //GSSwkJnV3/4/vJxDFrP4KoBGO954aP/kq0dlpkiFRyJs/3zaS2UFKD/otdnZa6UK
+ GoiccULpRgCxKp0vMTCJqAOyj6RX/3seqUeMlB/Hh7jb1chkXY8usV/RjXX3k8GDBy
+ uLAEGZSSy1o6g==
+Message-ID: <sashiko-outbox-193892@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 05/15] drm/amd/display: update KUnit luminance fixtures
+To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261102-superm1-backlight-property-v10-5-b2a6f24131f5@kernel.org>
+References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-5-b2a6f24131f5@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 18:00:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,31 +49,164 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, 2 Nov 2026 at 06:22, Christian Brauner <brauner@kernel.org> wrote:
->
-> proc_bus_pci_write() truncates the file position to an int. A pwrite()
-> at an offset like 0xfffff000 turns it negative [..]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] drm/amd/display: wrong connector_type IDA freed in setup_test_co=
+nnector() user
+- [Medium] drm/amd/display: link failure in backlight KUnit test when DRM_L=
+UMINANCE=3Dy
+--
 
-I think this would actually be better with rw_verify_area() just
-checking a per-file maxbytes.
+commit 66d823079de9e4318719fbb2464a13997a1ae155
+Author: Mario Limonciello (AMD) <superm1@kernel.org>
 
-We already have that logic for lseek and friends - using that fairly
-hacky combination of s_maxbytes and !unsigned_offsets().
+drm/amd/display: update KUnit luminance fixtures
 
-We should combine s_maxbytes and unsigned_offsets() at file open time
-into f_maxbytes and check that not just at lseek but in
-rw_verify_area.
+This commit updates the backlight KUnit test fixtures to initialize DRM mode
+configuration, connector state, and the display manager lock so tests work
+when the atomic LUMINANCE property is enabled.
 
-And then things like proc_bus_pci could set it's size limit in one single place.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
+ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c
+> index b21850788f36f..8883010e8af9c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> @@ -41,12 +41,21 @@ static void setup_test_connector(struct kunit *test,
+>  				 struct dm_backlight_connector_fixture *fixture,
+>  				 int bl_idx, enum signal_type signal)
+>  {
+> -	fixture->adev =3D kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNE=
+L);
+> -	fixture->aconnector =3D kunit_kzalloc(test, sizeof(*fixture->aconnector=
+), GFP_KERNEL);
+> +	int ret;
+> +
+> +	fixture->adev =3D dm_kunit_alloc_adev(test);
+> +	ret =3D drmm_mode_config_init(&fixture->adev->ddev);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	fixture->aconnector =3D dm_kunit_alloc_connector(test, fixture->adev, N=
+ULL);
+>  	fixture->link =3D kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNE=
+L);
+> -	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->adev);
+> -	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
+>  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
+> +	ret =3D drmm_connector_init(&fixture->adev->ddev,
+> +				  &fixture->aconnector->base,
+> +				  &dm_backlight_test_connector_funcs,
+> +				  DRM_MODE_CONNECTOR_eDP, NULL);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +	drm_atomic_helper_connector_reset(&fixture->aconnector->base);
 
-Hmm?
+[Severity: Medium]
+Does hardcoding DRM_MODE_CONNECTOR_eDP in setup_test_connector() corrupt or
+leak the connector_type_id IDA when dm_test_should_create_sysfs_non_edp() r=
+uns?
 
-                   Linus
+drmm_connector_init() -> drm_connector_init_and_add() ->
+drm_connector_init_only() allocates connector->connector_type_id from
+drm_connector_enum_list[DRM_MODE_CONNECTOR_eDP].ida and registers
+drm_connector_cleanup_action() for managed teardown.
+
+However, dm_test_should_create_sysfs_non_edp() mutates connector_type after
+calling setup_test_connector():
+
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c:dm_t=
+est_should_create_sysfs_non_edp() {
+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_HDMI_TYPE_A);
+	fixture.aconnector->base.connector_type =3D DRM_MODE_CONNECTOR_HDMIA;
+	...
+}
+
+When the test finishes and drm_connector_cleanup() runs:
+
+drivers/gpu/drm/drm_connector.c:drm_connector_cleanup() {
+	...
+	ida_free(&drm_connector_enum_list[connector->connector_type].ida,
+		 connector->connector_type_id);
+	...
+}
+
+it frees connector_type_id back to the DRM_MODE_CONNECTOR_HDMIA IDA instead=
+ of
+DRM_MODE_CONNECTOR_eDP, triggering a warning in ida_free() (or freeing an
+active HDMI-A ID) while leaking the eDP connector_type_id.
+
+> @@ -483,12 +492,17 @@ static void dm_test_register_backlight_device_succe=
+ss(struct kunit *test)
+>  	struct dc_link *link =3D dm_kunit_alloc_link(test);
+>  	struct drm_minor *primary;
+>  	unsigned int max;
+> +	int ret;
+> +
+> +	ret =3D drmm_mode_config_init(&adev->ddev);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> =20
+>  	setup_test_link_service(test, link);
+>  	link->dc->link_srv->edp_get_backlight_level =3D dm_test_get_backlight_l=
+evel_error;
+>  	primary =3D kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, primary);
+>  	adev->ddev.primary =3D primary;
+> +	adev->dm.ddev =3D &adev->ddev;
+>  	adev->dm.backlight_link[0] =3D link;
+
+[Severity: Medium]
+Can this test suite link when CONFIG_DRM_LUMINANCE=3Dy and
+CONFIG_BACKLIGHT_CLASS_DEVICE is disabled?
+
+With commit de26f6665aed ("drm/amd: add luminance property support"),
+DRM_AMDGPU in drivers/gpu/drm/amd/amdgpu/Kconfig only selects
+BACKLIGHT_CLASS_DEVICE when !DRM_LUMINANCE:
+
+	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+
+Neither DRM_AMD_DC_KUNIT_TEST in drivers/gpu/drm/amd/display/Kconfig nor
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig enables
+CONFIG_BACKLIGHT_CLASS_DEVICE.
+
+However, dm_test_register_backlight_device_success() and
+dm_test_unregister_backlight_device() in amdgpu_dm_backlight_test.c, as well
+as amdgpu_dm_register_backlight_device() in amdgpu_dm_backlight.c, still
+unconditionally call backlight_device_register() and
+backlight_device_unregister():
+
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c:dm_t=
+est_unregister_backlight_device() {
+	backlight_device_unregister(data);
+}
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:amdgpu_dm_regis=
+ter_backlight_device() {
+	...
+	dm->backlight_dev[aconnector->bl_idx] =3D
+		backlight_device_register(bl_name, aconnector->base.kdev, dm,
+					  &amdgpu_dm_backlight_ops, &props);
+	...
+}
+
+Because include/linux/backlight.h does not provide inline stubs for
+backlight_device_register() or backlight_device_unregister() when
+CONFIG_BACKLIGHT_CLASS_DEVICE is disabled, won't building the KUnit tests (=
+or
+amdgpu) with CONFIG_DRM_LUMINANCE=3Dy and CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn=
+ fail
+at link time with undefined references to those symbols?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D5
