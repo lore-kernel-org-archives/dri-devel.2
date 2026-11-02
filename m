@@ -2,81 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1341B606A330
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884E660A6F6D
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:40:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nbEDE1Tm
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QSrMxbh8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E759B10E623;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 876ED10EE73;
 	Mon,  2 Nov 2026 13:40:53 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC03710EE55
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:40:46 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a2069b9710so25672985e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:40:46 -0800 (PST)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF4F10EE53
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:40:45 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a3517554f7so23106265e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:40:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793626845; x=1794231645; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1793626844; x=1794231644; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
- b=nbEDE1Tmlv56NYLaQrWamrWQORhYdlbSXFJjNBM0VUysZbqw0+25ntezSTI+86JOtk
- J5nY9rtYWLSjMLjw0cbMGrL1rHb4ehHLQZJRKjMT988ZiUso72a8HSYJkWawdCWdIpCp
- oh5q4D7N86C0XnEl0077HORqEvGpjdqIxk3jpFqXQtEnIyJd5rWwrEMzle5Nf477tdu2
- G7JhuR9CqvOUHULc5P/LC0ZrolyPzlrIGE2uwn2HtW7Y6D98ZPpiM4lXwS/lBFDGn16Y
- xTwFdV0vbqwG3IEYeq+03bUYzhCIxN4xh+cu6bgq/YVq/FIeXMVtAtIwW2uYjjDpv2Zp
- fjDw==
+ bh=64ks28F3gpyY9hLkkjB/gzIZc4tlOYmHUcdUS0mZjiQ=;
+ b=QSrMxbh8dWYKdwldDGjy//xpG6Bc2A4EH883x17AbFbTXUo8kmxCoCxj4QMpzK4YuJ
+ ezdbBOi17dhFZh8ajX9PLWoxT6JGaYHjkGeC/z5eOjYmfO+ZHlCwMrcbqXcESnFAIyXC
+ Vx9I9OEsq84Pti5w20FPwPh+oAen9fz0H5DsF+hPb3ZtCYPi52vv2SbUwiSft501VELb
+ V1Lfca4g4tQP7hEy+o77TkuXP82d31f2OkKKytofcMCD5zASNbQtD/02oLuhvxaJrwQE
+ jBwI+av/Vp54lOC6kzl54/NIfyqs4upoEbZ3FUQqi3bCLmHq+L0frVJkA6ENt+ipEBkj
+ XjJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793626845; x=1794231645;
+ d=1e100.net; s=20260707; t=1793626844; x=1794231644;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
- b=N1PrctsWYV+t2GGTXd1+X6VVCIHI8kxNtA0vCFedSgQOa2U/N/bBJMakivIs6KF0u6
- vYCqDiF8/wFLX9hBi698TxbxjRt34OJF8lWdDTktX4ktAjngesoVsa5L48BYHfg5nyUE
- XA5whYIBhDqE61PuH5pWhVWYJcQ64egD5ZbpnmXwVqxlOiJ2eirzyaAAZJsV7BQ4ck94
- OXZDKAyKEArCDbIX6biObCeAzACPWfT3gHP0OsWbiLlE6BYaOCFR6BhDkaZe6kR6qpM2
- 2OYG58OKzQr7qoPIOc8mXpZDWHxbxcXkpEvfFYbDK4oD5TakWnnu92PYSbgMd4I6IfbT
- 8ayQ==
-X-Gm-Message-State: AFq9FYL/WqMnygm/K6fuc9rpOWzP9LzLiOnLohZ/ayXU1fHkb4b7cW5N
- CuuJOMxCPw8qyMg0PBkrh5V07Go1PS4J0mEG40nXjfd9WeHdZz6x2vg2UAPU2mwV015NOQKSjyf
- /MGGq
-X-Gm-Gg: AYBFou0RG11mjfBIHvIcvy6MC3u34SrQHKOX1X3A7T1YAiyiukSx0FYqiSeO8QI0aIW
- BedLfHttH1pzKFoKVh8xSVowQPJpD/b9KvIIQ2iwgiu3iaAa9iCojmhbYmkASe1cTRF5Ss/QSaJ
- ewdVwaz803C03hSXuNvd499oxvchO5bVSeFhokbVnOK2o2npTRkYmWxKlVLz0J4ZkbzuG41N9gr
- xsqWKRC4TG7Re4bTYj+ogFeA6F6Edm5W4UmGJ+2Se/ZyZrjFsFu48xzABNgJMdmDvyUnfgeIkuh
- jKkSNO5bz/UTc5XVRDaIM4VJTSFXAwKt+J1XCDU2YynBqpNJaiR3ALGHALdh8uw++ZOLdyuJUHb
- BTXN+drAlcX6PNVsIiZUjj3s/Esz7ggFBOYNHkuB9VrlgPbWhPhlSwWe3Ts2KP/V7Xlmg7eDAeL
- 3T4jXVI8gwIyUGGFSuouGexuSI/sTZn2uBxFq/EuSa2LP5H0apmEBlqWRhyXHG/MedOb9vMTttr
- MwFFHExb0oSaHA9A2nrQAa4OiaU/3yl44sOPlsOO+oknTUfVyw4I48RX6v7ulFl8WPgfg4MiaT/
- f5geMAWwuJY0I+dm/xZVnw0w0qBcKHWoP9pTmasqmsinh3GdYTyj4qO78iBI+3k6Iq+bSno=
-X-Received: by 2002:a05:600c:4f82:b0:4a1:d8fc:8165 with SMTP id
- 5b1f17b1804b1-4ac1889c857mr215222075e9.20.1793626845007; 
- Mon, 02 Nov 2026 05:40:45 -0800 (PST)
+ bh=64ks28F3gpyY9hLkkjB/gzIZc4tlOYmHUcdUS0mZjiQ=;
+ b=QhyLdSHEl8uh/pix07nmGvdKeq8IRFRK14V1zGCgYQPEOPRJIW+L5vVQWojW1H750C
+ n7CUIxr7kDHdZ2vu9+e0pVrfzslW65uWJA1EUkhaTe3TeWDZ5ub8VqGwR+9Dkrmv2sJ0
+ dWAtSVFk4W8Tq/a0CG9/wdVJWt31B/9j/AsY8wKza4YMQMTDBcIkQpTS6oguStxWM6d6
+ O68YWDFBYmSTY547/J6KeKtoBQlAoyKo/eGfyjHADfMzWIRQdllZsElzogp0heMsejgo
+ mmFm0rdNb6//WpULh+U2aABqMdhwxwNNAfAgVjWinsJ9/NwBlmMZywKD/dIliu/kkFwA
+ wOwg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxMGhRatNKnMMbkk/4XKUxxiKXEIuLBm6VPbJ2xxKMrZEb5FblsI/zGbtX20f2aPozEBjjNb5uB9ao=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJvogkYagoTCZkwMmw6c1+8Ve1hnzn26Tp9D+AH08YsqpocMhI4
+ THX4DBHbqCYU3TMsXV/oqIhr/Urs/dm/A+66Ty0mESnnnt7JC1QPzJxA9MDmA+byN2s=
+X-Gm-Gg: AYBFou29t/kzU2U/b4W8DOfoO45gZHrhcDUOiSz8Pt/BnhMzjQoHNHjv2HsRZ8sDxgE
+ uY5T9yAedrbojevuVE4w9JHe0jMoWSn1pucUegakz1EIoCNKmNMenF/78ugCrldqJqxw7XkCI4L
+ X/W/06EB02lnsrmMzqDpEpMc4wFbL/o6iBp0k6EL3ZuKiXmZEpq6BTehvjw5+9oehaCtWQucImf
+ +PqReNUHuafNvL9L/BK68knxScbWs+BDksZLL9JNLxTNasV2LHy8yRTwNrNCUiPi4HRRy+ySFTp
+ AsL9dyAr7zBC02gPb3mUJKzmShPEhwql/Czu8KuHUsDwy8au3ebg89WEUf3hPhfI77g+AFVBqBu
+ zfbWb6vTnE9UsC/BHd3aljFK9wa4G5gdSrkuVamcn08P65aphShpUshjWOklutsIzhBRjwtXVj/
+ 6Z+HS8iUoZssx4iqSGLtnkRZzxw/WafVR7zXoKPby9HQHp6A3zP6sH8xVW+ubjZy2ZNaC4nd/1T
+ OkfNr+yaaynLMs1puQfYf04vNjBR14cvIaHzqvHKRXESO0fEOZEOT8YUzMnkoOZRbQp1LYTW7xP
+ NnXcxmppp6b0WBjtcnVX4Kv4dUysu9t7ducAreMvUhrVOfauWg==
+X-Received: by 2002:a05:600c:6214:b0:4a2:9cda:57cb with SMTP id
+ 5b1f17b1804b1-4ac151a9077mr246967155e9.1.1793626843602; 
+ Mon, 02 Nov 2026 05:40:43 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.43
+ 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 05:40:44 -0800 (PST)
+ Mon, 02 Nov 2026 05:40:43 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
+ Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-Subject: Re: (subset) [PATCH v2 0/2] drm/panel: Add Samsung AMS644VK04
- panel
-Message-Id: <179362684370.3310106.4332858082729247133.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:43 +0100
+In-Reply-To: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/5] arm64: dts: qcom: support SDM845 HDK
+Message-Id: <179362684245.3310106.2514816704767701626.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:42 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -102,23 +107,23 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi,
 
-On Mon, 26 Oct 2026 22:09:31 +0530, Ishu Brar wrote:
-> Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
-> 1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
-> OnePlus Nord (SM7250).
-> 
-> The driver describes only the 90 Hz mode for now; the panel also does
-> 60 Hz, which needs a way to pick the mode from the display pipeline that
-> I did not want to invent here.
+On Mon, 19 Oct 2026 12:18:02 +0300, Dmitry Baryshkov wrote:
+> Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
+> for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
+> version of the chip (SDA845) and provides a rich set of the peripherals
+> and connectors. The DSI panel is an optional addon, so it is being split
+> to a separate overlay. To (hopefully) ease merging, the overlay is split
+> to a separate patch as it depends on the panel. The base DT doesn't have
+> external dependencies.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/362fc4c73d39eff00ff1232275631a5b05474a52
-[2/2] drm/panel: Add Samsung AMS644VK04 panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a72e7d5b3d038915e05a1c459b513e40f7e06ec2
+[1/5] dt-bindings: display: panel: add Truly NT36850 WQHD panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/79e6e49d681714aec69bdc24a4d1cb592aea4adf
+[2/5] drm/panel: add Novatek NT36850 panel driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/cf022beccbd43c27b1e9a4b03ace28bd39504d7d
 
 -- 
 Neil
