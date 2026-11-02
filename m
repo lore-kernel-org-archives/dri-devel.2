@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA52606A91D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDC4606B1DA
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:23:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l/9K700W
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHRMzqf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4393B10EF03;
-	Mon,  2 Nov 2026 14:22:51 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2278F10EF07
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 639E010EF07;
+	Mon,  2 Nov 2026 14:23:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB4B10EF07
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:23:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 08FF1401FF;
+ by tor.source.kernel.org (Postfix) with ESMTP id 09D3C602C4;
+ Mon,  2 Nov 2026 14:22:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AA61F00A17;
  Mon,  2 Nov 2026 14:22:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC5661F00A18;
- Mon,  2 Nov 2026 14:22:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793629364;
- bh=bDYBcNUn+VWuCpTwTZF6KvGO9475Dcj2RU9o+tvUNt0=;
+ s=k20260515; t=1793629378;
+ bh=WXeWRtHDTvlcvQqGcGXKpHSOkC75TIYAS6cttW7V/+A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=l/9K700WtETbZbiehxECDLdPCEeiiVRA3kxFDmgS/2nKE79+mMwEbcSj3UAdFTEXx
- 6DvGrmpdgDVXnGX30oyGp8h1wecxAk4jKzxRW9aGPBdJy0OisIoFIZFTfdpRhDfBXZ
- KAYYL329Lr/1W5cMHSII0yRN2tcUg68lTIkupTY2K2vtTItr3nAhe86PuUrEx8QrzH
- ZRKhA68sEbKxiE5OFQB7qDtLFMKmYizYX4WKQpNV8RKMwbhLf5julp7cLNgPDZarPP
- /qEweKu2GyB/uW3f9G490N5UiUnYW1jY6yf/ITOz6Ini0L9UMQPzrnkmfsWQJTfyzK
- rW/DJSvgmGkgg==
+ b=kvHRMzqfiFxfaykdXJncqNCKytFOYdWEA6z2XKwrpx1cXAUWC/1f6IelPxZz69lt3
+ bZzGsPY7tAF+nhMSErY6rPc/3QL/4TA7hlVU8tM89mYfPX9Z6KS6p4IW1PsDrhG0OQ
+ bkcIKIyEY1GGRPu5UaBXvghHdY/CIfOPJbzAJZHTg7fVeaIOTOcs6v9yzyjdbAXIjO
+ eLo1eYZ4IN84HHP6CrAMeFl9oPgWiHXBV4hrBwe2eZenA/caTo8Hx2CSrazCqEHP19
+ DS3uVg+WucdQObp90U98MCzPe1bAhdyoN7eZZYLpOUglkgctnTto/e3gh/m1uyI5m1
+ KND/LIH3rUy8Q==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:21:19 +0100
-Subject: [PATCH RFC 04/38] s390/dasd: don't look in front of the buffer on
- an empty write
+Date: Mon, 02 Nov 2026 15:21:20 +0100
+Subject: [PATCH RFC 05/38] platform/x86: toshiba_acpi: reject malformed
+ brightness and fan writes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-4-59422ed3e465@kernel.org>
+Message-Id: <20261102-work-procfs-bugfixes-v1-5-59422ed3e465@kernel.org>
 References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -71,12 +71,12 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=952; i=brauner@kernel.org;
- h=from:subject:message-id; bh=vNxDJDpmoyfXJahneUuQ9vEH9eL70g/8w71rNTJgUxc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJM1jeXQ3NW7/xZeaxDpdlGIUkjat+D7tG9pahOcr
- AOsJk6611HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAnCRCYwMn44HG9tefO3daCl/
- zObZjudV2/8stZoz4eUdbl4NjbdfLRkZLu1okv36OdkxUVB7scSNP4VzvOQn7V+ZlPZqvbKOm44
- /IwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1850; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dBPyRrfA4AE5uU+SDwP01KQAXBYhly7L9ZsRpXHhzrM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJP1X33fLpsJXpWBaifTEsT2SLto6RSE/d33f+fli
+ mfvjj3d3lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRafMYGSYH7L886UKoRuDq
+ G9c+FRp4acs2loQbL5Kbz/ZCoj25bhYjw/4HhzpE/VP23N4kdd2x9P4SBZmAjRbxpyfu2bkqlD9
+ 1GTMA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,30 +98,49 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dasd_get_user_string() strips a trailing newline by looking at the last
-byte that was written. For an empty write that's the byte in front of
-the buffer it just allocated. Only look if something was written.
+When lcd_proc_write() and fan_proc_write() were refactored their checks
+were inverted but the && stayed. They only fail if sscanf() didn't
+parse anything and the value is out of range at the same time, and for
+the brightness value < 0 && value > levels can't be true at all. So an
+out of range brightness or fan setting is passed on to the hardware,
+and so is the uninitialized value if nothing could be parsed.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Restore the checks as they were before the refactoring.
+
+Fixes: e1a949c1b988 ("toshiba_acpi: Refactor *{get, set} functions return value")
+Fixes: 3e07e5baa2af ("toshiba_acpi: Add set_fan_status function")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/s390/block/dasd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/toshiba_acpi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index 2ffe404b890f..e97891e58957 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -933,7 +933,7 @@ char *dasd_get_user_string(const char __user *user_buf, size_t user_len)
- 		return ERR_PTR(-EFAULT);
- 	}
- 	/* got the string, now strip linefeed. */
--	if (buffer[user_len - 1] == '\n')
-+	if (user_len && buffer[user_len - 1] == '\n')
- 		buffer[user_len - 1] = 0;
- 	else
- 		buffer[user_len] = 0;
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index a0b8060836d0..9eb8f1e5aeda 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -1498,8 +1498,8 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
+ 	cmd[len] = '\0';
+ 
+ 	levels = dev->backlight_dev->props.max_brightness + 1;
+-	if (sscanf(cmd, " brightness : %i", &value) != 1 &&
+-	    value < 0 && value > levels)
++	if (sscanf(cmd, " brightness : %i", &value) != 1 ||
++	    value < 0 || value >= levels)
+ 		return -EINVAL;
+ 
+ 	if (set_lcd_brightness(dev, value))
+@@ -1678,8 +1678,8 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
+ 		return -EFAULT;
+ 	cmd[len] = '\0';
+ 
+-	if (sscanf(cmd, " force_on : %i", &value) != 1 &&
+-	    value != 0 && value != 1)
++	if (sscanf(cmd, " force_on : %i", &value) != 1 ||
++	    value < 0 || value > 1)
+ 		return -EINVAL;
+ 
+ 	if (set_fan_status(dev, value))
 
 -- 
 2.53.0
