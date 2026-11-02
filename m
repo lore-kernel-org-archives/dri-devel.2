@@ -2,41 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A0D606A327
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:13:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0CD606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:14:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeAYts55
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O/Fpk8mT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20D110E5DA;
-	Mon,  2 Nov 2026 10:13:38 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1217410E5DA
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:13:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 20A496021C;
- Mon,  2 Nov 2026 10:13:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD41E1F000C1;
- Mon,  2 Nov 2026 10:13:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793614410;
- bh=r5FVjd2UCRZ+bMx1EcIopu42uN4coVp+E4jVAWmDKCQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JeAYts559I0Qjaadi9mANJKUOBzbI85EiTPnuu8gK1KEHpj1+nz/F+QRM3EpTEUsN
- VGjc1DIZ3YsWN4Y/hwxdlltkr6tF+U3tw+ojvX2Tqd6uMiP8nzSgXsAIEC25mP8fgi
- /45nGYRoxi2oWt7/Uft71ELDtLVB9nw9544J843Kfy82A1k10Z2DzVk9ORPBq3bbaL
- ey//ICUTUnWq0JJq65e4NLfluDngM1oa8nEZ+XmfrWeJ+OHgu0QjAO1w8BBHEUPZ+U
- O4ni2KOnAfWNAD3uEKCWyIIYMBhZbc29hnqWCo4G21z0/hIbGPnEI1CRKO2r4BegMn
- 4QNrsItvRWqHw==
-Message-ID: <sashiko-outbox-193243@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
-To: rppxj178543@163.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261102094929.251563-1-rppxj178543@163.com>
-References: <20261102094929.251563-1-rppxj178543@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 10:13:29 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28DE110EC6C;
+	Mon,  2 Nov 2026 10:14:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD6D10E5B9;
+ Mon,  2 Nov 2026 10:13:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793614434; x=1825150434;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=3EJA6kuE28YnkY8VGAZQ07YFXJoIIx/ZTqybHIWFDD4=;
+ b=O/Fpk8mTOwdNWcO54Y2KitEyDNSM0CiMWR43PMYNbQcLzBfXbUe2Qk2S
+ XfLBXlej9hyhEnAUnC8ZFHZbR8BHlqO1mOkpeSzOvfRGIQ9r0XGvpdRTW
+ 4Ngf8BT2uyGlA+5vEMOOQ3hz2zzy4S6gHS38Yg2fwqmycPiRHcS7CxmbX
+ WaXaYRPs9nnFc2QlsOFs8vKKFzg2LaS/33m/H+xLbqioowpTrZN+QAx34
+ H4ocTbWc79w4/76J6Qpbjt1zYo+vwhLBhI8o09piwDgcQvpXyn3cRYK2K
+ QYLunbZTKOYwU26P/ZRSdjIr0Txq3WQIvQXFvJltS4VnzBIgvFGAFn2CH w==;
+X-CSE-ConnectionGUID: ksNDgeuZTRSjFB4HdINy7g==
+X-CSE-MsgGUID: V0JSd+VQR7egQJdjT8UPhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2200778"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2200778"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 02:13:53 -0800
+X-CSE-ConnectionGUID: lh6KbS9SSR2FZhfpcFe5Ww==
+X-CSE-MsgGUID: KICT9/gfTw6IjRPqWm3z5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6002750"
+Received: from hghimira.iind.intel.com ([10.190.239.34])
+ by orviesa004.jf.intel.com with ESMTP; 02 Nov 2026 02:13:51 -0800
+From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Subject: [RFC 0/7] drm/ttm, drm/xe: Per-BO host NUMA node placement
+Date: Mon,  2 Nov 2026 15:48:04 +0530
+Message-ID: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,176 +65,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] drm/amdgpu: shared audio pin disabled in dce_v*_0_afmt_setmode()
-- [Medium] drm/amdgpu: audio packets still enabled when !has_audio in afmt_=
-setmode()
-- [Medium] drm/amdgpu: dce_v*_0_afmt_setmode() ignores AMDGPU_AUDIO_ENABLE =
-override
---
+The backing pages of an Xe system memory BO are allocated on the device
+local node (dev_to_node()), or on the allocating CPU's node when the
+device has none. That is fine when CPU and GPU access a buffer from the
+same place, but not in general:
 
-commit f7468a5a289e3e4a150c1f54f3a6dce9ca20fa57
-Author: renpanpan <renpanpan@kylinos.cn>
+- On multi-socket systems, and where the GPU's PCIe/CXL link attaches
+  to a different node than the threads using a buffer, the cost of
+  accessing a BO depends on which node backs its pages. The device
+  local node is not always the best choice.
+- A runtime often knows where a BO should live: the node of the CPU
+  threads producing or consuming it, the node closest to the link the
+  GPU uses, or a node chosen to balance memory bandwidth. Today it has
+  no way to express that for driver allocated system memory.
+- mbind()/set_mempolicy() do not help: BO pages are allocated by the
+  driver, not through the task's fault path, and BO CPU mappings are
+  VM_PFNMAP.
 
-drm/amdgpu: Only enable HDMI audio if display supports it
+This series lets userspace select the host NUMA node per BO at
+creation time.
 
-This commit gates the call to dce_v6_0_audio_enable(),
-dce_v8_0_audio_enable(), and dce_v10_0_audio_enable() at the end of each
-afmt_setmode() callback on connector->display_info.has_audio so that
-displays without EDID audio support do not appear as active HDMI audio
-outputs.
+UAPI:
+- New DRM_XE_GEM_CREATE_SET_PROPERTY_NUMA_NODE property on the existing
+  GEM_CREATE set-property extension.
+- The node is a preference (best effort, like MPOL_PREFERRED); the
+  allocation falls back to other nodes under memory pressure.
+- A negative value, or not setting the property, keeps the current
+  default placement.
+- Invalid or offline nodes, and BOs that can't be placed in system
+  memory, are rejected with -EINVAL.
+- The placement is preserved across shrinker backup / restore.
+- A richer placement policy can be added later as a separate extension
+  without changing this one.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v10_0.c
-> index 7de7adc8f225c..05d7da888f492 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encod=
-er *encoder,
->  	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
->  	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
-> =20
-> -	/* enable audio after to setting up hw */
-> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (connector->display_info.has_audio)
-> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
->  }
-> =20
->  static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enab=
-le)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 3c1d6901127d1..f0722bdaeab61 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encode=
-r *encoder,
->  		dce_v6_0_audio_dp_enable(encoder, 1);
->  	}
-> =20
-> -	/* enable audio after setting up hw */
-> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (connector->display_info.has_audio)
-> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
->  }
-> =20
->  static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enabl=
-e)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index a17944d5e8434..3f5247314edee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encode=
-r *encoder,
->  	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
->  	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
-> =20
-> -	/* enable audio after setting up hw */
-> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it */
-> +	if (connector->display_info.has_audio)
-> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
->  }
+Why a node aware TTM allocation API rather than one ttm_pool per node
+in the driver:
 
-[Severity: Medium]
-Can this disable audio on another active monitor in a multi-display setup?
+The NUMA node is a property of each allocation, not of the pool. TTM
+already tracks pages per node (per-node LRUs in the pool caches,
+per-node shrinker, per-node cache limits) and __ttm_pool_alloc()
+already takes a node internally. ttm_pool_alloc_node() and
+ttm_tt_restore_node() only let a caller pass that node in, following
+the alloc_pages_node() / kmalloc_node() pattern, with no new state.
 
-Unlike radeon's dce6_audio_get_pin(), which tracks which pins are already
-in use by other encoders and only allocates a pin when the display supports
-audio, dce_v6_0_audio_get_pin(), dce_v8_0_audio_get_pin(), and
-dce_v10_0_audio_get_pin() always return the first connected pin in
-adev->mode_info.audio.pin[].
+One pool per node in the driver would work for Xe today, but:
+- TTM core helpers (ttm_tt_restore(), ttm_tt_backup(), pool debugfs)
+  all use the device pool. The driver would have to bypass them for
+  populate, restore, backup and free, and re-check that whenever TTM
+  adds or changes a helper. The restore issue fixed in this series is
+  an example: the placement was silently lost after backup.
+- It relies on non dma_alloc pools having no per-pool state. For
+  dma_alloc pools, N pools mean N separate page caches that can't
+  share pages.
+- Every TTM driver that wants per-BO placement would have to duplicate
+  the same per-node pool handling.
 
-At the start of dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
-dce_v10_0_afmt_setmode(), the code unconditionally grabs that pin and
-disables it:
+The existing ttm_pool_alloc() and ttm_tt_restore() become wrappers
+passing NUMA_NO_NODE, so current users are unaffected.
 
-	dig->afmt->pin =3D dce_v10_0_audio_get_pin(adev);
-	dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+Himal Prasad Ghimiray (7):
+  drm/ttm/pool: Add ttm_pool_alloc_node() for caller-selected NUMA node
+  drm/ttm: Add NUMA node aware restore helpers
+  drm/ttm/pool: enforce per-node cache limits on free
+  drm/xe/bo: Plumb a per-BO host NUMA node hint into tt populate
+  drm/xe/bo: Preserve the host NUMA node across backup / restore
+  drm/xe/uapi: Add GEM_CREATE NUMA node placement property
+  drm/xe/uapi: Wire up GEM_CREATE NUMA node placement handler
 
-If one encoder is driving a display with audio enabled and a second encoder
-then runs afmt_setmode() for a display where
-connector->display_info.has_audio is false (including non-audio DP/eDP
-displays on DCE6, where dce_v6_0_encoder_mode_set() calls
-dce_v6_0_afmt_setmode() for both HDMI and DP), the second encoder will grab
-the same shared pin, disable it at entry, overwrite its endpoint registers,
-and skip re-enabling it at the end of the function.
+ drivers/gpu/drm/ttm/ttm_pool.c          | 104 +++++++++++++++++++---
+ drivers/gpu/drm/ttm/ttm_pool_internal.h |   4 +
+ drivers/gpu/drm/ttm/ttm_tt.c            |  20 ++++-
+ drivers/gpu/drm/xe/tests/xe_bo.c        |  12 +--
+ drivers/gpu/drm/xe/tests/xe_dma_buf.c   |   4 +-
+ drivers/gpu/drm/xe/tests/xe_migrate.c   |   8 +-
+ drivers/gpu/drm/xe/xe_bo.c              | 109 +++++++++++++++++++-----
+ drivers/gpu/drm/xe/xe_bo.h              |   5 +-
+ drivers/gpu/drm/xe/xe_bo_types.h        |   7 ++
+ drivers/gpu/drm/xe/xe_dma_buf.c         |   3 +-
+ include/drm/ttm/ttm_pool.h              |   2 +
+ include/drm/ttm/ttm_tt.h                |   2 +
+ include/uapi/drm/xe_drm.h               |   7 ++
+ 13 files changed, 238 insertions(+), 49 deletions(-)
 
-In addition, because dig->afmt->pin remains non-NULL on the non-audio
-encoder, later disabling that encoder via dce_v6_0_afmt_enable(),
-dce_v8_0_afmt_enable(), or dce_v10_0_afmt_enable() with enable =3D=3D false=
- will
-also call audio_enable(adev, dig->afmt->pin, false) on the shared pin.
+-- 
+2.43.0
 
-[Severity: Medium]
-When connector->display_info.has_audio is false, should
-dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
-dce_v10_0_afmt_setmode() also avoid enabling audio packet and secondary
-stream transmission in the encoder hardware?
-
-With this change, only the final Azalia codec pin enable
-(AZALIA_F0_CODEC_PIN_CONTROL_HOT_PLUG_CONTROL__AUDIO_ENABLED_MASK) is
-skipped when has_audio is false. Earlier in dce_v8_0_afmt_setmode() and
-dce_v10_0_afmt_setmode(), the hardware is still programmed to send HDMI
-Audio InfoFrames, ACR packets, and audio sample packets:
-
-	tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_SEND, =
-1);
-	tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_CONT, =
-1);
-	WREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset, tmp);
-	...
-	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_PACKET_CONTROL, HDMI_ACR_AUTO_SEND, 1);
-	WREG32(mmHDMI_ACR_PACKET_CONTROL + dig->afmt->offset, tmp);
-	...
-	tmp =3D REG_SET_FIELD(tmp, AFMT_AUDIO_PACKET_CONTROL, AFMT_AUDIO_SAMPLE_SE=
-ND, 1);
-	WREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset, tmp);
-
-Similarly, in dce_v6_0_afmt_setmode(), dce_v6_0_audio_hdmi_enable(encoder, =
-1)
-and dce_v6_0_audio_dp_enable(encoder, 1) are still called unconditionally
-right before the has_audio check, enabling HDMI_AUDIO_INFO_SEND,
-AFMT_AUDIO_SAMPLE_SEND, and the DP secondary audio stream bits
-(DP_SEC_ASP_ENABLE, DP_SEC_ATP_ENABLE, DP_SEC_AIP_ENABLE, and
-DP_SEC_STREAM_ENABLE in mmDP_SEC_CNTL) on sinks that do not support audio.
-
-[Severity: Medium]
-Does checking only connector->display_info.has_audio break the connector
-audio property override when userspace forces audio on?
-
-In drivers/gpu/drm/amd/amdgpu/atombios_encoders.c,
-amdgpu_atombios_encoder_get_encoder_mode() checks amdgpu_connector->audio:
-
-		if (amdgpu_audio !=3D 0) {
-			if (amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
-				return ATOM_ENCODER_MODE_HDMI;
-			else if (connector->display_info.is_hdmi &&
-				 (amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_AUTO))
-				return ATOM_ENCODER_MODE_HDMI;
-
-When a user sets the connector audio property to "on"
-(AMDGPU_AUDIO_ENABLE) for a monitor whose EDID does not advertise audio
-(so connector->display_info.has_audio is false), the encoder mode is forced
-to ATOM_ENCODER_MODE_HDMI and dce_v6_0_afmt_setmode(),
-dce_v8_0_afmt_setmode(), or dce_v10_0_afmt_setmode() is called, but the
-final audio_enable(..., true) call will now be skipped because only
-connector->display_info.has_audio is checked.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102094929.2515=
-63-1-rppxj178543@163.com?part=3D1
