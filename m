@@ -2,96 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F39606A329
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444B1606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MKf+q+w/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Z9TIVh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B133710E1ED;
-	Mon,  2 Nov 2026 22:38:33 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCB7E10F277
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 22:38:27 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c43373ae89aso537320066b.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 14:38:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1793659106; x=1794263906;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=n2if1RTPZbo5SFsEjRB4Jy0O0oymGB/SO+FAdZRGXuk=;
- b=MKf+q+w/p8YedhQIC1qU05qlaLoDaiINhSbxG5BsOYrINbs36GXhRLCHs6OqqJ/OE0
- JTconhQb7f6K9BFergpWkTfgqjx2LDpQDsOrfKVV+/EmurfEM/M2H9gMy8drIMOReabc
- Zi9Bk4VCnqhE0BY7ZIo/fn4VJr8ZqOJXjIK4Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793659106; x=1794263906;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=n2if1RTPZbo5SFsEjRB4Jy0O0oymGB/SO+FAdZRGXuk=;
- b=LbW2LHSYhUX9DG9Zw/0LcdFWtHPqT9ftMhYcP7x2yj1NyWbtMZ6GF4HhamyJsMVZuz
- 81SjlKPFbL3vKsVHGwlyOOGUKCyoCArsaxV/lAn+2ulNZduNXQ4nxFLVSqKe3U7nSuaY
- UiaxIhMEnfWTJs1RQyTHmxxx5pHy27Qf4JqavfCD9FADJkTWvPCI4G3dCpA4p8p0kHW3
- ht8qybO/HxpT4KziGvzxrJCvSzveDdZvLmxtgpbJcBFZdCi7OaUfR1mkYJnYHInRBaEK
- I4zIB2fpBGr1qSJg0kD6OBD7v2UzrYk+4re4aCRCNZ7N0MREy6TTHJhWH1yv8mVpCSF6
- tn3w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwnHa27HTr1nZV+X0GwgzuiW+4lQQbYR7ceUytZr0N+6WwEaifF7xTc4chy07m5nixj7HrBmks0mWg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9vNEIfocIrRWOt4T4gz0UN7rwZpGwU0U07xK9cq7wW+XMR1QHe
- CU7lkzFlfhHd5FQaOO4r1qAYwqkBtwjDt4aAR9PJ6Pe93UF5WzqODWTjTomg19ZZOPveSOMXB7e
- cqGCSWA==
-X-Gm-Gg: AYBFou2ZPsLiOGXOByeRpKKWdQVUrIo9qmwn9cO05mpMxt8PkTfRdSBzrsrwPN8LuwP
- ae97iTO8BA231HwSSnyQjoML0MaBmbwIspfLv128shcdCyRh7/F+GNL0Qtvc6ShxTro+9OSUhcF
- D5halIn+S81DEUv39/rG5agZqDhL+RXH3C2DvtjGA+cMw6+yAGMbVKufPQX9oFyUeIqt9fk6j9G
- kU4C/+/gSLOLCTZjbunTFCIC6ecsQJd2ipL7BU5WJKHKy5if9+CARVo6K4eDfgoytMsVOIKmmtf
- fKnap0nPNEDOO8RqcoXZpNlAXA2zQetBOlM1mXFLcmvuktjKSZZLIjuzTi8pk3ntXGfFhy520tF
- Fx/kl/igPeKLA1u+6uUCcqwN3irlckJHNpT4KqechaNOkuh0Ylbj11Zu6AR6pAmdZaB/eaE9EY+
- Z8Tq/1wWEn2oZyzBXx70ax4blKsTIi9dOGK9UHcL2SVSRIzNuc/mK38Ys8K8mTLZEvGY2vm2YRz
- WlrpKfMnmuf6TK7wbBmnJKzBVPFQDP9oTTHVBVVJyYm9mmouK5yTax4r2DFtwrIV0uF2hmyFjRp
- EQT8g87ARFcsyBjCxgVT1it2SFTbYhzIdehwvChnf5eF3IpQp4NOLaJwT4ADDrZ2QdU=
-X-Received: by 2002:a17:907:cbc6:b0:c49:4450:6248 with SMTP id
- a640c23a62f3a-c4ca7aefa1fmr912591166b.16.1793659106082; 
- Mon, 02 Nov 2026 14:38:26 -0800 (PST)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
- [209.85.221.41]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cebf009b8sm29462566b.42.2026.11.02.14.38.24
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 14:38:24 -0800 (PST)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-48c4d99c32bso2444935f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 14:38:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AKwUvBy4axA3FyrSMRmue/AO9MYLB73yMf4SM/Fwjrzsted88I9jMCQhT0CSWWKi/j+XuwE2zOFgYSIZJb4=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:46c3:b0:48e:f47:273c with SMTP id
- ffacd0b85a97d-48e6e2bcd97mr17576125f8f.8.1793659103258; Mon, 02 Nov 2026
- 14:38:23 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261026-sp11-bl-upstream-1-v2-1-efc84396adf1@gmail.com>
- <CAD=FV=U2sZaobJMHCimqB5Kw0fZ_-7=9tHAxT-KrSP8uQiY-vw@mail.gmail.com>
- <49e9a6d2-8665-4e78-ac17-da5a55abf065@linaro.org>
-In-Reply-To: <49e9a6d2-8665-4e78-ac17-da5a55abf065@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 2 Nov 2026 14:38:11 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WiOkG2_4w8iarx40FOhmJOY_pRQOW+6jOW29nea6y-wg@mail.gmail.com>
-X-Gm-Features: AclHuK9QTI8PVDWnzL2eO8ikSkqp3uUAySr3iNnFFlAceBchakK_x41BCxCieLM
-Message-ID: <CAD=FV=WiOkG2_4w8iarx40FOhmJOY_pRQOW+6jOW29nea6y-wg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/panel-edp: disable the backlight at probe
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: jimmie.lin@gmail.com, Maxime Ripard <mripard@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dale Whinham <daleyo@gmail.com>, 
- linux-arm-msm@vger.kernel.org, aarch64-laptops@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9111D10E6E9;
+	Mon,  2 Nov 2026 22:54:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E04B310E6E3;
+ Mon,  2 Nov 2026 22:54:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4000360534;
+ Mon,  2 Nov 2026 22:54:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B601F1F00A1C;
+ Mon,  2 Nov 2026 22:54:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793660086;
+ bh=lS5AryEtNuT/XGriuuk2VdulvKIDL/4ruMEU57pYPWo=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=n4Z9TIVhkbY/8Y7udWcsnH5U0HLmeWYwDSFIbCylQlwHDk6ueGDpcVbu4uaBLyEKr
+ APEn4aP6IKJVSG85dXyCpH+CtQhbVwepapZyurVSMoExlUlznsf9xcYqcI9IjzMmyG
+ TOyPVoaMmxOoIeyFjhTVN+O1Jy9PFnghFRmJyEf90HnDt4EnnNiDZkdWHq3ivp5aym
+ rg3Poz0M9N8YP0xFAjrBbyQqO7W50Zx05IPArDwh1yjGiypHRw0Mrjz7BdMuX7sscz
+ n/YvEu9rp5Y0cxeKHuidhSwsDFFBmlF5MPZ6tjhbFJlooYlxC2+j4bgyVELKxLGQxz
+ O4bzJjbxAwTBQ==
+Message-ID: <sashiko-outbox-194307@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] drm/xe: Add a minimum age gate to the shrinker
+To: "Matthew Brost" <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102223220.1411858-4-matthew.brost@intel.com>
+References: <20261102223220.1411858-1-matthew.brost@intel.com>
+ <20261102223220.1411858-4-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 22:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,168 +48,156 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/xe: xe_bo_shrink_too_young() misses age updates for bulk-mov=
+ed VM BOs
+--
 
-On Mon, Nov 2, 2026 at 5:15=E2=80=AFAM Neil Armstrong <neil.armstrong@linar=
-o.org> wrote:
->
-> On 10/30/26 02:40, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Mon, Oct 26, 2026 at 6:14=E2=80=AFPM Haipeng Lin via B4 Relay
-> > <devnull+jimmie.lin.gmail.com@kernel.org> wrote:
-> >>
-> >> From: Haipeng Lin <jimmie.lin@gmail.com>
-> >>
-> >> pwm-backlight can preserve the enabled state left by firmware to
-> >> support a seamless display handoff. However, panel-edp does not suppor=
-t
-> >> such a handoff. When probing a generic eDP panel, it powers the panel
-> >> on to read its EDID. If display pipeline binding takes longer than the
-> >> runtime-PM autosuspend delay, the panel is then powered off while the
-> >> backlight remains enabled.
->
-> So we don't support handoff _now_ but we may certainly support it someday=
-.
+commit 281f376af4d072a5a3001932f9bcc749e37e12a5
+Author: Matthew Brost <matthew.brost@intel.com>
 
-Yup, that's fair.
+drm/xe: Add a minimum age gate to the shrinker
 
+This patch introduces a per-device shrinker_min_age_ms sysfs attribute and
+Kconfig option to prevent the shrinker from backing up buffer objects that
+were recently moved into TT or bumped on the LRU. Buffer objects are
+timestamped on moves into XE_PL_TT and LRU updates, with the shrinker count
+and scan walks skipping LRU priorities whose oldest candidate is younger
+than the configured minimum age.
 
-> >> On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
-> >> power cycle appears to leave the backlight controller in an incorrect
-> >> state: brightness is pinned near maximum with a greatly reduced
-> >> dimming range. Subsequent brightness changes update the PWM duty, but
-> >> do not restore it to normal. Cycling the backlight off and on at
-> >> unchanged brightness restores the full range.
-> >>
-> >> The first drm_panel_enable() does not recover from this because
-> >> pwm-backlight still considers itself enabled and leaves BL_EN high.
-> >>
-> >> Disable the backlight at probe, after acquiring it and before enabling
-> >> runtime PM. This clears the firmware's enabled state so the DRM panel
-> >> core turns the backlight on after panel power and video are ready at
-> >> the first modeset.
-> >>
-> >> This also turns off the firmware display at probe on systems where it
-> >> previously remained lit until the first modeset.
-> >>
-> >> Verified on the Surface Pro 11 LCD by delaying display pipeline bind
-> >> past the autosuspend timeout. BL_EN now drops at probe, before panel
-> >> runtime autosuspend, and brightness control works at the first modeset=
-.
-> >>
-> >> Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s pr=
-obed by EDID")
-> >> Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
-> >> Suggested-by: Douglas Anderson <dianders@chromium.org>
-> >> Assisted-by: LLM
-> >> Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
-> >> ---
-> >> Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100=
-,
-> >> LGD0779 LCD) by booting with modprobe.blacklist=3Dphy_qcom_qmp_combo t=
-hen
-> >> loading that module manually after ~20s. This delays DPU component bin=
-d
-> >> past the panel's runtime autosuspend timeout.
-> >>
-> >> A/B tested against the same v7.2 tree:
-> >>
-> >> - Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
-> >> After the first modeset brightness is pinned near max brightness with
-> >> a "collapsed" dimming range. sysfs brightness writes still reprogram
-> >> the PMIC LPG. One bl_power off/on cycle at unchanged brightness
-> >> restores the full range.
-> >>
-> >> - Patched v2: patch provides the same full brightness range on boot
-> >> (stalled or not) as the v1 patch. BL_EN drops at panel-edp probe,
-> >> ~1s before VDD cut, rises ~0.5s after panel power at the first modeset=
-.
-> >>
-> >> Tracing and functional testing on the SP11 shows unchanged sequencing
-> >> for fast boots (without artificial delay), DPMS off/on, and system
-> >> suspend/resume.
-> >>
-> >> Panels with shared/always-on supplies and no panel enable GPIO
-> >> may continue displaying the firmware framebuffer during the
-> >> runtime suspend before first modeset. With this change panel-edp
-> >> disables the backlight obtained through the backlight phandle at probe=
-.
-> >> The DRM panel core enables the backlight again at the first modeset.
-> >> I have not tested this configuration.
-> >>
-> >> Testing on other panel-edp systems particularly with pwm-backlight,
-> >> would be appreciated.
-> >> ---
-> >> Changes in v2:
-> >> - Disables the backlight once at probe instead of
-> >>    in panel_edp_suspend() following Doug Anderson's suggestion.
-> >> - Only disable the backlight obtained through the backlight phandle.
-> >>    The driver's AUX backlight setup is untouched.
-> >> - Link to v1: https://lore.kernel.org/r/20261024-sp11-bl-upstream-1-v1=
--1-d39bfaf9afbc@gmail.com
-> >> ---
-> >>   drivers/gpu/drm/panel/panel-edp.c | 11 +++++++++++
-> >>   1 file changed, 11 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel=
-/panel-edp.c
-> >> index 94bc54c3833a..d019f4165674 100644
-> >> --- a/drivers/gpu/drm/panel/panel-edp.c
-> >> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> >> @@ -21,6 +21,7 @@
-> >>    * DEALINGS IN THE SOFTWARE.
-> >>    */
-> >>
-> >> +#include <linux/backlight.h>
-> >>   #include <linux/debugfs.h>
-> >>   #include <linux/delay.h>
-> >>   #include <linux/gpio/consumer.h>
-> >> @@ -918,6 +919,16 @@ static int panel_edp_probe(struct device *dev, co=
-nst struct panel_desc *desc,
-> >>          if (err)
-> >>                  return err;
-> >>
-> >> +       /*
-> >> +        * Backlight drivers may preserve the state left by firmware,
-> >> +        * but panel-edp does not support seamless handoff.
-> >> +        * Runtime PM may power off the panel before the first modeset=
-,
-> >> +        * leaving the backlight on.
-> >> +        * Disable it here so the DRM panel core enables it in the cor=
-rect
-> >> +        * order at the first modeset.
-> >> +        */
-> >> +       backlight_disable(panel->base.backlight);
-> >
-> > While still feeling a little ugly, I can't think of anything better to
-> > do in this case. Thus I'd say:
-> >
-> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> >
-> > I'd prefer to get a second opinion from someone else in the DRM
-> > community to make sure I'm not missing something, though. Neil,
-> > Maxime, or Linus W maybe?
->
-> I lack some knowledge, but when the display pipeline is probed
-> who's in charge of disabling the backlight when suspending ?
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 42a6aa1a2e4a0..3163c01012f73 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -1357,9 +1357,96 @@ static int xe_bo_move(struct ttm_buffer_object *tt=
+m_bo, bool evict,
+>  		xe_tt_unmap_sg(xe, ttm_bo->ttm);
+>  	}
+> =20
+> +	/*
+> +	 * ttm_resource_alloc() already placed the new resource at the tail of
+> +	 * its LRU, or of @bo's bulk move, so only record when that happened.
+> +	 */
+> +	if (!ret && ttm_bo->resource && ttm_bo->resource->mem_type =3D=3D XE_PL=
+_TT)
+> +		bo->lru_stamp =3D jiffies;
+> +
+>  	return ret;
+>  }
 
-I'm afraid I don't understand this question.
+[ ... ]
 
+> +bool xe_bo_shrink_too_young(struct ttm_buffer_object *bo, unsigned long =
+min_age)
+> +{
+> +	struct xe_bo *xe_bo;
+> +	unsigned long stamp;
+> +
+> +	if (!min_age || bo->resource->mem_type =3D=3D XE_PL_SYSTEM ||
+> +	    !xe_bo_shrink_backup_candidate(bo))
+> +		return false;
+> +
+> +	xe_bo =3D ttm_to_xe_bo(bo);
+> +	xe_bo_assert_held(xe_bo);
+> +
+> +	if (bo->bulk_move && xe_bo->vm)
+> +		stamp =3D xe_bo->vm->lru_stamp;
+> +	else
+> +		stamp =3D xe_bo->lru_stamp;
+> +
+> +	return stamp && time_before(jiffies, stamp + min_age);
+> +}
 
-> Why don't we handle the backlight state in the PM ops ?
+[Severity: Medium]
+As reported by Sashiko on v6 [1], can xe_bo_shrink_too_young() miss age
+updates for private BOs that use a VM's bulk move?
 
-That was what Haipeng proposed in v1. ...but it felt wrong to me. The
-core panel code is supposed to manage the backlight and it handles
-this in most cases. The only problem needing a fix was at bootup.
+In drivers/gpu/drm/xe/xe_bo.c, __xe_bo_create_locked() attaches every priva=
+te
+user BO created on a non-fault-mode VM to vm->lru_bulk_move:
 
--Doug
+drivers/gpu/drm/xe/xe_bo.c:__xe_bo_create_locked() {
+	bo =3D xe_bo_init_locked(xe, bo, tile, vm ? xe_vm_resv(vm) : NULL,
+			       vm && !xe_vm_in_fault_mode(vm) &&
+			       flags & XE_BO_FLAG_USER ?
+			       &vm->lru_bulk_move : NULL, size,
+			       cpu_caching, type, flags, NULL, exec);
+}
+
+Because xe_bo_shrink_too_young() checks bo->bulk_move && xe_bo->vm and reads
+only xe_bo->vm->lru_stamp (ignoring xe_bo->lru_stamp), three cases appear to
+leave the stamp out of sync with the BO's actual activity or LRU position:
+
+1. For preempt-fence LR VMs (XE_VM_FLAG_LR_MODE without
+XE_VM_FLAG_FAULT_MODE), !xe_vm_in_fault_mode(vm) is true so private user BOs
+have bo->bulk_move set. However, xe_exec_ioctl() in
+drivers/gpu/drm/xe/xe_exec.c skips xe_vm_bump_lru() for all LR VMs:
+
+drivers/gpu/drm/xe/xe_exec.c:xe_exec_ioctl() {
+	if (!err && !xe_vm_in_lr_mode(vm))
+		xe_vm_bump_lru(vm, exec);
+}
+
+And preempt_rebind_work_func() in drivers/gpu/drm/xe/xe_vm.c exits early in
+xe_preempt_work_begin() when !preempt_fences_waiting(vm), so vm->lru_stamp
+remains 0 (or stale from the last eviction/invalidation rebind) while the VM
+creates BOs and submits work. When kswapd runs with ctx.no_wait_gpu =3D=3D =
+false,
+won't xe_bo_shrink_too_young() treat these active BOs as old and allow them
+to be preempted and backed up regardless of shrinker_min_age_ms?
+
+2. In xe_bo_move(), moving a BO into XE_PL_TT updates bo->lru_stamp =3D jif=
+fies
+without updating vm->lru_stamp. When a private BO on any non-fault-mode VM =
+is
+created in or moved into XE_PL_TT while its priority bucket in
+vm->lru_bulk_move is empty (for instance, before the VM's first exec or when
+no other TT BOs exist in that bucket), ttm_resource_alloc() ->
+ttm_lru_bulk_move_add() places the resource at the tail of man->lru. Since
+xe_bo_shrink_too_young() ignores bo->lru_stamp when bo->bulk_move is set, a
+BO newly moved into TT will still read the stale or zero vm->lru_stamp and
+won't be protected by shrinker_min_age_ms until an exec bumps the VM.
+
+3. In drivers/gpu/drm/xe/xe_bo.c, xe_gem_object_close() detaches a private =
+BO
+from vm->lru_bulk_move in place when its GEM handle is closed while mappings
+remain in the VM:
+
+drivers/gpu/drm/xe/xe_bo.c:xe_gem_object_close() {
+	if (bo->vm && !xe_vm_in_fault_mode(bo->vm)) {
+		xe_bo_lock(bo, false);
+		ttm_bo_set_bulk_move(&bo->ttm, NULL);
+		xe_bo_unlock(bo);
+	}
+}
+
+Once bo->bulk_move is cleared, xe_bo_shrink_too_young() switches back to
+reading xe_bo->lru_stamp without updating either the stamp or the BO's LRU
+position. If the BO was recently bumped via xe_vm_bump_lru(), closing the
+handle reverts its age to the stale bo->lru_stamp; conversely, if the BO was
+recently moved into TT inside an older bulk-move range near the head of the
+LRU and then closed, its young bo->lru_stamp becomes visible near the LRU
+head and causes ttm_bo_lru_cursor_skip_priority() to skip older BOs behind
+it.
+
+Would it make sense to propagate or take max(xe_bo->vm->lru_stamp,
+xe_bo->lru_stamp) when appropriate, and ensure preempt-fence LR VMs and
+bulk-move detach paths keep the stamp consistent with the LRU position?
+
+[1] https://lore.kernel.org/r/20261027224902.1085762-4-matthew.brost@intel.=
+com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102223220.1411=
+858-1-matthew.brost@intel.com?part=3D3
