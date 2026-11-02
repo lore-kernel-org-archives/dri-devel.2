@@ -2,111 +2,151 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE80606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:50:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911D2606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kyUFBL7W
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PhkJ+RTg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F00A610EE6E;
-	Mon,  2 Nov 2026 13:50:44 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB8D10EE6E
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:50:39 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a208d93758so32507855e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:50:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793627438; x=1794232238; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Wefc2gukvW46R1Cw0qQcSR93VGaxqDP3JbJQQHsIV+s=;
- b=kyUFBL7WHENsHl0N8lVVcMq/5M9+0hOYWfVzcBNQxKPch6Sho0JzOElt2s+mXu85II
- PwTsH1qZ1GaNjEG7sKiCfVoNlURQrCSMDgNYj6p5fqc3/Co6r8JBfCeCvSnu6+y2dLu8
- jMnWWLPyHdgF8RGW/HIupuKNNKPkFR53Hg/qipD3TTm60X0IAxatjiIN4Rl3DKAE48Fn
- BZhc+3mvUwVzFkozrjtISRFb6CT2rGXFsIV02oYvkuAkwO5mlLjhNt1DHklYTLMpYQ+s
- aooQHKZGVl6WUk6pW0qdK6mWc5Fb5hNeVV4MgdhGw4/YZVYIHi+X1ZMCZQhpqQiSF/Qj
- HNSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793627438; x=1794232238;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Wefc2gukvW46R1Cw0qQcSR93VGaxqDP3JbJQQHsIV+s=;
- b=RxvlPy1DmxXsPyH/kqoR2XS30Wq+nkVXm3dz4S6iFV9BJ0nwzXKUNlnI6jc/tWC3fZ
- kCVny5Rx1i/BgEkeYrqDFp+ANgvnISC0d6PEgIIxSo84fxJeXqX38O86OJSFDjKWNDaJ
- ojrPyTNe15ysfZ/8/k+W5nqFXK7mGXPFpUMic8Wa9KYy4bpkQWuAQxGQaeSDGQHgU0H/
- c83znI7X0hZ3ezcFNEAlsugiqGQJ/nY6WoYag74Ulg0H3CAtDmspWVUqv4s+kluM370+
- Z1ir5EKhD2RWPPZu0ZmDrf/tomj4YY/cnIlmihXW0NhZ/X0pwTd1nvui0GaomfysYJlJ
- QzLw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxxwm9H23R4Cw5iEOF5royu3EG94mnZRkVo6U23xH56aPusqYE2UZlKcWs2nUUepS6ohRPTXt4EnHA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKXU3A/O97xKx6ni4+Tqdw1xelTXv7G3Hsxo6HLhP49rY0+vMhl
- bkRWjVPQafu3zOR9poyf+YfhWkdYSsYse8DXNilOoVccGkWPdqc/ekJC20B3MZ826WM=
-X-Gm-Gg: AYBFou02/sY8LMK3Lop2oFSP3ahpnhOlAWnjG7QghfHjOMinFE25RDbWrWIV1fKowOn
- Rdzn/ED57vhHtjik0r1CNujmMTqOZdsYFQt1cV+zzO9WBvOO2RCq+LT0xDHhq62SG5SX78uQmry
- RqYK697KEwXAFcXYK+Hrc/w4vPdZf2wZJkZxnckkZ8cS+yViT2Jb6GUpSCdkHpGSijBN/tA5R65
- AxONkGG/WpA1a6mWC4hOYSuyPye6tJsuO3T86aYB0ttN4TEscyXk2LYCTa4w9Lj/NC22Hl0+/vt
- x6J3w9vjMRp/6hWMqWIu0gjY6dQ5wPVwAAjk+e5iJCU3ppI6Qf5nsjKKlolRAPobbS+zvHjRI4U
- ea3CYNXHqHYfDRy0MbaB9pcgGPaHXtA+qz+gEmtnnNX1oDI7mAbd+0YVtkbpMTyM27AaRXDPvjj
- xGVmxQ3Pl++sFEB6jH8oxcyc9Hh3PkOOz5ghPvl7ESvS1opH6hyOVMNFErc7x3CxOqw0SN9en0B
- 2+g8SwzVrGww98ymGAtCYnzq5omdtIX99yDqFbwLw45FlWIclO4do3NjcdBrE4qnmEbhv6ZAbb0
- jgCj6y6IuHW+6CiSeYBwUoUkVSeanoKtrTglGky/cqwtH+79igc4p5/4zIS2SQmeO+tUzfV8rZg
- Tyg+juw==
-X-Received: by 2002:a05:600c:1990:b0:4a7:462c:6b9e with SMTP id
- 5b1f17b1804b1-4ac1923581cmr221506345e9.32.1793627437466; 
- Mon, 02 Nov 2026 05:50:37 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
- ([2a01:e0a:106d:1080:9476:5165:3a16:262])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b8a5a7sm21252789f8f.37.2026.11.02.05.50.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 05:50:28 -0800 (PST)
-Message-ID: <422e70b0-7113-449f-a5b0-1dfe4d7c41c1@linaro.org>
-Date: Mon, 2 Nov 2026 14:50:27 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE7B10E04A;
+	Mon,  2 Nov 2026 13:52:23 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011049.outbound.protection.outlook.com
+ [40.93.194.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C605210E04A;
+ Mon,  2 Nov 2026 13:52:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WZOv5qvXOl+xnn/Wergl/Kz8fk9NjPLwGbxZE27w283tpqJLlDuujA6Ln4SLOdsIUtlr8JpMJ46/usGYDgZY2QI8VxwMWfAVj85Rs/QooIDkM3gctmFyPbaHpJ5Vc32XBh1e7yMu+yzhufMJk1oFOJK+fynW9KGrDwsVCqA9tILU57r2eE6w3EUXgGP18vWwrvme/6M5EnX+zZGHg4MBAQhOfqjGK4fxg1Aeqx9q7wxgN/E2sm7R3JESxKSkHUOwJ6vsKEsTIO5waBjqa8oow+BMFQP5UNyGbFOvF/bwI4nayiKMAdWrK10ICjBOt153g/W21Ob+vtAoY8INHZavvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8q3u5pS+Y65E8Bopb11C+ZzErL0aPrjpl0habtp1hMo=;
+ b=cINUl31lVZNVCx9Gbew15/VoWUDxpJjwT/uy18SOZxNf+0MHLEbwnlCAFWGilb2/ZN27x08To0sTlgAopHR+V/mhYQpFODeJPtqVZR9DWAyCCVbIIpOIz9t2FhGoz5+dtCnIPiu8NTvWhFDkpG6IY2FUNk4wRxX61P+GTLKObNlM6a95YkH2PV44IUcUI3PDOdwbf+yY13aiV1Hq7Ds4KeJ3MeBteCC9YMSeo82CpcToYCqxlo6orXEwkttWq9CK8xuzl1h8w3wIvDFxxBMPwKKKj2/UDVECreRM4uSQqobMMgO+1P9Sg/tfo6fQ75YDiXnx2BCXg32WMuBZbcQlGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8q3u5pS+Y65E8Bopb11C+ZzErL0aPrjpl0habtp1hMo=;
+ b=PhkJ+RTg7zo5+f3XBcvevcFTuKlj3ne3tcVdShLAZNIyEfWd4b5vYiMc2V0OOeAmWLnriVk/4ZhU0q49vnUoA9SZ6SXabaiwvTG3Xzj3EAIWk4UC88dUe4zpSRrx0eCyOw0m9Wq8N5ilKZ858vkapGlmqwe9q1N50+lWYE8eckg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8348.namprd12.prod.outlook.com (2603:10b6:8:e5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 13:52:11 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 13:52:11 +0000
+Message-ID: <e925fde8-5d07-419f-a25e-4dd0bb90ad46@amd.com>
+Date: Mon, 2 Nov 2026 14:51:58 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hmm: honor write requests for owned device-private
+ pages
+To: Aveline Noir <jm5905938@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Barry Song <baohua@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Jonathan Corbet <corbet@lwn.net>, Danilo Krummrich <dakr@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Dev Jain <dev.jain@arm.com>,
+ dri-devel@lists.freedesktop.org, Francois Dugast
+ <francois.dugast@intel.com>, Christoph Hellwig <hch@lst.de>,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+ Honglei Huang <honghuan@amd.com>, Jann Horn <jannh@google.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Leon Romanovsky <leon@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Matthew Brost <matthew.brost@intel.com>, Michal Hocko <mhocko@suse.com>,
+ Nico Pache <nico.pache@linux.dev>, nouveau@lists.freedesktop.org,
+ Pedro Falcato <pfalcato@suse.de>, Philip Yang <Philip.Yang@amd.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, sashiko-bot@kernel.org,
+ sashiko-reviews@lists.linux.dev, Simona Vetter <simona@ffwll.ch>,
+ Shuah Khan <skhan@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Zi Yan <ziy@nvidia.com>
+References: <179343062238.2.2773026701442863377@gmail.com>
+ <sashiko-outbox-192310@kernel.org>
+ <179352350180.2.12918668886938034091.b4-reply@b4>
+ <179362220860.2958105.9509793190720553695.b4-reply@b4>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <179362220860.2958105.9509793190720553695.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0189.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH] drm/panel: ltk050h3146w: convert mipi_dsi_attach error
- message to dev_err_probe
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
- quentin.schulz@cherry.de, Heiko Stuebner <heiko.stuebner@cherry.de>
-References: <20261030115844.3661099-1-heiko@sntech.de>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261030115844.3661099-1-heiko@sntech.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8348:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf739b49-f493-4e31-a969-08df38e87e1e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: 7PhJomOzB1ZVcNR4zVVcPV71oPfOUSyJB9kloBNlOxNSIAKpsROMTJk8aGEP7vGFYyGKj55VR4zH8jBXOX8kmS8DvSrbkuIQDSqpjCZOjYc5Aa/KLZWEHTgT8DXb4xihvSxGw0kBW0hl/ddrA2LkmHAvN+M3F+2R7+XTMdq/7hR9Sa7eGPWab7z+d39quY1BOvzSHRUfqqMKlJcisOSWpMW3qtmUQVmTAW4V4TFoQYRfimvdT34vA4GKM1HlE6RE8jlBKB9fQgYBFagu3MZaWbZELOhtmCPyVLq/nZdEEuKrSGfPTJYTD/krIe9kUNXYULyGRYtbDYolKaVA7lSMBRrUBcUFIb0q5Fs4AnZuKxxi16u7STCktZk1KLvQFAbbnY0B+dp83L96vlp9pSOh65wroNDtFQ7bmdJpTa9Fl0nk3p/nIbGz/YLRkHVQkF5f87XSH7fxOzl2Bg92+pXrJ9Mf5j5N9JOmwWhpWlpUG5ZtbdkaX/z/B/lyX9EvtyfXYyCV0XYPeCGtdac8q32DXML7vLrN3BbYZ79KV8JhwzMdn8bzO3jIQEGFX1lFAFLBAv1vFF7ELCyi99q04HemWn4yTyG6vViBlZX6bifl88s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261009223027099003)(261028144727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cW5VMml3bXNCMVNyYmU5V1o5TXEyN29oaXRoSDBBc1hSVjZhT0V6MkNQQjlC?=
+ =?utf-8?B?MmNkeVV4WkhiTGxpUVlad2dYd2N3bStWNnIrWCtobERpWVRuWXpsZksraktN?=
+ =?utf-8?B?WXRwOXdPZHAzalNjYWF5ZzVSSW1nbkc1TDd4SGJnbVNHMHlvSGpvMC9VZnBp?=
+ =?utf-8?B?QXhpMXhTc1lwQUM5b1JlYkF0cmNjWXV1bGYvZjhTWCtZcStxL1hVMVFUc3ds?=
+ =?utf-8?B?b2dCQmpsSlc5Qjl3cDJWZk9hSFJiQ1kvaE5CbG5uWEZCNGtIT1RUc2xMQmty?=
+ =?utf-8?B?NmpUZ1NWazdaUHlqNXRoZG5PM1o3TzJ5SVFCM01OY0NaNHUvWlpib1N3T1FW?=
+ =?utf-8?B?aVQyRGpINzRvYU10aWpVSEY0VnJDeU9aMWcxN2Z2M2pQcTkwWGxtYnNZb0hX?=
+ =?utf-8?B?aERCV29YQXo0eGl5Zm92aTlzenVjaGhxaDRrbEJSSTRGcS9YOCtmcklnY3N1?=
+ =?utf-8?B?UEZvaGxoWGNvcSs0dHBRd1FFZDVQQyttU3NERzBnd2tENkllOTVuQ20yN3l5?=
+ =?utf-8?B?NFBTemwzWVJBeUdJb2NXdzhROUZFaGZxNEdQMHlLT1FCMHNzVm56VDRyZXRi?=
+ =?utf-8?B?NFIwYnpJK0hQT1lPQWNIVjBpb24wNEJHK3E2RTJLMWN6TXBXZkQ2enhwVDhj?=
+ =?utf-8?B?NFQ3dHJOSnNMWkRTV0JRZTFLaDVvUmtBaVhRbHVrZTcxTHNXbUh5TmZsdzRW?=
+ =?utf-8?B?NUpOMnpLNzRVR1VvOWJ4ejdnaHpCVmk2aTZwTlRxQlRpVlczNExvK0l5dUYr?=
+ =?utf-8?B?MUtueTl3T0FPY3VXVndoS2hZd1ZRdnBIcTJiWm9tQXhtTVN4b1llckxGZlpZ?=
+ =?utf-8?B?ZUthejFaRlhLOVRjWStKelNhUEtkYTJKWUNrdkhLblMyOWUyRGdNR1EybHo5?=
+ =?utf-8?B?NG1rOUgvTXBobk5zdEZoS0l3dkc3VElkc05YcTlFSDU0bGJQQ0UzcnZ6ckcw?=
+ =?utf-8?B?eURWZmt3V1M4cXlJSkhtS2FsclJobERDcG5YL3FUY0VqYktNZmJjUlh2Wjhs?=
+ =?utf-8?B?UEhqZUtWS3hQV2R6RmpGNmxiS3F4c1Z1dytrZjFadmZDbWxuVStoc1R1dXRO?=
+ =?utf-8?B?WXhpSTkxVUk3NWZCd3lPdEZBRHMwOStBckxKMUdRdzRKM3IzMmVTOWxZZDAz?=
+ =?utf-8?B?Umtnd00zTHppaWY3TW5PQ2U0TGdDZ2tsYmk2VlgxWXhsZ0JFVFUzQTY2VU9z?=
+ =?utf-8?B?ZkhUM2thYmNTNEU0U0VZTll3VG1YdHhOWjgzTUNEa2xKWFNMamdFWGVabzU2?=
+ =?utf-8?B?N3ZzQnlLRnRtQVA4bEZGK0pnekp3bU5LSTA3cUNLRTlOMDZNVWlTMFpZN05y?=
+ =?utf-8?B?cGJ5NXZob0cvaVcxUUY2aGFWYUpMaFZTNHFmSUMyejJwZjFReXNNREdqWUxy?=
+ =?utf-8?B?azN3SFE5MzBmZ09QYml4QmMrcnpzWnR4SDdxbGx6UkU4MVREdmN3bU1QUHI2?=
+ =?utf-8?B?UzFZVnlDY3VNOW5qd3lNZVdLL1NVZENpRmU3a2IrOWhVWXFITHN4ZTBSdytN?=
+ =?utf-8?B?Vjk4NGVWYi92TmQzR2lWaHRpK3pGbVVFZXdkajJFVXhtSlYvVjFibGRKSHhy?=
+ =?utf-8?B?TE9aSnhtRTY5eVdPSDJhYXgrdjZOT1RzaVRRSEx4YnlqYUgzdUpZZGdubFpF?=
+ =?utf-8?B?Z2l4Z1N4MlhBeEczTm5pM3JPeXhZYmpDcmtmQjVBZjdocTJKR3hjbmR1Qmtp?=
+ =?utf-8?B?YWg5YVdvQlVIbkxleTF4aGRZaTduN083bmNEUnJvcUJqWDNCdHplRWJ0YXBi?=
+ =?utf-8?B?T25TeHdsdmJVbG9KRmIxaS9xR2pvQmcrclBnYWl3WFJLUlEyNnBXRnRZVExh?=
+ =?utf-8?B?NVRqKzZTdmJ0MVpkUTVrVGdIazRQelNxb2pjTlBjSEk5VWVRU0NTN01RMVZU?=
+ =?utf-8?B?MndjODJYbHJtWXBoYVlkUEM1cHV4RHo0RHp6QitqSnczdDFPQ0hjQW9OVjA1?=
+ =?utf-8?B?dnF2VlIvRHJtbmNhVDAzekF0dDdCdEFyQ1JVRG5FWDBQRHphUFVvd3BTQnBw?=
+ =?utf-8?B?OEhSWDJyeW5VdnRPcGl1dlNJWTFSMTgrclZnbC9IQTJZYy9TQ0RHMkdidHUy?=
+ =?utf-8?B?TVNCZjlIeURjVEV5aDJmVmw3WDJLRWJ1SjUxMEdNQitZN05VQ0pPMkNoRXEr?=
+ =?utf-8?B?eTB0Rjk5YTZDemljekFvVklONXlCM1lCaDhRMEdlL2tBZ2FYNG5pekMyVWtq?=
+ =?utf-8?B?eE8wUCs1TDNoK1RMNDVPMWt6ak1rNXp1QTlDNGpDUGFFYTZZSDVKRHZxazZW?=
+ =?utf-8?B?UWI1UnVhbTVaN3ZqdjZLM0JGL1V1KzhVOEo3WHh2c3B5eDlUckZ2YjFsUDJo?=
+ =?utf-8?Q?eREMN8QRzG3ZKebURz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf739b49-f493-4e31-a969-08df38e87e1e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 13:52:11.0837 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yad+RD9Svb4hOML9IswF3mL7R72ighP3dBewQbiIgWaRJdSDPOEjJaL7Ao3+wbpt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8348
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,46 +157,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Hi Aveline,
 
-On 10/30/26 12:58, Heiko Stuebner wrote:
-> From: Heiko Stuebner <heiko.stuebner@cherry.de>
+On 11/2/26 13:23, Aveline Noir wrote:
+> Hi all,
 > 
-> The panel will happily report every defer during probe with an error
-> message.
+> On Sun, 01 Nov 2026 19:58:21 +1100 Aveline Noir wrote:
 > 
-> Silence that to actual errors.
+>> Oh, I missed that. I'll try to fix it.
 > 
-> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-> ---
->   drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> While working on this, I found that the fix reaches well beyond
+> mm/hmm.c and would likely need rework in several subsystems, so I'd
+> like to hear your views before going further. v1 shouldn't be applied
+> as is.
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> index 0856df5a6ee2..459d8a1ceab4 100644
-> --- a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> +++ b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-> @@ -587,7 +587,7 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
->   
->   	ret = mipi_dsi_attach(dsi);
->   	if (ret < 0) {
-> -		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
-> +		dev_err_probe(dev, ret, "mipi_dsi_attach failed\n");
->   		drm_panel_remove(&ctx->panel);
->   		return ret;
->   	}
+> amdkfd holds svms->lock and prange->migrate_mutex across
+> hmm_range_fault(), and svm_migrate_to_ram() needs both, so it can't
+> migrate the page for the validating task. Migrating under those locks
+> can deadlock, since do_swap_page() waits for the device page lock, which
+> a concurrent CPU fault can hold while waiting for svms->lock.
 
-Could you rebase on the lastest drm-misc-next ?
+Yeah those issues are already known.
 
-Thanks,
-Neil
+Because of that AMDs KFD team is in the process of replacing the self made KFD based SVN handling with the drm_gpusvm module which is also used by Intels XE driver.
+
+> From
+> reading the code, amdkfd also maps such read-only pages writable today,
+> as it takes GPU write permission from the VMA rather than from
+> HMM_PFN_WRITE, so GPU writes after fork() would be visible to the child.
+> I haven't been able to confirm this on hardware.
+
+That is a new issue as far as I know.
+
+> One option I tried is an opt-in HMM flag that returns -EDEADLK and the
+> page address instead of faulting, so amdkfd can drop its locks, fault
+> the page and validate again. It works with test_hmm, but the amdkfd
+> side grew to about 550 lines across the GPU fault handler, the restore
+> worker and svm_range_set_attr(), and is only compile-tested. Read-only
+> entries also come from NUMA hinting scans and mprotect(), so pages that
+> aren't shared would be moved out of VRAM too, and Xe and nouveau would
+> see their pages migrated in the same cases.
+
+I don't think we should try to fix the KFD SVM code, as said we are already in the process of ditching it because of those problems.
+
+> Would you prefer an opt-in interface like this, a change to the amdkfd
+> locking so that migrate_to_ram() can run during validation, or
+> something else? I can post the amdkfd part as an RFC if that helps.
+> 
+> I also found a few smaller related issues, and I'll send fixes for them
+> separately.
+
+There is also https://gitlab.freedesktop.org/drm/amd/-/work_items/6003 which I'm not sure how to properly handle.
+
+Current AMD GPUs don't have dirty tracking in their GPUVM, so it doesn't really make sense to set the PTE or struct page dirty from the MMU notifier (both data pointers are not around there any more).
+
+We also can't set the page dirty directly after calling hmm_range_fault() because we don't own a page reference and so it could change at any time.
+
+At least for the GFX CS path it would make most sense to set the pages dirty in hmm_range_fault(), not sure about the SVM use case.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Aveline Noir
+
