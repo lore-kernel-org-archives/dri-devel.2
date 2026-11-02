@@ -2,86 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA38606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9280606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:42:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=P4QRpoC5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aFv8dpoV;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=P4QRpoC5;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aFv8dpoV
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBHI8Bti;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WaP6N4P6;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBHI8Bti;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WaP6N4P6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F60210EC21;
-	Mon,  2 Nov 2026 08:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EACB10E59A;
+	Mon,  2 Nov 2026 08:42:06 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAA210EC26
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:40:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E43D410E59A;
+ Mon,  2 Nov 2026 08:41:54 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B7C2522416;
- Mon,  2 Nov 2026 08:40:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43FAA21F6F;
+ Mon,  2 Nov 2026 08:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793608849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793608913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oEctmCZMyBDlmvkjknyY7o5adB2fITkf850IghLgh3A=;
- b=P4QRpoC5Bq1rLIeY4OLDTrAErIOc4lg+U6+tz0LuwipznEEcitGrwoBFyzsVzgcfDuXxv7
- n224ct7tIFYvycmiP3Cb7l4Z7H5eRPj4Jdv8zrayGwjHa7JGOuEpB+flzObV6giYjMkY7A
- uvXz5hbXILlWxd0Z6UNBBl9org02qCY=
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=aBHI8Btiv2V3lT1hpQtokRDGhdybXDJ+aalt2MnUuifid0+1yWbNYl3Sk5zpiUWOfb4p6s
+ /BBwCLsmjoi1CFs4iy2HYZ8PWTOqb6YcHB6oZzyYxGWINLaTuxfE7K66nU211Dd2+IhWQ5
+ kggYNi/7lZnxxzCvHFyn7Vsz/AJxp60=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793608849;
+ s=susede2_ed25519; t=1793608913;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oEctmCZMyBDlmvkjknyY7o5adB2fITkf850IghLgh3A=;
- b=aFv8dpoVK+HYNe4ED1cp6zpcHD7KLfUZcRN+/PmIWUYp8ZtBrXN+FQGcZrJKxIiRt1UiWO
- A1O2XnvB76rrBMCw==
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=WaP6N4P6oJzoz4X6ExjjjCP40XnZNhue3dENmIYeXKi8fhZ9mEtwTr+oyw/yj0dUPU5Bdi
+ +OGUUhPDzruR08CA==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=P4QRpoC5;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=aFv8dpoV
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793608849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793608913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oEctmCZMyBDlmvkjknyY7o5adB2fITkf850IghLgh3A=;
- b=P4QRpoC5Bq1rLIeY4OLDTrAErIOc4lg+U6+tz0LuwipznEEcitGrwoBFyzsVzgcfDuXxv7
- n224ct7tIFYvycmiP3Cb7l4Z7H5eRPj4Jdv8zrayGwjHa7JGOuEpB+flzObV6giYjMkY7A
- uvXz5hbXILlWxd0Z6UNBBl9org02qCY=
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=aBHI8Btiv2V3lT1hpQtokRDGhdybXDJ+aalt2MnUuifid0+1yWbNYl3Sk5zpiUWOfb4p6s
+ /BBwCLsmjoi1CFs4iy2HYZ8PWTOqb6YcHB6oZzyYxGWINLaTuxfE7K66nU211Dd2+IhWQ5
+ kggYNi/7lZnxxzCvHFyn7Vsz/AJxp60=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793608849;
+ s=susede2_ed25519; t=1793608913;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oEctmCZMyBDlmvkjknyY7o5adB2fITkf850IghLgh3A=;
- b=aFv8dpoVK+HYNe4ED1cp6zpcHD7KLfUZcRN+/PmIWUYp8ZtBrXN+FQGcZrJKxIiRt1UiWO
- A1O2XnvB76rrBMCw==
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=WaP6N4P6oJzoz4X6ExjjjCP40XnZNhue3dENmIYeXKi8fhZ9mEtwTr+oyw/yj0dUPU5Bdi
+ +OGUUhPDzruR08CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DB62134B8;
- Mon,  2 Nov 2026 08:40:49 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B050134B8;
+ Mon,  2 Nov 2026 08:41:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id j7A/BZFM6GriPgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 08:40:49 +0000
-Message-ID: <d9621efc-fd0e-4164-ab65-9c05b2fbeb91@suse.de>
-Date: Mon, 2 Nov 2026 09:40:48 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id fYQYCs9M6Gq2PwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 08:41:51 +0000
+Message-ID: <aa7ea691-03ec-44b0-85fb-9927f3b4a32b@suse.de>
+Date: Mon, 2 Nov 2026 09:41:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 30/37] drm/tests: hdmi: Convert to atomic_create_state
+Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Huacai Chen <chenhuacai@kernel.org>, Icenowy Zheng
+ <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Xi Ruoyao <xry111@xry111.site>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Alexey Brodkin <abrodkin@synopsys.com>, Alex Lanzano
+ <lanzano.alex@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
+ David Airlie <airlied@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ virtualization@lists.linux.dev, Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
- <20261030-drm-no-more-connector-reset-v3-30-30e71d92c327@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -108,34 +146,28 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261030-drm-no-more-connector-reset-v3-30-30e71d92c327@kernel.org>
+In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: B7C2522416
 X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[renesas];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:dkim]
-X-Spam-Score: -13.50
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,armlinux.org.uk,samsung.com,kernel.org,linaro.org,vger.kernel.org,nxp.com,agner.ch,iscas.ac.cn,loongson.cn,aosc.io,xry111.site,glider.be,gmail.com,foss.st.com,sholland.org,lists.linux.dev,nvidia.com,synopsys.com,redhat.com,collabora.com,chromium.org,bootlin.com,epam.com,baylibre.com,googlemail.com,lists.infradead.org,igalia.com,linux.intel.com,intel.com,ursulin.net];
+ R_RATELIMIT(0.00)[to_ip_from(RL6e75e7xiqh135443e1d3zo16)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[64];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:email]
+X-Spam-Score: -11.79
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,45 +179,170 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Hi Maxime
 
-Am 30.10.26 um 16:14 schrieb Maxime Ripard:
-[...]
-> +	connector_state = drm_atomic_helper_connector_create_state(connector);
-> +	if (IS_ERR(connector_state))
-> +		return connector_state;
+Am 30.10.26 um 16:13 schrieb Maxime Ripard:
+> This is a follow-up to the plane and CRTC reset removal series, and
+> part of a larger effort to remove the reset hook from all KMS objects.
+>
+> The connector reset hook is overloaded: it is called both at probe
+> time to create the initial software state and during suspend/resume to
+> reset hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+>
+> While reset has the semantics to reset both the software and hardware
+> state, the vast majority of implementations and all the helpers only
+> reset the software state, making them equivalent to
+> atomic_create_state in practice. The atomic_create_state hook makes
+> this explicit: it only allocates and initializes a pristine state
+> without any side effect, and returns the state pointer or an ERR_PTR
+> on failure.
+>
+> This series converts all connector drivers tree-wide from the reset hook
+> to atomic_create_state, then removes the reset hook from struct
+> drm_connector_funcs entirely. The conversions were done using a
+> combination of Coccinelle semantic patches, mechanical one-line
+> replacements and manual adjustments.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Somewhat unrelated to this series, this return statement made me think 
-that we should consider requiring an ERR_CAST() in such situations. It 
-documents what is happening and we're also not really returning a 
-connector state.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+for the entire series.
 
 Best regards
 Thomas
 
-> +
-> +	__drm_atomic_helper_connector_hdmi_state_init(connector_state,
->   						      connector);
-> +
-> +	return connector_state;
->   }
->   
->   static const struct drm_connector_funcs dummy_connector_funcs = {
-> +	.atomic_create_state	= dummy_hdmi_connector_create_state,
->   	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
->   	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
->   	.fill_modes		= drm_helper_probe_single_connector_modes,
-> -	.reset			= dummy_hdmi_connector_reset,
->   };
->   
+
+> ---
+> Changes in v3:
+> - Fix error path in dw-hdmi
+> - Fix test error path for amdgpu kunit tests
+> - Fix nouveau legacy path
+> - Link to v2: https://lore.kernel.org/r/20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org
 >
+> Changes in v2:
+> - Change the parameter order of __drm_atomic_helper_connector_hdmi_state_init
+> - Fixed state argument casing for drm_atomic_helper_connector_tv_margins_state_init
+>    and drm_atomic_helper_connector_tv_state_init
+> - Put atomic_create_state before atomic_duplicate_state
+> - Fix state allocation for MST and WB connectors
+> - Link to v1:
+>    https://lore.kernel.org/r/20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org
+>
+> ---
+> Maxime Ripard (37):
+>        drm/amdgpu: vkms: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: analogix-anx6345: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: analogix-anx78xx: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: chrontel-ch7033: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: nxp-ptn3460: Switch to drm_atomic_helper_connector_create_state
+>        drm/panel: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: synopsys: dw-hdmi: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: tc358767: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: tda998x: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: ti-tfp410: Switch to drm_atomic_helper_connector_create_state
+>        drm/exynos: Switch to drm_atomic_helper_connector_create_state
+>        drm/fsl-dcu: Switch to drm_atomic_helper_connector_create_state
+>        drm/loongson: Switch to drm_atomic_helper_connector_create_state
+>        drm/mipi-dbi: Switch to drm_atomic_helper_connector_create_state
+>        drm/renesas: shmobile: Switch to drm_atomic_helper_connector_create_state
+>        drm/sitronix: st7571: Switch to drm_atomic_helper_connector_create_state
+>        drm/sti: Switch to drm_atomic_helper_connector_create_state
+>        drm/sun4i: Switch to drm_atomic_helper_connector_create_state
+>        drm/tegra: Switch to drm_atomic_helper_connector_create_state
+>        drm/tests: Switch to drm_atomic_helper_connector_create_state
+>        drm/tiny: arcpgu: Switch to drm_atomic_helper_connector_create_state
+>        drm/tiny: sharp: Switch to drm_atomic_helper_connector_create_state
+>        drm/virtio: Switch to drm_atomic_helper_connector_create_state
+>        drm/vkms: Switch to drm_atomic_helper_connector_create_state
+>        drm/xen: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: synopsys: dw-hdmi: Convert to atomic_create_state
+>        drm/meson: Convert to atomic_create_state
+>        drm/sun4i: hdmi: Convert to atomic_create_state
+>        drm/sun4i: tv: Convert to atomic_create_state
+>        drm/tests: hdmi: Convert to atomic_create_state
+>        drm/connector: Remove drm_atomic_helper_connector_reset()
+>        drm/amdgpu: dm: Convert to atomic_create_state
+>        drm/i915: Convert to atomic_create_state
+>        drm/nouveau: Convert to atomic_create_state
+>        drm/tegra: Convert to atomic_create_state
+>        drm/connector: Remove __drm_atomic_helper_connector_reset()
+>        drm/connector: Remove reset
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |   2 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  32 ++---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   3 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  11 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  17 ++-
+>   .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 102 +++++++++++-----
+>   drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |   2 +-
+>   drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |   2 +-
+>   drivers/gpu/drm/bridge/chrontel-ch7033.c           |   2 +-
+>   drivers/gpu/drm/bridge/nxp-ptn3460.c               |   2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |  14 ++-
+>   drivers/gpu/drm/bridge/tc358767.c                  |   2 +-
+>   drivers/gpu/drm/bridge/tda998x_drv.c               |   2 +-
+>   drivers/gpu/drm/bridge/ti-tfp410.c                 |   2 +-
+>   drivers/gpu/drm/display/drm_hdmi_state_helper.c    |   3 +-
+>   drivers/gpu/drm/drm_atomic_state_helper.c          |  43 -------
+>   drivers/gpu/drm/drm_connector.c                    |   8 --
+>   drivers/gpu/drm/drm_mode_config.c                  |   4 +-
+>   drivers/gpu/drm/drm_panel.c                        |   4 +-
+>   drivers/gpu/drm/exynos/exynos_drm_dpi.c            |   2 +-
+>   drivers/gpu/drm/exynos/exynos_drm_vidi.c           |   2 +-
+>   drivers/gpu/drm/exynos/exynos_hdmi.c               |   2 +-
+>   drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |   2 +-
+>   drivers/gpu/drm/i915/display/intel_connector.c     |   6 +-
+>   drivers/gpu/drm/i915/display/intel_sdvo.c          |   6 +-
+>   drivers/gpu/drm/loongson/lsdc_output_7a1000.c      |   2 +-
+>   drivers/gpu/drm/loongson/lsdc_output_7a2000.c      |   4 +-
+>   drivers/gpu/drm/meson/meson_encoder_hdmi.c         |  12 +-
+>   drivers/gpu/drm/nouveau/dispnv50/disp.c            |  25 ++--
+>   drivers/gpu/drm/nouveau/nouveau_connector.c        | 129 ++++++++++++++++-----
+>   drivers/gpu/drm/nouveau/nouveau_connector.h        |   3 +-
+>   drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c  |   2 +-
+>   drivers/gpu/drm/sitronix/st7571.c                  |   2 +-
+>   drivers/gpu/drm/sti/sti_dvo.c                      |   2 +-
+>   drivers/gpu/drm/sti/sti_hda.c                      |   2 +-
+>   drivers/gpu/drm/sti/sti_hdmi.c                     |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |  16 ++-
+>   drivers/gpu/drm/sun4i/sun4i_lvds.c                 |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_rgb.c                  |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_tv.c                   |  16 ++-
+>   drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |   2 +-
+>   drivers/gpu/drm/tegra/dsi.c                        |  17 ++-
+>   drivers/gpu/drm/tegra/hdmi.c                       |   2 +-
+>   drivers/gpu/drm/tegra/sor.c                        |  13 +--
+>   drivers/gpu/drm/tests/drm_atomic_commit_test.c     |   2 +-
+>   drivers/gpu/drm/tests/drm_atomic_test.c            |   2 +-
+>   drivers/gpu/drm/tests/drm_connector_test.c         |   4 +-
+>   drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |  16 ++-
+>   drivers/gpu/drm/tests/drm_probe_helper_test.c      |   2 +-
+>   drivers/gpu/drm/tiny/arcpgu.c                      |   2 +-
+>   drivers/gpu/drm/tiny/sharp-memory.c                |   2 +-
+>   drivers/gpu/drm/virtio/virtgpu_display.c           |   2 +-
+>   drivers/gpu/drm/vkms/vkms_connector.c              |   2 +-
+>   drivers/gpu/drm/vkms/vkms_writeback.c              |   2 +-
+>   drivers/gpu/drm/xen/xen_drm_front_conn.c           |   2 +-
+>   include/drm/drm_atomic_state_helper.h              |   3 -
+>   include/drm/drm_connector.h                        |  12 --
+>   include/drm/drm_mipi_dbi.h                         |   2 +-
+>   58 files changed, 351 insertions(+), 236 deletions(-)
+> ---
+> base-commit: 91f52e99824b0beebb48cad51bbda81437af8664
+> change-id: 20260709-drm-no-more-connector-reset-45ee14d7c62c
+>
+> Best regards,
 
 -- 
 --
