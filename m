@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C83B606DE9E
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5416074643
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkwsCH5N
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edn0AYPt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052BB10E0B5;
-	Mon,  2 Nov 2026 15:12:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 609BD10EF69
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:12:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC9F910EF69;
+	Mon,  2 Nov 2026 15:12:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A0610EF69
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:12:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 489F743DCB;
- Mon,  2 Nov 2026 15:12:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7A31F00A1A;
- Mon,  2 Nov 2026 15:11:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D4443605C6;
+ Mon,  2 Nov 2026 15:12:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82CE1F00A16;
+ Mon,  2 Nov 2026 15:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632325;
- bh=ymYBzOXC+1qnPq3+H1dG+MOV1EJ0vnAFrYigKbllIFM=;
+ s=k20260515; t=1793632343;
+ bh=RGxB3CLuL3hdMOFW6c8rETuQc0/Gu93ks+OA3zHK0Kk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SkwsCH5NX6Vwuc8YrkplsbXUYGZlDfQ9CBIwHzcNKyVojyOkIh1miTD756wE+V94K
- qbWnPBCFoEsk5Vnl3IISVP4GtRJh7t/+O5UXryDxT4dLTsrhtBDQtWOzMD+XlPQhS1
- 5THCVq9/EcREtyMc1/N5VSwvG3Q1CrUodeGrQPLGHFNfVpmv58FNgX24+XU26JY7OW
- sUsvQbz2VbjL7MwP3kVNJQ4yIC+/SktiBLhGC+6TRx0O6yviVfRR7mxZOD/Hx4nWfU
- 5GaDkAcE0fW19SSj+Gk/9Y8llQ2bd+zIEgssZ8CrEgkZbej1DhvNKvROVGhxK2nbP0
- DIw+cl37jf3tQ==
+ b=edn0AYPt5jRwhzogids3xv0SIWD2ZJhmY0NQPvBljECs8aa0X00ejVbwi8wkj25C/
+ 2U5H4P82mtq9mk7Gq7o6e3/c1q4G3kbagk9jpohANeLaXrMVCD+eHlCpevZFWYYYSS
+ zfdTR6xsYkavU1Yyn93mOd5uM9GVA/ziiwPly/tLPD8EKmEgx8k3MJ6ijWmLm10fQ5
+ aAJwWIQlFfdnqETK+vq3WSm6gSr6XKfcJMe7u/+KEhkto92jBEq1FJaT413U5aWoNC
+ fX2qVLNTgmiFU3l4keyd4RISYlleq5zE0TOEd/g/8NAtAr7PPLpG0OuAXPXHvgwwGx
+ A5koDE6WAQthg==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:13 +0100
-Subject: [PATCH RFC 06/23] md: let procfs own the seq_file of /proc/mdstat
+Date: Mon, 02 Nov 2026 16:07:14 +0100
+Subject: [PATCH RFC 07/23] s390/dasd: let procfs copy in writes to
+ /proc/dasd/statistics
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-drivers-v1-6-a994bd4d3b1a@kernel.org>
+Message-Id: <20261102-work-procfs-drivers-v1-7-a994bd4d3b1a@kernel.org>
 References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
 In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -70,12 +71,12 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  Chuck Lever <cel@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1303; i=brauner@kernel.org;
- h=from:subject:message-id; bh=98AwGD4IED7vI5/KgxxfmkGNQYsM7jyTpJ1BeJQdwqI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG5wa9eb9mvKGcqFdjwLmF1n7FyoUu4/zTbeKoP9V
- 5jBq1ePOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbyaQLD//zX1pfyeqN/TEhI
- Ob3+1Rm/J2p79l/hyunq2m7Kda/Ix4uRoXfzjTPHbDmCeqqTG/in+s5mk9vmK2YguPrLjge1T+z
- 2swMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2121; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=tPoM7KW2jugAI3HBgjDAkvMMKrMKVevq5gq8BMZsIqc=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGropzCjfwupU8fn9+VxtZv2ThSIu2nz9SfrAQKMYBoRl89VB
+ Ih1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmropzAACgkQkcYbwGV43KL3vwEA7DgZ
+ qwKtRcRruUUjfm5rBcGQ2NDy+57vyMOGubX9wNEBAPGDTMKrc7NwpMTdmoTSB/UBaD6PA7NAvur
+ lg4LjKr4D
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,52 +98,73 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Declare the seq_operations and let procfs open and free the seq_file.
-->proc_open() only records the event count for ->proc_poll() now.
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and parse the command from that copy. Commands longer
+than PAGE_SIZE - 1 bytes are rejected now instead of cut at 64k.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/md/md.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ drivers/s390/block/dasd_proc.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..e642b763ebc2 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -9141,18 +9141,13 @@ static const struct seq_operations md_seq_ops = {
- 	.show   = md_seq_show,
- };
+diff --git a/drivers/s390/block/dasd_proc.c b/drivers/s390/block/dasd_proc.c
+index 86399427f01d..6c3bbb7dfe85 100644
+--- a/drivers/s390/block/dasd_proc.c
++++ b/drivers/s390/block/dasd_proc.c
+@@ -15,7 +15,6 @@
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/seq_file.h>
+-#include <linux/vmalloc.h>
+ #include <linux/proc_fs.h>
  
-+/* procfs opens the seq_file */
- static int md_seq_open(struct inode *inode, struct file *file)
+ #include <asm/debug.h>
+@@ -247,17 +246,15 @@ static int dasd_stats_proc_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t dasd_stats_proc_write(struct file *file,
+-		const char __user *user_buf, size_t user_len, loff_t *pos)
++		char *buffer, size_t user_len, loff_t *pos)
  {
--	struct seq_file *seq;
--	int error;
--
--	error = seq_open(file, &md_seq_ops);
--	if (error)
--		return error;
-+	struct seq_file *seq = file->private_data;
+ #ifdef CONFIG_DASD_PROFILE
+-	char *buffer, *str;
++	char *str;
+ 	int rc;
  
--	seq = file->private_data;
- 	seq->poll_event = atomic_read(&md_event_count);
--	return error;
-+	return 0;
- }
+-	if (user_len > 65536)
+-		user_len = 65536;
+-	buffer = dasd_get_user_string(user_buf, user_len);
+-	if (IS_ERR(buffer))
+-		return PTR_ERR(buffer);
++	/* strip linefeed */
++	if (user_len && buffer[user_len - 1] == '\n')
++		buffer[user_len - 1] = 0;
  
- static int md_unloading;
-@@ -9174,10 +9169,8 @@ static __poll_t mdstat_poll(struct file *filp, poll_table *wait)
- }
+ 	/* check for valid verbs */
+ 	str = skip_spaces(buffer);
+@@ -296,13 +293,11 @@ static ssize_t dasd_stats_proc_write(struct file *file,
+ 		pr_info("The statistics have been reset\n");
+ 	} else
+ 		goto out_parse_error;
+-	vfree(buffer);
+ 	return user_len;
+ out_parse_error:
+ 	rc = -EINVAL;
+ 	pr_warn("%s is not a supported value for /proc/dasd/statistics\n", str);
+ out_error:
+-	vfree(buffer);
+ 	return rc;
+ #else
+ 	pr_warn("/proc/dasd/statistics: is not activated in this kernel\n");
+@@ -312,7 +307,7 @@ out_error:
  
- static const struct proc_ops mdstat_proc_ops = {
-+	.proc_seq_ops	= &md_seq_ops,
- 	.proc_open	= md_seq_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= seq_release,
- 	.proc_poll	= mdstat_poll,
+ static const struct proc_ops dasd_stats_proc_ops = {
+ 	.proc_show	= dasd_stats_proc_show,
+-	.proc_write	= dasd_stats_proc_write,
++	.proc_write_buf	= dasd_stats_proc_write,
  };
  
+ /*
 
 -- 
 2.53.0
