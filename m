@@ -2,101 +2,143 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65233606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B10606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:58:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZofQTbxJ
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PxZGtLJP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dvN227vr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A04B010E5FE;
-	Mon,  2 Nov 2026 11:52:31 +0000 (UTC)
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
- [209.85.219.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB7B10E5FE
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:52:25 +0000 (UTC)
-Received: by mail-qv1-f48.google.com with SMTP id
- 6a1803df08f44-91c905d7b6bso31113366d6.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:52:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793620344; cv=none;
- d=google.com; s=arc-20260327;
- b=mchVDr69xaroyu0KtBqmJif6QzxsMrzRIvcQ/BlNsd1KAXJwJjGPL/nw+dgXsg3iFp
- 01XUv43OcJq85uY2GJMFs63UHiD8WEflzM27bJDp93AKBPZB6pJMuXzpvr2z8rDxBB/h
- quZMaH2o4bu0LGuwyjp+ekmX+O4Usa1WRWL9FyvMIqfOPL62SFMlhtf1T/cXuAPo/1JM
- 05D/6U7cHH8CnxuketJyTOU9FhjmPAoukPvrGH/RUuFFbnyjJhUpC9ZnwtpVkzT4zWj+
- pgzeKSXAc9a8c9Im5WUIjzTkfm8BuLnxDrSt/OXCyIqmZ2hwKgQvYUeoNFfITRyxJE36
- UZIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=OPFfoxfETiD5aqwPpBjWzUPCpBAXaMCBvOYRyj7zIms=;
- fh=hDgNBaeRYnvm14gpOnnhXa62RWCWzPvIQ+KwjeiNqYE=;
- b=qHOR5TeGCF3+aKLke7QcqE2/+qGVZgdplJ/NhpJVv5j+YPcMiKjZQD3ASQmiF4wggD
- lbII2O6xoxMX6xNRtbEv3IvhavwohjZRkFjK9Nap+1m+sV4W8D5TbxfKOFGeDw3a4ip7
- F3xeeuQ0VCLLPAAJhaTixJxG8NZqZKQUbfijggh8Vm/wBtSK5U0tLaOPPEswc1gMyKSA
- b//0+NcGStgpmmD3ragMJJy16rhc0EAlgI5bI2ndKmEbSPKtzkKyNtPqAkYqwaTzy2pg
- M4VEe1JNq0RxlaLdTj3b6VcWperSj+KlvItS4PhvUuntyk1SdlF4LaEePgV+iFmT/dEk
- dE7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B44610E620;
+	Mon,  2 Nov 2026 11:58:08 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B77A10ED72
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:57:57 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A29AMxq1821174
+ for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 11:57:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XNKwtLEPoAerLUKfTmxvN50PoLCkeJCmqkuTSnSA9VA=; b=PxZGtLJPRS29HD5g
+ tHiiDT7NNNUhHpl19C8IpEfL04YWROryX+LiXAbzSklVMNmiKA7WmeBxF0mwaiz3
+ yLmeds68Ki/2bl7MXu7CB0ufsF+BCAhHYFXwzGpauL9QpjFhwWwKs3CalDaBPGP9
+ HRfVOIEjyIelDGcGkTKHNKa0RQr5PnRjIVFpAsV7VdmMJcihhlC9gL/xLNm7Ax/D
+ pynLKrb0zNUyGET23tDaXogLz99WpdjJVOpuMEHy738NO4BUmsEbeUaoGkqReCKh
+ ToCWHO9Dmrk2q5/2TFNh2p0e8EZ7SVmjyomWstG2PZ5LeZ+6dN6U/esbHycSVA7V
+ AefRAA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hh9b-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:57:57 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93f1f1f2ecfso49144585a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:57:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793620344; x=1794225144;
+ d=oss.qualcomm.com; s=google; t=1793620676; x=1794225476;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=OPFfoxfETiD5aqwPpBjWzUPCpBAXaMCBvOYRyj7zIms=;
- b=ZofQTbxJMBtdraEZqIDCQ+BKDAo8eRqxid3DF30JRGxpP6PjblvwiYsfURQ4oBHOQb
- B3stcU8Gwcu8TuliH1HLraSl6kjTwDk9MmzrDLcIahMbLN78KoSW5F2XJSBeDE67NMPn
- zKIyX0nNTOYX3MaRGQ1ZZ9Drgwo4k33obU+MqE9yX1GII4skoulg610x2p2nGeKpVKwT
- /p+Scq/sCHaBkBulrJZXUDH6bvtyPEOhBpksITCLqiRKVXoCiQHcQpNgsZlkEB3gEIBY
- 5/Fw6OZY19ESJ4wsmnJKm6BL342Z7Q0AtbPQAOpgdKne8aJdn6Q8pVfiERUn57d6PMhg
- bQ9A==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=XNKwtLEPoAerLUKfTmxvN50PoLCkeJCmqkuTSnSA9VA=;
+ b=dvN227vrXbu6jVxtJJb7FEUX/O+jQ8+9XuLCj+K/LstJmP2tvERdwSPWus9e5874PB
+ JgzLK0APMwh0HkVKxtzLUqJG0Gkr5psSm/eq8VorLPnB/j+/91DkArnzD6NZ/Cd+aFmc
+ zuCC0FoHt+vtwxvKQtSRABt0M2xZA7T6M8q67uD8rjC/qiiL2y8vp1ln97iX2GZQ6/fE
+ GYRrcnWJUucEqQxn7no9d3VWMi5zDt1i81wcCryUNdISivYDKSHhlJK3Rqa2OQG9Zzzc
+ j6oB9gx/vrinibuY6YXkz3x8yg4V7hQVj3XDglcgilhLhkQ85orPNhDPrctgt1HwPWTx
+ h1WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793620344; x=1794225144;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=OPFfoxfETiD5aqwPpBjWzUPCpBAXaMCBvOYRyj7zIms=;
- b=ZmemhW6L33bhfr5sEYRwJDfr5zo3lTKAy/uzyhNFtLp2K66aMKx3CDqhnA7hHT71m1
- rPCGtZMMH2MCItNc0He2pLiL7qoIhVQ+p+5E+FmlzlYyma8PrFKE7gAoXBk7gHcPehlZ
- C3GCe/HnKqY9f8HvYS//L/XvKQj26aUGZh2jLiFKzArMPLAB0BCxeO3H/bkKDC3ROrpb
- rdet0XyPFY4/7Tch9cR4+9nLudl5puRVRyNUqYGARMdWUqR6Z1lwGpnmLFNeF/zR3Scg
- YeUtuMj6C71IGuh41+EqWVrGtjjf65RQ9c2gChWdf5KBuvGHfVvBZZI1oN0rifzHwTdD
- Gb1A==
+ d=1e100.net; s=20260707; t=1793620676; x=1794225476;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XNKwtLEPoAerLUKfTmxvN50PoLCkeJCmqkuTSnSA9VA=;
+ b=p5OgfzeoGqCt36bxtTt31pk13P3SBPdQkKmbaup/CQ3eOW7TEWBYts0LbkDdJuTyT+
+ Oqe7tmtYF2mWI0Gn4AssT89k2fcXaINT3jcVXlvY0g5EDNfrtZj41F1lDx7EYjj0/kts
+ LByCU1zo+GUScYPCiy9pNmSRsQS3YlqpGxkqUVUaJRxVONdaAjKquSJIwCVfAXMkTCA/
+ ukUeTTGI1wImv0mPAEJ/ouxNWojI6PnaBtOEhFMVUuNz3Qby7wvg7XM9ltLHo3ESLtgf
+ GPlzl4059xvI/ecIzvpnyjuoanFRMfxYV5aIX2zydtxDcbl2cSfK76TRe5WhAwuDx+B4
+ ESVw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByHMEVjnBRHDNTod0hX54GMehudloF95zsWeOc2VCLYnpEkGNnhK8N85DfG/3EtN5ErrKGRxymlTqs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+uwQScisz7R3az+mA5iplpb4PSwcQVa02VRD9h4I5u0OSR5vJd
- sIYrKN0GQjjGbpxToZfKTPZeWMDh560Asc5kDV8W23qvf3DDlnm3s09GypMc/BP48MjioYJKqLx
- 9liFL3bsR8ANERs/rZMRN8P90i04rYCxhqQFSxpqp
-X-Gm-Gg: AYBFou2sfAtJRmUuH6TXLO+9vjtc56/OSFKro38O2oMJ7uyzrx+OVXcgDZFW3GUpc1C
- Uz/4o7qD/rJSze0sLtcD6pS8SwsiSiGgRp7u+GdmaGvLthq4u6j2a/88T/9nK4S6oioWJQx/1Ac
- NXbzLXKjrEVNXVeG+icKoPobAMuDoI73h8jL1DXIdHckIuC3ae1wFFyd8q8h57kqzc4mdmwowXB
- Ch1Ye4AfUhp8ZWcX1Qn2xThcd/ubCITon+wtLtRjHMPCQAGfvS28v1rnkpwM3fPwGQJTC4cFlkv
- FuT912E2B+4FDrc8Bazv0kbakXlTuVR7idra52bWRPTI1XQNy3ZNFvBh7uFdd6ZxchKC48EZR2/
- V3eLBOxSBCnYu/KF89Qc20hjGHfTqLyaJLbSoXJzeIwT7jPiAnwwDm5EjKytHo4nunmq2cgA3zV
- rAGzlGY37SpIhZtKUhe4ribiHonlFHvkwExW3VQfukOl8Tol/pvWAXsQ==
-X-Received: by 2002:a05:6214:d65:b0:91c:77ef:21f3 with SMTP id
- 6a1803df08f44-91ca4b4aa4bmr161361366d6.35.1793620343351; Mon, 02 Nov 2026
- 03:52:23 -0800 (PST)
+ AKwUvBx7xqScsJ2BHwT9raYLybDU2kylUKhc5zMG/Dap7HkGzVjKke+5iVA6hSa43GTKqhbUK60NbDlhkv4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLl00InYL2/oaOIEqmsFLwE7MHGBmWGvTs/KWK1Da/jRJ99IpbO
+ AXH0OZ8gI3dspJyK9QNCk8mq/fifUlTHS5PLc8MDD3r33qaFyRmpsjS/IwzQgOe7azfubGfnWza
+ PKGMd843GWsKlGulnr1fhwA8iG6JgNYKrcZqwaqcWiiJz5vZ8If7vDPQJmWNkesuItTIu4Qs=
+X-Gm-Gg: AYBFou0xHjJ3Vvs46DwJFJ8DNF2qw1Wx3zM2jTJ7U1ttvjg9Car/PJUtGmiEd17zZEf
+ tCQh/43p/B7k4MlEt8lzQQIlZZtGCcGgRUjSH99e4gTy+wPbHN3KVbEDKYcgbCS/iH13EVbRKo2
+ enVBOdRAIu6j8hKDag8VoNWQvIsgMJo4E2ikszqehf0ORe+cTM592c8IElX/px3Yi4+tDDqRiye
+ zJ6yex//13L26HxBbTt81E0hQyNuw48SaIVgOG1s3hQvBnVN6i7yKqSvzSRjnDPeX5iRVm3rDLH
+ /Sk8Tp2F2P14TZJTfymIYzyJzzxX3XkIr3ibX2Is0LXFT9SGoNnszqdCwRrTjRhlfbQGJ0k3fPZ
+ 50+iqb23VoRM9gYm5LxSuLdsFaTKw3qYkw4ZORbieGEpAPncld6MmuSHhoK045HpZy4hJsJM=
+X-Received: by 2002:a05:620a:124c:b0:93e:571e:94f0 with SMTP id
+ af79cd13be357-94421734130mr1761509985a.3.1793620676061; 
+ Mon, 02 Nov 2026 03:57:56 -0800 (PST)
+X-Received: by 2002:a05:620a:124c:b0:93e:571e:94f0 with SMTP id
+ af79cd13be357-94421734130mr1761506985a.3.1793620675652; 
+ Mon, 02 Nov 2026 03:57:55 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4cabc18e78sm387008666b.9.2026.11.02.03.57.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2026 03:57:54 -0800 (PST)
+Message-ID: <2392949c-85f4-4cf7-aece-df3b9dc86cb4@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 12:57:53 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
- <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
- <a10ab532-1e9e-4a85-a79e-b712868889c8@amd.com>
-In-Reply-To: <a10ab532-1e9e-4a85-a79e-b712868889c8@amd.com>
-From: Chris Wiseman <chriswiseman@google.com>
-Date: Mon, 2 Nov 2026 03:52:11 -0800
-X-Gm-Features: AclHuK8V34sYC53r3ruPdF2CmxA0GLy-yR6aEEhtX5C30asNiPTQwKxbQk7mNKE
-Message-ID: <CALdCrooY1DSesx6fWXtpSmuLuE4ioXccVbE5-=37sJkUiLKZQQ@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in
- system_heap_mmap()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "T.J. Mercier" <tjmercier@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000006f3e63065f49c790"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/12] arm64: dts: qcom: sm6350-lena: rename
+ touch-en-regulator
+To: erebion <erebion@erebion.eu>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Luca Weiss <luca.weiss@fairphone.com>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-2-cdc3be96d257@erebion.eu>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261102-pdx213-upstream-3-v3-2-cdc3be96d257@erebion.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: QWQuqqoWUmoXJ553C5X-qZkrmliyY-3b
+X-Proofpoint-GUID: QWQuqqoWUmoXJ553C5X-qZkrmliyY-3b
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NyBTYWx0ZWRfX8CU660AjsI4F
+ Bhugat06eetEjRUvHqBYDpTSt6lDU8iRdPW+akfV9NceLqPvxJW/0wId+6ziounqmrHRq21nypE
+ OijKYRVNuwjnb+4IgRmQPKKhocHWyGg=
+X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae87ac5 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=6H0WHjuAAAAA:8 a=JgZe5hknAAAA:8 a=EUspDBNiAAAA:8 a=RC7kgf61jvLRIQ5xqpwA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=Soq9LBFxuPC4vsCAQt-j:22
+ a=ODtDA1adfiiB3BH7YLNA:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NyBTYWx0ZWRfX47eOxuXH3MVM
+ 1FmK6hFe6+jdYxcLpRZqrWHw6//QbWaD8+E5ys+E2lpj8r2NLj08F/kaVF5/WmXBoakS5JWJc0g
+ SF6ysVjavW+/LuRa5UBxHivA0TmIAu5LuPjGnvtBLBc3l9KQQWFUFWjNwbsqMJGGFk582UmmvqJ
+ VpEMXNaXVWIv2QZMILDDvwp1BezFWJQ+LDcyXu0Bm9AA/whgW/wjC9OxLj5LwTFRKY5xyDIeuxC
+ gCY26RXgyT3toi4WYooeRcM7/3Catq6QhFnqVAbViHbkTR51LDYTKQXBWB3K+zvEKR1osLLV8UJ
+ cd4jgAZuenj5GHT6X/M2Qpanz9qsoUmSlkbrCYjlZfniFBl55btiPYzKUsrerUZ4VIjU0X7rMVp
+ 6dp62aIxEG/O//GH3oVe8WnWIVql8PDTKTefG+loQVtU+NDvO92jdJaqeBdWjANdlAqflKkFfNR
+ YUMDnRNo0I4OwjTiUNw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020047
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,163 +150,21 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000006f3e63065f49c790
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 11/2/26 12:32 AM, erebion wrote:
+> rename touch-en-regulator -> regulator-touch-en, to
+> keep any future fixed-regulator sorted together
+> 
+> Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
 
-Thanks Christian and T.J!
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Yes, please go ahead and push this one to drm-misc-fixes (unless Sumit
-would prefer to take it).  I will send out a separate patch for
-drm-misc-next enforcing the check in dma_buf_mmap_internal() and
-dma_buf_mmap() so we can see if anything in userspace complains.
-
-On Mon, Nov 2, 2026 at 3:09=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com>
-wrote:
-
-> On 10/31/26 02:44, T.J. Mercier wrote:
-> > On Fri, Oct 30, 2026 at 1:44=E2=80=AFPM Chris Wiseman <chriswiseman@goo=
-gle.com>
-> wrote:
-> >>
-> >> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
-> >> use sgtables instead of pagelists") stopped using heap_helpers.c and
-> >> added a custom system_heap_mmap(), the check rejecting private mapping=
-s
-> >> was dropped.
-> >>
-> >> Other exporters and buffer allocators reject private or copy-on-write
-> >> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
-> >> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
-> >> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
-> >>
-> >> However, system_heap_mmap() omits this check and calls remap_pfn_range=
-()
-> >> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
-> >> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
-> >> fault into do_wp_page() -> wp_page_copy(), silently allocating private
-> >> anonymous copy-on-write pages whose writes never reach the underlying
-> >> system heap buffer pages.
-> >>
-> >> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
-> >> cma_heap_mmap() and mmap_udmabuf().
-> >>
-> >> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use
-> sgtables instead of pagelists")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
-> >
-> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
-> >
-> > I wonder if we should have this in dma_buf_mmap_internal() though. Any
-> > thoughts Sumit or Christian?
->
-> I do remember that this was once already discussed with Simona and a
-> couple of others, but I don't remember what the outcome was.
->
-> On the other hand I can't think of a reason why anybody would want a
-> private mapping with DMA-buf copy on write clearly won't work. Maybe for
-> backward compatibility with broken userspace, not for a real use case.
->
-> I would say let's push this patch to drm-misc-fixes and apply another
-> patch to drm-misc-next to enforce this for all DMA-bufs and see if anybod=
-y
-> complains that this breaks userspace.
->
-> Should I push it to drm-misc-fixes or want somebody else take that?
->
-> Regards,
-> Christian.
->
-
---0000000000006f3e63065f49c790
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks Christian and T.J!<div><br>Yes, please go ahead and=
- push this one to drm-misc-fixes (unless Sumit would prefer to take it).=C2=
-=A0 I will send out a separate patch for drm-misc-next enforcing the check =
-in dma_buf_mmap_internal() and dma_buf_mmap() so we can see if anything in =
-userspace complains.</div></div><br><div class=3D"gmail_quote gmail_quote_c=
-ontainer"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 2, 2026 at 3:09=
-=E2=80=AFAM Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd=
-.com">christian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">On 10/31/26 02:44, T.J. Mercier wrote:<br>
-&gt; On Fri, Oct 30, 2026 at 1:44=E2=80=AFPM Chris Wiseman &lt;<a href=3D"m=
-ailto:chriswiseman@google.com" target=3D"_blank">chriswiseman@google.com</a=
->&gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; When commit 381295758792 (&quot;dma-buf: system_heap: Rework syste=
-m heap to<br>
-&gt;&gt; use sgtables instead of pagelists&quot;) stopped using heap_helper=
-s.c and<br>
-&gt;&gt; added a custom system_heap_mmap(), the check rejecting private map=
-pings<br>
-&gt;&gt; was dropped.<br>
-&gt;&gt;<br>
-&gt;&gt; Other exporters and buffer allocators reject private or copy-on-wr=
-ite<br>
-&gt;&gt; mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf(=
-)<br>
-&gt;&gt; check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap=
-()<br>
-&gt;&gt; and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).<br>
-&gt;&gt;<br>
-&gt;&gt; However, system_heap_mmap() omits this check and calls remap_pfn_r=
-ange()<br>
-&gt;&gt; even when userspace requests MAP_PRIVATE with PROT_WRITE. As a res=
-ult,<br>
-&gt;&gt; subsequent CPU writes to a MAP_PRIVATE mapping of a system heap bu=
-ffer<br>
-&gt;&gt; fault into do_wp_page() -&gt; wp_page_copy(), silently allocating =
-private<br>
-&gt;&gt; anonymous copy-on-write pages whose writes never reach the underly=
-ing<br>
-&gt;&gt; system heap buffer pages.<br>
-&gt;&gt;<br>
-&gt;&gt; Reject non-shared mappings in system_heap_mmap() with -EINVAL to m=
-atch<br>
-&gt;&gt; cma_heap_mmap() and mmap_udmabuf().<br>
-&gt;&gt;<br>
-&gt;&gt; Fixes: 381295758792 (&quot;dma-buf: system_heap: Rework system hea=
-p to use sgtables instead of pagelists&quot;)<br>
-&gt;&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">st=
-able@vger.kernel.org</a><br>
-&gt;&gt; Signed-off-by: Chris Wiseman &lt;<a href=3D"mailto:chriswiseman@go=
-ogle.com" target=3D"_blank">chriswiseman@google.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: T.J. Mercier &lt;<a href=3D"mailto:tjmercier@google.com" =
-target=3D"_blank">tjmercier@google.com</a>&gt;<br>
-&gt; <br>
-&gt; I wonder if we should have this in dma_buf_mmap_internal() though. Any=
-<br>
-&gt; thoughts Sumit or Christian?<br>
-<br>
-I do remember that this was once already discussed with Simona and a couple=
- of others, but I don&#39;t remember what the outcome was.<br>
-<br>
-On the other hand I can&#39;t think of a reason why anybody would want a pr=
-ivate mapping with DMA-buf copy on write clearly won&#39;t work. Maybe for =
-backward compatibility with broken userspace, not for a real use case.<br>
-<br>
-I would say let&#39;s push this patch to drm-misc-fixes and apply another p=
-atch to drm-misc-next to enforce this for all DMA-bufs and see if anybody c=
-omplains that this breaks userspace.<br>
-<br>
-Should I push it to drm-misc-fixes or want somebody else take that?<br>
-<br>
-Regards,<br>
-Christian.<br>
-</blockquote></div>
-
---0000000000006f3e63065f49c790--
+Konrad
