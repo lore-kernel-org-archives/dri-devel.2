@@ -2,79 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E75606A32D
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CED7606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=euDtoINk
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ej1F0YGy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3DF10F42A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3BF10F422;
 	Tue,  3 Nov 2026 08:21:47 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5748110E5E0
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 09:44:17 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-48dfdd0678dso1900711f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 01:44:16 -0800 (PST)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7110310E72F
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 23:24:55 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-48e20ed3b9dso3167345f8f.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 15:24:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1793612655; x=1794217455;
+ d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1793661894; x=1794266694;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=NoeO4H254v62ZOJJIm68Fw+JHpyHTDMSfunZ/oF8L/k=;
- b=euDtoINkWc9csCsn61zPHkQHI1bMw+TI5AK/E2GSz/7UZzRkuQ/pNYsnNLjCPibk19
- 6qKdXNdfawPSxFw7YZGoebfx4ZiEm1cAgc0xvuNdIUbCjB/24J1Jee8H7vHWqPVA0BLo
- KaymsIJRSKln+2NEDw3586E4opV2VDOxtibjPcbX/PFuI6F0ETe+MDyMR4eL5MSmLtnW
- i1No7kUAMpjJam0fjwkoXDgTgQGWSD1PFCYrLZhbzinAYQ4FRnijjG760TuW9PO0MebQ
- xece8ZBpqBh9XSrGMGT2AwUL1EMU1qIfmeQARibDKd7tLAnr84Y2IdPdjBLtK1zvx0XL
- Cc1g==
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
+ b=Ej1F0YGyD4xUB2G4NttxbumzlHVqntpVyAcJaS9FyvS0S/BVFrIsf2E6yBnhlXj2vq
+ Nui6I3p9Kb5wDmcujdrbaYd+voOiC/xZgZbATBrpX6gqPio9GNU76LGO/k7TBCfK1mN6
+ /kfN59GONMY0ywp+VbHadByf/MnPW/NO3k9h26JL7k7vYBS5QJtkvTss4nVjGpp8X1fH
+ AJLdEB7V8zDXrHJxE4ay7mUPHfgW600lOelr0tKYqCsERJ3Pje/W60N4FwOPYH6YBWNZ
+ T5UymAk8NmUmtWAhpcZsYShIETTe2pCRS8lsj05toLUBfoz5geBa4j49FQMVbKZj0MiA
+ BnBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793612655; x=1794217455;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NoeO4H254v62ZOJJIm68Fw+JHpyHTDMSfunZ/oF8L/k=;
- b=G5MnPIJtJEwgrMVkm/yAVCMRtE//3SYGt4ElHBxOlnRyTLp1JKSLt3vy+gCTeOKS+U
- eEuxa2hdxCFDIA1DDrNAMxgSKhoAAUxeQkwZslXYmfHgDGCWEgkMHHRydD0jLH2cKb3H
- 8XJkw7xWbMCUlfu66Gt8ny0Aex7dYMKUnNywPwoTw6TciFiGU9l1Yi0CW9M1ThJMVYp4
- ALVfGgRHLgwLTUc+3+tItEHrhCgsoY6+cj6wjPG7k7QKFN7HzYx+ReRyrw1eavQlvFb/
- jbopA1X8nbI8882a+mMN/O4uoyEYHgHrWWgNRNQOhM501jXUHVRIfdLt00AeIJg1U/KW
- v6hQ==
+ d=1e100.net; s=20260707; t=1793661894; x=1794266694;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
+ b=e9wVKSmxQs2TzxXvgJSBlxVIeQ9DHHy+veThSN3/1Ceg6No2uhf08crim6/w5qE18K
+ Aes2+UlMPK5P8aLNbSrKwmM8kqlEtidYuE8bEc8H2jcqhy8U41M/kZuBIYek2j6nN/KD
+ QChZZILW0Sx3MHBOGBGktL8lHQmeCA5czVj/VMYw3at78xU8qX8uaewS5rLljGARY6ts
+ 6FiJy2y2A738V4c3jbhYz0Sp3JlmwXKeCUl1LwXhSe1wMl+h+AMtXe6sPktNnKvu1nbL
+ POvJAIDPKaJCsZMauiyQ0iduFD5l+2mnYN/En00HOaJtxiudpCIid9wKLcCTJwIs3JaU
+ w7LQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxssGP1qBr75c41XS+boRe5C7uxzDvJSlERD1o9lGaaufFEvdGiu0YUK8ECibSl7D1MHnbHWO1Ncys=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/85Ef/CWFfSgpsnMQV+8BuCMe80uO8et3acE7OFVXan+czmxRP
- jAYoWOAIsWfNViQccr0Y9fuzRV1V+sCXrtXR42W+uXdm1faciNRibHCI4EAuA0sM4E0=
-X-Gm-Gg: AYBFou0czP6gNSEkPuhIAAM8RM6CAPZuc1mEqG6CETnR9IUgKVwTC5fHEFC4pYY3yvr
- YN902fruXHguOrENL649nwgpSxnNcTyJjxXS1yp+AgzlHlsB6kYIMBvMw8D2H4e80YX4fVNO/lN
- y7BIiaBvyi/gZ61tnos8MozG8e34yaJs+WOUg5ed8ZZvhhYttKYEw1lREgleFoUg4Gmbi3mZ2ZQ
- Op9INrhPNKaj3lnDbdLHXRzL272VI5ge3unMKT6uu5p4g8MwIPa77Iq82hkV6csKwzt4LqcHH40
- xgPeuVA5g2horYHsRjnVVgO3Xq2FFgdzwDq07hIlrrmY1EWnM378zxYMycBE1i6I+fhsAByqcsp
- D2B6V/zJPx/ZoSX7X0x8HPJsyKWTruL338kyt8dFxJfeLTmKEEJRN3WIrjWkpZAzVWp8D8s8Kfu
- zQm9wpUCLtLy1RKg+8SAdrfA9wkM3Bv0pQ1kCkJH8qdYH4/kVQTsJDGda9rsD8pm15m233HpwAs
- nCE4of9dlPMMjenmIwRRUJtp3aAY3F8KLMM3dyH+xlMtGCufZwFuwVJD1FC5MHKoryeG11h/Xsg
- UmvJSEmxiGx134aSCkAoAaSIO4ErXmPhY43sJkBGGiexBQzM6KbLg2U1j+t/4A2CUFA=
-X-Received: by 2002:a05:6000:26c8:b0:48d:f14a:9183 with SMTP id
- ffacd0b85a97d-48e6e303b1dmr21700466f8f.15.1793612655038; 
- Mon, 02 Nov 2026 01:44:15 -0800 (PST)
-Received: from localhost (137.36.26.109.rev.sfr.net. [109.26.36.137])
+ AKwUvBxFek/yjdxysRvvjZ2++29KJAssbyDiy6ifOrKeKcQX29Cz/DNOc4eJQ1fJuo4CELYFlk8QKyiIr2w=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+MONvvvqyAmxESoemYfCE165blrAkbTC1XvOrA7kFN1lEod/Fh
+ Jp+B7VfTnvsU0IeTYgYpxWjPupkjE8sqmK1RZsFgjmt2ep/22MbI5yH2jY2MbSdUdA==
+X-Gm-Gg: AYBFou3MbFycHqnC5v0uzIBGYyGkscdugGM3+Aa3GSNOLwNkGydsVb8fAHB/wRq+iwd
+ 0ui7TNg4fG3cbvzYCew07JEXCk7UXDd7Ao9uchJFhumxbl0wGaQ/McP+jGBjF7otZ9+FzoHXIWU
+ RiJrVLrPZucIGVJjD7T9AJzNtOLzI2vI+7YzktjX45zHQa0jOwSxhzc4APfCCTb1Hx1qYLcwxvp
+ wqnogYo1k3Q+wB7OBu6M7bamGuFKrD7R/MYiEU/BmmLp/toBo2K1j1nkEVspwL0E7d2ZH4J/bY2
+ MQyBLvKvNksDpK5WUo90VjSYasvJ9Pa6t5zIJzcXQEwD/1xKDrpx/6y9TVwJ1lilwndaby4ehHF
+ jkskeKXApdcus1DS78nnwUqjJaHmX8Aw9jyOB+TGQ/ZSVp21xmiM14MeMIY7GBRuot1wtCBvRWs
+ P35pQD7plrmKZApcH9//GKHPjsC2r8Kvrbc/9ZfunB+q8G9Re5R+Cjb6NnfdWEe0zmdXvlJrxNo
+ Fqt5q1myZgPtujLsQh9yWlfPrhypAMOOjZY9rIwUKZ3rqojBOKoiwRc83Q4B/Jr6gGUsfZODE/G
+ +VhpVe3QS6lRzqUxVQgi/K495A4gC5NSX5YYAcDFUNURcPNpamzWcAD/Wox9Bw==
+X-Received: by 2002:adf:e19d:0:b0:48d:ffcb:28e1 with SMTP id
+ ffacd0b85a97d-48e6e4f570dmr26032786f8f.11.1793661893544; 
+ Mon, 02 Nov 2026 15:24:53 -0800 (PST)
+Received: from mbp2019.tail53dac2.ts.net
+ ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b725b8sm19130989f8f.20.2026.11.02.01.44.14
+ ffacd0b85a97d-48e71a4d4f9sm22522868f8f.2.2026.11.02.15.24.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 01:44:14 -0800 (PST)
-From: Phong LE <ple@baylibre.com>
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: Phong LE <ple@baylibre.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/etnaviv: add the Allwinner T527 VIP9000 hardware
- database entry
-Date: Mon,  2 Nov 2026 10:42:52 +0100
-Message-ID: <20261102094343.2086424-1-ple@baylibre.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 02 Nov 2026 15:24:52 -0800 (PST)
+From: James Skillen <jahs@jahs.net>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
+ MacBookPro16, 1
+Date: Mon,  2 Nov 2026 23:24:50 +0000
+Message-ID: <20261102232450.61301-1-jahs@jahs.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261024162109.307247-1-dev@deq.rocks>
+References: <20261024162109.307247-1-dev@deq.rocks>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
+X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,72 +95,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a hardware database entry for the VIP9000 NPU found in the
-Allwinner T527, as used on the Orange Pi 4A.
+On Sat, 24 Oct 2026 18:21:09 +0200, Andre Eikmeyer wrote:
+> The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
+> 1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU messages
+> as soon as UCLK switches into its third level.
 
-It's coming from allwinner BSP driver in gc_feature_database.h with
-vip9000nano-si+ IDs.
+This is the hang reported in drm/amd issue 6005, which has the
+umc_info analysis and test results from both boards:
 
-Signed-off-by: Phong LE <ple@baylibre.com>
----
-v2:
-  - Fix minor_features6..11 masks: translate flags by name matching
-    against Linux UAPI definitions (common.xml.h) rather than raw
-    positional struct packing from the vendor gc_feature_database.h.
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/6005
 
- drivers/gpu/drm/etnaviv/etnaviv_hwdb.c | 32 ++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Could v2 carry a Closes: tag for it?
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
-index 32d710baf17f..54e353d61be2 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
-@@ -292,6 +292,38 @@ static const struct etnaviv_chip_identity etnaviv_chip_identities[] = {
- 		.minor_features10 = 0x108048c0,
- 		.minor_features11 = 0x00000010,
- 	},
-+	{
-+		.model = 0x9000,
-+		.revision = 0x9003,
-+		.product_id = 0x5090009,
-+		.customer_id = 0x10000016,
-+		.eco_id = 0x6000000,
-+		.stream_count = 8,
-+		.register_max = 64,
-+		.thread_count = 256,
-+		.shader_core_count = 1,
-+		.nn_core_count = 6,
-+		.vertex_cache_size = 16,
-+		.vertex_output_buffer_size = 1024,
-+		.pixel_pipes = 1,
-+		.instruction_count = 512,
-+		.num_constants = 320,
-+		.buffer_size = 0,
-+		.varyings_count = 16,
-+		.features = 0xe0287cac,
-+		.minor_features0 = 0xc1799eff,
-+		.minor_features1 = 0xfefbfadb,
-+		.minor_features2 = 0xeb9d6fbf,
-+		.minor_features3 = 0xedfffced,
-+		.minor_features4 = 0xd30dafc7,
-+		.minor_features5 = 0x7b5ac333,
-+		.minor_features6 = 0xfc8ee200,
-+		.minor_features7 = 0x03fffa6f,
-+		.minor_features8 = 0x00fe0ef0,
-+		.minor_features9 = 0x0088003c,
-+		.minor_features10 = 0x10c0c8c0,
-+		.minor_features11 = 0x00000010,
-+	},
- };
- 
- bool etnaviv_fill_identity_from_hwdb(struct etnaviv_gpu *gpu)
--- 
-2.43.0
+I tested the patch on a MacBookPro16,1 with the Pro 5300M (1002:7340
+rev 0x43, 106b:0210, VBIOS 113-D32207P1-019), on linux-t2 7.2.11 (Arch
+v7.2.11-arch1 plus the t2linux patches) with this patch on top. The
+userspace pp_table upload from the issue was disabled for these boots,
+so the corrected levels came from the patch alone.
 
+All at DPM auto unless noted:
+
+ - both "UCLK level ..." lines at boot and again after every resume,
+   pp_dpm_mclk 95/496/598/736
+ - forced pp_dpm_mclk switches through every level transition, idle
+   and under memtest_vulkan load (57 switches, every 3 s): all landed
+ - UCLK pinned at level 2 (598 MHz): llama.cpp benchmark and 180 s of
+   memtest_vulkan, no errors
+ - 60 min soak of llama.cpp runs with idle gaps, and 30 min of normal
+   desktop use with the soak running
+ - 8 deep suspend/resume cycles (rtcwake, lid, systemctl suspend)
+
+I ran these with the internal panel on the iGPU and again with the
+Radeon driving it (apple-gmux force_igd=n). No "SMU: No response", GPU
+reset, ring timeout or DC errors in any of them. With the stock driver,
+level 2 hung within seconds.
+
+For the runs with the Radeon on the panel I also had
+amdgpu.dcdebugmask=0x1. That is for a separate DC issue (the MPC pipe
+split on the 3072x1920 eDP plane makes DRAM clock change unsupported,
+so UCLK stays at the top level). It is not related to this patch and
+I will report it separately.
+
+Tested-by: James Skillen <jahs@jahs.net> # MacBookPro16,1, Pro 5300M (106b:0210)
+
+The testing above and this reply were prepared with help from
+claude-opus-5-5; I have checked the results and the text.
+
+Thanks,
+James
