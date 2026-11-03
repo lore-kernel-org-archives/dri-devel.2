@@ -2,63 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3909606A326
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 03:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B90606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 03:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cXsaPy4H
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXyDyVd6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5044510F345;
-	Tue,  3 Nov 2026 03:34:30 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0423010F335;
- Tue,  3 Nov 2026 03:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793676864; x=1825212864;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2ibaC0LwI4fMdA38nqhEQ20mlW1BgDPT1XXy0q2NaVg=;
- b=cXsaPy4HAb4g0tCwkgHdYj3Kt42tgy+Am1ertOZXy2SI84I83PosGD2m
- ov8G+xQzgC4fO44YDdoJ8E0Y2ksfQe991AgbnM/UyRnGLahzk3N9jMDQc
- OZrYjbgd4SmCW9x81c8JZ5lGpjOrbyS9OvivKFQVWVvnNzbqDgb9xGwXo
- ChG4NO3u3PMz3sYWiFQ9Ctcpabc+y08XoNJ1Xg+8PRUv25vOkEweOmq+T
- jw0vktMvBCSP+Kk+9PkXRdemdMInYQH53WETelI0ZHwkkPL5deqY22IiM
- 1kDs8umUVb0M96lT/fE1q7rr3Or/AoPFnIqRjCAjFAveFBvhWDBYlZ4Uo Q==;
-X-CSE-ConnectionGUID: I1Or65HJRxS+W/bk2yZlPg==
-X-CSE-MsgGUID: 043sqmwPTZef0mOHSoAGKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2380803"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2380803"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 19:34:23 -0800
-X-CSE-ConnectionGUID: aUffzQs6T5y2KTInS4KtZA==
-X-CSE-MsgGUID: ZSxTTBwISoCaBhdgtP3ijA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6159869"
-Received: from junxiao.bj.intel.com ([10.238.152.95])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 19:34:20 -0800
-From: Junxiao Chang <junxiao.chang@intel.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- airlied@gmail.com, simona@ffwll.ch, bigeasy@linutronix.de,
- clrkwllms@kernel.org, rostedt@goodmis.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Cc: dev@lankhorst.se,
-	junxiao.chang@intel.com
-Subject: [PATCH 2/2] drm/xe/gsc: warn about GSC stolen memory usage on RT
- kernels
-Date: Wed,  4 Nov 2026 11:27:32 +0800
-Message-ID: <20261104032732.30681-3-junxiao.chang@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104032732.30681-1-junxiao.chang@intel.com>
-References: <20261104032732.30681-1-junxiao.chang@intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDFF10E2E5;
+	Tue,  3 Nov 2026 03:53:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D068B10E2E5
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 03:52:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 661BB4049F;
+ Tue,  3 Nov 2026 03:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231A91F000C1;
+ Tue,  3 Nov 2026 03:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793677976;
+ bh=wzYgxYOdf148EOlczQyeAOMq3VmWTR4s1xIcsuX5sqM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LXyDyVd6APX1T/FdnkgfVWNu3lB5ddYuzIlpiCWv2Xt3tmdazNoRMZWIxJqnq1nv6
+ goVjUTVuOkb39Do+JZbx9EisJZ6Q+sh2rbmb40FOjilq2Vp8uXexfiQyhQf0fRHRdy
+ biXq7NMKzLmFjhlu2b/Oo8upQUTwkMScJWAQMyHDTJoJ1zn7kOoU/bMsvQYGlZIXHp
+ dZXYuabdj87y8Qr+ww/krdYLPjtRPt55LUthz39dG/kSBSSX5bA82eSE4GLOh0pOd0
+ 7OOS1EINnOpNB1cAeKZ0kJKB6ph4a7bNWnILrt11nav5e7xy7rLjE0L5n3K6u+eYRP
+ pAm7OZbaSvPEw==
+Message-ID: <sashiko-outbox-194543@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: Only enable HDMI audio if display
+ supports it
+To: "Panpan Ren" <renpanpan@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261103033914.21660-1-renpanpan@kylinos.cn>
+References: <20261103033914.21660-1-renpanpan@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 03:52:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +48,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.6 required=3.0 tests=BAYES_00,
-	DATE_IN_FUTURE_12_24,DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The GSC microcontroller requires stolen memory, which can introduce
-latency spikes and negatively impact real-time performance.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/amdgpu: dce_v*_0_afmt_setmode() disables shared audio pin wh=
+en !has_audio
+--
 
-Print a warning on CONFIG_PREEMPT_RT kernels to inform the user that GSC
-is active and that RT performance can be improved by disabling the GSC
-firmware (e.g., by setting the module parameter xe.gsc_firmware_path="").
+commit 82b015798aa29dad02e55c15ad68c627d16b7df9
+Author: renpanpan <renpanpan@kylinos.cn>
 
-Signed-off-by: Junxiao Chang <junxiao.chang@intel.com>
----
- drivers/gpu/drm/xe/xe_gsc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+drm/amdgpu: Only enable HDMI audio if display supports it
 
-diff --git a/drivers/gpu/drm/xe/xe_gsc.c b/drivers/gpu/drm/xe/xe_gsc.c
-index aab59dc647fbd..3d06ab6fecbe0 100644
---- a/drivers/gpu/drm/xe/xe_gsc.c
-+++ b/drivers/gpu/drm/xe/xe_gsc.c
-@@ -427,6 +427,11 @@ int xe_gsc_init(struct xe_gsc *gsc)
- 	else if (ret)
- 		goto out;
- 
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT)) {
-+		xe_gt_warn(gt, "RT performance might be impacted by GSC stolen memory usage\n");
-+		xe_gt_warn(gt, "Consider disabling GSC (xe.gsc_firmware_path=\"\") to improve it\n");
-+	}
-+
- 	ret = xe_gsc_proxy_init(gsc);
- 	if (ret && ret != -ENODEV)
- 		goto out;
--- 
-2.43.0
+This commit gates the final audio_enable(adev, dig->afmt->pin, true) call at
+the end of dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
+dce_v10_0_afmt_setmode() on connector->display_info.has_audio or the
+AMDGPU_AUDIO_ENABLE override.
 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v10_0.c
+> index 7de7adc8f225c..a692227ddfefa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -1705,8 +1705,10 @@ static void dce_v10_0_afmt_setmode(struct drm_enco=
+der *encoder,
+>  	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+>  	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+> =20
+> -	/* enable audio after to setting up hw */
+> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced on */
+> +	if (connector->display_info.has_audio ||
+> +	    to_amdgpu_connector(connector)->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+> =20
+>  static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enab=
+le)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 3c1d6901127d1..d21efce004f56 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -1748,8 +1748,10 @@ static void dce_v6_0_afmt_setmode(struct drm_encod=
+er *encoder,
+>  		dce_v6_0_audio_dp_enable(encoder, 1);
+>  	}
+> =20
+> -	/* enable audio after setting up hw */
+> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced on */
+> +	if (connector->display_info.has_audio ||
+> +	    amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+> =20
+>  static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enabl=
+e)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index a17944d5e8434..22c0d91c3041c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -1653,8 +1653,10 @@ static void dce_v8_0_afmt_setmode(struct drm_encod=
+er *encoder,
+>  	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+>  	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+> =20
+> -	/* enable audio after setting up hw */
+> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced on */
+> +	if (connector->display_info.has_audio ||
+> +	    to_amdgpu_connector(connector)->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+
+[Severity: Medium]
+Can gating only the final audio_enable(..., true) call in
+dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
+dce_v10_0_afmt_setmode() disable active audio on another connected display?
+
+In dce_v6_0.c, dce_v8_0.c, and dce_v10_0.c, the audio_get_pin() helpers do
+not track per-encoder pin ownership and simply return the first connected p=
+in
+in adev->mode_info.audio.pin[].
+
+At the start of dce_v10_0_afmt_setmode() (and similarly in
+dce_v6_0_afmt_setmode() and dce_v8_0_afmt_setmode()), the function
+unconditionally grabs and disables that pin before configuring the hardware:
+
+	/* disable audio prior to setting up hw */
+	dig->afmt->pin =3D dce_v10_0_audio_get_pin(adev);
+	dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+
+It then programs the DTO, pin endpoint registers (speaker allocation, SAD,
+lipsync), and enables HDMI_AUDIO_INFO_SEND and AFMT_AUDIO_SAMPLE_SEND.
+
+When a non-audio HDMI monitor (or a non-audio DP monitor on DCE6) sets mode
+while another encoder is driving an audio-capable display, afmt_setmode() on
+the non-audio encoder will grab the same audio pin, disable it via
+audio_enable(adev, dig->afmt->pin, false), overwrite its endpoint and DTO
+state, and then skip re-enabling it at the end of the function.
+
+Furthermore, because dig->afmt->pin remains assigned on the non-audio
+encoder, a subsequent call to dce_v6_0_afmt_enable(), dce_v8_0_afmt_enable(=
+),
+or dce_v10_0_afmt_enable() with enable =3D=3D false on the non-audio encode=
+r will
+also call audio_enable(adev, dig->afmt->pin, false) and shut off the shared
+pin:
+
+	if (!enable && dig->afmt->pin) {
+		dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+		dig->afmt->pin =3D NULL;
+	}
+
+Should the audio capability check happen before acquiring and disabling
+dig->afmt->pin (or in the caller before enabling AFMT audio), similar to how
+radeon checks drm_detect_monitor_audio() before setting up audio?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103033914.2166=
+0-1-renpanpan@kylinos.cn?part=3D1
