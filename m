@@ -2,124 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DAC606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43259606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:19:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T9TAGBP6;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B0cd1Tun
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XGIUxLqe;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OtJB7jCS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267A810F943;
-	Tue,  3 Nov 2026 23:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 863D810F946;
+	Tue,  3 Nov 2026 23:19:21 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF5710F939
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:19:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC2DC10F93B
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:19:02 +0000 (UTC)
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A3LKl5d2395515
- for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 23:19:05 GMT
+ 6A3LKjIp2395429
+ for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 23:19:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=9R7AOWcFK2O
- 6YBonVJ+x/oCpM5TEf6hYWJwCy2Nvgdg=; b=T9TAGBP6FqUzBkYa2zuGXHBxadu
- 1kuEq+X98ZVvrnGIbtfcoszOzUZPFMbmeOJaGBf8wWP3v0JC1qP9UqBglfqN2OVF
- diqLSGAIYxECWQ73tjgcevAnbsSdy/8/aiViGCbjq1B7redz+lOWK8b+EZmh2i7C
- ATHFeImO5Ty+SaX+NjltOPRzETNZqAU2lqCP3RGZiuh1dRmm+jKkD6rAtYeUVjD2
- TqDbMVKEtXeiPMY9P0DwBzrqM9eTthfikjHtPCfboUm617akvDeBpqwXWomAWGlZ
- v9x2C+Uehzzk9F/q17wWL0TkSaEgl16k03xCd3ZLjfPjeh3psvTMDMPkEhg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqhyd1vn9-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=dll+M/H3iQD
+ 7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=; b=XGIUxLqe0IzNl53qsfxlRzyB1eS
+ TnKCJanrJ2jE7BD+14T3y0J5reuEC/4M5H+EDvTRnmsQOs05iSYDU2Hr+8A8ZlwW
+ z1uSBRVPf5OD7CaOi87Se1Uqdd1bZoJJ9jC04rCOiQWmeFi/OfdVPpGAFMlepe8c
+ JpKkxWV720ezj2ke6btTnM4B9pfBQljSmqTKAHsB9QF6Mgw03uZp1R2AzYWfIVDh
+ yTw01MgEmgJuQsUVaP03S7qXuaF+JIQmjoT+3Y4MyY2SRzb9/5u5IzlFKZMeFDRp
+ XK9UvmLPBrb/7KZ54TBsmNK1vat1ncpZ2Z9wOf9Cg5zn98P6ii/A5+FK5Ew==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqhyd1vmy-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:19:05 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-8a06bc723b1so202224b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 15:19:05 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:19:02 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-89e96c03cd0so165516b3a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 15:19:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793747945; x=1794352745;
+ d=oss.qualcomm.com; s=google; t=1793747941; x=1794352741;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9R7AOWcFK2O6YBonVJ+x/oCpM5TEf6hYWJwCy2Nvgdg=;
- b=B0cd1TunGs4eJ4ERFAP1gnZiVLwKJEoOUZVr8Iy4uBo8fMfJkC9kOecgmAWmzFtKcf
- 7NP9fbjpbVN4pZrXCNslZs0zujcJnLuPApRrCmPyM6QAZdtIrOAp5pnGPJeqv5RkgFoL
- Jaa/XeGrwK0ojumRKgKq3aNoE7N3xyL0EqWDnaFIYA6eLYFKDlEFlt6SLCmTapoyRnB+
- PvqTYhF3kP9Nx3xAD/YhnEZV9Zu0Nt8HPiFJlt4x18JMWCVocwxUnJtLPS1TW2tMAasi
- LFD+LKllSpzS7008ur+aR2ghms328iWHtUq/nx+9z95e25AYrFW/bvCiYqruNyIKJaoO
- SBMg==
+ bh=dll+M/H3iQD7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=;
+ b=OtJB7jCSL8DqodRiwT1MsyEyAnETS/5n623gMDtKmFfAL6T7iwnQPC1dyBGx13V98X
+ bsaj8upr378SApxQdT0LKWkZPkyT5EQR6kmhHlhAK1ppG70nCwrBMqZr1LXrk6xBGA+P
+ z75JlIRCOH5ASBr2AqIDawPmlO4gvc3CSO1V6TAT3xhM49ubXOuSvAaSi3zKmOb8p3fe
+ DIzAm60uvIw14oyD5kWRERR6zYOuzlmTkqi9HkJPH5veAaUwXi7Yucb+zWrQF3o+f19R
+ oRHJK/mT+ywKdu89yg6R/l4Zdr/zzX21Ry/GlQHzoW6a6A3VI3MgHtH1DsuRCUKDvzM4
+ 7ocg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793747945; x=1794352745;
+ d=1e100.net; s=20260707; t=1793747941; x=1794352741;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=9R7AOWcFK2O6YBonVJ+x/oCpM5TEf6hYWJwCy2Nvgdg=;
- b=qLmWoZ2ZHfbLBuNsLxf72A+aslQiylAx7ofuFEGtBy71Ke3SZN2ag9cyhMPHKcXOtd
- GnFd8rxfqaaEWI+PzPv0PkSjMVm7eNTZxmFnMskH9d9Ya4Kyw+2CCEo2PfrczLegYB9z
- 4MEsA4uVH2vFpqJDv2OvOULwAT8ZH0rLBjYogZbkvDCbgtfGeLPiyEJKPeg90ba+OQlb
- uLRQTlld1NbspTMvXgYRxp3UNC1k5OzIEbtc7tDux0xmJRXdinzSPD8CDp1yzXGyqBaX
- 4vZ1iU94lNVMaaGxiAC7rYuPUqR6FrttTwxpN6IwucFAshCO/wnof90CfCMZ9my55ymv
- KWIw==
-X-Gm-Message-State: APuU4Z8AtntCiCnm4X+FV1lCYmx2MFLXnzowJUc1GAUrCQ0+8qmrgq4+
- bURow1J29vfR5rztyAPZ3wlvnEpD0jn1BwOnByWLFqnGJH36hF0wso9PbZUjpW8jGI+Yln7qe2X
- ZmMNl0e2ys6Vd54Z+xuTGUUw4aa+vJQ/DwcpLCyJZSbfSjFzial5mQ23Bcojf9r02vMIKp1rXWR
- RKkDxWmg==
-X-Gm-Gg: AYBFou3iN0eh8HebS2F7Jgwa0EbaLHHd8+5u6JHr6k6EOu1cfB+n5YhnpbooN2vdAfF
- hTsznC46nZ8Xi97ZEn/7fY+99fBNXoLRCvYjIz/u68Mdu36kF+tvY1OML7Ik1Ge1uY457uRnNxT
- IoSEgikoR+pJW1iwX662pGAKwM7Ojwb2CPdn0tz4l0LRb1Cgu/yFHRamx8jDu42lhFO76KDo51A
- aVXgTcvD03bF44yu1yHQ3hpwZ45TNLmMcNcvpGNXDk4g1l/n5od2PUpyfzGfeqpBIBhqACbJcgY
- lHmHLPe44qSG2LxtcP6EVKkH/4pc90ouo4OEJRS73/z7Rg6M3W9em2219JY1d6H7XQ/nYNdDavG
- BwMrLqE4lR/Sw0Z8oVQAO+X3flFHjzyCov5yD1OdWUqzMXFGGeI4iyrODwYGqGr5FG0VONF/tYs
- F/kK2GPsFdp7tXrkJ4KkHpFAanWkQoT8+nMEhWUtz8cKR4POLs5BFFiWyNlw==
-X-Received: by 2002:a05:6a00:2d96:b0:89a:19ae:10ed with SMTP id
- d2e1a72fcca58-8a9bc8321d9mr11305829b3a.31.1793747944881; 
- Tue, 03 Nov 2026 15:19:04 -0800 (PST)
-X-Received: by 2002:a05:6a00:2d96:b0:89a:19ae:10ed with SMTP id
- d2e1a72fcca58-8a9bc8321d9mr11305804b3a.31.1793747944436; 
- Tue, 03 Nov 2026 15:19:04 -0800 (PST)
+ bh=dll+M/H3iQD7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=;
+ b=yXP4BE+goj23fIOMaHVmPkjBpxl5NYqpK6F3qwEDVGTiIry/q6p38ovPrZbae9A3A9
+ R18djuiJetM7Ipv2a8b01mnxHtoNAhh/tqF1xuk42Dxwuzn44KrvMroSLs/wvqvI1ICF
+ oofDCZ2j6H8yp2wVguMxsARwQny8CxqbEgn+t5RvGocdYPaEq4PMulyPX0ZyTEGE0th1
+ Liyy4ow43EdrjU5W5SxGmgerFE1a/XrN9Y5y/gvYJzrFZYdU/Ltxy7TysuwpoGzMUvEL
+ K46XdvCD8r9m8dE7Iqj0vCsuJMHyHIhmalfeaIm9vLR/Y/etcDie2JdPR6q9I20Np9xB
+ 6c6g==
+X-Gm-Message-State: APuU4Z+mDqzqq3wLsKyoWH0lEawR0Yk3xvvLITv9WR8KXPgeyP8irIYd
+ QRURxhHk3SX6Lvnhqvu7grKV6fTLt0O55L+NvBR4+J7/cFapY2FN5srpV2ev+SAc2+/jnZFxhOn
+ pgt+KD6W+0YAbI6wWe6tQ3LtnSATEd2iHvxJf0xVIlEDJDmi/HqH4tVMHEtzKSMnpTWQcrKibZU
+ SARBpSZw==
+X-Gm-Gg: AYBFou1lL6gRbDVwfEKuPfDCBFIr+TcV+tB/XBtfk/X4DrQLiN4rIF1+b/9i25dY/Zr
+ Do7HGcV4rcw6XLALQbqsf7W5JjEH023Ikit8BkUjIfEOiLam9MDahY1LSj3jpn22CThX58WuGpe
+ gb7JfIbYYoAMygR9FOMIOYFdMFXxqYD37/d3ME5HND6ZK2P9KgifIwjW2MUwNKllCX6eovgeop6
+ qhQdLKx4kpw6STuRpQ/MtBLRlRj/JJUhRyNCcaktMnYOehjSAVgCnYpnhO5AFQvm+qyuRCArPbc
+ gGdB+U9gMvx0UQLbzHBVqEQXEEjGlVjkT9j5xYd2ZAIwsm2NTftk5rqBXdg08I5ag9oW0U1OTTX
+ yBAHAuuaErew1XB/Uy657Fd+hTBNzTENSHsqlPzK2zduKw7KA34yzwymVwockPpYYOQel/2y1PX
+ wlhlHDKs+bjhtMc2p6zfk5sMwZMu41HNoc4tbkWF4d7+rh4UdXai9LNypz+A==
+X-Received: by 2002:a05:6a00:9512:b0:82f:38df:681c with SMTP id
+ d2e1a72fcca58-8a9ba902187mr11080466b3a.6.1793747941399; 
+ Tue, 03 Nov 2026 15:19:01 -0800 (PST)
+X-Received: by 2002:a05:6a00:9512:b0:82f:38df:681c with SMTP id
+ d2e1a72fcca58-8a9ba902187mr11080451b3a.6.1793747940945; 
+ Tue, 03 Nov 2026 15:19:00 -0800 (PST)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
  [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8b09bd3ad6fsm146353b3a.55.2026.11.03.15.19.03
+ d2e1a72fcca58-8b09b569444sm155154b3a.36.2026.11.03.15.18.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 15:19:03 -0800 (PST)
+ Tue, 03 Nov 2026 15:19:00 -0800 (PST)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 5/6] drm/msm/debugfs: Use cleanup.h for gpu state dump
-Date: Tue,  3 Nov 2026 15:18:44 -0800
-Message-ID: <20261103231850.17493-6-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v4 3/6] drm/msm: Rework IFPC disable
+Date: Tue,  3 Nov 2026 15:18:42 -0800
+Message-ID: <20261103231850.17493-4-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
 References: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=bp/Zl0ai c=1 sm=1 tr=0 ts=6aea6be9 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Authority-Analysis: v=2.4 cv=bp/Zl0ai c=1 sm=1 tr=0 ts=6aea6be6 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=isCY8TonHXl0-fnU9HAA:9 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: DJMIbHgP-Wkg7TDQyQnyNnZL1qg5VaGC
-X-Proofpoint-ORIG-GUID: DJMIbHgP-Wkg7TDQyQnyNnZL1qg5VaGC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX9rQLHLkyqb1M
- yD4fb45azI5O2uLIi3C29YmGINyP9rgyELVc2nFBPL48bQtd23jUTueGpsV6tyG9IbhnOGLU+Hp
- k+jc5y0YG7NKRf2aWk7EEKKlKbq4Iy8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX4MvevAkE28Xb
- NVkcl93rZlQVR+UAqhgvZlZJJRkbapfT79iWXvuB9+8WwRJkZLdlsUehkM8BgC7Dz90afyhqfub
- RDLuweVZkhCblaZh0juSLHZqXN8lUAPKjdD43qaMcgsJ/Go5DUxJc9tnhiQeqqWey9D6kRjpUCX
- jf8n5D14/iw+cFSE0wxrPFu+IWta/FQp5X5vvUpaTLRHpMuVDp5XKS7GKfGokpOMLDJOYBdsUrm
- etNey+6o64aVywhVhEvTZfUUs4EXhtyvzW4qPrP70PPmphWoUIeX35D/hM58feLxmZg48sC2T1q
- zOGbhLWdyHPw1RKFKDuPIKQtp6S1CEuLzTXJdLiHf+a3njVeGKOqkzVLhRnQO9hpqOUCKXoIwTf
- 6DrEBdvhf7PWT/3ItduTnBsVE2qdAK/jMWOm4dNc+8iljxQ3tRAexrrePwFHIFwT1FQpXTdDPsr
- x8jN3hDIu5+sHXy1hOA==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=0FW7IQkLa0pm2cqxDqMA:9 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: ZIeN81RU9BIsMYT_NtAwnzGw49rQt0Wk
+X-Proofpoint-ORIG-GUID: ZIeN81RU9BIsMYT_NtAwnzGw49rQt0Wk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX7QqBWuwZE+Bg
+ hiyLpY4zwWm2fKoegcKcK6QhMsJiPLN8etHzrh+JTEORJLCi07MWS4HT0uiPRX8ZKI+BQBicXj0
+ 7BAhAl1gy9tIT3sFW3FFvCgXd2tY+pY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfXxIXEQqsBKvbX
+ hno05EPYWNVPFwMvVZWaLDVxgwxtKDxzGHxAQpqfYXuRqpvqTuczgjl8PLhJDJ5agl6CXp0dl1S
+ 07msB7VRdPE/ETW67NB6bvk+9JL2/LLzSElBtDz37dnD/JL0XBDgTBb7a1NzqSrk94SmT0qJilz
+ alD9+G59kYLFtxqeyYvUt06SjXlP5sKAWGlG9Y2GhGPF2z+4qhpe9GlXN80j4Lvu6xbjCxlPTpE
+ CnuRc9JpWBhKPjSppcum8vRwLjJAaEtOxfvmdRqlmPkZNXrurfSu61GotFWJJpyvVD1q/+toiq3
+ hmuNDjNfO9Svs5wXV96Wpq4guKSkQdRxHdQYszb4R7QW/r3YpQxDCUwA1KQNIrfIoMukOeWrAZc
+ Z8+YN20xGEtXTHfPHYOjKKL1gLadajGlbDQTtu5eyrOplgRlUZ2zSto2mad1cns3LVJbAQx27yg
+ SEUB3zsgmm7/hsN+HeA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-03_05,2026-11-03_04,2025-10-01_01
@@ -148,76 +150,284 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We need to move the gpu lock around a bit for the next patch.  Use
-scoped_guard/etc so we don't have to make the error path handling more
-complicated.
+Previously this was coupled to SYSPROF level, which made sense at the
+time.  But there are other places that we need to inhibit IFPC.  So
+decouple it from the sysprof refcount.
 
-Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Now it has it's own refcount, so multiple threads can vote to inhibit
+IFPC safely.  The renamed gpu->ifpc_update() simply applies the new
+state by setting or clearing an OOB request.
+
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
- 1 file changed, 12 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 28 +++++++++++----------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c |  5 ++---
+ drivers/gpu/drm/msm/msm_gpu.c         |  1 +
+ drivers/gpu/drm/msm/msm_gpu.h         | 26 +++++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_perfcntr.c    |  6 ++----
+ drivers/gpu/drm/msm/msm_submitqueue.c | 16 +++++++++++----
+ 8 files changed, 56 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-index f12701e286ec..aa59b28a3392 100644
---- a/drivers/gpu/drm/msm/msm_debugfs.c
-+++ b/drivers/gpu/drm/msm/msm_debugfs.c
-@@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
- 	struct drm_device *dev = inode->i_private;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gpu *gpu = priv->gpu;
--	struct msm_gpu_show_priv *show_priv;
- 	int ret;
- 
- 	if (!gpu || !gpu->funcs->gpu_state_get)
- 		return -ENODEV;
- 
--	show_priv = kmalloc_obj(*show_priv);
-+	struct msm_gpu_show_priv *show_priv __free(kfree)
-+		= kmalloc_obj(*show_priv);
- 	if (!show_priv)
- 		return -ENOMEM;
- 
--	ret = mutex_lock_interruptible(&gpu->lock);
--	if (ret)
--		goto free_priv;
--
--	pm_runtime_get_sync(&gpu->pdev->dev);
--	msm_gpu_hw_init(gpu);
--	show_priv->state = gpu->funcs->gpu_state_get(gpu);
--	pm_runtime_put_sync(&gpu->pdev->dev);
--
--	mutex_unlock(&gpu->lock);
-+	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
-+		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
-+			msm_gpu_hw_init(gpu);
-+			show_priv->state = gpu->funcs->gpu_state_get(gpu);
-+		}
-+	}
- 
- 	if (IS_ERR(show_priv->state)) {
--		ret = PTR_ERR(show_priv->state);
--		goto free_priv;
-+		return PTR_ERR(show_priv->state);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec9d5..b02bcaa4bd96 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1443,7 +1443,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
+ 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
  	}
  
- 	show_priv->dev = dev;
+-	if (test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	if (test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+ 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
  
- 	ret = single_open(file, msm_gpu_show, show_priv);
- 	if (ret)
--		goto free_priv;
-+		return ret;
- 
--	return 0;
-+	retain_and_null_ptr(show_priv);
- 
--free_priv:
--	kfree(show_priv);
--	return ret;
-+	return 0;
+ 	ret = a6xx_gmu_wait_for_idle(gmu);
+@@ -2128,31 +2128,25 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
+ 	return irq;
  }
  
- static const struct file_operations msm_gpu_fops = {
+-void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on)
++void a6xx_gmu_ifpc_update(struct msm_gpu *gpu)
+ {
+-	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu) || force_on;
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+ 
+-	/* Nothing to do if GPU is suspended. We will handle this during GMU resume */
+-	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
+-		return;
++	/* Caller must hold a runpm ref: */
++	drm_WARN_ON_ONCE(gpu->dev, pm_runtime_status_suspended(&gpu->pdev->dev));
++	drm_WARN_ON_ONCE(gpu->dev, READ_ONCE(gpu->needs_hw_init));
+ 
+-	mutex_lock(&gmu->lock);
++	guard(mutex)(&gmu->lock);
+ 
+-	/*
+-	 * 'Perfcounter select' register values are lost during IFPC collapse. To avoid that,
+-	 * use the currently unused perfcounter oob vote to block IFPC when sysprof is active
+-	 */
+-	if (sysprof && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	bool ifpc_disable = refcount_read(&gpu->ifpc_disable) > 1;
++
++	if (ifpc_disable && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-	else if (!sysprof && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	} else if (!ifpc_disable && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-
+-	mutex_unlock(&gmu->lock);
+-
+-	pm_runtime_put(&gpu->pdev->dev);
++	}
+ }
+ 
+ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 09d76cdf059f..2a4f81d14400 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1565,10 +1565,9 @@ static int hw_init(struct msm_gpu *gpu)
+ 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_BOOT_SLUMBER);
+ 	}
+ 
+-	if (!ret && msm_gpu_sysprof_no_ifpc(gpu)) {
++	/* re-apply IFPC-disable OOB request, if needed: */
++	if (!ret && test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-		if (!ret)
+-			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+ 	}
+ 
+ 	return ret;
+@@ -2851,7 +2850,7 @@ const struct adreno_gpu_funcs a6xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a6xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 	},
+ 	.init = a6xx_gpu_init,
+@@ -2922,7 +2921,7 @@ const struct adreno_gpu_funcs a7xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a6xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 	},
+ 	.init = a6xx_gpu_init,
+@@ -2953,7 +2952,7 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a8xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 		.perfcntr_flush = a8xx_perfcntr_flush,
+ 	},
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 81d21acccea1..cdb830b7b778 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -298,7 +298,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+-void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on);
++void a6xx_gmu_ifpc_update(struct msm_gpu *gpu);
+ 
+ void a6xx_preempt_init(struct msm_gpu *gpu);
+ void a6xx_preempt_hw_init(struct msm_gpu *gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+index e7d04c865968..ba8306e9eb44 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -846,10 +846,9 @@ static int hw_init(struct msm_gpu *gpu)
+ 	 */
+ 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+ 
+-	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
++	/* re-apply IFPC-disable OOB request, if needed: */
++	if (!ret && test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-		if (!ret)
+-			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+ 	}
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index ca21b3bf20df..07b7bd8d2329 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -1014,6 +1014,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->nr_rings = nr_rings;
+ 
+ 	refcount_set(&gpu->sysprof_active, 1);
++	refcount_set(&gpu->ifpc_disable, 1);
+ 
+ 	mutex_init(&gpu->perfcntr_lock);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d27d54bdb7a7..0334a0f604ac 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -93,7 +93,7 @@ struct msm_gpu_funcs {
+ 	 * for cmdstream that is buffered in this FIFO upstream of the CP fw.
+ 	 */
+ 	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+-	void (*sysprof_setup)(struct msm_gpu *gpu, bool force_on);
++	void (*ifpc_update)(struct msm_gpu *gpu);
+ 
+ 	/* Configure perfcntr SELect regs: */
+ 	void (*perfcntr_configure)(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+@@ -186,6 +186,14 @@ struct msm_gpu {
+ 	 */
+ 	refcount_t sysprof_active;
+ 
++	/**
++	 * ifpc_disable:
++	 *
++	 * Count of votes to disable IFPC (1-based, values above 1 mean IFPC
++	 * is disabled).
++	 */
++	refcount_t ifpc_disable;
++
+ 	/**
+ 	 * lock:
+ 	 *
+@@ -375,10 +383,20 @@ msm_gpu_sysprof_no_perfcntr_zap(struct msm_gpu *gpu)
+ 		(gpu->perfcntrs && READ_ONCE(gpu->perfcntrs->stream));
+ }
+ 
+-static inline bool
+-msm_gpu_sysprof_no_ifpc(struct msm_gpu *gpu)
++static inline void
++msm_gpu_disable_ifpc_get(struct msm_gpu *gpu)
++{
++	refcount_inc(&gpu->ifpc_disable);
++	if (gpu->funcs->ifpc_update)
++		gpu->funcs->ifpc_update(gpu);
++}
++
++static inline void
++msm_gpu_disable_ifpc_put(struct msm_gpu *gpu)
+ {
+-	return refcount_read(&gpu->sysprof_active) > 1;
++	refcount_dec(&gpu->ifpc_disable);
++	if (gpu->funcs->ifpc_update)
++		gpu->funcs->ifpc_update(gpu);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
+index ce65b1160955..867dd476ed88 100644
+--- a/drivers/gpu/drm/msm/msm_perfcntr.c
++++ b/drivers/gpu/drm/msm/msm_perfcntr.c
+@@ -259,8 +259,7 @@ sample_worker(struct kthread_work *work)
+ 	}
+ 
+ 	/* Inhibit IFPC while accessing registers: */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, true);
++	msm_gpu_disable_ifpc_get(gpu);
+ 
+ 	if (gpu->funcs->perfcntr_flush)
+ 		gpu->funcs->perfcntr_flush(gpu);
+@@ -297,8 +296,7 @@ sample_worker(struct kthread_work *work)
+ 	}
+ 
+ 	/* Re-enable IFPC: */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, false);
++	msm_gpu_disable_ifpc_put(gpu);
+ 
+ 	smp_store_release(&stream->fifo.head, head);
+ 	wake_up_all(&stream->poll_wq);
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index e3e7c401fa5c..d41756c0152b 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -25,7 +25,13 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
+ 		pm_runtime_get(&gpu->pdev->dev);
+ 		fallthrough;
+ 	case 1:
++		/* Disable zapping perfcntrs on context switch: */
+ 		refcount_inc(&gpu->sysprof_active);
++		/* Disable IFPC: */
++		scoped_guard (mutex, &gpu->lock) {
++			msm_gpu_hw_init(gpu);
++			msm_gpu_disable_ifpc_get(gpu);
++		}
+ 		fallthrough;
+ 	case 0:
+ 		break;
+@@ -37,16 +43,18 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
+ 		pm_runtime_put_autosuspend(&gpu->pdev->dev);
+ 		fallthrough;
+ 	case 1:
++		/* Drop our vote for inhibiting IFPC: */
++		scoped_guard (mutex, &gpu->lock) {
++			msm_gpu_hw_init(gpu);
++			msm_gpu_disable_ifpc_put(gpu);
++		}
++		/* Drop our vote for disabling perfcntr zapping: */
+ 		refcount_dec(&gpu->sysprof_active);
+ 		fallthrough;
+ 	case 0:
+ 		break;
+ 	}
+ 
+-	/* Some gpu families require additional setup for sysprof */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, false);
+-
+ 	ctx->sysprof = sysprof;
+ 
+ 	return 0;
 -- 
 2.56.0
 
