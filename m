@@ -2,65 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D876071C2A
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:01:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B57606D823
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPOrW1sZ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ir53l6w9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3DED89B62;
-	Tue,  3 Nov 2026 15:01:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C05F10F671
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:01:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CDF8460A01;
- Tue,  3 Nov 2026 15:01:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664741F0093A;
- Tue,  3 Nov 2026 15:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793718098;
- bh=H4Y/D8MHsuJxIcgQs16JMa9LVQhoWAXgdYCn9GW8dZE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iPOrW1sZYpx/JoZZqS9qV1GcjvdBuAyBkHMbgeIvuF9N8xnYtd/uAH/lu/jAlLzKf
- Nq5vM4zhxl93ARwt5IDAUvoCbIWrHeNs/6trXeNMyLqwoaSZliHN1Lmdtd6F1TrRM+
- E8t3nn11OR2O0yTsAAjfZ0JhJXAcI/KIsNGJZleh6tn4/huZCrKzH0zz2IUXdKnzkK
- 6W9TGbxhz+i9CE9TQ8pBES4DkH/dBUxXGqSsH1jdznxKqWRCNHZxYwypnamo4/Cqy5
- fIsF/ocsyOzXijxNmThFmUaDNsK0S2Y+yjWibAtCyfn78+Zol7hiv1kIJFamvcET5T
- yE9Ruio9sbg7Q==
-Message-ID: <sashiko-outbox-195542@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 15/16] proc: let procfs copy ioctl arguments in and out
-To: "Christian Brauner" <brauner@kernel.org>
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Jann Horn" <jannh@google.com>, "Josef
- Bacik" <josef@toxicpanda.com>, "Chris Mason" <mason@kernel.org>, "Jeff
- Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Eric Dumazet" <edumazet@kernel.org>, "Thomas
- Gleixner" <tglx@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>, "Jonathan
- Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>, "Greg
- Kroah-Hartman" <gregkh@suse.de>, "Joel Granados" <joel.granados@kernel.org>,
- "Kees
- Cook" <kees@kernel.org>, "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
- kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, "Takashi
- Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, "Chuck
- Lever" <cel@kernel.org>, tytso@mit.edu, dmitry.torokhov@gmail.com, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Anna Schumaker" <anna@kernel.org>,
- yukuai@fygo.io, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261102-work-procfs-core-v1-15-75df35e4f8b8@kernel.org>
-References: <20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org>
- <20261102-work-procfs-core-v1-15-75df35e4f8b8@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8365F10E569;
+	Tue,  3 Nov 2026 15:14:30 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E83BC10E6DB
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:14:24 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-36bd3dd31a6so82119eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:14:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793718864; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YsgFmVjBkZ6bTD3oWxrga8agy5tTlnhNrt2q93j+WaIr42HsmP7HWgWhOCtVQsOPi+
+ lbcyB5g84drSZF7u75V5l8W5OOWWTNEDawC0PkIrOp/wJeAkkrQuEj6a0BrGxFqNAyXr
+ nB0/C8NMiGZVKYS7ug3umuxjwE7PTT0A2uC/JEQaElDFvEK8f5DGlgo8CN9JCv/XRjmj
+ eoOb/TbBnrIDduaYfNvQfEGGdwrxmyADC+yAI+WntU5AvxWlMP1W+/M7CATKSY1Zu/3W
+ hz/FWUhfj5yR9mVLRSXyfL7w1WgKyqWjcRvH9dgSiVN7isofGwIu0GyhjtoZDc/sC7P+
+ pCoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=wJ+02nslmQcKlhyZ5fgKpqxNB0L+SRv9NHg/0WiGSU0=;
+ fh=Hn3QI5g0Tiezs0eoY04EiWAxOS0AFb2v6H6MRmI/HFM=;
+ b=b2LlZkWvZIAJMd4GK/FLJoS4Gt6HiX45qhRd8uwMFlC8AIbkCrTOOPkVlMyAyH8bL8
+ nppjCzYt42PWHd/TAXQC/r9Wm21k+OdzBSAGckmDkokcDY969OwhFnNdJoetIQce+zHa
+ RtnKjMVXg4fSQeVYeN1Xd7e+HUaw81Ykj02hPHAWRYDKMpEFs7VTXufoT+f6rA7logt9
+ 6J5mQG1ByprxyY+FJ9wo/xrO4pHKbrfhZNQF7uyBUIV2nSUu4vlD4XS2JV/Bs9KZa49n
+ Dw7JGZMdTaH+oKp7+PMuThK7jSYSV8bGcShCXbIKzJN68NgLOJlv5OiFA2cRj71PZu0k
+ sl1A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793718864; x=1794323664; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=wJ+02nslmQcKlhyZ5fgKpqxNB0L+SRv9NHg/0WiGSU0=;
+ b=ir53l6w9/hqWQJc+72c2dXNaE9fUOqD5yk1jC5i3ajNN+3A59OHRmDYHjpkzavn5p6
+ abl2VEblxBaLmfxiBMdD3YwSKkkBQNhtDTgMDqrqR9AkkTpJTWr2LZnvFnYWXFys5zXm
+ bQEF9xOBj+b5eIsC2C0soeytrJ+mjAxvtYXEySLybvTKkx9ZVxq0SOAA0hQEiN/BOrhr
+ /6pL7nZAKoBUZ2nCPT1VN84nB3YKuzw+Xft/Vhnh5/9Ql48kW5QWmOHvjtyuAq7SbYbg
+ tcH27bN00ayFJ34fYZIgKqsL2LaR4eBoJOj7a9xav163oaGt4Enuc1d2oXsn6o69Zeuc
+ 93Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793718864; x=1794323664;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=wJ+02nslmQcKlhyZ5fgKpqxNB0L+SRv9NHg/0WiGSU0=;
+ b=jH01ZmZvH8CbMMjr6PUqqddZM/GVtMB8kMb5DCdPrXwYv/GDwtx0alSBhX2H/agG7Y
+ Kpw7iFJFUcTgtJEEsPl8lts8BxBWEvk/gzgeIJ/suHmid8EgNAIQqZ42laBxdYsk0RU2
+ zCl6AqS602VazdxygBgKw0QubDxzUZxLKeS3uGO9Qi13QWrdaXZD5w5uHobehGJkBuHp
+ BGaE8lQCKjWLdLtb8SXTWGip5fy/dWvtng2CXnfwSOZCDbGK7h6RGoF4aTDrJMJMDxN0
+ tgJ3vIYUobke/46rCHf1gWgOZRxAo3P60iRLyak8cnCB996QFCX8c+uF6XXedxvzD04g
+ NVYA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz9Abm8RwCgMz7Z5NVaI1b99j0Og7lRRZ5VK8zo4zSQ6ScSxpCHwhcN5SoJrOnguMIddXb7OAa/Zbw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8GXd/pVUZFAm83bdz9O/dt31tT3ZKcu3bratHs09OK63KQ0imZ
+ 7G4HfJm76LXA5TKw8qTTBLrToKnYvUY4iLOgrjLQkH5GkQbxbzqZTQJiFBJ5YEiDhdJVgGRHqTy
+ wTIj01EkUj3R1Icgi/ijjx89LsOeM1nU=
+X-Gm-Gg: AYBFou2toTQxX6rBYVZYM4i9EvTD0vCu2SXZra60NndY/I4PgMrSR0brAqF2cQ2pvaH
+ KrI0lPWSKwN2qgjDLvgc8CdxHUOhFjXj8ghUuMJkTuKAn3T9Lmr72ZfO6dwYgC89rWXzp2340Xn
+ zJ5ygsxutvbL1Gq2aD1sfzrfPxdZD+wX+6wogP0gZFoyJRAti6nDj2LVSKiiH0jx0jiLTN7vEHH
+ U4NWjrnm41YQlU5i4tJaNC57xclpXa+r2S/1dadCdRCsBhk9avVcpk7CYsKeQWxlyFNmiTIWed6
+ e56iv7WT9+zgoSImzLfFDysL04s3rM6Hd3AyC4u4lO0qjRdhHA+SJUeOBMvQHRIVUWevIllcUcn
+ fW8/bcC2vEHfSTXG2IjXatqMgpInT8Qy/G0upeQ5bZl/Y5MHfsvGY9RotxMQCwtu7dd9Pvmp/Uk
+ iZwGXoy9uHVpatfwjendjuGwDWYYegX3logZJ7K4PwRjoQ
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr33315927c88.2.1793718864045; Tue, 03 Nov 2026
+ 07:14:24 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+ <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 3 Nov 2026 10:14:12 -0500
+X-Gm-Features: AclHuK8SYp_M16l6qppN00rSt898kW3_A2MyXrVqqWgCCOaDEzcq5A-8Uxrek04
+Message-ID: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, dev@deq.rocks, 
+ dri-devel@lists.freedesktop.org, ed@aicharmers.com, kenneth.feng@amd.com, 
+ linux-kernel@vger.kernel.org, simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 15:01:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,125 +104,32 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] proc: unguarded zero-length user copies in pde_ioctl_buf()
-- [Low] proc: split declaration and initialization of __free() variable in =
-pde_ioctl_buf()
---
+On Tue, Nov 3, 2026 at 10:01=E2=80=AFAM Atharva Tiwari
+<atharvatiwarilinuxdev@gmail.com> wrote:
+>
+> > It is the same issue.  I don't want two fixes for the same issue. I
+> > just sent an updated version of this patch expanded to cover more
+> > macs.
+> >
+> > Alex
+>
+> How is the problems same exactly?, Does initializing UCLK later change th=
+e
+> PPTable?, and as said this is not even a solution for iMacs, so why are w=
+e
+> still trying to upstream this?, and btw initializing UCLK later with 5K,
+> makes it not initialize at all, so the patch is just wrong.
 
-commit 468d1faef733a0559be5a05e125e1ce20ec69e4e
-Author: Christian Brauner <brauner@kernel.org>
+I asked around internally with the windows team about this issue and
+was told macs needed to enable UCLK DPM later, but no one was aware of
+any uclk dpm patching.
 
-proc: let procfs copy ioctl arguments in and out
-
-This commit introduces ->proc_ioctl_buf() and ->proc_ioctl_args to allow
-procfs to copy ioctl arguments from and to userspace outside of pinning the
-proc_dir_entry, preventing page faults during user copies from blocking
-remove_proc_entry().
-
-> diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-> index 3f29a1663d266..7e4ca5751abb5 100644
-> --- a/fs/proc/inode.c
-> +++ b/fs/proc/inode.c
-[ ... ]
-> @@ -571,11 +572,66 @@ static long pde_ioctl(struct proc_dir_entry *pde, s=
-truct file *file, unsigned in
-[ ... ]
-> +static long pde_ioctl_buf(struct proc_dir_entry *pde, struct file *file,
-> +			  unsigned int cmd, void __user *uarg, unsigned long arg)
-> +{
-> +	void *buf __free(kvfree) =3D NULL;
-> +	struct proc_ioctl_arg a;
-> +	size_t size;
-> +	long rv;
-> +
-> +	if (!pde_ioctl_arg(pde, cmd, &a))
-> +		return -ENOTTY;
-> +	size =3D max(a.in, a.out);
-> +	if (size) {
-> +		buf =3D kvzalloc(size, GFP_KERNEL);
-
-[Severity: Low]
-This isn't a bug, but in pde_ioctl_buf() in fs/proc/inode.c, buf is declared
-with __free(kvfree) =3D NULL at the top of the function and assigned later =
-when
-size is non-zero. Per the cleanup.h guidelines, could buf be defined and
-initialized in a single statement once size is known (for example,
-void *buf __free(kvfree) =3D size ? kvzalloc(size, GFP_KERNEL) : NULL;)?
-
-> +		if (!buf)
-> +			return -ENOMEM;
-> +		if (copy_from_user(buf, uarg, a.in))
-> +			return -EFAULT;
-> +	}
-> +
-> +	if (!pde_pin(pde))
-> +		return -ENOTTY;
-> +	rv =3D pde->proc_ops->proc_ioctl_buf(file, cmd, buf ?: (void *)arg);
-> +	pde_unpin(pde);
-> +	if (rv >=3D 0 && copy_to_user(uarg, buf, a.out))
-> +		return -EFAULT;
-
-[Severity: Medium]
-Should copy_from_user() and copy_to_user() in pde_ioctl_buf() in
-fs/proc/inode.c be guarded by checking a.in and a.out respectively?
-
-Because a.in and a.out are runtime values loaded from
-proc_ops->proc_ioctl_args, check_copy_size() and _inline_copy_from_user() /
-_inline_copy_to_user() do not short-circuit when the length is 0 and still
-invoke raw_copy_from_user() / raw_copy_to_user().
-
-When a command has a.out =3D=3D 0 (such as an _IOW or _IO command) and user=
-space
-passes arg =3D=3D 0, calling copy_to_user(NULL, buf, 0) fails with -EFAULT =
-on
-C-SKY after ->proc_ioctl_buf() has already succeeded, because C-SKY checks =
-the
-destination pointer for NULL before checking whether the length is 0:
-
-arch/csky/lib/usercopy.c:raw_copy_to_user() {
-	...
-	"0:     cmpnei  %1, 0           \n"
-	"       bf      8f              \n"
-	...
-}
-
-On UML, calling copy_from_user() with a.in =3D=3D 0 or copy_to_user() with
-a.out =3D=3D 0 still enters buffer_op() -> do_op_one_page() -> maybe_map() =
-->
-handle_page_fault() on uarg before checking if remain =3D=3D 0:
-
-arch/um/kernel/skas/uaccess.c:buffer_op() {
-	...
-	size =3D min(PAGE_ALIGN(addr) - addr, (unsigned long) len);
-	remain =3D len;
-
-	n =3D do_op_one_page(addr, size, is_write, op, arg);
-	if (n !=3D 0)
-		return (n < 0 ? remain : 0);
-	...
-}
-
-Additionally, when both a.in =3D=3D 0 and a.out =3D=3D 0, size is 0 and buf=
- remains
-NULL, so copy_to_user(uarg, NULL, 0) passes a NULL source pointer into
-raw_copy_to_user() (and memcpy() on CONFIG_UACCESS_MEMCPY or UML builds).
-
-Would it make sense to check if (a.in && copy_from_user(buf, uarg, a.in)) a=
-nd
-if (rv >=3D 0 && a.out && copy_to_user(uarg, buf, a.out))?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-work-procf=
-s-core-v1-0-75df35e4f8b8@kernel.org?part=3D15
+Alex
