@@ -2,50 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B04606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3962B606A329
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B215110E7A6;
-	Tue,  3 Nov 2026 08:21:46 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 086F910E177;
- Tue,  3 Nov 2026 03:39:29 +0000 (UTC)
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:ecb3a3c8-eaf8-4617-af50-d71875fdc371, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:880c317100a5532b2ae2cfee77cd42c4,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-
- 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-User: renpanpan@kylinos.cn
-Received: from pan-u.. [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <renpanpan@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 19653449; Tue, 03 Nov 2026 11:39:21 +0800
-From: Panpan Ren <renpanpan@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, tzimmermann@suse.de,
- timur.kristof@gmail.com, lijo.lazar@amd.com,
- renpanpan <renpanpan@kylinos.cn>
-Subject: [PATCH v2] drm/amdgpu: Only enable HDMI audio if display supports it
-Date: Tue,  3 Nov 2026 11:39:14 +0800
-Message-ID: <20261103033914.21660-1-renpanpan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C9310E7C4;
+	Tue,  3 Nov 2026 08:21:47 +0000 (UTC)
+X-Greylist: delayed 1138 seconds by postgrey-1.36 at gabe;
+ Tue, 03 Nov 2026 03:21:34 UTC
+Received: from outbound.st.icloud.com (st-2005h-snip4-6.eps.apple.com
+ [57.103.79.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC72A10F335
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 03:21:34 +0000 (UTC)
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPS id
+ 8408B180028A; Tue, 03 Nov 2026 03:02:30 +0000 (UTC)
+X-ICL-RepId: 01a19f5b-b973-7459-92ee-1f2fc5187f59
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQpAHVoHRQBEDFYCXAVLVxQEFVYtXQpLFBcVX01RDw8aWAFXQ1oHEgJaRQFdFwNXHFZFXBhDCV0FVxwdHkNFWxNVF0YJGQhdHRkIRx8KMANCDlYDQwdFAC0ZHFdQXQpLFBcVX01aAlZNBR1WWVVcAUldVQUOUggfRApJVUAOX1dAFBoGWAYIAUUAG1dUAStYEUAcHQBbVRIEQAhWUFQeQQRWFWwJWAZTGVc=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jayd.ml; s=sig1;
+ t=1793674955; x=1825210955; bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme;
+ b=MrjiSkRdTR2a9gR/ZDFpMwHHbxe3u4yn0RCxO1H66YyDhHKVGMHS4hZMlxR6ij5+XIHfEvqh03KSpKK1assYO+4fKHduLHo8m6LkNHh1VYIyacah3OzfVpFS5GoLHYpZ1ziucp4MOjeI3I35uDUGK0eSafDCdHJgdCHIX/tFkW2KoWTpCzsLluobthwuVZ0hzzxzxWG620eTbI6NUi4PI8/6wS+uTOuonwaosqEXaLkUI8nDSeyGyY3UjAesGvNDToXIIhQTjN/fpUPq3oEGe8f6zaNyxZ8Th+nIFxaiEi2g2pvq7BBKYxpPLMHF9x89YM6hnTNcsT39FRr63Tfx1A==
+mail-alias-created-date: 1679885584335
+Received: from [10.0.0.239] (unknown [17.156.216.30])
+ by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPSA id
+ 8D4F9180010E; Tue, 03 Nov 2026 03:02:28 +0000 (UTC)
+Message-ID: <ee4b739d-6cec-431f-94e0-b551c359cd96@jayd.ml>
+Date: Mon, 2 Nov 2026 20:02:26 -0700
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm/msm: fix dma-buf sharing on targets without
+ per-process pgtables
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
+Content-Language: en-US
+From: Jayden Milne <me@jayd.ml>
+In-Reply-To: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
+X-Proofpoint-ORIG-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
+X-Authority-Info-Out: v=2.4 cv=GtFPO01C c=1 sm=1 tr=0 ts=6ae94ec9
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
+ a=1oJP67jkp3AA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Vbwzbr4kkUF1MwGzt2IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxMSBTYWx0ZWRfXw8lKd21h0iM8
+ P+SL2ke+6JVzuscwgbjvHpG9kMhpz+bA2LaK2zgVLJ5QZNglJyIGpnSewl2lzyIiWavm4YFGZ1s
+ YD5l0UdmsI7p/ljU1vWeW71rS/ZRcQaxpK98yvNvamcPRIXNDUSR/KXOA8YqT8myS7S6ed6XOaD
+ vtDsd595K3jw/PL2yS6p1UIcnv9FYIwG6LMkBrqrDZ+gVINId063Jxkg21kdnuNBdUb8wGq1a/4
+ V9YsLJU1rQXhyvb41WeKJIfJUQkqP152IpbzNVsrOCuFS5wsfv4SfCkknkRc2kYAGCoG5Mg7MhB
+ aHaXzIwCyNb+r6/JU2wa4RE5HE9qWNp8pviP/M0T+lmDLYwJv64mKcbA6Z8HXc=
+X-JNJ: AAAAAAABdGY6uQq64stNARv7bdWI5eEOuuhXlsdMJGdckKk7f5MFVbUA8Wx1+ShZy7/0mY
+ ZsZEVdX5xoEBYoJR4CYnfOqtWPWPKMf0WsumXTABzn+Dd4qm9NIr8WlaCOlhDPp93siPhY
+ wvAWoQRLrYB+x9LzU8PF+gx5cAmTZWlJPB4JM2hpVty28WuvCxw7kOa4+lXyXjmIxkVjQT
+ Odn/uZWztUNNkSZfHFz+C3S+e6aledGV94ilOEj++Ch/JV8UNSsMpHHe+ysnKnrv5BBE0C
+ 4klNVW0VVqn67f05xuMGypSbZXi0yzCjj4tykP3hW2cRr0FA/sMDZBTpsdLDH+k/IuSvzk
+ V2fqDt6t9QXFR5VOUAP4k1G0ER+U8kklvp7dnQNzz3pjoV9p4N70JSiqtFby8vq3kJbxms
+ gMWvrNBNdKHsIrZ9lybAqD9j2AQUQjIho/haQTal6UHPbrPUzubvsF3pzU2GuOrza22irc
+ D9WwDbQ+qdhbE7C4fxnkGaunpxgIQD1cHm6jibRo7R4yWCNsIvlSZO/xKOiGoXopVqagg9
+ WKNEPmFJReIMA1MQa6lFGrb5cYsaYyMZhvN/61HYDYJYyrm3+t/whn/secPMEgAsPULA1S
+ tfXtIcH6304lj8y5BcYdA/8RX2LWeO2BWArkCh6ECq7hkiyiIpvogQVaEeWfu9uyXQrz4R
+ wYD4QZ1qkfp9GBcQ8ANaufoVlhbZdbkTUEnkGJYLWHSlbe5ANcJnEsxiKgf1Nb0G5YUQ52
+ a1ubEp2/z61WYOKSbmv5+MF2UQK9+qkTiL+xqtqA2EY2sm3tzqzb9aRoc4XTY1Xg0rYcHa
+ /JEephlCSF0Z9cfeb+WEhBILV5EOVMipNaKgIHbmkBZFqH2VKLpbAtXqLTgDZDUYf5pNCq
+ FKlhuOGQ9LdvPAZ9vVASD9YnQDCeDekvZZVDzc+ROTpfdrZJJmB1nhuS+qxv25udDbhpRB
+ EKMVZ8Ko9PL8jPxVDcSenpZwLwDRN64mEnxzA7rYFjPhXf5yMTEfn/mzjn+I0Dvv/Dv6sQ
+ YrqneArkzbRlsJEComYTmi+MrXB9QqO8U6Y73r4TMs2q10yyzTncVk+hgxJF4tRLx+o5gd
+ icRy3oMHh36LCSYIMHvMCqR38NpjgvJzIsTLSxWnE6NNhD7n1n9vOfbyjFjDt+XDx2THA7
+ dAi/tzeiyOs0bz7T/v6vaZORvvLzuI7zaeDo4qEfDt7vJf+Nob3JmlIjmZjGTgKt4dB1c0
+ qUcQH6QRwh8EjfqUs9kvc8Zd1InkyWN5G2P2YZSU2Si3wageDxfsqZQ3tE9Ce00r5KrqDx
+ 5uf1cYC62mZgUIur+GdzR6RC0O+SD+Y0Q3KxrwRXjZbyMNdTm13gIe+9fthG/CdcbwnUuF
+ 0/luFqkMQGpp97uGf4AKeKvIZ36IeEAJDfrRew5xglsuxn+wcyUtMhgEUriK6wriyc3BqW
+ iH4Km4lkyhzohgXGJmz2+N7rFvIGk/rBbP2JSW7zBWZRQz1F6G86UWgvYz43qLNNZSYAJ/
+ 3cYk9Ej8MYXXa30SasWR/E49nkUw3+FAweX3zhrCskvoXmVw7g==
 X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,94 +103,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: renpanpan <renpanpan@kylinos.cn>
+On Sat, Aug 22, 2026 at 11:48:57AM +0300, Dmitry Baryshkov wrote:
+> Targets without per-process pgtables -- everything pre-a6xx, plus
+> a6xx parts where split pagetables are unavailable -- hand every DRM
+> file the GPU's global VM.  The rest of the driver still treats a
+> context VM as private to that context, so closing a handle tears down
+> mappings other files are still using, and frees the iova for
+> immediate reuse.
 
-The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
-audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-whether the connected display advertises audio support in its EDID.
+I tested this series on a530 (Samsung Galaxy Tab S3, APQ8096) on v7.3.1
+and v6.19.5 (with some backporting).
 
-This causes a phantom HDMI audio output to appear for displays that
-have no audio capability (no basic audio bit, no Audio Data Block in
-EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-drives the HDA codec's ELDV pin sense, making the codec report the
-jack as audio-available.
+When I was bringing up v6.19.5 KWin would reliably trigger TRANSLATION
+read faults when rotating the screen with the lock screen up - 1800
+observed over 8 rotations. After the series the same test gave no faults
+on v6.19.5 or v7.3.1.
 
-The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-the display's audio capability. Apply the same check to amdgpu's DCE
-afmt_setmode functions, while still respecting the AMDGPU_AUDIO_ENABLE
-override for users who explicitly force audio on.
+I didn't re-test v7.3.1 without the series - if that would help, I can
+set it up.
 
-Fixes: e2cdf640cbb5 ("drm/amdgpu: add display controller implementation for si v10")
-Cc: stable@vger.kernel.org
-Signed-off-by: renpanpan <renpanpan@kylinos.cn>
----
-Changes in v2:
-- Respect AMDGPU_AUDIO_ENABLE override for users who force audio on
-- Add Fixes tag and Cc: stable@vger.kernel.org for stable backport
-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 ++++--
- 3 files changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index f2977fe6d824..69d0c6041d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1705,8 +1705,10 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
- 
--	/* enable audio after to setting up hw */
--	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index c68de0fe1d7d..226cfce321ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1748,8 +1748,10 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
- 		dce_v6_0_audio_dp_enable(encoder, 1);
- 	}
- 
--	/* enable audio after setting up hw */
--	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    amdgpu_connector->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index c3906270f25e..99f0c5759d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1653,8 +1653,10 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
- 
--	/* enable audio after setting up hw */
--	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
- }
- 
- static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
--- 
-2.43.0
-
+Tested-by: Jayden Milne <linux@jayd.ml> # a530
