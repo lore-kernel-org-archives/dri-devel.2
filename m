@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CEF606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 06:38:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9430606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 06:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpYUNvkn
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYuuwOrB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 770F910E7A2;
-	Tue,  3 Nov 2026 06:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E611D10F37E;
+	Tue,  3 Nov 2026 06:39:23 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91C3B10E7A2
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 06:38:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072D610F37E
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 06:39:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 39D39433FB;
- Tue,  3 Nov 2026 06:38:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74DE1F000C1;
- Tue,  3 Nov 2026 06:38:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E49E9414C5;
+ Tue,  3 Nov 2026 06:39:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AE61F000C1;
+ Tue,  3 Nov 2026 06:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793687905;
- bh=aaWCfGlD/ElpPzhqwGaseutr4BAEcSt9Xfs6Ov5LsBc=;
+ s=k20260515; t=1793687956;
+ bh=lSYvc//2evcuVvvfbgkvtGMf4hbeH9dEG3g0YeldfH8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZpYUNvkn5Vw0LjhsklvsD0oN3SIAaEcU/WL/P+hJSpop/t/Ag4VgW3q5t0aQy2/im
- 5+OYfRPxHlu8fvwFCB7Ug18k1AcuYOeKoeEZdJN5dMPTrzibYdNVe+ql/LexOBZrMW
- H3fTtEdq/37tFudzArAslIlAaOUEYIgff4SZ25FJT7WBh/kg3IiymESOiWU8sxvxY/
- 1hozewicvn9D+uad1sj8N1sFuKnrU3CTEK/91HslcAcDZWwu5d3ULpzF55WVmErORI
- rdyE5rZPZB2arB7Z54mMUuuvjz5gZ/vN+ibX/qLrpCOIkxAWm5eUnYDSIuYLA2lwHr
- Vrh4gwvJQLL5w==
-Message-ID: <sashiko-outbox-194648@kernel.org>
+ b=JYuuwOrBIzz7fLQ67ZBuvME0tdnr7gVl0ZNb/E3fXqyFJGWYDAxE4SnCyIcTga8c1
+ nKplLFcvCvy3Ah247q5rQrSoN9uOaoQX7UqIbyMpIuDycmsELciHNX4NJCq7WsVsyd
+ miMIdtWz606jBZyrkZTrQSxEx5ZdiKjsBQo0OvxBVJ6W27ymZ5jNQ0vnzODm0qtlox
+ 75ySdzoh9D3EqdcDzSQERO5aTQBZvQWfSzSeMO+nq+a7vd6oqZgoU2sSWV2ageKFzf
+ 8yJ+h1nQHVT8xfDtJNVoo9sqeg4OE5dgvRDKDhuN67dTmgb473x24cxUFOGc5ncv0s
+ embgxrFlB27xg==
+Message-ID: <sashiko-outbox-194651@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 07/16] drm/imx: dc-crtc: Disable at boot
+Subject: Re: [PATCH v9 04/16] drm/imx: dc-kms: Use driver specific
+ .atomic_commit_tail callback
 To: "Liu Ying" <victor.liu@nxp.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103-imx8-dc-prefetch-v9-7-3b985e7636e2@nxp.com>
+In-Reply-To: <20261103-imx8-dc-prefetch-v9-4-3b985e7636e2@nxp.com>
 References: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
- <20261103-imx8-dc-prefetch-v9-7-3b985e7636e2@nxp.com>
+ <20261103-imx8-dc-prefetch-v9-4-3b985e7636e2@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 06:38:24 +0000
+Date: Tue, 03 Nov 2026 06:39:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +62,127 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/imx: dc-crtc: premature clk_axi disable in dc_crtc_disable_a=
-t_boot()
+- [High] drm/imx: dc: plane disable skipped on modeset in dc_drm_atomic_com=
+mit_tail()
 --
 
-commit 8bca21cfc221adc6d10d2019ff78d5b2dc5c6e91
+commit ff022f683849ca82589cd00028c8fb7c412423dc
 Author: Liu Ying <victor.liu@nxp.com>
 
-drm/imx: dc-crtc: Disable at boot
+drm/imx: dc-kms: Use driver specific .atomic_commit_tail callback
 
-This commit adds a dc_crtc_disable_at_boot() helper and calls it for each
-CRTC during driver bind to disable any running CRTCs and balance display
-and AXI clock usage counts before registering the DRM device.
+This commit introduces a custom atomic_commit_tail callback for the i.MX8qxp
+Display Controller KMS driver that passes DRM_PLANE_COMMIT_ACTIVE_ONLY and
+DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET to drm_atomic_helper_commit_plane=
+s()
+to avoid accessing plane registers while clocks are disabled.
 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc=
--crtc.c
-> index 0d64186a99018..5bc952d6883e1 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
-
+> diff --git a/drivers/gpu/drm/imx/dc/dc-kms.c b/drivers/gpu/drm/imx/dc/dc-=
+kms.c
+> index 0e2ce6a425487..9ffa15ac43a25 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-kms.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-kms.c
 [ ... ]
-
-> @@ -331,6 +341,48 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct=
- drm_atomic_commit *state)
->  	spin_unlock_irq(&crtc->dev->event_lock);
->  }
+> @@ -30,6 +31,29 @@ static const struct drm_mode_config_funcs dc_drm_mode_=
+config_funcs =3D {
+>  	.atomic_commit =3D drm_atomic_helper_commit,
+>  };
 > =20
-> +int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
+> +static void dc_drm_atomic_commit_tail(struct drm_atomic_commit *state)
 > +{
-> +	struct dc_drm_device *dc_drm =3D to_dc_drm_device(crtc->dev);
-> +	struct dc_crtc *dc_crtc =3D to_dc_crtc(crtc);
-> +	int ret;
+> +	struct drm_device *dev =3D state->dev;
 > +
-> +	ret =3D pm_runtime_resume_and_get(dc_crtc->de->dev);
-> +	if (ret < 0) {
-> +		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
-> +			    ret);
-> +		goto out1;
-> +	}
+> +	drm_atomic_helper_commit_modeset_disables(dev, state);
 > +
-> +	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
-> +		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
-> +		goto out2;
-> +	}
-> +
-> +	dc_crtc_dbg(crtc, "disabling FrameGen at boot\n");
-> +	__dc_crtc_disable_fg(crtc);
-> +
-> +	if (!dc_drv_crtc_is_enabled(dc_drm, drm_crtc_index(crtc)))
-> +		goto out2;
-> +
-> +	dc_crtc_dbg(crtc, "disabling clocks at boot\n");
-> +
-> +	dc_fg_disable_clock(dc_crtc->fg);
-> +
-> +	dc_drm->pe_clk_axi_needs_disable =3D true;
-> +
-> +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
-> +
-> +out2:
-> +	pm_runtime_put(dc_crtc->de->dev);
-> +out1:
-> +	/* Let CRTC(with index =3D=3D 1) disablement path disable AXI clock. */
-> +	if (dc_drm->pe_clk_axi_needs_disable && drm_crtc_index(crtc) =3D=3D 1)
-> +		clk_disable_unprepare(dc_drm->pe->clk_axi);
-> +
-> +	return ret;
-> +}
+> +	drm_atomic_helper_commit_planes(dev, state,
+> +					DRM_PLANE_COMMIT_ACTIVE_ONLY |
+> +					DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET);
 
-[Severity: Medium]
-As reported by Sashiko on v8 [1], can dc_crtc_disable_at_boot() in
-drivers/gpu/drm/imx/dc/dc-crtc.c prematurely disable dc_drm->pe->clk_axi
-when disabling CRTC 1 fails?
+[Severity: High]
+Could passing DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET (and
+DRM_PLANE_COMMIT_ACTIVE_ONLY) here leave the plane's FetchUnit source buffer
+and LayerBlend enabled in hardware after the old framebuffer is cleaned up?
 
-In dc_drm_bind(), drm_for_each_crtc() invokes dc_crtc_disable_at_boot()
-for CRTC 0 and then CRTC 1. When CRTC 0 was active at boot, its call sets
-dc_drm->pe_clk_axi_needs_disable =3D true and clears CRTC_ENABLED(0).
+In drm_atomic_helper_commit_planes(), DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MOD=
+ESET
+skips calling funcs->atomic_disable() when the CRTC needs a modeset:
 
-When dc_crtc_disable_at_boot() then runs for CRTC 1, if
-pm_runtime_resume_and_get(dc_crtc->de->dev) fails and jumps to out1,
-CRTC 1's FrameGen has not been stopped and CRTC_ENABLED(1) has not been
-cleared. However, at out1, dc_drm->pe_clk_axi_needs_disable is already
-true from CRTC 0 and drm_crtc_index(crtc) =3D=3D 1, so
-clk_disable_unprepare(dc_drm->pe->clk_axi) is called unconditionally.
+    if (disabling && funcs->atomic_disable) {
+        struct drm_crtc_state *crtc_state;
 
-If CRTC 1 was also active at boot, wouldn't this gate the Pixel Engine
-AXI clock while CRTC 1 is still scanning out from the Pixel Engine, and
-leave CRTC_ENABLED(1) set in the general purpose register so that a
-subsequent bind retry disables dc_drm->pe->clk_axi a second time?
+        crtc_state =3D old_plane_state->crtc->state;
 
-[1] https://lore.kernel.org/r/20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@n=
-xp.com
+        if (drm_atomic_crtc_needs_modeset(crtc_state) &&
+            no_disable)
+            continue;
+
+        funcs->atomic_disable(plane, state);
+    }
+
+That flag is meant for drivers where the CRTC atomic_disable callback also
+disables the CRTC's planes. However, in drivers/gpu/drm/imx/dc/dc-crtc.c,
+dc_crtc_atomic_disable() only disables FrameGen and calls pm_runtime_put() =
+on
+the Display Engine and the shared Pixel Engine without disabling the planes:
+
+    enable_irq(dc_crtc->irq_dec_seqcomplete);
+    dc_fg_disable(dc_crtc->fg);
+    DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
+    disable_irq(dc_crtc->irq_dec_seqcomplete);
+
+    dc_fg_disable_clock(dc_crtc->fg);
+
+    /* request pixel engine power-off as plane is off too */
+    pm_runtime_put(dc_drm->pe->dev);
+
+And in drivers/gpu/drm/imx/dc/dc-plane.c, __dc_plane_atomic_disable() is wh=
+at
+actually disables the FetchUnit source buffer and LayerBlend:
+
+    /* disable fetchunit in shadow */
+    fu_ops =3D dc_fu_get_ops(dplane->fu);
+    fu_ops->disable_src_buf(dplane->fu, DC_FETCHUNIT_FRAC0);
+
+    /* set ExtDst's source to ConstFrame */
+    dc_ed_pec_src_sel(dplane->ed, dc_cf_get_link_id(dplane->cf));
+
+When dc_crtc_atomic_enable() runs with new_crtc_state->plane_mask =3D=3D 0,=
+ it
+switches ed_cont's source selection to cf_cont, but it does not call
+fu_ops->disable_src_buf():
+
+    /* show CRTC background if no plane is enabled */
+    if (new_crtc_state->plane_mask =3D=3D 0) {
+        /* constframe in content stream shows black frame */
+        dc_cf_constantcolor_black(dc_crtc->cf_cont);
+
+        cf_link =3D dc_cf_get_link_id(dc_crtc->cf_cont);
+        dc_ed_pec_src_sel(dc_crtc->ed_cont, cf_link);
+    }
+
+If an active CRTC with an enabled primary plane undergoes a modeset while
+remaining active and disables its plane in the same commit,
+dc_crtc_atomic_disable() calls asynchronous pm_runtime_put(dc_drm->pe->dev)
+and dc_crtc_atomic_begin() immediately calls
+pm_runtime_resume_and_get(dc_drm->pe->dev) before runtime suspend runs (or =
+the
+second CRTC on the shared Pixel Engine keeps dc_drm->pe->dev active), so
+dc_pe_runtime_resume() does not reset the Pixel Engine hardware. Because
+drm_atomic_crtc_needs_modeset() is true, DRM_PLANE_COMMIT_NO_DISABLE_AFTER_=
+MODESET
+skips dc_plane_atomic_disable(), leaving SOURCEBUFFERENABLE and LayerBlend
+enabled after drm_atomic_helper_cleanup_planes() cleans up the framebuffer.
+
+Similarly, because drm_atomic_helper_swap_state() swaps crtc->state before
+dc_drm_atomic_commit_tail() runs, plane_crtc_active(old_plane_state) evalua=
+tes
+to false whenever a CRTC is being disabled (new_crtc_state->active =3D=3D f=
+alse).
+With DRM_PLANE_COMMIT_ACTIVE_ONLY, disabling a CRTC and its plane while the
+second CRTC keeps the shared dc_drm->pe->dev powered on, followed by
+re-enabling the first CRTC with plane_mask =3D=3D 0, also skips
+dc_plane_atomic_disable() without ever calling fu_ops->disable_src_buf().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-imx8-dc-pr=
-efetch-v9-0-3b985e7636e2@nxp.com?part=3D7
+efetch-v9-0-3b985e7636e2@nxp.com?part=3D4
