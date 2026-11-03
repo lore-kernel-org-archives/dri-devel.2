@@ -2,46 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FE2606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:27:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F84B606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:27:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 668FB10F3D5;
-	Tue,  3 Nov 2026 07:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5EE210F3BB;
+	Tue,  3 Nov 2026 07:27:15 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D8210F3E6;
- Tue,  3 Nov 2026 07:27:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3228410F3BB
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3CAF84073A;
- Tue,  3 Nov 2026 07:27:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C981F00A02;
- Tue,  3 Nov 2026 07:27:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 16E2A42EA8;
+ Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618EC1F00919;
+ Tue,  3 Nov 2026 07:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793690827;
- bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
+ s=k20260515; t=1793690830;
+ bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lLIJ3wD5Mh6L8SP90f75YzxQJ/RXZO/CeQ6MEds9Gzx0k85j8RVPXYUjGY4/0BPTb
- lXyKHkwsSWIUMKuSCYilbTMWp6292pBWhX909gwASw2ba14boN5woGfSJN9P8PDqeW
- KSc0IQx/hUu5pHnApZgIIBE1mTS+yZPQL603SsmHzo2M9hpFkCDN5ZssxA1/p8mkV/
- LXiDGXyr7WqWiOSk6HJFr07zcDE64ynGUxeYtBovtHk9CJ8eHflojb98m0teWQdyzS
- 8ND+AeP+vZD23nnAB5HzCShKmG8Nm8x2PSKQrZRvzw3fSVRr+saxgh+Sn3yAHmBDev
- Sv3hqcECB5LKQ==
-Date: Tue, 3 Nov 2026 08:27:04 +0100
+ b=mbp3AaREA+dLIfDpOdOXAGyEEA626RN4qLobmzleU2aNSNM8/td25Nk8pMOCoctTr
+ jMYzKWgtxYkeWB2zS4y34iOmaLVOlYna9L5JnyPf1Bol4+gECftZJhKqJ7xOKtFHiN
+ p0r00AkQFS5639OZM3rtdgjKV0z5vgOn6xQ7eOmI2k/JAg+1XHR8t20ihuh1HCYzsf
+ aVHklt2yyd34Vhi+xXnafR0gRb1QJavkbn8D/dSBJBBzYb1GR929qrC+ohqBfcMQBf
+ T1yFgRQK2gTjn31ot/vydkN/h3FAPrZRCkbSmBybSk2tp6Zpu/usET66v+b+9+aw3w
+ csJhG2pw1nNiQ==
+Date: Tue, 3 Nov 2026 08:27:07 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: zhi.wang.linux@gmail.com, joonas.lahtinen@linux.intel.com, 
- zhenyuw.linux@gmail.com, tursulin@ursulin.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, stable@vger.kernel.org, rodrigo.vivi@intel.com,
- linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com
-Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
-Message-ID: <20261103-supportive-olive-barnacle-93590a@quoll>
-References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, stable@vger.kernel.org, christian.koenig@amd.com, 
+ phasta@kernel.org, sumit.semwal@linaro.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
+ test
+Message-ID: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103064457.1056056-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,23 +61,25 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Tue, 03 Nov 2026 06:54:07 +0000, Wentao Liang wrote:
-> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
-> page table tree. If scratch page allocation or DMA mapping fails,
-> create_scratch_page_tree() releases its own pages, but the GGTT MM and
-> its virtual GGTT and host GGTT buffers remain allocated. The caller
-> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
+On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
+> The merge order test creates an array and a chain as inputs to
+> dma_fence_unwrap_merge(). The merge takes references to the underlying
+> fences but does not consume the input containers. The success path only
+> puts the merged result, leaking both the input array and the outer chain,
+> which owns the inner chain.
 > 
-> Drop the GGTT MM reference and clear its pointer before returning the
-> scratch page initialization error.
+> Put the outer chain after checking the merged result and fall through to
+> the existing array cleanup on success as well as failure.
 > 
-> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
+> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
+> 
+> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 
