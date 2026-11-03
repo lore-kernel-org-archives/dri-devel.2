@@ -2,102 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1514606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9D5606A32D
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:58:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=w6pb0aqU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NN4zXVrv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D9210F894;
-	Tue,  3 Nov 2026 21:39:18 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011016.outbound.protection.outlook.com [52.101.62.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CED310F894;
- Tue,  3 Nov 2026 21:39:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GbGb94hdy8JdLzx6y6VRwePAaZ3rI7j6vzR2rmvZuOqCHakDhK9HqV3w68cAdrAfezZxabXkjDG2XVzoY6szwiyirEG4rlWasgaO9iT8cWK+fnA/v/YOnt0R7vSCKgbvmrB9Lgmiv8hiZdowcy022eSi205gCc5924A7gD3Dxy+TQbETNOKe7VYmfYajxJOICmIPiChQsBDkUeX2c1JDdkKNjeeotXrFags0xn0gSKkqeYa59dVu3lPS7sS25RkUXLIaCRK5Vrf+G/yLD/J7HnZzYXBGFYFgfffSCIxYtSFG4dVzkAMwUznTvwPxZccCjPRMD+rWQF5Ce+hky2/mmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TeGtIpEBfD5jg56Gyz2BJ7TrJMJCKKYR6HRVdU5BXG8=;
- b=NvUZNNIuO/MHlmCG0U/7fTAjuzMMr4PmxcWwfBUM0eB0JGdU9mz8i40avX4GMirhvvVdF93j5/iyFHpo7qIfNMK9x2Yan29D8q3EOswatqWOG8yXQyDqvJWuU4W0NNBg5u2xiO+ZkHXi/24NxkFpj6dQoBA6LUI8UnFDx7OGb1oryntvf9VS2KUppbNEv0DrDenM0MUphzgUH0lMwuicaj1MEjzh8QNT/zK8+161OHb199rZACZVt/Jje1UMg0nnpyC68eF2LxNIDh1Fdb2in8PQqDKMzh/qHMgMxkhL8QfVI3TiMHWisrDbXRvVP1LaLl+UKSBHaaZhsb0dTQm0rA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TeGtIpEBfD5jg56Gyz2BJ7TrJMJCKKYR6HRVdU5BXG8=;
- b=w6pb0aqUhn8SMfIczVRmsWr2GFx+3UqKB6jy216dgba/nUYYnZJxlrndz4vJpVRewfL3pBJEvZqdmeq5xhHSVIuZsKI9a2tm/u4NYvRZFPjNIOGKtkMhE1k9/HwW17TRkBzc17oApN/645/tM9GShFMvQBPIwhslLfCS8wMnIUM=
-Received: from BL1P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::29)
- by PH0PR12MB8800.namprd12.prod.outlook.com (2603:10b6:510:26f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Tue, 3 Nov
- 2026 21:38:12 +0000
-Received: from BN1PEPF00018072.namprd04.prod.outlook.com
- (2603:10b6:208:2c5:cafe::6) by BL1P221CA0016.outlook.office365.com
- (2603:10b6:208:2c5::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 21:38:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018072.mail.protection.outlook.com (10.167.245.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:10 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:07 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:07 -0600
-Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 15:38:07 -0600
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v1 09/13] drm/amd/display: program the DMA 3D LUT colorop
-Date: Tue, 3 Nov 2026 16:37:52 -0500
-Message-ID: <20261103213756.618024-10-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103213756.618024-1-harry.wentland@amd.com>
-References: <20261103213756.618024-1-harry.wentland@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB7110E1B5;
+	Tue,  3 Nov 2026 21:58:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 401EB10E1B5
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:57:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D3CF608FA
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:57:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253581F00A21
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793743074;
+ bh=4H8eU6z2JR3iXPnaXPV2uTwunMPI539+3YmBBPsTqq8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=NN4zXVrv4HX75rNjDW8n2rGhpIdcwT226SOYEzZIJkf4wky///aAUqXsW/LNjWIkB
+ +jqhBmbKEGHqpB/RfJ3IOme2x4Uro3Y6FFkYU7Lcb9k3EYVAL1RdZOfZBIO6UiCdmd
+ KU9/YPoFAEbimG8yPTj0+ET9beRolcznhTqYs/aM+V+aZskkRu62idx1+KnN4AwSau
+ 1qKaj1M79st+FVG6mdkANAoRT1WY2ezZ902n3LEXe1SUMJ3M1nio7P61uGsrtysmqO
+ t+l8RFDh+9jqGqOg9Z/Kt58ZxPm2v6e40EATAVtiGV3R2E35gTnJzuKbjPNba1LZpc
+ +CFP4IuYefF8g==
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5ba3fba0080so5402e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 13:57:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBztHn6u4YuFXelhW4v9aTkGqam3Gjrju0yG0xeidVNtXxgpJGjL69w3gj/28WyVs4NL8U6lSjXKnR8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9WfUsQ3iL7ht1ar/LzYHj38vN4VxTr/W6bXD8VAx7W+Ij3UcAL
+ ZOmCdej7rnhioNK6BlN2EwpzNFuL2MmVt702Di95RRqlRS4GKfDbIkhkG8TKxQm91N4ZTAISmPU
+ ActxhRVcfHKb1qiEHfy7SSpylICl1+7g=
+X-Received: by 2002:a05:6512:a94:b0:5bf:b246:87a2 with SMTP id
+ 2adb3069b0e04-5bfd957b610mr4953868e87.10.1793743072116; Tue, 03 Nov 2026
+ 13:57:52 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018072:EE_|PH0PR12MB8800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e6605ca-3ffb-42e3-fbb1-08df39f2c1af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261102123227099003|11063799006|261009223027099003|56012099006|261021121427099003|261021123027099003|18002099003|10067099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: pfqNozKo3mkxdO3iTGsXnhjv3tWHqgs5Ml5YCpxTZOBl4mzNHrEXKGXANBbQS3/CumuvyIW2oNLYq6yNFVhPqyTuEsul31Xz8ztutmwH1Mwq4JlsD6xJECBKfUq+DlFnbIzUOFPj+BXopUN7Uf5H+Eb8DnEJlB4BeEZOaSpV+lPbUekHdUPtseiILbqLkCgGj8vX5dVfrf5lq4dyP6YF1ou+ZlRb76pVAbAGb6i3Lzcz9apMNapoMtrVkeDFaQH56zbwrQy3GKtZGezpoHaKmfs8/eXYheqrQ/+EkEkG1CRCio+y5GrZ6n1sIDcDS2FkaxbrMYrY5SrEnW5KvnMVqU6rVAUZWbeXXk8PdsvHVeXsOZnJMzdvgyQkrlzyt370PQFWOfkPYi4AqQsTksCB0c4uCl1aWRrFx6qx0zgace3jHsG8r+qvOLac5eugR6tOTiRo0P2JXmze5ykbYbA9sUtlm4PquvZABlVLihBhDT6pSQcBbspMRL9AR5JTjvwdawivtPd0GtN/ceWwyS6xi61aZCnqxVZi8KXoYijWe583OU6ihe+zA3SMlauANt6+GTdq3CtKuhlZIO2NuepIIz2bRauSvfqCrNuLUE0/+oQPeHJs2zWrbaZ23GRTiWPHQmHANS0E9L5CBWDLeH7W2tO9x38NgEvcPTLHffigpzcv7RwFvxk01Vr0/ivF3b7ZyQVfsj1Ze3SljmzZKXcTNg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261102123227099003)(11063799006)(261009223027099003)(56012099006)(261021121427099003)(261021123027099003)(18002099003)(10067099003)(22082099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LmBNXmZqzrVvXDc6fYPKAIq5wwZwBpniGX/azmO7EgI4GmKOMXjpuaQMYlKC0ZSDs+vcozNDpyHAwEOi12wFnVviquworWV8vD1X51AzwS/ZfqyH4a1UORYTt5/qcO4oY5709laHeMSireia+cZMG38TxmOlc974NTpyWeSKAIBdP6OE8HNIItPZq6CCxOt3Nrzs+FFIYGx0qBQzOdRL8uIWk0XcUplJPntbjqOXNSEJie2dmEc4uncyBckDcCRjGnh+Lhq+ORGZdwjkg2R2dvnAWqBieX6Y6wu2XH87t3xbjw1CcC1FAg7ILuISMV5+g2DQgE0qRRjt4gjHLhTqLMXGFG9dLVG8WNeKxDhNNYnpFS0/sPvkwad1+ksW01wBjeBl6dOSF5MnX2JL+yL5YAaXxe9QvBCDuCpN6I9460rcpGNNi3DnLvgjWIT3UmKq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:10.3909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e6605ca-3ffb-42e3-fbb1-08df39f2c1af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018072.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8800
+References: <20261102135330.2493332-1-robh@kernel.org>
+In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 3 Nov 2026 22:57:39 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm10TL4FkkyhvyF-CKNREA-mOSjbR5zKUisC_Wx1-nqgg@mail.gmail.com>
+X-Gm-Features: AclHuK-xZTzLWXlPWAOCiWHBj5C4K-MSmY2Fnjjj517UPimoWDCn2vjwhrapfPU
+Message-ID: <CAD++jLm10TL4FkkyhvyF-CKNREA-mOSjbR5zKUisC_Wx1-nqgg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, 
+ Ivan Vecera <ivecera@redhat.com>, Benson Leung <bleung@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Chanh Nguyen <chanh@os.amperecomputing.com>, 
+ Alistair Francis <alistair@alistair23.me>, Julius Werner <jwerner@chromium.org>,
+ Paul Cercueil <paul@crapouillou.net>, Dmitry Osipenko <digetx@gmail.com>, 
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, chrome-platform@lists.linux.dev, 
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-sound@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, mfd@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,129 +120,23 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Translate an enabled DRM_COLOROP_3D_LUT_DMA colorop into the DC fast-load
-3D LUT config. __set_dm_plane_colorop_3dlut() now handles both the inline
-3D LUT (DATA blob -> lut3d_func) and the DMA variant, which fills
-dc_plane_state->cm.lut3d_dma from the pinned framebuffer's GPU address
-(LINEAR_RGB swizzle, RGBA16161616 UNORM 12MSB, 17^3, neutral bias/scale)
-and sets lut3d_dma_enable. Both 3D LUT variants map to the same MCM HW
-block, so the rest of the per-colorop walk is shared; only this step
-branches on the colorop type.
+On Mon, Nov 2, 2026 at 2:53=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org> =
+wrote:
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 68 ++++++++++++++-----
- 1 file changed, 51 insertions(+), 17 deletions(-)
+> Unit-addresses by default (and most commonly) are hexadecimal. There's a
+> number of cases using decimal patterns. Fix all of them, limiting the
+> pattern to match the 'reg' limits if there are any.
+>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ebb05a20aa0c..8936b30e9eae 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1868,25 +1868,60 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
- 	const struct drm_device *dev = colorop->dev;
- 	const struct drm_color_lut32 *lut3d;
-+	struct amdgpu_framebuffer *afb;
- 	uint32_t lut3d_size;
-+	uint64_t addr;
- 	int i = 0, ret = 0;
- 
--	/* 3D LUT */
-+	/* 3D LUT - inline or DMA (fast-load); both map to the same HW block */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
- 		if (new_colorop_state->colorop == old_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
-+		    (new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT ||
-+		     new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT_DMA)) {
- 			colorop_state = new_colorop_state;
- 			break;
- 		}
- 	}
- 
--	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
--		if (!has_3dlut) {
--			drm_dbg(dev, "3D LUT is not supported by hardware\n");
-+	if (!colorop_state || colorop_state->bypass) {
-+		dc_plane_state->cm.flags.bits.lut3d_enable = 0;
-+		dc_plane_state->cm.flags.bits.lut3d_dma_enable = 0;
-+		return 0;
-+	}
-+
-+	if (!has_3dlut) {
-+		drm_dbg(dev, "3D LUT is not supported by hardware\n");
-+		return -EINVAL;
-+	}
-+
-+	if (colorop->type == DRM_COLOROP_3D_LUT_DMA) {
-+		if (!colorop_state->fb) {
-+			drm_dbg(dev, "DMA 3D LUT colorop %d has no framebuffer\n",
-+				colorop->base.id);
- 			return -EINVAL;
- 		}
- 
-+		drm_dbg(dev, "DMA 3D LUT colorop with ID: %d\n", colorop->base.id);
-+
-+		/* Not pinned yet for a new FB; the plane's prepare_fb fixes up addr */
-+		afb = to_amdgpu_framebuffer(colorop_state->fb);
-+		addr = afb->address + colorop_state->fb->offsets[0];
-+
-+		memset(&dc_plane_state->cm.lut3d_dma, 0, sizeof(dc_plane_state->cm.lut3d_dma));
-+		dc_plane_state->cm.lut3d_dma.addr.type = PLN_ADDR_TYPE_GRAPHICS;
-+		dc_plane_state->cm.lut3d_dma.addr.grph.addr.low_part = lower_32_bits(addr);
-+		dc_plane_state->cm.lut3d_dma.addr.grph.addr.high_part = upper_32_bits(addr);
-+		dc_plane_state->cm.lut3d_dma.swizzle = CM_LUT_3D_SWIZZLE_LINEAR_RGB;
-+		dc_plane_state->cm.lut3d_dma.format = CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB;
-+		dc_plane_state->cm.lut3d_dma.size = CM_LUT_SIZE_171717;
-+		/* neutral bias/scale for UNORM input */
-+		dc_plane_state->cm.lut3d_dma.bias = 0;
-+		dc_plane_state->cm.lut3d_dma.scale = 0x3C00; /* 1.0 in FP1.5.10 */
-+		dc_plane_state->cm.flags.bits.lut3d_dma_enable = 1;
-+		/* lut3d_enable gates the fast-load trigger and MCM 3D LUT enable */
-+		dc_plane_state->cm.flags.bits.lut3d_enable = 1;
-+	} else {
- 		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
- 		lut3d = __extract_blob_lut32(colorop_state->data, &lut3d_size);
- 		lut3d_size = lut3d != NULL ? lut3d_size : 0;
-@@ -1898,19 +1933,18 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 		}
- 
- 		dc_plane_state->cm.flags.bits.lut3d_enable = 1;
-+		dc_plane_state->cm.flags.bits.lut3d_dma_enable = 0;
-+	}
- 
--		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
--		 * with TRANSFER_FUNCTION_LINEAR
--		 */
--		if (tf->type == TF_TYPE_BYPASS) {
--			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
--			tf->tf = TRANSFER_FUNCTION_LINEAR;
--			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--			ret = __set_output_tf_32(tf, NULL, 0, false);
--			dc_plane_state->cm.flags.bits.shaper_enable = 1;
--		}
--	} else {
--		dc_plane_state->cm.flags.bits.lut3d_enable = 0;
-+	/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
-+	 * with TRANSFER_FUNCTION_LINEAR
-+	 */
-+	if (tf->type == TF_TYPE_BYPASS) {
-+		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-+		tf->tf = TRANSFER_FUNCTION_LINEAR;
-+		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		ret = __set_output_tf_32(tf, NULL, 0, false);
-+		dc_plane_state->cm.flags.bits.shaper_enable = 1;
- 	}
- 
- 	return ret;
--- 
-2.56.0
+Acked-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
