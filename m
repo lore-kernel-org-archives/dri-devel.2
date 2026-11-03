@@ -2,42 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4251606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:29:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F6B606D806
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjeXB49v
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQ/nNwuo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 029AB10E533;
-	Tue,  3 Nov 2026 16:28:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E207B10F70F
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 16:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0D0410F704;
+	Tue,  3 Nov 2026 16:39:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4EC410F704
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 16:39:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 12D4760416;
- Tue,  3 Nov 2026 16:28:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B553A1F0093A;
- Tue,  3 Nov 2026 16:28:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 671AE43B17;
+ Tue,  3 Nov 2026 16:39:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DEE01F00919;
+ Tue,  3 Nov 2026 16:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793723327;
- bh=FFcyEUjF3pXHEmthb/hfCNLR/jdGo6Z5SDQNn4ZRPmw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RjeXB49vvThbSMnBNn3aXtAG8NNi51Lq9HJIM0/XEecm0aU0VmubdU3xkpA7ekTsJ
- Qnt2KojifvtbEXN9NTSre55CJKRIQ8I8xy7WLbao4z8lO4ldkO03jDxvtRgZ0/vZwk
- y399a9XTXs9Jml0xdWex3OBIZz94WwyedAfIEx5KKv1mYg2YP0qmIAJL8ulT4YWGFH
- QDQS6Ov0smUYb4BoVFEIMRaE6OoXclBf0ZSkhOIE7imUlTQS1XRIdhi2zKFObnlwmy
- KqAMjbFfqaMOkpmc//wxWSDTLfraXnhDaQmDtPvNM3dKjD/X01L30BoCfjMYjxyCw4
- 4jhnR3DC1T51w==
-Message-ID: <sashiko-outbox-195725@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/3] drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
-To: "Seifelden Abdelmonem" <saif.elden.hatim@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261103155313.114347-4-saif.elden.hatim@gmail.com>
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
- <20261103155313.114347-4-saif.elden.hatim@gmail.com>
+ s=k20260515; t=1793723980;
+ bh=MRMdP7FIxigSeDqcsgSUYB9b6BNpnFg/wAimEqAPxEs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=XQ/nNwuodkCBEaeYlDPGXQ2NBVyaOu+nuL3oimLdbSA+hZnOnCMyBEv8BHrYgwk/m
+ 6VRgMfJqoFXxFR5EnYPGf1ATg09kypE1i/OaABYNEuqdO5agM7Fzz0cf/3n/BjKYZM
+ khi+2N49jwOr20dXQgySeVZQ9Nuqnaii9228cGUqmaA9nvn0Bo2QFeSR7x+Zj7TPBN
+ DsnqdVZFYyPlE6EQk0LhOkfKZhj3KG2NrjGmOrcKa6pa4XM1UVKP+71e961E7SnLHB
+ vkz6atcfZ7p6OvtLIdPK+tn8iO+IrzrFsPPZ5RZWhEpbynuwXHq2NjfH4sIU6OUzUj
+ zfP/LOwKBMdTQ==
+Date: Tue, 3 Nov 2026 17:39:28 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+ Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-mm@kvack.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, 
+ linux-modules@vger.kernel.org, Chuck Lever <cel@kernel.org>, tytso@mit.edu, 
+ dmitry.torokhov@gmail.com, Petr Pavlu <petr.pavlu@suse.com>, 
+ Anna Schumaker <anna@kernel.org>, yukuai@fygo.io,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>
+Subject: Re: [PATCH RFC 28/38] scsi: esas2r: bound the lengths of the HBA,
+ SMP and firmware ioctls
+Message-ID: <20261103-aufmischen-achthundert-reitschule-d97de42062c2@brauner>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-28-59422ed3e465@kernel.org>
+ <sashiko-outbox-195500@kernel.org>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:28:46 +0000
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-195500@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,106 +77,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/amdgpu: missing gpiod_remove_lookup_table() in isp_v4_1_1_hw_i=
-nit()/fini()
---
+On Tue, Nov 03, 2026 at 02:48:22PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] scsi: esas2r: TOCTOU race on data_length in handle_hba_ioctl() via read_hw()
+> --
+> 
+> commit 8af21917bc01e9991b2ab872e7a4c38c91a6e388
+> Author: Christian Brauner <brauner@kernel.org>
+> 
+> scsi: esas2r: bound the lengths of the HBA, SMP and firmware ioctls
+> 
+> This commit adds bounds checks on user-supplied lengths for the HBA, SMP,
+> and firmware ioctls in esas2r to prevent out-of-bounds reads and writes past
+> the end of struct atto_express_ioctl and a->local_atto_ioctl.
+> 
+> > diff --git a/drivers/scsi/esas2r/esas2r_ioctl.c b/drivers/scsi/esas2r/esas2r_ioctl.c
+> > index 3f7c1d131ec34..f99318f61c934 100644
+> > --- a/drivers/scsi/esas2r/esas2r_ioctl.c
+> > +++ b/drivers/scsi/esas2r/esas2r_ioctl.c
+> 
+> [ ... ]
+> 
+> > @@ -1221,11 +1231,16 @@ static void hba_ioctl_done_callback(struct esas2r_adapter *a,
+> >  	}
+> >  }
+> >  
+> > +/* @room is the size of the buffer that starts with @ioctl_hba. */
+> >  u8 handle_hba_ioctl(struct esas2r_adapter *a,
+> > -		    struct atto_ioctl *ioctl_hba)
+> > +		    struct atto_ioctl *ioctl_hba, size_t room)
+> >  {
+> >  	struct esas2r_buffered_ioctl bi;
+> >  
+> > +	/* The data follows @ioctl_hba in the same buffer. */
+> > +	if (ioctl_hba->data_length > room - sizeof(struct atto_ioctl))
+> > +		return IOCTL_INVALID_PARAM;
+> > +
+> >  	memset(&bi, 0, sizeof(bi));
+> >  
+> >  	bi.a = a;
+> 
+> [Severity: High]
+> Can a concurrent write_hw() bypass this bounds check when handle_hba_ioctl()
+> is called from read_hw()?
 
-commit a5133602b5141a1308e409981d3e875c2a078846
-Author: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+This whole codepath as currently implemented is structurally fscked.
+So it's not something fixable in this series apart from the glaringly
+obvious.
 
-drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
+But for the record:
 
-This patch adds the OMNI13B1 ACPI ID to isp_sensor_ids so amdgpu detects
-the OmniVision OV13B10 camera sensor on ISP 4.1.1 platforms. It also
-defines and registers the GPIO lookup tables required by the ISP capture
-and ov13b10 sensor drivers during ISP 4.1.1 hardware initialization.
+- The ATTONode entry thing is created as a side effect of reading
+  another file.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/am=
-d/amdgpu/isp_v4_1_1.c
-> index 363266f3e0a3e..7d6072e279468 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> @@ -65,6 +65,14 @@ static struct gpiod_lookup_table isp_sensor_gpio_table=
- =3D {
->  	},
->  };
-> =20
-> +static struct gpiod_lookup_table isp_ov13b10_gpio_table =3D {
-> +	.dev_id =3D "i2c-ov13b10",
-> +	.table =3D {
-> +		GPIO_LOOKUP("amdisp-pinctrl", 0, "reset", GPIO_ACTIVE_LOW),
-> +		{ }
-> +	},
-> +};
-> +
->  static int isp_poweroff(struct generic_pm_domain *genpd)
->  {
->  	struct amdgpu_isp *isp =3D container_of(genpd, struct amdgpu_isp, ispgp=
-d);
-> @@ -240,10 +248,13 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *is=
-p)
->  		return 0;
->  	}
-> =20
-> -	/* add GPIO resources required for OMNI5C10 sensor */
-> +	/* add GPIO resources required for the sensor */
->  	if (!strcmp("OMNI5C10", acpi_device_hid(acpi_dev))) {
->  		gpiod_add_lookup_table(&isp_gpio_table);
->  		gpiod_add_lookup_table(&isp_sensor_gpio_table);
-> +	} else if (!strcmp("OMNI13B1", acpi_device_hid(acpi_dev))) {
-> +		gpiod_add_lookup_table(&isp_gpio_table);
-> +		gpiod_add_lookup_table(&isp_ov13b10_gpio_table);
->  	}
+  So esas2r_info() registers a character device and creates
+  /proc/scsi/esas2r/ATTONode the first time it runs. That pins a global
+  pointer to whichever host triggered it. So the control node only
+  exists after someone looked at the host info. So it is bound to the
+  first host and not to the adapter it operates on.
 
-[Severity: High]
-When isp_v4_1_1_hw_init() matches OMNI13B1 (or OMNI5C10), it links the stat=
-ic
-isp_gpio_table and isp_ov13b10_gpio_table structures into the global
-gpio_lookup_list via gpiod_add_lookup_table().
 
-However, neither the error paths in isp_v4_1_1_hw_init() (if pm_genpd_init(=
-),
-memory allocations, or mfd_add_hotplug_devices() fail) nor
-isp_v4_1_1_hw_fini() removes these tables:
+  The lifeteime is then tied to the module and not to the host.
+  The entry is removed in esas2r_exit() on module exit.
 
-drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c:isp_v4_1_1_hw_fini() {
-	device_for_each_child(isp->parent, NULL,
-			      isp_genpd_remove_device);
+  But the directory it lives in belongs to SCSI. That removes it when
+  the last host of the template goes away.
 
-	mfd_remove_devices(isp->parent);
+  So unbind or hotunplug of the last adapter removes a non-empty
+  directory... the dir is unlinked and the ATTONode leaks and stays
+  reachable through a cached dentry.
 
-	kfree(isp->isp_res);
-	kfree(isp->isp_cell);
-	kfree(isp->isp_pdata);
-	kfree(isp->isp_i2c_res);
-	kfree(isp->isp_gpio_res);
+  And the global host pointer dangles.
 
-	return 0;
-}
+  So every ioctl on the node dereferences it.
 
-If the PCI device is unbound and rebound, or if isp_v4_1_1_hw_init() is
-retried after a failure, won't calling gpiod_add_lookup_table() again on the
-already-linked static list_head nodes corrupt gpio_lookup_list? Furthermore,
-if amdgpu is built as a module and unloaded, won't leaving isp_gpio_table a=
-nd
-isp_ov13b10_gpio_table linked in gpio_lookup_list cause a use-after-free in
-gpiolib when subsequent GPIO lookups traverse the freed module memory?
+  It's like non-empty directory removal basically. Fun.
 
-Should isp_v4_1_1_hw_init() on failure and isp_v4_1_1_hw_fini() on teardown
-call gpiod_remove_lookup_table() to unregister the lookup tables?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103155313.1143=
-47-1-saif.elden.hatim@gmail.com?part=3D3
+- No privilege check anywhere. The node is created with mode 0 so 0444
+  with procfs the the driver never calls capable().
+
+  Hence, any local user can read and write firmware and NVRAM and issue
+  VDA commands.
+
+- The ioctl protocol itself (where to begin):
+  - Plain-number commands
+  - one struct copied in whole
+  - unbounded lengths taken straight from userspace (well, that's fixed here)
+
+Sorry, I'm not going to redesign esas2r.
+And from what I can tell that ATTO stuff is legacy anyway so good
+riddance as far as I'm concerned.
