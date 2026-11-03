@@ -2,61 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDB2606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 04:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E69606A33B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 06:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YJXNXWUN
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hLNapVgL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF66110E74E;
-	Tue,  3 Nov 2026 04:57:44 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 04:57:38 UTC
-Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 321A110E74E
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 04:57:38 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=oS3G7YTuGm7Wj/oTYe68peuLJlvFaQ35fQbGEbUos/c=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793681856; v=1; x=1794286656;
- b=YJXNXWUNX6ioSaQpUPZLdzLVNpmMOqgFBQhk+K9m0XpbMgVx2HFpUfObGOEUk8RqOdaq7P8J
- fr6RhR4nIweAN9Q9AFUnep+HpR/nRcpq0JgcL9J9VFnvc8VaMY7hZifLJXHebYMMZnoHAxoKOFE
- 0HEOLST3sjir4lwyb9dyviY8=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id bd5412f0d877ae2f;
- Tue, 03 Nov 2026 04:51:31 +0000
-X-Mizu-Trace-ID: bd5412f0d877ae2f
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
- brauner@kernel.org, cmllamas@google.com, aliceryhl@google.com,
- nat@pixelcluster.dev, arunpravin.paneerselvam@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, viro@zeniv.linux.org.uk,
- agruenba@redhat.com, trondmy@kernel.org, anna@kernel.org, cel@kernel.org,
- jlayton@kernel.org, cem@kernel.org, akpm@linux-foundation.org,
- david@fromorbit.com, david@kernel.org, hughd@google.com,
- hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com
-Cc: matthew.auld@intel.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, jack@suse.cz, neil@brown.name,
- okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- qi.zheng@linux.dev, roman.gushchin@linux.dev, muchun.song@linux.dev,
- ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, mhocko@kernel.org, shakeel.butt@linux.dev, ljs@kernel.org,
- kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, baoquan.he@linux.dev, chengming.zhou@linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, gfs2@lists.linux.dev,
- linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH] mm/list_lru: Account node removals in isolation helpers
-Date: Tue,  3 Nov 2026 12:50:53 +0800
-Message-ID: <20261103045053.59548-1-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3763510E79A;
+	Tue,  3 Nov 2026 06:16:52 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B531A10F35A
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 06:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1793686605;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=nW2XtCU/J0JPyQa2Tmg6J/L9KVt/vCE5uqUG4LBeVzo=;
+ b=hLNapVgLe/2AF9ZYQLsSQTATRlLZtK16VRc3qseRg2YKC1wN4Kv49PSivEp+5UiaS+khH0
+ Y50Yj1eN80qzQ9A7UWEnaBicQsQLA5UiAAgI6z9+vfw9BOXtbZ3JGTOz9CX623hdvk8NYe
+ hQK/VWbpTKWrG3MdtgJYM6ULzh3IytQ=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-588-zbhM46GfMB-CYWZmjAhypQ-1; Tue, 03 Nov 2026 01:16:43 -0500
+X-MC-Unique: zbhM46GfMB-CYWZmjAhypQ-1
+X-Mimecast-MFC-AGG-ID: zbhM46GfMB-CYWZmjAhypQ_1793686602
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-5be456fa317so2125098e87.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 22:16:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793686602; x=1794291402;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=nW2XtCU/J0JPyQa2Tmg6J/L9KVt/vCE5uqUG4LBeVzo=;
+ b=j9u+ZSsuTU/TXbuexAuNqZ/L6uIpY8OsW9u57Gbz0MbNNKv+ZSibjIutm5fAiXUBat
+ cK97h7KdhWFIj/tAOSe+aOG+BFYvduWVS/vjHaRxnR6YUHp3sADmDjX4s9+Dj0WRz7BO
+ bfAXiTsaYOeOvl7RZqqaaElOWlYOKHB5l9IymxJA3CyjJhduvFidB4MPJijNfOBIvZ9Z
+ 4pVuyF6TuMmKato81a9nFHxnAp0TiV67kuuQZkBAOM9vj9LHQ3KNBb7DqkivjvPG55M/
+ N7qYPAPE5WXnCjs7/8r6PEo+bIXDOfJ7D6ICfufX2udEeZ9AdHmYWNGSBCh8FjXWOXOu
+ wzXw==
+X-Gm-Message-State: APuU4Z95KT//F4ABGEmg9sOsLxbSbP60EfHp6/wfukAwBpZ9r9ui8lLY
+ UJD4MGoTDnZ75L5mNEA2CDiJsUADH58YyMfDf+L3iMozO2r2liQLlu0WBGn2tm9uwCG0nmWVoi6
+ pOCo+whz3JxX9w36zk/LxOOszf+lSwGUEGE5cnknyEZ3dbwXsEYh3wwFTO1ro1jQi8UabjYPK1A
+ r4sjk=
+X-Gm-Gg: AYBFou2H46X7N0E/ACRAWeyFnRWpSpKIRzevpjnqQUXrUP8RN4Xl72d8MpZ9fjeCovx
+ b6rqerXgJ0Pw3Rrkus4oJS7HuujVDwpgZL0aan9XXoGpoEFNiO5KXslnfWlM4k5IxdhkUHsU+K/
+ M4DnnYCZnYS4yxyJfA5yXx3QH4O+k2wOkAzG8twjP1xT34jFwwRTNH2XASbU/hreFQ9hlysSbap
+ m0ZtQSjf5EsbUq9R4Wj0CdM9r+bd27i0tKXAyQ6Ci4Km1BLT7Y3kAXkjYWGKxFDRHHufuljtamY
+ tkyAtein0vY7nXzmJYkLf8SpW+VsgVXZI2UE4omVkKFA4L0Ldb75nqLCw2gqQR1ZD68sJd+ZGrF
+ zwkKeVgm1h/W1rNz6jnmF3OnWWHzX8Qe6V8JIRuqrLpXXE/bNdYL/oLqa/uQpjFWxc2Jk2g==
+X-Received: by 2002:a05:6512:b93:b0:5be:57a5:52e8 with SMTP id
+ 2adb3069b0e04-5bfd951d167mr4302298e87.6.1793686601642; 
+ Mon, 02 Nov 2026 22:16:41 -0800 (PST)
+X-Received: by 2002:a05:6512:b93:b0:5be:57a5:52e8 with SMTP id
+ 2adb3069b0e04-5bfd951d167mr4302282e87.6.1793686601037; 
+ Mon, 02 Nov 2026 22:16:41 -0800 (PST)
+Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bfe073e0f9sm1964634e87.54.2026.11.02.22.16.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 22:16:39 -0800 (PST)
+From: mpenttil@redhat.com
+To: linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v17 00/12] migrate on fault for device pages
+Date: Tue,  3 Nov 2026 08:16:17 +0200
+Message-ID: <20261103061629.972669-1-mpenttil@redhat.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: I7D4zWMGWofFaBFGIwGWwdsloazEjp8nImxUHJ2soSI_1793686602
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,642 +100,391 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+From: Mika Penttilä <mpenttil@redhat.com>
 
-Successful writeback calls zswap_entry_free(), which removes the entry
-from the LRU and decrements both the sublist and node item counts.
-shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
-to decrement the node count again.
+Currently, the way device page faulting and migration works
+is not optimal, if you want to do both fault handling and
+migration at once.
 
-The affected call path before this change is:
+Being able to migrate not present pages (or pages mapped with incorrect
+permissions, eg. COW) to the GPU requires doing either of the
+following sequences:
 
-  __list_lru_walk_one()
-    shrink_memcg_cb()
-      zswap_writeback_entry()
-        zswap_entry_free()
-          zswap_lru_del()
-            list_lru_del()
-              __list_lru_del()
-                atomic_long_dec()  /* first node count decrement */
-      return LRU_REMOVED_RETRY
-    atomic_long_dec()              /* second node count decrement */
+1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+2. migrate_vma_*() - migrate the pages
 
-During the mailing list discussion, Johannes Weiner suggested making
-users of the isolation interface responsible for maintaining the item
-counts, rather than having the walker decrement the node count based
-on the callback's return value.
+Or:
 
-Pass the list_lru_node to walk callbacks and isolation helpers, and move
-the node count decrement into list_lru_isolate() and
-list_lru_isolate_move(). Reuse list_lru_isolate() in __list_lru_del() and
-remove the decrement from the walker. Update all callers accordingly.
+1. migrate_vma_*() - migrate present pages
+2. If non-present pages detected by migrate_vma_*():
+   a) call hmm_range_fault() to fault pages in
+   b) call migrate_vma_*() again to migrate now present pages
 
-Fixes: 5878303c5353 ("mm/zswap: fix race between lru writeback and swapoff")
-Closes: https://sashiko.dev/#/bug/linux-68d2ca49-23be-4504-9a75-b8526ec92388
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
-Changes since v1:
-- Move node accounting into list_lru isolation helpers and update all
-  callers
+The problem with the first sequence is that you always have to do two
+page walks even when most of the time the pages are present or zero page
+mappings so the common case takes a performance hit.
 
-v1: https://lore.kernel.org/all/20261028113619.38752-1-kaitao.cheng@linux.dev/
----
- drivers/android/binder/page_range.rs |  7 ++++---
- drivers/gpu/drm/ttm/ttm_pool.c       |  6 ++++--
- fs/dcache.c                          | 21 +++++++++++----------
- fs/gfs2/quota.c                      |  4 ++--
- fs/inode.c                           |  8 ++++----
- fs/nfs/nfs42xattr.c                  | 14 +++++++-------
- fs/nfsd/filecache.c                  | 15 ++++++++-------
- fs/xfs/xfs_buf.c                     | 12 +++++++-----
- fs/xfs/xfs_qm.c                      |  9 +++++----
- include/linux/list_lru.h             |  9 +++++----
- mm/huge_memory.c                     |  5 +++--
- mm/list_lru.c                        | 16 ++++++++--------
- mm/shmem.c                           |  7 ++++---
- mm/workingset.c                      |  3 ++-
- mm/zswap.c                           |  5 +++--
- 15 files changed, 77 insertions(+), 64 deletions(-)
+The second sequence is better for the common case, but far worse if
+pages aren't present because now you have to walk the page tables three
+times (once to find the page is not present, once so hmm_range_fault()
+can find a non-present page to fault in and once again to setup the
+migration). It is also tricky to code correctly. One page table walk
+could costs over 1000 cpu cycles on X86-64, which is a significant hit.
 
-diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
-index b0c797523bc2..046b12aae5e5 100644
---- a/drivers/android/binder/page_range.rs
-+++ b/drivers/android/binder/page_range.rs
-@@ -685,7 +685,8 @@ fn drop(self: Pin<&mut Self>) {
- #[no_mangle]
- unsafe extern "C" fn rust_shrink_free_page(
-     item: *mut bindings::list_head,
--    lru: *mut bindings::list_lru_one,
-+    node: *mut bindings::list_lru_node,
-+    list: *mut bindings::list_lru_one,
-     _cb_arg: *mut c_void,
- ) -> bindings::lru_status {
-     // Fields that should survive after unlocking the lru lock.
-@@ -728,7 +729,7 @@ fn drop(self: Pin<&mut Self>) {
-         };
- 
-         // SAFETY: The item is in this lru list, so it's okay to remove it.
--        unsafe { bindings::list_lru_isolate(lru, item) };
-+        unsafe { bindings::list_lru_isolate(node, list, item) };
- 
-         // SAFETY: Both pointers are in bounds of the same allocation.
-         page_index = unsafe { info.offset_from(inner.pages) } as usize;
-@@ -746,7 +747,7 @@ fn drop(self: Pin<&mut Self>) {
-     }
- 
-     // SAFETY: The lru lock is locked when this method is called.
--    unsafe { bindings::spin_unlock(&raw mut (*lru).lock) };
-+    unsafe { bindings::spin_unlock(&raw mut (*list).lock) };
- 
-     if let Some(vma) = check_vma(&vma_read, range_ptr) {
-         let user_page_addr = vma_addr + (page_index << PAGE_SHIFT);
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1bf37023fed6..5b6667744d46 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -346,12 +346,13 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
- }
- 
- static enum lru_status take_one_from_lru(struct list_head *item,
-+					 struct list_lru_node *node,
- 					 struct list_lru_one *list,
- 					 void *cb_arg)
- {
- 	struct page **out_page = cb_arg;
- 	struct page *p = container_of(item, struct page, lru);
--	list_lru_isolate(list, item);
-+	list_lru_isolate(node, list, item);
- 
- 	*out_page = p;
- 	return LRU_REMOVED;
-@@ -388,12 +389,13 @@ static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
- }
- 
- static enum lru_status pool_move_to_dispose_list(struct list_head *item,
-+						 struct list_lru_node *node,
- 						 struct list_lru_one *list,
- 						 void *cb_arg)
- {
- 	struct list_head *dispose = cb_arg;
- 
--	list_lru_isolate_move(list, item, dispose);
-+	list_lru_isolate_move(node, list, item, dispose);
- 
- 	return LRU_REMOVED;
- }
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 37d021d22a7d..d237a0b5727e 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -556,24 +556,25 @@ static void d_shrink_add(struct dentry *dentry, struct list_head *list)
-  * LRU lists entirely, while shrink_move moves it to the indicated
-  * private list.
-  */
--static void d_lru_isolate(struct list_lru_one *lru, struct dentry *dentry)
-+static void d_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
-+			  struct dentry *dentry)
- {
- 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
- 	dentry->d_flags &= ~DCACHE_LRU_LIST;
- 	this_cpu_dec(nr_dentry_unused);
- 	if (d_is_negative(dentry))
- 		this_cpu_dec(nr_dentry_negative);
--	list_lru_isolate(lru, &dentry->d_lru);
-+	list_lru_isolate(node, list, &dentry->d_lru);
- }
- 
--static void d_lru_shrink_move(struct list_lru_one *lru, struct dentry *dentry,
--			      struct list_head *list)
-+static void d_lru_shrink_move(struct list_lru_node *node, struct list_lru_one *list,
-+			      struct dentry *dentry, struct list_head *head)
- {
- 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
- 	dentry->d_flags |= DCACHE_SHRINK_LIST;
- 	if (d_is_negative(dentry))
- 		this_cpu_dec(nr_dentry_negative);
--	list_lru_isolate_move(lru, &dentry->d_lru, list);
-+	list_lru_isolate_move(node, list, &dentry->d_lru, head);
- }
- 
- static void ___d_drop(struct dentry *dentry)
-@@ -1309,7 +1310,7 @@ void shrink_dentry_list(struct list_head *list)
- EXPORT_SYMBOL(shrink_dentry_list);
- 
- static enum lru_status dentry_lru_isolate(struct list_head *item,
--		struct list_lru_one *lru, void *arg)
-+		struct list_lru_node *node, struct list_lru_one *list, void *arg)
- {
- 	struct list_head *freeable = arg;
- 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
-@@ -1329,7 +1330,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
- 	 * another pass through the LRU.
- 	 */
- 	if (dentry->d_lockref.count) {
--		d_lru_isolate(lru, dentry);
-+		d_lru_isolate(node, list, dentry);
- 		spin_unlock(&dentry->d_lock);
- 		return LRU_REMOVED;
- 	}
-@@ -1360,7 +1361,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
- 		return LRU_ROTATE;
- 	}
- 
--	d_lru_shrink_move(lru, dentry, freeable);
-+	d_lru_shrink_move(node, list, dentry, freeable);
- 	spin_unlock(&dentry->d_lock);
- 
- 	return LRU_REMOVED;
-@@ -1390,7 +1391,7 @@ long prune_dcache_sb(struct super_block *sb, struct shrink_control *sc)
- }
- 
- static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
--		struct list_lru_one *lru, void *arg)
-+		struct list_lru_node *node, struct list_lru_one *list, void *arg)
- {
- 	struct list_head *freeable = arg;
- 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
-@@ -1403,7 +1404,7 @@ static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
- 	if (!spin_trylock(&dentry->d_lock))
- 		return LRU_SKIP;
- 
--	d_lru_shrink_move(lru, dentry, freeable);
-+	d_lru_shrink_move(node, list, dentry, freeable);
- 	spin_unlock(&dentry->d_lock);
- 
- 	return LRU_REMOVED;
-diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-index b2984fb7b35c..98e7b8b70459 100644
---- a/fs/gfs2/quota.c
-+++ b/fs/gfs2/quota.c
-@@ -149,7 +149,7 @@ static void gfs2_qd_list_dispose(struct list_head *list)
- 
- 
- static enum lru_status gfs2_qd_isolate(struct list_head *item,
--		struct list_lru_one *lru, void *arg)
-+		struct list_lru_node *node, struct list_lru_one *list, void *arg)
- {
- 	struct list_head *dispose = arg;
- 	struct gfs2_quota_data *qd =
-@@ -162,7 +162,7 @@ static enum lru_status gfs2_qd_isolate(struct list_head *item,
- 	status = LRU_SKIP;
- 	if (qd->qd_lockref.count == 0) {
- 		lockref_mark_dead(&qd->qd_lockref);
--		list_lru_isolate_move(lru, &qd->qd_lru, dispose);
-+		list_lru_isolate_move(node, list, &qd->qd_lru, dispose);
- 		status = LRU_REMOVED;
- 	}
- 
-diff --git a/fs/inode.c b/fs/inode.c
-index 702f2d5ef459..f401cb012ae9 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -931,7 +931,7 @@ EXPORT_SYMBOL_GPL(evict_inodes);
-  * with this flag set because they are the inodes that are out of order.
-  */
- static enum lru_status inode_lru_isolate(struct list_head *item,
--		struct list_lru_one *lru, void *arg)
-+		struct list_lru_node *node, struct list_lru_one *list, void *arg)
- {
- 	struct list_head *freeable = arg;
- 	struct inode	*inode = container_of(item, struct inode, i_lru);
-@@ -952,7 +952,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (icount_read(inode) ||
- 	    (inode_state_read(inode) & ~I_REFERENCED) ||
- 	    !mapping_shrinkable(&inode->i_data)) {
--		list_lru_isolate(lru, &inode->i_lru);
-+		list_lru_isolate(node, list, &inode->i_lru);
- 		spin_unlock(&inode->i_lock);
- 		this_cpu_dec(nr_unused);
- 		return LRU_REMOVED;
-@@ -975,7 +975,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 
- 		inode_pin_lru_isolating(inode);
- 		spin_unlock(&inode->i_lock);
--		spin_unlock(&lru->lock);
-+		spin_unlock(&list->lock);
- 		reap = invalidate_mapping_pages(&inode->i_data, 0, -1);
- 		if (current_is_kswapd())
- 			__count_vm_events(KSWAPD_INODESTEAL, reap);
-@@ -988,7 +988,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 
- 	WARN_ON(inode_state_read(inode) & I_NEW);
- 	inode_state_set(inode, I_FREEING);
--	list_lru_isolate_move(lru, &inode->i_lru, freeable);
-+	list_lru_isolate_move(node, list, &inode->i_lru, freeable);
- 	spin_unlock(&inode->i_lock);
- 
- 	this_cpu_dec(nr_unused);
-diff --git a/fs/nfs/nfs42xattr.c b/fs/nfs/nfs42xattr.c
-index 37d79400e5f4..c7d306dc3381 100644
---- a/fs/nfs/nfs42xattr.c
-+++ b/fs/nfs/nfs42xattr.c
-@@ -801,8 +801,8 @@ static struct shrinker *nfs4_xattr_entry_shrinker;
- static struct shrinker *nfs4_xattr_large_entry_shrinker;
- 
- static enum lru_status
--cache_lru_isolate(struct list_head *item,
--	struct list_lru_one *lru, void *arg)
-+cache_lru_isolate(struct list_head *item, struct list_lru_node *node,
-+		  struct list_lru_one *list, void *arg)
- {
- 	struct list_head *dispose = arg;
- 	struct inode *inode;
-@@ -827,7 +827,7 @@ cache_lru_isolate(struct list_head *item,
- 	cache->inode = NULL;
- 	NFS_I(inode)->xattr_cache = NULL;
- 	NFS_I(inode)->cache_validity &= ~NFS_INO_INVALID_XATTR;
--	list_lru_isolate(lru, &cache->lru);
-+	list_lru_isolate(node, list, &cache->lru);
- 
- 	spin_unlock(&inode->i_lock);
- 
-@@ -866,8 +866,8 @@ nfs4_xattr_cache_count(struct shrinker *shrink, struct shrink_control *sc)
- }
- 
- static enum lru_status
--entry_lru_isolate(struct list_head *item,
--	struct list_lru_one *lru, void *arg)
-+entry_lru_isolate(struct list_head *item, struct list_lru_node *node,
-+		  struct list_lru_one *list, void *arg)
- {
- 	struct list_head *dispose = arg;
- 	struct nfs4_xattr_bucket *bucket;
-@@ -896,7 +896,7 @@ entry_lru_isolate(struct list_head *item,
- 
- 		hlist_del_init(&entry->hnode);
- 		atomic_long_dec(&cache->nent);
--		list_lru_isolate(lru, &entry->lru);
-+		list_lru_isolate(node, list, &entry->lru);
- 
- 		spin_unlock(&bucket->lock);
- 	} else {
-@@ -907,7 +907,7 @@ entry_lru_isolate(struct list_head *item,
- 		kref_get(&entry->ref);
- 
- 		cache->listxattr = NULL;
--		list_lru_isolate(lru, &entry->lru);
-+		list_lru_isolate(node, list, &entry->lru);
- 
- 		spin_unlock(&cache->listxattr_lock);
- 	}
-diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
-index 17a94e6fcb15..e3c58f6228de 100644
---- a/fs/nfsd/filecache.c
-+++ b/fs/nfsd/filecache.c
-@@ -510,7 +510,8 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
- /**
-  * nfsd_file_lru_cb - Examine an entry on the LRU list
-  * @item: LRU entry to examine
-- * @lru: controlling LRU
-+ * @node: LRU node that accounts for @item
-+ * @list: locked sublist that holds @item
-  * @arg: dispose list
-  *
-  * Return values:
-@@ -519,8 +520,8 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
-  *   %LRU_SKIP: @item cannot be evicted
-  */
- static enum lru_status
--nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
--		 void *arg)
-+nfsd_file_lru_cb(struct list_head *item, struct list_lru_node *node,
-+		 struct list_lru_one *list, void *arg)
- {
- 	struct list_head *head = arg;
- 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
-@@ -554,7 +555,7 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
- 
- 	/* Refcount went to zero. Unhash it and queue it to the dispose list */
- 	nfsd_file_unhash(nf);
--	list_lru_isolate(lru, &nf->nf_lru);
-+	list_lru_isolate(node, list, &nf->nf_lru);
- 	list_add(&nf->nf_gc, head);
- 	this_cpu_inc(nfsd_file_evictions);
- 	trace_nfsd_file_gc_disposed(nf);
-@@ -562,8 +563,8 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
- }
- 
- static enum lru_status
--nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
--		 void *arg)
-+nfsd_file_gc_cb(struct list_head *item, struct list_lru_node *node,
-+		struct list_lru_one *list, void *arg)
- {
- 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
- 
-@@ -576,7 +577,7 @@ nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
- 		trace_nfsd_file_gc_aged(nf);
- 		return LRU_ROTATE;
- 	}
--	return nfsd_file_lru_cb(item, lru, arg);
-+	return nfsd_file_lru_cb(item, node, list, arg);
- }
- 
- static void
-diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index 6c93b4f5629c..ce3217379c8d 100644
---- a/fs/xfs/xfs_buf.c
-+++ b/fs/xfs/xfs_buf.c
-@@ -1468,7 +1468,8 @@ __xfs_buf_mark_corrupt(
- static enum lru_status
- xfs_buftarg_drain_rele(
- 	struct list_head	*item,
--	struct list_lru_one	*lru,
-+	struct list_lru_node	*node,
-+	struct list_lru_one	*list,
- 	void			*arg)
- 
- {
-@@ -1485,7 +1486,7 @@ xfs_buftarg_drain_rele(
- 	}
- 
- 	xfs_buf_kill(bp);
--	list_lru_isolate_move(lru, item, dispose);
-+	list_lru_isolate_move(node, list, item, dispose);
- 	spin_unlock(&bp->b_lockref.lock);
- 	return LRU_REMOVED;
- }
-@@ -1561,7 +1562,8 @@ xfs_buftarg_drain(
- static enum lru_status
- xfs_buftarg_isolate(
- 	struct list_head	*item,
--	struct list_lru_one	*lru,
-+	struct list_lru_node	*node,
-+	struct list_lru_one	*list,
- 	void			*arg)
- {
- 	struct xfs_buf		*bp = container_of(item, struct xfs_buf, b_lru);
-@@ -1581,7 +1583,7 @@ xfs_buftarg_isolate(
- 	 * yet.
- 	 */
- 	if (bp->b_lockref.count > 0) {
--		list_lru_isolate(lru, &bp->b_lru);
-+		list_lru_isolate(node, list, &bp->b_lru);
- 		spin_unlock(&bp->b_lockref.lock);
- 		return LRU_REMOVED;
- 	}
-@@ -1597,7 +1599,7 @@ xfs_buftarg_isolate(
- 	}
- 
- 	xfs_buf_kill(bp);
--	list_lru_isolate_move(lru, item, dispose);
-+	list_lru_isolate_move(node, list, item, dispose);
- 	spin_unlock(&bp->b_lockref.lock);
- 	return LRU_REMOVED;
- }
-diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
-index dd5011f578a6..11670128f68e 100644
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -412,9 +412,10 @@ struct xfs_qm_isolate {
- static enum lru_status
- xfs_qm_dquot_isolate(
- 	struct list_head	*item,
--	struct list_lru_one	*lru,
-+	struct list_lru_node	*node,
-+	struct list_lru_one	*list,
- 	void			*arg)
--		__releases(&lru->lock) __acquires(&lru->lock)
-+		__releases(&list->lock) __acquires(&list->lock)
- {
- 	struct xfs_dquot	*dqp = container_of(item,
- 						struct xfs_dquot, q_lru);
-@@ -450,7 +451,7 @@ xfs_qm_dquot_isolate(
- 		XFS_STATS_INC(dqp->q_mount, xs_qm_dqwants);
- 
- 		trace_xfs_dqreclaim_want(dqp);
--		list_lru_isolate(lru, &dqp->q_lru);
-+		list_lru_isolate(node, list, &dqp->q_lru);
- 		XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
- 		return LRU_REMOVED;
- 	}
-@@ -473,7 +474,7 @@ xfs_qm_dquot_isolate(
- 	lockref_mark_dead(&dqp->q_lockref);
- 	spin_unlock(&dqp->q_lockref.lock);
- 
--	list_lru_isolate_move(lru, &dqp->q_lru, &isol->dispose);
-+	list_lru_isolate_move(node, list, &dqp->q_lru, &isol->dispose);
- 	XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
- 	trace_xfs_dqreclaim_done(dqp);
- 	XFS_STATS_INC(dqp->q_mount, xs_qm_dqreclaims);
-diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
-index a450fffe1550..c05ea3df6f42 100644
---- a/include/linux/list_lru.h
-+++ b/include/linux/list_lru.h
-@@ -271,12 +271,13 @@ static inline unsigned long list_lru_count(struct list_lru *lru)
- 	return count;
- }
- 
--void list_lru_isolate(struct list_lru_one *list, struct list_head *item);
--void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
--			   struct list_head *head);
-+void list_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
-+		      struct list_head *item);
-+void list_lru_isolate_move(struct list_lru_node *node, struct list_lru_one *list,
-+			   struct list_head *item, struct list_head *head);
- 
- typedef enum lru_status (*list_lru_walk_cb)(struct list_head *item,
--		struct list_lru_one *list, void *cb_arg);
-+		struct list_lru_node *node, struct list_lru_one *list, void *cb_arg);
- 
- /**
-  * list_lru_walk_one: walk a @lru, isolating and disposing freeable items.
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bd44d58e8684..92594197dd8b 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4639,7 +4639,8 @@ static bool thp_underused(struct folio *folio)
- }
- 
- static enum lru_status deferred_split_isolate(struct list_head *item,
--					      struct list_lru_one *lru,
-+					      struct list_lru_node *node,
-+					      struct list_lru_one *list,
- 					      void *cb_arg)
- {
- 	struct folio *folio = container_of(item, struct folio, _deferred_list);
-@@ -4649,7 +4650,7 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
- 	if (!folio_try_get(folio))
- 		return LRU_SKIP;
- 
--	list_lru_isolate_move(lru, item, freeable);
-+	list_lru_isolate_move(node, list, item, freeable);
- 	return LRU_REMOVED;
- }
- 
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index d1d256822ccc..50dfb292e23c 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -211,9 +211,7 @@ bool __list_lru_del(struct list_lru *lru, struct list_lru_one *l,
- 		    struct list_head *item, int nid)
- {
- 	if (!list_empty(item)) {
--		list_del_init(item);
--		l->nr_items--;
--		atomic_long_dec(&lru->node[nid].nr_items);
-+		list_lru_isolate(&lru->node[nid], l, item);
- 		return true;
- 	}
- 	return false;
-@@ -291,18 +289,21 @@ bool list_lru_del_obj(struct list_lru *lru, struct list_head *item)
- }
- EXPORT_SYMBOL_GPL(list_lru_del_obj);
- 
--void list_lru_isolate(struct list_lru_one *list, struct list_head *item)
-+void list_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
-+		      struct list_head *item)
- {
- 	list_del_init(item);
- 	list->nr_items--;
-+	atomic_long_dec(&node->nr_items);
- }
- EXPORT_SYMBOL_GPL(list_lru_isolate);
- 
--void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
--			   struct list_head *head)
-+void list_lru_isolate_move(struct list_lru_node *node, struct list_lru_one *list,
-+			   struct list_head *item, struct list_head *head)
- {
- 	list_move(item, head);
- 	list->nr_items--;
-+	atomic_long_dec(&node->nr_items);
- }
- EXPORT_SYMBOL_GPL(list_lru_isolate_move);
- 
-@@ -359,7 +360,7 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
- 			break;
- 		--*nr_to_walk;
- 
--		ret = isolate(item, l, cb_arg);
-+		ret = isolate(item, nlru, l, cb_arg);
- 		switch (ret) {
- 		/*
- 		 * LRU_RETRY, LRU_REMOVED_RETRY and LRU_STOP will drop the lru
-@@ -371,7 +372,6 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
- 			fallthrough;
- 		case LRU_REMOVED:
- 			isolated++;
--			atomic_long_dec(&nlru->nr_items);
- 			if (ret == LRU_REMOVED_RETRY)
- 				goto restart;
- 			break;
-diff --git a/mm/shmem.c b/mm/shmem.c
-index a6e3c9c7f72d..1350d725ebb2 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -853,7 +853,8 @@ struct shmem_unused_huge_scan {
- };
- 
- static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
--						 struct list_lru_one *lru,
-+						 struct list_lru_node *node,
-+						 struct list_lru_one *list,
- 						 void *arg)
- {
- 	struct shmem_unused_huge_scan *scan = arg;
-@@ -874,14 +875,14 @@ static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
- 	inode = igrab(&info->vfs_inode);
- 	/* inode is about to be evicted */
- 	if (!inode) {
--		list_lru_isolate(lru, item);
-+		list_lru_isolate(node, list, item);
- 		objcg = shmem_get_and_clear_objcg(info);
- 		spin_unlock(&info->lock);
- 		obj_cgroup_put(objcg);
- 		return LRU_REMOVED;
- 	}
- 
--	list_lru_isolate(lru, item);
-+	list_lru_isolate(node, list, item);
- 	objcg = shmem_get_and_clear_objcg(info);
- 	set_shmem_unused_huge_isolated(info);
- 	list_add_tail(&info->shrinklist, &scan->list);
-diff --git a/mm/workingset.c b/mm/workingset.c
-index 1504f91cdca5..df21529b7988 100644
---- a/mm/workingset.c
-+++ b/mm/workingset.c
-@@ -707,6 +707,7 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
- }
- 
- static enum lru_status shadow_lru_isolate(struct list_head *item,
-+					  struct list_lru_node *nlru,
- 					  struct list_lru_one *lru,
- 					  void *arg) __must_hold(lru->lock)
- {
-@@ -745,7 +746,7 @@ static enum lru_status shadow_lru_isolate(struct list_head *item,
- 		}
- 	}
- 
--	list_lru_isolate(lru, item);
-+	list_lru_isolate(nlru, lru, item);
- 	__dec_node_page_state(virt_to_page(node), WORKINGSET_NODES);
- 
- 	spin_unlock(&lru->lock);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ad01c691a263..4834d2002083 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1177,8 +1177,9 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
-  *    can expect from writeback. We scale down the number of objects available
-  *    for reclaim by this ratio.
-  */
--static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_one *l,
--				       void *arg)
-+static enum lru_status shrink_memcg_cb(struct list_head *item,
-+				       struct list_lru_node *node,
-+				       struct list_lru_one *l, void *arg)
- {
- 	struct zswap_entry *entry = container_of(item, struct zswap_entry, lru);
- 	bool *encountered_page_in_swapcache = (bool *)arg;
+We should be able to walk the page table once, faulting
+pages in as required and replacing them with migration entries if
+requested.
+
+Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+which tells to prepare for migration also during fault handling.
+For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
+and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
+
+An extra benefit of migrating with hmm_range_fault() path
+is the migrate_vma.vma gets populated, so no need to
+retrieve that separataly.
+
+This series avoids the problems in current collecting implementation,
+where racing MADV_DONTNEED could make the collecting arrays overflow.
+This is achieved mainly by having a rollback mechanism and
+populating the collecting array as the last step.
+
+Tested in X86-64 VM with HMM test device, passing the selftests.
+The main goal of this patchset is to provide a new feature,
+migrate efficiently on fault, and not directly improve performance
+of current migrate_vma_setup() (which is now routed thru
+hmm_range_fault()) callers. That said, the migrate throughput tests
+from the selftests show that there is at least no regression for
+current migrate_vma_setup() callers.
+
+For nouveau migrate-on-fault test harness was : Fedora 44,
+Mesa Rusticl, and a fine-grained-system-SVM OpenCL program.
+Nouveau SVM is opt-in via Mesa. The OpenCL program passes
+a plain malloc pointer (64 pages, array of integers) to the GPU.
+Increments each element on GPU, and verifies on the CPU the result.
+So it drives both directions of migration. With svm_migrate_on_fault=1,
+no migration at bind happens. The GPU used in testing was Pascal
+generation GP102.
+
+Changes in v17:
+  - rebased on v7.4-rc1 (drm-tip)
+  - addressed sashiko's concerns
+  - addressed review comments from Balbir
+  - fixed email address of Liam R. Howlett
+
+Sashiko's concerns in v16
+https://sashiko.dev/#/patchset/20261021060506.2377545-1-mpenttil%40redhat.com
+
+Answers to sashiko's concerns per patch:
+patch 03
+  Q "Can this condition in mm/hmm.c:hmm_vma_capture_migrate_range() ever
+  be true?"
+  A it can't trigger; dropped in v17
+  Q "Should this check instead verify that the single VMA covers the
+  entire requested range..?"
+  A In v17 the single vma must cover the whole range (-ERANGE otherwise,
+  like migrate_vma_setup()), and hmm_vma_walk_hole() returns -EFAULT for
+  holes outside a vma when migrating. That handles both the leading hole
+  and the whole-range hole."  
+  Q "is it intentional that hmm_vma_capture_migrate_range() runs before
+  validating vma->vm_flags?"
+  A  Not intentional. In v17 the capture runs only after the vm_flags check,
+  so no MMU_NOTIFY_MIGRATE invalidation is fired for a vma we can't handle,
+  and an unsupported vma fails with -EFAULT when migrating. I also added
+  the same hugetlb/VM_SPECIAL/DAX restrictions as migrate_vma_setup().
+  Q "Should VMA eligibility for both HMM and migration be verified before
+  capturing the VMA and arming the MMU notifier?"
+  A Fixed in v17
+  Q.1 "Invalidation range across faults question"
+  A.2 In v17 it's closed before faulting and reopened for the next walk, so
+  it only covers walking and collecting
+  Q.2 "Nested invalidations make the retry check return -EBUSY"
+  A.2 This is pre existig behavior already in hmm_range_walk(). -EBUSY and
+  retries is normal HMM behavior and with migration the caller finalizes the
+  collected so far entries before retry
+  Q.3 "Re-collecting a page without a fresh invalidate_range_start()..?"
+  A.3 One start/end pair covers every PTE change in the range until the
+  end call
+
+patch 04
+  Q "about skipping migration entries pte and pmd level"
+  A In v17 both paths are fixed: when migrating, a foreign migration entry
+  with a fault requested now goes through hmm_do_fault() and waits outside
+  the walk, otherwise the pfns are masked as before; our own collected
+  entries are recognised and kept. The input pfns are also cleared when
+  migrating, so nothing is left uninitialized.
+  Q "stale enries after EAGAIN->goto again?"
+  A The !ptep rollback did target the wrong range. In v17, after the
+  pte lock is dropped (split or table gone) the walk restarts the pmd
+  range from start: our own migration entries are recognised
+  (collected and same page) and kept, everything else collected is rolled
+  back as it's revisited. The pmd migration entry path now rolls back
+  before masking, and the own-entry check there requires the same page
+  Q "Behavior after failed splits"
+  A Fixed that after fail, return what we have so for, no HMM_PFN_ER
+
+patch 05
+  Q1 "About folio splits.."
+  A But made a fix for v17 so that check if folio is large before split
+  so no error if already split
+  Q2 Can this trigger a use-after-free when fault_page is a tail subpage
+  of a large device-private folio?
+  A A fix is in v17
+  Q3 "about protnone case for migrate_vma_setup() callers without
+  MIGRATE_VMA_FAULT"
+  Q4 "Doesn't that make the !pte_present(pte) device-private migration
+  path here unreachable unless range->dev_private_owner is also set to
+  migrate->pgmap_owner?"
+  A yes both fixed in v17
+  Q5 "Zero-pfn branch wipes INOUT flags, no vma_is_anonymous() check"
+  A fix is in v17
+  Q6 "When migrate_vma_split_folio() fails (both here and in the
+  !pte_present(pte) branch above), hmm_vma_handle_migrate_prepare() jumps
+  to out_error and returns -EFAULT"
+  A This is the same as the earlier split-failure comment: in v17 a
+  failed split no longer reports HMM_PFN_ERROR, and addr keeps its valid
+  pfn (pmd level too). Skipping the rest of the pmd range is intentional
+  and matches existing behavior.
+
+  Q6.1: "Could folio_lock held before handle_mm_fault() cause deadlock"
+  A No. Collection is anonymous-only: file folios are never collected, so
+  page cache and invalidate_lock ordering (truncate -> folio_lock) never
+  come into play. Faults are confined to the single vma being migrated,
+  and a non-KSM anonymous page is mapped at most once in it ; that mapping
+  is our migration entry. A PMD-mapped THP is collected whole, behind its
+  PMD migration entry; PTE-mapped large folios are split before collecting.
+
+  We never fault our own entries: when migrating, only the PTE
+  that needs a fault is faulted, so migration_entry_wait() on our own
+  lock can't happen.
+
+  KSM (the same page at several addresses): the second occurrence fails
+  the collection trylock and isn't collected, and breaking COW
+  (do_wp_page()) copies without taking the lock.
+
+  A swapcache folio still referenced by other swap entries isn't
+  collected (folio_free_swap() check); otherwise do_swap_page(), with
+  no retry allowed while migrating, would block on our lock.
+
+  Reclaim and compaction under the fault's allocations: reclaim only
+  trylocks, and direct compaction runs with PF_MEMALLOC and never takes
+  a blocking folio lock; it also skips our folios because of the
+  extra reference. Other tasks reach our folios only through the
+  migration entries (migration_entry_wait(), holding no folio locks)
+  or via trylock.
+
+  Q6.2 and Q6.3 are addressed in v17:  own migration entries are recognised
+  before the required_fault check and kept on re-walk, and the !ptep case
+  re-walks from start without the wrong-range rollback, rolling back
+  collected entries when revisited
+
+patch 06
+  Q1 "Can returning -EBUSY from the split path in
+  hmm_vma_handle_migrate_prepare_pmd() leave stale pre-split PMD entries in
+  range->hmm_pfns[] across the re-walk?"
+  A In v17 the re-walk always rewrites or faults these entries: a migration
+  entry is only kept as ours if it's collected (VALID|MIGRATE) and the
+  same page, so the stale pmd output never survives; otherwise it's faulted
+  or reset via out:. Migration takes requests only from default_flags
+  (pfn_flags_mask must be 0, input is cleared), so there are no per-page
+  request flags to clobber. v17 clears the pmd-level entries before
+  re-walking as PTEs.
+  
+  for Q2 : done in v17: both the pmd folio_trylock() failure and a
+  failed pmd split now return 0, leaving the valid pfns from
+  hmm_vma_handle_pmd() without HMM_PFN_MIGRATE, the same as the
+  PTE-level trylock failure. The HMM_PFN_ERROR fill in
+  hmm_vma_walk_pmd() is gone.
+
+patch 08
+  Q "What happens if entries in hmm_pfns were previously collected,
+  locks were dropped, and on re-walk the page table entry now requires
+  a fault, fails with -EFAULT, or is a PMD migration entry?"
+  A these should roll back first. fixed in v17
+  Q "Could reaching the out: label in hmm_vma_handle_pte() prematurely
+  roll back a migration PTE that this walk already installed?"
+  A Addressed in v17. Our own migration entries are recognised before the
+  required_fault check (collected and the same page) and kept, so a
+  re-walk never rolls them back under a live migration pte. A migration
+  entry that isn't ours is rolled back (at out:, or before faulting) and,
+  with REQ_FAULT while migrating, goes through hmm_do_fault() so
+  handle_mm_fault() waits for that migration outside the walk.
+  Q "Does this rollback miss entries collected in [start, addr)
+  when the PTE lock is dropped partway through a PMD?"
+  A The !ptep rollback over the wrong range fixed in v17
+
+patch 09
+   same concerns as for patch 03-05 and 08 and addressed in v17
+
+patch 10
+  Q "What happens in do_fault_and_migrate() if mmu_interval_read_retry()
+  returns true after migrate_vma_pages() has already migrated the folios?"
+  A The state is always consistent: any invalidation also clears the
+  device page table, so there's never a stale device mapping.
+  Normally the trip comes from an unmap/zap: our migration ptes are gone,
+  migrate_vma_finalize() releases the dst pages, and the -EBUSY retry
+  re-migrates. In the remaining case (e.g. a huge zero pmd split in
+  migrate_vma_insert_page()) the pages end up committed with no device
+  mapping yet, which is legal and filled in by the next device fault
+  with real HW. The selftest never hits that case, since the buffer
+  is written first.
+  Q "Does TEST_F(hmm, migrate_on_fault) actually trigger page faults
+  during hmm_range_fault()?"
+  A  Agreed, with the whole buffer written it never faulted. In v17
+  the test uses hmm_buffer_alloc() and, like anon_read, leaves the
+  first two pages unwritten: page 0 stays pte_none so hmm_range_fault()
+  has to fault it in before migrating, and page 1 maps the zero page.
+  Both are checked to read back as zero from the device.
+
+patch 11
+  sashiko flags some previously flagged issues in the documentation
+  patch
+
+patch 12
+  Q What happens in nouveau_dmem_fence_poll() in
+  drivers/gpu/drm/nouveau/nouveau_dmem.c when nouveau_fence_new()
+  fails in its callers?
+  A Agreed, the return value was ignored, as in the existing
+  nouveau_dmem code. In v17 both paths that use the poll initialize
+  the fence to NULL, check nouveau_fence_new(), and treat a failure
+  as an unconfirmed copy: readback returns VM_FAULT_SIGBUS, and the
+  fault path doesn't map the page. The same pattern in the existing
+  bulk migration path can be fixed separately.
+  
+  Q "When the retry loop in nouveau_dmem_migrate_fault() in
+  drivers/gpu/drm/nouveau/nouveau_dmem.c repeats after
+  ret == -EBUSY (either from hmm_range_fault() or from
+  mmu_interval_read_retry()), does migrate.src (aliased by
+  range.hmm_pfns) retain stale migrate_pfn values from the
+  previous iteration?"
+  A In v17 hmm_range_fault() clears range->hmm_pfns[] at the
+  start of every migrating walk (requests come only from default_flags),
+  so each retry starts from zero, the same as migrate_vma_setup()
+  zeroing args->src, and there's no early-return path left
+  that keeps an input entry. migrate_hmm_range_setup() also
+  resets dst[] for every entry.
+  
+  Q Question about drm->dmem->migrate.chan synchronization
+  A Copies from migrate_to_ram(), the SVM fault worker, bulk
+  migration and eviction could write commands and fences into
+  the shared migrate channel concurrently.
+  In v17 those writes are serialized by a dmem migrate mutex,
+  held only around the command writes and fence creation,
+  not across page allocation. Serializing against TTM's own use
+  of the channel is outside this series.
+  
+  Q "If nouveau_dmem_fence_poll(&fence) times out and returns
+  -EBUSY here in nouveau_dmem_migrate_fault()
+  (or above in nouveau_dmem_migrate_to_ram()) in
+  drivers/gpu/drm/nouveau/nouveau_dmem.c, doesn't the page
+  migration still get committed with uncopied data while DMA
+  may still be active?"
+  A In v17 the migration is committed only after the copy
+  fence completes: migrate_vma_pages() now runs after the
+  wait (the fault path still replays before waiting). If the
+  copy can't be confirmed (timeout or no fence), the entries
+  are marked not migrated, so finalize restores the original
+  ptes and the source stays valid; the GPU fallback then maps
+  the original page. Since a wedged copy engine may still use
+  the pages, their DMA mappings and the destination folios
+  are leaked on purpose rather than unmapped and freed.
+  
+  Q "Can nouveau_dmem_migrate_fault() in
+  drivers/gpu/drm/nouveau/nouveau_dmem.c
+  map a VRAM page into the GPU that migrate_vma_pages() rejected
+  and that migrate_vma_finalize() is about to free?"
+  A  In v17 the fault path clears the GPU pfn for every entry
+  that migrate_vma_pages() didn't migrate
+  (MIGRATE_PFN_MIGRATE cleared), so a rejected destination page
+  is never mapped. The existing fallback then maps the original
+  source page in place, which finalize restores.
+  
+  Q "Why is __nouveau_pfns_map_locked() called before checking
+  whether pfns[0] & NVIF_VMM_PFNMAP_V0_V is set in
+  nouveau_dmem_migrate_fault() in
+  drivers/gpu/drm/nouveau/nouveau_dmem.c?"
+  A In v17 the GPU is only mapped when the resulting pfn is valid.
+  If nothing migrated and the snapshot isn't mappable
+  (huge zero folio, error entry, failed VRAM allocation), leave
+  the existing GPU mapping untouched and return -ENOENT, so the
+  caller falls back to nouveau_range_fault().
+  
+  Q "Doesn't ignoring all MMU_NOTIFY_MIGRATE events with
+  range->owner == sn->svmm->vmm->cli->drm->dev in
+  nouveau_svm_range_invalidate() in
+  drivers/gpu/drm/nouveau/nouveau_svm.c also ignore concurrent
+  migrations triggered by other paths on the same device, allowing
+  freed VRAM or system RAM pages to be mapped into the GPU VMM?"  
+  A In v17 only the invalidations raised by this fault's own
+  migration are ignored: the per-fault notifier records the
+  task running the walk, and only MIGRATE events from that
+  task while it migrates skip the seq bump.
+
+  Q "Should __nouveau_pfns_map_locked() in
+  drivers/gpu/drm/nouveau/nouveau_svm.c propagate the return value
+  of nvif_object_ioctl() to nouveau_dmem_migrate_fault()?"
+  A  Yes. In v17 __nouveau_pfns_map_locked() returns the
+  nvif_object_ioctl() result and nouveau_dmem_migrate_fault()
+  propagates it
+  
+Link to v16:
+https://lore.kernel.org/linux-mm/20261021060506.2377545-1-mpenttil@redhat.com/
+
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+
+Mika Penttilä (12):
+  mm/Kconfig: changes for migrate on fault for device pages
+  mm: add helper to convert HMM pfn to migrate pfn
+  mm/hmm: preparations for HMM to participate in migration
+  mm/hmm: do the plumbing for HMM to participate in migration
+  mm/hmm: migrate collection in HMM pagewalk - pte level
+  mm/hmm: migrate collection in HMM pagewalk - pmd level
+  mm/hmm: add lazy MMU mode support for migration in HMM pagewalk
+  mm/hmm: implement rollback for device page migration in HMM pagewalk
+  mm: enable device page migration from HMM pagewalk
+  lib/test_hmm: add a new testcase for the migrate on fault
+  Documentation/mm/hmm: document migration through hmm_range_fault()
+  drm/nouveau/svm: add support for migrate on fault
+
+ Documentation/mm/hmm.rst               |   45 +
+ drivers/gpu/drm/nouveau/nouveau_dmem.c |  402 ++++++++-
+ drivers/gpu/drm/nouveau/nouveau_dmem.h |   12 +
+ drivers/gpu/drm/nouveau/nouveau_svm.c  |  155 ++--
+ drivers/gpu/drm/nouveau/nouveau_svm.h  |    5 +
+ include/linux/hmm.h                    |   51 +-
+ include/linux/migrate.h                |   59 +-
+ lib/test_hmm.c                         |  174 +++-
+ lib/test_hmm_uapi.h                    |   21 +-
+ mm/Kconfig                             |    1 +
+ mm/hmm.c                               | 1075 ++++++++++++++++++++++--
+ mm/migrate_device.c                    |  618 +++-----------
+ tools/testing/selftests/mm/hmm-tests.c |   56 ++
+ 13 files changed, 1984 insertions(+), 690 deletions(-)
+
+drm-tip
+base-commit: abc364961b361ab626fa5a09568b22744f1e0393
 -- 
-2.53.0
+2.55.0
 
