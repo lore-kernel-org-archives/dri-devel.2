@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82239606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E08A606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0RC48vnF
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=efLf/fZZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8152E10F888;
-	Tue,  3 Nov 2026 21:38:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F91B10F88C;
+	Tue,  3 Nov 2026 21:38:20 +0000 (UTC)
 Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010069.outbound.protection.outlook.com [52.101.85.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA24A10E1D6;
- Tue,  3 Nov 2026 21:38:11 +0000 (UTC)
+ (mail-westusazon11010037.outbound.protection.outlook.com [52.101.85.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBCC10E1C6;
+ Tue,  3 Nov 2026 21:38:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wxfEK4w2l3oXdG5DqAcCPEjA8X/d03wYx8RmBUqUXq5CSOhPtGyFaikwKJ8CLZQLdo1D/Zsp72j0qlqT8a7BZH5+t3ZKtC5O7CIQRbp0lENNWsLUNaCxGVG2dX1AAIrmrE7Zink0qtZAJ/nFVl036OWMi1xdtiwBrEjjQlbnJCxAkeDjOspDxyjGGCVinSjgigjtDCzPmnsycgjFSQPF4JRJzmC090jbytirVgrwtG1iLGOw0HgrU0FW+6YT0nkp/BK6gdJSl+IBnpZ5Jqg/EEn1177L+F9793oZv7YpdPwwWlCkyTWKsS8tOXkHno9sii1+7FjbDg6x8jrPiU/VPQ==
+ b=CTc/7GEEHGtFYQC/GGSSRB1Uo3TSfROmcLRB2fdb4qat3VL7SWZK0PLYLNnKIOtwbnp6vUWZSDGenSMOOBr5AtE3ymdUVk5rTJ8aRHsQsWmweu+l5P8xLD4kFAbRpAj0/5/95gl/eWzOttaRHSzyZgZtPoVZt7DNiTTpEfKhQzLRt0fwk1Xp7agUyg1q8+VpoyqXdyI5VzIt6pRAGzC17yMWXcWqW2Pfl/Rj2I6ecnMD+VlxjHATNgOOI9O+8eC+qADrjCQu6tLkUX73JgaMs0RKpzxD+tuuo3vwOGe6RBw2GJVLg/86a4mBhgnjOD9qXLPHUyAWYabQyqPhoBA3LA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EktGL478O+j6wqelcjKywhAp72r+FXa+gSJBudCmzoQ=;
- b=mmabZUwt2AnS+yEgLhjaRdZjTRB2W1RV5q9kCVVxLISERbaaBTgqZfQxp+79IYMw4rrs9w1rK1AGPGqCnnKz7kP8Kx63oKdWSbkJwtYXPSa3iXYpGO9TU1mBv3xG1s28hPQsqfZQBiRigD1mL1ifcLUIdDfYgXTsYOp1AxfRTPYRumJTfXqqPwU0PvP6Ec99XLihZw4zPskYOtI7/GOhKGiXdenClTDHeCDpkXC8wnMrS8s+mEe+TtI+0GRau13yPClEywvKffPplcGkgVtPgWQHseY1pZgKVtmWqaKC40NHWNIzXT6M+HJwKC63l6KsQU8q01asNUAYJO18+R8oSw==
+ bh=HWgZpTt9xqCoJNwaGEsWZVFEXmZ5kFuE9cGpMWjTlrA=;
+ b=WRD7C/km668rkCd2ySiqOZfB0htKqhYTDZ0VKHdGFrrvAyBmyeZAQpW2B1Lo5mn26Su4S4GU9ZpG02QIxoFUoBYjr3JD7aGIxjXCvmEpz+ih+tr4NrEjEopXPODdat+Rk+2g4lhZD8XaOY71862A+TRNngTKjs6k32VV5jo/l+lTni1fBrYjduyr+auq/8vx/UinjmmxfWrGv21fz/nAiKgu77rwVn9I9l6/v5JBWC0JH6kYq2GlzCSRJy93qTYI7n+bUzJWBPmDIHO4Ng5SnS8LqXgpqpDhllBO+x1Xf43ikYbR+q73iT++hoVHfPaILx3q3hyRX9VyjEiSTHJmnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EktGL478O+j6wqelcjKywhAp72r+FXa+gSJBudCmzoQ=;
- b=0RC48vnFDH7juFTiNdTLdOEQvFPtDs5km34iMwZJXDEToRkBRTqWzX5s7o+23P2Zeoc2OJAfUpKZGNGQJOiisYh7aRfKFh0WggLXAff+9BtPMYd8n9zTsR9Yi/9BosF7HS+DOOFqmFQw8WGUPgWRiLVN3nEBhzkN5PcPT/Qw/Nk=
-Received: from BLAPR03CA0133.namprd03.prod.outlook.com (2603:10b6:208:32e::18)
- by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
+ bh=HWgZpTt9xqCoJNwaGEsWZVFEXmZ5kFuE9cGpMWjTlrA=;
+ b=efLf/fZZmHhn7ClvxYF0FMpOBUFMNkjHqoRrLbRtMkxeMzt2di3NQoiIH+HivE8GQppikojq5w89Ed7ZdpMn2gSZC4lWVMMrYfiDH27fe5J6U6XY10LiPkWCVibObEoFnc4bDGXlFlF1HbI8CpRyNgm0CPrNMFu7QocS6CvoLyw=
+Received: from BLAPR03CA0127.namprd03.prod.outlook.com (2603:10b6:208:32e::12)
+ by SA1PR12MB7411.namprd12.prod.outlook.com (2603:10b6:806:2b1::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 21:38:07 +0000
+ 2026 21:38:09 +0000
 Received: from BN1PEPF00018074.namprd04.prod.outlook.com
- (2603:10b6:208:32e:cafe::51) by BLAPR03CA0133.outlook.office365.com
- (2603:10b6:208:32e::18) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:32e:cafe::13) by BLAPR03CA0127.outlook.office365.com
+ (2603:10b6:208:32e::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
  Nov 2026 21:38:07 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
@@ -56,17 +56,16 @@ Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:04 -0600
+ 2026 15:38:05 -0600
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 15:38:04 -0600
+ Transport; Tue, 3 Nov 2026 15:38:05 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v1 02/13] drm/colorop: add DRM_COLOROP_3D_LUT_DMA object and
- state
-Date: Tue, 3 Nov 2026 16:37:45 -0500
-Message-ID: <20261103213756.618024-3-harry.wentland@amd.com>
+Subject: [PATCH v1 04/13] drm/atomic: validate DMA 3D LUT colorop framebuffer
+Date: Tue, 3 Nov 2026 16:37:47 -0500
+Message-ID: <20261103213756.618024-5-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103213756.618024-1-harry.wentland@amd.com>
 References: <20261103213756.618024-1-harry.wentland@amd.com>
@@ -76,29 +75,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018074:EE_|MN2PR12MB4470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4df8b84a-0224-4fdf-4b66-08df39f2bfd4
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018074:EE_|SA1PR12MB7411:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1c0d779-119a-41fb-d554-08df39f2c001
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|261102130727099003|56012099006|261022105027099003|261022075727099003|261009221227099003|261021121427099003|261026121527099003|261009223027099003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: UZmMp4JY7+NlB48WPJ0unnVDyWLfOdPOmc+qsdLQx5cr46wxE5GKZQkTCbFs9wCP/XCoprEtrKHMt8lhdMZkb/Fd/CKwGSn3shUVOR10AyHc2koxE83sNtgBU0CNQCg+2WBuiocPlZ9+kz76sz/y+/xT/+UobwCnYLy4NfDVqGpx6SUGpfG2NJHBl/LlUV9+ju2R9KODSp+otyZkeiQkF9sq4KQfExyzOM/sLPcViR7v5/dyfw3M1g954EdUzhAAr0NlNREGgfHuY+Oi06fyx6xGAqCDXvttq97wNlhzoijnCxP3f8jVWQsOsHGyvF8nmfsWrzZzRplECdl540h/J2BgiPkvyAY39lUAQGmsh0lm3+QpJ795i6F+YRwjJm9JNhrwfJ7wASuDV4G3ff7fmb7Xl0iCXyy+eYvcympG6NtdvDSpDeoETiO8gFVwjNCsCeVbY4YYtA57qM31vEIB7UFPmlKTlIjseHp9Gccoz7UjMy8B9+sGgaTgf8akNHPfILOTW53vi0mukthF6qpXCvW60+HPhE7l5QEQpyZHX+JlQmBtrz47H6hlChswfVhfL5Q6C20FSH0bXaKJLPeR8y2J+N4ZEF1US5A41JnPsXvokSjQA5aOGDZy0qIHen3UufvZciSFYzL69NLcLwaWvYc7qn0tuk52LylTqhdquEe2xbcW8Ha2uP+wydEAQ5wrvtDUkfiqfA+XpiMu86PPqA==
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261102123227099003|261102130727099003|5023799004|11063799006|261021121427099003|261009220027099003|261009223027099003|261022105027099003|261009221227099003|261028144727099003|261009223327099003|56012099006|261022075727099003|261009221727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: 5tvyy+F4zkegm7GhWUy2LeMQZasSeQ2pwMoVEe5cXSrhvsITZpzr9Eao5a3Wv5W9PyQsGfIfEIzRt86fpWRIFcPS1PfWUhVttEo72lkF/4WZ4EVpzYVk+NnfsWJ6U6yZwhQ542LvpAQhKJnRWQap0NbCEm18MtC1yaDqd4D8qRe6DY1BCUAkLG1PyDNf/xAe22a33hEEQcUpTEYjXYr4jtKWg2mtkcnYs0g1OlIxjRV4kdmYwidrhGMwr6X6+RNv9yrhK2ycYL8EH/Uf9e+fKvGmTGgrOawkGd16ID0ujwg6fyk2TdcKYNRz4CJ/vbrMFZOe0bp+ufqw1sO5+hlEm5xlQjiOfXSjLC5hyMm3qignB4iNNnNnbF4P3H9OH5cfpue+gBNTHscShXlM7WhoYfbR5wirPQxFGeD+deE4us5hSSycPKwqmbfVXtAlG6i/7vfDbDbEaZD7bhgJiiyjj4EVEzPSUk7hULo14fITUt5yr+Kl4rT9H6dhYerG0B0iIMHxA+YDmtMOPlVW/FzRbJO+hjlb+5PJdOYRgzlD49Cs/JKTbSql/ePF4XwigEDOUZLSN0wdt0PpiG5wy3PPDwa3gsOPqQDXfq/2IUkFyOTYd/UnyoLwc6v7e4FdqmMRZxgsAweG8JXXC5lP8kTOu4iqJk+49rX3l83bGjljvU26nkg47yFh7G8r62Gh/+jt2/rVaS2s8A1vpKGfgQKNsw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(261102130727099003)(56012099006)(261022105027099003)(261022075727099003)(261009221227099003)(261021121427099003)(261026121527099003)(261009223027099003)(11063799006)(261028144727099003)(261026140227099003);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261102123227099003)(261102130727099003)(5023799004)(11063799006)(261021121427099003)(261009220027099003)(261009223027099003)(261022105027099003)(261009221227099003)(261028144727099003)(261009223327099003)(56012099006)(261022075727099003)(261009221727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8+ebl2grNpzfbb57HAZ5CIDPs5UpiLTwpU+m5o1T95D6OvSvfCdrQqKKyffwvaKN0W2Ce9gWR8lw/FzOkfDab8x9lmsFVqbJ2i3sh0qYzYgNUQxULCKRDYYE3jZ/QZGdIDECL6QBJzYwSdm+H6kduIwz8u67sO1eC6oXYfuvsouuO9wDeaO3/NY2g5oNnGaNxNEe68ZK8MSqR5nwxuOKDvWzfzRSdGqDigyYb/4iCoGlC6glmKSrn+CxEGy6xwZeN2t1/f/iU9RuIfiaaI8xONQOoLgsAo+kViJ3dondnzj00EeRXqbdiZrz72RhnmXgAsKjss/S81jFVefLSJS3Pwl5cv+fPJ16m2/TvlOQ+isYSBwbKIGQLuXkFrucXIie7hT/aJUo3ASTD+2a1Qi52ifExC1iSmVKr3gvengMp17O0J0qAWQjmIDw9qqnTsLC
+X-MS-Exchange-AntiSpam-MessageData-0: ReNbN3tCLL9f0Y7C6vyKVFDuqbQRF8fIlRnTcmUYWIY29KPlP3/tOxZl/EuSMLfOQtjAJAcR0hLdKYIJaK5zssItkGDegKgCxiDKoZd3u1vMXJC/YYwuvjabwYsJb+bEA0wG1UCDWsxWttWuEXgY01kjDbYxnB/XaTRXgTJl7kTblHGoCFGTc5ujDx93hri1WnhBk2JShjaRa8hTWJNG7740KGm2qTDr+/EwsFm+7Wvt1kAtglc6e07ugZjwUndZp8Vllk/+GP1e75C65nTSU8iJsyTo/bmxbR4G/L9KtY60NNlAFou4G9DjsUbfLING1/wDP7aABgQiI5ZQ7TLXBY8lrG3v0tcCRAeiMRPpjoTVTHUKhs746RuopY29lGxsgChTZk17Y6dzm7+FapXqXVQveGDHdPy4jLauI+4DKC2sWPTvS2YOQBYhj97l/3pb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:07.2701 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4df8b84a-0224-4fdf-4b66-08df39f2bfd4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:07.5669 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1c0d779-119a-41fb-d554-08df39f2c001
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018074.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7411
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,230 +117,106 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Introduce the core object and state for the fast-loading (DMA) 3D LUT
-colorop. Add drm_plane_colorop_3dlut_dma_init(), which creates the
-read-only LUT_3D_FORMATS blob (advertising the driver's accepted struct
-drm_mode_3dlut_mode entries), the LUT_3D_FORMAT selection range, and the
-FB_ID object property. The colorop must allow bypass, since removing
-the LUT framebuffer bypasses it.
-
-The colorop state gains a selected-format index and a reference-counted
-framebuffer pointer; the state duplicate/destroy helpers take and drop
-the framebuffer reference so an in-flight LUT buffer stays pinned for the
-lifetime of the state.
+Add a core atomic check for DRM_COLOROP_3D_LUT_DMA colorops. When the
+colorop is enabled (not bypassed), validate the selected LUT_3D_FORMAT
+index and require a framebuffer whose fourcc, modifier, pitch and
+dimensions match the advertised drm_mode_3dlut_mode entry: width equal to
+the cube edge and height equal to lut_size^2 (due to the 2D flattening
+of the cube). Driver-specific constraints are left to the driver's own
+atomic_check.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/drm_colorop.c | 86 +++++++++++++++++++++++++++++++++++
- include/drm/drm_colorop.h     | 56 +++++++++++++++++++++++
- 2 files changed, 142 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 62 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index b30413ad797b..3fc7884befbf 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -28,6 +28,7 @@
- #include <drm/drm_print.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_plane.h>
-+#include <drm/drm_framebuffer.h>
- 
- #include "drm_crtc_internal.h"
- 
-@@ -464,6 +465,87 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 158f41eae76f..a6f1be7ce76c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1745,6 +1745,57 @@ drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
  }
- EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
+ EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
  
-+/**
-+ * drm_plane_colorop_3dlut_dma_init - Initialize a DRM_COLOROP_3D_LUT_DMA
-+ *
-+ * @dev: DRM device
-+ * @colorop: The drm_colorop object to initialize
-+ * @plane: The associated drm_plane
-+ * @funcs: control functions for the new colorop
-+ * @formats: array of accepted buffer formats advertised to userspace
-+ * @num_formats: number of entries in @formats
-+ * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines. Must include
-+ *         DRM_COLOROP_FLAG_ALLOW_BYPASS, since removing the LUT framebuffer
-+ *         bypasses the colorop.
-+ *
-+ * Initializes a fast-loading (DMA) 3D LUT colorop. The colorop advertises
-+ * the accepted buffer formats via a read-only LUT_3D_FORMATS blob, lets
-+ * userspace select one via LUT_3D_FORMAT, and points FB_ID at the
-+ * framebuffer holding the LUT data.
-+ *
-+ * @return zero on success, -E value on failure
-+ */
-+int drm_plane_colorop_3dlut_dma_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				     struct drm_plane *plane,
-+				     const struct drm_colorop_funcs *funcs,
-+				     const struct drm_mode_3dlut_mode *formats,
-+				     size_t num_formats, uint32_t flags)
++static int drm_atomic_colorop_check(struct drm_colorop *colorop,
++				    struct drm_colorop_state *new_colorop_state)
 +{
-+	struct drm_property_blob *blob;
-+	struct drm_property *prop;
-+	int ret;
++	const struct drm_mode_3dlut_mode *modes, *mode;
++	struct drm_framebuffer *fb = new_colorop_state->fb;
++	u32 num_modes;
 +
-+	if (!formats || !num_formats)
++	if (colorop->type != DRM_COLOROP_3D_LUT_DMA)
++		return 0;
++
++	/* Nothing to validate while the colorop is bypassed. */
++	if (colorop->bypass_property && new_colorop_state->bypass)
++		return 0;
++
++	if (!colorop->lut_3d_formats_blob)
 +		return -EINVAL;
 +
-+	/* Removing the LUT framebuffer bypasses the colorop. */
-+	if (drm_WARN_ON(dev, !(flags & DRM_COLOROP_FLAG_ALLOW_BYPASS)))
++	num_modes = colorop->lut_3d_formats_blob->length /
++		    sizeof(struct drm_mode_3dlut_mode);
++	if (new_colorop_state->lut_3d_format >= num_modes) {
++		drm_dbg_atomic(colorop->dev,
++			       "[COLOROP:%d] LUT_3D_FORMAT %u out of range (have %u)\n",
++			       colorop->base.id, new_colorop_state->lut_3d_format,
++			       num_modes);
 +		return -EINVAL;
-+
-+	ret = drm_plane_colorop_init(dev, colorop, plane, funcs,
-+				     DRM_COLOROP_3D_LUT_DMA, flags);
-+	if (ret)
-+		return ret;
-+
-+	/* LUT_3D_FORMATS: immutable blob listing the accepted buffer formats */
-+	blob = drm_property_create_blob(dev,
-+					num_formats * sizeof(*formats),
-+					formats);
-+	if (IS_ERR(blob))
-+		return PTR_ERR(blob);
-+
-+	prop = drm_property_create(dev, DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_BLOB,
-+				   "LUT_3D_FORMATS", 0);
-+	if (!prop) {
-+		drm_property_blob_put(blob);
-+		return -ENOMEM;
 +	}
-+	colorop->lut_3d_formats_property = prop;
-+	colorop->lut_3d_formats_blob = blob;
-+	drm_object_attach_property(&colorop->base, prop, blob->base.id);
 +
-+	/* LUT_3D_FORMAT: selected index into the LUT_3D_FORMATS array */
-+	prop = drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC, "LUT_3D_FORMAT",
-+					 0, num_formats - 1);
-+	if (!prop)
-+		return -ENOMEM;
-+	colorop->lut_3d_format_property = prop;
-+	drm_object_attach_property(&colorop->base, prop, 0);
++	modes = colorop->lut_3d_formats_blob->data;
++	mode = &modes[new_colorop_state->lut_3d_format];
 +
-+	/* FB_ID: framebuffer holding the LUT data */
-+	prop = drm_property_create_object(dev, DRM_MODE_PROP_ATOMIC, "FB_ID",
-+					  DRM_MODE_OBJECT_FB);
-+	if (!prop)
-+		return -ENOMEM;
-+	colorop->fb_property = prop;
-+	drm_object_attach_property(&colorop->base, prop, 0);
++	if (!fb) {
++		drm_dbg_atomic(colorop->dev,
++			       "[COLOROP:%d] enabled DMA 3D LUT without a framebuffer\n",
++			       colorop->base.id);
++		return -EINVAL;
++	}
 +
-+	drm_colorop_reset(colorop);
++	if (fb->format->format != mode->format ||
++	    fb->modifier != mode->modifier ||
++	    fb->pitches[0] != mode->pitch ||
++	    fb->width != mode->lut_size ||
++	    fb->height != (u64)mode->lut_size * mode->lut_size) {
++		drm_dbg_atomic(colorop->dev,
++			       "[COLOROP:%d] framebuffer does not match LUT_3D_FORMAT %u\n",
++			       colorop->base.id, new_colorop_state->lut_3d_format);
++		return -EINVAL;
++	}
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_plane_colorop_3dlut_dma_init);
 +
  /**
-  * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_MATRIX
-  *
-@@ -545,6 +627,8 @@ static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colo
+  * drm_atomic_check_only - check whether a given config would work
+  * @state: atomic configuration to check
+@@ -1768,6 +1819,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+ 	struct drm_crtc_state *new_crtc_state;
+ 	struct drm_connector *conn;
+ 	struct drm_connector_state *conn_state;
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *new_colorop_state;
+ 	unsigned int requested_crtc = 0;
+ 	unsigned int affected_crtc = 0;
+ 	int i, ret = 0;
+@@ -1806,6 +1859,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+ 		}
+ 	}
  
- 	if (state->data)
- 		drm_property_blob_get(state->data);
-+	if (state->fb)
-+		drm_framebuffer_get(state->fb);
- }
++	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
++		ret = drm_atomic_colorop_check(colorop, new_colorop_state);
++		if (ret) {
++			drm_dbg_atomic(dev, "[COLOROP:%d] atomic core check failed\n",
++				       colorop->base.id);
++			return ret;
++		}
++	}
++
+ 	if (config->funcs->atomic_check) {
+ 		ret = config->funcs->atomic_check(state->dev, state);
  
- struct drm_colorop_state *
-@@ -573,6 +657,8 @@ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop)
- static void __drm_atomic_helper_colorop_destroy_state(struct drm_colorop_state *state)
- {
- 	drm_property_blob_put(state->data);
-+	if (state->fb)
-+		drm_framebuffer_put(state->fb);
- }
- 
- void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 26ef67c835e2..95922eb1044c 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -31,6 +31,8 @@
- #include <drm/drm_mode.h>
- #include <drm/drm_property.h>
- 
-+struct drm_framebuffer;
-+
- /* DRM colorop flags */
- #define DRM_COLOROP_FLAG_ALLOW_BYPASS	(1<<0)	/* Allow bypass on the drm_colorop */
- 
-@@ -312,6 +314,22 @@ struct drm_colorop_state {
- 	 */
- 	enum drm_colorop_fixed_matrix_type fixed_matrix_type;
- 
-+	/**
-+	 * @lut_3d_format:
-+	 *
-+	 * Index into the LUT_3D_FORMATS blob selecting the buffer format for
-+	 * a DRM_COLOROP_3D_LUT_DMA colorop.
-+	 */
-+	uint32_t lut_3d_format;
-+
-+	/**
-+	 * @fb:
-+	 *
-+	 * Reference-counted framebuffer holding the LUT data for a
-+	 * DRM_COLOROP_3D_LUT_DMA colorop.
-+	 */
-+	struct drm_framebuffer *fb;
-+
- 	/** @state: backpointer to global drm_atomic_commit */
- 	struct drm_atomic_commit *state;
- };
-@@ -488,6 +506,39 @@ struct drm_colorop {
- 	 */
- 	struct drm_property *fixed_matrix_type_property;
- 
-+	/**
-+	 * @lut_3d_formats_property:
-+	 *
-+	 * Immutable blob property listing the accepted buffer formats (an
-+	 * array of struct drm_mode_3dlut_mode) for a DRM_COLOROP_3D_LUT_DMA
-+	 * colorop.
-+	 */
-+	struct drm_property *lut_3d_formats_property;
-+
-+	/**
-+	 * @lut_3d_format_property:
-+	 *
-+	 * Range property selecting an entry, by index, of the
-+	 * @lut_3d_formats_blob array.
-+	 */
-+	struct drm_property *lut_3d_format_property;
-+
-+	/**
-+	 * @fb_property:
-+	 *
-+	 * Object property (DRM_MODE_OBJECT_FB) pointing at the framebuffer
-+	 * that holds the LUT data for a DRM_COLOROP_3D_LUT_DMA colorop.
-+	 */
-+	struct drm_property *fb_property;
-+
-+	/**
-+	 * @lut_3d_formats_blob:
-+	 *
-+	 * The advertised list backing @lut_3d_formats_property, retained for
-+	 * validation during atomic check.
-+	 */
-+	struct drm_property_blob *lut_3d_formats_blob;
-+
- 	/**
- 	 * @next_property:
- 	 *
-@@ -544,6 +595,11 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
- 				 uint32_t lut_size,
- 				 enum drm_colorop_lut3d_interpolation_type interpolation,
- 				 uint32_t flags);
-+int drm_plane_colorop_3dlut_dma_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				     struct drm_plane *plane,
-+				     const struct drm_colorop_funcs *funcs,
-+				     const struct drm_mode_3dlut_mode *formats,
-+				     size_t num_formats, uint32_t flags);
- int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct drm_colorop *colorop,
- 					struct drm_plane *plane,
- 					const struct drm_colorop_funcs *funcs,
 -- 
 2.56.0
 
