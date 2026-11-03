@@ -2,89 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7893606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56754606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l6QeI8DW
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UJ6HPdNb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C77FA10F14B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F095310F2B1;
 	Wed,  4 Nov 2026 08:58:27 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16A6910F6AB
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:53:27 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a78ec32fadso9966045e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:53:27 -0800 (PST)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC72310F84C
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 20:59:20 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-48b001cd92bso8445f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 12:59:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793739559; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WF/Qq1uMujxqVreGvTu+X+r1tWL5pZEz+8Yto0EtSHzphxHLT2HcyKhRmasrR3BQNP
+ 7pB45fP9Gx6VkegeT/uCsxOzjU2JEeOP2iT5KsTxPXB2vG/CIl51dUF95sP3JEFP5jPh
+ u9l7ZKXvoX/RsfHNr1lRM4DsCXnDaAho5UGqftm/V6qcUjuhTsJv8I+qs1hTszY9pJaF
+ bAvCiaGFJRdtM/HLREPGttFoWMEsXGXzoDSG8fRW5SPY2OhIafN72jaEbxHR7YdSa5kp
+ 3HEMZ5K+WmcqPlyw+Yq/Qcp7LfKg6RijlpDytvZrUkDH4GlTuh+zaixc24To0S3cZkr7
+ avug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=N522AsLlTU0HGBzik0UilBrcnusjUUdJmnwssk6MniI=;
+ fh=Uh+n1RVyNLui3KdHQZgO5Ssz02JJox2ycX4si6LFlm4=;
+ b=iTnUf5qWSYtGOZBxC59fZZyvd42eFJeNCXxPF9uNsNeGc1Kbm14eGbMKqeoBohrxhe
+ S6YZoiWNA/N9wrVsLdpzSTtKf0csRIVaHU8G8MEnkuZWpgvRpIq2jcK1sbrre8G+JWh4
+ B9pE5hVPLB5OzZNU2nklfdiSfnVbJpPUqteKurUJuTAgo89h/AsBibAAj7AGcxG/aZOH
+ Xxy+orC+ygeQa2Ziez0d5/TDbWAfoq79TpVrK+uAI9itJOtjtjPtju37TNPQBsOG4dao
+ JGTA/m8imXJzwvnZPyREKQE4nbXDoc9+qGGo+cqyigV/6fh+MCdh/qvpYN1KZ4YlpDEL
+ v56A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793721205; x=1794326005; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zmgOx3DOkVSwagY2PRIacCzKqEPjbIHBYHXTptn9QVw=;
- b=l6QeI8DW86DyAdx0PQRQrpCQ7/BWqu0deLtzdhS8+3YbivRxJWetRhkOgIn6Iu1s86
- 06wifXjhGF0FypwI93iwkBfuCWKVypXIi03KWeEfLHYYNnckrtq+spBd0QORfprMcT9n
- ZEzGVRQKobzgZpqjRHdMMY3VFWrSn7Og5nW5HHIoPAtfHnms2TzWEt+0kS5KDoKkRBE7
- NT9h4UjklQ4uc6xfrdD6z2WtrnT9D6IzrOxWFIZAY/L+Hviv3arZgnONeKbX2S9VYrFw
- Hr46Tn5Njt5/W34ntLLkcEgmgrdjWs3M+N6mpqn+DBjjBAwE8t6NNI4YgegLa/2aom/d
- +Ezg==
+ d=gmail.com; s=20260707; t=1793739559; x=1794344359; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=N522AsLlTU0HGBzik0UilBrcnusjUUdJmnwssk6MniI=;
+ b=UJ6HPdNbdwg0HQSq+lySKJr2HTV7+KOAAss2l7NgX8CG/sJBtkPnmUN4RkYHq9Sdzz
+ 6VQnJRH9aU7okO/Nze76Iomap2HkQHMu+b4d0iKs13bVUtz40MWh7YIUcxDE9ws97Pm7
+ HVTFc3wbcOcIhPCOfNez47UbMAU81qbRWet2+mmnORyL+Ao0dpXWmHMhTMnx7MNz3KFD
+ g3yR8Z3tOy4gMNHz9g3lgn8lQjghFsLz+bG+/1BW8/Ow9EkCFT15SAaK9E8saF2iZgu7
+ cj78UjXKhr0INeoBXNvj08HcarAJC85xYMAG6/wfm8+622aq8sUQUz7pkJFbTV/JXGYc
+ 7ulA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721205; x=1794326005;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=zmgOx3DOkVSwagY2PRIacCzKqEPjbIHBYHXTptn9QVw=;
- b=MiG997bI6a6YbKCUdqZbylP/2bnavd2dEhEO2dHpadiRN9FIMDUq4ZkluG9cVvokY0
- z5aBXC+TjrbBQc+B3j6G9P1GvgsfYb1/Z+FkQBXbiISKBydNueKCWEiKNxlAt5j7xg5R
- td/7zVUrqyzWBoILYEj33x6N6cpPXSwYlv4OtrKUHw8QFzN/fhSC8SIxQMs8wrppymPA
- 69zGTm+C+wLvT3lUKEIebEDu0NGGlxM/MydIWk45OksSwoHNimzLjEX55oNZfJ4pH0v5
- +rPZg9J7CCA5PBJYTp1enQZ5d9Y0d0au6TGc5Xq9ZdRhs0it3skujQCSYfdRLHdk0CEg
- ZuEA==
+ d=1e100.net; s=20260707; t=1793739559; x=1794344359;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=N522AsLlTU0HGBzik0UilBrcnusjUUdJmnwssk6MniI=;
+ b=k92hwr/O5sYtm/llH2Bf/iHGRx/ubSrUQMck34XI0KfGYpE7eDVrW1HxWOtuGOCO6u
+ sQTtNjsh6fv8rZ4JKjivlFRJa2mIStX8ISTfr6G+xvG7g14h6RLN83JdoYnM3XsnabyJ
+ eUBhjzA3GiPfXDRobNnEHQki8IblOiA9P/KH7VxASm9gMavA/DkN7SsOW9Rwun2wcozF
+ Q86TtEWPvDTtm7KI6B+ZX6Efov/WnKHNAWnqyUDvgcAmXFf5Nhh5jrPBIT23Af6j0qMv
+ GygkrB9opV+UDEruPeeOt7oKYxz3KVzmiFRHG/O3Pm+3l+6Ki43V2pTD6IOzHBl66mFx
+ JeLA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxwmnVZiUm+Bfte0mMGN2nsUHH82DtbfTEDh5dK+IKM7qnVrVbMhXXAXcmJXyXTkFyALSnItZXzrn8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8msD64y7OfqZgD2waMm3rpSd/x/hNA8wqtWybWU/u0fVvqW32m
- ABbhKSW1dre3atTWxwfr09ZkOJzJbiKBbki+N1vlG6AQKoBG1/QGzRW4
-X-Gm-Gg: AYBFou2wDr93CU0gsBrvsNWfs7733/6A6d2p8CP6a4S8J7Mizv1wuXq3UIKN1fVu1cy
- QPJmDcRoHZnuFoz6EjoOmcGklxxSLb/bqstr41pgZkNiCXh92iM6umt88zQUHueae5c/R1/A7uy
- q887KUoyuZgCSH4nJTaWkzlvfHIdNMYMHAwjX1LxP33rVC+ESM2oAVAdUvKRZavSacX20BjU01r
- Vj8oZ83yC/Ln6FQBvj9NKlrzWZBIXsVXsofBrKtyoa4ND9ZJBEPzZHg0hT3Oh0VtMjCrT4LLhp2
- MT/N2CTy/zha9ezefyKE7V44q+xEQCcXb/73T13KiHVNUOajEH70Ks7AVLYeW5iEnA8Jc3A7LJd
- iGGetIoYzAygZP1HqRBd18bM+K9mPsKSWAam6jYf9y8kdsPT9I7SkrZep3D3hdc7Ze7VXuTCplW
- aX6ozFGA1X7kHk+ZPatxidE5CvWrcgaop/8VgV6Pw+pIVEyszXxahscuYYw6wME3ya1wZSFBohZ
- 1JcDEmuUf5vI6K1QX1ZlDxlnPW6UDbisnjXlhCKm6fUq7vSTmW7rzYEBwQlqwadcLyfTNfWkBdL
- ClNBCXviwPmqL16s2DnePsvH0yo33AEyHKYnk0bkIQcWrOSJXuM=
-X-Received: by 2002:a05:600c:4897:b0:4ad:5ec2:d3b3 with SMTP id
- 5b1f17b1804b1-4ad5ec2d3e4mr152905945e9.1.1793721205339; 
- Tue, 03 Nov 2026 07:53:25 -0800 (PST)
-Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 07:53:24 -0800 (PST)
-From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-To: Mario Limonciello <superm1@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
- Caspar Adriani <caspar.adriani@proton.me>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Arec Kao <arec.kao@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [RFC PATCH 1/3] media: i2c: ov13b10: add an I2C device ID table
-Date: Tue,  3 Nov 2026 18:53:11 +0300
-Message-ID: <20261103155313.114347-2-saif.elden.hatim@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ AKwUvBxp67Q5J3U/htaOm1g4btH0IfFQWB0Hs+3Wpx6jmSV3sz4qpXd+EBRZoTPWbSM4qmFx0FASGPhNB3s=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8adxdFw9d76AQ2bZE9tAq+i1DvwMM+/9PG2C1Ka2a3bQ1q9Wq0
+ Rk3sdGSzNcWkOZiB8W27RIAX+YxIPcQj2NgDcsB5WJxOWs015g6vQ+Cmh95Y/QUwoq30A40o9tY
+ d7f7zfrfpVAyq27vVmLIG006JrQNRuv8=
+X-Gm-Gg: AYBFou1Mvi4hhkWE8fvTe8GnBXBut59LCCQurxT6+gtvsxGzs27XaFKsJ/CrPHdSXmX
+ TA8XPEw06fsZ+JxvAbMi4FmZfozTax2frjuYzIJHlx5n58WU81vLH1UE66MElQY6MfWPqEGweJX
+ +dUWe8LseitP7qbQRt+3u0JafKNUjuN56PYZ1/0HiSq88jlpJ90loht/Ym/wC+aPI7kZtd5Vu2z
+ /FFndcM26Uxt7rmSQHm5qWE40kvRaYQNz90ifxLkzypVagTOPubpQzjh7Jxn4GBwVGwtqZEQBo4
+ AdJOgYCty/L1vl9vICtxBo0uMlyMsma3y+aTQ3gwWSz4LRrTfg4JQZ56abtT3kHx9kjVkVClIL1
+ dG7aTvdlLAxu7a3dJcZ2+R1w0riCNyLMmg/TD+Zg=
+X-Received: by 2002:a05:6000:1449:b0:48d:ff71:dd9d with SMTP id
+ ffacd0b85a97d-48e6e2ef786mr30220280f8f.23.1793739558923; Tue, 03 Nov 2026
+ 12:59:18 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAGxFSwnBDM93ouN6Aq2ppm5zF1h19XE6NJ92NT2UEhMP1P4xEg@mail.gmail.com>
+ <CADnq5_PyctWJK2k4-CutYFNPkuMprmZE98d2JjodBQkTLGJhDA@mail.gmail.com>
+In-Reply-To: <CADnq5_PyctWJK2k4-CutYFNPkuMprmZE98d2JjodBQkTLGJhDA@mail.gmail.com>
+From: Arnaud BERTRAND <arnaud078@gmail.com>
+Date: Tue, 3 Nov 2026 21:59:06 +0100
+X-Gm-Features: AclHuK9LGpsbyCsaaCaEXiY3-KA_CdLHeIgy5ZFJMBas5Xa9tgkDNg4pPpu0HGs
+Message-ID: <CAGxFSw=PgG+hewz5eNcDDma57+oJE2qd25mZByyJ+4dFhsGpYw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
+ discovery
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Oz Tiram <oz@shift-computing.de>, airlied@gmail.com,
+ alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,52 +107,42 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On AMD ISP4 platforms the amd_isp4 platform driver creates the sensor's
-I2C client by name ("ov13b10"), with a software node and no ACPI
-companion. The driver only has an ACPI match table, so the I2C core
-does not bind it to that client.
-
-Add an I2C device ID table so the driver can bind to clients created
-by name. Nothing changes for ACPI-enumerated sensors.
-
-Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
----
- drivers/media/i2c/ov13b10.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
-index 242a95834..d33fb7032 100644
---- a/drivers/media/i2c/ov13b10.c
-+++ b/drivers/media/i2c/ov13b10.c
-@@ -1706,6 +1706,12 @@ static const struct acpi_device_id ov13b10_acpi_ids[] = {
- MODULE_DEVICE_TABLE(acpi, ov13b10_acpi_ids);
- #endif
- 
-+static const struct i2c_device_id ov13b10_i2c_ids[] = {
-+	{ "ov13b10" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ov13b10_i2c_ids);
-+
- static struct i2c_driver ov13b10_i2c_driver = {
- 	.driver = {
- 		.name = "ov13b10",
-@@ -1715,6 +1721,7 @@ static struct i2c_driver ov13b10_i2c_driver = {
- 	.probe = ov13b10_probe,
- 	.remove = ov13b10_remove,
- 	.flags = I2C_DRV_ACPI_WAIVE_D0_PROBE,
-+	.id_table = ov13b10_i2c_ids,
- };
- 
- module_i2c_driver(ov13b10_i2c_driver);
--- 
-2.56.0
-
+> On Mon. Nov  2. 2026 at 14:58, Alex Deucher <alexdeucher@gmail.com> wrote=
+ :
+>
+> >On Mon, Nov 2, 2026 at 3:07=E2=80=AFAM Arnaud BERTRAND <arnaud078@gmail.=
+com> wrote:
+> >
+> > Hello,
+> >
+> > I have two dGPUs : a Radeon RX 6800
+> > XT and a Radeon RX 6800. They both report the same PCI identity
+> > 1002:73bf and each has a different VBIOS.
+> > I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
+> > outcome: on my machine the device-identity fallback actively breaks the=
+ second
+> > dGPU.
+> > I patched my kernel to remove the fallback, but I would like to have a
+> > better solution for my use case.
+> > Would it be possible to apply the patch only to APUs ? That would keep
+> > Oz's APU case working but a dGPU with a stale bus number would fall
+> > through to its own ROM, which is the source that is
+> > guaranteed to match the card in the slot.
+> > I can provide more details if needed, I am out of my depth here.
+>
+> Should be fixed with this patch series:
+> https://patchwork.freedesktop.org/series/176969/
+This patch series applied on top of kernel 7.3.0 indeed fixed the
+issue for me. Thanks Alex and Mario for the swift answers.
+>
+> Alex
+>
+> > Thanks
+> > Arnaud
