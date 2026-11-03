@@ -2,43 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAF7606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A659A606D827
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQpJjgqJ
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=olHCr/66;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gM5CZtHs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8CF10F91E;
-	Tue,  3 Nov 2026 23:13:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C4110E43E;
- Tue,  3 Nov 2026 23:13:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C0B6C60A8D;
- Tue,  3 Nov 2026 23:13:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C0D1F000C1;
- Tue,  3 Nov 2026 23:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793747602;
- bh=WD2ZOTwHLORa4F+F/G5TkGfBZLzyIQggXxweJGqipwA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DQpJjgqJwe5F4tl/tkKrlXgsf0g6AoVFJV4FRJ9KMYUxx/kjqa9GBZGDU1W/cU99X
- LFhWlo/HKI3/tOb3lZWHP8tU3QDKI7URH+crWSXb/A2l7v0EEq9fdgdnEH4wEtD1Py
- kwXp9IoZKUpc2u+5WlEsCJW0yMqKKfC0uTn+Yid3Jdw/ZVC3uMzjg5PGMgsqUId3t4
- cMyiNUZp/nb59Lm5CayQ+WmAmlPF0ywtABgYjQARH9S/wQ00LHku1fnF/SwYYcSDt6
- BOEwdWa2JnLNd63hnUkziw2hk8GOOs0e8TbedkFGI4+nyWSSnDqXDg6t/9ldsG/hud
- vSOBxJ7MbOdBg==
-Message-ID: <sashiko-outbox-196185@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 04/12] drm/amd: add luminance property support
-To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261103-superm1-backlight-property-v11-4-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-4-00cce7b2ba22@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 23:13:21 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 076FB10F92B;
+	Tue,  3 Nov 2026 23:19:09 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC5210F922
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:18:57 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A3LKcC4854644
+ for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 23:18:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=4ZZP969Qa0dVMO0pKpNSkAF+fJQV8oUTt4d
+ 8+dXPutk=; b=olHCr/66IZCC+qkXrqdBMMyHNtXAfgoDUbnApVOlUdMkYMuw56w
+ /bfgzdBXW/CVS2eu3nKrplMwD0CsZFosPuyUXu4rS8fgebdH2xznb615jXiElwZW
+ ZBW0aknArj7jBXtwum40l4v4t45SYnZKXQLEHZT5H+oHLw2ifLl++kU9r96BSl+t
+ DKq5bBCAqY3mm62jh+6DJifkWkB1ht7o6Kewndo6rOWBQdp9kPYQjEno2vZqiAo1
+ sHsUesJbA46R/FwsVFkhAwwXMvihCImYmXF/DGA3pTabFdFoNATbvMYQkW0cos2t
+ RLaeb/yqgQ8RMKKggly9BAh1iu/c78WVtCQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqpuv8ffd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:18:56 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-8a01ea9e318so263668b3a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 15:18:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793747936; x=1794352736;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4ZZP969Qa0dVMO0pKpNSkAF+fJQV8oUTt4d8+dXPutk=;
+ b=gM5CZtHscMDbTrXNbPPakf5XuwsVwQZ31wbFFYq0BcD6KVj7CHCPDmjLy4aBqbwbdW
+ OvYFXOXFVv+eHzDFqVNGchAqvDhvp2HNFNWYlCXWfiPCQq3OmE+6C27tWdD2Vc5U0t5+
+ xO8/JhA0B0jZX01iUNf7/b21hjF8LNPYRjZdzzgbxMgPdywVNeD2EDYVC9uk8IL9SOVG
+ mC+n8IhincaMCZ9MqYAtlHgiwiEE+EPcdtTF2GfYG43OwrXYjscDB+D7NuNDiwpbC9yv
+ bhWXZ3WqXXnIRkhRGsByClKBs2GFj70jt/NyQIU7uQS1YbMwPzhtPNxolLS0oGC4b6t1
+ 7sGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793747936; x=1794352736;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4ZZP969Qa0dVMO0pKpNSkAF+fJQV8oUTt4d8+dXPutk=;
+ b=B8D+1ocureTUzkHDJ1EKXmMcUvpQ6FA6+B1e16hBUIQwdDsiyyoE3Fbd95DyeYxJQI
+ 7LEYN/F7mK8qMCpoaJwNGxSyhAMt8dUqPEJBz+tKw3v857SfclfgMqWhPKajw7LGnHww
+ 8YVBDOVtquEG6J/uPmAKYgpmaQ5bDZtGxbu+a7lMEo8uCXRQaP0lE8HMVTXKoGiEs8wT
+ kOX8xACLZZlBu8tQ80jBU2o9xh18H6tFN5H0fG2scivC2JsbtGU/Ly550ghY/LmaV0oE
+ 5/3kUcRKY/0bQaw9CvmYz+07p4ulOWMVKZ1u8RshEj5VJZe0WNeWcAIIGgsHGRnj2ZnD
+ Lstg==
+X-Gm-Message-State: APuU4Z+UtlpyQJB43dSjxJQodAe6X0H9UM189QkoZ4dJXtRgtTlyLVVk
+ kbe2pLkOlEILSQOWKf8H+UndcuF0DCRC3BR3IMgR0eqlYwMnrFJDqdPaJzPDQKXbdXEAtX3ZZ0X
+ mdv/JuZA1wNuu96RpORfON0tKYySw0Z+ad7hofhCyQnBe4XHdewMHtWxkQVvYnAYRI9yi3WmBR1
+ DjIoAZOw==
+X-Gm-Gg: AYBFou3DO2IC8VXrY5Td2YCxjOorunbIfzmxYvZvTYKR7LGFmyxUouCML9Ju0ZKKjxw
+ T3XrSmIYrq1pLzyWSJ2nSy3oI6mOo23b8EQ4ZGRayI7e/3Jv+Cv2Xgg0xtIrrDTs/g24MktEHdE
+ kN+P/IFiYKXVy203/CRt89IBVKMqLiQG0GZefbBIxis90HHn+yp90QWzs27GrgbL5BXyElZgiXc
+ keqm7kBQ7/Vfbxx4SjJupd2M8t81nDGcnlzj7oVTB5P2Z2Q4nKdhPEhaWamEc5J7Yt1Xkb4zytk
+ X0xFDQgqeS0uz8qL0iHf0Ce0p5lAlW57nVI319eDCmQpPO2QODr22E63hrK/4/Q8jS9s1WEqt2v
+ E7ER2DIycS4Q2vbbkBzwc/hbdd+GbQllGF7eXqXN2BeY4I2BNElld7HCnSdO1g619/AN5wsc6PB
+ evm5q/6B/ScZYOiCjIDV9wNFWtjjQPjvUUnB79C6BAXWK/hKXgjKWcdFoKJsY=
+X-Received: by 2002:a05:6a00:3a21:b0:881:8784:95ca with SMTP id
+ d2e1a72fcca58-8a9bf04dfc6mr12252536b3a.33.1793747935929; 
+ Tue, 03 Nov 2026 15:18:55 -0800 (PST)
+X-Received: by 2002:a05:6a00:3a21:b0:881:8784:95ca with SMTP id
+ d2e1a72fcca58-8a9bf04dfc6mr12252498b3a.33.1793747935377; 
+ Tue, 03 Nov 2026 15:18:55 -0800 (PST)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
+ [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8b09b667995sm142420b3a.40.2026.11.03.15.18.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 15:18:54 -0800 (PST)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v4 0/6] drm/msm: Decouple IFPC disable and sysprof
+Date: Tue,  3 Nov 2026 15:18:39 -0800
+Message-ID: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=O6SsLx9W c=1 sm=1 tr=0 ts=6aea6be0 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pAKKPEBcNh-_eZAUbWwA:9
+ a=OpyuDcXvxspvyRM73sMx:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: RQCGq8fEqB90QnWit5m6GDZcFnCgkgcy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX9RY2hwnYVTDs
+ LZ7qYIFaNp1GVFlsPQz7ySEPYTA3K8Wb1lrovDKZi45Em6TiLyhbw1JM/Gr4X7hRKSLjsNb0fxF
+ K/nNAfu38f6U2UzDfp6DuOgnAk/+bN0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfXwOBpKzCAFrr8
+ ioRvJWmG7zws8VnJG0hF5+JhLUjk72skhfVuBvZlCMCpdgJLNyxinNdtFyvXcF5EH1fJk5O6UV5
+ 5sW0ugXAzpQUi3eY9y0sfklGen56D4GvOn9zOeDhBVbLctTX0GmRohpgD1Oe5l2n4Ku2m9xvrOK
+ nWXKu+FmmVA0UhmKoCYuI/MNqchL/Q/eCVJWFZo6OTkSSI0hImzxP+FQRVYBZi/S5U9Hm0xYPM1
+ a+zbWgMwav71Sm9T2xDYbaiPP1uym6V2sxvRJA7vNy+/z/v5vy27uS1yVRdZmzAzxd7ct1Q8BK7
+ fvZtwez1r1nx1TFmwQCrSxr5oFnNlCQDn9x1JKoGsEjReMvkMLnqIYgwVqAW3UEHucJ35dkQHwe
+ 7ApBgJt3UBK96EC/wzDxJxvMItUPLgh6DajjH1b2cGOcIhpqNdS243DozY70ekPd2/nHcF32AFq
+ 3OWhtcEl/karLu3/ebQ==
+X-Proofpoint-GUID: RQCGq8fEqB90QnWit5m6GDZcFnCgkgcy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_05,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030092
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,310 +138,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] drm/amd/display: stale brightness restored in amdgpu_dm_commit_s=
-treams()
-- [Medium] drm/amd/display: race and PSR exit in amdgpu_dm_backlight_restor=
-e()
-- [Medium] drm/amd/display: zero actual_brightness collision in amdgpu_dm_s=
-et_luminance()
---
+Convert IFPC-disable into it's own refcnt so that multiple threads can
+request IFPC to be disabled without stomping on each other.
 
-commit 1f2beac3090b1487d1ed83a29307a7bc88af9241
-Author: Mario Limonciello <mario.limonciello@amd.com>
+Extracted out of gen8 GPU state capture series[1], as other than fixing
+a missing IFPC disable in debugfs state capture path, it is unrelated.
 
-drm/amd: add luminance property support
+[1] https://patchwork.freedesktop.org/series/176505/
 
-This commit exposes the DRM LUMINANCE connector property for internal panels
-when CONFIG_DRM_LUMINANCE is enabled and applies connector luminance updates
-through Display Core backlight helpers and atomic commit callbacks.
+v4:
+- Don't clear GMU_STATUS_OOB_PERF_SET in suspend path.  Restore it in
+  hw_init()
+- Don't require gpu->lock in a6xx_gmu_ifpc_update(), but instead warn
+  if needs_hw_init
+- Move perfcntr resume to after hw_init()
+- Link to v3: https://lore.kernel.org/all/20261103184713.29664-1-robin.clark@oss.qualcomm.com
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 56fca4e22df8d..2a9ddd1dc6f70 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+v3:
+- Rework IFPC disable harder to play nicer with hw_init().  If we
+  need_hw_init, simply update gmu->status mask and let hw_init()
+  restore the OOB request in a sequence that won't anger the fw.
+- Link to v2: https://lore.kernel.org/all/20261102190010.720443-1-robin.clark@oss.qualcomm.com/
 
-[ ... ]
+v2:
+- Fix double acquire of gmu->lock
+- Fix missing a8xx hw_init() path
+- Link to v1: https://lore.kernel.org/all/20261101174631.23637-1-robin.clark@oss.qualcomm.com/
 
-> @@ -4802,12 +4799,8 @@ static void amdgpu_dm_commit_streams(struct drm_at=
-omic_commit *state,
->  	 * level. (the dm->brightness is the correct panel level)
->  	 * So we set the backlight level with dm->brightness value after set mo=
-de
->  	 */
-> -	if (set_backlight_level) {
-> -		for (i =3D 0; i < dm->num_of_edps; i++) {
-> -			if (dm->backlight_dev[i])
-> -				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
-> -		}
-> -	}
-> +	if (set_backlight_level)
-> +		amdgpu_dm_backlight_restore(dm);
->  }
-> =20
->  STATIC_IFN_KUNIT void
-> @@ -5413,6 +5406,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
-_atomic_commit *state)
->  	/* Update audio instances for each connector. */
->  	amdgpu_dm_commit_audio(dev, state);
-> =20
-> +	/* Apply connector luminance after the display pipeline is enabled. */
-> +	drm_atomic_helper_commit_luminance_enables(state);
-> +
->  	/* restore the backlight level */
->  	for (i =3D 0; i < dm->num_of_edps; i++) {
->  		if (dm->backlight_dev[i] &&
+Rob Clark (6):
+  drm/msm: Hold runpm ref in set_sysprof()
+  drm/msm: Resume perfcntrs after hw_init
+  drm/msm: Rework IFPC disable
+  drm/msm: Add cleanup help for disabling IFPC
+  drm/msm/debugfs: Use cleanup.h for gpu state dump
+  drm/msm: Inhibit IFPC for state snapshot
 
-[Severity: Medium]
-When a connector is controlled via the LUMINANCE property, dm->brightness[]=
- is
-only updated when drm_atomic_helper_commit_luminance_enables() calls
-amdgpu_dm_set_luminance() near the end of amdgpu_dm_atomic_commit_tail().
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 28 ++++++++-----------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 11 ++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |  2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c      |  5 ++--
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  5 +---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  1 -
+ drivers/gpu/drm/msm/msm_debugfs.c          | 32 +++++++++-------------
+ drivers/gpu/drm/msm/msm_gpu.c              |  5 +++-
+ drivers/gpu/drm/msm/msm_gpu.h              | 30 +++++++++++++++++---
+ drivers/gpu/drm/msm/msm_perfcntr.c         |  7 +----
+ drivers/gpu/drm/msm/msm_submitqueue.c      | 19 +++++++++----
+ 11 files changed, 78 insertions(+), 67 deletions(-)
 
-If userspace updates LUMINANCE while the connector is inactive
-(!new_conn_state->crtc or !new_crtc_state->active), or updates LUMINANCE in
-the same atomic commit as a modeset, dm->brightness[bl_idx] still holds the
-previous level when amdgpu_dm_commit_streams() runs earlier in
-amdgpu_dm_atomic_commit_tail():
+-- 
+2.56.0
 
-amdgpu_dm_atomic_commit_tail()
-  amdgpu_dm_commit_streams()
-    amdgpu_dm_backlight_restore()
-      amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i])
-  amdgpu_dm_mod_power_setup_streams()
-  amdgpu_dm_commit_planes()
-  ...
-  drm_atomic_helper_commit_luminance_enables()
-    amdgpu_dm_set_luminance()
-      amdgpu_dm_backlight_set_level(dm, bl_idx, state->luminance)
-
-Because drm_atomic_helper_update_legacy_modeset_state() has already set
-aconnector->base.encoder and dc_commit_streams() has committed the stream,
-amdgpu_dm_backlight_restore() programs the panel hardware,
-dm->power_module->bl_state, and the ATOMBIOS scratch register with the stale
-dm->brightness[i] value before planes are committed, and then
-drm_atomic_helper_commit_luminance_enables() reprograms the hardware a seco=
-nd
-time with state->luminance.
-
-Furthermore, if a LUMINANCE change was committed while the connector was
-inactive and a later modeset exits self-refresh
-(old_crtc_state->self_refresh_active is true while old_conn_state->luminanc=
-e =3D=3D
-new_conn_state->luminance), drm_atomic_helper_commit_luminance_enables() sk=
-ips
-calling set_luminance, leaving the panel permanently at the stale
-dm->brightness[i] level applied by amdgpu_dm_backlight_restore().
-
-Should amdgpu_dm_commit_streams() avoid restoring stale dm->brightness[] for
-luminance-controlled connectors, or should dm->brightness[] be synced from =
-the
-connector state before amdgpu_dm_backlight_restore() runs?
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index 0f664c658a127..f61e69bbdf69f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-
-[ ... ]
-
-> @@ -675,6 +684,30 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_=
-display_manager *dm,
-> =20
->  	amdgpu_dm_update_connector_ext_caps(aconnector);
-> =20
-> +	/*
-> +	 * The property must exist before the device is registered. If ACPI
-> +	 * video should handle the backlight, leave it to
-> +	 * amdgpu_dm_register_backlight_device() to register the fallback.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) && acpi_video_backlight_use_native=
-()) {
-> +		caps =3D &dm->backlight_caps[bl_idx];
-> +		amdgpu_dm_backlight_fill_props(caps, power_supply_is_system_supplied()=
- > 0,
-> +					       !(amdgpu_dc_debug_mask &
-> +						 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE),
-> +					       &props);
-> +		/* Start from the level the hardware is actually at */
-> +		ret =3D amdgpu_dm_backlight_get_level(dm, bl_idx);
-> +		if (ret >=3D 0 && ret <=3D props.max_brightness)
-> +			props.brightness =3D ret;
-> +		ret =3D drm_connector_attach_luminance_property(connector, 0,
-> +							      props.max_brightness,
-> +							      props.brightness);
-> +		if (!drm_WARN_ON(adev_to_drm(dm->adev), ret)) {
-> +			dm->brightness[bl_idx] =3D props.brightness;
-> +			dm->luminance[bl_idx] =3D true;
-> +		}
-> +	}
-> +
->  	/* Offer ABM property when user didn't turn off by module parameter.
->  	 * OLED panels are included to support CACP (Content Adaptive
->  	 * Contrast and Power) feature via set_abm_level.
-> @@ -686,6 +719,45 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_=
-display_manager *dm,
->  }
->  EXPORT_IF_KUNIT(amdgpu_dm_setup_backlight_device);
-> =20
-> +void amdgpu_dm_set_luminance(const struct drm_connector_state *state)
-> +{
-> +	struct amdgpu_dm_connector *aconnector =3D
-> +		to_amdgpu_dm_connector(state->connector);
-> +	struct amdgpu_display_manager *dm =3D
-> +		&drm_to_adev(state->connector->dev)->dm;
-> +
-> +	int bl_idx =3D aconnector->bl_idx;
-> +
-> +	if (bl_idx < 0)
-> +		return;
-> +
-> +	/* Skip if already applied, e.g. by amdgpu_dm_backlight_restore(). */
-> +	if (dm->brightness[bl_idx] =3D=3D state->luminance &&
-> +	    dm->actual_brightness[bl_idx] =3D=3D state->luminance)
-> +		return;
-> +
-> +	amdgpu_dm_backlight_set_level(dm, bl_idx, state->luminance);
-> +}
-
-[Severity: Medium]
-Can amdgpu_dm_set_luminance() silently skip programming the hardware when
-state->luminance is 0?
-
-In amdgpu_dm_setup_backlight_device(), drm_connector_attach_luminance_prope=
-rty()
-registers 0 as the minimum valid luminance level, and dm->actual_brightness=
-[]
-starts at 0 (unlike amdgpu_dm_register_backlight_device(), which seeds
-dm->actual_brightness[bl_idx] from the hardware level). In addition,
-amdgpu_dm_backlight_set_level() uses dm->actual_brightness[bl_idx] =3D 0 as=
- the
-sentinel indicating that brightness was not applied while the connector had=
- no
-encoder:
-
-		/* if connector is off, save the brightness for next time it's on */
-		if (!aconnector->base.encoder) {
-			dm->brightness[bl_idx] =3D user_brightness;
-			dm->actual_brightness[bl_idx] =3D 0;
-			return;
-		}
-
-If dm->brightness[bl_idx] is 0 and dm->actual_brightness[bl_idx] is 0 (for
-instance, after saving brightness 0 while the connector was disabled, or if=
- a
-prior amdgpu_dm_backlight_set_level(dm, bl_idx, 0) returned early or failed
-with rc =3D=3D false), then calling amdgpu_dm_set_luminance() with
-state->luminance =3D=3D 0 sees:
-
-	if (dm->brightness[bl_idx] =3D=3D state->luminance &&
-	    dm->actual_brightness[bl_idx] =3D=3D state->luminance)
-		return;
-
-and returns early without applying minimum brightness to the panel.
-
-Also, in amdgpu_dm_atomic_commit_tail(), the fallback loop that retries
-unapplied brightness levels only checks dm->backlight_dev[i]:
-
-	/* restore the backlight level */
-	for (i =3D 0; i < dm->num_of_edps; i++) {
-		if (dm->backlight_dev[i] &&
-		    (dm->actual_brightness[i] !=3D dm->brightness[i]))
-			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
-	}
-
-Should dm->actual_brightness[] track whether a level has been applied witho=
-ut
-colliding with valid luminance 0, and should the retry loop in
-amdgpu_dm_atomic_commit_tail() also cover dm->luminance[i]?
-
-> +
-> +/**
-> + * amdgpu_dm_backlight_restore - reprogram the cached backlight levels
-> + * @dm: display manager
-> + *
-> + * Display Core may reset the panel brightness when committing streams, =
-so
-> + * reapply the cached level of every panel whose backlight is controlled=
- by
-> + * the driver, either through a backlight class device or through the
-> + * connector LUMINANCE property.
-> + */
-> +void amdgpu_dm_backlight_restore(struct amdgpu_display_manager *dm)
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < dm->num_of_edps; i++) {
-> +		if (dm->backlight_dev[i] || dm->luminance[i])
-> +			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
-> +	}
-> +}
-
-[Severity: Medium]
-Could calling amdgpu_dm_backlight_restore() from amdgpu_dm_commit_streams()=
- on
-every stream commit cause a race with concurrent luminance updates and trig=
-ger
-unnecessary PSR/Replay/IPS exits on unaffected eDP panels?
-
-First, when a non-blocking modeset commit runs on an external display CRTC,
-do_aquire_global_lock() locks all modeset locks during atomic_check but does
-not add unmodified CRTCs (such as an active eDP CRTC) to the atomic state.
-Once drm_atomic_helper_swap_state() finishes and locks are dropped, a subse=
-quent
-fast atomic commit updating LUMINANCE on the eDP connector drops
-dm->atomic_obj in amdgpu_dm_atomic_check() and runs amdgpu_dm_atomic_commit=
-_tail()
-concurrently:
-
-CPU 0 (external CRTC modeset)           CPU 1 (eDP fast luminance commit)
-amdgpu_dm_commit_streams()              drm_atomic_helper_commit_luminance_=
-enables()
-  amdgpu_dm_backlight_restore()           amdgpu_dm_set_luminance()
-    reads old dm->brightness[0]             amdgpu_dm_backlight_set_level(n=
-ew)
-    amdgpu_dm_backlight_set_level(old)        dm->brightness[0] =3D new
-      dm->brightness[0] =3D old                 dm->actual_brightness[0] =
-=3D new
-      overwrites hw & actual_brightness
-
-Because nothing serializes dm->brightness[] and dm->actual_brightness[] acr=
-oss
-these two commits, CPU 0 can overwrite the panel brightness back to the old
-level after CPU 1 has programmed the new luminance, leaving hardware bright=
-ness
-out of sync with connector->state->luminance.
-
-Second, whenever an external monitor undergoes a modeset while the eDP pane=
-l is
-idle in PSR, Replay, or IPS with unchanged luminance,
-amdgpu_dm_commit_streams() sets set_backlight_level =3D true and calls
-amdgpu_dm_backlight_restore(), which unconditionally calls
-amdgpu_dm_backlight_set_level() on all eDP panels. That exits IPS and latch=
-es
-psr_event_hw_programming and replay_event_hw_programming on the eDP stream,
-which is not cleared because the eDP CRTC has no plane commit in the state =
-to
-run amdgpu_dm_enable_self_refresh().
-
-Could amdgpu_dm_commit_streams() only restore backlight for eDP streams that
-actually underwent a modeset in that commit, or let
-drm_atomic_helper_commit_luminance_enables() handle luminance-controlled
-connectors?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-superm1-ba=
-cklight-property-v11-0-00cce7b2ba22@kernel.org?part=3D4
