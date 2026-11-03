@@ -2,33 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B41606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 18:51:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E143A606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 18:51:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=k4/TTGvn
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Bx4jN+/C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEAD10F775;
-	Tue,  3 Nov 2026 18:51:03 +0000 (UTC)
-X-Greylist: delayed 390 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 18:50:56 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5635110F779;
+	Tue,  3 Nov 2026 18:51:23 +0000 (UTC)
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936F610F779
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 18:50:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7C810F779
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 18:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  sang-engineering.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=k1; bh=WjL+
- BboDzTnCr05d4B3GVddTa6hoTsb2Q7/tMkgbEgE=; b=k4/TTGvn6KawElXEg9Bb
- qOZDns6dw9rlO8RAcyEW+R5LtiRWK3EUb1xjy1qv5PY7vclfnx0g2zpyRZVQHBQk
- hS2cYY6dvAjl+vRiET3GcojY3mYknjggYIDCmsAOOODL5DWB24RiBNfTVe+sFXwA
- ovDhC3fDMR0XK9MmSAXBVkPFBg3Z543a0Vc/+0kETuPaPFpyl6SYJO91d3WVkD9r
- pcnEavNArnqZDMUAJXlOdMLBl2JLVqQbbmzKs9lmkKUVXbte2zMVrK+98TXCdCn4
- V6761POK1dz1bRaU6iLEQZpFTg9RwZwQW5Ad0pqtUf4KdwYhnZT7/Jhg+CIIFitj
- Ug==
-Received: (qmail 389364 invoked from network); 3 Nov 2026 19:44:13 +0100
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=W6/J
+ YFIS2gBbrryXL8wBsd9TWGVGmS+61AzczLDlVL8=; b=Bx4jN+/CUlNIFrFEfcZT
+ DWnp8D3KgQ3RUAi57jaWHne3umwEazqItZQTPk90jcrkdqvvhubVubpT5CCmNEfB
+ /g+w2DyTRdx1uo22fhbin0kux9Y9nu8VuHWZqX+a31npXbTs3OfVVmVnJi5o97lI
+ 3cpudOMSylHj4AcWjU71IcIr+OL4GFnE1e72JJgFfMSTdKQ3jTL5Qwp9+KgvUy98
+ Vrughpyl3hyO1Y88CTAL/ng8Mz4lzYKHQi99Rat4dkK7EQx7ZMusfrnEfipTR9lZ
+ PIIjBVDl7Zwwkfvv018HuF4t98uVkT44kwuLhDn7IY0jseMG18KhPTggId27cesU
+ mA==
+Received: (qmail 389850 invoked from network); 3 Nov 2026 19:44:34 +0100
 Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 3 Nov 2026 19:44:13 +0100
-X-UD-Smtp-Session: l3s3148p1@m+AWpmNfMLbAwtcC
-Date: Tue, 3 Nov 2026 20:44:13 +0200
+ authenticated); 3 Nov 2026 19:44:34 +0100
+X-UD-Smtp-Session: l3s3148p1@KfVXp2NfZqnAwtcC
+Date: Tue, 3 Nov 2026 20:44:34 +0200
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Douglas Anderson <dianders@chromium.org>,
@@ -107,15 +105,15 @@ Cc: Douglas Anderson <dianders@chromium.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH 07/35] drm: rcar-du: use devm_drm_panel_bridge_add()
-Message-ID: <auorffiFkpqbhotm@shikoro>
+Subject: Re: [PATCH 08/35] drm: rz-du: use devm_drm_panel_bridge_add()
+Message-ID: <auorkq3_lHY-rc1D@shikoro>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-8-5e3070a3478f@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
+In-Reply-To: <20261026-drm-panel-funcs-v1-8-5e3070a3478f@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,7 +132,7 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 01:09:56PM +0200, Dmitry Baryshkov wrote:
+On Mon, Oct 26, 2026 at 01:09:57PM +0200, Dmitry Baryshkov wrote:
 > The connector type passed to devm_drm_panel_bridge_add_typed() has been
 > ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
 > every drm_panel"), the bridge always has the type of the panel.
