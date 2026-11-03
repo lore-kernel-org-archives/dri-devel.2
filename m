@@ -2,137 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C641606D80E
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D4A606D824
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FiogIaaP;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L2X2UFI2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bT6BHiyf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C34A810F518;
-	Tue,  3 Nov 2026 11:40:50 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6519E10E80E
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:40:39 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A3AAFa73161758
- for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 11:40:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- D/FO6YpKaEZyuI+tOQ5hSqOHGNnCb5sKIIH3PegRd3c=; b=FiogIaaPYpXXIDum
- pitbsoBx7M1oAzx4YFWUUWzflsdBDarJmI/IoIR6QOi6bVlLDcctGiIVzccDincc
- O33Dw91buL66saAR6Tnxa6xwSxSUDCNxB0KxREl/Wzweny65VyY3gcFkKQppjvIl
- thoQuscmRvHsYGl9//oS+drgX0uJeDF/R9cS5Sjt/XT4B6BneYEx3W6s1sZpXQ0I
- DPcmODvUnQPX+DnGf79YkA4spKXkYDvFqlqMwQduXanP7zwz0JNC/g2TGMqUfGHP
- sjpMPMihRr3KCNv6jeomr/NlYIfgsuAbtt2Dk2p0rrIvYk6WKUE1pvgRIpPabsBc
- VdfTOA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq6m9a1kk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 11:40:38 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5476f5bd009so4717151cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 03:40:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4002610F555;
+	Tue,  3 Nov 2026 11:49:51 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD8D10E14F
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:49:45 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a9a8d6cea8so7867275e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 03:49:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793706038; x=1794310838;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=D/FO6YpKaEZyuI+tOQ5hSqOHGNnCb5sKIIH3PegRd3c=;
- b=L2X2UFI2qCmGJ27HZ+nDfet9yCC+a8BLrbZXqb1Vi793kECu1di4a+tXjEcdY4edNk
- j4ud9lr2l7fWCwBBEspRP383u1U1Eqf+wx3EHTLLyv5jZu3VCbgc3hOJ3c88D4p1zpRr
- Eq12kAjw8pkuf7DT4n/1y+XfqbGG0AF262XMxReNv76S+C89AtnGrnkqiqEuayYjAAee
- OdAy7PrVKFw7qFdBKFl4NmdrDiWusqAATpVmHWZaNST/ktgs7eIF/bIe0++4PhFdP4oY
- akb2ZyUiVqPfSlaFalQH0g4matpJlT2zGYz1FI1YqevrP/WYHO+o3sCbf88w9ZRjS2fw
- QdEg==
+ d=gmail.com; s=20260707; t=1793706584; x=1794311384; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=Q+oLP1OEwtePBrYrElNROHr+q71h1tBToe+zpCw5khE=;
+ b=bT6BHiyfX8DiJkxRQSDayMKNqMTZUfO8rNhdEuf3yLeo466W95vHZ0RDpXUOcmNLqd
+ gj+CCDL/d/zi+lQHDSZrql8qFpnheUMJRLxMVlI947zCaEv3ZZplhFOiDZAarwV8PO29
+ 9IcO2hg/lG5RuBzC3wRaxlAanv892vNTWrs4fIT133prmi8uew/FHl0k747EVTA+ZEQL
+ I5nLZOO1gL2n13HQMo33rpCNPZpV5hkea7EjMyLtU3muEmOSl5nwGazXL5upCrOyvjhw
+ eMHEXNbp8uAQ8qqLbBQ0HpyVV/CTH3aKZ7nwLAwRjEs9zRoIef/vU8hbpNdxCnq5FuYX
+ w/cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793706038; x=1794310838;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=D/FO6YpKaEZyuI+tOQ5hSqOHGNnCb5sKIIH3PegRd3c=;
- b=gzMFEipNDd8clg1loFPyRdyMqKxqzH5+qOUQVMfzM+8YUZrvA4RshQ6JV5Sz5Al+0V
- yrwUAxDvjh8ywbuPBGAWBbInJqOa3A698+2u5jyXAamuh+z9FKp7t+/KADWZWVvH+qE5
- D+PyZGyFEpCASZQxClHTl7Y+Jch+XjHC1Xdf0DL2PZ5yWOryyzKaGYQ++KUjoJB2Ofy9
- sZm9vl5lY62xPf6V5/3p2XaC+ywmG2ecVtXeXUjmT0Wiqegcu6UDyvvjCvGH1dBAHG7O
- agcNqDr3XUQqgE/5MMfg0KzRdnaDObN2YK8Mb3EfT590eL7OLcCfvvy2+Vn/wLxS6kB4
- FsTA==
+ d=1e100.net; s=20260707; t=1793706584; x=1794311384;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Q+oLP1OEwtePBrYrElNROHr+q71h1tBToe+zpCw5khE=;
+ b=t75k+0qzUZp4a+Zgi5D5y00evezVypFGq/oDhM+QqlTXJ/Q0KL94ZL9TZSVaTGSzBp
+ FccPNwmv54Tq3PZYgYukLdTZS9BzhafRZmDeOyZhyfBZEmY6k0kWHgQ8ocN6nhPmDCGK
+ LTr59ke8YDwyzM4w/X5fOUwrBMXJbtEKoQyQnZPlwjbVRATuPALgd3Np+TLMFSrn8Lyy
+ Rx/XWuiQFGRJvhaeqcS5tMX4yd7Rfj0g5cSP5QqL5k2jY7ckg32cd6tKA7fqI8tPa2Bw
+ 0HQoNZq813i+Rok1JzkfpMLvVCzX6WvkZTdYdopyZEEQ/a3/QJTnHYYv+uiV99Mo6PJD
+ tULA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwApBh8NSR9aK39Z8xQdFcQhTJ07ZFi0kLJNKq4+4wGrogB5lRYVk/W682yV64YGcPocq9ZPjPmTHo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Dj96wiWbdUqdnM+5t3dNLnOykMVl96VZp++4/in/eKUZR4ST+
- 0ydVj0XktADgRWsY4T697millCT38qNGPQiuYEPhlHMvIGLOEy05jW8zXRsIOXrKyloEs4OY8Qx
- pbVdwgoAHWlXSIE10zF9ha2TxvBprw76MtVmwaYE+olbCaQ7R7ZDD+xRHM80rfTeZmVmP+CE=
-X-Gm-Gg: AYBFou2ixHcIpBZwb0MinIbORjVhQG0IPzMVhHQm1Jh14PhawKmnmNhyBsMpSTsVqTJ
- eNtMq0guIu5grR9qUW6vl4A6xx59tSxNEzRX8QNFJ6qP1rnAq9gn+g7j9k0c3Dw+znRsUiPFO/L
- ZURglrVva0wbEugSA3J8ArlprkvBgeg+Vp1bT4iAu950oHISpuEU1w1Qq23RuZI6g2e/ELPpRf3
- ft/UXqH+ABAYsO1F1D9qsfXkWOXJuvdQPPeM6GGR5VLmb7S6ucP+Jxc7//vlsomekWw7ezSjR7Z
- q/RUvzyShb9JPelNeqaHIVDYlt1YeVSgCsGfsnkhPEcV3Wgk8JxEUXRbVOLgYrChVckvhqEuyw9
- Z7NCjrjJgYY2bNN+sr76HIoPbPsc3r/QF4ENMXd49TeZh7s/zcxKc7GX7KmiIPtzk2awqqQ==
-X-Received: by 2002:a05:622a:8447:20b0:543:18d7:1823 with SMTP id
- d75a77b69052e-54318d75457mr190129821cf.4.1793706037756; 
- Tue, 03 Nov 2026 03:40:37 -0800 (PST)
-X-Received: by 2002:a05:622a:8447:20b0:543:18d7:1823 with SMTP id
- d75a77b69052e-54318d75457mr190129551cf.4.1793706037206; 
- Tue, 03 Nov 2026 03:40:37 -0800 (PST)
-Received: from [192.168.226.81] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cebf2ef54sm75777466b.47.2026.11.03.03.40.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Nov 2026 03:40:36 -0800 (PST)
-Message-ID: <e8075b30-3407-480e-9c83-320b15001f2d@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 12:40:33 +0100
+ AKwUvBy8u1+ycTQQB6OWaW8qooQkPZU0RuMSxEP3JJG0V5xdnBX0DWpp3LDwfLsjn31luo3qaZNdOk7OdC8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Mho8QMNMKEf1Zb5qtPmS+5jTMUclBcXHvNb9QpqCFGJcbkJRR
+ JgpouGI/qfRhXCRex5EUtJF26qa4VxKGyoxayhAnGSDZ4FpGQtm8Efrn
+X-Gm-Gg: AYBFou2vcaD3vVdQp25YhJV5ujGfNve5LHw1Z3mhsLaCLBptqBtp1QI36fXjLuVgBJB
+ 7G/6pGST5zgvnWGi3GCrpFA9LjHDnbxMay6zKKR77ywP4e7VMYeHEoB32j4i6rIaS1pSn/hRevw
+ OshEYwnbPhwSLlMadUxo9tdHJOKyTpLTGznlOSnnJs1BnYg/K/qLXu4hRJ8HyH+ZNhbgfJHGnmK
+ wCQ0or5rzqSRDnacA1rVGs9F2BqpCG7QSZ2CkmDWYugXzb+lGP3sb1QlUWXKIj5bXtIlTkYiNhA
+ DGi3/5YntjJvE4tyO7WXWvS1iDXzDQ9596nmWF316/VIIXgsZe6SoUMH1STbMuXQqRZ5pE8HZWK
+ LtxC6lKkXH5xDVymd1JPWyui71dpn3TiY8XQV7mHeGsl3Y5AwVwm6hxEYgwUJfSU+EgJBo6Pl7h
+ qR4pJV/hqiwrE2kHQLYtGjpWLgbuG4nustaeYUWQGOq2mumdF6C9+YhKK7KZYIL8oMvdBuodnuO
+ PJUw0kB0obWYReq3X39he+Qi4VF+XLKjrzWgMgQYHKzQd7CWg4vDrfb9l8mU3LwebbtLAJVItkH
+ Mxl7xiXhB3EecvCQKO9xyWUT+ri+cMztdQ0YR89R5tJOV9WoPkm7npHQWrTS4vCvtuZC7zM6UPi
+ rpVsmaY3N
+X-Received: by 2002:a05:600c:1387:b0:4a1:88df:8a2a with SMTP id
+ 5b1f17b1804b1-4ac1793e81cmr309764195e9.13.1793706583552; 
+ Tue, 03 Nov 2026 03:49:43 -0800 (PST)
+Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net.
+ [79.154.229.240]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4abeb77af8csm446345565e9.1.2026.11.03.03.49.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 03:49:43 -0800 (PST)
+Message-ID: <be6a9d3074290c030a6dcf9211a02fe690fb5696.camel@gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Only enable HDMI audio if display
+ supports it
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Panpan Ren <renpanpan@kylinos.cn>, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, tzimmermann@suse.de, 
+ lijo.lazar@amd.com
+Date: Tue, 03 Nov 2026 12:49:42 +0100
+In-Reply-To: <20261103061147.25827-1-renpanpan@kylinos.cn>
+References: <20261103061147.25827-1-renpanpan@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] drm/msm/gem: Decrement loop idx if handle lookup
- fails
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261102172001.508440-1-robin.clark@oss.qualcomm.com>
- <20261102172001.508440-4-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261102172001.508440-4-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: gl7pLQFUconz8xmCZ3SPfKchZtSv56PE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0NiBTYWx0ZWRfX0AMN/1XloM/C
- isSvIK8ioi7M+M6AWVOuNC4nMKV+PDfq19GMWC7aO84GhGS1EoxMl9W1tg9zt9ptEp/tyyLWBVS
- m38T48NXLO86naxIB4Bm5Igzex310Jw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0NiBTYWx0ZWRfX6W/PuVjYtXWe
- RP7kiKwK8dBKKvAxhs1V1tebaRkO82lDY+auduqLERuJj9qXX0k4Z4acQtFBOUSMPEP4lvPufNS
- Fuww2moqo7PmeqTUzpS1SJpZxCOV4fjLFoQ7ZyZUaNv0Tl9xi0czqj9gIaiU3TOdYi6WhbEOQPM
- WzSuXxKsrW6EhDQiO06S9fSodaFbSuKmOvRcDvhNkdzO3OIwEJ4RjfZAnUpMjDjskX79EaRtqFG
- lJJgWmbe9RxMRjnLYTMm7woHiTCjEmjW5AjJya4WUnRIeNFlyeA8VYwiVdEbnX8/L/ltfCPTM+c
- VOL+XuQX+f2hz2xKRNV0k0GvuLzfQrDnYZM4LpQAbGTTRWIivYcjPmJ0RR1ooNJ0V60jShiRIhl
- ouwuryQ7UWfhJ5CGBkn6V1sMO2wBdO6Cu7IpaNmBhVPooJCizvK5u4g8Dmjzd5TIBHy5nyWMHtO
- Hdc7O+3M2+ZjPo22WOg==
-X-Authority-Analysis: v=2.4 cv=C7B8WgP+ c=1 sm=1 tr=0 ts=6ae9c836 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=9tEP0OE30YQ_IqY-BwIA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: gl7pLQFUconz8xmCZ3SPfKchZtSv56PE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_02,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030046
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,22 +91,171 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/2/26 6:19 PM, Rob Clark wrote:
-> In the out_unlock unlock loop, we should skip the op which still has the
-> gem handle instead of gem obj ptr.
-> 
-> Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+On Tue, 2026-11-03 at 14:11 +0800, Panpan Ren wrote:
+> From: renpanpan <renpanpan@kylinos.cn>
+>=20
+> The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally
+> calls
+> audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+> whether the connected display advertises audio support in its EDID.
+>=20
+> This causes a phantom HDMI audio output to appear for displays that
+> have no audio capability (no basic audio bit, no Audio Data Block in
+> EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+> drives the HDA codec's ELDV pin sense, making the codec report the
+> jack as audio-available.
+>=20
+> The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+> the display's audio capability. Apply the same check to amdgpu's DCE
+> afmt_setmode functions, while still respecting the
+> AMDGPU_AUDIO_ENABLE
+> override for users who explicitly force audio on.
+>=20
+> Fixes: e2cdf640cbb5 ("drm/amdgpu: add display controller
+> implementation for si v10")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+
+Makes sense, thank you!
+
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+> Changes in v3:
+> - Also gate the initial audio_enable(pin, false) to avoid touching a
+> =C2=A0 potentially shared audio pin when the display has no audio support
+>=20
+> Changes in v2:
+> - Respect AMDGPU_AUDIO_ENABLE override for users who force audio on
+> - Add Fixes tag and Cc: stable@vger.kernel.org=C2=A0for stable backport
+>=20
+> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 12 ++++++++----
+> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v6_0.c=C2=A0 | 12 ++++++++----
+> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v8_0.c=C2=A0 | 12 ++++++++----
+> =C2=A03 files changed, 24 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index f2977fe6d824..a8f5eb2394c6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -1555,9 +1555,11 @@ static void dce_v10_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0		bpc =3D amdgpu_crtc->bpc;
+> =C2=A0	}
+> =C2=A0
+> -	/* disable audio prior to setting up hw */
+> +	/* disable audio prior to setting up hw, unless the display
+> has no audio */
+> =C2=A0	dig->afmt->pin =3D dce_v10_0_audio_get_pin(adev);
+> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
+> AMDGPU_AUDIO_ENABLE)
+> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+> =C2=A0
+> =C2=A0	dce_v10_0_audio_set_dto(encoder, mode->clock);
+> =C2=A0
+> @@ -1705,8 +1707,10 @@ static void dce_v10_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset,
+> 0x00000001);
+> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset,
+> 0x00000001);
+> =C2=A0
+> -	/* enable audio after to setting up hw */
+> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced
+> on */
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
+> AMDGPU_AUDIO_ENABLE)
+> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool
+> enable)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> index c68de0fe1d7d..3cd9f1bb3a70 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -1724,8 +1724,10 @@ static void dce_v6_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0		bpc =3D amdgpu_crtc->bpc;
+> =C2=A0	}
+> =C2=A0
+> -	/* disable audio before setting up hw */
+> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, false);
+> +	/* disable audio before setting up hw, unless the display
+> has no audio */
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, false);
+> =C2=A0
+> =C2=A0	dce_v6_0_audio_set_mute(encoder, true);
+> =C2=A0	dce_v6_0_audio_write_speaker_allocation(encoder);
+> @@ -1748,8 +1750,10 @@ static void dce_v6_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0		dce_v6_0_audio_dp_enable(encoder, 1);
+> =C2=A0	}
+> =C2=A0
+> -	/* enable audio after setting up hw */
+> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced
+> on */
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool
+> enable)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> index c3906270f25e..eb1fcf0b39cc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -1523,9 +1523,11 @@ static void dce_v8_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0		bpc =3D amdgpu_crtc->bpc;
+> =C2=A0	}
+> =C2=A0
+> -	/* disable audio prior to setting up hw */
+> +	/* disable audio prior to setting up hw, unless the display
+> has no audio */
+> =C2=A0	dig->afmt->pin =3D dce_v8_0_audio_get_pin(adev);
+> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, false);
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
+> AMDGPU_AUDIO_ENABLE)
+> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, false);
+> =C2=A0
+> =C2=A0	dce_v8_0_audio_set_dto(encoder, mode->clock);
+> =C2=A0
+> @@ -1653,8 +1655,10 @@ static void dce_v8_0_afmt_setmode(struct
+> drm_encoder *encoder,
+> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+> =C2=A0
+> -	/* enable audio after setting up hw */
+> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it or is forced
+> on */
+> +	if (connector->display_info.has_audio ||
+> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
+> AMDGPU_AUDIO_ENABLE)
+> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool
+> enable)
