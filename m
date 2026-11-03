@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB76A606D2DB
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834F7606E6C3
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1YHc/Mt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8388qAE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE86F10F62B;
-	Tue,  3 Nov 2026 14:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADFFD10F62D;
+	Tue,  3 Nov 2026 14:48:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CEA710F62B
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:48:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E387310F62D
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:48:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E94064018B;
- Tue,  3 Nov 2026 14:48:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C941F000C1;
- Tue,  3 Nov 2026 14:48:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CACDD43EAF;
+ Tue,  3 Nov 2026 14:48:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50781F00A15;
+ Tue,  3 Nov 2026 14:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793717313;
- bh=Y+bptWnMsm9688ffvlZik5wuheu2AuAp4FHdf42AsHs=;
+ s=k20260515; t=1793717320;
+ bh=J+QUSKIVrA74rzAH7akStvTDUKp4zBmOX5t72t47ioY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I1YHc/MtZN8GDa7UIDwX7EZbAGqySvUQ9iJMmqHpFghXtS1a7u1snUSRoQZbPgotf
- rzTS20EjRbQSiraVWbKDq4ZCE++cNFCKRi5Aaifb5wigRVmBCmMaDT7YdKMsDB9tDI
- EKZhwJ8mtHIR7tJTtUGX8l08CJRlHDCymC+ysWL+tDYTrAJTPYswbt5itzEnPuNwmU
- 0VvXfu6Z2XZnOqblVvT6wHfP6+iohenxq+H4qRRnC04rlzIf4Onp6n05i56McAI+1Y
- TqDE/PH+7Hpp+X7zYzUT3YtEtnTjOTA8j+Z92u2V2zFKtu1xuQnbMQURmWoACjuOYC
- jjzKWAkws/G0g==
-Message-ID: <sashiko-outbox-195504@kernel.org>
+ b=Y8388qAEXoSoSnJ99ly3ntDqriooIcB6cnw6MNJ/yOOiH88LDGJTlMspoU5Ad11YT
+ z/mugIdWyVXdjyoUsWzGoJ0ywU/6brdvaRbfO/nyQj3gSY3dM7VjmNfptad7dz9akX
+ FyK7DM21XYX2hL3y2Nq3ILwqXoYqpAuC8nbTAsYSrp0wtMI4/hQUQ8qelVhhTr4jiu
+ 6XbsAJWj3Y6hOoR2Jdq4vWUlAg+Ce5I73KxXZdKxAeDXcW4bhWnfBuB/edbw4bSx8w
+ YxwXRR/8oOQWDl5xekw8uxGrq1ZsGNUbUeP2tIxr/xvQ2GhYLNIp2bMzDzxqa4EA3i
+ 8JZm2cjxnWDJA==
+Message-ID: <sashiko-outbox-195507@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 32/38] selftests/proc: check a sysctl listing while
- entries come and go
+Subject: Re: [PATCH RFC 35/38] proc: sysctl: don't hold the tables while
+ readdir copies to userspace
 To: "Christian Brauner" <brauner@kernel.org>
 Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  "Jann Horn" <jannh@google.com>, "Josef
@@ -56,12 +56,12 @@ Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
  Gordeev" <agordeev@linux.ibm.com>,
  "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-32-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-35-59422ed3e465@kernel.org>
 References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-32-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-35-59422ed3e465@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 14:48:31 +0000
+Date: Tue, 03 Nov 2026 14:48:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,170 +84,175 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] selftests/proc: missing prerequisite skips in sysctl_readdir_set=
-up()
-- [Low] selftests/proc: proc-sysctl-readdir-churn duplicates proc-readdir-c=
-hurn
+- [Medium] proc: sysctl: premature EOF and lost errors in proc_sys_readdir()
+- [Low] proc: sysctl: unused mode field in struct sysctl_dirent
 --
 
-commit 9b75f87bfb2fb1adbf5b6ac83f3bfdac725df7f5
+commit 35a95ac245f1b380541472c3423535528d1bbf7d
 Author: Christian Brauner <brauner@kernel.org>
 
-selftests/proc: check a sysctl listing while entries come and go
+proc: sysctl: don't hold the tables while readdir copies to userspace
 
-This commit adds a new kselftest binary, proc-sysctl-readdir-churn, to veri=
-fy
-that multi-call getdents64() listings of /proc/sys/net/ipv4/conf do not rep=
-eat
-or skip entries when a tun network device is registered or unregistered
-between calls.
+This commit changes proc_sys_readdir() to avoid taking sysctl tables into u=
+se
+during directory iteration, pinning only the header memory of the current
+entry while dropping sysctl_lock before instantiating dentries and copying
+entries to userspace.
 
-> diff --git a/tools/testing/selftests/proc/proc-sysctl-readdir-churn.c b/t=
-ools/testing/selftests/proc/proc-sysctl-readdir-churn.c
-> new file mode 100644
-> index 0000000000000..0e067a3619c44
-> --- /dev/null
-> +++ b/tools/testing/selftests/proc/proc-sysctl-readdir-churn.c
-> @@ -0,0 +1,147 @@
+> diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+> index a1242247f4929..0b7a1e487ed6c 100644
+> --- a/fs/proc/proc_sysctl.c
+> +++ b/fs/proc/proc_sysctl.c
 
 [ ... ]
 
-> +#define CONF_DIR	"/proc/sys/net/ipv4/conf"
-> +#define TUN_NAME	"a0"		/* sorts before "all" */
-> +#define TUN_PATH	CONF_DIR "/" TUN_NAME
-> +#define SMALL_BUF	80		/* ".", ".." and one short name */
-> +#define NAMES		64
-> +
-> +static int tun_open(const char *name)
-> +{
-> +	struct ifreq ifr =3D {};
-> +	int fd;
-> +
-> +	fd =3D open("/dev/net/tun", O_RDWR | O_CLOEXEC);
-> +	if (fd < 0)
-> +		return -1;
-> +	strncpy(ifr.ifr_name, name, IFNAMSIZ - 1);
-> +	ifr.ifr_flags =3D IFF_TUN | IFF_NO_PI;
-> +	if (ioctl(fd, TUNSETIFF, &ifr)) {
-> +		close(fd);
-> +		return -1;
-> +	}
-> +	return fd;
-> +}
-> +
-> +/* one getdents64() into @buf, the names appended to @names */
-> +static int list(int fd, char *buf, size_t size, char names[][NAME_MAX + =
-1],
-> +		int *n)
-> +{
-> +	long ret, off;
-> +	int got =3D 0;
-> +
-> +	ret =3D syscall(__NR_getdents64, fd, buf, size);
-> +	if (ret < 0)
-> +		return -errno;
-> +	for (off =3D 0; off < ret;) {
-> +		struct dirent64 *d =3D (void *)(buf + off);
-> +
-> +		if (*n < NAMES)
-> +			strcpy(names[(*n)++], d->d_name);
-> +		got++;
-> +		off +=3D d->d_reclen;
-> +	}
-> +	return got;
-> +}
-> +
-> +static int count(char names[][NAME_MAX + 1], int n, const char *name)
-> +{
-> +	int i, c =3D 0;
-> +
-> +	for (i =3D 0; i < n; i++)
-> +		if (!strcmp(names[i], name))
-> +			c++;
-> +	return c;
-> +}
-> +
-> +FIXTURE(sysctl_readdir) {
-> +	int dir;
-> +	int n;
-> +	char names[NAMES][NAME_MAX + 1];
-> +	char buf[65536];
+> @@ -367,86 +369,97 @@ static const struct ctl_table *lookup_entry(struct =
+ctl_table_header **phead,
+>  	return entry;
+>  }
+> =20
+> -static struct ctl_node *first_usable_entry(struct rb_node *node)
+> -{
+> -	struct ctl_node *ctl_node;
+> +/*
+> + * What readdir takes along for an entry between the trips through
+> + * sysctl_lock: the header pinned, which keeps its memory and nothing el=
+se,
+> + * the entry, its name and mode. For a link the header and entry are the
+> + * ones it stands for in the caller's set.
+> + */
+> +struct sysctl_dirent {
+> +	struct ctl_table_header *head;
+> +	const struct ctl_table *table;
+> +	struct ctl_node *node;		/* the entry's node in the directory, NULL for =
+a link */
+> +	ino_t ino;
+> +	unsigned int type;
+> +	umode_t mode;
+> +	bool skip;
+> +	int len;
+> +	char name[NAME_MAX + 1];
 > +};
 
+[ ... ]
+
+> @@ -454,15 +467,56 @@ static int entry_after(struct ctl_dir *dir, const c=
+har *name, int namelen,
+>  			node =3D node->rb_right;
+>  		}
+>  	}
+> -	ctl_node =3D first_usable_entry(after);
+> -	spin_unlock(&sysctl_lock);
+> -	if (ctl_node) {
+> -		head =3D ctl_node->header;
+> -		entry =3D &head->ctl_table[ctl_node - head->node];
+> +	ctl_node =3D first_live_entry(after);
+> +	if (!ctl_node)
+> +		goto out;
+> +	head =3D ctl_node->header;
+> +	entry =3D &head->ctl_table[ctl_node - head->node];
+> +
+> +	d->len =3D strlen(entry->procname);
+> +	if (d->len > NAME_MAX) {
+> +		ret =3D -ENAMETOOLONG;
+> +		goto out;
+>  	}
+> -	*phead =3D head;
+> -	*pentry =3D entry;
+> -	return 0;
+> +	memcpy(d->name, entry->procname, d->len);
+> +	d->mode =3D entry->mode;
+
 [Severity: Low]
-This isn't a bug, but tun_open(), list(), count(), the fixture state in
-FIXTURE(sysctl_readdir), and the register_in_front and unregister_in_front
-test flows in tools/testing/selftests/proc/proc-sysctl-readdir-churn.c
-duplicate the helpers, FIXTURE(proc_readdir), and the add_in_front and
-remove_in_front test cases in tools/testing/selftests/proc/proc-readdir-chu=
-rn.c,
-differing only in the target directory (/proc/sys/net/ipv4/conf vs
-/proc/net/dev_snmp6) and expected baseline entries (all, default, and lo vs
-lo).
+This isn't a bug, but is d->mode in struct sysctl_dirent needed?
 
-Could this be parameterized in proc-readdir-churn.c using FIXTURE_VARIANT a=
-nd
-FIXTURE_VARIANT_ADD instead of introducing a second standalone test file wi=
-th
-duplicated helpers and test logic?
+sysctl_dir_next() stores entry->mode into d->mode here, but neither
+proc_sys_fill_dirent() nor proc_sys_readdir() ever reads d->mode, as
+proc_sys_make_inode() reads table->mode under sysctl_lock and
+proc_sys_fill_dirent() derives d->type from inode->i_mode.
 
+[ ... ]
+
+> @@ -875,21 +891,30 @@ static int proc_sys_readdir(struct file *file, stru=
+ct dir_context *ctx)
+>  	 * seeking to an arbitrary position always did.
+>  	 */
+>  	if (cursor && cursor->pos =3D=3D ctx->pos) {
+> -		entry_after(ctl_dir, cursor->name, cursor->len, &h, &entry);
+> -		pos =3D ctx->pos;
+> +		err =3D sysctl_dir_next(ctl_dir, &d, cursor->name, cursor->len);
+>  	} else {
+> -		first_entry(ctl_dir, &h, &entry);
+> -		pos =3D 2;
+> -	}
+> +		loff_t pos =3D 2;
+> =20
+> -	for (; h; next_entry(&h, &entry)) {
+> -		if (!scan(h, entry, &pos, file, ctx)) {
+> -			sysctl_head_finish(h);
+> -			break;
+> +		err =3D sysctl_dir_next(ctl_dir, &d, NULL, 0);
+> +		while (err > 0 && pos++ < ctx->pos)
+> +			err =3D sysctl_dir_next(ctl_dir, &d, d.name, d.len);
+> +	}
+> +	if (err < 0)
+> +		return err;
 > +
-> +FIXTURE_SETUP(sysctl_readdir)
-> +{
-> +	if (unshare(CLONE_NEWNET))
-> +		SKIP(return, "unshare(CLONE_NEWNET): %s", strerror(errno));
-> +	if (access("/dev/net/tun", F_OK))
-> +		SKIP(return, "/dev/net/tun: %s", strerror(errno));
-> +	self->dir =3D open(CONF_DIR, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-> +	ASSERT_GE(self->dir, 0);
-> +	self->n =3D 0;
-> +}
-> +
-> +FIXTURE_TEARDOWN(sysctl_readdir)
-> +{
-> +	close(self->dir);
-> +}
-> +
-> +/* a device registered in front of the position doesn't repeat an entry =
-*/
-> +TEST_F(sysctl_readdir, register_in_front)
-> +{
-> +	int tun;
-> +
-> +	/* ".", ".." and "all", "default" doesn't fit */
-> +	ASSERT_EQ(list(self->dir, self->buf, SMALL_BUF, self->names, &self->n),=
- 3);
-> +	ASSERT_EQ(count(self->names, self->n, "all"), 1);
-> +
-> +	tun =3D tun_open(TUN_NAME);
-> +	ASSERT_GE(tun, 0);
+> +	while (err > 0) {
+> +		if (!d.skip) {
+> +			err =3D proc_sys_fill_dirent(file, &d);
+> +			if (err)
+> +				break;
+> +			if (!dir_emit(ctx, d.name, d.len, d.ino, d.type))
+> +				break;
+>  		}
+> +		ctx->pos++;
+> +		sysctl_cursor_set(file, d.name, d.len, ctx->pos);
+> +		err =3D sysctl_dir_next(ctl_dir, &d, d.name, d.len);
+>  	}
+> -out:
+> -	sysctl_head_finish(head);
+> +	sysctl_dir_done(&d);
+>  	return 0;
+>  }
 
 [Severity: Medium]
-In FIXTURE_SETUP(sysctl_readdir), opening CONF_DIR (/proc/sys/net/ipv4/conf)
-is checked with ASSERT_GE(self->dir, 0), whereas proc-readdir-churn.c skips
-when opening SNMP6_DIR fails:
+Can a concurrent unregister_sysctl_table() or error during the loop in
+proc_sys_readdir() cause premature EOF or drop error codes?
 
-tools/testing/selftests/proc/proc-readdir-churn.c:FIXTURE_SETUP(proc_readdi=
-r) {
-	...
-	self->dir =3D open(SNMP6_DIR, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-	if (self->dir < 0)
-		SKIP(return, SNMP6_DIR ": %s", strerror(errno));
-}
+Because sysctl_dir_next() only pins d->head->count via sysctl_pin() and does
+not increment d->head->used, a concurrent unregister_sysctl_table() does not
+wait in start_unregistering() and can set d->head->unregistering as soon as
+sysctl_dir_next() releases sysctl_lock.
 
-In addition, FIXTURE_SETUP(sysctl_readdir) only checks
-access("/dev/net/tun", F_OK). On systems where /dev/net/tun exists as a
-static device node (for example, created by udev or kmod static-nodes) while
-CONFIG_TUN is disabled, access("/dev/net/tun", F_OK) succeeds, but
-open("/dev/net/tun", ...) inside tun_open(TUN_NAME) fails with ENODEV or
-ENXIO and triggers ASSERT_GE(tun, 0) in register_in_front and
-unregister_in_front.
+When proc_sys_readdir() then calls proc_sys_fill_dirent() ->
+proc_sys_make_inode(), proc_sys_make_inode() checks head->unregistering und=
+er
+sysctl_lock:
 
-Since tools/testing/selftests/proc/config only enables CONFIG_PROC_FS=3Dy at
-this point, will running this test on a kernel without CONFIG_SYSCTL,
-CONFIG_INET, or CONFIG_TUN fail the test instead of skipping when those
-prerequisites are unavailable?
+    spin_lock(&sysctl_lock);
+    if (unlikely(head->unregistering)) {
+        spin_unlock(&sysctl_lock);
+        iput(inode);
+        return ERR_PTR(-ENOENT);
+    }
+
+proc_sys_fill_dirent() propagates this -ENOENT back to proc_sys_readdir(),
+which breaks out of the while (err > 0) loop and returns 0. If no entries
+have been emitted yet in the current getdents64() call (for example on a
+subsequent getdents64() call where ctx->pos >=3D 2), returning 0 causes
+getdents64() to report EOF to userspace and omit all remaining live entries
+in the directory.
+
+Similarly, if proc_sys_fill_dirent() fails with -ENOMEM, or if the in-loop
+sysctl_dir_next() call returns a negative error such as -ENOENT (when
+ctl_dir itself is unregistered after a skipped link) or -ENAMETOOLONG,
+proc_sys_readdir() still returns 0 instead of err.
+
+Should proc_sys_readdir() skip entries when proc_sys_fill_dirent() returns
+-ENOENT and continue to the next entry, and return a negative err at the end
+if failed before emitting?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-work-procf=
-s-bugfixes-v1-0-59422ed3e465@kernel.org?part=3D32
+s-bugfixes-v1-0-59422ed3e465@kernel.org?part=3D35
