@@ -2,52 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3872A606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 17:40:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0593E606A326
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 18:42:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M62yPZcP
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=cSmaCZUJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82DA910E072;
-	Tue,  3 Nov 2026 17:40:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2915010E44E
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 17:40:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 60BF660416;
- Tue,  3 Nov 2026 17:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23571F00A18;
- Tue,  3 Nov 2026 17:40:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793727618;
- bh=bglu3u7en283y3XVSrlLm6xOphhUHwmHGXBU+AfaEn8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=M62yPZcPFnRGyHQH5pb9F8GAecetpIbkhYIyEhi6RbaEGPDqQ/6UVN4Y8PDDbd8Kg
- xj9h9mxJN32Jj+eN/FxD76ZB8zwpHYphXnprBZcApdX/KLvuIcUkzNVwaBTij8f8g8
- R3aJNNuTTJX402tq20LbadATKTah/INAS367wlTqLuonj+bCzx3E2pYeClE6GemRLJ
- qalmWAHDfnONuY3Y0Lap61xLnPkf1PhRJ3CGOhy5SUSej+66Ym5jRmyqYR+RP7YFl+
- 1Cn2F/KcYDnW9067C9/zW/YqvfLnvVwFMd4L8io5xdcAPTSFmqsCKbVux7uWB6P0VB
- Nhcs9TEzl3g9g==
-Date: Tue, 03 Nov 2026 07:40:17 -1000
-Message-ID: <8f882fa5afd3d5504f01a6bb026b1554@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH v7 2/4] workqueue: Separate sysfs mutable vs immutable wq
- attribute sanitizing
-In-Reply-To: <ab160c52-1645-4ec9-9ea2-5b8bc36d9284@igalia.com>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-3-tvrtko.ursulin@igalia.com>
- <91711e517792f2e607258d75b633898e@kernel.org>
- <ab160c52-1645-4ec9-9ea2-5b8bc36d9284@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7104810E037;
+	Tue,  3 Nov 2026 18:42:19 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91D8E10E037
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 18:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=m6JbAA6AIoatTx3W2iR+oEUPKCoQ/RbwBBVTyBm0yuw=; b=cSmaCZUJTwdZ8a/fXUuh8MiQ72
+ SzuFjS73W79d6BBS6sifALhVglPqETWlxMI/8gJDUM/yPWV0jxmEyorSaoEBJVu/EzAkkNQC15V1O
+ oiZYGkbrH+yG7xWYie2tx1M51BLwaC+EeE8S1xJOZfwP9C2MJyQWX+TsA2EsjY9W52YU+oXVu0scc
+ jkKV/ys4KGs5Tnup2xTSTO+3Me0S6kl75zlJQ4VMWZUrP9qnoDtCK1QNkpVpJnksWVXJWpEzbVfIe
+ WtognEhyLI1go03/4DEBTiH6S6TGifoJiYJeeyt8Hi6wTOHUJXRLyjQ2MbeEmuJMEHXLGg36F5wNR
+ VNQzyGgA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xOJSV-00000003Sko-2Imn; Tue, 03 Nov 2026 18:42:11 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: patches@lists.linux.dev
+Cc: Randy Dunlap <rdunlap@infradead.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v4] drm/exec: drm_exec.h: eliminate kernel-doc warnings
+Date: Tue,  3 Nov 2026 10:42:02 -0800
+Message-ID: <20261103184205.2867179-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,21 +53,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello, Tvrtko.
+Repair kernel-doc comments to avoid kernel-doc warnings:
 
-On Mon, Nov 02, 2026 at 06:01:10PM +0000, Tvrtko Ursulin wrote:
-> Would these comments work:
+Warning: include/drm/drm_exec.h:149 No description found for return value of 'drm_exec_is_contended'
+Warning: include/drm/drm_exec.h:162 function parameter '_exec' not described in 'drm_exec_retry'
+Warning: include/drm/drm_exec.h:162 Excess function parameter 'exec' description in 'drm_exec_retry' (did you mean one of: '_exec')
 
-Yes, those work.
+Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+v2: rebase & resend
+v3: rebase & resend
+v4: rebase & resend
 
-Thanks.
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
 
---
-tejun
+ include/drm/drm_exec.h |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- linux-next-20261102.orig/include/drm/drm_exec.h
++++ linux-next-20261102/include/drm/drm_exec.h
+@@ -143,7 +143,7 @@ drm_exec_retry: __maybe_unused;						\
+  * drm_exec_is_contended - check for contention
+  * @exec: drm_exec object
+  *
+- * Returns true if the drm_exec object has run into some contention while
++ * Returns: true if the drm_exec object has run into some contention while
+  * locking a GEM object and needs to clean up.
+  */
+ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+@@ -153,7 +153,7 @@ static inline bool drm_exec_is_contended
+ 
+ /**
+  * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
+- * @exec: drm_exec object
++ * @_exec: drm_exec object
+  *
+  * Unconditionally retry the loop to lock all objects. For consistency,
+  * the exec object needs to be newly initialized.
