@@ -2,89 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F382606A327
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9992606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fxV13nCd
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NFITT5d5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E4D10E807;
-	Tue,  3 Nov 2026 14:25:04 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCEB310E807
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:24:57 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-6b2237b596cso3502742a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 06:24:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3D3210F5F3;
+	Tue,  3 Nov 2026 14:30:52 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D6110F5E3
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:30:47 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-36bd3dd31a6so73890eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 06:30:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793716246; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rCspBySxXWbr7dRSDsAdu1k+e/9kS0KziwGU4Een+Rbc1VmICkB89aI6/YwBoPD0j0
+ TRmtXCmNhGbyR+ZFpT7g5LxALIxYr6vm+osGvcSky2JWp4l3P8Ojo3LD3DSBwFVV7nL3
+ /UJqOF/iRG4WhjI32EfXsBZPw4d5Kt3hIWWQlJn7rzWCIAe6z1XhPUpVIkyOlo6N9MJm
+ WtbQ7Or5aOvFcXtYlBRksIpO/+z4BVH4Oyb92Rfyq4IgI3g7uQXI668GDbS20TtdwghO
+ xvijvpmiytnX2910GTsoRiWtu1Vww1L/pxRhDWTPiZZTpwy2d+ecXhv3TMKj4o503LEc
+ VCbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
+ fh=aW6ueGPzVv+8zr1BZ54SdUeBGodUEWLaTktNESzIVhA=;
+ b=YQ7lPhY+4N4CsrOWKS9In+hYaN8V81Z8lTTaJTQ9hCS5ISVzKzW40CbzDYpfLFlU8/
+ qD+/GInvSuR0VfZ+ypM4105tf/tXIKSgOmhOJguKKK4msMnj2gOdJZsIsFirHiS8Hk5d
+ KkI238UZOK4hsLKFbZaY63s+kNRx1TjiZHcTgWZqtCQyhHa7SUz2TtWbczGEtBgS7lNq
+ GUm+aeaPV29kO1e1PXFBnPlkCDXr63fMm31+4pPwJ8J/hiGqROebyqaLYoKH6ylWiV3z
+ 2p8y7bqkeIf8Lw0eT3um2dCaryCgXlaShZK0IjShqJYaz1OSkSD5DJti15L0qJEBzGPG
+ HSmQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793715896; x=1794320696; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
- b=fxV13nCdYkrNwylEFH55zBcf9ZvIO2Urtf0gwQbB3DBLnWrLAdPT/rezknoXkIUMmr
- fg2yWhBvGwYENu+cKpE3NylfUQoudgak3j+sBa0GvBl+5Gr4ngPy1JEPL7g5mI4/FhLj
- sYsPgETU3Ar2wTXwkg0U68G/xh8pTwJPbn1zNEAQI1j4J/jfnZOGvg41t3sEa12i4lr2
- rTFVYket77/E3WG+8hFHYZlR1Srhxog+zEU3vu+ZA148CWp0RvxTgQzQfpexfpUs3zBQ
- BlmSbu03tBh40pYropQOKhMmPG+fMhHRhK1ko4bmOf+eW7VatKQ5YxQsx2hXOOHR3kif
- TRAQ==
+ d=gmail.com; s=20260707; t=1793716246; x=1794321046; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
+ b=NFITT5d5DfgrMMdtdmPlq335LGIMtC/4PSZHttnrb4QT9/6QSXFP2/I/q2z0EP5Fqo
+ +IlIUJLGtBfEq81QV/dcPwZDg83fJDxEETuSk3lY/qpQO+Bq20dZ0k9kXpTCrrNBjOTP
+ XF3yQ5X8rQlf2TP3c/ZBGh3PYz0dhAsaHf6oPe1LtCDkMpF13d5vPv+9+eH//RakaQlp
+ yFAYAUwUOCyCZDL//qgcVjnE9nKuV0pOkgweqRmBEGudVqzLjLkJmfuoXticoOUqO9m+
+ oxc2Q5K8pLYY3m4Tk5s1e4pVLb2r5Aj4NL8zeK5GMUmuDuzbdWJQtLindgEXbeaI4Qas
+ SG9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793715896; x=1794320696;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
- b=Md8wXLjUhe+SzKzp9NZ4lgGUTzUl2SbdcPNJLp/TFqxI6H91fVip8VjZqenwF81NBd
- tqM0PNz+mPEtl36eyiGu6Hh2FisNEPhg7yFmSKLm+NBu8stbUNWpr/UdKSS81/ASz9Pz
- IGseRxq2GVdS/vypXtmMfPdqRKu4+55IzwYIFI5b1fMW1ZteY4EJ4WczMCp1fJGh5ceb
- Cvq1VFZE8FMsnzBBs/E/RMBh0IubXd4lRLaRLenObJB5NdaN/yTv55OOtV3GSYJQq0RU
- pHJlnCTC/Bh9Fb9xPjpZ6RGEfahYG9vrkRoub/QSl4F847lSYDC5aGDIqIZb5TpqVy2C
- EQEA==
-X-Gm-Message-State: APuU4Z8KjQJpznXynTQ2xI9gyQLy60Km8dpZ3C+GJk8y9HEXWA4txKTB
- CT/g+EDuOhGDf528XrfVjo4fAaja9FWg3JzobYfgBINLbUySt14qEao=
-X-Gm-Gg: AYBFou3AKv5RUBriNU2osGqg/WontMe7cu25WNXCerZOCbTYskMmxZs5P6nOepk7EuG
- PY7CXp3cMAdGDw58oiAGaHneuSBYYa3NPb5yGRNRsRfygSEN1RHxF8aeKkMI5d1AkmnV90pubJm
- V4kAwkMZouLhFe4dyNmWR7zwXlprgABbVjbGKF1yA2S7LNZdiEyaMF4+cKFnd/n5tgGAQs6sS3T
- 0JrSMswnNjvwFV2jA3u8uKBuO70CBwvDFYnKrvK7gSOJEMgwP+DpXr2IOz4zjzKq8O8Fz/064v2
- rL75p+yj6O16B/pUnNsMYiIVMRPqVtNkXW4LS2DRIrlAjnRT/ED2ItlAXMjHMy5mEQbnG2VehYd
- YoZq8+/2KnVDZ3++hi1u/zhNQ5UK+IRDk7cqVPAmiiaQ4zp88JHjx5TCrxHAT0nIWLpfwYnsxuD
- Q9d8gF2g8nhAt6RCFdFZ4KkGqs8UQPZVs8zRqI6YBOvLU/iZtZrdzNmr5HurHhiXMINp6iwI4AU
- VeiYQIfIXPRMm8jAhUrvx8h1s7RLXgWhJu44H2B1gNaaGhPqEx3P+6tmC3UIFuovyb79VBl5L6i
- cJLmUH9q6qaPn2QvwjUJvvz9PSds/wGcMCAMZ5FGErQaVlFgMwu9JBWZBUA+g56yzTkfMmgNU+D
- u2EPx+w39
-X-Received: by 2002:a17:906:7309:b0:c46:645f:cedd with SMTP id
- a640c23a62f3a-c4ca7a18e93mr1175687766b.8.1793715896002; 
- Tue, 03 Nov 2026 06:24:56 -0800 (PST)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
- ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cebf3cadbsm90903766b.50.2026.11.03.06.24.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Nov 2026 06:24:55 -0800 (PST)
-Message-ID: <d4b18854-0e02-4fce-b168-d4e80035aaa8@gmail.com>
-Date: Tue, 3 Nov 2026 15:24:53 +0100
+ d=1e100.net; s=20260707; t=1793716246; x=1794321046;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
+ b=OQs5WUHNJODIrtiR4YhLzNNcjpYIST6f9WV+ZPzAv/IncutQiQEz9moCeqtUEHyib+
+ 9z4z8s+wd0wgYye6Hm7ERjV/ibAnrm0oybB27jN1sUgUJtUjF87U0bESRWwrLbLuCaE2
+ 54m9awyeDzMDS2JxJKd4wuubYdL7b1jh7Wsh0rvaJd/pyAZHHjlhMHvl8FlHzYyFAAmF
+ YW2BbLF0Y5QYlsdY83rQC2yPoG9uMJ6foy/MzCltMlq6je3lNLsL01LOV++acg01lG6d
+ hUrBZw3l55H8ZyA81fXkn5rklG12gDK/26y8aJl+CYaJv2l0IOvU/hV2DVL9XCsdZctr
+ QvXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx1z3vFrJ/KkHKFO0aR+y+ojyws6xEvKlDhCiG3YbFIVhDimBTE8wGmRvWv6AgjofWi9Pxn0V4WZak=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8U6fL3jYQEaOykpabKIm/nUgomm9XMfX5ODhsD9IfmVBCYQGui
+ zZ+ggWK68fJfeKY2Wpc4TnpPRgJTdz1NKb6flIDTfFVfqEzP3bTega5BNWkAbACwAWo05Tr0wBs
+ 8bUkikeva+3BS5e+9DmLTWcEUEQXn0fVq7hT/
+X-Gm-Gg: AYBFou21Nf9tVNrkXMXfnfhkJ9e4AyM3BA0KEobkr5JdUJPQTLvtAeg6hykR8vuDXhl
+ bta9DqSEj1cuFrrqFP/x2uhtNZmdDH1a0SbyuMywhv6D0GRQiy/oEHO5zGEvbymdSZ2750C1Ige
+ wO/Oppv0IJqQq1OAuMDJfKKBmein/OOfD2Lit8pC29gkea+szbIXFHmCZVi3JAYOmPLxSmbuNu8
+ 3VH16DF8rwiYE/lYC0AqpsIVG0Cs/Yq5P+hohJlth83/VI9iTxjzV3w/u9tiTQ13DOx6cEBzU/X
+ 8w0JPowOXTz2vZdjQgtWAFnJ5A+DfvYqbqiMus3bJCWm9HD73mBDkWsAqEVrh+iRGIVNofvi+vg
+ J7qW861k0mw+XbngV5jepqGVv+Fwd2SSvYzYYsHRy/rjjBgSho7kzU75rPDL66Ea91/MkjSuPWy
+ VGSAArPOu6Mv8vrp2k0KZrAcU=
+X-Received: by 2002:a05:7022:eb46:10b0:14b:edb2:c3bc with SMTP id
+ a92af1059eb24-1ac4fd01362mr31568742c88.0.1793716245958; Tue, 03 Nov 2026
+ 06:30:45 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/msm/debugfs: Use cleanup.h for gpu state dump
-To: rob.clark@oss.qualcomm.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+References: <20260916144014.879355-1-ed@aicharmers.com>
+ <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+ <20261030123000.5573e70f@kait2en-mbp15-1>
+In-Reply-To: <20261030123000.5573e70f@kait2en-mbp15-1>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 3 Nov 2026 09:30:34 -0500
+X-Gm-Features: AclHuK_LxctmigwVoDcx69kjcX_YjAvRxU28VYR1bNj9rG5Y2V1BrN_dTiv7lGw
+Message-ID: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
+Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
- <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
- <a4151c32-bac2-40ec-86f3-59d4dbfaae62@oss.qualcomm.com>
- <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,94 +108,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/3/26 2:58 PM, Rob Clark wrote:
-> On Tue, Nov 3, 2026 at 3:28 AM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->> On 11/2/26 8:00 PM, Rob Clark wrote:
->>> We need to move the gpu lock around a bit for the next patch.  Use
->>> scoped_guard/etc so we don't have to make the error path handling more
->>> complicated.
->>>
->>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
->>> ---
->>>   drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
->>>   1 file changed, 12 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
->>> index f12701e286ec..aa59b28a3392 100644
->>> --- a/drivers/gpu/drm/msm/msm_debugfs.c
->>> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
->>> @@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
->>>        struct drm_device *dev = inode->i_private;
->>>        struct msm_drm_private *priv = dev->dev_private;
->>>        struct msm_gpu *gpu = priv->gpu;
->>> -     struct msm_gpu_show_priv *show_priv;
->>>        int ret;
->>>
->>>        if (!gpu || !gpu->funcs->gpu_state_get)
->>>                return -ENODEV;
->>>
->>> -     show_priv = kmalloc_obj(*show_priv);
->>> +     struct msm_gpu_show_priv *show_priv __free(kfree)
->>> +             = kmalloc_obj(*show_priv);
->>>        if (!show_priv)
->>>                return -ENOMEM;
->>>
->>> -     ret = mutex_lock_interruptible(&gpu->lock);
->>> -     if (ret)
->>> -             goto free_priv;
->>> -
->>> -     pm_runtime_get_sync(&gpu->pdev->dev);
->>> -     msm_gpu_hw_init(gpu);
->>> -     show_priv->state = gpu->funcs->gpu_state_get(gpu);
->>> -     pm_runtime_put_sync(&gpu->pdev->dev);
->>> -
->>> -     mutex_unlock(&gpu->lock);
->>> +     scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
->>> +             scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
->>> +                     msm_gpu_hw_init(gpu);
->>> +                     show_priv->state = gpu->funcs->gpu_state_get(gpu);
->>> +             }
->> My clanker tells me we can't grab the PM reference before a mutex,
->> as the recovery mechanism depends on the rpm count being appropriate
->> to let it drop it (and kill gx this way)
-> Yeah, but we also can't do it in the other order, or more specifically
-> disabling ifpc needs to come before gpu lock or it can deadlock with
-> recovery.. but ifpc disable needs to be after runpm get.
+On Fri, Oct 30, 2026 at 7:30=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
+ wrote:
 >
-> Re-working that ordering was the whole of introducing cleanup.h, to
-> avoid the error path with mutex_lock_interruptible() after taking
-> runpm
+> On Thu, 29 Oct 2026 17:57:49 -0400
+> Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> I guess if you are hammering on debugfs while crashing the gpu, maybe
-> the first recovery fails, and then a subsequent one eventually
-> succeeds.
-I guess it leads to a sort of deadlock scenario because the recovery 
-path waits
-for power to collapse, though it timeouts after one second.
-
-After that hangcheck will have to trigger again so I guess the delay 
-introduced
-would be significant.
-
-I really wish there was some better way of doing recovery that didn't 
-rely on
-the counbter having a known value.
-
+> > @Andre Eikmeyer I think this patch should fix your system as well.
 >
-> BR,
-> -R
+> Hi Alex,
+>
+> I guess you have seen it already but the patch doesn't match the 16,1.
+> Its boards are 7340/020f and 7340/0210, and v4 only matches 0218, 0219
+> and 021a.
+>
+> That hang is what I sent a fix for
+> https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
+>
+> The VBIOS trains the UMC p-states at different frequencies the pp-table
+> lists. The SMU hangs as soon as UCLK switches into level 2. Deferring
+> the UCLK enable doesn't change the levels, so the hang just moves from
+> boot to later under load.
+>
 
+It is the same issue.  I don't want two fixes for the same issue. I
+just sent an updated version of this patch expanded to cover more
+macs.
 
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Alex
 
+> The two patches can coexist after a trivial rebase.
+>
+> > ...your system...
+>
+> I need to clarify here. I actually don't own a 16,1. But I maintain a
+> distro (KaiT2en) that specializes on T2 Macs. So the patches I develop
+> are extensively tested by the community before submitting. Atharwa is
+> part of this community. Ed is not, but Atharwa reviewed and tested the
+> code.
+>
+> Best,
+> Andre
