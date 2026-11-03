@@ -2,74 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F8B606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0265C606A328
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=giIMkUbq
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ShNGHf4F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9DEC10E128;
-	Tue,  3 Nov 2026 15:53:59 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCA7610E128
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:53:53 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-36a18fc7a38so8240916eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:53:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36AFB10F6AB;
+	Tue,  3 Nov 2026 15:54:19 +0000 (UTC)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
+ [209.85.217.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3769310F6AC
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:54:13 +0000 (UTC)
+Received: by mail-vs1-f51.google.com with SMTP id
+ ada2fe7eead31-7be536cd40dso200624137.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:54:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793721252; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WK5got22uC8Lq45+amzqzc0vJe80h1Dn4GxjwOwLd9DxAu9z5GW4YDEk284GkuRX0v
+ CLCU0t2gjEoU5oxAVNX2fm2WpK/XRulcgbygJZOZomPC/OY3ch1EOkVUCltUEEIS7o3H
+ KPTOSIKlYGFmkG9lhI9GWp3wiPGSk8OVNlblkW3hSgqExEgo6kVxO0RGJjJzNIYfOPAZ
+ 5SXqqFrgziMTX02NPdxYcsvdLdoSP4og71o2CTTGRRFgiMLcbdPUr+ZUIdENSKBgih3v
+ rtFVw6Q886rmJL7XJ9gbWC3NZgQrGeQy/Ge5MnoxTv03OF/F3PqLFDyIjszsIgaQLBRa
+ Oj+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
+ fh=kCIufOIazEKLFbjaFOLNk4fWSW7MoUWjjxNUktSEyaI=;
+ b=hhBeVqwa/DHEWrxmsX3vKGjM22kkDIewE9o4Mzbfo1cNg7Zq2qH2UaLNe2MhZKv+NE
+ Qm1An0JK0F3V47RTPJxig22zk2MSqwUxKbm7urUa0WpKIZ1fU8zrawCUNGnguX9tkrxT
+ yR+JuWJ1HTY/f07gQYfGRdiveRZQxq29oz2XSolvV7uREs6GHKbKst9Jf7BgO3mHmtgK
+ p1HN6JjfsUydm2caOVWuL+Kme5DoVB3bir01zYfmhGJpDvKQfFfrVzuWA9TzXnxbEmOD
+ Lt+Ax2lXPb5sA+G2OI/oj37JYUCgCXElCCKKmjYEtSByIlb9W7fda9mHivX92k62Ik8m
+ p/oQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1793721233; x=1794326033; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=nEmxC+XMyeaIoNlwPc1SWvO2neh4TtG8l/JL7r+0TCM=;
- b=giIMkUbqM6gG7uRZS19JecEnHMpD3F2iDXI7bzQPfztLZpDCYw/Vdty72eaQe1dNiz
- 3rSrgkKt2xj6mTfn89mLofGwM1LkiG6hRay0X3SOhzxWZq/Feo5smQ1e4tmnMmQ80hby
- s9aUTmiKa6Hr/4A7a5SjZVg5yzD8MF51zqjnc=
+ d=gmail.com; s=20260707; t=1793721252; x=1794326052; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
+ b=ShNGHf4FwOaVWccUlqVifIk7hFxUSwqXwJtRf6H9Rfz5DFwC5tq7RQ5OHYse1yZgdE
+ OM7sfKlRN+8gFZIAIfRSnA4mfBZtOuy632HQ6aKB3r6a0R4iDGMAZ7oTxnVsaJ7tkS4r
+ f3JTx1olw1hrN1Z7q8A7JhxhdqRW/GuouLvUI+qkm16b7GV8l5htUvO3P9XC9M/jyu6P
+ xo5/Fzc+HmNN2ZpU+17HpZXdd66o9PjkfnF3VIWz/A2kTdLh+ipspNU+ewdsFvoZeT4x
+ xx5zRfL09RUXTMVF2hRpX+fNiUg+TCApNqttsn+Urp0UoACc+1C2TUtcMljAS7+gpb8D
+ tZGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721233; x=1794326033;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nEmxC+XMyeaIoNlwPc1SWvO2neh4TtG8l/JL7r+0TCM=;
- b=FJyamFoRnCNhof/iTDkhz6hJztdXFLqJ9u/KZHj5VumBEa6pcV6NVElwNoRQi3n5UL
- 0QUkaLqG24muQnopTwiBV/BccFPEGZiOHjmUFsGbwfblfAOyvYS955PNpYsaxPbhwTI/
- KagZ2CCmMo1WDnLtZM0wCB7/9ymiXgAz83crdy9J8UaXAOCWZK7Dv3Zh6O+a1jVytf46
- O8EHtwaJ6Vljr6GjxtCfWeAhn51VqDvA41qeWaT9gKVpgMo4yh6wb6Df5jnQ4gTl2uDC
- UT2ACdb55GSLJlzPAS+gALZ5Siua/qUsof2OmGZFWNzPqcVuc6dglylGfi99fuU0DrSc
- 6UgQ==
+ d=1e100.net; s=20260707; t=1793721252; x=1794326052;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
+ b=HAf3c37h38/uFYGhphR27fnShU9/VbVOhMi0OlLDrPR041zd4XXqWwBCZ7tZ1XWgWC
+ mynQs9pQsX5dgTJiVjP1BeoZHyaQ59BUW0ypdPxue0/Sjws0fiIhmTeJjFoL3U87mHtd
+ cuZCj/WmK/fJt2/wTtyRBVRq3cg4jyhWFpyTslRn7al9htr6Trs0uCnGr0PX/m8ZWHmY
+ vlu4n8TJh+tfS1jXV6/XpZQfDZjY9LNT0gb5BkIE0z3vnVI6PdmbTUQTEITLYNOSDe5O
+ x6VkAgvDS+WHZE637q5Ck37yh0yH2EjrUN6kj8NYq2JkJPWMRRghfGvtdPXDkr6+rVt+
+ GJ/A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx1//33GBdJD9JkIQ6d2CX/BTQc9xfC2fdCRNYLzhYAAiB99MqEsRgDsoGoWRnAe1Gi4xpf41LBDGE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+wc6RQTPsz9YYWkz2Fp5qh4LnRfL8Lw/1hXTXPLec4fWXHJZZB
- Jlj3PHNWY7Jk10eriCMW+yfeRWX9Xj2RWGkVuNuPwkl5J2P4OTK3WKmLkq36lt1QIY65pwNTFNN
- xMcMOn4A=
-X-Gm-Gg: AYBFou2DLCcKNPXQkWVlYmjjB6xAwUaX4Ij3KkYz1SQkT2ayZ3dPzZ6MYGCf/mhA6Pt
- oMu4tfHPNawdnngwZcc9AiB/VMFQwYVeSlHDG76QV36PTYaG7bCI43TiVwFdrda+UgXvm/2kdK3
- bk6pl9+/cnor5nmEuqqi9ScK1al4mK0OoEEMHREvwWYJUcw50h3OCbqQU/mWirEdvkF22OXLGp2
- OBYJolM2+CPtRFExR4+0WO7Dwly2ljs5tL576NafSme6WGp7JEgenpPzsv/xmVc1BzeacpkCCfl
- aI1aJlU9B5tIQ6Y+EH8JhI3AFQxEKKFns/JfTW/CCz2vxo3B562enMKonEmJ7GiOmjeYeLPKV1s
- JdWAoMB+kHqoNtw/dngRYCbXRbetXtIOKgimoYKjZrBMl96cqAfLmaWwxEwM1yfWZZN65+pVuiS
- 3IQnE7Gw/R80e5n6FQI8AeJLRcB0yKkd4DkHp3KVByqWrD1DwPQCC+IS5WnYWrBvvMVvMAw0+Dq
- e4oTDMVbPPd9G9XfO5I179iWHHiY+WqKcTyOwyJdH0qr/YDaAe1HAz1BKv71xglpmmL7p0cBEzt
- GauHv3HPQ5wxXglbN0s4cR7vBCv6e+rCx3ZEUh1Lp/PJ4fvCcK2X
-X-Received: by 2002:a05:7300:d0b0:b0:369:9eea:cd25 with SMTP id
- 5a478bee46e88-36a4235f6ddmr19919106eec.7.1793721232748; 
- Tue, 03 Nov 2026 07:53:52 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36c8d3277e3sm7092744eec.29.2026.11.03.07.53.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 07:53:52 -0800 (PST)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Gyeyoung Baek <gye976@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sidong Yang <sidong.yang@furiosa.ai>
-Subject: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
-Date: Wed,  4 Nov 2026 00:53:38 +0900
-Message-ID: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
+ AKwUvBw2sOGdZY03t5V/RWGUIduFavNNa8d+oe1L5NVc8LqiODnfFStM29L3djZPvBHZN4xvOvymYJiSm7Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/caohFCHguNwgzK0x0pca38aeIbd0cm1OY52w73N3pXLykuVq6
+ s435vkvonFcb/2gNCBO8r88ZR13VQrVLAg4rQvOBx/WmZQ0oS0wY/IiDmmMEVcibEaIJt8o+AQ3
+ kXSgQQmNBBKnQtKEIez0obw86CylnnKE=
+X-Gm-Gg: AYBFou0DEJFB6EVK8vtkDxysqUnG0oFqso6WZNG+FHo1LT1MpM3lY+EvtxSXGmfKLnX
+ vmPSKLCdp667hcgX+wMLlScAaz7av2Pj7RZ/JtS2gRCEqpzVbrbByULuD22xR0xjPJ0WjAizigt
+ VdaFeVC2Ms8YuL+WLDS9Ez68bTJI7eaUXzPUSjD/qgIMed3P+lTLE8m+zFdVAoS3hEumxRvcvQh
+ GA1o0xTtyD21dh6/dRp0JfCPF5nORdEkJP3ddR71gg5ob8DN+GCZ7ty0x6w2Q//1UwTfp135rZy
+ GmfzKDVZxS2RHS39bl7PGziSGfeb9lVKUu2spwkyAQZkWhA6T5yaG3Gm4Iyo4V4XLSHFLpoDyXj
+ muGWd6ZyYDI8d3nn94pSrNhRNMyZIkq+/S4uaKxGDWOK/vXOTpE05meOyJBo5ebHE9QGrbzeud/
+ VMqd3PPXfqV7sk9PNY9vIyyLc=
+X-Received: by 2002:a05:6102:6484:20b0:7ca:21e4:8e20 with SMTP id
+ ada2fe7eead31-7d072ba07b2mr5499484137.2.1793721252076; Tue, 03 Nov 2026
+ 07:54:12 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916144014.879355-1-ed@aicharmers.com>
+ <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+ <20261030123000.5573e70f@kait2en-mbp15-1>
+ <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+ <20261103162512.2ec834ac@kait2en-mbp15-1>
+In-Reply-To: <20261103162512.2ec834ac@kait2en-mbp15-1>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 3 Nov 2026 10:53:56 -0500
+X-Gm-Features: AclHuK8XgaXraLodmmVFuSHrr-OuzfGpqPbHuNNCdg5f56R66moLICOm5O2si5g
+Message-ID: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
+Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="0000000000000e8f73065f614643"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,336 +107,129 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There is no way to tell how much of the NPU a client uses. Implement the
-DRM usage stats: account the time each job occupies a core and report
-it per client as drm-engine-npu, along with drm_show_memory_stats() for
-the BOs.
+--0000000000000e8f73065f614643
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The cores are identical, so they are reported as a single engine with
-drm-engine-capacity-npu set to rdev->max_cores, the number of core
-slots. The time is summed over all cores, with an atomic counter as the
-cores complete jobs concurrently.
+On Tue, Nov 3, 2026 at 10:25=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
+ wrote:
+>
+> On Tue, 3 Nov 2026 09:30:34 -0500
+> Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> > It is the same issue.  I don't want two fixes for the same issue.
+>
+> Understandable, but it is not. Two devs told you the same
+> independently.
+> On another note I reviewed your patch. It only rejects empty or zero
+> levels. On the 16,1 the pptable levels (736/750 MHz) are non-zero.
+> Besides other issues in the code, the commit message says the exact
+> patch wasn't tested, yet v5 extends it to every Apple Navi 1x.
+> I am sorry but your patch is implausible to me.
 
-Jobs can outlive the file that submitted them, so the counter is
-refcounted and each job holds a reference. The time covers the whole
-period a job owns a core, so it also includes handling the completion
-interrupt and the gaps between the tasks of a multi-task job.
+I forgot to remove the pptable check.  Can you try a simplified
+version of the patch?  I think all you need to do is delay the UCLK
+DPM enablement until late_init.  Something like the attached patch.
 
-Document the keys in the rocket driver documentation.
+Alex
 
-Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
----
-v4: Report a single drm-engine-npu key with drm-engine-capacity-npu,
-    instead of drm-engine-npu0..2, as drm-usage-stats.rst specifies for
-    a group of identical engines, and document the keys (Tomeu Vizoso).
-    The subject no longer says per-core. Gyeyoung's tags are dropped as
-    the accounting changed.
+--0000000000000e8f73065f614643
+Content-Type: text/x-patch; charset="UTF-8"; 
+	name="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mw0vas0f0>
+X-Attachment-Id: f_mw0vas0f0
 
-    Still depends on commit 6eff1d69dae8 ("accel/rocket: search every
-    core slot when a core is removed") for rdev->max_cores.
-
-v3: Add a rocket_engine_usage_create() helper for the counter
-    allocation in rocket_open(), to pair with
-    rocket_engine_usage_destroy() (Gyeyoung Baek).
-
-v2: Size the per-core counters by rdev->max_cores, the number of core
-    slots, instead of the number of cores bound when the file is opened.
-    Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
-    it with KASAN.
-
-Link to v3: https://lore.kernel.org/all/20261103104804.1887489-1-sidong.yang@furiosa.ai/
-Link to v2: https://lore.kernel.org/all/20261101152723.1430312-1-sidong.yang@furiosa.ai/
-Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1-sidong.yang@furiosa.ai/
-
- Documentation/accel/rocket/index.rst  | 28 +++++++++++
- Documentation/gpu/drm-usage-stats.rst |  1 +
- drivers/accel/rocket/rocket_drv.c     | 70 ++++++++++++++++++++++++++-
- drivers/accel/rocket/rocket_drv.h     | 15 ++++++
- drivers/accel/rocket/rocket_job.c     |  7 +++
- drivers/accel/rocket/rocket_job.h     |  4 ++
- 6 files changed, 123 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/accel/rocket/index.rst b/Documentation/accel/rocket/index.rst
-index 70f97bccf100..53c9aa7e2229 100644
---- a/Documentation/accel/rocket/index.rst
-+++ b/Documentation/accel/rocket/index.rst
-@@ -17,3 +17,31 @@ project.
- Hardware currently supported:
- 
- * RK3588
-+
-+.. _rocket-usage-stats:
-+
-+Rocket DRM client usage stats implementation
-+============================================
-+
-+The accel/rocket driver implements the DRM client usage stats specification as
-+documented in :ref:`drm-client-usage-stats`.
-+
-+The NPU cores are reported as a single engine, npu, with a capacity equal to the
-+number of cores. The time is summed over all cores, and covers the whole period
-+a job occupies a core.
-+
-+Example of the output showing the implemented key value pairs:
-+
-+::
-+
-+        pos:	0
-+        flags:	02400002
-+        mnt_id:	33
-+        ino:	749
-+        drm-driver:	rocket
-+        drm-client-id:	246
-+        drm-engine-npu:	2296549300 ns
-+        drm-engine-capacity-npu:	3
-+        drm-total-memory:	24216 KiB
-+        drm-shared-memory:	0
-+        drm-active-memory:	1920 KiB
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 70b7cfcc194f..288764730d23 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -218,3 +218,4 @@ Driver specific implementations
- * :ref:`panthor-usage-stats`
- * :ref:`xe-usage-stats`
- * :ref:`amdxdna-usage-stats`
-+* :ref:`rocket-usage-stats`
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 2bcfe4ab3c68..e22e8623db64 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -3,8 +3,10 @@
- 
- #include <drm/drm_accel.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_print.h>
- #include <drm/rocket_accel.h>
- #include <linux/clk.h>
- #include <linux/err.h>
-@@ -68,6 +70,38 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
- 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
- }
- 
-+static struct rocket_engine_usage *
-+rocket_engine_usage_create(void)
-+{
-+	struct rocket_engine_usage *usage;
-+
-+	usage = kzalloc_obj(*usage);
-+	if (!usage)
-+		return NULL;
-+	kref_init(&usage->kref);
-+
-+	return usage;
-+}
-+
-+static void
-+rocket_engine_usage_destroy(struct kref *kref)
-+{
-+	kfree(container_of(kref, struct rocket_engine_usage, kref));
-+}
-+
-+struct rocket_engine_usage *
-+rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
-+{
-+	kref_get(&rocket_priv->engine_usage->kref);
-+	return rocket_priv->engine_usage;
-+}
-+
-+void
-+rocket_engine_usage_put(struct rocket_engine_usage *usage)
-+{
-+	kref_put(&usage->kref, rocket_engine_usage_destroy);
-+}
-+
- static int
- rocket_open(struct drm_device *dev, struct drm_file *file)
- {
-@@ -86,10 +120,17 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
- 	}
- 
- 	rocket_priv->rdev = rdev;
-+
-+	rocket_priv->engine_usage = rocket_engine_usage_create();
-+	if (!rocket_priv->engine_usage) {
-+		ret = -ENOMEM;
-+		goto err_free;
-+	}
-+
- 	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
- 	if (IS_ERR(rocket_priv->domain)) {
- 		ret = PTR_ERR(rocket_priv->domain);
--		goto err_free;
-+		goto err_put_engine_usage;
- 	}
- 
- 	file->driver_priv = rocket_priv;
-@@ -109,6 +150,8 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
- 	mutex_destroy(&rocket_priv->mm_lock);
- 	drm_mm_takedown(&rocket_priv->mm);
- 	rocket_iommu_domain_put(rocket_priv->domain);
-+err_put_engine_usage:
-+	rocket_engine_usage_put(rocket_priv->engine_usage);
- err_free:
- 	kfree(rocket_priv);
- err_put_mod:
-@@ -125,6 +168,7 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
- 	mutex_destroy(&rocket_priv->mm_lock);
- 	drm_mm_takedown(&rocket_priv->mm);
- 	rocket_iommu_domain_put(rocket_priv->domain);
-+	rocket_engine_usage_put(rocket_priv->engine_usage);
- 	kfree(rocket_priv);
- 	module_put(THIS_MODULE);
- }
-@@ -139,7 +183,28 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
- 	ROCKET_IOCTL(FINI_BO, fini_bo),
- };
- 
--DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-+static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+{
-+	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
-+	struct rocket_file_priv *rocket_priv = file->driver_priv;
-+
-+	/*
-+	 * This is an estimate: the time is taken around the whole period a job
-+	 * occupies a core, so it also covers handling the completion interrupt
-+	 * and, for a job made of several tasks, the gaps between them.
-+	 */
-+	drm_printf(p, "drm-engine-npu:\t%lld ns\n",
-+		   atomic64_read(&rocket_priv->engine_usage->elapsed_ns));
-+	drm_printf(p, "drm-engine-capacity-npu:\t%u\n", rdev->max_cores);
-+
-+	drm_show_memory_stats(p, file);
-+}
-+
-+static const struct file_operations rocket_accel_driver_fops = {
-+	.owner = THIS_MODULE,
-+	DRM_ACCEL_FOPS,
-+	.show_fdinfo = drm_show_fdinfo,
-+};
- 
- /*
-  * Rocket driver version:
-@@ -150,6 +215,7 @@ static const struct drm_driver rocket_drm_driver = {
- 	.open			= rocket_open,
- 	.postclose		= rocket_postclose,
- 	.gem_create_object	= rocket_gem_create_object,
-+	.show_fdinfo		= rocket_show_fdinfo,
- 	.ioctls			= rocket_drm_driver_ioctls,
- 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
- 	.fops			= &rocket_accel_driver_fops,
-diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
-index 2c673bb99ccc..495d8b4a4d43 100644
---- a/drivers/accel/rocket/rocket_drv.h
-+++ b/drivers/accel/rocket/rocket_drv.h
-@@ -16,6 +16,16 @@ struct rocket_iommu_domain {
- 	struct kref kref;
- };
- 
-+/*
-+ * Time the cores have spent running a client's jobs, in nanoseconds, summed over
-+ * all cores. Jobs hold a reference, as they can outlive the file that submitted
-+ * them.
-+ */
-+struct rocket_engine_usage {
-+	struct kref kref;
-+	atomic64_t elapsed_ns;
-+};
-+
- struct rocket_file_priv {
- 	struct rocket_device *rdev;
- 
-@@ -24,9 +34,14 @@ struct rocket_file_priv {
- 	struct mutex mm_lock;
- 
- 	struct drm_sched_entity sched_entity;
-+
-+	struct rocket_engine_usage *engine_usage;
- };
- 
- struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv);
- void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
- 
-+struct rocket_engine_usage *rocket_engine_usage_get(struct rocket_file_priv *rocket_priv);
-+void rocket_engine_usage_put(struct rocket_engine_usage *usage);
-+
- #endif
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ce994748dd5d..e613fae133e4 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -13,6 +13,7 @@
- #include <linux/iommu.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/sched/clock.h>
- 
- #include "rocket_core.h"
- #include "rocket_device.h"
-@@ -265,6 +266,7 @@ static void rocket_job_cleanup(struct kref *ref)
- 	unsigned int i;
- 
- 	rocket_iommu_domain_put(job->domain);
-+	rocket_engine_usage_put(job->engine_usage);
- 
- 	dma_fence_put(job->done_fence);
- 	dma_fence_put(job->inference_done_fence);
-@@ -351,6 +353,7 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
- 
- 	scoped_guard(mutex, &core->job_lock) {
- 		core->in_flight_job = job;
-+		job->start_ns = local_clock();
- 		rocket_job_hw_submit(core, job);
- 	}
- 
-@@ -379,6 +382,9 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 				return;
- 			}
- 
-+			atomic64_add(local_clock() - core->in_flight_job->start_ns,
-+				     &core->in_flight_job->engine_usage->elapsed_ns);
-+
- 			iommu_detach_group(NULL, iommu_group_get(core->dev));
- 			dma_fence_signal(core->in_flight_job->done_fence);
- 			pm_runtime_put_autosuspend(core->dev);
-@@ -587,6 +593,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 
- 	rjob->rdev = rdev;
- 	rjob->domain = rocket_iommu_domain_get(file_priv);
-+	rjob->engine_usage = rocket_engine_usage_get(file_priv);
- 
- 	ret = drm_sched_job_init(&rjob->base,
- 				 &file_priv->sched_entity,
-diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
-index 4ae00feec3b9..14aa78aebc99 100644
---- a/drivers/accel/rocket/rocket_job.h
-+++ b/drivers/accel/rocket/rocket_job.h
-@@ -38,6 +38,10 @@ struct rocket_job {
- 
- 	struct rocket_iommu_domain *domain;
- 
-+	/* When the job was handed to a core, and where to account the time */
-+	u64 start_ns;
-+	struct rocket_engine_usage *engine_usage;
-+
- 	struct kref refcount;
- };
- 
-
-base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
-prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
--- 
-2.53.0
-
+RnJvbSAwY2Y4YzUwMTA4NzVhMmNmMjU3NGJlMmJmYjY5MGZkODVhMGRhNzQ4IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBdGhhcnZhIFRpd2FyaSA8YXRoYXJ2YXRpd2FyaWxpbnV4ZGV2
+QGdtYWlsLmNvbT4KRGF0ZTogV2VkLCAxNiBTZXAgMjAyNiAxNDo0MDoxNCArMDAwMApTdWJqZWN0
+OiBbUEFUQ0hdIGRybS9hbWQvcG06IGRlZmVyIFVDTEsgRFBNIG9uIHNlbGVjdGVkIEFwcGxlIE5h
+dmkgR1BVcwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJz
+ZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJpdAoKQXBwbGUgTmF2aSBHUFVz
+IGludGVybWl0dGVudGx5IHRpbWUgb3V0IGR1cmluZyBTTVUgaW5pdGlhbGl6YXRpb24Kd2hlbiBF
+bmFibGVBbGxTbXVGZWF0dXJlcyBpbmNsdWRlcyBVQ0xLIERQTS4gTGVhdmUgVUNMSyBvdXQgb2Yg
+dGhhdCBlYXJseQpyZXF1ZXN0IGFuZCBlbmFibGUgaXQgZnJvbSBOYXZpIHBvc3QtaW5pdCwgYWZ0
+ZXIgZGlzcGxheSBoYXJkd2FyZSBpbml0CmFuZCBiZWZvcmUgdGhlIFVNQyB3b3JrYXJvdW5kIGFu
+ZCBVTUQgY2xvY2sgc2V0dXAuCgpSZWFkIGJhY2sgdGhlIGVuYWJsZWQgZmVhdHVyZXMgYmVmb3Jl
+IHJlYnVpbGRpbmcgdGhlIG1lbW9yeSBjbG9jayB0YWJsZQphbmQgc3VzdGFpbmFibGUgY2xvY2sg
+bGltaXRzLiBBbHNvIGNoZWNrIHRoZSBQUFQgbWVtb3J5IHN0YXRlcyB1c2VkIGJ5CmRpc3BsYXkg
+aW5pdGlhbGl6YXRpb24gYmVmb3JlIGxhdGUgZW5hYmxlbWVudC4gS2VlcCBtZW1vcnktdm9sdGFn
+ZSBEUE0KYW5kIHJlc3BlY3QgdGhlIHVzZXIncyBtZW1vcnktRFBNIHNldHRpbmcgYW5kIHRoZSBz
+ZWN1cmUgTmF2aSAxMCBleGNsdXNpb24uCgpUaGlzIGJ1aWxkcyBvbiBBdGhhcnZhIFRpd2FyaSdz
+IHN1Ym1pdHRlZCAwMjE5IGRlbGF5ZWQtVUNMSyBwYXRjaAphbmQgR3VuYSdzIGRpYWdub3Npcy4g
+RWQgU2Nob2ZpZWxkIG1vdmVkIHRoZSBlbmFibGUgcG9pbnQgaW50byB0aGUKTmF2aSBjYWxsYmFj
+aywgYWRkZWQgc3RhdGUgdmFsaWRhdGlvbi4KSW5kZXBlbmRlbnQgdGVzdHMgb2YgdGhlIHJlbGF0
+ZWQgVDIgaW1wbGVtZW50YXRpb24gc3VwcG9ydCBpbXByb3ZlZCBib290CnJlbGlhYmlsaXR5IG9u
+IDAyMTkgYW5kIDAyMWE7IHRob3NlIGFyZSBub3QgdGVzdHMgb2YgdGhpcyBleGFjdCBBTUQgcGF0
+Y2guCgpMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbWQtZ2Z4LzIwMjYwODI0MTkwNDA5
+LjE3MjQtMS1hdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tLwpMaW5rOiBodHRwczovL2dp
+dGh1Yi5jb20vdDJsaW51eC9saW51eC10Mi1wYXRjaGVzL3B1bGwvNjEjaXNzdWVjb21tZW50LTU2
+Mzc5NzY0NjYKTGluazogaHR0cHM6Ly9naXRodWIuY29tL3QybGludXgvbGludXgtdDItcGF0Y2hl
+cy9wdWxsLzYxI2lzc3VlY29tbWVudC01NjQ1NjUyNzUyCkNsb3NlczogaHR0cHM6Ly9naXRsYWIu
+ZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQvLS93b3JrX2l0ZW1zLzYwMDUKQXNzaXN0ZWQtYnk6IENv
+ZGV4OkdQVC02CkNjOiBBbmRyw6kgRWlrbWV5ZXIgPGRldkBkZXEucm9ja3M+ClNpZ25lZC1vZmYt
+Ynk6IEF0aGFydmEgVGl3YXJpIDxhdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tPgpDby1k
+ZXZlbG9wZWQtYnk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYt
+Ynk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
+RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiAuLi4vZ3B1L2RybS9hbWQv
+cG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jICAgfCA1NCArKysrKysrKysrKysrKysrKysrCiAx
+IGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wbS9zd3NtdS9zbXUxMS9uYXZpMTBfcHB0LmMKaW5kZXggMmQwNTA4ODYxOWY2ZC4uNjcyZDc0
+MGU3Mjg4MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9u
+YXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9uYXZp
+MTBfcHB0LmMKQEAgLTYwLDYgKzYwLDI1IEBACiAKIHN0YXRpYyBpbnQgbmF2aTEwX2luaXRfcHB0
+X2xpbWl0cyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7CiAKK3N0YXRpYyBib29sIGlzX2FzaWNf
+c2VjdXJlKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsKKworc3RhdGljIGJvb2wgbmF2aTEwX2Fw
+cGxlX25lZWRzX2xhdGVfdWNsayhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKK3sKKwlzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsKKwlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9
+IGFkZXYtPnBkZXY7CisKKwlpZiAoIShhZGV2LT5wbS5wcF9mZWF0dXJlICYgUFBfTUNMS19EUE1f
+TUFTSykpCisJCXJldHVybiBmYWxzZTsKKworCS8qIFByZXNlcnZlIHRoZSBleGlzdGluZyBzZWN1
+cmUgTmF2aSAxMCBtZW1vcnktRFBNIGV4Y2x1c2lvbi4gKi8KKwlpZiAoaXNfYXNpY19zZWN1cmUo
+c211KSAmJgorCSAgICBhbWRncHVfaXBfdmVyc2lvbihhZGV2LCBNUDFfSFdJUCwgMCkgPT0gSVBf
+VkVSU0lPTigxMSwgMCwgMCkgJiYKKwkgICAgYWRldi0+cmV2X2lkID09IDApCisJCXJldHVybiBm
+YWxzZTsKKworCXJldHVybiBwZGV2LT5zdWJzeXN0ZW1fdmVuZG9yID09IFBDSV9WRU5ET1JfSURf
+QVBQTEU7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X2ZlYXR1cmVfYml0cyBuYXZpMTBf
+ZHBtX2ZlYXR1cmVzID0gewogCS5iaXRzID0gewogCQlTTVVfRkVBVFVSRV9CSVRfSU5JVChGRUFU
+VVJFX0RQTV9QUkVGRVRDSEVSX0JJVCksCkBAIC0zNTYsNiArMzc1LDExIEBAIG5hdmkxMF9pbml0
+X2FsbG93ZWRfZmVhdHVyZXMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCXNtdV9mZWF0dXJl
+X2xpc3Rfc2V0X2JpdChzbXUsIFNNVV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwgRkVBVFVSRV9NRU1f
+TVZERF9TQ0FMSU5HX0JJVCk7CiAJfQogCisJLyogRGVmZXIgVUNMSyBvbiB0aGUgc2VsZWN0ZWQg
+QXBwbGUgYm9hcmRzIHVudGlsIElQIGxhdGUgaW5pdC4gKi8KKwlpZiAobmF2aTEwX2FwcGxlX25l
+ZWRzX2xhdGVfdWNsayhzbXUpKQorCQlzbXVfZmVhdHVyZV9saXN0X2NsZWFyX2JpdChzbXUsIFNN
+VV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwKKwkJCQkJICAgRkVBVFVSRV9EUE1fVUNMS19CSVQpOwor
+CiAJaWYgKGlzX2FzaWNfc2VjdXJlKHNtdSkgJiYKIAkgICAgKGFtZGdwdV9pcF92ZXJzaW9uKGFk
+ZXYsIE1QMV9IV0lQLCAwKSA9PSBJUF9WRVJTSU9OKDExLCAwLCAwKSkgJiYKIAkgICAgKGFkZXYt
+PnJldl9pZCA9PSAwKSkKQEAgLTMyMTksNiArMzI0MywzMCBAQCBzdGF0aWMgaW50IG5hdmkxMF9l
+bmFibGVfbWdwdV9mYW5fYm9vc3Qoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCQkJCSAgICAg
+ICBOVUxMKTsKIH0KIAorLyogSVAgbGF0ZSBpbml0IGZvbGxvd3MgZGlzcGxheSBod19pbml0OyBy
+ZWZyZXNoIGNsb2NrcyBiZWZvcmUgVU1DL1VNRCBzZXR1cC4gKi8KK3N0YXRpYyBpbnQgbmF2aTEw
+X2FwcGxlX2xhdGVfdWNsa19lbmFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCit7CisJc3Ry
+dWN0IHNtdV9mZWF0dXJlX2JpdHMgZW5hYmxlZDsKKwlpbnQgcmV0OworCisJaWYgKCFuYXZpMTBf
+YXBwbGVfbmVlZHNfbGF0ZV91Y2xrKHNtdSkpCisJCXJldHVybiAwOworCisJcmV0ID0gc211X2Nt
+bl9mZWF0dXJlX3NldF9lbmFibGVkKHNtdSwgU01VX0ZFQVRVUkVfRFBNX1VDTEtfQklULCB0cnVl
+KTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCXJldCA9IHNtdV9jbW5fZ2V0X2VuYWJsZWRf
+bWFzayhzbXUsICZlbmFibGVkKTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCWlmICghc211
+X2ZlYXR1cmVfYml0c19pc19zZXQoJmVuYWJsZWQsIEZFQVRVUkVfRFBNX1VDTEtfQklUKSkKKwkJ
+cmV0dXJuIC1FSU87CisKKwlzbXVfZmVhdHVyZV9saXN0X3NldF9iaXQoc211LCBTTVVfRkVBVFVS
+RV9MSVNUX1NVUFBPUlRFRCwKKwkJCQkgRkVBVFVSRV9EUE1fVUNMS19CSVQpOworCisJcmV0dXJu
+IDA7Cit9CisKIHN0YXRpYyBpbnQgbmF2aTEwX3Bvc3Rfc211X2luaXQoc3RydWN0IHNtdV9jb250
+ZXh0ICpzbXUpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7CkBA
+IC0zMjI3LDYgKzMyNzUsMTIgQEAgc3RhdGljIGludCBuYXZpMTBfcG9zdF9zbXVfaW5pdChzdHJ1
+Y3Qgc211X2NvbnRleHQgKnNtdSkKIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQogCQlyZXR1
+cm4gMDsKIAorCXJldCA9IG5hdmkxMF9hcHBsZV9sYXRlX3VjbGtfZW5hYmxlKHNtdSk7CisJaWYg
+KHJldCkgeworCQlkZXZfZXJyKGFkZXYtPmRldiwgIkZhaWxlZCB0byBlbmFibGUgbGF0ZSBVQ0xL
+IERQTTogJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7CisJfQorCiAJcmV0ID0gbmF2aTEwX3J1
+bl91bWNfY2RyX3dvcmthcm91bmQoc211KTsKIAlpZiAocmV0KQogCQlkZXZfZXJyKGFkZXYtPmRl
+diwgIkZhaWxlZCB0byBhcHBseSB1bWMgY2RyIHdvcmthcm91bmQhXG4iKTsKLS0gCjIuNTYuMAoK
+--0000000000000e8f73065f614643--
