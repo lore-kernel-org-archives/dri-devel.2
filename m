@@ -2,66 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E77606B262
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:19:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B22606D80E
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lt7kWY0w
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=vrCVlLh9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4072610F652;
-	Tue,  3 Nov 2026 15:19:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B4410F652
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:18:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BD644392A;
- Tue,  3 Nov 2026 15:18:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224A01F00A2C;
- Tue,  3 Nov 2026 15:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793719137;
- bh=pXYmXnE4YnSZAwVsghhJ8qwzD8WHMLT3acK3fEE1c5w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lt7kWY0w9ieExJiXhsRbswLZTk4I62Ut15H6kMqjEztfFu4VGWWEAsyq1h1RunGi7
- quYJ9gon1XZinTxL/vkjGOaRSh41+Spy89HkKrIkDLVlyQ2DPkr57UTA8uNv7ZJQPX
- Gkb+9Ork4a09lK3yz7JxXHSWqFcBarBUl6xpojcbcZ6LCj9+K0W6f0I8igzSlL1ee7
- HOzooULSEPo6yfs5dQxOzgo+Ck2+yelQJNljZ0d/RFz7CfzGvoYCRRMJGyc+UGPBSP
- xmtleTQuYNol2touf60/WN8WAXQ5Y7pfGj4AOYhP5EA7RtetswDsaHw6Wd78ymD48r
- 5m+hEjoe7SkUg==
-Message-ID: <sashiko-outbox-195594@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 14/23] scsi: esas2r: let procfs copy the ioctl
- argument of the ATTONode file
-To: "Christian Brauner" <brauner@kernel.org>
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Jann Horn" <jannh@google.com>, "Josef
- Bacik" <josef@toxicpanda.com>, "Chris Mason" <mason@kernel.org>, "Jeff
- Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Eric Dumazet" <edumazet@kernel.org>, "Thomas
- Gleixner" <tglx@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>, "Jonathan
- Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>, "Greg
- Kroah-Hartman" <gregkh@suse.de>, "Joel Granados" <joel.granados@kernel.org>,
- "Kees
- Cook" <kees@kernel.org>, "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
- kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, "Takashi
- Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, "Chuck
- Lever" <cel@kernel.org>, tytso@mit.edu, dmitry.torokhov@gmail.com, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Anna Schumaker" <anna@kernel.org>,
- yukuai@fygo.io, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261102-work-procfs-drivers-v1-14-a994bd4d3b1a@kernel.org>
-References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
- <20261102-work-procfs-drivers-v1-14-a994bd4d3b1a@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 15:18:54 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE19210F66B;
+	Tue,  3 Nov 2026 15:25:24 +0000 (UTC)
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
+ [91.216.248.207])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C0510F67A;
+ Tue,  3 Nov 2026 15:25:17 +0000 (UTC)
+Date: Tue, 3 Nov 2026 16:25:12 +0100
+X-Lima-ML-UUID: e4870b7e-9828-46f9-914d-9fb9ffacc200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1793719516;
+ bh=njPnq2aWT4E//QJrFHKeY7X8sbaPLa6DqsdOZFRP2uI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=vrCVlLh9oESE2yAVr+1ERF32JCpba+KbVd8efy0/Cg30jL8cMIUpayucO9eKKh+M9
+ nYFdn4aiuGgB+URDxB5ariF5wBYgBuoddSOX3T75yEvF6yKdf7leH+9w8fF2jNNN9p
+ lQ2//60uxIrjWL84hPU+HxhtOTey8D5y+HQtQjtRSS0bOLKVxa4K+mwzpOY27Y6NYu
+ XsdZYa7Ha2zpOpiiAy6EajgIi1HK3d/xIs5nAns5XrdUfzAlkKmtvZu3wHLIMcv/mr
+ Bxt613+RPQUB+E3uYhU7Pl2JkaqA2sU3Mc3NPLyKxUn/yVz1OL2Eko9yZk5xQttnj8
+ N9vwmZRAfoYDw==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, Kenneth
+ Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Message-ID: <20261103162512.2ec834ac@kait2en-mbp15-1>
+In-Reply-To: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+References: <20260916144014.879355-1-ed@aicharmers.com>
+ <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+ <20261030123000.5573e70f@kait2en-mbp15-1>
+ <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,78 +56,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] scsi: esas2r: split declaration and initialization of __free() vari=
-able in esas2r_ioctl_handler()
---
+On Tue, 3 Nov 2026 09:30:34 -0500
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-commit 0fd79b7040b09fc840e0499afbc88e68b34a3e18
-Author: Christian Brauner <brauner@kernel.org>
+> It is the same issue.  I don't want two fixes for the same issue.
 
-scsi: esas2r: let procfs copy the ioctl argument of the ATTONode file
+Understandable, but it is not. Two devs told you the same
+independently. 
+On another note I reviewed your patch. It only rejects empty or zero
+levels. On the 16,1 the pptable levels (736/750 MHz) are non-zero.
+Besides other issues in the code, the commit message says the exact
+patch wasn't tested, yet v5 extends it to every Apple Navi 1x.
+I am sorry but your patch is implausible to me.
 
-This commit factors the core logic of esas2r_ioctl_handler() into
-esas2r_ioctl_buf() operating on a kernel copy of struct atto_express_ioctl,
-and converts the procfs ATTONode file to use .proc_ioctl_buf and
-.proc_ioctl_args so procfs handles copying the ioctl buffer in and out.
-
-> diff --git a/drivers/scsi/esas2r/esas2r_ioctl.c b/drivers/scsi/esas2r/esa=
-s2r_ioctl.c
-> index f99318f61c934..eb39ba8263b31 100644
-> --- a/drivers/scsi/esas2r/esas2r_ioctl.c
-> +++ b/drivers/scsi/esas2r/esas2r_ioctl.c
-
-[ ... ]
-
-> @@ -1515,19 +1501,43 @@ int esas2r_ioctl_handler(void *hostdata, unsigned=
- int cmd, void __user *arg)
-> =20
->  	}
-> =20
-> +	return 0;
-> +}
-> +
-> +int esas2r_ioctl_handler(void *hostdata, unsigned int cmd, void __user *=
-arg)
-> +{
-> +	struct atto_express_ioctl *ioctl __free(kfree) =3D NULL;
-> +	int err;
-> +
-> +	esas2r_log(ESAS2R_LOG_DEBG, "ioctl (%p, %x, %p)", hostdata, cmd, arg);
-> +
-> +	if ((arg =3D=3D NULL)
-> +	    || (cmd < EXPRESS_IOCTL_MIN)
-> +	    || (cmd > EXPRESS_IOCTL_MAX))
-> +		return -ENOTSUPP;
-> +
-> +	ioctl =3D memdup_user(arg, sizeof(struct atto_express_ioctl));
-
-[Severity: Low]
-This isn't a bug, but in esas2r_ioctl_handler() in
-drivers/scsi/esas2r/esas2r_ioctl.c, ioctl is declared with __free(kfree) =3D
-NULL at the top of the function before the argument validation check and
-assigned later via memdup_user().
-
-Per the Cleanup API conventions, could the __free(kfree) variable definition
-and initialization be combined into a single statement at the point of
-allocation:
-
-	struct atto_express_ioctl *ioctl __free(kfree) =3D
-		memdup_user(arg, sizeof(struct atto_express_ioctl));
-
-after the early return check?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-work-procf=
-s-drivers-v1-0-a994bd4d3b1a@kernel.org?part=3D14
+Andre 
