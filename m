@@ -2,31 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF14606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFED606A326
 	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=e/28QZrj
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=nbXk/xck
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C2010E0D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D568810E875;
 	Wed,  4 Nov 2026 08:58:50 +0000 (UTC)
-X-Greylist: delayed 2862 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 15:21:53 UTC
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2064410F661
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:21:53 +0000 (UTC)
+X-Greylist: delayed 712 seconds by postgrey-1.36 at gabe;
+ Tue, 03 Nov 2026 14:46:01 UTC
+Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch
+ [79.135.106.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D77510F628
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:46:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1793719309; x=1793978509;
- bh=JoLc0tLRW6eAwNOg58s4xMBjrC0q7X6tzQl25fCbdZg=;
+ s=protonmail3; t=1793717156; x=1793976356;
+ bh=Y/W8sgknOe1isSMCBVbQa0yKLOZnnS++ptDkeWSy/v4=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=e/28QZrjOVQRoLqSTslqXIOvOiffP9NFF9pzkflb8rM6KNng9cu7YsTrP7Hmjmckx
- A8rniU86IInlwkzctFBhYYxblnhG1PeBhahyBspgcGZvcuc5rKFrMXo48ppMXt1QiI
- v6vHmZFOw8c5mvkVOrJlUOMXO1rhasrR3acwgsxzJawwuzYK8O00ALWaD2bTFgy2xA
- q1BPXK0/z2CU3w6oV/b8IPu9ofsaVA75HnTttUUQ6vqIcuI+MeeBFJMupFvtDdGImx
- TdaelalJ0ki7FaYssw2y8qnxvM0hHQe4AALXVKMzGDmcl2cFBe+tW4el2xHEErQkQm
- oSjZiklzPL24w==
-Date: Tue, 03 Nov 2026 15:21:45 +0000
+ b=nbXk/xckxNhHJNEZ+/CB7k6BzTxtoo6nsgRk0hqk+Ac+rOqSKGemxUxDvy7q0t0Yx
+ ZjFyVEYaCuhiD79oQPlkZ00N3zJp8OllInsqBjLqjwIxwQkNIG29V+rLStqKNBNQ9O
+ 3ikEtc5v306/kEtYQHQYcnvBuAi7b4xWC/AY0RVP+217EA2qhos/IG6ItKyNcZrQla
+ SOLup+pNeA4wXFJyUAuimBBtb3FtxJAzXXjuipNFWYwWIIWPPbRzMlr1/gORmqEfGo
+ xfDzt3lA6k8l979pU9q2wGZWd8MR5OL53So+FjvCLdnE10ptpxuSfi0KcjnJz0xQfk
+ joh16VIuiXauQ==
+Date: Tue, 03 Nov 2026 14:45:52 +0000
 To: Daniel Thompson <danielt@kernel.org>
 From: Roman Vivchar <rva333@protonmail.com>
 Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
@@ -35,16 +36,14 @@ Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
  Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <CmvbeteAqxtpenZUmJ4dqRvXYjjDzTTDevRB4NUlN0WGLOUk0jwzt2C3ZtuZ3Eb2UwBDEPUWpu9biU1OOhKGWQITolX96cFXolBTMgSyh1c=@protonmail.com>
-In-Reply-To: <aunyu4ToQ0T3b2Mj@aspen.lan>
+Subject: Re: [PATCH 2/2] backlight: add ktd3137 support
+Message-ID: <1IItRacxO3yGApfxlr9c4eyKqir8AGxFAmGYXWKDS_spX5pByW6JP0hxMqthOs7_8j0cOzthZYeTyu2wA1LAwNWDqsw0B_E-WExI1IjjmRM=@protonmail.com>
+In-Reply-To: <aunskqwg_CbpBL49@aspen.lan>
 References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
- <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
- <aunqGVkX7-Y61iDA@aspen.lan>
- <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
- <aunyu4ToQ0T3b2Mj@aspen.lan>
+ <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+ <aunskqwg_CbpBL49@aspen.lan>
 Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 2545d42f3fa76bf9b85c028d11f510898844a499
+X-Pm-Message-ID: 915c26afe2412af62bf2b0b808173180062f1df2
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -68,59 +67,108 @@ X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tuesday, November 3rd, 2026 at 4:42 PM, Daniel Thompson <danielt@kernel.=
+On Tuesday, November 3rd, 2026 at 4:15 PM, Daniel Thompson <danielt@kernel.=
 org> wrote:
 
-> On Tue, Nov 03, 2026 at 02:34:02PM +0000, Roman Vivchar wrote:
-> > Hi Daniel,
+> On Mon, Nov 02, 2026 at 09:58:49PM +0200, Roman Vivchar via B4 Relay wrot=
+e:
+> > From: Roman Vivchar <rva333@protonmail.com>
 > >
-> > On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@ker=
-nel.org> wrote:
-> > > On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay =
-wrote:
-> > > > +  led-max-microamp:
-> > > > +    minimum: 5000
-> > > > +    maximum: 29800
-> > > > +    default: 20200
-> > > > +
-> > > > +  vin-supply: true
-> > > > +
-> > > > +required:
-> > > > +  - compatible
-> > > > +  - reg
-> > > > +  - vin-supply
-> > >
-> > > Why is vin-supply required?
-> > >
-> >
-> > The chip cannot function without VIN power supply. Even if it's on the
-> > always-on power rail on certain board, there's always a chance it might=
- be
-> > accidentally left disabled on the other. It's better to document supply=
- in
-> > the bindings as far as I understand.
->
-> You haven't just documented the binding, you have also made the property
-> mandatory by adding it to required.
->
-> So what I am asking is why is this property listed as required. You
-> didn't implement the driver in a way that makes the supply mandatory.
+> > Add support for the KTD3137 display backlight IC. It's used in various
+> > Xiaomi phones, such as Xiaomi Redmi Note 9.
 
-Not sure I follow.
+...
 
-In the driver I've used devm_regulator_get_enable(), rather than _optional(=
-),
-since my understanding is that the non-optional helper is a standard kernel
-API for required supplies (with regulator core warning and fallback to dumm=
+> > +static int ktd3137_init(struct ktd3137 *ktd)
+> > +{
+> > +=09u32 val =3D KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
+> > +=09int ret;
+> > +
+> > +=09ret =3D regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
+>=20
+> Nitpicking but val seems a bit pointless here.
+
+Agreed.
+
+>=20
+>=20
+> > +=09if (ret)
+> > +=09=09return ret;
+> > +
+> > +=09ret =3D regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFA=
+ULT);
+> > +=09if (ret)
+> > +=09=09return ret;
+
+...
+
+> > +
+> > +=09props.type =3D BACKLIGHT_RAW;
+> > +=09props.max_brightness =3D KTD3137_MAX_BRIGHTNESS;
+> > +=09props.brightness =3D KTD3137_DEFAULT_BRIGHTNESS;
+>=20
+> No need for KTD3137_DEFAULT_BRIGHTNESS. Just use KTD3137_MAX_BRIGHTNESS.
+
+Ack.
+
+>=20
+>=20
+> > +=09props.scale =3D BACKLIGHT_SCALE_LINEAR;
+> > +=09device_property_read_u32(ktd->dev, "default-brightness", &props.bri=
+ghtness);
+> > +
+> > +=09backlight_dev =3D devm_backlight_device_register(ktd->dev,
+> > +=09=09=09=09=09=09       "ktd3137-backlight",
+> > +=09=09=09=09=09=09       ktd->dev, ktd,
+> > +=09=09=09=09=09=09       &ktd3137_backlight_ops,
+> > +=09=09=09=09=09=09       &props);
+> > +=09if (IS_ERR(backlight_dev))
+> > +=09=09return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
+> > +=09=09=09=09     "failed to register backlight device\n");
+>=20
+> dev_err_cast_probe()
+
+Didn't know about this one, thanks.
+
+>=20
+>=20
+> > +
+> > +=09i2c_set_clientdata(client, backlight_dev);
+> > +=09return backlight_update_status(backlight_dev);
+> > +}
+> > +
+> > +static void ktd3137_remove(struct i2c_client *client)
+> > +{
+> > +=09struct backlight_device *backlight_dev =3D i2c_get_clientdata(clien=
+t);
+> > +=09struct ktd3137 *ktd =3D bl_get_data(backlight_dev);
+> > +
+> > +=09backlight_dev->props.brightness =3D 0;
+> > +=09backlight_update_status(backlight_dev);
+> > +
+> > +=09gpiod_set_value_cansleep(ktd->enable_gpio, 0);
+>=20
+> Is this needed?
+
+The datasheet says "When HWEN is set high, ... if SCL/SDA=E2=80=99s pull up=
+ voltage
+is much less than VIN voltage, it can cause a small leakage current ...,
+there will be around 7uA additional leakage current from VIN in this standb=
 y
-regulator in case DT omits it).
+mode."
 
-Do you suggest dropping vin-supply from required: ? On my board it's connec=
-ted
-to an always-on supply, though I can't tell about others. I can proceed wit=
-h
-this if the DT maintainers are okay with that.
+It's better to put chip into shutdown mode, which won't cause power leakage
+according to the datasheet, and ensures that I2C registers will be reset in
+case chip needs to be cleanly re-initialized.
 
->
+All other comments will be addressed in v2.
+
+Best regards,
+Roman
+
+>=20
+> > +}
+>=20
+>=20
 > Daniel.
->
+> 
