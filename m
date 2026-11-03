@@ -2,92 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F04E606A32D
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:14:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304B46072C9E
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HwOJ4x/c
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apqUghqM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE83B10E7DF;
-	Tue,  3 Nov 2026 10:14:33 +0000 (UTC)
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
- [74.125.224.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34E7710E7DF
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:14:27 +0000 (UTC)
-Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-677af43eed4so2976159d50.0
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 02:14:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793700866; cv=none;
- d=google.com; s=arc-20260327;
- b=NuTZpyImMiZm7iYGBC3SeLaEDO0QgsumaoJ3te/fiD/S9+04FJyNVUHXxIo00JPQxZ
- JYjO4Gp8NqDmTTIlLxaalAbt++iqNmi0evzYHvp850qhoH7HAYnn2iWU4z/hvy3lj+Cy
- 43hx/Aw9tKTgaw3yDby0dN5kPw5K1YSBHbU2gnVkCv/XeOiHESyCYq3roRLOI4MGoWSH
- W4mSur6ti3saxKNzmMaIr8XZQEAM4inZQM9WmQHpNfNsfKbZWwYqZyfgQliDZIOa8UAI
- XYNt5o7BkWyUPfdfKPVQCy4gANsZ3/1DC/9HYKtI76EIlhgU90PSyLvXLu3NFR0yux3J
- XDHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=T0nLcBf0nBf5qf4iyeI6J9rVyuEJhrxTvkxTb0mnCyw=;
- fh=Jwpg01RgoV9nTyj4mAt7Kv37wy1wCYaqeOvnVTKMJbs=;
- b=s8NVlka5QTZWCimCer1EjBinFUuOhazSZUJ24z32Ec8B5Q3MuifuuGD/xL51nl8iMd
- 4UyqtOetW1xwHuCUNDGCmlnrFHqrnjY52CB16o08Vd1ZqFsjlEsN35nDrAvMXKQfDIPr
- A7LvGymzH1gpb1yQjdYrHwzTj2TM5D4n7Rd/eBaTtbsjLX7CCsrImEOea2JK581Lf8gE
- N9jHB4ShWHOSAsW/rVLuqHi/3/ia2+6mQ/ewHwSwMDDbfdJpMP9vrEcsibFJUWWS+UOu
- uh6b1xJPr1FPVkPI9BGzk1QLhodEb5vpaFQgWYQkvlsJMT8s2NH0VG0ssYIGrS9LaX8T
- 1ltg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793700866; x=1794305666; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=T0nLcBf0nBf5qf4iyeI6J9rVyuEJhrxTvkxTb0mnCyw=;
- b=HwOJ4x/cfP7+QFlYSeUw6+k8Vd873GD/TdSxPX/v9Xn+VR/XXQISfWaZS41rq7oJxx
- okj2THsKBBeEsWqCAwkWyjcj7Y73rmLRR9dQ7cmLF/xZIF/vVXLs5cTmzFu/YN2p1lNR
- cGmD5MAz4V50eT2LFGWAKdDLGm8vR+W8FXBT+rvsE0+YbKGQM5gIxCgzcfRzgRO8SpnF
- /eYquCuyeSbsAY8N+O6sZxi8guXRWxiZTNWSueUhAqnsdG4FteDCoTgxaQITT5FB2BNT
- MxX7xzraXadSdkITMX0T5d8gmAGQXGjVUV5FDFjlc/htqR2eFxTGe44hA8ntBnzju7Hy
- xsIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793700866; x=1794305666;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=T0nLcBf0nBf5qf4iyeI6J9rVyuEJhrxTvkxTb0mnCyw=;
- b=U2kJByKwc3nSjbb+dQX9J/CRqTeBqu46IfSZ5trlMXazoUBpf2t+uFkX79d93sZIDA
- axLt6k5Z+l1xKTylB2kHKyy2RuP53HoxlxHuT5RPqIdkytJFQ8DG+/m4JDTHK6kbLX6O
- wq4a9Uqe9YBau7DyfDdOD4Ixela64YOPezmMaTVfd9H9/QjQL6E5qIEhsVeQmwF4+OKK
- ExkEKygf+ahFBXO2B4eSdQYKWqOW21RRHZgLFMM727ba8xyPYumRSWrZX2rEW030VXMd
- Mm/iM+2lB4DdduYSgLB4bFAYOBDyXr3/FauQ+F0sSG1Q9DCId9/GjTwaSnlXvYvOKGNV
- YqFA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzio0O8gtWK6F5svBOGcy/AR01ucyLS+Wr77mYaz9dCpKwGlT/47rMdBmkMDtd5s2fXelSEkhfAftc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9QYmKtm37vPfKJtds7u91pC/EJCYIXGFzTCet5bi0Ky1dh3uHa
- q40jeyXdoVi65hw4PHw0M2xBKTCCY6Z7wsWEh+4dhqt2vRDEtl1/PentK6ibUneY6myeuvbo5mZ
- tc45uc+Exh5ZTxkcYDJjk8uRjTkvtLAA=
-X-Gm-Gg: AYBFou2K3IADgD7+o8+XrO48Y6I/Jvy3xTEvcnB+0gl+D3cjNMX1Z9EY40bdnOJ1izM
- sFssWcff/qK3qCGiwZiUgNcAzPSIpCy/7C+SHWBdSPLfAIpW+3T9aV5x/jDbXvmYyaHT18ECLk/
- QZxBvHZNN6saxZA1Y6ildy4jRXZ3A+940+xv23tpcudqfnKdqCqSGWbf47ZWyK4FPkbXNb/aan5
- yQoSXAidoTLvmNGynW73rJQr8We9s59q9FTD9jsSnVj7mE692bavKimLIBGVsXz3teVOBYbeVJY
- FDPmtUdUxwooq/A1k39eDmJqVaWQSGQVqOYMXJPfXjpfPhXqMXLXs/yHE/jKH0TRZpuTt1xU4Bf
- 0p2rJvEEmt1P8had4FIezFk3bHxV8CfGqEiEMD74=
-X-Received: by 2002:a05:690e:4011:b0:677:d849:d9a3 with SMTP id
- 956f58d0204a3-67ba4c8086cmr12954187d50.1.1793700865796; Tue, 03 Nov 2026
- 02:14:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893A610E4BC;
+	Tue,  3 Nov 2026 10:34:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6B1F10E4BC
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:34:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 50D7960621;
+ Tue,  3 Nov 2026 10:34:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547A81F00919;
+ Tue,  3 Nov 2026 10:34:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793702063;
+ bh=GSqdOUTAGBHqvRwhBajLTqyzAy7NJSRaodL2JaKq0Eg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=apqUghqMhsHN4Trpoky2ktzmBWOFMhBOIk800IfwMCUvM+YfUWZXmYmUIfWw0Ny8q
+ M4rGo1Ztuy1Z+7b2SlYoFKvB8WsLBl7xem30ZQqpKKJG+npgYcG6UN0FEGIE7saLzO
+ w49oM1hEO+mtzHrUuXqu/NBMwXxgmHscEggqPEEqRXWaZcpKAY0YSDmsSLAqn6j15Y
+ Q+Sth//qr0f+bdqlGX/3j2FZdUUv7toc1V4V/dbIwjMRF+7XVt3f+0Gnu6DwiRIwxo
+ h0mdUIafykms+4IIO7psb9WuQxayavIhgMhanT99pe5O25qzj973a6Dvw0pf74CbOo
+ mYCN0dAg2vwAA==
+Date: Tue, 3 Nov 2026 11:34:20 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
+ Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>, 
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Shawn Guo <shawnguo@kernel.org>, 
+ Chanh Nguyen <chanh@os.amperecomputing.com>,
+ Alistair Francis <alistair@alistair23.me>, 
+ Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
+ Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
+ Scott Branden <scott.branden@broadcom.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-gpio@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
+ linux-input@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+Message-ID: <aum4oV6N8g32lr--@orome>
+References: <20261102135330.2493332-1-robh@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261101152723.1430312-1-sidong.yang@furiosa.ai>
-In-Reply-To: <20261101152723.1430312-1-sidong.yang@furiosa.ai>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Tue, 3 Nov 2026 19:14:14 +0900
-X-Gm-Features: AclHuK_U0G7GWmHau4YutIqd0VEplz-5mJn3f7hxfE6UCdEZn8Z63QHq9vzTxEo
-Message-ID: <CAKbEznv0ApgORxJO8BQY+XeDC94dqHz3GmdojwV7E7bdOCwo4Q@mail.gmail.com>
-Subject: Re: [PATCH v2] accel/rocket: Report per-core engine usage through
- fdinfo
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="trphfeiv2dppwi7j"
+Content-Disposition: inline
+In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +108,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Sidong,
 
-> +
->  static int
->  rocket_open(struct drm_device *dev, struct drm_file *file)
->  {
-> @@ -86,10 +107,19 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
->         }
->
->         rocket_priv->rdev = rdev;
-> +
-> +       rocket_priv->engine_usage = kzalloc_flex(*rocket_priv->engine_usage,
-> +                                                elapsed_ns, rdev->max_cores);
-> +       if (!rocket_priv->engine_usage) {
-> +               ret = -ENOMEM;
-> +               goto err_free;
-> +       }
-> +       kref_init(&rocket_priv->engine_usage->kref);
+--trphfeiv2dppwi7j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+MIME-Version: 1.0
 
-How about moving these lines into a rocket_engine_usage_create() helper, to pair
-with rocket_engine_usage_destroy()?
+On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
+> Unit-addresses by default (and most commonly) are hexadecimal. There's a
+> number of cases using decimal patterns. Fix all of them, limiting the
+> pattern to match the 'reg' limits if there are any.
+>=20
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../bindings/display/xylon,logicvc-display.yaml      |  2 +-
+>  .../devicetree/bindings/dpll/dpll-device.yaml        |  2 +-
+>  .../bindings/embedded-controller/google,cros-ec.yaml |  4 ++--
+>  .../intel,ixp4xx-network-processing-engine.yaml      |  2 +-
+>  Documentation/devicetree/bindings/gpio/gpio-mxs.yaml |  4 ++--
+>  .../devicetree/bindings/hwmon/maxim,max31790.yaml    |  2 +-
+>  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml    |  2 +-
+>  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml         |  6 +++---
+>  .../bindings/input/touchscreen/cypress,tt21000.yaml  |  2 +-
+>  .../memory-controllers/ddr/jedec,sdram-channel.yaml  | 12 ++++++------
+>  .../bindings/memory-controllers/ingenic,nemc.yaml    |  2 +-
+>  .../memory-controllers/nvidia,tegra20-emc.yaml       |  4 ++--
+>  .../devicetree/bindings/mfd/st,stm32-lptimer.yaml    |  2 +-
+>  .../devicetree/bindings/mfd/st,stm32-timers.yaml     |  2 +-
+>  .../devicetree/bindings/misc/qcom,fastrpc.yaml       |  2 +-
+>  .../bindings/mmc/mmc-controller-common.yaml          |  2 +-
+>  .../bindings/net/cortina,gemini-ethernet.yaml        |  2 +-
+>  .../bindings/phy/brcm,cygnus-pcie-phy.yaml           |  2 +-
+>  .../devicetree/bindings/phy/brcm,sata-phy.yaml       |  2 +-
+>  .../bindings/phy/socionext,uniphier-usb2-phy.yaml    |  2 +-
+>  .../devicetree/bindings/sound/qcom,q6asm-dais.yaml   |  2 +-
+>  .../bindings/sound/qcom,q6dsp-lpass-ports.yaml       |  2 +-
+>  .../devicetree/bindings/thermal/sprd-thermal.yaml    |  2 +-
+>  23 files changed, 33 insertions(+), 33 deletions(-)
 
-Otherwise LGTM. Tested on RK3588 (ROCK 5B) with KASAN: the OOB from v1 no
-longer reproduces, and drm-engine-npu* times are accounted as expected
-while running benchmark_model with teflon.
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-Reviewed-by: Gyeyoung Baek <gye976@gmail.com>
-Tested-by: Gyeyoung Baek <gye976@gmail.com>
+--trphfeiv2dppwi7j
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Thanks,
-Gyeyoung
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrpuKwACgkQ3SOs138+
+s6GdNA/+IZX8Lk6Z0c9f09SsgYk1VvnUVRFPU0WGT4gY2GcvOdD9A5ow9mPdHAAc
+EtBw40T/7BL3Fhk7+uhlr+V7FyVZUy0G5N/4tfMdekpeSl0hmPk6eNUZ3T6URtgO
+dU6lC8r8USCEW3cN8XYrzm82EiRcUX6Pb+RLX4p4C1WruvonZi8XvwZFIKyD920z
+XLF+bH/tVACkaHRY8G7btnFl/DKx31gutQbBPn1RuwO5CjpL0XqWowIgev7f7eRd
+lOK1XJ3GITOI5t++ITd75skGT8DQvmJIbLnN1AIrdaTvua0qsbwIe7isv8fhkiwL
+WcqzIJlLXxItYk3WIqMVtdis5wfA0rWHX0kCOYSDQhuuDx1cgxE5qy/S6UJwc22z
+SlMtdhaJ2gotTfdWL/3/wHgf5dVcYCCGZToG3/JzMfZDxjC/bmL7YEJ4Os/Ywm2R
+mG8PqJy88keVzu5pXohMH1tUyBS7AYXTLIOG9tKRGv37w8l2qILJAExv0GrT2bzd
+bV3fMenc2qrgvCvgHxlE19oMzk/6BVP6Tw6jDKD5n5++y6qdZk/y0jadd3Aa79HZ
+erpcvYYDqZpLqZNGgsqNjq+7LDIsiUnUJyXeWutYkkfejvToDBVoNfiwTpcIC9RF
+z1tGodjD4b8kT4/zSnZ/wB4D8GV5H0Ep57UeyMjnWGLftrC1CzE=
+=oYMU
+-----END PGP SIGNATURE-----
+
+--trphfeiv2dppwi7j--
