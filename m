@@ -2,101 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304B46072C9E
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:34:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8403260736ED
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apqUghqM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PU8IZPSG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 893A610E4BC;
-	Tue,  3 Nov 2026 10:34:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6B1F10E4BC
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1B1D10E4C9;
+	Tue,  3 Nov 2026 10:35:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCD0910E4C9
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:34:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 50D7960621;
- Tue,  3 Nov 2026 10:34:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547A81F00919;
- Tue,  3 Nov 2026 10:34:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 93A9B43C09;
+ Tue,  3 Nov 2026 10:34:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CEE1F0093A;
+ Tue,  3 Nov 2026 10:34:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793702063;
- bh=GSqdOUTAGBHqvRwhBajLTqyzAy7NJSRaodL2JaKq0Eg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=apqUghqMhsHN4Trpoky2ktzmBWOFMhBOIk800IfwMCUvM+YfUWZXmYmUIfWw0Ny8q
- M4rGo1Ztuy1Z+7b2SlYoFKvB8WsLBl7xem30ZQqpKKJG+npgYcG6UN0FEGIE7saLzO
- w49oM1hEO+mtzHrUuXqu/NBMwXxgmHscEggqPEEqRXWaZcpKAY0YSDmsSLAqn6j15Y
- Q+Sth//qr0f+bdqlGX/3j2FZdUUv7toc1V4V/dbIwjMRF+7XVt3f+0Gnu6DwiRIwxo
- h0mdUIafykms+4IIO7psb9WuQxayavIhgMhanT99pe5O25qzj973a6Dvw0pf74CbOo
- mYCN0dAg2vwAA==
-Date: Tue, 3 Nov 2026 11:34:20 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>, 
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>, 
- Chanh Nguyen <chanh@os.amperecomputing.com>,
- Alistair Francis <alistair@alistair23.me>, 
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
- Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
- Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-gpio@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-input@vger.kernel.org, 
- linux-tegra@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <aum4oV6N8g32lr--@orome>
-References: <20261102135330.2493332-1-robh@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="trphfeiv2dppwi7j"
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
+ s=k20260515; t=1793702095;
+ bh=ukxvASRQHPXLmCBtFGTm4r2/mUdWWRyPzw9bZSdLupc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PU8IZPSGt48klsHyuHjT7L1E2JvLVmsEQ6PK0DqG4rF/WsF7i6K8VIfUhkjjLlD12
+ pEda7JdJaQhDXlZpEsUj035g5MbG4Og8GuSiMLaibizZc3S4iGeriU4d3lMxgyu+ZW
+ wQL6eN7ok3I0WhTcU/W5oNpSMyofRZYrPVYOXUEIw5bLt40vWC6ZSlCoekl2l42u3H
+ l48AoNe4PHEJqCTHHRJ1ThfWuY+6xmUu3k24iHi3h3hlqqBQWA6Lfr7GUwqQReJ+h9
+ +tzJFhoPHu+Tl2mk9sNHtzGCECAYPcErIrWOsJalpI9jWKQVeKnRpdkdgmCK4ES05O
+ m+ZP6GiADl+Ag==
+Message-ID: <sashiko-outbox-195058@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 10/19] PCI/P2PDMA: Reject Translated Requests
+ blocked by Translation Blocking
+To: "Leon Romanovsky" <leon@kernel.org>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-10-912101f93517@nvidia.com>
+References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+ <20261103-fix-p2p-acs-v4-0-v12-10-912101f93517@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 10:34:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,74 +50,124 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] PCI/P2PDMA: missing Intel SPT PCH ACS Control offset check for P=
+CI_ACS_TB
+--
 
---trphfeiv2dppwi7j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-MIME-Version: 1.0
+commit b8a9e833dab26624045a5e241b8edb8d281747c8
+Author: Leon Romanovsky <leon@kernel.org>
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
->=20
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/display/xylon,logicvc-display.yaml      |  2 +-
->  .../devicetree/bindings/dpll/dpll-device.yaml        |  2 +-
->  .../bindings/embedded-controller/google,cros-ec.yaml |  4 ++--
->  .../intel,ixp4xx-network-processing-engine.yaml      |  2 +-
->  Documentation/devicetree/bindings/gpio/gpio-mxs.yaml |  4 ++--
->  .../devicetree/bindings/hwmon/maxim,max31790.yaml    |  2 +-
->  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml    |  2 +-
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml         |  6 +++---
->  .../bindings/input/touchscreen/cypress,tt21000.yaml  |  2 +-
->  .../memory-controllers/ddr/jedec,sdram-channel.yaml  | 12 ++++++------
->  .../bindings/memory-controllers/ingenic,nemc.yaml    |  2 +-
->  .../memory-controllers/nvidia,tegra20-emc.yaml       |  4 ++--
->  .../devicetree/bindings/mfd/st,stm32-lptimer.yaml    |  2 +-
->  .../devicetree/bindings/mfd/st,stm32-timers.yaml     |  2 +-
->  .../devicetree/bindings/misc/qcom,fastrpc.yaml       |  2 +-
->  .../bindings/mmc/mmc-controller-common.yaml          |  2 +-
->  .../bindings/net/cortina,gemini-ethernet.yaml        |  2 +-
->  .../bindings/phy/brcm,cygnus-pcie-phy.yaml           |  2 +-
->  .../devicetree/bindings/phy/brcm,sata-phy.yaml       |  2 +-
->  .../bindings/phy/socionext,uniphier-usb2-phy.yaml    |  2 +-
->  .../devicetree/bindings/sound/qcom,q6asm-dais.yaml   |  2 +-
->  .../bindings/sound/qcom,q6dsp-lpass-ports.yaml       |  2 +-
->  .../devicetree/bindings/thermal/sprd-thermal.yaml    |  2 +-
->  23 files changed, 33 insertions(+), 33 deletions(-)
+PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
 
-Acked-by: Thierry Reding <treding@nvidia.com>
+This commit teaches P2PDMA to check ACS Translation Blocking across the
+ports traversed by a peer-to-peer route and reject Translated Requests
+when any port along the path blocks them.
 
---trphfeiv2dppwi7j
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index 785e4668a2af5..fc4dea28c8606 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+[ ... ]
+> @@ -678,6 +691,39 @@ pci_acs_p2pdma_no_upstream_forwarding(struct pci_dev=
+ *common)
+>  	return NULL;
+>  }
+> =20
+> +/*
+> + * Report whether any port between @client and @common rejects Translated
+> + * addresses. If @common is NULL, every port up to the host bridge is wa=
+lked.
+> + * A port whose ACS Control cannot be read counts as blocking, which wit=
+hdraws
+> + * only the Translated classes because an Untranslated Request is routed=
+ by the
+> + * redirect controls instead.
+> + */
+> +static bool pci_p2pdma_path_blocks_translation(struct pci_dev *client,
+> +					       struct pci_dev *common)
+> +{
+> +	struct pci_dev *pdev;
+> +	u16 ctrl;
+> +
+> +	/*
+> +	 * @common is @client itself when the provider is the client or sits
+> +	 * below it. The Request never travels upstream then, so no port sees
+> +	 * it and none can reject its Address Type.
+> +	 */
+> +	if (client =3D=3D common)
+> +		return false;
+> +
+> +	for (pdev =3D pci_upstream_bridge(client); pdev && pdev !=3D common;
+> +	     pdev =3D pci_upstream_bridge(pdev)) {
+> +		if (!pci_acs_p2pdma_ctrl(pdev, &ctrl))
+> +			return true;
+> +
+> +		if (ctrl & PCI_ACS_TB)
+> +			return true;
+> +	}
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+When calc_map_type_and_dist() calls pci_p2pdma_path_blocks_translation()
+with common set to NULL (either when path.no_common_bridge is true or
+when checking path.tb_above_divergence from b_child up to the root bus),
+this loop walks all the way up to the Root Port.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrpuKwACgkQ3SOs138+
-s6GdNA/+IZX8Lk6Z0c9f09SsgYk1VvnUVRFPU0WGT4gY2GcvOdD9A5ow9mPdHAAc
-EtBw40T/7BL3Fhk7+uhlr+V7FyVZUy0G5N/4tfMdekpeSl0hmPk6eNUZ3T6URtgO
-dU6lC8r8USCEW3cN8XYrzm82EiRcUX6Pb+RLX4p4C1WruvonZi8XvwZFIKyD920z
-XLF+bH/tVACkaHRY8G7btnFl/DKx31gutQbBPn1RuwO5CjpL0XqWowIgev7f7eRd
-lOK1XJ3GITOI5t++ITd75skGT8DQvmJIbLnN1AIrdaTvua0qsbwIe7isv8fhkiwL
-WcqzIJlLXxItYk3WIqMVtdis5wfA0rWHX0kCOYSDQhuuDx1cgxE5qy/S6UJwc22z
-SlMtdhaJ2gotTfdWL/3/wHgf5dVcYCCGZToG3/JzMfZDxjC/bmL7YEJ4Os/Ywm2R
-mG8PqJy88keVzu5pXohMH1tUyBS7AYXTLIOG9tKRGv37w8l2qILJAExv0GrT2bzd
-bV3fMenc2qrgvCvgHxlE19oMzk/6BVP6Tw6jDKD5n5++y6qdZk/y0jadd3Aa79HZ
-erpcvYYDqZpLqZNGgsqNjq+7LDIsiUnUJyXeWutYkkfejvToDBVoNfiwTpcIC9RF
-z1tGodjD4b8kT4/zSnZ/wB4D8GV5H0Ep57UeyMjnWGLftrC1CzE=
-=oYMU
------END PGP SIGNATURE-----
+On Intel Sunrise Point, Union Point, and 7th/8th Gen Mobile PCH Root
+Ports matched by pci_quirk_intel_spt_pch_acs_match(), pdev->acs_cap is
+non-zero, but due to hardware errata the ACS Capability and Control
+registers are 32-bit dwords rather than 16-bit words. As a result,
+pci_quirk_enable_intel_spt_pch_acs() programs PCI_ACS_TB into
+pos + INTEL_SPT_ACS_CTRL (offset 8):
 
---trphfeiv2dppwi7j--
+drivers/pci/quirks.c:pci_quirk_enable_intel_spt_pch_acs() {
+	...
+	pci_read_config_dword(dev, pos + PCI_ACS_CAP, &cap);
+	pci_read_config_dword(dev, pos + INTEL_SPT_ACS_CTRL, &ctrl);
+	...
+	if (pci_ats_disabled() || dev->external_facing || dev->untrusted)
+		ctrl |=3D (cap & PCI_ACS_TB);
+
+	pci_write_config_dword(dev, pos + INTEL_SPT_ACS_CTRL, ctrl);
+	...
+}
+
+However, pci_acs_p2pdma_ctrl() reads the 16-bit word at pos + PCI_ACS_CTRL
+(offset 6), which on these Root Ports is the upper 16 bits of the 32-bit
+ACS Capability register (reading as 0):
+
+drivers/pci/p2pdma.c:pci_acs_p2pdma_ctrl() {
+	...
+	if (pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl) ||
+	    PCI_POSSIBLE_ERROR(*ctrl))
+		return false;
+
+	*ctrl =3D pci_acs_p2pdma_quirk_redirect(pdev, *ctrl);
+	return true;
+}
+
+Unlike pci_acs_p2pdma_no_upstream_forwarding(), which consults
+pci_dev_specific_acs_enabled() when walking to the Root Port,
+pci_p2pdma_path_blocks_translation() only inspects ctrl from
+pci_acs_p2pdma_ctrl().
+
+Won't pci_p2pdma_path_blocks_translation() miss PCI_ACS_TB on these
+Intel PCH Root Ports and allow calc_map_type_and_dist() to return
+PCI_P2PDMA_MAP_THRU_HOST_BRIDGE instead of
+PCI_P2PDMA_MAP_NOT_SUPPORTED for Translated Requests that the Root Port
+will reject?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-fix-p2p-ac=
+s-v4-0-v12-0-912101f93517@nvidia.com?part=3D10
