@@ -2,36 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB99606D819
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FA3606D81B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lp4S6666
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SyyZKvzP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDB210F52F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0447C10E7E2;
 	Tue,  3 Nov 2026 11:36:16 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDF4910F522
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:36:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C88E10F52B
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:36:09 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id E706B281F;
- Tue,  3 Nov 2026 12:33:48 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 180FC287E;
+ Tue,  3 Nov 2026 12:33:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793705629;
- bh=NHW90e1XZxXPeQPqIgspRtbNPNmWlmAJB7VKt88omRk=;
+ s=mail; t=1793705631;
+ bh=F/L5+gkuDrSZcJ30dAJHYqalbmfLemsHzfUp8D8sZNE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=lp4S6666HYpSQy+d3Vz5T74IfpYAba9LVjJhU6TdRbEKCtiaoeLFbtm3dMyCu1GH1
- KNkOmRu3gTsZuBZTlLzgW2UtbHWoDFkIScBtIAwa9K/cUpIKsmg9lQQW4GGT7z/Rh9
- 4ivkwLn8v52mr1qEIWigLipQTZXnUHoFuDalmh8A=
+ b=SyyZKvzPLK4g5G2Km6cPeZvp8WkIb+iN2bz2BvYSXFlO3AKNECX3yJnCpsa70Aaz5
+ 5/p50Q7jPbCebwKvMBk0+BEUaC+mI/tH5bE3c9K+7N/x9M+kPUO7GPgfjI7gTSnbfG
+ 8ev48aytWw2tIvKWSN9Hu36ZTaAMjwZ/mZAbHnb8=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:29 +0200
-Subject: [PATCH v5 09/15] drm/tidss: oldi: Fix serial clock reference leak
+Date: Tue, 03 Nov 2026 13:34:30 +0200
+Subject: [PATCH v5 10/15] drm/tidss: oldi: Fix cleanup on a failed init
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-9-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-10-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,21 +47,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1168;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=892;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=NHW90e1XZxXPeQPqIgspRtbNPNmWlmAJB7VKt88omRk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccYw/Via5/P3qd2Fiw8clpJYn0rGM//3MChy
- 1GjycnDL0KJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGAAKCRD6PaqMvJYe
- 9YXVD/9oRYmPR1gDW0S0gkSi1zAI0RydFfC2xDMPDMf/mQ8JdqHVwN6DDNG8s7Is765VnNbXDhf
- AU0SaPWB8YMCvk7yy/7u41FUMLLVYBZnTUPykLi0KHBRP+NKBFTXt7Q19aCWjLypEdxSvBmomYt
- 6+xTrBx+9IZkDtcw62poPAq7zgJ9XfGQuLbX4HXnDN8ZnlHG6RLHiWO1vEJ1SLgwK51Sn/pg+d9
- nckOC4SqDXNXplva1xxpS0tVYb+5CJf1mFodhtfR42q+Jklotj+TEsZCa3aQ+GBoNkcIYSM2CJK
- lt6vF617rt63qN8azSW0A+m+W7rBRKFcbE+NkDxLw86zVD3P8OqqdLhDXXk8atOfhtVnCVB17eL
- OH0gU5OkbhYdgh3rnTYVeYeBEoNWtqUztoIobq1cGjI+6TAe8wpp0R2rja9IhTh1wbaTkQ3CMUz
- yepguRQrrUOtLIWIU972SvRmlvA8MKUjVL8KCNeLAsCvGR4kd/8sm9iMXHHasWmCujejLI/UvGI
- FjXhamCumEgrRhnYW0oYOxSzgVmclGxAR213AhanT6SsayBw2ULh0zUTkjrtwNrPflXVTIXnkjo
- ICOVl289B0HNHbP2OZ1KsPPJdOwEEEh9vo+eJzJ5kgM05xoWVljlsst2aCjjth+ud3oAxwh4L0l
- ge0Exhvev0B9Y2w==
+ bh=F/L5+gkuDrSZcJ30dAJHYqalbmfLemsHzfUp8D8sZNE=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccZw4IlyT81hqKavStnM561Q2fWsO615iqL0
+ I6H4lEeLUmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGQAKCRD6PaqMvJYe
+ 9TcSEACY5+Vp+/E3NpI4r2/xf8ktIe5+uxKMnOZ0b0eCB2ArI6ZP4F6SJ8vJP9aAE10xJf+sJub
+ N6UaSa5KtGT/09zMndU1fhNbswi3rXCF49+TyZoYF0ERbeUL/uTCChE9ICeepYjgkc6lAKFkYDK
+ yh6Fjt62jidNWKt+u92kkpBAZ+XGmFNFktmNRbdiPWhbzrp8eTQ8FdhKeKArAymYRmU8oxq5WV3
+ 5sYA7Dh4tGVcIZQiPk/uetF+UWOF5mDcVw6EdX2cfPC2USSGTv+hMxSN5w+IjYx4HrQq2yizH9D
+ 4l/k+SbJp1pqJE+6Ayr0kCYv6oQAuCc6XOmhV4IFPa7fIUU+8OI2TXum+T0gA9rQMMGmVMINuei
+ Kx7q0/Thoy9oKifj4PLEXUDGJc2R6o3XQV2IL9b5zTDxC14jPWXTm1kE4o7/LHxzrhvtBT4iUGU
+ slkskC+y+olOzTFvuqLZvpqFC6YxhP0OrV7kl71Bsdit4i8vjXdEO8yV+LLm9eM0O4Z8I9leGmW
+ Cp+dg7qMz3JkRlbM65Pn3dZROW2h3NZLASflwroP8kJUqxHl0ft/yqE25Ug3AC0BOLLRQPk/FWp
+ byqPWvJPbdeXRpkrabKTY1JnPl4h1DoxzSHC/ZrruYzD1biPIdKm1oEKd88NhQqzlzGR4Z4Ohgy
+ shiQtBds35Gdvpw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,33 +83,30 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-tidss_oldi_init() gets the OLDI serial clock with of_clk_get_by_name()
-and never puts it. A clock reference leaks each time tidss unbinds, and
-each time its probe fails or defers after the OLDI setup.
+tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a later
+OLDI TX fails, the bridges registered for the earlier ones are not
+removed.
 
-Get the clock with devm_get_clk_from_child() instead.
+Fix this by calling tidss_oldi_deinit() in the error path.
 
 Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
 Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index ae27ebc7306e..506507e83112 100644
+index 506507e83112..7344d86e1f13 100644
 --- a/drivers/gpu/drm/tidss/tidss_oldi.c
 +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -609,7 +609,8 @@ int tidss_oldi_init(struct tidss_device *tidss)
- 				goto err_put_node;
- 			}
- 
--			oldi->serial = of_clk_get_by_name(child, "serial");
-+			oldi->serial = devm_get_clk_from_child(tidss->dev, child,
-+							       "serial");
- 			if (IS_ERR(oldi->serial)) {
- 				ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->serial),
- 						    "OLDI%u: Failed to get serial clock.\n",
+@@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+ err_put_node:
+ 	of_node_put(child);
+ 	of_node_put(oldi_parent);
++	tidss_oldi_deinit(tidss);
+ 	return ret;
+ }
 
 -- 
 2.43.0
