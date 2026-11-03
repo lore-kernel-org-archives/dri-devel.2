@@ -2,47 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067A6606D805
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F39D606D80C
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 590A110F3DE;
-	Tue,  3 Nov 2026 07:27:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81F10F3B4;
- Tue,  3 Nov 2026 07:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C48A510F3E7;
+	Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47EAE10F3C9;
+ Tue,  3 Nov 2026 07:27:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1F2A96022C;
- Tue,  3 Nov 2026 07:27:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6B01F00A16;
- Tue,  3 Nov 2026 07:26:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D3DB7405A7;
+ Tue,  3 Nov 2026 07:27:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCB21F000C1;
+ Tue,  3 Nov 2026 07:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793690819;
- bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
+ s=k20260515; t=1793690823;
+ bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FI7wUr13qUiCZjI5Cfxbb+wytm4cVV3/lKY2i+xGFDsEoJWw4xuc0SWfVMyNwCQli
- GfGk87l4VZqMNz1NgrcnMA+ugAdGCVibsvTbAcLcsZkgB6WR3W+HtfS1B0ko1473Df
- 6X/x8yPB3FoSRWnPZBhcYoX+q2NEWe/ssJU/8lG8y+weFcwW9kyefWtaCqG/TK1Fz6
- nkpEPgBVJV2Cv/rPCwAGimB03lq1z2pQql4PKNj9YKEYZytLgkFlKTmZJ/43jri9ac
- wE2n2fXTCW8aYJlquNKwpx2umsCtpk8zxXTlWVXrzGTBkP/1GogeNATFEq3ypP1dh6
- 3riqd62KwmdPg==
-Date: Tue, 3 Nov 2026 08:26:56 +0100
+ b=NIiyxDSnojE1F4PCwK7yqKFa+jsgtfS5tsZ52Il6MxHOgyuEgSdh4TI8GPt9M6uJm
+ 52ZHO5L0CImM4bwOnbMppBktyOrU+4rs/Y3zFtjs7JB3Nj5fJ4f8a6y2tnj9igylnj
+ PtC/51vZJ06PyYvXKUQteHnWeJgg3dyXtKqC7dlLTvmQdokfMQSc4XxhxlDP7vzXSF
+ 2aFDKKWCAj54sPez+fvBoQ/Yyr+KmRnpGVM0e9X97vAtw6VSaOpC16d973rW5iNdcU
+ fGNPl97f/lq/27kXaKbbu4iNVDNbPLPXqcRxnm1BtaahCP82hbhpf4yUXfbJ67ec+N
+ nRtY/EvAt2Dyg==
+Date: Tue, 3 Nov 2026 08:27:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
- stable@vger.kernel.org, thomas.hellstrom@linux.intel.com,
- intel-xe@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, matthew.brost@intel.com
-Subject: Re: [PATCH] drm/xe/pm: Balance the runtime PM reference when ioctl
- resume fails
-Message-ID: <20261103-cheetah-of-inescapable-engineering-1766dd@quoll>
-References: <20261103065810.1075142-1-vulab@iscas.ac.cn>
+Cc: tursulin@ursulin.net, jani.nikula@linux.intel.com, 
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/selftests: Put GuC test contexts on early
+ failures
+Message-ID: <20261103-careful-honorable-earwig-cee583@quoll>
+References: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065810.1075142-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,22 +63,24 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Tue, 03 Nov 2026 06:58:10 +0000, Wentao Liang wrote:
-> xe_pm_runtime_get_ioctl() uses pm_runtime_get_sync(), which increments
-> the usage counter even when resuming the device fails. Its conditional
-> runtime PM guard only runs xe_pm_runtime_put() after a successful get,
-> so failed resumes leave an extra reference behind.
+On Tue, 03 Nov 2026 06:55:54 +0000, Wentao Liang wrote:
+> intel_hang_guc() creates an intel_context before changing the heartbeat
+> interval and initializing the spinner. If either operation fails, it
+> jumps to err without dropping that context. intel_guc_fast_request()
+> also skips the context put when spinner initialization fails.
 > 
-> Use pm_runtime_resume_and_get() so a failed resume releases the usage
-> counter increment before returning the error.
+> Release the context on these failure paths. The existing put after
+> igt_spinner_create_request() handles the later paths.
 > 
-> Fixes: 23cf006beac3 ("drm/xe: Runtime PM wake on every IOCTL")
+> Fixes: 69142c0a5f9a ("drm/i915/guc: Add selftest for a hung GuC")
+> Fixes: 706785c19fe9 ("drm/i915/guc: Add a selftest for FAST_REQUEST errors")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/xe/xe_pm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc.c           | 1 +
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 ++
+>  2 files changed, 3 insertions(+)
 > 
 
 
