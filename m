@@ -2,58 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A57E606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74918606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djIRgvsJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XiQJEIIK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE1B10F86C;
-	Tue,  3 Nov 2026 21:04:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D83F210E1D8;
+	Tue,  3 Nov 2026 21:05:22 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64DB910E1D8
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:04:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB0BD10E1D8
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:05:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A922460136;
- Tue,  3 Nov 2026 21:04:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192231F000C1;
- Tue,  3 Nov 2026 21:04:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A10760136;
+ Tue,  3 Nov 2026 21:05:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA05D1F000C1;
+ Tue,  3 Nov 2026 21:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793739873;
- bh=jX4SDPUuSDvp9qViMsndjuML6aJlMfu5cI5xM9EiD1E=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=djIRgvsJLQZKty3ipIXbg9IiHMbuuEGpXPjxSyzC1f22murZNBx/Yj8PJbQLLtYie
- sJp0zl6g6KAc7PirHwHVzkPzCeERg77mXe+6eNmoYW0LsS73p7wD4nRzlXj8XNDOu/
- XYFmX6jCypeNDDD1He4FVkY7PFr79aYyOyTU+/x/AtRy/+GdgsxxKEjqEN8lxqgnwA
- iRnIyB5+JssrdyjS75n6/3YWHLXRmzah2MwFTLFmxqd3VudM8rXkFmp0X2o9fDg3uu
- lcccFg9c3yqBQu5NsSm1949kg01wImogH0pLQ6E7SziK2cCUeqikSG+HpLNCfLIuAI
- sdlFohZqri1QA==
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+ s=k20260515; t=1793739916;
+ bh=ODH+I76KvbHZgpFAyHU+cwv1v9uuSX3SbZqiaCAAvnI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XiQJEIIKdpAlMI3iVIl1td1l1byxJWO3lKFLCCe0FRpEKzVbl8OVHK0MCg64RSEcI
+ em1PO61l5oeeHm497nEGdilErz97RS2m3mwRu+N6jjQHFjdTT71JcPv3bJ5EqjkaUp
+ NVSSO6TdmZZwmIKzNaebh+po3fhh2ZBU6AIjmchbHSsJUuQ9rL6eUk1A/6Zw3i3Bh3
+ Lx8U6CsYptc/E52baY8OXBmwSBkjpKIYJQXdn9DStJxORvGoAMhF6TnnPMsfLEKjFX
+ NstYKM9p7zv8SJXXrPhYpMC46jhw0hzjmx7Z2a+fhOCJi/CLx8qy5NgONBskRxoodg
+ c6KdaG3cPYq3Q==
+Message-ID: <sashiko-outbox-196034@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] drm/ch1115: add support for Chipwealth CH1115
+ OLED controller
+To: =?utf-8?b?Tmljb2zDoXMgQW50aW5vcmk=?= <nico.antinori.7@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <01cee5640e8637cbe0cd49e920f3aeed2c60640a.1793735996.git.nico.antinori.7@gmail.com>
+References: <cover.1793735996.git.nico.antinori.7@gmail.com>
+ <01cee5640e8637cbe0cd49e920f3aeed2c60640a.1793735996.git.nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 22:04:28 +0100
-Message-Id: <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
-Cc: "Dave Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Jani
- Nikula" <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>,
- "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <dri-devel@lists.freedesktop.org>, "Mark Brown"
- <broonie@kernel.org>, <linux-next@vger.kernel.org>
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [RFC] linux-next: replace the DRM trees with a single
- drm-for-linux-next
-References: <aujZcJBUyQ7iX_PM@intel.com>
- <DMKY979I29AF.BS1DF5YAZMOY@kernel.org> <aujikV14tF6K1Xqw@intel.com>
- <DMKZR0YZV1CX.DWVK9V47GR1J@kernel.org>
- <CAPM=9tww=CJdxzvfUvLwQ6V4uoszg8JrB1XCAcp15upM-xPvSg@mail.gmail.com>
- <DMLTRKUXTL3P.11VRVU1A8ERMG@kernel.org> <aupFKGpAwAiGXN0U@intel.com>
-In-Reply-To: <aupFKGpAwAiGXN0U@intel.com>
+Date: Tue, 03 Nov 2026 21:05:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,126 +50,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue Nov 3, 2026 at 9:33 PM CET, Rodrigo Vivi wrote:
-> On Tue, Nov 03, 2026 at 08:32:48PM +0100, Danilo Krummrich wrote:
->> IOW, linux-next merges tip/for-linux-next, and tip/for-linux-next merges
->> $tree/for-linux-next, rather than $tree/$tree-next.
->
-> For this to work we need:
-> 1. xe to create for-linux-next for-linux-next-fixes
-> 2. amd to create for-linux-next for-linux-next-fixes
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] drm/ch1115: out-of-range display offset 64 sent in ch1115_oled_i=
+nit()
+- [Medium] drm/ch1115: missing DC-DC disable in ch1115_encoder_atomic_disab=
+le()
+--
 
-Huh, I thought all the trees are doing this already. Well, that explains
-where the the problem comes from. :)
+commit e5268b4f2a7c534421925bdee0145caf63c50632
+Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
 
-In any case, drm-misc, drm-rust and drm-intel already have for-linux-next a=
+drm/ch1115: add support for Chipwealth CH1115 OLED controller
+
+This commit adds a DRM driver for Chipwealth CH1115 monochrome dot matrix
+OLED panels connected over I2C.
+
+> diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch1=
+115-i2c.c
+> new file mode 100644
+> index 0000000000000..08fee5a09f4f9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+> @@ -0,0 +1,859 @@
+
+[ ... ]
+
+> +static int ch1115_oled_init(struct ch1115_device *ch1115)
+> +{
+> +	u8 commands[] =3D {
+> +		CH1115_CMD_OFF,
+> +
+> +		CH1115_CMD_CLOCK_DIVIDE_RATIO,
+> +		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
+> +					      CH1115_VAL_CLOCK_DIV_RATIO),
+> +
+> +		CH1115_CMD_MUX_RATIO,
+> +		ch1115->height - 1,
+> +
+> +		CH1115_CMD_OFFSET,
+> +		ch1115->flip_vertical
+> +			? ch1115->y_start_offset
+> +			: CH1115_MAX_HEIGHT - ch1115->y_start_offset,
+
+[Severity: Medium]
+Does ch1115_oled_init() send an out-of-range value for CH1115_CMD_OFFSET wh=
+en
+flip_vertical is false and y_start_offset is 0?
+
+In ch1115_parse_dt(), y_start_offset defaults to 0 when the chipwealth,offs=
+et
+property is omitted, and is otherwise restricted to [0, CH1115_MAX_HEIGHT -=
+ 1]
+(0 to 63):
+
+	ret =3D of_property_read_u32(np, "chipwealth,offset", &val);
+	if (ret) {
+		ch1115->y_start_offset =3D 0;
+	} else {
+		if (val > CH1115_MAX_HEIGHT - 1) {
+			dev_err(dev, "chipwealth,offset=3D%d must be [0-%d]\n",
+				val, CH1115_MAX_HEIGHT - 1);
+			return -EINVAL;
+		}
+		ch1115->y_start_offset =3D (u8)val;
+	}
+
+When ch1115_encoder_atomic_enable() calls ch1115_oled_init() with
+flip_vertical set to false and y_start_offset set to 0, the expression
+CH1115_MAX_HEIGHT - ch1115->y_start_offset evaluates to 64 (0x40), which
+overflows the 6-bit [0, 63] vertical offset field instead of wrapping modulo
+CH1115_MAX_HEIGHT to 0.
+
+[ ... ]
+
+> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
+> +					 struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+> +	int ret;
+> +
+> +	ret =3D ch1115_oled_init(ch1115);
+> +	if (ret < 0)
+> +		return;
+> +
+> +	u8 command =3D CH1115_CMD_ON;
+> +
+> +	ret =3D ch1115_send_command_list(ch1115, &command, 1);
+> +	if (ret < 0)
+> +		return;
+> +
+> +	backlight_enable(ch1115->bl_dev);
+> +}
+> +
+> +static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+> +
+> +	backlight_disable(ch1115->bl_dev);
+> +
+> +	u8 command =3D CH1115_CMD_OFF;
+> +
+> +	ch1115_send_command_list(ch1115, &command, 1);
+> +}
+
+[Severity: Medium]
+Should ch1115_encoder_atomic_disable() also disable the internal DC-DC
+converter?
+
+When the encoder is enabled, ch1115_encoder_atomic_enable() calls
+ch1115_oled_init(), which turns on the DC-DC converter with CH1115_CMD_DC_DC
+and CH1115_VAL_DC_DC_ON. However, when the display is disabled via KMS or
+during system shutdown via ch1115_shutdown() -> drm_atomic_helper_shutdown(=
+),
+ch1115_encoder_atomic_disable() only sends CH1115_CMD_OFF, leaving the DC-DC
+converter enabled.
+
+By contrast, ch1115_remove() explicitly sends CH1115_CMD_OFF,
+CH1115_CMD_DC_DC, and CH1115_VAL_DC_DC_OFF after calling
+drm_atomic_helper_shutdown():
+
+	u8 cmd_list[] =3D {
+		CH1115_CMD_OFF,
+		CH1115_CMD_DC_DC,
+		CH1115_VAL_DC_DC_OFF,
+	};
+
+	drm_dev_unplug(&ch1115->dev);
+	drm_atomic_helper_shutdown(&ch1115->dev);
+
+	ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
+
+If ch1115_encoder_atomic_disable() sent CH1115_CMD_OFF, CH1115_CMD_DC_DC, a=
 nd
-for-linux-next-fixes, and the implementation is generic. So, adding it to x=
-e and
-amd is trivial.
+CH1115_VAL_DC_DC_OFF, wouldn't that properly power down the DC-DC converter=
+ on
+both KMS disable and ch1115_shutdown(), while avoiding the duplicate command
+sequence in ch1115_remove()?
 
-> 3. All maintainers to agree to move their -next-fixes on the same day tha=
-t
-> they are sending the last PR. Or have a new dim sub-command dim final-pr
-
-That's what drm-misc, drm-rust and drm-intel promise, yes.
-
-Something like dim request-pull --final seems like a reasonable helper to m=
-e.
-
-> 4. Instrument dim to have this secondary reconstructed tree instead of th=
-e
-> implemented chop.
-
-I think for this part isn't different; tip/for-linux-next just merges one o=
-r the
-other.
-
-> 5. Prepare every committer to deal with this extra build time and extra
-> conflict resolution.
-
-Which extra build time and conflict resolution? You have two tip trees in e=
-ither
-case, no? One that contains $tree/$tree-next and one that doesn't.
-
-> I honestly prefer the simple chop solution. But it would be okay by me
-> if you take the lead and implement the dim changes for this flow.
-
-I don't mind doing this. :)
-
->> I.e. the ultimate source of what is linux-next material remains to be $t=
-ree.
->>=20
->> In general, I think that this is more accurate and probably less error p=
-rone
->
-> I would argue the other way around.
->
-> The reason that we are seeing so much escapes from next-next into linux-n=
-ext
-> might be exactly by the fact that the blackout right now depends on 2 sep=
-arate
-> actions to help simultaneously (last PR + rebase of -next-fixes). What mo=
-st
-> of us are not doing.
-
-Interesting, why is that? It seems to work perfectly fine in drm-misc, drm-=
-rust
-and drm-intel.
-
-The only thing maintainers need to do is push $tree-next to $tree-next-fixe=
-s at
-the cutoff. The rest is automatically handled by dim already.
-
->> For instance, let's say a tree closes (i.e. tags the last -next tag of t=
-he
->> cycle) a few days before -rc6, it could happen that subsequent commits t=
-o
->> $tree-next still appear in linux-next because tip still picks them up un=
-til
->> after -rc6. So, after -rc6 those commits (that were in linux-next for a =
-few
->> days) would disappear from linux-next again.
->>=20
->> Not that big of a deal, but technically they didn't even belong in linux=
--next
->> for only a few days.
->
-> But well, this is a good catch and a bug on the current proposal indeed.
-> Should we move that to -rc5 to -rc1? We just need to ensure that everyone
-> have at least 1 PR after -rc5 and we are all aligned.
->
-> The only caveat is that patches landing in drivers-next during -rc5/-rc6 =
-will
-> take a few days more to propagate, but it shouldn't be the end of the wor=
-ld.
-> It is still a couple weeks before the merge-window.
->
->>=20
->> If we kept $tree/for-linux-next, tip would never pick those commits up, =
-because
->> a tree that closed a few days before -rc6 would already have switched
->> $tree/for-linux-next to $tree/$tree-next-fixes.
->
-> Well, if you don't move your -next-fixes at the same time of your last PR
-> you are leaking that as well. And this is happening.
-
-Where is this happening?
-
-> At least now we know why it is happening (besides xe and amd sending
-> straight from -next instead of having the -for-linux-next branches).
-
-I think if xe and amd would have those branches there'd not be a problem to
-begin with.
-
-But independent of that, I think it is nice to give the "fully merge confli=
-ct
-resolved thing" to Mark. :)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793735996.gi=
+t.nico.antinori.7@gmail.com?part=3D2
