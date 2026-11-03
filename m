@@ -2,57 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785EC606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8A4606A326
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:53:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sfz0FCzo
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWZQdAmA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D756D10E04B;
-	Tue,  3 Nov 2026 08:50:01 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9395E10E04B
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 08:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD2410E118;
+	Tue,  3 Nov 2026 08:53:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE68B10E287
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 08:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793695796; x=1825231796;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XOUlFfeLLSixvT9Wn+UA3hCGLjCu5uBQYP7kE7xuOzs=;
- b=Sfz0FCzoIT7ANPz20iAjiXTg/MUrDBa157wTmBfFG4NUZF0P9B+Fb8rS
- Mhh6284hVwWcOTQmaLlAJsdNXRY7kOfOgsbudF8zlotg/hmc1D1NuXwiY
- q8OSTJPBmtxkp5z9kdm0xXmOqzV7nxiW72obfRHx8L1OmxG2S3LpXJit1
- czpfXK1Aj8oz6sn7BZY24iwV4lwNhbwTIqQtGxHxXYd7WOJqbk2OUdCA8
- WhAqbByDut8FTcTNy2FOQtjvILYPqznY8FtDMy1yQJAzxv/WyMYHTdG0+
- U/5Ii2MFDneqMYCO3PaTUonL9v31SQM/JX+Ag0/gZjI1hyXFlZJx4KYne Q==;
-X-CSE-ConnectionGUID: 6IXB7J0pQKq0n6ggKutRgg==
-X-CSE-MsgGUID: 8LOK5QYZQI2bvXB4JveT8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2318087"
+ t=1793696007; x=1825232007;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=p622XnqmTxgrIzjfBothae0z/U5tiui9rdZzVBu4Is4=;
+ b=kWZQdAmAHWviGIfFlDM3zas+iVKaoD6CJckzrrrj0kNyG7Bvt4xGap5x
+ 0YaW3AFjosPoa+ryY8ZxKzeKxNl+ykVAf9XxAVku7WWsT5LM7/o2K2wj0
+ DM7s0JJRGYfyCgdkh5Tk0UrtYWjCsV9UstJfhvR3KGW6k/w7+91A0nY/W
+ SFImqHkmuMVSNALy8UH/F71x5kuBmeOUWsN6i/ImgZC8NWzz8NN7xcSBk
+ JB/vd8P3T5iV5CHWXzDsmYIoftKO3wEfkO9rYJtZ/5RjMRtGgF2aF90Rw
+ K6W0B2igXls0LSWnhYwr5mrEO8i5fYU3hLyPiyVlgCIZ++Kjxax0RBZBK Q==;
+X-CSE-ConnectionGUID: uUDqBXgWTVOk+pmNj1hCgw==
+X-CSE-MsgGUID: 9L3yXinrSFCPIa43xSGxdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2439718"
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2318087"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 00:49:55 -0800
-X-CSE-ConnectionGUID: 0PR2XKbHTDmA9cDYgn6gmg==
-X-CSE-MsgGUID: H9H4gAGPRgSS1mROKaCLhg==
+   d="scan'208";a="2439718"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 00:53:07 -0800
+X-CSE-ConnectionGUID: WZiypFdLTL2ooUY+g3QchA==
+X-CSE-MsgGUID: aMbtfmTWR4S2MGK4pGQEuA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6699480"
+   d="scan'208";a="6255554"
 Received: from yufei-inspiron-3910.sh.intel.com ([10.239.92.97])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 00:49:53 -0800
+ 03 Nov 2026 00:53:05 -0800
 From: "Yu, Fei" <fei.yu@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
- Madhur Kumar <madhurkumar004@gmail.com>, Fei Yu <fei.yu@intel.com>
-Subject: [PATCH] drm/syncobj: Silence allocation warnings for user-sized arrays
-Date: Tue,  3 Nov 2026 16:50:02 +0800
-Message-ID: <20261103085002.3100723-1-fei.yu@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Hui Peng <benquike@gmail.com>, linux-kernel@vger.kernel.org,
+ syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com,
+ Fei Yu <fei.yu@intel.com>
+Subject: [PATCH v2] drm/virtio: Put GEM objects when dropping a vbuf without
+ queueing it
+Date: Tue,  3 Nov 2026 16:53:14 +0800
+Message-ID: <20261103085314.3102802-1-fei.yu@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+References: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,130 +80,141 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Fei Yu <fei.yu@intel.com>
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-The syncobj wait, timeline wait and timeline signal ioctls allocate
-several temporary arrays whose size is taken directly from the u32
-count_handles provided by userspace:
+virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter()
+fails or when vqs_released is set during device removal. It unlocks the
+reservations and frees the vbuf, but never releases the GEM object
+references that the caller transferred in vbuf->objs. Those references
+are normally dropped by the dequeue worker once the host completes the
+command, which never happens for a command that was not queued.
 
- - handles and syncobjs in drm_syncobj_array_find()
- - points and entries in drm_syncobj_array_wait_timeout()
- - points and chains in drm_syncobj_timeline_signal_ioctl()
+If a framebuffer flush or transfer (e.g. the fbdev damage worker) races
+with device removal, the GEM object backing the buffer keeps a stale
+reference and is never freed. GEM objects do not hold a reference on the
+drm_device, so the device is still released, with the object's node left
+in the vma offset manager:
 
-A large enough count makes these allocations exceed KMALLOC_MAX_SIZE
-and trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
+  Memory manager not clean during takedown.
+  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x62/0x280
   Call Trace:
-   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
-   __do_kmalloc_node mm/slub.c:5519 [inline]
-   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
-   _kmalloc_noprof include/linux/slab.h:995 [inline]
-   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
-   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
-   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
-   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
-   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+   drm_managed_release+0x1bb/0x540 drivers/gpu/drm/drm_managed.c:75
+   drm_dev_release drivers/gpu/drm/drm_drv.c:924 [inline]
+   drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:957
+   virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
+   ...
+   virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:760
+   ...
+   remove_store+0x123/0x140 drivers/pci/pci-sysfs.c:524
 
-The allocation failure itself is already handled by returning -ENOMEM,
-so the only problem is a warning that userspace can trigger at will.
+The vmalloc_to_sgt() failure path in virtio_gpu_queue_fenced_ctrl_buffer()
+has the same problem, and additionally leaks the vbuf itself.
 
-Pass __GFP_NOWARN to all allocations whose size is derived from
-count_handles. Guarding only drm_syncobj_array_find() is not enough:
-the wait entries are much larger than a handle, so a count that passes
-drm_syncobj_array_find() can still trigger the same warning in
-drm_syncobj_array_wait_timeout().
+Add a helper that releases a vbuf which was never added to the
+virtqueue, including the object references it owns, and use it on all
+three early-exit paths. None of the callers touches the object array
+after handing it to the queue functions, so this cannot double-put.
 
-No functional change and no new limit on the uAPI.
-
-Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+Fixes: b1df3a2b24a9 ("drm/virtio: add drm_driver.release callback.")
+Fixes: a46991b334f6 ("drm/virtio: abort virtqueue wait on device removal to avoid hung task")
+Fixes: e1218b8c0cc1 ("drm/virtio: Use vmalloc for command buffer allocations.")
+Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+Link: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+[fei.yu: also handle the vmalloc_to_sgt() failure path, pass the fence
+ to the helper instead of a bool, fix the Fixes tags]
 Signed-off-by: Fei Yu <fei.yu@intel.com>
 ---
-Testing: on v7.4-rc1 (x86_64, KASAN) the syzbot C reproducer triggers the
-___kmalloc_large_node() warning with the same size (0x100000920); with
-this patch it runs clean. DRM KUnit: 667/667 passed.
+Testing: syzbot C reproducer (PCI remove/rescan loop) for 120s in QEMU
+with fbcon on virtio-gpu: v7.4-rc1 printed "Memory manager not clean
+during takedown" in 377 of 441 cycles (kmemleak: 4040 objects); with
+this patch, 487 cycles, no warning, no kmemleak report.
 
-Notes:
- - An earlier attempt [1] added a size check returning -ERANGE, but only
-   for the handles array, so the syncobjs array and the much larger wait
-   entries could still warn, and it changed the ioctl's error codes.
-   This version keeps the existing -ENOMEM behaviour for all six
-   allocations.
- - kvmalloc() was not used on purpose: it would let userspace trigger
-   multi-GB vmalloc() attempts. A hard upper limit on count_handles
-   would be a uAPI change; happy to do that instead if preferred.
+v2 (Fei Yu, Nguyen's v1 got no review for weeks):
+ - also handle the vmalloc_to_sgt() failure path in
+   virtio_gpu_queue_fenced_ctrl_buffer(), which leaked the vbuf as well
+ - pass the fence to virtio_gpu_drop_vbuf() instead of a bool
+ - replace the Fixes tag: b7170f9457f2 only changed the return type;
+   point at the commits that added the three early-exit paths
 
-[1] https://lore.kernel.org/all/20251227160830.34291-1-madhurkumar004@gmail.com/
+v1: https://lore.kernel.org/all/20260927040655.14531-1-ngocthang2710.1999@gmail.com/
 
- drivers/gpu/drm/drm_syncobj.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+Note: Hui Peng's "drm/virtio: fix vbuf->objs double-free, fence NULL
+deref, and sgt error path" [1] touches the same paths (by moving the put
+into free_vbuf()) and conflicts with this patch.
 
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da168..10aede1c0 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -1051,7 +1051,8 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		lockdep_assert_none_held_once();
+[1] https://lore.kernel.org/all/20260919223440.3884176-1-benquike@gmail.com/
+
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 30 +++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index d99fb9e32..21271966b 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -208,6 +208,25 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	kmem_cache_free(vgdev->vbufs, vbuf);
+ }
+ 
++/*
++ * Free a vbuf that never made it into the virtqueue.  The caller handed
++ * over the references in vbuf->objs, which would otherwise have been
++ * dropped by the dequeue worker once the host completed the command, so
++ * release them here.  If a fence was passed, the reservations are still
++ * locked and must be unlocked first.
++ */
++static void virtio_gpu_drop_vbuf(struct virtio_gpu_device *vgdev,
++				 struct virtio_gpu_vbuffer *vbuf,
++				 struct virtio_gpu_fence *fence)
++{
++	if (vbuf->objs) {
++		if (fence)
++			virtio_gpu_array_unlock_resv(vbuf->objs);
++		virtio_gpu_array_put_free(vbuf->objs);
++	}
++	free_vbuf(vgdev, vbuf);
++}
++
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+@@ -437,9 +456,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 	int ret, idx;
+ 
+ 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
+-		if (fence && vbuf->objs)
+-			virtio_gpu_array_unlock_resv(vbuf->objs);
+-		free_vbuf(vgdev, vbuf);
++		virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 		return -ENODEV;
  	}
  
--	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-+	points = kmalloc_array(count, sizeof(*points),
-+			       GFP_KERNEL | __GFP_NOWARN);
- 	if (points == NULL)
- 		return -ENOMEM;
+@@ -459,9 +476,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 		 * synchronize_srcu() wait in drm_dev_unplug().
+ 		 */
+ 		if (vgdev->vqs_released) {
+-			if (fence && vbuf->objs)
+-				virtio_gpu_array_unlock_resv(vbuf->objs);
+-			free_vbuf(vgdev, vbuf);
++			virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 			drm_dev_exit(idx);
+ 			return -ENODEV;
+ 		}
+@@ -542,8 +557,7 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct virtio_gpu_device *vgdev,
+ 			sgt = vmalloc_to_sgt(vbuf->data_buf, vbuf->data_size,
+ 					     &sg_ents);
+ 			if (!sgt) {
+-				if (fence && vbuf->objs)
+-					virtio_gpu_array_unlock_resv(vbuf->objs);
++				virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 				return -ENOMEM;
+ 			}
  
-@@ -1064,7 +1065,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		goto err_free_points;
- 	}
- 
--	entries = kzalloc_objs(*entries, count);
-+	entries = kzalloc_objs(*entries, count, GFP_KERNEL | __GFP_NOWARN);
- 	if (!entries) {
- 		timeout = -ENOMEM;
- 		goto err_free_points;
-@@ -1238,7 +1239,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	struct drm_syncobj **syncobjs;
- 	int ret;
- 
--	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-+	handles = kmalloc_array(count_handles, sizeof(*handles),
-+				GFP_KERNEL | __GFP_NOWARN);
- 	if (handles == NULL)
- 		return -ENOMEM;
- 
-@@ -1248,7 +1250,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		goto err_free_handles;
- 	}
- 
--	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-+	syncobjs = kmalloc_objs(*syncobjs, count_handles,
-+				GFP_KERNEL | __GFP_NOWARN);
- 	if (syncobjs == NULL) {
- 		ret = -ENOMEM;
- 		goto err_free_handles;
-@@ -1573,7 +1576,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		return ret;
- 
- 	points = kmalloc_array(args->count_handles, sizeof(*points),
--			       GFP_KERNEL);
-+			       GFP_KERNEL | __GFP_NOWARN);
- 	if (!points) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -1586,7 +1589,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
- 
--	chains = kmalloc_objs(*chains, args->count_handles);
-+	chains = kmalloc_objs(*chains, args->count_handles,
-+			      GFP_KERNEL | __GFP_NOWARN);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+prerequisite-patch-id: aa41f7089456b709927a2d1d5480fdc2f0f2ec76
+prerequisite-patch-id: 78c30e7ee8bc1e8d2c9e0626e8988a021d61b3bc
 -- 
 2.43.0
 
