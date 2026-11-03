@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F029606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB38606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhRf/PJh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcUuyBi1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B3710E19B;
-	Tue,  3 Nov 2026 19:41:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D51F810E04F;
+	Tue,  3 Nov 2026 19:45:37 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3280210E19B
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 19:41:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A79B10E04F
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 19:45:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F036E42470;
- Tue,  3 Nov 2026 19:41:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F541F000C1;
- Tue,  3 Nov 2026 19:41:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4843342A19;
+ Tue,  3 Nov 2026 19:45:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057521F000C1;
+ Tue,  3 Nov 2026 19:45:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793734864;
- bh=UOdYDrYyRY0LccO/94vexEVA1I70e8DdZB1uhTRTLNY=;
+ s=k20260515; t=1793735131;
+ bh=v+NOLSdV+a7ZklaPBhMdx7f8LfEOMRoCQO8f0/UxI+0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZhRf/PJh+4RNZx7/LFhRUYrKEF2XZmxd92gIPyqYDmyar4AEmPW7jDeuzoJ8cbFRx
- fL3nZpx4NvIaMoO43OX+VYc6DAY71A5AM2sYzc5fxfCreMb6fizrU2H5MTKgmBelzr
- cSMWgY4FcIKLgSfKLhpUJsY13GffWDzwjiwXjdyZBTBi5WZ/FCmMs3PMdfU8/3fH2M
- OWTk4MS+yLNMZ/kRwfH8AHjsAY+Wy7TqG5XBJMa6z4xAZio1czPguLHevMwpn1x+rM
- JFXsEseS4tNLx09cTUmUcOxHN2X+0Hnvqfn8zyaI6DMVVowedrJ5O9mgckIhEz6+w7
- FMjK14wLrRSCA==
-Message-ID: <sashiko-outbox-195931@kernel.org>
+ b=mcUuyBi1ClkJFX7pKtS6B9WWOHVnh19ZUyk4GG+sANdts6Cle9ef5o8S0oELmzJKK
+ PW87EyQ2et4SAn91Tho/TOI0d1wydQKbrdWsFxZmtXLyJA2FW7/aM62Na0Qlu/gsq4
+ pMgPla1oXsBfejtc13l97YO4/I/fgwWqJvBifRVfDPqGrhb8dwgEmCCyRp0PvKZf62
+ kkH2EpeW7AiK0Gzow1Oqj1cZD0JpUJ8Ut0g1a0NFPlf1+ZR26OGqIL6HjoMhrBW72y
+ X9rr7n+HLTdnhDL0X+T9k3Km9ucoRihjs2aYOlrv++f3iibqHprVyzFt2MtF72qJul
+ GhKGSbOMRFWJw==
+Message-ID: <sashiko-outbox-195933@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] drm/nouveau/kms/nv50-: don't drive outputs at 0 bpc
+Subject: Re: [PATCH 5/5] drm/nouveau: don't let an IRQ_HPD hide a plug or
+ unplug event
 To: "David R. Hedges" <linuxdev844@thelittleman.net>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261103-nouveau-dp-fixes-v1-4-892f4bd357cd@thelittleman.net>
+In-Reply-To: <20261103-nouveau-dp-fixes-v1-5-892f4bd357cd@thelittleman.net>
 References: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
- <20261103-nouveau-dp-fixes-v1-4-892f4bd357cd@thelittleman.net>
+ <20261103-nouveau-dp-fixes-v1-5-892f4bd357cd@thelittleman.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 19:41:04 +0000
+Date: Tue, 03 Nov 2026 19:45:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,120 +59,122 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/nouveau/kms/nv50-: 8 bpc fallback in nv50_outp_atomic_check(=
-) breaks 6 bpc eDP and LVDS
+- [Medium] drm/nouveau: lost plug/unplug bits in nouveau_connector_hpd() wh=
+en pending
+- [Medium] drm/nouveau: nouveau_display_hpd_work() skips link check on IRQ =
+with plug
 --
 
-commit 7d97154d2ddf364be90f072cc11c87de1735db87
+commit 8aa36f0d839e814a361fc038f601698183c285f9
 Author: David R. Hedges <linuxdev844@thelittleman.net>
 
-drm/nouveau/kms/nv50-: don't drive outputs at 0 bpc
+drm/nouveau: don't let an IRQ_HPD hide a plug or unplug event
 
-This commit falls back to 8 bpc in nv50_outp_atomic_check() and
-nv50_msto_atomic_check() when connector->display_info.bpc is 0 so that outp=
-uts
-are not driven at 0 bpc if a modeset happens after a probe clears or resets
-display_info.bpc before ->get_modes() runs.
+This commit updates nouveau_display_hpd_work() so that the
+nouveau_dp_link_check() shortcut is only taken when NVIF_CONN_EVENT_V0_IRQ =
+is
+set without NVIF_CONN_EVENT_V0_PLUG or NVIF_CONN_EVENT_V0_UNPLUG. This
+prevents plug or unplug events queued alongside an IRQ_HPD from skipping
+connector detection.
 
-Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
-
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
-uveau/dispnv50/disp.c
-> index 2c66e480b5116..a265fd971c99c 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -418,8 +418,11 @@ nv50_outp_atomic_check(struct drm_encoder *encoder,
->  	if (ret)
->  		return ret;
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/=
+nouveau/nouveau_display.c
+> index d71dcfc6ee66b..4398cf0fc541c 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+> @@ -462,7 +462,12 @@ nouveau_display_hpd_work(struct work_struct *work)
+>  			    !!(bits & NVIF_CONN_EVENT_V0_UNPLUG),
+>  			    !!(bits & NVIF_CONN_EVENT_V0_IRQ));
 > =20
-> +	/* display_info.bpc is reset to 0 when a probe loses the EDID, and
-> +	 * isn't given a default again until ->get_modes() runs.
-> +	 */
->  	if (crtc_state->mode_changed || crtc_state->connectors_changed)
-> -		asyh->or.bpc =3D connector->display_info.bpc;
-> +		asyh->or.bpc =3D connector->display_info.bpc ?: 8;
+> -		if (bits & NVIF_CONN_EVENT_V0_IRQ) {
+> +		/* A plug or unplug event pending alongside the IRQ, such as a
+> +		 * sink count change reported by nouveau_dp_irq(), still needs
+> +		 * connector detection.
+> +		 */
+> +		if ((bits & NVIF_CONN_EVENT_V0_IRQ) &&
+> +		    !(bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG))) {
 
 [Severity: Medium]
-Could unconditionally defaulting asyh->or.bpc to 8 here break 6 bpc eDP and
-18-bit (6 bpc) LVDS panels?
+Can a separate plug or unplug event still be dropped if it arrives while an
+earlier NVIF_CONN_EVENT_V0_IRQ is already pending for the same connector?
 
-Whenever nouveau_connector_detect() or nouveau_connector_detect_lvds() runs
-without a subsequent ->get_modes() call, drm_connector_update_edid_property=
-()
-calls drm_edid_connector_update() -> update_display_info() ->
-drm_reset_display_info(), which resets connector->display_info.bpc to 0.
-For example, on system or runtime resume, nouveau_display_hpd_resume()
-schedules nouveau_display_hpd_work() which calls drm_helper_probe_detect() =
-on
-every connector; when an eDP or LVDS panel stays connected, its epoch_count=
-er
-does not change, so no hotplug event is sent and ->get_modes() does not run.
-For EDID 1.3 panels (standard on LVDS and Apple eDP panels), EDID 1.4 panels
-with undefined depth, or failed EDID reads, display_info.bpc remains 0 after
-->detect().
+In drivers/gpu/drm/nouveau/nouveau_connector.c:nouveau_connector_hpd(),
+updating nv_connector->hpd_pending is guarded by the drm->hpd_pending check:
 
-In drivers/gpu/drm/nouveau/nouveau_connector.c,
-nouveau_connector_detect_depth() defaults eDP and LVDS to 6 bpc (unless LVDS
-VBIOS flags specify 24-bit):
-
-	/* EDID 1.4 is *supposed* to be supported on eDP, but, Apple... */
-	if (nv_connector->type =3D=3D DCB_CONNECTOR_eDP) {
-		connector->display_info.bpc =3D 6;
-		return;
+	spin_lock_irqsave(&drm->hpd_lock, flags);
+	if (!(drm->hpd_pending & mask)) {
+		nv_connector->hpd_pending |=3D bits;
+		drm->hpd_pending |=3D mask;
+		schedule_work(&drm->hpd_work);
 	}
+	spin_unlock_irqrestore(&drm->hpd_lock, flags);
 
-	/* we're out of options unless we're LVDS, default to 8bpc */
-	if (nv_encoder->dcb->type !=3D DCB_OUTPUT_LVDS) {
-		connector->display_info.bpc =3D 8;
-		return;
-	}
+If nouveau_connector_irq() -> nouveau_dp_irq() first queues
+NVIF_CONN_EVENT_V0_IRQ (before a sink count change is visible), and a plug =
+or
+unplug event then arrives via nouveau_connector_hotplug() or a follow-up
+nouveau_dp_irq() before nouveau_display_hpd_work() finishes
+pm_runtime_get_sync() and clears drm->hpd_pending, drm->hpd_pending & mask =
+is
+already set. The new NVIF_CONN_EVENT_V0_PLUG or NVIF_CONN_EVENT_V0_UNPLUG b=
+it
+is never ORed into nv_connector->hpd_pending.
 
-	connector->display_info.bpc =3D 6;
+When nouveau_display_hpd_work() then reads nv_connector->hpd_pending, bits
+still only contains NVIF_CONN_EVENT_V0_IRQ, so nouveau_dp_link_check() retu=
+rns
+true when no link is trained and connector detection is still skipped.
 
-When a modeset is committed while display_info.bpc is 0, setting asyh->or.b=
-pc
-to 8 in nv50_outp_atomic_check() causes nv50_sor_atomic_enable() in
-drivers/gpu/drm/nouveau/dispnv50/disp.c to override
-bios->fp.strapless_is_24bit and force 24-bit LVDS mode on 18-bit LVDS panel=
-s:
+Should nv_connector->hpd_pending |=3D bits be moved outside the
+if (!(drm->hpd_pending & mask)) check in nouveau_connector_hpd()?
 
-			if (lvds_dual) {
-				if (bios->fp.strapless_is_24bit & 2)
-					lvds_8bpc =3D true;
-			} else {
-				if (bios->fp.strapless_is_24bit & 1)
-					lvds_8bpc =3D true;
-			}
+>  			if (nouveau_dp_link_check(nv_connector))
+>  				continue;
+>  		}
 
-			if (asyh->or.bpc =3D=3D 8)
-				lvds_8bpc =3D true;
-		}
+[Severity: Medium]
+Does guarding the outer if statement instead of the continue statement skip
+DP link retraining when NVIF_CONN_EVENT_V0_IRQ is set alongside
+NVIF_CONN_EVENT_V0_PLUG or NVIF_CONN_EVENT_V0_UNPLUG?
 
-		nvif_outp_lvds(&nv_encoder->outp, lvds_dual, lvds_8bpc);
+In drivers/gpu/drm/nouveau/nouveau_dp.c, nouveau_dp_link_check() ->
+nouveau_dp_link_check_locked() is the only HPD path that checks channel
+equalization on an active link (outp->dp.lt.nr !=3D 0) and retrains it via
+nouveau_dp_train_link(outp, true):
 
-It also causes eDP links to be trained and driven at 8 bpc instead of 6 bpc,
-and prevents nv50_head_atomic_check_dither() in
-drivers/gpu/drm/nouveau/dispnv50/head.c from enabling 6 bpc dithering on
-24-bit framebuffers:
+	if (drm_dp_dpcd_read_phy_link_status(&outp->conn->aux, DP_PHY_DPRX, link_s=
+tatus) < 0)
+		return false;
 
-		if (asyc->dither.mode =3D=3D DITHERING_MODE_AUTO) {
-			if (asyh->base.depth > asyh->or.bpc * 3)
-				mode =3D DITHERING_MODE_DYNAMIC2X2;
-		} else {
-			mode =3D asyc->dither.mode;
-		}
+	if (drm_dp_channel_eq_ok(link_status, outp->dp.lt.nr))
+		return true;
 
-		if (asyc->dither.depth =3D=3D DITHERING_DEPTH_AUTO) {
-			if (asyh->or.bpc >=3D 8)
-				mode |=3D DITHERING_DEPTH_8BPC;
-		}
+	return nouveau_dp_train_link(outp, true);
 
-Should the fallback in nv50_outp_atomic_check() account for eDP and LVDS
-connectors, or should nouveau_connector_detect_depth() also be invoked once
-nv_connector->native_mode is available?
+If a plug event runs first and nouveau_display_hpd_work() clears
+drm->hpd_pending =3D 0 before acquiring dev->mode_config.mutex, a subsequent
+IRQ_HPD in nouveau_dp_irq() -> nouveau_connector_hpd() sees
+!(drm->hpd_pending & mask), ORs NVIF_CONN_EVENT_V0_IRQ into
+nv_connector->hpd_pending alongside NVIF_CONN_EVENT_V0_PLUG, and reschedules
+drm->hpd_work. The same combination also occurs directly when nouveau_dp_ir=
+q()
+observes a sink count change on an active SST branch device while the link
+needs retraining.
+
+The first worker run sees both NVIF_CONN_EVENT_V0_IRQ and
+NVIF_CONN_EVENT_V0_PLUG in bits, clears nv_connector->hpd_pending =3D 0, and
+skips nouveau_dp_link_check(). Because drm_helper_probe_detect() ->
+nouveau_connector_detect() -> nouveau_dp_detect() does not check link status
+or retrain the link, and any rescheduled worker run sees bits =3D=3D 0, the=
+ link
+check is lost.
+
+Would it be better to always run nouveau_dp_link_check(nv_connector) when
+NVIF_CONN_EVENT_V0_IRQ is set, and only guard the continue statement with
+!(bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG))?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-nouveau-dp=
--fixes-v1-0-892f4bd357cd@thelittleman.net?part=3D4
+-fixes-v1-0-892f4bd357cd@thelittleman.net?part=3D5
