@@ -2,175 +2,143 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88342606A328
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEFF606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Pso5taZz;
-	dkim=pass (1024-bit key, unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=eiWnYxMR
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZaPH5Ct9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IK3pKjtW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E406610E811;
-	Tue,  3 Nov 2026 20:15:42 +0000 (UTC)
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0976B10E811;
- Tue,  3 Nov 2026 20:15:30 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A3JiI8U611541; Tue, 3 Nov 2026 20:15:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-id:content-transfer-encoding:content-type:date:from
- :in-reply-to:message-id:mime-version:references:subject:to; s=
- dk201812; bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=; b=Pso
- 5taZzoC5To/ajWyBymYJ9BMWT9jZx3tdPCtEOXR2dPRvE9SiSCLmi6yGX+Gwiree
- tLLl8Tuoi+aB8HuJqqP+aOZg3LR80uZJoEamDCAbTZAR6xh1oRHnJ7OAc2NmCyLh
- 1qSLAC6mHi9SDAcMJWUdt/q8Kvg/AB3v3bhbBJdJHCFbJO4O85P+kPmQe5QioEFO
- WKgT84w6+bRObblD8Y9Xbya3Zd7RrNRHWZNISFKHfhRCEdfF/7Ufc6kfPi/cUgvv
- oG3Fv/ZvYHBdNrwfb3ggOOlehOmCyf5OArtgI+3kLm6p3jgsg+Ikj8mm8tZpuWsF
- NEtDW1JoAGTSW3rtb/A==
-Received: from cwxp265cu008.outbound.protection.outlook.com
- (mail-ukwestazon11020102.outbound.protection.outlook.com [52.101.195.102])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft2hsu-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 03 Nov 2026 20:15:21 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jiUiKpfSxOjHplJcMx4TNeDLOGMF/VSai/72yEFIxMueCqqMAzTClb4uvBFe3hbvojl6dS3JKEho7qXrq0SXYSyDrUKN6IVbFWOJLFVskGV1/L9PfZ1Yb/Gj/UHXBxgjdB+Q3O4sdawFFyngl/b4a1Kn/4RvFb+BiEn0awAY0y6fw5iBlL3LxwvMDlEoXLhA67LEXa662izb8QuVhMst6bBv3HMZhJiGVmgksjZ33oCm1yI1KnTuK3rigJVEiHHuQJkIxKOywcWE0jZE21IVnHWoRRrM3XyTD+tGLO8gW823lXaIKTsSGXKGnIVY2U/p868pp3S7gPraee9EbcmZ1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=;
- b=MhMMnT4aX5POqAhvH1JeOXD0gQy/JygGMDyATFWDrlgd0mD46+P9reQEKlLomQMz+S8ZEysQDjM+2wrKyJFb8iYnhDAaFauSTzYSVxEiAB2Qzcfy95SJWFG7bOnBHVLgErKbiPHyPSLn5byJZd3t6b+8uK2VOr2j8YexxsSTpm9G/WbTTkkZjVvUqI8mSirtdj3xWRWjO1Iq9oP+759Lh2KYZ3BCQ3BUcyctABukTx1it6WGGJcB4SVp2xdQtijux3BrCwShYbwOfahkGr+2WlCEdv/wKUpK94PB3CRpoFXuBgUBmIwBU/EQNGpcaM8p679c/bfNwFWf65EUURu8Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE7110F6C6;
+	Tue,  3 Nov 2026 20:16:02 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D85A10F812
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 20:15:49 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A3IZ0lp3675764
+ for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 20:15:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=; b=Za
+ PH5Ct9rMcuWBkD+H2gWQlyz38rtjVVrYO4AHgV2zsbg38FreAcDRdEt7zpNH1chS
+ YfP0IcFcZ0NiqXeFdbF1zeonKVgDZbWOr7ibIfhIsZCdkWNX6Rq04rdK3pkycJPa
+ rWCf+m/tLl0gppfje56ijvt4AdPS12VrX0v9HW6Cjmrn0OYIQGy9DRdMDSGro04E
+ MGotj2mK9sy+3qzgDzMg57ItKaGM4bWNifuYN0IVp+j0imiGV30Edx7yux+ugVQ7
+ w/S6JVcBXOxYX4ucvergODA/1l+xbDRhCQi/PJWkoZbvPYfptyf1+bL8+BLBxgjJ
+ 9WFXGTmpNBSPwXHOx2Tw==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqhyphf5n-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 20:15:48 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id
+ 586e51a60fabf-45952ce9ee0so65778fac.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 12:15:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793736948; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kQIi2Dqllp1//v71UOEytSwFNPGRCd3Q3TPEaxAFXf1G2wz7iUPoUbwwBoDJznnqDE
+ 63+QgA27nfwfqK1w2AG7tez7zZEOOlPubtPZ5prhdFhxaTkx6wtoh7PQuUt6nQnuhmG3
+ 9Emc78kf2qKJim/CybHy65eq97dq/OOnnRw7aA9a8XFoyf53ReVHk5WJ2SQ7UJvVZuJX
+ obpoxr1g6kX+xbQb2atVbJylszXE5TKQaBm0LmVdm59eUVJakgdUzrptghxuiyAQTLgj
+ r/91Htv4Qbv/fSjHs2sWtvYF1fc4pY2PjpiTvzk14UAAzXheALCk2pRsBOYvvQb3HONP
+ 4IpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
+ fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
+ b=Blpsm7zrAAI+EoV9AO8kY2JLR1W/D77Pj+l5fMxVDzdVbhaKC25AncM173C/87kYFh
+ 9Dvvn14FNDgXxtHMO0LN9cEYYpK1MaFjLWCIEcoPy1ojdfSbkbdBQKAZzS5i1DueDcos
+ pkQSdjsiSKUFr+Be3xx4BkhH6yhIPYuNwvSvh15P0hmOP92hbYQ8eS5XLd/LT0VscPUJ
+ tcY3cvrO0HdDxgmgHOuk9c/8OzXY7egM5ujoMjdpSDBnfi60T2nuf+3EXeOrkgBM/URb
+ cju2errb/oiHiqxWR3rlCtDG4r8/dU+DSZCDhjwcDkyU9tCFrTIshXy+Juk2F9Z47hGt
+ 0KpQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MWojQI2laDuoXi+7hCB4omtgurHFIrtAA7vRTgb0Jeg=;
- b=eiWnYxMRIcFF9a1kFx9fGN/6MJziouxchHKBo1lWhxqOTbRoiehgUr0tUSGK5QznpEc2etlVAW2m1me3eFj85c53bormHFicC2DzNhWX9M3q04Aerm9MLIogMCLmV9Z9JzMjlLek2Xy9P/bAA4WqcTmIk5SEM64cx8tMyC+aRZM=
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
- by LO2P265MB5759.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:26c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 20:15:18 +0000
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 20:15:18 +0000
-From: Alessio Belle <Alessio.Belle@imgtec.com>
-To: Alexandru Dadu <Alexandru.Dadu@imgtec.com>
-CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "imagination@lists.freedesktop.org"
- <imagination@lists.freedesktop.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@gmail.com" <airlied@gmail.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>
-Subject: Re: [PATCH v2 0/2] drm/imagination: MMU defines updates and
- improvements
-Thread-Topic: [PATCH v2 0/2] drm/imagination: MMU defines updates and
- improvements
-Thread-Index: AQHdWjNnysrelLP+x0C2c4lG+OnOVrcc666A
-Date: Tue, 3 Nov 2026 20:15:17 +0000
-Message-ID: <61bdf5689057fa6bdb3329e01cd38b1a9c55923c.camel@imgtec.com>
-References: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-In-Reply-To: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=imgtec.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LO2P265MB5759:EE_
-x-ms-office365-filtering-correlation-id: f939f9d9-73f5-4d58-2832-08df39e72ddb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|261102123227099003|56012099006|10067099003|261009223027099003|261022115727099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|38070700021|261028144727099003|261026121527099003|261026140227099003;
-x-microsoft-antispam-message-info: NfRi+Cz4D8VZ2LHdGLOD0Q1UzqdlLp4RYIpzbKGu5WHkeY735YsN59bways4sNZ5stF7CUP6yLYiOcicyYBK2IxWTWoho3g9lYGZ/XMMxgCDgujDJIHZ5BT5jq/T0XtIp6M2jSpQUne0oNDYnQkJkQLSZlb8RHzqKXaaXuPn1B3KQqi+bboMedeJnozrEYBu+RJ4p3s+Yty6AyRYCEul6uxWUsiV3cuhqojS2Hjqtn9sEPh5GB92B4Jjqn2kdyRoIptcW0kH2qJTc1Pur3OM8c2XNgizQy1ZovK4I46rH7ugmta44j4MXz7u1RcytdXYAB9WpDtsc0DEbbv9l6K5iBM2W6OBsDPMyxuG2FHIjEkmeRHkcpX3GTfKd2JQdnZNLZOxccX1mpEdxO8hjtyKtAtA8+VbREf0JG6jMeFUQSYqGMwchHGHb/16hNbdhBDW9Y4m857qAO0cVrJO3J+EMLz9tdn/uGFH93MOgEzuuf2NJR41JsPgke/Ssu8t/wCsiDMVxnj0llRPv0DV3bMKJTGnTtGFIxY41RCnC6tORG+EzPcpd3h1+nFvMpNebrpBd4AuE6J8rw1CWTGBDM1vNRGEtwQaxbVVaNNvgGcL0lzMERkb4zUSFYvGtUB1fs5+xlQyHnUzJoKIDEkvi6bXC1sgB36rA8kfSGQ4mby/qnk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(261102123227099003)(56012099006)(10067099003)(261009223027099003)(261022115727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(38070700021)(261028144727099003)(261026121527099003)(261026140227099003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TVU0cWxvZlJCQWFPVlNzcVJyWXN1M1orc2dQMnhoeHhhdW00LzJSdUsrcStZ?=
- =?utf-8?B?RS9Da2YrZlQ2bElXM1BTcUd6Ny9raC9wSDFTZ29GTHJBeGRJWmNjN2c5Lzg2?=
- =?utf-8?B?ejZMK3hDWW9LVnBUcUNRVzZnOGI2c1FSTkdSWWY4UmZxU3YwbXZ5ekJ3RDl5?=
- =?utf-8?B?Y1FYdWo3SnRWdmhGd2VwSFM4bDlaZXltTlMvOVpaMi82K2Zra0c5RTFkbDZw?=
- =?utf-8?B?eGw0UGN1NGh2Zyt1RmZ6bjh0SVZaR1BtTmtacnBNYUp5cC9kZWgxcEk2V3pl?=
- =?utf-8?B?RTRyanMxSDVkc05Ea2tUOG9HQ2xVMHlYWXFiTmlxcUFtUGxqamVBWW5qSzVw?=
- =?utf-8?B?Q3BDYXc4Q01RZzNNTk9vNVB5L2U3NmJYMkYrR1VuWW1ONEFyV3cySzhMa1Ew?=
- =?utf-8?B?eUxVZmtIRVFTcENESjlLRUxVU3NONlpqdlVKbVhCYUdPMm5Zbm1ML2cwMHlI?=
- =?utf-8?B?djZReFlwRGtXcXp0SEZ6ZytGeHh4Nndwd0Q4SHVnb2Nab3A5azlTT3dNclg2?=
- =?utf-8?B?U0J5QThUT0RBN21Ba1MwTlVUanZtNkZxS3lPNVZBZDhWM3RBNDRPL2h0dnB0?=
- =?utf-8?B?NCtTc3NGMlk2SzBHL2FSTGtCckJjWWhmTVhja2VEYUR5b3d0YmhQUC9FMWZ6?=
- =?utf-8?B?b3FtdStaLzE5dnB1YTBZcmVNdTkrT09CRGFGMENXNEc4VFdtU1pESWNSQW9C?=
- =?utf-8?B?SFpwZUVMUHoxQ1JIS3dQaGhjQXJJYnJMZ2lZN2JONzVJSjU5TmRBTVZTOTJu?=
- =?utf-8?B?eHB6d3VtQVV0ZnYyRnVPWFh4UWhCdm1uNnN5bmZ1VHdkYjZyeHlvd3UybkRi?=
- =?utf-8?B?M214K1FGK05VYnowdWs1aC9wVWYvVzhHeUhlc1ZxcG1peitMcnZ4M0RRcVJL?=
- =?utf-8?B?QXR4akNDUSsyUmV4amFDVmtrRFJoa3E4cGo5SHZpcFRCa3Y4bU1GNUdjMkEy?=
- =?utf-8?B?S0E2c2I5dmgyMkZmckdUbXg0Yy9aK2pEb0N6LzlJKzkzMmpHVjhzZFIrVDQ1?=
- =?utf-8?B?OWVjNmZuTW5ORlljeE9XUXNLdU1uWnErYUZJSmF5UzFpeTM0Vk9wVTFoVFhW?=
- =?utf-8?B?RDJiRHFPaGY1dW00NW9SUjJ2WGlMTzVPbk5xeUxxS1FjdXYvNUg4MS9ZQ05q?=
- =?utf-8?B?NXRlTUh0ZVRybjl1NGo3UjNhR2NDRVhoVlBtcmErM3dvcmo2ak9YdFdNbVNW?=
- =?utf-8?B?RDdDUlhwVWtQUE1qaVk5RXdHRmNnZFJocHZZaS9FODJzYlNDdTU5UXNNMlVh?=
- =?utf-8?B?dEswOHBRNmZzWFRZNG1mcjZNNzNIQ2o3ZkRRVXpkZjBSZ2JSZkZabTBpU1h3?=
- =?utf-8?B?V2JGYUloY1NrSWt4VmdnVkRXdVJ4anc5RzFRM1hQVlZrbFVwLzdDR0h0MjJO?=
- =?utf-8?B?YTNHNzB2LzJobDhoc0JVckkxNGtFQ2l6YmM1Y2NSbDk1bHhqL1JOU1JuNU0w?=
- =?utf-8?B?RjlWd0dQd25aRDN5bG5LNEJIdFZzMklvWWpyS0pWTGdWNS9Vd3ZLRUYrdWx2?=
- =?utf-8?B?UlpIeUNmMkE2ZmdycEZ4SGJVY243Q0VMVERjYzdDUnBWQkNMSkhJLzBLRVp6?=
- =?utf-8?B?WWFyU3ZGRkd2RG9aSzFqejd5K2luZTI1MGdGT3ZuVmliTnhNZ0dXOHF6Z1lI?=
- =?utf-8?B?WGxGK0J0SGxDZDdHeFo2QmVDQU9saU1ZNFVMeVlHS08wQ3F5MUdhL2VNKzlR?=
- =?utf-8?B?Mnd5VEgwM3JmQ3RwNDBnNjFhZXMvRjZrZUMxQnhFWlFZV2EwM1pKalNRUFpH?=
- =?utf-8?B?aEM2Wkg2NEhaNDVJbjlicFJjdEMrMkcrVXJHa2xhU1FFRGRXeVprRlZEOFNM?=
- =?utf-8?B?MFdkL0ZTODllWXcwYkdHaG1aM2NJMWlkQ1poSmZxTSt5czh2VU1CdFBBVDFF?=
- =?utf-8?B?TTE5b2dVQnJpQ0EwZjNGYlJYc1hUNjc0STRLOS9yWlpLYVpzZ0UrT0ZtdlRi?=
- =?utf-8?B?MjVBWmZ3NFdUUHNNZ05TQThJME5yRi91MnUwSlNGNmF4UWhNUUhZOFVkb0p2?=
- =?utf-8?B?bWR1cDVJT09lcWFDRW9XWHVhY1NUaFYvbGtzQ1FEV09DNlVHMUdKSW1UcEU2?=
- =?utf-8?B?elJOSTF6WURtM1c1RVJvaFRWS0JPWGZGaTN1L2pFUHNYNWhVT0FPdkNGb05I?=
- =?utf-8?B?Y3g0cy9FR0pDY0t5UWplNE9oWjlvY1lpVEdEaEpxVmVzRnVPUnlhUm1CZjJK?=
- =?utf-8?B?NnhPenVqYm9QYkgvVUQ1RDFjSm8xOXZrZDdpL3BPd2diZy9vc1RVZHRJaUhY?=
- =?utf-8?B?OWxtN0VUZzRTanRNVDVhY2dsenNOd1NHL2ZuSlZqODdlcStGU21EY09uODdT?=
- =?utf-8?B?dlNOUzYwQ1JnZEc1UGVPekpkSzZ4cFRLZkg4L1V4S3FJL3dBVmV0aEdOUDBh?=
- =?utf-8?Q?WHNWkdEkld5vr8u8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <CEABFB0770BB9A45BFC4BA3DF10EE1F9@GBRP265.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+ d=oss.qualcomm.com; s=google; t=1793736948; x=1794341748;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
+ b=IK3pKjtWBUC+vT1nj6vlCVUP3tmWuC3o2Z3R1cbBQU3ubvfjsF5fidliiN3/kv/CF2
+ NKD/16QQ/EKeNHGcCEn2Zj4JnXSzPjuW9Pxn96JpslosO4uG4+muWnuxCTOXCdizCmyh
+ MjWqmbeDGhJzpTewYZHYwIHXqvqWV9stNwaHhWiVE8MqcwgjA5cd0/H0cIxzUAsZA48i
+ N2rwyOfA78rA0oe+sOlfEyO6tleHcP9FKy5+Z2TQyfQfl/G5QyAEqY3zTdCmhFo7RlUQ
+ yqGRKhJGSfj9bLbejTUO2afu6MimPVIsbbbJLtM6rlvBXEHg7JxZqcNh7M8yfDeqc1Cv
+ m4pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793736948; x=1794341748;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
+ b=KWQZTFUK7qV1a79lvDpMFwdFHva3PdLwoADL9ZZqb1WJDVocblC9BVWxf62jS09cu9
+ YswfDxRAcRyHygVmBnvna17vQIPeG1i18Qfg/vtlpgQIuPD7hdW3gu6SENvOFmVy4gze
+ tb/fu2e6QtWjqao4j83GYMDQhVqGDPFU8zsmBxrkTx/gVfsa7sZA76a5dgjx6RQZtfEG
+ dDiN8SWkq4N3btlMZLtbsg7bpSzKgKjZvEsVjO7VoCbZpN6eGMeqy88FsZZe4JpcAvwl
+ 5xJA1E776pbaMw1K2snBarB0u55Pt1/xm7klwpMkyNqVMIEUfPPwO781kFtTyZKS+840
+ dtIg==
+X-Gm-Message-State: APuU4Z+TuKo73wMgi8peBdW6grdBKL2U0jiWo5b1XkCKbry29aWrEo8g
+ hL/MQ3xfNxGaku5RUC+K3HgNkLut7csJmkKIIDwyLRjXoQcK87RQkZtZ41maESpPSiH8wHh8R84
+ WUmK7Bkqw56s8Hc1OqArZHWKwZ4F+9XrbSjQtUcx9DpduUwf82W3Ajr/rOl0OLtu8izCtQwRBaW
+ SexmFtdUnHVviLgxOsUPx25+gRPv0fWJt9+Prrsq/v1m95nZVXUIhOsQ==
+X-Gm-Gg: AYBFou3ZnCRvm0juGRULBbQp8MFB3FPPjIJgdtvP7TamSZIdvrji7N7gWhp0I6Dmckv
+ ii1c2fTT/Q7XvPwXzuc+XBtvKARHTLy27ktcwl7xpDVxEmbDLh3H12Olrv3ooCdZ3VUITEnGHnr
+ ASfBvt7YNNwaQLmww2uzFcjDEmru/D5QX5DaRSOJFa/Ur+QnFvcJeblYxZocAB56Qq1sAJdoGs5
+ D+6N8T/TAeV+xHEM/LGpw==
+X-Received: by 2002:a05:6871:a86d:b0:4a2:c175:d339 with SMTP id
+ 586e51a60fabf-4a90775b604mr8932180fac.39.1793736948064; 
+ Tue, 03 Nov 2026 12:15:48 -0800 (PST)
+X-Received: by 2002:a05:6871:a86d:b0:4a2:c175:d339 with SMTP id
+ 586e51a60fabf-4a90775b604mr8932146fac.39.1793736947335; Tue, 03 Nov 2026
+ 12:15:47 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 4/HmRpXx6a4FqtV3p820YkfykPKBCnhBgV58MWO1F79xdDRb+DB55KoyV3O0/BLJSf+Hb8TZNyZ/zEEaJrRXt0hQBc57aiy0D+3PlXSE4p9t/Hs5wIL4WnSpZgq5oEZHFe8HIgTCZ/s3JJAzdli9ZTaZ1nLLt6feysTC+ZCIBdM3US6PuyMRpKlmKGhBgqoA6hZU6T6QxZpseYtqDKA+ETNiJe+H6ZSVVo/p9dxVXa2IXQeYbqdcCSzo7hihKIwBWlkNqbPJNVZPPUJxeWIlko7a8bQttAeOCsUWlgdHXB49KFTnDzzYipZegSqp1ytT6Uoq2Bx3E2XqmAwHYYzUEw==
-X-OriginatorOrg: imgtec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: f939f9d9-73f5-4d58-2832-08df39e72ddb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 20:15:17.9191 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7/kQAA+N/R5UpDBD5PqDEsuBdK8dp9fxltQPZzFBHUUkAzJdQKKj7h2ZgAH5Tpb/VCrZom6MHx+uM5f6L+nABQu/kT+ZP+qm2D+6JN2Cz6c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5759
-X-Proofpoint-ORIG-GUID: 2kaDlkp4DibZI8NdCbOUfZ5U42L4Ti3Z
-X-Proofpoint-GUID: 2kaDlkp4DibZI8NdCbOUfZ5U42L4Ti3Z
-X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6aea40d9 cx=c_pps
- a=cKUkX1iUh92DVrayS81nfA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=bC-a23v3AAAA:8
- a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=e5mUnYsNAAAA:8 a=g-DLbdlCvdM8k0VslvEA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXzvktQlRIjUzE
- XEQXRFNxLtNquWVkWmRLzcVC2kJHF6nVKBZ+sl785tdhE1NyI8dU3nEM3girWI9GIIguVGV2hiJ
- YtP8NIhqRRkd+Yt3qNTAw8KPlNdl7jQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX1A04RRvrOEhJ
- wWlaVbFzl8ECBz0Hje9N5jBwf0G5zc8bk69C9KEfOR5QGLty3OMiuRXaMYnwtT+FKS8iRO26AiW
- jsBCdsdLWMUbbbWHWKNUXqA5kiEm4gQE/sbYYiyqoLdnSnCIwQzkOMd0sYIWEObQQzx/kgOHR9P
- RftnDxU0gzwZt6ZcQW2Li9tOSW1Daa1pPSnu3Pou37MoyjM/VMx7t+A/I9cK3LmD58Tr/yEkWpm
- LZz6g+aldBGGGWeGJc5o9zHKs1v6kMnKIQTkYVZgsZzBBFgiyPRoqMQ7ml4mIxcklNZmzZU7ZpZ
- TVmF4aVvuqajCi8MLxn8zYnY1dEJiTFDkuRmvhsq98bkC8O8aOGSmlrVbXsFo7v4n6n2VGWx0uy
- 664zl94uZF/TcpHTnNIznwXLA25NyR2MJ12lk48Wq1XXy6+Tt4UqX9zAEDlx69eORHJznZRDMf8
- +FNR0SGcOlUjlokaoOA==
+References: <20261102220405.30730-1-robin.clark@oss.qualcomm.com>
+ <20261102220405.30730-12-robin.clark@oss.qualcomm.com>
+ <sashiko-outbox-194286@kernel.org>
+In-Reply-To: <sashiko-outbox-194286@kernel.org>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 12:15:36 -0800
+X-Gm-Features: AclHuK9jHJl9ylHYf3aDmzOLPgH6YYGiep-CC-qpTd6jOhNr1FgWOibe_0bIeEE
+Message-ID: <CACSVV01czyX=pVrX2Pq3V4W1rWV_sDNomwGLnBDxrbCqwYpP2w@mail.gmail.com>
+Subject: Re: [PATCH v5 11/15] drm/msm/a8xx: devcoredump state capture support
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXyS1jfUx6r+jH
+ sa+gPyxXuXZp8tbyDyWyzxlKOMlqKL0hQBR0Qt4CUc/IQOPbQuxHg8smxPcBa+NkaXM0mbiNT9B
+ FrEHrp9GeLHqYtzc1Bm2OXoeXF30v50=
+X-Proofpoint-ORIG-GUID: c1srjyeKFaRIh0h7BrWHgCaFXWYnTd7m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX0/0XzUU+zqbD
+ 0f9JmYDuhJcZMdjpDLIAfOzO9vb65Zit8sIjOjaGS44erv8QJEoTOl53cZbpTMWsjR6mYr7z+5k
+ 6pSGpV7cyLvMX4lvfSKdc9hl7eREKA6Y8Ur8gDXbRAPodUROriDHEYlkO34/odBsOWNAYi/ROIg
+ 6IFfgZKon/KwpmJVMHjF3BFqUit2xOq+y4PMSPWWeqkG6oevogp7XlwEDnQfI0LRLhtGGjBbshC
+ zHQdLCqs1YZd350AHCBHadgTtZxB2yX7n8Zr5OuOjNYjnfEpU3rXTVnTrSDQTBAiFbKWHSglxJ5
+ oX4DywScDL9P+22RtbQEGnqY4YtVbU6DQqOCQCiACYGpZjefIjcYBSyfKC8dcEVe8nDOePSaz5n
+ nr9f4xVbgIc23+CE3hPVFWAoydp+B7wEfk4nQQ2FP+Q9S9Vb8n+k/8QWCfBrrqsDusWKg1gy7hO
+ A5j8nu+EYyvuoEW1Mkw==
+X-Proofpoint-GUID: c1srjyeKFaRIh0h7BrWHgCaFXWYnTd7m
+X-Authority-Analysis: v=2.4 cv=T94Z3PKQ c=1 sm=1 tr=0 ts=6aea40f5 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=c92rfblmAAAA:8
+ a=X5UkEppQgMmih3U4cmcA:9 a=QEXdDO2ut3YA:10 a=y8BKWJGFn5sdPF1Y92-H:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,51 +149,354 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-SGkgQWxleGFuZHJ1LA0KDQpPbiBNb24sIDIwMjYtMTAtMTIgYXQgMTM6MjAgKzAzMDAsIEFsZXhh
-bmRydSBEYWR1IHdyb3RlOg0KPiAtIFJlc3RyaWN0IHRoZSBpbmNsdXNpb24gb2YgTU1VIGRlZmlu
-ZXMgdG8gTU1VIGNvZGUuDQo+IC0gUmVmYWN0b3IgTU1VIGRlZmluZXMgdG8gdXNlIGtlcm5lbCBz
-dHlsZSBhbmQgYWNjZXNzLg0KDQpDb3VsZCB5b3UgcmViYXNlIHRoZXNlIHBhdGNoZXMgb24gdG9w
-IG9mIGxhdGVzdCBkcm0tbWlzYy1uZXh0LCB0aGF0IG5vdyBpbmNsdWRlcw0KYWxsIHRoZSByZWNl
-bnQgTU1VIGZpeGVzPw0KDQpDb21taXQgNzg5ZjI5MGIyZTgxICgiZHJtL2ltYWdpbmF0aW9uOiBT
-aXplIHBhZ2UgdGFibGUgcHJlYWxsb2NhdGlvbiBieSBkZXZpY2UNCmFkZHJlc3MiKSBpbiBwYXJ0
-aWN1bGFyIGFkZGVkIG1vcmUgdXNhZ2VzIG9mIHNvbWUgU0hJRlQgZGVmaW5lcyB0aGF0IGhhdmUN
-CmJlZW4gcmVtb3ZlZCBieSB0aGlzIHNlcmllcy4gSXQgbWlnaHQgYmUgc2ltcGxlc3QgdG8gcmVh
-ZGQgYWxsIHRocmVlIHRvDQpwdnJfcm9ndWVfbW11X2RlZnMuaCBhcw0KDQojZGVmaW5lIFJPR1VF
-X01NVUNUUkxfVkFERFJfW1BDfFBEfFBUXV9JTkRFWF9TSElGVCBfX2JmX3NoZihST0dVRV9NTVVD
-VFJMX1ZBRERSX1tQQ3xQRHxQVF1fSU5ERVhfTUFTSykNCg0KZm9sbG93aW5nIHRoZSBNQVNLIGRl
-ZmluZXMsIHBsdXMgbGludXgvYml0ZmllbGQuaCBhdCB0aGUgdG9wIG9mIHRoZSBmaWxlLg0KDQpB
-bHNvLCBib3RoIEd5ZXlvdW5nJ3MgKHYxKSBhbmQgQnJhamVzaCdzICh2MikgUmV2aWV3ZWQtYnkg
-dGFncyBzaG91bGQgYmUNCmFwcGxpZWQuDQoNClRoYW5rcywNCkFsZXNzaW8NCg0KPiANCj4gU2ln
-bmVkLW9mZi1ieTogQWxleGFuZHJ1IERhZHUgPGFsZXhhbmRydS5kYWR1QGltZ3RlYy5jb20+DQo+
-IC0tLQ0KPiBDaGFuZ2VzIGluIHYyOg0KPiAtIFVwZGF0ZSB0aGUgcHZyX3BhZ2VfdGFibGVfbDJf
-ZW50cnlfcmF3X3NldCgpIGRlc2NyaXB0aW9uIHRvIGJldHRlciByZWZsZWN0IHRoZSBnZW5lcmFs
-IGNoYW5nZXMuDQo+IC0gTGluayB0byB2MTogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYw
-OTMwLWI0LWluY2x1ZGUtbW11LWRlZmluZXMtb25seS1pbi1tbXUtY29kZS12MS0wLTI5MWVhZGZk
-ZTIzYkBpbWd0ZWMuY29tDQo+IA0KPiBUbzogQWxlc3NpbyBCZWxsZSA8YWxlc3Npby5iZWxsZUBp
-bWd0ZWMuY29tPg0KPiBUbzogTHVpZ2kgU2FudGl2ZXR0aSA8bHVpZ2kuc2FudGl2ZXR0aUBpbWd0
-ZWMuY29tPg0KPiBUbzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4
-LmludGVsLmNvbT4NCj4gVG86IE1heGltZSBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4NCj4g
-VG86IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBUbzogRGF2aWQg
-QWlybGllIDxhaXJsaWVkQGdtYWlsLmNvbT4NCj4gVG86IFNpbW9uYSBWZXR0ZXIgPHNpbW9uYUBm
-ZndsbC5jaD4NCj4gQ2M6IGltYWdpbmF0aW9uQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzog
-ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogbGludXgta2VybmVsQHZnZXIu
-a2VybmVsLm9yZw0KPiANCj4gLS0tDQo+IEFsZXNzaW8gQmVsbGUgKDIpOg0KPiAgICAgICBkcm0v
-aW1hZ2luYXRpb246IFN3aXRjaCB0byBrZXJuZWwtc3R5bGUgTU1VIGRlZmluZXMgYW5kIGFjY2Vz
-cw0KPiAgICAgICBkcm0vaW1hZ2luYXRpb246IERvbid0IGluY2x1ZGUgTU1VIGRlZmluZXMgb3V0
-c2lkZSBvZiBNTVUgY29kZQ0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJf
-bW11LmMgICAgICAgICAgICB8ICA5MSArKysrLS0tLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFn
-aW5hdGlvbi9wdnJfcm9ndWVfbW11X2RlZnMuaCB8IDIzOSArKysrKysrKysrKy0tLS0tLS0tLS0t
-LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl92bS5oICAgICAgICAgICAgIHwg
-ICAyIC0NCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTUxIGluc2VydGlvbnMoKyksIDE4MSBkZWxldGlv
-bnMoLSkNCj4gLS0tDQo+IGJhc2UtY29tbWl0OiA2ZTM3NWRlOTlkMGM0MjAxNjk0ODFmY2QzNjA2
-NDE3N2FiNTViMDlkDQo+IGNoYW5nZS1pZDogMjAyNjA5MzAtYjQtaW5jbHVkZS1tbXUtZGVmaW5l
-cy1vbmx5LWluLW1tdS1jb2RlLWExMzk4ODBmN2ZjZQ0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiAt
-LSAgDQo+IEFsZXhhbmRydSBEYWR1IDxhbGV4YW5kcnUuZGFkdUBpbWd0ZWMuY29tPg0KPiANCg0K
+On Mon, Nov 2, 2026 at 2:28=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [High] drm/msm/a8xx: wrong GX power check helper in a8xx_gpu_state_get(=
+)
+> - [High] drm/msm/a8xx: invalid slice 0 access in gen8_snapshot_mempool()
+> - [High] drm/msm/a8xx: unguarded preempt_bo loop in a8xx_gpu_state_get() =
+causes UAF
+> - [Medium] drm/msm/a8xx: dirty CP_APERTURE_CNTL_HOST state in a8xx_gpu_st=
+ate_get()
+> --
+>
+> commit c7a029a7073f0aadd364139ec43ceeb070ef9dae
+> Author: Rob Clark <robin.clark@oss.qualcomm.com>
+>
+> drm/msm/a8xx: devcoredump state capture support
+>
+> This commit adds devcoredump GPU state capture support for Adreno A8xx GP=
+Us,
+> including register lists, indexed registers, mempool, MVC clusters, shade=
+r
+> blocks, debugbus, and GMU state.
+>
+> > diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/=
+drm/msm/adreno/a8xx_gpu_state.c
+> > new file mode 100644
+> > index 0000000000000..b75de2370e2e3
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
+>
+> [ ... ]
+>
+> > +static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
+> > +                                        struct adreno_gpu_state *state=
+,
+> > +                                        const struct gen8_reg_list *re=
+gs,
+> > +                                        u32 slice_id)
+> > +{
+> > +     int count;
+> > +
+> > +     /* Figure out how many registers we are going to dump */
+> > +     count =3D adreno_snapshot_regs_count(regs->regs);
+> > +
+> > +     snapshot_sect (state, MVC_V3, 4 * count, {
+> > +             .ctxt_id =3D 0,
+> > +             .cluster_id =3D CLUSTER_NONE,
+> > +             .pipe_id =3D PIPE_NONE,
+> > +             .location_id =3D UINT_MAX,
+> > +             .sp_id =3D UINT_MAX,
+> > +             .usptp_id =3D UINT_MAX,
+> > +             .slice_id =3D HEADER_SLICE_ID(regs->slice_region, slice_i=
+d),
+> > +     }) {
+> > +             unsigned long flags;
+> > +
+> > +             if (regs->sel)
+> > +                     gpu_write(gpu, regs->sel->host_reg, regs->sel->va=
+l);
+> > +
+> > +             if (regs->slice_region) {
+> > +                     u32 val =3D GEN8_CP_APERTURE_REG_VAL(slice_id, 0,=
+ 0, 0);
+> > +                     a8xx_aperture_acquire_raw(gpu, val, &flags);
+> > +             }
+> > +
+> > +             /* Make sure the previous writes are posted before readin=
+g */
+> > +             mb();
+> > +
+> > +             for (const u32 *ptr =3D regs->regs; ptr[0] !=3D UINT_MAX;=
+ ptr +=3D 2) {
+> > +                     snapshot_mvc_regs_v3_subheader(&sect, ptr);
+> > +
+> > +                     for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
+> > +                             snapshot_sect_u32(&sect, reg_read(gpu, k)=
+);
+> > +                     }
+> > +             }
+> > +
+> > +             if (regs->slice_region)
+> > +                     a8xx_aperture_release(gpu, flags);
+> > +     }
+> > +}
+>
+> [Severity: Medium]
+> As reported by Sashiko on v4 [1], can gen8_legacy_snapshot_registers() le=
+ave
+> REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture programmed t=
+o a
+> previous slice when reading subsequent UNSLICE register blocks?
+>
+> In drivers/gpu/drm/msm/adreno/a8xx_gpu.c, a8xx_aperture_acquire_raw() wri=
+tes
+> to REG_A8XX_CP_APERTURE_CNTL_HOST and updates a6xx_gpu->cached_aperture,
+> whereas a8xx_aperture_release() only drops a6xx_gpu->aperture_lock:
+>
+> drivers/gpu/drm/msm/adreno/a8xx_gpu.c:a8xx_aperture_release() {
+>         spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
+> }
+>
+> Because gen8_legacy_snapshot_registers() only calls
+> a8xx_aperture_acquire_raw() when regs->slice_region is SLICE and does not
+> clear the aperture afterward, when b->pre_crashdumper_regs or b->reg_list=
+ has
+> SLICE entries followed by UNSLICE entries, the UNSLICE entries are read w=
+hile
+> REG_A8XX_CP_APERTURE_CNTL_HOST still has A8XX_CP_APERTURE_CNTL_HOST_USESL=
+ICEID
+> and the previous slice_id set.
+>
+> In addition, regs->sel->host_reg is written before a8xx_aperture_acquire_=
+raw()
+> selects the target slice and outside aperture_lock, and a8xx_gpu_state_ge=
+t()
+> exits via the out label without calling a8xx_aperture_clear(gpu) to reset
+> REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture after
+> gen8_snapshot_mvc_regs(), gen8_snapshot_cp_indexed_regs(), and
+> gen8_legacy_snapshot_registers() run.
+>
+> Should gen8_legacy_snapshot_registers() program the aperture for both SLI=
+CE
+> and UNSLICE regions (and write regs->sel->host_reg after acquiring the
+> aperture), and should a8xx_gpu_state_get() call a8xx_aperture_clear(gpu) =
+at
+> the out label?
+
+This is fine, reading UNSLICE regs does not depend on the aperture.
+And USESLICEID only matters for writes, it controls whether the write
+is broadcast to all slices or not.
+
+This also matches kgsl.
+
+> [ ... ]
+>
+> > +static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
+> > +                               struct adreno_gpu_state *state,
+> > +                               struct adreno_crashdumper *dumper)
+> > +{
+> > +     const struct gen8_snapshot_block_list *b =3D block_list(gpu);
+> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(to_adreno_gpu(gpu));
+> > +     u32 slice_mask =3D a6xx_gpu->slice_mask;
+> > +     u32 first_slice =3D a8xx_get_first_slice(a6xx_gpu);
+> > +     bool ret =3D true;
+> > +
+> > +     for (int i =3D 0; i < b->mempool_index_registers_len && ret; i++)=
+ {
+> > +             const struct gen8_cp_indexed_reg *cp_indexed_reg =3D
+> > +                     &b->mempool_index_registers[i];
+> > +             unsigned long flags;
+> > +             u32 j;
+> > +
+> > +             FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_ma=
+sk) {
+> > +                     u32 pipe_id =3D cp_indexed_reg->pipe_id;
+> > +
+> > +                     /* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize =
+it while dumping */
+> > +                     a8xx_aperture_acquire_raw(gpu,
+> > +                             GEN8_CP_APERTURE_REG_VAL_NS(first_slice, =
+pipe_id, 0, 0),
+> > +                             &flags);
+> > +                     gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2)=
+, BIT(2));
+> > +                     a8xx_aperture_release(gpu, flags);
+> > +
+> > +                     a8xx_aperture_acquire_raw(gpu,
+> > +                             GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0=
+),
+> > +                             &flags);
+> > +                     gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, =
+BIT(2), BIT(2));
+> > +                     a8xx_aperture_release(gpu, flags);
+> > +
+> > +                     ret =3D gen8_snapshot_indexed_registers(gpu, stat=
+e, dumper,
+> > +                             cp_indexed_reg->addr,
+> > +                             cp_indexed_reg->data, 0,
+> > +                             cp_indexed_reg->size,
+> > +                             cp_indexed_reg->pipe_id,
+> > +                             HEADER_SLICE_ID(cp_indexed_reg->slice_reg=
+ion, j));
+> > +
+> > +                     /* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are=
+ done */
+> > +                     a8xx_aperture_acquire_raw(gpu,
+> > +                             GEN8_CP_APERTURE_REG_VAL_NS(first_slice, =
+pipe_id, 0, 0),
+> > +                             &flags);
+> > +                     gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2)=
+, 0);
+> > +                     a8xx_aperture_release(gpu, flags);
+> > +
+> > +                     a8xx_aperture_acquire_raw(gpu,
+> > +                             GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0=
+),
+> > +                             &flags);
+> > +                     gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, =
+BIT(2), 0);
+> > +                     a8xx_aperture_release(gpu, flags);
+> > +
+> > +                     if (!ret)
+> > +                             break;
+> > +             }
+> > +     }
+>
+> [Severity: High]
+> As reported by Sashiko on v4 [2], does gen8_snapshot_mempool() access sli=
+ce 0
+> even when cp_indexed_reg->slice_region is UNSLICE and slice 0 is fused of=
+f in
+> slice_mask?
+>
+> For UNSLICE entries in b->mempool_index_registers, FIRST_SLICE(UNSLICE,
+> slice_mask) sets j to 0 regardless of slice_mask:
+>
+> #define FIRST_SLICE(_region, _slice_mask) \
+>         ((_region =3D=3D UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mas=
+k))
+>
+> Inside FOR_EACH_SLICE, gen8_snapshot_mempool() uses first_slice when
+> accessing REG_A8XX_CP_CHICKEN_DBG_PIPE, but then unconditionally programs
+> GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0) and RMWs the per-slice registe=
+r
+> REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE on slice j =3D 0 before and after
+> gen8_snapshot_indexed_registers().
+>
+> On A8xx GPUs with partial slice configurations where slice 0 is disabled =
+in
+> a6xx_gpu->slice_mask, won't touching REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE o=
+n
+> slice 0 during UNSLICE mempool dumps access a fused-off slice and cause a=
+n
+> AHB/NoC bus error?
+
+This is a specific sequence given by the hw team.  But AFAIU the slice
+configured in the aperture shouldn't matter for non-slice reg.
+
+> [ ... ]
+>
+> > +struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
+> > +{
+>
+> [ ... ]
+>
+> > +     /* If GX isn't on the rest of the data isn't going to be accessib=
+le */
+> > +     if (!a6xx_gmu_gx_is_on(adreno_gpu))
+> > +             return &state->base;
+>
+> [Severity: High]
+> As reported by Sashiko on v4 [3], should a8xx_gpu_state_get() call
+> a8xx_gmu_gx_is_on(adreno_gpu) (or adreno_gpu->funcs->gx_is_on(adreno_gpu)=
+)
+> here instead of a6xx_gmu_gx_is_on(adreno_gpu)?
+>
+> In drivers/gpu/drm/msm/adreno/a6xx_gmu.c, a6xx_gmu_gx_is_on() reads
+> REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS and checks A6xx bit definitions when
+> adreno_is_a7xx() is false:
+>
+> drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_gx_is_on() {
+>         ...
+>         val =3D gmu_read(gmu, REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS);
+>
+>         if (adreno_is_a7xx(adreno_gpu))
+>                 return !(val &
+>                         (A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER=
+_OFF |
+>                         A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
+>
+>         return !(val &
+>                 (A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
+>                 A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
+> }
+>
+> On A8xx hardware, GX power and clock status is checked via
+> a8xx_gmu_gx_is_on(), which reads REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS on
+> A850-family GPUs (where GMU MX may be off) or REG_A8XX_GMU_PWR_CLK_STATUS=
+ on
+> other A8xx GPUs. Calling a6xx_gmu_gx_is_on() on A8xx reads the wrong regi=
+ster
+> and bitmask, which can touch unpowered GMU MMIO on A850-family GPUs or fa=
+lsely
+> report GX as powered on and proceed with unclocked GX register reads.
+>
+> [ ... ]
+>
+> > +     /*
+> > +      * Capture preempt records after cp_clusters, to make this easier
+> > +      * to decode (ie. so we already know CP_CONTEXT_SWITCH_SMMU_INFO =
+and
+> > +      * CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR) when crashdec =
+sees
+> > +      * the logged GPU objs)
+> > +      */
+> > +     for (unsigned i =3D 0; i < gpu->nr_rings; i++) {
+> > +             a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
+> > +                                  a6xx_gpu->preempt_iova[i]);
+> > +             a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
+> > +                                  a6xx_gpu->preempt_smmu_iova[i]);
+> > +     }
+>
+> [Severity: High]
+> As reported by Sashiko on v4 [4], can this loop trigger a use-after-free =
+on
+> a6xx_gpu->preempt_bo[0] when preemption initialization fails and falls ba=
+ck
+> to a single ring?
+>
+> In drivers/gpu/drm/msm/adreno/a6xx_preempt.c, if a6xx_preempt_init() fail=
+s
+> after allocating ring 0's preempt_bo[0], it calls a6xx_preempt_fini(gpu) =
+and
+> sets gpu->nr_rings =3D 1:
+>
+> drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_fini() {
+>         for (i =3D 0; i < gpu->nr_rings; i++)
+>                 msm_gem_kernel_put(a6xx_gpu->preempt_bo[i], gpu->vm);
+> }
+>
+> Because a6xx_preempt_fini() frees a6xx_gpu->preempt_bo[0] without clearin=
+g
+> the pointer to NULL, and a8xx_gpu_state_get() iterates up to gpu->nr_ring=
+s
+> without checking gpu->nr_rings > 1, iteration i =3D 0 will pass the freed
+> a6xx_gpu->preempt_bo[0] pointer to a8xx_snapshot_gpu_bo(). Should this lo=
+op
+> be guarded by gpu->nr_rings > 1 like the other preemption paths?
+>
+> [1] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
+lcomm.com
+> [2] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
+lcomm.com
+> [3] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
+lcomm.com
+> [4] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
+lcomm.com
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102220405.30=
+730-1-robin.clark@oss.qualcomm.com?part=3D11
