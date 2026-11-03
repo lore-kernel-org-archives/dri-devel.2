@@ -2,50 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DE1606A328
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D9F606A329
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pCZUGN8g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA3B10E4FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 776FF10E722;
 	Wed,  4 Nov 2026 08:58:04 +0000 (UTC)
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB9D10F614
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1793716447; x=1793975647;
- bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=sJYuyUCzkNU/lmgDb0NwnnxE4957XBhDJxljyhYhXxubK3nITlCHcpr75CZzF6D4h
- DBF5FLZKmS4dGUFfXmTjgHmbKH7lDuCX/YctsWdU73r9Evkx4Zutb1RmFVGlgfghec
- dLX+dM4dVCsv3WhVe19+/Fc7zNy/YskLFq04IKQkLttpCTvDNaPyLv5+ASOALXSTm2
- 6pd3bQsxfLza73fL+JIyAC2ippfNzBF54nXiXuMMfc5+mkVjJq0OLEZ3aVn4WFCBZM
- OicfTi4OMHZ7i+oSY9i5J3biCLw8igL5SZfJzsZgkt8R2vekBLQ/9ZiiEXjbaIxsZf
- 1xqmPJLsU/syg==
-Date: Tue, 03 Nov 2026 14:34:02 +0000
-To: Daniel Thompson <danielt@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
-In-Reply-To: <aunqGVkX7-Y61iDA@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
- <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
- <aunqGVkX7-Y61iDA@aspen.lan>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 53d7bfe873821e818f7ca436899c3f949815e231
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6069E10E173
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:12:08 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-93e515769d3so10657085a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 14:12:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793743927; x=1794348727; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=zhleLxlgO/8KkinCeUWj94TJDi+jMt0bo+ONkONjbbs=;
+ b=pCZUGN8gQ/UxbONXtce9bI74Te7aPvszGsKJxE5TJevI67fmjJE53bme2uJ33odSJa
+ ey2SYsGPJWI+TmvZqBLwm3fKOiwMD3tJWzCqdiManOUgsshjAiBWLZ6hSKixf+lpx84L
+ obmzU1Mv6ZB5zodzJik4gCZXo3pRENaehiNs66ushfmltj/NtWyNT9+ZQeup2qK+vspl
+ Q0DBXc+eJTP8/AEOv/M2eMZiIi5bhv2JiLHl6QICFD8pGFzOXQ8zrakRID3X+CKKfpNV
+ VYeNbhWIKAhDI8NfkJzvxxQtUYlRSKD9T0bkU8sCt7thDjgKFdwIEknbOEcbfzUSzwKp
+ AKtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793743927; x=1794348727;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zhleLxlgO/8KkinCeUWj94TJDi+jMt0bo+ONkONjbbs=;
+ b=f09qFGbd0+fI1qXghwkXMA+/cYwfGfjZvGWjFoDp4VQN6NZlE+pxT1ZU5CpRTQVPR+
+ j423iyhD67SmCS9F6UfOuTpRxNO8q3/qp7GaVMWBLP0lNfo/pSAfZy/VRuNGPQjrDDI5
+ fFmrEwp4664HCCJsohvczuk08K6Cu3OoKTINqjvhSelkpAmW3KqWdm6hdjRcH3OvHGcA
+ B4pEnP+ztjsfG1klrdJL2OnVvnD7vYxgR8OIgbbwABrsFI+SJiUtSBdEr4QZ45ntadn2
+ BkEZsSO73Y8L/IxEOJgHPZAmOywxOkjH3ZqWm3rOqAOx9nz1JULw2XEQytGr1StZu83H
+ GCxg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz7Dazmt9mjsPbSSUS0gzYueLVJcAh89QQTSQZihTLK5l04NBWacVl9JpSQwkoUappsAYiUbvnEoWE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z93HBSuN7ddjy/I3S5tHGoc11tNZQeFYZKIWxegTz5X1mkyMLuQ
+ gmqQHfP8iqwBlt5v94DXLznKvlPFn1eddbsK6Hvf030/MparyegDM77R
+X-Gm-Gg: AYBFou1ihNWoMvtWCcylD+Z9cuc8ZHv5wXif3qLaSAYN/1u+gMg6ByotH+Dn0uVeQLo
+ ROz7mBnd9lL5jR3s2B+2NCDyuj8IkzT7GG9BF2sZcaUGjTIVm1MPH42PrXQriPZaSyPz+5Rog6l
+ hvQO264n/Zez2Q6y1SWCr/eGeqlLEDgbcvYC5nH6WIgPCSrwJ487wsCDoL1g5FjRIzU3ZkpBIzT
+ pUXG9MNi4Q6A7KZeH2oGsLsk1HSLsm6Zi9QjK/no+UM4BbtTej50LEF7LYu+l07yFrO8i9gYjGC
+ PkjOnq8O5y8/bqD8txvZRKILnwfl3mvIKTP9OTQUTU9wUiuzIORjRAtvTj5SVnmqr/ZDqReBCb3
+ nITUT/W5n9y3lCXoh82+4T3NGtTu/VpcaklNU90pWJutG6WcoCNMObNmjUGcOZomB8kI+2tJ6VX
+ QzeC7nWQfnrqE+lv1MDYb/E13VHMriiQVGqfThSzM7tFZrCRREjCtl/mfhrQpRm9qx6HqU7Kjpj
+ sanRQaiSPA8dcgPSIsH+v5FoJ2mP4/Z6UBh8EEZOGMsvQqkMKDNm4BGwNaF7yddcFbNwUt4T3X6
+ HWbs6/miPJJg4/Ox/IlaCEsNaboDWlUKpObBffRec/HPZIF6IK/9I+yz4kDBRPwFaRWY5wrD1No
+ TNICbio2MLx/ahI6cjm9c2+4us1kIY3JKbJE=
+X-Received: by 2002:a05:620a:2805:b0:93b:d79a:c463 with SMTP id
+ af79cd13be357-944216db682mr2344562985a.59.1793743927168; 
+ Tue, 03 Nov 2026 14:12:07 -0800 (PST)
+Received: from
+ codespaces-be20d5.ynsnsb35uh3ubhr4tvarlepncd.bx.internal.cloudapp.net
+ ([172.191.151.57]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-945d4844be4sm39276485a.29.2026.11.03.14.12.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 14:12:06 -0800 (PST)
+From: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+To: outreachy@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-staging@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eileen Blessing Kabi <kabiblessing5@gmail.com>
+Subject: [PATCH] staging: fbtft: fix spelling mistake "writte" -> "written"
+Date: Tue,  3 Nov 2026 22:11:41 +0000
+Message-ID: <20261103221142.45100-1-kabiblessing5@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,84 +87,36 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Daniel,
+Fix the spelling of "written" in the write_vmem() kernel-doc comment.
 
-On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@kernel.=
-org> wrote:
+Found with codespell.
 
-> On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrot=
-e:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > Kinetic KTD3137 is an LED IC, used in various mobile devices for the
-> > display backlight. Add devicetree bindings documentation for this chip.
-> >
-> > Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
-> >
-> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> > ---
-> >  .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |  5 ++
-> >  2 files changed, 69 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,k=
-td3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3=
-137.yaml
-> > new file mode 100644
-> > index 000000000000..140615640a9a
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.=
-yaml
-> > @@ -0,0 +1,64 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml=
-#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Kinetic Technologies KTD3137 LED Backlight
-> > +
-> > +maintainers:
-> > +  - Roman Vivchar <rva333@protonmail.com>
-> > +
-> > +description:
-> > +  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for =
-medium
-> > +  to large size LCD panels.
-> > <snip>
-> > +  led-max-microamp:
-> > +    minimum: 5000
-> > +    maximum: 29800
-> > +    default: 20200
-> > +
-> > +  vin-supply: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vin-supply
->=20
-> Why is vin-supply required?
->
+Signed-off-by: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+---
+ drivers/staging/fbtft/fb_st7789v.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The chip cannot function without VIN power supply. Even if it's on the
-always-on power rail on certain board, there's always a chance it might be
-accidentally left disabled on the other. It's better to document supply in
-the bindings as far as I understand.
+diff --git a/drivers/staging/fbtft/fb_st7789v.c b/drivers/staging/fbtft/fb_st7789v.c
+index 861a15414..c4db681eb 100644
+--- a/drivers/staging/fbtft/fb_st7789v.c
++++ b/drivers/staging/fbtft/fb_st7789v.c
+@@ -221,7 +221,7 @@ static int init_display(struct fbtft_par *par)
+  * write_vmem() - write data to display.
+  * @par: FBTFT parameter object.
+  * @offset: offset from screen_buffer.
+- * @len: the length of data to be writte.
++ * @len: the length of data to be written.
+  *
+  * Return: 0 on success, or a negative error code otherwise.
+  */
+-- 
+2.56.0
 
-Best regards,
-Roman
-
->=20
-> Daniel.
-> 
