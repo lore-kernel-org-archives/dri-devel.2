@@ -2,41 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB52606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AEF606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoEggcNJ
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WTLU51De
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425DD10E1A3;
-	Tue,  3 Nov 2026 23:48:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25C9010E1A3
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:48:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E3B8F41447;
- Tue,  3 Nov 2026 23:48:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5A91F000C1;
- Tue,  3 Nov 2026 23:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793749717;
- bh=yfoyDwlE4DaWcWRR2zypVtPHyWGglxuH3MsO1J18Xo8=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=XoEggcNJaklJKyUIY6spzx9+YJofE6QRdfm2K2fKmNG5VyexeQOTu4Buj1gbofOTm
- 1hL1X/opH2fO1gkhfG9ccP2pCxu6dB8Z1GQJQXAf8FuSJMMM6Igx86xg8I9DzTRURw
- UfM2iEu/b5Iywb7R5XJdEO5BGHrhkpxM8NSfqrjuBbfej5vqBc8EmdbaW2rI/cLCTE
- RgjtNkwGVAa4AltlzH/HRnxIZihSLcJCJxBbzpcjzBSTD/v3NJCnIipXIvvRo9bDxz
- 6hPBV2SgfbMAIIdkX7xAyIZoI4s/n7F+DWBlic6a+Uh0qLRKBK+w6H187zI011LspA
- HZC8iNQD8o6Qw==
-Message-ID: <sashiko-outbox-196238@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/6] drm/msm: Inhibit IFPC for state snapshot
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261103231850.17493-7-robin.clark@oss.qualcomm.com>
-References: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
- <20261103231850.17493-7-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B71F10E442;
+	Tue,  3 Nov 2026 23:50:08 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 782BE10E442
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:50:01 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a018493d57so25175e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 15:50:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793749800; cv=none;
+ d=google.com; s=arc-20260327;
+ b=TmxTOKyJ235xpMsEzeGsnizbVDv9svd/LajtMPc+szjVn3KiNO1eL2jMT1hzVS2Vuz
+ O419SHO1aQnby4+y+SPS8xYbMBhvX7eUr81l+nLes94aOHsD+M79RixtHrDkKmCS75dB
+ UkrJMKOgD4GtiRhRrcyct1tGTT9QaEV03UVCbmKlG9IRDzfWp1z61kyLXRPRkbnqmOGv
+ TKWyJ7Z3K65cBtour8CjGo0Z3KIz4tEL5gWZN22nXTDM4t/0Yq425+nx2O7dTRSWEsM7
+ tz6FUbjLFXsQj3djx+0BFaevgiVt9h8j46Z0pwt/DwAcl9CL3eHN4ZQdN2ymOZdulsgj
+ onhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2LyDKxPm7BmS9aARoXNEEpr8AzutCEsbFkZ2B7a7nyg=;
+ fh=NqdZ3GMgMrh7tze9aqMIgLeMZLak7pW1CGqeAv1fcUQ=;
+ b=BHHcOFb+e97k4F6TrxR7CkwqhpJ3W/FiNImmd0Hpa2e25R05g+Sbj43eory1vNFMKH
+ 3Y+EX/4d6qtAvFtn9iT3lXqX0UcqC8bsMnZw8hHOR/Y3tjdcqWgfLe5MYNLFdcZeDduc
+ An69x/2mzo20UbjrklJb/zdA3fXWm9PBK5ueVvVJ+xsxQ1H1Kvim4/c8NM9QzvDX36p2
+ zDSiEpuZqSJ5QHXM0DHoBDeXe3Rb10somN6djEkIBN4vUXGk9fRD9VmOaxTx9JnE74QA
+ nOd9joEjRGIBn8jWYCjxerbkW/YcwDwvc5ldSWIx/sxJxf8tgAcA+TZKCiOgWw8yO21U
+ 1/kQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1793749800; x=1794354600;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2LyDKxPm7BmS9aARoXNEEpr8AzutCEsbFkZ2B7a7nyg=;
+ b=WTLU51Dea1QQhMN5cT0I/57iZF45Pa6ZnX1es9h/q5UUChWfwBgCqRDFop0hAH+urE
+ fUVfTBzoq5ynrquXrsygEL1qQtgrcCAKf5RU3tWt1xnIcythyVAJBvZXZHAC0Ze18A2E
+ d89ZBzRPN+aZGRz2o9+UR1+S92XF73gxAoXj+IuHBuJvJqbbXq59FMAFAa8OrTMoqdz9
+ x4a9xOgqtH9vKMO5ePurJoVtmoc2tCQTW5enas+gJPMRdZnsa8TETzADPLGUxEr9WTQv
+ 3AkpASc530wgsmCi2AV61Ds6nXkS/LBJ/eqWZJTGKQn4iTwNeFD4DCDFtcxAL7glt9FV
+ VTPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793749800; x=1794354600;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2LyDKxPm7BmS9aARoXNEEpr8AzutCEsbFkZ2B7a7nyg=;
+ b=XC/6B4OMvak/M7aIptpJcdXTdon55Toxjt7kAvn7y0jDaEGrPI+mFdjHXSwbeDhm90
+ 8g9wRUqJLDgtAq8lz2lhzSB59PY420KwU7gX3NP8iOEQpJ1E0nIWcSkhgCToXVe6l3jy
+ zRUzhPMnTjN7tat0ALPCLRdwzT2XFuhXsACJtJkPl1itQ1aqriZu6XaZO/H7zK0M5rQo
+ S/NLRw/qDmg8Qh5ZLkEkqfjITTOBilugFFRijvAH/BBovUorE1xnqkutbO33wDWhWvqY
+ NnAWGAAMxUMV4cwI28i/WLim9bCjyPIGDyv7et0H9tN/zOseI/8qJerjzpBSSid/ylKO
+ koTA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxISf9gSmTAKBODFx8Zzsb1W+zK9b7QTGj2zCFNrU2l8rOLz1TcPtQp1Xk+Le4PC1WwdMfFFRCb8j8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8V3wVs+jOqFBHuEy9O99hX+LX+fEYXxTUs5L1YdqjH53+X32MF
+ oy3fNUAQc1xomw8x6Za6uCWWI4P8uDhXvJQWZW2vqAOnm+i6t3cc5PsE2xl0Q3txPScpjBBDSWJ
+ Z+T6T1qskjb2tNImq0Cnqqe/zGlwRjZmU3PZEWX/M
+X-Gm-Gg: AYBFou3cgvFTRDgIuzZr9QeA9l4J0fy2LSdyGORoz23ef2finOv3Kxkxo3W6pTLIK8y
+ wpNbD+xBBjQksVAfSawxuBZQq51MUCUGQVFneCQznbY60iRTwSN7XuV4rkdrtb45lLRJWlwHlii
+ wMwMOz+RvySYv6TrXAxVcz2sCaT0hOrRq60g+Aag47nNl4DA1bFJJpjKUUL5WRfTijcVVfhyTi2
+ 1xk4w+pQ8PiR9DKjXJxZyQxIwJUlN4/5QeK6ByjRb1QGWKwIUv1asfnmhRZ9qhtUrphPNjWIkIM
+ kwICxA2iHp+AN/6opzafk6BpQwivM1v0azbrJsA5clRmKmatNQPm0kYXeP0mmSdgSjyT9o7XaZj
+ R/K4r17y1nw3PRXgx/2157lNLWqEwaRDpicxEwkDj4WSsS2WpP+eysINt4ircVDD54w9Td7GwGG
+ JBGlrkrPT+7mVSpGh1vNuVCa0=
+X-Received: by 2002:a05:600c:5799:b0:4a1:eb11:489d with SMTP id
+ 5b1f17b1804b1-4b4606a61f5mr16595e9.16.1793749799475; Tue, 03 Nov 2026
+ 15:49:59 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <18e445c150434665.3137322e32332e3235332e313736.109a67.0000sendgmr@google.com>
+In-Reply-To: <18e445c150434665.3137322e32332e3235332e313736.109a67.0000sendgmr@google.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 3 Nov 2026 15:49:47 -0800
+X-Gm-Features: AclHuK8ZKLm3rVsIDA_wL7c0dXQT21arwcYZtB_K4EiOQaTULkyqjY3FAmPFPP4
+Message-ID: <CABdmKX0h5Vv2cFHRksJx3hHn5c3aBqbmiTASk5GKn3BqUO4Vbw@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: Reject private mappings in
+ dma_buf_mmap_internal() and dma_buf_mmap()
+To: Chris Wiseman <chriswiseman@google.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ John Stultz <jstultz@google.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 23:48:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,157 +109,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/msm: recursive deadlock on perfcntr_lock in sel_worker()
-- [High] drm/msm: deadlock on fault_coredump_done in msm_gpu_open()
---
+On Mon, Nov 2, 2026 at 8:00=E2=80=AFAM Chris Wiseman <chriswiseman@google.c=
+om> wrote:
+>
+> DMA-BUF mappings do not support copy-on-write.  Mapping a dma-buf with
+> MAP_PRIVATE and PROT_WRITE faults into do_wp_page() -> wp_page_copy()
+> and allocates private anonymous pages whose writes never reach the
+> underlying buffer.
+>
+> Individual exporters like cma_heap_mmap(), system_heap_mmap(), and
+> mmap_udmabuf() already require (VM_SHARED | VM_MAYSHARE), and DRM
+> helpers like ttm_bo_mmap_obj() and drm_gem_shmem_object_mmap() reject
+> vma_is_cow_mapping(vma).  However, dma_buf_mmap_internal() and
+> dma_buf_mmap() do not check for this and pass MAP_PRIVATE mappings
+> straight through to dmabuf->ops->mmap().
+>
+> Reject mappings with -EINVAL in both dma_buf_mmap_internal() and
+> dma_buf_mmap() when neither VM_SHARED nor VM_MAYSHARE is set.  Checking
+> both flags still allows read-only MAP_SHARED mappings, where do_mmap()
+> clears VM_SHARED and leaves VM_MAYSHARE set.
+>
+> Suggested-by: T.J. Mercier <tjmercier@google.com>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 
-commit 7aeb57e073a9d565144e21c9afab92c78bbd86fd
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+I really hope nobody is trying to CoW with dma-bufs.
 
-drm/msm: Inhibit IFPC for state snapshot
-
-This commit inhibits IFPC around gpu_state_get() in msm_gpu_open() so that =
-the
-GPU remains awake while taking a debugfs state snapshot.
-
-> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_=
-debugfs.c
-> index 9373ac19ee953..394d37ca90711 100644
-> --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> @@ -83,6 +83,7 @@ static int msm_gpu_open(struct inode *inode, struct fil=
-e *file)
->  	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
->  		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
->  			msm_gpu_hw_init(gpu);
-
-[Severity: High]
-With commit 5d6d3def9b62 ("drm/msm: Resume perfcntrs after hw_init") moving
-msm_perfcntr_resume(gpu) into msm_gpu_hw_init(gpu), can sel_worker() in
-drivers/gpu/drm/msm/msm_perfcntr.c hit a recursive deadlock on
-gpu->perfcntr_lock?
-
-In drivers/gpu/drm/msm/msm_perfcntr.c, sel_worker() acquires
-gpu->perfcntr_lock before calling msm_gpu_hw_init(gpu):
-
-drivers/gpu/drm/msm/msm_perfcntr.c:sel_worker() {
-	scoped_guard (mutex, &gpu->lock) {
-		guard(mutex)(&gpu->perfcntr_lock);
-
-		if (stream =3D=3D gpu->perfcntrs->stream) {
-			msm_gpu_hw_init(gpu);
-			gpu->funcs->perfcntr_configure(gpu, ring, stream);
-		}
-	}
-}
-
-When gpu->needs_hw_init is true (for example, while the GPU is runtime-acti=
-ve
-in the autosuspend window after adreno_load_gpu(), MSM_PARAM_TIMESTAMP, or
-msm_postclose(), or when racing with a thread between pm_runtime_get_sync()
-and acquiring gpu->lock in msm_gpu_open() or msm_context_set_sysprof()),
-msm_gpu_hw_init() calls msm_perfcntr_resume(gpu):
-
-drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_hw_init() {
-	...
-	if (!ret) {
-		msm_perfcntr_resume(gpu);
-		gpu->needs_hw_init =3D false;
-	}
-	...
-}
-
-And msm_perfcntr_resume() unconditionally tries to acquire gpu->perfcntr_lo=
-ck
-again:
-
-drivers/gpu/drm/msm/msm_perfcntr.c:msm_perfcntr_resume() {
-	if (!gpu->perfcntrs)
-		return 0;
-	guard(mutex)(&gpu->perfcntr_lock);
-	return msm_perfcntr_resume_locked(gpu->perfcntrs->stream);
-}
-
-Won't this self-deadlock on gpu->perfcntr_lock while holding gpu->lock with
-gpu->irq disabled?
-
-> +			guard(ifpc_disable)(gpu);
-
-[Severity: High]
-Could acquiring ifpc_disable while holding gpu->lock in msm_gpu_open() (as
-well as in msm_context_set_sysprof() from commit "drm/msm: Rework IFPC
-disable" earlier in this series) cause an ABBA deadlock with
-adreno_gpu->fault_coredump_done?
-
-If the GPU is actively executing a submit (so gpu->needs_hw_init is false),
-msm_gpu_open() acquires gpu->lock and invokes:
-
-  guard(ifpc_disable)(gpu)
-    -> msm_gpu_disable_ifpc_get(gpu)
-      -> a6xx_gmu_ifpc_update(gpu)
-        -> a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET)
-
-If an active GPU submit concurrently triggers an SMMU page fault with
-stall-on-fault enabled (ARM_SMMU_FSR_SS), arm_smmu_context_fault() calls
-report_iommu_fault() -> msm_gpu_fault_handler() -> a6xx_fault_handler() ->
-adreno_fault_handler() before writing ARM_SMMU_CB_RESUME to un-stall the SM=
-MU:
-
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_fault_handler() {
-	...
-		reinit_completion(&adreno_gpu->fault_coredump_done);
-
-		fault_info.ttbr0 =3D info->ttbr0;
-		fault_info.iova  =3D iova;
-		fault_info.flags =3D flags;
-		fault_info.type  =3D type;
-		fault_info.block =3D block;
-
-		msm_gpu_fault_crashstate_capture(gpu, &fault_info);
-
-		complete_all(&adreno_gpu->fault_coredump_done);
-	...
-}
-
-Inside msm_gpu_fault_crashstate_capture(), the fault handler thread blocks =
-on
-mutex_lock(&gpu->lock) because msm_gpu_open() is holding gpu->lock.
-
-Meanwhile, because the SMMU is stalled on the fault, the GMU is wedged and
-gmu_poll_timeout() in a6xx_gmu_set_oob() times out and waits on
-fault_coredump_done while holding gpu->lock:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_set_oob() {
-	...
-		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
-			break;
-
-		/* We may timeout because the GMU is temporarily wedged from
-		 * pending faults from the GPU and we are taking a devcoredump.
-		 * Wait until the MMU is resumed and try again.
-		 */
-		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
-	...
-}
-
-Since msm_gpu_open() holds gpu->lock while waiting on fault_coredump_done, =
-and
-adreno_fault_handler() cannot complete fault_coredump_done or resume the SM=
-MU
-until it acquires gpu->lock, won't both threads permanently deadlock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103231850.1749=
-3-1-robin.clark@oss.qualcomm.com?part=3D6
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
