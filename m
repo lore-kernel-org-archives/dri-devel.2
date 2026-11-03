@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D998606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1924606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=e+j3qbNf
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FS574a7U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70EF010F896;
-	Tue,  3 Nov 2026 21:38:32 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010031.outbound.protection.outlook.com [52.101.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1CB10E1C6;
- Tue,  3 Nov 2026 21:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F58610F855;
+	Tue,  3 Nov 2026 21:39:05 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010026.outbound.protection.outlook.com [52.101.61.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC4210F899;
+ Tue,  3 Nov 2026 21:38:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fqdr7TochMlJCNDeoAPb/CrALqK+6FnZjYSYiIa6dlA6nEsPxs7vWwqw2iElzX+KYT5MqQHABfo34fpt+v7bVZPmtyWlZ3OLtdvQqcV3N48cR41kGMRrxiMBRXtqBbS1Pf37C6gUkrBo8CEd9sRzgNSavdQ4iY01SRCxRkl4/iw5lku9uT1bDvUgc693BXEZ7uiER/XLTI7Gs7yjq4nQ0Ho1vGFiNwwSZq6Ud/HB83TZCD36FoFaudPh3wEnvGTzodRPv0AA3hICC6Z53YztEmn54Hv4ifGv3w84GuN3G0YIoXguGY+SSUzSXhdDTN+SjyPMAU0ubnS5u+OtvwNzeg==
+ b=i70OxjA6xunfHxt09fF8qFpuqiIkAd59f30SUV735UvRjC5oj1gi0Fg5l9+IcgQbFiuOCWF9/xxgZd3QFeWTa8eeyAkVARko+Ja2m2JfOF5QuqKBAmowfOdrct7vVOY62zHCF4W0N/eMxnd0c+5dOtZVAqq8DgU46Cs9cex0FNAuuqb/eFzDAXnATxK+Nch5X02+3Qs2weUDzOyDUDz6VKrt/BAPxRUuF4djV/OgbYrTT+qiLKWUxnEsIAra5Za/7uDUyGmPitS0LMwgXq/25R8xXasPjCS5N8NO/GU4LvHAWW+PU6USSxpE3cfYFckMCcPgbBvuSIr4x03+0PMONg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2IqoR6KtVJtAZNq69gX2R/Ylv0sMddwRxQmLmHngpcc=;
- b=UGUCF6iaas4H6/yLXbLEipjJvLHa7UOCDjD7VeVPaVnwHIpWCShgd3JVF+TzIaop7GIfDKk3jxGPFczImryNnfEnHT4+UT/9BxLrPQIJFwTIVwZ9kTWFbFKelzvoRQBovcON56Rg1SxMxyFhuMt9ntlcc4cB802ZPx50oTBlBrcjKsO4xTUqBcU5OepIb8MeqE+THvQgi8XkoP9a8HTp/TW54EbcrYtR0vDUcIzSi0SaBpaIY+hX2aedaO7DxMd0hDsiytYcjPzUevU06EwuGkOFVNXzjGzzlDhdvw7kOBbAzbvuOxk8w87fnqS/FHRCliN4CI+E0HqbymOoM+WEqg==
+ bh=YXiUsqj9rEYTp31KxuMYqzTfUcZBRA3cxaSYqlBSIbs=;
+ b=dubKHjEN/IRProHh7UyIaTIPv8eccxyHRJ4WDV4KQQIox/pwFeLqMGUbfcpc43Ujt9Svq1EM+qUK3VJKmgHzfcHfrO8tdedefhGKJRADCjkADG5iFSHzBMzmN4sJ3rRH/fFoMPooXFY/xXB+AK3xYIiO08SdXHW0IiA/IDtFqcdD2WeyigOLXBjTlwtjddkufcCCixV6HSJYu8r7m0ymXjRpyrCoAMv5Mrw0OzAbgu2V4UiR07q3RezBVrg7yJ45yQo3n3cqtr7JJcLFhwABjvHp8vd5m6nIwdOBm/KYxOlHMg0TuZs3mHJHALbMIW2iw7aKCqUXf6e/vD02n4+BZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2IqoR6KtVJtAZNq69gX2R/Ylv0sMddwRxQmLmHngpcc=;
- b=e+j3qbNfHTRf4KTeyCMfQsnFkRs3CY0YZHtmWQS56M7VdE7NQ9LD+rJ2oo1mfzZPrxf81bUbgE8vntEWQ1P5g7t6MbK16EktmPg2tZXG6cnTi2U4dozSCIIdqe0FvxsMBMialxLp8dei8JJqRqzDimgQ2257drEvXK4bnLl9g4c=
-Received: from BN1PR13CA0002.namprd13.prod.outlook.com (2603:10b6:408:e2::7)
- by PH7PR12MB7332.namprd12.prod.outlook.com (2603:10b6:510:20f::9) with
+ bh=YXiUsqj9rEYTp31KxuMYqzTfUcZBRA3cxaSYqlBSIbs=;
+ b=FS574a7UxDh5rASpj5x99QEQmL2SLCnnNq1RfHUKI78tBdSdaqAmgmooeYTpF7CSKqLxO3ataKOiiRGGT+dlVmqhzSS7g+9WDR/VKxPzBTK3BepEULlJx/8N0tyYcZAW6dmkAjCnTwSz06sreQmYY+q4P6Qud/j6zi+lOWEfO20=
+Received: from BL1P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::7)
+ by SJ0PR12MB6992.namprd12.prod.outlook.com (2603:10b6:a03:483::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 21:38:11 +0000
-Received: from BN1PEPF00018071.namprd04.prod.outlook.com
- (2603:10b6:408:e2:cafe::4) by BN1PR13CA0002.outlook.office365.com
- (2603:10b6:408:e2::7) with Microsoft SMTP Server (version=TLS1_3,
+ 21:38:09 +0000
+Received: from BN1PEPF00018072.namprd04.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::57) by BL1P221CA0020.outlook.office365.com
+ (2603:10b6:208:2c5::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 21:38:11 +0000
+ Nov 2026 21:38:08 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,23 +46,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018071.mail.protection.outlook.com (10.167.245.199) with Microsoft
+ BN1PEPF00018072.mail.protection.outlook.com (10.167.245.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:11 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:08 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:08 -0600
+ 2026 15:38:05 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 15:38:05 -0600
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 15:38:08 -0600
+ Transport; Tue, 3 Nov 2026 15:38:05 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v1 13/13] drm/amd/display: add KUnit tests for the DMA 3D LUT
- colorop
-Date: Tue, 3 Nov 2026 16:37:56 -0500
-Message-ID: <20261103213756.618024-14-harry.wentland@amd.com>
+Subject: [PATCH v1 03/13] drm/atomic: wire up DMA 3D LUT colorop properties
+Date: Tue, 3 Nov 2026 16:37:46 -0500
+Message-ID: <20261103213756.618024-4-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103213756.618024-1-harry.wentland@amd.com>
 References: <20261103213756.618024-1-harry.wentland@amd.com>
@@ -72,29 +75,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|PH7PR12MB7332:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e0d75a3-9d8f-4099-4a39-08df39f2c252
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018072:EE_|SJ0PR12MB6992:EE_
+X-MS-Office365-Filtering-Correlation-Id: f88da44d-e80d-4289-0127-08df39f2c047
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261102123227099003|11063799006|261022105027099003|56012099006|261009223027099003|261021121427099003|261102130727099003|261026121527099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: VeZkd5E61FDrodWD7ImaIHDh1lRIqVFvwJ3BfO8d8xM+NAMSgEzrd4Vtf6hMELgHGOxP3KzLE7RtbtIkV+MdZeN1CygEUdIM2BOWq2gdx16gXSpKCN6k5Y8PPOwWIRRNo7LPcl4fSBieHUQ3k2sXucVm6dIctoG9E9ftl2MIEM9gxmBYVNeuA+0PTT4dlq/7nXfxZafMVb8E3VRTyOHo/xF1hFVS4D47p+MjBJMYumAgEk1h6ZaNAm/SmP+MituzJJp6e0W+D620bpsUJprrqHsmTpRxSJg5haO7cBTaed8LezrDPiarQj/LrkQj0aLFDTBQuvfLAKbJaXeF3ReMvjStMer7hkyDISEsVSxkA4oJBFhJaNV+RZ0cgW2VPIfktoRKIBPemmFMWIsL2BvsLwhM2eoaFqr5KL4q9hjKGYTYysXx7GJ+EwYYCaFy8UrVsbg4+vDo+P89Mt4GfPr5ZS9eRgenqcDv0LM+PRaYV4fCm/7VkhFD1sRRVzFtXy5I9732H1LLOfyna6DLd6RHcLdPHp7+oetL5j3GMNlkhyNl8FAI925mp81DeqkrAcHkYM6eMdj0yjchEPGjcrn1lGNbL0tYIuS/nRPdtDsTPwJb8RhUF8mgFEe4sTdsg5W6N+BCyZx9zptncUY+tzAeFiVqCYRggHnt/AvzS6ePprhXhjE/+L7QSAzWIq0FDHOq4vAWVnAhFTVSGaTEy/C8Qg==
+ ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|261009221227099003|261026121527099003|261028144727099003|261009223327099003|261009221727099003|261026140227099003|261009220027099003|261009223027099003|261021123027099003|261022105027099003|261102123227099003|261022075727099003|261021121427099003|56012099006|11063799006|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: vpBAevFnVrl2JgxN4KX8czMuL2ajSO9uMVdi8AiQVrIZTuokclWC/XSlFiBX5igOS0Ql+aMCmE0twOB7PJFZ5gxb+TeUgxh8P/kLftVsxsPLS36MYOebBmSe8y2nkQYFq6RWq3NPIsoyClDcrhAeeNgwpKxLXgRYyW9oJFcyZ65g17XtNnDbJQZK2xzsuMoWw3VNEJCZ9HyHGXoAN4xGtMgyoSahD9lTggWvd0cAVC4iU/s+fItUf2TFUtSnbbNk1DUfBvUtscZULziuCLUoywSDDYu3Ete1rY9YkzccD6BhZope7YGDen1NNv1/tRMY2zopglMsyhVEqlzN8uaeOdGyz5J+k5dUc52YBkhQrRwCkOrZu12B+00iUkL0VylllOcjWQGaYAaqcW8bwKs/Zb6ou9ecG9Kl381o1vvogqVVWeOK9BZQcHvdZ1rDf2KTJDyyi4yNK3Ti1yTvJjm7cC9tuLOOBLiqzk2eBJd7n06mB3MTgM1FOqE9KjvPGxUcj2IQj5yRLPsPavlZi+MD5K6hnsJa5qKqLWeqpJ1SR61SARyokL0wncQpcRqJPqI8wtxa+elWLaLy5S9axY3+g0Y1eg7SJtEZ36wLLrM7Fxvx8G6t0w+XpaqvpVh38zO/ylEPSIe55FC/VXZwXRXwppUtZczlXNgMqTFmsnfCsw5D0OsTWsQxjQpxErXlogiiSG9DiYGf40aK1qjIjur1Tw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261102123227099003)(11063799006)(261022105027099003)(56012099006)(261009223027099003)(261021121427099003)(261102130727099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(261009221227099003)(261026121527099003)(261028144727099003)(261009223327099003)(261009221727099003)(261026140227099003)(261009220027099003)(261009223027099003)(261021123027099003)(261022105027099003)(261102123227099003)(261022075727099003)(261021121427099003)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8oNuZ2EOBTgBx6gR2Zt8yDiivUFFdtLR0qn4snod8i8B2OckdTaptWuXdSbZwBOY8hCXRHgD76K7KkW2/PK10HFVXPc0n1SMfKNbWCR2NEUvygNcPkfYNKkLMAQLvHpZmVdhtyA0gFcXyfGZl8U1Ve1GP6iYluR0U5iw3kl+PgGF3sAAJC6M9d4tZnBilzyoOCvEgxR1aio6yMEWw1BYAaVWO9fOBQqmYWx4BppAUueH6NIeRBYnH7VHq/y3uk0At6c73RSLdszIwzkJjfHjZk4HA+FC/TyAqlWDZgPl9ZRJ3w1sO720fnpiC8RR/zSIRVSQFuRFV+y8XnSvoQhEi7Cf87RZoFCEBpETx+ti4rEQh0FSV8SyTgwqF/TGSkJTCVwYH/ce5SMYrnNjL0lgeH9Tn9d2KODXqZj/p1mY2k6nWOLOrL8LOe5ywUieGpbu
+X-MS-Exchange-AntiSpam-MessageData-0: DIpU9kFQImDyM67NXLBEP3uG/fA9IERb+/rcf9PpsOz/Nff8VqPfr2OQvG7Kag36EtVrPdSwDVPqv53j0xhcHl2s/vp6Mb3e9PrV9zBElDQuc8ppGp7vHvuoIStTQ+ie94C1Wi1ml2EVB8+XkN9MjkhBWBnD5yCcxJsLukMsohA9xbJWR10mNgMwhZvMAZR5Wi5yI7Z4YK9xGZjtyCv9W+YH/DWoaIIYFSwHMHsn6ZQmZm4HTS3jRGH4WVY/3q34Up6VPMQ9ovZlgd5dru9eZo/625nKJhk1FePID2Lh8pt72H7mRM93J5f+m6PTpCOZl3KlRe3mhRTxm2/LOdxUHSYzyp3zPbqq9hvHfR+0SVZnfvCP7YcWs7rIMdW5b0og1Ob8/2+DduvrMVqIQ+wzam/KWa4gdorDIcIwFAm7mT6LIa2cqN9Bo7M++7JA3as2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:11.4491 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e0d75a3-9d8f-4099-4a39-08df39f2c252
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:08.0214 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f88da44d-e80d-4289-0127-08df39f2c047
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018071.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018072.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7332
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6992
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,352 +117,202 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DMA 3D LUT pipeline is not covered by the colorop tests, which
-always build the pipeline with a host-loaded 3D LUT.
+Handle the FB_ID and LUT_3D_FORMAT properties in the colorop atomic
+get/set paths, and report LUT_3D_FORMATS (the immutable formats blob) on
+get. Setting FB_ID looks up the framebuffer and swaps the reference into
+the colorop state (taking the new reference, dropping the old), mirroring
+the plane FB_ID handling.
 
-Export amdgpu_dm_colorop_dma_3dlut_active() and
-amdgpu_dm_initialize_dma_3dlut_pipeline() for KUnit and test that:
+RMFB, and closing the DRM file that owns a framebuffer, disable the
+planes that scan it out. Without further handling a colorop using the
+framebuffer would keep it alive and the hardware would keep fetching
+from it. Make atomic_remove_fb() also bypass every colorop using the
+framebuffer and clear its FB_ID, flagging the plane's color management
+as changed. Bypassing keeps the plane visible without the LUT, which is
+less disruptive than disabling it. Document this in the RMFB and
+CLOSEFB uAPI.
 
-- the 3D LUT slot becomes a bypassable DMA 3D LUT colorop advertising
-  the given mode, and only it has prepare_fb and cleanup_fb hooks;
-- no DMA 3D LUT colorop is created without 3D LUT hardware;
-- the advertised mode is a 17-point XBGR16161616 linear LUT, and its
-  pitch follows the DC pitch alignment;
-- the LUT is only active when not bypassed and a framebuffer is set;
-- prepare_fb and cleanup_fb do not touch the framebuffer of an
-  inactive LUT.
+Also print the selected format index and framebuffer id for a
+DRM_COLOROP_3D_LUT_DMA colorop in the atomic state dump.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |   2 +
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 282 ++++++++++++++++++
- 2 files changed, 284 insertions(+)
+ drivers/gpu/drm/drm_atomic.c      |  4 +++
+ drivers/gpu/drm/drm_atomic_uapi.c | 24 +++++++++++++++++
+ drivers/gpu/drm/drm_framebuffer.c | 45 ++++++++++++++++++++++++++++++-
+ include/uapi/drm/drm.h            |  7 ++---
+ 4 files changed, 76 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index b737b45fb2f4..f42339a98549 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -123,6 +123,7 @@ bool amdgpu_dm_colorop_dma_3dlut_active(const struct drm_colorop *colorop,
- 	return colorop->type == DRM_COLOROP_3D_LUT_DMA && colorop_state &&
- 	       !colorop_state->bypass && colorop_state->fb;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_colorop_dma_3dlut_active);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 9bb761eda59f..158f41eae76f 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -939,6 +939,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 		drm_printf_indent(p, 1, "fixed_matrix_type=%s\n",
+ 				  drm_get_colorop_fixed_matrix_type_name(state->fixed_matrix_type));
+ 		break;
++	case DRM_COLOROP_3D_LUT_DMA:
++		drm_printf_indent(p, 1, "lut_3d_format=%u\n", state->lut_3d_format);
++		drm_printf_indent(p, 1, "fb=%u\n", state->fb ? state->fb->base.id : 0);
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index aca0edb42a5a..05a2a3b46351 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -791,6 +791,24 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 			state->fixed_matrix_type = val;
+ 			*replaced = true;
+ 		}
++	} else if (property == colorop->lut_3d_format_property) {
++		if (state->lut_3d_format != val) {
++			state->lut_3d_format = val;
++			*replaced = true;
++		}
++	} else if (property == colorop->fb_property) {
++		struct drm_framebuffer *fb = NULL;
++
++		if (val) {
++			fb = drm_framebuffer_lookup(colorop->dev, file_priv, val);
++			if (!fb)
++				return -EINVAL;
++		}
++		if (state->fb != fb)
++			*replaced = true;
++		drm_framebuffer_assign(&state->fb, fb);
++		if (fb)
++			drm_framebuffer_put(fb);
+ 	} else {
+ 		drm_dbg_atomic(colorop->dev,
+ 			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
+@@ -825,6 +843,12 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ 		*val = (state->data) ? state->data->base.id : 0;
+ 	else if (property == colorop->fixed_matrix_type_property)
+ 		*val = state->fixed_matrix_type;
++	else if (property == colorop->lut_3d_formats_property)
++		*val = colorop->lut_3d_formats_blob ? colorop->lut_3d_formats_blob->base.id : 0;
++	else if (property == colorop->lut_3d_format_property)
++		*val = state->lut_3d_format;
++	else if (property == colorop->fb_property)
++		*val = (state->fb) ? state->fb->base.id : 0;
+ 	else
+ 		return -EINVAL;
  
- /* Pinned while its colorop state is current, since DC re-fetches the LUT */
- static int dm_colorop_prepare_fb(struct drm_colorop *colorop,
-@@ -414,3 +415,4 @@ int amdgpu_dm_initialize_dma_3dlut_pipeline(struct drm_plane *plane, struct drm_
+diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+index d32aceb6ca9b..05cce02238bc 100644
+--- a/drivers/gpu/drm/drm_framebuffer.c
++++ b/drivers/gpu/drm/drm_framebuffer.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_auth.h>
++#include <drm/drm_colorop.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+@@ -1002,10 +1003,12 @@ static int atomic_remove_fb(struct drm_framebuffer *fb)
+ 	struct drm_device *dev = fb->dev;
+ 	struct drm_atomic_commit *state;
+ 	struct drm_plane *plane;
++	struct drm_colorop *colorop;
+ 	struct drm_connector *conn __maybe_unused;
+ 	struct drm_connector_state *conn_state;
+ 	int i, ret;
+ 	unsigned plane_mask;
++	bool colorops_changed;
+ 	bool disable_crtcs = false;
  
- 	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, &mode, list);
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_initialize_dma_3dlut_pipeline);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-index fda30c29a81f..fadeb690b8f0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-@@ -7,7 +7,11 @@
+ retry_disable:
+@@ -1020,6 +1023,7 @@ static int atomic_remove_fb(struct drm_framebuffer *fb)
  
- #include <kunit/test.h>
- #include <drm/drm_colorop.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
- #include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_property.h>
+ retry:
+ 	plane_mask = 0;
++	colorops_changed = false;
+ 	ret = drm_modeset_lock_all_ctx(dev, &ctx);
+ 	if (ret)
+ 		goto unlock;
+@@ -1068,6 +1072,45 @@ static int atomic_remove_fb(struct drm_framebuffer *fb)
+ 		plane_mask |= drm_plane_mask(plane);
+ 	}
  
- #include "dc.h"
- #include "amdgpu.h"
-@@ -310,6 +314,277 @@ static void dm_test_initialize_default_pipeline_no_3d_lut(struct kunit *test)
- 						 expected, ARRAY_SIZE(expected));
- }
- 
-+/* Tests for the DMA (fast-loading) 3D LUT pipeline */
++	/*
++	 * Colorops that fetch data from a framebuffer, such as a DMA 3D LUT,
++	 * are bypassed rather than disabling their plane. Such colorops are
++	 * required to support bypass.
++	 */
++	drm_for_each_colorop(colorop, dev) {
++		struct drm_colorop_state *colorop_state;
++		struct drm_plane_state *plane_state;
 +
-+static const enum drm_colorop_type dm_dma_3dlut_pipeline[] = {
-+	DRM_COLOROP_1D_CURVE,	/* degam TF */
-+	DRM_COLOROP_MULTIPLIER,
-+	DRM_COLOROP_CTM_3X4,
-+	DRM_COLOROP_1D_CURVE,	/* shaper TF */
-+	DRM_COLOROP_1D_LUT,	/* shaper LUT */
-+	DRM_COLOROP_3D_LUT_DMA,
-+	DRM_COLOROP_1D_CURVE,	/* blnd TF */
-+	DRM_COLOROP_1D_LUT,	/* blnd LUT */
-+};
-+
-+static const struct drm_mode_3dlut_mode dm_dma_3dlut_test_mode = {
-+	.lut_size = 17,
-+	.format = DRM_FORMAT_XBGR16161616,
-+	.modifier = DRM_FORMAT_MOD_LINEAR,
-+	.pitch = 256,
-+	.traversal_order = DRM_COLOROP_LUT3D_TRAVERSAL_RGB,
-+	.interpolation = DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
-+};
-+
-+static struct drm_colorop *dm_find_dma_3dlut_colorop(struct kunit *test,
-+						     struct drm_device *drm)
-+{
-+	struct drm_colorop *op;
-+
-+	drm_for_each_colorop(op, drm)
-+		if (op->type == DRM_COLOROP_3D_LUT_DMA)
-+			return op;
-+
-+	KUNIT_FAIL_AND_ABORT(test, "no DMA 3D LUT colorop\n");
-+	return NULL;
-+}
-+
-+static const struct drm_mode_3dlut_mode *
-+dm_expect_dma_3dlut_formats(struct kunit *test, struct drm_colorop *op)
-+{
-+	struct drm_property_blob *blob = op->lut_3d_formats_blob;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, blob);
-+	KUNIT_ASSERT_EQ(test, blob->length, sizeof(struct drm_mode_3dlut_mode));
-+
-+	return blob->data;
-+}
-+
-+/**
-+ * dm_test_build_dma_3dlut_pipeline() - Verify the 3D LUT slot becomes a DMA
-+ *   3D LUT colorop advertising the given mode, and only it pins framebuffers.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_build_dma_3dlut_pipeline(struct kunit *test)
-+{
-+	const struct drm_colorop_helper_funcs *funcs;
-+	const struct drm_mode_3dlut_mode *mode;
-+	struct drm_prop_enum_list list = {};
-+	struct drm_colorop *op;
-+	struct drm_device *drm;
-+	struct drm_plane *plane;
-+	int ret;
-+
-+	plane = dm_colorop_alloc_plane(test, &drm);
-+
-+	ret = amdgpu_dm_build_default_pipeline(drm, plane, true,
-+					       &dm_dma_3dlut_test_mode, &list);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	kfree(list.name);
-+
-+	dm_expect_colorop_pipeline(test, drm, &list, dm_dma_3dlut_pipeline,
-+				   ARRAY_SIZE(dm_dma_3dlut_pipeline));
-+
-+	drm_for_each_colorop(op, drm) {
-+		if (op->type == DRM_COLOROP_3D_LUT_DMA)
++		if (!colorop->state || colorop->state->fb != fb)
 +			continue;
-+		KUNIT_EXPECT_NULL(test, op->helper_private);
++
++		if (drm_WARN_ON(dev, !colorop->bypass_property)) {
++			ret = -EINVAL;
++			goto unlock;
++		}
++
++		drm_dbg_kms(dev,
++			    "Bypassing [COLOROP:%d] because [FB:%d] is removed\n",
++			    colorop->base.id, fb->base.id);
++
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state)) {
++			ret = PTR_ERR(colorop_state);
++			goto unlock;
++		}
++
++		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
++		if (IS_ERR(plane_state)) {
++			ret = PTR_ERR(plane_state);
++			goto unlock;
++		}
++
++		drm_framebuffer_assign(&colorop_state->fb, NULL);
++		colorop_state->bypass = true;
++		plane_state->color_mgmt_changed = true;
++		colorops_changed = true;
 +	}
 +
-+	op = dm_find_dma_3dlut_colorop(test, drm);
-+	KUNIT_EXPECT_NOT_NULL(test, op->fb_property);
-+	KUNIT_EXPECT_NOT_NULL(test, op->lut_3d_format_property);
-+	KUNIT_EXPECT_NOT_NULL(test, op->lut_3d_formats_property);
-+
-+	funcs = op->helper_private;
-+	KUNIT_ASSERT_NOT_NULL(test, funcs);
-+	KUNIT_EXPECT_NOT_NULL(test, funcs->prepare_fb);
-+	KUNIT_EXPECT_NOT_NULL(test, funcs->cleanup_fb);
-+
-+	mode = dm_expect_dma_3dlut_formats(test, op);
-+	KUNIT_EXPECT_MEMEQ(test, mode, &dm_dma_3dlut_test_mode, sizeof(*mode));
-+}
-+
-+/**
-+ * dm_test_build_dma_3dlut_pipeline_no_3d_lut() - Verify no DMA 3D LUT colorop
-+ *   is created without 3D LUT hardware.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_build_dma_3dlut_pipeline_no_3d_lut(struct kunit *test)
-+{
-+	static const enum drm_colorop_type expected[] = {
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_MULTIPLIER,
-+		DRM_COLOROP_CTM_3X4,
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_1D_LUT,
-+	};
-+	struct drm_prop_enum_list list = {};
-+	struct drm_device *drm;
-+	struct drm_plane *plane;
-+	int ret;
-+
-+	plane = dm_colorop_alloc_plane(test, &drm);
-+
-+	ret = amdgpu_dm_build_default_pipeline(drm, plane, false,
-+					       &dm_dma_3dlut_test_mode, &list);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	kfree(list.name);
-+
-+	dm_expect_colorop_pipeline(test, drm, &list, expected, ARRAY_SIZE(expected));
-+}
-+
-+struct dm_dma_3dlut_pitch_param {
-+	const char *name;
-+	u32 pitch_alignment;
-+	u32 pitch;
-+};
-+
-+/* A 17-entry row of XBGR16161616 is 136 bytes. */
-+static const struct dm_dma_3dlut_pitch_param dm_dma_3dlut_pitch_params[] = {
-+	{ "align_1",	1,	136 },
-+	{ "align_64",	64,	192 },
-+	{ "align_256",	256,	256 },
-+};
-+
-+KUNIT_ARRAY_PARAM_DESC(dm_dma_3dlut_pitch, dm_dma_3dlut_pitch_params, name);
-+
-+/**
-+ * dm_test_initialize_dma_3dlut_pipeline() - Verify the advertised DMA 3D LUT
-+ *   mode, and that its pitch follows the DC pitch alignment.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_initialize_dma_3dlut_pipeline(struct kunit *test)
-+{
-+	const struct dm_dma_3dlut_pitch_param *param = test->param_value;
-+	const struct drm_mode_3dlut_mode *mode;
-+	struct drm_prop_enum_list list = {};
-+	struct amdgpu_device *adev;
-+	struct drm_device *drm;
-+	struct drm_plane *plane;
-+	struct dc *dc;
-+	int ret;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	drm = &adev->ddev;
-+
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+	adev->dm.dc = dc;
-+	dc->caps.color.mpc.preblend = true;
-+	dc->caps.color.mpc.mcm_3d_lut_caps.pitch_alignment = param->pitch_alignment;
-+
-+	plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL,
-+						      NULL, 0, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
-+
-+	kunit_add_action(test, kunit_colorop_pipeline_destroy, drm);
-+
-+	ret = amdgpu_dm_initialize_dma_3dlut_pipeline(plane, &list);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	kfree(list.name);
-+
-+	dm_expect_colorop_pipeline(test, drm, &list, dm_dma_3dlut_pipeline,
-+				   ARRAY_SIZE(dm_dma_3dlut_pipeline));
-+
-+	mode = dm_expect_dma_3dlut_formats(test, dm_find_dma_3dlut_colorop(test, drm));
-+	KUNIT_EXPECT_EQ(test, mode->lut_size, 17);
-+	KUNIT_EXPECT_EQ(test, mode->format, DRM_FORMAT_XBGR16161616);
-+	KUNIT_EXPECT_EQ(test, mode->modifier, DRM_FORMAT_MOD_LINEAR);
-+	KUNIT_EXPECT_EQ(test, mode->pitch, param->pitch);
-+	KUNIT_EXPECT_EQ(test, mode->traversal_order, DRM_COLOROP_LUT3D_TRAVERSAL_RGB);
-+	KUNIT_EXPECT_EQ(test, mode->interpolation,
-+			DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL);
-+	KUNIT_EXPECT_EQ(test, mode->flags, 0);
-+}
-+
-+/**
-+ * dm_test_colorop_dma_3dlut_active() - Verify the DMA 3D LUT is only active
-+ *   when not bypassed and a framebuffer is set.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_colorop_dma_3dlut_active(struct kunit *test)
-+{
-+	struct drm_colorop_state *state;
-+	struct drm_framebuffer *fb;
-+	struct drm_colorop *op;
-+
-+	op = kunit_kzalloc(test, sizeof(*op), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, op);
-+	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, state);
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
-+
-+	op->type = DRM_COLOROP_3D_LUT_DMA;
-+	state->colorop = op;
-+	state->bypass = false;
-+	state->fb = fb;
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_colorop_dma_3dlut_active(op, state));
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_colorop_dma_3dlut_active(op, NULL));
-+
-+	state->bypass = true;
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_colorop_dma_3dlut_active(op, state));
-+
-+	state->bypass = false;
-+	state->fb = NULL;
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_colorop_dma_3dlut_active(op, state));
-+
-+	state->fb = fb;
-+	op->type = DRM_COLOROP_3D_LUT;
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_colorop_dma_3dlut_active(op, state));
-+}
-+
-+/**
-+ * dm_test_dma_3dlut_inactive_prepare_cleanup() - Verify prepare_fb and
-+ *   cleanup_fb leave a bypassed or framebuffer-less DMA 3D LUT alone.
-+ * @test: KUnit test context.
-+ *
-+ * The framebuffer has no GEM object, so any attempt to pin it would fail or
-+ * crash.
-+ */
-+static void dm_test_dma_3dlut_inactive_prepare_cleanup(struct kunit *test)
-+{
-+	const struct drm_colorop_helper_funcs *funcs;
-+	struct drm_prop_enum_list list = {};
-+	struct drm_colorop_state *state;
-+	struct drm_framebuffer *fb;
-+	struct drm_colorop *op;
-+	struct drm_device *drm;
-+	struct drm_plane *plane;
-+	int ret;
-+
-+	plane = dm_colorop_alloc_plane(test, &drm);
-+
-+	ret = amdgpu_dm_build_default_pipeline(drm, plane, true,
-+					       &dm_dma_3dlut_test_mode, &list);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	kfree(list.name);
-+
-+	op = dm_find_dma_3dlut_colorop(test, drm);
-+	funcs = op->helper_private;
-+	KUNIT_ASSERT_NOT_NULL(test, funcs);
-+
-+	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, state);
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
-+	state->colorop = op;
-+
-+	/* Bypassed, but still pointing at a framebuffer */
-+	state->bypass = true;
-+	state->fb = fb;
-+	KUNIT_EXPECT_EQ(test, funcs->prepare_fb(op, state), 0);
-+	funcs->cleanup_fb(op, state);
-+
-+	/* Enabled without a framebuffer */
-+	state->bypass = false;
-+	state->fb = NULL;
-+	KUNIT_EXPECT_EQ(test, funcs->prepare_fb(op, state), 0);
-+	funcs->cleanup_fb(op, state);
-+}
-+
- /* Failure paths of amdgpu_dm_build_default_pipeline() */
+ 	/* This list is only filled when disable_crtcs is set. */
+ 	for_each_new_connector_in_state(state, conn, conn_state, i) {
+ 		ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
+@@ -1076,7 +1119,7 @@ static int atomic_remove_fb(struct drm_framebuffer *fb)
+ 			goto unlock;
+ 	}
  
- /*
-@@ -517,6 +792,13 @@ static struct kunit_case dm_colorop_test_cases[] = {
- 	KUNIT_CASE(dm_test_initialize_default_pipeline_dpp_3d_lut),
- 	KUNIT_CASE(dm_test_initialize_default_pipeline_mpc_preblend),
- 	KUNIT_CASE(dm_test_initialize_default_pipeline_no_3d_lut),
-+	/* DMA 3D LUT */
-+	KUNIT_CASE(dm_test_build_dma_3dlut_pipeline),
-+	KUNIT_CASE(dm_test_build_dma_3dlut_pipeline_no_3d_lut),
-+	KUNIT_CASE_PARAM(dm_test_initialize_dma_3dlut_pipeline,
-+			 dm_dma_3dlut_pitch_gen_params),
-+	KUNIT_CASE(dm_test_colorop_dma_3dlut_active),
-+	KUNIT_CASE(dm_test_dma_3dlut_inactive_prepare_cleanup),
- 	/* amdgpu_dm_build_default_pipeline failure paths */
- 	KUNIT_CASE_PARAM(dm_test_build_pipeline_alloc_fail, dm_colorop_step_gen_params),
- 	KUNIT_CASE_PARAM(dm_test_build_pipeline_init_fail, dm_colorop_step_gen_params),
+-	if (plane_mask)
++	if (plane_mask || colorops_changed)
+ 		ret = drm_atomic_commit(state);
+ 
+ unlock:
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..2a06e8e08dbe 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -1217,7 +1217,8 @@ extern "C" {
+  *
+  * Warning: removing a framebuffer currently in-use on an enabled plane will
+  * disable that plane. The CRTC the plane is linked to may also be disabled
+- * (depending on driver capabilities).
++ * (depending on driver capabilities). Colorops using the framebuffer, such
++ * as a DMA 3D LUT, are bypassed instead.
+  */
+ #define DRM_IOCTL_MODE_RMFB		DRM_IOWR(0xAF, unsigned int)
+ #define DRM_IOCTL_MODE_PAGE_FLIP	DRM_IOWR(0xB0, struct drm_mode_crtc_page_flip)
+@@ -1321,8 +1322,8 @@ extern "C" {
+  * argument is a framebuffer object ID.
+  *
+  * This IOCTL is similar to &DRM_IOCTL_MODE_RMFB, except it doesn't disable
+- * planes and CRTCs. As long as the framebuffer is used by a plane, it's kept
+- * alive. When the plane no longer uses the framebuffer (because the
++ * planes and CRTCs, or bypass colorops. As long as the framebuffer is used by
++ * a plane or colorop, it's kept alive. When it is no longer used (because the
+  * framebuffer is replaced with another one, or the plane is disabled), the
+  * framebuffer is cleaned up.
+  *
 -- 
 2.56.0
 
