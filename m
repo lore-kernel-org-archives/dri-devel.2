@@ -2,62 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696FA606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 12:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFFC606A330
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 12:41:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZQFMQVtg
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J/0owWe2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D414D10E7D3;
-	Tue,  3 Nov 2026 12:02:11 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEC010E7D3;
- Tue,  3 Nov 2026 12:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793707327; x=1825243327;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Qzzz/1+bdWOIUm3VjRK5xDOCiANztMGNr91Qy3aea2E=;
- b=ZQFMQVtg8pJR1+vBWHNHt6+5EwgKAVZjXugCxkTj4izFvqBICvpu6Gus
- jLIDegGIHcbu2tleCa0r1yZg3rvTmcvlxfrpHa+2JaUf+5IbETtxXYMqx
- 1+apNYZvGJzBeI6I1vnWwF2FvfNvhsrZ1C7d90qJhFd/yV4n0lxNuf2Oq
- hFSrvbXVp6cWmYnJmPGReGZMXMuesGGxhaXijO2kz66wX6eAxo4Z3zUFu
- 98uA+qvNqbIn1Ji+QxNFEx/MdBLCV3LVE7bu7qu+N/0UYXkF7Nc77A3ue
- 7Lg9jYIDd9gdXFrraICDSijbIeSw7S1jY3ZJvpoyy1WqWpma8F8MKarWd A==;
-X-CSE-ConnectionGUID: Y59pBCLRQeuIdR/qxnSiLw==
-X-CSE-MsgGUID: PjtbV3D6Qg+0XVa1ov8liw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2335877"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2335877"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 04:02:06 -0800
-X-CSE-ConnectionGUID: cxQgoln9QDi0HTBelnd1ZQ==
-X-CSE-MsgGUID: Dy1Ba7l1TVWEb+RTSfjLWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6737577"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160])
- ([10.245.245.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 04:02:04 -0800
-Message-ID: <f61a62a6-01ba-4a82-8af1-435364232f1f@intel.com>
-Date: Tue, 3 Nov 2026 12:02:02 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD9810F56D;
+	Tue,  3 Nov 2026 12:41:05 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 949D210F56D
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 12:40:58 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE9A41595;
+ Tue,  3 Nov 2026 04:40:54 -0800 (PST)
+Received: from [10.57.79.188] (unknown [10.57.79.188])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7218B3F628;
+ Tue,  3 Nov 2026 04:40:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1793709658; bh=gogTsLKDlsXz4VUWeBOml0TBarLR76MOybfBRSYzeTQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=J/0owWe2uTrWOpANjWFObM0r81Mf0Lv4BddrvhW1PS55vLuMa4HJYXriLAQYpomVc
+ qJBiTiKIJrlUJjnoVBsf1fbebD5xnlKVAZkb/3j+76ejCGycRnTCBsymFXluj2Bwys
+ VEo8vZQGOBjEI7kWQHN3FJwxtP+64Srpygo+d/A8=
+Message-ID: <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
+Date: Tue, 3 Nov 2026 12:40:54 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/33] drm/xe: Flush L2 asynchronously in
- xe_bo_trigger_rebind()
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Tejas Upadhyay <tejas.upadhyay@intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-14-matthew.brost@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260711025619.2540575-14-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+To: Akash Goel <akash.goel@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Florent Tomasin <florent.tomasin@arm.com>,
+ Daniel Stone <daniels@collabora.com>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+ <20261030144805.667158-1-liviu.dudau@arm.com>
+ <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
+Content-Language: en-US
+From: Chris Diamand <chris.diamand@arm.com>
+In-Reply-To: <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,41 +57,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/07/2026 03:55, Matthew Brost wrote:
-> On L2-flush-optimized HW with a dma-resv (non-fault) VM, evicting a BO
-> only needs to flush the L2 cache before the migration copy runs; the
-> mappings themselves are torn down and rebuilt lazily via
-> drm_gpuvm_bo_evict() and a subsequent rebind. Today this flush is done
-> by waiting for the BO to go idle and then issuing a synchronous TLB
-> invalidation per mapping VMA from inside xe_bo_trigger_rebind(). Both
-> the idle wait and the synchronous invalidation stall the calling thread
-> while holding the BO dma-resv lock, serializing the move behind all
-> in-flight GPU work on the BO.
+On 03/11/2026 10:58, Akash Goel wrote:
 > 
-> Replace this with an asynchronous flush. Add xe_vm_flush_vm_bo_tlb_async()
-> which, for each VMA mapping the BO on each present tile, queues a TLB
-> invalidation job on the tile migrate (kernel) exec queue. The jobs depend
-> on the BO's in-flight GPU work, captured once as a singleton over
-> DMA_RESV_USAGE_BOOKKEEP, so the flush only fires once the GPU is done with
-> the current mapping. Each job's completion fence is installed into the
-> BO's dma-resv as a DMA_RESV_USAGE_KERNEL fence, so the migration copy -
-> which waits on the resv - waits on the flush without stalling this thread.
+> On 10/30/26 14:48, Liviu Dudau wrote:
+>> We now have more people that can do reviews and contribute patches
+>> to Panthor, so add their names to the list.
+>>
+>> Signed-off-by: Liviu Dudau<liviu.dudau@arm.com>
+>>
+>> ---
+>> v2: Forgot to add Chris Diamand to the list, fixed.
+>> ---
+>>   MAINTAINERS | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 89ea35a35c680..ef92c462a8381 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
+>>   M:    Boris Brezillon<boris.brezillon@collabora.com>
+>>   M:    Steven Price<steven.price@arm.com>
+>>   M:    Liviu Dudau<liviu.dudau@arm.com>
+>> +R:    Akash Goel<akash.goel@arm.com>
+>> +R:    Karunika Choo<karunika.choo@arm.com>
+>> +R:    Lukas Zapolskas<lukas.zapolskas@arm.com>
+>> +R:    Chris Diamand<chris.diamand@arm.com>
+>>   L:    dri-devel@lists.freedesktop.org
+>>   S:    Supported
+>>   T:    githttps://gitlab.freedesktop.org/drm/misc/kernel.git
 > 
-> No PTEs are zapped and vma->tile_invalidated is left untouched: the
-> mapping stays valid until the lazy rebind, and the only work performed
-> here is the L2 flush. On any failure the caller falls back to the
-> existing blocking wait-idle plus xe_vm_invalidate_vma() path.
+> Acked-by: Akash Goel<akash.goel@arm.com>
 > 
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Best regards,
+> Akash
+>
 
-I think this one was split out right? But not merged yet?
+Acked-by: Chris Diamand <chris.diamand@arm.com>
+
+Thanks Liviu!
+Chris
