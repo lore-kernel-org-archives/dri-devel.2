@@ -2,53 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF4A606C591
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA9606FAFF
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:11:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGGniuzx
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anqu3ch+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D24510F4F4;
-	Tue,  3 Nov 2026 11:10:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C802310F4F4
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0D9B10F4F9;
+	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DB210F4F9
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:11:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 977BE43C77;
- Tue,  3 Nov 2026 11:10:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3D41F000C1;
- Tue,  3 Nov 2026 11:10:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D5CA605CB;
+ Tue,  3 Nov 2026 11:11:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2F01F00919;
+ Tue,  3 Nov 2026 11:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793704221;
- bh=DttFhI0LxeH79eT/YhOIy6UMobLtyg9GPfkbGAxdi3s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=CGGniuzx9iamA1AwRWMQ1/ltNGuso7AezbHqZvG0a82iiXHiwroTbFy0Yv0D2P56V
- /i8XebYAe+VzhNJoc21a+OLWcTzWVY4BArMpFynRoK/OIafQa3PAxXjLB4Yk+zcHlG
- prmDed2NkkYSSKO+ndsUIqitcgo5/TEWdZTJqYCP5oUqCTS9XNMiPy6dfbV5UjSe92
- jJWEsLg05NYuiRk6y1ILq5wze+65C5pZ1TWCYp2JmkkJBrnPFPHNVkmZoZr54t37Hf
- 7uSsVgkIXTA61kgSFV0HcgG3O9l9UZ79fY+oIXA4P8X06WrasZ5jU663w/uNuuzutz
- Bly/TlxMd8lqw==
-Date: Tue, 3 Nov 2026 12:10:18 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- stable@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH] phy: mediatek: hdmi: use devm clock provider registration
-Message-ID: <20261103-jumping-nostalgic-mussel-1fddcf@quoll>
-References: <20261103104241.1373838-1-vulab@iscas.ac.cn>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+ s=k20260515; t=1793704271;
+ bh=ywwUAKa1nCAbjT7Xu8wZ5Kot6vkSOvPDdhJKT7WlCes=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=anqu3ch+a+QVzGboMFM7Xbz+NlsiZjDpCKAaDxO9/ZnqJcfsvq22AFFh+InK24gnn
+ SoOrh8yoSmD5KSFYljB7JFEi+Gy3pcgbhA9jFwfRm/AIWeKz4XL4JuUp2wKNJ2KLz9
+ or0T8Pbl3Qm4Zca4Q4QORVp7Y5yIceIZnOvlmo0fSPIdAon0jx107nc2B0qh89d9Mo
+ ieZC1oMkZV5SwKjskyESCfsNjb6D5BuCJVcS6c/dKuhncVaviqCwSryZvIb/ftBiaZ
+ Zh8hhS1VcFEZBeUoHdDL/2XApkFNO2PO4yjEYmzDvpuIVh2SJ+p4MgifYOnjyn7Thk
+ XUEWsviA2P15A==
+Message-ID: <sashiko-outbox-195118@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 15/19] PCI: Add KUnit coverage for ACS isolation checks
+To: "Leon Romanovsky" <leon@kernel.org>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-15-912101f93517@nvidia.com>
+References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+ <20261103-fix-p2p-acs-v4-0-v12-15-912101f93517@nvidia.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103104241.1373838-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 11:11:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +49,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] PCI: duplicated mock device setup in pci_acs_flags_enabled_test()
+--
 
-On Tue, 03 Nov 2026 10:42:41 +0000, Wentao Liang wrote:
-> mtk_hdmi_phy_probe() registers the PLL clock provider with the
-> deprecated of_clk_add_provider(), which takes a reference on the device
-> node.  The driver has no .remove callback, so neither the node
-> reference nor the provider registration is ever released; after the
-> device is unbound, the global provider list still points at the freed
-> hdmi_phy and at the unregistered clock.
-> 
-> Register the provider with devm_of_clk_add_hw_provider() and
-> of_clk_hw_simple_get(), matching the sibling MIPI DSI PHY driver, so
-> that it is removed when the device is unbound.
-> 
-> Fixes: be28b6507c46 ("drm/mediatek: separate hdmi phy to different file")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/phy/mediatek/phy-mtk-hdmi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+commit cd21c328560f2b4befdb418098279304a429237f
+Author: Leon Romanovsky <leon@kernel.org>
 
-Multiple things here:
-1. Your team ignored completely previous feedback. Multiple times.
+PCI: Add KUnit coverage for ACS isolation checks
 
-2. You use multiple identities with this email address, thus I doubt that we
-   speak with an actual person.
+This commit exposes pci_acs_flags_enabled() when KUnit is enabled and adds
+KUnit tests in drivers/pci/pci_acs_test.c using mock config-space operations
+to verify ACS isolation checks, missing capabilities, and failed config rea=
+ds.
 
-3. Your bot does not even bother running checkpatch, right?
+> diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
+> index 18c697226762d..369444d2a04a0 100644
+> --- a/drivers/pci/pci_acs_test.c
+> +++ b/drivers/pci/pci_acs_test.c
+> @@ -103,10 +103,145 @@ static void pci_acs_p2pdma_completion_test(struct =
+kunit *test)
 
-4. Nothing of this was reproduced nor tested.
+[ ... ]
 
-5. Finally, the same feedback:
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
+> +static void pci_acs_flags_enabled_test(struct kunit *test)
+> +{
+> +	const struct acs_isolation_case *c =3D test->param_value;
+> +	struct acs_ctrl_cfg cfg =3D {
+> +		.devfn =3D PCI_DEVFN(0, 0),
+> +		.cap =3D ACS_TEST_CAP,
+> +		.ctrl =3D c->ctrl,
+> +	};
+> +	struct pci_bus *bus =3D kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
+> +	struct pci_dev *pdev =3D kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
+> +
+> +	KUNIT_ASSERT_NOT_NULL(test, bus);
+> +	KUNIT_ASSERT_NOT_NULL(test, pdev);
+> +
+> +	bus->ops =3D &acs_ctrl_ops;
+> +	bus->sysdata =3D &cfg;
+> +
+> +	pdev->bus =3D bus;
+> +	pdev->devfn =3D cfg.devfn;
+> +	pdev->acs_cap =3D ACS_TEST_CAP;
+> +	pdev->acs_capabilities =3D ACS_ALL_CAPS;
+> +
+> +	KUNIT_EXPECT_EQ(test, pci_acs_flags_enabled(pdev, c->req), c->expect);
+> +}
+> +
+> +static bool acs_isolated(struct kunit *test, struct acs_ctrl_cfg *cfg,
+> +			 u16 acs_cap, u16 acs_flags)
+> +{
+> +	struct pci_bus *bus =3D kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
+> +	struct pci_dev *pdev =3D kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
+> +
+> +	KUNIT_ASSERT_NOT_NULL(test, bus);
+> +	KUNIT_ASSERT_NOT_NULL(test, pdev);
+> +
+> +	bus->ops =3D &acs_ctrl_ops;
+> +	bus->sysdata =3D cfg;
+> +
+> +	pdev->bus =3D bus;
+> +	pdev->devfn =3D cfg->devfn;
+> +	pdev->acs_cap =3D acs_cap;
+> +	pdev->acs_capabilities =3D ACS_ALL_CAPS;
+> +
+> +	return pci_acs_flags_enabled(pdev, acs_flags);
+> +}
 
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
+[Severity: Low]
+This isn't a bug, but in drivers/pci/pci_acs_test.c,
+pci_acs_flags_enabled_test() open-codes the same mock struct pci_bus and
+struct pci_dev allocation and initialization that acs_isolated() performs
+immediately below it.
 
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
+Also, struct acs_ctrl_cfg already carries the cap field, which every caller
+initializes to the same value passed as the separate acs_cap argument to
+acs_isolated().
 
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem (so a patchset grouping multiple patches with a short cover
-letter), how to document the issue discovery method and what was
-or was not tested.
+Could acs_isolated() set pdev->acs_cap from cfg->cap directly, and could
+pci_acs_flags_enabled_test() call acs_isolated() to avoid duplicating the
+setup?
 
-Best regards,
-Krzysztof
-
-
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-fix-p2p-ac=
+s-v4-0-v12-0-912101f93517@nvidia.com?part=3D15
