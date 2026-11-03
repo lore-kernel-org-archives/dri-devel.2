@@ -2,37 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1BD6085084
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D8D606EE97
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PA7HwPP7
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Nc19oQi5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12FF910F522;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5E710F527;
 	Tue,  3 Nov 2026 11:36:21 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE5C10F51D
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:36:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3BC10E7F2
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:36:11 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7D1221F37;
- Tue,  3 Nov 2026 12:33:53 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C13B1D12;
+ Tue,  3 Nov 2026 12:33:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793705634;
- bh=PqS2ruK7frGkC0TCq9Vxb5F4GJ8X3qRXVBnADO5zlCY=;
+ s=mail; t=1793705633;
+ bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=PA7HwPP713o5ZrPurkqsJc7F7kx+HyLJpiph+MSzeV7Elf08n4ilzQ7mfsnSpk8to
- 8F3/rTNRNvqpi3IXLM9Z3i/ouuzA1fkqEB47AYRVsq/XrNgxNDAGxc0I07V+hgTw+Z
- M3lNfVfNTz7GNMRxdLSwItNPL6D4ZOCJSm4jYErQ=
+ b=Nc19oQi5UwgaanRL1HBfWoKpqttq9RNSMZ+LEtGft1u0gsv3CYeMESz0W5VahxHaD
+ APKHOmlLjfuMlOe6T8dQy6Wtp4P1XkHNcXqAXdZ1zUc8JrLa09iyrjrUgVRCwE0jMS
+ bjLjWI8UcDHhOI0vzX5AhUFh5NL03zedEZ/XHNgM=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:33 +0200
-Subject: [PATCH v5 13/15] drm/tidss: Add support for AM62P display
- subsystem
+Date: Tue, 03 Nov 2026 13:34:32 +0200
+Subject: [PATCH v5 12/15] drm/tidss: oldi: Add power domain support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-12-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,21 +47,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1532;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4927;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=nQs3IwWopJPpCONI45Cyuco5UVYrRBdHvpe+bDQ95yk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6cca65axinlSiBbteoGzJR3wpLtcFhjJWSwnD
- RuFNAUm4S2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGgAKCRD6PaqMvJYe
- 9cBYD/47Pn1bCaMx0NbtKo1mrQGgueUJmrlI4qYyUVbp7dgQvEMnquROrMzH9ZQnDh7A5vprGE0
- MCIpdbfSwJLWoYbXvIpgIqdysZducF9YL+u39rhRWiSznOCC5rbc5feqf/tYXfr08pC2f2BH6AL
- dzaI6aATY/2/1T/TWwv9PxxAdZl62/sZUfC2pnCuOqddkQyECmkQ+Chs5XDR4uPjpapR8x93CYj
- N5eTmitx4gRp6n8vpvbWtdwV0EEHpKBSbRzn7jqiLxW31dPZ6EWtDTo1o3MnWvOvrELQKC60FjW
- 8f7A6bBDsG7thJ48zfzMOe6TWXA8C4Tdmmm3lNkYNVDoQEnKJmg6c3/qDOnwl/jQp7twcGwkUeO
- suks5rTINlcfUwv0m+3mjmm9wHtK1pm7Ccmbybc+iB6+H/c2Hr7OKuiPLmcOAMO9Z7LUSNXg/C8
- 0Q4OkoOrfjXaWDrR9zCSqE9CZHrhIZm9fbnT+LP0KxERrZD0M1JR7f/5DZnJrgpH7ggDfM9t6a5
- Co5aNfs2fmZHr5W+oxejKY4HrOp1JE4G8uVBf5PGaLRgguIxO4hilqE3ziqJivdJFlf98noBAoj
- 9AxtHzm5QOrjiqy7imDWoWocsv+1IJeL+4glwDesBDM9Rea/RXAUBa3mC4F1PgA4uVbTDWd/ZAl
- Us9VmOIagxPTB3w==
+ bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccZydHLz1k3kSYU1yBegIQnwN3Rb88xaMPrt
+ mxV0f/B9IGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGQAKCRD6PaqMvJYe
+ 9ap9D/9/pK5sMsiaLh5ZwKnEjV5ejLOzBRdMjfCXnzv+5XUJysl6RYj8mZ7MYFINqYeDL6uq2CK
+ EgAK/spnYLtdvUGhtpY3k2nVpS+BID4apVhgowLiVo+SW99+fBO6gt2jEx1Whw/SW2evtgb0ehM
+ xB04SmwE0AzqmGiJjGs9vcjsBKgGz9GEPq9fUrxgY9cQL17voZ5UW82tuf7kpBiAV0iF+L91CIX
+ nl6kUOkjmToO07SHeRwqqZ5xDFta//2igK7u8T5/D55VZbhBsGchJI97t2xrd0Q6wn/fz8yUEHD
+ 3D8YXQpdUAWpysXv39k3qFju5D5LG6d/blyJfUVJwvpabgtOoqYpkEO8OJPJku6+lbjpwJAmzxO
+ y0207VAEpflloDDBpYV3AfN65OEnUwsF2aEdcKJ/Vs4CG9pzzIOoYgyz5WPGC7MiQ2G/TWsmJ7r
+ RO80jmUJcptFKJsClMs4ZwHyfpPOp49OB0w0kuYcNo/nYoy9l8iy0pPTfSq2c/mZlLBwtw19Bih
+ JQOxwjzDUbSERifQAOVKWP7RtM4pHMapc+gPBO5xtZsKbGxo5TaOK3+qGD1CYVIOazSdIwZFHil
+ H4NphmkZAljxaRkJnTm+wA39Cmgr5SSOAg8sRpRCiDeOmro7HcDWd8JNZEQ8nPniRm81gysvMN6
+ nYjuhNs9ZGrtARg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,39 +83,170 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Swamil Jain <s-jain1@ti.com>
+The OLDI TXes on AM62P and J722S have power domains of their own,
+described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
+real devices, so the driver core does not attach these power domains,
+and nothing in the core turns them on.
 
-The DSS controller on TI's AM62P SoC features two instances of the TI
-DSS. Each DSS instance supports two video ports, similar to the DSS
-controller found on the TI AM62X SoC. This allows three independent
-video streams to be supported: OLDI, DPI, and DSI.
+Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
+manage the power state of the returned virtual devices with runtime PM
+functions.
 
-Since the DSS instances on AM62P are architecturally similar to those
-on the AM62X DSS controller, the existing dispc_am625_feats
-configuration can be reused for the AM62P DSS support.
-
-This commit adds the necessary device tree compatibility entry for
-"ti,am62p-dss" in the tidss driver, pointing to dispc_am625_feats,
-thereby enabling DSS support on AM62P devices.
-
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 90 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
-index 7e7f2ba6ae82..86b7596ab628 100644
---- a/drivers/gpu/drm/tidss/tidss_drv.c
-+++ b/drivers/gpu/drm/tidss/tidss_drv.c
-@@ -240,6 +240,7 @@ static const struct of_device_id tidss_of_table[] = {
- 	{ .compatible = "ti,am625-dss", .data = &dispc_am625_feats, },
- 	{ .compatible = "ti,am62a7-dss", .data = &dispc_am625_feats, },
- 	{ .compatible = "ti,am62l-dss", .data = &dispc_am62l_feats, },
-+	{ .compatible = "ti,am62p-dss", .data = &dispc_am625_feats, },
- 	{ .compatible = "ti,am65x-dss", .data = &dispc_am65x_feats, },
- 	{ .compatible = "ti,j721e-dss", .data = &dispc_j721e_feats, },
- 	{ }
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 5552c1c51074..f898a2bde653 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -10,6 +10,8 @@
+ #include <linux/of_graph.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/media-bus-format.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+@@ -35,6 +37,12 @@ struct tidss_oldi {
+ 
+ 	struct clk *serial;
+ 	struct regmap *io_ctrl;
++
++	/*
++	 * The power domains of this OLDI TX and, in dual-link mode, of its
++	 * companion. NULL for an OLDI TX without a power domain of its own.
++	 */
++	struct device *pd_devs[2];
+ };
+ 
+ struct oldi_bus_format {
+@@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
+ 	return 0;
+ }
+ 
++static void tidss_oldi_power_get(struct tidss_oldi *oldi)
++{
++	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
++		if (oldi->pd_devs[i])
++			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
++	}
++}
++
++static void tidss_oldi_power_put(struct tidss_oldi *oldi)
++{
++	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
++		if (oldi->pd_devs[i])
++			pm_runtime_put(oldi->pd_devs[i]);
++	}
++}
++
+ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_commit *state)
+ {
+@@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+ 		return;
+ 
++	tidss_oldi_power_get(oldi);
++
+ 	connector = drm_atomic_get_new_connector_for_encoder(state,
+ 							     bridge->encoder);
+ 	if (WARN_ON(!connector))
+@@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
+ 
+ 	/* Clear OLDI Config */
+ 	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
++
++	tidss_oldi_power_put(oldi);
+ }
+ 
+ #define MAX_INPUT_SEL_FORMATS	1
+@@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+ 	return -ENODEV;
+ }
+ 
++static void tidss_oldi_detach_pd(void *data)
++{
++	struct device *pd_dev = data;
++
++	dev_pm_domain_detach(pd_dev, true);
++}
++
++static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
++					       struct device_node *oldi_tx)
++{
++	struct device *dev;
++	int ret;
++
++	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
++	if (IS_ERR_OR_NULL(dev))
++		return dev;
++
++	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return dev;
++}
++
++static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
++				     struct tidss_oldi *oldi,
++				     struct device_node *oldi_tx)
++{
++	struct device_node *companion;
++	struct device *pd_dev;
++
++	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
++	if (IS_ERR(pd_dev))
++		return PTR_ERR(pd_dev);
++
++	oldi->pd_devs[0] = pd_dev;
++
++	if (oldi->companion_instance < 0)
++		return 0;
++
++	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
++	if (!companion)
++		return -EINVAL;
++
++	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
++	of_node_put(companion);
++	if (IS_ERR(pd_dev))
++		return PTR_ERR(pd_dev);
++
++	oldi->pd_devs[1] = pd_dev;
++
++	return 0;
++}
++
+ void tidss_oldi_deinit(struct tidss_device *tidss)
+ {
+ 	for (int i = 0; i < tidss->num_oldis; i++) {
+@@ -584,7 +666,7 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+ 
+ 	/*
+ 	 * Only the primary OLDI needs to reference the io-ctrl system
+-	 * registers, and the serial clock.
++	 * registers, the serial clock and the power domains.
+ 	 * We don't require a check for secondary OLDI in dual-link mode
+ 	 * because the driver will not create a drm_bridge instance.
+ 	 * But the driver will need to create a drm_bridge instance,
+@@ -608,6 +690,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+ 					    oldi_instance);
+ 			return ret;
+ 		}
++
++		ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
++		if (ret)
++			return dev_err_probe(tidss->dev, ret,
++					     "OLDI%u: Failed to set up the power domains.\n",
++					     oldi_instance);
+ 	}
+ 
+ 	/* Register the bridge. */
 
 -- 
 2.43.0
