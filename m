@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28138606A32C
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BCD606A337
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:12:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klVGqGnr
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxPD2rtL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8114610E797;
-	Tue,  3 Nov 2026 07:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2B210F3DC;
+	Tue,  3 Nov 2026 07:11:59 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3508F10E780
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:11:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF77010E79E
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:11:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D183D40AB1;
- Tue,  3 Nov 2026 07:11:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153F51F000C1;
- Tue,  3 Nov 2026 07:11:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A87D340AB1;
+ Tue,  3 Nov 2026 07:11:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7617D1F00919;
+ Tue,  3 Nov 2026 07:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793689907;
- bh=EVrczeRgLGIyAiqqKsv36NQcAzgaN3tabH77BDNWG9k=;
+ s=k20260515; t=1793689913;
+ bh=jenVh5GCQDcRxhOfahkpMwGBCncxdYAulxo411VdcIE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=klVGqGnrXsB92n76wIBJWz73TitbzaEhkLDxaEzx/E/R3aBlLbP0x+/GXBSaaIkbR
- /g0k7W1fpr7Ykm4+RG+6fh87a7Stqf+Bv5O9KRm8lJ9bNacPs1sSqW+KW7iNZIQWF7
- zqewmS/CUHIikE+E3v3pBDDNNewfrwpDliOpkl+ppZFl4RewYhwOoZhAe15N9QXRVy
- 1AYgcH4rkrqHeKnyzmEHLcg45EUkps7uvIE6j/r7jGSmQY0q0VBUm1X/rB062llxs/
- t0DD0izmsqYAuSQqpRbiSj+QsqD3Jn4/nUUjXAMx1n+tVE5/mNsZy8NC0WisDlK/TD
- 7DeNHJ+sxXcQA==
-Message-ID: <27d6184e-2eca-4b1e-ae4d-0cbe2a9a2547@kernel.org>
-Date: Tue, 3 Nov 2026 08:11:41 +0100
+ b=IxPD2rtL57uMu5FqXQ75Y80aEV+4RfiCOaBD0btNW6Wp8O9CIN89kNb4Duo39T474
+ B8XaPyhGsCEnYud2SiN9nGoElqrdHSzGp9jGGmihPr03b334Rfvd1xnz2njVSzBsqP
+ DQhBLrFKmo7gbLmVikSyfio5q2HMbGq3VXsFkTPI4sNlgJDbJDgL33PQatvvnAusTP
+ xoD268aSjNHqDILHZwyqGde79uSVTvVdrwwPScsTc5UtAu841oK4LejL9xN5EcWnSu
+ eaxkDQ7tSTlSm9kwUOW0/Hzr6edhZUS5+JNICv8I7LAQ6VlJ4ZYXOXMPZUfxhdmm2+
+ 6AQwfdSjJy1dg==
+Message-ID: <386ea2de-3f06-4931-a5bd-4885b99e5a73@kernel.org>
+Date: Tue, 3 Nov 2026 08:11:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: ti-sn65dsi86: Put the host node if DSI
- attachment fails
-To: Wentao Liang <vulab@iscas.ac.cn>, dianders@chromium.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH] accel/rocket: Unregister the platform device if driver
+ registration fails
+To: Wentao Liang <vulab@iscas.ac.cn>, tomeu@tomeuvizoso.net
+Cc: heiko@sntech.de, ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261103065106.1063659-1-vulab@iscas.ac.cn>
+References: <20261103062319.1013449-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -84,7 +83,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103065106.1063659-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103062319.1013449-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,16 +105,16 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 03/11/2026 07:51, Wentao Liang wrote:
-> ti_sn_bridge_parse_dsi_host() takes a reference to the remote DSI host
-> node. If ti_sn_attach_host() fails, ti_sn_bridge_probe() removes the
-> bridge but leaves the node reference held. The remove callback is not
-> called after failed probe, so a deferred probe can leak another reference
-> on each attempt.
+On 03/11/2026 07:23, Wentao Liang wrote:
+> rocket_register() registers the facade platform device before registering
+> the platform driver. If platform_driver_register() fails, module
+> initialization returns an error without unregistering the device. The
+> module exit function is not called after a failed initialization, so the
+> platform device and its resources remain registered.
 > 
-> Drop the host node reference in the existing attachment failure path.
+> Unregister the platform device when driver registration fails.
 > 
-> Fixes: c3b75d4734cb ("drm/bridge: sn65dsi86: Register and attach our DSI device at probe")
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 
@@ -126,7 +125,6 @@ Not even bothering to run checkpatch.
 Another fake identity of "vulab" doing exactly the same as other cases,
 repeating same mistake of running unsupervised crappy bot even though
 was asked multiple times to fix that.
-
 
 Best regards,
 Krzysztof
