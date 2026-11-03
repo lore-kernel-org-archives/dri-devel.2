@@ -2,47 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F986606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CA7606EEA1
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqV2AiVf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A414510F491;
-	Tue,  3 Nov 2026 09:28:27 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6323310F46C;
- Tue,  3 Nov 2026 09:28:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2262310F474;
+	Tue,  3 Nov 2026 09:28:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E2E10F474;
+ Tue,  3 Nov 2026 09:28:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DB49460098;
- Tue,  3 Nov 2026 09:28:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E1A1F0093A;
- Tue,  3 Nov 2026 09:28:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9133F41A18;
+ Tue,  3 Nov 2026 09:28:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B350B1F00A16;
+ Tue,  3 Nov 2026 09:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793698099;
- bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
+ s=k20260515; t=1793698102;
+ bh=hH9PlPzoP3U94hf+L9Pm/adhsp5Uc+pQd7zlXDgtirc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WYPHNe7ZvTdgRYfHSEy1NJjaWvcZ26yHXR7t3Ip8hyIA+z1hJDA5hSUxMESCv71ic
- RqgihqSPEfMPxw+ABjgT0UHoiHG/8G6G6+RcqqraijEdY13LinVuLaUQJjsjMUcC+m
- zhJb70LE+ieUwrENJXkrBTrl/4BaOWMwTsIO+syrsCATQDVBx3iFqU9seqolHGboPj
- ehG4Ayy6etBetGZzSwdiv2WmaGd3qIheguXyFKNnE8d5b9GGWl7kX45YHZvHKd52Bh
- 63Tem4Ce/o/HNevQnQpVNjHmpUDRnxVQnGQ81hFMPCDivhWSE6LR6t4grHUV5zJJW8
- yNu2kV57ouFKw==
-Date: Tue, 3 Nov 2026 10:28:17 +0100
+ b=FqV2AiVfZgk8d3wFCCs2c1ayH3IZli6QMy4WSWgnRLuQu+g2IGS5Ij/gQg5c12CS4
+ +P3x/SpT+HIC1yabLkjolRfIDROPYOtebAIAmZLs6UJoP07bIPR8hxif1uiWXMBh2E
+ wgjJ4qsuh1Z8fz8ZPdD6HJVJ2NKHpx0P3ppkcp42+8j/pt3aQiAxYyE6GgzEp02koL
+ QAYdH1I4UUFP7rnwMK0mLZ7LJpnvgdaGqbzwMJS0fC5kNqHCNQXtcn3w+QZeTd0KXL
+ MN+npvwCZ1L+vGf3A2l4lfA8UHhMUrdkObnwf8wJYgjemrzdo6Pu1j1q3cMmia2q0w
+ B1DtWZ4CWlMrA==
+Date: Tue, 3 Nov 2026 10:28:20 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- dri-devel@lists.freedesktop.org, 
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, rodrigo.vivi@intel.com
-Subject: Re: [PATCH] drm/i915/selftests: Balance batch VMA pins in the
- preemption gang test
-Message-ID: <20261103-slick-wapiti-of-snow-e9dc0d@quoll>
-References: <20261103080030.1124149-1-vulab@iscas.ac.cn>
+Cc: jani.nikula@linux.intel.com, tursulin@ursulin.net, 
+ joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 
+ daniele.ceraolospurio@intel.com, rodrigo.vivi@intel.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/pxp: Unwind component binding if HuC loading
+ fails
+Message-ID: <20261103-silent-strong-wren-74d8cd@quoll>
+References: <20261103075914.1122975-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103080030.1124149-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103075914.1122975-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,25 +63,26 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Tue, 03 Nov 2026 08:00:30 +0000, Wentao Liang wrote:
-> create_gang() pins each batch VMA before mapping and submitting it. The
-> mapping and request allocation error paths drop the object without
-> unpinning the VMA. Later errors drop the request references but also leave
-> the pin behind. On success, live_preempt_gang() releases the batch
-> reference after waiting for each request, again without unpinning it.
+On Tue, 03 Nov 2026 07:59:14 +0000, Wentao Liang wrote:
+> The PXP component bind callback publishes the component pointer and may
+> create a stateless device link before loading HuC firmware. If HuC
+> loading fails and the device is active, the callback returns that error
+> without clearing either resource. The component framework does not call
+> unbind for a component whose bind callback failed, leaving a stale
+> component pointer and an unreleased device link.
 > 
-> Unpin on every error after a successful pin. Keep the batch pinned while
-> the gang is in use, and unpin it when the caller releases each batch.
-> This preserves the fixed addresses used by the semaphore chain while
-> balancing the pin before the final object reference is dropped.
+> Clear the published pointer under tee_mutex and delete the link before
+> returning the firmware error. Check the error before the suspended-device
+> shortcut too, so binding failure does not depend on runtime PM state and
+> PXP hardware initialization is skipped on failure.
 > 
-> Fixes: 2d19a71ce68f ("drm/i915/selftests: Exercise long preemption chains")
+> Fixes: 087b681805f1 ("drm/i915/dg2: setup HuC loading via GSC")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gt/selftest_execlists.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
 
