@@ -2,69 +2,166 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A35606A33D
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 17:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228A1606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 17:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dGQSL/xr
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gP0outDl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 102DF10E189;
-	Tue,  3 Nov 2026 17:11:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C12E410E189
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 17:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDBA10E54C;
+	Tue,  3 Nov 2026 17:20:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6810E43C;
+ Tue,  3 Nov 2026 17:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793725901; x=1825261901;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=CjpixaBix/pua7fjqohEmpq86pzXz468uk/AW/PT3JI=;
- b=dGQSL/xryTvcivp5gtAuJRYLcS+uUWlw+mneowMvhhuvbtmbSXUtX7Bm
- ud6y+DZ/mquBqOjSzCU96FU7BA4I5xCFmDyyerD/2CSsM3fB8LhFJML+H
- Acuw8c77qUAG2QTb1VfpGsoPjzxBGFubXHp6uMO+qQtCTzpWxSX6qf5b+
- 6m87y8yiwacae3YBng1noleTnKtL7Rh/CRLClNCDn3mbYd2UvNqmxSnYP
- 3aY8HKWRQdlhTY7h07uKL9Hg61+BWrpkhnGgpNMHqV6fwQaNKZlnD2+l0
- NML7hkDzwg+qABh35W5Lz88ch+FegZKP2LH5qCFneSHI13BMzJ+aoMUro Q==;
-X-CSE-ConnectionGUID: jJncAkV5Qw+j9zvAvWsYDw==
-X-CSE-MsgGUID: VfoaCmdLR9SJI4A8b2F2cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2456408"
+ t=1793726425; x=1825262425;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=b8b2HrFzfwRz3iO1O/6TeP9psjG5ZordsHXuusgZ3fA=;
+ b=gP0outDl7twBjOOinbCEyxKiQ6USmmH8w7dcE5Tfzg20Yj6M8M9KCQSY
+ 7mtTwKWbEEfJP1qccHVIj8ua4bAWkC+FRcGQ6yET4VREAEmuB/MWnlgVm
+ zUT5SuFWwo8mvOOc84Qprc3d3qglu11OC2I9Nsl5thh41gzCSDP00vYVG
+ TxqhEDixdR7L0ar03oEd8RIoy+W1dL6qH/zpWMvc79j37Vk1kAwILYFUU
+ dIizIY7mU7wtVv9DmPFnw72CmKKFHBtwJSUoZdIIYixWjYS/PO2Pj9UfA
+ woU5V3njomyzU+FvQ1ch0GC5eNxjCJ/H0/SmMVdZceXGrZc9aYCrWLNfp Q==;
+X-CSE-ConnectionGUID: fz9BwRUxSrSJeZm/7nNNHA==
+X-CSE-MsgGUID: JpTOyRVlTw67qd+sn76Kjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2490090"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2456408"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 09:11:40 -0800
-X-CSE-ConnectionGUID: 0CWh79sxQQm1faR4JnCN0Q==
-X-CSE-MsgGUID: tj4reW5GTxyz4lbAe+r+zQ==
+   d="scan'208";a="2490090"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 09:20:24 -0800
+X-CSE-ConnectionGUID: UEhxkNsBS5SMLY1LmhsLug==
+X-CSE-MsgGUID: zMa1ytCfRlmsht2tt3d0ug==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8256618"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.193])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 09:11:36 -0800
-Date: Tue, 3 Nov 2026 19:11:34 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
- louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-Message-ID: <auoVxgQ0D1-6QEDD@intel.com>
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
- <auioL8zR9O5u4TCF@intel.com>
- <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
- <aujFSzHEv5pAfHPf@intel.com>
- <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
+   d="scan'208";a="6844379"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 09:20:23 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 09:20:23 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 09:20:23 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.15)
+ by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 09:20:22 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x4GXtYfkd0ea5A2PUmdPCOFEf3Rtmlh49a3/DRWfr+L1hn8L9ec6gtcXMdOvOERlM7QlQjlDJr4FPWYp0fOchWv9pKnezopI4/He+JR+0DtpbGwCJ8uPivkeIQo7xHtgJnYJQtm5pHdJx5YGdtUWvhNZ4GJkoj894HzfHC2Gyl0+eLKpzie4LP7myDvji5MlOucJ0kgBw6bTjqOF19nCOdfh1kMIH0HSs73MLD21Wx1FjgpfDkQiUpHHzEAcldrgurJHTuJ4s4qlcb189QvV01/ofNcPGpr9IoOGZiI1MN7LMh05jtcuq5IJvBMZVwdbOSr74ugW4b1aurH0kuBhfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b8b2HrFzfwRz3iO1O/6TeP9psjG5ZordsHXuusgZ3fA=;
+ b=AF5KX3eqdSS7mRCywli5CAtYWuyjI4C/Tsi36IClHbzcnnFCkj387XLm6UaFJNNPqqqwkaDZwQ+9W8IdzfFrroCfCGvv9tgk8dyFm07zA4SEambFhSnRIvEQgFvnkj2mKnCxZVdLl3/K/6kR7zpgRtb64n9K9CIDiar++bOS9lVu92dAy7MYWzpAcNrn51O/wSqF8qSDAq3YEqDzlgvMkNAtUMhVOs01isRmlrilY+A6CQVEWMYIOnrEazXGFC7iYOtPBMGnybhdoammimbTb6Vj/vY47CuCbmZVbRUAiCSCpNIWH1MazqpSbKDu13N1CwRkDZaCNyx0eXtqTOBHLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH9PR11MB9904.namprd11.prod.outlook.com (2603:10b6:610:343::13)
+ by SACPR11MB967231.namprd11.prod.outlook.com (2603:10b6:806:548::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 17:20:20 +0000
+Received: from CH9PR11MB9904.namprd11.prod.outlook.com
+ ([fe80::44cb:c9de:97ec:baec]) by CH9PR11MB9904.namprd11.prod.outlook.com
+ ([fe80::44cb:c9de:97ec:baec%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 17:20:19 +0000
+From: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+To: "Ceraolo Spurio, Daniele" <daniele.ceraolospurio@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH 1/1] drm/i915: Fix OOB access of reset_engine_count for
+ compute class
+Thread-Topic: [PATCH 1/1] drm/i915: Fix OOB access of reset_engine_count for
+ compute class
+Thread-Index: AQHdZyCCqLR3j+/uLkK2slo4kNhMi7cTiKQAgAkYTAA=
+Date: Tue, 3 Nov 2026 17:20:19 +0000
+Message-ID: <3c6666dfae434a70ef05a6b83a6a59e668622b91.camel@intel.com>
+References: <20261028210828.433225-2-alan.previn.teres.alexis@intel.com>
+ <9ac015b1-703c-4e35-9520-82a81d02f433@intel.com>
+In-Reply-To: <9ac015b1-703c-4e35-9520-82a81d02f433@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH9PR11MB9904:EE_|SACPR11MB967231:EE_
+x-ms-office365-filtering-correlation-id: aad99ad3-4d39-4600-213b-08df39cebc90
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: bgls2bqH3IbJi/DW/EHDNMvinB8F+xkH/SGZ5VOrYUGXrPtFRRzaDpzOd6xGwvJNRWDubGls/66W7Br+bBb9u+616WPL4+tSeg45hITc5eCCg76LJsRzbX57C7xCFNcI3QG4rCJDjAywOOdPDSN3RFgJfs3etggIQ4JLNrVbr3juMLkxpsos6ReO6LAcZJNTKU8BwnLYutE3LESb6/Gze4ZGoJXm/M6z6S2y+ig784vM68DmO784VdH8yRWufEhzEcNPC4QAjx2KraXomT3RonMTT78+sC+VE2E3SX4VANRov9Y8GFYwFzAH13JwnJucI229acO0zDOjE/RwqyFf2ExP0aghTN6AI5JdyB/0fv3IMPxafr+Ihy98tGxnq9Ha5gpKXaaHAzrqdYicd7x/ATfpHKFJI7KYF4cMKzyvkv6xK6CAQQi6//347RvZGJto8+df4A5V65SpUIBMUB1kD+jqJdGV0n04b8ff5FJyZBl4VGtx81rmz5AnPjw9Ud3itg3cDHzQL9cJZ619KBGgwLMJRjiw6eCUW9N7MiddUN1+kJFxMdf0x+6eRxoZDFEFg/6EblkjNlI+aMBsZNJLLv97nkhpIFCPPYVVU29j+xfiatIJh2FoD6NuswME66i5qFdI678BhpMewpI4rcoG9btyDEX+0l2bjc0qfE5FtSyXKM9VM5g5ji81/WM7J2pRZloNxbHzXBwsqN4De/+v/dTfopP67FwnpGn6wnpGef4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH9PR11MB9904.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VTVUa2RRM3lTRDE4aUxPbllTUlM4L2hIVEJjSHpFUGtrK2JWaldUbW1uUmFa?=
+ =?utf-8?B?cTgvaUJpTXdOU1dZZXBWTlk1dWpRdC9tNyswekU0UWU3UnlmQmsxWkFIWm5k?=
+ =?utf-8?B?RGwzcTFpQXhzbDg2eHN5emR5Mk9MemoxdUV0ZUlSMm5PamYyTHV0bmlpcXUw?=
+ =?utf-8?B?Vm5GNk1nS0lOTTBJTUcyTk1QeW1PK0h0SGpoSHRNWEtYb1V5dld4OUZTUy9z?=
+ =?utf-8?B?aGtOWEt2WWZUY3djWGFsRFM5QkVDUVo0dHhISForTEV5Vk15eThuZy9YZEdx?=
+ =?utf-8?B?OUJEeWd0TjNWM3dtTDJBVFdBQ2M2RmxPOW1GQzZML2pYZmJJc29GTzBOTm91?=
+ =?utf-8?B?MWZsSjJIYUNiNWFWRTdlU1QyWUFxY1hEZytVOWFEb3Y3RnRYM2VjdFY3MzJI?=
+ =?utf-8?B?ekFPVy83elJuYzlZcGt4bG1pLzBwN0NzQnlDYUpNclR3ZHI1eHVNQVpmaEE2?=
+ =?utf-8?B?eGIzK0t6UU5Qa2RuTmZsWm1vZERSSWU1UXJKTUxRWGk5WXMvQ2RPTGxYKysz?=
+ =?utf-8?B?RnJic0QzeXY4WWUvOWt0VVlHK3BsVXlpVVl4a2l3OWU5dW9yTUxFaU1qWDBE?=
+ =?utf-8?B?Z055RGFSdFRtcGZ2UXZqUFVMOTdtMzlLUUN3d056SDlhODAzc3ZIVmhJd1o2?=
+ =?utf-8?B?MnAxQmJUWmRNNkk4NDJaZEVhV1YrOVlUaE9QZmVkTzhyYnMwc21qZHJYQmV4?=
+ =?utf-8?B?bmVkSE1SV0cvWmoxVDFnODhHL0dUeS9Ed2JuWC9UTVE5NWFQdnZPd0NTaTEy?=
+ =?utf-8?B?SWx2RHdiczd4UDhIU1RMa01IK2N5N0FDekFvVkZpTWVkdys3YW1VZkRlY3pv?=
+ =?utf-8?B?YWJocVZGWlU1OUpDcFdoUGp3OFdaWUg2aU5ERWNqTFkvRGVmSWg0cmtGU3Ax?=
+ =?utf-8?B?NXNYOHVDUUcwNUJUckU1VXpPaVl4elhTajBrZVpSTWNyRDE4Q3ArTjVoTmZT?=
+ =?utf-8?B?VzVxMXMzd1pPdUVXRVNwYS9CMVNXSzNjVm5GTitsVmxwMm1PbjFPNlRRaURx?=
+ =?utf-8?B?eTI2NHRyTi9xV0FobDJUcnpENzFEdlFIcEwrcUVDOGJsY2NrekNmSjk5MnN4?=
+ =?utf-8?B?Y24wQ0RQSXZvVjh2Mng5c1VGc1FqUXR6dnFqMVV3WGkvTWxpNnRvQ0ZnU0k1?=
+ =?utf-8?B?S2VUV3JZRXRQMVZvQ0FNSnk1Y0JRWGFNaElqMGtxRGZwOFB3V3ZpKzJzdVFq?=
+ =?utf-8?B?b3dKRzR2c2FHSTlQYXJhNi9MYWlVc3Q1OEZKVGxzcStQdlV2bGd2NGR1d3l0?=
+ =?utf-8?B?Q2wzeWZDbHhBb3dWYkw0d2F2aktKZzV5TE91QUtHeGZjc2RPbUl4NGlDTXdD?=
+ =?utf-8?B?ZlFzQmlDbGM5MUZoaFN6NkdubVJ5dTVhMFZvaVRUMzdid0pLditZVWxSMW16?=
+ =?utf-8?B?Um9VMUluUE9Vb3Vzemc1NDNNUUlYK05lWkgxZEc3eTRUR2N2Vm1UUldPVGk0?=
+ =?utf-8?B?Mzd1ajlSaTNpNjE0bURSZW5WeWhjMHRCWlFuNjJFb2MxZHN4TnA0WFNXTFJW?=
+ =?utf-8?B?blAycVBxaDJZeWYwQmhnWUxCeTJleUh3OVoxMlFxUFY3QXMyaUwyc3oxZnBm?=
+ =?utf-8?B?SmxBOVlxYktPMXRGbTAvS3l5NTk0SCsybitDSFNDNlB5eUcwNE5ZUndpWWlP?=
+ =?utf-8?B?ZnVGVUFqL29JbFU1MHplVU1kaVhzdUl4OTJMNW51eitNV3A1bmZlYnRjdzFo?=
+ =?utf-8?B?SUxCSWtwMUNHSXZJbnloZThHaVJ0U3ZpdkJsNHorRVppOHJtU1F4ckkyQk5v?=
+ =?utf-8?B?eWR1OHBlZFVTL0VyUzhFK3lrdGhEeTNsSlZGbFd2OXR4dU1WQVV5b2lGSEJF?=
+ =?utf-8?B?SzY5dzNtV253TTEzMEVDV3VzZzd1WGpZejByMktXclNmSkFVNTFvZ294R1M5?=
+ =?utf-8?B?R01YWjA2SktXMmFMKzNrUEhHZFk4MWhyb2JQbmlsZnJGSlFINU16TWQvNEkz?=
+ =?utf-8?B?QUprVVNRUWQ1ZDZKcUdCdjdWd3pWTndkNklOM21jem1Ld2RFZjd5eEN0VEJE?=
+ =?utf-8?B?a29HelduTVI5Uy84aFpvUERmT04vVkU5czdORnFPNXltMXdCUmRsOEZSNTgx?=
+ =?utf-8?B?dFNVUGpiSEQ5bjhPWGFRMTJOQXpWNTVGZnZHc1ZwVDlEem5SYmJxRkFOZHBx?=
+ =?utf-8?B?RFppaVFLY0E4Q0NIM0pBNHJlZUpBRkl2M3lHMFRnZVk5c1JsMVlGZSs3N2U3?=
+ =?utf-8?B?K2NnL1JYS2paZTg3Yy9oT1BhQlRPNGJYVVZYSTMreTVDSzhicWZJNHJ6SldH?=
+ =?utf-8?B?VjdmcmJyM1J3UldIZGJFYzhnK05DM2kvVkJBZ3YvOFFHaTg2aGM3Vkx2S05M?=
+ =?utf-8?B?SDBSR3czOFZwK3d2Q2lrR1AxR2ZyYWdJZVZ4ZjZlUU1HekJwRDV2eDMwN1lk?=
+ =?utf-8?Q?897yDFAS59J6+VGn5orMNLUckTumFV9o/snKs?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A8E90AB44B7015429F9CD0293531F987@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Exchange-RoutingPolicyChecked: v+2MqJKMLcsnuJgS+Acg3YM/e3twmoFEW3XhnQ8VUKIPA9sd4bFMHQPK+WJeFNwQrGSN3Ol1NJ75FGn1uVU7pj07VAschS7mXZeVRsn9YBF2FKP6ufoMUP805TZ3c2YFj0KhfGGHrAZuwKVoEfui6Q1YQ0PVf/jgtObzPjwjSDERabmjvhsDb6Ob0tme1hSUdQyj2Amo5Yh709kH3Xt1AhxvfHH69770e5NM8qhQGte7IqaIFvq4lRi1Ut4zbPbYux5HGZuUGFY6VwJdUd+Pd2jdpvysLjBifAQAO3G0SGmhe4LUXvZkzQ9jUPDGJ2/VCbpwKCZH8eId1ZQ+uTrB6w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH9PR11MB9904.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aad99ad3-4d39-4600-213b-08df39cebc90
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 17:20:19.9050 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gG0VFJaGZKtgDB4wLmsEf9ko0J/RXydrz7iYHL2cxborHxMKSVdcaxaE9a6GZcSLNcHmhAweaMrGjKNmaaOjzaCg9eO7yHEX7o4vSJaxTeTQZnEzUZhqag+G/yDR3KE5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SACPR11MB967231
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,58 +173,14 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 04:55:34PM +0100, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 02.11.26 um 18:15 schrieb Ville Syrjälä:
-> [...]
-> > But what I'm thinking is:
-> 
-> I've ran a lengthy session to explore various solutions.
-> 
-> > - stop with the explicit cancel entirely and just rely on the
-> >    timer cancelling itself
-> > - try to start the timer in vblank_enable(), and if that can somehow
-> >    fail because the timer is still running it should be fine because
-> >    the self cancellation should anyway have been aborted
-> 
-> Having an old vblank timer still running while enable_vblank sets up a 
-> new one can mess up the hrtimer's internal ordering. It's full of subtle 
-> bugs, according to my LLM.
-
-The hrtimer code looks like it's designed to handle this. It
-first removes the old queued timer and then inserts it back
-with the new expire time. And there's also locks in there.
-
-> 
-> 
-> > - explicitly wait for the timer to have stoppped in drm_vblank_off()
-> >    to make sure the wrong interval can't leak from one mode to
-> >    another
-> 
-> I'll soon send out a series implementing this idea.
-> 
-> Best regards
-> Thomas
-> 
-> >
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> 
-
--- 
-Ville Syrjälä
-Intel
+VGhhbmtzIERhbmllbGUuDQpVbmZvcnRudWF0ZWx5IHdlIGNhbid0IG1lcmdlIHRoaXMgb25lIGp1
+c3QgeWV0IC0gaGFkIHRvIHJlcnVuIENJIGFmdGVyIHJlYWxpemluZw0KdGhlIGZpcnN0IHJ1biB3
+YXMgYWxsIHBhc3NpbmcgYnV0IGluIGFjdHVhbCBmYWN0IHdhcyBhbGwgc2tpcHBpbmcgYnV0IGxh
+YmVsbGVkIGFzDQprbm93bi1pc3N1ZXMuDQoNCi4uLmFsYW4NCg==
