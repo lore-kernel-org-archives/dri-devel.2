@@ -2,100 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0265C606A328
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:54:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C46606A32E
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ShNGHf4F
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zUV9ipXs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36AFB10F6AB;
-	Tue,  3 Nov 2026 15:54:19 +0000 (UTC)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
- [209.85.217.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3769310F6AC
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:54:13 +0000 (UTC)
-Received: by mail-vs1-f51.google.com with SMTP id
- ada2fe7eead31-7be536cd40dso200624137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:54:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793721252; cv=none;
- d=google.com; s=arc-20260327;
- b=WK5got22uC8Lq45+amzqzc0vJe80h1Dn4GxjwOwLd9DxAu9z5GW4YDEk284GkuRX0v
- CLCU0t2gjEoU5oxAVNX2fm2WpK/XRulcgbygJZOZomPC/OY3ch1EOkVUCltUEEIS7o3H
- KPTOSIKlYGFmkG9lhI9GWp3wiPGSk8OVNlblkW3hSgqExEgo6kVxO0RGJjJzNIYfOPAZ
- 5SXqqFrgziMTX02NPdxYcsvdLdoSP4og71o2CTTGRRFgiMLcbdPUr+ZUIdENSKBgih3v
- rtFVw6Q886rmJL7XJ9gbWC3NZgQrGeQy/Ge5MnoxTv03OF/F3PqLFDyIjszsIgaQLBRa
- Oj+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- fh=kCIufOIazEKLFbjaFOLNk4fWSW7MoUWjjxNUktSEyaI=;
- b=hhBeVqwa/DHEWrxmsX3vKGjM22kkDIewE9o4Mzbfo1cNg7Zq2qH2UaLNe2MhZKv+NE
- Qm1An0JK0F3V47RTPJxig22zk2MSqwUxKbm7urUa0WpKIZ1fU8zrawCUNGnguX9tkrxT
- yR+JuWJ1HTY/f07gQYfGRdiveRZQxq29oz2XSolvV7uREs6GHKbKst9Jf7BgO3mHmtgK
- p1HN6JjfsUydm2caOVWuL+Kme5DoVB3bir01zYfmhGJpDvKQfFfrVzuWA9TzXnxbEmOD
- Lt+Ax2lXPb5sA+G2OI/oj37JYUCgCXElCCKKmjYEtSByIlb9W7fda9mHivX92k62Ik8m
- p/oQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793721252; x=1794326052; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- b=ShNGHf4FwOaVWccUlqVifIk7hFxUSwqXwJtRf6H9Rfz5DFwC5tq7RQ5OHYse1yZgdE
- OM7sfKlRN+8gFZIAIfRSnA4mfBZtOuy632HQ6aKB3r6a0R4iDGMAZ7oTxnVsaJ7tkS4r
- f3JTx1olw1hrN1Z7q8A7JhxhdqRW/GuouLvUI+qkm16b7GV8l5htUvO3P9XC9M/jyu6P
- xo5/Fzc+HmNN2ZpU+17HpZXdd66o9PjkfnF3VIWz/A2kTdLh+ipspNU+ewdsFvoZeT4x
- xx5zRfL09RUXTMVF2hRpX+fNiUg+TCApNqttsn+Urp0UoACc+1C2TUtcMljAS7+gpb8D
- tZGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721252; x=1794326052;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- b=HAf3c37h38/uFYGhphR27fnShU9/VbVOhMi0OlLDrPR041zd4XXqWwBCZ7tZ1XWgWC
- mynQs9pQsX5dgTJiVjP1BeoZHyaQ59BUW0ypdPxue0/Sjws0fiIhmTeJjFoL3U87mHtd
- cuZCj/WmK/fJt2/wTtyRBVRq3cg4jyhWFpyTslRn7al9htr6Trs0uCnGr0PX/m8ZWHmY
- vlu4n8TJh+tfS1jXV6/XpZQfDZjY9LNT0gb5BkIE0z3vnVI6PdmbTUQTEITLYNOSDe5O
- x6VkAgvDS+WHZE637q5Ck37yh0yH2EjrUN6kj8NYq2JkJPWMRRghfGvtdPXDkr6+rVt+
- GJ/A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw2sOGdZY03t5V/RWGUIduFavNNa8d+oe1L5NVc8LqiODnfFStM29L3djZPvBHZN4xvOvymYJiSm7Q=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/caohFCHguNwgzK0x0pca38aeIbd0cm1OY52w73N3pXLykuVq6
- s435vkvonFcb/2gNCBO8r88ZR13VQrVLAg4rQvOBx/WmZQ0oS0wY/IiDmmMEVcibEaIJt8o+AQ3
- kXSgQQmNBBKnQtKEIez0obw86CylnnKE=
-X-Gm-Gg: AYBFou0DEJFB6EVK8vtkDxysqUnG0oFqso6WZNG+FHo1LT1MpM3lY+EvtxSXGmfKLnX
- vmPSKLCdp667hcgX+wMLlScAaz7av2Pj7RZ/JtS2gRCEqpzVbrbByULuD22xR0xjPJ0WjAizigt
- VdaFeVC2Ms8YuL+WLDS9Ez68bTJI7eaUXzPUSjD/qgIMed3P+lTLE8m+zFdVAoS3hEumxRvcvQh
- GA1o0xTtyD21dh6/dRp0JfCPF5nORdEkJP3ddR71gg5ob8DN+GCZ7ty0x6w2Q//1UwTfp135rZy
- GmfzKDVZxS2RHS39bl7PGziSGfeb9lVKUu2spwkyAQZkWhA6T5yaG3Gm4Iyo4V4XLSHFLpoDyXj
- muGWd6ZyYDI8d3nn94pSrNhRNMyZIkq+/S4uaKxGDWOK/vXOTpE05meOyJBo5ebHE9QGrbzeud/
- VMqd3PPXfqV7sk9PNY9vIyyLc=
-X-Received: by 2002:a05:6102:6484:20b0:7ca:21e4:8e20 with SMTP id
- ada2fe7eead31-7d072ba07b2mr5499484137.2.1793721252076; Tue, 03 Nov 2026
- 07:54:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B326A10F6A4;
+	Tue,  3 Nov 2026 15:54:40 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0320110F6A4
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:54:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e9BbcE2Erqg7kXGI26J3iQSjRazApfPy5Ji6grgyrvTZqw8MXJ92cKyOTI9OWn4ZbO9NBNURo9jY6K0OgTmi7B/1zRADLcwOdDF/LSS4oiWJR/Jytc3V6VSNwo/q+NWNpzG+uleiKKaHLp+6ke6rcVRp7wpcSa0umvNtV5wtZAzDmvY5vVuWZiNHQM5gDA+7lwY0FyAXiuh1Wrbf9ljCywW5S5WU/0yxFjOO16LEMcy1sqUcEqacAD9zJqJ4kmX5iMuJJoTisRTxqirZ5uM5oX4as17Z8MQmmgJZzNAGPyvxkSYeKMKxxJ+0HZDgUU9HEHKr2hTv3X1jiRF50kUFPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jl6H/g25Hbfu1+bpU29IDNbFdeYq7pIqi8+JsAa9HQ0=;
+ b=mehDvM+LAtqAYy0n9JLDiV7HTl2uQ8Y9lvGW7vrMJRXMM5Hj2PbSGiud3xazWAXYP8seF9zkPNn8njRGJqHMKaxRv30aFgUdJI4Ye44QqcxdQufITYIctzdUq1FygPJW2DUo+1YD0ZHQkIOrAyWb2VrJnI1LxgMbe9t6Q2XNjyF7lLybSQ2AHO4Ma2JrA2O4ozWQF2rng+Le5d2YMlyhLkkFD6DJd+O0K5Mc2g/+JvVRfin5TLp9oJniw5zppR0xmrSiHXiIO8zTGAokS4Z+iFZE0muQFDi2aUA5NWed69nyqZEv+WdryNwtAwToa+rPB7YMaAGzxN02+tXMeSXQGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jl6H/g25Hbfu1+bpU29IDNbFdeYq7pIqi8+JsAa9HQ0=;
+ b=zUV9ipXskh5vlZpXFacyOfxZn7YXWWbim7bN2B7pES1kiv0Y5TWSKc6KkT+DJH/XJOapPuP7UuUXhCBPH36ogrF6HIJ15hpq5XMYZCTkS48s6FnsiWdYI3rB3zmI0yxDzQozIYXBcpZWljBSXOfQs/t5TCFxo/kbZ/5LLXZqVr0=
+Received: from CH0PR13CA0027.namprd13.prod.outlook.com (2603:10b6:610:b1::32)
+ by SA1PR12MB8162.namprd12.prod.outlook.com (2603:10b6:806:33a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 15:54:27 +0000
+Received: from CH01EPF000BE948.namprd02.prod.outlook.com
+ (2603:10b6:610:b1:cafe::1e) by CH0PR13CA0027.outlook.office365.com
+ (2603:10b6:610:b1::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 15:54:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH01EPF000BE948.mail.protection.outlook.com (10.167.244.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 15:54:26 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 09:54:25 -0600
+From: David Francis <David.Francis@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>, Christian Koenig <christian.koenig@amd.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
+Date: Tue, 3 Nov 2026 10:54:11 -0500
+Message-ID: <20261103155411.3305376-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
- <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
- <20261030123000.5573e70f@kait2en-mbp15-1>
- <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
- <20261103162512.2ec834ac@kait2en-mbp15-1>
-In-Reply-To: <20261103162512.2ec834ac@kait2en-mbp15-1>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Nov 2026 10:53:56 -0500
-X-Gm-Features: AclHuK8XgaXraLodmmVFuSHrr-OuzfGpqPbHuNNCdg5f56R66moLICOm5O2si5g
-Message-ID: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
-Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000000e8f73065f614643"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE948:EE_|SA1PR12MB8162:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bff37f0-245a-4115-7405-08df39c2bcaf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|6133799003|10067099003|261102123227099003|18002099003|261102130727099003|13003099007|56012099006|11063799006|261021121427099003|261026140227099003|261022105027099003|261026121527099003|261009223027099003|261028144727099003|261009221227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: ifyXrRG7aHwcERdpbdaxUW2NZkW8WyaYmOlj0CE6rfEuwhd4423PQEaanDQkaufev/LhK5FlTBHl5b0u1F+U5l06gIZ6/dzERCZFYAqPhL595aHbWooxNwbd3a7y306XgBJiQFND9jhL3KUB117tVuvZXzroAjey0kDOwXGNnAxUyNsw4LF2nc/+CkVYZ0HkDzVeD2hDVh+5qjYMt5vM9lds2fxeIMMNeea91txmJ+xLKbHkw7lHZTqVifNcJbOSwSZnAQmtmzEgcBdSnT1jAqMSDs7wghdz8/xmct0rubfnVrG84U6v3w8iTmyfR2+bpXwm924Uq7kxp6J7E6Oxr+PBCxl2pqVBmbSBVhwCiQDqKJ+crHCKxPo5RMR4E0uib35c+u88mJmEaGSr2QejmhSNipySdTLYIjomMhROsQw+kwnj6s7HtwGUmWUqB1+Ef9FfDtAN3sOREoKr36uoaIXwiTgHDOujxOV3AhF0V0anoOwDXQ9X1xg6G0gEI71Anki/Tk9FSoJp9fFsevY4eHbEy03OBEWG67tO82l7ZzFwf6RERwZ+Cta3XT3Oee8pjpu++srmCZutd3XqLo/smYA4irFw1mwa8bPLTKWz3Ocg4bnHpsUvhdDecTsvTcvKdS1B+AOaX2azsW1ucvTJIdoi2MVs1zZlULlRPLoTsXg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(261102123227099003)(18002099003)(261102130727099003)(13003099007)(56012099006)(11063799006)(261021121427099003)(261026140227099003)(261022105027099003)(261026121527099003)(261009223027099003)(261028144727099003)(261009221227099003)(261021123027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: SsPznjATiGzjG5XcJ2EJm7H9NIX6E7eLMh8picRWdI2aDMy5bQi5nf5AU8KrQCQcndIl9aBpiyioJr9G7ewC3RwJGnASIZrAd/zDwg4+F9PPQo/N/X0J0OMp9Pb3jBW0/Y0Far++B0hQ57nd9O+V+YizyT70D5wuQVfR0pJFHFJpcfYrCyoS8BZLQz0a5ynEwWVnwd+G4hcLS5Kznjo3V1ljkY9x3+UQNjpWHnmrxndTLWhMJWXsAVMloyTU+ypq1rOwA+F4U9FgQxzhB9Et19uoOvTp2v2VGkVqzz1vorYQc4u+s2OuN1C5ahMc0zsLs0W4DIgolZ5ea+byKx54+7PVwnrBdXa+SgxIKZEThZ4216nWb+u6diRZdLB5smtUqFQfBc9I5Zpwb+YV7CqVI3RMSqR2cKCdDZ8+Pr/jgdPdHl4sgmN75EPFEW8GWkU6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 15:54:26.1390 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bff37f0-245a-4115-7405-08df39c2bcaf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE948.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8162
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,129 +104,134 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000000e8f73065f614643
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Make the following changes to CHANGE_HANDLE
+- reject new_handle = old_handle with -EINVAL
+- idr_preload before idr_alloc
+- reject new_handle = 0 with -EINVAL
+and re-enable it.
 
-On Tue, Nov 3, 2026 at 10:25=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
- wrote:
->
-> On Tue, 3 Nov 2026 09:30:34 -0500
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > It is the same issue.  I don't want two fixes for the same issue.
->
-> Understandable, but it is not. Two devs told you the same
-> independently.
-> On another note I reviewed your patch. It only rejects empty or zero
-> levels. On the 16,1 the pptable levels (736/750 MHz) are non-zero.
-> Besides other issues in the code, the commit message says the exact
-> patch wasn't tested, yet v5 extends it to every Apple Navi 1x.
-> I am sorry but your patch is implausible to me.
+These changes are prerequisities for the enabling of this ioctl, which was
+disabled over security concerns and the lack of IGT tests.
 
-I forgot to remove the pptable check.  Can you try a simplified
-version of the patch?  I think all you need to do is delay the UCLK
-DPM enablement until late_init.  Something like the attached patch.
+For a summary of the saga so far, see
+https://lists.freedesktop.org/archives/dri-devel/2026-June/571890.html
 
-Alex
+I hope these changes leave the ioctl in a spot where it is safe to
+re-enable. There are now igt tests covering all corner case behaviour
+and race conditions between change_handle and itself, create, free,
+import, and export.
 
---0000000000000e8f73065f614643
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mw0vas0f0>
-X-Attachment-Id: f_mw0vas0f0
+The new_handle = 0 and new_handle = old_handle corner cases
+are now -EINVAL as recommended; these are covered in the igt tests.
 
-RnJvbSAwY2Y4YzUwMTA4NzVhMmNmMjU3NGJlMmJmYjY5MGZkODVhMGRhNzQ4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBdGhhcnZhIFRpd2FyaSA8YXRoYXJ2YXRpd2FyaWxpbnV4ZGV2
-QGdtYWlsLmNvbT4KRGF0ZTogV2VkLCAxNiBTZXAgMjAyNiAxNDo0MDoxNCArMDAwMApTdWJqZWN0
-OiBbUEFUQ0hdIGRybS9hbWQvcG06IGRlZmVyIFVDTEsgRFBNIG9uIHNlbGVjdGVkIEFwcGxlIE5h
-dmkgR1BVcwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJz
-ZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJpdAoKQXBwbGUgTmF2aSBHUFVz
-IGludGVybWl0dGVudGx5IHRpbWUgb3V0IGR1cmluZyBTTVUgaW5pdGlhbGl6YXRpb24Kd2hlbiBF
-bmFibGVBbGxTbXVGZWF0dXJlcyBpbmNsdWRlcyBVQ0xLIERQTS4gTGVhdmUgVUNMSyBvdXQgb2Yg
-dGhhdCBlYXJseQpyZXF1ZXN0IGFuZCBlbmFibGUgaXQgZnJvbSBOYXZpIHBvc3QtaW5pdCwgYWZ0
-ZXIgZGlzcGxheSBoYXJkd2FyZSBpbml0CmFuZCBiZWZvcmUgdGhlIFVNQyB3b3JrYXJvdW5kIGFu
-ZCBVTUQgY2xvY2sgc2V0dXAuCgpSZWFkIGJhY2sgdGhlIGVuYWJsZWQgZmVhdHVyZXMgYmVmb3Jl
-IHJlYnVpbGRpbmcgdGhlIG1lbW9yeSBjbG9jayB0YWJsZQphbmQgc3VzdGFpbmFibGUgY2xvY2sg
-bGltaXRzLiBBbHNvIGNoZWNrIHRoZSBQUFQgbWVtb3J5IHN0YXRlcyB1c2VkIGJ5CmRpc3BsYXkg
-aW5pdGlhbGl6YXRpb24gYmVmb3JlIGxhdGUgZW5hYmxlbWVudC4gS2VlcCBtZW1vcnktdm9sdGFn
-ZSBEUE0KYW5kIHJlc3BlY3QgdGhlIHVzZXIncyBtZW1vcnktRFBNIHNldHRpbmcgYW5kIHRoZSBz
-ZWN1cmUgTmF2aSAxMCBleGNsdXNpb24uCgpUaGlzIGJ1aWxkcyBvbiBBdGhhcnZhIFRpd2FyaSdz
-IHN1Ym1pdHRlZCAwMjE5IGRlbGF5ZWQtVUNMSyBwYXRjaAphbmQgR3VuYSdzIGRpYWdub3Npcy4g
-RWQgU2Nob2ZpZWxkIG1vdmVkIHRoZSBlbmFibGUgcG9pbnQgaW50byB0aGUKTmF2aSBjYWxsYmFj
-aywgYWRkZWQgc3RhdGUgdmFsaWRhdGlvbi4KSW5kZXBlbmRlbnQgdGVzdHMgb2YgdGhlIHJlbGF0
-ZWQgVDIgaW1wbGVtZW50YXRpb24gc3VwcG9ydCBpbXByb3ZlZCBib290CnJlbGlhYmlsaXR5IG9u
-IDAyMTkgYW5kIDAyMWE7IHRob3NlIGFyZSBub3QgdGVzdHMgb2YgdGhpcyBleGFjdCBBTUQgcGF0
-Y2guCgpMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbWQtZ2Z4LzIwMjYwODI0MTkwNDA5
-LjE3MjQtMS1hdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tLwpMaW5rOiBodHRwczovL2dp
-dGh1Yi5jb20vdDJsaW51eC9saW51eC10Mi1wYXRjaGVzL3B1bGwvNjEjaXNzdWVjb21tZW50LTU2
-Mzc5NzY0NjYKTGluazogaHR0cHM6Ly9naXRodWIuY29tL3QybGludXgvbGludXgtdDItcGF0Y2hl
-cy9wdWxsLzYxI2lzc3VlY29tbWVudC01NjQ1NjUyNzUyCkNsb3NlczogaHR0cHM6Ly9naXRsYWIu
-ZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQvLS93b3JrX2l0ZW1zLzYwMDUKQXNzaXN0ZWQtYnk6IENv
-ZGV4OkdQVC02CkNjOiBBbmRyw6kgRWlrbWV5ZXIgPGRldkBkZXEucm9ja3M+ClNpZ25lZC1vZmYt
-Ynk6IEF0aGFydmEgVGl3YXJpIDxhdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tPgpDby1k
-ZXZlbG9wZWQtYnk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYt
-Ynk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiAuLi4vZ3B1L2RybS9hbWQv
-cG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jICAgfCA1NCArKysrKysrKysrKysrKysrKysrCiAx
-IGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxMS9uYXZpMTBfcHB0LmMKaW5kZXggMmQwNTA4ODYxOWY2ZC4uNjcyZDc0
-MGU3Mjg4MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9u
-YXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9uYXZp
-MTBfcHB0LmMKQEAgLTYwLDYgKzYwLDI1IEBACiAKIHN0YXRpYyBpbnQgbmF2aTEwX2luaXRfcHB0
-X2xpbWl0cyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7CiAKK3N0YXRpYyBib29sIGlzX2FzaWNf
-c2VjdXJlKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsKKworc3RhdGljIGJvb2wgbmF2aTEwX2Fw
-cGxlX25lZWRzX2xhdGVfdWNsayhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKK3sKKwlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsKKwlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9
-IGFkZXYtPnBkZXY7CisKKwlpZiAoIShhZGV2LT5wbS5wcF9mZWF0dXJlICYgUFBfTUNMS19EUE1f
-TUFTSykpCisJCXJldHVybiBmYWxzZTsKKworCS8qIFByZXNlcnZlIHRoZSBleGlzdGluZyBzZWN1
-cmUgTmF2aSAxMCBtZW1vcnktRFBNIGV4Y2x1c2lvbi4gKi8KKwlpZiAoaXNfYXNpY19zZWN1cmUo
-c211KSAmJgorCSAgICBhbWRncHVfaXBfdmVyc2lvbihhZGV2LCBNUDFfSFdJUCwgMCkgPT0gSVBf
-VkVSU0lPTigxMSwgMCwgMCkgJiYKKwkgICAgYWRldi0+cmV2X2lkID09IDApCisJCXJldHVybiBm
-YWxzZTsKKworCXJldHVybiBwZGV2LT5zdWJzeXN0ZW1fdmVuZG9yID09IFBDSV9WRU5ET1JfSURf
-QVBQTEU7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X2ZlYXR1cmVfYml0cyBuYXZpMTBf
-ZHBtX2ZlYXR1cmVzID0gewogCS5iaXRzID0gewogCQlTTVVfRkVBVFVSRV9CSVRfSU5JVChGRUFU
-VVJFX0RQTV9QUkVGRVRDSEVSX0JJVCksCkBAIC0zNTYsNiArMzc1LDExIEBAIG5hdmkxMF9pbml0
-X2FsbG93ZWRfZmVhdHVyZXMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCXNtdV9mZWF0dXJl
-X2xpc3Rfc2V0X2JpdChzbXUsIFNNVV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwgRkVBVFVSRV9NRU1f
-TVZERF9TQ0FMSU5HX0JJVCk7CiAJfQogCisJLyogRGVmZXIgVUNMSyBvbiB0aGUgc2VsZWN0ZWQg
-QXBwbGUgYm9hcmRzIHVudGlsIElQIGxhdGUgaW5pdC4gKi8KKwlpZiAobmF2aTEwX2FwcGxlX25l
-ZWRzX2xhdGVfdWNsayhzbXUpKQorCQlzbXVfZmVhdHVyZV9saXN0X2NsZWFyX2JpdChzbXUsIFNN
-VV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwKKwkJCQkJICAgRkVBVFVSRV9EUE1fVUNMS19CSVQpOwor
-CiAJaWYgKGlzX2FzaWNfc2VjdXJlKHNtdSkgJiYKIAkgICAgKGFtZGdwdV9pcF92ZXJzaW9uKGFk
-ZXYsIE1QMV9IV0lQLCAwKSA9PSBJUF9WRVJTSU9OKDExLCAwLCAwKSkgJiYKIAkgICAgKGFkZXYt
-PnJldl9pZCA9PSAwKSkKQEAgLTMyMTksNiArMzI0MywzMCBAQCBzdGF0aWMgaW50IG5hdmkxMF9l
-bmFibGVfbWdwdV9mYW5fYm9vc3Qoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCQkJCSAgICAg
-ICBOVUxMKTsKIH0KIAorLyogSVAgbGF0ZSBpbml0IGZvbGxvd3MgZGlzcGxheSBod19pbml0OyBy
-ZWZyZXNoIGNsb2NrcyBiZWZvcmUgVU1DL1VNRCBzZXR1cC4gKi8KK3N0YXRpYyBpbnQgbmF2aTEw
-X2FwcGxlX2xhdGVfdWNsa19lbmFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCit7CisJc3Ry
-dWN0IHNtdV9mZWF0dXJlX2JpdHMgZW5hYmxlZDsKKwlpbnQgcmV0OworCisJaWYgKCFuYXZpMTBf
-YXBwbGVfbmVlZHNfbGF0ZV91Y2xrKHNtdSkpCisJCXJldHVybiAwOworCisJcmV0ID0gc211X2Nt
-bl9mZWF0dXJlX3NldF9lbmFibGVkKHNtdSwgU01VX0ZFQVRVUkVfRFBNX1VDTEtfQklULCB0cnVl
-KTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCXJldCA9IHNtdV9jbW5fZ2V0X2VuYWJsZWRf
-bWFzayhzbXUsICZlbmFibGVkKTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCWlmICghc211
-X2ZlYXR1cmVfYml0c19pc19zZXQoJmVuYWJsZWQsIEZFQVRVUkVfRFBNX1VDTEtfQklUKSkKKwkJ
-cmV0dXJuIC1FSU87CisKKwlzbXVfZmVhdHVyZV9saXN0X3NldF9iaXQoc211LCBTTVVfRkVBVFVS
-RV9MSVNUX1NVUFBPUlRFRCwKKwkJCQkgRkVBVFVSRV9EUE1fVUNMS19CSVQpOworCisJcmV0dXJu
-IDA7Cit9CisKIHN0YXRpYyBpbnQgbmF2aTEwX3Bvc3Rfc211X2luaXQoc3RydWN0IHNtdV9jb250
-ZXh0ICpzbXUpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7CkBA
-IC0zMjI3LDYgKzMyNzUsMTIgQEAgc3RhdGljIGludCBuYXZpMTBfcG9zdF9zbXVfaW5pdChzdHJ1
-Y3Qgc211X2NvbnRleHQgKnNtdSkKIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQogCQlyZXR1
-cm4gMDsKIAorCXJldCA9IG5hdmkxMF9hcHBsZV9sYXRlX3VjbGtfZW5hYmxlKHNtdSk7CisJaWYg
-KHJldCkgeworCQlkZXZfZXJyKGFkZXYtPmRldiwgIkZhaWxlZCB0byBlbmFibGUgbGF0ZSBVQ0xL
-IERQTTogJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7CisJfQorCiAJcmV0ID0gbmF2aTEwX3J1
-bl91bWNfY2RyX3dvcmthcm91bmQoc211KTsKIAlpZiAocmV0KQogCQlkZXZfZXJyKGFkZXYtPmRl
-diwgIkZhaWxlZCB0byBhcHBseSB1bWMgY2RyIHdvcmthcm91bmQhXG4iKTsKLS0gCjIuNTYuMAoK
---0000000000000e8f73065f614643--
+idr_preload is now correctly called before idr_alloc.
+
+With these changes the TODO can be removed and the ioctl can be
+re-enabled.
+
+Accompanying IGT patch on igt-dev is
+tests/intel: Add edge case and race condition tests for GEM_CHANGE_HANDLE
+
+v2: new_handle = old_handle is EINVAL
+v3: More detailed commit message and some cleanup
+
+cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+cc: Christian Koenig <christian.koenig@amd.com>
+cc: Simona Vetter <simona.vetter@ffwll.ch>
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/drm_gem.c   | 30 ++++++++++--------------------
+ drivers/gpu/drm/drm_ioctl.c |  3 +--
+ 2 files changed, 11 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 6a86bd2a0343e..bb55715e8d170 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1018,19 +1018,6 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
+ 	return ret;
+ }
+ 
+-/*
+- * This ioctl is disabled for security reasons but also it failed
+- * to follow process in terms of adding testing in igt and verifying
+- * all the corner cases which made fixing security bugs in it even
+- * harder than necessary.
+- *
+- * To re-enable this ioctl
+- * 1. land working IGT tests in igt-gpu-tools that cover
+- *    all corner cases and race conditions.
+- * 2. handle idr_preload
+- * 3. handle == 0
+- * 4. handle == new_handle semantics definition.
+- */
+ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 				struct drm_file *file_priv)
+ {
+@@ -1041,21 +1028,22 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 	if (!drm_core_check_feature(dev, DRIVER_GEM))
+ 		return -EOPNOTSUPP;
+ 
+-	/* idr_alloc() limitation. */
+-	if (args->new_handle > INT_MAX)
+-		return -EINVAL;
+ 	new_handle = args->new_handle;
+ 
+-	if (args->handle == new_handle)
+-		return 0;
++	/* idr_alloc() limitations. */
++	if (new_handle == 0 || new_handle > INT_MAX ||
++	    args->handle == new_handle)
++		return -EINVAL;
+ 
+ 	mutex_lock(&file_priv->prime.lock);
++	idr_preload(GFP_KERNEL);
+ 	spin_lock(&file_priv->table_lock);
+-	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
+-			GFP_NOWAIT);
++	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle,
++			new_handle + 1, GFP_NOWAIT);
+ 
+ 	if (ret < 0) {
+ 		spin_unlock(&file_priv->table_lock);
++		idr_preload_end();
+ 		goto out_unlock;
+ 	}
+ 
+@@ -1063,10 +1051,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_ERR_OR_NULL(obj)) {
+ 		idr_remove(&file_priv->object_idr, new_handle);
+ 		spin_unlock(&file_priv->table_lock);
++		idr_preload_end();
+ 		ret = -ENOENT;
+ 		goto out_unlock;
+ 	}
+ 	spin_unlock(&file_priv->table_lock);
++	idr_preload_end();
+ 
+ 	if (obj->dma_buf) {
+ 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index e2df4becce629..ff193155129e7 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -660,8 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+ 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
+ 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
+-	/* see drm_gem.c:drm_gem_change_handle_ioctl for why this is invalid */
+-	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
+ 
+ 	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
+ 
+-- 
+2.34.1
+
