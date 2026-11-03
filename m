@@ -2,97 +2,145 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7D2606B12C
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E497860819F2
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qCt93gv2
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=hpRxbvzX;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=hpRxbvzX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739E910F4EC;
-	Tue,  3 Nov 2026 10:51:35 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E2510F4FD
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:51:29 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-93e7ad9f78dso509244185a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 02:51:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793703088; cv=none;
- d=google.com; s=arc-20260327;
- b=rAu5rAauorqVcI/zStI4Uc0Q5C6jN5teHR6NDkUCxBqGF0UvFC2/1jrW1byPexOS+P
- LlJU5W537Yj4U7coVbp8VsJpLQ/yl2ttkGEBIl4ZvP1ywp7q+QzxOKwo//qsKaDVuqnd
- fGUPAa+QzYCxcl0Aq8+6GCc2nJ84HIOTLtSGHLHRsjnr74Qn1Tu8MZL3n5jn8wuQf2sO
- 08z+OA6BxNIEENKsKC39BHJbqpJwithn18afa6zy3VnoW0hgCPuIkRiJLHRlHiLZ/wWA
- lAaV+MYX1hDlA6hHuBAWR8ViyyxiRp+TC6l2YJ6SpPW/1lZW+yf47bzmpEkl10NqiUGg
- 6ALg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=imAw8ZIdSV8OvmuW0pEH39O2GWMZ5lvM009/jM+c93A=;
- fh=s7p3oHr38DXxwdzQMmU4ISvvSFwwJ0Brz4NBQCJiWJc=;
- b=oUOQS3tc0vGxzpVRurcIC8/AessOMW0WTRYJIAhFR/X2zIpUR7F1UFg3nnZ1aKcFrn
- yu7rdWrl5i58Cdz8S+Pox46q+TVqk835ENP7AFCqVSEzoRdHjLzJzsGS1vRnhMvLvqHb
- Krz3uXfFTJioyXEEFR4MTdesb3rjsSZCla0Cq43O+xlm106HN/4zco1WpaXlKhjkWwIx
- B3ZpoLjKp1t2KiMY7ryHd2IoCNAeFRPPFjMvO2yCdKsSpHyBsmLL3XjWFb7G7uPu2kfo
- 19HpfKgiJNRTJtXRVOaMgDFp8UKS4FsmKvLeyZ+xAZZwXOh/ZElvncf6TloVboE1xxNJ
- /Qrw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793703088;
- x=1794307888; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=imAw8ZIdSV8OvmuW0pEH39O2GWMZ5lvM009/jM+c93A=;
- b=qCt93gv2hVAFKa6XcLpfKvwTFCyOBn2Krw+dKo6mjNDwXeXQkRb6HQEC8Iz3vlVyO8
- lfGNpMydfUmjQtKzzdLaeiQEOXiu6VK9Dj8scoirv7ogomYMrCKG3FV2PeK9OARA4Vqv
- mzcehJ5TkjH/V5b5j4ruNPzWXjP3oehmzjActy9cY+V/qf8Dy4UnpcuaeBbXqK4oGhJP
- KpIvOFl3ldewaiwJOZcx+n96y3nKcGXNLAMinmbyjaZrFpar9/LdQFmcKOPcWr8uOStO
- G66xWF98YmB7EgWelOyX8fgYUXNfPCkCpcXCD6cQHXUNhsMzAMYqC6pZGQnLgxx2IbeH
- EbwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793703088; x=1794307888;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=imAw8ZIdSV8OvmuW0pEH39O2GWMZ5lvM009/jM+c93A=;
- b=igTmuU4CkN/d22pf30bYyHhnmHcZOP+0L86U6ghpR0yHjuvxey4gaQi31cdrWqPsHc
- lrN6oUcbaGaNMfdgwsegmANjcvazdrkOtfDuFNBl3HPkn5TR3MPR/lEhK2Fk8Ay/Fx7l
- mZzVXNY8YwwpPX4q7iJ7R4M93yJK/I/PpsJM5EKbqaYNNN4oVOZud/AKoh/7kJqWyxRj
- SeuXTzygzWMOja9wBmGsAu5fldjU0Zhdwoaq8mBNlS/SLk6LeGk5zoNg7OJkw6CV341M
- 88xxFoaFyUYYgJxl3c2BrGpa4V+sTQWP4cl+9P4gHyWQrBirc2cIAutf/16wVyc1GH/+
- q5Yw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxOnYIdiUT47o7z9VUWEX36JMHDLuAX7fu8TtN8Vz1vLsuakosvghjevydoQjoekMtqODxLB8t3FGw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/IwXJsSBJ9drPWvgwvbZs6VMqdPYSHiCzaoOzi50KwljdoThA7
- 0gOJPZJMVDg1190chviy2r03JvdTWen5YAV+aGUFRadrV0PBaW+nbwc4rOaE7P6Rt2PD8RhEmPF
- Wxsu2yIUld/HyQ0MeKUjYtbjSOXxvyEwadjKMG4wr5A==
-X-Gm-Gg: AYBFou2bdrSl107f8cINjFdEQjvm1SZjiKDIWOsH9Eg0p5YgoepJIaPP2BE8s3Pk72Q
- T8qHm/ZFIV1HyS6AK38N6OfWQ1UyGUvxEb3fDR8h6B5iimVb07+Ov35w2/q26mIlcm6lcVi5Yxu
- VW+sQGuUrvzdYxWY4nrDlDPdEkxz0t5SVQ2X56+DG+0vbdPIO0ZLZsyye0v3RZtRtZotEjfELWo
- ap43ARjmxFsD8RD5PoWDphF4Fs4ocrhBeopz3z7paSO3g92DpADr8nT/RG/256h+NWU1p43ghko
- SpmT7ObWoncB69OUD1vBAYUaRAfFjHCP5nE/yq30wjaFoYN2+hfBDL0Zd0QOUNRgaEjDcIUzNYy
- Cgck0IL74hMPkFMoBrtIJDPeCVMT/eidMJV6VqkCVb/bwyoYgDJOO8XK5AslsuzElslRXXHpA73
- S9Xv8tEByuLRjHiSd8q/E=
-X-Received: by 2002:a05:620a:84c4:b0:93e:66e6:fa4 with SMTP id
- af79cd13be357-94421712a8dmr1989192685a.16.1793703087871; Tue, 03 Nov 2026
- 02:51:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E6B10E4DE;
+	Tue,  3 Nov 2026 10:56:08 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A92F10E4A4
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:55:56 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=qGjfaDsK5YqRo5eDs1Via1HOq9lcBB+YvssZxhtUJcpW1eB5uufnaVK/2xWlQGQpRrzksI1RoeiCNkMGtZx5PuYVTauim9607wxbs31au32+CGCZqBG0tHqQwxKqVzPch2+qvUUfbRkgD3NQdelMH/HegHPL0UfpdiJw1jh+VmVloLDO6VckewtMwSjMJ9tYgjfPX3plNvCDc3LFi9ZUzSStXvZEah4+2Qd3ILWnWb4QaRg/wvdCFa6XZAdBII3OO+zxeeyL06t4DVA1lEMxkh4fZoyLGT8TWGKQZTWFaI2/+EI65V+5tZiyfFoSAI32k5X98c43HzDiUiZUDg87oQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5FvwUTJw/maeJvtYudQjvfiStGL0xbrXQrUd8DFGaZc=;
+ b=mMj1dyFRKE+u3kvrbBXrHQUn3fkH5/lk4pD1Q+2J852/lM7oHz14wqKITbwFlS2bid4GRYTZ9cKJ7g90H6+8AW9h8xk1boy/x5GYcRAcYg70j70T5wuMcTUN42XwTinnAFgv7ZreXC8++6LzyIW30TXGkzcjrD7lXdrS66Ct86mB2VkYlBLR1E4F3T3SsT5t/2EpdC9jcnViI18Ki73ZJAolYnjZJfi41sjWZrPk+m5umNq6aQsMTQaRlROil8Pmka0JKBivFY6X891trYNuYmbMmfQhr0sYyLPtukfotRRHaRRozD0wTzcqnLa5/KEbHhgxTKPiu+yewT0Jfw8KNQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5FvwUTJw/maeJvtYudQjvfiStGL0xbrXQrUd8DFGaZc=;
+ b=hpRxbvzXPqMaK/N3y1QQ+I3t6YjRxV+ZjRnbCIyFaK2anj/Hok3XvD4nbNfy1PIOIOBmfbnTpKvli3bWwjBGAfj1cB2DsyNrAgB5x9RFSLWMGPm3+M4MDNBFL67HxGHy7tNMVpwjS9DGE02AhcpUWfq09azvUq0V9r1WWhbDj6k=
+Received: from AM8P251CA0007.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:21b::12)
+ by DB9PR08MB8409.eurprd08.prod.outlook.com (2603:10a6:10:3d7::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 10:55:49 +0000
+Received: from AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+ (2603:10a6:20b:21b:cafe::2f) by AM8P251CA0007.outlook.office365.com
+ (2603:10a6:20b:21b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
+ Nov 2026 10:55:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com;
+ dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM1PEPF000C1ADB.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
+ via Frontend Transport; Tue, 3 Nov 2026 10:55:48 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Af66zRlcbTnjWDJyXVdqhyA0xQimf1NsyUhysMHKinWK59HtyAwPXt7tSAWSXg9SR/CdtHyq4bBytP4EVeju9Si3Gx0vK3wMUyYJynQGkh3USBtYmUCXEq3vX7a51+5D+U4X5NVmwfb9ge+0gS+DB9jC1WMbqd5jp2SVbrJrtwMwLRR5rFp+hOD1u4F8jhEyH863cOTDAqQN9+/Bq4NSkluNgLdFz64ySGc1Wm18NJPra7Gi5lrLP1AAbwfpffo86as9sb1N923wUMqmjY6pzugbUjXVRTtPaHw7KdxeSkBHF7/6MspSudmpq49Calk3BxpXrKqSp1S0Ef1Qzf+7zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5FvwUTJw/maeJvtYudQjvfiStGL0xbrXQrUd8DFGaZc=;
+ b=PmtKb2nfiZmdDD+/mhScDUlwyJ0SMexNGUgPXpzNpgYTUwukec/S1de7pJH4sSWVdKWwMHbBqIAMoSAbAsXVqBHsOpno2huc1i+RAMtXnIksuBPVwdimUMZqOLImCOZJCIgFoP5pCG2ECfAbozo31L4QMpBe9rYWcpLSnzh0I07NBOA+GN/2YL8Bp9yT1JLgUXfFG/ekYZErPyLiIAF2fRScyCfqeg4dSdjq5L4QCV4+K1Yuwiv8ZMVM6bz1s/GNEHR6ccmUDTF6RFK6Oq/8uZZPoRgSSP3UmM4XtmCINgsz+CVZjwCoqxnaBYe4ptg7Dg0DccTLaMTKuDQeQTqhdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5FvwUTJw/maeJvtYudQjvfiStGL0xbrXQrUd8DFGaZc=;
+ b=hpRxbvzXPqMaK/N3y1QQ+I3t6YjRxV+ZjRnbCIyFaK2anj/Hok3XvD4nbNfy1PIOIOBmfbnTpKvli3bWwjBGAfj1cB2DsyNrAgB5x9RFSLWMGPm3+M4MDNBFL67HxGHy7tNMVpwjS9DGE02AhcpUWfq09azvUq0V9r1WWhbDj6k=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AM9PR08MB6052.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::15)
+ by GVXPR08MB7725.eurprd08.prod.outlook.com (2603:10a6:150:6d::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 10:55:15 +0000
+Received: from AM9PR08MB6052.eurprd08.prod.outlook.com
+ ([fe80::5ba6:c70c:1cd:48cd]) by AM9PR08MB6052.eurprd08.prod.outlook.com
+ ([fe80::5ba6:c70c:1cd:48cd%7]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 10:55:14 +0000
+Message-ID: <546e5e37-2fec-483f-a74f-eabf7cae1b37@arm.com>
+Date: Tue, 3 Nov 2026 10:55:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+To: Liviu Dudau <liviu.dudau@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
+ Florent Tomasin <florent.tomasin@arm.com>,
+ Daniel Stone <daniels@collabora.com>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+ <20261030144805.667158-1-liviu.dudau@arm.com>
+Content-Language: en-US
+From: Lukas Zapolskas <lukas.zapolskas@arm.com>
+In-Reply-To: <20261030144805.667158-1-liviu.dudau@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR1P264CA0081.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2cc::19) To AM9PR08MB6052.eurprd08.prod.outlook.com
+ (2603:10a6:20b:2d5::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261101152723.1430312-1-sidong.yang@furiosa.ai>
-In-Reply-To: <20261101152723.1430312-1-sidong.yang@furiosa.ai>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Tue, 3 Nov 2026 11:51:16 +0100
-X-Gm-Features: AclHuK-z6BmO2pZg0oIpH0qZUB9cGfGSi7vP1P71zNtjG5vZjK7jOSPibONtTLI
-Message-ID: <CAPsqS2Q_U=ZJEnZ=hCztVW=_8iRvj4uy-3cGbOLNLJaYMjdQbQ@mail.gmail.com>
-Subject: Re: [PATCH v2] accel/rocket: Report per-core engine usage through
- fdinfo
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Gyeyoung Baek <gye976@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-TrafficTypeDiagnostic: AM9PR08MB6052:EE_|GVXPR08MB7725:EE_|AM1PEPF000C1ADB:EE_|DB9PR08MB8409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46ec12d3-076a-42bc-b13e-08df399904f9
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|10067099003|18002099003|22082099003|261102123227099003|56012099006|4143699003|11063799006|261022105027099003|261026121527099003|261022075727099003|261026140227099003|261028144727099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info-Original: VCjJtDRIiEF+uDaQMiI+C/HTMu6W5XHyienLo9QnWy2UjdtwY0QoxOZW8TWi0tPdhdKv/PAw+Mvv6KtReemcTeG+jC+UhjWq+dZdmsHSHxxXL5ffjL1BDz+yGa6t8dSr3CLierA84XLysRP6h/CKRz220an/24G+IRnMkF/qFdLETC8pYW9AZBb0mdQgJ4LUmKTU2LdU4jYpNBask2Fq0V2EPHe8csgfveHbIinWY85tsFjFWQPkIPSYUZB0jb+z52OvjT6bGWUH4Ytck6mjIxtduuItzIssoIi6YN4PvhQazm1PQpwJOWZek2D1H5RGpqfx67SnbtNNKvrWZUKON2eBGhrmPDBkWSRDPyGl6M9ihlbsne0SIf6ul/j2UKewbKR9y85Pv/4EKcWBz6gBdSq45K+EjmOLyey9fs2rdqnz7wH0RoeYYvP+UeJ2NSdGUzQ/eQs+lEnkU1jinTcLM+H5cX6qJ2rx8yRy0tngHnzOr026SVPUW1/Rb7WtT3ayye0AWPLAEgTNUiNLkrRoNz3tQTDtXDbTvEM8AgoNXGUDpFfH5xeBhK77ggq9dL8KP8M3j2JlluQYvJvnCMlifk9ttIWaUJhqL79iu3AL0wc=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM9PR08MB6052.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(18002099003)(22082099003)(261102123227099003)(56012099006)(4143699003)(11063799006)(261022105027099003)(261026121527099003)(261022075727099003)(261026140227099003)(261028144727099003)(261021121427099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: aNKYEsBJ/XL4Pf1gfV1p1U1c9jfIC0SVxhBm++2tuVrQbC7xhd2zl81ClDf5WWSFMZUX34nEP6UzvuJuMPSX/Fa/XrEENnvd1S5FWbl/T37xiBOD8Fsg3H1RQDrOUNv6mZIddhajDvdyul4OIHkk8X1AvmfdWN8pGflrO8ff+gF/fTyrK8IiKK79r2IfES0Vy2ogXC9r6VwjXXefiki1Lmm2J6j5CDYKqq0JMp7Zbz5f+8l/vrNrhhFSFCB6dm98ISNkDlC/ocJOBvj5KVggI0VvLQPV1HqettFM6txZHUQhELyKItkrIvQCdNi/G6Wlb1RblzbtdPkUf1dBvD5cnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB7725
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 9f033e4e-33c4-446b-7d07-08df3998f0a9
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|35042699022|376014|23010399003|1800799024|14060799003|36860700016|82310400026|261026140227099003|4143699003|11063799006|56012099006|261028144727099003|261021121427099003|261022105027099003|261026121527099003|261022075727099003|10067099003|18002099003|22082099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: w9f2HZ3CWqNIkcOAPGplrvWh7k3g0wUDIo91gnyt6/edx86qM4Y/4FMsiR/mhLXWZUPFPd8KcGn2HEoHL0Jl0rjs/ytl+qWa8ofA/PKUEGi5m7Vq5anX8eJILhBOgDx4uQzKkSxk9VVb09npLUx3nL/afrqnRejYoFErgA+FDM7pnqdOml5S97+PznlwiWBQbW+gevRPGCaXjdR3oP4WoehZHqfthXh711sH3hiKDaWcS9yERDTa6rr69lk3qX7+0SP1ustQ8BynS6aQjVYjm4ActytywyBc6u4pHPcsCsnSvht7erLTqDz/hk26iJ+nV8B2fRaPblgFwZm8oSfZSQkC6VDOlmwqcXYrePxvOlHIY++I4YRjhQ+0rFeJprrJgv2k6WKfAAq5CH6JN9/zipOUj5xg/e2yGMm7BqdPWrmbJPR3fvZ7+iG/KU0d34VilPg/FMebjUL9CgfrWQIKB7ld53Ozu2nBAVzYY1cvwlLoMx30O+TIG/EteM0uF+id9FvztTte9TiuidFdhn+2/ztcOubK5bcDdb0Vhv3m1VKnfMayoei40oFJhOTWjSWNfrsQY9qYIIUROmm9rMwk9Plf0gEkFvTdX/B/R1T3yZRgAZg/yNjwJ0gD3BoBWNHdpTSItc3pmfKPu8UQDiHTog==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(35042699022)(376014)(23010399003)(1800799024)(14060799003)(36860700016)(82310400026)(261026140227099003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(261102123227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: fDY6nNDPkMsbtjhdqPyKFqziijrRgGUdxZlMx3tlj1rlmz17cIwgNP9Vg7eY9jvotXo7qcwprkbVZTgyfR5SdQPXZtxaNqufXEwzBMIN7pm+LPhT5UtaoQ1Nlnhw65nGkksYN7f0L5S2AUfzKMsoxskquSNHHaCGvrdiJbCy0Ux5Z3nozp8z1t0G3xllcWgKvggVNYgEf/uMGxs25eY3jddyRZ4GD6tH7H0O1I2W/JRFRzJ6uBr/5zEgVzYuT76mLGN8tmnZuwRVmkZvA6rKpbJwPBZkWaM/+c6HlONZPA6dQNXqTWatLCOKQoqcwudk+8xeaCBi8/9OXUYbxgi3ar8S7fpHDddz2iFVzkeNeUfoNG+6Cn9/N9UKJ55/fQLjiFw4qVUK6yCPgJWVSLM5NW7hMm2/yYI3jMU0ebqeZBktYaVxMUq/Qp18SiYVQtTm
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:55:48.5205 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46ec12d3-076a-42bc-b13e-08df399904f9
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8409
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,324 +152,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Sidong,
 
-can you please check the drm usage stats spec at
-Documentation/gpu/drm-usage-stats.rst ?
-
-I think you need to conform to the key naming part of it, with a
-single key with a capacity equal to the number of cores. We also need
-an entry in Documentation/gpu/drm-usage-stats.rst like the other
-drivers have.
-
-Btw, with a perfmon ioctl, we could have Perfetto integration and
-benefit from other work such as drm-sched tracepoint visualization.
-Just saying in case it can help in your use cases.
-
-Thanks,
-
-Tomeu
-
-On Sun, Nov 1, 2026 at 4:27=E2=80=AFPM Sidong Yang <sidong.yang@furiosa.ai>=
- wrote:
->
-> There is no way to tell how much of the NPU a client uses, or whether its
-> jobs reach more than one core. Implement the DRM usage stats: account the
-> time each job occupies a core and report it per client as
-> drm-engine-npu<n>, along with drm_show_memory_stats() for the BOs.
->
-> Jobs can outlive the file that submitted them, so the counters are
-> refcounted and each job holds a reference. The time covers the whole
-> period a job owns a core, so it also includes handling the completion
-> interrupt and the gaps between the tasks of a multi-task job.
->
-> The array is sized by rdev->max_cores, the number of core slots, not by
-> the number of cores bound when the file is opened. A core can still be
-> probing while a client opens the device, and the IRQ handler indexes the
-> array with core->index, which stays valid when a core is unbound. A slot
-> with no core bound reads as zero.
->
-> For example, teflon running a model two operations deep 3001 times gives:
->
->   drm-engine-npu0:      22719385 ns
->   drm-engine-npu1:      23345296 ns
->   drm-engine-npu2:      0 ns
->
-> The NPU is busy 15.6% of the wall clock time and one core is never used.
->
-> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
+On 30/10/2026 14:48, Liviu Dudau wrote:
+> We now have more people that can do reviews and contribute patches
+> to Panthor, so add their names to the list.
+> 
+> Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
+> 
 > ---
-> v2: Size the per-core counters by rdev->max_cores, the number of core
->     slots, instead of the number of cores bound when the file is opened.
->     Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
->     it with KASAN.
->
->     This depends on commit 6eff1d69dae8 ("accel/rocket: search every core
->     slot when a core is removed"), which added rdev->max_cores. It is in
->     mainline through drm-misc-fixes but not yet in drm-misc-next.
->
-> Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1-sidong.y=
-ang@furiosa.ai/
->
->  drivers/accel/rocket/rocket_drv.c | 60 +++++++++++++++++++++++++++++--
->  drivers/accel/rocket/rocket_drv.h | 14 ++++++++
->  drivers/accel/rocket/rocket_job.c |  7 ++++
->  drivers/accel/rocket/rocket_job.h |  4 +++
->  4 files changed, 83 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 2bcfe4ab3c68..58a486206565 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -3,8 +3,10 @@
->
->  #include <drm/drm_accel.h>
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_file.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_ioctl.h>
-> +#include <drm/drm_print.h>
->  #include <drm/rocket_accel.h>
->  #include <linux/clk.h>
->  #include <linux/err.h>
-> @@ -68,6 +70,25 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *do=
-main)
->         kref_put(&domain->kref, rocket_iommu_domain_destroy);
->  }
->
-> +static void
-> +rocket_engine_usage_destroy(struct kref *kref)
-> +{
-> +       kfree(container_of(kref, struct rocket_engine_usage, kref));
-> +}
-> +
-> +struct rocket_engine_usage *
-> +rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
-> +{
-> +       kref_get(&rocket_priv->engine_usage->kref);
-> +       return rocket_priv->engine_usage;
-> +}
-> +
-> +void
-> +rocket_engine_usage_put(struct rocket_engine_usage *usage)
-> +{
-> +       kref_put(&usage->kref, rocket_engine_usage_destroy);
-> +}
-> +
->  static int
->  rocket_open(struct drm_device *dev, struct drm_file *file)
->  {
-> @@ -86,10 +107,19 @@ rocket_open(struct drm_device *dev, struct drm_file =
-*file)
->         }
->
->         rocket_priv->rdev =3D rdev;
-> +
-> +       rocket_priv->engine_usage =3D kzalloc_flex(*rocket_priv->engine_u=
-sage,
-> +                                                elapsed_ns, rdev->max_co=
-res);
-> +       if (!rocket_priv->engine_usage) {
-> +               ret =3D -ENOMEM;
-> +               goto err_free;
-> +       }
-> +       kref_init(&rocket_priv->engine_usage->kref);
-> +
->         rocket_priv->domain =3D rocket_iommu_domain_create(rdev->cores[0]=
-.dev);
->         if (IS_ERR(rocket_priv->domain)) {
->                 ret =3D PTR_ERR(rocket_priv->domain);
-> -               goto err_free;
-> +               goto err_put_engine_usage;
->         }
->
->         file->driver_priv =3D rocket_priv;
-> @@ -109,6 +139,8 @@ rocket_open(struct drm_device *dev, struct drm_file *=
-file)
->         mutex_destroy(&rocket_priv->mm_lock);
->         drm_mm_takedown(&rocket_priv->mm);
->         rocket_iommu_domain_put(rocket_priv->domain);
-> +err_put_engine_usage:
-> +       rocket_engine_usage_put(rocket_priv->engine_usage);
->  err_free:
->         kfree(rocket_priv);
->  err_put_mod:
-> @@ -125,6 +157,7 @@ rocket_postclose(struct drm_device *dev, struct drm_f=
-ile *file)
->         mutex_destroy(&rocket_priv->mm_lock);
->         drm_mm_takedown(&rocket_priv->mm);
->         rocket_iommu_domain_put(rocket_priv->domain);
-> +       rocket_engine_usage_put(rocket_priv->engine_usage);
->         kfree(rocket_priv);
->         module_put(THIS_MODULE);
->  }
-> @@ -139,7 +172,29 @@ static const struct drm_ioctl_desc rocket_drm_driver=
-_ioctls[] =3D {
->         ROCKET_IOCTL(FINI_BO, fini_bo),
->  };
->
-> -DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-> +static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *f=
-ile)
-> +{
-> +       struct rocket_device *rdev =3D to_rocket_device(file->minor->dev)=
-;
-> +       struct rocket_file_priv *rocket_priv =3D file->driver_priv;
-> +       unsigned int core;
-> +
-> +       /*
-> +        * These are estimates: the time is taken around the whole period=
- a job
-> +        * occupies a core, so it also covers handling the completion int=
-errupt
-> +        * and, for a job made of several tasks, the gaps between them.
-> +        */
-> +       for (core =3D 0; core < rdev->max_cores; core++)
-> +               drm_printf(p, "drm-engine-npu%u:\t%llu ns\n", core,
-> +                          rocket_priv->engine_usage->elapsed_ns[core]);
-> +
-> +       drm_show_memory_stats(p, file);
-> +}
-> +
-> +static const struct file_operations rocket_accel_driver_fops =3D {
-> +       .owner =3D THIS_MODULE,
-> +       DRM_ACCEL_FOPS,
-> +       .show_fdinfo =3D drm_show_fdinfo,
-> +};
->
->  /*
->   * Rocket driver version:
-> @@ -150,6 +205,7 @@ static const struct drm_driver rocket_drm_driver =3D =
-{
->         .open                   =3D rocket_open,
->         .postclose              =3D rocket_postclose,
->         .gem_create_object      =3D rocket_gem_create_object,
-> +       .show_fdinfo            =3D rocket_show_fdinfo,
->         .ioctls                 =3D rocket_drm_driver_ioctls,
->         .num_ioctls             =3D ARRAY_SIZE(rocket_drm_driver_ioctls),
->         .fops                   =3D &rocket_accel_driver_fops,
-> diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/roc=
-ket_drv.h
-> index 2c673bb99ccc..eff5c2ac54d1 100644
-> --- a/drivers/accel/rocket/rocket_drv.h
-> +++ b/drivers/accel/rocket/rocket_drv.h
-> @@ -16,6 +16,15 @@ struct rocket_iommu_domain {
->         struct kref kref;
->  };
->
-> +/*
-> + * Time each core has spent running a client's jobs, in nanoseconds, ind=
-exed by
-> + * core. Jobs hold a reference, as they can outlive the file that submit=
-ted them.
-> + */
-> +struct rocket_engine_usage {
-> +       struct kref kref;
-> +       u64 elapsed_ns[];
-> +};
-> +
->  struct rocket_file_priv {
->         struct rocket_device *rdev;
->
-> @@ -24,9 +33,14 @@ struct rocket_file_priv {
->         struct mutex mm_lock;
->
->         struct drm_sched_entity sched_entity;
-> +
-> +       struct rocket_engine_usage *engine_usage;
->  };
->
->  struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_p=
-riv *rocket_priv);
->  void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
->
-> +struct rocket_engine_usage *rocket_engine_usage_get(struct rocket_file_p=
-riv *rocket_priv);
-> +void rocket_engine_usage_put(struct rocket_engine_usage *usage);
-> +
->  #endif
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index ce994748dd5d..c0ffbccfb6cc 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -13,6 +13,7 @@
->  #include <linux/iommu.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/sched/clock.h>
->
->  #include "rocket_core.h"
->  #include "rocket_device.h"
-> @@ -265,6 +266,7 @@ static void rocket_job_cleanup(struct kref *ref)
->         unsigned int i;
->
->         rocket_iommu_domain_put(job->domain);
-> +       rocket_engine_usage_put(job->engine_usage);
->
->         dma_fence_put(job->done_fence);
->         dma_fence_put(job->inference_done_fence);
-> @@ -351,6 +353,7 @@ static struct dma_fence *rocket_job_run(struct drm_sc=
-hed_job *sched_job)
->
->         scoped_guard(mutex, &core->job_lock) {
->                 core->in_flight_job =3D job;
-> +               job->start_ns =3D local_clock();
->                 rocket_job_hw_submit(core, job);
->         }
->
-> @@ -379,6 +382,9 @@ static void rocket_job_handle_irq(struct rocket_core =
-*core)
->                                 return;
->                         }
->
-> +                       core->in_flight_job->engine_usage->elapsed_ns[cor=
-e->index] +=3D
-> +                               local_clock() - core->in_flight_job->star=
-t_ns;
-> +
->                         iommu_detach_group(NULL, iommu_group_get(core->de=
-v));
->                         dma_fence_signal(core->in_flight_job->done_fence)=
-;
->                         pm_runtime_put_autosuspend(core->dev);
-> @@ -587,6 +593,7 @@ static int rocket_ioctl_submit_job(struct drm_device =
-*dev, struct drm_file *file
->
->         rjob->rdev =3D rdev;
->         rjob->domain =3D rocket_iommu_domain_get(file_priv);
-> +       rjob->engine_usage =3D rocket_engine_usage_get(file_priv);
->
->         ret =3D drm_sched_job_init(&rjob->base,
->                                  &file_priv->sched_entity,
-> diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/roc=
-ket_job.h
-> index 4ae00feec3b9..14aa78aebc99 100644
-> --- a/drivers/accel/rocket/rocket_job.h
-> +++ b/drivers/accel/rocket/rocket_job.h
-> @@ -38,6 +38,10 @@ struct rocket_job {
->
->         struct rocket_iommu_domain *domain;
->
-> +       /* When the job was handed to a core, and where to account the ti=
-me */
-> +       u64 start_ns;
-> +       struct rocket_engine_usage *engine_usage;
-> +
->         struct kref refcount;
->  };
->
->
-> base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
-> prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
-> --
-> 2.53.0
->
+> v2: Forgot to add Chris Diamand to the list, fixed.
+> ---
+>  MAINTAINERS | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 89ea35a35c680..ef92c462a8381 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
+>  M:	Boris Brezillon <boris.brezillon@collabora.com>
+>  M:	Steven Price <steven.price@arm.com>
+>  M:	Liviu Dudau <liviu.dudau@arm.com>
+> +R:	Akash Goel <akash.goel@arm.com>
+> +R:	Karunika Choo <karunika.choo@arm.com>
+> +R:	Lukas Zapolskas <lukas.zapolskas@arm.com>
+> +R:	Chris Diamand <chris.diamand@arm.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  S:	Supported
+>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+
+Acked-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+
+Kind regards,
+Lukas
