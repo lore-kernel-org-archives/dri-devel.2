@@ -2,79 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E38606A339
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 13:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1102B606A326
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 13:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ykLiUdxW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8lfgcHn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB34310F576;
-	Tue,  3 Nov 2026 13:01:32 +0000 (UTC)
-X-Greylist: delayed 521 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 13:01:26 UTC
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru
- [93.188.205.243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 344AF10F576;
- Tue,  3 Nov 2026 13:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
- s=mail; t=1793710362;
- bh=iouGWSMMa76ghwbzwSYQ6bAw7O0sN2zqkEE0UIP46bw=;
- h=From:To:Cc:Subject:Date:From;
- b=ykLiUdxWD+FUHhMSFlnG326R1gDFgCSR6JuEP42ivk6fJK84+ldEl1Zf+5NMZOEkG
- iBqxPCON5M61IjyIqsiyXMwBjIASRwZV5BvsUMXmVypdrv4GiNgZ5Ys8iOhxbnW34U
- PJKfc7b3XrDncNLGqcZ+OaJeg+MJmPgLC/D23FN5arZjYL1btjFravq41pSXRCTY8j
- GNtjQi+D+Ca4FQOfXxKf9cSi6MEGLOWxSXCyI4rl9H484QO5rJpBeDPwPxoO9IafDU
- /YxGkHS99gupu/Ihi56tLZ3M7gue8ZI2Pdrs1bXtwQm31Tpam9BYC5aGuKHN7mkeSG
- 2nBr49abPVZ+g==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
- by mail-gw02.astralinux.ru (Postfix) with ESMTP id B499E1FA27;
- Tue,  3 Nov 2026 15:52:42 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
- Tue,  3 Nov 2026 15:52:41 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.27.207])
- by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJlCK5Myzz3vN0;
- Tue, 03 Nov 2026 13:28:13 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
- Yinjie Yao <yinjie.yao@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] drm/amdgpu/vcn: set no_user_fence for VCN v2.0
- enc/dec rings
-Date: Tue,  3 Nov 2026 13:27:48 +0300
-Message-ID: <20261103102754.1500-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133
- d508d579b02cdb6df47808421a9b9e12fc9fb75b, {diag_burst_silent},
- {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to},
- astralinux.ru:7.1.1; new-mail.astralinux.ru:7.1.1; 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207221 [Nov 03 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854,
- bases: 2026/11/03 11:26:00 #28786010
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC4C10E7F7;
+	Tue,  3 Nov 2026 13:09:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A79510E7F7;
+ Tue,  3 Nov 2026 13:09:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1CA9043E2B;
+ Tue,  3 Nov 2026 13:09:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FBD1F00A17;
+ Tue,  3 Nov 2026 13:09:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793711374;
+ bh=7UiSEZE7ULVZaxkgrq2ycvaZiVN2Qjwwb3QCywp+cqE=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=B8lfgcHnj1xB2KvQm1A+tR41mPxkHstaPpZRqvKQERtP53LJLY1VqT561+lq+CY4F
+ 3H59pi3Ha2gPNzKNj1CDlKsBoRDjE3sDJcAWVoGglf2xjrBkhuTb4Gv1S5t2kMKGod
+ kDsU+NwAzii5UIXxk10H1cudAQfbEXlEo/9kGkxdVlpEIkUB8CyKVfYrch6XqG4x3Z
+ YVetGP9cufYavKmXivm28LRJ84AETPKdcqv/DVcmvRjUGZRX9D0NAp3AVnNG45Nhv2
+ YIPCdGtym3vndaTZIX2qsJWjwKb3tkvirWqxBrUA2eROC5o2vaEXstZpWD/X9CxQoM
+ LO3sXNkwFdSgw==
+Message-ID: <sashiko-outbox-195310@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261103125617.2480786-1-arunpravin.paneerselvam@amd.com>
+References: <20261103125617.2480786-1-arunpravin.paneerselvam@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 13:09:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,57 +49,193 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Yinjie Yao <yinjie.yao@amd.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] gpu/buddy: leaked split on range-straddling mixed block in __alloc=
+_range_bias()
+--
 
-commit 8d80b293b41fcb5e9396db93e788b0f4ebcbafb7 upstream.
+commit caf65a7be15ef66d98faecfc731749477d23b658
+Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-VCN encoder and decoder rings do not support 64-bit user fence writes,
-reject CS submissions with user fences.
+gpu/buddy: restore two-pass clear/dirty guard for range-biased allocation
 
-Fixes: 1b61de45dfaf ("drm/amdgpu: add initial VCN2.0 support (v2)")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit e2b5499fca55f1a32960a311bbb62e35891eaf73)
-[mdmitrichenko: Adjust the ring initializers to the 5.10/5.15 context,
- preserving the existing vmhub fields.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-63856.
+This commit introduces a two-pass clear/dirty eligibility check in
+__alloc_range_bias() via block_incompatible() so that range-biased
+allocations avoid splitting opposite-class extents during the initial strict
+pass before falling back when -ENOSPC is returned. It also accepts mixed
+blocks at the requested order as-is and adds a KUnit regression test for
+range-biased clear/dirty separation.
 
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++
- 1 file changed, 2 insertions(+)
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 28cff97d57dc8..f2914f919b04a 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1240,11 +1240,23 @@ static void __gpu_buddy_undo_splits(struct gpu_bu=
+ddy *mm,
+>  	}
+>  }
+> =20
+> +static bool block_incompatible(struct gpu_buddy_block *block, unsigned i=
+nt flags)
+> +{
+> +	bool needs_clear =3D flags & GPU_BUDDY_CLEAR_ALLOCATION;
+> +
+> +	if (!gpu_buddy_block_is_free(block))
+> +		return false;
+> +
+> +	return needs_clear ? !block->has_clear :
+> +			     gpu_buddy_block_is_clear(block);
+> +}
+> +
+>  static struct gpu_buddy_block *
+>  __alloc_range_bias(struct gpu_buddy *mm,
+>  		   u64 start, u64 end,
+>  		   unsigned int order,
+> -		   unsigned long flags)
+> +		   unsigned long flags,
+> +		   bool fallback)
+>  {
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index e2744f172610a..da3809fef38ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -2005,6 +2005,7 @@ static const struct amd_ip_funcs vcn_v2_0_ip_funcs = {
- static const struct amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_DEC,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_0,
- 	.get_rptr = vcn_v2_0_dec_ring_get_rptr,
- 	.get_wptr = vcn_v2_0_dec_ring_get_wptr,
-@@ -2036,6 +2037,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_enc_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_ENC,
- 	.align_mask = 0x3f,
- 	.nop = VCN_ENC_CMD_NO_OP,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_0,
- 	.get_rptr = vcn_v2_0_enc_ring_get_rptr,
- 	.get_wptr = vcn_v2_0_enc_ring_get_wptr,
--- 
-2.43.0
+[ ... ]
 
+> @@ -1298,6 +1308,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>  				continue;
+>  		}
+> =20
+> +		if (!fallback && block_incompatible(block, flags))
+> +			continue;
+> +
+>  		if (contains(start, end, block_start, block_end) &&
+>  		    order =3D=3D gpu_buddy_block_order(block)) {
+>  			/*
+> @@ -1315,38 +1328,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>  				goto err_undo;
+>  		}
+> =20
+> -		/*
+> -		 * Top-down is a strict address-placement policy, so when it is
+> -		 * requested we ignore clear steering and simply descend the
+> -		 * right (higher-address) child first. Only a non-top-down clear
+> -		 * request biases the descent towards clear/has_clear subtrees.
+> -		 */
+> -		if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+> -		    !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+> -			struct gpu_buddy_block *prefer;
+> -
+> -			if (gpu_buddy_block_is_clear(block->right))
+> -				prefer =3D block->right;
+> -			else if (gpu_buddy_block_is_clear(block->left))
+> -				prefer =3D block->left;
+> -			else if (block->right->has_clear)
+> -				prefer =3D block->right;
+> -			else if (block->left->has_clear)
+> -				prefer =3D block->left;
+> -			else
+> -				prefer =3D block->right;
+> -
+> -			if (prefer =3D=3D block->right) {
+> -				list_add(&block->left->tmp_link, &dfs);
+> -				list_add(&block->right->tmp_link, &dfs);
+> -			} else {
+> -				list_add(&block->right->tmp_link, &dfs);
+> -				list_add(&block->left->tmp_link, &dfs);
+> -			}
+> -		} else {
+> -			list_add(&block->left->tmp_link, &dfs);
+> -			list_add(&block->right->tmp_link, &dfs);
+> -		}
+> +		list_add(&block->left->tmp_link, &dfs);
+> +		list_add(&block->right->tmp_link, &dfs);
+>  	} while (1);
+
+[Severity: High]
+Can __alloc_range_bias() still leave an unmerged split block (and leak the
+child gpu_buddy_block allocations on teardown) when a free mixed block of
+order greater than the target order straddles the start or end boundary of
+the requested [start, end) range?
+
+In __alloc_range_bias(), block_incompatible() returns false for any free
+mixed block because block->has_clear is true and gpu_buddy_block_is_clear()
+is false across the whole block span. Dropping unsplit_block() relies on the
+assumption that splitting a mixed block during the strict pass
+(fallback =3D=3D false) will always find at least one compatible descendant=
+ at
+the target order.
+
+However, when a free mixed block with order > target order only partially
+overlaps [start, end), it passes the adjusted range check in
+__alloc_range_bias():
+
+	if (block_start < start || block_end > end) {
+		u64 adjusted_start =3D max(block_start, start);
+		u64 adjusted_end =3D min(block_end, end);
+
+		if (round_down(adjusted_end + 1, req_size) <=3D
+		    round_up(adjusted_start, req_size))
+			continue;
+	}
+
+	if (!fallback && block_incompatible(block, flags))
+		continue;
+
+	...
+
+	if (!gpu_buddy_block_is_split(block)) {
+		err =3D split_block(mm, block);
+		if (unlikely(err))
+			goto err_undo;
+	}
+
+If the compatible portion that made the parent mixed lies in the child
+outside [start, end) while the child inside [start, end) is purely
+opposite-class (for example, clear when a dirty allocation is requested),
+split_block() splits the parent into two free children, the out-of-range
+child is skipped by the range check, and the in-range child is rejected by
+block_incompatible().
+
+When the allocation is then satisfied elsewhere in the tree, the split pare=
+nt
+is left in GPU_BUDDY_SPLIT state with both children simultaneously in
+GPU_BUDDY_FREE state:
+
+1. If the mixed block straddles end (e.g. a 4 MiB allocator with 1 MiB
+   chunks where [0, 1M) is dirty free, [1M, 2M) is allocated, and [2M, 4M)
+   is a coalesced free mixed block with [2M, 3M) clear and [3M, 4M) dirty),
+   a 1 MiB dirty range allocation over [0, 3M) visits [2M, 4M) first, splits
+   it, rejects [3M, 4M) as out of range and [2M, 3M) via
+   block_incompatible(), and then succeeds at [0, 1M) during the strict pass
+   without running the fallback pass.
+
+2. If the mixed block straddles start (e.g. [0, 2M) is a free mixed block
+   with [0, 1M) dirty and [1M, 2M) clear, and [2M, 4M) is clear free), a
+   1 MiB dirty range allocation over [1M, 4M) skips [2M, 4M) in the strict
+   pass, splits [0, 2M) and rejects both halves, fails the strict pass with
+   -ENOSPC, and then satisfies the request from [3M, 4M) in the fallback
+   pass before visiting [0, 2M).
+
+Because neither child of the abandoned split node is allocated, freeing
+other blocks never coalesces across the GPU_BUDDY_SPLIT parent in
+__gpu_buddy_free(), leaving the buddy tree permanently fragmented and
+triggering gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i])) in
+gpu_buddy_fini() while leaking the descendant gpu_buddy_block structures in
+slab_blocks.
+
+Should __alloc_range_bias() still undo rejected splits when descending
+blocks that are not fully contained within [start, end), or check compatibi=
+lity
+against the in-range portion?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103125617.2480=
+786-1-arunpravin.paneerselvam@amd.com?part=3D1
