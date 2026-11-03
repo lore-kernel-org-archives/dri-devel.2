@@ -2,49 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C6606A333
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:36:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA39E606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hFKFYw+G
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gFWfxm5g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A8C10F7E7;
-	Tue,  3 Nov 2026 20:36:34 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CEED10F7E7
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 20:36:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793738181; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B83210F812;
+	Tue,  3 Nov 2026 20:36:36 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C48E010F812
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 20:36:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793738185; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=DDlv12rk9rKzIaATLgnXoA5qSygbFakFdb2HP2wuok52/9mXkeZCrQ9RMCWvlpNJT+nEE8l169Wn8+Qff6uW8g5jk642lebxuTVMaqi39UjPB1TLJvjz4ffCPrlLIhKw8RvvuxDoPavu+cwoCvhRgMV8ulD8qy3w5su5gYtaflI=
+ b=C0VfGACKNXhIOjOFU36AcExJe+e6uM1CAIp0tQ5dJf1GwQe8+/78FdnxjYpbH5QchHj8UDfcsfPtvmwK0tO4Qe6v8ZlD1UuEo0oHK/aDu58odzKgzRYnynWF1N7/a3VM3KIcYIx48v5JsGkrvs4zCX0kbrMcq19Q2SbJpRKt5FA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793738181;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tpEII053p3mhNfn30gTOffmnMpSklTjLEUHLptTr0Fo=; 
- b=A1VdwA2cJWG+2HQBAN0TwdXvdyS3zprerKo0d9uwb2avh/iHBBEouZ7V+Mr4l8X2Lw9HIg4lX+1uOBV8+L2iIg6v74kqddme8iXb727wYWRD76YbM/Y6A1jbE3CfoYjxVBw5dzffKc20t8U6U3THeQSkcZ83c/0OvamOeVNAGYk=
+ s=zohoarc; t=1793738185;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Lc9HQXwzrOnFUZCljkZ2ROiKdVomMbqE4z9oE7SCNpY=; 
+ b=R1mmPZxihBjH50XoLQGDkj1I9w5A4CbtD10d56P9iQlTuA76nKJM/Mr1HAUHuc/IK5eiKMlkNOHc4wbm/fQPOrzu9NNPQBq/zyZgqB7VU3fOY/f549ImtBjUdFxP4X7Ht4MrN7BnhtD7ISbpAYQIjUJpk6CeDbTWIVLXq5Gt1BY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=hFKFYw+GppvQihmNZVs5V7WsYuzDn2H6ftn5z17WLIO0kBLDDsjaUQ7dFoTVBVIs0oXDfsiU3w3s+G9+bmm5ygt5uTHVhv6vl6+Rll//NwB90U4vuEoBzE3B8YDYY6ie1ju6HZJzHTse4CVw7xOKnhX1d1fdPI5JnSLfJ7SyER8=;
+ b=gFWfxm5gdAC+5MIokI2BxA0uQR/ahk8l49vpNfpJuL2XQ1JemkPffFk+sXgGckcSwZc1qEEHJAXgS9xViehSvxjuR1IpktUN6u3ZgvalYQXzoMdQajML2xcj73Hb1QhYgqD31xtRNBsRcecfaFEVWKTNjOo6cqj08c+i1Dlvz4I=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=tpEII053p3mhNfn30gTOffmnMpSklTjLEUHLptTr0Fo=;
+ bh=Lc9HQXwzrOnFUZCljkZ2ROiKdVomMbqE4z9oE7SCNpY=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179373818058011.607757256583909; 
- Tue, 3 Nov 2026 12:36:20 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1793738184399526.6139064041298;
+ Tue, 3 Nov 2026 12:36:24 -0800 (PST)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v2 0/2] Two small perfcnt fixes for Panfrost
-Date: Tue, 03 Nov 2026 20:36:07 +0000
-Message-Id: <20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com>
+Date: Tue, 03 Nov 2026 20:36:08 +0000
+Subject: [PATCH v2 1/2] drm/panfrost: Enable cycle counting when perfcnt is
+ enabled
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4V0bU3b8BBX/odh0Q5TqUFKZpBoC
- P9uwbh1c5OTuXPPIhgpIItztgjCOXCIQwJzyAR0drihDG1iYZQptdK5HO3gKfIkCRlTWkCWPrx
- Slr7wJi/qFmon0sBIuB/S/7X5Mj/dHWHaFrdGF3iK9N7ts956P1HxTzRrqaRzVQ66OpVWuQvEv
- rcukj1CfIhmXdcP2oDCydoAAAA=
-X-Change-ID: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+Message-Id: <20261103-panfrost-reset-races-fixes-v2-1-454207b1d4e3@collabora.com>
+References: <20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com>
+In-Reply-To: <20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
@@ -53,18 +51,18 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1929;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2697;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=E8MnxMy9vF68TqjM4+LG2zhCzTUUYzvJPrza97Mqc28=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq6kW5xYci1qak3iNu7yOhtteIgrBtPP7wwv6gF
- oljX8uUUmeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaupFuQAKCRAOJn5M7lND
- PWT4C/4u/2kZE1A5PwP3aJUIDLQDPl0lIn+HeqBrYVh8YwHgbOawQ/N+jGobl5lKWj50aKIS52p
- bLXv0O59VAuV9nR+iU/LBlO3rVESHxU0rqewzdFOzdAWJZaoniNyuXjMufzLGcoqTK5sj3RDDIF
- ABuBqEFO4DrIHhJLBShoFBcCL0yTxhGdn1u1RLl1cLwmfLzzGWBctcoKwPY75KiX+PencehfItq
- ayOR0xxy2eEPLHDhCcg2RtAVJKwEsQozMRVPSxmQYeyMf7si9TDMDbyNY3AMtnC0e+lER6oGuIl
- Gd6g+iBeO2yIKofll8pneGk87WrgroXGYWE1D5bai9gINTIt7eFc79tbdrT62GvaEC+i+7dA73H
- 73I04s4UOFTLrHv4voT5b7mwD9OgHxw8Z7wp2FTNQP+u09ApEZcpxaJBwHry8ZUZy06pj0lSXrN
- vN5Ma7cYmUQ/nv1OrXk2AKUTyf9I+oNy2kU4QsSjyftxQvvOMftHcC/IBOs4pBKWDs9vQ=
+ bh=//zfzkb5ap92oHmlf8i7Ok7nFSgu4yTDiW4t7dFbrtU=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq6kXACHxoIOJlQwLEopSlFqUbzwHWAOhOZz1nf
+ V4O5dGFF9KJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaupFwAAKCRAOJn5M7lND
+ PdTsDACJn/F6Yy1xAJR5xxJ8TGe5VlgI88nkbByYNVp2jrVUw0uY/YCy/RdCZFCrFihl0dckJ3R
+ iQTmhhBl7nACwYEW8vEk46wFSIxYIsnGFtW/DZtFcp/KbQi5Xg73aJetS3AwM2Rp9Yn9FaMf4Ri
+ pQi/b8xt7uFmmw8vgUsj9dTFFCuHtkntIm7jYBvGDq1kPuuSTG5Ae+xUtbSE85ZQNJjmT7PbTE0
+ Y8R6gSJt/rNc1vg21DNDFpXt0tTBPCDUMW33dzvJi+qLfetQhzhtMLsrNjpBwTsgfhJ6gjczJgv
+ DGyuDoY91eh13/9vMRFMua3Qo2Wiu9vw5fXQGjL1FqgubmS8+A1yUSVeX9ad6R3VVvqkUhD3V0J
+ JvrCQNfcySIvMEYxr1IYI+DJTSsNMA2Z+hvYjuStRJ5gQW4/DvP6cVxxbJfSH+2mey/wseVtSbw
+ gZAGDSOu1L32zDT2ooqNj0U18wDdkxmXryqDSMX95Ib/e0NXTJHY/ox3gXLgD2D35M1zk=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,55 +83,74 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Rob Herring <robh@kernel.org>
-To: Steven Price <steven.price@arm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+From: Boris Brezillon <boris.brezillon@collabora.com>
+
+If we don't do that, we end up with invalid timestamps in the block
+headers.
+
+We also need to avoid the warning on the cycle counter reference being
+other than 0 during device reset, because of perfcnt's lingering ref.
+
+Ideally this would be dealt with by splitting the reset sequence into
+pre and post stages, so that a hypothetical panfrost_perfcnt_pre_reset()
+would release the cycle counter reference. In the absence thereof, we
+just make do.
+
+Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-
-First fix makes sure cycle counter is enabled when starting a new
-session. This is required by some profiling frameworks like
-Perfetto. Second fix deals with a recently-introduced race condition.
-
 ---
-Changes in v2:
-- Added review trailers.
-- Removed warning from cycle count reference check.
-- Link to v1: https://patch.msgid.link/20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     | 6 +++---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Rob Herring <robh@kernel.org>
-To: Steven Price <steven.price@arm.com>
-To: Adrián Larumbe <adrian.larumbe@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 6081b27829e1..7d66b1b50968 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -94,10 +94,10 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
+ 		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
+ 
+ 	/*
+-	 * All in-flight jobs should have released their cycle
+-	 * counter references upon reset, but let us make sure
++	 * Even though all in-flight jobs should have released their cycle counter
++	 * references upon reset, perfcnt's might still hang about.
+ 	 */
+-	if (drm_WARN_ON(&pfdev->base, atomic_read(&pfdev->cycle_counter.use_count) != 0))
++	if (atomic_read(&pfdev->cycle_counter.use_count) != 0)
+ 		atomic_set(&pfdev->cycle_counter.use_count, 0);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index a9def452d5ef..b26da057a1a0 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -17,6 +17,7 @@
+ #include "panfrost_device.h"
+ #include "panfrost_features.h"
+ #include "panfrost_gem.h"
++#include "panfrost_gpu.h"
+ #include "panfrost_issues.h"
+ #include "panfrost_job.h"
+ #include "panfrost_mmu.h"
+@@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
+ 	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+ 
+ 	if (perfcnt->owns_as_ref) {
++		panfrost_cycle_counter_put(pfdev);
+ 		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+ 		perfcnt->owns_as_ref = false;
+ 	}
+@@ -84,6 +86,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
+ 		return ret;
+ 
+ 	perfcnt->owns_as_ref = true;
++	panfrost_cycle_counter_get(pfdev);
+ 
+ 	as = ret;
+ 	cfg = GPU_PERFCNT_CFG_AS(as) |
 
----
-Adrián Larumbe (1):
-      drm/panfrost: Fix race when restoring reset state in perfcnt
-
-Boris Brezillon (1):
-      drm/panfrost: Enable cycle counting when perfcnt is enabled
-
- drivers/gpu/drm/panfrost/panfrost_gpu.c     |  6 +++---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 18 ++++++++++--------
- 2 files changed, 13 insertions(+), 11 deletions(-)
----
-base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
-change-id: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
-
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+-- 
+2.56.0
 
