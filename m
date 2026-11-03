@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E3606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CDA606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zypc4IcO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=INrXcUPC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E66CF10F814;
-	Tue,  3 Nov 2026 20:03:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E692010F808;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19FFD10F828;
+	Tue,  3 Nov 2026 20:03:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 976E110F807;
  Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 503FE609EC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CA1041349;
  Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793736174;
- b=h1xSJl3Msshz9fbf783zKy/M3q0Yu/pSo8Fu+HS+SfYo1JjTGu4ksb4wxrk6J6+KXasl
- B8Tcz1k6iJLQRtW5HZpzYpsKQa64e8dMLlN8AQAngeCKtczrFiaMUa9J32OrJ6JMySGk4
- BE7HU570zUloRIWg/5rj6Y0JaizhJNhVUwov1OtqRtjr/lCC0AR5uG+c5BAydBwmVW8eW
- nMddj3rAe3hF8uoM+Mr1G+FzvqCtSHlUYIj9JgOECHIygn7Ppf0yDpgc94CIQSPxyIKMj
- smdlZJ6YKBr+0b78ldFudxfGmlqA8MnjJjiQp/6LVtBB8A8C+Cxnyo4QKCbkXjv1aRg==
+ b=dJu6k1c+rvhBUHG0JxI7DZwqF55UQl+Z2mD2YxIkpljWLQ2+shU5/mA2i06K4MfdhjnH
+ IcE4l+dZxZvwmpwow9lO7K1WDfj1axQB9WIhEfDzYBJvkYBd3XEkbgJ3imrlqxGkmd4Oy
+ GYihfS4c1VonJl771Lmic9JFoZt4U/RbTap7YJFHsGJui6B/rSGVTXJgqIuua0QBBhoSL
+ WpYQQxyZeER7gj5ZFDqjRlCpkAREnpwbvqts/XmAlExO0cW0vruTTszHt6QzQ78I4fC3L
+ xftso2FotCuivFu34Y3+8fLRJx/YtdwpHBn17jvA6pHVo+kXDfZkU8dSqsm4xDRKu1A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793736174;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=alo1xAeUl6wnSeiZ3DD+FQPFyo1je91bnUeW1Q8wTdo=;
- b=xrhDWsZ+gxlx9wsDANZD9Ht8DqK9fAc9jwyVpVGoSiRuKyR4IWOfWesJahNrliCAp6TA
- ddxcD196u+5A8zE6wRICr95CWx8hLAPWWSp3otX9do9pHtep7KbZ9SfYHZKNwbTRbpCtf
- CGcJz3TLWPdnUIv/NoPvnzmkvLkSPHFUTSzvE+/t05W9AAgq4KbWG/494R84B+WpycGIB
- E9rOc38SDRnZAVSnK4ywHtTiSgFjLsdzXCdr80mUf6IGktM0ifAgi4oh93EdJxscQ+PIa
- UoH+ao7YKreI96fvcTholVBgQQf75HuFrnSCIwLZzk+zwjJMRogJDLiJ9BijC/Rjseg==
+ bh=VovlxiaHAGxDQRs3t8ZB0boyoK01Xmz6n1G4/DfvQfQ=;
+ b=e0nV98iaCtU3TbbbLIAQa8fHsOcxYC4NqljO7I3/u+9d5wxny7yBo95YFPnvhlspu1mU
+ P6pPQpy/VcJqZILM45ZfH3KcWRz3cj7gVPiF7NZFi2UJ7k0pO19vvdBOr8gHd/N2Kmdcl
+ qjexqUn+JjNHhFLV9kwdesxmGZW8/H/r+6L1NhUqUashy/FbpuDi2UDWMWc52mHv+CaA9
+ 5EHG36Z2VLpjAs6v8Sk8aRGM7T64nO+NoUeIAFFlvaorNDoEdnWNEyQ6cQJATSj/uwnof
+ x9Ng+cXqfLJKjtQjnbL3P7sqS/j6qEWXOSzHAMzYaUGqlBTfjIrEWdstPssbPOMILtA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 6656D1F00A02;
- Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id A1B0E1F00A17;
+ Tue,  3 Nov 2026 20:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793736174;
- bh=alo1xAeUl6wnSeiZ3DD+FQPFyo1je91bnUeW1Q8wTdo=;
+ bh=VovlxiaHAGxDQRs3t8ZB0boyoK01Xmz6n1G4/DfvQfQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Zypc4IcOph0+1f4HmLUjMuSSf385V7b6caaqDLFiPzjr3f/FylCPOBcHrCAgcSNNE
- VVAKLHTOI4rttPqJOQlos3DRTI1SC23XYDWGkX7SNLC7NUZfLZ5bbk92duOmng+QjJ
- +QSEx9UlEQX0yZ5KMgS++F/xic728GA20IvyD8kQyXTb1uUcEG9QsvvmDyyQarzslT
- oVo6KxNLAPSqpimT1U15I5iYZRtDXNdLl1wm2QSBY45APcav07usMbrrYq2oBpyCD8
- sGlK5Le1ySeSOz1uLSN4yZJ9J9ECgHUqDbTa59Al6JYZpbLhfWDWjm7EFtQCpDktoJ
- 49yE/tdG+fEeQ==
+ b=INrXcUPCSCDn8r0Dc+ZDKtOy9E/usDx5hmjO6Sv4Hnrj79zgAZ8eHajsfT6CKapLt
+ tquya/iCAA47roR6awt0fqdY6g8sXyefy6EPgZh/AWB9kuRh/Bt+ka2JvBpiisQ8W7
+ DKIkpPYrxTKI6ZHqL9P8dP0n5PQq0IhY4NKlsDA41pf0zGFZNzpSPBnc/lKtOIQpI3
+ BesYsDh4HRA+SFUA+8lxpq/GEk7Hz3x2++7oWEu+2jcJslCwNuOhs55oG/Nj7DFIkK
+ LnnKi45IPoa6+ucE34KiGABOPfRKu0Q83X9LI3pzKgcII5ElG9E6z+6Al+EJ8Wrvtt
+ 0WnchAFg/PmYA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id ED29746AE9;
- Tue,  3 Nov 2026 20:02:51 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 1849346AF1;
+ Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
 From: "David R. Hedges via B4 Relay"
  <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 14:02:49 -0600
-Subject: [PATCH 3/5] drm/nouveau/dp: restart lost links with a modeset on
- GSP-RM
+Date: Tue, 03 Nov 2026 14:02:51 -0600
+Subject: [PATCH 5/5] drm/nouveau/dp: restart an active link when the sink
+ reasserts HPD
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-relink-v1-3-7ee88c7f1e8a@thelittleman.net>
+Message-Id: <20261103-nouveau-dp-relink-v1-5-7ee88c7f1e8a@thelittleman.net>
 References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 In-Reply-To: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -76,11 +76,11 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <me@dakr.org>, 
  "David R. Hedges" <linuxdev844@thelittleman.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=8557;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=6803;
  i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=tDTlFqdOxIVeMxCktaljDJWmMHEtMCKr2HYUZsjuEfA=;
- b=aeGAuk118jnkuC9YHx5mw0AV28kKFXbz3dAMowBUAKb7wFM0M4LZvLGOLky4gWPl5zrMPR2oD
- OtYN+jj61VFCRIBRn7IGC3yDSvZpdzG1rPCLbEOKCDB20lsuFOefNmg
+ bh=Wj9O+KZXb+AJG+c61p+ihLDpQLh/2BrNWBgFuU7RiIg=;
+ b=XggoV3AxSDbv4q/H13nQdZIi21yV13MlmFAf25rnbaz3E5DM7QnaYtAjDbOVbW/Nx8rvIhgaD
+ ifxS9iWRdhDBfdSykeRCEZmGIbWvpLxwmYfs53IoHzQfJCd93s6bRTP
 X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
  pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
 X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
@@ -109,223 +109,161 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-When a sink reports through IRQ_HPD that its link has lost lock,
-nouveau_dp_link_check() retrains the link in place while the stream
-keeps running.  Without GSP-RM, nvkm_dp_train() has a path for that
-which leaves the source configuration alone.  On GSP-RM,
-r535_dp_train() ignores its retrain argument and issues the same
-NV0073_CTRL_CMD_DP_CTRL as for a new link.  NVIDIA's own DisplayPort
-library never retrains an active link like that: it puts the SOR into
-flush mode, retrains, configures the stream again and takes the SOR
-out of flush mode, and warns that skipping part of that sequence can
-hang the display engine.
+When a DP sink drops HPD for longer than an IRQ_HPD pulse, it may have
+reset its end of the link.  nouveau handles the unplug and plug by
+re-running connector detection and sending hotplug events, but if the
+same display comes back, userspace sees nothing that needs a modeset
+and leaves the CRTC as it was.  Nothing trains the link again, and the
+sink is left without a picture.
 
-That holds on a GA102 with GSP-RM 570.144.  After an experimental
-patch retrained an active 4 x HBR2 link in place, the picture came
-back with horizontal artefacts, and the next modeset, a refresh rate
-change, never completed: "core notifier timeout", after which GSP
-stopped answering RPCs.
+That's what happens with an IGM L28TN4K on a GA102 (GSP-RM 570.144)
+after waking it from DPMS off.  If the link is trained before the
+monitor has finished waking up, training succeeds at 4 x HBR2, but
+about two seconds later the monitor raises IRQ_HPD and shows "No input
+signal", and two seconds after that it drops HPD briefly and reasserts
+it.  The link status read on the IRQ_HPD is 77 77 01 03 (DPCD
+0x202-0x205: all lanes locked, interlane-aligned, sink in sync), and
+DP_SET_POWER still reads D0 once HPD is back, so there's nothing to
+check that would show the problem.  Whenever the IRQ_HPD came before
+link training instead, the picture came up normally.  The same happens
+after replugging the cable and after resuming from S3, and the screen
+stays dark until the cable is replugged, often several times.
 
-nouveau doesn't implement flush mode, so on GSP-RM restart the pipe
-with a full modeset of the CRTC driving the connector instead, using
-drm_atomic_helper_reset_crtc().  That trains the link, configures the
-stream and attaches the SOR in the same order as any other modeset,
-which is also how i915 retrains a link.  The HPD worker does this after
-dropping mode_config.mutex, so that probing isn't held up while it
-runs.  If the sink now advertises less than the mode needs, the
-modeset fails atomic check, and the connector's link-status is set to
-BAD, as when a DPMS on finds the same.
+When a plug or unplug event leaves a DP connector connected while it
+still drives an active CRTC, restart the link with a modeset, using
+the restart added for lost links on GSP-RM, on any GPU.  NVIDIA's own
+DisplayPort library does the equivalent:
+ConnectorImpl::notifyLongPulseInternal() calls assessLink(), which
+retrains the link, for an SST sink that's still connected.  i915, by
+contrast, only retrains on hotplug if the link status says the link is
+bad.  With this applied, the monitor above comes back four to five
+seconds after being woken, replugged or resumed.  On resume,
+nouveau_display_hpd_resume() schedules the HPD worker without any
+events, so this doesn't add a restart to the resume modeset.
 
-The link check is only reached once the connector's DP encoder has
-been cached, which on nv50+ it currently never is, so this has no
-effect until the next patch.
+Switched on with its power button, which it reports only as a plug
+event, the same monitor first advertises DPCD 1.1 and HBR, which can't
+carry the 3840x2160@60 mode its CRTC still has.  The restart then fails
+atomic check, link-status is set to BAD, and userspace, which gets a
+hotplug event, picks a mode that fits.  About a second later the
+monitor drops and reasserts HPD with its full capabilities, and
+userspace goes back to 3840x2160@60.
 
-Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
+A sink that dropped HPD every time its link was trained would have the
+link restarted for ever, so stop after five restarts that each came
+within ten seconds of the one before, until ten seconds have passed
+without one.  If userspace has already responded to a hotplug event
+with a modeset of its own by the time the HPD worker runs, the link is
+restarted a second time, which costs another brief blank but is
+otherwise harmless.
+
+Closes: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
 Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- drivers/gpu/drm/nouveau/nouveau_display.c | 65 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/nouveau/nouveau_dp.c      | 21 ++++++++--
- drivers/gpu/drm/nouveau/nouveau_encoder.h |  2 +-
- 3 files changed, 82 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_connector.h |  5 +++
+ drivers/gpu/drm/nouveau/nouveau_display.c   | 51 ++++++++++++++++++++++++++---
+ 2 files changed, 52 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
+index 3109278d36ea..914e86ad2df2 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.h
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
+@@ -135,6 +135,11 @@ struct nouveau_connector {
+ 	struct nvif_event irq;
+ 	struct work_struct irq_work;
+ 	struct work_struct link_bad_work;
++	/* Recent link restarts, see nouveau_display_relink() */
++	struct {
++		unsigned long last;
++		unsigned int count;
++	} relink;
+ 
+ 	struct drm_dp_aux aux;
+ 
 diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 4398cf0fc541..c5e914602baf 100644
+index c5e914602baf..a52db6129962 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_display.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -418,6 +418,53 @@ nouveau_display_hpd_resume(struct nouveau_drm *drm)
+@@ -418,6 +418,33 @@ nouveau_display_hpd_resume(struct nouveau_drm *drm)
  	schedule_work(&drm->hpd_work);
  }
  
-+/* Restart the pipe driving @connector with a full modeset, so that its link is
-+ * trained again along with everything else.
++/* A sink that responds to link training by dropping HPD would otherwise have
++ * its link restarted for ever.  Stop after a few restarts that each came soon
++ * after the one before, until things have been quiet for a while.
 + */
-+static void
-+nouveau_display_relink(struct drm_connector *connector)
++#define NOUVEAU_RELINK_MAX	5
++#define NOUVEAU_RELINK_QUIET	(10 * HZ)
++
++static bool
++nouveau_display_relink_allowed(struct drm_connector *connector)
 +{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc *crtc;
-+	int ret;
++	struct nouveau_connector *nv_connector = nouveau_connector(connector);
++	unsigned long now = jiffies;
 +
-+	drm_modeset_acquire_init(&ctx, 0);
-+retry:
-+	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, &ctx);
-+	if (ret)
-+		goto out;
++	if (time_after(now, nv_connector->relink.last + NOUVEAU_RELINK_QUIET))
++		nv_connector->relink.count = 0;
++	nv_connector->relink.last = now;
 +
-+	crtc = connector->state->crtc;
-+	if (!crtc)
-+		goto out;
++	if (nv_connector->relink.count++ < NOUVEAU_RELINK_MAX)
++		return true;
 +
-+	ret = drm_modeset_lock(&crtc->mutex, &ctx);
-+	if (ret)
-+		goto out;
-+
-+	if (crtc->state->active) {
-+		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] restarting link\n",
-+			    connector->base.id, connector->name);
-+		ret = drm_atomic_helper_reset_crtc(crtc, &ctx);
-+	}
-+out:
-+	if (ret == -EDEADLK) {
-+		drm_modeset_backoff(&ctx);
-+		goto retry;
-+	}
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	/* The sink may now advertise less than the mode needs. */
-+	if (ret == -EINVAL)
-+		schedule_work(&nouveau_connector(connector)->link_bad_work);
-+	else if (ret)
-+		NV_ERROR(nouveau_drm(dev), "%s: failed to restart link: %d\n",
-+			 connector->name, ret);
++	if (nv_connector->relink.count == NOUVEAU_RELINK_MAX + 1)
++		NV_WARN(nouveau_drm(connector->dev),
++			"%s: link restarted %d times in quick succession, giving up\n",
++			connector->name, NOUVEAU_RELINK_MAX);
++	return false;
 +}
 +
- static void
- nouveau_display_hpd_work(struct work_struct *work)
- {
-@@ -425,7 +472,7 @@ nouveau_display_hpd_work(struct work_struct *work)
- 	struct drm_device *dev = drm->dev;
- 	struct drm_connector *connector;
- 	struct drm_connector_list_iter conn_iter;
--	u32 pending;
-+	u32 pending, relink = 0;
- 	int changed = 0;
- 	struct drm_connector *first_changed_connector = NULL;
+ /* Restart the pipe driving @connector with a full modeset, so that its link is
+  * trained again along with everything else.
+  */
+@@ -427,6 +454,7 @@ nouveau_display_relink(struct drm_connector *connector)
+ 	struct drm_device *dev = connector->dev;
+ 	struct drm_modeset_acquire_ctx ctx;
+ 	struct drm_crtc *crtc;
++	bool counted = false;
+ 	int ret;
  
-@@ -447,6 +494,7 @@ nouveau_display_hpd_work(struct work_struct *work)
- 		struct nouveau_connector *nv_connector = nouveau_connector(connector);
- 		enum drm_connector_status old_status = connector->status;
- 		u64 bits, old_epoch_counter = connector->epoch_counter;
-+		bool modeset = false;
+ 	drm_modeset_acquire_init(&ctx, 0);
+@@ -443,11 +471,18 @@ nouveau_display_relink(struct drm_connector *connector)
+ 	if (ret)
+ 		goto out;
  
- 		if (!(pending & drm_connector_mask(connector)))
- 			continue;
-@@ -468,11 +516,14 @@ nouveau_display_hpd_work(struct work_struct *work)
- 		 */
- 		if ((bits & NVIF_CONN_EVENT_V0_IRQ) &&
- 		    !(bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG))) {
--			if (nouveau_dp_link_check(nv_connector))
-+			if (nouveau_dp_link_check(nv_connector, &modeset))
- 				continue;
- 		}
- 
- 		connector->status = drm_helper_probe_detect(connector, NULL, false);
-+		if (modeset && connector->status == connector_status_connected)
-+			relink |= drm_connector_mask(connector);
+-	if (crtc->state->active) {
+-		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] restarting link\n",
+-			    connector->base.id, connector->name);
+-		ret = drm_atomic_helper_reset_crtc(crtc, &ctx);
++	if (!crtc->state->active)
++		goto out;
 +
- 		if (old_epoch_counter == connector->epoch_counter)
- 			continue;
- 
-@@ -492,6 +543,16 @@ nouveau_display_hpd_work(struct work_struct *work)
- 	drm_connector_list_iter_end(&conn_iter);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
-+	/* A restart is a full modeset, so don't hold up probing while it runs. */
-+	if (relink) {
-+		drm_connector_list_iter_begin(dev, &conn_iter);
-+		nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
-+			if (relink & drm_connector_mask(connector))
-+				nouveau_display_relink(connector);
-+		}
-+		drm_connector_list_iter_end(&conn_iter);
-+	}
-+
- 	if (changed == 1)
- 		drm_kms_helper_connector_hotplug_event(first_changed_connector);
- 	else if (changed > 0)
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index 9bc24f3914bd..99eeb66cc6a8 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -31,6 +31,8 @@
- 
- #include <nvif/if0011.h>
- 
-+#include <subdev/gsp.h>
-+
- MODULE_PARM_DESC(mst, "Enable DisplayPort multi-stream (default: enabled)");
- static int nouveau_mst = 1;
- module_param_named(mst, nouveau_mst, int, 0400);
-@@ -452,7 +454,7 @@ nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
- }
- 
- static bool
--nouveau_dp_link_check_locked(struct nouveau_encoder *outp)
-+nouveau_dp_link_check_locked(struct nouveau_encoder *outp, bool *modeset)
- {
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 
-@@ -465,11 +467,24 @@ nouveau_dp_link_check_locked(struct nouveau_encoder *outp)
- 	if (drm_dp_channel_eq_ok(link_status, outp->dp.lt.nr))
- 		return true;
- 
-+	/* NVIDIA's own DisplayPort library only retrains an active link with
-+	 * the SOR in flush mode, which we don't implement, and retraining it
-+	 * without that on GSP-RM can hang the display engine.  Leave the link
-+	 * to be restarted with a modeset instead.
-+	 */
-+	if (nvkm_gsp_rm(nvxx_device(nouveau_drm(outp->base.base.dev))->gsp)) {
-+		*modeset = true;
-+		return false;
-+	}
-+
- 	return nouveau_dp_train_link(outp, true);
- }
- 
-+/* Returns false if the link has been lost, setting *modeset if it has to be
-+ * restarted with a modeset rather than having been retrained here.
-+ */
- bool
--nouveau_dp_link_check(struct nouveau_connector *nv_connector)
-+nouveau_dp_link_check(struct nouveau_connector *nv_connector, bool *modeset)
- {
- 	struct nouveau_encoder *outp = nv_connector->dp_encoder;
- 	bool link_ok = true;
-@@ -477,7 +492,7 @@ nouveau_dp_link_check(struct nouveau_connector *nv_connector)
- 	if (outp) {
- 		mutex_lock(&outp->dp.hpd_irq_lock);
- 		if (outp->dp.lt.nr)
--			link_ok = nouveau_dp_link_check_locked(outp);
-+			link_ok = nouveau_dp_link_check_locked(outp, modeset);
- 		mutex_unlock(&outp->dp.hpd_irq_lock);
++	if (!counted) {
++		if (!nouveau_display_relink_allowed(connector))
++			goto out;
++		counted = true;
  	}
++
++	drm_dbg_kms(dev, "[CONNECTOR:%d:%s] restarting link\n",
++		    connector->base.id, connector->name);
++	ret = drm_atomic_helper_reset_crtc(crtc, &ctx);
+ out:
+ 	if (ret == -EDEADLK) {
+ 		drm_modeset_backoff(&ctx);
+@@ -510,6 +545,14 @@ nouveau_display_hpd_work(struct work_struct *work)
+ 			    !!(bits & NVIF_CONN_EVENT_V0_UNPLUG),
+ 			    !!(bits & NVIF_CONN_EVENT_V0_IRQ));
  
-diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-index 9366678e7d05..1639b7e41c1d 100644
---- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-@@ -158,7 +158,7 @@ enum nouveau_dp_status {
- int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
- int nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc);
- void nouveau_dp_power_down(struct nouveau_encoder *);
--bool nouveau_dp_link_check(struct nouveau_connector *);
-+bool nouveau_dp_link_check(struct nouveau_connector *nv_connector, bool *modeset);
- void nouveau_dp_irq(struct work_struct *);
- enum drm_mode_status nv50_dp_mode_valid(struct nouveau_encoder *,
- 					const struct drm_display_mode *,
++		/* If a DP sink dropped HPD while we were driving it, it may have
++		 * reset its end of the link whatever its link status says, and
++		 * userspace won't modeset again if nothing else has changed.
++		 */
++		if (nv_connector->dp_encoder &&
++		    (bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG)))
++			modeset = true;
++
+ 		/* A plug or unplug event pending alongside the IRQ, such as a
+ 		 * sink count change reported by nouveau_dp_irq(), still needs
+ 		 * connector detection.
 
 -- 
 2.55.0
