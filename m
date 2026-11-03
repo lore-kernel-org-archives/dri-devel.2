@@ -2,157 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9946A606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:09:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55853606A33D
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:19:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d19wo7gv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hkFs1SEo
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SN4wTjU4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1CC510E16B;
-	Tue,  3 Nov 2026 21:08:57 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC80510E21F
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:08:46 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A3IZHu82586656
- for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 21:08:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Nqa2HWb+gMyhH1q5C2IS9vP6rX1bzS8fEOjh0AxXP0c=; b=d19wo7gvSskyJQtj
- zn04v+tx++jgkYt9Qj3cAJXvlgXV3Cw5+iqSdFqauPrwz43fXfVRpO/fPUEdYHfR
- lMZXWimqC7YCDZyC2i5j1lckR15gAHs+TZpOj0+lBBualPVy+7PPATGPhJOAlcZ9
- DAPOoMLFRRZUBrP6kgsKzuw4IZgl4jDopwcfMXLs95lcvlaSc/d7Vqds+CCiaafo
- N8m1ziwS/8lzMMCkvJrvqYOEeMEJHG2Is6G3UCCsTu0cWD3BO/zzfskc7cFopaTW
- avAtwGUCSzzcElg30NazHEu5oC0TDKWpUx/zI/NPtiKrnEuEISsT3cGolU4LS3TD
- i6lqLA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqmjbrp2c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 21:08:45 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2eac6e96bd4so66849105ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 13:08:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793740125; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00D210E358;
+	Tue,  3 Nov 2026 21:19:30 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B09510E358
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 21:19:24 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-8a06df2304cso12822b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 13:19:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793740764; cv=none;
  d=google.com; s=arc-20260327;
- b=L/+t/RT698z20Zno+zERb1i3Ay0r1ocDVXMf53Y6wVFb8N96r/lX9cvrQ75457ZSNb
- rWD8bmJZJU2KD3w2x5WczDanjjoDWz//U4H3pPr5fVWEnOXo4SdPAqMaYI7+o3VbcFOa
- D1aKBCszfNzOWDZIOgPH6J65Nl0/Ph4ixuFKo2yngD12Xv+keU1et2Lt4smvAy3EzRXG
- PyDsD1qaUiHL1VEiGZXUz6KKLvaM8wy+3q5/Ze+8Ld1f8i97KlVkM+kbyJ8JZ0G1/WOV
- k7F5UFCgeFEFMbiJ3FE6Y776IOwjg+1TABbDL35RnwVNlOOKiFEOMufMWJokZyA8maCL
- sPHg==
+ b=oHDdIL3F0kKTj1dfF23csyIlkcNIfwmW/1zWEc0o4SE4UG7mDOBvtJFbKy3hAX+Yue
+ aPsdNKbHHO4aciY/Od40UcakJN9pVP1ENBYC5/b0+l65LPkl21LHrZ81Lh6juSUbLI28
+ SVucc/tgwdrQZLlH7JxaH3PqXVCf+xV9ShQQ9r3eFGuETyiFU0lueyZaS69qvRJn06Bs
+ j8F/l82VfS9Gje074dfWYZWC2x3vEvcoCfGWhhBsigkZPpVQF63juzHqy73WTQzJny4A
+ bTTri7fOo5PffzqbD+oHN0sqczKqqwWyX1mvaPwovaZfLDUVfnjJuX21wqx+vauFZP/i
+ YBjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Nqa2HWb+gMyhH1q5C2IS9vP6rX1bzS8fEOjh0AxXP0c=;
- fh=ge8WC0s90ardeOJh0circq2OQsXIesOq9/hsZodnKqI=;
- b=IrOQk9SHRR7ukuj0lzptoFK7MyOnxM7RO+VWWKXcdUzcSXZZWB9/z4VEFJnRbjYOkC
- A1JmCGGD+HzHv4TTjYKbu7HyoufFVivFgTLZ8zC4sgbCQSqUBwBM0Jnlr2soryE9CBV7
- nLArrjwuzdkTw9sHCLkn3DYS/zZyQi7PLgBU5OzH82PkeFtqCP6fwU1bu+P5qQj755r3
- D8UH/0VGq8Jv7ZYzPxjT5aFYGQg9AG9twf9m+NgLC10rERAAtySGd3uj4WJbjwomJLH3
- +qbNZOnM5tjJWw6Jb/NxkjIMlRRBBY8BFYR11XL7j/8XJQ8wKFyyjL6JVJjZuqeGf6kM
- jHtA==; darn=lists.freedesktop.org
+ bh=wBE5bGZhedA//s+lBFPy7kHAF2qFFj2zWvXQd1T2OZc=;
+ fh=tuUWWYCiLtpYVlrQNQwT3lVjcYjR8mN9KCElaCKaLx0=;
+ b=Hsmlo2aJVs+G0l/nI5VWZ25vfcx0w+aDLnIPQfQi4NQs0fpVPzEJ5Q/q58SPCalRif
+ d1O2pZOukM3ZjB/WqCDZ/SohWoT3Wpdkl1l73/pEC3FctLkAnWUmh0siFQgCYe+cQ/tS
+ gd5goEgeAaeB9h7UeD2xKNO7Ro6mw3BxB1fFLwH6v7ZMuO5fe7Hj3AYKQxDiQrwXk6Jv
+ cXoxy2nbQF97wrEP1tNu8afEHcLZdeNENWoblaFmtRPjK9hW+IlJZOko18V6yby/zYH7
+ kpFqUE5b7h2+dEgyRbQjJSmFrYCLi0On7s+ZdQp+UmbwXzvksZkmQxtY3m20ZHJx32NP
+ 07Hw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793740125; x=1794344925;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20260707; t=1793740764; x=1794345564; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Nqa2HWb+gMyhH1q5C2IS9vP6rX1bzS8fEOjh0AxXP0c=;
- b=hkFs1SEoLScFDymJmi+6FRs7FVx7kgM8IfCTMI4L5rkxTvapvo4Vjl8YY1/uP9IEio
- Ch701xmJ3lByhYawkWRJ4+po0qGxc/jymAsfuKQUZE/uKuyD1ZSga7BEm5Xo+hr5IhCa
- ODLOXLlY/v1PgRe1MQGhNsAnCAbhsPFk69rkV+9L+g5Wxv6ZLo9k8qGa9rA1E4jzO9qG
- lAwkrpTC2shE4xLPTuNklU2PEp40J3Cacp56EkTmRm+XouiNgajrtVTypPW3FmJg9HYH
- kK3C9mtEBAE4cgqnK+7l2Dj56geajBZ8YMvBbtPMiirk520hbxnApedF8DeTSnsYFsd8
- QExQ==
+ bh=wBE5bGZhedA//s+lBFPy7kHAF2qFFj2zWvXQd1T2OZc=;
+ b=SN4wTjU49YqTE8h9q9I76Oq5AuplguGcWuDHhluixuZll+QFyU0xYdL2EEcqk/shtJ
+ qk2MWze8V8cF+2IYSWns209PXujBAFqj0erPcnrPV03qoI0B1BFkjwzQ72H71ObpO5Oz
+ VYxymIWhgEV/gJYO9xIHe0CZIAtMzpuDqqwe/NmFJFukQ2OpHp/xOEt4BuxfmQFYTyjM
+ SDntQi8Py5wCwKb+Nz79wvOaSq0PKO2OV7QZhhdzIeEIfW5N3a6nerDeCKFpw2R7PwWI
+ vpd0M8WafHgRePUgKJL207sxPuXfmCgg+V5jnlG8KIO4wrAyu9kdfJvh1/bIwPoOHn7h
+ dJHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793740125; x=1794344925;
+ d=1e100.net; s=20260707; t=1793740764; x=1794345564;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Nqa2HWb+gMyhH1q5C2IS9vP6rX1bzS8fEOjh0AxXP0c=;
- b=B56S8747awL3Clyu9kXHOH35io32E7Hlejm+/KY1BnURcTu36AL2i0/Dc/joXnxzHO
- 6MWsR9WXHUK5Ww0aLxsW/VYqvnXoMDcWYd++KdYloINL+ZVjjBo3WXFrgF0NCAtS6XEw
- SBD6/WwuU6/8Z/OWcyvz8sHzDh+lQhlXVrtvEPQaARHvcskLKlESgpDmJf3PczXvp6N6
- 563zgkuMuLwYdpwmtoxkHH3tc7eP0/2DFj88zz6c+M9I/ZCTbKyawUJdS1dJ9Ywn96r9
- SowNSye3IujTmtN/RrBxq1B6gxHqdkxr//9tK7GR8ytgC4bF88akZHuX/Lfnd8iLaXsx
- DwkQ==
+ bh=wBE5bGZhedA//s+lBFPy7kHAF2qFFj2zWvXQd1T2OZc=;
+ b=IGvglozgx8sH2SRCb4CxSvFv55Ngm29I7Mosx4nAtAGsm75vqWeEbB1sp/AkGgMFxW
+ IUwUeSEb2pJo0lnIc2Skv65u/MV5o0ObAZ886Ca3k5JSlNXkz3oYnID9UnFNVWs83j6P
+ oSXiV1VbpmkyxNNm9MhoKQcMnbp4y83fUKCjC7vunDWUWtgmpADYgfXfptp9fPo54SXC
+ qB/JTf3WpBXsgoaXl1djT+EH52eN0HdlJQ41OlobAtokai9eMRXvH/sDDH4TTZE3PZax
+ vqSdyEPYvDkFnJpfZOUmpDE3l+pvd18ikIKFR94OpHdTRyCZZvWWvYcTvFLrttQxcnxS
+ pfAw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzu1mnZ2tz6PS2h3/gVcUydLhKKm6pfsWObCeaD/mDgVf90N2o/FAV4dRJmQzZ0cIVeoPz9UCfzHxI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/PoNDvdBJfn53uSyj4/pHX4L7o7Dops3mMNSS4yDO14qmJRzHh
- eMAIIfeAvdyAbetcnnP2WF2g8dpkWIr3fv9aZ4rJWLwvIWWQ6uWz1z/SObf+2SEgT332cPd428c
- pwcyofjI98WfM5G3M26FLH5WqrKyBb4xusPM1sFJWykFiN6p91oPe8T10nQJvS09MAclJlNR+hE
- f/ULyMo0CFzb0uJgSwr7xi9VtXrX6rm6gVny0akbHVHmrCVw==
-X-Gm-Gg: AYBFou3FJvAErZ7hROiDeV1KX4bnzX7KvHSAWQ/hhIy0BO7kaCdLW312NLVv/Eift90
- rOKRDFgxmcRXyGqlZG4rC0zQHMJIF9i+R5vAXc4jymAEy1yzv7ROsKW5bzFScEWFRrvhSRWCnL5
- DMjw73DVbhl3fBn3Vvk9SN8R3jHZOnqOqj+rOspBVm0ZG/pCY/I9SZ3F3g+E0=
-X-Received: by 2002:a17:902:f542:b0:2e9:9263:a5f with SMTP id
- d9443c01a7336-2eb36493707mr131781305ad.17.1793740124572; 
- Tue, 03 Nov 2026 13:08:44 -0800 (PST)
-X-Received: by 2002:a17:902:f542:b0:2e9:9263:a5f with SMTP id
- d9443c01a7336-2eb36493707mr131781035ad.17.1793740124147; Tue, 03 Nov 2026
- 13:08:44 -0800 (PST)
+ AKwUvBzCOcXArYR2V9RJbpbkPGA47DA2ySkUf76Nl5xKGHsZok+AN6xBwUaO948xoPD69hdRSAMZgQ25S9Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/mcJr7xRVaiYtG/r40NVPKh9T0ud4+1H3VATMor4BBUnU14b69
+ 6u/xc5HJPhUe9d+v6CwVsgHETI3kEQIR94+tWZopYdR75NNPfbIxZSb6DCRbjFDzmKph6AQINnM
+ 25+PWYpZ0d7SYwHwnBVJak1H1ByuSyak=
+X-Gm-Gg: AYBFou02ypuUF2OUZH0cX0bfuWlHsssDLUpNJmz1iszGAusexnh6tgclAovGYhMH0tv
+ jD7+hZnO2c0gcpSBLTrWVxW/2jD+a7t4Er015d12FqlWkgmIZBH9iI3L/tfkk7Ify+qaTWqzlqy
+ o1ki7RwBjz/d2mAy1Sm2xr88gXijNK3YdoIwf4oIIktyD7D+ew/Ae/cltmf1cK+JGDxheH/66K6
+ vaOP6v9Mx+xSmnrGDlNGv9x5pbhD2Dp9LK37vNDP/DtzYIVIhcdDufikhSte3OhICB/mey7jFR7
+ VMSktL3b3tjttS4kvO9zEchxSoqZETCxAYqdtd9cVN1jA1NLXwv8ZX9nIkwXQqbkGB32RnyMYo5
+ 8miBsnzChoaYzUu5bLWHZEiCHTalvfJLZ5hMtMRwuGCLEn2QoFTRt9NzGpZB6+xD9ZrbW8QIVCb
+ MomNTLDlwR7nz7tPWXNQkQ/SY=
+X-Received: by 2002:a17:903:388b:b0:2e9:5714:607a with SMTP id
+ d9443c01a7336-2eb3641d0edmr226893925ad.2.1793740763907; Tue, 03 Nov 2026
+ 13:19:23 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-15-9352be6b86b1@kernel.org>
- <CAPx+jO_KJJ6ORKuw6VJmtZAOEnzVz0+bq3bEFupAK_4UROKBAA@mail.gmail.com>
- <CAD++jLkC7XehyM3Qh4mDu1zB+_MKhmFn6ae1sA4XCxeS1btT9g@mail.gmail.com>
-In-Reply-To: <CAD++jLkC7XehyM3Qh4mDu1zB+_MKhmFn6ae1sA4XCxeS1btT9g@mail.gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 22:08:33 +0100
-X-Gm-Features: AclHuK986C4IgEa_un_uJ2N3V7r60Yd74MfgWjVPHQJYngYAYIhlhA3cS1R7Hj0
-Message-ID: <CAPx+jO-=OXpTY7no36tLoKh52EyscohYqtwD64xsgAc4Sh-g8w@mail.gmail.com>
-Subject: Re: [PATCH v3 15/18] dmaengine: ste_dma40: Use power domain for LCLA
- SRAM
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org,
- Frank Li <Frank.li@oss.nxp.com>
+References: <aujZcJBUyQ7iX_PM@intel.com> <DMKY979I29AF.BS1DF5YAZMOY@kernel.org>
+ <aujikV14tF6K1Xqw@intel.com> <DMKZR0YZV1CX.DWVK9V47GR1J@kernel.org>
+ <CAPM=9tww=CJdxzvfUvLwQ6V4uoszg8JrB1XCAcp15upM-xPvSg@mail.gmail.com>
+ <DMLTRKUXTL3P.11VRVU1A8ERMG@kernel.org> <aupFKGpAwAiGXN0U@intel.com>
+ <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
+In-Reply-To: <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 3 Nov 2026 16:19:11 -0500
+X-Gm-Features: AclHuK-QY53_MeeAsq2_7VWuOuBtQ5OHeIVET2v1xKAgr_M7JWpMcXTZioJWzRk
+Message-ID: <CADnq5_N-6_T8EnihjoTSqpHGb_mZPogi6z=Ti-7_oue5d07oTw@mail.gmail.com>
+Subject: Re: [RFC] linux-next: replace the DRM trees with a single
+ drm-for-linux-next
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, Mark Brown <broonie@kernel.org>, 
+ linux-next@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: YTSUipkGtMHnWaCyhvItiALto-hg6L30
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4NCBTYWx0ZWRfX17bR/ws3z43E
- CxZPhuh6sBL4tYdjdszXP+cDDHEZTNxd52a5Q1K8DI8+67G5HhNmCRdybRHseigxmi5gVtvOhVC
- P8A06AUHq8iQatxjmBslIbgNFx34kGjGo8cqGrsBQrJUKHgQuJZf8LsF5uAoh46Lcwbb26i+JxY
- DYWadvwDmW4sV/4ZlTX6ToEIfB43+fMOUDF3Z/dZ0TFUiclq5yFzOqS+jON/80CxLl+ZPFrRefd
- H0/vMHJhBXroKLrQH/BA9+2BOBgpBj2zPEcvYfs2qbKOuPk3ycEUExApFBlNlvW8nm9GeTn94NB
- vw8UYbZ9TpJKKOTqj2tk10QF6Dk7PTy8fKnd1hb+rsPuP1svw+8dUITDCm3Kw5I+3Z/mF3o3aMi
- XELXw4IE0/iAyl6GK+CXPM8iKpGPsGs2XVr0DEC9rJD8YCsZUHr7EkLfLvsAMPswYR4VxY4mnpe
- YilsKibbBP7XTpguCgA==
-X-Proofpoint-ORIG-GUID: YTSUipkGtMHnWaCyhvItiALto-hg6L30
-X-Authority-Analysis: v=2.4 cv=NMhAaE6g c=1 sm=1 tr=0 ts=6aea4d5d cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=neScOegWvRHQb6aK0P8A:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4NCBTYWx0ZWRfX5b0n/jdSBlIX
- F51yHY80evwRmK9bY5L1J6BBzuMiGJW65fnz3m7WdeHgfb+TLvcIa7xjqDAxWPGEHz9q0J+My6G
- aLhlV3/fkB8t1FrzH6HkC3E7QTNPP2Y=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 phishscore=0 adultscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030084
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,80 +118,141 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 2, 2026 at 11:12=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+On Tue, Nov 3, 2026 at 4:11=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> w=
 rote:
 >
-> On Thu, Sep 24, 2026 at 3:27=E2=80=AFPM Ulf Hansson
-> <ulf.hansson@oss.qualcomm.com> wrote:
->
-> > > Hold that domain while DMA transfers are active. The DMA controller i=
-s
-> > > runtime PM IRQ-safe, so keep taking explicit LCLA runtime PM referenc=
+> On Tue Nov 3, 2026 at 9:33 PM CET, Rodrigo Vivi wrote:
+> > On Tue, Nov 03, 2026 at 08:32:48PM +0100, Danilo Krummrich wrote:
+> >> IOW, linux-next merges tip/for-linux-next, and tip/for-linux-next merg=
 es
-> > > from the descriptor preparation path instead of relying on a runtime =
-PM
-> > > device link from the atomic transfer path.
+> >> $tree/for-linux-next, rather than $tree/$tree-next.
 > >
-> > A bit of an orthogonal problem, but related to the above. The irqsafe
-> > thing have been discussed in the past for DMA controller drivers.
-> >
-> > Would it possible to get rid of the irqsafe configuration for the dma
-> > controller device, altogether?
-> >
-> > I don't recall exactly, but not the entire consumer DMA API is allowed
-> > to be called in atomic context, but perhaps that is not sufficient to
-> > allow us to drop the irqsafe configuration for the DMA controller
-> > device?
-> >
-> > If not, I wonder if the consumer of the DMA (like an mmc controller)
-> > should be assigned as a consumer device (using device links and
-> > DL_FLAG_PM_RUNTIME) of the DMA controller device. In this way, the
-> > consumer (mmc) would be able to control the supplier (DMA) through the
-> > device link directly using runtime PM. This could potentially avoid
-> > the requirement of having to use irqsafe for the DMA controller
-> > device. Maybe someone already tried this?
-> >
-> > If the irqsafe configuration can be dropped, in some way or the other,
-> > this patch could become less intrusive, as all that would be needed is
-> > to create a device link to sram device using DL_FLAG_PM_RUNTIME.
+> > For this to work we need:
+> > 1. xe to create for-linux-next for-linux-next-fixes
+> > 2. amd to create for-linux-next for-linux-next-fixes
 >
-> I looked at it a bit, talked to the AI prompt a bit, thought about it fro=
-m
-> my (limited) understanding and while it seems possible it will need a
-> substantial amount of work, so I think it's best to get this powerdomain
-> migration in place first.
+> Huh, I thought all the trees are doing this already. Well, that explains
+> where the the problem comes from. :)
 >
-> Steps to actually go there would include getting proper consumer links
-> in place and verified, remove all atomic resume runpaths in the
-> DMAengine, handle requests without a device such as memcpy (I guess
-> by simply using the DMA device itself as device link?) and some minor
-> refactorings of lifetime for channel setup/teardown.
+> In any case, drm-misc, drm-rust and drm-intel already have for-linux-next=
+ and
+> for-linux-next-fixes, and the implementation is generic. So, adding it to=
+ xe and
+> amd is trivial.
 
-Okay, so it seems like it may be better to revisit this later on then.
-No objections from my side!
+I've started doing this for amdgpu this cycle as well, but I still
+pushed an amdgpu-next branch as well since that is the source of all
+of the cherry-picks for -fixes and -next-fixes.
+
+Alex
 
 >
-> But indeed we could use the pretty well documented and supported
-> U8500 platform as a canary, I think you have access to this platform
-> too, the upside is that it is "simple" compared to some recent SoC
-> monsters so it could be an example of how to do stuff.
-
-Yeah, that could be a good candidate for doing this. Let's see if
-someone get to that then. :-)
-
+> > 3. All maintainers to agree to move their -next-fixes on the same day t=
+hat
+> > they are sending the last PR. Or have a new dim sub-command dim final-p=
+r
 >
-> I don't see much generalizable stuff apart from things like the
-> pd-patch to the SRAM driver being pretty generic.
+> That's what drm-misc, drm-rust and drm-intel promise, yes.
 >
-> Yours,
-> Linus Walleij
-
-Kind regards
-Uffe
+> Something like dim request-pull --final seems like a reasonable helper to=
+ me.
+>
+> > 4. Instrument dim to have this secondary reconstructed tree instead of =
+the
+> > implemented chop.
+>
+> I think for this part isn't different; tip/for-linux-next just merges one=
+ or the
+> other.
+>
+> > 5. Prepare every committer to deal with this extra build time and extra
+> > conflict resolution.
+>
+> Which extra build time and conflict resolution? You have two tip trees in=
+ either
+> case, no? One that contains $tree/$tree-next and one that doesn't.
+>
+> > I honestly prefer the simple chop solution. But it would be okay by me
+> > if you take the lead and implement the dim changes for this flow.
+>
+> I don't mind doing this. :)
+>
+> >> I.e. the ultimate source of what is linux-next material remains to be =
+$tree.
+> >>
+> >> In general, I think that this is more accurate and probably less error=
+ prone
+> >
+> > I would argue the other way around.
+> >
+> > The reason that we are seeing so much escapes from next-next into linux=
+-next
+> > might be exactly by the fact that the blackout right now depends on 2 s=
+eparate
+> > actions to help simultaneously (last PR + rebase of -next-fixes). What =
+most
+> > of us are not doing.
+>
+> Interesting, why is that? It seems to work perfectly fine in drm-misc, dr=
+m-rust
+> and drm-intel.
+>
+> The only thing maintainers need to do is push $tree-next to $tree-next-fi=
+xes at
+> the cutoff. The rest is automatically handled by dim already.
+>
+> >> For instance, let's say a tree closes (i.e. tags the last -next tag of=
+ the
+> >> cycle) a few days before -rc6, it could happen that subsequent commits=
+ to
+> >> $tree-next still appear in linux-next because tip still picks them up =
+until
+> >> after -rc6. So, after -rc6 those commits (that were in linux-next for =
+a few
+> >> days) would disappear from linux-next again.
+> >>
+> >> Not that big of a deal, but technically they didn't even belong in lin=
+ux-next
+> >> for only a few days.
+> >
+> > But well, this is a good catch and a bug on the current proposal indeed=
+.
+> > Should we move that to -rc5 to -rc1? We just need to ensure that everyo=
+ne
+> > have at least 1 PR after -rc5 and we are all aligned.
+> >
+> > The only caveat is that patches landing in drivers-next during -rc5/-rc=
+6 will
+> > take a few days more to propagate, but it shouldn't be the end of the w=
+orld.
+> > It is still a couple weeks before the merge-window.
+> >
+> >>
+> >> If we kept $tree/for-linux-next, tip would never pick those commits up=
+, because
+> >> a tree that closed a few days before -rc6 would already have switched
+> >> $tree/for-linux-next to $tree/$tree-next-fixes.
+> >
+> > Well, if you don't move your -next-fixes at the same time of your last =
+PR
+> > you are leaking that as well. And this is happening.
+>
+> Where is this happening?
+>
+> > At least now we know why it is happening (besides xe and amd sending
+> > straight from -next instead of having the -for-linux-next branches).
+>
+> I think if xe and amd would have those branches there'd not be a problem =
+to
+> begin with.
+>
+> But independent of that, I think it is nice to give the "fully merge conf=
+lict
+> resolved thing" to Mark. :)
