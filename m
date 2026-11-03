@@ -2,88 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBAF60850AF
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 13:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC2F606A329
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 13:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hA+4GUOl
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4ISw4ro
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3989210E534;
-	Tue,  3 Nov 2026 13:27:15 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2812F10F594
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 13:27:09 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a2084d62cdso37188635e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 05:27:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7F810F59A;
+	Tue,  3 Nov 2026 13:27:35 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9505A10F5A5
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 13:27:28 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4a2072b9832so4342895e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 05:27:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793712427; x=1794317227; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793712447; x=1794317247; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ta7vqfu43+eJdwILEtJUiCIzSZFnqUgMnY49Wv68/Ms=;
- b=hA+4GUOlCoGQeRJfPEIo0DzFl68hzsXlTdlBQQsz0DagsPVrRLGlQ/HugbX0At2IP1
- p2zhM6I3yS/OI97UAJeK/nVla9ASqJxBaTGSg1G74Z105inB/HKZuZHCLptFFF6QYfGR
- 0RYcD4W9IZ1gK+nrXz1oMOMZyKdbC/eFc+59XdgFmBuHFXkD6TIv7Fq+8vxocI6iSWil
- xQ+bA7ceY2EglzSaZ9Xjef4Lar0hJPA0aB7JkzTYeN4yyJ4u2dF53guLH1zTFx9H/CJ3
- /boGoE9JqPZqK3LCGWtOueXQW2fNv0PO5rsHXToEbRWaUzsqNrl6N8l/DCNnpzXVIENw
- 5cSg==
+ :content-type; bh=o7EFRwU3C9t44EpOq54u2QVurE4/iG5MM90/J7UPCIk=;
+ b=e4ISw4roM+YFPLxEriQRmPAbETqQFOhA5AVTnj/PfyEbf2MMGZIWpUCiCeG1czpZ0w
+ p8GCiwp9RDaW+kwu60cfpQKXFaM7zAyYVZyVwmi+HU0bPzT3Z+zgl5sRdtih/Ue5aU3p
+ WUhSdx/ZP6ImCV/C6p68RJthRkxuub9ykM0xg5BIVUcNbMl2/j87iOB2qy4URvNqOR0H
+ sgqFvu1WepZ9AT1zIHGl75dz2gTZoaNZ36kbpcGjDGcStTgUtguk6yYUDaFOn6bDzTXv
+ XlQ4vzc3TngdFJMbrqk0nY2mbLAGA3JuLjP/zimdcgERybXW88yfZsrQgppexMTLR6ev
+ W/Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793712427; x=1794317227;
+ d=1e100.net; s=20260707; t=1793712447; x=1794317247;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ta7vqfu43+eJdwILEtJUiCIzSZFnqUgMnY49Wv68/Ms=;
- b=dMUygFeXrZ6b63iyZ7wiubLJuYxSzaSklSYvqftnFtthRlLLBafvGl2cjw/7CMCgkT
- Pv+xYSA6J56H8uTVYhVmi57DZhrQfwWPd5hY8CBMhznq4ckRkvbYa06m5WMo2wGOEL0f
- Rak9jDj8RxKYOpWnR9ZcPNcTKymoKoIDxuEj3xqCtJ7Pr6J4PLomUYQqHv92MxfLNIf9
- OHbAKlx677pBZTteaQ8O4cLoLJr5l0XWHEIr++JfnZl/B/zbk9lR59AKD8hgftomevaQ
- xZDuckPGikUvBvesk3U0Y/QhEhoI9c7g0ClvE4szg10senWaUe6TgW0oDN2GkQChqht7
- XBmw==
+ bh=o7EFRwU3C9t44EpOq54u2QVurE4/iG5MM90/J7UPCIk=;
+ b=XTLH7CNB/4g+oQ6m0ZM0ZGPyOOGR1hwjxeAo4qjq1Q/uZcIOLcuZX89yFnDRU0UtcG
+ 6+LTapDI6TRKSFlELCJ5oFXaAPGk5i1/KTt1bQfLaXeejjxm7ruknRhp0HPWQc7gPmzv
+ WqZ7tGRolsB8oidNqQ9MobQN8FCgDytCHMr9RhHu/KLGS/5T/2a9uX4fWUL3kNb0w1BA
+ t6UoD0tUdc8NmOuJctI4KJFz9LGGeqaVxZLKbvX9WUQubavBJrT4sgSUibbbQtivmpUT
+ PwS3cjCw3W5BtzooXJwW9PhqcZ5LNQolCpQqn1moaE09YuPVDJmhhW9baeIadt9DmqdZ
+ lHgA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz4RduPV/ErHrEAnB8a4TJvuU7MmjKCFBuUr+nGY6J1NVUJBLGYNkq88EWM7ZUlwGQWSUoTxMUPnYw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8UmM1wOnvrLZ3rPPzcjmNY2Of4Z57F9LYCw78J2WvZD53FbQMS
- 7HHUthT5F4PwSS1LbV1+HryP7mHcZ1Zax96WvE1ErWuE9FybWghyQdA=
-X-Gm-Gg: AYBFou2sfByMjZqa/2QrLmg6mAWQjyM0kT01Y7KtMBjjT7jZab4LtsZv1Ur3jQ0Mj8Z
- DRiV2YBO6o78Tuhk4TN6wkF9f0EoN9iBRC/xafWj+ktc/JYikQLHif5DbBtu8lEKdxkjwH9+OIh
- P9+5LHMzc18LEbyNG9XBN1YZqv84ML0GpeCIXjIbszkiygLNZRWObaK3jrXQp5rjo2WK3chx2Us
- nGinlcvwQJwrZHnuTAqr/SagE2twWwWtU1OHdAONcYocDn/yielUf6zZbQgmnXZaQHnJXkAlpsO
- hXdww/Pk3B8Ri+HLDak4SM5zmPtRd5xEumOIYA9KvlTBOS9WJ+ebsGTukLDVWBrJ9w8dZeGvomU
- sSLKtJC9R8RA1IJNrDPFg01LvqQsnMIvDbJl+N9h7+k3DRZbLiLL65e8B7fRQslED25LeMZ1jcg
- 8hlJCm5bhW0mL4EqauqgDI8kq8aM3irDPsmqcNLl4SifVg+eo4Wy+n2JcSF1Qlt1QZYPYKCH+cv
- FWnPpK6UCn0d/K08q8cwxVNCb1gUQkmaSZ2XxqNG9t2xwMPWUeeTXJApr36X1iWf8jknup0o3b/
- Gsw+ZWttrRl5LsFdp/TZtPV0Afo+nfdJufsWI7VRXoqfmyzJjH7afjLRLTprec7a7Q6GMGOnkAb
- PgqIYoqUO
-X-Received: by 2002:a05:600c:8b54:b0:4a1:fa21:fd90 with SMTP id
- 5b1f17b1804b1-4ac16bc547dmr316952755e9.9.1793712427364; 
- Tue, 03 Nov 2026 05:27:07 -0800 (PST)
+ AKwUvBySqniXcdU7QyEAUSySWUmYn1qz6RxXzxgGcOcNEjJwrlzmnpPKkN47mzO1TbRSwfO5cI0vev3rTjU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/9viDctnIXlJ7qFng9ehjg9RS662REGhm88cXjuz8ccTuCjc4M
+ olvCT71YH/kVBPwShH7Fce1w4yuZAVvYQVHtaJgOODWQmcySFsZ16Vg=
+X-Gm-Gg: AYBFou3L6wFs0ZTC7NqWVr4OYyunyIkGg+xEZFNEAkvRot090C1tPphpz8hgGgRecwK
+ 8Mn/5G3/zWAyyO3gffFVPnfZoYb19+dRtHHaqKfI0AkrYmmem1vpteUbIEwuygA9txihkoyalbp
+ Ul1PWBzs5wqr83CeR2GYUBha2I1I4Q20L38f9zcrMGsxg+s7KEEw8HguUXg86AawRr9muxrXfBC
+ rep7ftiv7ws+eSB4Kh5McDy+anLCRrhwzEn/LDJK2iGLHcE6nHequ2QeCUjQt8/seb5oqzxtNKR
+ dBCDhtL1PlC1OCLVHotJ58wHTCFwaOZsxf3Vj2Z6fR3JREWfNHv0LbjcMBO8vCwJ97h6GtoWoyg
+ cxCzRqCaonl2s8XRaNr+f7moTxK/Q+CcnaS2mCALliIBlJxDPpafY7F5no3MX+qLWZMIuCKlX9G
+ rsIJbYFJURbH1zfFzrWYE4fIIsOvip2yyR86eWQ6jX5wu3GfVozepr9t3aLEqCfSStnYw5o5gor
+ BzGIAAEyX+3gUvq40CLQ4j+02jeVzT0MDDOy3dkdzLguynEGni2k0wXhXcnASb+/xDAy/zVIwi0
+ 58J7/DNEaUY39Ejo+7bJBxJORSYvfgWpli4GFiC3YnBymFZ7bLtBThnnGSHp+OJ8oLd9el55KXJ
+ 7ptfLd/+uyQ==
+X-Received: by 2002:a05:600c:5246:b0:4a2:1960:6fa with SMTP id
+ 5b1f17b1804b1-4ac16acd947mr312817415e9.4.1793712446545; 
+ Tue, 03 Nov 2026 05:27:26 -0800 (PST)
 Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
  ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b2aa38bb4asm57032565e9.6.2026.11.03.05.27.04
+ 5b1f17b1804b1-4b2ab010a66sm81672285e9.13.2026.11.03.05.27.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Nov 2026 05:27:04 -0800 (PST)
-Message-ID: <a3da6619-b40e-4118-ad52-bcbe319cd601@gmail.com>
-Date: Tue, 3 Nov 2026 14:27:03 +0100
+ Tue, 03 Nov 2026 05:27:24 -0800 (PST)
+Message-ID: <40178c7a-8a2f-45e0-9afc-a54732082abd@gmail.com>
+Date: Tue, 3 Nov 2026 14:27:22 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] drm/msm: Add cleanup help for disabling IFPC
+Subject: Re: [PATCH v2 3/4] drm/msm/debugfs: Use cleanup.h for gpu state dump
 To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
  <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  open list <linux-kernel@vger.kernel.org>
 References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
- <20261102190010.720443-3-robin.clark@oss.qualcomm.com>
+ <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
 Content-Language: en-US
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <20261102190010.720443-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,55 +104,75 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 11/2/26 8:00 PM, Rob Clark wrote:
-> Simplify error path cleanup for IFPC-disable critical sections.
->
-> Note that this moves where we re-enable IFPC until after the
-> wake_up_all(), but that is harmless.
+> We need to move the gpu lock around a bit for the next patch.  Use
+> scoped_guard/etc so we don't have to make the error path handling more
+> complicated.
 >
 > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/msm/msm_gpu.h      | 4 ++++
->   drivers/gpu/drm/msm/msm_perfcntr.c | 5 +----
->   2 files changed, 5 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
+>   1 file changed, 12 insertions(+), 19 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 0334a0f604ac..e7912d2180a5 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -399,6 +399,10 @@ msm_gpu_disable_ifpc_put(struct msm_gpu *gpu)
->   		gpu->funcs->ifpc_update(gpu);
->   }
+> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+> index f12701e286ec..aa59b28a3392 100644
+> --- a/drivers/gpu/drm/msm/msm_debugfs.c
+> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
+> @@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
+>   	struct drm_device *dev = inode->i_private;
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct msm_gpu *gpu = priv->gpu;
+> -	struct msm_gpu_show_priv *show_priv;
+>   	int ret;
 >   
-> +DEFINE_GUARD(ifpc_disable, struct msm_gpu *,
-> +	     msm_gpu_disable_ifpc_get(_T),
-> +	     msm_gpu_disable_ifpc_put(_T))
-> +
->   /*
->    * The number of priority levels provided by drm gpu scheduler.  The
->    * DRM_SCHED_PRIORITY_KERNEL priority level is treated specially in some
-> diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
-> index 867dd476ed88..995857273aca 100644
-> --- a/drivers/gpu/drm/msm/msm_perfcntr.c
-> +++ b/drivers/gpu/drm/msm/msm_perfcntr.c
-> @@ -259,7 +259,7 @@ sample_worker(struct kthread_work *work)
->   	}
+>   	if (!gpu || !gpu->funcs->gpu_state_get)
+>   		return -ENODEV;
 >   
->   	/* Inhibit IFPC while accessing registers: */
-> -	msm_gpu_disable_ifpc_get(gpu);
-> +	guard(ifpc_disable)(gpu);
+> -	show_priv = kmalloc_obj(*show_priv);
+> +	struct msm_gpu_show_priv *show_priv __free(kfree)
+> +		= kmalloc_obj(*show_priv);
+>   	if (!show_priv)
+>   		return -ENOMEM;
 >   
->   	if (gpu->funcs->perfcntr_flush)
->   		gpu->funcs->perfcntr_flush(gpu);
-> @@ -295,9 +295,6 @@ sample_worker(struct kthread_work *work)
->   		}
->   	}
->   
-> -	/* Re-enable IFPC: */
-> -	msm_gpu_disable_ifpc_put(gpu);
+> -	ret = mutex_lock_interruptible(&gpu->lock);
+> -	if (ret)
+> -		goto free_priv;
 > -
->   	smp_store_release(&stream->fifo.head, head);
->   	wake_up_all(&stream->poll_wq);
+> -	pm_runtime_get_sync(&gpu->pdev->dev);
+> -	msm_gpu_hw_init(gpu);
+> -	show_priv->state = gpu->funcs->gpu_state_get(gpu);
+> -	pm_runtime_put_sync(&gpu->pdev->dev);
+> -
+> -	mutex_unlock(&gpu->lock);
+> +	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
+> +		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
+> +			msm_gpu_hw_init(gpu);
+> +			show_priv->state = gpu->funcs->gpu_state_get(gpu);
+> +		}
+> +	}
+>   
+>   	if (IS_ERR(show_priv->state)) {
+> -		ret = PTR_ERR(show_priv->state);
+> -		goto free_priv;
+> +		return PTR_ERR(show_priv->state);
+>   	}
+>   
+>   	show_priv->dev = dev;
+>   
+>   	ret = single_open(file, msm_gpu_show, show_priv);
+>   	if (ret)
+> -		goto free_priv;
+> +		return ret;
+>   
+> -	return 0;
+> +	retain_and_null_ptr(show_priv);
+>   
+> -free_priv:
+> -	kfree(show_priv);
+> -	return ret;
+> +	return 0;
 >   }
+>   
+>   static const struct file_operations msm_gpu_fops = {
 
 Reviewed-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
