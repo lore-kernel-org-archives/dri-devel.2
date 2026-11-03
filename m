@@ -2,75 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E9E606A329
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A26606A32F
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zQsDjf/1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k71DnFWs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5D310F1BB;
-	Wed,  4 Nov 2026 08:58:33 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF7910F9F8
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:33:25 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-36d499f6ab6so4846eec.3
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:33:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B84510F06F;
+	Wed,  4 Nov 2026 08:58:35 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B40EE10F5D9
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:02:57 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-48e6eb21a8fso1744066f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 06:02:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793777605; x=1794382405; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/XbaYXLldoLvnznmVKhXjejOBcwlPqhhTJlN1aaHsr8=;
- b=zQsDjf/1lCgvStMNl4TFc3jLWRBV0KCJuTnB3Pkxx49yCBELFxjFw37m4VfnfTKG7N
- Rcbscv/+SeQ0tysiMVyL1RvuxMx6A2stuEiXc+kZ+H9HI0RNTOf9vqu7eB6ClQnoalM/
- eWvVRiTuhfO+yIdYe3jJKTCFizvp++mmzMuSzh635srNzhAiFxolNVDq8P7t9GOLOGmx
- EXQHZpr0CU6ZLvDKNmMCOlgzCVp1skuYIKNdGyyT+G1umRn/wU2IGKr9S4FsWwKuNqog
- Vh/dIyOZBkX54UD2piJQssNLSjkYHl3gV2SLHwP5lcpuqCXZELbcN7vNYDQdao7OkRPT
- n4hA==
+ d=gmail.com; s=20260707; t=1793714576; x=1794319376; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
+ b=k71DnFWs2C4BOlmUnahOM7Tpz1HeLUdFBaa4ZpXLXj0nQk+kUxJBTLgF77VL6TTe5s
+ ldm72W/gpjGb9OjAnhOMZ8W6ehuIBQCQHVJi5mDpqB2RPfH0yXcicC8EB+1o090miR5f
+ yNcZ15dyDs9viE4h85XPNSlE6hAn/eZSS/dTotnz9WzwKpL3RLFd1nUjXZ3viTOFmuV7
+ 8QQnqRJaSzvW1bA+6xBg54s53MLrQfbwha3FOwGJsiz7LhGwly4U+J+9rBM9MX+TsUt/
+ k2Bl0fEZvjsl2I9EHn2N9mFYBkkWonpZqodjbk/oo5QzYNh0VZtRmhB3MkffpZld2FQp
+ O7Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793777605; x=1794382405;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/XbaYXLldoLvnznmVKhXjejOBcwlPqhhTJlN1aaHsr8=;
- b=O1wUTwNtCUNbQmhDKZZoVbnHqUBvHYcKHvZo9aKgdhgJOgi+VIKIqP2R6GI7QPdUHG
- vMA3bmzNg42hUPnox5yGlY/9e7Hzqt5WV30TZz42yRNzM3DC4dNHJbQ/z02m6nhutvtq
- jPfp6k0QRIaRT3CuRyG15XthPFiYAppRV3R7VlK3pRumHuHY/Z/4MaNJpMduK2f/cOEG
- 2hh2GY6E/VYAfjR0QhF7cXfwvoKf0YS10+lvPZYINBcWzjR8HaiaEIQJ+EO3ki/ikiF1
- Uv+27tYo+4YClkbqAUn3Ld/w/qfhTYmI6Ur3wQQwekjvxL4b4xHfmtUYaJmaRw0XqcZ+
- t6ew==
-X-Gm-Message-State: APuU4Z+FBrvt50Xed8IGjamVHD7oR3glwEpPrv2ddLmhunyyTLw/h+AU
- y+I82z9VZQ+oyHAS0SGF+g/vpZ3/E/cme2dbRbJQowZmkkt9nlRifyyy
-X-Gm-Gg: AYBFou0YxVyc8ZAPphTx3Toq+a1YKtgTz3kyA/gV8kjD9CYNEaxnlG8sU35pb4TqqET
- zamvOka6TXZ9RIOSU9SNLhwRhxMA2T/x31LTWdzZ1P6F5fAz/WaC+lADVU6QHT0exrSWuaCVMnP
- oeLFxx6rXIWgOkzeYn3cQ4MTeG1Lgabsa9XmwjJzCsfV1e3pD54l54O5QzGjWqgf7jJrbV+zmBz
- ngd5v4e/K3BghlnFQ1tBoLuxWHcWIdVBtfd3aWJmD5seyrXV+ULzkeXKoUhxrMcy7N22OmduEL8
- ulE0E57FRf42ywLUPmssozP7PbtG1cXZl1eAFBq1Kfxi0NXhjW6bhGz0fcPr4WQOarBgGkaYaRm
- yoc1zOtlLFtc0QJMFETPUhjb15aHzeBhmLCEmJzwL4whQUniqNT5TSCjZqopV3wgxkHZDEWbbng
- 3N52egOSbcPdbsdFDbpSsosdTP8I9BLCmcNU2FMX/+pOAB0PJTB292cu++Zyn/UI1CaH+z9kvrN
- RmbMeqyYqcIeq6MRR90VaNqDIQoZgmZdR616BaVJiTS5BfKby/612Q8CjS4CCh+UBBQivZQUkf3
- vT3VJqdC4T+2mQQIe4vY7sZBxIjSENasHLWT7ntjbA==
-X-Received: by 2002:a05:7301:fa6:b0:369:f195:a5ff with SMTP id
- 5a478bee46e88-36a4231f8e3mr35132513eec.1.1793777604980; 
- Tue, 03 Nov 2026 23:33:24 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
+ d=1e100.net; s=20260707; t=1793714576; x=1794319376;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
+ b=so6LFBeNV/jLPfrYgXhic8mreyoGy1ZObQ+GUrJk/VYwpMVC9dLToDmg+Mh8h19zSs
+ iFOeuP2dmQfGitD75BV/pKRjsM8NOQ29snjNiZhxqjvq/XI69Rtnq5TqsFYSmatjqfE1
+ vJG9nwp7Ywgbh+mNoN+TyjGimYXAL2i6+yG64o/JPrXilbPeuQfkjYR1nvJuNsSFPX3v
+ nbm7+50AeBgXyd0gW0bMehKTTZfx5n39m3SZgbd1QvP5JM1emmsfkndoJ/BbLDDgaOOO
+ I7yus6YOJfqL8hx/HLGqZ1xNH4c7f072fM9g7FOl9PshyrQr+0nBtTALd9Gc55lIIy6Y
+ 7hbA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBywAeLndvirIYXdCEwVV+tev6B5Gql9JkW8I7TrZDWzyvGSCrPGcbuGhe8MsQ7LB2Iy3mwF4VgpMWs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+FnrfLPfh8Wy8KybyjeGkMZV/73bwY07EErXOzJj2tWnQLplod
+ +0+Cq6cjay7Kfy8HP78FTYg4EOvuMEUS3giZymBfuGEQNlFg9FrwEdNZ
+X-Gm-Gg: AYBFou05gPhrc/URaDcA/GESTg0yvtWTL/WOWUKx/cueKzmhe+bTtl4od8CDmMDuGfH
+ 1AV5Ik42bp57EN1FD4TeNrnsjvohva3dC8vxI5Sxkn5Wpk6WIEstXY68AQhJe+flsff03M6u4CF
+ HgFNCjdJ2/ok3L/kULet32M7VZW9vaEsl/2wh+pOSfMkdY45rsfpWrXyLr6BuuHJXrts1Nt37+y
+ BN7NM+CEIZPz7/xSsea2VLjRve6w0F0SLTvMp2NqOdRGDb406jeDJQG6aExkxSy4LYi94ESM4Zw
+ iZ6qY4P2uCeE4Owr0KqsK2HTkicT8aKShJfDr5e/8yGFHsl3BZBamXEyOB6M8JAZ/9zbVOCKBb3
+ 6iXBr1/Ei9geG1eQ3FFo4naJWg5iRigA7XXgvzV8WWh1vahThfDFGABzdMVdHqGxTshixgwoz60
+ 9sG9sinF9oI2K28rEcY8mkiAnisdVWQAdkuVNSPmC6i+Evf+U1tZZv6xSOAqlNcdciwa14AesSk
+ QN/oJaajV2G+U/aPgVqF4iQ2tjwFcjEj/eiSpeFP7BJ66INFfBY/FVL91IISWuXv1RbsX3ebrqK
+ 6FVhThq9D6GGEJrYim/wWszV/Lh+SQg1PH8Ww2yXDyEBiuWxVQJ/fNIS+IyzGQLSqA4mCq14PQ2
+ ZD1l02Q==
+X-Received: by 2002:a05:6000:2486:b0:48d:ff81:5201 with SMTP id
+ ffacd0b85a97d-48e6e4f44f2mr30393094f8f.41.1793714574925; 
+ Tue, 03 Nov 2026 06:02:54 -0800 (PST)
+Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36ca38d3754sm6295359eec.14.2026.11.03.23.33.22
+ ffacd0b85a97d-48e71b8c0b6sm24467507f8f.41.2026.11.03.06.02.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 23:33:24 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, Chengyu Liu <lui2012qwq@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH 1/2] i915/gt: tolerate ERR_PTR pd in gen6_ppgtt teardown
-Date: Wed,  4 Nov 2026 15:33:10 +0800
-Message-Id: <20261104073311.1617823-2-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261104073311.1617823-1-lui2012qwq@gmail.com>
-References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+ Tue, 03 Nov 2026 06:02:52 -0800 (PST)
+From: Zak Brighton Knight <zakbrightonknight@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Zak Brighton Knight <zakbrightonknight@gmail.com>
+Subject: [PATCH] drm/i915/backlight: Keep ACPI backlight requests while the
+ panel is off
+Date: Tue,  3 Nov 2026 14:02:35 +0000
+Message-ID: <20261103140235.1032320-1-zakbrightonknight@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -94,49 +99,131 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() into
-ppgtt->base.pd and, on failure, jumps to err_put with the ERR_PTR still
-in the field.  i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(),
-which calls gen6_ppgtt_free_pd(), where gen6_for_all_pdes() immediately
-dereferences pd - with an ERR_PTR that is an invalid dereference and a
-crash (in the async release worker).  The free_pd() right after is only
-guarded against NULL, not ERR_PTR.
+With the ACPI video backlight (acpi_video0), brightness changes reach
+i915 as OpRegion ASLE requests: the firmware's _BCM method writes the
+level to the mailbox and raises the ASLE interrupt.
+intel_backlight_set_acpi() returns early when the connector has no
+crtc, so a request made while the panel is off is dropped. The ACPI
+video driver still reports the new level, but the panel comes back on
+at the old one.
 
-Bail out of gen6_ppgtt_free_pd() for an invalid pd and skip free_pd()
-likewise, so an allocation failure under memory pressure stays a plain
--ENOMEM instead of an oops.
+The connector has no crtc whenever userspace turns the screen off by
+disabling the crtc and detaching the connector from it, which is what
+mutter does for its power saving mode. GNOME's login screen makes this
+easy to hit: it dims the screen when idle and turns it off a little
+later, and on the next key press it restores the brightness while the
+screen is still off. The screen comes back dim, and the next brightness
+key press jumps from the level the backlight device reports.
 
-Found by static analysis.
+On a ThinkPad T520 (Ivy Bridge, LVDS, coreboot), setting acpi_video0
+to 10, turning the screen off through mutter, setting 14 and turning
+the screen back on gives, with drm.debug=0x6:
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+  brightness 10, screen on:
+    updating opregion backlight 73/255
+    [CONNECTOR:92:LVDS-1] set backlight level = 444
+  screen off:
+    [CONNECTOR:92:LVDS-1] set backlight PWM = 0
+  brightness 14, screen off:
+    updating opregion backlight 170/255
+  screen on:
+    [CONNECTOR:92:LVDS-1] set backlight PWM = 444
+
+after which acpi_video0 reads brightness 14 and actual_brightness 10.
+
+The check goes back to commit 752aa88a1e78 ("drm/i915: make backlight
+functions take a connector"). Commit 260d8f98ef9d ("drm/i915: Remove
+most INVALID_PIPE checks from the backlight code") dropped it from the
+native path, but kept it for BIOS requests, which can arrive during
+driver init before the modeset readout, when there is no crtc yet. The
+native path, intel_panel_set_backlight(), stores the level whatever the
+connector state and leaves it to the next backlight enable.
+
+Do the same for ACPI requests: always store the level, and skip only
+the hardware update when there is no crtc, which still covers the
+driver init case.
+
+The problem was found and root-caused, and this patch was drafted, with
+the help of an AI coding assistant (Claude, by Anthropic).
+
+Fixes: 752aa88a1e78 ("drm/i915: make backlight functions take a connector")
+Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Tested on the T520 (i7-3840QM, Ivy Bridge, coreboot 24.08 with SeaBIOS)
+with v7.4-rc1 plus this patch, built with PROVE_LOCKING, under GNOME 50
+(mutter 50.6). intel_backlight_set_acpi() is the same in drm-intel-next
+and drm-tip today, and the patch applies to both.
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 438cd4724a..72a9ad4642 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
- 	struct i915_page_table *pt;
- 	u32 pde;
+- The sequence above now ends with "set backlight PWM = 1035" when the
+  screen comes back on, and acpi_video0 reads 14 for both brightness
+  and actual_brightness. The same from 13 down to 6.
+- Setting 12 while the screen is off, then suspending to RAM and
+  resuming before turning the screen on: acpi_video re-sends 12 on
+  resume ("Restoring backlight state"), and the screen comes back at 12.
+- Suspend and resume with the screen on keeps the level, the level
+  systemd restores at boot is applied, and there were no lockdep
+  reports or warnings.
+
+One case still comes back wrong, differently from before. On this
+machine _BQC reports the PWM duty cycle, so reading actual_brightness
+while the panel is off makes acpi_video cache its lowest level (2%),
+and it re-sends that on resume. Without this patch, that request is
+dropped and the panel comes back at the level from before the screen
+went off; with it, the panel comes back at 2%. Mutter only reads
+brightness, so I have only hit this from a test script.
+
+Not tested: the driver init case the check was kept for. coreboot only
+sends requests from _BCM, or from the brightness keys before the OS has
+called _BCL, so I couldn't make it send one between the backlight
+setup and the modeset readout. Not tested either on other platforms or
+with other compositors.
+
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15987 reports
+the same symptom on a MacBookPro11,1: the brightness is wrong after the
+display sleeps, and acpi_backlight=native fixes it. It may be this bug,
+but I can't test that machine.
+
+ drivers/gpu/drm/i915/display/intel_backlight.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index b128896cb..2310a9258 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -310,13 +310,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 	struct intel_panel *panel = &connector->panel;
+ 	u32 hw_level;
  
-+	if (IS_ERR_OR_NULL(pd))
-+		return;
-+
- 	gen6_for_all_pdes(pt, pd, pde)
- 		if (pt)
- 			free_pt(&ppgtt->base.vm, pt);
-@@ -271,7 +274,7 @@ static void gen6_ppgtt_cleanup(struct i915_address_space *vm)
- 	gen6_ppgtt_free_pd(ppgtt);
- 	free_scratch(vm);
+-	/*
+-	 * Lack of crtc may occur during driver init because
+-	 * connection_mutex isn't held across the entire backlight
+-	 * setup + modeset readout, and the BIOS can issue the
+-	 * requests at any time.
+-	 */
+-	if (!panel->backlight.present || !conn_state->crtc)
++	if (!panel->backlight.present)
+ 		return;
  
--	if (ppgtt->base.pd)
-+	if (!IS_ERR_OR_NULL(ppgtt->base.pd))
- 		free_pd(&ppgtt->base.vm, ppgtt->base.pd);
+ 	mutex_lock(&display->backlight.lock);
+@@ -332,7 +326,15 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 					 panel->backlight.level,
+ 					 panel->backlight.device->props.max_brightness);
  
- 	mutex_destroy(&ppgtt->flush);
+-	if (panel->backlight.enabled)
++	/*
++	 * Lack of crtc may occur during driver init because
++	 * connection_mutex isn't held across the entire backlight
++	 * setup + modeset readout, and the BIOS can issue the
++	 * requests at any time. There's no crtc either while
++	 * userspace has the panel turned off. Keep the level
++	 * anyway, it's applied when the backlight is next enabled.
++	 */
++	if (panel->backlight.enabled && conn_state->crtc)
+ 		intel_panel_actually_set_backlight(conn_state, hw_level);
+ 
+ 	mutex_unlock(&display->backlight.lock);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.25.1
+2.56.0
 
