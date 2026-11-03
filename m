@@ -2,35 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22C6606A326
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:46:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44CD606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:48:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xOTU7mMF
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Da0lOPL7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1496B10E1A8;
-	Tue,  3 Nov 2026 19:45:59 +0000 (UTC)
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFBC610E1A8
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 19:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7BF410E6CD;
+	Tue,  3 Nov 2026 19:48:43 +0000 (UTC)
+Received: from mta1.migadu.com (out-21.mta1.migadu.com [95.215.58.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3546210E6CD
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 19:48:37 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=DqgJmYvW/WYxuocn5VZljrjSvENrQMdWD4e72HV/Je8=; 
+DKIM-Signature: a=rsa-sha256; bh=Cs/EvP2YgSGBbFayzDmMjVfLNJJWOpIwZ2LJBIWe214=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793735149; v=1; x=1794339949;
- b=xOTU7mMF+oS3Rx9JR6fkpmMoHgt2fVZ/uNc0AniMa0hFGQLrZARrnGBVP82colADPqViQrtS
- 5LGWaAMIMCokkFgCss6zWVOx9D1VXv4DCQkcUg70nXyVXoLx1nqtclKT74iDY6YxNajO24R/+86
- yk4dD+6yalTcgGs9nUNH41OQ=
+ t=1793735316; v=1; x=1794340116;
+ b=Da0lOPL7y+1EoOnSSPKf7p7REg4b2JIvJNlAO2HcVQW63NbEJ28kHlGJWw6tvaRwSkCBlTdK
+ 4Cm+Ez0hRLCRnl931x3o5hp88wK++p3BQYzLty53Fr+nY74NXwu0ASv/jsAnIxfi9If6zecpGYA
+ V8KGO1cx+uabKb55X82nEQSQ=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 1b57e00893805f86;
- Tue, 03 Nov 2026 19:45:48 +0000
-X-Mizu-Trace-ID: 1b57e00893805f86
+Received: by smtp.migadu.com with ESMTPS id c2e169ec5dd3d5b0;
+ Tue, 03 Nov 2026 19:48:35 +0000
+X-Mizu-Trace-ID: c2e169ec5dd3d5b0
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <dbb34880-2ca1-4c19-9efe-bb2db51f5493@linux.dev>
-Date: Tue, 3 Nov 2026 19:45:47 +0000
+Message-ID: <5ad5837a-dd9a-4558-b85f-f8c83da57e48@linux.dev>
+Date: Tue, 3 Nov 2026 19:48:32 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/15] drm/tidss: oldi: Add power domain support
+Subject: Re: [PATCH v5 13/15] drm/tidss: Add support for AM62P display
+ subsystem
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -43,10 +44,10 @@ To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
- <20261103-beagley-ai-display-v5-12-f1c8d0e52bb4@ideasonboard.com>
+ <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
 Content-Language: en-US
 From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261103-beagley-ai-display-v5-12-f1c8d0e52bb4@ideasonboard.com>
+In-Reply-To: <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,16 +71,25 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 On 03/11/26 11:34, Tomi Valkeinen wrote:
-> The OLDI TXes on AM62P and J722S have power domains of their own,
-> described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
-> real devices, so the driver core does not attach these power domains,
-> and nothing in the core turns them on.
+> From: Swamil Jain <s-jain1@ti.com>
 > 
-> Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
-> manage the power state of the returned virtual devices with runtime PM
-> functions.
+> The DSS controller on TI's AM62P SoC features two instances of the TI
+> DSS. Each DSS instance supports two video ports, similar to the DSS
+> controller found on the TI AM62X SoC. This allows three independent
+> video streams to be supported: OLDI, DPI, and DSI.
 > 
+> Since the DSS instances on AM62P are architecturally similar to those
+> on the AM62X DSS controller, the existing dispc_am625_feats
+> configuration can be reused for the AM62P DSS support.
+> 
+> This commit adds the necessary device tree compatibility entry for
+> "ti,am62p-dss" in the tidss driver, pointing to dispc_am625_feats,
+> thereby enabling DSS support on AM62P devices.
+> 
+> Signed-off-by: Swamil Jain <s-jain1@ti.com>
 > Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+Seems like b4 did not pick up my R-b tag from the previous version.
 
 Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 
