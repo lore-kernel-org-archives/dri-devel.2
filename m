@@ -2,63 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5A3606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:22:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4E4606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=vLewcgaz;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=HmMucyiK
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ro71Wbma
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A960910F440;
-	Tue,  3 Nov 2026 08:22:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="vLewcgaz";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="HmMucyiK";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA6710E04C
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1793618699; bh=Jl6MqUd4ByZxR5XS2vXABv/
- 7IuldpVQ/38egYOhDAkY=; b=vLewcgazmjilFezUUQTHLwLo3daD42yq+f0Jm+1mrmVsWLgS/i
- Iuo04dS4juwj+rbSDWn0GjngruJetKVi/BBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1793618699; bh=Jl6MqUd4ByZxR5XS2vXABv/
- 7IuldpVQ/38egYOhDAkY=; b=HmMucyiKt+cWBeqCVhEigbAHDj+8O+wAP7c9MtlO5H8Ls5FrNv
- 1sWC/NgT5BOt4xKWmzbIf0VhExYUsCkGXCjofGFYPAhvlefRrOet/H/Ivb5+E7n0HyLG4p+NeXO
- HRtYl2GAFUnslr7McqpBAfCRrbBitCIMu5+FWG4qexBPEswsgqE7JLO6MbIWwMnAFRVGerZItyb
- IJ783rlW8Vt0SsUjdXjJ/qQCyVgFR8OSKdlQtdmwalbnnD8wRB/0sbffPxzrj5LT8a1ZizrQE7h
- r5U3RfRhQQuw6QTQnZheuyBywvxL0yyT3hNUMf9SRaqIEANK951BO7NIZzZ81jZB1eg==;
-Message-ID: <d52c6018-b494-4470-aa4d-a92fcfb280e8@erebion.eu>
-Date: Mon, 2 Nov 2026 12:24:59 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7FE310F444;
+	Tue,  3 Nov 2026 08:22:04 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5535610E17F
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 02:28:33 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-53653e30353so63926221cf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 18:28:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793672912; cv=none;
+ d=google.com; s=arc-20260327;
+ b=K/+gsb1rd9ojBBA4jfPr/tMN+TsebDLqCPK6o7Ks3IKu85FG/w77p1XgFBpUyqHWIk
+ +zNzaQGRfvdfOvdjqLn8fWfr0FItO2NKBf+x4WEgM3CXI2mkSIs4QoS+SHHW92n7lt7k
+ HyuR+RbDfeq7HCL7gQ89WpP4tvB9mLbUUCxb1+C/Fv6pqAT5LiKM4TSY9FUOIMJFpI36
+ C8G0CX2V23A38IjlVzXtxP4siO1fvBqLXYua4GY7wzTTn9H4jhkfEVFSFhV9ev+rVG+A
+ av2B4U/dIYkjVTZ7X7vt4JD4BNrPs/MvUWquHpp/vGasM4GzDvWERmu2gsUlT3+IPxvK
+ GA5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+ fh=W/w6C15H5R5OIbLL6hocE/+yhMAVo+kJMh14lb1RWvE=;
+ b=NFm4bO18P4joLLVgwc6/8YzmUv6mnLCHkkAnzV1DbE+BOEOcnKu8WgBT4B8RHqV0gk
+ uknj2jmnVcweV8YvnKyAepXrA0J53Zoon3s0RJsGs7I3R6q9oWSbtwXmQalhMEoOle3+
+ Vfh32ncokEH8RcSKmPljBAEo4nPevObUYvlFqaAvAOdP1BicJOxAJeg69DMoF9KiknIh
+ YhTjlCqKpcBQoK/cTBZYW9jYWF3I6upHkyG2uZ5pXNYpum8u6UF6Tgu/uhrmXhOi9cIF
+ jDM86O3R90NV0gEKBvJZazUwkxRuMkbsa/da77U40B+c77uzkD1xesLkHPaXCsYJxt9c
+ uFEA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793672912; x=1794277712; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+ b=Ro71Wbma+heNRP8rEdJSFMVQZSX/2JVT2YM6CZbDHw7m/u7nSRQAFVywCp21FUfGI6
+ N5vWJlgJdeAIwaqq+Y45TidfvOtmRyVR0X54iwTd9TucVdvtzP1HpZOTQh8YtNMEmPgi
+ mqfBOEkjI0DfsHG6qMBq00ni2N/gaOvUf0VI1a2a/dPRlCsOSgVGTwH/44//SJVfNwC8
+ eAC74E5A7TfLv4DnoIhltrhuymWqCmly3rTB/wm78BAeDV6YPQhPpe/KXCDqPEDh/mtP
+ Qv7mqJdlh8/gO9wHDY5YxvhXClmb+a/KyCq5xou05wCtO9m76DDD/AEnRIvckByCJ8oK
+ c9xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793672912; x=1794277712;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=43k2JoRgmvLGktezxg5Tqe/6VKPUAsfo21mLYAXJ+uI=;
+ b=lT4whI53e7R3+fg0yPNY2h8e6/ZBfhQE+h9M752m7at5TkqdqzJ8UJE0E02kUv7htd
+ stKUmF22tj+GJcYXiOnMcOsP5uREBoArtK6/wY080DufPq8bTRr3d1QG02Tm2bLY1ZPy
+ PAcZiSD9qoqImKVc4U4Bpc0GALhkT9XFwI7x2vQtquEugYWUI4EvM5rk27n3ltojOwFZ
+ dIVF1bUDnQ8jMhTJDkqMxrd+dZ3ydXLWfaG9BOSZiB4PPe9E3+D4wDAqimUgbVf+u5oL
+ R/e/HcxI62Ig48yAeROsLogp4skADQV6BcHO8pWvXCedwlJFRQgwQIo75kVNHY0WsuEI
+ M2Mg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy0Lm7hFD5ZLDKIjFKGTW5ycD0dNk3+FKDBtYNwNV2s0gohEeE/wEoGoXDOhDEJDs0fT3YkaerOKFA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/RLLp0JPwhlwNhdHD+zyFzpWw5lhXC/qSSq4YCfesGEQ8Mw06T
+ o8h3nCk1cRW6QPWU4Hs6nq1th+lT8GjWqJNMZqnOSoXd7hAwxgYFO0PhBl8qEDwBtS4YHY00HAw
+ wNALG4LWmOKEM0XvLEjWFo6w2F5xWMWQ=
+X-Gm-Gg: AYBFou3hU/pDFgl8e1uH1+P6D7iNq4XONE4aCOhJL6SOMRMlQ6gz/pz5o2YNS79sv32
+ q5NiSwYtQUQ32wDF9b8R81VyefuaSf2XJy/hnAOyYXWdT81mW+MH+0wpp7Tsh+0p1gyA3drdx3+
+ KAVP1dotsUBB690WOTeG5Cb3Ft63XFBXWthnwMcBEq7iYA0DlnWS5lt9ayxruKIKruVLSUqPfQr
+ g7PDZqzQ1cOLLmjoqB655CfvsCz6zqpn2TL2CxipsiRbBkUISBtPmNcGQwr8CL2h2mW5SypT4g4
+ V2zLyjUpRIWI3KHZdWVXXCl8olXFIme0d9hTmcdVRmRafHvKeBjz3S7MBK4Q8fVoa85jAAUHtWh
+ UCsVdYS0LeRN/o/Ep/aM4F0Gewq4X08qnQrRfBg0dzJCoi1WsZi/wvf3ps6vxkdA2Rb3X741NcE
+ wM9rvF0wK9nvLgN43q+5eOt+oLeQl0yf6SbMWv10HrdwZS1areuvpeGm2N07EaSiVLIrj1J2JxO
+ uFxWehCm7opAjOl+NNhiLzflg==
+X-Received: by 2002:ac8:59d3:0:b0:536:3a49:f76 with SMTP id
+ d75a77b69052e-542b62a60f2mr208129931cf.27.1793672912039; Mon, 02 Nov 2026
+ 18:28:32 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192773@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192773@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8DJvsePEo8cSfZrcrIfR1weq"
-X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
+References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
+ <20261013-sahara_protocol_new_v2-v9-1-dc9f24357c4a@oss.qualcomm.com>
+In-Reply-To: <20261013-sahara_protocol_new_v2-v9-1-dc9f24357c4a@oss.qualcomm.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Mon, 2 Nov 2026 23:28:20 -0300
+X-Gm-Features: AclHuK-mWSKXd9lnXqiSNJlntbzfXiWNAcEZqwA15ieqTiGdj9OVEQ3Jtku0h9M
+Message-ID: <CAMAsx6dwZVCVQpfh9DYVU3NoTrsbRLOiORdMKm3Yo-vQLmpyFQ@mail.gmail.com>
+Subject: Re: [PATCH v9 1/7] Add documentation for Sahara protocol
+To: kishore.batta@oss.qualcomm.com
+Cc: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com, 
+ ogabbay@kernel.org, mani@kernel.org, corbet@lwn.net, 
+ skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,77 +105,23 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-1.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8DJvsePEo8cSfZrcrIfR1weq
-Content-Type: multipart/mixed; boundary="------------K9q45mfxPccftvc00YuvS9l1";
- protected-headers="v1"; hp="clear"
-Message-ID: <d52c6018-b494-4470-aa4d-a92fcfb280e8@erebion.eu>
-Date: Mon, 2 Nov 2026 12:24:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192773@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192773@kernel.org>
+Hi Kishore,
 
---------------K9q45mfxPccftvc00YuvS9l1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +| SAHARA_MODE_MEMORY_DBEUG | 0x2 | Memory debug mode. The host should |
 
-T24gMTEvMi8yNiAwMDo0OCwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gVGhh
-bmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQg
-NCBwb3RlbnRpYWwgaXNzdWUocykgdG8gY29uc2lkZXI6DQo+IC0gW01lZGl1bV0gYXJtNjQ6
-IGR0czogcWNvbTogc202MzUwLWxlbmE6IHVucmVsYXRlZCBhbmQgaW5jb21wbGV0ZSBHUFUg
-ZW5hYmxlbWVudA0KDQpzaG91bGQgbm90IGJlIHBhcnQgb2YgdGhpcyBwYXRjaCBzZXJpZXMs
-IHdpbGwgcmVtb3ZlDQoNCj4gLSBbTWVkaXVtXSBhcm02NDogZHRzOiBxY29tOiBzbTYzNTAt
-bGVuYTogd3JvbmcgQURDIGNoYW5uZWwgaW4gcmVhcl9jYW1fc2Vuc29yDQoNCkJvdCBhbHJl
-YWR5IGNvbXBsYWluZWQgd2l0aCBhIHJlcGx5IHRvIHRoZSBQTTYxNTBsIHRoZXJtYWxzIHBh
-dGNoLi4uDQoNCj4gLSBbTWVkaXVtXSBhcm02NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTog
-aW52YWxpZCBsZWQtbWF4LW1pY3JvYW1wIGluIHBtNjE1MGxfZmxhc2gNCj4gLSBbTG93XSBh
-cm02NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTogdW5kb2N1bWVudGVkIHVudXNlZCBsY2Ri
-X2R1bW15IHJlZ3VsYXRvcg0KPiAtLQ0KDQpCb3QgYWxyZWFkeSBjb21wbGFpbmVkIHdpdGgg
-YSByZXBseSB0byB0aGUgZmxhc2ggTEVEIHBhdGNoLi4uDQoNCi0tIA0KZXJlYmlvbg0KDQpY
-TVBQOiBlcmViaW9uQGVyZWJpb24uZXUNCg0KTXkgbGFuZ3VhZ2VzOiBHZXJtYW4sIEVuZ2xp
-c2gsIFN3ZWRpc2gsIE5vcndlZ2lhbiwgRGFuaXNoDQpZZXMsIEknbSBhIGxhbmd1YWdlIG5l
-cmQuIEZlZWwgZnJlZSB0byB3cml0ZSB0byBtZSBpbiBhbnkgb2YgdGhlIA0KYWZvcmVtZW50
-aW9uZWQgbGFuZ3VhZ2VzLg0KDQo=
+Is "DBEUG" a typo? Shouldn't it be "SAHARA_MODE_MEMORY_DEBUG"? The
+rest of the document spells it "debug".
 
---------------K9q45mfxPccftvc00YuvS9l1--
+> +| target. The Sahar client interprets|
 
---------------8DJvsePEo8cSfZrcrIfR1weq
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+I think this one is also a typo, right? Shouldn't it be "Sahara client"?
 
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCauhzCwUDAAAAAAAKCRCOr0AybgKuffka
-AP4hbCOzgx1uY8aVVNWIT9coUtqqkdtjBeEPgAFcxpttQwD/T1zQTYPwO6HRlgT9N29vV7nDXT0b
-E8IECfOtMLvpiww=
-=BaN+
------END PGP SIGNATURE-----
-
---------------8DJvsePEo8cSfZrcrIfR1weq--
+Thanks,
+Daniel
