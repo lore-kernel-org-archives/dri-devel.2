@@ -2,62 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5750606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818ED606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=WEOgnaLp;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=rMKX5RLn
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uMaTP7Yj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D1B10E6A4;
-	Wed,  4 Nov 2026 08:58:04 +0000 (UTC)
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C8A10E357
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:27:44 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256;
- b=WEOgnaLpfE8i+jsglAmkqHM5VbIWJQG1CWzEPffhfvaX3Qmex7PeFjG+Wu5jpUu+T+kBR1Jg1Cp454IaDPgPFT1nlmL2LzYOshcgQvle+zLFeqCNT3j4234NUNO132k6pA4FeR+juJj9bFZZT0REkDmgF366pd3bntkbOWU+EAJzMB5Vh3IOKrI3uiPNP6uS6DiEGI9tRmzxhkoSSe/cxpdyEPnmk8bcTOpIcEjxiKufuuOWUpwl1HTZTLv0Q5txymOHqAtSx2XYvF+SfF+aKgCtQxgICqmdLY9/AQQ/UU9dD9US84j38UYHPLdTaDfmN/Ukqx8r3y3dpc4pxQWi0g==;
- s=purelymail2; d=younes.io; v=1;
- bh=d+vV3gaJFjmLIOLiJUMcIH25fkVHN9ZB+h3Maan5FdE=;
- h=Received:From:To:Subject:Date; 
-DKIM-Signature: a=rsa-sha256;
- b=rMKX5RLnYe6l3x4zWy0Jy5YeDMTN0ifRpBrUh0FLCWPOdzSclItz35a9Yd0uZsadUR8YTOD8d5ZPS+FchX22OaTYGx+2ymd62sqkaNLxnq9SSUPFLTobqX4FTBKSiqZptXCaWkbOAzpcGJ1/R75LEmqZ7Fch1J1C6NQx+lXj0RZFD11fqisJYfB7X39SEUke9CMNd8Ab52ZPUHhLc+pe4Sb04xqFfarvDYBSqd0AqLnmfmlL34azA+epbr1+bll04ZmFBjG5omJjnlp18clZ1W/A7Lp/b56gi54B8onUlS3Jrj7cSuZJoWgUM5aTGyW7D2Y++M3L9LIyQbqg7qN0Cg==;
- s=purelymail2; d=purelymail.com; v=1;
- bh=d+vV3gaJFjmLIOLiJUMcIH25fkVHN9ZB+h3Maan5FdE=;
- h=Feedback-ID:Received:From:To:Subject:Date; 
-Feedback-ID: 1578161:62319:null:purelymail
-X-Pm-Original-To: dri-devel@lists.freedesktop.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 465182662; 
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Tue, 03 Nov 2026 22:27:04 +0000 (UTC)
-From: Younes Akhouayri <git@younes.io>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [RFC PATCH v7 8/8] samples: rust: Add JobQueue Tester
-Date: Tue, 3 Nov 2026 22:27:01 +0000
-Message-ID: <kw-1793744821.998563484-558346-1@younes.io>
-In-Reply-To: <20261103153138.1087330-10-phasta@kernel.org>
-References: <20261103153138.1087330-2-phasta@kernel.org>
- <20261103153138.1087330-10-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A98F110E4B2;
+	Wed,  4 Nov 2026 08:58:10 +0000 (UTC)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC0A10F5A5
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 13:51:45 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-14fc585291cso3309085c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 05:51:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793713904; x=1794318704; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=eZFocSGQWUyjjZwOU15rPwT7Iy8HDoBofRSNVrSiUk4=;
+ b=uMaTP7YjXk7J8HDVKfYilMTZSYMZL+aiyl8ygE7+TEOBTJ8NGquQka391yUHtI4286
+ lRWdnVnCXW7n7f4OifD4spbFAZqZEbURKCaFmprqKpbUZHLOqyY0DEoK+wdGuNUE0yvH
+ kTiyepir4RxTHS448bWRcAY5y7ljUTn6fvZNLjYPPqGNEvCGPoZrJ8cSeEfNOM88EH+F
+ kyYfbBUOrzZZapvO5Cg5pHO7jiVH28FtRz18NjD1VXTDtgGikZ+nKdq8WSrlKcG2qGh1
+ AKc/OTMwmOD2NuNK2FES2XpU+z+IKvXAL/uUFO/k+qM/PWFZH+pL/7Y9NRSXYJWPMkGA
+ D9Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793713904; x=1794318704;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=eZFocSGQWUyjjZwOU15rPwT7Iy8HDoBofRSNVrSiUk4=;
+ b=PjTjY+/7D60d/3VPTQ3B6RL44KwPl+0E/d6qAijqwTYNx+g0t2lNxOvS37HPMYXsP6
+ euR5WKDY0xQEMu65hxUgRYWHrr9Dj/wVpfQwkBY7lni6KhF7k2WEACLlolzHu+k9Iraf
+ a3u+xdF813jJpJBPdpWwjzPEn0vzNdIrrmd0LIVlH5v3QqfdRdtRLM0s/Pktsm7F1M5o
+ LqAcyDt6TY/HmvCKcd+wJRrcsKhENLxBvTaw8/+lqD4AVXBXFXfLIqI1s3/8UonvSx6x
+ 4Br3ZyHxyaXouB6wQH0uW5BsW8SJPEz+WvopQRXHNyqnF7+UvWvWXwdRB6VPLYdDoLhg
+ EggA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwwNWVs+oqkDUuAuaVN/TrHu+gmKV5lvTcu8uz56eAeq5gpAJy83gKixSVcqTx9zWPher44cE9hN14=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/hLEu4L2RSrgQbATkmr+1G0EfjkghOknKIyPq0j0IpoMEHh9Nc
+ 8/vBnyWxLWm3m5Lin1WurSm089rCC3RUEsrbX+MMX2OtE6dua2T6IpzO
+X-Gm-Gg: AYBFou0qtE5Ev0UE9VINIEqkmjTGYqdWwfbW9ZDHMdANe9EA5/gOMeeCIxqfrrd+PHG
+ GZQdu6714sU14PSw0e6mSx142VBSUFliP4oOnHDlbooorG1//NIY9Mq5Bu3yeaFglryBttjYQSX
+ 4eEUSKoqWgDdjRGlU4fApUPtyOXm1jM4VyzM98Uf5dKdQCOTJYDHUfEOGmP14YbhveoIlfLlUuS
+ sPpf/h8unULQm2op7UkCAm/DrVYHbmJDhlTduJSvHjT57BCQ8dKedNMUeK5jxqyAxlb65NUtvd+
+ zPc1Co80rG+AarLrcmga3t8JUj52TvmJzaxvW3UA9oVNklLL1R2ODtLRNAqC3p5AEdW2XQEyx5Q
+ /Y/V4zMlQFMFoiMo88M5KlIkX2Os/tIJ304ZLesLRi0pWRO38ndax+1N1Y7hvlhnZfzUU4I3T5c
+ Oc735p+ppEkGKSXWanh+NnnZUQz7+u/MFWwhllK1Iq4UWi/uTpcbCAiuagJIEihsLYtzZ67qBDv
+ QRV5Y5t1js6vP2nqVHIqW3LxQHmGPTz+y7zW91k/2hgBGq6iIbSC76dxZDRXKSO2IY0fh8m9XWg
+ YCk9e5JVdWrpSDY/BCIHK8dSHlHnCJf4Fino4SIsr4n8JwEvBvzwTHDepDxr1xWKUw==
+X-Received: by 2002:a05:7022:4392:b0:1a4:c892:b14f with SMTP id
+ a92af1059eb24-1ac5de53bc8mr32355285c88.29.1793713904238; 
+ Tue, 03 Nov 2026 05:51:44 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1aed79b3dfcsm46918499c88.12.2026.11.03.05.51.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 05:51:43 -0800 (PST)
+From: joonhoekim <26rote@gmail.com>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Joonhoe Kim <26rote@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dragon@radxa.com, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 09/20] drm/msm/dp: Unwind resources when enabling a
+ stream fails
+Date: Tue,  3 Nov 2026 22:51:40 +0900
+Message-ID: <20261103135141.1993-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261009-msm-dp-hdr10-v2-9-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-9-1835d4966da3@radxa.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,61 +107,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 3 Nov 2026 16:31:38 +0100, Philipp Stanner wrote:
-> +            drop(jq); // Release lock.
-> +            T::run_job(work.fctx, runnable_job);
-> +            jq = work.inner.lock(); // Retake lock.
-> +
-> +            // run_job() above needs to be called without lock protection. Thus,
-> +            // it is possible that the driver instructed completion right before
-> +            // we could re-take the lock.
-> +            if jq.last_completed >= seqno {
-> +                fence.signal(Ok(()));
-> +
-> +                // Drop here directly if possible. Otherwise, let the DropWorker
-> +                // take care of it.
-> +                if core::mem::needs_drop::<T::JobDataType>() {
-> +                    jq.drop_list.push_back(job);
-> +                }
-> +            } else {
-> +                jq.running_jobs.push_back(job);
-> +            }
+From: Joonhoe Kim <26rote@gmail.com>
 
-Hi Philip,
+On Fri, 09 Oct 2026 11:16:01 +0800, Xilin Wu wrote:
+> Stream enable can fail after acquiring a runtime PM reference or
+> starting the link. Returning directly leaks those resources, while a
+> later disable can release a reference that was never acquired.
 
-The job's cost is subtracted from jq.capacity further up in the loop.
-complete_jobs_up_to_seqno() restores capacity only for jobs it pops from
-running_jobs, and a job that takes this branch never gets there. So each
-completion that wins the race against the worker leaves `cost` credits
-consumed for good, and a queue with a small capacity would stall after a few
-of them.
+This leak breaks USB on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali). I
+tried parts of 08/20 and this patch as a fix for it. The result was
+worse.
 
-The tester takes this branch too, since it calls complete_jobs_up_to_seqno()
-right after submit, before the worker has run. Each job costs 1 out of a
-capacity of 1_000_000, so the leak never shows there.
+The sequence, seen with kprobes on v7.3 with out-of-tree board
+support:
 
-Is there a reason the credits are meant to stay consumed here, or should
-this branch do
+- A USB-C monitor is unplugged during s2idle. On resume, the stream
+  enable trains the link to the gone sink and fails. Nothing releases
+  the DP PHY init taken for it.
 
-+               *jq.as_mut().project().capacity += u64::from(job.cost);
+- At the next suspend entry (booted with no_console_suspend, so fbcon
+  restores the old mode), an enable on the disconnected connector
+  powers the DP PHY on, and msm_dp_ctrl_enable_mainlink_clocks() fails
+  with -EBUSY. The PHY power is not released either.
 
-as well?
+- The DP side now holds the QMP combo PHY. On the next resume,
+  qmp_combo_usb_init() skips the common block init, and
+  qmp_combo_usb_power_on() times out waiting for PHYSTATUS. The dwc3
+  resume fails with -110, and USB stays down until reboot.
 
-> +                last_completed: 0,
+On top of v7.3 I applied only the PHY power tracking from 08/20, the
+power-off on the link clock failure from this patch, and a backport of
+1bda647ce61b ("drm/msm/dp: move link-level teardown from
+display_disable to display_unprepare") from msm-next. Then the same
+unplug during s2idle crashed the SoC:
 
-FenceContext::new(initial_seqno, ...) hands out initial_seqno as the first
-fence seqno, and both the doc example and the tester pass 0. For that first
-job the check above becomes `0 >= 0`, so the worker signals the fence Ok
-right after run_job() returns, while the hardware is still working on it.
+  [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #1 on phy 0 failed. ret=-110
+  ...
+  [drm:msm_dp_display_atomic_enable] *ERROR* DP display prepare failed, rc=-104
+  [drm:dpu_encoder_phys_vid_wait_for_commit_done:583] [dpu error]vblank timeout: a0820302
+  [drm:dpu_encoder_phys_vid_disable] *ERROR* wait disable failed: id:37 intf:0 ret:-110
 
-Should last_completed start at initial_seqno.wrapping_sub(1), or is
-initial_seqno >= 1 an intended requirement that just needs documenting?
+The device then reset into its crash dump mode. It crashed the same way
+once more, after a failed link training during repeated VT switches
+with the monitor attached. There the log went on 10 ms later with:
 
-Best regards,
-Younes
+  qcom_q6v5_pas d00000.remoteproc: fatal error received: sys_m_smsm.c:503:TZ force stop
+
+Without these changes I saw the same failed enable and "wait disable
+failed" three times, with no crash.
+
+My guess is that the DP PHY, which clocks the DPU video interface, is
+now turned off while that interface is still enabled. I have not
+confirmed it. So I can't give a Tested-by. The PHY leak is still open
+here.
+
+Thanks,
+Joonhoe Kim
