@@ -2,51 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BDC606FAE8
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE80606BA5F
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTCUUchR
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwGIH3ua
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79FFB89207;
-	Tue,  3 Nov 2026 11:12:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367D189207;
- Tue,  3 Nov 2026 11:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3C6D10E4DF;
+	Tue,  3 Nov 2026 11:15:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E334F10E4DF
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:15:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DFAEA41E5C;
- Tue,  3 Nov 2026 11:11:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8AF1F000C1;
- Tue,  3 Nov 2026 11:11:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F124D609EE;
+ Tue,  3 Nov 2026 11:15:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B77F1F00919;
+ Tue,  3 Nov 2026 11:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793704319;
- bh=tn4EvUkvQ0N554yUW20DtCdORcTwQEym6yT5uKZBJKY=;
- h=From:To:Cc:Subject:Date;
- b=CTCUUchRwbFZQnH9vAw3PFU/sp4dOPeDoyPj2on43HtsVp6zxYgOIu8jNaLZ3Yg2G
- 1Z99KfVrP9iSRHgfNP9TicUXiNGbqScZ17BOesR8STjuLsy++H1Abd47DprcOmf/uE
- F1TkuvCiXV8gtnwx8YklQyQMZFtHC0THDNVzZ2xnfxpNbaNCGFuVxU21D19XSZ2k4C
- VgyroI+WPzdv8N2z3dsDw95Ccop86L7JtuFQ/Wpz/YuKSWtBlsyE41RF1OANlTCM5A
- r4e5FOd35UFLLB/k8SrUqWo+v6Z+4tdM7C6lY7+OT47SsXNVMfXLb1Ryp5YXsXkjnl
- vLsgWxp/Dg3Vg==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: airlied@redhat.com
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, Gemini <gemini@google.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 -resend] drm/qxl: fix use-after-free and NULL pointer deref
-Date: Tue,  3 Nov 2026 12:11:54 +0100
-Message-ID: <d9930eabe544a4bec5d55113ccd6b1bcd2998bd6.1793704291.git.jirislaby@kernel.org>
-X-Mailer: git-send-email 2.56.0
+ s=k20260515; t=1793704514;
+ bh=o+P6q3DZzJVDgAtxOxsBNiFQ77g8/YvF2QELBdxcJZk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=cwGIH3ua3/gX2aX0cyytE+vXc3lCWe1q3aM52HqhDeaorXpPMV2UxKffYso22rqyv
+ bJbe/Ldz3OmMWfkZw7F/sT4HzeWtRN8gEYLKH5MBD6dXE4eykygI+sKo3b0EZ1+qHv
+ QWqLbCmtvbKtV1+qv9cogfmhM5Eo/OCLZagDrtGmpZlkOJ+yBZ/GK4tYcHxKUVVUWe
+ L03yV20n4ka8ZfOhGk8JZRnYR6+5bnQ0OoQ7iSC7KrSntOXjQnUfrZlGiuWXiT8PEj
+ Fu28TbQ6Qrs1kImtHaR3dnISWsdUl+wdKcMMxoAecU/o3DH+FUvLi3PQ3T1DThlMih
+ /LPgp3EUYcnRQ==
+Date: Tue, 3 Nov 2026 12:15:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org
+Subject: Re: [PATCH v4 1/6] dt-bindings: display: rockchip: analogix-dp: Add
+ support for RK3568
+Message-ID: <20261103-therapeutic-ostrich-of-romance-b29fc9@quoll>
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-2-damon.ding@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030064905.2248999-2-damon.ding@rock-chips.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,99 +71,26 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When allocating a `qxl_release` structure with `kmalloc()`, the underlying
-memory contained uninitialized garbage. Specifically, `release->base.flags`
-(part of the embedded `dma_fence`) was not cleared.
+On Fri, Oct 30, 2026 at 02:49:00PM +0800, Damon Ding wrote:
+> Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
+> the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
+> resets, but unlike them it does not use GRF registers, so make the
+> "rockchip,grf" property conditional on the SoC.
+> 
+> Also document the avdd-0v9 and avdd-1v8 supplies, which are needed by
+> the RK3568 eDP controller.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-This garbage in `base.flags` caused helper functions such as
-`dma_fence_was_initialized()` to return true even for releases where the
-fence was never actually initialized (e.g. via `dma_fence_init()`).
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Consequently, during release cleanup in `qxl_release_free()`, the driver
-attempted to put/free an uninitialized `dma_fence`, leading to refcount
-underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
-pointer dereferences in `dma_fence_signal_timestamp_locked()`.
-
-Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
-`qxl_release_alloc()`, ensuring all fields (including embedded fence
-flags) are properly zero-initialized upon allocation, and remove
-redundant explicit zero-initializations.
-
-The dumps in question:
- refcount_t: underflow; use-after-free.
- WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
- Modules linked in: af_packet nft_fib_inet ...
- CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
- ...
- RIP: 0010:refcount_warn_saturate+0x59/0x90
- ...
- Call Trace:
-  <TASK>
-  qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
-  qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
-  process_one_work+0x19e/0x3a0
- ...
-
-And then of course:
- BUG: kernel NULL pointer dereference, address: 0000000000000028
- ...
- RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
-
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Assisted-by: Gemini <gemini@google.com> # only commit log
-Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: stable@vger.kernel.org
----
-Cc: virtualization@lists.linux.dev
-Cc: spice-devel@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-
-[v2] use kzalloc_obj() instead of bare kzalloc()
----
- drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
-index 06979d0e8a9f..07dc6eafe6f7 100644
---- a/drivers/gpu/drm/qxl/qxl_release.c
-+++ b/drivers/gpu/drm/qxl/qxl_release.c
-@@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
- {
- 	struct qxl_release *release;
- 	int handle;
--	size_t size = sizeof(*release);
- 
--	release = kmalloc(size, GFP_KERNEL);
-+	release = kzalloc_obj(*release);
- 	if (!release) {
- 		DRM_ERROR("Out of memory\n");
- 		return -ENOMEM;
- 	}
--	release->base.ops = NULL;
- 	release->type = type;
--	release->release_offset = 0;
--	release->surface_release_id = 0;
- 	INIT_LIST_HEAD(&release->bos);
- 
- 	idr_preload(GFP_KERNEL);
--- 
-2.56.0
+Best regards,
+Krzysztof
 
