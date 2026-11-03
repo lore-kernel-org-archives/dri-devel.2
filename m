@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C5C606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E3606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKAQ5ip9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zypc4IcO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D5C910F813;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E66CF10F814;
 	Tue,  3 Nov 2026 20:03:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0371710F80D;
- Tue,  3 Nov 2026 20:02:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E692010F808;
+ Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D9E1F43FF0;
+ by tor.source.kernel.org (Postfix) with ESMTP id 503FE609EC;
  Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793736174;
- b=Hr/QKtchQJ3tKQApmySCI92/Acwb/epx2HRgq3muHf6XnyX0hsUinBkSR/cGZz93D41J
- ZNsJfkk59LESMAR9/9T2EmsXpoZo7O1u6rnohadFW25gY2glOtyNO2fEyoby5fFu5LjF1
- LIfj4DfedisJSFBtm00vgAiRIh/lcXTq2Jl6GQl43Np0JjQQYArVkfg8+BEP1f3+yE2qD
- xK7Y8jYep0g/77E1hfVVs4hKkQ7pqFFemrHzW/3ccO5cvbk6nJWQXXtUmQWfpOvYj2P/V
- J1GMDZqsNaDsPHlLe2XBK5QUSXdjGPjzeYyoT+23mNgY0VeeNZCcaGRMFKp4hEsOUIA==
+ b=h1xSJl3Msshz9fbf783zKy/M3q0Yu/pSo8Fu+HS+SfYo1JjTGu4ksb4wxrk6J6+KXasl
+ B8Tcz1k6iJLQRtW5HZpzYpsKQa64e8dMLlN8AQAngeCKtczrFiaMUa9J32OrJ6JMySGk4
+ BE7HU570zUloRIWg/5rj6Y0JaizhJNhVUwov1OtqRtjr/lCC0AR5uG+c5BAydBwmVW8eW
+ nMddj3rAe3hF8uoM+Mr1G+FzvqCtSHlUYIj9JgOECHIygn7Ppf0yDpgc94CIQSPxyIKMj
+ smdlZJ6YKBr+0b78ldFudxfGmlqA8MnjJjiQp/6LVtBB8A8C+Cxnyo4QKCbkXjv1aRg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793736174;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=5/pn7fTfQxc1qaaKnW5Xmu4Vd/rwN8kHgyZ0qJMPbMs=;
- b=Hdx7D1b5ZCWWnEV8KGObUXTZp7cuZ3G14HdKcYgChIgLmuWUTWR0j/2AQJXaUalPok3D
- WstOMceQLImsNunS0m/RvcewtVz6Wn3ED4bCEIlxi5kaJwLs63EvT3061KyF5QAef4UXW
- iwrf3Ib+5sYKIl3wxTWItVI6dvm8GOaugXdYC4Qb7rZmETn3tJqvKMczaeZ6SzGQY1QJn
- 5FcHZF7IE6RWcanUnEW6IBouoI6i2N2OtwgrHtO0W4osmq/+jXYwkPku3ir2psT/mUkny
- Zrm6KcMW09+cVYjZr14l/uAiPbmaPC2gQPJmcNpd8SxHnvuKbGKh1wo8HKfg94CR7Mg==
+ bh=alo1xAeUl6wnSeiZ3DD+FQPFyo1je91bnUeW1Q8wTdo=;
+ b=xrhDWsZ+gxlx9wsDANZD9Ht8DqK9fAc9jwyVpVGoSiRuKyR4IWOfWesJahNrliCAp6TA
+ ddxcD196u+5A8zE6wRICr95CWx8hLAPWWSp3otX9do9pHtep7KbZ9SfYHZKNwbTRbpCtf
+ CGcJz3TLWPdnUIv/NoPvnzmkvLkSPHFUTSzvE+/t05W9AAgq4KbWG/494R84B+WpycGIB
+ E9rOc38SDRnZAVSnK4ywHtTiSgFjLsdzXCdr80mUf6IGktM0ifAgi4oh93EdJxscQ+PIa
+ UoH+ao7YKreI96fvcTholVBgQQf75HuFrnSCIwLZzk+zwjJMRogJDLiJ9BijC/Rjseg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 753831F00A16;
+ by smtp.kernel.org (Postfix) with ESMTPS id 6656D1F00A02;
  Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793736174;
- bh=5/pn7fTfQxc1qaaKnW5Xmu4Vd/rwN8kHgyZ0qJMPbMs=;
+ bh=alo1xAeUl6wnSeiZ3DD+FQPFyo1je91bnUeW1Q8wTdo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=JKAQ5ip9FNKbtyszFmbkRTHOeF1DQ/n8ei/kL8ykgldqXL+ic50aRxTIPMxx3+JK7
- LTw9lbau0ugU5To42pOn9nuXqUNrCqXlR2/Tgg5OzzJ9PQu9R6L65RnXDL+Wy1QzNE
- tYPHMOWVMPOxZDzzB/ZoSuJUzDvolFeXbvOGqj9qb5rOrAWKr0hkykYVX3Rqg413/i
- l/H/YXIviXn1l1AhrfY06HfJamwjKLAdAsAYYqZrx+nwuuw4yRw8KHSo3efH24ml5S
- a4gNiyux9ERjm5JAlEdqrMenPCY3DfwJzqusZwGH74FD2UVyqF5lcDCnjWRaP13aDF
- 4AjAJx5SMiLjw==
+ b=Zypc4IcOph0+1f4HmLUjMuSSf385V7b6caaqDLFiPzjr3f/FylCPOBcHrCAgcSNNE
+ VVAKLHTOI4rttPqJOQlos3DRTI1SC23XYDWGkX7SNLC7NUZfLZ5bbk92duOmng+QjJ
+ +QSEx9UlEQX0yZ5KMgS++F/xic728GA20IvyD8kQyXTb1uUcEG9QsvvmDyyQarzslT
+ oVo6KxNLAPSqpimT1U15I5iYZRtDXNdLl1wm2QSBY45APcav07usMbrrYq2oBpyCD8
+ sGlK5Le1ySeSOz1uLSN4yZJ9J9ECgHUqDbTa59Al6JYZpbLhfWDWjm7EFtQCpDktoJ
+ 49yE/tdG+fEeQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 07CFA46AED;
- Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id ED29746AE9;
+ Tue,  3 Nov 2026 20:02:51 +0000 (UTC)
 From: "David R. Hedges via B4 Relay"
  <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 14:02:50 -0600
-Subject: [PATCH 4/5] drm/nouveau/kms: cache the DP encoder after it has
- been attached
+Date: Tue, 03 Nov 2026 14:02:49 -0600
+Subject: [PATCH 3/5] drm/nouveau/dp: restart lost links with a modeset on
+ GSP-RM
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-relink-v1-4-7ee88c7f1e8a@thelittleman.net>
+Message-Id: <20261103-nouveau-dp-relink-v1-3-7ee88c7f1e8a@thelittleman.net>
 References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 In-Reply-To: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -76,11 +76,11 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <me@dakr.org>, 
  "David R. Hedges" <linuxdev844@thelittleman.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=3184;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=8557;
  i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=oxUnvWNMjr2Z6ZaQSslI9Xgy2BrHndjmNGwQkasaX3o=;
- b=Qp6JlCv2gZGBNz7xpy3nONrc81+mPG1Gr0q1jTZ8LlxSQXWfBIyaig2dPs1j6BC8ianfhaZSO
- Bq47JCpksfGBnxmUpMwf920vostAXMfJBFCBQjtFtBOkG7n7qVu8Ntk
+ bh=tDTlFqdOxIVeMxCktaljDJWmMHEtMCKr2HYUZsjuEfA=;
+ b=aeGAuk118jnkuC9YHx5mw0AV28kKFXbz3dAMowBUAKb7wFM0M4LZvLGOLky4gWPl5zrMPR2oD
+ OtYN+jj61VFCRIBRn7IGC3yDSvZpdzG1rPCLbEOKCDB20lsuFOefNmg
 X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
  pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
 X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
@@ -109,70 +109,223 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-nouveau_connector_create() caches the connector's DP encoder in
-nv_connector->dp_encoder using find_encoder().  On nv50+ it's called
-from nv50_display_create() before nv50_sor_create() has created the
-encoder and attached it to the connector, so possible_encoders is
-still empty, find_encoder() returns NULL, and dp_encoder is never set.
-Two things depend on it:
+When a sink reports through IRQ_HPD that its link has lost lock,
+nouveau_dp_link_check() retrains the link in place while the stream
+keeps running.  Without GSP-RM, nvkm_dp_train() has a path for that
+which leaves the source configuration alone.  On GSP-RM,
+r535_dp_train() ignores its retrain argument and issues the same
+NV0073_CTRL_CMD_DP_CTRL as for a new link.  NVIDIA's own DisplayPort
+library never retrains an active link like that: it puts the SOR into
+flush mode, retrains, configures the stream again and takes the SOR
+out of flush mode, and warns that skipping part of that sequence can
+hang the display engine.
 
- - nouveau_dp_link_check(), which the HPD worker calls on IRQ_HPD,
-   reports the link as fine without looking at it when there's no DP
-   encoder.  Until commit 633716501c94 ("drm/nouveau/disp: add dp
-   train method") it looked the encoder up each time; since then, a
-   sink that reports link loss with IRQ_HPD hasn't been retrained.
+That holds on a GA102 with GSP-RM 570.144.  After an experimental
+patch retrained an active 4 x HBR2 link in place, the picture came
+back with horizontal artefacts, and the next modeset, a refresh rate
+change, never completed: "core notifier timeout", after which GSP
+stopped answering RPCs.
 
- - nouveau_connector_atomic_check() has never called
-   drm_dp_mst_root_conn_atomic_check() for MST-capable root
-   connectors.
+nouveau doesn't implement flush mode, so on GSP-RM restart the pipe
+with a full modeset of the CRTC driving the connector instead, using
+drm_atomic_helper_reset_crtc().  That trains the link, configures the
+stream and attaches the SOR in the same order as any other modeset,
+which is also how i915 retrains a link.  The HPD worker does this after
+dropping mode_config.mutex, so that probing isn't held up while it
+runs.  If the sink now advertises less than the mode needs, the
+modeset fails atomic check, and the connector's link-status is set to
+BAD, as when a DPMS on finds the same.
 
-Set dp_encoder in nv50_sor_create() right after the SOR is attached to
-the connector, and drop the assignment that can't succeed.  This also
-covers eDP, whose SOR is a DCB_OUTPUT_DP encoder too.  On a GA102 with
-GSP-RM 570.144, an IRQ_HPD now leads to a read of the sink's link
-status, where before it produced no AUX traffic at all.
+The link check is only reached once the connector's DP encoder has
+been cached, which on nv50+ it currently never is, so this has no
+effect until the next patch.
 
-This depends on "drm/nouveau/kms/nv50-: reject DP modesets the link
-can't carry" and "drm/nouveau/dp: restart lost links with a modeset on
-GSP-RM".  Without them, enabling the link check would have nouveau
-retrain active links in place on GSP-RM, or restart them with a mode
-the link can no longer carry, either of which can hang the display
-engine.  The MST atomic check this enables hasn't been tested.
-
-Fixes: 11d2738940eb ("drm/nouveau/kms: Cache DP encoders in nouveau_connector")
-Fixes: 633716501c94 ("drm/nouveau/disp: add dp train method")
 Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
 Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 1 +
- drivers/gpu/drm/nouveau/nouveau_connector.c | 2 --
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_display.c | 65 ++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/nouveau/nouveau_dp.c      | 21 ++++++++--
+ drivers/gpu/drm/nouveau/nouveau_encoder.h |  2 +-
+ 3 files changed, 82 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 7f55c016d846..583368914bf0 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1941,6 +1941,7 @@ nv50_sor_create(struct nouveau_encoder *nv_encoder)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 4398cf0fc541..c5e914602baf 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -418,6 +418,53 @@ nouveau_display_hpd_resume(struct nouveau_drm *drm)
+ 	schedule_work(&drm->hpd_work);
+ }
  
- 	if (dcbe->type == DCB_OUTPUT_DP) {
- 		mutex_init(&nv_encoder->dp.hpd_irq_lock);
-+		nv_connector->dp_encoder = nv_encoder;
++/* Restart the pipe driving @connector with a full modeset, so that its link is
++ * trained again along with everything else.
++ */
++static void
++nouveau_display_relink(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_crtc *crtc;
++	int ret;
++
++	drm_modeset_acquire_init(&ctx, 0);
++retry:
++	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, &ctx);
++	if (ret)
++		goto out;
++
++	crtc = connector->state->crtc;
++	if (!crtc)
++		goto out;
++
++	ret = drm_modeset_lock(&crtc->mutex, &ctx);
++	if (ret)
++		goto out;
++
++	if (crtc->state->active) {
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] restarting link\n",
++			    connector->base.id, connector->name);
++		ret = drm_atomic_helper_reset_crtc(crtc, &ctx);
++	}
++out:
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry;
++	}
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	/* The sink may now advertise less than the mode needs. */
++	if (ret == -EINVAL)
++		schedule_work(&nouveau_connector(connector)->link_bad_work);
++	else if (ret)
++		NV_ERROR(nouveau_drm(dev), "%s: failed to restart link: %d\n",
++			 connector->name, ret);
++}
++
+ static void
+ nouveau_display_hpd_work(struct work_struct *work)
+ {
+@@ -425,7 +472,7 @@ nouveau_display_hpd_work(struct work_struct *work)
+ 	struct drm_device *dev = drm->dev;
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter conn_iter;
+-	u32 pending;
++	u32 pending, relink = 0;
+ 	int changed = 0;
+ 	struct drm_connector *first_changed_connector = NULL;
  
- 		if (disp->disp->object.oclass < GF110_DISP) {
- 			/* HW has no support for address-only
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cae4e35c30aa..845f284f3a20 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1573,8 +1573,6 @@ nouveau_connector_create(struct drm_device *dev, int index)
+@@ -447,6 +494,7 @@ nouveau_display_hpd_work(struct work_struct *work)
+ 		struct nouveau_connector *nv_connector = nouveau_connector(connector);
+ 		enum drm_connector_status old_status = connector->status;
+ 		u64 bits, old_epoch_counter = connector->epoch_counter;
++		bool modeset = false;
  
- 	switch (type) {
- 	case DRM_MODE_CONNECTOR_DisplayPort:
--		nv_connector->dp_encoder = find_encoder(&nv_connector->base, DCB_OUTPUT_DP);
--		fallthrough;
- 	case DRM_MODE_CONNECTOR_eDP:
- 		drm_dp_cec_register_connector(&nv_connector->aux, connector);
- 		break;
+ 		if (!(pending & drm_connector_mask(connector)))
+ 			continue;
+@@ -468,11 +516,14 @@ nouveau_display_hpd_work(struct work_struct *work)
+ 		 */
+ 		if ((bits & NVIF_CONN_EVENT_V0_IRQ) &&
+ 		    !(bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG))) {
+-			if (nouveau_dp_link_check(nv_connector))
++			if (nouveau_dp_link_check(nv_connector, &modeset))
+ 				continue;
+ 		}
+ 
+ 		connector->status = drm_helper_probe_detect(connector, NULL, false);
++		if (modeset && connector->status == connector_status_connected)
++			relink |= drm_connector_mask(connector);
++
+ 		if (old_epoch_counter == connector->epoch_counter)
+ 			continue;
+ 
+@@ -492,6 +543,16 @@ nouveau_display_hpd_work(struct work_struct *work)
+ 	drm_connector_list_iter_end(&conn_iter);
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
++	/* A restart is a full modeset, so don't hold up probing while it runs. */
++	if (relink) {
++		drm_connector_list_iter_begin(dev, &conn_iter);
++		nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
++			if (relink & drm_connector_mask(connector))
++				nouveau_display_relink(connector);
++		}
++		drm_connector_list_iter_end(&conn_iter);
++	}
++
+ 	if (changed == 1)
+ 		drm_kms_helper_connector_hotplug_event(first_changed_connector);
+ 	else if (changed > 0)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index 9bc24f3914bd..99eeb66cc6a8 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -31,6 +31,8 @@
+ 
+ #include <nvif/if0011.h>
+ 
++#include <subdev/gsp.h>
++
+ MODULE_PARM_DESC(mst, "Enable DisplayPort multi-stream (default: enabled)");
+ static int nouveau_mst = 1;
+ module_param_named(mst, nouveau_mst, int, 0400);
+@@ -452,7 +454,7 @@ nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
+ }
+ 
+ static bool
+-nouveau_dp_link_check_locked(struct nouveau_encoder *outp)
++nouveau_dp_link_check_locked(struct nouveau_encoder *outp, bool *modeset)
+ {
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 
+@@ -465,11 +467,24 @@ nouveau_dp_link_check_locked(struct nouveau_encoder *outp)
+ 	if (drm_dp_channel_eq_ok(link_status, outp->dp.lt.nr))
+ 		return true;
+ 
++	/* NVIDIA's own DisplayPort library only retrains an active link with
++	 * the SOR in flush mode, which we don't implement, and retraining it
++	 * without that on GSP-RM can hang the display engine.  Leave the link
++	 * to be restarted with a modeset instead.
++	 */
++	if (nvkm_gsp_rm(nvxx_device(nouveau_drm(outp->base.base.dev))->gsp)) {
++		*modeset = true;
++		return false;
++	}
++
+ 	return nouveau_dp_train_link(outp, true);
+ }
+ 
++/* Returns false if the link has been lost, setting *modeset if it has to be
++ * restarted with a modeset rather than having been retrained here.
++ */
+ bool
+-nouveau_dp_link_check(struct nouveau_connector *nv_connector)
++nouveau_dp_link_check(struct nouveau_connector *nv_connector, bool *modeset)
+ {
+ 	struct nouveau_encoder *outp = nv_connector->dp_encoder;
+ 	bool link_ok = true;
+@@ -477,7 +492,7 @@ nouveau_dp_link_check(struct nouveau_connector *nv_connector)
+ 	if (outp) {
+ 		mutex_lock(&outp->dp.hpd_irq_lock);
+ 		if (outp->dp.lt.nr)
+-			link_ok = nouveau_dp_link_check_locked(outp);
++			link_ok = nouveau_dp_link_check_locked(outp, modeset);
+ 		mutex_unlock(&outp->dp.hpd_irq_lock);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+index 9366678e7d05..1639b7e41c1d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
++++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+@@ -158,7 +158,7 @@ enum nouveau_dp_status {
+ int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
+ int nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc);
+ void nouveau_dp_power_down(struct nouveau_encoder *);
+-bool nouveau_dp_link_check(struct nouveau_connector *);
++bool nouveau_dp_link_check(struct nouveau_connector *nv_connector, bool *modeset);
+ void nouveau_dp_irq(struct work_struct *);
+ enum drm_mode_status nv50_dp_mode_valid(struct nouveau_encoder *,
+ 					const struct drm_display_mode *,
 
 -- 
 2.55.0
