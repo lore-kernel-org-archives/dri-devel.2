@@ -2,91 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5583606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1880F606A326
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACWgK+DF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBCGrJWh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56CEE10F7D7;
-	Tue,  3 Nov 2026 19:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C15010F7C4;
+	Tue,  3 Nov 2026 19:29:36 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFDC610F7C4;
- Tue,  3 Nov 2026 19:28:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3256B10F7C4
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 19:29:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 434F560609;
- Tue,  3 Nov 2026 19:28:15 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793734095;
- b=QBhgSCI2Hq0VS+B8AFy+Bk+X//F2ewkbMVaAIKdtvZ9VlKbLx/PGl9n+4le4xvrWNUyE
- FXsdeykC0nhJntfPpwi2+yKMtS/qVqOUTaMKWKOaSfxsMeOZP6XMYY8jxdisI9Upm44WV
- Sz488hDFOu060phiHRqRhAso75X0IZSZpFF1x+TBVr2cwJbESUv6SL+rO1tQN+AJq73TQ
- io7aYFwYONhkJcce5heSn99wTNkisF6IJjFn0F+msGpJIE/n+TggPI5Y/z0s4SFmsRwIv
- YmILhsfDNeqr7hbKvBsjTKg3wUEeJtRfGXrlSWuVONvizF+DQks4y4vjC2PYOUooOEA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793734095;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=WJac30W+Zgm/eZyctil4AFCBpQAeJTdsn2sd26VSGS0=;
- b=RR7QvcC7C7niCqDKfaaGXmopfIwX6DkO4xIvCTFM8vMlB5lCZdG0+UFK8twhd5hAc+88
- FjY/p3JNsoCu2T94AMCyhVIv8IDmrOMAAMCywgEYjOPB3oaCFGG6KC3x8BTiK0O5x0TUI
- bjo8iyptpsih2Y+VrU/hOs6jhC67UObEyvlwUZDnkr7N9mRMA+6EDynkDhstj1iGHtSR1
- Cq2lgC+sOJKfNIGd6ZaBirFid8xe1FEdHsv02BRBQyGjcJztX4X3uBWnUEkVtdwjgF0vU
- CAIIExFi/y2tmnrE1Jedn2kZoWbsxl7uxY8SsmiFpIhm/UIcwhwqfjUpYg9i/nyR8pg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 742611F00A16;
- Tue,  3 Nov 2026 19:28:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5DC7C601EF;
+ Tue,  3 Nov 2026 19:29:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8F81F000C1;
+ Tue,  3 Nov 2026 19:29:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793734094;
- bh=WJac30W+Zgm/eZyctil4AFCBpQAeJTdsn2sd26VSGS0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=ACWgK+DFSI43P6bcfP9WiqEDfT7y6siosWuGg0YIcQ+iNY6gAE7vb5LHKyfaz8Fxs
- fSNagBY+jmB8BhyWafVzntwzP3W7mox6CGbNKOpvNmoF3wduHP1jtzW3akt5c2jGKs
- Xu3yUtE2B0QTs60QfJq0J+HJFddW1Br7ij6laNSL8T58mkdtEQI0Md9OkKEWBUBRl5
- T6mOP3KLpWx13D1VBufmTnkeIPGrLEE1DGGdL2gbsKRr/KnLDcDbfNdCKhFHl8CS7j
- uqtoKNZ8kYHLybhIRpptnSaNfjaSzRonD50PcA8bDl5TWiYK1G8sn0XtRKmK0oQnj/
- y15xIytSCdw/g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 1390946AD3;
- Tue,  3 Nov 2026 19:28:13 +0000 (UTC)
-From: "David R. Hedges via B4 Relay"
- <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 13:28:05 -0600
-Subject: [PATCH 5/5] drm/nouveau: don't let an IRQ_HPD hide a plug or
- unplug event
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-fixes-v1-5-892f4bd357cd@thelittleman.net>
-References: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
-In-Reply-To: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- "David R. Hedges" <linuxdev844@thelittleman.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=1736;
- i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=tP85nBIrptt737aDB86qPgSupi2I6nalDmVpTjCbdVo=;
- b=XrppRfVCwBqBGeUwfkz8GLy3LuTrae24FAi6dAaSGrRH9AN/7b/thlU74Ss42oEYKgGLOI7M+
- be1rwk3vWEvCfRM2HKXHOwK6PvMEO1zHF6IZ3apGnLWEA6nS05gtEAi
-X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
- pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
-X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
- with auth_id=1397
-X-Original-From: "David R. Hedges" <linuxdev844@thelittleman.net>
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1793734169;
+ bh=j721FUOm5F7lMlYD1BpVBUryO316K1Y5Ky3nQ/AgpFw=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=PBCGrJWh0vy2VdUnfpgvm+RUKwQ1La3u1UVod1atoUda1lVxgpD7LfwlqU3E3t9c9
+ FNKXHppN9/etYQa/1Uef9IeNwGIngOM8aUPrlSOwDz9JaLa6aI8taJbinNmLPRLfd8
+ jsyZCBuckqiFhP6QmnyQPqhvA3IpRLg99uAn8NTmb7ZZCAHDcuqhHJqksTaY7KMY0b
+ Rwng0bqhIKwuO5p6zEXk1BRgob67RdiStS0GZgaJpeBnWKBg/psVQfiu6CHlkriukI
+ cUm5YwnSZsOBcWQS63V1VCYCgAWxmfenRO23/uFpxj8l/iFW+mwRjGKC9Daubzx05u
+ euNUXeVyjUjIw==
+Message-ID: <sashiko-outbox-195917@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Remap BO pages instead of using
+ vm_insert_pages
+To: "Lizhi Hou" <lizhi.hou@amd.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261103190821.2019203-1-lizhi.hou@amd.com>
+References: <20261103190821.2019203-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 19:29:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,57 +47,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: linuxdev844@thelittleman.net
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: "David R. Hedges" <linuxdev844@thelittleman.net>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] accel/amdxdna: permanent -EFAULT in aie2_populate_range() on VM_=
+PFNMAP BOs
+--
 
-nouveau_dp_irq() passes an IRQ_HPD to the HPD worker as
-NVIF_CONN_EVENT_V0_IRQ, adding NVIF_CONN_EVENT_V0_PLUG when the sink
-count has changed, or NVIF_CONN_EVENT_V0_UNPLUG when servicing an MST
-hub fails.  A real plug or unplug can also be pending in the same bits
-by the time the worker runs.  nouveau_display_hpd_work() skips
-connector detection for anything with the IRQ bit set, though, as long
-as nouveau_dp_link_check() reports the link as fine, which it does
-whenever there's no trained link to look at, so those plug and unplug
-events are dropped.
+commit 9b00bf66bf06146c9db533ea2617347eed41d1ba
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-Only take the link check shortcut for an IRQ_HPD on its own.
+accel/amdxdna: Remap BO pages instead of using vm_insert_pages
 
-Fixes: 016dacb60e6d ("drm/nouveau/kms: pass event mask to hpd handler")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
----
- drivers/gpu/drm/nouveau/nouveau_display.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+This commit keeps the VM_PFNMAP flag on shmem and dma-buf BO mappings and
+populates their page tables upfront with remap_pfn_range() instead of
+switching to VM_MIXEDMAP and calling vm_insert_pages(). It also removes the
+custom mixedmap VM operations in favor of drm_gem_shmem_vm_ops and skips
+marking VM_PFNMAP imported mappings invalid during mmap.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index d71dcfc6ee66..4398cf0fc541 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -462,7 +462,12 @@ nouveau_display_hpd_work(struct work_struct *work)
- 			    !!(bits & NVIF_CONN_EVENT_V0_UNPLUG),
- 			    !!(bits & NVIF_CONN_EVENT_V0_IRQ));
- 
--		if (bits & NVIF_CONN_EVENT_V0_IRQ) {
-+		/* A plug or unplug event pending alongside the IRQ, such as a
-+		 * sink count change reported by nouveau_dp_irq(), still needs
-+		 * connector detection.
-+		 */
-+		if ((bits & NVIF_CONN_EVENT_V0_IRQ) &&
-+		    !(bits & (NVIF_CONN_EVENT_V0_PLUG | NVIF_CONN_EVENT_V0_UNPLUG))) {
- 			if (nouveau_dp_link_check(nv_connector))
- 				continue;
- 		}
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index f14484bc31ec0..d78dbce3c2e89 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+[ ... ]
+> @@ -502,7 +542,8 @@ static int amdxdna_insert_pages(struct amdxdna_gem_ob=
+j *abo,
+>  			return ret;
+>  		}
+> =20
+> -		amdxdna_mark_mapp_invalid(abo, vma);
+> +		if (!(vma->vm_flags & VM_PFNMAP))
+> +			amdxdna_mark_mapp_invalid(abo, vma);
+> =20
+>  		/* Drop the reference drm_gem_mmap_obj() acquired.*/
+>  		drm_gem_object_put(to_gobj(abo));
+> @@ -515,10 +556,9 @@ static int amdxdna_insert_pages(struct amdxdna_gem_o=
+bj *abo,
+>  		return ret;
+>  	}
+> =20
+> -	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
+> -	ret =3D vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages=
+);
+> +	ret =3D amdxdna_remap_pages(abo, vma);
 
--- 
-2.55.0
+[Severity: Medium]
+Can keeping VM_PFNMAP on BO mappings while still registering an HMM interval
+notifier cause aie2_populate_range() to fail permanently with -EFAULT?
 
+When PASID is enabled (abo->mem.dma_addr =3D=3D AMDXDNA_INVALID_ADDR),
+amdxdna_gem_obj_mmap() calls amdxdna_hmm_register(), which registers
+amdxdna_hmm_ops with default_flags =3D HMM_PFN_REQ_FAULT on the VMA range.
+With this change, both native shmem BOs and imported VM_PFNMAP dma-bufs keep
+VM_PFNMAP (and remap_pfn_range() sets VM_IO | VM_PFNMAP).
 
+While amdxdna_insert_pages() avoids calling amdxdna_mark_mapp_invalid() on
+VM_PFNMAP VMAs during initial mmap, amdxdna_hmm_invalidate() still marks the
+mapping invalid unconditionally whenever an MMU notifier event fires:
+
+drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_hmm_invalidate() {
+	...
+	down_write(&xdna->notifier_lock);
+	abo->mem.map_invalid =3D true;
+	mapp->invalid =3D true;
+	mmu_interval_set_seq(&mapp->notifier, cur_seq);
+	up_write(&xdna->notifier_lock);
+
+	ret =3D xdna->dev_info->ops->hmm_invalidate(abo, range->event);
+
+	if (range->event =3D=3D MMU_NOTIFY_UNMAP) {
+		down_write(&xdna->notifier_lock);
+		mapp->unmapped =3D true;
+		up_write(&xdna->notifier_lock);
+	}
+	...
+}
+
+If any non-unmap MMU notifier event occurs on the range (for example, writi=
+ng
+4 to /proc/<pid>/clear_refs, pagemap_scan, or mprotect()), or if a command
+submission runs concurrently while MMU_NOTIFY_UNMAP is in progress before
+mapp->unmapped is set, aie2_cmd_submit() sees abo->mem.map_invalid and calls
+aie2_populate_range() -> hmm_range_fault_unlocked_timeout().
+
+In mm/hmm.c, hmm_vma_walk_test() rejects VM_IO | VM_PFNMAP VMAs when fault =
+is
+requested:
+
+mm/hmm.c:hmm_vma_walk_test() {
+	...
+	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
+	    vma->vm_flags & VM_READ)
+		return 0;
+	...
+	if (hmm_range_need_fault(hmm_vma_walk,
+				 range->hmm_pfns +
+					 ((start - range->start) >> PAGE_SHIFT),
+				 (end - start) >> PAGE_SHIFT, 0))
+		return -EFAULT;
+	...
+}
+
+Because aie2_populate_range() aborts on error without clearing mapp->invalid
+or abo->mem.map_invalid, wouldn't all subsequent command submissions using
+this BO fail permanently with -EFAULT?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103190821.2019=
+203-1-lizhi.hou@amd.com?part=3D1
