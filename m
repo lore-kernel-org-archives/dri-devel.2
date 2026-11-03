@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40D8606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705B9606A332
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERNW35KG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Asgd9/r9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C37F10F8E0;
-	Tue,  3 Nov 2026 22:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F46110F8F6;
+	Tue,  3 Nov 2026 22:42:45 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C3310F8A8;
- Tue,  3 Nov 2026 22:42:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9AC810F8BE;
+ Tue,  3 Nov 2026 22:42:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 937FC41AE6;
- Tue,  3 Nov 2026 22:42:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BBC1F0093A;
- Tue,  3 Nov 2026 22:42:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BF8AD4330D;
+ Tue,  3 Nov 2026 22:42:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85861F0093A;
+ Tue,  3 Nov 2026 22:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793745756;
- bh=JDOFP0lBfi8GeV67m9asGivOpxWxqXgZkhYHVbXSUTg=;
+ s=k20260515; t=1793745750;
+ bh=fvn4+ks21SRxa0VzR/PJnePhk9H00+N90WHNmNwJuzg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ERNW35KGsHiVym8/H0/iOko9whJ/J9EGYfN9IFD9bgM6VLE8FcAbzfOHRFKVTiHno
- nWEj6ogTZeJ6tXM22S+qUWMJlKfSNMa+RMaQzfsPCkjCLYO0m7vb8HpS49DhiwaA70
- 8fOb2gTU6o09dPsLWNfOfsaZE48wJuMt1eMdJceMb2OCb0wgvs4ib8efRxrl0PJKcG
- FSoL8QhaXx9Gzo23mcNC+Jb4mPm+j0jEeh2S3NE45/gxa92u/3btja60PVh4Ip3+4c
- z/q7BPLvalkzh1p10d3J7TBrFjbmg78n6EmoHscHVndp8xxBLop7ZnjAb6SNukDls2
- TDwj1S6egLjDw==
+ b=Asgd9/r90J3R8FJI73oD19Ga27Kg5F5In/D4tHRbxAIur5Bar5CAJ9TEBXUCA0eBI
+ OpGmg48RJComZWu5vg+M+wvcpwqVHSdcdKcbtxcrCTEwjxMNLJUTCQ5artxEFQG/Q2
+ shor6Q8/o2M09k0GBA/gxIQiPHu6yQqRk99/fGT2ZMEw6UsyFnGIU9K+E/yq4FlR8s
+ ChNfOfLiYYkQEhWExaUALO/+8lUBVpIgtQdd9MVfBKrtMBTrPjIsN4nJqxiDQMKboZ
+ QIETuRfN8axk4ULDKl5czLgT0aj/JTumQRhtSIgBtR9z7ZAxP4PxSZ1N/yBDLhRgeL
+ 4muKao+gO11Sg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:12 -0600
-Subject: [PATCH v11 11/12] drm/bridge: add PS8622 connector luminance support
+Date: Tue, 03 Nov 2026 16:42:09 -0600
+Subject: [PATCH v11 08/12] drm/bridge_connector: add luminance support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-8-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -73,154 +73,112 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose PS8622 brightness through bridge luminance operations when
-DRM_LUMINANCE is enabled. Keep registering the backlight class device
-otherwise.
+Discover the last bridge in a chain that owns brightness control, attach
+its relative luminance range to the connector, and forward atomic
+luminance updates to it.
+
+Do not infer panel luminance support from a terminal panel bridge. Panels
+still have direct consumers, so their connector integration must remain
+explicit.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Track internal PWM mode explicitly so it is still configured with
-   LUMINANCE (Sashiko)
- * Don't access I2C while the bridge is powered down (Sashiko)
- * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
- * Program the committed luminance in pre_enable
+ * Drop .disable_luminance, it clobbered the bridge's saved level; the
+   bridge disable path already turns the panel off
+ * Fix checkpatch line length
+v10:
+ * Split bridge connector integration into a separate patch
+ * Do not special-case panels in the generic bridge connector
 ---
- drivers/gpu/drm/bridge/parade-ps8622.c | 66 +++++++++++++++++++++++++++-------
- 1 file changed, 53 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 39 ++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
-index 3a2ec482037df..c88bd7a97d4a4 100644
---- a/drivers/gpu/drm/bridge/parade-ps8622.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8622.c
-@@ -45,6 +45,8 @@ struct ps8622_bridge {
- 	struct drm_bridge *panel_bridge;
- 	struct regulator *v12;
- 	struct backlight_device *bl;
-+	u8 brightness;
-+	bool internal_pwm;
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 2202e60444449..18927fed83732 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -125,6 +125,13 @@ struct drm_bridge_connector {
+ 	 */
+ 	struct drm_bridge *bridge_hdmi_cec;
  
- 	struct gpio_desc *gpio_slp;
- 	struct gpio_desc *gpio_rst;
-@@ -268,7 +270,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
- 		goto error;
- 
- 
--	if (ps8622->bl) {
-+	if (ps8622->internal_pwm) {
- 		/* DPCD720, internal PWM */
- 		err = ps8622_set(cl, 0x01, 0xa5, 0xa0);
- 		if (err)
-@@ -276,7 +278,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
- 
- 		/* FFh for 100% brightness, 0h for 0% brightness */
- 		err = ps8622_set(cl, 0x01, 0xa7,
--				ps8622->bl->props.brightness);
-+				ps8622->brightness);
- 		if (err)
- 			goto error;
- 	} else {
-@@ -324,6 +326,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
- 	int ret, brightness = backlight_get_brightness(bl);
- 
-+	ps8622->brightness = brightness;
++	/**
++	 * @bridge_luminance:
++	 *
++	 * The last bridge in the chain that controls panel luminance.
++	 */
++	struct drm_bridge *bridge_luminance;
 +
- 	if (!ps8622->enabled)
- 		return -EINVAL;
- 
-@@ -332,6 +336,20 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	return ret;
+ 	/**
+ 	 * @hdmi_funcs:
+ 	 *
+@@ -421,6 +428,17 @@ static int drm_bridge_connector_atomic_check(struct drm_connector *connector,
+ 	return 0;
  }
  
-+static void ps8622_set_luminance(struct drm_bridge *bridge,
-+				 unsigned int luminance)
++static void
++drm_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
 +{
-+	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(conn_state->connector);
++	struct drm_bridge *bridge = bridge_connector->bridge_luminance;
 +
-+	ps8622->brightness = luminance;
-+
-+	/* Applied by ps8622_send_config() on the next pre_enable */
-+	if (!ps8622->enabled)
-+		return;
-+
-+	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
++	if (bridge)
++		bridge->funcs->set_luminance(bridge, conn_state->luminance);
 +}
 +
- static const struct backlight_ops ps8622_backlight_ops = {
- 	.update_status	= ps8622_backlight_update,
+ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs = {
+ 	.get_modes = drm_bridge_connector_get_modes,
+ 	.detect_ctx = drm_bridge_connector_detect_ctx,
+@@ -429,6 +447,7 @@ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs
+ 	.enable_hpd = drm_bridge_connector_enable_hpd,
+ 	.disable_hpd = drm_bridge_connector_disable_hpd,
+ 	.atomic_check = drm_bridge_connector_atomic_check,
++	.set_luminance = drm_bridge_connector_set_luminance,
  };
-@@ -340,11 +358,22 @@ static void ps8622_pre_enable(struct drm_bridge *bridge,
- 			      struct drm_atomic_commit *commit)
- {
- 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
-+	struct drm_connector *connector;
- 	int ret;
  
- 	if (ps8622->enabled)
- 		return;
+ static enum drm_mode_status
+@@ -835,6 +854,7 @@ static void drm_bridge_connector_put_bridges(struct drm_device *dev, void *data)
+ 	drm_bridge_put(bridge_connector->bridge_hdmi_audio);
+ 	drm_bridge_put(bridge_connector->bridge_dp_audio);
+ 	drm_bridge_put(bridge_connector->bridge_hdmi_cec);
++	drm_bridge_put(bridge_connector->bridge_luminance);
+ }
  
-+	/* Program the committed luminance from ps8622_send_config() */
-+	connector = drm_atomic_get_new_connector_for_encoder(commit, bridge->encoder);
-+	if (connector && connector->luminance_property) {
-+		const struct drm_connector_state *conn_state =
-+			drm_atomic_get_new_connector_state(commit, connector);
+ /**
+@@ -918,6 +938,13 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			drm_bridge_put(bridge_connector->bridge_detect);
+ 			bridge_connector->bridge_detect = drm_bridge_get(bridge);
+ 		}
++		if (bridge->ops & DRM_BRIDGE_OP_LUMINANCE) {
++			if (!bridge->funcs->set_luminance)
++				return ERR_PTR(-EINVAL);
 +
-+		if (conn_state)
-+			ps8622->brightness = conn_state->luminance;
++			drm_bridge_put(bridge_connector->bridge_luminance);
++			bridge_connector->bridge_luminance = drm_bridge_get(bridge);
++		}
+ 		if (bridge->ops & DRM_BRIDGE_OP_HDMI) {
+ 			if (bridge_connector->bridge_hdmi)
+ 				return ERR_PTR(-EBUSY);
+@@ -1144,6 +1171,18 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	if (panel_bridge)
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
+ 
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) &&
++	    bridge_connector->bridge_luminance &&
++	    !connector->luminance_property) {
++		struct drm_bridge *bridge = bridge_connector->bridge_luminance;
++
++		ret = drm_connector_attach_luminance_property(connector, 0,
++							      bridge->luminance_max,
++							      bridge->luminance);
++		if (ret)
++			return ERR_PTR(ret);
 +	}
 +
- 	gpiod_set_value(ps8622->gpio_rst, 0);
- 
- 	if (ps8622->v12) {
-@@ -438,6 +467,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
- 	.atomic_disable = ps8622_disable,
- 	.atomic_post_disable = ps8622_post_disable,
- 	.attach = ps8622_attach,
-+	.set_luminance = ps8622_set_luminance,
- };
- 
- static const struct of_device_id ps8622_devices[] = {
-@@ -502,18 +532,28 @@ static int ps8622_probe(struct i2c_client *client)
- 		ps8622->lane_count = ps8622->max_lane_count;
- 	}
- 
--	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
--		ps8622->bl = backlight_device_register("ps8622-backlight",
--				dev, ps8622, &ps8622_backlight_ops,
--				NULL);
--		if (IS_ERR(ps8622->bl)) {
--			DRM_ERROR("failed to register backlight\n");
--			ret = PTR_ERR(ps8622->bl);
--			ps8622->bl = NULL;
--			return ret;
-+	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
-+	ps8622->internal_pwm = !of_property_read_bool(dev->of_node,
-+						      "use-external-pwm");
-+	if (ps8622->internal_pwm) {
-+		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
-+			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bridge.luminance = ps8622->brightness;
-+		} else {
-+			ps8622->bl = backlight_device_register("ps8622-backlight",
-+							       dev, ps8622,
-+							       &ps8622_backlight_ops,
-+							       NULL);
-+			if (IS_ERR(ps8622->bl)) {
-+				DRM_ERROR("failed to register backlight\n");
-+				ret = PTR_ERR(ps8622->bl);
-+				ps8622->bl = NULL;
-+				return ret;
-+			}
-+			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bl->props.brightness = ps8622->brightness;
- 		}
--		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
--		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
- 	}
- 
- 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
+ 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
+ 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
+ 		drm_connector_attach_content_protection_property(connector, true);
 
 -- 
 2.53.0
