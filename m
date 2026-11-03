@@ -2,49 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26156606A330
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:39:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C751606D801
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nY8SYePo
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iftOeaxG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC8410E828;
-	Tue,  3 Nov 2026 22:39:51 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 164B810E828
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:39:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=YhUmBPOp0GBHjBhGSwhDdx5NqcNjkjGI8oHDjK3Q308=; b=nY8SYePoicizj/jHg7XYL8Mn5y
- 89+t36FA99T+XZOPMhkxJpXuTEB13wWAosEXYtbnUL1/npVFl0rpVGGlFwjGviA5DiNQzJuiWzkw9
- RI9l46qtoETA0kRiAxUwXB4+cIXI3IIilrXPxZHZPCzQAORctl2bALKKGmliaPiTno21jfbnsc7S4
- S5s6jJZJkpPGexawT1UhIA3nSgmA+Zb5L1fFSLVKvtwqL/NOTWUfbp8Gm+iOwaB7ucAA/ZFNeYdau
- uDoiKVN7h/ZC55pcItQi6KMhsScyBKDZWect39tOd+U7xhKIwvuGz143SD+HbHsiGw4RhnXGcA35m
- z/qVMn6A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
-Date: Tue, 03 Nov 2026 23:39:28 +0100
-Message-ID: <6777074.j6PcuT4dK6@diego>
-In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
-References: <20261101082307.151957-1-gahing@gahingwoo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C63A10F36E;
+	Tue,  3 Nov 2026 22:42:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F6110E9CF;
+ Tue,  3 Nov 2026 22:42:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4483B60416;
+ Tue,  3 Nov 2026 22:42:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A971F00A02;
+ Tue,  3 Nov 2026 22:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793745739;
+ bh=qVqLMAowWNNhyYo56lksEAIwVw7s3n3V0O+bkJsZopw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=iftOeaxGfx9EBOch2JcelLX5nfcthifD4mkbDaBsSwmWLBT/s7L37c3nX/QzFFe6r
+ qC4K7QbarNyv55yrvsV/8cQ7U1LyDD1ifRlTd/ETfHEF6xYGu3Qwo0DxD7LcPFwpu+
+ PKzvIkHU98UVMtON+Cy9Ut/H4mquUjLPx3x58fJrfIySPPiIkgS02A6DZ+dZ8Lzv6Y
+ lHhuyqz2Zu3LrIR+PUphpC6Sw/8rOWan5Z+K23HsfRdkMvP8iDK6I76jHda42rdmfA
+ F5oWG7NeG6eKljVQHqUNrYo4SytuyJxj7+3t211LL8Ub/+lSRPn6yOy7qgCBox7XZv
+ KZoiaUa9hj8VA==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Date: Tue, 03 Nov 2026 16:42:03 -0600
+Subject: [PATCH v11 02/12] drm/amd/display: Pass up errors reading actual
+ brightness
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-superm1-backlight-property-v11-2-00cce7b2ba22@kernel.org>
+References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Mario Limonciello <superm1@kernel.org>, 
+ Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,23 +64,112 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ulf,
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-Am Sonntag, 1. November 2026, 09:22:52 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> Ulf offered to take 7, 9 and 10.
+[Why]
+If the DC API fails to return actual brightness when backlight control
+API requests it, then the wrong value may be returned.
 
-I've now looked at the patches in question and they do look good to go.
-So it would be nice, if you could pick those up, when you have a minute :-)
+[How]
+Change return type of amdgpu_dm_backlight_get_level() to an integer
+and pass an error code up to the caller.
 
-Thanks a lot
-Heiko
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 13 +++++++++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h |  2 +-
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c  |  4 ++--
+ 3 files changed, 12 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index cb74b00723fda..0f664c658a127 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -438,7 +438,7 @@ int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+ EXPORT_IF_KUNIT(amdgpu_dm_backlight_update_status);
+ 
+ STATIC_IFN_KUNIT
+-u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
++int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
+ {
+ 	int ret;
+ 	struct amdgpu_dm_backlight_caps caps;
+@@ -451,14 +451,14 @@ u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
+ 		u32 avg, peak;
+ 
+ 		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
+-			return dm->brightness[bl_idx];
++			return -EINVAL;
+ 		return convert_brightness_to_user(&caps, avg);
+ 	}
+ 
+ 	ret = dc_link_get_backlight_level(link);
+ 
+ 	if (ret == DC_ERROR_UNEXPECTED)
+-		return dm->brightness[bl_idx];
++		return -EINVAL;
+ 
+ 	return convert_brightness_to_user(&caps, ret);
+ }
+@@ -469,8 +469,13 @@ int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+ {
+ 	struct amdgpu_display_manager *dm = bl_get_data(bd);
+ 	int i = amdgpu_dm_backlight_get_device_index(dm, bd);
++	int ret;
++
++	ret = amdgpu_dm_backlight_get_level(dm, i);
++	if (ret < 0)
++		return dm->brightness[i];
+ 
+-	return amdgpu_dm_backlight_get_level(dm, i);
++	return ret;
+ }
+ EXPORT_IF_KUNIT(amdgpu_dm_backlight_get_brightness);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 9ad888d3ae7b2..891749322191c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -57,7 +57,7 @@ void amdgpu_dm_validate_backlight_caps(struct amdgpu_display_manager *dm, int bl
+ struct dc_stream_state *dm_find_stream_with_link(struct amdgpu_display_manager *dm,
+ 						 struct dc_link *link);
+ int amdgpu_dm_backlight_update_status(struct backlight_device *bd);
+-u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
++int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
+ int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd);
+ ssize_t panel_power_savings_show(struct device *device,
+ 				 struct device_attribute *attr,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index 28dda5324dfa7..8fc1c2f997688 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -382,7 +382,7 @@ static void dm_test_backlight_get_level_pwm_error(struct kunit *test)
+ 	dm->brightness[0] = 4321;
+ 	dm->backlight_link[0] = link;
+ 
+-	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 4321U);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
+ }
+ 
+ /**
+@@ -424,7 +424,7 @@ static void dm_test_backlight_get_level_aux_error(struct kunit *test)
+ 	caps->caps_valid = true;
+ 	caps->aux_support = true;
+ 
+-	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 6789U);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
+ }
+ 
+ /**
+
+-- 
+2.53.0
 
