@@ -2,79 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35FE606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B04606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:51:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXvJZBT2
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e8agXrda
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A5310F849;
-	Tue,  3 Nov 2026 22:48:46 +0000 (UTC)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
- [209.85.222.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C0B10F8C8
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:48:40 +0000 (UTC)
-Received: by mail-ua1-f51.google.com with SMTP id
- a1e0cc1a2514c-98febe968deso70130241.0
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 14:48:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793746119; x=1794350919; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=VpueH27K6JlaQKxGbcQGMz0cimxkNE7G18UyqQoWER4=;
- b=DXvJZBT2WK61pjrrx6BnOvB65rzNu8lLiarQdopQicm7AiITteX/wfqkpao/UVQCvs
- N2FEJ9E16y8EHYvSrCaXYERA/buSOLLoA89ZM+erWRxpvreVfThpQz+0qGIpOVkxcrhv
- oibBghFTrxuNKxHVSFvMICLON4J0iUkEYS9HC9MkjZI0eo++1haiCq2JwUgkDd9tXHjN
- pJp7q8RPjlatecCsROvcGF4+QH8FIgCETvncckTBBmEoJlJpsN6Vi3dbK8Lze1lp+NA8
- peqgmpNL5aZzY/Mxgk4xbJ+/uFPMglcqHKN3181Mra0W/xl3/QnSlAQBVITfaIypkKg3
- X9Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793746119; x=1794350919;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=VpueH27K6JlaQKxGbcQGMz0cimxkNE7G18UyqQoWER4=;
- b=egL6YUMuWwPRAZbrBLc6Lp67QTt7JFUQQl9oQiJ3Zq96LGV4fleNQXB4wqZ0oxZiYR
- ZRwSr3cuqpLYqyZQGBu3ygn7dyOUM1bvY1TF2FINSiO4HJoO4ysQLiD2yLr3nD80nxYl
- /vkzp6tRdm+CJOLQDsZbC4pWpzT4b0dC5NsJ+gwQMwyJtVn4BK1GarJNLHIOvfu7BumG
- 9iwUrfpFf3sjF8x61LRBSmDb5Ikkp2czF/t8O74U5ZtdPisKaoD0AiBCI9xCQBM5Y4+4
- QAkTb4ha4ukGdRKb1a6uko26OblJ/inGSlmTrne6YX/41rJpTTc2xVW3oydQPmvnkZGA
- GY0g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwx6l9TKhywDDDege+RwO60p4Fp1GzEA5T2Lvcj1JZcfc/JPTF+42sjqD5f73xtxNwGJfV/XxbSLlw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+EWUAV0qEYHknLl9/v4ax/KIhVBjdHeQJ7VSLfJ2UKPmTtvzZm
- POTm+PmUTB1JRL0siAfpfRJevCrnBA6Zg+L1VE1jb/VN9J7FJzByayMp
-X-Gm-Gg: AYBFou0xjmGklw2dBMTRgHuFoSmI9l/QV5FCTpN1/89miAJ+HDCO37JBufGOYnjt9lI
- YftXqLFXqMWfnzhzn02GfB4KU8Tdg9medrECwh2UY4AyWRcDSO4tgevUqJd0jV8AfTQWms1Qg69
- L1S7zbo4BGIm+TLgJtfch7b/MzdbjqLPIG1U4enUvIXAT3493dawbFOtrDkSnWXLQofPxVYbfhu
- TrWjOEHGldnuopLSRTsfzXUn5uygj5+60HV6FsTuNid7k9AmHLCYPLBD61HRi4FVCDSISPEsUFx
- APFWLc9ADxseVX4YT2ukP0kJ/6CEnXMZ249miXm8ctYbYt6CAju0Lal5afa0fml3UB2/8/EUsSo
- pznFP0sYSUACatbalvLHzUgzPhGwj8jw3tKiJ3pcNuTKwsTJymO43SNktpAJ0Jahd12xr3Brwm2
- U5Qa6biWWLVT+v7FC1uAF6hAvcZii6SJg0fAMeZURa8BycYXUMhVQACOeWauMuVqlhg0HOMbqH2
- znCRcIG2P1tryAngwqwmJ45ChSg3o2p1HxGKjdBbTPELINz+FIGT8Vs0jHEOoKf5VA0t+1RJ7qH
- CagERJYPgmvgZOB9uTiW1w4xKq8yQDj0t3RDJS2M4MfPf4F4A+fhBsMj2r4CbNWf2cG+r7e/Khu
- JnRLWk5Py8BeAC9c1P/zuHdY=
-X-Received: by 2002:a05:6102:160e:b0:7cb:bbcc:e4e with SMTP id
- ada2fe7eead31-7d07271116bmr5937597137.23.1793746118899; 
- Tue, 03 Nov 2026 14:48:38 -0800 (PST)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net
- ([2804:1b3:a802:6062:72c1:c30a:87cd:60c1])
- by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-998d69af4fcsm401286241.2.2026.11.03.14.48.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 14:48:37 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: p.zabel@pengutronix.de
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, luca.ceresoli@bootlin.com,
- Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH] dt-bindings: display: imx: Document fsl,pcr
-Date: Tue,  3 Nov 2026 19:48:30 -0300
-Message-ID: <20261103224830.377009-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5686B10F8D3;
+	Tue,  3 Nov 2026 22:51:24 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8F410F8C8
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=o7HXQPomhFEfrYFjVcsrdsok+Tx5KNS+/so3Un5/lrc=; b=e8agXrdauKRx9EGxkmib/g9VuU
+ mDkazXkDbRhtV8JTfmGehKVWbki2agxMfivjwj3H4Z7DrWaQ87OgZlnjv96V405f70UM8mEHiCoEK
+ TLd4STOnPAShQ8B5UpqgNF77zT0/kgRPw/bgf1mBJTSHL5/ItZgiw07vjqZMz8ri84ErO7Sqn5uY8
+ BjeUx54xkn3O/6fjaNdEbOCVTI2mJDProM+XKVHiSN1FuQdZXYUhw8KhN0mtqJkPCyJOTIMjnsun+
+ Ct9vIUE/vopzPCY8Sep1G/z0WMU8T4JLlqhKjt5CTs/Lcr32soSSG4RSYht1Z/bG5OHaAT0LNrfFx
+ R/xopxBA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler
+ before resetting a core
+Date: Tue, 03 Nov 2026 23:50:58 +0100
+Message-ID: <3311623.TQGk6oTFT5@diego>
+In-Reply-To: <20261101082307.151957-4-gahing@gahingwoo.com>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-4-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,47 +59,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some i.MX25 and i.MX27 devicetree display nodes contain fsl,pcr, but
-this property is not documented. As a result, dt-core.yaml reports
-its raw bytes as an invalid property:
+Am Sonntag, 1. November 2026, 09:22:55 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> drm_sched_stop() does not wait for a threaded handler that is already
+> running. Call synchronize_irq() after it, outside job_lock, which the
+> handler takes.
+>=20
+> Before the sync, mask the block's interrupt and clear its raw status, so
+> that an active core cannot signal a completion after it. Do that under
+> job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
+> and only when pm_runtime_get_if_active() returns a positive count: the
+> reset holds no runtime PM reference, and with the domain down a register
+> access takes an async SError.
+>=20
+> Igor Paunovic's induced-reset runs on RK3588, including a two-task job th=
+at
+> puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
+> does not show the race is closed".
+>=20
+> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
+=2Ecom/
+> Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaX=
+Q8HoMtHD5U1g@mail.gmail.com/
+> Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail=
+=2Ecom/
+> Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmai=
+l.com/
+> Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gma=
+il.com/
+> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
+nduced reset, JOB_TIMEOUT_MS=3D2
+> ---
+>  drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
+>  1 file changed, 68 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 03e5f094f60b..5b2abf40b618 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
+hed_job *bad)
+>  	drm_sched_stop(&core->sched, bad);
+> =20
+>  	/*
+> -	 * Remaining interrupts have been handled, but we might still have
+> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
+> -	 * manually calling pm_runtime_put_noidle().
 
-imx27-phytec-phycard-s-rdk.dtb: display: fsl,pcr: b'\xf0\xc8\x80\x80' is
-not of type 'object', 'integer', 'array', 'boolean', 'null'
+Also, why are you changing the original comment here?
+The new wording below, does say essentially the same and you're changing
+it again the next patch.
 
-Document fsl,pcr.
+[...]
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-With this change applied, imx_v4_v5_defconfig builds with zero dt-schema
-warnings.
+> +	/*
+> +	 * No handler is running now, but we might still have stuck jobs. Let's
+> +	 * make sure the PM counters stay balanced by manually calling
+> +	 * pm_runtime_put_noidle().
+>  	 */
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+>=20
 
- .../devicetree/bindings/display/imx/fsl,imx-lcdc.yaml       | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-index 84610b5690c4..f1931436a4d8 100644
---- a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-+++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-@@ -65,6 +65,12 @@ properties:
-     description:
-       LCDC Sharp Configuration Register value.
- 
-+  fsl,pcr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      LCDC Panel Configuration Register value used in the display node
-+      referenced by the display property.
-+
- allOf:
-   - if:
-       properties:
--- 
-2.43.0
+
 
