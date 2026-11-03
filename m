@@ -2,48 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DA5606D82A
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:00:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFEF606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=XMPLHTPk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIkoJpqD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD0D10F6BF;
-	Tue,  3 Nov 2026 16:00:12 +0000 (UTC)
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
- [91.216.248.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB2B10F6BB;
- Tue,  3 Nov 2026 16:00:05 +0000 (UTC)
-Date: Tue, 3 Nov 2026 16:59:59 +0100
-X-Lima-ML-UUID: 7ceccec3-f643-43fe-95f3-253afcf97a51
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1793721603;
- bh=Jri7ocaHb216wJJskokViOaMpERnz1undiCiovG2FZU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=XMPLHTPkVdFr1ax3AJlHW4CdEwXX91dx0cr2ftnrC5z0jxPMYUILEIqrznsFLsvwA
- 2n97R9q5anUrBSo+5phqlD+OZnf8dTgOA/3/eWFSsvKZBlI5rd6yU5wUA7lGQ6erOC
- OUJmVnmODOP9k3dBc18f98Q17cSfww5+XDRaI+Jo8QYjZg1c98CiYvngUsng77OGZR
- 96311Cct9VZcxSKDdfmGlJsVrGRZqqdHmWqClJHvHSwHkYkcJIMJaybnUvxjnRU3eQ
- 71qZ7fA5BMALdaj9UZiAU5BhtVBjy901oMXr7ekTUBs0hH55fOHBCjUdxEXdGx8/EU
- 1N2+6Ncn5YogQ==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, airlied@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- ed@aicharmers.com, kenneth.feng@amd.com, linux-kernel@vger.kernel.org,
- simona@ffwll.ch
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Message-ID: <20261103165959.6e2fd6d9@kait2en-mbp15-1>
-In-Reply-To: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
- <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
- <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2358110E12E;
+	Tue,  3 Nov 2026 16:02:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4AF10E12E
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 16:02:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FDDB4061D;
+ Tue,  3 Nov 2026 16:02:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17DC01F000C1;
+ Tue,  3 Nov 2026 16:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793721729;
+ bh=1nfdoyXYnctxGNCE2Ss/rlfo9RRJiLI3UzJUYs04hMc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mIkoJpqD5rdbNJFjfKkQImVXK7sybSTfms5UJ68Ls9xhNcw3jMU2zamxiClH1CXyf
+ u6Ll8Oh5qlNz2GOZYq583Ga8OkAMmKNLGw4iBBGxK31yP6JZ6X1YmYpy2YC4hiuvEU
+ MjqnLDjx5qmBT2NG8H3Ob7cv76pTh5ndRs/RVUORW28GRmMnt3CVE7SfeW9AvqVpOc
+ nfxxcfanJRsa8wBPm3incF5VaG2ySA2HfDeIn++U/DHDcHswlFA+zGMcppsNiR8+G4
+ GFKO4Eifdg5OFdsdH4cP+EmfOYjzAuqaI75uDmKNaDpIpqKWSXZGxKjCU996dqM5Z8
+ 9ajkLnGVPwfJg==
+Message-ID: <sashiko-outbox-195688@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/3] media: i2c: ov13b10: add an I2C device ID table
+To: "Seifelden Abdelmonem" <saif.elden.hatim@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261103155313.114347-2-saif.elden.hatim@gmail.com>
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ <20261103155313.114347-2-saif.elden.hatim@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 16:02:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,20 +48,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue, 3 Nov 2026 10:14:12 -0500
-Alex Deucher <alexdeucher@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] media: i2c: ov13b10: positional initializer used in ov13b10_i2c_ids
+--
 
-> I asked around internally with the windows team about this issue and
-> was told macs needed to enable UCLK DPM later, but no one was aware of
-> any uclk dpm patching.
-Can you please elaborate about the relation between the windows team
-and Apple logicboards? The macOS kexts even set a 740mhz cap for
-particular memory chip revisions.
+commit 21e45a243d633457ccb952eaf0648a9a4b43242c
+Author: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+
+media: i2c: ov13b10: add an I2C device ID table
+
+This commit adds an I2C device ID table to the ov13b10 driver so that it
+can bind to I2C clients instantiated by name without an ACPI companion,
+such as on AMD ISP4 platforms.
+
+> diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+> index 242a958341267..d33fb70328946 100644
+> --- a/drivers/media/i2c/ov13b10.c
+> +++ b/drivers/media/i2c/ov13b10.c
+> @@ -1706,6 +1706,12 @@ static const struct acpi_device_id ov13b10_acpi_id=
+s[] =3D {
+>  MODULE_DEVICE_TABLE(acpi, ov13b10_acpi_ids);
+>  #endif
+> =20
+> +static const struct i2c_device_id ov13b10_i2c_ids[] =3D {
+> +	{ "ov13b10" },
+
+[Severity: Low]
+This isn't a bug, but should the new entry in ov13b10_i2c_ids in
+drivers/media/i2c/ov13b10.c use a named initializer ({ .name =3D "ov13b10" =
+})
+instead of a positional initializer to follow I2C subsystem conventions?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103155313.1143=
+47-1-saif.elden.hatim@gmail.com?part=3D1
