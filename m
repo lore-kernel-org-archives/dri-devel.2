@@ -2,135 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4266A606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 18:59:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218A5606A329
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:00:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LLb7A2Tx
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNZ498qP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98DA910E169;
-	Tue,  3 Nov 2026 18:59:13 +0000 (UTC)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A70310E169
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 18:59:08 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-3645f0f3fcdso7522371eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 10:59:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793732347; x=1794337147; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=J7X+N3b/Iozr8Iw7Q9vLqcq+wqZH/CWnHiKVeMbKEmo=;
- b=LLb7A2TxJojoPn026clDSOCXAzdtjdOGTo+oSytXqKuGjtWU6zMOVPrgxY9S6U+U7h
- ggHpjAlMB9Gt0pSAg7o/MllL2d8SzkuTHS/Yz+Owt6Hmz+U4gGpQlRYT1M8IrnDf1ry0
- MS0qavWX6gG8OeEMtOs/Vz0TnDLjXd0MIAE6BYyMDndjciZ2vKvh6wx5AzqbHuesd2Xp
- E+Envi7CkWQKeuUFxdwG9fgYTGKNSHIMo7+B1KNJFv1zA+1bLKlFsyHmUh69+eHw8bHL
- Ya1rks+jd55B7btjv3zkninkK56CeAnRNuUPkCdtgKfCtaK15u3+9nbRKQnMNxM49j6C
- DDcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793732347; x=1794337147;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=J7X+N3b/Iozr8Iw7Q9vLqcq+wqZH/CWnHiKVeMbKEmo=;
- b=02iRLlq1elpxhwkJBXjdUidywdiI9EPDsqplofV7yWqWyjYnRripD+nh0qN61LejOR
- AboASsTwS+biHApjW40WJk+CIjAHqPetk0Ym2q2BH6g4vrSWEpMxORJA0FDDzV2X7JZc
- x8g8j2yV+2RNJjPQlh4VQyl2YfFGbyO5y0swucCMHfjnvJHzre/epbqPhbg4VtQcnVR2
- gGuM/FTXYJfc8bGxHLz0HnETRF9sf93yfsZbfekTmfjxVjSqNQFr2iV8GZ2GktHQqHkC
- RPA36NMfU7Yhw5FLsIYPODorx7yFV2OJ710ZeQpPGm+zsrdqJR0Y8gqGGZICCCu3arqJ
- N2Bg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy1IgG2ovOHrQRo1ywsH7q/jAga8UkzeesdryirdgQl2l96CAaca1R4uY5NdRi39278cn2LRVj6edc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Oav0wNCEHWCKD1jOz2n3eT4gM6VNFbHt86hMiruWAheT8SSo8
- uCWI9lQgNrVSIjbm1nInwF80cV9h/zxDSyfuhgsNH56GDqUuO0QlvpqF
-X-Gm-Gg: AYBFou2lH0w5yofzVN/iemE3LERe/soFni0LyVOvdOGI1GwLzlMk3nMuJcvN+puqFaw
- UY87QxOcThmmcJvz7N/JknZ3YNfp8n/w0oDAS8LhBghcHOjk2NhoXLpU+Iy3jD1N9IXSoHH882E
- C++BJdzVezV4jhgxRG8VZeW0Lm96LLVhFxiN9TYLx7OE+tezcl5XAedA4LQXvdFOq5nvgqG7aK/
- ZO3VLlIJEQQJMmV9k3MKlf09iclfEgZDbJpcD7t2lE0LKHe92N0sJkS2ewuG2PBKDottrXhbG5M
- bQpriL+jgVUUUQIzU7lwVbpr7ux7Prfid57IH6/UWpzZ5GArUjkwCY6AhclS9YXY0YzGWlYqPWz
- oIYzGEhT6Q8Sl2nIwmrJNhC+F5Sn+Hl1+rKeDHHuQTVUHM3tj9Zn5vKxjA8ah2BkLamzVNizc4T
- Mw7vKaxzakebkcmLpt8U61mOum3hqCuePhD5DEfQTMBXLgtI6dtajORg4FmnYdDnjV5bgWZPCDQ
- ZT6NN8UbY6wi/R/8owrI2cr+1YmBv727WsqPWTRqOj4pwRFCNuBbuhd/0y9uo/GtheIGyzSIMP6
- Piu+zONOL+3sSzS5uutaPt5/ut21M2pLMP+8qXC9gWoOJXw/e9zVcGib8IpLbyk5oq52
-X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id
- 5a478bee46e88-36a42431768mr30787340eec.28.1793732346941; 
- Tue, 03 Nov 2026 10:59:06 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36ca39b3b7esm49159eec.28.2026.11.03.10.59.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 10:59:06 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:58:59 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>, 
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>, 
- Chanh Nguyen <chanh@os.amperecomputing.com>,
- Alistair Francis <alistair@alistair23.me>, 
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
- Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
- Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-gpio@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-input@vger.kernel.org, 
- linux-tegra@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <auou2CBiiR6zA0G0@google.com>
-References: <20261102135330.2493332-1-robh@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 984B510F78C;
+	Tue,  3 Nov 2026 19:00:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21D7F10E817;
+ Tue,  3 Nov 2026 19:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793732429; x=1825268429;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=uSbnyMu7zPfUwkMOnzRSRXvBzH7ND59gm+U4f8AT6Ts=;
+ b=SNZ498qPKKAl4TdBNAQTGzy0ckXXsZEEqDEsmPTEk6Z/Vj52Irq8xoEA
+ 7mNe+idm+mDaxoXprEV3YF0hYCpFCek1oRa4ioi6XGPsi4XSg5SdLPHX3
+ WfkNlj14PmCTHZPXvUnK+4wIpMBQnnvXtQdjjUULJA6/OmLlrBCVheMXW
+ NpO7by57k8QcSLFhYKZILJQJ1iCLEbr0aFZWBjS795qsxpHZE44sIT2On
+ D6xToIs4wipzUBy+XdPpjp+bGd5+UXt2M45KWfkAchcCfzvDEN8HAXeOn
+ o56LHkPq6Nc2rs5MMh5AFpTmohaMx1iaB4ekIrp9Rme6EiUcV1fFv7p0F Q==;
+X-CSE-ConnectionGUID: 1wYfBlMsT22+jvrzDf6m5A==
+X-CSE-MsgGUID: hSOXO9CxS2OOdbSqvup20A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2470740"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2470740"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 11:00:29 -0800
+X-CSE-ConnectionGUID: eNFCkQY/TKWLhsM53RGj4g==
+X-CSE-MsgGUID: 4fDu614yR5imfrONkh4GMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6837732"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160])
+ ([10.245.245.160])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 11:00:25 -0800
+Message-ID: <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+Date: Tue, 3 Nov 2026 19:00:24 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260711025619.2540575-29-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,34 +75,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
+On 11/07/2026 03:56, Matthew Brost wrote:
+> Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+> (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+> to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+> range, which is cheaper to walk and program than an sg list.
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/display/xylon,logicvc-display.yaml      |  2 +-
->  .../devicetree/bindings/dpll/dpll-device.yaml        |  2 +-
->  .../bindings/embedded-controller/google,cros-ec.yaml |  4 ++--
->  .../intel,ixp4xx-network-processing-engine.yaml      |  2 +-
->  Documentation/devicetree/bindings/gpio/gpio-mxs.yaml |  4 ++--
->  .../devicetree/bindings/hwmon/maxim,max31790.yaml    |  2 +-
->  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml    |  2 +-
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml         |  6 +++---
->  .../bindings/input/touchscreen/cypress,tt21000.yaml  |  2 +-
+> Whether the IOVA API can be used depends on the IOMMU mode, so the
+> decision is made once per tt at xe_ttm_tt_create() time and recorded in
+> struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+> that are not GGTT-mapped are eligible: dma-buf imports manage their own
+> mapping and GGTT bindings are programmed directly from the sg list.
+> dma_iova_try_alloc() may still fail, in which case the tt transparently
+> falls back to the sg list, which remains the default.
+> 
+> The IOVA reservation is allocated at tt creation and freed at tt
+> destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+> contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+> but keeps the reservation so the tt can be remapped without
+> re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+> IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+> case.
+> 
+> Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+> through the new xe_res_first_tt() helper, which initializes either an
+> IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+> mapping mode.
+> 
+> Cc: Carlos Santa <carlos.santa@intel.com>
+> Cc: Ryan Neph <ryanneph@google.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Assisted-by: GitHub_Copilot:claude-opus-4.8
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
 
-Thanks.
+<snip>
 
--- 
-Dmitry
+>   static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+>   {
+> +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+> +
+> +	/*
+> +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+> +	 * must already have been unlinked by xe_tt_unmap().
+> +	 */
+> +	if (xe_tt->use_iova) {
+> +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+> +
+> +		xe_assert(xe, !xe_tt->iova_linked);
+> +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+
+Do we know if this is allowed? I think there is 
+xe_bo_pci_dev_remove_all() which requires that evict_all will correctly 
+tear down iommu mappings on stuff like pci unplug and I don't think 
+tt_destroy is called in that flow? Does having the iova here cause 
+issues? Also, for VRAM flow I think there is a tt_create() via pipeline 
+gutting which will now create a new iova?
+
+Aside from that, maybe we can land 27/28 as standalone?
