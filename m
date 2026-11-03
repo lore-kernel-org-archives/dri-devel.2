@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275D1606A32D
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D89D606A32C
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gdZhwXuX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKLfmoEh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9891C10E198;
-	Tue,  3 Nov 2026 07:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A316610E785;
+	Tue,  3 Nov 2026 07:48:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 023FF10E198
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:48:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D94710E785
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:48:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F2F14125A;
- Tue,  3 Nov 2026 07:48:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A101F0093A;
- Tue,  3 Nov 2026 07:48:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 47B9042436;
+ Tue,  3 Nov 2026 07:48:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0597D1F00A1A;
+ Tue,  3 Nov 2026 07:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793692083;
- bh=TzqscQ8IDu+orc/LnT3MM4JW9Fnf/G93CRX8BQ+juoY=;
+ s=k20260515; t=1793692094;
+ bh=FkA2LuzKuvEKjsUQk3uUZA8ENCxS3OpcMYogg0d6JmA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gdZhwXuXuvD6+1dpLeYyS4tUB/nqGjZmboXqwcI0wnHCBiSNZ3FNK4yqk5IaJhekP
- uX0ofOXo6hEXjWt19EEeBGOl0zMKa2jx09jrHW8Dk7ninpLFRweKWpg3gnr3IjgtRr
- pD8qUmblPDOPayi56UJWp8h9L5CCirL6bJMmInDC+DpUCCyFpRnxRgNAuymq350+Pp
- jKbw4z5R6rj90lluemHwdAn1SlHZEbwzcQhOw0RAFBonqGvfbFYzIuIwkaerLG6dab
- HeR6RBhbHLr8/kkvev3ugEEpmJY7lXfGt9ivfiFl+0AGrgvc4x7+NajW9vk1o7j5Om
- JkdS/ntY8/tPA==
-Message-ID: <sashiko-outbox-194738@kernel.org>
+ b=gKLfmoEhBfvoBBZaVZH8shODW6w8/LN1eeIT0ekXvjg4CccmwwAmhFI+Tx51Kije4
+ M0WRXu1BJZJ+xrFZ29ZipXijzQAsgBR4sWMiB4pt+XP7sepwnG+8klju6IvaJ/WxAx
+ O6YnZlJSaGQN3tpcjRkGuRPc+RtCeAt0T/WvCQ4TTwBjPjSZeQstobSdUTxBSVKCFb
+ N6ZFPKNRUJ4DZ/PAxMcLH4AxiuGIU2UPXBlZcolSFOEKr8BvHAQWyUq7YBBsXbh48Q
+ xPTmJKnLDuFpqAH0+sz+s59mkEcCompsUGUMn/dQ1PzwFuZJhUVnSBD3IL+fmx2wQZ
+ HFiLYZiN2RGnQ==
+Message-ID: <sashiko-outbox-194739@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2 08/13] Documentation: media: document EDID_PRESENT cap
- and flag.
+Subject: Re: [PATCHv2 12/13] media: cec: core: implement
+ CEC_EVENT_FL_STATE_EDID_PRESENT
 To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <15ac30e0ab50507dec1dffd0e189887b8b9f5b09.1793691124.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <897c6071fbdca71dbb446b03e32c0e6af219ecf0.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
- <15ac30e0ab50507dec1dffd0e189887b8b9f5b09.1793691124.git.hverkuil+cisco@kernel.org>
+ <897c6071fbdca71dbb446b03e32c0e6af219ecf0.1793691124.git.hverkuil+cisco@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:48:02 +0000
+Date: Tue, 03 Nov 2026 07:48:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +61,90 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: cec: docs reference undefined EDID_PRESENT uAPI macros
+- [High] media: cec: undeclared and unset EDID_PRESENT flags break build
 --
 
-commit f17e523f5d883fb22430ec312846ab21144fc8d7
+commit 4a28932b9583376e3239ca1f0078c8d04cbe00a1
 Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-Documentation: media: document EDID_PRESENT cap and flag.
+media: cec: core: implement CEC_EVENT_FL_STATE_EDID_PRESENT
 
-This commit adds documentation for the CEC_CAP_HAS_EDID_PRESENT capability
-and the CEC_LOG_ADDRS_FL_EDID_PRESENT flag to the CEC uAPI documentation.
+This commit checks for CEC_LOG_ADDRS_FL_EDID_PRESENT in
+adap->log_addrs.flags and sets CEC_EVENT_FL_STATE_EDID_PRESENT on
+CEC_EVENT_STATE_CHANGE events in cec_post_state_event() and cec_open().
 
-> diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rs=
-t b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-> index 1d5248979a6da..abd62ac64541b 100644
-> --- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-> +++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-> @@ -143,6 +143,15 @@ returns the information to the application. The ioct=
-l never fails.
->        - 0x00000200
->        - If this capability is set, then
->          :ref:`CEC_MSG_FL_REPLY_VENDOR_ID <cec-msg-flags>` can be used.
-> +    * .. _`CEC-CAP-HAS-EDID-PRESENT`:
-> +
-> +      - ``CEC_CAP_HAS_EDID_PRESENT``
-> +      - 0x00000400
-> +      - If this capability is set, then
-> +        :ref:`CEC_LOG_ADDRS_FL_EDID_PRESENT <cec-log-addrs-flags>` is va=
-lid.
-> +	This makes it possible to tell apart the case where the Physical Address
-> +	is f.f.f.f because no EDID is present, and the case where it is f.f.f.f
-> +	because the EDID does not provide a valid Physical Address.
+> diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/c=
+ec-adap.c
+> index ee8a200b9803f..c02d036ee221e 100644
+> --- a/drivers/media/cec/core/cec-adap.c
+> +++ b/drivers/media/cec/core/cec-adap.c
+> @@ -323,6 +323,8 @@ static void cec_post_state_event(struct cec_adapter *=
+adap)
+>  	ev.state_change.log_addr_mask =3D adap->log_addrs.log_addr_mask;
+>  	ev.state_change.have_conn_info =3D
+>  		adap->conn_info.type !=3D CEC_CONNECTOR_TYPE_NO_CONNECTOR;
+> +	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
+> +		ev.flags |=3D CEC_EVENT_FL_STATE_EDID_PRESENT;
+>  	cec_queue_event(adap, &ev);
+>  }
 > =20
->  Return Value
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-add=
-rs.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-> index 8397bf5737988..2088793b1506c 100644
-> --- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-> +++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-> @@ -192,6 +192,15 @@ logical address types are already defined will retur=
-n with error ``EBUSY``.
->        - If this flag is set, then the CEC device failed to claim a free =
-logical
->          address and is in the unconfigured state. This can never happen =
-if
->  	``CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK`` was set as well.
-> +    * .. _`CEC-LOG-ADDRS-FL-EDID-PRESENT`:
-> +
-> +      - ``CEC_LOG_ADDRS_FL_EDID_PRESENT``
-> +      - 16
-> +      - If this flag is set, then an EDID is present. This helps tell ap=
-art the
-> +        case where the Physical Address is f.f.f.f because no EDID is pr=
-esent,
-> +	and the case where it is f.f.f.f because the EDID does not provide a
-> +	valid Physical Address. This flag can only be used if
-> +	``CEC_CAP_HAS_EDID_PRESENT`` is set in the adapter capabilities.
+> diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/ce=
+c-api.c
+> index a491d7fc8a71a..a2ceea5522d46 100644
+> --- a/drivers/media/cec/core/cec-api.c
+> +++ b/drivers/media/cec/core/cec-api.c
+> @@ -559,10 +559,7 @@ static int cec_open(struct inode *inode, struct file=
+ *filp)
+>  	 * Initial events that are automatically sent when the cec device is
+>  	 * opened.
+>  	 */
+> -	struct cec_event ev =3D {
+> -		.event =3D CEC_EVENT_STATE_CHANGE,
+> -		.flags =3D CEC_EVENT_FL_INITIAL_STATE,
+> -	};
+> +	struct cec_event ev =3D {};
+>  	unsigned int i;
+>  	int err;
+> =20
+> @@ -588,12 +585,17 @@ static int cec_open(struct inode *inode, struct fil=
+e *filp)
+>  	filp->private_data =3D fh;
+> =20
+>  	/* Queue up initial state events */
+> +	ev.event =3D CEC_EVENT_STATE_CHANGE;
+>  	ev.state_change.phys_addr =3D adap->phys_addr;
+>  	ev.state_change.log_addr_mask =3D adap->log_addrs.log_addr_mask;
+>  	ev.state_change.have_conn_info =3D
+>  		adap->conn_info.type !=3D CEC_CONNECTOR_TYPE_NO_CONNECTOR;
+> +	ev.flags =3D CEC_EVENT_FL_INITIAL_STATE;
+> +	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
+> +		ev.flags |=3D CEC_EVENT_FL_STATE_EDID_PRESENT;
 
-[Severity: Medium]
-Are the corresponding uAPI definitions and kernel implementation for
-CEC_CAP_HAS_EDID_PRESENT and CEC_LOG_ADDRS_FL_EDID_PRESENT missing from the
-tree?
+[Severity: High]
+Are the header definitions and flag updates for
+CEC_LOG_ADDRS_FL_EDID_PRESENT and CEC_EVENT_FL_STATE_EDID_PRESENT missing
+from this patch?
 
-In include/uapi/linux/cec.h, the capability definitions currently stop at
-CEC_CAP_REPLY_VENDOR_ID:
+In both cec_post_state_event() in drivers/media/cec/core/cec-adap.c and
+cec_open() in drivers/media/cec/core/cec-api.c, the build fails with
+undeclared identifier errors because neither CEC_LOG_ADDRS_FL_EDID_PRESENT
+nor CEC_EVENT_FL_STATE_EDID_PRESENT is defined in include/uapi/linux/cec.h:
 
-    /* CEC_ADAP_G_CONNECTOR_INFO is available */
-    #define CEC_CAP_CONNECTOR_INFO	(1 << 8)
-    /* CEC_MSG_FL_REPLY_VENDOR_ID is available */
-    #define CEC_CAP_REPLY_VENDOR_ID	(1 << 9)
+#define CEC_EVENT_FL_INITIAL_STATE	(1 << 0)
+#define CEC_EVENT_FL_DROPPED_EVENTS	(1 << 1)
 
-And the struct cec_log_addrs flag definitions stop at
-CEC_LOG_ADDRS_FL_CONFIG_FAILED:
+In addition, nothing in the tree sets CEC_LOG_ADDRS_FL_EDID_PRESENT in
+adap->log_addrs.flags, and cec_adap_s_log_addrs() in
+drivers/media/cec/core/cec-api.c strips all other flags before
+__cec_s_log_addrs() updates adap->log_addrs:
 
-    /* CDC-Only device: supports only CDC messages */
-    #define CEC_LOG_ADDRS_FL_CDC_ONLY		(1 << 2)
-    /* Configuration failed */
-    #define CEC_LOG_ADDRS_FL_CONFIG_FAILED		(1 << 3)
+	log_addrs.flags &=3D CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK |
+			   CEC_LOG_ADDRS_FL_ALLOW_RC_PASSTHRU |
+			   CEC_LOG_ADDRS_FL_CDC_ONLY;
 
-Neither symbol appears to be defined in include/uapi/linux/cec.h or handled
-anywhere in drivers/media/cec/ (where cec-api.c still masks log_addrs.flags
-to CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK | CEC_LOG_ADDRS_FL_ALLOW_RC_PASSTH=
-RU
-| CEC_LOG_ADDRS_FL_CDC_ONLY). Because
-Documentation/userspace-api/media/cec/cec-header.rst also parses
-include/uapi/linux/cec.h to generate cross-references, the generated header
-documentation is out of sync with these ioctl pages.
-
-Also, in Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst,
-should the description clarify whether CEC_LOG_ADDRS_FL_EDID_PRESENT is a
-read-only flag set by the driver or accepted by CEC_ADAP_S_LOG_ADDRS?
+Should include/uapi/linux/cec.h define these flags, and should the CEC core
+set or preserve CEC_LOG_ADDRS_FL_EDID_PRESENT when EDID is present?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/15ac30e0ab50507dec1=
-dffd0e189887b8b9f5b09.1793691124.git.hverkuil+cisco@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/897c6071fbdca71dbb4=
+46b03e32c0e6af219ecf0.1793691124.git.hverkuil+cisco@kernel.org?part=3D1
