@@ -2,49 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C463606A337
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:00:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712FA606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BUdINLj2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF5210F401;
-	Tue,  3 Nov 2026 08:00:26 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C6B10F40B;
- Tue,  3 Nov 2026 08:00:24 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowACXaZqVlOlqxiw6AA--.63029S2;
- Tue, 03 Nov 2026 16:00:21 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com
-Cc: tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/selftests: Balance batch VMA pins in the preemption
- gang test
-Date: Tue,  3 Nov 2026 08:00:30 +0000
-Message-Id: <20261103080030.1124149-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF60910F400;
+	Tue,  3 Nov 2026 08:01:49 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE3910F400
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 08:01:43 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A6F6227;
+ Tue,  3 Nov 2026 08:59:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1793692765;
+ bh=xVwspL7fT2CPxcmsQH28unTSm93hJ2OW9ltA6B5/iMg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BUdINLj2z5kq+yM3cem9o6QkP+4IbabN8MIESXyc786eXW+i7L6cB3KEwCTA0lr0Z
+ 1sd6631mGTEii23FP1qyrykOpczbF8UEVk8Y+Uc1dMjecrjUc8dskB+fi0ulXbDmuT
+ Q1KvN2bIQYR/k3Ul+WnDqim7VQWwSb+kZpqyrcXw=
+Message-ID: <8c9efa73-9dec-442c-9b3e-ed78a13bcfa3@ideasonboard.com>
+Date: Tue, 3 Nov 2026 10:01:38 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXaZqVlOlqxiw6AA--.63029S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7urW8Zw1fGryxWF4rWr1UAwb_yoW8uw45pa
- 1fGan0krZ8Kw4xta97JFWjv3W3Ja13ta4rCrykK3s8twn8ZFW0kF1F9FyjqFyDAFWfXw1S
- vr4ktrWfuFW2y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
- Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
- rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
- v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
- JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6J
- UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYAA2rpWmXWhwABsv
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/14] drm/tidss: oldi: Add power domain support
+To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
+ <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +60,189 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-create_gang() pins each batch VMA before mapping and submitting it. The
-mapping and request allocation error paths drop the object without
-unpinning the VMA. Later errors drop the request references but also leave
-the pin behind. On success, live_preempt_gang() releases the batch
-reference after waiting for each request, again without unpinning it.
+Hi,
 
-Unpin on every error after a successful pin. Keep the batch pinned while
-the gang is in use, and unpin it when the caller releases each batch.
-This preserves the fixed addresses used by the semaphore chain while
-balancing the pin before the final object reference is dropped.
+On 02/11/2026 15:45, Aradhya Bhatia wrote:
+> Hi Tomi,
+> 
+> On 29/10/26 10:18, Tomi Valkeinen wrote:
+>> The OLDI TXes on AM62P and J722S have power domains of their own,
+>> described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
+>> real devices, so the driver core does not attach these power domains,
+>> and nothing in the core turns them on.
+>>
+>> Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
+>> manage the power state of the returned virtual devices with runtime PM
+>> functions.
+>>
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>> ---
+>>   drivers/gpu/drm/tidss/tidss_oldi.c | 88 ++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 88 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+>> index 5552c1c51074..df2326db3302 100644
+>> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+>> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+>> @@ -10,6 +10,8 @@
+>>   #include <linux/of_graph.h>
+>>   #include <linux/mfd/syscon.h>
+>>   #include <linux/media-bus-format.h>
+>> +#include <linux/pm_domain.h>
+>> +#include <linux/pm_runtime.h>
+>>   #include <linux/regmap.h>
+>>   
+>>   #include <drm/drm_atomic_helper.h>
+>> @@ -35,6 +37,12 @@ struct tidss_oldi {
+>>   
+>>   	struct clk *serial;
+>>   	struct regmap *io_ctrl;
+>> +
+>> +	/*
+>> +	 * The power domains of this OLDI TX and, in dual-link mode, of its
+>> +	 * companion. NULL for an OLDI TX without a power domain of its own.
+>> +	 */
+>> +	struct device *pd_devs[2];
+>>   };
+>>   
+>>   struct oldi_bus_format {
+>> @@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
+>>   	return 0;
+>>   }
+>>   
+>> +static void tidss_oldi_power_get(struct tidss_oldi *oldi)
+>> +{
+>> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
+>> +		if (oldi->pd_devs[i])
+>> +			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
+>> +	}
+>> +}
+>> +
+>> +static void tidss_oldi_power_put(struct tidss_oldi *oldi)
+>> +{
+>> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
+>> +		if (oldi->pd_devs[i])
+>> +			pm_runtime_put(oldi->pd_devs[i]);
+>> +	}
+>> +}
+>> +
+>>   static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+>>   					 struct drm_atomic_commit *state)
+>>   {
+>> @@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+>>   	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+>>   		return;
+>>   
+>> +	tidss_oldi_power_get(oldi);
+>> +
+>>   	connector = drm_atomic_get_new_connector_for_encoder(state,
+>>   							     bridge->encoder);
+>>   	if (WARN_ON(!connector))
+>> @@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
+>>   
+>>   	/* Clear OLDI Config */
+>>   	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
+>> +
+>> +	tidss_oldi_power_put(oldi);
+>>   }
+>>   
+>>   #define MAX_INPUT_SEL_FORMATS	1
+>> @@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+>>   	return -ENODEV;
+>>   }
+>>   
+>> +static void tidss_oldi_detach_pd(void *data)
+>> +{
+>> +	struct device *pd_dev = data;
+>> +
+>> +	dev_pm_domain_detach(pd_dev, true);
+>> +}
+>> +
+>> +static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
+>> +					       struct device_node *oldi_tx)
+>> +{
+>> +	struct device *dev;
+>> +	int ret;
+>> +
+>> +	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
+>> +	if (IS_ERR_OR_NULL(dev))
+>> +		return dev;
+>> +
+>> +	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
+>> +	if (ret)
+>> +		return ERR_PTR(ret);
+>> +
+>> +	return dev;
+>> +}
+>> +
+>> +static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
+>> +				     struct tidss_oldi *oldi,
+>> +				     struct device_node *oldi_tx)
+>> +{
+>> +	struct device_node *companion;
+>> +	struct device *pd_dev;
+>> +
+>> +	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
+>> +	if (IS_ERR(pd_dev))
+>> +		return PTR_ERR(pd_dev);
+>> +
+>> +	oldi->pd_devs[0] = pd_dev;
+>> +
+>> +	if (oldi->companion_instance < 0)
+>> +		return 0;
+>> +
+>> +	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
+>> +	if (!companion)
+>> +		return -EINVAL;
+>> +
+>> +	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
+>> +	of_node_put(companion);
+>> +	if (IS_ERR(pd_dev))
+>> +		return PTR_ERR(pd_dev);
+>> +
+>> +	oldi->pd_devs[1] = pd_dev;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   void tidss_oldi_deinit(struct tidss_device *tidss)
+>>   {
+>>   	for (int i = 0; i < tidss->num_oldis; i++) {
+>> @@ -610,6 +692,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+>>   		}
+>>   	}
+>>   
+>> +	ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
+>> +	if (ret)
+>> +		return dev_err_probe(tidss->dev, ret,
+>> +				     "OLDI%u: Failed to set up the power domains.\n",
+>> +				     oldi_instance);
+>> +
+> 
+> I agree with the what this patch is trying to do, but the
+> tidss_oldi_create_pd_devs() should be within the if() block above.
+> 
+> It seems like you are giving the pd_dev of the secondary OLDI TX to the
+> primary, but this path would be executed for secondary OLDI TX in clone
+> mode as well, whenever it gets supported.
+> Which is not ideal, because the primary OLDI TX in clone mode would
+> already be taking care of the secondary's pd_dev.
+> 
+> The conditional block above with,
+> `if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)`, is exactly
+> for things that _can_ be setup per OLDI Tx, but shouldn't, like the
+> clock and the IO control.
 
-Fixes: 2d19a71ce68f ("drm/i915/selftests: Exercise long preemption chains")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/selftest_execlists.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Yes, you're right, I'll move it.
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 21e5ed9f72a3..d861e2b27878 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -2734,7 +2734,7 @@ static int create_gang(struct intel_engine_cs *engine,
- 	cs = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(cs)) {
- 		err = PTR_ERR(cs);
--		goto err_obj;
-+		goto err_unpin;
- 	}
- 
- 	/* Semaphore target: spin until zero */
-@@ -2764,7 +2764,7 @@ static int create_gang(struct intel_engine_cs *engine,
- 	rq = intel_context_create_request(ce);
- 	if (IS_ERR(rq)) {
- 		err = PTR_ERR(rq);
--		goto err_obj;
-+		goto err_unpin;
- 	}
- 
- 	rq->batch = i915_vma_get(vma);
-@@ -2789,6 +2789,8 @@ static int create_gang(struct intel_engine_cs *engine,
- err_rq:
- 	i915_vma_put(rq->batch);
- 	i915_request_put(rq);
-+err_unpin:
-+	i915_vma_unpin(vma);
- err_obj:
- 	i915_gem_object_put(obj);
- err_ce:
-@@ -3032,6 +3034,7 @@ static int live_preempt_gang(void *arg)
- 				err = -ETIME;
- 			}
- 
-+			i915_vma_unpin(rq->batch);
- 			i915_vma_put(rq->batch);
- 			i915_request_put(rq);
- 			rq = n;
--- 
-2.34.1
+  Tomi
+
 
