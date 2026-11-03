@@ -2,50 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CF2606EE84
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB0D606EE89
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:37:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=yk07rjLd
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=ZWkcACQf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8540810F47A;
-	Tue,  3 Nov 2026 08:37:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0333610F47D;
+	Tue,  3 Nov 2026 08:37:23 +0000 (UTC)
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
  [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE46F10F451;
- Tue,  3 Nov 2026 08:37:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1EA010E511;
+ Tue,  3 Nov 2026 08:37:11 +0000 (UTC)
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
  by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A35Wq4w3269100; Tue, 3 Nov 2026 08:36:56 GMT
+ 6A35Wq4u3269100; Tue, 3 Nov 2026 08:36:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=8
- UxN5G4CszVASc0eJ51bWhZrmzSLYZSfVvLKokYxmLc=; b=yk07rjLdOz4d3oYBG
- 5qomcqDsvDWGhnHgkQ7bKwZT9/A85TfPBjh+IcAIf7Z6aoHQeDnNWBUKMJBUzuvc
- r7cNRjtq7slwDOjJI0ibGEOyHHNxtBhFP2SuSjrMgBlSyO4t4chtGqbZTaXB3DF7
- ++DizptrH6ssiZEiHcn7IDcHXXq8C8d842bfl/tYc35GEREvfr99jgC/SDAz3eDf
- JADZh1Sd9cqynvbQAVvekUrAvrG0vbG7WkTigQbbeGV94EOoUcTKHB5sb2pTw/yI
- xK1MSBDTL1WRgBXadyNH5GedsGMRSAEmD+VusNamLPFbMzwoR+H0timL2mxQCNOr
- tcqjw==
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=cANI97668GsCuPQO6W/6kct
+ 9AjkFv8U+ngiTKgyJZu4=; b=ZWkcACQfT6GS2oTE8RETJqRA9IEMwWiohRoTcrk
+ e+wV4YXWUZomnqq4rh/QpNTi9ZLI39HGCR1VgUFgnDH52Zx82hsU+RPzYUgw/TZ2
+ d4SM+9gV7v7bNa1GqvW+ABwjmHmhnsrzQhWcJI7hMYgghA5C8CdsO0nIDe2yX/GO
+ yNEK2BwUUkgDqbLGjVzpaRIKMR7KwGIuWdwRyIYF3Sb647Vh3Oxbwn/lOX0j3L+8
+ ktW4JzpV0WWbSr6dL8faIJW+LcIHTy0ErI2GVgwUEyR+gl04Vzi/wsWR6VkPiW0W
+ TnScBv1u/DFWHi7bFlk21Hyrcy+jma7NANG006alNiNZ0zA==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft239d-1
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hn7ft239a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Nov 2026 08:36:56 +0000 (GMT)
+ Tue, 03 Nov 2026 08:36:52 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 08:36:54 +0000
+ 2026 08:36:50 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 3 Nov 2026 10:36:19 +0200
-Subject: [PATCH v3 3/5] drm/imagination: Make the RISC-V firmware header
- arch-independent
+Subject: [PATCH v3 0/5] drm/imagination: RISC-V and META firmware interface
+ updates
+Date: Tue, 3 Nov 2026 10:36:16 +0200
+Message-ID: <20261103-prep-meta-fw-arch-independent-v3-0-563dbaf1b779@imgtec.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-prep-meta-fw-arch-independent-v3-3-563dbaf1b779@imgtec.com>
-References: <20261103-prep-meta-fw-arch-independent-v3-0-563dbaf1b779@imgtec.com>
-In-Reply-To: <20261103-prep-meta-fw-arch-independent-v3-0-563dbaf1b779@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAACd6WoC/43OTQ7CIBAF4Ks0rB0DNKXWlfcwLigMLSb9CSBqm
+ t5dqBtd6WaSl7x8bxbi0Vn05FgsxGG03k5jCuWuIKqXY4dgdcqEUy4Y5QeYHc4wYJBg7iCd6sG
+ OGmdMZwxgjBZaacGFpiQZqW3sY/PPl3f2t/aKKmQ0N3rrw+Se2wOR5d6/W5EBhbpExoShnNX8Z
+ IcuoNqraSB5LPJPrvnF8cS1jam0aNpaVt/cuq4vhfzeVSwBAAA=
+X-Change-ID: 20261028-prep-meta-fw-arch-independent-ffd6dcd626d0
 To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
  <luigi.santivetti@imgtec.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
@@ -58,32 +60,35 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  "Alexandru Dadu" <alexandru.dadu@imgtec.com>,
  Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793695010; l=5651;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793695010; l=2876;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=N00B/HKIov+RzgHbL1f3a705Bh43/lCp6PTCWxTp7oE=;
- b=3swtk+RoCa5U/larbbtXjQB1+Tt9tIgNcH0Z+fiqAdjL/J7PjAcQ/5uFxFgb+BiAAGnBIT1FF
- e+Ri3EOd87eBVGgfLi+vfvtrvUhmPjecIyf1yoD8EGt+X5PVd8MbSBO
+ bh=S9myfWbC7UBl3b49CPkRxkIKUFPauY5A1Unn3wq/YuQ=;
+ b=jppBDapa84q3RwFHj2PPkEhNR7QROmmXBJxxVvGkYiwZNTdmoLK0RmRtM0f13hkizdFMaQjaI
+ We/don5Y8FnCuB8pPGJ0NTEJJsD4Ocj5b6JT+lAHLeQke6xpeafvGL/
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-ORIG-GUID: fFSjjc3PWMgEf7-m_QaMj2hitMKu0dKs
-X-Proofpoint-GUID: fFSjjc3PWMgEf7-m_QaMj2hitMKu0dKs
-X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae99d28 cx=c_pps
+X-Proofpoint-ORIG-GUID: U4kkKWtW81Mlf18E-PfbKhogaDGVxxrb
+X-Proofpoint-GUID: U4kkKWtW81Mlf18E-PfbKhogaDGVxxrb
+X-Authority-Analysis: v=2.4 cv=HaSB3SE8 c=1 sm=1 tr=0 ts=6ae99d24 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=SqUUmSXaI7-uYlY8_LkA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX0Bx5I7RDiA18
- IWw+9Nv4R9cJAk2HWPOiJdqNu5J5096eONaH6S4ceZl2mCu3B/gHNx01Tx6zSYKvSJE/cHHDgZl
- m4xs8sfR8tSluPS+6QDp2lBs+d02opg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfXyS8E8z8V/3Y6
- hiHYpaFSHUEafzme5uUnDVaW03GOp86JanTbo3UZ93DbXlPx8Al9/ZNWo+n2XOQmk24Wky1Z3BW
- FxLFcBbnFyc8x8iWe3Pq2YDCLgpJEnVyJUVBE3Z9PH5F047+BJ10zAz+kZCeJp5BVvsK4RXuGFo
- YBwjX3x1d0bKoob9bCaWdet0Y0XYsjbaSOXwXeeJk8wrDqFuYRM1cTMwt10V1Z4bXHBOHcwnR/F
- NvDB3cJJq5dcHZd1fZjUh1caQ9O+B1h4+7ZVcEwOoABhUBdk8dg3pHmpLX35OTSd7X6GHiZvYZz
- qu3q9qWcWQinEcRF7HZ+h2Osxx7wa2LpjANM7KR2+1rvcUnIgtyj6bhwIPmQbji8dzrvIiv3TOP
- hCCmQmsbAHmDqJG0/GcmmnWBh/gq2spCV+vbyhw4/1tW77KbBWQmq4Ntt2Jfg2mcjh5CnUIdkdF
- L/tvpcCXI/Dw+1Inrvw==
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
+ a=gXtLJ4WPg2CJrXxS_-4A:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+ a=t8nPyN_e6usw4ciXM-Pk:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX7fI1S8OftG3N
+ B56LhCUuaTAAi9gJKBE1AkX2tiHXwnX3+h4AKhy9qDA7gnpkjDlQzBUW0SxACGq3+6ZCMeVNMcO
+ We94qoUcm7JOWh/Y5+FFxigXIA6zT+o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNCBTYWx0ZWRfX0WlOmMIX+H7L
+ PeV9rnGxVZMoJCoXrZ6otuv4lO1KaIkywOvCLW7F6nkByc+9X0Ywo82hyBPLFF01fAlru0fl1ZB
+ Rh/rpn/euJeXE5XvKS+bK9Vxi7D73gPDey94zw0nAYSQsNgpHvXUnBp78TWbHKe3YHqYSR7mqbc
+ 3X5gZlgZR0a8BV6U/G1sgvsJdkvkt98IYhRyJ9rOMdn+OX2lHnvbZWnQsZy6/3mNWKj1lYqBcUt
+ DwZdtFRa8R+vHtidCEAQCSfFuKK3HsM7PjYBXkK6E6gF4Sr3ILzUo5ECCAMrOrPALagESO5JfSm
+ ZHJMNnuCi/9mPxd5CBx8v6V57RYH05LtFT9EiGVsefah5JmdvGaekxouLHunHtG5J74c7OhkEdR
+ zt8pIh6yIaiVtB8ja84248S41V8xKzdeO0gbnV92HmoiQp+JvshrLUbnSuORu5eFgCljO09PW68
+ KrkdbH6MIlSKgZ1twvg==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,166 +107,68 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Refactor RISC-V and META firmware interface headers to have a more
+generic and architecture independent approach:
+1. Limits access to the RISC-V and META firmware respective interfaces.
+2. Aligns RISC-V and META firmware headers with the other processor
+headers.
+3. Add "_fw_" component to the headers filename.
 
-This header file contains definitions common to all PowerVR
-architectures starting from Rogue, so rename both the file and its
-contents to reflect this.
-
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw_riscv.c         | 14 +++----
- .../gpu/drm/imagination/pvr_fw_riscv_internal.h    | 43 ++++++++++++++++++++++
- .../gpu/drm/imagination/pvr_rogue_riscv_internal.h | 43 ----------------------
- 3 files changed, 50 insertions(+), 50 deletions(-)
+Changes in v3:
+- Fixed remarks raised by Sashiko in pvr_fw_startstop.c.
+- Link to v2: https://patch.msgid.link/20261029-prep-meta-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index 0d4dd45520a9..2b24c40bc20f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -6,10 +6,10 @@
- #include "pvr_fw_info.h"
- #include "pvr_fw_mips.h"
- #include "pvr_gem.h"
-+#define PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
-+#include "pvr_fw_riscv_internal.h"
-+#undef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
- #include "pvr_rogue_cr_defs.h"
--#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
--#include "pvr_rogue_riscv_internal.h"
--#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
- #include "pvr_vm.h"
- 
- #include <linux/compiler.h>
-@@ -43,13 +43,13 @@ pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
- 
- 	pvr_cr_write64(pvr_dev,
- 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
--				       ROGUE_RISCV_REGION_BOOTLDR_CODE),
-+				       PVR_RISCV_REGION_BOOTLDR_CODE),
- 		       code_addr | common_opts |
- 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN);
- 
- 	pvr_cr_write64(pvr_dev,
- 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
--				       ROGUE_RISCV_REGION_BOOTLDR_DATA),
-+				       PVR_RISCV_REGION_BOOTLDR_DATA),
- 		       data_addr | common_opts |
- 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN);
- 
-@@ -132,9 +132,9 @@ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
- 
- 	/* RISC-V cacheability is determined by address. */
- 	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
--		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
-+		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
- 	else
--		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
-+		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
- 
- 	return fw_addr;
- }
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
-new file mode 100644
-index 000000000000..abcbb4ef06fe
---- /dev/null
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
-@@ -0,0 +1,43 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+/* Copyright (c) 2024 Imagination Technologies Ltd. */
-+
-+#ifndef PVR_FW_RISCV_INTERNAL_H
-+#define PVR_FW_RISCV_INTERNAL_H
-+
-+#ifndef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
-+#error This file may only be included if explicitly defined
-+#endif
-+
-+#include "pvr_rogue_cr_defs.h"
-+
-+#include <linux/bitops.h>
-+#include <linux/sizes.h>
-+#include <linux/types.h>
-+
-+#define PVR_RISCVFW_REGION_SIZE SZ_256M
-+#define PVR_RISCVFW_REGION_SHIFT __ffs(PVR_RISCVFW_REGION_SIZE)
-+
-+enum pvr_riscvfw_region {
-+	PVR_RISCV_REGION__RESERVED_0 = 0,
-+	PVR_RISCV_REGION__RESERVED_1,
-+	PVR_RISCV_REGION_SOCIF,
-+	PVR_RISCV_REGION__RESERVED_3,
-+	PVR_RISCV_REGION__RESERVED_4,
-+	PVR_RISCV_REGION_BOOTLDR_DATA,
-+	PVR_RISCV_REGION_SHARED_CACHED_DATA,
-+	PVR_RISCV_REGION__RESERVED_7,
-+	PVR_RISCV_REGION_COREMEM,
-+	PVR_RISCV_REGION__RESERVED_9,
-+	PVR_RISCV_REGION__RESERVED_A,
-+	PVR_RISCV_REGION__RESERVED_B,
-+	PVR_RISCV_REGION_BOOTLDR_CODE,
-+	PVR_RISCV_REGION_SHARED_UNCACHED_DATA,
-+	PVR_RISCV_REGION__RESERVED_E,
-+	PVR_RISCV_REGION__RESERVED_F,
-+
-+	PVR_RISCV_REGION__COUNT,
-+};
-+
-+#define PVR_RISCVFW_REGION_BASE(r) ((u32)(PVR_RISCV_REGION_##r) << PVR_RISCVFW_REGION_SHIFT)
-+
-+#endif /* PVR_FW_RISCV_INTERNAL_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
-deleted file mode 100644
-index ba18c2a82205..000000000000
---- a/drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
-+++ /dev/null
-@@ -1,43 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 OR MIT */
--/* Copyright (c) 2024 Imagination Technologies Ltd. */
--
--#ifndef PVR_ROGUE_RISCV_INTERNAL_H
--#define PVR_ROGUE_RISCV_INTERNAL_H
--
--#ifndef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
--#error This file may only be included if explicitly defined
--#endif
--
--#include "pvr_rogue_cr_defs.h"
--
--#include <linux/bitops.h>
--#include <linux/sizes.h>
--#include <linux/types.h>
--
--#define ROGUE_RISCVFW_REGION_SIZE SZ_256M
--#define ROGUE_RISCVFW_REGION_SHIFT __ffs(ROGUE_RISCVFW_REGION_SIZE)
--
--enum rogue_riscvfw_region {
--	ROGUE_RISCV_REGION__RESERVED_0 = 0,
--	ROGUE_RISCV_REGION__RESERVED_1,
--	ROGUE_RISCV_REGION_SOCIF,
--	ROGUE_RISCV_REGION__RESERVED_3,
--	ROGUE_RISCV_REGION__RESERVED_4,
--	ROGUE_RISCV_REGION_BOOTLDR_DATA,
--	ROGUE_RISCV_REGION_SHARED_CACHED_DATA,
--	ROGUE_RISCV_REGION__RESERVED_7,
--	ROGUE_RISCV_REGION_COREMEM,
--	ROGUE_RISCV_REGION__RESERVED_9,
--	ROGUE_RISCV_REGION__RESERVED_A,
--	ROGUE_RISCV_REGION__RESERVED_B,
--	ROGUE_RISCV_REGION_BOOTLDR_CODE,
--	ROGUE_RISCV_REGION_SHARED_UNCACHED_DATA,
--	ROGUE_RISCV_REGION__RESERVED_E,
--	ROGUE_RISCV_REGION__RESERVED_F,
--
--	ROGUE_RISCV_REGION__COUNT,
--};
--
--#define ROGUE_RISCVFW_REGION_BASE(r) ((u32)(ROGUE_RISCV_REGION_##r) << ROGUE_RISCVFW_REGION_SHIFT)
--
--#endif /* PVR_ROGUE_RISCV_INTERNAL_H */
+Changes in v2:
+- Update the commit messages to better describe the changes.
+- Link to v1: https://patch.msgid.link/20261028-prep-meta-fw-arch-independent-v1-0-73e116f02172@imgtec.com
 
--- 
-2.43.0
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+
+---
+Alessio Belle (4):
+      drm/imagination: Limit access to the RISC-V firmware interface
+      drm/imagination: Make the RISC-V firmware header arch-independent
+      drm/imagination: Limit access to the META firmware interface
+      drm/imagination: Make the META firmware header arch-independent
+
+Alexandru Dadu (1):
+      drm/imagination: Prepare heap config header for multi-arch support
+
+ drivers/gpu/drm/imagination/pvr_fw.c               |   7 +-
+ drivers/gpu/drm/imagination/pvr_fw.h               |  26 +++
+ drivers/gpu/drm/imagination/pvr_fw_meta.c          | 104 +++++++-----
+ drivers/gpu/drm/imagination/pvr_fw_meta.h          |  14 --
+ .../{pvr_rogue_meta.h => pvr_fw_meta_internal.h}   | 175 +++++++++++----------
+ drivers/gpu/drm/imagination/pvr_fw_mips.c          |   1 +
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         |  13 +-
+ .../gpu/drm/imagination/pvr_fw_riscv_internal.h    |  43 +++++
+ drivers/gpu/drm/imagination/pvr_fw_startstop.c     |  61 +++----
+ drivers/gpu/drm/imagination/pvr_gem.h              |   3 +-
+ .../{pvr_rogue_heap_config.h => pvr_heap_config.h} |  26 +--
+ drivers/gpu/drm/imagination/pvr_rogue_riscv.h      |  39 -----
+ drivers/gpu/drm/imagination/pvr_vm.c               |  18 +--
+ 13 files changed, 289 insertions(+), 241 deletions(-)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261028-prep-meta-fw-arch-independent-ffd6dcd626d0
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
