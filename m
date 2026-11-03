@@ -2,42 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D99606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9IZTVV/
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03620606A333
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA00A10F3D3;
-	Tue,  3 Nov 2026 07:53:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1414D10F3D3
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:53:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2928160098;
- Tue,  3 Nov 2026 07:53:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B5301F000C1;
- Tue,  3 Nov 2026 07:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793692403;
- bh=x/P4+f6WEW9JPjBthmTl2xBD2YH/tA/VpyTmKHmZnUI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y9IZTVV/swkbf6lzaJW2yQd57yuZ+eytEZzqcKaPIK/71F367oDX/C5GTPIjilmcy
- dopeuNw5/MA0Ir357yXHxa8fg3D7Vk2JtSbYHJQGnACcydLzfEcATzRdYeU5nQjxF0
- xWxzgNQxxDFK6WxE/zksuSvUJ9VHOXYRqwddQdvbvZBzAEbSD1IYVhGK/v+HBRaNts
- /MArYgcwy6smPNaRS7MZY9YUJ7fK3ntcFZg/MrFdZ9oNpyFkYrS5kvewn2xu8PW9Ik
- tUTg5LnkiYXGlcSC+Qw9UZl/LcibOsSH8/8l56vRGZLH4202VTDE0KyjMZyufrXtpJ
- j46MU/L6d3xfA==
-Message-ID: <sashiko-outbox-194757@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2 09/13] media: cec: core: add support for EDID_PRESENT
-To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <3a270f7742aaeadc15bceb727b8d8415caad9c76.1793691124.git.hverkuil+cisco@kernel.org>
-References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
- <3a270f7742aaeadc15bceb727b8d8415caad9c76.1793691124.git.hverkuil+cisco@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:53:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFCC10E375;
+	Tue,  3 Nov 2026 07:57:59 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A57F810E375
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:57:56 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowAB3h5j9k+lqwCY6AA--.1005S2;
+ Tue, 03 Nov 2026 15:57:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: xji@analogixsemi.com, windhl@126.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: anx7625: Release the MIPI host node at teardown
+Date: Tue,  3 Nov 2026 07:57:58 +0000
+Message-Id: <20261103075758.1119919-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowAB3h5j9k+lqwCY6AA--.1005S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4UtrWDWrW8tFy3XF4xWFg_yoW8uFy7pF
+ 4UKFW5Xr1kAF1xKws7ZF4DZr90v392grWfG3s7twna93sYya4DJrWqvFyrXas0kFyrJF15
+ tr4UtF9xZa1jvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+ tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+ v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+ c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
+ MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU7nmRUU
+ UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpWfXQggABsk
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,125 +55,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] media: cec: missing definitions for CEC_CAP_HAS_EDID_PRESENT and C=
-EC_LOG_ADDRS_FL_EDID_PRESENT
-- [Medium] media: cec: cec_notifier falsely sets CEC_LOG_ADDRS_FL_EDID_PRES=
-ENT via cec_s_phys_addr()
---
+anx7625_parse_dt() obtains a reference to the MIPI host node and keeps
+it in the platform data for DSI host lookup. Neither the probe failure
+paths nor device removal release this reference.
 
-commit 4b86ce283c2fd61b5f6b3978888a26f706c9da03
-Author: Hans Verkuil <hverkuil+cisco@kernel.org>
+The existing put before looking up the node only releases a previously
+stored value. The platform data is freshly allocated for each probe, so
+that does not release the reference acquired by the current probe.
 
-media: cec: core: add support for EDID_PRESENT
+Register a managed action to put the node when probe fails or the device
+is removed. Drop the put of the initially empty platform data field.
 
-This commit adds tracking for whether an EDID is present when updating or
-invalidating the CEC physical address, setting CEC_LOG_ADDRS_FL_EDID_PRESENT
-in cec_s_phys_addr() and clearing it in cec_phys_addr_invalidate().
+Fixes: 8bdfc5dae4e3 ("drm/bridge: anx7625: Add anx7625 MIPI DSI/DPI to DP")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-> diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/c=
-ec-adap.c
-> index ee8a200b9803f..1a7b79916e47d 100644
-> --- a/drivers/media/cec/core/cec-adap.c
-> +++ b/drivers/media/cec/core/cec-adap.c
-> @@ -1727,18 +1727,35 @@ int cec_adap_enable(struct cec_adapter *adap)
->   *
->   * This function is called with adap->lock held.
->   */
-> -void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool blo=
-ck)
-> +void __cec_s_phys_addr(struct cec_adapter *adap, bool edid_present,
-> +		       u16 phys_addr, bool block)
->  {
->  	bool becomes_invalid =3D phys_addr =3D=3D CEC_PHYS_ADDR_INVALID;
->  	bool is_invalid =3D adap->phys_addr =3D=3D CEC_PHYS_ADDR_INVALID;
-> +	bool edid_was_present =3D
-> +		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT;
-> =20
-> -	if (phys_addr =3D=3D adap->phys_addr)
-> -		return;
-> +	if (adap->capabilities & CEC_CAP_HAS_EDID_PRESENT) {
-> +		if (edid_present)
-> +			adap->log_addrs.flags |=3D CEC_LOG_ADDRS_FL_EDID_PRESENT;
-> +		else
-> +			adap->log_addrs.flags &=3D ~CEC_LOG_ADDRS_FL_EDID_PRESENT;
-> +	} else {
-> +		edid_present =3D false;
-> +	}
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index c3af88e14f8b..3ee22f5f7bc2 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -1841,6 +1841,11 @@ static int anx7625_get_swing_setting(struct device *dev,
+ 	return 0;
+ }
+ 
++static void anx7625_put_mipi_host_node(void *data)
++{
++	of_node_put(data);
++}
++
+ static int anx7625_parse_dt(struct device *dev,
+ 			    struct anx7625_platform_data *pdata)
+ {
+@@ -1850,7 +1855,6 @@ static int anx7625_parse_dt(struct device *dev,
+ 	anx7625_get_swing_setting(dev, pdata);
+ 
+ 	pdata->is_dpi = 0; /* default dsi mode */
+-	of_node_put(pdata->mipi_host_node);
+ 	pdata->mipi_host_node = of_graph_get_remote_node(np, 0, 0);
+ 	if (!pdata->mipi_host_node) {
+ 		DRM_DEV_ERROR(dev, "fail to get internal panel.\n");
+@@ -1883,7 +1887,8 @@ static int anx7625_parse_dt(struct device *dev,
+ 	if (of_property_read_bool(np, "analogix,audio-enable"))
+ 		pdata->audio_en = 1;
+ 
+-	return 0;
++	return devm_add_action_or_reset(dev, anx7625_put_mipi_host_node,
++				       pdata->mipi_host_node);
+ }
+ 
+ static int anx7625_parse_dt_panel(struct device *dev,
+-- 
+2.34.1
 
-[Severity: High]
-Were the header changes defining CEC_CAP_HAS_EDID_PRESENT and
-CEC_LOG_ADDRS_FL_EDID_PRESENT in include/uapi/linux/cec.h accidentally omit=
-ted
-from this commit?
-
-In drivers/media/cec/core/cec-adap.c, __cec_s_phys_addr() and
-__cec_s_log_addrs() reference CEC_LOG_ADDRS_FL_EDID_PRESENT and
-CEC_CAP_HAS_EDID_PRESENT, and cec_allocate_adapter() in
-drivers/media/cec/core/cec-core.c also uses CEC_CAP_HAS_EDID_PRESENT, causi=
-ng
-the build to fail with undeclared identifier errors when CONFIG_CEC_CORE is
-enabled.
-
-[ ... ]
-
-> @@ -1767,11 +1784,22 @@ void cec_s_phys_addr(struct cec_adapter *adap, u1=
-6 phys_addr, bool block)
->  		return;
-> =20
->  	mutex_lock(&adap->lock);
-> -	__cec_s_phys_addr(adap, phys_addr, block);
-> +	__cec_s_phys_addr(adap, true, phys_addr, block);
->  	mutex_unlock(&adap->lock);
->  }
->  EXPORT_SYMBOL_GPL(cec_s_phys_addr);
-
-[Severity: Medium]
-Does passing edid_present =3D true unconditionally in cec_s_phys_addr() bre=
-ak
-EDID presence tracking for drivers using cec_notifier?
-
-In include/media/cec-notifier.h, cec_notifier_phys_addr_invalidate() still
-calls cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID):
-
-include/media/cec-notifier.h:
-static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
-{
-	cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID);
-}
-
-And in drivers/media/cec/core/cec-notifier.c, cec_notifier_set_phys_addr() =
-and
-cec_notifier_cec_adap_register() both call cec_s_phys_addr():
-
-drivers/media/cec/core/cec-notifier.c:
-cec_notifier_cec_adap_register()
-	if (!adap->adap_controls_phys_addr)
-		cec_s_phys_addr(adap, n->phys_addr, false);
-
-cec_notifier_set_phys_addr()
-	n->phys_addr =3D pa;
-	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
-		cec_s_phys_addr(n->cec_adap, n->phys_addr, false);
-
-As a result, when an adapter is registered via
-cec_notifier_cec_adap_register() before any display is connected, when
-cec_notifier_set_phys_addr_from_edid(n, NULL) is called, or when HPD goes l=
-ow
-and cec_notifier_phys_addr_invalidate() is called, cec_s_phys_addr() sets
-CEC_LOG_ADDRS_FL_EDID_PRESENT instead of clearing it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/3a270f7742aaeadc15b=
-ceb727b8d8415caad9c76.1793691124.git.hverkuil+cisco@kernel.org?part=3D1
