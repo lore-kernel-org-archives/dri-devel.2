@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C94C606A326
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ADF606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:24:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6Kao+78
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJZzHbd/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB5810E7A3;
-	Tue,  3 Nov 2026 09:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D4710E06B;
+	Tue,  3 Nov 2026 09:24:50 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 923A810E7A3
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 09:15:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D7B10E06B
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 09:24:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A5CA36020A;
- Tue,  3 Nov 2026 09:15:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBE31F000C1;
- Tue,  3 Nov 2026 09:15:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CDDC8601EF;
+ Tue,  3 Nov 2026 09:24:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 661811F00919;
+ Tue,  3 Nov 2026 09:24:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793697350;
- bh=bwdtvmm5ZCMIT9r9ZD0X+8S+JoBw3ts8zp8gm4S2e4A=;
+ s=k20260515; t=1793697882;
+ bh=hGcZYYPFZk6D3uhjJkGyjB6A0jCFIuQiIBnp2G1jzaY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z6Kao+78Jeu7n8NI1RUXHiDVx3b3KOlvPHOu35VlYsrSa6Rcvs0fNeQzJnIE1wNZo
- Nte6Xz2lXgW4r7dywenne609MWgZan2rAYbbQknMqw9HMwRDsd/tMJOadb9t5xYPrP
- lFwVPvQCTa4aVd8cuesq4pHZXEqZqAivWKvL0h+R848rBvkPcIsTeAOaMy+frqFKb/
- IiDt+dEUrwRjenLMZxZYZ03slPGEPCVbVfvE9C9xsPeB3h0tSJQSwbaQ+KFRR4jrtL
- h4qfH/VhIi2OA3keEFNfr5rXxmPNIcWMspp7ZOJsgMq8+mCtgU6nnkHSjZQN3MVi3L
- J+uaezwjxLscw==
-Message-ID: <sashiko-outbox-194946@kernel.org>
+ b=CJZzHbd/lv/2HWUI3vUH8cGCUyqumdcCtKQVhfvZghDTlex83AEsambbOKPbJAikQ
+ 7/I1RPZ/vNMgykPObmyVjqnLY/MX/fBdBSigg/Kt+qSXnoeOOw+ziW/s3zxFdAmSXp
+ iWXjjHTsJGcocWIjcZFbxzeyXyvq0YXtNjZsG977tlLEfQgZVoR4uHJ4W/wAoePNKF
+ rVXCHIHjGilm05bmD9NjNbZuIz4KmbIPGlx8xaE3gfk00a1GelaEa9zZeWvbT1Yd0m
+ EnoAokgHJLxfdsF9g+xhcuJ6eqb6MLYSVFlgA57fvvxWSG/VcDQ5c+ZFRj9Mq4Sme1
+ 0Dc+Fy2G7E1Zg==
+Message-ID: <sashiko-outbox-194952@kernel.org>
 From: sashiko-bot@kernel.org
 Subject: Re: [PATCH v2] drm/vmwgfx: unpin BOs without revalidating placement
 To: =?utf-8?b?5r2Y54Wc5p2t?= <242270054@hdu.edu.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <064da7ba-58ca-4027-88a9-12fb41e8b7d4@hdu.edu.cn>
-References: <064da7ba-58ca-4027-88a9-12fb41e8b7d4@hdu.edu.cn>
+In-Reply-To: <93888c18-7ce4-4341-b387-a80a29847d3e@hdu.edu.cn>
+References: <93888c18-7ce4-4341-b387-a80a29847d3e@hdu.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 09:15:49 +0000
+Date: Tue, 03 Nov 2026 09:24:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,20 +61,19 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 - [Medium] drm/vmwgfx: vestigial ttm_bo_validate() and BUG_ON() in vmw_bo_p=
 in_reserved()
-- [Low] drm/vmwgfx: email text and inaccurate claim in vmw_bo_pin_reserved(=
-) commit log
+- [Medium] drm/vmwgfx: inaccurate commit description and email notes above =
+tear line
 --
 
-commit da725c3c2e0e2c05d0e0cf86657330ca0fde440a
+commit 25af1e918639e493179b2c83013bfbfaba035064
 Author: =E6=BD=98=E7=85=9C=E6=9D=AD <242270054@hdu.edu.cn>
 
 drm/vmwgfx: unpin BOs without revalidating placement
 
 This commit skips calling ttm_bo_validate() when unpinning a buffer object =
 in
-vmw_bo_pin_reserved() to avoid triggering BUG_ON() when validation fails on=
- a
-pinned buffer object during PRIME cleanup.
+vmw_bo_pin_reserved() to avoid hitting BUG_ON() during PRIME/GEM teardown,
+while retaining the ttm_bo_validate() call on the pin path.
 
 >     drm/vmwgfx: unpin BOs without revalidating placement
 >    =20
@@ -130,27 +129,44 @@ e v2")
 >     Cc: stable@vger.kernel.org
 >     Signed-off-by: Yuhang Pan <242270054@hdu.edu.cn>
 
-[Severity: Low]
-This isn't a bug in the code, but should the introductory greeting ("Hello,
-I apologize...") be moved below the "---" separator line so that it is not
-recorded in the permanent git commit history?
+[Severity: Medium]
+Should the opening greeting and submission notes be moved below the ---
+separator so they are not recorded in the permanent git commit log?
 
-Also, is the statement in the commit message that validation on the pin path
-"is needed to establish the requested placement before pinning" accurate?
-Looking at vmw_bo_pin_reserved() in drivers/gpu/drm/vmwgfx/vmwgfx_bo.c, it =
-is
-documented to pin or unpin a buffer object without moving it, takes no
-placement parameter, and only copies bo->resource->mem_type and
-bo->resource->placement from the already-allocated resource (a leftover from
-when TTM pinned and unpinned BOs by toggling TTM_PL_FLAG_NO_EVICT via
-ttm_bo_validate() prior to commit fbe86ca56791).
+Also, is the statement "Keep validation on the pin path, where it is needed
+to establish the requested placement before pinning" accurate?
 
-In the trace shown in the commit message, flags=3D0x10 is TTM_PL_FLAG_FALLB=
-ACK:
-ttm_resource_compatible() rejects TTM_PL_FLAG_FALLBACK on the first validat=
-ion
-pass when force_space is false, which causes ttm_bo_validate() to reach the
-if (bo->pin_count) return -EINVAL check.
+Looking at the kernel-doc above vmw_bo_pin_reserved() in
+drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:
+
+    /**
+     * vmw_bo_pin_reserved - Pin or unpin a buffer object without moving it.
+     *
+     * @vbo: The buffer object. Must be reserved.
+     * @pin: Whether to pin or unpin.
+     *
+     */
+
+vmw_bo_pin_reserved() does not take or establish a requested placement; it
+constructs a temporary struct ttm_place from the BO's existing
+bo->resource->mem_type and bo->resource->placement and asserts via BUG_ON()
+that mem_type does not change, which is a leftover from how
+TTM_PL_FLAG_NO_EVICT was toggled prior to commit fbe86ca56791 ("drm/vmwgfx:
+switch over to the new pin interface v2").
+
+In addition, would it be helpful for the commit message to explain why
+ttm_bo_validate() returned -EINVAL when flags=3D0x10 (TTM_PL_FLAG_FALLBACK)?
+Commits a78a8da51b36 ("drm/ttm: replace busy placement with flags v6") and
+cc941c70df39 ("drm/ttm: improve idle/busy handling v5") caused
+vmw_bo_placement_set() to mark fallback placements with TTM_PL_FLAG_FALLBACK
+and made ttm_resource_compatible() reject TTM_PL_FLAG_FALLBACK on the
+non-evicting first pass of ttm_bo_validate(), causing ttm_bo_validate() to
+fall through to:
+
+    if (bo->pin_count)
+        return -EINVAL;
+
+when called on an already-pinned BO.
 
 > diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
 vmwgfx_bo.c
@@ -180,71 +196,68 @@ n)
 > -	else
 > -		ttm_bo_unpin(bo);
 > +	ttm_bo_pin(bo);
+>  }
 
 [Severity: Medium]
-Should the ttm_bo_validate() call and BUG_ON() in vmw_bo_pin_reserved() be
-removed from the pin path as well?
-
-When a buffer object resides in a fallback placement, bo->resource->placeme=
-nt
-has TTM_PL_FLAG_FALLBACK (0x10) set via placement_flags() in
-drivers/gpu/drm/vmwgfx/vmwgfx_bo.c. When vmw_bo_pin_reserved(vbo, true) is
-called (for example via vmw_gem_object_pin(), vmw_resource_pin(), or
-vmw_execbuf_process()), it copies bo->resource->placement into pl.flags and
-calls ttm_bo_validate(bo, &placement, &ctx):
-
-drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:vmw_bo_pin_reserved() {
-	pl.fpfn =3D 0;
-	pl.lpfn =3D 0;
-	pl.mem_type =3D bo->resource->mem_type;
-	pl.flags =3D bo->resource->placement;
-	...
-	ret =3D ttm_bo_validate(bo, &placement, &ctx);
-
-	BUG_ON(ret !=3D 0 || bo->resource->mem_type !=3D old_mem_type);
-}
-
-On the first pass of ttm_bo_validate() (where force_space is false),
-ttm_resource_compatible() rejects TTM_PL_FLAG_FALLBACK and returns false:
-
-drivers/gpu/drm/ttm/ttm_resource.c:ttm_resource_compatible() {
-		if (place->flags & (evicting ? TTM_PL_FLAG_DESIRED :
-				    TTM_PL_FLAG_FALLBACK))
-			continue;
-}
-
-Because ttm_resource_compatible() returns false, ttm_bo_validate() calls
-ttm_bo_alloc_resource(), which calls dma_resv_reserve_fences() before skipp=
-ing
-the fallback placement and retrying with force_space set to true:
-
-drivers/gpu/drm/ttm/ttm_bo.c:ttm_bo_alloc_resource() {
-	ticket =3D dma_resv_locking_ctx(bo->base.resv);
-	ret =3D dma_resv_reserve_fences(bo->base.resv, TTM_NUM_MOVE_FENCES);
-	if (unlikely(ret))
-		return ret;
-}
-
-If dma_resv_reserve_fences() fails with -ENOMEM under memory pressure,
-ttm_bo_validate() returns -ENOMEM and triggers BUG_ON(ret !=3D 0 ||
-bo->resource->mem_type !=3D old_mem_type) on the pin path.
+Should ttm_bo_validate(), BUG_ON(), and the now-unused local variables (ctx,
+pl, placement, old_mem_type, ret) be removed from the pin path of
+vmw_bo_pin_reserved() as well, so that it simply calls ttm_bo_pin(bo) or
+ttm_bo_unpin(bo)?
 
 Prior to commit fbe86ca56791 ("drm/vmwgfx: switch over to the new pin
-interface v2"), TTM pinned and unpinned BOs by toggling TTM_PL_FLAG_NO_EVICT
-in pl.flags and calling ttm_bo_validate() to update the placement flag
-in-place. Once commit fbe86ca56791 switched to ttm_bo_pin() and
-ttm_bo_unpin(), the ttm_bo_validate() call in vmw_bo_pin_reserved() became
-vestigial on both paths: whenever ttm_bo_validate() succeeds here, it retur=
-ns
-0 early at the ttm_resource_compatible() check without moving the buffer or
-creating a TTM, and callers needing a specific placement already call
-ttm_bo_validate() beforehand.
+interface v2"), TTM represented pinned BOs via TTM_PL_FLAG_NO_EVICT in
+bo->mem.placement, so vmw_bo_pin_reserved() copied the current placement in=
+to
+pl, toggled TTM_PL_FLAG_NO_EVICT, and called ttm_bo_validate() solely to
+update the flag and LRU state in-place without moving the BO. Once commit
+fbe86ca56791 replaced TTM_PL_FLAG_NO_EVICT with ttm_bo_pin() and
+ttm_bo_unpin(), the ttm_bo_validate() call and BUG_ON() became a vestige on
+both pin and unpin paths. All callers that require a specific placement
+(vmw_bo_pin_in_placement(), vmw_bo_pin_in_vram_or_gmr(),
+vmw_bo_pin_in_start_of_vram(), vmw_resource_pin(), and
+vmw_query_bo_switch_commit()) already call ttm_bo_validate() prior to calli=
+ng
+vmw_bo_pin_reserved(vbo, true).
 
-Could vmw_bo_pin_reserved() drop the ttm_bo_validate() block and unused loc=
-al
-variables (ctx, pl, placement, old_mem_type, ret) and simply call
-ttm_bo_pin(bo) or ttm_bo_unpin(bo) when pin !=3D !!bo->pin_count?
+Leaving ttm_bo_validate() and BUG_ON() on the pin path still causes a probl=
+em
+when pinning a BO whose resource was allocated in a fallback busy_domain so
+that bo->resource->placement has TTM_PL_FLAG_FALLBACK (0x10) set, reachable
+via:
+
+    drm_gem_map_attach()
+      -> vmw_gem_object_pin()
+        -> vmw_bo_pin_reserved(vbo, true)
+
+or:
+
+    vmw_resource_pin()
+      -> vmw_bo_pin_reserved(vbo, true)
+
+When vmw_bo_pin_reserved(vbo, true) copies bo->resource->placement into
+pl.flags, the first pass of ttm_bo_validate() (force_space =3D=3D false) ca=
+lls
+ttm_resource_compatible() in drivers/gpu/drm/ttm/ttm_resource.c:
+
+    if (place->flags & (evicting ? TTM_PL_FLAG_DESIRED :
+                        TTM_PL_FLAG_FALLBACK))
+        continue;
+
+which rejects TTM_PL_FLAG_FALLBACK when evicting is false and returns false.
+Because bo->pin_count is 0, ttm_bo_validate() then enters
+ttm_bo_alloc_resource() in drivers/gpu/drm/ttm/ttm_bo.c:
+
+    ticket =3D dma_resv_locking_ctx(bo->base.resv);
+    ret =3D dma_resv_reserve_fences(bo->base.resv, TTM_NUM_MOVE_FENCES);
+    if (unlikely(ret))
+        return ret;
+
+before skipping the TTM_PL_FLAG_FALLBACK placement, returning -ENOSPC, and
+only succeeding on the second pass (force_space =3D=3D true). If
+dma_resv_reserve_fences() fails with -ENOMEM, ttm_bo_validate() returns
+-ENOMEM and triggers BUG_ON(ret !=3D 0 || bo->resource->mem_type !=3D
+old_mem_type) in vmw_bo_pin_reserved().
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/064da7ba-58ca-4027-=
-88a9-12fb41e8b7d4@hdu.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/93888c18-7ce4-4341-=
+b387-a80a29847d3e@hdu.edu.cn?part=3D1
