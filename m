@@ -2,51 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD548606A326
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:18:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F382606A327
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 14:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Chx9T0PE
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fxV13nCd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE7F910E824;
-	Tue,  3 Nov 2026 14:18:51 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA6910E11B;
- Tue,  3 Nov 2026 14:18:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3892440502;
- Tue,  3 Nov 2026 14:18:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF6E1F000C1;
- Tue,  3 Nov 2026 14:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793715525;
- bh=Afeb0cSq4vk7QoBPnCYCwA9oG4zpAG3kgvidB/omNng=;
- h=From:Date:Subject:To:Cc;
- b=Chx9T0PEiG7yIBB2sYpycnX2Ol2gdBJ6BAvxpV61GVoCVhWKsSI2l2mtUoHqHol5O
- Wm/O7n+rFiQoC60xp0X4eoa81Ux5MJ39plweiZpwJsPkT0kX3Il9XKhoq2/I+VAIWZ
- HsrPCV1e2hp9Xs/WSGV/9qhnV2p2I/nnY9IUehTV1OPoZ/8vJca4gJGQWVskRqC9JP
- WOBxyonLADMnb4uO+XMKevEMuuyLJNmEKaChHXPHdM4z/tQ1ML6gNgldvKmZKehSze
- 1YkqaHYT/j5om4LnVxFd4tR2H/Jroxh5FhTBhgFXEY5CitouGbbz/d1lmXQj2U+wtX
- 75Jr3J5aRPa6w==
-From: Mario Limonciello <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 08:18:40 -0600
-Subject: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E4D10E807;
+	Tue,  3 Nov 2026 14:25:04 +0000 (UTC)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEB310E807
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 14:24:57 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-6b2237b596cso3502742a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 06:24:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793715896; x=1794320696; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
+ b=fxV13nCdYkrNwylEFH55zBcf9ZvIO2Urtf0gwQbB3DBLnWrLAdPT/rezknoXkIUMmr
+ fg2yWhBvGwYENu+cKpE3NylfUQoudgak3j+sBa0GvBl+5Gr4ngPy1JEPL7g5mI4/FhLj
+ sYsPgETU3Ar2wTXwkg0U68G/xh8pTwJPbn1zNEAQI1j4J/jfnZOGvg41t3sEa12i4lr2
+ rTFVYket77/E3WG+8hFHYZlR1Srhxog+zEU3vu+ZA148CWp0RvxTgQzQfpexfpUs3zBQ
+ BlmSbu03tBh40pYropQOKhMmPG+fMhHRhK1ko4bmOf+eW7VatKQ5YxQsx2hXOOHR3kif
+ TRAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793715896; x=1794320696;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
+ b=Md8wXLjUhe+SzKzp9NZ4lgGUTzUl2SbdcPNJLp/TFqxI6H91fVip8VjZqenwF81NBd
+ tqM0PNz+mPEtl36eyiGu6Hh2FisNEPhg7yFmSKLm+NBu8stbUNWpr/UdKSS81/ASz9Pz
+ IGseRxq2GVdS/vypXtmMfPdqRKu4+55IzwYIFI5b1fMW1ZteY4EJ4WczMCp1fJGh5ceb
+ Cvq1VFZE8FMsnzBBs/E/RMBh0IubXd4lRLaRLenObJB5NdaN/yTv55OOtV3GSYJQq0RU
+ pHJlnCTC/Bh9Fb9xPjpZ6RGEfahYG9vrkRoub/QSl4F847lSYDC5aGDIqIZb5TpqVy2C
+ EQEA==
+X-Gm-Message-State: APuU4Z8KjQJpznXynTQ2xI9gyQLy60Km8dpZ3C+GJk8y9HEXWA4txKTB
+ CT/g+EDuOhGDf528XrfVjo4fAaja9FWg3JzobYfgBINLbUySt14qEao=
+X-Gm-Gg: AYBFou3AKv5RUBriNU2osGqg/WontMe7cu25WNXCerZOCbTYskMmxZs5P6nOepk7EuG
+ PY7CXp3cMAdGDw58oiAGaHneuSBYYa3NPb5yGRNRsRfygSEN1RHxF8aeKkMI5d1AkmnV90pubJm
+ V4kAwkMZouLhFe4dyNmWR7zwXlprgABbVjbGKF1yA2S7LNZdiEyaMF4+cKFnd/n5tgGAQs6sS3T
+ 0JrSMswnNjvwFV2jA3u8uKBuO70CBwvDFYnKrvK7gSOJEMgwP+DpXr2IOz4zjzKq8O8Fz/064v2
+ rL75p+yj6O16B/pUnNsMYiIVMRPqVtNkXW4LS2DRIrlAjnRT/ED2ItlAXMjHMy5mEQbnG2VehYd
+ YoZq8+/2KnVDZ3++hi1u/zhNQ5UK+IRDk7cqVPAmiiaQ4zp88JHjx5TCrxHAT0nIWLpfwYnsxuD
+ Q9d8gF2g8nhAt6RCFdFZ4KkGqs8UQPZVs8zRqI6YBOvLU/iZtZrdzNmr5HurHhiXMINp6iwI4AU
+ VeiYQIfIXPRMm8jAhUrvx8h1s7RLXgWhJu44H2B1gNaaGhPqEx3P+6tmC3UIFuovyb79VBl5L6i
+ cJLmUH9q6qaPn2QvwjUJvvz9PSds/wGcMCAMZ5FGErQaVlFgMwu9JBWZBUA+g56yzTkfMmgNU+D
+ u2EPx+w39
+X-Received: by 2002:a17:906:7309:b0:c46:645f:cedd with SMTP id
+ a640c23a62f3a-c4ca7a18e93mr1175687766b.8.1793715896002; 
+ Tue, 03 Nov 2026 06:24:56 -0800 (PST)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
+ ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4cebf3cadbsm90903766b.50.2026.11.03.06.24.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Nov 2026 06:24:55 -0800 (PST)
+Message-ID: <d4b18854-0e02-4fce-b168-d4e80035aaa8@gmail.com>
+Date: Tue, 3 Nov 2026 15:24:53 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2jGdEUl05X8YFjAdoCY80lKiI
- fy7BfcuT+7jrBDUOw1wz1bwurjgxiEBnzKQrhpaRWcTAxsuiAxjiJP6nrDqbTtFtFawuDRGazJ
- imCENJ6+Nex+nz/LHIdYvlXl/2hudC/PoP4d1ob33V7AQEt7kKnVe5U3B9pHCs4w9lNu2fQG7p
- l99xAAAAA==
-X-Change-ID: 20261102-superm1-amdgpu-ddc-63f0eb10c022
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Richard Hughes <richard@hughsie.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, simonit.orig@gmail.com, 
- Mario Limonciello <superm1@kernel.org>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] drm/msm/debugfs: Use cleanup.h for gpu state dump
+To: rob.clark@oss.qualcomm.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
+ <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
+ <a4151c32-bac2-40ec-86f3-59d4dbfaae62@oss.qualcomm.com>
+ <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
+Content-Language: en-US
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+In-Reply-To: <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +96,94 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
-but the connector's "ddc" adapter ("AMDGPU DM i2c hw bus N") always
-drives the physical i2c pins, which don't reach a native DP sink.  The
-AUX backed adapter ("AMDGPU DM aux hw bus N") does, so userspace such as
-fwupd, which uses the "ddc" sysfs link for DDC/CI, has to work around
-this.
+On 11/3/26 2:58 PM, Rob Clark wrote:
+> On Tue, Nov 3, 2026 at 3:28 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>> On 11/2/26 8:00 PM, Rob Clark wrote:
+>>> We need to move the gpu lock around a bit for the next patch.  Use
+>>> scoped_guard/etc so we don't have to make the error path handling more
+>>> complicated.
+>>>
+>>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
+>>>   1 file changed, 12 insertions(+), 19 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+>>> index f12701e286ec..aa59b28a3392 100644
+>>> --- a/drivers/gpu/drm/msm/msm_debugfs.c
+>>> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
+>>> @@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
+>>>        struct drm_device *dev = inode->i_private;
+>>>        struct msm_drm_private *priv = dev->dev_private;
+>>>        struct msm_gpu *gpu = priv->gpu;
+>>> -     struct msm_gpu_show_priv *show_priv;
+>>>        int ret;
+>>>
+>>>        if (!gpu || !gpu->funcs->gpu_state_get)
+>>>                return -ENODEV;
+>>>
+>>> -     show_priv = kmalloc_obj(*show_priv);
+>>> +     struct msm_gpu_show_priv *show_priv __free(kfree)
+>>> +             = kmalloc_obj(*show_priv);
+>>>        if (!show_priv)
+>>>                return -ENOMEM;
+>>>
+>>> -     ret = mutex_lock_interruptible(&gpu->lock);
+>>> -     if (ret)
+>>> -             goto free_priv;
+>>> -
+>>> -     pm_runtime_get_sync(&gpu->pdev->dev);
+>>> -     msm_gpu_hw_init(gpu);
+>>> -     show_priv->state = gpu->funcs->gpu_state_get(gpu);
+>>> -     pm_runtime_put_sync(&gpu->pdev->dev);
+>>> -
+>>> -     mutex_unlock(&gpu->lock);
+>>> +     scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
+>>> +             scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
+>>> +                     msm_gpu_hw_init(gpu);
+>>> +                     show_priv->state = gpu->funcs->gpu_state_get(gpu);
+>>> +             }
+>> My clanker tells me we can't grab the PM reference before a mutex,
+>> as the recovery mechanism depends on the rpm count being appropriate
+>> to let it drop it (and kill gx this way)
+> Yeah, but we also can't do it in the other order, or more specifically
+> disabling ifpc needs to come before gpu lock or it can deadlock with
+> recovery.. but ifpc disable needs to be after runpm get.
+>
+> Re-working that ordering was the whole of introducing cleanup.h, to
+> avoid the error path with mutex_lock_interruptible() after taking
+> runpm
+>
+> I guess if you are hammering on debugfs while crashing the gpu, maybe
+> the first recovery fails, and then a subsequent one eventually
+> succeeds.
+I guess it leads to a sort of deadlock scenario because the recovery 
+path waits
+for power to collapse, though it timeouts after one second.
 
-Keep a single i2c bus per connector and pick the transport per transfer
-based on the detected sink: if the sink is a native DP/eDP/MST sink,
-forward the transfer to the AUX adapter, otherwise (DVI/HDMI, including
-DP++ with a passive adapter) use the hw i2c engine as before.
+After that hangcheck will have to trigger again so I guess the delay 
+introduced
+would be significant.
 
-Reported-by: simonit.orig@gmail.com
-Closes: https://github.com/fwupd/fwupd/pull/11308
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
----
-Changes in v2:
-- Check which i2c bus to use on the fly instead of changing static symlink to
-  avoid regressing passive adapters.
-- Link to v1: https://patch.msgid.link/20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+I really wish there was some better way of doing recovery that didn't 
+rely on
+the counbter having a known value.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index b498fc5fbb140..678caffa3d120 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int i;
- 	int result = -EIO;
- 
-+	if (!i2c->oem) {
-+		struct dc_link *link = ddc_service->link;
-+		struct amdgpu_dm_connector *aconnector = link->priv;
-+
-+		/*
-+		 * DDC to a native DisplayPort sink is tunneled over the AUX
-+		 * channel; the physical i2c pins only reach DVI/HDMI sinks
-+		 * (e.g. DP++ with a passive adapter).  Route accordingly so
-+		 * the connector's single "ddc" bus works for either sink.
-+		 */
-+		if (aconnector && link->local_sink &&
-+		    dc_is_dp_signal(link->local_sink->sink_signal) &&
-+		    aconnector->dm_dp_aux.aux.ddc.algo)
-+			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-+	}
-+
- 	if (!ddc_service->ddc_pin)
- 		return result;
- 
+>
+> BR,
+> -R
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
 
 Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
