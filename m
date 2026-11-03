@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B41606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:55:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0431606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 22:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Le3uX6k9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CURVziVm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D3210F1FF;
-	Tue,  3 Nov 2026 22:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF6C10F8C5;
+	Tue,  3 Nov 2026 22:55:39 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE9710F1FF
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 22:55:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7931E10F8A7;
+ Tue,  3 Nov 2026 22:55:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 247E760D81;
- Tue,  3 Nov 2026 22:55:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C131F000C1;
- Tue,  3 Nov 2026 22:55:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F0E2160D81;
+ Tue,  3 Nov 2026 22:55:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4AD1F000C1;
+ Tue,  3 Nov 2026 22:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793746506;
- bh=oheIWokBfQkQ0F/QvYholTPqB5SpXrXrzxHjvxf/aZw=;
+ s=k20260515; t=1793746532;
+ bh=l8S3yCpol7+fNafZtUXxIzEBjIkQvusToH7ukbIbSIU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Le3uX6k9FG/WH5rnnVXS5DU1STzyVxHdXb9ZXs53fCLYfMv1nlZ1fOU/BfThnvjGh
- SwwpSxg6BEtT9TLM3q3dMJIV0wPCUZWlSqmFmp4HJOGu9ABMKU7OBfDc27IVbL51RG
- 0qolsq/Civag5bu8aP5ToL+3gKZKlCimUrFjbo+3fNNSEqPVaiUxZYv236zxFpihUn
- uN+rgWUKhn6ksZkpCyVzXYe6tRB/0DOonMj7oymJEN4or7m+Jv/vRDzthwFpneimoj
- kAwolz3lUPAAwqdDiLQuQQeh9vH//R8MU5VNc9wZg2EdilPqKDf9UUWIEtUKTjr4jl
- t4EdEdJs/YyIw==
-Message-ID: <sashiko-outbox-196161@kernel.org>
+ b=CURVziVmaDenQBwzrpeEmOR+vhQsKYQoNMr/jq4D+Yf+/uuOJfFcV6lQJG7NISuNw
+ XJN0I3YTtUzB2PJCIgHt0dLG4XedLrkTZvB56q/pccRMW+q1mZ4myZZii2PDv/uUIu
+ 4yQvGzo4hgR+ATcsw3drTONHo1phAoCXyePWq30inxdZvTFummQDgh0w8I/k22Oz+y
+ SgY6a6nOAKrRMs6Cyqn9VHABooaXkEIhWQyUEoS28DIJpwPGom98350mdoL+DN+LUm
+ pKFZxcVch7eS0yzj2eNQJY+bPxRhQ700Z8fDQDGrcBmZI86o4cbxNYLiRo9NHf1Bkj
+ rBioXzY2Q8dLg==
+Message-ID: <sashiko-outbox-196162@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: display: imx: Document fsl,pcr
-To: "Fabio Estevam" <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103224830.377009-1-festevam@gmail.com>
-References: <20261103224830.377009-1-festevam@gmail.com>
+Subject: Re: [PATCH v11 07/12] drm/panel: add connector luminance forwarding
+To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
+References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+ <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 22:55:06 +0000
+Date: Tue, 03 Nov 2026 22:55:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +61,146 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: display: imx: fsl,pcr documented on controller node
+- [Medium] drm/panel: premature and redundant backlight update in drm_panel=
+_set_luminance()
 --
 
-commit 135b52931f21eeadf62c2f0174408c4c3faaf98d
-Author: Fabio Estevam <festevam@gmail.com>
+commit 7712bf002ce98036567ec37ca544f1c1930a93be
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-dt-bindings: display: imx: Document fsl,pcr
+drm/panel: add connector luminance forwarding
 
-This commit documents the fsl,pcr property in fsl,imx-lcdc.yaml to address
-dt-core.yaml validation warnings on i.MX25 and i.MX27 device trees.
+This commit adds helpers to expose a panel backlight via the connector
+LUMINANCE property and forward connector updates to the backlight backend.
+It hooks these helpers into panel bridges that create their own connector.
 
-> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.y=
-aml b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-> index 84610b5690c49..f1931436a4d81 100644
-> --- a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-> +++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
-> @@ -65,6 +65,12 @@ properties:
->      description:
->        LCDC Sharp Configuration Register value.
+> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> index 74c96da45b7a5..bbd0e14401c18 100644
+> --- a/drivers/gpu/drm/drm_panel.c
+> +++ b/drivers/gpu/drm/drm_panel.c
+
+[ ... ]
+
+> @@ -169,6 +184,19 @@ static void panel_bridge_atomic_enable(struct drm_br=
+idge *bridge,
+>  	if (old_crtc_state && old_crtc_state->self_refresh_active)
+>  		return;
 > =20
-> +  fsl,pcr:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      LCDC Panel Configuration Register value used in the display node
-> +      referenced by the display property.
+> +	/*
+> +	 * Program the committed luminance before drm_panel_enable() turns the
+> +	 * backlight on, so the panel does not light up at a stale level.
+> +	 */
+> +	if (panel->connector.luminance_property) {
+> +		const struct drm_connector_state *conn_state =3D
+> +			drm_atomic_get_new_connector_state(atomic_state,
+> +							   &panel->connector);
+> +
+> +		if (conn_state)
+> +			drm_panel_set_luminance(panel, conn_state->luminance);
+> +	}
+> +
+>  	drm_panel_enable(panel);
+>  }
+> =20
+> @@ -873,6 +901,71 @@ void drm_panel_disable(struct drm_panel *panel)
 
-[Severity: Low]
-Should fsl,pcr be defined here under the top-level properties of
-fsl,imx-lcdc.yaml?
+[ ... ]
 
-In drivers/video/fbdev/imxfb.c, controller properties such as fsl,lpccr,
-fsl,lscr1, and fsl,dmacr are read from the LCD controller node in
-imxfb_init_fbinfo(), whereas imxfb_probe() resolves the display phandle
-and passes that separate node to imxfb_of_read_mode():
+> +/**
+> + * drm_panel_set_luminance - set a panel backlight's relative luminance
+> + * @panel: panel whose backlight is controlled
+> + * @luminance: relative luminance level
+> + *
+> + * Updates the backlight brightness without changing its power state, un=
+der
+> + * the same lock as brightness changes made through sysfs. Turning
+> + * the backlight on and off is left to drm_panel_enable() and
+> + * drm_panel_disable(), so a level set while the panel is disabled is ap=
+plied
+> + * when the panel is enabled again.
+> + */
+> +void drm_panel_set_luminance(struct drm_panel *panel, unsigned int lumin=
+ance)
+> +{
+> +	struct backlight_device *backlight;
+> +
+> +	if (!panel || !panel->backlight)
+> +		return;
+> +
+> +	backlight =3D panel->backlight;
+> +	guard(mutex)(&backlight->ops_lock);
+> +	if (!backlight->ops || luminance > backlight->props.max_brightness)
+> +		return;
+> +
+> +	backlight->props.brightness =3D luminance;
+> +	backlight_update_status(backlight);
+> +}
+> +EXPORT_SYMBOL(drm_panel_set_luminance);
 
-drivers/video/fbdev/imxfb.c:imxfb_of_read_mode() {
+[Severity: Medium]
+Can calling backlight_update_status() unconditionally in
+drm_panel_set_luminance() cause the backlight hardware to be programmed or
+unblanked before panel->funcs->enable() runs, as well as trigger three
+consecutive backlight updates on every modeset enable?
+
+During a modeset enable, drm_atomic_helper_commit_modeset_enables() runs:
+
+  drm_atomic_helper_commit_encoder_bridge_enable()
+    -> panel_bridge_atomic_enable()
+      -> drm_panel_set_luminance()
+      -> drm_panel_enable()
+  drm_atomic_helper_commit_luminance_enables()
+    -> panel_bridge_connector_set_luminance()
+      -> drm_panel_set_luminance()
+
+When panel_bridge_atomic_enable() calls drm_panel_set_luminance() before
+drm_panel_enable(), panel->enabled is still false and panel->funcs->enable()
+has not yet executed:
+
+drivers/gpu/drm/drm_panel.c:drm_panel_enable() {
 	...
-	ret =3D of_property_read_u32(np, "bits-per-pixel", &bpp);
-	ret |=3D of_property_read_u32(np, "fsl,pcr", &pcr);
+	if (panel->funcs && panel->funcs->enable) {
+		ret =3D panel->funcs->enable(panel);
+		if (ret < 0)
+			goto exit;
+	}
+	panel->enabled =3D true;
+
+	ret =3D backlight_enable(panel->backlight);
 	...
 }
 
-As the description notes and as shown in the second example of
-fsl,imx-lcdc.yaml (display0), fsl,pcr is placed in the separate display node
-referenced by the display phandle rather than in the LCD controller node
-itself.
+Because BACKLIGHT_POWER_ON is 0, backlight devices registered with
+zero-initialized props.power and props.state (or left active at boot) are n=
+ot
+marked blanked prior to the first drm_panel_disable() call, and several
+panel backlight callbacks (such as visionox_r66451_bl_update_status() and
+rad_bl_update_status()) send MIPI_DCS_SET_DISPLAY_BRIGHTNESS commands in
+update_status() regardless of blank state. Calling backlight_update_status()
+before drm_panel_enable() can therefore access or unblank the panel before
+panel->funcs->enable() has completed its power-on sequence and mandatory
+enable delays.
 
-Defining fsl,pcr in the top-level properties of fsl,imx-lcdc.yaml silences
-the dt-core.yaml type warning globally, but it also permits fsl,pcr on the
-LCD controller node where the driver never reads it. In addition, the allOf
-conditional for fsl,imx1-lcdc and fsl,imx21-lcdc disables display, fsl,dmac=
-r,
-fsl,lpccr, and fsl,lscr1, but does not set fsl,pcr: false.
+In addition, if an external caller invokes drm_panel_set_luminance() while
+!panel->enabled, calling backlight_update_status() immediately does not mat=
+ch
+the kernel-doc comment stating that a level set while the panel is disabled
+is applied when the panel is enabled again.
 
-Would it be more accurate to document the display node schema separately (or
-disallow fsl,pcr on the controller node itself)?
+Once drm_panel_enable() runs, backlight_enable() calls
+backlight_update_status() a second time to apply backlight->props.brightnes=
+s.
+Immediately after, drm_atomic_helper_commit_luminance_enables() sees
+drm_atomic_crtc_needs_modeset(new_crtc_state) and calls
+panel_bridge_connector_set_luminance() -> drm_panel_set_luminance(), which
+calls backlight_update_status() a third time even though
+backlight->props.brightness already equals luminance.
+
+Should drm_panel_set_luminance() only store backlight->props.brightness when
+!panel->enabled (leaving the hardware update to backlight_enable() in
+drm_panel_enable()), and skip backlight_update_status() when
+backlight->props.brightness is unchanged?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103224830.3770=
-09-1-festevam@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-superm1-ba=
+cklight-property-v11-0-00cce7b2ba22@kernel.org?part=3D7
