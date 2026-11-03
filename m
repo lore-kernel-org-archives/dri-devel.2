@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853C0606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B01606A32C
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:46:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMl4E7BN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5ft3908
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEF6E10E4D0;
-	Tue,  3 Nov 2026 15:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 946C810F6AF;
+	Tue,  3 Nov 2026 15:46:06 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C79D10E4D0
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:44:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20D3310F6A4
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:46:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C574760A7C;
- Tue,  3 Nov 2026 15:44:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4242F1F000C1;
- Tue,  3 Nov 2026 15:44:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 603A660A7F;
+ Tue,  3 Nov 2026 15:45:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A581F000C1;
+ Tue,  3 Nov 2026 15:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793720666;
- bh=7Ahw7uJq3o8c7cJ4EppugyU2ZAFqthKpPx9SdR79/kc=;
+ s=k20260515; t=1793720759;
+ bh=r9uNT7Sabpf/JpfrG0XT1JzcNU1x+Ccuei2+9s7QWgc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nMl4E7BNI4hJhzu64i6dA1sDuvXlbk8RGad3IQJHVBJxumiT1m7jHChaSuw6lJ/g0
- Ny9T9Ud4pHfin7pMginwFWRgWp1Jah2OE6H/wKHR4+JuxAigaePuw5Gi1+HXgXFLIm
- Y3JA0dgeJpCIhF07iy3OErE0StrZwUIJWPf9qwCcOlZKG1KC1Jiad6rSkIIhZSJjH0
- ywqCFcGhnsvd2XdLkOT3yxSbjH1ZBmh5X9DGvK3ReJBfGo67govShPTh0zvmqSmszQ
- XfspJe2puhe2Bbg6h7mnXOQKkJvZfwcZAQpMqVckTfGuSVQbKKKq8Izo2XsBIGz1FO
- /+diyNhodtCDA==
-Message-ID: <sashiko-outbox-195644@kernel.org>
+ b=H5ft3908ku5pT0zvbCfiIaGSoWItjZ0ZVBaRTDqxRzPxYsAom94H+ENuGGTQwKkpP
+ HltXBPFoq5HbPr2pCIlvV6BrSznW8WwXfP0ZlYnLZa4/QlhH8E8YybbBByllKw6q6P
+ c1h3arWTXqB8cEsKWrbT6iFN6LgqN1tNotVwwX1TnZjc5q0km964MabM73LxkX8zdM
+ SGpk67t3H/+/LItbqjyirF5kZxnmcd0DXKiGEzcSR3jPLT0j/vRXLEZEh9GI/GHUO/
+ VN0xj3m/NSLZfEGrkIrtbOAzGxOfAMkCE2GbGyiJkZkwL8R8KkY93Eu+0qD3+0UslU
+ vwXUTVAoweVSw==
+Message-ID: <sashiko-outbox-195649@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v7 4/8] rust: DmaFence: Replace call_rcu() with
- synchronize_rcu()
+Subject: Re: [RFC PATCH v7 5/8] rust: DmaFence: Replace is_signaled() with
+ status()
 To: "Philipp Stanner" <phasta@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
  gary@garyguo.net
-In-Reply-To: <20261103153138.1087330-6-phasta@kernel.org>
+In-Reply-To: <20261103153138.1087330-7-phasta@kernel.org>
 References: <20261103153138.1087330-2-phasta@kernel.org>
- <20261103153138.1087330-6-phasta@kernel.org>
+ <20261103153138.1087330-7-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 15:44:25 +0000
+Date: Tue, 03 Nov 2026 15:45:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,96 +62,82 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] rust: dma_fence: payload leak in DriverFence::drop() dropping NonN=
-ull wrapper
+- [Low] rust: dma_fence: unstable assert_matches in doctest breaks KUnit bu=
+ild
 --
 
-commit 5c06afa6bb1de1d597e5eea16a29dd0b6c6d9220
+commit 1a1a7bd301271b4681c7504f6e6f60ca7abd6bb7
 Author: Philipp Stanner <phasta@kernel.org>
 
-rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+rust: DmaFence: Replace is_signaled() with status()
 
-This commit replaces the deferred RCU callback in DriverFence::drop() with
-synchronize_rcu() so that driver fence data is not dropped from atomic
-context, and updates FenceContext::drop() to use synchronize_rcu() instead
-of rcu_barrier().
+This commit replaces Fence::is_signaled() with Fence::status() returning a
+FenceStatus enum so callers must check whether a signaled fence completed w=
+ith
+an error while holding the fence lock.
 
 > diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
 ence.rs
-> index 735c4f090a2c4..fbbc6ab202eca 100644
+> index fbbc6ab202eca..9cef604f17ea9 100644
 > --- a/rust/kernel/dma_buf/dma_fence.rs
 > +++ b/rust/kernel/dma_buf/dma_fence.rs
 
 [ ... ]
 
-> @@ -980,59 +968,18 @@ fn drop(&mut self) {
->              return;
->          }
-> =20
-> +        // Make sure none of the fence backend_ops can access fence-data=
- anymore.
-> +        //
-> +        // TODO:
-> +        // This would not be necessary if the C dma_fence backend were u=
-sing a
-> +        // spinlock to properly synchronize its signaled state. Fix it i=
-n C and
-> +        // then remove synchronize_rcu().
-> +        synchronize_rcu();
-> +
->          // SAFETY: Valid because `self` is valid.
-> -        let rcu_head_ptr =3D unsafe { &raw mut (*self.data.as_ptr()).rcu=
-_head };
-> +        unsafe { drop_in_place(&raw mut self.data) };
-> =20
-> -        // SAFETY: `call_rcu()` is always safe to be called. `rcu_head_p=
-tr` was
-> -        // created validly above. The module must perform a `synchronize=
-_rcu()`
-> -        // or `rcu_barrier()` call to guard against module unload.
-> -        unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence=
-_data::<T>)) };
-> +        // SAFETY: The `synchronize_rcu()` above ensures all accessors a=
-re gone.
-> +        unsafe { bindings::dma_fence_put(self.as_raw()) };
->      }
->  }
+> @@ -650,11 +658,15 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCo=
+ntextOps> {
+>  ///         FenceContextOps,
+>  ///         FenceCallback,
+>  ///         FenceCallbackRegistration,
+> +///         FenceStatus, //
+>  ///     },
+>  ///     str::CString,
+>  ///     sync::aref::ARef, //
+>  /// };
+> -/// use core::fmt::Display;
+> +/// use core::{
+> +///     assert_matches,
+> +///     fmt::Display, //
+> +/// };
+>  ///
+>  /// struct CallbackData { }
+>  ///
+> @@ -700,9 +712,9 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
+extOps> {
+>  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;
+>  ///
+>  /// // TODO signalling guards
+> -/// assert_eq!(waiting_fence.is_signaled(), false);
+> +/// assert_matches!(waiting_fence.status(), FenceStatus::Unsignaled);
+>  /// fence.signal(Ok(()));
+> -/// assert_eq!(waiting_fence.is_signaled(), true);
+> +/// assert_matches!(waiting_fence.status(), FenceStatus::Signaled(Ok(())=
+));
 
-[Severity: High]
-As reported by Sashiko on RFC v6 [1], does DriverFence::drop() leak the
-T::FenceDataType payload when a DriverFence is dropped?
+[Severity: Low]
+Does using core::assert_matches in the DriverFence doctest break the build =
+when
+CONFIG_RUST_KERNEL_DOCTESTS=3Dy and CONFIG_DMA_SHARED_BUFFER=3Dy are enable=
+d?
 
-In DriverFence, self.data has type NonNull<DriverFenceData<'a, T>>, while
-the user payload of type T::FenceDataType lives in the inner data field of
-DriverFenceData:
+When CONFIG_RUST_KERNEL_DOCTESTS=3Dy is set, scripts/rustdoc_test_gen extra=
+cts
+this doctest into rust/doctests_kernel_generated.rs, which is compiled using
+rust_common_cmd in scripts/Makefile.build:
 
-rust/kernel/dma_buf/dma_fence.rs:
-    struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
-        #[pin]
-        inner: Fence,
-        fctx: &'a FenceContext<T>,
-        #[pin]
-        data: T::FenceDataType,
-    }
-    ...
-    pub struct DriverFence<'a, T: Send + Sync + FenceContextOps> {
-        data: NonNull<DriverFenceData<'a, T>>,
-    }
+    rust_allowed_features :=3D arbitrary_self_types,asm_goto,generic_arg_in=
+fer,used_with_arg
 
-Because self is &mut DriverFence<'a, T>, passing &raw mut self.data to
-drop_in_place() passes *mut NonNull<DriverFenceData<'a, T>> rather than
-*mut T::FenceDataType. Since NonNull is a Copy pointer wrapper with no Drop
-implementation, drop_in_place(&raw mut self.data) is a no-op, and the
-subsequent dma_fence_put() releases the underlying allocation without ever
-running the destructor for T::FenceDataType.
+Because assert_matches is an unstable library feature in core that is not in
+rust_allowed_features and feature(assert_matches) is not enabled for the
+doctest crate, compiling rust/doctests_kernel_generated.o fails with
+error[E0658].
 
-Should this obtain the raw dma_fence pointer before dropping the inner
-payload, and then pass &raw mut (*self.data.as_ptr()).data to
-drop_in_place() so that self.as_raw() does not create a shared reference to
-DriverFenceData after its data field has been dropped in place?
-
-[1] https://lore.kernel.org/r/20261016085724.1031766-6-phasta@kernel.org
+Would it work to use assert!(matches!(...)) instead, or derive PartialEq an=
+d Eq
+on FenceStatus so assert_eq! can be used with the KUnit doctest assertion
+macros?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103153138.1087=
-330-2-phasta@kernel.org?part=3D4
+330-2-phasta@kernel.org?part=3D5
