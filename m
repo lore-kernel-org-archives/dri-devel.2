@@ -2,43 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA9606FAFF
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:11:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BDC606FAE8
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anqu3ch+
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTCUUchR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0D9B10F4F9;
-	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35DB210F4F9
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79FFB89207;
+	Tue,  3 Nov 2026 11:12:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367D189207;
+ Tue,  3 Nov 2026 11:12:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D5CA605CB;
- Tue,  3 Nov 2026 11:11:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2F01F00919;
- Tue,  3 Nov 2026 11:11:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DFAEA41E5C;
+ Tue,  3 Nov 2026 11:11:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8AF1F000C1;
+ Tue,  3 Nov 2026 11:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793704271;
- bh=ywwUAKa1nCAbjT7Xu8wZ5Kot6vkSOvPDdhJKT7WlCes=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=anqu3ch+a+QVzGboMFM7Xbz+NlsiZjDpCKAaDxO9/ZnqJcfsvq22AFFh+InK24gnn
- SoOrh8yoSmD5KSFYljB7JFEi+Gy3pcgbhA9jFwfRm/AIWeKz4XL4JuUp2wKNJ2KLz9
- or0T8Pbl3Qm4Zca4Q4QORVp7Y5yIceIZnOvlmo0fSPIdAon0jx107nc2B0qh89d9Mo
- ieZC1oMkZV5SwKjskyESCfsNjb6D5BuCJVcS6c/dKuhncVaviqCwSryZvIb/ftBiaZ
- Zh8hhS1VcFEZBeUoHdDL/2XApkFNO2PO4yjEYmzDvpuIVh2SJ+p4MgifYOnjyn7Thk
- XUEWsviA2P15A==
-Message-ID: <sashiko-outbox-195118@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 15/19] PCI: Add KUnit coverage for ACS isolation checks
-To: "Leon Romanovsky" <leon@kernel.org>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-15-912101f93517@nvidia.com>
-References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
- <20261103-fix-p2p-acs-v4-0-v12-15-912101f93517@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 11:11:10 +0000
+ s=k20260515; t=1793704319;
+ bh=tn4EvUkvQ0N554yUW20DtCdORcTwQEym6yT5uKZBJKY=;
+ h=From:To:Cc:Subject:Date;
+ b=CTCUUchRwbFZQnH9vAw3PFU/sp4dOPeDoyPj2on43HtsVp6zxYgOIu8jNaLZ3Yg2G
+ 1Z99KfVrP9iSRHgfNP9TicUXiNGbqScZ17BOesR8STjuLsy++H1Abd47DprcOmf/uE
+ F1TkuvCiXV8gtnwx8YklQyQMZFtHC0THDNVzZ2xnfxpNbaNCGFuVxU21D19XSZ2k4C
+ VgyroI+WPzdv8N2z3dsDw95Ccop86L7JtuFQ/Wpz/YuKSWtBlsyE41RF1OANlTCM5A
+ r4e5FOd35UFLLB/k8SrUqWo+v6Z+4tdM7C6lY7+OT47SsXNVMfXLb1Ryp5YXsXkjnl
+ vLsgWxp/Dg3Vg==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: airlied@redhat.com
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, Gemini <gemini@google.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 -resend] drm/qxl: fix use-after-free and NULL pointer deref
+Date: Tue,  3 Nov 2026 12:11:54 +0100
+Message-ID: <d9930eabe544a4bec5d55113ccd6b1bcd2998bd6.1793704291.git.jirislaby@kernel.org>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,99 +57,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] PCI: duplicated mock device setup in pci_acs_flags_enabled_test()
---
+When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+memory contained uninitialized garbage. Specifically, `release->base.flags`
+(part of the embedded `dma_fence`) was not cleared.
 
-commit cd21c328560f2b4befdb418098279304a429237f
-Author: Leon Romanovsky <leon@kernel.org>
+This garbage in `base.flags` caused helper functions such as
+`dma_fence_was_initialized()` to return true even for releases where the
+fence was never actually initialized (e.g. via `dma_fence_init()`).
 
-PCI: Add KUnit coverage for ACS isolation checks
+Consequently, during release cleanup in `qxl_release_free()`, the driver
+attempted to put/free an uninitialized `dma_fence`, leading to refcount
+underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+pointer dereferences in `dma_fence_signal_timestamp_locked()`.
 
-This commit exposes pci_acs_flags_enabled() when KUnit is enabled and adds
-KUnit tests in drivers/pci/pci_acs_test.c using mock config-space operations
-to verify ACS isolation checks, missing capabilities, and failed config rea=
-ds.
+Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+`qxl_release_alloc()`, ensuring all fields (including embedded fence
+flags) are properly zero-initialized upon allocation, and remove
+redundant explicit zero-initializations.
 
-> diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-> index 18c697226762d..369444d2a04a0 100644
-> --- a/drivers/pci/pci_acs_test.c
-> +++ b/drivers/pci/pci_acs_test.c
-> @@ -103,10 +103,145 @@ static void pci_acs_p2pdma_completion_test(struct =
-kunit *test)
+The dumps in question:
+ refcount_t: underflow; use-after-free.
+ WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+ Modules linked in: af_packet nft_fib_inet ...
+ CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+ ...
+ RIP: 0010:refcount_warn_saturate+0x59/0x90
+ ...
+ Call Trace:
+  <TASK>
+  qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  process_one_work+0x19e/0x3a0
+ ...
 
-[ ... ]
+And then of course:
+ BUG: kernel NULL pointer dereference, address: 0000000000000028
+ ...
+ RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
 
-> +static void pci_acs_flags_enabled_test(struct kunit *test)
-> +{
-> +	const struct acs_isolation_case *c =3D test->param_value;
-> +	struct acs_ctrl_cfg cfg =3D {
-> +		.devfn =3D PCI_DEVFN(0, 0),
-> +		.cap =3D ACS_TEST_CAP,
-> +		.ctrl =3D c->ctrl,
-> +	};
-> +	struct pci_bus *bus =3D kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-> +	struct pci_dev *pdev =3D kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-> +
-> +	KUNIT_ASSERT_NOT_NULL(test, bus);
-> +	KUNIT_ASSERT_NOT_NULL(test, pdev);
-> +
-> +	bus->ops =3D &acs_ctrl_ops;
-> +	bus->sysdata =3D &cfg;
-> +
-> +	pdev->bus =3D bus;
-> +	pdev->devfn =3D cfg.devfn;
-> +	pdev->acs_cap =3D ACS_TEST_CAP;
-> +	pdev->acs_capabilities =3D ACS_ALL_CAPS;
-> +
-> +	KUNIT_EXPECT_EQ(test, pci_acs_flags_enabled(pdev, c->req), c->expect);
-> +}
-> +
-> +static bool acs_isolated(struct kunit *test, struct acs_ctrl_cfg *cfg,
-> +			 u16 acs_cap, u16 acs_flags)
-> +{
-> +	struct pci_bus *bus =3D kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-> +	struct pci_dev *pdev =3D kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-> +
-> +	KUNIT_ASSERT_NOT_NULL(test, bus);
-> +	KUNIT_ASSERT_NOT_NULL(test, pdev);
-> +
-> +	bus->ops =3D &acs_ctrl_ops;
-> +	bus->sysdata =3D cfg;
-> +
-> +	pdev->bus =3D bus;
-> +	pdev->devfn =3D cfg->devfn;
-> +	pdev->acs_cap =3D acs_cap;
-> +	pdev->acs_capabilities =3D ACS_ALL_CAPS;
-> +
-> +	return pci_acs_flags_enabled(pdev, acs_flags);
-> +}
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Assisted-by: Gemini <gemini@google.com> # only commit log
+Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org
+---
+Cc: virtualization@lists.linux.dev
+Cc: spice-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
-[Severity: Low]
-This isn't a bug, but in drivers/pci/pci_acs_test.c,
-pci_acs_flags_enabled_test() open-codes the same mock struct pci_bus and
-struct pci_dev allocation and initialization that acs_isolated() performs
-immediately below it.
+[v2] use kzalloc_obj() instead of bare kzalloc()
+---
+ drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-Also, struct acs_ctrl_cfg already carries the cap field, which every caller
-initializes to the same value passed as the separate acs_cap argument to
-acs_isolated().
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..07dc6eafe6f7 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ {
+ 	struct qxl_release *release;
+ 	int handle;
+-	size_t size = sizeof(*release);
+ 
+-	release = kmalloc(size, GFP_KERNEL);
++	release = kzalloc_obj(*release);
+ 	if (!release) {
+ 		DRM_ERROR("Out of memory\n");
+ 		return -ENOMEM;
+ 	}
+-	release->base.ops = NULL;
+ 	release->type = type;
+-	release->release_offset = 0;
+-	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
+ 
+ 	idr_preload(GFP_KERNEL);
+-- 
+2.56.0
 
-Could acs_isolated() set pdev->acs_cap from cfg->cap directly, and could
-pci_acs_flags_enabled_test() call acs_isolated() to avoid duplicating the
-setup?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-fix-p2p-ac=
-s-v4-0-v12-0-912101f93517@nvidia.com?part=3D15
