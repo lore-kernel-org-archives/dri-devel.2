@@ -2,43 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0483E606A335
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E4C606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jx85Ywf1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JstUnIh/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6582A10F3E8;
-	Tue,  3 Nov 2026 07:51:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD0610F3E8
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:51:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EB759435F6;
- Tue,  3 Nov 2026 07:51:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC931F00919;
- Tue,  3 Nov 2026 07:51:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793692283;
- bh=xTytYq3QvCxbkF60PwwiyIsnxYEw4zo/0SX//RkmJzg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jx85Ywf1no2Bv2o/L4GPnkvwidZAeBIT6DIz/VsmbyGceYBHZdmbr+Qwyg3spQZd3
- mDqOliKxoePQxWbK819REiblbNjboQPDHwBql8tTRGOaOgzg4XdetpvnzGF2zEsKqh
- j328bf6uTYw20fN+wT5UWhfY30jjiOceKX0Hi/W6GlAfPPdbxATFWQo/wKvTHLbBbv
- FcM9QqQ7IMT6GV2E+HSob2iPUWmJoBhCpb7/I0tk34J/BZmhv5YImi/W9F2gOUEDIt
- jcuKR39sGvWl8aCUG8rtcg1BCveL2EOe5nIeblr2eCOhRL5/0y2UXx7SCfw/Z8mdq7
- 8qAcqE24s0VuA==
-Message-ID: <sashiko-outbox-194750@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2 01/13] gpu: drm: sti: call
- cec_notifier_phys_addr_invalidate if no EDID
-To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <5dd7ac527b4d3143fea73bf93c60b22a66d16d3d.1793691124.git.hverkuil+cisco@kernel.org>
-References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
- <5dd7ac527b4d3143fea73bf93c60b22a66d16d3d.1793691124.git.hverkuil+cisco@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:51:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D8410E7C6;
+	Tue,  3 Nov 2026 07:52:34 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4825E10E7C6
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:52:28 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a2000d5fb1so25575985e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 23:52:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793692346; x=1794297146; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
+ b=JstUnIh/M1ex9m7aEkRqfmAzfErpig5b3544+aKHbzY9CpnhpTdCl8bnQovEkUvBAl
+ Tl24hiXTJcDC2YLzNjxA4TGIjRWH7O/bQ6321GzDCd14XUS/JYvm1SEQuzwRGJ8F7USe
+ 8Ty3BX2voZiib39GGnIU0u4i1qefPInvdU+v8JccMi3t+7tdV67RpseSUVH0/+GmLeXl
+ P5yGZ3654sBcBIXefZNCg15tT1Uc4iBap4fr49RPyPgb5Xfj5kxHyPTgWiWWFVkL6ut1
+ KzQZqivk3+KKbTMXopjzYfbNwvU05qOeKGpbUlhH03EU5QbWpSLsShJO2JyOgUq8ktwC
+ xaLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793692346; x=1794297146;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6R7CNAZpahPnRPALzexY2OH6fEkMajMjI2gkDqsBlDU=;
+ b=cT7KCSpaDfh1TFZLRiWh2UYl2ZBUu61JWfWpB35gN7ZflNtkXsNqJrSTH5a5exQNCB
+ VHb1JiBQ+N+xKSJqpNIRyZIXxT3YNP8ICgV/gn/VEMAM7YQfjpEhOPxSuD31UO4qxvMC
+ oztZQZIOB4KXIQbSrLguKfeEhDOW7WNXRgA7iqpnuOX0OswQT41WDW67LqHtt9V5k7qg
+ 9jwi0/r1v47szPy6tB0A4PrkxZDS9m8hXvLBPzpPmhnza6csy5KkEpDf4axsz2VN8Gdv
+ tKpmgEe6FKmX8BaafuQORLKEEGz1UOCjgW0DMlVqcm6jFHvo8FK9TICNPYkr0v2+i5YF
+ pHWg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz5nWPmyyACohcrjTOEUYsUxcnFHHL7bDMWWr0lD7Ys1SvS6fZAGB/vDdJ4RFE+k7U1v7zfQHDNEqU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8qlr9lJDfF7VfiAUjDaTbG+x6m1CVIhmf9ZbmDlMVY3RZkL4hB
+ uOeu01MKtpud9hYdVQ6OOaQcR7RMXnvqi527Odgd19Z+FvqqWnD//xiP
+X-Gm-Gg: AYBFou3B59ydpZoPBYeL+Nw8W1whONgZZBUIV2zcYgyxntMJd2SVKFQWbwA4JNU/816
+ vSMk1BB0bWMCAAWpP0N8MqCRKt9n0u8wszY8Wla32U5UqYLMDQ0h+/qmaxUtESfT2mP4LVhOFSO
+ mZSiggePKJ5Ji6ZgRmwfHShRU+TixJLaPJS6N3cVpXtsq3J4iFao8qEn3Gew+5fTYlccNB2FGmo
+ b/oSGe9+PbAJq4ysFh89G3Ie63gYY3zc02BMVHiVgEbSl2BVlZPIaChCISKKs2pvPRa+6D0tnX/
+ Pz+M+VNq3OKCAATlxOBTt4KEb1RGETAUjnh+aDo28S20POMDa+U3qnqMC3D1pH4w/roCWceWIEj
+ wipqfxGXQcAhg4292GnunyXOHEuuL4Pb0F1fIRVqvDLrn6aAiI7WPf9dbZgqNNTcoPZ4nSBpA/X
+ Nh1gYaomQVvnXDkNbwDagjYoR79A0iLGYTbGpqsVG53JZmMPUz8hQ9WA8fh+V0LcmDet9ZoMuR7
+ JaTELWZn0Mkj0V81kL7FktThrv1FKHiNpespTpA/MGZvo3BtYyWL9cSrFo2XIMMYNG/7YmLn167
+ 0nAIqGctmM0yP/golBjcBShEIQ12LZa9pmNZLyO2vtOcpM1jnWhq/9optQEa8JkUZbQq0wxU0Al
+ /Azkz/VIIqxmgahB+jkWU7y86h9p5+H+lMiSwfahopyiw9q6LuLGQOg2H8QsQnn5G57eStWQTcT
+ Tf7lrEPLNF1wY=
+X-Received: by 2002:a05:600c:4e49:b0:4a4:6fdb:cc42 with SMTP id
+ 5b1f17b1804b1-4ac17b2c38bmr299232835e9.11.1793692346478; 
+ Mon, 02 Nov 2026 23:52:26 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b2aa953d35sm37915295e9.9.2026.11.02.23.52.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 23:52:25 -0800 (PST)
+Date: Tue, 3 Nov 2026 10:52:22 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Eric LI <eric.lee0305@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fix space prohibited before that close
+ parenthesis
+Message-ID: <aumStg3EuhPbWkZu@stanley.mountain>
+References: <20261031042315.1122699-1-eric.lee0305@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031042315.1122699-1-eric.lee0305@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,92 +90,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/sti: sti_hdmi_connector_get_modes() sets CEC phys addr when =
-!drm_edid
---
+I'm going to Ack this patch.  The other patches to silence this warning
+introduced weird no-op macros but I feel like this patch does the right
+thing.
 
-commit e2bb91ef9738082a2e6fe4566a0643faded6f3a9
-Author: Hans Verkuil <hverkuil+cisco@kernel.org>
+Reviewed-by: Dan Carpenter <error27@gmail.com>
 
-gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no EDID
+I don't really care if the patch gets merged or not, but in your heart
+you will know that I approved it and hopefully that counts for
+something.  :P
 
-This commit replaces calls to cec_notifier_set_phys_addr() passing
-CEC_PHYS_ADDR_INVALID with cec_notifier_phys_addr_invalidate() in the STI
-HDMI driver so the CEC framework can distinguish between missing EDIDs and
-EDIDs without a physical address.
+regards,
+dan carpenter
 
-> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdm=
-i.c
-> index 7ba9e0b7ba6c0..12e05505bbdef 100644
-> --- a/drivers/gpu/drm/sti/sti_hdmi.c
-> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
-> @@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridg=
-e,
-> =20
->  	hdmi->enabled =3D false;
-> =20
-> -	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-> +	cec_notifier_phys_addr_invalidate(hdmi->notifier);
->  }
-> =20
->  /*
-> @@ -1068,7 +1068,7 @@ sti_hdmi_connector_detect(struct drm_connector *con=
-nector, bool force)
->  	}
-> =20
->  	DRM_DEBUG_DRIVER("hdmi cable disconnected\n");
-> -	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-> +	cec_notifier_phys_addr_invalidate(hdmi->notifier);
->  	return connector_status_disconnected;
->  }
-
-[Severity: Medium]
-The commit message states: "If an EDID is present, then call
-cec_notifier_set_phys_addr. If not, then call
-cec_notifier_phys_addr_invalidate."
-
-However, in drivers/gpu/drm/sti/sti_hdmi.c, sti_hdmi_connector_get_modes()
-still calls cec_notifier_set_phys_addr() unconditionally before checking
-whether drm_edid is NULL:
-
-drivers/gpu/drm/sti/sti_hdmi.c:sti_hdmi_connector_get_modes() {
-	...
-	drm_edid =3D drm_edid_read(connector);
-
-	drm_edid_connector_update(connector, drm_edid);
-
-	cec_notifier_set_phys_addr(hdmi->notifier,
-				   connector->display_info.source_physical_address);
-
-	if (!drm_edid)
-		goto fail;
-	...
-}
-
-When drm_edid_read() returns NULL, drm_edid_connector_update(connector, NUL=
-L)
-resets connector->display_info.source_physical_address to
-CEC_PHYS_ADDR_INVALID, and sti_hdmi_connector_get_modes() then passes
-CEC_PHYS_ADDR_INVALID to cec_notifier_set_phys_addr() (a pattern introduced
-in commit f7945d9fa8b7 ("drm/sti/sti_hdmi: convert to struct drm_edid") to
-invalidate the physical address on EDID read failure).
-
-Should sti_hdmi_connector_get_modes() also check !drm_edid first and call
-cec_notifier_phys_addr_invalidate(hdmi->notifier) on the failure path before
-calling cec_notifier_set_phys_addr()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/5dd7ac527b4d3143fea=
-73bf93c60b22a66d16d3d.1793691124.git.hverkuil+cisco@kernel.org?part=3D1
