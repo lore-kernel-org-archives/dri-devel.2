@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06009606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1701F606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBAEV328
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWPGO3Jr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2171410F3F7;
-	Tue,  3 Nov 2026 07:40:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6465010F3FA;
+	Tue,  3 Nov 2026 07:40:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60DA510F3F3
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:40:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6507310F3B4
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:40:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 48FFF43F64;
- Tue,  3 Nov 2026 07:40:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130571F00919;
- Tue,  3 Nov 2026 07:40:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4B2E343F06;
+ Tue,  3 Nov 2026 07:40:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229811F00A1C;
+ Tue,  3 Nov 2026 07:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793691638;
- bh=Rabuf4op/XN5NP6YCfyGe/a7zJ5w3jeN4Y6eXAm5e00=;
+ s=k20260515; t=1793691641;
+ bh=bCHawQ0yxotQhJh8sLEUiGEitartFjFESIjtqLTPRqw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=VBAEV3282+sZdY2DagnFYdB0oW4fOavxYu5Ke68Lc+DqHiPFhZkcAwAcm7M6zQxcB
- CS+pn8paSOakv3GMSxphVlvKEgxJM6ApSNu/w8fWtsBbgYSBVcxnC/pAioUumwaJsV
- OyPkADf/yU4QXsgaKo6/Xmc1cG+oqKw36xXSJUqG0/d9pqFRkJDb3yAAQRl/ZlkpRz
- wBBciqGmnksAFd4bMfMEJgBIwy+2cBm2encUeIeo/8M8waVyLeYrO528Sh+k4aJjlt
- 2tNWP+GQAwcAA/j8U9bvmnAjpJhEpFuMx8FLIqvCGT9QnpPFi1/MUsoSezX4/xCyzy
- xLz9Ric/He58w==
+ b=fWPGO3Jr0ph/dR1+K4E02hCGcIe98I4wKnQ7Afd6ZnpmTeZdqzFJfLUbrwh6oExQn
+ SIjDbJf3Exhx9isQ0Zcxo6pRyRwNq3MKaH5pquFG6jXhwA/6gjrcwhqsx/HWQ/Sc29
+ 1ZYngdHY6zVautPTfkDktcmNer1oc01WY4GX5P5FheLIhZFUlBsLgBdNf8egeVfAPZ
+ ryfrxMhs4fx2p78hrx7rJfCibZ68h2FxZPL+8aiV3h+DGJ7MrCcU399/yE47q1Xd80
+ hJEM5v0fItz8N0lTWbIEaZdq+UKnyD5LOhuGeKTYJZKzKS4gKFRA5uaWQhjO57fx9w
+ Fi9gTMPAXWsEQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 10/13] media: uapi: cec.h: add
- CEC_EVENT_FL_STATE_EDID_PRESENT flag
-Date: Tue,  3 Nov 2026 08:32:01 +0100
-Message-ID: <215493fe7ce132b19dc109f0fa83d3bd2c081d2b.1793691124.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 12/13] media: cec: core: implement
+ CEC_EVENT_FL_STATE_EDID_PRESENT
+Date: Tue,  3 Nov 2026 08:32:03 +0100
+Message-ID: <897c6071fbdca71dbb446b03e32c0e6af219ecf0.1793691124.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
@@ -59,26 +59,62 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The CEC_EVENT_FL_STATE_EDID_PRESENT will report whether the EDID is
-present or not.
+Set CEC_EVENT_FL_STATE_EDID_PRESENT if needed when posting the state
+change event.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- include/uapi/linux/cec.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/cec/core/cec-adap.c |  2 ++
+ drivers/media/cec/core/cec-api.c  | 10 ++++++----
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
-index 8f7c7a4cb505..8324d208c1d5 100644
---- a/include/uapi/linux/cec.h
-+++ b/include/uapi/linux/cec.h
-@@ -455,6 +455,7 @@ struct cec_connector_info {
+diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
+index 1a7b79916e47..52a56cabedcf 100644
+--- a/drivers/media/cec/core/cec-adap.c
++++ b/drivers/media/cec/core/cec-adap.c
+@@ -323,6 +323,8 @@ static void cec_post_state_event(struct cec_adapter *adap)
+ 	ev.state_change.log_addr_mask = adap->log_addrs.log_addr_mask;
+ 	ev.state_change.have_conn_info =
+ 		adap->conn_info.type != CEC_CONNECTOR_TYPE_NO_CONNECTOR;
++	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
++		ev.flags |= CEC_EVENT_FL_STATE_EDID_PRESENT;
+ 	cec_queue_event(adap, &ev);
+ }
  
- #define CEC_EVENT_FL_INITIAL_STATE	(1 << 0)
- #define CEC_EVENT_FL_DROPPED_EVENTS	(1 << 1)
-+#define CEC_EVENT_FL_STATE_EDID_PRESENT	(1 << 2)
+diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/cec-api.c
+index 1ba080d5a123..77778ff737a6 100644
+--- a/drivers/media/cec/core/cec-api.c
++++ b/drivers/media/cec/core/cec-api.c
+@@ -560,10 +560,7 @@ static int cec_open(struct inode *inode, struct file *filp)
+ 	 * Initial events that are automatically sent when the cec device is
+ 	 * opened.
+ 	 */
+-	struct cec_event ev = {
+-		.event = CEC_EVENT_STATE_CHANGE,
+-		.flags = CEC_EVENT_FL_INITIAL_STATE,
+-	};
++	struct cec_event ev = {};
+ 	unsigned int i;
+ 	int err;
  
- /**
-  * struct cec_event_state_change - used when the CEC adapter changes state.
+@@ -589,12 +586,17 @@ static int cec_open(struct inode *inode, struct file *filp)
+ 	filp->private_data = fh;
+ 
+ 	/* Queue up initial state events */
++	ev.event = CEC_EVENT_STATE_CHANGE;
+ 	ev.state_change.phys_addr = adap->phys_addr;
+ 	ev.state_change.log_addr_mask = adap->log_addrs.log_addr_mask;
+ 	ev.state_change.have_conn_info =
+ 		adap->conn_info.type != CEC_CONNECTOR_TYPE_NO_CONNECTOR;
++	ev.flags = CEC_EVENT_FL_INITIAL_STATE;
++	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
++		ev.flags |= CEC_EVENT_FL_STATE_EDID_PRESENT;
+ 	cec_queue_event_fh(fh, &ev, 0);
+ #ifdef CONFIG_CEC_PIN
++	ev.flags = CEC_EVENT_FL_INITIAL_STATE;
+ 	if (adap->pin && adap->pin->ops->read_hpd &&
+ 	    !adap->devnode.unregistered) {
+ 		err = adap->pin->ops->read_hpd(adap);
 -- 
 2.53.0
 
