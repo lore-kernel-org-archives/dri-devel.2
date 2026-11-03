@@ -2,45 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A95606A32D
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D87606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 07:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3dfCqjQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nI0vOd4g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36A9E10F3DB;
-	Tue,  3 Nov 2026 07:34:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66CC010F3EF;
+	Tue,  3 Nov 2026 07:40:28 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C72210F3DB
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:34:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52DDD10F3E9
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 07:40:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 13CF2601F6;
- Tue,  3 Nov 2026 07:34:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701041F00919;
- Tue,  3 Nov 2026 07:34:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 75A3260142;
+ Tue,  3 Nov 2026 07:40:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDCD1F00A22;
+ Tue,  3 Nov 2026 07:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793691259;
- bh=XfKNC2NE9YSYVP2MPnS+smvI8z2Ige3tMx497tBdQho=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l3dfCqjQj+DS0DEcJftio2F2cN6tjiUPYQ+Qap3FvZ5+5uPKlDOS0Ug87r+5GuC7y
- e9+K0KJZoyu4NP7LK5uVodgS2dzgEQz3hV6fmmNiAEcdJ3535CZY1GTcqmiD/kKSHE
- 4Rb/ADET5SOCZmEvmMdMJ09KKRDCB9B4++tmKzNeShhRrru7uU6Oewtih2VGEd4qGM
- i4KiEifWR2oXo5ZNdE+NYRGBG9Jntbr42sREOT3NtidrDBhLN5oCyjQ/k2mMGH0RJB
- IRzuIffVomlseS+D+pWJYUIQiZ0gqBNiFABt/QWUg4pWDGvbeGScrmQ7wfmCGBwjUW
- 6Ex7BILm4/gVQ==
-Message-ID: <sashiko-outbox-194717@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] x86/vmware: Route low-bandwidth hypercalls
- through a static call
-To: "Zack Rusin" <zack.rusin@broadcom.com>
-Cc: virtualization@lists.linux.dev, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <70ce0c2c18008fb25399125fc81eb368d8e824ad.1793685318.git.zack.rusin@broadcom.com>
-References: <cover.1793685318.git.zack.rusin@broadcom.com>
- <70ce0c2c18008fb25399125fc81eb368d8e824ad.1793685318.git.zack.rusin@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:34:19 +0000
+ s=k20260515; t=1793691621;
+ bh=LFRizgghWpVbrpp1XA3xuLFnkzTMHAaRfeE9VfHacuc=;
+ h=From:To:Cc:Subject:Date;
+ b=nI0vOd4gAJ+jhDfLnY1EujaCDDLDfyuNmuCsLz9/WhO0gnpy5FX5A7qUSAWydeeWC
+ 1wdHNwBcde1khL+PeVpUUj9LmkOhQUoSmQC/ODJOVerXPurGhUWezH04sGbqLvJ+Jd
+ vJtwB4tMt7B/5pNTb0OsbnqMUCOwfAZWTrDDMxHbHKshXuT8LYjEj72tX96QcQN18h
+ eNUbgknYaWNM5ZPhoN+gKZagc7CVTjTfhcU0c2Eq75mbXrdA8RXa4bz/qaNWs8kczn
+ EshNvzle6w26cz3eCEMCF6sbozsAnuF//hRbZqVnZacAtTHwXiSe+rYoVD+LH1gzWo
+ m82zOUAxTRJpQ==
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: linux-media@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Subject: [PATCHv2 00/13] media/drm: cec: add EDID_PRESENT
+Date: Tue,  3 Nov 2026 08:31:51 +0100
+Message-ID: <cover.1793691124.git.hverkuil+cisco@kernel.org>
+X-Mailer: git-send-email 2.53.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,69 +47,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] x86/vmware: broken TDX hypercall guard when vmware_init_hypercal=
-l() is skipped
---
+Using the media CEC framework the application receives events when the
+Physical and/or Logical Addresses change. However, if the Physical Address
+changes to f.f.f.f (Invalid), it does not know whether that is because the
+HDMI link is disconnected, or because the EDID does not provide a valid
+Physical Address. That can happen because the display does not support CEC,
+as is the case for DisplayPort inputs or PC monitors.
 
-commit fc9641d4edae98b08577710c597ef17cc2f5765e
-Author: Alexey Makhalov <alexey.makhalov@broadcom.com>
+This is important information to have but this is currently missing.
 
-x86/vmware: Route low-bandwidth hypercalls through a static call
+This series adds support for that.
 
-This commit consolidates the low-bandwidth VMware hypercall inline assembly
-into four backend functions dispatched via a static call, passing arguments
-and results through structures rather than nullable pointers.
+Currently drivers set the physical address either with cec_s_phys_addr() or
+with cec_phys_addr_invalidate(), where the second is just a helper
+function that calls cec_s_phys_addr with CEC_PHYS_ADDR_INVALID. There
+are also cec_notifier_ counterparts.
 
-Link: https://lore.kernel.org/r/20260309235250.2611115-2-alexey.makhalov@br=
-oadcom.com
-Link: https://lore.kernel.org/all/CAHk-=3Dwivx7pi+h+hGmvNFAJm6StQLiQ-b8DdsE=
-5J=3DLMOWae8Ng@mail.gmail.com/
+Change the behavior so that cec_s_phys_addr() is called whenever there
+is an EDID. In that case CEC_PHYS_ADDR_INVALID means that the EDID is
+present but does not contain a valid PA. And cec_phys_addr_invalidate()
+is only called when the video link is disconnected.
 
-[Severity: Medium]
-In arch/x86/kernel/cpu/vmware.c, vmware_init_hypercall() (around line 510)
-updates the vmware_hypercall static call to vmware_tdx_hypercall() when
-X86_FEATURE_TDX_GUEST is enabled, while the link-time default for
-vmware_hypercall is vmware_backdoor_hypercall().
+Most CEC drivers already did that, except for the few that are fixed in the
+first 6 patches.
 
-Previously, vmware_hypercall1() through vmware_hypercall7() in
-arch/x86/include/asm/vmware.h checked cpu_feature_enabled(X86_FEATURE_TDX_G=
-UEST)
-directly and called vmware_tdx_hypercall(), which rejected non-VMware TDX
-guests via !hypervisor_is_type(X86_HYPER_VMWARE) (around line 633 of
-arch/x86/kernel/cpu/vmware.c) and returned ULONG_MAX.
+The remaining patches implement the new functionality where the CEC
+framework actually reports whether or not the EDID was present, based
+on whether cec_s_phys_addr or cec_phys_addr_invalidate was called.
 
-With this change, vmware_init_hypercall() is only invoked from
-vmware_platform_setup(), which only runs when VMware is the detected
-hypervisor. On a TDX guest running under KVM (where x86_hyper_type is
-X86_HYPER_KVM), vmware_platform_setup() does not run, leaving the
-vmware_hypercall static call pointing at vmware_backdoor_hypercall().
+The drm patches can either be queued up in the drm subsystem independently
+of the remaining patches, or I can take them through the media subsytem
+as part of the series, but then I need an Acked/Reviewed-by.
 
-When vmmouse_detect() in drivers/input/mouse/vmmouse.c (line 323) runs on a
-KVM TDX guest (since vmmouse_supported_hypervisors[] includes X86_HYPER_KVM)
-and calls vmware_hypercall3(VMWARE_CMD_GETVERSION, ...), won't it execute
-the port I/O instruction inl (0x5658) in vmware_backdoor_hypercall() instead
-of being blocked by vmware_tdx_hypercall()? In a TDX guest, executing inl
-triggers a #VE exception and issues a TDG.VP.VMCALL<Instruction.IO> to the
-VMM, which will raise a kernel #GP(0) fault via ve_raise_fault() if the VMM
-rejects port 0x5658 I/O.
+Regards,
 
-Additionally, since vmware_tdx_hypercall() is now only installed after
-x86_hyper_type has already been set to X86_HYPER_VMWARE, doesn't the
-!hypervisor_is_type(X86_HYPER_VMWARE) check inside vmware_tdx_hypercall()
-become unreachable?
+	Hans
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793685318.gi=
-t.zack.rusin@broadcom.com?part=3D2
+Changes in v2 (based on sashiko reviews):
+
+- missed one incorrect cec_notifier_set_phys_addr call in sti_hdmi.c
+- cec_notifier_cec_adap_register didn't call cec_phys_addr_invalidate
+  if an earlier cec_notifier_phys_addr_invalidate call indicated that
+  there is no EDID.
+- sending the initial state change event didn't set the
+  CEC_EVENT_FL_STATE_EDID_PRESENT flag if needed.
+
+Hans Verkuil (13):
+  gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no EDID
+  gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no EDID
+  gpu: drm: omapdrm: call cec_s_phys_addr only if EDID is present
+  media: i2c: adv7511-v4l2: call cec_s_phys_addr only if EDID is present
+  media: cec: extron-da-hd-4k-plus: call cec_s_phys_addr only if EDID is
+    present
+  media: cec: core: improve cec_notifier_phys_addr_invalidate
+  media: uapi: cec.h: add
+    CEC_CAP_HAS_EDID_PRESENT/CEC_LOG_ADDRS_FL_EDID_PRESENT
+  Documentation: media: document EDID_PRESENT cap and flag.
+  media: cec: core: add support for EDID_PRESENT
+  media: uapi: cec.h: add CEC_EVENT_FL_STATE_EDID_PRESENT flag
+  Documentation: media: cec-ioc-dqevent.rst: document STATE_EDID_PRESENT
+    flag
+  media: cec: core: implement CEC_EVENT_FL_STATE_EDID_PRESENT
+  Documentation: media: document cec_phys_addr_invalidate
+
+ Documentation/driver-api/media/cec-core.rst   | 10 +++-
+ .../media/cec/cec-ioc-adap-g-caps.rst         | 10 ++++
+ .../media/cec/cec-ioc-adap-g-log-addrs.rst    |  9 ++++
+ .../media/cec/cec-ioc-dqevent.rst             | 10 ++++
+ drivers/gpu/drm/exynos/exynos_hdmi.c          |  2 +-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c           |  7 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c       |  5 ++
+ drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h       |  5 ++
+ drivers/gpu/drm/sti/sti_hdmi.c                |  4 +-
+ drivers/media/cec/core/cec-adap.c             | 51 ++++++++++++++++---
+ drivers/media/cec/core/cec-api.c              | 13 +++--
+ drivers/media/cec/core/cec-core.c             |  4 +-
+ drivers/media/cec/core/cec-notifier.c         | 26 +++++++++-
+ drivers/media/cec/core/cec-priv.h             |  3 +-
+ .../extron-da-hd-4k-plus.c                    |  8 ++-
+ drivers/media/i2c/adv7511-v4l2.c              |  2 +-
+ include/media/cec-notifier.h                  | 33 +++++++-----
+ include/media/cec.h                           | 27 +++++-----
+ include/uapi/linux/cec.h                      | 29 ++++++-----
+ 19 files changed, 191 insertions(+), 67 deletions(-)
+
+-- 
+2.53.0
+
