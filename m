@@ -2,143 +2,159 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEFF606A324
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3C4606A31B
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZaPH5Ct9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IK3pKjtW
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdYBAd9r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE7110F6C6;
-	Tue,  3 Nov 2026 20:16:02 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D85A10F812
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 20:15:49 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A3IZ0lp3675764
- for <dri-devel@lists.freedesktop.org>; Tue, 3 Nov 2026 20:15:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=; b=Za
- PH5Ct9rMcuWBkD+H2gWQlyz38rtjVVrYO4AHgV2zsbg38FreAcDRdEt7zpNH1chS
- YfP0IcFcZ0NiqXeFdbF1zeonKVgDZbWOr7ibIfhIsZCdkWNX6Rq04rdK3pkycJPa
- rWCf+m/tLl0gppfje56ijvt4AdPS12VrX0v9HW6Cjmrn0OYIQGy9DRdMDSGro04E
- MGotj2mK9sy+3qzgDzMg57ItKaGM4bWNifuYN0IVp+j0imiGV30Edx7yux+ugVQ7
- w/S6JVcBXOxYX4ucvergODA/1l+xbDRhCQi/PJWkoZbvPYfptyf1+bL8+BLBxgjJ
- 9WFXGTmpNBSPwXHOx2Tw==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqhyphf5n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 20:15:48 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-45952ce9ee0so65778fac.1
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 12:15:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793736948; cv=none;
- d=google.com; s=arc-20260327;
- b=kQIi2Dqllp1//v71UOEytSwFNPGRCd3Q3TPEaxAFXf1G2wz7iUPoUbwwBoDJznnqDE
- 63+QgA27nfwfqK1w2AG7tez7zZEOOlPubtPZ5prhdFhxaTkx6wtoh7PQuUt6nQnuhmG3
- 9Emc78kf2qKJim/CybHy65eq97dq/OOnnRw7aA9a8XFoyf53ReVHk5WJ2SQ7UJvVZuJX
- obpoxr1g6kX+xbQb2atVbJylszXE5TKQaBm0LmVdm59eUVJakgdUzrptghxuiyAQTLgj
- r/91Htv4Qbv/fSjHs2sWtvYF1fc4pY2PjpiTvzk14UAAzXheALCk2pRsBOYvvQb3HONP
- 4IpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=Blpsm7zrAAI+EoV9AO8kY2JLR1W/D77Pj+l5fMxVDzdVbhaKC25AncM173C/87kYFh
- 9Dvvn14FNDgXxtHMO0LN9cEYYpK1MaFjLWCIEcoPy1ojdfSbkbdBQKAZzS5i1DueDcos
- pkQSdjsiSKUFr+Be3xx4BkhH6yhIPYuNwvSvh15P0hmOP92hbYQ8eS5XLd/LT0VscPUJ
- tcY3cvrO0HdDxgmgHOuk9c/8OzXY7egM5ujoMjdpSDBnfi60T2nuf+3EXeOrkgBM/URb
- cju2errb/oiHiqxWR3rlCtDG4r8/dU+DSZCDhjwcDkyU9tCFrTIshXy+Juk2F9Z47hGt
- 0KpQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793736948; x=1794341748;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
- b=IK3pKjtWBUC+vT1nj6vlCVUP3tmWuC3o2Z3R1cbBQU3ubvfjsF5fidliiN3/kv/CF2
- NKD/16QQ/EKeNHGcCEn2Zj4JnXSzPjuW9Pxn96JpslosO4uG4+muWnuxCTOXCdizCmyh
- MjWqmbeDGhJzpTewYZHYwIHXqvqWV9stNwaHhWiVE8MqcwgjA5cd0/H0cIxzUAsZA48i
- N2rwyOfA78rA0oe+sOlfEyO6tleHcP9FKy5+Z2TQyfQfl/G5QyAEqY3zTdCmhFo7RlUQ
- yqGRKhJGSfj9bLbejTUO2afu6MimPVIsbbbJLtM6rlvBXEHg7JxZqcNh7M8yfDeqc1Cv
- m4pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793736948; x=1794341748;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fQWmdcDL6Cf0p4F02BPbXYU/2SPFqbcTZjVM7RMBUmw=;
- b=KWQZTFUK7qV1a79lvDpMFwdFHva3PdLwoADL9ZZqb1WJDVocblC9BVWxf62jS09cu9
- YswfDxRAcRyHygVmBnvna17vQIPeG1i18Qfg/vtlpgQIuPD7hdW3gu6SENvOFmVy4gze
- tb/fu2e6QtWjqao4j83GYMDQhVqGDPFU8zsmBxrkTx/gVfsa7sZA76a5dgjx6RQZtfEG
- dDiN8SWkq4N3btlMZLtbsg7bpSzKgKjZvEsVjO7VoCbZpN6eGMeqy88FsZZe4JpcAvwl
- 5xJA1E776pbaMw1K2snBarB0u55Pt1/xm7klwpMkyNqVMIEUfPPwO781kFtTyZKS+840
- dtIg==
-X-Gm-Message-State: APuU4Z+TuKo73wMgi8peBdW6grdBKL2U0jiWo5b1XkCKbry29aWrEo8g
- hL/MQ3xfNxGaku5RUC+K3HgNkLut7csJmkKIIDwyLRjXoQcK87RQkZtZ41maESpPSiH8wHh8R84
- WUmK7Bkqw56s8Hc1OqArZHWKwZ4F+9XrbSjQtUcx9DpduUwf82W3Ajr/rOl0OLtu8izCtQwRBaW
- SexmFtdUnHVviLgxOsUPx25+gRPv0fWJt9+Prrsq/v1m95nZVXUIhOsQ==
-X-Gm-Gg: AYBFou3ZnCRvm0juGRULBbQp8MFB3FPPjIJgdtvP7TamSZIdvrji7N7gWhp0I6Dmckv
- ii1c2fTT/Q7XvPwXzuc+XBtvKARHTLy27ktcwl7xpDVxEmbDLh3H12Olrv3ooCdZ3VUITEnGHnr
- ASfBvt7YNNwaQLmww2uzFcjDEmru/D5QX5DaRSOJFa/Ur+QnFvcJeblYxZocAB56Qq1sAJdoGs5
- D+6N8T/TAeV+xHEM/LGpw==
-X-Received: by 2002:a05:6871:a86d:b0:4a2:c175:d339 with SMTP id
- 586e51a60fabf-4a90775b604mr8932180fac.39.1793736948064; 
- Tue, 03 Nov 2026 12:15:48 -0800 (PST)
-X-Received: by 2002:a05:6871:a86d:b0:4a2:c175:d339 with SMTP id
- 586e51a60fabf-4a90775b604mr8932146fac.39.1793736947335; Tue, 03 Nov 2026
- 12:15:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901C110E812;
+	Tue,  3 Nov 2026 20:21:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A58D10E812;
+ Tue,  3 Nov 2026 20:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793737291; x=1825273291;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=rWQIXmwA7LdDgBNc8lH9PuQVB6M+cYJJPbXZWtJPOqM=;
+ b=HdYBAd9rPhcXYXqTo3kzhVwyrOzW34WoezawSPYr3o2o70EO2vl4mrmJ
+ rgEcHTOyCs3SdwHgXYn1K/aR67LpZaoB25qbqIRdU/sGKbOUdCDNrG0Nl
+ SFCsZeaYo8tBK/kAVjKT6yg906VxTy9xMGLXJi0+YjoE49CRU3UoXvYxt
+ zcHLDsOoeyFEefERx7x8LZ9qFrcic05izGCVxwikTO/hLUkTFO8rD7IKV
+ KxEAC6Bqkpi5RCDGDNr8rLUnb5uBXpNGGsZWS8EfNyXoZYi62KsA7EZ6M
+ JhremznmmiDDFZfYg9Cd4U8jHDGWLAE8I9bqAW0AurNUj2J6c5SwPzNFy w==;
+X-CSE-ConnectionGUID: 2Y1hDyC6QiueIu6smnibFg==
+X-CSE-MsgGUID: 76Mm7BhaQsiSSbHH2SCxWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2363522"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2363522"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 12:21:30 -0800
+X-CSE-ConnectionGUID: VVJhYKtVQYOUkHzGKPYpDg==
+X-CSE-MsgGUID: t20QKdQARlyEaLczZFf8fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6535353"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 12:21:30 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 12:21:29 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 12:21:29 -0800
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.7) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 12:21:29 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rp/pAIvk6LN8hkGKZiM7JuYbE47/2XWmuD+/Xzwnjj8OXFfcjhkaUHwWoRsKMJePO72+00n+z4rak4abyac1bNcGzLoYkEjQ7u4vFFY1PRh9aika3baOYJ0fK+bZsfI97O2vPCkS6VUggwpEliRnmRUv7tgtCB5/91Hb4u3I7LycKh6XBzE6wIQOfXDr+1WxnHxDMfS3M6zHCLYTZxZ6QjTS4s1JIOWwe7tQ0l/SJBZj21VvuKypdclpRwkHQ51JAFDsbql/dUeEaRLqWE1tAEJa1KSxxskbWjIpZLvoXh24jjZsIY0okQKQV4YuUekI15mvBVts6uvGBT2VtkPNaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jvPU7HVJuvMOlp69qafJmbALiI4lvm4EefP2tGPzRY8=;
+ b=dt66hGkHVCky88xKZGN9MacxQLSNokBA/zjL55DhYc2AZ5rezV3lKaL1Tpx3LX5jPRQ0tZ9wkJgRaDVHHfdF0MUFJmTCkVDDfXd1lC2iiWkAwr4mImeQ5iSbwrJwxEJrntgzoKbHlBJIIPFxASfYhFvSLvcmF1nQdVSCC0D8w1x+aokw6OOqAdwvI7CbhD5SnJ96fan9vrzQdXE6DEwff9xGSmM/i8DTNwwtN0AblIVDfnWOfdM/xTmw9ZXopccVE3zN7KNDS60+h9XSso8UAtX5LLvXTwIfxEjZfhMCmWKOXCHBer9Fa6QXO3K3Pb65uqMMrMIaexu+aVaWnqOoWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by MW4PR11MB5891.namprd11.prod.outlook.com (2603:10b6:303:169::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 20:21:19 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 20:21:19 +0000
+Date: Tue, 3 Nov 2026 12:21:17 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+Message-ID: <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+ <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+X-ClientProxiedBy: MW4PR03CA0324.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::29) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261102220405.30730-1-robin.clark@oss.qualcomm.com>
- <20261102220405.30730-12-robin.clark@oss.qualcomm.com>
- <sashiko-outbox-194286@kernel.org>
-In-Reply-To: <sashiko-outbox-194286@kernel.org>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 12:15:36 -0800
-X-Gm-Features: AclHuK9jHJl9ylHYf3aDmzOLPgH6YYGiep-CC-qpTd6jOhNr1FgWOibe_0bIeEE
-Message-ID: <CACSVV01czyX=pVrX2Pq3V4W1rWV_sDNomwGLnBDxrbCqwYpP2w@mail.gmail.com>
-Subject: Re: [PATCH v5 11/15] drm/msm/a8xx: devcoredump state capture support
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfXyS1jfUx6r+jH
- sa+gPyxXuXZp8tbyDyWyzxlKOMlqKL0hQBR0Qt4CUc/IQOPbQuxHg8smxPcBa+NkaXM0mbiNT9B
- FrEHrp9GeLHqYtzc1Bm2OXoeXF30v50=
-X-Proofpoint-ORIG-GUID: c1srjyeKFaRIh0h7BrWHgCaFXWYnTd7m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4MCBTYWx0ZWRfX0/0XzUU+zqbD
- 0f9JmYDuhJcZMdjpDLIAfOzO9vb65Zit8sIjOjaGS44erv8QJEoTOl53cZbpTMWsjR6mYr7z+5k
- 6pSGpV7cyLvMX4lvfSKdc9hl7eREKA6Y8Ur8gDXbRAPodUROriDHEYlkO34/odBsOWNAYi/ROIg
- 6IFfgZKon/KwpmJVMHjF3BFqUit2xOq+y4PMSPWWeqkG6oevogp7XlwEDnQfI0LRLhtGGjBbshC
- zHQdLCqs1YZd350AHCBHadgTtZxB2yX7n8Zr5OuOjNYjnfEpU3rXTVnTrSDQTBAiFbKWHSglxJ5
- oX4DywScDL9P+22RtbQEGnqY4YtVbU6DQqOCQCiACYGpZjefIjcYBSyfKC8dcEVe8nDOePSaz5n
- nr9f4xVbgIc23+CE3hPVFWAoydp+B7wEfk4nQQ2FP+Q9S9Vb8n+k/8QWCfBrrqsDusWKg1gy7hO
- A5j8nu+EYyvuoEW1Mkw==
-X-Proofpoint-GUID: c1srjyeKFaRIh0h7BrWHgCaFXWYnTd7m
-X-Authority-Analysis: v=2.4 cv=T94Z3PKQ c=1 sm=1 tr=0 ts=6aea40f5 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=c92rfblmAAAA:8
- a=X5UkEppQgMmih3U4cmcA:9 a=QEXdDO2ut3YA:10 a=y8BKWJGFn5sdPF1Y92-H:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
- adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030080
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|MW4PR11MB5891:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac95e4a4-5270-4ff5-d8b9-08df39e80531
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|7416014|366016|261022075727099003|4143699003|11063799006|56012099006|261009223027099003|261021121427099003|261022105027099003|261022113327099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pFDXetJj7LAkg8e9lQ4gp9vP3iEtA8QtJQZ/2rYonMpvjRXNmJRKvgL32ro0euWad7da5itLvffEJDkBeAMn0k+QzXcWHKNAtL/RfbQhv/A1j+CGevmYw+f79sh91kfnLip2gdDIj04Vmk82fZQfLnlOUei50HCmb1L/gKKsNBnlFLqMJOoeqpgV7jlb3IsQiNan54CiWkSOdIZTqn9Pc/nsUQyhW+eLKBhE7UIa5x+8RqL8PRqqqq8UAmWTRf1yX12r74Epx9Ll4MnHjIC68HMXmPI9Zi5PwipFmsgoHnDtRO7ZcZ3JCkmexqQuKyv8vCjvh8YdyzDkNWM7EqIytYDwBAfOQiGcXEAHiBluhJVktNFdVklq0kvhxn+JnJkYseQyuyciarfSvP3PdKCeDUZmYzgixBuHx8aP2SVI3ARD1wmMo1DXQ6l78XyEwdYiOCmwAkQSRzTsFLVWOi7Dsp7/sfqKrUO4y9M91anyQdEggy17T+KjguNRl06PuhKxPzfGwaEA5SIMQsOGF7ryfzxgyY/fZ3NMl11G8ANjcODMLkRNu9KRphfrSBxrkjpb5hYDZikej6aA0o57t8oawDDWMHQGls9tTdVGGODcfP1kw2x+yCmPqRlNf6WIZyxKUSzHemvbUngKIyHd37SXe1krhf6EF7tFoHL0J/CzlO0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(261022075727099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261022105027099003)(261022113327099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tUFDy4+S4jcIfxB+arnflxDTFpAEs7+wgn3mjCrl4vrOuJy6Ou3sGspiR0?=
+ =?iso-8859-1?Q?lGHui1CcTCiD8ye0lMjoADiDfzPtAvcOFiDpU+29XB6yp9FgamxdpDSayj?=
+ =?iso-8859-1?Q?CbUiSU9gzu2HYKgW+KTL1ndezvyhUze5A0S2/Y/uV+GOFOnXCn4Td417kd?=
+ =?iso-8859-1?Q?U9M8tG/fUxYsXK8KiNnIqlwGfZM0+coQ3rin5fO87uSve0wJiv9GG+tBFw?=
+ =?iso-8859-1?Q?iOcNN9D8RYDmaaAWLRaOhlKVH9Cm3UwXfN9TuVsTakKD1F4gI2e1Q9Ll7V?=
+ =?iso-8859-1?Q?5xqxx5teYBc4uc/z59Z5fJN6v/j+Yz5nWPNUl5qzGAZDj6YGUG5/Uim5SF?=
+ =?iso-8859-1?Q?vDg5vMdNgjhVkHcNBUOqZeumjQ0Juw86a5DYUJ8oFWXiATB4nq5iwNxwux?=
+ =?iso-8859-1?Q?7U8yxtZhqRWEObqANJvaTt4ag7gfI3BAA3JeTFKI6Ccv4+gO5ESk5ODHYU?=
+ =?iso-8859-1?Q?II57giY1R2o1QG8g6q/eGOmtbh6R/Iw01HsH3rTuYWsmn90iNZ+Wj+gK3n?=
+ =?iso-8859-1?Q?jqVyKJozVnQn3h4Fc569suEZi+Ag3s7nj9ZOT0S9rQrWPCKhMTI/I5KGN6?=
+ =?iso-8859-1?Q?Cx8N2rAKmX3p64+Hwio7teBbvn65vj3XvQfqJ343Z7aRL4VLwzbX5TUzM9?=
+ =?iso-8859-1?Q?ozt/Y/F9w+m5eQaotdc59kb51jYKovfZJdHwy1AJ2Pyh7m0Vj6vRit5WUb?=
+ =?iso-8859-1?Q?qfPI3ZtMN+2B33USNi9zWMIhGGygkKKsYrVt2BP2hxoQK+iEtn1yeyFjFL?=
+ =?iso-8859-1?Q?Ew51PAB6PHcIDoYpagxfBzayHrkOL3w0N2uA0fZCb4KOyOA72fUPnVMYe0?=
+ =?iso-8859-1?Q?9d/K4IxqgoyRFDNKFO5XiAs7c7YcAlhQU60wq7NvMWef4/G+EnzY7agUlA?=
+ =?iso-8859-1?Q?Bs5Y+978DB9ceJ/iEvlrmSd3kVIVb7Fd4GPFdAVkqkYBlNJqQe+lk8rGz6?=
+ =?iso-8859-1?Q?UAtoXfYlR6NuGtwLvEReOYbCVx+RUtvMPHCskBRqEK+p2MwNBNmJRs+V1/?=
+ =?iso-8859-1?Q?AtJP34KdHTMVW/ykpd0A4btGUA7gT6OYxprYZR126bCpi9vlr3aap5/ltX?=
+ =?iso-8859-1?Q?2SCSkRX7Z9VkFuzup0z9FOzEEAsr+xPXuWM0U2+oN2HYv7+0XLNBOJ+Lqy?=
+ =?iso-8859-1?Q?JGKkmHXtZrEssN0STPzIa4pyBmj6uKFxpfDJa9G7rC+B6Yd8GAm1WdtUqG?=
+ =?iso-8859-1?Q?BmbgOuAAMDM45Hs+d9unL4oqpLATYxzkUBan35WKArkHPF/9ORk4pu5kyQ?=
+ =?iso-8859-1?Q?98AOAwAvoH97h/Dizbeb2m6xMEMHwQ2TQ5Y75gFv/0SozNdLQVXVK0HSVy?=
+ =?iso-8859-1?Q?hABPcCmPWcp6L7Tv4jNCekJmj0i+57ByRWtYlVqwlGsyoRQVc5DpnKiQPs?=
+ =?iso-8859-1?Q?XczFmfTf69/SvEoh9z0souUyV10Pm+T5KUaoZh/1551OVbh4y9KRTgoHYc?=
+ =?iso-8859-1?Q?k8gt2IWrVvg1WNPpN7P6ZcRP+qe2o2kzMPYPxfoODyBtg9VdlAVOmh3Ly2?=
+ =?iso-8859-1?Q?V0LR2Cdz1pqDbCro7uBu1rHSOrMjWzF8toLPWBj6fdvwpTMzkRa7b9odzA?=
+ =?iso-8859-1?Q?P+TNJMpf/Mk+TuCbDG3HLhseQj6uBtogcYufOg9D/WLA6Si3JxlkVvChEF?=
+ =?iso-8859-1?Q?dl1VLaQ9qFdrq8EqMwth5IPmGyfyHteceejbkBuu4vbss0DDO7X7lvdNSv?=
+ =?iso-8859-1?Q?4OSlHPt/UsVluBnb8W15rEOoXh9qz8oj4BY2/RYLeN6ms4lNebPIa1au0B?=
+ =?iso-8859-1?Q?B7WzmjJVmX4h1+02LsJqTcNaFlvnnnPgwL/M8hoC0T/Lpp0aWDgkiJ5pwB?=
+ =?iso-8859-1?Q?Gf1mX1uSOg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: J4YfzPoDWBO01TZ009zPxylOZPKwSGQDsbmkP4cpKPVKjCtsEBHkaDdtKhujiWPQhxSXbrYlL3tVbzfzpkSpcJ6qlql5cL3TM2Pk9W/yTAe5LX1UgOI3L15VexYujrFZM8hW9oZfVYOMahl16pC+/7pUNNvzQS9BMTUpfecUQrKNs5leBG4d+CyMNQDjSnLNjz5A26EJyid252CXZH6rQFsEyp6unP1E971CBv/fwlRKAG5ot8Mb5QpuJHbqm30eMGJok8GIvjkb23MqSy/9/YGrMgXwLmeOP0LURIYITas9zbeswPQYolHPn/xLxwWgiyyU2U7QePVFmXoIHso75w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac95e4a4-5270-4ff5-d8b9-08df39e80531
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 20:21:19.3840 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A6uhkhsi4Z4g6HKwFlzqaOZf+wNVwTolylITo+OqIW8YovHvFPbwmNgY1pvdgBi+fRuEDoweePwM7U1aZgqbCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5891
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,354 +165,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 2, 2026 at 2:28=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 4 potential issu=
-e(s) to consider:
-> - [High] drm/msm/a8xx: wrong GX power check helper in a8xx_gpu_state_get(=
-)
-> - [High] drm/msm/a8xx: invalid slice 0 access in gen8_snapshot_mempool()
-> - [High] drm/msm/a8xx: unguarded preempt_bo loop in a8xx_gpu_state_get() =
-causes UAF
-> - [Medium] drm/msm/a8xx: dirty CP_APERTURE_CNTL_HOST state in a8xx_gpu_st=
-ate_get()
-> --
->
-> commit c7a029a7073f0aadd364139ec43ceeb070ef9dae
-> Author: Rob Clark <robin.clark@oss.qualcomm.com>
->
-> drm/msm/a8xx: devcoredump state capture support
->
-> This commit adds devcoredump GPU state capture support for Adreno A8xx GP=
-Us,
-> including register lists, indexed registers, mempool, MVC clusters, shade=
-r
-> blocks, debugbus, and GMU state.
->
-> > diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/=
-drm/msm/adreno/a8xx_gpu_state.c
-> > new file mode 100644
-> > index 0000000000000..b75de2370e2e3
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
->
-> [ ... ]
->
-> > +static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
-> > +                                        struct adreno_gpu_state *state=
-,
-> > +                                        const struct gen8_reg_list *re=
-gs,
-> > +                                        u32 slice_id)
-> > +{
-> > +     int count;
+On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
+> On 11/07/2026 03:56, Matthew Brost wrote:
+> > Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+> > (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+> > to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+> > range, which is cheaper to walk and program than an sg list.
+> > 
+> > Whether the IOVA API can be used depends on the IOMMU mode, so the
+> > decision is made once per tt at xe_ttm_tt_create() time and recorded in
+> > struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+> > that are not GGTT-mapped are eligible: dma-buf imports manage their own
+> > mapping and GGTT bindings are programmed directly from the sg list.
+> > dma_iova_try_alloc() may still fail, in which case the tt transparently
+> > falls back to the sg list, which remains the default.
+> > 
+> > The IOVA reservation is allocated at tt creation and freed at tt
+> > destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+> > contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+> > but keeps the reservation so the tt can be remapped without
+> > re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+> > IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+> > case.
+> > 
+> > Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+> > through the new xe_res_first_tt() helper, which initializes either an
+> > IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+> > mapping mode.
+> > 
+> > Cc: Carlos Santa <carlos.santa@intel.com>
+> > Cc: Ryan Neph <ryanneph@google.com>
+> > Cc: Christian Koenig <christian.koenig@amd.com>
+> > Cc: Huang Rui <ray.huang@amd.com>
+> > Cc: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Assisted-by: GitHub_Copilot:claude-opus-4.8
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> 
+> 
+> <snip>
+> 
+> >   static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+> >   {
+> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
 > > +
-> > +     /* Figure out how many registers we are going to dump */
-> > +     count =3D adreno_snapshot_regs_count(regs->regs);
+> > +	/*
+> > +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+> > +	 * must already have been unlinked by xe_tt_unmap().
+> > +	 */
+> > +	if (xe_tt->use_iova) {
+> > +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
 > > +
-> > +     snapshot_sect (state, MVC_V3, 4 * count, {
-> > +             .ctxt_id =3D 0,
-> > +             .cluster_id =3D CLUSTER_NONE,
-> > +             .pipe_id =3D PIPE_NONE,
-> > +             .location_id =3D UINT_MAX,
-> > +             .sp_id =3D UINT_MAX,
-> > +             .usptp_id =3D UINT_MAX,
-> > +             .slice_id =3D HEADER_SLICE_ID(regs->slice_region, slice_i=
-d),
-> > +     }) {
-> > +             unsigned long flags;
-> > +
-> > +             if (regs->sel)
-> > +                     gpu_write(gpu, regs->sel->host_reg, regs->sel->va=
-l);
-> > +
-> > +             if (regs->slice_region) {
-> > +                     u32 val =3D GEN8_CP_APERTURE_REG_VAL(slice_id, 0,=
- 0, 0);
-> > +                     a8xx_aperture_acquire_raw(gpu, val, &flags);
-> > +             }
-> > +
-> > +             /* Make sure the previous writes are posted before readin=
-g */
-> > +             mb();
-> > +
-> > +             for (const u32 *ptr =3D regs->regs; ptr[0] !=3D UINT_MAX;=
- ptr +=3D 2) {
-> > +                     snapshot_mvc_regs_v3_subheader(&sect, ptr);
-> > +
-> > +                     for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
-> > +                             snapshot_sect_u32(&sect, reg_read(gpu, k)=
-);
-> > +                     }
-> > +             }
-> > +
-> > +             if (regs->slice_region)
-> > +                     a8xx_aperture_release(gpu, flags);
-> > +     }
-> > +}
->
-> [Severity: Medium]
-> As reported by Sashiko on v4 [1], can gen8_legacy_snapshot_registers() le=
-ave
-> REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture programmed t=
-o a
-> previous slice when reading subsequent UNSLICE register blocks?
->
-> In drivers/gpu/drm/msm/adreno/a8xx_gpu.c, a8xx_aperture_acquire_raw() wri=
-tes
-> to REG_A8XX_CP_APERTURE_CNTL_HOST and updates a6xx_gpu->cached_aperture,
-> whereas a8xx_aperture_release() only drops a6xx_gpu->aperture_lock:
->
-> drivers/gpu/drm/msm/adreno/a8xx_gpu.c:a8xx_aperture_release() {
->         spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
-> }
->
-> Because gen8_legacy_snapshot_registers() only calls
-> a8xx_aperture_acquire_raw() when regs->slice_region is SLICE and does not
-> clear the aperture afterward, when b->pre_crashdumper_regs or b->reg_list=
- has
-> SLICE entries followed by UNSLICE entries, the UNSLICE entries are read w=
-hile
-> REG_A8XX_CP_APERTURE_CNTL_HOST still has A8XX_CP_APERTURE_CNTL_HOST_USESL=
-ICEID
-> and the previous slice_id set.
->
-> In addition, regs->sel->host_reg is written before a8xx_aperture_acquire_=
-raw()
-> selects the target slice and outside aperture_lock, and a8xx_gpu_state_ge=
-t()
-> exits via the out label without calling a8xx_aperture_clear(gpu) to reset
-> REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture after
-> gen8_snapshot_mvc_regs(), gen8_snapshot_cp_indexed_regs(), and
-> gen8_legacy_snapshot_registers() run.
->
-> Should gen8_legacy_snapshot_registers() program the aperture for both SLI=
-CE
-> and UNSLICE regions (and write regs->sel->host_reg after acquiring the
-> aperture), and should a8xx_gpu_state_get() call a8xx_aperture_clear(gpu) =
-at
-> the out label?
+> > +		xe_assert(xe, !xe_tt->iova_linked);
+> > +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+> 
+> Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
+> which requires that evict_all will correctly tear down iommu mappings on
+> stuff like pci unplug and I don't think tt_destroy is called in that flow?
 
-This is fine, reading UNSLICE regs does not depend on the aperture.
-And USESLICEID only matters for writes, it controls whether the write
-is broadcast to all slices or not.
+But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
 
-This also matches kgsl.
+> Does having the iova here cause issues? Also, for VRAM flow I think there is
+> a tt_create() via pipeline gutting which will now create a new iova?
+> 
 
-> [ ... ]
->
-> > +static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
-> > +                               struct adreno_gpu_state *state,
-> > +                               struct adreno_crashdumper *dumper)
-> > +{
-> > +     const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(to_adreno_gpu(gpu));
-> > +     u32 slice_mask =3D a6xx_gpu->slice_mask;
-> > +     u32 first_slice =3D a8xx_get_first_slice(a6xx_gpu);
-> > +     bool ret =3D true;
-> > +
-> > +     for (int i =3D 0; i < b->mempool_index_registers_len && ret; i++)=
- {
-> > +             const struct gen8_cp_indexed_reg *cp_indexed_reg =3D
-> > +                     &b->mempool_index_registers[i];
-> > +             unsigned long flags;
-> > +             u32 j;
-> > +
-> > +             FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_ma=
-sk) {
-> > +                     u32 pipe_id =3D cp_indexed_reg->pipe_id;
-> > +
-> > +                     /* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize =
-it while dumping */
-> > +                     a8xx_aperture_acquire_raw(gpu,
-> > +                             GEN8_CP_APERTURE_REG_VAL_NS(first_slice, =
-pipe_id, 0, 0),
-> > +                             &flags);
-> > +                     gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2)=
-, BIT(2));
-> > +                     a8xx_aperture_release(gpu, flags);
-> > +
-> > +                     a8xx_aperture_acquire_raw(gpu,
-> > +                             GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0=
-),
-> > +                             &flags);
-> > +                     gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, =
-BIT(2), BIT(2));
-> > +                     a8xx_aperture_release(gpu, flags);
-> > +
-> > +                     ret =3D gen8_snapshot_indexed_registers(gpu, stat=
-e, dumper,
-> > +                             cp_indexed_reg->addr,
-> > +                             cp_indexed_reg->data, 0,
-> > +                             cp_indexed_reg->size,
-> > +                             cp_indexed_reg->pipe_id,
-> > +                             HEADER_SLICE_ID(cp_indexed_reg->slice_reg=
-ion, j));
-> > +
-> > +                     /* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are=
- done */
-> > +                     a8xx_aperture_acquire_raw(gpu,
-> > +                             GEN8_CP_APERTURE_REG_VAL_NS(first_slice, =
-pipe_id, 0, 0),
-> > +                             &flags);
-> > +                     gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2)=
-, 0);
-> > +                     a8xx_aperture_release(gpu, flags);
-> > +
-> > +                     a8xx_aperture_acquire_raw(gpu,
-> > +                             GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0=
-),
-> > +                             &flags);
-> > +                     gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, =
-BIT(2), 0);
-> > +                     a8xx_aperture_release(gpu, flags);
-> > +
-> > +                     if (!ret)
-> > +                             break;
-> > +             }
-> > +     }
->
-> [Severity: High]
-> As reported by Sashiko on v4 [2], does gen8_snapshot_mempool() access sli=
-ce 0
-> even when cp_indexed_reg->slice_region is UNSLICE and slice 0 is fused of=
-f in
-> slice_mask?
->
-> For UNSLICE entries in b->mempool_index_registers, FIRST_SLICE(UNSLICE,
-> slice_mask) sets j to 0 regardless of slice_mask:
->
-> #define FIRST_SLICE(_region, _slice_mask) \
->         ((_region =3D=3D UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mas=
-k))
->
-> Inside FOR_EACH_SLICE, gen8_snapshot_mempool() uses first_slice when
-> accessing REG_A8XX_CP_CHICKEN_DBG_PIPE, but then unconditionally programs
-> GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0) and RMWs the per-slice registe=
-r
-> REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE on slice j =3D 0 before and after
-> gen8_snapshot_indexed_registers().
->
-> On A8xx GPUs with partial slice configurations where slice 0 is disabled =
-in
-> a6xx_gpu->slice_mask, won't touching REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE o=
-n
-> slice 0 during UNSLICE mempool dumps access a fused-off slice and cause a=
-n
-> AHB/NoC bus error?
+Maybe we shuffle this around a bit so the iova alloc is tied to
+populate/unpopulate. It was been a while I forget exactly why I did this
+way.
 
-This is a specific sequence given by the hw team.  But AFAIU the slice
-configured in the aperture shouldn't matter for non-slice reg.
+> Aside from that, maybe we can land 27/28 as standalone?
 
-> [ ... ]
->
-> > +struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
-> > +{
->
-> [ ... ]
->
-> > +     /* If GX isn't on the rest of the data isn't going to be accessib=
-le */
-> > +     if (!a6xx_gmu_gx_is_on(adreno_gpu))
-> > +             return &state->base;
->
-> [Severity: High]
-> As reported by Sashiko on v4 [3], should a8xx_gpu_state_get() call
-> a8xx_gmu_gx_is_on(adreno_gpu) (or adreno_gpu->funcs->gx_is_on(adreno_gpu)=
-)
-> here instead of a6xx_gmu_gx_is_on(adreno_gpu)?
->
-> In drivers/gpu/drm/msm/adreno/a6xx_gmu.c, a6xx_gmu_gx_is_on() reads
-> REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS and checks A6xx bit definitions when
-> adreno_is_a7xx() is false:
->
-> drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_gx_is_on() {
->         ...
->         val =3D gmu_read(gmu, REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS);
->
->         if (adreno_is_a7xx(adreno_gpu))
->                 return !(val &
->                         (A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER=
-_OFF |
->                         A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
->
->         return !(val &
->                 (A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
->                 A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-> }
->
-> On A8xx hardware, GX power and clock status is checked via
-> a8xx_gmu_gx_is_on(), which reads REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS on
-> A850-family GPUs (where GMU MX may be off) or REG_A8XX_GMU_PWR_CLK_STATUS=
- on
-> other A8xx GPUs. Calling a6xx_gmu_gx_is_on() on A8xx reads the wrong regi=
-ster
-> and bitmask, which can touch unpowered GMU MMIO on A850-family GPUs or fa=
-lsely
-> report GX as powered on and proceed with unclocked GX register reads.
->
-> [ ... ]
->
-> > +     /*
-> > +      * Capture preempt records after cp_clusters, to make this easier
-> > +      * to decode (ie. so we already know CP_CONTEXT_SWITCH_SMMU_INFO =
-and
-> > +      * CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR) when crashdec =
-sees
-> > +      * the logged GPU objs)
-> > +      */
-> > +     for (unsigned i =3D 0; i < gpu->nr_rings; i++) {
-> > +             a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
-> > +                                  a6xx_gpu->preempt_iova[i]);
-> > +             a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
-> > +                                  a6xx_gpu->preempt_smmu_iova[i]);
-> > +     }
->
-> [Severity: High]
-> As reported by Sashiko on v4 [4], can this loop trigger a use-after-free =
-on
-> a6xx_gpu->preempt_bo[0] when preemption initialization fails and falls ba=
-ck
-> to a single ring?
->
-> In drivers/gpu/drm/msm/adreno/a6xx_preempt.c, if a6xx_preempt_init() fail=
-s
-> after allocating ring 0's preempt_bo[0], it calls a6xx_preempt_fini(gpu) =
-and
-> sets gpu->nr_rings =3D 1:
->
-> drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_fini() {
->         for (i =3D 0; i < gpu->nr_rings; i++)
->                 msm_gem_kernel_put(a6xx_gpu->preempt_bo[i], gpu->vm);
-> }
->
-> Because a6xx_preempt_fini() frees a6xx_gpu->preempt_bo[0] without clearin=
-g
-> the pointer to NULL, and a8xx_gpu_state_get() iterates up to gpu->nr_ring=
-s
-> without checking gpu->nr_rings > 1, iteration i =3D 0 will pass the freed
-> a6xx_gpu->preempt_bo[0] pointer to a8xx_snapshot_gpu_bo(). Should this lo=
-op
-> be guarded by gpu->nr_rings > 1 like the other preemption paths?
->
-> [1] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
-lcomm.com
-> [2] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
-lcomm.com
-> [3] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
-lcomm.com
-> [4] https://lore.kernel.org/r/20261030211928.45761-16-robin.clark@oss.qua=
-lcomm.com
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102220405.30=
-730-1-robin.clark@oss.qualcomm.com?part=3D11
+Yes, let me extract these two into standalone patches today and
+reworking if needed.
+
+Matt
