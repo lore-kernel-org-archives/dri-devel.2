@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037E1606A330
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 06:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38471606A333
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 06:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Pg6ij7HY
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I8yVdndx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B543A10F38B;
-	Tue,  3 Nov 2026 06:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BDC10E78A;
+	Tue,  3 Nov 2026 06:17:32 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B247F10F384
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 06:17:16 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D6310E78A
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 06:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1793686635;
+ s=mimecast20190719; t=1793686643;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jIc5h4IhkXIt4VgOmF6ym6QfRntQTchoUiwA4snRnC8=;
- b=Pg6ij7HYY463mRWPI3Cplb4CP61HWYdl3QT62t/Fm5yEFtPXCUFOxiQgN93tazHqCCwUgx
- WYSvYBLP37SGr/lZvhV5nqXCR7PPKEOqLxw2rgPMMh1Ixu6iQqSdLXu3OYQyyG5NMm7Yj+
- yNynJp87EWNE54eREvzz5fBSUzwqEqk=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=YJKtASFXSozFleqVLs7kYWFKCja/REnxHfhs5K4R3gw=;
+ b=I8yVdndxpPFESg6mVXwoCa9Kjh2UOqAzdHEgpDJS3E9QBNm4zgcQbmXBaLV/jrutn2VyIF
+ SkqcytNufFXFAfAklt5kSjZYl7O+ABcjt1N6gPXLgiSqRBVelvsx7pAfWJhRo/XHlKWE4x
+ yoG2G8iFUs3WTCFjWEJUaPusr+mbECo=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-690-785YxoUwOsWU0AT1AdQcpw-1; Tue, 03 Nov 2026 01:17:14 -0500
-X-MC-Unique: 785YxoUwOsWU0AT1AdQcpw-1
-X-Mimecast-MFC-AGG-ID: 785YxoUwOsWU0AT1AdQcpw_1793686633
-Received: by mail-lj1-f198.google.com with SMTP id
- 38308e7fff4ca-3ab2de4544cso18512381fa.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 22:17:14 -0800 (PST)
+ us-mta-445-QtzxpFWbNc6VS8Vkm2Udyw-1; Tue, 03 Nov 2026 01:17:20 -0500
+X-MC-Unique: QtzxpFWbNc6VS8Vkm2Udyw-1
+X-Mimecast-MFC-AGG-ID: QtzxpFWbNc6VS8Vkm2Udyw_1793686639
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-5be3f54847eso1865653e87.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 22:17:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793686633; x=1794291433;
+ d=1e100.net; s=20260707; t=1793686639; x=1794291439;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=jIc5h4IhkXIt4VgOmF6ym6QfRntQTchoUiwA4snRnC8=;
- b=UuusQH5fE4Ge9TcYbeu+q6n1UiJa+fM9YivhwBtJeYDUApe6/2K9xUrNoUZtQZ2vnW
- eR0NULRb3qfAfSSrZZh/GKydLPbDkGvNk3T+r2ybA5aML4Hx+KrGmyMgH8nJ8SsWpXWc
- rstjmc6IPnki8fUlPmgRJ4EbolSs0Vmo6esyKoflquakGS1wchc7072cEYKvTAlT7Toa
- EqDQyZCYWR3gDGMHCYCrQdGoAgU70oOmGywACws+L/mWKNCJV8+qzviNeO1OpeH8EX2L
- X9LrSblBVPU7qUm/dfWLW5867SlIRkT9U4o9+HDj4+09qjfpc3BwTWRMQLw7eVWZec8b
- SV6g==
-X-Gm-Message-State: APuU4Z+q0wA1fWQ4q38mvRU48oJDWDs+vKDjw/0All9yWGjzFFtfKSSF
- RARlPuMlSXo8fLPvWHDb76UwW/qh1vftmfkYLZazVpzKl2lUcTUNTEJenjm6zXrltZEOxFoHC5M
- ZGqfw/LIAVG1fWzahNFq+V0L1MdVzwOSbvzaWMnMUEskW3ZtXwPSBu5sf95JeDDQEWeCm
-X-Gm-Gg: AYBFou09+jA7xKCRSJ1trERZVCtRYpIKc67N98vwowGMC+v90d/pZ5QR4K8YIHDdrlI
- Fb8Ik8ZOgr3s3mEsbRxMLwZxLs9Q87RfM96gkw841imR+F/gllugfheSsh1vB2UPs91tSiIinpI
- 3WtgU1foAQh/F12eE9zv9PjyC+G4jpgWQqtSfGlB95IxBpnTHbSTFCicMznW77CglDS9Wr/aXRE
- CxPL4UOziHFDvMyJX2EH9Whu0Itt9UT10hfyct0hsm13uGxB47ht9D7+tRvN+1h8JBQgeHsPQ3l
- /3fsIMhLXibere5k/YK4PqkBmDjEDLdnBcdqS4wF0HTHGKw1edb8oDwSOsanuDEAi5nNMtwZrj8
- syFLxnKzCIdNd7+C7/5tWmrJfOZzmKDpztOJqYs7LCLy3v3jBlcEtPQFgUoewN6Uh/yDY6Q==
-X-Received: by 2002:a05:6512:ac2:b0:5bf:e32c:51b with SMTP id
- 2adb3069b0e04-5bfe32c06cemr2651611e87.6.1793686632937; 
- Mon, 02 Nov 2026 22:17:12 -0800 (PST)
-X-Received: by 2002:a05:6512:ac2:b0:5bf:e32c:51b with SMTP id
- 2adb3069b0e04-5bfe32c06cemr2651592e87.6.1793686632449; 
- Mon, 02 Nov 2026 22:17:12 -0800 (PST)
+ bh=YJKtASFXSozFleqVLs7kYWFKCja/REnxHfhs5K4R3gw=;
+ b=LUSoCx6XE++0lMWha69+FZXirK+MaBxyVvY9v36ZdEtt3Ewq50Kiv1h8sFEnwG1AS7
+ vQeCJV6XftkB5gbRSnS358Tl7Fmnoj6fGVevW/Zgq+ktWTM3LTdFryaK7HQ5/N2mdpGJ
+ h6OMWvkxPn/pJnrkHYnDag58lusWOMhwvz9+wuVd0s0Qq0mpxBSC7zacXW+pXVKn56j2
+ GJXlfM5KG0OvJVNdaFgIUw0YKle8b95yWjTxsVOfVfiEwixvLsFnwJoKGQzSW6RVkPoh
+ 4ENC4JvjtPHafLYSMf1rW9pFrRd91tdjNg17ghRKvkmwYfht7+zMnCUzsJy4fE1AbKey
+ kR6w==
+X-Gm-Message-State: APuU4Z8LebqpPE26csYkZtQQkSzlhxzOtXCttMGL7ix8O+yXShxJ/oXj
+ WLPdcqUbG9bKx3V4Kiao806Jaf4f+EjlUZqMPqif4EPE9jo8MHMOEObinY6/EfCG3O6WNmrjaKG
+ qk4Vhgd02ztqsR5jB4FqRiOL32WOHt0qFR9J10C48Yc0Vrr+52JHkJGup3vrgU3ekgekB
+X-Gm-Gg: AYBFou1w04niCyvDLCUOzYPsisiHVTTUuOGzorkfGi6cY7E+kApIOIcA7tY06yPed4K
+ IjY+LhuMhg1qqUJtDMoK6pGHkkci1dtoqAF2Sd1X77eDZ3IbuRQB/c98PhLgxJvSVenUixTr99y
+ YVnEqaKUQPUsQE2H6bEeJKkCjXfJD41x8fYjiY4UX9Ztjw+5jONxeZQYIiR9KAiGVJVGviVT9yt
+ LiKPumfaDgtvh63cIsGMtCsOj70jJBi7K5j3pWZLQOGzdEsx0DrlrUvCjtTiacgbx5zFXU+JhkG
+ jTV1qBYv6FYXeampCNF+srDNu4lxmLuHXS1zaOuZF6zR5ymtKM6cuyXpEclwEIXKtKvaOYcdJK5
+ +j8wcgP+n8C11CnxCcLtcUqSid1anJ+X1U4oyqYjvVKVw9VveiVuUMo4xqzTv0brfUsh0WA==
+X-Received: by 2002:a05:6512:3a84:b0:5bf:be4d:13d0 with SMTP id
+ 2adb3069b0e04-5bfd956226emr3849918e87.19.1793686638707; 
+ Mon, 02 Nov 2026 22:17:18 -0800 (PST)
+X-Received: by 2002:a05:6512:3a84:b0:5bf:be4d:13d0 with SMTP id
+ 2adb3069b0e04-5bfd956226emr3849909e87.19.1793686638234; 
+ Mon, 02 Nov 2026 22:17:18 -0800 (PST)
 Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfe073e0f9sm1964634e87.54.2026.11.02.22.17.11
+ 2adb3069b0e04-5bfe073e0f9sm1964634e87.54.2026.11.02.22.17.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 22:17:11 -0800 (PST)
+ Mon, 02 Nov 2026 22:17:17 -0800 (PST)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
@@ -78,18 +78,19 @@ Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
  Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v17 08/12] mm/hmm: implement rollback for device page
- migration in HMM pagewalk
-Date: Tue,  3 Nov 2026 08:16:25 +0200
-Message-ID: <20261103061629.972669-9-mpenttil@redhat.com>
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Marco Pagani <marpagan@redhat.com>
+Subject: [PATCH v17 10/12] lib/test_hmm: add a new testcase for the migrate on
+ fault
+Date: Tue,  3 Nov 2026 08:16:27 +0200
+Message-ID: <20261103061629.972669-11-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261103061629.972669-1-mpenttil@redhat.com>
 References: <20261103061629.972669-1-mpenttil@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2xX30ZaiP9f66GwZnBZX5evsfMj_r_pRmejN_nWCYNA_1793686633
+X-Mimecast-MFC-PROC-ID: pRc1dq56GBPmTVsg7AThJ1kqiQuLrx6F4xNa0qLmjMA_1793686639
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -114,20 +115,23 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-During the migration pagewalk, the PTE table could be cleared and/or
-changed into PMD leaf or even another PTE table while dropped locks.
+Enhance the hmm test driver (lib/test_hmm) with a migrate on fault
+case: a single hmm_range_fault() walk with HMM_PFN_REQ_FAULT |
+HMM_PFN_REQ_MIGRATE faults in and collects the range, which is then
+migrated to device private memory and mapped into the dmirror page
+table. The selftest leaves the first two pages unwritten, so page 0
+has to be faulted in and page 1 maps the zero page.
 
-In these cases the possibly inserted migration ptes are gone. We have
-to however undo the collecting done so far, so unlock the folios and
-drop reference taken.
-
-During the pagewalk we notice such scenarios if going to recollect a pfn
-but have already committed to migrate the entry with HMM_PFN_MIGRATE, in
-which case do rollback. Rollback clears (HMM_PFN_VALID | HMM_PFN_MIGRATE)
-which is safe, as migration is entirely driven by default_flags.
-
-If we encounter migration ptes they are just skipped to allow for restart
-own walks.
+If mmu_interval_read_retry() trips after migrate_vma_pages(), the
+dmirror mapping is skipped and the -EBUSY retry re-walks. Normally the
+trip comes from an unmap or zap: the migration ptes are gone,
+migrate_vma_finalize() releases the destination pages and the retry
+migrates again. Pages committed to device memory without a dmirror
+mapping (e.g. after a huge zero pmd split in migrate_vma_insert_page())
+are still consistent, since any invalidation also clears the dmirror
+page table, and a real device would map them on its next fault. The
+selftest doesn't hit that case: the unwritten pages share a pmd with
+written ones, so there is no huge zero pmd.
 
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Jason Gunthorpe <jgg@nvidia.com>
@@ -136,289 +140,366 @@ Cc: Alistair Popple <apopple@nvidia.com>
 Cc: Balbir Singh <balbirs@nvidia.com>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Suggested-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Marco Pagani <marpagan@redhat.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 ---
- include/linux/hmm.h |  22 ++++++++
- mm/hmm.c            | 127 +++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 148 insertions(+), 1 deletion(-)
+ lib/test_hmm.c                         | 172 +++++++++++++++++++++++--
+ lib/test_hmm_uapi.h                    |  21 +--
+ tools/testing/selftests/mm/hmm-tests.c |  56 ++++++++
+ 3 files changed, 226 insertions(+), 23 deletions(-)
 
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 4f56f3419cb4..b08ebc1343dd 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -111,6 +111,28 @@ static inline unsigned int hmm_pfn_to_map_order(unsigned long hmm_pfn)
- 	return (hmm_pfn >> HMM_PFN_ORDER_SHIFT) & 0x1F;
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index f05f801b8404..2045896493ae 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -36,6 +36,7 @@
+ #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
+ #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
+ #define DEVMEM_CHUNKS_RESERVE		16
++#define PFNS_ARRAY_SIZE			64
+ 
+ /*
+  * For device_private pages, dpage is just a dummy struct page
+@@ -355,6 +356,7 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 	struct mm_struct *mm = dmirror->notifier.mm;
+ 	unsigned long timeout =
+ 		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	bool migrate = range->default_flags & HMM_PFN_REQ_MIGRATE;
+ 	int ret;
+ 
+ 	while (true) {
+@@ -364,9 +366,15 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 		}
+ 
+ 		range->notifier_seq = mmu_interval_read_begin(range->notifier);
+-		mmap_read_lock(mm);
+-		ret = hmm_range_fault(range);
+-		mmap_read_unlock(mm);
++
++		/* mmap lock held for whole migrate on fault operation */
++		if (!migrate) {
++			mmap_read_lock(mm);
++			ret = hmm_range_fault(range);
++			mmap_read_unlock(mm);
++		} else {
++			ret = hmm_range_fault(range);
++		}
+ 		if (ret) {
+ 			if (ret == -EBUSY)
+ 				continue;
+@@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirror,
+ 		break;
+ 	}
+ 
+-	ret = dmirror_do_fault(dmirror, range);
++	/* update device page table after migration */
++	if (!migrate)
++		ret = dmirror_do_fault(dmirror, range);
+ 
+ 	mutex_unlock(&dmirror->mutex);
+ out:
+@@ -994,8 +1004,12 @@ static int dmirror_atomic_map(unsigned long addr, struct page *page,
+ 	return 0;
  }
  
+-static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
+-					    struct dmirror *dmirror)
 +/*
-+ * hmm_pfn_collected() - is this pfn entry prepared for migration ?
-+ * If collected the folio's refcount is increased and the folio
-+ * is locked.
++ * Map the migrated pages into the device's page table. Caller must hold
++ * dmirror->mutex.
 + */
-+static inline bool hmm_pfn_collected(unsigned long hmm_pfn)
++static int __dmirror_migrate_map_locked(struct migrate_vma *args,
++					struct dmirror *dmirror)
+ {
+ 	unsigned long start = args->start;
+ 	unsigned long end = args->end;
+@@ -1005,9 +1019,6 @@ static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
+ 	const unsigned long start_pfn = start >> PAGE_SHIFT;
+ 	const unsigned long end_pfn = end >> PAGE_SHIFT;
+ 
+-	/* Map the migrated pages into the device's page tables. */
+-	mutex_lock(&dmirror->mutex);
+-
+ 	for (pfn = start_pfn; pfn < end_pfn; pfn++, src++, dst++) {
+ 		struct page *dpage;
+ 		void *entry;
+@@ -1036,17 +1047,27 @@ static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
+ 			if (*dst & MIGRATE_PFN_WRITE)
+ 				entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
+ 			entry = xa_store(&dmirror->pt, pfn + i, entry, GFP_ATOMIC);
+-			if (xa_is_err(entry)) {
+-				mutex_unlock(&dmirror->mutex);
++			if (xa_is_err(entry))
+ 				return xa_err(entry);
+-			}
+ 		}
+ 	}
+ 
+-	mutex_unlock(&dmirror->mutex);
+ 	return 0;
+ }
+ 
++static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
++					    struct dmirror *dmirror)
 +{
-+	return (hmm_pfn & (HMM_PFN_VALID | HMM_PFN_MIGRATE)) ==
-+		(HMM_PFN_VALID | HMM_PFN_MIGRATE);
++	int ret;
++
++	/* Map the migrated pages into the device's page tables. */
++	mutex_lock(&dmirror->mutex);
++	ret = __dmirror_migrate_map_locked(args, dmirror);
++	mutex_unlock(&dmirror->mutex);
++
++	return ret;
 +}
 +
-+/*
-+ * hmm_pfn_rollback_collected() - undoes the collection of hmm_pfn
-+ *
-+ * Note for total rollback the folio's refcount has to be put
-+ * and folio has to be unlocked.
-+ */
-+static inline unsigned long hmm_pfn_rollback_collected(unsigned long hmm_pfn)
+ static int dmirror_exclusive(struct dmirror *dmirror,
+ 			     struct hmm_dmirror_cmd *cmd)
+ {
+@@ -1377,6 +1398,127 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
+ 	return ret;
+ }
+ 
++static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_range *range)
 +{
-+	return hmm_pfn & ~(HMM_PFN_VALID | HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
++	struct migrate_vma *migrate = range->migrate;
++	unsigned long timeout =
++		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	int ret;
++
++	do {
++		mmap_read_lock(dmirror->notifier.mm);
++
++		/* Fault-in pages for migration */
++		ret = dmirror_range_fault(dmirror, range);
++		/*
++		 * Set this up even on error: hmm_range_fault() may have collected
++		 * part of the range before failing.
++		 */
++		migrate_hmm_range_setup(range);
++		if (ret) {
++			/*
++			 * dst[] entries are empty, so this marks every collected
++			 * migration as failed. finalize then restores the source
++			 * mappings and drops the associated locks/references.
++			 */
++			migrate_vma_pages(migrate);
++			migrate_vma_finalize(migrate);
++			goto unlock;
++		}
++
++		pr_debug("Migrating from sys mem to device mem\n");
++
++		dmirror_migrate_alloc_and_copy(migrate, dmirror);
++		migrate_vma_pages(migrate);
++
++		mutex_lock(&dmirror->mutex);
++		if (mmu_interval_read_retry(&dmirror->notifier,
++					    range->notifier_seq))
++			ret = -EBUSY;
++		else
++			ret = __dmirror_migrate_map_locked(migrate, dmirror);
++		mutex_unlock(&dmirror->mutex);
++
++		migrate_vma_finalize(migrate);
++unlock:
++		mmap_read_unlock(dmirror->notifier.mm);
++	} while (ret == -EBUSY && !time_after(jiffies, timeout));
++
++	return ret;
++}
++
++static int dmirror_fault_and_migrate_to_device(struct dmirror *dmirror,
++					       struct hmm_dmirror_cmd *cmd)
++{
++	unsigned long start, size, end, next;
++	unsigned long src_pfns[PFNS_ARRAY_SIZE] = { 0 };
++	unsigned long dst_pfns[PFNS_ARRAY_SIZE] = { 0 };
++	struct migrate_vma migrate = { 0 };
++	struct hmm_range range = { 0 };
++	struct dmirror_bounce bounce;
++	int ret = 0;
++
++	/* Whole range */
++	start = cmd->addr;
++	size = cmd->npages << PAGE_SHIFT;
++	end = start + size;
++
++	if (!mmget_not_zero(dmirror->notifier.mm)) {
++		ret = -EFAULT;
++		goto out;
++	}
++
++	migrate.pgmap_owner = dmirror->mdevice;
++	migrate.src = src_pfns;
++	migrate.dst = dst_pfns;
++	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
++
++	range.migrate = &migrate;
++	range.hmm_pfns = src_pfns;
++	range.pfn_flags_mask = 0;
++	range.default_flags = HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE;
++	range.dev_private_owner = dmirror->mdevice;
++	range.notifier = &dmirror->notifier;
++
++	for (next = start; next < end; next = range.end) {
++		range.start = next;
++		range.end = min(end, next + (PFNS_ARRAY_SIZE << PAGE_SHIFT));
++
++		pr_debug("Fault and migrate range start:%#lx end:%#lx\n",
++			 range.start, range.end);
++
++		ret = do_fault_and_migrate(dmirror, &range);
++		if (ret)
++			goto out_mmput;
++	}
++
++	/*
++	 * Return the migrated data for verification.
++	 * Only for pages in device zone
++	 */
++	ret = dmirror_bounce_init(&bounce, start, size);
++	if (ret)
++		goto out_mmput;
++
++	mutex_lock(&dmirror->mutex);
++	ret = dmirror_do_read(dmirror, start, end, &bounce);
++	mutex_unlock(&dmirror->mutex);
++	if (ret == 0) {
++		ret = copy_to_user(u64_to_user_ptr(cmd->ptr), bounce.ptr, bounce.size);
++		if (ret)
++			ret = -EFAULT;
++	}
++
++	cmd->cpages = bounce.cpages;
++	dmirror_bounce_fini(&bounce);
++
++
++out_mmput:
++	mmput(dmirror->notifier.mm);
++out:
++	return ret;
++}
++
+ static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
+ 			    unsigned char *perm, unsigned long entry)
+ {
+@@ -1645,6 +1787,10 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
+ 		ret = dmirror_migrate_to_device(dmirror, &cmd);
+ 		break;
+ 
++	case HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV:
++		ret = dmirror_fault_and_migrate_to_device(dmirror, &cmd);
++		break;
++
+ 	case HMM_DMIRROR_MIGRATE_TO_SYS:
+ 		ret = dmirror_migrate_to_system(dmirror, &cmd);
+ 		break;
+diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
+index ea9b0ec404fb..67d267a3b999 100644
+--- a/lib/test_hmm_uapi.h
++++ b/lib/test_hmm_uapi.h
+@@ -29,16 +29,17 @@ struct hmm_dmirror_cmd {
+ };
+ 
+ /* Expose the address space of the calling process through hmm device file */
+-#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_MIGRATE_TO_DEV	_IOWR('H', 0x02, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_MIGRATE_TO_SYS	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_FLAGS		_IOWR('H', 0x08, struct hmm_dmirror_cmd)
+-#define HMM_DMIRROR_READ_UNLOCKED	_IOWR('H', 0x09, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_READ			_IOWR('H', 0x00, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_WRITE			_IOWR('H', 0x01, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_DEV		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_TO_SYS		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_SNAPSHOT			_IOWR('H', 0x04, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_EXCLUSIVE			_IOWR('H', 0x05, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_CHECK_EXCLUSIVE		_IOWR('H', 0x06, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_RELEASE			_IOWR('H', 0x07, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_FLAGS			_IOWR('H', 0x08, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_READ_UNLOCKED		_IOWR('H', 0x09, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV	_IOWR('H', 0x0a, struct hmm_dmirror_cmd)
+ 
+ #define HMM_DMIRROR_FLAG_FAIL_ALLOC	(1ULL << 0)
+ 
+diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
+index e5f273ca84c1..bacf573d83a9 100644
+--- a/tools/testing/selftests/mm/hmm-tests.c
++++ b/tools/testing/selftests/mm/hmm-tests.c
+@@ -333,6 +333,13 @@ static int hmm_migrate_sys_to_dev(int fd,
+ 	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
+ }
+ 
++static int hmm_migrate_on_fault_sys_to_dev(int fd,
++					   struct hmm_buffer *buffer,
++					   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV, buffer, npages);
++}
++
+ static int hmm_migrate_dev_to_sys(int fd,
+ 				   struct hmm_buffer *buffer,
+ 				   unsigned long npages)
+@@ -937,6 +944,55 @@ TEST_F(hmm, migrate)
+ 	hmm_buffer_free(buffer);
+ }
+ 
++
++/*
++ * Fault and migrate anonymous memory to device private memory.
++ */
++TEST_F(hmm, migrate_on_fault)
++{
++	struct hmm_buffer *buffer;
++	unsigned long npages;
++	unsigned long size;
++	unsigned long i;
++	int *ptr;
++	int ret;
++	int val;
++
++	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
++	ASSERT_NE(npages, 0);
++	size = npages << self->page_shift;
++
++	buffer = hmm_buffer_alloc(size, size,
++				  PROT_READ | PROT_WRITE,
++				  MAP_PRIVATE | MAP_ANONYMOUS, -1);
++	ASSERT_NE(buffer, NULL);
++
++	/*
++	 * Initialize buffer in system memory but leave the first two pages
++	 * zero: page 0 stays pte_none so that hmm_range_fault() has to fault
++	 * it in, page 1 is mapped to the zero page.
++	 */
++	i = 2 * self->page_size / sizeof(*ptr);
++	for (ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
++		ptr[i] = i;
++
++	val = *(int *)(buffer->ptr + self->page_size);
++	ASSERT_EQ(val, 0);
++
++	/* Fault and migrate memory to device. */
++	ret = hmm_migrate_on_fault_sys_to_dev(self->fd, buffer, npages);
++	ASSERT_EQ(ret, 0);
++	ASSERT_EQ(buffer->cpages, npages);
++
++	/* Check what the device read. */
++	for (i = 0, ptr = buffer->mirror; i < 2 * self->page_size / sizeof(*ptr); ++i)
++		ASSERT_EQ(ptr[i], 0);
++	for (; i < size / sizeof(*ptr); ++i)
++		ASSERT_EQ(ptr[i], i);
++
++	hmm_buffer_free(buffer);
 +}
 +
  /*
-  * struct hmm_range - track invalidation lock on virtual address range
-  *
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 690b73908f34..1c8a3fa29c4e 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -95,6 +95,11 @@ enum {
- 			      HMM_PFN_P2PDMA_BUS,
- };
- 
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn);
-+
- static int hmm_pfns_fill(unsigned long addr, unsigned long end,
- 			 struct hmm_vma_walk *hmm_vma_walk, unsigned long cpu_flags)
- {
-@@ -111,6 +116,8 @@ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
- 		}
- 	}
- 
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr, end, &range->hmm_pfns[i]);
-+
- 	if (migrate && thp_migration_supported() &&
- 	    (minfo & MIGRATE_VMA_SELECT_COMPOUND) &&
- 	    IS_ALIGNED(addr, HPAGE_PMD_SIZE) &&
-@@ -239,6 +246,9 @@ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
- 			spin_unlock(hmm_vma_walk->ptl);
- 			hmm_vma_walk->pmdlocked = false;
- 		}
-+		/* Entries collected from a vanished page table are gone */
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr, end,
-+							hmm_pfns);
- 		return hmm_record_fault(addr, end, required_fault, walk);
- 	}
- 	return hmm_pfns_fill(addr, end, hmm_vma_walk, 0);
-@@ -274,6 +284,9 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 	cpu_flags = pmd_to_hmm_pfn_flags(range, pmd);
- 	required_fault =
- 		hmm_range_need_fault(hmm_vma_walk, hmm_pfns, npages, cpu_flags);
-+	/* Entries collected from a vanished page table are gone */
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-+						end, hmm_pfns);
- 	if (required_fault) {
- 		if (hmm_vma_walk->pmdlocked) {
- 			spin_unlock(hmm_vma_walk->ptl);
-@@ -331,6 +344,15 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	if (!pte_present(pte)) {
- 		const softleaf_t entry = softleaf_from_pte(pte);
- 
-+		/*
-+		 * Our own migration entry, collected earlier in this walk:
-+		 * keep the collected pfn, don't fault or roll it back.
-+		 */
-+		if (softleaf_is_migration(entry) && hmm_select_migrate(range) &&
-+		    hmm_pfn_collected(*hmm_pfn) &&
-+		    hmm_pfn_to_page(*hmm_pfn) == softleaf_to_page(entry))
-+			return 0;
-+
- 		/*
- 		 * Don't fault in device private pages owned by the caller,
- 		 * just report the PFN.
-@@ -416,6 +438,9 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 
- 	new_pfn_flags = pte_pfn(pte) | cpu_flags;
- out:
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-+						addr + PAGE_SIZE,
-+						hmm_pfn);
- 	*hmm_pfn = (*hmm_pfn & HMM_PFN_INOUT_FLAGS) | new_pfn_flags;
- 	return 0;
- 
-@@ -427,7 +452,19 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	} else {
- 		pte_unmap(ptep);
- 	}
--	/* Fault any virtual address we were asked to fault */
-+	/*
-+	 * This pte needs a fault, so it is not our migration entry: a pfn
-+	 * collected here earlier is gone, roll it back before faulting.
-+	 */
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-+						addr + PAGE_SIZE, hmm_pfn);
-+	/*
-+	 * Fault any virtual address we were asked to fault. When migrating,
-+	 * only this page: later ptes may be our own migration entries or
-+	 * caller owned device private pages, which must not be faulted.
-+	 */
-+	if (hmm_select_migrate(range))
-+		end = addr + PAGE_SIZE;
- 	return hmm_record_fault(addr, end, required_fault, walk);
- }
- 
-@@ -454,6 +491,9 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
- 		if (softleaf_is_device_private_write(entry))
- 			cpu_flags |= HMM_PFN_WRITE;
- 
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+							start, end,
-+							hmm_pfns);
- 		/*
- 		 * Fully populate the PFN list though subsequent PFNs could be
- 		 * inferred, because drivers which are not yet aware of large
-@@ -475,6 +515,10 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
- 				spin_unlock(hmm_vma_walk->ptl);
- 				hmm_vma_walk->pmdlocked = false;
- 			}
-+			/* Entries collected from a vanished page table are gone */
-+			hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+								addr, end,
-+								hmm_pfns);
- 			return hmm_record_fault(addr, end, required_fault, walk);
- 		}
- 		else
-@@ -561,6 +605,51 @@ static int migrate_vma_split_folio(struct folio *folio,
- 	return __migrate_vma_split_folio(folio, fault_page);
- }
- 
-+/*
-+ * Due to dropping ptl locks for splitting for instance, would we
-+ * overwrite already collected pfns? This could happen when pmd
-+ * pointing to a page table has vanished and been replaced with
-+ * a leaf pmd, or another page table. In that case unref and unlock
-+ * the folios, the pfns of which were collected from the disappeared
-+ * page tables.
-+ *
-+ * Migrate mode drives fault/migration requests only via range->default_flags.
-+ * (HMM_PFN_VALID | HMM_PFN_MIGRATE) denotes a collected entry and can safely
-+ * be cleared from hmm_pfn[].
-+ */
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn)
-+{
-+	struct hmm_range *range = hmm_vma_walk->range;
-+	struct migrate_vma *migrate = range->migrate;
-+	struct folio *fault_folio = NULL;
-+	enum migrate_vma_info minfo;
-+	struct folio *folio;
-+	unsigned long i;
-+
-+	minfo = hmm_select_migrate(range);
-+	if (!minfo)
-+		return;
-+
-+	WARN_ON_ONCE(!migrate);
-+
-+	fault_folio = migrate->fault_page ?
-+		page_folio(migrate->fault_page) : NULL;
-+
-+	for (i = 0; start < end; start += PAGE_SIZE, i++) {
-+		if (hmm_pfn_collected(hmm_pfn[i])) {
-+			folio = page_folio(hmm_pfn_to_page(hmm_pfn[i]));
-+			if (folio != fault_folio)
-+				folio_unlock(folio);
-+			folio_put(folio);
-+			hmm_pfn[i] = hmm_pfn_rollback_collected(hmm_pfn[i]);
-+
-+		}
-+	}
-+}
-+
- static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
- 					      pmd_t *pmdp,
- 					      unsigned long start,
-@@ -731,6 +820,11 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
- 	pte = ptep_get(ptep);
- 
- 	if (pte_none(pte)) {
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+							addr,
-+							addr + PAGE_SIZE,
-+							hmm_pfn);
-+
- 		if (vma_is_anonymous(walk->vma)) {
- 			*hmm_pfn &= HMM_PFN_INOUT_FLAGS;
- 			*hmm_pfn |= HMM_PFN_MIGRATE;
-@@ -783,6 +877,10 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
- 		pfn = pte_pfn(pte);
- 		if (is_zero_pfn(pfn) &&
- 		    (minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
-+			hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+								addr,
-+								addr + PAGE_SIZE,
-+								hmm_pfn);
- 			/* Like pte_none(): only anonymous memory can be populated */
- 			if (!vma_is_anonymous(walk->vma))
- 				goto out;
-@@ -929,6 +1027,13 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
- }
- 
- #else
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn)
-+{
-+}
-+
- static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
- 					      pmd_t *pmdp,
- 					      unsigned long start,
-@@ -1068,6 +1173,16 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 			hmm_vma_walk->pmdlocked = false;
- 		}
- 
-+		/* Our own migration entry, collected earlier in this walk */
-+		if (minfo && hmm_pfn_collected(hmm_pfns_start[0]) &&
-+		    hmm_pfn_to_page(hmm_pfns_start[0]) ==
-+		    softleaf_to_page(softleaf_from_pmd(pmd)))
-+			return 0;
-+
-+		/* Not ours: entries collected from a vanished page table are gone */
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, start, end,
-+							hmm_pfns_start);
-+
- 		if (required_fault) {
- 			/*
- 			 * Someone else's migration: when migrating, wait in
-@@ -1171,6 +1286,10 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 		ptep = pte_offset_map(pmdp, addr);
- 	}
- 	if (!ptep) {
-+		/*
-+		 * The pte table is gone: re-walk from start, entries collected
-+		 * from the old table are rolled back as they are revisited.
-+		 */
- 		addr = start;
- 		goto again;
- 	}
-@@ -1192,6 +1311,12 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 				flush_tlb_range(walk->vma, start, addr);
- 				unmapped = false;
- 			}
-+			/*
-+			 * The pte lock was dropped and the pte table may have
-+			 * changed: re-walk from start. Our own migration entries
-+			 * are kept, anything else collected is rolled back.
-+			 */
-+			addr = start;
- 			goto again;
- 		}
- 		if (r) {
+  * Migrate private file memory to device private memory.
+  */
 -- 
 2.55.0
 
