@@ -2,48 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41085606EE9C
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F986606A329
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 09:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2qId1Z
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CABA10F480;
-	Tue,  3 Nov 2026 09:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A414510F491;
+	Tue,  3 Nov 2026 09:28:27 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D4310F474;
- Tue,  3 Nov 2026 09:28:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6323310F46C;
+ Tue,  3 Nov 2026 09:28:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EC90D601EF;
- Tue,  3 Nov 2026 09:28:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E4D1F00919;
- Tue,  3 Nov 2026 09:28:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DB49460098;
+ Tue,  3 Nov 2026 09:28:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E1A1F0093A;
+ Tue,  3 Nov 2026 09:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793698096;
- bh=kHLZywTsZAKLRgvfxdfCZJOqF7Eh2MWorebcjzuhWEU=;
+ s=k20260515; t=1793698099;
+ bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kT2qId1Zp9eYvDrck79F70FvBP101HDFX//4Pvj9xn3JTEnrEDayWXWHeI1D+Gdhp
- Bp+b9GeK0b5cB4MoKfoSHG+0DYvcfXO8+B2dwfwFjRV953OF6TYp4VlxNDjQOYreUW
- ufrDUKu0UxNYQm/29EmCnAgo/XBbtGA0NXz+FYICiQDftRU8RxNQU+7YXKMvcZ0A8a
- reAxiFNwgjsjjUV2ivevXRhIqLxxTB8e1NsjrV0wyeSOZTgrTIqYWrLVu2q90+D4Jm
- Tc81C9K7HqCCMb6nyk6RYK6J1ks3LuY1pfahYUNgWYZP/CqyzzZbvxDYfSxAesJr/Z
- ispKMN6o3Xn1A==
-Date: Tue, 3 Nov 2026 10:28:13 +0100
+ b=WYPHNe7ZvTdgRYfHSEy1NJjaWvcZ26yHXR7t3Ip8hyIA+z1hJDA5hSUxMESCv71ic
+ RqgihqSPEfMPxw+ABjgT0UHoiHG/8G6G6+RcqqraijEdY13LinVuLaUQJjsjMUcC+m
+ zhJb70LE+ieUwrENJXkrBTrl/4BaOWMwTsIO+syrsCATQDVBx3iFqU9seqolHGboPj
+ ehG4Ayy6etBetGZzSwdiv2WmaGd3qIheguXyFKNnE8d5b9GGWl7kX45YHZvHKd52Bh
+ 63Tem4Ce/o/HNevQnQpVNjHmpUDRnxVQnGQ81hFMPCDivhWSE6LR6t4grHUV5zJJW8
+ yNu2kV57ouFKw==
+Date: Tue, 3 Nov 2026 10:28:17 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, umesh.nerlige.ramappa@intel.com, 
- intel-gfx@lists.freedesktop.org, tursulin@ursulin.net,
- jani.nikula@linux.intel.com, 
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/perf: Unpin the context if reading its GuC ID
- fails
-Message-ID: <20261103-charming-pygmy-elk-eded62@quoll>
-References: <20261103080237.1126027-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ dri-devel@lists.freedesktop.org, 
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, rodrigo.vivi@intel.com
+Subject: Re: [PATCH] drm/i915/selftests: Balance batch VMA pins in the
+ preemption gang test
+Message-ID: <20261103-slick-wapiti-of-snow-e9dc0d@quoll>
+References: <20261103080030.1124149-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103080237.1126027-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103080030.1124149-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,27 +62,25 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Tue, 03 Nov 2026 08:02:37 +0000, Wentao Liang wrote:
-> oa_get_render_ctx_id() pins the context before obtaining its hardware ID.
-> With GuC submission, gen12_get_render_context_id() can fail while
-> allocating or accessing the scratch buffer used to read that ID. The
-> error is returned without releasing the context pin.
+On Tue, 03 Nov 2026 08:00:30 +0000, Wentao Liang wrote:
+> create_gang() pins each batch VMA before mapping and submitting it. The
+> mapping and request allocation error paths drop the object without
+> unpinning the VMA. Later errors drop the request references but also leave
+> the pin behind. On success, live_preempt_gang() releases the batch
+> reference after waiting for each request, again without unpinning it.
 > 
-> i915_oa_stream_init() immediately returns this error, and its caller
-> frees the stream without invoking the stream destroy callback. There is
-> therefore no later opportunity to release the pin.
+> Unpin on every error after a successful pin. Keep the batch pinned while
+> the gang is in use, and unpin it when the caller releases each batch.
+> This preserves the fixed addresses used by the semaphore chain while
+> balancing the pin before the final object reference is dropped.
 > 
-> Unpin and clear pinned_ctx before returning this error. Also clear the
-> pointer on the existing context-control-offset error path, so failed
-> initialization consistently leaves no pinned context in the stream.
-> 
-> Fixes: 682aa4373f15 ("drm/i915/perf: Fix OA filtering logic for GuC mode")
+> Fixes: 2d19a71ce68f ("drm/i915/selftests: Exercise long preemption chains")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/i915_perf.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/gpu/drm/i915/gt/selftest_execlists.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
 
 
