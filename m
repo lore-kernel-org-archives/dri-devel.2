@@ -2,71 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01122606A337
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A6F606A337
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 19:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBVUxWN3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNHWgQbT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C89A10E1A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE8310E5F9;
 	Tue,  3 Nov 2026 19:28:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CE0A10E5F9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA6510E1A2;
  Tue,  3 Nov 2026 19:28:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F3A4641F9A;
- Tue,  3 Nov 2026 19:28:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1111743AC6;
+ Tue,  3 Nov 2026 19:28:14 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793734093;
- b=Gb2oamLBYfrlM8NqY55IEAFDveCQOVqFg8qurwJnrATudyqxZCINtIMKjYA8ZzGGOJAJ
- A1XuzXHdPx0tKWC8A3P0VNy4f+gVEG+UKZ5ehQk05uTZPm3SQoqvwh3lCr7Rb13Bq4cyq
- qEA0Fvxq+qv0J34bEUCL4Vk3XQDScZe2O8WrpttK2YVuyQAzjjCy5BdR6ycDR8u7mFhX5
- /JJ9i2LfWaAl+6vEmvFDQo8ubnfdStJAj4xmT8Jpt/Upxfd/ufXPX08KQ7FRafuWkCg0X
- UlLP5g3kyTVt9ycXioZFTqkIjcj+iULHwsPdoT7YhR3D7EeqVA7918rZe8jc1LRmT1w==
+ b=mWHHHVxfpEc8IJldZMaO0ZfA3MA6kswJwrw5ZvDnpmcekETRhbWpneSiWsoSmrYXePNX
+ ArF/WyGyR21RujALkCvw1jJ+MxLVtL32bJIsNuUN6L0LforATI2q0RQKErRbbXEcpke+Z
+ DRANM48BiulBi72TUCXYjXXaln/j/bfl6lc4b6OeCFL5W7rGy2nqKhCv5Un3zudgBtxfZ
+ I8aydCZJ4FY5zPz6EoA5DrrOJ2PaIzzaYnmMjvkg8R5r9zRCdGMRFbzJGldzOcUBa/V4P
+ wY/ZpBbGfr/rpSgl/yDAnok3E9OBOv6HxsBbeeX3Q9v0DW34G33dUtWdnDTdVvcpv1g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793734093;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=+K7XmP528TsFnUG/JVxK/UW4I1FIZw6fbeiM5ne0aYo=;
- b=Ma+5m8AWHtc1Au7ATR6uYQxy+jdyKWvz647W3WI3XhhT/D5iXzqKPnsgkV5+LMQXq6qM
- WjuSdIPtlcivTzRPttShtWLI0b2gmJvlVP8NsVnynbHc+XGfkBJnImqawigi/2IwLb1DI
- FS4gjYh/Zt4iVbHxHi9Dyc2r4YoTE/qmtnR/5jSo8F9bXe+47vqiA1JCCC5M4KfwUVLVP
- Ix0tqNsI4JH/3sLElH7cHI5bDJ+Jp9rpUKr6H+BIcTVTwJ2GMGJNRWNFTKuCTt11kvaLt
- 8BfC434w57fFpbVksoxTsnV5GxEnGIfaNNT7EP5QOiwy5x8ikOxUSAVYhiri3a+VT/Q==
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=pIO5Ryz18Of2q0V5iO2sOf+bcL5Shl0sK76L+mPdroE=;
+ b=Pg7SU8yliZa5sPZx2ctPwSQ4QxZInFT5pUif6CclV5wIiKMCeKEY4XK9pgHS7KG2eCe6
+ fnsWvW1ameVRbxxonJe7ZW3fHj8kc3CbR/sIzi9RWNvMaKHQE7UX0dAEVsyuXCounBaUu
+ D3rCPYai16G9VcuToFtfl3Y4RoEk4AdlEY/wj6D8Ob5UhQG5RV3GyV8w85XJxKaw5shsF
+ on24FrqNJxY8AeJ44ng3u9PgpPwNMU1GvSD9cHwUf69sioMC9bhxuFyzJEA2RHWGBNH8K
+ A5j6R6q8pjM2Zs1N4KtkIKEiI9DFsQYyIQWUOKF4LlVx/Z+i9cSw5JZKYh/ekSHTIIg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 5999B1F00919;
+ by smtp.kernel.org (Postfix) with ESMTPS id 4487B1F000C1;
  Tue,  3 Nov 2026 19:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793734093;
- bh=+K7XmP528TsFnUG/JVxK/UW4I1FIZw6fbeiM5ne0aYo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=fBVUxWN3U7v0AxMCKv9afY3n4/scG0NCPWU5UmJrxNCJoNqGpHKxVriydzlpcMAVc
- ge2SI4vzZdkiot1cQIxC/yTt10NWexjKVsKp+DilevXCSy2/AloF3hqbL2SWYSBULn
- NMBclLvcpOwD8NYGa6ARrALjcj2vNnnQH6JTMI7/SmKcdAb59wmBIeVGSK/HPCx+Q+
- p2DrgC8Ut0cnd5vRW/Z3j0T0ON4i8k/lYZU8SJdMnHHIcy2sSjQL4G7DMFmParjbpP
- 6bCxbtTBLNUrBUpfrxUXIycWEWUDhjDScdSC/BwBb4t+jvbobQat2czWhWkvzJa9Fi
- 6fZyDWhmypVCg==
+ bh=pIO5Ryz18Of2q0V5iO2sOf+bcL5Shl0sK76L+mPdroE=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=ZNHWgQbTkvaJXR/8ZddplQaLmxGXXOliykBhHs0EEXXVSjsUxbg88HsiKg77e6vUx
+ PUSRNF7qBqGyBCFgdgHqlWLZqKIIgs7UdUKwy4vqR/mm5h/mbsE3c0WTzp6m0TWfF/
+ tco02ZkvKF4OOaLHmSZW7V5Q0mY4B36o7rnZViPWwcjIn2FrIQHKNFvqMYrfrzRBLE
+ /ZMPWGqVLzH15FsDiYJH5aPGk/aUEFp+hHC+UFuPjsGEWFFDejnASZeH4h5t4/QD6f
+ fnVpYQHByQBNq/l58CapQoqzj7jr8x6aVIW2GhEbtNt1UxwZgpE6C2RIbO92R7Te/9
+ n9X3fsXOEXs2Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D4B5F46AC3;
+ by lkml.kernel.org (Postfix) with ESMTP id C5E5B46ABE;
  Tue,  3 Nov 2026 19:28:12 +0000 (UTC)
 From: "David R. Hedges via B4 Relay"
  <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 13:28:01 -0600
-Subject: [PATCH 1/5] drm/nouveau/gsp: fail control calls whose reply went
- missing
+Subject: [PATCH 0/5] drm/nouveau: GSP DP control call fixes and two KMS fixes
+Date: Tue, 03 Nov 2026 13:28:00 -0600
+Message-Id: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-fixes-v1-1-892f4bd357cd@thelittleman.net>
-References: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
-In-Reply-To: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDQBCE4atIr21wxhfJVSQLH2XSLkaZzogg3
+ t1Rlx/FXzspvEDpnezksYrK7CJMmlD/a90XLEM02cxWxmQ5uzmsaAMPC4+yQblAWdS2ql+jySl
+ mi8c9xKr5PNbQTej/1w8dxwkGce+ddAAAAA==
+X-Change-ID: 20261103-nouveau-dp-fixes-4e5472679f13
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -74,19 +76,18 @@ To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, 
- "David R. Hedges" <linuxdev844@thelittleman.net>
+ "David R. Hedges" <linuxdev844@thelittleman.net>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=1563;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=3561;
  i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=hRrbjbCV1yWJ+Tf4TceO0O/RoGm+JN9bs3miAwLKNC0=;
- b=6s12OYfwt2UO14gX7497JNyOhA9zhT4/8AHID6LT0VcGuyiRRNzPWfVfvBvnfpxe4/vknFRFo
- z48TbizjuXvCS3Cgmaa503BHH9hYz5crRbWHqwooqyH4QUz/6Bmj1ws
+ bh=kyihAzwfIJ9HHfvSKZq5cUSMRFvsoDqjqldRWUxUoXk=;
+ b=mNNgoyfahRS6gsbtCUR7JisVyYP2F/b4pOOLEw4sXzJ0BB6BWnJr/uvT/VkxwT91fZ+tlWr+p
+ A+Q2wo1QbZmA1Xg15bSAkL14u9suiUQahTEw8ELHw3rWVwMUjWbSDQP
 X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
  pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
 X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
  with auth_id=1397
 X-Original-From: "David R. Hedges" <linuxdev844@thelittleman.net>
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,43 +108,74 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: "David R. Hedges" <linuxdev844@thelittleman.net>
+These turned up while debugging a DP monitor on a GA102 (GSP-RM
+570.144) that stays dark after DPMS off [1].  The fix for that is a
+separate series for drm-misc-next, based on this one.  These five
+don't depend on it, or on each other:
 
-r535_gsp_rpc_rm_ctrl_push() sets *params to NULL and returns
-PTR_ERR(rpc) when nvkm_gsp_rpc_push() returns an error or NULL.  NULL
-is the normal result when no reply was asked for (repc == 0), but
-r535_gsp_msgq_recv() also returns NULL, after a WARN, when the message
-at the head of the queue claims to be longer than a message can be.
-PTR_ERR(NULL) is 0, so the caller sees success with a NULL reply:
-nvkm_gsp_rm_ctrl_rd() hands the NULL back as if it were valid, and
-r535_dp_aux_xfer() and r535_dp_train_target() go on to read their
-reply fields.
+ - 1: r535_gsp_rpc_rm_ctrl_push() reports success with a NULL reply
+   when the reply it was waiting for goes missing.  That only happens
+   after a WARN in r535_gsp_msgq_recv(); found by reading the code.
+ - 2: r535_dp_aux_xfer() has, since v6.12, passed RM's reply fields up
+   as a completed AUX transaction even when RM failed the call.  With
+   Ubuntu's 7.3 kernel this machine logs bursts of 40-50 such failures
+   each time the monitor fails to come back from DPMS off.
+ - 3: r535_dp_train_target() dereferences a NULL reply after a GSP RPC
+   timeout.  Seen once, turning a display engine hang into an oops.
+ - 4: a modeset racing a probe that lost the EDID drives the output at
+   0 bpc and trips the WARN in nv50_sor_dp_watermark_sst().  Seen with
+   Ubuntu's 7.3 kernel.
+ - 5: since v6.2, a plug or unplug event pending together with an
+   IRQ_HPD, including the sink count changes nouveau_dp_irq() reports
+   that way, skips connector detection.  Found by reading the code; I
+   have nothing that changes its sink count to test it with.
 
-Return -EIO when a reply was expected and none came back.
+Testing, on the GA102 above with Ubuntu's 7.3.0-9-generic kernel and
+nouveau built from v7.3 plus this series and the drm-misc-next one:
 
-Fixes: 4ae3a20102b2 ("nouveau/gsp: don't free ctrl messages on errors")
-Assisted-by: Claude:claude-opus-5-5
+ - the DPMS, cable replug, S3 suspend/resume and power button tests
+   described in the other series, with drm.debug=0x106, and five days
+   of normal use: no WARNs, oopses or display engine hangs.  The only
+   GSP errors were AUXCH_CTRL failures (0x65) while the monitor was
+   switched off, and those now reach the DP helpers as errors ("Too
+   many retries, giving up. First error: -22") rather than as
+   completed transfers.
+ - 1, 3 and 5 deal with conditions I can't reproduce on demand, and the
+   0-bpc race 4 fixes didn't recur.
+
+Both series build with W=1 on drm-misc-fixes (this one) and on
+drm-misc-next (both), with no new W=1 or sparse warnings in the
+touched files.  checkpatch --strict only points out RM's camel-case
+replyType field.
+
+This series was developed with the help of Claude Code (Claude Opus
+5.5).  It analysed the kernel logs, read the nouveau, DRM and NVIDIA
+open-gpu-kernel-modules sources, drafted the patches and changelogs,
+and ran the build and checkpatch checks.  I provided evidence and
+direction, reviewed changes, and ran the hardware tests.
+
+[1] https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
+
 Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c | 3 +++
- 1 file changed, 3 insertions(+)
+David R. Hedges (5):
+      drm/nouveau/gsp: fail control calls whose reply went missing
+      drm/nouveau/gsp: don't report failed DP AUX transfers as completed
+      drm/nouveau/gsp: don't dereference a failed DP_CTRL reply
+      drm/nouveau/kms/nv50-: don't drive outputs at 0 bpc
+      drm/nouveau: don't let an IRQ_HPD hide a plug or unplug event
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
-index 70b9ee911c5e..ea925a9d0531 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c
-@@ -44,6 +44,9 @@ r535_gsp_rpc_rm_ctrl_push(struct nvkm_gsp_object *object, void **params, u32 rep
- 	rpc = nvkm_gsp_rpc_push(gsp, rpc, NVKM_GSP_RPC_REPLY_RECV, repc);
- 	if (IS_ERR_OR_NULL(rpc)) {
- 		*params = NULL;
-+		/* NULL is only a successful reply if none was asked for. */
-+		if (!rpc && repc)
-+			return -EIO;
- 		return PTR_ERR(rpc);
- 	}
- 
+ drivers/gpu/drm/nouveau/dispnv50/disp.c                |  7 +++++--
+ drivers/gpu/drm/nouveau/nouveau_display.c              |  7 ++++++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c |  3 +++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 11 +++++++----
+ 4 files changed, 21 insertions(+), 7 deletions(-)
+---
+base-commit: 54a88d9afcca66221d14f438d0960472984968ec
+change-id: 20261103-nouveau-dp-fixes-4e5472679f13
 
--- 
-2.55.0
+Best regards,
+--  
+David R. Hedges <linuxdev844@thelittleman.net>
 
 
