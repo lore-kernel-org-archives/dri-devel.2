@@ -2,70 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80C5606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1627F606A326
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbehlgU3
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ukEWphyA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D326910F893;
-	Tue,  3 Nov 2026 21:38:24 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010032.outbound.protection.outlook.com [52.101.56.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D333810E391;
- Tue,  3 Nov 2026 21:38:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94E6110E391;
+	Tue,  3 Nov 2026 21:38:25 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011037.outbound.protection.outlook.com
+ [40.93.194.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B8810E1D6;
+ Tue,  3 Nov 2026 21:38:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fQJx+hWow+oUPGMDYpUnjPex1KXC3KXQMVDL2Dno1MA0WTIXRRBKqmJvkeQQhySPi+fLQtoXJ79meh9Juh/+Hc/j2e0tNKW/JCSU74xmt0DhtzBmuvE3OVstYAA8kEo5wqSnAXybfu3Ojpot/YXYt5eC1njUrvrrlA5j/xYFjACT7sOeN+/4mDrpoJN+/Wm0obg69mXuKchAhPNh+NCXjukg9YyriRlga2Gs40NP+Fxg88xFm3UaXjuaMo+MNeUQ6a4kZHWj0eza02ET+MGTIQSc+e2qosc79QTuaO6eg/yW5Tmiw4MvSgKaEfW0/N/QdZF4z7IOzf0+AHOnYqC1MQ==
+ b=poUNxBbsywdETh/MkGKPU5YxxHo4mHEOAXF7V2k0G6CrTBwuyCpev7hIhbTXxRXoBq3Y/2dc2lucDWphW9s7oe5TDwFpuWxpVkJ7cx7JeMpyt1e+XeLHS46dvwdkNX3/ydxwdDTn6kEmC8qYZOlwVpwz+D9rUJ/M//hGstfmrgLcAvpLLS0vroBGva5YVXcaplvL0XBhk4SA1ieD2slZ3MNDAQu6a2qFohOtnLwBkzgysES1kk+bBWj5vZek3Jjqew8JEbJDck14lJNAKtUNdUT8N1OwzXg57kSfSeRpvrXQ/YPo3W1FibgDNXp/KlY+sCOD+jOSM3m/MMpQOSm/uQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g9GnaKErrv14/qgaQFqn91lXgKL4eOMMyRQXxkYQ5o4=;
- b=tz5EIznIRYs5gObPQx4QKYNUWupc2T8AqWO+SGQLfpTmu86dDX1/bHCH7sc3Fnh4VSAOvGjWo/ht4lmbcAFMVwiLNcKtmheBY9JirV7Zsq0nKOJUlqMMs4E0Mqsl2l946f8YmP1tVfVfjQ0yw7CfL+cUyDIYem11bNrR7f9LBJ1/tOyEUCUH8kAyy8x+qvL+9y1mUCbXaMFkfDVs8cFXOXHJgi/BWOQJI9pEe5j/PgM8ebZxLWv9UyWQl12wILGztcDM+iZevy3h9frQqJTunJMPqjZ8vtoe8IRJxmLggg2Bjd4dzy1GKsdWoGhRKArEcbaC1nIBriCNzNXnB90ZAA==
+ bh=EGO1KcJs+Djpm1kcDsRx1j43qRGMPkNq1eTgOv37ZOw=;
+ b=dneQ4YpDt7PBADbXVqVg6PqM+FVKFJ6YU6zABIpC7FIOz8dqNWWmxesBPOWeobxvonPgvaDTvYPLVO6LQt/0KFBd2OIdwJeA/H+Tz3vAfV3zRqrnst45ZSje54tuc4BgTJgiB4sr6kKpvqVfFJIXc19LYYH2fIEXKIZfFQl4kLDGPsXLnEEUX7fcrurcQBXVOSmAW+Qz21/YVd/bDwWwk1GawCkrmVlPbk3WGpf+DeNr4ukITwYIQcILzy/RPDe36jbBpBBSty/NknERescsafTCf0mOtF7b4BgsZCWD2SiOeu/8dWs/pbMkWBwhQYp52CmUDS+oZGkVPnwtfx4Xcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g9GnaKErrv14/qgaQFqn91lXgKL4eOMMyRQXxkYQ5o4=;
- b=mbehlgU3n2slsN18JCC4EYM4mB3xYle6JmNmCyF4TlpZHEUvarV8W15nT75kfGNTQ2O1oob7uXgMRMqXWqawJfIXNKjK79XSvwcRJ6JhNt86wGktZNq2S9ohl4cCjdbzWSt8hlyCSRLtvoJBAKukLRLAH4ABNwSFDRyL82XYKAc=
-Received: from BN1PR13CA0024.namprd13.prod.outlook.com (2603:10b6:408:e2::29)
- by SJ2PR12MB8874.namprd12.prod.outlook.com (2603:10b6:a03:540::11)
+ bh=EGO1KcJs+Djpm1kcDsRx1j43qRGMPkNq1eTgOv37ZOw=;
+ b=ukEWphyASLJGY1qIBc2Ew24YCHOZc7Wy1gABIFXs5vYUK10lr5GttxQJp65kAPa3/WGUEUtNBO3GSDI6wTDqkLNVHy0H6OxzRk/+Lq+7L+PBWLpSEYEeKzHwt+qjGdb+rAoqfJN1DMb56MP3mbSoxjy4W5qWczzunD57Vb7w/DQ=
+Received: from BN1PR13CA0019.namprd13.prod.outlook.com (2603:10b6:408:e2::24)
+ by SJ0PR12MB8138.namprd12.prod.outlook.com (2603:10b6:a03:4e0::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 21:38:09 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 21:38:11 +0000
 Received: from BN1PEPF00018071.namprd04.prod.outlook.com
- (2603:10b6:408:e2:cafe::6d) by BN1PR13CA0024.outlook.office365.com
- (2603:10b6:408:e2::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Tue, 3
- Nov 2026 21:38:09 +0000
+ (2603:10b6:408:e2:cafe::1f) by BN1PR13CA0019.outlook.office365.com
+ (2603:10b6:408:e2::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 21:38:10 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF00018071.mail.protection.outlook.com (10.167.245.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:09 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:10 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:07 -0600
+ 2026 15:38:08 -0600
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 15:38:06 -0600
+ 2026 15:38:07 -0600
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 15:38:06 -0600
+ Transport; Tue, 3 Nov 2026 15:38:07 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v1 08/13] drm/amd/display: pin the DMA 3D LUT framebuffer
-Date: Tue, 3 Nov 2026 16:37:51 -0500
-Message-ID: <20261103213756.618024-9-harry.wentland@amd.com>
+Subject: [PATCH v1 11/13] drm/amd/display: derive the DMA 3D LUT pitch from DC
+ caps
+Date: Tue, 3 Nov 2026 16:37:54 -0500
+Message-ID: <20261103213756.618024-12-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103213756.618024-1-harry.wentland@amd.com>
 References: <20261103213756.618024-1-harry.wentland@amd.com>
@@ -75,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|SJ2PR12MB8874:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72165e5c-a083-4944-f086-08df39f2c14b
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|SJ0PR12MB8138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21d9abac-93f8-4e27-565e-08df39f2c1ca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|10067099003|18002099003|22082099003|261102123227099003|261102130727099003|56012099006|11063799006|261022105027099003|261026121527099003|261021121427099003|261026140227099003|261009221227099003|261009223027099003|261028144727099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: RiaA24NplUFSXfPBxjg0x7ZDlP6pt395/Wrm+1XLVqXruJVoPqyQFCwzaRBy7bCuEH8OvAVzP6b5xwtTkxq+JIKJ7o/sd5Aax/kmHKO8lnJWoGV1Q9ooBO4iDFFylBFSViyo6vDIUptxnIDZbF0acPTzOly43x5U/OPUe9Z7tLpF+XEjdEP7PWIeg1vCvIuNUtUDdb70Wj2JY31rdSGSUgn1//CwtPMVRbiaP/rXUf2lLNlaZMvqLNzGVlSlOhBYjdr4+zOyeBwcX7wJrydXiiFaTEJMsgwu7UAmcslWcev+fRPXAuUWK2he71bLfAQpgB4wWApvoUmKrXjMNbMdkDaX/xIHisnUWbYfJDeu12cVGrGvt/IYAKVTboEMzLWlPDSRz7VEIl4FPcUxVO4aE1ocHb4KMerA+xQDOLUV2wEwAsYEHDM2xPGsa4tbBv3CdRqR0BKGmTLHAJdswNBFdHZy0OFJ96n18h7UsoBBQ3f92Obnkn8AhBbat1fiw6zt+kdDvlElS/ZTXviwvNP5oo+hQx8bWJNy/031766vt8kkbUQQklqb6RzHCmLTo03hanpr0bYdSif91qPUNzr5dEcNv/hsb6g5eKap1JiNqpaZn30ijclsVG5TcsQPMaj+WS2lCI+IidFsRm/76raHqIe9k68lp9Tv6/C7sRGQy04DpMFAXphHXSveJXEGpgyMj9AF4C/PiCPvXfgJy9looA==
+ ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|261026140227099003|261028144727099003|261026121527099003|261009223027099003|261102130727099003|261102123227099003|261021121427099003|261022105027099003|261021123027099003|11063799006|56012099006|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Kt0DVaukOdQQrhagzYNkxHNNgUhmVaN2vPFFLyD/sJ47lSLsPY8Yw6GRuQylQMi1Nqtuck+9RI/I5npzXqD+VyKV684p48FTWG9rg7SKN2fQ2rwrMFP9b69GN9VIpNtm2KrhJejSUj9iAQQXfJ/io7A2E4sSKmr3ZXDnruQpwZ6Z811GyFs41sDnOix4oPpsLgQgD9m/PnKP+6216rZtqeoaiI6OrRE/EdysYkohDvHkiGh2Mrp5gVy8fT2EyEeaaTwHYn70Kl+j3bpbR59s3Wxv6ebJg4h5i0tb7lNIHhZAJh1r6GPCiepRrNK9qi3TXzOI8LkgcfmOdt4Wa2puEkoQCwtMT6VaPZ2e7xp+Q70L6+biNvmSpwngt4gURpXQgU5ZTAcDs1uCChClkIphJM0/wzI9deYpex1Y3tLtt7nef1xnOXNMXEYrMmuzfUdIVyqTtQ6b2kIV/jxTlnf7Ic65pGrdWFvRACGL3xCpW/vltUUJ6rIK7a9ztauHKHL0iJz7CvRmndrdYCwRG1awjIDvfEztSzIbFohaybnIpCMSlgqNLHLKFp3xF2YpvsA/yQEAAiFslZil4zwoUkhppqpdPeoonh2D7R+xzHAuHpotBwUGEI607ZzJBSKDHcW3+2BqL4YMPy5mL5fGIfEBrQE81iSh2fH0tnrX9eDukUshynMHPZsOOeHWaDNQQkqDpepiiHqSz8Vte3VGR/DIrg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(261102123227099003)(261102130727099003)(56012099006)(11063799006)(261022105027099003)(261026121527099003)(261021121427099003)(261026140227099003)(261009221227099003)(261009223027099003)(261028144727099003)(261021123027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(261026140227099003)(261028144727099003)(261026121527099003)(261009223027099003)(261102130727099003)(261102123227099003)(261021121427099003)(261022105027099003)(261021123027099003)(11063799006)(56012099006)(6133799003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lmc21vdETcOq55ElGQqBdHQsVDjvHw3nq1i7OB2DgDybDllvGXqAsH7tAu3L9YRFzwgY8nkSiocYusWv5CRF6NVyr1b4+E6uIvYmNpCOAVZeS3IWpfV1Nlp+szsKjw7DYKITQ7Q4lROYrhmlPzoFlIQGY4k6LNVYhO3K+AjoRO7Ekm/AeYhnPX0MnUAMrmaOBMxGKDwns+CpXiR+5EQzxZbLm/V4vN86zQ6Qff2DcecVjj3pOuDOR6e1tcNhbrtMdXc81eqngb338DlMBTiVQQyWGjExgzInfyAiUPTHybFakk+jsZ9nharhn9p93ezDP+zq1pgJeQMdk2+j2V0YWj4mqJ0dFz+MSf+0YKzOAzbvV4fNqE5NyV4Fh4ywzT713/xdnDsUi3U+4CjjeqUQVVNXhR97t8YMzOKldD/55COD+a0zmdUslHNyhKkLMZd0
+X-MS-Exchange-AntiSpam-MessageData-0: X65Mpxr/YgWIuozKaeU2haORCLJGFZykqXo4CEgnIWdwTeBoeiyqVk8IjUzCIIkGKHX5S0uarihq4YPkgq5You4SuZqk4/uFsZSmiNb5pgXE1hMYQ/aOeHybd83Ek/hdOk6DUCafsereIA9k6J583+Xxivqmcd0vhFIbRGCDdjptbk+w+uh/kZvE6OKFbIPxW8tdqUg0sRymI+Z6j6p1I6gd3KwOdph8yIcsj/fE4Ji4GhkVD+20rr6nbA16vbQEzZcc7GD3968MGbm8fd0I48bO658FBE9/55JPBXWcmB1WlSd/uzVvT+OJt9UmzMpF80KipX7fKcCXMnLJugYIiQn+vovY07OgZIaOT/mD79jb0I/xelEa1clmwzMIoI3GRZcjWxZVXr8TeyA3OG5tbtxrYMZHX725a5HOg6D+hW90MrNEy9cwbHHXG8aJvyCS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:09.7345 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72165e5c-a083-4944-f086-08df39f2c14b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:10.5599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21d9abac-93f8-4e27-565e-08df39f2c1ca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
+ Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018071.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8874
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8138
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,255 +111,154 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add prepare_fb and cleanup_fb colorop helper hooks for the DMA 3D LUT
-colorop to pin and unpin its framebuffer, tying the pin to the colorop
-state. prepare_fb calls drm_gem_colorop_helper_prepare_fb() to handle
-implicit fencing.
+The LUT_3D_FORMATS entry of the DMA 3D LUT colorop hard-codes a 256-byte
+row pitch. The required pitch depends on the row alignment of the DCN
+generation, which DC now reports through the 3D LUT pitch_alignment cap.
 
-A plane-only update does not necessarily carry the colorop states, so
-call drm_atomic_add_affected_colorops() in atomic_check. The plane's
-prepare_fb can then take the pinned framebuffer from the new colorop
-state and write the LUT address into a newly created dc_plane_state.
+Build the advertised mode when the DMA 3D LUT pipeline is created and
+compute its pitch by aligning one LUT row to the reported alignment.
+Only expose the DMA 3D LUT pipeline when DC reports a pitch alignment.
+
+For the 17x17x17 XBGR16161616 LUT the pitch remains 256 bytes for both
+128- and 256-byte alignment, so this has no functional effect on
+current hardware.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 91 ++++++++++++++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  3 +
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 39 +++++++-
- 3 files changed, 129 insertions(+), 4 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 33 +++++++++----------
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  1 +
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |  4 +--
+ 4 files changed, 21 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index 9d7720a9bd2e..5e6e40b5fd7d 100644
+index 5e6e40b5fd7d..b737b45fb2f4 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -29,8 +29,12 @@
- #include <drm/drm_property.h>
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
-+#include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_modeset_helper_vtables.h>
+@@ -72,17 +72,6 @@ const u64 amdgpu_dm_supported_fm =
  
- #include "amdgpu.h"
-+#include "amdgpu_display.h"
- #include "amdgpu_dm_colorop.h"
- #include "dm_helpers.h"
- #include "dc.h"
-@@ -122,9 +126,88 @@ EXPORT_IF_KUNIT(amdgpu_dm_colorop_kunit_set_ops);
- #define colorop_ctm_3x4_init		drm_plane_colorop_ctm_3x4_init
- #define colorop_mult_init		drm_plane_colorop_mult_init
- #define colorop_3dlut_init		drm_plane_colorop_3dlut_init
+ #define LUT3D_SIZE		17
+ 
+-static const struct drm_mode_3dlut_mode amdgpu_dm_3dlut_dma_modes[] = {
+-	{
+-		.lut_size = LUT3D_SIZE,
+-		.format = DRM_FORMAT_XBGR16161616,
+-		.modifier = DRM_FORMAT_MOD_LINEAR,
+-		.pitch = 256,
+-		.traversal_order = DRM_COLOROP_LUT3D_TRAVERSAL_RGB,
+-		.interpolation = DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+-	},
+-};
 -
- #endif
+ static const struct drm_colorop_funcs dm_colorop_funcs = {
+ 	.destroy = drm_colorop_destroy,
+ };
+@@ -210,7 +199,8 @@ static const struct drm_colorop_helper_funcs dm_colorop_helper_funcs = {
  
-+bool amdgpu_dm_colorop_dma_3dlut_active(const struct drm_colorop *colorop,
-+					const struct drm_colorop_state *colorop_state)
-+{
-+	return colorop->type == DRM_COLOROP_3D_LUT_DMA && colorop_state &&
-+	       !colorop_state->bypass && colorop_state->fb;
-+}
-+
-+/* Pinned while its colorop state is current, since DC re-fetches the LUT */
-+static int dm_colorop_prepare_fb(struct drm_colorop *colorop,
-+				 struct drm_colorop_state *new_state)
-+{
-+	struct drm_framebuffer *fb = new_state->fb;
-+	struct amdgpu_framebuffer *afb;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_bo *rbo;
-+	uint32_t domain;
-+	int r;
-+
-+	if (!amdgpu_dm_colorop_dma_3dlut_active(colorop, new_state))
-+		return 0;
-+
-+	r = drm_gem_colorop_helper_prepare_fb(colorop, new_state);
-+	if (r)
-+		return r;
-+
-+	afb = to_amdgpu_framebuffer(fb);
-+	rbo = gem_to_amdgpu_bo(drm_gem_fb_get_obj(fb, 0));
-+	adev = amdgpu_ttm_adev(rbo->tbo.bdev);
-+
-+	r = amdgpu_bo_reserve(rbo, true);
-+	if (r) {
-+		drm_err(adev_to_drm(adev), "fail to reserve 3D LUT bo (%d)\n", r);
-+		return r;
-+	}
-+
-+	domain = amdgpu_display_supported_domains(adev, rbo->flags);
-+	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-+	r = amdgpu_bo_pin(rbo, domain);
-+	if (r) {
-+		if (r != -ERESTARTSYS)
-+			drm_err(adev_to_drm(adev), "Failed to pin 3D LUT bo (%d)\n", r);
-+		amdgpu_bo_unreserve(rbo);
-+		return r;
-+	}
-+
-+	r = amdgpu_ttm_alloc_gart(&rbo->tbo);
-+	if (r) {
-+		amdgpu_bo_unpin(rbo);
-+		amdgpu_bo_unreserve(rbo);
-+		return r;
-+	}
-+
-+	amdgpu_bo_unreserve(rbo);
-+	afb->address = amdgpu_bo_gpu_offset(rbo);
-+	amdgpu_bo_ref(rbo);
-+
-+	return 0;
-+}
-+
-+static void dm_colorop_cleanup_fb(struct drm_colorop *colorop,
-+				  struct drm_colorop_state *old_state)
-+{
-+	struct amdgpu_bo *rbo;
-+
-+	if (!amdgpu_dm_colorop_dma_3dlut_active(colorop, old_state))
-+		return;
-+
-+	rbo = gem_to_amdgpu_bo(drm_gem_fb_get_obj(old_state->fb, 0));
-+	if (amdgpu_bo_reserve(rbo, false))
-+		return;
-+	amdgpu_bo_unpin(rbo);
-+	amdgpu_bo_unreserve(rbo);
-+	amdgpu_bo_unref(&rbo);
-+}
-+
-+static const struct drm_colorop_helper_funcs dm_colorop_helper_funcs = {
-+	.prepare_fb = dm_colorop_prepare_fb,
-+	.cleanup_fb = dm_colorop_cleanup_fb,
-+};
-+
  STATIC_IFN_KUNIT int
  amdgpu_dm_build_default_pipeline(struct drm_device *dev, struct drm_plane *plane,
- 				  bool hw_3d_lut, bool dma_3d_lut,
-@@ -245,16 +328,18 @@ amdgpu_dm_build_default_pipeline(struct drm_device *dev, struct drm_plane *plane
+-				  bool hw_3d_lut, bool dma_3d_lut,
++				  bool hw_3d_lut,
++				  const struct drm_mode_3dlut_mode *dma_3dlut_mode,
+ 				  struct drm_prop_enum_list *list)
+ {
+ 	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
+@@ -328,10 +318,9 @@ amdgpu_dm_build_default_pipeline(struct drm_device *dev, struct drm_plane *plane
  			goto cleanup;
  		}
  
--		if (dma_3d_lut)
-+		if (dma_3d_lut) {
+-		if (dma_3d_lut) {
++		if (dma_3dlut_mode) {
  			ret = drm_plane_colorop_3dlut_dma_init(dev, ops[i], plane,
- 					&dm_colorop_funcs, amdgpu_dm_3dlut_dma_modes,
- 					ARRAY_SIZE(amdgpu_dm_3dlut_dma_modes),
+-					&dm_colorop_funcs, amdgpu_dm_3dlut_dma_modes,
+-					ARRAY_SIZE(amdgpu_dm_3dlut_dma_modes),
++					&dm_colorop_funcs, dma_3dlut_mode, 1,
  					DRM_COLOROP_FLAG_ALLOW_BYPASS);
--		else
-+			drm_colorop_helper_add(ops[i], &dm_colorop_helper_funcs);
-+		} else {
- 			ret = colorop_3dlut_init(dev, ops[i], plane,
- 					&dm_colorop_funcs, LUT3D_SIZE,
- 					DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
- 					DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+		}
- 		if (ret)
- 			goto cleanup;
+ 			drm_colorop_helper_add(ops[i], &dm_colorop_helper_funcs);
+ 		} else {
+@@ -402,7 +391,7 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+ 	bool hw_3d_lut = adev->dm.dc->caps.color.dpp.hw_3d_lut ||
+ 			 adev->dm.dc->caps.color.mpc.preblend;
  
+-	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, false, list);
++	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, NULL, list);
+ }
+ EXPORT_IF_KUNIT(amdgpu_dm_initialize_default_pipeline);
+ 
+@@ -412,6 +401,16 @@ int amdgpu_dm_initialize_dma_3dlut_pipeline(struct drm_plane *plane, struct drm_
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	bool hw_3d_lut = adev->dm.dc->caps.color.dpp.hw_3d_lut ||
+ 			 adev->dm.dc->caps.color.mpc.preblend;
++	struct drm_mode_3dlut_mode mode = {
++		.lut_size = LUT3D_SIZE,
++		.format = DRM_FORMAT_XBGR16161616,
++		.modifier = DRM_FORMAT_MOD_LINEAR,
++		.traversal_order = DRM_COLOROP_LUT3D_TRAVERSAL_RGB,
++		.interpolation = DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
++	};
+ 
+-	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, true, list);
++	mode.pitch = ALIGN(mode.lut_size * drm_format_info(mode.format)->cpp[0],
++			   adev->dm.dc->caps.color.mpc.mcm_3d_lut_caps.pitch_alignment);
++
++	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, &mode, list);
+ }
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-index 510c367f8ca5..58604773db75 100644
+index 58604773db75..ac0f26ffef32 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-@@ -35,6 +35,9 @@ extern const u64 amdgpu_dm_supported_fm;
- int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
- int amdgpu_dm_initialize_dma_3dlut_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
+@@ -67,7 +67,8 @@ struct amdgpu_dm_colorop_kunit_ops {
+ };
  
-+bool amdgpu_dm_colorop_dma_3dlut_active(const struct drm_colorop *colorop,
-+					const struct drm_colorop_state *colorop_state);
-+
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- #include <drm/drm_colorop.h>
- 
+ int amdgpu_dm_build_default_pipeline(struct drm_device *dev, struct drm_plane *plane,
+-				      bool hw_3d_lut, bool dma_3d_lut,
++				      bool hw_3d_lut,
++				      const struct drm_mode_3dlut_mode *dma_3dlut_mode,
+ 				      struct drm_prop_enum_list *list);
+ void amdgpu_dm_colorop_kunit_set_ops(const struct amdgpu_dm_colorop_kunit_ops *ops);
+ #endif
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 21fe005fe583..469041145196 100644
+index 469041145196..aad146d9c6a7 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_fourcc.h>
-+#include <drm/drm_colorop.h>
+@@ -2217,6 +2217,7 @@ dm_plane_init_colorops(struct drm_plane *plane)
+ 		 */
+ 		if (IS_ENABLED(CONFIG_DRM_AMD_DC_3DLUT_DMA) &&
+ 		    dc->caps.color.mpc.mcm_3d_lut_caps.dma_3d_lut &&
++		    dc->caps.color.mpc.mcm_3d_lut_caps.pitch_alignment &&
+ 		    (dc->caps.color.dpp.hw_3d_lut || dc->caps.color.mpc.preblend)) {
+ 			ret = amdgpu_dm_initialize_dma_3dlut_pipeline(plane, &pipelines[len]);
+ 			if (ret) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+index 49d1d252a67d..fda30c29a81f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+@@ -208,7 +208,7 @@ static void dm_test_initialize_default_pipeline(struct kunit *test)
  
- #include "amdgpu.h"
- #include "dc.h"
-@@ -1208,6 +1209,23 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_plane_buffer_attributes);
+ 	plane = dm_colorop_alloc_plane(test, &drm);
  
-+/* Pinned by the colorop's prepare_fb, which runs before the plane's */
-+static struct drm_framebuffer *
-+dm_plane_lut3d_dma_fb(struct drm_plane_state *plane_state)
-+{
-+	struct drm_colorop *colorop;
-+
-+	for (colorop = plane_state->color_pipeline; colorop; colorop = colorop->next) {
-+		struct drm_colorop_state *cs =
-+			drm_atomic_get_new_colorop_state(plane_state->state, colorop);
-+
-+		if (amdgpu_dm_colorop_dma_3dlut_active(colorop, cs))
-+			return cs->fb;
-+	}
-+
-+	return NULL;
-+}
-+
- STATIC_IFN_KUNIT int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 						       struct drm_plane_state *new_state)
- {
-@@ -1216,6 +1234,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	struct amdgpu_device *adev;
- 	struct amdgpu_bo *rbo;
- 	struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
-+	struct drm_framebuffer *lut_fb;
- 	uint32_t domain;
- 	int r;
+-	ret = amdgpu_dm_build_default_pipeline(drm, plane, true, false, &list);
++	ret = amdgpu_dm_build_default_pipeline(drm, plane, true, NULL, &list);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 	kfree(list.name);
  
-@@ -1295,6 +1314,15 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 			&plane_state->tiling_info, &plane_state->plane_size,
- 			&plane_state->dcc, &plane_state->address,
- 			afb->tmz_surface);
-+
-+		lut_fb = dm_plane_lut3d_dma_fb(new_state);
-+		if (lut_fb) {
-+			uint64_t addr = to_amdgpu_framebuffer(lut_fb)->address +
-+					lut_fb->offsets[0];
-+
-+			plane_state->cm.lut3d_dma.addr.grph.addr.low_part = lower_32_bits(addr);
-+			plane_state->cm.lut3d_dma.addr.grph.addr.high_part = upper_32_bits(addr);
-+		}
- 	}
+@@ -430,7 +430,7 @@ static int dm_colorop_build_with_fault(struct kunit *test, struct drm_device **d
+ 	amdgpu_dm_colorop_kunit_set_ops(&dm_colorop_test_ops);
+ 	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_colorop_test_reset_ops, NULL), 0);
  
- 	return 0;
-@@ -1533,6 +1561,16 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
+-	ret = amdgpu_dm_build_default_pipeline(*drm, plane, true, false, &list);
++	ret = amdgpu_dm_build_default_pipeline(*drm, plane, true, NULL, &list);
+ 	kfree(list.name);
  
- 	dm_plane_state = to_dm_plane_state(new_plane_state);
- 
-+	/*
-+	 * Pull the plane's colorops into the atomic state so the checks below
-+	 * see them, even on a plane-only update that does not touch color.
-+	 */
-+	if (new_plane_state->color_pipeline) {
-+		ret = drm_atomic_add_affected_colorops(state, plane);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	if (!dm_plane_state->dc_state)
- 		return 0;
- 
-@@ -2375,4 +2413,3 @@ bool amdgpu_dm_plane_is_video_format(uint32_t format)
- 	return false;
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_is_video_format);
--
+ 	return ret;
 -- 
 2.56.0
 
