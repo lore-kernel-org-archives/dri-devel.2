@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F545606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C5C606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 20:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyv2MkFh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKAQ5ip9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67C1610F811;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D5C910F813;
 	Tue,  3 Nov 2026 20:03:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE5310F7FB;
- Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0371710F80D;
+ Tue,  3 Nov 2026 20:02:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 603D56020A;
- Tue,  3 Nov 2026 20:02:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D9E1F43FF0;
+ Tue,  3 Nov 2026 20:02:54 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793736173;
- b=v/dbxQbcuYAAFnWfSCeUTJrw1xjP3RgwbV0SVEb3bK81zdAt5h98I3iVfpMXTKp8N1Q8
- 8DPPyC0B622Y5TbWPrAUYKKw3YE9HP8COHIQJNLgOuMMFNYQud2MXwwqhUoYKGL8q20m7
- ujXS8WzYdpBZluh8rsknwtNLy1G5hbHhOD8sZs+pdBW+2U8O2B+60w1lieXQIuuCxlEHR
- Z5onRrsLf8wvp88jDNOeYpM1xUksEkVyt+y0t81wrty4Lb9HEzTJpxjwMib1kQglErOOj
- Z59CsnQMQ9wXFFhTeUvRUfdjaqypXYqDvZoY/+hoz6LAU1vyh5RZHI6PbMI9tUc1Wvw==
+ t=1793736174;
+ b=Hr/QKtchQJ3tKQApmySCI92/Acwb/epx2HRgq3muHf6XnyX0hsUinBkSR/cGZz93D41J
+ ZNsJfkk59LESMAR9/9T2EmsXpoZo7O1u6rnohadFW25gY2glOtyNO2fEyoby5fFu5LjF1
+ LIfj4DfedisJSFBtm00vgAiRIh/lcXTq2Jl6GQl43Np0JjQQYArVkfg8+BEP1f3+yE2qD
+ xK7Y8jYep0g/77E1hfVVs4hKkQ7pqFFemrHzW/3ccO5cvbk6nJWQXXtUmQWfpOvYj2P/V
+ J1GMDZqsNaDsPHlLe2XBK5QUSXdjGPjzeYyoT+23mNgY0VeeNZCcaGRMFKp4hEsOUIA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793736173;
+ c=relaxed/relaxed; t=1793736174;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=0IULrKtmWKoiZT+6TkcJdwDnBY1ZhJuqnaD6U4Ev2LQ=;
- b=EV+NRvbEzSjd3YByo27ND6OpEY3z4yd9JqQVYC5bPfJ9CLtpb4YIITbPwHP4Af6LI1iU
- buOalaV9UYxtR/fdcrLmqwDQFo5OLwi5rYqzHpXYiOlM3ynkkr0G9JtcoYFCAbr2/3l2w
- aSlgAmxCJxlrmF+h9qyDDfIuxJ0UvKvGBLPoCnP4ugAusbcMRb4gx9kwXZWaME6w7V7OM
- pa7qpVrD3FG4M7tSwJv5/E+ZgGqkLGKPRgE7N+6zcORSAQGjZfRTDhn6IKvTdhvU4GMhd
- /r+IkstD24aMQDamj5dopJFJ2vtRTHMeLzfDzWmB2u2FAORoYv0Ii2cLVk7698FoJyw==
+ bh=5/pn7fTfQxc1qaaKnW5Xmu4Vd/rwN8kHgyZ0qJMPbMs=;
+ b=Hdx7D1b5ZCWWnEV8KGObUXTZp7cuZ3G14HdKcYgChIgLmuWUTWR0j/2AQJXaUalPok3D
+ WstOMceQLImsNunS0m/RvcewtVz6Wn3ED4bCEIlxi5kaJwLs63EvT3061KyF5QAef4UXW
+ iwrf3Ib+5sYKIl3wxTWItVI6dvm8GOaugXdYC4Qb7rZmETn3tJqvKMczaeZ6SzGQY1QJn
+ 5FcHZF7IE6RWcanUnEW6IBouoI6i2N2OtwgrHtO0W4osmq/+jXYwkPku3ir2psT/mUkny
+ Zrm6KcMW09+cVYjZr14l/uAiPbmaPC2gQPJmcNpd8SxHnvuKbGKh1wo8HKfg94CR7Mg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 57FEA1F0093A;
+ by smtp.kernel.org (Postfix) with ESMTPS id 753831F00A16;
  Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793736173;
- bh=0IULrKtmWKoiZT+6TkcJdwDnBY1ZhJuqnaD6U4Ev2LQ=;
+ s=k20260515; t=1793736174;
+ bh=5/pn7fTfQxc1qaaKnW5Xmu4Vd/rwN8kHgyZ0qJMPbMs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=hyv2MkFhuKwxl4fa83ztzly6/CHjHDn0GC+3d0EzDkHiJ5bnHkQEKvA6eaEEUxyME
- +psVQzCNWvDKXOXvyKCa7FEw/L52xw8t/C42PN6J2oP3AGF2QoEtjYA8K7vvZsC6t7
- Uce91c9H3KC9VP5ohKXCUKLkOQzptcgc/8gEP9djh02wORbrMj/PO/zGnPte17ZcI4
- 9KDoMDHvidm1dwm4umdF3u2DV+qsCwz34v201gtc9WkjD3DYBh4QmgEj/grfWoe0eY
- JbuPJs3k/fFpvD2XZ3Jz9S+MXMtHRTMFLoDZnQwe/jcGbwwaafPR/DzfTBC6WPmf87
- fN+2bGj8O3yWQ==
+ b=JKAQ5ip9FNKbtyszFmbkRTHOeF1DQ/n8ei/kL8ykgldqXL+ic50aRxTIPMxx3+JK7
+ LTw9lbau0ugU5To42pOn9nuXqUNrCqXlR2/Tgg5OzzJ9PQu9R6L65RnXDL+Wy1QzNE
+ tYPHMOWVMPOxZDzzB/ZoSuJUzDvolFeXbvOGqj9qb5rOrAWKr0hkykYVX3Rqg413/i
+ l/H/YXIviXn1l1AhrfY06HfJamwjKLAdAsAYYqZrx+nwuuw4yRw8KHSo3efH24ml5S
+ a4gNiyux9ERjm5JAlEdqrMenPCY3DfwJzqusZwGH74FD2UVyqF5lcDCnjWRaP13aDF
+ 4AjAJx5SMiLjw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id DE3FA46AE5;
- Tue,  3 Nov 2026 20:02:51 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 07CFA46AED;
+ Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
 From: "David R. Hedges via B4 Relay"
  <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 14:02:48 -0600
-Subject: [PATCH 2/5] drm/nouveau/kms/nv50-: don't enable a DP output with
- no trained link
+Date: Tue, 03 Nov 2026 14:02:50 -0600
+Subject: [PATCH 4/5] drm/nouveau/kms: cache the DP encoder after it has
+ been attached
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-relink-v1-2-7ee88c7f1e8a@thelittleman.net>
+Message-Id: <20261103-nouveau-dp-relink-v1-4-7ee88c7f1e8a@thelittleman.net>
 References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 In-Reply-To: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -76,11 +76,11 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <me@dakr.org>, 
  "David R. Hedges" <linuxdev844@thelittleman.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=7227;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=3184;
  i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=fTBppiTsiT2GDYHmvIFueQkmv7rwIKMHTWHZcuUcfpg=;
- b=qiwvuDt4IUf4VuhzEePZdh9kjlE33AMdMLJwLxilaOBLpr6+JSG9hy9QecBdkjbVvbPZAUSSZ
- GwfHqduU3i7DccM1sP6IYHNIqgeuE3sZgc9FZHZkqtT0bBEFsMr7l+b
+ bh=oxUnvWNMjr2Z6ZaQSslI9Xgy2BrHndjmNGwQkasaX3o=;
+ b=Qp6JlCv2gZGBNz7xpy3nONrc81+mPG1Gr0q1jTZ8LlxSQXWfBIyaig2dPs1j6BC8ianfhaZSO
+ Bq47JCpksfGBnxmUpMwf920vostAXMfJBFCBQjtFtBOkG7n7qVu8Ntk
 X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
  pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
 X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
@@ -109,171 +109,70 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-A commit that only turns a CRTC back on mustn't fail atomic check, so
-it still reaches nv50_sor_atomic_enable() when the sink's link
-capabilities have dropped below what the mode needs, or are unknown
-because the sink stopped answering AUX.  nouveau_dp_train() then has
-nothing to train, and the SOR is attached to the head regardless.  On
-a GA102 with GSP-RM 570.144, mutter turning the screen back on while
-the monitor was switched off (HPD still asserted, AUX not answering)
-did exactly that, and the display engine hung: "core notifier
-timeout", after which GSP stopped answering RPCs.
+nouveau_connector_create() caches the connector's DP encoder in
+nv_connector->dp_encoder using find_encoder().  On nv50+ it's called
+from nv50_display_create() before nv50_sor_create() has created the
+encoder and attached it to the connector, so possible_encoders is
+still empty, find_encoder() returns NULL, and dp_encoder is never set.
+Two things depend on it:
 
-Have nouveau_dp_train() say why it failed.  When no lane count and
-link rate can carry the mode, leave the SOR detached, set the
-connector's link-status to BAD and send a hotplug event, as the
-link-status property's documentation describes.  Userspace that
-handles link-status can pick a new mode; userspace that doesn't still
-gets the hotplug event and reprobes.  When training is attempted and
-fails, the output is enabled as before; only the case where there was
-nothing to train changes.
+ - nouveau_dp_link_check(), which the HPD worker calls on IRQ_HPD,
+   reports the link as fine without looking at it when there's no DP
+   encoder.  Until commit 633716501c94 ("drm/nouveau/disp: add dp
+   train method") it looked the encoder up each time; since then, a
+   sink that reports link loss with IRQ_HPD hasn't been retrained.
 
-The head produces no vblanks while the SOR is detached, so until the
-sink is back and a modeset restarts the link, each commit to it waits
-out the window channel's 2s timeout ("wndw-0: timeout").  On the
-GA102 above that was the only side effect, with and without GSP-RM.
+ - nouveau_connector_atomic_check() has never called
+   drm_dp_mst_root_conn_atomic_check() for MST-capable root
+   connectors.
 
+Set dp_encoder in nv50_sor_create() right after the SOR is attached to
+the connector, and drop the assignment that can't succeed.  This also
+covers eDP, whose SOR is a DCB_OUTPUT_DP encoder too.  On a GA102 with
+GSP-RM 570.144, an IRQ_HPD now leads to a read of the sink's link
+status, where before it produced no AUX traffic at all.
+
+This depends on "drm/nouveau/kms/nv50-: reject DP modesets the link
+can't carry" and "drm/nouveau/dp: restart lost links with a modeset on
+GSP-RM".  Without them, enabling the link check would have nouveau
+retrain active links in place on GSP-RM, or restart them with a mode
+the link can no longer carry, either of which can hang the display
+engine.  The MST atomic check this enables hasn't been tested.
+
+Fixes: 11d2738940eb ("drm/nouveau/kms: Cache DP encoders in nouveau_connector")
+Fixes: 633716501c94 ("drm/nouveau/disp: add dp train method")
 Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
 Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 10 +++++++++-
- drivers/gpu/drm/nouveau/nouveau_connector.c | 18 ++++++++++++++++++
- drivers/gpu/drm/nouveau/nouveau_connector.h |  1 +
- drivers/gpu/drm/nouveau/nouveau_dp.c        | 13 +++++++++----
- drivers/gpu/drm/nouveau/nouveau_encoder.h   |  2 +-
- 5 files changed, 38 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c     | 1 +
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 8af01de822d5..7f55c016d846 100644
+index 7f55c016d846..583368914bf0 100644
 --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
 +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1843,7 +1843,15 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 		nvif_outp_lvds(&nv_encoder->outp, lvds_dual, lvds_8bpc);
- 		break;
- 	case DCB_OUTPUT_DP:
--		nouveau_dp_train(nv_encoder, false, mode->clock, asyh->or.bpc);
-+		/* Attaching the SOR to a link that hasn't been trained can hang
-+		 * the display engine.  If the link can't carry the mode at all,
-+		 * which atomic check only rules out for a modeset, leave the
-+		 * output detached and tell userspace the link is bad.
-+		 */
-+		if (nouveau_dp_train(nv_encoder, false, mode->clock, asyh->or.bpc) == -EINVAL) {
-+			schedule_work(&nv_connector->link_bad_work);
-+			return;
-+		}
- 		nv50_sor_dp_watermark_sst(nv_encoder, head, asyh);
- 		depth = nv50_dp_bpc_to_depth(asyh->or.bpc);
+@@ -1941,6 +1941,7 @@ nv50_sor_create(struct nouveau_encoder *nv_encoder)
  
+ 	if (dcbe->type == DCB_OUTPUT_DP) {
+ 		mutex_init(&nv_encoder->dp.hpd_irq_lock);
++		nv_connector->dp_encoder = nv_encoder;
+ 
+ 		if (disp->disp->object.oclass < GF110_DISP) {
+ 			/* HW has no support for address-only
 diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b..cae4e35c30aa 100644
+index cae4e35c30aa..845f284f3a20 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -398,6 +398,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
- 	nvif_event_dtor(&nv_connector->irq);
- 	nvif_event_dtor(&nv_connector->hpd);
- 	cancel_work_sync(&nv_connector->irq_work);
-+	cancel_work_sync(&nv_connector->link_bad_work);
- 	drm_edid_free(nv_connector->drm_edid);
- 	drm_connector_unregister(connector);
- 	drm_connector_cleanup(connector);
-@@ -1261,6 +1262,22 @@ nouveau_connector_funcs_lvds = {
- 	.early_unregister = nouveau_connector_early_unregister,
- };
+@@ -1573,8 +1573,6 @@ nouveau_connector_create(struct drm_device *dev, int index)
  
-+/* The sink isn't getting a picture with the current mode, and userspace may
-+ * need to pick another one to get it back.
-+ */
-+static void
-+nouveau_connector_link_bad(struct work_struct *work)
-+{
-+	struct nouveau_connector *nv_connector =
-+		container_of(work, typeof(*nv_connector), link_bad_work);
-+	struct drm_connector *connector = &nv_connector->base;
-+
-+	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] link-status bad\n",
-+		    connector->base.id, connector->name);
-+	drm_connector_set_link_status_property(connector, DRM_MODE_LINK_STATUS_BAD);
-+	drm_kms_helper_connector_hotplug_event(connector);
-+}
-+
- void
- nouveau_connector_hpd(struct nouveau_connector *nv_connector, u64 bits)
- {
-@@ -1383,6 +1400,7 @@ nouveau_connector_create(struct drm_device *dev, int index)
- 	connector = &nv_connector->base;
- 	nv_connector->index = index;
- 	INIT_WORK(&nv_connector->irq_work, nouveau_dp_irq);
-+	INIT_WORK(&nv_connector->link_bad_work, nouveau_connector_link_bad);
- 
- 	if (disp->disp.conn_mask & BIT(nv_connector->index)) {
- 		ret = nvif_conn_ctor(&disp->disp, nv_connector->base.name, nv_connector->index,
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bc..3109278d36ea 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -134,6 +134,7 @@ struct nouveau_connector {
- 	struct nvif_event hpd;
- 	struct nvif_event irq;
- 	struct work_struct irq_work;
-+	struct work_struct link_bad_work;
- 
- 	struct drm_dp_aux aux;
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index 019af307c669..9bc24f3914bd 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -401,14 +401,17 @@ nouveau_dp_train_link(struct nouveau_encoder *outp, bool retrain)
- 	return ret == 0;
- }
- 
--bool
-+/* Returns -EINVAL if no lane count and link rate can carry the mode, in which
-+ * case nothing has been trained, or -EIO if training failed.
-+ */
-+int
- nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
- {
- 	struct nouveau_drm *drm = nouveau_drm(outp->base.base.dev);
- 	struct drm_dp_aux *aux = &outp->conn->aux;
- 	u32 min_rate;
- 	u8 pwr;
--	bool ret = true;
-+	int ret = -EINVAL;
- 
- 	if (mst)
- 		min_rate = outp->dp.link_nr * outp->dp.rate[0].rate;
-@@ -434,13 +437,15 @@ nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
- 				outp->dp.lt.nr = nr;
- 				outp->dp.lt.bw = outp->dp.rate[rate].rate;
- 				outp->dp.lt.mst = mst;
--				if (nouveau_dp_train_link(outp, false))
-+				if (nouveau_dp_train_link(outp, false)) {
-+					ret = 0;
- 					goto done;
-+				}
-+				ret = -EIO;
- 			}
- 		}
- 	}
- 
--	ret = false;
- done:
- 	mutex_unlock(&outp->dp.hpd_irq_lock);
- 	return ret;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-index 4422c6185d49..9366678e7d05 100644
---- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-@@ -156,7 +156,7 @@ enum nouveau_dp_status {
- };
- 
- int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
--bool nouveau_dp_train(struct nouveau_encoder *, bool mst, u32 khz, u8 bpc);
-+int nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc);
- void nouveau_dp_power_down(struct nouveau_encoder *);
- bool nouveau_dp_link_check(struct nouveau_connector *);
- void nouveau_dp_irq(struct work_struct *);
+ 	switch (type) {
+ 	case DRM_MODE_CONNECTOR_DisplayPort:
+-		nv_connector->dp_encoder = find_encoder(&nv_connector->base, DCB_OUTPUT_DP);
+-		fallthrough;
+ 	case DRM_MODE_CONNECTOR_eDP:
+ 		drm_dp_cec_register_connector(&nv_connector->aux, connector);
+ 		break;
 
 -- 
 2.55.0
