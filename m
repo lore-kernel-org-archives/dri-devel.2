@@ -2,48 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D871F606A32C
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99147606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 16:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQ2HdaFx
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hoFxjwvH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2626D10F6C4;
-	Tue,  3 Nov 2026 16:02:22 +0000 (UTC)
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A4410F6C4
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 16:02:15 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=RNHlMa6RwOm9qVZaoJD2JFv05KQ6puOjifLF8tZtWyk=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793721733; v=1; x=1794326533;
- b=KQ2HdaFx5molxhyTXGu3M4ewG2MnC4YPb2ViEfKzifJId+uWAv/qDjRJoeaP1srX7Q6XpUtp
- Oqz+0Tw3LSTKaiPzv/HrZmzR+b+SMrk5qcRYho3JDTZxaptaM6+zFzusvGAoCg8ZoAWyUoPQpM0
- X/uXPWvggQCtLO/dfEw01zcY=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 9fdc28ca13f7125a;
- Tue, 03 Nov 2026 16:01:11 +0000
-X-Mizu-Trace-ID: 9fdc28ca13f7125a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1a4eb0fb-adbe-4884-8f37-b5ffa6782b84@linux.dev>
-Date: Tue, 3 Nov 2026 21:30:55 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9B1B10F6C5;
+	Tue,  3 Nov 2026 16:03:12 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22EC510F6C9;
+ Tue,  3 Nov 2026 16:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=PmqAMN0m0LlKVLmim0O2UColmqtAweSNc5SBGMdXPZU=; t=1793721786; x=2109081786; 
+ b=hoFxjwvH7g+3BFpbrZctWInrXljyhl5bLf4T8uhqEpkyClOpYcekHUYej01a+3KFi3qaJwgTyLP
+ NgLd4WTB631YpCAPoi911xvhkp1WEunPl9ySr4EXbsHvHVoGWinNSxSghO693GWsAGSYlQEEH79Dm
+ /mtVbJNCXwjogVsPmbu9xm4PpQ9+0i0Eynl1NUSbzuW+IwdHyWuicEB/GNmFt0HjIENTFeYNVnKdo
+ p1GXJpNbKXdMa0HK9b7uGIOJvm+Lvb1McKD564soYUTZ3ONx5SwlG53vlO9a7ciLPp9XvlDwG8f/j
+ vK2H+3zJtncSGC5EenWghj7r2B7ShdR3tuzA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xOGyU-001NPa-Eq; Tue, 03 Nov 2026 17:03:02 +0100
+Message-ID: <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
+Date: Tue, 3 Nov 2026 16:03:01 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: Alex Deucher <alexdeucher@gmail.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, dev@deq.rocks,
- dri-devel@lists.freedesktop.org, ed@aicharmers.com, kenneth.feng@amd.com,
- linux-kernel@vger.kernel.org, simona@ffwll.ch
-References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
- <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
- <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
+ at runtime
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+ <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+ <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+ <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,39 +59,48 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-Hi Alex
-> On Tue, Nov 3, 2026 at 10:01 AM Atharva Tiwari
-> <atharvatiwarilinuxdev@gmail.com> wrote:
->>
->>> It is the same issue.  I don't want two fixes for the same issue. I
->>> just sent an updated version of this patch expanded to cover more
->>> macs.
->>>
->>> Alex
->>
->> How is the problems same exactly?, Does initializing UCLK later change the
->> PPTable?, and as said this is not even a solution for iMacs, so why are we
->> still trying to upstream this?, and btw initializing UCLK later with 5K,
->> makes it not initialize at all, so the patch is just wrong.
+On 02/11/2026 15:40, Philipp Stanner wrote:
+> On Mon, 2026-11-02 at 14:47 +0000, Tvrtko Ursulin wrote:
+>> With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if*
+>> there exists userspace which does dynamic priority changes (calls
+>> DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on
+>> entities using those SDMA engines directly. All clear now? :))
 > 
-> I asked around internally with the windows team about this issue and
-> was told macs needed to enable UCLK DPM later, but no one was aware of
-> any uclk dpm patching.We have filed multiple bug reports regarding the 5K issue on iMacs but they have simply been tagged and left over for many years. Now suddenly one day a person without properly consulting the author sends a patch upstream, inspite of the author himself saying doesn't work.
+> 
+> Argh, maybe I should not have asked, but since we are here already…
+> 
+> 
+> It seems that all this is inconsistent already.
+> Why do we even have both, priority and rq_priority? Both should always
+> be identical.
+> 
+> I suppose it is because we're in the "transition to CFS" phase where
+> you will actually need a per-RQ-priority (rq_priority), later phasing
+> entity->priority out.
+> 
+> Right?
 
-I own a MacBookPro16,1 and the v5 send doesn't work at all to fix it for me.
+The opposite - entity->rq_priority goes away when FIFO and RR are 
+removed and we can (again) consolidate to a single run-queue. Until 
+then, it is FAIR where priority != rq_priority (because everything is in 
+the single run queue), and FIFO and RR where priority == rq_priority.
 
-Since Windows team is willing to help us please fix the 5K issue on iMacs as well. And the devs aim achieve hybrid graphics, which Windows does not support.
+> If so, I wonder if we can't leave it be until we are at CFS?
 
-For my testing results, the patch in v5 (https://lore.kernel.org/all/20261103143014.522592-1-alexander.deucher@amd.com/T/#u) doesn't solve what is claims to. It might be possible its needed, but in that case even more workups and patches should also needed to get the GPUs running properly on Linux only.
+I'd like to get the fixes in so I can mentally focus on the continuation 
+of the bigger story. Not least that not fixing it causes sashiko to flag 
+the bugs, either when touching the neighbouring code, or possibly even 
+just the logical functionality.
 
-I believe patches submitted by the author himself should be acknowledged. We already are victims of AI cannon, pls don't make things worse.
+Regards,
 
-Nacked-by: Aditya Garg <aditya.garg@linux.dev>
+Tvrtko
+
