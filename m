@@ -2,37 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C65606A33E
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D084606A33E
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 11:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mbRvEgyo
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=uIxoh9tV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A7710F526;
-	Tue,  3 Nov 2026 11:36:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE5A910F529;
+	Tue,  3 Nov 2026 11:36:08 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4116210F51C
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:36:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02A5910E7F2
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:35:59 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 003CD1F37;
- Tue,  3 Nov 2026 12:33:40 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D59631D12;
+ Tue,  3 Nov 2026 12:33:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793705621;
- bh=GYgjpXl2KPS6tl9HCXSe+l1hlCq+cTCfu96zrs1c7ic=;
+ s=mail; t=1793705620;
+ bh=6yOW+W3uxLObx1ifl5CN+VxtAiOiKH9JtEw8xiD18sU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mbRvEgyowleKWitEVlzYy7aMCIScMSP6SSSsHWi2VHxW1y3rs3UhaUfGK4iDV9Vh2
- fqNXzdQ2knplWsMDCNgjuwe1z7aMemSPFhkojswfVtqsiSqYH5F1jm//QrQ5SxY4WA
- 0t3HH3l6cAfrjt/Do1TcTBli3z7O5dkxZ/5QQURU=
+ b=uIxoh9tVxsyG2XP4OC1mF2fjzcYo7DbhRNXiM2KEWoDxURZRL/1dJcPwbM24P2XZf
+ fO5X5Wyb1Kxv3V9UdY/FwuqQwzwY+RdZiam8p0W60mlQJF26r1OO+hAMveHb1ESsVe
+ rcdLoaltfQLr2baoAKB86uBEY46WQ5y1Rsq2syM8=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:22 +0200
-Subject: [PATCH v5 02/15] drm/tidss: Add helper to identify the AM65x OLDI
- video port
+Date: Tue, 03 Nov 2026 13:34:21 +0200
+Subject: [PATCH v5 01/15] dt-bindings: display: ti,am65x-dss: Add AM62P DSS
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-2-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-1-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,21 +47,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3857;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3568;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=GYgjpXl2KPS6tl9HCXSe+l1hlCq+cTCfu96zrs1c7ic=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccWjJkYtFf8AwfRAzUviDW60UcpVCNwa0ZjO
- +7GckPVGVSJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFgAKCRD6PaqMvJYe
- 9RJ5D/9akc83uWOXUeER0tEGahJD1BqQ1EGsqI4PkWVNJs8/8Tsb3em4jtgEm1SXfWKWQqaFvUq
- g6DQK04ijHDlUtlUJuPrzLsQVeMeJsS2z56Iv8WDxnzKv7CCAi5URagdUt0uJaD49gnC3YBP74m
- 0flxQnEpyn+R4yZ6chiwEvGt4Ao8KYS1w+jrxgCtFvEM7pwgPbQw6niVddKHtfUI18N2L2WIkpn
- 9ZyFBpg6YidyGFlr5GoblJUH4fjDRfxEUuCZCm8HCDq7vr1BIpdXPb73mr2Pjm/U9ghqpuxqr4J
- ZUqZAJb91kLvYrdGWOjdGIRPM0f+BcgOt7UHN1ZqwQrEBg1Ob3rwbI0nkKGjN/obfvwmCsLzpYL
- BhFgf3D3mJGS/PI8fobtF1swvRu+Hes0W2UTUZnpA0130oiHiYLytgGDn7wIRprK08hPHUqfj5e
- uZzAbndVhL7M1nt78k+vycBVMOmiRRJ1o7MPAfD7o09yuxrdu6O574satL7b1KpF3clLRHPjyNI
- m+4Bs+bnkJrKmAdCL5MNxf7qVCoA5m3rpRu/Z2nBfoxSfZQXmy1b7kguBxAxEJRinKw6S1MHEsS
- TRe3S6AEA7b1VSmbjPIFGFo8VMqE7JyJx8VriSZe6E3Iqd560x1Y8V7tHmaW1zkrz3bJNAGd23M
- qaTrFtJtvuj90PA==
+ bh=6yOW+W3uxLObx1ifl5CN+VxtAiOiKH9JtEw8xiD18sU=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccVR7aUxhTLH/yluOKEr1ol3ZKzt5c+fV5T/
+ iiHQ+q5te6JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFQAKCRD6PaqMvJYe
+ 9fCSEACutgMA2kTsdvlbowqYhdbzlPw3Y5NmLOMaoBudB9sPLXC4hlpfeD+f1fqIRPlpfJ+Ko+b
+ CsEYBBzdwi+sTaG+qt5f3+woJayI6gHrHh7xGjh+BvHKf2xkoHKeWKsmToTozKeMfQ/xecyQ0k8
+ ciBx7SUHatE3AdcCRlsxyQ/Ed3fFNKUi2T3DTphWGqCiH9Sx8XD23vAEmei/TAycaOJWzyTZMtH
+ PkmJyfqrroaHfGkhjQ7sJIIHME4ZVcy3ZwdcskaZbJgJyF7ujROhArnOR4RyDXzg1kG2DqmNl2R
+ wkiyCoqpCTWRacxoCiqtiqw7vlaB17EDDRTKLoCLMH2iI3mNR7422akjM4V4LsjLXvYoZBXu2fF
+ B+Na6iJ67qlCHpvHFll/EP8WVVufjqtFwE5EvKn3kfh6/IEwo2up04jueq/Qm8m00eWRJftcb9+
+ gODSfwiIz5UonSQYCtLRr1HEyqJKK0PVNic9VoRoyt041PprVMxGmtYHYa4zJVss8xItokNHMGp
+ ixxbsdvI/78Xf/m61ZIH4UoBTe/1666Zog2yK3QnT8nSzzspQgyR9OastF2EwFTJx+mBRDIzI5/
+ dGz63kfCryWTnlIXVK1VeLj5Bp0AqjxZ77KFlqnjRyLV/XfKH0I/pW3rdG3V/A7EYwrNdry3zOx
+ wImlT7hh6VeamwQ==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,96 +83,84 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On AM65x the OLDI TX is modeled as a part of the DSS, not as a separate
-bridge as the newer SoCs do, and is fed by the first video port. To
-handle the AM65x OLDI, we check for it in multiple places using the
-feat's vp_bus_type.
+TI's AM62P, J722S and AM67A SoCs contain same implementation of the
+display subsystem (DSS). There are two instances of the DSS (DSS0 and
+DSS1), each with two video ports (VP) and two video planes.
+Additionally the SoCs contain two OLDI TXes (OLDI0 and OLDI1), a MIPI
+DSI TX and a MIPI DPI output path.
 
-However, vp_bus_type is problematic concept and should be removed, so
-this commit adds a helper function to check for the AM65x OLDI by
-looking at the DSS subrevision and videoport number.
+DSS0 supports:
+- VP0: OLDI0 in single-link mode, or OLDI0 and OLDI1 in dual-link or
+  clone mode.
+- VP1: DPI
 
-No functional change.
+DSS1 supports:
+- VP0: OLDI1 in single-link mode, or DPI
+- VP1: DPI or DSI
 
+The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
+between the DSS instances. Thus only a single VP can output to DPI, and
+a single VP can use an OLDI block. Note that in single-link
+configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
+be used by DSS1.
+
+The DSS IP itself is compatible with older SoCs. While we could use
+"ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
+on the safe side in case the driver needs to do something special for
+the dual-DSS case in the future.
+
+Original patch by Swamil Jain <s-jain1@ti.com>
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 8 ++++----
- drivers/gpu/drm/tidss/tidss_dispc.h | 7 +++++++
- drivers/gpu/drm/tidss/tidss_kms.c   | 2 +-
- 3 files changed, 12 insertions(+), 5 deletions(-)
+ .../bindings/display/ti/ti,am65x-dss.yaml          | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index e516f493d6d9..efdabf046d64 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -1034,7 +1034,7 @@ int dispc_vp_bus_check(struct dispc_device *dispc, u32 hw_videoport,
- 		return -EINVAL;
- 	}
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index db7d3d216b64..5ddee18b4982 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -28,11 +28,38 @@ description: |
+   On AM62A7, the first VP is tied off in the SoC, and the second VP is routed to
+   external MIPI DPI pins.
  
--	if (dispc->feat->vp_bus_type[hw_videoport] != DISPC_VP_OLDI_AM65X &&
-+	if (!dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport) &&
- 	    fmt->is_oldi_fmt) {
- 		drm_dbg(dev, "%s: %s is not OLDI-port\n",
- 			__func__, dispc->feat->vp_name[hw_videoport]);
-@@ -1143,7 +1143,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 	if (WARN_ON(!fmt))
- 		return;
- 
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
- 		dispc_am65x_oldi_tx_power(dispc, true);
- 
- 		dispc_enable_am65x_oldi(dispc, hw_videoport, fmt);
-@@ -1186,7 +1186,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 	align = true;
- 
- 	/* always use DE_HIGH for OLDI */
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X)
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport))
- 		ieo = false;
- 
- 	dispc_vp_write(dispc, hw_videoport, DISPC_VP_POL_FREQ,
-@@ -1229,7 +1229,7 @@ void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
- 		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
- 			       DISPC_VP_CONTROL_DPIENABLE_MASK);
- 
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
- 		dispc_vp_write(dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
- 
- 		dispc_am65x_oldi_tx_power(dispc, false);
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index df3daccf3f31..3dff391d3fec 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -96,6 +96,13 @@ struct dispc_features {
- 	bool has_vp_control_dpienable;
- };
- 
-+/* On AM65x the OLDI TX is a part of the DSS, on the first video port */
-+static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
-+					  u32 hw_videoport)
-+{
-+	return feat->subrev == DISPC_AM65X && hw_videoport == 0;
-+}
++  AM62P SoC contains two instances of the DSS:
++  On AM62P DSS0, the first VP is connected to two OLDI TX instances (the second
++  TX shared with DSS1), the second VP to external MIPI DPI pins (shared with
++  DSS1).
++  On AM62P DSS1, the first VP is connected either to the second OLDI TX, or
++  external MIPI DPI pins. The second VP is connected to either the external MIPI
++  DPI pins or a Cadence DSI TX.
 +
- extern const struct dispc_features dispc_k2g_feats;
- extern const struct dispc_features dispc_am625_feats;
- extern const struct dispc_features dispc_am62a7_feats;
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index eefe2221bdde..e55e7532e2f7 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -175,7 +175,7 @@ static bool tidss_is_dpi_output(struct tidss_device *tidss, u32 hw_videoport,
- 	 * for the OLDI TX on AM65x, we cannot detect this from the DT data, and
- 	 * have to special-case it here.
- 	 */
--	if (tidss->feat->subrev == DISPC_AM65X && hw_videoport == 0)
-+	if (dispc_vp_is_am65x_oldi(tidss->feat, hw_videoport))
- 		return false;
++  An important note about OLDIs on AM62P:
++
++  There are two OLDI hardware blocks. Each OLDI has certain configuration that
++  has to be done before it can be used. The OLDI blocks get this configuration
++  directly from the DSS block, via DSS registers. However, as a single OLDI
++  block can be used either with DSS0 or DSS1, the source for the configuration
++  changes according to a mux. This mux is set according to the OLDI
++  configuration registers in DSS0. Thus the OLDI control paths change at
++  runtime, and it is not obvious how to structure this in the DT bindings.
++
++  The solution used here is that each DSS node contains the OLDI nodes that can
++  be used with that DSS. Thus the DSS0 node has two OLDI child nodes, OLDI0 and
++  OLDI1, and the DSS1 node has one OLDI child node, OLDI1, so three OLDI DT
++  nodes in total. The two OLDI1 nodes thus refer to the same piece of hardware,
++  and they cannot be used at the same time. The selection which OLDI nodes to
++  use are chosen in the board dts files, so assuming the dts files are correct,
++  no resource conflict can happen.
++
+ properties:
+   compatible:
+     enum:
+       - ti,am625-dss
+       - ti,am62a7-dss
++      - ti,am62p-dss
+       - ti,am65x-dss
  
- 	if (!bridge)
+   reg:
 
 -- 
 2.43.0
