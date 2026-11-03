@@ -2,87 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD4A60A3811
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:41:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550AD606EEA1
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 10:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E546C10E7D7;
-	Tue,  3 Nov 2026 10:41:20 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A1510E7D7
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:41:19 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8017122D12;
- Tue,  3 Nov 2026 10:41:18 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A98D41350A;
- Tue,  3 Nov 2026 10:41:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id fPJkIE266WqxEgAAD6G6ig
- (envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 10:41:17 +0000
-Date: Tue, 03 Nov 2026 11:41:09 +0100
-Message-ID: <87ik2exkmy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4C4710F4D5;
+	Tue,  3 Nov 2026 10:42:39 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD9610F4C1
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 10:42:37 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowACneZqYuulqrMg7AA--.6046S2;
+ Tue, 03 Nov 2026 18:42:32 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
  stable@vger.kernel.org
-Subject: Re: [PATCH RFC 09/38] ALSA: info: don't write past the end of a data
- entry
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-9-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-9-59422ed3e465@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH] phy: mediatek: hdmi: use devm clock provider registration
+Date: Tue,  3 Nov 2026 10:42:41 +0000
+Message-Id: <20261103104241.1373838-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 8017122D12
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACneZqYuulqrMg7AA--.6046S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur48ZFWxuw1DZFy8ZrWkZwb_yoW8XrW3pF
+ 1UGa4jyF98AF4xGw1DJ3W7XFyYka43JFWSkrW7G3y5Za15CryfX3yayFyF9FsYyFykua12
+ vr1qvFWrWFW8ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWrXVW3AwAv7VC2z280aVAFwI0_Cr1j6r
+ xdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2
+ zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43Mx
+ AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+ Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+ xGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_
+ Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMI
+ IF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x07bOAw3UUUUU
+ =
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEAA2rpnIR99AAAsW
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,54 +62,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 02 Nov 2026 15:21:24 +0100,
-Christian Brauner wrote:
-> 
-> snd_info_entry_write() clamps the count to what is left of the entry
-> by computing entry->size - pos as a size_t. For a position past the end
-> that wraps and the write goes to the driver unclamped, for opl4 into
-> sample memory outside of what the entry covers. At the end of the entry
-> the driver gets a count of 0 and vmalloc(0) warns. Before the clamp
-> moved into the common code the driver ignored such writes. Fail them
-> with -ENOSPC instead, like a block device does at the end of the
-> device. Returning 0 would make writers that use stdio retry forever.
-> 
-> Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+mtk_hdmi_phy_probe() registers the PLL clock provider with the
+deprecated of_clk_add_provider(), which takes a reference on the device
+node.  The driver has no .remove callback, so neither the node
+reference nor the provider registration is ever released; after the
+device is unbound, the global provider list still points at the freed
+hdmi_phy and at the unregistered clock.
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Register the provider with devm_of_clk_add_hw_provider() and
+of_clk_hw_simple_get(), matching the sibling MIPI DSI PHY driver, so
+that it is removed when the device is unbound.
 
+Fixes: be28b6507c46 ("drm/mediatek: separate hdmi phy to different file")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/phy/mediatek/phy-mtk-hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/phy/mediatek/phy-mtk-hdmi.c b/drivers/phy/mediatek/phy-mtk-hdmi.c
+index 52a7d525ff9b..e7ed1b789b34 100644
+--- a/drivers/phy/mediatek/phy-mtk-hdmi.c
++++ b/drivers/phy/mediatek/phy-mtk-hdmi.c
+@@ -178,8 +178,8 @@ static int mtk_hdmi_phy_probe(struct platform_device *pdev)
+ 			return ret;
+ 	}
+ 
+-	return of_clk_add_provider(dev->of_node, of_clk_src_simple_get,
+-				   hdmi_phy->pll);
++	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
++					   &hdmi_phy->pll_hw);
+ }
+ 
+ static const struct of_device_id mtk_hdmi_phy_match[] = {
+-- 
+2.34.1
 
-Takashi
-
-> ---
->  sound/core/info.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/core/info.c b/sound/core/info.c
-> index c4d57d0809ad..982087bc8575 100644
-> --- a/sound/core/info.c
-> +++ b/sound/core/info.c
-> @@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
->  	pos = *offset;
->  	if (!valid_pos(pos, count))
->  		return -EIO;
-> +	if (pos >= entry->size)
-> +		return count ? -ENOSPC : 0;
->  	if (count > 0) {
->  		size_t maxsize = entry->size - pos;
->  		count = min(count, maxsize);
-> 
-> -- 
-> 2.53.0
-> 
