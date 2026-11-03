@@ -2,122 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997A8606A795
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:17:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2ED60A262A
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 15:19:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ft82VRUO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoJeH/FT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3ECA89906;
-	Tue,  3 Nov 2026 15:16:55 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010028.outbound.protection.outlook.com
- [40.93.198.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8D210E756
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:16:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jc+Nm3Vb4lrw2bTPhHfmsVvO5/2GwSWU3EUfqopFN4CdHRAPZKRvBpW9rEfj33hLTfphd49f5LOVf4lSDp+ZQRNTzxgz4lU+oIet39bPugiqnJjzr7QnGicV3iFJgw0O/EVA4744JCcQ8yxftOgAxAGjROFVgQTHFhW9Xw0cI3O05k5/KTOQtCgXsquaG0gxD26+srMPzWgM2znLHzo72Ady2cFgxGNOtKTP1McV9qN4Nr9Wb/ifqpb+/UEETR3vOlNWP3reF7p6lg+pIP+SzojXUOiCSzaj+DfFw8JTq8jlDdB+zEZvHms3d3JPH4DtiTzmrLtE4snQbyJrMxDARA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwZg7qMnEuFS8ACa2vh5b+FxXGYIK0f4QPyPiReRq4w=;
- b=seagPM+PY8Ohd86win2xxFe75x1F7evpSLpmyUzAOCAZI8aKqSv/u22G2xffiegbIS+ZR0wLyWpRlJaZiHsjz6cdlacfCI2Mvfu6R69zTJvXxmKS6M9svnj0ExJoQVf+IpBHEAxGz7OD+foIn3vNj6QiR9rq+j8PE4QOvKIM20s1gLW8q02EUnJtTdnWwhp/T5WEKijlBzV1JlTvLPTReoN88an00S7lIpkNgFcP2SvxRFceQogrxMz9Vf7TMqrpU0568QwfU0PJBKAvEkWICF+nwrdyIRDNThvgiLdsnVPSX4b+705ij999J6U3v6j2W7485vqIUBko3QbG/WnFcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwZg7qMnEuFS8ACa2vh5b+FxXGYIK0f4QPyPiReRq4w=;
- b=Ft82VRUOAnNpEBTqfW7bxKNAeKan26FULQxOFM1ZuMTybI4MaUuy54sICWhV1nEa2erbf7gajJ5KfRDxA0Mw248z0Tb1fK0ILHVH/qyKPstO5Xj78WV+rj+NNey95detC59znDLl3+6SRaVxq+HFBBI2FXVVyOfrsvDDcjBx57o=
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::7) by PH7PR12MB8827.namprd12.prod.outlook.com
- (2603:10b6:510:26b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 3 Nov
- 2026 15:16:45 +0000
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74]) by CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 15:16:45 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, Simona Vetter
- <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH v2] drm/gem: Fix and enable CHANGE_HANDLE
-Thread-Topic: [PATCH v2] drm/gem: Fix and enable CHANGE_HANDLE
-Thread-Index: AQHdVmWw4jgZpbbiikONpnCXBmgJbbccfY+AgAAhhgI=
-Date: Tue, 3 Nov 2026 15:16:45 +0000
-Message-ID: <CHAPR12MB999247B6F07493E00434BE44FCEF692@CHAPR12MB999247.namprd12.prod.outlook.com>
-References: <20261007141043.2928048-1-David.Francis@amd.com>
- <6cae04f6-f742-4e70-84a7-39d123ebf3fe@igalia.com>
-In-Reply-To: <6cae04f6-f742-4e70-84a7-39d123ebf3fe@igalia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-03T15:16:44.709Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHAPR12MB999247:EE_|PH7PR12MB8827:EE_
-x-ms-office365-filtering-correlation-id: 89f98b85-64ef-483b-d681-08df39bd78f2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|261028144727099003|4143699003|10067099003|38070700021|261021123027099003|261021121427099003|261026140227099003|56012099006|261009221227099003|261009223027099003|261022105027099003|261026121527099003|11063799006|22082099003|18002099003|6133799003|261102123227099003;
-x-microsoft-antispam-message-info: kJfOo1aLg1bRZq2B7a1R//ghjV6ZwXR5LrvJhnNYzZ4ipwDVcEmZ+BqTzPv1520ekBU2RtX3oSWIcS81gV578mljQ8wB3Sf9yeYYuxTe+BOQ28LqL49tgKtq5mtqADmUs/+lUafteJZFl5xETxloTHxFlb7mVAbIkoYKiLVaAKFl/rXMuGZENV/0xNAotu9mA4v4BqYj3t8N97CmSiq9xOvg4X8bStL1NFr9469k6xIMjVPCKaislR+9BWEryaXC3ViGfUr3LeYxMMCcdKTdyGBcgKH3qrrxnN5WCFTIA/ebM05IKbMlsOC5VDHMrpKj1nj5VsFKdTvLGm+pzjpopkBE85qVUehu3oaYSaR/gpWA7/n6UbXrkA5x6Aug6i8J4PWDig0qyNxrWKm3z74XXOuT2A/PPTFW2RnevqG91C90wEFjHDUxEsXtbxTEsYHOs5r5vXxiGookW3H9s8K+G3ijwhFBqndcawlSfDm9DTxxsW4Lma2fFbVWUr7Lb8d2rvIPCN9kcC5Jye0w6KiBOBJpQsSmXphSK+3yFdanwhfhelgBHUSjQcNE4PT2ARCKB0m2C6VTVXuacOqp6wY2CUjZi6LA3bQZZo0IdNHPh6qL6Peu5HZ2StwJKh1Pi52xCxEQc+y8WWKHW3SflJnQc8/uLKA/tBTys81N+SuNZAJUfj+1HdLJiRpwmHRKSuNITk6HtCOApwgfSrfP+ntqze7R428mZ9Co/6HZB6w1cj4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHAPR12MB999247.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(261028144727099003)(4143699003)(10067099003)(38070700021)(261021123027099003)(261021121427099003)(261026140227099003)(56012099006)(261009221227099003)(261009223027099003)(261022105027099003)(261026121527099003)(11063799006)(22082099003)(18002099003)(6133799003)(261102123227099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?y/FW7Z2KF84r9dCgE343J6nZgCP4flntZH8+O9iLEIZxxgbYaMc5Atp6ZlfB?=
- =?us-ascii?Q?wGT0vKp0H6tX5FBQg8TAXDXOilh+b5myDgydvGOwLfXzIDTe7/f9iavATzEB?=
- =?us-ascii?Q?QR13Pc+iATBw1MVBhoIYdN84YxIC/YciJNzZ2IWlc7cHnSfhCBXzCK4QfXpu?=
- =?us-ascii?Q?ZP71l4sSG3ske9Okltw9JlPPktAXBkxqvdlPa1Oq4b0Nov0Fz6MNkUNBgI6n?=
- =?us-ascii?Q?oTSlZq4kr/kWQJ3+1CzKZvEFBSEx7iItVvNhD3CSVHKOe1lkbq5KYRiEsdv6?=
- =?us-ascii?Q?ieWU0/3ZuJ/uvzC9URurwrqrkCwOAFZCoJ2G7PtFoZPHgHMCbQRzCaqWKK5i?=
- =?us-ascii?Q?0lO64jvv4GouCoYGuEfy6uhaZBl0TQcw7btpgkkjz9DT2qv/QoN9teGzDLNS?=
- =?us-ascii?Q?fE8xhLvllva1kDrmG5RCeZm0pxpNqHmVwB4hL2EkyWsN5rnIORsOS7GGbssu?=
- =?us-ascii?Q?JDvWHu01RNgGiqk6jILjPaxQVgWta8OfMq/M5fuL7mzSCG50uJHHy1mu2i7v?=
- =?us-ascii?Q?H06x8ePE21SIdY+Z30gTrUW7Ax9NFTAln23OSx8/uLZ0zz5K84jG/9jkv+fQ?=
- =?us-ascii?Q?i+PdVEMyIsHrq/uYpZcQAWVSQHPYAnsabyLAkDagpUZoM/w/JHUrAAE20xgQ?=
- =?us-ascii?Q?or0jAjOc8HC9PmyxQ4oZcu6awTWFsN6H0B6EYU7uGPZwL97MkD6sMhhbv4vM?=
- =?us-ascii?Q?pd0UAPkUSYSDzFV4gdj479Wqwl341OUnnIvKYmrB5oDihP04inEuBNay1nmt?=
- =?us-ascii?Q?QXNuZJOqzilRQgGeoZbrVywiujDbuIrnNGKEmJoyQNmBpZQVO9g7fzYnEZLe?=
- =?us-ascii?Q?9KAu1nntPABmoRSdPwg2BljlERjDRkDpCBWO2lnh7YsWGiWAguUa+0VdrHX8?=
- =?us-ascii?Q?qW6u7bBuUIl5k1fu1f2kEmBQ4wte3gQYOMaB616fMEP/1MKTHPXa/98wPhV3?=
- =?us-ascii?Q?QDCck9a8V8vtE30Z85MHr/xwqPeRJ/UQ5YI0R1CYJ3xMDAbWoUKV5zP27e9g?=
- =?us-ascii?Q?zJxxHFB4Ve8h4UMhKHJNV/ivR6Zdwz/t6fdeXbTvPHQd7l66oBVL3/qhyIkS?=
- =?us-ascii?Q?Q+lOWlZrXqEvjg7ELfLflThw0bFGaYHLNn8OCG1a4Le8gz0DAQiFdYTEuQr8?=
- =?us-ascii?Q?vL3GW/GxdIgxbTz2F9npuqmmOr7U3IcfUOI6+jV3UDd44HjfFWz+nOQksXhd?=
- =?us-ascii?Q?h7b8wCj0X8u56kQEZ7lZpi/NzOjVOvM8XcwIpLsiYKMgcMitsdM4gxoVguFW?=
- =?us-ascii?Q?qTktIaezX2IXIZNVQSNL9OcXhb7NWEuWzhuMDV4bdmn2U6UZR379Dop8Hj8Y?=
- =?us-ascii?Q?9vWFss214ADb4WgllUapFzC3MQb8qY543ULPZXnyMVlvxmqFM6/5ThNig5l5?=
- =?us-ascii?Q?6LIZGjs0EPQwGstf0an0VTJyLo26gvtfH0X4CVwdAD78+RFFhxo3l0F3kvdz?=
- =?us-ascii?Q?G7bJLuLIY0DUNV1xVkEAB8mvVliGFM+bERxCcvSxA8rwMZsQi8V6BKKpflRa?=
- =?us-ascii?Q?sBF46fTIr1nJwBbgzFg6fhElYkg2zPursEdW65+g+cBJZEy+v32SEVUXhmcV?=
- =?us-ascii?Q?SU8DPCOmWuMOJIMAHNATw196MiMTFSk4hyFaZg2GxucFbRl5BycvoLKDbt6F?=
- =?us-ascii?Q?BbqMS0tx7JNlhPAFlGFdyyW33eEJX/5Nh5Z168bFbYmy9TtApHV53RY8G9NG?=
- =?us-ascii?Q?xvuYdmmfRKxa0SeCmXPWkWYOT5G4mgKrdw/ZF+rtgRmBxN8T?=
-Content-Type: text/plain; charset="us-ascii"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBCB110F65B;
+	Tue,  3 Nov 2026 15:18:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A6810F652
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:18:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B24DC42217;
+ Tue,  3 Nov 2026 15:18:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856681F0093A;
+ Tue,  3 Nov 2026 15:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793719130;
+ bh=Bc8aT4Z6get1K0vbpp5ygtanM/hIwI+PelNNb0VgB7c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CoJeH/FTtYurhrEu7pHCjreAy8kglbRPwM3Bp2MFbNXs5sfimskiQ6GdFaw2b46h5
+ LFYZjIjC0HLk9VtZElPrV+LCrvrtO/TXriYCzcHxI7ww7m4DuMtGSua9gCijZ8ag5C
+ C1QyPEjg//XpCtccxJ83qTFkU2bPqiwCZUATJ82pjvzmj0HhclIwZdtkBZ4X0D4FpB
+ W2kjXVSW4Jh+gJKkh7n8hluL4QKxxLPc9zkayoPnR79tHeS7TL9oS5+LArhquuyOcO
+ R0f20W9hUcQSALMEMf5u4F5ldJdbIIx8/qJHUPE3ePz+MiGIzk37ns/uj3hE88ZoNC
+ wd/gwuy246nxg==
+Message-ID: <sashiko-outbox-195591@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 11/23] selftests/proc: check that a faulting writer
+ doesn't hold up removal
+To: "Christian Brauner" <brauner@kernel.org>
+Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Jann Horn" <jannh@google.com>, "Josef
+ Bacik" <josef@toxicpanda.com>, "Chris Mason" <mason@kernel.org>, "Jeff
+ Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>, "Greg
+ Kroah-Hartman" <gregkh@suse.de>, "Joel Granados" <joel.granados@kernel.org>,
+ "Kees
+ Cook" <kees@kernel.org>, "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, "Takashi
+ Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, "Chuck
+ Lever" <cel@kernel.org>, tytso@mit.edu, dmitry.torokhov@gmail.com, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Anna Schumaker" <anna@kernel.org>,
+ yukuai@fygo.io, "Heiko
+ Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>
+In-Reply-To: <20261102-work-procfs-drivers-v1-11-a994bd4d3b1a@kernel.org>
+References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+ <20261102-work-procfs-drivers-v1-11-a994bd4d3b1a@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999247.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89f98b85-64ef-483b-d681-08df39bd78f2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 15:16:45.0125 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VrSA/Q/OnGt/GCDdIji89Ou17NS6oUisRNxKwL8SR/9as99ZqEhXhiVk6b8BVlDX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8827
+Date: Tue, 03 Nov 2026 15:18:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,184 +72,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Good finds; will clean up
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] selftests/proc: fail and leak scsi_debug host without CONFIG_SCS=
+I_PROC_FS
+--
 
->Finally, at the end of the function the final step is like this:
->
->        spin_lock(&file_priv->table_lock);
->        idr_remove(&file_priv->object_idr, args->handle);
->        obj =3D idr_replace(&file_priv->object_idr, obj, new_handle);
->        spin_unlock(&file_priv->table_lock);
->
->Doesn't that leave a window where neither old or new handle can be
->looked up by lockless readers? Does it matter? Would going the opposite
->way and allowing to transiently see the same object twice be worse?
->
-In fact both old and new handle are inaccessible for a much loner window
-than that - the idr_replace sets the old handle to NULL in the first lock
-section.
+commit d0cceed0cde591b286c7977ad630183fc653ded2
+Author: Christian Brauner <brauner@kernel.org>
 
-Having both handles be inaccessible for a period is acceptable; if you try =
-to
-do something to either handle in the middle of a CHANGE_HANDLE it might
-fail to avoid a race condition.
+selftests/proc: check that a faulting writer doesn't hold up removal
 
-David
+This commit adds a procfs selftest that uses userfaultfd and scsi_debug to
+verify that a writer faulting during copy-in does not block removal of a
+/proc/scsi/scsi_debug/<host> entry and fails with -EIO once the fault is
+resolved.
 
-________________________________________
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Sent: Tuesday, November 3, 2026 8:13 AM
-To: Francis, David; dri-devel@lists.freedesktop.org
-Cc: Koenig, Christian; Simona Vetter
-Subject: Re: [PATCH v2] drm/gem: Fix and enable CHANGE_HANDLE
+> diff --git a/tools/testing/selftests/proc/proc-remove-slow-writer.c b/too=
+ls/testing/selftests/proc/proc-remove-slow-writer.c
+> new file mode 100644
+> index 0000000000000..f69ca75ba87cb
+> --- /dev/null
+> +++ b/tools/testing/selftests/proc/proc-remove-slow-writer.c
+> @@ -0,0 +1,203 @@
 
+[ ... ]
 
-On 07/10/2026 15:10, David Francis wrote:
-> Make the following changes to CHANGE_HANDLE
-> - reject new_handle =3D old_handle with EINVAL
-> - idr_preload before idr_alloc
-> - reject new_handle =3D 0 with EINVAL
+> +/* the numbers of the hosts in /proc/scsi/scsi_debug as a bitmap */
+> +static int list_hosts(unsigned long *hosts)
+> +{
+> +	struct dirent *d;
+> +	DIR *dir;
+> +
+> +	memset(hosts, 0, MAX_HOSTS / 8);
+> +	dir =3D opendir(HOST_DIR);
+> +	if (!dir)
+> +		/* the directory comes with the first host and goes with the last */
+> +		return errno =3D=3D ENOENT ? 0 : -errno;
 
-Please also mention why - like to address the TODO, ideally also putting
-a reference link to lore where the action plan was outlined. I'd at
-least like to read it to finish the review. ;)
+[ ... ]
 
-> See also the igt patch
-> tests/intel: Add edge case and race condition tests for GEM_CHANGE_HANDLE
-> on igt-dev
->
-> v2: new_handle =3D old_handle is EINVAL
->
-> cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> cc: Christian Koenig <christian.koenig@amd.com>
-> cc: Simona Vetter <simona.vetter@ffwll.ch>
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/drm_gem.c   | 21 ++++++---------------
->   drivers/gpu/drm/drm_ioctl.c |  3 +--
->   2 files changed, 7 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 6a86bd2a0343..81aee038e3b2 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1018,19 +1018,6 @@ drm_gem_open_ioctl(struct drm_device *dev, void *d=
-ata,
->       return ret;
->   }
->
-> -/*
-> - * This ioctl is disabled for security reasons but also it failed
-> - * to follow process in terms of adding testing in igt and verifying
-> - * all the corner cases which made fixing security bugs in it even
-> - * harder than necessary.
-> - *
-> - * To re-enable this ioctl
-> - * 1. land working IGT tests in igt-gpu-tools that cover
-> - *    all corner cases and race conditions.
-> - * 2. handle idr_preload
-> - * 3. handle =3D=3D 0
-> - * 4. handle =3D=3D new_handle semantics definition.
-> - */
->   int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
->                               struct drm_file *file_priv)
->   {
-> @@ -1042,20 +1029,22 @@ int drm_gem_change_handle_ioctl(struct drm_device=
- *dev, void *data,
->               return -EOPNOTSUPP;
->
->       /* idr_alloc() limitation. */
-> -     if (args->new_handle > INT_MAX)
-> +     if (args->new_handle =3D=3D 0 || args->new_handle > INT_MAX)
->               return -EINVAL;
->       new_handle =3D args->new_handle;
->
->       if (args->handle =3D=3D new_handle)
-> -             return 0;
-> +             return -EINVAL;
+> +FIXTURE_SETUP(host)
+> +{
+> +	unsigned long before[MAX_HOSTS / HOST_BITS];
+> +	unsigned long after[MAX_HOSTS / HOST_BITS];
+> +
+> +	self->host =3D -1;
+> +	if (access(ADD_HOST, W_OK) && system("modprobe -q scsi_debug add_host=
+=3D0"))
+> +		SKIP(return, "no scsi_debug");
+> +	if (access(ADD_HOST, W_OK))
+> +		SKIP(return, ADD_HOST ": %s", strerror(errno));
+> +
+> +	/* host numbers are reused, so look for the one that's new */
+> +	ASSERT_EQ(list_hosts(before), 0);
+> +	ASSERT_EQ(add_host(1), 0);
+> +	ASSERT_EQ(list_hosts(after), 0);
+> +	self->host =3D new_host(before, after);
+> +	ASSERT_GE(self->host, 0);
+> +	snprintf(self->path, sizeof(self->path), HOST_DIR "/%d", self->host);
+> +}
+> +
+> +FIXTURE_TEARDOWN(host)
+> +{
+> +	if (self->host >=3D 0 && !access(self->path, F_OK))
+> +		add_host(-1);
+> +}
 
-I would consider consolidating this a bit. Probably fetch new_handle
-into a local first and do both of the above checks with it. Because
-unless I am blind there is no reason it needs to be fetched in between
-the two conditions so that makes it a bit confusing.
+[Severity: Medium]
+What happens if the test runs on a kernel where scsi_debug is available
+(CONFIG_SCSI_DEBUG is enabled), but CONFIG_SCSI_PROC_FS is disabled?
 
->
->       mutex_lock(&file_priv->prime.lock);
-> +     idr_preload(GFP_KERNEL);
->       spin_lock(&file_priv->table_lock);
->       ret =3D idr_alloc(&file_priv->object_idr, NULL, new_handle, new_han=
-dle + 1,
+The sysfs attribute /sys/bus/pseudo/drivers/scsi_debug/add_host is still
+present and writable without CONFIG_SCSI_PROC_FS, while /proc/scsi is never
+created. In FIXTURE_SETUP(host), list_hosts(before) sees ENOENT on
+/proc/scsi/scsi_debug and returns 0, add_host(1) creates a new scsi_debug
+host in the kernel, and list_hosts(after) still sees ENOENT and returns 0
+with an empty bitmap.
 
-Bit - the comma in the "+ 1," part is the only part of this function
-which straddles the 80th column so maybe use the opportunity to clean
-that up.
+As a result, new_host(before, after) returns -1 and ASSERT_GE(self->host, 0)
+fails the test instead of skipping for the missing prerequisite. Because
+FIXTURE_SETUP(host) aborts with self->host still set to -1, the newly
+created scsi_debug host is never removed by add_host(-1) and remains leaked.
 
->                       GFP_NOWAIT);
->
->       if (ret < 0) {
->               spin_unlock(&file_priv->table_lock);
-> +             idr_preload_end();
->               goto out_unlock;
->       }
->
-> @@ -1063,10 +1052,12 @@ int drm_gem_change_handle_ioctl(struct drm_device=
- *dev, void *data,
->       if (IS_ERR_OR_NULL(obj)) {
->               idr_remove(&file_priv->object_idr, new_handle);
->               spin_unlock(&file_priv->table_lock);
- > +            idr_preload_end();>             ret =3D -ENOENT;
->               goto out_unlock;
->       }
->       spin_unlock(&file_priv->table_lock);
-> +     idr_preload_end();
->
->       if (obj->dma_buf) {
->               ret =3D drm_prime_add_buf_handle(&file_priv->prime, obj->dm=
-a_buf,
+Should FIXTURE_SETUP(host) check that /proc/scsi exists and skip before
+calling add_host(1)?
 
-There is a "ret =3D 0;" a bit lower down which I don't see is required so
-unless I am missing something maybe clean that up as well.
-
-Finally, at the end of the function the final step is like this:
-
-        spin_lock(&file_priv->table_lock);
-        idr_remove(&file_priv->object_idr, args->handle);
-        obj =3D idr_replace(&file_priv->object_idr, obj, new_handle);
-        spin_unlock(&file_priv->table_lock);
-
-Doesn't that leave a window where neither old or new handle can be
-looked up by lockless readers? Does it matter? Would going the opposite
-way and allowing to transiently see the same object twice be worse?
-
-Regards,
-
-Tvrtko
-
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index e2df4becce62..ff193155129e 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -660,8 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] =3D {
->       DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_=
-ALLOW),
->       DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
->       DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
-> -     /* see drm_gem.c:drm_gem_change_handle_ioctl for why this is invali=
-d */
-> -     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_REND=
-ER_ALLOW),
-> +     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_io=
-ctl, DRM_RENDER_ALLOW),
->
->       DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0=
-),
->
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-work-procf=
+s-drivers-v1-0-a994bd4d3b1a@kernel.org?part=3D11
