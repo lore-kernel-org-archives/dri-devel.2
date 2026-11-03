@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BEE606A31B
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:32:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11360606A324
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 23:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GdK0x0kb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lB58eVvT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2951D10E559;
-	Tue,  3 Nov 2026 23:32:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7C6D10E559
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E09B10E2C0;
+	Tue,  3 Nov 2026 23:37:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4659110E2C0
+ for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 23:37:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CE14C60D85;
- Tue,  3 Nov 2026 23:32:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662FF1F000C1;
- Tue,  3 Nov 2026 23:32:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0EE75412B2;
+ Tue,  3 Nov 2026 23:37:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0881F000C1;
+ Tue,  3 Nov 2026 23:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793748744;
- bh=EyGFXdVfal0x2wrub3BtIuBRWU0m7/y7hG6UoiWtjt8=;
+ s=k20260515; t=1793749062;
+ bh=v7xo7x6tt/tCios1qMAjV1Nin2Xj/YE62X2bo4rCPmw=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=GdK0x0kb9NyIbwyAEoiTjOszpZOYTEWeBc541yevF9rLdRuwI9isveRrazyzM1EOM
- 1ZTMbbTVoVY/E8NQYLYA4IlMWFPRRkKKORXeEZKv5FbA9VAYHUaTGjGervnu6QC91I
- XLDOGGv77/v413LXks/6YgS5VMvGenvgnjJ78oDlHyGbGwQoVW3QjfF1H1gHq2+qaK
- r7dsG44m+K53eFShM214Iyhdc6+KQXmuPO2LDpDXYp6MUSZk6/LomDnAD5LAg2roDO
- UXZ+Tkbp5qLwZpwxnM+u1pO++8/iRjz9Q/sGSAGF45DJBZasMrXtOHG4hnxWUZLyRC
- wGsF23Odm182A==
-Message-ID: <sashiko-outbox-196217@kernel.org>
+ b=lB58eVvT6S6NXIBnLy6E2KHNAKAfiAIkd97Ran/xlyRCcs7V1T4qgT9U9h79z53ze
+ q3TzhIS9glsPpJzagBLZEgU7OXlzqhrY2Oxu56xg/Ytj7Oe6jlYt6OCXEQcJ/xC8ry
+ 190es9kLtDBTD6qeUW0RwhmUrv8W+lJb+aBsOratOjriRjHNPWIZYlCFU2t3Wy2De+
+ +UHBPdd4gKoF0/WTTYxuVJUrHufkeZ/4nVSdIuEztWSH8dAyxxcHPoeeWX8+WX/SZb
+ wARkvNSMxTIUKwE0xKt8YtveeYgvsxgMLWqgBjev3v1NNpZRrByU6upr/+/Vtod9gY
+ x3Cvs0Sdx/vBQ==
+Message-ID: <sashiko-outbox-196222@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] drm/msm/debugfs: Use cleanup.h for gpu state dump
+Subject: Re: [PATCH v4 1/6] drm/msm: Hold runpm ref in set_sysprof()
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261103231850.17493-6-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261103231850.17493-2-robin.clark@oss.qualcomm.com>
 References: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
- <20261103231850.17493-6-robin.clark@oss.qualcomm.com>
+ <20261103231850.17493-2-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 23:32:23 +0000
+Date: Tue, 03 Nov 2026 23:37:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +59,91 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/msm/debugfs: msm_gpu_open() takes runtime PM ref before gpu-=
->lock
+- [Medium] drm/msm: unconditional GPU runtime resume in msm_context_set_sys=
+prof()
 --
 
-commit 54d158da1032ffdd109205ad3548c04fcccd04a3
+commit d692fc5150fc552238e506edd26a1cca6ebaf732
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm/debugfs: Use cleanup.h for gpu state dump
+drm/msm: Hold runpm ref in set_sysprof()
 
-This commit converts msm_gpu_open() in drivers/gpu/drm/msm/msm_debugfs.c to
-use cleanup.h helpers for show_priv allocation, runtime PM, and gpu->lock.
+This commit adds a scoped pm_runtime_active guard in
+msm_context_set_sysprof() so a runtime PM reference is held while setting
+or clearing GMU OOB requests, and switches the case 2 reference acquisition
+from pm_runtime_get_sync() to pm_runtime_get().
 
-> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_=
-debugfs.c
-> index d05307bfa1235..9373ac19ee953 100644
-> --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> @@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct f=
-ile *file)
->  	struct drm_device *dev =3D inode->i_private;
->  	struct msm_drm_private *priv =3D dev->dev_private;
->  	struct msm_gpu *gpu =3D priv->gpu;
-> -	struct msm_gpu_show_priv *show_priv;
->  	int ret;
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
+msm_submitqueue.c
+> index d307cdd17d908..e3e7c401fa5c5 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> @@ -9,6 +9,7 @@
 > =20
->  	if (!gpu || !gpu->funcs->gpu_state_get)
->  		return -ENODEV;
-> =20
-> -	show_priv =3D kmalloc_obj(*show_priv);
-> +	struct msm_gpu_show_priv *show_priv __free(kfree)
-> +		=3D kmalloc_obj(*show_priv);
->  	if (!show_priv)
->  		return -ENOMEM;
-> =20
-> -	ret =3D mutex_lock_interruptible(&gpu->lock);
-> -	if (ret)
-> -		goto free_priv;
-> -
-> -	pm_runtime_get_sync(&gpu->pdev->dev);
-> -	msm_gpu_hw_init(gpu);
-> -	show_priv->state =3D gpu->funcs->gpu_state_get(gpu);
-> -	pm_runtime_put_sync(&gpu->pdev->dev);
-> -
-> -	mutex_unlock(&gpu->lock);
-> +	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
-> +		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
-> +			msm_gpu_hw_init(gpu);
-> +			show_priv->state =3D gpu->funcs->gpu_state_get(gpu);
-> +		}
-> +	}
+>  int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu=
+, int sysprof)
+>  {
+> +	guard(pm_runtime_active)(&gpu->pdev->dev);
+>  	guard(rwsem_write)(&ctx->ctxlock);
 
 [Severity: Medium]
-As reported by Konrad Dybcio on v2 [1], does acquiring the runtime PM
-reference before gpu->lock in msm_gpu_open() break GPU hang recovery when
-debugfs is opened concurrently with recover_worker()?
+Does placing guard(pm_runtime_active)(&gpu->pdev->dev) unconditionally at t=
+he
+entry of msm_context_set_sysprof() cause unnecessary synchronous GPU and GMU
+wakeups whenever any DRM file descriptor is closed while the GPU is
+runtime-suspended?
 
-Previously, msm_gpu_open() acquired gpu->lock before calling
-pm_runtime_get_sync(&gpu->pdev->dev). With scoped_guard(pm_runtime_active,
-&gpu->pdev->dev) placed outside scoped_cond_guard(mutex_intr, ...,
-&gpu->lock), msm_gpu_open() holds an active runtime PM reference while bloc=
-ked
-waiting for gpu->lock.
+In drivers/gpu/drm/msm/msm_drv.c, msm_postclose() unconditionally resets
+sysprof to 0 for every closing context:
 
-During hang recovery, recover_worker() holds gpu->lock and calls
-gpu->funcs->recover(gpu). Both a6xx_recover() in
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c and a8xx_recover() in
-drivers/gpu/drm/msm/adreno/a8xx_gpu.c rely on dropping the runtime PM usage
-count to zero to synchronously suspend the GPU and collapse the CX GDSC:
+drivers/gpu/drm/msm/msm_drv.c:msm_postclose() {
+	...
+	if (priv->gpu)
+		msm_context_set_sysprof(ctx, priv->gpu, 0);
+	...
+}
 
-	/* Drop the rpm refcount from active submits */
-	if (active_submits)
-		pm_runtime_put(&gpu->pdev->dev);
+For normal contexts where ctx->sysprof is already 0, closing a DRM file
+descriptor while the GPU is runtime-suspended previously did not wake the
+device: neither switch statement matched case 1 or case 2, and
+a6xx_gmu_sysprof_setup() returned early when pm_runtime_get_if_active()
+returned 0.
 
-	/* And the final one from recover worker */
-	pm_runtime_put_sync(&gpu->pdev->dev);
+With guard(pm_runtime_active)(&gpu->pdev->dev) at the top of
+msm_context_set_sysprof(), pm_runtime_get_sync() now runs before checking
+whether both sysprof and ctx->sysprof are 0 (or whether sysprof is an inval=
+id
+value that will immediately return -EINVAL). When the GPU is suspended, this
+synchronously runs adreno_runtime_resume() -> a6xx_gmu_pm_resume() (powering
+on GX/CX domains, enabling clocks, and booting GMU firmware with
+gpu->needs_hw_init =3D true), does no work in msm_context_set_sysprof(), and
+immediately calls pm_runtime_put() on scope exit.
 
-	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
-		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
+When the GPU subsequently suspends again via a6xx_gmu_shutdown() in
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c, it also has to perform a dummy
+GMU_OOB_GPU_SET handshake and increments gpu->suspend_count:
 
-If msm_gpu_open() is waiting on gpu->lock with a runtime PM reference held,
-pm_runtime_put_sync(&gpu->pdev->dev) will not suspend the device,
-wait_for_completion_timeout(&gmu->pd_gate, ...) will time out after 1000 ms,
-and the subsequent pm_runtime_get_sync() will not run runtime resume to set
-gpu->needs_hw_init =3D true before msm_gpu_hw_init(gpu) is called.
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_shutdown() {
+	...
+	if (adreno_gpu->base.needs_hw_init) {
+		if (a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET))
+			goto force_off;
 
-Since the subsequent IFPC changes in the series place guard(ifpc_disable)(g=
-pu)
-inside the gpu->lock critical section after msm_gpu_hw_init(gpu), should
-scoped_cond_guard(mutex_intr, return -EINTR, &gpu->lock) remain the outer
-guard with scoped_guard(pm_runtime_active, &gpu->pdev->dev) nested inside i=
-t?
+		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+	}
+	...
+}
 
-[1] https://lore.kernel.org/r/a4151c32-bac2-40ec-86f3-59d4dbfaae62@oss.qual=
-comm.com
+Even after commit da3fce812650 ("drm/msm/a6xx: Split out helper to
+disallow/allow IFPC") moves the IFPC updates into case 1 of the two switch
+statements, guard(pm_runtime_active)(&gpu->pdev->dev) remains at the top of
+msm_context_set_sysprof() and still wakes a suspended GPU on every
+msm_postclose().
+
+Could msm_context_set_sysprof() validate sysprof and return early when
+ctx->sysprof =3D=3D sysprof before acquiring the pm_runtime_active referenc=
+e?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103231850.1749=
-3-1-robin.clark@oss.qualcomm.com?part=3D5
+3-1-robin.clark@oss.qualcomm.com?part=3D1
