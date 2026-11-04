@@ -2,48 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF043606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:10:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535B8606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBhlPUlU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMOQCjmg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA0510F9E9;
-	Wed,  4 Nov 2026 07:10:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E01DF10F9E5;
- Wed,  4 Nov 2026 07:10:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9486F10F9EE;
+	Wed,  4 Nov 2026 07:10:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6F210F9E4;
+ Wed,  4 Nov 2026 07:10:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6214F60D83;
- Wed,  4 Nov 2026 07:10:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725621F00A16;
- Wed,  4 Nov 2026 07:10:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3E594422BA;
+ Wed,  4 Nov 2026 07:10:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8F21F00A02;
+ Wed,  4 Nov 2026 07:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793776247;
- bh=JswdxKDHYTNRTR0sRnKke61oIdklpLoQNDbcHv9z/nk=;
+ s=k20260515; t=1793776250;
+ bh=ARVX0Sr8zUMgzAZ201rrYM7GskA++Ru7w4lbEXXfQ2s=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LBhlPUlUDjdEj1zI+KVETBf/4ZfvDIIJ6U5SRne02S6/MyzX2zdTtnFzvGHBjmXhK
- wFYaOL5Ti7pnphUD7moMYXMyF/RO7TQstCf9+1xSxHF0KY1B4s0wpAEEOpA8drg8C+
- yRO5487wu/peZ1P/bY1SoERDxvdpZLJnFqgaGj0uPz75sEfnlmHzubaXUo79xWOWQU
- fXwS+6KSJt1FH2nN4NQdPv3GOBwZzddzqUq/ZohucqA2KyVDNe36uw58dWlMJsaCHw
- xXwMtSNrYIrsOQRhopPYHy8vbNfvlYTtgyhtbYPh9B5kmj9Km27hyq/gTDnEIKWuuh
- aG3BfHn5K4ZvA==
-Date: Wed, 4 Nov 2026 08:10:44 +0100
+ b=FMOQCjmgZtgeD4O+vpj8LkWGEwtIVyLpnNPFzIe8ok9teqUjEtXw7TwuihKMG6liA
+ 2FxxfSnYI4hrYH7F2RG7LDo93GYwaPsAttSTQ4ol/KtlOdgSY13vIeNiP+FqIfy1bN
+ OD60gHEvVGiMMaLiAWSJBKRtLqKjG44iB0FqbhJRbX4hEaZ40dcJUln3NYw6Ozgybw
+ xLIKASIw+H+EMbH8R8AChPnQKnk9VTcyhxiAReTkMeR6wU+jXrzpvBJ4+iQKFWdOqi
+ YFb7tLEDFyQtMHxvBqsyrxo/hycPbCpDqp8n8fYQpnZWCWskrFtB9WvKAd7VXEAHXh
+ A1uUJsh8fDEHQ==
+Date: Wed, 4 Nov 2026 08:10:47 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: David Airlie <airlied@gmail.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Simona Vetter <simona@ffwll.ch>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Subject: Re: [PATCH] drm/i915/selftests: read the noop seqno before dropping
- the request
-Message-ID: <20261104-manipulative-elegant-vole-7e02da@quoll>
-References: <20261104025344.1527492-1-vulab@iscas.ac.cn>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ intel-gfx@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH] drm/i915/selftests: read the seqno before dropping the
+ request
+Message-ID: <20261104-prompt-quirky-pigeon-0ff0fa@quoll>
+References: <20261104025345.1527509-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104025344.1527492-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261104025345.1527509-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,8 +63,8 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Wed, 04 Nov 2026 02:53:44 +0000, Wentao Liang wrote:
-> perf_mi_noop() waits for the request it has just submitted, drops the
+On Wed, 04 Nov 2026 02:53:45 +0000, Wentao Liang wrote:
+> perf_mi_bb_start() waits for the request it has just submitted, drops the
 > reference taken with i915_request_get() and only then reads
 > rq->hwsp_seqno[].
 > 
@@ -82,8 +82,8 @@ On Wed, 04 Nov 2026 02:53:44 +0000, Wentao Liang wrote:
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
