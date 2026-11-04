@@ -2,51 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7234606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C80606A335
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:10:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTEEBTXH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8rBEBJj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED79B10E16F;
-	Wed,  4 Nov 2026 07:10:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2AA10E856;
+	Wed,  4 Nov 2026 07:10:31 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5980F10E16F
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:10:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 480DC10E82E;
+ Wed,  4 Nov 2026 07:10:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 47B5960DAE;
- Wed,  4 Nov 2026 07:10:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379121F0093A;
- Wed,  4 Nov 2026 07:10:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BF9F760DA9;
+ Wed,  4 Nov 2026 07:10:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFAF1F00A16;
+ Wed,  4 Nov 2026 07:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793776219;
- bh=x7na+hJXaQFri5minG/TsKB4aINthrdOp08XbAZdiBc=;
+ s=k20260515; t=1793776222;
+ bh=gOdepwLEEMJeMopc03IQBR0mHQrMn3zS/TljcgXA3eA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BTEEBTXHHLHVrMMWodEXltqfsl2JEb7Aq23EaFWR+QiJkP4DYFzPTOQhWqAKP/5Pb
- zIsgyIUiNcOtM00r3oIHLg3RFf85n7wb2ptPDcunpgcUpJRrtXE89fWZnDXvlVbN7B
- mZ7ZGHOaQLkdYeI3XT75PFbmaBdudsqn5Gje2gyiqEBpH9CTMrxnAZL1DEYVeNtRhj
- tEVvqw9uT8tab7InG9WbJ8Chd3CheCOM8pPXtj/djLKkZf9sQcS8QYpkWrRVmm9Egg
- oG4pf2cHIjONQ1t62IvzwJnvxUOxIWzFujV+rZaE/P2oC7kSeSVlkNEST4qnB1CDBq
- sS6sAUZ5HUPVQ==
-Date: Wed, 4 Nov 2026 08:10:16 +0100
+ b=M8rBEBJjtdUf3PqVWM5SFavQoWowbnsRA9VVc2fPuk0cPRqIT/dTeAp1TT+EB7EXi
+ 3Sun1koB9cmhCsLQe7EjRJrImHtoI5Nsg0HDNPILmA1Cu71kJ57J2has8n8kzH7+rV
+ o9qa5Y9WI40hgOmbCZjKlF24kRRkRLsgre1UwTwLsbO5bxNKJSaA2Z+toMEazgk1f7
+ cDCE/E1ffydKFdq0FAHJkQLmQk/PPqwKaux8peWL+2entcdUmYrwe3yxDPEpjaPGWN
+ rC/AiJvGLkXL7gSp7EYJzIccuOXUTrdUvPtdYE4vL+zY+PFqmJ89UX+CEcdvCAcgGy
+ J9GN0QC0vMwKg==
+Date: Wed, 4 Nov 2026 08:10:19 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>, 
- David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, Andy Yan <andyshrk@163.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/rockchip: rgb: fix panel bridge reference leak on
- setup error
-Message-ID: <20261104-daffy-advanced-booby-a51472@quoll>
-References: <20261104024058.1508856-1-vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>, 
+ David Airlie <airlied@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/jpeg: unwind the rings when sw init fails
+Message-ID: <20261104-native-noble-firefly-909785@quoll>
+References: <20261104025338.1527322-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104024058.1508856-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261104025338.1527322-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,28 +57,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Wed, 04 Nov 2026 02:40:58 +0000, Wentao Liang wrote:
-> rockchip_rgb_init() wraps the panel with drm_panel_bridge_add_typed(),
-> which returns a counted reference on the panel's bridge. When
-> drm_bridge_attach() or drm_bridge_connector_init() fails afterwards,
-> the error path only cleans up the encoder, leaving that reference
-> behind and leaking the bridge.
+On Wed, 04 Nov 2026 02:53:38 +0000, Wentao Liang wrote:
+> jpeg_v4_0_5_sw_init() returns directly when
+> amdgpu_jpeg_reg_dump_init() or amdgpu_jpeg_sysfs_reset_mask_init()
+> fails, after all JPEG rings have been initialized successfully.
+> amdgpu_ring_init() allocated the ring buffers, writeback slots and the
+> vmid fences, and only amdgpu_ring_fini(), called through
+> amdgpu_jpeg_sw_fini(), releases them. Because the IP block's status.sw is
+> only set after sw_init() succeeds, the upper layers skip sw_fini() for
+> this block and the resources are leaked.
 > 
-> Release the bridge in the error path, just like rockchip_rgb_fini()
-> does on the success path.
+> Unwind with amdgpu_jpeg_sw_fini(), as the other JPEG implementations do.
 > 
-> Fixes: b7797081ccfe ("drm/panel: embed a drm_bridge into every drm_panel")
+> Fixes: 2b0ccf3923b5 ("drm/amdgpu: Enable devcoredump for JPEG4_0_5")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/rockchip/rockchip_rgb.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
