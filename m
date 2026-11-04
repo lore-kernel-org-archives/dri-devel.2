@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5FA6096BD3
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CF66097319
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:53:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KLjIE+/Q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRuzWbzB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D4110FEA0;
-	Wed,  4 Nov 2026 19:52:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB60D10FEA0
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83CC510FEA4;
+	Wed,  4 Nov 2026 19:53:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 515BA10FEA4
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:53:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 91D6B40BA8;
- Wed,  4 Nov 2026 19:52:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41F61F000C1;
- Wed,  4 Nov 2026 19:52:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B3A9060F18;
+ Wed,  4 Nov 2026 19:53:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630E91F000C1;
+ Wed,  4 Nov 2026 19:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821971;
- bh=e6t+ZjLlcl2UBfeg6Fa8p1cvIAPOQLpJeTR6f8fh14w=;
+ s=k20260515; t=1793821986;
+ bh=0DA6RuBvRtTkFqswtNQb2uYlEiZpU59l9tIHU1Ga2j8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=KLjIE+/QNPHQxRMuCW8dNWrCESqWYvISK46/mUNfKpIgCeoSJrgdmk8SkA+ATO7fz
- FQ35566DIX+9ELnqg3Z9GTJZVRHI0Yud/AS1kcEPVIP4YYuS1YcVbpva0834j+U661
- zMbjWJhPBVN/B6AggdgAVcfnGjd0hy36FXoA4988MkNbj3t9KGlQbCTtGn7Lq2oNiZ
- gGsYSEMs37D5ZgHR4oyjLALRPtfTPAqhoQzZUV4znTfOb3VdD3io2MsyW92keql0Yw
- gt21nsu4wFZgpw+3R20mXpoc8hVC/Rl4c9wnw34AaHdv6yMO/CIYavsN1nHMGTso6j
- wpMlLdPvqyidA==
+ b=SRuzWbzBA/Ayk18PSyfBxT/OLXbTcYla80E66c/JAUTNKWwvu8J+iV96HiiS6uEcH
+ QHS7YxPFtx6Ioglu8rsGqiQzEoeQ8bEbGSKEx4XN8omB6KX5mlTYTqW0Wk6eUgmEQB
+ B+z770ZN0h6sM7vDGdXR9zfXGIS1XJndXGgje4DTMOIYeLURXu2T1GmuCPMzPMxK7S
+ nurIEXlnG0ZIr4a8/L+heetwhEB8F1E5hs5NCWlfyBW+GWY4C/S4AmxGoDaGeMs9Vs
+ f5F7cAhX60Ts55MnyTtdNSbrqHrZaPAO/QFQ6TbKEkPr3xHro9JRcDthamnh6QpgBO
+ gt08JD3Kfhntg==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 12/30] locking/lockdep: let procfs own the seq_file
- of /proc/lock_stat
-Date: Wed,  4 Nov 2026 20:52:36 +0100
-Message-ID: <20261104-work-procfs-fs-v2-12-319e0f9a8aae@kernel.org>
+Subject: [PATCH RESEND v2 13/30] locking/lockdep: let procfs copy in writes to
+ /proc/lock_stat
+Date: Wed,  4 Nov 2026 20:52:51 +0100
+Message-ID: <20261104-work-procfs-fs-v2-13-319e0f9a8aae@kernel.org>
 In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2606; i=brauner@kernel.org;
- h=from:subject:message-id; bh=wBxYZkbuLq2vx9tHnE9HzeQESu+Hnu4x6fVoBaGOq2s=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97rHsKW7c7qUfM/PTyqkXDu+wq5XQEdy7ZO/qHSlN8
- 2c3iPGIdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk6X+GfxavvpfVCmqsYy1b
- snqPxz3N8Ixjy2XenP/qsrrNPb/9wHyG/8WvPvNeb/4aOLFJQX7j5++rlv/axfqsyHddVbdZebv
- ZIzYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1505; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=8vcSfGoyDeqLJaquRqiN2D+SQsNeRK8HAS3H3FbecE8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97rEyKlv/n0U+Ncf4zZ0z/k8rXxQFN5xqvbLjdI24b
+ /iyrX7bOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZSJsLIsDDpMX+EXH+FfOlz
+ /4uiJpUibR6mKrvnlKufSe+7ojVxOyPDsftVl+Qu1LCnTp70o3zhxgUrJCWyJ/n6XbbhU5x210y
+ eCQA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,93 +98,47 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Declare the seq_operations and let procfs open and free the seq_file.
-->proc_open() only takes the snapshot of the statistics now and
-->proc_release() frees it.
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and look at the first character of that copy. Writes
+larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/locking/lockdep_proc.c | 48 +++++++++++++++++++------------------------
- 1 file changed, 21 insertions(+), 27 deletions(-)
+ kernel/locking/lockdep_proc.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/kernel/locking/lockdep_proc.c b/kernel/locking/lockdep_proc.c
-index 1916db9aa46b..9b034b5b94bd 100644
+index 9b034b5b94bd..2a66ea09c2aa 100644
 --- a/kernel/locking/lockdep_proc.c
 +++ b/kernel/locking/lockdep_proc.c
-@@ -638,40 +638,35 @@ static const struct seq_operations lockstat_ops = {
- 	.show	= ls_show,
- };
+@@ -669,18 +669,14 @@ static int lock_stat_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
  
-+/* procfs opens the seq_file */
- static int lock_stat_open(struct inode *inode, struct file *file)
+-static ssize_t lock_stat_write(struct file *file, const char __user *buf,
+-			       size_t count, loff_t *ppos)
++static ssize_t lock_stat_write(struct file *file, char *buf, size_t count,
++			       loff_t *ppos)
  {
--	int res;
--	struct lock_class *class;
- 	struct lock_stat_seq *data = vmalloc(sizeof(struct lock_stat_seq));
-+	struct lock_stat_data *iter;
-+	struct seq_file *m = file->private_data;
-+	struct lock_class *class;
-+	unsigned long idx;
+ 	struct lock_class *class;
+ 	unsigned long idx;
+-	char c;
  
- 	if (!data)
- 		return -ENOMEM;
- 
--	res = seq_open(file, &lockstat_ops);
--	if (!res) {
--		struct lock_stat_data *iter = data->stats;
--		struct seq_file *m = file->private_data;
--		unsigned long idx;
+ 	if (count) {
+-		if (get_user(c, buf))
+-			return -EFAULT;
 -
--		iterate_lock_classes(idx, class) {
--			if (!test_bit(idx, lock_classes_in_use))
--				continue;
--			iter->class = class;
--			lock_stats(class, &iter->stats);
--			iter++;
--		}
--
--		data->iter_end = iter;
-+	iter = data->stats;
-+	iterate_lock_classes(idx, class) {
-+		if (!test_bit(idx, lock_classes_in_use))
-+			continue;
-+		iter->class = class;
-+		lock_stats(class, &iter->stats);
-+		iter++;
-+	}
+-		if (c != '0')
++		if (buf[0] != '0')
+ 			return count;
  
--		sort(data->stats, data->iter_end - data->stats,
--				sizeof(struct lock_stat_data),
--				lock_stat_cmp, NULL);
-+	data->iter_end = iter;
- 
--		m->private = data;
--	} else
--		vfree(data);
-+	sort(data->stats, data->iter_end - data->stats,
-+			sizeof(struct lock_stat_data),
-+			lock_stat_cmp, NULL);
- 
--	return res;
-+	m->private = data;
-+	return 0;
- }
- 
- static ssize_t lock_stat_write(struct file *file, const char __user *buf,
-@@ -702,14 +697,13 @@ static int lock_stat_release(struct inode *inode, struct file *file)
- 	struct seq_file *seq = file->private_data;
- 
- 	vfree(seq->private);
--	return seq_release(inode, file);
-+	return 0;
- }
- 
+ 		iterate_lock_classes(idx, class) {
+@@ -703,7 +699,7 @@ static int lock_stat_release(struct inode *inode, struct file *file)
  static const struct proc_ops lock_stat_proc_ops = {
-+	.proc_seq_ops	= &lockstat_ops,
+ 	.proc_seq_ops	= &lockstat_ops,
  	.proc_open	= lock_stat_open,
- 	.proc_write	= lock_stat_write,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
+-	.proc_write	= lock_stat_write,
++	.proc_write_buf	= lock_stat_write,
  	.proc_release	= lock_stat_release,
  };
  #endif /* CONFIG_LOCK_STAT */
