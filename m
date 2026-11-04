@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A76606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5602C606A32E
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XaJ/qPlI
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtLnNrfV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E8310E328;
-	Wed,  4 Nov 2026 15:30:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B87DE10E328
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:30:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B64DA10E168;
+	Wed,  4 Nov 2026 15:33:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 542DF10E168
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:32:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B219D60A59;
- Wed,  4 Nov 2026 15:30:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1D41F000C1;
- Wed,  4 Nov 2026 15:30:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EC1A84089F;
+ Wed,  4 Nov 2026 15:32:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528C91F000C1;
+ Wed,  4 Nov 2026 15:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793806238;
- bh=BTVBpyFJQP4JwT4j+nHxFRZqLt/AH1jbT+5h5CdiZEM=;
+ s=k20260515; t=1793806374;
+ bh=TgLC8iI0eHfQeT5dQfpTRLb0eEjlKfXa+1I18S95BfA=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=XaJ/qPlIg7fE6maY2y3rsytUGViGgRX5wViamY+cwYIWQWXVGKCmEullsx6/88iut
- fbu7SkPOf39+yc2LHuXc0v+YI8VEreUCfgufBtxL8SGggZJWzxX41E6Lm6YCXYYas2
- 0nGk5xxYyaPR64phX2xpKP6ORU26PMW1MdfziyPwrzsy074GQ+SviW4122Nz+LCJTP
- NceJSCVxDhzvwlOVimVSgT+NNsckd9RRyLS2htOffCOvzRxycP5F+p9kAS6plCSSWo
- P6/cr8mxU4AuS41W43lI4HC5IwsC7KaGHzYHeg0cgVSy2xS0axAeNwJ8CAwUnTrsPv
- jJnpM/1ymVqQg==
-Message-ID: <1edafb21-286b-4f00-9c80-cab3ff09e598@kernel.org>
-Date: Wed, 4 Nov 2026 16:30:28 +0100
+ b=mtLnNrfVjaBdkQyh9bpLWDclSx2AWQg8hhGFuo1+7JKiTEQ0niZYIgG+It9Y+flVs
+ IXC1J1bQGaEc//IRFf2eIRh6F2ICe/+sq/WGWgDkrMlvVswN54oCKLeAh5Ug8D2i1W
+ JntyoCdwFl9I+MgK2n9PYJUYwBYcQoqvHOPGmzg1WkWMlPsyanbatHeKI0Ar3DrILr
+ r/Ail4nqXcFHeyVSkpoFBVp0nhazsVCAjpRpf8q/i4q+EQPdi9hRQlsscE2A5bfaTo
+ pP9RSc2AIwD1DCJKJoXuw4FjSqojO002aHftdJejkwAgEzn2YYOD6a7TgQh9eofaUo
+ JFJIHF6zHpiZg==
+Message-ID: <fedd2a5e-b245-44ea-bcca-1c8665eb5f3b@kernel.org>
+Date: Wed, 4 Nov 2026 16:32:45 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Novatek NT37802
 To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -45,7 +45,7 @@ To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
- <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
+ <20261104-jshekhar-nt37802-v1-1-58e5e7fb2556@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,7 +91,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
+In-Reply-To: <20261104-jshekhar-nt37802-v1-1-58e5e7fb2556@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,24 +114,14 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 04/11/2026 10:11, Jayant Shekhar wrote:
-> Add a DRM panel driver for the Novatek NT37802 AMOLED DSI command-mode
-> panel used on the Maili/Pebble platform with a CSOT module.
-
-What is Maili? What is Pebble.. how anyone can guess it.
-
-> 
-> The panel runs at 1440x3200@120Hz over four DSI lanes and uses DSC
-> 1.2 compression. The driver supports a reset GPIO and exposes DCS
-> brightness control.
-> 
-> Enable the driver as a module in the arm64 defconfig.
+> Document the Novatek NT37802 AMOLED DSI command-mode panel.
 > 
 > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > ---
->  arch/arm64/configs/defconfig                  |   1 +
+>  .../bindings/display/panel/novatek,nt37802.yaml    | 69 ++++++++++++++++++++++
+>  1 file changed, 69 insertions(+)
 
-That's never part of other driver changes. Enable everything you need
-for your hardware in one commit, with proper explanation.
+Why do you need new file and this does not fit nt37801?
 
 Best regards,
 Krzysztof
