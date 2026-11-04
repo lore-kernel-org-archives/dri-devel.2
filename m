@@ -2,51 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A79E606A329
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:14:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658C2606A32C
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=J2xn6IhH
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=e27nEeIa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E369310FB6E;
-	Wed,  4 Nov 2026 11:14:53 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431CC10FB7C
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=ElMP7E+td4PbWaeCgFxYru40sXUejYFoNFjAdaBjGOg=; b=J2xn6IhHyGYpOrVe5sEcUkfaKY
- Nc+tIqwchMNBf6e0WxuM/1TyGy200YvdFq0TlADp3CGjiLoDRN4P1kPKAACXT0gFqgBz+H+EZU5LL
- l8MGFNTnKN6Dw6NaGRwxVSZP0l498mS3SSQWuzEzC9HZYR0FHtGUJrXnDj+KNO7A4AAFj77a5ICam
- ana+vlz5r7rgK19JEJLpgUsamSCyCJim3XtYGeF0vsra/5pAwgl2HHS1phJAmA4J5PLNdBlmeBbJ/
- 8siN4Ma/gCPNxpy8AmG3cZmmo697E7EIdH6MSRlsHdnWI7A5f+fMT970ATK0zQZK7Oc//yLd6+cOo
- /8dLGruQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Igor Paunovic <royalnet026@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
- =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v2 08/11] accel/rocket: restore the NPU clock boot rate
- before powering the cores down
-Date: Wed, 04 Nov 2026 12:14:37 +0100
-Message-ID: <5089783.JsnAkG3lO3@diego>
-In-Reply-To: <20260922080114.44662-9-royalnet026@gmail.com>
-References: <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-9-royalnet026@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFA510FCCE;
+	Wed,  4 Nov 2026 11:20:34 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3104A10FCD1;
+ Wed,  4 Nov 2026 11:20:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=7OBRCgBQnDjoyoTud5lcIffP0TY3Gb0y5+6q7d4Ue4E=; t=1793791228; x=2109151228; 
+ b=e27nEeIa2XyoT/ksC6Bc17/WAM/BodsYV7mJk402YprOe2PvvoQlCOF0zsQS4JkLlVP2c7kwwAh
+ QNnngTLrcBJ3/V8L6Td3Y3PEwxXJ290UUn7GsIXlBaWymohs1Va6cV9Y59ig5z2k+vFqsiazX63fJ
+ S5JR9/NPkHp36RBt/3q8NS1nKSMl/3k1C7h3dc4F3t8snH7IXtM0hCIrTy8BRux9TlP1RGCACw/rA
+ r5WhZ/Zk2kMytsGosJ31QT0ZXnACf2ri4LvLs5DxG6ZTMZCp8jL6DFKjLKMstCuRWMUPfuZCZEwAw
+ K7/hF57pSny1c7vKIoxXcRgwmcZ1eNzpS2Kg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xOZ2X-002CLZ-E2; Wed, 04 Nov 2026 12:20:25 +0100
+Message-ID: <e209e3f5-714e-4717-9037-6e47e76a6e72@igalia.com>
+Date: Wed, 4 Nov 2026 11:20:24 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
+ at runtime
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+ <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+ <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+ <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
+ <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
+ <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
+ <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
+ <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
+ <7277f083-2d17-4bed-bdaf-e6c616cc5ec9@igalia.com>
+ <b93eef3f44db1cd8018a742a39cba57b67dd1d94.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <b93eef3f44db1cd8018a742a39cba57b67dd1d94.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,158 +65,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Dienstag, 22. September 2026, 10:01:11 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Igor Paunovic:
-> The compute clock is generated by a PVTPLL that lives inside the NPU power
-> island. Powering an island up while that clock is above the rate the
-> bootloader left it at does not work: the domain never acks the power-on,
-> and the first register access into it afterwards takes an asynchronous
-> SError. So the rate has to be back down before the last core goes away.
->=20
-> Nothing in the driver raises the clock today, which makes this a no-op on
-> its own, but it is the guard that has to be in the tree before anything
-> does, and the next patches do. The .shutdown hook is the same guard for t=
-he
-> handover: once devfreq is driving the clock, a kexec would otherwise pass
-> the raised rate to the next kernel, which powers the islands up before it
-> looks at it. What this cannot do is rescue a rate it did not set - the ra=
-te
-> read at probe is taken as the boot rate whatever it is.
->=20
-> The rate is read at probe rather than hardcoded. Mainline pins the RK3588
-> cores at 200 MHz with assigned-clock-rates, but that is a devicetree
-> property, not a property of the hardware, and a SoC whose devicetree does
-> not set it would be left running at a rate this driver had invented.
->=20
-> All three cores share the clock, so only the last core to suspend may low=
-er
-> it; the others just drop the count. Lowering it is safe with the islands
-> already down as long as the boot rate is one the firmware serves from GPL=
-L,
-> which on the RK3588 is the 200 MHz the devicetree pins: for that rate the
-> firmware writes only CRU clock selectors, never a register inside the NPU.
->=20
-> Assisted-by: LLM sparse checkpatch
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-> v2: v1 of this patch kept a struct clk handle in struct rocket_device,
-> taken from the devres of the first core to probe, and used it from the
-> runtime suspend of whichever core went down last. Unbinding the cores
-> freed the handle underneath it: KASAN reported a slab-use-after-free in
-> clk_set_rate() during a ten-round unbind/rebind test on this board after
-> v1 was posted. No handle is kept any more; the callback uses the handle of
-> the core it runs for, which is bound for as long as the call lasts.
-> "A reboot" is dropped from the kexec sentence and the comment: whether the
-> clock selectors survive the global reset the firmware does on reboot has
-> not been checked. The argument that lowering the rate is safe is now
-> limited to a boot rate the firmware serves from GPLL, which on the RK3588
-> is the 200 MHz the devicetree pins.
->=20
->  drivers/accel/rocket/rocket_core.c   | 10 ++++++
->  drivers/accel/rocket/rocket_device.h | 15 +++++++++
->  drivers/accel/rocket/rocket_drv.c    | 47 ++++++++++++++++++++++++++++
->  3 files changed, 72 insertions(+)
->=20
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index 5dd260bacbff6..c736537cf28f6 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-> @@ -12,6 +12,7 @@
->  #include <linux/reset.h>
-> =20
->  #include "rocket_core.h"
-> +#include "rocket_device.h"
->  #include "rocket_job.h"
-> =20
->  int rocket_core_init(struct rocket_core *core)
-> @@ -36,6 +37,15 @@ int rocket_core_init(struct rocket_core *core)
->  	if (err)
->  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
-ore->index);
-> =20
-> +	/*
-> +	 * Record what the compute clock was running at before anything here
-> +	 * touched it, on the first core to probe. Reading it rather than
-> +	 * hardcoding a rate keeps this working on a SoC whose devicetree does
-> +	 * not pin the clock with assigned-clock-rates.
-> +	 */
 
-shorter comment please
+On 04/11/2026 11:04, Philipp Stanner wrote:
+> On Wed, 2026-11-04 at 10:43 +0000, Tvrtko Ursulin wrote:
+>>
+>> On 04/11/2026 08:48, Philipp Stanner wrote:
+>>> On Wed, 2026-11-04 at 08:33 +0000, Tvrtko Ursulin wrote:
+>>>> I lost you here - what should the comment say?
+>>>
+>>> Just a "TODO: entity->rq_priority could not be fully removed due to the
+>>> partial revert of the CFS scheduling rework. For formal correctness, it
+>>> still has to be adjusted here".
+>>>
+>>> Just so that the reader sees that this is in an intermediate state
+>>> right now, and so he's incentivized to git-blame the TODO to find the
+>>> associated commits and mailing-list-archives.
+>>
+>> I would rather not do it in a patch with a Fixes: tag, or actually at
+>> all - it feels arbitrary to sprinkle a TODO mentioning future work at a
+>> single random place like set_priority(). Could we go with these two as
+>> they are and continue from there?
+> 
+> Help me out here, I don't have the CFS series paged into my mind right
+> now:
+> 
+> Will future callers, after your redesign, make use of
+> drm_sched_entity_set_priority()?
 
-> +	if (!core->rdev->npu_boot_rate)
-> +		core->rdev->npu_boot_rate =3D clk_get_rate(core->clks[2].clk);
+Yes it stays, as does entity->priority. It's just that with FAIR 
+priority affects the virtual runtime accounting and all entities are in 
+a single run queue.
 
-see comment about using a constant for the array index in patch 5.
+Three step plan would be like this:
 
-> +
->  	core->pc_iomem =3D devm_platform_ioremap_resource_byname(pdev, "pc");
->  	if (IS_ERR(core->pc_iomem)) {
->  		dev_err(dev, "couldn't find PC registers %ld\n", PTR_ERR(core->pc_iome=
-m));
-> diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/=
-rocket_device.h
-> index abb88a254e569..ba7c977cd6951 100644
-> --- a/drivers/accel/rocket/rocket_device.h
-> +++ b/drivers/accel/rocket/rocket_device.h
-> @@ -22,6 +22,21 @@ struct rocket_device {
->  	unsigned int num_cores;
->  	/* Slot capacity (DT core count); slots with a NULL .dev are free. */
->  	unsigned int max_cores;
-> +
-> +	/*
-> +	 * The cores have no clock of their own: one clock feeds all of them,
-> +	 * so any core's handle refers to the same thing. No handle is kept
-> +	 * here: each one belongs to the devres of the core that asked for it
-> +	 * and dies with that core's unbind, while this structure outlives any
-> +	 * single core. Whoever needs the clock uses the handle of the core it
-> +	 * was called for, which is bound for as long as the call lasts.
-> +	 *
-> +	 * npu_boot_rate is the rate the clock was left at before the driver
-> +	 * touched it, and active_cores counts the cores that are runtime
-> +	 * resumed right now.
-> +	 */
+1.
+With these two fixes we think about making FAIR the default (all known 
+bugs sorted).
 
-shorter comment please
+2.
+Then, if it works fine for a kernel release or two, we can remove FIFO 
+and RR.
 
-> +	unsigned long npu_boot_rate;
-> +	atomic_t active_cores;
->  };
-> =20
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index b9b36c578db20..8f03de1af488c 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -297,6 +297,30 @@ static int find_core_for_dev(struct device *dev)
->  	return -1;
->  }
-> =20
-> +/*
-> + * Put the compute clock back where the bootloader had it. The cores sha=
-re
-> + * this clock, so this is only correct once none of them is running any =
-more.
-> + *
-> + * Lowering the rate is safe with the power islands down as long as the =
-boot
-> + * rate is one the firmware serves from GPLL, which on the RK3588 is the
-> + * 200 MHz the devicetree pins: for that rate the firmware touches only =
-the
-> + * CRU clock selectors, none of the NPU's own registers.
+3.
+Then, after another release or two we can reapply the final part of the 
+original series - replace multiple run-queues with a singleton embedded 
+into the scheduler.
 
-shorter comments please.
+2 & 3 could happen together, but lets say a regression is discovered 
+between 2 and 3 and there is no other way than bringing back FIFO/RR 
+then it is easier if 3 hasn't landed yet since that's the part with 
+touches all the drivers (due drm_sched_init_args).
 
+Regards,
 
-Thanks
-Heiko
-
+Tvrtko
 
