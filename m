@@ -2,152 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3373606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:14:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A79E606A329
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LxDMyPGd
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=J2xn6IhH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30A3210FB6B;
-	Wed,  4 Nov 2026 11:14:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92DD210FB83;
- Wed,  4 Nov 2026 11:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793790878; x=1825326878;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=T8hS6VvHKnB7g8bO2RKXyOgNeMkNloU0RKcymVuxegk=;
- b=LxDMyPGdH69mxn4IkWh8OBbDeckEYmGshAuWaEHDyHxaaD/BUbYwgYu2
- /eqtXibahoBDpj7trn/cewBdCERAsl+sRWXMeKaU16kqpgwpsyXbSdTFU
- F01mLlhVsw4KaX1Z3hQLNxAsMecTnpMwcpTvO8rVThXkmufbMy4OmLnTJ
- Y/fv/g0kxcHMkFQzHPqxeIC6C6KnMFowfoiVkNZgK8XZ5sz3fD4BwS/eO
- umJDR6tWtO/JAABfL6AskUH4zpb6MVP8M+XKFw1SEu0IFuc5eA6mzwOdF
- fbGPknIx2ZrKMbb+iLuIffsO7g4Iy89cgIhU8xPD1DW0Cta6BiXDYC5wZ w==;
-X-CSE-ConnectionGUID: +lOcu16lRTq022UeS7+tDQ==
-X-CSE-MsgGUID: jNFHNQDjTzayT/yWNLaEEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2427047"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2427047"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 03:14:37 -0800
-X-CSE-ConnectionGUID: CG28j/hvQPKiLdCgoCqyVw==
-X-CSE-MsgGUID: yEm1QTk3QpS+tH/HTDa/tw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6512247"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 03:14:37 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 03:14:36 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 03:14:36 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.18) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 03:14:36 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WSrSUjWjNe8KKR/YWClw6n9+Sr5vD3ej9bNhpXh2yknqT4WLyJGNR0Ppvc62/9nwKp8jNadrEflByfH3TS/LtLpxGGsfW7CQ7D5PgtpZBxK2D/sYRl+E6BZo0WM78e1UTXqZAIVh/EH9GRNZ73vXGGIuMDqXegg3RN+Nb1AeEEHHnX1YZ9i4F2qCIvTDw4dRRQd50syvNf+opSmg2HH/NGWzCJknUT0mwKD7mohGWdC4f4hCb8OodEdROaRNx4hJlLllfMqeY/oG5Qu6SVhqFnHeAeOdFbSqginIkH//1aJAns4AKm3gsOVDIKZOSMu78JDIp4iAoyKCuU3pDDFLsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O6NrkqsshPOgBzG3Cvd3ybL442covzDqZEiurhTNB2g=;
- b=B/wWR4vzt+QYJseOE4WriWPKihcb3AtcYlYypr0ePLI6JExB657elaFhwE6xxS1LeHmEIFl2NTyOfcWNUD9wI3pGVlBtzDDWfgnVwXiJTieMh0yc6NgQSgELZI0ZGPv1N9I+mMbqK2I46YjhwsFozOoyE4rSsyDo/n8MttVp2xmgo+ftXHwKwKKQCCyy7irQBS576S6NoRJrHJVnECFoMlSxjKqyaUKqHaT/K0U43XPo9KL3Wt9AhBmXmiOh9lpD9dSlMCoy492SGS/UyY+nKa1LEHHNorxKIE/2zXO9LIQPh3YFGG7aHOR8Jmjk3vt3DGrqJraKMFYjlsSs70E+ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by SA3PR11MB7625.namprd11.prod.outlook.com
- (2603:10b6:806:305::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 11:11:31 +0000
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 11:11:30 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v6 6/6] drm/i915/selftests: Use drm_* prints in i915_selftest.c
-Date: Wed, 4 Nov 2026 11:11:04 +0000
-Message-ID: <20261104111104.946617-7-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104111104.946617-1-krzysztof.karas@intel.com>
-References: <20261104111104.946617-1-krzysztof.karas@intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DUZPR01CA0189.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b6::7) To EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E369310FB6E;
+	Wed,  4 Nov 2026 11:14:53 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431CC10FB7C
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:14:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=ElMP7E+td4PbWaeCgFxYru40sXUejYFoNFjAdaBjGOg=; b=J2xn6IhHyGYpOrVe5sEcUkfaKY
+ Nc+tIqwchMNBf6e0WxuM/1TyGy200YvdFq0TlADp3CGjiLoDRN4P1kPKAACXT0gFqgBz+H+EZU5LL
+ l8MGFNTnKN6Dw6NaGRwxVSZP0l498mS3SSQWuzEzC9HZYR0FHtGUJrXnDj+KNO7A4AAFj77a5ICam
+ ana+vlz5r7rgK19JEJLpgUsamSCyCJim3XtYGeF0vsra/5pAwgl2HHS1phJAmA4J5PLNdBlmeBbJ/
+ 8siN4Ma/gCPNxpy8AmG3cZmmo697E7EIdH6MSRlsHdnWI7A5f+fMT970ATK0zQZK7Oc//yLd6+cOo
+ /8dLGruQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v2 08/11] accel/rocket: restore the NPU clock boot rate
+ before powering the cores down
+Date: Wed, 04 Nov 2026 12:14:37 +0100
+Message-ID: <5089783.JsnAkG3lO3@diego>
+In-Reply-To: <20260922080114.44662-9-royalnet026@gmail.com>
+References: <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-9-royalnet026@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|SA3PR11MB7625:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9949495-9d31-4155-645e-08df3a6460e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|261021123027099003|261021121427099003|11063799006|56012099006|261022105027099003|261102123227099003|261009223027099003|261028144727099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /MGnUvs/M1ZuzJm//S1EBLlBKBS1ZNNbzTd0waTQUa0y+C4kzQZJiaywYOWt32ZX4CspEntlhRU+gURoE/mMsKr9S0VZNAUaUPhG3ZwnrGkVUI1wCH4PsZLkWijIpJufpJNA4rvuPgbVPFtRG7CdlZXbb60sJamubhSSgY5BIbbOOB0qaDaeKCGP05gCdFgQhlmT4aGnSTwg8bzB0aEXezPRX+ZZDph0rMXrY5F3TraXRZ0Z5eMSgcRJgDwvsEeS607XOlxrgTuyCXnzf4GmW9HEKI85zOC2I/wcirFTK3U0KKBZWGDZ1kXWTAMj5x3poN4Aao+S+GdeXC7Ko94W0QfX6S1kBXm2UU3ostn2rxYIx6YiIjYDyjnRPeQsA4PR2DkWGN/q11bbLlZ13C1OQN9vDoDdXVkVwIGh1L5Glli64tPelhFxBfHwN3YZ4S2ZYMgpMX62Vcm/zHLAlbHVl/+JOZoAwjXkVunzuUSx/Q04k46FlfSo0DFXtONmcJbLQIZBwF3IcaDDXRcwB9Vm2308+FArYLWfB7N2kvcovSsnMxroQxCvlBKFqaVYcRulcgUYFitozMcwbOZU3X67/ZvoUxiQhKzTg4D5lZiwuestcLVop+jULL7THt38xeDTqQBvLC1JIIjGXHYmylt5bYd7DwU97jnoQVGHlnsVddA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261021123027099003)(261021121427099003)(11063799006)(56012099006)(261022105027099003)(261102123227099003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uk7pKN2ZOf8xp5xTW9uhFoamqIwoTVqTvyGA9CXHcWEU3r4gvLJCvNYCnQ9i?=
- =?us-ascii?Q?+FtDZCc83OazkZ9KxLWCGcnFplYS20AjtT8iVQ4Tbtilg40wK0Lh9/0bw0Fy?=
- =?us-ascii?Q?L1KhWsvZSEAvN8sv3ji/eVfYGvMVV0JIVr1G3hMEdIYeAod+3JxnZgksV8pW?=
- =?us-ascii?Q?pvXXLatIB4B3dXQv+ieNc87idTdwn1dlbJqR+zC4PBuqbWley2+iEpOp+BGm?=
- =?us-ascii?Q?e4y5K3SJKVYJSmCUDlZ2oi7Gw0x4l222C60p1x1841dwCY3zuEe30A9ben/G?=
- =?us-ascii?Q?BFgah8gRU0SigHc65kzXiaUP6pt6VDQ+RuL26sYRWeaxQGfr2fgEhE/fwJV2?=
- =?us-ascii?Q?36802MBK/TIorG842tN4wdwxWfnUOfZ547Vh3LfdMIyvR2iwaezd/EFIK2Gx?=
- =?us-ascii?Q?1iV+6OJSDUHs1w3mPYPFzWjdtFC0iUGAM730Fez9w8vT1KBqj6eQfBbHNG0l?=
- =?us-ascii?Q?fVPgUz6CjOLXzdmQbYG89khbTZlqIuZLnjVQ48Ta7r2y03Ibe/wG0xLSRdbU?=
- =?us-ascii?Q?ZFAsjoByCENJEsm2bSU2fOM7xUnMe4tEnAu8RJtJ5eg+8oozNkpSAYQEfh0K?=
- =?us-ascii?Q?5OPtKk+gKlp1V0cX0YBz/cGozSf7JSOHauI2USStLsGJqka96nxHIfqN7ARa?=
- =?us-ascii?Q?837J70p63BY9+6CthDA4w7G0fVZNj6stRbmLWiEQcw4yjA5hTgnWiGYN9W5s?=
- =?us-ascii?Q?gO3e+iEJeqlfL4zJ6bDARGvp4gjEY2iDv2uWtBfs6jJ7KYAPOJ+5D8vdUkAu?=
- =?us-ascii?Q?ecZI9q9JNsvmuZa6Z8f+5tOkXvjo8ddA9oY3q01NTw+53l6u7XDmX9fbC3SA?=
- =?us-ascii?Q?TP7zwymsoWlLn/tBjRPOI/ZW+oWQwEESRGfD0uJgl2Mmmgpdgl8fi1+xZ4Fh?=
- =?us-ascii?Q?gipmYeyyptng16V6jOAY2rz6M8qSG48oF91tkhKaMZneJHJ7z9M0U6P1jBQ6?=
- =?us-ascii?Q?zrxxqquG93tzzhiPSqJvmxF8/m7R9unwKCqfzAiouQKYhuyAq6t4Nnfasygf?=
- =?us-ascii?Q?/utBgt6EcepKVKavIwABU381dHU3QtR9x97X9C3ASr8Uwivalx/EzaProM/k?=
- =?us-ascii?Q?s6mJuyRaHn1ujPmjNxt7gbMdbSuewCKpqsV2aK9p4MLHBPyOXw7vJ0bpeirF?=
- =?us-ascii?Q?8Cy5UM3gXy076LodyUDnhUihuY5bplo3RttDclCYY/Nt7IhfneMHaw9mgDZ+?=
- =?us-ascii?Q?JgCPZwx1fN2oV6ZDEROxQfrOmuMOYnZi32LIbkv7a31T/3HtT5Qni8q8mUnC?=
- =?us-ascii?Q?CSj6RM56YRobxoTDEeZDR8OS5/LJmuu8LAxyMl0Oyg7/li4YPhA9oSkZPI9t?=
- =?us-ascii?Q?4couQDrJdcrsFEpV9u2+sC+w93nfmXywmHHGAaqxk5rg7o6zhmEErlQ0yxfJ?=
- =?us-ascii?Q?oKEudzgBgq4MaZFOETgBshQ2sYTr58dR65hgv/zGSESSfWc1ugtsp1s+zN+0?=
- =?us-ascii?Q?+g4ARau3kGzwNYWr9DtRFBNalTmIOoS5v86Wl1hl0F5/TIsCNl3o3Og4Jc9F?=
- =?us-ascii?Q?Sf7iqJ3Bkb1oDRVEKxC7MN1ugbG8V+t4QrtFTpKMA+3AaV+RHkrBAEWkx5IT?=
- =?us-ascii?Q?O/grFCjubNapcy4TbW7XXKWBL8GWqmo5CEIeGW0xgRWtVQ4IGGzktGPaF4Vk?=
- =?us-ascii?Q?I+sIWYjpv7b+DVIfIs6UXTTu8C5lIFv+1RyIZU44aw7og1pa1lksL0HtRRfk?=
- =?us-ascii?Q?bM5DxLEdWU6A9qnfXOOvS+5++jwjAcbBcWNSG+7zqMJgBwQSoeVc8oh4khRx?=
- =?us-ascii?Q?33WISJ5+CAKFww0tnowrRJtkJ0h9HE8=3D?=
-X-Exchange-RoutingPolicyChecked: 5ZHOCWafhoWLdJyTVpPPBh6WoVh/8tcGH2BFE+ajymaU4aRy7b6HbLo9DjVzDN+bljK3niWqZXUYnzs/5lNQV9YAH8ZIH2REqVWBr3M6jiOV45w/lbuXSEDaCODmkYfZw5/4cE7lBzCJiqqVmdlm0tIDkMUr4Dkbt5ci2ep/baRrs0JoF8/vCkL9416+hfnYgxLeKe1jiJa46FD2MznM5ep8qq7l/Onfghc7hRdRWY32zBuX5KJoaGZpakQ3pAVgCv0ePlZRrcex47ckdEZPKZrpeEXWOTYcDvsisTzdTD3r8yPM9td3t85TfkTG3F5228KQ352Z6r1R3fCIi4sm4w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9949495-9d31-4155-645e-08df3a6460e0
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:11:30.7213 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R/cpT4UnxzGOeESdrxy7VYh/Uh/ZUbqDfzNxvT1bzqcsjBfjSXbSh92X4UmHgwaBuTZ4Hsy+ezDCAaKSCl1L8Oz+s3Vq+2RBWOKuJvJf024=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7625
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,66 +58,158 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move away from generic pr prints to drm device context aware
-drm_* versions.
+Am Dienstag, 22. September 2026, 10:01:11 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Igor Paunovic:
+> The compute clock is generated by a PVTPLL that lives inside the NPU power
+> island. Powering an island up while that clock is above the rate the
+> bootloader left it at does not work: the domain never acks the power-on,
+> and the first register access into it afterwards takes an asynchronous
+> SError. So the rate has to be back down before the last core goes away.
+>=20
+> Nothing in the driver raises the clock today, which makes this a no-op on
+> its own, but it is the guard that has to be in the tree before anything
+> does, and the next patches do. The .shutdown hook is the same guard for t=
+he
+> handover: once devfreq is driving the clock, a kexec would otherwise pass
+> the raised rate to the next kernel, which powers the islands up before it
+> looks at it. What this cannot do is rescue a rate it did not set - the ra=
+te
+> read at probe is taken as the boot rate whatever it is.
+>=20
+> The rate is read at probe rather than hardcoded. Mainline pins the RK3588
+> cores at 200 MHz with assigned-clock-rates, but that is a devicetree
+> property, not a property of the hardware, and a SoC whose devicetree does
+> not set it would be left running at a rate this driver had invented.
+>=20
+> All three cores share the clock, so only the last core to suspend may low=
+er
+> it; the others just drop the count. Lowering it is safe with the islands
+> already down as long as the boot rate is one the firmware serves from GPL=
+L,
+> which on the RK3588 is the 200 MHz the devicetree pins: for that rate the
+> firmware writes only CRU clock selectors, never a register inside the NPU.
+>=20
+> Assisted-by: LLM sparse checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> ---
+> v2: v1 of this patch kept a struct clk handle in struct rocket_device,
+> taken from the devres of the first core to probe, and used it from the
+> runtime suspend of whichever core went down last. Unbinding the cores
+> freed the handle underneath it: KASAN reported a slab-use-after-free in
+> clk_set_rate() during a ten-round unbind/rebind test on this board after
+> v1 was posted. No handle is kept any more; the callback uses the handle of
+> the core it runs for, which is bound for as long as the call lasts.
+> "A reboot" is dropped from the kexec sentence and the comment: whether the
+> clock selectors survive the global reset the firmware does on reboot has
+> not been checked. The argument that lowering the rate is safe is now
+> limited to a boot rate the firmware serves from GPLL, which on the RK3588
+> is the 200 MHz the devicetree pins.
+>=20
+>  drivers/accel/rocket/rocket_core.c   | 10 ++++++
+>  drivers/accel/rocket/rocket_device.h | 15 +++++++++
+>  drivers/accel/rocket/rocket_drv.c    | 47 ++++++++++++++++++++++++++++
+>  3 files changed, 72 insertions(+)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index 5dd260bacbff6..c736537cf28f6 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/reset.h>
+> =20
+>  #include "rocket_core.h"
+> +#include "rocket_device.h"
+>  #include "rocket_job.h"
+> =20
+>  int rocket_core_init(struct rocket_core *core)
+> @@ -36,6 +37,15 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
+ore->index);
+> =20
+> +	/*
+> +	 * Record what the compute clock was running at before anything here
+> +	 * touched it, on the first core to probe. Reading it rather than
+> +	 * hardcoding a rate keeps this working on a SoC whose devicetree does
+> +	 * not pin the clock with assigned-clock-rates.
+> +	 */
 
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/selftests/i915_selftest.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+shorter comment please
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-index 3adcfdab75ae..10198828e7fb 100644
---- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-@@ -23,6 +23,8 @@
- 
- #include <linux/random.h>
- 
-+#include <drm/drm_print.h>
-+
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_gt_regs.h"
-@@ -47,7 +49,7 @@ int i915_mock_sanitycheck(void)
- 
- int i915_live_sanitycheck(struct drm_i915_private *i915)
- {
--	pr_info("%s: %s() - ok!\n", i915->drm.driver->name, __func__);
-+	drm_info(&i915->drm, "%s() - ok!\n", __func__);
- 	return 0;
- }
- 
-@@ -154,7 +156,8 @@ __wait_gsc_proxy_completed(struct drm_i915_private *i915)
- 
- 	if (need_to_wait && wait_for(!__gsc_proxy_init_progressing(&i915->media_gt->uc.gsc),
- 				     timeout_ms))
--		pr_warn(DRIVER_NAME "Timed out waiting for gsc_proxy_completion!\n");
-+		drm_warn(&i915->drm,
-+			 "Timed out waiting for gsc_proxy_completion!\n");
- }
- 
- static void
-@@ -178,7 +181,8 @@ __wait_gsc_huc_load_completed(struct drm_i915_private *i915)
- 
- 	if (need_to_wait &&
- 	    wait_for(i915_sw_fence_done(&huc->delayed_load.fence), timeout_ms))
--		pr_warn(DRIVER_NAME "Timed out waiting for huc load via GSC!\n");
-+		drm_warn(&i915->drm,
-+			 "Timed out waiting for huc load via GSC!\n");
- }
- 
- static struct mm_struct *get_selftest_mm(int u_pid_nr)
--- 
-2.34.1
+> +	if (!core->rdev->npu_boot_rate)
+> +		core->rdev->npu_boot_rate =3D clk_get_rate(core->clks[2].clk);
+
+see comment about using a constant for the array index in patch 5.
+
+> +
+>  	core->pc_iomem =3D devm_platform_ioremap_resource_byname(pdev, "pc");
+>  	if (IS_ERR(core->pc_iomem)) {
+>  		dev_err(dev, "couldn't find PC registers %ld\n", PTR_ERR(core->pc_iome=
+m));
+> diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/=
+rocket_device.h
+> index abb88a254e569..ba7c977cd6951 100644
+> --- a/drivers/accel/rocket/rocket_device.h
+> +++ b/drivers/accel/rocket/rocket_device.h
+> @@ -22,6 +22,21 @@ struct rocket_device {
+>  	unsigned int num_cores;
+>  	/* Slot capacity (DT core count); slots with a NULL .dev are free. */
+>  	unsigned int max_cores;
+> +
+> +	/*
+> +	 * The cores have no clock of their own: one clock feeds all of them,
+> +	 * so any core's handle refers to the same thing. No handle is kept
+> +	 * here: each one belongs to the devres of the core that asked for it
+> +	 * and dies with that core's unbind, while this structure outlives any
+> +	 * single core. Whoever needs the clock uses the handle of the core it
+> +	 * was called for, which is bound for as long as the call lasts.
+> +	 *
+> +	 * npu_boot_rate is the rate the clock was left at before the driver
+> +	 * touched it, and active_cores counts the cores that are runtime
+> +	 * resumed right now.
+> +	 */
+
+shorter comment please
+
+> +	unsigned long npu_boot_rate;
+> +	atomic_t active_cores;
+>  };
+> =20
+>  struct rocket_device *rocket_device_init(struct platform_device *pdev,
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index b9b36c578db20..8f03de1af488c 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -297,6 +297,30 @@ static int find_core_for_dev(struct device *dev)
+>  	return -1;
+>  }
+> =20
+> +/*
+> + * Put the compute clock back where the bootloader had it. The cores sha=
+re
+> + * this clock, so this is only correct once none of them is running any =
+more.
+> + *
+> + * Lowering the rate is safe with the power islands down as long as the =
+boot
+> + * rate is one the firmware serves from GPLL, which on the RK3588 is the
+> + * 200 MHz the devicetree pins: for that rate the firmware touches only =
+the
+> + * CRU clock selectors, none of the NPU's own registers.
+
+shorter comments please.
+
+
+Thanks
+Heiko
+
 
