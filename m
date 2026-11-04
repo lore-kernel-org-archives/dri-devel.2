@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A0E606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:25:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD31606A329
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:25:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsZRN4mS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blm3Fzks
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E29B510E884;
-	Wed,  4 Nov 2026 09:24:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC84010E884
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC6210FA77;
+	Wed,  4 Nov 2026 09:25:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA0C710FA80
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:25:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D056360611;
- Wed,  4 Nov 2026 09:24:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6391F000C1;
- Wed,  4 Nov 2026 09:24:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9243240257;
+ Wed,  4 Nov 2026 09:25:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BF441F00A15;
+ Wed,  4 Nov 2026 09:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793784288;
- bh=DU2HnGr13UrjNFDLaLn3EdWjpZutHhABvL9XsGqx5jQ=;
+ s=k20260515; t=1793784334;
+ bh=6y/QB0A+W+6N3jiXZRGNY1xzzbI4566zJ/BaiNow5YE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WsZRN4mSiXyNqyPQ2abkla1s08ffMgQM7KLDjLi06P+TT7ab4JbGTgUVRFTqM57p4
- KtZN+GZbXH5rHBUm61AhQwhDhVpBREBAZXFUjjZwHt8GkhBIFsti2bgsNX4+XQ7hjQ
- cXpndaUS1eroH/oJVNBJ+Sg56kvdzoMsNnB1THlx9+UhoGdloEsTqTqtrrUok0Vt/q
- ruKuPDXwVqcZXMIny8nZN4Uca5yxXlYGPJItgjFJ5wO+ybOGurlQmQ1RBi6ccxL0qZ
- AEyV8CG8Z7QBzwnTCkd8HDyv1seLZcOyLurYeXFpg9fCMOjPk9E0UUS16THupapVJJ
- /V41KUFcG1/jw==
-Date: Wed, 4 Nov 2026 10:24:36 +0100
+ b=blm3FzksIwmy/gfP+m6bQ3l19t8u+6D7VnMjx0mDrwJfI9yqkrKHuitgS+09MOaFB
+ 5IAfK41yIRysnuekyE6n0MoqHw1erKQfYIHd4bcxX9IzwZZwgAZVYki7z4Cj5AIA7/
+ ZPGTgJBvsmIssHVAjO0+bxwX4CubbRT4ywfOYmYyDPmpCbFuRzICtnH6f+UaysQImg
+ q7wpeNs4gNICgefy3SKpkaeX4BbxjIfO+vSSQmRySEd1imrt/h87R+LlDv4MuyR4ux
+ lqn+1ClVwhwp9e3GHxStc7SnGYtfRsRPS5FsY3RelvLgIwBZIwrO2g2A54DZvsL3tG
+ vhwB9M0WME18g==
+Date: Wed, 4 Nov 2026 10:25:21 +0100
 From: Christian Brauner <brauner@kernel.org>
 To: sashiko-reviews@lists.linux.dev
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
@@ -56,17 +56,17 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  Heiko Carstens <hca@linux.ibm.com>, 
  Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: Re: [PATCH RFC 08/16] selftests/proc: check that a faulting reader
- doesn't hold up removal
-Message-ID: <20261104-aufsagen-unermesslich-kehrt-9fbdcf7932fe@brauner>
+Subject: Re: [PATCH RFC 11/16] proc: let procfs copy in writes before pinning
+ the entry
+Message-ID: <20261104-ankurbeln-gepflanzt-elegant-896e9dc995a2@brauner>
 References: <20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org>
- <20261102-work-procfs-core-v1-8-75df35e4f8b8@kernel.org>
- <sashiko-outbox-195535@kernel.org>
+ <20261102-work-procfs-core-v1-11-75df35e4f8b8@kernel.org>
+ <sashiko-outbox-195538@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-195535@kernel.org>
+In-Reply-To: <sashiko-outbox-195538@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,7 +85,7 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 03:01:17PM +0000, sashiko-bot@kernel.org wrote:
-> - [Low] selftests/proc: Makefile and .gitignore entries in wrong commit
+On Tue, Nov 03, 2026 at 03:01:26PM +0000, sashiko-bot@kernel.org wrote:
+> - [Low] proc: split __free(kvfree) declaration and initialization in pde_write_buf()
 
-Fixed.
+Intentional.
