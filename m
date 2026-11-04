@@ -2,43 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE794606A331
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:46:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C0D606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:47:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ctzt+X2k
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv/lHsVD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 326F810F9F9;
-	Wed,  4 Nov 2026 07:46:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 233F810E224;
+	Wed,  4 Nov 2026 07:47:48 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EADE10F9F9;
- Wed,  4 Nov 2026 07:46:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD36E10FA14
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:47:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8AC2B60D81;
- Wed,  4 Nov 2026 07:46:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C081F0093A;
- Wed,  4 Nov 2026 07:46:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 088F160DA2;
+ Wed,  4 Nov 2026 07:47:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97EC21F00919;
+ Wed,  4 Nov 2026 07:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793778373;
- bh=UfYw2coa9Uw1N5bRYGQ1yVRwkVa12E37kxIHwAkm/Mo=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=Ctzt+X2kncuH+w9j8zM2EloMzCa/92JAMzd9V9P+dQD++kz56I1bT2Y7EgADrRJtM
- TX5mi9DkLuZgcFKMKQV30gvQBwKIDt6ca0lN8hc3kfqgJQ7GGl/iaal19k9q2nu7kq
- w0QYuyHo4ixm4INGF7F4BMKRGrRyNdszQ+RSXEerxydjbGYCvY1TqXc2ODUYEIjEMi
- b8DJWpyLQ8WFl5p9mTnmx6bt9nNv48kdt5VCkH7ZZinJrKx7VS7UlPYyr+wW5uJ8jX
- F7XOdCpFQzQ+FdbCmevdNgSBXRSkllrvmXg9pjmrmk7AAjKNJOkdIPf+WTXBkhruoR
- 6bNJZpx4LbspQ==
-Message-ID: <sashiko-outbox-196818@kernel.org>
+ s=k20260515; t=1793778460;
+ bh=5Ff3xs7Ao+bE4zMf+u5aTZxphjrWJJPWsrTaMsH5LKY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cv/lHsVDqcGHBZ4OuwkGjr/ORxB+xCPqpy8t3O3o0Lvc0tHOLIS1n8JS4XSHAAYFy
+ 2d6d5uZsdWN3AUfAU5Y8sQuGFw+CIwnlUrwy7zpSuia1x2rAlQT90tzSc3z9Xo37RQ
+ gVkXMaFo+UfXQg29XX0eN/SRaXGGho7j98E2ugnbQRM2M1qz0HZgH3y9K6/bS4TDf5
+ kyA5Fg3GyzkTUdVNyTDFBBDj4jDDZR+ZKjg/Yq2s3zpmS7X/57u07Q96Lm1Y1aYtYp
+ 089j1XgM3SjKy+J4h/zrb3PFAOFj9y27+m59UbDRBPw9soV57YjT/zHjDayyb5LPkG
+ zFXlMTB5Xie5A==
+Message-ID: <sashiko-outbox-196821@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] gpu/buddy: restore two-pass clear/dirty guard for
- range-biased allocation
-To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261104072847.2617886-1-arunpravin.paneerselvam@amd.com>
-References: <20261104072847.2617886-1-arunpravin.paneerselvam@amd.com>
+Subject: Re: [PATCH] drm/panel: Replace deprecated DCS display-on calls
+To: amit <amittibi123@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261104073813.42429-1-amittibi123@gmail.com>
+References: <20261104073813.42429-1-amittibi123@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:46:12 +0000
+Date: Wed, 04 Nov 2026 07:47:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,159 +59,112 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] gpu/buddy: strict pass in __alloc_range_bias() skips straddling =
-free blocks
-- [Medium] gpu/buddy: __alloc_range_bias() drops clear child preference ove=
-r mixed blocks
+- [High] drm/panel: uninitialized return value in k101_im2ba02_enable() on =
+DSI error
+- [Low] drm/panel: single-call mipi_dsi_multi_context misuse and duplicate =
+dev_err()
 --
 
-commit 39aa2fd8b0782a6f08d3234bf343e92cab53a75f
-Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+commit 98ea9fe2e57e340101561581a07219ed561f36d0
+Author: amit <amittibi123@gmail.com>
 
-gpu/buddy: restore two-pass clear/dirty guard for range-biased allocation
+drm/panel: Replace deprecated DCS display-on calls
 
-This commit adds a two-pass clear/dirty compatibility guard to
-__alloc_range_bias() so range-constrained allocations avoid splitting
-opposite-class extents unless no compatible space exists in the range. It
-also adds a KUnit regression test covering range-biased clear/dirty
-isolation.
+This commit replaces calls to mipi_dsi_dcs_set_display_on() across 14 DRM
+panel drivers with mipi_dsi_dcs_set_display_on_multi() using a local
+mipi_dsi_multi_context structure.
 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 28cff97d57dc8..d9749cbaf05d6 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1240,11 +1240,23 @@ static void __gpu_buddy_undo_splits(struct gpu_bu=
-ddy *mm,
->  	}
->  }
+> diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/d=
+rm/panel/panel-boe-himax8279d.c
+> index 4a8560b4b899a..a4b35e042f315 100644
+> --- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+> +++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+> @@ -155,7 +155,12 @@ static int boe_panel_prepare(struct drm_panel *panel)
+>  	/* T6: 120ms - 121ms */
+>  	usleep_range(120000, 121000);
 > =20
-> +static bool block_incompatible(struct gpu_buddy_block *block, unsigned i=
-nt flags)
-> +{
-> +	bool needs_clear =3D flags & GPU_BUDDY_CLEAR_ALLOCATION;
+> -	err =3D mipi_dsi_dcs_set_display_on(pinfo->link);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D {
+> +		.dsi =3D pinfo->link,
+> +	};
 > +
-> +	if (!gpu_buddy_block_is_free(block))
-> +		return false;
-> +
-> +	return needs_clear ? !block->has_clear :
-> +			     gpu_buddy_block_is_clear(block);
-> +}
-> +
->  static struct gpu_buddy_block *
->  __alloc_range_bias(struct gpu_buddy *mm,
->  		   u64 start, u64 end,
->  		   unsigned int order,
-> -		   unsigned long flags)
-> +		   unsigned long flags,
-> +		   bool fallback)
->  {
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	err =3D dsi_ctx.accum_err;
+>  	if (err < 0) {
+>  		dev_err(panel->dev, "failed to set display on: %d\n", err);
+>  		goto poweroff;
+
+[Severity: Low]
+This isn't a bug, but is it intended to instantiate struct
+mipi_dsi_multi_context mid-function for just a single
+mipi_dsi_dcs_set_display_on_multi() call while leaving the surrounding DSI
+calls (such as mipi_dsi_dcs_exit_sleep_mode(), mipi_dsi_dcs_set_tear_on(),
+mipi_dsi_dcs_set_pixel_format(), and mipi_dsi_dcs_write_buffer()) unconvert=
+ed?
+
+In addition, mipi_dsi_dcs_set_display_on_multi() in
+drivers/gpu/drm/drm_mipi_dsi.c already logs an error on failure:
+
+	ret =3D mipi_dsi_dcs_set_display_on(dsi);
+	if (ret < 0) {
+		ctx->accum_err =3D ret;
+		dev_err(dev, "sending DCS SET_DISPLAY_ON failed: %d\n",
+			ctx->accum_err);
+	}
+
+Keeping the caller's dev_err() here in boe_panel_prepare() (as well as in
+boe_panel_enable(), innolux_panel_prepare(), khadas_ts050_panel_prepare(),
+kingdisplay_panel_prepare(), ltk500hd1829_prepare(), panel_nv3051d_prepare(=
+),
+nt35510_prepare(), rad_panel_enable(), and sharp_panel_prepare()) will print
+duplicate error messages when setting the display on fails. Declaring
+dsi_ctx in the middle of the function after executable statements also
+introduces mixed declarations across 12 of the modified drivers (including
+dsicm_power_on(), rm68200_prepare(), and s6e63j0x03_enable()).
+
+Should the full DSI command sequences in these functions be converted to use
+a single mipi_dsi_multi_context declared at the top of each function with t=
+he
+redundant dev_err() calls removed?
 
 [ ... ]
 
-> @@ -1296,8 +1306,19 @@ __alloc_range_bias(struct gpu_buddy *mm,
->  			if (round_down(adjusted_end + 1, req_size) <=3D
->  			    round_up(adjusted_start, req_size))
->  				continue;
-> +
-> +			/*
-> +			 * Strict pass: don't split a partially-overlapping free
-> +			 * block; rejecting its child would strand the split. Let
-> +			 * the fallback pass consume it (either class accepted).
-> +			 */
-> +			if (!fallback && gpu_buddy_block_is_free(block))
-> +				continue;
->  		}
+> diff --git a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c b/drivers/=
+gpu/drm/panel/panel-feixin-k101-im2ba02.c
+> index 8c3a231c147d5..baa64b7aeb0bd 100644
+> --- a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
+> +++ b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
+> @@ -344,12 +344,15 @@ static int k101_im2ba02_enable(struct drm_panel *pa=
+nel)
+>  {
+>  	struct k101_im2ba02 *ctx =3D panel_to_k101_im2ba02(panel);
+>  	const struct k101_im2ba02_init_cmd *cmd =3D &timed_cmds[1];
+> +	struct mipi_dsi_multi_context dsi_ctx =3D {
+> +		.dsi =3D ctx->dsi,
+> +	};
+>  	int ret;
 > =20
-> +		if (!fallback && block_incompatible(block, flags))
-> +			continue;
-
-[Severity: Medium]
-In gpu_buddy_alloc_blocks() -> __gpu_buddy_alloc_blocks() ->
-__gpu_buddy_alloc_range_bias() -> __alloc_range_bias(), when a sub-range
-[start, end) is smaller than a free root or coalesced ancestor block (so
-block_start < start || block_end > end), doesn't skipping every partially
-overlapping free block in the strict pass cause the strict pass to skip
-descending into that block even when it contains compatible space or is
-itself wholly compatible with the request?
-
-Since __gpu_buddy_free() coalesces free buddy pairs across clear and dirty
-states into mixed free blocks, a coalesced free block or a wholly compatible
-free block straddling start or end will be skipped by:
-
-	if (block_start < start || block_end > end) {
-		...
-		if (!fallback && gpu_buddy_block_is_free(block))
-			continue;
-	}
-
-When that causes the strict pass to return -ENOSPC,
-__gpu_buddy_alloc_range_bias() retries with fallback =3D true, which disabl=
-es
-block_incompatible() across the entire traversal and allows splitting
-higher-address opposite-class extents inside [start, end) even when
-compatible blocks exist in the range.
-
-Similarly, when dirty_steer_window() narrows [start, end) to a dirty window
-inside a larger coalesced mixed free block, won't the strict pass always
-skip the enclosing free block and fail with -ENOSPC before retrying in the
-fallback pass?
-
->  		if (contains(start, end, block_start, block_end) &&
->  		    order =3D=3D gpu_buddy_block_order(block)) {
->  			/*
-> @@ -1315,38 +1336,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->  				goto err_undo;
->  		}
+>  	msleep(150);
 > =20
-> -		/*
-> -		 * Top-down is a strict address-placement policy, so when it is
-> -		 * requested we ignore clear steering and simply descend the
-> -		 * right (higher-address) child first. Only a non-top-down clear
-> -		 * request biases the descent towards clear/has_clear subtrees.
-> -		 */
-> -		if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
-> -		    !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
-> -			struct gpu_buddy_block *prefer;
-> -
-> -			if (gpu_buddy_block_is_clear(block->right))
-> -				prefer =3D block->right;
-> -			else if (gpu_buddy_block_is_clear(block->left))
-> -				prefer =3D block->left;
-> -			else if (block->right->has_clear)
-> -				prefer =3D block->right;
-> -			else if (block->left->has_clear)
-> -				prefer =3D block->left;
-> -			else
-> -				prefer =3D block->right;
-> -
-> -			if (prefer =3D=3D block->right) {
-> -				list_add(&block->left->tmp_link, &dfs);
-> -				list_add(&block->right->tmp_link, &dfs);
-> -			} else {
-> -				list_add(&block->right->tmp_link, &dfs);
-> -				list_add(&block->left->tmp_link, &dfs);
-> -			}
-> -		} else {
-> -			list_add(&block->left->tmp_link, &dfs);
-> -			list_add(&block->right->tmp_link, &dfs);
-> -		}
-> +		list_add(&block->left->tmp_link, &dfs);
-> +		list_add(&block->right->tmp_link, &dfs);
->  	} while (1);
+> -	ret =3D mipi_dsi_dcs_set_display_on(ctx->dsi);
+> -	if (ret < 0)
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	if (dsi_ctx.accum_err)
+>  		return ret;
 
-[Severity: Medium]
-In __alloc_range_bias(), block_incompatible() treats both wholly clear
-blocks and mixed blocks (where block->has_clear is true but
-gpu_buddy_block_is_clear(block) is false) as compatible when
-GPU_BUDDY_CLEAR_ALLOCATION is set.
+[Severity: High]
+In k101_im2ba02_enable(), doesn't this return the uninitialized local
+variable ret when mipi_dsi_dcs_set_display_on_multi() fails and sets
+dsi_ctx.accum_err?
 
-With the child preference check removed here so block->right is always
-visited before block->left, if a split parent has a mixed right child and a
-wholly clear left child at the target order, won't a non-top-down
-GPU_BUDDY_CLEAR_ALLOCATION request now select the mixed right child (with
-GPU_BUDDY_HEADER_CLEAR unset, requiring the caller to re-clear it) while
-leaving the wholly clear left sibling unused?
+Since ret is never initialized or assigned, returning ret on error triggers
+an uninitialized variable warning and can return a non-negative garbage val=
+ue
+to drm_panel_enable(), causing it to treat a failed panel enable as
+successful while skipping the final mipi_dsi_dcs_write_buffer() command.
+
+Should ret be removed and dsi_ctx.accum_err returned directly instead?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104072847.2617=
-886-1-arunpravin.paneerselvam@amd.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104073813.4242=
+9-1-amittibi123@gmail.com?part=3D1
