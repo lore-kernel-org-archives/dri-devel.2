@@ -2,82 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29342606D815
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:06:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61218606A338
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:15:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+rigGmZ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N/a4p+4M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 887BB10E8D9;
-	Wed,  4 Nov 2026 19:06:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0BA710E8D9
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:06:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 54F2D60A59;
- Wed,  4 Nov 2026 19:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07691F000C1;
- Wed,  4 Nov 2026 19:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793819191;
- bh=Em8mdDwLTSxa5ZBRNu+oIoQ2F8Zgf6ZNSHVwHsLTxqQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=I+rigGmZOHwTEm4j8esTdHrM/VIiE0INnQhd67U/op8joUgvrnIpOWQaZW/5O6v8W
- YxEI7BBt7v7/iIbWMDqC5P5gDErHxVHWNk1oGdOPy0hEJ+WUpryJaozkMYgBUtrWg0
- sWZCtiuywTFRHSkiBUPK4QLCU0lZ7vJCTHK/XMxCkqriiS2yD20bZTUzzbqGfPLf90
- fwuSv2m2/wipu/jn3L2lYjPBm4qGv0ChVoXWzavogJKkLpjbp4SSDjOwlmAhi9kDBE
- eeqtjf+Oh+xvRu78j7yJ+V4rVi+09wJxB+QXcwZqc6PJmh+iNzSxkYcNL9ohdK55Dr
- qQwSCTNUDjgiw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH RESEND v2 01/51] alloc_tag: don't remove /proc/allocinfo under
- the codetag module lock
-Date: Wed,  4 Nov 2026 20:06:06 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA9F10E304;
+	Wed,  4 Nov 2026 19:15:16 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C3910E304
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:15:11 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a35db1f202so8499685e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 11:15:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793819709; x=1794424509; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=XzHnKQ1ardUs+9dftxxB/DnpUdQxoDWmHTP8fmVOjhs=;
+ b=N/a4p+4MFosJTHrabz+6U06Na0G6wVszpvdmOvTvrQhqSrTJRWU44s3d6ZhShycpc4
+ wyNsIl73x047og1oSn+mtgOsEpeJIRRvEkFvyjaRl09AyQwnNytZhvW1ZUDfWlLFSzPL
+ shzGAA492KRCBTOgqcJoCOdG8/rt48xqnrI9+v+Ws/QbAIjcIveFG/t8eZ0ceouCfZRF
+ cvXCNFD421/qI2RJJhJ6FjR7p85qNE/2aySQbUz4LVaJtHsFbCSFTtycqrMYf+bpxNnv
+ 0nIV4yAHsPkYxW782IJBU+wjIze5OzPzUez1B+U/sRrWb9b9h76ijO+Jod5KIE9OwVNj
+ z8yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793819709; x=1794424509;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XzHnKQ1ardUs+9dftxxB/DnpUdQxoDWmHTP8fmVOjhs=;
+ b=Kjj89lVAnfMR/mk/NKPZqPJ3dIMLQvtm8xyZsysV22X//E6b5LWo9ilUiSD6GMfP3c
+ PiRSHPo+p6KeMwHPJzqEssw4GJ118PVgGeYJhlxLpxUhAvxhnQAJYmKUrYO9ESFc0e2E
+ nXA2X/NsuqWRKzE0jhP0/NWpAGFjODjBLcoYXWBr7lk73Y5lgqZh+F1fTfN5Dhh2Wi/e
+ eVoDm9tpHWZFOB5lSAgZ3HXJYPIfVl5WPNFhrpUDuTpJ5pQjcHsp7sXLa24BXtve/O/S
+ lTubts4J0JOFpk7QkIrEI9C3+5SjtVT/h3HN9HgFsnzzpPixUE6/WHXXPW17j9Fy2pzd
+ LIYg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxLxR0xKEuzfqyiDUgH4Gm3sM3wV78AVl/Q3L37CeiEogf/ypmwRT+MXYeOlxsdOF8EN1ZL/uSd5SA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9arsnk29itgzGA6zTblJJdAPuY3tpx6le5su8b55vhqFg0EMvr
+ PzaslgMeRqKd9X3yvMo13JYGCmHteOZNDh2LJ/B3Z8dCCWLPm188Nj37
+X-Gm-Gg: AYBFou2D4eAPBjrwAqpotLwRP+tzu0iWt/twsV8KWru05oO28Yf7L2jAke8fNyYU35O
+ ryal+CiHwa4u2CFaXy1z+pWfoaiNUf8fJL61wRNiDugQmdUFQHGvIQJHEUo9792YwHUua7XXUuI
+ wphLt3iHSjJSzyJobHZElEqfnjyiyWEb+8kHFi7pgn3M6hI2ozz9d36cO86B5761/ADCcevIDg+
+ 6ACyjQRD84ZqwCRXVIhhm+JT6AnKBWhQ1MtfjabRr6SkLgqaD1KUrpc7wHgjy9bVU44AXphnL2n
+ DHSKxLljkmq+O5HCQPxthmIG6+BzoULmslsgTpGA2LOPxZhxmU+wFNx4IrL+ewDGSVzJ2VUohVi
+ 2Q/7ZM6VXL/N7aYad7L9ajhTH3xNdk07y05D2fS/fS0hD1+ut2APP7x1/FryDR+2+q0ntbMhwTE
+ bfKcflsydrA8ufExVBW4ZaDbeyv7/AIMmoxO1ExGCIhp3Roo7uxSaOEzFhPqwDtnGMooG28sVeQ
+ AKHPmYoMQmFy98tb+goVt0znobxD91MDC7rpwY90JLQVA82Hjk/FnJfaS30opjsy1gizahtbf6X
+ kArOBFMDZVtcQwoabZe1vz6RoQxDImfBmQ==
+X-Received: by 2002:a05:600c:198e:b0:4a0:2488:71cc with SMTP id
+ 5b1f17b1804b1-4ac1932a23fmr389597675e9.32.1793819709210; 
+ Wed, 04 Nov 2026 11:15:09 -0800 (PST)
+Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b452cd020csm74643035e9.4.2026.11.04.11.15.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 11:15:07 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/vkms: clear config->dev when vkms_create() fails
+Date: Thu,  5 Nov 2026 03:15:00 +0800
+Message-ID: <20261104191500.210592-1-oaroraetimis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261101032728.11422-1-yuz08559@gmail.com>
+References: <20261101032728.11422-1-yuz08559@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3465; i=brauner@kernel.org;
- h=from:subject:message-id; bh=C5Mw1tWGzCvAVdyOdBCkcSqd8MeBZuRbzsUttoDJMVc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bjx9IHaO3wuTJ1+WO4i+5dMLjYtY9+Wvw48Lyxdt2
- LlN5/Ib145SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJHH3KyLB8S3D4hzs35nf3
- 6kca3bE/MoFXXPH/QrfldyYEbj711Med4b/vz9/V52SPbSoPmzq9udhnRnl3scqhkl1dHNJhZhI
- 7fLgB
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,103 +89,98 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-codetag_alloc_module_section() takes the codetag type's mod_lock for
-writing and calls reserve_module_tags() with it held. When that can't
-reserve the tags, because the section's alignment doesn't fit, because
-there are too many tags for the page flag bits or because the memory
-for them can't be allocated, it shuts memory allocation profiling down
-and removes /proc/allocinfo, still with mod_lock held.
+Resending, as my mail client wrapped my previous reply in an extra
+level of quoting. The content is unchanged.
 
-remove_proc_entry() waits until every reader of the entry has let go of
-it, and a reader of /proc/allocinfo takes mod_lock for reading in
-allocinfo_start() while it holds the entry. So a module load that hits
-one of those paths while /proc/allocinfo is being read waits for the
-reader and the reader waits for the module load, for good.
+On Sun, Nov 01, 2026 at 01:27:28PM +1000, Yu Zhang wrote:
+> The configfs "enabled" store returns the error without marking the
+> device as enabled, so the next "enabled" write runs
+> vkms_config_is_valid() again, which uses config->dev to print its
+> diagnostics and dereferences the freed drm_device.
 
-Let a work item remove the entry in that case. The profiling is shut
-down right away like before, the file just goes a moment later.
+I traced and tested this issue path on drm-misc-next; the dangling pointer is real
+and the one-line fix is correct.
 
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- mm/alloc_tag.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+I'd suggest rewording the commit message in two places:
 
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 82e2c3448dcf..7d7ad6704953 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -15,6 +15,7 @@
- #include <linux/seq_file.h>
- #include <linux/string_choices.h>
- #include <linux/vmalloc.h>
-+#include <linux/workqueue.h>
- #include <linux/kmemleak.h>
- #include <uapi/linux/alloc_tag.h>
- 
-@@ -604,6 +605,26 @@ static void shutdown_mem_profiling(bool remove_file)
- 	mem_profiling_support = false;
- }
- 
-+static void remove_allocinfo_file(struct work_struct *work)
-+{
-+	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
-+}
-+static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
-+
-+/*
-+ * A module's tags are reserved with the codetag module lock held for
-+ * writing, and a reader of /proc/allocinfo takes that lock with the entry
-+ * pinned. Removing the entry there would wait for that reader for good, so
-+ * let a work item do it.
-+ */
-+static void shutdown_mem_profiling_async(void)
-+{
-+	if (!mem_profiling_support)
-+		return;
-+	shutdown_mem_profiling(false);
-+	schedule_work(&remove_allocinfo_work);
-+}
-+
- void __init alloc_tag_sec_init(void)
- {
- 	struct alloc_tag *last_codetag;
-@@ -855,7 +876,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		align = 1;
- 
- 	if (!ensure_alignment(align, &prepend)) {
--		shutdown_mem_profiling(true);
-+		shutdown_mem_profiling_async();
- 		pr_err("%s: alignment %lu is incompatible with allocation tag indexing. Memory allocation profiling is disabled!\n",
- 			mod->name, align);
- 		return ERR_PTR(-EINVAL);
-@@ -905,14 +926,14 @@ unlock:
- 
- 		module_tags.size = offset + size;
- 		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
--			shutdown_mem_profiling(true);
-+			shutdown_mem_profiling_async();
- 			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
- 				mod->name, NR_UNUSED_PAGEFLAG_BITS);
- 		}
- 
- 		grow_res = vm_module_tags_populate();
- 		if (grow_res) {
--			shutdown_mem_profiling(true);
-+			shutdown_mem_profiling_async();
- 			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
- 			       mod->name);
- 			return ERR_PTR(grow_res);
+ "dereferences the freed drm_device" is only true for one of the two
+   retry cases.
 
--- 
-2.53.0
+   a) the retry happens with a config that no longer validates: a
+      validity check takes its failure branch, calls drm_info(), and the
+      freed memory is read.
 
+   b) the retry happens with a still-valid config: vkms_config_is_valid()
+      returns true at its first check, drm_info() is never called, and
+      vkms_create() just stores a new pointer.
+
+   Only a) triggers. The reason: the stale pointer is dereferenced only by
+   drm_info() -- __drm_to_dev() loads drm->dev (drm_print.h:608) and
+   dev_printk() then walks the freed struct device -- and every drm_info()
+   in vkms_config.c sits in a failure branch of a validity check. The
+   ternary itself reads nothing: struct drm_device is the first member of
+   struct vkms_device (vkms_drv.h:252), so
+   config->dev ? &config->dev->drm : NULL is address arithmetic.
+
+> device_enabled_store(), drivers/gpu/drm/vkms/vkms_configfs.c
+>> 	scoped_guard(mutex, &dev->lock) {
+>> 		if (!dev->enabled && enabled) {
+>> 			if (!vkms_config_is_valid(dev->config))
+>> 				return -EINVAL;
+>>
+>> 			ret = vkms_create(dev->config);
+>> 			if (ret)
+>> 				return ret;
+>> 		} else if (dev->enabled && !enabled) {
+>> 			vkms_destroy(dev->config);
+>> 		}
+>>
+>> 		dev->enabled = enabled;
+>> 	}
+
+   config->dev was introduced by 2df7af93fdad ("drm/vkms: Add vkms_config
+   type"); at that point nothing read the pointer after a failed create.
+   The problem was introduced by 13fc9b9745cc, which changed the lifetime:
+   configfs keeps the config alive across a failed enable, so the pointer
+   stored in vkms_create() outlives the device and is read again by the
+   next write. So Fixes: 13fc9b9745cc is the right tag even though the
+   pointer is older; please keep it, and say so in the message so that it
+   does not read like a mis-attribution.
+
+   Background:
+
+   config->dev is the only backpointer from the configfs side to the
+   drm_device. It is used by the validity diagnostics, by vkms_destroy()
+   and by the connector hotplug path (vkms_configfs.c:555).
+
+   The configfs/drm_device lifetime separation was spelled out when this
+   design was agreed on:
+
+>>> the issue is that configfs and drm_device have independent lifetimes,
+>>> and we cannot have links between the two. The configfs structures might
+>>> have shorter lifetime thatn the vkms_device (and there's no refcounting
+>>> on configfs afaict), which means we cannot have a backpointer from
+>>> vkms_device to configfs.
+
+>>> The vkms_device->configfs backpointer needs to go, it's fundamentally
+>>> busted.
+
+   https://lore.kernel.org/all/ZjCh9DGnh2JQ3vtk@phenom.ffwll.local/
+
+   Note that dev->enabled in struct vkms_configfs_device and
+   config->dev != NULL encode the same state, which is why they can
+   diverge here in the first place. Dropping the field and passing the
+   drm_device explicitly to vkms_config_is_valid() is the real fix, but
+   it changes the signature and the hotplug path, so it belongs with the
+   vkms_config lifetime rework rather than here. Clearing the pointer on
+   the error path is the right minimal stopgap.
+
+Thanks,
+Oarora Etimis
