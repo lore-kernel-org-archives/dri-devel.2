@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20086082BDC
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085C0606A33A
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=oZZPRH39
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Cr5Tno3+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57DCE10FF90;
-	Wed,  4 Nov 2026 23:05:57 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2218010E8D4
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44C9210E8D4;
+	Wed,  4 Nov 2026 23:06:00 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBF010E1F6
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:51 +0000 (UTC)
 Received: from smtp102.mailbox.org (smtp102.mailbox.org
  [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jKgyv3rqHzKmSf;
- Thu, 05 Nov 2026 00:05:43 +0100 (CET)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKgz04t5sz8txs;
+ Thu, 05 Nov 2026 00:05:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1793833543;
+ s=mail20150812; t=1793833548;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+yC63DbCYXk4JGszPuNw+0NZ77PUO/i8/aaLLRlAPDk=;
- b=oZZPRH39PMdKp3im01kDEwBIi6cncmTPIVFwac6mAGY3h8v11MwXAOqbQOG8uhZPf3YJ8S
- zY/HQH2mUsi2cY8/48O4IzlQ+1y9sVgXhSK9YaC7crS0cI1e0rOL305lsHNMILttA1nRqo
- y+T4ma5emwMIj6YAEN/ykYM6UkeD+4rdYSDwjOiVUKJfNNdB3Y1XGW8u5jEV5quIT7k0Ss
- 3/FSdexzy6DtTvbQt/KtYuqqBN/YwUMNAKOZSAZfpywBvfXqsTJ5EMq9+n+ht4fHwUGdHu
- B4AyclJ4nr2tUkfZdUrg+sVLa1KlV35WKKlPIvRHvKthrHlDLCwhjRkE1eZLtQ==
+ bh=zk4WUdGtMBpXxFlU2gsTKHL5X57Q6FlmfAkxcOewlgA=;
+ b=Cr5Tno3+fe+947pjEHRbQJWU42djxq9ROJ9nS5yqy0wxIDebBfo8wyXyGiKCENiQcH97tR
+ Ra5GdRjEj+yTUtt60z2eM4wRJjF7bs5oDTumNsGUObPqLJgOlZQTac749ZlsuzI3/eF49G
+ gkkbIwUrHsiauml+qdeVSv4EO3hfiDJ6Y4Ycd2vUnC/GeYaEe5I8emqatP2yMugVV82+8C
+ CN08/j9FVLe8rhl1dbcgRxs5f0CSoWfaw4hgFDVMQ7I2RJ/QNoS77MmwooUvsFxdNtjBGv
+ ZFPLYYZ/CL2K4+zX8eDkbXtrMPuYxIrxY67ZleoZHml7J4i4OBABB6ag9tKVBA==
 From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:33 +0100
-Subject: [PATCH v4 2/7] rust: pci: rework device enabling API
+Date: Thu, 05 Nov 2026 00:05:36 +0100
+Subject: [PATCH v4 5/7] rust: pci: add Vendor::QEMU
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-2-20ef027bb707@mailbox.org>
+Message-Id: <20261105-b4-rust-pci-edu-driver-v4-5-20ef027bb707@mailbox.org>
 References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -59,15 +59,15 @@ Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Maurice Hieronymus <mhi@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=4421;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=1273;
  i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=+JkuZ/ga1FMMCF8Ove/gYwvWq8sU6KyqYp7b7kviRjY=;
- b=ObAfUZLDhiZLstaXWtvfxvPPaXhicsRQqNuNNlFUDfubugKUbHpRJ+dEJt9G15XiLJJlV6zJ+
- 8VlB8N2OyihBRBHKUKDFpIzocO5QvJ09yqmHgxPK2nqyUInokjIerpB
+ bh=HRhAsT9Seny6GaddcwsH5oWJkF9JcIp3UyvO8eRc4IA=;
+ b=stUPfWXStt9A4zT/FGWJnenOAWvAH6mHoJ6cOzSR9fsd55OTNzblZ7itmjdvn4EVD1cf0E9Ax
+ O10BMGziEJ+Dt0et4E5lIG0lWs3pMXMUOqOChM4Icw6fzrmegzgnFCW
 X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
  pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-ID: 615c6a5bc7d246b5e58
-X-MBO-RS-META: 1t65iqmpaax4zbk8bbecwahjqmhw3wby
+X-MBO-RS-META: shizh1y38efqmn11hq1ypj6x3zs1u9s7
+X-MBO-RS-ID: e88ff492b45b83564d2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,111 +87,28 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-`enable_device_mem()` wraps the unmanaged `pci_enable_device_mem()` and
-has no disable counterpart, so the enable count is leaked on driver
-unbind and the device does not come back up on a subsequent probe.
+Expose `PCI_VENDOR_ID_QEMU` as `Vendor::QEMU`, so Rust drivers can match
+QEMU's 0x1234 devices without constructing a `Vendor` from a raw ID.
 
-Replace it with `enable_device()`, which wraps `pci_enable_device()`
-and returns a `DeviceEnableGuard<'a>`: dropping the guard runs
-`pci_disable_device()`. The guard borrows the device's bound scope
-(`&'a Device<Bound>`), so it cannot outlive the driver binding, and
-since it is the only way to enable the device from safe code, the
-enable count always stays balanced.
-
-Obtaining the guard still requires a `&Device<Core>`, i.e. a bus
-callback. Unlike `pci_enable_device_mem()`, `pci_enable_device()`
-enables I/O and memory resources.
-
-Convert nova-core, the only user of `enable_device_mem()`, storing the
-guard as the last field of `NovaCore` so the device is disabled only
-after the GPU teardown.
-
-Link: https://lore.kernel.org/rust-for-linux/DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Suggested-by: Alice Ryhl <aliceryhl@google.com>
+Suggested-by: John Hubbard <jhubbard@nvidia.com>
 Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 ---
- drivers/gpu/nova-core/driver.rs |  7 +++++--
- rust/kernel/pci.rs              | 33 ++++++++++++++++++++++++++++++---
- 2 files changed, 35 insertions(+), 5 deletions(-)
+ rust/kernel/pci/id.rs | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 560a70c4f5a7..f0aebfe705ba 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -38,6 +38,8 @@ pub(crate) struct NovaCore<'bound> {
-     pub(crate) gpu: Gpu<'bound>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-     bar1: pci::Bar<'bound>,
-+    // Declared last so the device stays enabled until everything above is torn down.
-+    _enable: pci::DeviceEnableGuard<'bound>,
- }
- 
- pub(crate) struct NovaCoreDriver;
-@@ -103,9 +105,10 @@ fn probe<'bound>(
-         dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
- 
-         try_pin_init!(NovaCore {
--            _: {
--                pdev.enable_device_mem()?;
-+            _enable: {
-+                let enable = pdev.enable_device()?;
-                 pdev.set_master();
-+                enable
-             },
- 
-             bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 769d01d23429..75efd5c5ee97 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -469,6 +469,25 @@ pub fn pci_class(&self) -> Class {
-     }
- }
- 
-+/// A guard that keeps the device's I/O and memory resources enabled.
-+///
-+/// # Invariants
-+///
-+/// The device's enable count was incremented once for this guard; dropping the guard decrements
-+/// it again.
-+#[must_use = "if unused, the device will be immediately disabled"]
-+pub struct DeviceEnableGuard<'a> {
-+    dev: &'a Device<device::Bound>,
-+}
-+
-+impl Drop for DeviceEnableGuard<'_> {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.dev.as_raw()` is a valid pointer to a `struct pci_dev`, and by the type
-+        // invariant this guard holds one increment of the device's enable count.
-+        unsafe { bindings::pci_disable_device(self.dev.as_raw()) };
-+    }
-+}
-+
- impl<'a> Device<device::Core<'a>> {
-     /// Returns the total number of VFs, or [`None`] if SR-IOV is not available.
-     #[inline]
-@@ -482,10 +501,18 @@ pub fn sriov_get_totalvfs(&self) -> Option<NonZero<u16>> {
-         NonZero::new(total_vfs as u16)
-     }
- 
--    /// Enable memory resources for this device.
--    pub fn enable_device_mem(&self) -> Result {
-+    /// Enable I/O and memory resources for this device.
-+    ///
-+    /// The device stays enabled for the lifetime of the returned guard; dropping the guard
-+    /// disables the device again. The guard borrows the device's bound scope, so it cannot
-+    /// outlive the driver binding.
-+    #[inline]
-+    pub fn enable_device(&self) -> Result<DeviceEnableGuard<'_>> {
-         // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
--        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()) })
-+        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })?;
-+
-+        // INVARIANT: `pci_enable_device()` succeeded, so the enable count was incremented once.
-+        Ok(DeviceEnableGuard { dev: self })
-     }
- 
-     /// Enable bus-mastering for this device.
+diff --git a/rust/kernel/pci/id.rs b/rust/kernel/pci/id.rs
+index dbaf301666e7..d17706485402 100644
+--- a/rust/kernel/pci/id.rs
++++ b/rust/kernel/pci/id.rs
+@@ -418,6 +418,7 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+     CYCLADES                 = bindings::PCI_VENDOR_ID_CYCLADES,                 // 0x120e
+     O2                       = bindings::PCI_VENDOR_ID_O2,                       // 0x1217
+     THREEDX                  = bindings::PCI_VENDOR_ID_3DFX,                     // 0x121a
++    QEMU                     = bindings::PCI_VENDOR_ID_QEMU,                     // 0x1234
+     AVM                      = bindings::PCI_VENDOR_ID_AVM,                      // 0x1244
+     STALLION                 = bindings::PCI_VENDOR_ID_STALLION,                 // 0x124d
+     AT                       = bindings::PCI_VENDOR_ID_AT,                       // 0x1259
 
 -- 
 2.54.0
