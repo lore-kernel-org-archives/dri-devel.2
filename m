@@ -2,43 +2,110 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24B4606AB09
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 22:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFA86070ABC
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 22:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgPzMxbK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=t7rsoS2W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA6410E8F3;
-	Wed,  4 Nov 2026 22:15:14 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C5D10E8F3;
- Wed,  4 Nov 2026 22:15:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 15083605D5;
- Wed,  4 Nov 2026 22:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA5B1F000C1;
- Wed,  4 Nov 2026 22:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793830505;
- bh=lpuKgaKZLphGQq+nkJEMKKsf/L55t5EnBR7GyfxQ4xE=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=FgPzMxbKgXsW+GqQue6ufMN28nQ2rLkkMkO0Et1zOINbsA3Ze9S8BqbGJaVJU+T9T
- 7lcrlM9yDm3qVMeZUwsCweHXKOF6SGW7cs/u4BmW5fPz+ZjIud+rvxdWPMeW8qlm5n
- zbAENCSmkhsZQKv1zu2NXQ3ME6n8ZPUuvyqtlnolODpHzzqSFAMvwWntj4AXggIoul
- jhQDyy14FDFK2bXXS0iNFa+B68woluPhRlsOcvU1Wjv0Lng8ZlLT4cj6+uVHUZuvdW
- qGoQkL+ppgThQ/BpuwGgK4CuDS+5dPzwgqfAdzwtpL6YkQB4g2HuZzaGzShMXSdl3y
- w8KXT6cD8MYPg==
-Message-ID: <sashiko-outbox-198211@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/xe: Add debugfs stats for DMA-mapped pages per
- order
-To: "Matthew Brost" <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261104215228.1533692-2-matthew.brost@intel.com>
-References: <20261104215228.1533692-1-matthew.brost@intel.com>
- <20261104215228.1533692-2-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 22:15:05 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F8AE10FF3C;
+	Wed,  4 Nov 2026 22:16:01 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010036.outbound.protection.outlook.com
+ [52.101.193.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C093710FF33
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 22:15:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nS25jIcanwS/1XaRuP9HmyAYXJIp0vqPY1hin2LBFt8YH+dOhqawsrGGLOniW+POQnQUWLvTbg/M+E6ZoWkpQmk2f+3v8tWxueAzk/gxP4uqBtTJUB3FuWTFIaNHi1OQdYR9g25V0+6NRdBnFSDkZRjdqO/z1LaxN+STRz/WghxvaLt8R22Ao20L2r+OO/gy8F7JtnTj/+K29tvCQdTsgN4LIEC3dGlqpof1Vrg/jEXWbnhRMW3HFsOvEbfvsyOvHPPmxJ1Pjx1P073q9yEWYuy7tuVwA9e2XYlzBHlMGxZLdrN0gCBYsiVEq7PHhsK4Uy+fnHmKT46+8s2mqvKxtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XpZyyPzddIKp+7+bodQBSlP/pYQk+xt8YSz1Sd2IPno=;
+ b=P34NtDs102Kg6VOhSXeN1+axVcck26shPgK7t4xhRBPlUNbeqyiKJdVKF9uieDJgTv4JFO/vEpHQXYkmwNAWY5D4c+t491aIYAU1DR314HQHm97TW6X6HMvVxr9Qv/LmqGacSr6qlS7lf6AHRnMjw/ji+XTC/RGnqL+9G0wxMxi/lJe1b+sTPqpR0soQN9kyerlAP/shHLc07GogEPQ7yqRDHfEKtEoXs7hZd1rAMEDbjDQk+3WVR/AZHryxDlrNsKf8FnG8yVztKOZTFoX6XYwqPlx/UVx0alI54vJJ/SoVl4kfq6xAXUE5rlqIo0aPsGI6hpESWIszBp5rWLw+iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XpZyyPzddIKp+7+bodQBSlP/pYQk+xt8YSz1Sd2IPno=;
+ b=t7rsoS2W93h6VhMx15xHm0Rl8qTP0FpHgANMh+/q77rHhmbmwd+SVwo2CmOdJyF7FL1VEkekqsRlHiTgkggrKA7eDpyetdHvmyZK4bQHpzYRnWNaw8IsQBbuQmpOon+wxcKYhe4K2fUH7rnUSmuFPf7ZZSQsH2mAmZxLjW3rsXg=
+Received: from CH2PR11CA0009.namprd11.prod.outlook.com (2603:10b6:610:54::19)
+ by IA4PR12MB360382.namprd12.prod.outlook.com (2603:10b6:207:14c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 22:15:50 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:54:cafe::53) by CH2PR11CA0009.outlook.office365.com
+ (2603:10b6:610:54::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
+ Nov 2026 22:15:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:15:49 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 16:15:48 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 16:15:48 -0600
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via
+ Frontend Transport; Wed, 4 Nov 2026 16:15:47 -0600
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+ <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+ <mario.limonciello@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ <linux-hardening@vger.kernel.org>
+Subject: [PATCH V1 0/4] accel/amdxdna: Add AIE4 debug buffer support
+Date: Wed, 4 Nov 2026 14:15:36 -0800
+Message-ID: <20261104221540.631182-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|IA4PR12MB360382:EE_
+X-MS-Office365-Filtering-Correlation-Id: a20bb4e9-7867-4663-507a-08df3ac12e6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|10067099003|18002099003|22082099003|11063799006|261022105027099003|261028144727099003|261026140227099003|261021123027099003|261102123227099003|261009223027099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 5AaXW+Y168gMmfUgn4AGaTtQi7xveD3b052Dn1GQqXQJHetKG8/IW39FWUEgN8/bUrMsLF+bU3wwhPakDa5n1WR/SNeNdCLPmyb2jYEkxg0Oc7ZpbICzWC5UbXpWVHJqdk0x5VhWEEgAWcPKA0pkNNcADygA6WY/C5Psz2qt8AWcu/FxFrp+4DPip9MJ3yXwr2x9v1gBiss6KzsKFGRDgXILVA5Wy/MpAo531lt+v4sCX+n5GQk752istWK4bG8MdHzFgFZUoqQVbL59XAVuClnkcZnCFoPXEWnUOXtIzuB9ZgDekAxrsWsvDGnllOSnpt4EOUdtfR6qQaX0Xf6TYik3QUIPavC2pPAWzz/Sg3D0ELIBLbp+HmtjMGzzdK5yVC4BaqSjWpFLurzqOMvO4u60iXQwZhz6alP8I88Id/7zSJQM4krqKQXHh1sr4zW31x6iRCkR1AHL7gXyTvo+u+TGtDD2Zvb17uSnJonRd8yvZaqICoYs+N7yoqRGLI98DFON9C5vUsHybtsypkYchaRAXkHeNLmxd37STxCvEnyrc5umDZuHqW1i0T8hKApMIj3dkGkvgbbum9Wjfm1HYbG9Txcl6g/qy6D2zNCpAI70x/oHdciUm5ckV3imWWbwL3eVW38I3Ij9TBSRy5Kqm1QH/ZLuAx/iT7lbVUsqK+GBpSpoYYP3Ml/qR6FfA2XXH8q0rR2iVM5yN+BPDoPJGg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(261022105027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261102123227099003)(261009223027099003)(261021121427099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: o/P8w5aVjGnWivTIYXB84H/O2Ct9dhqQlyn80KgK+Jj6xBv3SBBzhyNxMJjYTTbbhgCI5a7NhVJt/CeOvuvXtIR60/It3nkUxahYADEzKaaFFdvSLtqwf1Oz1Rfcc4Q9HuvgWl1OCFb6uJxQqt3UvXWqL6BzjwEGHw6cMs1QlhKVwUVvPsYY+6ZYKuZyoKpva8yNzmA7W+qb4BU7JapKgVfQjQYf3VG3kNDbG5Lv//p6xz9CKYt1hP8V4gnzBPxos9zZzlwW0E/dKLXuAD3eL+y3JfInnoHGSu+YVPs09Zot4dKwGGBFl7Po6DkVbGps3JCO4Kr4ie8LuZVCAY7IfEWKrnIozamhJm64U7xG+LtaaPtABMTyDkhKXdUzOdxkDCofn3NHVrH2n7kgyCijkAYm+Jgi+AQjnespFvNlmdkkiFMaHqJW6NduEhla5pfK
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:15:49.1336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a20bb4e9-7867-4663-507a-08df3ac12e6d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB360382
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,232 +116,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/xe: premature xe_device_assert_dma_pages_zero() before ttm_d=
-evice_fini()
-- [Low] drm/xe: duplicate dma_map_account callbacks in xe_svm.c and xe_user=
-ptr.c
---
+This series adds AIE4 debug buffer support, which the xrt-smi validate
+gemm test uses to read the per-core results, and the AIE4 CERT firmware
+version query.
 
-commit d97316f4a4863b594d6196037dc27dd4e278bdd0
-Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+- Add NPU10 and NPU11 devices.
+- Bump the driver version to 1.0.
+- Add AIE4 debug buffer support.
+- Add AIE4 CERT firmware version query.
 
-drm/xe: Add debugfs stats for DMA-mapped pages per order
+This series applies on top of drm-misc-next.
 
-This commit adds per-order DMA-mapped system page counters for TTM buffer
-objects and GPU SVM / userptr ranges, exposes them via debugfs at
-dma_mapped_pages, and asserts that all counters return to zero during device
-teardown.
+David Zhang (4):
+  accel/amdxdna: Add NPU10 and NPU11 devices
+  accel/amdxdna: Bump driver version to 1.0
+  accel/amdxdna: Add AIE4 debug buffer support
+  accel/amdxdna: Add AIE4 CERT firmware version query
 
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> index 273e2c45fea9b..c40bb8f7c697a 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -377,12 +377,42 @@ bool xe_device_is_admin_only(const struct xe_device=
- *xe)
-[ ... ]
->  static void xe_device_destroy(struct drm_device *dev, void *dummy)
->  {
->  	struct xe_device *xe =3D to_xe_device(dev);
-> =20
->  	xe_bo_dev_fini(&xe->bo_device);
-> =20
-> +	/*
-> +	 * Assert the DMA-mapped-pages accounting only after xe_bo_dev_fini()
-> +	 * has flushed the async BO-free worker: BOs pending async free still
-> +	 * hold their DMA mappings (and counts) until the worker runs, so
-> +	 * asserting before the flush could trip a false positive.
-> +	 */
-> +	xe_device_assert_dma_pages_zero(xe);
-> +
->  	if (xe->preempt_fence_wq)
->  		destroy_workqueue(xe->preempt_fence_wq);
-> =20
->  	if (xe->ordered_wq)
->  		destroy_workqueue(xe->ordered_wq);
-> =20
->  	if (xe->unordered_wq)
->  		destroy_workqueue(xe->unordered_wq);
-> =20
->  	if (xe->destroy_wq)
->  		destroy_workqueue(xe->destroy_wq);
-> =20
->  	ttm_device_fini(&xe->ttm);
+ drivers/accel/amdxdna/aie4_ctx.c        | 284 +++++++++++++++++++++++-
+ drivers/accel/amdxdna/aie4_message.c    |  20 ++
+ drivers/accel/amdxdna/aie4_msg_priv.h   |  35 +++
+ drivers/accel/amdxdna/aie4_pci.c        |   7 +
+ drivers/accel/amdxdna/aie4_pci.h        |  10 +
+ drivers/accel/amdxdna/amdxdna_ctx.c     |   4 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |  19 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   6 +
+ drivers/accel/amdxdna/npu3_regs.c       |  78 +++++++
+ include/uapi/drm/amdxdna_accel.h        |  51 +++++
+ 10 files changed, 510 insertions(+), 4 deletions(-)
 
-[Severity: Medium]
-Can xe_device_assert_dma_pages_zero() trigger a false-positive assertion he=
-re
-because it runs before ttm_device_fini(&xe->ttm)?
+-- 
+2.34.1
 
-When BOs with a populated ttm_tt and DMA-mapped xe_tt->sg are released via
-ttm_bo_put() -> ttm_bo_release(), TTM defers cleanup to bdev->wq
-(xe->ttm.wq) whenever want_init_on_free() is active or reservation fences or
-locks are busy:
-
-drivers/gpu/drm/ttm/ttm_bo.c:ttm_bo_release()
-	if (!dma_resv_test_signaled(&bo->base._resv,
-				    DMA_RESV_USAGE_BOOKKEEP) ||
-	    (want_init_on_free() && (bo->ttm !=3D NULL)) ||
-	    bo->type =3D=3D ttm_bo_type_sg ||
-	    !dma_resv_trylock(bo->base.resv)) {
-		...
-		INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
-		...
-		queue_work_node(bdev->pool.nid, bdev->wq, &bo->delayed_delete);
-		return;
-	}
-
-In that case, the DMA unmap and counter decrement via:
-
-  ttm_bo_delayed_delete()
-    -> ttm_bo_cleanup_memtype_use()
-      -> ttm_bo_tt_destroy()
-        -> ttm_tt_unpopulate()
-          -> xe_ttm_tt_unpopulate()
-            -> xe_tt_unmap_sg()
-              -> xe_tt_account_dma_pages(xe, xe_tt, -1)
-
-will not complete until ttm_device_fini() drains bdev->wq. Should
-xe_device_assert_dma_pages_zero(xe) be called after ttm_device_fini(&xe->tt=
-m)
-instead?
-
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> index 909a602d091ea..7a49882897495 100644
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
-> @@ -845,10 +845,50 @@ static int xe_svm_get_pagemaps(struct xe_vm *vm)
->  }
->  #endif
-> =20
-> +#if IS_ENABLED(CONFIG_DEBUG_FS)
-> +/*
-> + * xe_svm_dma_map_account - drm_gpusvm DMA-mapping accounting callback
-> + * @gpusvm: The GPU SVM the mapping belongs to
-> + * @addr: The address descriptor of the chunk being (un)mapped
-> + * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
-> + *
-> + * Maintain per-order counts of the system-memory pages that the full SVM
-> + * instance (SVM ranges, and userptr VMAs in fault mode) has DMA-mapped =
-for GPU
-> + * access. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and co=
-unted;
-> + * device interconnect (VRAM, P2P) entries are skipped. The counts are s=
-olely
-> + * exposed through debugfs, so the callback is only registered when
-> + * CONFIG_DEBUG_FS is enabled.
-> + */
-> +static void xe_svm_dma_map_account(struct drm_gpusvm *gpusvm,
-> +				   const struct drm_pagemap_addr *addr,
-> +				   int sign)
-> +{
-> +	struct xe_device *xe =3D gpusvm_to_vm(gpusvm)->xe;
-> +	unsigned int order =3D addr->order;
-> +
-> +	if (addr->proto !=3D DRM_INTERCONNECT_SYSTEM)
-> +		return;
-> +
-> +	/*
-> +	 * The CPU-PTE map order reported by hmm can exceed MAX_PAGE_ORDER
-> +	 * (e.g. an order-18 1GB mapping), so clamp the array index to avoid an
-> +	 * out-of-bounds access. Clamping is symmetric across the +1/-1 calls,
-> +	 * so the per-order counters stay balanced.
-> +	 */
-> +	order =3D min(order, (unsigned int)NR_PAGE_ORDERS - 1);
-> +
-> +	atomic_long_add((long)(1UL << addr->order) * sign,
-> +			&xe->mem.dma_mapped_pages_svm[order]);
-> +}
-> +#endif
-> +
->  static const struct drm_gpusvm_ops gpusvm_ops =3D {
->  	.range_alloc =3D xe_svm_range_alloc,
->  	.range_free =3D xe_svm_range_free,
->  	.invalidate =3D xe_svm_invalidate,
-> +#if IS_ENABLED(CONFIG_DEBUG_FS)
-> +	.dma_map_account =3D xe_svm_dma_map_account,
-> +#endif
->  };
-[ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_user=
-ptr.c
-> index 9c1dac0fce6f1..40f97bd4751dd 100644
-> --- a/drivers/gpu/drm/xe/xe_userptr.c
-> +++ b/drivers/gpu/drm/xe/xe_userptr.c
-> @@ -8,9 +8,72 @@
-> =20
->  #include <linux/mm.h>
-> =20
-> +#include <drm/drm_pagemap.h>
-> +
->  #include "xe_tlb_inval.h"
->  #include "xe_trace_bo.h"
-> =20
-> +#if IS_ENABLED(CONFIG_DEBUG_FS)
-> +/*
-> + * xe_userptr_dma_map_account - drm_gpusvm DMA-mapping accounting callba=
-ck
-> + * @gpusvm: The GPU SVM the mapping belongs to
-> + * @addr: The address descriptor of the chunk being (un)mapped
-> + * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
-> + *
-> + * Account, per page order, the system-memory pages DMA-mapped for GPU a=
-ccess
-> + * through the drm_gpusvm_pages instance shared by userptr (and, in faul=
-t mode,
-> + * SVM). Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and coun=
-ted;
-> + * device interconnect (VRAM, P2P) entries are skipped. The counts are s=
-olely
-> + * exposed through debugfs, so the callback is only registered when
-> + * CONFIG_DEBUG_FS is enabled.
-> + */
-> +static void xe_userptr_dma_map_account(struct drm_gpusvm *gpusvm,
-> +				       const struct drm_pagemap_addr *addr,
-> +				       int sign)
-> +{
-> +	struct xe_vm *vm =3D container_of(gpusvm, struct xe_vm, svm.gpusvm);
-> +	unsigned int order =3D addr->order;
-> +
-> +	if (addr->proto !=3D DRM_INTERCONNECT_SYSTEM)
-> +		return;
-> +
-> +	/*
-> +	 * The CPU-PTE map order reported by hmm can exceed MAX_PAGE_ORDER
-> +	 * (e.g. an order-18 1GB mapping), so clamp the array index to avoid an
-> +	 * out-of-bounds access. Clamping is symmetric across the +1/-1 calls,
-> +	 * so the per-order counters stay balanced.
-> +	 */
-> +	order =3D min(order, (unsigned int)NR_PAGE_ORDERS - 1);
-> +
-> +	atomic_long_add((long)(1UL << addr->order) * sign,
-> +			&vm->xe->mem.dma_mapped_pages_svm[order]);
-> +}
-
-[Severity: Low]
-This isn't a bug, but the commit message and comment state that the
-dma_map_account callback is shared between the fault-mode SVM instance and =
-the
-simple userptr instance, whereas xe_svm_dma_map_account() in
-drivers/gpu/drm/xe/xe_svm.c and xe_userptr_dma_map_account() in
-drivers/gpu/drm/xe/xe_userptr.c duplicate the same implementation.
-
-Since CONFIG_DRM_XE_GPUSVM selects CONFIG_DRM_GPUSVM, could
-xe_userptr_dma_map_account() be exposed and reused in gpusvm_ops instead of
-defining two identical callbacks?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104215228.1533=
-692-1-matthew.brost@intel.com?part=3D2
