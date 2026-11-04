@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74E1606A32E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:28:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3E3606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:29:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1jgy3lG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alKTGqUn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7FF10E566;
-	Wed,  4 Nov 2026 09:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE7810E364;
+	Wed,  4 Nov 2026 09:28:59 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3EC410E34A
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:28:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE56010F746
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:28:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C108060098;
- Wed,  4 Nov 2026 09:28:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4001F00A17;
- Wed,  4 Nov 2026 09:27:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 596F8605F0;
+ Wed,  4 Nov 2026 09:28:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB561F000C1;
+ Wed,  4 Nov 2026 09:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793784487;
- bh=Gr7svhS/YSc9d7laFr7PXJQ2SsJ994DEnu6A9NyzDrI=;
+ s=k20260515; t=1793784532;
+ bh=T01zQUJSjbZp4aJnpwJVQI9JvpnXX6u13mZcG0ZeyDQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=X1jgy3lGK+B8wHnMJmPUlW00+DythG+u8ZdEslw9l+mYGsCluF0yALGaeLj7ksrDg
- EcNjCUMoKMdxcyD0WsxPb4Cp4iKUAxNR9okqjQhF+09x5q+3kuYpexwXQlXsHIw+os
- TkFeMF2FhQ5UjzAqNfBp6xMNGmn825VDWt1gtK+nxiDDItHSDAD0XUEkYDsawNyiA7
- /4Xh7LGcOgeD7u3hApqggi+GDOh8nhBNcBO0pFhjuZykmUExXJEtisP76hRDnMqyNT
- NxfQEUBzADkSfaq0PsDOx4woXNhrClwQtQmsRawkfviLN+SXF+cZMarB1vamQDxvXp
- LI66cNBmM2ktw==
-Date: Wed, 4 Nov 2026 10:27:55 +0100
+ b=alKTGqUnuzoexCqwA81KPAyGy0rneY6r5MbFqbvV697+Ik/bjfxk9LHef9GM+MQJQ
+ QlHwwMzWgTBR+V1EVZkBqvL2y+0fpSnZdIRpFx1eImmWwcDpXf+kwZoN+KfbPRIwjh
+ GLUEX2tS20NdiCJARKDNfWQpLYmSC9HacZQpjtFGF6DQjakJaImqqw+1NVIZp8Jkve
+ rhjW0cKAwa0rgro+T+KAxTAshgpXhyosdPn/BLM1fw2d0BZ8BRed4fxkWyQdPz2E0I
+ sRYd32Lzz24ZCjwV4++8ADyzClHdrBNXy/ODBoctV+0gtJXx39Cw7SDphwQ7RfGct5
+ fVZStrNkhDPHg==
+Date: Wed, 4 Nov 2026 10:28:38 +0100
 From: Christian Brauner <brauner@kernel.org>
 To: sashiko-reviews@lists.linux.dev
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
@@ -56,16 +56,17 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  Heiko Carstens <hca@linux.ibm.com>, 
  Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: Re: [PATCH RFC 15/16] proc: let procfs copy ioctl arguments in and out
-Message-ID: <20261104-muskel-filmabend-parklandschaft-f02c910a4fb4@brauner>
-References: <20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org>
- <20261102-work-procfs-core-v1-15-75df35e4f8b8@kernel.org>
- <sashiko-outbox-195542@kernel.org>
+Subject: Re: [PATCH RFC 11/23] selftests/proc: check that a faulting writer
+ doesn't hold up removal
+Message-ID: <20261104-miterleben-erdaushub-insel-df331d74044d@brauner>
+References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+ <20261102-work-procfs-drivers-v1-11-a994bd4d3b1a@kernel.org>
+ <sashiko-outbox-195591@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-195542@kernel.org>
+In-Reply-To: <sashiko-outbox-195591@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,14 +85,7 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 03:01:36PM +0000, sashiko-bot@kernel.org wrote:
-> - [Medium] proc: unguarded zero-length user copies in pde_ioctl_buf()
+On Tue, Nov 03, 2026 at 03:18:48PM +0000, sashiko-bot@kernel.org wrote:
+> - [Medium] selftests/proc: fail and leak scsi_debug host without CONFIG_SCSI_PROC_FS
 
-Hm, a zero-length copy isn't a nop on every arch. Adventurous. It's
-skipped now.
-
-> - [Low] proc: split declaration and initialization of __free() variable in pde_ioctl_buf()
-
-Intentional.
-
--- 
+Fixed.
