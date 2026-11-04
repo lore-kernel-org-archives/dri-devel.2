@@ -2,113 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CE2606A330
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A923B606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Y+U8cPcT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Syde+xg9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16C210E042;
-	Wed,  4 Nov 2026 11:37:00 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012026.outbound.protection.outlook.com [52.101.66.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B66010E042
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:36:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MHbEuT4NRgqbMwfV6En8sILxPpeCSgptgyNMBql5v8vpaftIBNTDOcDq7vZL1o/JUNB4jXZ32VjJ0hG3vMMh+DojcbD9cklv50kZTxe+a7XeVpLu1r5EZDdshiBY9CcCASR0NEMVcXCp5RvMCztgQHGZf9IionDQ8rgmANI/2u9BxdkhiOw5Z0x1I5s30YLhnsLa4kV2Afy5z1Y3V6Q76zNr8d+LGsnMvTdA55Iq/iur4JBNCKWhImT+kI+pYUz/YtUKo9W85vsEBwoGRvPbYtscAtrpghvz9ICyQXiXDWMnqDGl3GLT+RLRl3V8Y8pmviGx6NMfvpnAUKvbnhX3Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/69YtFQw2ST7BOGkCKvRtBwIg7x2gLSHgC1AQp2FNVo=;
- b=nygtus0xokmbigcx6dfRxTO90nZtxbZbzOggGGNx6W1Wq++Qnnjcg6CU5DBawL2exPqa5CUskksL+rch+yGrwL9ranmzjHEmW/bstBbJAEa3s1M9TxzqU+/dUQ2PQw49wTCiwhhsy6w+cozsVC7mcxc5PXfNtt8ARDyJW5ySmznB3EAFz3i6mQ3QWpNhBMP2PBsp7xuyiNg3TKsKlM+9DtrAXy0Ni7B9VG0Hc/pL64gBVPqMxS0cw0xd7zsO6yICQCYtLx08xtMw2XeR+0Q02PmhGRNWjzeoxSqaqUscPbGkR1rALrNtL06zLslXPVko5Aeltro2Y9o9E+Xow1+PiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/69YtFQw2ST7BOGkCKvRtBwIg7x2gLSHgC1AQp2FNVo=;
- b=Y+U8cPcTsWFAh1PuJQutF8KxVqh/WdGkFG0ZiXpAV0RyrIpG5NMYJi9cIdbK12MhiTk3n2iLyOF9MW9N9ROh31CGB1xT+aLM94fmrYwOHw99dpj5raFQF0n3EPuPdcpkTjCAfzmGJdvLBt+RuUqF0hB6ZWUT4M7GFHwLSqpyHXFwp4e9nzpnlk+JnpFuPVLtIX+FdbBIuXLQyqN9t2QLTY6Izn6P4hXzBArpUaX0eDfnM11Bu+tZQR7+EfJBww/kgKxWWp6c1nYS1Nn4crfP80i0po/26XnlQXKdMqTDRY8sOd6gswp36Wy4Oo9e8MbyrjA10yzp6p5dMZ1K+X2TRw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by GV4PR04MB11849.eurprd04.prod.outlook.com (2603:10a6:150:2de::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 11:36:48 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 11:36:47 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] backlight: aat2870-backlight: Convert to
- subsys_platform_driver()
-Date: Wed,  4 Nov 2026 19:32:42 +0800
-Message-ID: <20261104113242.1634043-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR03CA0007.apcprd03.prod.outlook.com
- (2603:1096:4:297::18) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E93310FA25;
+	Wed,  4 Nov 2026 11:39:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B31D10FA25;
+ Wed,  4 Nov 2026 11:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793792378; x=1825328378;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/7/ERNg8lgbcxb3bPZCGMGuw3wZ3SgyLLV1A63XrHi0=;
+ b=Syde+xg9d8BmhnoIYy/9Csa5Mmw2MW4Ku7p5tKqX/viRd6KV8ldQJBXc
+ 335Xim+Z+RpQ4wb1KRDbbQ50USiVL4H2WHMOH35Ae4FkxIiGqSuaHw8XC
+ S22Q3+6m+FtWdcK1LUQzTKiBTBmNar97mTla94JWIDDgX6uvBeG+k3U8P
+ j+Fs+RCeTJSSmZowpe7mJEJabkdYmqnrwulWpGtMcsVVfFrDwZ85TNe2S
+ MZMjrxxrppfZwcvxZHvYkTDUtWcYBOmpwkpHC1bnPBGX1qtkLUiMMaYY7
+ AJfevt2vuhT/IAT4VzmhoCzvrHokrdWM/nyNcar7zEwOlPJ7avuOxY3OQ w==;
+X-CSE-ConnectionGUID: ZrRIdxL/SFWRZgIA+VQLjw==
+X-CSE-MsgGUID: MuMNexyUTlGuU1QLPpST1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2577900"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2577900"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 03:39:37 -0800
+X-CSE-ConnectionGUID: YWADxan0TVGS+ce0naeN7Q==
+X-CSE-MsgGUID: PeC3xVFbQ8i5lWsFZgLJpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="8568820"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.43])
+ ([10.245.244.43])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 03:39:33 -0800
+Message-ID: <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
+Date: Wed, 4 Nov 2026 11:39:30 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GV4PR04MB11849:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ff627ee-8986-435d-face-08df3a67cd26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|19092799006|261102123227099003|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|261022075727099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: XpDdzzt3Jwerut7ZHXS+j0Sx1Z5FYXYQWo2aXXfss21JRxnw4CX9hTMD7E1/UHoeWwQIQshljzxXkdDnn1JWC/NqkFbr+YfKHsva0ygMMvsERUqobVGadwmnB9H/0ya6RChYCxCephQcfuBjs4Dqth7gErcRbaLnsbCjgyZDwi+QP43XOrhjndwUFtnP/HkEEtVbT8vFelIJm4KUaI4AVY4EE9vU9fS4BgSdSQc9unQi+c+71jeFLykJ/3i77ZkTFehuxieMDEi0QigMwAcEoIXiyvSag44VqNJORuWHHZPjkv4CGB02obVgH/h7faFux9NxZ/mTJQmAl/LuZdO7+RYc5UK3Vldl/ZQjM4sECIfEf4x5L7axZB1bcaJqSwmIk9W4jQu7ydNb97CsJ4aYIqCCh52wCPi+a/aP8YTaxnkOrRerm9NDtmBZ8VzuBgEuZJ13AjlDcXClxXZXy6+AqbV28WFopN1VOxb1jPxXDqlMY9CBu9pRxDy8NC/zsCIpqSMhPH/gFLFUorysOeRxfTlqvxGQSwCKJisnW0VG2A9YJ/1NY42VHLvh+LNA6yDLkZq11Jn61Wv+SIF00TyK/RVRiG+TpNs4Y8nUF8O2vPwZKVquI7pP0PwoXsGqCEEtqVMuT08OrRsB4q+JXxWCDEo0QCkMRyKL+fz72Ppzhps=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7874.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(261102123227099003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261022075727099003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0gpd4XB1FUXxBwW7qNFDQ8xK61/62P3mNPOjHLYtNlSqLDk0y2tpoEB03nu7?=
- =?us-ascii?Q?L8K/EpAjjBpBYU/b3Wn+Sw57XFc3eNuFOCI+ed4BJ9y1ck+84iA2nW0qIVi3?=
- =?us-ascii?Q?HxTJ8ocGRP9aM6CT9iC1Vw8vINk8lyBtoex/jiJyhcnTq29f8VVS+bpp6DDN?=
- =?us-ascii?Q?UZ0XPMTagmXoM0+p2M6YiHs4OW+fPIclV+HPFkXgxg0eUiiHT4ig5S+rdIyk?=
- =?us-ascii?Q?QtO4N8bSf25kPCTKTsn43i8GrbnH+y69OUnfMp10Gh4NS61Kbqx5sPvmMhdc?=
- =?us-ascii?Q?3KgalgS9o2OeLx/1PDDKWV8FGyCYyQ5T/BhpUMfi+lfcBSDlHW8uix7ngs08?=
- =?us-ascii?Q?wVR/x3i2WWIhodmGh84GakEKUTfik00Y5IOSHzgnlLsduS3Cb66Opn5T732x?=
- =?us-ascii?Q?sXgixIPzsFBnBCRegQtwYIa2EyK6rEea30MYtt57g8tQxxykIkX8zxcpxKLD?=
- =?us-ascii?Q?rxez/ldJYcqmC8+iQI8PkioDX5XftbTxr7QGzsuIKV3b/88g8YgmouLi6Y4l?=
- =?us-ascii?Q?QmSP6/6MUpuoFq7EldVyKR5wkOcw2IAPpiw6EKC4qX5sM+Im60BhHIRNQ+95?=
- =?us-ascii?Q?qM6Jmm3FQXqU7L4aKawFUqrh4aO3f2ncUBxmQH8NTqvvkDowQopyJagIwcJK?=
- =?us-ascii?Q?q8KNPjt/VVqHet8gOPIrYcvQJxS1WNHgygDrko9KWy2XZUr/bf6HR1TWeQbr?=
- =?us-ascii?Q?1rQRMro3TrnKYxFR0ofwS6zbK5IBbd41bSTxjAA6YVHcJbuv/oRnV96/rWTc?=
- =?us-ascii?Q?iSmLfqWtupWZpujOyplNiNozTdbwKvnnkz6FwHC26yXfUiDNyIeD+NaVMwDy?=
- =?us-ascii?Q?VmNbS9AliD7WAV2ZYk6u20nvPERzGRg+XenUSzrJwAObJX3P0sELLcMF5Bqm?=
- =?us-ascii?Q?lbzqd3DfjP5db8KNGRdoXsUGGgtbnpCkblfp4LIkk6C0X+DedhXXUPYwUGRs?=
- =?us-ascii?Q?8OdSfvxIeSErwelehZceKPCQd8AOtFdfCsr5wJJbNvAHqaXUbeyYgCfDufBH?=
- =?us-ascii?Q?GTLL7yKAxOMibQUJvAEfotmE1MRIrUIr7LcO6M9FEHg/iL3ITyOkvPkDrZ5j?=
- =?us-ascii?Q?VWCLA8INbR59BctnQNSC3gcOY7jwEzzNwo4ehnpABGaQXeHgfsYPrPyZI9SC?=
- =?us-ascii?Q?XUvUUcje5Qg7n1dFipBBw5z/n6WevThtV2yZ3X5TowyZ2Q03ahbuVYI70W2b?=
- =?us-ascii?Q?uWrbNR8dHrU6rCHYdSDs47rgR93m1wXPU9tn/hOetaCG8it6fvtCuV0YSocK?=
- =?us-ascii?Q?h7Oap5DNsRe903pcGpvF+mVOekWbXQYbwQI0g/8SNVRiBKnsDZTbV+wQpWXp?=
- =?us-ascii?Q?g6H0pyuuip40LSfyRNJaB7Jvv4QL9y0BBYYa/hBiPh8yBbGOxUdrI0n9kDZJ?=
- =?us-ascii?Q?TD/rc4yTBFgJRBW4A6Pvx1RRh30ujVO1/50qqoa+4TCK3yA/pf6J0h5UBNGo?=
- =?us-ascii?Q?Df6qIe6VeiZxPhrcfvxfNtqfFdFYkTn3Q9l9xhZli/qJfFMclhJ+yf2wqq7l?=
- =?us-ascii?Q?Wto67n7v+Oj2tB9/Vj61yxUlxtRAnLG9hFUS4VYjDDQiO1w9gL0Js0JGfIe6?=
- =?us-ascii?Q?QglZlHK5ptZGHZHJa5QFrSF66sCykpYluQrKG7gTomdUkIfv6+GKqWQIaCHf?=
- =?us-ascii?Q?wPvVwy3DF7v70Xzcz9IOZPVyDCT66CCUgt+dSZInVsJFU8UC8MVj5TJV5NsT?=
- =?us-ascii?Q?PTkp6F52siJLT2h2jsdnV7W6jCy3mR7qbH86ySze2h8l20sTH/TfhK41aYx5?=
- =?us-ascii?Q?Fw7pLkpWexmo/buO8ym98Q/3oxZ1w0AsdQ/HIXqWlou7hvTk7nIy?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ff627ee-8986-435d-face-08df3a67cd26
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:36:00.8759 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sD8VXVEmtHB+KiIg0lsOnv3SnXthyTUJ9BjA8AMB8lHyh22fzgpDKnlR1cC1TJtEbOxoSqVrgIbgRRJUFNiK99yQ9ghy21CV5fUcD4LvtvxYp+ijr3d0cXfvyv+YF7Eb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11849
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+ <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+ <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,49 +77,137 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Peng Fan <peng.fan@nxp.com>
+On 03/11/2026 20:21, Matthew Brost wrote:
+> On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
+>> On 11/07/2026 03:56, Matthew Brost wrote:
+>>> Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+>>> (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+>>> to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+>>> range, which is cheaper to walk and program than an sg list.
+>>>
+>>> Whether the IOVA API can be used depends on the IOMMU mode, so the
+>>> decision is made once per tt at xe_ttm_tt_create() time and recorded in
+>>> struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+>>> that are not GGTT-mapped are eligible: dma-buf imports manage their own
+>>> mapping and GGTT bindings are programmed directly from the sg list.
+>>> dma_iova_try_alloc() may still fail, in which case the tt transparently
+>>> falls back to the sg list, which remains the default.
+>>>
+>>> The IOVA reservation is allocated at tt creation and freed at tt
+>>> destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+>>> contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+>>> but keeps the reservation so the tt can be remapped without
+>>> re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+>>> IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+>>> case.
+>>>
+>>> Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+>>> through the new xe_res_first_tt() helper, which initializes either an
+>>> IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+>>> mapping mode.
+>>>
+>>> Cc: Carlos Santa <carlos.santa@intel.com>
+>>> Cc: Ryan Neph <ryanneph@google.com>
+>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>> Cc: Huang Rui <ray.huang@amd.com>
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: David Airlie <airlied@gmail.com>
+>>> Cc: Simona Vetter <simona@ffwll.ch>
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: linux-kernel@vger.kernel.org
+>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>> Assisted-by: GitHub_Copilot:claude-opus-4.8
+>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>>
+>>
+>> <snip>
+>>
+>>>    static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+>>>    {
+>>> +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>>> +
+>>> +	/*
+>>> +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+>>> +	 * must already have been unlinked by xe_tt_unmap().
+>>> +	 */
+>>> +	if (xe_tt->use_iova) {
+>>> +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+>>> +
+>>> +		xe_assert(xe, !xe_tt->iova_linked);
+>>> +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+>>
+>> Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
+>> which requires that evict_all will correctly tear down iommu mappings on
+>> stuff like pci unplug and I don't think tt_destroy is called in that flow?
+> 
+> But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
+> 
+>> Does having the iova here cause issues? Also, for VRAM flow I think there is
+>> a tt_create() via pipeline gutting which will now create a new iova?
+>>
+> 
+> Maybe we shuffle this around a bit so the iova alloc is tied to
+> populate/unpopulate. It was been a while I forget exactly why I did this
+> way.
+> 
+>> Aside from that, maybe we can land 27/28 as standalone?
+> 
+> Yes, let me extract these two into standalone patches today and
+> reworking if needed.
 
-Replace the open-coded subsys_initcall()/module_exit() platform driver
-registration with subsys_platform_driver().
+Quickly double checked this, indeed looks to be needed:
 
-No functional change.
+[  808.058892] [IGT] core_hotunplug: finished subtest 
+hotreplug-lateclose-with-load, SUCCESS
+[  808.058928] [IGT] core_hotunplug: exiting, ret=0
+[  808.059673] BUG: kernel NULL pointer dereference, address:
+[  808.061068] RIP: 0010:iommu_get_dma_domain+0x10/0x20
+[  808.061141] PKRU: 55555554
+[  808.061144] Call Trace:
+[  808.061146]  <TASK>
+[  808.061149]  dma_iova_free+0x18/0xf0
+[  808.061153]  xe_ttm_tt_destroy+0x23/0x40 [xe]
+[  808.061231]  ttm_bo_put+0x242/0x3d0 [ttm]
+[  808.061412]  ? drm_gpuvm_bo_put+0x199/0x200 [drm_gpuvm]
+[  808.061418]  xe_vma_destroy_late+0x89/0x90 [xe]
+[  808.061476]  xe_vm_close_and_put+0x5de/0x920 [xe]
+[  808.061534]  xe_file_close+0x105/0x190 [xe]
+[  808.061712]  drm_file_free+0x218/0x260
+[  808.061717]  drm_release_noglobal+0x6d/0xd0
+[  808.061721]  __fput+0xf9/0x270
+[  808.061725]  task_work_run+0x8b/0xb0
+[  808.061730]  do_exit+0x229/0x8b0
+[  808.061735]  do_group_exit+0x8b/0x90
+[  808.061739]  __x64_sys_exit_group+0x17/0x20
+[  808.061744]  x64_sys_call+0x18c6/0x18d0
+[  808.061749]  do_syscall_64+0xee/0x350
+[  808.061753]  ? __pte_offset_map+0x1d/0xd0
+[  808.061757]  ? next_uptodate_folio+0xbb/0x3a0
+[  808.061762]  ? set_pte_range+0x20d/0x290
+[  808.061766]  ? filemap_map_pages+0x8e1/0x9c0
+[  808.061772]  ? count_memcg_events+0x7c/0x1b0
+[  808.061776]  ? handle_mm_fault+0xbde/0x14f0
+[  808.061781]  ? __se_sys_close+0x7a/0xe0
+[  808.061785]  ? __se_sys_close+0x7a/0xe0
+[  808.061790]  ? do_user_addr_fault+0x272/0x6c0
+[  808.061794]  ? irqentry_exit+0x3f/0x640
+[  808.061799]  ? do_syscall_64+0x42/0x350
+[  808.061803]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  808.061808] RIP: 0033:0x7f95428c71b8
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/video/backlight/aat2870_bl.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+I assume this is dev->iommu_group = NULL post unplug.
 
-diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
-index 8b790df1e842..d28f54ec5f7e 100644
---- a/drivers/video/backlight/aat2870_bl.c
-+++ b/drivers/video/backlight/aat2870_bl.c
-@@ -188,18 +188,7 @@ static struct platform_driver aat2870_bl_driver = {
- 	.probe		= aat2870_bl_probe,
- 	.remove		= aat2870_bl_remove,
- };
--
--static int __init aat2870_bl_init(void)
--{
--	return platform_driver_register(&aat2870_bl_driver);
--}
--subsys_initcall(aat2870_bl_init);
--
--static void __exit aat2870_bl_exit(void)
--{
--	platform_driver_unregister(&aat2870_bl_driver);
--}
--module_exit(aat2870_bl_exit);
-+subsys_platform_driver(aat2870_bl_driver);
- 
- MODULE_DESCRIPTION("AnalogicTech AAT2870 Backlight");
- MODULE_LICENSE("GPL");
--- 
-2.51.0
+> 
+> Matt
 
