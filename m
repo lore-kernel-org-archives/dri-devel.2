@@ -2,42 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D2B606D821
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A712606D832
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:40:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9DRevod
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGgeVRNU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8565710E8C1;
-	Wed,  4 Nov 2026 18:40:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4509410E8C1
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A07E10FDE3;
+	Wed,  4 Nov 2026 18:40:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8E310FDE3
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:40:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B664F60BFB;
- Wed,  4 Nov 2026 18:40:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7159C1F00A15;
- Wed,  4 Nov 2026 18:40:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A388843ED2;
+ Wed,  4 Nov 2026 18:40:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67ED51F0093A;
+ Wed,  4 Nov 2026 18:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793817602;
- bh=OLKZrOm6jdEcHH7I6hb2j6zTe/nROTdmF2ea7AaGN+4=;
+ s=k20260515; t=1793817609;
+ bh=H7DSvpNWecmlcUmyBezUt7JthYYHvuN+cydUO7lef+0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=W9DRevod4gGNgHJmbCYAxb8e7QqfBRMPf0bdS29bvOFlGcNzBgUiv7gKfscF0N+SE
- zD4GyL0t43ZB6BX/u4JYjwh0sKQab3+e6fUT46XkR4pZ9ZJgV/3jQExGI8ZrIq8JCL
- C0OrYgT0dpbctochsxL0ij1f5KCO5faCrTDRCwAFNubvvqSDkbJcOcNIQeghACyGyV
- MDw7H4rIa/sj7RRyNXQPhnRe21/VqUgZsZMYZR7gZy9QB8z4Va7i6FYbDWOyAsJKvj
- M88PEZewmdMJFgAS0RioN49imDjYzmM4C7Q1gKKV5ZcJkJo+feXhf2XPCl35L1ZaHh
- gVCZEUVLc0qRg==
+ b=SGgeVRNUTDiNmBuhXhrk3Qy6fy3EOCR9Hb6nmzrUWw/XuqWbdYJzljEEOZobjoJYM
+ 21md2l0cg7uD09SBcgLqm1yBXHaXzb8WamTQ/R1BYoVtKojf0PmP7VAweJPsp0re0a
+ bgB2q3Ic0s5/z5+RFCyg8MtKCU8Lxiib0OPAgDeoTuJQB+p9G7QIrDInHXJNzpOaCj
+ p1NW/3qmH3amxm/YIr1iOa71QF4pSXTYpGQMjzelBw18jYU4JMFjS8JY1zEmX8z/SR
+ B4f5HhT6Q01h3IjzKsY+uXdiPErX6FO/965W3LS/C6DZPtq2TxpHYK9X/K7zNoy6Ek
+ HTFZGxaYegX3w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Bjorn Andersson <andersson@kernel.org>,
  Kiran Gunda <quic_kgunda@quicinc.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org, David Heidelberg <david@ixit.cz>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH 3/6] backlight: qcom-wled: Cancel delayed work on probe failure
-Date: Wed,  4 Nov 2026 18:39:04 +0000
-Message-ID: <20261104183935.1214630-4-lee@kernel.org>
+Subject: [PATCH 4/6] backlight: qcom-wled: Manage teardown via devres and
+ remove wled_remove()
+Date: Wed,  4 Nov 2026 18:39:05 +0000
+Message-ID: <20261104183935.1214630-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261104183935.1214630-1-lee@kernel.org>
 References: <20261104183935.1214630-1-lee@kernel.org>
@@ -63,77 +65,90 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If a short interrupt fires after wled_configure_short_irq() has
-registered the interrupt handler, wled_short_irq_handler() calls
-wled_module_enable(), which schedules wled->ovp_work.
+wled_remove() currently runs before devres tears down the backlight
+device and threaded interrupts, resulting in two teardown bugs:
 
-If wled_probe() subsequently fails during
-devm_backlight_device_register(), devres frees the wled structure while
-wled->ovp_work remains pending, leading to a use-after-free when
-wled_ovp_work() executes.
+1. mutex_destroy(&wled->lock) and cancel_delayed_work_sync(&wled->ovp_work)
+   execute while the backlight device registered via
+   devm_backlight_device_register() and the short interrupt requested
+   via devm_request_threaded_irq() are still active.  A concurrent sysfs
+   brightness update or short interrupt during unbind can acquire the
+   destroyed mutex and re-schedule wled->ovp_work before devres frees
+   the wled structure.
 
-Configure the OVP interrupt first, then initialise wled->ovp_work via
-devm_delayed_work_autocancel() before requesting the short interrupt.
-This ensures that on teardown devres frees the short interrupt first,
-cancels any pending wled->ovp_work while wled->ovp_irq is still valid,
-and finally frees the OVP interrupt and wled structure.
+2. disable_irq(wled->short_irq) and disable_irq(wled->ovp_irq) are
+   called unconditionally even when the optional "short" or "ovp"
+   interrupts are absent from the Device Tree (-ENXIO) or unused (0 on
+   WLED3), passing invalid IRQ numbers to disable_irq(), despite both
+   interrupts already being managed by devm_request_threaded_irq().
 
+Initialise wled->lock with devm_mutex_init() and remove wled_remove()
+so that devres tears down the backlight device, short interrupt,
+delayed work, OVP interrupt, mutex, and driver data in reverse
+registration order.
+
+Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
 Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-Closes: https://sashiko.dev/#/bug/linux-ca2e48a2-f511-44b8-a7d4-866f360bf107
+Closes: https://sashiko.dev/#/bug/linux-51cd5e35-3cae-4e4c-986b-7261263507cd
+Closes: https://sashiko.dev/#/bug/linux-44e5ed80-c35c-4786-8bf8-9ee955967d0b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 Cc: David Heidelberg <david@ixit.cz>
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
- drivers/video/backlight/qcom-wled.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/video/backlight/qcom-wled.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index ca350f320e17..f8f41e1d6ccf 100644
+index f8f41e1d6ccf..8d4d7fe5e84d 100644
 --- a/drivers/video/backlight/qcom-wled.c
 +++ b/drivers/video/backlight/qcom-wled.c
-@@ -3,6 +3,7 @@
-  */
+@@ -1732,7 +1732,6 @@ static int wled_probe(struct platform_device *pdev)
  
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/interrupt.h>
- #include <linux/ktime.h>
- #include <linux/kernel.h>
-@@ -1784,8 +1785,6 @@ static int wled_probe(struct platform_device *pdev)
- 		break;
+ 	wled->regmap = regmap;
+ 	wled->dev = &pdev->dev;
+-	platform_set_drvdata(pdev, wled);
+ 
+ 	wled->version = (uintptr_t)of_device_get_match_data(&pdev->dev);
+ 	if (!wled->version) {
+@@ -1740,7 +1739,10 @@ static int wled_probe(struct platform_device *pdev)
+ 		return -ENODEV;
  	}
  
--	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
--
- 	val = WLED_DEFAULT_BRIGHTNESS;
- 	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
- 
-@@ -1800,14 +1799,19 @@ static int wled_probe(struct platform_device *pdev)
- 
- 	wled->brightness = rc;
- 
--	rc = wled_configure_short_irq(wled, pdev);
--	if (rc < 0)
--		return rc;
--
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
-+	rc = devm_delayed_work_autocancel(&pdev->dev, &wled->ovp_work,
-+					  wled_ovp_work);
+-	mutex_init(&wled->lock);
++	rc = devm_mutex_init(&pdev->dev, &wled->lock);
 +	if (rc)
 +		return rc;
 +
-+	rc = wled_configure_short_irq(wled, pdev);
-+	if (rc < 0)
-+		return rc;
-+
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
- 	props.brightness = wled->brightness ?: val;
+ 	rc = wled_configure(wled);
+ 	if (rc)
+ 		return rc;
+@@ -1822,16 +1824,6 @@ static int wled_probe(struct platform_device *pdev)
+ 	return PTR_ERR_OR_ZERO(bl);
+ };
+ 
+-static void wled_remove(struct platform_device *pdev)
+-{
+-	struct wled *wled = platform_get_drvdata(pdev);
+-
+-	mutex_destroy(&wled->lock);
+-	cancel_delayed_work_sync(&wled->ovp_work);
+-	disable_irq(wled->short_irq);
+-	disable_irq(wled->ovp_irq);
+-}
+-
+ static const struct of_device_id wled_match_table[] = {
+ 	{ .compatible = "qcom,pm8941-wled", .data = (void *)3 },
+ 	{ .compatible = "qcom,pmi8950-wled", .data = (void *)4 },
+@@ -1846,7 +1838,6 @@ MODULE_DEVICE_TABLE(of, wled_match_table);
+ 
+ static struct platform_driver wled_driver = {
+ 	.probe = wled_probe,
+-	.remove = wled_remove,
+ 	.driver	= {
+ 		.name = "qcom,wled",
+ 		.of_match_table	= wled_match_table,
 -- 
 2.56.0.385.gac671c819a-goog
 
