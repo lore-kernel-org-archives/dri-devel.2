@@ -2,43 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B958F606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B511606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieMt/5Gc
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2n/VCZH2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2FA10E85F;
-	Wed,  4 Nov 2026 09:35:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E2010FA80
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:35:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C10E460213;
- Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403AF1F000C1;
- Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793784912;
- bh=/9UwIzdIAMbX7ysUUVFgkx4wDbhFfnUMKlcNU4rUfN8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ieMt/5GcJxY+rLDUOx3U73hpOW30tgrLNU0CvKTJjOrKd1mGuFLdir5p1cTvQnFGW
- LHqVkN6O+GVROBtmWj05VXDR8mxSXPlsOobuNiRja0WHYC0LrtT57PbM/bcEV0/EbY
- VjbSdPvamLg377b3GMST3GOFD9RXW+MROa6MaOPI2uKyh9B0G78rA1v9wF+S4ODZ4o
- GxIEkDkVAPcWlKsNUdvVz7lHWQKdoJCz6EeSFsrMwflsdWw8zRXCmhQNCsuU2Urg7q
- 9Xdq+Pd5ArCFMhPeIm+rt9TTNNTXdIvmj2cCJBsTK6UChTjFAofcXrKxQtWXjx/ode
- RuDCsIyWWg8ew==
-Message-ID: <sashiko-outbox-196968@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
- <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 09:35:11 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DF910E852;
+	Wed,  4 Nov 2026 09:45:18 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011026.outbound.protection.outlook.com
+ [40.93.194.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C11610E87A
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:45:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lUsCo01sVYrG/aysq6LoZUlw7YXkWjkmmFq9lGwedsQwn46iLwKlW55PN1FHuRXzqm397tcOp0v2zMftLKbZrKKI9iAkOMxWb1WuOHRYuG+RiA6prWYmJgZh3VYCcu7dyVCqpn2bR8ax0XqZx+yr7vsTrKzFQOLKX4KnKRfJ4QQhv+em3qhEKLauHAXHyqzwg7QsQbsy/TdTf85WYDsBsP3pjB4No+48jcT2YC3qwsBFYSlfxJhzhMum958F8H9t1++g3s6MmcxA2YGVDJS8DbkQkAm7Sb/NZ9dPoizngjaclGYzN8GjW6Iz3G2Eix8DeJUVaCB/GqT3oHM2Nvjz9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=grC87aXGTMnSpqdYs6SEbsA65QbwhWo0vq7ssx6NQlE=;
+ b=olCq6Qis8itt5AfodHGKrRbsyh6UDq2nV4bC8aUkYUawwa926rQXCDyREa/HVKETwod6NJxcSDILvpmcWU5HzJuSw3ZxlnAUsJpx+Ti0q04rvUGC0Zm6aKzXasfrdJys579KB57+NbQnkso495WAjtDsQG1BDGcCap3UllMo3uOB8T5wjVBlp1eMLORtrCX+2I8Xbd6cXAi3c5DrTNWPZQlsntQvT+R7W3BWLNdEleX5otEq45/oECQ3tJzxPaOLCFOAwLMznjXYfeeqxxYcN8PcEDDAqkMqDT4xiDuyTszWL0gzqUBYMC50YXnV9luivNQK6xQYLAF7v3o8fuqgEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=grC87aXGTMnSpqdYs6SEbsA65QbwhWo0vq7ssx6NQlE=;
+ b=2n/VCZH2s4LZLFUh1/ZoIlsMrw1nqV6k61VwSk6Oz8C+OyxlVRxeheFlnaXRkib7N/8LhkRQAuvXhiB0zi2zC5cr5YMBsr8kYjppulNJeHlK1OTxX6Kw7P4lQ1F8Rbr8OC5u1s+ssXgE+BAZ1zStSMZoCafWNNeVVMraSiRrUtg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 09:45:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 09:45:00 +0000
+Message-ID: <1d8aeaae-7c89-4a99-975b-5467c33554b9@amd.com>
+Date: Wed, 4 Nov 2026 10:44:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+ Madhur Kumar <madhurkumar004@gmail.com>
+References: <20261104030930.3852781-1-fei.yu@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261104030930.3852781-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0P221CA0024.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:52a::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcb13a7d-1159-42b4-8f19-08df3a584ae2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|7416014|261021123027099003|261009221227099003|261026140227099003|11063799006|261028144727099003|261009223027099003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|10067099003|18002099003|22082099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: mYzzBFvzKb65sFd3lcBZbveRqW/dbqXiCVXdYgUwHgdt7B4koZzH+KWebU0sIn9/EL40BN5FkswSSNsNA0ZSuYHCJtWJkGeUjeIBtP6IHc1ZMxEjcZp+NDdilaBYiPm6w4eJPh+oksk2g+/nv3eNW6fBqwYCk2HHVz4ByUwJilPIQ2gcVmnkzDtai4qn3Lp+l9x5/B3vipPBAd1cz9Yeq6l4WZg1vpQwTWOnuM3SXreP0OGASv/K6mjKculjdIrQx7OZX3c9qNXKeg/t14fPXP4C3PKKf10FXzqYgiPCAOFry2XdXyGwmTtLw6g4UnYkTEACAhgrSczKVW/Jx6Iy5ByxH5TeRzxGh9Yh941KlMTj1hO7Hc7QiSk+lp3fKODSaGijwPPlkcEZ2BwotpxTdI/6QRl4Tr4Ne50aKwGayS735kmAAe66R+4VJMu8Fd13VOoi+b1mXznNPjgeTk7+vSiAE5TtXQ2KP9XMAegXdwE91fAenQRJXQYdYhZhW1azsPSkoag0QnaZEX0t2N+CcK94WUl+iODGZFA/3B6NoRXcTKDkCsy+2bRR4PqWnovLRH0iA0QNTF/ioJL+JhZi0vQqIYUh4yuq7dtSuXvaSuQMO6/avFDrQkJ7AzdHGJ9H
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(261021123027099003)(261009221227099003)(261026140227099003)(11063799006)(261028144727099003)(261009223027099003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(261102123227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qklwd1plcjM4NlM4Y1FleWYvb0NXNlliRUNKeEdZakFVRzJSUkJ0eHNKcm00?=
+ =?utf-8?B?eSs5dTN2OStFZGhhNWxPMmhMUHpDMDNPYU5zRjRIOVMrVVBJb0pVOUNrZFcw?=
+ =?utf-8?B?ZWl1bkZjU2hXRGVSNW9mQkJ0KzdXQVNJbHNnd3UwUVNCV3lzZ1M2QnJyTHh4?=
+ =?utf-8?B?cUd0MCtNeTBvUldMK2RRYzRKRWV0eE5qWEVJbkF6ZWEvMWM2T2RoQi9UTmxO?=
+ =?utf-8?B?aE5iWmw3dGMxaGpkZ3VRMzl5Mko2cm15Q2dJZmZwTUdtYnJrTCtDaG5lL3pP?=
+ =?utf-8?B?L2NvQWpGaStJQjAyeDF2alRpQU5OVDdxbUVVMm9SM3pxUlFSSlhhVWdQbC9v?=
+ =?utf-8?B?QWlueTl3TXR6K0dlUGdWUUg1S3pYcTd5SU5NSEpESFc2bE5JRkhMSmdDblBk?=
+ =?utf-8?B?SzI2SEdObEhIWTlNL3RzYmtlbUhXbHJ6M3JuNThWL3htcHpwR3RoTkVBMnVP?=
+ =?utf-8?B?Y0c2UTVxWXRyQjhwUTNLQ0ZFYVJwNGdOVW9pNURtQzR3R0tSdk03YldPcTBX?=
+ =?utf-8?B?YStZUGNyVnlOWXU4bitzYWh6cFpOdHNFWjVRV05xYkFkVVBaMHd1amw0SU1a?=
+ =?utf-8?B?UHlHcWsrUm1SQ3RVM0E0UCtYdXJmMFd3WWVSc2hGR2dUT1lTbHJORDhnOVIr?=
+ =?utf-8?B?b3lnMEpGR25hUzJRMWNBUzFPdmIwZ1lNNzRYTGhHeE5KSzZ6cVJUUFNSREdI?=
+ =?utf-8?B?S3BwV2hKZVFlS293a3YvWVQ3L3h5c3BkK2MwSWRBbFVKUHJwYkRIMkNhdGNj?=
+ =?utf-8?B?K3BGbUh2NVpxRXlQdkttYzdHSEF3bk9kTVBnK0lWMmF6Nis2RlNaQjRYZzUx?=
+ =?utf-8?B?WXgycS9KeTJzK1krQkZ4YW9vVWRhTXJiRWpRdHIyR25LTWdRWElUNHY1Yjdw?=
+ =?utf-8?B?V1htQ0hXOUpEbHdvUjk4YzBVb1JZcjFMS2JFaEt5aHRuVFJ2UnFycnF5M2t0?=
+ =?utf-8?B?ZU1lZk9JZWE2RW9PcFEycllnR1lRajJZekN3aW1lRUxhOXZzcGpNd0pmenZq?=
+ =?utf-8?B?NmNBUksxSkRlRTEyTW12Y3BCdlc0YndOaThQTFVBZUNtL2FERnFPS0IyMXBD?=
+ =?utf-8?B?Rk5xbG1CN2t3Lzlsa216eFB0N0FNQTNNYmpQMXkvMkhzUXpzSzZaanM1dGw0?=
+ =?utf-8?B?N3RqL1ZxZFc3dzVJOTgzK3dGZmwyTTRWSCtaOUd0dmFQMGQxVEZLdkVlMkto?=
+ =?utf-8?B?WjkyQzVhU2ZOWm1rWVNzbm5MMkkxWkRORVNqTlhkd2pUUFY0eG9nbnF0RUxP?=
+ =?utf-8?B?NnkyazNNbmJsNUUrRUZBMkdkT0gvOXZUc2pDU1gxMWE5ejVtZ0RKRHpLaXk5?=
+ =?utf-8?B?ODB3a1B5L3FFY0FiYzRYUkNjOFUrL2JSc2RMRTAyNXZoZDZmTk54c3hOUXZm?=
+ =?utf-8?B?TXNjL0ZJdklZMk5yTFZtV3pHa0lXU1Ezc090SnpDOTJ0RURLZWRkellxNEtw?=
+ =?utf-8?B?N2lsLzk3YXZIWG9FRnZKc1N5a0JqWk5xZDllWWFFYUx1WFZRUy9JS3JzalNZ?=
+ =?utf-8?B?ZGIzRFN2OUF1ZWpvSDdpYWVTU0FOWFZyNXhqZStSdDNRQTluRWl3UWF1NFVV?=
+ =?utf-8?B?VmxTZkVPRlNoTHpsNjJaMGVpS0ErU0ZnRnFwR3R5eE1OUnR0aVBIT0RvWjF0?=
+ =?utf-8?B?L3p1clVoSno1cXhCY294REFKeVI0bktVUFJFY2FNSmkwL3VabE11V3pWeEN0?=
+ =?utf-8?B?a295ZVYxMDFQY1VTQkNmK0hIS2kzZG90NFUrT3V1R2pldUhKT01pTk1taGZy?=
+ =?utf-8?B?aFdvc1Z3N0dFRUxBL3QrbWJqSDZUM2pEQldNSDV1N0E4RnU0QWtzR0gvNnNM?=
+ =?utf-8?B?Z3dMWkxwZkZQb0ZsaDhLcW9neUpIeDdsc25FT3hzeExTYU5nN0NnY1RBblYr?=
+ =?utf-8?B?cFp6QnpLTmcxTW9rb3NXUTFSZHNML2hrV0lLOGtSVFBqL21oRTBCRkQwa3pw?=
+ =?utf-8?B?TjdRSUZaa1U4RG01MGZ0SFMxSldFc3kyTXM5NnF6dkIycFZLcm14Qkpvc05p?=
+ =?utf-8?B?KzZUYSsvSVV3U1NrRHVmcTZaOU9ZZWpXUGtnT0twMjBoNVhlcWFSbWJETE1C?=
+ =?utf-8?B?VXBaaG5KOG9aVWZUc1VFa2dYRG1jVHJLWVpjQ1cxUXg0aS9zNHkzckYzQ1R6?=
+ =?utf-8?B?Z1hMbmpRYWhRUVVpclpWSjBvK01OWGtiSmVxRGg1MlBoa3Y1ZFMwYjF5N2lr?=
+ =?utf-8?B?bEsxUTA1S0Q4eDhzYTlHRmFVSHovamhCV1lkcG1kSXVIcWxLd0VIelFLUk0x?=
+ =?utf-8?B?N1BIQ0tpV2JrSk5PNE1ncnVlSGp1OUZZYXBKMkZFSXBUbXVuc1RzKzRCY0N4?=
+ =?utf-8?Q?ZVGoK/J0qH4mLLfpFx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcb13a7d-1159-42b4-8f19-08df3a584ae2
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:44:59.9755 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rJtXRRQdXy7GPfJiFno2ECZVpkodY1cShnzNTfqT+iaS3HshTBct5F6oj39Yp1Hh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,283 +134,250 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] drm/panel: nt37802: state desync on DSI errors in disable and un=
-prepare
-- [Medium] drm/panel: nt37802: asymmetric display-on/off across prepare and=
- disable
-- [Medium] drm/panel: bogus voltage ranges in novatek_nt37802_set_supply_vo=
-ltages()
-- [Low] drm/panel: nt37802: use mipi_dsi_dcs_write_seq_multi() for init com=
-mands
---
+On 11/4/26 04:09, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
+> 
+> The syncobj ioctls allocate several temporary arrays whose size is taken
+> directly from the u32 count_handles provided by userspace:
+> 
+>  - handles and syncobjs in drm_syncobj_array_find()
+>  - points and entries in drm_syncobj_array_wait_timeout()
+>  - points and chains in drm_syncobj_timeline_signal_ioctl()
+> 
+> These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
+> element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
+> 
+>   WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
+>   Call Trace:
+>    __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
+>    __do_kmalloc_node mm/slub.c:5519 [inline]
+>    __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
+>    _kmalloc_noprof include/linux/slab.h:995 [inline]
+>    _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+>    drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
+>    drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
+>    drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
+>    drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+> 
+> The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
+> KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
+> today, with a warning.
+> 
+> Fix this in two parts:
+> 
+>  - Reject more than DRM_SYNCOBJ_MAX_HANDLES handles with -EINVAL in
+>    drm_syncobj_array_find(), which every ioctl taking a handle array goes
+>    through. The limit is derived from the largest per-handle allocation
+>    (the wait entries) and the INT_MAX size limit of kvmalloc(), so none
+>    of the allocations above can exceed it. That is about 33M handles on
+>    64-bit.
+> 
+>  - Switch the six allocations to kvmalloc(), so that large but valid
+>    handle counts no longer depend on physically contiguous memory.
+> 
+> Using kvmalloc() alone is not enough: the reproducer asks for more than
+> INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
+> instead.
+> 
+> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
+> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Fei Yu <fei.yu@intel.com>
+> ---
+> v2:
+>  - Drop __GFP_NOWARN (Christian).
+>  - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
+>    arrays to kvmalloc() (Christian).
+>  - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
+> 
+> About the limit: INT_MAX / sizeof(struct syncobj_wait_entry) is about 33M
+> handles on 64-bit. It is the largest count for which every allocation stays
+> below the kvmalloc() INT_MAX size limit, so it does not add a new policy
+> number. Today the real limit is much lower: a wait on more than ~64K
+> handles already fails with -ENOMEM (plus the warning), because the wait
+> entries are a kmalloc() allocation larger than 4 MiB. If you prefer a lower,
+> fixed limit (e.g. SZ_1M) or GFP_KERNEL_ACCOUNT for these arrays, I can
+> change it.
+> 
+> Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
+>  - syzbot C reproducer: base warns in ___kmalloc_large_node() (size
+>    0x100000920), patched is clean, ioctl returns -EINVAL.
+>  - wait / timeline_wait / timeline_signal / reset / signal on 200000
+>    signaled syncobjs: base fails wait and timeline_wait with -ENOMEM and
+>    the same warning; patched all succeed.
+>  - count == DRM_SYNCOBJ_MAX_HANDLES gets past the check (-EFAULT from the
+>    short user buffer), count == DRM_SYNCOBJ_MAX_HANDLES + 1 returns -EINVAL
+>    for wait, reset and timeline_signal.
+>  - kmemleak clean, checkpatch --strict clean, W=1 clean,
+>    DRM KUnit 667/667 passed.
+>  - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
+>    202/202 subtests pass, same as base.
+> 
+>  drivers/gpu/drm/drm_syncobj.c | 40 ++++++++++++++++++++++-------------
+>  1 file changed, 25 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index f1d4da1685457..c01cf164a4f9e 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -220,6 +220,13 @@ struct syncobj_wait_entry {
+>         u64    point;
+>  };
+> 
+> +/*
+> + * Upper limit for the number of handles passed to a single ioctl. The
+> + * largest per-handle allocation is the wait entry array, keep it below the
+> + * INT_MAX size limit of kvmalloc().
+> + */
+> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
 
-commit a4454941919dc768e5c78cce0316ea1f0954d638
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+I really wonder if we should put that into the uAPI files?
 
-drm/panel: Add driver for Novatek NT37802
-
-This commit adds a DRM panel driver for the Novatek NT37802 AMOLED DSI
-command-mode panel running at 1440x3200@120Hz with DSC 1.2 compression
-and enables it as a module in the arm64 defconfig.
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37802.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt37802.c
-> new file mode 100644
-> index 0000000000000..632520f04ffad
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37802.c
-> @@ -0,0 +1,544 @@
-
-[ ... ]
-
-> +struct nt37802_cmd {
-> +	u8 len;
-> +	u8 data[32];
-> +};
-> +
-> +#define NT37802_CMD(...) \
-> +	{ .len =3D sizeof((u8[]){ __VA_ARGS__ }), .data =3D { __VA_ARGS__ } }
-
-[ ... ]
-
-> +static int novatek_nt37802_set_supply_voltages(struct novatek_nt37802 *c=
-tx)
-> +{
-> +	int ret;
-> +
-> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDDIO].consu=
-mer,
-> +				    1800000, 2000000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDD].consume=
-r,
-> +				    1100000, 1950000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VCI].consumer,
-> +				     3000000, 3544000);
-> +}
-
-[Severity: Medium]
-Should the voltage constraints be defined in the board Device Tree via
-regulator-min-microvolt and regulator-max-microvolt rather than calling
-regulator_set_voltage() with wide ranges in
-novatek_nt37802_set_supply_voltages()?
-
-The upper bounds (2000000 uV, 1950000 uV, and 3544000 uV) appear to be
-Qualcomm PMIC5 LDO hardware maximums from downstream
-qcom,panel-supply-entries rather than exact panel requirements.
-
-In drivers/regulator/core.c, regulator_set_voltage() selects the lowest
-voltage permitted by the intersection of the consumer request and the
-regulator's constraints:
-
-regulator_set_voltage_unlocked()
-  regulator_balance_voltage()
-    regulator_get_optimal_voltage()
-    _regulator_do_set_voltage()
-
-If a board's PMIC LDO constraints allow a voltage down to 1.1V while the
-panel expects 1.2V on vdd, requesting (1100000, 1950000) will lower the
-rail to 1.1V, and novatek_nt37802_probe() will also fail with -EINVAL on
-boards using fixed regulators without voltage adjustment constraints.
-
-[ ... ]
-
-> +static int novatek_nt37802_write_init(struct novatek_nt37802 *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(nt37802_init_cmds); i++)
-> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx,
-> +						nt37802_init_cmds[i].data,
-> +						nt37802_init_cmds[i].len);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-
-[Severity: Low]
-This isn't a bug, but could novatek_nt37802_write_init() use
-mipi_dsi_dcs_write_seq_multi() and standard DCS helpers (such as
-mipi_dsi_dcs_set_column_address_multi(),
-mipi_dsi_dcs_set_page_address_multi(), and mipi_dsi_dcs_set_tear_on_multi())
-with the caller's struct mipi_dsi_multi_context instead of defining the
-custom struct nt37802_cmd with a fixed 32-byte array for every entry in
-nt37802_init_cmds?
+Not that userspace is potentially using it, but this is part of the uAPI and makes sense for documentation purposes.
 
 > +
-> +static int novatek_nt37802_prepare(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
+>  static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
+>                                       struct syncobj_wait_entry *wait);
+> 
+> @@ -1051,7 +1058,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 lockdep_assert_none_held_once();
+>         }
+> 
+> -       points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
+> +       points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
+>         if (points == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1064,7 +1071,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 goto err_free_points;
+>         }
+> 
+> -       entries = kzalloc_objs(*entries, count);
+> +       entries = kvzalloc_objs(*entries, count);
+>         if (!entries) {
+>                 timeout = -ENOMEM;
+>                 goto err_free_points;
+> @@ -1185,10 +1192,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                                                   &entries[i].fence_cb);
+>                 dma_fence_put(entries[i].fence);
+>         }
+> -       kfree(entries);
+> +       kvfree(entries);
+> 
+>  err_free_points:
+> -       kfree(points);
+> +       kvfree(points);
+> 
+>         return timeout;
+>  }
+> @@ -1238,7 +1245,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>         struct drm_syncobj **syncobjs;
+>         int ret;
+> 
+> -       handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+> +       if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
+> +               return -EINVAL;
 > +
-> +	if (ctx->prepared)
-> +		return 0;
-> +
-> +	ret =3D novatek_nt37802_enable_supplies(ctx);
-> +	if (ret)
-> +		return ret;
-> +
-> +	novatek_nt37802_reset(ctx);
-> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D novatek_nt37802_write_init(ctx);
-> +	if (ret) {
-> +		novatek_nt37802_set_reset(ctx, 1);
-> +		novatek_nt37802_disable_supplies(ctx);
-> +		return ret;
-> +	}
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-> +	if (dsi_ctx.accum_err) {
-> +		novatek_nt37802_set_reset(ctx, 1);
-> +		novatek_nt37802_disable_supplies(ctx);
-> +		return dsi_ctx.accum_err;
-> +	}
-> +
-> +	ctx->prepared =3D true;
-> +	return 0;
-> +}
-> +
-> +static int novatek_nt37802_enable(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +
-> +	if (!ctx->prepared)
-> +		return -EPERM;
-> +
-> +	if (ctx->enabled)
-> +		return 0;
-> +
-> +	ctx->enabled =3D true;
-> +	return 0;
-> +}
-> +
-> +static int novatek_nt37802_disable(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	if (!ctx->enabled)
-> +		return 0;
-> +
-> +	/* The off sequence sends display-off in HS mode, then waits 10 ms. */
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 10);
-> +
-> +	ctx->enabled =3D false;
-> +	return dsi_ctx.accum_err;
-> +}
+> +       handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
 
-[Severity: Medium]
-What happens if drm_panel_disable() is followed by drm_panel_enable()
-without an intervening unprepare and prepare cycle?
+That kvmalloc_array() + the following copy_from_user should probably be replaced by using vmemdup_array_user(). But that should of course be a separate patch.
 
-novatek_nt37802_prepare() sends both mipi_dsi_dcs_exit_sleep_mode_multi()
-and mipi_dsi_dcs_set_display_on_multi(), while novatek_nt37802_enable()
-does not send any DSI commands. On the teardown side,
-novatek_nt37802_disable() sends mipi_dsi_dcs_set_display_off_multi() and
-novatek_nt37802_unprepare() only sends
-mipi_dsi_dcs_enter_sleep_mode_multi().
+>         if (handles == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1248,7 +1258,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>                 goto err_free_handles;
+>         }
+> 
+> -       syncobjs = kmalloc_objs(*syncobjs, count_handles);
+> +       syncobjs = kvmalloc_objs(*syncobjs, count_handles);
+>         if (syncobjs == NULL) {
+>                 ret = -ENOMEM;
+>                 goto err_free_handles;
+> @@ -1262,16 +1272,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>                 }
+>         }
+> 
+> -       kfree(handles);
+> +       kvfree(handles);
+>         *syncobjs_out = syncobjs;
+>         return 0;
+> 
+>  err_put_syncobjs:
+>         while (i-- > 0)
+>                 drm_syncobj_put(syncobjs[i]);
+> -       kfree(syncobjs);
+> +       kvfree(syncobjs);
+>  err_free_handles:
+> -       kfree(handles);
+> +       kvfree(handles);
+> 
+>         return ret;
+>  }
+> @@ -1283,7 +1293,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
+> 
+>         for (i = 0; i < count; i++)
+>                 drm_syncobj_put(syncobjs[i]);
+> -       kfree(syncobjs);
+> +       kvfree(syncobjs);
+>  }
+> 
+>  int
+> @@ -1572,8 +1582,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>         if (ret < 0)
+>                 return ret;
+> 
+> -       points = kmalloc_array(args->count_handles, sizeof(*points),
+> -                              GFP_KERNEL);
+> +       points = kvmalloc_array(args->count_handles, sizeof(*points),
+> +                               GFP_KERNEL);
 
-If a disable/enable cycle occurs without unprepare/prepare, the panel will
-be left with the display turned off while the backlight is enabled;
-conversely, if prepare is followed by unprepare without enable/disable,
-the panel enters sleep mode without sending display-off.
+Looking at the code the handling of allocating the array and the just memset()ing it to zero when it is not used is really sub-optimal.
 
-Should mipi_dsi_dcs_set_display_off_multi() and
-mipi_dsi_dcs_enter_sleep_mode_multi() both be handled in
-novatek_nt37802_unprepare() (dropping the enable and disable callbacks,
-similar to panel-novatek-nt37801.c), or should display-on be paired in
-novatek_nt37802_enable() with display-off in novatek_nt37802_disable()?
+But that is just a side comment and should probably be changed in a separate patch as well.
 
-> +
-> +static int novatek_nt37802_unprepare(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	if (!ctx->prepared)
-> +		return 0;
-> +
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	/* Assert the active-low reset after the downstream sleep delay. */
-> +	novatek_nt37802_set_reset(ctx, 1);
-> +	ctx->prepared =3D false;
-> +	novatek_nt37802_disable_supplies(ctx);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
+Apart from those minor comments the patch looks good to me.
 
-[Severity: Medium]
-Can a DSI error in novatek_nt37802_unprepare() or novatek_nt37802_disable()
-permanently desynchronize ctx->prepared and ctx->enabled from the core
-panel->prepared and panel->enabled state?
+Regards,
+Christian.
 
-In drivers/gpu/drm/drm_panel.c, drm_panel_unprepare() and
-drm_panel_disable() already track panel->prepared and panel->enabled, and
-skip clearing them when the driver callback returns a negative error:
+>         if (!points) {
+>                 ret = -ENOMEM;
+>                 goto out;
+> @@ -1586,7 +1596,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 goto err_points;
+>         }
+> 
+> -       chains = kmalloc_objs(*chains, args->count_handles);
+> +       chains = kvmalloc_objs(*chains, args->count_handles);
+>         if (!chains) {
+>                 ret = -ENOMEM;
+>                 goto err_points;
+> @@ -1609,9 +1619,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 dma_fence_put(fence);
+>         }
+>  err_chains:
+> -       kfree(chains);
+> +       kvfree(chains);
+>  err_points:
+> -       kfree(points);
+> +       kvfree(points);
+>  out:
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> --
+> 2.43.0
+> 
 
-drivers/gpu/drm/drm_panel.c:drm_panel_unprepare() {
-	...
-	if (panel->funcs && panel->funcs->unprepare) {
-		ret =3D panel->funcs->unprepare(panel);
-		if (ret < 0)
-			goto exit;
-	}
-	panel->prepared =3D false;
-	...
-}
-
-If mipi_dsi_dcs_enter_sleep_mode_multi() fails in
-novatek_nt37802_unprepare(), the driver still asserts reset, sets
-ctx->prepared =3D false, disables all four regulators, and returns the
-negative dsi_ctx.accum_err. Because drm_panel_unprepare() then leaves
-panel->prepared set to true, the next drm_panel_prepare() call returns
-early without calling novatek_nt37802_prepare() to re-enable the
-regulators, and novatek_nt37802_enable() then fails with -EPERM because
-ctx->prepared is false.
-
-Similarly, in drm_panel_disable(), backlight_disable() runs before
-panel->funcs->disable(). If mipi_dsi_dcs_set_display_off_multi() fails in
-novatek_nt37802_disable(), ctx->enabled is cleared and the negative error
-is returned, leaving panel->enabled set to true so subsequent
-drm_panel_enable() calls return early without re-enabling the backlight.
-
-Since struct drm_panel already maintains prepared and enabled state in the
-core, can ctx->prepared and ctx->enabled be dropped, and should
-novatek_nt37802_unprepare() return 0 after powering down the hardware (with
-mipi_dsi_dcs_enter_sleep_mode_multi() already logging the DSI error)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-jshekhar-n=
-t37802-v1-0-58e5e7fb2556@oss.qualcomm.com?part=3D2
