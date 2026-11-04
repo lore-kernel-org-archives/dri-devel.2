@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CC2606A330
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FF4606A32C
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l9RSbETa
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Vudnw+Ue
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D6FA10FCE2;
-	Wed,  4 Nov 2026 16:13:53 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 04 Nov 2026 16:13:45 UTC
-Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8D210FCF7
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:13:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BAED10FCE3;
+	Wed,  4 Nov 2026 16:14:19 +0000 (UTC)
+X-Greylist: delayed 391 seconds by postgrey-1.36 at gabe;
+ Wed, 04 Nov 2026 16:14:12 UTC
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E63DA10FCF7
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:14:12 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=8h6G/EKHbetMFLZ3FoTwPAwj6jQwPZCmaugSiKT4/5M=; 
+DKIM-Signature: a=rsa-sha256; bh=TEEBqA5mys4k9gU+dMidncfMYOQA4DDB7pbBCcoYQ8w=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793808824; v=1; x=1794413624;
- b=l9RSbETaBpaa66ARvl/1EF1+GPT7ZSk2472DACu957EjIGMGw+yfpg4KpgliabVFTCcpsHMm
- OChwmzsTi5htLqhvkdtP461PCWd3ifCbXudTF4hthX8QhoRKqD9jVgldOEN9nKcQRe3jH8g/L7c
- bkik75JhtRKUHz9s20r2hOv4=
+ t=1793808851; v=1; x=1794413651;
+ b=Vudnw+UeQcWghBHT6KkQ/NDmRdo/zhFuwtr9DpJ7V2qZ6E9YB+E17/mcS8Yg0HdKXtFIeaiV
+ PtJ3WwEy0JVViv7ayNF7EtP2srKbFGi2YRbPalt2sR0dQbyi69hAxHuyucqTiLKH33DEVUcrTCT
+ eN1rISlP7NjZ/Sczx23lwvV0=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 64b2df2fbae2508c;
- Wed, 04 Nov 2026 16:07:38 +0000
-X-Mizu-Trace-ID: 64b2df2fbae2508c
+Received: by smtp.migadu.com with ESMTPS id ae6b6b9431f873b0;
+ Wed, 04 Nov 2026 16:08:04 +0000
+X-Mizu-Trace-ID: ae6b6b9431f873b0
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
@@ -40,23 +40,19 @@ To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Vineet Gupta <vineet.gupta@linux.dev>, "H. Peter Anvin" <hpa@zytor.com>,
- "Xin Li (Intel)" <xin@zytor.com>, Brian Gerst <brgerst@gmail.com>,
- Nikolay Borisov <nik.borisov@suse.com>, linux-kernel@vger.kernel.org,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
+Cc: Vineet Gupta <vineet.gupta@linux.dev>,
  Nathan Chancellor <nathan@kernel.org>,
  Nick Desaulniers <ndesaulniers@google.com>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, llvm@lists.linux.dev
-Subject: [PATCH 0/4] Fix the x86 defconfig build with GCC 17
-Date: Wed,  4 Nov 2026 08:07:17 -0800
-Message-ID: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ llvm@lists.linux.dev
+Subject: [PATCH 4/4] drm/i915: Avoid -Wconstant-logical-operand with GCC 17
+Date: Wed,  4 Nov 2026 08:07:21 -0800
+Message-ID: <20261104160722.1637541-5-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,60 +67,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fix build warnings and failures (CONFIG_WERROR=y) with a GCC 17 build.
-GCC 17 adds -Wconstant-logical-operand which is strict about operands
-of && or || that fold to a constant other than 0 or 1.
+GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
+of && or || folds to a constant other than 0 or 1. Three places break the
+build with CONFIG_WERROR=y:
 
-In the past similar fixes have been done for clang, e.g.
+  include/drm/intel/reg_bits.h:27:48: error: use of logical '&&' with constant operand '256' [-Werror=constant-logical-operand]
+  drivers/gpu/drm/i915/i915_config.c:13:43: error: use of logical '&&' with constant operand '10000' [-Werror=constant-logical-operand]
+  drivers/gpu/drm/i915/gem/i915_gem_context.c:999:45: error: use of logical '&&' with constant operand '20000' [-Werror=constant-logical-operand]
 
-  93f56de25937 2017-04-06 mac80211: Fix clang warning about constant operand in logical operation  [v4.12-rc1]
-  ...
-  dd7fe5d9fd6a 2024-01-17 rtc: max31335: Fix comparison in max31335_volatile_reg()                 [v6.8-rc1]
+clang has the same warning, but it checks only a constant right operand
+outside a macro. Here each constant is a left operand, and
+IS_POWER_OF_2() is also a macro.
 
-The reason this trips only with gcc is that clang's toggle is more
-permissive:
- - it checks RHS only, not constant LHS.
- - Macros are not checked.
+Commit 1a839e016e49 ("drm/i915: remove IS_ACTIVE") moved
+CONFIG_DRM_I915_FENCE_TIMEOUT to the left of && to avoid the clang
+warning. That does not help with GCC 17.
 
-Fix is to effectively make a macro or condition return 0 or 1.
+Compare each constant against 0, as commit aeedd3a82678 ("drm/i915: Avoid
+-Wconstant-logical-operand in nsecs_to_jiffies_timeout()") did.
 
-The patches are split up per subsystem and can go independently via
-respective trees:
-
-  1/4 x86/cpufeatures: the awk-generated *_MASK_BIT_SET() returns 0 or 1.
-  2/4 wait: ___wait_is_interruptible() with a constant state.
-  3/4 iommupt: PT_SUPPORTED_FEATURE() in the fvalog2_*() helpers.
-  4/4 drm/i915: IS_POWER_OF_2() in reg_bits.h, and two Kconfig timeouts.
-
-Tested on x86 defconfig with CONFIG_WERROR=y, at each patch:
-
- - GCC 17 trunk (20261103): each patch removes only its own errors. The
-   build has no warnings after 4/4.
- - GCC 16.1: the build has no warnings. The .text of each object file
-   does not change. The only differences come from the build timestamp
-   and the release string.
-
-Vineet Gupta (4):
-  x86/cpufeatures: Make {REQUIRED,DISABLED}_MASK_BIT_SET() return 0 or 1
-  wait: Make ___wait_is_interruptible() return 0 or 1
-  iommupt: Make PT_SUPPORTED_FEATURE() return 0 or 1
-  drm/i915: Avoid -Wconstant-logical-operand with GCC 17
-
- arch/x86/tools/cpufeaturemasks.awk          | 4 ++--
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+---
  drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
  drivers/gpu/drm/i915/i915_config.c          | 2 +-
- drivers/iommu/generic_pt/pt_defs.h          | 2 +-
  include/drm/intel/reg_bits.h                | 2 +-
- include/linux/wait.h                        | 2 +-
- 6 files changed, 7 insertions(+), 7 deletions(-)
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..1639639dd290 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -996,7 +996,7 @@ static int intel_context_set_gem(struct intel_context *ce,
+ 	    intel_engine_has_semaphores(ce->engine))
+ 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
+ 
+-	if (CONFIG_DRM_I915_REQUEST_TIMEOUT &&
++	if (CONFIG_DRM_I915_REQUEST_TIMEOUT != 0 &&
+ 	    ctx->i915->params.request_timeout_ms) {
+ 		unsigned int timeout_ms = ctx->i915->params.request_timeout_ms;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_config.c b/drivers/gpu/drm/i915/i915_config.c
+index 9e13b1be407c..9bbebe0a6a70 100644
+--- a/drivers/gpu/drm/i915/i915_config.c
++++ b/drivers/gpu/drm/i915/i915_config.c
+@@ -10,7 +10,7 @@
+ 
+ unsigned long i915_fence_context_timeout(u64 context)
+ {
+-	if (CONFIG_DRM_I915_FENCE_TIMEOUT && context)
++	if (CONFIG_DRM_I915_FENCE_TIMEOUT != 0 && context)
+ 		return msecs_to_jiffies_timeout(CONFIG_DRM_I915_FENCE_TIMEOUT);
+ 
+ 	return 0;
+diff --git a/include/drm/intel/reg_bits.h b/include/drm/intel/reg_bits.h
+index 2a9066e1d808..f913c3e61f39 100644
+--- a/include/drm/intel/reg_bits.h
++++ b/include/drm/intel/reg_bits.h
+@@ -24,7 +24,7 @@
+ /*
+  * Local integer constant expression version of is_power_of_2().
+  */
+-#define IS_POWER_OF_2(__x)		((__x) && (((__x) & ((__x) - 1)) == 0))
++#define IS_POWER_OF_2(__x)		((__x) != 0 && (((__x) & ((__x) - 1)) == 0))
+ 
+ /**
+  * REG_FIELD_PREP8() - Prepare a u8 bitfield value
 -- 
 2.53.0-Meta
 
