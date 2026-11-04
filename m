@@ -2,20 +2,19 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7918E606D81F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B84606D812
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF0F10F989;
-	Wed,  4 Nov 2026 02:53:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25F9910F98A;
+	Wed,  4 Nov 2026 02:53:48 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6AC10E66B
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6437610F988
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:44 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowADH8_0pnupqxuQ+AA--.9985S2;
- Wed, 04 Nov 2026 10:53:29 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowABXgvwunupq_uQ+AA--.10086S2;
+ Wed, 04 Nov 2026 10:53:34 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
@@ -25,31 +24,32 @@ To: Jagan Teki <jagan@amarulasolutions.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm: bridge: ti-dlpc3433: register the DSI device with devres
-Date: Wed,  4 Nov 2026 02:53:38 +0000
-Message-Id: <20261104025338.1527339-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/bridge: it6505: put the endpoint node after using it
+Date: Wed,  4 Nov 2026 02:53:43 +0000
+Message-Id: <20261104025343.1527475-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADH8_0pnupqxuQ+AA--.9985S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr43XrWDtF43urWUZrykGrg_yoW8Xw4DpF
- 45Wa4Yyr9Fqr1jgw47AF18ZFy5uanIkayrC3Z7Jwsa9w1kua4Y9FWDAa45Ww1YqF48Cr1Y
- yFnrXw13CaykAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Eb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+X-CM-TRANSID: qwCowABXgvwunupq_uQ+AA--.10086S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFyDWF13Zry3tw47ZFy3XFb_yoW8Kr45pr
+ srGayY9FsrGFZ7KrWUJr1fAr1Fya1UXFWrCFyxGw4Svan5X3WkAFsI9F90qF18CFn7Zw1Y
+ yr4qkFnF9r1ruw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPab7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
  cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
  AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
  6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
  v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
  McIj6xIIjxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
- kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kK
- e7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMx
- C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
- wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
- vE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAv
- wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267
- AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7IU5ENtDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQBA2rqY-nifQAAsa
+ kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lFIxGxcIE
+ c7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82
+ IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+ 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+ kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAF
+ wI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+ 1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjxU
+ HgAzUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgBA2rqZFjiRQAAsW
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +68,68 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dlpc_host_attach() registers a MIPI DSI device with
-mipi_dsi_device_register_full(). That call adds the device to the DSI
-bus and the driver never unregisters it: dlpc3433_remove() only removes
-the bridge, and the error path when devm_mipi_dsi_attach() fails returns
-without unregistering either. The DSI device is leaked on every
-successful probe and on that failure path.
+it6505_parse_dt() obtains an endpoint node with
+of_graph_get_endpoint_by_regs() and drops that reference with
+of_node_put() right away, before the node is checked and passed to
+it6505_get_data_lanes_count(), of_property_read_u32_array() and
+of_property_read_variable_u64_array().
 
-devm_mipi_dsi_attach() only registers a detach action, it does not
-unregister the device. Use devm_mipi_dsi_device_register_full() so the
-device is unregistered when the bridge device goes away.
+The reference from of_graph_get_endpoint_by_regs() is the only thing
+keeping the endpoint alive, so releasing it first leaves the following
+property lookups operating on a node that another of_node_put() can free
+concurrently, for instance when a device tree overlay providing the
+endpoint is removed.
 
-Fixes: 6352cd451ddb ("drm: bridge: Add TI DLPC3433 DSI to DMD bridge")
+Keep the reference until the properties have been read and only then
+call of_node_put(), for both endpoints parsed by the function.
+
+Fixes: 380d920b582d ("drm/bridge: add it6505 driver to read data-lanes and link-frequencies from dt")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/bridge/ti-dlpc3433.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-dlpc3433.c b/drivers/gpu/drm/bridge/ti-dlpc3433.c
-index c9f789e30687..57b160e96059 100644
---- a/drivers/gpu/drm/bridge/ti-dlpc3433.c
-+++ b/drivers/gpu/drm/bridge/ti-dlpc3433.c
-@@ -325,7 +325,7 @@ static int dlpc_host_attach(struct dlpc *dlpc)
- 	if (!host)
- 		return dev_err_probe(dev, -EPROBE_DEFER, "failed to find dsi host\n");
+diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+index e136ac71edbb..228a0861919b 100644
+--- a/drivers/gpu/drm/bridge/ite-it6505.c
++++ b/drivers/gpu/drm/bridge/ite-it6505.c
+@@ -3342,8 +3342,6 @@ static void it6505_parse_dt(struct it6505 *it6505)
+ 	}
  
--	dlpc->dsi = mipi_dsi_device_register_full(host, &info);
-+	dlpc->dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
- 	if (IS_ERR(dlpc->dsi)) {
- 		DRM_DEV_ERROR(dev, "failed to create dsi device\n");
- 		return PTR_ERR(dlpc->dsi);
+ 	ep = of_graph_get_endpoint_by_regs(np, 1, 0);
+-	of_node_put(ep);
+-
+ 	if (ep) {
+ 		len = it6505_get_data_lanes_count(ep, 1, 4);
+ 
+@@ -3355,14 +3353,14 @@ static void it6505_parse_dt(struct it6505 *it6505)
+ 			*max_lane_count = MAX_LANE_COUNT;
+ 			dev_err(dev, "error data-lanes, use default");
+ 		}
++
++		of_node_put(ep);
+ 	} else {
+ 		*max_lane_count = MAX_LANE_COUNT;
+ 		dev_err(dev, "error endpoint, use default");
+ 	}
+ 
+ 	ep = of_graph_get_endpoint_by_regs(np, 0, 0);
+-	of_node_put(ep);
+-
+ 	if (ep) {
+ 		len = of_property_read_variable_u64_array(ep,
+ 							  "link-frequencies",
+@@ -3381,6 +3379,8 @@ static void it6505_parse_dt(struct it6505 *it6505)
+ 			dev_err(dev, "error link frequencies, use default");
+ 			*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
+ 		}
++
++		of_node_put(ep);
+ 	} else {
+ 		dev_err(dev, "error endpoint, use default");
+ 		*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
 -- 
 2.34.1
 
