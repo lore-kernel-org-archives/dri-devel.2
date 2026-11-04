@@ -2,82 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEDE60D6F1E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EC960952AA
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMyRA3zI
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=cOpTf5Us
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04CED10FE98;
-	Wed,  4 Nov 2026 19:52:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D2A10FE98
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E2F2240B94;
- Wed,  4 Nov 2026 19:52:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3105C1F00919;
- Wed,  4 Nov 2026 19:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821925;
- bh=nlVd2d+i8P+1hcARtfAVoMomzYlKlzmY39R4NNuEpHM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZMyRA3zI8Sln08MR1364NjeQVCVRFsuzSmwSp1G0bn2FQX+vESuzWgEaagXi1nFm9
- wO2pwXUpvNE3J83NqE6nCFBa8S/9S7uQfRzT/fsI9tB5t4tvZcszF80i1iW6qtF69s
- p3wE/rXCYmtUN6YEu+BikSxByO3X1p8xpJBr6GzvBUx5MGhVG3BHKesr8l0VKeWho2
- A/w3YhDS3XG+I0lTWJUsNnQgYIC1zKjTXfIokwn6Yj/StyoZCWEZtzCvWpUljW4ifo
- 51LQ0M0VaH4DFJ/z4SMU3GYIHgTo1WYTVP15wFMaukaQVy3NMN99EFlxlQj0lpOcmp
- FcrH8k4MnhzUQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 09/30] smb: client: let procfs copy in writes
-Date: Wed,  4 Nov 2026 20:51:50 +0100
-Message-ID: <20261104-work-procfs-fs-v2-9-319e0f9a8aae@kernel.org>
-In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B636A10FE9B;
+	Wed,  4 Nov 2026 19:52:19 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E99110FE9B
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793821927; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=EXNvL60t7UEFw8OuXwv9q7cs4BDaDl4hxq5PcaxJv09OCkdlNfib+6NAQuFc0bkg+QyUh6dPiYFiBm6Ip3WVxr20WN1+Opr/ViaHNa7vwR3YbiFIRoTR1ZZMyAWMUO3wH5RCiu4jkr1ccoNhaE6YUW9KTO9zrT4P8zemIp+Cqas=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793821927;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Ki/ozP3RoDXMuAAZKxiy5Y6Gp71eNHZ9dUt1D2IRKgQ=; 
+ b=XfDQ+xshGD6NbUO35SWCMpYAtnWKGQ79KGTxUQVi3RboUHNFqCPyfuDeAuSC9x7z9avBANPsj0Z1QK+r/9RceG0n2y9OaOhaFpBbwgpAGGSN9XvfaaAL5850YbJvAz9tCYn40rtZA3wkDV6IA4jdQY/BzaSccVkuvBJL7pI69so=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=cOpTf5UsAqSKcScBlMrWWR01NwTBfMlfaW3LETKc7MGxoDtILTJuDobAFj9HFFkaWAgVnjLUTSFJVVxhBGnfmC7shPZtXsoOHfH4S4qVd4Mj9EwvndHScJLK9QSdrG92TrbZ9G0tuM1IbBggwgkoFvp9RbMN1esp/F4CsnX61R8=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=Ki/ozP3RoDXMuAAZKxiy5Y6Gp71eNHZ9dUt1D2IRKgQ=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179382192565294.53060187105473;
+ Wed, 4 Nov 2026 11:52:05 -0800 (PST)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v3 0/2] Two small perfcnt fixes for Panfrost
+Date: Wed, 04 Nov 2026 19:51:52 +0000
+Message-Id: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8830; i=brauner@kernel.org;
- h=from:subject:message-id; bh=FT7LQYM7T+jx4y6th5QoquEbwgmi4EXWnyiLf7yiyR0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jFVfavUps2ra/YmWm9tb5r4CdX5kxS/Ly291SwZ2
- hbHv2dvRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETe9zAyrHj3VVFgg82mR0sX
- M/b/9f47a6GmkfGMv+rFGu6PQ2/tnsjwT/Hxin4jLiPX99dvsa0/tuvUr+IZe0zCJFOn/ir/Ucg
- 4gRsA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBBFr9KwFgMUWuvKexgXQAeLqaWBSjRN7
+ y7UGBMX3fzkZ/68N6MA3kJAx2JGHqIN1g2plLsC6U4OV8C2TR0xwipKKMejHIx3YcIeAqSUGgI
+ 29pmyMsIwLppWNwolwOhhPaT/8+XTw0PdQE+ZmBedDZPzr9Uead59RWJLFCkmWKmaa1ofKknUS
+ bu+l8p5udfujrIssh+OknITxxKOC85IrWjLofzHLcvyBrg5ko4pAQAA
+X-Change-ID: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2169;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=Y0sDh9Vxfi6xKWYfSk0iWNZD/d7xGKBSB//bMaYYXo8=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq64zbAKNHKtGqcs/jwuntYpHec34HEx4c3xY/7
+ UsI5lqjKwyJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCauuM2wAKCRAOJn5M7lND
+ PcECC/9cFbeqYvc2fVSH3VFenHfGRxeFS95TWW6ZcxiCbSUojX9gNinK39g7RbQ2P3/b48iY40y
+ 56sy2f+3yPEjEQH4wbWuYuUAr8leUSKC9I4piOFp4pqGdGqFoKHuFZ9meiFpDRhY/x71/ln2G7L
+ Iu0zSpF9uRqCmIfku2ktCqGSQXvT2B+cEyilQ0SUwp4GHKDuHqJaLCeHtPv7S5XRdDtkZHgh7GY
+ xqJanTNZ7qklKnF3qi+n7fnKiq7R3KxPzhZFy7SzepHgaRda5R8NkPeyiGDijXF3hlhQ4ZKYKg8
+ YO3OOVRIhkOF3R8DifmqjTYmGyp+uHpDNvHq6Sqmxot3MRPeEjjzaIfBkhrIftV3R22HHWA638N
+ 7ZV3bYsycD9slcABYXodnFVYNIiSn+tdLdOpbVQ6n0iqZGoy89tCwQk+KtXB5+R9eBuYav4xheh
+ /K4x57ZrsGQd6vi6N467+3KvZZl7/UKIy1qt0NuynzNgNiqflu9qHE0ViyCq0vUWoSs+E=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,274 +78,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_write_buf() for the files in /proc/fs/cifs so procfs
-copies in what is written before it pins the entry, and parse what was
-written from that copy. Writes larger than PAGE_SIZE - 1 bytes fail with
--EINVAL now, SecurityFlags never took more than 11 bytes. Empty writes
-to cifsFYI and dfscache fail with -EINVAL too, they looked at a byte
-that wasn't written before. kstrtoint_from_user() looked at the first
-34 bytes of a write to cifs_debug_dirs and the smbdirect files, now the
-whole write is parsed.
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+First fix makes sure cycle counter is enabled when starting a new
+session. This is required by some profiling frameworks like
+Perfetto. Second fix deals with a recently-introduced race condition.
+
 ---
- fs/smb/client/cifs_debug.c | 62 +++++++++++++++++++---------------------------
- fs/smb/client/dfs_cache.c  | 13 +++-------
- 2 files changed, 29 insertions(+), 46 deletions(-)
+Changes in v3:
+- Removed atomic-variable non-equality check altogether.
+- Minor commitm messages changes and adding trailers.
+- Link to v2: https://patch.msgid.link/20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com
 
-diff --git a/fs/smb/client/cifs_debug.c b/fs/smb/client/cifs_debug.c
-index 664072ab3342..fb1323bf44c7 100644
---- a/fs/smb/client/cifs_debug.c
-+++ b/fs/smb/client/cifs_debug.c
-@@ -359,12 +359,12 @@ static int cifs_debug_dirs_proc_show(struct seq_file *m, void *v)
- #ifdef CONFIG_CIFS_DEBUG
- 
- /* Drop all cached directory entries across all CIFS mounts. */
--static ssize_t cifs_debug_dirs_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t cifs_debug_dirs_proc_write(struct file *file, char *buffer,
- 					  size_t count, loff_t *ppos)
- {
- 	int rc, v;
- 
--	rc = kstrtoint_from_user(buffer, count, 10, &v);
-+	rc = kstrtoint(buffer, 10, &v);
- 	if (rc)
- 		return rc;
- 
-@@ -390,7 +390,7 @@ static ssize_t cifs_debug_dirs_proc_write(struct file *file, const char __user *
- 
- static const struct proc_ops cifs_debug_dirs_proc_ops = {
- 	.proc_show	= cifs_debug_dirs_proc_show,
--	.proc_write	= cifs_debug_dirs_proc_write,
-+	.proc_write_buf	= cifs_debug_dirs_proc_write,
- };
- #endif /* CONFIG_CIFS_DEBUG */
- 
-@@ -713,8 +713,8 @@ static int cifs_debug_data_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t cifs_stats_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *ppos)
-+static ssize_t cifs_stats_proc_write(struct file *file, char *buffer,
-+		size_t count, loff_t *ppos)
- {
- 	bool bv;
- 	int rc;
-@@ -722,7 +722,7 @@ static ssize_t cifs_stats_proc_write(struct file *file,
- 	struct cifs_ses *ses;
- 	struct cifs_tcon *tcon;
- 
--	rc = kstrtobool_from_user(buffer, count, &bv);
-+	rc = kstrtobool(buffer, &bv);
- 	if (rc == 0) {
- #ifdef CONFIG_CIFS_STATS2
- 		int i;
-@@ -854,16 +854,16 @@ static int cifs_stats_proc_show(struct seq_file *m, void *v)
- 
- static const struct proc_ops cifs_stats_proc_ops = {
- 	.proc_show	= cifs_stats_proc_show,
--	.proc_write	= cifs_stats_proc_write,
-+	.proc_write_buf	= cifs_stats_proc_write,
- };
- 
- #ifdef CONFIG_CIFS_SMB_DIRECT
- #define PROC_FILE_DEFINE(name) \
--static ssize_t name##_write(struct file *file, const char __user *buffer, \
-+static ssize_t name##_write(struct file *file, char *buffer, \
- 	size_t count, loff_t *ppos) \
- { \
- 	int rc; \
--	rc = kstrtoint_from_user(buffer, count, 10, &name); \
-+	rc = kstrtoint(buffer, 10, &name); \
- 	if (rc) \
- 		return rc; \
- 	return count; \
-@@ -876,7 +876,7 @@ static int name##_proc_show(struct seq_file *m, void *v) \
- \
- static const struct proc_ops cifs_##name##_proc_fops = { \
- 	.proc_show	= name##_proc_show, \
--	.proc_write	= name##_write, \
-+	.proc_write_buf	= name##_write, \
- }
- 
- PROC_FILE_DEFINE(rdma_readwrite_threshold);
-@@ -990,16 +990,12 @@ static int cifsFYI_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t cifsFYI_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t cifsFYI_proc_write(struct file *file, char *buffer,
- 		size_t count, loff_t *ppos)
- {
--	char c[2] = { '\0' };
-+	char c[2] = { buffer[0] };
- 	bool bv;
--	int rc;
- 
--	rc = get_user(c[0], buffer);
--	if (rc)
--		return rc;
- 	if (kstrtobool(c, &bv) == 0)
- 		cifsFYI = bv;
- 	else if ((c[0] > '1') && (c[0] <= '9'))
-@@ -1012,7 +1008,7 @@ static ssize_t cifsFYI_proc_write(struct file *file, const char __user *buffer,
- 
- static const struct proc_ops cifsFYI_proc_ops = {
- 	.proc_show	= cifsFYI_proc_show,
--	.proc_write	= cifsFYI_proc_write,
-+	.proc_write_buf	= cifsFYI_proc_write,
- };
- 
- static int cifs_linux_ext_proc_show(struct seq_file *m, void *v)
-@@ -1021,12 +1017,12 @@ static int cifs_linux_ext_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t cifs_linux_ext_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *ppos)
-+static ssize_t cifs_linux_ext_proc_write(struct file *file, char *buffer,
-+		size_t count, loff_t *ppos)
- {
- 	int rc;
- 
--	rc = kstrtobool_from_user(buffer, count, &linuxExtEnabled);
-+	rc = kstrtobool(buffer, &linuxExtEnabled);
- 	if (rc)
- 		return rc;
- 
-@@ -1035,7 +1031,7 @@ static ssize_t cifs_linux_ext_proc_write(struct file *file,
- 
- static const struct proc_ops cifs_linux_ext_proc_ops = {
- 	.proc_show	= cifs_linux_ext_proc_show,
--	.proc_write	= cifs_linux_ext_proc_write,
-+	.proc_write_buf	= cifs_linux_ext_proc_write,
- };
- 
- static int cifs_lookup_cache_proc_show(struct seq_file *m, void *v)
-@@ -1044,12 +1040,12 @@ static int cifs_lookup_cache_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t cifs_lookup_cache_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *ppos)
-+static ssize_t cifs_lookup_cache_proc_write(struct file *file, char *buffer,
-+		size_t count, loff_t *ppos)
- {
- 	int rc;
- 
--	rc = kstrtobool_from_user(buffer, count, &lookupCacheEnabled);
-+	rc = kstrtobool(buffer, &lookupCacheEnabled);
- 	if (rc)
- 		return rc;
- 
-@@ -1058,7 +1054,7 @@ static ssize_t cifs_lookup_cache_proc_write(struct file *file,
- 
- static const struct proc_ops cifs_lookup_cache_proc_ops = {
- 	.proc_show	= cifs_lookup_cache_proc_show,
--	.proc_write	= cifs_lookup_cache_proc_write,
-+	.proc_write_buf	= cifs_lookup_cache_proc_write,
- };
- 
- static int traceSMB_proc_show(struct seq_file *m, void *v)
-@@ -1067,12 +1063,12 @@ static int traceSMB_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t traceSMB_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t traceSMB_proc_write(struct file *file, char *buffer,
- 		size_t count, loff_t *ppos)
- {
- 	int rc;
- 
--	rc = kstrtobool_from_user(buffer, count, &traceSMB);
-+	rc = kstrtobool(buffer, &traceSMB);
- 	if (rc)
- 		return rc;
- 
-@@ -1081,7 +1077,7 @@ static ssize_t traceSMB_proc_write(struct file *file, const char __user *buffer,
- 
- static const struct proc_ops traceSMB_proc_ops = {
- 	.proc_show	= traceSMB_proc_show,
--	.proc_write	= traceSMB_proc_write,
-+	.proc_write_buf	= traceSMB_proc_write,
- };
- 
- static int cifs_security_flags_proc_show(struct seq_file *m, void *v)
-@@ -1111,21 +1107,15 @@ cifs_security_flags_handle_must_flags(unsigned int *flags)
- }
- 
- static ssize_t cifs_security_flags_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *ppos)
-+		char *flags_string, size_t count, loff_t *ppos)
- {
- 	int rc;
- 	unsigned int flags;
--	char flags_string[12];
- 	bool bv;
- 
- 	if ((count < 1) || (count > 11))
- 		return -EINVAL;
- 
--	memset(flags_string, 0, sizeof(flags_string));
--
--	if (copy_from_user(flags_string, buffer, count))
--		return -EFAULT;
--
- 	if (count < 3) {
- 		/* single char or single char followed by null */
- 		if (kstrtobool(flags_string, &bv) == 0) {
-@@ -1176,7 +1166,7 @@ static ssize_t cifs_security_flags_proc_write(struct file *file,
- 
- static const struct proc_ops cifs_security_flags_proc_ops = {
- 	.proc_show	= cifs_security_flags_proc_show,
--	.proc_write	= cifs_security_flags_proc_write,
-+	.proc_write_buf	= cifs_security_flags_proc_write,
- };
- 
- /* To make it easier to debug, can help to show mount params */
-diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
-index 58f16cf83d36..a6aa05430b15 100644
---- a/fs/smb/client/dfs_cache.c
-+++ b/fs/smb/client/dfs_cache.c
-@@ -191,17 +191,10 @@ static int dfscache_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t dfscache_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t dfscache_proc_write(struct file *file, char *buffer,
- 				   size_t count, loff_t *ppos)
- {
--	char c;
--	int rc;
--
--	rc = get_user(c, buffer);
--	if (rc)
--		return rc;
--
--	if (c != '0')
-+	if (buffer[0] != '0')
- 		return -EINVAL;
- 
- 	cifs_dbg(FYI, "clearing dfs cache\n");
-@@ -215,7 +208,7 @@ static ssize_t dfscache_proc_write(struct file *file, const char __user *buffer,
- 
- const struct proc_ops dfscache_proc_ops = {
- 	.proc_show	= dfscache_proc_show,
--	.proc_write	= dfscache_proc_write,
-+	.proc_write_buf	= dfscache_proc_write,
- };
- 
- #ifdef CONFIG_CIFS_DEBUG2
+Changes in v2:
+- Added review trailers.
+- Removed warning from cycle count reference check.
+- Link to v1: https://patch.msgid.link/20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com
 
--- 
-2.53.0
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Adrián Larumbe (1):
+      drm/panfrost: Fix race when restoring reset state in perfcnt
+
+Boris Brezillon (1):
+      drm/panfrost: Enable cycle counting when perfcnt is enabled
+
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     |  7 +++----
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 18 ++++++++++--------
+ 2 files changed, 13 insertions(+), 12 deletions(-)
+---
+base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
+change-id: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
