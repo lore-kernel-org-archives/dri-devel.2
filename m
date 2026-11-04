@@ -2,41 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FF1606D806
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:24:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDB1606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HuD93YP6
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aivk3xom
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80AB110E5CE;
-	Wed,  4 Nov 2026 18:24:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1445D10E5CE
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:24:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A4FF6061B;
- Wed,  4 Nov 2026 18:24:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3561F00919;
- Wed,  4 Nov 2026 18:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793816656;
- bh=2Lev3xdEFM8EuZNC24k5AZNEZNpN9ZuV2R1quiikF9c=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=HuD93YP6SyfiVIfTR6zYs9wBz0PNWZLgixdD+ciZqt+mQuLC6rS/wtHlki9bnuz3Z
- 0wvWrpXGut5N98PlgvIQk6PQUu9NHwB3f2YSafvS3s7M6PBGVnx4TM5f/VAhc3EpRB
- ReAWNgsqFSaF4F+iY2AHV7dNT6nQFiICxSVR7Pbo+jWF1AXu6OjgtzalQAQux/PMEV
- wdy10+yJIuiWXx1kPfeM+S9siVLGEJd0W3rCap0rraG/5djorL6nej/CXOhhEK7Tj+
- mWeBowJxKxrRSPgvLoBMLhfj9it5G5Afy9aZyBZbhcu9rRop+O3ysv1EXTP4xBSFmq
- NUU4SKH8KUM2Q==
-Message-ID: <sashiko-outbox-197834@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/6] drm/msm: Rework IFPC disable
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261104175931.28475-4-robin.clark@oss.qualcomm.com>
-References: <20261104175931.28475-1-robin.clark@oss.qualcomm.com>
- <20261104175931.28475-4-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 18:24:16 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A70810E833;
+	Wed,  4 Nov 2026 18:25:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C013D10E5F5
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:25:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793816724; x=1825352724;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wgn+6fgfXqn11aO7kEGszzMbNYa+lu4A164Y1GawPkA=;
+ b=Aivk3xomTWDcfiCMSkUVeYvf7/EaKlRl4mTJQDAVvieX65D14yLUst3G
+ B6j1ZzdciZOEYYqVKQJblCeBjg2qGuBwras8fSModgMOkovspeaYwKfy+
+ kr6Chf1bxUF2x6gwirTg4QHaJzK75yjY+x/zkprNl0n6eJo3fTqB8ioVN
+ l0Wjog9HPU93NBNefhmmkCQTNtdgPYveTjLr8ugF4Hdn4k/tYjZ4PCqth
+ omLeQ9znJg7HIbiwiDxOw3SyUv0wilyID0hocwlIHGbvAlMWYA7XXXAFg
+ DAjiDE26AJmlw/9ttk2b+JQXj4mcMQM/6cWRmH1WQ0wAJXVxUyNMagRdd w==;
+X-CSE-ConnectionGUID: SHZuJUgjR4enYEruQ6w4Yg==
+X-CSE-MsgGUID: b/VkvqFdTKWW0ij6BabyOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2459177"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2459177"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 10:25:23 -0800
+X-CSE-ConnectionGUID: OFx3f3m6ROKuhR8RN/LtlQ==
+X-CSE-MsgGUID: JB5OhQ1cSnO5RGgCtr++hg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7186520"
+Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 10:25:22 -0800
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
+ Karol Wachowski <karol.wachowski@linux.intel.com>
+Subject: [PATCH v2] accel/ivpu: Limit SSIDs to 128 on all generations
+Date: Wed,  4 Nov 2026 19:25:15 +0100
+Message-ID: <20261104182515.3198239-1-karol.wachowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,192 +62,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] drm/msm/adreno: unmatched OOB clear in a6xx_gmu_shutdown() when =
-uninitialized
-- [Medium] drm/msm: unchecked msm_gpu_hw_init() in msm_context_set_sysprof()
-- [Medium] drm/msm: runtime PM ref held before gpu->lock in msm_context_set=
-_sysprof()
---
+Some generations support only 128 SSIDs, while the KMD configured 256
+CD table entries and allowed user contexts up to SSID 130. Align the
+limit across all generations.
 
-commit 1f9338984ef58bb04f98d64fbb7e1fb8870c9a2f
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+Limit the CD table to 128 entries and the user SSID range to 2-127, so
+root can create 126 contexts and non-root users 64. Also fix the off by
+one SSID bounds checks against the CD table size.
 
-drm/msm: Rework IFPC disable
+Before this patch the driver allowed 128 user contexts. Now the limit
+is 128 SSIDs in total, which leaves 126 user contexts, so the only cost
+is 2 contexts for root. Non-root users keep 64. In return the SSID
+range, the CD table size and the bounds checks all match, testing gets
+simpler because exact limits can be checked instead of loose minimums,
+and the userspace interface is consistent with the same limits on all
+generations.
 
-This commit decouples IFPC inhibition from the sysprof_active refcount by
-introducing a dedicated ifpc_disable refcount on struct msm_gpu and
-replacing sysprof_setup with an ifpc_update callback that updates the
-GMU_OOB_PERFCOUNTER_SET vote.
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+---
+v1: https://lore.kernel.org/all/20261104082920.859706-1-karol.wachowski@linux.intel.com/
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gmu.c
-> index 662f09bec9d52..b02bcaa4bd96f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1443,7 +1443,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
->  		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
->  	}
-> =20
-> -	if (test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
-> +	if (test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
->  		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+v2:
+- Explain in the commit message why the limit is applied to all
+  generations: it costs only 2 contexts for root (128 -> 126), simplifies
+  testing and makes the userspace interface consistent (Jeff)
 
-[Severity: Medium]
-As reported by Sashiko on v4 [1], can a6xx_gmu_shutdown() issue an
-unmatched a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET) when the GMU
-wakes up and shuts down without hw_init() running?
+ drivers/accel/ivpu/ivpu_drv.c | 2 +-
+ drivers/accel/ivpu/ivpu_drv.h | 3 ++-
+ drivers/accel/ivpu/ivpu_mmu.c | 6 +++---
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
-Previously, GMU_STATUS_OOB_PERF_SET tracked whether GMU_OOB_PERFCOUNTER_SET
-was currently asserted on the GMU hardware: a6xx_gmu_shutdown() cleared the
-bit via test_and_clear_bit(), and hw_init() set the bit after re-asserting
-GMU_OOB_PERFCOUNTER_SET.
+diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+index 475c4255c10b..28cb18dcfa9b 100644
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -127,7 +127,7 @@ static struct ivpu_user_limits *ivpu_user_limits_alloc(struct ivpu_device *vdev,
+ 		limits->max_ctx_count = ivpu_get_context_count(vdev);
+ 		limits->max_db_count = ivpu_get_doorbell_count(vdev);
+ 	} else {
+-		limits->max_ctx_count = ivpu_get_context_count(vdev) / 2;
++		limits->max_ctx_count = IVPU_NON_ROOT_USER_MAX_CONTEXTS;
+ 		limits->max_db_count = ivpu_get_doorbell_count(vdev) / 2;
+ 	}
+ 
+diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
+index 8684e5814d4f..13f24b0ada26 100644
+--- a/drivers/accel/ivpu/ivpu_drv.h
++++ b/drivers/accel/ivpu/ivpu_drv.h
+@@ -38,7 +38,8 @@
+ /* SSID 1 is used by the VPU to represent reserved context */
+ #define IVPU_RESERVED_CONTEXT_MMU_SSID 1
+ #define IVPU_USER_CONTEXT_MIN_SSID     2
+-#define IVPU_USER_CONTEXT_MAX_SSID     (IVPU_USER_CONTEXT_MIN_SSID + 128)
++#define IVPU_USER_CONTEXT_MAX_SSID     127
++#define IVPU_NON_ROOT_USER_MAX_CONTEXTS 64
+ 
+ #define IVPU_MIN_DB 1
+ #define IVPU_MAX_DB 255
+diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
+index c846499d96ce..1df690b0fd78 100644
+--- a/drivers/accel/ivpu/ivpu_mmu.c
++++ b/drivers/accel/ivpu/ivpu_mmu.c
+@@ -65,7 +65,7 @@
+ #define IVPU_MMU_IDR5_REF_FPGA		0x00800075
+ 
+ #define IVPU_MMU_CDTAB_ENT_SIZE		64
+-#define IVPU_MMU_CDTAB_ENT_COUNT_LOG2	8 /* 256 entries */
++#define IVPU_MMU_CDTAB_ENT_COUNT_LOG2	7 /* 128 entries */
+ #define IVPU_MMU_CDTAB_ENT_COUNT	((u32)1 << IVPU_MMU_CDTAB_ENT_COUNT_LOG2)
+ 
+ #define IVPU_MMU_STREAM_ID0		0
+@@ -700,7 +700,7 @@ static int ivpu_mmu_cdtab_entry_set(struct ivpu_device *vdev, u32 ssid, u64 cd_d
+ 	u64 cd[4];
+ 	int ret = 0;
+ 
+-	if (ssid > IVPU_MMU_CDTAB_ENT_COUNT)
++	if (ssid >= IVPU_MMU_CDTAB_ENT_COUNT)
+ 		return -EINVAL;
+ 
+ 	entry = cdtab->base + (ssid * IVPU_MMU_CDTAB_ENT_SIZE);
+@@ -918,7 +918,7 @@ int ivpu_mmu_disable_ssid_events(struct ivpu_device *vdev, u32 ssid)
+ 	u64 *entry;
+ 	u64 val;
+ 
+-	if (ssid > IVPU_MMU_CDTAB_ENT_COUNT)
++	if (ssid >= IVPU_MMU_CDTAB_ENT_COUNT)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&mmu->lock);
+-- 
+2.43.0
 
-With this change, GMU_STATUS_OOB_PERF_SET stays set across suspend while
-GMU_OOB_PERFCOUNTER_SET is only re-asserted at the end of hw_init() in
-a6xx_gpu.c and a8xx_gpu.c:
-
-	/* re-apply IFPC-disable OOB request, if needed: */
-	if (!ret && test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
-		ret =3D a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-	}
-
-If IFPC disable is active without holding a persistent runtime PM reference
-(for example with sysprof =3D=3D 1), and the GPU runtime-suspends and later
-resumes and suspends without msm_gpu_hw_init() running (such as when
-userspace queries MSM_PARAM_TIMESTAMP in adreno_get_param(), or when
-msm_context_set_sysprof() is called with sysprof =3D=3D 0 while ctx->syspro=
-f =3D=3D
-0), adreno_gpu->base.needs_hw_init remains true. When a6xx_gmu_shutdown()
-runs, GMU_OOB_PERFCOUNTER_SET was never set during that wakeup cycle, but
-test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status) is still true and triggers
-an unpaired OOB clear.
-
-Additionally, if a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET) fails in
-a6xx_gmu_ifpc_update() or hw_init(), GMU_STATUS_OOB_PERF_SET remains set
-while the hardware OOB vote is not active, preventing subsequent
-a6xx_gmu_ifpc_update() calls from asserting the vote and causing
-a6xx_gmu_shutdown() to clear an unset OOB vote. And when dropping the last
-sysprof =3D=3D 1 vote in msm_context_set_sysprof() while gpu->needs_hw_init=
- is
-true, msm_gpu_hw_init() will assert GMU_OOB_PERFCOUNTER_SET in hw_init()
-only for msm_gpu_disable_ifpc_put() to immediately clear it.
-
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index e3e7c401fa5c5..d41756c0152bb 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -25,7 +25,13 @@ int msm_context_set_sysprof(struct msm_context *ctx, s=
-truct msm_gpu *gpu, int sy
->  		pm_runtime_get(&gpu->pdev->dev);
->  		fallthrough;
->  	case 1:
-> +		/* Disable zapping perfcntrs on context switch: */
->  		refcount_inc(&gpu->sysprof_active);
-> +		/* Disable IFPC: */
-> +		scoped_guard (mutex, &gpu->lock) {
-> +			msm_gpu_hw_init(gpu);
-> +			msm_gpu_disable_ifpc_get(gpu);
-> +		}
->  		fallthrough;
->  	case 0:
->  		break;
-> @@ -37,16 +43,18 @@ int msm_context_set_sysprof(struct msm_context *ctx, =
-struct msm_gpu *gpu, int sy
->  		pm_runtime_put_autosuspend(&gpu->pdev->dev);
->  		fallthrough;
->  	case 1:
-> +		/* Drop our vote for inhibiting IFPC: */
-> +		scoped_guard (mutex, &gpu->lock) {
-> +			msm_gpu_hw_init(gpu);
-> +			msm_gpu_disable_ifpc_put(gpu);
-> +		}
-
-[Severity: Medium]
-What happens if msm_gpu_hw_init(gpu) fails here (or in the case 1 block
-above)?
-
-In msm_gpu_hw_init(), gpu->needs_hw_init is only cleared when
-gpu->funcs->hw_init(gpu) returns 0:
-
-	ret =3D gpu->funcs->hw_init(gpu);
-	if (!ret) {
-		msm_perfcntr_resume(gpu);
-		gpu->needs_hw_init =3D false;
-	}
-
-Because msm_context_set_sysprof() does not check the return value of
-msm_gpu_hw_init(gpu) (or whether runtime resume via guard(pm_runtime_active)
-succeeded), a failure leaves gpu->needs_hw_init set to true and still calls
-msm_gpu_disable_ifpc_get() or msm_gpu_disable_ifpc_put(). That calls
-a6xx_gmu_ifpc_update(), which hits drm_WARN_ON_ONCE() and proceeds to touch
-GMU registers via a6xx_gmu_set_oob() or a6xx_gmu_clear_oob() on an
-uninitialized or suspended GPU/GMU:
-
-	/* Caller must hold a runpm ref: */
-	drm_WARN_ON_ONCE(gpu->dev, pm_runtime_status_suspended(&gpu->pdev->dev));
-	drm_WARN_ON_ONCE(gpu->dev, READ_ONCE(gpu->needs_hw_init));
-
-	guard(mutex)(&gmu->lock);
-
-	bool ifpc_disable =3D refcount_read(&gpu->ifpc_disable) > 1;
-
-	if (ifpc_disable && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->statu=
-s)) {
-		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-	} else if (!ifpc_disable && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &g=
-mu->status)) {
-		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-	}
-
-[Severity: Medium]
-Also in msm_context_set_sysprof(), can acquiring gpu->lock while holding the
-pm_runtime_active reference prevent GPU hang recovery from collapsing the
-CX GDSC?
-
-At the start of msm_context_set_sysprof(), a runtime PM reference is
-acquired before taking gpu->lock:
-
-	guard(pm_runtime_active)(&gpu->pdev->dev);
-	guard(rwsem_write)(&ctx->ctxlock);
-
-When a GPU hang occurs, recover_worker() holds gpu->lock and invokes
-a6xx_recover() or a8xx_recover(), which drops its runtime PM references and
-waits for the device to runtime-suspend so the CX GDSC collapses:
-
-	/* And the final one from recover worker */
-	pm_runtime_put_sync(&gpu->pdev->dev);
-
-	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
-		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
-
-If another thread concurrently enters msm_context_set_sysprof() (for
-example via MSM_PARAM_SYSPROF or via msm_postclose() when a profiling
-process exits during a hang), it will hold the runtime PM reference from
-guard(pm_runtime_active) while blocked on scoped_guard(mutex, &gpu->lock).
-This keeps the runtime PM usage count above zero during recovery, causing
-gmu->pd_gate to time out and leaving gpu->needs_hw_init false so
-msm_gpu_hw_init() skips reinitializing the hardware. Other paths that take
-both (such as msm_gpu_open(), msm_job_run(), and recover_worker(), as noted
-in commit 917e9b7c2350 ("drm/msm/adreno: Hold gpu-lock acrossWait for
-recovery before narratives")) acquire gpu->lock before getting the runtime
-PM reference.
-
-[1] https://lore.kernel.org/r/20261103231850.17493-4-robin.clark@oss.qualco=
-mm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104175931.2847=
-5-1-robin.clark@oss.qualcomm.com?part=3D3
