@@ -2,101 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C636A606D80F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 13:26:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB87606D80F
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 13:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGP57dCQ
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RtFrHXQt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3D7410FBCD;
-	Wed,  4 Nov 2026 13:26:47 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DC5410FBCF
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 13:26:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A00F043E22;
- Wed,  4 Nov 2026 13:26:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24C31F0093A;
- Wed,  4 Nov 2026 13:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793798800;
- bh=MPUiLFnTBdf7QRRqKCZEZSjQLoEuxmOxaBmyWSCYZVk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GGP57dCQEvsELH0NCmMeNo9OYSLBlBr1CuaxanS9gitq0f13zE16Rj4HEg912BA3a
- jHAi0xgnf5mbwOvcFAqnxoTWo/uFCPp17dN+EOptGveLGJja2ISTiRvaAZqFzjXV4f
- jy+F3e4iKr6uWbeNGs4mnwgP57FbK+kogGG9a3Wto4Rt5KD5bug71IQBxB2F8xsD2p
- VFh4oL1WG13peDWe+KFd7Oh2xSJbJ5/uxq0pdKCYmBN5/K54Ak8t/uIKlzxPQP03lr
- kspb/xXqgBTpLDcB5XW6w5IsrQjlO6ZsLq2PjV9K98Wx6vv5U0To5OAyVcKfhN8ki3
- vuQeMPtWatfww==
-Date: Wed, 4 Nov 2026 14:26:38 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>, 
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>, 
- Chanh Nguyen <chanh@os.amperecomputing.com>,
- Alistair Francis <alistair@alistair23.me>, 
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
- Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
- Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-gpio@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-input@vger.kernel.org, 
- linux-tegra@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <ausydkb2etcFJbYf@orome>
-References: <20261102135330.2493332-1-robh@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBAD10E066;
+	Wed,  4 Nov 2026 13:26:48 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39F7E10E8B0
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 13:26:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1793798797;
+ bh=odezEJtCWSTeuZEkWqlhIsVy5xrCmes4RvPVe14Uicw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=RtFrHXQtUAsk3aPL9EFJoE+VFt+0B5tTnL1oZyD55di3QHr/wAn16NClUj0gd/ARV
+ nVGx6uBM2MK7Qfk6t5zefbOSPzGLWfzOwg+G6QzhK6DGZ+MDz7tCMnE9qQyzQtyrq5
+ rdQ9bLIFSJ7U42yeTDEahNxApHGBjRKydcBh2+/EcixtOa1WukZYMialWUAXPtb0ll
+ yJhG82jWmra8fubPgM8Grlao054sZIi4PrpSqERbJRFUs0uz6txNWWkDl3uDjOzKIZ
+ FG2z6CP7psrKgwqJGTR/AYAloErD0QptLHbSUQ+wCCPxFg2Sm7tqla2ijBq52sreA6
+ OxvZhsFiic6lA==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B711B17E0418;
+ Wed, 04 Nov 2026 14:26:37 +0100 (CET)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 04 Nov 2026 15:26:21 +0200
+Subject: [PATCH 2/3] drm/display: hdmi: Use committed state to decide on
+ SCDC resync
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3alpfpswkxhlvmej"
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
+References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
+In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,44 +59,87 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+drm_connector_hdmi_sync_scdc() uses the scrambler_enabled flag to decide
+whether the sink-side SCDC status is worth checking on a hotplug/detect
+event.  That flag tracks the source-side scrambler status, which is not
+necessarily in sync with what the committed mode actually requires.
 
---3alpfpswkxhlvmej
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-MIME-Version: 1.0
+In particular, a source driver may deliberately set scrambler_enabled at
+init to force a disable at boot and resync hardware left enabled by the
+firmware, as vc4 does.  If the pipeline doesn't get disabled afterwards,
+e.g. because no display was active at probe time, the flag remains
+stale.  A subsequent detect (e.g. an HPD event) then finds scrambling
+disabled on the sink while the flag claims otherwise, and triggers a
+CRTC reset.  This results in a one-time spurious flicker on an otherwise
+correctly configured non-scrambled mode.
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-[...]
->  .../memory-controllers/nvidia,tegra20-emc.yaml       |  4 ++--
+Verify conn_state->hdmi.scrambler_needed instead, as it is computed
+during atomic check and reliably describes the requirements of the
+active mode.
 
-Acked-by: Thierry Reding <treding@nvidia.com>
+Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-170670@kernel.org/
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
---3alpfpswkxhlvmej
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+index 872f7e32e8d2..974d5de6d380 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+@@ -653,7 +653,6 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
+ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 				 struct drm_modeset_acquire_ctx *ctx)
+ {
+-	struct drm_connector_hdmi *hdmi;
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_device *dev;
+ 	struct drm_crtc *crtc;
+@@ -663,7 +662,6 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 	if (!connector || !plugged || !ctx)
+ 		return 0;
+ 
+-	hdmi = &connector->hdmi;
+ 	dev = connector->dev;
+ 
+ 	/*
+@@ -677,14 +675,21 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 
+ 	/* TODO: Also handle HDMI 2.1 FRL link training */
+ 
+-	if (!drm_connector_hdmi_scrambler_supported(connector) ||
+-	    !READ_ONCE(hdmi->scrambler_enabled))
+-		return 0;
+-
+ 	conn_state = connector->state;
+ 	if (!conn_state)
+ 		return 0;
+ 
++	/*
++	 * Rely on the committed connector state rather than on the current
++	 * scrambler status: a source driver may force scrambler_enabled at
++	 * init to get a disable at boot (e.g. vc4), and that value would
++	 * remain stale until the first disable actually happens, leading to
++	 * a spurious CRTC reset whenever the active mode needs no scrambling.
++	 */
++	if (!drm_connector_hdmi_scrambler_supported(connector) ||
++	    !conn_state->hdmi.scrambler_needed)
++		return 0;
++
+ 	crtc = conn_state->crtc;
+ 	if (!crtc)
+ 		return 0;
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.55.0
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrrMo4ACgkQ3SOs138+
-s6EKABAAqndqQDSMCzJ51pelaVEYbun/pEAy9SCFq/gar34Nw6/PUqr+4Ae8fNKG
-58DhWW5IKP0zFCmAz4Lg7vzWcf8pcqjEqor4P/6uGt4Sa/keBlY96dhT7fXB7vUU
-+Y4/cAb5vN2M+cj5QKI3/N2xjmH4vcTgMxzpR2oZINWc5q3SpBCYpH4dHWdZX5ON
-NU3IkE+IwIuBt/lTX256XDA2qocpbqk4PfhDPXDEgwHzw1KUGjW9mngNi7ReGJ7X
-h58XLcmeowbjEg3418OfZogzqIrg1IowSD/1kTwDb/BONZtAFXstReG/03FgHBDC
-TfXFyQRuzQpC9ry8hSrTY3AfmVE+br7dxxhHl/mTpK6xVTnygAdFj7r2eOEtKQuZ
-/71SgGxHyuMPxVhqWntmrNQe5bSouxg7K1qTjVERnNG/43QDs1Ak2ELHBVD2RsBc
-lh9RUpYN+TMPms8D1jVgFsj0uOeeTEniDuXCWH7B32tqyyYPNEue+BzP/MsSMMIB
-xNFF26OqFEjYj3sHYR6s5D7EjwvTEHxF3zkNRgMSbeRpfjQKQOGIJCfPKP/Chrf9
-nywLoaWqGVHoNzEGQdjjkR6VQ0RTmBHnBGjoUU8SgFesfF0+0UT3lvASBsDH8VJ5
-94axmWcy8Sg7LmNOo7vOf7+TW7Fumpqu/30f4HiRtFAecTTqHJQ=
-=MRzn
------END PGP SIGNATURE-----
-
---3alpfpswkxhlvmej--
