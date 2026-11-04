@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9D1607D269
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61FB60AFC48
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ME/FJRfX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g53FbUkZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37F3710FE56;
-	Wed,  4 Nov 2026 19:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0FE10FE68;
+	Wed,  4 Nov 2026 19:36:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C6D10FE57
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:36:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7051210FE5A
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:36:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B748743B3B;
- Wed,  4 Nov 2026 19:36:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AA31F000C1;
- Wed,  4 Nov 2026 19:35:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 58AFE4307F;
+ Wed,  4 Nov 2026 19:36:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3312C1F00A17;
+ Wed,  4 Nov 2026 19:36:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793820966;
- bh=RCWYzTdROaZ//Ublq96X/PsjFPNs26aKqDomYMjplOg=;
+ s=k20260515; t=1793820981;
+ bh=qVgyj+FYQ9g7uHqmkN/6kOivRqdCDmjAyQM7m79vY9A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ME/FJRfXHJFiJdRPuFY8HbJeu+GJeM1uYMSHhRXC3OyCBFoBbHe/D+KeCbkSHUcc+
- kLRnw4KPAQXBd/Lm2rxl+osnRqATeVzThclIJcTYxyw83fwPKWjsdttrzz2MJEJ/6F
- npCV8gjOwaHDC61e0ru1NTfEA8b0b9x7dSf/HzSrhuivx0LurSS5jZoyjtt0F/X5HF
- VXCm5Gcq8bWGfXJvVTfcnPDEXQVmN0yImiDrAgCIzYQ7ciRBherm+QOR9W6FvpFf9V
- +E2b6pif2bObHvbMb8emuD8Je5Z+LHQE+m9YVr5ffRfEUXrIRpnoiS5t/MTpZE9nue
- yYDTpnmmsO8rw==
+ b=g53FbUkZCSWNwnfejXhy6s2nelprEnvO5Q4YohPFBJHS+h/+Bis4YhN2/N/AQPc6j
+ fzYwibXDmXurtiMkWQn5u+VqbndlNGJtHCg2mWpnoK5k3yXNh3AEwdUXjS/Wn8YgAp
+ DsbkdUjLTcZjtiVPGmJw8p0/O2ZWUM6qG/u1JQ1LS7FQsul73LZQiypnKRi3hmBJNn
+ pWa+EONoOhGPwjSkAXUgj9sc5Wf8Ushz0fe45yGX+M0rWNNO/OogEaHlzCPeH+AsK7
+ UOZddBvu39FXQ3nOy8HZZvj2XFYHPYSGv2QlAmtdpAP6TIhnKozmF8NTYKArJ9/gig
+ pdBxHcmOh0+mA==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,21 +60,21 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 01/23] alpha: srm_env: let procfs copy in writes
-Date: Wed,  4 Nov 2026 20:35:52 +0100
-Message-ID: <20261104-work-procfs-arch-v2-1-2aeb952c9597@kernel.org>
+Subject: [PATCH RESEND v2 02/23] ARM: alignment: let procfs copy in writes
+Date: Wed,  4 Nov 2026 20:36:07 +0100
+Message-ID: <20261104-work-procfs-arch-v2-2-2aeb952c9597@kernel.org>
 In-Reply-To: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 References: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1631; i=brauner@kernel.org;
- h=from:subject:message-id; bh=ud6jo66qun6GxlQdhdvRvLMRIAP9XF8+raIGbqJmJWQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97ngrnBxmYyak9tmw1FJNeJLkRYtVzupn21htlqi1O
- tScYHfuKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmMjpJkaGRUtzVix3XJqTVWf1
- dU6h87OwGM+PZ2ve597KXb144TfGWIZ/ZoovQk90zVv4S5HDJPnSp5RpZyfb5iyb8PbjaTdr44T
- nLAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1378; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=zhi1nqFEpiSFVRrnQoKgWCc9KudbEGTZB0sdbQtmzK0=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97njXfbbxoNI5d7tgS3+dmRcrGv6d2Z0Tv6xkukLGh
+ 2eO1xfe6ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiITgLDX+mF5S+vT7n7/+IW
+ 5t66y78vbZh5fg+zoqqy103BXpsgljCGf/rni1NaxQ39Co13b8868UXRoW/v43tTZjz4Lhnc/Iu
+ pmREA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,58 +98,44 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Implement ->proc_write_buf() so procfs copies in what is written to
-/proc/srm_environment/* before it pins the entry, and hand that copy to
-the console callback through the page it used before.
+/proc/cpu/alignment before it pins the entry, and take the mode from
+that copy. Writes larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/alpha/kernel/srm_env.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ arch/arm/mm/alignment.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/arch/alpha/kernel/srm_env.c b/arch/alpha/kernel/srm_env.c
-index faafc2df7886..6a1742b09a82 100644
---- a/arch/alpha/kernel/srm_env.c
-+++ b/arch/alpha/kernel/srm_env.c
-@@ -81,7 +81,7 @@ static int srm_env_proc_show(struct seq_file *m, void *v)
- 	return ret;
+diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
+index 3e5e30968634..11ceefdfa388 100644
+--- a/arch/arm/mm/alignment.c
++++ b/arch/arm/mm/alignment.c
+@@ -144,14 +144,13 @@ static int alignment_proc_show(struct seq_file *m, void *v)
+ 	return 0;
  }
  
--static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t srm_env_proc_write(struct file *file, char *buffer,
- 				  size_t count, loff_t *pos)
+-static ssize_t alignment_proc_write(struct file *file, const char __user *buffer,
++static ssize_t alignment_proc_write(struct file *file, char *buffer,
+ 				    size_t count, loff_t *pos)
  {
- 	int res;
-@@ -92,13 +92,8 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
- 	if (!buf)
- 		return -ENOMEM;
+ 	char mode;
  
--	res = -EINVAL;
--	if (count >= PAGE_SIZE)
--		goto out;
--
- 	res = -EFAULT;
--	if (copy_from_user(buf, buffer, count))
--		goto out;
-+	memcpy(buf, buffer, count);
- 	buf[count] = '\0';
- 
- 	ret1 = callback_setenv(id, buf, count);
-@@ -109,14 +104,13 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
- 		res = (int) ret1;
+ 	if (count > 0) {
+-		if (get_user(mode, buffer))
+-			return -EFAULT;
++		mode = buffer[0];
+ 		if (mode >= '0' && mode <= '5')
+ 			ai_usermode = safe_usermode(mode - '0', true);
  	}
+@@ -160,7 +159,7 @@ static ssize_t alignment_proc_write(struct file *file, const char __user *buffer
  
-- out:
- 	free_page((unsigned long)buf);
- 	return res;
- }
- 
- static const struct proc_ops srm_env_proc_ops = {
- 	.proc_show	= srm_env_proc_show,
--	.proc_write	= srm_env_proc_write,
-+	.proc_write_buf	= srm_env_proc_write,
+ static const struct proc_ops alignment_proc_ops = {
+ 	.proc_show	= alignment_proc_show,
+-	.proc_write	= alignment_proc_write,
++	.proc_write_buf	= alignment_proc_write,
  };
+ #endif /* CONFIG_PROC_FS */
  
- static int __init
 
 -- 
 2.53.0
