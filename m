@@ -2,78 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C437606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76916606A326
 	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P5yeRSqw
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kya7srvA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A59310EB8A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0D010F0E6;
 	Wed,  4 Nov 2026 08:58:41 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE9A10E83C
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:38:25 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a35db1f202so2108545e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:38:25 -0800 (PST)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8330E10E858
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:33:21 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-35159e0092aso40231eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:33:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793777904; x=1794382704; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793777601; x=1794382401; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=bfQkbGmxkZ9/E2Cz55EueAzwIal30Q7LNxKxPAHeTlQ=;
- b=P5yeRSqwUX46LYiyCVTbm8TRC2cREWD/Hip4aziUNnssmwzoeVcmnCtox3QukZAZTO
- sXLEPtPvfgsWyrDFMLjDgZiJS+o0qIDv+sQYgtW79LNnPZaYbfxQlTeTmv7XRB+VldKm
- I7cqyaz8hx0XmAECgZmBmPom8UMD62o++s5Yf7Lt16xviiVMrEAEBpeHVKhQmg8AWnVA
- L6CoR09EAVpH7yOJULQMiemg74YLKQUk89Mh5t3G+4R/PP8mita73PQygpQK8+WY1q0A
- l8gusbJL4MiWw6IPFEZYBXp1pwamfBx/RdVDD7lQSzBp1Hm5yaai/W/6TsbcQZfy+yh7
- uetQ==
+ bh=6RXhW7yttS8+T6Ujo6Pp8C/77aQWUYKl7npzE/fKr5c=;
+ b=Kya7srvASO5sxRWf2fLswEYCdTiDJR79FjhDXMobgSJgMys+Ty0t05mak46S+cyj2u
+ qavV3lMry86Ih9UArIyGuqXlq7r+z5tmysJSayCodSsut1qXuahyXLVId0Qp17sbbgDI
+ 61aWaR8BE/v+gTn87X8Xoy2qZUW5mfF0Fs1SH8I9JSF2nZqnCWKj6LhZRE16v3zf/AKW
+ xrcInQ4P4CHuAIZZ17V1QRTWKLyq6t2Zg/Gq7UJIVW3mAgkZIVzoptzbCAbesPNMpv1G
+ TnKmWk5pwGjLl68V0GagVz9CP5s95+eNY6YNFkZ8ox09fpvorpCfxmSKmnvMxpNpaEDu
+ 7ieQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793777904; x=1794382704;
+ d=1e100.net; s=20260707; t=1793777601; x=1794382401;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bfQkbGmxkZ9/E2Cz55EueAzwIal30Q7LNxKxPAHeTlQ=;
- b=gDKD8+oi3/TdHZXSoKO2Zw9PmM4/a6eyDVByUKZCT5auusruwZBvs0lDEx7GDMlIqv
- NMNmKNA/I2zvqy3+QGQWVJCX8zL7vHCRfpyThAZ7Be0TFRQKwA1v8L7Ahw20asulW44W
- GcHqSMcRLTz8mG0gpOzchfXOyF6W5qbobU2VIVOoI7oFrLFUCsBxcS+h0WXzHjXw1t06
- ROpHELzEM96toDU/kvzVBI5vhbltxHJhvmZvdKYHNMNk9vd3fnufAboKSD0G8nE5RDSs
- EYxx4WnysHCR88Yeu5SR3nEoEQ2E0IQVeWNl25+PSqB/FQZDGkwUw9TFHYyWeSHqTQOw
- Yoow==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwPFBsxXby2OBzrm+7v6dCFgrSNsDC0bJcJWtfPOOqiRo8QkMntfwT68cW3Qjd6i0J9eHMxrvuz67I=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/ztRcTSEx8Tg8gsJy8osfbZFskco/r5sX/MRSXft1O9AGeEg+T
- +GTVm6lO2X2DN+knwLz1ak6q4KdSre+R3ELaSKEOC0V7id6Bc92mY+I=
-X-Gm-Gg: AYBFou16F/e1vK6HzyKoucxRJoFf2r/FJA3plnP46fpf551h5Rb1ir76V6f24zkhTTM
- qy5nU7SD5c900ks0EiCGH96eRrnm6aCAhVaZW39f+QNRzBt7JWcX5lqCJtsiraJ9m1oIN44NWKk
- 7N7yeC44n/jga+WQagZ+B3vnhi3+11wsipznBjDaQwrYWVoVgvlOclHkORM5cMV7k6PdGPnkYfY
- U31gbhCcrRlct4sCaGA29Lz00BkO5YNFkvfoybXkUsir+q8m1BJTZyKO57L2kkTlJB5w70m6dYK
- rXkCH8zA5qBaM7g1eu7yiDdcZaP8OShbHOQMQ9mZgLEI5fdj1sAlfC7H9VhKfUa5SwlT06zyL1p
- jU0sL6SYmuj+A2zbw6IMkWc2/RN/vlJeePoxulrw4jf1X0M/R4n7+ARQesGV14UVw4nCHZlEPR0
- CzLtw32PhcvueLtYEnAVHnszb2oHKNK9mPaOiHMSkS4WJgdb/wJ33Wxkv8Qjix4rC4TzGfU4mba
- qJvwd0GtU8yBaqEkrepXA4VVdjAZPgTqsGzcu6N1H9x9aF9KmccPZWOc8340olAjzIyp8y4tyjm
- kagZxDhE6JXRncMk2AIGsLmsdB1CbddHtrPKNBudZ3jRpz5F1VuFLILYaGZgiLKeWETEqY8++I2
- I6QDLI1KHl8zAfBoWAcpy8DNkq4JMgrSfPe5r4dMWGPZor6Ne7AM=
-X-Received: by 2002:a05:600c:46d2:b0:4a1:d537:1c8d with SMTP id
- 5b1f17b1804b1-4ac187a6a38mr353371115e9.19.1793777903551; 
- Tue, 03 Nov 2026 23:38:23 -0800 (PST)
-Received: from localhost.localdomain
- ([2a02:6680:2104:2097:c9b1:3ad5:7d89:fd1d])
+ bh=6RXhW7yttS8+T6Ujo6Pp8C/77aQWUYKl7npzE/fKr5c=;
+ b=rx97gBMtuFMVIRU0a7kJMTbYgm2YpQH8jH82Ot00YlBLtgdz744w5wY1sDsWX4AQJv
+ C2VR+zTDtwV89kXcV3uYZe42fizTFjH806VjWP40fSGxJBT63rofC4bSiUcTT457bUE+
+ h4kd6XLUYZPNn25+3qn4S96UIevj1foWWUuuYnBn6ToKlK4h1P87/ZAdBsn0CVcLaRio
+ p6pkEPOttmdtiFGtvE92dD1KiGQKeDp/PdWMpJyVwj/7ZDPunharLw8TPBWcmQTo9Die
+ 7b1khYFggcJe6nfXXUJYMDUNw1TWR+G4omOWJe7N0kb4W6hBdLhDtGD4twCwyC3rue23
+ trmQ==
+X-Gm-Message-State: APuU4Z9nEZCjkJOkzw+jZlG7iUXsYqVnrmmuvmvzl2sfv0owl0GwYyrm
+ M7w3VLaWGjGPDg1yoQL2GFlzyHUlB1419EGhBbTXsIC5oR4ccR4Yd5Mt
+X-Gm-Gg: AYBFou1m9mCRZ+6NawaAXpSj/d6MaJNSHpm/zUis/mlGWH8IpHZSfGUeOmxhsFQFBd7
+ fFLT7vEfh5jDwpouOjJXu0TI7DiZnJKlorU8Oym6+meM3X+lQRZ6ViZ6PnHRcAmnbntYSVerMQG
+ k0/a6m8+V8pivk5wKTVc6n8+dd1IbZi34vXJXKvhQKvKM0IwCprGcWi3gDC9sp0gaf8h/MqrdPo
+ Qvk3ZSzlO7BpNZedFfSN4Hcu8hSDl0qSa8dsz1k/mmfCbMJusBsJUriEaUaYFRev1vNvpvD2h5B
+ DrGn0AYn4U+eVOAEIyaRh9Q1toHCx0REhIX47KEaiyut1aRHagoewjqFsuw6qcN8sCst+iUR3iz
+ L2oaYNQaKthtlFMoz9SaVq+C5+8vUFE4MwsssOs4US4rl8/QL849k7IyDx1DYR3IUPRnUAIk5aI
+ aIVcH5h5a01ruuntqFm40ddMNRZ93nUpmbjWL5E6fRfTBKITDjYXbQe2hQNAjQB6G8+ElkYh6SR
+ IcqMxReczOrBESg0xhYEmc/W7wh2hkT0ybTkX2UdotAv6r6OwdP0u21ttokaVGpiBUpHNEeW5t7
+ uhfc17uXYb48nFy34Yoej2ovQeDRG33/LpUiJ6E48A==
+X-Received: by 2002:a05:7300:e9d7:10b0:36a:1452:8da9 with SMTP id
+ 5a478bee46e88-36a4231f759mr39423242eec.1.1793777600535; 
+ Tue, 03 Nov 2026 23:33:20 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b2a80e184esm124190015e9.2.2026.11.03.23.38.18
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 03 Nov 2026 23:38:23 -0800 (PST)
-From: amit <amittibi123@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: hanxu5@huaqin.corp-partner.google.com, jesszhan0024@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, icenowy@aosc.io,
- jagan@amarulasolutions.com, linusw@kernel.org, robert.chiras@nxp.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amit <amittibi123@gmail.com>
-Subject: [PATCH] drm/panel: Replace deprecated DCS display-on calls
-Date: Wed,  4 Nov 2026 09:38:13 +0200
-Message-ID: <20261104073813.42429-1-amittibi123@gmail.com>
-X-Mailer: git-send-email 2.54.0
+ 5a478bee46e88-36ca38d3754sm6295359eec.14.2026.11.03.23.33.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 23:33:20 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH 0/2] i915: two teardown fixes (gen6 ppgtt ERR_PTR,
+ OA config sysfs leak)
+Date: Wed,  4 Nov 2026 15:33:09 +0800
+Message-Id: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,309 +86,37 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Signed-off-by: amit <amittibi123@gmail.com>
+Two independent small fixes found by static analysis:
+
+1/2: gen6_ppgtt_create() stores an ERR_PTR in ppgtt->base.pd when
+     gen6_alloc_top_pd() fails; the teardown path
+     (gen6_ppgtt_cleanup -> gen6_ppgtt_free_pd) dereferences it and
+     crashes in the async release worker.  Guard both teardown sites
+     with IS_ERR_OR_NULL() so an allocation failure under memory
+     pressure stays a plain -ENOMEM.
+
+2/2: i915_perf_add_config_ioctl() creates the dynamic sysfs entry
+     before idr_alloc(); if idr_alloc() fails the error path frees the
+     config without removing the sysfs entry, leaving attributes that
+     point into freed memory (UAF read via the embedded show()
+     callback).  Remove the group on that path, mirroring the remove
+     ioctl's ordering.
+
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-boe-himax8279d.c       | 14 ++++++++++++--
- drivers/gpu/drm/panel/panel-dsi-cm.c               |  7 ++++++-
- drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c  |  7 +++++--
- .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c  |  6 +++++-
- drivers/gpu/drm/panel/panel-innolux-p079zca.c      |  7 ++++++-
- drivers/gpu/drm/panel/panel-khadas-ts050.c         |  7 ++++++-
- drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c |  7 ++++++-
- drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c |  7 ++++++-
- drivers/gpu/drm/panel/panel-newvision-nv3051d.c    |  7 ++++++-
- drivers/gpu/drm/panel/panel-novatek-nt35510.c      |  7 ++++++-
- drivers/gpu/drm/panel/panel-raydium-rm67191.c      |  7 ++++++-
- drivers/gpu/drm/panel/panel-raydium-rm68200.c      |  7 ++++++-
- drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c   |  7 ++++++-
- drivers/gpu/drm/panel/panel-sharp-lq101r1sx01.c    |  7 ++++++-
- 14 files changed, 88 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-index 4a8560b4b..a4b35e042 100644
---- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-+++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-@@ -155,7 +155,12 @@ static int boe_panel_prepare(struct drm_panel *panel)
- 	/* T6: 120ms - 121ms */
- 	usleep_range(120000, 121000);
- 
--	err = mipi_dsi_dcs_set_display_on(pinfo->link);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = pinfo->link,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	err = dsi_ctx.accum_err;
- 	if (err < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", err);
- 		goto poweroff;
-@@ -178,7 +183,12 @@ static int boe_panel_enable(struct drm_panel *panel)
- 
- 	usleep_range(120000, 121000);
- 
--	ret = mipi_dsi_dcs_set_display_on(pinfo->link);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = pinfo->link,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", ret);
- 		return ret;
-diff --git a/drivers/gpu/drm/panel/panel-dsi-cm.c b/drivers/gpu/drm/panel/panel-dsi-cm.c
-index ae6e9ffc4..37dd2961a 100644
---- a/drivers/gpu/drm/panel/panel-dsi-cm.c
-+++ b/drivers/gpu/drm/panel/panel-dsi-cm.c
-@@ -289,6 +289,10 @@ static int dsicm_power_on(struct panel_drv_data *ddata)
- 
- 	ddata->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
- 
-+	struct mipi_dsi_multi_context ctx = {
-+		.dsi = ddata->dsi,
-+	};
-+
- 	r = dsicm_sleep_out(ddata);
- 	if (r)
- 		goto err;
-@@ -314,7 +318,8 @@ static int dsicm_power_on(struct panel_drv_data *ddata)
- 	if (r)
- 		goto err;
- 
--	r = mipi_dsi_dcs_set_display_on(ddata->dsi);
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+	r = ctx.accum_err;
- 	if (r)
- 		goto err;
- 
-diff --git a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-index 8c3a231c1..baa64b7ae 100644
---- a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-+++ b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-@@ -344,12 +344,15 @@ static int k101_im2ba02_enable(struct drm_panel *panel)
- {
- 	struct k101_im2ba02 *ctx = panel_to_k101_im2ba02(panel);
- 	const struct k101_im2ba02_init_cmd *cmd = &timed_cmds[1];
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = ctx->dsi,
-+	};
- 	int ret;
- 
- 	msleep(150);
- 
--	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
--	if (ret < 0)
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	if (dsi_ctx.accum_err)
- 		return ret;
- 
- 	msleep(50);
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index c1d8ca5ca..070faf55f 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -93,11 +93,15 @@ static int feiyang_prepare(struct drm_panel *panel)
- static int feiyang_enable(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = ctx->dsi,
-+	};
- 
- 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
- 	msleep(200);
- 
--	return mipi_dsi_dcs_set_display_on(ctx->dsi);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	return dsi_ctx.accum_err;
- }
- 
- static int feiyang_disable(struct drm_panel *panel)
-diff --git a/drivers/gpu/drm/panel/panel-innolux-p079zca.c b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-index 80afeeab9..300cb5a3c 100644
---- a/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-+++ b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-@@ -117,7 +117,12 @@ static int innolux_panel_prepare(struct drm_panel *panel)
- 	/* T6: 120ms - 1000ms*/
- 	msleep(120);
- 
--	err = mipi_dsi_dcs_set_display_on(innolux->link);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = innolux->link,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	err = dsi_ctx.accum_err;
- 	if (err < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", err);
- 		goto poweroff;
-diff --git a/drivers/gpu/drm/panel/panel-khadas-ts050.c b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-index 67ca055f0..1dca6c592 100644
---- a/drivers/gpu/drm/panel/panel-khadas-ts050.c
-+++ b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-@@ -694,7 +694,12 @@ static int khadas_ts050_panel_prepare(struct drm_panel *panel)
- 		goto poweroff;
- 	}
- 
--	err = mipi_dsi_dcs_set_display_on(khadas_ts050->link);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = khadas_ts050->link,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	err = dsi_ctx.accum_err;
- 	if (err < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", err);
- 		goto poweroff;
-diff --git a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-index 893af9b16..deb82404d 100644
---- a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-+++ b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-@@ -250,7 +250,12 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
- 	/* T6: 120ms */
- 	msleep(120);
- 
--	err = mipi_dsi_dcs_set_display_on(kingdisplay->link);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = kingdisplay->link,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	err = dsi_ctx.accum_err;
- 	if (err < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", err);
- 		goto poweroff;
-diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-index ff35b62a3..f1d9e4eed 100644
---- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-+++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-@@ -553,7 +553,12 @@ static int ltk500hd1829_prepare(struct drm_panel *panel)
- 	/* 120ms to exit sleep mode */
- 	msleep(120);
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", ret);
- 		goto disable_iovcc;
-diff --git a/drivers/gpu/drm/panel/panel-newvision-nv3051d.c b/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-index 22560384e..eeb18ad87 100644
---- a/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-+++ b/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-@@ -303,7 +303,12 @@ static int panel_nv3051d_prepare(struct drm_panel *panel)
- 
- 	msleep(200);
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret < 0) {
- 		dev_err(ctx->dev, "Failed to set display on: %d\n", ret);
- 		goto disable_vdd;
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-index 3189d89c7..d977b9f28 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-@@ -1039,7 +1039,12 @@ static int nt35510_prepare(struct drm_panel *panel)
- 			return ret;
- 	}
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret) {
- 		dev_err(nt->dev, "failed to turn display on (%d)\n", ret);
- 		return ret;
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67191.c b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-index 2af6aa47a..bf9644424 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
-@@ -371,7 +371,12 @@ static int rad_panel_enable(struct drm_panel *panel)
- 
- 	usleep_range(5000, 7000);
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to set display ON (%d)\n", ret);
- 		goto fail;
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-index c535dc931..38993f821 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-@@ -281,7 +281,12 @@ static int rm68200_prepare(struct drm_panel *panel)
- 
- 	msleep(125);
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-index 1f825d995..36edb80b1 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
-@@ -389,7 +389,12 @@ static int s6e63j0x03_enable(struct drm_panel *panel)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_dcs_set_display_on(dsi);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = dsi
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	ret = dsi_ctx.accum_err;
- 	if (ret < 0)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/panel/panel-sharp-lq101r1sx01.c b/drivers/gpu/drm/panel/panel-sharp-lq101r1sx01.c
-index d159b0e4f..e462c47f6 100644
---- a/drivers/gpu/drm/panel/panel-sharp-lq101r1sx01.c
-+++ b/drivers/gpu/drm/panel/panel-sharp-lq101r1sx01.c
-@@ -206,7 +206,12 @@ static int sharp_panel_prepare(struct drm_panel *panel)
- 		goto poweroff;
- 	}
- 
--	err = mipi_dsi_dcs_set_display_on(sharp->link1);
-+	struct mipi_dsi_multi_context dsi_ctx = {
-+		.dsi = sharp->link1,
-+	};
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	err = dsi_ctx.accum_err;
- 	if (err < 0) {
- 		dev_err(panel->dev, "failed to set display on: %d\n", err);
- 		goto poweroff;
+Chengyu Liu (2):
+  i915/gt: tolerate ERR_PTR pd in gen6_ppgtt teardown
+  i915/perf: remove sysfs entry if idr_alloc() fails in add_config
+
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 5 ++++-
+ drivers/gpu/drm/i915/i915_perf.c     | 1 +
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
 -- 
-2.54.0
-
+2.25.1
