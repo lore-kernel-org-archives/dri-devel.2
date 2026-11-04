@@ -2,47 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E771606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9323A606A329
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=thelittleman.net header.i=@thelittleman.net header.a=rsa-sha256 header.s=20140415-thelittleman header.b=EdtQ8LPB
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzqqcjHQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B18010E731;
-	Wed,  4 Nov 2026 08:58:35 +0000 (UTC)
-Received: from mail.thelittleman.net (mail.thelittleman.net [91.99.148.243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DAFD10E9CF;
- Tue,  3 Nov 2026 22:40:48 +0000 (UTC)
-Received: from mail.thelittleman.net (localhost [127.0.0.1])
- by mail.thelittleman.net (Postfix) with ESMTPSA id 965185F92D;
- Tue, 03 Nov 2026 22:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thelittleman.net;
- s=20140415-thelittleman; t=1793745646;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rhwGwRx+CAJ8oe3CYy7JIhyCQbyPSgmwBR/yiullML4=;
- b=EdtQ8LPBmpcBxkAw/HqnPHzzZzav7GoCitR3Zq/w+1xhAitre6TGAZShUJ1HT4dasZGwyl
- OEaa/jJj3jkVvZWixPre9L+TqTOgKf4MjowTxXz6wofgWkoRgi7peGp1/QapzwBTWZhfKn
- zAtYrUmv9WbMBKUScUc1j36Jv/skVak=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AABE10EB43;
+	Wed,  4 Nov 2026 08:58:36 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1744510E850
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:33:30 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-363cd582f45so35952eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:33:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793777609; x=1794382409; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=E1F87bb525awAof1JLFi6O+XOwtmrtsukGBHxsxN3uE=;
+ b=VzqqcjHQj+WAUY7atdCCycO3XgpnSEuE8fkreqEpM3zbkBAK7bvV4/6i1kC/czz1HU
+ 47TyR7PK90KPKUfxMpJhfXDFA6/g6n9/jSaz3VljWW7Pwu2lFsYO6kk9adkMwDyPuysy
+ IsGcykYF33s+WNgQdmSMWT3Rvu6kl3XVJ8e1H6NXOnhmCEeyrg9/tZGLihEnhUe7xmOM
+ 26Lqq+7BvKk3Ml4Wu5ivp6ciZokuqgXBcssG5dgwed2UdbJGXwsMu5nGKcoZ/gxWqsZy
+ O1sMRSsOQUbLuI229rgY99/3I/xGeoAUSv6L+4m2/8CtttzlsjmuH49mL6+h/ve9sJfs
+ +Cew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793777609; x=1794382409;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=E1F87bb525awAof1JLFi6O+XOwtmrtsukGBHxsxN3uE=;
+ b=odsLVh/nfMhV+c7qzjQC3kFanTnljISh84Y1FmSFGuIVENporhDOiOyEyR7MphPa3K
+ 7PXf1vu2EiLtATw3npFnZmvDlLEpK8FG6JINkBmUMVF/kqwj/LZQeTwJPxPv/xmmEfKw
+ eBy1cOOrqX2YtZmPtYMsQeH/y1uYJMFTacAauWsB6G9YRYrlTX1WivKHp+T9tn/uz5h9
+ wM4bLoCYUOEP8IRVtMOUCiNivCiagNBmgYIiqA9QlSg4idvTPJHxtbS41l/Pkpin9HGA
+ Xhf+77APPYlNsFq5ZqgqaXVTpNUSYR/PuO6aPjzYB0M6U0Mxk4+lf2XHbZ83nDxp/xHs
+ oizQ==
+X-Gm-Message-State: APuU4Z/37R/+XPUFgjBQodqxaBhGKQsAE5icAKq+833bcg6i2eg00vVM
+ rI8QVjNw2kPCBDAnh0ftFBaZSdhHKkCIvTi2AlR39qPISfIomb0jOvlE
+X-Gm-Gg: AYBFou1ST6DuTrxM6vq0bG7GDH1b2o1jtOHog1CguDscBzCtfo+IRbC4N2NdRNzViMi
+ 1Xt/FlTT3PsC8HRvtv1QVTB5nC0W5olw6nrqF6h8SDOsb+q+1iIRvQfwYuI/BdRhrTxBR/sBoTI
+ mcrh+ZGWOOgS5Y5OlUo5Q+TkHAtTO5dAleCeHuvdRfRDSjm4J10805wou7SA4fTqB+rTP8XOxHI
+ dd9tigIz4O/wAGzUcSqw+qdsHDVyXu+93YQoDjLm5r98dJJW84R/lzKc+eUAypRQ8y2hj9/dkSY
+ PKUI2sKXONdPanGx5JYahtiti819RgelBmXKUdaHBiZ49BMu4+M0O/EBjQyRmkE5xOI1e/MTiSm
+ 3BrEaWWzbcj46BqtwKh8hEAHq7AWCE+lDbnED5iew4PFer7g4c10bzcQHo6JvkUeSIgVcBw0r3N
+ 0/wNhTF7OQjF5ClgJjmKRvHVw1BvIbZFQQnHmNleJms/z7NnHl2BNMmjebdVwTAaB24W497Fkwi
+ aS0TbIU23h35nsmNXwnt98DN8HdWfvjkQk36X4qwsCDBpiNPmPeQozADqAJf14FJlSBewcHjiIb
+ m9TWN5Vmh6iTljqKVfqutkRotAJ4O7FCjKskyEzAHw==
+X-Received: by 2002:a05:693c:8099:b0:35f:ea17:d171 with SMTP id
+ 5a478bee46e88-36a42236aa1mr34685392eec.2.1793777609165; 
+ Tue, 03 Nov 2026 23:33:29 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36ca38d3754sm6295359eec.14.2026.11.03.23.33.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 23:33:28 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, Chengyu Liu <lui2012qwq@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 2/2] i915/perf: remove sysfs entry if idr_alloc() fails in
+ add_config
+Date: Wed,  4 Nov 2026 15:33:11 +0800
+Message-Id: <20261104073311.1617823-3-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 03 Nov 2026 16:40:46 -0600
-From: "David R. Hedges" <linuxdev844@thelittleman.net>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH 5/5] drm/nouveau/dp: restart an active link when the sink
- reasserts HPD
-In-Reply-To: <sashiko-outbox-195994@kernel.org>
-References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
- <20261103-nouveau-dp-relink-v1-5-7ee88c7f1e8a@thelittleman.net>
- <sashiko-outbox-195994@kernel.org>
-Message-ID: <5dd1ec13ff850f2c37c880f9cee381a5@thelittleman.net>
-X-Sender: linuxdev844@thelittleman.net
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,93 +87,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-03 14:36 -0600, sashiko-bot@kernel.org wrote:
+i915_perf_add_config_ioctl() creates the dynamic sysfs entry for the OA
+config before allocating its id.  If idr_alloc() fails, the error path
+drops the config reference via reg_err: without removing the sysfs
+entry - unlike the normal remove path, which does sysfs_remove_group()
+first.  The leftover attributes point into the freed oa_config; kernfs
+only stores the attribute pointer, and show_dynamic_id() reaches the
+freed object via container_of (including the show() callback itself),
+so reading /sys/class/drm/cardX/metrics/<uuid>/id afterwards is a
+use-after-free.
 
-> Could a successful link restart in nouveau_display_relink() leave
-> connector->state->link_status stuck at DRM_MODE_LINK_STATUS_BAD when
-> userspace processes the hotplug event?
+Remove the sysfs group on the idr_alloc() failure path, mirroring the
+remove ioctl's ordering (under metrics_lock).
 
-It could, and I've left that as-is. The link-status documentation has
-userspace set it back to GOOD, with the legacy SETCRTC path doing it
-for non-atomic userspace, and no driver sets it to GOOD itself, i915
-included. Userspace that reads link-status does one more modeset than
-it needs to; nouveau doesn't act on the property. The v2 cover letter
-I'm drafting mentions it. v2 will cancel a pending link_bad_work when
-a later enable, such as the restart, trains the link.
+Found by static analysis.
 
-> Would it avoid this race to update connector->state->link_status 
-> directly
-> while nouveau_display_relink() already holds 
-> dev->mode_config.connection_mutex
-> in ctx?
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Yes, v2 will do that, and send the hotplug event from
-nouveau_display_relink() once the locks are dropped. The work item is
-only used from nv50_sor_atomic_enable() now, which can't take the
-connection mutex, and a later enable that trains the link cancels it.
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 19b82427aa..40385f991a 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -4716,6 +4716,7 @@ int i915_perf_add_config_ioctl(struct drm_device *dev, void *data,
+ 		drm_dbg(&perf->i915->drm,
+ 			"Failed to create sysfs entry for OA config\n");
+ 		err = oa_config->id;
++		sysfs_remove_group(perf->metrics_kobj, &oa_config->sysfs_metric);
+ 		goto sysfs_err;
+ 	}
+ 	id = oa_config->id;
+-- 
+2.25.1
 
-> Should nouveau_display_hpd_work() and nouveau_display_relink() verify 
-> that
-> both nv_connector->detected_encoder and connector->state->best_encoder 
-> match
-> nv_connector->dp_encoder before restarting the link?
-
-Yes. v2 checks detected_encoder in the HPD worker and best_encoder in
-nouveau_display_relink(), and leaves the other cases to userspace and
-the hotplug event.
-
-> Without setting nv_connector->dp_encoder = nv_encoder in 
-> nv50_pior_create(),
-> won't nv_connector->dp_encoder remain NULL on PIOR DP connectors, 
-> causing
-> both nouveau_dp_link_check() and this new HPD relink check in
-> nouveau_display_hpd_work() to be skipped?
-
-I'm not familiar with PIOR beyond some poking in the code--which
-I now know is the external ANX9805 transmitter some NV50-family
-boards use--and I have no such board to test it on, but I believe
-the answer is yes. Before 633716501c94, the link check looked up any
-DP encoder, including one on a PIOR, so my v2 draft sets dp_encoder
-in nv50_pior_create() as well. nouveau doesn't get IRQ_HPD from that
-chip, so what this enables there is the restart on HPD reassert.
-
-> Should nouveau_display_fini() cancel conn->irq_work before
-> cancel_work_sync(&drm->hpd_work) and cancel conn->link_bad_work after 
-> it?
-
-Yes for both. The irq_work part predates this series, so I'll add a
-separate patch for it in v2, fixing 773eb04d14a1 ("drm/nouveau/disp:
-expose conn event class"). f60849975a88 cancels it in
-nouveau_connector_destroy(), but that's after drm_mode_config_cleanup()
-has freed the encoders. link_bad_work is cancelled in the same loop,
-since in v2 hpd_work no longer schedules it, and only on system
-suspend and unload: its hotplug event can probe the connector, which
-waits for runtime PM, and that's also why hpd_work isn't cancelled
-on runtime suspend.
-
-> Unlike nv50_msto_atomic_check(), which guards its check with
-> !state->duplicated, won't nv50_outp_atomic_check() return -EINVAL here 
-> and
-> cause drm_atomic_helper_resume() to fail the entire multi-CRTC resume 
-> commit?
-
-Yes; good catch: drm_mode_config_reset() makes the restore a modeset,
-and failing it leaves every output dark after resume. My draft for v2
-doesn't fail a duplicated state, as nv50_msto_atomic_check() does, and
-leaves a link that can't carry the mode to the enable path, as for a
-DPMS on.
-
-> doesn't this call nv50_audio_enable() (invoking nvif_outp_hda_eld() and
-> notifying the ALSA audio component) on an untrained, detached SOR 
-> whenever
-> the connector's cached display_info.has_audio is true?
-
-Yes, the same as in your review of patch 2, and I'm fixing in v2 the
-same way.
