@@ -2,81 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4AD607A954
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:00:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B5A606E829
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HsZHTl/C
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z2b4S2S7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882F910FEC5;
-	Wed,  4 Nov 2026 19:59:57 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495EC10FEC5
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:59:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C147762FFE;
- Wed,  4 Nov 2026 19:59:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4F11F00A1A;
- Wed,  4 Nov 2026 19:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793822390;
- bh=TK360Q0J9loLLBJN1fCdf93Od8lfv7JQwcxqeqOSWBU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HsZHTl/CdmWyGe8xt7+n2y+V0Zxd4BVan3QtszkbfH+aM/LFOr4MxXy9YK1/s5czs
- +uRkz05vFWtYUCaU7pPh8gj3GmgDMXdfISwaLxI3vX06w+My06KWNnliBRg5AsGOdX
- Xx125EeC0wJoETAjZn8krCURNEVFn42PtwrobiAl6l6KcP0xYnXH6wuPz+ElscfREc
- FdSFabwVoqWgLI+qt5Nl7K99WB8phk6fHiY1iEvhA19UVwEv2ahgR0X4myjp9uDRzY
- e1CPpMwajhom9FvgOXKfxujK1+HvI3Qo1ESfmOqFwvfrH+E1uuu+sdr5U3pD03FzMf
- h4KBsvAbrCoqw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 08/13] SUNRPC: let procfs copy out reads
-Date: Wed,  4 Nov 2026 20:59:36 +0100
-Message-ID: <20261104-work-procfs-net-v2-8-221e2437fed1@kernel.org>
-In-Reply-To: <20261104-work-procfs-net-v2-0-221e2437fed1@kernel.org>
-References: <20261104-work-procfs-net-v2-0-221e2437fed1@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A29E10E25C;
+	Wed,  4 Nov 2026 20:02:16 +0000 (UTC)
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837F910E25C
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 20:02:10 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-1aefd1bf74aso1000800c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 12:02:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793822530; x=1794427330; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=snH4D1yne3D/mpsYO+9jWAO5X0a2o/1BALUeP4JZhFE=;
+ b=z2b4S2S7dCHAVIqPziUiUnGvsyS4K0YYbBQgdMNqO5PH09cwJPJWOPN2cvYwxRgpnT
+ D/64ngDMooroJ0m9oOW58Kww49UDC8wQCRDdgZEG6g7TDq9wnJtNRjS/YcG9QswWfbpa
+ 4v/kiIXjb81z6bkraCLSlucp4AqDEk/Vb5Qh7xTePyXGd8yWyo05rAbnyz0d5t1zoyN/
+ dHb/gNtrNhUlcGNOJKQaTZ+O7PNBnc2X0VOrzb8+1iYV1cLqvJKK8j/8Jy6x9fDPBVVV
+ sWq58pZRyhbfEwCJL+VpI7/GXzeZffVjPoALPpGRP+saYhM8VPfnuytrJeubepDvSFtb
+ LIeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793822530; x=1794427330;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=snH4D1yne3D/mpsYO+9jWAO5X0a2o/1BALUeP4JZhFE=;
+ b=PMW35z4q6vQz1kqYuCSL199tE7yonjyRaJ0dxYggtec14FlgM4ENM63DgcYymsBeWR
+ 9oQqSBR659lYtecKV2CYQmHU2mmXOp3xlrNWdTRYzM85BnKsggjdBNLa0p+iFRucwLqZ
+ K1AJ/Wg3bnvv9Pv9bMZIuXd+36pZATP+lns3NngCC4j7feSB4fsLJ/dJkOx9c1SK9YXQ
+ fkm1oOogal9YDUB1WVNWK1dr2eDN2N97u8EKfqK5cv2fQ0thyJsnuOH089qvikZ+bB+R
+ i06D2sZX9DhcOZzM37d/l/ad8SBr2boywQ8VF84MTSkXND8vZm/8mQWgZIGy/KG4cttu
+ 8enQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwyFNMHqUaFJfqaewanU8So8Q6bxysplmRyMhHYT0afMDc9k15HvVD5zavWU3R4loellA1KkUZbeQY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/QBofgMvdZSVQ2ltnn5WuupnU8FmUt27yGxSB1Wn4YQWTxPf8X
+ cwrrDzsL3iKTFuH8KNd7B11zNZPSG7xPSLoWX1E6CvguC8gOTpje2W4=
+X-Gm-Gg: AYBFou0s702AVLYgAKrqzl0sMhxnj1NnN7uRlSLB9DWK/eraAflm8a5Zl6CpY88gpJz
+ j/6OIDABruQWZ5sXaewDAPZluMntajeRVtBcQ22fN5sIe/LJcW2J6fltYfhEdK/Q5m7RG0PETvI
+ Zu4+Zgrq7aJ7P97UbAme1YN9u+a7dYRvDCFOYiaQTMByXbEAPm+VuGIBH6O/BihdOLBm0o/MR0S
+ mvVTvz+HmvDc5erIe7RVpAYD/KkbbAQ2aLXnw3jjqS498OUtiGlwsOd7yqN1ocb2zGXKMeBUtzi
+ ZKm8CKPIVkMDql03jzyjYf/1A7sbySI490JmqcEZzmBUh+VzLPUyh4Shr1bweLIMtlclt2Zn3ya
+ R/6xmfGbJa7E9ry5bpbV+FlhmQUD+lQ+qZA4IifywYwHppwNCHtr30nNI4v51r8EgQi8SmZ9MG7
+ JSNDwZgekMCwSv9yLokfzDl1Pd9/keNaTFNMfzH3AYOudIUuB9mTVtIMFuvvz9WYR0HFleQOOAs
+ VTuyFvyF4bIYQvZroiiVtGaWxrhYNeDLuteEpBKF9ERLDVRrTbH/x2f6K48fzfNPnyPddDMlRGl
+ bsuRdeE0d5ruRMMps9EyypRpfr9xGZPVI41v/kEKu2ID89GsIZBwWLvn+F5VnZQl
+X-Received: by 2002:a05:7022:f90d:b0:151:7831:e403 with SMTP id
+ a92af1059eb24-1b24f44df52mr534313c88.13.1793822529479; 
+ Wed, 04 Nov 2026 12:02:09 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.194.66.249])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b245c4706bsm12453149c88.15.2026.11.04.12.02.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 12:02:09 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, atharvatiwarilinuxdev@gmail.com,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, linux-kernel@vger.kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Subject: Re: [PATCH] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Wed,  4 Nov 2026 15:02:01 -0500
+Message-ID: <20261104200201.8358-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
+References: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8375; i=brauner@kernel.org;
- h=from:subject:message-id; bh=a9MpcCErAr+XLynuyr8Lv5es65Jw33sURzMgM9R8Toc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97tPZk3Bgttr+L5ZtyXFXQ5NzY40SRHlzIt1DVPuXO
- Jz6ypXVUcLCIMbFICumyOLQbhIut5ynYrNRpgbMHFYmkCEMXJwCMJFvzQzf1D41f32TsHX91fUG
- d6W//1059etk7lNBKk9Pxc1WvSstxvDP4nnhKd4PC6PMj18/vupH7+yrLDnzZaeYs2kp7Z18s2o
- POwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,240 +87,20 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_read_buf() for the procfs channel, flush,
-use-gss-proxy and gss_krb5_enctypes files so procfs copies what is read
-to userspace after it unpinned the entry.
+> What's the reason for this change?
 
-cache_read() takes an iov_iter now. The rpc_pipefs channel file passes
-one for the user buffer and behaves like before. The procfs one passes
-one for procfs' buffer, and a read still hands out at most one request.
-A reader of the procfs channel file whose copy out fails, a readv()
-with a bad later segment included, loses what was handed out, since the
-request moves on before procfs copies it out. If that was only part of
-a request the next read returns the rest of it. Both flush files share
-flush_time_text().
+This is the code that fixes the SMU boot issue, that we discussed eariler:
 
-The procfs files are removed when the network namespace goes away and
-that no longer waits for a reader that faults on its buffer.
+https://lore.kernel.org/all/20261103160553.1431-1-atharvatiwarilinuxdev@gmail.com/
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- net/sunrpc/auth_gss/svcauth_gss.c | 24 ++++++-------------
- net/sunrpc/cache.c                | 50 +++++++++++++++++++++++----------------
- 2 files changed, 36 insertions(+), 38 deletions(-)
+Its confirmed to be 0x4F1 as OCLP enables it, and with OCLP and no patches it booted fine.
 
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 8d105cd900d4..67e086a7127c 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1442,32 +1442,22 @@ static ssize_t write_gssp(struct file *file, char *buf, size_t count,
- 	return count;
- }
- 
--static ssize_t read_gssp(struct file *file, char __user *buf,
-+static ssize_t read_gssp(struct file *file, char *buf,
- 			 size_t count, loff_t *ppos)
- {
- 	struct net *net = pde_data(file_inode(file));
- 	struct sunrpc_net *sn = net_generic(net, sunrpc_net_id);
--	unsigned long p = *ppos;
- 	char tbuf[10];
- 	size_t len;
- 
--	snprintf(tbuf, sizeof(tbuf), "%d\n", sn->use_gss_proxy);
--	len = strlen(tbuf);
--	if (p >= len)
--		return 0;
--	len -= p;
--	if (len > count)
--		len = count;
--	if (copy_to_user(buf, (void *)(tbuf+p), len))
--		return -EFAULT;
--	*ppos += len;
--	return len;
-+	len = snprintf(tbuf, sizeof(tbuf), "%d\n", sn->use_gss_proxy);
-+	return memory_read_from_buffer(buf, count, ppos, tbuf, len);
- }
- 
- static const struct proc_ops use_gss_proxy_proc_ops = {
- 	.proc_open	= nonseekable_open,
- 	.proc_write_buf	= write_gssp,
--	.proc_read	= read_gssp,
-+	.proc_read_buf	= read_gssp,
- };
- 
- static int create_use_gss_proxy_proc_entry(struct net *net)
-@@ -1494,7 +1484,7 @@ static void destroy_use_gss_proxy_proc_entry(struct net *net)
- 	}
- }
- 
--static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
-+static ssize_t read_gss_krb5_enctypes(struct file *file, char *buf,
- 				      size_t count, loff_t *ppos)
- {
- 	struct rpcsec_gss_oid oid = {
-@@ -1512,7 +1502,7 @@ static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
- 		return 0;
- 	}
- 
--	ret = simple_read_from_buffer(buf, count, ppos,
-+	ret = memory_read_from_buffer(buf, count, ppos,
- 				      mech->gm_upcall_enctypes,
- 				      strlen(mech->gm_upcall_enctypes));
- 	gss_mech_put(mech);
-@@ -1521,7 +1511,7 @@ static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
- 
- static const struct proc_ops gss_krb5_enctypes_proc_ops = {
- 	.proc_open	= nonseekable_open,
--	.proc_read	= read_gss_krb5_enctypes,
-+	.proc_read_buf	= read_gss_krb5_enctypes,
- };
- 
- static int create_krb5_enctypes_proc_entry(struct net *net)
-diff --git a/net/sunrpc/cache.c b/net/sunrpc/cache.c
-index a257598768fa..81a3f0068f36 100644
---- a/net/sunrpc/cache.c
-+++ b/net/sunrpc/cache.c
-@@ -28,6 +28,7 @@
- #include <linux/workqueue.h>
- #include <linux/mutex.h>
- #include <linux/pagemap.h>
-+#include <linux/uio.h>
- #include <asm/ioctls.h>
- #include <linux/sunrpc/types.h>
- #include <linux/sunrpc/cache.h>
-@@ -837,9 +838,10 @@ cache_next_request(struct cache_detail *cd, u64 seqno)
- 	return NULL;
- }
- 
--static ssize_t cache_read(struct file *filp, char __user *buf, size_t count,
--			  loff_t *ppos, struct cache_detail *cd)
-+static ssize_t cache_read(struct file *filp, struct iov_iter *to,
-+			  struct cache_detail *cd)
- {
-+	size_t count = iov_iter_count(to);
- 	struct cache_reader *rp = filp->private_data;
- 	struct cache_request *rq;
- 	struct inode *inode = file_inode(filp);
-@@ -878,7 +880,7 @@ static ssize_t cache_read(struct file *filp, char __user *buf, size_t count,
- 		if (rp->offset + count > rq->len)
- 			count = rq->len - rp->offset;
- 		err = -EFAULT;
--		if (copy_to_user(buf, rq->buf + rp->offset, count))
-+		if (copy_to_iter(rq->buf + rp->offset, count, to) != count)
- 			goto out;
- 		rp->offset += count;
- 		if (rp->offset >= rq->len) {
-@@ -1499,16 +1501,11 @@ static int release_flush(struct inode *inode, struct file *file,
- 	return 0;
- }
- 
--static ssize_t read_flush(struct file *file, char __user *buf,
--			  size_t count, loff_t *ppos,
--			  struct cache_detail *cd)
-+/* what reading the flush files returns */
-+static size_t flush_time_text(struct cache_detail *cd, char *tbuf, size_t size)
- {
--	char tbuf[22];
--	size_t len;
--
--	len = snprintf(tbuf, sizeof(tbuf), "%llu\n",
-+	return snprintf(tbuf, size, "%llu\n",
- 			convert_to_wallclock(cd->flush_time));
--	return simple_read_from_buffer(buf, count, ppos, tbuf, len);
- }
- 
- /* longest number the flush files take */
-@@ -1564,12 +1561,15 @@ static ssize_t write_flush(struct file *file, const char __user *buf,
- 	return do_write_flush(tbuf, count, ppos, cd);
- }
- 
--static ssize_t cache_read_procfs(struct file *filp, char __user *buf,
--				 size_t count, loff_t *ppos)
-+static ssize_t cache_read_procfs(struct file *filp, char *buf, size_t count,
-+				 loff_t *ppos)
- {
- 	struct cache_detail *cd = pde_data(file_inode(filp));
-+	struct kvec kvec = { .iov_base = buf, .iov_len = count };
-+	struct iov_iter to;
- 
--	return cache_read(filp, buf, count, ppos, cd);
-+	iov_iter_kvec(&to, ITER_DEST, &kvec, 1, count);
-+	return cache_read(filp, &to, cd);
- }
- 
- /* procfs copied in what was written */
-@@ -1620,7 +1620,7 @@ static int cache_release_procfs(struct inode *inode, struct file *filp)
- }
- 
- static const struct proc_ops cache_channel_proc_ops = {
--	.proc_read	= cache_read_procfs,
-+	.proc_read_buf	= cache_read_procfs,
- 	.proc_write_buf	= cache_write_procfs,
- 	.proc_write_size = CACHE_DOWNCALL_MAX,
- 	.proc_poll	= cache_poll_procfs,
-@@ -1668,12 +1668,15 @@ static int release_flush_procfs(struct inode *inode, struct file *filp)
- 	return release_flush(inode, filp, cd);
- }
- 
--static ssize_t read_flush_procfs(struct file *filp, char __user *buf,
--			    size_t count, loff_t *ppos)
-+static ssize_t read_flush_procfs(struct file *filp, char *buf, size_t count,
-+				 loff_t *ppos)
- {
- 	struct cache_detail *cd = pde_data(file_inode(filp));
-+	char tbuf[22];
-+	size_t len;
- 
--	return read_flush(filp, buf, count, ppos, cd);
-+	len = flush_time_text(cd, tbuf, sizeof(tbuf));
-+	return memory_read_from_buffer(buf, count, ppos, tbuf, len);
- }
- 
- static ssize_t write_flush_procfs(struct file *filp, char *buf, size_t count,
-@@ -1688,7 +1691,7 @@ static ssize_t write_flush_procfs(struct file *filp, char *buf, size_t count,
- 
- static const struct proc_ops cache_flush_proc_ops = {
- 	.proc_open	= open_flush_procfs,
--	.proc_read	= read_flush_procfs,
-+	.proc_read_buf	= read_flush_procfs,
- 	.proc_write_buf	= write_flush_procfs,
- 	.proc_write_size = CACHE_FLUSH_MAX,
- 	.proc_release	= release_flush_procfs,
-@@ -1795,8 +1798,10 @@ static ssize_t cache_read_pipefs(struct file *filp, char __user *buf,
- 				 size_t count, loff_t *ppos)
- {
- 	struct cache_detail *cd = RPC_I(file_inode(filp))->private;
-+	struct iov_iter to;
- 
--	return cache_read(filp, buf, count, ppos, cd);
-+	iov_iter_ubuf(&to, ITER_DEST, buf, count);
-+	return cache_read(filp, &to, cd);
- }
- 
- static ssize_t cache_write_pipefs(struct file *filp, const char __user *buf,
-@@ -1886,8 +1891,11 @@ static ssize_t read_flush_pipefs(struct file *filp, char __user *buf,
- 			    size_t count, loff_t *ppos)
- {
- 	struct cache_detail *cd = RPC_I(file_inode(filp))->private;
-+	char tbuf[22];
-+	size_t len;
- 
--	return read_flush(filp, buf, count, ppos, cd);
-+	len = flush_time_text(cd, tbuf, sizeof(tbuf));
-+	return simple_read_from_buffer(buf, count, ppos, tbuf, len);
- }
- 
- static ssize_t write_flush_pipefs(struct file *filp,
-
--- 
-2.53.0
-
+I plan to add 5K support to efi libstub or something in the future, hence the TODO, so we
+get 5K in simpledrm and get rid of this not good looking quirk.
