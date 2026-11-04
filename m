@@ -2,55 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2DD606A338
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0222606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=F/mPSDlc
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=DDBzKqAJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B757112C6B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEEC7112C6F;
 	Fri,  6 Nov 2026 09:19:05 +0000 (UTC)
-X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
- Wed, 04 Nov 2026 20:14:23 UTC
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3C310FEE2
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 20:14:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793822353; cv=none; d=zohomail.eu; s=zohoarc; 
- b=dlV+Ny7hMOkt5HlZXhS26tgvbGlxQSLVURMm88dYkJMHWlULVV0zmrBO9gxBn7WMswHyq/aRkHk/hkyUyvQvScLFrcd8md0fionlD+5VJGGGlpae+fCFMb/iWwjsmTQeHrRisYXN+w2vbaABX7Rhqsco+EvwZnyT7xXZBsWUXTI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1793822353;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ItJWBgurNWrKzbA3+9kWCtCIwN+CzwIffxyCOBCEeZ4=; 
- b=PHRuyDioZ2UmrngLNTXv1sxpH7KF6ZBwgzXJgOwZ5rnw0a0Aq7NDbBfsyHjNUGBJwUnw7IxEoBUBo73S9YeWNC9D6cNo4Gpp2E3Y92HjLrV1SSKbUriY79tl6jBRoJ2xGgp54GzaX4L/+0woOci0HiY4/Iu0wyvaQGRKFob+b+4=
-ARC-Authentication-Results: i=1; mx.zohomail.eu; dkim=pass  header.i=iav.lv;
- spf=pass  smtp.mailfrom=iav@iav.lv;
- dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256;
- b=F/mPSDlc4uIp6nAJHIOr/sNm8CuQcnOjV63n6wSvUpp1rZ03Ldkn+O6DHim38i2EcxTOGPx7aGWqjPccxvtEG+L0CnB5dOhByaaEYd6rxSYmXDvrFrB9l6yiwzpf2SdRkXldpUkcc/j9XVnviticvo6Y8DKw3tzzz0kxkrtonrM=;
- c=relaxed/relaxed; s=zoho; d=iav.lv; v=1;
- bh=ItJWBgurNWrKzbA3+9kWCtCIwN+CzwIffxyCOBCEeZ4=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793822350815917.9354164021267;
- Wed, 4 Nov 2026 20:59:10 +0100 (CET)
-Date: Wed, 04 Nov 2026 21:59:09 +0200
-From: Igor Velkov <iav@iav.lv>
-To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-Cc: iav@iav.lv, Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH] drm/panfrost: Gate the RK3399 GPU clock in runtime suspend
-Message-ID: <20261104-panfrost-rk3399-pm-rt-larumbe-reply-1@iav.lv>
-In-Reply-To: <autNWETrwrHbD2H9@sobremesa>
-References: <20261030-panfrost-rk3399-pm-rt-v1-1-e94437159a9d@iav.lv>
- <autNWETrwrHbD2H9@sobremesa>
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043EA10E8DC
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 20:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=m3piSQtfQuOg8u1CZlEVUJlwdFZ/horJKCFdnF6JPx4=; b=DDBzKqAJss7bD2+bm2s
+ P43Ux94h7IIe1ucOVYhz/ySnXcvWnMh9XoWdZm8KeW6DY/q73P2mKFhh6N+Ccv3TpXk4XShi5yDgz
+ Y2er5iXun3HEJnILlYYWT4SenaR37N99ZrIjsn8ykdiwlkJqVcJ+VXfchpxwcvdia6CkmXLnujaV6
+ B+Af3uGmljDQGYvGH0oG5c45wQz4wt4xmiAtWmGa8vAbHVnAXzTH+dVbQuU/uh5L9G2sGPvdI86F7
+ 6JlWBQi3OTBZk/QzdJ8AnEfyKzyyRCprkGF2Hh5dfyIPXGRyRGiNvV1rtR3vz7dwp272P6Dr1w3o3
+ GrfBqrrkkMO03Ow==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xOhjA-0018X2-2O;
+ Wed, 04 Nov 2026 21:41:04 +0100
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 04 Nov 2026 21:40:57 +0100
+Subject: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the lock
+ in copy_huge_pmd()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4033;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=py+hRT0j2W1iu9s6HX+poqDtbv0blfBMcY8NUrWKcd0=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq65hdLggzNygo5KJ93r3G6e7Ax8It/B3P0I8J4
+ 2DyVb7vwnGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCauuYXQAKCRBRlgpH+WFc
+ KkO7D/4nfFyvxkBgfdLQmB0YnnwJdSop86K3UxtoZgUM1vbtX2DXJsNtW9nEvRYTiUdPpkyfJWJ
+ Zuin+uFVhJ0JVYdpt/UstEVsUeqs5VJ63zT0SQXGJJelixu8VtBEhRFxxT8nJX/R7b5NMeM6aCi
+ cr9/Dve6+gKqvSS2TVDW3Kd98uh+MwKAHHGqzTRMhurwnUsxj9/xCtpnOIw3BrGpC1yB321PF2r
+ zsr7MCVyUmc4O+P77YDDuNc6jZOh2+YPtkqgMaGdIsvQfX+u8h67SH+1g4h1jPCkTdNfGYJQBGZ
+ GKtfplP4Igaoak5QdpyIdg7te9QrD+ddbX6BagGJakPfmFcQrAvOJjktlbByiAVoFVXOVuvg9Z0
+ eY3AdCvvjWdB/VDGnWjyFWL9JfDsD2MIfXkSh7TxdKxMBlZLmyPXQVGfHHElY66LoEYIiXG1ztM
+ 2bYdW8FjQQ0zCDuMPw3VB8Sh5xGCQ8u5wiPexpNfPzbo+z0QcpMgf0BLXrzc9R0rs8ec4+Gh+tl
+ aOm12Jl6cTC/aiva3Sqmd1a+VPusSoUssugj4shG6uiHmKd7GelE+oTcNckkN55nZvJqbBpgelB
+ kyu23cA32rlq9Biyz9BnUUNhWUbRADxuXjNBqs+nekl1wlbY+0pdrF2Hfuzu6rt+F0IPt1heSL+
+ 3gvOLpNZWs7rJBg==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,82 +83,110 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Adrián,
+copy_huge_pmd() reads a special PMD without the page table lock and
+copies that value to the child. The mmap write lock held by fork does
+not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+lock.
 
-On 04.11.2026, Adrián Larumbe wrote:
->> On ROCK Pi 4A restore from hibernation hangs in genpd_restore_noirq()
->> of the GPU while panfrost is bound. With the clock gated in runtime
->> suspend, as on the Allwinner H616 and the Renesas parts, it restores.
->
-> I find the wording in the preceding paragraph a bit confusing . Would
-> you mind clarifying what 'parts' means here? I guess you refer to
-> specific SoCs.
+The zap visits the parent VMA before the child's, as dup_mmap() links
+the child right after the parent in i_mmap. If it clears the parent PMD
+after fork has read it, and passes the child before fork copies it, the
+child keeps a mapping the driver has revoked, for example:
 
-Yes, SoCs: allwinner,sun50i-h616-mali, renesas,r9a08g046-mali and
-renesas,r9a09g047-mali already use default_pm_rt_data. v2 will name
-them.
+- vfio-pci: the child reaches the BAR after the device memory was
+  disabled or the device was reset, instead of getting SIGBUS;
+- panthor: the child maps the pages of an evicted buffer object after
+  the driver has released them.
 
-> Also, I wonder why not disabling the clocks would forestall coming back
-> from a power suspension state. Have you raised this matter to the
-> maintainers of the RK3399 SoC subsystem?
+The same branch deposits no page table under the copy. ppc64 in hash
+mode keeps the hash slot array of every huge PMD in that table, so the
+child dereferences a NULL table on the first hash fault, in
+__hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
 
-The kernel that reads the image never binds panfrost, so after
-clk_disable_unused() aclk_gpu stays gated. The restored image still has
-it enabled in software (enable count 1 since probe), so powering the GPU
-domain back on, whose clocks include aclk_gpu, only bumps the count, and
-the QoS writes that follow in rockchip_pd_power() go to a gated block
-and hang. I traced this for rkvdec [1]; for the GPU I see the hang at
-the same spot, genpd_restore_noirq(), and gating in runtime suspend
-removes it. I haven't raised it separately; Heiko is on To.
+Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
+from a folio under them, as copy_present_ptes() does with
+vm_normal_page(). The zap clears the parent PMD under the same lock, so
+either fork finds it none and skips it, or the copy is in place before
+the zap reaches the child.
 
-> Would you also mind describing what you did to reproduce this
-> resume-from-suspend issue? Lately we've been getting some fixes for
-> similar SoC issues and I wonder whether mine also has it.
+The copy of a PFN mapping then goes through the same tail as a folio:
 
-It is hibernation (restore from disk), not suspend to RAM. ROCK Pi 4A,
-drm-misc-next 33ed26235db9 plus [1], panfrost as a module, bound, GPU
-idle, swap file with resume= and resume_offset=: systemctl hibernate,
-power off and on. Without the patch restore hangs at "panfrost
-ff9a0000.gpu: calling genpd_restore_noirq" 2 of 2, with it restores
-6 of 6. A quick check on another board: with panfrost bound and the GPU
-idle, its core clock keeps enable count 1 in clk_summary.
+- it gets a page table where the architecture needs one;
+- in a shared mapping it is marked clean in the child, as a PTE is;
+- in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
+  protected instead of a warning being printed.
 
-> If this patch depends on another fix being merged first, I think it's
-> best you delay sending a v2 until it's been committed to its relevant
-> subsystem tree and changes pulled into drm-misc-next.
+Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ mm/huge_memory.c | 24 +++---------------------
+ 1 file changed, 3 insertions(+), 21 deletions(-)
 
-It applies and builds without [1]; [1] only gets this board through
-restore up to the GPU. [1] goes through linux-media, so I'd rather not
-tie v2 to it, but fine either way.
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index e00632edb3856..9cb5f99aba87f 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1961,25 +1961,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	int ret = -ENOMEM;
+ 	bool writable;
+ 
+-	pmd = pmdp_get_lockless(src_pmd);
+-	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+-		     !is_huge_zero_pmd(pmd))) {
+-		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+-		src_ptl = pmd_lockptr(src_mm, src_pmd);
+-		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+-		/*
+-		 * No need to recheck the pmd, it can't change with write
+-		 * mmap lock held here.
+-		 *
+-		 * Meanwhile, making sure it's not a CoW VMA with writable
+-		 * mapping, otherwise it means either the anon page wrongly
+-		 * applied special bit, or we made the PRIVATE mapping be
+-		 * able to wrongly write to the backend MMIO.
+-		 */
+-		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+-		goto set_pmd;
+-	}
+-
+ 	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
+ 		pgtable = pte_alloc_one(dst_mm);
+ 		if (unlikely(!pgtable))
+@@ -2021,7 +2002,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		goto copy_pmd;
+ 	}
+ 
+-	src_page = pmd_page(pmd);
++	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
++	if (!src_page)
++		goto copy_pmd;
+ 	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
+ 	src_folio = page_folio(src_page);
+ 
+@@ -2061,7 +2044,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	}
+ 	if (src_vma->vm_flags & VM_SHARED)
+ 		pmd = pmd_mkclean(pmd);
+-set_pmd:
+ 	pmd = pmd_mkold(pmd);
+ 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+ 
 
-> I'm not entirely sure about what patch submission guidelines say about
-> testing information, but normally commit trailers must come about
-> last. Would you mind then moving this to right before the S-o-b?
+-- 
+2.43.0
 
-The test notes are below the "---" on purpose, so they stay out of the
-commit.
-
->> +	{ .compatible = "rockchip,rk3399-mali", .data = &default_pm_rt_data },
->
-> You're effectively adding support to a whole new SoC. This made me
-> wonder, are we sure suspension resumption not working is only because of
-> GPU_PM_RT? Shouldn't we know first about its supplies and power domains,
-> and any potential GPU quirks? I think this goes beyond my knowledge, so
-> maybe Steven Price can pitch in.
-
-The node already carries "rockchip,rk3399-mali", "arm,mali-t860" and
-binds through the fallback today. default_pm_rt_data differs from
-default_data only in GPU_PM_RT; supplies and the power domain stay as
-they are. The RK3399 GPU node has no bus clocks and no resets, so
-GPU_PM_RT changes only aclk_gpu here. Steven's view is welcome.
-
-[1] https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a231de@iav.lv
-
---
-Igor Velkov
