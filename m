@@ -2,47 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E08606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C096606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FoXl3xLw
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+wEgUT5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5763410F9EB;
-	Wed,  4 Nov 2026 07:11:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 746F310F9EB
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7370F10F9F2;
+	Wed,  4 Nov 2026 07:11:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE5D710F9F2;
+ Wed,  4 Nov 2026 07:11:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D09C40253;
- Wed,  4 Nov 2026 07:10:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0281F000C1;
- Wed,  4 Nov 2026 07:10:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 316A760AAB;
+ Wed,  4 Nov 2026 07:11:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104FA1F000C1;
+ Wed,  4 Nov 2026 07:11:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793776257;
- bh=/4Vaz1/VNxTYF518LkkZoDIlUmn8VqFaL2EVigTRlSI=;
+ s=k20260515; t=1793776272;
+ bh=T0qJvAVSX8i/iKC1VW5a+ihb8ZerxF1KsKXeV3Ox9j0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FoXl3xLwJX/qih3wbg0IWrP/g/PXTsmeujKJj4qFPNOd9+xsodWh3wzXBUOfJlGNy
- 8rtJtLJdWWShK+RrgCoF8Yvicz2KkJxdtIRQPlodjxlRijrXCTtc9MZKWCdthFdWVr
- dusp/Y/pE/urQ/WQOQGSV7hZN6GLsrvvDCtxba2nzpc8kEU3DX1W6z7eNqFWgH6hvD
- F9xG7mKuRk4C1qi30WA6cfzi5vHc5uVXVmvXKgFF2dgR3tVrQ8Rnr+NdRZzPvi0/uZ
- WTdc7xVv+Z8mwc8DYiymFzykEU6vM0C/wFU6rjqLvcU9aUdMfG0REvAH1EGi2h7JiR
- iMbWt1/TviHKA==
-Date: Wed, 4 Nov 2026 08:10:54 +0100
+ b=d+wEgUT5XylSFJ72jiSefapRvp64K3KBmzVtdjDtBywJoTFt7l0mSh2iEhvivLqO2
+ BV18cEpAuwoOLz9S8HfJ9V6uj4fhnXmr1W3rqEtC64T0tYiyrWUu1hOTffNPZ2PcBR
+ PnSTMVMuIj58L+1ReWfArE8W+A+WueuGZBuTWPaULQqwvYhiPH2ov5tzE17NtcqWAw
+ 1qzpfSigZGdlKF4KipzY4HAHU1GzVG+22bfSBid0Q+i2g0U6Yy+qB1EL2RxK86GLOJ
+ /VzaKBs405ZngxN6AmmSmkVVIHDSpBJ/JoAHU7tDss1hbrkR7p/4W6smFsOlNxS+l1
+ HnFQgXnKT9wuA==
+Date: Wed, 4 Nov 2026 08:11:09 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
 Cc: Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH] drm/gem-atomic-helper: fix explicit fence leak without a
- framebuffer
-Message-ID: <20261104-dangerous-dachshund-of-sufficiency-6bbbab@quoll>
-References: <20261104025342.1527424-1-vulab@iscas.ac.cn>
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, 
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu/jpeg: unwind late software init failures in
+ v5.0.0
+Message-ID: <20261104-elusive-convivial-elk-cfeaf8@quoll>
+References: <20261104025340.1527373-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104025342.1527424-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261104025340.1527373-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,29 +58,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Wed, 04 Nov 2026 02:53:42 +0000, Wentao Liang wrote:
-> drm_gem_plane_helper_prepare_fb() takes a reference on state->fence
-> before checking whether the plane state has a framebuffer. An explicit
-> fence can be attached to a disabled plane through the IN_FENCE_FD
-> property, and drm_atomic_plane_check() accepts that state because CRTC
-> and framebuffer are both unset. The early return for the missing
-> framebuffer then drops the newly acquired reference without releasing
-> it.
+On Wed, 04 Nov 2026 02:53:40 +0000, Wentao Liang wrote:
+> The v5.0.0 software initialization callback creates its ring before
+> allocating the register dump storage and creating the reset mask sysfs
+> file. If either of the latter steps fails, the callback returns without
+> releasing the initialized JPEG resources, including the ring buffers and
+> the vmid_wait fence reference. The IP block's status.sw flag has not been
+> set, so the common error cleanup skips its sw_fini callback.
 > 
-> Move the reference acquisition after the framebuffer check.
+> Suspend the JPEG work and release the JPEG software resources on these
+> late failures. amdgpu_jpeg_sw_fini() also releases the register dump
+> storage if it was successfully allocated before sysfs creation failed.
 > 
-> Fixes: 1ea28bc5542d ("drm: handle kernel fences in drm_gem_plane_helper_prepare_fb v2")
+> Fixes: 64dc2f0029ec ("drm/amdgpu: Enable devcoredump for JPEG5_0_0")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/drm_gem_atomic_helper.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
 
 Multiple things here:
