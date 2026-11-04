@@ -2,84 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8395B606B2C8
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:29:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333876076356
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:29:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=MyF6aVAy
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fm+snEsH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADDD10FE3D;
-	Wed,  4 Nov 2026 19:29:25 +0000 (UTC)
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3DA10FE37;
- Wed,  4 Nov 2026 19:29:17 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4IQOqj1937786; Wed, 4 Nov 2026 19:29:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=w/dAVKn8Sq6badom+jT5M1+
- MrGVSHMw0ssqOulzkFPQ=; b=MyF6aVAyo5UktaOcZKqpDoJZMgFTAnq9ZJVpMRb
- f+FBuHyA81229h8Qh4LS/WAz9HRSWRvA0nz3eEiI9nQLeiaF2p6Y5M8hzRKhqdyl
- /tIlGmwb9E9oyBUGDBxQhSybP7J56tCa8QogIFw8T3Hb9PwpMGRfwCu/fuDqa7E8
- Ne6isEgvkQ40DvvhOWj/fXWtAVimXVy7NWh46E/HWE0V9SCaOQr70ZHfew7S0OrH
- P0OvSB+kkCd1YrlEGWksqpx4QAeBR8dUtXYVaNHibVavq4O8qYo7QZWDOqnee2Hs
- 29pvO3WNWth8lhMsHv3l3Kb6jy1YlxBr8Z1RQkgskFweJTQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hn99wkp2c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Nov 2026 19:29:07 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 19:29:05 +0000
-From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Subject: [PATCH 0/2] drm/imagination: minor code improvements
-Date: Wed, 4 Nov 2026 19:28:15 +0000
-Message-ID: <20261104-minor-improvements-v1-0-cc976128538e@imgtec.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 931E110FE39;
+	Wed,  4 Nov 2026 19:29:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 419F110FE39
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:29:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AB6A660DAA;
+ Wed,  4 Nov 2026 19:29:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1DAB1F000C1;
+ Wed,  4 Nov 2026 19:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793820572;
+ bh=BSR8KrA5WsWDAsnf7a3SEYyO4TT3rIWRkkpblhU3vC4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=fm+snEsHSUMdJQMYXWtJD8H75OujfOckcQGSgOUJCHoiXcnuWL5JqHO+xlPMJnNHh
+ 7L7gY4b8oU4/m94jZyMfjd1GdoeMs60fpGp9AIrXeVMfN31aiMuEzCyS+eWLbTLuPV
+ BPA6rRRRrTTWpwaGwq0GiCB1IRfXCb4E10ZB+LQTgcJCp5dD5hAbq0xeoS5uD6mvGo
+ XD6O9ShL3YDsjDBRPXV2CpOA2VgGaIsET3FaKweJoWfpyMC3h7R8xDixN1ERs055n+
+ MwPpkjy3mlDsFA6EPjwSN35unN1AzQE3PB3MKS0y+nNSfE2LBKJlHHBhaGEtSZvTPv
+ 6mP8wZt8knuPw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>,
+ Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 00/23] proc: let procfs own the data path (Part 2/7)
+Date: Wed,  4 Nov 2026 20:29:18 +0100
+Message-ID: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
+References: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAE+H62oC/yXMQQqDMBBA0avIrBswo0baqxQXbRx1Cklkxoog3
- r2pLt/i/x2UhEnhUewgtLJyihn2VoCfXnEkw302YInO2rI2gWMSw2GWtFKguKhB73Dwrr1j1UA
- OZ6GBt3P67C7r9/0hv/xPcBw/JAfzlXYAAAA=
-X-Change-ID: 20261104-minor-improvements-2c62fc679235
-To: Alessio Belle <alessio.belle@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
- <brajesh.gupta@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793820545; l=642;
- i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=SNWNsO7jcCRGjK+3CzKVxA4G72GK33zIx7fA33q/u8M=;
- b=1WbX1Fqyk1XbLdLfOHuowUo1ha1YnAsKO3VcTZoN3iYIctMA46FQNH7h3TizY/6W942+JFDxI
- 7mGIaSp09wODJ0BMihbtIwJLcrDUIw6UDwmsE5DzKp8w4mVlfUhycbx
-X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
- pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3NyBTYWx0ZWRfX0iBQpwrdO4s0
- ZS3r+yMpstN62zKDI4RWQYH0yEjaPCtG+M4fYeGe5E0+vXpszmYWdIwUUbvNAdJhwLT+9eygaJO
- bs5MZX2B9xkyH5yPnpFasrCnaKqafM9R+30XOns3O5J7+8QWWpHChvZD3coxPun8HVQEmCjcmwc
- UpeV3Nod3hNTmOL41B0zxESjDMFuCARiT0EU30ioV0BsMbF6HCmliF6EGyYHvNDzCaNXr8sM1KG
- UH5y/d507CBKshp7OKD3OJdMyVnDfOfRtxXO2bnh0kfOY0f4xKUB0/m2nX8q2hCi34Zy0/S/ExD
- FNxd0DtEyWDgmN51xvZll3JJPU7fVSBJKpokr2JWqa34WIk92Dooqz7WXoFwkbaqRv6Tsfyny21
- TbYkuXPHV5KHF5ADN2AwRe+n+NZJWYANYrcUnwwsqHiUMUsNTdAKe4DNKyDdZ+9TjMnKPMi/K6g
- 0qtgcjBu2Og0c2XiJGg==
-X-Proofpoint-ORIG-GUID: 8H2aazFtFwrZT-20QqLtaGzKyiA2F3Yv
-X-Proofpoint-GUID: 8H2aazFtFwrZT-20QqLtaGzKyiA2F3Yv
-X-Authority-Analysis: v=2.4 cv=BZlNQbt2 c=1 sm=1 tr=0 ts=6aeb8783 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=dQbN41boPXjwVbFuR-UA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3NyBTYWx0ZWRfX3xdt2QiZU0UA
- QG7O6EzoI3Cw0nft9kpVKs4N4n2o25YpV6xwnZabKvL9yfsz6JfUWruynm3Wh5ZmPTqdzQ42laa
- ZCg4A80vS69WaFwHFTwZbQd0G6Qc6x4=
+X-Change-ID: 20261101-work-procfs-core-8fa4a4f412cf
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16472; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=GiozsU5LVlTUmY0umOFVQ6uJF4f9wh0KdRccm0wVx6E=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bi+w5eOU3bi0Li6RX/SGgKzywiMKPIquQersv3v2b
+ Ps69YR2RykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwER+yjH803JhEI5n71P+nKa9
+ xWamU7mPXk1MCJuAhO4leT7DomcRDH8FS92Wh1+8/7p17m/HyKiLn6eqPVfnNlV9vX8zYxZL/2d
+ +AA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,30 +90,332 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-No functional change is assumed in this series.
+Part 2/7 of "proc: move procfs to what kernfs does", on top of part 1:
 
-Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+  https://patch.msgid.link/20261104-work-procfs-v2-0-b45cd5789ac5@brauner
+
+remove_proc_entry() waits until every call into the entry has returned.
+A seq_file entry wait across seq_read_iter() including the copy to
+userspace. Non-seq_file entries wait across ->proc_read(),
+->proc_write() and ->proc_ioctl(), which copy to and from userspace
+as well.
+
+A reader or writer can abuse a page fault to make copy take as long as
+it wants. For example, by using userfaultfd or by punching holes into a
+memfd over and over. And callers of remove_proc_entry() like to hold
+locks while they wait. For instance, addrconf holds RTNL when it removes
+/proc/net/dev_snmp6/<dev> and xt_hashlimit holds hashlimit_mutex which
+is shared by all network namespaces.
+
+There was a hackish and very narrow AI solution to a small part of this
+bug class which was sent off-list. In essence, it used a second
+buffering mechanism on top of seqfiles which was really nasty. It also
+didn't address any of the non-seqfile users.
+
+If we want to get rid of the this whole bug class we need a bigger
+hammer. That means reworking how procfs handles data. So I tried to work
+through all of that.
+
+This changes procfs so the entry's code only ever runs with the entry
+pinned and never touches userspace memory. This is the core procfs
+change required for this. The entries themselves are converted in four
+series on top of it. The are independent of each other. The last series
+drops all __user methods.
+
+* seq_file reads
+
+  procfs owns the seq_file and only calls into the entry with it pinned.
+  An entry declares its seq_operations, or just a show function, and the
+  size of its private state in struct proc_ops. procfs opens and frees
+  the seq_file and reads and seeks through seq_file directly.
+
+  ->proc_open() and ->proc_release() only deal with whatever the entry
+  needs on top of that. proc_create_seq() and friends already keep the
+  seq_operations in the entry so they're switched over in one go here.
+  That covers most of /proc/net.
+
+  The open coded single_open() and seq_open() users that don't do
+  anything else are converted with a coccinelle script. A nice side
+  effect is that opening one of these entries no longer allocates a
+  pde_opener as they have no ->proc_release() of their own anymore.
+
+* Writes
+
+  procfs copies in what is written before it pins the entry and hands
+  the entry a NUL-terminated kernel copy through ->proc_write_buf().
+
+  The copy is capped at PAGE_SIZE - 1 bytes unless the entry asks for
+  more in ->proc_write_size.
+
+  Entries that take binary data in pieces (the PCI config space, ALSA's
+  data entries, cio_ignore and the rtas flash files) ask for
+  PROC_ENTRY_SHORT_WRITES and their writes come up short.
+
+  Since procfs copies in the whole write first, a write that is too
+  large or whose buffer can't be read fails before the entry's own
+  checks now.
+
+* Reads that don't go through seq_file
+
+  An entry fills a kernel buffer in ->proc_read_buf(), procfs copies
+  that to userspace after unpinning the entry and only moves the
+  position if that copy worked, like kernfs_file_read_iter().
+
+  The buffer is a page unless the entry asks for more in
+  ->proc_read_size, and like with kernfs a larger read comes up short.
+
+  Entries whose readers want all of a large file in one read,
+  /proc/vmcore, /proc/config.gz and ALSA's data entries, ask for
+  PROC_ENTRY_FULL_READS and procfs fills their reads in pieces. These
+  entries are read through ->read_iter() now, so sendfile() and splice()
+  work for them.
+
+* ioctls
+
+  The command number doesn't reliably say what an ioctl copies. The PCI
+  ioctls aren't encoded at all, i8k's encode the wrong sizes and esas2r
+  uses a range of plain numbers.
+
+  So an entry lists its commands in ->proc_ioctl_args with what goes in
+  and what comes back out. That works like DRM's ioctl tables.
+
+  procfs copies the argument in before it pins the entry, calls
+  ->proc_ioctl_buf() with that copy and copies it back out after
+  unpinning the entry.
+
+  A command that isn't in the table fails with -ENOTTY. 32-bit tasks go
+  through the same table, so the compat hooks go away.
+
+* permanent entries
+
+  Entries that are never removed, kcore, kmsg and the kpage files, keep
+  reading straight into userspace. The last series gives them
+  file_operations of their own and takes the __user methods out of
+  struct proc_ops altogether.
+
+* mmap()
+
+  procfs pins the entry around ->proc_mmap() and then wraps the
+  vm_operations of the mapping the way kernfs does. So the entry's
+  ->fault(), ->page_mkwrite(), ->access() and ->open() run pinned as
+  well.
+
+  Removing the entry unmaps the mappings in its own address space, like
+  kernfs does, and a fault into one of them is SIGBUS from then on.
+
+  A file that maps through another address space, /proc/bus/pci through
+  the one of /dev/mem, keeps its mappings like a sysfs resource file
+  does. The entry's vm_operations live in its open node. vmcore's
+  mappings of the old memory no longer outlive fadump releasing it.
+
+* Poll
+
+  An entry with a ->proc_poll() used to sleep its pollers on a wait
+  queue of its own and procfs only pinned the entry around the call.
+
+  The poller stays on that queue after the call, so after
+   remove_proc_entry() ran ->proc_release() on the still open file and
+   the owner freed the queue with the rest.
+
+   sunrpc kept the queue of its channel files in the per-namespace
+   cache_detail, so a poll() across the end of the namespace was a
+   use-after-free. md works around the same thing at unload by waking
+   its pollers in a loop until nobody is left.
+
+   Make procfs own the wait queue. It lives in the open node,
+   proc_reg_poll() does the poll_wait() on it before it calls the
+   method. The owner wakes the pollers with proc_poll_notify(), and a
+   poll of a removed entry reports EPOLLERR | EPOLLPRI.
+
+   The seven pollable entries in the tree move over in the conversion
+   series.
+
+   The last series takes the poll_table away from ->proc_poll() once
+   nothing needs it anymore.
+
+* Lockdep
+
+  The pin is a read lock to lockdep and a removal takes the write side
+  around waiting for the last user, the way kernfs annotates its active
+  reference.
+
+  A method that takes a lock while pinned and a removal under that lock
+  is the deadlock xt_recent had, and lockdep reports it now instead of a
+  reviewer having to find it.
+
+  The class is per kind of entry, keyed on the seq_operations or
+  proc_ops the entries of a kind share, and per registration site for
+  the entries that only share a show function, like sysfs keys per
+  attribute.
+
+On a KASAN and lockdep kernel the reader selftest fails without the
+series and passes with it, and the mapped-entry selftest, run against
+a virtio-rng device in a VM, fails without the mmap patch and passes
+with it. The other proc selftests behave the same with and without the
+series and so do the entries converted here that I could get at in a
+VM.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Luigi Santivetti (2):
-      drm/imagination: switch to inline init of rogue_fwif_rta_ctl
-      drm/imagination: drop unused arg in free_list_create_fw_structure()
+Changes in v2:
+- the open files of an entry live in an open node that only entries with
+  a release or mmap hook get, a removal waits with wait_var_event(), the
+  readdir cursor is shared with sysctl
+- procfs pins the entry around the vm_operations of its mappings and
+  unmaps a removed entry's own address space like kernfs does, with a
+  selftest; a file that maps through another address space,
+  /proc/bus/pci through the one of /dev/mem, keeps its mappings like a
+  sysfs resource file; vmcore's mappings of the old memory no longer
+  outlive fadump releasing it
+- lockdep checks the pin
+- procfs owns the wait queue of an entry with a ->proc_poll(), the
+  conversions are in the area series
+- the seq_file runs the entry's own ->next() and ->show() with procfs's
+  ->start() and ->stop() around them instead of a wrapper per record,
+  which cost up to 24% on /proc/vmstat, and the ERR_PTR(-EIO) sentinel
+  is gone
+- ioctls that only pass a value no longer copy to a NULL pointer
+  (-EFAULT on csky), and registration also refuses a
+  ->proc_compat_ioctl() next to ->proc_ioctl_buf()
+- rebased onto v7.4-rc1
+- Link to v1: https://patch.msgid.link/20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org
 
- drivers/gpu/drm/imagination/pvr_free_list.c |  3 +--
- drivers/gpu/drm/imagination/pvr_hwrt.c      | 12 ++++--------
- 2 files changed, 5 insertions(+), 10 deletions(-)
 ---
-base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
-change-id: 20261104-minor-improvements-2c62fc679235
+Christian Brauner (23):
+      proc: drop the compat file operations
+      proc: add pde_pin() and pde_unpin()
+      proc: share the readdir cursor with sysctl
+      proc: wait for the last user of an entry with wait_var_event()
+      proc: keep the open files of an entry in an open node
+      proc: make room for more entry flags
+      proc: let procfs own the seq_file of seq_file entries
+      proc: let procfs own the seq_file of proc_create_seq() and friends
+      proc: let procfs own the seq_file of DEFINE_PROC_SHOW_ATTRIBUTE() files
+      treewide: let procfs own the seq_file of simple proc entries
+      selftests/proc: check that a faulting reader doesn't hold up removal
+      seq_file: add seq_preallocate()
+      proc: let procfs own the seq_file of /proc/stat
+      proc: let procfs copy in writes before pinning the entry
+      proc: copy in writes to the network namespace entries before pinning
+      proc: let procfs copy out reads that don't go through seq_file
+      fs/proc/vmcore: let procfs copy out reads
+      proc: let procfs copy ioctl arguments in and out
+      proc: pin the entry around the vm_operations of its mappings
+      selftests/proc: check that a mapped entry can be removed
+      proc: let lockdep check the pin
+      proc: own the wait queue of an entry with a ->proc_poll()
+      Documentation: seq_file: describe how a /proc file uses seq_file
 
-Best regards,
---  
-Luigi Santivetti <luigi.santivetti@imgtec.com>
+ Documentation/filesystems/seq_file.rst             |  42 +-
+ arch/alpha/kernel/srm_env.c                        |  10 +-
+ arch/arm/mm/alignment.c                            |  10 +-
+ arch/powerpc/kernel/rtas-proc.c                    |  50 +-
+ arch/powerpc/platforms/pseries/lpar.c              |  20 +-
+ arch/powerpc/platforms/pseries/lparcfg.c           |  10 +-
+ arch/sh/mm/alignment.c                             |  10 +-
+ arch/sparc/kernel/led.c                            |  10 +-
+ arch/um/kernel/exitcode.c                          |  10 +-
+ drivers/acpi/proc.c                                |  12 +-
+ drivers/hwmon/dell-smm-hwmon.c                     |  10 +-
+ drivers/input/input.c                              |  24 +-
+ drivers/macintosh/via-pmu.c                        |  10 +-
+ drivers/net/wireless/intel/ipw2x00/libipw_module.c |  10 +-
+ drivers/platform/x86/lenovo/thinkpad_acpi.c        |  10 +-
+ drivers/platform/x86/toshiba_acpi.c                |  40 +-
+ drivers/pnp/pnpbios/proc.c                         |  10 +-
+ drivers/s390/block/dasd_proc.c                     |  10 +-
+ drivers/s390/cio/blacklist.c                       |  13 +-
+ drivers/scsi/scsi_devinfo.c                        |  10 +-
+ drivers/scsi/scsi_proc.c                           |  21 +-
+ drivers/usb/gadget/function/rndis.c                |  10 +-
+ drivers/video/fbdev/via/viafbdev.c                 |  70 +--
+ fs/jfs/jfs_debug.c                                 |  10 +-
+ fs/ntfs3/super.c                                   |  20 +-
+ fs/proc/cpuinfo.c                                  |  10 +-
+ fs/proc/generic.c                                  | 261 ++++++---
+ fs/proc/inode.c                                    | 652 ++++++++++++++++-----
+ fs/proc/internal.h                                 | 146 ++++-
+ fs/proc/proc_net.c                                 |  72 +--
+ fs/proc/proc_sysctl.c                              |  45 +-
+ fs/proc/stat.c                                     |   6 +-
+ fs/proc/vmcore.c                                   |  14 +-
+ fs/seq_file.c                                      |  36 +-
+ fs/smb/client/cifs_debug.c                         |  79 +--
+ fs/smb/client/dfs_cache.c                          |  10 +-
+ include/linux/proc_fs.h                            | 159 ++++-
+ include/linux/seq_file.h                           |  11 +-
+ kernel/irq/proc.c                                  |  30 +-
+ kernel/latencytop.c                                |  10 +-
+ lib/dynamic_debug.c                                |   6 +-
+ mm/slab_common.c                                   |  10 +-
+ net/core/pktgen.c                                  |  30 +-
+ net/sunrpc/stats.c                                 |  10 +-
+ tools/testing/selftests/proc/.gitignore            |   2 +
+ tools/testing/selftests/proc/Makefile              |   2 +
+ tools/testing/selftests/proc/proc-remove-mapped.c  | 160 +++++
+ .../selftests/proc/proc-remove-slow-reader.c       | 133 +++++
+ 48 files changed, 1440 insertions(+), 916 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261101-work-procfs-core-8fa4a4f412cf
+prerequisite-change-id: 20261101-work-procfs-bugfixes-054d00028491:v2
+prerequisite-patch-id: a81e8b894107e48d607f8257d2c9f56e0dd6f400
+prerequisite-patch-id: 7edf7ca7ecd32c9e09085e4b65922af10097beaa
+prerequisite-patch-id: 81f6893f79b4236637675553298a6f2892b603f3
+prerequisite-patch-id: 598c2b1a389f47adcac88ebcf1c9f74e2511fbab
+prerequisite-patch-id: 6f5a2172dacc5ff2491fa9832c48ccd0e1ce1eda
+prerequisite-patch-id: 8947af6490288e4e2a3b2bf8844a974bedb1d975
+prerequisite-patch-id: 8cbe756286fd95967d31b0c46cacfeb05f0a2c6b
+prerequisite-patch-id: 3fa159f2b6ccd0ac51a2662e4eec5587ec18de89
+prerequisite-patch-id: bfb4e4ffe9631cb58015fefe6bd3698cd53e2244
+prerequisite-patch-id: 56ff6667a57a962264c07c0227c61aa2f1f4c22c
+prerequisite-patch-id: bc506323e29944ec0c29eae84950c706a8592042
+prerequisite-patch-id: 326c0ebb5accf0f40cbee1323fb4c3378f5be154
+prerequisite-patch-id: d6eaf7690a54a0dfda7500936a048b769fa265dd
+prerequisite-patch-id: 7c7b2535642b4d388e13eab518cbe0f9550eb1e6
+prerequisite-patch-id: 0474af12959624910718795bf86684383664c685
+prerequisite-patch-id: f6d4191e23c22e2d2cc90cc5d04781f913e98a8e
+prerequisite-patch-id: b0031a7c4855b7ec38259c59f30f65101a8fc4b5
+prerequisite-patch-id: 0b7f226abf2b9ff41873a1aa55cf97747647d56b
+prerequisite-patch-id: f63e345f897619af54813958046617c655fb7daf
+prerequisite-patch-id: c0e21e762a2960e3324c5ab04634a7035e515fa6
+prerequisite-patch-id: fd59c71eadd8f39c58b3baea93567bc093bc9b0e
+prerequisite-patch-id: 5d52cc8a5c73e4c5ba16b8e24f51408c17583bf9
+prerequisite-patch-id: 1f9179284e2f3314d4b46ac5e989089a21c7576c
+prerequisite-patch-id: 10397bbf696bee16dc71eb79fff6c5e73842bcbc
+prerequisite-patch-id: 9b44279dcf08912238d2f6438a3328a778a79a0c
+prerequisite-patch-id: 16854b621a3a71dfc365aaf7abaa7f65adfe9f7e
+prerequisite-patch-id: ca42eea21fae1fd1cd3518ab057c74b61ffd68fe
+prerequisite-patch-id: 23255dc2be76b0479c083dbd4c897bfbb533aed5
+prerequisite-patch-id: 82129c687ebf0a41b369893b92f2c038420ab801
+prerequisite-patch-id: 56ad57a99a5bda075a9f4e844368974296744934
+prerequisite-patch-id: 288b3cbaa11e01a778cc3d7beb6c0549aacf59f2
+prerequisite-patch-id: a163b1549608652bfa5bd9ff93efa55b541010c4
+prerequisite-patch-id: 43b92dfc1a98fbf0d14597a3e3ae99972844773b
+prerequisite-patch-id: 19c12bc6e3fbed35acc1f657196b1a997f48cdfe
+prerequisite-patch-id: 5800c3076694bad719954b2ad4d7448c6e013bfd
+prerequisite-patch-id: 2a2f63d8843b159594b9eee6ddea028ce76a6270
+prerequisite-patch-id: 40a1951d57906c4a1b98a4bd96a814b80339b9c5
+prerequisite-patch-id: e2141077e69f20a2b27fab69c8d61d0686682f53
+prerequisite-patch-id: c4d6018c26c40dc549d88330d23ce48f872c2b7f
+prerequisite-patch-id: 6de8ec17746031bc6d1d9ac262c5be0f905fcd79
+prerequisite-patch-id: b87bcb167884605bff1fd0f2ed8a88942d07efd5
+prerequisite-patch-id: cfa9a8b4c67e20cfd22d77035bfd21ee96ab3298
+prerequisite-patch-id: abf3482ed2399b7b2e1ee72e937af05bb9200667
+prerequisite-patch-id: 02c175b2dee565a85b3308ecf2ec8e3c9a029e0f
+prerequisite-patch-id: d58c239fba616b366a725de6acba3f88734156d0
+prerequisite-patch-id: dbe02fe3f784776fda5e7ae99f077bef0cd4b48d
+prerequisite-patch-id: 53edc9a95afff57c4acba40095a8054924261ea2
+prerequisite-patch-id: 5348d8957eb7eae7430ca8b101aa84ce77d3aa4f
+prerequisite-patch-id: 36c96d781e2dd80b20932667bbe6e7fd14976069
+prerequisite-patch-id: efeb2d6f7df71d5dede2c1d12fe999a28e38aab9
+prerequisite-patch-id: 17f95c7fdf0bdc7c8aaaf7883bff1dcc19a0f529
 
