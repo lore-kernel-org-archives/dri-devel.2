@@ -2,57 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFB9607352B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 21:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D91606A332
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 22:12:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ce4sIA0Y
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h70xA2I1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FFsiChVu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D6610FF19;
-	Wed,  4 Nov 2026 21:52:58 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50C4310E2CC;
- Wed,  4 Nov 2026 21:52:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793829172; x=1825365172;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=lFbLJCpc/QcYeyowxJ5NiLdf390P7aeDSCzHKZZ/dN8=;
- b=ce4sIA0YYXc2dKt7S4000K/CeJSJVBUZ4ZUStDKk8s5YIqNqyBnnnD+e
- cY9/z2YBMk8thS5cq2mFp/hwkIBfpCyuUiOuLl+LGBfFbzN9rfludM3KJ
- wf0ucPfVSSabXdeB383oHrC87nZcHRKVpD+MZsQCcf8H15VkypOlqR7LN
- 3iEECVxqJx6jM6ICmkWmy4AUbb5WCcrQ8ByBaGlK7ucGqrDLrbWbub7LO
- 2AmHfa4w7FEITqQ/fA0ukt3O6ApKpRH6q4ONYPhaKcBvVBzeyiYIaHkhy
- QYUS85ZI40GYtn+qQM1d9FsjsHZ8a8ezLDHKWvi/L94dqJ+NAMZPYlhiq Q==;
-X-CSE-ConnectionGUID: dW5ljXdzQBO77+DCiJWypg==
-X-CSE-MsgGUID: ayjY5gTWRsG6FIHnKdLfIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2477175"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2477175"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 13:52:36 -0800
-X-CSE-ConnectionGUID: b5jKW/x0TSK+JRewPfB7WQ==
-X-CSE-MsgGUID: wzNLrH4pQwKhegeXmuGMVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="8689460"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 13:52:36 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Subject: [PATCH 1/2] drm/gpusvm: Add a DMA-mapping accounting callback
-Date: Wed,  4 Nov 2026 13:52:27 -0800
-Message-Id: <20261104215228.1533692-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDF310E8DB;
+	Wed,  4 Nov 2026 22:12:10 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B1710E08A
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 22:11:59 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A4LQueU2250966
+ for <dri-devel@lists.freedesktop.org>; Wed, 4 Nov 2026 22:11:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=; b=h7
+ 0xA2I1xOUhDBkTTwFd3Y2vgiA3FBpt8z0GVTxo5Z80TEHVxaIdPqt50JXBrFoFw4
+ +YhsMcPobW7taryWOxNEkhkusXUyIv4SOjBq9JwJDKMCvlJn3eDTdFUDIJp+seHH
+ jzBPDEV+a+yyLz//eNdZ4wO2XNMroQjPZv3WVbXlqyUC+osDrBP9moQwgu2eVOw/
+ ji1SVFa4f1GADGy9FBZ9eSxZnZqopFznMAfgIC7XF4Ms/Pl05P1aiZO1Byqr6UVW
+ 4X7RSomoUm0190v1+hFRbfa7JT9g1w43gABb6WtelVG7zjGzyyqaD/+I6+kg4oL9
+ 5BAC0jq6OgjIJ4SGlCpQ==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr4bn2g2c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 22:11:58 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-6dd1142710fso2117103eaf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 14:11:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793830316; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Xd4UhsnN1eLsp4gm8ygAgSsR2cn+G6MFE6iTTK+23ndUXojE+R3W7UI/YS6MSNS5A0
+ BcX2+Wj5jMgfXvWs0QKZQBtUNI1lzZae/MWiamSaLV3/Rdxl5Gic0VmwVSmR+nSinJCX
+ 0MvW0RwMb/ux9f63q21xFlTfnx2LHXfJjNkfihh6EU4E6McjCwGYPc5LiQju3dRkUltS
+ MUOAeqq1CN6cH5stxqYHn1ly8Q+FC3GPsappGbwfjQaXk1uGJgzkpWLplOwli14UYcxB
+ uLBwQqG5G4WaQBTFR7ix+n4nhTxZpQQTH4khoM/ADMl1/E/fGXW3GNvmUT1ceInNk9DU
+ TsLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+ fh=jGBPDxeD5HZqc1VNdsKXP0BlUVm0k46o3LTzsOsin1M=;
+ b=Le02Uu5KsqvUp0BuibK0lPnSML3N+C8XXa+UfwB8abLHIEE/Vxa/eXiDG8irGU4yNJ
+ vR/oM62h09IgPt921Vm7JANfOK8GPPHg9/nm/abEiYdw/7Ys0KYqd8N10slk5Hg1WBoF
+ GNhzl/wrUQKHUUPvh+D4SbVwcqvWOIjJs31bzLPSC9Z+VLX2bzS3IgbFlKZOgifr4sQn
+ I8EvyYZb5gEBEc6QyZWavn/IL6aYCS3OghQ9rMOLksoG1qUcpqVTcsKGzYMvra1RTnHH
+ 0o5LPd2dX9dD4chph3WddTkoI/8nFGx54y+iQukPwNSYz9jgh4EDZ9AhbtSj9qjae1g8
+ bBjQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793830316; x=1794435116;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+ b=FFsiChVu86aU1fe6OQsltDAdUEiEGMaf1slbkelmfnMKnMql3AI3+NSd5sJzVK26SB
+ zBR2lyT/YQzSWu5WwxzsIxd1yPbSkBQd+M5F/WCjxQWYuzHKnENw28qkqzpayTV2xxxz
+ /RtMur1h6TrbMu2RJ+xJWYqyIMt64m5ieLdjbFgM0YRSUahhA+cyqTL8QvKYixhVlxm5
+ PmCt3Z+Ur94YkbLb8sHNBvA2l65Wwk5N1cg7WYFIIJ90WPUIbOc+Q4X1jzuf6cBfg4GO
+ osjQiKGXrfgY3U7DIJSWBZFPpFmExAv7bA3TepEZZXRSlvBudeHHAJeT+JaNhnVEGYS4
+ kXmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793830316; x=1794435116;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+ b=nviBGokPXNNiJRXYpj3Ihi36546Xd3kmxStXQ3ubogrd/pCOarPaFy0rXlxiEQ4UPd
+ uevKAALM+QdTp+YEqFhsKnMjKrzSdYjgZfR3tSYODCrcwmWBxaxwCXvHzcYprmtHn9J4
+ 7pHpUvlhCJmzakT6A9yBtERIXd2BtRQMbJ/KMwZjxbMLXfPy2dY7M2AMH8zgQ6r5QMul
+ l34z4iZK4oue341EMERnWkOIc7D+6VNv2skeCUKrhc/D3OY8NymWYtNl3Ao+C4CnmElf
+ KPRUg7C/iCb9AWtHTKJ8YvnQsee7VZmnq+mMZmBJSxnN7IWLyKl3sBGOsHDHuRmSQ21x
+ ySPA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxnv51LPDpZaifQ8RaERgrJ7x/rdsosaYvcoj7tvkExlfVFlTnMaoOlSmKeWAPs02HosN/bh2CFV6I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9zwrKaKGxLxzSsof5xn/LZilOJTTDhzxE2SmSFGCbExVcP29+Z
+ heeK0/UGWepU6G8lysFF9NW4ZAd51EVEtqLsCRymDHYT7o6UOQZaA5JQAvnkT4Dmos5kmOrC2/v
+ MJGjMRbvbjwNcxs8dHcOw2xmm8dD8UyPIWVfkbezyfQTO7XmrUtLauFnwRZeyUXaCPoVndBDGBc
+ s4CzTk68ktONEUd8qQWV2luXkXJox+YXGNf66ywkV6qY0QUQ==
+X-Gm-Gg: AYBFou3p/o3LA2cXSjtU2HnU8fWaYyfZPr2f36Co7Nv2QynkuOy6YpLJwX3xj2zShZi
+ BOii70zyi2NOec/0s+O/j83gEElGOu4sxiR6LTaX62bMq8tDceK+abIAYppLfHrbpL3Wyj+GZF7
+ HiMLaFvcvylnjd+iGXGYoDNBmchddjRl1R2UJ/mRqQas3jRdthboTSABuj1d8szUv4zK1JbADWR
+ kxE2swmHCdTElUNN1xysg==
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id
+ 006d021491bc7-714f29eed8dmr10906932eaf.49.1793830315855; 
+ Wed, 04 Nov 2026 14:11:55 -0800 (PST)
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id
+ 006d021491bc7-714f29eed8dmr10906914eaf.49.1793830315450; Wed, 04 Nov 2026
+ 14:11:55 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+ <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+In-Reply-To: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 14:11:42 -0800
+X-Gm-Features: AclHuK-PejnPAeVcWn1rFgQSugIaafHtbuWuLOPuri8tnD2WASiqu_5BlPlNCuI
+Message-ID: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Robert Mader <robert.mader@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "Bryan O'Donoghue" <bod@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfX7kYGg0Dz0dH7
+ Wk+LnNagqG5fYdNF6z/1uGQYtIO25VzhuhV+YR/DMS/wNw9LqzXLJOkUxsb6HzMgtWoe4eAGnur
+ qIHEEQ9bAwqW0fx92lYFRQd9mWv7dYBw0/FZ1Gv9VCqoW1OEtlPiML9txZIFdniDpDhkzaD6vQ0
+ SQ1FBaZm3E5qU7jkO0Yo5/MoMn+vJz5A/LrbiZycPAWU9HL8FbQ8yYwBJTXctrdvAmaK7GVlzfC
+ h7beGksMApY0KZ0pM3bi5rr2VPM/WxDWF5Dq7IgBD660gjhJ0zuCZmPI6tMJ7Cd2bscz7YwBfVA
+ IA9jCEiW1qicgNytYwy+NXepDnT/FiCoTdBWb9IJdX1G1DfGfxWRBJwtepBZH1kcuceYTy8Pvka
+ J6+tyXTKVhV73p0M9Hx0DhMLyhHmZpxkMElicOCHPqzidOGaawvMSbGPUuYewsPbNzGBxbt4TyF
+ 7TLrE1bvGd9GikIMLIw==
+X-Proofpoint-GUID: jSS47_goIp6jXkPLmMZcsQfJR8I7cjxM
+X-Authority-Analysis: v=2.4 cv=IcUSymqa c=1 sm=1 tr=0 ts=6aebadae cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=e5mUnYsNAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
+ a=guYwWtrNydk0MfZTwrkA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfXxayMit5NJuKd
+ gwpjdyNX5ThKIDpmp36l2UgF+MDrhDndTKsMgJXGIYV3g0XB2HQD+SkNRPzDScaL3eMUI5Yb0nq
+ ZQpFalq8B0sGPBYZr5sViJX/p4r3nuI=
+X-Proofpoint-ORIG-GUID: jSS47_goIp6jXkPLmMZcsQfJR8I7cjxM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,163 +170,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@collabor=
+a.com> wrote:
+>
+> Nice, very happy to see the series!
+>
+> On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > The comment describing the QC10C buffer layout calls it a compressed
+> > P010. It is not:
+>
+> If I'm not mistaken the display engine / the DRM side (including Mesa)
+> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+> Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
+> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
+> comment should reflect that, IMO.
 
-Drivers that use the GPU SVM core to DMA-map system memory for GPU
-access may want to keep track of how many pages they have mapped, for
-example to expose statistics or to detect leaks. Doing this accounting
-in the driver around drm_gpusvm_get_pages() / drm_gpusvm_unmap_pages()
-is error prone: the number, order and kind of the dma_addr[] entries can
-change between map and unmap (migration, partial unmaps, the iova vs
-non-iova paths), which makes symmetric accounting hard to get right.
+IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+as distinct formats, both with and without UBWC.  I'm not sure if the
+same is true on video side but P010+UBWC was never exposed, or if it
+truely only supports linear P010 and UBWC TP10.
 
-Add an optional @dma_map_account callback to struct drm_gpusvm_ops and
-invoke it once per &drm_pagemap_addr entry at the exact points where the
-entry is DMA-mapped (sign == +1) in drm_gpusvm_get_pages() and unmapped
-(sign == -1) in __drm_gpusvm_unmap_pages(). Since the map error path and
-every unmap/free path funnel through __drm_gpusvm_unmap_pages() for the
-entries that were actually mapped, the accounting is symmetric by
-construction. The callback receives the full &drm_pagemap_addr so the
-driver can use the order and the proto field to distinguish system
-memory mappings from device interconnect mappings.
+BR,
+-R
 
-The callback must also be usable by the core drm_gpusvm_pages-only API
-(mm == NULL), as used e.g. for userptr-style mappings. Relax
-drm_gpusvm_init() to allow such users to pass a restricted @ops that
-only implements the page-level hooks; the full-SVM hooks (@invalidate)
-and the chunk configuration must still be unset in that mode.
-
-Assisted-by: LLM
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 40 ++++++++++++++++++++++++++++--------
- include/drm/drm_gpusvm.h     | 19 +++++++++++++++++
- 2 files changed, 50 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 03dbe304e4b8..5ef9d7233491 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -503,8 +503,15 @@ int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
- 			return -EINVAL;
- 		mmgrab(mm);
- 	} else {
--		/* No full SVM mode, only core drm_gpusvm_pages API. */
--		if (ops || num_chunks || mm_range || notifier_size)
-+		/*
-+		 * No full SVM mode, only core drm_gpusvm_pages API. A
-+		 * restricted @ops that only implements the page-level hooks
-+		 * (e.g. @dma_map_account) is allowed; the full-SVM hooks must
-+		 * not be set.
-+		 */
-+		if (num_chunks || mm_range || notifier_size)
-+			return -EINVAL;
-+		if (ops && ops->invalidate)
- 			return -EINVAL;
- 	}
- 
-@@ -1240,9 +1247,12 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
- 		struct drm_gpusvm_pages_flags flags = {
- 			.__flags = svm_pages->flags.__flags,
- 		};
-+		bool contiguous;
- 		const struct drm_pagemap_addr *addrs =
--			drm_gpusvm_pages_first_dma(svm_pages, NULL);
-+			drm_gpusvm_pages_first_dma(svm_pages, &contiguous);
- 		bool use_iova = dma_use_iova(&svm_pages->state);
-+		bool needs_account = gpusvm->ops &&
-+			gpusvm->ops->dma_map_account;
- 
- 		/*
- 		 * IOVA is reserved for the whole range but only the linked
-@@ -1260,14 +1270,18 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
- 
- 		/*
- 		 * With IOVA and no device page the unlink above tore every
--		 * entry down, and that is also when the range may be folded
--		 * to one entry, which must not be walked per entry. dpagemap
--		 * is set before the first device_map(), so it is also right
--		 * on the error path, where the flags are not published yet.
-+		 * entry down, but the per-entry walk is still needed when the
-+		 * driver accounts the mappings. A folded (inline) mapping has
-+		 * a single entry describing the whole range, so it must be
-+		 * re-read for every iteration instead of indexed by @j.
-+		 * dpagemap is set before the first device_map(), so it is also
-+		 * right on the error path, where the flags are not published
-+		 * yet.
- 		 */
- 		for (i = 0, j = 0;
--		     (!use_iova || dpagemap) && i < npages; j++) {
--			const struct drm_pagemap_addr *addr = &addrs[j];
-+		     (!use_iova || dpagemap || needs_account) && i < npages; j++) {
-+			const struct drm_pagemap_addr *addr =
-+				contiguous ? &addrs[0] : &addrs[j];
- 
- 			if (addr->proto == DRM_INTERCONNECT_SYSTEM) {
- 				/*
-@@ -1283,6 +1297,10 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
- 			} else if (dpagemap && dpagemap->ops->device_unmap)
- 				dpagemap->ops->device_unmap(dpagemap,
- 							    dev, addr);
-+
-+			if (needs_account)
-+				gpusvm->ops->dma_map_account(gpusvm, addr, -1);
-+
- 			i += 1 << addr->order;
- 		}
- 
-@@ -1705,6 +1723,10 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
- 				(addr, DRM_INTERCONNECT_SYSTEM, order,
- 				 dma_dir);
- 		}
-+		if (gpusvm->ops && gpusvm->ops->dma_map_account)
-+			gpusvm->ops->dma_map_account(gpusvm,
-+						     &svm_pages->dma_addr[j],
-+						     1);
- 		i += 1 << order;
- 		num_dma_mapped = i;
- 		flags.has_dma_mapping = true;
-diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
-index 4d31c6bba745..637c19f7169f 100644
---- a/include/drm/drm_gpusvm.h
-+++ b/include/drm/drm_gpusvm.h
-@@ -75,6 +75,25 @@ struct drm_gpusvm_ops {
- 	void (*invalidate)(struct drm_gpusvm *gpusvm,
- 			   struct drm_gpusvm_notifier *notifier,
- 			   const struct mmu_notifier_range *mmu_range);
-+
-+	/**
-+	 * @dma_map_account: Account a DMA-mapping change (optional)
-+	 * @gpusvm: Pointer to the GPU SVM
-+	 * @addr: The address descriptor of the chunk being (un)mapped
-+	 * @sign: +1 when @addr has just been DMA-mapped, -1 when it is being
-+	 *        unmapped
-+	 *
-+	 * Called once per &drm_pagemap_addr entry, when the entry is
-+	 * DMA-mapped by drm_gpusvm_get_pages() (@sign == +1) and when it is
-+	 * unmapped (@sign == -1), so the driver can keep symmetric accounting
-+	 * of the pages it has mapped for GPU access. The @addr->proto field
-+	 * can be used to distinguish system-memory mappings from device
-+	 * interconnect mappings. May be provided in both full SVM mode and the
-+	 * core drm_gpusvm_pages-only mode.
-+	 */
-+	void (*dma_map_account)(struct drm_gpusvm *gpusvm,
-+				const struct drm_pagemap_addr *addr,
-+				int sign);
- };
- 
- /**
--- 
-2.34.1
-
+> Best regards,
+>
+> Robert
+>
+> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/81=
+95
+>
+> > P010 stores each sample in 16 bits, QC10C packs three
+> > 10-bit samples in each 32-bit word, which is what the stride computed
+> > below (width * 4 / 3) assumes. Name the format correctly.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/m=
+edia/platform/qcom/iris/iris_buffer.c
+> > index eb8de60c1177..ec2bf2a2d953 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_i=
+nst *inst)
+> >
+> >   /*
+> >    * QC10C:
+> > - * UBWC-compressed format for P010.
+> > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in=
+ 32 bits.
+> >    * Contains 4 planes in the following order -
+> >    * (A) Y_Meta_Plane
+> >    * (B) Y_UBWC_Plane
+> >
