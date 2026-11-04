@@ -2,42 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4913C606A33B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB9D606A32D
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d1q5fAtP
+	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=R5jTtr3A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B196710FAB1;
-	Wed,  4 Nov 2026 10:07:39 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4519110FAE7
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 10:07:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8967E60D85;
- Wed,  4 Nov 2026 10:07:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266FB1F0093A;
- Wed,  4 Nov 2026 10:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793786852;
- bh=r06LotvDIMiygRoahVavVBvpQGNoYXXsdA4FoVx1ygc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=d1q5fAtPR11X6N6aL+NIXwJS9P3jkojBErjZVXPw2xT9/dHEh7M/HFYd317CO2JBX
- wDVbDzmuLOOkuj6VjEQXDL5Lpi7MtCLhau5HBB98RZw0WaJKx7xoe8bJZn0H7XVX0G
- XoPZX4DEAuIuqvha0xvj59JcxW+pVVrQASWU8Ib/FQZcPqc7uV9YZ020IrbLxFCBb6
- JJNn3vrldEqyOdu7G2fGSThrn5tAQFODIeJxkZrPNYWYQ6XqxdroCAp+3kxmlNh7/e
- bvmvsbBSo5vkZWygvTRWUH9RVJYQYNtHzTJhA+vc475U4SZUCgrpTQ9PKNSvmroAT6
- /6BDqwufAaVSg==
-Message-ID: <sashiko-outbox-197043@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 6/6] drm/panthor: Create per queue priority workqueues
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261104095225.32654-7-tvrtko.ursulin@igalia.com>
-References: <20261104095225.32654-1-tvrtko.ursulin@igalia.com>
- <20261104095225.32654-7-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDED10FABF;
+	Wed,  4 Nov 2026 10:09:45 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F66010E880
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 10:09:38 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-93e6eb77f0bso61147185a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 02:09:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793786977; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AgP+BeeAH70P+cIdCjHNNQEcx27eCPF5dGhq7AOaR0PVWacf+MqL7svMAJbbZsDykg
+ P/DibCi/1za3fwYoQbgP1FNxWhqR4H+BKpnnkMrwDRKHzPBB6zxyoN40e2/T4jtcypu5
+ oL6QnhbJJ69+2z24r7xAZb4oGAih569DRvMYw54TrvzTjMmkyDWHRc6gMi2n1iKlGbWi
+ 2bHCN62t21+Q4iEUJRFWgf8w9Yik5uXIVQa+x8gmd6wkzv2GPXtPa4rhgQoo/1LsxRKv
+ 25t1bUX+EKbkvbrZgzCKJ//vCB7TQ/dI9H3WC1DV9i+bekzGymNMq9oHQBI+c60it+Ba
+ 8qsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+ fh=0id+PgTUI4lMn9Hm9CZwiBfapQwA3Hzz+XjvMDTfQgY=;
+ b=SAmGpJ0Mq7yjnKvwySCmU/F2mwqbboQrxNAy+DGI9yNJjthFcZRykx+8AY7VgWYynv
+ SEQzXklvCN7XjYzUl/HY0k9Rc3+/sZe3P5xctCCJ3J8kpz5VcFiUP3SnvOLtdKQIhyzB
+ MfPshaQcv+iB7Vb59NhwqElkowgms1cwBCEnAsfDRwig+cMauqEVYseChznGXKuuRPFO
+ 4HYX9vQFeNKp1DcKOJRbw5GJbcrGycYpEPqX/aWEH8r96GZfNFFe/8tpprSTKbd/Dazl
+ pq96QItW3vvMh7chhAcVSGi9aiAPIfcXlCb+p7C0FiSsu7Lx8Nrc5/O2PouVebJMc2Yg
+ +Inw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793786977;
+ x=1794391777; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+ b=R5jTtr3AWo4sAKtEp6jbMXgCb294p2sJCbKHxmajs46OYhQqwy+FlBPXzi+ozV4XER
+ oJZIvlMDo6WsvAwZ6ioWgZv5B9lm5p0LYp+2kdmHVy58eSi7k8EebDZluctF73M4g1GH
+ gCNk4gHkQejChR1o608d9G1yMDU6H2XKlfR7eILkeLWEO3xd/SOcsBpTuk9GkwvGjasj
+ k6V1dsqGhlI/7UPPtTw3Q4podv4kCkJkyMmIaQcClDmgE7JTnEN5nPGQutxLxFRaHS4p
+ zJWg17ETaWssRIDs7IT2kQWoMKO5Ikf1Wrr+VTP9CxUFCYAXpPFK3qQVZaS3BHECijCs
+ 9u6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793786977; x=1794391777;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+ b=ANwtRBCXKwSPjTV1+WNXLCQ1n9BlzWgNGqGp4w5MENdqFTgPaUehs1Y8Lyz5h6g90B
+ K1YrjOwawTBbWZjfYUm7SoCI7NZCRFDwWn7OyDaTqUHwtqLP8lHL63HO5mBKh9Os07mD
+ OjU/X0zpMp4OGuzkWsIyb1PjvRrkBV6d3mZ694lKHKsBnMm0JAH9YV6O4cSyXHZ9aNkg
+ Tx5ezRSkJbuK/nRzOibGI9mN1PZVD9+8DcLXi04nOt45FYiJ2fsCuDM2d9a/8C7Om55C
+ UlPnlPChyKK8CCFySwRTEHquMolRnWTD03wSO2FPXWo/GA9KSzAKJ/Ndb07KQCMROiLs
+ k2ZQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLtB7RRyJ5UNbBbDzCDqf6m2xJiYh3SEIH0ZqjFKR5s5RPbr5HmljfCF3V73W0evZZhMm/5kSK6T8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z995iBO6o40dG2n7uJtt3d6BpKdyTjQhoV/GMbJlFavEaDkIJ8C
+ NNLrIZulbX41Bfy4o5JAewan2wYYoJsgJGC58GSTRCm30l+1FnGNLUfsSB6Th4CnwytiD4Gi4qc
+ U1UEj4WmuzDikV57vlpQPlcf1wZLOrPFMYfIvolnbqQ==
+X-Gm-Gg: AYBFou0v/fcrbkqzqjj3K8oqlHFvyKIEL6uEFnhqFTuPYUfNf7IU4FWHnnhCywIaVXf
+ zTUFmWVSbtDsyABvLbRVfnkStXg8Qy0sZde3rjqRDlUrHx3jtquoI3xE4VSA0efYko8RrmbuY+7
+ oVIFHGKD/Sdm72hGwIV9vgsNBFyCRfbmfEbmc2qYfFnr7kToFlP1klYqgGJElUzAjhtyQ4hxvaZ
+ EYRlDE3Ei9ahD7+Av34KEgQiQ0ehbX+lcQrByUs2bDX8IkQqYu6xPn9K5o6DomtzRUYGaFA+KD8
+ ZWaBO9i1yInxfVQdLUiyKalMKBBZFAvR6/9fK8gKpc2PBnQqG7amoTqpGqovR4llfrDgXwI4dhm
+ cuRz6yVYU2kX774KT09156iGUop/vZqOKu1Zih398cgGrW12/plvBu2u6P26LyM8JM4gbHQp4b0
+ w+LGM5znX+eqXZxr3NT/0=
+X-Received: by 2002:a05:620a:460b:b0:937:6de8:b40 with SMTP id
+ af79cd13be357-944217194b4mr2663985585a.15.1793786977174; Wed, 04 Nov 2026
+ 02:09:37 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Wed, 4 Nov 2026 11:09:25 +0100
+X-Gm-Features: AclHuK8sSyrPUh77ae7umfCvxuLdQ-s4Z2b2nFvZD8O11RHz5Wmhve3hcOyzmnA
+Message-ID: <CAPsqS2SOj-+VQxsFvMQ1Hqcep55J0yT++76QZ8or4a9kmF7Bdw@mail.gmail.com>
+Subject: Re: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org, 
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com, 
+ royalnet026@gmail.com, abel.vesa@oss.qualcomm.com, 
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai, 
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com, 
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl, 
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 10:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,172 +111,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/panthor: per-priority unbound submit_wq in panthor_sched_ini=
-t() stalls on sched->lock and preempts tick_work()
-- [Low] drm/panthor: dead submit_wq init and redundant check in group_creat=
-e_queue()
---
+On Sun, Nov 1, 2026 at 9:31=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> wr=
+ote:
+>
+> This adds the RK3576 NPU to accel/rocket.
+>
+> v15 is v14 rebased onto next-20261030. v14's 12/15 no longer applied
+> there, because Sidong Yang's regcmd validation added two defines in the
+> spot where 12/15 adds its own. Nothing else changed, and the tags carry
+> over.
+>
+> Leonard Lausen has the series running on a NanoPi M5 and posted a board
+> patch on top of it:
+> https://lore.kernel.org/all/20261019090348.378183-2-leonard@lausen.nl/
+>
+> On Sashiko's two points about v14 9/15, I measured a CM5-IO. U-Boot
+> hands over with the NPU domains on, and the power domain driver still
+> probes. The NPU QoS is saved before its first power-on, so it is not
+> zeroed. The domain whose QoS does get zeroed is the GPU, on mainline
+> without this series, and that fix went out on its own:
+> https://lore.kernel.org/all/20261101055633.101309-1-gahing@gahingwoo.com/
+>
+> 1/15 is the patch that carries Igor Paunovic's name. It is also part
+> of his DVFS series, so whichever lands first, the other drops it.
+>
+> Ulf offered to take 7, 9 and 10. 1 to 5, 11 and 12 go through accel,
+> and 13 to 15 through rockchip. 15/15 needs 9, 10 and 12 to 14 first.
+> Without 9, 10 and 13, the ROCK 4D takes an SError at boot when the NPU
+> domain powers on.
+>
+> Link to v14: https://lore.kernel.org/all/20260924102135.92217-1-gahing@ga=
+hingwoo.com/
 
-commit f453c56b36202882aec84caf56004a890024791a
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Hi,
 
-drm/panthor: Create per queue priority workqueues
+Could you please add a GET_PARAM IOCTL to this series for userspace to
+query the hardware version? I think I would return an enum that
+matches the NPU DT compatibles one to one. Then userspace can have a
+hardware database indexed by that value with sram, register map, etc.
 
-This commit splits the single workqueue shared between the Panthor driver's
-internal scheduler logic and the DRM scheduler into separate per-priority
-DRM scheduler submit workqueues.
+Regards,
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index a343c5180e01e..cbff37e5e1d1c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -153,11 +153,18 @@ struct panthor_scheduler {
->  	 *
->  	 * Used for the scheduler tick, group update or other kind of FW
->  	 * event processing that can't be handled in the threaded interrupt
-> -	 * path. Also passed to the drm_gpu_scheduler instances embedded
-> -	 * in panthor_queue.
-> +	 * path.
->  	 */
->  	struct workqueue_struct *wq;
-> =20
-> +	/**
-> +	 * @submit_wq: Per priority workqueues for the DRM scheduler
-> +	 *
-> +	 * Passed to the drm_gpu_scheduler instances embedded
-> +	 * in panthor_queue based on the queue priority.
-> +	 */
-> +	struct workqueue_struct *submit_wq[PANTHOR_CSG_PRIORITY_COUNT];
-> +
->  	/**
->  	 * @heap_alloc_wq: Workqueue used to schedule tiler_oom works.
->  	 *
-> @@ -3572,8 +3579,14 @@ group_create_queue(struct panthor_group *group,
->  		goto err_free_queue;
->  	}
-> =20
-> -	sched_args.name =3D queue->name;
-> +	if (group->priority >=3D ARRAY_SIZE(group->ptdev->scheduler->submit_wq)=
- ||
-> +	    !group->ptdev->scheduler->submit_wq[group->priority]) {
-> +		ret =3D -EINVAL;
-> +		goto err_free_queue;
-> +	}
-> =20
-> +	sched_args.name =3D queue->name;
-> +	sched_args.submit_wq =3D group->ptdev->scheduler->submit_wq[group->prio=
-rity];
->  	ret =3D drm_sched_init(&queue->scheduler, &sched_args);
->  	if (ret)
->  		goto err_free_queue;
+Tomeu
 
-[Severity: Low]
-As reported by Tejun Heo on RFC v6 [1], this isn't a bug, but
-group_create_queue() still initializes sched_args.submit_wq at the top of
-the function before overwriting it here:
-
-drivers/gpu/drm/panthor/panthor_sched.c:group_create_queue() {
-	struct drm_sched_init_args sched_args =3D {
-		.ops =3D &panthor_queue_sched_ops,
-		.submit_wq =3D group->ptdev->scheduler->wq,
-		...
-	};
-}
-
-Similarly, the kernel-doc summary line for panthor_scheduler::wq still says
-it is used by drm_gpu_scheduler.
-
-In addition, can the bounds and NULL check on group->priority and
-group->ptdev->scheduler->submit_wq[group->priority] in group_create_queue()
-ever trigger? Its caller panthor_group_create() already rejects
-group_args->priority >=3D PANTHOR_CSG_PRIORITY_COUNT, and panthor_sched_ini=
-t()
-populates all PANTHOR_CSG_PRIORITY_COUNT entries or fails initialization.
-
-Finally, the commit message mentions WQ_RTPRI ("high is server by a
-WQ_HIGHPRI instance, while realtime GPU priority is using the newly added
-WQ_RTPRI flag"), whereas the flag used in panthor_sched_init() is WQ_RT.
-Should those be cleaned up?
-
-[ ... ]
-
-> @@ -4172,7 +4194,14 @@ int panthor_sched_init(struct panthor_device *ptde=
-v)
->  	 */
->  	sched->heap_alloc_wq =3D alloc_workqueue("panthor-heap-alloc", WQ_UNBOU=
-ND, 0);
->  	sched->wq =3D alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_=
-UNBOUND, 0);
-> -	if (!sched->wq || !sched->heap_alloc_wq) {
-> +	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] =3D alloc_workqueue("pant=
-hor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-> +	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] =3D sched->submit_wq[PANTHOR=
-_CSG_PRIORITY_MEDIUM];
-> +	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] =3D alloc_workqueue("pantho=
-r-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-> +	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] =3D alloc_workqueue("panthor-=
-drm-rt", WQ_RT | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-> +	if (!sched->wq || !sched->heap_alloc_wq ||
-> +	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] ||
-> +	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] ||
-> +	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]) {
->  		panthor_sched_fini(&ptdev->base, sched);
->  		drm_err(&ptdev->base, "Failed to allocate the workqueues");
->  		return -ENOMEM;
-
-[Severity: Medium]
-As reported by Tejun Heo on RFC v6 [2], for a WQ_UNBOUND workqueue,
-max_active applies across the entire workqueue rather than per CPU. Since
-panthor_sched_init() allocates each submit_wq with WQ_UNBOUND and
-max_active =3D 2 (whereas sched->wq previously used max_active =3D 0), and
-group_create_queue() shares that submit_wq across all queues of a given
-priority on the device for both drm_gpu_scheduler::work_run_job and
-drm_gpu_scheduler::work_free_job, could two in-flight queue_run_job() calls
-stalling on sched->lock block all other queues at that priority?
-
-Specifically, in queue_run_job():
-
-drivers/gpu/drm/panthor/panthor_sched.c:queue_run_job() {
-	...
-	ret =3D panthor_device_resume_and_get(ptdev);
-	if (drm_WARN_ON(&ptdev->base, ret))
-		return ERR_PTR(ret);
-
-	mutex_lock(&sched->lock);
-	...
-}
-
-tick_work() holds sched->lock across firmware round-trip waits in
-csgs_upd_ctx_apply_locked(). When two queue_run_job() work items block on
-sched->lock (or runtime PM resume), no other work_run_job (including
-sync-only jobs with !job->call_info.size that do not take sched->lock) or
-work_free_job (queue_free_job()) on that submit_wq can run. Because
-submit_wq[PANTHOR_CSG_PRIORITY_LOW] aliases
-submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM], two blocked LOW-priority jobs will
-also stall MEDIUM-priority job submissions and job completions.
-
-Furthermore, because submit_wq[PANTHOR_CSG_PRIORITY_RT] is allocated with
-WQ_RT while panthor_scheduler::wq (which runs tick_work and sync_upd_work)
-remains a regular-priority workqueue, can a busy RT submission context
-preempt tick_work() on sched->wq and prevent time-slicing and fairness
-rotation between RT groups?
-
-[1] https://lore.kernel.org/r/64d59ed5538c6af257058533c880740e@kernel.org
-[2] https://lore.kernel.org/r/64d59ed5538c6af257058533c880740e@kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104095225.3265=
-4-1-tvrtko.ursulin@igalia.com?part=3D6
+> Igor Paunovic (1):
+>   accel/rocket: request the core clocks by name
+>
+> Jiaxing Hu (14):
+>   accel/rocket: take the completion register writes under job_lock
+>   accel/rocket: wait for a running IRQ handler before resetting a core
+>   accel/rocket: let the core suspend after a reset
+>   accel/rocket: factor the completion tail out of the IRQ handler
+>   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+>   dt-bindings: power: rockchip: allow resets in a power domain node
+>   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+>   pmdomain: rockchip: add optional per-domain power-on settle delay
+>   pmdomain: rockchip: cycle an optional power-domain reset on power-on
+>   accel/rocket: select the per-core clock and reset counts from match
+>     data
+>   accel/rocket: add RK3576 NPU (RKNN) support
+>   arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+>   arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+>   arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+>
+>  .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+>  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+>  .../power/rockchip,power-controller.yaml      |   8 +
+>  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+>  drivers/accel/rocket/rocket_core.c            |  32 +++-
+>  drivers/accel/rocket/rocket_core.h            |  11 +-
+>  drivers/accel/rocket/rocket_device.c          |   7 +-
+>  drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+>  drivers/accel/rocket/rocket_drv.h             |   2 +
+>  drivers/accel/rocket/rocket_job.c             | 157 +++++++++++++++---
+>  drivers/pmdomain/rockchip/pm-domains.c        |  89 +++++++---
+>  12 files changed, 467 insertions(+), 64 deletions(-)
+>
+>
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> --
+> 2.43.0
+>
