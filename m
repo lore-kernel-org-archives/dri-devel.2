@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747FA6070326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78B76087D3E
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:43:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SusEQFRX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZ1raRI6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4A0B10FE77;
-	Wed,  4 Nov 2026 19:43:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5569E10FE78
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C91A10FE78;
+	Wed,  4 Nov 2026 19:43:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9571110FE78
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:43:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CBC1960EFA;
- Wed,  4 Nov 2026 19:43:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6561F1F000C1;
- Wed,  4 Nov 2026 19:43:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 75CC343D85;
+ Wed,  4 Nov 2026 19:43:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7721F000C1;
+ Wed,  4 Nov 2026 19:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821405;
- bh=Veri64uIgSpvDnn8LOw8Zp4yMSBZFCckYlFRYYQC2Vw=;
+ s=k20260515; t=1793821420;
+ bh=Q/r9Fhg2Z0/w3CqoKnG0DKCxv08Z9PpiFGMKT+radK4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=SusEQFRX0vw00hvdflsRFt4PdmrzgmGzhuUGY+Rl3VnhWNBf9hDomdph1bbV0F8YD
- /dCAYJhqS+MxZGuEFhMqoCKGxoVbNjBfabzq287i+cKDNtU8pg4W1SVc1GRk6DBVXt
- 3A+QcfkxH6hyhy0K4QTMOeX42qB7Nx5dwHLbBtihrIDS9uJHsRW2OnODxddayGpgPm
- rFI3vYy6V9qWvpH3sT0FL5q1c9mQH3+TpkhRf0GW6ZchNR1bazcOQ86K/l5/HEgCzN
- T/Ch/TUPZ0qqMdy6fO0LWFN5yzZLB4RRivSIYxPK8aIOEmXpZE3jTdEOFQMZUCGw6q
- 0wH0f/TZnjGfQ==
+ b=KZ1raRI68GhT/XlXjqAtcujYMj6ekVEJnVbT4x9Mzm70KXld0AlBQN8rUNIo5mZiB
+ v3zJfRoTx9WShvsapVrEfRLIh+JuiUCfmb2ZUX+PNF5aJyawlAjxV+5tufKSc1hVWN
+ VvPh24+PpQcho7riTX/8XuQc8iS04jARE2V6OzsbbxkTRQ7Vo0aBZoFeGZZv1hLQVS
+ Hkr6MNWkpqa3975/oQHgz3pITvq9gQ4JYehhDDJQLj/WHKcKawkPFVUPWwmjxCdrYt
+ 4tLwomtdk6B+7RV5x8bRuXG3/mtBiQigiySV/b1v9b2+3q4lMlVQMUvKy0hVdMduzc
+ enqFVJsBMRBJA==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,21 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 04/26] PCI/proc: let procfs copy out config space
- reads
-Date: Wed,  4 Nov 2026 20:43:11 +0100
-Message-ID: <20261104-work-procfs-drivers-v2-4-245e54e87116@kernel.org>
+Subject: [PATCH RESEND v2 05/26] PCI/proc: let procfs handle the ioctls
+Date: Wed,  4 Nov 2026 20:43:25 +0100
+Message-ID: <20261104-work-procfs-drivers-v2-5-245e54e87116@kernel.org>
 In-Reply-To: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3228; i=brauner@kernel.org;
- h=from:subject:message-id; bh=jf9xs+FhfBfS3vas7oIWufWfAbP2hJLFKyaoEXyHsWk=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97qpw3WZuPMmzd+/cU6veZXP0/fl7uP4DT+TNmE93Z
- qU6pl7911HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRlc8ZGZ5OS1D6xS/6MK30
- z2qjpysyUk/pmdocFd+pL/M6x8MkqpThf+i2B9puJe4mcxcX7OJ8w14/ub53b/aCHp9Irvn7HsX
- X8QAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2106; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=2F6i7ISm6IP0WfraLShTjEfHw8rrOdRgm90gAFJMkQE=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97qrM1Vwiw7U2st/BZEXS4y1RZxM3sfk86zgQ1MPQt
+ WzJg3/dHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZxsXIcNz/xGT2BwfN+fis
+ PXL3f3M6eWnrx6KbjrqRz9jkwj7pRzAydGzMjXAJ2Pg4UJN1p/usyxfL45+dWzV/cmURT1nhaud
+ 6BgA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,96 +97,60 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_read_buf() so procfs copies what is read to userspace
-after it unpinned the entry, and read the config space into procfs'
-buffer with put_unaligned_le16() and put_unaligned_le32() instead of
-put_user(). A read into a buffer that can't be written used to report
-success. It fails with -EFAULT now. A page holds all of the config
-space, so a single read of it still works, libpci treats a short read as
-an error.
+The PCIIOC_* commands take and return plain values and don't touch
+userspace memory. Implement ->proc_ioctl_buf() and list them with
+nothing to copy. 32-bit tasks go through the same table, so the compat
+hook goes away. Unknown commands fail with -ENOTTY from procfs now
+instead of -EINVAL, and instead of -EPERM under lockdown, since they
+never reach the handler.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/pci/proc.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ drivers/pci/proc.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/pci/proc.c b/drivers/pci/proc.c
-index d420353ee2b3..a8d7469f222b 100644
+index a8d7469f222b..6b0cb5bcbea3 100644
 --- a/drivers/pci/proc.c
 +++ b/drivers/pci/proc.c
-@@ -29,8 +29,8 @@ static loff_t proc_bus_pci_lseek(struct file *file, loff_t off, int whence)
- 	return fixed_size_llseek(file, off, whence, dev->cfg_size);
- }
+@@ -192,8 +192,7 @@ struct pci_filp_private {
+ };
+ #endif /* HAVE_PCI_MMAP */
  
--static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
--				 size_t nbytes, loff_t *ppos)
-+static ssize_t proc_bus_pci_read(struct file *file, char *buf, size_t nbytes,
-+				 loff_t *ppos)
+-static long proc_bus_pci_ioctl(struct file *file, unsigned int cmd,
+-			       unsigned long arg)
++static long proc_bus_pci_ioctl(struct file *file, unsigned int cmd, void *arg)
  {
  	struct pci_dev *dev = pde_data(file_inode(file));
- 	unsigned int pos, cnt, size;
-@@ -60,15 +60,12 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 		nbytes = size - pos;
- 	cnt = nbytes;
+ #ifdef HAVE_PCI_MMAP
+@@ -321,16 +320,23 @@ static int proc_bus_pci_release(struct inode *inode, struct file *file)
+ }
+ #endif /* HAVE_PCI_MMAP */
  
--	if (!access_ok(buf, cnt))
--		return -EINVAL;
--
- 	pci_config_pm_runtime_get(dev);
- 
- 	if ((pos & 1) && cnt) {
- 		unsigned char val;
- 		pci_user_read_config_byte(dev, pos, &val);
--		put_user(val, buf);
-+		*buf = val;
- 		buf++;
- 		pos++;
- 		cnt--;
-@@ -77,7 +74,7 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 	if ((pos & 3) && cnt > 2) {
- 		unsigned short val;
- 		pci_user_read_config_word(dev, pos, &val);
--		put_user(cpu_to_le16(val), (__le16 __user *) buf);
-+		put_unaligned_le16(val, buf);
- 		buf += 2;
- 		pos += 2;
- 		cnt -= 2;
-@@ -86,7 +83,7 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 	while (cnt >= 4) {
- 		unsigned int val;
- 		pci_user_read_config_dword(dev, pos, &val);
--		put_user(cpu_to_le32(val), (__le32 __user *) buf);
-+		put_unaligned_le32(val, buf);
- 		buf += 4;
- 		pos += 4;
- 		cnt -= 4;
-@@ -96,7 +93,7 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 	if (cnt >= 2) {
- 		unsigned short val;
- 		pci_user_read_config_word(dev, pos, &val);
--		put_user(cpu_to_le16(val), (__le16 __user *) buf);
-+		put_unaligned_le16(val, buf);
- 		buf += 2;
- 		pos += 2;
- 		cnt -= 2;
-@@ -105,7 +102,7 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 	if (cnt) {
- 		unsigned char val;
- 		pci_user_read_config_byte(dev, pos, &val);
--		put_user(val, buf);
-+		*buf = val;
- 		pos++;
- 	}
- 
-@@ -327,7 +324,7 @@ static int proc_bus_pci_release(struct inode *inode, struct file *file)
++/* The commands take and return plain values. */
++static const struct proc_ioctl_arg proc_bus_pci_ioctl_args[] = {
++	PROC_IOCTL_ARG(PCIIOC_CONTROLLER, 0, 0),
++	PROC_IOCTL_ARG(PCIIOC_MMAP_IS_IO, 0, 0),
++	PROC_IOCTL_ARG(PCIIOC_MMAP_IS_MEM, 0, 0),
++	PROC_IOCTL_ARG(PCIIOC_WRITE_COMBINE, 0, 0),
++};
++
  static const struct proc_ops proc_bus_pci_ops = {
  	.proc_flags	= PROC_ENTRY_SHORT_WRITES,
  	.proc_lseek	= proc_bus_pci_lseek,
--	.proc_read	= proc_bus_pci_read,
-+	.proc_read_buf	= proc_bus_pci_read,
+ 	.proc_read_buf	= proc_bus_pci_read,
  	.proc_write_buf	= proc_bus_pci_write,
  	.proc_write_size = PCI_CFG_SPACE_EXP_SIZE,
- 	.proc_ioctl	= proc_bus_pci_ioctl,
+-	.proc_ioctl	= proc_bus_pci_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.proc_compat_ioctl = proc_bus_pci_ioctl,
+-#endif
++	.proc_ioctl_buf	= proc_bus_pci_ioctl,
++	.proc_ioctl_args = proc_bus_pci_ioctl_args,
++	.proc_nr_ioctl_args = ARRAY_SIZE(proc_bus_pci_ioctl_args),
+ #ifdef HAVE_PCI_MMAP
+ 	.proc_open	= proc_bus_pci_open,
+ 	.proc_release	= proc_bus_pci_release,
 
 -- 
 2.53.0
