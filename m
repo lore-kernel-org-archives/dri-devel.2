@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B99606A32F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:21:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A552606A33A
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BcEaKSaA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlGTCzi8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623FB10FAA7;
-	Wed,  4 Nov 2026 09:20:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBFF010FA1E
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9DF910FA8E;
+	Wed,  4 Nov 2026 09:21:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F7C310FAA2
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:21:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B40B54344C;
- Wed,  4 Nov 2026 09:20:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884BF1F000C1;
- Wed,  4 Nov 2026 09:20:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 43B4360142;
+ Wed,  4 Nov 2026 09:21:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC751F00A1B;
+ Wed,  4 Nov 2026 09:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793784048;
- bh=O/cNspokMh0UNXOA6wOkvv54jlnPVAhKOKNo3zScL80=;
+ s=k20260515; t=1793784087;
+ bh=TLWmGN3SfRKJzJtFGqy9xXljoZdTMIGgQAZ0U5pRqZ0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BcEaKSaAGlv24CwtAidx4vgcs6qvpVaJft+GsrdUwgsUzcXrxh3uKvNOUoNaojM0u
- zeaAufJdghxwNsRVYbDAL/xLeKpNsJ3Qayq8R/yEjD/hXG6tybWAoeeY/Tcg+J2REY
- 2VHx7FHMLCTTzYzu20RNN6+W/eGKH3XQSxBPLu21a3FQK4L4xV10mVduwGQuGwRq6Y
- 1A0ZHeMOGLNd3RiETXNw1XPlv0+sn3aHbmYt6VyuIs0KUjdL9KaF/E0tjXUuJZvvKv
- OzKIqB04C/jh70SwJGTPrT4CcqF9fgN0yPVMCzRgZsEpdaIpp/2cLp+CNRnZLAYstK
- OnLeMUpNmqPkw==
-Date: Wed, 4 Nov 2026 10:20:35 +0100
+ b=RlGTCzi8pu88TVAb0kwn4joxUiR7mlBDOdPpezl4XmsvQd8kAh4iDFU4pQONkMHIu
+ eliic42rAIpabkq9bUb6HqnW9ZOmOC+nO6hIz58hrOaEoVJAOD6f1NccFejHSUbQEg
+ UcTtVvMVrKX8rkKsqChfbeyKOblU3iUz404/VcCwAESFTSpzfmuSYLv6tIXqWgvwx4
+ JsaFcHO4jSLDa+WNzQE5ZJzqGGlwKjwInimlKuIR6uaQtqBJZavxLJ41GnGzP1qeFj
+ IB/K6cI148TQ1ND1SEtNwA24wzZ0dXL4wMxQ/4D3P3yQeU5Lj8YAihYUT5N5BdD20o
+ LKB+GT+o55caw==
+Date: Wed, 4 Nov 2026 10:21:13 +0100
 From: Christian Brauner <brauner@kernel.org>
 To: sashiko-reviews@lists.linux.dev
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
@@ -56,17 +56,17 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  Heiko Carstens <hca@linux.ibm.com>, 
  Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: Re: [PATCH RFC 36/38] selftests/proc: check that faulting sysctl
- accesses don't hold up removal
-Message-ID: <20261104-aktionen-endlich-ruhmreich-92f35a0ee397@brauner>
+Subject: Re: [PATCH RFC 38/38] selftests/proc: check that a faulting
+ readlink() doesn't hold up removal
+Message-ID: <20261104-erwecken-pulsieren-anarchie-9a5a7582621e@brauner>
 References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-36-59422ed3e465@kernel.org>
- <sashiko-outbox-195508@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-38-59422ed3e465@kernel.org>
+ <sashiko-outbox-195510@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-195508@kernel.org>
+In-Reply-To: <sashiko-outbox-195510@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,7 +85,7 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 02:48:40PM +0000, sashiko-bot@kernel.org wrote:
-> - [Medium] selftests/proc: getdents test faults in dir_emit_dots() before entry lookup
+On Tue, Nov 03, 2026 at 02:48:45PM +0000, sashiko-bot@kernel.org wrote:
+> - [Medium] selftests/proc: Makefile adds nonexistent proc-remove-slow-reader target
 
 Fixed.
