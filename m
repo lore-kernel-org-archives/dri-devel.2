@@ -2,53 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A56606A33E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5DD606A33C
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aYzbJrDb
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCI4+e4M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D6C910ECA6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2290210ECA8;
 	Wed,  4 Nov 2026 08:58:05 +0000 (UTC)
-X-Greylist: delayed 545 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 11:41:48 UTC
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com
- [111.22.67.139])
- by gabe.freedesktop.org (Postfix) with ESMTP id A193310E759
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 11:41:48 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC4610E837
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:21:23 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2e95bd1c14cso2843555ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:21:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cmss.chinamobile.com; s=default; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=aYzbJrDbeP/7tWdxMtcgSSwEmNgpxtzQOdod7HkyQTJqQm7k0/rVAhtJkCUkEj4NlxtHLqxuPtW9c
- fnHDvM8syOzQaHV+iJxisUeDMFuSlM8d+hnY+rzWqfgq//vPtkFIsMTmzl/BQqSUXyvgFLnVAP0XLu
- UvNcctGqZC7YOQZ4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
- by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ae9c651deb-91fd9;
- Tue, 03 Nov 2026 19:32:38 +0800 (CST)
-X-RM-TRANSID: 2ee56ae9c651deb-91fd9
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from dsh.local (unknown[10.55.1.72])
- by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae9c654b7c-f8a46;
- Tue, 03 Nov 2026 19:32:38 +0800 (CST)
-X-RM-TRANSID: 2ee76ae9c654b7c-f8a46
-From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-To: kraxel@redhat.com, vivek.kasireddy@intel.com,
- dri-devel@lists.freedesktop.org
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] dma-buf/udmabuf: do not warn on huge user-controlled
- allocations
-Date: Tue, 03 Nov 2026 19:32:37 +0800
-Message-ID: <20261103-udmabuf-nowarn-1-yuehongwu@cmss.chinamobile.com>
+ d=gmail.com; s=20260707; t=1793776883; x=1794381683; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
+ b=VCI4+e4MZIuQCFTvvSE8FfNYQy7sN9MR4cDlyvPEc9mXz5PscxL7RrzijcgZcKWRAu
+ 6YGUcu1qIUnfXa64uZ0VUqe1EFLB/qeUw1i28MBm7DIJ6FgvZA1kjpOg5o6Lu3NVdygU
+ NVHdOWlLGbPwxyChhzZgZ/ztAFZ62Mn1eltHFaqnYVMh4/QSV0RYoqJPEbQREOn1naCx
+ OwppammvQcnL53/EKt9WXR2VEnHZAiCaOPDhNkVMVgH8+lzPDUXcUxiw0OT+CwnBs4g2
+ veURZN+W9ChVpib0w9GHHOBY/h/2PgJBumHT6rV9AhYAkOazJD546xEp3QZc5fD2u6tx
+ O0Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793776883; x=1794381683;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
+ b=Li5jrJZUxet9SffkL4Y4WE/SJeM72BBUSKoG+2uzxKwJJWQawj3kGksdjJUosh75Kl
+ TbFkPa/tmX7M6isl4WcYIUrLvoUwga6F37Cr6KIBPvl6Gi5W2Hgk9ByEMektF2J4nYWV
+ V1iQ0oxR3AFiyAhf8OBxfO6ykg/Gf6Wy9nWKxzJnEA4PkemAHTAmZCQN94wcJbVC+xyB
+ 90VN1eFBpVvCW/POfQWS2W3nNEN0XwV7L+1UVd91cnxxzpjvI+WU7lCNbU5OFTSWNTzE
+ bxdfWAe3hZK+GTv5MtM3qZ9S6KPn6oHX8/fHYQSUItyUB1hLEGO/pQ9QNv+IZ9bu2hnt
+ BV1w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxhiUsR1ows/TbhXPPKoXOKxMWoeGPyaGmIPlln5QHvlFrKTxB9N9iwVqUCBWf+jBSpoD6iOyn3mVk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/LJVxUVlKrGtiSx7+Be0a6XiL20YwK6wQaSk7opacr1QbdAaOz
+ b/0oH02sCCNt8z23u2fGv8eY/wmyEp5luyKeeqYq7VEJGrtJUx9SmJ0=
+X-Gm-Gg: AYBFou1kz6gN/bBiHP9bKVumiH/7zEu1uKYzl2PdtGam7q2R6iNfVvjH1VSRpy3q31g
+ 1eluDbjfuEReck68kdVKo0EghuPgQM5aS8guk1ytVygAwVv7IMYBmZxezpI7YS5aoRua1TKKGLs
+ bacZqno34lNmck48C2b3xrEH7adwsbMvpMZzQ86Gs6oTJc+zmq0mf4fgjkTPG96el0UxFWUIIvn
+ KiHjxys6VVePQ/TwcKbBP40pSKOfLXX+aRtWPfM6VN4X7TRmNVgxYQekULE9r8gusK2m8f1J4+C
+ Jf2C3P1m/dOb6IgPjiqorERC2q8v+ybHiEKEjvtG6fnogdM4X+rc+PrK4NEIrhIxq6etsy5xI7o
+ H1UudfnvByLYvxDQ91CuDHN+6bw3IUX5387//jLu2BhtwZrOThcUZddMXmvXb7bgJEwY5J6rL01
+ ZnZR5jaYO92/6TiVskPCSziMO3qJt1wDqtii7SjDPYYiSqTUW+GxOpVD3qhTaI+XwNTP3Krur5F
+ h71r1vEjNkwnaewch+1UZR/63lGp0rkYskgx/Rz/VascG8fyfwabcv35NjnC2yEhV3awnBSUHbJ
+ J1JEAgf+SBjI7EgRM1XNmnB4uq4HgGK7jxbYlPpeYWzt/b2aX0al/0Z3GWmuPXLqVoJd
+X-Received: by 2002:a17:902:d2cd:b0:2e9:5b4e:b8a7 with SMTP id
+ d9443c01a7336-2eb364f8fe2mr149925825ad.51.1793776882756; 
+ Tue, 03 Nov 2026 23:21:22 -0800 (PST)
+Received: from freddie-kane.lan ([71.212.222.246])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ed0906c514sm3950345ad.29.2026.11.03.23.21.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 23:21:22 -0800 (PST)
+From: Burke Cates <burke.cates@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Xilin Wu <sophon@radxa.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: [PATCH] drm/msm/dp: skip the link teardown after a failed enable
+Date: Tue,  3 Nov 2026 23:20:48 -0800
+Message-ID: <20261104072048.3486286-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: git-send-email 2.43.0
 X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,76 +91,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-default") size_limit_mb defaults to INT_MAX, so a user can ask for a
-buffer of up to 2 PB.  pgcnt is taken from that request and
-init_udmabuf() allocates an array of that many pointers before the memfd
-is even looked at.
+Commit 1bda647ce61b ("drm/msm/dp: move link-level teardown from
+display_disable to display_unprepare") moved msm_dp_ctrl_off_link() and
+the PHY exit into msm_dp_display_unprepare(). Unlike
+msm_dp_display_disable(), that function does not check power_on.
 
-For a request above 1 TB the array is larger than INT_MAX bytes, so
-kvmalloc() hits
+When link training fails, msm_dp_ctrl_on_link() has already turned the
+link clocks and the PHY off, and .atomic_enable() returns with power_on
+still false. The next disable now runs msm_dp_ctrl_off_link() anyway,
+which writes REG_DP_MAINLINK_CTRL and pulses DP_SW_RESET with the link
+clocks off. On an ASUS Zenbook A16 (Glymur, eDP) the SoC then resets.
 
-	WARN_ON_ONCE(!(flags & __GFP_NOWARN))
+Skip the link teardown when power_on is false, as before that commit,
+but still drop the runtime PM reference.
 
-in __kvmalloc_node_noprof(), returns NULL, and udmabuf_create() turns
-that into -ENOMEM.  The warning is reachable from userspace through
-/dev/udmabuf, and with panic_on_warn=1 a bogus ioctl turns into a kernel
-panic.
+Tested on the A16 by forcing link training to fail and then blanking
+the display: the SoC reset 2/2 times without this patch and 0/3 with
+it.
 
-The size is user-controlled and the allocation failure is handled
-already, so pass __GFP_NOWARN for the page array, the pinned folio array
-and the per-item folio array, matching how other subsystems handle
-user-controlled sizes.
-
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+Fixes: 1bda647ce61b ("drm/msm/dp: move link-level teardown from display_disable to display_unprepare")
+Signed-off-by: Burke Cates <burke.cates@gmail.com>
 ---
- drivers/dma-buf/udmabuf.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00..47e130e 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -190,11 +190,17 @@ static void unpin_all_folios(struct udmabuf *ubuf)
- 
- static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+Notes:
+    Test base: v7.4-rc1 with out-of-tree Glymur platform, board and eDP
+    PHY patches; drivers/gpu/drm/msm/dp as in v7.4-rc1 plus a local
+    knob that fails every training attempt. The reset is silent (no
+    pstore), so which of the two accesses triggers it is not known.
+    
+    As before 1bda647ce61b, a failure after successful training still
+    leaves the link up. Xilin Wu's hdr10 v2 09/20 handles these paths
+    more generally; this is the minimal fix for -rc. Happy to test his
+    approach instead.
+    https://lore.kernel.org/all/20261009-msm-dp-hdr10-v2-9-1835d4966da3@radxa.com/
+    
+    The bug was found and this patch drafted with an AI coding
+    assistant (Claude Code, Claude Opus 5.5); I reviewed it and ran the
+    tests.
+
+ drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 9299ce616fdb..76784cc45228 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1528,6 +1528,14 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
  {
--	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
 +	/*
-+	 * pgcnt comes from a user supplied size, so do not warn when
-+	 * kvmalloc() refuses an impossibly large array.
++	 * Failed link training leaves the link clocks off. Avoid accessing
++	 * link registers after a failed enable, but still release the
++	 * runtime-PM reference below.
 +	 */
-+	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
-+				    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pages)
- 		return -ENOMEM;
++	if (!msm_dp_display->power_on)
++		goto out;
++
+ 	/* dongle is still connected but sinks are disconnected */
+ 	if (dp->link->sink_count == 0)
+ 		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+@@ -1542,6 +1550,7 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
  
--	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
-+	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
-+					    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pinned_folios)
- 		return -ENOMEM;
+ 	msm_dp_display->power_on = false;
  
-@@ -387,7 +393,8 @@ static long udmabuf_create(struct miscdevice *device,
- 	if (ret)
- 		goto err;
++out:
+ 	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
  
--	folios = kvmalloc_objs(*folios, max_nr_folios);
-+	folios = kvmalloc_objs(*folios, max_nr_folios,
-+			       GFP_KERNEL | __GFP_NOWARN);
- 	if (!folios) {
- 		ret = -ENOMEM;
- 		goto err;
+ 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
-
-
+2.54.0
 
