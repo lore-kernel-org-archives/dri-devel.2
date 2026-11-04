@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FE36072F88
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1D5607031B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CY3vhRi4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+v8MGUB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C2E10E8DA;
-	Wed,  4 Nov 2026 19:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C0610FE76;
+	Wed,  4 Nov 2026 19:43:03 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3785010E8DA
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:42:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E777610FE77
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:42:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A9CCE60F10;
- Wed,  4 Nov 2026 19:42:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B831F000C1;
- Wed,  4 Nov 2026 19:42:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 686CC60F07;
+ Wed,  4 Nov 2026 19:42:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDECB1F00A1C;
+ Wed,  4 Nov 2026 19:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821361;
- bh=uhE82sMafPzxvfPBNz7KCycPN06o3nm9WBF7ozqhvvQ=;
+ s=k20260515; t=1793821376;
+ bh=rahx1hspTnUUAQKpjFRic8Zz7t4Brzv8z/TuH1t1gO8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CY3vhRi4hQxkqcpQ1Mm/O3l6e+OzedeN/4+37SeNZjOvlqXmy34qriVvD3TH67ywH
- DQzl6FzuyIa5uiOv7Dc7vMjmQMkxqYHlBr0eMd+Xera9VB0QWJPHsXDK0rpkNzXBBK
- tX9Y7Jq5/fQhLGsvIaKNSEhYv51qK+oUfD0NCrdQZjRmHE0FizjDeNxZM3dzQpWJZy
- HRwBQTyj5k9AawVsBYNGBCFZHPpK+UsKw3yqcCB9jomRWBq8KMKMHMiOAFjbyWU1JH
- JbXTNMiiUjnz72MrV0u90yAZ2M59tRnRkIXF5dI/J/zo2XxESLkUQl4Q5E9EaHZPuO
- H5e07M+u+h5bw==
+ b=L+v8MGUBoH1X/DvXSD0FceOQi/7/9SNVN/Ty1A0Db3pP2tRHNvduiU+oluwXEpYIv
+ vBloEcY3uuuLcYM/xkh9Q3Ii2iBnjyZbDio64xuo+SFrAPccC7M1STU5AfhNZaWOa5
+ +nP2mu+sMxiVgQETEU4GnEEdQBOVRnqy1LIn5OIvtUx8y3NHNRNYHmSudIvZhlAsk3
+ OeFfLyoqwVLhzDi55Du9gghVSwsVXKB+q9IGj4gdTIup4tw4O6Yjot81gM8SBfXGlP
+ DerjiZ0JrNRX2zN8YxL3cqjnpijuu2TiisPtmqNQmMQzMS3akxk6dzKVcJZYEqbHRC
+ UCnxPV/KjlSKw==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,21 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 01/26] nubus: let procfs own the seq_file of the
- resource files
-Date: Wed,  4 Nov 2026 20:42:27 +0100
-Message-ID: <20261104-work-procfs-drivers-v2-1-245e54e87116@kernel.org>
+Subject: [PATCH RESEND v2 02/26] zorro: let procfs copy out reads
+Date: Wed,  4 Nov 2026 20:42:41 +0100
+Message-ID: <20261104-work-procfs-drivers-v2-2-245e54e87116@kernel.org>
 In-Reply-To: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1301; i=brauner@kernel.org;
- h=from:subject:message-id; bh=x7z4QEHcj9RNvDtDgoKANKctl9Sfloc7qmQpa+Y73Ns=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97ioOOa68o/Kq2fmOY5NWuTU8iP3ZEGF+bqWx4z+Wl
- OQWlcZPHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABP5yMrIcHHmjxMtv47deeBR
- f8hmwmHx04XBoiyTn7ROi1p5ovDEfjGGf0pS7v/tJ675tu3LE5ZOszvfVmhY9L9Rd7yQdf+7rII
- THxsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1540; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dTcni+P8tIxBcivisIxgfSpNG7N2UBKEyjWqJewPrL0=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97iqNXrF3deYLX61HjldsFnR/fLzW4ucS7htqmRfnb
+ lp9iV3QsKOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiHkkMfziO9O96MiXH7oKe
+ 3ttd/GcsTDguvkv8x6Mk19PlFNXPtoiRYf6v1T5HznUdqLi4/U2FCv/VOxZvpb9rrKvZvX3xnf1
+ XX/ICAA==
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,45 +97,46 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Get the inode from the file instead of ->private, declare the show
-function and let procfs open and free the seq_file.
+Implement ->proc_read_buf() so procfs copies what is read from
+/proc/bus/zorro/<slot> to userspace after it unpinned the entry.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/nubus/proc.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/zorro/proc.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nubus/proc.c b/drivers/nubus/proc.c
-index 3ea3d1738eae..cb21ad1d9964 100644
---- a/drivers/nubus/proc.c
-+++ b/drivers/nubus/proc.c
-@@ -107,7 +107,7 @@ nubus_proc_alloc_pde_data(unsigned char *ptr, unsigned int size)
- 
- static int nubus_proc_rsrc_show(struct seq_file *m, void *v)
- {
--	struct inode *inode = m->private;
-+	struct inode *inode = file_inode(m->file);
- 	struct nubus_proc_pde_data *pded;
- 
- 	pded = pde_data(inode);
-@@ -138,16 +138,8 @@ static int nubus_proc_rsrc_show(struct seq_file *m, void *v)
- 	return 0;
+diff --git a/drivers/zorro/proc.c b/drivers/zorro/proc.c
+index 4c6f8f1c4d71..99a8b478192d 100644
+--- a/drivers/zorro/proc.c
++++ b/drivers/zorro/proc.c
+@@ -28,7 +28,7 @@ proc_bus_zorro_lseek(struct file *file, loff_t off, int whence)
  }
  
--static int nubus_rsrc_proc_open(struct inode *inode, struct file *file)
--{
--	return single_open(file, nubus_proc_rsrc_show, inode);
--}
--
- static const struct proc_ops nubus_rsrc_proc_ops = {
--	.proc_open	= nubus_rsrc_proc_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= single_release,
-+	.proc_show	= nubus_proc_rsrc_show,
+ static ssize_t
+-proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *ppos)
++proc_bus_zorro_read(struct file *file, char *buf, size_t nbytes, loff_t *ppos)
+ {
+ 	struct zorro_dev *z = pde_data(file_inode(file));
+ 	struct ConfigDev cd;
+@@ -49,8 +49,7 @@ proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *
+ 	cd.cd_BoardAddr = cpu_to_be32(zorro_resource_start(z));
+ 	cd.cd_BoardSize = cpu_to_be32(zorro_resource_len(z));
+ 
+-	if (copy_to_user(buf, (void *)&cd + pos, nbytes))
+-		return -EFAULT;
++	memcpy(buf, (void *)&cd + pos, nbytes);
+ 	*ppos += nbytes;
+ 
+ 	return nbytes;
+@@ -58,7 +57,7 @@ proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *
+ 
+ static const struct proc_ops bus_zorro_proc_ops = {
+ 	.proc_lseek	= proc_bus_zorro_lseek,
+-	.proc_read	= proc_bus_zorro_read,
++	.proc_read_buf	= proc_bus_zorro_read,
  };
  
- void nubus_proc_add_rsrc_mem(struct proc_dir_entry *procdir,
+ static void * zorro_seq_start(struct seq_file *m, loff_t *pos)
 
 -- 
 2.53.0
