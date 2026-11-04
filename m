@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B787606C464
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0F360945FA
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwHr8orF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAJQ3+WL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A80F610E23B;
-	Wed,  4 Nov 2026 19:51:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6C910FE98
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B948610E8CF;
+	Wed,  4 Nov 2026 19:51:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA7CD10E8CF
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:51:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C464560F0F;
- Wed,  4 Nov 2026 19:51:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1974F1F000C1;
- Wed,  4 Nov 2026 19:51:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 84484417A1;
+ Wed,  4 Nov 2026 19:51:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515511F0093A;
+ Wed,  4 Nov 2026 19:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821895;
- bh=X/yvfG66BfgMeEDkk3c56eCZsjSg3r6CFhJDsqYaHrc=;
+ s=k20260515; t=1793821910;
+ bh=lzw2p1lwQVTXGjOVK+O2fRllw6EWFGiyVpP4wwnyOh0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=cwHr8orFnp4x7J2Xe1KsHSEJ1eg0u79nGPLRIUIwbAP0zUf7QsBysosf1FqR5ZX0Q
- HoxOVOzOEv9f8ZgsLKaGizKxckb+8NmWDvznCxT9hyz6XDje23Fu/BV/7vYfSBlRBo
- 29q96vKA3sg+WRQgH3Xu5HAtJzyAV0C0X5mRTfioCWgSP85kQ3OB+8joip1pGF4lz6
- O/KafZ2Qaez9U/HbkLZAPk5WcEVfLztKFegfM9NGRKV58MPrNpX3BlH061wFYzdEC1
- 0F3/Xa+OzEI16gZNDCtefEhvwseJTbeAB5Ppvs0OtDpq+EK5pYG3BV1CYUNRgxGUPi
- Ziv71uisF0tng==
+ b=QAJQ3+WLDUkYLImp3HYyJ9xNQzT5ktofk3vTOb5CY1yyjGgMiMLV84eXcv7Ngn9pO
+ 0R1aIfFok0raVnzXU9Vxsqv/+8svHg8UrA6VN+qDutbG0MoaDiCzmWdmWTuVYeXa/I
+ N2GChnCG6weK3daO3o2GHaFO3/dOVqhIMLzDjlCpOjj7c7+2YrdYYhUy9NCshP6wdl
+ Lk+TkGZGwLWFEFiLx/wufa/ZxQYuvNY4PHonWIRM9HX3gymQ16OIyPKKYKRaJNOE5j
+ ooOiwYlFZWYxO07ewx8hUYCero4307WQRVTKLVnFylG/X2Vx0yOkMhn63aRL8xUxMW
+ sonQvq7YDKhvw==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 07/30] ntfs3: let procfs copy in writes to the label
- file
-Date: Wed,  4 Nov 2026 20:51:20 +0100
-Message-ID: <20261104-work-procfs-fs-v2-7-319e0f9a8aae@kernel.org>
+Subject: [PATCH RESEND v2 08/30] smb: client: let procfs own the seq_file of
+ the smbdirect files
+Date: Wed,  4 Nov 2026 20:51:35 +0100
+Message-ID: <20261104-work-procfs-fs-v2-8-319e0f9a8aae@kernel.org>
 In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=brauner@kernel.org;
- h=from:subject:message-id; bh=kxB3eQnJXJ28LS46eI6OZqVe3PV4LPZGCXrTLaq4dFQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jH+72CqrHDmzhLOGyVf5VS7p01fvUvn0De7C5+m2
- C7Q/px3v6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiHx4yMpy3rZ0/Vbh5+gyZ
- wzeePF8kfWTR38C3305W5Fd5HDHp+GLF8E8x2XK+7nLuldutNvMse8PlwX1u7efe4OOL3l+evkZ
- A7hkjAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1034; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=RIZYcDqYt7NhFvt2L4C6pTMn3DylkXBLCyRwuGHjm7I=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jG5tPWrw/cVrCsb765In/OBvcn09R7LsHQ9/q6+O
+ V1HHE9ndpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExkz01Ghl3rSlga96Rmhvie
+ 3JVu2vHMZ1KgvNQ2f7ZfM06avi3c5s3wv8ZDfv2t3meZR3nKlGZN/Jj7Lukpr3r48QVnD/23mvz
+ tIT8A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,77 +98,36 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_write_buf() so procfs copies in what is written before
-it pins the entry, and set the label from that copy. Writes larger than
-PAGE_SIZE - 1 bytes fail with -EINVAL from procfs now. A write that
-large only ever worked when most of it was trailing newlines or came
-after a NUL, ntfs_set_label() refused a label that long with
--ENAMETOOLONG or -EFBIG.
+Declare the show function in PROC_FILE_DEFINE() and let procfs open and
+free the seq_file. That makes the open functions unnecessary.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/ntfs3/super.c | 27 +++++++++------------------
- 1 file changed, 9 insertions(+), 18 deletions(-)
+ fs/smb/client/cifs_debug.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index cd47839872b0..cdeccbe506e8 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -560,37 +560,28 @@ static int ntfs3_label_show(struct seq_file *m, void *o)
+diff --git a/fs/smb/client/cifs_debug.c b/fs/smb/client/cifs_debug.c
+index dfcd2cdbb2a8..664072ab3342 100644
+--- a/fs/smb/client/cifs_debug.c
++++ b/fs/smb/client/cifs_debug.c
+@@ -873,16 +873,9 @@ static int name##_proc_show(struct seq_file *m, void *v) \
+ 	seq_printf(m, "%d\n", name); \
+ 	return 0; \
+ } \
+-static int name##_open(struct inode *inode, struct file *file) \
+-{ \
+-	return single_open(file, name##_proc_show, NULL); \
+-} \
+ \
+ static const struct proc_ops cifs_##name##_proc_fops = { \
+-	.proc_open	= name##_open, \
+-	.proc_read	= seq_read, \
+-	.proc_lseek	= seq_lseek, \
+-	.proc_release	= single_release, \
++	.proc_show	= name##_proc_show, \
+ 	.proc_write	= name##_write, \
  }
  
- /* write /proc/fs/ntfs3/<dev>/label */
--static ssize_t ntfs3_label_write(struct file *file, const char __user *buffer,
--				 size_t count, loff_t *ppos)
-+static ssize_t ntfs3_label_write(struct file *file, char *buf, size_t count,
-+				 loff_t *ppos)
- {
- 	int err;
- 	struct super_block *sb = pde_data(file_inode(file));
--	ssize_t ret = count;
--	u8 *label;
-+	size_t len = count;
- 
- 	if (sb_rdonly(sb))
- 		return -EROFS;
- 
--	label = memdup_user(buffer, count);
--	if (IS_ERR(label))
--		return PTR_ERR(label);
-+	while (len > 0 && buf[len - 1] == '\n')
-+		len -= 1;
- 
--	while (ret > 0 && label[ret - 1] == '\n')
--		ret -= 1;
--
--	err = ntfs_set_label(sb->s_fs_info, label, ret);
-+	err = ntfs_set_label(sb->s_fs_info, (u8 *)buf, len);
- 
- 	if (err < 0) {
- 		ntfs_err(sb, "failed (%d) to write label", err);
--		ret = err;
--		goto out;
-+		return err;
- 	}
- 
- 	*ppos += count;
--	ret = count;
--out:
--	kfree(label);
--	return ret;
-+	return count;
- }
- 
- static const struct proc_ops ntfs3_volinfo_fops = {
-@@ -599,7 +590,7 @@ static const struct proc_ops ntfs3_volinfo_fops = {
- 
- static const struct proc_ops ntfs3_label_fops = {
- 	.proc_show = ntfs3_label_show,
--	.proc_write = ntfs3_label_write,
-+	.proc_write_buf = ntfs3_label_write,
- };
- 
- static void ntfs_create_procdir(struct super_block *sb)
 
 -- 
 2.53.0
