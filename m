@@ -2,60 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FB7606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 12:46:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D734E606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 12:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iirwKghM
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=M4EsLoAV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 612F710E1D4;
-	Wed,  4 Nov 2026 12:46:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2310A10E1D4
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 12:46:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 138D7612D8;
- Wed,  4 Nov 2026 12:46:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BEE1F000C1;
- Wed,  4 Nov 2026 12:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793796364;
- bh=PFEBhpVkx/Db8FKRqQ1f85p8DYST/pInzrhzPSOP1ko=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=iirwKghMMMh85yOn9eMgrtze/QVFlkbamubxCg5KXK9uIiE1xxZkFy3spIr9QXM00
- me/JMZv1X13+X32IwTbGLy0yRlrLX2QZ6uTUB4aIpHpiAf8e4QAjKi/7eZSHXH8AqP
- kjBT4yuLGNXCODj1eVe+1wAZqYYQz7qExZfH+SEyjf+8umNgHoh1s/jdGeil4W9p9T
- Q5AueLgnrVkMw0bqofKC/zJ9+oxC5JncAqIr3Q9Sy0lmUQy2KNSM/s1ca83C36OpZq
- Jxs/ryagZN9leSZ5n7M/mX0dR0jrHdHigb+cJWn7zBm91YQjiPMl+XrxV4OCVIbsTW
- IvgWW2yoYnUtg==
-Date: Wed, 4 Nov 2026 07:46:03 -0500
-From: Sasha Levin <sashal@kernel.org>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Mark Brown <broonie@kernel.org>,
- linux-next@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-Subject: Re: [RFC] linux-next: replace the DRM trees with a single
- drm-for-linux-next
-Message-ID: <auspCwOuROyorRnv@laps>
-References: <aujZcJBUyQ7iX_PM@intel.com>
- <e14e582e-d9d1-4c95-a23e-cf1e6f2feabd@leemhuis.info>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4910910E3EC;
+	Wed,  4 Nov 2026 12:52:02 +0000 (UTC)
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A7A10E3EC;
+ Wed,  4 Nov 2026 12:51:55 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKQLc11FszKpCr;
+ Wed, 04 Nov 2026 13:51:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1793796712; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WSSJHqi/5pDzqpdufJwNl2YpFhO2QjjR6A1y0Moxtpc=;
+ b=M4EsLoAVcRjppHMN9eECypbV/QByj3YorpSIV2U6hCM7yBmd7jLdzYxiJUBGTHX1jHXeBk
+ Y/ElbTQJk7uw8UdWMxDaEkC14+J/PjvyG5Hl7qpB3nf/9FusJDoY5/DekTU1EzUBV2yz/o
+ wRRb1NGUvmlF6/L2rVzvaz839cpV9NoaC3MtPDPtccy432Lv0DFs5pCNtwbd6JLljNDnxc
+ g0CCP6RWy4enfdoUCfoWbkRxS/v26XIpYBnH7jyjdPYgfnmogYKcXt6pEEZhJgvCrGUdqA
+ kd4fTU7j58EJw0/L5scMacZUhtEpEh2VvRPeJBeTehs9obGCLuTiKrsuGZn5nA==
+Message-ID: <f02d51dd1d0f72951f9860f2a23fa6b53bf4b0ab.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] drm/sched: Reject double scheduler initialization
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Date: Wed, 04 Nov 2026 13:51:50 +0100
+In-Reply-To: <20261104123441.34842-2-tvrtko.ursulin@igalia.com>
+References: <20261104123441.34842-1-tvrtko.ursulin@igalia.com>
+ <20261104123441.34842-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <e14e582e-d9d1-4c95-a23e-cf1e6f2feabd@leemhuis.info>
+X-MBO-RS-META: te5nfhai4ffpozea1xhin3zp5q6npirm
+X-MBO-RS-ID: 4c67296647e6fec0541
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +61,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 04, 2026 at 06:49:29AM +0100, Thorsten Leemhuis wrote:
->On 11/2/26 19:41, Rodrigo Vivi wrote:
->>
->> We'd like to replace most of the DRM trees in linux-next with a single
->> branch:
->>
->>   https://gitlab.freedesktop.org/drm/tip.git#drm-for-linux-next
->>
->> It replaces these entries:
->>
->>   drm/drm-next, drm/drm-fixes
->>   drm-misc/for-linux-next, drm-misc/for-linux-next-fixes
->>   drm-intel/for-linux-next, drm-intel/for-linux-next-fixes
->>   drm-xe/drm-xe-next
->>   drm-rust/for-linux-next, drm-rust/for-linux-next-fixes
->>   amdgpu (agd5f/linux.git#drm-next)
->>
->> drm-exynos, drm-msm, drm-msm-fixes, drm-msm-lumag, drm-nova and etnaviv
->> are not part of it and stay as they are.
->>
->> The main reason is to reduce the conflict pain that Mark constantly faces.
->> All of them should be handled already when we are rebuilding drm-tip.> [...]
->
->Please correct me if I'm wrong: this seems to mix up patches for the
->current cycle (e.g., -fixes branches) with those for the next one -- so
->I assume the former won't end up in next/pending-fixes anymore?
->
->Do we care? Or is this a situation along the lines of "yeah, that's a
->downside of this, but given the upsides, we do this nevertheless"?
->
->For my work it was kind of nice to have the two tracks separated, as it
->allowed me to easily check "is this fix for a recent regression in
->pending-fixes, as it should, because it should be fixed this cycle".
->
->Side note: two years ago there was also the idea to increase testing of
->pending-fixes or branches feeding into it separately, but it afaics got
->no real traction:
->
->linus-next: improving functional testing for to-be-merged pull requests
->https://lore.kernel.org/all/ZyI-Y00J3DBUkon3@sashalap/
+On Wed, 2026-11-04 at 12:34 +0000, Tvrtko Ursulin wrote:
+> There is no point in having code and logging whose only purpose is to
+> notify developers of incorrect usage of the API while bringing up a new
+> driver. Lets simply return an error and let the developers figure it out.
 
-This is actually still happening today, just evolved a bit!
+What's your merge plan here, were those branched out of the previous
+series? Is this a v2?
 
-I have a tree similar to linux-next, but it's fully automated, using LLMs for
-conflict resolutions, and generated a few times a day:
 
-https://git.kernel.org/pub/scm/linux/kernel/git/sashal/linux-next.git/
+https://lore.kernel.org/dri-devel/20261020154123.33631-4-tvrtko.ursulin@iga=
+lia.com/
 
-Instead of just a single tree, it builds the tree with categories, grouping
-them into "%s-next" trees for easier testing by subsystem or theme, and later
-merges them all into the one big "all-next" branch.
 
-The equivalent of the auto-pending-fixes branch you mentioned would be the
-"fixes-next" branch, and for the drm folks it would be the "drm-next" branch.
-
-This whole thing is still being very much used today, finding real problems :)
-
--- 
-Thanks,
-Sasha
+P.
