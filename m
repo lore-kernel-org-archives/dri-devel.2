@@ -2,41 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C0D606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D47606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 07:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv/lHsVD
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vrcD2ZJ5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 233F810E224;
-	Wed,  4 Nov 2026 07:47:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD36E10FA14
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:47:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 088F160DA2;
- Wed,  4 Nov 2026 07:47:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97EC21F00919;
- Wed,  4 Nov 2026 07:47:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793778460;
- bh=5Ff3xs7Ao+bE4zMf+u5aTZxphjrWJJPWsrTaMsH5LKY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cv/lHsVDqcGHBZ4OuwkGjr/ORxB+xCPqpy8t3O3o0Lvc0tHOLIS1n8JS4XSHAAYFy
- 2d6d5uZsdWN3AUfAU5Y8sQuGFw+CIwnlUrwy7zpSuia1x2rAlQT90tzSc3z9Xo37RQ
- gVkXMaFo+UfXQg29XX0eN/SRaXGGho7j98E2ugnbQRM2M1qz0HZgH3y9K6/bS4TDf5
- kyA5Fg3GyzkTUdVNyTDFBBDj4jDDZR+ZKjg/Yq2s3zpmS7X/57u07Q96Lm1Y1aYtYp
- 089j1XgM3SjKy+J4h/zrb3PFAOFj9y27+m59UbDRBPw9soV57YjT/zHjDayyb5LPkG
- zFXlMTB5Xie5A==
-Message-ID: <sashiko-outbox-196821@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panel: Replace deprecated DCS display-on calls
-To: amit <amittibi123@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261104073813.42429-1-amittibi123@gmail.com>
-References: <20261104073813.42429-1-amittibi123@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:47:40 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BC510FA18;
+	Wed,  4 Nov 2026 07:52:59 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97A8C10FA21
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 07:52:53 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a210470b49so2112955e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 23:52:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793778772; x=1794383572; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=H9pWRYIuDAbASTBKlOVzXYu6I+EvAShszd61Y2x+bnQ=;
+ b=vrcD2ZJ5Wt5bMowdm9UGkoqINcthwtI9CRSSgaMQybdCLD5gX/RDXOt1of67r7i9ii
+ O+t3z6WOnlzwGfAoCU0cey7ECoOdIVfWMbznlulbAEOHgWhcOULm49ZDrp+D3chVqgqM
+ niUmh0OtFFkVa33OCG8UQqyAOwCUCGnqGUxoai/jyf4EhbE5Um9dKa42fjQgMT+YccMi
+ GzYUxso3yVLVxD07lW6CaXYRyKzY93UeLTOvOS+VG48qJugnlln3xNbTxHSGEmVASH/Q
+ vxd+DO1VAIBU82ervIcfGSQwzZ+NcvMj1e1q7Zpt/cR1PEoXvZn7nA1XP0ex4bg7XbAU
+ XAhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793778772; x=1794383572;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=H9pWRYIuDAbASTBKlOVzXYu6I+EvAShszd61Y2x+bnQ=;
+ b=JyFuUJ59pL+X8e6iRwPdnmyXY/r03gRkLkCwkwFkoaGvQI322/zTMV0UsLGuaYVgEE
+ OuZ9KCXziz0edT1zSfzd6sAgsnxyTWoE36f+2GZiYmBCbnXb+CF5RD715W8ry/aP56jQ
+ lrZAD0u04viSuvVvaoIZbqdmHDV9EiLW7D9dns+Tvrhi9JnE5yozjI6lRC+Y1Oeg0qiy
+ Mx3gZ0EmGl17kSvEpPZbIcQE7Ww5gRRSUXARSHjdm22WI4tnJBJ6MQ1zT7ukDufrlf5N
+ ORfjCrZersWpHmZIiAvu1qYRpl0/rWo5gObP8DrPkTlJlN37LSK35eZOVEpQgXdczc8Q
+ xK7w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwUioEDZHdcAFAFsbKCDd0YPEhYGuin+JoeFKUa1XJzcD/zo+6W4ffNYPsZTTMk8VBWDtPnLFWIcKA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9zDGZKYgzScJzlAQvGCEzOw7Xj9/1kb0+U+5lqZm9FMhOEBRr5
+ p4wMsoXGCcZSEWGKFoGi2QSd2V+fGk3ky8Lo7ciUyvCiz9H6rZlJHT8N
+X-Gm-Gg: AYBFou0KnqEm8uxVKP33MDytKFGEBbfknJOXk1ynS7slhab0agLEMRECS5+57/mNsgE
+ rNJRsgUHblfHS5sNsmKiQjSf0+hgNiuagOfYyR/+qSfR6+plTVRVDIhCOI6doCvr963gDwz/DoE
+ CoORufFg3zZWOsSbbXTfVdzho9Qu64mdZFK///9mAeju0fK4P8lB+IO25zdUTu6bZFsxgry4Moy
+ 1VwajQfjwB6cbhkFllEhDGJvBQOevWohnv4UmqV2OCph8oFT1QF/QjgkE6FDdqg5kLqUAU21GA6
+ QKeHhnBE0DzAa1+Zwngsamf3eMhWrx6P8XOFE7zMxvoFL/YQ9jKpljnOGZClUNKdpMRx/Y+Iqla
+ Lrfl+/LOSiFF/uu5jVww4UvXVWfjlRf6aR9guZ09WfbSi6iB8Q0RwTwkGXVmkJdJ3aGEMi3mc9Q
+ fMCv0KDiVHc1GLRe0K1FGjP38EXs1q9c5Moc4Add/rNmIyoNrnWKyajZaVEzAomc6QSeGnA+qyW
+ 0IJM5/Xz0C6MpfkskTCkNlEWEDcCGidLie4fYIa6gqlexumDB+X27irR25AkC66YwEHMsMxAtts
+ QM/f1PI/eP+Z80y0+eucdIvCSQCEGUhD27gxlN6BXEyPfjJI5B91Z6GWczv/gWYmy3yLf+0vxQL
+ puFEO2LVSWrckzU9ZaeAO+w0rtL5X7tIk7u9gmYn8OdmIoqhw2SIS
+X-Received: by 2002:a05:600c:3554:b0:4a1:e7ce:107b with SMTP id
+ 5b1f17b1804b1-4ac150b20eamr371311155e9.2.1793778771764; 
+ Tue, 03 Nov 2026 23:52:51 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
+ [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48feda207d8sm2200785f8f.52.2026.11.03.23.52.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 23:52:51 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 04 Nov 2026 08:52:39 +0100
+Subject: [PATCH v2 1/3] drm/panthor: Report the last VM fault through
+ VM_GET_STATE
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-panthor-fault-info-v2-v2-1-673b31f3840c@igalia.com>
+References: <20261104-panthor-fault-info-v2-v2-0-673b31f3840c@igalia.com>
+In-Reply-To: <20261104-panthor-fault-info-v2-v2-0-673b31f3840c@igalia.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>
+Cc: Lukas Zapolskas <lukas.zapolskas@arm.com>, 
+ Paul Toadere <paul.toadere@arm.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Christian Gmeiner <cgmeiner@igalia.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,124 +96,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/panel: uninitialized return value in k101_im2ba02_enable() on =
-DSI error
-- [Low] drm/panel: single-call mipi_dsi_multi_context misuse and duplicate =
-dev_err()
---
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-commit 98ea9fe2e57e340101561581a07219ed561f36d0
-Author: amit <amittibi123@gmail.com>
+Keep the raw AS_FAULTSTATUS and AS_FAULTADDRESS of the last fault in
+the VM and return them through VM_GET_STATE. Userspace decodes the
+values. No memory is allocated in the fault path.
 
-drm/panel: Replace deprecated DCS display-on calls
+The MMU irq handler records the fault under the AS slots lock. The
+ioctl reads it under the same lock. The VM stores the fault as a
+struct drm_panthor_vm_fault, which is the uAPI struct, so the ioctl
+can copy it with one assignment.
 
-This commit replaces calls to mipi_dsi_dcs_set_display_on() across 14 DRM
-panel drivers with mipi_dsi_dcs_set_display_on_multi() using a local
-mipi_dsi_multi_context structure.
+The unhandled_fault flag is cleared when the VM is re-activated. The
+stored fault is not. So userspace can still query it after the group
+that hit the fault was killed.
 
-> diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/d=
-rm/panel/panel-boe-himax8279d.c
-> index 4a8560b4b899a..a4b35e042f315 100644
-> --- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-> +++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-> @@ -155,7 +155,12 @@ static int boe_panel_prepare(struct drm_panel *panel)
->  	/* T6: 120ms - 121ms */
->  	usleep_range(120000, 121000);
-> =20
-> -	err =3D mipi_dsi_dcs_set_display_on(pinfo->link);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D {
-> +		.dsi =3D pinfo->link,
-> +	};
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	err =3D dsi_ctx.accum_err;
->  	if (err < 0) {
->  		dev_err(panel->dev, "failed to set display on: %d\n", err);
->  		goto poweroff;
+Old userspace that passes the shorter struct still works, the DRM core
+zero-fills the missing tail.
 
-[Severity: Low]
-This isn't a bug, but is it intended to instantiate struct
-mipi_dsi_multi_context mid-function for just a single
-mipi_dsi_dcs_set_display_on_multi() call while leaving the surrounding DSI
-calls (such as mipi_dsi_dcs_exit_sleep_mode(), mipi_dsi_dcs_set_tear_on(),
-mipi_dsi_dcs_set_pixel_format(), and mipi_dsi_dcs_write_buffer()) unconvert=
-ed?
+Link: https://lore.kernel.org/r/20251215115457.2137485-4-lukas.zapolskas@arm.com
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+---
+ drivers/gpu/drm/panthor/panthor_drv.c |  2 ++
+ drivers/gpu/drm/panthor/panthor_mmu.c | 33 +++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/panthor/panthor_mmu.h |  2 ++
+ include/uapi/drm/panthor_drm.h        | 22 ++++++++++++++++++++++
+ 4 files changed, 57 insertions(+), 2 deletions(-)
 
-In addition, mipi_dsi_dcs_set_display_on_multi() in
-drivers/gpu/drm/drm_mipi_dsi.c already logs an error on failure:
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index dc8d0191aef4..7572cd7d6423 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -1471,6 +1471,8 @@ static int panthor_ioctl_vm_get_state(struct drm_device *ddev, void *data,
+ 	else
+ 		args->state = DRM_PANTHOR_VM_STATE_USABLE;
+ 
++	panthor_vm_get_fault(vm, &args->fault);
++
+ 	panthor_vm_put(vm);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d1c29eec46f2..6fc5f3d381c1 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -389,6 +389,15 @@ struct panthor_vm {
+ 	 */
+ 	bool unhandled_fault;
+ 
++	/**
++	 * @fault: Last fault on this VM.
++	 *
++	 * A new fault overwrites the previous one. Unlike @unhandled_fault,
++	 * this is not cleared when the VM is re-activated. Protected by
++	 * panthor_mmu::as::slots_lock.
++	 */
++	struct drm_panthor_vm_fault fault;
++
+ 	/** @locked_region: Information about the currently locked region currently. */
+ 	struct {
+ 		/** @locked_region.start: Start of the locked region. */
+@@ -662,6 +671,19 @@ bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm)
+ 	return vm->unhandled_fault;
+ }
+ 
++/**
++ * panthor_vm_get_fault() - Get the last fault of a VM
++ * @vm: VM to query.
++ * @fault: Returns the last fault, with a zero status if no fault happened.
++ */
++void panthor_vm_get_fault(struct panthor_vm *vm, struct drm_panthor_vm_fault *fault)
++{
++	struct panthor_device *ptdev = vm->ptdev;
++
++	guard(mutex)(&ptdev->mmu->as.slots_lock);
++	*fault = vm->fault;
++}
++
+ /**
+  * panthor_vm_is_unusable() - Check if the VM is still usable
+  * @vm: VM to check.
+@@ -1855,6 +1877,7 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+ 	while (status) {
+ 		u32 as = ffs(status | (status >> 16)) - 1;
+ 		u32 mask = MMU_INT_AS_FAULT(as);
++		struct panthor_vm *vm;
+ 		u64 addr;
+ 		u32 fault_status;
+ 		u32 exception_type;
+@@ -1895,8 +1918,14 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+ 		 */
+ 		gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
+ 
+-		if (ptdev->mmu->as.slots[as].vm)
+-			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
++		vm = mmu->as.slots[as].vm;
++		if (vm) {
++			vm->unhandled_fault = true;
++			vm->fault = (struct drm_panthor_vm_fault){
++				.status = fault_status,
++				.address = addr,
++			};
++		}
+ 
+ 		/* Disable the MMU to kill jobs on this AS. */
+ 		panthor_mmu_as_disable(ptdev, as);
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+index abc36e7204be..74f9f5d98c94 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.h
++++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+@@ -11,6 +11,7 @@
+ struct drm_exec;
+ struct drm_sched_job;
+ struct drm_memory_stats;
++struct drm_panthor_vm_fault;
+ struct panthor_gem_object;
+ struct panthor_heap_pool;
+ struct panthor_vm;
+@@ -74,6 +75,7 @@ struct panthor_vm *panthor_vm_pool_get_vm(struct panthor_vm_pool *pool, u32 hand
+ 
+ bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm);
+ bool panthor_vm_is_unusable(struct panthor_vm *vm);
++void panthor_vm_get_fault(struct panthor_vm *vm, struct drm_panthor_vm_fault *fault);
+ 
+ /*
+  * PANTHOR_VM_KERNEL_AUTO_VA: Use this magic address when you want the GEM
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index a2ff0f4ec691..85e197d7a528 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -743,6 +743,20 @@ enum drm_panthor_vm_state {
+ 	DRM_PANTHOR_VM_STATE_UNUSABLE,
+ };
+ 
++/**
++ * struct drm_panthor_vm_fault - Fault information of a VM.
++ */
++struct drm_panthor_vm_fault {
++	/** @status: Raw AS_FAULTSTATUS value, zero if no fault happened. */
++	__u32 status;
++
++	/** @pad: Will be zero on return. */
++	__u32 pad;
++
++	/** @address: Raw AS_FAULTADDRESS value, valid if @status is non-zero. */
++	__u64 address;
++};
++
+ /**
+  * struct drm_panthor_vm_get_state - Get VM state.
+  */
+@@ -756,6 +770,14 @@ struct drm_panthor_vm_get_state {
+ 	 * Must be one of the enum drm_panthor_vm_state values.
+ 	 */
+ 	__u32 state;
++
++	/**
++	 * @fault: Last fault on this VM.
++	 *
++	 * A new fault overwrites the previous one. It is not cleared when the
++	 * VM is re-activated or after a GPU reset.
++	 */
++	struct drm_panthor_vm_fault fault;
+ };
+ 
+ /**
 
-	ret =3D mipi_dsi_dcs_set_display_on(dsi);
-	if (ret < 0) {
-		ctx->accum_err =3D ret;
-		dev_err(dev, "sending DCS SET_DISPLAY_ON failed: %d\n",
-			ctx->accum_err);
-	}
+-- 
+2.56.0
 
-Keeping the caller's dev_err() here in boe_panel_prepare() (as well as in
-boe_panel_enable(), innolux_panel_prepare(), khadas_ts050_panel_prepare(),
-kingdisplay_panel_prepare(), ltk500hd1829_prepare(), panel_nv3051d_prepare(=
-),
-nt35510_prepare(), rad_panel_enable(), and sharp_panel_prepare()) will print
-duplicate error messages when setting the display on fails. Declaring
-dsi_ctx in the middle of the function after executable statements also
-introduces mixed declarations across 12 of the modified drivers (including
-dsicm_power_on(), rm68200_prepare(), and s6e63j0x03_enable()).
-
-Should the full DSI command sequences in these functions be converted to use
-a single mipi_dsi_multi_context declared at the top of each function with t=
-he
-redundant dev_err() calls removed?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c b/drivers/=
-gpu/drm/panel/panel-feixin-k101-im2ba02.c
-> index 8c3a231c147d5..baa64b7aeb0bd 100644
-> --- a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-> +++ b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-> @@ -344,12 +344,15 @@ static int k101_im2ba02_enable(struct drm_panel *pa=
-nel)
->  {
->  	struct k101_im2ba02 *ctx =3D panel_to_k101_im2ba02(panel);
->  	const struct k101_im2ba02_init_cmd *cmd =3D &timed_cmds[1];
-> +	struct mipi_dsi_multi_context dsi_ctx =3D {
-> +		.dsi =3D ctx->dsi,
-> +	};
->  	int ret;
-> =20
->  	msleep(150);
-> =20
-> -	ret =3D mipi_dsi_dcs_set_display_on(ctx->dsi);
-> -	if (ret < 0)
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	if (dsi_ctx.accum_err)
->  		return ret;
-
-[Severity: High]
-In k101_im2ba02_enable(), doesn't this return the uninitialized local
-variable ret when mipi_dsi_dcs_set_display_on_multi() fails and sets
-dsi_ctx.accum_err?
-
-Since ret is never initialized or assigned, returning ret on error triggers
-an uninitialized variable warning and can return a non-negative garbage val=
-ue
-to drm_panel_enable(), causing it to treat a failed panel enable as
-successful while skipping the final mipi_dsi_dcs_write_buffer() command.
-
-Should ret be removed and dsi_ctx.accum_err returned directly instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104073813.4242=
-9-1-amittibi123@gmail.com?part=3D1
