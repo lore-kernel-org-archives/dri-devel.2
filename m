@@ -2,43 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E94606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:56:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7C4606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 03:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dE1Fkd1b
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwPPyuZu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBE8D10F97D;
-	Wed,  4 Nov 2026 02:56:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3C510F97D
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:56:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0753D10E08C;
+	Wed,  4 Nov 2026 03:04:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7832310E08C
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 03:04:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A0E440672;
- Wed,  4 Nov 2026 02:56:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFEE1F000C1;
- Wed,  4 Nov 2026 02:56:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9EB67601F6;
+ Wed,  4 Nov 2026 03:04:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308721F000C1;
+ Wed,  4 Nov 2026 03:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793760976;
- bh=IYtoB6g6XmX0Tiw5T5gjrs462UduyJvVBxRyDLPBJuI=;
+ s=k20260515; t=1793761483;
+ bh=fjiiK/BOh7q9k2Eggj/AwlqL00YcEd3G4AkottMfax4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dE1Fkd1bVFk/dJqCIRZBr5+tdglSM2424wSsp0gXDp5fC+J+f2lkareoVaEtncnvt
- 4wuwdsp1twzQ0vMtQw7np6f1mSSHl2/P2GvgTy8dru0rmaEaWvOmJP7ytSUjYEQq8g
- 6/Thq723xNiMBlCZ1mzDKldEzTcBnfatt6jWTBL2L4kWZ662hoCDJfeyNHPfTOxArG
- ySM9QkkejT6ngp6eQPcu8lgrzOFjWr6wVGZ7tVV6XmSCCQ7duGI+w1IoD4IHi4nY6K
- F33RQI9CLT3lBdnKrQsNA2CHj6tCa12DN/JjFdmiqwKQTeZF/n454e8NrFC27t0Yr8
- QvjgDiNDsawWw==
-Message-ID: <sashiko-outbox-196548@kernel.org>
+ b=GwPPyuZubJpaQ2WqQDMpuZDi8675P1OqTwtnyd6J7t3Q4ItWAhu6XqOou1/f43JBo
+ VbPOqFuwL2AjxDHHfSQLOkS3WVbr/mSiWh/bRG5kNS9tdgavo/AxPiY66fVX0rGz+c
+ 08InzPiJgV55l7NyUmaVojLlclC5LBZeGxl/e+dsEvVZOYuiHryD/NrJIOd6T38x7T
+ qVigSkKsU69du+mXAHdMsaJ24q93tGrheChDI6pzAlXswGC754G23zSfJ6A+47wd7C
+ UXl2cHAY3UVYJJO7sOBRQrJEjpmpf7APp3ZFo4/Djg0RNECluBk5EKu623yYLKqy/S
+ pjfG9s6cM+yLw==
+Message-ID: <sashiko-outbox-196578@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] fbdev: simplefb: Add mono framebuffer format
-To: "Sebastian Raase" <linux@sraa.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
-References: <cover.1793758480.git.linux@sraa.de>
- <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
+Subject: Re: [PATCH] drm/amdgpu/jpeg: unwind the rings when sw init fails
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261104025338.1527322-1-vulab@iscas.ac.cn>
+References: <20261104025338.1527322-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 02:56:15 +0000
+Date: Wed, 04 Nov 2026 03:04:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,160 +51,79 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] fbdev: simplefb: adding DRM_FORMAT_R1 to SIMPLEFB_FORMATS breaks s=
-impledrm
-- [Medium] fbdev: simplefb: mono bit order in cfb helpers mismatches DRM_FO=
-RMAT_R1
+- [Low] drm/amdgpu/jpeg: inaccurate commit message claim about other JPEG s=
+w_init()
 --
 
-commit 89b64a8b00831d236b9621c5f7f6d3729ed70512
-Author: Sebastian Raase <linux@sraa.de>
+commit 286291864ed14a6432cfeee63e75b0d8982f6065
+Author: Wentao Liang <vulab@iscas.ac.cn>
 
-fbdev: simplefb: Add mono framebuffer format
+drm/amdgpu/jpeg: unwind the rings when sw init fails
 
-This commit adds a 1 bit-per-pixel monochrome ("mono") format entry mapped
-to DRM_FORMAT_R1 in SIMPLEFB_FORMATS and configures simplefb to use the
-FB_VISUAL_MONO10 visual when probing 1-bpp framebuffers.
+This commit updates jpeg_v4_0_5_sw_init() to unwind initialized JPEG
+resources via amdgpu_jpeg_suspend() and amdgpu_jpeg_sw_fini() when
+amdgpu_jpeg_reg_dump_init() or amdgpu_jpeg_sysfs_reset_mask_init() fails.
 
-> diff --git a/drivers/video/fbdev/simplefb.c b/drivers/video/fbdev/simplef=
-b.c
-> index 60e5dcec201ff..4662101885ec5 100644
-> --- a/drivers/video/fbdev/simplefb.c
-> +++ b/drivers/video/fbdev/simplefb.c
-> @@ -583,6 +583,8 @@ static int simplefb_probe(struct platform_device *pde=
-v)
->  	info->fix.smem_start =3D mem->start;
->  	info->fix.smem_len =3D resource_size(mem);
->  	info->fix.line_length =3D params.stride;
-> +	if (params.format->bits_per_pixel =3D=3D 1)
-> +		info->fix.visual =3D FB_VISUAL_MONO10;
+>     drm/amdgpu/jpeg: unwind the rings when sw init fails
+>    =20
+>     jpeg_v4_0_5_sw_init() returns directly when
+>     amdgpu_jpeg_reg_dump_init() or amdgpu_jpeg_sysfs_reset_mask_init()
+>     fails, after all JPEG rings have been initialized successfully.
+>     amdgpu_ring_init() allocated the ring buffers, writeback slots and the
+>     vmid fences, and only amdgpu_ring_fini(), called through
+>     amdgpu_jpeg_sw_fini(), releases them. Because the IP block's status.s=
+w is
+>     only set after sw_init() succeeds, the upper layers skip sw_fini() for
+>     this block and the resources are leaked.
+>    =20
+>     Unwind with amdgpu_jpeg_sw_fini(), as the other JPEG implementations =
+do.
+>    =20
+>     Fixes: 2b0ccf3923b5 ("drm/amdgpu: Enable devcoredump for JPEG4_0_5")
+>     Cc: stable@vger.kernel.org
+>     Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+>     Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-[Severity: Medium]
-Does the bit ordering used by the cfb drawing helpers match DRM_FORMAT_R1 on
-little-endian systems?
+[Severity: Low]
+This isn't a bug in the code, but is the statement that the other JPEG
+implementations unwind with amdgpu_jpeg_sw_fini() accurate?
 
-In include/uapi/drm/drm_fourcc.h, DRM_FORMAT_R1 is defined with MSB-first
-pixel ordering ([7:0] R0:R1:R2:R3:R4:R5:R6:R7, where the leftmost pixel R0 =
-is
-in bit 7).
+Looking at the other JPEG IP block implementations in
+drivers/gpu/drm/amd/amdgpu/ (jpeg_v1_0.c, jpeg_v2_0.c, jpeg_v2_5.c,
+jpeg_v3_0.c, jpeg_v4_0.c, jpeg_v4_0_3.c, jpeg_v5_0_0.c, jpeg_v5_0_1.c,
+jpeg_v5_0_2.c, and jpeg_v5_3_0.c), none of their sw_init callbacks call
+amdgpu_jpeg_sw_fini() or amdgpu_jpeg_suspend() on error. For example, in
+drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c, jpeg_v4_0_sw_init() returns r
+directly when amdgpu_jpeg_reg_dump_init() or
+amdgpu_jpeg_sysfs_reset_mask_init() fails:
 
-However, in drivers/video/fbdev/core/fb_draw.h, fb_reverse_init() and the
-cfb drawing helpers (cfb_imageblit(), cfb_fillrect(), cfb_copyarea()) place
-pixel 0 in the LSB on little-endian architectures and in the MSB on
-big-endian architectures unless CONFIG_FB_CFB_REV_PIXELS_IN_BYTE is enabled
-and FB_NONSTD_REV_PIX_IN_B is set in info->var.nonstd:
+	r =3D amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0, ARRAY_SIZE(jpeg_r=
+eg_list_4_0));
+	if (r)
+		return r;
 
-drivers/video/fbdev/core/fb_draw.h:fb_reverse_init() {
-	struct fb_reverse reverse;
-#ifdef __LITTLE_ENDIAN
-	reverse.byte =3D fb_be_math(info) !=3D 0;
-#else
-	reverse.byte =3D fb_be_math(info) =3D=3D 0;
-#endif
-#ifdef FB_REV_PIXELS_IN_BYTE
-	reverse.pixel =3D info->var.bits_per_pixel < BITS_PER_BYTE
-		&& (info->var.nonstd & FB_NONSTD_REV_PIX_IN_B);
-#else
-	reverse.pixel =3D false;
-#endif
-	return reverse;
-}
+	adev->jpeg.supported_reset =3D
+		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+	if (!amdgpu_sriov_vf(adev))
+		adev->jpeg.supported_reset |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
+	r =3D amdgpu_jpeg_sysfs_reset_mask_init(adev);
 
-Since simplefb leaves info->var.nonstd at 0 and does not select
-FB_CFB_REV_PIXELS_IN_BYTE, won't the 8 horizontal pixels within each byte be
-bit-reversed relative to DRM_FORMAT_R1 (and relative to big-endian simplefb)
-on little-endian machines?
+	return r;
 
-> =20
->  	info->var =3D simplefb_var;
->  	info->var.xres =3D params.width;
-> diff --git a/include/linux/platform_data/simplefb.h b/include/linux/platf=
-orm_data/simplefb.h
-> index 4f94d52ac99fc..9b6d822145c9e 100644
-> --- a/include/linux/platform_data/simplefb.h
-> +++ b/include/linux/platform_data/simplefb.h
-> @@ -15,6 +15,7 @@
->  /* format array, use it to initialize a "struct simplefb_format" array */
->  #define SIMPLEFB_FORMATS \
->  { \
-> +	{ "mono", 1, {0, 1}, {0, 1}, {0, 1}, {0, 0}, DRM_FORMAT_R1 }, \
-
-[Severity: High]
-Can adding "mono" with DRM_FORMAT_R1 to SIMPLEFB_FORMATS break display outp=
-ut
-when simpledrm is enabled?
-
-SIMPLEFB_FORMATS is shared with drivers/gpu/drm/sysfb/simpledrm.c, where
-simplefb_get_validated_format() matches fmt->name and looks up fmt->fourcc:
-
-drivers/gpu/drm/sysfb/simpledrm.c:simplefb_get_validated_format() {
-	...
-		if (!strcmp(format_name, fmt->name)) {
-			info =3D drm_format_info(fmt->fourcc);
-			if (!info)
-				return ERR_PTR(-EINVAL);
-			return info;
-		}
-	...
-}
-
-With this entry added, simpledrm binds to "mono" simple-framebuffer devices,
-acquires the aperture (evicting or blocking simplefb), and registers a
-primary plane advertising DRM_FORMAT_R1 and emulated DRM_FORMAT_XRGB8888.
-
-When in-kernel clients (such as fbdev emulation via drm_client_setup() ->
-drm_fbdev_client_setup()) or userspace compositors commit an XRGB8888
-framebuffer, drm_sysfb_plane_helper_begin_fb_access() calls
-drm_sysfb_get_blit_func(DRM_FORMAT_R1, DRM_FORMAT_XRGB8888):
-
-drivers/gpu/drm/sysfb/drm_sysfb_modeset.c:drm_sysfb_get_blit_func() {
-	if (src_format =3D=3D dst_format) {
-		return drm_sysfb_memcpy;
-	} else if (src_format =3D=3D DRM_FORMAT_XRGB8888) {
-		switch (dst_format) {
-		case DRM_FORMAT_RGB565:
-			return drm_fb_xrgb8888_to_rgb565;
-		...
-		}
-	}
-	return NULL;
-}
-
-Because drm_sysfb_get_blit_func() has no conversion helper for DRM_FORMAT_R=
-1,
-it returns NULL, triggering a warning and failing every XRGB8888 atomic
-commit with -EINVAL.
-
-Additionally, if a userspace client commits a native DRM_FORMAT_R1
-framebuffer with a non-zero horizontal damage clip offset (clip->x1 > 0),
-drm_sysfb_memcpy() calls drm_fb_memcpy():
-
-drivers/gpu/drm/drm_format_helper.c:drm_fb_memcpy() {
-	...
-		unsigned int bpp_i =3D drm_format_info_bpp(format, i);
-		unsigned int cpp_i =3D DIV_ROUND_UP(bpp_i, 8);
-		size_t len_i =3D DIV_ROUND_UP(drm_rect_width(clip) * bpp_i, 8);
-
-		src_i +=3D clip_offset(clip, src->pitches[i], cpp_i);
-	...
-}
-
-For 1-bpp DRM_FORMAT_R1, cpp_i evaluates to 1 byte per pixel, so clip_offse=
-t()
-advances src_i by clip->x1 bytes instead of bits (8 times the horizontal
-byte offset) while drm_sysfb_plane_helper_atomic_update() offsets dst using
-dst_format->cpp[0] =3D=3D 0. Won't that read past the end of the source buf=
-fer on
-partial horizontal updates?
+Also, since the direct error return on amdgpu_jpeg_sysfs_reset_mask_init()
+in jpeg_v4_0_5_sw_init() in drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c was
+introduced earlier in commit 96f0b56c34d2 ("drm/amdgpu: add sysfs
+interfaces for jpeg reset mask"), should that commit be included in the
+Fixes tags as well?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793758480.gi=
-t.linux@sraa.de?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104025338.1527=
+322-1-vulab@iscas.ac.cn?part=3D1
