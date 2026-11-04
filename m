@@ -2,60 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83566077B7F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD6660D9E82
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tngz3kAr
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wdi/cBrV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28BA910FEA2;
-	Wed,  4 Nov 2026 19:52:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961FD10FE9F
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 854A810FEA3;
+	Wed,  4 Nov 2026 19:52:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC9610FE9F
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 14DD760DD5;
- Wed,  4 Nov 2026 19:52:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153AC1F000C1;
- Wed,  4 Nov 2026 19:52:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E4D5A408A2;
+ Wed,  4 Nov 2026 19:52:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742AB1F00A17;
+ Wed,  4 Nov 2026 19:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821949;
- bh=L07m2wog8AXR293hC7wTAXwEB108EvydUujWlLJOS7k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Tngz3kArIJr/FCTQecjk4Shv6JJTM59ST2VF34ZadkpeYJ07PybUi07DSlO5i+Lcc
- BR3xuLP685IVZSVeTudkEydtaHvNT27bijsHdB/DfS5Op1gyYMOzm/YIwALKmnGEEd
- pnaWfctGLzgd/kpEHK1zF1zzbJO/XvUGti+HfhqM7r3HJeHonwfpn2a+Z+2CKBMObQ
- Pw82Y1W0REeHcm1tHA4k+WLMNBeS+eYtyl8WFgweX/UB5AfA6xoO2ECFibwrwsSAEY
- UNVm8tllZewsPCCMrK9apq0WrX7YsjkklLlsnx8gLtWN3piM8BYXfNireITBbtAyGY
- uClTjhZd5Mc7Q==
-Date: Wed, 4 Nov 2026 21:52:25 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v12 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261104195225.GI478286@unreal>
-References: <20261104084328.GP264423@unreal>
- <20261104171412.GA1247928@bhelgaas>
+ s=k20260515; t=1793821955;
+ bh=yr3akMspnIWFpqWJkjrAgv6glOgJhJX8fSAifemHFwA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Wdi/cBrV+aPpgWRwzXpiA+ib3De0K0pQhXbyKJhu1iexPEaDfaOTHNqiiiqzPXo1n
+ sHBvBkYLvUp265kZxirmL7Ost0iN+Glcw1jB+xXLZfNzc7jQ/+vNrfyJuIub3D24aH
+ FJeeaeTI1JKYgVteizb9BzRe2OXphrQw0/Z3qIHs6/g1diX9mzri9ugVAFK0faPBni
+ 4fNDrMwo9L4EM/Oii/TzK2gV2q/Po1jRRBmUKKs+oPw3OgQB1bIjbd27ca1yrbdHfk
+ Mgqqa9yGsWvWaLe2ghGBqK/zKktWtu1oUQAE7grmxfWRAs9G65+CGMdjqpjfo1wZXs
+ QP7jFCWB/AzOQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>,
+ Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 11/30] latencytop: let procfs copy in writes to
+ /proc/latency_stats
+Date: Wed,  4 Nov 2026 20:52:21 +0100
+Message-ID: <20261104-work-procfs-fs-v2-11-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104171412.GA1247928@bhelgaas>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=9/PXHkkWFBWwJpiw0GjnsftfBxXIsWStv0RQuWJfsao=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97rHYoefdeeu3Wu6hdxnVaz7v/WWclHzHXeCSxcHZu
+ dEaxyrZOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZiz8Xwz0LT9mYft9DOxTmH
+ s3zMX0Q82m1+d9ocNc7ZMcs3fnzYeY2R4XCAwMyUHolzwR/2ZJ/ocma7der9hQWXfd9w6kXPqxW
+ I5gUA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,82 +90,48 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 04, 2026 at 11:14:12AM -0600, Bjorn Helgaas wrote:
-> On Wed, Nov 04, 2026 at 10:43:28AM +0200, Leon Romanovsky wrote:
-> > On Tue, Nov 03, 2026 at 05:37:42PM -0600, Bjorn Helgaas wrote:
-> > > On Tue, Nov 03, 2026 at 10:29:39AM +0200, Leon Romanovsky wrote:
-> > > > PCI P2PDMA applies Request and Completion Redirect throughout
-> > > > both paths.  This misclassifies asymmetric and nested switches,
-> > > > and reports one answer for every kind of TLP.
-> > > > 
-> > > > Three ACS controls act on TLP attributes the Requester chooses
-> > > > rather than on the topology: Translation Blocking and Direct
-> > > > Translated P2P act on a Request's Address Type, and Completion
-> > > > Redirect skips Completions carrying Relaxed Ordering.
-> > > > 
-> > > > Evaluate each direction at the path divergence, decide every
-> > > > class from the one walk, and treat a client with ATS enabled as
-> > > > translating unless its driver declares per-mapping ATS.
-> > > > 
-> > > > This completes the P2PDMA side; dma-buf and mlx5 follow
-> > > > separately.
-> > > 
-> > > Is there a one- or two-sentence explainer of why we want this?
-> > > I'm thinking in terms of what Linus will want in the merge
-> > > request: a fix for something that's broken or some new
-> > > functionality.  It sounds like this is solving a problem, but I
-> > > don't know enough to translate the nitty-gritty details to the
-> > > higher-level user-visible problem or feature.
-> > 
-> > Not AI; these are my own words with grammar fixes from AI:
-> > 
-> > "The existing implementation of PCI peer-to-peer assumed that all
-> > PCI TLPs were the same: ordered and carrying untranslated addresses.
-> > It did not account for the variety of traffic types defined by the
-> > PCI specification. As a result, only simple systems supported
-> > peer-to-peer transfers in the upstream kernel; real-world systems
-> > required out-of-tree patches and careful platform design.
-> 
-> Can we be any more specific?  E.g., what makes real-world systems
-> different from simple ones?  What does careful platform design mean?
-> Something about ordering beyond what PCIe requires?
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry. The write only clears the statistics and doesn't look
+at what was written anyway. Writes larger than PAGE_SIZE - 1 bytes fail
+with -EINVAL now.
 
-I needed this series for GB300. I never asked to see for out-of-tree patches
-to enable P2P on that system, but P2P did not work with the upstream kernel
-without this series. In complex systems, the routing path between two
-devices can include multiple PCI bridges with ACS settings. In simple
-case, ACS will be 0 and not used.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ kernel/latencytop.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Careful design ensures that P2P devices share common host bridge.
+diff --git a/kernel/latencytop.c b/kernel/latencytop.c
+index b764f47606d3..35f73ca07656 100644
+--- a/kernel/latencytop.c
++++ b/kernel/latencytop.c
+@@ -267,8 +267,7 @@ static int lstats_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t
+-lstats_write(struct file *file, const char __user *buf, size_t count,
+-	     loff_t *offs)
++lstats_write(struct file *file, char *buf, size_t count, loff_t *offs)
+ {
+ 	clear_global_latency_tracing();
+ 
+@@ -277,7 +276,7 @@ lstats_write(struct file *file, const char __user *buf, size_t count,
+ 
+ static const struct proc_ops lstats_proc_ops = {
+ 	.proc_show	= lstats_show,
+-	.proc_write	= lstats_write,
++	.proc_write_buf	= lstats_write,
+ };
+ 
+ static int __init init_lstats_procfs(void)
 
-> 
-> ACS P2P Completion Redirect affects Relaxed Ordering (RO) Completions.
-> Translation Blocking and Direct Translated P2P affect Requests with
-> Translated addresses.
-> 
-> So I assume the existing P2P implementation breaks somehow when RO or
-> Translated addresses are used?  How does it break?
+-- 
+2.53.0
 
-Jason tried to document it in the comment above mlx5_umem_needs_ats().
-
-Thanks
-
-> 
-> > The new code will allow peer-to-peer transfers between any two
-> > devices, for all types of PCI traffic, as long as the PCI path
-> > between them supports peer-to-peer.
-> > 
-> > This paves the way for PCI peer-to-peer support in VMs, which the
-> > upstream kernel does not currently support."
-> > 
-> > BTW:
-> > 1. The patch "PCI/P2PDMA: Document the TLP attribute assumptions"
-> >    attempts to explain the current situation.
-> > 2. The change is too large to present as a fix.
