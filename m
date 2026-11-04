@@ -2,39 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FE7606A32E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3B606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JGQFhDwj
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kpW9EzxD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8255210E687;
-	Wed,  4 Nov 2026 17:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1416810E7C3;
+	Wed,  4 Nov 2026 17:07:57 +0000 (UTC)
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0BDA10E687
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:07:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94A0710E7C3
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:07:50 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 4C1284E41408;
- Wed,  4 Nov 2026 17:07:40 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 54F1E4E4140B;
+ Wed,  4 Nov 2026 17:07:49 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0211660770;
- Wed,  4 Nov 2026 17:07:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 1EBE760772;
+ Wed,  4 Nov 2026 17:07:49 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4795710329205; Wed,  4 Nov 2026 18:06:59 +0100 (CET)
+ with ESMTPSA id 82B7610329251; Wed,  4 Nov 2026 18:07:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793812049; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1793812059; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=Gj2WQ8NnsNfuifm6yJXA5XyiBIk7IIIT4t++b10Mocw=;
- b=JGQFhDwjX+meJ/Dn2svPu460X/fvDR01Kpw5BjfX1u4YZ6q/TSyCWUPldBFWEw2j6Ni9Wo
- h7t/EdaV6hZ0xJGZFWiX6zhkRGzz4Bf5thJJwe5K5j5GpELm1isD864rPIV0SsRMYirrY7
- wfGAtbiVg9rlKnJECQoRSAb+dmnDlJCjswWd4zp1eeH7JIzcqnFMt3eHRmGDuYUWBb8M3z
- nGWl0ZxlTisiHe1hPwo8CPN09w2/F4EpbNABdIQMs67NZt3I7WUFWwbF9QVlF6evZScO3v
- KQE6YRw2u7wAMpH0cGiUEbP0/jhZnjRTbxFLqwKmU5fmGfTKutWBhE5EQfYLfw==
+ bh=XGTKa+A0EJ4L1pLNTThftimEUnixWjJ49siVoGkapLY=;
+ b=kpW9EzxDmdwtKwJxISj/gutIXqyN7MmDRignbWZN1ektWTrrUIPrzso7gUlAIzRlYfmlqW
+ wBKlXNUQhCfopQRniPYcBz+T3i6olaSdwJWoGYq/d1bCvLPhFP25igvjueEGcFOAbK2C+g
+ lOlAG7F4VENL7Shxg3rR1VCK0QcwJEj51ZVM4g87fG/ThwFB2lU6YrCm+VpFntbpEluzhB
+ BIvWkeRvI9t8CN65COyeHnV708XPaCXT8itYVl+McadgV2i2dutDVKHVPTlYkR75obUlkZ
+ aOVlJuGAspv0NyRdMHKWaxq4ALVvic2JukDp9T7B6la1y8qyGG6ZYjuBUnDOVA==
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:06:58 +0100
-Message-Id: <DMMLAH2PBZHV.EUBGX45HPWQ6@bootlin.com>
+Date: Wed, 04 Nov 2026 18:07:11 +0100
+Message-Id: <DMMLAMPXDLC2.3SN65B5N7R4M5@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 02/35] drm/panel: remove the unused struct panel_bridge
 Cc: "Douglas Anderson" <dianders@chromium.org>, "Neil Armstrong"
  <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
  "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
@@ -97,15 +101,11 @@ Cc: "Douglas Anderson" <dianders@chromium.org>, "Neil Armstrong"
  <linux-doc@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
  <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>,
  <linux-tegra@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 01/35] drm/panel: remove the get_timings() callback
 X-Mailer: aerc 0.22.0
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-1-5e3070a3478f@oss.qualcomm.com>
- <179338130509.3009485.3123201175903177487.b4-review@b4>
-In-Reply-To: <179338130509.3009485.3123201175903177487.b4-review@b4>
+ <20261026-drm-panel-funcs-v1-2-5e3070a3478f@oss.qualcomm.com>
+ <179338130510.3009485.7743956655769667889.b4-review@b4>
+In-Reply-To: <179338130510.3009485.7743956655769667889.b4-review@b4>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,11 +126,10 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Fri Oct 30, 2026 at 6:28 PM CET, Luca Ceresoli wrote:
->> Nothing has ever called get_timings() since it was introduced in commit
->> 2938931f3732 ("drm/panel: Add display timing support"). Remove it
->> together with its three implementations.
->
-> Ah, interesting!
+> On Mon, 26 Oct 2026 13:09:51 +0200, Dmitry Baryshkov <dmitry.baryshkov@os=
+s.qualcomm.com> wrote:
+>> The bridge is embedded into struct drm_panel now, nothing uses the
+>> separate wrapper struct any more.
 >
 > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
