@@ -2,67 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9820606D836
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69F06081764
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:14:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=W4XoIwFe
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ABvYDXGp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C43710E278;
-	Wed,  4 Nov 2026 20:13:25 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91BE910E278
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 20:13:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793823198;
- bh=VkmYakpqpnhkFxx0QURjLD3tnwFfJeC8t9xnwmwTycw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=W4XoIwFepNaamhG5xYF0/u5N0OJgK0G+K/mAqwutqLaqz31z66kfhH5OujEswMwHh
- ynluuDIORHxCS86AXtgBwaoGfEoggXDdSwCt8G8Tr7lfUYhHgAnzEuBu31HCU5fkYe
- kW5ci2WohN3UZc4c2y2+ZRrKj0aynczuqEk0vkQ7Ugpbi0rWVVgt4xvy7zS9RwO9RX
- Aj0eQi5qzyZMvkyeX85Kdfq1QIEf/ISVrQl3fScd9/Uru7pighLN8AFdDqBqTgYdQY
- FydSS+GSvof9VqvZ6LHhGiyTPMXxpK6ABv2+87tWJek9PMzDOrXOKELMrm5aRBihSM
- GtTIquTMYWyew==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 169C017E0564;
- Wed, 04 Nov 2026 21:13:17 +0100 (CET)
-Message-ID: <cd6321bf-9737-4949-9906-c0206e54bab6@collabora.com>
-Date: Wed, 4 Nov 2026 22:13:16 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC0010FED8;
+	Wed,  4 Nov 2026 20:14:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2967C10E51D;
+ Wed,  4 Nov 2026 20:14:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793823241; x=1825359241;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dHWxAdJ+M2tVCOZu1K8Tp4yUNPgLaSZabScl/nlP+fU=;
+ b=ABvYDXGpIqU4bnPBxssmfl5y1EsHe8YJ5tjEKpEBj6VTp/oI3+C6h3QC
+ H5Wn3ZnY6qBcmP2QytQzU0zQ6XjUL4za8EsiAqVtVh+sqqAPVcdbyCxCh
+ vDU/zV8EQ+HiAGKBuACrSOpNaHQsY3aDr+Mf/zhNsAahlU64shMLbmOM5
+ EfjDubkY0Y1FtdULc2pv8xQJIhKZRQYE/FVCr3c2Z5mpi3Xvh0y1XUfrk
+ 239Yx4RLfQVvrtkxFbsNTeAmRnE9zrXZK4ns8+/l5658v/0aNt20ZXfs3
+ 2beQb6+/41Dfo/x66InzYMnnaHKZ8iyaV8RgNEIlqI8q/di9zbOuYArW0 g==;
+X-CSE-ConnectionGUID: kzYE5iefSyqB0Oiux0Gddw==
+X-CSE-MsgGUID: NnrdGaOkQCGAZ38wUs+hPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2589044"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2589044"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 12:14:00 -0800
+X-CSE-ConnectionGUID: u63GZ+EbSuyDI7hOz0738g==
+X-CSE-MsgGUID: XGe2hIpzRauNXFR7xgvTjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6868444"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.20])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 12:13:58 -0800
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <nat@pixelcluster.dev>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/4] drm/ttm, drm/xe: Support partially backed-up ttm_tts
+Date: Wed,  4 Nov 2026 21:13:27 +0100
+Message-ID: <20261104201331.2462-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/15] drm/rockchip: vop2: Send pending event when
- atomic_enable() fails
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-4-6fab0fe43a9b@collabora.com>
- <CAPj87rN1rzjDMPvVJytwmvHGipCCuYOyX3abTRqYp4Vq5PyrYQ@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAPj87rN1rzjDMPvVJytwmvHGipCCuYOyX3abTRqYp4Vq5PyrYQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,56 +69,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Daniel,
+The TTM shrinker backs up a ttm_tt page by page, and can stop part way
+through, for example on an allocation failure. A failed restore can
+likewise leave some pages resident and some backed up. The ttm_tt has no
+way to represent such a partially backed-up state, so its status and the
+driver's shrinker accounting can become inconsistent.
 
-Thanks for reviewing the series!
+This series introduces TTM_TT_FLAG_PARTIAL, which allows a tt to be
+partially backed up, keeping track of the pages that were already backed
+up and the pages that are still resident. Xe shrinker accounting is
+converted to track the number of remaining resident pages so that
+partial tts are accounted correctly.
 
-On 10/30/26 1:21 PM, Daniel Stone wrote:
-> Hi Cristian,
-> 
-> On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-> <cristian.ciocaltea@collabora.com> wrote:
->> vop2_crtc_atomic_flush() stashes the CRTC completion event in vp->event
->> and relies on the frame start interrupt (VP_INT_FS_FIELD) to deliver it
->> later via drm_crtc_send_vblank_event().  Since atomic_enable() runs
->> before atomic_flush(), bailing on an error path makes it skip
->> drm_crtc_vblank_on() and leave the video port disabled.  atomic_flush()
->> still traps the event in vp->event, but since the port never scans out,
->> the frame start interrupt does not fire and the event is not delivered.
->> Userspace waiting for the flip completion then blocks indefinitely.
->>
->> Note the event cannot be flushed from atomic_disable(), as userspace
->> waits for the completion before committing the next state, so the
->> disable does not arrive and draining it there would deadlock.
->>
->> Use the newly added vp->enabled flag to detect this in atomic_flush()
->> and send the event immediately when the port did not come up, rather
->> than deferring it to an interrupt that will never occur.  This also
->> avoids the spurious drm_crtc_vblank_get() WARN previously hit on the
->> failed enable path, where the vblank is not on.
-> 
-> I really don't know how I feel about this one.
-> 
-> atomic_enable() is not supposed to fail at all, hence returning void.
-> (Obviously, there are scenarios where it will fail, which Sashiko
-> keeps 'helpfully' pointing out ...)
-> 
-> I don't like how this just papers over the issue. It turns an eventual
-> WARN on vblank timeout - which surfaces the issue - into a silent
-> false-success. Userspace just sees commit completion requests arrive
-> as soon as it's posted the commit, so it keeps on going on and
-> everyone's happy. Having the flips time out is a messy splat of WARNs,
-> but at least that messy splat points at the exact issues, rather than
-> the screen just going black and userspace blithely trying to continue
-> on.
+Patch 1 stops marking backed-up shmem folios accessed.
+Patch 2 is a pure refactor of the Xe shrinker account helpers.
+Patch 3 introduces TTM_TT_FLAG_PARTIAL and the matching Xe accounting.
+Patch 4 gates reserve-dipping backup retries on may_writeback.
 
-Ack. Let's drop the patch.
+Note that patch 4 may increase the number of partially backed-up
+ttm_tts, since a backup that would need to dip into the kernel reserves
+is now aborted when writeback isn't allowed, keeping the progress made
+so far. This makes the partial tt handling of patch 3 more important.
 
-Cristian
+Testing:
+- W=1 build, checkpatch and kernel-doc are clean.
+- TTM and Xe KUnit tests pass.
+- The partial backup and restore paths are exercised by the
+  shrink-fault-inject* subtests of the xe_bo_shrink IGT test, posted
+  separately, using the TTM backup_fault_inject debugfs attribute. They
+  need CONFIG_FAULT_INJECTION and CONFIG_FAULT_INJECTION_DEBUG_FS. The
+  may_writeback retry in patch 4 is only hit statistically by that test.
+
+IGT test: https://patchwork.freedesktop.org/series/176563/
+
+Test-with: 20261021123315.10033-1-thomas.hellstrom@linux.intel.com
+
+AI tool use: an AI coding assistant was used for review and for
+drafting parts of the implementation and commit messages. The author has
+reviewed and takes responsibility for all of the changes.
+
+Thomas Hellström (4):
+  drm/ttm: Don't mark backed-up shmem folios accessed
+  drm/xe/bo: Pass page and tt counts to the shrinker account helpers
+  drm/ttm, drm/xe: Introduce TTM_TT_FLAG_PARTIAL for partially backed-up
+    tts
+  drm/ttm, drm/xe: Gate reserve-dipping backup retries on may_writeback
+
+ drivers/gpu/drm/ttm/ttm_backup.c        |   1 -
+ drivers/gpu/drm/ttm/ttm_bo.c            |   5 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c       |   9 +-
+ drivers/gpu/drm/ttm/ttm_pool.c          | 175 +++++++++++++++++++++---
+ drivers/gpu/drm/ttm/ttm_pool_internal.h |   2 +
+ drivers/gpu/drm/ttm/ttm_tt.c            |  36 ++++-
+ drivers/gpu/drm/xe/tests/xe_bo.c        |   6 +-
+ drivers/gpu/drm/xe/xe_bo.c              | 110 ++++++++++-----
+ drivers/gpu/drm/xe/xe_bo.h              |   9 +-
+ drivers/gpu/drm/xe/xe_shrinker.c        |  39 +++++-
+ include/drm/ttm/ttm_bo.h                |   9 +-
+ include/drm/ttm/ttm_tt.h                |  58 ++++++--
+ 12 files changed, 371 insertions(+), 88 deletions(-)
+
+-- 
+2.56.0
+
