@@ -2,87 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C495F606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:58:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE5A606A339
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bODmJkOZ
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MHZnCuK3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B07F10F129;
-	Wed,  4 Nov 2026 08:58:54 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF6010F6B0
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 15:53:22 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a59ffacb51so6376635e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 07:53:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793721201; x=1794326001; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
- b=bODmJkOZG3lDFGQUCgje8kJbS2vvb4/N4Ghdr7zTV5NUxM7rn8YMk8GebE+hDMNnA3
- 2xuubS+YPJo4DRnOh0A2X9en/6npi54h8XfJ8jTn7cMTNKNaxjs13FOqTWa7Bfm1JEPE
- 2nzQoFs7VAiqGMRlTzkE1io2kw+tbmkYhLn6uDrpqKAaJdyZuNpJOR70G5D5CP5jxXkf
- ZE8S5VpcHlWZgCrI+LgRNC4o5dg4l48dSVYQpEVsDaGSD9CyBprTtx015aHCt4czqtFm
- Sza+o6ekOV4Npe+Nq4WsqTNj3iIhwwVcRwxxVIhBqyH+6Qsj0X52VK8hS1Y8UKJD2RC3
- /aXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721201; x=1794326001;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
- b=T2sFOt9ai9kfKjiZgsPBaD24mF0SBMGv3qqcLA2t3G5EK9h/Qj1O7+oi9UlJcYePh1
- sNEP0AilCTnil2YIxnR4F4R9DZlpr3p4tcv+T8dNV6/xcwdGSlDDBLsNNqNVohPOEAKx
- zX7fzxGzLYK9+U/px31iIay7BfV9OfntfhQ4APB0bjPKrPBjwUfc5E+dSd9gfSDzH/UR
- C+wcAOC575638Z1Yl5vEIeUk5KGGBcgsrl1VdGFnay99afTlQWVIzkkNNhF65gmW7Wku
- oD04DNX/0CryAPiP0FNoeE1dtkNiJiz0rrFHzlrVZuTU0F7ST2Us+Jts1Lb5t3/nbIMl
- Xoxg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzdUdHGEnv3eqbdZMuiaNkit+u8wpKFycxkKOEjjUSfpIVxXxp3nizyJpK7bMcc6KiSx7ciY17gOrw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/5v+E2xZyfDsu9nuHhyMWkqBhxd0kveIjbAcn0PzHoHQA+ecus
- 2lyfAIzq/k5cTWj8UzHYn+p3oTp22v1Gblimat1M+s+kddGBDjqZX9Vn
-X-Gm-Gg: AYBFou1mlWmnSsgOYvC6Q+vh+Cyi5xI0mPxdUReXmTd8/OFAoxVYrmB/0g8Z2NIEz5N
- LpKe+HRb1lvMcwEoAxa+U4JwP1QKquEn07+gyQtsemZbKJCjm3UN4rnLW5b9RUkLWOOC8pxpSpB
- EolCdvRHcAoqikmM3n5/+6CZw2xHCDqlJbgfnupk5tBmL0PyvMBqZ270vOPNl1x38JioCmK5L8W
- BeA5uHbIc8fwUaVxXJqRgtqA4Ba2rKKvAI2zfm80vm+wl6eLvjVlmYndDL/EAysqVjd24Ayd2U4
- kAKyGH/PSLgC9wSxJ5vT3sDGJ2ZjnlHXRkG70rObOWarKYOH/q4KdfQwo1656ljdJKsRsBOdmj/
- 1XTKmLafXfAMESWQTOY1BRmfasVu2e1B4Muxx/SM26ytlKN1dsHHmvhGfOYYHz14X74M1XH05xD
- BXX/2VbayM6aKe90Vzs0gbXXwWo+U6iiXzE2CdXYXYDcJDPqqT02TnAeypRL6Cwh+zdOkDHgTHF
- dsTutlr3DwN+AIl4wQOCcA5gLO4MtBJoKAYX2lMuTxTXYA3QjP9jvYB4d9GfeQissCZQVZANEUj
- CviaGmSERC7MqBxo0QDFPRYbCHEkHh9B6nYFN1iJS/r6DRVmN63dkAAbrSq1gefAtBKK/gl3
-X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id
- 5b1f17b1804b1-4ac177538c5mr237110155e9.1.1793721200982; 
- Tue, 03 Nov 2026 07:53:20 -0800 (PST)
-Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 07:53:20 -0800 (PST)
-From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-To: Mario Limonciello <superm1@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
- Caspar Adriani <caspar.adriani@proton.me>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Arec Kao <arec.kao@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Subject: [RFC PATCH 0/3] GZ302 rear camera (OMNI13B1, OV13B10) board data
-Date: Tue,  3 Nov 2026 18:53:10 +0300
-Message-ID: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1EF10F145;
+	Wed,  4 Nov 2026 09:00:10 +0000 (UTC)
+Received: from mail-m8191.xmail.ntesmail.com (mail-m8191.xmail.ntesmail.com
+ [156.224.81.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFCDE10E307
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:00:03 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 5376b923e;
+ Wed, 4 Nov 2026 16:59:59 +0800 (GMT+08:00)
+Message-ID: <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
+Date: Wed, 4 Nov 2026 16:59:58 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 04 Nov 2026 08:58:01 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-3-damon.ding@rock-chips.com>
+ <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1a5c95c3e03a8kunm4bbaef2a348d4c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTklPVksZGRpLSxlPSBgYH1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+ 5KVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=MHZnCuK3X0/bHPD1qBFBpPTg5quAPx84ehdDHx+2O7e+ZW0NvxFEq3Qa7uJmJjE/dpQuLUHBLvCCA7Erx3R7UwcpFYvbZelF7bJukJ0Kp7fqAV1l7q9ezBQqrl4ZAThxvSRXaHEinP0DVtJ8ttPK0TCapb15cyIRtY1FZvkdsBk=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=eAdT+8rLd44bxIIAm/zwqM4YbafLLwH/m+nhuD3g5QU=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,114 +71,173 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series is NOT meant to be merged yet. It puts the board data of
-the rear camera of the ASUS ROG Flow Z13 (GZ302EA) into patches, so the
-sensor can be enabled once the ISP firmware supports it. In the v6
-thread of the ISP4 driver [1], Mario noted that OMNI13B1 would need a
-new amdgpu entry and the matching GPIO tables; this is that data, plus
-the board configuration and a small sensor-driver change.
+Hi Krzysztof,
 
-Caspar Adriani already posted an OMNI13B1 amdgpu/amd_isp4 patch in
-his RFC [3] and dropped it after Pratap's reply [2]; credit for the
-first posting goes to him. This series covers the sensor reset GPIO,
-the 24 MHz clock and four lanes in the graph, and an I2C ID table for
-ov13b10, and lists where every value comes from (below).
+On 11/3/2026 7:20 PM, Krzysztof Kozlowski wrote:
+> On Fri, Oct 30, 2026 at 02:49:01PM +0800, Damon Ding wrote:
+>> Document the eDP transmitter PHY with NaNeng IP block found on the
+>> RK3568 SoC.  The PHY has its own register window inside the eDP PHY
+>> GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
+>> a reg property describing that window.  Also add the
+>> "rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
+>> the Rockchip GRF schema.
+>>
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> ---
+>>
+>> Changes in v4:
+>> - Add the reg entry for the PHY node and the ranges/#address-cells/
+>>    #size-cells for the parent syscon node.
+>> ---
+>>   .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
+>>   .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
+>>   2 files changed, 88 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+>> new file mode 100644
+>> index 000000000000..b78da00ffefd
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+>> @@ -0,0 +1,68 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Rockchip eDP Transmitter PHY with NaNeng IP block
+>> +
+>> +maintainers:
+>> +  - Damon Ding <damon.ding@rock-chips.com>
+>> +  - Heiko Stuebner <heiko@sntech.de>
+>> +
+>> +description:
+>> +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
+>> +  registers, therefore the PHY node is expected to be a child of the
+>> +  eDP PHY GRF syscon node.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: rockchip,rk3568-edp-phy
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +    description: PHY registers within the eDP PHY GRF.
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  clock-names:
+>> +    const: refclk
+> 
+> Just "ref"
 
-Why not for merging: with isp_4_1_1.bin from linux-firmware,
-SET_STREAM_CONFIG fails with error 6 (UNSUPPORTED_SENSOR) for this
-sensor, as Pratap explained in [2]. Merging patch 3 would make every
-GZ302 show a camera that cannot stream. The stock linux-firmware image
-does not start this sensor; on my machine the camera runs with ISP
-firmware and sensor setup data from my own Windows driver
-installation, read from the Windows partition of that machine. I do
-not redistribute any of it.
+Will fix in v5.
 
-The values and where they come from:
+> 
+>> +
+>> +  "#phy-cells":
+>> +    const: 0
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - clock-names
+>> +  - "#phy-cells"
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/rk3568-cru.h>
+>> +
+>> +    soc {
+>> +      #address-cells = <2>;
+>> +      #size-cells = <2>;
+>> +
+>> +      edp_phy_grf: syscon@fdcb0000 {
+>> +        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+> 
+> This is beyond the scope of this binding. Drop entire node.
 
-- ACPI _HID OMNI13B1: \_SB.CAMB in an SSDT (confirmed).
-- I2C address 0x10: the sensor answers there; the _DSM returns the
-  same value (confirmed).
-- Sensor clock 24 MHz: the rate declared for the OV05C10 platform
-  (assumed).
-- Four CSI-2 lanes at 560 MHz: the ov13b10 full-resolution mode
-  (assumed).
-- Sensor reset, amdisp-pinctrl GPIO 0, active low: tested on the GZ302
-  (confirmed).
-- enable_isp, AMDI0030:00 pin 85: copied from OMNI5C10 (unconfirmed).
-  The capture driver needs it to probe, no ACPI device claims the pin,
-  and the ISP also boots with it left undriven.
+Will Drop in v5. The example should only show the PHY node itself.
 
-Bin, Pratap: the firmware sets up the sensor clock and link, so could
-you confirm the clock rate, the link frequency and whether pin 85 is
-needed on this board?
+> 
+>> +        reg = <0x0 0xfdcb0000 0x0 0x8000>;
+>> +        clocks = <&cru PCLK_EDPPHY_GRF>;
+>> +        ranges = <0x0 0x0 0xfdcb0000 0x100>;
+>> +        #address-cells = <1>;
+>> +        #size-cells = <1>;
+>> +
+>> +        edp_phy: phy@0 {
+>> +          compatible = "rockchip,rk3568-edp-phy";
+>> +          reg = <0x0 0x100>;
+>> +          clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
+>> +          clock-names = "refclk";
+>> +          #phy-cells = <0>;
+>> +        };
+>> +      };
+>> +    };
+>> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+>> index 7bcb4e2f47ec..c089bd014003 100644
+>> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+>> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+>> @@ -93,6 +93,7 @@ properties:
+>>                 - rockchip,rk3399-grf
+>>                 - rockchip,rk3399-pmugrf
+>>                 - rockchip,rk3562-pmu-grf
+>> +              - rockchip,rk3568-edp-phy-grf
+>>                 - rockchip,rk3568-grf
+>>                 - rockchip,rk3568-pmugrf
+>>                 - rockchip,rk3576-ioc-grf
+>> @@ -119,6 +120,8 @@ properties:
+>>     "#size-cells":
+>>       const: 1
+>>   
+>> +  ranges: true
+>> +
+>>   required:
+>>     - compatible
+>>     - reg
+>> @@ -156,6 +159,22 @@ allOf:
+>>             $ref: /schemas/phy/rockchip,rk3288-dp-phy.yaml#
+>>             unevaluatedProperties: false
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: rockchip,rk3568-edp-phy-grf
+>> +
+>> +    then:
+>> +      required:
+>> +        - "#address-cells"
+>> +        - "#size-cells"
+>> +      patternProperties:
+>> +        "^phy@[0-9a-f]+$":
+>> +          type: object
+>> +          $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
+>> +          unevaluatedProperties: false
+> 
+> Properties should be defined in top level. Here you only narrow them.
+> 
+> This binding is getting close to unreadable/unmaintainable. Split new
+> devices with children to their own binding.
 
-Sensor model: as Bin and Pratap explained, on Linux the ISP firmware
-controls the sensor, and the reference ov05c10 sensor is not bound by
-a host driver. Patches 2 and 3 fit that model. Patch 1 and the 24 MHz
-dependency below only matter if a host sensor driver is used, which
-is how my out-of-tree setup starts the sensor. Which model will the
-sensor-agnostic driver use for OV13B10? If it is firmware-only, patch
-1 can be dropped.
+Agreed. The "rockchip,rk3568-edp-phy-grf" syscon will be documented by
+its own binding schema in v5.
 
-Dependencies before this can be merged:
-- ISP firmware that supports the OV13B10 on this platform.
-- With a host sensor driver only: 24 MHz support in ov13b10, which
-  accepts only a 19.2 MHz external clock today.
-- Patch 3 needs patch 2: the ISP setup in amdgpu uses the software
-  node that amd_isp4 attaches to the ACPI device, as for OMNI5C10.
-
-Patch 2 copies the software-node graph of the OV05C10 entry. If a
-shared graph builder is preferred, I am happy to rework it that way.
-
-Patches 1 and 2 have no user-visible effect on their own; patch 3 is
-the one that makes amdgpu create the ISP for this board.
-
-Testing: built with W=1 (clang) on next-20261026. Not runtime-tested
-in this form. The same graph, I2C address and reset GPIO work out of
-tree on the GZ302: the board configuration in a patched amd_isp4
-module, the reset GPIO registered from there, and an ACPI override
-that lets the stock amdgpu find the sensor. There the clock is still
-declared as 19.2 MHz and the sensor driver is adapted to 24 MHz. That
-out-of-tree code is in a repository I can share on request. I can
-test patches and firmware on the GZ302 at any time.
-
-Related: two isp4 driver fixes found on this machine were sent to
-linux-media separately [4] and have been reviewed by Bin and Pratap,
-and the GZ302 bring-up is discussed in [3].
-
-AI use: Claude (Claude Code) helped me write these patches and the
-changelogs from the out-of-tree code, and run the checks. I reviewed
-everything.
-
-[1] https://lore.kernel.org/all/3a671359-b05a-4d58-84ca-f29385088e5c@kernel.org/
-[2] https://lore.kernel.org/all/ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com/
-[3] https://lore.kernel.org/all/lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me/
-[4] https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
-
-Regards,
-Seifelden
-
-Seifelden Abdelmonem (3):
-  media: i2c: ov13b10: add an I2C device ID table
-  platform/x86: amd_isp4: add the OV13B10 (OMNI13B1) board configuration
-  drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |   1 +
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  |  13 ++-
- drivers/media/i2c/ov13b10.c              |   7 ++
- drivers/platform/x86/amd/amd_isp4.c      | 127 +++++++++++++++++++++++
- 4 files changed, 147 insertions(+), 1 deletion(-)
-
-
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
--- 
-2.56.0
+Best regards,
+Damon
 
