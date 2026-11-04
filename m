@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED656083605
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:05:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9D1608361F
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=CrQnbmTi
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=r/nfy1QZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33C3E10E8EB;
-	Wed,  4 Nov 2026 23:05:52 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36ADC10E3B0
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD8D210FF92;
+	Wed,  4 Nov 2026 23:05:54 +0000 (UTC)
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD70310FF95
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:48 +0000 (UTC)
 Received: from smtp102.mailbox.org (smtp102.mailbox.org
  [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKgys4lsZzMlTy;
- Thu, 05 Nov 2026 00:05:41 +0100 (CET)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKgyx1lmpzKn9v;
+ Thu, 05 Nov 2026 00:05:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1793833541;
+ s=mail20150812; t=1793833545;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AaRO3QDvvLpHjYw6CqEO2va4UH0c/RWfxJ9Mylj/Qrc=;
- b=CrQnbmTi2PcqCseFfkQnNgUU7OOO/JNAv3LutsV5QuIUQ/A/4IsS58OXhSfLHANmJxoHBF
- mjw7foUvylvySZKLNzDdYh8LzqyrAPitEDj5ODc/gqE5T3t/cShxgWiMXdABb4/gDNp4z2
- 838ZWoEBuSSGcptoXMAnLbUGRykgoB2GYeZsWZ44ZY4fDkTYx/jXMXpO+AQJtE255Kcm4G
- OVlL5gJlARtd6YJ9dSCAFVkW13nwseFA5S4NtrmBjg1qqp1xLlyOWdXbYLV8e9JwfOElSV
- YjgmGQiAjznEvYpI9R0GJzEO0T/MnvHHNFqBGp1OSRabFN+v5e1BWQ6TA8PBDg==
+ bh=jbTkdQmJKGsdTp05UextFv3WctlitFzbNsJ+32KHR6Q=;
+ b=r/nfy1QZ9Zdo/QU5jWEqE95NJuNq1IS3iuuQLRAui9DxFNWKnzC2hJKHPUxF8/BuWPt+rf
+ JfS74OEhxDx0nKNYLRH7JhzhsB0Ws0rtcbsaKqdomK1eIuv3HbYGqM2JzcA3EN4+wMOSnq
+ qi7q+8a8EAXa+e2oKQRVm46KzupY1xhhBF2HYLXKSso4YsFU/dTYeR1zuonqIEqGTqzmRj
+ eHZ8hNJMOMumaE2nkFhcHJAX3/9ltUEy8+DX2j42kWxJbtxYhlIs9Wt7joIXs+PwXQ4UE1
+ g/91ZZD+6GKFXS17YMRoh1AJNQo9//6OFi6rQEZ83PPskLDo8EXQi5y3QXHn6g==
 From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:32 +0100
-Subject: [PATCH v4 1/7] samples: rust: remove the rust_driver_pci sample
+Date: Thu, 05 Nov 2026 00:05:34 +0100
+Subject: [PATCH v4 3/7] rust: pci: require an enable guard for `set_master()`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-1-20ef027bb707@mailbox.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-rust-pci-edu-driver-v4-3-20ef027bb707@mailbox.org>
 References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -59,15 +59,15 @@ Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Maurice Hieronymus <mhi@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=7577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=2151;
  i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=JTGu5T/+T8r8ZW53Eqt0wl0+3nov7Lv/AUTxxgHOdaA=;
- b=zVR1APw9lTVBDrIpDM8mV/TsI5hl9DkTbfYoDz8nQi7TJPUJriqUw/5XNJKKmdGqgl+1k3xts
- 5IndRQrCw3kDHWPm/Re4TcqHvoFiHW0Nk/eEufDCrX1Im2a2q04ARHY
+ bh=GNdyqXDLOCW4DpbKGxI85gc9zzXrjd6g32f2xdqiVUg=;
+ b=/mQrjSkxD1o9FWDl3mwp3Nu2WFjB6B0Tke1XXJGm0Un5m3N6OJLvIHgbzxLWTyss8LYWKD72t
+ jzhCdqjnX3EBt5dY9hlfCQLrQY0FxWuOXF4a1aac+z3LpkDbvAqGpIZ
 X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
  pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-META: g8iy4igo86myawm7nzxcht3uxnehug8k
-X-MBO-RS-ID: dff117811a08da109d0
+X-MBO-RS-ID: 6683e78207fd56d81bc
+X-MBO-RS-META: 3tyocz9m1k3gjjsbdkbj7uiafebkha8n
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,280 +79,68 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The EDU sample added later in this series covers everything
-rust_driver_pci demonstrates (device matching, BAR mapping, MMIO) and
-exercises interrupts and DMA on top, against a device every QEMU ships.
-Remove the old sample in favor of it, as requested by Danilo during
-review of the EDU series.
+Require a borrowed `DeviceEnableGuard` for the same device before enabling
+bus-mastering. Check device identity so a guard for another device cannot
+satisfy this requirement.
 
-Link: https://lore.kernel.org/rust-for-linux/DJEQ64V8HE19.2DMBHY4XRPMG6@kernel.org
+Keep `set_master()` on `Device<Core>` to retain callback synchronization:
+the guard is shareable, while `pci_set_master()` modifies device state
+without locking. Convert nova-core to pass its enable guard.
+
+Link: https://lore.kernel.org/rust-for-linux/DLNQ5C9BTIAJ.1XEWLZ13TU1VF@kernel.org
 Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 ---
- MAINTAINERS                     |   1 -
- samples/rust/Kconfig            |  11 ---
- samples/rust/Makefile           |   1 -
- samples/rust/rust_driver_pci.rs | 198 ----------------------------------------
- 4 files changed, 211 deletions(-)
+ drivers/gpu/nova-core/driver.rs |  2 +-
+ rust/kernel/pci.rs              | 12 ++++++++++--
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9bcab1..8f7f1e14b31e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21595,7 +21595,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
--F:	samples/rust/rust_driver_pci.rs
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index f0aebfe705ba..94f207c6078d 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -107,7 +107,7 @@ fn probe<'bound>(
+         try_pin_init!(NovaCore {
+             _enable: {
+                 let enable = pdev.enable_device()?;
+-                pdev.set_master();
++                pdev.set_master(&enable)?;
+                 enable
+             },
  
- PCIE BANDWIDTH CONTROLLER
- M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25..7fbd49df30ce 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -107,17 +107,6 @@ config SAMPLE_RUST_I2C_CLIENT
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 75efd5c5ee97..20f45ca960cd 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -516,10 +516,18 @@ pub fn enable_device(&self) -> Result<DeviceEnableGuard<'_>> {
+     }
  
- 	  If unsure, say N.
+     /// Enable bus-mastering for this device.
++    ///
++    /// Returns `EINVAL` if `enable` belongs to another device.
+     #[inline]
+-    pub fn set_master(&self) {
+-        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
++    pub fn set_master(&self, enable: &DeviceEnableGuard<'_>) -> Result {
++        if self.as_raw() != enable.dev.as_raw() {
++            return Err(EINVAL);
++        }
++
++        // SAFETY: `self` is a valid device in core context, and `enable`
++        // keeps this device enabled for the duration of the call.
+         unsafe { bindings::pci_set_master(self.as_raw()) };
++        Ok(())
+     }
+ }
  
--config SAMPLE_RUST_DRIVER_PCI
--	tristate "PCI Driver"
--	depends on PCI
--	help
--	  This option builds the Rust PCI driver sample.
--
--	  To compile this as a module, choose M here:
--	  the module will be called rust_driver_pci.
--
--	  If unsure, say N.
--
- config SAMPLE_RUST_DRIVER_PLATFORM
- 	tristate "Platform Driver"
- 	help
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5..20b55e0bdbb7 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -9,7 +9,6 @@ obj-$(CONFIG_SAMPLE_RUST_DEBUGFS_SCOPED)	+= rust_debugfs_scoped.o
- obj-$(CONFIG_SAMPLE_RUST_DMA)			+= rust_dma.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
--obj-$(CONFIG_SAMPLE_RUST_DRIVER_PCI)		+= rust_driver_pci.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
-diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
-deleted file mode 100644
-index 13b035a95756..000000000000
---- a/samples/rust/rust_driver_pci.rs
-+++ /dev/null
-@@ -1,198 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Rust PCI driver sample (based on QEMU's `pci-testdev`).
--//!
--//! To make this driver probe, QEMU must be run with `-device pci-testdev`.
--
--use kernel::{
--    device::{
--        Bound,
--        Core, //
--    },
--    io::{
--        register,
--        register::Array,
--        Io, //
--    },
--    num::Bounded,
--    pci,
--    prelude::*, //
--};
--
--mod regs {
--    use super::*;
--
--    register! {
--        base: kernel::io::Region<END>;
--
--        pub(super) TEST(u8) @ 0x0 {
--            7:0 index => TestIndex;
--        }
--
--        pub(super) OFFSET(u32) @ 0x4 {
--            31:0 offset;
--        }
--
--        pub(super) DATA(u8) @ 0x8 {
--            7:0 data;
--        }
--
--        pub(super) COUNT(u32) @ 0xC {
--            31:0 count;
--        }
--    }
--
--    pub(super) const END: usize = 0x10;
--}
--
--type Bar0<'bound> = pci::Bar<'bound, { regs::END }>;
--
--#[derive(Copy, Clone, Debug)]
--struct TestIndex(u8);
--
--impl From<Bounded<u8, 8>> for TestIndex {
--    fn from(value: Bounded<u8, 8>) -> Self {
--        Self(value.into())
--    }
--}
--
--impl From<TestIndex> for Bounded<u8, 8> {
--    fn from(value: TestIndex) -> Self {
--        value.0.into()
--    }
--}
--
--impl TestIndex {
--    const NO_EVENTFD: Self = Self(0);
--}
--
--struct SampleDriverData<'bound> {
--    pdev: &'bound pci::Device,
--    bar: Bar0<'bound>,
--    index: TestIndex,
--}
--
--struct SampleDriver;
--
--kernel::pci_device_table!(
--    PCI_TABLE,
--    <SampleDriver as pci::Driver>::IdInfo,
--    [(
--        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
--        TestIndex::NO_EVENTFD
--    )]
--);
--
--impl SampleDriverData<'_> {
--    fn testdev(index: &TestIndex, bar: &Bar0<'_>) -> Result<u32> {
--        // Select the test.
--        bar.write_reg(regs::TEST::zeroed().with_index(*index));
--
--        let offset = bar.read(regs::OFFSET).into_raw() as usize;
--        let data = bar.read(regs::DATA).into();
--
--        // Write `data` to `offset` to increase `count` by one.
--        //
--        // Note that we need `try_write8`, since `offset` can't be checked at compile-time.
--        bar.try_write8(data, offset)?;
--
--        Ok(bar.read(regs::COUNT).into())
--    }
--
--    fn config_space(pdev: &pci::Device<Bound>) {
--        let config = pdev.config_space();
--
--        // Some PCI configuration space registers.
--        register! {
--            base: pci::Normal;
--
--            VENDOR_ID(u16) @ 0x0 {
--                15:0 vendor_id;
--            }
--
--            REVISION_ID(u8) @ 0x8 {
--                7:0 revision_id;
--            }
--
--            BAR(u32)[6] @ 0x10 {
--                31:0 value;
--            }
--        }
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read8 rev ID: {:x}\n",
--            config.read(REVISION_ID).revision_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read16 vendor ID: {:x}\n",
--            config.read(VENDOR_ID).vendor_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read32 BAR 0: {:x}\n",
--            config.read(BAR::at(0)).value()
--        );
--    }
--}
--
--impl pci::Driver for SampleDriver {
--    type IdInfo = TestIndex;
--    type Data<'bound> = SampleDriverData<'bound>;
--
--    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
--
--    fn probe<'bound>(
--        pdev: &'bound pci::Device<Core<'_>>,
--        info: Option<&'bound Self::IdInfo>,
--    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        let vendor = pdev.vendor_id();
--        dev_dbg!(
--            pdev,
--            "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
--            vendor,
--            pdev.device_id()
--        );
--        let info = info.ok_or(ENODEV)?;
--
--        pdev.enable_device_mem()?;
--        pdev.set_master();
--
--        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
--
--        dev_info!(
--            pdev,
--            "pci-testdev data-match count: {}\n",
--            SampleDriverData::testdev(info, &bar)?
--        );
--        SampleDriverData::config_space(pdev);
--
--        Ok(SampleDriverData {
--            pdev,
--            bar,
--            index: *info,
--        })
--    }
--
--    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, this: Pin<&Self::Data<'bound>>) {
--        this.bar
--            .write_reg(regs::TEST::zeroed().with_index(this.index));
--    }
--}
--
--impl Drop for SampleDriverData<'_> {
--    fn drop(&mut self) {
--        dev_dbg!(self.pdev, "Remove Rust PCI driver sample.\n");
--    }
--}
--
--kernel::module_pci_driver! {
--    type: SampleDriver,
--    name: "rust_driver_pci",
--    authors: ["Danilo Krummrich"],
--    description: "Rust PCI driver",
--    license: "GPL v2",
--}
 
 -- 
 2.54.0
