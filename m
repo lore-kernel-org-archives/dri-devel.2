@@ -2,80 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0892E606D83F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC97D606A33A
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yu5I86GM
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6914A10E14E;
-	Wed,  4 Nov 2026 18:57:14 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FDC210E14E
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:57:08 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-48e46e449e8so660611f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 10:57:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793818627; x=1794423427; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
- b=Yu5I86GMmY5mCzSFr8zdzBBwoDB2ZQ3i+crFeyQDaQlNsy9WtdMCCBzHWvUTU6p/zh
- orS4z3cVn5NcBcnp2zTSsocMyX/Tt+3X1PRP/MI+qwCwj9yw8yoX0VpXP8dFIntNMX3S
- rU4r0yOENcV4vHZt3RU3GALKQg4IdHk6oLPAfRXkWfooUDIHh+O8NyVeSbi6fH7IhJpA
- 4Rh9o5fVX3NwD1z4zPqLfJfj2fPX299SaABss7WcdjR2kLKhIg0V1Tb4bz2uwYKZqZUK
- PjJSMz5R+QfwqCbWal6F63nGELX0pXO+wD6f5g+7C0ffHSRI3Ub0iQalDCM5mpwW5tY1
- bEbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793818627; x=1794423427;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
- b=XNjR43DxpO3WLJuvSmcbB6IKnOfZ43vGht1vnZdhy/jvhRPHRiZ8JPVjLhvUx3fLef
- sz8me04DOPk8aEU6auM6HT5e3qmPIWewEkl68iLx0yk7dK4q9GUgAAFQAWd0nfX3Df5G
- Fmhzdfq7dbXl4f9IJAN0f7yZUyqLp6KrkXac2Zq3GpmvYYyZNKpMq3Jx04rNP+5kMgRv
- 54bpDqhiIGZgXaicfidgp3pd3a438Z+yzKGna1ZlANlRxpdzRWO7D83MxKbWGTgCX7AT
- h8FCwyUCxdlf8gotmlZmwOMWllPb8KyELh1N6iMmT6VQ5KebfavZG9Kh92Lzgd4bT4sJ
- 3mOQ==
-X-Gm-Message-State: APuU4Z+QiW14OPysH9qpcb1KPCLwxjevqWkLMUfa8bzMfGXvPgnpZd6G
- HEbCkqwMvEEZkcK2LDf1mkVZ1Xc+/bkkWcUy5mAhatGS620NTWWb+rpU
-X-Gm-Gg: AYBFou2POUodLYGZa8Tlh2eljNSArCxZiJ1beou2kmZzTIEXxkjMBLrc+8PV1Fq/eo2
- jggj4x3kBRY2k4KZ8ni4+OEtAhwv+eFUr0mDV/2UPugUsACMN+eZjQXrQOEGE+3nhc/0c9ZoD+r
- qwc2Umxfl6X0fvk5ofL43LVRswjFAB/2pR9WTBYOZ20HvzzoPiU/BpYxqN0XZYtYxKKSpFdHsnH
- 9rmX4G9MRI/YgbNz8KPyllBQO0M3F1dJF6f+PibymOMYp+itzfkfDTjYJIwIld+Oy9hiaUKYmMF
- HGY0hsTzJiEjx95tYukFTT3JGUU8uvNC+wYZ161JVDwSzOCWhTz9k2dlvEPretAplaa+pGO6bsK
- rL2fXMog0TRtfPWM3TW3C6GFOAKSXWvLRPguDoPy6rhXMl+2j8G0Byu0Rl2qUV2RDr37XDSM9MV
- dXBZyB5oEehX9D9eiEGOYfnBSM3MsbHXf285vo47lIbN8Em/cG0hoTwdSQSYOuyMeTwjaKB7L4c
- NOuwvsc+uZ9hhUfJNbJXjzyKpdtVAchJQfnwBYV21kK35QgU+btxU5OramqYcqOLNQ4QxNADegN
- OAi+ZTCQOq0jRf//sDl3svBctLAc/Mh5+C7+fgXlBHykHXtU5TVxUwWmZSewWvXbEMvKZgtH2yz
- SLrZTBxrn+e22IsGGU0ScXC4EKtKvxBgfK1XBty37S7KSNPXclHIBP1kXkEbKlPjeBtxP5aAMEQ
- xeU3XdEPwFEqC0bPw4RWbxcwpXXDqqXDV5GtCEFN+9PvDbVVrUNfNIEItNL3uEG83YHJiRElI+L
- VVp146A1zpJDbqr8xfaOlRAxKgR8RGbwtOT/XimRFjxGdAP4pR/dRqr8bcLnJOoXvo=
-X-Received: by 2002:a05:6000:160b:b0:48e:7476:9205 with SMTP id
- ffacd0b85a97d-48e74769219mr22849870f8f.31.1793818626772; 
- Wed, 04 Nov 2026 10:57:06 -0800 (PST)
-Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48fed08343dsm5463560f8f.30.2026.11.04.10.57.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2026 10:57:06 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] drm/sun4i: dw-hdmi: Deinit PHY in bind error path
-Date: Wed,  4 Nov 2026 19:56:59 +0100
-Message-ID: <20261104185659.884455-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C27810E206;
+	Wed,  4 Nov 2026 19:00:09 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72BE010E206;
+ Wed,  4 Nov 2026 19:00:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793818793; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=J5Nk2Imxaf8oS1qWOaYZ/5p36mXDAYuXtOJxtp/dopGz+YZql+vQvYrpX8mB7IauHA4Xk8YQi1qu+PaPR6mB24yVfAOhT6/bxucXIyTgAr5kbwboEEEoK0r/KXXOvBMiOSZV7ITsCmtFClDMxvvdkx5UHygUVxFFFyU3jHRL1IQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793818793;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; 
+ b=IIHGp0XFAy4EBAI1xAOPiJGJtjBnAKa1DW4/mE+dskb/wg6rrm+SQ1O2NbrAIvdInYgZaN69e6gP4ugz8c37N7g/budnSoj0+vfCaDRddEsiHdsgyTHEUdlWXBny9WMxT0bGPo7exVlXSK9F2A5uzCRCit861dBAtMweU4FMdr4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=dOrhpNMv1PBqHvf04rmXTIspsXaESd9P7WOVtnMpEGyERmcXNvYese409KE9Zwza09rugcliorGeDQvjrr3MppjkVnftXWuVC1JjjPXfqzc8ZfT1DRcgWJ3GieaTP0rd+PN8zqGyAj7OxYG6dJ7ZZp98FLi16P60Y7MDl9lIIto=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179381879157175.33447173328659;
+ Wed, 4 Nov 2026 10:59:51 -0800 (PST)
+Message-ID: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+Date: Wed, 4 Nov 2026 19:59:43 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Language: en-US, de-DE, en-GB
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,41 +74,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-sun8i_hdmi_phy_init() enables the PHY clocks and deasserts the PHY
-reset. When dw_hdmi_bind() fails afterwards, the error path doesn't
-undo that, so the clocks stay enabled and every further bind attempt
-enables them once more.
+Nice, very happy to see the series!
 
-Call sun8i_hdmi_phy_deinit() in the error path, like unbind does.
+On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> The comment describing the QC10C buffer layout calls it a compressed
+> P010. It is not:
 
-Fixes: c64c8e04a12e ("drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup")
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+If I'm not mistaken the display engine / the DRM side (including Mesa) 
+describes it as P010+QCOM_COMPRESSED as well, and so does my pending 
+Gstreamer MR [1] . So if we can't pretend that QC10C == 
+P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that 
+up everywhere etc. OTOH if we want to keep the DRM side as is, then the 
+comment should reflect that, IMO.
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-index bd3923ef5a41..983826001f12 100644
---- a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-@@ -209,6 +209,7 @@ static int sun8i_dw_hdmi_bind(struct device *dev, struct device *master,
- 
- cleanup_encoder:
- 	drm_encoder_cleanup(encoder);
-+	sun8i_hdmi_phy_deinit(hdmi->phy);
- err_disable_clk_tmds:
- 	clk_disable_unprepare(hdmi->clk_tmds);
- err_assert_ctrl_reset:
+Best regards,
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Robert
 
+1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
+
+> P010 stores each sample in 16 bits, QC10C packs three
+> 10-bit samples in each 32-bit word, which is what the stride computed
+> below (width * 4 / 3) assumes. Name the format correctly.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+> index eb8de60c1177..ec2bf2a2d953 100644
+> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
+>   
+>   /*
+>    * QC10C:
+> - * UBWC-compressed format for P010.
+> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
+>    * Contains 4 planes in the following order -
+>    * (A) Y_Meta_Plane
+>    * (B) Y_UBWC_Plane
+>
