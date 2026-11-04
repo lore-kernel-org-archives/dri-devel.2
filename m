@@ -2,63 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A571606A328
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847B3606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 08:56:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=SwtvEyPL
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BO+mjVab
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEC110E84D;
-	Wed,  4 Nov 2026 08:48:13 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 825FE10E84D;
- Wed,  4 Nov 2026 08:48:07 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKJxH2QYNz8v1K;
- Wed, 04 Nov 2026 09:48:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793782083; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gTcKGaMEFZJ+gKcb8wNFFFYabXj82mL3rKDihJVqD/8=;
- b=SwtvEyPLIoWWaYpSkGb0pIfrSexCQ+WlN8vRZk4gX25sJpdbwKd7+Hap2hmLDOpQVSBctB
- cLFhfQRu2zCgu0ijQXh4bEDrGsIuQf9jR2XxGEraRmWSmJd8C8Q/q+2OUqdSKMQlyM735p
- SXIkuaEvoEfsZCf5K8esIG6WpJvlV33Y8qkAWUkZzHc3Ri8clBjRIY97BQCprrguHlaLhM
- csK1S0nJ0AjeQ7MyVpKurn1idcSHfKjUHcAB5De2hfp9F5GjD5OCtpFagiLCRWTg14N3HF
- rFXSWAWCQpP0zrCL75Oe/gJ7mF2tdSpwKwZHO/z7x0rFrrCKaRrHg/aKe6Gx5A==
-Message-ID: <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
- priority at runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>,
- stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 09:48:01 +0100
-In-Reply-To: <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
- <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
- <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
- <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
- <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
- <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id F008110E85B;
+	Wed,  4 Nov 2026 08:56:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 859F510E85B
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 08:56:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793782580; x=1825318580;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=WEdnh3Um7RLyVQ8huXyPus5xQBPLH8vtUBUJSepuOP0=;
+ b=BO+mjVab5YgIj25H2esws5VfMXuKu+IrdHJPGy7f+r767gi1Zd76MtLn
+ wFsHDeOSh3UcJQkVANx+dm2yExwKEYNkCqwHz6ahn/+YA7ebuRHSQ/Q0v
+ M61Pv4I+OXP4rtk5lwagd38mavUdcFbFbYqpwEscGuB4X4nu4s8yuHJog
+ Ylne3u+KyvC9am1gJlCgq4nJ9ri0kSUZY96Edfg1PRdlLwb6F2F4/h1nX
+ rhMcxn8qKq9/M5D6MKrqqlPLTTWXeUaiHl5SDWJkrLUP+ebRlIpIrN+LJ
+ syyT/ccpCCw0bau8VN12bFeOqfr8+PhFftdNuzFiCgmUlx7TsUTWlJ3Vk w==;
+X-CSE-ConnectionGUID: 8qStRYgwR1eAMvj6GTW5Pg==
+X-CSE-MsgGUID: 9q8Ln4Z2QMS/Kgv8vZxz2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2416681"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2416681"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 00:56:17 -0800
+X-CSE-ConnectionGUID: /gOq8NuZS6ib1xsECxEouA==
+X-CSE-MsgGUID: 6RQJzOOWQ9OH1ccyCgP24A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6515010"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.24])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 00:56:15 -0800
+Date: Wed, 4 Nov 2026 10:56:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Eileen Blessing Kabi <kabiblessing5@gmail.com>
+Cc: outreachy@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andy Shevchenko <andy@kernel.org>, linux-staging@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fix spelling mistake "writte" -> "written"
+Message-ID: <aurzLD-baoebpE2N@ashevche-desk.local>
+References: <20261103221142.45100-1-kabiblessing5@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 318yyz1zitody3gc1eoi1khtmm5qk139
-X-MBO-RS-ID: 8727d1ffcbddc88b426
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103221142.45100-1-kabiblessing5@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,25 +68,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-11-04 at 08:33 +0000, Tvrtko Ursulin wrote:
-> I lost you here - what should the comment say?
+On Tue, Nov 03, 2026 at 10:11:41PM +0000, Eileen Blessing Kabi wrote:
+> Fix the spelling of "written" in the write_vmem() kernel-doc comment.
+> 
+> Found with codespell.
 
-Just a "TODO: entity->rq_priority could not be fully removed due to the
-partial revert of the CFS scheduling rework. For formal correctness, it
-still has to be adjusted here".
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Just so that the reader sees that this is in an intermediate state
-right now, and so he's incentivized to git-blame the TODO to find the
-associated commits and mailing-list-archives.
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Regards,
