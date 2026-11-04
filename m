@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356EF60BAEE3
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F446071A18
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:40:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DS3z8fo4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kq+FKfxG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 865CB10FE6A;
-	Wed,  4 Nov 2026 19:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96EF410FE6E;
+	Wed,  4 Nov 2026 19:40:39 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67010FE6A
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:40:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9A310FE6E
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:40:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 549CC43770;
- Wed,  4 Nov 2026 19:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224F31F000C1;
- Wed,  4 Nov 2026 19:40:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2FF5A40946;
+ Wed,  4 Nov 2026 19:40:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DEB1F0093A;
+ Wed,  4 Nov 2026 19:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793821218;
- bh=Jqve5dom8G0YagWg0DUi21Qt2CUJnz11dMCfHhOCDkM=;
+ s=k20260515; t=1793821233;
+ bh=lzi0v2Iw6r5Nf2GLOsMSQBwdPNX93e2TzGzGfD3oQvk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=DS3z8fo4+XcVun7qDjz2NB285oy50w37ZhabVQ+2KTyYBD2yK9k0cv1ydfdyDbb2G
- F2kOHfTeVzmbTPa9e/WdAD70pmv8wAUop1Anni0EzwRVSbumICFkMK1x1F9P4tYZIC
- c3MZ0Kd/4HbFldytGX1vHUsdhINZ5NpZWDpvM+t0Z5wHT/E+VFr+t/6p+AttFRpI6Z
- mwCDXmDky64VEy6slIdAHdiThaCm746BEvz4eDgLL3BHUTx/IA08z0BMxgO0LJmQyT
- NF1MhcwXbC2axzqG1STp/J698+gtyVKqI7HYsWuCQMJlP4fOePGgiGm6vAX9LAFZim
- TqL2Dw1DliqSQ==
+ b=Kq+FKfxGol1yZkTvQK7XOf4MJYg3n2wT++qWRo+QnGi9jvJMQIfuuwXxBQd6HrxO9
+ DzaQAB8BU2qMveOWYqXQf8uiF3jI1+TMalzy94+Rcd9plW4bEe5kD06s2YR2pJWce9
+ B6hFJWwiorAIE62RUnEWt3yo5nQlNa9h0jz+aofQy/98+6YVivsZ0C7K1SwAby0aHP
+ 7T5oXbKe+XnQQnQPrW8rV5dPeOZRh0+N4R8p2Y7AHvXwgCCSGo3lTHp1Qs3mmTBfkR
+ oBUp+SJ51x7+DV6W8OrsLZe3q3dTzc8ph41dFrQv8E2WNRYsf3TxqVqdtFkK0eHuLm
+ os2hfJBqXQfoA==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 18/23] ACPI: proc: let procfs copy in writes to
- /proc/acpi/wakeup
-Date: Wed,  4 Nov 2026 20:40:03 +0100
-Message-ID: <20261104-work-procfs-arch-v2-18-2aeb952c9597@kernel.org>
+Subject: [PATCH RESEND v2 19/23] macintosh/via-pmu: let procfs copy in writes
+ to the options file
+Date: Wed,  4 Nov 2026 20:40:18 +0100
+Message-ID: <20261104-work-procfs-arch-v2-19-2aeb952c9597@kernel.org>
 In-Reply-To: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 References: <20261104-work-procfs-arch-v2-0-2aeb952c9597@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1423; i=brauner@kernel.org;
- h=from:subject:message-id; bh=IJsID2u9MwR2UWiBoMaBlflke6dvKtZBVcAIKZfI9/A=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97mTSWXVefuGeEyelmfYp78ycWKUkyn49ZGWQk+eRL
- 0tjb5df7ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjIXhmGf+a115bOnrtr8gHR
- +0o1t4SK21/t283HxHqtW0P5SrNTrxYjQ6Pi/sVHc5622fk3Tnk5Q7znZtAi0aS07pWzZjY9Od9
- YwQ0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1397; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=agoZq1LJSKBxY7yRmppNE5tnXNWd/ezen+xLPyCzOnY=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97mReIrzh9cx53/g23f7T5yBxj/3Wz2cX8wsWTF3AP
+ 1t597qLVR2lLAxiXAyyYoosDu0m4XLLeSo2G2VqwMxhZQIZwsDFKQAT2cTOyNC6JvPZMlEVDrlF
+ 196Vxjt56Gn83yn6YN/2thy+Tlspl+0M/+xtty1ZFrFn7v65W/6uCr1fY7JaSuT8qnn7/y2e7Ma
+ Rt5IfAA==
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -99,46 +99,46 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Implement ->proc_write_buf() so procfs copies in what is written before
-it pins the entry, and take the device name from that copy. Writes
-larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
+it pins the entry, and parse the option from that copy. Writes larger
+than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/acpi/proc.c | 7 +++----
+ drivers/macintosh/via-pmu.c | 7 +++----
  1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/acpi/proc.c b/drivers/acpi/proc.c
-index b8a0bd4580e0..feb8283fd855 100644
---- a/drivers/acpi/proc.c
-+++ b/drivers/acpi/proc.c
-@@ -86,7 +86,7 @@ static void physical_device_enable_wakeup(struct acpi_device *adev)
+diff --git a/drivers/macintosh/via-pmu.c b/drivers/macintosh/via-pmu.c
+index 49f929ae10e4..079c085be5d2 100644
+--- a/drivers/macintosh/via-pmu.c
++++ b/drivers/macintosh/via-pmu.c
+@@ -913,7 +913,7 @@ static int pmu_options_proc_show(struct seq_file *m, void *v)
+ }
  
- static ssize_t
- acpi_system_write_wakeup_device(struct file *file,
--				const char __user * buffer,
-+				char *buffer,
- 				size_t count, loff_t * ppos)
+ static ssize_t pmu_options_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
  {
- 	struct acpi_device *dev, *tmp;
-@@ -96,8 +96,7 @@ acpi_system_write_wakeup_device(struct file *file,
- 	if (count > 4)
- 		count = 4;
- 
--	if (copy_from_user(strbuf, buffer, count))
+ 	char tmp[33];
+ 	char *label, *val;
+@@ -923,8 +923,7 @@ static ssize_t pmu_options_proc_write(struct file *file,
+ 		return -EINVAL;
+ 	if (count > 32)
+ 		count = 32;
+-	if (copy_from_user(tmp, buffer, count))
 -		return -EFAULT;
-+	memcpy(strbuf, buffer, count);
- 	strbuf[count] = '\0';
- 	sscanf(strbuf, "%s", str);
++	memcpy(tmp, buffer, count);
+ 	tmp[count] = 0;
  
-@@ -123,7 +122,7 @@ acpi_system_write_wakeup_device(struct file *file,
+ 	label = tmp;
+@@ -958,7 +957,7 @@ static ssize_t pmu_options_proc_write(struct file *file,
  
- static const struct proc_ops acpi_system_wakeup_device_proc_ops = {
- 	.proc_show	= acpi_system_wakeup_device_seq_show,
--	.proc_write	= acpi_system_write_wakeup_device,
-+	.proc_write_buf	= acpi_system_write_wakeup_device,
+ static const struct proc_ops pmu_options_proc_ops = {
+ 	.proc_show	= pmu_options_proc_show,
+-	.proc_write	= pmu_options_proc_write,
++	.proc_write_buf	= pmu_options_proc_write,
  };
+ #endif
  
- void __init acpi_sleep_proc_init(void)
 
 -- 
 2.53.0
