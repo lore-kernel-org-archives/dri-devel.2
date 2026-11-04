@@ -2,85 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427C606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:03:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922BB606A332
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YQvVsKcP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiXkLasn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1B310E88D;
-	Wed,  4 Nov 2026 19:03:32 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA3ED10E6C8
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:03:25 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4a5177d78c7so9638275e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 11:03:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793819004; x=1794423804; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
- b=YQvVsKcP2IBcttkxhUipuAZMg7mx+sU81xvdz12LpuBkKHdSOY7VtbypQhfvfcK7/1
- ZHLPoru5esEqWN7eXu64bW15P69yFxhpQuCFuFE5Y2p3TFiAV3FCJzRNwhKTXZDn7sUB
- AMkkO8W5w7pNOZgBrhS5iyiFeuHpOuDfqZruhuGayishy5IFfeNNBixH1FKstQmAVphM
- Q5jaK/jChtzmdkI+xJftmj4oNs2nruvnf4L1KIoxojAgG/XGHqN9CwnO7qDPeV6lGANM
- tDdZhMZXe4DNtPRNAo+fehrYt64L7nHSkMCTEHth0RA0B+9sPhX+MZaVCvHXYoiU/JFh
- O57w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793819004; x=1794423804;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
- b=Bgoq32WNmJ4iZX8LlQHMywnSWUQQmL9gR0njtQuxyCO2YFDhMkheZgGRyqfnlyyPKf
- YJhkTBen4TYPHcPnkN2XKgOBFTLUCXt4ljSZckWYBa/cNum4tPqjW8AIEt1KhQJcTFqa
- P4FKjdO/H1TKMVFpuwAJKlt+pN4deVoSyLEyMfJRDLChyQCXHGqJmWFPTcdGDpqejTHk
- BCnR0oFHk+olwx1jvbOvYxJLwnWaokrTCpBgRbcn8Xkd1Ph1qTVRKCgWkLwLcOHLOd7F
- lRZW/GhTQTvQMT4WndaBzIePRF8qy/PQWXhgDMG/kN3YnxrsRZ8Vc0b9N/v1Evij1QCU
- /b0w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwr/+RnFISpaWr+rzDeJHU4uKkJEPaeWrJqaYqyWiZ3yxxnBWK4ttRWyWB0xqDT/0N2YiVdWP2aq0o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/n3fuENN5cZapk5jBahYgJLdOUx6+uFhZSR0e0X9PR+6kbKb9u
- Jyh46lwTd5WwUVorb0a/lxiynSlP9anLOoif+PMPxfiVyYWz5fL4SiNr
-X-Gm-Gg: AYBFou27W1uxBwyONnzlNsp15rG22yfr8ZBBDLWDnw7Pwfq5Xa2t2dBAb8Xrgb27fZA
- +Da8e45+zlQwD+I/kWZf9bSsJUVxRNVLmR9+x5ZdsRcJYb5ImlQxJYqPaKQhZ5lBEX3MozCqa2w
- brmhlzokTO8qAjpN2I2bkEUZ4QLaP4dWyOdTxvW7T8UywLv1teVbszy16+nszXwe+X+8TKs8HY5
- tvrjKJEuCjct0Z+oprDoXZ0S6ZQS2ib5SnexnUDsQu0biXpRzF/zZWin+1bPVSGinE+Y9UgnqA2
- Sc6ZNREnqA+3Hw8vk+lP6RSn/KCA2zM2n1+bzjkNR7CO0b+7JJFjwCdblyRX9EtmHdq2CXqOT9L
- JLHzpIGfPbarL+zCktsHgmz5xJeqjP2+XmCFfDQYTPE1PZYy2t5Y4YwgtYwLyxvZBQz0stjSkl6
- 6DKl19utifpAddp9leA0nbbeaDMvHWDX6Ksb2Vy5fqoHBbCBXxFxz0sUox72/pNGr41EpsjoOLW
- voLjwimD1vqIYuxbZpC4bTLOOD3Kr8RcuTRmMuDXIbLmOojKvhnI65O5LXRf+dveFIMvdXoTjwE
- YmMcPDQAnfWO0N8iY3kw18zdLgMo2vRsFe2fWuAFZIoGcKsFBfVFq4RlYaV6enLCLf07TUEocDV
- 8wq0=
-X-Received: by 2002:a05:600c:4f0f:b0:4a1:e00b:a10b with SMTP id
- 5b1f17b1804b1-4ac17b2cde9mr440533985e9.7.1793819003817; 
- Wed, 04 Nov 2026 11:03:23 -0800 (PST)
-Received: from ?IPV6:240e:47e:50a8:5f12:138d:ea9a:7198:b89e?
- ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b40ff10f88sm54699225e9.0.2026.11.04.11.03.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Nov 2026 11:03:23 -0800 (PST)
-Message-ID: <51a04472-d421-42fa-8552-e94f4743e226@gmail.com>
-Date: Thu, 5 Nov 2026 03:03:17 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2BA410E6C8;
+	Wed,  4 Nov 2026 19:04:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 089D010E6C8
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:04:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2EC7360ABF;
+ Wed,  4 Nov 2026 19:04:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED65F1F00A1A;
+ Wed,  4 Nov 2026 19:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793819079;
+ bh=lAdqJZq7DckAfewXRPAVCUONZuQAofOCOPOWHFZTOPQ=;
+ h=From:To:Cc:Subject:Date;
+ b=DiXkLasnKkCazgXjtl0yo39sGV+Bs41jy0U9vc9qazA5CkiKT/iBgZ8fEt5z2eEi9
+ oolsufKOcX9//0g1iNEISwDqdj0AJv/jYiRaklcfSgZPROKW3M/UHZ5YJlCQnarqEi
+ 2HOIRavJO+g9paB/C2YYlAYVqmb2kgiut60CyfNdCFnL6BADsAW86gE+rCJv3jhKEU
+ xhyHkA5QFEeZxb/jz3ezU8fpueKF4UZ9OCtOjslPoDhqLrhjroAW4ZVXzKIkJz9Hyg
+ 6s+UivkH9tasMyPtuGG54ILYcFnrqgSpO4qCMaV233B/QiysszNJThZr4+Y++vVfYT
+ 4RJQDhDv+jwNQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net,
+ Chuck Lever <chuck.lever@oracle.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org
+Subject: [PATCH RESEND v2 0/7] proc: move procfs to what kernfs does
+Date: Wed,  4 Nov 2026 20:04:22 +0100
+Message-ID: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vkms: clear config->dev when vkms_create() fails
-From: Oarora Etimis <oaroraetimis@gmail.com>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261101032728.11422-1-yuz08559@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261101032728.11422-1-yuz08559@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6699; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=vwrWu4QhJtoloSbOepgjr6FTno3vPTd4Ym/VDTikOkw=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnTbzPPv56/PPZvrYp9W3z2QLB/JVrf+pVOeIXfyv
+ BPyhavzOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACby9y8jQ7vUhZjCtt8GL9Re
+ MV4waA022Jc6RTTePbMrWSRxcvj9NYwMH5UzLmm1J8flNhaGGEtmzxJlNtGal3R0vXBtFP/N2H5
+ GAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,94 +85,143 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+This series aims to get rid of copying to and from userspace while pinning
+procfs entries allowing userspace to delay removal as long as it wants.
 
-On 1/1/70 8:00 AM, Oarora Etimis wrote:
-> On Sun, Nov 01, 2026 at 01:27:28PM +1000, Yu Zhang wrote:
->> The configfs "enabled" store returns the error without marking the
->> device as enabled, so the next "enabled" write runs
->> vkms_config_is_valid() again, which uses config->dev to print its
->> diagnostics and dereferences the freed drm_device.
-> I traced and tested this issue path on drm-misc-next; the dangling pointer is real
-> and the one-line fix is correct.
->
-> I'd suggest rewording the commit message in two places:
->
->   "dereferences the freed drm_device" is only true for one of the two
->     retry cases.
->
->     a) the retry happens with a config that no longer validates: a
->        validity check takes its failure branch, calls drm_info(), and the
->        freed memory is read.
->
->     b) the retry happens with a still-valid config: vkms_config_is_valid()
->        returns true at its first check, drm_info() is never called, and
->        vkms_create() just stores a new pointer.
->
->     Only a) triggers. The reason: the stale pointer is dereferenced only by
->     drm_info() -- __drm_to_dev() loads drm->dev (drm_print.h:608) and
->     dev_printk() then walks the freed struct device -- and every drm_info()
->     in vkms_config.c sits in a failure branch of a validity check. The
->     ternary itself reads nothing: struct drm_device is the first member of
->     struct vkms_device (vkms_drv.h:252), so
->     config->dev ? &config->dev->drm : NULL is address arithmetic.
->
->> device_enabled_store(), drivers/gpu/drm/vkms/vkms_configfs.c
->>> 	scoped_guard(mutex, &dev->lock) {
->>> 		if (!dev->enabled && enabled) {
->>> 			if (!vkms_config_is_valid(dev->config))
->>> 				return -EINVAL;
->>>
->>> 			ret = vkms_create(dev->config);
->>> 			if (ret)
->>> 				return ret;
->>> 		} else if (dev->enabled && !enabled) {
->>> 			vkms_destroy(dev->config);
->>> 		}
->>>
->>> 		dev->enabled = enabled;
->>> 	}
->     config->dev was introduced by 2df7af93fdad ("drm/vkms: Add vkms_config
->     type"); at that point nothing read the pointer after a failed create.
->     The problem was introduced by 13fc9b9745cc, which changed the lifetime:
->     configfs keeps the config alive across a failed enable, so the pointer
->     stored in vkms_create() outlives the device and is read again by the
->     next write. So Fixes: 13fc9b9745cc is the right tag even though the
->     pointer is older; please keep it, and say so in the message so that it
->     does not read like a mis-attribution.
->
->     Background:
->
->     config->dev is the only backpointer from the configfs side to the
->     drm_device. It is used by the validity diagnostics, by vkms_destroy()
->     and by the connector hotplug path (vkms_configfs.c:555).
->
->     The configfs/drm_device lifetime separation was spelled out when this
->     design was agreed on:
->
->>>> the issue is that configfs and drm_device have independent lifetimes,
->>>> and we cannot have links between the two. The configfs structures might
->>>> have shorter lifetime thatn the vkms_device (and there's no refcounting
->>>> on configfs afaict), which means we cannot have a backpointer from
->>>> vkms_device to configfs.
->>>> The vkms_device->configfs backpointer needs to go, it's fundamentally
->>>> busted.
->     https://lore.kernel.org/all/ZjCh9DGnh2JQ3vtk@phenom.ffwll.local/
->
->     Note that dev->enabled in struct vkms_configfs_device and
->     config->dev != NULL encode the same state, which is why they can
->     diverge here in the first place. Dropping the field and passing the
->     drm_device explicitly to vkms_config_is_valid() is the real fix, but
->     it changes the signature and the hotplug path, so it belongs with the
->     vkms_config lifetime rework rather than here. Clearing the pointer on
->     the error path is the right minimal stopgap.
->
-> Thanks,
-> Oarora Etimis
+In essence, it aligns procfs with what kernfs is already doing. That
+gets rid of a big attack surface and a whole bug class in one go. The
+bounce buffer will come with some costs but luckily some codepaths (like
+readdir) have been so criminally slow and buggy that massaging them ends
+up speeding things up or at least leaving them on par with mainline even
+with a bounce buffer in the mix.
+
+There was a hackish and very narrow AI solution to a small part of this
+bug class which was sent off-list. In essence, it used a second
+buffering mechanism on top of seqfiles which was really nasty. It also
+didn't address any of the non-seqfile users.
+
+If we want to get rid of the this whole bug class we need a bigger
+hammer. That means reworking how procfs handles data. So I tried to work
+through all of that. The series is now in a decent shape (I'm not saying
+"glorious" as there's so so many warts. If they were ironed out it could
+be a lot nicer but that's for another day.).
+
+I understand it's big but I think it is nicer to be able to look at the
+end result since we have some transitory states that are gone at the end
+of the series.
+
+I have polished this a bit more and have sorted out a few more bugs and
+tried to clean up some codepaths given the current constraints. Again, I
+think we could go a lot further there if we wanted to but I think that
+blows this out of proportion and at some point it becomes difficult to
+grasp the scope.
+
+So, remove_proc_entry() waits until every call into the procfs entry has
+returned. Most of those calls copy to or from userspace with the entry
+pinned.
+
+A reader or writer can induce a page fault in that copy take as long as
+it wants. For example, with userfaultfd or by punching holes into a
+memfd over and over. Plus, the callers of remove_proc_entry() like to
+hold locks while they wait. For example, addrconf holds RTNL when it
+removes /proc/net/dev_snmp6/<dev> and xt_hashlimit holds a mutex that
+all network namespaces share.
+
+So every network device with IPv6 gets a /proc/net/dev_snmp6/<dev> that
+everyone can read, and addrconf_ifdown() removes it with RTNL held. So
+any local user can keep RTNL for as long as their read stays stalled.
+Until then no device can be registered, removed or renamed and no
+network namespace can be created or torn down.
+
+If the caller lacks privileges for userfaultfd a FUSE mount in a user
+namespace whose daemon never answers is enough to stall the copy.
+Killing the reader ends it, but until then whoever removes the file sits
+in D state.
+
+xt_hashlimit removes the proc file of a table with hashlimit_mutex
+held. Every rule insert in every network namespace takes that mutex and
+so does network namespace cleanup. cleanup_net() runs on a single
+workqueue with pernet_ops_rwsem held, so a stalled reader also stops
+every later network namespace teardown and every module load that
+registers pernet operations. xt_recent does the same with recent_mutex.
+
+And of course, it's not specific to networking. remove_proc_entry(),
+proc_remove() and remove_proc_subtree() have over 200 callers and plenty
+of them hold locks. For example, a stalled reader of
+/proc/fs/ext4/<dev>/options holds up the unmount of that filesystem with
+s_umount held, and every sync(2) with it. The same goes for PCI
+hot-removal, for freeing IRQ descriptors, which CPU bring-up waits on,
+and for unplugging a USB sound card.
+
+And btw, syzbot has hit removal under locks before (cf. [1]), and the
+xt_recent deadlock fixed in (1) below is another one.
+
+Stalling the kernel in a copy to or from userspace is a well-known
+exploitation primitive. It's why unprivileged userfaultfd can't do it
+by default anymore since v5.11 (d0d4730ac2e4), and FUSE has been used
+the same way.
+
+This series touches just about every ->proc_read(), ->proc_write() and
+->proc_ioctl() in the tree, so I've split it up into seven series. They
+go out as replies to this mail:
+
+Part 1/7: proc: fix a few old bugs in /proc handlers (51 patches)
+
+    Bugs in the handlers and in procfs itself that are a lot older than
+    the conversion and that reviewing it turned up. Most of them are for
+    stable. They come first so they can go there on their own and the
+    conversion doesn't have to bother with that crap.
+
+Part 2/7: proc: let procfs own the data path (23 patches)
+
+    The procfs side. procfs owns the seq_file of an entry, copies in
+    writes, copies out reads and copies ioctl arguments in and out, and
+    only calls into an entry with it pinned. The open files procfs has
+    to know and the wait queue a pollable entry is polled on live in an
+    open node that only those entries get, the entry is pinned around
+    the vm_operations of its mappings, and lockdep checks the pin.
+    proc_create_seq() and friends and the plain seq_file users are
+    switched over here too.
+
+Part 3/7: proc: convert the arch and platform entries (23 patches)
+Part 4/7: proc: convert the driver entries (26 patches)
+Part 5/7: proc: convert the fs, kernel and mm entries (30 patches)
+Part 6/7: proc: convert the net entries and the kfifo samples (13 patches)
+
+Part 7/7: proc: drop the __user methods (6 patches)
+
+    Drops the old methods. kcore, kmsg and the kpage files, which are
+    never removed and keep reading straight into userspace, get
+    file_operations of their own, so nothing in struct proc_ops takes a
+    __user pointer anymore, and the new methods get the names kernfs
+    uses, ->proc_read(), ->proc_write() and ->proc_ioctl(). The last
+    patch takes the poll_table away from ->proc_poll(). This needs all
+    four conversion series.
+
+Parts 1 and 2 are the base. Parts 3 to 6 go on top of part 2 in any
+order and don't depend on each other. Part 7 needs all four.
+
+The series should all indicate cleanly what dependencies they have so b4
+should be able to pull it for review.
+
+With all of it on a KASAN and lockdep kernel the removal selftests of
+every part pass, the proc, pktgen and allocinfo selftests behave like
+without it and the bugs from (1) that reproduce in a VM are gone. Every
+patch builds on its own on x86_64 and i386, and with W=1 on the
+architectures it touches.
+
+[1]: https://lore.kernel.org/r/000000000000f24f4705b6988f3e@google.com
+[2]: https://lore.kernel.org/r/20231109212251.213873-7-johannes@sipsolutions.net
+
+---
+Link to v1: https://patch.msgid.link/20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner
+
+-- 
+Christian Brauner <brauner@kernel.org>
