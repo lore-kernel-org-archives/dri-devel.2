@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9D1608361F
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A2D6082BDC
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=r/nfy1QZ
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=K2+vGlm1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD8D210FF92;
-	Wed,  4 Nov 2026 23:05:54 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD70310FF95
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 474B810E1F6;
+	Wed,  4 Nov 2026 23:05:57 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B89E10FF96
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:49 +0000 (UTC)
 Received: from smtp102.mailbox.org (smtp102.mailbox.org
  [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKgyx1lmpzKn9v;
- Thu, 05 Nov 2026 00:05:45 +0100 (CET)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jKgyy6dlrzMlch;
+ Thu, 05 Nov 2026 00:05:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1793833545;
+ s=mail20150812; t=1793833546;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jbTkdQmJKGsdTp05UextFv3WctlitFzbNsJ+32KHR6Q=;
- b=r/nfy1QZ9Zdo/QU5jWEqE95NJuNq1IS3iuuQLRAui9DxFNWKnzC2hJKHPUxF8/BuWPt+rf
- JfS74OEhxDx0nKNYLRH7JhzhsB0Ws0rtcbsaKqdomK1eIuv3HbYGqM2JzcA3EN4+wMOSnq
- qi7q+8a8EAXa+e2oKQRVm46KzupY1xhhBF2HYLXKSso4YsFU/dTYeR1zuonqIEqGTqzmRj
- eHZ8hNJMOMumaE2nkFhcHJAX3/9ltUEy8+DX2j42kWxJbtxYhlIs9Wt7joIXs+PwXQ4UE1
- g/91ZZD+6GKFXS17YMRoh1AJNQo9//6OFi6rQEZ83PPskLDo8EXQi5y3QXHn6g==
+ bh=O7Wi1etGNUVIdurKEPzA6gorENn4qVeeea4blBWClKE=;
+ b=K2+vGlm1YQkcJvBQNo+CANBBQA1e4TFrYjLEOuoL3ho55mW4Gx2v0bEb/DJ5g+MKG0ZPBO
+ EQIHBTuN+Oj8YJW8mzLZqGnioSEcI8CMeqcxM0O/5XYHQXfJoCwkNYIgoEO+lS/ETOjB1O
+ F89meCHepoQ5C9sHihzUYJbbebioFju+3vUQLTQPAqtAPAkQ3vECt/AGGiZ+9pRWxx5pnZ
+ gOe5x3t2M4xwA+EpNROadmQyxyIw8m3zCPnIqZs6gKuBrdgSC9fT/KqJ3YITdlzY43FoS1
+ N61tLeroNbdSvjLi/zeEQSXClJqboH0VxnnOMicQgHyJGKYBPMSPDM59QIV4eA==
 From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:34 +0100
-Subject: [PATCH v4 3/7] rust: pci: require an enable guard for `set_master()`
+Date: Thu, 05 Nov 2026 00:05:35 +0100
+Subject: [PATCH v4 4/7] PCI: Add QEMU vendor ID
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-3-20ef027bb707@mailbox.org>
+Message-Id: <20261105-b4-rust-pci-edu-driver-v4-4-20ef027bb707@mailbox.org>
 References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -59,15 +59,15 @@ Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Maurice Hieronymus <mhi@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=2151;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=1050;
  i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=GNdyqXDLOCW4DpbKGxI85gc9zzXrjd6g32f2xdqiVUg=;
- b=/mQrjSkxD1o9FWDl3mwp3Nu2WFjB6B0Tke1XXJGm0Un5m3N6OJLvIHgbzxLWTyss8LYWKD72t
- jzhCdqjnX3EBt5dY9hlfCQLrQY0FxWuOXF4a1aac+z3LpkDbvAqGpIZ
+ bh=AhjbnhWED9YTAm36AFg3tiJVQOaIEb7KUxSljsy47ZQ=;
+ b=zgDYFbsM5/oI+rGp9iajpXIB7gAm72Ik0ePwHLBiV9fq1qes2t2TBtSHEB7LiiEpDgex46/7d
+ 9vK3ZaxBDuuAjiA/1/+/0/BZPJiX32LoWFPV1ZGW7X/56g49xN5AKy/
 X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
  pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-ID: 6683e78207fd56d81bc
-X-MBO-RS-META: 3tyocz9m1k3gjjsbdkbj7uiafebkha8n
+X-MBO-RS-ID: e1b148c86fcd18fb8a6
+X-MBO-RS-META: 55j5qk1ejj7iab9tdb3ock5wp8zra78z
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,60 +87,34 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Require a borrowed `DeviceEnableGuard` for the same device before enabling
-bus-mastering. Check device identity so a guard for another device cannot
-satisfy this requirement.
+QEMU's emulated PCI devices that predate its Red Hat vendor IDs (stdvga,
+bochs-display, edu) use vendor ID 0x1234. It is not registered with
+PCI-SIG, but it is a de-facto QEMU ID matched by more than one driver:
+`drivers/gpu/drm/tiny/bochs.c` open-codes it, and the Rust EDU sample
+needs it too.
 
-Keep `set_master()` on `Device<Core>` to retain callback synchronization:
-the guard is shareable, while `pci_set_master()` modifies device state
-without locking. Convert nova-core to pass its enable guard.
+Add `PCI_VENDOR_ID_QEMU` so these drivers can share the definition.
 
-Link: https://lore.kernel.org/rust-for-linux/DLNQ5C9BTIAJ.1XEWLZ13TU1VF@kernel.org
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Suggested-by: Alice Ryhl <aliceryhl@google.com>
+Suggested-by: John Hubbard <jhubbard@nvidia.com>
 Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 ---
- drivers/gpu/nova-core/driver.rs |  2 +-
- rust/kernel/pci.rs              | 12 ++++++++++--
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ include/linux/pci_ids.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index f0aebfe705ba..94f207c6078d 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -107,7 +107,7 @@ fn probe<'bound>(
-         try_pin_init!(NovaCore {
-             _enable: {
-                 let enable = pdev.enable_device()?;
--                pdev.set_master();
-+                pdev.set_master(&enable)?;
-                 enable
-             },
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index 030c86dd6d67..cf384fd96f6a 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -1754,6 +1754,8 @@
+ #define PCI_DEVICE_ID_3DFX_VOODOO3	0x0005
+ #define PCI_DEVICE_ID_3DFX_VOODOO5	0x0009
  
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 75efd5c5ee97..20f45ca960cd 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -516,10 +516,18 @@ pub fn enable_device(&self) -> Result<DeviceEnableGuard<'_>> {
-     }
- 
-     /// Enable bus-mastering for this device.
-+    ///
-+    /// Returns `EINVAL` if `enable` belongs to another device.
-     #[inline]
--    pub fn set_master(&self) {
--        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
-+    pub fn set_master(&self, enable: &DeviceEnableGuard<'_>) -> Result {
-+        if self.as_raw() != enable.dev.as_raw() {
-+            return Err(EINVAL);
-+        }
++#define PCI_VENDOR_ID_QEMU		0x1234
 +
-+        // SAFETY: `self` is a valid device in core context, and `enable`
-+        // keeps this device enabled for the duration of the call.
-         unsafe { bindings::pci_set_master(self.as_raw()) };
-+        Ok(())
-     }
- }
- 
+ #define PCI_VENDOR_ID_AVM		0x1244
+ #define PCI_DEVICE_ID_AVM_B1		0x0700
+ #define PCI_DEVICE_ID_AVM_C4		0x0800
 
 -- 
 2.54.0
