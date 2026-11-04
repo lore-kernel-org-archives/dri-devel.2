@@ -2,89 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A310606CA58
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045F8606A92E
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:40:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8+xsGNw
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=T/m33FHa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8B410F396;
-	Wed,  4 Nov 2026 17:34:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D261E10E15D
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:34:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 15A53609EC
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C299D1F00A17
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:34:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793813665;
- bh=AMOD33XmGyHm36xJWMnYgDFAfU9OylqTMFKngAIWEtA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=c8+xsGNwRBct5ZUGKjk3eZtmN9gohM+NybLZwzj8cc388Jf+FuWQqNAaPFbwzicgF
- zS2zfMb3GNkt3+o3qOH/KRvjG68CgqG8o23gRTXfw7pSsq7xlk0nEVbJSnWMEA6Vd6
- WsQavQA+/klM4cHbpHQw7qBZ8l3tKs6OuHSy/oDVGO3ncD8J/WZPtQSd+ulSyM/Yvj
- SBUb7y9RAQdeVkxB69uBukVLsWQpV7AE3b0Clr/+8u5fh7eWDuhsegmcTIoDomrBRZ
- vc/4pFXDJIjiffydLU28BUqCA6oxGMiSW1cfuvO5UpTUsxXW3Go1YpNw0HVmUQhb63
- NRPDlVWP872Tg==
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5eafb65e169so599072e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 09:34:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzNGjt5H8jiyKWe/oAAABMbz10YgbzIqQpaOQ3YR0B0Do7rS5yVT5Bue6P+d6be2NYfKPCj8vY9co4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/cak/xcHX/1XYR1V4pPxdURVRsFMZEhDBVK3xQNoo22xOOqQSx
- CSHdmZjM/T/m/vJ/R9Z0ASuOU2wNMjbIxn2K3+nDU5zVSMuPKDyNjJDfs3Evo1YxZAjHNjj0uSg
- VH1gAi+Rtkn+SmUtLFD8ZTPh/czLEsU4=
-X-Received: by 2002:a05:6122:180a:b0:5ec:5f1b:f725 with SMTP id
- 71dfb90a1353d-5ec689c4d7fmr8231097e0c.23.1793813664918; Wed, 04 Nov 2026
- 09:34:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66AA510E0A7;
+	Wed,  4 Nov 2026 17:40:44 +0000 (UTC)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49B0510E0A7
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:40:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793814032; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=fyLHYoTLHPy/OmgcjvtH57cttrGPYnFcqkkkMsMb2NglM0pi/lE5+PvFVGb1d9z/Tu0EsThE5tiESq/Br7PFHzMxEef754KM17Krf4kGmj66MzodQQFMw+Q7Udus/3px/vXQmROUtGA/p03rX8OTED5oqv/mx5bXMSKdfM+RejI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793814032;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=QKddt74ZqQTluxfuLkY271yIpgW5Ov4BfqlAi2z7wts=; 
+ b=FBuccM9SoJ1oCkKiIJEZM0IbSPYCJFeXFf8MTGgmnPqMwLDcUDP3dLZQlR+dG76mxVJ8FZLchY4GtHw4vxraVGj7cPR55P5xKLwXh9D9SHgE169bXlRP78wtvLILeX8JxQ9Q7Y9nStRu01WAQMG5dT2xwQ4lI+aXHdBQtke0XgY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=ashley.smith@collabora.com;
+ dmarc=pass header.from=<ashley.smith@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=T/m33FHaKqLFKrONL8rFKQYzrmoVlopvbBS18bhld2i1V+VCTJNFQJ7NZ5Jc4Ukmlv9M/97liHbiXpzR2V34xSD5jF3FpMLT83zBbI/WtWq5eEfbPKCwNgTIlonXzZwY5niReJ74PgfsA6BazegUSIvTtAEn/3zXVuM+M3oxVLY=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=QKddt74ZqQTluxfuLkY271yIpgW5Ov4BfqlAi2z7wts=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793814030702293.8570495916671;
+ Wed, 4 Nov 2026 09:40:30 -0800 (PST)
+From: Ashley Smith <ashley.smith@collabora.com>
+To: lukas.zapolskas@arm.com
+Cc: airlied@gmail.com, aliceryhl@google.com, boris.brezillon@collabora.com,
+ daniel.almeida@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, liviu.dudau@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, nd@arm.com,
+ simona@ffwll.ch, steven.price@arm.com, tzimmermann@suse.de,
+ Ashley Smith <ashley.smith@collabora.com>
+Subject: Re: [PATCH v7 5/8] drm/panthor: Introduce sampling sessions to handle
+ userspace clients
+Date: Wed,  4 Nov 2026 17:39:01 +0000
+Message-ID: <20261104173921.4117593-1-ashley.smith@collabora.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
+References: <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
- <20261104-work-procfs-bugfixes-v2-4-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-4-bbf7d5546809@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 18:34:10 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gnefKDcBnLzxxXPLJkYRHN9pbYH9WVFAoUGuCSOPcW1A@mail.gmail.com>
-X-Gm-Features: AclHuK8WGpfSf3TpV-YfKcvDlenGAnmL4yQTyeV9z6QpHJtyVq4G8L84EjJ5Q2g
-Message-ID: <CAJZ5v0gnefKDcBnLzxxXPLJkYRHN9pbYH9WVFAoUGuCSOPcW1A@mail.gmail.com>
-Subject: Re: [PATCH v2 04/51] PNP: isapnp: don't go on when isapnp_cfg_begin()
- fails
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
- Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, 
- Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
- platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
- kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
- linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
- jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
- linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
- Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
- linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,131 +62,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 4, 2026 at 6:30=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
->
-> isapnp_cfg_begin() refuses a logical device number above 10 and a bad
-> card number with -EINVAL before it takes isapnp_cfg_mutex. The callers
-> that read and write the device's configuration, the proc file included,
-> don't look at that: they go on talking to whatever device the card
-> currently has selected and then unlock a mutex they never took in
-> isapnp_cfg_end(). isapnp_create_device() hands out logical device
-> numbers without a bound, so a card with twelve or more logical devices
-> gets there. Return the error instead.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Sun, Oct 11, 2026 at 06:36:52PM +0100, Lukas Zapolskas wrote:
+> +	ret = panthor_perf_bo_get(file, create_args->control_handle, 0, &control);
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Like the ringbuffer BO above, I think we need to include the size here since
+if the actual size is less than what the kernel expects it could lead to
+writing to out of bounds memory (imported BOs):
 
-> ---
->  drivers/pnp/isapnp/core.c | 16 ++++++++++++----
->  drivers/pnp/isapnp/proc.c |  5 ++++-
->  sound/isa/es18xx.c        |  6 +++++-
->  3 files changed, 21 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/pnp/isapnp/core.c b/drivers/pnp/isapnp/core.c
-> index 219f96f2aaaf..3591a2791c1a 100644
-> --- a/drivers/pnp/isapnp/core.c
-> +++ b/drivers/pnp/isapnp/core.c
-> @@ -853,7 +853,9 @@ static int isapnp_get_resources(struct pnp_dev *dev)
->
->         pnp_dbg(&dev->dev, "get resources\n");
->         pnp_init_resources(dev);
-> -       isapnp_cfg_begin(dev->card->number, dev->number);
-> +       ret =3D isapnp_cfg_begin(dev->card->number, dev->number);
-> +       if (ret)
-> +               return ret;
->         dev->active =3D isapnp_read_byte(ISAPNP_CFG_ACTIVATE);
->         if (!dev->active)
->                 goto __end;
-> @@ -887,10 +889,12 @@ __end:
->  static int isapnp_set_resources(struct pnp_dev *dev)
->  {
->         struct resource *res;
-> -       int tmp;
-> +       int tmp, ret;
->
->         pnp_dbg(&dev->dev, "set resources\n");
-> -       isapnp_cfg_begin(dev->card->number, dev->number);
-> +       ret =3D isapnp_cfg_begin(dev->card->number, dev->number);
-> +       if (ret)
-> +               return ret;
->         dev->active =3D 1;
->         for (tmp =3D 0; tmp < ISAPNP_MAX_PORT; tmp++) {
->                 res =3D pnp_get_resource(dev, IORESOURCE_IO, tmp);
-> @@ -936,9 +940,13 @@ static int isapnp_set_resources(struct pnp_dev *dev)
->
->  static int isapnp_disable_resources(struct pnp_dev *dev)
->  {
-> +       int ret;
-> +
->         if (!dev->active)
->                 return -EINVAL;
-> -       isapnp_cfg_begin(dev->card->number, dev->number);
-> +       ret =3D isapnp_cfg_begin(dev->card->number, dev->number);
-> +       if (ret)
-> +               return ret;
->         isapnp_deactivate(dev->number);
->         dev->active =3D 0;
->         isapnp_cfg_end();
-> diff --git a/drivers/pnp/isapnp/proc.c b/drivers/pnp/isapnp/proc.c
-> index c1f6e6bd0eb2..b3abab24050b 100644
-> --- a/drivers/pnp/isapnp/proc.c
-> +++ b/drivers/pnp/isapnp/proc.c
-> @@ -25,6 +25,7 @@ static ssize_t isapnp_proc_bus_read(struct file *file, =
-char __user * buf,
->         struct pnp_dev *dev =3D pde_data(file_inode(file));
->         int pos =3D *ppos;
->         int cnt, size =3D 256;
-> +       int ret;
->
->         if (pos >=3D size)
->                 return 0;
-> @@ -37,7 +38,9 @@ static ssize_t isapnp_proc_bus_read(struct file *file, =
-char __user * buf,
->         if (!access_ok(buf, cnt))
->                 return -EINVAL;
->
-> -       isapnp_cfg_begin(dev->card->number, dev->number);
-> +       ret =3D isapnp_cfg_begin(dev->card->number, dev->number);
-> +       if (ret)
-> +               return ret;
->         for (; pos < 256 && cnt > 0; pos++, buf++, cnt--) {
->                 unsigned char val;
->                 val =3D isapnp_read_byte(pos);
-> diff --git a/sound/isa/es18xx.c b/sound/isa/es18xx.c
-> index 3cadbf7cf238..de1eda5a0656 100644
-> --- a/sound/isa/es18xx.c
-> +++ b/sound/isa/es18xx.c
-> @@ -1950,7 +1950,11 @@ static int snd_audiodrive_pnp_init_main(int dev, s=
-truct pnp_dev *pdev)
->         /* ok. hack using Vendor-Defined Card-Level registers */
->         /* skip csn and logdev initialization - already done in isapnp_co=
-nfigure */
->         if (pnp_device_is_isapnp(pdev)) {
-> -               isapnp_cfg_begin(isapnp_card_number(pdev), isapnp_csn_num=
-ber(pdev));
-> +               int ret =3D isapnp_cfg_begin(isapnp_card_number(pdev),
-> +                                          isapnp_csn_number(pdev));
-> +
-> +               if (ret)
-> +                       return ret;
->                 isapnp_write_byte(0x27, pnp_irq(pdev, 0));      /* Hardwa=
-re Volume IRQ Number */
->                 if (mpu_port[dev] !=3D SNDRV_AUTO_PORT)
->                         isapnp_write_byte(0x28, pnp_irq(pdev, 0)); /* MPU=
--401 IRQ Number */
->
-> --
-> 2.53.0
->
->
+ret = panthor_perf_bo_get(file, create_args->control_handle, sizeof(
+    struct drm_panthor_perf_ringbuf_control), &control);
+
+Could also change panthor_perf_bo_get() to always test and instead
+of != use <=
+
+if (obj->size <= PFN_ALIGN(expected_size))
+
+so callers cant silently skip validation.
+
+FWIW, I have tested v7 of this patch series on a Rock5B and can see reliable
+counter values.
+
+Tested-by: Ashley Smith <ashley.smith@collabora.com>
