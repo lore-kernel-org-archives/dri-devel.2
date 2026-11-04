@@ -2,129 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D9E606A32D
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0793C606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kkJhy1m9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgSTM9tc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12E5B10FC99;
-	Wed,  4 Nov 2026 15:58:46 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012061.outbound.protection.outlook.com
- [40.107.200.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A04B10FC79;
- Wed,  4 Nov 2026 15:58:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yUcCFvAYELpr3P9HZXeQAKxKrS8eKY1oIkvTGoLeVXn0qymM+O7vmg/P//HLG55KSShTO/plCcOpXVKjWVgmJVP3HgOk76QNjYi0kS6RuIiGybjeQ+iPL0+v/fUrYKEsyUekgHrr4e46eWIxgtu8sEHN4l/8yKok4kk5KLdBeCA9Ua/wR7IrmkSR4gkJaljw58x40hfXmYCaIx+P06ZUDDuiF9gqfaSvgyzWoiVOmOwcEQ8+PYFALOxR5WSb0SwIKECvu++rHPKd/9C2Vm9dd2tg2PW74iHAo8W+cgCyKOPi4ZvB8RyuB/Joa1u4aNOpMsoReb/vR22xIYtJNzqKWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DlYOD9hMcXr56Km9vp4rav8YkGW0jOvqpBWkxZ8AGzs=;
- b=UERa/spYBzl/Llv00Gw9A2R6guj7nL0Q6kzImJ4KChU9pz0MVlAZHTPz+TLgQ5t+c7YuLh7ZsRU3RxyohDWDGILdBlpRujDXj5Qho+49Hxav7kYI5EwCuBygJI4NFw6+kiF8odUJ0myWSW8+iI5ibPWZ27zm6xRWzL/mmmywV7N/6vcIld6zCn3+JQ7vk10SZ7t0WNW3ct/mvm3BG9p+sNL8N23Ak92qOyBDx6TBGwZdhzclCJ80GNeoVqtOP7BMc7z81IDD8iRr6cUTvrj4CqD8T+NYF3XyfJ/XSDhrP9J/MyDIErDPqDf9kYF2oloR6BCRZ28RwkWUzVDC6DahsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DlYOD9hMcXr56Km9vp4rav8YkGW0jOvqpBWkxZ8AGzs=;
- b=kkJhy1m9OCal9sjyJjMcHZliB7ChVEOhe+L5KkFoErG3RriS2tUvMTiOmxOLJABL2hAqbZKQp+Pe7OjAyYEX6hkDBDpP5DEnjIR4+xWlBsZJ1eXqZ8Fr/CtHRwWkQZIKwGuZjb1xKo0TaEuBX5EdJ4icN8DjFkM7bt5wySzI1bQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18) by IA1PR12MB6650.namprd12.prod.outlook.com
- (2603:10b6:208:3a1::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 15:58:30 +0000
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 15:58:28 +0000
-Message-ID: <d54c0de7-cf16-49e4-a106-aad5648b074e@amd.com>
-Date: Wed, 4 Nov 2026 10:58:26 -0500
-User-Agent: Mozilla Thunderbird
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v2 0/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
-To: davidralphhughes@gmail.com
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0045.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::13) To IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|IA1PR12MB6650:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec12fbbc-dc9f-4fc2-5a36-08df3a8c779e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|261026121527099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: +JIxTMBaWxS/wsoG+bj4WKniyiGYOWt9iScTRcxPMI3uuXteQIlLsUDEwxdvZFiNHyWxOcyegaOEHDij6I8T52N05nC2vdUebOMRXbaaBiQdNdXswcTu6wM9t3J9BTCd/IUKvMX4fw2zDPlT3fKCBJxb6rE07EpRED5phbMJM9Ys902ROoeQWaAiOr2mFvhjOdE341uY44IQKZjx/xaEGOvnf5Aix/vlXWOK11Mpqg5KFeZz6duKrpk9ajmdYkwm/uaT4hfMAweVPGBhe9tYQN+T1AZZmgWF+vDeXj0BliRhZe1USrieT8bDj7lh+DUDBJCC2Q8H3To3zYeaSKEWukADsbfNBoR15jt+c3I4fwddgdCtZa0ddegH/6d9JdmfrpCNH4NfJeuy/OJTBzAOI1zvHAlVLVJzch3pZ7zafFID2t6S6TLu9JFA8A2dtHXZD8Fl7vgdfDOmYEP3UnaKLgs2rKgomeUowJVAD1o3YuGR9OfRe85jtHweaJ95xxpzdHHkp1Zzmw6K5/QOUdRwPsGkKMNtEFwGQsfanisdcYshykwzWR+e3oHCSrwLl1cdBq1HSSqMDnGC55erB0ITexKZBojWqTQj4TZ6q1cPhVBKt5u0vFFphU0Lptea6Em3
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RE1tVWxQSVp3anE5dU5Ya0JMak9WRGdNNVpza05TWEMxanViV3o4ZTFGY0gx?=
- =?utf-8?B?UXN4VGE3endUbzJQaG02REVaSHpHWENDM2c1SmJKL21pM0RNZmlIZWMxREpm?=
- =?utf-8?B?d0h2L3EwT1FhelhqR0hoRVRMd0dCS3l2S2RoV3ZJc0s5VzNLb2lVdzU5eGFm?=
- =?utf-8?B?RncrTk9OTEtXRmJmMVp2WnZKaGNPbjhZMU5ScnBFQ2Y3WW9JTUFYekZCemlL?=
- =?utf-8?B?MHFlekxBVGU0aW5nTWVxZm1peW1LamhySXFNNEJzSW5ROHNoRGZDOEk0Vytr?=
- =?utf-8?B?dGpVNythNW9HTlc1NGN6WmQvN05GVkI0UW80WU9tdkFvZVBHU1kvQ05OVGNr?=
- =?utf-8?B?R0NBNy9meGEvRUpGbjRTTUYwV0o3T2N1dEpoS2dCUWNWRTRpZzlkUWszSEM1?=
- =?utf-8?B?OFQ3enBZMU1MOTlZQ2lLZXNQY1ZOMUNuREhPd2IyRWp1L3FMWkVkeFRML2Ri?=
- =?utf-8?B?MTJWcVBhMzZodmJqMjF0bkNSbUlMZFdGNC9CQmQ2aWkxVXRNV0xwUWtRalBz?=
- =?utf-8?B?cVZkWTZ0NnhwRnloV2h6amV5Mks3TndKT1JJWVRoYVpNQjdnQ3lwQUVKbFRI?=
- =?utf-8?B?NkRJdVQ2U1QrZ2hwRzhtdHV1NzJYNzhPOUJ3UmlVTUtnS0gxbWxSUDBNOU9p?=
- =?utf-8?B?N28zbTl0NUF3bTQ5eEREa3BBNWlhNFEzODZSUHJySG5oWUN1YXFlRHc4M01i?=
- =?utf-8?B?K0pUcm1FNGlLaVFIZnRiVnFMSzYybTlEbktrT3F6b1NLOVpCYUQ2Ukx0MXpP?=
- =?utf-8?B?YjVBQ1BmMEZMLzZGM1RPU3JrQlJXM044dWs0WFZucHllcjBGS2Vtd0U1WXU5?=
- =?utf-8?B?MDduTkdoakJtR1JnNTh0QzZHblB6RUF1MG5NR2JoNUcrTUVEWGJaTHhZdHhm?=
- =?utf-8?B?T1o5bGdkZEtHNXk5UERXRmtKY1ltSGNoZzVZVTFBVVZhV0lVbFEybkdlSDE4?=
- =?utf-8?B?RFh6c0Z3VWZ3c0JuaWJFWjdMNEh1Wm44M0dvYUREMm1TR08xS0wxQXp5bkdX?=
- =?utf-8?B?b0hMWThpQTFnK2xrOVF6UTA1dmljZE84ejNFV2FTL0ZGbHErUW5tVTI3QVhv?=
- =?utf-8?B?anN4MmxUOGpHZU95bjFFSEpwZEVOb2RGRnBuSkZrSTh2YTc5aS9OZFFqWjRh?=
- =?utf-8?B?NnM5Wmw2VVNuUHE2cVlNOEROMmZRVEl5a00zT1JFa1hEaEcwZUhpTk1OS093?=
- =?utf-8?B?d0UzcTd6eUdUNWRGdk93RU16YnJpemdlVGRWUGgzOG9MRzR3b1NsOFhPZFEv?=
- =?utf-8?B?eHJ6Ly8rL3dLZlZwWTJuTCs5UXpYL29ObHB3c0ZTeUoyRkcwM3JrNUFQR2Ex?=
- =?utf-8?B?ZitkdjBxeXMyeFRHTS9SWlA4bDR1bCs3WWtITmZKRDJrK0hFQ3UzcnRZdFFm?=
- =?utf-8?B?cE1sMzlzZ3I4RWx3M3E0YjYxK3hVY21zL2t3U0NwRkVKTE1HTkt0TVl0djZZ?=
- =?utf-8?B?NkdRa2N4UlROMGJLSE5LRHRldWtPVmpaUGdubmJETGtZWjY0WkRBdCtXaTJF?=
- =?utf-8?B?QVBtaFNKZ2ZubnlGcGhjMlpTbW40Yk45VExUTlZHc3h1STRtR0JrcGwxTllr?=
- =?utf-8?B?bFRKYnFWTFJGRnJ3RXFLNmUrV3NWZG5xRE5LU1BjeFc5MjVJNWdSYUMrblMy?=
- =?utf-8?B?bjA3WGRCR1E3Q0hDVWpHSjRDUlpwTVJKUVMzbm1WOEZmb1F2VTBOM1JaS3pN?=
- =?utf-8?B?bzE1YkcvVzE2Qk1ydnI2U1JzVS9Jc3NPcXA2Yi9xbWJTanl3NHlEbDZzNVRJ?=
- =?utf-8?B?cmxCVE9IVllLU3VwZm5XQXZVTFgrTmthMkdsUExCVUdydkllS094WFo1bmJN?=
- =?utf-8?B?b0tiMDk4V1VqK2ZmV2ExTkhLSjUxcWhpaUErZmV4UGNaSkpFVjZyRUZrZ0hj?=
- =?utf-8?B?VFlPUDgyTXBLMzRLTXFreG5lZndUeDdFMFpIenVlQk9LWXRYeEZJNnlyYVpZ?=
- =?utf-8?B?ZjQ0VGc4Z0RJZVlndmJVZjZvejVIa2JZaVFlcGhqWVR1TmlqUHVSMGNZN21N?=
- =?utf-8?B?emw4KzVrVkdWNGk4b2taYmVUZjZKYy9LY04rT004S2dWRmFpVkp6UmIvSU1n?=
- =?utf-8?B?cVUzVk9XbUIyTzhTS292SWdKcFBKOTRKb1krTEMyWnA3L2I5ejJlRi9IY3lx?=
- =?utf-8?B?bVV4L0ZzNE5Sd2ZrN3loZFZxUFAyUkFVT0phQWhxQXZ0NWszWFJhSmZqbk5S?=
- =?utf-8?B?Nkp0QWVmRGh3OW1rVjB2Nzhma2RCS0lWczg0VkJQZHdzMmNUSGlzc0p2MFYx?=
- =?utf-8?B?aGhmUjJZdy82eExlKzlJeEZRZzNDUEY0RjJWa1RCenpCb3JMSmFNZnl1VGli?=
- =?utf-8?B?ekZtN0VNYzVWeGNuOVllaUpxNG9pa0tvSTA0UHEza0pjdm1DaGZYUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec12fbbc-dc9f-4fc2-5a36-08df3a8c779e
-X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:58:28.7731 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lbB3+cNl71pW9diXxkgCBuAtYglKWXD31KX73PlgUvhvfd6m+WrzFn3q47lKE+5b9t9Mt6YuMhvxXsG9C7nEMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6650
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2808310FCC8;
+	Wed,  4 Nov 2026 16:11:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE51D10FCC8
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:11:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A3816022B;
+ Wed,  4 Nov 2026 16:11:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9949A1F000C1;
+ Wed,  4 Nov 2026 16:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793808672;
+ bh=hz9B7bVRYk0DuEF9JM8LNaTKrTabfofd6sN4pUbGYgU=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=IgSTM9tcFB1XTJnSYm1wG4U8srXPaqU/oK8Wz9zfbmZQBarKkT0QiMsjN3/phfSVE
+ JMlfn0qtm6heh6PGhLsBwlvC/U4hFeiQxS+LtWpybCtp5Es5bbsrwu3051bCWc48Qi
+ ZPnrJjgvihp2kAx8PDQ+tsP33DA3lrzzH2wGf21w/R0HgGRjvBfm6u2lYgZj8ehw/g
+ YS9fOnQWdx0D18M4lG9EBk6EiSYcT5XotLLjDM733Rb3NROCRz/t9MR5Zv6WNeFqgj
+ gPY4z0RI+FvWMyLGz49hQ4zpXG99SLSStQOHctj4jVAELbF4h5WhmxAyivxrjcVYeu
+ En00nPl9Yv+dA==
+Message-ID: <sashiko-outbox-197582@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] drm/ms91xx: Add atomic modesetting and USB
+ framebuffer transfers
+To: "Ho Jie Feng" <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261104151652.59135-4-hjf3108@gmail.com>
+References: <20261104151652.59135-1-hjf3108@gmail.com>
+ <20261104151652.59135-4-hjf3108@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 16:11:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,75 +48,282 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 10/28/26 18:54, Davey Hughes via B4 Relay wrote:
-> On a 48-165 Hz FreeSync panel, fullscreen clients under KWin with HDR
-> enabled and color accuracy set to "Prefer efficiency" run at about 51
-> fps instead of 60, with flips locked to the 13.45 ms BTR mid-point
-> grid. That grid drifts upward at the rate expected if FreeSync takes
-> the 32-bit microsecond timestamp itself as the last render time (3.46
-> us/s measured, 3.45 predicted).
->
-> KWin replaces the CRTC GAMMA_LUT blob on every commit in that mode, so
-> every flip resets the plane and the new DC plane starts with zeroed
-> flip timing. Patch 1 carries the timing over from the old DC plane, as
-> DM already does for flip_addr
-> (amdgpu_dm_plane_drm_plane_duplicate_state()) and for the BTR state
-> itself (dm_irq_params.vrr_params). Patch 2 adds KUnit tests, kept
-> separate so patch 1 backports to stable trees without the KUnit
-> infrastructure.
->
-> Tested with KUnit (UML, all AMD display suites pass; the new timing
-> tests fail without the fix) and on 7.2.11 with a Navi 31, an AW3423DWF
-> over DP, KWin 6.8.1 and Mesa 26.2.5: 60 fps content now flips at a
-> steady 16.65 ms instead of on the 13.45 ms grid, 30 fps content still
-> gets BTR (30 fps, no 13.45 ms grid), and debugfs shows
-> color_mgmt_changed=1 on the CRTC in every sampled commit. Not tested:
-> DCE, overlay planes, other compositors.
->
-> I am not sure of the current AI disclosure policy, but I will freely
-> mention that I used Claude Opus 5.5 to help debug and write this patch +
-> tests. I have tried to do my best to match existing style/procedures.
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/ms91xx: lost damage rects in ms91xx_plane_atomic_update()
+- [High] drm/ms91xx: unaligned odd x1 and dropped edge damage in ms91xx_fb_=
+send_rect()
+- [Medium] drm/ms91xx: devm vs drmm lifetime mismatch for ctrl_lock in ms91=
+xx_usb_probe()
+--
 
-Series is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+commit 1cde8302b787ba6feaf5820dd66da0d09c56074d
+Author: Ho Jie Feng <hjf3108@gmail.com>
 
-Harry
+drm/ms91xx: Add atomic modesetting and USB framebuffer transfers
 
-> ---
-> Changes in v2:
-> - Copy the flip timing in amdgpu_dm_commit_planes() instead of in
->   atomic check, so it can't race with the previous commit still writing
->   it (reported by Sashiko AI review)
-> - Skip the copy when the plane keeps its DC plane
-> - Add dm_plane_inherit_flip_time() in patch 1; patch 2 only exposes it
->   to KUnit
-> - Check the whole flip timing struct in the KUnit tests
-> - Link to v1: https://patch.msgid.link/20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com
->
-> ---
-> Davey Hughes (2):
->       drm/amd/display: Keep FreeSync flip timing across plane resets
->       drm/amd/display: Test FreeSync flip timing across plane resets
->
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  23 +++
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
->  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 188 +++++++++++++++++++++
->  3 files changed, 214 insertions(+)
-> ---
-> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
-> change-id: 20261027-freesync-plane-reset-time-5db657eebfde
->
-> Best regards,
-> --  
-> Davey Hughes <davidralphhughes@gmail.com>
+This commit adds the atomic display pipeline, USB driver probe/disconnect
+handling, and double-buffered USB framebuffer transfers with XRGB8888 to
+UYVY conversion for MacroSilicon ms91xx display adapters.
 
+> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_drv.c b/drivers/gpu/drm/ms91xx=
+/ms91xx_drv.c
+> new file mode 100644
+> index 0000000000000..7b8d1f1e30e9d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ms91xx/ms91xx_drv.c
+
+[ ... ]
+
+> +static void ms91xx_plane_atomic_update(struct drm_plane *plane,
+> +				       struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *old_plane_state;
+> +	struct drm_plane_state *new_plane_state;
+> +	struct drm_crtc_state *new_crtc_state;
+> +	struct drm_shadow_plane_state *shadow_plane_state;
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(plane->dev);
+> +	struct ms91xx_usb_request *current_request, *previous_request;
+> +	struct drm_rect current_rect, rect;
+> +
+> +	old_plane_state =3D drm_atomic_get_old_plane_state(state, plane);
+> +	new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
+> +
+> +	if (!new_plane_state->fb)
+> +		return;
+> +	new_crtc_state =3D drm_atomic_get_new_crtc_state(state,
+> +						       new_plane_state->crtc);
+> +	shadow_plane_state =3D to_drm_shadow_plane_state(new_plane_state);
+> +
+> +	/* Damage from the previous mode may not fit the new framebuffer. */
+> +	if (drm_atomic_crtc_needs_modeset(new_crtc_state))
+> +		ms91xx_clear_rect(&ms91xx->update_rect);
+> +
+> +	if (drm_atomic_helper_damage_merged(old_plane_state, new_plane_state,
+> +					    &current_rect)) {
+> +		current_request =3D &ms91xx->requests[ms91xx->current_request];
+> +		previous_request =3D &ms91xx->requests[!ms91xx->current_request];
+> +
+> +		/* Latency reduction: requeue with the latest frame data. */
+> +		if (cancel_work(&previous_request->work)) {
+> +			complete(&previous_request->done);
+> +			ms91xx_merge_rects(&current_rect, &current_rect,
+> +					   &previous_request->transfer_rect);
+> +			current_request =3D previous_request;
+> +			ms91xx->current_request =3D !ms91xx->current_request;
+> +		}
+> +
+> +		current_request->transfer_rect =3D current_rect;
+> +
+> +		/*
+> +		 * The device double buffers, so we need to send the update
+> +		 * rects of the last two frames.
+> +		 */
+> +		ms91xx_merge_rects(&rect, &current_rect, &ms91xx->update_rect);
+> +		if (ms91xx_fb_send_rect(new_plane_state->fb,
+> +					&shadow_plane_state->data[0],
+> +					&shadow_plane_state->fmtcnv_state,
+> +					&rect)) {
+> +			/* In case of error, merge the rects to update later */
+> +			ms91xx_merge_rects(&ms91xx->update_rect,
+> +					   &ms91xx->update_rect, &rect);
+> +		} else {
+> +			ms91xx->update_rect =3D current_rect;
+> +		}
+> +	}
+> +}
+
+[Severity: High]
+Can ms91xx_plane_atomic_update() drop damage rectangles from one of the
+device's two hardware framebuffers when a queued work item is cancelled or
+when ms91xx_fb_send_rect() fails?
+
+Because the hardware double-buffers frame updates, each damage rectangle mu=
+st
+be sent in two consecutive completed USB transfers:
+
+1. Frame 1 (damage R1) sets requests[0].transfer_rect =3D R1, queues
+   requests[0].work (which starts executing usb_sg_wait() to update hardware
+   buffer A), flips ms91xx->current_request to 1, and sets
+   ms91xx->update_rect =3D R1.
+
+2. Frame 2 (damage R2) arrives while requests[0].work is still running.
+   cancel_work(&requests[0].work) returns false. requests[1].transfer_rect =
+is
+   set to R2, rect is computed as R2 union R1, requests[1].work is queued
+   behind requests[0].work on the ordered workqueue, ms91xx->current_request
+   becomes 0, and ms91xx->update_rect is overwritten with R2.
+
+3. Frame 3 (damage R3) arrives while requests[0].work is still running and
+   requests[1].work is still pending. cancel_work(&previous_request->work)
+   cancels requests[1].work before R2 union R1 is sent to hardware buffer B.
+   ms91xx_plane_atomic_update() merges current_rect (R3) with
+   previous_request->transfer_rect (R2) and then merges that with
+   ms91xx->update_rect (which is also R2). R1 is lost and never sent to
+   hardware buffer B.
+
+In addition, current_request->transfer_rect =3D current_rect is written bef=
+ore
+ms91xx_fb_send_rect() waits on wait_for_completion_timeout(&current_request=
+->done, ...),
+so a timeout overwrites the in-flight request's transfer_rect. And when
+ms91xx_fb_send_rect() fails, merging rect into ms91xx->update_rect only sen=
+ds
+that failed frame's damage in the single next transfer before
+ms91xx->update_rect =3D current_rect overwrites it, leaving the second hard=
+ware
+buffer stale on the following frame.
+
+[ ... ]
+
+> +static int ms91xx_usb_probe(struct usb_interface *interface,
+> +			    const struct usb_device_id *id)
+> +{
+> +	int ret;
+> +	unsigned int i;
+> +	struct ms91xx_device *ms91xx;
+> +	struct drm_device *dev;
+> +	struct device *dma_dev;
+> +	struct usb_device *usbdev;
+> +
+> +	ms91xx =3D devm_drm_dev_alloc(&interface->dev, &ms91xx_drm_driver,
+> +				    struct ms91xx_device, drm);
+> +	if (IS_ERR(ms91xx))
+> +		return PTR_ERR(ms91xx);
+> +
+> +	ms91xx->intf =3D interface;
+> +	ret =3D devm_mutex_init(&interface->dev, &ms91xx->ctrl_lock);
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+> +	drmm_kms_helper_poll_init(dev);
+> +
+> +	ret =3D drm_dev_register(dev, 0);
+> +	if (ret)
+> +		goto err_free_request_1;
+
+[Severity: Medium]
+Should ms91xx->ctrl_lock be initialized with drmm_mutex_init() instead of
+devm_mutex_init() in ms91xx_usb_probe()?
+
+In ms91xx_usb_probe(), devm_drm_dev_alloc(&interface->dev, ...) is register=
+ed
+first on interface->dev, followed by devm_mutex_init(&interface->dev,
+&ms91xx->ctrl_lock). Later, drmm_kms_helper_poll_init(dev) starts
+dev->mode_config.output_poll_work, whose cleanup is tied to the drm_device
+via drm_managed_release().
+
+If drm_dev_register(dev, 0) fails, devres unwinds interface->dev in reverse
+order: devm_mutex_release destroys ms91xx->ctrl_lock before
+devm_drm_dev_init_release runs drm_dev_put() -> drm_managed_release() ->
+drm_kms_helper_poll_init_release() to cancel output_poll_work. If
+output_poll_work runs ms91xx_detect() -> ms91xx_read_byte() during that
+window, it will lock ms91xx->ctrl_lock after it has already been destroyed.
+
+> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_transfer.c b/drivers/gpu/drm/m=
+s91xx/ms91xx_transfer.c
+> new file mode 100644
+> index 0000000000000..0e26d5d7aab97
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ms91xx/ms91xx_transfer.c
+
+[ ... ]
+
+> +static void ms91xx_fb_xrgb8888_to_yuv422(void *dst,
+> +					 const struct iosys_map *src,
+> +					 struct drm_framebuffer *fb,
+> +					 const struct drm_rect *rect,
+> +					 struct drm_format_conv_state *fmtcnv_state)
+> +{
+> +	struct ms91xx_frame_update_header *header =3D dst;
+> +	struct iosys_map dst_map;
+> +	u32 position, dimensions;
+> +	int x, y1, width;
+> +
+> +	y1 =3D rect->y1;
+> +	x =3D rect->x1;
+> +	width =3D drm_rect_width(rect);
+> +
+> +	header->marker =3D cpu_to_be16(0xff00);
+> +	position =3D ((x & 0xfff) << 12) | (y1 & 0xfff);
+> +	dimensions =3D ((width & 0xfff) << 12) |
+> +		     (drm_rect_height(rect) & 0xfff);
+> +	put_unaligned_be24(position, header->position);
+> +	put_unaligned_be24(dimensions, header->dimensions);
+> +	dst +=3D sizeof(*header);
+> +
+> +	iosys_map_set_vaddr(&dst_map, dst);
+> +	drm_fb_xrgb8888_to_uyvy(&dst_map, NULL, src, fb, rect, fmtcnv_state);
+> +	dst +=3D width * drm_rect_height(rect) * 2;
+> +
+> +	memcpy(dst, ms91xx_end_of_buffer, sizeof(ms91xx_end_of_buffer));
+> +}
+> +
+> +int ms91xx_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_m=
+ap *map,
+> +			struct drm_format_conv_state *fmtcnv_state,
+> +			struct drm_rect *rect)
+> +{
+> +	int ret =3D 0, idx;
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(fb->dev);
+> +	struct drm_device *drm =3D &ms91xx->drm;
+> +	struct ms91xx_usb_request *current_request;
+> +	int x, width;
+> +
+> +	/* UYVY stores pixels in pairs. Expand damage to a complete pair. */
+> +	x =3D rect->x1;
+> +	width =3D ALIGN(min_t(int, rect->x2, fb->width) - x, 2);
+> +	if (x + width > fb->width)
+> +		width -=3D 2;
+> +	rect->x2 =3D x + width;
+
+[Severity: High]
+What happens in ms91xx_fb_send_rect() when rect->x1 is odd?
+
+UYVY packs horizontal pixel pairs (2k, 2k + 1) into 4-byte macropixels, and
+drm_fb_xrgb8888_to_uyvy() requires clip->x1 and clip->x2 to be even.
+
+In ms91xx_fb_send_rect(), x =3D rect->x1 is not aligned down to an even pix=
+el
+boundary, and only width is aligned to a multiple of 2. When rect->x1 is od=
+d:
+
+1. Both rect->x1 and rect->x2 remain odd when passed to
+   ms91xx_fb_xrgb8888_to_yuv422() -> drm_fb_xrgb8888_to_uyvy(), pairing
+   misaligned pixels (2k + 1, 2k + 2) instead of (2k, 2k + 1).
+
+2. When the damage clip reaches the right edge of the framebuffer
+   (rect->x2 =3D=3D fb->width, where fb->width is even), fb->width - x is o=
+dd, so
+   ALIGN(fb->width - x, 2) rounds up to fb->width - x + 1 and x + width
+   becomes fb->width + 1. The check:
+
+	if (x + width > fb->width)
+		width -=3D 2;
+
+   then subtracts 2 from width, setting rect->x2 =3D fb->width - 1 and drop=
+ping
+   the rightmost pixel column. In particular, if a 1-pixel damage clip is at
+   the right edge (rect->x1 =3D=3D fb->width - 1, rect->x2 =3D=3D fb->width=
+), width
+   becomes 0 and a 0-width frame update is queued over USB.
+
+Should rect->x1 be rounded down to an even coordinate (for example with
+round_down(rect->x1, 2)) and rect->x2 be aligned up with ALIGN(min_t(int,
+rect->x2, fb->width), 2)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104151652.5913=
+5-1-hjf3108@gmail.com?part=3D3
