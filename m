@@ -2,49 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E36606A32E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB76606D832
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 18:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH0owmrt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJoHVIVR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D671410FDEA;
-	Wed,  4 Nov 2026 18:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6624C10FDE7;
+	Wed,  4 Nov 2026 18:40:54 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61D9A10FDEA
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:40:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C4E10FDE7
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:40:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D689A60609;
- Wed,  4 Nov 2026 18:40:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962011F000C1;
- Wed,  4 Nov 2026 18:40:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E54560AA6;
+ Wed,  4 Nov 2026 18:40:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B5D1F0093A;
+ Wed,  4 Nov 2026 18:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793817623;
- bh=50rGR9cXkJVQg5CMtsd6DUV43765lQnsvly1XxdMTMQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=YH0owmrtK0BSOY0x3Udi9bIcHuJ5NxapbuTyxP+I4SQv3U/IqGFPZfunwyQHccvbC
- 8Injk0sgWFwIYXNaH3xgJ4T/UtI/pjC6BMRogOAvegaVXG1Ruiv2aK1o9yzCpQylvJ
- /JELR22lVcTufOn255egMd3KW7pbt2pmeEvXNFOGfEMkKFqEe+Lu3QMzMNIc2B7phe
- XkutnkQQSYtdvzRpwMq4jLxMb1QJgBVeAm7LfBMBK+bE7zpOsdWSEz8X6BJL15buFv
- IzS3amhkb7hmfVgn+zB7hnroZpF7YW3wdR9TXovqhzgNm2CNBdYn94DslCSlNm4ouF
- DJU1y1fIa6mGg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Kiran Gunda <quic_kgunda@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, David Heidelberg <david@ixit.cz>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH 6/6] backlight: qcom-wled: Avoid AB-BA deadlock in
- wled_module_enable()
-Date: Wed,  4 Nov 2026 18:39:07 +0000
-Message-ID: <20261104183935.1214630-7-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-In-Reply-To: <20261104183935.1214630-1-lee@kernel.org>
-References: <20261104183935.1214630-1-lee@kernel.org>
+ s=k20260515; t=1793817647;
+ bh=QZrg0qNWaXbTo0/xGfjrSEZ0b4f34qk5jOb+FqN16uE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kJoHVIVRMDhMBnXEsnAe5u7zpLjzd7+MCZ16TzVPzknEMkH+SygeGbLr1cB1EuFHJ
+ xRsFziB7AYKd6Mhhpn+XaIqvh4Cx6oR0IF5YD5hTWVK9qdGzZGqDtB09vA04e4GNIh
+ gmvf+qmzc//ytZnlzvHO/6/uft/CaHdB0hsuAjqYwVhLfB3Ks7yJAR1O6zCQCoILM7
+ 7FSNmR//3JsJPL/FoNc85lYWK2E4ao7D0Q2RNB19ZXpttBP2DbzKEnPZ+uDd2qb6Jz
+ UP+h4VZmlPCoaJVRtTyuBLxhzxSpg0j7ZPL1vwlCOQ73t7T4+hY/7Q5mBk/u31yY6C
+ vajKYZo3usCaQ==
+Date: Wed, 4 Nov 2026 19:40:33 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+ Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 
+ netdev@vger.kernel.org, ntfs3@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+ Chuck Lever <chuck.lever@oracle.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, 
+ linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org
+Subject: Re: [PATCH v2 00/51] proc: fix a few old bugs in /proc handlers
+ (Part 1/7)
+Message-ID: <20261104-zermalmen-pechschwarz-hafen-b8a1cb79bac4@brauner>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,73 +83,17 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When disabling the WLED module (for example from wled_update_status() or
-wled_short_irq_handler()), the caller holds wled->lock and invokes
-wled_module_enable(wled, false), which calls disable_irq(wled->ovp_irq)
-and blocks waiting for any executing OVP threaded interrupt handler to
-complete.
+Please ignore this. Network dropped halfway through and the umbrella
+went out under a broken message-id and so this doesn't reference the
+actual complete series.
 
-If wled_ovp_irq_handler() is concurrently executing, it attempts to
-acquire wled->lock before running wled_auto_string_detection(),
-resulting in an AB-BA deadlock between wled->lock and IRQ completion.
+I'll resend.
 
-Use disable_irq_nosync() instead of disable_irq() in
-wled_module_enable() so that the OVP interrupt is masked without
-synchronously waiting for the threaded handler while holding wled->lock.
-Because wled_ovp_irq_handler() may already be waiting on wled->lock when
-the module is disabled, verify under wled->lock that the module is still
-enabled and not disabled by a short before running
-wled_auto_string_detection().
-
-Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-Closes: https://sashiko.dev/#/bug/linux-3afa151c-7b8f-432c-8f85-8c43a83b964a
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-Cc: David Heidelberg <david@ixit.cz>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
- drivers/video/backlight/qcom-wled.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 06300d403f8f..6c0f631cc975 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -367,7 +367,7 @@ static int wled_module_enable(struct wled *wled, int val)
- 			schedule_delayed_work(&wled->ovp_work, HZ / 100);
- 		} else {
- 			if (!cancel_delayed_work_sync(&wled->ovp_work))
--				disable_irq(wled->ovp_irq);
-+				disable_irq_nosync(wled->ovp_irq);
- 		}
- 	}
- 
-@@ -919,8 +919,15 @@ static irqreturn_t wled_ovp_irq_handler(int irq, void *_wled)
- 	if (fault_sts & WLED3_CTRL_REG_OVP_FAULT_BIT) {
- 		if (wled->wled_auto_detection_required &&
- 		    wled->wled_auto_detection_required(wled)) {
-+			u32 val;
-+
- 			mutex_lock(&wled->lock);
--			wled_auto_string_detection(wled);
-+			if (!wled->disabled_by_short) {
-+				rc = regmap_read(wled->regmap, wled->ctrl_addr +
-+						 WLED3_CTRL_REG_MOD_EN, &val);
-+				if (!rc && (val & WLED3_CTRL_REG_MOD_EN_MASK))
-+					wled_auto_string_detection(wled);
-+			}
- 			mutex_unlock(&wled->lock);
- 		}
- 	}
 -- 
-2.56.0.385.gac671c819a-goog
-
