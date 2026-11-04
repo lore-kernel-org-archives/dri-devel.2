@@ -2,83 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440FD60E6D1E
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E82609DCA4
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:57:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKP7JyYG
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Tikr0cJj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985D110FEB4;
-	Wed,  4 Nov 2026 19:56:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F7F10FEB4
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:56:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A74160F1B;
- Wed,  4 Nov 2026 19:56:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86BA1F000C1;
- Wed,  4 Nov 2026 19:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793822192;
- bh=LBl2/qBMA7OV4BMTYua5kVHXByvRuxQ8RJbkH2xlEeQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=aKP7JyYGkDXXcZgiOMyJDOMnJ3YKXipcdyKMOhnZ/kDushdocc5j2aUosHVgdFjuG
- W8NqrAjXIVJtlk3D6BRdnDPijmdfnyH55xY4/5GIe8B7ijNhQWuqM7VHbGTChu/S5p
- bjawb6WUZLBB8pnefyGL4zorD4j/72K+4RlaEoOxwLWCBU80eFeiO+LKNoVR3cDXsM
- 3PJy33mjWSy8B1p5T5flpR5Cr9VBJtwZuxs51UHe1Pt2cbGiY3/+T4y9EH9bSAjyVG
- E7eQOJVTxndTF1qhOS06r3zzRaWFs4kd9ALYhL3GOdUn4eRB1X31/INX4f8HZSXd4y
- I59kxqMTzVXsw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 27/30] mm/swapfile: let procfs own the seq_file of
- /proc/swaps
-Date: Wed,  4 Nov 2026 20:56:18 +0100
-Message-ID: <20261104-work-procfs-fs-v2-27-319e0f9a8aae@kernel.org>
-In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33F0F10E26D;
+	Wed,  4 Nov 2026 19:56:56 +0000 (UTC)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8FEE10E26D
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:56:49 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-91c791d5460so14168776d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 11:56:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1793822208; x=1794427008; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=H4EFhcspofR4b1uKve6jkW0t06ZcJnK+4e01jxgUvKY=;
+ b=Tikr0cJj2+I0rlNhZrrm+6hXbv1xcZJ6kWPBDFjLoDgC5pzOkx4J7oR11/TQkRq0+L
+ xezn+E/ZmTFKxN2lFt0JmEY91J2bNg2j/sozRwMBmJnipSYZQog5gYYWpx+HIqI9kRRH
+ d5xvN/3yd86Nk+bqkixqc0LwVUN6kbRbP8ztYNVbMd9gLDwKFvb6PHjelo2BTWelEIcC
+ 6kGtGj2UETw5c04RlgZ/dSTXwfhSBej5kjlZuHw18ykFQSK1lGEahUIP/EMmdwdha7nh
+ krORa5gsPT2+HQVlAGK318+nNXWenM5yUd8jmomeK9fs5Ll5gqREcYDgz0uKOmp2ScCC
+ o83w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793822208; x=1794427008;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=H4EFhcspofR4b1uKve6jkW0t06ZcJnK+4e01jxgUvKY=;
+ b=KMhwR2MZ6niHRUIXIV/DObl/B3ZYxP9lmDNUViMRXhUu2MBX02Rrs6IpesL4/+aZoe
+ h1FbZHsa6gl+1Axb0yIa+2pYYHlg524Tnxra+ZBN+HsdicLE/zKowZDuhudLM7sWWa6/
+ inP3bNEQAIZLHFm1AFpz8QI4mQ4LbZS3RkTej/nDaSo8I9QkqfYloxgafkQvLR9Kvohg
+ 9LJ1ykhDbR+cE2A1YaTF3ZoYCyhj3BVZWiu/hcBhGJWCaL+y78tYpTs/NZ5WTPG9Ry07
+ AwUr65SXNMnvsKw/bUwCH1JP6LlTPpvrUoldrNVoP5mqOmayOlc8OQj60FZ7JcxdHApU
+ RYvg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy3EITXEd0v5+jnzWrFjBQcPVMhsib0WKzg7TzKjqhDLzZL9Xve9bmRlv9PWi5IETRGDQVUFKXDEcM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/yYTPr+6+DkD1t12wv0JmAnMPiUpUboPw3stT3nS5jbZJv4i0y
+ 7qVqH3DL+wGdyo7EF4MgfnQRm2oUJduaSVCTljujFK00gxK6NNDA8Poru1oskE9gQNc=
+X-Gm-Gg: AYBFou0t0/j3ZH5j8GFu/MxKy0/5PubLaLxoTxyucSaX9DfXQ4qrSlv7mTnftNIyJ2G
+ waUCBcxLDt2N7K4k44B2vypNlkuFXTGi1y4Si5Z3i0aMgwhKZZGpO0uuqnktUlt5iK7Qzz6/clT
+ 0W8EFQhM4v3GUNjOAZThAKqheZJoY5NBbtUwq0cJx/LIeeV4VJecN/78PnW5c9UVy15VFcQ6IUr
+ zzg+Idi/OSwRLONpAPYCX51MV1DQPE4jRuVPFusBSPLLc+0c0JwgR9WmBEP2ao6G0PK5ZS6Oe2L
+ pq+Yt4UdG2BIjWjCWoV6UdhkdBGxdvTC/2EkRlfmWIO19bE48n53cdNZWrHfvWHH9uSz5B25j8w
+ hi66YYz5ppqSzqaLXzG0EIeHsmKsQDqlQ72g0XJ3YY5XqqpgHQ79CRqXOiXjQUzxR8aUs/eMeKh
+ d46IpcKgbpLkEMpBVjtQopReWVoi0qzTcPllN6r6nWWcm7fou0lsk85W8VQDOtfWRoGNqfVMr1x
+ A0se4fFxNS5fhxO5h30hGYIhUDNz2yw0h8s9rQROn6DMTGLlJHZIKJDFskIpPGDAtbK6Ijpx5Bg
+ aZdRkKd1AsVELUmSFiN/XJFfQL+AFpGDbTlqCOkMbMuXnZAzrgL/vyJ2dAxniZbakH31ydIWJOm
+ 6SeLm1ClvzQ==
+X-Received: by 2002:a05:6214:2dc2:b0:917:9cd8:f26f with SMTP id
+ 6a1803df08f44-91ca4b1b1afmr281180966d6.25.1793822208495; 
+ Wed, 04 Nov 2026 11:56:48 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
+ [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91e7e7b1e92sm27199686d6.45.2026.11.04.11.56.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 11:56:47 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xOh6F-0000000HJlF-1F1D;
+ Wed, 04 Nov 2026 15:56:47 -0400
+Date: Wed, 4 Nov 2026 15:56:47 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v12 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261104195647.GD3889730@ziepe.ca>
+References: <20261104084328.GP264423@unreal>
+ <20261104171412.GA1247928@bhelgaas>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1169; i=brauner@kernel.org;
- h=from:subject:message-id; bh=xP8svTINdkdtOq03sFDyUkKM00LKGtRsGg97ENBLGtM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97vHhXJd8Kth7+zWufRt8tZu59658dXe75H+F8xvTV
- ml+XhRg2lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRqbMZ/kps+sao8ittxlXf
- /G8XPGKtjMsDSyLXBR7ut+jjuGbTHMHwP7A9pOPMY4eI2fw/JsV8unzukJPgecs1+ql+y/k/6SR
- 1sAAA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104171412.GA1247928@bhelgaas>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +108,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Declare the seq_operations and let procfs open and free the seq_file.
-->proc_open() only records the event count for ->proc_poll() now.
+On Wed, Nov 04, 2026 at 11:14:12AM -0600, Bjorn Helgaas wrote:
+> On Wed, Nov 04, 2026 at 10:43:28AM +0200, Leon Romanovsky wrote:
+> > On Tue, Nov 03, 2026 at 05:37:42PM -0600, Bjorn Helgaas wrote:
+> > > On Tue, Nov 03, 2026 at 10:29:39AM +0200, Leon Romanovsky wrote:
+> > > > PCI P2PDMA applies Request and Completion Redirect throughout
+> > > > both paths.  This misclassifies asymmetric and nested switches,
+> > > > and reports one answer for every kind of TLP.
+> > > > 
+> > > > Three ACS controls act on TLP attributes the Requester chooses
+> > > > rather than on the topology: Translation Blocking and Direct
+> > > > Translated P2P act on a Request's Address Type, and Completion
+> > > > Redirect skips Completions carrying Relaxed Ordering.
+> > > > 
+> > > > Evaluate each direction at the path divergence, decide every
+> > > > class from the one walk, and treat a client with ATS enabled as
+> > > > translating unless its driver declares per-mapping ATS.
+> > > > 
+> > > > This completes the P2PDMA side; dma-buf and mlx5 follow
+> > > > separately.
+> > > 
+> > > Is there a one- or two-sentence explainer of why we want this?
+> > > I'm thinking in terms of what Linus will want in the merge
+> > > request: a fix for something that's broken or some new
+> > > functionality.  It sounds like this is solving a problem, but I
+> > > don't know enough to translate the nitty-gritty details to the
+> > > higher-level user-visible problem or feature.
+> > 
+> > Not AI; these are my own words with grammar fixes from AI:
+> > 
+> > "The existing implementation of PCI peer-to-peer assumed that all
+> > PCI TLPs were the same: ordered and carrying untranslated addresses.
+> > It did not account for the variety of traffic types defined by the
+> > PCI specification. As a result, only simple systems supported
+> > peer-to-peer transfers in the upstream kernel; real-world systems
+> > required out-of-tree patches and careful platform design.
+> 
+> Can we be any more specific?  E.g., what makes real-world systems
+> different from simple ones?  What does careful platform design mean?
+> Something about ordering beyond what PCIe requires?
+> 
+> ACS P2P Completion Redirect affects Relaxed Ordering (RO) Completions.
+> Translation Blocking and Direct Translated P2P affect Requests with
+> Translated addresses.
+> 
+> So I assume the existing P2P implementation breaks somehow when RO or
+> Translated addresses are used?  How does it break?
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- mm/swapfile.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+Let me try, something short for Linus:
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 254ce86fa923..ee4868ecc3a7 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -3410,26 +3410,19 @@ static const struct seq_operations swaps_op = {
- 	.show =		swap_show
- };
- 
-+/* procfs opens the seq_file */
- static int swaps_open(struct inode *inode, struct file *file)
- {
--	struct seq_file *seq;
--	int ret;
--
--	ret = seq_open(file, &swaps_op);
--	if (ret)
--		return ret;
-+	struct seq_file *seq = file->private_data;
- 
--	seq = file->private_data;
- 	seq->poll_event = atomic_read(&proc_poll_event);
- 	return 0;
- }
- 
- static const struct proc_ops swaps_proc_ops = {
- 	.proc_flags	= PROC_ENTRY_PERMANENT,
-+	.proc_seq_ops	= &swaps_op,
- 	.proc_open	= swaps_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= seq_release,
- 	.proc_poll	= swaps_poll,
- };
- 
+"Enhance detecting if the PCI fabric can support a peer to peer path
+by evaluating the full bi-directional fabric path over each of the
+three traffic type ACS controls. Expand the number of fabric
+configurations where the P2P algorithm makes the correct determination
+of support to include non-uniform ACS and situations where translated
+takes different routes from untranslated."
 
--- 
-2.53.0
-
+Jason
