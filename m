@@ -2,26 +2,26 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9755606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B1F606A32E
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:25:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=mnpXecqY
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A+8t5vjZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 284EF10E231;
-	Wed,  4 Nov 2026 10:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8479510E86D;
+	Wed,  4 Nov 2026 10:25:53 +0000 (UTC)
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E0D10E231
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 10:22:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0360F10E86D
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 10:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=BvEDid5g6QRjHn3Z1Wkrnwm5AtJ8RllZNkH2qZNru5c=; b=mnpXecqYVSy9/XQTnCwe/QAZAT
- oO5u9hSGJdyjtMfzeKLmcnySDE7Pfz7vhog/jVLohqgjCNPJB/gaqxJYvQqOah+IGy7rTskfqua9Z
- Z71031F7JJC5OpNCUvjRL8w3G8oBL5t8D32sJMZx8fk6wMt83Nubl7nAPZX27fkdWACnPS5NWTCPt
- C/Lq3OYdR04M2QtVUCc7LoOJboS0YKoelxMlb23u8m6CFaYZT+DtJU3eVSqFbCP83H0lUMHQuCdqU
- T1Bu3zDGMij+udBlOhcK79QncRyN+sKcZ3uZ/iHhrpUccsz8pfP38qBskRoD1lolhDyy0DYiI1KQJ
- HDXRPhDg==;
+ bh=uRrdt0oAcAPfS+w2dQ61HkrI15khdaUCiJ5g7tU0p+Q=; b=A+8t5vjZqpreZvPSLqn2rWHCfk
+ n20HzKOydnfedJfrqrbJoETErbWXGYMoVDxPotfS+pj30dhVa9kgt9ioE3h2XT9i+o0G+8YdGkx94
+ c3QBYW5k2mk+ni5jhkwtbJ0XyA5dPKbn2W67WeyaIRUJ548XcG9M2F372a+JG9Z4saOhjOzo+w3oC
+ eyhS0ZoraybqUEcq+Rs1ShIc64rINHDJig5KDlfjZqHUgloCWhUZhfDAow0U/X/rkbraLV4ZTsUbE
+ L8NNkvSjhwcAGWUz3HAevwzEEWEfjFK3ykebZUp2dFTL+4ugzZ2Y132qKzJFggyFXmgKN48nvtd3S
+ d5ApHuFg==;
 From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
 To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
@@ -36,12 +36,12 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v15 01/15] accel/rocket: request the core clocks by name
-Date: Wed, 04 Nov 2026 11:21:46 +0100
-Message-ID: <2231008.VsPgYW4pTa@diego>
-In-Reply-To: <3188623.WAvfycf1tz@diego>
+Subject: Re: [PATCH v15 04/15] accel/rocket: let the core suspend after a reset
+Date: Wed, 04 Nov 2026 11:25:30 +0100
+Message-ID: <3373678.NnENhoQgcM@diego>
+In-Reply-To: <20261101082307.151957-5-gahing@gahingwoo.com>
 References: <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-2-gahing@gahingwoo.com> <3188623.WAvfycf1tz@diego>
+ <20261101082307.151957-5-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -57,92 +57,63 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Dienstag, 3. November 2026, 23:42:19 Mitteleurop=C3=A4ische Normalzeit s=
-chrieb Heiko St=C3=BCbner:
-> Am Sonntag, 1. November 2026, 09:22:53 Mitteleurop=C3=A4ische Normalzeit =
-schrieb Jiaxing Hu:
-> > From: Igor Paunovic <royalnet026@gmail.com>
-> >=20
-> > rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-> > setting the .id members. The rocket_core array is allocated with
-> > devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-> > .rdev, .dev and .index, so all four clk_bulk_data entries are requested
-> > with a NULL con_id (unlike core->resets, whose ids are set a few lines
-> > above).
-> >=20
-> > clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-> > of_parse_clkspec() only consults "clock-names" when a name was passed, =
-so
-> > the index stays 0 for all four entries. Every entry therefore ends up
-> > holding a handle to the *first* clock of the DT "clocks" property, i.e.
-> > ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-> > four different clocks.
-> >=20
-> > The consequence is that rocket_device_runtime_resume() prepares and ena=
-bles
-> > the AXI clock four times, while hclk, pclk and - most importantly - the=
- NPU
-> > compute clock ("npu", SCMI_CLK_NPU on RK3588) are never prepared or ena=
-bled
-> > by this driver at all. The NPU still works only because the Rockchip
-> > power-domain driver sets GENPD_FLAG_PM_CLK and its attach_dev() callback
-> > walks the device node with of_clk_get() and adds every clock to the pm_=
-clk
-> > list, so genpd happens to keep the remaining clocks running. The bug is
-> > therefore latent today, but it means the driver holds no reference to t=
-he
-> > clock that actually feeds the NPU, which stands in the way of any future
-> > frequency scaling (OPP/devfreq) work.
-> >=20
-> > Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-> > /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-> > handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other=
- two
-> > cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-> > "fdab0000.npu" consumer at all - their only consumers are the
-> > "npu@fdab0000" handles created by the power-domain driver via of_clk_ge=
-t().
-> >=20
-> > Set the ids explicitly, in the order mandated by the binding
-> > (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-> > aclk, hclk, npu, pclk. After the change the driver holds one handle per
-> > distinct clock and clk_bulk_prepare_enable() covers all four.
-> >=20
-> > Note that this is a user-visible tightening for out-of-tree DTs: the old
-> > NULL-id requests resolved by index and succeeded no matter what
-> > "clock-names" contained, while the named requests fail probe with -ENOE=
-NT
-> > when one of the four names is missing. That is the right outcome for
-> > in-tree users - the binding requires exactly these four clock-names and
-> > rk3588-base.dtsi carries them on all three cores - but a DT that relied=
- on
-> > the permissive lookup goes from silently running on the wrong clock han=
-dles
-> > to not probing at all, so record the change here where git log will find
-> > it.
-> >=20
-> > Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU=
-")
-> > Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> > Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-> > Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS,=
- NanoPC-T6 Plus
-> > Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-> > Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Am Sonntag, 1. November 2026, 09:22:56 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> rocket_reset() drops the in-flight job's runtime PM reference with
+> pm_runtime_put_noidle(), which requests nothing, so the core does not
+> suspend until something else asks and its power domain does not cycle. On
+> RK3576 the domain's power-on resets the NPU bus interface; without it the
+> IOMMU stops answering and the job after a timeout fails.
 >=20
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> Use pm_runtime_put_autosuspend(), as the completion path does. On a ROCK =
+4D
+> the job after a timeout goes from 0 to 128 of 128 channels correct.
 >=20
-> nit: the commit description could be way shorter, for that small change.
+> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
+=2Ecom/
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
+nduced reset, JOB_TIMEOUT_MS=3D2
+> ---
+>  drivers/accel/rocket/rocket_job.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 5b2abf40b618..152a9098634b 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -467,12 +467,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
+ched_job *bad)
+> =20
+>  	/*
+>  	 * No handler is running now, but we might still have stuck jobs. Let's
+> -	 * make sure the PM counters stay balanced by manually calling
+> -	 * pm_runtime_put_noidle().
+> +	 * make sure the PM counters stay balanced by putting the reference the
+> +	 * job took, and request idle while doing it so the core can suspend.
+>  	 */
 
-note-to-self: also part of the DVFS series
+with my comment in patch 3/15 fixed
+
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+> -			pm_runtime_put_noidle(core->dev);
+> +			pm_runtime_put_autosuspend(core->dev);
+> =20
+>  		iommu_detach_group(NULL, core->iommu_group);
+> =20
+>=20
 
 
 
