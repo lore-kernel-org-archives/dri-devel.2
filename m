@@ -2,69 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38D060D879B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F117606B2FA
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GnDegx9h
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4RqvCC3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1300A10FE9D;
-	Wed,  4 Nov 2026 19:52:27 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19D4F10FE9E
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793821935; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=RL/KiHkn559ARasvWtWE6HMGK5UM02TNgh936ORCMohbt7llHXfHRFpURxYxfABPfdVmjTphkAUTCuap3dQeQ8ieXtQprCyoEa8kFzRX6kkLchsSFR6S0WIAe/kHPQ75nLNVDP8CF9g4uOsS3OLJhTVftZPUB+WqgQ36dlKPJT8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793821935;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=pLue9x6BWWrzsb2sVe20++4HPjLCp1G2bwj77yogYNk=; 
- b=I6m9W4kj8tzUh8Qt7+k4pYFBJnCP16dWF+cZWJ7dhhYf2DJqDOnz/cZN2oCKoVLzoo8HvWj9FAsjbXNU8o/u238B4p+0ipiLmPYrbZhwmEeIRleGsYN9Lflk3qvVTuqbGrKk2BfiBYgP+shgP1v+0zTjiwR2QbUDDtUQk2+OKzI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=GnDegx9hNjgJ/AZXsiSIo+DayvYw2T7DzFTN6++aWh2kgelLcTVOq4pMIxuixf5U1ruVu3qvmZFodiPylep+EhFn82+Jyr+KN+oyMMEXhU8bvGasPXaq9w6L509HNghkZ9mC8v57NSEfh5680G7v90/q2tWuhu0rEf8vOM7eJO0=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=pLue9x6BWWrzsb2sVe20++4HPjLCp1G2bwj77yogYNk=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 17938219336521015.0986482478506; 
- Wed, 4 Nov 2026 11:52:13 -0800 (PST)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 04 Nov 2026 19:51:54 +0000
-Subject: [PATCH v3 2/2] drm/panfrost: Fix race when restoring reset state
- in perfcnt
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7426D10FE9E;
+	Wed,  4 Nov 2026 19:52:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4DCB10FE9F
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 28B1760D99;
+ Wed,  4 Nov 2026 19:52:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F8E1F00919;
+ Wed,  4 Nov 2026 19:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793821940;
+ bh=cbUv3n1tBnI1k6VxTZ3ZcHd/CVUe8/cnvkVP6mlO6Yc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=E4RqvCC33TjJz3vsdxt6gVY1KKu7vjxv4xFkRitk2vuws+TlWcgf7WMt9M4i+MGOG
+ 5RqBFuiDLeSXKpam105hMVUy3rhZtAy4+MdMi+B7rIZnwUE4pEJ3q3s5wEaYNPAvME
+ KGEwRiAVWj2XYJWhDQNc2XFGUB4R7PXjlOfMJ1Wd48dn4EheS4oMJIcqJ7f5JQYPgB
+ TSPocNG2UWf2+B18aoxxNlwBlUst0KSwQJOkoIQQZUfrJ7zcLgoYvoDopw5KBBJBn/
+ 8DxYWNnsXOWVRZ4gVxW8YDBrz4dlklthAuCncsHXYWBPclGriCH6RWHTj0lVCLeuJN
+ 1w/HFHcR3YoYQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>,
+ Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 10/30] genirq/proc: let procfs copy in the affinity
+ masks
+Date: Wed,  4 Nov 2026 20:52:06 +0100
+Message-ID: <20261104-work-procfs-fs-v2-10-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3770; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=WZPzG5+ElQbjbcTuZJJKbql/hLS5VpybW+Y2WsbSVy8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jFTOsnPsPqVcfq0tE/cqcL/tgpv8fLebHHL7+Kde
+ 1dYK5Ofd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExEejPDf4d249cV1q+X8Xi5
+ lzKEZHld3P2sJ++tcMq/aU/+3/3eHMjwvy5Y6WGkzT+rx1e/T7mY5upvvFxP0ovZMPeTMvtUxrP
+ urAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-panfrost-reset-races-fixes-v3-2-09868a88c351@collabora.com>
-References: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
-In-Reply-To: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1532;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=Niu4bMgW+1MSGrBQXh8uM8TErFzdAq3PS8yb+5mB66U=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq64zhpGZx/9rBtHZT2fqIeSEBlY74nT6TzSlmT
- hP9AOmS0t+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCauuM4QAKCRAOJn5M7lND
- PXFDC/0YNCCzhZeDejnz/yP85EVerVP0YdU3RZw8ENA+sDPW9KZH11vHn4lGtX1WabqpqAMsiDl
- k0e5oT+YDcwrwsS8iqiUDSRZ49TEgpwAVneQnaqSGBqJPXfdNg+npYW7f5PkPy7SGUlgHJKmuIS
- v1E5wPwE3g8PeDk2uayDfKf2pfnSsIj5/+yYJrdDLf5HdBNbrgW7Lmb9YQ7O5Duip8L+pAOAgnU
- 8kQor2Yk65WY7iVEgQysLC059lWaj7RIr8xaOOoh9JLWYk9L78ZvKWT8oorWW1ysRQCNcOtai4L
- wIP7z6lnKW7kYH4A32T7ViF1zWWmQFahe/xNbFYPUo03n1+KKsWdyu/03hbLFVK6Wg1I39gh95Z
- vlQtlNjfiS5NWOKcG0U2T/q/NmRGwVwcf9uTGluvCvGLyROUxe+Wr9WjgEOVmpkOgbK32UlJmZV
- 6mLPzlcfwm4/oD4xhOjVRWppZyNAaabafgOJy7kq3msFeAEX95ftsV9t3MS9TVLZi54Wo=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,55 +90,124 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-struct panfrost_perfcnt::state should always be updated atomically, both
-in the dump ioctl and the reset sequence.
+Implement ->proc_write_buf() for smp_affinity, smp_affinity_list and
+default_smp_affinity so procfs copies in what is written before it pins
+the entry, and parse the masks from that copy. A list of CPUs can be
+longer than a page on large machines, so the files take as much as
+memdup_user_nul() could copy in before. Anything larger fails with
+-EINVAL instead of -ENOMEM.
 
-Fixes: 9944dd07f3cf ("drm/panfrost: Fix races between perfcnt and reset sequence")
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ kernel/irq/proc.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index b26da057a1a0..d50b6cc2ecfa 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -148,18 +148,17 @@ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *stat
- 	 */
- 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
- 							msecs_to_jiffies(1000));
--
- 	if (!ret)
- 		ret = -ETIMEDOUT;
+diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
+index aa3d5544cfc1..fe683457a088 100644
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -9,6 +9,7 @@
+ #include <linux/gfp.h>
+ #include <linux/proc_fs.h>
+ #include <linux/seq_file.h>
++#include <linux/slab.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/kernel_stat.h>
+@@ -134,8 +135,11 @@ static inline int irq_select_affinity_usr(unsigned int irq)
+ }
+ #endif
  
--	/* We need to restore perfcnt state so the next successful dump can relay it to UM */
--	if (ret < 0) {
--		perfcnt->state |= *state;
--		*state = 0;
--		return ret;
--	}
--
- 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		/* Restore perfcnt state so the next successful dump can relay it to UM */
-+		if (ret < 0) {
-+			perfcnt->state |= *state;
-+			*state = 0;
-+			return ret;
-+		}
++/* lists of CPUs can outgrow a page, take what memdup_user_nul() took */
++#define IRQ_AFFINITY_WRITE_SIZE	(KMALLOC_MAX_SIZE - 1)
 +
- 		*state |= perfcnt->state;
+ static ssize_t write_irq_affinity(int type, struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	unsigned int irq = (int)(long)pde_data(file_inode(file));
+ 	cpumask_var_t new_value;
+@@ -148,9 +152,9 @@ static ssize_t write_irq_affinity(int type, struct file *file,
+ 		return -ENOMEM;
  
- 		/* UM must re-enable their session before requesting new dumps. */
+ 	if (type)
+-		err = cpumask_parselist_user(buffer, count, new_value);
++		err = cpulist_parse(buffer, new_value);
+ 	else
+-		err = cpumask_parse_user(buffer, count, new_value);
++		err = cpumask_parse(buffer, new_value);
+ 	if (err)
+ 		goto free_cpumask;
+ 
+@@ -177,25 +181,27 @@ free_cpumask:
+ }
+ 
+ static ssize_t irq_affinity_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	return write_irq_affinity(0, file, buffer, count, pos);
+ }
+ 
+ static ssize_t irq_affinity_list_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	return write_irq_affinity(1, file, buffer, count, pos);
+ }
+ 
+ static const struct proc_ops irq_affinity_proc_ops = {
+ 	.proc_show	= irq_affinity_proc_show,
+-	.proc_write	= irq_affinity_proc_write,
++	.proc_write_buf	= irq_affinity_proc_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ static const struct proc_ops irq_affinity_list_proc_ops = {
+ 	.proc_show	= irq_affinity_list_proc_show,
+-	.proc_write	= irq_affinity_list_proc_write,
++	.proc_write_buf	= irq_affinity_list_proc_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ #ifdef CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK
+@@ -217,7 +223,7 @@ static int default_affinity_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t default_affinity_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *ppos)
++		char *buffer, size_t count, loff_t *ppos)
+ {
+ 	cpumask_var_t new_value;
+ 	int err;
+@@ -225,7 +231,7 @@ static ssize_t default_affinity_write(struct file *file,
+ 	if (!zalloc_cpumask_var(&new_value, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
+-	err = cpumask_parse_user(buffer, count, new_value);
++	err = cpumask_parse(buffer, new_value);
+ 	if (err)
+ 		goto out;
+ 
+@@ -249,7 +255,8 @@ out:
+ 
+ static const struct proc_ops default_affinity_proc_ops = {
+ 	.proc_show	= default_affinity_show,
+-	.proc_write	= default_affinity_write,
++	.proc_write_buf	= default_affinity_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ static int irq_node_proc_show(struct seq_file *m, void *v)
 
 -- 
-2.56.0
+2.53.0
 
