@@ -2,36 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0E1606D804
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F34606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4BED10F984;
-	Wed,  4 Nov 2026 02:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 578EA10F982;
+	Wed,  4 Nov 2026 02:53:41 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A72A010F982
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5267510E66B
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:39 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowADnD_osnupq4+Q+AA--.29482S2;
- Wed, 04 Nov 2026 10:53:33 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowACnzvgwnupqDuU+AA--.9760S2;
+ Wed, 04 Nov 2026 10:53:36 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/gem-atomic-helper: fix explicit fence leak without a
- framebuffer
-Date: Wed,  4 Nov 2026 02:53:42 +0000
-Message-Id: <20261104025342.1527424-1-vulab@iscas.ac.cn>
+Cc: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915/selftests: read the seqno before dropping the request
+Date: Wed,  4 Nov 2026 02:53:45 +0000
+Message-Id: <20261104025345.1527509-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADnD_osnupq4+Q+AA--.29482S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFWxtr47tFy7XF1UAr1fJFb_yoW8WFy8pw
- s8Gry5Krs8tF4Y93Z7WF1vvayakw4fKFWIgrWkAr4a9w1Yqr17ZF1jvrZrur43Jr97Cw13
- tr12y3Z5uryUAFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBjb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+X-CM-TRANSID: qwCowACnzvgwnupqDuU+AA--.9760S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AF18Xw4rKF15WFyUtr18Xwb_yoW8Ar18pr
+ 4fGa1YvrnxJryIyw4xJr4jvFyYkFsayFWfCwnrKw13urs8Xw4vyrn293WUWryDAFZ7Xry3
+ tFsrtFZxWF9FyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
  cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
  AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
  6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
@@ -40,11 +41,11 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7WFWxtr47tFy7XF1UAr1fJFb_yoW8WFy8pw
  kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lc7CjxVAa
  w2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
  CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
- 14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+ 14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
  IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20E
- Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxV
- AFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x07bpfOcUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQBA2rqY-niiAAAsv
+ Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I
+ 0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjxUHubkDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAABA2rqY+TkRAAAsp
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,46 +64,51 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_gem_plane_helper_prepare_fb() takes a reference on state->fence
-before checking whether the plane state has a framebuffer. An explicit
-fence can be attached to a disabled plane through the IN_FENCE_FD
-property, and drm_atomic_plane_check() accepts that state because CRTC
-and framebuffer are both unset. The early return for the missing
-framebuffer then drops the newly acquired reference without releasing
-it.
+perf_mi_bb_start() waits for the request it has just submitted, drops the
+reference taken with i915_request_get() and only then reads
+rq->hwsp_seqno[].
 
-Move the reference acquisition after the framebuffer check.
+i915_request_wait() returns as soon as the fence is signaled, which
+happens in i915_request_retire() before it puts the request's initial
+reference.  If retirement has already run, the put in this loop is the
+last one and i915_request_put() frees the request, so the seqno is read
+from an object that the SLAB_TYPESAFE_BY_RCU slab cache can already have
+handed out to another user.
 
-Fixes: 1ea28bc5542d ("drm: handle kernel fences in drm_gem_plane_helper_prepare_fb v2")
+Sample the seqno while the reference is still held.
+
+Fixes: 3c7a44bbbfa7 ("drm/i915/selftests: Perform some basic cycle counting of MI ops")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/drm_gem_atomic_helper.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-index dd9efa7e3216..6c7bdb141905 100644
---- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-@@ -114,7 +114,7 @@
- int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
- 				    struct drm_plane_state *state)
- {
--	struct dma_fence *fence = dma_fence_get(state->fence);
-+	struct dma_fence *fence;
- 	enum dma_resv_usage usage;
- 	size_t i;
- 	int ret;
-@@ -122,6 +122,8 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
- 	if (!state->fb)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index 5ffa5e30f419..1846f1c7e77e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -196,11 +196,17 @@ static int perf_mi_bb_start(void *arg)
  
-+	fence = dma_fence_get(state->fence);
+ 			if (i915_request_wait(rq, 0, HZ / 5) < 0)
+ 				err = -EIO;
 +
- 	/*
- 	 * Only add the kernel fences here if there is already a fence set via
- 	 * explicit fencing interfaces on the atomic ioctl.
++			/*
++			 * The request can be freed as soon as its last
++			 * reference is dropped, so read the seqno first.
++			 */
++			if (!err)
++				cycles[i] = rq->hwsp_seqno[3] - rq->hwsp_seqno[2];
++
+ 			i915_request_put(rq);
+ 			if (err)
+ 				break;
+-
+-			cycles[i] = rq->hwsp_seqno[3] - rq->hwsp_seqno[2];
+ 		}
+ 		i915_vma_put(batch);
+ 		intel_engine_pm_put(engine);
 -- 
 2.34.1
 
