@@ -2,90 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185F0606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 01:07:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA99606A33B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 01:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FlOY30mb
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hSzOd2n3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43F7A10E335;
-	Wed,  4 Nov 2026 01:07:51 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4F210E335
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 01:07:45 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4a5177d78c7so1053075e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 03 Nov 2026 17:07:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793754463; x=1794359263; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=IkoTUr12d3aBSwhfLu9j73ajMyz1vUUn+p4JbB9hc1c=;
- b=FlOY30mbQ3lSm6aWqxHnbUQK8lxH+aJxXBtrfFao3+T9PtVtEToBir+hPcHk+35HkQ
- wiCtcLPFLV5GaEDJ7Zx2DNIbKhwZSYntc5iPZaWuBh5Sdo8GBJgzjJ/dIKOT4awD1ko7
- l2BBy+MZkGwxYelRP4PZSPrMm0vdTdb7UkIEEHlEob9A8ScBZ6nLenqJxelr4lTgaBH2
- feu3lbiqG7Yi70Kmw5GmNBeGtnATjMKSPp99jwooNN6u9Kxy6erGkV29HZnbptJ/YxeF
- htQBZMRPfowKTBHQMPzg/xnt4ETOroXOzGyECSR+hraODWu2BnWkudytLECOM+GL0XbN
- eKDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793754463; x=1794359263;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IkoTUr12d3aBSwhfLu9j73ajMyz1vUUn+p4JbB9hc1c=;
- b=aTOKZphlXEUYxqrbu6uaeyb0aurqD0DjnWwKHEAPHNYuJW98jfWTONhE+gRTfbQQ9H
- NaS61bzzdfL7LludTXRJEO82YAYsI+NGhFXUanRlLFe4H0zcgb19SqCDfo4j0okwPQtH
- Ew4SsZX7MBNLrZPCJAsdIcuDqj9uNqS/I1KJefzW4/yaCNwEbTaAQB4YUFJQxqmgKNMx
- BiA1bcIHbHQIjCenz8EQpbsLKP7MxdOscIMLeLbL2efXcPv7o3KK3NBEB9cGL+fgT3OI
- yrXt83rH6Bl4qSvUJgaN84q1m3aaxO8+g2wotSuDj4Jdd/JN1hPYvNAvoH53GBjICtBc
- j1Jg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwWeoeLw2lzNr5JSwnBwXxxb8eY8q6S6zcy4EILHHLdnTbhRSbssBqoO7T7vr4AoW6SRIbf+53oo7k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z99UMHkOB0e+f36VXUrYPPWtDeTYzvua+a1nqODOrwiQFJW2EmY
- kY5f7U2h8Kwo0Fe0CESE6FZ0XxJAYxIWf/3N5wEqVaH0w5A1FtgVBfNQ
-X-Gm-Gg: AYBFou05OjAIsE1uZpFRRPUevw0Nw81FnN9Degyhg9/AD148b1H3TVRTgPtuUIhJHWi
- X2s+C55kjK6IBU1UfR55wwaEXzyPiExrEwHEIBq1v98hllPFIXepZuBNH2z4ROr1FWM9kKTsXlZ
- /tvwYsCmulYJlZwvAauvD+0c3JlImIIVFKIQcB9wXgH5TT+XpEP/5fQH0xBuJb+LrOZ1bpwv8Lp
- 3a2jNhy5+HvBd+xHmWwLoiVEGIIMZuVCkPbHuOWxJrQGbox+Nzj/DLFAC4+aAw/WTAsSfthuHM9
- Y6xDG+ULlUCWIuyoOvw9UcE2XCp0Js9f7NrMHe8sUMmrcK763VbVM6NjQ7bc4x8obTyytV5ts6x
- XtfCnLhPcCGD2blf9vRiuSUmD1ShDNKCQnrLbRCbOKMBeUnCnF2W91jnfESsWw2YiT0teamITlf
- DfNRY3frRtmkW78rvhCRKLyISoXshzH2y2BorP/SEQv27Caec/6XZI9YSPV/0yF572G6/gcC3fs
- 9xZHZf9u36r/R2tPYv6ZJboouvTs5FQvMIwx6eoGqAxgzOk4Fhd2X2eOWGV9eZXZMfad4zAfHFG
- caD6l8ZeY+4BtLf7yn+5dcATyTP9A0aAqxTaP5mTXJEW0XF0uKMFW9+umrpjkFfe7AVrfBZVPcG
- MpuDuIs5ptHvQb7iumrOEE17KGEIgkxuKxGDiuawF/VoethPaU4Ooa/ol1ZrDkxcGnlLcTq9740
- NiPw==
-X-Received: by 2002:a05:600c:4f0f:b0:4b3:ad9d:e21 with SMTP id
- 5b1f17b1804b1-4b3ad9d0e48mr50657685e9.12.1793754463523; 
- Tue, 03 Nov 2026 17:07:43 -0800 (PST)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b2ab00ff3dsm181749615e9.14.2026.11.03.17.07.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Nov 2026 17:07:37 -0800 (PST)
-Message-ID: <50be53a4-0136-4c8e-97bc-2cdc1caf76fd@gmail.com>
-Date: Wed, 4 Nov 2026 01:07:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807AF10F905;
+	Wed,  4 Nov 2026 01:30:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC5710E4EF;
+ Wed,  4 Nov 2026 01:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793755802; x=1825291802;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=syy6QjJl2jFKpWBfFodPKYB/m/8Hval3+l8xNhB4PjM=;
+ b=hSzOd2n3FsB8lMCs6o6wA6txzr4s4hvcRoqi8ytwwDK9zdFOct0Htf0f
+ gpNDtG+2Z4edJ79MY0iXIm6ENT2LOMWSzK5xglqcs7I0y7xh5GAgNgxta
+ 9VWefhdIsU/naUMXj4KsacO2N+ucyA45cjtp4PBJILDG5wBg8zXviZwAT
+ Sv4JAJNQHHXO96D1onnGwyZ/Q3CwSe2GJ4mBlPJqotcKe76wk08opiFyq
+ X/cd4Yz8yYdlzHLoMMPaWYP6kAmEcNG5CU2woEyE1hJm6KHdsTTd1Jixb
+ h9yautDTYFDc66T84FZNWBKpOVebisN/8Vw8YLydeEioZ8CBb7Ky58yjj A==;
+X-CSE-ConnectionGUID: nh7Vjq5HSw+Q0BcEzesoFA==
+X-CSE-MsgGUID: wEbYx+TeTiOkRpmPAlOxIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2592902"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2592902"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 17:30:02 -0800
+X-CSE-ConnectionGUID: i+t+TH98QdO/q+1wNBAJuQ==
+X-CSE-MsgGUID: ook4j2l8TWmULubw0mdFAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6596283"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation)
+ ([10.239.182.64])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 17:29:58 -0800
+Date: Wed, 4 Nov 2026 09:29:54 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+ Nikolay Borisov <nik.borisov@suse.com>,
+ linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ kvm@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dm-devel@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ linux-pm@vger.kernel.org, yi1.lai@intel.com
+Subject: [linus:master] [x86/cpu]  3eaa50e1e2:
+ WARNING:at_arch/x86/mm/tlb.c:#switch_mm_irqs_off
+Message-ID: <202611040239.b33be21c-lkp@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] allow dma-buf-io ctx reuse across files
-To: linux-block@vger.kernel.org, io-uring@vger.kernel.org
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Nitesh Shetty <nj.shetty@samsung.com>,
- Kanchan Joshi <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>
-References: <cover.1793751001.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <cover.1793751001.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,32 +68,320 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/4/26 00:18, Pavel Begunkov wrote:
-> Currently, dma-buf maps can only be used by the file they were
-> registered with. This means that we can't open a new file, even if it
-> comes from the same subsystem and point to the same block device and
-> use it with an old dma-buf registration. That would be too restrictive
-> for upcoming filsystem support, so lift it now and allow reusing
-> contexts between files pointing to the same NVMe, even if they refer
-> to different partitions.
-> 
-> To do that, we add a tag representing for each file, save it from
-> the file passed during registration and use it to reject files
-> which tags don't match it. Tags are set by subsystems creating
-> files, should be unique and represent the instance of the
-> subsystem.
 
-Fwiw, sashiko raised good points, I'll need to address
-them in v2.
 
--- 
-Pavel Begunkov
+Hello,
+
+kernel test robot noticed "WARNING:at_arch/x86/mm/tlb.c:#switch_mm_irqs_off" on:
+
+commit: 3eaa50e1e255ec261c757b9eea811ef3bac10d1e ("x86/cpu: Hide and rename static_cpu_has()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
+
+in testcase: trinity
+version: 
+with following parameters:
+
+	runtime: 300s
+	group: group-03
+	nr_groups: 5
+
+
+config: i386-randconfig-2302-20261020
+compiler: clang-22
+test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202611040239.b33be21c-lkp@intel.com
+
+
+[    6.581068][    T0] ======================================================
+[    6.581069][    T0] WARNING: possible circular locking dependency detected
+[    6.581070][    T0] 7.2.0-rc2-00001-g3eaa50e1e255 #1 Not tainted
+[    6.581072][    T0] ------------------------------------------------------
+[    6.581073][    T0] swapper/1/0 is trying to acquire lock:
+[    6.581074][    T0] c31a3080 (console_owner){..-.}-{0:0}, at: console_lock_spinning_enable+0x2b/0x80
+[    6.581086][    T0]
+[    6.581086][    T0] but task is already holding lock:
+[    6.581086][    T0]
+[    6.581086][    T0] but task is already holding lock:
+[    6.581086][    T0]
+[    6.581086][    T0] but task is already holding lock:
+[    6.581087][    T0] e85ad118 (&rq->__lock){-.-.}-{2:2}, at: __schedule+0x1b4/0x940
+[    6.581676][    T0]
+[    6.581676][    T0] which lock already depends on the new lock.
+[    6.581676][    T0]
+[    6.581676][    T0] which lock already depends on the new lock.
+[    6.581676][    T0]
+[    6.581676][    T0] which lock already depends on the new lock.
+[    6.581676][    T0]
+[    6.581677][    T0]
+[    6.581677][    T0] the existing dependency chain (in reverse order) is:
+[    6.581677][    T0]
+[    6.581677][    T0] the existing dependency chain (in reverse order) is:
+[    6.581677][    T0]
+[    6.581677][    T0] the existing dependency chain (in reverse order) is:
+[    6.581678][    T0]
+[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
+[    6.581678][    T0]
+[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
+[    6.581678][    T0]
+[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
+[    6.581683][    T0]        _raw_spin_lock_nested+0x20/0x40
+[    6.581686][    T0]        ___task_rq_lock+0x55/0x100
+[    6.581691][    T0]        wake_up_new_task+0xd5/0x2c0
+[    6.581693][    T0]        kernel_clone+0x1f4/0x3c0
+[    6.581696][    T0]        user_mode_thread+0x61/0x80
+[    6.581698][    T0]        rest_init+0x1a/0x1c0
+[    6.581700][    T0]        start_kernel+0x337/0x3c0
+[    6.581706][    T0]        i386_start_kernel+0xc6/0x100
+[    6.581708][    T0]        startup_32_smp+0x151/0x154
+[    6.581710][    T0]
+[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
+[    6.581710][    T0]
+[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
+[    6.581710][    T0]
+[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
+[    6.581713][    T0]        _raw_spin_lock_irqsave+0x33/0x80
+[    6.581715][    T0]        try_to_wake_up+0x3b/0x440
+[    6.581717][    T0]        default_wake_function+0x13/0x40
+[    6.581719][    T0]        autoremove_wake_function+0x10/0x40
+[    6.581723][    T0]        __wake_up_common_lock+0x6e/0xc0
+[    6.581726][    T0]        __wake_up+0x13/0x40
+[    6.581729][    T0]        tty_wakeup+0x50/0x80
+[    6.581732][    T0]        tty_port_default_wakeup+0x52/0x80
+[    6.581734][    T0]        tty_port_tty_wakeup+0x11/0x40
+[    6.581737][    T0]        uart_write_wakeup+0x12/0x40
+[    6.581739][    T0]        serial8250_tx_chars+0x184/0x1c0
+[    6.581741][    T0]        serial8250_handle_irq_locked+0x1bd/0x200
+[    6.581744][    T0]        serial8250_handle_irq+0x57/0x100
+[    6.581746][    T0]        serial8250_default_handle_irq+0x1c/0x40
+[    6.581748][    T0]        serial8250_interrupt+0x41/0xc0
+[    6.581750][    T0]        __handle_irq_event_percpu+0xac/0x3c0
+[    6.581752][    T0]        handle_irq_event+0x26/0x80
+[    6.581754][    T0]        handle_edge_irq+0x77/0x140
+[    6.581757][    T0]        __handle_irq+0x67/0x80
+[    6.581761][    T0]        __common_interrupt+0x74/0xc0
+[    6.581763][    T0]        common_interrupt+0x24/0x40
+[    6.581765][    T0]        asm_common_interrupt+0x137/0x140
+[    6.581768][    T0]        pv_native_safe_halt+0xe/0x40
+[    6.581769][    T0]        default_idle+0x8/0x40
+[    6.581771][    T0]        arch_cpu_idle+0x8/0x40
+[    6.581773][    T0]        default_idle_call+0x6c/0xc0
+[    6.581775][    T0]        do_idle+0xbc/0x240
+[    6.581779][    T0]        cpu_startup_entry+0x25/0x40
+[    6.581781][    T0]        start_secondary+0x9f/0xc0
+[    6.581785][    T0]        startup_32_smp+0x151/0x154
+[    6.581787][    T0]
+[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
+[    6.581787][    T0]
+[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
+[    6.581787][    T0]
+[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
+[    6.581790][    T0]        _raw_spin_lock_irqsave+0x33/0x80
+[    6.581791][    T0]        __wake_up_common_lock+0x15/0xc0
+[    6.581794][    T0]        __wake_up+0x13/0x40
+[    6.581796][    T0]        tty_wakeup+0x50/0x80
+[    6.581798][    T0]        tty_port_default_wakeup+0x52/0x80
+[    6.581801][    T0]        tty_port_tty_wakeup+0x11/0x40
+[    6.581802][    T0]        uart_write_wakeup+0x12/0x40
+[    6.581805][    T0]        serial8250_tx_chars+0x184/0x1c0
+[    6.581807][    T0]        serial8250_handle_irq_locked+0x1bd/0x200
+[    6.581809][    T0]        serial8250_handle_irq+0x57/0x100
+[    6.581811][    T0]        serial8250_default_handle_irq+0x1c/0x40
+[    6.581813][    T0]        serial8250_interrupt+0x41/0xc0
+[    6.581815][    T0]        __handle_irq_event_percpu+0xac/0x3c0
+[    6.581817][    T0]        handle_irq_event+0x26/0x80
+[    6.581818][    T0]        handle_edge_irq+0x77/0x140
+[    6.581820][    T0]        __handle_irq+0x67/0x80
+[    6.581822][    T0]        __common_interrupt+0x74/0xc0
+[    6.581825][    T0]        common_interrupt+0x24/0x40
+[    6.581827][    T0]        asm_common_interrupt+0x137/0x140
+[    6.581829][    T0]        pv_native_safe_halt+0xe/0x40
+[    6.581830][    T0]        default_idle+0x8/0x40
+[    6.581832][    T0]        arch_cpu_idle+0x8/0x40
+[    6.581834][    T0]        default_idle_call+0x6c/0xc0
+[    6.581835][    T0]        do_idle+0xbc/0x240
+[    6.581838][    T0]        cpu_startup_entry+0x25/0x40
+[    6.581840][    T0]        start_secondary+0x9f/0xc0
+[    6.581842][    T0]        startup_32_smp+0x151/0x154
+[    6.581844][    T0]
+[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
+[    6.581844][    T0]
+[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
+[    6.581844][    T0]
+[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
+[    6.581847][    T0]        _raw_spin_lock_irqsave+0x33/0x80
+[    6.581848][    T0]        serial8250_console_write+0x57/0x640
+[    6.581851][    T0]        univ8250_console_write+0x20/0x40
+[    6.581853][    T0]        console_flush_all+0x26f/0x480
+[    6.581856][    T0]        console_unlock+0x65/0x100
+[    6.581858][    T0]        vprintk_emit+0x183/0x2c0
+[    6.581860][    T0]        vprintk_default+0x10/0x40
+[    6.581862][    T0]        vprintk+0xe/0x40
+[    6.581864][    T0]        _printk+0x20/0x40
+[    6.581866][    T0]        register_console+0x340/0x3c0
+[    6.581868][    T0]        univ8250_console_init+0x1b/0x40
+[    6.581871][    T0]        console_init+0x7b/0x280
+[    6.581874][    T0]        start_kernel+0x229/0x3c0
+[    6.581877][    T0]        i386_start_kernel+0xc6/0x100
+[    6.581879][    T0]        startup_32_smp+0x151/0x154
+[    6.581880][    T0]
+[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
+[    6.581880][    T0]
+[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
+[    6.581880][    T0]
+[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
+[    6.581883][    T0]        __lock_acquire+0x16ac/0x2a80
+[    6.581886][    T0]        lock_acquire+0xa0/0x240
+[    6.581888][    T0]        console_lock_spinning_enable+0x44/0x80
+[    6.581890][    T0]        console_flush_all+0x253/0x480
+[    6.581893][    T0]        console_unlock+0x65/0x100
+[    6.581894][    T0]        vprintk_emit+0x183/0x2c0
+[    6.581896][    T0]        vprintk_default+0x10/0x40
+[    6.581898][    T0]        vprintk+0xe/0x40
+[    6.581900][    T0]        _printk+0x20/0x40
+[    6.581902][    T0]        __report_bug+0xa8/0x140
+[    6.581904][    T0]        report_bug+0x61/0x80
+[    6.581906][    T0]        handle_bug+0x92/0x240
+[    6.581908][    T0]        exc_invalid_op+0x24/0x80
+[    6.581911][    T0]        handle_exception_return+0x0/0xcb
+[    6.581913][    T0]        switch_mm_irqs_off+0x3bd/0x440
+[    6.581916][    T0]        __schedule+0x539/0x940
+[    6.581918][    T0]        schedule_idle+0x2a/0x40
+[    6.581920][    T0]        do_idle+0x1cf/0x240
+[    6.581923][    T0]        cpu_startup_entry+0x25/0x40
+[    6.581925][    T0]        start_secondary+0x9f/0xc0
+[    6.581927][    T0]        startup_32_smp+0x151/0x154
+[    6.581929][    T0]
+[    6.581929][    T0] other info that might help us debug this:
+[    6.581929][    T0]
+[    6.581929][    T0] other info that might help us debug this:
+[    6.581929][    T0]
+[    6.581929][    T0] other info that might help us debug this:
+[    6.581929][    T0]
+[    6.581930][    T0] Chain exists of:
+[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
+[    6.581930][    T0]
+[    6.581930][    T0] Chain exists of:
+[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
+[    6.581930][    T0]
+[    6.581930][    T0] Chain exists of:
+[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
+[    6.581930][    T0]
+[    6.581933][    T0]  Possible unsafe locking scenario:
+[    6.581933][    T0]
+[    6.581933][    T0]  Possible unsafe locking scenario:
+[    6.581933][    T0]
+[    6.581933][    T0]  Possible unsafe locking scenario:
+[    6.581933][    T0]
+[    6.581934][    T0]        CPU0                    CPU1
+[    6.581935][    T0]        ----                    ----
+[    6.581935][    T0]   lock(&rq->__lock);
+[    6.581937][    T0]                                lock(&p->pi_lock);
+[    6.581939][    T0]                                lock(&rq->__lock);
+[    6.581940][    T0]   lock(console_owner);
+[    6.581941][    T0]
+[    6.581941][    T0]  *** DEADLOCK ***
+[    6.581941][    T0]
+[    6.581941][    T0]  *** DEADLOCK ***
+[    6.581941][    T0]
+[    6.581941][    T0]  *** DEADLOCK ***
+[    6.581941][    T0]
+[    6.581942][    T0] 3 locks held by swapper/1/0:
+[    6.581944][    T0]  #0: e85ad118 (&rq->__lock){-.-.}-{2:2}, at: __schedule+0x1b4/0x940
+[    6.581949][    T0]  #1: c31a3094 (console_lock){+.+.}-{0:0}, at: vprintk_emit+0x17a/0x2c0
+[    6.581954][    T0]  #2: c2e82dc4 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire+0x0/0x40
+[    6.581959][    T0]
+[    6.581959][    T0] stack backtrace:
+[    6.581959][    T0]
+[    6.581959][    T0] stack backtrace:
+[    6.581959][    T0]
+[    6.581959][    T0] stack backtrace:
+[    6.581962][    T0] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc2-00001-g3eaa50e1e255 #1 PREEMPT(lazy)
+[    6.581965][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    6.581967][    T0] Call Trace:
+[    6.581969][    T0]  __dump_stack+0x18/0x40
+[    6.581973][    T0]  dump_stack_lvl+0x65/0xc0
+[    6.581976][    T0]  dump_stack+0xd/0x12
+[    6.581979][    T0]  print_circular_bug+0x2bf/0x300
+[    6.581982][    T0]  check_noncircular+0x106/0x140
+[    6.581986][    T0]  __lock_acquire+0x16ac/0x2a80
+[    6.581994][    T0]  lock_acquire+0xa0/0x240
+[    6.581997][    T0]  ? console_lock_spinning_enable+0x2b/0x80
+[    6.582000][    T0]  ? console_lock_spinning_enable+0x2b/0x80
+[    6.582003][    T0]  console_lock_spinning_enable+0x44/0x80
+[    6.582006][    T0]  ? console_lock_spinning_enable+0x2b/0x80
+[    6.582008][    T0]  console_flush_all+0x253/0x480
+[    6.582012][    T0]  console_unlock+0x65/0x100
+[    6.582016][    T0]  vprintk_emit+0x183/0x2c0
+[    6.582019][    T0]  vprintk_default+0x10/0x40
+[    6.582022][    T0]  vprintk+0xe/0x40
+[    6.582025][    T0]  _printk+0x20/0x40
+[    6.582027][    T0]  __report_bug+0xa8/0x140
+[    6.582030][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
+[    6.582033][    T0]  ? switch_mm_irqs_off+0x3bf/0x440
+[    6.582036][    T0]  report_bug+0x61/0x80
+[    6.582038][    T0]  handle_bug+0x92/0x240
+[    6.582041][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
+[    6.582043][    T0]  ? handle_bug+0x240/0x240
+[    6.582046][    T0]  exc_invalid_op+0x24/0x80
+[    6.582049][    T0]  handle_exception+0x168/0x168
+[    6.582052][    T0] EIP: switch_mm_irqs_off+0x3bd/0x440
+[    6.582054][    T0] Code: 89 55 e4 e8 25 3f 40 01 8b 55 e4 8b 45 f0 f7 45 e8 00 02 00 00 0f 85 31 fe ff ff e9 2d fe ff ff 0f 0b e9 b3 fd ff ff 8b 75 ec <0f> 0b 83 7d f0 08 73 13 8b 45 f0 f0 0f ab 86 00 05 00 00 8b 5d e0
+[    6.582057][    T0] EAX: 00000001 EBX: e85a0000 ECX: c0ecf380 EDX: c0ecf380
+[    6.582059][    T0] ESI: c0ecf380 EDI: 00000000 EBP: c031ff0c ESP: c031fee4
+[    6.582061][    T0] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00210096
+[    6.582064][    T0]  ? handle_bug+0x240/0x240
+[    6.582067][    T0]  ? handle_bug+0x240/0x240
+[    6.582070][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
+[    6.582074][    T0]  __schedule+0x539/0x940
+[    6.582079][    T0]  schedule_idle+0x2a/0x40
+[    6.582081][    T0]  do_idle+0x1cf/0x240
+[    6.582085][    T0]  cpu_startup_entry+0x25/0x40
+[    6.582087][    T0]  start_secondary+0x9f/0xc0
+[    6.582090][    T0]  startup_32_smp+0x151/0x154
+[    6.752586][    T0] WARNING: arch/x86/mm/tlb.c:859 at switch_mm_irqs_off+0x3bd/0x440, CPU#1: swapper/1/0
+[    6.754233][    T0] Modules linked in:
+[    6.754879][    T0] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc2-00001-g3eaa50e1e255 #1 PREEMPT(lazy)
+[    6.756668][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    6.758441][    T0] EIP: switch_mm_irqs_off+0x3bd/0x440
+[    6.759346][    T0] Code: 89 55 e4 e8 25 3f 40 01 8b 55 e4 8b 45 f0 f7 45 e8 00 02 00 00 0f 85 31 fe ff ff e9 2d fe ff ff 0f 0b e9 b3 fd ff ff 8b 75 ec <0f> 0b 83 7d f0 08 73 13 8b 45 f0 f0 0f ab 86 00 05 00 00 8b 5d e0
+[    6.762672][    T0] EAX: 00000001 EBX: e85a0000 ECX: c0ecf380 EDX: c0ecf380
+[    6.763861][    T0] ESI: c0ecf380 EDI: 00000000 EBP: c031ff0c ESP: c031fee4
+[    6.765043][    T0] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00210096
+[    6.766344][    T0] CR0: 80050033 CR2: b7d0600c CR3: 0435b000 CR4: 00350ed0
+[    6.767537][    T0] Call Trace:
+[    6.768079][    T0]  __schedule+0x539/0x940
+[    6.768799][    T0]  schedule_idle+0x2a/0x40
+[    6.769557][    T0]  do_idle+0x1cf/0x240
+[    6.770231][    T0]  cpu_startup_entry+0x25/0x40
+[    6.771029][    T0]  start_secondary+0x9f/0xc0
+[    6.771794][    T0]  startup_32_smp+0x151/0x154
+[    6.772571][    T0] irq event stamp: 11750
+[    6.773297][    T0] hardirqs last  enabled at (11749): [<c248ea58>] default_idle_call+0x98/0xc0
+[    6.774773][    T0] hardirqs last disabled at (11750): [<c2492d95>] __schedule+0x155/0x940
+[    6.776182][    T0] softirqs last  enabled at (11726): [<c249c90a>] __do_softirq+0xa/0xc
+[    6.777581][    T0] softirqs last disabled at (11721): [<c249c90a>] __do_softirq+0xa/0xc
+[    6.778962][    T0] ---[ end trace 0000000000000000 ]---
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261104/202611040239.b33be21c-lkp@intel.com
+
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
