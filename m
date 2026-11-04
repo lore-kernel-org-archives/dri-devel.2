@@ -2,145 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9348E606A32C
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 13:52:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A83C606D809
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 14:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1OaV7a26
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NrAZImVu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1EFD10E07C;
-	Wed,  4 Nov 2026 13:52:04 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013028.outbound.protection.outlook.com
- [40.93.201.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8B610E07C
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 13:51:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fwlrplglXoh9OyjK5tR8CAVbMbWktw9uFYFeNSHJvwGJ6DkHw5K7lbE9u/0Tbeg0GuJpfAQ0DM+niGciw4x8V57/ewqSGdo6Uu6Gj7GfEZsxws0lnruQXzrDGFNP+uCFaPnt63QckclpYwFSdePxd3NN7erCxuhk3D0J0dkyHfEboL+7dZrQtoas+CSPVf7pQHO29Jp4vngicwOSs9Iza9Jkn49P1c+sdpJdW/N6BoO/QznG37XJCLicoM9/Atf0ESIlCZdLjLBjfnQ0gtwuB6YclmswwLzgrTghAqSWXgOv4DA1Y1F6306oniarI3zwBqP62bf1bpIUUuhtRUlVXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mQtJKixgze7C+diWpLN9bp2gmSFhvKu0oFRTq7AaEEA=;
- b=d0HeySeTfz4nN+X2kqhvBEsxytSTgVNh3MSxaO9/DsG9ALP2mlHiEvyzQoL6tRGw7w7JPCvBFca2gwurXJWCs0Q22jg5VEJbAlubvmj7zTC8drKFyl7TN+Au4wGjyfvHbJ91GyVN9D47edqL2FpnbVpK8qZlHK46HrhTgxzIuCv1c4I3QUMALPcvj4MXlze6SZUYkLeOoTG8t0lvva4YHeKf8ooCi4dbkMAwpBuWGEh4JtzrZeWXqRSNBELSeuo9L0HUlhMeFyxhRDYmR8hcVr6A+beAnEl0Es75IEWfwEuxHT2xxwf7Aa7fUbFgjJeX5sTy8Uiu8KAThXEnThXk5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mQtJKixgze7C+diWpLN9bp2gmSFhvKu0oFRTq7AaEEA=;
- b=1OaV7a26aooUI4kXc46/YIBQOwvrUIdoGhyzhFxSpxgIEVSt4U2yJeUY/fSt5uSa5+GnmHRtNhKQU4V3Sfrs3Wf6vxVqL52H3qHecHZHh61/Fya8ToXnrPPOZw1D+aM4lJaE/5AgJPEhe+U+obCr80cQ0PbpgDd/hbDHVIqTHk4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7885.namprd12.prod.outlook.com (2603:10b6:510:28f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 13:51:54 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 13:51:53 +0000
-Message-ID: <fb40349c-18d2-45d6-9278-8f20e1b8dc74@amd.com>
-Date: Wed, 4 Nov 2026 14:51:42 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Christian Brauner
- <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-mm@kvack.org, linux-security-module@vger.kernel.org,
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
- op-tee@lists.trustedfirmware.org
-References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
- <20261104-v2_20230123_tjmercier_google_com-v4-3-1819a017000b@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261104-v2_20230123_tjmercier_google_com-v4-3-1819a017000b@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0334.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C12810E25A;
+	Wed,  4 Nov 2026 14:07:41 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B36010E7D2
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 14:07:35 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-14388db1a6bso20266c88.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 06:07:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793801254; cv=none;
+ d=google.com; s=arc-20260327;
+ b=pKNgpGItA/qi6e1dZZ9PE3HM1eO8ZtQKcF4jsqblQZYGhavv9RFZLzm5bXAD0p8Yd/
+ poosahA4pwbRj4ZVDxUDgLodZEhhx3SQut3su/7XDDU4zNQir09l6CfMr9TJVKC/HT57
+ uXvVl2HdevRELpZfef4cSPJm8nF3rpBZO0kG2cwtUxUR1l7wPNaBPX7L8yVv7eF0PaAQ
+ 2aM/mYimT/c3m5oWR2oEsDcZ6kLlVEfTzDd07WYFoRbMWow0+c8IVq3ZjXsbAkhbpUKp
+ NyAoRJXH7SbitY+W4ix+UmOqy2A5s6KeaLF+t9uybOCJTg4mTWDV252lMfte50Tqm3Ff
+ TlFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ fh=Jse4EWPVokxKuHXz4h8W/mgmizVnFBw5IkjhXg7a0R8=;
+ b=eKGpA/rmkbK+Pja7ID/j4jSqinECzBwAq3YU7Uj3BQmiLd2NR5ZF7Rn77I3gOwIvAR
+ Ddws0eSEfnmwJJ3iYQsXjoZdCwgXQimfGLwvOQ3Wo/n5jPJ2kkdMWj3uIKzoK3YAZCYq
+ qks5pz5KSJ07bRfHgMx4cBMYv2xHyrc0+m86JjVHJ7vr05XylHupzvZQYnIeER2J9QRC
+ 6RALlF9ksIhAqtU43decstHx2xpTTyIZTu9TQGqR/jSvDOT/IHEb1tEO5mP2Vl8RpBtl
+ 9WluuDWE1yUoD7zgemiPaerMAHKFifcYJ8XvTlZnSGmw7LImNwyV89da1PXVobsLe7aW
+ SgyA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793801254; x=1794406054; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ b=NrAZImVu4kh3GlCXEVi4PPeYuNORQgNt/Oj2g3koDQaKVH848xL/0NuDNQ5mwzJiHR
+ TgL1OVQJfBFlXCMFs02oyDkzqO8WjWSwV3iKJa0h3ZVkAyFRqu59LCYeBN/RlEYQRraN
+ E/S29eeyI1R9pWhKGLMPEIp3ogZaorMp0aLMB6ZZ18oyDe8HGZ5znVSEdPDFFg1z67EA
+ Nd09rfuJmRDChEl6lNIK3nAbyMS9uJ5sntsmsCT213CUI4Kg+Rb1ovkY6KAH1Ft9IYxM
+ 1JMlC+t1ytXspQ6m5zPDvYlbnyN7ZBrpJ3HwvU57tTGOfPgWFQoq06WYQIM0s8R94OZE
+ OBew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793801254; x=1794406054;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ b=L+KXAjQLQ2PFyqvIaP6/iHyCr9R5vPFOWkxowK5//uzJMFw1LQoUrq30fTD7JhQbRE
+ obuCUO1wXVe7hoHejzQGVdoQmh05BNMyCzAdlDztO2yITcoNASTAReKlay/hlyzqZst3
+ YCNOqphNttb085ObHR1Kxyx3QkUFflYr0XZB1/KRjZ2FzkLNTbijzviJNuam+QumQm0d
+ imQLWV41a227N8O7gkAI1axH6470USEKCW+NVoYY2wuuYl4K6dL1yyR5e1r1hdBkT0NR
+ HhPJDHGlv5FHkk4YYrhCjeWaegKFKH/SW+YVEsNUUBTq4qIMHbmGKMthkRPxbOq/yjpK
+ 4CKQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxDUeOiCvuZQrl8rJEQBrSylV79oaP1Fle0guBhlN/1MHmIedJCD7mWwXV8VzaJYgaFYkE78Ko2NWA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/QwDmwJGZ2zj6M6n1gMvQj6tMY6I2h6zQVT7vfVmi9052AQP/z
+ g2fDtzafBcGl7glo4ko5GEXFKmF+lKO8iSWmT4HivoUgCFV6clQyJH1vp1EWF5um+2H6zRAFnQF
+ EwjBZG0/rd0Eh0UCupUGRyquHOtfOZbw=
+X-Gm-Gg: AYBFou1aUNaU1VtzXYAFgB0yVZfQbXn1iAVCsCWusQYZE6UpjI8flfqY7RJ3jdc+ezA
+ UlhqISEf22lVaNzZc7s9BfVGMjjWf1z9A+VPfZt/Z2OsCCe8ilr2ucnCO+NUx0EG+9MFXFvxvHT
+ 9ou34AM0MrAPFvHuWQ/eVqrcbdU0nF+yAtWaJi1p3AKhUoNc0L+BG+xdwO9T8tw6jcWNTdMInAz
+ rBGHXMYvNV4g8jY7Pt5dO/LSE7kakh0H5rwxC+Q3Pu1KeqS9rgZC3BO2aBTh4b8CHtNb9ZLZQMe
+ FwKS6GFIwh+0xPb/DsPFc63tMa1ERlcsAtHVMpGTUFvRQiyGlJ1MH2XNW0QhVPwgIC6lncmvfht
+ Wi7Fl/XnaZZX8GKT6Os56cgKdY2Qns64Q8Q196KxG462T/zbmrVoJDm5uGlJIkU7EYxZxgT0VKL
+ l2rn+xGKdtsu5VScuGBc4B2Zg=
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr39911852c88.2.1793801253717; Wed, 04 Nov 2026
+ 06:07:33 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7885:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd9bb6a9-3177-4234-7703-08df3a7ac85d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261009223027099003|921020|261026140227099003|261028144727099003|261102123227099003|261102130727099003|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info: 96/w4GoXA1uytAjAlaICjVANUoJGVhgUQ+B3edILtpMDdjhiIjrsi46l2ZvZbjLMyVtOK5RW6WCckTqoBlY6+3IUXaDW3P6593qCDRzUVJDSbEuOrZvslLqH5q3g4Tecn72FKzZ0S29pe4QfjmTpa5OnM2rMhSXbD/hpbbEXsfmSZMt6aukZ8wF0GlWPYCPN52PMLFrTk7biBJOUrj1D+aZ2hMLA3g5Th6CDqkZAV0qypC4qV+36Na1itA0xq8ixdMfx6EFHEMSS65pAQxqF1/hwEAnrs5rRxKJl4GyUtwed0jd2ZkbRXOidjMnSyx3FzAgAiXqIv9kAms1vTRcix3IAbuIZ9FLLfXDhDq9JApTwC+M1pYchghPpXHzPSiFZVc/h0sy07s8m0cVbQ7+x6vXykGfZscTQ3E1FDfrpmRMPSDVYYOx+kk1qbzHRGk4S8w7z57H1B2s6maq1axZIhQwTe0NNnFHAjmTC43ArwnooMsNRuZsW073HDWp1/ErBrdzlRpJBQ6MJ6KX2nJrALIvtsKU4IFcm+arQD6SB9nONco4NjD1YCuHYivFh/XEYogsrI8RT61L00ZqYfLqyXgYvkkSwjjxc2bQ/R4TwDvMi+c32ap+8oHdINZUQe0wNkrKVl5ubWP7eFPVf5hIYRQtvQIWAEgImiXiLqDezdG/82ORn6zwq7EoIuayAIVO1+JgCCb0c8wHjj6dxtwNhPw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261009223027099003)(921020)(261026140227099003)(261028144727099003)(261102123227099003)(261102130727099003)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(261009221227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tml0N01Kd2FnaFJ2bjMwTDI0VUY1d2FKNklkWnRjdnJlc2d1ZjdpUy8rdlo3?=
- =?utf-8?B?RVIvd243dmE2OVpNSXVONGdxVFRva3pKeDM5ZmVBZVF4WkFyZmMySDU0RitH?=
- =?utf-8?B?YnVTeEVXTk5FWkU3Z21ZeEtIeEVhcHhJZ3dwSThyV3FOeEMzQXgreG9QTjRG?=
- =?utf-8?B?ODR3V1c5c1lib2lSNWtsRDRoc3U0eWRoNTdOWU10dUZYcVFTdmh6TjFiOThm?=
- =?utf-8?B?Y2p0N3QyL3VXQUdwVXFpa1hJMVJsQi91aG5EdTEyaVBhV0tuT1l4alp1U1Uz?=
- =?utf-8?B?L3VYTDNWUE9UTkhndmxDdXNwNjVkcXJuc3NIOFNCVWZRSzJvdXk0QXRrZnE4?=
- =?utf-8?B?OVl2cmdIditoOHZsdEpaTmpjUGd2Q2VzNWNodHdwQTJYRm54K3RKK3FaNEV4?=
- =?utf-8?B?NnNUSHZWRDhvRitLcUVtOEt1NUY4UDVBalZrakFoRHgvWm5vbU1vdU51cWIx?=
- =?utf-8?B?VkNUd1ZYd21SUlZ0Q2RrV2dVT2tycVV6dUI3ZWZEQnZHRzFGbllGS0k1bkVq?=
- =?utf-8?B?eTF1dnJKUnpiVi9ndkRpNFgwM2swTDFaWncra2V3NHRVMC90UGczZnA2cE5q?=
- =?utf-8?B?QTVzTDZYemZiZHlOY2ljZHlBMU9BcWhxUlJ0R093c3B2cUpmL3YvMDN6bGN2?=
- =?utf-8?B?M3dWWXBZTCtNMzVMaHNmYmgxUSsrNmM1TStQMk9yR0F0N1h5bVc0cDUweWMw?=
- =?utf-8?B?bTZ5MUxPT1U3cXJCU2pjdVZ6eHpCbDlnUnYva3g1Mk01U2FXbDdkN2YxZWlz?=
- =?utf-8?B?ZnFtYWRpMGk3ZTNDMlpXQy9GanFra3A5bFIzQW9QeE5nSngyT05GQXdUUHBp?=
- =?utf-8?B?V0l0cEZpUnBDY3VxSXRzRittSEM5OXBoSzFlQ1l5REsvVjRpdldSZjIrSmV0?=
- =?utf-8?B?RHQwMXFxYjVaNkNSN2ZXcWxMOWxoSnlENnd1T2RVWjFVSlNQYTNMbzdzdUEz?=
- =?utf-8?B?RWsvY2s0UXZpcHNQaHdoRjc5bTJWaW5zNG8rVDh4NGo1dC9zWnlMYjBzV3NF?=
- =?utf-8?B?QVlCR3NGWGtCRFdEMU00akorRUdpQmdKZ05qdFdXa3RCamJtNTFZMzI4bnJI?=
- =?utf-8?B?aEhiWHI1UEVadENCejNiekhzRXpLb1EzU2lFSjFTYTVzeWhnSUh3VGtZT25U?=
- =?utf-8?B?VUVPSWo2U2RHbW9pM3FEWlg2QjdoeitQTE5SSnZEakl4Q2p2ekVnZXo0bFdP?=
- =?utf-8?B?SjZ4QU8rVWF1V2ZOU2lBVlRib1JNUXpSSFR1NFZhTm5yK2trOTRjU0x3cnZO?=
- =?utf-8?B?RjI4ZWViWk0vNktHNzNqS1pnRUZPaEdxSHZIaTBnL2dDUEZiM2IyVVNYTno1?=
- =?utf-8?B?TG1IMzlkZGxsVmxhUWN4RDlvSHVrUVdBRDBwRDFoaXFWeVF0VUwzVUVEbncy?=
- =?utf-8?B?bE8xMGVXZEpITzJaVUFPOWtZV3N5L0lPeTRwTDVHZUxYdkNybzhYR01xNlI2?=
- =?utf-8?B?Q3BUWnlZWVNsQjd4ZmdsNEJQWFgzN1RNOXNqNGUrMHZhK293QktRaU0yaHZ6?=
- =?utf-8?B?VGNvcllrb1piNVY0blBaSmQzOU12OE1oZWx6MnFMY2lrd0xRYkNlVjIxWHVR?=
- =?utf-8?B?NUpRWFI4VFhHTE5FdFZ1UldDZ3o0VDBVZGUvZHpNalE5VE50K0cxQ2QrcHRw?=
- =?utf-8?B?SitsNzNnRXdGR0pnN25LYlhuWFZ5Nm1DTEFFek5xemFYUWJYcnEvWWFoOVFq?=
- =?utf-8?B?S2lpeFpQTlpOaUI0SG93YnN5czVQamxxdGdIOEpBQ3A5cXNSWW1xb3NUNGlG?=
- =?utf-8?B?M0JpVFBEWUVNYUxzKzRFRDJNWERQZGxFcFdnSml5VTBpUnAzYWIyakVVWnF0?=
- =?utf-8?B?YVVIRUg4Q3paOXlMaldzVFUzTWRnL3U3ZlNSbVMrM0JuVFdiNVlFcnJ1V3lR?=
- =?utf-8?B?dk9Rb1N5MVluVURvRkNKWW9RQXJrRHdKc00rdnA3MG5KQnhqNHdacXVVcmgw?=
- =?utf-8?B?aWV0UEorVGs3dDdZSmNubHdkWUN4NUtHc1VIZk5HRzlSbllwZ0xSN3RKdG54?=
- =?utf-8?B?b21meUl1K1FrUVFKalNPZS8zTi9FM2xPQ3ZseGNTUGNFNlRSZmlLZFZ4aW8v?=
- =?utf-8?B?UmJtdG1GbVhoeFdvZWpkZHh6RTYvUnRSdnRkNCtESkxMeExKTFVSSTNCUXlS?=
- =?utf-8?B?VVJ2eDZiVkxkWWRrb0NZMGNXMVNKcC9sREZwcDV6bVhmSWFDUnF0Z0VlREQ1?=
- =?utf-8?B?QnM2ZW9RNWVWN0hoM2RVNzhqSWNaSWVLU08ydkN5MHVyc1p3MTF5dEZwOXgz?=
- =?utf-8?B?Ry80amUzVEJYWjJqdmwxbWFsWkVTTGxTWkFsWk5qMmpjallCdmFuRTFKeWJY?=
- =?utf-8?Q?2Pylw29bJiUZ3VhooJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd9bb6a9-3177-4234-7703-08df3a7ac85d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 13:51:53.3435 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6IadmT3l8oiO2qnIkVu2dbS/48UcoHNhnw+j+DT0Zya9ULx2PgyZc+8BlUvhXyMR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7885
+References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+ <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
+ <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
+ <20261104125241.39209-1-ed@charmerstraining.com>
+In-Reply-To: <20261104125241.39209-1-ed@charmerstraining.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 Nov 2026 09:07:22 -0500
+X-Gm-Features: AclHuK_mWOgAzCBAJQN1CbtCJxv3h38jD-baiSMS3zvcmQeJZG5v5X7OZiVyOK0
+Message-ID: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: Ed Schofield <ed@charmerstraining.com>
+Cc: atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, aditya.garg@linux.dev, 
+ alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,267 +106,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/4/26 12:09, Albert Esteve wrote:
-> dma-heap already supports charging a specific cgroup at allocation
-> time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
-> originate from any exporter (DRM, V4L2, etc.), and the allocator may
-> not know the final owner at allocation time.
-> 
-> Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
-> to a different cgroup after allocation. The target is identified by
-> charge_fd, which may be a cgroupfd or a pidfd.
-> 
-> The transfer charges the new cgroup before uncharging the old one,
-> preserving the original charge on failure. Concurrent transfers are
-> serialized by the dma-buf reservation lock, so lockdep covers the
-> locking order of the charge path early. The transfer implementation
-> is generic (mem_cgroup_transfer_charge) and not dma-buf specific, so
-> it can be reused by other subsystems.
-> 
-> Not all dma-buf exporters back their buffers with reclaimable system
-> memory. Some represent device registers, VRAM, or carved-out pools
-> where size is not a meaningful memory cost. The xfer ioctl returns
-> -EOPNOTSUPP for buffers whose memcg is not set. Exporters opt in by
-> passing a memcg through dma_buf_export_info at export time. Currently
-> only the system heap sets it, other exporters can opt in as needed.
-> 
-> Usage example:
->   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
-> 
->   struct dma_buf_transfer_charge xfer = {
->       .charge_fd = cg_fd,
->   };
->   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
->   /* charge now on app1's cgroup */
->   close(cg_fd);
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  drivers/dma-buf/dma-buf.c    | 42 ++++++++++++++++++++++++++++++++++++++++++
->  include/linux/dma-buf.h      |  3 ++-
->  include/linux/memcontrol.h   | 13 +++++++++++++
->  include/uapi/linux/dma-buf.h | 26 ++++++++++++++++++++++++++
->  mm/memcontrol.c              | 42 ++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 125 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 837666273550..3bd26fbb1109 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
->  }
->  #endif
->  
-> +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_charge */
-> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> +				const void __user *user_data)
-> +{
-> +	struct dma_buf_transfer_charge arg;
-> +	struct mem_cgroup *memcg;
-> +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> +	int ret = 0;
-> +
-> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
-> +		return -EFAULT;
-> +
-> +	if (!IS_ENABLED(CONFIG_MEMCG))
-> +		return 0;
-> +
-> +	if (arg.flags != 0)
-> +		return -EINVAL;
-> +
-> +	memcg = mem_cgroup_get_from_fd(arg.charge_fd);
-> +	if (IS_ERR(memcg))
-> +		return PTR_ERR(memcg);
-> +
-> +	dma_resv_lock(dmabuf->resv, NULL);
-> +
-> +	if (!dmabuf->memcg) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out;
-> +	}
-> +
-> +	if (dmabuf->memcg != memcg &&
-> +	    !mem_cgroup_transfer_charge(&dmabuf->memcg, memcg, MEMCG_DMABUF, nr_pages))
+On Wed, Nov 4, 2026 at 7:52=E2=80=AFAM Ed Schofield <ed@charmerstraining.co=
+m> wrote:
+>
+> Hi Alex, hi Atharva, hi all,
+>
+> Alex, I'd like to withdraw my September v4 submission. I also don't suppo=
+rt
+> applying v5 as posted or the simplified patch you attached later in this
+> thread. Please remove my Co-developed-by and Signed-off-by tags from both
+> versions. I no longer think deferring UCLK is the right approach for the =
+iMacs.
+>
+> I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a =
+tester
+> found that with deferred UCLK it still hung after login, as it does witho=
+ut the
+> patch [1], which seems to fit Andr=C3=A9's PPTable diagnosis.
+>
+> Since then, I've been working with Atharva to get his native-5K iMac supp=
+ort
+> upstream. His patch initializes the display before the SMU, which has als=
+o
+> prevented the boot failures without deferring UCLK. On my iMac20,1 (0218)=
+, 13
+> of 20 warm boots failed with the upstream order; with display first, all =
+40
+> boots passed [4]. Another tester reported one warm and one cold boot, bot=
+h
+> successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
+> initialization order improved warm boot success from 11 out of 20 to 100 =
+out of
+> 100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn=
+'t fix
+> the 16,1 either.
+>
+> I don't think the iMacs and the MacBookPro16,1 have the same problem. The
+> iMacs fail while amdgpu is loading: the SMU stops responding to
+> EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
+> display initialized first, the same message succeeds with UCLK included,
+> and the iMac boots normally. The 16,1 loads amdgpu without errors and han=
+gs
+> later, after login, with or without deferred UCLK [1]. So deferring UCLK
+> seems to help the iMacs only because it moves the enable after display
+> init, and it doesn't help the MacBookPro16,1.
+>
+> I have prepared a draft patch with Atharva as author and me as co-develop=
+er,
+> incorporating his review feedback. It combines display-first initializati=
+on and
+> native 5120x2880 support through two tiled connectors with suspend/resume=
+ and
+> display power-management changes. The current draft is here:
+>
+> https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371=
+e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+>
+> This has passed some initial automated testing on my iMac20,1 but I need =
+to do
+> more testing and get Atharva's final review and sign-off.
 
-Please move the calculation of nr_pages after taking the dma_resv_lock().
+There are already patches on the list to support the 5K Macs:
+https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html
 
-We currently don't have anybody dynamically changing DMA-buf sizes but just to be on the save side.
+Alex
 
-With that done Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Regards,
-Christian.
-
-> +		ret = -ENOMEM;
-> +
-> +out:
-> +	dma_resv_unlock(dmabuf->resv);
-> +	mem_cgroup_put(memcg);
-> +	return ret;
-> +}
-> +
->  static long dma_buf_ioctl(struct file *file,
->  			  unsigned int cmd, unsigned long arg)
->  {
-> @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
->  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
->  #endif
->  
-> +	case DMA_BUF_IOCTL_XFER_CHARGE:
-> +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
-> +
->  	default:
->  		return -ENOTTY;
->  	}
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index 85dd747c9b36..b01149d26b44 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -507,7 +507,8 @@ struct dma_buf_attachment {
->   * @priv:	Attach private data of allocator to this buffer
->   * @memcg:	memcg to charge for this buffer's memory. Set only for
->   *		buffers backed by system memory where @size reflects the
-> - *		actual allocation in bytes.
-> + *		actual allocation in bytes. Enables charge transfer via
-> + *		DMA_BUF_IOCTL_XFER_CHARGE.
->   *
->   * This structure holds the information required to export the buffer. Used
->   * with dma_buf_export() only.
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index f8ec751b7d7b..af02d9777fe9 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -676,6 +676,11 @@ struct mem_cgroup *mem_cgroup_get_from_fd(int fd);
->  bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
->  			       unsigned int nr_pages);
->  
-> +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
-> +				struct mem_cgroup *new_memcg,
-> +				enum memcg_stat_item item,
-> +				unsigned int nr_pages);
-> +
->  void __mem_cgroup_uncharge(struct folio *folio);
->  
->  /**
-> @@ -1197,6 +1202,14 @@ static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg,
->  {
->  }
->  
-> +static inline bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
-> +					      struct mem_cgroup *new_memcg,
-> +					      enum memcg_stat_item item,
-> +					      unsigned int nr_pages)
-> +{
-> +	return true;
-> +}
-> +
->  static inline void mem_cgroup_uncharge(struct folio *folio)
->  {
->  }
-> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
-> index e827c9d20c5d..0aaf2e7d593b 100644
-> --- a/include/uapi/linux/dma-buf.h
-> +++ b/include/uapi/linux/dma-buf.h
-> @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
->  	__s32 fd;
->  };
->  
-> +/**
-> + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
-> + *
-> + * Any holder of a dma-buf file descriptor can perform a
-> + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
-> + * cost to a specific cgroup, or move it from one cgroup to
-> + * another.  The ioctl charges the new cgroup before uncharging
-> + * the old one atomically.  On failure the original charge is
-> + * preserved.  If the buffer has no existing memcg charge, the
-> + * ioctl returns -EOPNOTSUPP.
-> + */
-> +struct dma_buf_transfer_charge {
-> +	/** @flags: Reserved, must be zero */
-> +	__u32 flags; /* unused for now */
-> +	/**
-> +	 * @charge_fd: File descriptor identifying the target cgroup.
-> +	 *
-> +	 * May be either a pidfd, in which case the charge moves to the
-> +	 * memory cgroup of the referenced process, or a cgroupfd obtained
-> +	 * by opening a cgroup v2 directory, in which case the charge moves
-> +	 * directly to that cgroup's memory controller.
-> +	 */
-> +	__u32 charge_fd;
-> +};
-> +
->  #define DMA_BUF_BASE		'b'
->  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
->  
-> @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
->  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
->  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
->  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
-> +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
->  
->  #endif
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 17fdefc56b97..3e717b5663c8 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5752,6 +5752,48 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int nr_pages)
->  }
->  EXPORT_SYMBOL_GPL(mem_cgroup_cancel_dmabuf);
->  
-> +/**
-> + * mem_cgroup_transfer_charge - move a charge between memcgs
-> + * @ptr_memcg: pointer to the memcg to transfer from
-> + * @new_memcg: target memcg; caller must hold a reference
-> + * @item: stat counter to adjust
-> + * @nr_pages: number of pages to transfer
-> + *
-> + * Transfers @nr_pages of charge from *@ptr_memcg to @new_memcg and, on
-> + * success, stores @new_memcg in *@ptr_memcg.
-> + *
-> + * Updates to *@ptr_memcg must be serialized by the caller.
-> + * Returns %true on success, %false if the charge against @new_memcg
-> + * failed.
-> + */
-> +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
-> +				struct mem_cgroup *new_memcg,
-> +				enum memcg_stat_item item,
-> +				unsigned int nr_pages)
-> +{
-> +	struct mem_cgroup *old_memcg = *ptr_memcg;
-> +
-> +	if (!new_memcg || mem_cgroup_disabled())
-> +		return true;
-> +
-> +	if (try_charge(new_memcg, GFP_KERNEL, nr_pages))
-> +		return false;
-> +
-> +	mod_memcg_state(new_memcg, item, nr_pages);
-> +	css_get(&new_memcg->css);
-> +	*ptr_memcg = new_memcg;
-> +
-> +	if (old_memcg) {
-> +		/* Uncharge old cgroup */
-> +		mod_memcg_state(old_memcg, item, -nr_pages);
-> +		if (!mem_cgroup_is_root(old_memcg))
-> +			refill_stock(old_memcg, nr_pages);
-> +		mem_cgroup_put(old_memcg);
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  /**
->   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
->   * @dmabuf: buffer to uncharge
-> 
-
+>
+> Alex, thanks for following up on the boot issue and checking with the Win=
+dows
+> team.
+>
+> Best regards,
+> Ed
+>
+> [1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+139127
+> [2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
+> [3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
+> [4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
