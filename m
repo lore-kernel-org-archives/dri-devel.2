@@ -2,123 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58047606A31B
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B958F606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 09:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xrWOqnl3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieMt/5Gc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B666410E86A;
-	Wed,  4 Nov 2026 09:32:16 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012018.outbound.protection.outlook.com
- [40.93.195.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6766F10E873;
- Wed,  4 Nov 2026 09:32:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+ksIMsuQAjvYkjvWIMSPtQiR4skdp11EJHOWV57cGwkSbizYxvEW8EfRqQ7Y5W/nntsfK+t3NPYU2rLQFW/k99U+PBs76fLWbiZjDVcBbaif1M6hTUpDLFkGZxqYY+9xQ9YkEmrZS/F2/WmpPJKkqNRpByzihOdCrFNOB0nAgh7grOwmbcMWeOGikudOmksHspPomcT3pEb7bQUssjVmKPDfmHz1ZMUWuc83PWvYCuESJiBSiyMWXHmWTFLTcxQkA9ZExydnimCz6kaP9aceXr7UxzopPlN8OV4l51lnZPtcgVvr7/VD7597pMm3RQ3lNzCGgLriz8GJzSjoWOD6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8O4jD8fT828/rZNp45jfXvS9KH/2Hm9ML/XA/hyGRN0=;
- b=BMFGPwOqRXjSE9DSoVNPVulekuY+phm0FHmSGNPf9PGjt1laB4zPz+6Tgj2xJ7Ke5/YHuei3I+A55znA2khDGQkc0mrNJUG2qGga+Y2vhTmZ8KsbLCTu6mKuY+TV9xY9r1HilAWcRzUC8MEo9zozdp2ShMpNG78KFGF+//suy+otNq8Cm/DP5RE4GZAwp0RlqWkFLIDhKvC4HsO1Mx3eAwcOPQpGzQ+LF+25iFxhPgyxQPhHkugjQig0DvpcaQpcvObdUAy6oLXib6AgZyyxo2Vqb6onPGxTliux/ocW4hqYrAHLKQJbk2hEn572VoZ6E6p/nyGloTtH5SRnuXYo5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8O4jD8fT828/rZNp45jfXvS9KH/2Hm9ML/XA/hyGRN0=;
- b=xrWOqnl3Agnk02/1hUJPzkQRtem7LN2q2Mefo7aZdY1MptRwrIgJK/cEKKGgmSJ1kLlKWelx42HpeAas2/y+dnhLGJ2jMIO1tJ7ixjIxux3IRjAUJPOUJgy3eCEr11fDyzk5Szjt5quZY63Cf7Ku5AvmGivxMAu68JkAFvFUYt0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS1PR12MB999190.namprd12.prod.outlook.com (2603:10b6:8:495::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 09:32:07 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 09:32:06 +0000
-Message-ID: <0566b969-cfee-444c-8a94-5fbb42859e07@amd.com>
-Date: Wed, 4 Nov 2026 10:32:03 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add missing parameter documentation in
- amdgpu_ttm_map_buffer
-To: Arnaud Bonnet <abo@medichon.fr>, alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20261104024754.166260-1-abo@medichon.fr>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261104024754.166260-1-abo@medichon.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR03CA0012.namprd03.prod.outlook.com
- (2603:10b6:208:52f::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS1PR12MB999190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71443a24-aafb-41b4-9497-08df3a567e0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|10067099003|22082099003|18002099003|11063799006|56012099006|261022105027099003|261102123227099003|261009223027099003|261021121427099003|261026140227099003|261021135927099003|261026121527099003|261028144727099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: Gi869VCmbfg7FsyOW8bFYUAPWHnoLaDtzjlW+0v9kMnpRPqT0ytLb7R2AEvrf51pjWBe6GUOpX07U5Ua0feORe/YlXtfE9MBEEB0MAF03S4rwa5PZ6QlkZ0mypplA1fODQ6Ko7IymrKauzmXcWxYz2pok8l/y1m7YTLow+9qs5WySOgAavEoM9HBo8AJrlDXewwr+NRoAZ9pY4rVVNaHsqy2+uaLk224kWgCjOeQ3hPMKtPKLGKPGvEE7j01TNOLfcT41n0F4LByqx4TWbzvJ4ACmfAXqDX7DrI9jOBMYtSs7GwTJbvhOAT0x2c/qdfE8moiFwlhsUXKnUZgRjfzEJXnYUh/Udg3sFFPziC0vIue6HDnPwNAdj8oaOm8VwSNn9+8IR0hSuaFG2TvQfyHE9CRdlXRJ3jCW0I5Wro7i+/rgwD1/2DMmzIj6CVoj/nzVs1tPyjWr6kbEzsa8KseilyN4Y9ySAjPNWl4n70CkF4XI7sJqTQWcepFYiiYwy+6GKEAO3SrHrzJyY9MlJdusTLgF5lEtFRhf/RzRqBG6muP76Xz52wCDKidO77ueWgUcftkSIIvg5wZ+oTSJghfwLh5ad+kzjudVn9tXt+xr8/uYjZYts/q31JoLdiLLnHfEwp/thyqVCsoLM8Gk+nryMuRLPcvyCYxeHGUMFy1bj8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(261022105027099003)(261102123227099003)(261009223027099003)(261021121427099003)(261026140227099003)(261021135927099003)(261026121527099003)(261028144727099003)(261022075727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1d6SFZvMTEvd2h1dThDbUIvQk9RMGRxUFdiZWE0TkxFQ3ZNb0ZEczR3ZmRL?=
- =?utf-8?B?eFlYaHF2WVROWHV2L2JXeVRMR2RRK3hQREROMTRhWWhETDgzMDNJbTR2aGhP?=
- =?utf-8?B?RUFQSDJiNkZlamFvbjZPNEN1eUpSZVRqcDRyK0FJYnROVEhJcGtqZHhaVXNm?=
- =?utf-8?B?U09iVDFzVHBsUEFnMFdEYlB6SzFUTFUzejNORG1XS256RlgvbnZVZ2dVZUJl?=
- =?utf-8?B?STBIcnVQMWpxb1JSQ2tPbWJlbHNvbGhzZnJDVTczODg3czJHZHAvbEhPRXdD?=
- =?utf-8?B?Uzdnb1NJckhDbHdVcUw5TUlvN2Jwcjdzc1JscmRNMDN1NzBsN0xaR0dJdm1N?=
- =?utf-8?B?UHh2UzFkMkg5WHhPdDlienljUkE5VTRnUzZRc0NPYkVqQ0hGV1cyWkJPN3U0?=
- =?utf-8?B?Y2lSVWRHT0E5RVV5RWFJSGJWR2lmVDU3RHc5WDZUN01FY1A3alY4UWZjVjh4?=
- =?utf-8?B?d2J2cVowU081QkhFbW9oU1prN2lGRUdjaUtsQ0Q2MzNWbHVkVmZpQkxEcEZU?=
- =?utf-8?B?WEp5TWlJVEx0ZEtyRXR2YmNwWXRpTHJyYlFPajZzN0tGK1BIRE4xcW5XQVFR?=
- =?utf-8?B?UUpGMmRWQ29Lc3gvVjZzWnVSZ2F5OTlENkZMbUZCVjFsc1c4WndEbldROEE1?=
- =?utf-8?B?Mi90emVnZjRwSURTQkYvaXNQaUdPbWN5OURxTUlpOHRSc2J6UWNMQUMxeU9T?=
- =?utf-8?B?QVRjRjhnZnp6UG5QRE5wNzVheFp3cnQ5OU85SVA5QUpKTHVReDhaNmVQWi9B?=
- =?utf-8?B?dTJEczBENklzOXVtM3JjS2NmWUVaU05LRlZLNGQwVkVHc1NCc2pybHY3QVYv?=
- =?utf-8?B?NUJtcjA2VkJxZkl3SmlnSW9OaldWZCtXTzQvbjRtMjJNVDBoVHp0L3ZFUzJ2?=
- =?utf-8?B?QUdydGRZZ0hZdVRuNjNsRHhIVnVoQmdDcVo1R041RVZKaUtaUEtBdnpFY1Ra?=
- =?utf-8?B?clRuS0k5WDdLQms3a2xPajlacjU2M21tT2R0d0ZuVVEwWlpmZmExM1JpVDlr?=
- =?utf-8?B?djV1MGdKeEZmNzVKNmt4NlQ0eXcyOWhvNGZxb1hjby9jMDV4MEswM0RqQXBB?=
- =?utf-8?B?WGp2TWNiaUg4V2ZsbDlvWUlZOW1Pb01NbnNKQm5ZY0s2R0ZyY1FTWFh2K1dP?=
- =?utf-8?B?ZUVFSXpsSE9MRGkraHZ2bStwbVJOc3FjbHRWbncrNXdRSm92dGZMMEJEcTcv?=
- =?utf-8?B?MWRxNkRMWlBiOWZpVzY5bHEwR2VjOWpldkkzallpckRYcGlmcVl4MFpiYlhi?=
- =?utf-8?B?cmZZMjBRVFVoZTZPTnltUHIwbk93Q1dNdjNiMDc3MS9LblM1TWhWSjlpU1g1?=
- =?utf-8?B?ZldwOGNrNlQ2VWgvSGlJYUZ3cmNlZ01qNVNGTjNBdE0wRFVaYUFMSTQzY3d2?=
- =?utf-8?B?OTArR0xIQVhjN3dKakVSZVcxSmlhRlZvMW5GV0pRYXg1MHJCdHZNMG5iR1Iy?=
- =?utf-8?B?VmxlbU1LZDlQejZCWk9iNnlFdHgvWFcwbklKWVNXd0ZRYXFjYjNCb0hBSExI?=
- =?utf-8?B?Rk5zY3JUZy9haDJLZVBXZDBjWnBvZXFLVnFyOHh4alY2NHAyRCtCUmdSQ1Vm?=
- =?utf-8?B?ZE9kd1gvU0FRM0dKMHVxcUVuMmNNelNLc3NCQmZEK2g0Q21IUWd0dklmUVNu?=
- =?utf-8?B?NFJZMGthajN5dUNLZmxQVUFYVFFwVVZDaFlGTWF5NDdld0NvRXp2aVl5NSsx?=
- =?utf-8?B?amZuc1dSa2F4QmlyeEdTYlZHbWtkQkxRSHRwT0RrY3lGZEhqZGVMNU5KTFZN?=
- =?utf-8?B?R1NCdnZGMi81K3kvLzZFZUdiSng0TzBCZDk2K3RXbFhXbmVNaGVXU1pBS3Q3?=
- =?utf-8?B?SWxuVjlMeGNRWVFDcjE3eWR5OW8xbW93K0ZkNlp0cDhSTUZYNEFCN2hHT0RY?=
- =?utf-8?B?VGx5M1FqR0h3ZG91RUFFK2pVKzZKSkZva21iMXB0REJxQzJWWGxUVE4xVjFu?=
- =?utf-8?B?N3BMdmZ2ZlRZU00wOFBDUDNGVmFqU2dXRVlMb0YzYXNiWkk4c1RIbzNOOFk3?=
- =?utf-8?B?OVBtNXlhV1lLRTYwekFreTYraW5hOGt2NVMwOXVENlZUUmJjM2pCY2g3Yy8z?=
- =?utf-8?B?ekxoMG5CZXZEeTNxKzhtQ1podTM5UGYxNkhqL1NDOFhiN0xnOEt5MFl2TThG?=
- =?utf-8?B?SXorZG5ybnpFcFNCbHU4cXFiaFc2RmZSTUtDcHVRN3hjNkZOdmNWSlllbVk3?=
- =?utf-8?B?VnpnSVJHMnlBemxJMDdhcG1pWjE2a1BkZk5LdGlqRjBDb05xcHhKSmJOOXVi?=
- =?utf-8?B?dzIrNHZuTVA0aXdMc1hCWG5Rdm5SY2ZZV2ZSOVlWck9tb0ZsdVBRWXJnVFFp?=
- =?utf-8?Q?0CYzQtUqWD6tu/X1K4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71443a24-aafb-41b4-9497-08df3a567e0f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:32:06.7521 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QMQNHihRZTSYvyR3FOlv8oCZ45rpmKsYn6toJ5YR52dJpaxudR426llZgf8yNjuk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR12MB999190
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2FA10E85F;
+	Wed,  4 Nov 2026 09:35:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6E2010FA80
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:35:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C10E460213;
+ Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403AF1F000C1;
+ Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793784912;
+ bh=/9UwIzdIAMbX7ysUUVFgkx4wDbhFfnUMKlcNU4rUfN8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ieMt/5GcJxY+rLDUOx3U73hpOW30tgrLNU0CvKTJjOrKd1mGuFLdir5p1cTvQnFGW
+ LHqVkN6O+GVROBtmWj05VXDR8mxSXPlsOobuNiRja0WHYC0LrtT57PbM/bcEV0/EbY
+ VjbSdPvamLg377b3GMST3GOFD9RXW+MROa6MaOPI2uKyh9B0G78rA1v9wF+S4ODZ4o
+ GxIEkDkVAPcWlKsNUdvVz7lHWQKdoJCz6EeSFsrMwflsdWw8zRXCmhQNCsuU2Urg7q
+ 9Xdq+Pd5ArCFMhPeIm+rt9TTNNTXdIvmj2cCJBsTK6UChTjFAofcXrKxQtWXjx/ode
+ RuDCsIyWWg8ew==
+Message-ID: <sashiko-outbox-196968@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
+References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
+ <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 09:35:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,49 +49,283 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/4/26 03:47, Arnaud Bonnet wrote:
-> [Sie erhalten nicht häufig E-Mails von abo@medichon.fr. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Commit 48c4aaeef621 ("drm/amdgpu/ttm: Make buffer copy source readonly")
-> introduces a new parameter @readonly in function amdgpu_ttm_map_buffer()
-> but doesn't update the documentation, leading to the following warning:
-> 
->   Warning: drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:209 function
->   parameter 'readonly' not described in 'amdgpu_ttm_map_buffer'
-> 
-> Add the missing description to the kernel doc comments for the readonly
-> parameter.
-> 
-> Signed-off-by: Arnaud Bonnet <abo@medichon.fr>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] drm/panel: nt37802: state desync on DSI errors in disable and un=
+prepare
+- [Medium] drm/panel: nt37802: asymmetric display-on/off across prepare and=
+ disable
+- [Medium] drm/panel: bogus voltage ranges in novatek_nt37802_set_supply_vo=
+ltages()
+- [Low] drm/panel: nt37802: use mipi_dsi_dcs_write_seq_multi() for init com=
+mands
+--
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+commit a4454941919dc768e5c78cce0316ea1f0954d638
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 0f86777250fc..d3a875a32af1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -195,6 +195,7 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
->   * @addr: resulting address inside the MC address space
->   * @vm_needs_flush: out, set true if a GART window was programmed (VMID 0 flush
->   *                 needed) or false for a direct address
-> + * @readonly: true if the mapping should be created with non-writeable pages
->   *
->   * Setup one of the GART windows to access a specific piece of memory or return
->   * the physical address for local memory.
-> --
-> 2.53.0
-> 
+drm/panel: Add driver for Novatek NT37802
 
+This commit adds a DRM panel driver for the Novatek NT37802 AMOLED DSI
+command-mode panel running at 1440x3200@120Hz with DSC 1.2 compression
+and enables it as a module in the arm64 defconfig.
+
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37802.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt37802.c
+> new file mode 100644
+> index 0000000000000..632520f04ffad
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37802.c
+> @@ -0,0 +1,544 @@
+
+[ ... ]
+
+> +struct nt37802_cmd {
+> +	u8 len;
+> +	u8 data[32];
+> +};
+> +
+> +#define NT37802_CMD(...) \
+> +	{ .len =3D sizeof((u8[]){ __VA_ARGS__ }), .data =3D { __VA_ARGS__ } }
+
+[ ... ]
+
+> +static int novatek_nt37802_set_supply_voltages(struct novatek_nt37802 *c=
+tx)
+> +{
+> +	int ret;
+> +
+> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDDIO].consu=
+mer,
+> +				    1800000, 2000000);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDD].consume=
+r,
+> +				    1100000, 1950000);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VCI].consumer,
+> +				     3000000, 3544000);
+> +}
+
+[Severity: Medium]
+Should the voltage constraints be defined in the board Device Tree via
+regulator-min-microvolt and regulator-max-microvolt rather than calling
+regulator_set_voltage() with wide ranges in
+novatek_nt37802_set_supply_voltages()?
+
+The upper bounds (2000000 uV, 1950000 uV, and 3544000 uV) appear to be
+Qualcomm PMIC5 LDO hardware maximums from downstream
+qcom,panel-supply-entries rather than exact panel requirements.
+
+In drivers/regulator/core.c, regulator_set_voltage() selects the lowest
+voltage permitted by the intersection of the consumer request and the
+regulator's constraints:
+
+regulator_set_voltage_unlocked()
+  regulator_balance_voltage()
+    regulator_get_optimal_voltage()
+    _regulator_do_set_voltage()
+
+If a board's PMIC LDO constraints allow a voltage down to 1.1V while the
+panel expects 1.2V on vdd, requesting (1100000, 1950000) will lower the
+rail to 1.1V, and novatek_nt37802_probe() will also fail with -EINVAL on
+boards using fixed regulators without voltage adjustment constraints.
+
+[ ... ]
+
+> +static int novatek_nt37802_write_init(struct novatek_nt37802 *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(nt37802_init_cmds); i++)
+> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx,
+> +						nt37802_init_cmds[i].data,
+> +						nt37802_init_cmds[i].len);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+
+[Severity: Low]
+This isn't a bug, but could novatek_nt37802_write_init() use
+mipi_dsi_dcs_write_seq_multi() and standard DCS helpers (such as
+mipi_dsi_dcs_set_column_address_multi(),
+mipi_dsi_dcs_set_page_address_multi(), and mipi_dsi_dcs_set_tear_on_multi())
+with the caller's struct mipi_dsi_multi_context instead of defining the
+custom struct nt37802_cmd with a fixed 32-byte array for every entry in
+nt37802_init_cmds?
+
+> +
+> +static int novatek_nt37802_prepare(struct drm_panel *panel)
+> +{
+> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	int ret;
+> +
+> +	if (ctx->prepared)
+> +		return 0;
+> +
+> +	ret =3D novatek_nt37802_enable_supplies(ctx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	novatek_nt37802_reset(ctx);
+> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D novatek_nt37802_write_init(ctx);
+> +	if (ret) {
+> +		novatek_nt37802_set_reset(ctx, 1);
+> +		novatek_nt37802_disable_supplies(ctx);
+> +		return ret;
+> +	}
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+> +	if (dsi_ctx.accum_err) {
+> +		novatek_nt37802_set_reset(ctx, 1);
+> +		novatek_nt37802_disable_supplies(ctx);
+> +		return dsi_ctx.accum_err;
+> +	}
+> +
+> +	ctx->prepared =3D true;
+> +	return 0;
+> +}
+> +
+> +static int novatek_nt37802_enable(struct drm_panel *panel)
+> +{
+> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
+> +
+> +	if (!ctx->prepared)
+> +		return -EPERM;
+> +
+> +	if (ctx->enabled)
+> +		return 0;
+> +
+> +	ctx->enabled =3D true;
+> +	return 0;
+> +}
+> +
+> +static int novatek_nt37802_disable(struct drm_panel *panel)
+> +{
+> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	if (!ctx->enabled)
+> +		return 0;
+> +
+> +	/* The off sequence sends display-off in HS mode, then waits 10 ms. */
+> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 10);
+> +
+> +	ctx->enabled =3D false;
+> +	return dsi_ctx.accum_err;
+> +}
+
+[Severity: Medium]
+What happens if drm_panel_disable() is followed by drm_panel_enable()
+without an intervening unprepare and prepare cycle?
+
+novatek_nt37802_prepare() sends both mipi_dsi_dcs_exit_sleep_mode_multi()
+and mipi_dsi_dcs_set_display_on_multi(), while novatek_nt37802_enable()
+does not send any DSI commands. On the teardown side,
+novatek_nt37802_disable() sends mipi_dsi_dcs_set_display_off_multi() and
+novatek_nt37802_unprepare() only sends
+mipi_dsi_dcs_enter_sleep_mode_multi().
+
+If a disable/enable cycle occurs without unprepare/prepare, the panel will
+be left with the display turned off while the backlight is enabled;
+conversely, if prepare is followed by unprepare without enable/disable,
+the panel enters sleep mode without sending display-off.
+
+Should mipi_dsi_dcs_set_display_off_multi() and
+mipi_dsi_dcs_enter_sleep_mode_multi() both be handled in
+novatek_nt37802_unprepare() (dropping the enable and disable callbacks,
+similar to panel-novatek-nt37801.c), or should display-on be paired in
+novatek_nt37802_enable() with display-off in novatek_nt37802_disable()?
+
+> +
+> +static int novatek_nt37802_unprepare(struct drm_panel *panel)
+> +{
+> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	if (!ctx->prepared)
+> +		return 0;
+> +
+> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	/* Assert the active-low reset after the downstream sleep delay. */
+> +	novatek_nt37802_set_reset(ctx, 1);
+> +	ctx->prepared =3D false;
+> +	novatek_nt37802_disable_supplies(ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+
+[Severity: Medium]
+Can a DSI error in novatek_nt37802_unprepare() or novatek_nt37802_disable()
+permanently desynchronize ctx->prepared and ctx->enabled from the core
+panel->prepared and panel->enabled state?
+
+In drivers/gpu/drm/drm_panel.c, drm_panel_unprepare() and
+drm_panel_disable() already track panel->prepared and panel->enabled, and
+skip clearing them when the driver callback returns a negative error:
+
+drivers/gpu/drm/drm_panel.c:drm_panel_unprepare() {
+	...
+	if (panel->funcs && panel->funcs->unprepare) {
+		ret =3D panel->funcs->unprepare(panel);
+		if (ret < 0)
+			goto exit;
+	}
+	panel->prepared =3D false;
+	...
+}
+
+If mipi_dsi_dcs_enter_sleep_mode_multi() fails in
+novatek_nt37802_unprepare(), the driver still asserts reset, sets
+ctx->prepared =3D false, disables all four regulators, and returns the
+negative dsi_ctx.accum_err. Because drm_panel_unprepare() then leaves
+panel->prepared set to true, the next drm_panel_prepare() call returns
+early without calling novatek_nt37802_prepare() to re-enable the
+regulators, and novatek_nt37802_enable() then fails with -EPERM because
+ctx->prepared is false.
+
+Similarly, in drm_panel_disable(), backlight_disable() runs before
+panel->funcs->disable(). If mipi_dsi_dcs_set_display_off_multi() fails in
+novatek_nt37802_disable(), ctx->enabled is cleared and the negative error
+is returned, leaving panel->enabled set to true so subsequent
+drm_panel_enable() calls return early without re-enabling the backlight.
+
+Since struct drm_panel already maintains prepared and enabled state in the
+core, can ctx->prepared and ctx->enabled be dropped, and should
+novatek_nt37802_unprepare() return 0 after powering down the hardware (with
+mipi_dsi_dcs_enter_sleep_mode_multi() already logging the DSI error)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-jshekhar-n=
+t37802-v1-0-58e5e7fb2556@oss.qualcomm.com?part=3D2
