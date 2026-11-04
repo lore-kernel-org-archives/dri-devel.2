@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9461606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 06:18:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DCC606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 06:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CP8RO0lM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKX5YswM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D9410F9C4;
-	Wed,  4 Nov 2026 06:18:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7343E10E7FB;
- Wed,  4 Nov 2026 06:18:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5919542DD5;
- Wed,  4 Nov 2026 06:18:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDE71F000C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 403A410F9B5;
+	Wed,  4 Nov 2026 06:18:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F1310E73F;
  Wed,  4 Nov 2026 06:18:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1EE6A60AAB;
+ Wed,  4 Nov 2026 06:18:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFED81F000C1;
+ Wed,  4 Nov 2026 06:18:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793773086;
- bh=0ncys28GT1dDbKRe5YD7u3dVcVKVjashKGfApS76zKk=;
+ s=k20260515; t=1793773084;
+ bh=DaNErE6sECHgR+KjcW4dWzzVL6Omgg/o8kQ2UAAN4P8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CP8RO0lM8yulylGyQYoWHmIJ3J40ONB8r+BClYOf9NNjilVFOZM2IlQfjUh/AH3nR
- V4eink1u5v+Zm2AhRn/UaTloRxvpdG0INjoyyXKDfd74p2JMhBqDGifRDVVIya+voY
- Jo0dwL5OUMqE/VP2+ydePNKVoqQWeZhtmTtdKN7qv1PKFcAkftEtp2og8/ehTtyE6B
- wL7Lw7bsof9gCvJu1sdzlh1mmT50Gu124FdYc3jCn+4sKdRo7iM6AGsBMPm1s34IiL
- l1EZDZ7IjjoTiWkOTBayxG1u8mnF9OgX6XgQ6Hpl0qVz/LtXQ/TDxr4x3QLGeeUgA3
- r3hO2upBYAWcQ==
-Message-ID: <sashiko-outbox-196748@kernel.org>
+ b=EKX5YswMc3+8Gmp1IeljsZfjnULF3wJwfIPh4OExNTP0KlrFqBan4jHbce3xORaph
+ zpr3TZUqa1DbiVrcVAvo5e1YPVIZ46/sdAzHOeV4WmvdWIqfEgGFraKKoCa0Xyhb+9
+ yjCkt+Ccm6/S5pe88bIdolAD/kJJDU88bHWQ7wYYNhSchP/XtZ/DblJSPYpCtVr6Jw
+ z21KuBw+yNW4QHeY7ohPK4fD+6VLfQhU4tMopwziF9nYo7hRtwFhuL0UGo1yO26Ybe
+ KbntdrU+cEDarLiJWvcCbxrJ77rzPcbx1WVovaOmGXi2YqxJNYZA6AjILQpEhzNRnq
+ NGvqg0hnClx8Q==
+Message-ID: <sashiko-outbox-196747@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 10/12] lib/test_hmm: add a new testcase for the
- migrate on fault
+Subject: Re: [PATCH v17 09/12] mm: enable device page migration from HMM
+ pagewalk
 To: mpenttil@redhat.com, linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  Hildenbrand" <david@kernel.org>, "Jason Gunthorpe" <jgg@nvidia.com>, "Leon
@@ -41,13 +41,13 @@ Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@suse.cz>, "Mike
  Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>, "Michal
  Hocko" <mhocko@suse.com>, "Lyude Paul" <lyude@redhat.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Marco Pagani" <marpagan@redhat.com>
-In-Reply-To: <20261103061629.972669-11-mpenttil@redhat.com>
+ Krummrich" <dakr@kernel.org>
+In-Reply-To: <20261103061629.972669-10-mpenttil@redhat.com>
 References: <20261103061629.972669-1-mpenttil@redhat.com>
- <20261103061629.972669-11-mpenttil@redhat.com>
+ <20261103061629.972669-10-mpenttil@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 06:18:04 +0000
+Date: Wed, 04 Nov 2026 06:18:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,107 +62,179 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] mm: test_hmm: deadlock and folio leak on retry in dmirror_range_fa=
-ult()
-- [Medium] mm: test_hmm: unmapped device pages on retry in do_fault_and_mig=
-rate()
-- [Low] lib/test_hmm: excessive stack frame in dmirror_fault_and_migrate_to=
-_device()
+- [Critical] mm: hmm_range_fault_locked() zeroes hmm_pfns on -EBUSY migrati=
+on retry
+- [Critical] mm/hmm: missing rollback of earlier entries after fault in hmm=
+_range_fault()
+- [High] mm: missing folio_test_anon() check in hmm_vma_handle_migrate_prep=
+are_pmd()
+- [High] mm: early return in hmm_vma_walk_pmd() on folio split failure skip=
+s PTEs
+- [High] mm/hmm: folio_lock deadlock in migrate_vma_split_folio() and hmm_d=
+o_fault()
+- [Medium] mm: lost MIGRATE_PFN_WRITE on writable protnone entries in HMM m=
+igration
+- [Low] mm: build failure on incomplete struct migrate_vma when !CONFIG_MIG=
+RATION
+- [Low] mm/migrate_device: unused MIGRATE_VMA_FAULT and MIGRATE_VMA_WRITE f=
+lags in migrate_vma_setup()
 --
 
-commit 7670468c9cdf50d8e222db90061981491fa308c8
+commit 00843344cdcc1e298091d82f4ddd5b2d3478ddb1
 Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
-lib/test_hmm: add a new testcase for the migrate on fault
+mm: enable device page migration from HMM pagewalk
 
-This commit adds a migrate-on-fault testcase to the HMM test driver and
-selftests using HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE with
-hmm_range_fault() to fault in and migrate ranges to device-private memory.
+This commit enables migration collection in hmm_range_fault() via
+hmm_select_migrate(), switches migrate_vma_setup() to use the HMM pagewalk
+path with new MIGRATE_VMA_FAULT and MIGRATE_VMA_WRITE flags, and removes
+the old migrate_vma_collect() page table walk helpers.
 
-> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-> index f05f801b8404b..2045896493ae3 100644
-> --- a/lib/test_hmm.c
-> +++ b/lib/test_hmm.c
-> @@ -36,6 +36,7 @@
->  #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
->  #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
->  #define DEVMEM_CHUNKS_RESERVE		16
-> +#define PFNS_ARRAY_SIZE			64
+> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+> index dd7dd7ec6995e..3780c4c116b8a 100644
+> --- a/include/linux/migrate.h
+> +++ b/include/linux/migrate.h
+> @@ -181,6 +181,8 @@ enum migrate_vma_info {
+>  	MIGRATE_VMA_SELECT_DEVICE_PRIVATE =3D 1 << 1,
+>  	MIGRATE_VMA_SELECT_DEVICE_COHERENT =3D 1 << 2,
+>  	MIGRATE_VMA_SELECT_COMPOUND =3D 1 << 3,
+> +	MIGRATE_VMA_FAULT =3D 1 << 4,
+> +	MIGRATE_VMA_WRITE =3D 1 << 5,
+>  };
+
+[Severity: Low]
+As reported by Christoph Hellwig on v15 [1], are MIGRATE_VMA_FAULT and
+MIGRATE_VMA_WRITE in enum migrate_vma_info and their handling in
+migrate_vma_setup() needed when there are no in-tree callers?
+
+Later patches in the series (for test_hmm and drm/nouveau/svm) drive
+migrate-on-fault directly through hmm_range_fault() with HMM_PFN_REQ_MIGRATE
+and migrate_hmm_range_setup(), leaving MIGRATE_VMA_FAULT and MIGRATE_VMA_WR=
+ITE
+unused across the tree.
+
+> @@ -218,10 +220,14 @@ struct migrate_vma {
+>  	struct page		*fault_page;
+>  };
 > =20
->  /*
->   * For device_private pages, dpage is just a dummy struct page
-> @@ -355,6 +356,7 @@ static int dmirror_range_fault(struct dmirror *dmirro=
-r,
->  	struct mm_struct *mm =3D dmirror->notifier.mm;
->  	unsigned long timeout =3D
->  		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-> +	bool migrate =3D range->default_flags & HMM_PFN_REQ_MIGRATE;
->  	int ret;
-> =20
->  	while (true) {
-> @@ -364,9 +366,15 @@ static int dmirror_range_fault(struct dmirror *dmirr=
-or,
->  		}
-> =20
->  		range->notifier_seq =3D mmu_interval_read_begin(range->notifier);
-> -		mmap_read_lock(mm);
-> -		ret =3D hmm_range_fault(range);
-> -		mmap_read_unlock(mm);
+> -// TODO: enable migration
+>  static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range =
+*range)
+>  {
+> -	return 0;
+> +	enum migrate_vma_info minfo;
 > +
-> +		/* mmap lock held for whole migrate on fault operation */
-> +		if (!migrate) {
-> +			mmap_read_lock(mm);
-> +			ret =3D hmm_range_fault(range);
-> +			mmap_read_unlock(mm);
-> +		} else {
-> +			ret =3D hmm_range_fault(range);
-> +		}
->  		if (ret) {
->  			if (ret =3D=3D -EBUSY)
->  				continue;
-> @@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirro=
-r,
->  		break;
->  	}
-> =20
-> -	ret =3D dmirror_do_fault(dmirror, range);
-> +	/* update device page table after migration */
-> +	if (!migrate)
-> +		ret =3D dmirror_do_fault(dmirror, range);
-> =20
->  	mutex_unlock(&dmirror->mutex);
->  out:
+> +	minfo =3D (range->default_flags & HMM_PFN_REQ_MIGRATE) ?
+> +		range->migrate->flags : 0;
+> +
+> +	return minfo;
+>  }
 
-[Severity: High]
-Can retrying inside dmirror_range_fault() when migrate is true cause a
-self-deadlock and leak folio locks and references?
+[Severity: Low]
+Will mm/hmm.c fail to build when CONFIG_HMM_MIRROR=3Dy and CONFIG_MIGRATION=
+=3Dn?
 
-During the first call to hmm_range_fault(),
-hmm_vma_handle_migrate_prepare() and hmm_vma_handle_migrate_prepare_pmd()
-collect present pages by locking the folio, taking a folio reference,
-installing a migration PTE, and setting HMM_PFN_VALID | HMM_PFN_MIGRATE in
-range->hmm_pfns.
+Several drivers (such as INFINIBAND_ON_DEMAND_PAGING, DRM_AMDGPU_USERPTR, a=
+nd
+MSHV_ROOT) select CONFIG_HMM_MIRROR without selecting CONFIG_MIGRATION. When
+CONFIG_MIGRATION is disabled, struct migrate_vma is only forward-declared in
+include/linux/hmm.h, but hmm_range_fault_locked() in mm/hmm.c is compiled
+outside #ifdef CONFIG_DEVICE_MIGRATION and dereferences
+range->migrate->pgmap_owner:
 
-If hmm_range_fault() returns -EBUSY, or if hmm_range_fault() returns 0 and
-mmu_interval_read_retry() trips in dmirror_range_fault() (for example,
-after migrate_vma_split_folio() splits a PTE-mapped large folio and fires
-MMU_NOTIFY_CLEAR, or due to a concurrent invalidation),
-dmirror_range_fault() loops back via continue without returning to
-do_fault_and_migrate() to abort and finalize the already-collected
-migration entries.
+mm/hmm.c:hmm_range_fault_locked() {
+	if (hmm_select_migrate(range)) {
+		WARN_ON_ONCE(range->pfn_flags_mask);
+		WARN_ON_ONCE(range->dev_private_owner !=3D
+			     range->migrate->pgmap_owner);
+		...
+	}
+}
 
-On the next iteration of the loop in dmirror_range_fault(), calling
-hmm_range_fault() -> hmm_range_fault_locked() zeroes range->hmm_pfns:
+In addition, hmm_select_migrate() in include/linux/migrate.h is guarded by
+#ifdef CONFIG_MIGRATION rather than #ifdef CONFIG_DEVICE_MIGRATION, even
+though the migration implementation in mm/hmm.c and mm/migrate_device.c
+depends on CONFIG_DEVICE_MIGRATION.
 
-mm/hmm.c:hmm_range_fault_locked()
+Should hmm_select_migrate() be guarded by CONFIG_DEVICE_MIGRATION (returnin=
+g 0
+when !CONFIG_DEVICE_MIGRATION), and should the range->migrate dereference in
+hmm_range_fault_locked() be guarded or moved into a helper?
+
+[ ... ]
+
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 1c8a3fa29c4e6..0b38bf84c3690 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -1658,14 +1658,43 @@ static int hmm_range_fault_locked(struct hmm_rang=
+e *range, bool *locked)
+>   *		the invalidation to finish.
+>   * -EFAULT:     A page was requested to be valid and could not be made v=
+alid
+>   *              ie it has no backing VMA or it is illegal to access
+> + * -ERANGE:     The range crosses multiple VMAs, or space for hmm_pfns a=
+rray
+> + *              is too low.
+>   *
+>   * This is similar to get_user_pages(), except that it can read the page=
+ tables
+>   * without mutating them (ie causing faults).
+>   *
+>   * The mmap lock must be held by the caller and will remain held on retu=
+rn.
+>   * New users should prefer hmm_range_fault_unlocked_timeout() unless they
+> - * specifically need to keep the mmap lock held across the call. This he=
+lper
+> - * cannot support VMAs whose fault handlers need to drop the mmap lock.
+> + * specifically need to keep the mmap lock held across the call like whi=
+le
+> + * migrating. This helper cannot support VMAs whose fault handlers need =
+to
+> + * drop the mmap lock.
+> + *
+> + * If want to do migration after faulting, call hmm_range_fault() with
+> + * range.default_flags of HMM_PFN_REQ_MIGRATE, and optionally
+> + * HMM_PFN_REQ_FAULT|HMM_PFN_REQ_WRITE, and initialize range->migrate fi=
+eld.
+> + * range->migrate->vma will be populated during the call,
+> + * and must be stable across the whole migrate process, which is
+> + * why mmap_lock must be held around this call.
+> + *
+> + * When HMM_PFN_REQ_MIGRATE is set, migration collection may be partial =
+on
+> + * return and the caller takes responsibility for completing or aborting=
+ it.
+> + *
+> + * On success, the caller must call migrate_hmm_range_setup() and may th=
+en
+> + * proceed with the normal migrate_vma sequence: prepare destination pag=
+es,
+> + * call migrate_vma_pages(), update device mappings as needed, and final=
+ly
+> + * call migrate_vma_finalize().
+> + *
+> + * On -EBUSY, the caller may retry hmm_range_fault() using the same rang=
+e and
+> + * PFN array without undoing entries collected by the previous attempt. =
+If
+> + * the caller stops retrying, it must abort the partial migration.
+
+[Severity: Critical]
+When a caller retries hmm_range_fault() after -EBUSY with the same range and
+PFN array as documented here, won't hmm_range_fault_locked() wipe out all
+previously collected entries by unconditionally zeroing range->hmm_pfns?
+
+At the start of hmm_range_fault_locked() in mm/hmm.c:
+
 	if (hmm_select_migrate(range)) {
 		WARN_ON_ONCE(range->pfn_flags_mask);
 		WARN_ON_ONCE(range->dev_private_owner !=3D
@@ -172,155 +244,294 @@ mm/hmm.c:hmm_range_fault_locked()
 		       sizeof(*range->hmm_pfns));
 	}
 
-When the retry walk visits the migration PTEs installed by the previous
-attempt, hmm_pfn_collected(*hmm_pfn) evaluates to false in
-hmm_vma_handle_pte() because *hmm_pfn was zeroed:
+During the first call, hmm_vma_handle_migrate_prepare() and
+hmm_vma_handle_migrate_prepare_pmd() lock folios, take references, install
+migration PTEs/PMDs, and record HMM_PFN_VALID | HMM_PFN_MIGRATE in
+range->hmm_pfns[]. If a later page in the range triggers an mmu_notifier
+invalidation (for example during hmm_do_fault() or folio splitting) so that
+mmu_interval_check_retry() returns -EBUSY, retrying hmm_range_fault() zeroes
+range->hmm_pfns[].
 
-mm/hmm.c:hmm_vma_handle_pte()
-		if (softleaf_is_migration(entry) && hmm_select_migrate(range) &&
-		    hmm_pfn_collected(*hmm_pfn) &&
-		    hmm_pfn_to_page(*hmm_pfn) =3D=3D softleaf_to_page(entry))
-			return 0;
+On the retry walk, hmm_pfn_collected() in hmm_vma_handle_pte() and
+hmm_vma_walk_pmd() evaluates to false for the migration entries installed by
+the first attempt:
 
-It then treats its own migration entry as an external migration entry and
-calls hmm_do_fault() -> handle_mm_fault() -> migration_entry_wait(),
-waiting forever on the folio lock already held by current. In addition, if
-any collected PTEs were unmapped before the retry walk (or if the retry
-walk fails or times out before revisiting them), zeroing range->hmm_pfns
-prevents hmm_vma_handle_migrate_prepare_rollback() and
-migrate_hmm_range_setup() / migrate_vma_finalize() from unlocking those
-folios and dropping their references.
+mm/hmm.c:hmm_vma_handle_pte() {
+	if (softleaf_is_migration(entry) && hmm_select_migrate(range) &&
+	    hmm_pfn_collected(*hmm_pfn) &&
+	    hmm_pfn_to_page(*hmm_pfn) =3D=3D softleaf_to_page(entry))
+		return 0;
+}
 
-Furthermore, if dmirror_range_fault() times out at time_after(jiffies,
-timeout) before calling hmm_range_fault() on a subsequent subrange chunk,
-do_fault_and_migrate() still runs migrate_hmm_range_setup(),
-migrate_vma_pages(), and migrate_vma_finalize() on the stale src_pfns and
-migrate->start/end state from the previous chunk.
-
-Should dmirror_range_fault() return -EBUSY to do_fault_and_migrate() when
-migrate is true so the caller can run the migrate_hmm_range_setup(),
-migrate_vma_pages(), and migrate_vma_finalize() cleanup before retrying?
+With HMM_PFN_REQ_FAULT set, HMM treats its own migration PTE/PMD as a forei=
+gn
+migration entry and calls hmm_do_fault() -> handle_mm_fault() ->
+migration_entry_wait(), deadlocking on the folio lock already held by curre=
+nt.
+Without HMM_PFN_REQ_FAULT (or if the retry aborts before reaching those
+entries), range->hmm_pfns[] remains zeroed, so migrate_hmm_range_setup() ne=
+ver
+populates migrate->src[] for those pages and leaks the folio locks, folio
+references, and migration PTEs.
 
 [ ... ]
 
-> @@ -1377,6 +1398,127 @@ static int dmirror_migrate_to_device(struct dmirr=
-or *dmirror,
->  	return ret;
->  }
-> =20
-> +static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_rang=
-e *range)
-> +{
-> +	struct migrate_vma *migrate =3D range->migrate;
-> +	unsigned long timeout =3D
-> +		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index ba6775a0d37e6..266f9c6d7b607 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+
+[ ... ]
+
+> @@ -741,9 +243,20 @@ int migrate_vma_setup(struct migrate_vma *args)
+>  {
+>  	const struct vm_area_struct *vma =3D args->vma;
+>  	long nr_pages =3D (args->end - args->start) >> PAGE_SHIFT;
+> +	struct hmm_range range =3D {
+> +		.notifier =3D NULL,
+> +		.hmm_pfns =3D args->src,
+> +		.dev_private_owner =3D args->pgmap_owner,
+> +		.migrate =3D args,
+> +		.default_flags =3D HMM_PFN_REQ_MIGRATE
+> +	};
 > +	int ret;
+> =20
+>  	args->start &=3D PAGE_MASK;
+>  	args->end &=3D PAGE_MASK;
+> +	range.start =3D args->start;
+> +	range.end =3D args->end;
 > +
-> +	do {
-> +		mmap_read_lock(dmirror->notifier.mm);
+>  	if (!vma)
+>  		return -EINVAL;
+>  	/* The migrate_vma page walk has no hugetlb support. */
+> @@ -766,10 +279,24 @@ int migrate_vma_setup(struct migrate_vma *args)
+>  	args->cpages =3D 0;
+>  	args->npages =3D 0;
+> =20
+> -	migrate_vma_collect(args);
+> +	if (args->flags & MIGRATE_VMA_FAULT)
+> +		range.default_flags |=3D HMM_PFN_REQ_FAULT;
+> =20
+> -	if (args->cpages)
+> -		migrate_vma_unmap(args);
+> +	if (args->flags & MIGRATE_VMA_WRITE)
+> +		range.default_flags |=3D HMM_PFN_REQ_FAULT | HMM_PFN_REQ_WRITE;
 > +
-> +		/* Fault-in pages for migration */
-> +		ret =3D dmirror_range_fault(dmirror, range);
-> +		/*
-> +		 * Set this up even on error: hmm_range_fault() may have collected
-> +		 * part of the range before failing.
-> +		 */
-> +		migrate_hmm_range_setup(range);
-> +		if (ret) {
-> +			/*
-> +			 * dst[] entries are empty, so this marks every collected
-> +			 * migration as failed. finalize then restores the source
-> +			 * mappings and drops the associated locks/references.
-> +			 */
-> +			migrate_vma_pages(migrate);
-> +			migrate_vma_finalize(migrate);
-> +			goto unlock;
-> +		}
+> +	ret =3D hmm_range_fault(&range);
 > +
-> +		pr_debug("Migrating from sys mem to device mem\n");
-> +
-> +		dmirror_migrate_alloc_and_copy(migrate, dmirror);
-> +		migrate_vma_pages(migrate);
-> +
-> +		mutex_lock(&dmirror->mutex);
-> +		if (mmu_interval_read_retry(&dmirror->notifier,
-> +					    range->notifier_seq))
-> +			ret =3D -EBUSY;
-> +		else
-> +			ret =3D __dmirror_migrate_map_locked(migrate, dmirror);
-> +		mutex_unlock(&dmirror->mutex);
-> +
-> +		migrate_vma_finalize(migrate);
-> +unlock:
-> +		mmap_read_unlock(dmirror->notifier.mm);
-> +	} while (ret =3D=3D -EBUSY && !time_after(jiffies, timeout));
-> +
-> +	return ret;
-> +}
+> +	migrate_hmm_range_setup(&range);
+
+[Severity: Critical]
+As reported by Sashiko on v16 [2], when hmm_range_fault() faults at an addr=
+ess
+after already collecting earlier PTEs in the range, can concurrent page tab=
+le
+zapping cause a use-after-free of destination pages because the walk resumes
+at hmm_vma_walk.last without re-validating [range->start, hmm_vma_walk.last=
+)?
+
+When HMM_PFN_REQ_MIGRATE | HMM_PFN_REQ_FAULT is used, walk_page_range()
+collects present pages in [range->start, addr) via
+hmm_vma_handle_migrate_prepare(), installing migration PTEs and setting
+HMM_PFN_VALID | HMM_PFN_MIGRATE in range->hmm_pfns[]. When a later address
+addr requires a fault, hmm_vma_handle_pte() drops the PTE lock, sets
+hmm_vma_walk.last =3D addr via hmm_record_fault(), and returns
+HMM_FAULT_PENDING:
+
+mm/hmm.c:hmm_range_fault_locked() {
+	ret =3D walk_page_range(mm, hmm_vma_walk.last, range->end,
+			      &hmm_walk_ops, &hmm_vma_walk);
+	if (ret =3D=3D HMM_FAULT_PENDING) {
+		hmm_vma_migrate_disarm(&hmm_vma_walk);
+		ret =3D hmm_do_fault(mm, &hmm_vma_walk);
+		...
+	}
+}
+
+While the PTE spinlock and migration mmu_notifier invalidation are dropped
+during hmm_do_fault(), a concurrent madvise(MADV_DONTNEED) only requires
+mmap_read_lock and can clear the migration PTEs in [range->start, addr) via
+zap_pte_range() -> zap_nonpresent_ptes() without taking the folio lock. When
+the loop resumes walk_page_range() at hmm_vma_walk.last =3D addr,
+hmm_vma_handle_migrate_prepare_rollback() only inspects [addr, end) and nev=
+er
+re-checks [range->start, addr).
+
+Those zapped entries keep HMM_PFN_VALID | HMM_PFN_MIGRATE in range->hmm_pfn=
+s[]
+and pass migrate_vma_check_page() because folio_mapped(src) is false. Later,
+in __migrate_device_finalize(), remove_migration_ptes(src, dst, 0) finds no
+migration PTEs to replace (so dst is never mapped into the CPU page tables =
+or
+given a page table refcount), and folio_put(dst) frees the destination folio
+while the device driver still has it mapped.
+
+[Severity: High]
+As reported by Sashiko on v16 [3], can switching migrate_vma_setup() and
+hmm_range_fault() to the HMM migration path deadlock on folio locks in
+migrate_vma_split_folio() and hmm_do_fault(), or cause spurious split_folio=
+()
+-EAGAIN failures?
+
+First, during migration collection, hmm_vma_handle_migrate_prepare() keeps =
+all
+previously collected folios in the range locked (using folio_trylock() to
+avoid deadlocks). However, when it encounters a PTE-mapped large folio, it
+calls migrate_vma_split_folio(), which takes a reference and does a blocking
+folio_lock() while still holding the locks and migration PTEs on fault_folio
+and all earlier collected folios:
+
+mm/hmm.c:migrate_vma_split_folio() {
+	if (folio !=3D fault_folio)
+		folio_get(folio);
+
+	lazy_mmu_mode_disable();
+	pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+	hmm_vma_walk->ptelocked =3D false;
+
+	if (folio !=3D fault_folio)
+		folio_lock(folio);
+
+	return __migrate_vma_split_folio(folio, fault_page);
+}
+
+If another task holds folio_lock(folio) and waits on one of the earlier
+migration PTEs via migration_entry_wait() (or tries to lock one of the
+already-collected folios), both tasks deadlock. Taking folio_get(folio) bef=
+ore
+folio_lock(folio) also means a concurrent caller blocking on folio_lock(fol=
+io)
+elevates the refcount and causes the lock holder's split_folio() to fail wi=
+th
+-EAGAIN.
+
+Second, when HMM_PFN_REQ_FAULT is used with HMM_PFN_REQ_MIGRATE, encounteri=
+ng
+another thread's migration entry in hmm_vma_handle_pte() or hmm_vma_walk_pm=
+d()
+(or a swap or device-private entry) invokes hmm_do_fault() ->
+handle_mm_fault(), which sleeps in migration_entry_wait() or folio_lock()
+while still holding the locks and migration PTEs on all folios collected
+earlier in the walk.
+
+[Severity: High]
+Does hmm_vma_handle_migrate_prepare_pmd() in mm/hmm.c miss a
+folio_test_anon(folio) check when collecting or splitting a PMD-mapped THP?
+
+At the PTE level, hmm_vma_handle_migrate_prepare() rejects non-anonymous
+folios:
+
+mm/hmm.c:hmm_vma_handle_migrate_prepare() {
+	/* Only anonymous memory can be migrated to device memory */
+	if (!page || !folio_test_anon(page_folio(page)))
+		goto out;
+}
+
+However, hmm_vma_handle_migrate_prepare_pmd() selects any non-zero
+pmd_trans_huge(*pmdp) folio when MIGRATE_VMA_SELECT_SYSTEM is set:
+
+mm/hmm.c:hmm_vma_handle_migrate_prepare_pmd() {
+	if (pmd_trans_huge(*pmdp)) {
+		if (!(minfo & MIGRATE_VMA_SELECT_SYSTEM))
+			goto out;
+
+		folio =3D pmd_folio(*pmdp);
+		if (is_huge_zero_folio(folio))
+			return hmm_pfns_fill(start, end, hmm_vma_walk, 0);
+
+	}
+}
+
+If HMM migration runs on a private file-backed or shmem VMA containing a
+PMD-mapped page-cache/shmem THP, hmm_vma_handle_migrate_prepare_pmd() locks
+the non-anonymous folio and either installs a PMD migration entry (holding =
+the
+file/shmem folio lock across subsequent faults in hmm_do_fault(), which take
+mapping->invalidate_lock and invert the mapping->invalidate_lock -> folio_l=
+ock
+ordering) or splits the THP even though hmm_vma_handle_migrate_prepare() wi=
+ll
+reject all of its PTEs.
+
+[Severity: High]
+In hmm_vma_walk_pmd() in mm/hmm.c, when splitting a PTE-mapped large folio
+fails in hmm_vma_handle_migrate_prepare(), doesn't returning 0 immediately
+skip the remaining PTEs in [addr + PAGE_SIZE, end)?
+
+In the PTE loop of hmm_vma_walk_pmd():
+
+mm/hmm.c:hmm_vma_walk_pmd() {
+	for (; addr < end; addr +=3D PAGE_SIZE, ptep++, hmm_pfns++) {
+		...
+		r =3D hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, hmm_pfns);
+		...
+		r =3D hmm_vma_handle_migrate_prepare(walk, pmdp, addr, ptep,
+						   hmm_pfns, &unmapped);
+		if (r =3D=3D -EAGAIN) {
+			addr =3D start;
+			goto again;
+		}
+		if (r) {
+			HMM_ASSERT_UNLOCKED(hmm_vma_walk);
+			if (unmapped)
+				flush_tlb_range(walk->vma, start, addr);
+			return 0;
+		}
+	}
+}
+
+When migrate_vma_split_folio() fails at addr, it drops the PTE lock and
+hmm_vma_handle_migrate_prepare() returns -EFAULT. Returning 0 from
+hmm_vma_walk_pmd() tells walk_page_range() that the entire PMD range
+[start, end) is complete, leaving [addr + PAGE_SIZE, end) unvisited and
+unpopulated in range->hmm_pfns[]. Moreover, if an earlier pass in
+hmm_vma_walk_pmd() had already collected PTEs at addresses above addr before
+restarting via addr =3D start; goto again, dropping the PTE lock at addr and
+returning 0 skips re-verifying and rolling back those collected entries in
+[addr + PAGE_SIZE, end).
 
 [Severity: Medium]
-As reported by Sashiko on v16 [1], when mmu_interval_read_retry() returns
-true in do_fault_and_migrate() after migrate_vma_pages() has executed, can
-this leave migrated device-private pages unmapped in dmirror->pt and cause
-dmirror_fault_and_migrate_to_device() to fail with -ENOENT?
+Can writable protnone PTEs and PMDs lose MIGRATE_PFN_WRITE in migrate->src[]
+when migrated via migrate_vma_setup() or hmm_range_fault() without
+HMM_PFN_REQ_FAULT?
 
-When mmu_interval_read_retry() trips here (for example, due to an
-invalidation anywhere in the process mm since dmirror->notifier covers the
-entire address space, or a partial zap, or split_huge_pmd() in
-migrate_vma_insert_page()), __dmirror_migrate_map_locked() is skipped,
-while migrate_vma_finalize() still commits any non-zapped migration PTEs to
-device-private memory (and migrate_vma_insert_page() has already installed
-device-private PTEs for pte_none or zero-page entries).
+For a present protnone PTE or PMD, pte_to_hmm_pfn_flags() and
+pmd_to_hmm_pfn_flags() return 0, so HMM_PFN_WRITE is not set in *hmm_pfn.
+Then hmm_vma_handle_migrate_prepare() and hmm_vma_handle_migrate_prepare_pm=
+d()
+collect the protnone entry, install a writable migration entry if
+pte_write(pte) or pmd_write(*pmdp) is true, and set HMM_PFN_VALID |
+HMM_PFN_MIGRATE in *hmm_pfn, but never set HMM_PFN_WRITE:
 
-On the subsequent -EBUSY retry iteration of do_fault_and_migrate(), those
-already-committed device-private pages are reported by hmm_vma_handle_pte()
-as HMM_PFN_VALID without HMM_PFN_MIGRATE because migrate.flags only sets
-MIGRATE_VMA_SELECT_SYSTEM, and dmirror_range_fault() skips
-dmirror_do_fault() because HMM_PFN_REQ_MIGRATE is set.
+mm/hmm.c:hmm_vma_handle_migrate_prepare() {
+		set_pte_at(mm, addr, ptep, swp_pte);
+		folio_remove_rmap_pte(folio, page, walk->vma);
+		folio_put(folio);
+		*hmm_pfn |=3D HMM_PFN_VALID | HMM_PFN_MIGRATE;
+}
 
-Although the commit message notes that a real device would map committed
-pages on its next fault, dmirror_fault_and_migrate_to_device() immediately
-verifies the range by calling dmirror_do_read() directly without a fault
-retry loop:
+When migrate_hmm_range_setup() builds migrate->src[i] from range->hmm_pfns[=
+i]:
 
-	mutex_lock(&dmirror->mutex);
-	ret =3D dmirror_do_read(dmirror, start, end, &bounce);
-	mutex_unlock(&dmirror->mutex);
+mm/migrate_device.c:migrate_hmm_range_setup() {
+		migrate->src[i] |=3D MIGRATE_PFN_MIGRATE;
+		migrate->src[i] |=3D (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
+		migrate->src[i] |=3D (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
+}
 
-Wouldn't dmirror_do_read() find no entry in dmirror->pt for those
-already-migrated pages and fail the ioctl with -ENOENT?
+MIGRATE_PFN_WRITE is left unset even though the deleted
+migrate_vma_collect_pmd() and migrate_vma_collect_huge_pmd() helpers preser=
+ved
+MIGRATE_PFN_WRITE whenever pte_write(pte) or pmd_write(*pmdp) was set. Shou=
+ld
+hmm_vma_handle_migrate_prepare() and hmm_vma_handle_migrate_prepare_pmd() a=
+lso
+set HMM_PFN_WRITE on *hmm_pfn when writable is true?
 
-> +
-> +static int dmirror_fault_and_migrate_to_device(struct dmirror *dmirror,
-> +					       struct hmm_dmirror_cmd *cmd)
-> +{
-> +	unsigned long start, size, end, next;
-> +	unsigned long src_pfns[PFNS_ARRAY_SIZE] =3D { 0 };
-> +	unsigned long dst_pfns[PFNS_ARRAY_SIZE] =3D { 0 };
-> +	struct migrate_vma migrate =3D { 0 };
-> +	struct hmm_range range =3D { 0 };
-> +	struct dmirror_bounce bounce;
-
-[Severity: Low]
-Does allocating src_pfns[64] and dst_pfns[64] on the stack in
-dmirror_fault_and_migrate_to_device() risk triggering -Wframe-larger-than
-warnings?
-
-On 64-bit architectures, src_pfns and dst_pfns alone consume 1024 bytes of
-stack space alongside struct migrate_vma, struct hmm_range, and struct
-dmirror_bounce (exceeding 1230 bytes of local variables before saved
-registers and inlining do_fault_and_migrate()).
-
-Commit 6046a3bed1c2 ("lib/test_hmm: reduce stack usage") previously had to
-reduce the 64-element stack arrays in dmirror_migrate_to_device() after
-hitting a 1408-byte stack frame build failure, and commit 775465fd26a3
-("lib/test_hmm: use kvcalloc() for src/dst pfns allocation") moved
-dmirror_migrate_to_device() and dmirror_migrate_to_system() to dynamic
-allocation with kvcalloc(). Should dmirror_fault_and_migrate_to_device()
-also use kvcalloc() or a smaller PFNS_ARRAY_SIZE?
-
-[1] https://lore.kernel.org/r/20261021060506.2377545-11-mpenttil@redhat.com
+[1] https://lore.kernel.org/r/arY5zKsLuf7f_EYw@infradead.org
+[2] https://lore.kernel.org/r/20261021060506.2377545-10-mpenttil@redhat.com
+[3] https://lore.kernel.org/r/20261021060506.2377545-10-mpenttil@redhat.com
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103061629.9726=
-69-1-mpenttil@redhat.com?part=3D10
+69-1-mpenttil@redhat.com?part=3D9
