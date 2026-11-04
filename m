@@ -2,72 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AD8606A328
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:50:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C711606A32F
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:54:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HoMtkAUk
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zdYbA7OO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4173010E594;
-	Wed,  4 Nov 2026 10:49:56 +0000 (UTC)
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
- [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDCD810FB1E;
- Wed,  4 Nov 2026 10:49:49 +0000 (UTC)
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
- [IPv6:2a0a:edc0:0:900:1d::77])
- (Authenticated sender: lst@pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E8FCA2015ED;
- Wed, 04 Nov 2026 11:49:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
- s=20260414; t=1793789388;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rC2RxAX+EQ/uLmXWenUT4kaK0zKIniQLwrGlH5DtkjE=;
- b=HoMtkAUk5IAgbWZZ5fLGLyoQW4ZXp1MIRYwsxRlCxRz5EMMRyPbDtOwDFC+jcTlkDIO722
- UnfnT+pf2HzdqHh16k9kMdkDOW7kUnUNLEt1+ULQTBA13qaxmmwHCpDk21mBqI6UED7Ha1
- KBGrQFb7hQLOUw+YNMhXFEUzVKOvp+MzSzRw/T9sN/5ldgFIkM967mNthR8cUz48SfNpFm
- cTzIM9oaEp4r+AwMZAQuc0paN+IoChoRAKn9Vs6c9egoq/BQ+4eyc4HlPEClDvVbmJbLaE
- zM3sPYa7W2rN5PUjpFuQNUt8ysZegAy2wdwZtqQZmGTeJfSWPaZyengQNoEGHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
- s=20260414; t=1793789388;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rC2RxAX+EQ/uLmXWenUT4kaK0zKIniQLwrGlH5DtkjE=;
- b=GdfMNcMaFTzq7k3PT91OoEQtVbNroPM4rpOkQ/krDCtRNPI1UHtOit1qlipmOie1GetmKe
- 3Se3mkKjc3ywudDLITGkePWgfVUBV3GS0WvYqllzY02el1XQV9ply+d2aUqKgQjCSkrhjG
- M0icQGsfumelRwEVPThAE3sJ/EDGSXmveYAlVdWfMBqY4oal7Oy3fFSJqH0T4b/Jde7kbL
- +VtBlR8o10gN9nVI8GIYg2H9LuNOhFJtufEeOzBAYuUD8FoQ1xRwAzNWHBmUS8Mj0WWZ3x
- iQGuGzGTNOS1K5RGkqHNkUYKrb741EWm4sVV8BvY2L5MRa/yjMAbB7lFnZt5zQ==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793789388; a=rsa-sha256;
- cv=none;
- b=BfDXYk5Hg5jbUf+6Lr6E4lMkUyQO9Q/oAxZ5hTfPWuTHucvJjWQlI4d+jL7PYD9AiqAhXZ
- SwSqulSk25JjrG5X8WcqOozc4DVIMCJ4EbXYqes05fBFOQKoMU9WVZCNI6gR/PBcE++VMA
- Z92OL4T+z8wka1YLFl0/HOictIO5iAHSmShxL+QT5B+Gj2XYLBfJ76J8GXj3paq65pUaPK
- 697cC+ww9N0TOfOkeU/6hGrXg1vJpra3OUZ6e3I4mqem37uygPqZ13X4emZ2J/+diRwDSc
- irl70ol/arUyOWEPOo3L1mCPyUpXWSAQkM1gBYLr5UOOY18c8pOjPF2hEVCRDw==
-Message-ID: <eb6dc4502166eac99f1c5f8f579cc4c4fff94ef4.camel@pengutronix.de>
-Subject: Re: [PATCH] drm/etnaviv: Cycle through the MMUv1 address space again
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King
- <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
- stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 11:49:47 +0100
-In-Reply-To: <20261102-etna-mmuv1-iova-cycle-v1-1-1148f02da254@igalia.com>
-References: <20261102-etna-mmuv1-iova-cycle-v1-1-1148f02da254@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4FC510E22A;
+	Wed,  4 Nov 2026 10:54:18 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B4410E22A
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 10:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=advfz8qU7dnMlSXaKuDgnefU48uHbLndv3sHhQbWPMw=; b=zdYbA7OObWwvo7rs7AE3iCVGzj
+ BDWigqB1/746eJLXXkDf5qazrTOAWtpR6IXVUy5F4lAy5LRoWZzSvOuDDxhuxlWORs7Qh69SwEZHc
+ /9XupRpbA4WLdDHRfdMCjKF3Z6gu12ueLkcIdQmUVPxsP9aWKjSFXTyd9KVC5arkHdNzBjEbyymlN
+ BWkvNbJCMZ/yMIKfdw/XZIRe7TItZc9UJTFoBH0IcZQYPT5jLnIgAPXCbtTEVaKoSrJRTb8+SKCSY
+ LbXBS/G7gGrWxExn6fTQEFPtVasKqtTGmql2SVnWJq0h+v6qQkSjC7PI+cWefytkCnlECJnArTLKw
+ e6i1O+cQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>, chaoyi.chen@rock-chips.com
+Subject: Re: [PATCH v15 14/15] arm64: dts: rockchip: add NPU (RKNN) nodes to
+ rk3576
+Date: Wed, 04 Nov 2026 11:53:47 +0100
+Message-ID: <2915499.MsWZr2WtbB@diego>
+In-Reply-To: <20261101082307.151957-15-gahing@gahingwoo.com>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-15-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,129 +65,69 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Christian,
-
-Am Montag, dem 02.11.2026 um 13:22 +0100 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
+Am Sonntag, 1. November 2026, 09:23:06 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> Add the two RKNN cores and their IOMMUs, disabled, and label PD_NPU so a
+> board can give it the NPU rail. Each core lists both core domains, its own
+> first, as tested.
 >=20
-> On MMUv1, all clients share one address space and the allocator
-> always picks the lowest free IOVA. When a process frees a range,
-> it can immediately be reused by another process.
+> Assign CLK_RKNN_DSU0 594 MHz. Nothing in mainline sets its rate or the NPU
+> rail, and at the 786 MHz it comes up at, on the 750 mV a ROCK 4D boots
+> with, two cores running together write wrong words, 11 to 25 in each pass
+> of 5400 rows. 594 MHz is clean, and Rockchip's OPP table asks only 725 mV
+> of its 500 and 600 MHz steps.
 >=20
-> The GL.FLUSH_MMU write before the next submit does not reliably
-> invalidate stale TLB entries for that range. The GPU may therefore
-> continue translating accesses to the old pages. Writes through
-> these stale entries are lost for the new owner and may corrupt
-> memory that has already been freed.
->=20
-> The vendor driver works around this in a similar way. It does not
-> return freed MMUv1 ranges to its free list until the address space
-> is exhausted.
->=20
-Do you have more info on which engine inside the GPU causes those
-issues? If the TLB flush doesn't work reliably we have a much bigger
-issue than just address space reuse. If the TLB entries of freed memory
-are not properly shot down the GPU may write to memory that has been
-reused for something other than GPU buffers with a malicious command
-stream. That would be a security issue that is not currently checked by
-our command stream validation.
-
-Can you help me understand this a bit better? Which circumstances do
-trigger this issue?
-
-Regards,
-Lucas
-
-> Restore the address space cycling for MMUv1 that was previously
-> removed as no longer needed. Start searching after the last
-> allocation and only wrap around to the beginning before trying
-> to evict existing mappings. This keeps freed ranges in the
-> allocator but delays their reuse until the search wraps around.
->=20
-> MMUv2 has a proper TLB flush and keeps the current behavior.
->=20
-> Fixes: ccae45928fc4 ("drm/etnaviv: remove cycling through MMU address spa=
-ce")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
->  drivers/gpu/drm/etnaviv/etnaviv_mmu.c | 21 ++++++++++++++++++++-
->  drivers/gpu/drm/etnaviv/etnaviv_mmu.h |  1 +
->  2 files changed, 21 insertions(+), 1 deletion(-)
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 74 +++++++++++++++++++++++-
+>  1 file changed, 73 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etna=
-viv/etnaviv_mmu.c
-> index e3572461b599..c4e4dd3d4235 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
-> @@ -141,10 +141,20 @@ static int etnaviv_iommu_find_iova(struct etnaviv_i=
-ommu_context *context,
->  {
->  	struct etnaviv_vram_mapping *free =3D NULL;
->  	enum drm_mm_insert_mode mode =3D DRM_MM_INSERT_LOW;
-> +	u64 start =3D 0;
->  	int ret;
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> index ea9229b6e6f5..80943d748bfa 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1057,7 +1057,7 @@ power: power-controller {
+>  				#address-cells =3D <1>;
+>  				#size-cells =3D <0>;
 > =20
->  	lockdep_assert_held(&context->lock);
+> -				power-domain@RK3576_PD_NPU {
+> +				pd_npu: power-domain@RK3576_PD_NPU {
+>  					reg =3D <RK3576_PD_NPU>;
+>  					#power-domain-cells =3D <1>;
+>  					#address-cells =3D <1>;
+> @@ -1284,6 +1284,78 @@ power-domain@RK3576_PD_VO1 {
+>  			};
+>  		};
 > =20
-> +	/*
-> +	 * MMUv1 does not reliably drop stale TLB entries on a flush, so a
-> +	 * freed IOVA that is handed out again right away can still be
-> +	 * translated to the old pages. Cycle through the address space so
-> +	 * recently freed IOVAs are only reused once the search wraps around.
-> +	 */
-> +	if (context->global->version =3D=3D ETNAVIV_IOMMU_V1)
-> +		start =3D context->last_iova;
-> +
->  	while (1) {
->  		struct etnaviv_vram_mapping *m, *n;
->  		struct drm_mm_scan scan;
-> @@ -152,10 +162,16 @@ static int etnaviv_iommu_find_iova(struct etnaviv_i=
-ommu_context *context,
->  		bool found;
-> =20
->  		ret =3D drm_mm_insert_node_in_range(&context->mm, node,
-> -						  size, 0, 0, 0, U64_MAX, mode);
-> +						  size, 0, 0, start, U64_MAX, mode);
->  		if (ret !=3D -ENOSPC)
->  			break;
-> =20
-> +		/* Retry from the start of the address space before evicting. */
-> +		if (start) {
-> +			start =3D 0;
-> +			continue;
-> +		}
-> +
->  		/* Try to retire some entries */
->  		drm_mm_scan_init(&scan, &context->mm, size, 0, 0, mode);
-> =20
-> @@ -215,6 +231,9 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iom=
-mu_context *context,
->  		 */
->  	}
-> =20
-> +	if (!ret && context->global->version =3D=3D ETNAVIV_IOMMU_V1)
-> +		context->last_iova =3D node->start + node->size;
-> +
->  	return ret;
->  }
-> =20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h b/drivers/gpu/drm/etna=
-viv/etnaviv_mmu.h
-> index 7f8ac0178547..7fa6e3ab427a 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
-> @@ -75,6 +75,7 @@ struct etnaviv_iommu_context {
->  	struct list_head mappings;
->  	struct drm_mm mm;
->  	unsigned int flush_seq;
-> +	u64 last_iova;
-> =20
->  	/* Not part of the context, but needs to have the same lifetime */
->  	struct etnaviv_vram_mapping cmdbuf_mapping;
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-etna-mmuv1-iova-cycle-2fc0e6200fa6
->=20
-> Best regards,
+> +		rknn_core_0: npu@27700000 {
+> +			compatible =3D "rockchip,rk3576-rknn-core";
+> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
+> +			      <0x0 0x27701000 0x0 0x1000>,
+> +			      <0x0 0x27703000 0x0 0x1000>;
+> +			reg-names =3D "pc", "cna", "core";
+> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
+> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
+> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
+> +				      "aclk_cbuf", "hclk_cbuf";
+> +			assigned-clocks =3D <&cru CLK_RKNN_DSU0>;
+> +			assigned-clock-rates =3D <594000000>;
+> +			resets =3D <&cru SRST_A_RKNN0>;
+> +			reset-names =3D "srst_a";
+> +			power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
+
+Why do you need both power-domains here?
+The naming does suggest each belongs to one core - similar to the rk3588?
+
+If each core really needs both domains, please state this explicitly.
+
+Rockchip sadly does not provide RKNN documentation the first
+two parts of the TRM.
+
+
+Heiko
+
+
+
