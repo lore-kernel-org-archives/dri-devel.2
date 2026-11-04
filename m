@@ -2,64 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB94C606A328
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 12:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5849606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 12:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+/kgYHV
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RDlUC609
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0989610FBA1;
-	Wed,  4 Nov 2026 12:37:34 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E165010FB9E
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 12:37:27 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-48dee593f18so494108f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 04:37:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C16310FB9E;
+	Wed,  4 Nov 2026 12:37:39 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F86F10FB9E
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 12:37:33 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a210470b49so4730615e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 04:37:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793795846; x=1794400646; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793795852; x=1794400652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=o49Az/X7nnRMbCTvuIgrTpIjxf+w39CY1NNO3CjBfDA=;
- b=y+/kgYHV0OXxFEty4Vweq1/yb0Y4WJBExcXSAI1ZZGF3SeXfyMiQR8mDa7suoGCkGv
- 2fQKPkHMaxcVIBjzncN2XJJ845zzOk3wmveJtxKHNy+K6M9R7iOk6Hpl+7ZDjBcJ8lXP
- 7ueRETqBKab0Nc36p7ACWl3I/g3A0ioOR3JiPvEIHtkmHLqlJcv3Ou6JZBT4ICkALuxf
- MAJFgFIJ/8UnnfYM9XLfVAuTnI9cy+CozH7shhMa4zAnNZq7NYuf2Ko1KBLa9rise+B9
- DLeeCbUXMQGqCifRldT1xpcywr74iYWc2KEpM7TIFF7OkK52A9F5G9u+6hXcS31MCQLs
- yTXg==
+ bh=0X4rUoAWbYYwWIlyCXzN+FfLPErCmWPcGeI3w9a2qVs=;
+ b=RDlUC609/Wgt0Ch8OLY1j2/vGQBhv1t8AtjGq2438VQK0yuEZ4KBZjTl1V2s6miksx
+ JOWPiGGXuJo7Rhack409hYio7jpE9shzJZefeLG0YpPi1whcGfjaTIqjY52waYX7hIgw
+ GdevrCQjdWyt+j8yBG5uBDF3IF5T+OjMU6uneJXkMerea2NQhMTZ3PDz9CMxk5qzta5c
+ vYIj+aXCj5jEwwJH5l86bd62/d/EMSdt6MOI4IdjoKeWW28sGNCa/9cBFPzilQszc4vW
+ hj823eINNwVK5X5xV4Q8OYGkqOeUNko+Y52p9s8+osUMUIztKDT7vwTRW2qkqEFLH76g
+ 2Gfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793795846; x=1794400646;
+ d=1e100.net; s=20260707; t=1793795852; x=1794400652;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=o49Az/X7nnRMbCTvuIgrTpIjxf+w39CY1NNO3CjBfDA=;
- b=T92mw7ffvw1BopTuT7OiVqDJD3wjH6Vy8cCp6CLLrMS8x7jtOPzJ/6dEPfCfdPw3Vq
- 09tX3x/8a3n+j0hCSo1NDVOgfg2TF6A74dhYdVEdUW8xzlKoR3pA1q92didJxs7wtYhT
- 1q0iY5qXv3aYWso43Jzr8G6hAXUZgw44ggUTb5G21+7SLmv3h4qxnqyNOKNLTrCLRbDL
- 8FUQmXi56t6lNnIVEkXLkOaVCNUzQV6RH/4tM7BQTNf17CQ2n7ZaxXCe2L/IUvyt24Cj
- iO0tShCWAf1SKuTEV/MAPRZ9N70uOcOgqtZc3ze3v+m+UqwKfU0veZYbqglFNfWyQTIh
- Ec1Q==
+ bh=0X4rUoAWbYYwWIlyCXzN+FfLPErCmWPcGeI3w9a2qVs=;
+ b=fK5Hw2FbDS6ydrL1eVo4qmysBHs/YxvtpIdHIDxqdM2drPhTCIi1bBJR3VkwHD8W71
+ zgZuaMNvY85izD0zuPAoWdrE8QLqKRe6xDnDxkf/hyV9CFe0BNZ/xn8ZUZNXz9+UUmy4
+ ioc02GNWbAPaXU9ytnT6+NKTo4znAQV8XRlQnQaFBJOWx3ObBzVAVchEorGywOcke0Wl
+ bJa2yVVcYC8C+OKckhHyf3+m/DmS/vkqT9xkA/c5wfO40qPGSWd2YpFuYR+0pFuU2Qch
+ HuEoHhoYBRqXFKowT4Fe78Ncvlqb7SRxRw6FhCIL8YvjLzLThoAX4tcujuawAHah2YQv
+ YqOQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzXFYAnqsTEq4N+bvRJKXCDrI9fQ0clBH7+JJFOj238DfUyuKGHAFK4YKm43sajHidTkUpWC3QAR4s=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/jHFCcxohjpG8W80d4Zc2jQz4Tznwus4FB/SWyq4oMQuQenwKz
- zm8UZUFsl+dq62qtyFpViJvnDIAKzVxL1ESOA8yzaeeO9ue6b/ucS02l
-X-Gm-Gg: AYBFou3xMZKtNPxFenTDmdGBTVdhIeUBMTZSrMdrS1aObehybz40B3GIFKaBkl3yYTq
- kwfPP4NsKCLxOoFbRebv6Yy8be3QxHHlKtRmHgmPdOBxVEImpb+fNr66M+I0mssfy/Q5/NHPody
- H71uk4K43OY4M0OmhZlyvrQuFmamyNvHEinW9hAqCdDwEoivpHdcmtTPQDMF/KVsfoSiA5KYuAv
- z7n0oA5PS73S3/d7EvglXkqhDp1G8tkYyMphq9IMqQSVvgHiBDl2vKTF0qM1kKt1u2HbPZCDYIn
- o5C/dKPv92d7XpvmDcGiYMnJgzhldqr2XtsQVpgKVHmOegEaDukJoMhh2QV6/UgDTw+eDT75/bu
- lmqgPKDtmDzosberwzte+uMYJV0u5HuWd7/1HVhLVQew6iWs6HJRrXJ9pZOAtCTiA26d3nGF0Pk
- /Ffq3j2QKXx91ERFROsmfjb0lL0myPw97c32TonUaa/je0C6f90U7RhXBKLnJHBSCRYVWztMmfh
- QuDGv32hm2VvFrhVUDUEyndgwmH90+h7MpQzAheXyFktox2pV9s6587zI7suGoe3/oKE6GrPYJe
- A9OpPvKCke8H8UY0R6kfGrk2bYDFul+kaSJNOsPOknKCPdMM6g==
-X-Received: by 2002:a05:6000:22c4:b0:48f:bf3c:1631 with SMTP id
- ffacd0b85a97d-48fbf3c185bmr4984588f8f.21.1793795846185; 
- Wed, 04 Nov 2026 04:37:26 -0800 (PST)
+ AKwUvBwKcwPdYXsXCkzegrlDxAm/b+kh2Yk+pvtoRGOO1oEXOngUlfNzAHP5s00MzLaNVVOo8lsEpe30Auw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z81rwXAScr4yXH53D7qshSSEn8fh/+m4qTUqO9LqRXcM82d2/7g
+ 3DGc1OJt0BsWEKHX5wmwvsl3fg1r0rVztNaji5hHMqy2O6Iyvnc0GauE
+X-Gm-Gg: AYBFou3HZIhJCu+qo9Ksl3fCv/kwHQtLaVUM+UjcSKWvhH5Tn0Te/rKxN37ODnbU/ZA
+ F6qw/RfnkURdjTh5DjpvXjn12dVRHNxEd+DfCCGpdchzBBo3P+PpKdb4vMcgPLhAy12CSIm4lBe
+ s+/CFvF6XKrUazPss+JdltNhcVa72vmuFtX0qfSwppX/Qru2RCUm/u6YHH2j7AJeLw15GTQTerk
+ g/zdhv4G8uXhmwMjirOAMwqQl7Z3PUMPsREJrLDOZUIN+LxKTjp+2ZWr9mzFjeHSIqIvD3o++1Y
+ AQssAJTOROS9cOHshIylPtNXSlhndeJwHspHrVlkKBEYGGlswOh2bgu7o1qpxk7sLu57YZAm9yo
+ tM3pmU49q5yKst6JMo17p1s8vYfnE8TzOS3grBJwMNGrDKpysAZh2wZne9x6MslWa3qBuP5WS5n
+ IBxUb0diT+IlBzeLy0FOtPKQaJyH6iaQOELygxy2ANfPt4nuCIQfwwN/TIYJQ3WYOZb9bBntEsG
+ FvOszXKxU4R74Cqqf1enw/fHypAsa7vqM/Q3iOhX463J2iibIOKCf3Bk9IQ/JyhL5/dFH/QbeMp
+ jlrCxa8Yq9S/I1VDHZtJJk4tQzeQNO3KNFBtqWYOTiDxYJBvnw==
+X-Received: by 2002:a05:600c:3b1a:b0:4a7:9044:a87 with SMTP id
+ 5b1f17b1804b1-4ac18c73df6mr367279085e9.27.1793795851589; 
+ Wed, 04 Nov 2026 04:37:31 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48fed553441sm3386155f8f.43.2026.11.04.04.37.24
+ ffacd0b85a97d-48fed553441sm3386155f8f.43.2026.11.04.04.37.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2026 04:37:24 -0800 (PST)
+ Wed, 04 Nov 2026 04:37:27 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,9 +69,10 @@ To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 1/4] dt-bindings: leds: Document Skyworks AAT2870
-Date: Wed,  4 Nov 2026 14:37:11 +0200
-Message-ID: <20261104123714.234634-2-clamor95@gmail.com>
+Subject: [PATCH v6 2/4] backlight: aat2870: Derive brightness steps from max
+ current
+Date: Wed,  4 Nov 2026 14:37:12 +0200
+Message-ID: <20261104123714.234634-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104123714.234634-1-clamor95@gmail.com>
 References: <20261104123714.234634-1-clamor95@gmail.com>
@@ -97,147 +98,82 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
-Management Unit.
+The AAT2870 allows only 32 steps of brightness, with this amount defined
+by the maximum supported current. Remove the need for max_brightness by
+calculating the allowed number of steps from the maximum current.
 
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> # for backlight
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++++++
- 1 file changed, 124 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+ drivers/video/backlight/aat2870_bl.c | 35 +++++++++-------------------
+ 1 file changed, 11 insertions(+), 24 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-new file mode 100644
-index 0000000000000..3f3f3058af52d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-@@ -0,0 +1,124 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/skyworks,aat2870.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AAT2870 LED Backlight Driver and Multiple LDO Lighting Management Unit
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: skyworks,aat2870
-+
-+  reg:
-+    maxItems: 1
-+
-+  enable-gpios:
-+    description: GPIO connected to EN pin.
-+    maxItems: 1
-+
-+  vin-supply:
-+    description: Regulator providing power to the "IN" pin.
-+
-+  backlight:
-+    $ref: /schemas/leds/backlight/common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      compatible:
-+        const: skyworks,aat2870-backlight
-+
-+      led-max-microamp:
-+        minimum: 450
-+        maximum: 27900
-+        default: 27900
-+
-+      skyworks,channels:
-+        description: layout of active channels, where each bit represents
-+          one of 8 channels.
-+        $ref: /schemas/types.yaml#/definitions/uint8
-+        default: 0xff
-+
-+    required:
-+      - compatible
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      compatible:
-+        const: skyworks,aat2870-regulator
-+
-+      in-ldo-supply:
-+        description: Phandle to parent supply of regulators populated under
-+          regulators node. They all share same parent.
-+
-+    patternProperties:
-+      "^ldo-(a|b|c|d)$":
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+    required:
-+      - compatible
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        led-controller@60 {
-+            compatible = "skyworks,aat2870";
-+            reg = <0x60>;
-+
-+            enable-gpios = <&gpio 139 GPIO_ACTIVE_HIGH>;
-+            vin-supply = <&vdd_3v3_vbat>;
-+
-+            backlight {
-+                compatible = "skyworks,aat2870-backlight";
-+
-+                skyworks,channels = /bits/ 8 <0xff>;
-+                led-max-microamp = <27900>;
-+            };
-+
-+            regulators {
-+                compatible = "skyworks,aat2870-regulator";
-+
-+                in-ldo-supply = <&vdd_3v3_vbat>;
-+
-+                ldo-a {
-+                    regulator-min-microvolt = <1200000>;
-+                    regulator-max-microvolt = <1200000>;
-+                };
-+
-+                ldo-b {
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                    regulator-always-on;
-+                };
-+
-+                ldo-c {
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <3300000>;
-+                    regulator-boot-on;
-+                };
-+
-+                ldo-d {
-+                    regulator-min-microvolt = <2700000>;
-+                    regulator-max-microvolt = <2800000>;
-+                };
-+            };
-+        };
-+    };
+diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
+index 8b790df1e842b..e85f2b4d81068 100644
+--- a/drivers/video/backlight/aat2870_bl.c
++++ b/drivers/video/backlight/aat2870_bl.c
+@@ -20,22 +20,9 @@ struct aat2870_bl_driver_data {
+ 	struct backlight_device *bd;
+ 
+ 	int channels;
+-	int max_current;
+ 	int brightness; /* current brightness */
+ };
+ 
+-static inline int aat2870_brightness(struct aat2870_bl_driver_data *aat2870_bl,
+-				     int brightness)
+-{
+-	struct backlight_device *bd = aat2870_bl->bd;
+-	int val;
+-
+-	val = brightness * (aat2870_bl->max_current - 1);
+-	val /= bd->props.max_brightness;
+-
+-	return val;
+-}
+-
+ static inline int aat2870_bl_enable(struct aat2870_bl_driver_data *aat2870_bl)
+ {
+ 	struct aat2870_data *aat2870
+@@ -69,10 +56,11 @@ static int aat2870_bl_update_status(struct backlight_device *bd)
+ 	dev_dbg(&bd->dev, "brightness=%d, power=%d, state=%d\n",
+ 		 bd->props.brightness, bd->props.power, bd->props.state);
+ 
+-	ret = aat2870->write(aat2870, AAT2870_BLM,
+-			     (u8)aat2870_brightness(aat2870_bl, brightness));
+-	if (ret < 0)
+-		return ret;
++	if (brightness) {
++		ret = aat2870->write(aat2870, AAT2870_BLM, (u8)brightness - 1);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	if (brightness == 0) {
+ 		ret = aat2870_bl_disable(aat2870_bl);
+@@ -145,15 +133,14 @@ static int aat2870_bl_probe(struct platform_device *pdev)
+ 	else
+ 		aat2870_bl->channels = AAT2870_BL_CH_ALL;
+ 
++	/*
++	 * The maximum number of brightness steps is determined by the max current.
++	 * The aat2870_current enum maps directly to the allowed brightness steps.
++	 */
+ 	if (pdata->max_current > 0)
+-		aat2870_bl->max_current = pdata->max_current;
+-	else
+-		aat2870_bl->max_current = AAT2870_CURRENT_27_9;
+-
+-	if (pdata->max_brightness > 0)
+-		bd->props.max_brightness = pdata->max_brightness;
++		bd->props.max_brightness = pdata->max_current;
+ 	else
+-		bd->props.max_brightness = 255;
++		bd->props.max_brightness = AAT2870_CURRENT_27_9;
+ 
+ 	aat2870_bl->brightness = 0;
+ 	bd->props.power = BACKLIGHT_POWER_ON;
 -- 
 2.53.0
 
