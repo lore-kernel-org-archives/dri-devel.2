@@ -2,67 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC97D606A33A
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427C606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YQvVsKcP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C27810E206;
-	Wed,  4 Nov 2026 19:00:09 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72BE010E206;
- Wed,  4 Nov 2026 19:00:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793818793; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=J5Nk2Imxaf8oS1qWOaYZ/5p36mXDAYuXtOJxtp/dopGz+YZql+vQvYrpX8mB7IauHA4Xk8YQi1qu+PaPR6mB24yVfAOhT6/bxucXIyTgAr5kbwboEEEoK0r/KXXOvBMiOSZV7ITsCmtFClDMxvvdkx5UHygUVxFFFyU3jHRL1IQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793818793;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; 
- b=IIHGp0XFAy4EBAI1xAOPiJGJtjBnAKa1DW4/mE+dskb/wg6rrm+SQ1O2NbrAIvdInYgZaN69e6gP4ugz8c37N7g/budnSoj0+vfCaDRddEsiHdsgyTHEUdlWXBny9WMxT0bGPo7exVlXSK9F2A5uzCRCit861dBAtMweU4FMdr4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=dOrhpNMv1PBqHvf04rmXTIspsXaESd9P7WOVtnMpEGyERmcXNvYese409KE9Zwza09rugcliorGeDQvjrr3MppjkVnftXWuVC1JjjPXfqzc8ZfT1DRcgWJ3GieaTP0rd+PN8zqGyAj7OxYG6dJ7ZZp98FLi16P60Y7MDl9lIIto=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179381879157175.33447173328659;
- Wed, 4 Nov 2026 10:59:51 -0800 (PST)
-Message-ID: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
-Date: Wed, 4 Nov 2026 19:59:43 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1B310E88D;
+	Wed,  4 Nov 2026 19:03:32 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA3ED10E6C8
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:03:25 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a5177d78c7so9638275e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 11:03:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793819004; x=1794423804; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
+ b=YQvVsKcP2IBcttkxhUipuAZMg7mx+sU81xvdz12LpuBkKHdSOY7VtbypQhfvfcK7/1
+ ZHLPoru5esEqWN7eXu64bW15P69yFxhpQuCFuFE5Y2p3TFiAV3FCJzRNwhKTXZDn7sUB
+ AMkkO8W5w7pNOZgBrhS5iyiFeuHpOuDfqZruhuGayishy5IFfeNNBixH1FKstQmAVphM
+ Q5jaK/jChtzmdkI+xJftmj4oNs2nruvnf4L1KIoxojAgG/XGHqN9CwnO7qDPeV6lGANM
+ tDdZhMZXe4DNtPRNAo+fehrYt64L7nHSkMCTEHth0RA0B+9sPhX+MZaVCvHXYoiU/JFh
+ O57w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793819004; x=1794423804;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
+ b=Bgoq32WNmJ4iZX8LlQHMywnSWUQQmL9gR0njtQuxyCO2YFDhMkheZgGRyqfnlyyPKf
+ YJhkTBen4TYPHcPnkN2XKgOBFTLUCXt4ljSZckWYBa/cNum4tPqjW8AIEt1KhQJcTFqa
+ P4FKjdO/H1TKMVFpuwAJKlt+pN4deVoSyLEyMfJRDLChyQCXHGqJmWFPTcdGDpqejTHk
+ BCnR0oFHk+olwx1jvbOvYxJLwnWaokrTCpBgRbcn8Xkd1Ph1qTVRKCgWkLwLcOHLOd7F
+ lRZW/GhTQTvQMT4WndaBzIePRF8qy/PQWXhgDMG/kN3YnxrsRZ8Vc0b9N/v1Evij1QCU
+ /b0w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwr/+RnFISpaWr+rzDeJHU4uKkJEPaeWrJqaYqyWiZ3yxxnBWK4ttRWyWB0xqDT/0N2YiVdWP2aq0o=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/n3fuENN5cZapk5jBahYgJLdOUx6+uFhZSR0e0X9PR+6kbKb9u
+ Jyh46lwTd5WwUVorb0a/lxiynSlP9anLOoif+PMPxfiVyYWz5fL4SiNr
+X-Gm-Gg: AYBFou27W1uxBwyONnzlNsp15rG22yfr8ZBBDLWDnw7Pwfq5Xa2t2dBAb8Xrgb27fZA
+ +Da8e45+zlQwD+I/kWZf9bSsJUVxRNVLmR9+x5ZdsRcJYb5ImlQxJYqPaKQhZ5lBEX3MozCqa2w
+ brmhlzokTO8qAjpN2I2bkEUZ4QLaP4dWyOdTxvW7T8UywLv1teVbszy16+nszXwe+X+8TKs8HY5
+ tvrjKJEuCjct0Z+oprDoXZ0S6ZQS2ib5SnexnUDsQu0biXpRzF/zZWin+1bPVSGinE+Y9UgnqA2
+ Sc6ZNREnqA+3Hw8vk+lP6RSn/KCA2zM2n1+bzjkNR7CO0b+7JJFjwCdblyRX9EtmHdq2CXqOT9L
+ JLHzpIGfPbarL+zCktsHgmz5xJeqjP2+XmCFfDQYTPE1PZYy2t5Y4YwgtYwLyxvZBQz0stjSkl6
+ 6DKl19utifpAddp9leA0nbbeaDMvHWDX6Ksb2Vy5fqoHBbCBXxFxz0sUox72/pNGr41EpsjoOLW
+ voLjwimD1vqIYuxbZpC4bTLOOD3Kr8RcuTRmMuDXIbLmOojKvhnI65O5LXRf+dveFIMvdXoTjwE
+ YmMcPDQAnfWO0N8iY3kw18zdLgMo2vRsFe2fWuAFZIoGcKsFBfVFq4RlYaV6enLCLf07TUEocDV
+ 8wq0=
+X-Received: by 2002:a05:600c:4f0f:b0:4a1:e00b:a10b with SMTP id
+ 5b1f17b1804b1-4ac17b2cde9mr440533985e9.7.1793819003817; 
+ Wed, 04 Nov 2026 11:03:23 -0800 (PST)
+Received: from ?IPV6:240e:47e:50a8:5f12:138d:ea9a:7198:b89e?
+ ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b40ff10f88sm54699225e9.0.2026.11.04.11.03.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Nov 2026 11:03:23 -0800 (PST)
+Message-ID: <51a04472-d421-42fa-8552-e94f4743e226@gmail.com>
+Date: Thu, 5 Nov 2026 03:03:17 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bryan O'Donoghue <bod@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-Content-Language: en-US, de-DE, en-GB
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/vkms: clear config->dev when vkms_create() fails
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261101032728.11422-1-yuz08559@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261101032728.11422-1-yuz08559@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,52 +92,94 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Nice, very happy to see the series!
 
-On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> The comment describing the QC10C buffer layout calls it a compressed
-> P010. It is not:
-
-If I'm not mistaken the display engine / the DRM side (including Mesa) 
-describes it as P010+QCOM_COMPRESSED as well, and so does my pending 
-Gstreamer MR [1] . So if we can't pretend that QC10C == 
-P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that 
-up everywhere etc. OTOH if we want to keep the DRM side as is, then the 
-comment should reflect that, IMO.
-
-Best regards,
-
-Robert
-
-1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
-
-> P010 stores each sample in 16 bits, QC10C packs three
-> 10-bit samples in each 32-bit word, which is what the stride computed
-> below (width * 4 / 3) assumes. Name the format correctly.
+On 1/1/70 8:00 AM, Oarora Etimis wrote:
+> On Sun, Nov 01, 2026 at 01:27:28PM +1000, Yu Zhang wrote:
+>> The configfs "enabled" store returns the error without marking the
+>> device as enabled, so the next "enabled" write runs
+>> vkms_config_is_valid() again, which uses config->dev to print its
+>> diagnostics and dereferences the freed drm_device.
+> I traced and tested this issue path on drm-misc-next; the dangling pointer is real
+> and the one-line fix is correct.
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> I'd suggest rewording the commit message in two places:
 >
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177..ec2bf2a2d953 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
->   
->   /*
->    * QC10C:
-> - * UBWC-compressed format for P010.
-> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
->    * Contains 4 planes in the following order -
->    * (A) Y_Meta_Plane
->    * (B) Y_UBWC_Plane
+>   "dereferences the freed drm_device" is only true for one of the two
+>     retry cases.
 >
+>     a) the retry happens with a config that no longer validates: a
+>        validity check takes its failure branch, calls drm_info(), and the
+>        freed memory is read.
+>
+>     b) the retry happens with a still-valid config: vkms_config_is_valid()
+>        returns true at its first check, drm_info() is never called, and
+>        vkms_create() just stores a new pointer.
+>
+>     Only a) triggers. The reason: the stale pointer is dereferenced only by
+>     drm_info() -- __drm_to_dev() loads drm->dev (drm_print.h:608) and
+>     dev_printk() then walks the freed struct device -- and every drm_info()
+>     in vkms_config.c sits in a failure branch of a validity check. The
+>     ternary itself reads nothing: struct drm_device is the first member of
+>     struct vkms_device (vkms_drv.h:252), so
+>     config->dev ? &config->dev->drm : NULL is address arithmetic.
+>
+>> device_enabled_store(), drivers/gpu/drm/vkms/vkms_configfs.c
+>>> 	scoped_guard(mutex, &dev->lock) {
+>>> 		if (!dev->enabled && enabled) {
+>>> 			if (!vkms_config_is_valid(dev->config))
+>>> 				return -EINVAL;
+>>>
+>>> 			ret = vkms_create(dev->config);
+>>> 			if (ret)
+>>> 				return ret;
+>>> 		} else if (dev->enabled && !enabled) {
+>>> 			vkms_destroy(dev->config);
+>>> 		}
+>>>
+>>> 		dev->enabled = enabled;
+>>> 	}
+>     config->dev was introduced by 2df7af93fdad ("drm/vkms: Add vkms_config
+>     type"); at that point nothing read the pointer after a failed create.
+>     The problem was introduced by 13fc9b9745cc, which changed the lifetime:
+>     configfs keeps the config alive across a failed enable, so the pointer
+>     stored in vkms_create() outlives the device and is read again by the
+>     next write. So Fixes: 13fc9b9745cc is the right tag even though the
+>     pointer is older; please keep it, and say so in the message so that it
+>     does not read like a mis-attribution.
+>
+>     Background:
+>
+>     config->dev is the only backpointer from the configfs side to the
+>     drm_device. It is used by the validity diagnostics, by vkms_destroy()
+>     and by the connector hotplug path (vkms_configfs.c:555).
+>
+>     The configfs/drm_device lifetime separation was spelled out when this
+>     design was agreed on:
+>
+>>>> the issue is that configfs and drm_device have independent lifetimes,
+>>>> and we cannot have links between the two. The configfs structures might
+>>>> have shorter lifetime thatn the vkms_device (and there's no refcounting
+>>>> on configfs afaict), which means we cannot have a backpointer from
+>>>> vkms_device to configfs.
+>>>> The vkms_device->configfs backpointer needs to go, it's fundamentally
+>>>> busted.
+>     https://lore.kernel.org/all/ZjCh9DGnh2JQ3vtk@phenom.ffwll.local/
+>
+>     Note that dev->enabled in struct vkms_configfs_device and
+>     config->dev != NULL encode the same state, which is why they can
+>     diverge here in the first place. Dropping the field and passing the
+>     drm_device explicitly to vkms_config_is_valid() is the real fix, but
+>     it changes the signature and the hotplug path, so it belongs with the
+>     vkms_config lifetime rework rather than here. Clearing the pointer on
+>     the error path is the right minimal stopgap.
+>
+> Thanks,
+> Oarora Etimis
