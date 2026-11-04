@@ -2,51 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214FA606D802
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 14:42:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B101606A326
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=be+fQcd4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4725310E0B9;
-	Wed,  4 Nov 2026 14:42:11 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B8F0710FC5B
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 14:42:04 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F5F31476;
- Wed,  4 Nov 2026 06:42:01 -0800 (PST)
-Received: from [10.57.65.23] (unknown [10.57.65.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF6933F673;
- Wed,  4 Nov 2026 06:42:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1793803324; bh=OQ+6GXsnzNtECacWk2BjiQr1Za6EzTRmQxCpvw/0bo8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=luId+KEomiCYTx0zsDXfLF0NiGSbVJSZAawz5X649BNQCNK5aIrov6r7jQPa5f5G1
- /y7/Z1tTcJswVlprth41Zn/4fMIj1S2AkxetBjIo4WJhSSAHooaIdF0oJpfr07XKSr
- mYYkWIizutTHBEivTMuSApJZfPh5pMdZsop7CXg0=
-Message-ID: <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
-Date: Wed, 4 Nov 2026 14:41:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA68210FCDB;
+	Wed,  4 Nov 2026 15:06:54 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE5410FCC0
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:06:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793804806; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=aHAffin/VSM27M+4w9q3BpBRFmAOUuAMVmRLossHQca+AUClmUciZfehrdir37pV1hQzoNndBo7cTce8VwSEg5VIcTiWqZMSSATkh/cGp5pn9dFYKgexu3qmBdfvg+P25JVmVzh8bJaGvgPg+Bn16djZctib+9Hvn/hsyrVoCms=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793804806;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=cZy7ePD4DdIPwF2XQcC5BRW8F/nz7rDC1xt3Cq9n+9w=; 
+ b=M/o9fDNHf0yopV2myiFwCCyArHsq9UJb9SJWxaMmZiOI8orEAMDVwE5VydoIpu27eoqHAuN2wLkNZ0lqprilwdwd2q5BOPhcMrT5rxUbHXlwmQkTsOLZqGT37N8v9MQ24CoBDrQ0SHEVDOaLmETZF8qw7mG6mJr9UuAPScCO7FA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=be+fQcd4lBtrr9la4iC3bK4lg/e68/h0/90+TEs3gLArJLab8XqvH9vAlqmiS9fNnt+YtmPCyCsYYHmHTVY7Jj+wLaJmO0mMMcNB7FCUjPOI6XIVfkOwvYAFSU//qsyG1PUFD/P6bdAK5r/a7r+DqLCg0kCBOS1bUMt/c3C0Ex0=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=cZy7ePD4DdIPwF2XQcC5BRW8F/nz7rDC1xt3Cq9n+9w=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793804804616951.6136448367613;
+ Wed, 4 Nov 2026 07:06:44 -0800 (PST)
+Date: Wed, 4 Nov 2026 15:06:40 +0000
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: =?utf-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Rob Herring <robh@kernel.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: Unprepare clocks on system suspend
+Message-ID: <autHpRZK-06X0Uu5@sobremesa>
+References: <20261003194820.840641-1-michal@nozomi.space>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [BUMP] [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003194820.840641-1-michal@nozomi.space>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.791.62
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,170 +61,101 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi All,
+Hi Michał,
 
-Just a polite bump; now that -rc1 is out, if anyone can spare any time to cast
-an eye and offer opinions, I'd be grateful. At this point, I'm most interested
-in feedback on the arm64 integration aspect; If you see blockers I'd like to
-discuss early.
+On 03.10.2026 21:48, Michał Kopeć wrote:
+> With GPU_PM_CLK_DIS, system suspend only disables the GPU clocks, which
+> leaves them prepared. Some providers power a clock down only in
+> unprepare: MediaTek PLLs are switched off in mtk_pll_unprepare(). On
+> MT8188 this keeps MFGPLL running through suspend, and TF-A refuses the
+> 26 MHz-off state because of it:
+> 
+>   suspend: bus26m total blocked = 0x40040000
+> 
+> The SoC then only reaches a shallower sleep state, never signals sleep
+> to the EC, and the EC reports a sleep hang and wakes the system.
+> 
+> Use clk_disable_unprepare() on suspend and clk_prepare_enable() on
+> resume. Both run in process context, so preparing is allowed.
+> 
+> Fixes: 56e76c017918 ("drm/panfrost: Implement ability to turn on/off GPU clocks in suspend")
+> Signed-off-by: Michał Kopeć <michal@nozomi.space>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index 485349faf2511..3f1a8109a79a4 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -507,12 +507,12 @@ static int panfrost_device_resume(struct device *dev)
+>  	}
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+> -		ret = clk_enable(pfdev->clock);
+> +		ret = clk_prepare_enable(pfdev->clock);
 
-Thanks,
-Ryan
+My understanding of the clock API is that clk_{prepare|unprepare} are often most costly than
+disabling/enabling clocks, so forcing an 'unprepare' at system suspension time for SoCs that
+don't have this requirement sounds wasteful. I would say for SoCs where this is a necessity,
+add a new feature to 'enum panfrost_gpu_pm' like GPU_PM_CLK_UNP and OR it into its relevant
+struct panfrost_compatible. Then, do clk_{prepare|unprepare} in SYSTEM_SLEEP_PM_OPS only
+when the feature is set, leaving clk_{enable|disable} as is.
 
+On top of that, would you mind rebasing this onto the latest drm-misc-next? There's been quite
+a few panfrost changes wrt to RPM and clock management, so the patch no longer applies.
 
-On 15/10/2026 15:25, Ryan Roberts wrote:
-> Hi All,
-> 
-> This is v2 of an RFC to introduce a driver for the Arm Core Local Accelerator
-> (CLA), a CPU-local interface for programming attached accelerators. While the
-> interface is agnostic to the accelerator type, the initial (and currently only)
-> target is a compute engine.
-> 
-> The RFC aims to engage the community and get feedback on some key aspects. This
-> will help plan our approach for eventual upstreaming. Based on feedback from
-> Will and Marc in RFCv1, the driver now supports both bare metal and virtualized
-> environments. I also have commitments to publish the CLA spec, a supporting FVP
-> and a representaive user space, all to support upstreaming the driver, as per
-> Will's feedback.
-> 
-> For now you can find documentation included with patch 1, which describes the HW
-> and driver design. Note that the CLA is not part of the Arm Architecture.
-> 
-> Patch 1 documents the hardware and driver design, and adds a driver skeleton.
-> Patches 2-5 initialize and probe the device. Patches 6-9 add context management
-> for switching the device between different users. Patches 10-12 add some (small)
-> changes to KVM and VFIO, which then enables patches 13-15 to expose the HW for
-> device assignment into a VM.
-> 
-> Aspects I'm seeking feedback for:
-> 
-> * The general structure of the driver: The current shape addresses the
->   performance requirements we have for the use cases, and is therefore our
->   preferred approach. But there are some unusual aspects due to the HW design.
-> 
-> * Driver interaction with architectural support: I've opted to treat the CLA as
->   a device rather than a CPU extension, so it's implemented as a (mostly)
->   self-contained driver. It has some unavoidable coupling to the arch code since
->   it needs to share page tables and ASIDs/VMIDs. All arm64 arch interaction is
->   contained in cla-mtc.c.
-> 
-> * The location of the driver: although most accelerators will likely be compute
->   ones, CLA is a generic MMIO interface that could handle any kind of
->   accelerator. It's currently implemented as a misc driver. accel is another
->   potential option, but given the current SVA approach, we would not use any of
->   the services (memory-management or otherwise) that accel provides.
-> 
-> * Virtualization support: since the HW uses the CPU's MMU, we introduced a new
->   VFIO_CPU_MMU group type, and added the kvm_arch_[get|put]_guest_mmu() API to
->   KVM/arm64 so that the CLA can share the stage2 pgtables and VMID. The CPU
->   pinning problem remains unsolved; the vCPU must be pinned to the pCPU that
->   owns the CLA in order to access it. If the pCPU goes offline or the vCPU is
->   otherwise unpinned, it would look to the guest like the HW is faulty. This
->   issue is therefore contained to the guest. I've additionally improved the
->   robustness of the core driver to deal with this eventuality gracefully.
-> 
-> I consider the core driver to be well tested and robust. The virtualization
-> portion is prototype and has known issues that would be addressed assuming the
-> approach gets positive feedback.
-> 
-> Changes since RFCv1 [1]
-> =======================
-> 
->  - Added KVM guest support through VFIO mdev, including exclusive domain
->    assignment, stage-2 memory translation and VMID pinning
->  - Changed the userspace ABI to expose one `/dev/cla/<class-id>` device per
->    accelerator class; `ARM_CLA_PARAM_DEV_ACCELS` now reports only accelerators
->    belonging to the opened class (per Arnd)
->  - Removed `ARM_CLA_UABI_VERSION` and the `ARM_CLA_PARAM_UABI_VERSION` query
->    (per Arnd)
->  - Various driver bug fixes and robustness improvements
-> 
-> 
-> Source, along with some tests, is available at [2]. Patches based on v7.3-rc5.
-> 
-> [1] https://lore.kernel.org/all/20260717104759.123203-1-ryan.roberts@arm.com/
-> [2] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v2-rfc-tests
-> 
-> Thanks,
-> Ryan
-> 
-> 
-> Jean-Philippe Brucker (10):
->   misc/arm-cla: Add driver skeleton and documentation
->   misc/arm-cla: Add launch operation helpers
->   misc/arm-cla: Probe firmware-described devices
->   misc/arm-cla: Initialize devices on CPU bringup
->   misc/arm-cla: Accelerator context save and restore
->   KVM: arm64: Export stage-2 MMU config
->   vfio: Support VFIO devices that access the CPU MMU
->   misc/arm-cla: Add stage-2 MTC and VM context switch
->   misc/arm-cla: Support exclusive context assignment
->   misc/arm-cla: Add vfio-mdev user interface
-> 
-> Ryan Roberts (4):
->   dt-bindings: misc: Add Arm Core Local Accelerator
->   misc/arm-cla: Set up memory translation context
->   misc/arm-cla: Manage domain contexts
->   misc/arm-cla: Add userspace interface
-> 
-> Shameer Kolothum (1):
->   KVM: arm64: Introduce support to pin VMIDs
-> 
->  .../devicetree/bindings/misc/arm,cla.yaml     |  77 +++
->  Documentation/misc-devices/arm-cla.rst        | 217 +++++++
->  Documentation/misc-devices/index.rst          |   1 +
->  MAINTAINERS                                   |   9 +
->  arch/arm64/include/asm/kvm_host.h             |  14 +
->  arch/arm64/include/asm/kvm_mmu.h              |   1 +
->  arch/arm64/kvm/mmu.c                          | 102 ++++
->  arch/arm64/kvm/sys_regs.c                     |  14 +-
->  arch/arm64/kvm/vmid.c                         |  77 ++-
->  drivers/misc/Kconfig                          |   1 +
->  drivers/misc/Makefile                         |   1 +
->  drivers/misc/arm-cla/Kconfig                  |  26 +
->  drivers/misc/arm-cla/Makefile                 |  15 +
->  drivers/misc/arm-cla/arm-cla-regs.h           | 192 ++++++
->  drivers/misc/arm-cla/arm-cla.h                | 393 ++++++++++++
->  drivers/misc/arm-cla/cla-ctx.c                | 229 +++++++
->  drivers/misc/arm-cla/cla-init.c               | 562 ++++++++++++++++++
->  drivers/misc/arm-cla/cla-mdev.c               | 469 +++++++++++++++
->  drivers/misc/arm-cla/cla-mtc.c                | 335 +++++++++++
->  drivers/misc/arm-cla/cla-ops.c                | 417 +++++++++++++
->  drivers/misc/arm-cla/cla-regs.c               | 370 ++++++++++++
->  drivers/misc/arm-cla/cla-sched.c              | 474 +++++++++++++++
->  drivers/misc/arm-cla/cla-topology.c           | 202 +++++++
->  drivers/misc/arm-cla/cla-user.c               | 541 +++++++++++++++++
->  drivers/vfio/group.c                          |  37 +-
->  drivers/vfio/vfio.h                           |   5 +
->  drivers/vfio/vfio_main.c                      |  16 +-
->  include/linux/vfio.h                          |   1 +
->  include/uapi/linux/arm-cla.h                  | 198 ++++++
->  29 files changed, 4969 insertions(+), 27 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/misc/arm,cla.yaml
->  create mode 100644 Documentation/misc-devices/arm-cla.rst
->  create mode 100644 drivers/misc/arm-cla/Kconfig
->  create mode 100644 drivers/misc/arm-cla/Makefile
->  create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
->  create mode 100644 drivers/misc/arm-cla/arm-cla.h
->  create mode 100644 drivers/misc/arm-cla/cla-ctx.c
->  create mode 100644 drivers/misc/arm-cla/cla-init.c
->  create mode 100644 drivers/misc/arm-cla/cla-mdev.c
->  create mode 100644 drivers/misc/arm-cla/cla-mtc.c
->  create mode 100644 drivers/misc/arm-cla/cla-ops.c
->  create mode 100644 drivers/misc/arm-cla/cla-regs.c
->  create mode 100644 drivers/misc/arm-cla/cla-sched.c
->  create mode 100644 drivers/misc/arm-cla/cla-topology.c
->  create mode 100644 drivers/misc/arm-cla/cla-user.c
->  create mode 100644 include/uapi/linux/arm-cla.h
-> 
-> --
-> 2.43.0
-> 
+Cheers,
+Adrian
 
+>  		if (ret)
+>  			goto err_clk;
+>  
+>  		if (pfdev->bus_clock) {
+> -			ret = clk_enable(pfdev->bus_clock);
+> +			ret = clk_prepare_enable(pfdev->bus_clock);
+>  			if (ret)
+>  				goto err_bus_clk;
+>  		}
+> @@ -526,10 +526,10 @@ static int panfrost_device_resume(struct device *dev)
+>  
+>  err_resume:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
+> -		clk_disable(pfdev->bus_clock);
+> +		clk_disable_unprepare(pfdev->bus_clock);
+>  err_bus_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> -		clk_disable(pfdev->clock);
+> +		clk_disable_unprepare(pfdev->clock);
+>  err_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+>  		dev_pm_opp_set_opp(dev, NULL);
+> @@ -545,11 +545,15 @@ static int panfrost_device_suspend(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/*
+> +	 * Unprepare as well: some clock providers, e.g. MediaTek PLLs, only
+> +	 * power down in unprepare, and a running GPU PLL blocks system sleep.
+> +	 */
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+>  		if (pfdev->bus_clock)
+> -			clk_disable(pfdev->bus_clock);
+> +			clk_disable_unprepare(pfdev->bus_clock);
+>  
+> -		clk_disable(pfdev->clock);
+> +		clk_disable_unprepare(pfdev->clock);
+>  	}
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+> 
+> base-commit: 70456f05d4b6396b22048c4b8cd3cb98ecf9f9e3
+> -- 
+> 2.55.0
