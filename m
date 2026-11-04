@@ -2,99 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3CD606D828
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:37:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E53D606D824
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:37:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KVmyxOoY;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SsHLJNSP
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WT2CMDWh;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZJ0rxmju
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094B610FD1F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E3E10FD41;
 	Wed,  4 Nov 2026 16:36:54 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3C910FD45
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:36:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 493D610FD1F
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:36:43 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4FiwOr2210825
- for <dri-devel@lists.freedesktop.org>; Wed, 4 Nov 2026 16:36:39 GMT
+ 6A4Fitcm2210764
+ for <dri-devel@lists.freedesktop.org>; Wed, 4 Nov 2026 16:36:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PCyKNjNXkfC6vJ8k7pznUeniVUo6Eq98jGCiiKVtI8s=; b=KVmyxOoYa5okzUM5
- QqSLWDrlRg2WLD5SvdtbZ4FL/aTjlYMj3MrI+TjsSCrfMk13Et7P4padU0BPkfCZ
- Xg4U3DwQRmeMDNvJf910KvKQCBKxpfm/2HVS9e3VgGz1Azf+vrJ0+V7bKhDricq0
- jwnGKaumJnC7Tj8RXIth5VNxZps9lK3vxjUTvZxgCDLeOmzL8wRQm8Ak6LoMih7Q
- 5zD8lzHOFIGlhb0nrCQFC/1ADGjIw5oJHRjshd5/eJ/9sKykY39+cHSo+a2hzel3
- JkcsxooIZq+9x9pjXXBeZVIsxhXV3CxHIz74HjSrZr/RHl/c+oY3g8tiCaHJwqmK
- KEotRA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bdrjdj-1
+ ux2INFN8CyiFYeuZ7exzPWUq7g3zN6LyU1Ff8oDXkFQ=; b=WT2CMDWhY2Op9Xyh
+ IiUxdKXgoQeqXjqsxA/EomAxX0dwvRY0fyZYEQrHhtGs6x8tKgVZbQre95stg7MA
+ yjaPm2n3CpdorQEaCBmXwmpY+pUZBsXQ1xhLF+GvVJZZiDK4mYW5UPSxRTqCbvkc
+ ScygtmVdO8SZRqrc4f2oJG8Xoc++EzXKhJzZDoeK0Ca52IGdq18FIvuaqaxASb8U
+ c4Rx6yIWT1ZYFuNHkmxP202s4pDUzIqr0zq5qxVG6EW2w7C7FMSfMdqinAUjdzFA
+ /X5usHRUKG1JxXpGPMig1PU7hcggIRO8w5haRGTxnOkR/AhDl+5L6p/7LHy4o9+K
+ cqREaw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bdrjdx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 16:36:39 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93f5844cb60so160639785a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 08:36:39 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 16:36:42 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-91c71966998so12493046d6.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 08:36:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793810199; x=1794414999;
+ d=oss.qualcomm.com; s=google; t=1793810202; x=1794415002;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=PCyKNjNXkfC6vJ8k7pznUeniVUo6Eq98jGCiiKVtI8s=;
- b=SsHLJNSPvP3ybAFfFl6rtrZlWpYXuYJ2kn+YlosGVJOPkdO76B+T79AOnsEtjzfx/l
- YklVTyGWvUef4lXU2JQKv9WKURq4VuHKodkoo4diHQ5I9re0QM4Joum2HtZ0m3nhAmDY
- Ww9RMpBKDSoYEA3HqCYcoidA2Fr34fN9LGo6ZWeXqc9Ohfdk6TvAobI7crj7LY3fzgK0
- 04C3tx/yEL9oH9J4ZBRgcRMygrhAJ5x15ZsLUWl8wz+i7HjdvcFoB1U38p/SP5Ql24Er
- IcbkIoUKXsP1tpgzJ4NRzsdb/62S0ZksfwQGucTzZA0909xEX39omwWAu4e8bImnAOV0
- QmRg==
+ bh=ux2INFN8CyiFYeuZ7exzPWUq7g3zN6LyU1Ff8oDXkFQ=;
+ b=ZJ0rxmjuIgPD78/NqkFpAJJwSVsfNLumsbLnBSPXiGBmqOMGialQWvPNKLSJ0D2OHx
+ E5PmCOAcW+VwBvNZVVCZzCdYZirpZJG0oH0R10uLLX13+Q+xRpAyMt010LNm2g7XE7HX
+ 5Jz7U7W+GIYaa9POnzyxKbEXSltOXrBQi3EdEg97fyEG9wGFIgwdVWi49IKCkFnXLZV8
+ Rj1p4OopLt+SZeuHdqQWqILHNRZunCh8Z9iA1vy1ufPLBY90rzVjJr4z1iqRQUCMHdfR
+ znM0IWpxtVeBAojzx3IbEkNPlQyzaHzOZOE40KTerNnYS8ahZ6lkNpRhkleM1H4OE6D9
+ HYmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793810199; x=1794414999;
+ d=1e100.net; s=20260707; t=1793810202; x=1794415002;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PCyKNjNXkfC6vJ8k7pznUeniVUo6Eq98jGCiiKVtI8s=;
- b=V/vZ5Ne3ZKmPBgg+ojzKXzblXmJ33CNrV7jzpK+c5AUbs82N1u2w/qqbmPLpenuIMe
- KIAJ4f8KaAziCIxUNl3ALGpUKKQ6Amg2R2w3C1UckSEqB+0vO8V8npLPEeICDcPPAafA
- jHdRh/DdbeeILQvA/oILKr6T2q63Xv9uQO6/KqU+ec1gCRPZIOQ49nlIZpYFJZreYZK3
- 66w07AJOFd7ZZL7rlsquway881Ke9L5Feh/g47eC5UaWj21tjrWAZC/L+vi3XJRyljKF
- DXuZ7oBllQQdU/EU5unaR9mMf1mL3tDgey/eMqpzEn43kwLEkxFid4O9mAMgutpB61Jg
- TOFg==
+ bh=ux2INFN8CyiFYeuZ7exzPWUq7g3zN6LyU1Ff8oDXkFQ=;
+ b=Tc5Jb5eTxLJvfStPGbXhEA3rprv6qr3MxDCpCeMII1ZssscTvigxu5p63ERxShLvg/
+ FbqWfVIrS/kNK0maIYQk4YdwEt0EXznNgW7HZoAvmx1S1jCnuAkJ/RM73rikYKY2Ank5
+ NI5JBw7ssV9Hahd9Do86IhPJtSmlDd52AltZclwF9ACfoppNH1K930TD2mOpI7wFq3Cf
+ nRRqiu4vtzheRLoN1n+slACSswNEXDwklwe1tVCCJY2LZLvbqpV6y8q8neVrUqSPoJNp
+ ULS16IE5yyogRTB1iTURPhBAbZtDj4JJXxwjDswRqIecKnsEYZLEB/S5Wq2q/HDdKa1k
+ eb6w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw1VPm4+lIXsjp2haYF4PqhcWmvzYn2jru7xARmdmPoyDmo6nS1Pd0HD2BIZ5zANQy5QM2tAzSOKV4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z90uT8D/MDlc+nm09rYsPe6pZbCaWk03QFcOQW/8EvmYfMinXP7
- Hz9E4h750B40nP4520kM2XAObf2HxTRiPfQj5FPUi4+cr0ohFZsDPLgfgbV9cwoqUjetjW5fGTD
- chTRZLdDRgRM2jQTbIzKeKJwM6rIdyPmMfImXUSFHmpfhMOK90Wc7i+CRBuKtEA1z2QHbL8s=
-X-Gm-Gg: AYBFou3yQT2xTscOXtC6YmP7leD8p1uRuEMfEzjbM11HPEoI1Cl4p+KmuXkUeyDxe+X
- stOvM0cDOnngfThAQPsdnPEX7XIOlwoBJhs8SUIFOeA8K0Z5FUPriZrlj4HlWSduIVYC5Q15ocy
- J7RlntmuGVPeKXOdaJpa8fxTnNIY/7TFr61xTucqtpAnSfP1Bxl7DgbmgHWUu1WE8m5+2wEoxdV
- aHr2+pNfd1sGtsGSf8W/rFOFWIgHb5iYp9vxj12juwpmMub/BAsBhrflCwz4ckZ0fzMZBLbo2kX
- 4lgPyNNEldR2insGQhqIpB7jSE3Y2MV1aC9Ua7q5Ir0z68oysdkg1YU2jYsssF8q6vrb5LITY4L
- cIiG5wi23bwl619upeTLnawzY6cjVpH8QysD4TTt1jn6U2KHLdQ5vIQgc1R6EI3vy2bFkUHG8fq
- KuTbn+2Rlz738iLAa5mnVcM0xXILbFfg3dZMYI/HsG2O42atnx86Hgw57AOVRzXA==
-X-Received: by 2002:a05:620a:4492:b0:945:c430:1c09 with SMTP id
- af79cd13be357-945c4301ff5mr1022745685a.37.1793810198451; 
- Wed, 04 Nov 2026 08:36:38 -0800 (PST)
-X-Received: by 2002:a05:620a:4492:b0:945:c430:1c09 with SMTP id
- af79cd13be357-945c4301ff5mr1022738585a.37.1793810197934; 
- Wed, 04 Nov 2026 08:36:37 -0800 (PST)
+ AKwUvBz3TE9KMrN66HuDzSHSsNOTiUoKV5MKkcQ0ZX5jhlLCugQvmDqew8+F8nICjlvERYJ/GNX1OppD86A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9btpjl4CDX6Srlq9VLIghISOkqc5R6RalMmynEyLdtShWkR0mY
+ JyxOcbJ4WU8d5leyvqlJ/QlX9AbzkicBrCszgoU1tQgZwwlNgr7X1/vXm1I+JjSdEKJpxI4uW3D
+ e8A1X8EjRZNixwjNAa5kg7PTZvy9usRk7XyUXHftsSZ22ZA7ctTx5mfBLJIqdzjVxXZSkdTA=
+X-Gm-Gg: AYBFou0D+bNBOL9OvzP3th2qN1qE8mHaMx5pzwL988hxdexdOoXZlk2gkdxdjOhDulY
+ EFb7hGbj2wBQw4pA39h/kCMoVjSahb4MioOBtH7EXKmnsFmavua3XhyO8F5pMQWVJ1GHJQVF1Yj
+ FbfTkOcavy7nFGcMlxYbTpugDwOlDzUlrSWcQdUo9n0ON7u+Hcf5U7vgxEAjZxu7dkxFNSxIwsy
+ 0GZWaP5D2V2blhXXV18cZctHxDuoQ2/TP6T7FUFfWRvE1SlanJ7yXdkIO4CqLKWmbK4BpMo74sL
+ VT63/v0Ab3qrPWBnSsI1e7l8KwQLgso77jBT4fSoEL6Aq7RH0WtUH4VX9i2cJ/JXrpMnJ5KFqFO
+ ijAaROU00x+mgC1RIhAH8SKXoYX4krv2APzAzARPmfuKneFvt65Ou8UTTRx/2p/5IvwTGOan6i/
+ TmX6Qt9qX9kNDEAB86wNRDRgsyX2JGZ2spUgyk1ldmGYigjJCBHXDFZs9MrtAuqg==
+X-Received: by 2002:a05:620a:6484:b0:93e:bbda:dd06 with SMTP id
+ af79cd13be357-944213d6502mr2696744785a.0.1793810201655; 
+ Wed, 04 Nov 2026 08:36:41 -0800 (PST)
+X-Received: by 2002:a05:620a:6484:b0:93e:bbda:dd06 with SMTP id
+ af79cd13be357-944213d6502mr2696737285a.0.1793810200934; 
+ Wed, 04 Nov 2026 08:36:40 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3acdc6bed64sm5267191fa.7.2026.11.04.08.36.36
+ 38308e7fff4ca-3acdc6bed64sm5267191fa.7.2026.11.04.08.36.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2026 08:36:36 -0800 (PST)
+ Wed, 04 Nov 2026 08:36:38 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 18:36:10 +0200
-Subject: [PATCH 6/7] media: venus: report the QC10C data stride
+Date: Wed, 04 Nov 2026 18:36:11 +0200
+Subject: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-ubwc-format-docs-v1-6-389044012b4e@oss.qualcomm.com>
+Message-Id: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
 References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
 In-Reply-To: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -117,36 +117,36 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Robert Mader <robert.mader@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1621;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1043;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=LLOKk1PZHMHbARwKPBiaX438vRakCex3LyDXd5CzP5Y=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq618Hm+3JHCmDS8u8qZblVd37BJ0x5xxPEFCaZ
- 5lHf2oTUQmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCautfBwAKCRCLPIo+Aiko
- 1ScwB/kBqkQMDyv22eW/LRrim5v1nMIo5n/TiIcDqwMPDTe9ThQDcJrVGvheq1kCkI+n/MV+XId
- UlANsjeeLygcFql217+g32OWD5Xv7t0P34ePgYkfgzj2+TEMQK97ZeQ+JR3UDNJOlxQgIaSTxsk
- DyIYnl15R7a0RZtFDzFxrqhmh8QRdr7QqeAGMuYNd9avQqNsHNLw2k8ANO3tWu1guplMQLhWzE2
- Y170gFyTcyfQ9bGF8hu59eWQfaM+ZC94qIWix4CoP9MKhDPKtBJTITsBrOr6z1HY5bz5dJ67V5V
- wG8tqcixLYZ2KaxhY4Nh70HqmMvobjeU3ZVCZpvZbpEo453N
+ bh=SvZh5CRN0P2j/QuhEyRL6uJjDqO3uIDgSWZSsRrj4Y0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq618J4cdRibKnf+VJdjtS1BHyTFVpV1dzNELR2
+ sAszpWufteJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCautfCQAKCRCLPIo+Aiko
+ 1el+CACvzc2zdVgKhNCjubf5o6mOt8oT+ot2JHTQ/URq2MH+m54KiYmLnQO8taUoZ5mmLRhQCS4
+ eEQFd2jgxfjAWgH9V0fKM2K3N22ASgSAERYgUzcNOgQpsj8yZviB2vJyXTnCcvEfoo6eLTpcWNV
+ lUPQUDoQWJZJhMIkukDJA7hG/h0bcab+y7lXWI4g+dzEzhsgNV0HEtUvG8w4JsgVjqNCgbcGwVn
+ ah2I2cNbktErN4rBGlNJKMojexlV1JetVHM4SBnMYNXGdqubKJz27mp6WJ+EJUnVGPr6vrD8vnX
+ Q1HH568jwfqpcxDrkdVBw1coCUUX/FiQw561xu5hJ9IAP2YZ
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX+ZQvbMeszGez
- A7i55rrCWamq5WeY795Qny+u4+0UWutcC8tYgYLfU7fxLKGn+3naq3plFpw/54BaPVhQZWEimBk
- HQI0RlgsaVG0Th1iXkA/yaOf4+2+9vo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX4m7pcrh4nvxG
- oO/Yb43p4l/MTtkxV8kuJQHue5bhbBUbi+H7Lbj+ovO55HZYErJ4+KNbWCbTzj+6QzvLgu3FUBB
- PN7+VqnsEv09/2SOrOApky7u1qSLDRvFMSfVM/OyXGlvcUWiJltoGFE59872WUMS1PbwsbBbfXd
- s+M2v6nzpr0iei5s0VSB5NzdKwumQnARaCxNzPXFb2sqJidlPyK20A7P/2BjD+4+ndEp+zkHcAK
- Uj0aY9bWOH3vuLFzs10ydLvW+7StmsIzOP1ebCFSEYbVFRKju7vgNNC62OJ+ONkFfhXeIkdmrcZ
- Kp+VNB+QXylfKFMHVoue83E5EBbgv8O67tC8lqe/LBtPnZS9qIzTWn00jvGV+9kFyDRUTQ5KcN6
- Dz8Vvk/ifYlSqQWFQIZLE/DJlEA0l58fUIZCfGnRS3UKm26rV0mYSwtYFJldS0N5QZT+C3yJCgy
- 7qFweG+jzqv1j9CUklw==
-X-Proofpoint-ORIG-GUID: bwK3VhjCBUDJRfSwOiQYT93-zdHio7-9
-X-Authority-Analysis: v=2.4 cv=D4XSufRj c=1 sm=1 tr=0 ts=6aeb5f17 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX2LiWj0ix7i3U
+ Vy5XBjKbCNQEKh4SkPtOdQg8yk78T7ogbB7/pPIx1V9ORpJAO237wn5H908c8NUTUYgeIESztJ9
+ 90KL5qz9iIFEKJ5Q7Id6HaRRsbNZbeQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX3gqpAATPi2BX
+ feJF/+bD5CaFntsbtQ/iuZby6YgCjO0Ggz1INH2AU0DqPsjpaGveabyqQaWV/jl/ZD+6UFc36UG
+ Fy+ew53zzYMEl0ikYQKMc5b2c7dOm3fng9rLcVnN2sE0+t7rhueG0tLtlZ7K61qV/nbfWQNIhuT
+ 5F/1zbAOeZ1kTUBgfPTuzDug2Z4pFhCjNL6PUQK1WA6wFwQRYalNsurr+yKCwwskers+0xsmuv4
+ viWjloajWY3DnKz7ry3arDbs4Gx7Np6mEy9mPtjOqHqDwTz+tESXhoa3tNv6UtjIdE5VK3Av6ep
+ /zJo62zpdugTH/7xE9v9GiIu/PbH357sPe8VU9lovvMlPuyL4UBvzg+w1zVMApQII+NMlWpy5he
+ nvomaMMR7AXVeuC8FIv78UoVzIZuemG7IEgOBLDdaLZ6shQ7NH/PMczAxVLjCOForGXi5YAhoNr
+ 3/3yZSxP7oX3nZh9WDA==
+X-Proofpoint-ORIG-GUID: DDjXSM0pC2YdQNlc4QJhpKCP_vzvU3ih
+X-Authority-Analysis: v=2.4 cv=D4XSufRj c=1 sm=1 tr=0 ts=6aeb5f1a cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=lvl4w2d8MLr2OEpUskUA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: bwK3VhjCBUDJRfSwOiQYT93-zdHio7-9
+ a=w2mF-G9HTFYObF59u-MA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: DDjXSM0pC2YdQNlc4QJhpKCP_vzvU3ih
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
@@ -175,40 +175,29 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For QC10C capture buffers the decoder reports bytesperline as the width
-aligned to 128, as for 8-bit formats. QC10C packs three 10-bit samples
-in 32 bits and pads each line to 256 bytes per 192 pixels, so the
-reported value is too small: a 1920 pixel line takes 2560 bytes, not
-1920. Userspace using bytesperline to import the frame into DRM gets a
-wrong pitch.
+The comment describing the QC10C buffer layout calls it a compressed
+P010. It is not: P010 stores each sample in 16 bits, QC10C packs three
+10-bit samples in each 32-bit word, which is what the stride computed
+below (width * 4 / 3) assumes. Name the format correctly.
 
-Report the stride the buffer actually has, as computed for the
-buffer size and as Iris already does. The downstream msm_vidc driver
-reports VENUS_Y_STRIDE(), which for NV12_BPP10_UBWC is the same
-ALIGN(ALIGN(width, 192) * 4 / 3, 256).
-
-Fixes: cef92b14e653 ("media: venus: Add a handling of QC10C compressed format")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/venus/vdec.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index 6a43ea191da1..9de0c9bc2919 100644
---- a/drivers/media/platform/qcom/venus/vdec.c
-+++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -227,7 +227,10 @@ vdec_try_fmt_common(struct venus_inst *inst, struct v4l2_format *f)
- 			stride *= 2;
+diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+index eb8de60c1177..ec2bf2a2d953 100644
+--- a/drivers/media/platform/qcom/iris/iris_buffer.c
++++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+@@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
  
- 		pfmt[0].sizeimage = szimage;
--		pfmt[0].bytesperline = ALIGN(stride, 128);
-+		if (pixmp->pixelformat == V4L2_PIX_FMT_QC10C)
-+			pfmt[0].bytesperline = DIV_ROUND_UP(pixmp->width, 192) * 256;
-+		else
-+			pfmt[0].bytesperline = ALIGN(stride, 128);
- 	} else {
- 		pfmt[0].sizeimage = clamp_t(u32, pfmt[0].sizeimage, 0, SZ_8M);
- 		pfmt[0].sizeimage = max(pfmt[0].sizeimage, szimage);
+ /*
+  * QC10C:
+- * UBWC-compressed format for P010.
++ * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
+  * Contains 4 planes in the following order -
+  * (A) Y_Meta_Plane
+  * (B) Y_UBWC_Plane
 
 -- 
 2.47.3
