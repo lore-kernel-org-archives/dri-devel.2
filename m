@@ -2,133 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9791606A32C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FB2606A32C
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=BYCzEXmX
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=qGr2NKGN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0FEA112C89;
-	Fri,  6 Nov 2026 09:20:37 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C817B10E920
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 02:45:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
- s=mxsw2412; t=1793846707;
- bh=8nHg2KK9YdUFsDyCN5OyhUk3RMp8EQBW/fDZ8x8OirA=;
- h=MIME-Version:From:Date:Message-ID:Subject:To;
- b=BYCzEXmX5Z8Vdz0cCGq1QzbKv6jTnOzU+R9ERQ3Qh9P/rxARiFjBUVBAXXJsVJF3w
- 31LJP47ev07di2U+QdQTgY00rRidJD9btQezNDcDHckRT6az98VSP5j4m4drtJ2zi8
- Lzfq6TTYMMZUrnZzMzrwguWDUdKEhjQ0qSBCxXMY=
-X-QQ-mid: esmtpsz16t1793846385t1322bbc7
-X-QQ-Originating-IP: WMfYFQZWEAkLcuN5QMW6aC19/cu4twncQ1JEd6CTEKA=
-Received: from mail-pg1-f174.google.com ( [209.85.215.174])
- by bizesmtp.qq.com (ESMTP) with SMTP id 0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 10:39:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3204086409100175402
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-cc758830601so981627a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 18:39:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwzGP1zjrZ0xjj2ozWSGheJ7WTmtjLmqF92fgXtYh3JcRZhUE2plcqhbCJrFnMpzYy1sVJEhtT6ZXk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+BdJ0eIkSmq5LoY27y0HJDKngC9qrAlfnIINf07j92LULYWw7M
- yEUGZq7G5cJYY3zd+Zwukpx8xfB4tkWuxXmC2A9GcLvmVAzdc8Zh3Boj4fIu29c3k7akZj+CZKt
- V7s6qGMw99d7NNwcVvCyqHu8mwBkG/Pk=
-X-Received: by 2002:a17:90b:562d:b0:3ad:a462:f07f with SMTP id
- 98e67ed59e1d1-3ae8982c1ffmr16206466a91.45.1793846382617; Wed, 04 Nov 2026
- 18:39:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 781E8112C8B;
+	Fri,  6 Nov 2026 09:20:38 +0000 (UTC)
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E3D10E206
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:56:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1793818576; x=1794077776;
+ bh=PoEnk5w0FeXgmUszIA38mVTO0/9NRJVsUtjtCXZXtvk=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=qGr2NKGNyA8oQsQN5aT4QbA2ipKJFBAk8gaR7VbT56KzBAQptM3M/5H80lBsj1Z6y
+ st0Heiowa4h9BebEodOu+qHAiYNvhldpzxLdsK25Znd6fzCkoYv2HflgHYT2ALeb5S
+ KfMc19qLA2Ryo1oPN4cI9zmoOSpiLCC0edOufl2dfT4JD+lalPs66QLXzlg//+EZ4w
+ sPUK0j1IYsw17fZ3ghLls+jifpHIM9woX2ZgFi7X84+DHRuGfiBQ22AZN26xuQjaIP
+ j6RtAb6MW/4H6BMwrV1oisuevt3F2ZPdGKJOHESBKDo9wSWnRkQKp6bC9bhM2p99R/
+ +zZ5hAWz9jNsg==
+Date: Wed, 04 Nov 2026 18:56:12 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, CK Hu <ck.hu@mediatek.com>
+Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+Message-ID: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
+In-Reply-To: <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 1252c7109e566e88ba7843d515915c4f14738510
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261102135330.2493332-1-robh@kernel.org>
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
-From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-Date: Thu, 5 Nov 2026 10:39:06 +0800
-X-Gmail-Original-Message-ID: <872B2B4EAE847E62+CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
-X-Gm-Features: AclHuK-lEE7dv-iC1Lsio6aPGOufL5hgelB1hFojisk2-zoMsjC0hhsp9HraOXA
-Message-ID: <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, 
- Ivan Vecera <ivecera@redhat.com>, Benson Leung <bleung@chromium.org>, 
- Guenter Roeck <groeck@chromium.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>, 
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>, 
- Chanh Nguyen <chanh@os.amperecomputing.com>,
- Alistair Francis <alistair@alistair23.me>, 
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
- Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
- Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org, 
- linux-input@vger.kernel.org, linux-tegra@vger.kernel.org, mfd@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MGiMXVMajPCi1YnGyO75/V8gfjMb8SSSJQFpJm7Wf/4lBEfesFR+dN50
- 4iqH5xOpwbOVjuTEhyQ9JpV1//bs7N8AqwVTLM/seUiFJkR3LILGgUgL94tPgJJhluTrkqB
- t5PjxZDjXOqMXO9/XPAzk6rACpgLj7wdYSCRJZdvY63L6DcD9PLZw7bQIAtZKb3XXfruxmg
- B8KdIPHHpsev4KGNOisaCGBmII8jrfoeoY/B7cEAWXw4UO35NAr47GKor/1Mwvq3aLUezpO
- jYNbRaGoN/R0DtfOdk39ZFhExdRlT3SAgWsAMPshzoHJTgkPbSYNM2oR0kxzzIZ6eKYsHW6
- b6EjdsvYsIot/G7JjcPxSkhRZr1OYekI6/sN2msPLae9FTNqg1G9WgCSGvrQ4Gu4rKWKmDo
- /Im3PWUZgncdwtlhr4a1YMzgbewmdRv46kM0KqCV5SDBO22aXLEM/CIhhthHeF4bbKgJmgq
- vOZcwJoaPiM+LfAU/B3VDjhtrXmNd0EU3StyvH+OgbM+sqJVx83tV2k+h64GQA/tMoHFMyZ
- tP7/t2HU/Xf8TIiO1+TIHFD3NFo39BWEIPK7u0abvxO8NQU6fOP3L4QdPuLH9LMquecTOdq
- +hUp4w0on0Hr5Z93B8MQ4e8ivq9rwgc2vWELijjIFY+EeZMHAMMD9tCstasKvgRTqWCynUC
- 0S2cD6aoDrUjLujCW3XbTb0wp+v7Q9emMO61mNNDW0k/TlayRl2JJSXeNiGURq40FrMBtCL
- bMJwCWCZjQz4fmTpxhE/xijQNgxTP/aC2sq1YWjkmz48HeCntIc3CLYI2sjKm+pNMVbIpJn
- /kCPGRIGkbqYLNDY1MD3VGeJ+WfJTr54qLw705tGH1CmzsrmihTijPdqN2fEc1KH06Epk9O
- Cb+DZ9vutq53Udft0V+HnhXMvgb+xQUIz/9WKAoKzyrxRl1KOdAYEaDeCJvz5zfBWa0ayFw
- 8KNxgAVthVpepLVlRhrSYO28VW2j1p++BSJYsm1e5Rbteka+GgQTmXD4Y8h31sfpXgxa3A4
- 4TLcyBroJA19GWJn+d+Ws2t0cpArb5MJsZxnwRnw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,36 +59,132 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 2 Nov 2026 at 21:53, Rob Herring (Arm) <robh@kernel.org> wrote:
->
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
->
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <=
+angelogioacchino.delregno@collabora.com> wrote:
+
+> Having the DSI interrupt enabled before actually binding the DSI
+> component to the display controller driver is both useless and
+> dangerous: the main purpose of this interrupt is to signal CMD
+> done, LP RX data ready, or VideoMode done, or to reset the HW
+> engine if this doesn't come.
+>=20
+> Should this interrupt come too late (during probe), the HW will
+> be reset only at the next occurrence of a timeout, which slows
+> down boot and may render artifacts to the DSI display.
+>=20
+> Moreover, clearing the DSI interrupt while the display controller
+> is not ready yet, may result in an interrupt storm.
+>=20
+> In order to prevent this from happening, request the interrupt
+> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+> display controller component master.
+>=20
+> Reviewed-by: CK Hu <ck.hu@mediatek.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+
+This was necessary on mt6595, otherwise it would get stuck.
+
+Acked-by: Roman Vivchar <rva333@protonmail.com>
+Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
+
 > ---
-
-[snip]
-
-> diff --git a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
-> index afa551f6185f..222d70baef1e 100644
-> --- a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
-> @@ -47,7 +47,7 @@ properties:
->      const: 0
->
->  patternProperties:
-> -  "^([a-z]*-)?sensor(-section)?@[0-9]+$":
-> +  "^([a-z]*-)?sensor(-section)?@[0-9a-f]+$":
-
-Reviewed-by: Chunyan Zhang <zhang.lyra@gmail.com>
-
-Thanks,
-Chunyan
+>  drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 28ba532210ff..6ac6daa61e68 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -225,6 +225,7 @@ struct mtk_dsi {
+>  =09int refcount;
+>  =09bool enabled;
+>  =09bool lanes_ready;
+> +=09int irq;
+>  =09u32 irq_data;
+>  =09wait_queue_head_t irq_wait_queue;
+>  =09const struct mtk_dsi_driver_data *driver_data;
+> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct =
+device *master, void *data)
+>  =09=09return ret;
+>  =09}
+>=20
+> +=09enable_irq(dsi->irq);
+> +
+>  =09return 0;
+>  }
+>=20
+> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, stru=
+ct device *master,
+>  {
+>  =09struct mtk_dsi *dsi =3D dev_get_drvdata(dev);
+>=20
+> +=09disable_irq(dsi->irq);
+> +
+>  =09drm_encoder_cleanup(&dsi->encoder);
+>  }
+>=20
+> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pd=
+ev)
+>  {
+>  =09struct mtk_dsi *dsi;
+>  =09struct device *dev =3D &pdev->dev;
+> -=09int irq_num;
+>  =09int ret;
+>=20
+>  =09dsi =3D devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pd=
+ev)
+>  =09if (IS_ERR(dsi->phy))
+>  =09=09return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-D=
+PHY\n");
+>=20
+> -=09irq_num =3D platform_get_irq(pdev, 0);
+> -=09if (irq_num < 0)
+> -=09=09return irq_num;
+> +=09dsi->irq =3D platform_get_irq(pdev, 0);
+> +=09if (dsi->irq < 0)
+> +=09=09return dsi->irq;
+>=20
+>  =09dsi->host.ops =3D &mtk_dsi_ops;
+>  =09dsi->host.dev =3D dev;
+> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *=
+pdev)
+>=20
+>  =09platform_set_drvdata(pdev, dsi);
+>=20
+> +=09ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+> +=09=09=09       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+> +=09if (ret)
+> +=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
+");
+> +
+>  =09ret =3D mipi_dsi_host_register(&dsi->host);
+>  =09if (ret < 0)
+>  =09=09return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+>=20
+> -=09ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+> -=09=09=09       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+> -=09if (ret) {
+> -=09=09mipi_dsi_host_unregister(&dsi->host);
+> -=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
+");
+> -=09}
+> -
+>  =09dsi->bridge.of_node =3D dev->of_node;
+>  =09dsi->bridge.type =3D DRM_MODE_CONNECTOR_DSI;
+>=20
+> --
+> 2.55.0
+>=20
+>=20
+> 
