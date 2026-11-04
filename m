@@ -2,139 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019BA606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25D5606A332
 	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=VZpptrcm
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/LtkE+J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E03B112C60;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C663112C6C;
 	Fri,  6 Nov 2026 09:19:00 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11022083.outbound.protection.outlook.com [52.101.66.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92A6210FB90
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:40:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AhoMmdRUJj5P+qSS5cR9UvmWtU5iYiwbeXLlEYOX55c9hiZCNh8cOSflqf1Ywj5+0PzRFKAoQLEthJQwYVPXm7YYu8uxwYzTQpFLhGzUpigjwc6Vi7xE+VJdbtHTGWngGt3nv4u9VoXkw3qCJAQUDqTGfLNA6Omo8ax/2fhM0t++CJgz2LL1dh8oO3vV59+HoqOZ/My61xSWZqyLTIv4EDChg2E2J+rqC+vhZLwxkyprY1LmNKGguTr2xZw1cnBZQoBg7uK4FoSwQAVbNIYRTWcUbuSRILQKCWzuG5PDnRpGTOLVcpPRuL3hamtzHDGbR3qwhIRF3LPcSxfIK7LEug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tEpyqlnZnD5VvYTqFQOq2w5jDINj/Ab94LVMAq5qpNk=;
- b=IC9x1mzEFdcqMo0KwWvxRHxj5kOIiOIFrMI+Wg3o3Fu2r31wakKFHckSrB3JOLkqrtUBJokogxT6sZCcRhhPeBkvdppJyWFlmVDTnM1DkZa49CvrQoMwjKdeRZ39uYBm93EQ9VfkNRgwN3WHNxsn05HJ+WZyombsK9Fz2LKw25fir1II4XCGoJbEmug2ec7X95YZf3VQs9iML/wGlIl1LE0nEY7m7GjzL2rwtYsknbU1EaZNjvMJBLezmvN67/EqpwXjIDbdgAkgxMnW6DZ4Zw17Ik9Z+VsSeoLfCM8omB9WGZuUGUiN75L6sn7or4vv5s0Ijfx8UDxdXd3kSgeKnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tEpyqlnZnD5VvYTqFQOq2w5jDINj/Ab94LVMAq5qpNk=;
- b=VZpptrcmUdbrmRO2IagexqilVSYUFvzNYNK0TFUwk3+8HOtV5sdPwr9TANwpxj3j3nl+KQVxO9OGRZh5ZSp/Eo/n8FXhZXxMfMZ0WZF/1U7WFRI7ajbj6Ut/ISg0zd6xbg5vzL8Rw0rxUtc6r8ov04vHBuF6360nwPegpBT7p4Ibq58ZZaUgwoHQ+hFKMnAOm3L10PsW2nFgmzqvHCkCFrxrJogQuO75V6bB30eP9MO55VLO2XHaow47y3VHx+sPx1yjvvRK7pV3ZCCa17l0h+bEw6wPyjVzYPJmqjDMvPlv+npAPaEthMb6P/1fOCViDQfGaXBpBI8KAXatQ6jBFA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com (2603:10a6:20b:5ff::9)
- by AM8PR08MB5698.eurprd08.prod.outlook.com (2603:10a6:20b:1c6::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Wed, 4 Nov 2026
- 11:40:23 +0000
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8]) by AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8%4]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 11:40:23 +0000
-Message-ID: <dd966816-a83d-47ea-8faf-bf80d3b2642e@virtuozzo.com>
-Date: Wed, 4 Nov 2026 12:40:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] mm/huge_memory: copy file THPs at fork like
- copy_present_ptes() does
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
- <8c164738-8025-482f-828a-3f919150a930@kernel.org>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <8c164738-8025-482f-828a-3f919150a930@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P251CA0020.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d3::9) To AS2PR08MB9075.eurprd08.prod.outlook.com
- (2603:10a6:20b:5ff::9)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 477B810FCD5
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:51:27 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-490c3ae81d3so196650f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 07:51:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793807485; x=1794412285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5MryvWougc8oZCTNV6AOfjFxzrIHneZrJJ6z1cTNnJA=;
+ b=g/LtkE+J/YExNddtfXaKk6NcUOk+8sPKFjg8MKX+4ivChFstuUFGqXEj97gVjcUxdb
+ k/befIqRFr322MP/sOdZmACLckAAHLgKRqmJQSwCck0JKON97riEbMIb5cNcusBG3O2C
+ I7DhbQ6VelKjilwkLr9TC9pe5MUjQaHJgcVDFk0Nzyb8EzkaZ1iESH8hyssE0xSYR5cP
+ 3gzbcNNh7EItQ+mqfQNB8i2JJZ8t9ynVCKHO6wxE2yIisojZObequI407EIEG7vazPsl
+ Dn7uUSbcsee12LzxwTMgDM/7w7KCayPLGAdVRuOE4zEnqDHUAp45d4l2NpsfayB1CZxW
+ 7rdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793807485; x=1794412285;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5MryvWougc8oZCTNV6AOfjFxzrIHneZrJJ6z1cTNnJA=;
+ b=DzU188SaSwHSaqIQwXSoSCvC6cUFrDhoVu2Vf8KXqrx1WWYpdb6gsIdb9MBkZ9SKU7
+ QkEMr5XGPFRGknYRF2EH/Igh3m2eciDjjk4/I4M2MXlWt1LUQZcaQEL36f8lF2nS6lvn
+ DiSVWATns78n4QHcwdYhdfhGlkOnteNrQlHtgxkXRCbvJL+19qQZIupGnZpFpGbP4m51
+ k+5ewPqYv0061NE7oLK3Cgea7O6bqb64T3uybaWktM2Lgyyzbqy5DjmSbfWxAbA3nPkh
+ EaOiZ68htpIPMRawY3EVdCNYPbwZjUQIuebMlSwJ/Riqw1uQHKa9watsmQDh/dqJJKUN
+ JaOQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz7+mGwjSJQYnpYHdS1Pi5O3k8FcEjM3dVv16mmlTcvHLbJZS+W8J5pJi9JSEO45FTyjFuVtH99lDk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Upl5CiVQBVZuslaAe7lXj1zNM7xG6wNmB6CD5R88MIMtQY/g7
+ qT0MIjeN4mNCDFslfyE6wNhGfqcHbFMp+pnnUwFaEdicw2zKZ/D4szmf
+X-Gm-Gg: AYBFou08K3GTEU59SeSOV2ZXZJnRpjm4Eq+5mfmzz0o8ABdbCLgA99O5IaKoGcaORSx
+ l9P2VVuSJeATOyEYCevsxTUI82PaQSdBFxAD+qc0jlfPzJLd8tmEN+8GMScU4qnhbbImcoVF0S7
+ 9L/DIdtgTMGybsp+uAFvXIbQMxjRkZlkwP5d0325876uojZPFklMbejOVQJTx5yIG105AfLZzEE
+ NvoFA71nouSFH4hVzC2U+CmMHd2ENw3KmTu8KeHlJEyWq27hPUL3s7bKkjprBZvelaMP2V1hsgw
+ 2qC3xhIuIpqiKsIiuUZSPHyD2E64hdpYUIS6wcVutasGzch3JOXIRTjj8dvfkoh5XNE2+yY8XJb
+ jw6rppV/B5AcV9cAYqCWuXfbVginyocTzGEV1sSVMtxa8PcyToboP7RkIi4Apg32rO8ev+0hm6q
+ 0BHFHhAcf5okaHopT18i/bVdz9X7vUKA/63zEeAIEkbiGhvqSHCQ2oXHvXBrc2hSgUfjJomMZzc
+ PQqNlenKts1mU2CWhIV2OTn96u01uH3HkyczN8Cg00jZrucQMGp0BljYNQDxAmVBBb30NrosPiR
+ F4Fx4l+WVHej7jxvTJSQDKdbBLlrUvgd/Y7w+GE4Lw5s8A==
+X-Received: by 2002:a05:6000:402c:b0:48e:76ab:7906 with SMTP id
+ ffacd0b85a97d-48e76ab7f39mr33469456f8f.9.1793807485352; 
+ Wed, 04 Nov 2026 07:51:25 -0800 (PST)
+Received: from localhost.localdomain ([79.117.198.103])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48fecac2772sm4394985f8f.18.2026.11.04.07.51.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 07:51:24 -0800 (PST)
+From: Jose Nieto <jnieto.alaber@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Cc: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jose Nieto <jnieto.alaber@gmail.com>
+Subject: [PATCH] drm/meson: plane: add pixel blend mode property
+Date: Wed,  4 Nov 2026 16:51:19 +0100
+Message-ID: <20261104155119.284708-1-jnieto.alaber@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR08MB9075:EE_|AM8PR08MB5698:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c75a77a-1e0c-41b7-7d78-08df3a6869b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|1800799024|366016|921020|261028144727099003|261022075727099003|261026121527099003|261009223027099003|4143699003|56012099006|261022105027099003|261026140227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: du0WDII6tD1QtRG4Es493qUpdO0KTSKmDc83kboGkEgcTaXsuDczK5pjicAldwOk8vOIxDHCyeHcHbrQCl0LS8urebhLUuO8L5qu8+GCPmy0TMPJ4jOZZfR6ywf/7aQLofJ2OZSxqe8rg10UIeCAIoyvHhsFRZhT103KHHtYfDKK/yRl11xLpMNQIvwfdxeYBTaEfjCIpO+ksVoXUNteIuLXSIsAQ0gcA3VAx33HX7Rl4IR6mNOwbKZJ2h1LE7owuAQOR0LPMCZUUqs10of8RvQWTdOc/wsMEMCbpfZFcTaafeJzZLr7vzF4N7+pVOgPjBJwgig+9FguzuaHPX72/M+exZbswMIu2Rh4S72TXnwaGnMB8l/jLBgoL/44hxBzx3dRYjW3AZ9UdoyUYihutvwpyU6rYVMUYXpAA3x6F1OoCiwXXLnfaoL2kTV5tEnhZyjIF+WDx5WUE2eAiBwXwONzcieXOR8UquqGll0cOqB52op09OqO46JNmzSKYb6rB5RO+se4KzRkeI0nZEWXgFFA68ngaIZB7sZfjZUeBXc1C56UOl2cPHyDJmEmt+yMvxnK4jW79nQyFYlav9sZDuvPPsexKoq2KYNqRksrlbOPliDXatu3WDaCysvdiphDD+hpsjMeu6qG91s3+bk5zlJ2fXiVbkyobnjiLwMjYlSqVd0pR+khBi8dxik9TiT8t+dSAKIsyERwMlRap3RuYQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS2PR08MB9075.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(921020)(261028144727099003)(261022075727099003)(261026121527099003)(261009223027099003)(4143699003)(56012099006)(261022105027099003)(261026140227099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Smw5V1RNTnVUa0sxTkQ1VytJQkdtaFBpemZVOGNaemZhMEl6RjZZdTlnV1Yv?=
- =?utf-8?B?aUZyWFpYcEFqOUxtb3ZjcTc3Vkt1dHF1UENTM3JJSTNoaEg4akU0VDVpZGhY?=
- =?utf-8?B?QmxQVm5yY1ByNzkyOFNFaCtBV3Y5RytTaER1Q3VhMUhMcFV2R0ZKTjI5ZEh3?=
- =?utf-8?B?S1FLdjBxR000Z2p3NU5xd3h2cEpPUXgvc2ZWMlhRUjdEZndpU0w2Z2pRa3hn?=
- =?utf-8?B?NFYzOXF0YzRRU2VoaEZrNkFRSzVMN3JRZ1V3Z0gxdGx6dU1KKzJSYitwWmI2?=
- =?utf-8?B?eUU5SzFTcm9UbE1iOTFzODhEZThOVTBGb0hybUE4cWh4UEYzTVZlNTRiNzYr?=
- =?utf-8?B?ZGVsbGdyS2t0a1M5TjVZSHVobGRmcXFMUFBkaGJSaU1JZ3pEK3FMQnRTVnEv?=
- =?utf-8?B?RjQ4djEvRUtNZVJ2blFuUlZxVDZ6WGoxdXM4LzhVakp5RVU0MlZvaUVPbUN3?=
- =?utf-8?B?b1VYZE9BQ3RRVEZvMWlyNDYrSXIzTTA4WWxGN3hSb2p3RmZhQWZ2WkxMSlJW?=
- =?utf-8?B?SUp5NklYOXJhY0lNMVRTcUM3MXFLcVZyOGdaZzdsbFNDOVRxdkt3c0dydmlP?=
- =?utf-8?B?S3l1QVRTZW1BQnIxUENBYXA4SGsycHZpY2RBcS9WclRhcDhlbkIwS0tKVjAy?=
- =?utf-8?B?dEk5SEtxWkpScVdKanJ0V3FvWU1MNkNFenVCdzM3MUhUQThpQmZra21xQjNQ?=
- =?utf-8?B?NkRHS20wZHhuODJWZTQvaFIySDhCaWs4enQwL1U4dUdtbVpqcjNSdDdZKzVz?=
- =?utf-8?B?NmFSeEZhbHAvTTV2bER4eWgxYTVBckpyQ2xRRjBFRDh2aEREVTFQTEZkd2VT?=
- =?utf-8?B?UkhKWDRNQlFLbDU5cDRXVjg3TS9Lc2lHR0MwcVJHR3puQmlvVGQ2Q1ZKOEUv?=
- =?utf-8?B?S0l3NGZpcEh0Z1J4UlN4L0NaWGpFeGdjOUhqSUxIdlBtR1BQS1FYU1AyekdW?=
- =?utf-8?B?UWprcDRLbmYxYjhjNXlnUUEyTXMrMHlPMHgrcHkrT2lKbDhaaHc2RmNvUlFY?=
- =?utf-8?B?bVk4OG81ZTdqcFBRNytpYVUvc25ReUdOY3htMm9pTSs5SUE4RHVTMTFsNndV?=
- =?utf-8?B?TFZUdXlWTUdlWjFJQnNsSWVOZ1NPOTArOHluMndYODQrdTdZNFFzcmZtdmdR?=
- =?utf-8?B?SjlRekpCRnZOT2tucUdMMDlCYlYwV1Z3SDlYRTZHYkZtZkZyNUhZZ1RMSjEx?=
- =?utf-8?B?eXBUOEluU25YNlpVS2I5WTYxcDdORzBrWFpmZ3ZxSStpOERIOEozb29WclhN?=
- =?utf-8?B?MGg5U1VjV0lzbTk0Y3p1THNGSHMwd1hMQk9YeC91YXltd2JGaEJocXBCTFRn?=
- =?utf-8?B?RnhPaCtpMEN1WDZSUzFKSmJVdUxTOVhaNUtuWXZXUWdpYTVZVk1aYitMdW1m?=
- =?utf-8?B?c0lXQ0FuNzlzYXBpNUhuSEtJWFBObUJzNFVCU3VtRitLOXpDUTFCMzJ5Zllh?=
- =?utf-8?B?bmxNWDZxQ3pNRlo2SExKTTRkWTZJRXhlaXd3NW5WZVBsRXljMHpYVVJENlo2?=
- =?utf-8?B?OEp6M0lRak1Va2Q0dkFuTTFhMU5paUZSM2pPd09hNlFwdDFjOElpNTl0RmFq?=
- =?utf-8?B?Wm1iWjhFbkxERENTSmVRTFVxVFNFdjdwVXBSNy9TMHBkQ2szNFkyZytDNnlU?=
- =?utf-8?B?Z2xBTVhBYlIrRzZqYlIyZmhOZXRicnl6VXpXbkU5V1I1L1lFWnNaeURCQ3pv?=
- =?utf-8?B?eXhwdmk0T2gydk1PaUU4OEsydzJuY210eDBIOTdURHRCd00xaFJsMnczaFcv?=
- =?utf-8?B?eGhlcnFyQXlRWUMzVURubW94V2xDVkFNWXIwT1I5eVhRQXJJbnl0azRrNVFE?=
- =?utf-8?B?eFBNc2JkaHFaUXVPa3N1T3oyMUVKSmMxNlV4bnZwUG9WZUNDMHRvK3BMQ0ZR?=
- =?utf-8?B?Wjl1dFNzVXRiL2M1dGlVWmxJUnNxR2ZFcVdQYmM2RElJdndhZGlnTWpjLzNr?=
- =?utf-8?B?SU5zZEVOYnFmOWQ5bm1vVXMzOENSNEdYVlA0WWVBZVRzazh6SzFUWnY5Ylo3?=
- =?utf-8?B?S0Z0UW51cEs2bEx5alZuQnpDUGR0U1RiTzgxMUJtQ2JSTG1aVmtQMk9EeVF2?=
- =?utf-8?B?ZlFacXY2cDFvM2U5eTdPRkNmeHRBa09jaGpoK1lWK0taUVJyeVR2WVhvRVp0?=
- =?utf-8?B?RzJQSXpGU1RDeEsyRng1YUhRR0kvTm5rdldxbU55S3NndEp2NzlFYzA2a0ZN?=
- =?utf-8?B?RndLOHlTZUlYL3BURWhLYVJQMnBKMGNtR1p4V2I2ZlZqcWNoZ3ZoUVdSQmRJ?=
- =?utf-8?B?cXl6SzRJbmh4dTdXei8xRENnYjlmeEc0aGxTQjJNQkhyRnFOSlhoK2lhbWx0?=
- =?utf-8?B?VkFjQkh5bVpNRTVwMVpxZUhHOGdMbEtOZWVFenhMOGhhRGZHUzhxZz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c75a77a-1e0c-41b7-7d78-08df3a6869b2
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9075.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:40:23.5671 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P3eSZaW3NPD/Cs6l241/n5QE/ciGrsPY7UyL0q7Y7hd+U4YcOmwUhdzmRxXvq+3EqPEfjCb6Wcstp1mYUw5ziQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5698
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,62 +89,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/27/26 15:39, David Hildenbrand (Arm) wrote:
-> Any reason we're not adding the vma_is_cow_mapping() check on the
-> softleaf_is_device_private_write() path as well?
->
-> (I think they are all anonymous ... just for consistency)
+The primary plane exposes ARGB8888, a format with alpha, but never set up
+the pixel blend mode property. This makes the DRM core warn at boot:
 
-No reason, copy_nonpresent_pte() has it there too. Will add in v5.
+  [PLANE:...:meson_primary_plane] pixel format with alpha exposed but
+  blend mode not setup. Please fix.
 
-> Is the fallthrough:
->
->       add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR)
->
-> really expected?
+Advertise PIXEL_NONE and COVERAGE and derive OSD_REPLACE_EN from the
+requested blend mode. Formats without alpha (e.g. XRGB8888) keep the
+previous opaque behaviour.
 
-Yes: copy_nonpresent_pte() counts migration and device private entries
-in the child's RSS as well. File folios reach it now, so the hunk below
-switches it to mm_counter(src_folio), as the PTE path does.
-zap_huge_pmd_folio() subtracts a file folio from mm_counter_file(), so
-MM_ANONPAGES there would leave the child's counters unbalanced.
+Signed-off-by: Jose Nieto <jnieto.alaber@gmail.com>
+---
+ drivers/gpu/drm/meson/meson_plane.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
->> +    bool writable;
->
-> Why do we need this variable?
+diff --git a/drivers/gpu/drm/meson/meson_plane.c b/drivers/gpu/drm/meson/meson_plane.c
+index cf8c90158fcf..115849a0b0c8 100644
+--- a/drivers/gpu/drm/meson/meson_plane.c
++++ b/drivers/gpu/drm/meson/meson_plane.c
+@@ -233,18 +233,13 @@ static void meson_plane_atomic_update(struct drm_plane *plane,
+ 		}
+ 	}
+ 
+-	switch (fb->format->format) {
+-	case DRM_FORMAT_XRGB8888:
+-	case DRM_FORMAT_XBGR8888:
+-		/* For XRGB, replace the pixel's alpha by 0xFF */
++	if (!fb->format->has_alpha ||
++	    new_state->pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE)
++		/* Ignore the pixel's alpha */
+ 		priv->viu.osd1_ctrl_stat2 |= OSD_REPLACE_EN;
+-		break;
+-	case DRM_FORMAT_ARGB8888:
+-	case DRM_FORMAT_ABGR8888:
+-		/* For ARGB, use the pixel's alpha */
++	else
++		/* Use the pixel's alpha */
+ 		priv->viu.osd1_ctrl_stat2 &= ~OSD_REPLACE_EN;
+-		break;
+-	}
+ 
+ 	/* Default scaler parameters */
+ 	vsc_bot_rcv_num = 0;
+@@ -536,6 +531,7 @@ int meson_plane_create(struct meson_drm *priv)
+ 	struct drm_plane *plane;
+ 	const uint64_t *format_modifiers = format_modifiers_default;
+ 	int ret;
++	unsigned int blend_modes = BIT(DRM_MODE_BLEND_PIXEL_NONE) | BIT(DRM_MODE_BLEND_COVERAGE);
+ 
+ 	meson_plane = devm_kzalloc(priv->drm->dev, sizeof(*meson_plane),
+ 				   GFP_KERNEL);
+@@ -566,6 +562,10 @@ int meson_plane_create(struct meson_drm *priv)
+ 	/* For now, OSD Primary plane is always on the front */
+ 	drm_plane_create_zpos_immutable_property(plane, 1);
+ 
++	ret = drm_plane_create_blend_mode_property(plane, blend_modes);
++	if (ret)
++		return ret;
++
+ 	priv->primary_plane = plane;
+ 
+ 	return 0;
+-- 
+2.47.3
 
-It copies __copy_present_ptes(), which snapshots pte_write() before
-the uffd-rwp branch. Looking at it again, that branch only rewrites an
-RWP marker, which is PAGE_NONE and never writable, and vm_page_prot of
-a CoW mapping has no write bit either. So the snapshot looks redundant
-both here and in __copy_present_ptes().
-
-I'd keep it in this series so the PMD path matches the PTE one, and
-drop it from both in the cleanup together with the gotos.
-
-Kiryl, does that match your understanding of the PTE path?
-
->> +            goto copy_pmd;
->>      }
->
-> Likely we should clean this up later to avoid the gotos.
-
-No problem, but let's do it later, on top of this series.
-
-And on your stable question in 3/4: v5 will carry Cc: stable on patches
-1-3.
-The backport to 6.12 won't apply as is, so I'll do the backports once we
-get a failure mail on stable re-apply attempt.
-(or I need to do backports in advance? Need an advice here.)
-
-Thanks for the review!
-
---
-Konstantin Khorenko
