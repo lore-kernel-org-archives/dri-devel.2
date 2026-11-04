@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B8D606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CAC606A329
 	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 06:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOiqqcL6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghxJiKoB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 635BF10E7FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 620AB10E73F;
 	Wed,  4 Nov 2026 06:18:12 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9749010E726;
- Wed,  4 Nov 2026 06:18:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A680B10E745;
+ Wed,  4 Nov 2026 06:18:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8035243CBF;
- Wed,  4 Nov 2026 06:18:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F0E1F000C1;
- Wed,  4 Nov 2026 06:18:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8E35D40F14;
+ Wed,  4 Nov 2026 06:18:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B9E1F000C1;
+ Wed,  4 Nov 2026 06:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793773083;
- bh=nzaeub9u1nKaKfD0WJgHHnPdTNDe5eQthOF5KFonLqw=;
+ s=k20260515; t=1793773080;
+ bh=CuJ0iEYeJ0qXki1Jq0werAEqmBdF9HjWdgIBgqLLHZo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cOiqqcL6J540P5mYaQb3I5GFzxzx+iS0tQcOXe4Bl50LAbWsSpwzMnOhFixzVf28+
- CndUjTyzPA4GRd04x8pi+ElIh39sd5qHqhyntcBTIzNpkft93J9rfgF9FN5e2W8dE8
- KtuwyEaIgU82gPjamFUpCs84Ia/ChdWBr5MhouoEdlBIpH4UcXNnZBUZ+5hwp5c6Cp
- w7IZ7HL+nT+kFw3alumBxlH6QkIkAPuWmngh/QRgw8qTKwcN0adYogZ3Y1/h65CqzF
- BExT+CXdrIcSxaDOFXPVdl0r5FqknHWu3qg7Nu+9I5p/JwBtjjNyi5ELREqo5Y6JKG
- rF7uOhVBHxHqQ==
-Message-ID: <sashiko-outbox-196746@kernel.org>
+ b=ghxJiKoBvgw3rjS264DhaVbfl70tvUpi0gvqRpYaPK7APNNm7GVK4miPpWjEe4WhS
+ gcWBcqKmp6lKQnsvmy8cRVhbtAg664okl396KIwOqKTg6tT0t87ifBXyzo2rthakUj
+ +aPNZeo2Z5eEpdDyyki+YQSue8JF1TahYCc7EsA/77lC7MKI1VpLTulSpIWZ9BwKo0
+ M2Zuq3k8UXI932gdjriPd7u7AGF//PLMNmelEU7oEcS8J9J07vGIK7AScxsNJm9OL2
+ rHR/KYAZSNEwcgYkD9EwSWZX/aE6foCYJSsMJc/OQEqKAyroAGvAbzBhx+r/AabxUy
+ 4t3rlU4IIxs0A==
+Message-ID: <sashiko-outbox-196743@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 08/12] mm/hmm: implement rollback for device page
- migration in HMM pagewalk
+Subject: Re: [PATCH v17 05/12] mm/hmm: migrate collection in HMM pagewalk -
+ pte level
 To: mpenttil@redhat.com, linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  Hildenbrand" <david@kernel.org>, "Jason Gunthorpe" <jgg@nvidia.com>, "Leon
@@ -42,12 +42,12 @@ Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>, "Michal
  Hocko" <mhocko@suse.com>, "Lyude Paul" <lyude@redhat.com>, "Danilo
  Krummrich" <dakr@kernel.org>
-In-Reply-To: <20261103061629.972669-9-mpenttil@redhat.com>
+In-Reply-To: <20261103061629.972669-6-mpenttil@redhat.com>
 References: <20261103061629.972669-1-mpenttil@redhat.com>
- <20261103061629.972669-9-mpenttil@redhat.com>
+ <20261103061629.972669-6-mpenttil@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 06:18:02 +0000
+Date: Wed, 04 Nov 2026 06:17:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,201 +70,212 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] mm/hmm: missing rollback of prior entries when restarting after fa=
-ult
-- [High] mm/hmm: missing rollback and incomplete walk on folio split failure
-- [High] mm/hmm: self-deadlock on -EBUSY retry due to memset() of hmm_pfns
+- [High] mm/hmm: split of non-anonymous large folios in hmm_vma_handle_migr=
+ate_prepare()
+- [High] mm/hmm: early PMD walk termination on folio split failure in hmm_v=
+ma_walk_pmd()
+- [High] mm/hmm: reject KSM folios in hmm_vma_handle_migrate_prepare()
 --
 
-commit 57b87c4290e06aea8db775c69fa86c746acfe43d
+commit 9b85d918ada9ba7990835bcd807b9973c5976885
 Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
-mm/hmm: implement rollback for device page migration in HMM pagewalk
+mm/hmm: migrate collection in HMM pagewalk - pte level
 
-This commit adds rollback handling to unlock and unreference already
-collected folios if page tables vanish or change while page table locks are
-dropped during a migration pagewalk. It also skips migration PTEs installed
-earlier in the same walk when restarting a PMD walk.
+This commit implements PTE-level migration preparation and collection in
+hmm_vma_handle_migrate_prepare(), along with migrate_vma_split_folio() to
+split PTE-mapped large folios during an HMM page table walk.
 
 > diff --git a/mm/hmm.c b/mm/hmm.c
-> index 690b73908f34e..1c8a3fa29c4e6 100644
+> index 854d2c090b20c..ec9280ef26822 100644
 > --- a/mm/hmm.c
 > +++ b/mm/hmm.c
+> @@ -495,6 +495,71 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk =
+*walk, unsigned long start,
+>  #endif  /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
+> =20
+>  #ifdef CONFIG_DEVICE_MIGRATION
 
 [ ... ]
 
-> @@ -331,6 +344,15 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, =
-unsigned long addr,
->  	if (!pte_present(pte)) {
->  		const softleaf_t entry =3D softleaf_from_pte(pte);
-> =20
-> +		/*
-> +		 * Our own migration entry, collected earlier in this walk:
-> +		 * keep the collected pfn, don't fault or roll it back.
-> +		 */
-> +		if (softleaf_is_migration(entry) && hmm_select_migrate(range) &&
-> +		    hmm_pfn_collected(*hmm_pfn) &&
-> +		    hmm_pfn_to_page(*hmm_pfn) =3D=3D softleaf_to_page(entry))
-> +			return 0;
+> @@ -512,8 +582,230 @@ static int hmm_vma_handle_migrate_prepare(const str=
+uct mm_walk *walk,
+>  					  unsigned long *hmm_pfn,
+>  					  bool *unmapped)
+>  {
+> -	// TODO: implement migration entry insertion
+> +	struct hmm_vma_walk *hmm_vma_walk =3D walk->private;
+> +	struct hmm_range *range =3D hmm_vma_walk->range;
+> +	struct migrate_vma *migrate =3D range->migrate;
+
+[ ... ]
+
+> +		if (folio_test_large(folio)) {
+> +			int ret;
+> +
+> +			ret =3D migrate_vma_split_folio(folio,
+> +						      migrate->fault_page,
+> +						      hmm_vma_walk,
+> +						      ptep);
+> +			if (ret)
+> +				goto out_error;
+> +			return -EAGAIN;
+> +		}
+> +
+> +		pfn =3D page_to_pfn(page);
+> +		if (softleaf_is_device_private_write(entry))
+> +			writable =3D true;
+> +	} else {
+> +		pfn =3D pte_pfn(pte);
+> +		if (is_zero_pfn(pfn) &&
+> +		    (minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
+> +			/* Like pte_none(): only anonymous memory can be populated */
+> +			if (!vma_is_anonymous(walk->vma))
+> +				goto out;
+> +			*hmm_pfn &=3D HMM_PFN_INOUT_FLAGS;
+> +			*hmm_pfn |=3D HMM_PFN_MIGRATE;
+> +			goto out;
+> +		}
+> +		page =3D vm_normal_page(walk->vma, addr, pte);
+> +		if (page && !is_zone_device_page(page) &&
+> +		    !(minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
+> +			goto out;
+> +		} else if (page && is_device_coherent_page(page)) {
+> +			pgmap =3D page_pgmap(page);
+> +
+> +			if (!(minfo &
+> +			      MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
+> +			    pgmap->owner !=3D migrate->pgmap_owner)
+> +				goto out;
+> +		}
+> +
+> +		folio =3D page ? page_folio(page) : NULL;
+> +		if (folio && folio_test_large(folio)) {
+> +			int ret;
+> +
+> +			ret =3D migrate_vma_split_folio(folio,
+> +						      migrate->fault_page,
+> +						      hmm_vma_walk,
+> +						      ptep);
+> +			if (ret)
+> +				goto out_error;
+> +			return -EAGAIN;
+> +		}
+> +
+> +		writable =3D pte_write(pte);
+> +	}
 
 [Severity: High]
-When hmm_range_fault_locked() aborts with -EBUSY (or a caller retries
-hmm_range_fault() after mmu_interval_read_retry() trips) after collecting
-earlier pages in the range, those folios remain locked, referenced, and
-mapped as migration PTEs.
+When walking a private file-backed VMA (which can contain a mix of
+copy-on-write anonymous pages and read-only pagecache pages), will this
+attempt to split non-anonymous large pagecache folios before checking
+folio_test_anon()?
 
-When the caller retries hmm_range_fault() with the same range and hmm_pfns
-array, hmm_range_fault_locked() zeroes range->hmm_pfns:
+In the pte_present(pte) branch of hmm_vma_handle_migrate_prepare(),
+migrate_vma_split_folio() is called on any large folio before verifying that
+the folio is anonymous. If a PTE maps a read-only large file-backed folio in
+the page cache, migrate_vma_split_folio() drops the PTE lock, takes the
+sleeping folio_lock(folio) on the pagecache folio while already holding loc=
+ks
+on previously collected anonymous folios, and calls split_folio().
 
-mm/hmm.c:hmm_range_fault_locked() {
-    ...
-	if (hmm_select_migrate(range)) {
-		WARN_ON_ONCE(range->pfn_flags_mask);
-		WARN_ON_ONCE(range->dev_private_owner !=3D
-			     range->migrate->pgmap_owner);
-		memset(range->hmm_pfns, 0,
-		       ((range->end - range->start) >> PAGE_SHIFT) *
-		       sizeof(*range->hmm_pfns));
-	}
-    ...
-}
+For file-backed folios, split_folio() -> __folio_freeze_split_file() takes
+i_mmap_lock_read() and unmaps the folio without remapping it, leaving the
+PTEs as pte_none() on the -EAGAIN retry, only for the resulting order-0
+pagecache folio to be skipped by the !folio_test_anon() check. Furthermore,
+if the filesystem sets mapping_min_folio_order() > 0, split_folio() fails
+with -EINVAL (triggering VM_WARN_ONCE() in __folio_split()) and jumps to
+out_error.
 
-On the retry walk, hmm_pfn_collected(*hmm_pfn) evaluates to false for the
-migration PTEs installed by the current thread on the previous attempt. Does
-this cause hmm_vma_handle_pte() and hmm_vma_walk_pmd() to treat our own
-migration entries as belonging to another thread and call
-hmm_do_fault()->handle_mm_fault()->migration_entry_wait() on folios already
-locked by current, resulting in a self-deadlock?
+Should the !page || !folio_test_anon(folio) check happen before attempting =
+to
+split the folio in the present PTE path?
 
 > +
->  		/*
->  		 * Don't fault in device private pages owned by the caller,
->  		 * just report the PFN.
-> @@ -416,6 +438,9 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, u=
-nsigned long addr,
-> =20
->  	new_pfn_flags =3D pte_pfn(pte) | cpu_flags;
->  out:
-> +	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-> +						addr + PAGE_SIZE,
-> +						hmm_pfn);
->  	*hmm_pfn =3D (*hmm_pfn & HMM_PFN_INOUT_FLAGS) | new_pfn_flags;
+> +	/* Only anonymous memory can be migrated to device memory */
+> +	if (!page || !folio_test_anon(page_folio(page)))
+> +		goto out;
+
+[Severity: High]
+Can KSM folios pass this check and be collected for device migration?
+
+In include/linux/page-flags.h, FOLIO_MAPPING_KSM is defined as:
+
+	FOLIO_MAPPING_ANON | FOLIO_MAPPING_ANON_KSM
+
+Because FOLIO_MAPPING_ANON is set on KSM folios, folio_test_anon() returns
+true for them. When hmm_range_fault() runs without HMM_PFN_REQ_WRITE (for
+example during migrate_vma_setup() or a read fault with migration),
+hmm_vma_handle_pte() does not break CoW on a read-only KSM PTE, and
+hmm_vma_handle_migrate_prepare() locks and collects the KSM folio.
+
+If the same KSM folio is mapped a second time later in the walked range,
+hmm_vma_handle_pte() marks the second entry HMM_PFN_VALID before
+folio_trylock() fails in hmm_vma_handle_migrate_prepare(), and
+try_to_migrate() later unmaps that second mapping via rmap_walk_ksm(),
+leaving a stale PFN in range->hmm_pfns. More importantly, migrating a KSM
+folio to MEMORY_DEVICE_PRIVATE memory updates stable_node->kpfn via
+folio_migrate_ksm() to a non-CPU-accessible ZONE_DEVICE PFN and installs
+device-private swap entries into other processes sharing the KSM page,
+causing ksmd to fault when it later accesses the page in memcmp_pages().
+
+Should hmm_vma_handle_migrate_prepare() also reject folio_test_ksm(folio)?
+
+[ ... ]
+
+> +		set_pte_at(mm, addr, ptep, swp_pte);
+> +		folio_remove_rmap_pte(folio, page, walk->vma);
+> +		folio_put(folio);
+> +		*hmm_pfn |=3D HMM_PFN_VALID | HMM_PFN_MIGRATE;
+> +		if (pte_present(pte))
+> +			*unmapped =3D true;
+> +	} else {
+> +		folio_put(folio);
+> +	}
+> +out:
 >  	return 0;
-> =20
-> @@ -427,7 +452,19 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, =
-unsigned long addr,
->  	} else {
->  		pte_unmap(ptep);
->  	}
-> -	/* Fault any virtual address we were asked to fault */
-> +	/*
-> +	 * This pte needs a fault, so it is not our migration entry: a pfn
-> +	 * collected here earlier is gone, roll it back before faulting.
-> +	 */
-> +	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-> +						addr + PAGE_SIZE, hmm_pfn);
-> +	/*
-> +	 * Fault any virtual address we were asked to fault. When migrating,
-> +	 * only this page: later ptes may be our own migration entries or
-> +	 * caller owned device private pages, which must not be faulted.
-> +	 */
-> +	if (hmm_select_migrate(range))
-> +		end =3D addr + PAGE_SIZE;
->  	return hmm_record_fault(addr, end, required_fault, walk);
+> +out_error:
+> +	return -EFAULT;
 >  }
 
 [Severity: High]
-As reported by Sashiko on v16 [1], when a PTE fault occurs at addr after
-earlier PTEs at addresses below addr have already been collected by
-hmm_vma_handle_migrate_prepare(), the fault path drops hmm_vma_walk->ptl,
-rolls back only [addr, addr + PAGE_SIZE), and calls hmm_record_fault(),
-which sets hmm_vma_walk->last =3D addr and returns HMM_FAULT_PENDING.
+As reported by Sashiko on v16 [1], when migrate_vma_split_folio() fails in
+hmm_vma_handle_migrate_prepare() and jumps to out_error (-EFAULT), does the
+caller in hmm_vma_walk_pmd() abort the PMD walk too early and leave the
+remaining pages in the PMD unprocessed?
 
-In hmm_range_fault_locked(), HMM_FAULT_PENDING disarms the migration
-invalidation range via hmm_vma_migrate_disarm() and runs hmm_do_fault()
-without holding any page table spinlock, then resumes walk_page_range() at
-hmm_vma_walk.last:
+In hmm_vma_walk_pmd(), the PTE loop handles non-zero returns from
+hmm_vma_handle_migrate_prepare() by immediately returning 0:
 
-mm/hmm.c:hmm_range_fault_locked() {
-    ...
-		ret =3D walk_page_range(mm, hmm_vma_walk.last, range->end,
-				      &hmm_walk_ops, &hmm_vma_walk);
-		if (ret =3D=3D HMM_FAULT_PENDING) {
-			hmm_vma_migrate_disarm(&hmm_vma_walk);
-			ret =3D hmm_do_fault(mm, &hmm_vma_walk);
-    ...
-}
+	for (; addr < end; addr +=3D PAGE_SIZE, ptep++, hmm_pfns++) {
 
-Because walk_page_range() restarts at addr rather than range->start,
-hmm_vma_walk_pmd() is invoked with start =3D addr (and any earlier PMDs in
-[range->start, addr) are skipped completely).
-
-If the migration PTEs or PTE page table covering [range->start, addr) were
-zapped or replaced while locks were dropped during hmm_do_fault(), can those
-earlier collected entries in range->hmm_pfns ever be revisited or rolled
-back, or will they leak folio locks and references?
-
-[ ... ]
-
-> @@ -1192,6 +1311,12 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
->  				flush_tlb_range(walk->vma, start, addr);
->  				unmapped =3D false;
->  			}
-> +			/*
-> +			 * The pte lock was dropped and the pte table may have
-> +			 * changed: re-walk from start. Our own migration entries
-> +			 * are kept, anything else collected is rolled back.
-> +			 */
-> +			addr =3D start;
->  			goto again;
->  		}
->  		if (r) {
-
-[Severity: High]
-When hmm_vma_handle_migrate_prepare() attempts to split a large folio via
-migrate_vma_split_folio(), it unconditionally drops hmm_vma_walk->ptl and
-sleeps on folio_lock() before calling __migrate_vma_split_folio():
-
-mm/hmm.c:migrate_vma_split_folio() {
-    ...
-	lazy_mmu_mode_disable();
-	pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
-	hmm_vma_walk->ptelocked =3D false;
-
-	if (folio !=3D fault_folio)
-		folio_lock(folio);
-
-	return __migrate_vma_split_folio(folio, fault_page);
-}
-
-If __migrate_vma_split_folio() fails, hmm_vma_handle_migrate_prepare()
-returns -EFAULT, and the if (r) branch in hmm_vma_walk_pmd() flushes the TLB
-and returns 0 immediately:
-
-mm/hmm.c:hmm_vma_walk_pmd() {
-    ...
+		r =3D hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, hmm_pfns);
+		...
+		r =3D hmm_vma_handle_migrate_prepare(walk, pmdp, ptep, addr, hmm_pfns, &u=
+nmapped);
+		if (r =3D=3D -EAGAIN) {
+			...
+			goto again;
+		}
 		if (r) {
-			/*
-			 * Splitting the folio failed; migrate_vma_split_folio()
-			 * already dropped the PTE lock. Don't migrate the rest
-			 * of the pmd range; addr keeps its valid pfn.
-			 */
 			HMM_ASSERT_UNLOCKED(hmm_vma_walk);
 			if (unmapped)
 				flush_tlb_range(walk->vma, start, addr);
 			return 0;
 		}
-    ...
-}
+	}
 
-Since the PTE lock was dropped while waiting on folio_lock(), if migration
-PTEs or the PTE table in [start, end) vanished during that window, won't
-returning 0 without re-walking [start, end) skip rolling back those
-collected folios, and also leave range->hmm_pfns unpopulated for the
-remaining addresses in [addr + PAGE_SIZE, end)?
+Because hmm_vma_handle_pte() is called inside the same per-page loop,
+returning 0 from hmm_vma_walk_pmd() when a split fails at addr skips both
+hmm_vma_handle_pte() and hmm_vma_handle_migrate_prepare() for all remaining
+addresses in [addr + PAGE_SIZE, end) of the PMD. As a result,
+hmm_range_fault() can return 0 (success) while range->hmm_pfns[] entries for
+[addr + PAGE_SIZE, end) remain zeroed without HMM_PFN_VALID, and pages in
+that tail of the PMD are neither faulted in (when HMM_PFN_REQ_FAULT is
+requested) nor migrated.
 
-[1] https://lore.kernel.org/r/20261021060506.2377545-9-mpenttil@redhat.com
+[1] https://lore.kernel.org/r/20261021060506.2377545-6-mpenttil@redhat.com
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103061629.9726=
-69-1-mpenttil@redhat.com?part=3D8
+69-1-mpenttil@redhat.com?part=3D5
