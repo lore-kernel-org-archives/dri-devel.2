@@ -2,57 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFFB6082BDA
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:40:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178EC606A32C
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 15:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=BeH9E2k2
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iozWVIMu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554FE10E244;
-	Wed,  4 Nov 2026 15:40:44 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1ED410E244
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:40:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793806829; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YMXVYCuqLzu4aT6Q4FGm8rJbw2jKzK89E3q5kVShQtyZTSNe5+G6REZ7wEYxNxDeu3qRieuHJMG3eKgJnsma+9eXm1VZS02TPsefsRsc4QMymtI+JM8R2iSX99sTD9/J5Nieax4FD9IGId2QIlb29BIuXSp20yHFyRfndU2Sjv4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793806829;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=EdY6+wYeDdnUje+R1g1j4XuTn73oQtfDUp6Dbz0NBGs=; 
- b=P6571hJjiCz2rF9NiKNaLZxX6UbgXjs8Y8+zvsOFZ2qFp6tJs4WWqP0XPv1Cd+HIinERR0RVcJV7WLGz9G22YeFs1Wv5IGExWAGKW5k5Mt3VEXYVNFCxVr78SrYl4E3XgvvRy19ZmtMMADpguerB1GlEnGn92B7xNLMosC3BuNs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=BeH9E2k2x+eEgsHkO6RWJZv7dKaXBN0tcBxgf180tMZ5gVqdmlm+B0nRE3acHBZUnctHpHhnKx4k9EM3kfFPvGhqsWJU4eP8A5ePwQyceg1zDtm3MmG7TctMfGUT36lfLzILPkbtCfnEbylEIpBVQlxDpgpItBCThEEQWktjfbs=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=EdY6+wYeDdnUje+R1g1j4XuTn73oQtfDUp6Dbz0NBGs=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793806827127529.3656251564183;
- Wed, 4 Nov 2026 07:40:27 -0800 (PST)
-Date: Wed, 4 Nov 2026 15:40:22 +0000
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: iav@iav.lv
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH] drm/panfrost: Gate the RK3399 GPU clock in runtime suspend
-Message-ID: <autNWETrwrHbD2H9@sobremesa>
-References: <20261030-panfrost-rk3399-pm-rt-v1-1-e94437159a9d@iav.lv>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5E810E249;
+	Wed,  4 Nov 2026 15:51:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA3E10E249
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 15:51:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4BE1C60609;
+ Wed,  4 Nov 2026 15:51:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB6C1F000C1;
+ Wed,  4 Nov 2026 15:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793807505;
+ bh=oyvMhBLfXg5Ue0o+0oute8ySKM0GVPS4DedBUWscso0=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=iozWVIMufA9Huw/ciNia/UoTmRHz9LpP9+iZW+m0QC+i37Be1scfRzz+i5Lhc7Ytl
+ 0mPdLipFcbp5wDPXQng1icsZEHg4jkfoVXOIvxq2GR6qniWxof1Kk5Z6xbzWJFmuR6
+ suDXklGLNzvb17Bg/w+GjE7Sjvrn6HTZVx+OM7XcjKgl5x+N6eTClwuBgqN547qBmI
+ Z6GVNWeveicXC0JY04VvbSt5ggpzD+IT92UvTiZ9fG1ozMjCun/IRFvvI9Ej5Ia8rK
+ pHb8xcEAggwWrYr7KoYpySKRdFiQuyq08K8HawBjZi/XE/j10E+1l3cybxXfX+mtGh
+ Feqdz/KcFNSDw==
+Message-ID: <sashiko-outbox-197546@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] drm/ms91xx: Add register access and connector
+ support
+To: "Ho Jie Feng" <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261104151652.59135-3-hjf3108@gmail.com>
+References: <20261104151652.59135-1-hjf3108@gmail.com>
+ <20261104151652.59135-3-hjf3108@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-panfrost-rk3399-pm-rt-v1-1-e94437159a9d@iav.lv>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.791.62
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 15:51:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,88 +48,226 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Igor,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] drm/ms91xx: unbounded EDID block offset and u16 wrap in ms91xx_r=
+ead_edid()
+- [Medium] drm/ms91xx: multiple preferred modes set in ms91xx_connector_get=
+_modes()
+- [Medium] drm/ms91xx: unplug -ENODEV treated as unknown status in ms91xx_d=
+etect()
+--
 
-On 30.10.2026 06:43, Igor Velkov via B4 Relay wrote:
-> From: Igor Velkov <iav@iav.lv>
-> 
-> The RK3399 Mali-T860 matches arm,mali-t860 and gets default_data, so
-> panfrost enables aclk_gpu at probe and keeps it enabled until unbind;
-> runtime suspend powers the GPU off but leaves the clock on.
-> 
-> On ROCK Pi 4A restore from hibernation hangs in genpd_restore_noirq()
-> of the GPU while panfrost is bound. With the clock gated in runtime
-> suspend, as on the Allwinner H616 and the Renesas parts, it restores.
+commit 32cd5aee0f634799386d1af3debfec7f0d6318ac
+Author: Ho Jie Feng <hjf3108@gmail.com>
 
-I find the wording in the preceding paragraph a bit confusing . Would
-you mind clarifying what 'parts' means here? I guess you refer to
-specific SoCs.
+drm/ms91xx: Add register access and connector support
 
-Also, I wonder why not disabling the clocks would forestall coming back
-from a power suspension state. Have you raised this matter to the
-maintainers of the RK3399 SoC subsystem?
+This commit adds HID register and flash access helpers, custom timing
+record decoding, and DRM connector mode enumeration and detection for
+MacroSilicon MS912x and MS913x USB display adapters.
 
-Would you also mind describing what you did to reproduce this
-resume-from-suspend issue? Lately we've been getting some fixes for
-similar SoC issues and I wonder whether mine also has it.
+> diff --git a/drivers/gpu/drm/ms91xx/ms91xx_connector.c b/drivers/gpu/drm/=
+ms91xx/ms91xx_connector.c
+> new file mode 100644
+> index 0000000000000..08371d121091f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ms91xx/ms91xx_connector.c
+> @@ -0,0 +1,267 @@
 
-> Match rockchip,rk3399-mali to default_pm_rt_data.
-> 
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Tested on ROCK Pi 4A, drm-misc-next 33ed26235db9 with the rkvdec fix [1]
-> applied: hibernation with HDMI active restores 6 of 6 with this patch
-> (once right after glmark2-es2-drm), and hangs 2 of 2 without it.
-> [1] fixes the same kind of hang in rkvdec, which otherwise hits first.
+[ ... ]
 
-If this patch depends on another fix being merged first, I think it's
-best you delay sending a v2 until it's been committed to its relevant
-subsystem tree and changes pulled into drm-misc-next.
+> +static int ms91xx_read_edid(void *data, u8 *buf, unsigned int block, siz=
+e_t len)
+> +{
+> +	struct ms91xx_device *ms91xx =3D data;
+> +	int offset =3D block * EDID_LENGTH;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < len; i++) {
+> +		u16 address =3D MS91XX_REG_EDID_BASE + offset + i;
+> +
+> +		ret =3D ms91xx_read_byte(ms91xx, address);
+> +		if (ret < 0)
+> +			return ret;
+> +		buf[i] =3D ret;
+> +	}
+> +	return 0;
+> +}
 
-> [1] https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv
+[Severity: Medium]
+Can ms91xx_read_edid() in drivers/gpu/drm/ms91xx/ms91xx_connector.c read
+past the EDID register window and wrap address around u16 when a sink
+reports EDID extension blocks?
 
-I'm not entirely sure about what patch submission guidelines say about
-testing information, but normally commit trailers must come about
-last. Would you mind then moving this to right before the S-o-b?
+When ms91xx_connector_get_modes() calls drm_edid_read_custom(),
+_drm_do_get_edid() can request up to 255 extension blocks. Because
+MS91XX_REG_EDID_BASE is 0xc000 in drivers/gpu/drm/ms91xx/ms91xx.h, higher
+block indices read across unrelated registers such as
+MS91XX_REG_MODE_SEQUENCE_2 (0xc620), MS912X_REG_CHIP_ID (0xf000),
+MS913X_CUSTOM_TIMING_BASE (0xfc50), and MS913X_REG_CHIP_ID (0xff00).
 
----
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 7c348a0bf1ee..21a9a12abefc 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -983,6 +983,7 @@ static const struct of_device_id dt_match[] = {
->  	  .data = &amlogic_data, },
->  	{ .compatible = "renesas,r9a08g046-mali", .data = &default_pm_rt_data },
->  	{ .compatible = "renesas,r9a09g047-mali", .data = &default_pm_rt_data },
-> +	{ .compatible = "rockchip,rk3399-mali", .data = &default_pm_rt_data },
+Once block reaches 128 (offset >=3D 0x4000), MS91XX_REG_EDID_BASE + offset =
++ i
+overflows u16 and wraps into 0x0000..0x3fff, reading low control and status
+registers such as MS91XX_REG_MODE_SEQUENCE_0 (0x0030) through
+MS91XX_REG_MODE_SEQUENCE_1 (0x0033). Should ms91xx_read_edid() bound-check
+block and offset + len against the hardware EDID buffer size before reading?
 
-You're effectively adding support to a whole new SoC. This made me
-wonder, are we sure suspension resumption not working is only because of
-GPU_PM_RT? Shouldn't we know first about its supplies and power domains,
-and any potential GPU quirks? I think this goes beyond my knowledge, so
-maybe Steven Price can pitch in.
+> +
+> +static int ms91xx_add_cea_modes(struct drm_connector *connector,
+> +				const u8 *vics, size_t num_vics)
+> +{
+> +	struct drm_display_mode *mode;
+> +	unsigned int i;
+> +	int count =3D 0;
+> +
+> +	drm_edid_connector_update(connector, NULL);
+> +
+> +	for (i =3D 0; i < num_vics; i++) {
+> +		mode =3D drm_display_mode_from_cea_vic(connector->dev, vics[i]);
+> +		if (!mode)
+> +			continue;
+> +
+> +		if (!count)
+> +			mode->type |=3D DRM_MODE_TYPE_PREFERRED;
+> +		drm_mode_probed_add(connector, mode);
+> +		count++;
+> +	}
+> +
+> +	return count;
+> +}
 
->  	{ .compatible = "arm,mali-t604", .data = &default_data, },
->  	{ .compatible = "arm,mali-t624", .data = &default_data, },
->  	{ .compatible = "arm,mali-t628", .data = &default_data, },
-> 
-> ---
-> base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
-> change-id: 20261030-panfrost-rk3399-pm-rt-cea3fc1790d9
-> 
-> Best regards,
-> -- 
-> Igor Velkov <iav@iav.lv>
+[ ... ]
 
-Adrian Larumbe
+> +static int
+> +ms91xx_add_default_hdmi_vga_modes(struct drm_connector *connector)
+> +{
+> +	struct drm_mode_config *mode_config =3D &connector->dev->mode_config;
+> +	int count;
+> +
+> +	drm_edid_connector_update(connector, NULL);
+> +	count =3D drm_add_modes_noedid(connector, mode_config->max_width,
+> +				     mode_config->max_height);
+> +	if (count)
+> +		drm_set_preferred_mode(connector, 1024, 768);
+> +
+> +	return count;
+> +}
+> +
+> +static int ms91xx_add_custom_mode(struct drm_connector *connector)
+> +{
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(connector->dev);
+> +	struct drm_display_mode *mode;
+> +	unsigned int i;
+> +	int count =3D 0;
+> +
+> +	for (i =3D 0; i < ms91xx->num_custom_modes; i++) {
+> +		mode =3D drm_mode_duplicate(
+> +			connector->dev,
+> +			&ms91xx->custom_modes[i].display_mode);
+> +		if (!mode)
+> +			continue;
+> +
+> +		drm_mode_probed_add(connector, mode);
+> +		count++;
+> +	}
+> +
+> +	return count;
+> +}
+> +
+> +static int ms91xx_connector_get_modes(struct drm_connector *connector)
+> +{
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(connector->dev);
+> +	const struct drm_edid *edid;
+> +	int ret =3D ms91xx_add_custom_mode(connector);
+> +
+> +	if (ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_CVBS ||
+> +	    ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_CVBS_SVIDEO ||
+> +	    ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_UNKNOWN)
+> +		return ret + ms91xx_add_cvbs_svideo_modes(connector);
+> +
+> +	if (ms91xx->port_type =3D=3D MS91XX_VIDEO_PORT_YPBPR)
+> +		return ret + ms91xx_add_ypbpr_modes(connector);
+> +
+> +	edid =3D drm_edid_read_custom(connector, ms91xx_read_edid, ms91xx);
+> +	if (!edid)
+> +		return ret + ms91xx_add_default_hdmi_vga_modes(connector);
+> +
+> +	if (drm_edid_connector_update(connector, edid) >=3D 0)
+> +		ret +=3D drm_edid_connector_add_modes(connector);
+> +	drm_edid_free(edid);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+When custom timings are present in flash, does ms91xx_connector_get_modes()
+in drivers/gpu/drm/ms91xx/ms91xx_connector.c end up marking multiple modes
+on the connector with DRM_MODE_TYPE_PREFERRED?
+
+In drivers/gpu/drm/ms91xx/ms91xx_registers.c, ms91xx_read_custom_timing()
+marks the first custom mode as preferred:
+
+    if (ms91xx->num_custom_modes)
+            ms91xx->custom_modes[0].display_mode.type |=3D DRM_MODE_TYPE_PR=
+EFERRED;
+
+During connector probing, ms91xx_connector_get_modes() calls
+ms91xx_add_custom_mode(), which duplicates custom_modes[0].display_mode onto
+connector->probed_modes with DRM_MODE_TYPE_PREFERRED set. It then proceeds =
+to
+call ms91xx_add_cvbs_svideo_modes(), ms91xx_add_ypbpr_modes(),
+ms91xx_add_default_hdmi_vga_modes(), or drm_edid_connector_add_modes(), each
+of which also sets DRM_MODE_TYPE_PREFERRED on another mode.
+
+When drm_helper_probe_single_connector_modes() calls drm_mode_sort(), ties
+between modes with DRM_MODE_TYPE_PREFERRED are broken by hdisplay * vdispla=
+y,
+causing any fallback, CEA, or EDID preferred mode with a larger resolution
+to sort ahead of custom_modes[0]. Should only one mode be marked preferred?
+
+> +
+> +static enum drm_connector_status ms91xx_detect(struct drm_connector *con=
+nector,
+> +					       bool force)
+> +{
+> +	struct ms91xx_device *ms91xx =3D to_ms91xx(connector->dev);
+> +	int status =3D ms91xx_read_byte(ms91xx, MS91XX_REG_DISPLAY_STATUS);
+> +
+> +	if (status < 0)
+> +		return connector_status_unknown;
+> +
+> +	return status =3D=3D 1 ? connector_status_connected :
+> +			     connector_status_disconnected;
+> +}
+
+[Severity: Medium]
+When the USB device is unplugged, ms91xx_read_byte() in
+drivers/gpu/drm/ms91xx/ms91xx_registers.c returns -ENODEV (either when
+drm_dev_enter() fails or when usb_control_msg_send() fails on disconnect).
+
+In drivers/gpu/drm/ms91xx/ms91xx_connector.c, ms91xx_detect() maps all
+status < 0 values to connector_status_unknown instead of
+connector_status_disconnected. In drm_helper_probe_single_connector_modes(),
+connector_status_unknown continues to call ms91xx_connector_get_modes(),
+which then fails drm_edid_read_custom() and populates fallback modes via
+ms91xx_add_default_hdmi_vga_modes() (or CEA/custom modes) on the unplugged
+device rather than pruning modes.
+
+Should ms91xx_detect() return connector_status_disconnected when status is
+-ENODEV (or when !drm_dev_enter())?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104151652.5913=
+5-1-hjf3108@gmail.com?part=3D2
