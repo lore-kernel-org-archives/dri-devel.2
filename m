@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324CD60820A5
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C34D60A2613
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 20:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LRnpeFbf
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YzAg3nQt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0EC810FEDC;
-	Wed,  4 Nov 2026 20:14:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3EC710FEDE;
+	Wed,  4 Nov 2026 20:14:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D63510FED6;
- Wed,  4 Nov 2026 20:14:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF0210FED4;
+ Wed,  4 Nov 2026 20:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793823246; x=1825359246;
+ t=1793823243; x=1825359243;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pM6WnKvjf7fDORuMQGeRpU+XmjTFFHiTF7JpT1uYCGY=;
- b=LRnpeFbfX+WizKtux9rglB7kzgtNnK7Nb8sceR2Mv17Y5Qnx/+sjhPyH
- qcv4oCcKBcqbkqcboLRR0GcdibMQNI+FtmfSImAeXKNn0Vqd8ykNIsOph
- 0GGNggl8gyJm2WyiUmYNodW91vxiruqrL7ymMgcrytO4ar5LIFeuuvmOp
- t0fXZnCoDZCjnxRtuUIfFypQ2G971X4wBp2DBz0wQKSB1iqSfYToyDKAn
- XZrWXeIHDvXRYr+NHOd6rPFRxzwVrrlBHPbwTeCx9+mKYXix7pplUYPi4
- GM9wsVOvMd8zI3uxaWPHPCI3VlMtg53y8pd1xQtF3z2bpR2yxN6R4VZOu w==;
-X-CSE-ConnectionGUID: XuRpsGJ2SFyll8cevwsJrw==
-X-CSE-MsgGUID: 3qLjIaVzTa+o9Jetn1E0SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2589067"
+ bh=hrPR+6dem/A7hrPs8e7kQHfmjxGu56hxnkdpVDsxrh4=;
+ b=YzAg3nQtWVOBIoEHHH4o2moALKRat11XAKYz2paSQ6/5+MkExXBvso+O
+ s9BRWsuW9pTQ4OLmpe1BdXlDmSR50OPFCnpqoQs5f3qtiSFRcXWcqClyP
+ OKQ0Fmyi1XnssVkwRSOkaOx0RkTRx2rw7l5Uo3eJ4CMLw+vPWLrhu0pq2
+ 1yUDh5nS/CkManQwV8F+RCHdi+yjtJ9STNtUTnifm9AAgxTGqW7elGNsQ
+ Ur+uBoNO1ZtEysbEP45IZy/JRHep3jcBexCtf6Z+1dT2Bp/R5vZZZegfq
+ mGKSXzAkUnW0eLlB7wurt+muiqQ3D2YbQRjDHz1mAGy/1LlrXjRRegRdq A==;
+X-CSE-ConnectionGUID: lLAKtu9+RVSgF2IjAY2BMg==
+X-CSE-MsgGUID: IBt/3pHDSdS9DrGZ25ZX8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2589059"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2589067"
+   d="scan'208";a="2589059"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 12:14:05 -0800
-X-CSE-ConnectionGUID: mCOWFzmEQx2nqJuyk72opg==
-X-CSE-MsgGUID: YV03fT4ETWiDE/zMtCV7bg==
+ 04 Nov 2026 12:14:02 -0800
+X-CSE-ConnectionGUID: 7FTw/QHVSXuH5QzneTGYWw==
+X-CSE-MsgGUID: oR7n2/K4Si69cWkMXLv3yA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6868473"
+   d="scan'208";a="6868454"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO fedora)
  ([10.245.244.20])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 12:14:02 -0800
+ 04 Nov 2026 12:14:00 -0800
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -50,10 +50,9 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Matthew Brost <matthew.brost@intel.com>,
  Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/xe/bo: Pass page and tt counts to the shrinker
- account helpers
-Date: Wed,  4 Nov 2026 21:13:29 +0100
-Message-ID: <20261104201331.2462-3-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH 1/4] drm/ttm: Don't mark backed-up shmem folios accessed
+Date: Wed,  4 Nov 2026 21:13:28 +0100
+Message-ID: <20261104201331.2462-2-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104201331.2462-1-thomas.hellstrom@linux.intel.com>
 References: <20261104201331.2462-1-thomas.hellstrom@linux.intel.com>
@@ -80,130 +79,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-xe_ttm_tt_account_add() and xe_ttm_tt_account_subtract() always
-account tt->num_pages and a single populated tt. Partial backup
-support will need to account a subset of a tt's pages, and to keep
-a partially backed-up tt counted as populated.
+ttm_backup_backup_folio() unconditionally called folio_mark_accessed()
+on the freshly populated shmem folio before copying the BO's data into
+it. This path is only reached from a shrinker, i.e. precisely when the
+system has already decided it needs memory back, and the whole point
+of backing a page up into shmem is to let core mm reclaim it through
+the normal swap/writeback path instead of keeping it pinned as TTM
+memory.
 
-Add explicit page and tt count parameters. All callers pass
-tt->num_pages and 1, so there is no functional change.
+Marking the folio accessed works against that: it sets the referenced
+bit / promotes the folio on the LRU, so a later reclaim scan gives it
+a second chance (or skips it) instead of reclaiming it on sight. This
+is actively counter-productive even when the writeback backup flag is
+set to synchronously flush the folio's content via shmem_write_folio():
+writeback only clears the dirty bit, it does not free the page, so an
+accessed folio just sits there, clean and resident, protected from the
+very reclaim pass it was written back for.
+
+Drop the folio_mark_accessed() call so these folios decay through
+normal LRU aging and become immediate reclaim candidates once written
+back (or once picked up by the system's own asynchronous laundering),
+instead of being artificially kept warm.
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/tests/xe_bo.c |  6 ++++--
- drivers/gpu/drm/xe/xe_bo.c       | 28 ++++++++++++++++------------
- 2 files changed, 20 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/ttm/ttm_backup.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/tests/xe_bo.c b/drivers/gpu/drm/xe/tests/xe_bo.c
-index 6a17e13d58cf..472d5577e0fe 100644
---- a/drivers/gpu/drm/xe/tests/xe_bo.c
-+++ b/drivers/gpu/drm/xe/tests/xe_bo.c
-@@ -736,9 +736,11 @@ static int shrink_test_run_device(struct xe_device *xe)
- 		 * other way around, they may not be subject to swapping...
- 		 */
- 		if (alloced < purgeable) {
--			xe_ttm_tt_account_subtract(xe, &xe_tt->ttm);
-+			xe_ttm_tt_account_subtract(xe, &xe_tt->ttm,
-+						   xe_tt->ttm.num_pages, 1);
- 			xe_tt->purgeable = true;
--			xe_ttm_tt_account_add(xe, &xe_tt->ttm);
-+			xe_ttm_tt_account_add(xe, &xe_tt->ttm,
-+					      xe_tt->ttm.num_pages, 1);
- 			bo->ttm.priority = 0;
- 			spin_lock(&bo->ttm.bdev->lru_lock);
- 			ttm_bo_move_to_lru_tail(&bo->ttm);
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 42a6aa1a2e4a..2afee1a6de66 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -452,24 +452,26 @@ struct sg_table *xe_bo_sg(struct xe_bo *bo)
-  * Account ttm pages against the device shrinker's shrinkable and
-  * purgeable counts.
-  */
--static void xe_ttm_tt_account_add(struct xe_device *xe, struct ttm_tt *tt)
-+static void xe_ttm_tt_account_add(struct xe_device *xe, struct ttm_tt *tt,
-+				  long num_pages, long tts)
- {
- 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
+index 0c2d53a13b2a..9589067ad8cf 100644
+--- a/drivers/gpu/drm/ttm/ttm_backup.c
++++ b/drivers/gpu/drm/ttm/ttm_backup.c
+@@ -149,7 +149,6 @@ ttm_backup_backup_folio(struct file *backup, struct folio *folio,
+ 		to_nr = min_t(int, nr_pages - i,
+ 			      folio_next_index(to_folio) - (idx + i));
  
- 	if (xe_tt->purgeable)
--		xe_shrinker_mod_pages(xe->mem.shrinker, 0, tt->num_pages, 1);
-+		xe_shrinker_mod_pages(xe->mem.shrinker, 0, num_pages, tts);
- 	else
--		xe_shrinker_mod_pages(xe->mem.shrinker, tt->num_pages, 0, 1);
-+		xe_shrinker_mod_pages(xe->mem.shrinker, num_pages, 0, tts);
- }
- 
--static void xe_ttm_tt_account_subtract(struct xe_device *xe, struct ttm_tt *tt)
-+static void xe_ttm_tt_account_subtract(struct xe_device *xe, struct ttm_tt *tt,
-+				       long num_pages, long tts)
- {
- 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
- 
- 	if (xe_tt->purgeable)
--		xe_shrinker_mod_pages(xe->mem.shrinker, 0, -(long)tt->num_pages, -1);
-+		xe_shrinker_mod_pages(xe->mem.shrinker, 0, -num_pages, -tts);
- 	else
--		xe_shrinker_mod_pages(xe->mem.shrinker, -(long)tt->num_pages, 0, -1);
-+		xe_shrinker_mod_pages(xe->mem.shrinker, -num_pages, 0, -tts);
- }
- 
- static bool xe_ttm_bo_is_imported(struct ttm_buffer_object *tbo)
-@@ -503,7 +505,8 @@ static void xe_bo_account_pin(struct xe_bo *bo)
- 
- 	if (bo->ttm.pin_count == 1 && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
- 	    !xe_ttm_bo_is_imported(&bo->ttm))
--		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
-+		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm,
-+					   bo->ttm.ttm->num_pages, 1);
- }
- 
- /*
-@@ -534,7 +537,8 @@ static void xe_bo_account_unpin(struct xe_bo *bo)
- 
- 	if (last_unpin && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
- 	    !xe_ttm_bo_is_imported(&bo->ttm))
--		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
-+		xe_ttm_tt_account_add(xe, bo->ttm.ttm, bo->ttm.ttm->num_pages,
-+				      1);
- }
- 
- /**
-@@ -682,7 +686,7 @@ static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct ttm_tt *tt,
- 		return err;
- 
- 	xe_tt->purgeable = false;
--	xe_ttm_tt_account_add(ttm_to_xe_device(ttm_dev), tt);
-+	xe_ttm_tt_account_add(ttm_to_xe_device(ttm_dev), tt, tt->num_pages, 1);
- 	update_global_total_pages(ttm_dev, tt->num_pages);
- 
- 	return 0;
-@@ -699,7 +703,7 @@ static void xe_ttm_tt_unpopulate(struct ttm_device *ttm_dev, struct ttm_tt *tt)
- 	xe_tt_unmap_sg(xe, tt);
- 
- 	ttm_pool_free(&ttm_dev->pool, tt);
--	xe_ttm_tt_account_subtract(xe, tt);
-+	xe_ttm_tt_account_subtract(xe, tt, tt->num_pages, 1);
- 	update_global_total_pages(ttm_dev, -(long)tt->num_pages);
- }
- 
-@@ -1391,7 +1395,7 @@ static long xe_bo_shrink_purge(struct ttm_operation_ctx *ctx,
- 			      .allow_move = false});
- 
- 	if (lret > 0) {
--		xe_ttm_tt_account_subtract(xe, bo->ttm);
-+		xe_ttm_tt_account_subtract(xe, bo->ttm, bo->ttm->num_pages, 1);
- 		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
- 	}
- 
-@@ -1483,7 +1487,7 @@ long xe_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
- 		xe_pm_runtime_put(xe);
- 
- 	if (lret > 0) {
--		xe_ttm_tt_account_subtract(xe, tt);
-+		xe_ttm_tt_account_subtract(xe, tt, tt->num_pages, 1);
- 		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
- 	}
+-		folio_mark_accessed(to_folio);
+ 		folio_lock(to_folio);
+ 		folio_mark_dirty(to_folio);
  
 -- 
 2.56.0
