@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3DE606BDC8
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7033606EE8A
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjKPb5Zz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGhyitu5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0142F10E810;
-	Wed,  4 Nov 2026 17:50:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33ED010E810
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0FC10E894;
+	Wed,  4 Nov 2026 17:50:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F63F10E894
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:50:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1227341F95;
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CC9E609EC;
+ Wed,  4 Nov 2026 17:50:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC531F00919;
  Wed,  4 Nov 2026 17:49:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77A9F1F000C1;
- Wed,  4 Nov 2026 17:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793814597;
- bh=weMUCFn2uihXk/tOxGBDEw27Pws++kgwJ6Tcia3ltcw=;
+ s=k20260515; t=1793814616;
+ bh=Ayyh3GSY9IX8l/NxmtUwOJrSt8ohKQ1xsnTJeKuAZFg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=TjKPb5ZzIiyiPgvuQdFoHuUkVx/a9GRzTloH+KR4l/JxBBb+Ol/moI3iP+vc7jhxh
- Ps/jhLkGJWT4b45mLDzTmXs0Nq6ur+emr3Mnae7d+PkH9J0ghZeeOzUERLhCb/2x/I
- Bwr8JHwweuJMSvPLSvB9rFxVcNiRrk8Nku+fNgyLtGVeEaDxUpEY6iJFDv9syz/nxS
- a2j63GShxcJSlKeqquyWTJ1SJRA6a75PgRtqXfY4thvlg42TMO3Ay+5b5+IY0bEO1l
- k3RvIz3DDBF5vn8/zalT+H7o+LqH0DwmSQZgpn2Tax7AQIoVLkHn44OG3fzujjSSY4
- 17TkLkudUusDA==
+ b=IGhyitu5c+TLBGkN2ZGwDU5Rsh1w/dzPMJRviHA5R0mqU+LsoYuTVg18Jscu2+6e9
+ Bde/aMBOPoYzdl/OGhbYhq2RMksr0qSkO6OBBKfsIB2QpTbcfD5O1d7DOOn6y0WboD
+ luv6dPR8E2zuVmQwRu6+4E313LCJ0DI7VA+RNwygcTxJ2P+0Zxk4UQl+ViD8uLTSyj
+ 0Bj56pQlnnoENGhH5tM4j+e/k88FvtR06w4zxZ0OD2mDGN5+rEvzwyzh17+R2wIXby
+ my99TU5Vz2jDt+TrjxUCacOsyHguhDC7NltTczyRHXx91ZO5qtVY+n6qU6a+sO5L4R
+ ZOW5mHfdcdKFg==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v2 19/51] xtensa: simdisk: don't read the file name without
- the lock
-Date: Wed,  4 Nov 2026 18:47:05 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-19-bbf7d5546809@kernel.org>
+Subject: [PATCH v2 20/51] powerpc/rtas_flash: don't read past the validate
+ message
+Date: Wed,  4 Nov 2026 18:47:06 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-20-bbf7d5546809@kernel.org>
 In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1811; i=brauner@kernel.org;
- h=from:subject:message-id; bh=wpJfI2N0Y4TYbGny8B/EWcsaN47/8hdz2WKuRaZg6Os=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrtmmihY93BLSLDu9Ie5rjb2qRU3I+zPe+3cqF86e
- 5KJ7eaZHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNZeo6R4WJUn/qcs7t1vaJm
- L5zZ9iJOJiprB/f/Sr7aQnnr1cdmdDIy7M/18T9/7EByzmbvb0u/Gdlr8edumNMXNW0bh1H7s7O
- CzAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1303; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=7JHU1Fe1PUKfNakrIeb+3f7MU5rT/9SRwlQjBFg57NM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zru+45fmhHOmCTv0/xXyljhu8Ir9cn6xZ2brsiN/Z
+ jmlm2+821HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRKEaG//GPri/6rCTy5+J8
+ 1kMXe3b3xt9+LRAy/bux8ZXk+aLWoroM//OvT312ZfeyeUVOzxsmOu8P7DVL+ub/7E+HuUjwFae
+ yubwA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,57 +98,32 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-proc_read_simdisk() looks at dev->filename without holding dev->lock. A
-write to the same file detaches the disk and frees the name under the
-lock, so a concurrent reader can copy out freed memory. Copy the name
-with the lock held.
+get_validate_flash_msg() adds up what snprintf() returns, which is the
+length of the whole string and not what fit into msg. If the update
+results the firmware hands back don't fit into what is left of the 256
+bytes, the length ends up larger than msg and validate_flash_read()
+copies whatever follows it on the stack to userspace. Use scnprintf().
 
-Fixes: b6c7e873daf7 ("xtensa: ISS: add host file-based simulated disk")
+Fixes: a94a14720eaf ("powerpc/rtas_flash: Fix validate_flash buffer overflow issue")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/xtensa/platforms/iss/simdisk.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ arch/powerpc/kernel/rtas_flash.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/xtensa/platforms/iss/simdisk.c b/arch/xtensa/platforms/iss/simdisk.c
-index e51edb8cf872..1248d960e5d3 100644
---- a/arch/xtensa/platforms/iss/simdisk.c
-+++ b/arch/xtensa/platforms/iss/simdisk.c
-@@ -238,22 +238,21 @@ static ssize_t proc_read_simdisk(struct file *file, char __user *buf,
- 			size_t size, loff_t *ppos)
- {
- 	struct simdisk *dev = pde_data(file_inode(file));
--	const char *s = dev->filename;
--	if (s) {
--		ssize_t len = strlen(s);
--		char *temp = kmalloc(len + 2, GFP_KERNEL);
-+	ssize_t len;
-+	char *temp;
- 
--		if (!temp)
--			return -ENOMEM;
-+	/* a write sets at most a page, see proc_write_simdisk() */
-+	temp = kmalloc(PAGE_SIZE + 2, GFP_KERNEL);
-+	if (!temp)
-+		return -ENOMEM;
- 
--		len = scnprintf(temp, len + 2, "%s\n", s);
--		len = simple_read_from_buffer(buf, size, ppos,
--					      temp, len);
-+	spin_lock(&dev->lock);
-+	len = scnprintf(temp, PAGE_SIZE + 2, "%s\n", dev->filename ?: "");
-+	spin_unlock(&dev->lock);
- 
--		kfree(temp);
--		return len;
--	}
--	return simple_read_from_buffer(buf, size, ppos, "\n", 1);
-+	len = simple_read_from_buffer(buf, size, ppos, temp, len);
-+	kfree(temp);
-+	return len;
- }
- 
- static ssize_t proc_write_simdisk(struct file *file, const char __user *buf,
+diff --git a/arch/powerpc/kernel/rtas_flash.c b/arch/powerpc/kernel/rtas_flash.c
+index 722dbfb6fbf8..f1cd105f7426 100644
+--- a/arch/powerpc/kernel/rtas_flash.c
++++ b/arch/powerpc/kernel/rtas_flash.c
+@@ -448,7 +448,7 @@ static int get_validate_flash_msg(struct rtas_validate_flash_t *args_buf,
+ 		n = sprintf(msg, "%d\n", args_buf->update_results);
+ 		if ((args_buf->update_results >= VALIDATE_CUR_UNKNOWN) ||
+ 		    (args_buf->update_results == VALIDATE_TMP_UPDATE))
+-			n += snprintf(msg + n, msglen - n, "%s\n",
++			n += scnprintf(msg + n, msglen - n, "%s\n",
+ 					args_buf->buf);
+ 	} else {
+ 		n = sprintf(msg, "%d\n", args_buf->status);
 
 -- 
 2.53.0
