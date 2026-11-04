@@ -2,83 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BEE6075244
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31F2606E808
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:29:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJukzHF4
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=QxvH35yA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA4510FE36;
-	Wed,  4 Nov 2026 19:28:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB8FB10FE36
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:28:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EDA1A60DA2;
- Wed,  4 Nov 2026 19:28:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5AB1F000C1;
- Wed,  4 Nov 2026 19:28:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793820520;
- bh=KE0FjFLg86Wqg2LOdvIKebjks/LaCpUOq5x1mMvJN8E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=NJukzHF4aV1KUnciVzdApjdNLx1CFG6CVAD2vCJ43JPCAnjjn1zUpxzmLM9SfrWre
- gCGPTz2pnkhsoLDD0ufQYz7LJbRa17CKdFnkfKWFZpzCvx3VornSWUNThr1WFvwPGn
- CADeWgCgoQP5K7ENKjJkvGY6u4437GknzfxpYekJnpL3cgHKr3XG5TRSEcefhaKP7V
- nX57prmegY0CCerzsNzag/fJkXOMUpt/ed2ZwMst0kUSU+NPQt8+F88n3teURVqhXg
- 7vNgcQSCorU7kpZuBp2BFO4KHe0i6WajNcx/gISK920csNZ4jtjgQF1W1PAyzKkO5E
- yV22BOQaWeKsQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-debuggers@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 51/51] selftests/proc: check that a faulting
- readlink() doesn't hold up removal
-Date: Wed,  4 Nov 2026 20:28:26 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-51-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196A110FE37;
+	Wed,  4 Nov 2026 19:29:24 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A3710FE3B;
+ Wed,  4 Nov 2026 19:29:17 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A4IQOqk1937786; Wed, 4 Nov 2026 19:29:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=O
+ x7jJ6m6wUVAbtViPWC75EXU/gTaFwhfOJNY9ovla80=; b=QxvH35yAbIOa1fbdy
+ +0FifzdC7rXGCUJY+2VjOOp9zzdQBGmXcvoxQf4KZa1kf4kEYGQTWVOADRwXByfh
+ ijNRRdfm3Ay7u68AvKC3PufgHw7acoy0NExMTTp6VDNzVXFyH9G1tazwZ2EzA2oi
+ TcOf7K9gOpHR9dAXUD8y/J4LruIEW2CIXWbd7zOjsCid1EzCiI16sjcVrvKagDbR
+ z2TdRNUCZPozhVpCEOI+Mpdc74JdumQumjmeC3xShvuA6H4WCSQocoSSvakmtu4n
+ BBbaLSTRjFciDubrAgY2qwXMGqjYNcg16meDOU0QBK5Jsmp9G1q7TKyrcTLsvubI
+ Z1/0A==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hn99wkp2c-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Nov 2026 19:29:07 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 19:29:06 +0000
+From: Luigi Santivetti <luigi.santivetti@imgtec.com>
+Date: Wed, 4 Nov 2026 19:28:16 +0000
+Subject: [PATCH 1/2] drm/imagination: switch to inline init of
+ rogue_fwif_rta_ctl
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7257; i=brauner@kernel.org;
- h=from:subject:message-id; bh=tBvbDpChuad7Gf34o7zrAy5GeGJ/8Uzeoj8ryWST3Tk=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9buLeeHbphO3/N55kVVv59tmN3VuetO2e/UrKp4azz
- iWph8NwQkcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEjIIZ/vAeD7jB+vdim/Jj
- tQ0hkWc2r77GNq27cuqvPzkuqa9flfYz/NOXCS3acGvTlZz++E+JTd/e+ny6wif2bUN30YcXfYm
- /q1kB
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261104-minor-improvements-v1-1-cc976128538e@imgtec.com>
+References: <20261104-minor-improvements-v1-0-cc976128538e@imgtec.com>
+In-Reply-To: <20261104-minor-improvements-v1-0-cc976128538e@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
+ <brajesh.gupta@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793820545; l=1597;
+ i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
+ bh=XV3qwxszGoFhHeB7dwNd7EMZXr7gJaJcLpdVA4BzkOA=;
+ b=CD0as/ULye/K1o0Y9Nx1EiVHed2FJQZlF+ALHkGG15mLmcclQebx3XrObPvMCXJagJgleTlvr
+ toLKE/OXJbKBeHx5XgU3GBS3M0Q5ToHqr5gWKLAaaGtGkveonx1EUrl
+X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
+ pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3NyBTYWx0ZWRfX3jxMDyuV+Bx1
+ LyYeUPonGovuHRluVIUOTvvIxZNEx+/YCAYrEvk3Pjm1Rd3OUMrHgKgz2nZsZ4qFkVi6yrR6EHf
+ CojvOzQ0e9+gA4a6Y16Ncpo4L7D/DxFdw9HfM4mk3uHDzVuVWuZ3/KdWen6w3Oc4hU0/8QlobHW
+ 0A+/zAnDp/CwnFAjf47MzObCR9I+XTEXZhTURUIKO7T1HUngXQEWx66dRmbgdW35r3xUEp1Igs4
+ 7AdGizQseLJ/44rUVGGegshqNU+LnY0plQepfxUy0Ps8kvsFjnboWe42/znFh2k0wybnMIWKIgO
+ GHinGsUBPqs+Vg8xKcxqZfNv+lD5ZJoCUOemSYFaD/9Bt1y4nryJ4iHEQUmFP4vAGAFQS6XF3lF
+ ElvAq+i/qZJbGtDzw5ue9H5y69o94kztQA3daDmp9JbYi6scUdj3p9V3rubfD3iHJxCbq9X2QUn
+ 9ftI6732PBspCb81SNg==
+X-Proofpoint-ORIG-GUID: pvIRKTFfdCl2HM9NI0OMtRzRi6HQ4010
+X-Proofpoint-GUID: pvIRKTFfdCl2HM9NI0OMtRzRi6HQ4010
+X-Authority-Analysis: v=2.4 cv=BZlNQbt2 c=1 sm=1 tr=0 ts=6aeb8783 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=en2ABwrKDVyVSx-lS3UA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3NyBTYWx0ZWRfX5NjqUUm9xFQt
+ oHWj5eobqA9mFXx4Zbr0/KSPZpvVVRFOI7kma7blcK+vMj+CZb8vQs8AxAU1vmcMYilmZZ+aH8D
+ 7gcNOdLm8LHOQyrViiAD2fev8PsfMpA=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,268 +91,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the symlink case:
+Rely on implicitly zero-ing all members using designated identifiers.
 
-- readlink() /proc/asound/<id> of a dummy card into a buffer backed by
-  userfaultfd
-
-- change the card's id through sysfs while the reader faults, which
-  removes the symlink with snd_card_mutex and info_mutex held
-
-- expect that to finish without waiting for the reader
-
-Skipped without snd-dummy.
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
 ---
- tools/testing/selftests/proc/.gitignore            |   1 +
- tools/testing/selftests/proc/Makefile              |   1 +
- tools/testing/selftests/proc/config                |   5 +
- .../selftests/proc/proc-remove-slow-readlink.c     | 191 +++++++++++++++++++++
- 4 files changed, 198 insertions(+)
+ drivers/gpu/drm/imagination/pvr_hwrt.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
-index 7b8133492782..3fa89f46b9c7 100644
---- a/tools/testing/selftests/proc/.gitignore
-+++ b/tools/testing/selftests/proc/.gitignore
-@@ -22,6 +22,7 @@
- /proc-uptime-002
- /proc-pidns
- /proc-remove-slow-sysctl
-+/proc-remove-slow-readlink
- /read
- /self
- /setns-dcache
-diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
-index bce6beca7274..df02699a3587 100644
---- a/tools/testing/selftests/proc/Makefile
-+++ b/tools/testing/selftests/proc/Makefile
-@@ -33,5 +33,6 @@ TEST_GEN_PROGS += proc-fsconfig-hidepid
- TEST_GEN_PROGS += proc-sysctl-readdir-churn
- TEST_GEN_PROGS += proc-pidns
- TEST_GEN_PROGS += proc-remove-slow-sysctl
-+TEST_GEN_PROGS += proc-remove-slow-readlink
+diff --git a/drivers/gpu/drm/imagination/pvr_hwrt.c b/drivers/gpu/drm/imagination/pvr_hwrt.c
+index 05c68c78da22..3f7c4346c52c 100644
+--- a/drivers/gpu/drm/imagination/pvr_hwrt.c
++++ b/drivers/gpu/drm/imagination/pvr_hwrt.c
+@@ -358,8 +358,8 @@ hwrt_data_init_fw_structure(struct pvr_file *pvr_file,
+ 			    struct pvr_hwrt_data *hwrt_data)
+ {
+ 	struct drm_pvr_create_hwrt_geom_data_args *geom_data_args = &args->geom_data_args;
++	struct rogue_fwif_rta_ctl *rta_ctl = &hwrt_data->data.rta_ctl;
+ 	struct pvr_device *pvr_dev = pvr_file->pvr_dev;
+-	struct rogue_fwif_rta_ctl *rta_ctl;
+ 	int err;
  
- include ../lib.mk
-diff --git a/tools/testing/selftests/proc/config b/tools/testing/selftests/proc/config
-index 052e365af5a9..1504a761b39b 100644
---- a/tools/testing/selftests/proc/config
-+++ b/tools/testing/selftests/proc/config
-@@ -3,3 +3,8 @@ CONFIG_NET_NS=y
- CONFIG_IPV6=y
- CONFIG_TUN=y
- CONFIG_USERFAULTFD=y
-+CONFIG_SOUND=y
-+CONFIG_SND=y
-+CONFIG_SND_DUMMY=m
-+CONFIG_MODULES=y
-+CONFIG_MODULE_UNLOAD=y
-diff --git a/tools/testing/selftests/proc/proc-remove-slow-readlink.c b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
-new file mode 100644
-index 000000000000..3290225daecd
---- /dev/null
-+++ b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
-@@ -0,0 +1,191 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A readlink() that faults while copying out the link must not hold up
-+ * removal of the /proc symlink. Changing a sound card's id removes
-+ * /proc/asound/<id> with snd_card_mutex and info_mutex held.
-+ */
-+#define _GNU_SOURCE
-+#include <dirent.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <limits.h>
-+#include <linux/userfaultfd.h>
-+#include <poll.h>
-+#include <pthread.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+#include "../kselftest_harness.h"
-+
-+#define CARD_ID		"Dummy"
-+#define NEW_ID		"procslow"
-+#define LINK_PATH	"/proc/asound/" CARD_ID
-+#define TIMEOUT_MS	5000
-+
-+struct reader {
-+	char *buf;
-+	size_t len;
-+	ssize_t ret;
-+};
-+
-+struct renamer {
-+	const char *id_path;
-+	const char *id;
-+	int done;
-+	int ret;
-+};
-+
-+static void *readlink_thread(void *arg)
-+{
-+	struct reader *r = arg;
-+
-+	r->ret = readlink(LINK_PATH, r->buf, r->len);
-+	return NULL;
-+}
-+
-+/* a new id removes the card's old /proc/asound/<id> link */
-+static int set_id(const char *id_path, const char *id)
-+{
-+	int fd, ret;
-+
-+	fd = open(id_path, O_WRONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return -errno;
-+	ret = write(fd, id, strlen(id)) < 0 ? -errno : 0;
-+	close(fd);
-+	return ret;
-+}
-+
-+static void *rename_thread(void *arg)
-+{
-+	struct renamer *r = arg;
-+	ssize_t ret;
-+
-+	r->ret = set_id(r->id_path, r->id);
-+	ret = write(r->done, "x", 1);
-+	return (void *)ret;
-+}
-+
-+/* the sysfs id file of the card with @id */
-+static int find_card(const char *id, char *id_path, size_t size)
-+{
-+	struct dirent *d;
-+	int ret = -1;
-+	DIR *dir;
-+
-+	dir = opendir("/sys/class/sound");
-+	if (!dir)
-+		return -1;
-+	while (ret && (d = readdir(dir))) {
-+		char cur[32];
-+		FILE *f;
-+
-+		if (strncmp(d->d_name, "card", 4))
-+			continue;
-+		snprintf(id_path, size, "/sys/class/sound/%s/id", d->d_name);
-+		f = fopen(id_path, "r");
-+		if (!f)
-+			continue;
-+		if (fgets(cur, sizeof(cur), f)) {
-+			cur[strcspn(cur, "\n")] = '\0';
-+			if (!strcmp(cur, id))
-+				ret = 0;
-+		}
-+		fclose(f);
-+	}
-+	closedir(dir);
-+	return ret;
-+}
-+
-+FIXTURE(dummy) {
-+	char id_path[PATH_MAX];
-+	bool renamed;
-+};
-+
-+FIXTURE_SETUP(dummy)
-+{
-+	self->renamed = false;
-+	if (access(LINK_PATH, F_OK) && system("modprobe -q snd-dummy"))
-+		SKIP(return, "no snd-dummy");
-+	if (access(LINK_PATH, F_OK))
-+		SKIP(return, LINK_PATH ": %s", strerror(errno));
-+	if (find_card(CARD_ID, self->id_path, sizeof(self->id_path)))
-+		SKIP(return, "no sysfs id file for " CARD_ID);
-+	if (access(self->id_path, W_OK))
-+		SKIP(return, "%s: %s", self->id_path, strerror(errno));
-+}
-+
-+FIXTURE_TEARDOWN(dummy)
-+{
-+	if (self->renamed && set_id(self->id_path, CARD_ID))
-+		TH_LOG("couldn't name the card " CARD_ID " again");
-+}
-+
-+TEST_F(dummy, remove_while_readlink_faults)
-+{
-+	struct uffdio_api api = { .api = UFFD_API };
-+	struct uffdio_register reg = {};
-+	struct uffdio_zeropage zero = {};
-+	long psz = sysconf(_SC_PAGESIZE);
-+	struct renamer rn = {};
-+	struct reader r = {};
-+	struct uffd_msg msg;
-+	struct pollfd pfd;
-+	pthread_t rt, nt;
-+	int uffd, done[2];
-+	char *buf;
-+
-+	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-+	if (uffd < 0)
-+		SKIP(return, "userfaultfd: %s", strerror(errno));
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_API, &api), 0);
-+
-+	buf = mmap(NULL, psz, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(buf, MAP_FAILED);
-+	reg.range.start = (unsigned long)buf;
-+	reg.range.len = psz;
-+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
-+
-+	r.buf = buf;
-+	r.len = psz;
-+	ASSERT_EQ(pthread_create(&rt, NULL, readlink_thread, &r), 0);
-+
-+	/* The reader now sleeps in the copy of the link to userspace. */
-+	pfd = (struct pollfd){ .fd = uffd, .events = POLLIN };
-+	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
-+	ASSERT_EQ(read(uffd, &msg, sizeof(msg)), sizeof(msg));
-+	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
-+
-+	/* Renaming the card removes the link that is being read. */
-+	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
-+	rn.id_path = self->id_path;
-+	rn.id = NEW_ID;
-+	rn.done = done[1];
-+	self->renamed = true;
-+	ASSERT_EQ(pthread_create(&nt, NULL, rename_thread, &rn), 0);
-+	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
-+	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
-+		TH_LOG("removing " LINK_PATH " waited for the reader");
-+	}
-+
-+	zero.range.start = (unsigned long)buf;
-+	zero.range.len = psz;
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_ZEROPAGE, &zero), 0);
-+	ASSERT_EQ(pthread_join(rt, NULL), 0);
-+	ASSERT_EQ(pthread_join(nt, NULL), 0);
-+	EXPECT_EQ(rn.ret, 0);
-+
-+	/* The link was read before it went away. */
-+	EXPECT_GT(r.ret, 0);
-+	EXPECT_EQ(readlink(LINK_PATH, buf, psz), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+}
-+
-+TEST_HARNESS_MAIN
+ 	pvr_fw_object_get_fw_addr(hwrt->common_fw_obj,
+@@ -378,13 +378,9 @@ hwrt_data_init_fw_structure(struct pvr_file *pvr_file,
+ 	hwrt_data->data.macrotile_array_dev_addr = rt_data_args->macrotile_array_dev_addr;
+ 	hwrt_data->data.rgn_header_dev_addr = rt_data_args->region_header_dev_addr;
+ 
+-	rta_ctl = &hwrt_data->data.rta_ctl;
+-
+-	rta_ctl->render_target_index = 0;
+-	rta_ctl->active_render_targets = 0;
+-	rta_ctl->valid_render_targets_fw_addr = 0;
+-	rta_ctl->rta_num_partial_renders_fw_addr = 0;
+-	rta_ctl->max_rts = args->layers;
++	*rta_ctl = (struct rogue_fwif_rta_ctl){
++		.max_rts = args->layers,
++	};
+ 
+ 	if (args->layers > 1) {
+ 		err = pvr_fw_object_create(pvr_dev, args->layers * SRTC_ENTRY_SIZE,
 
 -- 
-2.53.0
+2.43.0
 
