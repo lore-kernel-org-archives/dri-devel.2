@@ -2,84 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629B2606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B42606A328
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w8A7ZifM
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=bDt8cX+P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FFEB112C59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD4D112C4F;
 	Fri,  6 Nov 2026 09:18:59 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5733C10E295
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:12:25 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a60f9474c4so22519645e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 12:12:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793909544; x=1794514344; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oj4+ZYy6IPmEk7n48ZoOfVMyHB9K5zKwdNLmj5eS60A=;
- b=w8A7ZifMPmzulpgYXiDymJf/hvziDTDNaneH1QWQO8dyDwhqyS70Ff/KAGr78aRmmH
- xO9OKG2x28eRRYruFT3LW2FT1OUaP24iFoKZxgUnLTFeQLNXb2rWJDcsK8+604pyPEQr
- TZvCqnR4M31ocg3kKNgcRnZo55uMqbJHcRYVvI0DQ7iB8Wn5OZXJyZAWIPfUVCd/CPpQ
- lys+BOssZ37J7CJl8494V+yHkjRlaP4WxKeHaEFPvAuv6wHWSDjqImm/mp111grLYgpI
- vwHiFGnrhBbN6nWA4Bw8LfjIkgexlpKweF7plJv2GOoM0cOrTMxEId/5sLmpJtGsltwU
- A+EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793909544; x=1794514344;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oj4+ZYy6IPmEk7n48ZoOfVMyHB9K5zKwdNLmj5eS60A=;
- b=KsCAMwHVucI0FPyEry95QV472RYe6wehz1jwSyeUGDF/VQZGhOaz3LPTwokY0YVt2q
- pGiz21LcdiNBY4MiT6nSBgxMlIgNwgy1c83jb4ifoSsWEYTGIEKnSM3eXH3kn/5Bm9TD
- wukIED8YJ5b4agdau5YuKyT2c3Ue4hIM99+W6wLR+GmGNhVUAbrpDV+NfPQPwFsUQYdh
- gNqcDJ/18N8R6/0eaNU72x/n6AStzr6XdFkhtbuDY7H2r/gQdg97kyfOpVnxVvpQKyQx
- dc4wfcGxBI8JDUlmGNhTZ2/8CFnND7tOSe9/gnzPieHTxb75qSOymEnUhQNQGRLgZ4Aq
- l8kA==
-X-Gm-Message-State: APuU4Z9gX4sQXuDqzkSXzWItJpxGURRvHE47IDgiQtasm283HqrScKM5
- bksE6CvG4MBNUm4yozDOXayBNTxg6NK1+ZMlbAn09FGwCYhktxwwiK0LuxOmVA==
-X-Gm-Gg: AYBFou3hiSzjcM8wocW2xEbj6+MXrx5sgwfUR1QtqJT18nEj7XdPRDfD21kX3JGm78J
- Zt/BwbN2IqA0ZcjQ+/bMGxAfb1wvb6H7wMk9lOI6FkRj6v8jUaEz6DaeO3suZUAmewgEEs/ojUg
- rzhylD+C9uvCo0Lee2qPRpNBn1723JP6hmXeNKp5W4vo1eHr0pma+4zbtw98xYOwvP5etQ6b45u
- qdXpjTnBw3bTJwNS24pXjSYHQuNnhitvE1HCF723FM11No95tFYmmQY1csoJdPRbuZJ1mcDLs1P
- pJTbJSyhk7/05DthAfiskGrFWp4pKrzisupf+d2nWJX+CTIKyoEzKDtpkHeqZmijFYmrsORnVGT
- bvc7YSxwD9/QYy9Q9AiyLdIbm9RdoZaXSaKQ6/vRq+/BPBqCFnMQAYjDKTD48KLWWWoaBSnTi+j
- EncIPPb7Qn0wF5lYX2Zc+vNIvxDYz5166n6+qjgwhvyGgvXAU6wM3GN4jFgjBgWp0bugUrwawlX
- 2UOhh1NM2JrP8ig9EBtuUrBAAoPUBBj5anzXqJIg1taGUJbuRMlVOZcW8DBJK4/5NRRlqUeV16D
- UNKjErN+kYqahQ1efw+aGwmS4eBlJEorQbp59bxMdL28AFjwK7XLfII=
-X-Received: by 2002:a05:6000:2dc9:b0:48c:7f18:c85e with SMTP id
- ffacd0b85a97d-492778d2076mr1325704f8f.45.1793909543495; 
- Thu, 05 Nov 2026 12:12:23 -0800 (PST)
-Received: from localhost ([82.77.126.113]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48fecac1caesm11108369f8f.17.2026.11.05.12.12.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 12:12:22 -0800 (PST)
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Daniel Matyas <matyasdaniel006@gmail.com>, linux-staging@lists.linux.dev,
- Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Conor Dooley <conor@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Nam Cao <namcao@linutronix.de>, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
-Date: Thu,  5 Nov 2026 22:11:53 +0200
-Message-ID: <20261105201154.37294-2-matyasdaniel006@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11023085.outbound.protection.outlook.com [40.107.159.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C0E710E877
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 12:01:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AdK3o+pxNalZwAoxmkVnqECOccVHZ3ljqezswQVM7gTu4+hOBGIkcpKKLXqW3b27xukh8UeMQJJG1W8cnq0DsjyjK0A6v7EKNMn73lIntXCUzUbWmj9YqTyNLOJl+1X/aDD+57ElwEz4WqspQzzsM3yzvUa/G+PIdrzdsTh+p4iGDdfVrmWzTXTAPtzl287qL5Ud075K1+R75F4ubAVg+lMNPIGAowr/1KX1PIbF6U4Qc6Lz4+sp6d6Ts9qvfBpRFXRun2vHIlMJrGRsPvusV2w5OxdgstW6HXe7vHBT8RMQhwb/gLPM9dcu+GHgtoOoRBEUxv+OVv4q6vzRXyiQXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NkhsPTWded1eSTF0X+YMyw2xIxsyUU8cDM+BAy/OvQM=;
+ b=JSjLD8I2YC1GzvIZaEgY8kGuvgogrI9cznDC6tKR2Ste6CsWYd7F/ExB2ZoBe1LOmdKIPzQNFjyhM+Z27zGqxcozS64RHiaOLKZmwyUV2OiB+lkFDQb3S5mnxcliNmcvZVwYZh28VFvc4SYDktyt8uKE+RFWh7JB7z3jVtDpyAOw3tciIz3FUBV5WAzHJJwvA7ligaHaB2pzt5hkGQ8I2v1lUhHmz2yHx+DsvsR+FtkOYcTF9H9gMojumCk7UFRsd4IS2kN7u28w8bhweWqFv5ZglanZd7x2xozomMa2UarQNP3e/xTHruPvPDBxS5jSjis3HlV8DiQwdOqMpglDpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NkhsPTWded1eSTF0X+YMyw2xIxsyUU8cDM+BAy/OvQM=;
+ b=bDt8cX+PaRAb+lbAjTuVrvQoC0TxJXlPLsjA/l1gERtw3IAW3G08jIw7SfSV9e/e41twuCdX4DOjjhun2RhwKwsuF5fHBED4IYKpdt+yWCHRmcnoDtk1+fBWylGDLLHpF5MU/NsHA0Ih96JbiX43+D4JldDS02LxInUJ85RTAk7j5MIrwMd0DHHrbh7PjFQcXKsCJOzQsD11oEIfvU4ttpHgbWAQP10nIPQScIyWgDjAr6ZfqjOKWJJY5uXc1+2s/hAoxRMaBxFE/CrZBTglIpoyUbibjqclb1hCvJe8qa+KL6KVcyIJS+CHgdrs4QLc99I1R1bpGpZMXq5oBaP/BQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from AS2PR08MB9075.eurprd08.prod.outlook.com (2603:10a6:20b:5ff::9)
+ by AS2PR08MB9871.eurprd08.prod.outlook.com (2603:10a6:20b:594::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 4 Nov
+ 2026 12:01:25 +0000
+Received: from AS2PR08MB9075.eurprd08.prod.outlook.com
+ ([fe80::3f57:9ced:7a37:1bd8]) by AS2PR08MB9075.eurprd08.prod.outlook.com
+ ([fe80::3f57:9ced:7a37:1bd8%4]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 12:01:25 +0000
+Message-ID: <7e5a6819-9e29-4187-96ed-f716befc2bc9@virtuozzo.com>
+Date: Wed, 4 Nov 2026 13:01:23 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] selftests/mm: test fork of PMD-mapped shmem THPs
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+ <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-4-66f00b7a564c@virtuozzo.com>
+ <auC4eUEN52PJF1bM@thinkstation>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <auC4eUEN52PJF1bM@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P251CA0023.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d3::20) To AS2PR08MB9075.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5ff::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR08MB9075:EE_|AS2PR08MB9871:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02b321d7-78bb-4d9b-b60d-08df3a6b59d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|18002099003|22082099003|261102123227099003|4143699003|10067099003|261021121427099003|261022075727099003|56012099006|261022105027099003|261026140227099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: 9X6/ebo1Cyv1x5w6+PrF1KkjdYac1aMASsA6MRFeRzpRyZMBXQUmXM93wPAznWSlqePxXhqnTJ74yIiSEEgvBFbcC+a2uJGTSwYFNCwTH7J0PjVhW4nW5fwiQRyV6wn/q1EpGmTXzyORXWtcjq0XiEaLMa0xDJJdzmZvwuOaShTh5L1hXEETyF3eAQr2teeklkDmxY5CggCE6MV+onL+EBvTPE+HHwRskeisolk3gL/MjkYd/7aOrWdtGhgONHqLljcz9f8LURysAFlWclBSlC/ZJV1PaQRYlvypgQYQ+LR5zaw4qQhWVAvtfqIzwM2bgkB8rfmppe5t3JvoF5l4KwMpH2a/7psK+jHI3mNWGrrvHMMXfrQmyID+HjwG8kvzF84MncP6mKgfM5ahSUdBZn74aAEavukD/QvWzf2Fe2xvzOR3O3vqyGVIJj6qHn5HzlNm8OFsNtxxKkT+O1RZNVgjpNN5IpQaHwgGHfTbB7m2TWifCyhpe3rve10z9JmO15tN5YyspKVdx8zk9DPn8lgtSFr1TCV7RYevmQ/+DAfONqmvT8z4eB0ch5439v4mnyzIfrLgH8Km8tvJaCc/BTnx35w75QeC2ppSTCCguurvkpvjCTsDJ9Vr5gz5S5cGgPqqfB4nuXT5HccGH6BrecBpbxNWxwujpkqurlYdoeQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS2PR08MB9075.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(261102123227099003)(4143699003)(10067099003)(261021121427099003)(261022075727099003)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2FzeEEyb0hnYUc3TExoMUJTV0dEdDRISllpY1NLNzc0b0dOUFRrSVp1TXVP?=
+ =?utf-8?B?d1J3LzBadjZ2OHFnNFYrMzlteVNJd01LbmNKMVJ5eENhMXN4VXJHc3VBZE9p?=
+ =?utf-8?B?V0pjK0ZrWjJPZmVhWEVtN2luT21FMEJnSEk4T1RCUmtDVXZwMUpVWTd6a3kw?=
+ =?utf-8?B?NGl1aDVzT2lGOTN4cjNMQnJ5Q2o1ajV1b3NUVmVhaHBjckFGN012ZXlYRmVt?=
+ =?utf-8?B?cVZVTXFLUU8vSW1MNDF5bVJtSy9CVnU0VHgyM3o1Z1V5ZWEzWWMwNGtJUXNa?=
+ =?utf-8?B?YjNndE9QeWl5SG9oUmV2WjRTUzlMaDBCSjQzSVdVZThGWEt2Rm1pQXZjTDJV?=
+ =?utf-8?B?VGJ0ZzhRdjNNM29yYzJzdS9WcEVXL3JjYkZlK21EUnlRdHJTdDBRamoyUzM5?=
+ =?utf-8?B?ZE4wYnQ0Rm1EdGRjMUdiNWJkM0NCZUVRMXJNOTlVdC84ZHZqckl1ZlhYWGxB?=
+ =?utf-8?B?TllvVXhDV3Rubi8ycUdrTkJmejI0WVBFSXlrSExXeTNac3VQZlVWNjZUTXYv?=
+ =?utf-8?B?WHBSMDF4cEQyeUtKNWtKNEp2UGhsWlZIR2RhdTBHbVlCNUdjZmt6Mk9KcEVi?=
+ =?utf-8?B?SGpYY252K1ZNajZVRllqazhZNUFuakNjOVdFSXk1UElncmtCekZxV0xER1pH?=
+ =?utf-8?B?cXF3aGtvOVk4WWF5SHRUSFhWVTBDdnpDZU5NaXBkNnlKYmZ0bEpJelhkaVRk?=
+ =?utf-8?B?MW5JcStsNnkwaHVVYWdidlpSc1FsNEg0dmx4NkNsYlRnMzlmSDV1OCtJbHlp?=
+ =?utf-8?B?dWtMOEc2ak85aWJhOW8vdHdFMldwQXVleUhPalY4Ukpad0l2a3AxclM2RTdi?=
+ =?utf-8?B?L2tiM2pYdTNhYTZDcmlwN1c4TTlKNkNwQXNCWDZQYlFmcWx1akIzTjNIUkhm?=
+ =?utf-8?B?UTBKbzJNR1UxZnNZbGZ6KzRJRDdXK25UOEEzbWZkZjArTVEzS2x3ZzdEMzZL?=
+ =?utf-8?B?WHBUQjJ0UWQ1ZnZwbEI3VEpjZlEvblhHc1ozZDdPamMrdUVITno1d3VzcFBn?=
+ =?utf-8?B?bzQ4NnJZTkpXZWVyQlRISjIyZmlEZytZSmNSeVpzSTRnelRUK0dZRGRzYmlO?=
+ =?utf-8?B?RlNDVWNIMzNmVTQrWS9kRnUveCszcWFCeE1BV0VTZ0RWU0ZOVHFIdjdzb3h1?=
+ =?utf-8?B?U05PRHRlNWNOZVNXUVFJRUxud1FkaDV6ZlNMUTEvM05pWDRPcTNoeGVTSGI0?=
+ =?utf-8?B?cDhwT3RRVnk2WnJvekdDTkJJZ2RQOUJ5NVBFZzF6U1dUU2NnWFBqVDFJcU9G?=
+ =?utf-8?B?RkZuVlVVci90eUx0a2lGd2FmNldzQUtMdm50ZHBEQ3FIYkMwUlNQaUxXUEVT?=
+ =?utf-8?B?LzdwMVRNOHFVUHhhMWJlZHg1RGY2Zmo1TExydlljM2lPZGZ1YlBqMEVmNC9S?=
+ =?utf-8?B?WThObDBKMXVobk1YemQ2c2RCbGJOMDBwWXVXcGpDYmt3VEtFZG5WNGtQbVVp?=
+ =?utf-8?B?cVJIU1dTaWprMG1aRzZtMDFjSXAxM3ZIb0trOU12OW1wRXpxNThYV2J1d3VI?=
+ =?utf-8?B?NTVSVWNRSHh0Umx2QWREVHBCVElIdnNCWCtKUVNMQzBQSHNxZGRZSjhNY1oz?=
+ =?utf-8?B?eGN3NGJCTnVEdVlZa1ZETlhCb3VBNm9Bc3FuVzc0U29sMElRZTNaR0FGbith?=
+ =?utf-8?B?SU1hZ2svZy9TK0tJTDVmWFdwMXZaSmRYaUdOLzhaL0pGTjVlOXlBdFNzZDBT?=
+ =?utf-8?B?cE5GeFlHd2R1VllEWUZQSmxxTnppdWhkTHM0MW14M1Z4djlOQ3JxNnpRaUhP?=
+ =?utf-8?B?bVpOQmNYNHRLL2RMcWo4T2ZZYlQrMFRDTUhnaURJKy9ZUjlDdDhpang3VkZp?=
+ =?utf-8?B?SW55L3J4STlCWFZ0NEZSc0NEdTcwZ2dYOHNoM3BSN05MQ2lDNHg2cmhzY0RU?=
+ =?utf-8?B?L0h2NjRqYzRCRE45bkhHTXdhTWtLTmhpeWJQdkdFbUd0Qkh3d1RaQ1VkNlpP?=
+ =?utf-8?B?aGIxcnNFd0tWTytuWDYyeFR3VFJFbzdiK0lTaGM1T2ttQlByUjdCS2hvVEYv?=
+ =?utf-8?B?V0sxTDJ5T3BjRnFvTmJvRndGWHM4RVFWSjFXd2NRT0M5RFpxYThTQXhKZm5M?=
+ =?utf-8?B?STFTc09hUHRabHMvRjgxc2VPdWpiTlkvZEY0VFI0SHVQcERpTUc5OHZIMkJB?=
+ =?utf-8?B?UjZuSEZ1SXROa0MxM2hoTzVsSzk2Q3czcXd6OXUySGNRMTd5cGJLN3ZuU2JM?=
+ =?utf-8?B?N0R1a3hHTTFXSkd3cHBaZGRkS0dEQndVcjB5c3FDeFFTSUV6elhxVnZwK0Qy?=
+ =?utf-8?B?clFKajl5YUdqQmo4eW02NzZMOVRaZU5QQS8wbmp1L3lzSktnRjVMeUdSWnFv?=
+ =?utf-8?B?bERqVjlxbHBhaU45TStTelh6dlJzckc4SnhvZGlxMFhPdXUyd3Mwdz09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02b321d7-78bb-4d9b-b60d-08df3a6b59d5
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9075.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:01:25.4049 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cjJN4N2vaHqRMIuNpuGwpTBNC3tVp1MI2lliGmq0U09d4/MtAoUx64gNYaCqRlfun+cOuofKxXtji08vMaCIrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9871
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,51 +146,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On 10/27/26 15:51, Kiryl Shutsemau wrote:
+> ShmemPmdMapped is system-wide. A drop of 'own' or more from another
+> process between the two reads fails the test instead of being retried
+> as CHANGED.
 
-I'm looking at the fbtft TODO (convert drivers to DRM) and want to check
-whether fb_ili9341 can be dropped. Findings against v7.4-rc1:
+Right. I'll send a new version where only a drop of exactly 'own'
+fails: that is the parent's share the bug takes off the counter when
+the child exits. Any other change will be retried.
 
-1. fb_ili9341's init sequence is the MI0283QT-9A one. Comparing register
-   writes with drivers/gpu/drm/tiny/mi0283qt.c, the values are identical,
-   including the default gamma tables. Differences I found:
-   - mi0283qt writes EN3GAM (0xF2) = 0x08; the fbtft write is commented out.
-   - mi0283qt always sets MADCTL BGR; fbtft makes it configurable (bgr=).
-   - fbtft rotate=270 also sets ML; mi0283qt does not.
-   - Rotation maps as DRM rotation = fbtft rotate - 90 (mod 360).
-   - fbtft also offers runtime gamma adjustment.
+> The parent's THPs can also lose their PMDs during the test: reclaim can
+> swap one out, and NUMA balancing can migrate one, which leaves the
+> counter low while the migration entry is in place. That gives
+> FAIL_COUNTER, or FAIL_PARENT from the exact count in check_huge_shmem().
 
-2. fb_ili9341 registers the compatible "ilitek,ili9341", which is also the
-   fallback in the dt-schema binding, so it can match nodes that the DRM
-   drivers claim via their specific compatibles.
+Right as well. In the new version the parent will check its own PMDs
+before it looks at the counter, and a missing one will mean a retry,
+not a failure. The same will go for a child that finds no PMDs because
+the parent has lost them. Only wrong data in the parent will stay
+FAIL_PARENT.
 
-3. In-tree users: no defconfig enables FB_TFT. canaan_kd233 (62363a8e2f56, Feb 2021)
-   has a status = "disabled" panel node compatible with "canaan,kd233-tft",
-   "ilitek,ili9341". It predates the first DRM driver accepting ilitek,ili9341
-   (5a04227326b0, Jul 2021), and none of the DRM drivers match canaan,kd233-tft.
-   fbtft requests "dc" and "reset" GPIOs, which fits that node. I haven't tried
-   binding it. I suppose that, if the board is used, then it is built against the
-   fbtft driver.
+Each retry will start over with a fresh file and mapping, since the old
+THPs may not come back as PMDs. The test will make three attempts. If
+all three are disturbed, it will skip and say which way: the counter
+kept changing, or the parent kept losing its PMDs.
 
-4. fb_ili9341 has had only style/mechanical changes in recent years.
+Thanks for the review!
 
-Questions:
- a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
-    modules to panel-mipi-dbi? The KD233 node would then have no driver.
- b) Or should KD233 panel support go into a DRM driver first? I don't have
-    its init sequence or physical size, or the board...
- c) Is removal of all of fbtft already planned?
- d) Several other fbtft drivers have drm counterparts. Should I inspect those
- to see if removal is needed?
-
-I have not tested on hardware.
-
-Thanks,
-Daniel M
+--
+Konstantin Khorenko
