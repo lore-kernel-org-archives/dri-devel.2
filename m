@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE78B607524D
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A43606A33E
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:21:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Da9qhDAh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NV/pCHTx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E76510FE20;
-	Wed,  4 Nov 2026 19:21:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E4310FE17
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B93D10FE14;
+	Wed,  4 Nov 2026 19:21:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69DEE10FE14
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:21:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 76713404C4;
- Wed,  4 Nov 2026 19:21:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB7D1F000C1;
- Wed,  4 Nov 2026 19:21:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D98760609;
+ Wed,  4 Nov 2026 19:21:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDE71F0093A;
+ Wed,  4 Nov 2026 19:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793820080;
- bh=p9+kMzHwjVYuWJQ2+obB/IGMwn7xV7y09JcSQ7GHv6w=;
+ s=k20260515; t=1793820095;
+ bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Da9qhDAhe1gMlC4H3sEx9s8bGAWOfqOAYoq5Ueb9q8Ynl2389Maztmcp2QYHP5RUa
- OZi38NVuKARinV0XCKJY4csd2ZWdhTyFIQtFYAj0HTzWZSV2i1vKEm7P7/Pts5FZCn
- QcJTzEeOU9QU1jpuc0CN9kj/jSPx/znq777Ooa0/kAzqFdLCFoQLN31MunMZ6V42ul
- zYUXtsChACfm6Z+hTrPGrAKTMgQ5FfXYR+IE5qTYw8gsFIqpDD7UrTt1lKIhy24azZ
- jz8zin7Ffk74C14OK7JkiGN0Jj9FrbP13tt/L09oeijZ2cBW9SHXjgz22CRX5WoLnO
- SiIObxm9KtSIA==
+ b=NV/pCHTxChzVH1ioWmq+QeUT+SBXucwSnRPJOdBi/Q2y75DGHw15YBMqYjqgrtt2O
+ VyFPPs8v7zjoqFDFOJ5oAl9YXifHpXNyabEPReJZQwa8XXH4iQGv2Qty9h/jandirD
+ aUMSk23okxfo9KtkbC4/nzn1Iw09lddant5cO9hakE0csEjqm8lPvF90MPEOYpmUAd
+ IMkDVpUwfqgAQLlAK9nXdyRgIdGxWTHDKSyuqOT48xWUvA/iAJk+qPbBXnzRbF0y+d
+ wn/gLZpI4BHKSDGznFL2I2ZF9zF+c1mxFQKqQBN2chjmpu2miV52eKF6iZL2Z2lRgn
+ AL7Cg1xDOYz2Q==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,21 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH RESEND v2 21/51] powerpc/rtasd: zero the error log buffer
-Date: Wed,  4 Nov 2026 20:21:06 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-21-021c84d852e0@kernel.org>
+Subject: [PATCH RESEND v2 22/51] ALSA: info: don't write past the end of a
+ data entry
+Date: Wed,  4 Nov 2026 20:21:20 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-22-021c84d852e0@kernel.org>
 In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1050; i=brauner@kernel.org;
- h=from:subject:message-id; bh=mkSbMC6ZDV5f4P2v+qDezcMlza9tkw/MXVPMWZSeje8=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnx60+3VpD19ZT+7SySmfPjO+TBTt49lvc0+93eF3
- 4WPq6Z96ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjIlBCGv0LG0fo2q8pr72Sl
- RxoY7Psg/0D2YuivaZvXryurm/TnzyVGhuV3JU9sXMk96YvRxJhvUz9Ozgtes07tY8uDXTNaVxx
- jf8kGAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1329; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=/wIh+WZXKaFyyFYwMjXKmLvFs42DoCHjOzS3J0v96D0=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bny2zMufh/VIknXNykPasit38Tx6t1dcVkb8Us6vt
+ wpbDDY/7ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI8+UM/3Qne19pyPzkZ7uK
+ 4+ps9RZDLa75iTtP5zvl3PvzK0/j/yuGf5bm066vnniBYWL95HgLE52AGfqMMk4eWldmv104x1K
+ Fmw8A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -97,31 +98,36 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-rtas_log_read() hands out a whole slot of the error log but
-pSeries_log_error() only fills in the sequence number and the event,
-which is usually a lot shorter. The rest of the slot is whatever
-vmalloc() left there. Use vzalloc().
+snd_info_entry_write() clamps the count to what is left of the entry
+by computing entry->size - pos as a size_t. For a position past the end
+that wraps and the write goes to the driver unclamped, for opl4 into
+sample memory outside of what the entry covers. At the end of the entry
+the driver gets a count of 0 and vmalloc(0) warns. Before the clamp
+moved into the common code the driver ignored such writes. Fail them
+with -ENOSPC instead, like a block device does at the end of the
+device. Returning 0 would make writers that use stdio retry forever.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/powerpc/kernel/rtasd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/core/info.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
-index fd40864bdb70..dd0df5e164a3 100644
---- a/arch/powerpc/kernel/rtasd.c
-+++ b/arch/powerpc/kernel/rtasd.c
-@@ -523,7 +523,7 @@ static int __init rtas_event_scan_init(void)
- 	rtas_error_log_max = rtas_get_error_log_max();
- 	rtas_error_log_buffer_max = rtas_error_log_max + sizeof(int);
- 
--	rtas_log_buf = vmalloc(array_size(LOG_NUMBER,
-+	rtas_log_buf = vzalloc(array_size(LOG_NUMBER,
- 					  rtas_error_log_buffer_max));
- 	if (!rtas_log_buf) {
- 		printk(KERN_ERR "rtasd: no memory\n");
+diff --git a/sound/core/info.c b/sound/core/info.c
+index 023b4736aa6d..f608d335b6c9 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
+ 	pos = *offset;
+ 	if (!valid_pos(pos, count))
+ 		return -EIO;
++	if (pos >= entry->size)
++		return count ? -ENOSPC : 0;
+ 	if (count > 0) {
+ 		size_t maxsize = entry->size - pos;
+ 		count = min(count, maxsize);
 
 -- 
 2.53.0
