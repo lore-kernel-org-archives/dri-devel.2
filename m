@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6824606C59D
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5335609A804
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 19:55:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrdQsd6G
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6D8wYD2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C64010FEAF;
-	Wed,  4 Nov 2026 19:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB8D10FEB0;
+	Wed,  4 Nov 2026 19:55:25 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6860D10FEAF
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:55:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F203E10FEB0
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 19:55:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 304D741B29;
- Wed,  4 Nov 2026 19:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BDF51F00A16;
- Wed,  4 Nov 2026 19:54:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D8944407FE;
+ Wed,  4 Nov 2026 19:55:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33681F0093A;
+ Wed,  4 Nov 2026 19:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793822104;
- bh=R1VqjUGL5+J0t5hj5seZeRe1Maiv3S9hp7Jj5OG0/0s=;
+ s=k20260515; t=1793822118;
+ bh=5GRAUZH2kX1HsIdPeFBozE83iEr60/LUxZUEqoYcqBA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=JrdQsd6GTay34FYuGXCa8EK220wd8dcVKmmCUL2H6AN8qybgYu3VWX8QWdUPAcmTQ
- k7Hh4kIxo+HBWYfqIhyCM4t5TutFpDBfRkmXCuGDnrCDs2kRigWisxosjbx2JTilsl
- pRLqKsHm9QtEr1md47IXW0nBzRwFYpbJ+AsEXB9Aw5/BASW5ehNYPMEN3WtGHRfiwA
- OzbZlgAyMFwrKZD+fvajfs9VLVkX7k/jZfqjP/IWM7eHh8GU1TOBliTxs7YYEjoU7C
- tTvFESzDRyM4Rii2YLzF38phnQomDRBM6gq5STKW4qtXTlnb0Rqa4901faLCQGhySy
- mMgweD+fFjsdQ==
+ b=K6D8wYD2MHxLc1A6I8beamV0pObJvicvKCtgWawx7vbSi7zLo3j2ctn3RCT02IH2B
+ cs/tE+wlgkfJiw8pdoz1fsAs6shdk6/KKU+Vqvvu6Kw7dZYVL6fYJJWHQ8SIn7iNdF
+ TnUIjUB+uZ3A9X1DPGPnTdZdNrZ1/73uYR+WVppUld9IugsG6rBtfC8gP3fTmrRMj9
+ qYaYgJLjjARtox7+0nxjwIaOsw0/fuBmnCeO6C0HS1fLvltm4b8P3C8jv1U+rPQ0ON
+ GxEtqpsz5ApwsZslZD+5hRjMG1muJ5LkH0aAOA6g+jUkHI3osPUl5ugHlGAfBvXM5P
+ CPyCC7CRsX/ag==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -60,22 +60,22 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  linux-debuggers@vger.kernel.org,
  "Christian Brauner (Amutable)" <brauner@kernel.org>,
  Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 21/30] kallsyms: let procfs own the seq_file of
- /proc/kallsyms
-Date: Wed,  4 Nov 2026 20:54:49 +0100
-Message-ID: <20261104-work-procfs-fs-v2-21-319e0f9a8aae@kernel.org>
+Subject: [PATCH RESEND v2 22/30] module: procfs: let procfs own the seq_file
+ of /proc/modules
+Date: Wed,  4 Nov 2026 20:55:04 +0100
+Message-ID: <20261104-work-procfs-fs-v2-22-319e0f9a8aae@kernel.org>
 In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=brauner@kernel.org;
- h=from:subject:message-id; bh=X1hXUo+P6dAEkQI4HVxBka/iuP3neD063cymPGxvXEU=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97nH59Orc+7n3eLifScgo8Jj8qyzNWnT19Mol2qc4a
- 58vWjHboqOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiPWcZ/nCKtL2fd32F2F95
- vx9SGZf0t36r5ma6o/N8y3elH9e2NU1l+F8fo55wKcT3fXtS7NoKxUWhugwWHOV/0+b/kah+n3N
- uBjcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1665; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=flwsY9W3AwD1el1fvMS4MRjAzw7empBDyCTwiYsv/MA=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGrrjEahTK6pLNLSh47T+LUN95C9eqt3XPPOGWBkVwXBxoDAb
+ Ih1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmrrjEYACgkQkcYbwGV43KJwLQD9FSDg
+ Bzu78LkPNN8YTsitZGfMvsvgXjVHC0ovLkYyc60BAKlpMERm5dXxCOBigxteDNBXTI9lWTa/zws
+ AB9/l+qwF
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
@@ -98,46 +98,56 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Declare the seq_operations and the size of the iterator and let procfs
-open and free the seq_file. ->proc_open() only initializes the iterator
-now.
+Declare the seq_operations and let procfs open and free the seq_file.
+->proc_open() only decides whether to hide the addresses now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/kallsyms.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ kernel/module/procfs.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index aec2f06858af..2d309fcee730 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -888,10 +888,9 @@ static int kallsyms_open(struct inode *inode, struct file *file)
- 	 * s_start from where we left off, so we avoid doing
- 	 * using get_symbol_offset for every symbol.
- 	 */
--	struct kallsym_iter *iter;
--	iter = __seq_open_private(file, &kallsyms_op, sizeof(*iter));
--	if (!iter)
--		return -ENOMEM;
-+	struct seq_file *m = file->private_data;
-+	struct kallsym_iter *iter = m->private;
-+
- 	reset_iter(iter, 0);
- 
- 	/*
-@@ -923,10 +922,9 @@ const char *kdb_walk_kallsyms(loff_t *pos)
- #endif	/* CONFIG_KGDB_KDB */
- 
- static const struct proc_ops kallsyms_proc_ops = {
-+	.proc_seq_ops	= &kallsyms_op,
-+	.proc_state_size = sizeof(struct kallsym_iter),
- 	.proc_open	= kallsyms_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= seq_release_private,
+diff --git a/kernel/module/procfs.c b/kernel/module/procfs.c
+index 90712aa9dd13..a759bd916df7 100644
+--- a/kernel/module/procfs.c
++++ b/kernel/module/procfs.c
+@@ -117,31 +117,24 @@ static const struct seq_operations modules_op = {
  };
  
- static int __init kallsyms_init(void)
+ /*
+- * This also sets the "private" pointer to non-NULL if the
+- * kernel pointers should be hidden (so you can just test
++ * procfs opens the seq_file. This sets the "private" pointer to non-NULL
++ * if the kernel pointers should be hidden (so you can just test
+  * "m->private" to see if you should keep the values private).
+  *
+  * We use the same logic as for /proc/kallsyms.
+  */
+ static int modules_open(struct inode *inode, struct file *file)
+ {
+-	int err = seq_open(file, &modules_op);
++	struct seq_file *m = file->private_data;
+ 
+-	if (!err) {
+-		struct seq_file *m = file->private_data;
+-
+-		m->private = kallsyms_show_value(file->f_cred) ? NULL : (void *)8ul;
+-	}
+-
+-	return err;
++	m->private = kallsyms_show_value(file->f_cred) ? NULL : (void *)8ul;
++	return 0;
+ }
+ 
+ static const struct proc_ops modules_proc_ops = {
+ 	.proc_flags	= PROC_ENTRY_PERMANENT,
++	.proc_seq_ops	= &modules_op,
+ 	.proc_open	= modules_open,
+-	.proc_read	= seq_read,
+-	.proc_lseek	= seq_lseek,
+-	.proc_release	= seq_release,
+ };
+ 
+ static int __init proc_modules_init(void)
 
 -- 
 2.53.0
