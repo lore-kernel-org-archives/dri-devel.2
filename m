@@ -2,104 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DC7606A328
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:18:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D8A606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ue0Iyl6s
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dVJR0BOy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB3DD112C31;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB01112C2D;
 	Fri,  6 Nov 2026 09:18:42 +0000 (UTC)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE1410F055
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 09:00:22 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-8b315dd057bso1272487b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 01:00:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793782821; cv=none;
- d=google.com; s=arc-20260327;
- b=fS+jgQV/2NQYoRZD1ItGqfJWom4oWyM9SZTPgvRlDH4/gkp4otABEpQRpAlshzD5O5
- GW2d/qnGzIRBE3P8jej/sBe7n/4f82JO7uYOAaGXLBME6vDsBI2IsvRysG/YdLEGIgNq
- DK3DSX3o1gSZpL54oNdLsPLCWq1yqmZX414ui+ZUFCPenoI+dcIMjxFpjO8esz9Iv9+c
- UZSdG/yofgTnetQ5RIVHPOn+Ywi3g/y+s/I3Aj9HzGFcCpLLlXmoYfvjLSvdMYYtMnPb
- EK2WyEl7S5clf/UJu1B9Svb9TD0+5mZqZzqbM3vkl09l+pjWGV8gwb4mQtJ4H6oj/PPA
- XxhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
- fh=wQyt+tH7F3iEALlC6Wn74YNWutMU8Pf9jz7/05aJbt8=;
- b=p2IhQwLDxRExfOUsDLNikTY1xUYMBOHLfep2nkAkNYQtyw2T3opYGktpr8t/d/ufxE
- gP6mYA8N6Vqd2/4c/IaXgIlZ6u4hEH2bn7tffFOJKI1E9iZBrvsdhQNPZ2ruDjYKkd0z
- CMK44JypdHVePB86naGXRitHwhD666v2JQPv+uw/3Knv8t00htuBbIw3jOStSKX1FDOS
- ddUJoj8GoHS5LX7RmvRZF8Sm+y/DvAI4+OT8AlZ+itiJOgdfIwC9ELnoRrJKbORerwii
- yZSj4Reh0GleKK8tOG01VtrJzfSdKy8QEuf7F5fnW6duOZ0/t+qsQk8Oqf/um3iiKmKq
- UonA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A410510E5C6
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:05:43 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4a5087a5348so10142405e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 15:05:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793782821; x=1794387621; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
- b=ue0Iyl6sYIrYBoyQZx1C/1fR9H7cbpDdBFXCheHPpwGSk8Bjd8Z6Vd/gFS6bIIqJSx
- dJauAqQAMpGfdLPRlz799X7Pr7v4XvZliEcjgLuRLAv+qQ61j0Ddx1Dg64xe0n8NW1bw
- Xm71+T1UEUPT0dkMNXJzNd3vtvOgPT/p2bdawIbGSPQUxg9ToN802XRLXv7au2RKI/UH
- SzZHnUaFobQ+Ouy/uyW4UMPicVzW/9Kk69H4dlhYFA7zpF9bCvpCpJXpGAyuoGQTCu47
- mK+6tCpbSOh+V9a+4wkjCeQ1lcZhIamCKWkf3awTUxuSLbyWsCGmgAGKxNYVk7+ueVcQ
- dT+A==
+ d=gmail.com; s=20260707; t=1793833542; x=1794438342; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=MOpStKtlaMBvTw82l7hk12nLoKUsFYT90GYDj+kAndo=;
+ b=dVJR0BOyQiPXJWsZBlDl1H/UcGwWbF2MEWPNt29ePzW5CLr2TTuVNn9pb7meZucHmM
+ WQvFNXXNTxf1TNiyCFWWJjMmrlfk0JEDSsnHys5pTInZAtDIRHGaeNvL5qH6CpiGUaoL
+ fXrJI8iWMf40FzNe7hLoFBoJq1exY02+O2/VZzO1xkra/A/jTYPzyRwKpYb73s9EvTef
+ RIy/tQKmpEtVQV/6dKLfVSaPEbCc0aPRfBxvqS+aDU1u9NUGM3heOJIM5RL45vDZQ+n3
+ bumpLAe6lwKuEUpa+Zdqk0NXHJwDjnelhgq9/oxiH5S2T/+4Ylf+N0xk6zxykEXBT0e1
+ 0bLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793782821; x=1794387621;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
- b=l6U31UCl0iepUp85MqYreiEFt7J0cFJ6jKsUPFmFra4KMJL1zPYJ77KZCXquc+4PEn
- GPZsIWcM2xZ8wmIXDwRN3gM9apgQyIyVo8faFyk4Inha+8GSMspG8roWUyV6PQfOnngA
- AHSGU2/4vwlCCuCdVNFB68qJvN+T56tGnfLnuu3EMqwe3iXyyXZ94RdXVr0m5UG+pe5C
- A9FE9lwB5MVtqvF5YYeSAkDrXR75UxI16GTgsMaXNRd6qqxMYzA7ysuCTy/ESfaRR7LA
- V9LX+krE35nYlpor+J6vYuHR8QlYbOUoObJzg+VunJWI18fndc1MmbD688uOvZf4s4DE
- tfKg==
+ d=1e100.net; s=20260707; t=1793833542; x=1794438342;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MOpStKtlaMBvTw82l7hk12nLoKUsFYT90GYDj+kAndo=;
+ b=QtSiAaYbbWzGAnE+Xb7OSk2IV+6kjjUGCqWX3U586/y3hPayn5MTzGqqYJ6EDiJgZx
+ yIH16dVh8cy1x4ZBxF3qO6pjWfNEQ+aho5N6lbH5/19o9aYMve+i3E6M0b0AQv27YXJ0
+ f/F4rBAtvtem2AUYomr8LmxP2/tYDe0yW+zOPVktQVn2ZlmYahpOS91ihU4Gx57hM5mD
+ TfDl9hnPjt0L+WQ9awonb4WKn4ce/ewlkRNj5sHhE6EiFOhdeaTVkNzDQmtGh16uihwj
+ 0/wnhfw+8oSV7XC0dv35xbIXFJd/YNYGmPxvOHG14MzDogvNCc131XBXM+/ooz6c6gGl
+ AVKA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxBa1YoKl94++VsSfCvnI7/ajB+Lk80hqxBLJGE0qJB0NPu3TeAgPbVqr5ZnKVTdpajis5PM7HkkrY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z94dtHpnLBY8/28K88pLxEEiGo6z59dXK7eOZprI+gqYRVufQNJ
- 4+FFGzdnhvEEO37w829TxgRlrlJE/jXu/jNgpjAFQbZQw13v9G0fRWN4h+SmOUmyBmgayIP/tTN
- APzPQIKEf+Y5IijmHjbEhNKYNkUyYnKc=
-X-Gm-Gg: AYBFou1/Kv0FB7EJO0KZO8FDCwd/RQg5F57ok1CYSag/IWbGJw7TVehPaTMMSlD9hBv
- FAQx0kKl6unUQ4zE+7niHdCpwZC0/tx8CbC1m41LYYpglCLfEqGi53p4PWMIO13/soqPFtWMTyP
- Rm1pDU0bK3ak+GqXquxpun+zmjPrneYBfDmjk6qEIExN888du45YyhiL9AER6Zn1QOiNM1WouYO
- O039FJNq8LaYifixWx8l3Q1N35HI6nY3ksRJ8yfa9KZY38K8ZhNrbKs73nMQciHRyJAlSAV39K3
- +lwRF+ks+g5hBwysdLxg3AGGuikkZtSN9PrByq8fcL3ymauAMOb+OsyIXSCSorBUErzFjcwlQJW
- +upP8xq73QifgaO7kXr0CnoDwkZUKpkRPHr22NdgAeV/IiVp190/p8ObxmRIatbN18wYj
-X-Received: by 2002:a05:690c:f05:b0:8a1:781f:4aa0 with SMTP id
- 00721157ae682-8b2b67f1889mr109610237b3.56.1793782820885; Wed, 04 Nov 2026
- 01:00:20 -0800 (PST)
+ AKwUvBw8ytlLVqA/MXHS/aazPcEVHNrM6iGTrmIrjuWo6fFdO00AFD7QUYgFmMsqCLGLlXAlqJaSztuvuEw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+NWlzG8PmVQhOc3p/ouyTQmx0IhWwP0I2u5rpS5JtPLbmf2K92
+ F6lwAHXJ6g3ZbfNcYBc/5ckfItKDkMDWasUY5hhqQSCqD4Fx/xIN6HZG
+X-Gm-Gg: AYBFou0JEfvX8HGeZLXTjdT04v+6xSbf3seXYh/nKNbo7H9LPnHC1CNUqgT3yaLJkCj
+ v9YLbd59ra3DG04gVR6sn4xq9Mh0rct/Mw0gB0U+zPNh4VBzXHuevq2/D2l+2hIHPQpax5953lf
+ KrOuGXO8cE9olyR4ulYHWuGR/SAM7HdPO27LIqnkfCseUPAMwhM6oLReq5qBDiqMOhDyUffWyS1
+ Vu/WlM36exSWZJ5pUrLz+xKyeaRD9ujvcIkn2x/qifi3gt7ywh2vsJdGYgRPMB310QgfcNkEMF1
+ tLw2SNf27Qv0fhjhtMOtyYlMEUWSpMKawdhLyhq4LYXH8L6H4737eDDVkkf0hSoM7ZUxx6Iz+Ht
+ gUdUG0mECdmbgM7bmiY+Tz1LCsfrx+s5pMli4OxQPNWEK+WFMoxkGmJiqOzdArSeWrSpgenYAjT
+ s0wFTnQCC1c+UsBs8AL47fgwSM3GUOl9kbqkeW0takcZjTjrqCPAzCA1gfjWloPttK9CkUMNhGn
+ v3bzWqit3prbukVP03UxcJc/BAOkmnEt2EhkuewKLqmgWOpkJaiEqELU0CjUtW1SC6AcH6jT0la
+ jDzAFrycRZfhLU/F7nhC0JI=
+X-Received: by 2002:a05:600c:19d1:b0:4a2:677:ad8e with SMTP id
+ 5b1f17b1804b1-4ac1970b9f7mr379985715e9.34.1793833541916; 
+ Wed, 04 Nov 2026 15:05:41 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48fed5538basm5998977f8f.44.2026.11.04.15.05.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Nov 2026 15:05:40 -0800 (PST)
+Message-ID: <853a133d-f332-47dc-b7f3-eb57f34d9344@gmail.com>
+Date: Thu, 5 Nov 2026 00:05:38 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
- <20261102130145.GU158991@black.igk.intel.com>
-In-Reply-To: <20261102130145.GU158991@black.igk.intel.com>
-From: Diego C N <diego.sure@gmail.com>
-Date: Wed, 4 Nov 2026 10:00:08 +0100
-X-Gm-Features: AclHuK-KTLDrGi9C8ZMZKwzhArkycX_ZxWgS8iSAY08wiND5eYgccYF5_KZeB0A
-Message-ID: <CACPnnOZHhdwOSDhsnG22SyPD1JsrcgM4Y26QYORd=xoUzhXuVw@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
- not advertise it
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org, 
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Mika Westerberg <westeri@kernel.org>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/4] mm/huge_memory: copy file THPs at fork like
+ copy_present_ptes() does
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+ <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-2-c56d0d26f970@virtuozzo.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-2-c56d0d26f970@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,48 +105,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Mika,
+On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
+> This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
+> copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
+> non-anonymous VMA and left the child to fault them in again, while the
+> PTEs of the same VMA are copied.
+> 
+> Treat file folios as the PTE path does: take a reference, duplicate the
+> rmap and account them. fork then pays a reference and an rmap update
+> per PMD, and saves the child a fault per PMD it touches. The next patch
+> sends PFN mappings through the same tail.
+> 
+> That covers the VMAs vma_needs_copy() sends here:
+> 
+> - private file mappings with an anon_vma;
+> - VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP, and
+>   VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get from a
+>   guard region.
+> 
+> The DAX huge zero PMD is copied too, with a reference taken by
+> mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
+> file folio is copied and accounted like copy_nonpresent_pte() does, and
+> made read-only in both processes only in a CoW mapping. A device
+> private entry gets the same CoW check, as in copy_nonpresent_pte().
+> 
+> The copy then gets the same tail as __copy_present_ptes(): write
+> protect both sides in a CoW mapping, mark the child's copy clean in a
+> shared one, and drop the uffd-wp bit where the child is not armed. An
+> anonymous THP is now write protected only when its PMD is writable, as
+> a PTE is.
+> 
+> A page table is deposited under the copy where the fault paths deposit
+> one: in anonymous VMAs, and wherever the architecture needs one.
+> 
+> Cc: stable@vger.kernel.org # needed by the next patch
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-Oh, I see. Well, thanks anyway for taking time to check this patch and
-for answering it.
-I'll keep it as my personal patch since it's been working very well
-for the past weeks.
+LGTM:
 
-On Mon, Nov 2, 2026 at 2:02=E2=80=AFPM Mika Westerberg
-<mika.westerberg@linux.intel.com> wrote:
->
-> Hi,
->
-> On Sat, Oct 31, 2026 at 01:18:18AM +0100, Diego Nogu=C3=AAs via B4 Relay =
-wrote:
-> > From: Diego Nogu=C3=AAs <diego.sure@gmail.com>
-> >
-> > On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB=
-4,
-> > Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
-> > monitor whose tunnel is created second is limited to 4K@30. Which monit=
-or
-> > is affected depends only on the order in which they are powered on.
-> >
-> > The thunderbolt driver enables the BW allocation mode (BWA) on both DP =
-IN
-> > adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
-> > group ID and the estimated BW. The DP IN adapter, however, never sets
-> > DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
-> > reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
->
-> Alder Lake firmware really does not support this and by forcing it to be
-> enabled you may end up in untested code paths and interesting behavior :)
-> BWA was only officially supported starting from Meteor Lake.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-
-
---=20
-Diego C. N.
+-- 
+cheers,
+jose a. p-a
