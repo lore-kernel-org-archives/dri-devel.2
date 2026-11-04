@@ -2,100 +2,151 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37B7606AC12
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 22:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2102606E81B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 22:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kLHwYUaT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aa+rz5xx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10E9510FF56;
-	Wed,  4 Nov 2026 22:18:59 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010032.outbound.protection.outlook.com [52.101.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C2D10E27D
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 22:18:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34D2A10FF66;
+	Wed,  4 Nov 2026 22:21:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D54710FF5A;
+ Wed,  4 Nov 2026 22:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793830858; x=1825366858;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=3kcpN8MMn/Ar2TcQ7rRAo6fykuYZ986cWE5wyQ/c2eE=;
+ b=aa+rz5xxwE1n8CheC7CLWjCjZ5Bx6+flGwPXb+voXjmyyUJ4dHgRudzj
+ Mf7Z7nPRmC29kJCRj0KXPXV3mIviXC6NANyArCFu3rvs3MCwMxTMyS9rK
+ RQgDfozXvKLhJ6cKeknJdl+W2UDYHb4U6JJHGTTFHVYPqKaLOcy+qpL4Y
+ brfScKJBVnw1RCQkfg2cFQn9NcjhnG1cY5HTHEYKwrIAOSmn9o2YFk+fn
+ 2caISGZkb3x9RAC7WGaoHTxeXyxQj9bu4HBs8L2eJic+NdE9e+vPNO6bW
+ Pf4zoTLKfC9tIkjWi+gk7bF0/8dm2Qi3NuMOIbQVTfC8IX3GfM8YgjmL2 w==;
+X-CSE-ConnectionGUID: tlHiMlCzRh25LjYM8sLqUA==
+X-CSE-MsgGUID: L0hxT3XZRMyxiXRecMMXwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2504621"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2504621"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 14:20:58 -0800
+X-CSE-ConnectionGUID: s+ReKO0PQ0KhZpxl84Fr/w==
+X-CSE-MsgGUID: fH6oUfUiR1qKTHP7ZLeMJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6837728"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 14:20:58 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:20:58 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 14:20:58 -0800
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.70) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:20:57 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JltLpLV5CBNPf21XeZJllvEcBlzSUEK545/CfRDbASepF/40dCa54gu4DRhqr116vOm5QDoJ8BH7oMfbBk/BWM/xV9cMHuLhUXcZxFb45eh1lmpVxtY6Uen4RCdoSjdswXes5id+wKgy/vtY/hWrnDvO/zUlHOQFp4VUokNvtcWOOAsvoO2TZ2LqmJmbJLNbYnKDT6gSnOg0m3jZnxEi1gebKbT0A07O1XnPP7tT6UnwzVUSlF7c1mCV/o88m23eq4/Sl2x2qyY0ahproySGU3FVkD5Vxc+NBMNwZd6RQsg6vj8xLw8O8aBOB9n2LyG49qBcRbvPB7i+Rkivxcg0hw==
+ b=AWCTde10pOKMOzDYjFOQsh9t9AEmHek5oOvsDwjlRGXA9XZGMpBMzNjQARyJS+NqBxXhpShT8Gdu9VpFBUeucLG9IT3QCetHUN4ZNoiftXVy/GS/+ERkV2GvBx/JvHVMa0MJ/7IqVkW9DNlkC8F2EL03PZdbBUwoA+MXByZkVnVbXaeSfsPlaw892BGvrbGFzYkH0RoSFiJKtiBVYC0xXikc+KpkuEOLw03qIPKxkIG3U6DfiEvC5Ia2FOs2ffcClk13nx/o7kkl5aWcvoPPGfw4O2frrQ6XzWU7RswiGJRC77v1FOc1CmGSKSfvjU0RhXVxpZ62GeXJXln35gRijg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9rQUyUQYft7eX/sEgDEjd3ESFb8ULSqrSx2i93/MEas=;
- b=UgM3Gfj8rVNkp2oq4yDCwDDHENM6BZjd1z6Mah5AETJX3RNfBP3jjWfIBa83Q8ajVtYgn3ZpHVBjBGTWLyXUCn3etx+S1RiwFSeokxvesrfnsBPm3z4k06QGTnldmP+2r86PjdJP1dD+kEcUFPujw8dYOnO9DP2po/JNE5NRWnVf4VKDv+6ngYty4xz8DKHpwnAHfkA8vGsig7ZyZ7TTaOfPJ+pfRQhBjcpEmqehnmpZBLpPGYLGnMxZBZLOCOtITquzaa/Z0Mo6dic3yW0quwoWkXp+TiAweZaEsxZ9cLvjpUSgmoG0xvnhNkDpXK6ewsPLc3Xx0IsheFdm0ZoKhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9rQUyUQYft7eX/sEgDEjd3ESFb8ULSqrSx2i93/MEas=;
- b=kLHwYUaTIb0C4SC6AgiNnSoNxNeiOYw1yEtwcp0jJj1u7UragfyEuiVPTJbsSX4y+Fk+3YqN2/gRFSq0aEQnjaSoNzKn26IY+s3nuEKIY32wHblDS0TZwWdCn7ENXlXhMbQrlDHyv5IIcObX9KwUetkewOxJp/v7oB80TYFJiSA=
-Received: from CH2PR15CA0007.namprd15.prod.outlook.com (2603:10b6:610:51::17)
- by MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20)
+ bh=USZOlqhtlkaiQei0QWuyiIicrU9VGu+FKS4/tmifWoc=;
+ b=G4EqZWnd8RjO6OjKbmKAWmBT1zq+wSNhiYC20WxbOxqPK33j0tP747EVwd8zenVsw+C37NvuYEGbChw/7vV5C8UjxkA1RSzWJ6ykM9ejiGxdNPqvq0CaA1SxhVI8xEzMmFg41iroXWlhZu5zas3QISLTNkP0GnzhJlXlLow0ldo/BAP6s6Mm5b1u3a+pfiZHCtIk+x0otoXCOa49CCiuayJolu95LlA8VkRwz8X6ZgiXhkAEc08DhZnbHXPjFxYDvDeVZQNV/dJK73P2I8ZjScBswh4h/qZi1gosU0RJW76Ov9whWWowuGQ8oFrJh2iRJsEXjGvPnpN9I4zLO212fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by SN7PR11MB6749.namprd11.prod.outlook.com (2603:10b6:806:267::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 22:18:44 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:51:cafe::6e) by CH2PR15CA0007.outlook.office365.com
- (2603:10b6:610:51::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 22:18:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:18:44 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 16:18:43 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 4 Nov 2026 16:18:35 -0600
-Subject: [PATCH] accel/amdxdna: Load the aie4 firmware variant the PSP reports
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 22:20:46 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
+ 22:20:43 +0000
+Date: Wed, 4 Nov 2026 14:20:41 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: <sashiko-reviews@lists.linux.dev>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/xe: Add debugfs stats for DMA-mapped pages per
+ order
+Message-ID: <auuvuRgMmLoP4sWT@gsse-cloud1.jf.intel.com>
+References: <20261104215228.1533692-1-matthew.brost@intel.com>
+ <20261104215228.1533692-2-matthew.brost@intel.com>
+ <sashiko-outbox-198211@kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-198211@kernel.org>
+X-ClientProxiedBy: MW4PR04CA0381.namprd04.prod.outlook.com
+ (2603:10b6:303:81::26) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261104-superm1-lms-npu-v1-1-dbffcc5abc23@amd.com>
-X-B4-Tracking: v=1; b=H4sIADqv62oC/yXMQQqDMBBA0avIrB0wSZHqVcSFidN2isaQMSKId
- ze1y7f4/wChyCTQFgdE2lh48RmqLMB9Bv8m5DEbdKVrpaoHSgoUZ4XTLOhDwto6Yy2Zp9MN5Cp
- EevF+H7v+b0n2S279beA8L8lBmnxzAAAA
-X-Change-ID: 20261104-superm1-lms-npu-6bc3bbe38c29
-To: Lizhi Hou <lizhi.hou@amd.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|MN2PR12MB4047:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3266948-7523-4306-950d-08df3ac196e5
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SN7PR11MB6749:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ffea263-8269-4ea6-3d6a-08df3ac1dddb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|18002099003|10067099003|11063799006|261021121427099003|261022075727099003|261022115727099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021123027099003|261009223027099003|56012099006|261022105027099003;
-X-Microsoft-Antispam-Message-Info: Y1ZnVhnNFjueW35oDludX5nP7vt8hMM7V0mXyWxGehstHtrmBPGglsWQPMa4N3h1cyd8VmMcEkI335wzRx/yw/hFx5bH4EG9LZn8dmUqFBqaer9Z6J7zjIPiE0Q+YsmarKkq1156xZt6Vwl1UKP9GznWWa6Ysv+tsMG8Hx0LiJBkY11UIcLRK/8MpIQgZxwWqPzGNkiy1Ki0S5KTKxnhP0Gr2llROz3ZgX7Vb3s0aWPt6rQqprCNSe+/ETlaMblQ3DEFfRUZCKmdPP2wvZPBmPzWBProd4Ov1vUGh6bp4hy2UNV3Q/iAVUzR8q0Worwf1QZw0IQvicnRoDevTI3XN4gji78NALm9kKzJTOdcDhk3aXkZMGGMvjBRajX2jMIwYowmr2ngXQbJZhRC75hU9PHnJKQ+Tw76YqaHZ47w+VJAIpwEawX6uA7nmYTmptDfUn1oB8dpxFf1xJDp0uW1EUNxdcZSkC5cfcfejrSOnWQ6MhxSWdCjDAru7FaJ5DUuFX81cX4vwDRhVcISwOYpdwKREDwHRDP9RByvnKTwPJx283UNF8f3j2xBugLxETy+cb/L+TjXnrlKkOIPBSzKYPZhvEo2QFJIr2bdQgJa8f5QcIsxgxf7ZwGOWffAWOJYlWXsqb81VlU1FnLEZQ2VQjsh7l8U82GETJfE6dJD9j0s/fa+O9ac3qUBDH7AbrF1dlvYPdkkaIbVXm2v/RQgZw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(11063799006)(261021121427099003)(261022075727099003)(261022115727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021123027099003)(261009223027099003)(56012099006)(261022105027099003);
+ ARA:13230040|376014|366016|1800799024|23010399003|6133799003|18002099003|22082099003|261009223027099003|261009221227099003|261021123027099003|261021121427099003|261022105027099003|261028144727099003|261022075727099003|261026140227099003|261026121527099003|11063799006|56012099006|10067099003|4143699003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: JiMlGg+1tE0pzLMgDjFTnSb5HBY4W+lu/K9AA0cMNBeN1svZVwnEErO/Kx7RozPBPXWfhUvZ6vCMLUoy5teW2XCqikPYnnxwqEEQasMaJGtsQHkODN9eun8B+dZ8nKAP2Ftxb2jr+HAvEsMS+ZnnLNA/voEvr75Izyh7GfXs/clffJ4utelWbLzTeO/UNlHRzMhA0i/fLAmpdTYe2fyr8XkY1NDFiXTDiQHg9VGBR5NdabxKbgTY7ZWlkymDBaMv6lxGTVls+SYiVV2lGPoEHhqaKjNWfl1RYYalAVZv8U8HnY3fQhCCpv07LvLhpC0doYXDD2Cpeh3Pqok6/zd01Z7Y5aHxeFB5b0XA3LYtgUQjHIMzCrHE+tmJNH8Nlh6lcvg4ViF5CMPxx9ssP+6F3zNlG4cvlylmwqjdfQXCUgb1UcmabsuCLcQkVNqNwekbxXUfvXpo2mdNJid+cRMoGXZdZa9j3teLuxAq7dVjxn9yHaAgcbo8vps0No9ZqOSlPGF1tqBK9Ou9MFEcJxCG6+lDzVsrQ1xamskrtSwOKFj+tpK34CJC4wIIhz/HtEJ/M55vd/7Sy49XNu451nZrggMKRWwmONgmEMe9ikaa1cA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(261009221227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BeAdaMuBRWD3v3OSFB+7K7gsQv6rXfePNsTCrpjec3CiZafOpBODIbYzgHKpR8pRHgNoiRce0WsSG9ofPEVR3etspMnFkwgUNpGeuoTpx1PStzpvbz8U4aRRbkfJfAGIURS0vLZmTCKNE7UzYdMZmlOGyxt1F9uh8xef50k2oanJxRu+SsqGYGqu195T8Lpd4hHRnNPbtABMSOMxICEhJVNWQWYI9vFbxSrtmYc8lhuBp8NHSqFP6d8MofwcVG4szneiY3x/vlIdX1NApUqJtB+7HqodvfL5BPuWb1kR5FV6j8QN9oTsnri9w/1Lv4aO3jRJ3oCKzVvg9NkZ/8JekOBqz2vn0wR8gXvx/4zKM177K+Bto2x/teyRw+qIpFWSmyeIgZR+ts6G/zU0AFtZNoPij/Pg/kXXEALzjpPxI0RbX1nJHIh2LwvY8l3c4R1w
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:18:44.4072 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3266948-7523-4306-950d-08df3ac196e5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?yAAE2E+Eo81LtBDi5KTrPcwuive6Y3rI6v36Mo6TfTh36CmE9CXjiLMi3A?=
+ =?iso-8859-1?Q?K5F6sBTgpOosrHQZSZ+N7np91s2xFQAOiBTFlCMVqMQUNsbHJM/n8ACQUt?=
+ =?iso-8859-1?Q?a+/Tx0vr0Kb17ImJQVyScrFEVQByeJJskeFyrCTlwVPlk6Y9jDfDecuS1c?=
+ =?iso-8859-1?Q?+BaTa21YBlcWNG8n961RAWXBbgZuiZAHw78tZnJJIojPUvTrrCPLFDCyKo?=
+ =?iso-8859-1?Q?CIsYKdhL3D3NH4lA+eW+xWyCrvdjlTxXBSKDXYhPrZaI9vrnxSBSORsWE7?=
+ =?iso-8859-1?Q?qhZx9Dqsr8PGqIB9ARFpsG73CjqV8hMntuk5H65vH4Wzncudji4O6PnAGM?=
+ =?iso-8859-1?Q?rs648S9/TS9FZpEvrBaEDMrycVhX2YliFxXfhCBTC8kBaOZ2rkAa6U6aK4?=
+ =?iso-8859-1?Q?TpAvtrqFEoeOGYm9YVZvCK6VJEV5CmWK1303ouP8lGdEQw0/tdcViqf/vY?=
+ =?iso-8859-1?Q?ME3dsdWmDaZJsuErGyxPJjAhFL4wxhwESF8rFdYmSfUGGqc9j08ZqPxaNO?=
+ =?iso-8859-1?Q?ynV5JRe4nEiMA3yyxj/u7eDGZGx8ASYQrMZ9ixXjy9sb5DJwQY9YGeqyFd?=
+ =?iso-8859-1?Q?XombbW0ZxvstFP4Y6IKff5+uJgNc7TdxJvdCdZX7oLmr0YYy4oX1PgTxrg?=
+ =?iso-8859-1?Q?QHA60Z5Fy4KROvRkdJvoqyWDb1p/XpzDFZLKEohy1yoyU5NTNFigDpK4y0?=
+ =?iso-8859-1?Q?qL6bZb8Q9/dbfmgaeu//2kIQC0WyyeNmSQGftVbvzM22CiABLYWdExmZ8L?=
+ =?iso-8859-1?Q?Ya29zyeJhrC+gYHsMSQj01cAebRIuE1weLP2XTzTHz4RYluasxbawF6nfl?=
+ =?iso-8859-1?Q?EhBEYJ80QCzm8nP8DhbJNF7lkT4GoPzOG8qfZFtb48bgKo8DGHY/bDJteB?=
+ =?iso-8859-1?Q?o8SEG/hgzksKqImrgR7R0gSDw5a8bIe1wCOf7ovyVZjy5tO4hFCvWN1/x6?=
+ =?iso-8859-1?Q?N0cBq/QUsgnmjzrFAJL/4EiAwR7fZZSAgAi/CxVsCe+2lpZ1EP8fAOo2dL?=
+ =?iso-8859-1?Q?FRVZ+4VmeIF2GqMEytQeS7uegmL57ioMwMHI3JVV7oqY4ihIwgZlhwRf2F?=
+ =?iso-8859-1?Q?6hUi+os2+u0LWxDf8wKYfviZM6MNX3oABBvydVIAHMdZjMMWeJT1kq7eUr?=
+ =?iso-8859-1?Q?f/F3yQgDCaFE9ZvytcyCvkINcFOxvAyx1ZNUk+IFoHX78AXCJJr4SorKjN?=
+ =?iso-8859-1?Q?xfEPcNgK7XRidRJtm7HlkISNp2fM8NHG1t3SWnpCIcjHZI5juF3ZVevOcS?=
+ =?iso-8859-1?Q?kuaZr9K3wmzKAU0jg0vu5uWgtdYqp4eQGIFrvmliznocXIkLlXKR+PIanv?=
+ =?iso-8859-1?Q?lW7J/VBFR1dR4rNXLdexuZKxTDW0fCP+t+0NUJ4I/Wn3pr2ModKSI15xQZ?=
+ =?iso-8859-1?Q?rZ/FDKNtfsyZhFZbZxxm3kpmXvVJV9jYEPK5RkX9owK7KTQZ972ny2PPyk?=
+ =?iso-8859-1?Q?85VdhNkyrNuM6Oo50lVIPMcbS6y6OnVw5JMdPhQaNavCGnUgEWY+EqOwP3?=
+ =?iso-8859-1?Q?h/Y+RKtteYpZZI0GLiEyg8Vq54LVcXbruSrDPN2qguWhOgss7JwUVoMupX?=
+ =?iso-8859-1?Q?QVe7N0sHcN0GsTx3ov/FuHAMmBLyFxQP2WaNNHuJTQiJnY3s6OjKe21thH?=
+ =?iso-8859-1?Q?ZsIFgLa9v/U7cNEblYPbzm8nOSrBbkHdb9z/ArkLp0RE71pUzckYJmffpB?=
+ =?iso-8859-1?Q?bk8e7RyOCegszmMuQqXGJEfvAszaPAufx+/cSGHAJYHDYDF/mbvbOnPifn?=
+ =?iso-8859-1?Q?jzFZq3FfNynuDBS9iGRUCeLqSV8yVMh7t9TuH7tE0VQNFM08tYBUloGlKf?=
+ =?iso-8859-1?Q?5bJatpblPQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: OMtGj2wCU9FgG0BoNf4OmnZASrOtiGYUKiVGA+CLJPH3YZ+LPrPc6VcZ8hoDhxsGEYWnMcHdHNCj1uejHoyllyyvyt2iJgaAVqLstFimBIdH3FZRgrcvzEvTPHAxaA+uTfjgb+6yd5JBoo/7So0uy8CXt/vzeBkcvhpemXz29Ba8F9PiVfuBVqW8vPlmRc7adEWMMZ2NKPtAJ2ywg2IsxxA1EJr2gO5hpUivt8tkEvgxfvtpUulScFYV7Cq9+J1R4EDuxKtx80BEIVwE1ud2ncG0eJ0Eh76Bww9z9sYDDyvcr46m7l3mTD6c4CEhv93PQEH/nY9k1HM1eqS1QuLC0A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ffea263-8269-4ea6-3d6a-08df3ac1dddb
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:20:43.6364 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GPoqeTfwYyRAhOtWBBqZIOVePpj6BJMc7T/JLOzn4QR3C0AxHn8+/S6A1jrv5LOYIl9h594N76C4qDvsG7eH7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6749
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,285 +158,217 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some Platforms ship BIOS with either a default or an alternative trust
-authority. The PSP validates the NPU firmware, so it must be signed with
-the matching scheme. Firmware for the alternative scheme is named with
-an "_l" suffix before the extension. A preproduction part needs firmware
-of its own, named with a "_p" suffix.
+On Wed, Nov 04, 2026 at 10:15:05PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] drm/xe: premature xe_device_assert_dma_pages_zero() before ttm_device_fini()
+> - [Low] drm/xe: duplicate dma_map_account callbacks in xe_svm.c and xe_userptr.c
+> --
+> 
+> commit d97316f4a4863b594d6196037dc27dd4e278bdd0
+> Author: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> 
+> drm/xe: Add debugfs stats for DMA-mapped pages per order
+> 
+> This commit adds per-order DMA-mapped system page counters for TTM buffer
+> objects and GPU SVM / userptr ranges, exposes them via debugfs at
+> dma_mapped_pages, and asserts that all counters return to zero during device
+> teardown.
+> 
+> > diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> > index 273e2c45fea9b..c40bb8f7c697a 100644
+> > --- a/drivers/gpu/drm/xe/xe_device.c
+> > +++ b/drivers/gpu/drm/xe/xe_device.c
+> > @@ -377,12 +377,42 @@ bool xe_device_is_admin_only(const struct xe_device *xe)
+> [ ... ]
+> >  static void xe_device_destroy(struct drm_device *dev, void *dummy)
+> >  {
+> >  	struct xe_device *xe = to_xe_device(dev);
+> >  
+> >  	xe_bo_dev_fini(&xe->bo_device);
+> >  
+> > +	/*
+> > +	 * Assert the DMA-mapped-pages accounting only after xe_bo_dev_fini()
+> > +	 * has flushed the async BO-free worker: BOs pending async free still
+> > +	 * hold their DMA mappings (and counts) until the worker runs, so
+> > +	 * asserting before the flush could trip a false positive.
+> > +	 */
+> > +	xe_device_assert_dma_pages_zero(xe);
+> > +
+> >  	if (xe->preempt_fence_wq)
+> >  		destroy_workqueue(xe->preempt_fence_wq);
+> >  
+> >  	if (xe->ordered_wq)
+> >  		destroy_workqueue(xe->ordered_wq);
+> >  
+> >  	if (xe->unordered_wq)
+> >  		destroy_workqueue(xe->unordered_wq);
+> >  
+> >  	if (xe->destroy_wq)
+> >  		destroy_workqueue(xe->destroy_wq);
+> >  
+> >  	ttm_device_fini(&xe->ttm);
+> 
+> [Severity: Medium]
+> Can xe_device_assert_dma_pages_zero() trigger a false-positive assertion here
+> because it runs before ttm_device_fini(&xe->ttm)?
+> 
+> When BOs with a populated ttm_tt and DMA-mapped xe_tt->sg are released via
+> ttm_bo_put() -> ttm_bo_release(), TTM defers cleanup to bdev->wq
+> (xe->ttm.wq) whenever want_init_on_free() is active or reservation fences or
+> locks are busy:
+> 
+> drivers/gpu/drm/ttm/ttm_bo.c:ttm_bo_release()
+> 	if (!dma_resv_test_signaled(&bo->base._resv,
+> 				    DMA_RESV_USAGE_BOOKKEEP) ||
+> 	    (want_init_on_free() && (bo->ttm != NULL)) ||
+> 	    bo->type == ttm_bo_type_sg ||
+> 	    !dma_resv_trylock(bo->base.resv)) {
+> 		...
+> 		INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
+> 		...
+> 		queue_work_node(bdev->pool.nid, bdev->wq, &bo->delayed_delete);
+> 		return;
+> 	}
+> 
+> In that case, the DMA unmap and counter decrement via:
+> 
+>   ttm_bo_delayed_delete()
+>     -> ttm_bo_cleanup_memtype_use()
+>       -> ttm_bo_tt_destroy()
+>         -> ttm_tt_unpopulate()
+>           -> xe_ttm_tt_unpopulate()
+>             -> xe_tt_unmap_sg()
+>               -> xe_tt_account_dma_pages(xe, xe_tt, -1)
+> 
+> will not complete until ttm_device_fini() drains bdev->wq. Should
+> xe_device_assert_dma_pages_zero(xe) be called after ttm_device_fini(&xe->ttm)
+> instead?
+> 
 
-The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
-whether this is a preproduction part. A preproduction part that also
-reports the alternative scheme is not expected, so warn about it and
-use the default firmware.
+Yes, I can fix this when merging.
 
-Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
-images of the aie4 devices so that initramfs generators include them.
+Matt
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/accel/amdxdna/Kconfig           |   1 +
- drivers/accel/amdxdna/aie4_pci.c        | 166 ++++++++++++++++++++++++++------
- drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
- 3 files changed, 145 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
-index eddff490b4f75..cd17a89cf4146 100644
---- a/drivers/accel/amdxdna/Kconfig
-+++ b/drivers/accel/amdxdna/Kconfig
-@@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
- 	depends on DRM_ACCEL
- 	depends on PCI && HAS_IOMEM
- 	depends on X86_64
-+	depends on AMD_NODE
- 	depends on AMD_PMF || !AMD_PMF
- 	select DRM_SCHED
- 	select DRM_GEM_SHMEM_HELPER
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 02dcb2f813d45..fa8f99d1be361 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -11,6 +11,8 @@
- #include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/sizes.h>
-+#include <linux/string.h>
-+#include <asm/amd/node.h>
- 
- #include "aie.h"
- #include "aie4_msg_priv.h"
-@@ -558,46 +560,128 @@ static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
- 	aie4_fw_stop(ndev);
- }
- 
--static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
--				 const struct firmware **npufw,
--				 const struct firmware **certfw)
-+/*
-+ * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = alternative
-+ * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction part
-+ */
-+#define AIE4_PSP_C2PMSG_63_SMN_ADDR	0x38109fc
-+#define AIE4_PSP_FW_SIGN_ALT		BIT(6)
-+#define AIE4_PSP_FW_PREPROD		BIT(28)
-+
-+enum aie4_fw_variant {
-+	AIE4_FW_DEFAULT,
-+	AIE4_FW_ALT,		/* "_l" images */
-+	AIE4_FW_PREPROD,	/* "_p" images */
-+};
-+
-+/*
-+ * The PSP only trusts firmware signed with the scheme the platform firmware
-+ * uses and a preproduction part needs firmware of its own. Reading which one is
-+ * in use is optional and only used as a hint for which images to try first:
-+ * anything but a clear answer is treated as default.
-+ */
-+static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev *xdna)
- {
--	struct amdxdna_dev *xdna = ndev->aie.xdna;
--	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
--	char fw_name[128];
-+	u32 val;
- 	int ret;
- 
--	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
--		       pdev->device, pdev->revision, ndev->priv->npufw_path);
--	if (ret >= sizeof(fw_name)) {
--		XDNA_ERR(xdna, "npu firmware path is truncated");
--		return -EINVAL;
-+	ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
-+	if (ret) {
-+		XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", ret);
-+		return AIE4_FW_DEFAULT;
- 	}
- 
--	ret = request_firmware(npufw, fw_name, &pdev->dev);
--	if (ret) {
--		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
--		return ret;
-+	/* all ones means the register isn't accessible */
-+	if (val == 0xffffffff)
-+		return AIE4_FW_DEFAULT;
-+
-+	if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
-+		XDNA_WARN(xdna,
-+			  "Preproduction part with alternative signing, using default firmware");
-+		return AIE4_FW_DEFAULT;
- 	}
- 
--	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
--		       pdev->device, pdev->revision, ndev->priv->certfw_path);
--	if (ret >= sizeof(fw_name)) {
--		XDNA_ERR(xdna, "cert firmware path is truncated");
--		ret = -EINVAL;
--		goto release_npufw;
-+	if (val & AIE4_PSP_FW_PREPROD)
-+		return AIE4_FW_PREPROD;
-+
-+	return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
-+}
-+
-+/*
-+ * Images for the other variants have a suffix before the ".sbin" extension.
-+ * Returns -ENOENT if @path has no such variant.
-+ */
-+static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t size,
-+			const char *path, enum aie4_fw_variant variant)
-+{
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	const char *suffix;
-+	size_t len, base;
-+	int ret;
-+
-+	ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
-+		       pdev->device, pdev->revision, path);
-+	if (ret >= size) {
-+		XDNA_ERR(xdna, "firmware path %s is truncated", path);
-+		return -EINVAL;
- 	}
- 
--	ret = request_firmware(certfw, fw_name, &pdev->dev);
--	if (ret) {
--		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
--		goto release_npufw;
-+	switch (variant) {
-+	case AIE4_FW_ALT:
-+		suffix = "_l.sbin";
-+		break;
-+	case AIE4_FW_PREPROD:
-+		suffix = "_p.sbin";
-+		break;
-+	default:
-+		return 0;
- 	}
- 
-+	len = ret;
-+	if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), ".sbin"))
-+		return -ENOENT;
-+
-+	base = len - strlen(".sbin");
-+	if (strscpy(name + base, suffix, size - base) < 0)
-+		return -EOVERFLOW;
-+
- 	return 0;
-+}
-+
-+static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const struct firmware **fw,
-+			    const char *path, enum aie4_fw_variant variant)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	char name[128];
-+	int ret;
-+
-+	ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
-+	if (ret)
-+		return ret;
-+
-+	ret = firmware_request_nowarn(fw, name, &pdev->dev);
-+	if (ret)
-+		XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
-+
-+	return ret;
-+}
-+
-+/* The NPU and cert images are validated together, so both use the same variant */
-+static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
-+				 const struct firmware **npufw,
-+				 const struct firmware **certfw,
-+				 enum aie4_fw_variant variant)
-+{
-+	int ret;
-+
-+	ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, variant);
-+	if (ret)
-+		return ret;
- 
--release_npufw:
--	release_firmware(*npufw);
-+	ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, variant);
-+	if (ret)
-+		release_firmware(*npufw);
- 
- 	return ret;
- }
-@@ -645,18 +729,40 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
- 	return 0;
- }
- 
-+/*
-+ * The firmware can only be started once. It is the PSP that decides whether it
-+ * accepts the images, and it does that when the firmware is started, so there
-+ * is no trying a variant and falling back. Pick the variant that the PSP
-+ * reported (the default one if it can't be read) and use the others only if
-+ * its images are missing.
-+ */
- static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
- 			void __iomem *tbl[PCI_NUM_RESOURCES])
- {
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	enum aie4_fw_variant hint = aie4_psp_fw_variant(xdna);
- 	const struct firmware *npufw, *certfw;
--	int ret;
-+	enum aie4_fw_variant order[3];
-+	int i, n = 0, ret = -ENOENT;
- 
- 	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
- 		return 0;
- 
--	ret = aie4_request_firmware(ndev, &npufw, &certfw);
--	if (ret)
-+	order[n++] = hint;
-+	if (hint != AIE4_FW_DEFAULT)
-+		order[n++] = AIE4_FW_DEFAULT;
-+	if (hint != AIE4_FW_ALT)
-+		order[n++] = AIE4_FW_ALT;
-+
-+	for (i = 0; i < n; i++) {
-+		ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
-+		if (!ret)
-+			break;
-+	}
-+	if (ret) {
-+		XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
- 		return ret;
-+	}
- 
- 	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
- 	aie4_release_firmware(ndev, npufw, certfw);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index f233eb70a2957..dab8603e2381f 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
- 
- /*
-  * 0.0: Initial version
-
----
-base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
-change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
-
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
-
+> > diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+> > index 909a602d091ea..7a49882897495 100644
+> > --- a/drivers/gpu/drm/xe/xe_svm.c
+> > +++ b/drivers/gpu/drm/xe/xe_svm.c
+> > @@ -845,10 +845,50 @@ static int xe_svm_get_pagemaps(struct xe_vm *vm)
+> >  }
+> >  #endif
+> >  
+> > +#if IS_ENABLED(CONFIG_DEBUG_FS)
+> > +/*
+> > + * xe_svm_dma_map_account - drm_gpusvm DMA-mapping accounting callback
+> > + * @gpusvm: The GPU SVM the mapping belongs to
+> > + * @addr: The address descriptor of the chunk being (un)mapped
+> > + * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
+> > + *
+> > + * Maintain per-order counts of the system-memory pages that the full SVM
+> > + * instance (SVM ranges, and userptr VMAs in fault mode) has DMA-mapped for GPU
+> > + * access. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
+> > + * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
+> > + * exposed through debugfs, so the callback is only registered when
+> > + * CONFIG_DEBUG_FS is enabled.
+> > + */
+> > +static void xe_svm_dma_map_account(struct drm_gpusvm *gpusvm,
+> > +				   const struct drm_pagemap_addr *addr,
+> > +				   int sign)
+> > +{
+> > +	struct xe_device *xe = gpusvm_to_vm(gpusvm)->xe;
+> > +	unsigned int order = addr->order;
+> > +
+> > +	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
+> > +		return;
+> > +
+> > +	/*
+> > +	 * The CPU-PTE map order reported by hmm can exceed MAX_PAGE_ORDER
+> > +	 * (e.g. an order-18 1GB mapping), so clamp the array index to avoid an
+> > +	 * out-of-bounds access. Clamping is symmetric across the +1/-1 calls,
+> > +	 * so the per-order counters stay balanced.
+> > +	 */
+> > +	order = min(order, (unsigned int)NR_PAGE_ORDERS - 1);
+> > +
+> > +	atomic_long_add((long)(1UL << addr->order) * sign,
+> > +			&xe->mem.dma_mapped_pages_svm[order]);
+> > +}
+> > +#endif
+> > +
+> >  static const struct drm_gpusvm_ops gpusvm_ops = {
+> >  	.range_alloc = xe_svm_range_alloc,
+> >  	.range_free = xe_svm_range_free,
+> >  	.invalidate = xe_svm_invalidate,
+> > +#if IS_ENABLED(CONFIG_DEBUG_FS)
+> > +	.dma_map_account = xe_svm_dma_map_account,
+> > +#endif
+> >  };
+> [ ... ]
+> > diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_userptr.c
+> > index 9c1dac0fce6f1..40f97bd4751dd 100644
+> > --- a/drivers/gpu/drm/xe/xe_userptr.c
+> > +++ b/drivers/gpu/drm/xe/xe_userptr.c
+> > @@ -8,9 +8,72 @@
+> >  
+> >  #include <linux/mm.h>
+> >  
+> > +#include <drm/drm_pagemap.h>
+> > +
+> >  #include "xe_tlb_inval.h"
+> >  #include "xe_trace_bo.h"
+> >  
+> > +#if IS_ENABLED(CONFIG_DEBUG_FS)
+> > +/*
+> > + * xe_userptr_dma_map_account - drm_gpusvm DMA-mapping accounting callback
+> > + * @gpusvm: The GPU SVM the mapping belongs to
+> > + * @addr: The address descriptor of the chunk being (un)mapped
+> > + * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
+> > + *
+> > + * Account, per page order, the system-memory pages DMA-mapped for GPU access
+> > + * through the drm_gpusvm_pages instance shared by userptr (and, in fault mode,
+> > + * SVM). Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
+> > + * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
+> > + * exposed through debugfs, so the callback is only registered when
+> > + * CONFIG_DEBUG_FS is enabled.
+> > + */
+> > +static void xe_userptr_dma_map_account(struct drm_gpusvm *gpusvm,
+> > +				       const struct drm_pagemap_addr *addr,
+> > +				       int sign)
+> > +{
+> > +	struct xe_vm *vm = container_of(gpusvm, struct xe_vm, svm.gpusvm);
+> > +	unsigned int order = addr->order;
+> > +
+> > +	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
+> > +		return;
+> > +
+> > +	/*
+> > +	 * The CPU-PTE map order reported by hmm can exceed MAX_PAGE_ORDER
+> > +	 * (e.g. an order-18 1GB mapping), so clamp the array index to avoid an
+> > +	 * out-of-bounds access. Clamping is symmetric across the +1/-1 calls,
+> > +	 * so the per-order counters stay balanced.
+> > +	 */
+> > +	order = min(order, (unsigned int)NR_PAGE_ORDERS - 1);
+> > +
+> > +	atomic_long_add((long)(1UL << addr->order) * sign,
+> > +			&vm->xe->mem.dma_mapped_pages_svm[order]);
+> > +}
+> 
+> [Severity: Low]
+> This isn't a bug, but the commit message and comment state that the
+> dma_map_account callback is shared between the fault-mode SVM instance and the
+> simple userptr instance, whereas xe_svm_dma_map_account() in
+> drivers/gpu/drm/xe/xe_svm.c and xe_userptr_dma_map_account() in
+> drivers/gpu/drm/xe/xe_userptr.c duplicate the same implementation.
+> 
+> Since CONFIG_DRM_XE_GPUSVM selects CONFIG_DRM_GPUSVM, could
+> xe_userptr_dma_map_account() be exposed and reused in gpusvm_ops instead of
+> defining two identical callbacks?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261104215228.1533692-1-matthew.brost@intel.com?part=2
