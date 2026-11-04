@@ -2,34 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464ED606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E661606A339
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 02:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE13610F973;
-	Wed,  4 Nov 2026 02:53:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0ADC10F978;
+	Wed,  4 Nov 2026 02:53:34 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DB610F973
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 587C010F978
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 02:53:31 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowADH8_0onupqt+Q+AA--.9984S2;
- Wed, 04 Nov 2026 10:53:28 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowAAnUfspnupqveQ+AA--.42216S2;
+ Wed, 04 Nov 2026 10:53:29 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/jpeg: unwind the ring when sysfs init fails
-Date: Wed,  4 Nov 2026 02:53:37 +0000
-Message-Id: <20261104025337.1527305-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/amdgpu/jpeg: unwind the rings when sw init fails
+Date: Wed,  4 Nov 2026 02:53:38 +0000
+Message-Id: <20261104025338.1527322-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADH8_0onupqt+Q+AA--.9984S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1xJFyUAw1fuw1kur1rZwb_yoW8XF1rpF
- WfCrs0kry8ursrt3WDAa4UWan093W5XayrGrWrA34Sq3W3ArZYyrykZF4YyF1kJFZrCFs3
- Ar97G3y3ZF4qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: qwCowAAnUfspnupqveQ+AA--.42216S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cry7ur4xWw47Zr1kJF1fJFb_yoW8CFy7pF
+ Wfur90kr1rArZrta4DJ3WUXFs8KwnxX3yrGrWxCw4Sqw13ArZYyrn2qFW5JryktFZrCFsx
+ JryDJ3yjvF1qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
  cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
  AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
@@ -43,7 +43,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1xJFyUAw1fuw1kur1rZwb_yoW8XF1rpF
  8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
  87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnU
  UI43ZEXa7IU5gZ2DUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMBA2rqY-nieQAAsZ
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUBA2rqZFjiNwAAsp
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +62,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-jpeg_v5_3_0_sw_init() returns directly when
-amdgpu_jpeg_sysfs_reset_mask_init() fails, after the JPEG ring has been
-initialized successfully. amdgpu_ring_init() allocated the ring buffer,
-writeback slots and the vmid fence, and only amdgpu_ring_fini(), called
-through amdgpu_jpeg_sw_fini(), releases them. Because the IP block's
-status.sw is only set after sw_init() succeeds, the upper layers skip
-sw_fini() for this block and the resources are leaked.
+jpeg_v4_0_5_sw_init() returns directly when
+amdgpu_jpeg_reg_dump_init() or amdgpu_jpeg_sysfs_reset_mask_init()
+fails, after all JPEG rings have been initialized successfully.
+amdgpu_ring_init() allocated the ring buffers, writeback slots and the
+vmid fences, and only amdgpu_ring_fini(), called through
+amdgpu_jpeg_sw_fini(), releases them. Because the IP block's status.sw is
+only set after sw_init() succeeds, the upper layers skip sw_fini() for
+this block and the resources are leaked.
 
 Unwind with amdgpu_jpeg_sw_fini(), as the other JPEG implementations do.
 
-Fixes: 4aeaf3cbfa9f ("drm/amdgpu/jpeg: Add jpeg 5.3.0 support")
+Fixes: 2b0ccf3923b5 ("drm/amdgpu: Enable devcoredump for JPEG4_0_5")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-index 8ddd12740a04..f2b049700989 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-@@ -109,8 +109,14 @@ static int jpeg_v5_3_0_sw_init(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index 4da3f9c995c1..fb9bbe93fbe0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -173,7 +173,7 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0_5, ARRAY_SIZE(jpeg_reg_list_4_0_5));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->jpeg.inst[0].ring_dec[0]);
+@@ -181,9 +181,14 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
  		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
  	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
  	if (r)
 -		return r;
 +		goto err_jpeg;
-+
+ 
  	return 0;
 +
 +err_jpeg:
