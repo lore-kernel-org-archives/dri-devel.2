@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DEA6082BF5
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4E660A2601
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 16:50:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mS1RLrKi
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PNHISvmm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061E710FD65;
-	Wed,  4 Nov 2026 16:50:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51AA610FD61
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:50:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B2610FD61;
+	Wed,  4 Nov 2026 16:50:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E916E10FD66
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 16:50:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 366DB41800;
+ by tor.source.kernel.org (Postfix) with ESMTP id 05A5960A86;
+ Wed,  4 Nov 2026 16:50:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD141F000C1;
  Wed,  4 Nov 2026 16:50:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2608E1F00919;
- Wed,  4 Nov 2026 16:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793811012;
- bh=FZs/NYrhS2H+yLG3RkfZEwYZelHczFcvNccswVSGXMc=;
+ s=k20260515; t=1793811028;
+ bh=WRcEmA8t5SF2n7O8yFpnu4RLNkBYJrrcArfzz4S7jNs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mS1RLrKi88p9XqzdJYEaJ5+IqT6NarwgxSiYwp5vgjahMn2aqsFuiLZvYVd6Ro6G9
- 6da+ooRIfw5qckkt3M+gxSmTp6X3WbvycB4hcOW8RIVir58D6vlqJjx6uRxNR8We9n
- 3cCVBT/RAsbeSdnjYXxhY96zLDzF7V8hy1zN3EoNJTlw1idqnr+La3z7UA5Tw9CgeD
- i0ozVGAyiaXKxpMjl/pn8Sck74RZ6ylNTTo48KTFnOowPiicz0aau2cUo/esrln4vJ
- YNiOuLLm6pjwHcmH/wnQn9oiSYJrnKxFAmw5WuNUIMn1DOOQPOtiFnT4YllJXT/N+u
- S8afOGcw5kdyA==
+ b=PNHISvmmuWjnQ+7HEMPvfWz7APstuBwKvr1lPLt9SDxVD52Vkc79+yVtOnwJmbyNC
+ kF3VIBOQN8Tv/NCYUFGkB1Ewlk8dNuqsqTFNCvdi/M8s0mqa4qJbvFMf2QdSogLylC
+ ThlzcIiqi5pt78dU2OO7HwbdrO2irxa0n2otgDaR2QqXqHJrXJxDl9msL9PSIy7Qwa
+ Sf08ADUUdKytxN4QMa4AMfeT3c7TchiL7bLh4pChwjEKQv3xIwVie+GbtUsWpCCdU1
+ DoA0s2U7su4v/sRB0t2KrIZ4x0ji+QvFqAQqB4xvWBnTdKepiQyTfwIEP0Ghi9AV1G
+ hBXp3vzGdOQIA==
 From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
 To: linux-coco@lists.linux.dev
 Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
@@ -70,10 +70,9 @@ Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
  iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
  linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: [PATCH v9 12/14] swiotlb: Make rounded shared pool capacity
- allocatable
-Date: Wed,  4 Nov 2026 22:15:53 +0530
-Message-ID: <20261104164555.3555725-13-aneesh.kumar@kernel.org>
+Subject: [PATCH v9 13/14] mm: Assert CoCo shared allocations may sleep
+Date: Wed,  4 Nov 2026 22:15:54 +0530
+Message-ID: <20261104164555.3555725-14-aneesh.kumar@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
 References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
@@ -99,140 +98,38 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-CoCo shared memory may need to be allocated and transitioned in units larger
-than the requested object. Before this change, users handled the resulting
-capacity as follows:
+On platforms with memory encryption, alloc_cc_shared_pages_node()
+transitions the allocated memory to the shared state.
+set_memory_decrypted() may sleep, so the transition must run from a
+sleepable context.
 
-  User                         Rounded capacity reused
-  dma-buf system heap          no
-  DMA-direct                   no
-  regular GIC tables           no
-  small GIC ITTs               yes, through a gen_pool
-  early SWIOTLB pool           no
-  late SWIOTLB pool            yes
-  persistent dynamic SWIOTLB   no
-  transient dynamic SWIOTLB    no, one mapping only
-  atomic DMA pools             yes, through a gen_pool
-  restricted SWIOTLB pool      no additional padding
-
-Improve the early and persistent dynamic SWIOTLB pools. They already own
-and transition backing rounded to the shared granule size, and SWIOTLB
-is itself a suballocator. Advertise the rounded extent as slots, size
-the slot metadata to match. This makes the extra capacity available
-without reserving more backing memory.
-
-Keep transient dynamic pools unchanged. A transient pool belongs to one
-DMA mapping and is destroyed when that mapping is unmapped, so its spare
-backing cannot satisfy a later request without changing the lifetime
-model.
-
-Do not attempt the same optimization for dma-buf, DMA-direct or regular
-GIC objects. Those allocations have independent caller-visible sizes and
-lifetimes. Reusing their padding requires a shared-granule suballocator
-with reference counting, per-object mappings and accounting.
-
-Note:
-For the current 64 KiB CCA shared granule size, SWIOTLB pool sizes are
-already multiples of the 256 KiB IO_TLB segment size. Consequently, the
-rounding does not change any runtime values on current CCA systems. It
-instead makes the code express the intended invariant that pool metadata
-describes the complete shared-granule-aligned backing allocation.
-
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- kernel/dma/swiotlb.c | 30 ++++++++++++++++++++++++------
- 1 file changed, 24 insertions(+), 6 deletions(-)
+ mm/cc_shared.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index a3fc33c54cec..285814387148 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -328,6 +328,14 @@ static inline unsigned long nr_slots(u64 val)
- 	return DIV_ROUND_UP(val, IO_TLB_SIZE);
- }
+diff --git a/mm/cc_shared.c b/mm/cc_shared.c
+index 40c130cce74b..e70c26df2d06 100644
+--- a/mm/cc_shared.c
++++ b/mm/cc_shared.c
+@@ -8,6 +8,7 @@
+ #include <linux/errno.h>
+ #include <linux/export.h>
+ #include <linux/gfp.h>
++#include <linux/kernel.h>
+ #include <linux/log2.h>
+ #include <linux/mm.h>
+ #include <linux/mem_encrypt.h>
+@@ -106,6 +107,8 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+ 	unsigned int order;
+ 	int ret;
  
-+static unsigned long swiotlb_align_nslabs(unsigned long nslabs)
-+{
-+	unsigned long granule_nslabs;
++	might_sleep();
 +
-+	granule_nslabs = cc_shared_granule_size() >> IO_TLB_SHIFT;
-+	return ALIGN(nslabs, granule_nslabs);
-+}
-+
- static void swiotlb_mark_pool_used(struct io_tlb_pool *pool)
- {
- 	unsigned long i;
-@@ -431,11 +439,12 @@ static void add_mem_pool(struct io_tlb_mem *mem, struct io_tlb_pool *pool)
- }
- 
- static void __init *swiotlb_memblock_alloc(unsigned long nslabs,
--		unsigned int flags,
-+		unsigned long *alloc_nslabs, unsigned int flags,
- 		int (*remap)(void *tlb, unsigned long nslabs))
- {
-+	unsigned long aligned_nslabs = swiotlb_align_nslabs(nslabs);
-+	size_t bytes = aligned_nslabs << IO_TLB_SHIFT;
- 	void *tlb;
--	size_t bytes = ALIGN(nslabs << IO_TLB_SHIFT, cc_shared_granule_size());
- 
- 	/*
- 	 * By default allocate the bounce buffer memory from low memory, but
-@@ -453,12 +462,13 @@ static void __init *swiotlb_memblock_alloc(unsigned long nslabs,
- 		return NULL;
- 	}
- 
--	if (remap && remap(tlb, nslabs) < 0) {
-+	if (remap && remap(tlb, aligned_nslabs) < 0) {
- 		memblock_free(tlb, bytes);
- 		pr_warn("%s: Failed to remap %zu bytes\n", __func__, bytes);
- 		return NULL;
- 	}
- 
-+	*alloc_nslabs = aligned_nslabs;
- 	return tlb;
- }
- 
-@@ -471,6 +481,7 @@ void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
- {
- 	struct io_tlb_pool *mem = &io_tlb_default_mem.defpool;
- 	unsigned long nslabs;
-+	unsigned long alloc_nslabs;
- 	unsigned int nareas;
- 	size_t alloc_size;
- 	void *tlb;
-@@ -495,13 +506,14 @@ void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
- 		swiotlb_adjust_nareas(num_possible_cpus());
- 
- 	nslabs = default_nslabs;
--	nareas = limit_nareas(default_nareas, nslabs);
--	while ((tlb = swiotlb_memblock_alloc(nslabs, flags, remap)) == NULL) {
-+	while ((tlb = swiotlb_memblock_alloc(nslabs, &alloc_nslabs, flags,
-+					     remap)) == NULL) {
- 		if (nslabs <= IO_TLB_MIN_SLABS)
- 			return;
- 		nslabs = ALIGN(nslabs >> 1, IO_TLB_SEGSIZE);
--		nareas = limit_nareas(nareas, nslabs);
- 	}
-+	nslabs = alloc_nslabs;
-+	nareas = limit_nareas(default_nareas, nslabs);
- 
- 	if (default_nslabs != nslabs) {
- 		pr_info("SWIOTLB bounce buffer size adjusted %lu -> %lu slabs",
-@@ -872,6 +884,12 @@ static struct io_tlb_pool *swiotlb_alloc_pool(struct device *dev,
- 		tlb_size = nslabs << IO_TLB_SHIFT;
- 	}
- 
-+	/* Transient pools are tied to one mapping and cannot reuse padding. */
-+	if (mem->cc_shared && !dev) {
-+		nslabs = swiotlb_align_nslabs(nslabs);
-+		tlb_size = nslabs << IO_TLB_SHIFT;
-+	}
-+
- 	slot_order = get_order(array_size(sizeof(*pool->slots), nslabs));
- 	pool->slots = (struct io_tlb_slot *)
- 		__get_free_pages(gfp, slot_order);
+ 	ret = cc_shared_calc_layout(requested, &layout);
+ 	if (ret)
+ 		return ret;
 -- 
 2.43.0
 
