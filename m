@@ -2,90 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1232C606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1B0606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yRwRYxBp
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xD+8lqOH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED35C112934;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED25910E050;
 	Fri,  6 Nov 2026 09:18:41 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB818112406
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 13:16:11 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2e946155442so15826485ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 05:16:11 -0800 (PST)
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF7110E8AE
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 23:17:00 +0000 (UTC)
+Received: by mail-oi1-f181.google.com with SMTP id
+ 5614622812f47-563a0462094so682841b6e.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 15:17:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793834219; cv=none;
+ d=google.com; s=arc-20260327;
+ b=OkiSzQl1G4hnZSMmSucmMlpCrf5C9Zo0sgI0MePHRtLdWGlnqeuMsQpG5L+6weP3jW
+ KRAtplFGUFw8v5s1p+cWpp+slF4hzMAvqqxMycJna7zJO5JkOBbjuRy9o3M5BJXyjVxk
+ /ETGsFku4RVR0zTHPj2dNwKNCCTOg/g3rWOEns1K+MLEa2ahXfqmyn7D6Ol+D0wwhDBe
+ uh7ggIViWPJ3zmcfKrFkxjFRwoIS0vWI8m3XqECps0qPClhuamgfJ8tRVqXrFIlE+dy5
+ yf2MZmoStZbtgl3e0Xn5i6+IunpTxV2M0xwzWsZmzAJPrUmDgyfz9UUEL3D9vrJemE5a
+ E7pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:dkim-signature;
+ bh=Eu2VU7+z+HKfMP6vJYsfzm0I9qWr/gxSKl0LlmZhiXI=;
+ fh=B0p+gFy9C+0HEWOwhNiauj9LLZqQbmGd5k85H0yCt8o=;
+ b=epWZ6LJZdjINd+ZChxRzgJzfQpfXS3d240PtK+3c8F10wA5qctkNN7D7o8FLA/pPn8
+ ec7nnsWlMd284qJys/IQm3iqnIAuSs0x0E783r78g2SA1fs2kgrTwWNTJ1mgjbp6PQYa
+ tBIONTlJT8v3m1X+yRVhgEfuRXP0OQ7j4RxWfaVvCyi62J2Eo4Aa8Nat5JXFRt35TMNb
+ TXlicAj6UJhIBnRmkaLqt3xQxVm3WtDT0RrgRycEFOTMfYlRix1TdH2ivmRWIqhjd6PP
+ 4o6aH1DxiLvS9Dghule/7SlAV8LJWP4PP7fsWTYOLbYlYptj/cXCbFm6Cp1D3/0OVmbC
+ Yc0g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793884571; x=1794489371; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=w+HDLvKsrc2Sqexk3V8n4iZX3w0H0J6c4qfjNhM5pQw=;
- b=yRwRYxBpS6OPXPtBQHi8ukjHbKdqZPwB9brXyZVXXJRc4zcX+kF658rolFLagmrWc1
- IUKtCIMLH/uUQuKlb4IN6kztUz0tgJCrZj/VMzK6MDvn7C+r3OrOnFvrrJd+XX5M6oxr
- 8qSgezzxWh2szV4gIDBPCExLmrhL/WGfOSxM+x180jT9H6jkuY12Lo83FDttGnj1Q7q6
- JLx8cvenCgQOdVP7kZVXzWIN4tGVOYQZhQxCrHvUyMSI7POFlslWXPTGLe6PFjirtA+M
- Br8k4GJEtiGlQSww5tr5w1ohNajOp18FWABiX25wA+6KF4HZCkwE/RBa3/oG5sdxfBHw
- DrDA==
+ d=gmail.com; s=20260707; t=1793834219; x=1794439019; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Eu2VU7+z+HKfMP6vJYsfzm0I9qWr/gxSKl0LlmZhiXI=;
+ b=xD+8lqOHbFZ9itVnGx3/grjBVhk8DTWa9qRCElBUeK8ytUp/xkFn6THNZ5Q4rchlZC
+ U3k+JeFltpy7E42ga2ZXf5posNfzWuhHu7ZWSE8Razbr0/l0UZjvcdSMuLZaZUTGm21H
+ 7uxAkyf59L08geq6zIU4mXny9uammbmyZ6XHwVM0HylX4jUNxyHP26hV/ohm9yaJ2CCw
+ JXfb0JjX66nn3V0fIbxwrU1HqvbXi/a7icFo3xKRJ+SxObZe12gEW5QYGJf3s7THeyll
+ s6ZSM3QABbSvt/C5bfu7ZvROEmbH5S9bPTE5sYXZrOE+9cHvWrQViiWiE+K7jI+F0qyj
+ ylHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793884571; x=1794489371;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=w+HDLvKsrc2Sqexk3V8n4iZX3w0H0J6c4qfjNhM5pQw=;
- b=W9pNgeactm+b8BjUiEyqDCragap43phWahY3VxDPDQ2b+mwD1LgE3Vxt1nfR+pjdmI
- J1zV3rgNYR0p/QOcLDtEOSOgj0mzx9qVlKNmku3TdERMXeOB4E6MVkFG5foRsEZiqu6v
- TkIsjKPMvieff0HMoYnoL1fMh7iHdwqSKDqImTWUKFBPkszayI8IH8T6Mk7aEs2qTXZ2
- DjMikGvnZhtzcK49ss2aOUbsVeUzeAFuew7GSxlerrpGkFYO8UEzYnsMqq2qX8DekC48
- 7Cpe4sSxm675oH2OsIh2nfR+yLtsZmVbVQHCkZQMelz8d6mdCrLyBrDPs/GFlqpPeW2y
- +igQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwlsyFar9WVQnLzVvYNmc+xHRbq37Wfs2Wg5dmBBqAM1CHwkml+uNlVI/YfaFX1Nl6uckYq1Ws4qMQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z//LjTe+Cc4+E2DDl/EqwybTKLSEIKMLiQZB51hEaJmUy0sj7bc
- hGOzHC8JruelLrQeNovAO+iWaH4A85uy1hPLxKzshZhbimi2mXsBBlk7ve6jC8ja
-X-Gm-Gg: AYBFou1aUAQ6gBCbUjCnghojtiQyDk04KkodnaUQwyAmgnCEhrY1kQCkYJ7Ef/tb7in
- wf4niEh0209g3liKQRlTrJVbLlbEB1hgyZdIjmjY1SOMnWJOYcc7se5RL4SxA5kaxoRlZgyn5Vk
- /o+R1wWZifXgqWp1eeOlGD987iB0tRpz1HXe1zvN+G55obt2jP5MUpWNwNUpD3ZMq8Yz1PLr8y6
- ykNcn9rvA7vkhtbOjr7iJFOSrRebuEF3o1kuApHVuOWdMGdyxAdCHhyDftWsJCAhiyOBR+CYPFI
- OXgzn4iRYFkDL7SM8bHH/cfkjxg+Zy/Iovhq9x/HlN+1F5zqurY8p3kfb52M38e4nZbdtUVPt1c
- PxgpIpoMgb3JXOZpf9iQldj9gP9CankoXnNPv1Pv9Mkkq+nn+q1aFtvji4DdgJgoZjPpvWSBO4t
- uC2uXkdxXORQbCa+F/yF6BxX0WXNtIRjmd0+6CnMV6Foeah7WJrjY7Db5JdUMvlMedxtejk5XWW
- 1E+vSMcV3TsFDUe+gJIbsPQaloxXr6ixAf0Lol22uBmU8B4Z18LafVVMWLXtfvUEo+bSy4EJ+aT
- BBA7Ucgo0WG3lkWBO5W5fLIZ7dFxerVseQ==
-X-Received: by 2002:a17:903:244c:b0:2e2:cc25:b232 with SMTP id
- d9443c01a7336-2eb364f3256mr182447845ad.42.1793884571426; 
- Thu, 05 Nov 2026 05:16:11 -0800 (PST)
-Received: from pop-os.lan ([2409:4090:1015:ce03:77a8:d3bd:bd43:9560])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ed08fe3238sm17266485ad.17.2026.11.05.05.16.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 05:16:11 -0800 (PST)
-From: saad <primecoder8@gmail.com>
-Date: Thu, 05 Nov 2026 18:45:56 +0530
-Subject: [PATCH] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
- dumb_map_offset
+ d=1e100.net; s=20260707; t=1793834219; x=1794439019;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Eu2VU7+z+HKfMP6vJYsfzm0I9qWr/gxSKl0LlmZhiXI=;
+ b=OENnKtAvxjqX2bKgszyqNBon++6EAnH3V6VzfJeyAZm9NhUXNEtvWpcgdFvHoH1rVM
+ dZEdMynvlqFM93eLnyWu/BXSa+AT+uAFya1pgAX22POnVyDih/Rso/URMhm/P5ozOo5g
+ 3iyu1slfI28cngV1qHo65zNmjTWaCupllVo0d1afgdkO7tmMlxu6k10jzcet5jLyvJor
+ E12mFeLfqSOXncm8gYDipEa1CQuq45Q2HD1QBX6xq+JpPlpo+A1QAOJ3/EvX9I4Vec01
+ 9hVs7xQKeOx3tlIE4xmtBid3KvF4WarG7NXPnwt8GhUU36WIkF/121GiszDqeVlLd+bQ
+ RQRQ==
+X-Gm-Message-State: APuU4Z/x7fpf8c6uYx6ExiACZK/Jb3aomJhyfRlW/hiWCqY6xezd3Nux
+ 3EuQJUmmbEWQVCovPWIpAxp73Cylf30FGn3mU7JXTvq/IgxIv95qHVza3MrHwdzoSz3GK4fvT/X
+ hNDqw/RLD+EHtJU1WlOBBEVlV2sQZja/F8YDzDTg=
+X-Gm-Gg: AYBFou3ZdCelzjUzulmk3OIpz28p30nVG/2a7SfHQQ1S13HI9H5dPeh2XYnOoirWJsu
+ ggMsrDNNiBcS3FRT3DH00nvt3vWqzzIDAeZAeDTy0ZjI/7UNjWWMxoGWjrKUFVcavxQ/G6QC/ja
+ DaUmM3qxboXPYXlOhxNYzQQlJzf2g9JkwFCEsv31xBnsNNJAKayaTt/mH5fFMqvRGHhe1rkHLOS
+ BMFi/38XqP0lMRkLGqjSpwGgwXzadhMkjrtpu3FeNnuLQ2/6amoRqGaPdkoZ2ropGxAm0JxZSWA
+ Rs11nYJNTRpLUPzPMYbV4pfhNNOsBkxs+9dMpP/RHWHZs1xS95hWbbCzqDlDckXerkLi3Itd76y
+ b4433EMAKvYAYQR7mwyYwuCVutrVUGY4ziZlvx+0BiggVPx5LP3o7Sy1x3zPVaP85pf2r3+4=
+X-Received: by 2002:a05:6808:2218:b0:55c:95a:f10f with SMTP id
+ 5614622812f47-5640de58220mr13092358b6e.52.1793834219392; Wed, 04 Nov 2026
+ 15:16:59 -0800 (PST)
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST; 
+ Wed, 4 Nov 2026 15:16:58 -0800
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST; 
+ Wed, 4 Nov 2026 15:16:58 -0800
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+In-Reply-To: <CADZg-m0hnuZ+KpqkUgwZvkhjUdN24syvc8qxuR+oZC5rkJHSNw@mail.gmail.com>
+References: <CADZg-m0hnuZ+KpqkUgwZvkhjUdN24syvc8qxuR+oZC5rkJHSNw@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-amdgpu-dumb-map-offset-v1-1-7299d94ede11@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIuB7GoC/x3MQQ5AMBBA0avIrE2iqIiriEXpTM2iNC0iEXfXW
- L7F/w8kikIJhuKBSJck2bcMVRawrGZzhGKzoa7qTqlKo/HWhRPt6Wf0JuDOnOjAjk2rqLcNzxp
- yHCKx3P94nN73A5BMTrBoAAAA
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, saad <primecoder8@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793884564; l=3075;
- i=primecoder8@gmail.com; s=20261105; h=from:subject:message-id;
- bh=wZvOA5y+L/diQOxcxDKyx4BTPQFg9Be4nZzKofFPvDA=;
- b=g1Fzekx0b+PXo/Alppv0Oy9v2TdYSCpS1xXhAxXlSwX7LSwpu8FA8n1iLO8UQl6/oLhv6LP6K
- vEsWoY89eFrC2KHGl+gRB8I7XUrosjdVCx9t3J56cjmbR0E4+R6NctO
-X-Developer-Key: i=primecoder8@gmail.com; a=ed25519;
- pk=vJlTVYISGHXXppWzVCeFm0dcME82FTjmVlWBQkyLiKg=
+Date: Wed, 4 Nov 2026 15:16:58 -0800
+X-Gm-Features: AclHuK-H-X-4RHKJJTl8yiRj9yZvh6aBYUGlyyiyik-3gLApeo0lzV-MBKHf-DE
+Message-ID: <CADZg-m3HZ8qpXdRSQ5RhjTYQ+3Lf6dbu=radMm_m8zDRMB8GbQ@mail.gmail.com>
+Subject: [PATCH v3] dma-buf/sw_sync: Avoid taking references to released fences
+To: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, syzkaller-bugs@googlegroups.com, 
+ syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,83 +102,60 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As part of the DRM TODO item "Remove custom dumb_map_offset
-implementations", switch amdgpu's &drm_driver.dumb_map_offset callback
-from the driver-specific amdgpu_mode_dumb_mmap() to the generic TTM
-helper drm_gem_ttm_dumb_map_offset(), for both amdgpu_kms_driver and
-amdgpu_partition_driver.
+The last dma_fence_put() can drop a sync point's reference count to zero
+before timeline_fence_release() acquires the timeline lock. If
+sync_timeline_signal() takes the lock in that window, dma_fence_get()
+attempts to increment a zero reference count.
 
-amdgpu_mode_dumb_mmap() additionally rejected userptr BOs and BOs
-created with AMDGPU_GEM_CREATE_NO_CPU_ACCESS with -EPERM. Dropping
-those checks from the dumb path does not allow such BOs to be mapped:
-returning an offset does not create a mapping, and the actual mmap()
-goes through drm_gem_mmap() -> amdgpu_gem_object_mmap(), which performs
-the same two checks and still returns -EPERM. The only user-visible
-difference is that DRM_IOCTL_MODE_MAP_DUMB on such a handle now succeeds
-and the subsequent mmap() fails, instead of the ioctl failing. Dumb
-buffers created by amdgpu_mode_dumb_create() are never userptr BOs and
-always have AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED set, so they are not
-affected.
+Use dma_fence_get_rcu() for the temporary signaling reference. When the
+reference count is already zero, remove the point from both the ordered
+list and the rb-tree under the timeline lock. The release callback will
+see the empty list link and leave the indexes alone. Removing the point
+here also prevents a retired entry from blocking or misordering later
+timeline operations while its release callback waits for the lock.
 
-amdgpu_mode_dumb_mmap() is kept, because it still backs the
-driver-specific DRM_IOCTL_AMDGPU_GEM_MMAP via amdgpu_gem_mmap_ioctl(),
-which is used by libdrm_amdgpu and Mesa. That path is unchanged.
+The timeline lock prevents the release callback from freeing a listed
+point during this check. For a live point, keep the temporary reference
+until after dropping the lock, avoiding recursive locking through
+signaling callbacks.
 
-Build-tested with CONFIG_DRM_AMDGPU=m (W=1 for amdgpu_drv.o and
-amdgpu_gem.o), no new warnings. Not runtime tested.
-
-The code change was written by hand and reviewed with the help of
-Claude (AI coding assistant); the commit message was written by Claude.
-
-Signed-off-by: saad <primecoder8@gmail.com>
+Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during
+fence signal")
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Changes in v3:
+- Unlink zero-reference points from both indexes while holding the
+  timeline lock, addressing the ordering and debugfs concerns raised
+  during review of v2.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 731fe8f9e..134d2fe4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -27,6 +27,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_ttm.h>
- #include <drm/drm_gem.h>
-+#include <drm/drm_gem_ttm_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_pciids.h>
- #include <drm/drm_probe_helper.h>
-@@ -3151,7 +3152,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
--	.dumb_map_offset = amdgpu_mode_dumb_mmap,
-+	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
- 	DRM_FBDEV_TTM_DRIVER_OPS,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
-@@ -3177,7 +3178,7 @@ const struct drm_driver amdgpu_partition_driver = {
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
--	.dumb_map_offset = amdgpu_mode_dumb_mmap,
-+	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
- 	DRM_FBDEV_TTM_DRIVER_OPS,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
+ drivers/dma-buf/sw_sync.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
----
-base-commit: 279235273fc6c0a33df863b4a1cc52ec1e73aba5
-change-id: 20261105-amdgpu-dumb-map-offset-6fa41e8d3fb5
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b021..261bc98b1 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,11 @@ static void sync_timeline_signal(struct
+sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
 
-Best regards,
--- 
-saad <primecoder8@gmail.com>
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get_rcu(&pt->base)) {
++			list_del_init(&pt->link);
++			rb_erase(&pt->node, &obj->pt_tree);
++			continue;
++		}
 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
