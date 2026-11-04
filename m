@@ -2,50 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF91606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E39F606A31B
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:08:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Nza9K1RN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNoFUyHE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E124210E5AC;
-	Wed,  4 Nov 2026 11:08:05 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25E0C10E879
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=ybk9PjsAKZvMCgCYSb/Xfuyw4DvYxnCaG7n+1bV4cp0=; b=Nza9K1RNNnmbGtzGs4dx3xHTcf
- +usFhekww9t4ygED3ZXPcYdGBGR9+MpYqihUpejRUCQMesQ9wxOOzfYnGaC+o95mYmKU83XgriN+g
- TuioynnpubfcdxJBjBh+azoeIeAa7nNa+LGPqgO99YyHthQNChyBvW37HrzOak2vS+vLY+Z99MjU4
- aZsgHM4r1caPhZf/b+JOcR4VE0qMAjjAYfx1JXJZJHConsyTvWeExcK94JBEtYfh9ZDNeF3Pj03DN
- CxmlNweHuoNKFDTjawuUazJV0gwWzQmxz8L/3xn+r5BWYygtaN4xnCqb87yJO0mkJXI2dZ7wh8h2o
- D8HGfr/g==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Igor Paunovic <royalnet026@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
- =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v2 05/11] accel/rocket: request the core clocks by name
-Date: Wed, 04 Nov 2026 12:07:42 +0100
-Message-ID: <3117045.BaHzMo0RvP@diego>
-In-Reply-To: <20260922080114.44662-6-royalnet026@gmail.com>
-References: <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-6-royalnet026@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D6010FB3A;
+	Wed,  4 Nov 2026 11:08:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A06110E879
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:08:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 10DF3447B7;
+ Wed,  4 Nov 2026 11:08:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4711F000C1;
+ Wed,  4 Nov 2026 11:08:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793790492;
+ bh=u0pzNhc88EQWfEvdKmTmCWvYxL0guJ9gozKWEalXU4U=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=oNoFUyHEbgkk5cIKOy0xO8hz/PBgZm1fpGpyJXJ5kZ4HpiLdM3tqZTCHhQtE9a2On
+ xeMI5/n+XtP3rOh7e8G8EqJsWYRc+xineIDIymEqx1oiHaS18sXV2AobdPow+oEAhq
+ mpBjBcgtkA5ZMHhloH5JuhIa2bmRmy9Kjr+5F3wofARCGElHxxCoWBe8pr4+I2irvG
+ BJTeWC8WJBuiXl2DMKvA6r4lPhL7ZeONoExfbTsDBStdf0HkKqmnJUVmpitto4EMmp
+ yzw+Jogix8A0y9f31OkeOwjIcJ3DQPaV28B+y5sTJTZxvYdjdulRfgk173yMmUXua5
+ iyTvDxg9aDz5g==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 04 Nov 2026 12:08:08 +0100
+Message-Id: <DMMDNQ0GD6AP.6HPRG6JWUEYQ@kernel.org>
+To: "Dave Airlie" <airlied@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [RFC] linux-next: replace the DRM trees with a single
+ drm-for-linux-next
+Cc: "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "Alex Deucher"
+ <alexdeucher@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Jani
+ Nikula" <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>,
+ "Matthew Brost" <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, <dri-devel@lists.freedesktop.org>, "Mark Brown"
+ <broonie@kernel.org>, <linux-next@vger.kernel.org>
+References: <DMKY979I29AF.BS1DF5YAZMOY@kernel.org>
+ <aujikV14tF6K1Xqw@intel.com> <DMKZR0YZV1CX.DWVK9V47GR1J@kernel.org>
+ <CAPM=9tww=CJdxzvfUvLwQ6V4uoszg8JrB1XCAcp15upM-xPvSg@mail.gmail.com>
+ <DMLTRKUXTL3P.11VRVU1A8ERMG@kernel.org> <aupFKGpAwAiGXN0U@intel.com>
+ <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
+ <CADnq5_N-6_T8EnihjoTSqpHGb_mZPogi6z=Ti-7_oue5d07oTw@mail.gmail.com>
+ <aupktBCwcN_coHEH@intel.com> <DMLY7GDT8VBO.EE1P01ZX2HPK@kernel.org>
+ <auqaZdocMvOIxN1c@intel.com>
+ <CAPM=9tzu6MYQ-Y0iYK=2PLiM5=1BsEN+Q5WnmYh=hkKnLJ4b1Q@mail.gmail.com>
+In-Reply-To: <CAPM=9tzu6MYQ-Y0iYK=2PLiM5=1BsEN+Q5WnmYh=hkKnLJ4b1Q@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +70,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Dienstag, 22. September 2026, 10:01:08 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Igor Paunovic:
-> rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-> setting the .id members. The rocket_core array is allocated with
-> devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-> .rdev, .dev and .index, so all four clk_bulk_data entries are requested
-> with a NULL con_id (unlike core->resets, whose ids are set a few lines
-> above).
->=20
-> clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-> of_parse_clkspec() only consults "clock-names" when a name was passed,
-> so the index stays 0 for all four entries. Every entry therefore ends up
-> holding a handle to the *first* clock of the DT "clocks" property, i.e.
-> ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-> four different clocks.
->=20
-> The consequence is that rocket_device_runtime_resume() prepares and
-> enables the AXI clock four times, while hclk, pclk and - most
-> importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-> never prepared or enabled by this driver at all. The NPU still works
-> only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-> its attach_dev() callback walks the device node with of_clk_get() and
-> adds every clock to the pm_clk list, so genpd happens to keep the
-> remaining clocks running. The bug is therefore latent today, but it
-> means the driver holds no reference to the clock that actually feeds the
-> NPU, which stands in the way of any future frequency scaling
-> (OPP/devfreq) work.
->=20
-> Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-> /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-> handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-> two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-> "fdab0000.npu" consumer at all - their only consumers are the
-> "npu@fdab0000" handles created by the power-domain driver via
-> of_clk_get().
->=20
-> Set the ids explicitly, in the order mandated by the binding
-> (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-> aclk, hclk, npu, pclk. After the change the driver holds one handle per
-> distinct clock and clk_bulk_prepare_enable() covers all four.
->=20
-> Note that this is a user-visible tightening for out-of-tree DTs: the
-> old NULL-id requests resolved by index and succeeded no matter what
-> "clock-names" contained, while the named requests fail probe with
-> -ENOENT when one of the four names is missing. That is the right
-> outcome for in-tree users - the binding requires exactly these four
-> clock-names and rk3588-base.dtsi carries them on all three cores - but
-> a DT that relied on the permissive lookup goes from silently running on
-> the wrong clock handles to not probing at all, so record the change
-> here where git log will find it.
+On Wed Nov 4, 2026 at 4:29 AM CET, Dave Airlie wrote:
+> Yes this is the thing I like, while I like maintainers having freedom,
+> relying on them to do something manually every release at the same
+> time doesn't seem to scale so well.
 
-same comment as in the RK3576 series, please trim this down a lot.
-The change is not that big :-) .
+I think maintainers have to do something manually every release in both cas=
+es.
 
+The difference is between "everyone has to do it at the exact cutoff day" v=
+s.
+"everyone has to fast-forward their -next-fixes branch" (which to be fair h=
+as to
+be done in both cases).
 
-Heiko
+For the former, a tree that closes before the global cutoff can still leak
+following-cycle work into linux-next.
 
+I.e. the global switch is automatic, but doesn't ensure correctness by itse=
+lf.
+In order to be correct, maintainers have to do something manually.
 
+So eventually it comes down to whether doing the correct thing derives from=
+ an
+explicit operation (i.e. fast-forward -next-fixes, or just add the --final
+helper), or an implicit commitment to push and tag branches on a specific d=
+ay.
 
+I think it is better to derive the tree status from its actual state rather=
+ than
+a promise about that state at a specified cutoff day.
+
+> If we can't have the tool enforce what we send to -next after -rc6
+> then it's going to have gaps.
+
+I don't think either option can enforce correctness. The difference is that=
+ one
+approach relies on a timing promise about the tree state, while the other u=
+ses
+the tree state itself to make the decision.
