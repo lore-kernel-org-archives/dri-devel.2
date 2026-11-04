@@ -2,56 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93975607168A
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED90607AF22
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 17:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wbGQOm3k
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJ+YsSS1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04CE810E05E;
-	Wed,  4 Nov 2026 17:57:01 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA2510E05E
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:56:55 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 1D8961A1454;
- Wed,  4 Nov 2026 17:56:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E3F2460770;
- Wed,  4 Nov 2026 17:56:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BA09A10329205; Wed,  4 Nov 2026 18:56:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793815008; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=pomOHAapQUnvxNXGyGq+ejBOj6+SbEhIie1BBI6hGCU=;
- b=wbGQOm3kU4XlqaXfMkG1e3oCPliNudbNeC7c8QJJrIVQE3yNuu4nf7/aKsBgokmzUv5Z6a
- t4Hhl5QJdio4PV9FwUAk1dQhLisRTb6M42a1/DXvIDqSoegKlYK+HxO8FlIAnZV+LkNVn+
- G+TJxn7X3hF3B6DpnE6Cmcxhd5oAq6n5SDLxB/2Ys+PrvcCXvFpAXDZIwsuymr93HmSgb4
- 7roIicJBWVoE5Mpc/poKxuuJ7+o9BfIr3iru2jXcYrY/41WRTW8/FZe1rqLi2kxhSbl1NU
- qjXos/5K6rnlme+Fnf63NZh/TZJ9qLsCpc/mh3yfHi65MJdhTlmqyTqaUun+Kw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E10D110E186;
+	Wed,  4 Nov 2026 17:57:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEF3810E186
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 17:57:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 908A743A59;
+ Wed,  4 Nov 2026 17:57:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0110B1F000C1;
+ Wed,  4 Nov 2026 17:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793815020;
+ bh=qeQgphPdxdiWtw36JzKqWooMSgzPZU+EeD4NlyLVhDM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=jJ+YsSS1mKgXVutXvIprPjWbk/f3EaiHLkE0iUZZAD8UlGdeiTsq37AMjiJ1LQO42
+ s7IKloTcsbSWCr6Lc4020v768o++Pni3fgFkFO5tp1ySQmamfYyvOlYF89oN/AE0uz
+ cDBLCJtKpTc2bEc32o8AER5NNVvUQIyxG/58XGRNwW4UebnC4TzH2w4THg6Y4IuZEE
+ HY4QLlr1k8HjiamlPJYs4KZrW3+I6WmOXTXZ8NvkX2h2a4OGzF5wxpPCxFfmNGgkxC
+ TEjrpd9SN8JK0f/Vf8mgRK+nlmhJ6yDeGzIC6DtBcVm6ZCj3+6Kd0iuDWQx/Ae1YSo
+ KOmYuIt4jqdDw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>,
+ Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH v2 39/51] powerpc/crash_dump: recover from a machine check in
+ copy_oldmem_page()
+Date: Wed,  4 Nov 2026 18:47:25 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-39-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:56:41 +0100
-Message-Id: <DMMMCJHUT8EL.1L6VS1X1K2BQE@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: fsl-ldb: Remove panel naming and use scoped
- device_node cleanup
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-In-Reply-To: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2421; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=VIVKq8y+KdCJwnDd/z4L2OCrr1yqDfObdGoCOSjiCdM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9znu/ZLFx05xpnp+TTtxLuaWnvKXR5q5SRcWM5RNFJ
+ +7uuXKbraOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi0wIZ/nB7KCi471/L1Nq6
+ 9n0/51Uea/Fd3qy9fnsOr1vwmcnr62yG/yWGkZU+VvatQgcYS97WRSfuKtivn95TcozLZv5XWWl
+ eDgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,39 +90,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Oct 30, 2026 at 5:32 PM CET, Laurentiu Palcu wrote:
-> The remote endpoint node is not necessarily a panel, so drop the "panel"
-> naming and refer to the next bridge instead. Update the error message
-> printed when no output port is connected.
->
-> While at it, convert the device_node handling in fsl_ldb_probe() to use
-> the __free(device_node) cleanup helper. Since remote1 and remote2 now
-> stay valid until the function returns, pass the selected one directly to
-> of_drm_find_and_get_bridge() and drop the extra panel_node reference.
-> Do the same for the dual-link port1/port2 lookups.
->
-> No functional change intended, other than the updated error message.
->
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+A capture kernel reads the memory of the crashed kernel, and that memory
+may well have uncorrectable errors. On powerpc a machine check in the
+kernel is only recovered from if the instruction that took it has an
+exception table entry (cf. mce_common_process_ue()). copy_oldmem_page()
+copies with copy_to_iter(). For a read() of /proc/vmcore that is a user
+copy, all of whose loads have exception table entries, so the machine
+check turns into a short copy and read_from_oldmem() returns -EFAULT.
 
-I wanted to test this patch but it does not apply on current
-drm-misc-next. Can you rebase and resend it?
+But since commit 4a22fd20379c ("vmcore: convert __read_vmcore to use an
+iov_iter") /proc/vmcore can be spliced too, and splice(), sendfile()
+and copy_file_range() copy into kernel pages with memcpy(), which has
+no exception table entries. A machine check there panics the capture
+kernel. The same goes for the reads of the ELF headers and notes that
+vmcore does itself, and those have been memcpy() for as long as
+copy_oldmem_page() has had its kernel buffer branch, since commit
+54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page").
 
-BTW the content looks good, so if you only do trivial changes in v2 you can=
- add:
+Copy with _copy_mc_to_iter() instead. PPC64 selects ARCH_HAS_COPY_MC
+and there it uses copy_mc_generic() for kernel and user destinations
+alike, which has the exception table entries. Everywhere else it is
+_copy_to_iter().
 
-+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
+Fixes: 4a22fd20379c ("vmcore: convert __read_vmcore to use an iov_iter")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/powerpc/kernel/crash_dump.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Luca
+diff --git a/arch/powerpc/kernel/crash_dump.c b/arch/powerpc/kernel/crash_dump.c
+index 1543917bd3e1..ca7e019ae3e9 100644
+--- a/arch/powerpc/kernel/crash_dump.c
++++ b/arch/powerpc/kernel/crash_dump.c
+@@ -83,12 +83,12 @@ ssize_t copy_oldmem_page(struct iov_iter *iter, unsigned long pfn,
+ 
+ 	if (memblock_is_region_memory(paddr, csize)) {
+ 		vaddr = __va(paddr);
+-		csize = copy_to_iter(vaddr + offset, csize, iter);
++		csize = _copy_mc_to_iter(vaddr + offset, csize, iter);
+ 	} else {
+ 		vaddr = ioremap_cache(paddr, PAGE_SIZE);
+ 		if (!vaddr)
+ 			return -ENOMEM;
+-		csize = copy_to_iter(vaddr + offset, csize, iter);
++		csize = _copy_mc_to_iter(vaddr + offset, csize, iter);
+ 		iounmap(vaddr);
+ 	}
+ 
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.53.0
+
