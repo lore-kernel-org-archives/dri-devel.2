@@ -2,90 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F95C606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB26606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zPU1YcMO
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=ZSXPcTro
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE84112C39;
-	Fri,  6 Nov 2026 09:18:44 +0000 (UTC)
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E85B910ED60
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 07:35:34 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-5e948e56af3so137371e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 23:35:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793950533; cv=none;
- d=google.com; s=arc-20260327;
- b=PSQI/dxumz0QOZrWk5esA7r1J8N8Y5ndeZYy9w2KEGEEFt8Q/DRgej/CwVp94sD0T6
- x2FcT+LkG64HXDPC9YbIt3UFT47yQXvZFgdFkhvf2kSsLFSordIr6h82IOAtwqq8ZykI
- Zaw6yuztHs5TIAf+fFwbF9qTtMvqaN9L4vmf36gQ7K50l860RxkXXKZD2ViKX60tkea8
- 2tpWHpABYORkt851lKmQC24Vv6EdQe48LGBKWtqTD+cWAvQoT3Ys67Bp/Tfd0Z2q6y7T
- Xea0aVQu+Hr2iLYNKT8dskPB8YntYvruuePF5tzBkIJzaeV/C+IvXSHDGTcTWM3g114i
- VOQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=7ptbIZ/iYk/cUsLSNwK54InvG9cKveVC2qE/NSlCtAg=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=kKaV3tOOQOYXGuzbpsMSkTX3L/oZTNfnCXvMdLpODdqZJAOgUN6WJELH2VfSmVNRK9
- 7mf51pgD1gd1UTCSJAVc1Uimqbel0KJbaOvB+eecGJnEExRBscXpooNrKrAeIVkbJiZh
- RtynHbj69q58Lu10xBF+IaiCo3VAqhqao6wRN44R4jWL+5k4jlZAjtjHCZ82Dg9cpPwl
- B3L8N/wQkqyZDtmNHhplxiabmcDF8y1VUpnrSaNuW4n3fUsA9pmQfd4kp+WNPuhyMXxi
- VvoC0xqwCmHQfZrdxOkPYyLCNiLxxy5i2ynRNB6m7gWeFHTKLrln1holit3vzplm7ZK2
- ayUA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793950533; x=1794555333; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7ptbIZ/iYk/cUsLSNwK54InvG9cKveVC2qE/NSlCtAg=;
- b=zPU1YcMOSkeiJ0QFZMn+c9+NZczG+4hmIVW98Shz55WY0Ix/X9XNJpANA9OdGjabE/
- fV+Eh3vhzfl3et85J1kQhGxmOFH6g3LEzHT9yEvryehih3Z13z9MfgmR+DI3pmHfD36P
- BvUvg1CdbysMzK6p/JLXAuhwxIC4j9vqdT7c6XFp+SnqIei1q+cMk50K/ndUzg16rCEt
- 3YsKA+T80u2oTalr1zWXEtqT7juzSahcetOsEF2dJbo62/bkopiWxG4nr+Ml74PxMYdx
- +aWPWlKz6/VQ09kpcC51bdDkJFiBOziajxSyIK0YQLyzNv0gbaDFGDsD9pU5AOPSe4Lf
- GlhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793950533; x=1794555333;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=7ptbIZ/iYk/cUsLSNwK54InvG9cKveVC2qE/NSlCtAg=;
- b=TxoDgXoZJeF5p//ViNWk8Z+oj+3/8cG1jezKWTI0nhgNI/axrrwph1zmPeLGT88keW
- lDqDXgShvq5nRT6STc0PyH38s6W+vxsPNWhAjxIHCYCVo9cs46DzbwFie+5Z1oW70XuN
- rpZZzn9/hysDZ4jDwOD4zEsfvai9Ezfv7U2ajVjHaOEkXfCNnzC9uR0p3dK19ZfYwO81
- k6cNeoWpB8FVNdCf6TsptyEAMaSnEIPGyGpO66pW1Ogszdy2ZUPcniQl8R1Dl+sxrfwu
- a+nphOf7pXFgF48fiJR+z2XUtosrC3XAWUosLo3pzN1lmL02/B7j6pQxMZTrcC4EwBIO
- IC4Q==
-X-Gm-Message-State: APuU4Z/EjwQWrXaDuMdBIdM8vN7C0IZjNhf9UXFONrwvq+MYFkhoGhXe
- zx0vtQ0bLwv8pOACUJ5Wcb9JGlLqpVErWcmZTnvEmhDcjOj4b4h0Sp/RjLpB9p+sIajrY7ThoMD
- xmSAhvpSywhqhWvTy0+V5Z0duDifeazehE/pa83TrJgCF
-X-Gm-Gg: AYBFou3iSRIW5IJTwpIQ6KXNMH/vTRa55/apfZ/diNiLkl5rbDmXnmqHgPniL8QOzpD
- yI80PQ+1KD2FwIbtuNglMBvnmr2tk98KGrKKtJgcJm6BYdEEL1rRF+ow5pD2JYZWgLHMHHGxkEo
- DIhVcIYcdG9127icQNsgCQrjet+DyxKNIUpyoky8742rPyK7J1K28yeF0yQlGbHwJ9VB8WW22qA
- ZYx4c6e99RidxKFKxB7toiZrx5ppIWpHbCLsm5RI1/nRkbDIS/je+/DJh/pBSRm8oushNeLHKBv
- r20tEMdBODzdOQrt46C2rI//2Duf5S6NFOrnW48Rd1W1xoMBNTajIYnNfUXQ7qyaHBp0nw4HDNP
- 8jxMggOy+tTXa4HehrJW9/HeQaPwfb3DVuwbymSvaJYs/WI4DZ9UT27rRsYi9m8ewjoAif/k=
-X-Received: by 2002:a05:6122:1d07:b0:5ec:c3ed:7d99 with SMTP id
- 71dfb90a1353d-5ecc43bb9camr883031e0c.6.1793950533575; Thu, 05 Nov 2026
- 23:35:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFBA3112C3A;
+	Fri,  6 Nov 2026 09:18:47 +0000 (UTC)
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A021A10E206
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1793818771; x=1794077971;
+ bh=m7rHPBwaK2QnFjTfM9iOAm57zKhbpBduzc8crhMuhp8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=ZSXPcTrojU0nKPQ7wcqHAeV2ZoLT12SqXlgU//5hc5rMpnCKKFRMAFllbrCF3LYKP
+ domxctA98X0SMSPXMMr+ueDPRlpjGteXvhusWkTNx0BQdCrF6z0OIYSHy19BKbo2/n
+ 4WY32gq8Bt6OFUNVd0afx9nmUf9ghE7koNV5hU0DZFZUuWkzDKTxb276tKL/9kpUXl
+ p1Uj1O6l6Phlho0PoqcNnU5Fw/tlyKRcIU7IgmLrpWA92LNgFS66GvgLwMZ8E1Wxk+
+ nhise5dBgYi7BLOHE5EeVKAq9r/0xzkf84V/k+3nRBX8Nm/TfF9eGcuzipcZkIJ3Se
+ mgZ8pcy0DVPyw==
+Date: Wed, 04 Nov 2026 18:59:25 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, CK Hu <ck.hu@mediatek.com>
+Subject: Re: [PATCH v9 11/13] drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+Message-ID: <F0G_dANYlJ1-UIb2SYBfD3M-Lf0LDESQ3_gls5cGALE1EXYHhZXJHfAibDIjbFR9Rc_rfmce8tk8vBoevtJ94X3inG6HVIVzzBBtWCyPTW0=@protonmail.com>
+In-Reply-To: <20260916110825.102631-12-angelogioacchino.delregno@collabora.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-12-angelogioacchino.delregno@collabora.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 72767cc76342ad316c8bf2f0e9abda7edd262961
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105-amdgpu-dumb-map-offset-v1-1-7299d94ede11@gmail.com>
- <sashiko-outbox-199163@kernel.org>
-In-Reply-To: <sashiko-outbox-199163@kernel.org>
-From: primecoder 99 <primecoder8@gmail.com>
-Date: Fri, 6 Nov 2026 13:05:22 +0530
-X-Gm-Features: AclHuK_2NbDauhK1vtY44LNfDgnkfJZczP0ASKl7ziRTUuqXw8aHM_GaounR8o4
-Message-ID: <CAPf2aH3ZEXbiukx-gGqJq6Sd9_B2qQmcbLNf-Knsw-U1xYg6FQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
- dumb_map_offset
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,16 +58,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> should amdgpu_mode_dumb_mmap() be folded directly into
-> amdgpu_gem_mmap_ioctl() (or at least made static) and its prototype
-> removed from drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h?
+On Wednesday, September 16th, 2026 at 2:09 PM, AngeloGioacchino Del Regno <=
+angelogioacchino.delregno@collabora.com> wrote:
 
-Thanks, done in v2:
-https://lore.kernel.org/r/20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com
+> Enable PM Runtime at the end of mtk_dsi_probe() so that the
+> mediatek-drm mtk_ddp_comp_power_on() function is able to do
+> pm_runtime_resume_and_get() and, analogously, the function
+> mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
+> device.
+>=20
+> This makes sure that the power domains for the DSI IP are
+> turned on and off when necessary.
+>=20
+> Reviewed-by: CK Hu <ck.hu@mediatek.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+
+No regressions on mt6595 or mt6768 platform.
+
+Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
+
+Best regards,
+Roman
+
+> ---
+>  drivers/gpu/drm/mediatek/mtk_dsi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 3b33419aee2d..4863d910511e 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1735,6 +1735,10 @@ static int mtk_dsi_probe(struct platform_device *p=
+dev)
+>  =09if (ret)
+>  =09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
+");
+>=20
+> +=09ret =3D devm_pm_runtime_enable(dev);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+>  =09ret =3D mipi_dsi_host_register(&dsi->host);
+>  =09if (ret < 0)
+>  =09=09return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+> --
+> 2.55.0
+>=20
+>=20
+> 
