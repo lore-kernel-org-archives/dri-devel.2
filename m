@@ -2,73 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E0A606A326
-	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 10:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D67D606A336
+	for <dri-devel@archiver.kernel.org>; Wed,  4 Nov 2026 11:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TLlQ6ZKv
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=HprGKrTr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F097D10FB12;
-	Wed,  4 Nov 2026 10:59:04 +0000 (UTC)
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
- [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D76D10FB19;
- Wed,  4 Nov 2026 10:58:59 +0000 (UTC)
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
- [IPv6:2a0a:edc0:0:900:1d::77])
- (Authenticated sender: lst@pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE5752008B9;
- Wed, 04 Nov 2026 11:58:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
- s=20260414; t=1793789938;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BZFGF4yVK8CasvOvAXi/K/IhB8egqk0MRd0U/7JM4nI=;
- b=TLlQ6ZKvu6bXMiiyckpsPoVyhjyUb3xv7sKk4zj8QfNRV58YyZqR4MBdrR/cY1k1zA7hdQ
- uKDGpM56BoeZ//CrB2JXnAgK7ilFxaYcgYSmhYdDm6S8bQ/+fHVtS/f3s+0fE2cXUUfc9W
- jV4LiNVQgEk9LEDbUBybPA84WQiY6xyuPvvd8t8/bx/iwsrENROeKYdnlYuEwLgo8qeOWU
- 6uVta/ZX1eNY0gr+ue9goAn1CWOIa9pwDGx9oGjJeLkiNvzJkn49v4PEe9Kc7wJhziLrm4
- xeWHR3q+XSgTS0Rk/wKyxdCN/7Hy74B+hh088Hinkpm+SbibTkZAhFPqXtvkAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
- s=20260414; t=1793789938;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BZFGF4yVK8CasvOvAXi/K/IhB8egqk0MRd0U/7JM4nI=;
- b=R1jiyD1hstnR1F9AVO7KSV5iL0G0U/obkKEufsN7hXhAVXr0/ElCasNPA1UTHusDYKNJYY
- pieUChCofcGko+EIj35+uf9gqkVJXm8Xm7uFigkNICre+1U2AeNYZI+xbfN7FOpwQFqrHH
- CsdX6QKoJrHTv4N1vbvX57jjipfX6cR/V3OzpNNPSQFzXFjAbWpuFYQFhnvDYdV1x7g5T7
- Mc/UfLoS/o/b0GZdxKWJzSQG6foQI6883dql5DB0hhoHtFlnIWmKfXWNqM5rACptO3lVVJ
- s36Raux9NSxWMgLXBvLjzJGt8h/HfE37J3pk6BquVaj8v9yI0+Lvj+cpDgTHHg==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793789938; a=rsa-sha256;
- cv=none;
- b=Jqu7Cv3wg03x/46cig9MB5ofn6u8liJyLUhcMrPmM8KpDDiFKpLLZ0ueHOctlDa/7w/wMl
- 6GtAdfXZ7kk3oFgy8Eba+EDFxcQ27mkhKCs0Qbj2FCzC28n5wR2WKLDHu5d0VEzKIdxOhO
- qdlFFklqag6fMhT+RxsWeyli+XrkXJRPYuWBqgzFiLeSrDlCba/JNNpOiedZAyQn+9kz2e
- QFml4f26Ar/MjKN5syonIjCBxpjk/JRe1uQvCVx2eUWziOZb+GbwrJc1L+8F/Y4OlLoID5
- o0zfL1KpnBtDAYmbmsoZxUjzRHpkQl6Kp821g+4uQUfWc2zePSyFlF35LE26hg==
-Message-ID: <b6999d67d14772a9b3b90e3cce84d96551e9d63d.camel@pengutronix.de>
-Subject: Re: [PATCH] drm/etnaviv: Fix NULL dereference on unbind without PPU
- flop reset
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King
- <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Gert Wollny <gert.wollny@collabora.com>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
- stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 11:58:57 +0100
-In-Reply-To: <20261102-etnaviv-unbind-flop-fix-v1-1-588fd16f6768@igalia.com>
-References: <20261102-etnaviv-unbind-flop-fix-v1-1-588fd16f6768@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62EBC10FB19;
+	Wed,  4 Nov 2026 11:02:33 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF2CE10FB19
+ for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 11:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=D6EynbrAyE4kBCRtfAuXRbcm+KrJUZjKmPIkF+rnkGE=; b=HprGKrTrwC+A6mzuC5DOgjQHfS
+ 9qs/Upv6aoKHG/RC8l/fMPvz6uAI9m6ULjaFh0EJqly5ovt/0VvP5KYdJRBwMz0rk+pft8OZzS+92
+ 849Q7YRLbD4aNTLZ2CkjJrhujXha78Xa/8NaNc92aWMrJpPvzMccTJwnDxg/nlhP+kwRw5G1H9Z+A
+ Y4M9jo7W49Tk66EBbJDF8kT2pr7PJiZm5MPdKfgTeiH6C3Eu4ZnhChxCo5tiuZ7kkGPfu1Jtv0c4I
+ UpzG9FmCH0IyiUCX+ggLidwZAWo4lmOqV8jNDjPiI+y5VRvll40JKas30nrfAh0tiUYPPtgj6/v5A
+ 7zta+zuw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>,
+ chaoyi.chen@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v15 08/15] dt-bindings: iommu: rockchip: describe the
+ RK3576 NPU MMU
+Date: Wed, 04 Nov 2026 12:02:02 +0100
+Message-ID: <15606397.O6BkTfRZtg@diego>
+In-Reply-To: <20261101082307.151957-9-gahing@gahingwoo.com>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-9-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,48 +66,59 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Montag, dem 02.11.2026 um 11:38 +0100 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
+Am Sonntag, 1. November 2026, 09:23:00 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> The RK3576 NPU MMUs are rk3568-iommu compatible but take five clocks
+> instead of two. Give them their own compatible and pin both clock counts =
+in
+> allOf.
 >=20
-> flop_reset_data_ppu is only allocated on GPUs that need the PPU flop
-> reset. However, etnaviv_unbind(..) frees it unconditionally, and
-> etnaviv_cmdbuf_free(..) dereferences cmdbuf->suballoc before checking
-> whether cmdbuf is NULL.
->=20
-> As a result, unloading the driver on GPUs that do not need the PPU
-> flop reset causes a NULL pointer dereference at address 0.
->=20
-> Fixes: 85ba57ad88cf ("drm/etnaviv: Add PPU flop reset")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
-
-Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
-
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > ---
->  drivers/gpu/drm/etnaviv/etnaviv_drv.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>  .../bindings/iommu/rockchip,iommu.yaml        | 28 +++++++++++++++++++
+>  1 file changed, 28 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.c
-> index 08aca9035fc1..ec1352c1b09f 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -601,8 +601,10 @@ static void etnaviv_unbind(struct device *dev)
+> diff --git a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml =
+b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> index 6ce41d11ff5e..83d7e7c8e0c2 100644
+> --- a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> @@ -26,6 +26,7 @@ properties:
+>        - items:
+>            - enum:
+>                - rockchip,rk3576-iommu
+> +              - rockchip,rk3576-npu-iommu
+>                - rockchip,rk3588-iommu
+>            - const: rockchip,rk3568-iommu
 > =20
->  	component_unbind_all(dev, drm);
+> @@ -42,14 +43,22 @@ properties:
+>      minItems: 1
 > =20
-> -	etnaviv_cmdbuf_free(priv->flop_reset_data_ppu);
-> -	kfree(priv->flop_reset_data_ppu);
-> +	if (priv->flop_reset_data_ppu) {
-> +		etnaviv_cmdbuf_free(priv->flop_reset_data_ppu);
-> +		kfree(priv->flop_reset_data_ppu);
-> +	}
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: Core clock
+>        - description: Interface clock
+> +      - description: Compute clock
+> +      - description: Convolution buffer core clock
+> +      - description: Convolution buffer interface clock
 > =20
->  	etnaviv_cmdbuf_suballoc_destroy(priv->cmdbuf_suballoc);
-> =20
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-etnaviv-unbind-flop-fix-5c77f75de45f
->=20
-> Best regards,
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: aclk
+>        - const: iface
+> +      - const: npu
+> +      - const: aclk_cbuf
+> +      - const: hclk_cbuf
+
+I'd really like more justification in the commit message, why these
+additional clocks are needed.
+
+Not saying this is wrong, just should get a bit more explanation.
+
+
+Heiko
+
+
