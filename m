@@ -2,103 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7E5606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1342607B953
 	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fWuEFlio
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMGngCoO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75FCD10F08B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFFF10EE08;
 	Thu,  5 Nov 2026 19:36:07 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22ECA10E729
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E64E10E978
  for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:36:00 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a2153c8525so15908305e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 11:36:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793907358; cv=none;
- d=google.com; s=arc-20260327;
- b=Nc8Eo5p/Lp/byEdnq12trIuZlXVBNbCzv0B2HTBrPzg0dhIHFu97emBAnEbTkgCJ4W
- he51MUEFyFAzz33ujev+mTQmCuVGXH9uI01WmhrbUClJUpGcVMq4GCUWQHgyFA+y8fiU
- pDCb4rwvCb7a5WjEyOWClgMbjF8y90pArw2p5aMGfyvwZoT50ysdPXVv71DNiYDB+2g3
- XEEAb9WkErx+qLWYky7seQ6vikZiM5AlF0VVx8Mmx3BBOr4Uiyacw3u9yP9xw+jKWwV0
- iRzXVlUyQwloePgAAUvtdYO4KyJz8mtsz3IWsIDW5k0C4ehT8nzffgKQhlW3JSjpe/1W
- qhyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TT16yiNSMhQ2WLe6YgEjHp++F5KnwVX2DUvK61E+hlk=;
- fh=BtXJY24CsLGdtPT/TadI/ND6qxg3KJZI85anZBNIwVw=;
- b=MXmrc3/cRk5NJ6qP1/wTh8tXJOiPiaHfuk4pDIi+nkz8g9RSHnza35r6CfHd4dF7gW
- CVYw3q+I2te9bGRZ7BJOau73PxojzMKcuCwp6QHNaoWJXR9LORQne16QCWWFUEWXo7nh
- dLPk4BHEOAOwUoWe6L3kL78GT7tE9yBa26CsAWj8JNgagbQVzb7V/rwV35/tMb4QvHIb
- MXe8+Pfb00vpxCM4T/6tbdrUWVqpBDRsu5M6+0fgnFFYuNxPBJRxh7itCH/cxri92H65
- 6yBzPaHFG1PiqAszlLD3+D7ZPZYYUVl8Pa19wZfinOKwN9gc1aLHYJ3Thpq1iK2uyOuk
- QYHw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793907358; x=1794512158;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=TT16yiNSMhQ2WLe6YgEjHp++F5KnwVX2DUvK61E+hlk=;
- b=fWuEFlio9X56z1AYI+1/BVdFG7/W1RCx7I0ryxTc1rrSQupNQpCe2l6cXp4f5lO7un
- aPqqfRsu6a4EpWJkyb2zQ61riL+/rrk86g5xBsgcLjszDBh1W8kuODhosBOuSSeD5Osd
- 8FGWcwngP7/10pRSVFTrVCUAySkNWJC8n8iLL/ghEu6/R2KmhbevdcEULqfOLATpcKSd
- XwMmULQoz+PkSxc7IUuJzHjRnqqTWVI+bmioPgfYVnGF1utwWOnbvKkuLWHAgb77Lanp
- 60sdvqXDyv2gdRV9n7dBGUuXvtwWKlOtuzodVfPJVrBMG8BN52tIUWBXWtPIqdFxBoaj
- jkoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793907358; x=1794512158;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TT16yiNSMhQ2WLe6YgEjHp++F5KnwVX2DUvK61E+hlk=;
- b=DTEamudD4CDZxNaCSIG4F40IjY7/HVfoYFs/QPJuyh/Db6gAFhrxNy/PsbclAIsr2A
- h/brJWZZZncPXj1bp1IbXsME78BupR/SaFdsmwdfdXZyAccm/bSgVHMM9smRI/BhW4V8
- cbqVjrBMNpoWLm2ue4l30cvbv15L8Ufhp/ECai3A706/ldxYTL8o/mxdJKoZIkMOIDeo
- TcovBh4gI0/tyE17SFfm88V5N8XPetLTh9K/IsUzyknJnQq4DkP4OoOgzfmihezksRKo
- EePAgcebA6uhEQBe7vhjMD1H11d0iarXOiMoAOz/fsTV+aD/aJ1OXj2LPto13gMr6bB6
- O/eg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw+EoGY4TtoyxMjACLpfnOzT7PYFpADu16VQWbWTBX/cE6cNZoaIijhRDID0MWR+NCul5nZJG1Mzfo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9KQT7D1qVJ/KGgzbIdeCCBqEB7r68s56m87xnuXJTG21pu5V8t
- Sdc/JMnMQeu2xWf6wm/uT4JGQbq4KREBTV63tX00utGnaEWU9H56wEEOxJnRSTzS6TFVrGXR8F7
- HW029TR1Jj1Bt7wD8iiKALmxH1ehDOTGbpu3KIz4=
-X-Gm-Gg: AYBFou2MqVha5M5dpgH1RiUZzbuyw2VFsRDVLrhtNvoIcP+ag1IHtko0lozHceEDXAt
- IostniWfW34MMIQXbP9HdUJsaG0qlRf6rORzN9NXpZYlXJwhXlfTp5GpctHw2Z1OWlPLIZueZJb
- iaJ9McqC1SOhRH/jmoHHQ1gIdWio1NpUNYum2JjEI4KgDi9YxSlLPfbg/oFfb9eQgjkiGCoE+gM
- CH6fPMLIZgL4D9MNa6NTpmr66RHpRNg8hk6ab6GzczbHgsD/+sf6ZK7UZvSiakjTfR23OP0i1ug
- Hpihi7PpI6v616S1oBtDlvJInpWEEZ3mWyOivF8wXvjHFNc0XJfjKHh3oWTRrO8C3LODS3nMUzg
- dBCywr0kFI6QMzFXIawVg6XaI1LaUvrRyQcWTQeqT52uIiAk/Zpo0llnMWjWAaJbnLh5BkQKxyn
- Zzpk6ba715rN6gtzmnAl2CpS+qF+bpGmNBbNcGoOkuOlSb4Fdrdw5275ITJ9A88/vMkkxftNlww
- FcyXj7SOy9JDRzlOM2gisq27Rga2Oo37YQD0I78Wuiq63pISbXuxg==
-X-Received: by 2002:a05:600c:860b:b0:49f:fd2d:23c7 with SMTP id
- 5b1f17b1804b1-4b6e01726f9mr1850925e9.27.1793907357775; Thu, 05 Nov 2026
- 11:35:57 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
- <20261105-drm-no-more-config-reset-v1-15-1f58d1e33380@kernel.org>
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-15-1f58d1e33380@kernel.org>
-From: John Stultz <jstultz@google.com>
-Date: Thu, 5 Nov 2026 11:35:45 -0800
-X-Gm-Features: AclHuK9pktxzquo8ni3wksTdcQ36g7p_Mb5rrk6cHXIBWJkn6Z0ADQzVKVwOSHw
-Message-ID: <CANDhNCqaV-unTkF5nxRHAyFAKj5__Tv05Q-RKfwmB_CuCn7hSQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND 15/83] drm/hisilicon/kirin: Switch to
- drm_mode_config_create_initial_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
- Sumit Semwal <sumit.semwal@linaro.org>, Xinliang Liu <xinliang.liu@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B0E3601EC;
+ Thu,  5 Nov 2026 19:36:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E9A1F008A3;
+ Thu,  5 Nov 2026 19:35:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793907359;
+ bh=f7pbLgB+bOANV7ZH7bSfet1egKll+CXGNKYzJQU3Yrk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iMGngCoOl/U4CYIB1rTzS3RguQRqLRp2sKfBp3odJCcMgrP4Y2V8PmtfZZo1x5Xkv
+ FLC9VNWmdujwFQtrFCf8Mg1QUR9V0cBoPIZOnqaamHivU1nhWiKlmj37JQBwx8Nw4V
+ gnJGb6AJHKNc0HghHI9fJU1uQS16q3fA1JPSybQgU9VxlezkJg9W+I3Lt4LPHuBS+G
+ M91zjKny9mmSeWhknnqhOUNYocrnIZ20lXgBv1WbhSSK7LtbVS4MpUGhBLakgtch3v
+ NiR+5uPctDAbSjOlOz7BSSMrEU1NCpxJBHKCCILKG0ymIlPQ81348+1c7a3Gat7yd+
+ kdKHITt2fXI3g==
+Message-ID: <sashiko-outbox-199951@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v2 21/23] proc: let lockdep check the pin
+To: "Christian Brauner" <brauner@kernel.org>
+Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Jann Horn" <jannh@google.com>, "Josef
+ Bacik" <josef@toxicpanda.com>, "Chris Mason" <mason@kernel.org>, "Jeff
+ Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>, "Greg
+ Kroah-Hartman" <gregkh@suse.de>, "Joel Granados" <joel.granados@kernel.org>,
+ "Kees
+ Cook" <kees@kernel.org>, "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, "Takashi
+ Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, "Chuck
+ Lever" <cel@kernel.org>, tytso@mit.edu, dmitry.torokhov@gmail.com, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Anna Schumaker" <anna@kernel.org>,
+ yukuai@fygo.io, "Heiko
+ Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>
+In-Reply-To: <20261104-work-procfs-core-v2-21-76ace653a773@kernel.org>
+References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+ <20261104-work-procfs-core-v2-21-76ace653a773@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 19:35:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,29 +71,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 5, 2026 at 7:31=E2=80=AFAM Maxime Ripard <mripard@kernel.org> w=
-rote:
->
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles.
->
-> Since the two roles need different behaviors (notably for objects like
-> drm_private_obj that must persist across suspend/resume),
-> drm_mode_config_create_initial_state() was introduced to handle only
-> the initial state creation at probe time.
->
-> Switch to drm_mode_config_create_initial_state().
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] proc: kernel-doc mismatch on __proc_create_net_single_write()
+--
 
-No objections from me, though I don't have the hardware anymore to test.
-Acked-by: John Stultz <jstultz@google.com>
+commit 095fce4c95ecbe25e644f1a3fe90061f695e9271
+Author: Christian Brauner <brauner@kernel.org>
+
+proc: let lockdep check the pin
+
+This commit adds lockdep tracking to proc_dir_entry pinning so lockdep can
+detect deadlocks between proc entry methods and removal under held locks.
+Entries created via proc_create_single() and related helpers receive a
+per-registration-site lock_class_key via wrapper macros.
+
+> diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
+> index b78d627b024f8..9ddd7c323dfcd 100644
+> --- a/fs/proc/proc_net.c
+> +++ b/fs/proc/proc_net.c
+
+[ ... ]
+
+> @@ -232,11 +233,12 @@ EXPORT_SYMBOL_GPL(proc_create_net_single);
+>   * pde_data() on the file inode.  The network namespace must be accessed=
+ by
+>   * calling seq_file_single_net() on the seq_file struct.
+>   */
+> -struct proc_dir_entry *proc_create_net_single_write(const char *name, um=
+ode_t mode,
+> -						    struct proc_dir_entry *parent,
+> -						    int (*show)(struct seq_file *, void *),
+> -						    proc_write_t write,
+> -						    void *data)
+> +struct proc_dir_entry *__proc_create_net_single_write(const char *name, =
+umode_t mode,
+> +						      struct proc_dir_entry *parent,
+> +						      int (*show)(struct seq_file *, void *),
+> +						      proc_write_t write,
+> +						      void *data,
+> +						      struct lock_class_key *key)
+
+[Severity: Low]
+When proc_create_net_single_write() in fs/proc/proc_net.c is renamed to
+__proc_create_net_single_write() and given the new key parameter, the
+preceding kernel-doc block still documents the old name and omits @key:
+
+/**
+ * proc_create_net_single_write - Create a writable net_ns-specific proc fi=
+le
+ * @name: The name of the file.
+ * @mode: The file's access mode.
+ * @parent: The parent directory in which to create.
+ * @show: The seqfile show method with which to read the file.
+ * @write: The write method with which to 'modify' the file.
+ * @data: Data for retrieval by pde_data().
+
+Should this kernel-doc comment be updated to match
+__proc_create_net_single_write() and document @key (or moved to the
+proc_create_net_single_write() macro in include/linux/proc_fs.h) to avoid
+scripts/kernel-doc warnings when building with W=3D1?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-work-procf=
+s-core-v2-0-76ace653a773@kernel.org?part=3D21
