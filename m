@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31956082BFD
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131DF606D814
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZDORVLc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUD6K/hi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9917D112356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AC8112359;
 	Thu,  5 Nov 2026 10:55:16 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0BF0112359;
- Thu,  5 Nov 2026 10:55:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8579211234C;
+ Thu,  5 Nov 2026 10:55:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EC39B43880;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6539F43EA1;
  Thu,  5 Nov 2026 10:55:06 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793876106;
- b=DwfEv9u0PjXswRrepu9muw2Ice8YYykODlGNugODhQlJQ90ijJqTNd9jGnopQkhjn4DO
- 8PHgBjsxUlg5+VdryEZHlqX5jka+XJK236CFd0nqKoFz/DKiTmUcWPVuBWbAo/nz9m9c7
- S0G3tLqgCojl5Pp5NzWMc7ZWRaptFOXu+ho6Zi9M/+1JXPcheVcDf9VW5xLWpF0BzFA/Q
- zEFjOBG/jEN9BelZqkiMr9AXbKtFIUNRenihPdtDc6627YTYJcSW7GQm7diDSmGucd75B
- nOGa+js6T1P68ZYRUdEh0vlhQHNlMItM83ZI6IJ1K2wbbsJJ1aJTPCAStvptxLE3fHg==
+ b=YAdJiYRy5lVASCh4aTUXzzGhodD2MSNxo+tQbNdqojcBrVm8NbPi6JiSGWzRYd12kkqn
+ V3rCXx5Bp70PtZN6NnRNiFjQIanPv96IZYXYwZX91dalaU64e/Q225cZVWZtogtt2s4Zh
+ BgDYCJQOOINtsFw/YqPFl1/lhnUJVEd5h1tPfQ3yexmRXM0W5c7xM3dkyOFkKs9veb4yp
+ WCRhk+0LWG3gUyhDl6sPhhmePx3/+ucpnifVdXoAt6q1WvSc5XSq1XNCuAakVwaABg+Dc
+ klFtMjCceix24FhyxI6WATlNE+LviwlSfnJ5D7OBLCWU/AE19hHCZUbNB3caUt14hVQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793876106;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=lWMe1RAYR94lI6AVLaNRykGgNbx1qk1GymPgorV116g=;
- b=j/6FVC2ocZPwujy4UjUIRNB89fp3I9SaJUFVDTvdNjmknoTqVpyi/6Chw7njVCNvIa/6
- Uevd+OaQc18LOc/BL/gkJNKNxQnBoCsEYBp4ViijzvuQpoLSH2aX06qTXiv8sFe+KniFB
- AvAakleTlPlf3roYpqbYe8nY74dBeu9xmNsPdx01clVUhlw654wP+tY7AN7gcWMOmD6Dh
- jVtvi6QipSwCD4eBzuu095G0coOwRfZZHu1nwdTjBQPq/QtUFnIkAZ6wMMgyv86W1iUQ7
- M7Nfa7MBZnsndJaUuS9PZsvDWVBieEbyAKbIWulyWDdmJXNet9RrlTaT7fSVT7StGDw==
+ bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
+ b=UaUfsNK+JZ1kd/1hIeIk8qcZIgviR/PQvRegbGXFM/U7e6yQlH3qlXUdmMJXVqH+mpAi
+ nzUYklXnzP4YEDPDqgrG/vR/y8DWas7NilajFShwtiiQ4138n6NJO9zt+CzSk9HZzp30J
+ vD4mSgjDKDokU5eW7cUTXNibUhGh9HEseuQQZGEtZ/mF+tN8XZ/5bfm8LQpsAfFrnBpXB
+ jJsqxu+mXsYD1V283SzhSzwAhvRUu/NuL0uMSyjkM+n0OlcGP92C/JEKfUjqoaWHEbRvj
+ Io7SNvnauz6z9D6gKlOZXkZEOnMtw8oOBf5bY5S/zMDnTsIuIPQoHacmwL8wGIl+OBg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B41851F00A1C;
- Thu,  5 Nov 2026 10:55:04 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 6C8911F00A22;
+ Thu,  5 Nov 2026 10:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793876106;
- bh=lWMe1RAYR94lI6AVLaNRykGgNbx1qk1GymPgorV116g=;
+ bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=CZDORVLccv3GkYb+FlKUmt+7UwQQ5Xug1ZBlNr5tfvAKllxSaaAc0Ls3fMbeZ7dz/
- 3ufpzB6LPNMUgkWo5joJglJcBxIYAO635M+bxT2YNugNQ3A6aaQipjnxcBwqjvsuK3
- cRPyQy9K1OWBOtpPijr9hvg0tLVqO531HvEUiA0ZdZRJ8HgPfi+VJIMsey1ltYc+zL
- 8Bs7jBmi4vDdOf/wQVrVm421oKc+vAY+wC0CSvlBzK2lGdyWFxc/0Yf+99aDZiPQlD
- XmuKd2QKXdzVSEhMbFOX9FiOnJnH+CsDPC0uvh03Lr2IO7YsVbQvICkmRrxCZT/Gw/
- 7gREOZ18cpyWQ==
+ b=SUD6K/hirZTl+t0jdIx3RstJgeWxzfp8CHplQxGRAVjqC2QVeuRO+KaHlIiehAp93
+ yliaFgTgAC2IE+ph9xeMQmwt2oOVAtRsbf/7a+KiGLRxG7He3XDlR0skhR8i78R9jY
+ k5r70WW4kFAaerrTMldo7aZUshmcW2otdgbIj+JNn7bdZhCvOjB+ZAaOu7CILWDySD
+ lF/S5q6KQYMmxKH8FTJa8UNOBHsBi9avHfR2a62ucVZAhb0wxFxjfR8vPW0r1U4Tpk
+ WwMmBVyFaOt88KTQbGIyhGSQfCPU0I9BjrLUF3ZrNm26id99wf4pVPcaOM9u2j4gdh
+ +TkeEPUTQs/Kw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 3C5CF471EA;
+ by lkml.kernel.org (Postfix) with ESMTP id 8C26A471FC;
  Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Thu, 05 Nov 2026 13:54:09 +0300
-Subject: [PATCH v8 05/11] dt-bindings: mailbox: qcom: Add MSM8952 APCS
- compatible
+Date: Thu, 05 Nov 2026 13:54:14 +0300
+Subject: [PATCH v8 10/11] dt-bindings: input: touchscreen: goodix: Add
+ binding for GT970
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-msm8952-initial-support-v8-5-311ae8e8f14b@mainlining.org>
+Message-Id: <20261105-msm8952-initial-support-v8-10-311ae8e8f14b@mainlining.org>
 References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -102,11 +102,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Muzaffer Kadir <muzafferkadir@mainlining.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=1080;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=1656;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=bfllieSk1x0Zo8xBxn5AQLJBSUyzj9oz9UVJP9mqh0g=;
- b=BkAVYp5XLBwZyWHx1KKefdibqr2AbuR9S3KS8apAEHWwlOLenggE8vmJHX2nGHvRnNLBR5lCl
- uCnCOobkwloB6ROYUhv64xsxDwEmJfzg85+kFQwmZLR8knu2LKWkR7z
+ bh=8T28pJ+j3T2BfrA/4V/vCpSnX+IH26SQiXSCeXTVAPA=;
+ b=g7KDlMPaWyh299ODCALGQrB2v5+x2XtJVpCgL8+3cwaIgFNZl2pjckMc9/QfI/jUd/dT0KCmO
+ X5ExalfRhKPBsQnEhfZZSxQy1Ri5XMv9oxYCfAUnse10OxM62KlGmon
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -135,30 +135,61 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the APCS mailbox compatible for the MSM8952.
+GT970 works with GT911 driver, document it to be
+used with GT911 compatible.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-index 5110363a0717..c2b0d7394f36 100644
---- a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-+++ b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-@@ -31,6 +31,11 @@ properties:
-               - qcom,qcs404-apcs-apps-global
-           - const: qcom,msm8916-apcs-kpss-global
-           - const: syscon
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+index a26a54d63a1c..4be2c137abd7 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+@@ -14,21 +14,26 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - goodix,gt1151
+-      - goodix,gt1158
+-      - goodix,gt5663
+-      - goodix,gt5688
+-      - goodix,gt911
+-      - goodix,gt9110
+-      - goodix,gt912
+-      - goodix,gt9147
+-      - goodix,gt917s
+-      - goodix,gt927
+-      - goodix,gt9271
+-      - goodix,gt928
+-      - goodix,gt9286
+-      - goodix,gt967
++    oneOf:
++      - enum:
++          - goodix,gt1151
++          - goodix,gt1158
++          - goodix,gt5663
++          - goodix,gt5688
++          - goodix,gt911
++          - goodix,gt9110
++          - goodix,gt912
++          - goodix,gt9147
++          - goodix,gt917s
++          - goodix,gt927
++          - goodix,gt9271
++          - goodix,gt928
++          - goodix,gt9286
++          - goodix,gt967
 +      - items:
 +          - enum:
-+              - qcom,msm8952-apcs-kpss-global
-+          - const: qcom,msm8939-apcs-kpss-global
-+          - const: syscon
-       - items:
-           - enum:
-               - qcom,msm8974-apcs-kpss-global
++              - goodix,gt970
++          - const: goodix,gt911
+ 
+   reg:
+     enum: [ 0x5d, 0x14 ]
 
 -- 
 2.56.0
