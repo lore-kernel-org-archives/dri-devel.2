@@ -2,82 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEB6606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:12:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F77606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=csMgt1AR
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=AsOR1txZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F28F10E958;
-	Thu,  5 Nov 2026 19:12:42 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D06EC10E958
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:12:36 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-8b331cad3cfso6768487b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 11:12:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793905956; x=1794510756; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=y8P+WoCobFB7rgWkL/XYrODvnkiB2lim4Wv3M4Ag2eA=;
- b=csMgt1AR17P2peQqni0WXla4swlVtriG9m5pudRLh+BoWMpEak5jjkaaIqBsuwQum+
- oBgrpDT16oW24AL6ujZNm6llhtFnngBHqZf8+7k2zhogQpjhomxYgPKdFjysLnJ+GTW5
- 7VCR+3Drq8r67zfQwqBflfYrcM+rPg1TwpFv2eZDbeWDpHp/JmayRc45Z6tcwp/wLkJm
- +v09fGb0Jit4gNZzHdAEMObzIpnJLH3Hz/uFzm14f1DIuP8nKuxrGgbaZ2qfzSOkd9io
- +2/zkA0thx2vrlicKy6DUdehsj5Bh2OLYAVAaojuJrD02hi/egadpYgj1QB5F/9sBYzC
- WTWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793905956; x=1794510756;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=y8P+WoCobFB7rgWkL/XYrODvnkiB2lim4Wv3M4Ag2eA=;
- b=DPzdR0jry2S0eR2FXuIt9rzCVFq5Htw7yZ2HcApcksgCBKV+spJVwFGHS68F2ao2Vc
- ONn/jmEUjHhUX30C5ynLcN2WWrlIyenvUSbtu7/GsE51eXJwxbZashBX/Bz9gnorxCda
- FUWUoY40Hk2rB9Lc6CMVh58fZguGBEus4we3nXPaK7suegtB6tY1DCGZ21HeVyC+I8Xi
- N0FU8FrSGgo1vWSWK5LYN1jnAas6/Q3hB0mIG3ryT6YzJAkRVVqULNY5vs/93NDXSdTd
- vikVBqA16NOMXBjER1jb6i8Fa1VyxxfZl9AaBdcey5cVhO8sKL9G8RwJvPSZPKpMNE0T
- 7zGg==
-X-Forwarded-Encrypted: i=1;
- AL+hErEH8ZMmc5NReiJCyPiCQ4VCJA5EmtHW7QsvUK6vuwBjsCx/79yfdGtox0sPN0JrQDZ8Tg7jfaV7oWk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8EJqOCgkhRQjNpUAlGSl8B0S5QbxGlA63FSQhPtTW3EpjO9bsk
- uawaRuKW9cVOJdCa0Gs4zTJHkYfxZKoHiRJ1Pe6p5dV/IZWCLVsY6rs=
-X-Gm-Gg: AYBFou3AFYBa+7W5sasGDOvZirczlgXlgieiU1ByFqykBOO7WqKp0D5KYNBWezH7IMu
- ViVXwO8s/wDIucPFd/axhWX5NgvdqnGHYeYnIL1S6gZb6ccGW+ZJPwu5UYD3uELVCq0ndYpTtXB
- wjpgxEAaf0GFH5zuS24oR/Pcd21RQQqEl9/L9Jzr4tmHhJ68hJ2dNnSU3jQDFgn0aGZC0HFqXo3
- z0owybAFIrUDW8ed2jMLZSqXIFNhgx4T2TqtUcRLZcynjyKP8/30B60mAKojXOxlUCz/TaSlur4
- 0UltgTdBXghZohK3fJtDn3LpMb/u29SuA2gx0Gk0uzc0mmT5xNAF+aPnFjG0TvgxKKed6rXKpur
- rXOYpsc5PeTi3e2M0B7qw4CjqC61FVkwYss30EaliTRo/XaL0sccPvJnKK69rjLJaeG7fDlnEyl
- Od7h1WZh6d1crdyXikD0/qI4c9PN3U3FEVURE7DbbP710ZcyW0p4faMvwsXf33TMsM4/jF0KzlJ
- Sin67CLLHV/eQSc3rBgGoynfii7eGZPdKMk8xkvkdVQ8GeCKZDVu07NKEhpIE66mREfnvuW0EaJ
- 5vw/SIxqn9Yji6YMLrb8S29FadLoYKp5JKZ1Yz9OZ9osMHCbvwFTELCmnaJgbC6U
-X-Received: by 2002:a05:690c:c510:b0:8b3:2a99:55d5 with SMTP id
- 00721157ae682-8b32a995d6bmr19870087b3.10.1793905955435; 
- Thu, 05 Nov 2026 11:12:35 -0800 (PST)
-Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b33f773239sm2235287b3.15.2026.11.05.11.12.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Nov 2026 11:12:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 330E310E945;
+	Thu,  5 Nov 2026 19:19:36 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32EB810E945
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:19:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iVrZWnll1OU0TU0ff7bQKBzBvKvDsNs83SC7gJyRdiTyerW4EbaktoPbEr2bmNZk+2qJXjHD0mR1JaDuSJCLKwULAGUbQWhFY60IIXf5x2ejmFpavHIdruvrbb249yX5BK59wrqU9UxiOwIJRHX0H/JwoI+hcqaycCnuylzaWmiEgCe+FTLewfUX6nlkLB9G8W5QKqsZ/Ha8tEMovlf5kr6nJBSHSAsRXMuvgZb4vZO5s7UJYSXlm2PIE+ZcbcUc8Un6nr69Kn6dXgxVg2gY0U2I/gn7y9YvGz7oA3Atp9oP/aGVIIAo2DuVrHGopdckAkLprGzGKrgFKQLU3VEYpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mg6GRFb7XpPnLmfzS6KlYBFo9QRY5X7i8gfKios3UsA=;
+ b=Ke3M/snpWuRFecv1l4dKqEh0oRZlznLz98LXg+tdIUG2VrgDqN+WP2xDabndfzCajCuYaX8ASLua/YL0m+XAhy81wFf2Mq1rihiZGyOGPyI+YnVKTBPV3TNU0Wsd1kAio37KavLV6SmMOexf9QK+FTPUUoIUHbVN58h8/lrbbSh3LMTyWrLyob1LA2hLXlFHBaNf4lax3APg5IHRvgBwCbe3K7Jkm0LZABbUNoo2CezqeYCcEq3ooL1uk+BBqhjF0tmIjADO6P77TbCY5VcVjixYUSoujBF1pHzJRjtrmFZcvz+noJUc7dZlK5XfYepiPcrlSNbcstnVo163Yf2tZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mg6GRFb7XpPnLmfzS6KlYBFo9QRY5X7i8gfKios3UsA=;
+ b=AsOR1txZ6h+wAIz3RXMxGvT13wro4hfN+cxVbFBoEbc3bBj9c1rjmsdZG9MlZVsVvQpiv6pYmqUvTq0Z2Mg8nmzIKbqnT1LFEyY3L41w6kcJFJTDHeCyfC4/qKOkZvn7UDcNAjopZbom4edrjgyqqxdDRbT9kwLjYIUIVxJflRU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com (2603:10b6:208:3aa::14)
+ by SA3PR12MB9197.namprd12.prod.outlook.com (2603:10b6:806:39e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:19:25 +0000
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257]) by IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:19:24 +0000
+Message-ID: <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
+Date: Thu, 5 Nov 2026 11:19:16 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
+ reports
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Lizhi Hou <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
+Content-Language: en-US
+From: "Zhang, Yidong (David)" <yidong.zhang@amd.com>
+In-Reply-To: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY5PR04CA0005.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::15) To IA1PR12MB9062.namprd12.prod.outlook.com
+ (2603:10b6:208:3aa::14)
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 16:12:31 -0300
-Message-Id: <DMNIL4ZYZWLZ.3K6BK08P4SUD5@gmail.com>
-Cc: <devicetree@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH v6 2/3] drm/ch1115: add support for Chipwealth CH1115
- OLED controller
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: <sashiko-reviews@lists.linux.dev>
-X-Mailer: aerc 0.20.0
-References: <cover.1793735996.git.nico.antinori.7@gmail.com>
- <01cee5640e8637cbe0cd49e920f3aeed2c60640a.1793735996.git.nico.antinori.7@gmail.com>
- <sashiko-outbox-196034@kernel.org>
-In-Reply-To: <sashiko-outbox-196034@kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB9062:EE_|SA3PR12MB9197:EE_
+X-MS-Office365-Filtering-Correlation-Id: 947f8978-0c18-4f1f-29d6-08df3b71b39a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|10067099003|18002099003|22082099003|11063799006|56012099006|261022105027099003|261102123227099003|261028144727099003|261022115727099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|261009223027099003|261022075727099003|260925021911599003|260925021311599003|260925022911599003;
+X-Microsoft-Antispam-Message-Info: D2LzecyyK6o/944np4v+Rik8RlWF8aBSAd7QSao9jZDA55Me8ibUU9OSV6/eGhPUIl689TIsxLNs+JVSZt8IjJE9AklVR+BbCBl67E9XL3jEpa4PXMwe4jXrmn10xMdKBs7nH2THY/FAauFOrzs2ZfqyAU3q7KCjdoqG3QGoO9r0PKpt+d0qNq4bYl9eWyVB6SkrWB8XFhkPtQyRJzWL8AiUrOHjTfeG1bDXCUkyAJyp3bkxhhZGccKdAD/qOVLUQgNyc0MqFf7j+LkeKnePccFmlCOVz7Q4khk42ArlEiGXpR6suo4qaOsByARXSZzA3v04KaCZ6WnZ8KHLxX3Nti2zIPNujkoJJZ4CGhxO9euCmBWNvxDHR35NcOI8Dowm2iIn5uSJ5/tYWbpSSq2xHYLWEmN/fAyBYCcBBlT967LmRDCxM3MpV7+uIKfh5nvk7Y2ORsF0nWT5j9yRzC7KuEvdURNrNFXuSO0880gCHwyiwcJLHkJhSIBCtQiiziTOXyPlWX7v5mcy4Bu6kkn24ocyC/OHVteICLqpKUNRDDD14s8/OrImK4JpSi/A8KsMp8ZBsJMa+lz0doPFSBJtaQunIiWs8otp1uNJqr4FE/xpHSwuoJCLTLSTxYWiRL+/
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB9062.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(261022105027099003)(261102123227099003)(261028144727099003)(261022115727099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261009223027099003)(261022075727099003)(260925021911599003)(260925021311599003)(260925022911599003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFlhTlUzT1ErUWhoSjRtUEllb0h2c3FWT3p3RjRUNjRvaFdaWXhXdFpCcmRi?=
+ =?utf-8?B?S2NRemZjK0xhcHQ4OWtYSnY5MFRTMHVwaU1BRXlES2xFM2RidlZ1TEhmUVd0?=
+ =?utf-8?B?dFlhK0VXeC8rNVFSTDhibEp5K2dNYXQwUWhseWdyWEkyUGxlRVZqa0NRQUQw?=
+ =?utf-8?B?UmludzlHQ20zbTVWekxPZXVldHJaM09MTVlRNHY0QVk3Q2pHZkU2cUhvNUFw?=
+ =?utf-8?B?MVJ2RW5pdHJvQmV1UytxcDVxazhMMmVWNFY5SksxM2hUVmtxazFvbzVPTXRI?=
+ =?utf-8?B?WE5yS0ZvZEVFYWhGbGpaRzhycWthTm5zOWVtUFVSOGU1c3dLR3NIcFpKVkxs?=
+ =?utf-8?B?M29lNkFtOUtxaGlPMlYvWGJsdXcrN3VEaTY3dFhRL2h1YUVIR3FTck9LQUlF?=
+ =?utf-8?B?elNVUjcxR3lxOW92V3RRQzh4T2w1K3VpNWpudjJhQkEyaDRhUWV2VldYVklW?=
+ =?utf-8?B?ZkVxRC9vYlhqVi9ZRXNKNUcwSU54eHlBblhYVGZ5bkFaV012Q0VUSmdlbGxt?=
+ =?utf-8?B?ZFBBcHlZczlBRFprRDZFMnpjQW5TN2dtZnhKbUgvdmRWZnQ4UGZxelZTeXAz?=
+ =?utf-8?B?cHVxWFNVclFpenkwMWc3b3NmZ1ViNTRRVEZiMUEvUWNpU2RYWUdSZ2g3R2Nx?=
+ =?utf-8?B?NzkxMDhsQUdzVW9Ma1JoU2tBMnhycGl4VnA4bVQxb2daa3JsRjZkVDlVclhO?=
+ =?utf-8?B?djF4eHpYS09ydStwbVcvMWoyRllSMDNuZVZmbkZlVWR6VGlIVFFZakVXTU5a?=
+ =?utf-8?B?OEt6cTJLaTBuK3lwL1h6WjhwNC92ZzJ6M3VwaFpzWlhVMnNCT0xJWnR5a09I?=
+ =?utf-8?B?ejFGU1NiMk5rbkhrNmNjQXFuT3UyemovTDJUWDd6aEl2RlRrUWpGeGl5NjVU?=
+ =?utf-8?B?VTNvQ09EcjZFaHoyakdUdUExMXBkUnB0amJpaUEzdUdpYXlJRjIwbTg4R0Jt?=
+ =?utf-8?B?dlRpRDBpUlB5TUQ4YjN2b3JRa2RXUmtrZCtsK3E4SFExSzVETktTSmFNY1VZ?=
+ =?utf-8?B?clpPTWhQNXRUMng3QnVkV0d6QndVcFNuTzBDakswcW4xYnBUdVIwT05HWWoy?=
+ =?utf-8?B?YlNQZGE1WEJlY2trR1FyL0gyWU82NkxORHMySGlNb2p2TnFYZlBJaEhUcU5t?=
+ =?utf-8?B?SUJWeUZjb2RWeS9WOWQzaHB2ZHVkSFdPT1I1YWR0eGhaQUl5cWtLd1dLc1Q3?=
+ =?utf-8?B?b2JMa1RuZEN5dkFLT3FSS1o0TXZ6N09WRjUwMDMzRUwvcFB0ZFJuRXhNeXpn?=
+ =?utf-8?B?dGtUQ1BDM1pEd1B2VWNHUDIwR25La1M0RHc2aEM0amZ4eFJjMW9Mb0FYeldB?=
+ =?utf-8?B?Q0JmWGR3UWIvNlJYQWxKUVo3MllUNng1L2VGaCtaOTl3Rks1ME1mU0Exa1dq?=
+ =?utf-8?B?b20zZ0VKKzJrU0Rab0VQRzRmR3hjR0JkZGpTNis4Q3lhS0d1elNtME1BK1ZM?=
+ =?utf-8?B?UzVlRnUyeDQ1MENmSmVqc09QVXRkWXBTVTd6Z1h3Z2JYQm9Ld0Fpem8wZGFG?=
+ =?utf-8?B?TWVQZmZJeXp2UlRDSFV3L3ZVOHpaUWVQU09oS1RnZ01iV1ArQmhnWmlDZDJh?=
+ =?utf-8?B?SDYwVEp2cVUvS3QxSmtBVExmNStsUDMwOGoxMDVhak04MktQaGtURWJ3UjZu?=
+ =?utf-8?B?VzREZU9pVlBMcXdwaHMvVkQyT1Vyb21FaTRnNXYzS3BYVXpGYVV6M2xGRS9Y?=
+ =?utf-8?B?ZGVaaEwzS29qOWM4eWhqb3hvZzJZOFMvNEd4WVJaMFNUb3U0NVNSekYyeGRx?=
+ =?utf-8?B?Nzk1dHp3VTZ0Y2Y0bE5vS0dIcU9KUklLRGkwelFBSUhMYzh4SEtmbHlGY3d1?=
+ =?utf-8?B?OU0zc3d5QitENnNjbDliTHFnVExjcFN4cno4UWlzVlloTzdTZGxrVGVBdkRI?=
+ =?utf-8?B?SlVqZEd1VEw5a3h6MXlJeW9iVXJsQUFxUXMyQk5YTFpFQkpSdTNVTmJ3dEZz?=
+ =?utf-8?B?aTdYcEFNTHc4azdaT2ViSHY3T2VwNVF4WFJOTWtya29PMm9VaUs5OVJadmRz?=
+ =?utf-8?B?a3BTaHY0SzdRNlNNSit4WGpiMWlCTUFDT1ZmVFBBbTkwVHM4YmNJWXhoZ09L?=
+ =?utf-8?B?RFIzRlBqRmUxUG5DS1Z2WVA4alM1emJMN2pmLzJHM1JKWENSdVA0U3hSblQr?=
+ =?utf-8?B?TzdUYlg1Q0dLaFhwamxhL3N0anQ3VndYVFdVejNhR1NqTGhtZlFnMlZRTXpl?=
+ =?utf-8?B?QzhSTFh4VTAxYyt4SnpPSHZBbXVQTHQ3d3YyVzBWclFNUEJzaEgvUnI1eXJz?=
+ =?utf-8?B?RFNDV2s0WnlRMkk2Y2xIYWw4SFc5dTg3cnpkbTEvVXg0a1hqWDJ3R3NaOXdv?=
+ =?utf-8?B?dStsRW80MlhJU25RUEdQV0dCUDFPNURmZkZrcUJQMUxmdDFleXZLQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 947f8978-0c18-4f1f-29d6-08df3b71b39a
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9062.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:19:24.2730 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N44sSty50+yUtyjbuTe4mD+6qgoI7S3S4OXtwlxqLRQmTx1J8V4ERBKdS7nPJkzzFHCeU+0k14VyX6QpI9P34Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9197
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,172 +130,300 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello,
 
-On Tue Nov 3, 2026 at 6:05 PM -03, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] drm/ch1115: out-of-range display offset 64 sent in ch1115_oled=
-_init()
-> - [Medium] drm/ch1115: missing DC-DC disable in ch1115_encoder_atomic_dis=
-able()
+On 11/5/2026 7:51 AM, Mario Limonciello wrote:
+> Some Platforms ship BIOS with either a default or an alternative trust
+> authority. The PSP validates the NPU firmware, so it must be signed with
+> the matching scheme. Firmware for the alternative scheme is named with
+> an "_l" suffix before the extension. A preproduction part needs firmware
+> of its own, named with a "_p" suffix.
+>
+> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
+> whether this is a preproduction part. A preproduction part that also
+> reports the alternative scheme is not expected, so warn about it and
+> use the default firmware.
+>
+> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
+> images of the aie4 devices so that initramfs generators include them.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> Changes in v2:
+> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't leave
+>    it uninitialized
+> - Only read the PSP firmware variant after the npufw/certfw path check, so
+>    VFs (which have no firmware paths) skip the SMN access
+> - Drop the redundant all-ones check, amd_smn_read() already returns -ENODEV
+> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1-dbffcc5abc23@amd.com
+> ---
+>   drivers/accel/amdxdna/Kconfig           |   1 +
+>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++++++------
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
+>   3 files changed, 141 insertions(+), 30 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
+> index eddff490b4f75..cd17a89cf4146 100644
+> --- a/drivers/accel/amdxdna/Kconfig
+> +++ b/drivers/accel/amdxdna/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+>   	depends on DRM_ACCEL
+>   	depends on PCI && HAS_IOMEM
+>   	depends on X86_64
+> +	depends on AMD_NODE
+>   	depends on AMD_PMF || !AMD_PMF
+>   	select DRM_SCHED
+>   	select DRM_GEM_SHMEM_HELPER
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 02dcb2f813d45..26c6162893760 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -11,6 +11,8 @@
+>   #include <linux/debugfs.h>
+>   #include <linux/firmware.h>
+>   #include <linux/sizes.h>
+> +#include <linux/string.h>
+> +#include <asm/amd/node.h>
+>   
+>   #include "aie.h"
+>   #include "aie4_msg_priv.h"
+> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
+>   	aie4_fw_stop(ndev);
+>   }
+>   
+> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+> -				 const struct firmware **npufw,
+> -				 const struct firmware **certfw)
+> +/*
+> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = alternative
+> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction part
+> + */
+> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR	0x38109fc
+> +#define AIE4_PSP_FW_SIGN_ALT		BIT(6)
+> +#define AIE4_PSP_FW_PREPROD		BIT(28)
+> +
+> +enum aie4_fw_variant {
+> +	AIE4_FW_DEFAULT,
+> +	AIE4_FW_ALT,		/* "_l" images */
+> +	AIE4_FW_PREPROD,	/* "_p" images */
+> +};
+> +
+> +/*
+> + * The PSP only trusts firmware signed with the scheme the platform firmware
+> + * uses and a preproduction part needs firmware of its own. Reading which one is
+> + * in use is optional and only used as a hint for which images to try first:
+> + * anything but a clear answer is treated as default.
+> + */
+> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev *xdna)
+>   {
+> -	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> -	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+> -	char fw_name[128];
+> +	u32 val = 0;
+>   	int ret;
+>   
+> -	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+> -		       pdev->device, pdev->revision, ndev->priv->npufw_path);
+> -	if (ret >= sizeof(fw_name)) {
+> -		XDNA_ERR(xdna, "npu firmware path is truncated");
+> -		return -EINVAL;
+> +	ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
+> +	if (ret) {
+> +		XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", ret);
+> +		return AIE4_FW_DEFAULT;
+>   	}
+>   
+> -	ret = request_firmware(npufw, fw_name, &pdev->dev);
+> -	if (ret) {
+> -		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+> -		return ret;
+> +	if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
+> +		XDNA_WARN(xdna,
+> +			  "Preproduction part with alternative signing, using default firmware");
+> +		return AIE4_FW_DEFAULT;
+>   	}
+>   
+> -	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+> -		       pdev->device, pdev->revision, ndev->priv->certfw_path);
+> -	if (ret >= sizeof(fw_name)) {
+> -		XDNA_ERR(xdna, "cert firmware path is truncated");
+> -		ret = -EINVAL;
+> -		goto release_npufw;
+> +	if (val & AIE4_PSP_FW_PREPROD)
+> +		return AIE4_FW_PREPROD;
+> +
+> +	return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
+> +}
+> +
+> +/*
+> + * Images for the other variants have a suffix before the ".sbin" extension.
+> + * Returns -ENOENT if @path has no such variant.
+> + */
+> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t size,
+> +			const char *path, enum aie4_fw_variant variant)
+> +{
+> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+> +	const char *suffix;
+> +	size_t len, base;
+> +	int ret;
+> +
+> +	ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
+> +		       pdev->device, pdev->revision, path);
+> +	if (ret >= size) {
+> +		XDNA_ERR(xdna, "firmware path %s is truncated", path);
+> +		return -EINVAL;
+>   	}
+>   
+> -	ret = request_firmware(certfw, fw_name, &pdev->dev);
+> -	if (ret) {
+> -		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+> -		goto release_npufw;
+> +	switch (variant) {
+> +	case AIE4_FW_ALT:
+> +		suffix = "_l.sbin";
+> +		break;
+> +	case AIE4_FW_PREPROD:
+> +		suffix = "_p.sbin";
+> +		break;
+> +	default:
+> +		return 0;
+>   	}
+>   
+> +	len = ret;
+> +	if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), ".sbin"))
+> +		return -ENOENT;
+> +
+> +	base = len - strlen(".sbin");
+> +	if (strscpy(name + base, suffix, size - base) < 0)
+> +		return -EOVERFLOW;
+> +
+>   	return 0;
+> +}
+> +
+> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const struct firmware **fw,
+> +			    const char *path, enum aie4_fw_variant variant)
+> +{
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+> +	char name[128];
+> +	int ret;
+> +
+> +	ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
+> +	if (ret)
+> +		return ret;
+>   
+> -release_npufw:
+> -	release_firmware(*npufw);
+> +	ret = firmware_request_nowarn(fw, name, &pdev->dev);
+> +	if (ret)
+> +		XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
+> +
+> +	return ret;
+> +}
+> +
+> +/* The NPU and cert images are validated together, so both use the same variant */
+> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+> +				 const struct firmware **npufw,
+> +				 const struct firmware **certfw,
+> +				 enum aie4_fw_variant variant)
+> +{
+> +	int ret;
+> +
+> +	ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, variant);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, variant);
+> +	if (ret)
+> +		release_firmware(*npufw);
+>   
+>   	return ret;
+>   }
+> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
+>   	return 0;
+>   }
+>   
+> +/*
+> + * The firmware can only be started once. It is the PSP that decides whether it
+> + * accepts the images, and it does that when the firmware is started, so there
+> + * is no trying a variant and falling back. Pick the variant that the PSP
+> + * reported (the default one if it can't be read) and use the others only if
+> + * its images are missing.
+> + */
+>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
+>   			void __iomem *tbl[PCI_NUM_RESOURCES])
+>   {
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+>   	const struct firmware *npufw, *certfw;
+> -	int ret;
+> +	enum aie4_fw_variant order[3], hint;
+> +	int i, n = 0, ret = -ENOENT;
+>   
+>   	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
+>   		return 0;
+>   
+> -	ret = aie4_request_firmware(ndev, &npufw, &certfw);
+> -	if (ret)
+> +	hint = aie4_psp_fw_variant(xdna);
+> +	order[n++] = hint;
+> +	if (hint != AIE4_FW_DEFAULT)
+> +		order[n++] = AIE4_FW_DEFAULT;
+> +	if (hint != AIE4_FW_ALT)
+> +		order[n++] = AIE4_FW_ALT;
+> +
+> +	for (i = 0; i < n; i++) {
+> +		ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
+> +		if (!ret)
+> +			break;
+> +	}
+> +	if (ret) {
+> +		XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
+>   		return ret;
+> +	}
+>   
+>   	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+>   	aie4_release_firmware(ndev, npufw, certfw);
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> index f233eb70a2957..dab8603e2381f 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+
+
+I tested against both _l, _p and default sbins. All passed.
+
+Reviewed-by: David Zhang <yidong.zhang@amd.com>
+
+Tested-by: David Zhang <yidong.zhang@amd.com>
+
+/David
+
+>   
+>   /*
+>    * 0.0: Initial version
+>
+> ---
+> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
+>
+> Best regards,
 > --
->
-> commit e5268b4f2a7c534421925bdee0145caf63c50632
-> Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->
-> drm/ch1115: add support for Chipwealth CH1115 OLED controller
->
-> This commit adds a DRM driver for Chipwealth CH1115 monochrome dot matrix
-> OLED panels connected over I2C.
->
->> diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch=
-1115-i2c.c
->> new file mode 100644
->> index 0000000000000..08fee5a09f4f9
->> --- /dev/null
->> +++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
->> @@ -0,0 +1,859 @@
->
-> [ ... ]
->
->> +static int ch1115_oled_init(struct ch1115_device *ch1115)
->> +{
->> +	u8 commands[] =3D {
->> +		CH1115_CMD_OFF,
->> +
->> +		CH1115_CMD_CLOCK_DIVIDE_RATIO,
->> +		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
->> +					      CH1115_VAL_CLOCK_DIV_RATIO),
->> +
->> +		CH1115_CMD_MUX_RATIO,
->> +		ch1115->height - 1,
->> +
->> +		CH1115_CMD_OFFSET,
->> +		ch1115->flip_vertical
->> +			? ch1115->y_start_offset
->> +			: CH1115_MAX_HEIGHT - ch1115->y_start_offset,
->
-> [Severity: Medium]
-> Does ch1115_oled_init() send an out-of-range value for CH1115_CMD_OFFSET =
-when
-> flip_vertical is false and y_start_offset is 0?
->
-> In ch1115_parse_dt(), y_start_offset defaults to 0 when the chipwealth,of=
-fset
-> property is omitted, and is otherwise restricted to [0, CH1115_MAX_HEIGHT=
- - 1]
-> (0 to 63):
->
-> 	ret =3D of_property_read_u32(np, "chipwealth,offset", &val);
-> 	if (ret) {
-> 		ch1115->y_start_offset =3D 0;
-> 	} else {
-> 		if (val > CH1115_MAX_HEIGHT - 1) {
-> 			dev_err(dev, "chipwealth,offset=3D%d must be [0-%d]\n",
-> 				val, CH1115_MAX_HEIGHT - 1);
-> 			return -EINVAL;
-> 		}
-> 		ch1115->y_start_offset =3D (u8)val;
-> 	}
->
-> When ch1115_encoder_atomic_enable() calls ch1115_oled_init() with
-> flip_vertical set to false and y_start_offset set to 0, the expression
-> CH1115_MAX_HEIGHT - ch1115->y_start_offset evaluates to 64 (0x40), which
-> overflows the 6-bit [0, 63] vertical offset field instead of wrapping mod=
-ulo
-> CH1115_MAX_HEIGHT to 0.
-
-This is a false positive, the datasheet [1] states that the formula for
-this command (D3) is 64 - n, where n is a 6 bit number in the range [0,
-63]. I did not use a mask for this because the unused bits get ignored.
-
->
-> [ ... ]
->
->> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
->> +					 struct drm_atomic_commit *state)
->> +{
->> +	struct drm_device *drm =3D encoder->dev;
->> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
->> +	int ret;
->> +
->> +	ret =3D ch1115_oled_init(ch1115);
->> +	if (ret < 0)
->> +		return;
->> +
->> +	u8 command =3D CH1115_CMD_ON;
->> +
->> +	ret =3D ch1115_send_command_list(ch1115, &command, 1);
->> +	if (ret < 0)
->> +		return;
->> +
->> +	backlight_enable(ch1115->bl_dev);
->> +}
->> +
->> +static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
->> +					  struct drm_atomic_commit *state)
->> +{
->> +	struct drm_device *drm =3D encoder->dev;
->> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
->> +
->> +	backlight_disable(ch1115->bl_dev);
->> +
->> +	u8 command =3D CH1115_CMD_OFF;
->> +
->> +	ch1115_send_command_list(ch1115, &command, 1);
->> +}
->
-> [Severity: Medium]
-> Should ch1115_encoder_atomic_disable() also disable the internal DC-DC
-> converter?
->
-> When the encoder is enabled, ch1115_encoder_atomic_enable() calls
-> ch1115_oled_init(), which turns on the DC-DC converter with CH1115_CMD_DC=
-_DC
-> and CH1115_VAL_DC_DC_ON. However, when the display is disabled via KMS or
-> during system shutdown via ch1115_shutdown() -> drm_atomic_helper_shutdow=
-n(),
-> ch1115_encoder_atomic_disable() only sends CH1115_CMD_OFF, leaving the DC=
--DC
-> converter enabled.
->
-> By contrast, ch1115_remove() explicitly sends CH1115_CMD_OFF,
-> CH1115_CMD_DC_DC, and CH1115_VAL_DC_DC_OFF after calling
-> drm_atomic_helper_shutdown():
->
-> 	u8 cmd_list[] =3D {
-> 		CH1115_CMD_OFF,
-> 		CH1115_CMD_DC_DC,
-> 		CH1115_VAL_DC_DC_OFF,
-> 	};
->
-> 	drm_dev_unplug(&ch1115->dev);
-> 	drm_atomic_helper_shutdown(&ch1115->dev);
->
-> 	ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
->
-> If ch1115_encoder_atomic_disable() sent CH1115_CMD_OFF, CH1115_CMD_DC_DC,=
- and
-> CH1115_VAL_DC_DC_OFF, wouldn't that properly power down the DC-DC convert=
-er on
-> both KMS disable and ch1115_shutdown(), while avoiding the duplicate comm=
-and
-> sequence in ch1115_remove()?
-
-I believe this is accurate, apologies for this oversight. I have a local
-version of this fixed, tested with modetest, unloading the module,
-rebooting and power off the system entirely. I'll send a v7 in a few
-days in case there is a review.
-
-Best regards,
-Nicol=C3=A1s
-
-[1] https://datasheet4u.com/download/1576606/CH1115.html
+> Mario Limonciello <mario.limonciello@amd.com>
