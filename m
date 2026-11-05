@@ -2,86 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0668B60A260A
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:32:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF0D606D822
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=onaG9FOW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFyHEeDX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9AF10E207;
-	Thu,  5 Nov 2026 16:32:52 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE84D10E31F
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:32:45 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a60f9474c4so19597805e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 08:32:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793896364; x=1794501164; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=d4uIAeI9pE7bf79BRULVqsTB5We4Hv2szuGRJya4Up0=;
- b=onaG9FOWDCi9/OKN30rPfaGRZ4homjdTxr0Ypgg/zUzKhkLjDNVWwKfYkpHhvLzZ21
- vecmg46bUYX3O2f1gQlirjKSWy91lmZjZsjJ5Gu9Ujx7f+RWg0eFn6ZfBKJKm7vcb6So
- USQ0/HSEfuN6txu5JUvU9lQ1FpNWFeCyo9CWqWuLBJlyBlH/k/61PH4Tab7H1LeyX86X
- xVSHYbyjfxl21dkmZ2Q3WXNrICxPEQrQThfFalQHpHatjp1CQN5+ouG+gkDye5GQPDzN
- mfrg9q87zSxRSeV3PUNIWZBYd22u8GEe9jVLSqx9HEeCz8gkT7zmL2DgUzlyOYi6FDFg
- Btiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793896364; x=1794501164;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=d4uIAeI9pE7bf79BRULVqsTB5We4Hv2szuGRJya4Up0=;
- b=sxSdqe9QzSRlKoGZUYPE3EqENF6kQZLt97gxYoZRMAWKo9WjuDIbBxH7Ttv0Rj6d7b
- K9LKrye4/hV+G9SOyS885Ok1ZBr90gwxcMrPXZxTuQboYWNAKS7Rz/ZR3cCDqspNLlOB
- PtO9HFJilfbvQy29u0UdKTF088x+my9rYtCZzIEtO/F/BKPo9vQA+8TYdr4DiGCHUe4q
- ly13CPxWra5PFfsBJrd4RohkGCGlx0NnrkldZ+SwIHIRy9qz9upOKGRd8tQKm7nVjfS+
- OxBd1xw3AlOjSrwqOs7nsokrJbwPNmwbASreahjrVhdWZYB5AokS/NWXuBmBhtz7HV4t
- TspQ==
-X-Gm-Message-State: APuU4Z9q0y4wGf6+Ap7vPVItZJwgycqeTudh7TzRdq1KyPlsMZgdoGGZ
- JI50EJI5IdvMrpXjkjZhxWhALH+IDHMR9piW6jPvM5vK2kT9uwa07+rNRcz0K98wfV6rSg==
-X-Gm-Gg: AYBFou3nKRdS5QRy+YMBhC5LThFLfrcOP/Ff4UM6xYPgu7yP2R0y/ZCSswPdxwq9bes
- Mbiwj0iXIiwdqQK/AbwZJ0PlaUPMXXHiFe9Ir+EifyyfxXoS521hvdz6unoXjvuf8ic/chI/ZY1
- cukDydwV+pIXsp1mkcy6aCA24xnL+aEiItXAq8rgsoSwp9qNHJCvU0nHh4wxzkZINj5EyRilObt
- H/V9ivRUZahzWALdVKTxBD7CcMG9Mf2nMFq/ZLIlKYMtlklOQFsTO6k/ApODtMwSAOAvB8PAJHY
- cNlf2IBYIU7vR9KQc6qE7GqQKfl6N1zTC/8EC9ckRQUNirYoqKQ/Eoiazk6qNTFQBpOTtsvBOTm
- Ai7EzEu4wNLsxZY1CyawoNGIUGqcQNTcV0PHn1jlvVywCt3f97F0ipMu2LLyiw3cehDRb7s3y27
- j7Md45xBzNObQKHrc6dKVRWgkCj0u7G2iud7ixOgdVsBPYXhvSLeucNKuN/Sb781KinXznWjTav
- a2Btg4XXfp6doWFVJqXUyYp1yUhSGasonL6Yz4Uslqs4+/QsrpwCf2iYQQFXhlfbg2j71L/UTYp
- XFmvNZG+C6GLRcBn8oejE7Fmjf6DAyDRozS/zoc17wJSwzlHitdVWf/9VJvne7D6gn5JFqeiUTW
- IktLMK9Mi
-X-Received: by 2002:a05:600c:3b87:b0:4a2:150f:1607 with SMTP id
- 5b1f17b1804b1-4ac1709ad56mr464115355e9.13.1793896363894; 
- Thu, 05 Nov 2026 08:32:43 -0800 (PST)
-Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net.
- [79.154.229.240]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b56fca22e1sm89764875e9.14.2026.11.05.08.32.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 08:32:43 -0800 (PST)
-Message-ID: <0e3689d102abf41b1e788402cc9da354d5c2d969.camel@gmail.com>
-Subject: Re: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
-Date: Thu, 05 Nov 2026 17:32:42 +0100
-In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
-References: <20261105113529.1989375-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4741710E94E;
+	Thu,  5 Nov 2026 16:33:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 799BA10E34C
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:33:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 20E47412B3;
+ Thu,  5 Nov 2026 16:33:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27891F000C1;
+ Thu,  5 Nov 2026 16:33:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793896405;
+ bh=ar+fuOsJ+En2tIkEzCw97yzoYxBV9Da6T+rtVtCPUA8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eFyHEeDXimv9XsoDHO7ZT4mF+sVU0J2VfOprpNt2iFAHFM5OAL17WXlo9OzqSbrfH
+ 8QqvMEAjE2m6eDRQ+q2KKboTQ+BBwZ8k9zw9ZrdmpvCg+hE+FbQBCNqrk5GzO5bxOA
+ XCkwsVzA7srBmcXWWv8VeGfP2yN1UiNwupV4KhmR8jHBPA50aJ/K/65Pz9PNLhAgyS
+ vQpgkj/oTntMUyhtHYu/T6JjZy+WT06aZpm9TBDkzfUD4xF8Dcoc8fy+Cc4Wp3pCQa
+ CRrY7i6dY+c2COkMf+AeiaZOuFv/GWzHNPoY5LHea4Uc0kMlyeoBdtXN5e4Wxkb+80
+ dOTqgNix/5E2Q==
+Message-ID: <sashiko-outbox-199504@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/27] drm/bridge: Add VTEM EMP support
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-4-55f4215be2c2@collabora.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-4-55f4215be2c2@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 16:33:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,101 +48,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-T24gVGh1LCAyMDI2LTExLTA1IGF0IDEyOjM1ICswMTAwLCBQaGlsaXBwIFN0YW5uZXIgd3JvdGU6
-Cj4gV2UgcmVjZW50bHkgaGFkIGEgZGlzY3Vzc2lvbiBhYm91dCByZXdvcmtpbmcgZG1hX2ZlbmNl
-IGluaXQgdG8gY2xvc2UKPiBhCj4gcmFjZS13aW5kb3cgWzFdLgo+IAo+IFRoZSBjb21tdW5pdHkg
-YWdyZWVtZW50IHNlZW1zIHRvIGhhdmUgYmVlbiB0aGF0IHdlIGNhbiBnZXQgcmlkIG9mCj4gZG1h
-X2ZlbmNlX2luaXQ2NCgpLCBzbyBsZXQncyBkbyB0aGF0IGFscmVhZHkuIEluIHRoZSBtZWFudGlt
-ZSB3ZSBjYW4KPiBjb250aW51ZSBvdXIgZGlzY3Vzc2lvbnMgcmVnYXJkaW5nIHRoZSByYWNlIGlu
-IFsxXS4KPiAKPiBUaGlzIGFsc28gdG91Y2hlcyB0aGUgUnVzdCBkbWFfZmVuY2UsIHdoaWNoIGFj
-dHVhbGx5IHNob3VsZCB1c2UgNjQtCj4gYml0Cj4gc2Vxbm9zICh3YXMgZm9yZ290dGVuIHNvIGZh
-cikuIFJ1c3QgZmVuY2UgaGFzIG5vIHVzZXJzIGN1cnJlbnRseSwgc28KPiBuZWVkcyBubyBiYWNr
-cG9ydGluZywgc28gSSB3b3VsZCBsaWtlIHRvIGFkZHJlc3MgdGhhdCBpbiBhIGRpc3RpbmN0Cj4g
-cGF0Y2guCj4gCj4gVGVzdGVkIG9uIE5vdXZlYXUgd2l0aCBhbmQgd2l0aG91dCB0aGUgU0VRTk82
-NCBmbGFnLiBOb3V2ZWF1IGFsc28KPiB1c2VzCj4gdGhlIFVTRVIgZmxhZywgc28gSSBob3BlIHdl
-J3JlIGZpbmUuCj4gCj4gCj4gUC4KPiAKPiBbMV0KPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9k
-cmktZGV2ZWwvMjAyNjEwMjkwOTU1NDIuMTUyNjc1MC0zLXBoYXN0YUBrZXJuZWwub3JnLwoKTWFr
-ZXMgZ29vZCBzZW5zZSB0byBtZS4KRm9yIHRoZSBlbnRpcmUgc2VyaWVzOgoKUmV2aWV3ZWQtYnk6
-IFRpbXVyIEtyaXN0w7NmIDx0aW11ci5rcmlzdG9mQGdtYWlsLmNvbT4KCihwcy4gSSBoYWQgdG8g
-cmVtb3ZlIHNvbWUgcmVjaXBpZW50cyBmcm9tIHRoaXMgZW1haWwgYmVjYXVzZSB0aGUKb3JpZ2lu
-YWwgaGFkIG1vcmUgdGhhbiAxMDAgcmVjaXBpZW50cyBhbmQgZ21haWwgd291bGRuJ3QgbGV0IG1l
-IHJlcGx5CnRvIGFsbCBvZiB0aGVtLiBBcG9sb2dpZXMgZm9yIHRoYXQuKQoKPiAKPiAKPiBQaGls
-aXBwIFN0YW5uZXIgKDMpOgo+IMKgIGRtYS1idWY6IGRtYS1mZW5jZTogQWRkIGZsYWdzIHBhcmFt
-ZXRlciB0byBkbWFfZmVuY2VfaW5pdCgpCj4gwqAgZG1hLWJ1ZjogUG9ydCB1c2VycyBvZiBkbWFf
-ZmVuY2VfaW5pdDY0KCkKPiDCoCBkbWEtYnVmOiBkbWEtZmVuY2U6IFJlbW92ZSBkbWFfZmVuY2Vf
-aW5pdDY0KCkKPiAKPiDCoGRyaXZlcnMvYWNjZWwvYW1keGRuYS9hbWR4ZG5hX2N0eC5jwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvYWNjZWwvZXRob3N1L2V0aG9zdV9q
-b2IuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9hY2NlbC9p
-dnB1L2l2cHVfam9iLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+
-IMKgZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5jwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLWFycmF5LmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2Ut
-Y2hhaW4uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQo+IMKgZHJpdmVycy9kbWEt
-YnVmL2RtYS1mZW5jZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNTgg
-KysrKysrKysrLS0tLS0tLS0KPiAtLQo+IMKgZHJpdmVycy9kbWEtYnVmL3N0LWRtYS1mZW5jZS1j
-aGFpbi5jwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2RtYS1idWYvc3Qt
-ZG1hLWZlbmNlLXVud3JhcC5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9k
-bWEtYnVmL3N0LWRtYS1mZW5jZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAy
-ICstCj4gwqBkcml2ZXJzL2RtYS1idWYvc3QtZG1hLXJlc3YuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2RtYS1idWYvc3dfc3luYy5jwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgLi4uL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2ZlbmNlLmPCoCB8wqAgMiArLQo+IMKgLi4uL2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9ldmljdGlvbl9mZW5jZS5jwqDCoMKgIHzCoCA3ICsrLQo+IMKg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmPCoMKgwqDCoCB8wqAgMiAr
-LQo+IMKgLi4uL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnFfZmVuY2UuY8KgwqAgfMKg
-IDUgKy0KPiDCoC4uLi9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX3RsYl9mZW5jZS5jwqAg
-fMKgIDUgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9kcm1fd3Jp
-dGViYWNrLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2ZXJz
-L2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X2dwdS5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+
-IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bV9tb3ZlLmPCoCB8wqAgMiAr
-LQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZXF1ZXN0LmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zd19mZW5jZV93b3Jr
-LmPCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV92bWFfcmVz
-b3VyY2UuY8KgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoC4uLi9ncHUvZHJtL2k5MTUvc2VsZnRlc3Rz
-L2k5MTVfc3dfZmVuY2UuY8KgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2ltYWdp
-bmF0aW9uL3B2cl9jY2IuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1
-L2RybS9pbWFnaW5hdGlvbi9wdnJfcXVldWUuY8KgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJp
-dmVycy9ncHUvZHJtL2xpbWEvbGltYV9zY2hlZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzC
-oCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9mZW5jZS5jwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVh
-dV9mZW5jZS5jwqDCoMKgwqDCoMKgIHzCoCA0ICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vcGFuZnJv
-c3QvcGFuZnJvc3Rfam9iLmPCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2Ry
-bS9wYW50aG9yL3BhbnRob3Jfc2NoZWQuY8KgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVy
-cy9ncHUvZHJtL3F4bC9xeGxfcmVsZWFzZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAy
-ICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mZW5jZS5jwqDCoMKgwqDCoMKg
-wqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9mZW5jZS5j
-wqDCoMKgwqDCoMKgIHzCoCA0ICstCj4gwqAuLi4vZ3B1L2RybS9zY2hlZHVsZXIvdGVzdHMvbW9j
-a19zY2hlZHVsZXIuY8KgIHzCoCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdHRtL3Rlc3RzL3R0
-bV9ib190ZXN0LmPCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoC4uLi9ncHUvZHJtL3R0bS90ZXN0
-cy90dG1fYm9fdmFsaWRhdGVfdGVzdC5jwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS92
-M2QvdjNkX2ZlbmNlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBk
-cml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9nZW0uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdmdlbS92Z2VtX2ZlbmNlLmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmly
-dGdwdV9mZW5jZS5jwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS92
-bXdnZngvdm13Z2Z4X2ZlbmNlLmPCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2ZXJz
-L2dwdS9kcm0veGUveGVfaHdfZmVuY2UuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAy
-ICstCj4gwqBkcml2ZXJzL2dwdS9kcm0veGUveGVfb2EuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0veGUveGVfcHJlZW1w
-dF9mZW5jZS5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3hl
-L3hlX3RsYl9pbnZhbC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBkcml2
-ZXJzL2dwdS9ob3N0MXgvZmVuY2UuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHzCoCAyICstCj4gwqBkcml2ZXJzL2lpby9pbmR1c3RyaWFsaW8tYnVmZmVyLmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiDCoGRyaXZlcnMvdXNiL2dhZGdldC9mdW5jdGlv
-bi9mX2ZzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqBpbmNsdWRlL2xpbnV4
-L2RtYS1mZW5jZS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDE0
-ICsrKy0tCj4gwqBydXN0L2tlcm5lbC9kbWFfYnVmL2RtYV9mZW5jZS5yc8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHzCoCAyICstCj4gwqA1MiBmaWxlcyBjaGFuZ2VkLCA5NSBpbnNlcnRpb25z
-KCspLCA5NCBkZWxldGlvbnMoLSkKPiAKPiAKPiBiYXNlLWNvbW1pdDogODI1OGEzNzcwMmI5Yjlj
-ZjI3ZjVjMGVhMDc2MjVlM2U2YmQ3NGY1YQo=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/bridge: wrong kernel-doc tag for hdmi_write_vtem_emp in drm_bri=
+dge_funcs
+--
 
+commit db5205bd90d10ddf734b146e8cd3c0d61b65f621
+Author: Derek Foreman <derek.foreman@collabora.com>
+
+drm/bridge: Add VTEM EMP support
+
+This commit adds VTEM EMP callbacks, the DRM_BRIDGE_OP_HDMI_VTEM_EMP
+operation flag, and corresponding drm_bridge_connector wiring to support
+VTEM extended metadata packets on HDMI bridges.
+
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 1981d24a700d2..6913662023cae 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm_bridge.h
+> @@ -684,6 +684,29 @@ struct drm_bridge_funcs {
+>  	int (*hdmi_write_spd_infoframe)(struct drm_bridge *bridge,
+>  					const u8 *buffer, size_t len);
+> =20
+> +	/**
+> +	 * @hdmi_clear_vtem_emp:
+> +	 *
+> +	 * This callback clears the emp in the hardware during commit.
+> +	 *
+> +	 * This callback is optional but it must be implemented by bridges that
+> +	 * set the DRM_BRIDGE_OP_HDMI_VTEM_EMP flag in their
+> +	 * &drm_bridge->ops.
+> +	 */
+> +	int (*hdmi_clear_vtem_emp)(struct drm_bridge *bridge);
+> +
+> +	/**
+> +	 * @hdmi_write_spd_infoframe:
+> +	 *
+> +	 * Program the emp into the hardware.
+> +	 *
+> +	 * This callback is optional but it must be implemented by bridges that
+> +	 * set the DRM_BRIDGE_OP_HDMI_VTEM_EMP flag in their
+> +	 * &drm_bridge->ops.
+> +	 */
+> +	int (*hdmi_write_vtem_emp)(struct drm_bridge *bridge,
+> +				   const u8 *buffer, size_t len);
+
+[Severity: Low]
+As reported by Sashiko on RFC [1], should the kernel-doc comment for
+hdmi_write_vtem_emp in struct drm_bridge_funcs in include/drm/drm_bridge.h
+use @hdmi_write_vtem_emp: instead of @hdmi_write_spd_infoframe:, so that
+running scripts/kernel-doc does not warn about a duplicate
+@hdmi_write_spd_infoframe section and an undescribed hdmi_write_vtem_emp
+member?
+
+[1] https://lore.kernel.org/r/20260921-vrr-limiter-uapi-v1-5-2fcd7d011646@c=
+ollabora.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-vrr-limite=
+r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D4
