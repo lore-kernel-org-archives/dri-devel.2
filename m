@@ -2,54 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF7A606A328
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310B5606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3bBpSfq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaVb4/ls
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D33D711277D;
-	Thu,  5 Nov 2026 15:31:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D69811277D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9793411277F;
+	Thu,  5 Nov 2026 15:31:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4264811277F
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA37660416;
- Thu,  5 Nov 2026 15:31:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB941F000C1;
- Thu,  5 Nov 2026 15:31:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B15C418C9;
+ Thu,  5 Nov 2026 15:31:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8736F1F000C1;
+ Thu,  5 Nov 2026 15:31:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892693;
- bh=s9rn1LkKNo5IXTOTlmdXquj0FVx/2gKURS6OQVVX7dI=;
+ s=k20260515; t=1793892697;
+ bh=ETksxGjrdbnjpf/hSHW2Eb8E1O1upSrUBvgX9QeQCgc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=f3bBpSfqlsg7Q1pP1IynYZxR7Q42BeZwFpuC5uav88fNSv19PiP4xW3Zys9GsM8EX
- KWFVPQoTAvjacwUSXdPn4Uc4lLpHLAJXWnLRylYDY1r5pc3WA+1ynX3oYArwOvDBsD
- UYyhwnkka04j0rNh0GI0vAvTfGDsmwBwaqwsLxSLysQI77ooZ88q369FGM7onE/nBL
- IFFAlKOxVrv+GD1LSagYaoDEoeKCy3rDrMrgCKwc8N/VwFsoLxxOMBXQbjSi8BEciX
- aYEA4Ogdlqee6bA3OibMRrbVE8YG+QkwIoPilkp9sYsBVHxsbwjydk5iFmhqLXtNmR
- jINaVaxa0UMzg==
+ b=kaVb4/lsLRUOg6JC4c3PfalpbRRs1c/MJ+/viqi+WZSuNRrlUat55mFx+G4yKE718
+ gEQ72MR1eE0bCS7Iaz1VuCOm8AIeqylTB4O7Cw2U90VnErPXSY584KJAbrEWwCh9GG
+ WKFX0D3oVDjb0ZE8t3oMLO7YEHWBH1nmdeFy0mFZgXkhnD1b+lsoN9B9mVhIAXPIz7
+ ZLlaS45e6faPrSwP0SALVZ88wEjq0z0id4wBtfkncgM8xpRRNes861mO0MTVCYLT/J
+ W+XTiynm1Q83MzbCjnWpObVZuvteuCPVrmjeFrDWKqm9aoU4e4B5XcrLMyHyUkRgl1
+ 2Y6bzpLoZJW9Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:31 +0100
-Subject: [PATCH RESEND 22/83] drm/logicvc: Switch to
+Date: Thu, 05 Nov 2026 16:29:32 +0100
+Subject: [PATCH RESEND 23/83] drm/loongson: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-22-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-23-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Paul Kocialkowski <paulk@sys-base.io>
+ Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1194; i=mripard@kernel.org;
- h=from:subject:message-id; bh=soVS9mt/NxBvR6HuwPnc/5nJQXN7K+fEDZR+AQnuVac=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjy/dP7zzba5Jhsr/zs9vvb3p5fZ26NzRaO/uj+v/
- WcTVmKd2TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmwtTH2LB17pftjdH1v4V3
- rilUZznNIjzt05zOialO21QntP50ucT4mtH2+xTOOYsWbH2Qc0pzTitjnZHKjRvXLZpYl80tkr7
- 77s0/D02WZL3TU9M75Lu+vpzbN01EcN+s7l5ni57pvyOOyvbvBQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1320; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=oTUiBrt0qVkRH9uvz7qqXmWO5rvbhgzK/WLdy/q0auY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjz/0RKh8d63f23/+ylP03kuCK9vZYz60LF7ddcVn
+ cTfpjKCHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi/WcYG770fTjSXK0+d1Xu
+ uqnrrFkS8/RczZXP9GtMlr81+9/C7JuhUy1r+r9dv8HetfU+a0r5c8Y6zWvxf4PvT7zKXv577c0
+ j83JEdMKnah/Y2D9rS4Vunq3Kwkf1tzMWxv5qvipw96BzQ9d0AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +86,29 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Paul Kocialkowski <paulk@sys-base.io>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>
+Cc: Mingcong Bai <jeffbai@aosc.io>
+Cc: Qianhai Wu <wuqianhai@loongson.cn>
+Cc: Xi Ruoyao <xry111@xry111.site>
 ---
- drivers/gpu/drm/logicvc/logicvc_mode.c | 4 +++-
+ drivers/gpu/drm/loongson/lsdc_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_mode.c b/drivers/gpu/drm/logicvc/logicvc_mode.c
-index 3cf04b70bd27..15503f96743f 100644
---- a/drivers/gpu/drm/logicvc/logicvc_mode.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_mode.c
-@@ -62,5 +62,7 @@ int logicvc_mode_init(struct logicvc_drm *logicvc)
- 	mode_config->funcs = &logicvc_mode_config_funcs;
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
+index 5a13df31eb90..fbb2658acce4 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.c
++++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+@@ -248,5 +248,7 @@ lsdc_create_device(struct pci_dev *pdev,
+ 		return ERR_PTR(ret);
  
--	drm_mode_config_reset(drm_dev);
-+	ret = drm_mode_config_create_initial_state(drm_dev);
+-	drm_mode_config_reset(ddev);
++	ret = drm_mode_config_create_initial_state(ddev);
 +	if (ret)
-+		return ret;
++		return ERR_PTR(ret);
  
- 	drm_kms_helper_poll_init(drm_dev);
+ 	return ldev;
 
 -- 
 2.55.0
