@@ -2,100 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A1C606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 02:37:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF44606A328
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 02:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Sg7RfEuK
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=B2T89JNY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F35610E905;
-	Thu,  5 Nov 2026 02:36:57 +0000 (UTC)
-Received: from mail-qk1-f228.google.com (mail-qk1-f228.google.com
- [209.85.222.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD26010E905
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 02:36:50 +0000 (UTC)
-Received: by mail-qk1-f228.google.com with SMTP id
- af79cd13be357-93cbc3ab2fdso74160785a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 18:36:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC4CE10E90A;
+	Thu,  5 Nov 2026 02:38:53 +0000 (UTC)
+Received: from mail-qt1-f228.google.com (mail-qt1-f228.google.com
+ [209.85.160.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF4D10E90A
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 02:38:47 +0000 (UTC)
+Received: by mail-qt1-f228.google.com with SMTP id
+ d75a77b69052e-53665358476so14355661cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 18:38:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793846209; x=1794451009;
+ d=1e100.net; s=20260707; t=1793846326; x=1794451126;
  h=in-reply-to:references:to:from:subject:cc:message-id:date
  :content-type:content-transfer-encoding:mime-version:dkim-signature
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=SG3mnPTkUQ4F9za/w8XE+qK/ulAJ5xkH8LniqYdvqGs=;
- b=PK2r0TlaXdkVAe2YG4XkwxaMIGm/r33JBqFcr5ZMFeNAy6Ob/mnwIxkvxHTS6229Yo
- d2+084gywLWoe0uTjeMnXFAsHYpFDffEqcyqlwr3kEjiiFPYKkPJX2kYnzeOkzvhJ+7L
- x/7L6xw8ZvJ4c7kn4kMRoeVEeR8VZA26IjzRObrcaudgRqbEbKohNsBQsLZwz0XxKR88
- wxeveWs9+50u6LobikwbbXIXHr65CjgGiJwmZEUwptKz7dhk4Y5Y5leBfxNM4vVLajIW
- 3gaeePnh5wMCrXnUcOFVWPcvD6ntZs0X7eBBAwpKLtTL36cGHhJaINrIyuwraNj82aaU
- 6hVw==
+ bh=nfAo8gKwyjLZUCgQEZBMJt0Gv/Zr7/LHlFcOJKb/c4E=;
+ b=Mv4XdMT90RChc4K949HxQ6cda5oX9EnfbPz2Uw11v69g337rfPL5oTW/ad7A4BMiwj
+ 2NsVvpxtROcXAW37y19ihey2+qjiUkfrSwzgvbDq2CcuH3qOcQXpHGvAjVFs8IZBhVTQ
+ 3SqiWWD3DzULuL0zg0WK7jXuSIpqUKsig5oD2xgek9BLY2XNbeFJcCkBTEtRrQRfYYIL
+ EoISNT8H2nDB4FA0HlNV9fHHI5XgUCg1Ngf6yZ1RO8ObIdfRJo+MZuIAPcM5ijJUqrWS
+ nOlBNVCuTNLki23kMh3IAVshPL0XUkn3/ap50ZYJZfFO+1KKwI0ESe/W4cDR/m0NKDdm
+ auGw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByGYskzC53C9k3T0FdzCuFtV9eiK3g+reKX4b+7zECedTzRpekpF918c4tw9f6Vt7fWX2xH6kUd8yc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9SgiKsc1WqRVSoVuQmAj+9Pd60hNUqtCCgYacVDrA1RUFlokiV
- p6dz2vPisVzFAMBRZQ0KrhhX8s+6QX04pOipwDh5k0QZ8KM+Z0vtAsj6ij8sQHIpTZIueM9xwEp
- WNQ9ncwmirbVHr8a/EOTyKgme97t7PN+6wSsXDxuMFbyhnxO5pYpTQgOxXR8JZBizsVT9dnO5nw
- 7YA/qMNITzJkBZiAeN//cNMboVbpXR3tRWHOyPboqxykIhBLACcO5k+ZTOFwebh1F6+A9mUSf9k
- 270x0Cj2zK8nVmjzpPkSchTLA86
-X-Gm-Gg: AYBFou2Jk1W8vYQmTOUQ7QQTUGuAr4X2WqZZMJi4g5csWGIcjiS9oq7hgsCwd9we2lO
- rCefh2Kn6INajWb84q/6v1vPYUus/Pvi7iqVsSbdUMiOD5C7mmz1w34e1XBChWYehfsfPnuYUs3
- LdBnLl3xyq4kKxX6RLlt8ioe62i52+Q6NkBgsbw8iZSBQU0RLfUr32teO1R5wWRzMMCv7k64ihy
- YoUOwrB1dA+mozInV9BAX6fiiu9G7xQNvXLSrFOh3oQaYun6jIAwuC4ncq/FMlmVCB54NI+bBiD
- meXcs+VsygQEEJOODynww9q72dGhFmrQWqRaPEqhqPefwFFhXARSBnX6cVxfU7I8QZLj/zWcTSq
- iwgwUgNbHofS3GhE9iIZ/vVhi8knHFIOX7g6GohpcsN4y6FIb5vdU3NFWGy10wJjpgcZ9dE4+wJ
- ykwWELbNgolLTqG6FCfnPMe3PSOeXtc+dMHaluJU9K
-X-Received: by 2002:a05:620a:1a20:b0:940:f224:5a63 with SMTP id
- af79cd13be357-9442178c510mr3084111785a.64.1793846209423; 
- Wed, 04 Nov 2026 18:36:49 -0800 (PST)
+ AKwUvBxRMmLhqJIofxQc8as4bxE/obHbachMBSeqPCSMgArE5pOUThH4qMKfh9z+0k5tB6bR+5K+iHNnssM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8pb23lJY6j+zFkmy+aDF42SuoDRjPx+9yT0FmRpxU95ZF0vt6A
+ 51XY/w+swoe2KVKnUycss6iWrBOE7tWKX3HJy6wsJSCkIjHyj2QLhSxPHKu1Hq/6pdyp9J5ojlP
+ /T5X0GIrS1V9+N5o8E/H+li4ra5qXhkxRsmKkbmbrHVfL0bHtstqCWlC0YXr9oa09t765uwuEML
+ ZK11oaT66JwsFbjLA/wos0Bd27drvhg7M68vaQh9PmrjwhYS+GuvWanIvkfstb6nBipKvfSOMLm
+ dLHd7AiGidyT7mljQ+4Y4FmB/zu
+X-Gm-Gg: AYBFou0Kbw4arTvwB/FT1pVtl70jMXxwcU+rwHKC/QcG8VKS2xYRp3j+oUpqV2ipsRv
+ WigZtqIc5r7jO8W9rLCD5z7GJkfNhWQaZP2qrKbbMDDjotD6uAvL9D/E5PKhNZyEq/b76h1LzcY
+ ZnqPspScxKAhhlZyCtOiY6evuxMcYvx3H3DEEbSj1CdacZi43U9KMnSfIBqM+GHhxbm7khisUze
+ sqj5xpDmfJ55PsISn5ENNVfJ/JPU3n0aqit50af/sXurxTK8y77s98zRm3hKUUgaEZ82Pshff4E
+ ZWg1GOlwb+s0eXjmYseuc8oYhIpJqGLhZ7HmqGNXJIeMbVKbJuMxoPgKfK7fAihBcZ97lflc7uU
+ oApFdRVbUhe19GIe1YzQ2nPfja0y0PwH595U2UmkbyJn/c/35fa+E87iGBmhtJpn3ejKzE8xF5I
+ E1S5v1WoYI1DiLOZeTIEhxySwdqgY8y5YPdWfZtHCC
+X-Received: by 2002:a05:620a:2b44:b0:93b:cb6d:6d73 with SMTP id
+ af79cd13be357-94421668073mr3074311485a.32.1793846326483; 
+ Wed, 04 Nov 2026 18:38:46 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
  by smtp-relay.gmail.com with ESMTPS id
- af79cd13be357-945d47b76b0sm49460085a.14.2026.11.04.18.36.49
+ af79cd13be357-945d478e7c2sm50416385a.10.2026.11.04.18.38.46
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 04 Nov 2026 18:36:49 -0800 (PST)
+ Wed, 04 Nov 2026 18:38:46 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-91c71966998so18993876d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 18:36:49 -0800 (PST)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-3552883bd19so882457eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 18:38:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1793846209; x=1794451009;
+ d=broadcom.com; s=google; t=1793846325; x=1794451125;
  darn=lists.freedesktop.org; 
  h=in-reply-to:references:to:from:subject:cc:message-id:date
  :content-type:content-transfer-encoding:mime-version:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=SG3mnPTkUQ4F9za/w8XE+qK/ulAJ5xkH8LniqYdvqGs=;
- b=Sg7RfEuKEh/pGM7BIXEvTVKKAD6RGOMpU1YQfKjkvTLlqm/yWjCDFROpUteaL+qDrj
- Yxv28G5jj0KEN8SdzljAWvkDkpG+ZXM3tHnCOiFp4SeuA5X1625abSLanZCpChJT3BG9
- A12V2XJkhdJ990pL0lJTvJu3EJVYBRvKNwReU=
+ bh=nfAo8gKwyjLZUCgQEZBMJt0Gv/Zr7/LHlFcOJKb/c4E=;
+ b=B2T89JNYhqU/TM+m9Ue2DOIIzhpbxV68p5wcmH4H/0J3nn0LWgV9Clg2bDS22nPYrp
+ xLAF2zsZsVgqugRDd0Uy36nKjC4O0Z0PemxuDDaVnVSsP8EWJNgdXB816CJL1ls3DJwp
+ zPOyF/gTRMNlqhTvzBqUDhH2epDzN3dXnjMiI=
 X-Forwarded-Encrypted: i=1;
- AKwUvBxupAygir4CqlJ+YYwFnCcNeVP5hiGMrtZtFi5SdMf+IY+qWigb1pcdHPjMQ/fxal7JRAyHq3mwy34=@lists.freedesktop.org
-X-Received: by 2002:a05:6214:5c43:b0:91e:9699:5f05 with SMTP id
- 6a1803df08f44-91e96997eaemr14886856d6.31.1793846208786; 
- Wed, 04 Nov 2026 18:36:48 -0800 (PST)
-X-Received: by 2002:a05:6214:5c43:b0:91e:9699:5f05 with SMTP id
- 6a1803df08f44-91e96997eaemr14886616d6.31.1793846208186; 
- Wed, 04 Nov 2026 18:36:48 -0800 (PST)
+ AKwUvBzzV9FZj+KPje2PbnxlVmr7aAtZ1Ve+pPMlGZ5fCen+nYhM8NnCzgBEC3EgTqptwbU85rHSTrKH4SM=@lists.freedesktop.org
+X-Received: by 2002:a05:701b:4515:20b0:1a7:78a3:bda8 with SMTP id
+ a92af1059eb24-1ac5b5ee671mr26473763c88.27.1793846325039; 
+ Wed, 04 Nov 2026 18:38:45 -0800 (PST)
+X-Received: by 2002:a05:701b:4515:20b0:1a7:78a3:bda8 with SMTP id
+ a92af1059eb24-1ac5b5ee671mr26473730c88.27.1793846324249; 
+ Wed, 04 Nov 2026 18:38:44 -0800 (PST)
 Received: from localhost ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91e7e7b1e92sm35327436d6.45.2026.11.04.18.36.47
+ a92af1059eb24-1b245c1c272sm11813857c88.8.2026.11.04.18.38.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Nov 2026 18:36:47 -0800 (PST)
+ Wed, 04 Nov 2026 18:38:43 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:38:07 -0800
-Message-Id: <DMMXFS0YGX39.56J0BV2Q2ZNA@broadcom.com>
+Date: Wed, 04 Nov 2026 18:40:04 -0800
+Message-Id: <DMMXH9KG5DJ6.UTFIEPC9BAQO@broadcom.com>
 Cc: <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
  <yunfeng.li.nb@gmail.com>, <tomas@slax.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/6] drm/vmwgfx: validate GB-only cursor command limits
+Subject: Re: [PATCH 6/6] drm/vmwgfx: reserve cursor MOBs before unpinning them
 From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
  <maaz.mombasawala@broadcom.com>
 To: "Zack Rusin" <zack.rusin@broadcom.com>, <dri-devel@lists.freedesktop.org>
 X-Mailer: aerc 0.17.0
 References: <20261027211729.646988-1-zack.rusin@broadcom.com>
- <20261027211729.646988-3-zack.rusin@broadcom.com>
-In-Reply-To: <20261027211729.646988-3-zack.rusin@broadcom.com>
+ <20261027211729.646988-7-zack.rusin@broadcom.com>
+In-Reply-To: <20261027211729.646988-7-zack.rusin@broadcom.com>
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,86 +108,16 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Oct 27, 2026 at 2:17 PM PDT, Zack Rusin wrote:
-> Guest-backed devices without cursor MOB support define cursor images with
-> SVGA_CMD_DEFINE_ALPHA_CURSOR. SVGA_REG_CURSOR_MAX_DIMENSION belongs to th=
-e
-> cursor MOB register class and reads as zero on devices that do not expose
-> that class. Applying this register to GB-only cursors rejects every
-> nonempty image submitted by KMS clients, leaving Xorg without a hardware
-> cursor.
->
-> The submission transport also limits the command size. A 96x96 image fits
-> the 40 KiB FIFO image limit, but exceeds the 32 KiB command-buffer limit
-> and causes a device command error when submitted through that transport.
->
-> Validate GB-only images against SVGA_MAX_CURSOR_CMD_DIMENSION and
-> SVGA_MAX_CURSOR_CMD_BYTES. For command-buffer submission, also bound the
-> whole command by SVGA_CB_MAX_COMMAND_SIZE, including its header. Calculat=
-e
-> the image byte count in 64 bits and keep the register-based dimension and
-> MOB size checks for MOB cursors.
->
-> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB curs=
-ors")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
-> Closes: https://patch.msgid.link/20260830151619.2452307-1-yunfeng.li.nb@g=
-mail.com
-> Assisted-by: LLM
-> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 23 ++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/d=
-rm/vmwgfx/vmwgfx_cursor_plane.c
-> index 942d07079ef7..14490ead99cd 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -778,8 +778,27 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *=
-plane,
->  				 "surface not suitable for cursor\n");
->  			return -EINVAL;
->  		}
-> -	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_GB_ONLY ||
-> -		   update_type =3D=3D VMW_CURSOR_UPDATE_MOB) {
-> +	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_GB_ONLY) {
-> +		u64 image_size =3D (u64)new_state->crtc_w *
-> +				 new_state->crtc_h * sizeof(u32);
-> +		u32 max_size =3D SVGA_MAX_CURSOR_CMD_BYTES;
-> +
-> +		/* The command-buffer limit includes the define-cursor header. */
-> +		if (vmw->cman)
-> +			max_size =3D min_t(u32, max_size,
-> +					 SVGA_CB_MAX_COMMAND_SIZE -
-> +					 sizeof(struct vmw_svga_fifo_cmd_define_cursor));
-> +
-> +		if (!new_state->crtc_w || !new_state->crtc_h ||
-> +		    new_state->crtc_w > SVGA_MAX_CURSOR_CMD_DIMENSION ||
-> +		    new_state->crtc_h > SVGA_MAX_CURSOR_CMD_DIMENSION ||
-> +		    image_size > max_size) {
+LGTM!
 
-We should have a separate message for image_size > max_size.
-
-> +			drm_dbg_kms(&vmw->drm,
-> +				    "Cursor dimensions (%u, %u) violate command limits\n",
-> +				    new_state->crtc_w, new_state->crtc_h);
-> +			return -EINVAL;
-> +		}
-> +	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_MOB) {
->  		u32 cursor_max_dim =3D
->  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
-> =20
-
-
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 --=20
 Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
 
