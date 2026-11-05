@@ -2,149 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0F6606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D31D606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RRI5JwQj
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=suZta/Cm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B626F112108;
-	Thu,  5 Nov 2026 07:14:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A91511210B;
- Thu,  5 Nov 2026 07:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793862881; x=1825398881;
- h=from:to:cc:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=faqLKCGT/dw196o9gD7uaE7Ju07VxGvVZIEtoKG0jM4=;
- b=RRI5JwQj3sTNAyuHOrMcR+zJhduWe5uftsHIq71xR1kyuOtRlssn5KAT
- Cr766jUcOmG569ZKi2gkNsjlAEVuDsbIaTvqYu51v+6oiv2nP3EnH1SaI
- jZ5vm3r/QDd1r39xlav09+6cH61ok/Yiegy/8ibeKxDJmW5DHl8guAQmq
- pFLR3m2vbH5sC51mSEPpoVKJfsSdyZ+IJNNBhoBG/RwJ6j/CEqRqwd8x6
- Ok679z/VSM5sF9+/ZoE+6RxLVYSF+hYD6WKu1d3J9K73gN3XJBRNNao4e
- fK7ACJX6LdwicE6mq24s8sEj8FLnqlJ1Z8Nrpir8YQzi0akHNNjKcXiTb w==;
-X-CSE-ConnectionGUID: 68X4dn6GTVaQBKSsS5s2bg==
-X-CSE-MsgGUID: Tzo5rqjOR5y/v77YZix15A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2675180"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2675180"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 23:14:40 -0800
-X-CSE-ConnectionGUID: aAkvFgyMTsmFBGTPYDSO6A==
-X-CSE-MsgGUID: LDi2h0PPT7if/1HtDA/3iQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7262051"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 23:14:40 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 23:14:39 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 23:14:39 -0800
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.49)
- by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 23:14:39 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4CDC112160;
+	Thu,  5 Nov 2026 07:25:47 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011011.outbound.protection.outlook.com [52.101.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8BB011216D
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 07:25:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J8CAl7MPdax9dtjk5RqZ9QGSk1k0srT1s9kbhSUEQ7zoNCNxCP4ZWF0Hv+wGGX+xbyZkreDDh8wpOBYFj/+4sUvzZ6agupIkIazky/jnlnjxVdD05nMRux39in9pXMzjlxN1V8TaENGoS18QwolSeMjjygNMIhVsnzI3fRoeTMixQtoGe1a+yicRALvXvepnORvy/JGsAlfTih0Ufph2uT7JgJW18mOJhiktKOq97RUTEpLJ9avN/g5tcgiPwI7W0uvUzHixoESNls7Y/3ZEjRaUUszKTW04mjcU2xszoyjDG2mw0RspQogw6AtGX4edbsD5Szrmn4+jBlCHBORMeQ==
+ b=ipHoCFJvoBbIDIhAx7zYQhrTatvM9LTE3grE/u4QRzLqTOOLyhzujPMqraanOGqM7on1oJjEMD4BRrIWW5KrA1jOCg0/Q1x5MznaZVwixydL1mWk5+JCY2Fht6W8tBqavC+0jDL8PYvmZm4fXBnVwKbudj4/KNNIDwu2XQMu2uqBvSE/N09rZHXesa1TKlrPkTCfONvfyLE7ZwjAGMlVJcAXUQ9lJhczJ8rSKDL2LkcMwGHp3tfoTKcg+dUmOIL+gaQcpY4nL6q+V3Ad6z7oB3ts2QAUcFKkuOyW4hycZ4nKfmKmzZBs7CnekT+HyJSOm2uX0Xi3zErRL/D5LlMCzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dnJYB8Xo2BEXYkWtnO8XOTf44VZ79CBUbhYpWrwYPPQ=;
- b=YQPKtYkY5f/ohxZss9H9EXu8bhkfhxcw1s8SnC76HQJyofrSIjy0OAcuPZJp/ATvGuZt/8gYDZL5rim1P03mXQuck63ZL2phsKRpXHmDVTHKCnxGM0LxCN+k7wueDs1p7DHphkvnQOxukGpNUjVJ0vRdT6NRjk6MyuFU5tCM/uc9deQ7LW/LSxNmZOps9QBvNbOlQ7cAJohEUDPXOXqZIxnaxNPPYIDMwFl7H71S5LZlv0Gayx0zmLf6LTJdgrz1Ztj6y7LvcfGLORLHTo6odb4SMSUBj0qnRXUDxhxVK7SBWYGFC7RLd2X4QhwGvByoNFIVppozg9P/2g+VItiJvw==
+ bh=TB7rtAMTb5dQAG3k+up8DxQ/nrYGgyd2FmTDTwvGZE0=;
+ b=OMyDjEeGTl31NC6cIycmLcYQ3iDly6s/7acMNMDybfme41Z5nN0nfUHoZ0PyhKEC/KIrxmyfDa+88c2FOh8mncHZ93FuCRAJ7DFyjdSlzrwfTZ/V4PGBWlEyYSMmFu+nffEaUP18YG/qBMpX11BJFl8puwI93UJJqL4FhV+NtpwuY3OkVnkrMYLEwgT66y880bIfhf1YDeBQbB3GWjksGE5Aq/XcCrZw79XdbwWcHjbrG1oYUgCbDQkIJgGWq9dRbAiSRkDWSw6116H8EqIbH0rc/FIv54xD0dQAsJnsF6ckiUiJNoSKVSMY1IOO8CmkhehkCqJZUakhJK+HM6GvUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TB7rtAMTb5dQAG3k+up8DxQ/nrYGgyd2FmTDTwvGZE0=;
+ b=suZta/CmCAvr+4Ry4LgnbaDdbhzy++ySLJkHirWxr3T2GxM17EkS1IyO4nUc//Xa5CkHwGl/6P2BqgaVzgRjZL4dYF7qJs3hsrAib17GmyCukP0cMLPAPMajfwPdKzNV3iQkgCNiArjQHy6eQ0iLEl1mPlkxF4ZojF32m+lSgDeIWe7256cfmcLkqeujbB8cNuEx2EDIAuUqB/mSRVzRxgSCIXrG8eao9dgmwHATcvWZZffqbikU3+Sia42Pvcszv7BdCYrb+xKSDJ98sReOUZuATFEVx4UnlopZQ+Lsed7i0i05DMfv0TD5B6EQYfa2RHh8faAKgYbeB3bo96gJpw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by CO1PR11MB5028.namprd11.prod.outlook.com
- (2603:10b6:303:9a::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 07:14:37 +0000
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 07:14:37 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Andi Shyti
- <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [PATCH v2] drm/i915/gt: Adjust usage of SFC_DONE registers on Gen 12
-Date: Thu, 5 Nov 2026 07:14:26 +0000
-Message-ID: <20261105071426.1159739-1-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: WA1PEPF00005B89.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::637) To EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by AS8PR04MB7573.eurprd04.prod.outlook.com
+ (2603:10a6:20b:29e::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
+ 2026 07:25:34 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 07:25:34 +0000
+Date: Thu, 5 Nov 2026 09:25:30 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: fsl-ldb: Remove panel naming and use scoped
+ device_node cleanup
+Message-ID: <auwrIKJi-v9svTdW@vm>
+References: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
+ <DMMMCJHUT8EL.1L6VS1X1K2BQE@bootlin.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMMMCJHUT8EL.1L6VS1X1K2BQE@bootlin.com>
+X-ClientProxiedBy: FR4P281CA0390.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f7::15) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|CO1PR11MB5028:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d611189-1e45-4e57-fa2a-08df3b0c733f
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AS8PR04MB7573:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d6a9cb5-0924-4528-9e95-08df3b0dfb19
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|10067099003|18002099003|56012099006|11063799006|261028144727099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|261022075727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: ICCgmdp+Loua23wkjfSYtFChm6gxIv3jxD1dylOuwst367nDhetpA4LWhVWGGmINH7m0rNaoG33gAfBGur8GrviIklo0hLr23JH0Rct/4PLqgpCDDGJtQXptkmeMqs+E2l9GlpEYyv/83fPEmGjCxtkJWa7N0vyYWK6S3NGYTqCep1dAvuUlYgipcYW+YkYo6uiyJ1/hAZnEIOlHHZln8cNKrHFuyh4MztNDCuhU/hkJ9xxgPGaMHYG3Y+XmEy4pfVPWtx/CQPldZBTl6fcaUtP/oPgyX8Y7AJRgY3AAWx9Jncs1uRSUSka/h8A3HGNydW3Lgy1JDDnIsDu3CzmT5Nixk6DOHDOnvmSXdhPILleWnYFed+bHp0cMm8Y814dJyR0UULyxwhyWCh+eBVhEji7YH8hMZJ3GrAVMCMj2khCzg2N7+yj2HOpN3aUneiLe0kiu55Gk53Idv5Z8AgaqzwOiGfiuaOm1AAA9jg8FKXsssLuEtQaNJKU7MsYAm2yMGRm5UGtsfhu5k1DG5PhDc05SdBOf4neDMxAN9vU87rZHPX7/O4fH0Pg6gGfMUJyJGy3T58cR3NxKl1ffbve8aa12EEuEShlOVRWTjJtMBbNjbleKATK+EUKidH4HSgns
+ ARA:13230040|376014|19092799006|7416014|1800799024|23010399003|366016|3023799007|10067099003|18002099003|22082099003|261102123227099003|56012099006|261022075727099003|4143699003|261021121427099003|261026121527099003|261009223027099003|11063799006;
+X-Microsoft-Antispam-Message-Info: dxhkbtZJidegkMDZQ4h1IudeYw7qGkRa2TmzCCphHbdvvBPciHonmBVLJlfxeaWibTI1pOY9QKNasuI4tSuh6UBOQiFo1uVBh/OgJYBf6p2MJrKdIJwjF6v4InItkeNcLbUblYV0+GDEtHMbzIHI7NHRf0WDEDy/74rxe2tASuLtXTKadsUd3uxVlJA2MJh7b4nBRDfJTnYGNuDbRWQkErp2UyTIEZ1av24hp7ucgWwSjQvEi97v1bLGelWD6UEh7oR37TmYvtdEA3f9r5nSkp3Dg2B3kRNUcE9yDcir4rNYbNieb6kGbMJf/nQhSPKOxDFl0+HGZmAcjIrAipti7YSQ6tHkdpPLRbDG+42KlT0DLMQYRArTfkkuYfqw/do/Tn50g/5ynCcmj422uxhHAoU2Ke2ohR64o4SwZMDdG1oQifP8cLhEw2dO9xkINbkJOwRsAQi9AaAiKbCUxKMcbFIx+ST1wnAu6ljlNpYpvlZqaJMIsAa2xueOV6sJe4ipe/XD02PZUzjCyDBML1DrtQVSLHPeiI6R+/vDGts47FnL9/x7hOIKmarii7uoqaaWur25/crBN3/ydAxYRSl3PzuCLC4KOQaX1m1phHotqmVEWe6SUaoMBDiuing0ejd7
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006)(261028144727099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(261022075727099003)(261026121527099003);
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(19092799006)(7416014)(1800799024)(23010399003)(366016)(3023799007)(10067099003)(18002099003)(22082099003)(261102123227099003)(56012099006)(261022075727099003)(4143699003)(261021121427099003)(261026121527099003)(261009223027099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ghher+8Ftq4QTDR0ZvbqXQikDQlVORp1Xv6SvHfwp/57dOr7TwsDCI7VhILx?=
- =?us-ascii?Q?7WFRJrO42vft8JpHfi1S+It+1xXrM5zONT09XrRgtg6JhsRwthwqNxrEU2ui?=
- =?us-ascii?Q?tM3qhgPReMeE1FLEpP1IKE4o80h8DtXmhUQuJ674euQNRMWwWfafDfqdUEAk?=
- =?us-ascii?Q?MZ4AVz/glivbjhF3bjiHaxglGWk6AxXY30nLEVmW3mPm7q94ccHGbC6DRLEy?=
- =?us-ascii?Q?b9+bKCu1zetlg4xOUV2sL7H76Z+QpmVZDt/7kxyA52mcom3XUfpsKLvRATtd?=
- =?us-ascii?Q?Tu2IKk/wlr9vVh1NCD0wYNTy0Q/VqYd7g1crfCdqbnTI1BT5VSLKP03CeO2H?=
- =?us-ascii?Q?NBFPMd5hVPdCv+Cic1Rl+1H3mBecxV8Unmua/mKiobSsF3OGZ3Y/MUjyw/ze?=
- =?us-ascii?Q?T5HFOC/CNq0VTVue4W01DBK+1I8RDB3KiKtoIrFmkf0XKpfzeIwKFMJDjFow?=
- =?us-ascii?Q?DCTdw2m/wjI8v0t42F6MCPXAnJFY8iW7g/yBDYfB1ZQ4xPeiJN79VJg4EoUZ?=
- =?us-ascii?Q?X+m9lAbq8po1bZPcVQKDELE/dd+BJB7bO3W7sXF8gtEwr+FJDqLVPt8JE3hc?=
- =?us-ascii?Q?udnZIL5iiczkRsVxucHmD+t2Pk8OXA9FLxYgKeoukt7Pjm9CAZ2cIszsgxSb?=
- =?us-ascii?Q?dhgU7f/21EQp5HfpFi6vLUJOYTZgMIMftwoVmH/9laJ7X6RXgs9sU9c1a50k?=
- =?us-ascii?Q?UAKr9akgYB9mJsvOR0rDu5abXKkIIaCK4jb7/una2/2xBHWg5zWanvVwhiTo?=
- =?us-ascii?Q?jKIoqJfkyZ41QoSBKga9uHSdfnbidIl2MPFAi15BUqBQrma/x1SlVNfEIsM2?=
- =?us-ascii?Q?kCKHNJqpPt/z1LkZruJm7ZOPj5ie5s530xrYGxbCJY6I/GCXqIwzSHwNqcfw?=
- =?us-ascii?Q?3aZyTLK+8ZWhUuFEz752ZQXp54e14FR7u0nFe9DWbwbsS3PsIRohL4BuKiyp?=
- =?us-ascii?Q?0hmG+UYfmTFoK0izOWdoDzcMPvjX/E6WsNllix4wsg/hXmARsCyOti6gmzeu?=
- =?us-ascii?Q?S3c6j1RdHI8qXV8NSs3DfDC2SiZ5hMPNg+fqZ49tTIYnsaZVrRfGMR4cCEe3?=
- =?us-ascii?Q?/HHQ5HiaWocYhhTQxYQnmFOi9NhGU/zhVGiBDPvqoGPUS8onYZli0YBAVwSx?=
- =?us-ascii?Q?49RaJiXCD46ATCPEsbFIodm8E/iAElqncvyDWh/GizVGBBKmQpY87SdkVc5r?=
- =?us-ascii?Q?b61hZl/sdMdUKPcqWBpdTGwTRTqp6N7CrCJsH/5K9UooSqrYOKV+iZEx8sFY?=
- =?us-ascii?Q?wu+W7GayyTCzzDlSe92xjbSX4sx016gxwbLeF8qOM9Q4LE+3yoxm4BRP+ZxA?=
- =?us-ascii?Q?7ZGVbZL9X2Dky2/fMuVnSG/BmQ5ZNX+GK/KUOX/vWHC8Ya/3Mzcopc2qhffg?=
- =?us-ascii?Q?pQj5hYj0ProxwPRiTbWP8ZIuEskq3bs0l6hh/gy91Y3nsU9ekFoO6Oc0B9Ss?=
- =?us-ascii?Q?pwVaPQo97bd0AQXgqKcGHtSry1seuhIXWz/nzbKnYc5bXqi1rwGzmgyjjxEf?=
- =?us-ascii?Q?VM7BA7xBeb8AP12pbp2GIA2Z37i5SjpN8uKZU1ROxcJW4GynMef/vZeX+WU5?=
- =?us-ascii?Q?pj8hh/8K5pRULIA1uf/LWu81Aw950wnvhQ7lDm5rjf9nEK3Nbs9Ue7qwdD3W?=
- =?us-ascii?Q?wWZzKBbE/HEa9O9usBIeKGf/wI05fP0Li2lG5F3bXGMPtv20dgtQEr19yssZ?=
- =?us-ascii?Q?PLHne47rxs4QywzrokU+NwQQ0DncTHZbPZOENCftOLTMjALHjNIDKah+er5T?=
- =?us-ascii?Q?RB/PaGJ+RJYPF8AH5PR5aarYtXlfCZQ=3D?=
-X-Exchange-RoutingPolicyChecked: KYa1HnapzBKyuO1IiT03kEfdGlgA4S7+aIyTOVFiGRcoLZfZ8/DbdZANchkTdFdbjHZb0ZTeVfIGMfOfZO4e/d+6W3I3rGoKAhUOll2j5oL9FZbKovE1yoHj/pCTcS42KtNM2pTrWtmhsYlq7wYZa+KAofnZoL9f6A7WQPCgRTehqmkEm6GzeB8D/JBLDX9OO80qeIRscp0eiNzWIlKikqCiJ1ttap9qb0wu5tlo/cELYu1FQgZr/pRW+ON4J84TyhcYjb+1ufJ3VBHTpn+s2Wj4HH+ZEubgc9yQHQeRNso86xbo6YkzU/so/30USiCwpsSTHBt/7+Rgkz54/VOe6A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d611189-1e45-4e57-fa2a-08df3b0c733f
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?a4Y2ceclYACSLmqL9WJ6TSCJJBDsmn7KAy7bfL6UJJqNJhZXKdG9t/Xc9GCO?=
+ =?us-ascii?Q?ZqM/gY0LaLZZxgK4wBzO3Eq9mIBtC/klmYQ0cB/be++1ad71T5jdGRbIRDHn?=
+ =?us-ascii?Q?BtjKQufBGtBhfbCMilgZyLoPDiIWopJHfnN3Aq3zsz+zuCsc66p1YfLDMdnV?=
+ =?us-ascii?Q?EyJG52Etr7Kt7zRlAr3XAxHqOlF/uzV9AwqyzyfYxZyyi0iIO5KgcPPRD3t9?=
+ =?us-ascii?Q?Hj8di7QTLpKhOfBvAYZrNowsSfYVxqm995/W0LKHtSGIprVnIwY/WX+3u45S?=
+ =?us-ascii?Q?M/yN14lxhqEiFt3sqopXog2HDE1WUqWFKtgOQN+hfBvSF5HExU56cTMB2p5u?=
+ =?us-ascii?Q?8le8fnQ77zeziVU28yu8IKdU6lzfZJ/yjaRSln6AwS0iN/5w6G5+Xy1jcA7P?=
+ =?us-ascii?Q?LFgu7fTfdY1N88rdrZ0x/z4gPObayTOWXgTDEKvlFg0n4A/jnSIflr8MD515?=
+ =?us-ascii?Q?ZjqCMKwkcGNhMub0cZ5wChR3wPdh0/ZbS8NiIgO+8qF6N0t8wXdWbvxs6DnK?=
+ =?us-ascii?Q?jVYpWQQX+viQ+/QAkp/vzgoh6OD04CUSWd1WrEj0ybLraJiTf3c+ej1OdL/5?=
+ =?us-ascii?Q?Jdrs5ntRradQ/hafmu9kR3utLNLdsW4rz4fpuOd4DTDgWQ1iRSlUglxnT1dj?=
+ =?us-ascii?Q?vav1u+y8o91CB1j/lGpztvNAAgP0/wpbETFcJdO1KNC9kHW8zz2onfgtzspR?=
+ =?us-ascii?Q?drI72EFT2Eh/SaS4DJnY9UBpn77Z7BtG6swUmfWUBfVHMrJjMvof37xY+PuA?=
+ =?us-ascii?Q?pRgMpLjG5NhVC8dY7e72Zki7VdcrrbQW/1rxYy4fuNMzoCs0wRerHdzsGZ/7?=
+ =?us-ascii?Q?ozovGM2h+E9vjUqo5x2BG5t56xZ5FSjgHOxHQbGci9kZ1E1rfi/UyVXpOO51?=
+ =?us-ascii?Q?r9AuLh+rZGER5fcLTDB2OaoT+in+TXub9iF9RpncOJ15XgAafd8cRKiTvqZa?=
+ =?us-ascii?Q?4JUF7xWgvu7bgfHOrUk7w5vJFyQnrewJut4WSHXjwQm8Mno1Bp6/7WBwRMGy?=
+ =?us-ascii?Q?tVzuOmfeRQt7xf3nAXyFhLsiB7MTmPKEilA5mcj4dcyUM506466hmxOaX5+3?=
+ =?us-ascii?Q?F8ySqsKM+4RDENtDvVe3OJ/gJYrnlyIaO27mBJLaTqnnWwUl3AgXLgbR1sTw?=
+ =?us-ascii?Q?O9HrLh72zcd43zA3du7zzPzYc3Pg9gmFAQUxbLWs09LEhmI+LqVm0wIuBnFw?=
+ =?us-ascii?Q?uKIaqhQjZzy24TdMeaEzhUmeFuIEBxc5koAPD1FKbMBs39lVyCyhIS5zk4nb?=
+ =?us-ascii?Q?6UrN/EEJd3wX0fNqBgbt9mU8kTmFQH/ymu+KabyTXwO+kXXxc26HM7ejykcm?=
+ =?us-ascii?Q?2JJIH2nNYtrknA2Ka9oxwPuK/CkK2g+U+1DKJpo8cW1kWKWKnq83UhJrsZlT?=
+ =?us-ascii?Q?h2OpR0jpEHCxqnASo5zN6AzSGjJtM85mVQr6cSfcmgAWyBacQVey5kgB3Ltl?=
+ =?us-ascii?Q?+0eogkwpD5xaJQmYeSkSQTpWgu++8ZGDTR+qwOjrZrwC/sjHEU9A3WJ+OS4A?=
+ =?us-ascii?Q?a3AhLRL7qfoxkO2sz5mS99GMYbMhi8zHo54FGez5xo44sT9wr0BO1YAtxCik?=
+ =?us-ascii?Q?Z3qhfbLJjitXd7zvMnNvPCJY7l7Dqx19HDN9LInSbq38KDZCI7G6jjc7atKN?=
+ =?us-ascii?Q?1pT9zkxKubwut3R9PtOttD5scbc49tnvEx2qaHHddbJoJaArDNJgqIDfLI9c?=
+ =?us-ascii?Q?X1uCTnbjk+BxcC7gfZzIdaGtfhQdhEWN5lshYa8/JGP/z8tCzGvesw27qnVB?=
+ =?us-ascii?Q?DA+2V41Ceu4kNtTmvs9yrqp9KCu6fDQ=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6a9cb5-0924-4528-9e95-08df3b0dfb19
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 07:14:36.9986 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 07:25:34.5608 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dD1K9MkmZmXfNNd1gCiIQRYOeJKP726t3AgrupAZizv1Fbdkh6VqcXZR8E1YpEFG+OdG9/UCTBiA5o5FL7MIeYjnPJ9efLXAIecNfKkJb0g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5028
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: oVV14Zp7xvBHfngcz5UlAzbP1nL5bnYh1TA9bHenBNU8vwoKvLsIWi9xfjeuipN3gJTUVPWXV2FRJYVU/053Sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7573
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,136 +130,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Initial, empty XE_LPD register list for Video-Enhance class was
-introduced in [1] until [2] filled it out with debug SFC_DONE
-entries, but it was never explained in any of those commits why
-using those registers for VECS class specifically was chosen.
-Furthermore, currently, it is seen as a regression [3].
+Hi Luca,
 
-Currently, gem_exec_capture@capture@vecs0-smem runs report
-partial captures on DG1, DG2 and MTL [4].
-SFC_DONE resides in the VD forcewake domain and is available
-only when the corresponding VCS engine is present (explanation
-from [5]), but XE_LP capture table currently associates these
-registers with VIDEOENHANCE.
+On Wed, Nov 04, 2026 at 06:56:41PM +0100, Luca Ceresoli wrote:
+> On Fri Oct 30, 2026 at 5:32 PM CET, Laurentiu Palcu wrote:
+> > The remote endpoint node is not necessarily a panel, so drop the "panel"
+> > naming and refer to the next bridge instead. Update the error message
+> > printed when no output port is connected.
+> >
+> > While at it, convert the device_node handling in fsl_ldb_probe() to use
+> > the __free(device_node) cleanup helper. Since remote1 and remote2 now
+> > stay valid until the function returns, pass the selected one directly to
+> > of_drm_find_and_get_bridge() and drop the extra panel_node reference.
+> > Do the same for the dual-link port1/port2 lookups.
+> >
+> > No functional change intended, other than the updated error message.
+> >
+> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> 
+> I wanted to test this patch but it does not apply on current
+> drm-misc-next.
 
-Furthermore, GuC firmware supports SFC_DONE registers in error
-capture only for MTL platforms, DG1/DG2 are not included, which
-was confirmed with experimentation and offline discussion with
-GuC side.
+Sorry about that, I made these changes on top of Dario's patch [1],
+touching the same file. I thought that would probably be applied first.
+FWIW, my patch applies cleanly on drm-misc-next if [1] is applied first.
 
-Make a new list of register lists for MTL and use SFC_DONE
-entries only when that platform is detected. For DG1/DG2 pass
-an empty list for VECS class.
+Do you want me to resend the patch so that it applies directly on top of
+drm-misc-next?
 
-[1] commit 24492514ccbd
-    ("drm/i915/guc: Update GuC ADS size for error capture lists")
-[2] commit 8b72c21618de
-    ("drm/i915/guc: Add XE_LP static registers for GuC error capture.")
-[3] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16904
-[4] https://intel-gfx-ci.01.org/tree/drm-tip/index.html?testfilter=igt@gem_exec_capture@capture@vecs0-smem
-[5] commit 24d032e2359e
-    ("drm/i915: Only access SFC_DONE when media domain is not fused off")
+[1] https://lore.kernel.org/all/20261029144132.572020-1-dario.binacchi@amarulasolutions.com/
 
-Fixes: 8b72c21618de ("drm/i915/guc: Add XE_LP static registers for GuC error capture.")
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
----
-v2:
- * Changed commit title (was "drm/i915/gt: Use VCS instead of
-   VECS for GuC error capture on Gen 12") and commit
-   description;
- * Enabled SFC_DONE on MTL's VCS engines and disabled these
-   registers on DG1/DG2;
- * Added a new list for MTL;
- * Renamed relevant objects vec -> vc.
-
-I could not verify when exactly the issue started happening,
-because:
-A) all recent reports are red on DG1, DG2 and MTL,
-B) checking for "partial-capture" in IGT [6] was introduced way
-   later than the driver code asking for SFC_DONE registers.
-I assume it has been present for at least a few months, if not
-from the very beginning.
-
-[6] commit 93d3b0e28d7d
-    ("tests/intel/gem_exec_capture: Check for partial register captures")
----
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 33 +++++++++++++++----
- 1 file changed, 27 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 865b61057566..88e6d706210c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -88,7 +88,7 @@
- 	{ GEN12_SC_INSTDONE_EXTRA,  0,      0, "GEN12_SC_INSTDONE_EXTRA" }, \
- 	{ GEN12_SC_INSTDONE_EXTRA2, 0,      0, "GEN12_SC_INSTDONE_EXTRA2" }
- 
--#define COMMON_GEN12BASE_VEC \
-+#define COMMON_GEN12BASE_VC \
- 	{ GEN12_SFC_DONE(0),        0,      0, "SFC_DONE[0]" }, \
- 	{ GEN12_SFC_DONE(1),        0,      0, "SFC_DONE[1]" }, \
- 	{ GEN12_SFC_DONE(2),        0,      0, "SFC_DONE[2]" }, \
-@@ -117,9 +117,9 @@ static const struct __guc_mmio_reg_descr gen8_vd_inst_regs[] = {
- 	COMMON_BASE_ENGINE_INSTANCE,
- };
- 
--/* XE_LP Video Enhancement Per-Class */
--static const struct __guc_mmio_reg_descr xe_lp_vec_class_regs[] = {
--	COMMON_GEN12BASE_VEC,
-+/* XE_LP Video Per-Class */
-+static const struct __guc_mmio_reg_descr xe_lp_vc_class_regs[] = {
-+	COMMON_GEN12BASE_VC,
- };
- 
- /* GEN8+ Video Enhancement Per-Engine-Instance */
-@@ -189,7 +189,22 @@ static const struct __guc_mmio_reg_descr_group xe_lp_lists[] = {
- 	MAKE_REGLIST(gen8_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_RENDER_COMPUTE),
- 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_VIDEO),
- 	MAKE_REGLIST(gen8_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_VIDEO),
--	MAKE_REGLIST(xe_lp_vec_class_regs, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_VIDEOENHANCE),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_VIDEOENHANCE),
-+	MAKE_REGLIST(gen8_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_VIDEOENHANCE),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_BLITTER),
-+	MAKE_REGLIST(gen8_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_BLITTER),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_GSC_OTHER),
-+	MAKE_REGLIST(xe_lp_gsc_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_GSC_OTHER),
-+	{}
-+};
-+
-+static const struct __guc_mmio_reg_descr_group mtl_lists[] = {
-+	MAKE_REGLIST(xe_lp_global_regs, PF, GLOBAL, 0),
-+	MAKE_REGLIST(xe_lp_rc_class_regs, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_RENDER_COMPUTE),
-+	MAKE_REGLIST(gen8_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_RENDER_COMPUTE),
-+	MAKE_REGLIST(xe_lp_vc_class_regs, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_VIDEO),
-+	MAKE_REGLIST(gen8_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_VIDEO),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_VIDEOENHANCE),
- 	MAKE_REGLIST(gen8_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_VIDEOENHANCE),
- 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_BLITTER),
- 	MAKE_REGLIST(gen8_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_CLASS_BLITTER),
-@@ -354,7 +369,13 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
- 	struct drm_i915_private *i915 = guc_to_i915(guc);
- 	const struct __guc_mmio_reg_descr_group *lists;
- 
--	if (GRAPHICS_VER(i915) >= 12)
-+	if (IS_METEORLAKE(i915))
-+		/**
-+		 * MTL is the only member of Gen 12 with SFC_DONE registers supported by
-+		 * error capture in GuC firmware, so use a separate list of registers there.
-+		 */
-+		lists = mtl_lists;
-+	else if (GRAPHICS_VER(i915) >= 12)
- 		lists = xe_lp_lists;
- 	else
- 		lists = gen8_lists;
 -- 
-2.34.1
-
+Thanks,
+Laurentiu
