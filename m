@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D03E606D802
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7BE606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4bB+qVT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN1nuO8u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38DF2112768;
-	Thu,  5 Nov 2026 15:30:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45320112761;
+	Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41004112761
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D0C1125FA
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 254ED42213;
- Thu,  5 Nov 2026 15:30:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE531F00A15;
- Thu,  5 Nov 2026 15:30:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A1B97439A8;
+ Thu,  5 Nov 2026 15:30:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120081F00919;
+ Thu,  5 Nov 2026 15:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892625;
- bh=FxQqa3wY9oP6iELl8lfe9kDcoiCZY4gqx8EtaEotyTg=;
+ s=k20260515; t=1793892628;
+ bh=vU3sYdXgaRja0if6xD36SsivS3eMUWznXPzuyNCbWow=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=g4bB+qVT+KiN5ARkO6vA28TFPiIZYRBgPbRUtSOWapO3TYKIw11wGtXlchfaMHTSF
- D45QvQmHRmEV9ChNQy/EoGUDM/a0fK7rHk7Gmr6z/rPI1SEdg9NG6ZvCfVoPvGKXaY
- lNIVlM+CdxnWT+P4sZTP+GTi1qUDPlynsWzV9vYSMjdC5O2GWFmoC6+N899WXiE1xi
- 7i9vcp1PPaB98NbS1yTnooBnNFEedtiK7NpWtaUS8k5Ac6grGHrPgY65PR+L4avfkB
- cn7YLZGODjY761+FCC/pwdpnInwU1Chc1GeewJXgh3QdKhm6vSS0DaNjrO9vAARmnQ
- fct2w7HItZIFw==
+ b=YN1nuO8uH2mT6XKJZnwYoaGLq/ScbTtetuqMlY03HS8WhJSUi7o5MVdVf8yQD8zwi
+ XmGt52TQ2sr8ySstDzbZP9u+zzYXuLdJxuBpnJwPq22aWMqsz1dxCgudDm6XgdmPif
+ 5QepSdZp1ScyfTmDRqhKq+24rQ78hwB7qCmKTw7+YHk/53VYi0Yj32xKLuUs/kymak
+ F2KpV+RHva0A/bSQIDofLUFBpeU06IeL+B+vpLoUV6tIFnvc4Ck8HUUJ6i5leZePcs
+ ZKDAlt/AHvDB386c59SHdtOkVetr/z7bl1rIT+0Z0bCabHcng7i7HLm5hNoeyYepAb
+ 7TW/nr6ormZvg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:12 +0100
-Subject: [PATCH RESEND 03/83] drm/appletbdrm: Switch to
+Date: Thu, 05 Nov 2026 16:29:13 +0100
+Subject: [PATCH RESEND 04/83] drm/komeda: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-3-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-4-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>
+ Liviu Dudau <liviu.dudau@arm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1129; i=mripard@kernel.org;
- h=from:subject:message-id; bh=M0XvfQbich2kcinuZ0GCbGsfWYAe7SPQzXSKFCh0h2U=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtxbMVtg71fnJ+FaByZ3vmQLcGJeZn06oqxj2d2Nk
- 7+dW3Z5c8dUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYyMkwxobtH/Sf5iidlUxe
- tHHSy6ZmjrsOK/oXSXBHKCib/DxW46boGnRc6bz7hNm3VH29I3fv92Os044w71P4tyQwTpIlj6f
- 9cNnlJ8brmIuVP+5/EN16OlH+7N15ebks/UsuLzzxZHfR5gYOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1245; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=3nchJw0q1N9/BnW/w5ysD7bTFgFqvhG5c01i4QN6LMo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtyfp7XBffOfdaeLOpzSdya42st/bOs6dW+SVlTO+
+ T0Caq1XO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEnhow1oq/ig9TnC/hNkdh
+ 3celk9M/PrrUcezvFtkXl1Lnbtu789372a+1e6c4dgZqbO5u8lo8J4KxinlmfcirOtW8ibMMcy4
+ s0V+0U3ux1y6pJYeLXWSeKmp8ErftrZpctyWHaebr5U+rpoXJAQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,25 +83,24 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Aditya Garg <gargaditya08@proton.me>
-Cc: Aun-Ali Zaidi <admin@kodeit.net>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/tiny/appletbdrm.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index ebfe37557bfe..73315d538fbb 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -730,7 +730,5 @@ static int appletbdrm_setup_mode_config(struct appletbdrm_device *adev)
- 	}
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index faa8b041373a..66854c6cc03f 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -310,5 +310,7 @@ struct komeda_kms_dev *komeda_kms_attach(struct komeda_dev *mdev)
+ 		goto cleanup_mode_config;
  
 -	drm_mode_config_reset(drm);
--
--	return 0;
-+	return drm_mode_config_create_initial_state(drm);
- }
++	err = drm_mode_config_create_initial_state(drm);
++	if (err)
++		goto cleanup_mode_config;
  
+ 	err = devm_request_irq(drm->dev, mdev->irq,
 
 -- 
 2.55.0
