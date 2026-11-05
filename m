@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1FB606A339
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE3606EE94
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcengLX6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSuOuzUz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4332112773;
-	Thu,  5 Nov 2026 15:30:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B46112517;
+	Thu,  5 Nov 2026 15:30:45 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00D87112772
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7589311277D
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DB9C841878;
- Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5841F000C1;
- Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E05840EFB;
+ Thu,  5 Nov 2026 15:30:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE0D1F00919;
+ Thu,  5 Nov 2026 15:30:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892635;
- bh=1T23L3ipuQSn2BUrf55OVYXWwx/x0lGgBPdbpbwrVxs=;
+ s=k20260515; t=1793892639;
+ bh=f30ja/ey1ajbj4FwkdCZVMzrY3gwWuvA+c0ifYLWlTI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=mcengLX6hSC9MoInKeUsM2WpZBUx2vyFrTk4aAI7HgoUbxxBkOsqmqHDuwXCFrblT
- iYwrhP6KDQECkhN5JNEgCOa1/Db9eQKJyHUPl/fuQGNPhlmvHnsG9yS0m1rNP9FV0S
- 04D2fReJnf/IDz9XAuxjcE42aPRLguz9JNLUS2ccbMaAwlSb7UgJnOlunoaq9atyfm
- 9V5COowwO/1Z4IttvZzuyqTgbyfreDtx+pqdUDehGKk2DZOQMwuKHyNU9eUPCWwwHU
- FvE1gWrrrb9pCcjdL+rICeFWrKd1lhxxbmxaVIXEstBqRFxnvuYbAxwlqMj61OYdyd
- GceRnQl1WwXMw==
+ b=jSuOuzUzDcVsF0SxHToZceGoGoGTHEkx4CM2skvhIU4UPepgptRsyxb52sCqmybBx
+ VvoQLOuPiKmxgdPeHkv68L0nivGWGdZi1I/GqZ38VMToV6he98JhSjZ95Sdv+SMJFm
+ liStHeWwmkxo0mAV4BJx64x5+DZ2VYdP9OVmFLOv03iZDAR6HIyoI/iFEaikH375LG
+ O4y2mJJeomPNzX4EtrNvIFzTNdID6iHBfnsvgsIIs33FvKVMdzN/HvQRNQ+tPfBxsR
+ suPYAAzLz4ASxgc6RVL85m6JBhpGb2KLMqpXLRBeYZVg0evXEGgmIXLi1H1j8ytV5M
+ +kdq6ZSozeABA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:15 +0100
-Subject: [PATCH RESEND 06/83] drm/malidp: Switch to
+Date: Thu, 05 Nov 2026 16:29:16 +0100
+Subject: [PATCH RESEND 07/83] drm/armada: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-6-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-7-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Liviu Dudau <liviu.dudau@arm.com>
+ Russell King <linux@armlinux.org.uk>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1122; i=mripard@kernel.org;
- h=from:subject:message-id; bh=TRBPGH+TkGNuMyf7I3oFxuIsPrtN2tq28vA5vgM32x8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzYcnL1P4dtZ7MmTudd/tG0bXet+7X44/vYs1r3l
- 0U9q6hL6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATEUhkbPgioSwktEYsTEu0
- 4V/d69dWlhdEp53z1p+tkpjwdNquvNm+s9ftcTupnrJBbo/gsRmPKxgbJrKb/YgSX6a146y2UGu
- J4NwAn1e3+59XGcT/YJ+877OZaOFyz5159lt27MpqPv7g3nJXAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=tUt1AMZZH5MZneaPHozm7qKaxuNXpZf4/9nSJvnl0wY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzwYZn34xT/ihyrs0rfd4vovN9Sbm2eUMH+2lNGe
+ 9K8T40vO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEpp9jrGadHrWk6Oevz7+c
+ PiUen/Dj9Grd8+WXvfrSZBc/sepeIPQ23ePXbw6Nu8FvH6rZ7VV53cjY8CdrxV+uRv7/XXsFg1L
+ uBkqy74/lkFomvuFs8J1KIauj4VpdMWHZ5w7UNh86+3XzhzZ2AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +83,24 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Russell King <linux@armlinux.org.uk>
 ---
- drivers/gpu/drm/arm/malidp_drv.c | 4 +++-
+ drivers/gpu/drm/armada/armada_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
-index 23fa942ae4bb..b4e38eba5957 100644
---- a/drivers/gpu/drm/arm/malidp_drv.c
-+++ b/drivers/gpu/drm/arm/malidp_drv.c
-@@ -857,5 +857,7 @@ static int malidp_bind(struct device *dev)
- 	pm_runtime_put(dev);
+diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+index cae25ad66c74..5c19923c85b0 100644
+--- a/drivers/gpu/drm/armada/armada_drv.c
++++ b/drivers/gpu/drm/armada/armada_drv.c
+@@ -127,5 +127,7 @@ static int armada_drm_bind(struct device *dev)
+ 		goto err_comp;
  
--	drm_mode_config_reset(drm);
-+	ret = drm_mode_config_create_initial_state(drm);
+-	drm_mode_config_reset(&priv->drm);
++	ret = drm_mode_config_create_initial_state(&priv->drm);
 +	if (ret)
-+		goto register_fail;
++		goto err_comp;
  
- 	drm_kms_helper_poll_init(drm);
+ 	drm_kms_helper_poll_init(&priv->drm);
 
 -- 
 2.55.0
