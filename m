@@ -2,43 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6D5606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 22:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67494606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 22:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyK0y69n
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L2oKww8+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3CCD10E0AC;
-	Thu,  5 Nov 2026 22:27:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2800B10E0AC
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 22:27:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 59B3E601D5
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 22:27:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A681F0089F;
- Thu,  5 Nov 2026 22:27:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793917639;
- bh=fiMUultwVgiYiqRzLSnHacUGudBplxhAIc4p4Ix3cDU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OyK0y69nOWBARP/3K+fTcwMfpiEKjh5SEzOQmwlH/VNGO0unbZBJHHkR2yoi7cAwt
- 4OECZkuKL7H5FjeKw1tNjdkJMWjaYWDu/0hUrRpfhdliQaQPClqej42wD+VnLf8BGQ
- OkLhuMtVuyjK3UUb9aaXCssDY53NotpX5mNvIFKikeuku2dQdFPTh/UkizDye6rBs2
- weVDAoPaGAqHwUozts7adcf4cj7p0mn7iq1uDOBB1jdTlE74JRCyGAWhjoTJbJ3zmM
- OYDYAPqIueTeLGRqsv5Mct/B/06WoopOXrjgs5tJ/7znrFjNyq9FZDp7Y8gglYZ196
- Qr674FrTWHHjA==
-Message-ID: <sashiko-outbox-200305@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 81/83] drm/vmwgfx: Switch to
- drm_mode_config_create_initial_state
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-81-1f58d1e33380@kernel.org>
-References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
- <20261105-drm-no-more-config-reset-v1-81-1f58d1e33380@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 22:27:18 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A951C10E049;
+	Thu,  5 Nov 2026 22:56:49 +0000 (UTC)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7CA010E049
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 22:56:43 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-8256106635eso54938a34.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 14:56:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793919403; x=1794524203; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3RsdbC2bbI8UhChgtAfOULi3ppDsu1ChEm9HZQL/Z6U=;
+ b=L2oKww8+pqE5dx52IsOZioFZaPQ0AYIDlEDeIEho/SwD4/qnnd+2PEwZ+WRhLsaxrt
+ IW57pFgB6TR81b+ESc+Y4ECqcblzSPV+ePbodLYYM7Zy91O5iEf+40WmD3/ckRqGh7f+
+ xhrJn8HnWlrz5ULjvBqppU6iIMI++zFkb9mPBe/YzDWn55vnonVzbkB7hKwMcdiUBBWz
+ WojBx6xWx4R+26bz1hpayRe+zCKj5xUh9M7b7SnyxsvH12e/ZEZNo0y+LRdjzhCuaq4Z
+ oWhUJCOBZiPpEgEIw+h0sIPfDz1BiTNr1o0ZKJLwNACGjtm9thQbGDjufJr3GWp1/YtV
+ vexw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793919403; x=1794524203;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3RsdbC2bbI8UhChgtAfOULi3ppDsu1ChEm9HZQL/Z6U=;
+ b=Wh/ENbu3Ro48R+/15QtxPnqX1YtYb3UjYE49PlrRbDcLWXR70ibeRBKEmRaCRXh+xR
+ y8KRQF+zf32Ms52hjDONPOuRDsnIHaxv84TVhng28oyqS+ib1QBmTju/TVGggFojvvrq
+ /Im0jjqn0KISW3/H/DFAcEPBR/wQfCaCEYkW0BeABWpXyub/q/Uivbvc1UrV6QFq3VJg
+ LzQbr5qQTiZpS9ovEwKUVUeQ59rxXvIPVRrs7knbZT49NYbcxZJLw95Ha7Uc+ssg6rFQ
+ Z9mNCMyogvxpu5XA6sQq7yCU1/KEQFfWBOHvRw7TPEm024Y++EqPWrDqpZVDj1C80iI+
+ jE5A==
+X-Gm-Message-State: APuU4Z+lEt9+5awpcXqDSIWs0EHSDRSAvsA0VvGCIV88JxucmAgApZ4Q
+ c9bju9plMtjf+JbsKquPIJz5+r54oz9joFIQrzf3x5pY/rAEd+pXoExg
+X-Gm-Gg: AYBFou3K2Nk6x0LYwtYnEDtyYojrH9y84pSMd/KO1cZFxkA1xN8AtIkXCoRKh+ibrWD
+ H3d/sZsFYJ7f5biK4L7zrVcta0pv0oDvITpKyoc0E/XRcQPr42+HMq5JqNzCrrpeX63UF66ccaL
+ 5HL6G3qnu1PMVWdguY5LjG5e0eqzobL5enejwmdBHwOU7wJg8bM6kGGqjEzK2SdX7Gq/zi5Ran9
+ TvjoAt4FhB7MQUt4ywR0ozYo6z5dlqkLADywmknfQHMTGxENjDGYyN+r7HG17Ov0b+eRlC/LHSe
+ Uil+zSQ9KAgDRCuv3agurIPGFAN6SOtq77wG5vWY3POLrPryyg6+STtRwH0aSSKOkULEhMSt9Dq
+ pv5D0JdsQZfia6ufSWlE9q8ESDR0Z7/prd+UFRl39Z/1P7XLcrn9u0G/1642PE4l8mlEuGmwCMF
+ PsKmUZDBmkqqQM4rRDtdkG+gfymxyGPE7Pu5HHhrGLT5KdkQzDFV0iImsEVylG3bel1U0wF41sW
+ Qu2lz/qISVovRdZvCBL7p7b6CWu3e+sNCphj1vHrn9qCDr92iz21HD/eWqUUna7hrqdcOZZcoGy
+ lNP+7EnHIhxaywG4via0bgB1Getn02IWvsfv8njltgB1dqkFW6N5iADvIepfJrHC76SvZK7fpSG
+ Ws5S+1nox6A==
+X-Received: by 2002:a05:6830:719c:b0:81c:292f:97a3 with SMTP id
+ 46e09a7af769-85f1cee5befmr758396a34.5.1793919402763; 
+ Thu, 05 Nov 2026 14:56:42 -0800 (PST)
+Received: from localhost.localdomain ([72.12.197.23])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-85f1dbf3741sm553742a34.9.2026.11.05.14.56.41
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 05 Nov 2026 14:56:42 -0800 (PST)
+From: Aditya Tipre <tipreaditya@gmail.com>
+To: igt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
+ sowmiya.s@intel.com, kamil.konieczny@linux.intel.com,
+ karthik.b.s@intel.com, swati2.sharma@intel.com, tipreaditya@gmail.com
+Subject: [PATCH i-g-t v3 1/2] tests/kms_writeback: Wait for the valid FB ID
+ writeback
+Date: Thu,  5 Nov 2026 17:56:27 -0500
+Message-ID: <20261105225628.4123-1-tipreaditya@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <PH7PR11MB6796FA8DDA56651E65E018D2E5682@PH7PR11MB6796.namprd11.prod.outlook.com>
+References: <PH7PR11MB6796FA8DDA56651E65E018D2E5682@PH7PR11MB6796.namprd11.prod.outlook.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,105 +85,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/vmwgfx: state creation error in display init triggers broken=
- fallback
---
+The positive WRITEBACK_FB_ID test submits a writeback to the common input
+framebuffer without requesting or waiting for its completion fence. A
+blocking atomic commit does not imply that writeback has finished.
 
-commit 4961d66508852dc07ab5238728474ad461cb6c65
-Author: Maxime Ripard <mripard@kernel.org>
+The following pixel-output test fills the same buffer with its reference
+color. The earlier writeback can still be modifying it, leaving a mixture
+of the old and new contents and causing intermittent checksum failures.
+On ARM64 VKMS, a diagnostic run observed the prior fence still unsignalled
+and a black row in both the input and the captured output after the input
+had been filled red.
 
-drm/vmwgfx: Switch to drm_mode_config_create_initial_state
+Request a fence for the successful FB ID writeback and wait for it before
+returning. Only require the returned fence descriptor to be -1 when the
+commit fails, so the shared commit helper also accepts this successful
+fenced operation. Keep all invalid-parameter checks intact.
 
-This commit replaces calls to drm_mode_config_reset() with
-drm_mode_config_create_initial_state() during KMS display unit
-initialization in vmwgfx_ldu.c, vmwgfx_scrn.c, and vmwgfx_stdu.c.
+Signed-off-by: Aditya Tipre <tipreaditya@gmail.com>
+---
+New prerequisite in v3:
+- Wait for the existing valid FB ID writeback before its target buffer is
+  reused as input by the next subtest.
 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_scrn.c
-> index 39d58fc392bf4..82fe7db266335 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-> @@ -939,9 +939,7 @@ int vmw_kms_sou_init_display(struct vmw_private *dev_=
-priv)
-> =20
->  	dev_priv->active_display_unit =3D vmw_du_screen_object;
-> =20
-> -	drm_mode_config_reset(dev);
-> -
-> -	return 0;
-> +	return drm_mode_config_create_initial_state(dev);
->  }
-> =20
->  static int do_bo_define_gmrfb(struct vmw_private *dev_priv,
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_stdu.c
-> index b505f8ba3e834..80defd7358135 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-> @@ -1708,7 +1708,5 @@ int vmw_kms_stdu_init_display(struct vmw_private *d=
-ev_priv)
->  		}
->  	}
-> =20
-> -	drm_mode_config_reset(dev);
-> -
-> -	return 0;
-> +	return drm_mode_config_create_initial_state(dev);
->  }
+A diagnostic run observed the prior fence still unsignalled and a row of
+old black pixels replacing red input pixels. Waiting for the fence removes
+this race. The standalone fix passes the four applicable existing subtests
+on unfixed and fixed VKMS kernels with one and two CPUs; both XRGB2101010
+cases skip.
 
-[Severity: Medium]
-What happens in vmw_kms_init() if drm_mode_config_create_initial_state()
-fails at the end of vmw_kms_stdu_init_display() or
-vmw_kms_sou_init_display()?
+ tests/kms_writeback.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Previously, drm_mode_config_reset() returned void, so neither function
-returned an error after registering all VMWGFX_NUM_DISPLAY_UNITS (8)
-display units on dev->mode_config (and vmw_kms_sou_init_display() only ever
-returned -ENOSYS before initializing any display units).
+diff --git a/tests/kms_writeback.c b/tests/kms_writeback.c
+index 7c30e8e..550d603 100644
+--- a/tests/kms_writeback.c
++++ b/tests/kms_writeback.c
+@@ -228,7 +228,7 @@ static int do_writeback_test(igt_output_t *output, uint32_t fb_id,
+ 
+ 	ret = igt_display_try_commit_atomic(display, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
+ 
+-	if (ptr_valid)
++	if (ptr_valid && ret)
+ 		igt_assert(*out_fence_ptr == -1);
+ 
+ 	/* WRITEBACK_FB_ID must always read as zero */
+@@ -288,8 +288,12 @@ static void writeback_fb_id(igt_output_t *output, igt_fb_t *valid_fb, igt_fb_t *
+ 	igt_assert_eq(ret, 0);
+ 
+ 	/* Valid output buffer */
+-	ret = do_writeback_test(output, valid_fb->fb_id, NULL, false);
++	ret = do_writeback_test(output, valid_fb->fb_id,
++				&output->writeback_out_fence_fd, true);
+ 	igt_assert_eq(ret, 0);
++
++	/* The next subtest may reuse this buffer as input. */
++	igt_get_and_wait_out_fence(output);
+ }
+ 
+ static void fill_fb(igt_fb_t *fb, uint32_t pixel)
 
-In drivers/gpu/drm/vmwgfx/vmwgfx_kms.c, vmw_kms_init() treats any non-zero
-return value as a fallback trigger:
+base-commit: 454657e58fbcfd6fa8a9db0830aa1652fe6364c2
+-- 
+2.50.1 (Apple Git-155)
 
-	ret =3D vmw_kms_stdu_init_display(dev_priv);
-	if (ret) {
-		ret =3D vmw_kms_sou_init_display(dev_priv);
-		if (ret) /* Fallback */
-			ret =3D vmw_kms_ldu_init_display(dev_priv);
-	}
-
-If drm_mode_config_create_initial_state() fails after the display units are
-initialized, those 8 CRTCs, planes, encoders, and connectors remain on
-dev->mode_config while vmw_kms_init() proceeds to initialize the next
-display backend on the same drm_device.
-
-When the fallback backend registers another set of CRTCs,
-dev->mode_config.num_crtc grows past VMWGFX_NUM_DISPLAY_UNITS (8). If
-dev_priv->vkms_enabled is set, vmw_vkms_init() only allocated dev->vblank
-for VMWGFX_NUM_DISPLAY_UNITS CRTCs via drm_vblank_init(), so the subsequent
-drm_mode_config_create_initial_state() -> drm_mode_config_crtc_create_state=
-()
--> drm_crtc_vblank_reset() call will index dev->vblank out of bounds. Even
-when vkms is disabled, if the fallback succeeds, dev->mode_config is left
-with duplicate mixed-backend KMS objects and more than
-VMWGFX_NUM_DISPLAY_UNITS CRTCs (which can also overflow fixed-size stack
-arrays such as units[VMWGFX_NUM_DISPLAY_UNITS] in vmw_kms_helper_dirty()).
-
-Could drm_mode_config_create_initial_state(dev) be called once in
-vmw_kms_init() after the display unit fallback chain succeeds instead of
-inside each backend initializer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-drm-no-mor=
-e-config-reset-v1-0-1f58d1e33380@kernel.org?part=3D81
