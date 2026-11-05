@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257BC606D837
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 06:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EC0606D822
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 06:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RqVGdqJk
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AZJCpTrc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B11F112062;
-	Thu,  5 Nov 2026 06:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 161A3112054;
+	Thu,  5 Nov 2026 06:42:12 +0000 (UTC)
 Received: from SN4PR0501CU005.outbound.protection.outlook.com
  (mail-southcentralusazon11011008.outbound.protection.outlook.com
  [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC74B112055;
- Thu,  5 Nov 2026 06:41:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C427112043;
+ Thu,  5 Nov 2026 06:42:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jAyCAtny3Em1vbEy/I4QqWAiwI1KKVQvXSt5VO26FmSlSYW04zlSYbCAikpqH0zFRh4sihh4dSj6pao/PHgzuDmBi+U5FbcsZqfjupKvzc4gbJgs/hcydha6bFzi5j1o5gZ5Xx/xoVuFEtRD5SLZOHje5kN3Uh0gUlcFSv/3tAPn4s1Cei7D+yx6I4e1hY2oniQp55bOxZmeQr9toQhKHZvGAjNWb12sYfuuOy4KASzlfkgnhBQY8RBueqhhtNodEez1xEjp0an1URnQOdj1XIN831hjVMumlkEdH15h2DO4VIlSAPa6sp2AKYY4KxwEL3hMHbDZGK1C2f/44JRNfQ==
+ b=uSfvHi7QyP7dCEDrE3+MxSjkXRAtRt8K19jyqUXciAGVo/PgiGDvt5JWXD6Fw55kKqCYipcM4nwexcQIeX1V+mjD/q9J5pWcY0xEnV0u91wHeaCv7RxZrEixZuoJ7PmQ3k5rwo5JUpREhtyt5HVZB0+Lv+OtlADkCo6+iGvfklc070h3mT6nWz1sXVPOojbc79ZfKG3mDYVCbxT+lCTQu1UCkuggPSF202U7caBAhxwlAZ6M12updsYk/OWfcTvaWjxZz7PHMpHxb6+epucboHRb8SMG1bfIP2h1nFBtjtYgNG/RPbpL5tJLfoslNEcR6SfRM1WiEJsU3SH48qAlBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m2RiDXPNYALdkAA+vKQtgNlMW6GjJbtLl3n0btzjV0I=;
- b=Lur3qvgn7tQaxUi7U87RvM9TCz91JlZ01B0kdgEdU8z6Rer2NUNnG61cDi7gutwrmo2N+gE+JkW6unGmlYLlnephtc5A0YqPMThRC782A0xY8Akul4jo/8XqpqSHtE3AdPUbiRTEa+ZGev21jxI7PBak7KftOtGgctr0eJgeMDb9UIGodYoRBlLDpY5pnE/NxHXgsyBHYIFa5EG6lguzIFjFFv40MHc75PJoTzUr9EYcQi0psAk4BJ1Ht4MKA4nkZh77baE0qb+OddyraZJqrrgvNwJe9guDSHTwQRm1cbw0xAvSGrOjGAZAgGba0bOEhDp0eCfZCxa5+p2jWkJagg==
+ bh=xIIecvJXS9Er8DIesAIXHWiK6wRtkZqY9zOmfKOWoNI=;
+ b=nw9HcAM+pkdVKpA1uX9l84+esDUBZj7dPritinbK/aVZFhFFeickiME6Mp1JVfWJo/uyDthuRiAju+tq28iG9bMly+ZkxFX2ihc2iwFZWvzn5BWPo+27YhHQRH+KFw3Mx06Hp6DqghBinaWQpUPoCEnR7u243jpXeTL+Z2p1WnYggtlgxV0RCfVdbyujpns8uf2c1kVNRQTwAzDZ9aLTg1NKW0bjz9pWQtuYiZYUjP8V5B4hu1sjgJcgLMNygrT76K6ideVpHxBJbTjox05QjkOkQvnIFp89d82sblzOkIDUfboJ1gbwYrTF7zQ3ny7g4X6DN4TBzUB86KJvvyKgIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2RiDXPNYALdkAA+vKQtgNlMW6GjJbtLl3n0btzjV0I=;
- b=RqVGdqJkTqXmgwxAQ0hd2tpld7d19LyVRWUIa2f5LKZLMSnobHJsUcHAA5geWiqB/a53GL3Gs+aYd4CjsrOEPtXeHrVQ8RkX2R8ZTTQe2BsQbelYae/0yoK3Cl087S1J217fn6NcCBxhP2yA78tCb87dwjavQHjjXmfEcq6bgMcjKlS4qKyMx6M4iDZROUSRh1p/ECXAdb3UCBmlYFrLzmu/HFtyqZfXw2S6KKWStzljsoN/djPefIijp2k2kKR0OsUsX0eQam/CQNRO1MuGDudgQE/BqX1YP2B9J33Yj1GQz1PoY+Gi+g/0NE4TcbFkXNkbXoeBtlze6mS7MhVTbA==
+ bh=xIIecvJXS9Er8DIesAIXHWiK6wRtkZqY9zOmfKOWoNI=;
+ b=AZJCpTrcbNw2wUah2PiZ6EATefYD/iSqDWlQgglXb1ehOwouR0Bqo2OkPPEGPNzzjwNyAW+ziHFAo1jieIiB/Zns1coNB4u03MhkQq6ZwdcCy8bgIy1/7qxZn4k7aTAmGaoZ0pKvMazupOieevryTJ0lft/XrT9r2m1oZYdRt/M2mW46DXVdair4nS2AxkYg7zRFewrxaJfkclk/gf7uup+yJ/UrW0QMHn3hgUIHBQiWqo1eVPZX1cxiWBdj44aRayhqvhp0rL6Y0+sqDQZJ/cw0ORYSG2VHU28Y3HMhC5ewfDMK9j+OTxlUGmaMS+lvWJkEg76VzB6tgmnFtRJ8pQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
  (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
  (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 06:41:51 +0000
+ 06:41:56 +0000
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:41:51 +0000
+ 06:41:56 +0000
 From: Alistair Popple <apopple@nvidia.com>
-Date: Thu, 05 Nov 2026 17:40:40 +1100
-Subject: [PATCH v2 05/23] dma-buf: Route SGT related actions through the
- attachment's mapping type
+Date: Thu, 05 Nov 2026 17:40:41 +1100
+Subject: [PATCH v2 06/23] dma-buf: Let the exporter select mapping type at
+ pin/map
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dma_mapping_type_v4-v2-5-78b8dc9ae80a@nvidia.com>
+Message-Id: <20261105-dma_mapping_type_v4-v2-6-78b8dc9ae80a@nvidia.com>
 References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
 In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
 To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -75,79 +75,79 @@ To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Leon Romanovsky <leon@kernel.org>
 Cc: Alistair Popple <apopple@nvidia.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=3184;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=14640;
  i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=xEyB6/yAemJWVnakwhulhM0TZJ4KFTrVGJbQnB07EBw=;
- b=LoXTVhhNReV0IVmUBdMVbwWyRNZj9e2H0XeBvWHMGFjD0DGZg0p7LTiYwtGkXQ4Zmdkr75B/m
- lVBdOUv88H0AVujm9Qjbpa6TP8boykyqpv26R6offXGUrwkbrTME+qE
+ bh=hTe5m5VVafbkiEJbQWcPWlFtiBdDONn5ROqORJ1mjdw=;
+ b=RIMuF9MsgGsUIVXgQMlSNclJkLujMN0dkFLUR+tAWZWjncefGRRB80LsQtN5AruatFfRUpdim
+ Ilc4ZQFUqhQDvq7xrxRoEr7OdLJX0suLlEe393g4g8EHAaw0d1gxS/a
 X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
  pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY5PR01CA0005.ausprd01.prod.outlook.com
- (2603:10c6:10:1fa::13) To SA3PR12MB598757.namprd12.prod.outlook.com
+X-ClientProxiedBy: SY5P282CA0099.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:204::8) To SA3PR12MB598757.namprd12.prod.outlook.com
  (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf9ecf82-9a58-4151-237a-08df3b07dfd0
+X-MS-Office365-Filtering-Correlation-Id: 6c73186a-c13c-48d6-d1aa-08df3b07e275
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261021123027099003|261022075727099003|11063799006|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: VyDpoh82YUxyumulcRnxW8fWi6c0/PDSr0jiony3hSc+pnK/IW1rL55mDg3Z1JZRBRuMJneSX45TuXWbyEdbfoC222rcKZ101cP1yr/MsA6o3Kk53FqyFScdaBpM0HDEDEt0fvLTJppyfs3TbRpO3C/ZBm4SFSGcUEqp61X7wzhA7SvTPK7WLwqjQ9MYgbLOumr/XIltgumks7Uz/DpDA82jLDu3HSkT847Wn6XNz4Fk5AARgWb6iwVXljlf10sJRhdz2KFLuj7emOkXfI/UsYoCo13MHPkNNLIow/ukh40iXWwIVpX7U0vnkujQ2SlOPtgK5THIHfkzF+O2vG0lQTlDWqTmtho6I1nXzOKbJpcAnXz9Puga2ATosZ87TRxbaJNEx6c89KjL1K055U9GP6Zxlz0biKXKl88YmXYPGX03sMk4XiYTQROpApM6uOfRcw/ov0g+UdmZfoXsw1QleWkz6ir3jUTMdRjTJGRfYL2mNObbte5SCAN3pgcuYrcyDBaKtXzeIRCq2/HmoZE2D0t8Jal5qJSYaY8Sr56Cf32OXQJtUiKuEMdkmFmVRn4rMHQirxItixxjuEsLAOhVSUqxyTk2ugxkbXqTM+KRL+ApjBrjLtqh7PpoZjvOve1l1iV+W3CUJCAS8j9kokFwgk4j9hYovSWVtScYwOmSQMhDeHsCrLP/5Eff1J8hUlISmqZ1RnvbNN4h+SSV/B7SKw==
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261021123027099003|261022075727099003|11063799006|5023799004|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: TnsQEiXMChAg2tNgvvvZ1FYF6hmtBgUizHf9Gq2Q2mRoH3m8WvnQkQSZ7Ecruwd/x7vdFZ3EHSC8C5Kx0enHC3nt0sTQ7PKqYxQ41LoHWtL+aFgOe0td6WYXGfeWOAjAW/iTzjXC0WEwknro6I7gYy/XnlZUg6HSgG2A1rSlLlPtJ4tEF1/2ykTn+nWd/0+EYWPZpMCHL3LNlqNhWGytHZuNpb4c15qnzNOKX5miwnh4WSR5lMUDwWJDl9lYUIs4u0sasTOgKkWaTR4B2+I/VLpp669XE056lKDhj7pS0q8PI7TMhJLocqxWenopJIsPATgLNUTvwJo7SwRVIOynJpJiTMEDzGk99MEUeKxk9ktAckFPBflV/aEuoVo2aJWyqLHk7IZuO9yTMsRVx2yolMy7GyiMOB1MlTTBGiJyDb45EKMjWtb01xyB9Ax8MtgxpW/+kQS6C51S4Ony0uqlhaF/k+ZBAmvVf5+6KY0PDy1MYgwKiRDZf0zMIYRgZEXNrOuihZA6rdwcJLfFXBb75J5qx3W1cTXm1ttVjZ7hRUdANUI/pdvMehCQ9/H5ozlzasBxIiKYvZT+HOtmmqxkU6rFI+ErizYl7ARL5E9z04b0YUBC59BVmr4fDySYoSPLXngETg8lSorakC+5GNqTPrUnewnOH3EM0X/CUo7YXM9BtAqBSc8LXJu37x1sfOWQb0blV7XGEoFw3pdlJSGNEQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261021123027099003)(261022075727099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261021123027099003)(261022075727099003)(11063799006)(5023799004)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkF4MlF2VmVoWGJVY0NtejgyS0c5K2tvWEl6WmVNbFNSOUxlMmErQi9tZ1hh?=
- =?utf-8?B?cnVPUU9TRVZXTWp3SUZCRUNYcC9qZEVmQ2pBS3Z3SDlxYlZrb21mcFVUMm43?=
- =?utf-8?B?N2RiUnFMd2xXNTBVU3hnbHAxdDFmQkxlMmowMXR2MXZHbngwMDRCTUdxQWxP?=
- =?utf-8?B?YzN5U2NGaFpuVkVKVjFkSk81Mi9QWGcvbFN4OVVaMGFIcEtEVUtxeGxyU2dL?=
- =?utf-8?B?SjNoWThNSitpQWpFNVoyTk1sS1hWNUswQkpwc0VzQUZYZVVyUExhQmtTTm5q?=
- =?utf-8?B?LytjbjVoQ0x0ek1EeVVNZ1owakYzTXZ2bDBhNG15OHZpbmFROVZ2TEwwcTln?=
- =?utf-8?B?UjVqaXlHVzJRL0ZiZDZHdTZ5d1lvSUgxQThLR3RUdGVTd2llblozNEtia25t?=
- =?utf-8?B?aDJSUTVyQlhpUjF0Q0hkT3liejlOS0R2L0lQREdiMUxNMDMzMEtXZjZldUJz?=
- =?utf-8?B?OVF6N3hUOFd0cG1mb2hQQUVKK3RHNU9VeGw2L1RLNmtLc25mcGlBTy9YNVhw?=
- =?utf-8?B?a2g5Z1BXdzlHQ0dlQmthSHdHQjU1d0ZQS1l5SG56UmwvZWU4bk12aDZneFhR?=
- =?utf-8?B?eis5M2JkYldYcHVQMzM1ZSszenVHMlJDTEZmdlNZTjJWQklJVlcvQmF5bk1H?=
- =?utf-8?B?TTFNQSt0RE1Zc0JTNEgvVk9idEdJSmRCckN1QVNieit2d1hWeVh5MFdzdkZo?=
- =?utf-8?B?TzQ0b1dIbWgyTk5YcS9Ra2UwU09sZTZMSVpQTTl5aW5lY2hMcHBDUHI2b3cw?=
- =?utf-8?B?a0Z0L0lNa1UvOGxEdzBVSm9MZVZzRkthU0FJbmVzb1diZnB1T3R0L1lPYmNq?=
- =?utf-8?B?QkUyTzFsTmcwb2Y2TWhjM1JwWWVRODdReU5qL0k4TDBnYjcwQ2E4V1N3bGRP?=
- =?utf-8?B?S29BSkRWU01CUXlxL3ExZXRyVlFnSTFINE1aUVJzUzVrUGxEVk5SL09UUUpE?=
- =?utf-8?B?SmVYc0lYemo4a0lmZnFYR1RFRmJOSlFKOGdEYzZ6akJKS3QzZHFESUMwYVpO?=
- =?utf-8?B?TlhqWVBMRGZza0pPRXdKY0hQazJDRHRZM05UNUEvQ0ord01maUgzQVhBNHRT?=
- =?utf-8?B?c20xVXdaZWlVcHBvNzdtbHZwNVA0YTE1anlGeVY3MmE3ck1qN1U2MUJzclFa?=
- =?utf-8?B?N2VkSnNuMVVMUlIyMTVnekZqRjVGanhkSGd2a3htSXB4Wkh0cFlnTGxENnds?=
- =?utf-8?B?Q1hTV0dSREZoNjBYeVZwWGFKemF5ZlorbTdMaUFCRnd6eTY3SGZiYWtIT1RO?=
- =?utf-8?B?SnpZSnVKdzdKQ2RwSnBLT1VSZWNpd1IzNlM5Q2h1WGdtZTdwU2xiVjFJc1RR?=
- =?utf-8?B?RFIrOTU1Uml1T25xMkxwd3pwMnVrNHBTa0RVeEVqaXcyczEraDNVTE1wWWMy?=
- =?utf-8?B?WC91alZnV3FhWHBuTXN0emVSSzJrRTVGZDlPdlRBbCszbHhvWGo2QkFteEdE?=
- =?utf-8?B?ODhXU0ErK3h1ejZjaUxXaEwrQzM3NTBGQTBjNEFPVmRSZkRtakdEd2hnVWRZ?=
- =?utf-8?B?Q2pBWXh2WU9LN3NjT05CcUNFS2tFZ1JuVGhOZ1REeVR4NE5YNngreUFZMTFm?=
- =?utf-8?B?TVFRNmhXKzF3QXZ2OTdmOFc5OGdVT2s3U2Y4OUVGT1VpRFVxeUxydURvTEww?=
- =?utf-8?B?WVFYblJteGY0c2IySVFiRFFhaEhIYWEwYTNOV0k0L0U2Q1QwcWNnZlN4T2F3?=
- =?utf-8?B?MnVYWVVrSGhVQkd6OUk1eUR3eEZXdjFSeExscEgvNWU0RkFSZjVVNWJKaXFF?=
- =?utf-8?B?bitKaVhMcEUzbFBRNmNISC94Vlk1b0tSeFJXNlp3NVpydWd6TGdEclkwb1FC?=
- =?utf-8?B?T0g5cUtSc0lYaGQzaEJvMXk1d0ZkdFVrOVdrVXoxRWZ3RGpIeEJIZEU3cnBq?=
- =?utf-8?B?NGVzY1hWTHpKWFFoZkorWVJDa1pERG1ET3JYSGNBdW5aeEltcXBCdjNuSjB5?=
- =?utf-8?B?bllKUEZVWit4Z29kQ2pnNFMzSFFIMmlEUkRlZ3cyZ3A3ZWtZeDF4Z3ZBblM4?=
- =?utf-8?B?SmUrWUNIZWh5bmJRQUZWY3QzSlFldlpzZjNrTkhIZ01IRlY1aG9BOXdHUnk3?=
- =?utf-8?B?MFBCWjdJcWh1Sis4Z2xJeUlQc25qeTlOQmVWTVBzbDB0NTJud20rWEVtRi9q?=
- =?utf-8?B?WUU2dDFvdWtjWlZrZ0k3YWp6UVlWSWVaempkeDJLZ1RYZTV0TEFVSnk2NDlh?=
- =?utf-8?B?SFhNODdDYWl3enJGQ281L1NVTkh4QjZFNzBqK3NpT2ZnUm9JUDNXZllTTHRU?=
- =?utf-8?B?Uk52SDN2WEpXYVRCNHVEeHVUVlZpTi9zRDJsRWZ3UmJtV2t5VjJKd2NhdWlX?=
- =?utf-8?B?NmdWT3Q5RDlTaUtQaytVWVNvd3JyYWQxQS8yR2JIWmZ4MXpxMXhKZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MThoVUV6enVVd3BmQTVaaUc3anU5N1d4QWN0MkpFYjV1dzZybTRJazR1MzZU?=
+ =?utf-8?B?Q3I3S1RLbTZrTUN6WGhIdFJvcW0yMXZUaGREeTBkRkM4cGJ0NHpDbjFsa0lL?=
+ =?utf-8?B?T3hSODZKdE9kN0VGeXh5ZlliQjVtcEJkZjEzM2hGWlpTN3hlQVY1RFltZm1x?=
+ =?utf-8?B?RG9DNlEra3VuMVRLM2J0aGRBeTJTNlRQZDhYendlaG1TWGpUOXpkamNOSWNL?=
+ =?utf-8?B?QVFsNzRwVndkcXc0ZUFqSUFyaWZ3T3VxWFVWdDdTZ0gyeXM3RVhjbENvOHFq?=
+ =?utf-8?B?VGFlYzlMcStjQllVY1NzVVBtZW1Mem93dFBOQXJYdUJwM3haOHhGMC9VenFZ?=
+ =?utf-8?B?MmI1TmNXcHd0cDdXOStOdHhBWFB6NEFQb2plaGtudHJaeGllSWVXbk5MRHhv?=
+ =?utf-8?B?bmRXZzViZlJOY0RxTjJEa3pzWlN1Yi9kaXlkNjYwbHJLbnljSWpJeUdueXU4?=
+ =?utf-8?B?YVFUNWswVDJIaDhybW5IV0xUSCtEeEJaN2pEMUptR0RtUVpTblpSOFhiZWRq?=
+ =?utf-8?B?OFpOMjJiWjZDbVI3TnJVZWFBK3MvdjlaQ0lIWjR6TXBuQUF1eUJ6cUUrb052?=
+ =?utf-8?B?YmZEY2lGT2paRDdOS3ZqV0dsYUUzK08yTVVCVEo2L0JHUkIrR0drSmxidExO?=
+ =?utf-8?B?RW9TdE5ncnJaUm5LK05RZmhTUmxPZjZEQzBWWWtwWitEU1BBcXBSQ3ZZZk52?=
+ =?utf-8?B?ZE9LbHFDTXNuekRQYmlrbEVGOW1rNEtjdy9QUkNIeGhNaFI0bzRpNHlwSjl5?=
+ =?utf-8?B?SU5jbkNJbUFYRHI5K21aS3BJOVNneWRaSTFsbm91emlXNWk2c3JFaVRhanF1?=
+ =?utf-8?B?WEQzSTJhdlM1QnZrTUZ6bXI1LzFNbURpTjZYa0c0azltd1c2SDNFZUxxcDh2?=
+ =?utf-8?B?dndZQldVWDc4eFdvMEh6c2lyR2dnbXN4TEJpWUhpUVlHbmc4TUNvU2NCbnJ6?=
+ =?utf-8?B?dG84Lzl6aCtVcnpqSnNxbEJUakkxZEdjL1FLUEdaRzM2TXNiZGJPYk51T3ly?=
+ =?utf-8?B?enA5QTZ1cndVZDZvM0tXRythMlZFb2dsY1ljUmJOZFdtejdva2Q1aU8vMWVo?=
+ =?utf-8?B?cGJscW1tV0NvODZlTjVia0lWUjJ3TCtwYjRrTit1R3VsME41SnlrQUNSUGln?=
+ =?utf-8?B?cFU5RVJLQ1lyQ2YzL2g5dUFtVC96ZzB6L1VuRGo0NEgzRGQyK3Ryby9tYjZl?=
+ =?utf-8?B?QnJITzNKN3U2cE5sS0VJWEN4cE83eWUzVUxkQTh2eHZ1dmxheEM2NlE2VUhQ?=
+ =?utf-8?B?UmZXUHA5M1NHaTcxZExyT1pDdXd5VTJuWm0yYm04UmpTcXFLMENsMk1XRytk?=
+ =?utf-8?B?MDdCT2I5bjN4bVlZR29MRFhkLzJYeHBIZ0srNldVZExiT3ZENXdFRDg5OEtU?=
+ =?utf-8?B?akMwQkh4WHp3M0ZYL0MrZzcrcVVGUWRqSllsTUd2TGpWSTdoUGVFeFc5d1pB?=
+ =?utf-8?B?KzBVOU5aZE5SaWM3TmE3V2FrcFFVdFJ2bVY2bXVZN2JSZG5uU1dXcVY5TkFO?=
+ =?utf-8?B?YkFIN1h5QVErQlB5Uk90UjdQM2JkV2kvSHBMNjhSSkdlR0YxT2lhanEvNzNv?=
+ =?utf-8?B?dXBuMlJOVWltMERZVUdzNVZFbFpwei9CR01YcGFudHlMMUxnOXJnYllqQ0tB?=
+ =?utf-8?B?UVFPSGFOOXdHUE9CaWN2TWxlSG1mZWJ2TG4yUHNXbjdpUkVMZFErWXY2Z21Y?=
+ =?utf-8?B?VnZlZFpaWVJTMk85QU1YcWZJVlhDMS9CcHUwa1FiUkpyWFJoZFNLZXE0dk1q?=
+ =?utf-8?B?VDh4dGcxVG8wZktXNVpjZ3hqSHVIcmJpbVRZbHlRZ1RUWWVnWWtVM3ZUWVZI?=
+ =?utf-8?B?UHhqZElsVDI4aVBSNU43dWgzVTE0R0Y3RmlMRWVBN3duWU5TZ0JFTUwrVy94?=
+ =?utf-8?B?QzYvb1RIK2xKbS9HNE5oWGlQeG1kUVcvakRRYWZyem16czlBa053d29HMUVW?=
+ =?utf-8?B?elNuMHdLZlhzTlBZNnBVc2tEOXhKaEk0NTZML0RCeTFqVWc5Q2UrM3ZUTDNP?=
+ =?utf-8?B?akVsQW8rVWxIc0xiZWxpWUE5Uk1melc5cWdzdzJseXg2QVFCWHBRQzR1M3pV?=
+ =?utf-8?B?L0p4Vkd2YVlwV0x2eklxd1hFUkg4VDVtUXJEVi8xajNKUWJiZmh5Qmx0OTFD?=
+ =?utf-8?B?TkhleGJNNkFaRUttZTJBeU1HamdwQWw4Z1ZzSmtIZ2EzanFsMlNtRi9Fd3R5?=
+ =?utf-8?B?TGlMNnk5dlVrNldqVXJpUk9CZkJVbHhZSUF6QzBCZDFqejBZR3BXLzFnaVhS?=
+ =?utf-8?B?NDE2bVM3dUlHekp4S05jV2cxTUFsWDJqd1ZWeVYvMzJCRXZKWHhWYlRROWNz?=
+ =?utf-8?Q?41P76ZBWxYnokL3V6g?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf9ecf82-9a58-4151-237a-08df3b07dfd0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c73186a-c13c-48d6-d1aa-08df3b07e275
 X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:41:51.6179 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:41:56.2210 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +p5+bsKeR9G5zdpu5nChhUO7h9a9p5bAoSl30j+r1JvsYawQP6Zpam8NMwCiFtBKOtLaVzDZJVOsQFtYZWbFxQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ER5kLU4A+TipXuFJcB5D4jlgUJq9e08Jq5C/MiyeDsKYybyF+hNJudC8Q3qc4dQIwQfoI4YHgkoBNwZbH3EXLQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -168,99 +168,380 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+The match set negotiated at attach determines which types an attachment
+could possibly be served with. Which one should actually be served
+depends on where the buffer is and other attachments when an importer
+first pins or maps. So far the first entry was used unconditionally,
+even if it cannot be served to some importers.
 
-Now that dma_buf_dynamic_attach() ensures a mapping type exists, even for
-exporters and importers that don't provide it, route operations through
-dma_buf_attach_map_type().
+Add dma_buf_ops.select_mapping() under dma_resv from both pin and map
+paths before the type's map callback to let the exporter choose which to
+serve based on the current placement and list of attachments.
 
-For map/unmap this will go through dma_buf_sgt_compat_map_dma_buf() which
-calls the same attach->dmabuf->ops->map_dma_buf().
+The choice is recorded in attach->selected and does not call
+select_mapping again across any number of unmaps and remaps, until
+dma_buf_invalidate_mappings() has been delivered to the attachment.
 
-Move the debugfs processing unique to SGT into a callback too.
+This prevents importer remap from bouncing a buffer between placements
+- the type cannot change without the exporter explicitly invalidating
+first. In other words attachments that are never invalidated keep the
+initially selected type for the life of the attachment.
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+A failed select or map establishes nothing and leaves the choice open.
+
+Importers never select. The importer's list order is a preference the
+exporter may weigh or ignore, and an importer must accept any type it
+listed.
+
 Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- drivers/dma-buf/dma-buf.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/dma-buf/dma-buf-mapping.c |  66 +++++++++++++++++++++++-
+ drivers/dma-buf/dma-buf.c         | 106 ++++++++++++++++++++++++++------------
+ include/linux/dma-buf-mapping.h   |  17 ++++--
+ include/linux/dma-buf.h           |  38 ++++++++++++++
+ 4 files changed, 190 insertions(+), 37 deletions(-)
 
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 4eb0ea930900..ff2dbcca23d9 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -271,7 +271,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_free_sgt, "DMA_BUF");
+  * importer entry of the same type that the type's match() callback accepts.
+  * Every such pair is recorded in @args->attach->matches, so the match set
+  * preserves the exporter's priority. The first entry is the default returned
+- * by dma_buf_attach_map_type().
++ * by dma_buf_attach_map_type() until &dma_buf_ops.select_mapping chooses
++ * otherwise at pin or map time.
+  *
+  * Because the exporter list is walked in order, the exporter controls the
+  * priority of mapping types.
+@@ -324,6 +325,69 @@ int dma_buf_match_mapping(struct dma_buf_match_args *args,
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_match_mapping, "DMA_BUF");
+ 
++/**
++ * dma_buf_mapping_select - Let the exporter choose the type to map with
++ * @attach: Attachment about to be pinned or mapped
++ *
++ * Called with the dma_resv lock held by dma_buf_pin() and the map functions.
++ * The first call after attach, and after each dma_buf_invalidate_mappings(),
++ * calls &dma_buf_ops.select_mapping to pick an entry of the match set given
++ * the buffer's placement and the other live mappings. Exporters without the
++ * callback get the first entry. Every other call returns the previous choice
++ * unchanged, so the mapping type cannot change between unmap and remap without
++ * the exporter having explicitly invalidated.
++ *
++ * Returns: 0 on success or the exporter's error, typically -EBUSY when the
++ * attachment cannot be served without disturbing a mapping that cannot be
++ * invalidated.
++ */
++int dma_buf_mapping_select(struct dma_buf_attachment *attach)
++{
++	int idx = 0;
++
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	if (attach->selected)
++		return 0;
++
++	if (WARN_ON(!attach->nr_matches))
++		return -EINVAL;
++
++	if (attach->dmabuf->ops->select_mapping) {
++		idx = attach->dmabuf->ops->select_mapping(attach);
++		if (idx < 0)
++			return idx;
++		if (WARN_ON(idx >= attach->nr_matches))
++			return -EINVAL;
++	}
++
++	attach->selected_idx = idx;
++	attach->selected = true;
++	return 0;
++}
++
++/**
++ * dma_buf_mapping_unselect - Undo a selection that established nothing
++ * @attach: Attachment whose pin or map just failed
++ * @was_selected: attach->selected before the failed pin or map began
++ *
++ * A pin or map that fails after dma_buf_mapping_select() may reopen the
++ * choice only if it was the one that made it. A selection that predates the
++ * call belongs to a live pin or mapping and must survive, otherwise the next
++ * pin or map would reselect under it without an invalidate.
++ */
++void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
++			      bool was_selected)
++{
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	if (was_selected)
++		return;
++
++	attach->selected = false;
++	attach->selected_idx = 0;
++}
++
+ static int dma_buf_sgt_match(struct dma_buf_match_args *args,
+ 			     const struct dma_buf_mapping_match *exp,
+ 			     const struct dma_buf_mapping_match *imp)
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 1913a84d3363..b3d1f0f863a5 100644
+index b3d1f0f863a5..f052184da5ed 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1240,12 +1240,14 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
- struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
- 				 enum dma_data_direction direction)
+@@ -1182,14 +1182,22 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_detach, "DMA_BUF");
+ int dma_buf_pin(struct dma_buf_attachment *attach)
  {
-+	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops =
-+		dma_buf_get_sgt_ops(attach);
+ 	struct dma_buf *dmabuf = attach->dmabuf;
++	bool selected = attach->selected;
+ 	int ret = 0;
+ 
+ 	WARN_ON(!attach->importer_ops);
+ 
+ 	dma_resv_assert_held(dmabuf->resv);
+ 
+-	if (dmabuf->ops->pin)
++	ret = dma_buf_mapping_select(attach);
++	if (ret)
++		return ret;
++
++	if (dmabuf->ops->pin) {
+ 		ret = dmabuf->ops->pin(attach);
++		if (ret)
++			dma_buf_mapping_unselect(attach, selected);
++	}
+ 
+ 	return ret;
+ }
+@@ -1216,42 +1224,19 @@ void dma_buf_unpin(struct dma_buf_attachment *attach)
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
+ 
+-/**
+- * dma_buf_map_sgt - Returns the scatterlist table of the attachment;
+- * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
+- * dma_buf_ops.
+- * @attach:	[in]	attachment whose scatterlist is to be returned
+- * @direction:	[in]	direction of DMA transfer
+- *
+- * Returns sg_table containing the scatterlist to be returned; returns ERR_PTR
+- * on error. May return -EINTR if it is interrupted by a signal.
+- *
+- * On success, the DMA addresses and lengths in the returned scatterlist are
+- * PAGE_SIZE aligned.
+- *
+- * A mapping must be unmapped by using dma_buf_unmap_sgt(). Note that
+- * the underlying backing storage is pinned for as long as a mapping exists,
+- * therefore users/importers should not hold onto a mapping for undue amounts of
+- * time.
+- *
+- * Important: Dynamic importers must wait for the exclusive fence of the struct
+- * dma_resv attached to the DMA-BUF first.
+- */
+-struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
+-				 enum dma_data_direction direction)
++/* The SGT type must have been selected for the attachment already */
++static struct sg_table *
++__dma_buf_map_sgt(struct dma_buf_attachment *attach,
++		  enum dma_data_direction direction)
+ {
+ 	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops =
+ 		dma_buf_get_sgt_ops(attach);
  	struct sg_table *sg_table;
  	signed long ret;
  
- 	might_sleep();
- 
--	if (WARN_ON(!attach || !attach->dmabuf))
-+	if (WARN_ON(!attach || !attach->dmabuf || !sgt_exp_ops))
+-	might_sleep();
+-
+-	if (WARN_ON(!attach || !attach->dmabuf || !sgt_exp_ops))
++	if (WARN_ON(!sgt_exp_ops))
  		return ERR_PTR(-EINVAL);
  
- 	dma_resv_assert_held(attach->dmabuf->resv);
-@@ -1261,7 +1263,7 @@ struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
- 			return ERR_PTR(ret);
- 	}
+-	dma_resv_assert_held(attach->dmabuf->resv);
+-
+ 	if (dma_buf_pin_on_map(attach)) {
+ 		ret = attach->dmabuf->ops->pin(attach);
+ 		/*
+@@ -1311,6 +1296,53 @@ struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
  
--	sg_table = attach->dmabuf->ops->map_dma_buf(attach, direction);
-+	sg_table = sgt_exp_ops->map_dma_buf(attach, direction);
- 	if (!sg_table)
- 		sg_table = ERR_PTR(-ENOMEM);
- 	if (IS_ERR(sg_table))
-@@ -1300,7 +1302,7 @@ struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
  	return sg_table;
+ }
++
++/**
++ * dma_buf_map_sgt - Returns the scatterlist table of the attachment;
++ * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
++ * dma_buf_ops.
++ * @attach:	[in]	attachment whose scatterlist is to be returned
++ * @direction:	[in]	direction of DMA transfer
++ *
++ * Returns sg_table containing the scatterlist to be returned; returns ERR_PTR
++ * on error. May return -EINTR if it is interrupted by a signal.
++ *
++ * On success, the DMA addresses and lengths in the returned scatterlist are
++ * PAGE_SIZE aligned.
++ *
++ * A mapping must be unmapped by using dma_buf_unmap_sgt(). Note that
++ * the underlying backing storage is pinned for as long as a mapping exists,
++ * therefore users/importers should not hold onto a mapping for undue amounts of
++ * time.
++ *
++ * Important: Dynamic importers must wait for the exclusive fence of the struct
++ * dma_resv attached to the DMA-BUF first.
++ */
++struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
++				 enum dma_data_direction direction)
++{
++	struct sg_table *sg_table;
++	bool selected;
++	int ret;
++
++	might_sleep();
++
++	if (WARN_ON(!attach || !attach->dmabuf))
++		return ERR_PTR(-EINVAL);
++
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	selected = attach->selected;
++	ret = dma_buf_mapping_select(attach);
++	if (ret)
++		return ERR_PTR(ret);
++
++	sg_table = __dma_buf_map_sgt(attach, direction);
++	if (IS_ERR(sg_table))
++		dma_buf_mapping_unselect(attach, selected);
++
++	return sg_table;
++}
+ EXPORT_SYMBOL_NS_GPL(dma_buf_map_sgt, "DMA_BUF");
  
- error_unmap:
--	attach->dmabuf->ops->unmap_dma_buf(attach, sg_table, direction);
-+	sgt_exp_ops->unmap_dma_buf(attach, sg_table, direction);
- 	sg_table = ERR_PTR(ret);
- 
- error_unpin:
-@@ -1353,15 +1355,21 @@ void dma_buf_unmap_sgt(struct dma_buf_attachment *attach,
- 				struct sg_table *sg_table,
- 				enum dma_data_direction direction)
+ /**
+@@ -1455,6 +1487,10 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_attach_revocable, "DMA_BUF");
+  *
+  * Importers are free to request a new mapping in parallel as this function
+  * returns.
++ *
++ * This is also the only point at which an attachment's mapping type
++ * may change after a pin/map: the core keeps the type chosen by
++ * &dma_buf_ops.select_mapping until the attachment has been invalidated here.
+  */
+ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
  {
-+	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops;
+@@ -1462,10 +1498,14 @@ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
+ 
+ 	dma_resv_assert_held(dmabuf->resv);
+ 
+-	list_for_each_entry(attach, &dmabuf->attachments, node)
+-		if (attach->importer_ops &&
+-		    attach->importer_ops->invalidate_mappings)
+-			attach->importer_ops->invalidate_mappings(attach);
++	list_for_each_entry(attach, &dmabuf->attachments, node) {
++		if (!attach->importer_ops ||
++		    !attach->importer_ops->invalidate_mappings)
++			continue;
 +
- 	might_sleep();
++		attach->selected = false;
++		attach->importer_ops->invalidate_mappings(attach);
++	}
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings, "DMA_BUF");
  
- 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
- 		return;
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 69073d589e54..0ee798a5acdd 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -118,15 +118,26 @@ int dma_buf_match_mapping(struct dma_buf_match_args *args,
+  * dma_buf_attach_map_type - The match this attachment is mapped with
+  * @attach: the attachment
+  *
+- * Returns the entry of @attach->matches in force for the attachment: the
+- * exporter's default, which is the first entry.
++ * Returns the entry of @attach->matches the attachment is mapped with: the
++ * one the exporter selected at the last pin or map, or the exporter's
++ * default, the first entry, before anything was selected. After
++ * dma_buf_invalidate_mappings() it still names the type a live mapping was
++ * made with, so a pending unmap can use it, until the next selection.
+  */
+ static inline const struct dma_buf_mapping_match *
+ dma_buf_attach_map_type(const struct dma_buf_attachment *attach)
+ {
+-	return &attach->matches[0];
++	return &attach->matches[attach->selected_idx];
+ }
  
-+	sgt_exp_ops = dma_buf_get_sgt_ops(attach);
-+	if (WARN_ON(!sgt_exp_ops))
-+		return;
++/*
++ * Internal: Selection is made by exporters through &dma_buf_ops.select_mapping
++ * in dma_buf_pin() or map paths. Importers never call this.
++ */
++int dma_buf_mapping_select(struct dma_buf_attachment *attach);
++void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
++			      bool was_selected);
 +
- 	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	dma_buf_unwrap_sg_table(&sg_table);
--	attach->dmabuf->ops->unmap_dma_buf(attach, sg_table, direction);
-+	sgt_exp_ops->unmap_dma_buf(attach, sg_table, direction);
- 
- 	if (dma_buf_pin_on_map(attach))
- 		attach->dmabuf->ops->unpin(attach);
-@@ -1842,7 +1850,13 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
- 		attach_count = 0;
- 
- 		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
--			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
-+			const struct dma_buf_mapping_type *type =
-+				dma_buf_attach_map_type(attach_obj)->type;
+ /*
+  * DMA Mapped Scatterlist Type
+  *
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index ecfd9b2d2aac..33582713a104 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -338,6 +338,32 @@ struct dma_buf_ops {
+ 	 * any time until the final location is resolved during map/pin.
+ 	 */
+ 	int (*match_mapping)(struct dma_buf_match_args *args);
 +
-+			seq_printf(s, "\t%s:", type->name);
-+			if (type->debugfs_dump)
-+				type->debugfs_dump(s, attach_obj);
-+			seq_putc(s, '\n');
- 			attach_count++;
- 		}
- 		dma_resv_unlock(buf_obj->resv);
++	/**
++	 * @select_mapping:
++	 *
++	 * Called with the dma_resv lock held from dma_buf_pin() and from the
++	 * map functions, before the type's map callback, to choose which
++	 * entry of &dma_buf_attachment.matches this attachment is mapped
++	 * with. The exporter settles the buffer's placement here, taking all
++	 * live mappings and pinned attachments into account, and returns the
++	 * entry that placement can serve.
++	 *
++	 * The core records the choice and does not ask again until the exporter
++	 * has delivered &dma_buf_attach_ops.invalidate_mappings to this
++	 * attachment. The exporter must therefore keep the recorded type
++	 * servable: moving the buffer somewhere the selected type cannot be
++	 * produced from requires invalidating first. Attachments that cannot
++	 * be invalidated keep their first choice for life.
++	 *
++	 * Optional. Without it the first entry of the match set, the
++	 * exporter's most preferred, is used.
++	 *
++	 * Returns: the index into &dma_buf_attachment.matches to use, or a
++	 * negative errno. -EBUSY means the attachment cannot be served without
++	 * disturbing a mapping that cannot be invalidated.
++	 */
++	int (*select_mapping)(struct dma_buf_attachment *attach);
+ };
+ 
+ /**
+@@ -562,6 +588,16 @@ struct dma_buf_attach_ops {
+  *           entry is the exporter's default; dma_buf_attach_map_type()
+  *           returns the entry the attachment is mapped with.
+  * @nr_matches: Number of valid entries in @matches.
++ * @selected_idx: Index into @matches of the entry the attachment is mapped
++ *                with, chosen by &dma_buf_ops.select_mapping at the first pin
++ *                or map and kept, enforced by the core, until
++ *                &dma_buf_attach_ops.invalidate_mappings is delivered to this
++ *                attachment. Zero, the exporter's default, before the first
++ *                selection. Still valid after an invalidate so that a pending
++ *                unmap sees the type its mapping was made with.
++ * @selected: True while @selected_idx is in force, i.e. the next pin or map
++ *            must not select again; cleared only by
++ *            dma_buf_invalidate_mappings().
+  *
+  * This structure holds the attachment information between the dma_buf buffer
+  * and its user device(s). The list contains one attachment struct per device
+@@ -582,6 +618,8 @@ struct dma_buf_attachment {
+ 	void *priv;
+ 	struct dma_buf_mapping_match matches[DMA_BUF_MAX_MATCHES];
+ 	unsigned int nr_matches;
++	unsigned int selected_idx;
++	bool selected;
+ };
+ 
+ /**
 
 -- 
 2.54.0
