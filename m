@@ -2,54 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0EC606A331
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5946F606A330
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ed+o32wt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VO4lql0L
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4221127BA;
-	Thu,  5 Nov 2026 15:34:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E75DB1127BA
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1A31127BC;
+	Thu,  5 Nov 2026 15:34:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 205821127BC
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:34:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D0B4240020;
- Thu,  5 Nov 2026 15:34:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358FA1F00919;
- Thu,  5 Nov 2026 15:34:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 99CA7600AA;
+ Thu,  5 Nov 2026 15:34:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA81B1F000C1;
+ Thu,  5 Nov 2026 15:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892852;
- bh=8Pgjx1xcYDAPSCXDa8m0AgWNO0ch6wJe5roTrUBiTx8=;
+ s=k20260515; t=1793892856;
+ bh=qS9MECTmqpeNIIuFhgVASZmIbHk7S4xuEJnY5SYIGys=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ed+o32wts1/0h/v4fWD5KZ3zs15pkG3pbfZ//rZlD5IsqWEnqi+pbIy8yQsTpC67N
- EkMFlmvrvL5WxJYXgdDVjOR3Ak0wlkO/0Aoqfpxm7q53ahu5hCf0aXYs0qnj/i/zLM
- HzQXGEz72+eLE7evKHn+R3HvUrWGrUvaVJO6lLOpum8YWIc4zQFhbzlg34fAx0ydoM
- CrCUQtDOsb0y69nuhFBgVmSmTyODXtXYU/Q7jGefhVEc29rN3Fko+gU7VhvStqJyIW
- VT5zcE2r50Vnco7+YUiEC3G3733hTQBuWTRc492LospdbL03DdAOJofrNUH03DHsZz
- +3iCHanpITWrw==
+ b=VO4lql0Lq1/oH3k1dC2UIcKIWjtEg+OyPO3DvENuwx1OhNoeYPZ48IgF7AmIElGwq
+ 0GG3K2PNV+OfdQN5Bvto/q7PF8FNboqqSKecJebqkNt8k7CwcOYg8wb7IgLc3ygudg
+ 5hL2l4KAGbI+wGWQUD/cPW/IrLulkT0RWPqfhUBgljiYNOni2sxrJAkbAF6mv4B8wm
+ oMAgVZQFuqGrhjjD46DyUDkbfnNXnR/IE5iRJIZVSvV9KiL6TaFAwVUR2ZKc0mH1N8
+ 0vP0/8xU592xcZcbTS+RYh4HdSKfz9W9k++iHc7UWriwnKqE837UbZPukj4gL78Lb8
+ UUV9HaNmcChZQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:15 +0100
-Subject: [PATCH RESEND 66/83] drm/ili9225: Switch to
+Date: Thu, 05 Nov 2026 16:30:16 +0100
+Subject: [PATCH RESEND 67/83] drm/ili9341: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-66-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-67-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- David Lechner <david@lechnology.com>
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1106; i=mripard@kernel.org;
- h=from:subject:message-id; bh=XUsRgW3nW26XJMVtAzrWr2M7HTNlpky3lh2xGSBm6ds=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFvxqDehffS9TJn3XcoZfJQXN+h1OyclJa4Ld4r1CJ
- ln8vhPcMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACay+Cljw/PSyP23Gg/z7f+X
- /CIkXsEzpvYKt6a9l5zGgl9Td3Zd/+4lGMQ80/7R5hdbDlxjSLX0Zmx4yfmXnWHX5eaThtWft7Z
- t3+Brmh1vFHOfJTMibGWVwqWkaxOephhVLr7HmWucKXve2RIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1059; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=wWfmzSzAnRFvnkJ0/+jcQr/HKfWEKHkAquX8EmnWIpY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFvy6tm5Cjs2+Y8suX+9ufR3B0lZ1y3BBp/9/82nTj
+ UqD9guodUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJJFUyNlz+YrFJ6M/1KacS
+ 0yc3vD/p4MBlnXzoZXe54dmZ14KV1h5udlldb5zdvXLjgn5Je/HmrYwNTcZLji6WuSequrqq7Vv
+ HpgPbO097rZzafqNuD8fyM44G/HVKov1lZ6+brBMUfcbl9N8DAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,16 +82,14 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: David Lechner <david@lechnology.com>
----
- drivers/gpu/drm/tiny/ili9225.c | 4 +++-
+ drivers/gpu/drm/tiny/ili9341.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
-index 5bf52a8fd75b..3b1f3b9a0abe 100644
---- a/drivers/gpu/drm/tiny/ili9225.c
-+++ b/drivers/gpu/drm/tiny/ili9225.c
-@@ -519,5 +519,7 @@ static int ili9225_probe(struct spi_device *spi)
+diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
+index 003381aa22ea..def7696362ff 100644
+--- a/drivers/gpu/drm/tiny/ili9341.c
++++ b/drivers/gpu/drm/tiny/ili9341.c
+@@ -323,5 +323,7 @@ static int ili9341_probe(struct spi_device *spi)
  		return ret;
  
 -	drm_mode_config_reset(drm);
