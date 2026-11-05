@@ -2,72 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1BA606A32C
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4BD606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:20:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=E3UUEqwI
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqGX0Qru
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03C710E2F1;
-	Thu,  5 Nov 2026 16:20:04 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3A8A10E698
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Bf+MJDlprW39kgLdA31+5ahLWiK/6K9jXMNlueoz/8o=; t=1793895597; x=2109255597; 
- b=E3UUEqwIii7ALeZFT+YkzzqrD1zrfBbCywedaDTBcplEaH/LaKh/+pnLMQHpiQoKFH3pOOpmiN+
- 5m7w6ZsTTwno5oJljLHSgT3OrPLmgbAsTaEJE9YpH/X0VozwwrzZwECGmIZGmCFllVHFrX3DudUcR
- STH3K9BTI3gJEaPILRoaS3AyDE3KSwvNCK7E9LFMnS1O/WBmqLyRnh6azVy2bv64MBbWYEYw50zjj
- 0eXOTgb4GcqSb3KBehvhNHdPAeUwP81pgxGtnP5hDNg7v5VSmmLKlOtE89H+iZXUTBkmiNfwh2OXY
- DP016+mXDGi+xkzGvdOd5dCwvAzBziT71mYA==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xP0Bl-003VUI-RF; Thu, 05 Nov 2026 17:19:46 +0100
-Message-ID: <f52c9e61-3c69-4d1e-8b48-9bdd8b161f3a@igalia.com>
-Date: Thu, 5 Nov 2026 13:19:40 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBC7D10E3F7;
+	Thu,  5 Nov 2026 16:20:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58D4810E3F7
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:20:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E449343C67;
+ Thu,  5 Nov 2026 16:20:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B740A1F0093A;
+ Thu,  5 Nov 2026 16:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793895605;
+ bh=rAfgYJb3CU0ZmVV1RZG4jgQB2Ko2DnWepqbK4ErMKrU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=kqGX0Qru58U+OHeadfWAMb6N1IIP8ucW5R79h/yfRES/lFapRAfnom+jxQL2+D3KV
+ 3VQbn8o338D9ZOjUnPRfSX9vx3or6dxyvJDRfb8uWtUPdtBR1YkqA8RDo+wLHUnYhD
+ SNKeQKf9n/HutLT2t0XYRKog0ysFPvZ1lye/wN0HCNBMvjQH3Fs6cJxkrYv8hOlO2P
+ fawYH0KgT3QqQvH5C6FRD45wGODhb3YMbpl9C6RamZcNoZb9DyM32ieGHf6D7TfVFm
+ AcKZwanrXLScxtreb6moYqjqIjr8iAVyG8uq0LOftKSGgBAYij0D4VGSlvcplT2XAz
+ 3CU89qOPiF6Ow==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <maz@kernel.org>) id 1xP0C3-0000000BiuJ-000O;
+ Thu, 05 Nov 2026 16:20:03 +0000
+Date: Thu, 05 Nov 2026 16:20:01 +0000
+Message-ID: <86zevn1c9a.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev,	Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>,	Mike Rapoport <rppt@kernel.org>,	Pasha
+ Tatashin <pasha.tatashin@soleen.com>,	Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,	Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>,	Jason Gunthorpe <jgg@ziepe.ca>,	Joerg Roedel
+ <joro@8bytes.org>,	Marek Szyprowski <m.szyprowski@samsung.com>,	Robin
+ Murphy <robin.murphy@arm.com>,	Steven Price <steven.price@arm.com>,	Sumit
+ Semwal <sumit.semwal@linaro.org>,	Suzuki K Poulose
+ <suzuki.poulose@arm.com>,	Thomas Gleixner <tglx@kernel.org>,	Will Deacon
+ <will@kernel.org>,	Russell King <linux@armlinux.org.uk>,	Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,	Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>,	Mark Rutland <mark.rutland@arm.com>,	Radu
+ Rendec <radu@rendec.net>,	"T.J. Mercier" <tjmercier@google.com>,	Madhavan
+ Srinivasan <maddy@linux.ibm.com>,	Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,	Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,	Shrikanth Hegde
+ <sshegde@linux.ibm.com>,	Alexander Gordeev <agordeev@linux.ibm.com>,	Gerald
+ Schaefer <gerald.schaefer@linux.ibm.com>,	Heiko Carstens
+ <hca@linux.ibm.com>,	Vasily Gorbik <gor@linux.ibm.com>,	Christian
+ Borntraeger <borntraeger@linux.ibm.com>,	Sven Schnelle
+ <svens@linux.ibm.com>,	Ingo Molnar <mingo@redhat.com>,	Borislav Petkov
+ <bp@alien8.de>,	Dave Hansen <dave.hansen@linux.intel.com>,	x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>,	Kiryl Shutsemau <kas@kernel.org>,	Rick
+ Edgecombe <rick.p.edgecombe@intel.com>,	"K . Y . Srinivasan"
+ <kys@microsoft.com>,	Haiyang Zhang <haiyangz@microsoft.com>,	Wei Liu
+ <wei.liu@kernel.org>,	Dexuan Cui <decui@microsoft.com>,	Long Li
+ <longli@microsoft.com>,	Paolo Bonzini <pbonzini@redhat.com>,	Vitaly
+ Kuznetsov <vkuznets@redhat.com>,	Andy Lutomirski <luto@kernel.org>,	Peter
+ Zijlstra <peterz@infradead.org>,	dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev,	linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org,	linux-media@vger.kernel.org,
+ linux-mm@kvack.org,	kvmarm@lists.linux.dev,	patches@lists.linux.dev
+Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
+In-Reply-To: <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] MAINTAINERS: Remove myself for VC4 DRM driver
-To: Maxime Ripard <mripard@kernel.org>, Simona Vetter
- <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <dev@lankhorst.se>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-References: <20261105142127.708219-1-mripard@kernel.org>
- <20261105142127.708219-6-mripard@kernel.org>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261105142127.708219-6-mripard@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: aneesh.kumar@kernel.org, linux-coco@lists.linux.dev,
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, catalin.marinas@arm.com,
+ christian.koenig@amd.com, jgg@ziepe.ca, joro@8bytes.org,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, steven.price@arm.com,
+ sumit.semwal@linaro.org, suzuki.poulose@arm.com, tglx@kernel.org,
+ will@kernel.org, linux@armlinux.org.uk, benjamin.gaignard@collabora.com,
+ Brian.Starkey@arm.com, jstultz@google.com, mark.rutland@arm.com,
+ radu@rendec.net, tjmercier@google.com, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, borntraeger@linux.ibm.com,
+ svens@linux.ibm.com, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, kys@microsoft.
+ com, haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ longli@microsoft.com, pbonzini@redhat.com, vkuznets@redhat.com,
+ luto@kernel.org, peterz@infradead.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,45 +115,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 05/11/26 11:21, Maxime Ripard wrote:
-> I have not been actively involved in VC4 maintenance for a while. The
-> driver is in good hands with Dave and Maíra.
+On Wed, 04 Nov 2026 16:45:55 +0000,
+"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
 > 
-> Remove my maintainer entry to match the current situation.
+> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
+> not allowed.  Remove the page allocation from this atomic path.
 > 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Use a blocking allocation for the boot CPU and record the resulting table
+> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
+> stage for each secondary CPU.  Consume the preallocated page only when the CPU
+> cannot inherit an existing redistributor or ITS table.
+> 
+> Reclaim unused preallocations after the CPU reaches the online state, and from
+> the prepare-state teardown when CPU bring-up aborts.
 
-Thank you for all your work in the VC4 driver!
+No. The way to do it is to move the ITS probing out of the
+non-sleepable CPU hotplug path.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+I proposed a potential hack at [1] (which I find far more palatable
+than this proposal), but the real fix is to probe the ITSs as
+devices. Putting even more ugly hacks on top of the existing PoS
+driver is definitely not an acceptable outcome.
 
-Best regards,
-- Maíra
-> 
-> ---
-> 
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Maíra Canal <mcanal@igalia.com>
-> ---
->   MAINTAINERS | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 9dcaab8bd5f6..ba7c1f71f6ab 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -9211,5 +9211,4 @@ F:	include/uapi/drm/v3d_drm.h
->   
->   DRM DRIVERS FOR VC4
-> -M:	Maxime Ripard <mripard@kernel.org>
->   M:	Dave Stevenson <dave.stevenson@raspberrypi.com>
->   R:	Maíra Canal <mcanal@igalia.com>
+	M.
 
+[1] https://lore.kernel.org/all/86tswrkrh4.wl-maz@kernel.org/
+
+-- 
+Without deviation from the norm, progress is not possible.
