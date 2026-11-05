@@ -2,54 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68575606D80D
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:32:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230AE606D81B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6aMFSMd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnSr4U/w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C63FE1127AF;
-	Thu,  5 Nov 2026 15:32:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DF711279C;
+	Thu,  5 Nov 2026 15:32:35 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04AAB112790
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:32:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F22112799
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:32:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D08560A5F;
- Thu,  5 Nov 2026 15:32:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9761F0093A;
- Thu,  5 Nov 2026 15:32:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2B19860254;
+ Thu,  5 Nov 2026 15:32:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593221F00919;
+ Thu,  5 Nov 2026 15:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892744;
- bh=U4qTLL4GdrGy+i5Fi0inWkeQg5wg4Sk7QHXJit4B66M=;
+ s=k20260515; t=1793892747;
+ bh=oEwFU8kxGNootWbanLckfnHabmnx6wi8GHXlgZkhggc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=P6aMFSMd1QowdLiFdAqorhSeJvHqd7xNrYY0LXzlKk4LEP4A2P/VCplOI79JsH7o2
- KgPIjwQXf7hHpu1CmsTeksYOUm/dHXkMQdY5J8yHQoYi/ZgD6CDxmSYS9nSWor0hc2
- lYs3oOpBf7xn7meJJNktBcLqXbS+QJlaa0ZQ7/RQP4wx8Yc0gFhngXLGdt8KuE10xh
- B+LnA4o3zygR0MmHCNB8LW5zVxrZWVcsqzFjYB7M8mPQDMzj35yUVaupXI0CPNSDeT
- a9BDYXYuc6YBPHZIxiLWraJAezbdah36zja3YVD0Rth5N/oKhoSva5nuwO+64YuJ7P
- SAXLETw41EkCg==
+ b=MnSr4U/wt5dQXEBlE6k5NouHUv7UDgSS7NOfc1aUrXforJ8VYdkdYlBSrakMkj3MQ
+ 1JNneSDggTVzLsKyzONW0raE7ujyW52rjQuVcv9oLOEvmH6u5gq8ai4AaI2C2kcwSy
+ JWH81ZVOcXW4Bsbwf7NIguWhb0qgzH1k7ziiQ64GkUnUAkpdUsj7cvpqNaoHzV5bqF
+ BZ3+MXIKg97WO+Y9kLVVVIbINSJo/Ejn3f3gY9ojdghCfd299hQsevH8ob48si1S51
+ EeFQaJbEcsEdO98LdXt7kvVYVxFoNqn5+fDJWLSocSSC/x3HKpSUmWPWPbb0/gtf3R
+ +Dbd4Oko38QYQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:45 +0100
-Subject: [PATCH RESEND 36/83] drm/rz-du: Switch to
+Date: Thu, 05 Nov 2026 16:29:46 +0100
+Subject: [PATCH RESEND 37/83] drm/shmobile: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-36-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-37-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1211; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Xx+LYaqASLs8iN4K0HiKC5Ge2XL3pVC8a3xfBXe+Ba4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFrxNE2rMs94iy1/79VjYpw+2US2KS/p1ptRMaNbXY
- /slJGPWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbSvYGxYbKfRuzCnPszNRlM
- WOt9BJZ4n3X8uWJ37qny62XPzUvfJD4we77Q+HL4rIQX0qdv15wWY2y4x8M7y+scy8WG62bHPbp
- Sp/zMEXosahUjcCIlNXJC8pUwqwDv/d/bJXWmFJxjZ0rmWAkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1251; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=MPnP1Fdgr/1ZHUd5Tng6g/AyYwiboeB5nV/LUg9cRvE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFrzd72Zm11LUqj9xfYvf3pJKycQPDp8f8C0I4/w5u
+ VzUUUemYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkwwzGhv5XxnsUP3Jf+7i8
+ 6Kjl57w5or1L96joK1pnebyLrz+i02nbvlyy0fCNaIz/kyXPIh8JMdYXhzrw16qwLA0w4Hy6c7L
+ eosR7d9vMDgi/FXhZvf3xTYtHwj2hMV3VEv99fbdOsam3vA0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,18 +85,18 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: linux-renesas-soc@vger.kernel.org
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c | 4 +++-
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-index 87f171145a23..07171f2f3052 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-@@ -472,5 +472,7 @@ int rzg2l_du_modeset_init(struct rzg2l_du_device *rcdu)
- 	}
+diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c
+index fd9460da1789..4d3a714e255d 100644
+--- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c
++++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c
+@@ -176,5 +176,7 @@ int shmob_drm_modeset_init(struct shmob_drm_device *sdev)
+ 		return ret;
  
 -	drm_mode_config_reset(dev);
 +	ret = drm_mode_config_create_initial_state(dev);
