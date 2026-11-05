@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131DF606D814
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3A0606EE9C
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUD6K/hi
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMUvuIMm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4AC8112359;
-	Thu,  5 Nov 2026 10:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF1D11235A;
+	Thu,  5 Nov 2026 10:55:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8579211234C;
- Thu,  5 Nov 2026 10:55:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C93BC112358;
+ Thu,  5 Nov 2026 10:55:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6539F43EA1;
+ by sea.source.kernel.org (Postfix) with ESMTP id A69E541173;
  Thu,  5 Nov 2026 10:55:06 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793876106;
- b=YAdJiYRy5lVASCh4aTUXzzGhodD2MSNxo+tQbNdqojcBrVm8NbPi6JiSGWzRYd12kkqn
- V3rCXx5Bp70PtZN6NnRNiFjQIanPv96IZYXYwZX91dalaU64e/Q225cZVWZtogtt2s4Zh
- BgDYCJQOOINtsFw/YqPFl1/lhnUJVEd5h1tPfQ3yexmRXM0W5c7xM3dkyOFkKs9veb4yp
- WCRhk+0LWG3gUyhDl6sPhhmePx3/+ucpnifVdXoAt6q1WvSc5XSq1XNCuAakVwaABg+Dc
- klFtMjCceix24FhyxI6WATlNE+LviwlSfnJ5D7OBLCWU/AE19hHCZUbNB3caUt14hVQ==
+ b=boVnRxVa7yMiiHIwEIPr5i4i1/ChP9sGRxYQX1bh1c8DYqfhFElOniZEJV6lynxo+wun
+ n3+QjE8iRiLlb08KSWPVR0bgtVzH9MHIo+c1sL1L3lTtqy/9sXAmgL3mmHIEzpTbp8Z0f
+ nTqm0Es6ApNyDbIUS93IsFr3/iNj7rTNoVlsoiKX3YFJVgGYjn91GQPpZaRDqD0gsutZS
+ i2LTzBzWHpZ+t5YyOFFfdZabORDBS5dC8ypdWot490N4gi+xKKy2aXx7P2wwMKIQLu3vx
+ R5fWMt9Mxlfm7/gx/ukRBrKJ1dVYyJ6BRCsqkLfJfyEFdldK0uZEbrq7V5TnVoycpxg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793876106;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
- b=UaUfsNK+JZ1kd/1hIeIk8qcZIgviR/PQvRegbGXFM/U7e6yQlH3qlXUdmMJXVqH+mpAi
- nzUYklXnzP4YEDPDqgrG/vR/y8DWas7NilajFShwtiiQ4138n6NJO9zt+CzSk9HZzp30J
- vD4mSgjDKDokU5eW7cUTXNibUhGh9HEseuQQZGEtZ/mF+tN8XZ/5bfm8LQpsAfFrnBpXB
- jJsqxu+mXsYD1V283SzhSzwAhvRUu/NuL0uMSyjkM+n0OlcGP92C/JEKfUjqoaWHEbRvj
- Io7SNvnauz6z9D6gKlOZXkZEOnMtw8oOBf5bY5S/zMDnTsIuIPQoHacmwL8wGIl+OBg==
+ bh=040g9tgoQF5ilNHm+RXbvx7PJjfAS0uRa+b5tR6vP1U=;
+ b=mNYwEspQKdg7RZIsYd1WFkKd2BqO0WjoUlR40hzuMiQZyn3fAKsXUDQDYbJsyTALxQ5+
+ SyxP4JGX56CJVs0V8ytwYWe8M+Dspb232HFzeTSJich7N+9/CxsHVZrsRt16Iz5C3FE/O
+ tUu7keT5F8m6Ync2GhFSPJVfLmmDW6QCSiAJfi9f9thklW4yjw/J3kQ/Tk4fnhsDAd6zg
+ HbbKK7m9Yr0tNR0abBqmzwgHTWbGIjLlvgoDa7P1OSXnYT1W+NaGfAvJ1e0hiiLZlxlgA
+ Da3jHs6lFTuU43Uoc/OCxG1v73oI8ZrgI4tq/R18Q+Tk0nwZ8Kl5QZnxu7FgiHBZGdA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 6C8911F00A22;
+ by smtp.kernel.org (Postfix) with ESMTPS id 4EBCE1F00A1F;
  Thu,  5 Nov 2026 10:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793876106;
- bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
+ bh=040g9tgoQF5ilNHm+RXbvx7PJjfAS0uRa+b5tR6vP1U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=SUD6K/hirZTl+t0jdIx3RstJgeWxzfp8CHplQxGRAVjqC2QVeuRO+KaHlIiehAp93
- yliaFgTgAC2IE+ph9xeMQmwt2oOVAtRsbf/7a+KiGLRxG7He3XDlR0skhR8i78R9jY
- k5r70WW4kFAaerrTMldo7aZUshmcW2otdgbIj+JNn7bdZhCvOjB+ZAaOu7CILWDySD
- lF/S5q6KQYMmxKH8FTJa8UNOBHsBi9avHfR2a62ucVZAhb0wxFxjfR8vPW0r1U4Tpk
- WwMmBVyFaOt88KTQbGIyhGSQfCPU0I9BjrLUF3ZrNm26id99wf4pVPcaOM9u2j4gdh
- +TkeEPUTQs/Kw==
+ b=JMUvuIMmu2IVKhS2sEuN+lVHsWzd5wVooZ+TpTeTKOYN4j79l162cv0fn+bGAx7yK
+ K/tLObY1SGQQI5dmtmawxpY4/SasfUbeIaVgA+ub0YKPZAIYhzTQnVfJrUP0WNqYFo
+ Cn2ukjTRjLkc3BdwEUSJRGzJZSUjKL2/7v8sDtl2EK8XsRbZNcGDXvaDd5ZR3Ehwo6
+ KlYM40+yoh7zGMs2wNxd971EIYCt5vj59VcF4xgPMb7yxfFAEFhwy+PIFql2YITwdn
+ Zm/SQ0eIvuCRU/8ZbnpJInFnVSwNT7JPLGIvwxu3vRMe11RkPO2sk/FCwjhldFw/tf
+ 8bmvpuvhU9F0A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 8C26A471FC;
+ by lkml.kernel.org (Postfix) with ESMTP id 6A7A7471F4;
  Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Thu, 05 Nov 2026 13:54:14 +0300
-Subject: [PATCH v8 10/11] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+Date: Thu, 05 Nov 2026 13:54:12 +0300
+Subject: [PATCH v8 08/11] dt-bindings: remoteproc: qcom: adsp: Add MSM8952
+ ADSP compatible
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-msm8952-initial-support-v8-10-311ae8e8f14b@mainlining.org>
+Message-Id: <20261105-msm8952-initial-support-v8-8-311ae8e8f14b@mainlining.org>
 References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -102,11 +102,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Muzaffer Kadir <muzafferkadir@mainlining.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=1656;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=1719;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=8T28pJ+j3T2BfrA/4V/vCpSnX+IH26SQiXSCeXTVAPA=;
- b=g7KDlMPaWyh299ODCALGQrB2v5+x2XtJVpCgL8+3cwaIgFNZl2pjckMc9/QfI/jUd/dT0KCmO
- X5ExalfRhKPBsQnEhfZZSxQy1Ri5XMv9oxYCfAUnse10OxM62KlGmon
+ bh=TdJtPJWcgCTApekSG/YSFXMQlTXs1iJDxy72QBeRJ4I=;
+ b=T86QTCcFsFyUBp42pyRmNcskgrmpmOK8QjvuxWKygJkNXfzpP85MKuEolyU9Mwj3BXjGiAYcY
+ tUmSQ1KD4kKDOykvEwD+rFHRKCyno1XbyObG/bYZOAgz7EEuwaX5hP/
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -135,61 +135,56 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+Document the ADSP remoteproc found on the MSM8952.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ .../devicetree/bindings/remoteproc/qcom,adsp.yaml  | 31 +++++++++++++---------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+index 7e8ecae8e6cb..1e4650aafa82 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
+@@ -15,19 +15,24 @@ description:
  
  properties:
    compatible:
 -    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
+-      - qcom,msm8226-adsp-pil
+-      - qcom,msm8953-adsp-pil
+-      - qcom,msm8974-adsp-pil
+-      - qcom,msm8996-adsp-pil
+-      - qcom,msm8996-slpi-pil
+-      - qcom,msm8998-adsp-pas
+-      - qcom,msm8998-slpi-pas
+-      - qcom,sdm660-adsp-pas
+-      - qcom,sdm660-cdsp-pas
+-      - qcom,sdm845-adsp-pas
+-      - qcom,sdm845-cdsp-pas
+-      - qcom,sdm845-slpi-pas
 +    oneOf:
 +      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
++          - qcom,msm8226-adsp-pil
++          - qcom,msm8953-adsp-pil
++          - qcom,msm8974-adsp-pil
++          - qcom,msm8996-adsp-pil
++          - qcom,msm8996-slpi-pil
++          - qcom,msm8998-adsp-pas
++          - qcom,msm8998-slpi-pas
++          - qcom,sdm660-adsp-pas
++          - qcom,sdm660-cdsp-pas
++          - qcom,sdm845-adsp-pas
++          - qcom,sdm845-cdsp-pas
++          - qcom,sdm845-slpi-pas
 +      - items:
 +          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
++              - qcom,msm8952-adsp-pil
++          - const: qcom,msm8996-adsp-pil
  
    reg:
-     enum: [ 0x5d, 0x14 ]
+     maxItems: 1
 
 -- 
 2.56.0
