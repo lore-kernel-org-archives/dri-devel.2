@@ -2,97 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715D3606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A234F606A330
 	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ws7thbfs
+	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=q1zdsM6t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA28F112C81;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2486112C87;
 	Fri,  6 Nov 2026 09:20:37 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8AD710E3B0
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 22:57:51 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a20bde60a0so11070975e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 04 Nov 2026 14:57:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793833070; x=1794437870; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
- b=ws7thbfs0JV74O32t+ul3lXt2SFuxu3uDBJHYc88l7S12ZkhsDQrZh3KlUFauiIcwP
- IYSg4pehmZGpo1YdcarKVQ/ihjZetRuASMsbzQDYxqYsSHP8AzY0vCXx86hO3fEpyf5U
- JopeOjTsprxFQH06dDR6L0qwQxx3VMMxY2aA6xGToTfyPXGnZOvGJwzQUeLGGVEfWvnc
- WAUkuOmPYewkybZ5C6X1dKMyaZrHV80jsNkxyVRXmvVWq5cgNlsIjSHfmnPWMf5A/h96
- 5ClEFpFeVqpHg5m390mgDSP/X22XwhkKga1F51FkDWoiuuS1aYQtjmGeSzZGP1Kul5fK
- B8Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793833070; x=1794437870;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
- b=N1/hK4BGA6AO+fr1Vq4eYhhYjWSoVkX8Th/188WFqiElfKyhW58VQRyOUx4cEmd43M
- OearWZKSrruzU8nBq8rWrXQCvvOMNTo7YPlJv3iWAznF39k71OZ5mjlCYd6VmXMifW02
- u6I5GY6r11U84P6KQKo4EBH3EbTz9Q6zZ8+oF0J/kPDFcKNwtOTP1h+UH57l9gxidSd0
- J7J391I0dFNjMxgkt+Y7mwNbPbK0a7L1+pbsqtGufm+Nvl67PTw3JXyljtnH65Y8WDS1
- gO0k4ttC7oNZPevj6TU2irYg7UghcnkB4GmBkbQnBNUNnl3hV73tUSlxcte0OHh9HsyM
- aGog==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy5TLmbjJ7V+ccIQD5jgSvvQ33uvWYDFnH+eTLjxN6aOpNYSzWfTqTsCyIhbVqrY4O9xlMra8REGIo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/c9+juLDnPozqeUjMJfDNGkHp3TvBh4wU+U00cmqIKHlLCFNWb
- xIMNzsXlNy8CZyt+W06BtFHqTs+8dslXZ1yaiDWfzMBUDx0vWx44Gphr
-X-Gm-Gg: AYBFou0Cj383PTZYPz2/HB5RR7YleJRWeDyPlxXy9sWefuxJ6WZyHE0CQagKDIyMbY1
- Ci1wLJoUMIFMBPp7m9aLiKp8HhZs/hIvK5l5mEuW6+T8f8Kj5J1Xd+HBUBTOXKQ/bVUaLY00O+H
- yQMYCM6h/FdBrQYrYDzN5YnkGO6Rca6B2F6zOIT1tsRwlPCMagPbdpk9fU8xJaSGE3vA3qCkKGo
- 5qygPuYmZwmTOzxvKSIUZJ9cnhHOVWpBpmZc4QL9pidsj7Z+y/QZbm7Ioxui4h5ehUaVi5iapUe
- x/npzitHCDkwwRH+cx2/eVDtgbJvkVku72HGMi6ZOKJ2tn1GvVYTIw34AK0O1iidU4ONHRawK2f
- AaHeRDX2y3AqjLmsmyJqqs6xK6P5atlDVS3hfMyJRHWUg391zvyhq9MYDaigDs4DcdUaUQZjaQM
- PfN56tbs+7C5MADhatSs5N16Za4db9Udqo3mVQnvEt0hWRTMSPJcPkDQcSs+KlQGrE3Bk/YgcUc
- 60AofdskqX1k++SNIyORNKKCcNeKsD8O0fXYnrTNlZQopnD2Y7VwVRZ0GNnVciXY2vT/WfND3QQ
- knjur1fleTHsgeBaDKtXTRQ=
-X-Received: by 2002:a05:600c:6212:b0:4b0:a7aa:843 with SMTP id
- 5b1f17b1804b1-4b0a7aa0a54mr222825565e9.25.1793833070285; 
- Wed, 04 Nov 2026 14:57:50 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b5725061e1sm17756545e9.7.2026.11.04.14.57.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Nov 2026 14:57:49 -0800 (PST)
-Message-ID: <93d13781-0c37-4a3c-8fca-6f8108eff35a@gmail.com>
-Date: Wed, 4 Nov 2026 23:57:47 +0100
+X-Greylist: delayed 346 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Nov 2026 13:53:22 UTC
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA53610E028;
+ Thu,  5 Nov 2026 13:53:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1793886797;
+ bh=uWmr2ZKtpH5h2OBV51HqQXW86BPRnxbtgCLgC9kQTMc=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=q1zdsM6tOq7ieGS8iHqv4aJObV5BZcPF+E0QhFE/7RTjw2O3CRZKOepFXGVtpRKNW
+ r1sj4CsF/MqQP6NM86gpCuTighaL1H/fVqqC/StiDQ+IXtZwfscdJFWdVgiF5WlFNU
+ n6IEEpRuJ/3pwJUeN0jOPcCrRe7ryv5qN54Rdol0=
+X-QQ-mid: esmtpsz16t1793886427t16ce7834
+X-QQ-Originating-IP: KKWTrCpi6UQoea4zvr1hB8wuxKsh3btIMCG7n8Tta0I=
+Received: from exmail.qq.com ( [113.89.160.251])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 05 Nov 2026 21:47:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13853959520253082465
+From: Hanson Wang <hanson.wang@ugreen.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915/dsb: Fill all padding before GOSUB
+Date: Thu,  5 Nov 2026 21:46:58 +0800
+Message-Id: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] mm/rmap: duplicate a PMD mapping as one in
- folio_dup_file_rmap_pmd()
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
- <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OBupBPlx2MQ7edX+gYnAZbXL458segYHv0zB8Fyakxq9ghgn/g+TGnbt
+ 3cU4fyOw+rXrAWvmu56XNteobRofspeiYXXqpI3YuUOIjLfZe6ZbK5X8MaTrD8jUQtv98bd
+ Y9X9SdYdnR0lvPRuIZGUPm7AKIGqTiH2R27gkwojcsqJfHG3ZA6dwJg/Zw1/Xx1/5siiEAT
+ spJpUhvi9S0jXhtOzsBhyji3EicuMDN/j+r/R4nFzoG1JT3JQyb3bf5XFj8lQwwLE3W9gYp
+ l8Zp/RD98cfKn6StRMlU/Scfuf9QQ/prLjjh2eemUVdmDCpFgtCMOtlyb66ui2qi6nwHPZp
+ VcFNFjsRUlhP2wTktZWlfLNm/kx6w8DXZINTgseDOWTDmziAzg/djXrZ8j/49iO5PJWH7fm
+ Am2j6PZNYUODuG+G+QsILzgCu4lr/MDEytvqvIxcRQYGX/I0vKGdgZ3FQGq2ERjn7lofcui
+ QqiNsgvwsdQoYZmSjVjejBLcXkPL4OEwS8+bT8YS9rwBG32+5r7cmP5XJoAXwKHc7qCakmq
+ UtB/s1voApDVbpaRq84xIf7yASrBztwEMZ/y9mGYLb/fw0rggen/Urja6LPlAd/B5QCn4dW
+ g6Ch7ZaGny9SO2nIgzLruosQlRd4ZNsZDztp/BfWdEpPecBIZ4aZLjPgU1wZwVNrHn0rCqd
+ r5f/6dQ48lJG/xDcfYjMGuNliEsI5HjjNi+tiN1dKgc94iQkPwRAFkD+tXS7LROk9xCNnn+
+ c2pikJQDBvLAnAOTXE7hiRbkOOEHneza5b0EVs7t/mrWo7emWIW4SpvIqz0RV37KNNFTGZX
+ zq6fZq7Vrrp4xvBUChA89rwdqHcWBGYL4Pv2uifD7Ry4Spp0+vEyU/sAOzbmb/9fmCnO6+Z
+ RsLp8SQj9BS/KmhPz7B/rwtBlEz8PAn6uXjNTUDv5X0sS5H3sN0vAPQtLPhKP1gOCmulVhz
+ DccTdjQwfQ0gtM9RmSwlc/2YQP1LtI1Lmubd5qexO3oG2zYyiTejNk3YAYoW95zcewDd7ge
+ AWXnMP+CMsGCM+8ztI03lPSaEF8zU=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,33 +78,63 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
-> folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
-> __folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
-> PTE mappings to the folio instead of one PMD mapping.
-> 
-> The helper has no caller yet, the next patch adds the first one. Pass
-> PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
-> 
-> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+intel_dsb_gosub_align() aligns free_pos to a cacheline boundary
+before emitting GOSUB, but zeroes the skipped bytes only when at most
+two QW slots remain. Any larger gap stays between head and tail and is
+fetched as DSB instructions.
 
-LGTM:
+A Panther Lake dump taken from a DSB idle timeout shows that gap: the
+tail is 0x58, GOSUB is at 0x80, and the 40 bytes between them are
+nonzero instead of NOP (opcode 0).
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Zero every byte skipped by the existing alignment. Preserve the GOSUB
+placement, which avoids cacheline QW slots 6 and 7 as required by
+Wa_16024917128.
 
+Fixes: 2c41d62f6fb1 ("drm/i915/dsb: Implement intel_dsb_gosub()")
+Cc: stable@vger.kernel.org # v6.17+
+Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+---
+Hardware: Intel Core Ultra 5 336H (Panther Lake), 6.18-based kernel
+Reboots:  7/100 DSB idle timeouts before this fix, 0/200 after
+Build:    6.18 backport; both xe and i915 intel_dsb.o
+Upstream: not built or booted
+Reproducer: upstream intel_dsb_gosub_align(), buffer prefilled with
+            0xa5. 5/8 cacheline positions missed NOPs before; 32/32
+            pass after, including the 0x58 -> 0x80 gap from the dump
+Limit:    these results do not show that every DSB or flip_done
+          timeout has the same cause
+
+ drivers/gpu/drm/i915/display/intel_dsb.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index d9a270362a82..b71e99ed8705 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -607,8 +607,13 @@ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+ 	/*
+ 	 * Wa_16024917128
+ 	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-7)"
++	 *
++	 * free_pos always advances to the next cacheline, so the skipped
++	 * bytes remain inside the programmed command range. Fill the whole
++	 * gap with NOPs; clearing only slots 6 and 7 leaves a larger gap
++	 * uninitialized.
+ 	 */
+-	if (aligned_tail - tail <= 2 * 8)
++	if (aligned_tail > tail)
+ 		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+ 
+ 	dsb->free_pos = aligned_tail / 4;
 -- 
-cheers,
-jose a. p-a
+2.34.1
+
