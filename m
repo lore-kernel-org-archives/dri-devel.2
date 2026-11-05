@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AD6606A331
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF7A606A328
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHpiedcA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3bBpSfq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEFA711276E;
-	Thu,  5 Nov 2026 15:31:36 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AAC011276E
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D33D711277D;
+	Thu,  5 Nov 2026 15:31:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D69811277D
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0225C4363C;
- Thu,  5 Nov 2026 15:31:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8401F00919;
- Thu,  5 Nov 2026 15:31:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BA37660416;
+ Thu,  5 Nov 2026 15:31:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB941F000C1;
+ Thu,  5 Nov 2026 15:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892689;
- bh=1LJ2B9xzjXFQS9/NfVwYMSwe7B0jPIf/4wDSEVo0PJU=;
+ s=k20260515; t=1793892693;
+ bh=s9rn1LkKNo5IXTOTlmdXquj0FVx/2gKURS6OQVVX7dI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=MHpiedcAvKcoCajuF6LQaEIYC6nOO8jMgLhFWybLjfLzVvaL0nr02jRfhDkurl5cv
- epYWOk5H8Pfzwpo/NLtiayYC6hhwcHnnixBhdenNjWGG4kpeWDnGFcr9LAwp31VnMR
- vrSO5/k5vhjdaFq+ZQm1QIQYDmImsBGe292p06jjZwM6+3G1+96QYfsLLsvv+P/MUp
- n72ekwHKKGdKFIQA4sbtCq9FEvUJsHLbwrJUqTUsFBSjRy21+adHyIcqQb3KKt9GpQ
- 2HYg7EjinzCjWUg88e/eHA7RVgS38ihGCga/qTSHWXnIdH8MhH5LfSORKCax6vNLxm
- alyytaMECHjzQ==
+ b=f3bBpSfqlsg7Q1pP1IynYZxR7Q42BeZwFpuC5uav88fNSv19PiP4xW3Zys9GsM8EX
+ KWFVPQoTAvjacwUSXdPn4Uc4lLpHLAJXWnLRylYDY1r5pc3WA+1ynX3oYArwOvDBsD
+ UYyhwnkka04j0rNh0GI0vAvTfGDsmwBwaqwsLxSLysQI77ooZ88q369FGM7onE/nBL
+ IFFAlKOxVrv+GD1LSagYaoDEoeKCy3rDrMrgCKwc8N/VwFsoLxxOMBXQbjSi8BEciX
+ aYEA4Ogdlqee6bA3OibMRrbVE8YG+QkwIoPilkp9sYsBVHxsbwjydk5iFmhqLXtNmR
+ jINaVaxa0UMzg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:30 +0100
-Subject: [PATCH RESEND 21/83] drm/kmb: Switch to
+Date: Thu, 05 Nov 2026 16:29:31 +0100
+Subject: [PATCH RESEND 22/83] drm/logicvc: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-21-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-22-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>
+ Paul Kocialkowski <paulk@sys-base.io>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1065; i=mripard@kernel.org;
- h=from:subject:message-id; bh=0ahAYTCVRD/vFypgGxF58UVtbOyCvWJHddNORmE9dmE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjw74vzwwt8l35YnajgXbX03df31349PK3jeMDfaz
- lIQOGvNwo6pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwkRgdxoZ1C9KlLeXbHZ+9
- f2947F3rFm7+0P8qZUpz33Fsn/Hmp/juOY/EVtT6Gp4M2LwwRvOH61/GhjdLQhxj12Y7sYpf9Hh
- 750aXWkhV5Knf/7Q1fT2e7/xjo+094XPURrWAJeH14os9TZ9uAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1194; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=soVS9mt/NxBvR6HuwPnc/5nJQXN7K+fEDZR+AQnuVac=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjy/dP7zzba5Jhsr/zs9vvb3p5fZ26NzRaO/uj+v/
+ WcTVmKd2TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmwtTH2LB17pftjdH1v4V3
+ rilUZznNIjzt05zOialO21QntP50ucT4mtH2+xTOOYsWbH2Qc0pzTitjnZHKjRvXLZpYl80tkr7
+ 77s0/D02WZL3TU9M75Lu+vpzbN01EcN+s7l5ni57pvyOOyvbvBQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,23 +83,24 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Anitha Chrisanthus <anitha.chrisanthus@intel.com>
+Cc: Paul Kocialkowski <paulk@sys-base.io>
 ---
- drivers/gpu/drm/kmb/kmb_drv.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/logicvc/logicvc_mode.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
-index 7c2eb1152fc2..fc8ab5124bd6 100644
---- a/drivers/gpu/drm/kmb/kmb_drv.c
-+++ b/drivers/gpu/drm/kmb/kmb_drv.c
-@@ -199,6 +199,5 @@ static int kmb_setup_mode_config(struct drm_device *drm)
- 	}
+diff --git a/drivers/gpu/drm/logicvc/logicvc_mode.c b/drivers/gpu/drm/logicvc/logicvc_mode.c
+index 3cf04b70bd27..15503f96743f 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_mode.c
++++ b/drivers/gpu/drm/logicvc/logicvc_mode.c
+@@ -62,5 +62,7 @@ int logicvc_mode_init(struct logicvc_drm *logicvc)
+ 	mode_config->funcs = &logicvc_mode_config_funcs;
  
--	drm_mode_config_reset(drm);
--	return 0;
-+	return drm_mode_config_create_initial_state(drm);
- }
+-	drm_mode_config_reset(drm_dev);
++	ret = drm_mode_config_create_initial_state(drm_dev);
++	if (ret)
++		return ret;
  
+ 	drm_kms_helper_poll_init(drm_dev);
 
 -- 
 2.55.0
