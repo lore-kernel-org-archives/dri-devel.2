@@ -2,85 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D37606A335
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 12:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578C9606D818
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 12:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=r87VV7ye
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1YwZjkbL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9865210E26E;
-	Thu,  5 Nov 2026 12:25:09 +0000 (UTC)
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B769210E26E;
- Thu,  5 Nov 2026 12:25:03 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A59ucxq522533; Thu, 5 Nov 2026 12:24:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=Tv+AHQghVp6WS0kGDJXAni7
- BQSviv9lss6FaWUn8x9M=; b=r87VV7yeav7OzgfUP6zyDouNfP+JpnbLLm0wQgq
- KqEwe/QfkJccDdOB7I22oTc1Sx51dCN58GyGJlS2OhMfHtqqFsius0u+5y0nwYcV
- GzHXdgzaeuh2o4soObEgPDsR8a3BhWDNVHSM+M0ExyUtn4JIB2WGsmVK0FG/fmk6
- 45Bh9saQMANK3j5lKzt2i+sfJzEy6+dkg5TbOZuk1ljPDG0r9IsaCICmQ46NZvum
- E09jjVD7MvwSeZHidqz5lnuCp7gq517iYwlYJEhGfs3pB3CEyZ0CE5TcbYUdcQFI
- ZNyeWQes1IeUD5+K8HmP+ZJ3U9lcU52Bc+T8NPn1JLzEd+A==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hr3j6rw22-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2026 12:24:44 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 12:24:43 +0000
-From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Date: Thu, 5 Nov 2026 12:24:23 +0000
-Subject: [PATCH] drm/imagination: improve DRM_PVR_DEV_QUERY_HEAP_INFO_GET
- documentation
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F0610E657;
+	Thu,  5 Nov 2026 12:25:16 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012012.outbound.protection.outlook.com [52.101.48.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB3410E657
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 12:25:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zgw6yzrxtP8JyTAa2mz84ZJkUDPlPUpDUSvcQfkk2N2P/xDXElN6uOtRv4kgtdcT/uR9fZZEQRL5CvYJiWS9As6AqBYNgCHrFU5uVctGqYIlzj4UrQVqbbGagA7Qn+2CaHvNr5FWkDt2iegKnOJicFuVH8XtJrqxIUNyMxlQrzzpIUsxXgAz7+gO2Rw3Oewptf+MtpdIlS7F3vlbss9dNApsQNFNADtnDI1OGT2BS497lZpvN8VC604MXYJ/Viub5Cegj2LAm12xoLVCacuoa6CplCaWx0/HsDe3sD3Tp+TlbtwAUKhZ3TB8GS7v2RCNjNgcrf+Up1R1Aj4CfVkidQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6I0a9hAJPTnpUKx/dgbfBVJSbgdJISGfDfRvHfkKFjU=;
+ b=WErZFxNvN9PHd/wD7Es/60MCPx7ZUW/uLsND12QMwpSbWCYas1ljYhe9rvtdAvV1/TMVidWI5jJU4kRDbbKdAkEgt5sd9c+u8FA9WEHCjeuQ74LOtIAhxrTHpc0bCibn8GDLdyOz+ZKxCICQjagG2slbc1psOu3TF3xiZ0SpmgOXhU8HInfhN6TpXCZqM2Hrag8LlUTnIcdmAQ4z6LfmBqKnPz/AMx4C+RkiJYEtim/2YdEHdXMAGMYFAMfPDwgKd2BilG2ntt0Y8Oj61gSvCZbwwFW52Ci0DUlpWk6z59faZZfkCX8ZcX/ZJX/6fxHBCZBEvBoMHaKyYELmbMTGaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6I0a9hAJPTnpUKx/dgbfBVJSbgdJISGfDfRvHfkKFjU=;
+ b=1YwZjkbLIUHcozd6No4GTPC8j5AxhS0ldXQjaOobzLmgAx1Nb2jXtEyauA1Dqpsl8lBY+hzcgHrf3qjFZm95AFGkea8wdSTlatsVvgya0Re0x7XJOYNMvtguCVdHxiEWvwFei6UaXjP5sSBTMdMIQjWuX8msiJOl2fm7Zs8FbvQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV2PR12MB5751.namprd12.prod.outlook.com (2603:10b6:408:17d::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 12:25:07 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 12:25:07 +0000
+Message-ID: <a6a2ca76-94dc-4616-8160-d756713e22b9@amd.com>
+Date: Thu, 5 Nov 2026 13:25:00 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: Tvrtko Ursulin <tursulin@ursulin.net>, "Yu, Fei" <fei.yu@intel.com>
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ madhurkumar004@gmail.com, mripard@kernel.org, simona@ffwll.ch,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com, tzimmermann@suse.de
+References: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
+ <20261105081845.1230910-1-fei.yu@intel.com>
+ <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR05CA0042.namprd05.prod.outlook.com
+ (2603:10b6:208:335::22) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-document-drm_pvr_dev_query_heap_info_get-v1-1-b899401606e4@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHZ17GoC/yXNTQ6CMBBA4auQWdukBazBqxjTYDvAmNCW/kVDu
- LtVl9/mvR0iBsII12aHgIUiOVshTg3oZbQzMjLV0PJWCsHPzDidV7SJmbAqX4IyWNSWMbzVgqN
- XZCenZkxMStnjcBm6rudQcz7gRK/f6nb/O+bHE3X69uE4Plw991qMAAAA
-X-Change-ID: 20261105-document-drm_pvr_dev_query_heap_info_get-6664e9793340
-To: Alessio Belle <alessio.belle@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
- <brajesh.gupta@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793881483; l=3455;
- i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=C8+K3L2nsKBAFra+GN8oUHH2+EsKQUpWlDsEcy5mfkk=;
- b=J/Skituf9q4/DLGJTN7g7QhW5+2o0Yg4XeeXphSsUZdej9sb1Njs/gFI7XKkwj0ddP0ssUgpY
- 2gx6AosmGLwDEnrhak8vLMMxCysPNJIykdCjsl/m9atDwFajroQ4AS2
-X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
- pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Proofpoint-GUID: v1ikj_VOCsMDsN3UF060SiHFjh5JlRzB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfX64Tlp+ZqmmBO
- Yz5lf3/cB5ExheoSAGyD6P+qdfmt+a5+oTUelsg0bsirfEqV21CQOERAJYUA6CCHNDgnyqPryJl
- LRgIAuv1m4WazPnucf8/3bdiiZqUiUo=
-X-Proofpoint-ORIG-GUID: v1ikj_VOCsMDsN3UF060SiHFjh5JlRzB
-X-Authority-Analysis: v=2.4 cv=DtnDa2/+ c=1 sm=1 tr=0 ts=6aec758c cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=v4fapmwnaPr8F7IbrnYA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfX+aZYqYmxpFXh
- KwsH+Kmpj81tYA0EZTp4cFxlTfBMaTlrh/lu3CnE2fQYglu9Q11V/2j4vxfJECgTHiemDxEPr78
- gaJugtN5BMsV+5iR8pbUlPm78FwF/q0dcjCMjR54E3minRQtEdfxkdVMDgvm3JWzoCjaSS4vbmn
- XfMYqwMCjcXTX67Psb2yv2Q1ekJJ1QRqy1y9Tjo+UBWQoMYcH7DT1FWCTIQf/iZxLUMlAdoxTMC
- kFMwT/iwGxwLhu6u5/VRCBoF0W1xXt6sN9Jln+WPVdRyt2tjUiQ5R/9HwkfbNYKhM+1A+12C6hq
- CWhS8AdjdhwPhOlqbWQYFhGjzlAMal8NexrcrsVI0LC7Ls/isU6CWAF2kvijf7iNmMn2Cyl7vZL
- foTAbNjBK0JV5Hq8zdq/+1z2jopJu5Tnwa3HQRR3b0yo0eaSOnp+acNTKqVK/UrqdK1OpM+mlX1
- SQ6oqv/u18hSoTcJi1A==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB5751:EE_
+X-MS-Office365-Filtering-Correlation-Id: e46d8255-35db-45dd-65c9-08df3b37d3bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|23010399003|366016|261026121527099003|11063799006|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261022075727099003|261026140227099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: UN2/GRaUP0FVNZq09Lzcl8KZPSSycYEBwGGnsZ/3bvGnIs0lPkhNPS7kCGyYYxDFq/3qcT8/DhFcE87hwC1jPkfgWI7gUXSFHPf+D8Xm5LR/5k/IWj2I2CH7A9Jq5XqaUdBUf0dAvug/dvmF/Zf5UakL/q70DLmw4wOT4fjlNOVxKXWYEqyNWksT5OmdMlt97jPPkX1y+bC2vyWklDvQxJp3/KJ71IITcDyrQVvxO1Qm86QQpDhtDOspOK0iiJXnTLAZMd21ilbH4AeEidEvz962w6nR8E/DhXRLTVokiw9PWGk1FbMArb48xXEeryBRh1Lef+GD+HPTBig4aXd0LM92gtawfWrzud+XWh16meSQRhkwhkaCESnwjRslyF7xCLfv9R27mT6JbtbPVlx37oAcszdBkUOCc+YrMa+eh7ChwqeZd6VixTIs39tezStqVAboH1rowifDcjL1Imi04jqGw8spRnWIoxsN4KpseoP68qWECZfnNr7IeS9UnAIRTqdR6/MAVqQavBQ3KyrYKOkJlZuEEgqL5vEeCJY83bZhhN4mnRX7wUG89QKX1phZa+7BkTZ8WhLpgPgwChu4hBQPQN4NICTNy1xSks5EuIFdyo4uwh6IcPJdDpIOfDjk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(261026121527099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDNQUHFqR3A4dmpSNW0vaTVWNXQ3TTZiRWZwOEVHOGRLN0ZhVUtTZFRBWWhq?=
+ =?utf-8?B?T3l0VGhWMzVXS05JbitKZjdSMXEvSGo1ZFlFVTlOWEg3ZFJpaTZzM3dQQ0pw?=
+ =?utf-8?B?N1RZRXR6L1lRZmk1d09hczRTczNiOG1pWE5heGRBdUVhME1BalF0c3Z1b1g2?=
+ =?utf-8?B?MC9SMHNFcGpZOGJPZm9pNWxXRWxGYjNFQ0swMjJsV3NSYXBWcms0K1NkMG9y?=
+ =?utf-8?B?Q1kvOEpYT0lIaXAxSWpCZnIyQWZUeG9zRzBxNSt5OU0zMnZoT2V3YWFEeEI3?=
+ =?utf-8?B?REhRcnlkejJTQWp5MEEwNEgwbEJwRjZQVGUvUmdqbGM2OThvRWRXbEhBQlVh?=
+ =?utf-8?B?VEkwSjNOdnRiZ1YzSjRXV3IrbVlsUDExTUFsclB5cytSaVRmUVFIRWllWWhJ?=
+ =?utf-8?B?VG81bzZzM2MvWC85OG5JWlhGelZjZFlsL0wyQTdUTDhyWTV0emFhQURpWEVI?=
+ =?utf-8?B?UGNTYlBTWjE4NGxTSU52NUpvMCtBMUVCamxjZ1ArUVRyZzBGQ1RabnhhVi8v?=
+ =?utf-8?B?dXJKMTBDMyt4Rll3Y2RFdWhyRFJTbHJ5QWZNcXh6YU1jdHZXSnFwbGxFckJO?=
+ =?utf-8?B?MlpkUVNjOFZWdXRrSkgraUpraXAwS0tQT2JIQ3RQc3dsT3BaZWhoUW9SZ0NF?=
+ =?utf-8?B?VE1FUmtNZGV4VUZYTlFvSlFQQWRzbVErWTMxT0krVDZBaWE4TU9MdGNJcXRT?=
+ =?utf-8?B?M2RHank0WTd1NzBPZnp2K09DL2RhYmpHc0RxdUlqU0J1VnYwMExDL21uOVJx?=
+ =?utf-8?B?ZXByTzRybXJPdUtKZVcyUld4RE14ODFCVGhIS2lNNTMwVXh5UWs1S0crZHJw?=
+ =?utf-8?B?TmJYdzhFd2hYemhOZmdQcjg4RklUNlpRSGczWlQ0K0o5ZEJlS09DUmROMTk4?=
+ =?utf-8?B?L2RYMDNieHdHMEVSMEdXQ3MvYVIxVS9tMHVKbHh5dnZ2MmFtMG8yTzhVb0M0?=
+ =?utf-8?B?MlVqWTNhOVlPM3Q2SjUxT0pVVWIvUUlNaXM4ZjhzZGg3c0VSOU13c3NiSko0?=
+ =?utf-8?B?WTdqdkdUMnZ4TmJJQlkxQTZzbllka1pMdXNqcy9zY0hnUWZVR0JuYzQ3TjlH?=
+ =?utf-8?B?MGNRUCtzUGN6S0dGQzd5bmdtMzBqQWFjYnFRTFhRTlhEdFNpYUd1L1czdkgw?=
+ =?utf-8?B?WGh0eTFBeVdoV0libVpudUQzSTRXaHQ3UHpGNzNPWFdCdnJURWFuaVladUY0?=
+ =?utf-8?B?SVg5K0VmdEx2UzVTTzExOU9zU0Q4OXVFVENGK2pzK0RZSWdUZVY1azNSRjFL?=
+ =?utf-8?B?Y2Z5emh0aThucHBoNmRLR25odm5UbzlSMUt2MkVnU0plVWVTYjR5RXRsRVBk?=
+ =?utf-8?B?ZzlkeXFBZC8vcEljalJYMStLdzNWcE4rNDFoelk3bUI0MStlMDZSZFE5Nnhk?=
+ =?utf-8?B?TTBpT0Z0NHpySWNtZWpSYUpVcHRTU1hZNktka3lGaHRMUjNGRzNiWVI0bE0v?=
+ =?utf-8?B?NjVaS2ZHaTFEZHZPVk9xcnFOWFZwUkdHcjY2K0dmUlBzcEliTWJBdkxkOHlD?=
+ =?utf-8?B?MXBkTVZMemVEYVJOVjRBL0x5TDFRdmNLd1pvcXU2WFlDMVpILzBuQUVCOGhI?=
+ =?utf-8?B?SWNpNnNhY293VllIaHpmZ3B4bzhFUW9HaThuZjJIYkhTd0VORnVqNnVVUmtU?=
+ =?utf-8?B?NmdTd0ZDUVZEK1Y0cnZmMERweDhTRXNTZEhuR2h6MEFOdEpVSll1VVZ4Uzh0?=
+ =?utf-8?B?VXZGT0h0enFDWnhNNTJXVm90QmxpcUxqeitsQllPbVQ5M1RQQ3pQOEkvTmUr?=
+ =?utf-8?B?M2tNcjNWSVpMQWNFa0dlK0dVMjNLT1hrQSttdTZiZjFpcS9ldFRqUHJhWFlF?=
+ =?utf-8?B?RXZWem5NSit6N3ZVVDhFRCtaaktBM3g1clhENUVVN28xZVZaV09aZnhvZk05?=
+ =?utf-8?B?eXY3MzR4L2Q1SERJVlVTVVJFdklESFdFM1BseXJsY1NpbWc5MFg2N1RFNzhs?=
+ =?utf-8?B?YUd2NXl4bmZ3QWdKUlJlNm1Ydm1uNHVBeHJDeEZZbmt1UXhuMEZCY2xJb2Ix?=
+ =?utf-8?B?bHNMTDVxak9EMU5mYWcwVjRjeDVncnZtaUJmWjdTTkpscDZsRlo4NXAwUHNS?=
+ =?utf-8?B?bU5MTGN5RTVydmg0Y0VNQlJRU3BTZmVjakpxYUJ2OVhsRVh0Uy94Kzh5YzFk?=
+ =?utf-8?B?Z3RtMUw2YTczWEpGM2F3TWtzbjVaNWpWYmF4MG1rWFpXSWdFZHZwM3pmOFV2?=
+ =?utf-8?B?Sm1scjlqNXVVZUkzU0NHQ0FUQ1FIL0RaSmhIaEJlTGgwUHdhZURHSEUzYXNY?=
+ =?utf-8?B?c3VROFJPbnc4ZnVTRCtSRkJtMms4MU4xbkdsR2NKLzhzY1ZIMm52Y1lnWnVz?=
+ =?utf-8?Q?7c3hPY6sTEXfHvW94y?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e46d8255-35db-45dd-65c9-08df3b37d3bf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:25:07.3146 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lSZQSuaycYJOKUr3vTofgcYAxts0pC3E1vXlmZPxnocwzAlitZ9CodITb0FEgJSz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5751
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,84 +134,91 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add more information about how the array of drm_pvr_heap is filled in and
-set expectations for when userspace and kernel run with a mismatched UAPI
-header.
+On 11/5/26 10:12, Tvrtko Ursulin wrote:
+> On 05/11/2026 08:18, Yu, Fei wrote:
+>> From: Fei Yu <fei.yu@intel.com>
+>> On 04/11/2026 10:27, Tvrtko Ursulin wrote:
+>>> On 04/11/2026 09:44, Christian König wrote:
+>>>> On 11/4/26 04:09, Yu, Fei wrote:
+>>>>> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
+>>>>
+>>>> I really wonder if we should put that into the uAPI files?
+>>>>
+>>>> Not that userspace is potentially using it, but this is part of the uAPI
+>>>> and makes sense for documentation purposes.
+>>
+>> I thought about that, but I'd prefer to keep it kernel internal, at
+>> least for this fix:
+>>
+>>   - The value is derived from the size of a kernel internal struct and
+>>     from the kvmalloc() size limit, so it is not the same on 32-bit and
+>>     64-bit.
 
-Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
----
- include/uapi/drm/pvr_drm.h | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
+Oh that is a really good point, but most certainly a bad idea.
 
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index ccf6c2112468..cd85ac257cdb 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -258,9 +258,22 @@ struct drm_pvr_dev_query_enhancements {
-  * enum drm_pvr_heap_id - Array index for heap info data returned by
-  * %DRM_PVR_DEV_QUERY_HEAP_INFO_GET.
-  *
-- * For compatibility reasons all indices will be present in the returned array,
-- * however some heaps may not be present. These are indicated where
-- * &struct drm_pvr_heap.size is set to zero.
-+ * Userspace and the kernel may have different values for @DRM_PVR_HEAP_COUNT.
-+ * In this case:
-+ *
-+ *  - If KMD(@DRM_PVR_HEAP_COUNT) > UMD(@DRM_PVR_HEAP_COUNT), then userspace
-+ *    should either:
-+ *
-+ *    a. explicitly request a number of heaps by specifying a value less than
-+ *       or equal to UMD(@DRM_PVR_HEAP_COUNT) heaps, and the kernel must
-+ *       ignore heaps whose ID is greater than or equal to this value, or
-+ *    b. ignore heap IDs greater than or equal to UMD(@DRM_PVR_HEAP_COUNT) by,
-+ *       e.g. capping the value returned by the kernel.
-+ *
-+ *  - If KMD(@DRM_PVR_HEAP_COUNT) < UMD(@DRM_PVR_HEAP_COUNT), then the maximum
-+ *    number of heaps is capped by the kernel at KMD(@DRM_PVR_HEAP_COUNT) and
-+ *    userspace must ignore heaps whose ID is greater than or equal to
-+ *    KMD(@DRM_PVR_HEAP_COUNT).
-  */
- enum drm_pvr_heap_id {
- 	/** @DRM_PVR_HEAP_GENERAL: General purpose heap. */
-@@ -269,7 +282,7 @@ enum drm_pvr_heap_id {
- 	DRM_PVR_HEAP_PDS_CODE_DATA,
- 	/** @DRM_PVR_HEAP_USC_CODE: USC code heap. */
- 	DRM_PVR_HEAP_USC_CODE,
--	/** @DRM_PVR_HEAP_RGNHDR: Region header heap. Only used if GPU has BRN63142. */
-+	/** @DRM_PVR_HEAP_RGNHDR: Region header heap (optional). Only used if GPU has BRN63142. */
- 	DRM_PVR_HEAP_RGNHDR,
- 	/** @DRM_PVR_HEAP_VIS_TEST: Visibility test heap. */
- 	DRM_PVR_HEAP_VIS_TEST,
-@@ -310,9 +323,13 @@ struct drm_pvr_heap {
-  * struct drm_pvr_dev_query_heap_info - Container used to fetch information
-  * about heaps supported by the device driver.
-  *
-- * Please note all driver-supported heaps will be returned up to &heaps.count.
-- * Some heaps will not be present in all devices, which will be indicated by
-- * &struct drm_pvr_heap.size being set to zero.
-+ * Please note that drivers may not need all the heaps that are returned up to
-+ * &heaps.count in &heaps.array. Unlike for required heaps, optional heaps are
-+ * used on some GPU cores only. The kernel indicates when optional heaps are not
-+ * needed by setting &struct drm_pvr_heap.size to zero.
-+ *
-+ * The kernel copies all requested heaps into &heaps.array matching the order
-+ * of heap indices as they are listed in &enum drm_pvr_heap_id.
-  *
-  * When fetching this type &struct drm_pvr_ioctl_dev_query_args.type must be set
-  * to %DRM_PVR_DEV_QUERY_HEAP_INFO_GET.
+This means that code working on 32bit then suddenly fails on 64bit, not something we should do.
 
----
-base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
-change-id: 20261105-document-drm_pvr_dev_query_heap_info_get-6664e9793340
+>>     To put it in drm.h I would have to replace it with a fixed
+>>     number, and that number becomes ABI. We could not easily raise or
+>>     lower it later.
 
-Best regards,
---  
-Luigi Santivetti <luigi.santivetti@imgtec.com>
+I think I prefer a fixed number here. Something reasonable large enough, like 64k or similar, should do for backporting.
+
+>>
+>>   - Tvrtko's series below avoids most of these allocations. Once that
+>>     lands, the right limit may be different, and an internal define is
+>>     easier to change.
+>>
+>>   - The patch has a Fixes tag, and keeping it out of the uAPI header
+>>     keeps the stable backport small.
+>>
+>> For documentation, I could send a follow-up that adds a sentence to the
+>> uAPI struct comments, saying that count_handles above an implementation
+>> defined limit is rejected with -EINVAL. That documents the behavior
+>> without fixing a number. Would that work for you?
+
+With Tvrko's patch to avoid most of the allocations in the future that approach sounds reasonable.
+
+But I would still use a fixed number and maybe a static assert that we don't hit the kvmalloc limit when we allocate that fixed number of structures.
+
+>>
+>>>> That kvmalloc_array() + the following copy_from_user should probably be
+>>>> replaced by using vmemdup_array_user(). But that should of course be a
+>>>> separate patch.
+>>>
+>>> Btw I tried to do that some time ago:
+>>>
+>>> https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
+>>>
+>>> I have as local, more recent version which applies, but apparently never
+>>> sent it.
+>>>
+>>> Interesting part should also be the other patches from the above linked
+>>> series which avoid allocations altogether for the vast majority of cases.
+>>>
+>>> If there is interest I can re-base and re-send after this is merged.
+>>
+>> Thanks, I wasn't aware of that series. I'll leave the
+>> vmemdup_array_user() and points array cleanups to it, so we don't
+>> duplicate work. Happy to test it once this fix is in.
+> 
+> Thanks - just to clarify though - I understand I wait for your patch to land and then rebase my series, right?
+
+Right. This here is for -fixes, cleanups are for -next.
+
+Christian.
+
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
 
