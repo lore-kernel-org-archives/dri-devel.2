@@ -2,42 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C75606B451
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A35E606A608
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYTWZRgz
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Zt2iw1oW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C0411285C;
-	Thu,  5 Nov 2026 15:53:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D3F11286D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8797542E87;
- Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FCA81F000C1;
- Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793894033;
- bh=SHBA1vqD/9luhzV9mQ1L/1X7uLuP80RiS5qXE97Uokg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KYTWZRgzcrBJ1sHB5lCHA2r5dI2XkE0TSPqUYZeHDdXZzGYL6SsmdyTDIGSon4i3i
- j08Gzjoefd1KE43zZb1HxSW5jzamd5JhzNMpFrVP4Ak5pb3Q13PEitWzEIb3d++/Z3
- 1upOaqBZv8AB+UtFDGqek/gLtxJ9mYVkWmEh2a+wExJhtJELPNvVrWzRR8o8s2jFx/
- bElS9+L5WB6484jhosibgfe138mGNGMhzM0WLI5JA1iFDTNap5CYUVDbvrvAYyGEGt
- KsM4bCKtlMkUtfryLG97x+d9/vLMLhjEp9uyaV6+V1y5xeIm3vydNEZ/vUGqkTDqtS
- nbNBxpJuj9gSw==
-Message-ID: <sashiko-outbox-199365@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC] drm/msm/a6xx: Reset the GMU state when restoring
- from hibernation
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261103-b4-drm-msm-a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com>
-References: <20261103-b4-drm-msm-a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 15:53:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D46E112859;
+	Thu,  5 Nov 2026 15:54:09 +0000 (UTC)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB5011286F;
+ Thu,  5 Nov 2026 15:54:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793894029; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=H02ZAr5Vw9Gs31CTvx+lICyFIHdpMWyn56zfo1ZbTp7MeBADqoWSOs6ixHiX/sSnD62iZCVlC4TjfnteMCo+TCy2DaFkpzf4rkEQEtAI4PK/7mK0w7txf5Pdf/0YiY/GPZXa3hXfSeBPwHCB8hYa1vRB54VgyujhAYrINnMP1x4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793894029;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=6/fwN93QKXlrtEMORZyL36eAUclAA0jiIqQ2lFOaVlU=; 
+ b=dOwreIY/6IBxG4H2bL47N85ulMTOCgF9SbugYezL1iJsbP4uYRU4uVtFxjxztPXO8WY3koFNer3iToHObO5yjl8NIQEtsbxuq7ydJ/Tf9ATFcYFR9PhvMNtjbGwuLOCc6mUvWDgdS4ccEHU9t4qGWf5B6eeCFBjedfuE+vUwk84=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=Zt2iw1oWLewd89zpH9+Ru/LuCDkqphfaszhoj0X6axcHoAWm9w9rzkjx2LXUNK8BMstv8INg2EZoLYvPS3UCz3nzr4SBSfIhhaj9bjGXkyFVSCmnQ2yzNVW1z1Vzf067eFDUfFDuzAiM1FZ1g6wwFwsC1uGliaLYyzycvto+82k=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=6/fwN93QKXlrtEMORZyL36eAUclAA0jiIqQ2lFOaVlU=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793894028283757.3938461427174;
+ Thu, 5 Nov 2026 07:53:48 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Nov 2026 16:52:03 +0100
+Subject: [PATCH v2 12/27] drm/rockchip: dw_hdmi_qp: Add VRR support
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-vrr-limiter-uapi-v2-12-55f4215be2c2@collabora.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,204 +74,103 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/msm/a6xx: missing RSCC/PDC and ACD reinit in a6xx_gmu_power_cy=
-cled()
-- [High] drm/msm/a6xx: stale static loaded flag in a6xx_zap_shader_init() o=
-n restore
-- [High] drm/msm/a6xx: unconditional PDC_SLEEP clear in a6xx_gmu_power_cycl=
-ed()
---
+Register the vrr_capable property on the connector for RK3588, where VRR
+is implemented, as well as the other VRR connector properties.
 
-commit 491412dbdff3368cc8067f8c98101632e337bedb
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+In the encoder's atomic_check callback, the vrr_capable property, if
+present, is then set to true if the sink supports VRR. The display limit
+properties are also updated accordingly there, using the helper.
 
-drm/msm/a6xx: Reset the GMU state when restoring from hibernation
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 30 ++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-This commit adds a power_cycled callback invoked from adreno_system_restore=
-()
-to clear GMU_STATUS_PDC_SLEEP and GMU_STATUS_SECURE_INIT when restoring from
-hibernation so that the GMU restarts as it does after probe.
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f2a1ea8dfefa..dcde50bca36b 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -89,6 +89,9 @@
+ #define RK_COLOR_FMT_YUV444		0x2
+ #define RK_COLOR_FMT_YUV420		0x3
+ 
++#define RK_VRR_DISPLAY_MODES		(BIT(VRR_DISPLAY_MODE_GAME) | \
++					 BIT(VRR_DISPLAY_MODE_OFF))
++
+ struct rockchip_hdmi_qp {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+@@ -195,6 +198,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 					 struct drm_crtc_state *crtc_state,
+ 					 struct drm_connector_state *conn_state)
+ {
++	struct drm_connector *connector = conn_state->connector;
+ 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
+ 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
+ 	union phy_configure_opts phy_cfg = {};
+@@ -205,6 +209,12 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 	if (ingest_fmt < 0)
+ 		return -EINVAL;
+ 
++	if (connector->vrr_capable_property) {
++		drm_connector_set_vrr_capable_property(connector,
++			drm_display_info_is_vrr_capable(&connector->display_info));
++		drm_connector_hdmi_update_vrr_limits(connector, &crtc_state->mode);
++	}
++
+ 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
+ 	    s->output_bpc == conn_state->hdmi.output_bpc &&
+ 	    s->bus_format == ingest_fmt)
+@@ -552,6 +562,7 @@ struct rockchip_hdmi_qp_cfg {
+ 	unsigned int port_ids[MAX_HDMI_PORT_NUM];
+ 	const struct rockchip_hdmi_qp_ctrl_ops *ctrl_ops;
+ 	const struct dw_hdmi_qp_phy_ops *phy_ops;
++	bool supports_vrr;
+ };
+ 
+ static const struct rockchip_hdmi_qp_cfg rk3576_hdmi_cfg = {
+@@ -571,6 +582,7 @@ static const struct rockchip_hdmi_qp_cfg rk3588_hdmi_cfg = {
+ 	},
+ 	.ctrl_ops = &rk3588_hdmi_ctrl_ops,
+ 	.phy_ops = &rk3588_hdmi_phy_ops,
++	.supports_vrr = true,
+ };
+ 
+ static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
+@@ -729,6 +741,24 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
+ 
++	if (cfg->supports_vrr) {
++		ret = drm_connector_attach_vrr_capable_property(connector);
++		if (ret)
++			return dev_err_probe(hdmi->dev, ret,
++					     "Failed to attach 'vrr_capable' property\n");
++
++		ret = drm_connector_attach_vrr_display_mode_property(connector,
++								     RK_VRR_DISPLAY_MODES);
++		if (ret)
++			return dev_err_probe(hdmi->dev, ret,
++					     "Failed to attach 'vrr_display_mode' property\n");
++
++		ret = drm_connector_attach_vrr_display_limits_properties(connector);
++		if (ret)
++			return dev_err_probe(hdmi->dev, ret,
++					     "Failed to attach VRR display limits properties\n");
++	}
++
+ 	platform_set_drvdata(pdev, hdmi);
+ 
+ 	return 0;
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gmu.c
-> index 662f09bec9d52..1e6e47b635f08 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1319,6 +1319,16 @@ static int a6xx_gmu_gxpd_put(struct a6xx_gmu *gmu)
->  	return 0;
->  }
-> =20
-> +/*
-> + * After a power cycle the RSC does not expect a wakeup request and the =
-GMU
-> + * secure init is gone, so start the GMU like after probe.
-> + */
-> +void a6xx_gmu_power_cycled(struct a6xx_gpu *a6xx_gpu)
-> +{
-> +	clear_bit(GMU_STATUS_PDC_SLEEP, &a6xx_gpu->gmu.status);
+-- 
+2.56.0
 
-[Severity: High]
-Is it always safe to unconditionally clear GMU_STATUS_PDC_SLEEP and assume a
-cold boot on every restore transition?
-
-If the boot kernel that loads the hibernation image opens the DRM device
-(for example via an initramfs splash screen calling
-msm_open() -> adreno_load_gpu() -> a6xx_gmu_resume()), it boots the GMU,
-sets REG_A7XX_CX_MISC_TCM_RET_CNTL =3D 1 or REG_A6XX_GMU_GENERAL_7 =3D 1, a=
-nd
-then suspends the GPU during runtime suspend or
-dpm_suspend_start(PMSG_QUIESCE) -> adreno_system_suspend() ->
-a6xx_gmu_stop() -> a6xx_rpmh_stop(), which puts the hardware GPU RSC into
-sleep mode. The same RSC sleep state also remains in effect when
-adreno_system_restore() runs without a power cycle, such as during
-HIBERNATION_TEST_RESUME or when hibernation_platform_enter() aborts after
-dpm_suspend_start(PMSG_HIBERNATE) and rolls back via PMSG_RESTORE.
-
-When a6xx_gmu_power_cycled() clears GMU_STATUS_PDC_SLEEP in those cases,
-a6xx_rpmh_start() will return early without waking the sleeping RSC:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_rpmh_start() {
-	if (!test_and_clear_bit(GMU_STATUS_PDC_SLEEP, &gmu->status))
-		return 0;
-}
-
-Additionally, if the loader kernel booted the GMU prior to quiesce,
-a6xx_gmu_resume() in the restored kernel will still read 1 from
-REG_A7XX_CX_MISC_TCM_RET_CNTL or REG_A6XX_GMU_GENERAL_7 and select
-GMU_WARM_BOOT, skipping a6xx_gmu_fw_load() in a6xx_gmu_fw_start():
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_resume() {
-	if (adreno_is_a7xx(adreno_gpu) || adreno_is_a8xx(adreno_gpu)) {
-		status =3D a6xx_cx_misc_read(a6xx_gpu, REG_A7XX_CX_MISC_TCM_RET_CNTL) =3D=
-=3D 1 ?
-			GMU_WARM_BOOT : GMU_COLD_BOOT;
-	} else if (gmu->legacy) {
-		status =3D gmu_read(gmu, REG_A6XX_GMU_GENERAL_7) =3D=3D 1 ?
-			GMU_WARM_BOOT : GMU_COLD_BOOT;
-	...
-}
-
-Should this check the hardware RSC status (or re-initialize the hardware
-state) and ensure a cold boot so that GMU firmware is reloaded and the RSC
-state matches?
-
-> +	clear_bit(GMU_STATUS_SECURE_INIT, &a6xx_gpu->gmu.status);
-> +}
-
-[Severity: High]
-Does a6xx_gmu_power_cycled() also need to re-run the RSCC/PDC and ACD probe-
-time initialization when restoring from hibernation?
-
-The callback is wired into a6xx_gpu_funcs, a7xx_gpu_funcs, and
-a8xx_gpu_funcs. When the kernel that loads the hibernation image has not
-probed the msm driver, the hibernation power cycle resets RSCC, PDC, and AO=
-SS
-state to power-on defaults. During initial probe, a6xx_gmu_init() runs both
-a6xx_gmu_acd_probe() and a6xx_gmu_rpmh_init():
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_init() {
-	ret =3D a6xx_gmu_acd_probe(gmu);
-	if (ret)
-		goto detach_gxpd;
-
-	/* Set up the HFI queues */
-	a6xx_hfi_init(gmu);
-
-	/* Initialize RPMh */
-	a6xx_gmu_rpmh_init(gmu);
-}
-
-On A6xx and A7xx (unlike A8xx where AOP configures RSCC and PDC),
-a6xx_gmu_rpmh_init() programs the RSCC-PDC handshake registers, loads the
-RSCC sequencer microcode, loads PDC sequencer microcode and TCS commands on
-older targets, and enables the GPU PDC via REG_A6XX_PDC_GPU_ENABLE_PDC.
-Similarly, a6xx_gmu_acd_probe() sends the QMP notification to AOSS:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_acd_probe() {
-	ret =3D qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", !!cmd->enabl=
-e_by_level);
-}
-
-Without re-running a6xx_gmu_rpmh_init() and re-notifying AOSS of the ACD
-state before a6xx_gmu_resume() -> a6xx_hfi_start() -> a6xx_hfi_enable_acd()
-enables HFI_FEATURE_ACD on the GMU, won't resume after hibernation leave
-RSCC/PDC unprogrammed on A6xx/A7xx and leave AOSS with ACD disabled while
-the GMU enables ACD?
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 92e8c8abb86da..962b497868daf 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2796,6 +2796,11 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_de=
-vice *dev)
->  	return gpu;
->  }
-> =20
-> +static void a6xx_gpu_power_cycled(struct adreno_gpu *adreno_gpu)
-> +{
-> +	a6xx_gmu_power_cycled(to_a6xx_gpu(adreno_gpu));
-> +}
-
-[Severity: High]
-What happens to the zap shader state in a6xx_zap_shader_init() after
-a6xx_gpu_power_cycled() runs on hibernation restore?
-
-Before hibernation, hw_init() in a6xx_gpu.c and a8xx_gpu.c calls
-a6xx_zap_shader_init(), which loads the zap shader via
-adreno_zap_shader_load(gpu, GPU_PAS_ID) and sets its static loaded flag to
-true:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_zap_shader_init() {
-	static bool loaded;
-	int ret;
-
-	if (loaded)
-		return 0;
-
-	ret =3D adreno_zap_shader_load(gpu, GPU_PAS_ID);
-
-	loaded =3D !ret;
-	return ret;
-}
-
-Across a hibernation power cycle, the no-map zap-shader memory region and
-secure world PAS state are wiped (even if the loader kernel has msm in its
-initramfs, unless the loader kernel also opened the DRM device to trigger
-adreno_load_gpu() -> hw_init()). Because loaded remains true in the restored
-kernel image, the next hw_init() sees a6xx_zap_shader_init() return 0
-without reloading the zap shader and immediately emits CP_SET_SECURE_MODE:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
-	ret =3D a6xx_zap_shader_init(gpu);
-	if (!ret) {
-		OUT_PKT7(gpu->rb[0], CP_SET_SECURE_MODE, 1);
-		OUT_RING(gpu->rb[0], 0x00000000);
-
-		a6xx_flush(gpu, gpu->rb[0]);
-		if (!a6xx_idle(gpu, gpu->rb[0]))
-			return -EINVAL;
-	...
-}
-
-Won't CP_SET_SECURE_MODE fail or hang on A6xx, A7xx, and A8xx targets that
-use a zap shader unless the zap shader is also reloaded (or shut down and
-re-initialized via qcom_scm_pas_shutdown() / adreno_zap_shader_load()) acro=
-ss
-hibernation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-b4-drm-msm=
--a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com?part=3D1
