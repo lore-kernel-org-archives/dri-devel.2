@@ -2,68 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D05A606D816
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D3A606D804
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lc8whcbE
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jOx3uC/b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27190112347;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C77011234A;
 	Thu,  5 Nov 2026 10:55:11 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E2A112341;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 621C2112347;
  Thu,  5 Nov 2026 10:55:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D1B0843883;
- Thu,  5 Nov 2026 10:55:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0174644057;
+ Thu,  5 Nov 2026 10:55:05 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793876104;
- b=E4W1E0r3t+vqGGjS8xl6qIUsxOi66OYH1TVwxFsVOY3aFamnQUzLZUlZ7bNX2mcG1pRT
- N7aBYF3uG1HrhFDRe5Sb3joyXZ/4ypBrEyZYF2LXs+0s6H67zIg4vdYNVI2pkXJNznR6b
- eFHHzrINxyvjfy8azFrOsf7nCSRgJMrf+Vzc3+/rn2C3qVA33Ufd0LWlmXH18Mgk4kR/I
- Hn6xFZGX0GGjzERAWVqlUa1PiR/Kr8EBtzZVXoHgR46/eR2/HYcDkVJ6S5AszeUFQWHi/
- i309D0BMLjKnM5z0ROaofJQJLrZb47ipR8HwQb0mE8Cr5jyh+Rxa2jlQ5lH3jFXu8eg==
+ b=uxB+ThI5RbP6SqHUUPNYZ8J6TZIjzL7nR99YnIpUptij0b+RbPvgC+5vUnZJQk0dPkpw
+ A/0UO7+f2VNsfimUlLq33Ytgu6rHNpZdYQaZGH5DfhpSiBP+tARZYmVkVxC1+alLRrEqI
+ 9snOqbzwbmndaq70ev6EdVd2rrleOdJJkJwmCNtE5Ilom/4Uolp9srIQe56AVmMPN81Bg
+ S04LhDQszrl9l62ABypYza2bRr0Pofc3Ru+VgI1m7lQc7O0RjtI0mS9DJEbR3zIeqCgxp
+ 4ib1eb8J9VOM0AYjGItgThGj09XAqmSR/Dwbsul7f2C8tFeQA/6YJUju2/fftL8KMwQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793876104;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=H3WRmxg92eNyeZbuIxB9Tvu0SSWoaGEzh+UrG7Xwc+Y=;
- b=msNUVs0ADCVamsYpa6CuoOYI1HipU3ougyfPuaCmuyl+IqnX4VzeHWlj6dd5Iu1suqXB
- M/ziCvFJ9rJURlv8Wx5x/nzI7503z272DpxHsP/7NEcbbzAdDLkuPWvWwnxyL/f/jiEDL
- jhBGZUhH3Osy4otwmFrwJm0pqGcgwEcjqEI2AmocBh5yXzBYzxu7uXvIfnavWgCa7+gvZ
- ljDesUJHwujinbinYnx+nHYDZV07nDgKxWG7PtSPm1jIfdWrDxDEqcxlkU7M46VedcGxf
- IPCvzU8tGZ0RVxjbhH/Ukm+NU5TA40CwioIIFlti4nAlNLIJOxyZbmGrDyLWSPyLePg==
+ bh=0Eo/flAh5ZGhOeGiv+neAc3dXiHz3sx2uOGMjplfqp4=;
+ b=q9Fc5FEIlLvH9W/Zcdmaob9odKEGWScNKlry5caMQkl7i4Zuyay/ygmQHep2os9Zm21L
+ FnfpVuseuE6og/6i5+sog9VGvprvtJ96440+nvy+4YjVL36+8lm+jOT+sSnHov8HQpk2b
+ 7ca8MA5CM7CwT7KoircdhsddtlnRUHEP/vcDvvOQ9GrXNBi7nE+RCkNrU3Z7ZXnY2IHvO
+ tXt3jNcuUF0V5pAo1E3CEESRCvbs9V1CeahFRf7Qg3rnXzwc0BnmU2MNiq97bBLg1INCj
+ o4oj/7QwKPEFS8K52EHpkoLBUJ24JCIVtmM91wuRViEGrX1Oep5GH3EPeyPHhAH8Cmg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 811681F00A16;
+ by smtp.kernel.org (Postfix) with ESMTPS id 9F0061F00A1B;
  Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793876104;
- bh=H3WRmxg92eNyeZbuIxB9Tvu0SSWoaGEzh+UrG7Xwc+Y=;
+ bh=0Eo/flAh5ZGhOeGiv+neAc3dXiHz3sx2uOGMjplfqp4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Lc8whcbEaVvHlPX5uV+s7TDCgVT3ce9/buWo1jd2jlZaTZlG2cPz3Qf4De1Jd3sd5
- /z54OYWVfyYVSIm5trFarxI+0DYQoPNpYoTaB/OEo1rQC56n0YjzAvbDcY9kJCGBGZ
- 5V8YjQXij6v9Brmegi5Awvh0UXAlKqWzWnXbEtr1gxDDeH4yH5JJyHeqAd2oS4qGm+
- gj9U7K8cfBwsHJC1/V9sb+X6GBkOeNBjaxb/nDI9zalXV2fvaLM1+00SmNi4YHsqcR
- vgNeChGMYE7H+qe2LgLhO6eo+sOSRLvaF0YILj/FMRER9s1cMXLKk2CZd21gpQlkQx
- pSLPTgLCZmMIQ==
+ b=jOx3uC/blgpeK0cwDpak+L0fqzNPwZUDCnTIaEHh4FdmoE9lnwLNQfLWqVQJqbJQw
+ cs2SDKR9Y9OUTEuxMIoOutzIWeK77NBvYOFvXeYpFK7mNMcIl4dndeuGsBnLy/duIm
+ t17ZJ/+/iXAxOmKTJnDb7lng+oZnl0GCvnEiCgG3s+vLY3l/vdCaFCvIjQpUoZVuyS
+ OoDcQ6CWXLo6YyxJ+KAPAKHdfEbzgo19M0hiBnc9WfIhM+uQid5TFD/c6q7NhSXrbT
+ ThoIbGzhYkBf2KlQDmehSHl1FnacAMNPoYPIWt7sStV22bwD5hlzbAMfLpeZSGutlN
+ Ek5WiViiXbSqg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 00EF2471B9;
+ by lkml.kernel.org (Postfix) with ESMTP id 2CB51471E5;
  Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Thu, 05 Nov 2026 13:54:05 +0300
-Subject: [PATCH v8 01/11] dt-bindings: nvmem: Add compatible for MSM8952
+Date: Thu, 05 Nov 2026 13:54:08 +0300
+Subject: [PATCH v8 04/11] dt-bindings: sram: qcom,imem: Document MSM8952
+ compatible
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-msm8952-initial-support-v8-1-311ae8e8f14b@mainlining.org>
+Message-Id: <20261105-msm8952-initial-support-v8-4-311ae8e8f14b@mainlining.org>
 References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -101,11 +102,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Muzaffer Kadir <muzafferkadir@mainlining.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=867;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=823;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=qM3CNGW9XVhnq0JnblgwuEQx6NNHy6/EPHp/pHMUtRM=;
- b=R4aPPjpYbjg49f2JEZjk0oKVlZv5pGjHlQVwVn9/Qe9EzSgPwMKNrkwvTcBIzkzCUmXS3FJnK
- gUM7dZxY9W9CJudpJ4HMxxcngr3t48gq0hEMizQaycOTEcaWDw5nw5T
+ bh=zJBupVape6ZlIyOXe+U5V6odCjgZTNQlYKK8oIpndf4=;
+ b=pylaM1buz9GHKjkj+t38gaqW0b/RagcSeY/h2pJ0qZqu07PCgfSW4HgP6imZTPGcMdJNPilTP
+ V+qNZ7rKygKASWTIrmGQbXEMEgcQpX1GAc+QTkW28dm879HMX+16Zu8
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -134,26 +135,26 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the QFPROM block found on MSM8952.
+Document the IMEM block found on the MSM8952.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ Documentation/devicetree/bindings/sram/qcom,imem.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-index 566304ed4c78..646f2e8dcf4d 100644
---- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-@@ -37,6 +37,7 @@ properties:
-           - qcom,msm8916-qfprom
-           - qcom,msm8917-qfprom
-           - qcom,msm8937-qfprom
-+          - qcom,msm8952-qfprom
-           - qcom,msm8960-qfprom
-           - qcom,msm8974-qfprom
-           - qcom,msm8976-qfprom
+diff --git a/Documentation/devicetree/bindings/sram/qcom,imem.yaml b/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+index 2f120376a8f4..5d7b226cc587 100644
+--- a/Documentation/devicetree/bindings/sram/qcom,imem.yaml
++++ b/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+@@ -19,6 +19,7 @@ properties:
+       - enum:
+           - qcom,apq8064-imem
+           - qcom,msm8226-imem
++          - qcom,msm8952-imem
+           - qcom,msm8974-imem
+           - qcom,msm8976-imem
+           - qcom,qcs404-imem
 
 -- 
 2.56.0
