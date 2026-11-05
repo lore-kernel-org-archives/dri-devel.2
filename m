@@ -2,95 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E69606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:35:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E267F606A328
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=P97KjAJc
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=CxMdBpVR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D957E1122B1;
-	Thu,  5 Nov 2026 14:35:44 +0000 (UTC)
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5851122B1
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:35:38 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-8a058f74a54so867514b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 06:35:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793889338; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21395112487;
+	Thu,  5 Nov 2026 14:36:30 +0000 (UTC)
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE25112487
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:36:23 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-1a8cc11ac42so1977804c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 06:36:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793889382; cv=none;
  d=google.com; s=arc-20260327;
- b=nf7bw6x7AdTA2b8+icXQvpf+MGxGM9999d0oQIBVF/nP0lCCZ5WKszjLIgfG7IMrHw
- Sj2zQ8HFiZhNar77inYNlnPVeinib4tlPwY6N7JnKFmNmuo+PL9uNsREJKLOlOA0xD1L
- 0YKE1xd1kcZ66GX4eYEr/S0YFhnOv43+28ogKhgF1PnuwhUU1OQ3oIPq5t90eFmWr0Z0
- jc3WQv3WosV6m8kLoYMaJqyxQtWQshP+ike8GQk+Wo38n7ePiaugpuxU6Ti4Wz5ntLRU
- Yc+Onwx2pcnFlKVwhl7laKI7NQcIRgx0IcHpU6J4a8zh1LCuEL9eVeK4hakC+OwqRt+D
- 7TAg==
+ b=IdLIIiQzAL9mBFm315mhvgLIhx8zFu+f2dANV7ZkqbtoxgiVM5sFWUSZoENSKJ9iMh
+ C4ei/e0T+ACQEEuRNCslOxq2CqhG7N9YpjvDt1uYnDo3KBgRAmN6G62DIp/SPAX4y7J7
+ I7jLxQoByIURbjVsekFlG18/oFNXAwvEj8cA6YIC8AkTaK7bURDhhG7/IsokLHDba5Nj
+ C/XVjBGhkR6PSUwOKE+Y2xM/LThV0TUWvJCylLFFUQA6zpsuyorQgaj7G1+vJcfGx3FG
+ dQDB4/28VBX1j7UiO8/np6Pkl+lyRwkjsZipPZSNX7J2GPsoDT7cnxDzZCjE7CKuM4YP
+ lEdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=GkU9fJVYjw6koPkED18+RNmNCd0Pc4rVVHMltt2KuQg=;
- fh=0T6fVoE5b4hu48iX6C72BfKS8iaqGXuQPK9cIn/9vos=;
- b=V7T2PP4IOQSoOsW0YCzxFt0xMIQ8zmHxrUjXSM+bS4q2LQEXGAdqGA0e5q2I3XiMy3
- d05qgz57BDxVulLZI4VgNrZWIqZz3uCJbmeYFLh7dYqC34z9iVYPBzkdBm4xnuRreX7l
- v+Uh+wB3Bn+RfpDmDtTXzXwuMeGV0jLdoWnY7IegqbalgsUANksTsPYw3DE8bqkUoTpa
- qy4ITMsIgTUA32O/5/tHFmL++mepDwXHRsfgTnlH72jilm5eLMBBBpZp+Q+0R5ICgQmW
- n4mc0ZjZtxHuJlGLOcmlpNHOahfuXvtYd8VvmKBjxlB/H3y6VHNwbPzUC8Dz0bP0E5Zw
- bDWw==; darn=lists.freedesktop.org
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+ fh=asage0K7U8DocCvq1xa8eilVpG0P1T9W9mNFiLcXz14=;
+ b=WensD2r9TivA/IEnqgBhk7YvZBvbBzQMk37ECbQ/wQPbaQ+Jt9xb7W4LmEXSwTToxv
+ YLX/gnwScSGzkbDEMQdLDitIuxP0hDpx3rTz9kyDRQtInYiR/2MIb0kJxPkXUTMBYk3y
+ 8f5o2Ph0sO3luB8MJwIhD3g+RLBntYbr5fCnZlKlqjoXx6700/Xt8XJKIFFkzaEU8jlw
+ 75galJe4eFgHoL/hCJqOYw/ryYAFDNRDk4AGIS2005k4iwwKwtyc3Au2tVKBoomQVsXd
+ Z0J5DCXuU1v4uza3Cx63w1NucR0HItwsK3xKcImVT5GMtA+2rYOORHTnjf2kGYTOklV3
+ iNug==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1793889338; x=1794494138;
+ d=fooishbar.org; s=google; t=1793889382; x=1794494182;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GkU9fJVYjw6koPkED18+RNmNCd0Pc4rVVHMltt2KuQg=;
- b=P97KjAJcg18TUpaNe8wlUbpuriqyJvgulqSM2i/b+iRPpVMSBMIYnGlw4Wyq6ykjDk
- Xc/v71efPj/kzeRyi/BrVP5/Hf4Uh8fspZaINsLhv466kKwcgzgbkymIEVOLPpE+axgl
- o9DyAHzjsxhVuZiWBZwnfN4hVvrPgbGl4RoyDnthUYkC0jGVisJ6j6L7YWqik4GHTHeI
- jzH3l3TcmPmamd4H1T2d9NkqmBR9bA4Bv53fOUTiRVGs1HPapBKq848KrxklfXeyqiF9
- Q4FELIXpQ+pajU3YA4Tu9RZkA5d2ucN8AmQDgPuxCGaCwTkz63LlvPwfBk8HJdKWzAXZ
- 1xbg==
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+ b=CxMdBpVRED5qbl/rLJZxK8tBfSk/8AYzfUzQ6IBNqyFRpv3TJvLO0QXN/GHCJVlh7/
+ KY/Ik/fTGLrXHhFfRDvH+FUbj4T8QOQNqG0BQoe/sjYSKSNlmSVIJQvUQYW7luHUhYG8
+ isn1ZsZGp2Pah3QhLIxXNgAzLWM6OiGAF6Iz3BnA7ILPMNdJR8IFFsRUNgwdY2+WuuBf
+ WNb0gr8FICcFa0j+J9hs6UyAsBistQkJFumHHZejVeApnQZMxdiXmVSpTKAIQq6qhy2Q
+ Nf2tWBGwAtZ5u67Iv397rfTgC2S1woXa2BPxstm8Z8z9J2XdRCs3AycCGGBy8K1xntZj
+ 8XGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793889338; x=1794494138;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=GkU9fJVYjw6koPkED18+RNmNCd0Pc4rVVHMltt2KuQg=;
- b=0Y8tQWTKAMqedNaF8BzIblECnpwl5ixZH1MkyDm9DJZ/ompyZKYcroyFFaL7M5Uzx/
- pSBEKTBZJ17u1oTWD+POGiPWPZsjmjiiN01tCCZVkPjVDnEpYh6CHcJqftC6Vu3xjAHX
- BnSswRRPrMonSoDgiIiuQPzsY7oKPqAVGoeXPSLTBiAC4mMQ5Y6CMPy0RFxn+yYViB2B
- IejzFm4tZkpCAWJcdCe54HRL35dWG9Wljv4zXifOqxDkcm1tt4AOKIEtOrneRB4q9NhC
- +LWW8RWDGzUtXz0J2hgJH+UHfYyjD89qkzb9f2lQQN0+nObyiGIlArfEYVm8+V3rT/hY
- FlFA==
+ d=1e100.net; s=20260707; t=1793889382; x=1794494182;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+ b=dd5MG90XVtU3iNT6I4sJ8LiseGDgGqIBHjIczuGlUmL51n/lzH7lsyjUYSgs/VxNeq
+ 7RXIz2F1/uHN8kQ3qhm7/O7OyH47XWvPqzYyiQzA2qlBZJFmQlp2wR9IxGJFoXPzoEWW
+ AfCbDBf5d/BhXt0C6rIkJp2KVppubM+HN2I4FcfGbgbdC1GEy0tcKH48GnAukIGeu9ga
+ Oe7TqPFZbyQOkf8k81qtzsMpn9cCDU95SOgBTkif07dmytUrjVd77pcMXoXbEa96WKxA
+ mFtwoO/Tq6fi/EVqFLqDBKqzDlxPm2NfmAnbiAxzPsC1kgHPGXNexrKcZ7IE4nTnE3ip
+ 6rWg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByG3PUCdhd9giGu0NDxm4qf9QLDVvbTdbsa6bg+1VrTGzIdWi529PyRxDFrSeujKWXZ9KCyq2G1A5E=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z93LMvHSLGAgMyiAfqt2c0qGA9D2TqNtyMOqz041EnGF/0Z9SzE
- 46KxKSiz95zYftM9uroqwJf/Czc/WpGdAnRq1wEdTgSXUC+jcB435KM4s5JJEW6em1C29o1l6H3
- AYILptMttH/kyOHpisZX03KHkL7nW4i4L3JQrQl4tKA==
-X-Gm-Gg: AYBFou23yM1QVUA768J1y5Q8AMzxurCF/S4KxAs9SIX585dskLfOoR4Ol8MI8aS62o1
- 1ljIzMeipxi8x1EoIDEsyDAAmNYfme5UvdOByFFMQX7gUwAjrfVnS9Py9RTbCUwNYcM/fQMwsPG
- fbe2w+scOXK7EpnTdR7dpo31DzX1BNZo7AVc5Gt+izNf8NAg6kqoc4MyvBVqAkdrugHLW3vwiNW
- nwRvwDis9x2Lw1TZI8nMw9tLsNRWom49DcU15J6897Ojwn1ZT6aLErTzTpd0B+9RiYbdDAihsjM
- m5mlBcj0l/oEkR9P+xc5pDN+oUB57qZFcxT7oupP061kSYrPIBhoWn9GHuCRfgKmzYg41W+UVZB
- ZH6QgVttHlBE0Kv2NE6NxgcwrpAuM8sPPg9YR
-X-Received: by 2002:a05:6a00:330a:b0:84e:909:ac03 with SMTP id
- d2e1a72fcca58-8a9be48c598mr16519398b3a.10.1793889338094; Thu, 05 Nov 2026
- 06:35:38 -0800 (PST)
+ AKwUvByMdi9DxTEOHpHNZIIQcuMW3JURYbVvPRfCfTlINdBmGI+I96M2WAhOvMNwPikvns0uuFn8nhlLj0c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+N6Wnxx6PvDqgYBMZF6LcI1uUNQZtb41R/3GWVN5Z+Ul3ZJWWV
+ UvkNQcPcduiY8FHFS0qTpnRQVLgQocfR6I3dDQMpEbMbKNK4aBqmeNQoAFEraNe+361OAI88j0n
+ 7ZV3/L7fSIjQvINbyNrvd2NpeshCLYbyJ778eq3jaew==
+X-Gm-Gg: AYBFou3qtJ77n5iK7LS8EJzicnyAUq6wzxgoXkCyKcnh/lZNzjrVVOu5hybLkfbpIss
+ 1A2OM848KnrfcOV7tQoNvydYWgoUalXjPXpViZiSSJPLbc02fa/xg78uLLmgb0dYVI0wEInvpyB
+ Fww+T3g046L6XZO0YAHh3iQlnL+lgiIaAsy0joPCj4e/XmaiCHCZL+xwb+iyHJTmDw+QoF1APnI
+ gnEP5y0Nu8cDYt6RVZlz4SSZYEy8MgVS/HHsx3pL6bxJ9SajIYaTkzZTBh1sS/wV6ZxWYTYadm1
+ SRIgUPz2OiuGf5cr1GWKI/3m3y9K05025w1ZWG/MjAL7bQ6BZ3wWMpAeOdA4riV8rPAER36gGjt
+ SE2NGdIYEj30NuyTfC6ix0m2ZNg9XxHFSCwFy
+X-Received: by 2002:a05:701b:454d:20b0:1b2:3b5b:b80b with SMTP id
+ a92af1059eb24-1b23b5bb847mr12680614c88.8.1793889382405; Thu, 05 Nov 2026
+ 06:36:22 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
  <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
  <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
-In-Reply-To: <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
+ <34506010.aRNtrjHk3s@diego>
+In-Reply-To: <34506010.aRNtrjHk3s@diego>
 From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 5 Nov 2026 14:35:26 +0000
-X-Gm-Features: AclHuK__6TlodHOzyVdjm-UulEeYQ_S-cCkdzywOgk9TNIGTgV-C-tpWJDrX-8A
-Message-ID: <CAPj87rOKJ_EEmSwkokjvqytgnzTi8V_EhtGywQHe7xeww+ECDg@mail.gmail.com>
+Date: Thu, 5 Nov 2026 14:36:10 +0000
+X-Gm-Features: AclHuK-P65od5HCTUxTkNtF8XI9WRdmLEVnuoZ_IAiO-y4WkOrppI1hKYcCtIdc
+Message-ID: <CAPj87rMyMB05OTMDLSPe+oDZJYUW=oHF9E-f2LaTPCsBrKAAhQ@mail.gmail.com>
 Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
  format on DW HDMI QP
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>,
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -111,6 +112,7 @@ Cc: Sandy Huang <hjc@rock-chips.com>,
  Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,22 +131,15 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hey,
-
-On Thu, 5 Nov 2026 at 13:04, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> On 11/5/26 2:25 PM, Daniel Stone wrote:
-> > But if this series keeps on collecting unrelated patches until Sashiko decides all
-> > of VOP2 is bug-free, we will never get this series merged. Could we
-> > please keep this series focused on the useful bits at the end, and not
-> > keep on adding speculative new Sashiko-pleasing as artificial
-> > dependencies?
+On Thu, 5 Nov 2026 at 13:22, Heiko St=C3=BCbner <heiko@sntech.de> wrote:
+> except patch 9 of 15, or mail hasn't turned up yet :-)
 >
-> Yeah, sorry for that.  I'll stop here with regard to addressing further Sashiko
-> findings, unless there is really something wrong introduced by this series
-> (which doesn't seem to be the case).
+> It does look fine to me, but if someone has an eye to spare ...
 
-Nice, thanks a lot. :)
+Nah, I just forgot to send the mail / was waiting to send until the
+dclk reset thing was fixed (I forget which).
+
+Either way, it's done now!
 
 Cheers,
 Daniel
