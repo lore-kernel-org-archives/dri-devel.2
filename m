@@ -2,62 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386A06082BE3
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oxGHp3VY
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8D9606A32C
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66C5C112305;
-	Thu,  5 Nov 2026 10:07:04 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4E8112305
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:06:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B4AFC60D8D;
- Thu,  5 Nov 2026 10:06:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FAB1F00A1B;
- Thu,  5 Nov 2026 10:06:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793873217;
- bh=atDUoK7LP0tXf2UYnBDz0baVdX4vZOm1YVTmwcTXCi0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=oxGHp3VYjAu9cjtXxbJMU9f9Djbn9yVECTnQsRTgdguTMrozbyx36CDqSkKey11k5
- 1CQb/SkNNaIXgb67JhYCnYW7P4Stwd53KeSRNNKqYUxqb/ydE0LqBa+10dLbeJA2mm
- drywf+xlgzuYZj4q1AteQLae/ilJzZMfhACh/xu1gZpLZoA8oMDvE4wPmCT/7f0ZLw
- pWpiclmTYBg5Muyj6amCb0ura8knn0nd7z6tnD9tv1q8Qb3kTHHheQ6pA7Xyv2sRak
- JDj0IGomFEnbewCFFDOJNuM9lvfZknJao6XOkrJlKU9YTxRcSXIRLE4XfFYl/yM9sW
- fQJfts8GaZU0Q==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v13 19/19] PCI/P2PDMA: Test the routing of clients with ATS
- enabled
-Date: Thu,  5 Nov 2026 12:04:50 +0200
-Message-ID: <20261105-fix-p2p-acs-v4-0-v13-19-3dd065907c3b@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
-References: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A96D4112306;
+	Thu,  5 Nov 2026 10:07:46 +0000 (UTC)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
+ [209.85.217.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C59D112306
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:07:45 +0000 (UTC)
+Received: by mail-vs1-f52.google.com with SMTP id
+ ada2fe7eead31-7ce77f98658so526656137.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:07:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793873264; x=1794478064;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=HRfPjQi/EPajP85bp44Mrjs4W2fVG4O74jaEjdHYdtc=;
+ b=yu3XfdF8WZfJJG1cugvq7FD2OOtclTtwOkDuQddAg40Tb8lLk2pm7m2+wxyImVe90y
+ tQ5aIF1fMH8PgrmHFlc5QmmBii5HKxBmFclZLKiWWCwOTPQw6o9R+Ih6Fpu748TIcJbY
+ eUzg2kiZFQ0eXdwJ6S9glHnZNynLf12AXzuO0fbuac4dz4kSNmMN6bxBgG9cFXA3Ktnn
+ g9FU++as6toYZ9UskPB5gyA4AbFkRXZiryUxpxCmQ1GHBvSGLStajGyvLaZMrhQrZHy6
+ iM/2KuJoOOzYGJK3LdzXL7KUqx6w989naZP6eM4IWm9PcDh6woLV962PdLzeKURmn48K
+ +dng==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwXdbbwLEvqMn6kjzGnc6GzdIJ+UnvXY1JJnxYhNSmc4/OeucN4tEXdCsUoJyZpIR6EM3U6V/geXZc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/JcJJYN9joU0lWFcL7Bv8JaxXk/rBKJ6Pip5OdnVOCyKtm/oEY
+ 7X9s+Pckye353to9A97U/DrrqEE8GJ6osyvUmNo9QmGCpDDRzDRyLclUjPTApK7ZMEE=
+X-Gm-Gg: AYBFou2ri++Z/044wP+zru9ENPMxxKn2fCZWSmSBDylREJOMHCq2MlTdIRbNR+SgBvm
+ PwQeC6gT9Na+hRsOieYfrTUZZzjgqJ2H41h/dUZqNiaNOxV8lwd2KKWzdeBRPqy4Ntyytacaeek
+ oSuly5Jjv6q9a7i2/XwZnTV3g+4wyxRkp/B1DA/zTlwWNEo9Qrn1RIaBG8pMEP6RlwOx4ugYgRA
+ i3XBbFMSncHz7wrB31gRT22lY1VuhUUpJ6Iwi046Cy+298RHczAnn9B/A/Nsw6xxR3V/hleH1bt
+ YosQ+5iCTb7a0z+bmDLC/HCm7WIUHd+vcFGGPgBH8pkvzAhKpn6XxlDJAljXHsOVzUOKSgUnfri
+ l4ZX6VMiOKebHieWFqxoTjIVvjS4W6lJK+3m5SaOpUbw12u5W5y0amZlieWEbUp016MPLRC/z0M
+ oZGINGxq5NyU/48bZZgUo42NKRpoF7sySksLQttRsOlOooA3KbJvCa8jvIrm7UaoLm3jmYpCSv6
+ 0Dqe6Xu68+xFE9PuYa9SrsEIL1PqvUe01XVU4ue+RaR6sFJ7/UpgXIgWf9SuQSHRI4UtvTkW9/Z
+ u4O3ckHOxYCfqcOTZRWuIcxw5Cz9yxFjjOg1key1bHMZ79/EyDkmtqLXEb8Y7sv1DXo=
+X-Received: by 2002:a05:6102:374c:b0:7cc:1a41:20e8 with SMTP id
+ ada2fe7eead31-7d07227a940mr8060735137.5.1793873264112; 
+ Thu, 05 Nov 2026 02:07:44 -0800 (PST)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com.
+ [209.85.217.42]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7d2829d28d0sm2305552137.2.2026.11.05.02.07.43
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Nov 2026 02:07:43 -0800 (PST)
+Received: by mail-vs1-f42.google.com with SMTP id
+ ada2fe7eead31-7ce77f98658so526649137.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:07:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByhXkk7bWzGGz9z1wVQticL35sRQj5g4JYD0Y8N8+/OQWoTe6meNrEnufpXmDWpP6Ggxb+Uxxq8jSQ=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:374c:b0:7cc:1a41:20e8 with SMTP id
+ ada2fe7eead31-7d07227a940mr8060714137.5.1793873263361; Thu, 05 Nov 2026
+ 02:07:43 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+ <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 5 Nov 2026 11:07:32 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVfakapgBK6TBhO1iWX8qzvLDk8jzRS=t2MVa5G=MCUeg@mail.gmail.com>
+X-Gm-Features: AclHuK9naqg5CZQ7lhJVrMhg9TNH44f-SpA5WbUGCGBsAlcoOw2midTd7doJSmk
+Message-ID: <CAMuHMdVfakapgBK6TBhO1iWX8qzvLDk8jzRS=t2MVa5G=MCUeg@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 14/23] proc: let procfs copy in writes before
+ pinning the entry
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+ Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, 
+ Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+ platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+ jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+ Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,230 +112,90 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Hi Christian,
 
-A client that enables ATS for the whole device must never be handed a
-bus address, and Translation Blocking must reject its peer-to-peer
-traffic even when the caller asks for the default class. That has to
-hold for answers taken from the cache as well.
+On Wed, 4 Nov 2026 at 20:32, Christian Brauner <brauner@kernel.org> wrote:
+> proc_reg_write() pins the entry and calls ->proc_write() which copies
+> from userspace itself. A page fault in that copy can take as long as
+> the writer wants, just like the copy to userspace of a read, and
+> remove_proc_entry() waits for it.
+>
+> So do what kernfs does for writes as well. An entry that implements
+> ->proc_write_buf() gets a NUL-terminated kernel copy of what was
+> written. procfs makes that copy before it pins the entry. The copy is
+> capped at ->proc_write_size bytes, or at PAGE_SIZE - 1 like
+> proc_simple_write() if the entry doesn't care. Larger writes fail with
+> -EINVAL. The proc_ops go away with the entry, so procfs remembers the
+> limit in the entry when it is registered, like the size of the seq_file
+> state, instead of pinning the entry just to look up a number.
+>
+> Entries that take binary data in pieces, like the PCI config space,
+> ALSA's data entries or a firmware image, can ask for
+> PROC_ENTRY_SHORT_WRITES instead. procfs then copies in the first
+> ->proc_write_size bytes and the write comes up short.
+>
+> ->proc_write_buf() gets the position like ->proc_write() so entries
+> that write at an offset keep working.
+>
+> Note that procfs copies in the whole write before the entry looks at any
+> of it. So a write that is too large or whose buffer can't be read fails
+> before the entry's own checks run, permission checks included, even
+> where the entry only ever looked at the first few bytes.
+>
+> An entry that implements ->proc_write_buf() and still has a
+> ->proc_write() fails to register.
+>
+> No users yet.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Cover those on the fabricated fabric, together with a client that
-declared per-mapping ATS keeping the per-class answers and a client
-without ATS answering for the Untranslated Requests it will issue.
+Thanks for your patch!
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c       |   8 +--
- drivers/pci/pci.h          |   6 +++
- drivers/pci/pci_acs_test.c | 123 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 134 insertions(+), 3 deletions(-)
+> --- a/include/linux/proc_fs.h
+> +++ b/include/linux/proc_fs.h
+> @@ -67,6 +74,16 @@ struct proc_ops {
+>         const struct seq_operations *proc_seq_ops;
+>         int     (*proc_show)(struct seq_file *, void *);
+>         unsigned int proc_state_size;
+> +       /*
+> +        * procfs copies what is written into a kernel buffer and calls
+> +        * ->proc_write_buf() with it. The buffer is NUL-terminated and holds
+> +        * at most ->proc_write_size bytes, PAGE_SIZE - 1 if that's 0. Larger
+> +        * writes fail with -EINVAL unless the entry asks for
+> +        * PROC_ENTRY_SHORT_WRITES. The position is NULL for a stream, like
+> +        * for ->write().
+> +        */
+> +       ssize_t (*proc_write_buf)(struct file *, char *, size_t, loff_t *);
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index e81b9070bb4ef..a0f572e117d8d 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1467,14 +1467,15 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- }
- EXPORT_SYMBOL_IF_KUNIT(calc_map_type_and_dist);
- 
--static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
--						unsigned int tlp_flags)
-+VISIBLE_IF_KUNIT unsigned int
-+pci_p2pdma_client_tlp_flags(struct pci_dev *client, unsigned int tlp_flags)
- {
- 	if (client->ats_enabled)
- 		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
- 
- 	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_tlp_flags);
- 
- /*
-  * A client that translates every address it is handed cannot be handed a bus
-@@ -1486,7 +1487,7 @@ static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-  * Take the Address Type from @tlp_flags rather than reading the ATS Enable
-  * bit again, so the policy and the class it applies to always agree.
-  */
--static enum pci_p2pdma_map_type
-+VISIBLE_IF_KUNIT enum pci_p2pdma_map_type
- pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 			   bool per_mapping, unsigned int tlp_flags,
- 			   enum pci_p2pdma_map_type type)
-@@ -1505,6 +1506,7 @@ pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 
- 	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_map_type);
- 
- /* Whether the driver of @client called pcim_p2pdma_set_ats_per_mapping(). */
- static bool pci_p2pdma_client_per_mapping(struct pci_dev *client)
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index f76e4dbacae13..70fc29c42c274 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1148,6 +1148,12 @@ enum pci_p2pdma_map_type calc_map_type_and_dist(struct pci_dev *provider,
- 						int *dist,
- 						unsigned int tlp_flags,
- 						bool verbose);
-+unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+					 unsigned int tlp_flags);
-+enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, unsigned int tlp_flags,
-+			   enum pci_p2pdma_map_type type);
- #endif
- 
- #ifdef CONFIG_PCI_QUIRKS
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index f6eb7dea7d8cd..b0e5e2eac97cc 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -1228,6 +1228,125 @@ static void acs_walk_unreadable_control_test(struct kunit *test)
- 			PCI_P2PDMA_MAP_NOT_SUPPORTED);
- }
- 
-+/*
-+ * Route the way pci_p2pdma_map_type_tlp() does once it has a client: the
-+ * client decides which flags apply, and the answer is then checked against
-+ * what the client can be handed.
-+ */
-+static enum pci_p2pdma_map_type acs_client_map(struct acs_fabric *f,
-+					       bool per_mapping,
-+					       unsigned int tlp_flags)
-+{
-+	enum pci_p2pdma_map_type type;
-+	int dist;
-+
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(f->client, tlp_flags);
-+	type = calc_map_type_and_dist(f->provider, f->client, &dist, tlp_flags,
-+				      false);
-+	return pci_p2pdma_client_map_type(f->provider, f->client, per_mapping,
-+					  tlp_flags, type);
-+}
-+
-+/*
-+ * A client with ATS enabled for the whole device translates whatever it is
-+ * handed, so it never gets bus addresses even on a direct route, and
-+ * Translation Blocking rejects it even when its caller asks for the default
-+ * class.
-+ */
-+static void acs_client_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * The cache holds what the topology allows, filled when the client first
-+ * asked. A client whose ATS was enabled after that must still be kept off the
-+ * bus addresses the cache recorded.
-+ */
-+static void acs_client_ats_cached_test(struct kunit *test)
-+{
-+	enum pci_p2pdma_map_type type[PCI_P2PDMA_TLP_CLASSES], hit;
-+	struct acs_fabric f = {};
-+	unsigned long cached;
-+	unsigned int flags;
-+	int dist;
-+
-+	acs_build_fabric(test, &f);
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		type[flags] = calc_map_type_and_dist(f.provider, f.client,
-+						     &dist, flags, false);
-+	cached = pci_p2pdma_map_types_pack(type);
-+
-+	f.client->ats_enabled = 1;
-+	flags = pci_p2pdma_client_tlp_flags(f.client, 0);
-+	hit = pci_p2pdma_map_types_unpack(cached, flags);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			pci_p2pdma_client_map_type(f.provider, f.client, false,
-+						   flags, hit),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
-+/*
-+ * A client that declared per-mapping ATS picks the Address Type per mapping,
-+ * so it keeps the per-class answers even with ATS enabled.
-+ */
-+static void acs_client_ats_per_mapping_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * A client with ATS disabled cannot issue Translated Requests, so a caller
-+ * asking about them gets the answer for the Untranslated ones it will issue.
-+ */
-+static void acs_client_no_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.dn1->acs_cap = 0x100;
-+	f.dn1->acs_capabilities = PCI_ACS_RR | PCI_ACS_DT;
-+	f.dn1_cfg.ctrl = PCI_ACS_RR | PCI_ACS_DT;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, false, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
- static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
- 			 acs_request_gen_params),
-@@ -1272,6 +1391,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 			 acs_intel_tb_gen_params),
- 	KUNIT_CASE(acs_walk_unreadable_control_test),
- 	KUNIT_CASE(acs_map_types_pack_test),
-+	KUNIT_CASE(acs_client_ats_test),
-+	KUNIT_CASE(acs_client_ats_cached_test),
-+	KUNIT_CASE(acs_client_ats_per_mapping_test),
-+	KUNIT_CASE(acs_client_no_ats_test),
- 	{}
- };
- 
+"const char *"?
 
--- 
-2.56.0
+Seems like you have to drop several const attributes during the
+conversion from "const char __user *buf" to "char *buf".
 
+While at it, I think it would be good to use this conversion as an
+opportunity to replace "char *" by "void *", which will probably let
+you drop several casts from users.
+
+> +       unsigned int proc_write_size;
+>  } __randomize_layout;
+>
+>  /* definitions for hide_pid field */
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
