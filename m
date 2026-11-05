@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8634606A32F
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B534606A33A
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcP9JSiO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFX3vnZk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9191127B6;
-	Thu,  5 Nov 2026 15:33:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86A6E112794
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1F811127A3;
+	Thu,  5 Nov 2026 15:33:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BCC911279F
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0C32960A4A;
- Thu,  5 Nov 2026 15:33:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA9D1F00919;
- Thu,  5 Nov 2026 15:33:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F2A0421F2;
+ Thu,  5 Nov 2026 15:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D031F000C1;
+ Thu,  5 Nov 2026 15:33:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892798;
- bh=T+ZRrv6QCj7RSXGnVrycPBvEFs+YUgWzpDIN6AKXf70=;
+ s=k20260515; t=1793892802;
+ bh=CSy84AcvIkslDK90qpHg+5sPusx0mmovKHyoizOZf/w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=bcP9JSiODSaPssK+6mWvlQGtf0xikOYVFupPowdPFebXpdeUFjVIlJydh2/o05yHw
- U0i7OgNZw5ArlFkoWdp8zvp0gNFKtHkC/6fZBA1vYMozG0Tt7NrLM7HKOu80yUATAe
- DoN9nU20gGo/D/rL+8qSmDLudDdZrd7sB6uN8KGU2RVUnP8b1rSJZluIRf/4t2gfCA
- dlbLTOVs8OHPDKbGO8ssV4eZe8iUfTKe8pZIJDpRcUHDKHGX4nQr03FxrxDAVJPVyV
- hqzRbtD0EnIMIU5DqOGUwimRWCHJagLKZsVb2Yv5Gr0dpZplW8NPB/WQtFdBbYmaO2
- P4iXglzCF2pfA==
+ b=UFX3vnZkRJd3hVNkP93x0VaZzz5y6gA2kEZadAAicqfSOuNirhQO6gHqjJdV7quuh
+ 42OLnWk6mbmb7JDgDxFcGaPmE83UYpXgj0A/pDu3A7uy1dWH+6VB/bJQDuszTRPzXA
+ cm5ktaa2cRcUSLcvW6p4T/fx4vBZ2oM1g/K3nMWZuyhidy6ZLt5C8FpWbRDm7g4pOH
+ 9jOKlY2qQDVf9L4O/1Llz09QGvS0qdqL/OR2KiuF4gbvYQjCKw+XcMquXZJwYRvlFI
+ 9+61CMpuPInp8UjUPYyADSv0wDMFjCjACbKLPWYQxePqg6ofcovtMvS+d0dQMG9mFP
+ 5kC2OM+TVEkbA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:00 +0100
-Subject: [PATCH RESEND 51/83] drm/simpledrm: Switch to
+Date: Thu, 05 Nov 2026 16:30:01 +0100
+Subject: [PATCH RESEND 52/83] drm/vesadrm: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-51-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-52-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
@@ -44,12 +44,12 @@ To: David Airlie <airlied@gmail.com>,
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
  Javier Martinez Canillas <javierm@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1160; i=mripard@kernel.org;
- h=from:subject:message-id; bh=zKEzCTu4YsVMVYsT4XDG54140jZrjM8Ey8UGX8wqejg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnz2Un3IuGka68/XYu//bnQ2ed28LGCP94xj+1p3/
- FrC/5/FtWMKC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBMZP5qxoZ7p3//flkYmC63
- /v3l1rVfGsI3XX0v1tIlFff+VvPhPzm1KeYeTQqXEuxS+wT33dDouspYpvbv/L0Vy7dd8+adcWe
- iKbu/QtvGfdfUleQFXA4dPli+9MvtVy9D7ln/ncHerai8WHMJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Y14Flu3vJyPOLlK0N4qKkug5fZe+l+MhZNs5F/krPaM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnx592Pnr0Pn583p5fpTc2Xu2XnHlvLJNiyucXt/X
+ ql7Q4np5o6pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwkb0HGRsuHU6f/95gZ8G8
+ hT0O5UemFQX8vZCtf0Rsse755teOES7zuzazN2ucz+3xnbJxpr3Ps7+M9TXlTF90FMxiqnLeHUp
+ qtbvCendb8Znc8GfvqpTrGd8u231x+7OPK1geNTEyu6wNqJurDQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,14 +85,14 @@ Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/sysfb/simpledrm.c | 4 +++-
+ drivers/gpu/drm/sysfb/vesadrm.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
-index 21ddf4502ecc..f75b7d62b3eb 100644
---- a/drivers/gpu/drm/sysfb/simpledrm.c
-+++ b/drivers/gpu/drm/sysfb/simpledrm.c
-@@ -877,5 +877,7 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
+diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+index 1668aabf8687..474fc2db0ee1 100644
+--- a/drivers/gpu/drm/sysfb/vesadrm.c
++++ b/drivers/gpu/drm/sysfb/vesadrm.c
+@@ -610,5 +610,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
  		return ERR_PTR(ret);
  
 -	drm_mode_config_reset(dev);
@@ -100,7 +100,7 @@ index 21ddf4502ecc..f75b7d62b3eb 100644
 +	if (ret)
 +		return ERR_PTR(ret);
  
- 	return sdev;
+ 	return vesa;
 
 -- 
 2.55.0
