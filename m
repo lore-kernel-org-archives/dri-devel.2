@@ -2,54 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED4E606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1F3606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhnUaI42
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYTLmRLr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25603112781;
-	Thu,  5 Nov 2026 15:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B739B10E023;
+	Thu,  5 Nov 2026 15:31:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D475C112781
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E8910E023
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B9E5642B1E;
- Thu,  5 Nov 2026 15:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221211F000C1;
- Thu,  5 Nov 2026 15:31:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 542AC41A5B;
+ Thu,  5 Nov 2026 15:31:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07BB1F000C1;
+ Thu,  5 Nov 2026 15:31:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892700;
- bh=EnxSghqdIzaIIEN5lyHLuXmZn6EK3bht4sg6sIB7hbA=;
+ s=k20260515; t=1793892704;
+ bh=HTPo4fs27LBVlW40uMACCAgQjz2A8ei8JlD2Wg3luc8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=lhnUaI42fNjxQzFb6ZLy6xJ9O9G8PSxfh3ik9w6gEVxWDlPQ7K9odTx0WyAxOTL6g
- yeppzZ8RIpIMP4sUY5F4isBqyRgsfe/iyUOI+ZGVRZ0oLppM4t7DXgOwXJXRsnvMwF
- +SErrK9hV4EVHkIiwhzhxjf4uDeouMbc0DYRQzn3w+ERx6hjMkb4AZ+2KNAw8wWX12
- LIprjjS9JT801zO5/hTkOhXy3GKXTpvBB8Jvv4+W9DQdXYpap8T16ufkkPXKcvRWzc
- 4Fj2Z6DzNgEpHTCjA89w3gNOuq1nqeY4wMiA/5icn3MS1OOkyOIWM06EfvvnneUZ/0
- 6xLzY36RDKOlw==
+ b=TYTLmRLrxkoRt6bP4KDCm9QOi3IcjWpG5n63R0BgwmSCI+i+eSJJuq4DBhI9RxUIw
+ iFZVcfcprsmPlon+llK/cQ5HlkDtvrLg4M7Su04jdB8XpqxJnsKGtTDx6k5NkR4phz
+ atL0XNSc6cqlZgQQPRzm56ujfMKHzcCQLtRVxvCSQIhkib0VJAskrZUojGuvj1PV0j
+ f0WbGPDtT2gTRaxi76vrf761xFeCqdobzEXMe03qZNkwc+95aMPVOugHw0rloTf4Fv
+ NIBlYRB43uyCoVa6ZOxz8L0vbijLLh0QEb0Co3hUFUf46ZHH32/kbdS5TlJjkfC+Fl
+ wpUtb/nCOqLkw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:33 +0100
-Subject: [PATCH RESEND 24/83] drm/mcde: Switch to
+Date: Thu, 05 Nov 2026 16:29:34 +0100
+Subject: [PATCH RESEND 25/83] drm/mediatek: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-24-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-25-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Linus Walleij <linusw@kernel.org>
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1100; i=mripard@kernel.org;
- h=from:subject:message-id; bh=zTN8DHzyJwYu9mfIMvP64Uihsq4x4IAT86H/s54RaUk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjyP3dK8IMCxtea5ZMb1lxHB8lqTzA6ErVx0chWzR
- Mb63TxaHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiTNKMDbNfdS56yeKlvby3
- 7+h5zoN/u81P85U4KqTfMDph47+WM8OtwL7Z3e9GfUF0r/XmTvmvjPVp9kKdAdMEPp6afOfpBfv
- 5Z9oS56U6vw0TtpWw/bB5o13ry0Dv96kb5+/zjTjRukJkqxoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1464; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=B6+Yww5qkSRynm3afyuF6IRyxaNSFrZ15jYlThbS4zc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFrz42zh7R++qCOFvCZrT4xO/el01+1uQ9YZXIvHH6
+ tq/8dOcO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE7n9kbPhgU2rWeKZgD7Or
+ l3O+M0t0glnMqRfetxJTFKd72ig1pE/p18h9vvf+rCeBTJbWxhEfGKtZJPY4KV97uyXdvWUec2L
+ ZL68bFQ+CeBe9sQmOW5a8Rax08y/J/b+myty51r7pjM/ShzEA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +86,34 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Linus Walleij <linusw@kernel.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
 ---
- drivers/gpu/drm/mcde/mcde_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mcde/mcde_drv.c b/drivers/gpu/drm/mcde/mcde_drv.c
-index 759e279b645a..52c4d2641a14 100644
---- a/drivers/gpu/drm/mcde/mcde_drv.c
-+++ b/drivers/gpu/drm/mcde/mcde_drv.c
-@@ -194,5 +194,7 @@ static int mcde_modeset_init(struct drm_device *drm)
- 	}
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index dc8e3e917dd7..5ad1b080184d 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -580,8 +580,14 @@ static int mtk_drm_kms_init(struct drm_device *drm)
  
+ 	drm_kms_helper_poll_init(drm);
 -	drm_mode_config_reset(drm);
++
 +	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		return ret;
- 	drm_kms_helper_poll_init(drm);
++		goto err_fini_poll;
  
+ 	return 0;
+ 
++err_fini_poll:
++	drm_kms_helper_poll_fini(drm);
++
+ err_component_unbind:
+ 	for (i = 0; i < private->data->mmsys_dev_num; i++)
 
 -- 
 2.55.0
