@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEA5606A603
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1EA606A604
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Ki0h6WUl
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ea2vxCIj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C23112815;
-	Thu,  5 Nov 2026 15:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA1F112806;
+	Thu,  5 Nov 2026 15:53:26 +0000 (UTC)
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5415611282F;
- Thu,  5 Nov 2026 15:53:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793893984; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFCBB112806;
+ Thu,  5 Nov 2026 15:53:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793893990; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=JlB8hVPPPDNcmszLLkIBvBwSag5xhD7SiapW3xecJ7C5W05AWfhRhnN/rRpzwhVVCakGdMNL9mDpTI0dH8NVErgqIeeydWHLkgQ2mtHkOr1kjzAh0p/zLiHKmxnBMUavcgUaroitAhy7icZOfObiJ/j3Q8Szh+KZhTzOS1eftto=
+ b=oGccq0teFashXMSLxx2OcFA7A2Ow7yeOt7iCh/fwiHcE4n8WVihOPW3o7cLPXOcPn2sKv0tRz0LfwWOYRJTjjY8dad9vu3jUPMmjTV02ny8VSgnDoZ9wAAX4aOx8UQpM9nR7NImL52sEZVCg/+pm4WgsWDGWz32vxk8mdcmISVk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793893984;
+ s=zohoarc; t=1793893990;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=fTzNDSolmw7K2SsCbbZU91nxSTB00KcD9PPh6CHzKVg=; 
- b=AYE3sbP2IplCW1BDlq6pjMXAlYtgXCiRV6i3jszZ/L54iL0l3YB+J4lZNS0AQZ0vyRHJBPArbgUws1KJN+PbGC34AoEo7XbFuGTJuH7SwlKGy5WaveL5RHtUB93dKsAzYZXVBBGHinRAoLsdHJQkWVUzAtQyNm13L2TD+uz/R/Q=
+ bh=mbSJbOadZG+W4UAprD18p6zrB6saFJ1TMM5/bUt+RW0=; 
+ b=E2rMjFHRt4fcQqmy7LH7G93ocmQMhS+1FNEfDrD5RoS/6TfaK+MSGschBwwEGFqBvCBXRYj7VzeTwxDM0UYTOuypEr8ZckORvw/IC16/1iGuJEi1DFMFNqQ0HsfYIYofT5hNwZfmhbph4JHWx7yayKuRB53LuJDznUJBbbH/bvs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=Ki0h6WUlKLThrkF3KvCnaUd93eXjEjo+StMaGQ/y4aU5zjWNlImVOU+lBV0DDWrpZsy/eUlxAQ/hZX9Pf8aq5CiUS1uW0ZaS8Tai+mkkMXa/rI/6Ar37nMHwxIRw1evj09RZf0iFwtzv9yuv8VQh//vi39UnH6DmTuD3dRhz95I=;
+ b=ea2vxCIjvzhWDuC1NHVIs2LcHIRwhgrvZUWJJISdgR8xIgQJnqVzyLsaTw5bV8eShtohdYr6fOMXtvAZPgaC2MSAMZOgSJiS40sNZNV1fdbfqAWoWg/guB8UdYbjLMhCTCFE726+nEZfKN4m3yD3BbHKngl79ZGsMxnDJK+t2LM=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=fTzNDSolmw7K2SsCbbZU91nxSTB00KcD9PPh6CHzKVg=;
+ bh=mbSJbOadZG+W4UAprD18p6zrB6saFJ1TMM5/bUt+RW0=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793893983774815.9743865612031;
- Thu, 5 Nov 2026 07:53:03 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 179389399040296.01747505061871;
+ Thu, 5 Nov 2026 07:53:10 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:51:56 +0100
-Subject: [PATCH v2 05/27] drm/connector: hdmi: Add VTEM EMP generation
+Date: Thu, 05 Nov 2026 16:51:57 +0100
+Subject: [PATCH v2 06/27] drm/crtc-helper: Add VRR helper functions
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-5-55f4215be2c2@collabora.com>
+Message-Id: <20261105-vrr-limiter-uapi-v2-6-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
@@ -82,124 +82,121 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Derek Foreman <derek.foreman@collabora.com>
+VRR needs to change the vertical front porch timing to change the duration
+of a frame. Add two helpers to aid in this.
 
-Add VTEM EMP generation to enable variable refresh rate signalling over
-HDMI.
+drm_crtc_helper_vrr_flush should be called when the source has a new
+frame ready to present. It adjusts the internal VRR state, and returns
+whether the current vtotal has been changed. Callers can then adjust
+their hardware state as is necessary.
 
-These infoframes are only generated if the sink supports VRR.
+drm_crtc_helper_vrr_vsync should be called in the vblank interrupt
+handler. It adjusts the internal VRR state, and returns whether the
+current vtotal has been changed. Callers can then adjust their hardware
+state as is necessary.
 
+Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
 Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 63 +++++++++++++++++++++++++
- include/drm/drm_connector.h                     |  5 ++
- 2 files changed, 68 insertions(+)
+ drivers/gpu/drm/drm_crtc_helper.c | 63 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_crtc_helper.h     |  4 +++
+ 2 files changed, 67 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index eb6abfd1350d..ce680eaa5047 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -853,6 +853,61 @@ static int hdmi_generate_hdmi_vendor_infoframe(const struct drm_connector *conne
- 	return 0;
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index 4a8cfe046e4a..4ffb3b0b7878 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -838,6 +838,69 @@ int drm_crtc_helper_set_config(struct drm_mode_set *set,
  }
+ EXPORT_SYMBOL(drm_crtc_helper_set_config);
  
-+static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connector,
-+					    struct drm_connector_state *conn_state)
++/**
++ * drm_crtc_helper_vrr_flush - Update VRR state on frame ready
++ * @crtc_state: pointer to &struct drm_crtc_state of CRTC that has a new frame ready
++ *
++ * Update the VRR state by communicating that a frame is ready on
++ * @crtc_state.crtc.
++ *
++ * Should be called from the @crtc_state.crtc &drm_crtc_helper_funcs.atomic_flush
++ * hook.
++ *
++ * Returns:
++ * - %true if @crtc_state.vrr_state.cur_vtotal changed
++ * - %false otherwise
++ */
++bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state)
 +{
-+	const struct drm_display_info *info = &connector->display_info;
-+	const struct drm_crtc_state *crtc_state =
-+		drm_atomic_get_crtc_state(conn_state->state, conn_state->crtc);
-+	struct drm_connector_hdmi_infoframe *infoframe =
-+		&conn_state->hdmi.infoframes.vtem;
-+	struct hdmi_emp_infoframe_vtem *vtem =
-+		&infoframe->data.vtem;
-+	const struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
-+	int vfront;
-+	u8 avi_vic;
++	struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
 +
-+	infoframe->set = false;
-+
-+	if (!connector->hdmi.funcs->vtem.write_infoframe)
-+		return 0;
-+
-+	if (!info->hdmi.vrr_cap.supported)
-+		return 0;
-+
-+	if (conn_state->hdmi.infoframes.avi.set)
-+		avi_vic = conn_state->hdmi.infoframes.avi.data.avi.video_code;
-+	else
-+		avi_vic = 0;
-+
-+	hdmi_emp_infoframe_vtem_init(vtem);
-+
-+	switch (conn_state->vrr_display_mode) {
-+	case VRR_DISPLAY_MODE_GAME:
-+		vtem->game_vrr_en = true;
-+		vtem->m_const = !vrr->dynamic;
-+		break;
-+	case VRR_DISPLAY_MODE_OFF:
-+		break;
-+	default:
-+		return -EINVAL;
++	if (!crtc_state->vrr_enabled) {
++		if (vrr->cur_vtotal) {
++			vrr->cur_vtotal = 0;
++			return true;
++		}
++		return false;
 +	}
 +
-+	if (vtem->game_vrr_en && !avi_vic) {
-+		vtem->base_refresh_rate = drm_mode_vrefresh(&crtc_state->mode);
-+		vfront = crtc_state->adjusted_mode.crtc_vsync_start -
-+			 crtc_state->adjusted_mode.crtc_vdisplay;
-+		if (vfront > U8_MAX || vfront < 0)
-+			return -EINVAL;
++	if (vrr->cur_vtotal == vrr->base_vtotal)
++		return false;
 +
-+		vtem->base_vfront = vfront;
-+	}
++	vrr->cur_vtotal = vrr->base_vtotal;
 +
-+	infoframe->set = true;
-+
-+	return 0;
++	return true;
 +}
++EXPORT_SYMBOL(drm_crtc_helper_vrr_flush);
 +
- static int
- hdmi_generate_infoframes(const struct drm_connector *connector,
- 			 struct drm_connector_state *conn_state)
-@@ -884,6 +939,10 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
- 	if (ret)
- 		return ret;
- 
-+	ret = hdmi_generate_emp_infoframe_vtem(connector, conn_state);
-+	if (ret)
-+		return ret;
++/**
++ * drm_crtc_helper_vrr_vsync - Update VRR state on vblank end
++ * @crtc_state: pointer to &struct drm_crtc_state of CRTC the vblank occurred on
++ *
++ * Update the VRR state by communicating that a vertical blank has ended and a
++ * new frame is about to start.
++ *
++ * Returns:
++ *  - %true if @crtc_state.vrr_state.cur_vtotal changed
++ *  - %false otherwise
++ */
++bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state)
++{
++	struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
++	u16 old_vtotal = vrr->cur_vtotal;
 +
- 	return 0;
- }
- 
-@@ -1475,6 +1534,10 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
- 			goto out;
- 	}
- 
-+	ret = write_or_clear_infoframe(connector, &funcs->vtem, "VTEM",
-+				       &old_conn_state->hdmi.infoframes.vtem,
-+				       &new_conn_state->hdmi.infoframes.vtem);
++	if (!crtc_state->vrr_enabled)
++		vrr->cur_vtotal = 0;
++	else
++		vrr->cur_vtotal = vrr->max_vtotal;
 +
- out:
- 	mutex_unlock(&connector->hdmi.infoframes.lock);
- 	return ret;
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 184b10c89508..9df745ecff92 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1186,6 +1186,11 @@ struct drm_connector_hdmi_state {
- 		 * matching our state.
- 		 */
- 		struct drm_connector_hdmi_infoframe hdmi;
++	if (abs_diff(vrr->cur_vtotal, old_vtotal) > 1)
++		vrr->dynamic = true;
 +
-+		/**
-+		 * @vtem: VTEM EMP infoframes structure matching our state.
-+		 */
-+		struct drm_connector_hdmi_infoframe vtem;
- 	} infoframes;
++	return old_vtotal != vrr->cur_vtotal;
++}
++EXPORT_SYMBOL(drm_crtc_helper_vrr_vsync);
++
+ static int drm_helper_choose_encoder_dpms(struct drm_encoder *encoder)
+ {
+ 	int dpms = DRM_MODE_DPMS_OFF;
+diff --git a/include/drm/drm_crtc_helper.h b/include/drm/drm_crtc_helper.h
+index 855da5733c47..0c8c11ea36dd 100644
+--- a/include/drm/drm_crtc_helper.h
++++ b/include/drm/drm_crtc_helper.h
+@@ -44,6 +44,7 @@ struct drm_encoder;
+ struct drm_framebuffer;
+ struct drm_mode_set;
+ struct drm_modeset_acquire_ctx;
++struct drm_crtc_state;
  
- 	/**
+ void drm_helper_disable_unused_functions(struct drm_device *dev);
+ int drm_crtc_helper_set_config(struct drm_mode_set *set,
+@@ -62,4 +63,7 @@ int drm_helper_connector_dpms(struct drm_connector *connector, int mode);
+ void drm_helper_resume_force_mode(struct drm_device *dev);
+ int drm_helper_force_disable_all(struct drm_device *dev);
+ 
++bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state);
++bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state);
++
+ #endif
 
 -- 
 2.56.0
