@@ -2,46 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DF6606EEB2
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:57:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F98960726AC
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:57:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mthzq1VV
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d9p/C4gF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 672E110E07E;
-	Thu,  5 Nov 2026 15:57:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39F5B10E2A6
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:56:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E73D742E75;
- Thu,  5 Nov 2026 15:56:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFC51F000C1;
- Thu,  5 Nov 2026 15:56:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793894217;
- bh=fwV/2B3TkwHJXgDq9v3y31qZQLcW8rg2jXVX7Q/BYBs=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=mthzq1VV++GovyrOsvOve2PzrK1e2YnD6/5c8e6w07xQfL/JkNSOIh4XMpcPdniwm
- diC7wRhV0Z3jTwQrjoOlGsHxGokLGE/x/ccHqoEEELTm9qyWnPJO2gTQAruanN9+qX
- tZIHss3uEEY8N6rKhVA3TzbEdfu3fweQ6qgFVUFMQJAeCjo9ODpAqSMZyXMbc9xvgQ
- SOhUaTSR/mlnqtLkvxTqOfWV1bzVHsMZ+X2P4NhNKgZ86elbsCEAjtkTppZN0E7X7T
- YHIVctkIVzOQOiQs+W9fCNmU0kh63/NwOPKTg0BbSlhnrs40ou9Hvtby/Rfi8dIDM4
- Yv1MzOmCbVxiA==
-Message-ID: <654ec450bfe86c60279a352014ead93c@kernel.org>
-Date: Thu, 05 Nov 2026 15:56:54 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Sebastian Wick" <sebastian.wick@redhat.com>
-Subject: Re: [PATCH 2/2] drm/vkms: Use drm_dev_unplug() for ConfigFS device
- removal
-In-Reply-To: <20261031225901.3200167-2-sebastian.wick@redhat.com>
-References: <20261031225901.3200167-2-sebastian.wick@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "David
- Airlie" <airlied@gmail.com>, "Haneen Mohammed" <hamohammed.sa@gmail.com>,
- "Louis Chauvet" <louis.chauvet@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, "Melissa Wen" <melissa.srw@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 697FA11291B;
+	Thu,  5 Nov 2026 15:57:09 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5429E10E03B
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1793894221;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=i1+mN0RnHyyW/Kk8WOT8k8frVguueOGkksvB+nVa7Ms=;
+ b=d9p/C4gF3uLx882nsvpXmIYzrVLTSqV3VQMbQatGK5WxuCI93eij7mYFt1xN5mQ66xNvkB
+ v3GyT9QCyIQ3oOe+uv0QqD6T2xoIkNQHEVYTJjCcK4xcIuf47ew82/itYPzdI5enmFMWpq
+ oKupWXtJRrvARUz4HSZsCHo+Fn4BFpk=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-115-Ld8RBX-BOlCC742hjofxlQ-1; Thu, 05 Nov 2026 10:56:57 -0500
+X-MC-Unique: Ld8RBX-BOlCC742hjofxlQ-1
+X-Mimecast-MFC-AGG-ID: Ld8RBX-BOlCC742hjofxlQ_1793894216
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-48c430f0f01so1655015f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 07:56:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793894216; x=1794499016;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=i1+mN0RnHyyW/Kk8WOT8k8frVguueOGkksvB+nVa7Ms=;
+ b=Gh8f1adel4bfu7Acp7HLKdMyePm5Z5184kaO+w2IU4fm8lqt122SygReDNNcyZP2Xo
+ y8qBWAPXyDBdS1EpFleRIWUx5/FEHKZCDuNlYPI+VMhc8sG1l/lHGHndzUwGuFpUSbVa
+ j084GReHhYPJ8gPgMirvohWyddZqyESfsEewcQ5AjT9RsvuBAyiVcePO/a5E74O8G3YR
+ GAzkMBe45gb8pQdWxT03oBoN/BaQGi2778sMptNcqamNRX45QmLnSy0iB+it/2IWhYAA
+ iVjYsihGpQr3NoLwU5NoY5VEOtYSTlcOVlkudCMa4jBUt5rjoKDuH0G7KG3bs8o5dmYT
+ OmSQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz3Ya8I4/Io+GuOgUuVcovXMR3TzWY5LgkN9VHH28ZRXc8Liqd9pHQhq8q3rNHPTHEcHrE7m+g1CFs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8Q8wqLQ0QhPQC4VIX8ljlZWvi5IkipYyLphFdOOFsfL316goql
+ zHS+Ey7DsNRFIu8r/M+3NQ8yxfB6cwDcZJrlcucPSL2V0G2JdmfakcJhCUFLX1NHSSMF8jC6FIc
+ J3McWyN6UhNRuKX1+JHIB6p7yENoBhJkx6b99ohAM5HLphPNYUxoNanfB/Xn4QxfLp/FYMw==
+X-Gm-Gg: AYBFou3YAjDTy2k090+WcEh7Dkz1mEcnGe9JJ6nUz1grCWi4MdnyD94xR44GkpGVFST
+ MsdHHekvBd3B9o2J5eXFiHwzEDR0uUVbXPUfkAuSbDtB4E0lftqdTrUZ152hm0E086J+Tpks+eC
+ UNE1SuCyiAs51LdLGEKvWCppyWAhaEl5ySLyi8G+6T0uqXzJajUzCUlIpUtpFaRS86b5jPsUWhy
+ Hg4r3y80APiIEgRWXAe+nEgDXJkZpMciRaWOXUy+9+5hQ4heqopfQ8T+BtKbnc01SSd/djoFGrf
+ QRC7/zSnscnvvGvGeEy0lpdH4VWGUj6zeIDlTW2DDXkDuX/fseeizFLecPbltIgA+3IWEanR20g
+ iRWZAGwG0HqJTzIjwCo1v8zsJymahVDAgPOZJFIYTShQMQV0jzxE1+CxbgWCKSpIfmQPGO4DjCj
+ YG21kLtjT+i/7wyLvEGye86rfxltUM8t2OZhX61dM=
+X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id
+ 5b1f17b1804b1-4ac17ffa050mr446172625e9.22.1793894215709; 
+ Thu, 05 Nov 2026 07:56:55 -0800 (PST)
+X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id
+ 5b1f17b1804b1-4ac17ffa050mr446172245e9.22.1793894215260; 
+ Thu, 05 Nov 2026 07:56:55 -0800 (PST)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b6af5f0c63sm1031515e9.6.2026.11.05.07.56.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2026 07:56:54 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Simona Vetter
+ <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH RESEND 51/83] drm/simpledrm: Switch to
+ drm_mode_config_create_initial_state
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-51-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-51-1f58d1e33380@kernel.org>
+Date: Thu, 05 Nov 2026 16:56:53 +0100
+Message-ID: <xlv1y0b7e0fu.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: YkXILyFM6LJ1H6INgWhjMheYMo_xIIIruXVtGfLKeXE_1793894216
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,24 +95,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-On Sat, 31 Oct 2026 23:58:59 +0100, Sebastian Wick wrote:
-> VKMS ConfigFS devices can be disabled while userspace still holds open
-> file descriptors. Using drm_dev_unregister() leaves the device in a
-> state where ioctls are still accepted but internal locks can contend
-> with the teardown path. Specifically, drmModeGetConnector() triggers
-> fill_modes which acquires mode_config locks that contend with
-> 
-> [ ... ]
+Maxime Ripard <mripard@kernel.org> writes:
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles.
+>
+> Since the two roles need different behaviors (notably for objects like
+> drm_private_obj that must persist across suspend/resume),
+> drm_mode_config_create_initial_state() was introduced to handle only
+> the initial state creation at probe time.
+>
+> Switch to drm_mode_config_create_initial_state().
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> ---
+>  drivers/gpu/drm/sysfb/simpledrm.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
 
-Thanks!
-Maxime
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
