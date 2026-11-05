@@ -2,53 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA88606A335
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE03D606D811
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwB02F8q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=brbzRhCV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 263A91127AC;
-	Thu,  5 Nov 2026 15:33:47 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 735061127AC
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24ED91127B1;
+	Thu,  5 Nov 2026 15:33:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D781127B1
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B1C3E60A68;
- Thu,  5 Nov 2026 15:33:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB24E1F00919;
- Thu,  5 Nov 2026 15:33:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E3A141F29;
+ Thu,  5 Nov 2026 15:33:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDEB1F00919;
+ Thu,  5 Nov 2026 15:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892820;
- bh=BKGEMNg9NgkR2mzl09Kznj0mXm8FV4o5Z88xPsxAxVg=;
+ s=k20260515; t=1793892823;
+ bh=vCrn5MmT+HQYRxp3sJiwYVmgn8FogtXb8dGM3iva+LU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VwB02F8qsp+90jV3+b4yQqJt9yo+PRX07dSNmDhNW3yU0xRYCGw34VaS/SsOw7UbP
- hP8zX6aHhTlvaQPRpiOqumdaWVHeBzQFACHEb0u24C7h8Bub1VNqmwU5FgeIcRJle/
- q4lT2PKDBXbzP1rX6EAQH7yiKTRdFvauodFdgBaAvhEa6PNj8wgNyzZf4GJ1tYdnB5
- As5zvKcVA75t8sjmVohhDHvIPA8ViG8YUz+3VTCq1CQ0NUbo8bbzEcla0ZND585KSX
- Avb+d0IdBO5QK7ij7majhE+THNH+ZqA1ylr8sbp6yH81GawZHbLnmhZbODb5jcYdqk
- gJAfgxxdcA1cQ==
+ b=brbzRhCVhzR1Mn54yAvPYKZ0VU9+PtdA6iIdgFn51cFZKQHIfZzqg08Ji3yhi07wp
+ UIYMZH5NJ7YuiEq4YUDx3h/QKiVTJEMlov9iqhsLSgdwwZcAm23YZWwgI/sdxDqiRR
+ 9mdfWaMSxSUadydFEx7K/NPXycMqjiCWShQ3Hw8rq0kjqUZskr3F5jHWc8csrFdevG
+ KkDkKAWOR+/BuIsIglGyP2YGALb21j7/ID8L+L8sSymchRql3b6AYiB3LJFUa5/e0r
+ 65ElG/0/VCcZXY16ROVfcrP2zzWL2aMkYARjOKsPdoVLaDXIt4K5qMPYViud4yLE5z
+ r0oouENUF2zIg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:06 +0100
-Subject: [PATCH RESEND 57/83] drm/tests: drm_hdmi_state_helper_test: Switch
- to drm_mode_config_create_initial_state
+Date: Thu, 05 Nov 2026 16:30:07 +0100
+Subject: [PATCH RESEND 58/83] drm/tidss: Switch to
+ drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-57-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-58-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1186; i=mripard@kernel.org;
- h=from:subject:message-id; bh=u874M3b/LljNkF5kP0LP3qZmAOpWZmcahfJhGsOKInc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFny7yf/35QWnY0sPfZK8zH7sz6cfvCttii0yo97Ut
- 04r2fHvUMdUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYiF8vY52+oUnv3BS7JflB
- N/WPvCtsV27YNffR/vqpJ7l6/A9ekOb/vP2q0ekZuXw7ZF9kb/TTE2WsDxIPK78zw32H1zql38s
- SF9b/9Pfu/tvl91QjmHWXBndnTemWbVe6Giev4ai4dOGrXd0DAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1279; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=86gK2yPT8CPKaqFp8H/vt6hy1iMyEFYGow2pSPBJD7I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnxT3XNEnOPx98aP+xnmPfndNmeSvtHhJYnfihY9Y
+ K5LunKFu2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBMRGIlY32qzc0bC/4sM2+9
+ FF1p8u3SjFWx8p0TIir/2E0/e3DelYijmtt3VPHlhy9s0/nP42Mp/o2x4eU8/z+Ks8W4V3UZX53
+ D8FB4X0jD8gcTvl04fOby60NWezcytEyW9V+x6nzg73vP5718eA8A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,22 +84,27 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Cc: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ drivers/gpu/drm/tidss/tidss_drv.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index 336bb644cb7c..99a0fa479704 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -298,5 +298,7 @@ __connector_hdmi_init(struct kunit *test,
- 	drm_connector_attach_encoder(conn, enc);
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 44b0b009c29a..e258f656cf03 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -167,5 +167,9 @@ static int tidss_probe(struct platform_device *pdev)
+ 	drm_kms_helper_poll_init(ddev);
  
--	drm_mode_config_reset(drm);
-+	ret = drm_mode_config_create_initial_state(drm);
-+	if (ret)
-+		return ERR_PTR(ret);
+-	drm_mode_config_reset(ddev);
++	ret = drm_mode_config_create_initial_state(ddev);
++	if (ret) {
++		dev_err(dev, "failed to create initial state: %d\n", ret);
++		goto err_irq_uninstall;
++	}
  
- 	if (edid_data && edid_len) {
+ 	ret = drm_dev_register(ddev, 0);
 
 -- 
 2.55.0
