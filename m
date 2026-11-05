@@ -2,66 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4B8606A6EE
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:58:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945E4606EE87
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS7EuTM4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyyalHoT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF04610E12D;
-	Thu,  5 Nov 2026 19:58:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD02110E12D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8CAE10E13E;
+	Thu,  5 Nov 2026 20:08:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1282610F908
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:08:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F0D142B67;
- Thu,  5 Nov 2026 19:58:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4B01F008A2;
- Thu,  5 Nov 2026 19:58:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C7EB60232
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07BB1F0089F;
+ Thu,  5 Nov 2026 20:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793908697;
- bh=Di4Zv2+bgkX+HhZmCpdKbhvfGlZoAaFGwpTTtNZDf1w=;
+ s=k20260515; t=1793909279;
+ bh=4q4s7pWDPbbZ69TJ3Vj/VJgX9F4fGTs8z7uMX0gVhmg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PS7EuTM4dqldTrwdAR0onQbkCjogqgjpUy8oBN5Oi/jsHPd1HPHlgSGbxScX7TULM
- hRB6vR+pRSsaVGMqkA0T2yAO/9EP8dfTHiI3smO+XSdOQTs0WaU0CSspRWwNIygWmH
- xxyaJ/jl5nVv4oGCeueAnyoM+i/SNOz1yePgzX6SBUyU7ID4QMKKDqnCau9Fzxv22l
- 9yUUQnAUlAQfxJYnkuFIsPSnTWbDHjOSLzPYjAQnKTCY8vnyzOnX2r4MnJUC80Xsxq
- 9G6Oxyszcx5C+PQB+DFxzoyTPD+CIGBL43AvNqSOHfSpIHjw0LBt6ISDjfycxH6Ryo
- K9q3hUiMFf+cA==
-Message-ID: <sashiko-outbox-200057@kernel.org>
+ b=FyyalHoTOP5FBBJe8rlJCW+k7POovHM/SN0FSgGb1TciJDlXePENw5Z+6crQLNsBM
+ 9wIW05yP0c7qRr/+z8mX5+vzSKZHe1gl1pdnxRwv6kn9EmhW5Z4ekG7NCtEk0emPHc
+ p197S7OxXVEmti/cqbVtNofTv1JSEF4LSiN1CAFLp34WUvVsqmr7lJ219NRmEi4OR8
+ a/EpjBZDINwx5D6T/psict82biBlQ5cmXwZZtYELuqvyl76PlWdVbnN/Ux20VeiD+S
+ xk4HcWeGoPqUSYkqP+D6iROuj7Wo+YCdhcAQ2jMPJlQO1nIMCd/GLJRp8PyVJ813dM
+ RbRg69iOzUt2g==
+Message-ID: <sashiko-outbox-200075@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v2 23/30] dyndbg: let procfs copy in writes to
- /proc/dynamic_debug/control
-To: "Christian Brauner" <brauner@kernel.org>
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Jann Horn" <jannh@google.com>, "Josef
- Bacik" <josef@toxicpanda.com>, "Chris Mason" <mason@kernel.org>, "Jeff
- Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Eric Dumazet" <edumazet@kernel.org>, "Thomas
- Gleixner" <tglx@kernel.org>, "Al Viro" <viro@zeniv.linux.org.uk>, "Jonathan
- Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>, "Greg
- Kroah-Hartman" <gregkh@suse.de>, "Joel Granados" <joel.granados@kernel.org>,
- "Kees
- Cook" <kees@kernel.org>, "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, coreteam@netfilter.org,
- kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, "Takashi
- Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, "Chuck
- Lever" <cel@kernel.org>, tytso@mit.edu, dmitry.torokhov@gmail.com, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Anna Schumaker" <anna@kernel.org>,
- yukuai@fygo.io, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261104-work-procfs-fs-v2-23-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <20261104-work-procfs-fs-v2-23-319e0f9a8aae@kernel.org>
+Subject: Re: [PATCH RESEND 45/83] drm/sti: Switch to
+ drm_mode_config_create_initial_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-45-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-45-1f58d1e33380@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:58:14 +0000
+Date: Thu, 05 Nov 2026 20:07:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +53,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dyndbg: split declaration and assignment of __free() in ddebug_proc=
-_write()
+- [High] drm/sti: late initial state creation and broken error unwind in st=
+i_bind()
 --
 
-commit 1bfaabab91de2989a4d10ae03eef349ab77809d6
-Author: Christian Brauner <brauner@kernel.org>
+commit 90a65d66556bc446b84f7842f4301480a5997e74
+Author: Maxime Ripard <mripard@kernel.org>
 
-dyndbg: let procfs copy in writes to /proc/dynamic_debug/control
+drm/sti: Switch to drm_mode_config_create_initial_state
 
-This commit factors the query execution logic out of ddebug_proc_write() in=
-to
-ddebug_proc_write_buf() and switches proc_fops to use .proc_write_buf and
-.proc_write_size so procfs copies in the user buffer before pinning the ent=
-ry.
+This commit replaces the call to drm_mode_config_reset() in sti_bind() with
+drm_mode_config_create_initial_state() and adds an error path to unregister
+the DRM device if initial state creation fails.
 
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 64a2112908725..1d6012c9eb41f 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -1002,11 +1002,28 @@ __setup("dyndbg=3D", dyndbg_setup);
-
-[ ... ]
-
->  static ssize_t ddebug_proc_write(struct file *file, const char __user *u=
-buf,
->  				  size_t len, loff_t *offp)
->  {
-> -	char *tmpbuf;
-> -	int ret;
-> +	char *tmpbuf __free(kfree) =3D NULL;
+> diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_drv.c
+> index d02d71866f2a9..0ca6c6b41f18d 100644
+> --- a/drivers/gpu/drm/sti/sti_drv.c
+> +++ b/drivers/gpu/drm/sti/sti_drv.c
+> @@ -202,12 +202,16 @@ static int sti_bind(struct device *dev)
+>  	if (ret)
+>  		goto err_cleanup;
 > =20
->  	if (len =3D=3D 0)
->  		return 0;
-> @@ -1017,15 +1034,7 @@ static ssize_t ddebug_proc_write(struct file *file=
-, const char __user *ubuf,
->  	tmpbuf =3D memdup_user_nul(ubuf, len);
->  	if (IS_ERR(tmpbuf))
->  		return PTR_ERR(tmpbuf);
-> -	v2pr_info("read %zu bytes from userspace\n", len);
-> -
-> -	ret =3D ddebug_exec_queries(tmpbuf, NULL);
-> -	kfree(tmpbuf);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	*offp +=3D len;
-> -	return len;
-> +	return ddebug_proc_write_buf(file, tmpbuf, len, offp);
->  }
+> -	drm_mode_config_reset(ddev);
+> +	ret =3D drm_mode_config_create_initial_state(ddev);
+> +	if (ret)
+> +		goto err_unregister;
+> =20
+>  	drm_client_setup(ddev, NULL);
+> =20
+>  	return 0;
+> =20
+> +err_unregister:
+> +	drm_dev_unregister(ddev);
+>  err_cleanup:
+>  	sti_cleanup(ddev);
 
-[Severity: Low]
-In ddebug_proc_write(), tmpbuf is declared with __free(kfree) =3D NULL at t=
-he
-top of the function before the early length checks and then assigned later =
-via
-memdup_user_nul().
+[Severity: High]
+If drm_mode_config_create_initial_state() fails in sti_bind() (for example,
+when plane or CRTC state allocation fails with -ENOMEM), jumping to
+err_unregister and falling through to err_cleanup calls sti_cleanup():
 
-Per the cleanup.h guidelines, could tmpbuf be defined and initialized in a
-single statement at the allocation site instead:
+drivers/gpu/drm/sti/sti_drv.c:sti_cleanup() {
+	...
+	drm_kms_helper_poll_fini(ddev);
+	drm_atomic_helper_shutdown(ddev);
+	drm_mode_config_cleanup(ddev);
+	...
+}
 
-	char *tmpbuf __free(kfree) =3D memdup_user_nul(ubuf, len);
+Because crtc->state is still NULL when initial state creation fails before
+allocating CRTC states (or when drm_dev_register() fails before initial sta=
+te
+creation is reached), does calling
+sti_cleanup() -> drm_atomic_helper_shutdown() ->
+drm_atomic_helper_disable_all() -> drm_atomic_get_crtc_state() ->
+drm_atomic_helper_crtc_duplicate_state() trigger a WARN_ON(!crtc->state) and
+cause drm_atomic_helper_shutdown() to fail?
+
+In addition, in sti_bind(), drm_dev_register() is called right before
+drm_mode_config_create_initial_state():
+
+drivers/gpu/drm/sti/sti_drv.c:sti_bind() {
+	...
+	ret =3D drm_dev_register(ddev, 0);
+	if (ret)
+		goto err_cleanup;
+
+	ret =3D drm_mode_config_create_initial_state(ddev);
+	if (ret)
+		goto err_unregister;
+	...
+}
+
+Since drm_dev_register() exposes the DRM device nodes and connector sysfs
+attributes to userspace while plane->state, crtc->state, and
+connector->state are still NULL, and drm_mode_config_create_initial_state()
+subsequently populates those state pointers without holding modeset locks,
+can a userspace process opening the device right after registration trigger
+a NULL pointer dereference in drm_mode_object_get_properties() ->
+drm_atomic_get_property()?
+
+Should drm_mode_config_create_initial_state() be called before
+drm_dev_register(), and should drm_atomic_helper_shutdown() be avoided on
+error paths where initial modeset state has not been fully created?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-work-procf=
-s-fs-v2-0-319e0f9a8aae@kernel.org?part=3D23
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-drm-no-mor=
+e-config-reset-v1-0-1f58d1e33380@kernel.org?part=3D45
