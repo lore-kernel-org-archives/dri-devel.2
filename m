@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE3606EE94
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5035E606EEAF
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSuOuzUz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhhuXFmR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62B46112517;
-	Thu,  5 Nov 2026 15:30:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7589311277D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E1711275D;
+	Thu,  5 Nov 2026 15:30:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B6011275D
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5E05840EFB;
- Thu,  5 Nov 2026 15:30:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE0D1F00919;
- Thu,  5 Nov 2026 15:30:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2A09260A96;
+ Thu,  5 Nov 2026 15:30:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59AD91F000C1;
+ Thu,  5 Nov 2026 15:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892639;
- bh=f30ja/ey1ajbj4FwkdCZVMzrY3gwWuvA+c0ifYLWlTI=;
+ s=k20260515; t=1793892642;
+ bh=3tOFVuZJRf1bDYEmWCoD/jVrpLuq8oFbewMQzLTaFrY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jSuOuzUzDcVsF0SxHToZceGoGoGTHEkx4CM2skvhIU4UPepgptRsyxb52sCqmybBx
- VvoQLOuPiKmxgdPeHkv68L0nivGWGdZi1I/GqZ38VMToV6he98JhSjZ95Sdv+SMJFm
- liStHeWwmkxo0mAV4BJx64x5+DZ2VYdP9OVmFLOv03iZDAR6HIyoI/iFEaikH375LG
- O4y2mJJeomPNzX4EtrNvIFzTNdID6iHBfnsvgsIIs33FvKVMdzN/HvQRNQ+tPfBxsR
- suPYAAzLz4ASxgc6RVL85m6JBhpGb2KLMqpXLRBeYZVg0evXEGgmIXLi1H1j8ytV5M
- +kdq6ZSozeABA==
+ b=JhhuXFmRXbLsbzXC/lvTJ+AsBuDfqOPObuyWbfbPMz4w8i3vyxB+qvqG8OQVP6iI/
+ gq+tCqE5m1OOX0MAb5d8uNZXG/bR60Ihh7qCiyH3Llv6P4dEHrS/nb7ig5B0kZIJ7Y
+ QOM4WeK1ksby4CUO0mH5VnNd0z7cEUmtD4hWWNxFUCvV6sa9y1QL+PiNuhETGiILO0
+ e9kdg+gR5Df8wrfL7cvdHMMI+eN9EjSv3RVg+9lWST881kkQUMYaLB2a+nDtPfXlI9
+ Zk+/Injsa6UfCc1n1ruflGdN0hrg7rpGjsOedAQRp3GFc0KvNWdU+Aeg3vqv7XR1LP
+ ElFrORUUXxsgg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:16 +0100
-Subject: [PATCH RESEND 07/83] drm/armada: Switch to
+Date: Thu, 05 Nov 2026 16:29:17 +0100
+Subject: [PATCH RESEND 08/83] drm/aspeed: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-7-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-8-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Russell King <linux@armlinux.org.uk>
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=mripard@kernel.org;
- h=from:subject:message-id; bh=tUt1AMZZH5MZneaPHozm7qKaxuNXpZf4/9nSJvnl0wY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzwYZn34xT/ihyrs0rfd4vovN9Sbm2eUMH+2lNGe
- 9K8T40vO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEpp9jrGadHrWk6Oevz7+c
- PiUen/Dj9Grd8+WXvfrSZBc/sepeIPQ23ePXbw6Nu8FvH6rZ7VV53cjY8CdrxV+uRv7/XXsFg1L
- uBkqy74/lkFomvuFs8J1KIauj4VpdMWHZ5w7UNh86+3XzhzZ2AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=5+mjzHFJQjkqlDMGe2gO1QvfdERNGfQZCFh0AhP+u1Y=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjxsjOP+pOMZUfHAdeZRNonIiOr6FuNJ6Q583x5u4
+ r/aa+zZMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbiVsvYsGaPuXKLJM8mUUWP
+ H+oKfaufOO6r8up9f5l7sam3wPr+XSsVGDh63lX6e840Xl/JkJzGWGfBVlReI2ao8Wlabcxyrga
+ L/wKhkeKiohKp2Xe3z7D8UfLO3Tbvf/wcS47PmWL+u6S6AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +83,25 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Russell King <linux@armlinux.org.uk>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Joel Stanley <joel@jms.id.au>
 ---
- drivers/gpu/drm/armada/armada_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
-index cae25ad66c74..5c19923c85b0 100644
---- a/drivers/gpu/drm/armada/armada_drv.c
-+++ b/drivers/gpu/drm/armada/armada_drv.c
-@@ -127,5 +127,7 @@ static int armada_drm_bind(struct device *dev)
- 		goto err_comp;
+diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+index cacec0653bb1..3822b2723ba6 100644
+--- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
++++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+@@ -229,7 +229,5 @@ static int aspeed_gfx_load(struct drm_device *drm)
+ 	}
  
--	drm_mode_config_reset(&priv->drm);
-+	ret = drm_mode_config_create_initial_state(&priv->drm);
-+	if (ret)
-+		goto err_comp;
+-	drm_mode_config_reset(drm);
+-
+-	return 0;
++	return drm_mode_config_create_initial_state(drm);
+ }
  
- 	drm_kms_helper_poll_init(&priv->drm);
 
 -- 
 2.55.0
