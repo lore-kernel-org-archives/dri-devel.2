@@ -2,42 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C02606A337
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:43:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A988606A336
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xr1HTX33
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aan6Q1i8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1110E286;
-	Thu,  5 Nov 2026 15:43:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB2D10E305;
+	Thu,  5 Nov 2026 15:43:23 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACEC410E286
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:43:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB0F10E305
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:43:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A8F7605F4;
+ by tor.source.kernel.org (Postfix) with ESMTP id 226B16062C;
+ Thu,  5 Nov 2026 15:43:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCF71F00A15;
  Thu,  5 Nov 2026 15:43:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E3D1F00919;
- Thu,  5 Nov 2026 15:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793893392;
- bh=hG8CO2uN0Z68W8fYIcxaJcV/PhMDcmutuYzNaZH9PJ4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Xr1HTX33dJ3+/VCeK5nRteeriSRSqcdGJcvi3ItgQPpvglzJxggn2LoR6mliM2BT5
- foRVWtoAIZBL0lpm6t8C51ugjvjj0xijwIOG3kalCPVnIIEpN4g8s8vmOIfCbBvoy7
- 3tZ1Y5QZda33TPKlWbuztJH4umhtNAlKfEoNIgg3izOl5Umjj7s2enD6MCDpSC0Mbo
- 9p1Bnb7eQV6okYFk86L6trEH+TF6jNhQ+M8+14s02/rNjaoIifSwa2NRtV9pTc9snG
- ZcJ7ZXlFQq22WWBFHNke0kbApE30I8grPn5Huw9gEq8C0cYLUAhWxFwbsJcct5r2ku
- gNy3n8uizkQ0A==
+ s=k20260515; t=1793893396;
+ bh=XVHg8rCc4dXHGWkUjDjDTvbKqDG1Es1+qQKKZdsLPmw=;
+ h=From:Subject:Date:To:Cc;
+ b=Aan6Q1i8Osgd1DpoaIQnMNgBdVa5TjSkZbHwbKsYe6ne+WW6rH8qbumzt+ejd9zBZ
+ cn7f2dN/GNtk0zQ0UCb8qKJXTTg5wnHNz068mbdSVFeDktt+QI3sIAAeN2hoaxFqCt
+ vYeqXDypNfPAZ55tJXBgtZqHNoD3J/bavFceVXf7+ejUHeSA85V0Sc7/c71yMnfrr0
+ M6bcg0mpamuAW6lRgGqHyROBPEFKxGwMtFbK5HmUuVF5aftETPdJIDZ8dATUbot8ps
+ A+LQfaQo62D1wwYcS5eqlfNVeYC+e7yzmVYb43YWt9avcBYl3ntlh84RDQsOr0NQAI
+ Wo0TSk0tLOArQ==
 From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Thu, 05 Nov 2026 16:42:45 +0100
-Subject: [PATCH v3 2/2] rust: impl_flags: add bitwise operations with the
- underlying type
+Subject: [PATCH v3 0/2] rust: impl_flags: add convenience functions
+Date: Thu, 05 Nov 2026 16:42:43 +0100
+Message-Id: <20261105-impl-flags-additions-v3-0-5b17c01c2b15@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-impl-flags-additions-v3-2-5b17c01c2b15@kernel.org>
-References: <20261105-impl-flags-additions-v3-0-5b17c01c2b15@kernel.org>
-In-Reply-To: <20261105-impl-flags-additions-v3-0-5b17c01c2b15@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPOj7GoC/32PQW7DIBBFr2Kx7kQwxtjxqveosgA8OKg2TsFFq
+ SLfvdSp1HTRLv9o/nszN5Yoekqsr24sUvbJL6GE+qli9qzDSOCHkhlyVBxFA36+TOAmPSbQw+D
+ Xsp+A15I7Z41uzJGV6iWS89cd+3K650hv74W+3ofM6ERgl3n2a1/l9iAhWsEerX317cRHpw+BI
+ lgljq002BrR9blmX46zT+sSP/ZPstgl/x+dBXBQTd3ZzplOCvv8SjHQdFjiuBMz/lAU/4uChcI
+ HbFGik4qbX5Rt2z4BdyUoumMBAAA=
+X-Change-ID: 20260215-impl-flags-additions-0340ffcba5b9
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -51,21 +54,21 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
 Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, Andreas Hindborg <a.hindborg@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3125; i=a.hindborg@kernel.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2934; i=a.hindborg@kernel.org; 
  h=from:subject:message-id;
- bh=/g+4MXeBA3zS4Qufg6kRTDSUm8wtjrnwlXOGYsN3rM0=; 
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq7KP/IoMmzjLWqvB51LymuiaLcr2VTffqPSWPI
- lN5UUtP5qWJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCauyj/wAKCRD6UCkIqsW9
- 0FfbD/wNmhG+Rvw43bCiLWqq0MFJ3VIHu8KvfDV85LoZ1KigvES5mrg1IxfjM61x6fs+cPqd1z2
- Qi4HpmbUa6T6KphbFGK8B5TSIs2DleUV3pG8Tl3UpeclA+uy25ZQsJ+mOQKvraGiGF660Sx7Psq
- UqTKNY7lhHJeGYj89kJ0N9bkvobVoGJjgFboU88w7UcKXn6UJqmwAG7RKDeaWsxiXsIyO7hc+Ug
- bBK8uEeOHML71mQOg57TkbnE4NIiTzsBCJPho+psyZCAzKMSiPU20SUxa6BENYev/r9AVx1Bhl5
- gEnkk8xKNWg/CPHEPX6CToQ0dlICQdFITKW/J+PgsHnIxesRmQUtjGiugRlDMtGdSTFTl4xXue1
- Rus7zrGipAFpIKXgHlHDfDrzvL4084JTIrcxOsACkLRoZldtosWM/t+kVyymnFJwMCyhajzPD55
- tKkMwvQ4PzxUBOdy1Goh8vMLwQuHt7tZjwQBpS0N1/hY9bjSO6JJy28c7DbWSU3eu+WqVUn31Rv
- Pb5Tn9oPn0P0BOqW/1gQmUwMYdtQlx3eIax6rCboLm2D4vVZx/SVMyCc0AwqnkeDPTwEtaMWEYT
- ATzstPL6HNlcImljsls3AQT8PT5xViENikG4S+2sOvYxlP2ktYcFj/Q3/MCDfFAg336D1cfLsy0
- jowsS5zFBJzP1jg==
+ bh=HCuFUWDeHns1IU4/tw3GzxH+24Pb3iHCfGvwFidDSIk=; 
+ b=kA0DAAoB+lApCKrFvdAByyZiAGrso/SgPCc7Oyx3vMGJTevTkJD68xKW1xYwgiplCSE+f+vgY
+ 4kCMwQAAQoAHRYhBFeK2cjZZnYmKsBqhvpQKQiqxb3QBQJq7KP0AAoJEPpQKQiqxb3QK7MP/0Bi
+ QkBH3YqH4sFMJyol1mvQEj3go0w0ivZJGmxY1pjPNx0Og+l4L748KJmxYbv1CpBtSpgfJnlr1XX
+ LRrQ5iIrstvjHu/3IWnzVnRrRAM5zbnN0Y7/elJ9HoXjhpp5t9UdNveuWgkq2KKZ+T8Nl8ZfLli
+ 9TwFoil1+kZ/5BEwxBUyIKN3WCOGUwIh2unTd529N/iJc/7BlG6gVneFfwqpKzC90yiO1kUnw7C
+ 1B6IhMbD7lOhLmyYVBbdF22cpBgs/mVpDPlZLiPVI4//dxJfUsMlPhYO1smCOi/ZXLdUApaP+5K
+ x+J5NTPKg7251jc8pjUOXqdzFM4TRHrDJy64LGlZpfOF6qzzDt42eLW3pm20JrXqWMoYMEV5Eyu
+ WRVBtpcacwChevK/8eQk163Zrs5NpvtRCpLv45wdWZ38bS3VJgALeaUl/Tz+1Dyw/w6K6k2Dpiw
+ 3py+ilNnnACn9BCI5zmkBAvfX7Q8B9dklsoyOegXLF6yCdbMQyOpubYMWgoF6lU8F/nhaN4M66V
+ 5z819JU2yPGnzs0yJthrhSr/V7dpmJy6x8Y4pt6TECs/FdQoiAkGdNrNjj7JJOFGANYRdvZIKUy
+ 9o2KTv26C+Ph/Y3slZ99I/zzloQ3vTy83AXCW5c5q0W9k8DZAmo1MpZ4+yLVbCxdm8jI1Eqq/Fh
+ DGF62
 X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
  fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,98 +90,78 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add bitwise or operations between the flag value enum and the underlying
-type, so a flag value can be combined directly into an integer field of a C
-struct.
+Add a few convenience functions that makes it easier to work with the
+`impl_flags` module and C APIs.
 
-Rust abstractions that configure a C struct assign to a raw integer field,
-often conditionally and from more than one place. The upcoming
-`block::mq::gen_disk` conversion declares a `Feature` enum with
-`impl_flags!` and folds individual flags into `queue_limits::features`.
-With only the `From` implementation from the previous patch, that reads:
+These conversion functions are useful when assigning flags to C structs in
+Rust abstractions:
 
-    let mut lim: bindings::queue_limits = pin_init::zeroed();
+  let mut lim = bindings::queue_limits::zeroed();
 
-    if self.rotational {
-        lim.features = Feature::Rotational.into();
-    }
+  if self.rotational {
+      lim.features = Feature::Rotational.into();
+  }
 
-    #[cfg(CONFIG_BLK_DEV_ZONED)]
-    if self.zoned {
-        lim.features |= u32::from(Feature::Zoned);
-    }
+  if self.write_cache {
+      lim.features |= Feature::WriteCache;
+  }
 
-    if self.write_cache {
-        lim.features |= u32::from(Feature::WriteCache);
-    }
+Or when providing flags from C to Rust:
 
-With this patch:
-
-    let mut lim: bindings::queue_limits = pin_init::zeroed();
-
-    if self.rotational {
-        lim.features = Feature::Rotational.into();
-    }
-
-    #[cfg(CONFIG_BLK_DEV_ZONED)]
-    if self.zoned {
-        lim.features |= Feature::Zoned;
-    }
-
-    if self.write_cache {
-        lim.features |= Feature::WriteCache;
-    }
-
-Note the asymmetry of the first assignment to the rest. The plain
-assignment can be written `Feature::Rotational.into()`, but the compound
-assignments cannot use `.into()`: `u32` implements both `BitOrAssign<u32>`
-and `BitOrAssign<&u32>`, so the target type of `.into()` is ambiguous and
-inference fails with E0283. Without these implementations, every compound
-assignment has to name the underlying type explicitly.
-
-An `as` cast is one way around that, but we try to avoid casts, and unlike
-`u32::from` it would keep compiling silently if the field type were
-widened.
-
-The other option is a container temporary: accumulate into a `Features`
-value using the operators the macro already generates, then assign
-`features.bits()` to the field at the end. This requires a new temporary
-per flag field we want to assign and clutters the code.
+  impl<T: Operations> RequestInner<T> {
+      pub fn flags(&self) -> Flags {
+          // SAFETY: By C API contract and type invariant, `cmd_flags` is valid for read
+          let flags = unsafe { (*self.0.get()).cmd_flags & !((1 << bindings::REQ_OP_BITS) - 1) };
+          Flags::try_from(flags).expect("Request should have valid flags")
+      }
+  }
 
 Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 ---
- rust/kernel/impl_flags.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Changes in v3:
+- Use `Self` instead of `$flags` in the `TryFrom` implementation (Miguel).
+- Drop the hand-written `TryFrom<u32> for VmMapFlags` in
+`drivers/gpu/drm/tyr`, which is equivalent to, and now conflicts with, the
+implementation generated by the macro. Without this, tyr fails to build
+with E0119.
+- Expand the commit message of patch 2 with a before-and-after
+  comparison of the `gen_disk` call site, the alternatives considered
+  (`as` cast, explicit `From`, container temporary), and the trade-off
+  of offering operators on the underlying type (Miguel, Gary).
+- Use `pin_init::zeroed()` instead of `core::mem::zeroed()` in the
+  patch 2 commit message example (Miguel).
+- Rebase on v7.4-rc1 and on v3 of the `bits()` prerequisite patch.
+- Link to v2: https://msgid.link/20260605-impl-flags-additions-v2-0-0d27242f460b@kernel.org
 
-diff --git a/rust/kernel/impl_flags.rs b/rust/kernel/impl_flags.rs
-index 052759b8038d..53f6ba5d5952 100644
---- a/rust/kernel/impl_flags.rs
-+++ b/rust/kernel/impl_flags.rs
-@@ -276,6 +276,22 @@ fn not(self) -> Self::Output {
-             }
-         }
- 
-+        impl ::core::ops::BitOr<$flag> for $ty {
-+            type Output = Self;
-+
-+            #[inline]
-+            fn bitor(self, rhs: $flag) -> Self::Output {
-+                self | <$flag as Into<Self>>::into(rhs)
-+            }
-+        }
-+
-+        impl ::core::ops::BitOrAssign<$flag> for $ty {
-+            #[inline]
-+            fn bitor_assign(&mut self, rhs: $flag) {
-+                *self = *self | <$flag as Into<Self>>::into(rhs)
-+            }
-+        }
-+
-         impl $flags {
-             /// Returns an empty instance where no flags are set.
-             #[inline]
+Changes in v2:
+- Use an `as` cast instead of `core::mem::transmute` in
+  `From<$flag> for $ty` (Miguel).
+- Replace the `match` in `TryFrom::try_from` with an early-return
+  `if` (Miguel)
+- Construct the result directly instead of via `transmute` in `try_from`
+  (Miguel).
+- Use `Self` in the new conversion impls (Miguel).
+- Mark `TryFrom::try_from` `#[inline]`.
+- Extend the rustdoc example to demonstrate both new conversion
+  impls (Miguel).
+- Link to v1: https://msgid.link/20260215-impl-flags-additions-v1-0-6538c8fb841c@kernel.org
 
--- 
-2.54.0
+---
+Andreas Hindborg (2):
+      rust: impl_flags: add conversion functions
+      rust: impl_flags: add bitwise operations with the underlying type
+
+ drivers/gpu/drm/tyr/vm.rs | 13 -------------
+ rust/kernel/impl_flags.rs | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 47 insertions(+), 13 deletions(-)
+---
+base-commit: bc71431221f5ba8bb33918399552636e059c2c45
+change-id: 20260215-impl-flags-additions-0340ffcba5b9
+prerequisite-change-id: 20260212-impl-flags-inner-c61974b27b18:v3
+prerequisite-patch-id: 4f477e1886497d4ba3898867e2765c7324b62ba4
+
+Best regards,
+--  
+Andreas Hindborg <a.hindborg@kernel.org>
 
 
