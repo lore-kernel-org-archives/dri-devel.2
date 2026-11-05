@@ -2,56 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A292A606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:35:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE489606A32C
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:35:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jIQzohmQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWXN9KUx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E38311127DB;
-	Thu,  5 Nov 2026 15:35:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D577B1127CF
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:35:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5493C1127CB;
+	Thu,  5 Nov 2026 15:35:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1479A1127D3
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:35:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B729140D6D;
- Thu,  5 Nov 2026 15:35:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 169C31F000C1;
- Thu,  5 Nov 2026 15:35:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 87324600AA;
+ Thu,  5 Nov 2026 15:35:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69891F000C1;
+ Thu,  5 Nov 2026 15:35:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892903;
- bh=UQEs02W7+OTl5YUy4B9ZbN0RuwZjMptonvyIGpg6hHo=;
+ s=k20260515; t=1793892907;
+ bh=AJeiCVvfyY85JAhDoKltpPkEwHIu9FS3xRtZcbwnbsQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jIQzohmQVlLRNhJcB3qWmDjf7GSOk/tYAp/DO/sg/zLdMpre9EDyOTiNLfz1nZctb
- yO/2JItrwQd15P/6hZ0Gw0HJUGbYZdYHgMGEM6oxKgQKz8iYqFwBFbBNDubrXC4S07
- 9a9wvXN/yCmeUQYAMkbfLS+77pWC2bdqvvqep0dn5QtxGJ5mVJA/PcxlDWSGmHGXjD
- aKXc6QvDdoW/nXjrpxmv5dNxx3YK9SfU59nmaQ2Igm68bKE8EvxXd2aonXy+aJj7b1
- NzolZ+x0T/SAxy8JCcLSUcBJLKr6GtZc6izAwM93X+aYUAqT2DwJC/GSaGdClOqmlz
- vNhco2kUHbqig==
+ b=PWXN9KUx8k/OrtQgrcBV0sjpuHPyoyPqFZKYrowa2VUeoo3vN8yVC5j9yeC0nP0Kr
+ vrOCs8kliXi9shn2mw3TlF8aalK9x6kX41v2nD/tHFMVBUnYGdJwrTaH3xadtD7wuy
+ yXvYpMFl17FhxtrShmxWkZnZt8UTTK4k2M7nsDwiIiUTe/hPHLw4wXVrpkVIey3n0j
+ wu3Z0cIjchJm4f7flzybm2tbzNHtqm++G58uM0ADUvu4XymNTkJ16ZDaySYUmscnlH
+ CikC559z8shfYB+xWOaMU86nNhxpGClUc0aNv1PdSR9+gqnPpoZXt6R0n82WR9PMBN
+ cbiPw2jxC38gw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:29 +0100
-Subject: [PATCH RESEND 80/83] drm/vkms: Switch to
+Date: Thu, 05 Nov 2026 16:30:30 +0100
+Subject: [PATCH RESEND 81/83] drm/vmwgfx: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-80-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-81-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=mripard@kernel.org;
- h=from:subject:message-id; bh=UysxI80bLU0YwSm9IRB4Mu2pOePve0PFbO+3zV5IQQY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjLsM9ZbY3HwhfJN2YJlPrGcMkHhgUenxaVXnI27L
- 7+IvzO5YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzk2grGhtNnbBh37v2xfpbl
- 3fBzD+p16oOfXzpjHuT5X4PnwdEO86t1i1dJan6/ui9FecfJeVpNGxnrwz+e32R30fPXCV6u4mP
- nrorpCswV+z5B8stcz0ciE/lZWaYZaLBsPKJ9sXqOTVTMLFtDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2217; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=3HSecBXAHqR/GgaZcMa4oKww89pG6n1ygaunSqC7gMc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjKc7s/ib9xzUufKx/3JEX3pVT0aD1aaTJs0b3+Pf
+ fcs84qijqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR8ibGhveqPd97Zv1n7UrQ
+ dElJn55zZP6OXDnP8NOZrV3N58qm6H6X7L24peNt+9qNkTppFjKtjPUBxc9WezYzPEm4m7mFd3k
+ gh271aaUXehEailurWhlbfG4kn7n3IuDi2ak3wrPyo7NtIgE=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,18 +84,45 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Melissa Wen <melissa.srw@gmail.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/vkms/vkms_output.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  | 4 +++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 4 +---
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 4 +---
+ 3 files changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index 86ce07a617f5..982c6cd5fcc7 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -116,6 +116,4 @@ int vkms_output_init(struct vkms_device *vkmsdev)
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+index 0dea09cc29a7..93d755b81887 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+@@ -568,5 +568,7 @@ int vmw_kms_ldu_init_display(struct vmw_private *dev_priv)
+ 	dev_priv->active_display_unit = vmw_du_legacy;
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		goto err_free;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+index 39d58fc392bf..82fe7db26633 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+@@ -940,7 +940,5 @@ int vmw_kms_sou_init_display(struct vmw_private *dev_priv)
+ 	dev_priv->active_display_unit = vmw_du_screen_object;
+ 
+-	drm_mode_config_reset(dev);
+-
+-	return 0;
++	return drm_mode_config_create_initial_state(dev);
+ }
+ 
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+index b505f8ba3e83..80defd735813 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+@@ -1709,6 +1709,4 @@ int vmw_kms_stdu_init_display(struct vmw_private *dev_priv)
  	}
  
 -	drm_mode_config_reset(dev);
