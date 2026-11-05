@@ -2,129 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D40A606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 09:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sRnoCY4r
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8C5606D802
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 09:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0A1A1122A5;
-	Thu,  5 Nov 2026 09:45:41 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 357111122A5;
- Thu,  5 Nov 2026 09:45:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IMqBnKKlJ7MN+dmJhOdaILqnBsAyFfk+d4j3b7SyYY6ppmTF5Wf+pJil1kbV+EdtopNpXxHNnVHIelCBRYlqPdd/n7RP+91duPJAS7A5IBl1aQLeKoSPbsk96k5dLJH34hivp+WRZJdO9QCdNm9TAKBkqSPTjaxRlnLQqHSHhqxtnsCQd31ydvv7Gp4mw9tGvKSFZCCIagJAXkzydkJd+ovyeuMz2cXH2Ks/s4J26gYIgSD/QnRBj56xh0cWYmh+FD0h/Ye5vKrpjWGBP5p2fSbyUwFmTYC+tOP7X0cpCHTobnsHqqkvgFx/9EZGuEqDJH8FY7r+kTQdq1LSqehm7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5hbK6wCpuCBOmGjg6B2UwtWz3vOD0L6DonBne2c+UhA=;
- b=HNM30an7v70mEIdMiG/hPszY1X9MYoyXXTfU9vQ7y2kXik7u/doB6LDw9zLpR4RLlSO1SXr8mZcLDbeLJ/sjaFXCB0fqGt9m6CHY6baoBNglfDZZUM9w+teqjTikpInANudMu1tRCApNzCm1hCF7r6PI3PQWnv1C0hyNMnJNPAw6NBLVNLKBpnGKqzO/PfliJPstWITV1PO5OGTPhLXttOAnqp+z718ZCH5EWPlMJqfU9HDTXIiGcIjQpn8cu/AKWhqyhrMQbuDWm310SUaTVtVU5ODkhkh/SVtNI80H5edzYEyQp0ZC3GHma+JD0sXs5u6ejtCz0FP7hBo5FWyXyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5hbK6wCpuCBOmGjg6B2UwtWz3vOD0L6DonBne2c+UhA=;
- b=sRnoCY4rtcd8smrtIVLIhQ2fH5vDWVOsA2dwB4iDb7Eo6sKQaiRRPG4JYO/Bo1DAlP9HHQxRKLdNtvZhC1Eu9PjQY8ix0flmE3e/CRgbSg/CbLzL+N2oYm2ABvvXnsq3f/poXo+BqYOlIYMnodThB5/fm3fMFU22s6F3SN+CRFQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11) by SJ0PR12MB6784.namprd12.prod.outlook.com
- (2603:10b6:a03:44f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 09:45:32 +0000
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 09:45:32 +0000
-Content-Type: multipart/mixed; boundary="------------sfRYh1nBCTHjHtXwbwis4swf"
-Message-ID: <930da65c-67de-4d05-9734-deb58d8981ff@amd.com>
-Date: Thu, 5 Nov 2026 17:45:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Don't require DMUB PSR caps before DCN
- 3.0
-To: Hugo Sales <hugo@hsal.es>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Chenyu Chen <chen-yu.chen@amd.com>, Alex Hung <alex.hung@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261029171219.2842014-1-hugo@hsal.es>
- <3f79f22f-a8e9-4fd4-ab78-2403d38b1292@amd.com>
- <313360626.451345.1793787476448@app.mailbox.org>
-Content-Language: en-US
-From: Ray Wu <ray.wu@amd.com>
-In-Reply-To: <313360626.451345.1793787476448@app.mailbox.org>
-X-ClientProxiedBy: TP0P295CA0049.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:3::20) To CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 457811122BB;
+	Thu,  5 Nov 2026 09:50:48 +0000 (UTC)
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDDC71122BB
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 09:50:46 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-93f269e335eso195716185a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 01:50:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793872246; x=1794477046;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=SqrTjgENN7Dfs+HehxbKPgACeb32UvvfMAFijNHd6N4=;
+ b=tm2izgfeh/mXmCyBQgYx0iXzyDUyKJOXucYnGzyE7IMhrpcQH2DhYPWhLaWnK21A7X
+ V5Iz6JEaYEpJC/1vhkBfwEtiXxitxwNesGajxMhYjpwNow1YfR436fpoq01O6qllt/14
+ zCsOjp9sWzyyDEslbqF/fHeLeHNiHEDSO1zXiCF+kLrmM7VFKgRDp/JGDPLgjyuHlxbg
+ ujKdlCDvV3jkxeTXcfn78plZPlUG50ik3XtbShrVrlKOhJgEvfX7MI+pl6loRYCQk8Zf
+ 2x1dSNuyJn8m7k1cZ8XxFzf/+xGqfHHDywmUXpM3wk5KE/ZcM0jI4h425ttbpLqL/WWA
+ pxVA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxLZyH/rmSxIv48Stz0M/MQUC6qW0Q1nRx2kBbXtv6agSZZCdrh4ibLY1rAAYHGZlBWIlyMbbubBso=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+Rui1erDcJeNu0FwfbrKnNYCnDEHjbPodHpKPO8G05yobh0Clt
+ pO8iLZLLh1PfZm6UqjhTN4RlGhcWhYsydRDpG6wnz0VrxS0NCrk3PEE1VEWMdZFwvp4=
+X-Gm-Gg: AYBFou232WkvQQf5iACf/mgdhn95L5tgfIOO28RWLR4UllwT8jI5xpA5TcFIKtZtpbM
+ 0LPqsnDpMJl84H3e5pFxPEUpFKmz/r/k7ZLt7+zj0XCM+LN5GEnPE/Gsdv2KYqapb7AKFoAe9hZ
+ xB4J7R5ajwJMzJAZ6ivCbBiwAEzvaAoEHK0KUGTQKrYUMFN+CmvXE0DDMI6gQ+LVFPy++pu1kMs
+ l4mEgv6O9FsqYD1ODzaWUzfpgwQOV2xlJfHhDKSNU4qinf9L/NeIOwjjgk0kObrUDPwJA/Du1Zm
+ KA+CVtHZW+C0tTWR6SI4FSYxmXLP6qmrMQfYo0o+wd2tF11U4Z6+F0T4VuscfW+sgWqQau2cQaQ
+ Ngd1+vw0xvWqxeiJOJ3pa8rhNAz1ISFuehwS3S4a0Lpp4ZoOFdUhvyq0yctvgC7mJcvE5DwJZjZ
+ n60T0Kpka4ihwXUUHUsQx4oTSaXPz2/s/GFz3eMePJpjRPkWAnJd1b7I6UrgJAKg32ZO0qVV0bY
+ DhV6LchqID4zSNdd6e8W7UyD+cj7APb/ux3mj+zzHHdsSn2EyNmywrEU1dgAb+TdL3lmGQlFzXi
+ ZSjewfugkYJwyBOtOuOd4acTybHOBjuV5UHpNpOxGgsfrdRonOu7KMMNm6uwpDOnYVm1mw==
+X-Received: by 2002:a05:620a:6082:b0:93f:3829:8492 with SMTP id
+ af79cd13be357-94421744f2bmr2907357185a.78.1793872245690; 
+ Thu, 05 Nov 2026 01:50:45 -0800 (PST)
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com.
+ [209.85.160.180]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91e7e013a5dsm43833016d6.27.2026.11.05.01.50.45
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Nov 2026 01:50:45 -0800 (PST)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-5365f9a04c5so23451951cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 01:50:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBygre+HGYEdMoUe2jQX6gG5/jq0OFH2Y5xpv8KoYA0KHJcGauaZ31O6kQYIrJbRzJEUxgbSGSMAuuE=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id
+ ada2fe7eead31-7d072baa484mr7324212137.9.1793871885062; Thu, 05 Nov 2026
+ 01:44:45 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|SJ0PR12MB6784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 101b9465-0887-452e-0e75-08df3b21887a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|6049299003|23010399003|1800799024|376014|366016|261022105027099003|261009223027099003|261028144727099003|261026140227099003|4143699003|11063799006|18002099003|22082099003|4053099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: VbjMnE9CRNM7fUT/I/ucSZPLDI0+kjSbttKY78NiSjxAjzEMWJ75kYDsROG+U8l/QQKsUfzRr4kDpHqevnsHQ6H9IrF/cEI37fFblubfU2P7YHZWeMKI17DY6UqSIX35GLuUf4BeFmeikIgXgxXWmgbupwYpzQ+TvABDladgsPA9MsqtuBnRkUajW11lcqb3DttpesY7F7bhVf+ybOlpM3tvl8q2B+EbrwaGVjxpc/MlFHCaX1WISofZ528v7ucwrbQm2Y0vZNtiPD73KUFqTd4qUdNPGX2Ni+Rgwc/A5kZv4JJq77X3ziqudFtfLFw2JB1nYxXWX0MSsSYegjIRDI4oQEcmJrNWZUPWs9ErJY51v2TNgfkHLwjOkDSmrvLbDiH1eNiLDzLOjo9Gx+NyRcFP937N54WA1Cls5CRKvJP3LHjkfJN8KSfQTUlW2BwqmCFwKZkRw1hHT0D7MTNV2OPLoqw8RsTgs/mh4GKSolqud3Z10OOfMiQ2vm+hOIVBHSM5wEl7uX6lWw1IMAE7WyyGndtuhF0e5WDLek8KkmRDD5oSdioLvnpcoOTCeu6HU6UPofBErb9y9JdZ8l+TiUe/Dse57w/D7n1zZLpp6vyfRlxXrsO26L7lWKzBlukg
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHAPR12MB999225.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(6049299003)(23010399003)(1800799024)(376014)(366016)(261022105027099003)(261009223027099003)(261028144727099003)(261026140227099003)(4143699003)(11063799006)(18002099003)(22082099003)(4053099003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFBTRHU1UEdHM0duODFwZEV1OWZCMzJULzJJdnU1WEZibXcwbEZPSUFJOEov?=
- =?utf-8?B?R0NLRDRkeVNTa2dQZHBvNTFhV1o1QVp0QmhPS0F6U05Bb05vUFc5S2U5eVB4?=
- =?utf-8?B?WVhpeDJLbTAxb0IvbUVWUHFaY1NaMmxTM1NScmlicVU4cXZORGR0UjlRV1c1?=
- =?utf-8?B?bkF6TzZNUmg3TXBUdXpKRnU4V2ptTE9XUTcva1d6SFV1WEowTENuNmludGhi?=
- =?utf-8?B?dVFKQWk4bHB3ekRWS1hocnNHWGhPc245ZGVTbWpCc1NmZ1I0WC9JR2d6QlZk?=
- =?utf-8?B?U282cEFydFYwRU1sVzhNTTVOZEJ0Z2d3NnVFV2M0YVk5dDVWb0NCa2ZSVmhn?=
- =?utf-8?B?eHp3RHdoWXRtTWVvQm4wUkc2VmdTZmxBQlgzM0IwajRtbDRJck9OYVdQQ2Nr?=
- =?utf-8?B?bmhwb01Ob3pMWkNkVithcFNYdFNhL05BZEJDdTNObGVQYWlkVmwwbmsyUGtH?=
- =?utf-8?B?ZjNpT0RmMUQ1SUZmblJOdmV5V1dCbmpOMUpueVZaVmhLQ0RnS3JaSDNBNklY?=
- =?utf-8?B?RXZZdEdJbXVEVmhkMXJNQ2lVd3dhQy9TWU81ZEFCVHJKL2xOd3hVTVFPSU56?=
- =?utf-8?B?M3FKajhON3lQMmR6aVJqRTkxVkRSWjh4bFRLblpIL1p6cnhQQzUxUFdwVWJa?=
- =?utf-8?B?MmtqZVRPcW1LVnZYYzJQT1VYWkl2SVJ4aWZjWW1IR1E4Y0J3VVl2MGoxRXNk?=
- =?utf-8?B?bXVzOXUzV3pBV3FSWnIzTzZic1dDRnZTSmxFcXpXWStxRmZjS056aTdROVhw?=
- =?utf-8?B?SXJ4Qm9RYlp3bm9nWlFqRzkyVGRyM2k4dVVuaDRjU2daQUtrck9kNmRDMGdD?=
- =?utf-8?B?ZnVvVmx6b0pEWGVaWllGdENHQVRJRlJrVnNQaDdRUVdNVUFmOWdYcm5sQTV5?=
- =?utf-8?B?Y3Frdlo2SjJPYmp2aHlzT1prUnQ1Q1YwV0xLNlovN3lQS2ozTDhJWjdYZEpD?=
- =?utf-8?B?S2M4OGRTNHNIaktJdzJ3Nkk5MnlsZ0V5azRaaVQ0ZElidnIyZlJRZE5iM3Q2?=
- =?utf-8?B?bURyOGdGTXdHckpRQUFhTjBQdUtYR1ZXaW8zRlNuOUJJdFhBdUJ4R0xDbDR3?=
- =?utf-8?B?cVk5ZU52RTkvajZFM3UyVWxyS0I1SEFKNFRqVWFqRldDZnUyTGY2dUNxRm5E?=
- =?utf-8?B?VWN4bkJDSzJiWVZQWDVuWmcvbEs1clFTcUMyOXpPQlQwYlpHejkrbmtZOXgx?=
- =?utf-8?B?OEdDdENSRk1MTGJqcUxwV1FheExtaHM1dGN5TkRrVzVxVHVuYkE0QkZ6akdF?=
- =?utf-8?B?S3lBUHRYL1d6QzZnajNTK1pBWHJZN2dMVUtpbUREdklERkdPZTROMkp0TW9s?=
- =?utf-8?B?MTNsdUpZUkhqRUMxaTlLL1QwNGY5RWdFbGJPY3NpQ05OcHkyWDVCU1ZYdktC?=
- =?utf-8?B?RGtibDkwVW9adFlnTi9SSHkyNU8vWHdRTTlkdzB3NDVBdUI2RGFmSVRlakcv?=
- =?utf-8?B?bkVoWmw0Wldqc1FFS1pJQWxadDR3czQ3bWl3NVA2R3J1a2VyV0R2U0hDVWdW?=
- =?utf-8?B?ZTIrVFF5bW44Uys2RlZPVzdqMXNiR0RkdE9GZnpWQ212c2NaemZSUHVlRXJp?=
- =?utf-8?B?UlJnMjlwTGpidGRGOEsyeVNZcXpST3UxVU1nNzZWUjlJekdnUXpLK2pKL0VF?=
- =?utf-8?B?SmlyRS9HemRncU5RRnB5dlJrUDU0MUp2TklRNGsreGZNM2lpemRzNUpaa0Fx?=
- =?utf-8?B?Y0MvZnZ6azcvRGhWbzJVd29kdWF5Z0o3Uk9hb3FNejJNSytnZzVZdVhZNUVS?=
- =?utf-8?B?VkJnb2tIVURTVnhvQ2YwL25wS0JENWhVS3dUM3BzVnMrMWNSUlR4VmNjYnh0?=
- =?utf-8?B?bGdTbXFHZ1lVOFlZdDZlSzU4T2k4V1dCUHA0QkpvTUYvS1ZkQXNQTkJHZXFN?=
- =?utf-8?B?c0o3QStnYklBcE5zRmRLU3J3N0ZSKzQ3TTN6Nm0yVEMreHh2cUsxL3hnVEZq?=
- =?utf-8?B?b3M3eUFWOWtnOEpqeENjSlcraGpmMEZrMUpXclpzK0Q0S3NTUDV0UFdzT0li?=
- =?utf-8?B?T2ZNcnRGc1p1Y1ZFV200MXBZd21XazNwbWlROUVTY0libVpIVHBsZlRQVncz?=
- =?utf-8?B?UUxucVZ0bmp4eEJuakJianZrZUlISGp3MWM1R3EvTDFHL0dLcjc5YmozVGJR?=
- =?utf-8?B?V2FiYm0rQVdvS084ekplWGZkL3V1bmgxajdKVlhXTC9nZ3kzYkJvN3pueG0v?=
- =?utf-8?B?akdwdUdaakJEUE14VG1QQ2R3VHJkRExsQ2xTNnYwRTZYQi9pY2xiREtzaUJU?=
- =?utf-8?B?c1M5UHF4NWhTUDgwNExiV2w2aVoxdm1kTjl6d2Q0OWMvTVhBUWl4WkVmTFp0?=
- =?utf-8?B?OFMxdHJKZXNySG45NFFYMVBkcmZQVkF5YkV2aVUzY2dOd09MM3QwZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 101b9465-0887-452e-0e75-08df3b21887a
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 09:45:32.0695 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1jlCGrtfNAojrKgJnITKKoFji65s8pn8of9o8frbKJaSJcUODRB/KceHUcuqVB8CBuXMwqQ+4zPhAZY/eyckVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6784
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-10-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-10-021c84d852e0@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 5 Nov 2026 10:44:33 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUy1RYKG0g8OWss3AD-jyYx3DXL0K7ABYkFUdxTxZ9VdQ@mail.gmail.com>
+X-Gm-Features: AclHuK9D-nB8icBns0zdoQH8fV1cfUPJ6LOey8o_VlUZpDIGqKC4cFf8-j5-HdE
+Message-ID: <CAMuHMdUy1RYKG0g8OWss3AD-jyYx3DXL0K7ABYkFUdxTxZ9VdQ@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 10/51] zorro: size the proc files like what they
+ serve
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+ Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, 
+ Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+ platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+ jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+ Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,66 +112,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------sfRYh1nBCTHjHtXwbwis4swf
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi Hugo,
-
-Thanks. I've attached the patch here.
-
-There's also a related discussion here:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5993
-
-Please give it a try and let me know if it resolves the issue.
-If so, I'll add your Tested-by.
-
-Thanks,
-Ray
-
-On 11/4/2026 6:17 PM, Hugo Sales wrote:
-> On 11/04/2026 9:31 AM WET Ray Wu <ray.wu@amd.com> wrote:
->> We already have a similar fix internally that is planned for an upcoming DC release:
->>
->> commit: drm/amd/display: Allow DC_PSR_MASK to enable PSR without DMUB PSR cap
->>
->> Could you give it a try and see if it resolves the issue?
-> Hi Ray,
+On Wed, 4 Nov 2026 at 20:18, Christian Brauner <brauner@kernel.org> wrote:
+> The files under /proc/bus/zorro hand out a struct ConfigDev and seek
+> within that, but their size says sizeof(struct zorro_dev). Say
+> sizeof(struct ConfigDev).
 >
-> Happy to test it, but I can't find that commit. It isn't on amd-gfx and
-> it isn't in amd-staging-drm-next yet. Could you post it to the list, or
-> send it to me directly?
->
-> I'll try it on my ROG Flow X13 (DCN 2.1) with PSR. Since my patch reported the same problem, could the commit also carry a
-> Reported-by/Tested-by for me?
->
-> Thanks,
-> Hugo
---------------sfRYh1nBCTHjHtXwbwis4swf
-Content-Type: text/plain; charset=UTF-8; name="test-5993-dm-psr-gate.patch"
-Content-Disposition: attachment; filename="test-5993-dm-psr-gate.patch"
-Content-Transfer-Encoding: base64
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtX3Bzci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fcHNyLmMKaW5kZXggZGJhZDBhNmQzYTJiLi4yOTViMWMzMDdmYTMgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3Bzci5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3Bzci5jCkBA
-IC0xMTEsNyArMTExLDggQEAgYm9vbCBhbWRncHVfZG1fc2V0X3Bzcl9jYXBzKHN0cnVjdCBkY19s
-aW5rICpsaW5rLCBzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWMKIAkvKiBSZXNldCBwc3Ig
-dmVyc2lvbiBmaXJzdCAqLwogCWxpbmstPnBzcl9zZXR0aW5ncy5wc3JfdmVyc2lvbiA9IERDX1BT
-Ul9WRVJTSU9OX1VOU1VQUE9SVEVEOwogCi0JaWYgKCFkYy0+Y2Fwcy5kbXViX2NhcHMucHNyKQor
-CS8qIERDTiBJUHMgdGhhdCBuZXZlciBxdWVyeSBETVVCIGZlYXR1cmUgY2FwcyByZWx5IG9uIERD
-X1BTUl9NQVNLIHRvIG9wdCBpbiAqLworCWlmICghZGMtPmNhcHMuZG11Yl9jYXBzLnBzciAmJiAh
-KGFtZGdwdV9kY19mZWF0dXJlX21hc2sgJiBEQ19QU1JfTUFTSykpCiAJCXJldHVybiBmYWxzZTsK
-IAogCWlmICghKGxpbmstPmNvbm5lY3Rvcl9zaWduYWwgJiBTSUdOQUxfVFlQRV9FRFApKQo=
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
---------------sfRYh1nBCTHjHtXwbwis4swf--
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
