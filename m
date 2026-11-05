@@ -2,42 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889A1606A329
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:11:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEB6606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KEjYqMIt
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=csMgt1AR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC08B10E361;
-	Thu,  5 Nov 2026 19:11:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A64E10E958
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:11:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A3B543CE5;
- Thu,  5 Nov 2026 19:11:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625841F000C1;
- Thu,  5 Nov 2026 19:11:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793905871;
- bh=44c+2abRtx38LSEFyM9cf57rXevIrgeIDvzpvUkQI5w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KEjYqMItAq2hODp5uUYrR2b29D1diVdJLNO6B+30N5HZFwOLdueNRkNRaFIgfcpFt
- SWuLTZtnpF7eKwSTZkng/UJJfv1jyUatt9GF2GeUxNQeJLbwze5A8MCw4O29AM53LC
- UDfP1m5RxajBzwWPebzQApdo9+Tgco32/l8eBfQn5ddctphZOPtS/YkMtJPhpS+F3n
- MJ7yrI8z7KEUzz2mZ33QzVAI+ERodhK04wDnoyJVWtlhkk4R004xyuRIM6NT7TN+dG
- 4d+sGK6dw4dQ1asrhZF0xqVmP/SDVIYro8Nosh4ES+qBPVoD+F31zX4ui6yFkMpTbQ
- jgGlACN8iuPtw==
-Message-ID: <sashiko-outbox-199820@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdkfd: Check ownership of device pages for DMA
- mapping
-To: "Felix Kuehling" <felix.kuehling@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105185828.85367-1-felix.kuehling@amd.com>
-References: <20261105185828.85367-1-felix.kuehling@amd.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F28F10E958;
+	Thu,  5 Nov 2026 19:12:42 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D06EC10E958
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:12:36 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-8b331cad3cfso6768487b3.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 11:12:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793905956; x=1794510756; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=y8P+WoCobFB7rgWkL/XYrODvnkiB2lim4Wv3M4Ag2eA=;
+ b=csMgt1AR17P2peQqni0WXla4swlVtriG9m5pudRLh+BoWMpEak5jjkaaIqBsuwQum+
+ oBgrpDT16oW24AL6ujZNm6llhtFnngBHqZf8+7k2zhogQpjhomxYgPKdFjysLnJ+GTW5
+ 7VCR+3Drq8r67zfQwqBflfYrcM+rPg1TwpFv2eZDbeWDpHp/JmayRc45Z6tcwp/wLkJm
+ +v09fGb0Jit4gNZzHdAEMObzIpnJLH3Hz/uFzm14f1DIuP8nKuxrGgbaZ2qfzSOkd9io
+ +2/zkA0thx2vrlicKy6DUdehsj5Bh2OLYAVAaojuJrD02hi/egadpYgj1QB5F/9sBYzC
+ WTWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793905956; x=1794510756;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=y8P+WoCobFB7rgWkL/XYrODvnkiB2lim4Wv3M4Ag2eA=;
+ b=DPzdR0jry2S0eR2FXuIt9rzCVFq5Htw7yZ2HcApcksgCBKV+spJVwFGHS68F2ao2Vc
+ ONn/jmEUjHhUX30C5ynLcN2WWrlIyenvUSbtu7/GsE51eXJwxbZashBX/Bz9gnorxCda
+ FUWUoY40Hk2rB9Lc6CMVh58fZguGBEus4we3nXPaK7suegtB6tY1DCGZ21HeVyC+I8Xi
+ N0FU8FrSGgo1vWSWK5LYN1jnAas6/Q3hB0mIG3ryT6YzJAkRVVqULNY5vs/93NDXSdTd
+ vikVBqA16NOMXBjER1jb6i8Fa1VyxxfZl9AaBdcey5cVhO8sKL9G8RwJvPSZPKpMNE0T
+ 7zGg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEH8ZMmc5NReiJCyPiCQ4VCJA5EmtHW7QsvUK6vuwBjsCx/79yfdGtox0sPN0JrQDZ8Tg7jfaV7oWk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8EJqOCgkhRQjNpUAlGSl8B0S5QbxGlA63FSQhPtTW3EpjO9bsk
+ uawaRuKW9cVOJdCa0Gs4zTJHkYfxZKoHiRJ1Pe6p5dV/IZWCLVsY6rs=
+X-Gm-Gg: AYBFou3AFYBa+7W5sasGDOvZirczlgXlgieiU1ByFqykBOO7WqKp0D5KYNBWezH7IMu
+ ViVXwO8s/wDIucPFd/axhWX5NgvdqnGHYeYnIL1S6gZb6ccGW+ZJPwu5UYD3uELVCq0ndYpTtXB
+ wjpgxEAaf0GFH5zuS24oR/Pcd21RQQqEl9/L9Jzr4tmHhJ68hJ2dNnSU3jQDFgn0aGZC0HFqXo3
+ z0owybAFIrUDW8ed2jMLZSqXIFNhgx4T2TqtUcRLZcynjyKP8/30B60mAKojXOxlUCz/TaSlur4
+ 0UltgTdBXghZohK3fJtDn3LpMb/u29SuA2gx0Gk0uzc0mmT5xNAF+aPnFjG0TvgxKKed6rXKpur
+ rXOYpsc5PeTi3e2M0B7qw4CjqC61FVkwYss30EaliTRo/XaL0sccPvJnKK69rjLJaeG7fDlnEyl
+ Od7h1WZh6d1crdyXikD0/qI4c9PN3U3FEVURE7DbbP710ZcyW0p4faMvwsXf33TMsM4/jF0KzlJ
+ Sin67CLLHV/eQSc3rBgGoynfii7eGZPdKMk8xkvkdVQ8GeCKZDVu07NKEhpIE66mREfnvuW0EaJ
+ 5vw/SIxqn9Yji6YMLrb8S29FadLoYKp5JKZ1Yz9OZ9osMHCbvwFTELCmnaJgbC6U
+X-Received: by 2002:a05:690c:c510:b0:8b3:2a99:55d5 with SMTP id
+ 00721157ae682-8b32a995d6bmr19870087b3.10.1793905955435; 
+ Thu, 05 Nov 2026 11:12:35 -0800 (PST)
+Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b33f773239sm2235287b3.15.2026.11.05.11.12.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Nov 2026 11:12:34 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:11:11 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 05 Nov 2026 16:12:31 -0300
+Message-Id: <DMNIL4ZYZWLZ.3K6BK08P4SUD5@gmail.com>
+Cc: <devicetree@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <robh@kernel.org>, <conor+dt@kernel.org>
+Subject: Re: [PATCH v6 2/3] drm/ch1115: add support for Chipwealth CH1115
+ OLED controller
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: <sashiko-reviews@lists.linux.dev>
+X-Mailer: aerc 0.20.0
+References: <cover.1793735996.git.nico.antinori.7@gmail.com>
+ <01cee5640e8637cbe0cd49e920f3aeed2c60640a.1793735996.git.nico.antinori.7@gmail.com>
+ <sashiko-outbox-196034@kernel.org>
+In-Reply-To: <sashiko-outbox-196034@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,205 +88,173 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/amdkfd: foreign same-hive device-private pages fail in svm_ran=
-ge_dma_map_dev()
-- [High] drm/amdkfd: double dma_unmap_page() on error return in svm_range_d=
-ma_map_dev()
-- [Medium] drm/amdkfd: calling dma_map_page() on zone_device pages in svm_r=
-ange_dma_map_dev()
---
+Hello,
 
-commit 591a056ad47c1c9d032b2eceed7f51b0bb221d8d
-Author: Felix Kuehling <felix.kuehling@amd.com>
+On Tue Nov 3, 2026 at 6:05 PM -03, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] drm/ch1115: out-of-range display offset 64 sent in ch1115_oled=
+_init()
+> - [Medium] drm/ch1115: missing DC-DC disable in ch1115_encoder_atomic_dis=
+able()
+> --
+>
+> commit e5268b4f2a7c534421925bdee0145caf63c50632
+> Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+>
+> drm/ch1115: add support for Chipwealth CH1115 OLED controller
+>
+> This commit adds a DRM driver for Chipwealth CH1115 monochrome dot matrix
+> OLED panels connected over I2C.
+>
+>> diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch=
+1115-i2c.c
+>> new file mode 100644
+>> index 0000000000000..08fee5a09f4f9
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+>> @@ -0,0 +1,859 @@
+>
+> [ ... ]
+>
+>> +static int ch1115_oled_init(struct ch1115_device *ch1115)
+>> +{
+>> +	u8 commands[] =3D {
+>> +		CH1115_CMD_OFF,
+>> +
+>> +		CH1115_CMD_CLOCK_DIVIDE_RATIO,
+>> +		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
+>> +					      CH1115_VAL_CLOCK_DIV_RATIO),
+>> +
+>> +		CH1115_CMD_MUX_RATIO,
+>> +		ch1115->height - 1,
+>> +
+>> +		CH1115_CMD_OFFSET,
+>> +		ch1115->flip_vertical
+>> +			? ch1115->y_start_offset
+>> +			: CH1115_MAX_HEIGHT - ch1115->y_start_offset,
+>
+> [Severity: Medium]
+> Does ch1115_oled_init() send an out-of-range value for CH1115_CMD_OFFSET =
+when
+> flip_vertical is false and y_start_offset is 0?
+>
+> In ch1115_parse_dt(), y_start_offset defaults to 0 when the chipwealth,of=
+fset
+> property is omitted, and is otherwise restricted to [0, CH1115_MAX_HEIGHT=
+ - 1]
+> (0 to 63):
+>
+> 	ret =3D of_property_read_u32(np, "chipwealth,offset", &val);
+> 	if (ret) {
+> 		ch1115->y_start_offset =3D 0;
+> 	} else {
+> 		if (val > CH1115_MAX_HEIGHT - 1) {
+> 			dev_err(dev, "chipwealth,offset=3D%d must be [0-%d]\n",
+> 				val, CH1115_MAX_HEIGHT - 1);
+> 			return -EINVAL;
+> 		}
+> 		ch1115->y_start_offset =3D (u8)val;
+> 	}
+>
+> When ch1115_encoder_atomic_enable() calls ch1115_oled_init() with
+> flip_vertical set to false and y_start_offset set to 0, the expression
+> CH1115_MAX_HEIGHT - ch1115->y_start_offset evaluates to 64 (0x40), which
+> overflows the 6-bit [0, 63] vertical offset field instead of wrapping mod=
+ulo
+> CH1115_MAX_HEIGHT to 0.
 
-drm/amdkfd: Check ownership of device pages for DMA mapping
+This is a false positive, the datasheet [1] states that the formula for
+this command (D3) is 64 - n, where n is a 6 bit number in the range [0,
+63]. I did not use a mask for this because the unused bits get ignored.
 
-This commit checks whether a zone device page belongs to the target SVM
-range via svm_page_is_range_owned() before computing a VRAM domain
-address in svm_range_dma_map_dev(). Device-private pages not owned by
-the range trigger a warning and return -EINVAL, while other non-owned
-pages fall through to dma_map_page().
+>
+> [ ... ]
+>
+>> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
+>> +					 struct drm_atomic_commit *state)
+>> +{
+>> +	struct drm_device *drm =3D encoder->dev;
+>> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+>> +	int ret;
+>> +
+>> +	ret =3D ch1115_oled_init(ch1115);
+>> +	if (ret < 0)
+>> +		return;
+>> +
+>> +	u8 command =3D CH1115_CMD_ON;
+>> +
+>> +	ret =3D ch1115_send_command_list(ch1115, &command, 1);
+>> +	if (ret < 0)
+>> +		return;
+>> +
+>> +	backlight_enable(ch1115->bl_dev);
+>> +}
+>> +
+>> +static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
+>> +					  struct drm_atomic_commit *state)
+>> +{
+>> +	struct drm_device *drm =3D encoder->dev;
+>> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+>> +
+>> +	backlight_disable(ch1115->bl_dev);
+>> +
+>> +	u8 command =3D CH1115_CMD_OFF;
+>> +
+>> +	ch1115_send_command_list(ch1115, &command, 1);
+>> +}
+>
+> [Severity: Medium]
+> Should ch1115_encoder_atomic_disable() also disable the internal DC-DC
+> converter?
+>
+> When the encoder is enabled, ch1115_encoder_atomic_enable() calls
+> ch1115_oled_init(), which turns on the DC-DC converter with CH1115_CMD_DC=
+_DC
+> and CH1115_VAL_DC_DC_ON. However, when the display is disabled via KMS or
+> during system shutdown via ch1115_shutdown() -> drm_atomic_helper_shutdow=
+n(),
+> ch1115_encoder_atomic_disable() only sends CH1115_CMD_OFF, leaving the DC=
+-DC
+> converter enabled.
+>
+> By contrast, ch1115_remove() explicitly sends CH1115_CMD_OFF,
+> CH1115_CMD_DC_DC, and CH1115_VAL_DC_DC_OFF after calling
+> drm_atomic_helper_shutdown():
+>
+> 	u8 cmd_list[] =3D {
+> 		CH1115_CMD_OFF,
+> 		CH1115_CMD_DC_DC,
+> 		CH1115_VAL_DC_DC_OFF,
+> 	};
+>
+> 	drm_dev_unplug(&ch1115->dev);
+> 	drm_atomic_helper_shutdown(&ch1115->dev);
+>
+> 	ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
+>
+> If ch1115_encoder_atomic_disable() sent CH1115_CMD_OFF, CH1115_CMD_DC_DC,=
+ and
+> CH1115_VAL_DC_DC_OFF, wouldn't that properly power down the DC-DC convert=
+er on
+> both KMS disable and ch1115_shutdown(), while avoiding the duplicate comm=
+and
+> sequence in ch1115_remove()?
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_svm.c
-> index ed5e3318877be..5807a26d7debf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -156,6 +156,18 @@ svm_is_valid_dma_mapping_addr(struct device *dev, dm=
-a_addr_t dma_addr)
->  	       !(dma_addr & SVM_RANGE_VRAM_DOMAIN);
->  }
-> =20
-> +static bool svm_page_is_range_owned(struct page *page, struct svm_range =
-*prange)
-> +{
-> +	bool is_owned;
-> +
-> +	mutex_lock(&prange->lock);
-> +	is_owned =3D is_zone_device_page(page) && prange->ttm_res &&
-> +		page->zone_device_data =3D=3D prange->svm_bo;
-> +	mutex_unlock(&prange->lock);
-> +
-> +	return is_owned;
-> +}
-> +
->  static int
->  svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *pran=
-ge,
->  		      unsigned long offset, unsigned long npages,
-> @@ -180,7 +192,7 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, str=
-uct svm_range *prange,
->  			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
-> =20
->  		page =3D hmm_pfn_to_page(hmm_pfns[i]);
-> -		if (is_zone_device_page(page)) {
-> +		if (svm_page_is_range_owned(page, prange)) {
->  			struct amdgpu_device *bo_adev =3D prange->svm_bo->node->adev;
-> =20
->  			addr[i] =3D (hmm_pfns[i] << PAGE_SHIFT) +
-> @@ -189,6 +201,11 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, st=
-ruct svm_range *prange,
->  			addr[i] |=3D SVM_RANGE_VRAM_DOMAIN;
->  			pr_debug_ratelimited("vram address: 0x%llx\n", addr[i]);
->  			continue;
-> +		} else if (WARN_ON_ONCE(is_device_private_page(page))) {
-> +			/* Device private memory from another driver or range.
-> +			 * This should never happen.
-> +			 */
-> +			return -EINVAL;
->  		}
+I believe this is accurate, apologies for this oversight. I have a local
+version of this fixed, tested with modetest, unloading the module,
+rebooting and power off the system entirely. I'll send a v7 in a few
+days in case there is a review.
 
-[Severity: High]
-Can device-private pages from another SVM range or a parent process on
-the same GPU or XGMI hive reach this branch and trigger WARN_ON_ONCE()
-and -EINVAL?
+Best regards,
+Nicol=C3=A1s
 
-On GPUs using MEMORY_DEVICE_PRIVATE, kgd2kfd_init_zone_device() sets
-pgmap->owner to SVM_ADEV_PGMAP_OWNER(adev), which is a device-wide or
-hive-wide pointer shared across all processes and all svm_range structs
-on that GPU or hive.
-
-In svm_range_validate_and_map(), owner is computed via
-kfd_svm_page_owner(), which unconditionally returns
-SVM_ADEV_PGMAP_OWNER(pdd->dev->adev) even when prange->ttm_res is NULL
-or prange->svm_bo is a different BO:
-
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c:kfd_svm_page_owner() {
-	...
-	return SVM_ADEV_PGMAP_OWNER(pdd->dev->adev);
-}
-
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c:svm_range_validate_and_map() {
-	...
-	owner =3D kfd_svm_page_owner(p, find_first_bit(ctx->bitmap,
-						MAX_GPU_INSTANCE));
-	for_each_set_bit(idx, ctx->bitmap, MAX_GPU_INSTANCE) {
-		if (kfd_svm_page_owner(p, idx) !=3D owner) {
-			owner =3D NULL;
-			break;
-		}
-	}
-	...
-	r =3D amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
-				       readonly, owner,
-				       ctx->hmm_range[bitmap_unchanged]);
-}
-
-When amdgpu_hmm_range_get_pages() calls hmm_range_fault(),
-hmm_vma_handle_pte() skips faulting any device-private swap entry whose
-pgmap->owner matches range->dev_private_owner:
-
-mm/hmm.c:hmm_vma_handle_pte() {
-	...
-		if (softleaf_is_device_private(entry) &&
-		    page_pgmap(softleaf_to_page(entry))->owner =3D=3D
-		    range->dev_private_owner) {
-			cpu_flags =3D HMM_PFN_VALID;
-			if (softleaf_is_device_private_write(entry))
-				cpu_flags |=3D HMM_PFN_WRITE;
-			new_pfn_flags =3D softleaf_to_pfn(entry) | cpu_flags;
-			goto out;
-		}
-}
-
-If a process validates an SVM range containing MEMORY_DEVICE_PRIVATE
-pages inherited via fork() or moved via mremap() from another range on
-the same GPU or hive, hmm_range_fault() will not fault those pages back
-to system RAM and will return them in hmm_pfns. When
-svm_range_dma_map_dev() then checks svm_page_is_range_owned(page,
-prange), it returns false because prange->ttm_res is NULL or
-page->zone_device_data !=3D prange->svm_bo, hitting the WARN_ON_ONCE() and
-failing range validation with -EINVAL.
-
-[Severity: High]
-Also, if this -EINVAL path is taken when addr[i] previously held a valid
-system-memory DMA mapping, does it leave a stale DMA address in addr[i]
-that causes a double dma_unmap_page()?
-
-At the start of the loop in svm_range_dma_map_dev(), an existing valid
-mapping is unmapped without clearing addr[i]:
-
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c:svm_range_dma_map_dev() {
-	...
-	for (i =3D 0; i < npages; i++) {
-		if (svm_is_valid_dma_mapping_addr(dev, addr[i]))
-			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
-}
-
-Prior to this change, every path after dma_unmap_page() overwrote
-addr[i]. Returning -EINVAL before updating or zeroing addr[i] leaves the
-unmapped DMA address in prange->dma_addr[gpuidx], so a later call to
-svm_range_dma_unmap_dev() (or a subsequent svm_range_dma_map_dev() call)
-will see svm_is_valid_dma_mapping_addr(dev, addr[i]) as true and call
-dma_unmap_page() a second time on the same address:
-
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c:svm_range_dma_unmap_dev() {
-	...
-	for (i =3D offset; i < offset + npages; i++) {
-		if (!svm_is_valid_dma_mapping_addr(dev, dma_addr[i]))
-			continue;
-		pr_debug_ratelimited("unmap 0x%llx\n", dma_addr[i] >> PAGE_SHIFT);
-		dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
-		dma_addr[i] =3D 0;
-	}
-}
-
->  		addr[i] =3D dma_map_page(dev, page, 0, PAGE_SIZE, dir);
->  		r =3D dma_mapping_error(dev, addr[i]);
-
-[Severity: Medium]
-Is it valid to pass non-private ZONE_DEVICE pages (such as DAX pages or
-foreign MEMORY_DEVICE_COHERENT pages) to dma_map_page() here?
-
-When svm_page_is_range_owned(page, prange) and
-is_device_private_page(page) both return false for a ZONE_DEVICE page,
-execution falls through to dma_map_page(), which expands to
-dma_map_page_attrs(). In kernel/dma/mapping.c, dma_map_page_attrs()
-rejects all ZONE_DEVICE pages when CONFIG_DMA_API_DEBUG is enabled:
-
-kernel/dma/mapping.c:dma_map_page_attrs() {
-	...
-	if (IS_ENABLED(CONFIG_DMA_API_DEBUG) &&
-	    WARN_ON_ONCE(is_zone_device_page(page)))
-		return DMA_MAPPING_ERROR;
-}
-
-Wouldn't mapping DAX memory or coherent device pages from another GPU
-hive trigger this warning and fail with -ENOMEM on kernels with
-CONFIG_DMA_API_DEBUG enabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105185828.8536=
-7-1-felix.kuehling@amd.com?part=3D1
+[1] https://datasheet4u.com/download/1576606/CH1115.html
