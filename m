@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17455606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:44:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDC5606A32E
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/p45r2o
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iixeevkl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78FBB10FFF1;
-	Thu,  5 Nov 2026 20:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB1CB10E31A;
+	Thu,  5 Nov 2026 20:46:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 680B010F92D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:44:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1558510E002
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:46:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2375442E5B;
- Thu,  5 Nov 2026 20:44:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41591F0089F;
- Thu,  5 Nov 2026 20:44:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E716041A5F
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:46:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D0E1F0089F;
+ Thu,  5 Nov 2026 20:46:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793911446;
- bh=5MhqbY67A44nCefpa5ELa+giN176gkMnyGQbrMOGMEU=;
+ s=k20260515; t=1793911608;
+ bh=2IgGBOTZJDvN1Z5cIFYDn9jL/ak9TqN7kxe7SoR1ZOM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L/p45r2oaMY6KWAz+PaAI5fLTcm1m90D4q4mAYW8MfxnLt0NegL26ZpaJsU0TRb3W
- 2MiOQ3ED0H+DFI2wJ8GdSrMt80LoNpCgyJzlcW6Glu+GrXX4SaOTVcSOq/y1EOQUlR
- A/t/R1t5gZWEvku4Fw3ojaiLYd2t0HSLjJZUAS+iLGGyGKVqiGClG8jyCgyDY0mZXY
- sjRUkrq+VUC92MjBu5ylIm0jXNKQoJkss+YVDcr1SBRy+lrv9vRzyoF19przLUfrij
- KsjO8UIbbg0B2ENgxAjBjKagPEx/jdvwuBVtQzJmGChWqtcggA2ThdERMM6na1k/T7
- VvpQi29frZawg==
-Message-ID: <sashiko-outbox-200128@kernel.org>
+ b=Iixeevkl3cVTw+t46OPNQ+n7NDvkMqKfGxC/7i53NGy2TRGYOC3GxO91QCy9k80X7
+ /5h2sYmURQhbSwTkZCw0dMq03jJP6DtAZDR2Dpbv+v69uNlfLoA1vwVxw0GEorifUS
+ iT9b42kEr57LsRQORKbrs7sln+Gao/18esDuAP1sO1pqTcYkQSeGchdsmKlGr6qN1g
+ wvfNeewm8rJwqy1gVLdDwcsO2RRy0MHVFZnh3/qsxmfCTnnDd5wMaMFnb65+/NhTuU
+ LjIkPjxnhQiBndwMfZU6Wub6QS/ZOhlKzZDNOTPxYze0ucEdYMOcsQhkTvvs38EjuH
+ Eog/Wsmgj4Usg==
+Message-ID: <sashiko-outbox-200132@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] GPU: drm: nouveau: Prevent kernel oops on missing
- firmware binary
-To: "Jonathan Kuehn" <jonathan.kuehn@aol.com>
+Subject: Re: [PATCH RESEND 54/83] drm/tests: drm_atomic_state_test: Switch
+ to drm_mode_config_create_initial_state
+To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105202757.28703-1-jonathan.kuehn@aol.com>
-References: <20261105202757.28703-1-jonathan.kuehn.ref@aol.com>
- <20261105202757.28703-1-jonathan.kuehn@aol.com>
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-54-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-54-1f58d1e33380@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 20:44:05 +0000
+Date: Thu, 05 Nov 2026 20:46:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,74 +51,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/nouveau: redundant gr NULL check in nvkm_gr_units() after ca=
-ller fix
+- [Medium] drm/tests: error pointer dereference in drm_atomic_commit_test c=
+allers
 --
 
-commit f535382c50460cf93f6d91dd265e009e3ef99a0a
-Author: Jonathan Kuehn <jonathan.kuehn@aol.com>
+commit bf780a2e8e49270edd5c0a0b1f92ae2a80dbb4a2
+Author: Maxime Ripard <mripard@kernel.org>
 
-GPU: drm: nouveau: Prevent kernel oops on missing firmware binary
+drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initial_=
+state
 
-This commit adds a NULL check for the gr pointer in nvkm_gr_units() to avoid
-a NULL pointer dereference when querying NOUVEAU_GETPARAM_GRAPH_UNITS with
-missing firmware binaries.
+This commit replaces the call to drm_mode_config_reset() in
+drm_atomic_test_init_drm_components() with
+drm_mode_config_create_initial_state() to initialize KMS state for the atom=
+ic
+commit KUnit tests.
 
->     GPU: drm: nouveau: Prevent kernel oops on missing firmware binary
->    =20
->     Prevent null pointer dereference at the call of
->     nouveau_abi16_ioctl_getparams with parameter
->     NOUVEAU_GETPARAM_GRAPH_UNITS when firmware binaries are missing.
->     Fixes crash for certain user-space applications (steamwebhelper,
->     signal-desktop).
->    =20
->     Signed-off-by: Jonathan Kuehn <jonathan.kuehn@aol.com>
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/gr/base.c b/drivers/gpu/=
-drm/nouveau/nvkm/engine/gr/base.c
-> index cd4908b1b4dff..9abeb9732406f 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/gr/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/gr/base.c
-> @@ -72,7 +72,7 @@ nvkm_gr_tile(struct nvkm_engine *engine, int region, st=
-ruct nvkm_fb_tile *tile)
->  u64
->  nvkm_gr_units(struct nvkm_gr *gr)
->  {
-> -	if (gr->func->units)
-> +	if (gr && gr->func->units)
+> diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu=
+/drm/tests/drm_atomic_commit_test.c
+> index 6ccb001f6264b..97f60ce68b3e4 100644
+> --- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> +++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> @@ -134,7 +134,9 @@ drm_atomic_test_init_drm_components(struct kunit *tes=
+t, bool has_connectors)
+>  	}
+> =20
+>  done:
+> -	drm_mode_config_reset(drm);
+> +	ret =3D drm_mode_config_create_initial_state(drm);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> =20
+>  	return priv;
+>  }
 
 [Severity: Medium]
-Can a NULL gr pointer still reach nvkm_gr_units() here?
+Can returning ERR_PTR(ret) here lead to an error pointer dereference in the
+callers of drm_atomic_test_init_drm_components()?
 
-Commit f569473c1393 ("drm/nouveau: prevent NULL deref of gr in
-GETPARAM_GRAPH_UNITS") already added a NULL check in
-nouveau_abi16_ioctl_getparam(), which is the sole caller of nvkm_gr_units()
-in the tree:
+Both drm_test_check_connector_changed_modeset() and
+drm_test_check_valid_clones() only check the returned pointer with
+KUNIT_ASSERT_NOT_NULL():
 
-drivers/gpu/drm/nouveau/nouveau_abi16.c:nouveau_abi16_ioctl_getparam() {
-	...
-	case NOUVEAU_GETPARAM_GRAPH_UNITS:
-		getparam->value =3D gr ? nvkm_gr_units(gr) : 0;
-		break;
-	...
-}
+	priv =3D drm_atomic_test_init_drm_components(test, true);
+	KUNIT_ASSERT_NOT_NULL(test, priv);
 
-Since nouveau_abi16_ioctl_getparam() already guards against gr being NULL w=
-hen
-handling NOUVEAU_GETPARAM_GRAPH_UNITS, does adding a second check in
-nvkm_gr_units() without updating the caller just duplicate the check with no
-change in runtime behavior?
+If drm_mode_config_create_initial_state() returns a negative error code,
+ERR_PTR(ret) will pass the KUNIT_ASSERT_NOT_NULL() check and be dereferenced
+in set_up_atomic_state().
+
+Every other failure check in drm_atomic_test_init_drm_components() uses
+KUNIT_ASSERT_NOT_ERR_OR_NULL() or KUNIT_ASSERT_EQ(test, ret, 0) to abort the
+test immediately. Should this check use KUNIT_ASSERT_EQ(test, ret, 0) as we=
+ll,
+or should the callers be updated to use KUNIT_ASSERT_NOT_ERR_OR_NULL()?
+
+Also, this isn't a bug, but the commit subject prefix says
+drm_atomic_state_test while the modified file is drm_atomic_commit_test.c.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105202757.2870=
-3-1-jonathan.kuehn@aol.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-drm-no-mor=
+e-config-reset-v1-0-1f58d1e33380@kernel.org?part=3D54
