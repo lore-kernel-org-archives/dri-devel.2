@@ -2,124 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7DC60705C3
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A606071F85
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GVDeanTW
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Nc0ErA0u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8655810F239;
-	Thu,  5 Nov 2026 19:38:53 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012052.outbound.protection.outlook.com [40.107.209.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D6710E360
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:38:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8ACD10E162;
+	Thu,  5 Nov 2026 19:49:20 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010060.outbound.protection.outlook.com
+ [40.93.198.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B921910E162
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:49:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KYAc+4RLEOYqhWDCP0IA6LUWIDU4o+4aVFLcpdJvpEBtOBVkGGBeNHIG7NwVBNHB25Am6/Usl+lPlDMtWAQwGXWJF25NgDtgTqfHyFIrUfpxHFohDBWZIHK1HJ5Fdvb/JKCanMKYnPDnWQLHGJrTs2YKBeyGLx0nA+id7hdmJrlGrT/ruLgA+XqW6ictlF61UCaJVAQGyPIeKH3g5RtKzL/SGBOcPua3kTuPMFpGFOHOek4hiZci6uHBlLlJIsrBWKwkjd4pA/F/3GxdISS+6WYoFbgEDiQ8CSsvM35MBIWP2iU6fVxppz3UHtVL/oILabolxJo5OTssik6J0TgacQ==
+ b=JgOiPmzHnuq+WlWa6B6aOpwTN4Irp/8Xix0EE3pQ7zzhCBpXD39btfgBkiJ4TIkW3vThbnZHWVvMVr9TQxWmsJo/brFZtkAFsdlRdTIPHSXJivj8PbxTuYR4oIsyb7lmo7Xk/zGYeyRO0Qtub58qLQ5X5q49BF380hb4y20lvSm1jnEuHE6j47sEGvCBmexqeWBdvGC2QkAQ4pw3JmKOAEgKtaExjlVV2jCJeJkSI3QNX6GIFQ5Eg6fIvsVCJpZkwnEzTqLT3VDa9yk80bKvBeZPLC5DAQ1yn23JeiiVHvFjDxvYRdRlwGmhFQfCYFqdgeSl81CZiGywe+7FZ6nDjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
- b=i5HkeK+p5NQoLLB0DlxjXWqfjKgt6eXtczWAcsOhXE8isWuwMm4Y6fOvOlg02pHzdggCFO8Jz5sgHOYkGg2SHv0CjUPp9L66QeVfqRrl/zDmJmpTwMMi9xRSU/R46CWKEAeZlHnLcpvmzHAgVcyEDHADha+ZlSiv8fwW9hj53s69QK11cASdYuX+e3947ze2J0mwnXm4pBUqaezk7ro0EVMY+7TuXJbm+GMzShpqIXHQk/T6kNKr1NOQ3esdmJgA1JETk/JMWhhndD2pEE0Mm+eld2ptJI0Ks2aDJbgUN4/NtG9ITo+APHIIFSZRvuZ2BzBDOC7DriwpWRMtqrnLXA==
+ bh=EmTY10+cDLzPxqhsc7dWV1nt042XSBu4V78R1DYmcBI=;
+ b=Hn1SB7PpdqzKjg2Fr5qXV6juchZKARtqkHBetS37hIJxaeZFd4cne2XPMi+6eWyaawM8KJUq7ziM41AVNRbsT66NJL/ItM4uoDKyiz1PqyApxMKXdvR/nxoH/iOOzfl0830LXV3uvoK8FatIUcOXfsYNN5YnNUtF5SmyUIKUwOeJbeSOqAtE8FCpkILpw1CdS9qq+ilFzatPsDusrE478KKWL5qfMJ74fHHqEYNKgSheWbKjFWeVYub8vjc263OxTpp8lloi2pnIrscC+1AmS5dX9tPbvLprk/xnOCSQsNDzOpc3HarWXr6gf+8E0Ewf0dv9MFTQtheKahWJzyxgEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
- b=GVDeanTW8IfuuyyOXfYGjMup6gLC5gzzJ+qWdOd10AcyAhkz87yF7Ivo7TE76Ih6oGQZ+u2NjQCzZqKrhA1d9ujqa8GXJ4hSEAm+TzYviU8B9GjRV1fUGLPIVnmvvWFbk7DGbqEbyQKtW7HSfNQWdqXmO8wkzj4Szl+28ClGoRM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by DM6PR12MB4137.namprd12.prod.outlook.com (2603:10b6:5:218::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 5 Nov 2026
- 19:38:37 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 19:38:36 +0000
-Message-ID: <0161e0ed-3b6a-496f-8502-6dcd219f3aca@amd.com>
-Date: Thu, 5 Nov 2026 13:38:33 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
- reports
+ bh=EmTY10+cDLzPxqhsc7dWV1nt042XSBu4V78R1DYmcBI=;
+ b=Nc0ErA0uPyQ+drMQhH1oqgpOP7+f26wF9LC10Z+sdxyvrJL+GgP95ee8LbkTsFvFcUHhQAmAwnXQ+yFBr1qt960v2yEoa7iX+vDZlAgwSeJhUZor3i0x81jWFftefNEkpmvSFdzlngIlLjnFxrdH1X+MMPBDv6+a8WUven8mlcY=
+Received: from CHAPR12MB999247.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::7) by IA4PR12MB901606.namprd12.prod.outlook.com
+ (2603:10b6:207:12a::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:49:11 +0000
+Received: from CHAPR12MB999247.namprd12.prod.outlook.com
+ ([fe80::d727:e84d:1883:b74]) by CHAPR12MB999247.namprd12.prod.outlook.com
+ ([fe80::d727:e84d:1883:b74%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 19:49:11 +0000
+From: "Francis, David" <David.Francis@amd.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>, Simona Vetter
+ <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
+Thread-Topic: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
+Thread-Index: AQHda6ubaDmCLQE7Nk6ic8o597M3OLcfVaOAgACLBWI=
+Date: Thu, 5 Nov 2026 19:49:10 +0000
+Message-ID: <CHAPR12MB999247EFCE060F1DA5575E0381EF772@CHAPR12MB999247.namprd12.prod.outlook.com>
+References: <20261103155411.3305376-1-David.Francis@amd.com>
+ <ab5eeb46-f119-4430-9f91-e530a74f036c@igalia.com>
+In-Reply-To: <ab5eeb46-f119-4430-9f91-e530a74f036c@igalia.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Zhang, Yidong (David)" <yidong.zhang@amd.com>,
- Lizhi Hou <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
- <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0410.namprd03.prod.outlook.com
- (2603:10b6:610:11b::22) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-05T19:49:10.270Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CHAPR12MB999247:EE_|IA4PR12MB901606:EE_
+x-ms-office365-filtering-correlation-id: 48591786-c3b7-4ea1-0841-08df3b75dca3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|6133799003|10067099003|22082099003|18002099003|38070700021|261021123027099003|11063799006|4143699003|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261026140227099003|261009221227099003|56012099006|261021121427099003|261009223027099003|261102130727099003;
+x-microsoft-antispam-message-info: vq8nzn/ip/ujZsZFkVQAwoeWe6JqdUi0ZpqlY25a2HWXW4V7e+9VB3rFcXm+RMLxn+hSFFsUpmQoPjEF+k5I8hD+i0JYn/TSUODeKhTkxpOniDVcgYY3mId297N5q53ugQhwkopXAgR7EKypEhzFmy0dSD4B1bWlp6CTJ8rUAAsK8lpKtFpdMDOYcdYyzuuLDllpE4GhMRghA9RYhZBY1Tp89F8knYvEpj+18Nmon9binhHnd934jWU9lpOL29B1nXmbzCRtI5a5+Rg69QttQQd1YKWBGC7S0hlki17EFK+EFhrfJjLsOtmWKfLeYJf0lYjnZemk97xkFHB19tvARl+OKEC5hI1Yuu7pGbrQQD5jGjijXZclYY+H7YoaGXULh6Eb+BLJeysTByw68l9NvbRYrydYscr222oC+1r4sy4TBogS+jTMhqDEKGWUH4C3WgF2DCzYh2RRiyWKgwzaJPYTstfduAablfiB7vGqvTJF55q1+iifVbZHnfWVGQmMr9beA+Yl8WZAmzBJT79MDUZxzjRMMtW3KOgoslqTZYHnTwhES3qMICKkBhIwF7nc7VZiH0sIrszBUdTgLAjJR41whXP9isSRHrY/E34MO6lzqCTw16r8RrT1xWGifE5TXaiZjwuJac9H6D+/9QKljMd0c1plparO7VvOold06IBxoynqKc3QwwDjNcF/28tu
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHAPR12MB999247.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(38070700021)(261021123027099003)(11063799006)(4143699003)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261026140227099003)(261009221227099003)(56012099006)(261021121427099003)(261009223027099003)(261102130727099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PnV6M1Dv79H/pUmYzuKT8+WXAfQOQ0BvZSPxIwingXmA31GkNnrLJtjaZ6uE?=
+ =?us-ascii?Q?Wj9dR9cCvptOU7uvxPw6RTlaN8oTaK/hldnA9/LUSU8Tu4xdhncRLVS3OBPL?=
+ =?us-ascii?Q?aVLMVaTCdcaO21IK02JrOrSSADpN+Hzj1msz2bDb0MH9nHgHgKLDh1xvDLx/?=
+ =?us-ascii?Q?Kx9qyLbJOddX1XFodrOJtWDvbvYEDODDvRbkQ0Ahaq7G/eGcPsDMqNgZf5iG?=
+ =?us-ascii?Q?83G2HIeTr/443IOsWIVEjQx6JqOqvqwKXLZ/mLMMe40+byaOuOybs267qOpS?=
+ =?us-ascii?Q?YBkyDE24LABVmRwp3WXe5M9eP/vOtqxxRvfMRdvqVNBPXBQ4fRjh7+aVC+Zz?=
+ =?us-ascii?Q?lWQKTTjrMW0jX6GWw0Dqfhl+fjXxRRyoIa7WGadHwub0vv2RFZYCnkRmpwtr?=
+ =?us-ascii?Q?VS9LkMoFQoPKhteHbagyFMcDcneK+CVbqjH+xAATQzYj/pvWzTVjjpiDQ3h8?=
+ =?us-ascii?Q?trIc5qFgJOYdIwgcpxGOASWSFbvsaLldDcqgNqXdv+h6168lUt/W4hqAXQSm?=
+ =?us-ascii?Q?0aBtDliJRTx4r5rf6JeUfBw7T8VfE46exO3yX5ALQVfmV9DHCVpSRCrZ1Z3k?=
+ =?us-ascii?Q?c0/mzzkYIzabHsCtqJEN+vsAYR7VsrEJllKWVV3HiZHK9TbNzC4Y9enfW51q?=
+ =?us-ascii?Q?JCSdrwzHVZ54eWjUYxLAEXA8KRui9fkrHNC3o/p+BZkho/5WPikwbAooqpZy?=
+ =?us-ascii?Q?2vff7ey1/0iES8YHEx90wA89FloYIWbB6qDx3d16B5FM+zz6ywg3lqNTX+ag?=
+ =?us-ascii?Q?RHptaxg/I0+93CKpL1h+L5KYWx8EM1d/UrbU4YEKJSiqSvdoWhzVZt5TtWjn?=
+ =?us-ascii?Q?d7cy8GaD0vT6MrBo/aJ/YJaeKCz811vf5X7Fr1spgSyd9ts+miqEo2EUSdXF?=
+ =?us-ascii?Q?wMkGScOELmwuuEr4ET+/s5Z34gxpxgSQrhXKNmRhB7t3BKkBe8rTVyaJOUXS?=
+ =?us-ascii?Q?2ORkEoS3vbtVpUWKHqLg+RHqkFR50RuaIS+X6CJtdoquyScbn9ep5PA3mTNw?=
+ =?us-ascii?Q?VEwPqVtF83PERkntoH25DeQLCprje0SYQSRvD7t49iAkN4NVSwK7weWSGaso?=
+ =?us-ascii?Q?ZRDxqS/WgaA5QbM6/VhtfQnIPvmIq+yJmV3MqYe6hFDKRU9Vi9G21jHlNcTS?=
+ =?us-ascii?Q?TMhaHwAFedyxh9Vhc0pH6mi2VBV/pw4Unh5Zl9PiVihwiZxViJ7+Dy9Nc6zp?=
+ =?us-ascii?Q?wdTivgDeV1fMlPpMsgl1mOFAI8f3ysbvWUYyZs53x00zCkEgO2WNI2Fc+rvm?=
+ =?us-ascii?Q?tSknN+p/a/aQXxH5dH841jmDwoSV82J2+WjhDpFai425h7zNDhnDQHBonn5C?=
+ =?us-ascii?Q?nV9fEgaFANm28R9K/YiWZTvaOTZDp2QV/Cn1V5BUI7NyFhpuDLZcFDgIckQs?=
+ =?us-ascii?Q?unPPSowwORrfjmPkvi7jTYX3aqyWETGHnm3eXg0ERVXRnij2ivcn4OxuiWsH?=
+ =?us-ascii?Q?3J2Ca831KB1E+bh1PKVtUtxYPCAN4eCvdDP4YV77YvRzapy8RJzHovvwc8uW?=
+ =?us-ascii?Q?xsCrnQJ5Le4P7KzE6NDUS3+vk14tlCW572bjsnxrQH6L2EYx+Im0AtfuH/K6?=
+ =?us-ascii?Q?Sau4prEbsCNaBZ3clBF4SEzG3Kxmvi8zzBbNPxvtKDHnOko2pjPLDyThwImh?=
+ =?us-ascii?Q?t49DBqTWFjqNdCcMIH/vs9ltfLr8rOskrsOiQWzktfd5QVVSh2Dgy8K1XXfQ?=
+ =?us-ascii?Q?uoitg1QMQzCOEiDA4a1Wjd6/bGnFfL7NAE96HLH4MFofEgQi?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|DM6PR12MB4137:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|261102123227099003|56012099006|261026140227099003|11063799006|261026121527099003|261022115727099003|261022105027099003|4143699003|10067099003|261022075727099003|261028144727099003|261021121427099003|261009223027099003|260925021911599003|260925022911599003|261021123027099003|260925021311599003;
-X-Microsoft-Antispam-Message-Info: tylvNDGkngzIuB7thnsAqijCdKTDHe/gUgmin2zNHCS5gpKdlstgD0ohq27kLRGpayD6fDsLRUfofDdm2XXuD4bhaqXZvD2e8wtXHZzNAEbbAQSoRzhvZGgJRU9sDcOfP89/Bna3exdIfW1Ghzn7lTDiRNiUcSoy7HnXgWA0Wv/etpiyO5L5paidCaSJu6idGmEbgBoEzXG9eH175w837RACmNxpuDarAflkMVjJXpE9a3uG4uTAMatrqIuSImDTLCOQezSJKxV6KWjy3VhNf0yhKnfEpnYtao/Vq0dsxMeEPPA5frJRySwP3pk44uC9awIOZ1C/d6O1hf+AEzQBlHjlXTnK78j91X2vzRuPlGhdlJK48+G2p6T9BX283aMeetnH9xkJMUCbw6zuEXo36bIouqz4TtV0GoB0/fQf9Q4B4akP1BrerV8lWljvo15rjPHhTU1j/cmv0oJQkX4bQhazi9pn3y4xGAP1Jn9ot7r6DC71wy0Lh/V5CchDvTlYoTL6l4CsFxcM1ICgCKLVzVCxXIi4VflsCTLsR9ZEJoqWYSe4fD+BvHGf8xRikVcAttALFR7ELisjcYFBOaqfj3M3m2qD8hWqZnCY/eC/aU3hXeUoPbzAZkjA/sSmvAk8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261102123227099003)(56012099006)(261026140227099003)(11063799006)(261026121527099003)(261022115727099003)(261022105027099003)(4143699003)(10067099003)(261022075727099003)(261028144727099003)(261021121427099003)(261009223027099003)(260925021911599003)(260925022911599003)(261021123027099003)(260925021311599003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDJvYVA4bXY3V0dRMDM4NXpwTXRYSE9qSWZHRDR5cUw4ay82VElQN29rZ2Zk?=
- =?utf-8?B?eVdLc0VRckRsenBWQnlUNHh6M1grWDJvUG8zVSt4ekJvZ0RESU91ZDk2N1RP?=
- =?utf-8?B?eXJJQmZab0pzOGNpbDk3NHByYTlBeUE3UURsVU1DaGE0NnY2U3RydTJkZGk4?=
- =?utf-8?B?RnNIQlM2OGFRd0xIT0h2Snp1NzJZSHV0Z0hWV3ZmRU9zNTJJcXJ4U1p1Z1Bw?=
- =?utf-8?B?TEJLOEZGYWREcEdJdDFyRkhtaXJDckk3bTE3dWdwd3p4S2NuZDFWWjY0clVI?=
- =?utf-8?B?dHp5SENaZUFUNnRrclR0ZWxRU1Y3eVdNQlVBN2pzTURPOGQ1aGh3NHFuVjZm?=
- =?utf-8?B?bHFncFBObSt1cEJ3OFBXKzVhUGpDalpPc2d4bDBtMHRjOHhuK0xaTmJSWnk4?=
- =?utf-8?B?WUlKczcveWpUTGRYY3RrR3BmM1oxNjROZFU5a1dmNHh4cTVqT2swMU9hTFVp?=
- =?utf-8?B?MElWL3p5bmlIbi9ET1l4bTl3V0d3VEduVTk5SVN1dzdEaDRFblBUbVAzcFhs?=
- =?utf-8?B?a3ptVUhrbm5LV3liYzBtMHJOUmNaVExnWlJiODQzdi9vVmhITGtLdThKRTZh?=
- =?utf-8?B?NFVTdUFzNkh1ZEZDd1VjamN5YWhlRWlsU1ZzeTQ1Uk5IaElPelhkem96VWkz?=
- =?utf-8?B?Rjhyd3k3VE01SUlORGczNFZpVDFhWXhJM095MEtranJsRnFIOWlQT3RkTllL?=
- =?utf-8?B?aE9sZTQzd1pMNTR2OVFKaytvRHQwSHlFT0VkZFgwYXRHdFJJS1Z6RkhJdzBD?=
- =?utf-8?B?MFFhQTdENllwc09QQWZxYVZvc1hibWlUY0p3YmhMZUdHUVB2V1c2WVRtdEU4?=
- =?utf-8?B?cmtWaUE4d2dONFdONEo2Y01LTDZyTGo5UzZUaVI4RkhYa1VsaGZuZHM2R0Fq?=
- =?utf-8?B?ZGhZYVcxeHZ3Z002OVhTUWNCVE43YUNGU2FmV0JKYlc3WlZUZVNxNytqT3gv?=
- =?utf-8?B?Z1ZLd3NDUVQ1TUo3eStVM1pPUG9HL1l5elRyOUE0d3BPSTZpbzJWTndVYUFz?=
- =?utf-8?B?TU85VFdnaXFKUm9CWHF5bmNWSnVSYnY3LzV0endhMmxEeEg5SEw2WFVlUi9t?=
- =?utf-8?B?OXpBUTdWZzZvaUdVa09LZ1ErOTdxSEdSOG80dTRuSjVYZER3WlBsdW9lK1BN?=
- =?utf-8?B?cUUrczJhT2dlczF2eHRkS0t4ZkFuenVWUnVrTTZqOVhkNjV0a2g4c3lpWGxZ?=
- =?utf-8?B?NWh0SS9OV3lVY2JBQVZBY0lwWVRMeXdsalBrN0ZTSHdUVlBhQUtzNEZ5Wmwv?=
- =?utf-8?B?b1VQcWI0Wlp6WHZzSHZBcUV4eEQ3MTZIVmlLc1VKRjM2d2dEVWpuNUt5b0lw?=
- =?utf-8?B?Q2d4MjNQQU5ZNGxMM2JnSnNSVmhWcndlOENvdW1WZ0dwajhqbHVWVTVYNmxy?=
- =?utf-8?B?bjd0ZjBORWNoYWQrQ1lkTVh6V09aN3Mya3pINGQ4TGYzNDBOMVRFT3Z4cFc5?=
- =?utf-8?B?elNoNzNPWmVNelZjRlBhQkhZTTAyOVdRazU0ZTBXKzVqUjhiVnd1eWJma3BE?=
- =?utf-8?B?VlNWWEV2MmNPSlVwb29HSndBY2JsM2tlVWZXYjY1M1d6QnpVMmlRdnNHaWh1?=
- =?utf-8?B?WVgxa29Va0RtcVViQjIyV0J3ZFdHMDVFZWk3TXhUWVQ1VCtoVUpKam42a3Vk?=
- =?utf-8?B?YVNwWGNMV0tEQVdkZTE0WkVTa2o2T085Sm9CaTF3Uno5ZElJdnplSFpLWW11?=
- =?utf-8?B?S1FzbzZ5NmJiVjJKejc2M3ZxQ1I3WGN2dGRIN2RUVTZaQjFNOXNFMGpVbERx?=
- =?utf-8?B?UXhtbVBuZTJJdDZ0b2RkazN0d2lTL0ZWbjU2TDA1NmI4cW9VaWQvRVBQcFVy?=
- =?utf-8?B?U1JQMFFtcUNUUnhwY3RBVWNrajRaSnp3cUZMNVFMc2FwWURLd2tsSGRNczIv?=
- =?utf-8?B?Z0RIdjNhS2RSSmxkOWZtbkI0NEdVcms4YmR6RHA1OFF4bElpMnFySVE0SE80?=
- =?utf-8?B?dnB4K2p2UmdYeXRCQ204WnVWSDF0NGF0TVNFUTBSVHlCeHdKRkhUYU9UK29R?=
- =?utf-8?B?ZHdxTDhGdUdiK1BGVm55allKcjM0eE5rNXBuS213dUthWGJ4dnpqT1dYUHps?=
- =?utf-8?B?MWNzTHJOQ1FjUi9UUlQ0QlppRjNpUDN0a3NIeXZQWFpReGxhZWVERE9xaXd2?=
- =?utf-8?B?RVJrNHRyM3FuV3NoZTArMmdYSVFzTTNia2tYYVJ4WnFyaUFIbkdTSFRWeHFX?=
- =?utf-8?B?RTVuWkVrR21TK3pQRDVtMklSNy9JTWcvOTJJbkpTUCt0KzFqdVRvNnZVYzNy?=
- =?utf-8?B?WGVzZ040OTloUEpYRnY5UVdTRXQ3V1VqYUVIeDRHcXBoOHJXUmVJQTVWdHVy?=
- =?utf-8?B?REI5d012UVppOVRLRERtWDRoMThWWFhLNWJ1S25CbE5YdFBtdjJxdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:38:36.3806 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5nZ6FHTssiDi5YbSNDp67oCmEXR8f/9GO3nkOOwJsA2wzTilMGWm6qUcjfNlaSjTCDs2Pr832QM0eZRrTTzKYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4137
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999247.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48591786-c3b7-4ea1-0841-08df3b75dca3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 19:49:10.8517 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OjY5SoX/tdT+kSUax1bf/xkJo2lp27x2h0g6jB4ZEjPHAmThvGewZEAQtpBeSpLe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB901606
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,324 +129,232 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+>> +     if (new_handle =3D=3D 0 || new_handle > INT_MAX ||
+>> +         args->handle =3D=3D new_handle)
+>> +             return -EINVAL;
+>
+>I'd like to open the same discussion point that I opened in the
+>corresponding IGT. Should we or should we not check for INT_MAX here.
+>There I wrote this:
+>
+>"""
+>About this one I am not sure. Is it not implementation details as long
+>as the uapi for handle is u32? Let say someone converts to XArray one
+>day and then we have to artificially limit that to s32 just so
+>gem_change_handle can keep working.
+>"""
+
+uapi is u32 but idr only does handles from 0 to INT_MAX. I think it's
+correct for this to be an error now; if the interface one day changes
+such that INT_MAX < handle < UINT_MAX is now valid, I think we're okay to h=
+ave
+some cases that were once errors now work (that's what happens whenever an
+ioctl adds new flags / replaces padding with new inputs).
+
+>> +     ret =3D idr_alloc(&file_priv->object_idr, NULL, new_handle,
+>> +                     new_handle + 1, GFP_NOWAIT);
+>
+>And here I opened a point about what happens when target handle is taken
+>(again in IGT review):
+>
+>"""
+>Hmm.. this is actually leaking the wrong implementation detail of
+>idr_alloc to ABI. ENOSPC is "no free handles". It feels it would be
+>better if gem_change_handle returned EBUSY or EEXIST for this case so it
+>is not conflated. Thoughts?
+>""'
+On balance EBUSY is probably a more accurate error code for this than
+ENOSPC, I can make that change. Neither is perfect? "Busy" to me implies
+a temporary use of a resource, but this is about a handle which is persiste=
+ntly
+being used. EEXIST has the error message "File exists"; I don't know whethe=
+r it's
+used for cases like this is practice.
+
+The definition of these error codes seems pretty loose, as long as it's dis=
+tinct from
+the other error codes this can return
+
+David Francis
+
+________________________________________
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Sent: Thursday, November 5, 2026 6:12 AM
+To: Francis, David; dri-devel@lists.freedesktop.org
+Cc: Koenig, Christian; Simona Vetter
+Subject: Re: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
 
 
-On 11/5/26 13:19, Zhang, Yidong (David) wrote:
-> 
-> On 11/5/2026 7:51 AM, Mario Limonciello wrote:
->> Some Platforms ship BIOS with either a default or an alternative trust
->> authority. The PSP validates the NPU firmware, so it must be signed with
->> the matching scheme. Firmware for the alternative scheme is named with
->> an "_l" suffix before the extension. A preproduction part needs firmware
->> of its own, named with a "_p" suffix.
->>
->> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
->> whether this is a preproduction part. A preproduction part that also
->> reports the alternative scheme is not expected, so warn about it and
->> use the default firmware.
->>
->> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
->> images of the aie4 devices so that initramfs generators include them.
->>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->> Changes in v2:
->> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't 
->> leave
->>    it uninitialized
->> - Only read the PSP firmware variant after the npufw/certfw path 
->> check, so
->>    VFs (which have no firmware paths) skip the SMN access
->> - Drop the redundant all-ones check, amd_smn_read() already returns - 
->> ENODEV
->> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1- 
->> dbffcc5abc23@amd.com
->> ---
->>   drivers/accel/amdxdna/Kconfig           |   1 +
->>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++ 
->> ++++------
->>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
->>   3 files changed, 141 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/ 
->> Kconfig
->> index eddff490b4f75..cd17a89cf4146 100644
->> --- a/drivers/accel/amdxdna/Kconfig
->> +++ b/drivers/accel/amdxdna/Kconfig
->> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
->>       depends on DRM_ACCEL
->>       depends on PCI && HAS_IOMEM
->>       depends on X86_64
->> +    depends on AMD_NODE
->>       depends on AMD_PMF || !AMD_PMF
->>       select DRM_SCHED
->>       select DRM_GEM_SHMEM_HELPER
->> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/ 
->> aie4_pci.c
->> index 02dcb2f813d45..26c6162893760 100644
->> --- a/drivers/accel/amdxdna/aie4_pci.c
->> +++ b/drivers/accel/amdxdna/aie4_pci.c
->> @@ -11,6 +11,8 @@
->>   #include <linux/debugfs.h>
->>   #include <linux/firmware.h>
->>   #include <linux/sizes.h>
->> +#include <linux/string.h>
->> +#include <asm/amd/node.h>
->>   #include "aie.h"
->>   #include "aie4_msg_priv.h"
->> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct 
->> amdxdna_dev_hdl *ndev)
->>       aie4_fw_stop(ndev);
->>   }
->> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> -                 const struct firmware **npufw,
->> -                 const struct firmware **certfw)
->> +/*
->> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = 
->> alternative
->> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction 
->> part
->> + */
->> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR    0x38109fc
->> +#define AIE4_PSP_FW_SIGN_ALT        BIT(6)
->> +#define AIE4_PSP_FW_PREPROD        BIT(28)
->> +
->> +enum aie4_fw_variant {
->> +    AIE4_FW_DEFAULT,
->> +    AIE4_FW_ALT,        /* "_l" images */
->> +    AIE4_FW_PREPROD,    /* "_p" images */
->> +};
->> +
->> +/*
->> + * The PSP only trusts firmware signed with the scheme the platform 
->> firmware
->> + * uses and a preproduction part needs firmware of its own. Reading 
->> which one is
->> + * in use is optional and only used as a hint for which images to try 
->> first:
->> + * anything but a clear answer is treated as default.
->> + */
->> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev 
->> *xdna)
->>   {
->> -    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> -    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> -    char fw_name[128];
->> +    u32 val = 0;
->>       int ret;
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->npufw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "npu firmware path is truncated");
->> -        return -EINVAL;
->> +    ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
->> +    if (ret) {
->> +        XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", 
->> ret);
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = request_firmware(npufw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        return ret;
->> +    if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
->> +        XDNA_WARN(xdna,
->> +              "Preproduction part with alternative signing, using 
->> default firmware");
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->certfw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "cert firmware path is truncated");
->> -        ret = -EINVAL;
->> -        goto release_npufw;
->> +    if (val & AIE4_PSP_FW_PREPROD)
->> +        return AIE4_FW_PREPROD;
->> +
->> +    return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
->> +}
->> +
->> +/*
->> + * Images for the other variants have a suffix before the ".sbin" 
->> extension.
->> + * Returns -ENOENT if @path has no such variant.
->> + */
->> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t 
->> size,
->> +            const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    const char *suffix;
->> +    size_t len, base;
->> +    int ret;
->> +
->> +    ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
->> +               pdev->device, pdev->revision, path);
->> +    if (ret >= size) {
->> +        XDNA_ERR(xdna, "firmware path %s is truncated", path);
->> +        return -EINVAL;
->>       }
->> -    ret = request_firmware(certfw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        goto release_npufw;
->> +    switch (variant) {
->> +    case AIE4_FW_ALT:
->> +        suffix = "_l.sbin";
->> +        break;
->> +    case AIE4_FW_PREPROD:
->> +        suffix = "_p.sbin";
->> +        break;
->> +    default:
->> +        return 0;
->>       }
->> +    len = ret;
->> +    if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), 
->> ".sbin"))
->> +        return -ENOENT;
->> +
->> +    base = len - strlen(".sbin");
->> +    if (strscpy(name + base, suffix, size - base) < 0)
->> +        return -EOVERFLOW;
->> +
->>       return 0;
->> +}
->> +
->> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const 
->> struct firmware **fw,
->> +                const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    char name[128];
->> +    int ret;
->> +
->> +    ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
->> +    if (ret)
->> +        return ret;
->> -release_npufw:
->> -    release_firmware(*npufw);
->> +    ret = firmware_request_nowarn(fw, name, &pdev->dev);
->> +    if (ret)
->> +        XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
->> +
->> +    return ret;
->> +}
->> +
->> +/* The NPU and cert images are validated together, so both use the 
->> same variant */
->> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> +                 const struct firmware **npufw,
->> +                 const struct firmware **certfw,
->> +                 enum aie4_fw_variant variant)
->> +{
->> +    int ret;
->> +
->> +    ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, 
->> variant);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, 
->> variant);
->> +    if (ret)
->> +        release_firmware(*npufw);
->>       return ret;
->>   }
->> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct 
->> amdxdna_dev_hdl *ndev,
->>       return 0;
->>   }
->> +/*
->> + * The firmware can only be started once. It is the PSP that decides 
->> whether it
->> + * accepts the images, and it does that when the firmware is started, 
->> so there
->> + * is no trying a variant and falling back. Pick the variant that the 
->> PSP
->> + * reported (the default one if it can't be read) and use the others 
->> only if
->> + * its images are missing.
->> + */
->>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
->>               void __iomem *tbl[PCI_NUM_RESOURCES])
->>   {
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->>       const struct firmware *npufw, *certfw;
->> -    int ret;
->> +    enum aie4_fw_variant order[3], hint;
->> +    int i, n = 0, ret = -ENOENT;
->>       if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
->>           return 0;
->> -    ret = aie4_request_firmware(ndev, &npufw, &certfw);
->> -    if (ret)
->> +    hint = aie4_psp_fw_variant(xdna);
->> +    order[n++] = hint;
->> +    if (hint != AIE4_FW_DEFAULT)
->> +        order[n++] = AIE4_FW_DEFAULT;
->> +    if (hint != AIE4_FW_ALT)
->> +        order[n++] = AIE4_FW_ALT;
->> +
->> +    for (i = 0; i < n; i++) {
->> +        ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
->> +        if (!ret)
->> +            break;
->> +    }
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
->>           return ret;
->> +    }
->>       ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
->>       aie4_release_firmware(ndev, npufw, certfw);
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
->> amdxdna/amdxdna_pci_drv.c
->> index f233eb70a2957..dab8603e2381f 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
-> 
-> 
-> I tested against both _l, _p and default sbins. All passed.
-> 
-> Reviewed-by: David Zhang <yidong.zhang@amd.com>
-> 
-> Tested-by: David Zhang <yidong.zhang@amd.com>
-> 
-> /David
-> 
->>   /*
->>    * 0.0: Initial version
->>
->> ---
->> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
->> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
->>
->> Best regards,
->> -- 
->> Mario Limonciello <mario.limonciello@amd.com>
+On 03/11/2026 15:54, David Francis wrote:
+> Make the following changes to CHANGE_HANDLE
+> - reject new_handle =3D old_handle with -EINVAL
+> - idr_preload before idr_alloc
+> - reject new_handle =3D 0 with -EINVAL
+> and re-enable it.
+>
+> These changes are prerequisities for the enabling of this ioctl, which wa=
+s
+> disabled over security concerns and the lack of IGT tests.
+>
+> For a summary of the saga so far, see
+> https://lists.freedesktop.org/archives/dri-devel/2026-June/571890.html
+>
+> I hope these changes leave the ioctl in a spot where it is safe to
+> re-enable. There are now igt tests covering all corner case behaviour
+> and race conditions between change_handle and itself, create, free,
+> import, and export.
+>
+> The new_handle =3D 0 and new_handle =3D old_handle corner cases
+> are now -EINVAL as recommended; these are covered in the igt tests.
+>
+> idr_preload is now correctly called before idr_alloc.
+>
+> With these changes the TODO can be removed and the ioctl can be
+> re-enabled.
+>
+> Accompanying IGT patch on igt-dev is
+> tests/intel: Add edge case and race condition tests for GEM_CHANGE_HANDLE
+>
+> v2: new_handle =3D old_handle is EINVAL
+> v3: More detailed commit message and some cleanup
+>
+> cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> cc: Christian Koenig <christian.koenig@amd.com>
+> cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Signed-off-by: David Francis <David.Francis@amd.com>
+> ---
+>   drivers/gpu/drm/drm_gem.c   | 30 ++++++++++--------------------
+>   drivers/gpu/drm/drm_ioctl.c |  3 +--
+>   2 files changed, 11 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 6a86bd2a0343e..bb55715e8d170 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1018,19 +1018,6 @@ drm_gem_open_ioctl(struct drm_device *dev, void *d=
+ata,
+>       return ret;
+>   }
+>
+> -/*
+> - * This ioctl is disabled for security reasons but also it failed
+> - * to follow process in terms of adding testing in igt and verifying
+> - * all the corner cases which made fixing security bugs in it even
+> - * harder than necessary.
+> - *
+> - * To re-enable this ioctl
+> - * 1. land working IGT tests in igt-gpu-tools that cover
+> - *    all corner cases and race conditions.
+> - * 2. handle idr_preload
+> - * 3. handle =3D=3D 0
+> - * 4. handle =3D=3D new_handle semantics definition.
+> - */
+>   int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+>                               struct drm_file *file_priv)
+>   {
+> @@ -1041,21 +1028,22 @@ int drm_gem_change_handle_ioctl(struct drm_device=
+ *dev, void *data,
+>       if (!drm_core_check_feature(dev, DRIVER_GEM))
+>               return -EOPNOTSUPP;
+>
+> -     /* idr_alloc() limitation. */
+> -     if (args->new_handle > INT_MAX)
+> -             return -EINVAL;
+>       new_handle =3D args->new_handle;
+>
+> -     if (args->handle =3D=3D new_handle)
+> -             return 0;
+> +     /* idr_alloc() limitations. */
 
-applied to drm-misc-next
+Nit- it's now more than idr_alloc limitations.
 
+> +     if (new_handle =3D=3D 0 || new_handle > INT_MAX ||
+> +         args->handle =3D=3D new_handle)
+> +             return -EINVAL;
+
+I'd like to open the same discussion point that I opened in the
+corresponding IGT. Should we or should we not check for INT_MAX here.
+There I wrote this:
+
+"""
+About this one I am not sure. Is it not implementation details as long
+as the uapi for handle is u32? Let say someone converts to XArray one
+day and then we have to artificially limit that to s32 just so
+gem_change_handle can keep working.
+"""
+
+>
+>       mutex_lock(&file_priv->prime.lock);
+> +     idr_preload(GFP_KERNEL);
+>       spin_lock(&file_priv->table_lock);
+> -     ret =3D idr_alloc(&file_priv->object_idr, NULL, new_handle, new_han=
+dle + 1,
+> -                     GFP_NOWAIT);
+> +     ret =3D idr_alloc(&file_priv->object_idr, NULL, new_handle,
+> +                     new_handle + 1, GFP_NOWAIT);
+
+And here I opened a point about what happens when target handle is taken
+(again in IGT review):
+
+"""
+Hmm.. this is actually leaking the wrong implementation detail of
+idr_alloc to ABI. ENOSPC is "no free handles". It feels it would be
+better if gem_change_handle returned EBUSY or EEXIST for this case so it
+is not conflated. Thoughts?
+""'
+
+>
+>       if (ret < 0) {
+>               spin_unlock(&file_priv->table_lock);
+> +             idr_preload_end();
+>               goto out_unlock;
+>       }
+>
+> @@ -1063,10 +1051,12 @@ int drm_gem_change_handle_ioctl(struct drm_device=
+ *dev, void *data,
+>       if (IS_ERR_OR_NULL(obj)) {
+>               idr_remove(&file_priv->object_idr, new_handle);
+>               spin_unlock(&file_priv->table_lock);
+> +             idr_preload_end();
+>               ret =3D -ENOENT;
+>               goto out_unlock;
+>       }
+>       spin_unlock(&file_priv->table_lock);
+> +     idr_preload_end();
+>
+>       if (obj->dma_buf) {
+>               ret =3D drm_prime_add_buf_handle(&file_priv->prime, obj->dm=
+a_buf,
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index e2df4becce629..ff193155129e7 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -660,8 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] =3D {
+>       DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_=
+ALLOW),
+>       DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
+>       DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
+> -     /* see drm_gem.c:drm_gem_change_handle_ioctl for why this is invali=
+d */
+> -     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_REND=
+ER_ALLOW),
+> +     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_io=
+ctl, DRM_RENDER_ALLOW),
+>
+>       DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0=
+),
+>
+
+The rest looks good to me.
+
+Regards,
+
+Tvrtko
 
