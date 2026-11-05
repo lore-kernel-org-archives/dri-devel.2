@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513EC606A326
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3D4606A328
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfWnXMJc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXU6RRzf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9649810E246;
-	Thu,  5 Nov 2026 14:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1CE10F542;
+	Thu,  5 Nov 2026 14:21:46 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49C0211245A
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:21:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B2D10F6F9
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:21:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 924E160136;
- Thu,  5 Nov 2026 14:21:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3231F000C1;
- Thu,  5 Nov 2026 14:21:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 46800605FF;
+ Thu,  5 Nov 2026 14:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725361F000C1;
+ Thu,  5 Nov 2026 14:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793888496;
- bh=AbZaAGC7BAEhzBfzGlO413AhHsrID12pXk6YaQvNDSI=;
+ s=k20260515; t=1793888500;
+ bh=31yWxOs9e1iJZk6xVV67wQMmt9/ZTBkRSn1PGXFcvjQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jfWnXMJc61VogvIlUzBg4Ar2B8hk5G1TEqZxFHyh0bOMEG96hevvHXdtCQyifhat9
- mp9srb7j4sDUgnVgvWUKqk/bvXL06dT+xmcdPbuym/zauw0h1UPU8ik56hlD1M460L
- iwuD0tv4x3ugR3tt8COXUwnwEXQzRfOcgd7KoU3sNuIyG5iXcGcW+16Ro5YJlMniF8
- hjM85sjlgi3ldzqIj50GB3QsrLe4MUc9jmyTfxRarTZpaGDlukrwzxviHXC16H81eK
- XEL7jAfEJrNHAa8Yu0GoKFsgQ9asdjDSeWUsqMpyJe/rm8n/0C2gYkqarI40jCaCE4
- axNfMIlz0BDGA==
+ b=TXU6RRzfW2JZrAXBgDTrDVlUYCI4zLoeBxtgNxeh/60rLhvluic/5RN642dKeDNCE
+ +53HyG25JkHmYonoiYFw4r7Y0gm0p4nRrg7+FqIATmKdhwS7HMF7m3Rl7LLPUzpWDI
+ YfawjxTFDbSoZKN0tax8p8Je5/G3wzmvSbID/dOfjTg9/paYg2aBbaxTDxehMNFOc6
+ /9zEqxXhVyEi9Hs5wpV9PhDxaFYMUS5rewwIxGxuR3ZElq7j2yv5Rf8Bt5SQLyQR+q
+ CiWvOsK3MZucNz1X4gRMYWcj673sqtk/e86l9ptYRxNb5hwiDZ15nU+7dc1pt3deBR
+ FxTq+BZD5gqUw==
 From: Maxime Ripard <mripard@kernel.org>
 To: Simona Vetter <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <dev@lankhorst.se>,
  Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>
-Subject: [PATCH 2/7] MAINTAINERS: Move Keem Bay DRM under drm-misc
-Date: Thu,  5 Nov 2026 15:21:22 +0100
-Message-ID: <20261105142127.708219-2-mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH 3/7] MAINTAINERS: Move Tegra DRM under drm-misc
+Date: Thu,  5 Nov 2026 15:21:23 +0100
+Message-ID: <20261105142127.708219-3-mripard@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261105142127.708219-1-mripard@kernel.org>
 References: <20261105142127.708219-1-mripard@kernel.org>
@@ -60,34 +60,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Intel Keem Bay DRM driver is excluded from drm-misc in MAINTAINERS,
-implying it is maintained through a separate tree. However, no dedicated
-tree is documented in the MAINTAINERS entry, no pull request has ever
-been sent, and around 60 patches have been merged through drm-misc. The
-driver is de facto maintained through drm-misc already.
+The Tegra DRM driver is excluded from drm-misc in MAINTAINERS, with a
+dedicated tree at gitlab.freedesktop.org/drm/tegra.git.
 
-Remove the drm-misc exclusion for kmb to reflect the actual maintenance
-path.
+However, the last pull request from that tree was sent in April 2023,
+and about 150 patches have been merged through drm-misc since, most of
+them applied by the maintainers directly. The driver is de facto
+maintained through drm-misc already.
+
+Remove the dedicated tree entry and the drm-misc exclusion for tegra to
+reflect the actual maintenance path.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
 
-Cc: Anitha Chrisanthus <anitha.chrisanthus@intel.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>
 ---
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
+ MAINTAINERS | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 6856dd5a2b74..f25c296665e5 100644
+index f25c296665e5..5bdb8e1bb32c 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8896,5 +8896,4 @@ X:	drivers/gpu/drm/etnaviv/
- X:	drivers/gpu/drm/exynos/
- X:	drivers/gpu/drm/i915/
--X:	drivers/gpu/drm/kmb/
- X:	drivers/gpu/drm/mediatek/
- X:	drivers/gpu/drm/msm/
+@@ -8900,5 +8900,4 @@ X:	drivers/gpu/drm/msm/
+ X:	drivers/gpu/drm/nova/
+ X:	drivers/gpu/drm/radeon/
+-X:	drivers/gpu/drm/tegra/
+ X:	drivers/gpu/drm/tyr/
+ X:	drivers/gpu/drm/xe/
+@@ -9083,5 +9082,4 @@ L:	dri-devel@lists.freedesktop.org
+ L:	linux-tegra@vger.kernel.org
+ S:	Supported
+-T:	git https://gitlab.freedesktop.org/drm/tegra.git
+ F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
+ F:	Documentation/devicetree/bindings/gpu/host1x/
 -- 
 2.55.0
 
