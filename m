@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945E4606EE87
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AC5606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyyalHoT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efWvzxxz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8CAE10E13E;
-	Thu,  5 Nov 2026 20:08:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1282610F908
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7810910E2F9;
+	Thu,  5 Nov 2026 20:15:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93CDE10E2F9
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:15:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2C7EB60232
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:08:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07BB1F0089F;
- Thu,  5 Nov 2026 20:07:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 34C8D422C3
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:15:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CC71F0089F;
+ Thu,  5 Nov 2026 20:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793909279;
- bh=4q4s7pWDPbbZ69TJ3Vj/VJgX9F4fGTs8z7uMX0gVhmg=;
+ s=k20260515; t=1793909715;
+ bh=J+w9igy4IpsYU/i26Vt1umv6eyoro6OGd2vf+at2hsQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FyyalHoTOP5FBBJe8rlJCW+k7POovHM/SN0FSgGb1TciJDlXePENw5Z+6crQLNsBM
- 9wIW05yP0c7qRr/+z8mX5+vzSKZHe1gl1pdnxRwv6kn9EmhW5Z4ekG7NCtEk0emPHc
- p197S7OxXVEmti/cqbVtNofTv1JSEF4LSiN1CAFLp34WUvVsqmr7lJ219NRmEi4OR8
- a/EpjBZDINwx5D6T/psict82biBlQ5cmXwZZtYELuqvyl76PlWdVbnN/Ux20VeiD+S
- xk4HcWeGoPqUSYkqP+D6iROuj7Wo+YCdhcAQ2jMPJlQO1nIMCd/GLJRp8PyVJ813dM
- RbRg69iOzUt2g==
-Message-ID: <sashiko-outbox-200075@kernel.org>
+ b=efWvzxxzzk+Ixdi6eDo6Axew5Xa2mm3agwf5BIZICqq5SsmrMKqnoxHMNKFX8FWGC
+ ZjP5yi6QWNBASTExPDsFXTjfEOvCeOrQRG5YY0qEfgJrf/Rx1/xnUM9IhnLLSfK2tM
+ M5PQ2aIewZ2TqibrjwpOM/cUP3fCcr/lhoOjdEIYXLWogv87VMsKKOLfQKhCBZi1eV
+ qwjBsBi3wUBqodzv47oPdaEitKQwbAezAba+syEfxnGN/SYQPgqmYEkHDy+DLPKKMu
+ axR1w36W0jyazfGv4sLQAVyvfTHdFbsREreOhqJqia2YryfenZH8fU0mJvyihfQHsg
+ AvvHjqeELLI2Q==
+Message-ID: <sashiko-outbox-200087@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 45/83] drm/sti: Switch to
+Subject: Re: [PATCH RESEND 46/83] drm/stm: Switch to
  drm_mode_config_create_initial_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-45-1f58d1e33380@kernel.org>
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-46-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
- <20261105-drm-no-more-config-reset-v1-45-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-46-1f58d1e33380@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 20:07:59 +0000
+Date: Thu, 05 Nov 2026 20:15:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,90 +61,73 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/sti: late initial state creation and broken error unwind in st=
-i_bind()
+- [Medium] drm/stm: missing ltdc_unload() on initial state failure in drv_l=
+oad()
 --
 
-commit 90a65d66556bc446b84f7842f4301480a5997e74
+commit 98591c9473b768ebdd97e226182eb80066137927
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/sti: Switch to drm_mode_config_create_initial_state
+drm/stm: Switch to drm_mode_config_create_initial_state
 
-This commit replaces the call to drm_mode_config_reset() in sti_bind() with
-drm_mode_config_create_initial_state() and adds an error path to unregister
-the DRM device if initial state creation fails.
+This commit replaces the probe-time drm_mode_config_reset() call in drv_loa=
+d()
+with drm_mode_config_create_initial_state() and propagates any error return=
+ed
+during initial KMS state creation.
 
-> diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_drv.c
-> index d02d71866f2a9..0ca6c6b41f18d 100644
-> --- a/drivers/gpu/drm/sti/sti_drv.c
-> +++ b/drivers/gpu/drm/sti/sti_drv.c
-> @@ -202,12 +202,16 @@ static int sti_bind(struct device *dev)
+> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+> index 0967b9b3451db..60343ffe02f7d 100644
+> --- a/drivers/gpu/drm/stm/drv.c
+> +++ b/drivers/gpu/drm/stm/drv.c
+> @@ -104,7 +104,9 @@ static int drv_load(struct drm_device *ddev)
 >  	if (ret)
->  		goto err_cleanup;
+>  		return ret;
 > =20
 > -	drm_mode_config_reset(ddev);
 > +	ret =3D drm_mode_config_create_initial_state(ddev);
 > +	if (ret)
-> +		goto err_unregister;
-> =20
->  	drm_client_setup(ddev, NULL);
-> =20
->  	return 0;
-> =20
-> +err_unregister:
-> +	drm_dev_unregister(ddev);
->  err_cleanup:
->  	sti_cleanup(ddev);
+> +		return ret;
 
-[Severity: High]
-If drm_mode_config_create_initial_state() fails in sti_bind() (for example,
-when plane or CRTC state allocation fails with -ENOMEM), jumping to
-err_unregister and falling through to err_cleanup calls sti_cleanup():
+[Severity: Medium]
+If drm_mode_config_create_initial_state() fails in drv_load() after
+ltdc_load() has already succeeded, does this leave runtime PM enabled on
+ddev->dev without calling ltdc_unload()?
 
-drivers/gpu/drm/sti/sti_drv.c:sti_cleanup() {
-	...
-	drm_kms_helper_poll_fini(ddev);
-	drm_atomic_helper_shutdown(ddev);
-	drm_mode_config_cleanup(ddev);
-	...
-}
+In drivers/gpu/drm/stm/ltdc.c, ltdc_load() enables runtime PM via an
+unmanaged call before returning:
 
-Because crtc->state is still NULL when initial state creation fails before
-allocating CRTC states (or when drm_dev_register() fails before initial sta=
-te
-creation is reached), does calling
-sti_cleanup() -> drm_atomic_helper_shutdown() ->
-drm_atomic_helper_disable_all() -> drm_atomic_get_crtc_state() ->
-drm_atomic_helper_crtc_duplicate_state() trigger a WARN_ON(!crtc->state) and
-cause drm_atomic_helper_shutdown() to fail?
+ltdc_load()
+	pm_runtime_enable(ddev->dev);
+	return 0;
 
-In addition, in sti_bind(), drm_dev_register() is called right before
-drm_mode_config_create_initial_state():
+When drv_load() returns an error, stm_drm_platform_probe() in
+drivers/gpu/drm/stm/drv.c jumps to err_put, bypassing drv_unload() and
+ltdc_unload():
 
-drivers/gpu/drm/sti/sti_drv.c:sti_bind() {
-	...
+stm_drm_platform_probe()
+	ret =3D drv_load(ddev);
+	if (ret)
+		goto err_put;
+
 	ret =3D drm_dev_register(ddev, 0);
 	if (ret)
-		goto err_cleanup;
-
-	ret =3D drm_mode_config_create_initial_state(ddev);
-	if (ret)
-		goto err_unregister;
+		goto err_unload;
 	...
-}
+err_unload:
+	drv_unload(ddev);
+err_put:
+	drm_dev_put(ddev);
 
-Since drm_dev_register() exposes the DRM device nodes and connector sysfs
-attributes to userspace while plane->state, crtc->state, and
-connector->state are still NULL, and drm_mode_config_create_initial_state()
-subsequently populates those state pointers without holding modeset locks,
-can a userspace process opening the device right after registration trigger
-a NULL pointer dereference in drm_mode_object_get_properties() ->
-drm_atomic_get_property()?
+Because platform_set_drvdata() is not reached in drv_load() on this failure
+path and runtime PM remains enabled while ddev is freed, a runtime PM callb=
+ack
+running before unbind completes could also see a NULL ddev from
+dev_get_drvdata(dev) in drv_runtime_suspend() or drv_runtime_resume().
 
-Should drm_mode_config_create_initial_state() be called before
-drm_dev_register(), and should drm_atomic_helper_shutdown() be avoided on
-error paths where initial modeset state has not been fully created?
+Should drv_load() call ltdc_unload(ddev) on error if
+drm_mode_config_create_initial_state() fails?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-drm-no-mor=
-e-config-reset-v1-0-1f58d1e33380@kernel.org?part=3D45
+e-config-reset-v1-0-1f58d1e33380@kernel.org?part=3D46
