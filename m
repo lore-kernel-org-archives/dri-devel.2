@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E86E606A333
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 11:48:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E6B606EA1E
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 11:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Df+mS7x0
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gTUeBLA2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE7E31123A7;
-	Thu,  5 Nov 2026 11:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E585112397;
+	Thu,  5 Nov 2026 11:48:49 +0000 (UTC)
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6EE01123A8;
- Thu,  5 Nov 2026 11:48:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A641123AD;
+ Thu,  5 Nov 2026 11:48:43 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 8B5BE4E407D8;
- Thu,  5 Nov 2026 11:48:35 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C83AB4E407FD;
+ Thu,  5 Nov 2026 11:48:41 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5E2D15FF85;
- Thu,  5 Nov 2026 11:48:35 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 92CCE5FF85;
+ Thu,  5 Nov 2026 11:48:41 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3165010329271; Thu,  5 Nov 2026 12:48:24 +0100 (CET)
+ with ESMTPSA id 7D73E1032928A; Thu,  5 Nov 2026 12:48:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793879311; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1793879318; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=MR6tfuaPqx6X1tSqqMXZMCaVWj/hidvj/pZlCig8WlQ=;
- b=Df+mS7x0GrBZLzcuyMUY7BdqYLkgB9R0tV6DNOBEMiDkO59W9Z4DLRp5foZ87YU8WTE41o
- xNOCp9bejflAijHycxUU75X+rZiV3IZW2ob4MTIl0v1n3K6jAx39Bjf3fxV3kshrJm+4Ln
- iOdt6Pe5oYkZUWbBHP321Kr4YHsQ3ctZUyxZMPb4GYaoBvhkbRgOV59OeKiP3JzfURit9S
- Dheo83dfMJJrPwrRZ87mmA/0IvSv0JpuEA4HsilUKBMtPD588cVwlTHpYFXXdAETGbq4PF
- KpwSyjqwp6Z72lyI09bKsdGTlBYxJkKGozfNu8VTItYQcQ+TSgY/T6SKvGA8Gw==
+ bh=VDPNZAab1PM8LOjgIqFcAGmLTyOIwR5dfmB79CXKQsE=;
+ b=gTUeBLA2N/O/B+wx+ljwmMGwLW3XWpRyBwcJ1LUmbJ7FMJjwGp0PjVnKIwFXVqrf2sYxdm
+ /62NVGRIA64/9wvmhAQM3e36EOQXGzXPsq0Pbz4Tvf7HAr3lfnBvVua5pVenkzmXuhytq2
+ uk3ENuExjaGLtsdduVRr7OHoQ1rK6OFf0oBSC1tEAl6fOmK+PiP98AyRCRsq9vlYWq1Tvs
+ rKjoGBwt/j3gYp47YiBr01OjvqjJJz3WFs0Mp9Tivfx8xcKBZxEiYNIJyi1gmzjVbzdZd+
+ U8vxJ3TttmoVX94A1sKT4PQyMI+tje46ghusL5IPcunmBTbv0aPEgrmsjctS1w==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 8/9] soc: qcom: pmic-glink-altmode: pass down
+Subject: Re: [PATCH v8 9/9] usb: typec: ucsi: huawei-gaokun: pass down
  HPD_IRQ events
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
@@ -66,13 +66,12 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-hpd-irq-events-v8-8-6ee949e7a384@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+In-Reply-To: <20261024-hpd-irq-events-v8-9-6ee949e7a384@oss.qualcomm.com>
 References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
- <20261024-hpd-irq-events-v8-8-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-9-6ee949e7a384@oss.qualcomm.com>
 Date: Thu, 05 Nov 2026 12:47:24 +0100
-Message-Id: <179387924496.1025980.207023547129772297.b4-review@b4>
+Message-Id: <179387924497.1025980.2920324286398089325.b4-review@b4>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,12 +92,12 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, 24 Oct 2026 03:35:24 +0300, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+On Sat, 24 Oct 2026 03:35:25 +0300, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
 > The DisplayPort standard defines a special kind of HPD events called
 > IRQ_HPD. These events are used to notify DP Source about the events on
 > the Sink side.
 > 
-> Pass IRQ_HPD events from the firmware to the HPD bridge, letting those
+> Pass IRQ_HPD events from the EC to the HPD bridge, letting those
 > to be delivered to the DisplayPort driver.
 > 
 > [...]
