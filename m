@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FB3606BE83
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DB606CFAA
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:54:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kQP8xFig
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jL3Toeob
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D519112855;
-	Thu,  5 Nov 2026 15:54:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92CB2112880;
+	Thu,  5 Nov 2026 15:54:48 +0000 (UTC)
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05FA4112854;
- Thu,  5 Nov 2026 15:54:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793894067; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 425AF1128DC;
+ Thu,  5 Nov 2026 15:54:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793894073; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=MFsFdQgnegm1B3xQ8huk7GZLc4TUC3KxCXfA9bIAiy9iBmjsxQJwnPFVYr1gkl1xMv0LywG3IAdwU6OY+GoEg6GIkmpM1y3yitE7mq4mDbyqpMkwvHhbK/VsppZIXQ4z7F5kHg8dmojkmPeWWyJPFpwMSgalzX8ecjE5U+WdUzw=
+ b=UBHvNICVd78MZ6AQL7EaAQSAk4/QV+rrP+NDDw5BFBZGjugMyhHF8bIAVEjbxaRJa8MypfDeZ+9Qt6+Ea20kmnpOHLTyRVtEziuM3o/AmrcRpQ1vkAL1dEjinsaM99Mm+3i5GvItASR+Wryf3AKMrP+GmZAU4ilCRvmMa1Dmo0Y=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793894067;
+ s=zohoarc; t=1793894073;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=VSQNShoB0NRUJv6LH1J7WdPfdRWQNf3+ZOl8d69TG6Q=; 
- b=enbBslQS4Hcyt8BocoexXCoAWDT6h1/pMBjf6NJAVKB2rKsJRS1BV4dj1uiAxYpMvPkTGtdMBmYSAlOVNLS4rEyueGPYpVSc59aY52CbBp/hLR7BU/XuYKYdEoybbqY8ofzaFAnY7Q5XtzCl5cU3yosdqIDWSTx2c5Co53nhqw8=
+ bh=ALE444eKJZ+NX+Ip1B2o36NSUHXVU+Yd9yBPLWJk7WU=; 
+ b=m8LtUlS68e9J4UbfJaDI8uofn+9lj5qCfKVnFbqvQuIO9X6+8b1/S+BvK1ErG9WOwdqJGhL/HTTMk0YA899SalmTBZcGDBSzVDFDKbZEKK+Zhm/DpAaQ6p9bF9UHgDKEKz+G7Jhj2SkXF0pLoi9JvJrzcJUMtNtQTT1g23ITeBw=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=kQP8xFig6aOPYeuyosbN72pQeWl5WEcYA53Fe34V8KiBDKpXwHHJGEzoTSxEkVM4mjSiw7mH/WKENojMGdmYDUkvL/KbrcYnK8eip/sK+bxCA5Jja7o5ZHi+x1296zjdGKVkhzmyL2gWjERVRK03I1oV9yhI+YOSr/wYmCTgOxo=;
+ b=jL3ToeobaRmx6PiWKWksYL9GAG8+dc/g18VBNaDTzeHB3fKNgI03n+V6dTy+A/TrUGM87yI+kfK4msGryNel9z6M03imJmWGdGi8NW6lBJ+qDXqmUfIV6i8sI+19tfrekWI6oiD8ZiCUBAkWp5MGwRZAvU0FXcGoQisQluRH47Y=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=VSQNShoB0NRUJv6LH1J7WdPfdRWQNf3+ZOl8d69TG6Q=;
+ bh=ALE444eKJZ+NX+Ip1B2o36NSUHXVU+Yd9yBPLWJk7WU=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793894066538358.0060003364383;
- Thu, 5 Nov 2026 07:54:26 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1793894072590379.33672551637096; 
+ Thu, 5 Nov 2026 07:54:32 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:52:09 +0100
-Subject: [PATCH v2 18/27] video/hdmi: Add support for QMS in VTEM EMP packing
+Date: Thu, 05 Nov 2026 16:52:10 +0100
+Subject: [PATCH v2 19/27] drm/connector: hdmi: Add QMS to VTEM EMP generation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-18-55f4215be2c2@collabora.com>
+Message-Id: <20261105-vrr-limiter-uapi-v2-19-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
@@ -82,62 +82,39 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the necessary struct members and packing code to allow the
-hdmi_emp_infoframe_vtem_pack function to write VTEM packets with HDMI
-Quick Media Switching (QMS) data.
+If userspace indicates that VRR mode "Media" is desired and the
+connector supports QMS, set the QMS related fields in the VTEM EMP
+struct based on the connector state.
 
-Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
-Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/video/hdmi.c | 6 ++++--
- include/linux/hdmi.h | 2 ++
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/hdmi.c b/drivers/video/hdmi.c
-index ed9abc7ad228..c164f69a646a 100644
---- a/drivers/video/hdmi.c
-+++ b/drivers/video/hdmi.c
-@@ -1994,7 +1994,7 @@ ssize_t hdmi_emp_infoframe_vtem_pack(struct hdmi_emp_infoframe_vtem *vtem,
- 	ptr[1] = BIT(7) | BIT(6);
- 	ptr[2] = 0;
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 846f7a72fddc..407ad28c649f 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -890,11 +890,18 @@ static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connecto
+ 		break;
+ 	case VRR_DISPLAY_MODE_OFF:
+ 		break;
++	case VRR_DISPLAY_MODE_MEDIA:
++		if (!connector->hdmi.qms_supported)
++			return -EOPNOTSUPP;
++		vtem->qms_en = true;
++		vtem->next_tfr = conn_state->hdmi.qms_tfr_byte;
++		vtem->m_const = !vrr->dynamic;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
  
--	ptr[3] = BIT(7) | BIT(2);
-+	ptr[3] = BIT(7) | BIT(2) | (vtem->qms_en ? BIT(1) : 0);
- 
- 	ptr[4] = 0;
- 	ptr[5] = 1;
-@@ -2005,10 +2005,12 @@ ssize_t hdmi_emp_infoframe_vtem_pack(struct hdmi_emp_infoframe_vtem *vtem,
- 
- 	/* This is where the VTEM part starts */
- 	ptr[10] = (vtem->fva_factor_m1 << 4) |
-+		  (vtem->qms_en ? BIT(2) : 0) |
- 		  (vtem->m_const ? BIT(1) : 0) |
- 		  (vtem->game_vrr_en ? BIT(0) : 0);
- 	ptr[11] = vtem->base_vfront;
--	ptr[12] = vtem->base_refresh_rate >> 8 & 0x3;
-+	ptr[12] = (vtem->next_tfr << 3) |
-+		  (vtem->base_refresh_rate >> 8 & 0x3);
- 	ptr[13] = vtem->base_refresh_rate & 0xFF;
- 
- 	return 14;
-diff --git a/include/linux/hdmi.h b/include/linux/hdmi.h
-index 71e2b36896af..8eaa127f0cb5 100644
---- a/include/linux/hdmi.h
-+++ b/include/linux/hdmi.h
-@@ -243,10 +243,12 @@ struct hdmi_emp_infoframe_vtem {
- 	unsigned char length;
- 
- 	bool game_vrr_en;
-+	bool qms_en;
- 	bool m_const;
- 	unsigned char fva_factor_m1;
- 	unsigned char base_vfront;
- 	u16 base_refresh_rate;
-+	u8 next_tfr;
- };
- 
- void hdmi_avi_infoframe_init(struct hdmi_avi_infoframe *frame);
+-	if (vtem->game_vrr_en && !avi_vic) {
++	if ((vtem->game_vrr_en || vtem->qms_en) && !avi_vic) {
+ 		vtem->base_refresh_rate = drm_mode_vrefresh(&crtc_state->mode);
+ 		vfront = crtc_state->adjusted_mode.crtc_vsync_start -
+ 			 crtc_state->adjusted_mode.crtc_vdisplay;
 
 -- 
 2.56.0
