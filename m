@@ -2,44 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A05606A608
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D609606A609
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=V0RooOBn
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jpPt807I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7AA7112837;
-	Thu,  5 Nov 2026 15:53:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A541127DA;
+	Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1E3011281D;
- Thu,  5 Nov 2026 15:53:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793894011; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE3111286D;
+ Thu,  5 Nov 2026 15:53:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793894017; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GMwWC5MzETAkaw4tW+qMQ6JD+5BFY1QzOy5b3n0/LgwqXUmY8SIRxH578B7y5QzTLhs1s0gc9ivOyLFuDgLn3HY7GlwbotP646gzgNNjonyJMgCEexSrQ5V1DwDsBGv+OXDV4oYYWXxcjrXfLtxho+7rD0mtVncN274oQcwLSH8=
+ b=Rblk8yeKtrVAQjhmQ5k8n0TVHGaa1iBGvZGrbljaDFpI2J3RYx0DsumS6WYRjoD/dZqEfilJ1NBHpT50nh3Kc0N8BUZh+AJI7hE32VF0L6F5h6l2XL30h1eI1GkmHMeyUpk0DP8VD+FJwppIdbZWd4F6hF2JyAstLZxWsIIPRiA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793894011;
+ s=zohoarc; t=1793894017;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=7HoI5TguOrq0YzUzCSZ/fSOD4Rb8KCPNHnIXyt5JpJ4=; 
- b=diECQ7YO02tCK+CQHMm9dmDORSlCIXM9oalqP28XTeJ9iMVXXKD/q5ajy9VDPD03d/SNT9YHLPnc6r0MyFi0U9ICZ4PEre3Fbk4iLHoFDdmgl9sMO+43H5gUklKkm64xH3sffSu8Andfvd1nva2P93sGwShVtM78+NUlvZ+xUC8=
+ bh=PolKRYw7GBLw5KNxkR/whXtn/+An+bZ1AOUOWliicOA=; 
+ b=NEgy1+OSN2SbHFR5aKUnuLhihI+fMnktBn9hQQOaomYgrcigdpLhb15BOTmTNzFYl08ictn5VwLaKOUxm2IosPocJbWEgrx80tEs8HQEkwkLU7bBQX9GXmV3ZKItshRWbe464MpuVAj13IGz1T7gN3yL9D/GE0GQPrteVvftr+8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=V0RooOBnqq4VgjFXn7a6LZGcr5vmVSkL6Qf1fAjHQoZyz3euMZP3o6N4tMSueZ1ifPnRgE8HHcaVUquhdZkUNYCSVfCipl/xbKVwb5xfrLxsPaunuuyLM0tMW+2xGz97M022Pw3EXcLvFOaY8Wi/YcZuwkNU7xFfp0wNTAVM/lU=;
+ b=jpPt807ICfmpDH0YNA4tNw4rt8wUaSfQCdhHQhSNIATPDEggTv6Bc7X90FvN7Em9HYZcv4DZh8Nls5c76Mkuovh4iz9i+VkURJzsJ7b+Q72vViDqrKGA/664zkovnzWQbyZ49O8tOA69+T2ILin1pIhFJcl+RbeqMQ1m1nmrkBg=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=7HoI5TguOrq0YzUzCSZ/fSOD4Rb8KCPNHnIXyt5JpJ4=;
+ bh=PolKRYw7GBLw5KNxkR/whXtn/+An+bZ1AOUOWliicOA=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793894009305491.63368064008205; 
- Thu, 5 Nov 2026 07:53:29 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1793894015900246.87112414763692; 
+ Thu, 5 Nov 2026 07:53:35 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:52:00 +0100
-Subject: [PATCH v2 09/27] drm: Add VRR target frame rate properties
+Date: Thu, 05 Nov 2026 16:52:01 +0100
+Subject: [PATCH v2 10/27] drm/connector: Add vrr_display_{min,max}
+ connector properties
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
+Message-Id: <20261105-vrr-limiter-uapi-v2-10-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
@@ -82,345 +83,237 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Userspace may wish to set a target frame rate for the Variable Refresh
-Rate mechanism. There are multiple possible ways such a target could be
-communicated.
+Depending on whichever quirks a driver applies, what the minimum and
+maximum display-supported refresh rates for VRR are is not always
+obvious to userspace.
 
-It's desirable for userspace to not only set a fixed target, but a
-target range within which VRR may operate. This is because even if a
-sink advertises a certain range as supported, said range may not be the
-ideal range to use, as numbers on the extreme end of the range may
-induce flickering or other glitches.
+To rectify this, add two new read-only connector properties. These
+properties specify the smallest, and respectively the largest, integer
+refresh rate in Hertz that the current mode is capable of displaying
+with Variable Refresh Rate.
 
-There's four choices to how one bracketing value for the target range
-could be communicated:
-1. Target frame rate in something like millihertz
-2. Target frame period in something like usecs
-3. Target vtotal value
-4. Target frame rate as a fraction expressed by two integers
-
-Choice 1 is unpleasant as it would introduce some amount of rounding to
-common broadcast framerates like 24/1.001, which seems minor except that
-exact matches to standard framerates would rely on making all userspace
-and kernel agree on a specific method of rounding. This is sure to go
-wrong, so is disqualified.
-
-Choice 2 has the same problem as 1, with the added complication that
-the EDID's VRR range is expressed in frames per second, and other HDMI
-features express things in frames per second as well, which would
-require possibly imprecise computations.
-
-Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
-also modify the vtotal value. Additionally, it has the same drawbacks of
-choice 2 and 1.
-
-Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
-example, is expressed as nominator=24000 and denominator=1001. As there
-is both a minimum and a maximum, there are 4 properties in total: two
-numerators, and two denominators. A fixed rate with no variability is
-expressed by setting the minimum fractional and the maximum fractional
-properties to the same value.
+Due to how messy and chicken-and-egg it would be to implement it, this
+does not consider the fractional rates below VRR min that might be
+allowed, the CinemaVRR rates that might be allowed below VRRmin on HDMI
+displays with this feature if userspace ends up presenting fixed rate,
+or the QMS range.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_atomic.c      | 14 ++++++++++++
- drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++
- drivers/gpu/drm/drm_connector.c   | 48 +++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_crtc.c        | 34 +++++++++++++++++++++++++++
- drivers/gpu/drm/drm_mode_config.c | 20 ++++++++++++++++
- include/drm/drm_crtc.h            |  6 +++++
- include/drm/drm_mode_config.h     | 45 ++++++++++++++++++++++++++++++++++++
- 7 files changed, 191 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 55 +++++++++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c           | 67 +++++++++++++++++++++++++++++++
+ include/drm/display/drm_hdmi_helper.h     |  3 ++
+ include/drm/drm_connector.h               | 30 ++++++++++++++
+ 4 files changed, 155 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 9bb761eda59f..da5c6925c349 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -489,6 +489,7 @@ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
- static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
- 				 const struct drm_crtc_state *new_crtc_state)
- {
-+	const struct drm_crtc_vrr_state *vrr = &new_crtc_state->vrr_state;
- 	struct drm_crtc *crtc = new_crtc_state->crtc;
- 
- 	/* NOTE: we explicitly don't enforce constraints such as primary
-@@ -544,6 +545,19 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * Reject VRR limiter ranges that only specify one end of the limit, or
-+	 * specify a numerator > 0 with a denominator that is 0.
-+	 */
-+	if ((!vrr->vrr_min_n || !vrr->vrr_min_d ||
-+	     !vrr->vrr_max_n || !vrr->vrr_max_d) &&
-+	    (vrr->vrr_min_n > 0 || vrr->vrr_max_n > 0)) {
-+		drm_dbg_atomic(crtc->dev,
-+			       "[CRTC:%d:%s] incomplete VRR limiter range\n",
-+			       crtc->base.id, crtc->name);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+index f85cce3d6254..8f325d5e496d 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+@@ -730,3 +730,58 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 	return ret;
+ }
+ EXPORT_SYMBOL(drm_connector_hdmi_sync_scdc);
++
++/**
++ * drm_connector_hdmi_update_vrr_limits - update VRR display limit properties
++ * @conn: pointer to the &struct drm_connector to set the properties on
++ * @mode: pointer to the &struct drm_display_mode to consider while updating
++ *
++ * Update the "vrr_display_min" and "vrr_display_max" properties on @conn based
++ * on its HDMI sink info and the current mode. Does not consider any display
++ * protocol other than HDMI.
++ *
++ * Will set both min and max to 0 if max happens to end up below min, which can
++ * happen with CNMVRR==0 and a lower refresh rate @mode.
++ *
++ * Return: %0 on success, negative errno otherwise
++ */
++int drm_connector_hdmi_update_vrr_limits(struct drm_connector *conn,
++					 const struct drm_display_mode *mode)
++{
++	struct drm_mode_object *obj = &conn->base;
++	const struct drm_display_info *info;
++	u16 min_hz, max_hz;
++
++	if (!conn->vrr_display_min_property || !conn->vrr_display_max_property)
++		return -ENOENT;
++
++	info = &conn->display_info;
++
++	if (!info->is_hdmi)
 +		return -EINVAL;
++
++	if (conn->status != connector_status_connected ||
++	    !info->hdmi.vrr_cap.supported) {
++		drm_object_property_set_value(obj, conn->vrr_display_min_property, 0);
++		drm_object_property_set_value(obj, conn->vrr_display_max_property, 0);
++
++		return 0;
 +	}
 +
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 127bdd77802b..c95eaa9697c4 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -420,6 +420,22 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 		return ret;
- 	} else if (property == config->prop_vrr_enabled) {
- 		state->vrr_enabled = val;
-+	} else if (property == config->prop_vrr_min_numerator) {
-+		if (val > U32_MAX)
-+			return -EINVAL;
-+		state->vrr_state.vrr_min_n = val;
-+	} else if (property == config->prop_vrr_min_denominator) {
-+		if (val > U32_MAX)
-+			return -EINVAL;
-+		state->vrr_state.vrr_min_d = val;
-+	} else if (property == config->prop_vrr_max_numerator) {
-+		if (val > U32_MAX)
-+			return -EINVAL;
-+		state->vrr_state.vrr_max_n = val;
-+	} else if (property == config->prop_vrr_max_denominator) {
-+		if (val > U32_MAX)
-+			return -EINVAL;
-+		state->vrr_state.vrr_max_d = val;
- 	} else if (property == config->degamma_lut_property) {
- 		const size_t elem_size = sizeof(struct drm_color_lut);
- 		u64 lut_size;
-@@ -505,6 +521,14 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
- 	else if (property == config->prop_vrr_enabled)
- 		*val = state->vrr_enabled;
-+	else if (property == config->prop_vrr_min_numerator)
-+		*val = state->vrr_state.vrr_min_n;
-+	else if (property == config->prop_vrr_min_denominator)
-+		*val = state->vrr_state.vrr_min_d;
-+	else if (property == config->prop_vrr_max_numerator)
-+		*val = state->vrr_state.vrr_max_n;
-+	else if (property == config->prop_vrr_max_denominator)
-+		*val = state->vrr_state.vrr_max_d;
- 	else if (property == config->degamma_lut_property)
- 		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
- 	else if (property == config->ctm_property)
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index a44afba8c5ff..33c4195db58b 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2593,6 +2593,54 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-  *	    - Game - set display to game mode if display supports it,
-  *	      regardless of CRTC state
-  *	    - Off - set display to VRR disabled mode, regardless of CRTC state
-+ *
-+ * VRR Limiter/Target Properties
-+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ *
-+ * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
-+ * through which userspace can control the desired range of refresh rates in
-+ * which VRR is allowed to operate. Each rate is expressed as a
-+ * numerator/denominator fraction of refresh rates in Hz, allowing for rational
-+ * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
-+ *
-+ * If the minimum and maximum rate are set to the same value (and not 0), they
-+ * are understood as a fixed target rate. This is especially useful for media
-+ * playback, where the content's frame rate is both constant and known in
-+ * advance. In such cases, a refresh rate that is not an integer multiple of the
-+ * content's frame rate will introduce judder, since not every frame is
-+ * displayed for the same amount of time. A modeset of the display with a
-+ * compatible rate may in those cases be either undesirable or impossible, but
-+ * the rate can still effectively be reached through VRR.
-+ *
-+ * If one end of the limit is set (e.g. minimum), the other end (e.g. maximum)
-+ * must also be set. Any rational with a numerator of 0 is treated as 0/0
-+ * regardless of denominator.
-+ *
-+ * .. _VRR-MIN-NUMERATOR:
-+ *
-+ * "VRR_MIN_NUMERATOR":
-+ *	Default &drm_crtc integer property forming the numerator of a
-+ *	numerator/denominator pair of a frame rate to set as the minimum VRR
-+ *	target rate. Set to 0 to disable.
-+ *
-+ * "VRR_MIN_DENOMINATOR":
-+ *	Default &drm_crtc integer property forming the denominator of a
-+ *	numerator/denominator pair of a frame rate to set as the minimum VRR
-+ *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-+ *	zero, it must be non-zero.
-+ *
-+ * .. _VRR-MAX-NUMERATOR:
-+ *
-+ * "VRR_MAX_NUMERATOR":
-+ *	Default &drm_crtc integer property forming the numerator of a
-+ *	numerator/denominator pair of a frame rate to set as the maximum VRR
-+ *	target rate. Set to 0 to disable.
-+ *
-+ * "VRR_MAX_DENOMINATOR":
-+ *	Default &drm_crtc integer property forming the denominator of a
-+ *	numerator/denominator pair of a frame rate to set as the maximum VRR
-+ *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-+ *	zero, it must be non-zero.
-  */
- 
- /**
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 5295ec122e0d..4c29c6e15df9 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -324,6 +324,40 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
- 	return 0;
- }
- 
-+/**
-+ * drm_crtc_attach_vrr_limiter_properties - Attach VRR limiter props to CRTC
-+ * @crtc: The CRTC to attach the properties to
-+ *
-+ * Attach the VRR limiter target minimum and maximum frame rate properties to
-+ * @crtc. The driver implementing @crtc must use atomic mode setting.
-+ *
-+ * This convenience function is to be used by drivers which implement all the
-+ * logic required for the VRR limiter uAPI to function.
-+ *
-+ * Returns:
-+ * Zero on success, negative error on failure.
-+ */
-+int drm_crtc_attach_vrr_limiter_properties(struct drm_crtc *crtc)
-+{
-+	struct drm_mode_config *config = &crtc->dev->mode_config;
++	min_hz = info->hdmi.vrr_cap.vrr_min;
 +
-+	if (!drm_drv_uses_atomic_modeset(crtc->dev))
-+		return -EINVAL;
++	if (info->hdmi.vrr_cap.cnmvrr)
++		max_hz = info->hdmi.vrr_cap.vrr_max;
++	else
++		max_hz = min(drm_mode_vrefresh(mode), info->hdmi.vrr_cap.vrr_max);
 +
-+	drm_object_attach_property(&crtc->base,
-+				   config->prop_vrr_min_numerator, 0);
-+	drm_object_attach_property(&crtc->base,
-+				   config->prop_vrr_min_denominator, 0);
-+	drm_object_attach_property(&crtc->base,
-+				   config->prop_vrr_max_numerator, 0);
-+	drm_object_attach_property(&crtc->base,
-+				   config->prop_vrr_max_denominator, 0);
++	/* VRR is impossible in the current mode */
++	if (max_hz <= min_hz)
++		min_hz = max_hz = 0;
 +
++	drm_object_property_set_value(obj, conn->vrr_display_min_property, min_hz);
++	drm_object_property_set_value(obj, conn->vrr_display_max_property, max_hz);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_crtc_attach_vrr_limiter_properties);
++EXPORT_SYMBOL(drm_connector_hdmi_update_vrr_limits);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 33c4195db58b..21222214a843 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2641,6 +2641,20 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
+  *	numerator/denominator pair of a frame rate to set as the maximum VRR
+  *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
+  *	zero, it must be non-zero.
++ *
++ * "vrr_display_min":
++ *	Optional &drm_connector property that expresses the lowest integer
++ *	frame rate in Hertz that the display can achieve in the current mode
++ *	with VRR. It is highly likely the display can represent rational rates
++ *	below this value (e.g. 24/1.001), which an atomic test commit with the
++ *	limiters set appropriately will reveal. This minimum is assuming
++ *	non-constant frame intervals, i.e. does not consider features like
++ *	CinemaVRR for HDMI.
++ *
++ * "vrr_display_max":
++ *	Optional &drm_connector property that expresses the highest integer
++ *	frame rate in Hertz that the display can achieve in the current mode
++ *	with VRR.
+  */
+ 
+ /**
+@@ -2737,6 +2751,59 @@ int drm_connector_attach_vrr_display_mode_property(struct drm_connector *connect
+ }
+ EXPORT_SYMBOL(drm_connector_attach_vrr_display_mode_property);
+ 
++/**
++ * drm_connector_attach_vrr_display_limits_properties - creates and attaches VRR
++ * display limit properties
++ * @connector: pointer to the &struct drm_connector to attach the properties to
++ *
++ * Creates and attaches the "vrr_display_min" and "vrr_display_max" properties
++ * on @connector. Will either create and attach both, or on failure, neither,
++ * but never just one of the two, unless a connector with just one of the two
++ * already created is passed in.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure
++ */
++int drm_connector_attach_vrr_display_limits_properties(
++	struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_property *min_p = NULL, *max_p = NULL;
++
++	if (!connector->vrr_display_min_property) {
++		min_p = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE,
++						  "vrr_display_min", 0, U16_MAX);
++
++		if (!min_p)
++			return -ENOMEM;
++	}
++
++	if (!connector->vrr_display_max_property) {
++		max_p = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE,
++						  "vrr_display_max", 0, U16_MAX);
++
++		if (!max_p) {
++			if (min_p)
++				drm_property_destroy(dev, min_p);
++
++			return -ENOMEM;
++		}
++	}
++
++	if (min_p) {
++		connector->vrr_display_min_property = min_p;
++		drm_object_attach_property(&connector->base, min_p, 0);
++	}
++
++	if (max_p) {
++		connector->vrr_display_max_property = max_p;
++		drm_object_attach_property(&connector->base, max_p, 0);
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_attach_vrr_display_limits_properties);
 +
  /**
-  * drm_crtc_init_with_planes - Initialise a new CRTC object with
-  *    specified primary and cursor planes.
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 48a56f23dadb..da967d60f832 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -535,6 +535,26 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
- 		return -ENOMEM;
- 	dev->mode_config.prop_vrr_enabled = prop;
+  * drm_connector_attach_scaling_mode_property - attach atomic scaling mode property
+  * @connector: connector to attach scaling mode property on.
+diff --git a/include/drm/display/drm_hdmi_helper.h b/include/drm/display/drm_hdmi_helper.h
+index 2cdd6e3bc090..dd96885bb592 100644
+--- a/include/drm/display/drm_hdmi_helper.h
++++ b/include/drm/display/drm_hdmi_helper.h
+@@ -50,4 +50,7 @@ int
+ drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+ 			     struct drm_modeset_acquire_ctx *ctx);
  
-+	prop = drm_property_create_range(dev, 0, "VRR_MIN_NUMERATOR", 0, U32_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	dev->mode_config.prop_vrr_min_numerator = prop;
++int drm_connector_hdmi_update_vrr_limits(struct drm_connector *conn,
++					 const struct drm_display_mode *mode);
 +
-+	prop = drm_property_create_range(dev, 0, "VRR_MIN_DENOMINATOR", 0, U32_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	dev->mode_config.prop_vrr_min_denominator = prop;
-+
-+	prop = drm_property_create_range(dev, 0, "VRR_MAX_NUMERATOR", 0, U32_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	dev->mode_config.prop_vrr_max_numerator = prop;
-+
-+	prop = drm_property_create_range(dev, 0, "VRR_MAX_DENOMINATOR", 0, U32_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	dev->mode_config.prop_vrr_max_denominator = prop;
-+
- 	prop = drm_property_create(dev,
- 			DRM_MODE_PROP_BLOB,
- 			"DEGAMMA_LUT", 0);
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index bfb2b0741625..9004f7c2f21e 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -66,6 +66,10 @@ struct drm_plane_helper_funcs;
- struct drm_crtc_vrr_state {
- 	u16 cur_vtotal;
- 	u16 max_vtotal;
-+	u32 vrr_min_n;
-+	u32 vrr_min_d;
-+	u32 vrr_max_n;
-+	u32 vrr_max_d;
- 	u16 base_vtotal;
- 	bool dynamic;
- };
-@@ -1247,6 +1251,8 @@ struct drm_mode_set {
- 
- #define obj_to_crtc(x) container_of(x, struct drm_crtc, base)
- 
-+int drm_crtc_attach_vrr_limiter_properties(struct drm_crtc *crtc);
-+
- __printf(6, 7)
- int drm_crtc_init_with_planes(struct drm_device *dev,
- 			      struct drm_crtc *crtc,
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 084517beb924..c8d5286f9267 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -702,6 +702,51 @@ struct drm_mode_config {
+ #endif
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 5b6920c1a996..c0865a2547fd 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2495,6 +2495,34 @@ struct drm_connector {
  	 */
- 	struct drm_property *prop_vrr_enabled;
+ 	struct drm_property *vrr_display_mode_property;
  
 +	/**
-+	 * @prop_vrr_min_numerator: Default atomic CRTC property to indicate the
-+	 * numerator of a numerator/denominator variable refresh rate minimum
-+	 * target frame rate.
++	 * @vrr_display_min_property: Optional read-only property to help
++	 * userspace query the minimum supported VRR refresh rate in Hz by the
++	 * display.
 +	 *
-+	 * If not zero, @prop_vrr_min_numerator divided by
-+	 * @prop_vrr_min_denominator must result in a frame rate above the
-+	 * sink's minimum VRR rate.
++	 * Can be attached to a connector by calling
++	 * drm_connector_attach_vrr_display_limits_properties().
++	 *
++	 * Drivers should update it through drm_object_property_set_value()
++	 * or through the helper drm_connector_hdmi_update_vrr_limits() for HDMI
++	 * connectors using standard HDMI VRR.
 +	 */
-+	struct drm_property *prop_vrr_min_numerator;
++	struct drm_property *vrr_display_min_property;
 +
 +	/**
-+	 * @prop_vrr_min_denominator: Default atomic CRTC property to indicate
-+	 * the denominator of a numerator/denominator variable refresh rate
-+	 * minimum target frame rate.
++	 * @vrr_display_max_property: Optional read-only property to help
++	 * userspace query the maximum supported VRR refresh rate in Hz by the
++	 * display.
 +	 *
-+	 * If @prop_vrr_min_numerator is set, @prop_vrr_min_denominator must not
-+	 * be 0, and @prop_vrr_min_numerator divided by @prop_vrr_min_denominator
-+	 * must result in a frame rate above the minimum VRR rate.
-+	 */
-+	struct drm_property *prop_vrr_min_denominator;
-+
-+	/**
-+	 * @prop_vrr_max_numerator: Default atomic CRTC property to indicate the
-+	 * numerator of a numerator/denominator variable refresh rate maximum
-+	 * target frame rate range.
++	 * Can be attached to a connector by calling
++	 * drm_connector_attach_vrr_display_limits_properties().
 +	 *
-+	 * The fraction expressed by this property divided by its corresponding
-+	 * denominator must be equal to or greater than the value of
-+	 * @prop_vrr_min_numerator.
++	 * Drivers should update it through drm_object_property_set_value()
++	 * or through the helper drm_connector_hdmi_update_vrr_limits() for HDMI
++	 * connectors using standard HDMI VRR.
 +	 */
-+	struct drm_property *prop_vrr_max_numerator;
-+
-+	/**
-+	 * @prop_vrr_max_denominator: Default atomic CRTC property to indicate
-+	 * the denominator of a numerator/denominator variable refresh rate
-+	 * maximum target frame rate range.
-+	 *
-+	 * If @prop_vrr_max_numerator is set, @prop_vrr_max_denominator must not
-+	 * be 0, and @prop_vrr_max_numerator divided by @prop_vrr_max_denominator
-+	 * must result in a frame rate equal to or above @prop_vrr_min_numerator
-+	 * divided by @prop_vrr_min_denominator.
-+	 */
-+	struct drm_property *prop_vrr_max_denominator;
++	struct drm_property *vrr_display_max_property;
 +
  	/**
- 	 * @dvi_i_subconnector_property: Optional DVI-I property to
- 	 * differentiate between analog or digital mode.
+ 	 * @colorspace_property: Connector property to set the suitable
+ 	 * colorspace supported by the sink.
+@@ -2927,6 +2955,8 @@ int drm_connector_attach_vrr_capable_property(
+ 		struct drm_connector *connector);
+ int drm_connector_attach_vrr_display_mode_property(struct drm_connector *connector,
+ 						   unsigned int supported_vrr_modes);
++int drm_connector_attach_vrr_display_limits_properties(
++		struct drm_connector *connector);
+ void drm_connector_attach_panel_type_property(struct drm_connector *connector);
+ int drm_connector_attach_broadcast_rgb_property(struct drm_connector *connector);
+ int drm_connector_attach_colorspace_property(struct drm_connector *connector);
 
 -- 
 2.56.0
