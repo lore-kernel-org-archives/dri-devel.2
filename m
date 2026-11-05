@@ -2,72 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DCB606EEA8
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DAF606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=FJRPfNgm
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D22E112333;
-	Thu,  5 Nov 2026 10:44:08 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E87DC112328
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=2B4Ux6cRb9R9inLtWJ2ItnXjNlyuBOpvcpUs0767FfY=; t=1793875441; x=2109235441; 
- b=FJRPfNgm5A6LI/9JHHw4nwnRu2eMO0kihhETbNdfyfCI7veJRwOSoA5WFvp5NI+eKscrrm5PbbD
- XYs0RmLSWVe+rXxFnGsXU9VTZnorCy+cfJZtAPh6or/2blA8szLwBtK1oZDwlxQUUpPvbZEv7nISB
- gMRLw96YWQmiCdYsR7UBCoO6n57MLXVgC0SUIePYSCHnOOUApPQmXp8j9yU70x9Mg8xt5LHvcFU2D
- PpPFtUJ1simyCH+LhGwySBgLVE/cEXoyVRYnOcbj5ItzSGBR41jVnde55NQyPOQLfDrdltFjnrQF5
- r/tHiktIcGvZGcjQCh13ur1EVtPV0aHmTXMw==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xOuwl-003F5U-DR; Thu, 05 Nov 2026 11:43:55 +0100
-Message-ID: <33ccceef-3498-426a-ae7c-a8bafbb88992@igalia.com>
-Date: Thu, 5 Nov 2026 07:43:49 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8778910E0BB;
+	Thu,  5 Nov 2026 10:54:21 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D4211233A
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:54:14 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C;
+ Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1793876052;
+ bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=NcjEQpYMRbxhXBgzKnZDjzO9LLwfDGOaaIfPmI2qnt8v3BjyjGfN95aIsbRJ5WcAe
+ pMYGKFT8Id4k/8Q0czZ/74nGUvslfN7Kw9FJOU7LmEuNez+Hz47vdPfnIMzS747B6m
+ sW7Jr++9LwO+aS1wGDZxc4S00WHnS1MZnDI6ngsg=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf~lIMPucvWX2329723297eucas1p12;
+ Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261105105410eusmtip15133e9a84efd244fc2a8fcab25cfa49a~lIMOGw1ty2761527615eusmtip1a;
+ Thu,  5 Nov 2026 10:54:10 +0000 (GMT)
+Message-ID: <204d333a-6f09-4498-b776-b2daee8d94b8@samsung.com>
+Date: Thu, 5 Nov 2026 11:54:10 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- Sidong Yang <sidong.yang@furiosa.ai>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Gyeyoung Baek <gye976@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
- <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a
+ NULL drm_device on hotplug
+To: Heiko Stuebner <heiko@sntech.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
+ <andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+ William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+ <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+ Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <2261991.3Lj2Plt8kZ@phil>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+ <20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
+ <1844578.vCJZsxu672@phil>
+ <CGME20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1@eucas1p2.samsung.com>
+ <2261991.3Lj2Plt8kZ@phil>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,199 +94,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Tvrtko,
 
-On 05/11/26 06:22, Tvrtko Ursulin wrote:
-> 
-> On 03/11/2026 15:53, Sidong Yang wrote:
->> There is no way to tell how much of the NPU a client uses. Implement the
->> DRM usage stats: account the time each job occupies a core and report
->> it per client as drm-engine-npu, along with drm_show_memory_stats() for
->> the BOs.
->>
->> The cores are identical, so they are reported as a single engine with
->> drm-engine-capacity-npu set to rdev->max_cores, the number of core
->> slots. The time is summed over all cores, with an atomic counter as the
->> cores complete jobs concurrently.
->>
->> Jobs can outlive the file that submitted them, so the counter is
->> refcounted and each job holds a reference. The time covers the whole
->> period a job owns a core, so it also includes handling the completion
->> interrupt and the gaps between the tasks of a multi-task job.
->>
->> Document the keys in the rocket driver documentation.
->>
->> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
->> ---
->> v4: Report a single drm-engine-npu key with drm-engine-capacity-npu,
->>      instead of drm-engine-npu0..2, as drm-usage-stats.rst specifies for
->>      a group of identical engines, and document the keys (Tomeu Vizoso).
->>      The subject no longer says per-core. Gyeyoung's tags are dropped as
->>      the accounting changed.
->>
->>      Still depends on commit 6eff1d69dae8 ("accel/rocket: search every
->>      core slot when a core is removed") for rdev->max_cores.
->>
->> v3: Add a rocket_engine_usage_create() helper for the counter
->>      allocation in rocket_open(), to pair with
->>      rocket_engine_usage_destroy() (Gyeyoung Baek).
->>
->> v2: Size the per-core counters by rdev->max_cores, the number of core
->>      slots, instead of the number of cores bound when the file is opened.
->>      Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
->>      it with KASAN.
->>
->> Link to v3: https://lore.kernel.org/all/20261103104804.1887489-1- 
->> sidong.yang@furiosa.ai/
->> Link to v2: https://lore.kernel.org/all/20261101152723.1430312-1- 
->> sidong.yang@furiosa.ai/
->> Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1- 
->> sidong.yang@furiosa.ai/
->>
->>   Documentation/accel/rocket/index.rst  | 28 +++++++++++
->>   Documentation/gpu/drm-usage-stats.rst |  1 +
->>   drivers/accel/rocket/rocket_drv.c     | 70 ++++++++++++++++++++++++++-
->>   drivers/accel/rocket/rocket_drv.h     | 15 ++++++
->>   drivers/accel/rocket/rocket_job.c     |  7 +++
->>   drivers/accel/rocket/rocket_job.h     |  4 ++
->>   6 files changed, 123 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/accel/rocket/index.rst b/Documentation/ 
->> accel/rocket/index.rst
->> index 70f97bccf100..53c9aa7e2229 100644
->> --- a/Documentation/accel/rocket/index.rst
->> +++ b/Documentation/accel/rocket/index.rst
->> @@ -17,3 +17,31 @@ project.
->>   Hardware currently supported:
->>   * RK3588
->> +
->> +.. _rocket-usage-stats:
->> +
->> +Rocket DRM client usage stats implementation
->> +============================================
->> +
->> +The accel/rocket driver implements the DRM client usage stats 
->> specification as
->> +documented in :ref:`drm-client-usage-stats`.
->> +
->> +The NPU cores are reported as a single engine, npu, with a capacity 
->> equal to the
->> +number of cores. The time is summed over all cores, and covers the 
->> whole period
->> +a job occupies a core.
->> +
->> +Example of the output showing the implemented key value pairs:
->> +
->> +::
->> +
->> +        pos:    0
->> +        flags:    02400002
->> +        mnt_id:    33
->> +        ino:    749
->> +        drm-driver:    rocket
->> +        drm-client-id:    246
->> +        drm-engine-npu:    2296549300 ns
->> +        drm-engine-capacity-npu:    3
->> +        drm-total-memory:    24216 KiB
->> +        drm-shared-memory:    0
->> +        drm-active-memory:    1920 KiB
->> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/ 
->> gpu/drm-usage-stats.rst
->> index 70b7cfcc194f..288764730d23 100644
->> --- a/Documentation/gpu/drm-usage-stats.rst
->> +++ b/Documentation/gpu/drm-usage-stats.rst
->> @@ -218,3 +218,4 @@ Driver specific implementations
->>   * :ref:`panthor-usage-stats`
->>   * :ref:`xe-usage-stats`
->>   * :ref:`amdxdna-usage-stats`
->> +* :ref:`rocket-usage-stats`
->> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/ 
->> rocket_drv.c
->> index 2bcfe4ab3c68..e22e8623db64 100644
->> --- a/drivers/accel/rocket/rocket_drv.c
->> +++ b/drivers/accel/rocket/rocket_drv.c
->> @@ -3,8 +3,10 @@
->>   #include <drm/drm_accel.h>
->>   #include <drm/drm_drv.h>
->> +#include <drm/drm_file.h>
->>   #include <drm/drm_gem.h>
->>   #include <drm/drm_ioctl.h>
->> +#include <drm/drm_print.h>
->>   #include <drm/rocket_accel.h>
->>   #include <linux/clk.h>
->>   #include <linux/err.h>
->> @@ -68,6 +70,38 @@ rocket_iommu_domain_put(struct rocket_iommu_domain 
->> *domain)
->>       kref_put(&domain->kref, rocket_iommu_domain_destroy);
->>   }
->> +static struct rocket_engine_usage *
->> +rocket_engine_usage_create(void)
->> +{
->> +    struct rocket_engine_usage *usage;
->> +
->> +    usage = kzalloc_obj(*usage);
->> +    if (!usage)
->> +        return NULL;
->> +    kref_init(&usage->kref);
->> +
->> +    return usage;
->> +}
->> +
->> +static void
->> +rocket_engine_usage_destroy(struct kref *kref)
->> +{
->> +    kfree(container_of(kref, struct rocket_engine_usage, kref));
->> +}
->> +
->> +struct rocket_engine_usage *
->> +rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
->> +{
->> +    kref_get(&rocket_priv->engine_usage->kref);
->> +    return rocket_priv->engine_usage;
->> +}
->> +
->> +void
->> +rocket_engine_usage_put(struct rocket_engine_usage *usage)
->> +{
->> +    kref_put(&usage->kref, rocket_engine_usage_destroy);
->> +}
->> +
->>   static int
->>   rocket_open(struct drm_device *dev, struct drm_file *file)
->>   {
->> @@ -86,10 +120,17 @@ rocket_open(struct drm_device *dev, struct 
->> drm_file *file)
->>       }
->>       rocket_priv->rdev = rdev;
->> +
->> +    rocket_priv->engine_usage = rocket_engine_usage_create();
->> +    if (!rocket_priv->engine_usage) {
->> +        ret = -ENOMEM;
->> +        goto err_free;
->> +    }
-> 
-> Glanced over this patch by chance and it very reminded me of 
-> drm_sched_entity_stats tracking. That object is reference counted by the 
-> entity so I think it would satisfy your requirements. We would only need 
-> to add an accessor like drm_sched_entity_get_runtime() and just call it 
-> from rocket. Thoughts?
-> 
 
-I believe we tried something similar in the past (commit 97804a133c68)
-and it ended up being reverted after this regression [1]. I would be
-great to give this idea another change (specially now that we have
-drm_sched_entity_stats), as it would also be useful for V3D.
+On 10/30/26 18:44, Heiko Stuebner wrote:
+> Am Freitag, 30. Oktober 2026, 18:43:47 Mitteleuropäische Normalzeit schrieb Heiko Stuebner:
+>> Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleuropäische Normalzeit schrieb Michal Wilczynski:
+>>> inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
+>>> which dereferences it in its first statement:
+>>>
+>>> 	if (!dev->mode_config.poll_enabled)
+>>>
+>>> bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
+>>> unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
+>>> handler well before it attaches the bridge:
+>>>
+>>> 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
+>>> 	devm_request_threaded_irq(...);		/* handler goes live */
+>>> 	...
+>>> 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
+>>> 	devm_drm_bridge_add(dev, &hdmi->bridge);
+>>> 	drm_bridge_attach(...);			/* bridge.dev set here */
+>>>
+>>> The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
+>>> so bridge.dev is NULL for all of that window, and a hotplug event
+>>> arriving in it enters drm_helper_hpd_irq_event(NULL).
+>>>
+>>> Before the conversion to a bridge the ordering was safe:
+>>> inno_hdmi_register() called drmm_connector_hdmi_init(), which set
+>>> connector.dev, before the interrupt was requested.
+>>>
+>>> Drop hotplug events that arrive before the bridge is attached.
+>>>
+>>> Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
+>>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>>> ---
+>>>  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
+>>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d07a0b21ee751fc0486 100644
+>>> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_id)
+>>>  {
+>>>  	struct inno_hdmi *hdmi = dev_id;
+>>>  
+>>> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>> +	/*
+>>> +	 * The interrupt is requested before the bridge is attached, and
+>>> +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
+>>> +	 * that arrive before then rather than dereference a NULL drm_device.
+>>> +	 */
+> 
+> nit: I don't think that huge comment is necessary for that
 
-[1] 
-https://lore.kernel.org/dri-devel/3e00d8a9-b6c4-8202-4f2d-5a659c61d094@redhat.com/
+Thanks, I'll trim the comment in v7
+
+> 
+> 
+>>> +	if (hdmi->bridge.dev)
+>>> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>
+>> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+>>
+>> Most other callers of drm_helper_hpd_irq_event() also do exactly this.
+>>
+>>
+>> Heiko
+>>
+> 
+> 
+> 
+> 
+> 
 
 Best regards,
-- Maíra
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
