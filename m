@@ -2,161 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF3F606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 03:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3608E606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 03:07:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OA9VQJdH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W4B8UTMf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A847010EDF2;
-	Thu,  5 Nov 2026 03:04:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67EA710E0D3;
- Thu,  5 Nov 2026 03:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793847885; x=1825383885;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=3L82b3WyfOfR7gz9iCENsxANJ/8680khTPCcES0tU6M=;
- b=OA9VQJdHGvJ+J0vyI74Svz/2dMk/+A3aFbib9A4J48+O8Oys8A9TUZqF
- 81NpFfb0agM0NfLF6moPA7dCzPV5ZlscHegZMxI4hukYTEc4MVDeNNRDO
- cjVSzwMymU1qUYkRpwKo1hYjgaJS0CHuonTngaEvunb9TqrR3V+fM5ziQ
- 4at4MxP7ylEHD1dezZqdkFQMcnKL2swCcShj97P6PBBXrI3f7iIX40wnP
- xdGKEmfguc5bC4YRAyq6Yii1QtoAj5PImNY1SCKUCMEsudMgL810H4Frj
- AFLcB/B3PrkB6jnBoSXt7nq3y9gubRXOgNM/0j0tseiEH7xeArwRSgXmF Q==;
-X-CSE-ConnectionGUID: hIdnp51rT0G02MMIxQPg1g==
-X-CSE-MsgGUID: pTK6vrtLRImDpLyWc8/B0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2616672"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2616672"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 19:04:44 -0800
-X-CSE-ConnectionGUID: HLg9FbBGTZStcU1Z42f5bA==
-X-CSE-MsgGUID: PdZXemSFSb+tldbIaVwalg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6765219"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 19:04:44 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 19:04:43 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 19:04:43 -0800
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.33) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 19:04:43 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uouB0yfM7l4ikIfQ7npxGEzq0zfUcryuBjw1Um39MMqQ8RFGVujhkgPMqDVRdnWrYKgVFgMhr9DJEveckBrDsO2rp4VHEapE6zVb2ZCI0W0TPZuDSpll4wJJbX7rhLeV9BPT7PCGLTL0TXVzMgOfl3FoXblcvQbFfc4MW2TwkJzx1HbXAH72Dg+RYBEqrO9Dmd7eHzlyQSCpDM7acTYOkk6gmUBqrK1VsZ8sxO1dy2wrlIYX/CYU68pgwLyFeYKmofYYbm3ji/Ij1+aFwwsAfIqH29DkhZJ9/lZg+uaeycAuqbVs/LyIFENvbh3xdPDU4TSpukf5vrbJwzckXQsQYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AgtLlVE/IXWr0WRfK3ZSihp9ud2lYrKg7gO8EgXYm74=;
- b=i8CDO0uWY88ghcrRhs68L1fLjUGH0PvHI+kEssl61i64qMVD4qlCNcC9NRpXLOUvjMZSvG7A/3YR2LyzlbEUl/ppkplem1pk/IEwprq8Kto+Jo8U7KlgqiOG++I3Yz0tJYKuZmM1ARnwDUJE2yanhg+96MRLhsUwoAZoGEgO8MvP1OB/dKTA2jjHTzpP1osTMmNDYv59U/GJViGboEkmyloyQzIxVJGzn6Cz9al2xsxdQlhkS7Cz48+jogbpaqpyhqF15d8SnHZzdP0fo+RhZczK/ilrxvt0lc2hzh4lA3pua6SeU0q14uwO5o669nLTWpSCEC1PUAK/VfJ2j3+Kow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by IA0PR11MB7861.namprd11.prod.outlook.com (2603:10b6:208:3de::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 03:04:40 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 03:04:39 +0000
-Date: Wed, 4 Nov 2026 19:04:37 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
- tt BOs
-Message-ID: <auvyRQSLB18mWIeJ@gsse-cloud1.jf.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-29-matthew.brost@intel.com>
- <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
- <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
- <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
-X-ClientProxiedBy: MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:303:80::11) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E7D10FD4B;
+	Thu,  5 Nov 2026 03:07:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0449B10FFDC
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 03:07:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A5C5641146;
+ Thu,  5 Nov 2026 03:07:18 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793848038;
+ b=RkdhYg6WhRccg+94RqV4wtKZgJf4RgExVpDgTMt9azrTkaN6dpHNsKckVqFUpY3BKLDd
+ dVKtWINwAT+V/pR6ISN5IoyyqeXcb0jUSTx8/1ZF1KMkZdGbX3oKkFn5mzJOrkyDYkp02
+ 0JhaWQI6OTIDxHgUKU1bruufCf5gNufniocNf+7Phsl9Fnq9Ikq2Tcb2Fobuurlv/MXoB
+ 2UUk9oCrJxWH2rZrs7UsdI/1Nyz/Y7/y97MPy6N9YBzcDf+gWTyGYCoq+dNFw7K5D26Jr
+ QbRyBhwi94d10VtaG4dTEdx85aH86GUaHG+Onv3w01bykixlU5LE/Wyqa+mSbKuvOFA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793848038;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=XkSRDddPZA5jt0ASqkG8HjrdiJ5tucZZpac7dk5j6E0=;
+ b=wGMuCZebwx2O+xSrYDi/wLEWFn1j44pvwMAEPtaIodNF3j3xege3yRS0RwBpmTUKvMM+
+ 71BaD69kkduqXFHpimvrlfNyXwkSfa0DgOcpfBa8lY0Tb12TNiNHPsGlKsWT3S6OO4dfE
+ q5pbq0Lfpjwv2V2KTwcrWBxQz6tKydvj02Svgp3mKNdTduezjQnwFJ4gL23GTJHoo9gpj
+ 8pTzeMwDOX4zUgay1KrKzJk4QK516zO6tXEsjoiRxpIMkx36r1GhTR28gRXytQYj8Zsux
+ cCBpgjFjCitf0TNTTwpRLACdkOh8XhBRU2w4yc/22cA+L3tGHVLCn5xrDA6pOoIgFgg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 53E591F00A21;
+ Thu,  5 Nov 2026 03:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793848038;
+ bh=XkSRDddPZA5jt0ASqkG8HjrdiJ5tucZZpac7dk5j6E0=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=W4B8UTMffWpkIh4UmkqaRAcGOVCRFX/HsEKfeo7Bkplj05Bt3RjqNaUxo+LZ5pbQN
+ MdFmvnVtKCJFx20FnoKupTp990wTqpHzeS8jLjQ8Uc9/uSDdhypQ6ehcuFKMC011Az
+ wHpOmr7KPvoSau0eDpCB9eaZ455h1UFWR4aEcre3U2d5T6Ke2vQib03dl2rOj8dQNG
+ 3dwPtoWRqMIs+q25Rse2+DweVHY8MVlRf+Q9ttMAaydMjgTrP8qtWdxWf4kW2Ul0Ll
+ Xev6yqo6cxGzVGqwco2dsKtwaZNVyTx668x897lWbIOnRgNlhwpFlPNQ8UFfwYjT09
+ ul9I7Uiy8Qf4w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id A5A8847064;
+ Thu,  5 Nov 2026 03:07:15 +0000 (UTC)
+From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
+Subject: [PATCH v4 0/2] nova-core: add initial support for gpu timer (v4)
+Date: Thu, 05 Nov 2026 13:07:00 +1000
+Message-Id: <20261105-nova-timer-v4-0-45a7c121d4de@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|IA0PR11MB7861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5897f05e-3715-4755-e096-08df3ae9881e
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|7416014|23010399003|18002099003|22082099003|261009223027099003|261021121427099003|261022113327099003|261022105027099003|261028144727099003|261022075727099003|261026140227099003|261026121527099003|11063799006|56012099006|10067099003|261102123227099003|4143699003;
-X-Microsoft-Antispam-Message-Info: P1+hvo/6P3UTt9JRphJhNovLFzquW/izwI5Tqpai064HeT9hwN8VWO+ua14gPWaejFvWeoSFM0GTwYocRRS0RocAD4ZsPQroeoTWt/ewnAOL1gTuJd1H60/g8AD/NhzO0zFhCb9JSXK8O/ld2lXRqet3a2iG2qhqI9S+qtA8z7qWJkDtjFsx5IP/cn5FlpFgp9seIt5A1fOhiUBe1KQ5PgCtRYoeBsl4/nLBsu3+zrVFPnoSy8L+POwGY0eP6fa3PYueQy5FNbu/EDRc0kjNkuIhFvrDCEchAXJ58RxiW1YKujIe9ocgOjPzOVKKcWtxAbLBXMoUXtYxC1R57VBgM/TXesVHhLGEBXLOczKVBIPrrJWiUngHzxWtQ6Nprdwdx4+gAkLHChGeEgHros5+uNI38WHozD9YvOQMAeQaSxLFzHvg80QWMH2wyIjZHBAhUW83Z1Cl05OoExVZVAFN5PmFjYxtmi9//qznpUpI1IULutEucZfiFqubpSm8kzN1fMx4+uf6lXAEZvAOk/LktbeuUUNjqALLdxP6RvlluDCFpXu3Y42vjMqYf6FT0NxTwkV60tRV07SDH6edsKeHsTByoCpatOWDWGqTP6F/dOo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(18002099003)(22082099003)(261009223027099003)(261021121427099003)(261022113327099003)(261022105027099003)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?JrICf294QzHXpndjEwk/m0jzjCg1MP0dESWyD8QYlsXpA2R6Z0MAaBc/ot?=
- =?iso-8859-1?Q?2VXj9GAfeMpbL3p7kEAJnMj8vmiY8jR+xWW6mjbtr4voHIjUe9ddo/vGAK?=
- =?iso-8859-1?Q?vXHId1+0FEszIiv2FYrrFw99bgrsMxIiVYT79vBEYkJM7woOw+eqXS8Zt4?=
- =?iso-8859-1?Q?a4GUe+esJRJQ3t5T+yd7QBUK2HOzvip6i5ORg3tFpwBaS2HE35kaPtHHg9?=
- =?iso-8859-1?Q?N1SYCLqBadQbV9SOPHz7ERYv+k134Lj+gTqqkQNCysI6w4pEZ0J/mnob+J?=
- =?iso-8859-1?Q?cqACskntSYK4osPukKPfUmbtwW1ibqf6D3Uii4E/VleTevdDWjccvwhVz9?=
- =?iso-8859-1?Q?hrGVxS7Y+RZV4NgaL41aLO9VsgVXKQAGWs49VNQZ0LGHk9zx3aG9iGSt7t?=
- =?iso-8859-1?Q?o9qdxm60FKNb/qAQ74hGxlIZVfd8KXP0QnFIUBpeKdipNsSBx3S8EthMC9?=
- =?iso-8859-1?Q?QnB5rV+YLxptfvhfdmxYVMl9lBePPT9kUuWNM9JTtIq7KBQfemkm0SeYvy?=
- =?iso-8859-1?Q?b3Me+6itou0VOB+kXD8uvgshZMhFs+hrrr/M7GbH2HtrduSMK/dZ2eKpTd?=
- =?iso-8859-1?Q?fAPhpqirhi99IX7lBxqrpyQMk0oHNQtJYYHFibCLeQy7i/DchESpcM/bLr?=
- =?iso-8859-1?Q?/IqlFa1jkwGFQLWOjl0/wN3vFhuf6H4HObrqKV+drjqGSfixEQ82Q8VrGJ?=
- =?iso-8859-1?Q?YV/avzDsJiv7iQSx7QoZ75u2Sm7YcVNxmNp5gFEN4kQrG9eAtzhoFO32hT?=
- =?iso-8859-1?Q?baeuLb4eoEq5q3TwCr+OZlHwOP9I1KgDXR0Oi/7YL2nN5TFoMxZoHFXlM5?=
- =?iso-8859-1?Q?e4ibHAipenn8Fm0aC2fichg4FbgoU6yiR/3l/gvhchXggzpQN4ybsjuq+o?=
- =?iso-8859-1?Q?Q1bhauMekU8SxFN+Vv4hg/yxDyqFc8Fk6eS6CtQ+neEOmPhpJ8RH5CTIKi?=
- =?iso-8859-1?Q?s33MJ6CIbs3ZIc/EF2tRAgXoByfr/iLcFSRPu0lM9HC003YgVpogFmo+lG?=
- =?iso-8859-1?Q?AsSGHnJCPOOHcksJWEIlo3Uv22rKrkK+r0zLvAR7IBvPEUeMdU049iteo5?=
- =?iso-8859-1?Q?Y2YzbdKZxYfLksKiXOjMxrk56fsfwadlDPp8939BusTvhFjBOPugkIRo8D?=
- =?iso-8859-1?Q?vXRxONwNirRCbx9gDySZuCa4S1SViMHGeh7PtutTqpW/tEysF5vAfNA6ps?=
- =?iso-8859-1?Q?5mysLogMnUeLaTtG6sk73VeWxihudZPse82Lq6W2yIWBYwzanII7RNdyLm?=
- =?iso-8859-1?Q?xoMa4UpHM/qnqqmwPAO/Cbh1iNPvUoqYQemGQLjsJPVY+jrJyNaEl9aZEE?=
- =?iso-8859-1?Q?0bb8c7iWCRfFF8cx4gKXCkCyUDXqnyJIJP2lprXHycbNLkiE/PfoC6yu13?=
- =?iso-8859-1?Q?pu20ZPlwpkjH4S/RvH+g+1+Trgz/m0WAxclFikioFHWiYbrjqkYCSHZH0I?=
- =?iso-8859-1?Q?xl6e7iRoC/SDC9TaD2fb1dKCqig24RZKOEPQGKGxq+6Ga5MyACboHjWDFr?=
- =?iso-8859-1?Q?eHt2YcUU8CpSrTL4i0u1kVkoU92RPIhc4ywVL76/+teR8YEIa61q2mE1V3?=
- =?iso-8859-1?Q?TPbWvDfVEKOKI6rl5T0Hh6/nmxtmsLksOUs1F5ASXS3kQgpyQy3tbLgwOt?=
- =?iso-8859-1?Q?/ItlyNmY0IysopkeNAx86p6I/+UpVVeR1hry5blGsxxdItQOvLXkP5wvKD?=
- =?iso-8859-1?Q?y61ziCJ4KCAKsn9xnfC4h/qev26fbPxctQPr20hH7az5Gd97uqrNlZJalp?=
- =?iso-8859-1?Q?z4K32tL70t27FAhKPmYH6p1kb05PhbBqGZ+JU9+5GyWz5BS/ag6MEFuNE8?=
- =?iso-8859-1?Q?aYZcjdbGcw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: oOjKNzUH7ZMuSxnFm1/xT6FClxynJfDH8s44JKt0jZrRMMADf7cjRHiQB+eIzBzJDEGRBc+BsiqxpYAC3DIpT1L9vpr2cr3aEBLFRvVA3yW5VCd046olvtY2bDaZwFtE1ZJCC+F5KmsNEhjaiVcKnbXomkBRoLw5I56nZ6YkNyaJ6eFPNw/Lz2Int47PehzfkXkARkLsuGJZpjwY5Kf5Bl/aHYfQB8MhErfh0jA8V5ne0+L9L5C7fp1bVwWp5yMS0qpnem6gLPnWQd/o+aCSICLZSeg8hF4z96QgQywH9+qMUz0TCeEEWyaCX+vGAYzsO2xEEDDt/qGZQow9VbK71A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5897f05e-3715-4755-e096-08df3ae9881e
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 03:04:39.8319 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IkFJRYOwu9mEcA7dnEMpoX2UKLQXZoeeSh4IuPE1J1yWqX6uL3QP+zAlOtnfRvu9hEolvqLa+blZ2833Mb2pBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7861
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23MSw6CMBSF4a2QO7amr4A4ch/GQUtv5Q6gpm0aD
+ WHvFkaSODwn+f4FEkbCBNdmgYiFEoW5Dn1qYBjN/ERGrm6QXLZCcMnmUAzLNGFkXtveoZKdNgI
+ qeEX09N5j90fdI6Uc4mdvF7G9fzNFMM6s0h0a12rd9reIbjT5PIQJtk5Rv1YdrKqWD7631uDFu
+ 6Nd1/ULOc7xM+EAAAA=
+X-Change-ID: 20261102-nova-timer-f4b9de3274a1
+To: Andreas Hindborg <a.hindborg@kernel.org>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1607; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=gmzSh2vYZ5T/6/GkbD9fkp9oFKW0guaRJJHQCAjtZMI=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq6/Ldh79zNkPvkT9lxN+SDhjUzWUJLw0mA2eso
+ OTyMjfAqU+JAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCauvy3QAKCRAMdPNZecSG
+ vlHvEACOX7OQGTHa/HXbcHfQeXhUh9ugawpcZnUOroGXIfdKcIyEiXEd/Xt1YC7QYNvHJlO+jsO
+ lyEkikNb4YiKAtHHakVagbECLnrEwBlFCYScN1if79AdMptzucYoX0hyYeanPlLhyccEk/UkPwR
+ Pqmi83O+M+iyw/6xH5PG5gZKecCZcrgyl+PNrCjyE5W6cfMVTXkTgM6c5rXThFUuNdtSTSCrYMz
+ 4BeeGAk8MWa5QutxXEbUYIrYFZk8ou17vxebG0ix5WwjNXI1VxluI1u+XWoCZnZsI/Sx5cPUSjb
+ BWIMhKs1UpmzF7d/to/vsGIdNMh77wMfJ2jOiPrpMAjPM8mpcjc5dLxQEchuIVf3VAePUDcsQ9Q
+ StTPHSenra6m4BhUYYr5PcXT4lmkgkxIufkTMPBhx9EcnBvpFdLcYTL8W7t8H8j6e6L3jb/+JkX
+ h1DxaochVusW8Ya0vurPl2BJ1KJG8n/z/q1ooguurRfRCwt7vjzoXQ+yS1+AkwAgndTMZ8rKH8n
+ /gvW4c5xanvg0qEkkxaenshbDuafefscnMuiIlKeQ+6IH+hPPjGHwFtKF40aoJvYH7ceSyrD+u+
+ YGjxoiA6joscR1Zq78hZOcvpTWlAM/2WGlCsgldSYMc+pHBPIM9CWrD6pZrfLEXlI1GJ/oUXXun
+ w8uSVXEAVru/RNw==
+X-Developer-Key: i=airlied@redhat.com; a=openpgp;
+ fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
+X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
+ auth_id=1321
+X-Original-From: Dave Airlie <airlied@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,150 +107,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 04, 2026 at 11:39:30AM +0000, Matthew Auld wrote:
-> On 03/11/2026 20:21, Matthew Brost wrote:
-> > On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
-> > > On 11/07/2026 03:56, Matthew Brost wrote:
-> > > > Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
-> > > > (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
-> > > > to the scatter-gather list. An IOVA mapping is a single contiguous DMA
-> > > > range, which is cheaper to walk and program than an sg list.
-> > > > 
-> > > > Whether the IOVA API can be used depends on the IOMMU mode, so the
-> > > > decision is made once per tt at xe_ttm_tt_create() time and recorded in
-> > > > struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
-> > > > that are not GGTT-mapped are eligible: dma-buf imports manage their own
-> > > > mapping and GGTT bindings are programmed directly from the sg list.
-> > > > dma_iova_try_alloc() may still fail, in which case the tt transparently
-> > > > falls back to the sg list, which remains the default.
-> > > > 
-> > > > The IOVA reservation is allocated at tt creation and freed at tt
-> > > > destroy. xe_tt_map_iova() links the tt pages (coalescing physically
-> > > > contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
-> > > > but keeps the reservation so the tt can be remapped without
-> > > > re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
-> > > > IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
-> > > > case.
-> > > > 
-> > > > Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
-> > > > through the new xe_res_first_tt() helper, which initializes either an
-> > > > IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
-> > > > mapping mode.
-> > > > 
-> > > > Cc: Carlos Santa <carlos.santa@intel.com>
-> > > > Cc: Ryan Neph <ryanneph@google.com>
-> > > > Cc: Christian Koenig <christian.koenig@amd.com>
-> > > > Cc: Huang Rui <ray.huang@amd.com>
-> > > > Cc: Matthew Auld <matthew.auld@intel.com>
-> > > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > > Cc: Maxime Ripard <mripard@kernel.org>
-> > > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > > > Cc: David Airlie <airlied@gmail.com>
-> > > > Cc: Simona Vetter <simona@ffwll.ch>
-> > > > Cc: dri-devel@lists.freedesktop.org
-> > > > Cc: linux-kernel@vger.kernel.org
-> > > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > > > Assisted-by: GitHub_Copilot:claude-opus-4.8
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > 
-> > > 
-> > > <snip>
-> > > 
-> > > >    static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
-> > > >    {
-> > > > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
-> > > > +
-> > > > +	/*
-> > > > +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
-> > > > +	 * must already have been unlinked by xe_tt_unmap().
-> > > > +	 */
-> > > > +	if (xe_tt->use_iova) {
-> > > > +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
-> > > > +
-> > > > +		xe_assert(xe, !xe_tt->iova_linked);
-> > > > +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
-> > > 
-> > > Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
-> > > which requires that evict_all will correctly tear down iommu mappings on
-> > > stuff like pci unplug and I don't think tt_destroy is called in that flow?
-> > 
-> > But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
-> > 
-> > > Does having the iova here cause issues? Also, for VRAM flow I think there is
-> > > a tt_create() via pipeline gutting which will now create a new iova?
-> > > 
-> > 
-> > Maybe we shuffle this around a bit so the iova alloc is tied to
-> > populate/unpopulate. It was been a while I forget exactly why I did this
-> > way.
-> > 
-> > > Aside from that, maybe we can land 27/28 as standalone?
-> > 
-> > Yes, let me extract these two into standalone patches today and
-> > reworking if needed.
-> 
-> Quickly double checked this, indeed looks to be needed:
-> 
+The GPU has a timer, one of the pieces of information
+we need to pass into GSP init later is the timer offset.
+    
+This series just adds support for setting up the timer
+on Turing+, with hals for Turing and Hopper.
+    
+Right now it calculates the value to send to GSP but
+the code to send it will be added later.
+    
+For some hardware variants sending a proper value
+is required for GSP init to succeed.
 
-Thanks was able recreate this + verify a local fix.
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+Changes in v4:
+- reworked register handling
+- used a timerstate.
+- Link to v3: https://lore.kernel.org/r/20261103-nova-timer-v3-0-0cf9bbae8fd9@redhat.com
 
-27/28 has one TTM dependency [1] and also is staged behind dma mapping
-accounting [2]. So maybe once [2] lands an updated 27/28 can get posted
-as standalone.
+---
+Dave Airlie (2):
+      rust: time: expose as_nanos for clock sources.
+      gpu: nova-core: add support for GPU timer block. (v4)
 
-Matt
+ drivers/gpu/nova-core/fsp.rs             |  5 +-
+ drivers/gpu/nova-core/fsp/regs.rs        | 30 ++++++++++++
+ drivers/gpu/nova-core/gpu.rs             |  8 ++++
+ drivers/gpu/nova-core/nova_core.rs       |  1 +
+ drivers/gpu/nova-core/timer.rs           | 33 +++++++++++++
+ drivers/gpu/nova-core/timer/hal.rs       | 27 +++++++++++
+ drivers/gpu/nova-core/timer/hal/gh100.rs | 79 ++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/timer/hal/tu102.rs | 53 +++++++++++++++++++++
+ drivers/gpu/nova-core/timer/regs.rs      | 82 ++++++++++++++++++++++++++++++++
+ rust/kernel/time.rs                      |  3 +-
+ 10 files changed, 318 insertions(+), 3 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261102-nova-timer-f4b9de3274a1
 
-[1] https://patchwork.freedesktop.org/patch/739339/?series=170216&rev=2
-[2] https://patchwork.freedesktop.org/series/177790/
+Best regards,
+-- 
+Dave Airlie <airlied@redhat.com>
 
-> [  808.058892] [IGT] core_hotunplug: finished subtest
-> hotreplug-lateclose-with-load, SUCCESS
-> [  808.058928] [IGT] core_hotunplug: exiting, ret=0
-> [  808.059673] BUG: kernel NULL pointer dereference, address:
-> [  808.061068] RIP: 0010:iommu_get_dma_domain+0x10/0x20
-> [  808.061141] PKRU: 55555554
-> [  808.061144] Call Trace:
-> [  808.061146]  <TASK>
-> [  808.061149]  dma_iova_free+0x18/0xf0
-> [  808.061153]  xe_ttm_tt_destroy+0x23/0x40 [xe]
-> [  808.061231]  ttm_bo_put+0x242/0x3d0 [ttm]
-> [  808.061412]  ? drm_gpuvm_bo_put+0x199/0x200 [drm_gpuvm]
-> [  808.061418]  xe_vma_destroy_late+0x89/0x90 [xe]
-> [  808.061476]  xe_vm_close_and_put+0x5de/0x920 [xe]
-> [  808.061534]  xe_file_close+0x105/0x190 [xe]
-> [  808.061712]  drm_file_free+0x218/0x260
-> [  808.061717]  drm_release_noglobal+0x6d/0xd0
-> [  808.061721]  __fput+0xf9/0x270
-> [  808.061725]  task_work_run+0x8b/0xb0
-> [  808.061730]  do_exit+0x229/0x8b0
-> [  808.061735]  do_group_exit+0x8b/0x90
-> [  808.061739]  __x64_sys_exit_group+0x17/0x20
-> [  808.061744]  x64_sys_call+0x18c6/0x18d0
-> [  808.061749]  do_syscall_64+0xee/0x350
-> [  808.061753]  ? __pte_offset_map+0x1d/0xd0
-> [  808.061757]  ? next_uptodate_folio+0xbb/0x3a0
-> [  808.061762]  ? set_pte_range+0x20d/0x290
-> [  808.061766]  ? filemap_map_pages+0x8e1/0x9c0
-> [  808.061772]  ? count_memcg_events+0x7c/0x1b0
-> [  808.061776]  ? handle_mm_fault+0xbde/0x14f0
-> [  808.061781]  ? __se_sys_close+0x7a/0xe0
-> [  808.061785]  ? __se_sys_close+0x7a/0xe0
-> [  808.061790]  ? do_user_addr_fault+0x272/0x6c0
-> [  808.061794]  ? irqentry_exit+0x3f/0x640
-> [  808.061799]  ? do_syscall_64+0x42/0x350
-> [  808.061803]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> [  808.061808] RIP: 0033:0x7f95428c71b8
-> 
-> I assume this is dev->iommu_group = NULL post unplug.
-> 
-> > 
-> > Matt
-> 
+
