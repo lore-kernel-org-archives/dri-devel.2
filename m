@@ -2,132 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAA5606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 08:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84908606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 08:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=B715daTC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kRKWslKR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=B715daTC;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kRKWslKR
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CIT2t2t7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72FF5112031;
-	Thu,  5 Nov 2026 08:39:16 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FAC112031
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 08:39:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7B7EC21FA0;
- Thu,  5 Nov 2026 08:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793867943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aFTLKKrCBQr7xwtyiLvR9C19fUp15M24LSDxM9aDz5Q=;
- b=B715daTC/9PDTXVRg1IfgslK132QtmSUbVeISO/c9onXPILGqJ5ziVZVW47kt2oTjXdrsv
- T8e7PB+8VBXd89wOst5WpCSH0BYiZjPg6uyN1VgEOi9z9dPCHn4xxrLpZ/0/Vtoz9pHi7Q
- 2MAbb5trss2xajXFyEeSK/766jGfqPU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793867943;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aFTLKKrCBQr7xwtyiLvR9C19fUp15M24LSDxM9aDz5Q=;
- b=kRKWslKRnem7jPVCgX0Al9B20KGnPg291QXKoIYfmhE55SuXDR85nVXtGEOeL4U0iKGU/a
- 0/p+b327xQZiiDAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793867943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aFTLKKrCBQr7xwtyiLvR9C19fUp15M24LSDxM9aDz5Q=;
- b=B715daTC/9PDTXVRg1IfgslK132QtmSUbVeISO/c9onXPILGqJ5ziVZVW47kt2oTjXdrsv
- T8e7PB+8VBXd89wOst5WpCSH0BYiZjPg6uyN1VgEOi9z9dPCHn4xxrLpZ/0/Vtoz9pHi7Q
- 2MAbb5trss2xajXFyEeSK/766jGfqPU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793867943;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=aFTLKKrCBQr7xwtyiLvR9C19fUp15M24LSDxM9aDz5Q=;
- b=kRKWslKRnem7jPVCgX0Al9B20KGnPg291QXKoIYfmhE55SuXDR85nVXtGEOeL4U0iKGU/a
- 0/p+b327xQZiiDAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B377133F6;
- Thu,  5 Nov 2026 08:39:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iPbrL6ZA7Gq2OAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 08:39:02 +0000
-Message-ID: <d8e647ec-2637-4c72-a7dc-3f020fd83e05@suse.de>
-Date: Thu, 5 Nov 2026 09:39:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A171121BD;
+	Thu,  5 Nov 2026 08:40:54 +0000 (UTC)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 498201121BD
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 08:40:48 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-93f3c895a0eso150169285a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 00:40:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793868047; cv=none;
+ d=google.com; s=arc-20260327;
+ b=N8KLiR+xcvteo38eggmZvzd3veC8C0NSvEkycfLDaPCrh24Ht1iO9NLpIevJS3NEIi
+ GAPQyRRJaBK4hLGxLY5myxw6eiJHEnFsWoIHdt8VM1GuhsblBdtaIwsyN6HKhPJKN0Rs
+ BgByRe6JrgAjNVI+SovVnx5/KNM6tl3RaQxpPSmVqhFFMcE1WbK1hQNMvPlnk2XV9H5n
+ QR1/YsrPj/ux07IkVoFSJwy2I9NbycveCiadBWQ4KhAF7sM0+HnD/oKEDsBvUv19NvAp
+ HP3iOFDrU9upZh8IttmWz1SmeWelE5+uAfNN60zCcYqqCOT16bpcmJK0/icmAjlWGK/o
+ O9Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=DDWemAYLpFySPEhpz6MZnQPpQ/I0i4/WwxV7qkmL+Ig=;
+ fh=/1aKwgeiSnSC3mR+KjgcQNx2t8n4UX+nuEBynB4xUbM=;
+ b=ossfeXntvw7KTAL578u9gCtVsUZi961Wg+0H6Cz4jcPNFhKIC6VvkPQauHjU1U+mSK
+ u0A7VB29hglA8jG/hksXfqdcyyWfKO2eaasJlOVTshoYyKjXJzkZwJpbYl+Ur3pBiGSi
+ HUP2nC98S7r7+lhf4yb/GLA4Pfv19go7mkGy8BHdy71MLPUKQZ7lb1S0F0unp1Guocp5
+ byVm/FvLAEcW26/shKISYfITpq+cHlok8vj16Wli/foLCm29ISV9RpTDKfdp/XRyX2Q8
+ f/AOVeLEyGb7tOjwlYyMPEdGOvj148B3hBrBojLjZlTSULE8KLi6z7yJtIY6QTAR3flv
+ C1Lg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793868047; x=1794472847; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=DDWemAYLpFySPEhpz6MZnQPpQ/I0i4/WwxV7qkmL+Ig=;
+ b=CIT2t2t7PvEMgSUDNczWOo2CZWEU5h9hmwQ0PDngInupApOz+i6izWELwXNb5BrARY
+ mbT61xRs1tS1kUX6tnHdwsh3QbO0Ak97b00ZuX1Zx7QJfXri0OYMV6gaBpJgLnTn0Kaj
+ IVYRzZBySLDIYLGOoMUgMHljOJRHULC9YITTEBntPVue7Y/YqOwyN+iJrdG3BqrV2Piv
+ I6P/mnQJmykJZ14iaEGi4jsdfQ6i61hYcnWWJ0hrKP8eU5PXCsuSSZgbictGbSfw6bWY
+ 1uvM9YE6TCTwLaLjMDV+M+lQWlzkgpyegaWm5Dff4ObpJKgWcu+iL4XgrfEGQajgmFEk
+ Vnuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793868047; x=1794472847;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=DDWemAYLpFySPEhpz6MZnQPpQ/I0i4/WwxV7qkmL+Ig=;
+ b=nOinfO3rvkkIzO0vZtWtlS4MPd+eI93sVA643lp9xRgOli+05Ao3N2qIoSt+1QSBZM
+ qQRlD8Q+T3jh0d01znEV3mmUB4JZWrG7OxJq1zwuldOroqRtJ0rnYWRBsbD3GQ7cvUHX
+ d1euHEb5WQgf9OADmxWchDIhd5Vbbl8IHz0FZ34vJyfVA4JxG518A7evvHzqK7hdYXBV
+ 5GdQ8nlvah4wBrNbJyTr0P/yULdaI4w3o+O2/22UqfaH5jPgORITDp9J7Ax7wm04cVeo
+ bL4zcXvIvwHxbJ1dyrmVweNI88YIcUhDboNkuX7urLMUgvVnmpsu9vnJhpMOvngHOlce
+ WlUg==
+X-Gm-Message-State: APuU4Z8f0GoRbSyn4dgYv2ZOs/bQcXckMe/kCkHIoc23irFEI9Su/RlT
+ gXLaVW51uAroRjqMgTw4vxJORSC39UpklcUlHoEaqIQrhFHZSABBvtIv/GkPg9Q6JtcwVwjgvev
+ KiqkC1allOwFinD/14hu8YIcfCWRoU6A=
+X-Gm-Gg: AYBFou0K0n833eptuovc8vgnLyhrf99iLTl65IyVfRO9ZJpIV51SjQkouWVHoc4TIJl
+ tPvepJZVySyw83rvEQ6WZpSC7oEtuc2d0W8fP9yGmZr6nkFa6q+0+haw1BiwkcG4xniZjO9IW9H
+ ZyEZ2UvJDGRKH53KRjsnlrowI3w0W1hIGzjJ9539ZciV3BBtQcfMFc/0llnwRhX3NwmN89wVQxG
+ yZZIoAoVBsWaeJ88qePaFmKnAwUwid3GEICzSeJsL/4IBrgCpgKgWVdTi4qAmg+zMGhxnGhU6Zc
+ MzJtrZlD25bhuJ6pMA0xI/251xsn1ex1UTG79114vzckI1uKT2WWsLduG+MIPYCmh6X/JOrsw7b
+ c/uGl3UPC+Oh4AnIXkmGIH48YMV7FudP7glv+wEGebV8aqTj85BqVnxDF94vJscp31BvB5LRevO
+ lPd3v78zOBvOwKflIn/R0tcQ==
+X-Received: by 2002:a05:620a:461e:b0:93e:f930:5ed1 with SMTP id
+ af79cd13be357-9442174519amr2850724985a.82.1793868047051; Thu, 05 Nov 2026
+ 00:40:47 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- simona@ffwll.ch, javierm@redhat.com, louis.chauvet@bootlin.com,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
- <auioL8zR9O5u4TCF@intel.com> <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
- <aujFSzHEv5pAfHPf@intel.com> <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
- <auoVxgQ0D1-6QEDD@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <auoVxgQ0D1-6QEDD@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[10];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,bootlin.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
+References: <20261012220728.14861-1-fzeruhn@icloud.com>
+In-Reply-To: <20261012220728.14861-1-fzeruhn@icloud.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 5 Nov 2026 18:40:35 +1000
+X-Gm-Features: AclHuK9rSpudI5xPUp8K5FrKXjgGz5azoUEdbeTlyuitC4ycwsyAChqMlEoBybI
+Message-ID: <CAPM=9twX71mND8dKKjO8=ZOKAkcVD-zcpvcMEL9hv5z5b_-k-w@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/dp: keep MOT set between messages when
+ no_zero_sized is set
+To: Finn Zeruhn <fzeruhn@icloud.com>
+Cc: dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,73 +103,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
-
-Am 03.11.26 um 18:11 schrieb Ville Syrjälä:
-> On Tue, Nov 03, 2026 at 04:55:34PM +0100, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 02.11.26 um 18:15 schrieb Ville Syrjälä:
->> [...]
->>> But what I'm thinking is:
->> I've ran a lengthy session to explore various solutions.
->>
->>> - stop with the explicit cancel entirely and just rely on the
->>>     timer cancelling itself
->>> - try to start the timer in vblank_enable(), and if that can somehow
->>>     fail because the timer is still running it should be fine because
->>>     the self cancellation should anyway have been aborted
->> Having an old vblank timer still running while enable_vblank sets up a
->> new one can mess up the hrtimer's internal ordering. It's full of subtle
->> bugs, according to my LLM.
-> The hrtimer code looks like it's designed to handle this. It
-> first removes the old queued timer and then inserts it back
-> with the new expire time. And there's also locks in there.
-
-It does, but TBH I'd rather trust the LLM than myself on this matter. 
-IIUC the problem happens if hrtimer_start() inserts with a new interval, 
-but a concurrent timer function calls hrtimer_forward() with the old 
-interval that it has already read from vtimer->interval. And 
-hrtimer_forward() doesn't look overly threadsafe.
-
-But I do have a patch series to address the issues. I just need a bit 
-more time to clean it up.
-
-Best regards
-Thomas
-
+On Tue, 13 Oct 2026 at 08:07, Finn Zeruhn <fzeruhn@icloud.com> wrote:
 >
->>
->>> - explicitly wait for the timer to have stoppped in drm_vblank_off()
->>>     to make sure the wrong interval can't leak from one mode to
->>>     another
->> I'll soon send out a series implementing this idea.
->>
->> Best regards
->> Thomas
->>
->> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->>
+> When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
+> address packet to close the transaction, so it clears MOT on the last
+> data packet instead. The check only looks at the position within the
+> current i2c_msg, so MOT is cleared at the end of every message and each
+> one is terminated by an I2C stop.
+>
+> This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
+> messages: a write of the segment pointer to 0x30, a write of the offset
+> to 0x50, and the read. The stop after the first message resets the
+> segment pointer, so the read returns segment 0 again.
+>
+> On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
+> extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
+> reads back as a copy of block 0. The checksum is valid, so nothing is
+> reported, and the connector only offers fallback modes.
+>
+> Clear MOT only on the last packet of the last message, as the commit
+> that added the option describes. Trailing messages without data are
+> skipped when looking for that packet, since nothing is sent for them
+> and the stop would otherwise be lost. With this, block 2 reads
+> correctly and the native 7104x3840 modes are listed for the Dream Air.
+>
+> The same problem was pointed out by the Sashiko review of the patch that
+> sets no_zero_sized for all DisplayPort connectors in nouveau.
+>
+> Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
+> Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+I've applied this to drm-misc-fixes.
 
+Dave.
