@@ -2,71 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B360E606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB40606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 10:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173401122CE;
-	Thu,  5 Nov 2026 10:01:48 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B0C1122CE
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:01:46 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-53644b28706so24641511cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:01:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADE21122D3;
+	Thu,  5 Nov 2026 10:02:03 +0000 (UTC)
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C191122D3
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 10:02:02 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-85c1135c286so1048625a34.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:02:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793872905; x=1794477705;
+ d=1e100.net; s=20260707; t=1793872921; x=1794477721;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=LrgDMUrSYXpYgkAhfsYKg0ebb/uLgOfOMhqzX4yL0j4=;
- b=J95E35zcJ/GoYUoP1xQ7bAR4+WESGh19SJnXaPlesO7q4JZH5arDND3vyD0sGMBeP0
- oMIDlrb+Gg/faSR19g3xBNoB2mP9iGa1oC9SdUvakADSvHkYZzX5EEwStoGA/qYqfUcZ
- 7rdQaGoTS4SYogwM+cCs3aAaEtmnME6qPR5NiD4Jj6BvKgNQxQpKnnXHXyKEb+68ZYBT
- 4v/Ep1iTBLjd3wxfEVf+ywA/E61PU0ZIhWrroLI5f4d2VscvThpE3ElaThVn2j4vQclz
- mVVP31oaXl/TvbFlztZs1tkitwbGZqa1JnZN63TLwHHcCTFKVwekY8dobwYWzotCiBh7
- HEQA==
+ bh=+mKdlgKO27T7zaM0EZirUNSUHhSIV/TKUV4SSUSBbFc=;
+ b=Mme8Dm6qnHrBXpQSKgJq1ZVLNgYZk+KzLH0by2aT8ZsgfNJ+G5jvScOfCr2yj7ZOyk
+ a3q5m0HE0E/6tqIkd9wLP41tA8NTUq06jH4zq+q4MPl22EbETc48Rpr733pl1TAH4CD0
+ dQQVHSyWVG7tru8i5RTcWLgVIHFD4HvpZU3GM2tFw8G5n5opuwGn4jeXC6LXxYD/KO8P
+ oruKHOxzmPKceJDeohmDcgWqDZugIKYHVEXD4B4w65VkLyS4gtalcdCMKahclobsFrOs
+ n+NWytID3KEIIjsugaF3dWJu9Xn60Ity3cxkYByh8O2UEz1uSxyQi2FX1dBdMmfjuYqh
+ Cmew==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy7TsAHza3iN/QCzUh2soAxK2vCvfjxXzqR8Kf76O+dDn7m2UtHnyVjCNVj/QPspwtvYABbnoIWcAo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+1It3b81MRLUeR2d4NXdyQFbgpiRAaC8YZ90UedF2O5EJ7EFE6
- 7MWhZ4Zs3gr4fNW54Ous30ezxB8o0/fjC8f1Eq+1OBunUbUrfzR503erh9clbDhXwI0=
-X-Gm-Gg: AYBFou2NqkXoYPUbMUuMXVE7e9v5aF6I8hP42J43lgkYBeM9DACenFpADxsNgad3T07
- rnKGRuGRS7CztfU+Q9d2NmMLijR9sDL4YZFPUD37lykofKntWLe6zIx3F35f9SjOsjVeyKgv+vY
- uXznrEJWLlp7yHaTQsZtp97FigGOUv7s1Zh2rPgYQ3Z7P+TOEPtwzsgLpnDKJHaHCw2kXfyD5B8
- Z8SdMF7U9/L6Q/EQAvUm/Q58yywm+TQDXoTMDjSqMqk76YroRQhnUAKVYjk4WLgCG78Q8In6Gd7
- atsoNmTFNWLyTtArAMk3Jx11doN/O0nshLHQuuiYG4pEl2xqkFJGV6SrO0uLFOfyo3m2SnWdohG
- uYYnTIqT46yz5Xc/XsxN1N9DwZVz314y+GGNwkGPXlNRC/HEpUfZPHcxGMD3KQDhSaph9z73252
- troFIUau8lF0RYdMMJ0CAdmu6rgjSO8pHYVVW3I5+7Re2RV2ynG6BQoP6zoBxz6vQbb5qbDOXVD
- Os8th20fq/wXBDU5AdOkw/BFMIchq1MA/ZfeeTFtBpwr2NwnVY/vMZnlJc6cOiKZ0GNBkjozmxf
- O9nkyF8ACHnzwy/HGkrKjmjXDW1gRD7Bk1pt1I1HFb2HASk4vuBpiwADEOVO8UlsfvN8Bg==
-X-Received: by 2002:a05:622b:1d2:20b0:536:620e:90f7 with SMTP id
- d75a77b69052e-54cdbe57383mr15499351cf.39.1793872905267; 
- Thu, 05 Nov 2026 02:01:45 -0800 (PST)
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com.
- [209.85.160.173]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-54b10c48836sm47833991cf.21.2026.11.05.02.01.44
+ AKwUvBypSxDwlfPAEEIH0WGsPK9Qkdm+hm6zZHvpfHziLeeUMxZj3fdvD5vXFqbnWbi8ok2KzTzyHUT3aM0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8chNGGSLVJftyTptr2De+N6Z+BpgPbdXwuzvQKe5vKMZxWNUtZ
+ tBnXkcNrV7+MXPsmOgwu0hRBpk//u+U6riwPVHMDgL5kfVkdelnSU7e4Hd22G6WPQpU=
+X-Gm-Gg: AYBFou2uAjMliQW3a8n2uzkBSNRTDye2sOHRzEN80biM7mpUI03m8jB94xsZPvi7uyd
+ i3TSkSPoEg6GXMbDkLncbkUBDjzG2PxdddWiruKkw1DUc481a24+0Mpl/KCIODjJ3B5jWnjZh00
+ O+dCw2HOykEVgd3MbMow6Hh8/zqcqmwYOKCWOTlE5nhFFtJrUPo5oRduIMijCcXPb5ip9IcpcoT
+ /g0Upwee5hk7OiyIzuLPanlhINsZqib5atVAwRBF07WpaNfkax+AnC/VGwCwFgzIs5KaZlUz6lU
+ dpLcrHKLtlfIQRVFQi5ySElwTDKo+jnZ8Sow/DUFpjKij5MunU4GskwkqAypGTWDt0Tz9nvrljq
+ MBrkS+cmrppVKA3xviMhwTo3/W0jsyiwN+l7HR4KxsnOOyWz4KjTZ6+z+82IVgTSimdAqGZPJkh
+ LuEP2zRzt9bYrqyvcbJwdCEJfu0B8n4UhMDmttl6BsTwL57jX7DwrX3wBzmv22CpUm48vA3v/WK
+ Y03ntsWOP/U3JB7HyHLBqqyBLng0/yrucnNll5mGVjCHlvs83rpr79rC/UA43a18fdp6R4blWqu
+ UtnNL5kAgyvahu4aj0leqOQBD7GoUiG3PRdo+n2bp+xAjdJE8prRjINby/sNq6Wr/1Jdhg==
+X-Received: by 2002:a05:6830:3e03:b0:80c:d30f:974 with SMTP id
+ 46e09a7af769-85d365ac10cmr14496507a34.21.1793872921151; 
+ Thu, 05 Nov 2026 02:02:01 -0800 (PST)
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com.
+ [209.85.167.178]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-85ef3eb127asm4170334a34.24.2026.11.05.02.01.59
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Nov 2026 02:01:44 -0800 (PST)
-Received: by mail-qt1-f173.google.com with SMTP id
- d75a77b69052e-5364d86f7f0so19472391cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:01:44 -0800 (PST)
+ Thu, 05 Nov 2026 02:02:00 -0800 (PST)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-4f55a53898cso904036b6e.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 02:01:59 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AKwUvBzZ35B3j48ODKGAxrQVSnkIJE8kmMAmrvMD6FbI2QMGlg2hPjrZsrp0um9cNHhk8wb/rHk7GPNYuxo=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:5108:b0:7cc:56a:58e5 with SMTP id
- ada2fe7eead31-7d072d84a58mr8269567137.37.1793872526219; Thu, 05 Nov 2026
- 01:55:26 -0800 (PST)
+ AKwUvBwQrpWCKf6lW3FRIuEITeRhiw0+fJNghUJjpwoq1678Eh57CydTCRofzacTRPL8SsWdjCT4nWgWtBM=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:950:b0:7b3:8f0a:f76c with SMTP id
+ ada2fe7eead31-7d072bb3726mr8218716137.13.1793872596997; Thu, 05 Nov 2026
+ 01:56:36 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
- <20261104-work-procfs-drivers-v2-2-245e54e87116@kernel.org>
-In-Reply-To: <20261104-work-procfs-drivers-v2-2-245e54e87116@kernel.org>
+References: <20261104-work-procfs-cleanup-v2-0-1e6687e226b1@kernel.org>
+ <20261104-work-procfs-cleanup-v2-5-1e6687e226b1@kernel.org>
+In-Reply-To: <20261104-work-procfs-cleanup-v2-5-1e6687e226b1@kernel.org>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 5 Nov 2026 10:55:15 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVHxQvKnJyKHrOZhaOg9Rn2hMeRU1JnMFFEEi31FPZaGg@mail.gmail.com>
-X-Gm-Features: AclHuK_UsJ1nGicdWEWcMLQAICTi1A7pGF3yhNkxXkXRPqohle17eXAHHNBsR6k
-Message-ID: <CAMuHMdVHxQvKnJyKHrOZhaOg9Rn2hMeRU1JnMFFEEi31FPZaGg@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 02/26] zorro: let procfs copy out reads
+Date: Thu, 5 Nov 2026 10:56:26 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWkL=-oCgLA3HB0_Js_TdJ+P9FDBPF-u2z7uHrL+m7g-g@mail.gmail.com>
+X-Gm-Features: AclHuK_YSG69l_UQ8CXymziWm2hhXR-Ce9gvdG6ZGXmuBEE26IV_RBgt33sxH_I
+Message-ID: <CAMuHMdWkL=-oCgLA3HB0_Js_TdJ+P9FDBPF-u2z7uHrL+m7g-g@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 5/6] proc: drop the _buf suffix from the new
+ methods
 To: Christian Brauner <brauner@kernel.org>
 Cc: linux-fsdevel@vger.kernel.org, 
  Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
@@ -111,20 +112,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 4 Nov 2026 at 20:43, Christian Brauner <brauner@kernel.org> wrote:
-> Implement ->proc_read_buf() so procfs copies what is read from
-> /proc/bus/zorro/<slot> to userspace after it unpinned the entry.
+On Wed, 4 Nov 2026 at 22:16, Christian Brauner <brauner@kernel.org> wrote:
+> The _buf suffix told them apart from ->proc_write(), ->proc_read() and
+> ->proc_ioctl(), which copied to and from userspace themselves. Those
+> are gone now. So drop the suffix. ->proc_write(), ->proc_read() and
+> ->proc_ioctl() are the methods that work on procfs' buffers from now
+> on, which is what kernfs calls its read and write as well.
+>
+> Done with sed. The flags and helpers in fs/proc that go with them are
+> renamed to match.
+>
+> No functional changes.
 >
 > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+>  arch/m68k/kernel/bootinfo_proc.c                   |  2 +-
+>  drivers/zorro/proc.c                               |  2 +-
+
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org> # m68k/zorro
 
 Gr{oetje,eeting}s,
 
