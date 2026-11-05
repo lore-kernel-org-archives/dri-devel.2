@@ -2,115 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953EA606A328
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 12:07:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60E606D816
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 12:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=OwWK/whC
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=duEJD6LP;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEuQ44sk;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=muH5tH8X;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Twh/XSEi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 017A4112388;
-	Thu,  5 Nov 2026 12:06:59 +0000 (UTC)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 590B610E201
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 12:06:52 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-3ae691283ecso315845a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 04:06:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793880412; cv=none;
- d=google.com; s=arc-20260327;
- b=CwjMMmxAJLVgD74UoL2U73BRb3bjkoxXMPQwkVEt4w168UZyk1Lb78zYAD2A1yS670
- P9t9zxIxyLONqGJ4U2rRY+xdNVlqv17yqOBCUc2/rM9AEq4gzV18QXXT7LgwjgDI5pBM
- o+34n+NPI8ExzVaylyW1vQgJHf4+CASHCl+VMeaNs47uBSToY83nSuPDhbqr6iKVgEja
- BulrQoywRS5hC9ZFTp46wOamkzERdZ2lVqfKYBVcIl9bcTJo/jX+wyN61poprt0OLVPW
- xM5HDf+9csCzZO1+9aPn7kGlltELpfuw9bQ1hHNsaQDAs0MSrzF7DKZsUHhqenO+DzR8
- NbQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=SIhqbZ+2HotYam7MjDXog6M4P1fIwOCZkrn6io6yVIg=;
- fh=XC6NruNe045Pd2HDzsLG1y+1o6iCQ9/yzobrWSK0Xro=;
- b=i90ORhetiwesWIQulv4pkKWGjeQcKbECutGwD3FdWfPVSjEYc4epjvDd0zjrIYYiod
- 3xav8COYH9QUbrHHE54AapsMyMSfXTjoc2xBRZzAjoqR7lr176upFyVObZPsVb7C80tT
- V8GR27KBJYMVxPAKukZx+hIIq2QBJCWM8eGxDlUCasstGaiw1+xmzxGcQKQsTeGfftWz
- +EortDxBcPAewvGdijg0ecPlvILlYxsu2inJ5H++x2cLkT67DJ8lBS6/adA3GynZ9/nq
- L2HOQDs0mSlTKXtyuKsWtWhNls2zjPESvKAEGMqWOidvECnhQRmSII9XkyJsR/nmSbPh
- O/sw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1793880412; x=1794485212;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=SIhqbZ+2HotYam7MjDXog6M4P1fIwOCZkrn6io6yVIg=;
- b=OwWK/whC5y38oZCJjgp/SfvMzbmnKlN3bqEiErxAiwoMAVBDKjqbdZNG+o1BpcCzkK
- FvUpkk6kMIJpzl13s27OT8xdoUczLXfHM9cR9QhllBbZl0ZnvBzF9lOpauvsX56ZlClb
- FPYJqQCeeTWhJkwWJ6hM+9Aa6GNmhDEXeJg4cshmESuq2WbY0DQ6WVWtBy7eq88CmElS
- vHj6ORxPrcGQRCsrUoTnYVcp5zKZpElIBHRP0F30UIEJbpqGzmrt1iurkoC1zIZWn2i+
- yLdR9/wCAOrNnm32nPE0Zil2VM8noyVbQvtZ4BCmNwCMegzxOT7Q7SPKChrsMadqZv+N
- HYRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793880412; x=1794485212;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=SIhqbZ+2HotYam7MjDXog6M4P1fIwOCZkrn6io6yVIg=;
- b=RE+bF2m4LreMrcvfFQixpYyBnCgYKKA9tSsuECBeuR/3FnCNupOcSTm4LSQNG6FtfF
- T3GyAC1yQwe7G0qZvxwC4V4JBVA54caKoyq1IVGvO0LHALQH3OdTkil4jAtJROO+KHJg
- cRNy8Ou8jhds+i3PgllCZgesdVSd3EQldYTOvJC+7qcNqiAE5aZPcTiDREXox7297FrM
- 0gkWETene+puTjNBWtirZrEotWqC9XL2C6rS/DUF6RgEjDrm94AEmbDkHcrChjfUPePq
- qs9XTq5Cip89egW/BIH1/uoMIVGcGshN3/JtlOtaVI6EHSYdUqt22eS9rT2zqqC0zj7C
- L0eg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw//FzID30E7jV2iHxX6krq49lcUc3boq9NGCtz/RvTebycynEqFFHf2ll1V5t2/VTVHgoyjZMqf8U=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8LhF6Qrjt+yhrHs4SAthxRSW0GcyzWHzyXKy9/l88goCSUlH+0
- 9tKp3ZxzIllCEfbJn/n0OdrFT8Da6Jhs8vpuZBEv+ErCVJx36R1bmeULvXjIS6zQ+bZ699iSZCL
- qTgRZgYxAkKsOaDyRJXDCzC9AimUymckXplmRp/u2/Q==
-X-Gm-Gg: AYBFou3BllHT5BD9Mi0hQI7H+x4d558iqq9kegAhx962C9E28onZGurUzJOt1HriMxr
- YRohBkdQIiGQyQx28ZVa8HSgNibnzAsPBSOD7ie1j2Si3GTwvMgHH6+HVXn7rIjRb7nYrHnoaRK
- 7PVdPFe9sO0nWiZ90Gz4c0+wXHK4cszEsRI8rDMO8FD4c3Vnchi8T+tw4EyLy9ujATM3c1LXVws
- N4BgIFP4d1p7S3et+2IIdHapKqRIXROmtV4oUvrZYx+bn1oDXN3+TAqJ7+bLagRJhK+2iPoGqPN
- zuKvBn1RUsRySkkIrH4x3CAsdMksZTe4zbRZsiYUNSlbW8fDCXjDnDlP5Bn9P5ayKvY/Sw4CYs2
- 70sVLStOOfAq9zxsRc2kvhLsCIAM23pGDInv7
-X-Received: by 2002:a17:90b:1fcc:b0:3ac:7406:b49 with SMTP id
- 98e67ed59e1d1-3b0afc29351mr1335407a91.15.1793880411843; Thu, 05 Nov 2026
- 04:06:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF0CA112392;
+	Thu,  5 Nov 2026 12:08:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D880112392
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 12:08:21 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E09301F7A8;
+ Thu,  5 Nov 2026 12:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1793880500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+ b=duEJD6LPekOEhn61R53kKb81GPHaXPGJIngKUTQX9WEfL8ykFAMPfmr3OERdgYmnfr5bEr
+ no/QUoCTwr2IM6pfVyWZvbGB+kH7jg6VMI0t/BL5piRkhHqFijSOo3qTB/uJ7xYzQrEyBs
+ gOFq7XIKvrhTvOnsUSKrNoDYiDAIbok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1793880500;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+ b=nEuQ44skKENyJxG2nI0WEya/Z6UeAf8j7o1gUA14jvXxD5ttTBDmJR+hSpD3AjkE27erIs
+ 22RVTyoAXPvvBVDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1793880499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+ b=muH5tH8XGabU7XsT+4HLUn0YWyclJMbdrP8YC6jbblzcOUCNg6bIn+AZUHE8jVHVN8jliF
+ hdBtv4Gwr4LOd7CEkfIcFH+Z/XWj4sxlIWVLYY8yjERT78lqpfyk0ziLE47S7PXtNzHXyJ
+ 8uq8NljKVjD/sxwntTPUE8trLhX/m8Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1793880499;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+ b=Twh/XSEinlJ2UHBYu888sP3yxbsAvwQL1/rVLh+t/1fyMiI6SbhSYK2ev17aVQ6HLXKdNo
+ dDP1A3DjZ6h02FAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC4C6134F4;
+ Thu,  5 Nov 2026 12:08:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LbztIbNx7GrJEgAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:08:19 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+ id 3E083B6CC; Thu, 05 Nov 2026 13:08:15 +0100 (CET)
+Date: Thu, 5 Nov 2026 13:08:15 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+ Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+ Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 
+ netdev@vger.kernel.org, ntfs3@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+ Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
+Subject: Re: [PATCH RFC 21/38] proc: let proc_remove() remove the entry it
+ was given
+Message-ID: <4woxjrofo67qve236jz54znbp74hk34ouesbpgh46g5lfb7bwn@v7dnw5ixlgff>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-21-59422ed3e465@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
- <CAPj87rOMjFEjOQ9TVgbGWu3gTwVjmjuFNtnFiyxbWO+g_RPqeA@mail.gmail.com>
- <f9797a72-2fd0-4127-b741-dfc6cf3306f1@collabora.com>
-In-Reply-To: <f9797a72-2fd0-4127-b741-dfc6cf3306f1@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 5 Nov 2026 12:06:40 +0000
-X-Gm-Features: AclHuK_ucWApughnWJGAl5cPjcPtGno9PpRPUGuTDrBVFiQWtpP0tMXmnOOScVE
-Message-ID: <CAPj87rN0944v4OyeJ+VNn5QBsnPsjGJUvNqiFmQFsO_wakOX=g@mail.gmail.com>
-Subject: Re: [PATCH v5 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-21-59422ed3e465@kernel.org>
+X-Spamd-Result: default: False [-11.30 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email];
+ RCVD_COUNT_THREE(0.00)[3]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_TLS_LAST(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RL63fqwwx8ot6gmekemcs76f9d)];
+ MISSING_XM_UA(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_GT_50(0.00)[59];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, imap1.dmz-prg2.suse.org:helo,
+ suse.cz:email]
+X-Spam-Score: -11.30
+X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,35 +141,140 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Cristian,
+On Mon 02-11-26 15:21:36, Christian Brauner wrote:
+> proc_remove() looks the entry up by its name in its parent and removes
+> whatever it finds there:
+> 
+>   remove_proc_subtree(de->name, de->parent);
+> 
+> If the entry was removed already, say along with its parent, that is
+> either nothing or a different entry that got the same name in the
+> meantime, and de->parent may well be gone. Two removals of the same
+> entry are a bug in the caller, but going by the name turns it into
+> removing an entry that belongs to somebody else.
+> 
+> Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
+> an entry that was unlinked has an empty rb node. So check for that
+> under proc_subdir_lock and otherwise remove the entry itself, with the
+> loop of remove_proc_subtree() moved into a helper both of them use.
+> Nothing can help a caller that passes an entry that has been freed
+> already.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: a8ca16ea7b0a ("proc: Supply a function to remove a proc entry by PDE")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-On Wed, 4 Nov 2026 at 20:56, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> On 10/30/26 1:52 PM, Daniel Stone wrote:
-> > Same question as for the VOP2: why only special-case YUV422 when
-> > YUV420 also needs special treatment? And presumably in a way which
-> > can't just be mashed into bpc, because the maths doesn't work. So
-> > would this be better off being handled as a separate output-mode
-> > adjustment?
->
-> For YUV420, the halving is already in the TMDS rate, so the PHY PLL output
-> equals the halved VOP2 DCLK - no special handling required here.
->
-> However, since YUV422 is not deep-colour packed, its TMDS rate equals the pixel
-> clock and therefore the PHY must get 8 bpc.  This is essentially what
-> drm_hdmi_compute_mode_clock() does, forcing 8 for YUV422 for the same reason.
+One nitpick below. Otherwise feel free to add:
 
-I don't follow 'deep-colour packed' as it seems like a non-sequitur.
-However, the TRM is pretty clear that a 2x pclk divisor on the clock
-rate is required for YUV420 and split-VOP display outputs, so this is
-fine.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Cheers,
-Daniel
+> -int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+> +/*
+> + * Remove @root, already erased from its parent, and everything below it.
+> + * Called with proc_subdir_lock held for writing, returns with it dropped.
+> + */
+> +static int __remove_proc_subtree(struct proc_dir_entry *root)
+>  {
+> -	struct proc_dir_entry *root = NULL, *de, *next;
+> -	const char *fn = name;
+> -	unsigned int len;
+> -
+> -	write_lock(&proc_subdir_lock);
+> -	if (__xlate_proc_name(name, &parent, &fn) != 0) {
+> -		write_unlock(&proc_subdir_lock);
+> -		return -ENOENT;
+> -	}
+> -	len = strlen(fn);
+> +	struct proc_dir_entry *de = root, *next;
+>  
+> -	root = pde_subdir_find(parent, fn, len);
+> -	if (!root) {
+> -		write_unlock(&proc_subdir_lock);
+> -		return -ENOENT;
+> -	}
+> -	if (unlikely(pde_is_permanent(root))) {
+> -		write_unlock(&proc_subdir_lock);
+> -		WARN(1, "removing permanent /proc entry '%s/%s'",
+> -			root->parent->name, root->name);
+> -		return -EINVAL;
+> -	}
+> -	pde_erase(root, parent);
+> -
+> -	de = root;
+>  	while (1) {
+>  		next = pde_subdir_first(de);
+>  		if (next) {
+> @@ -871,6 +852,34 @@ int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+>  	pde_put(root);
+>  	return 0;
+>  }
+> +
+> +int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+> +{
+> +	struct proc_dir_entry *root = NULL;
+> +	const char *fn = name;
+> +	unsigned int len;
+> +
+> +	write_lock(&proc_subdir_lock);
+> +	if (__xlate_proc_name(name, &parent, &fn) != 0) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return -ENOENT;
+> +	}
+> +	len = strlen(fn);
+> +
+> +	root = pde_subdir_find(parent, fn, len);
+> +	if (!root) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return -ENOENT;
+> +	}
+> +	if (unlikely(pde_is_permanent(root))) {
+> +		write_unlock(&proc_subdir_lock);
+> +		WARN(1, "removing permanent /proc entry '%s/%s'",
+> +			root->parent->name, root->name);
+> +		return -EINVAL;
+> +	}
+> +	pde_erase(root, parent);
+> +	return __remove_proc_subtree(root);
+> +}
+>  EXPORT_SYMBOL(remove_proc_subtree);
+>  
+>  void *proc_get_parent_data(const struct inode *inode)
+> @@ -882,8 +891,23 @@ EXPORT_SYMBOL_GPL(proc_get_parent_data);
+>  
+>  void proc_remove(struct proc_dir_entry *de)
+>  {
+> -	if (de)
+> -		remove_proc_subtree(de->name, de->parent);
+> +	if (!de)
+> +		return;
+> +
+> +	write_lock(&proc_subdir_lock);
+> +	/* Removed already, maybe along with its parent. */
+> +	if (RB_EMPTY_NODE(&de->subdir_node)) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return;
+> +	}
+> +	if (unlikely(pde_is_permanent(de))) {
+> +		write_unlock(&proc_subdir_lock);
+> +		WARN(1, "removing permanent /proc entry '%s/%s'",
+> +		     de->parent->name, de->name);
+> +		return;
+> +	}
+> +	pde_erase(de, de->parent);
+> +	__remove_proc_subtree(de);
+
+I'd move the RB_EMPTY_NODE() and pde_is_permanent() along with pde_erase()
+call back to __remove_proc_subtree(). Both callers need them (so it is
+unnecessary duplication) and also logically it makes sense there.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
