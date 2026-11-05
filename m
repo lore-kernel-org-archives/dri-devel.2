@@ -2,99 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685FE606A328
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C389606A328
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vEK4LZOH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nb2Gsn9O
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22FA6112C1F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA2E112C21;
 	Fri,  6 Nov 2026 09:18:42 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A3011249F
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:26:35 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-55651e7de9bso1029652b6e.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 06:26:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793888795; cv=none;
- d=google.com; s=arc-20260327;
- b=rQ/XhN0YpziWKA4IMuJMTmuE9iFIv2jXeH29qx1bFCrt/7mQc3XtbND/C1LZVy2MP1
- xaPzpv08lYUBUn5nB5If/p2huvCC7sPRNOTABtuXCMoutOewFfCxtgY949DVEZCgSVLa
- MXfC6SfriSRGml4QxPc3UXfXpDNHFL1qCh1YrKDbyZgTuph1Eg6TsrzJ25i5iPJ8pC+a
- FRQM1gR3xaXnhB1gxVZfSyB8d2rZNAcAjlSwXwTxy6RGykiWMw5WSts9QjWWY1zJWGl+
- pWFxdh/hDkF6H1voR9Fbof6MpxmiCUzelJF/WgYsYfeeu5J9aRFwczwwsFgGOdAX37xM
- o7Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
- :from:dkim-signature;
- bh=xUchQ5Xm1iZNw7GbdiPnDVwqy30Ug/2vGTaSDMO7KX8=;
- fh=Iau+EWBB6sxoEbWA1ubK3DpfAU7RSEEXRLYOe1z5qNQ=;
- b=eaV0VEL02MX6A0WQlSb/bk3A9ibSmJeHyYSVIhicFhurjXeGzhrzIfpUlMGVYj0Qon
- Gcbh8ZF/vX9G2p1WnNqjOv7PVxxysZl0opqyqv1VyZf6HPFm83wVLvS5FqA8K858Mhns
- 1xEkeCWWoXVO3yKjlpKudr5Z2pNZGT2gXlAp0xpi/CU8nzmYSt6KZeaVtkxqNk4urq/e
- geJsFpBRT4ypd5PcI7SIljqDyoHrhr2lSy8AcwlnZKaW4oxeBE61v/MqDjxoehCjGsMH
- xwl9dVlwDkS7A05fVDWaIPK0riXH7ccUofvbXnAsrSq3/nime4Im2M2+uM1FOZ8Tq9WB
- hXjQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0088C11248A
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:01:19 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-8b309147589so20188097b3.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 06:01:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793888795; x=1794493595; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xUchQ5Xm1iZNw7GbdiPnDVwqy30Ug/2vGTaSDMO7KX8=;
- b=vEK4LZOHwSa/uKgMyoHQot1YxAESOnhAi8D5qft+TOgQ9l9Eh+rJbIcF1Yi88g8xO+
- 3tEK9BpkxKLdXy/a5lBiR2cAJ0FQ0NAc4MHtMZZP7hm3Ys5gYdeCxUSAZgQ5nv3i5TuV
- 5Gflo21HEETTBPrkha+/WNaF1DrI0VdeuRO/fJMJTUhNS1kPcE89RCJ+trsNMvNnBynB
- 1jgtt9NZCe4uUmMr5cdchO8tRY10wzcKDybAnWCuw5/JRj7+3XRjoK66032VAWA9jqdk
- ABahI8dBefbHgbKbjRJtWaiJ9jN3KdOHqo/5huiSX/B7St+jSv5Naeeo2dAlbuan6oCx
- xMgg==
+ d=gmail.com; s=20260707; t=1793887279; x=1794492079; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=m3SlBj9C3fFyi2mB1vPCHBkBvVGhRO2V4RCAtxMQktY=;
+ b=Nb2Gsn9ORh4LxGxkRW+e4Pi31fGMyE1DWmFQBQOKW4/dLLLuLCPC7B5MkCf9IFr54I
+ 3sGyHZCMBzYb2PpWPitzorNwp7C+7BdssFkXGC0Mdu1uN2Vfr8IYHogasvc7UQZHlnmM
+ g8iYQe/pmjJz2wnB4K12OedjL+oKkNjxl4v0PGmQIU3d3lmSrExDL5ni/FJkvoSpHRW/
+ 71cQMYUrlyNAcfTlsWkoaSTeRevQstjaSGYH1x/ThBxPgn9KhoirZpJqEa7/04MS65Eq
+ 5byvxWZKHDIvXp4sSK+Koz8V/GCwRgnU0KroKayRclALdBDzf/OMYn+4+Et7/R1kAJgJ
+ rXhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793888795; x=1794493595;
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xUchQ5Xm1iZNw7GbdiPnDVwqy30Ug/2vGTaSDMO7KX8=;
- b=AoaGx2iA8nBZCawlOsuif5+gI4VR55LjkgF5XFgPZ5i3tcw2IgGMtwXE4LSBY4mzWC
- YXptrqGaoUdG1n+JV2dQih45kIhq6oI03XBUJYPIx8XCPPc1Ff4Ckj2rcZdgBbU3myNP
- V1ERHJiskX6LRW1TAa083H6YnRbpv8OPLrhfHj7ut5OudKmA88EpyqjzsXrVAK/+78AG
- snmX7XMxVvwJTsSl+9Uxhy8fKyipzO/Zlzn9VnjEWKaLy5wnu/mQ+2JZQmEzvYAH6sFk
- V3RGAkyIghltSgqU02IJDNqYgL4RZoKM9LgOW1u99DhlMmKpNyHaMuPfn/rNVQIAHGur
- wJWQ==
+ d=1e100.net; s=20260707; t=1793887279; x=1794492079;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=m3SlBj9C3fFyi2mB1vPCHBkBvVGhRO2V4RCAtxMQktY=;
+ b=RHlKlfXZ0tDzkq7O0yN8UgKnRYb0dY25CchKOAocJJpAdJ+m+IdUNPzfyqIh0vI22d
+ cR0444WIr47pFB8ZfZ9Vo9q95QwX9A2kNr3ZPdzfyMzqf6mHYzQLXxSFFQ2IrT3FWxmW
+ KxjS2r80FKqYlZOPeDncjWhVal3Ck6wmLEn+YigbAZNZdrKVXyUNqEWJRH7C2IBZn7Mo
+ VOzUheglSaxlQO0sKIf/5EMr03upUsUXOiNTCUgrbuwgj7ojwob0jLp25PoCwOjuFl3l
+ B3ca9jhfy/JLYm5//F4q891e506EeosWmDBO8PTvNathg2UKgiSpdHer6lek01mxsw2F
+ vruw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxQAxgmWrEvhm2DyhtEuYQ598NlO54LR4V6CIx5gIUicym7jbHb6XsEBbh7bz6E39ZpoiMZx7VW0C0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8v6xw+ufU2UEq4/sqfEfjeosxLhN0+5kzs/MIbBh/aqudhMMrv
- NPp1URc+az4GaF3SSv7fR5iyeTLnLV3BjSbOnLK5I1nhhHAohZ899Ls3cFA0esNQuuEnsmp8Hsf
- 1NAk7xEldWPuZCUP9gPFUBuohIP9zqB0uDtRgS1s=
-X-Gm-Gg: AYBFou0J/haGvYMRRKiifA8zmnucx2PNrc3SpnvxP/MfwxD0sWC+GghlSo5gUOYd0jh
- 6NyNZHZPimxCgCBmaSQGYQ+4OJ4M7YTeVhMdxZu9rzO6tLbeGiPqDqxR29XZR5to534IC6C4q4O
- b/qIl75ZP6nA9bCzhCyOA+k517w5QpHR5NoCgDEBtD6YkphUR7q1Vpp/zO1VcigKNqZvRejTMKg
- isrO+lWPhLIRCaDjQAxu14Zx3Q5gzKV6MsLsz07zT1S98Je7BwrIrK56bW8F8oaeY0mUpgCDVZh
- TVVu2lfvLu9Gn+GuCDCj0gbk3B+ib3RmpG4gELG/uzDLBw5DpnsM4pBYTlbBtJCN2AID7FjPKCP
- KMvN2mPK7fQnXBQ3+vkcKvmrYacKE9IVpbT2lpa6hfvpdlw2NQfVIMS/cxRRyYps+MztqNj0=
-X-Received: by 2002:a05:6808:6505:b0:4f3:68d6:f0dd with SMTP id
- 5614622812f47-5640de6b8e7mr14101342b6e.38.1793888794825; Thu, 05 Nov 2026
- 06:26:34 -0800 (PST)
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 5 Nov 2026 06:26:34 -0800
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 5 Nov 2026 06:26:34 -0800
-From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
-In-Reply-To: <e70e62f1-08bc-42cd-9cf8-62ce54cc8be6@amd.com>
-References: <CADZg-m3A_i_X0L-UBi=eMEx7RzhR_sqU5NVLrQ75JJdR=2ASKQ@mail.gmail.com>
- <e70e62f1-08bc-42cd-9cf8-62ce54cc8be6@amd.com>
+ AKwUvBzWxS29BP8Q5oFXrpBvUwSiBQd1fpbGVdpKgmekIw4hhjMuY3O0bMb0ElkKEtkh8M8mBvQHZWuUK0I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9e9FGJZaViHRdcusL98N9pF3OJqkHRcfPFqaBpXNUkt2CqE3vv
+ YI2q9dGV1j2ig0sE0cbdAUsSVbvADFfC9A3RgrbL5qg8s8t/aIitaCsb
+X-Gm-Gg: AYBFou3YRrfLOV6Og1N2kNk4aR4o/JBdbg7axY9KXYA6I2f4g6ycBHzTtXb5Xduiww9
+ xiXBChkA+OcYeILMB51MqckVPJJ84KRItDIjuxuqZxbk+zv14+Fun7UsIM3coroN/gs2qUP3sB3
+ Xagw9JtHCUb0m4R0opCcLD2a7HZzQCRvfkaTsjWOrxnrigbXNMc8fzx2vAwy/X+2U71TwKFAJZ0
+ CRoo8XcJTYrm4ZrGqBY9/XBrw4nWRErhOLFoeJT/rvrzVkNeBlDTbVeNPFuJhylLcELnu2ssf4o
+ UIYP2J3sGgfnCIbLQQNVjKSVab5T+wRE0ei2FB6P9l/C8QeobPzNaLR44RIWYT169mTn1KfVwE7
+ 8gmusYlWIraz3vy+WV2eNL1NffFv9kDS3d3le1OWuIn33IsgYd+E29KF0PJ7HM/zVrgD2i2QyU0
+ DnGm36sDahQfOiri+S4mGkiLQfpy8KyR3n5YSs7VZ4Tmi7DA5+pLUbElNGtTabOrsnwdXMV+e3I
+ cVy6C9sI0ROX6uosemmcnl4gHJzHHdw95opzGfEYJdZo8m4vvFeV9q0j+WtLiojybiXCkzCA/dp
+ OMaVWBP2igCWnw3ykntBvPjhYkySsrLB65MbwX6eB4nQdxga0cifzOh7y+2U6wBfMhD9UgpUNRY
+ z/knO+GGJYhN+8I/hnYi6tse8h/FDbtloz3VIyJ0qNTvA+suj97TaT6dnIwJsiJrzYm4qFIfaMN
+ kXag4Ld7o=
+X-Received: by 2002:a05:690c:a013:b0:8b0:ce77:8dcd with SMTP id
+ 00721157ae682-8b2b67a446fmr105553857b3.62.1793887278349; 
+ Thu, 05 Nov 2026 06:01:18 -0800 (PST)
+Received: from lab01.myowncloud.network
+ ([2601:cb:4000:1c5:5396:7ba1:d08a:ebca])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b309959603sm41104577b3.24.2026.11.05.06.01.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2026 06:01:14 -0800 (PST)
+From: Amit Patole <amit.patole@gmail.com>
+Date: Thu, 05 Nov 2026 09:01:01 -0500
+Subject: [PATCH] gpu: host1x: document the remaining host1x_bo_ops
+ callbacks
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 5 Nov 2026 06:26:34 -0800
-X-Gm-Features: AclHuK9A_X6NUn00AQrkewf_ZnXh0w0bvv5O92l_7rClcd8nF6ebhUWqPH1wjAo
-Message-ID: <CADZg-m1y481=uwjDX2Ue7SSmtJDt=vOP8goaJ8C0ccbqBctzfg@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf/sw_sync: Avoid taking references to released
- fences
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDg8aSw4LCtm5pZw==?= <christian.koenig@amd.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, syzkaller-bugs@googlegroups.com, 
- syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-kdoc-host1x-bo-ops-v1-1-cc171c9e36a0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAByM7GoC/yXMQQqDQAxA0atI1gaMOhV6leJiZow1LRiZ2CKId
+ 3dql2/x/w7GSdjgXuyQ+CsmOmdQWUCc/PxklCEb6qq+EVUO34NGnNRW2jAo6mLYee5841w7BoI
+ cLolH2a7po//bPuHFcf2d4DhOU1EOy3YAAAA=
+X-Change-ID: 20261105-kdoc-host1x-bo-ops-7ae7a3554fb1
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <treding@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Amit Patole <amit.patole@gmail.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,20 +95,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thanks for the review.
+Commit 3cbf5e3c46e6 ("gpu: host1x: Allow entries in BO caches to be
+freed") added a kernel-doc comment for struct host1x_bo_ops that only
+describes the .pin and .unpin callbacks. Since include/linux/host1x.h
+is pulled into Documentation/gpu/tegra.rst, this produces four
+kernel-doc warnings during the htmldocs build:
 
-I have sent v4 with a code comment explaining that the timeline lock
-serializes with timeline_fence_release(), keeping the sync point allocated
-while dma_fence_get_rcu() examines its reference count. The zero-reference
-case now leaves list and rb-tree removal to timeline_fence_release(), and
-the Fixes tag has been dropped.
+  include/linux/host1x.h:159 struct member 'get' not described in 'host1x_bo_ops'
+  include/linux/host1x.h:159 struct member 'put' not described in 'host1x_bo_ops'
+  include/linux/host1x.h:159 struct member 'mmap' not described in 'host1x_bo_ops'
+  include/linux/host1x.h:159 struct member 'munmap' not described in 'host1x_bo_ops'
 
-Regards,
-Kirtikumar
+Describe .get, .put, .mmap and .munmap, based on how they are used by
+host1x_bo_get(), host1x_bo_put(), host1x_bo_mmap() and
+host1x_bo_munmap(), and on the Tegra DRM implementations in
+drivers/gpu/drm/tegra/gem.c.
+
+The warnings were found by running scripts/kernel-doc over the headers
+pulled into the htmldocs build. An AI coding assistant (Claude Opus
+5.5) was used to locate the warnings and draft this change; it was
+verified with scripts/kernel-doc (no warnings left) and checkpatch.
+
+Fixes: 3cbf5e3c46e6 ("gpu: host1x: Allow entries in BO caches to be freed")
+Signed-off-by: Amit Patole <amit.patole@gmail.com>
+---
+Comment-only change. Built with W=1 on x86_64 (drivers/gpu/host1x/,
+COMPILE_TEST) with no new warnings.
+---
+ include/linux/host1x.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/include/linux/host1x.h b/include/linux/host1x.h
+index e7ba601b2afb..7027adb9bff5 100644
+--- a/include/linux/host1x.h
++++ b/include/linux/host1x.h
+@@ -146,8 +146,12 @@ static inline struct host1x_bo_mapping *to_host1x_bo_mapping(struct kref *ref)
+ /**
+  * struct host1x_bo_ops - operations implemented by a host1x_bo provider
+  *
++ * @get: take a reference to the bo and return it.
++ * @put: drop a reference to the bo.
+  * @pin: create a DMA mapping. Implementation must not touch the bo's refcount.
+  * @unpin: destroy a DMA mapping. Implementation must not touch the bo's refcount.
++ * @mmap: map the bo into the kernel's address space and return the address.
++ * @munmap: unmap a kernel mapping previously returned by @mmap.
+  */
+ struct host1x_bo_ops {
+ 	struct host1x_bo *(*get)(struct host1x_bo *bo);
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-kdoc-host1x-bo-ops-7ae7a3554fb1
+
+Best regards,
+--  
+Amit Patole <amit.patole@gmail.com>
+
