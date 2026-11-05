@@ -2,58 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D765606A333
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCBF606A333
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtRqjbtF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWCwZKVj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BDF1125FA;
-	Thu,  5 Nov 2026 15:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8491125FB;
+	Thu,  5 Nov 2026 15:31:00 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77784112760
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3EBB1125FB
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4727640A84;
- Thu,  5 Nov 2026 15:30:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34B61F00A02;
- Thu,  5 Nov 2026 15:30:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DC848414B8;
+ Thu,  5 Nov 2026 15:30:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431181F000C1;
+ Thu,  5 Nov 2026 15:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892650;
- bh=VFTNjG3GGS52cJtOAHi1LTNy1x8BV031w/2Z9U7HD3A=;
+ s=k20260515; t=1793892653;
+ bh=5JvB2ydpptjaMj8QshoeAxf3lBoJixgqnk8wciF6FqM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=TtRqjbtFwTq7Z5+3BbvmPqEunnFgoAigwkKgqiyZyKOV7gs4ZzbWCbtFd4J3UZWoi
- IilNZG/bbOG+ZLJf8gvodZDKDgcw29eGJJDymKwXBy4gR3HWF/dpGzDnG6f0cb6Qjr
- sm9Fl2qxwEGlhZHg2XhJFZjxISxeD6gQX44B0Breoecz96fd7VCkNQQzL/gOxK9G5B
- xhDpKLNMZPX7GwhWg2Y1lfK5AR3OmWGy8XDIC4C56sAQgBKwn7f2FlJOEdTa9PRNFO
- xVaN6p/+00ouPQhok1TycpimHFEJCJOgOxuqxc9568G68PvM23dPRYvm53YJYp3XQT
- sVxzJAHhXRG/Q==
+ b=eWCwZKVjCaLyLC6ekkUL3Zwgi+M9I4XsSrXLJL0wF5h/PBd4zBbzuRHkAqlkFBBqs
+ ezOex7GeIx44FIxyWnLBkLJ0+4xGtrB/1zU4rWFf7A5ni3nLQIoxRUV0vP73OegeI1
+ 7GRgJlFi4AkCv34LRcqGcyokzZAqrjlObKYUQE4xqJmMpIA2lHhfMa24qVABmN2jT/
+ Ljr1odXCqiekPlhnPim4aZK2DE0EAsfd3ulQVRmX7w2PaS6BGyDei9iGE45yfutij3
+ gS46HZeP1quhP0zZ5a1gFjcczX+/ERzvQMWRK77hzJauRO3cFDtKekjX5asquYGRHt
+ 33WTZGTufZnfg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:19 +0100
-Subject: [PATCH RESEND 10/83] drm/atmel-hlcdc: Switch to
+Date: Thu, 05 Nov 2026 16:29:20 +0100
+Subject: [PATCH RESEND 11/83] drm/exynos: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-10-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-11-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Dharma Balasubiramani <dharma.b@microchip.com>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1406; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Ra6Jta20ThJ8hGjszg5mYjlF508y8naNH8MrbLU1ux0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzMvr/hrds7jxkVIoG2B/MUoszUznQ+W/GAv9CNJ
- 9Hu6Ym7HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi71oY610Umqby/wy/K2F+
- MuKJ3Mllu57/574RfONszrW2B7Pid4nUibkxGOw/9GWK/C2xL6mzZRkbmq9VHJ4V1Zdu8zPNwkn
- 2PPu2WOtZ8mfWGr6I65OuuSJl8NfWbsrZhc+uT3RuVvIQvxMPAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1429; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Z6m5CWSEDN1ecRivxCANA95r2bovAvjS1vdylUnQooA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzq3GqVnlLrXTqlslbX8Wn/rG4JO4ljzffn3y7XF
+ /CY/VOiYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkaT5jnUpjk8b9gKfbgnzj
+ 49hrpaY83e0dXpq1bDofG8O2R+9Ypga3POdhkbwS75HXabRt9s0kxvo6hoVdk4sv6b8QP37+BZP
+ rxJy8d0JaSxh7rDPvF6q8mld1+93/4zNaf1wUOPvl9qev/k0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,7 +70,8 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
@@ -87,28 +88,30 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: linux-samsung-soc@vger.kernel.org
 ---
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 4 +++-
+ drivers/gpu/drm/exynos/exynos_drm_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-index 2f41bce574dc..453c37de9bee 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-@@ -880,5 +880,7 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
- 	}
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index 9ee30086879f..712e5ac86f50 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -278,5 +278,7 @@ static int exynos_drm_bind(struct device *dev)
+ 		goto err_unbind_all;
  
--	drm_mode_config_reset(dev);
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(drm);
++	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		goto err_periph_clk_disable;
++		goto err_unbind_all;
  
- 	pm_runtime_get_sync(dev->dev);
+ 	/* init kms poll for handling hpd */
 
 -- 
 2.55.0
