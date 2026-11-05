@@ -2,58 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BD4606A334
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:32:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DF7606D811
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ok2xSvZN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBiH34Je
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47495112783;
-	Thu,  5 Nov 2026 15:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 277EC112788;
+	Thu,  5 Nov 2026 15:32:13 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F86112790
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:32:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0108112788;
+ Thu,  5 Nov 2026 15:32:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B89C4609FF;
- Thu,  5 Nov 2026 15:32:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18741F0093A;
- Thu,  5 Nov 2026 15:32:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7579F60416;
+ Thu,  5 Nov 2026 15:32:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00541F0093A;
+ Thu,  5 Nov 2026 15:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892722;
- bh=FjXjIN+CBYyI+JYtTID5+LH5eyxhgdXC1OmWwVopoi4=;
+ s=k20260515; t=1793892726;
+ bh=7Xe5neJ+XyDF04SkUBFNyx0TsB1KGMSoqhCvNEkQH3A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ok2xSvZNuL73EMbNf/9IvmbypZehbtrFnFH4JGy0jpZ5HnB62IU7pndDXbbBn3eKp
- 4LHws0C5FzI5zgt0Vv2862iGpPtWM64EOs0eVqifSO/xlvnTl2q2e1WqbwPO4nQIFP
- V0m7H4NedSXvwl/eRctb7g9wnyj6iE4Pz4t+m3gRkKa69ePWaEpQEFgDJXX/VoXeWL
- uWTz7SPmZHfofZS48hgJwFq5dOGRqz8Vj/jWn3iWxqwMza1ucP2CrRmFH1chhx07Lk
- /vglOlP4B6Hlauoh/FZdyWQL4tN0NKiSEuxzz2PAuAP0GX8lXi+dK3fAZZDCU/AzPw
- Wj/MbZP/IzkYg==
+ b=OBiH34JeK96dNnuVV+wHlipr+vFVOAKkOXHUleScVGS0Gx4331PatcFGDvTSv1mzf
+ W9EnlBvovvyAcM2guP21z2JHGK4ypn1b82S5HQ09gVrRV+uwkiuEgrLD1VkZCpB1z/
+ jBnO1t8P6KUUWEFK+HiZVrVwCDr4bXSNvt9xEphmoJwzpCXo8RhP5QlKhm/NZMz+Q7
+ vBRkMrfrVL6aUdWBtO26qG3Z3A2bDrL+4aXs1qmD171I6vtX/C0G1Zbxw4aSgn9Av/
+ Hw7N46j0xuGqrSpITieZqwy/XafGuiKLGRN1syoIdUgyb19WCqsZpGTRhEfu1VgCwR
+ GDcBbIi2wnCrQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:39 +0100
-Subject: [PATCH RESEND 30/83] drm/mxsfb: Switch to
+Date: Thu, 05 Nov 2026 16:29:40 +0100
+Subject: [PATCH RESEND 31/83] drm/nouveau: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-30-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-31-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Marek Vasut <marex@denx.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Stefan Agner <stefan@agner.ch>, 
- imx@lists.linux.dev
+ Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>, 
+ nouveau@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1394; i=mripard@kernel.org;
- h=from:subject:message-id; bh=zKNcy+U5lolJH7X+spEawzCpdBtBuTjQcaw2ZBlxBys=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFrxKnbmzJn1t8oyvm27H7bsl1VrYc+D1zcqpXxp3X
- M9/nHptXsdUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgG4yAXGGp4X0lYXy5e5Bzp3
- Tjn4+MfUCRz/hflSdrzIX9RqVtRg12JRd9hgV5LHNFkG/vbad9yJjA3zLnNPqetVnvayTOhcg/3
- HCnlV83XX383y+bvVbkWIb4hX6rL2iw+MBc/c+7HzHsuXGm4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1243; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=EZMKoCQ0JYBsGKGth1V0QvP4ALC4NycizbyyTebktVI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFrx+rPZ1xmMLvRcHbs/i5teZ7yG9bJr05c+a8w8uu
+ c4+PeGmYscUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYyLa5jOX1+/sXNesdD3Ge
+ EPfyo8NRwZYTBfFH59/Ji394p/SGBqt5zbSX6VWcoW/OHFN/Jl55k7GheZFz8/+18eoOphNfnp7
+ 47f+zx5P5PgQ/miC17PuZq4I87Rz5LVoTeB3nZ+p2O8b6VMUCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,8 +67,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
@@ -88,30 +84,26 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Marek Vasut <marex@denx.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Stefan Agner <stefan@agner.ch>
-Cc: imx@lists.linux.dev
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: nouveau@lists.freedesktop.org
 ---
- drivers/gpu/drm/mxsfb/mxsfb_drv.c | 4 +++-
+ drivers/gpu/drm/nouveau/nouveau_display.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-index 641691fc92c8..04ac1c06f435 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-@@ -323,5 +323,7 @@ static int mxsfb_load(struct drm_device *drm,
- 	drm->mode_config.helper_private	= &mxsfb_mode_config_helpers;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index d71dcfc6ee66..da07acea6a41 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -711,5 +711,7 @@ nouveau_display_create(struct drm_device *dev)
+ 		goto disp_create_err;
  
--	drm_mode_config_reset(drm);
-+	ret = drm_mode_config_create_initial_state(drm);
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
 +	if (ret)
-+		goto err_vblank;
++		goto vblank_err;
  
- 	ret = platform_get_irq(pdev, 0);
+ 	if (dev->mode_config.num_crtc) {
 
 -- 
 2.55.0
