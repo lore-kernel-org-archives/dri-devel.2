@@ -2,51 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B606E606A33C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AAB606D80B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=AZE6qEQx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48AE5112C70;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 818A0112C73;
 	Fri,  6 Nov 2026 09:19:06 +0000 (UTC)
-X-Greylist: delayed 99002 seconds by postgrey-1.36 at gabe;
- Wed, 04 Nov 2026 18:51:53 UTC
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch
- [185.70.43.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B61D810E6C8
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 18:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1793818308; x=1794077508;
- bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=vxJUKcRuU1J3D9RxT0BjZUPto1pvptqtA1sdv7uTPU5Wd5CabFWDfvXI4OhKgYq1b
- RmVcmxn6lGV0KLIRbmf0XAMW9tsaJOJb1JcYZ3OawY1xtGMmQ4D1it1d0DyD4XwrZs
- 49Ii/TQ1mULHm9DPR4SJjhxDYPylYoD6cZbwbtgNaM3EOHWW1hvXwL9Y3Bbxen6AiC
- qNZ+uGwCJzpT6M6sXxSlJZYuTLnSYT2Kma95yD57dtoS02X7DCYbjtNM6n3RuR3GEd
- sLq0NxA1mvS5iAVouV0Q+anJZF5XV7R5XUU5a50YPpPRfVJ5h5horz6/hQWDSX1bhx
- SeWJTVGccxEVg==
-Date: Wed, 04 Nov 2026 18:51:41 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- chunkuang.hu@kernel.org
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, jitao.shi@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
- Compression support
-Message-ID: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 8d12c3e225616d3655c04ed7e4412cce821e564c
+X-Greylist: delayed 540 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Nov 2026 04:24:35 UTC
+Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn
+ [61.135.153.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B90D610E136
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 04:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208;
+ t=1793852676; bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
+ h=From:Subject:Date:Message-ID;
+ b=AZE6qEQx5fP7tH7D7VB6ImSZJ0lpx+IGMXW4Ruv5GmuLtbeHwGpSeLmMWe/udOj3H
+ kLOwDi25q24CEf5UBYKZlcd9ZDGisjZKN2zBI0PwP5kAFqPNoFsp3t+KJL36X4Nzm0
+ 4u4Uif9eHd5Xu3vS9fG1nRB3O07UYz18Go7LbWqU=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+ by sina.com (10.54.253.32) with ESMTP
+ id 6AEC02B6000003F6; Thu, 5 Nov 2026 12:14:48 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com; spf=none smtp.mailfrom=eadavis@sina.com;
+ dkim=none header.i=none;
+ dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6194074457038
+X-SMAIL-UIID: 9A5FDA986C1D4943BA931602A231C7D6-20261105-121448-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ robin.clark@oss.qualcomm.com
+Subject: [PATCH] dma-buf/sw_sync: Optimize the retrieval of fence reference
+ counts
+Date: Thu,  5 Nov 2026 12:14:46 +0800
+Message-ID: <20261105041446.51979-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
+References: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,115 +60,75 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Angelo,
+There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
+operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
+its reference count is initialized to 1. When the sync file is closed, the
+fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
+the fence whose ref count has already reached 0 before dma_fence_release()
+calls timeline_fence_release() to erase the corresponding pt_tree node from
+the sync object, potentially hitting:
 
-I have tested this series with my out-of-tree mt6595 (command mode=20
-panel) and mt6768 (video mode) DRM. There's no regressions, but I=20
-spotted an issue with kconfig.
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ kref_get include/linux/kref.h:45 [inline]
+ dma_fence_get include/linux/dma-fence.h:323 [inline]
+ sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
+ sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
+ sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
 
-On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
-> Add a real driver for the Display Stream Compression (DSC) Display
-> Controller IP, implementing support for DSC v1.1 to v1.2.
->=20
-> In order to do this, it was necessary to remove the basic DSC IP
-> bypass setup from mtk_ddp_comp: this functionality is retained in
-> the new mtk_disp_dsc driver, which checks if DSC was actually
-> requested by other components (with the only one that currently
-> supports this being DSI) and, if not, it will set BYPASS mode in
-> the DSC IP.
->=20
-> Like before, the BYPASS mode is set before starting the DSC IP,
-> but unlike before, this is being done in the component start
-> callback instead of the config one.
-> Notably, the config callback is called by mtk_crtc always
-> immediately before the calling start callback, so the order of
-> register writes is retained.
-> The only real difference is that now this is being done through
-> CPU writes instead of CMDQ, but since that's called only once
-> and since it's just three registers, the performance impact will
-> not be minimal and not even measurable.
->=20
-> As anticipated, DSC handling was also introduced in the mtk_dsi
-> driver: when performing dsi_host_attach, the driver now checks
-> if the DSI panel adds the DSC configuration structure to the
-> mipi_dsi_device structure and, if it does, it will store a
-> pointer in the driver-local mtk_dsi structure's `dsc` member.
->=20
-> The DSI driver will then check whether the DSC configuration
-> that comes from the panel is valid (in regard to MediaTek DSI)
-> and will call the DRM API's DSC helpers to calculate and set
-> all of the const and RC parameters for the actual DSC setup.
->=20
-> For the time being, even though the latest MediaTek SoCs do
-> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
-> as an initial contribution (which is rather big, and 1.2 would
-> make it even bigger - but that can anyway be implemented later).
->=20
-> As a last step for validation of DSC parameters in DSI, a check
-> for the hdisplay against DSC slice sidth and one for vdisplay
-> against DSC slice height was added to the mode_valid callback,
-> making sure that H/V are, as expected, multiples of slice W/H.
->=20
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+Use kref_get_unless_zero() to optimize dma_get_fence(), in order to avoid
+acquiring an object with a reference count of 0.
 
-...
+Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+ drivers/dma-buf/sw_sync.c | 3 ++-
+ include/linux/dma-fence.h | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -18,6 +18,8 @@
->   #include <video/mipi_display.h>
->   #include <video/videomode.h>
->  =20
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..ad60ad5e5cd9 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,8 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
+ 
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get(&pt->base))
++			continue;
+ 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..4d885c8e1d4f 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -320,8 +320,9 @@ static inline void dma_fence_put(struct dma_fence *fence)
+ static inline struct dma_fence *dma_fence_get(struct dma_fence *fence)
+ {
+ 	if (fence)
+-		kref_get(&fence->refcount);
+-	return fence;
++		if (kref_get_unless_zero(&fence->refcount))
++			return fence;
++	return NULL;
+ }
+ 
+ /**
+-- 
+2.43.0
 
-...
-
->   static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
-> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(s=
-truct mtk_dsi *dsi)
->   =09writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
->   }
->  =20
-> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
-> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
-> +{
-> +=09struct drm_dsc_config *dsc =3D dsi->dsc;
-> +=09struct device *dev =3D dsi->host.dev;
-> +=09int ret;
-> +
-> +=09if (dsc->bits_per_pixel & GENMASK(3, 0)) {
-> +=09=09dev_err(dev, "Fractional bits_per_pixel not supported\n");
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09if (dsc->bits_per_component !=3D 8) {
-> +=09=09dev_err(dev, "%u bits per component is not supported\n",
-> +=09=09=09dsc->bits_per_component);
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09dsc->simple_422 =3D false;
-> +=09dsc->convert_rgb =3D true;
-> +=09dsc->vbr_enable =3D false;
-> +
-> +=09drm_dsc_set_const_params(dsc);
-> +=09drm_dsc_set_rc_buf_thresh(dsc);
-> +
-> +=09ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
-
-If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),=20
-linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
-Should MediaTek DRM select it?
-
-Best regards,
-Roman
