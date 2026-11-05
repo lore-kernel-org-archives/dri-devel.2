@@ -2,78 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD1D606D834
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:35:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFF0606A335
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 20:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=CchIVmcO
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KK46J3Pg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FAF810FBB1;
-	Thu,  5 Nov 2026 20:35:08 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C5010F908;
- Thu,  5 Nov 2026 20:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793910900;
- bh=Ad8kNBn6ea1rKcLdBncWP4sS0P7ZVgqFIjqnM+Vx+ew=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=CchIVmcO/I2BEc1zHQQHdUlGXs2hDmLp3A9nIXFKvYUqsc5LnY4FB8yD4tn1F1Jba
- rF6t5/LJLeMmxopc24UIVLoM+EnIQyaKFy/F+1TV/lMZCvSxyx5GO1oxO6MxrO0ovg
- BHEn3GfsZZXasg8YL5Imv0cvxKIPjlEXgtnAS7Xa5vxGioj0gN9CLsfokGvh9Cqzhm
- eOyuC1r0Hp7/1hs+uW9EAhBxZazo5BwlSWBZdek5+uAcCCcNlLS/eCA1+b7qJN3565
- //C5BPKMQCPeB6cx1vqAEI5FvrQ3Jtan+zCOekVV9M5JLgbkGzvEQfRCKvUUscLBro
- 4kNgcevghwpYg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1) (No client certificate requested)
- (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 67A0217E0048;
- Thu, 05 Nov 2026 21:34:57 +0100 (CET)
-Message-ID: <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Robert Mader <robert.mader@collabora.com>, rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov	
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Bryan
- O'Donoghue <bod@kernel.org>, Stanimir Varbanov	
- <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>, 
- linux-media@vger.kernel.org, Vikash Garodia
- <vikash.garodia@oss.qualcomm.com>,  Dikshita Agarwal
- <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Date: Thu, 05 Nov 2026 15:34:55 -0500
-In-Reply-To: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
- <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
- <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
- <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-USq9votTJRjBAWEZ+O+5"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26D1710E429;
+	Thu,  5 Nov 2026 20:35:58 +0000 (UTC)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7389A10E429
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:35:52 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-1a8cc11ac42so973c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 12:35:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793910951; x=1794515751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sJJKjK0K6EALIuHLfHejOsTyjBZ8Ozdl83llEgi1uXM=;
+ b=KK46J3Pgl9rCz2i+Yo0ilW7QI3Cpo4fNClWYO+HL0TqFYAUHm7sgnMlv5cWeJewfib
+ QCqogLYSjy7e3s2i/ot3V8TtFkMA/3ZIpruxqnvqWSf4VxABIruISqosSoNQ0n3rsS4G
+ 6TzETS5EiFPgt0Ljq9VvT+2J9it2O6XnzcRYl3OnO+UQRiZLlMGEZ6wq2TURsdYTILi6
+ UEMhajrjnbqowKrQ2KYadBiGY1ur5oxe4JdDVzcUWwgc6iAb7NONOs8jxclWh4qVHtP7
+ gRX9QpKvPdprYk3nmBpHzJT57tJIZTf9+4uYjIYAEYTKj3Dfzqkg6TQCdmxekFvqGz9X
+ DOdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793910951; x=1794515751;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sJJKjK0K6EALIuHLfHejOsTyjBZ8Ozdl83llEgi1uXM=;
+ b=FUa8s0qGEIIz6vKbhNp9CE3sL9Xx3BC8Kz8vYnfUADqyqcbDR8qPy7D8Nvji3cnmsK
+ fA03XL7OcF9bFQ3ZdXWfbygL4mzki97v0ayef1d+Xi7qgICMFFt5y2pZpMLPR2ro019A
+ ZrNVvG5UIyZfbFY7ytE3S2hy2eyLMUDCNVpCHzYC0B196U+y5YQxnvfEo/LFg6AmNod6
+ vDN6gi3aV13YG/MQDaSFL2S2a1usVdN4cPi+xfYDDZVmH66p2iQDQsotioJtCY3oSSQY
+ 6nmgj9hH3nlQik6cc5PZ+n3WJl8VkzB9ukYjpCJUO1/rysgjNuvUPHlE9fqGQmEukq0z
+ UTHA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxVoVBKuSYyH9QhutN6R3Z0AhVO7HAylxIHBpBqmMuHJpFTJlSkXQ3qQyuXP8PHigeV+RpIeW1fljM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9Eu/OZ+2g0ndjIrjNhoPs6JFg8VaCZW/sLj7zpL/NISWpwmRho
+ gPI2oiXXe73vKvVBUU+wzSSKwRC6NTjWRj54hnt+HKjR9G6rE9DxpH/7
+X-Gm-Gg: AYBFou0k+GdFaxKH6IpIexowOHH68IxU839PG1eusVbdo2Vpe6C5KsirzTgOAJfpvsJ
+ v5sXMV3qqcoNPA2qi4I8mcWeY6192U9HcAJoUvJMK3XNhnvsyvbZZomaunBbpiXoUyArMKLiOgT
+ jMIB/p3Jdpn72k2JgWtmzKtgBr0yHMKlkpVaSm2HGTw6yyjY9g9hcqnrzPHP8N96oVw2GRrAPLy
+ PvJ4WqKzd90z8IMBrRXmtB9onqBZayvRw3oCXtE5cUfIQ4A4RQ0ijw3tbpWy2/eieRfMk8/G6da
+ 1lwKsSOFRheaHrVuCSU+odMWoynseYgu4CIMZ6AjvgJpBYrMFFfP7IaY13FzN2fcvs5HdA9+jOc
+ vKqK3owF/thwQge0ZKwdee/FO5cpR9yzu9Vrf3JuhdFZnW4b/ak7iobqZ8GOsQOz17r+U1HNugT
+ RQQTpFEvnshs3O1Kfe14+3xmqP/Bh8x+v9mEtmEyxQbh9svPm8Rs49MaQbFvi8vaQ/lYMes/X4j
+ C9Qw6ycdtMsU43KGSj1t+sEBalJmjsf7HRzAi1p7PTDlMcfx/TQRgpRmLJ+h8oE8nvSR3uKZY40
+ yBx4G9kb
+X-Received: by 2002:a05:701a:c90a:b0:15b:7f7a:730d with SMTP id
+ a92af1059eb24-1b25d342861mr126756c88.28.1793910951382; 
+ Thu, 05 Nov 2026 12:35:51 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b245b86fbesm19778365c88.1.2026.11.05.12.35.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2026 12:35:50 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ "H. Nikolaus Schaller" <hns@goldelico.com>,
+ Paul Boddie <paul@boddie.org.uk>, paul@crapouillou.net,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ linux-mips@vger.kernel.org (open list:INGENIC JZ47xx SoCs),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
+Subject: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+Date: Thu,  5 Nov 2026 12:35:17 -0800
+Message-ID: <20261105203517.2293404-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,113 +90,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+The LCD controller's internal bridge is embedded in an object allocated
+with drmm_encoder_alloc(). This initializes the encoder but leaves the
+bridge's reference count at zero. Since drm_bridge_attach() takes a
+reference, probing the CI20 display produces addition-on-zero and
+underflow warnings and fails to attach the HDMI bridge chain.
 
---=-USq9votTJRjBAWEZ+O+5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Allocate the internal bridge with devm_drm_bridge_alloc() and register
+it with devm_drm_bridge_add() before attaching it. Keep the encoder in a
+separate DRM-managed allocation: encoder cleanup can drop the final
+bridge reference before it has finished accessing the encoder. Find
+the internal bridge through the encoder's bridge chain during mode
+setting, and use the bridge argument directly in bridge callbacks.
 
-Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=C2=
-=A0:
-> On 04.11.26 23:11, Rob Clark wrote:
-> > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@coll=
-abora.com> wrote:
-> > > Nice, very happy to see the series!
-> > >=20
-> > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> > > > The comment describing the QC10C buffer layout calls it a compresse=
-d
-> > > > P010. It is not:
-> > > If I'm not mistaken the display engine / the DRM side (including Mesa=
-)
-> > > describes it as P010+QCOM_COMPRESSED as well, and so does my pending
-> > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
-> > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire t=
-hat
-> > > up everywhere etc. OTOH if we want to keep the DRM side as is, then t=
-he
-> > > comment should reflect that, IMO.
-> > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
-> > as distinct formats, both with and without UBWC.  I'm not sure if the
-> > same is true on video side but P010+UBWC was never exposed, or if it
-> > truely only supports linear P010 and UBWC TP10.
->=20
-> Oh, do I understand you correctly that the P010+UBWC implementation is=
-=20
-> not compatible with QC10C, meaning on the GPU side (Mesa and display) we=
-=20
-> don't yet have any support for QC10C exposed to userspace? If that's so=
-=20
-> then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
->=20
-> On the plus side - this would allow us to make the format single plane,=
-=20
-> matching what we get on the V4L2 side.
+Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in drm_bridge_attach/detach()")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-Since its single plane, we should aim for a variation of
-DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious linea=
-r
-single plane packing for that, it would only be there to support the
-compression. Or maybe this one is abstract enough to be used anyway?
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 625ec76cf04d..520912f9ed0d 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -121,16 +121,15 @@ struct ingenic_drm {
+ };
+ 
+ struct ingenic_drm_bridge {
+-	struct drm_encoder encoder;
+ 	struct drm_bridge bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+ 
+ static inline struct ingenic_drm_bridge *
+-to_ingenic_drm_bridge(struct drm_encoder *encoder)
++to_ingenic_drm_bridge(struct drm_bridge *bridge)
+ {
+-	return container_of(encoder, struct ingenic_drm_bridge, encoder);
++	return container_of(bridge, struct ingenic_drm_bridge, bridge);
+ }
+ 
+ static inline struct ingenic_drm_private_state *
+@@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+ {
+ 	struct ingenic_drm *priv = drm_device_get_priv(encoder->dev);
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(encoder);
++	struct drm_bridge *first_bridge __free(drm_bridge_put) =
++		drm_bridge_chain_get_first_bridge(encoder);
++	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(first_bridge);
+ 	unsigned int cfg, rgbcfg = 0;
+ 
+ 	priv->panel_is_sharp = bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SIGNALS;
+@@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 				     struct drm_encoder *encoder,
+ 				     enum drm_bridge_attach_flags flags)
+ {
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+ 				 &ib->bridge, flags);
+@@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+ 					   struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge->encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	ib->bus_cfg = bridge_state->output_bus_cfg;
+ 
+@@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 			drm_panel_put(panel);
+ 		}
+ 
+-		ib = drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
+-					NULL, DRM_MODE_ENCODER_DPI, NULL);
++		ib = devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
++					   &ingenic_drm_bridge_funcs);
+ 		if (IS_ERR(ib)) {
+ 			ret = PTR_ERR(ib);
++			dev_err(dev, "Failed to allocate bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		encoder = drmm_plain_encoder_alloc(drm, NULL,
++						   DRM_MODE_ENCODER_DPI, NULL);
++		if (IS_ERR(encoder)) {
++			ret = PTR_ERR(encoder);
+ 			dev_err(dev, "Failed to init encoder: %d\n", ret);
+ 			goto err_drvdata;
+ 		}
+ 
+-		encoder = &ib->encoder;
+ 		encoder->possible_crtcs = drm_crtc_mask(&priv->crtc);
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
+ 		ib->next_bridge = bridge;
+ 
++		ret = devm_drm_bridge_add(dev, &ib->bridge);
++		if (ret)
++			goto err_drvdata;
++
+ 		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+-- 
+2.53.0
 
-Nicolas
-
->=20
-> >=20
-> > BR,
-> > -R
-> >=20
-> > > Best regards,
-> > >=20
-> > > Robert
-> > >=20
-> > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_request=
-s/8195
-> > >=20
-> > > > P010 stores each sample in 16 bits, QC10C packs three
-> > > > 10-bit samples in each 32-bit word, which is what the stride comput=
-ed
-> > > > below (width * 4 / 3) assumes. Name the format correctly.
-> > > >=20
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > ---
-> > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
-> > > >    1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drive=
-rs/media/platform/qcom/iris/iris_buffer.c
-> > > > index eb8de60c1177..ec2bf2a2d953 100644
-> > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct ir=
-is_inst *inst)
-> > > >=20
-> > > >    /*
-> > > >     * QC10C:
-> > > > - * UBWC-compressed format for P010.
-> > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packe=
-d in 32 bits.
-> > > >     * Contains 4 planes in the following order -
-> > > >     * (A) Y_Meta_Plane
-> > > >     * (B) Y_UBWC_Plane
-> > > >=20
-
---=-USq9votTJRjBAWEZ+O+5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauzobwAKCRDZQZRRKWBy
-9BDSAP9cXKQq7K5F0gKq47dzESPiGmNAJzGtw7IvXvIhKR3EMgD/fzhUWIDpE+6R
-qCrrzw8kwI/MdOykqk/E/2StgcPFaQM=
-=TeMi
------END PGP SIGNATURE-----
-
---=-USq9votTJRjBAWEZ+O+5--
