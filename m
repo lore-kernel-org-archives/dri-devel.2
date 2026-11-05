@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BC6606D804
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776DF6082BD2
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5v+7aDu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KI4FPDU8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E60112760;
-	Thu,  5 Nov 2026 15:31:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92EB0112760
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C55112785;
+	Thu,  5 Nov 2026 15:31:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B989A112769
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7AEFA40364;
- Thu,  5 Nov 2026 15:30:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C161F00A02;
- Thu,  5 Nov 2026 15:30:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3E7FB60A07;
+ Thu,  5 Nov 2026 15:31:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9701F1F000C1;
+ Thu,  5 Nov 2026 15:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892657;
- bh=QcP/wyaIZ9/H5dcDS6XFL2+EWmlJgrlIM5Af3su0GUE=;
+ s=k20260515; t=1793892661;
+ bh=Qm9gLvjdFEGvEzEowQDwMRQOdR3wvNb9zcJQpRDHLcw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=f5v+7aDu50RW20fHRwRinnKdaDHve8Qj1FiwnlgC+jpdcgQJCNn5PAfUo1ihaZEs9
- hwccnHVAwKn1Pz/iRIweQI/UdMvPpXZS5QvJQpb/rCsxJMByclKGg68gYsxQWFjoYc
- /Ftzlg3pw0MD+jQ4QGeZQTqyr2jqILP49aND9PW7n25m04MtwT78GXhZOHtGPL/aDo
- scL0TTr9TG+TJ/JpjI0MC0JhcDe4qJRa1nbABgGMET645DvXKo7xfCVPS2I+IG2L1u
- MUvYTqVusTu9FQsxBgWfavC12awEM91qUQVrcVyUdkLVLpNCc9tIM3cak9hYW0X5+k
- wfA1EQhgAH8cg==
+ b=KI4FPDU8aFpgy9tupS7wEXktflew5Ld8rgnLv+WNsH9vya2UmyBWKE+PhWcbchCFj
+ QgX14Yx5D8oANQSBBN3PKxNNv0ZEgndVA7+MQNfXD9OTHuRRNFazZjsVNpQEYpWCGt
+ QO8WjRczQ6zEg7+pZBO6nMQmcU89FMBIIW2zb89ppLJqAhmC5/+btXQWLb0pPs8ZbO
+ xTbB+tIzHcUmg5whhwGo9f1oZmHc7IQcz/5ZTWRZxYaD3j6qLxfZ8BlfEb3Hyn9Jjy
+ onjgTHQ4u5yx+vyaevoOWQakyYByWlpY2Nj4FQII+VAqcQ73nRagoUM5aFB5C01x2o
+ M2jGYAg+yshCw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:21 +0100
-Subject: [PATCH RESEND 12/83] drm/fsl-dcu: Switch to
+Date: Thu, 05 Nov 2026 16:29:22 +0100
+Subject: [PATCH RESEND 13/83] drm/gud: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-12-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-13-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>
+ Ruben Wauters <rubenru09@aol.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1230; i=mripard@kernel.org;
- h=from:subject:message-id; bh=WYPfgpqXSduN4BiKX0UiKPuOuYDxF57UaFb7URAXZ+8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjwKDStLSEs/a+Dda/dPafOnaYxnDbU5ZEyeRFpzP
- 9yhIXKiYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyk2IGxYc7WLU33v4mcVf6z
- hC8zfY/mrJIzVf6SN1Js5ryd1H9epl/0xpSfBmmSsWdUPTsaG42CGBuatU/O+vrWKfVctcPrCbq
- 2n3hOdBkZLbORVAgR+jeHoTenvLbriTbTXY+2doY/T0RXywEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=P5NUXdtKEASYleu6dV5evtrdmz+gkyrmw4Vd42Z6ino=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjx2POy9uWpFTVe6c4DDa/GtNm0fI3j6pxzc8ixsj
+ b7C1XveHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAih0oYG3bv9lhVqrZz38l3
+ MgphFe9ZmDgDOf6x3y1v+u9XefKS1fyOn9bX7n1Q5fjwakfVuhebTjLW5zx6qJxxzuSs9xnJlKn
+ dFkZ+53IWhwd7HnJc28GV7fWz7vyb9TIvX8bOWprLvumk5uUeAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +83,23 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alison Wang <alison.wang@nxp.com>
-Cc: Stefan Agner <stefan@agner.ch>
+Cc: Ruben Wauters <rubenru09@aol.com>
 ---
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c | 4 +++-
+ drivers/gpu/drm/gud/gud_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
-index 5b47000738e4..9c2189661d8a 100644
---- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
-+++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
-@@ -43,5 +43,7 @@ int fsl_dcu_drm_modeset_init(struct fsl_dcu_drm_device *fsl_dev)
- 		goto err;
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 680447f426f3..9ba6d8b94023 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -641,5 +641,7 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	}
  
--	drm_mode_config_reset(fsl_dev->drm);
-+	ret = drm_mode_config_create_initial_state(fsl_dev->drm);
+-	drm_mode_config_reset(drm);
++	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		goto err;
- 	drm_kms_helper_poll_init(fsl_dev->drm);
++		return ret;
+ 	drm_kms_helper_poll_init(drm);
  
 
 -- 
