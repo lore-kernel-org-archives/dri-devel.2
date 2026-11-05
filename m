@@ -2,48 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC90606A328
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4FB606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c4+IHGpO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuE0GR0n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F0510F6F9;
-	Thu,  5 Nov 2026 14:21:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E98410F6F9
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A413110FBB0;
+	Thu,  5 Nov 2026 14:21:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED8C10FBB0
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:21:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7D5C609F8;
- Thu,  5 Nov 2026 14:21:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21401F000C1;
- Thu,  5 Nov 2026 14:21:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2634E43EE8;
+ Thu,  5 Nov 2026 14:21:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850B81F000C1;
+ Thu,  5 Nov 2026 14:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793888507;
- bh=y2EkE4zSQAvC+7idJ09PStW4fXOJe6Q7zMv35pj/vWU=;
+ s=k20260515; t=1793888511;
+ bh=xVsn5Kxzaz40rCzXYq0YK8MSVUYNe930U1ctswhPCYU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=c4+IHGpOhRYSNNEwl52cXoqin/Tbr48D/3oJYw55NqIWnPINSVaLZE6viFokRfxmz
- 4szWJ9HWVo8yB7HQ7mDB86EFTjwHMNDPUQ2w0wyL5YYzhGjLmJhIrdWdQ8+JLTXl/N
- YUg+rPsH+lE5fXTSsUF4ftUCTxjaBwimrOa7kBQITQyoGbOERsVpIilyZLghxmPquP
- PeRy/uyD/rHkwb2zV0RULOHRZ5QtYZxZeRv6Y5twcbc8cY4KOoRHBh3Oe6lzsq6okA
- hZGiiXjxWIVwg0nnQPVMfaNgAtzUmBEsKmQIFddX7zKka0oXeSrfxp7dqRFEko+Jva
- JjSG/KB8N0ncA==
+ b=UuE0GR0nNYazST1MPjLLYRSlYCaToluYyIXu5DxGlVoMj6AGNYI3G9MO7ECzlr7H/
+ OPgRWrzXicfflEm731ejYyavNapkFDhB9OUZYyjMmDNT0Suqok34WuCXpGNJVVqTlB
+ ffZr6JuLZpaZBD0BZbX25FXC2tmbzfF562K11AIUHo1vCuIC1VTuqsxScw3QBkCC8y
+ gNgzRU6FXrhWclV3iiilJrKn5/bQlBCpeRO7WkVQ2pi/gldcmojQYdKcmsrLDgq2j1
+ fMsffnIHbR2F7iTSsTH8bt+GAw6BPrPOK5xjVsppFAQOUhWLdADDScoJVHKe1fC41E
+ XH17gzrcucakA==
 From: Maxime Ripard <mripard@kernel.org>
 To: Simona Vetter <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <dev@lankhorst.se>,
  Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 5/7] MAINTAINERS: Remove Andrzej Hajda from bridge maintainers
-Date: Thu,  5 Nov 2026 15:21:25 +0100
-Message-ID: <20261105142127.708219-5-mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH 6/7] MAINTAINERS: Remove myself for VC4 DRM driver
+Date: Thu,  5 Nov 2026 15:21:26 +0100
+Message-ID: <20261105142127.708219-6-mripard@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261105142127.708219-1-mripard@kernel.org>
 References: <20261105142127.708219-1-mripard@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,37 +62,31 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Andrzej Hajda's last commit to the DRM bridge subsystem dates back to
-2021, and his last bridge review to 2023. His focus has since moved to
-the Intel GPU drivers.
+I have not been actively involved in VC4 maintenance for a while. The
+driver is in good hands with Dave and Maíra.
 
-Remove the maintainer entry to match the current situation.
+Remove my maintainer entry to match the current situation.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
 
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Robert Foss <rfoss@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Maíra Canal <mcanal@igalia.com>
 ---
  MAINTAINERS | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 122a802a4eb6..9dcaab8bd5f6 100644
+index 9dcaab8bd5f6..ba7c1f71f6ab 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8950,5 +8950,4 @@ F:	drivers/gpu/drm/atmel-hlcdc/
+@@ -9211,5 +9211,4 @@ F:	include/uapi/drm/v3d_drm.h
  
- DRM DRIVERS FOR BRIDGE CHIPS
--M:	Andrzej Hajda <andrzej.hajda@intel.com>
- M:	Neil Armstrong <neil.armstrong@linaro.org>
- M:	Robert Foss <rfoss@kernel.org>
+ DRM DRIVERS FOR VC4
+-M:	Maxime Ripard <mripard@kernel.org>
+ M:	Dave Stevenson <dave.stevenson@raspberrypi.com>
+ R:	Maíra Canal <mcanal@igalia.com>
 -- 
 2.55.0
 
