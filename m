@@ -2,34 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1342607B953
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:36:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A8F607B959
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMGngCoO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EbrLF/GI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCFFF10EE08;
-	Thu,  5 Nov 2026 19:36:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E64E10E978
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 419E210EEE0;
+	Thu,  5 Nov 2026 19:36:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF1010ED59
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:36:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B0E3601EC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 64D2C4190A;
+ Thu,  5 Nov 2026 19:36:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE711F0089E;
  Thu,  5 Nov 2026 19:36:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E9A1F008A3;
- Thu,  5 Nov 2026 19:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793907359;
- bh=f7pbLgB+bOANV7ZH7bSfet1egKll+CXGNKYzJQU3Yrk=;
+ s=k20260515; t=1793907362;
+ bh=u3XH2HUDxRINO6oY1nDOxszi+5d2U3ZN+LfBIkkJykc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iMGngCoOl/U4CYIB1rTzS3RguQRqLRp2sKfBp3odJCcMgrP4Y2V8PmtfZZo1x5Xkv
- FLC9VNWmdujwFQtrFCf8Mg1QUR9V0cBoPIZOnqaamHivU1nhWiKlmj37JQBwx8Nw4V
- gnJGb6AJHKNc0HghHI9fJU1uQS16q3fA1JPSybQgU9VxlezkJg9W+I3Lt4LPHuBS+G
- M91zjKny9mmSeWhknnqhOUNYocrnIZ20lXgBv1WbhSSK7LtbVS4MpUGhBLakgtch3v
- NiR+5uPctDAbSjOlOz7BSSMrEU1NCpxJBHKCCILKG0ymIlPQ81348+1c7a3Gat7yd+
- kdKHITt2fXI3g==
-Message-ID: <sashiko-outbox-199951@kernel.org>
+ b=EbrLF/GI9zveLxnzZ8uxZ7LXZBqUJdqjZ/hKoCeJ+z1yLwXWHsb2qxVPJQ8BLsPOE
+ K/NM8kOHLdOX413B6qu4BxuoBVdDuZNIDosQo3lfsNG21BWE641KvfyeVALDLSFtDe
+ ESPTTOTW65bJL496sXvpAbFlSD7S31p5rbp2uYOnMbdF46/hUBlGYvOTz/9riUzRjK
+ p3f2B9HZLlYz+fkIAktgBcJKJZDL0Yykv/zheSRbg1STyFrvMiDZro6fwOyZTiGupJ
+ cJfQ/mrW1aSt0fhZWKbtOyHFZ50PXoXdNZ2u1li9/TrUnZma8Zf3atQs17wXbvbwaB
+ b0ELZzT+OQZ5w==
+Message-ID: <sashiko-outbox-199952@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v2 21/23] proc: let lockdep check the pin
+Subject: Re: [PATCH RESEND v2 22/23] proc: own the wait queue of an entry
+ with a ->proc_poll()
 To: "Christian Brauner" <brauner@kernel.org>
 Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  "Jann Horn" <jannh@google.com>, "Josef
@@ -55,12 +56,12 @@ Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
  Gordeev" <agordeev@linux.ibm.com>,
  "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261104-work-procfs-core-v2-21-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-core-v2-22-76ace653a773@kernel.org>
 References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
- <20261104-work-procfs-core-v2-21-76ace653a773@kernel.org>
+ <20261104-work-procfs-core-v2-22-76ace653a773@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:35:57 +0000
+Date: Thu, 05 Nov 2026 19:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,65 +84,99 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] proc: kernel-doc mismatch on __proc_create_net_single_write()
+- [Medium] proc: dual poll_wait() calls in proc_reg_poll() break AIO poll
 --
 
-commit 095fce4c95ecbe25e644f1a3fe90061f695e9271
+commit 443c1e3f3b75bcf766632cccb5651e0034423048
 Author: Christian Brauner <brauner@kernel.org>
 
-proc: let lockdep check the pin
+proc: own the wait queue of an entry with a ->proc_poll()
 
-This commit adds lockdep tracking to proc_dir_entry pinning so lockdep can
-detect deadlocks between proc entry methods and removal under held locks.
-Entries created via proc_create_single() and related helpers receive a
-per-registration-site lock_class_key via wrapper macros.
+This commit gives procfs entries that implement ->proc_poll() a procfs-owned
+wait queue in struct pde_open_node and adds proc_poll_notify() to wake poll=
+ers
+on that queue. proc_reg_poll() calls poll_wait() on the procfs wait queue
+before invoking the entry's ->proc_poll() callback with the same poll_table.
 
-> diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
-> index b78d627b024f8..9ddd7c323dfcd 100644
-> --- a/fs/proc/proc_net.c
-> +++ b/fs/proc/proc_net.c
-
+> diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+> index 59de4681d8452..ab30a58879d51 100644
+> --- a/fs/proc/inode.c
+> +++ b/fs/proc/inode.c
 [ ... ]
+> @@ -555,26 +561,46 @@ static ssize_t proc_reg_write(struct file *file, co=
+nst char __user *buf, size_t
+>  	return rv;
+>  }
+> =20
+> -static __poll_t pde_poll(struct proc_dir_entry *pde, struct file *file, =
+struct poll_table_struct *pts)
+> -{
+> -	const auto poll =3D pde->proc_ops->proc_poll;
+> -	if (poll)
+> -		return poll(file, pts);
+> -	return DEFAULT_POLLMASK;
+> -}
+> -
+> +/*
+> + * The pollers of an entry sleep on a wait queue procfs owns, which is t=
+here
+> + * for as long as the entry's inode is, however the entry's owner goes a=
+way.
+> + * The owner wakes them through proc_poll_notify(), and procfs does when=
+ the
+> + * entry is removed: a poll of a removed entry reports EPOLLERR | EPOLLP=
+RI,
+> + * like kernfs_fop_poll().
+> + */
+>  static __poll_t proc_reg_poll(struct file *file, struct poll_table_struc=
+t *pts)
+>  {
+>  	struct proc_dir_entry *pde =3D PDE(file_inode(file));
+>  	__poll_t rv;
+> =20
+> -	if (!pde_pin(pde))
+> +	if (!pde_has_proc_poll(pde))
+>  		return DEFAULT_POLLMASK;
+> -	rv =3D pde_poll(pde, file, pts);
+> +	poll_wait(file, &pde->open->poll, pts);
+> +	if (!pde_pin(pde))
+> +		return DEFAULT_POLLMASK | EPOLLERR | EPOLLPRI;
+> +	rv =3D pde->proc_ops->proc_poll(file, pts);
 
-> @@ -232,11 +233,12 @@ EXPORT_SYMBOL_GPL(proc_create_net_single);
->   * pde_data() on the file inode.  The network namespace must be accessed=
- by
->   * calling seq_file_single_net() on the seq_file struct.
->   */
-> -struct proc_dir_entry *proc_create_net_single_write(const char *name, um=
-ode_t mode,
-> -						    struct proc_dir_entry *parent,
-> -						    int (*show)(struct seq_file *, void *),
-> -						    proc_write_t write,
-> -						    void *data)
-> +struct proc_dir_entry *__proc_create_net_single_write(const char *name, =
-umode_t mode,
-> +						      struct proc_dir_entry *parent,
-> +						      int (*show)(struct seq_file *, void *),
-> +						      proc_write_t write,
-> +						      void *data,
-> +						      struct lock_class_key *key)
+[Severity: Medium]
+Does calling poll_wait() on pde->open->poll in proc_reg_poll() before passi=
+ng
+pts to pde->proc_ops->proc_poll() break Linux AIO polling (IOCB_CMD_POLL via
+io_submit()) for unconverted procfs entries?
 
-[Severity: Low]
-When proc_create_net_single_write() in fs/proc/proc_net.c is renamed to
-__proc_create_net_single_write() and given the new key parameter, the
-preceding kernel-doc block still documents the old name and omits @key:
+While ->proc_poll() implementations still receive pts and call poll_wait() =
+on
+their own wait queues, vfs_poll() -> proc_reg_poll() ends up calling
+poll_wait() twice on the same poll_table_struct: first on &pde->open->poll =
+and
+then on the subsystem's wait queue inside ->proc_poll().
 
-/**
- * proc_create_net_single_write - Create a writable net_ns-specific proc fi=
+When userspace submits an IOCB_CMD_POLL request via io_submit() on a pollab=
 le
- * @name: The name of the file.
- * @mode: The file's access mode.
- * @parent: The parent directory in which to create.
- * @show: The seqfile show method with which to read the file.
- * @write: The write method with which to 'modify' the file.
- * @data: Data for retrieval by pde_data().
+procfs file (such as /proc/pressure/*, /proc/mdstat, /proc/swaps, or
+/proc/kmsg), aio_poll() sets apt.pt._qproc =3D aio_poll_queue_proc. The fir=
+st
+poll_wait() queues the request on &pde->open->poll and sets pt->queued =3D =
+true,
+and the second poll_wait() inside ->proc_poll() hits the single-waitqueue
+check in fs/aio.c:aio_poll_queue_proc():
 
-Should this kernel-doc comment be updated to match
-__proc_create_net_single_write() and document @key (or moved to the
-proc_create_net_single_write() macro in include/linux/proc_fs.h) to avoid
-scripts/kernel-doc warnings when building with W=3D1?
+	/* multiple wait queues per file are not supported */
+	if (unlikely(pt->queued)) {
+		pt->error =3D -EINVAL;
+		return;
+	}
+
+If the polled event is not immediately ready, aio_poll() sees apt.error =3D=
+=3D
+-EINVAL, removes the wait entry from &pde->open->poll, and fails the
+io_submit() request with -EINVAL.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-work-procf=
-s-core-v2-0-76ace653a773@kernel.org?part=3D21
+s-core-v2-0-76ace653a773@kernel.org?part=3D22
