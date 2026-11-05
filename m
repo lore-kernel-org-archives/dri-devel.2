@@ -2,53 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B99606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 08:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982D2606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 09:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=D8hkm7cL
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHEVG93S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4814010E90B;
-	Thu,  5 Nov 2026 08:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D80EA112260;
+	Thu,  5 Nov 2026 09:00:37 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96FA010E92A
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 08:59:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6506112260
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 09:00:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793869160;
- bh=ZKaZFFHipOBBEL4aN3JZCurDbr471IQ5mAHx+yt6YDI=;
+ s=mail; t=1793869229;
+ bh=xUW3p4976DC2PBpXz3aw+f2y1/CP/AUXZ42/p8PrJHQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=D8hkm7cLJ7S+YmF4PZLUoJwECskt1Lx2wBGPwMxKGB7U+y+B1ib+bRRjrhTYsxFfw
- uIHzv5kGUcdqzY7GQvciwIRUnjE6E1bjhIAm02/rvqjKZ4cMuSbwVViK78+8ioi4mp
- eds24T+OXz4w10VRzgrjCm/MNXaYzxHaTm/CjNuYotXypSNeel73uJThZZWhRkrGHb
- zYQghiYqQPaW8FT/Oc+6gAA7+/0J7UQTy9aPUips21sAW2f9qfwXovX73eEfDlXyK2
- qEJkPV5RCAnKVk4ouAglPbYCYECNTQKSLvYyyHXgWUEYrEZ4891C0BvrPwQ6SfXsc0
- LF7orzWiVgBsQ==
+ b=EHEVG93SvO2MRQ9DqlNGT69xnJHgOChAl4GvABrnxnu6DRTM20aBAKXu0iZVBoxNv
+ KgRR9dSB3fYPc+YlhHcfxLX53M6BHsy/9oQDScMSfFjYaYHhL2nSglo49d9x5GErIe
+ bQPFlOCxfeacr6lrbh0FDCh/6J0IY9bN95uq0FkOij2bqZgIRQcnEDeERmlMx4Yf7p
+ wloqNvk9ClFSjuJgZ0+3R8wa2SXSqfgUdwfST9EG9SNAQBV5kEmWnnQeutK/smBy07
+ Q8MYyN30HYpN1yHXJh2+b01UP275QGYgKs441XpqVuQTXTXbqW1wgvWODZ8itTSBls
+ Ti1iVBcoKMi1Q==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 50DF617E05D6;
- Thu, 05 Nov 2026 09:59:19 +0100 (CET)
-Message-ID: <bff71c8f-9ea0-45a9-96ed-e66fc0896f3f@collabora.com>
-Date: Thu, 5 Nov 2026 09:59:18 +0100
+ key-exchange x25519) (No client certificate requested)
+ (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C676117E05D6;
+ Thu, 05 Nov 2026 10:00:28 +0100 (CET)
+Message-ID: <1c0e5b1a-b1a8-42a3-8dd1-75fceee078a2@collabora.com>
+Date: Thu, 5 Nov 2026 10:00:28 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
- Compression support
-To: Roman Vivchar <rva333@protonmail.com>, chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-References: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ CK Hu <ck.hu@mediatek.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+ <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
+In-Reply-To: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,110 +73,123 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/4/26 19:51, Roman Vivchar wrote:
-> Hi Angelo,
+On 11/4/26 19:56, Roman Vivchar wrote:
+> On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
 > 
-> I have tested this series with my out-of-tree mt6595 (command mode
-> panel) and mt6768 (video mode) DRM. There's no regressions, but I
-> spotted an issue with kconfig.
-> 
-> On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
->> Add a real driver for the Display Stream Compression (DSC) Display
->> Controller IP, implementing support for DSC v1.1 to v1.2.
+>> Having the DSI interrupt enabled before actually binding the DSI
+>> component to the display controller driver is both useless and
+>> dangerous: the main purpose of this interrupt is to signal CMD
+>> done, LP RX data ready, or VideoMode done, or to reset the HW
+>> engine if this doesn't come.
 >>
->> In order to do this, it was necessary to remove the basic DSC IP
->> bypass setup from mtk_ddp_comp: this functionality is retained in
->> the new mtk_disp_dsc driver, which checks if DSC was actually
->> requested by other components (with the only one that currently
->> supports this being DSI) and, if not, it will set BYPASS mode in
->> the DSC IP.
+>> Should this interrupt come too late (during probe), the HW will
+>> be reset only at the next occurrence of a timeout, which slows
+>> down boot and may render artifacts to the DSI display.
 >>
->> Like before, the BYPASS mode is set before starting the DSC IP,
->> but unlike before, this is being done in the component start
->> callback instead of the config one.
->> Notably, the config callback is called by mtk_crtc always
->> immediately before the calling start callback, so the order of
->> register writes is retained.
->> The only real difference is that now this is being done through
->> CPU writes instead of CMDQ, but since that's called only once
->> and since it's just three registers, the performance impact will
->> not be minimal and not even measurable.
+>> Moreover, clearing the DSI interrupt while the display controller
+>> is not ready yet, may result in an interrupt storm.
 >>
->> As anticipated, DSC handling was also introduced in the mtk_dsi
->> driver: when performing dsi_host_attach, the driver now checks
->> if the DSI panel adds the DSC configuration structure to the
->> mipi_dsi_device structure and, if it does, it will store a
->> pointer in the driver-local mtk_dsi structure's `dsc` member.
+>> In order to prevent this from happening, request the interrupt
+>> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+>> display controller component master.
 >>
->> The DSI driver will then check whether the DSC configuration
->> that comes from the panel is valid (in regard to MediaTek DSI)
->> and will call the DRM API's DSC helpers to calculate and set
->> all of the const and RC parameters for the actual DSC setup.
->>
->> For the time being, even though the latest MediaTek SoCs do
->> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
->> as an initial contribution (which is rather big, and 1.2 would
->> make it even bigger - but that can anyway be implemented later).
->>
->> As a last step for validation of DSC parameters in DSI, a check
->> for the hdisplay against DSC slice sidth and one for vdisplay
->> against DSC slice height was added to the mode_valid callback,
->> making sure that H/V are, as expected, multiples of slice W/H.
->>
+>> Reviewed-by: CK Hu <ck.hu@mediatek.com>
 >> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > 
-> ...
-> 
->> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> @@ -18,6 +18,8 @@
->>    #include <video/mipi_display.h>
->>    #include <video/videomode.h>
->>    
->> +#include <drm/display/drm_dsc.h>
->> +#include <drm/display/drm_dsc_helper.h>
-> 
-> ...
-> 
->>    static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
->> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(struct mtk_dsi *dsi)
->>    	writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
->>    }
->>    
->> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
->> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
->> +{
->> +	struct drm_dsc_config *dsc = dsi->dsc;
->> +	struct device *dev = dsi->host.dev;
->> +	int ret;
->> +
->> +	if (dsc->bits_per_pixel & GENMASK(3, 0)) {
->> +		dev_err(dev, "Fractional bits_per_pixel not supported\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	if (dsc->bits_per_component != 8) {
->> +		dev_err(dev, "%u bits per component is not supported\n",
->> +			dsc->bits_per_component);
->> +		return -EINVAL;
->> +	}
->> +
->> +	dsc->simple_422 = false;
->> +	dsc->convert_rgb = true;
->> +	dsc->vbr_enable = false;
->> +
->> +	drm_dsc_set_const_params(dsc);
->> +	drm_dsc_set_rc_buf_thresh(dsc);
->> +
->> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
-> 
-> If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),
-> linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
-> Should MediaTek DRM select it?
+> This was necessary on mt6595, otherwise it would get stuck.
 > 
 
-Yes it should. I already spotted this a bit of time ago and fixed it locally, but
-hey, thanks a lot for that.
+Yep, I guess it was getting stuck before this because your platform's bootloader
+has continuous splash functionality and leaves it on while booting Linux, right?
+
+Just a curiosity... ;-)
 
 Cheers,
 Angelo
+
+> Acked-by: Roman Vivchar <rva333@protonmail.com>
+> Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
+> 
+>> ---
+>>   drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+>>   1 file changed, 13 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> index 28ba532210ff..6ac6daa61e68 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> @@ -225,6 +225,7 @@ struct mtk_dsi {
+>>   	int refcount;
+>>   	bool enabled;
+>>   	bool lanes_ready;
+>> +	int irq;
+>>   	u32 irq_data;
+>>   	wait_queue_head_t irq_wait_queue;
+>>   	const struct mtk_dsi_driver_data *driver_data;
+>> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+>>   		return ret;
+>>   	}
+>>
+>> +	enable_irq(dsi->irq);
+>> +
+>>   	return 0;
+>>   }
+>>
+>> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+>>   {
+>>   	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+>>
+>> +	disable_irq(dsi->irq);
+>> +
+>>   	drm_encoder_cleanup(&dsi->encoder);
+>>   }
+>>
+>> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   {
+>>   	struct mtk_dsi *dsi;
+>>   	struct device *dev = &pdev->dev;
+>> -	int irq_num;
+>>   	int ret;
+>>
+>>   	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+>> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(dsi->phy))
+>>   		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
+>>
+>> -	irq_num = platform_get_irq(pdev, 0);
+>> -	if (irq_num < 0)
+>> -		return irq_num;
+>> +	dsi->irq = platform_get_irq(pdev, 0);
+>> +	if (dsi->irq < 0)
+>> +		return dsi->irq;
+>>
+>>   	dsi->host.ops = &mtk_dsi_ops;
+>>   	dsi->host.dev = dev;
+>> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>
+>>   	platform_set_drvdata(pdev, dsi);
+>>
+>> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+>> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> +
+>>   	ret = mipi_dsi_host_register(&dsi->host);
+>>   	if (ret < 0)
+>>   		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+>>
+>> -	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+>> -			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+>> -	if (ret) {
+>> -		mipi_dsi_host_unregister(&dsi->host);
+>> -		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> -	}
+>> -
+>>   	dsi->bridge.of_node = dev->of_node;
+>>   	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+>>
+>> --
+>> 2.55.0
+>>
+>>
+>>
