@@ -2,75 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0222606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA995606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=DDBzKqAJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIkf/cAU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEEC7112C6F;
-	Fri,  6 Nov 2026 09:19:05 +0000 (UTC)
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043EA10E8DC
- for <dri-devel@lists.freedesktop.org>; Wed,  4 Nov 2026 20:41:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
- :From; bh=m3piSQtfQuOg8u1CZlEVUJlwdFZ/horJKCFdnF6JPx4=; b=DDBzKqAJss7bD2+bm2s
- P43Ux94h7IIe1ucOVYhz/ySnXcvWnMh9XoWdZm8KeW6DY/q73P2mKFhh6N+Ccv3TpXk4XShi5yDgz
- Y2er5iXun3HEJnILlYYWT4SenaR37N99ZrIjsn8ykdiwlkJqVcJ+VXfchpxwcvdia6CkmXLnujaV6
- B+Af3uGmljDQGYvGH0oG5c45wQz4wt4xmiAtWmGa8vAbHVnAXzTH+dVbQuU/uh5L9G2sGPvdI86F7
- 6JlWBQi3OTBZk/QzdJ8AnEfyKzyyRCprkGF2Hh5dfyIPXGRyRGiNvV1rtR3vz7dwp272P6Dr1w3o3
- GrfBqrrkkMO03Ow==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
- by relay.virtuozzo.com with esmtp (Exim 4.96)
- (envelope-from <khorenko@virtuozzo.com>) id 1xOhjA-0018X2-2O;
- Wed, 04 Nov 2026 21:41:04 +0100
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Wed, 04 Nov 2026 21:40:57 +0100
-Subject: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the lock
- in copy_huge_pmd()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5D5112C6E;
+	Fri,  6 Nov 2026 09:19:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7672B112372;
+ Thu,  5 Nov 2026 11:40:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 96A9F60F3D;
+ Thu,  5 Nov 2026 11:40:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA1E1F00A16;
+ Thu,  5 Nov 2026 11:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793878835;
+ bh=zyIV87KvFE0knJG+E8ltk8/vfmvsVvYdTTr3ey3DQco=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=bIkf/cAUayJAST5nxBaDm2r1gDLZk464lMw4yx34u5Ky9D6OvUVzHp+wKK1AOefOm
+ r+kjYHBphMf2uvUL98WgB4Hjtnh8K1yZNSuvrWrFomeLu6ODVYt3zRihR8D2zzIsZ3
+ btH7balNkjt0D4YAZ7OXuZdZNtagQcAh5ETZREuD8w2gSo2t5NNv4iO1doqusXmt0G
+ juOlg0eYNfvWNEwRoJTozaxT6R/Qc7ZaNeekdRcePShhJ776LtBu8i33C/2ALD2cAa
+ K/bcKWB8ua/vNDzPTLpS1vyW817JgGZl/tSxFF6qrRjVzHdozN88JDmzcAO4sbSI3H
+ v6zAfJyRSPMzg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Heiko Stuebner <heiko@sntech.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
+ Natalie Vock <nat@pixelcluster.dev>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Neill Kapron <nkapron@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Rosca <david.rosca@amd.com>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Shixiong Ou <oushixiong@kylinos.cn>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Al Viro <viro@zeniv.linux.org.uk>,
+ Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
+ Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
+Subject: [PATCH 3/3] dma-buf: dma-fence: Remove dma_fence_init64()
+Date: Thu,  5 Nov 2026 12:35:30 +0100
+Message-ID: <20261105113529.1989375-5-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
+References: <20261105113529.1989375-2-phasta@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4033;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=py+hRT0j2W1iu9s6HX+poqDtbv0blfBMcY8NUrWKcd0=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq65hdLggzNygo5KJ93r3G6e7Ax8It/B3P0I8J4
- 2DyVb7vwnGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCauuYXQAKCRBRlgpH+WFc
- KkO7D/4nfFyvxkBgfdLQmB0YnnwJdSop86K3UxtoZgUM1vbtX2DXJsNtW9nEvRYTiUdPpkyfJWJ
- Zuin+uFVhJ0JVYdpt/UstEVsUeqs5VJ63zT0SQXGJJelixu8VtBEhRFxxT8nJX/R7b5NMeM6aCi
- cr9/Dve6+gKqvSS2TVDW3Kd98uh+MwKAHHGqzTRMhurwnUsxj9/xCtpnOIw3BrGpC1yB321PF2r
- zsr7MCVyUmc4O+P77YDDuNc6jZOh2+YPtkqgMaGdIsvQfX+u8h67SH+1g4h1jPCkTdNfGYJQBGZ
- GKtfplP4Igaoak5QdpyIdg7te9QrD+ddbX6BagGJakPfmFcQrAvOJjktlbByiAVoFVXOVuvg9Z0
- eY3AdCvvjWdB/VDGnWjyFWL9JfDsD2MIfXkSh7TxdKxMBlZLmyPXQVGfHHElY66LoEYIiXG1ztM
- 2bYdW8FjQQ0zCDuMPw3VB8Sh5xGCQ8u5wiPexpNfPzbo+z0QcpMgf0BLXrzc9R0rs8ec4+Gh+tl
- aOm12Jl6cTC/aiva3Sqmd1a+VPusSoUssugj4shG6uiHmKd7GelE+oTcNckkN55nZvJqbBpgelB
- kyu23cA32rlq9Biyz9BnUUNhWUbRADxuXjNBqs+nekl1wlbY+0pdrF2Hfuzu6rt+F0IPt1heSL+
- 3gvOLpNZWs7rJBg==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,110 +136,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-copy_huge_pmd() reads a special PMD without the page table lock and
-copies that value to the child. The mmap write lock held by fork does
-not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-lock.
+All users of dma_fence_init64() have been removed. They now use the
+respective initialization flag in dma_fence_init().
 
-The zap visits the parent VMA before the child's, as dup_mmap() links
-the child right after the parent in i_mmap. If it clears the parent PMD
-after fork has read it, and passes the child before fork copies it, the
-child keeps a mapping the driver has revoked, for example:
+Remove dma_fence_init64().
 
-- vfio-pci: the child reaches the BAR after the device memory was
-  disabled or the device was reset, instead of getting SIGBUS;
-- panthor: the child maps the pages of an evicted buffer object after
-  the driver has released them.
-
-The same branch deposits no page table under the copy. ppc64 in hash
-mode keeps the hash slot array of every huge PMD in that table, so the
-child dereferences a NULL table on the first hash fault, in
-__hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
-
-Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-from a folio under them, as copy_present_ptes() does with
-vm_normal_page(). The zap clears the parent PMD under the same lock, so
-either fork finds it none and skips it, or the copy is in place before
-the zap reaches the child.
-
-The copy of a PFN mapping then goes through the same tail as a folio:
-
-- it gets a page table where the architecture needs one;
-- in a shared mapping it is marked clean in the child, as a PTE is;
-- in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
-  protected instead of a warning being printed.
-
-Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- mm/huge_memory.c | 24 +++---------------------
- 1 file changed, 3 insertions(+), 21 deletions(-)
+ drivers/dma-buf/dma-fence.c | 27 ---------------------------
+ include/linux/dma-fence.h   |  2 --
+ 2 files changed, 29 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index e00632edb3856..9cb5f99aba87f 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1961,25 +1961,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	int ret = -ENOMEM;
- 	bool writable;
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index a511cf755ee8..da784fd7bdae 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -1138,33 +1138,6 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ }
+ EXPORT_SYMBOL(dma_fence_init);
  
--	pmd = pmdp_get_lockless(src_pmd);
--	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
--		     !is_huge_zero_pmd(pmd))) {
--		dst_ptl = pmd_lock(dst_mm, dst_pmd);
--		src_ptl = pmd_lockptr(src_mm, src_pmd);
--		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
--		/*
--		 * No need to recheck the pmd, it can't change with write
--		 * mmap lock held here.
--		 *
--		 * Meanwhile, making sure it's not a CoW VMA with writable
--		 * mapping, otherwise it means either the anon page wrongly
--		 * applied special bit, or we made the PRIVATE mapping be
--		 * able to wrongly write to the backend MMIO.
--		 */
--		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
--		goto set_pmd;
--	}
+-/**
+- * dma_fence_init64 - Initialize a custom fence with 64-bit seqno support.
+- * @fence: the fence to initialize
+- * @ops: the dma_fence_ops for operations on this fence
+- * @lock: optional irqsafe spinlock to use for locking this fence
+- * @context: the execution context this fence is run on
+- * @seqno: a linear increasing sequence number for this context
+- *
+- * Initializes an allocated fence, the caller doesn't have to keep its
+- * refcount after committing with this fence, but it will need to hold a
+- * refcount again if &dma_fence_ops.enable_signaling gets called.
+- *
+- * Context and seqno are used for easy comparison between fences, allowing
+- * to check which fence is later by simply using dma_fence_later().
+- *
+- * New users MUST NOT use external locks. Check the documentation in
+- * dma_fence_init() to understand the motives behind the legacy use cases.
+- */
+-void
+-dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
+-		 spinlock_t *lock, u64 context, u64 seqno)
+-{
+-	__dma_fence_init(fence, ops, lock, context, seqno,
+-			 BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
+-}
+-EXPORT_SYMBOL(dma_fence_init64);
 -
- 	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
- 		pgtable = pte_alloc_one(dst_mm);
- 		if (unlikely(!pgtable))
-@@ -2021,7 +2002,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		goto copy_pmd;
- 	}
- 
--	src_page = pmd_page(pmd);
-+	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
-+	if (!src_page)
-+		goto copy_pmd;
- 	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
- 	src_folio = page_folio(src_page);
- 
-@@ -2061,7 +2044,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	}
- 	if (src_vma->vm_flags & VM_SHARED)
- 		pmd = pmd_mkclean(pmd);
--set_pmd:
- 	pmd = pmd_mkold(pmd);
- 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
- 
-
+ /**
+  * dma_fence_driver_name - Access the driver name
+  * @fence: the fence to query
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 6f5c245d89ec..56c4e5beaafe 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -288,8 +288,6 @@ struct dma_fence_ops {
+ void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 		    spinlock_t *lock, u64 context, u64 seqno,
+ 		    unsigned long flags);
+-void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
+-		      spinlock_t *lock, u64 context, u64 seqno);
+ void dma_fence_release(struct kref *kref);
+ void dma_fence_free(struct dma_fence *fence);
+ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
 -- 
-2.43.0
+2.56.0
 
