@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370E6079C3A
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:35:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D105D607A679
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:36:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dW/11WUL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxUDwRLS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEC1E10E543;
-	Thu,  5 Nov 2026 19:35:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3797210E79B;
+	Thu,  5 Nov 2026 19:35:55 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8D0910E543
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:35:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D0910E729
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:35:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D071C41B33;
- Thu,  5 Nov 2026 19:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CEB1F0089E;
- Thu,  5 Nov 2026 19:35:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BFE843CC2;
+ Thu,  5 Nov 2026 19:35:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6371F0089E;
+ Thu,  5 Nov 2026 19:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793907343;
- bh=alsXUfuEo/F1zePFVRl45Ndme/OflhiQcp41SPItDb0=;
+ s=k20260515; t=1793907348;
+ bh=1MugNV8TCf3DcwhciMioHkCDdfBEvJqmJegZE7T3Anc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dW/11WULePWBsogqlKJCGC7JYPbCbnYXRV+C/X7JOVxLXj5zOAba52zQpFTgNc3SU
- VqxLxyGyN/7wF0BTtfNixYDyxmB3E86QX9Ux9RGZ1zXR/EzZ2ZJyrhkPfunyxJJIZl
- un+xpBbQSiFaF0jJ6u/VW8rXe40ajptsRa6PjrbVxC7gTAonFrr3x4gk/kvpjOE5P1
- HarizfUM9JcPoR6EP40r+AaFcc6yhKBRuZw/KiwaBzFcWGsYWpC0CK/E6jNjHZpgDM
- EXhNA7+mREaW+iD5ECYOta1cjbh7H74x/1uUayMthsMGSyY9SbGLuxXinygzr+5A4r
- a3NkeRuyCBiAg==
-Message-ID: <sashiko-outbox-199944@kernel.org>
+ b=JxUDwRLS659AKy9L6EF/sMAUNJPV9IWLdEGgYT37J3Q3xoM9Rgl+/f5tJog9D28GT
+ YMaZHCMQxAz8Q/YhL7D2HkKgLdWMS13ODeIvOVS2cO3Xyt1UiWgXthVq8iKNCfiwYC
+ CBZKMuWNvUYO3GRSHNobx37W6/E4wT6vFZKwM2U+b9rd+Q0o+xU/Q/0vCpfhxieJT7
+ F6OAqSTAk8K2MFcN+drjgRiXeceRcYXDu/MhOHTrRoTOf/Jcy6qlsQJs6CLNabmhUG
+ q0HrKvIx+/XHSn3ssmSRL1+tCAkBs5GI7/FQwPFk1on24fvEEyzBWmsp3oEib+CbCf
+ nnIC8BG7tI46Q==
+Message-ID: <sashiko-outbox-199946@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v2 14/23] proc: let procfs copy in writes before
- pinning the entry
+Subject: Re: [PATCH RESEND v2 16/23] proc: let procfs copy out reads that
+ don't go through seq_file
 To: "Christian Brauner" <brauner@kernel.org>
 Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  "Jann Horn" <jannh@google.com>, "Josef
@@ -56,12 +56,12 @@ Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
  Gordeev" <agordeev@linux.ibm.com>,
  "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-core-v2-16-76ace653a773@kernel.org>
 References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
- <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
+ <20261104-work-procfs-core-v2-16-76ace653a773@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:35:41 +0000
+Date: Thu, 05 Nov 2026 19:35:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,65 +84,67 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] proc: split __free(kvfree) declaration and initialization in pde_wr=
-ite_buf()
+- [Low] proc: define and initialize __free(kvfree) variable buf in pde_read=
+_buf()
 --
 
-commit e52627c4b4d80d32822781f143a8c1245bd64a2c
+commit 19cf278eb9fee57b90ee19764f6b076d9cab553d
 Author: Christian Brauner <brauner@kernel.org>
 
-proc: let procfs copy in writes before pinning the entry
+proc: let procfs copy out reads that don't go through seq_file
 
-This commit introduces a ->proc_write_buf() callback in struct proc_ops so
-that procfs can copy write data from userspace into a NUL-terminated kernel
-buffer before pinning the proc_dir_entry. This prevents userspace page
-faults during write copies from blocking remove_proc_entry().
+This commit adds ->proc_read_buf() and PROC_ENTRY_FULL_READS to proc_ops so
+that non-seq_file procfs entries can fill a kernel buffer while pinned and
+let procfs copy it to userspace after unpinning the entry.
 
 > diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-> index d51ab7548b117..df1caa0f238df 100644
+> index df1caa0f238df..caa47933c233d 100644
 > --- a/fs/proc/inode.c
 > +++ b/fs/proc/inode.c
-> @@ -417,11 +417,44 @@ static ssize_t pde_write(struct proc_dir_entry *pde=
-, struct file *file, const ch
->  	return -EIO;
+[ ... ]
+> @@ -377,11 +379,67 @@ static loff_t proc_reg_llseek(struct file *file, lo=
+ff_t offset, int whence)
+>  	return rv;
 >  }
 > =20
 > +/*
-> + * procfs copies in what is written before it pins the entry. A writer t=
-hat
-> + * faults on its buffer then doesn't hold up remove_proc_entry().
+> + * The entry fills a kernel buffer and procfs copies that to userspace a=
+fter
+> + * unpinning the entry. A reader that faults on its buffer then doesn't =
+hold
+> + * up remove_proc_entry().
 > + */
-> +static ssize_t pde_write_buf(struct proc_dir_entry *pde, struct file *fi=
-le,
-> +			     const char __user *ubuf, size_t count, loff_t *ppos)
+> +static ssize_t pde_read_buf(struct proc_dir_entry *pde, struct kiocb *io=
+cb,
+> +			    struct iov_iter *iter)
 > +{
+> +	struct file *file =3D iocb->ki_filp;
 > +	char *buf __free(kvfree) =3D NULL;
-> +	size_t size;
-> +	ssize_t rv;
+> +	ssize_t rv, done =3D 0;
+> +	size_t len, count;
+> +	loff_t pos;
 > +
-> +	size =3D pde->write_size;
-> +	if (count > size) {
-> +		if (!pde_has_short_writes(pde))
-> +			return -EINVAL;
-> +		count =3D size;
-> +	}
-> +	buf =3D kvmalloc(count + 1, GFP_KERNEL);
+> +	if (!iov_iter_count(iter))
+> +		return 0;
+> +	/* neither the allocation nor the entry can honor IOCB_NOWAIT */
+> +	if ((iocb->ki_flags & IOCB_NOWAIT) && !(file->f_flags & O_NONBLOCK))
+> +		return -EAGAIN;
+> +	len =3D min_t(size_t, iov_iter_count(iter), pde->read_size);
+> +	buf =3D kvmalloc(len, GFP_KERNEL);
 
 [Severity: Low]
-As reported by Sashiko on RFC [1], this isn't a bug, but in pde_write_buf()
-(called from proc_reg_write()), buf is declared with __free(kvfree) =3D NULL
-at the top of the function and assigned later with kvmalloc() after the
-count > size check.
+As reported by Sashiko on RFC [1], this isn't a bug, but in pde_read_buf()
+in fs/proc/inode.c, buf is declared with __free(kvfree) =3D NULL at the top
+of the function before the early returns and then assigned later at the
+kvmalloc() call. Could buf be defined and initialized in a single statement
+at the allocation site:
 
-Per the Cleanup API conventions in include/linux/cleanup.h, should buf be
-defined and initialized in a single statement at the allocation site:
+	char *buf __free(kvfree) =3D kvmalloc(len, GFP_KERNEL);
 
-	char *buf __free(kvfree) =3D kvmalloc(count + 1, GFP_KERNEL);
+to follow the cleanup.h conventions?
 
-after validating count?
-
-[1] https://lore.kernel.org/r/sashiko-outbox-195538@kernel.org
+[1] https://lore.kernel.org/r/sashiko-outbox-195540@kernel.org
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-work-procf=
-s-core-v2-0-76ace653a773@kernel.org?part=3D14
+s-core-v2-0-76ace653a773@kernel.org?part=3D16
