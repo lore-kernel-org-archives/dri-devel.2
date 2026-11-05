@@ -2,90 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCC0606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 09:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5979F606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 09:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bFAS48f0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXWEeqIC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C62AC112288;
-	Thu,  5 Nov 2026 09:15:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3212411225E;
- Thu,  5 Nov 2026 09:15:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC2811228A;
+	Thu,  5 Nov 2026 09:20:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB3511228A
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 09:20:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 30E8860F3E;
- Thu,  5 Nov 2026 09:15:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B561F000C1;
- Thu,  5 Nov 2026 09:15:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 815FF43505;
+ Thu,  5 Nov 2026 09:20:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB6F1F000C1;
+ Thu,  5 Nov 2026 09:20:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793870111;
- bh=yuu8MRbvZ8Q99gVGDEWGPtvGQgcdEiYL3ohtAsA9Mfg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bFAS48f0dLcspAEXkjkArw9f5g1sLZat7q01f+HKggEbmSs8nuly01Er89M9cFC+E
- aJelUDSseJymE+2CsLiDv70w3W0f6o/p8FxgDHcsOPwgv1/JMp5POhaS6WYnvYb7K8
- zUzkNI/hkDRyloSNnZbNr8XotLbG+h1F+jOL0Hkb0Avr9U7fYBRpfR9C0mcxiQBR3s
- vMTD9J5x5SQw0X/qL4Os/hOqj2LHOa1MTSUUKJIb4NDus9wXA/2kpJ9BHnn9SLC4gw
- 1auncQlq+pWnfmu6Sf7Gd8Hf0QutCtTy+KqQdynzeHMD3cDRsYlcu6hbTs5fM0MRzR
- 2QGNBnbRrZdUQ==
-Date: Thu, 5 Nov 2026 10:15:08 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, Russell King <linux@armlinux.org.uk>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- linux-samsung-soc@vger.kernel.org, Alison Wang <alison.wang@nxp.com>, 
- Stefan Agner <stefan@agner.ch>, Huacai Chen <chenhuacai@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>, Geert Uytterhoeven <geert+renesas@glider.be>, 
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- linux-tegra@vger.kernel.org, Alexey Brodkin <abrodkin@synopsys.com>, 
- Alex Lanzano <lanzano.alex@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- David Airlie <airlied@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gerd Hoffmann <kraxel@redhat.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, virtualization@lists.linux.dev, 
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Message-ID: <auxJBtexUg6oHcs9@houat>
-References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="2zvnwa2sqytkzb4j"
-Content-Disposition: inline
-In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
+ s=k20260515; t=1793870402;
+ bh=Am3QrGt9J1BXg1JMK+BzEuczmdG7rtFs7K9iWdQ7yrU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=HXWEeqICAbyIUW2sbOe81rF71xTTAPe/mHauUVXIc02mny45TkXHUQhDaHDKl/1JU
+ DWqW/FdzGP7NiZLSqkwhJDYlCgPhKr73VqB3W7sit/J0Zgxnn3bdkaJuj1ml+L7ALm
+ Xtn8bwyp3NU9/VtDtxihb6iIsml3SEHFCl6gkd74FUcF6VxPAbS1jhc2BQoAblIBwQ
+ volP70WU+swoy1iSO+4aavLtmDktPpVD/W8k8xBPVCQRj0CzYwnCGJnTrcHwcg2cGJ
+ gfzbSTRWicjkGOh66sjBQCK/VQJzrJCAu44Qtsk0hQEgDQ7o117s22xBHzr+hpR/pU
+ SCLCDkqrIZ+8Q==
+Message-ID: <sashiko-outbox-198756@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/mediatek: Validate gamma_lut size
+To: "Fei Shao" <fshao@chromium.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261105091054.3993611-1-fshao@chromium.org>
+References: <20261105091054.3993611-1-fshao@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 09:20:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,63 +47,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/mediatek: NULL pointer dereference in mtk_crtc_atomic_check()
+--
 
---2zvnwa2sqytkzb4j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-MIME-Version: 1.0
+commit 9fd51aa9fb3e494d751bd1b62a30a2b909f46ef6
+Author: Fei Shao <fshao@chromium.org>
 
-On Fri, Oct 30, 2026 at 04:13:30PM +0100, Maxime Ripard wrote:
-> This is a follow-up to the plane and CRTC reset removal series, and
-> part of a larger effort to remove the reset hook from all KMS objects.
->=20
-> The connector reset hook is overloaded: it is called both at probe
-> time to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
->=20
-> While reset has the semantics to reset both the software and hardware
-> state, the vast majority of implementations and all the helpers only
-> reset the software state, making them equivalent to
-> atomic_create_state in practice. The atomic_create_state hook makes
-> this explicit: it only allocates and initializes a pristine state
-> without any side effect, and returns the state pointer or an ERR_PTR
-> on failure.
->=20
-> This series converts all connector drivers tree-wide from the reset hook
-> to atomic_create_state, then removes the reset hook from struct
-> drm_connector_funcs entirely. The conversions were done using a
-> combination of Coccinelle semantic patches, mechanical one-line
-> replacements and manual adjustments.
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+drm/mediatek: Validate gamma_lut size
 
-Applied to drm-misc-next
+This commit adds mtk_crtc_atomic_check() to validate that any non-NULL
+gamma_lut blob matches the hardware LUT size of the CRTC's DDP components,
+preventing out-of-bounds reads in mtk_gamma_set() and mtk_aal_gamma_set().
 
-Maxime
+> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
+ek/mtk_crtc.c
+> index 2920f3198ef6a..fd9b51fd00eaa 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+> @@ -880,6 +880,26 @@ static void mtk_crtc_atomic_flush(struct drm_crtc *c=
+rtc,
+>  	mtk_crtc_update_config(mtk_crtc, !!mtk_crtc->event);
+>  }
+> =20
+> +static int mtk_crtc_atomic_check(struct drm_crtc *crtc, struct drm_atomi=
+c_commit *state)
+> +{
+> +	struct mtk_crtc *mtk_crtc =3D to_mtk_crtc(crtc);
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct drm_property_blob *gamma_lut =3D crtc_state->gamma_lut;
+> +	unsigned int lut_size;
+> +	int i;
+> +
+> +	if (!gamma_lut)
+> +		return 0;
+> +
+> +	for (i =3D 0; i < mtk_crtc->ddp_comp_nr; i++) {
+> +		lut_size =3D mtk_ddp_gamma_get_lut_size(mtk_crtc->ddp_comp[i]);
+> +		if (lut_size && gamma_lut->length !=3D lut_size * sizeof(struct drm_co=
+lor_lut))
+> +			return -EINVAL;
+> +	}
 
---2zvnwa2sqytkzb4j
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: High]
+Can mtk_crtc->ddp_comp[i] be NULL here when conn_routes is used?
 
------BEGIN PGP SIGNATURE-----
+In mtk_crtc_create(), when conn_routes is non-NULL, mtk_crtc->ddp_comp is
+allocated with path_len + 1 entries and mtk_crtc->ddp_comp_nr is incremented
+at the end:
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCauxJHAAKCRAnX84Zoj2+
-dpi6AYDFcyxVth1IfzYJl7Mk/wdU/UrwZChOoRG3vJ2c4jm3YXPwmaZCDBG4hPm/
-E3dp1WQBf2Htv+GDvQkXS9avpT+uRjkpFRqowDqfaE0gXWHKwBFuo13bOFi12DLC
-XPBNQCk6+w==
-=O+mF
------END PGP SIGNATURE-----
+drivers/gpu/drm/mediatek/mtk_crtc.c:mtk_crtc_create() {
+	...
+	if (conn_routes) {
+		...
+		mtk_crtc->num_conn_routes =3D num_conn_routes;
+		mtk_crtc->conn_routes =3D conn_routes;
 
---2zvnwa2sqytkzb4j--
+		/* increase ddp_comp_nr at the end of mtk_crtc_create */
+		mtk_crtc->ddp_comp_nr++;
+	}
+}
+
+The last slot in mtk_crtc->ddp_comp[mtk_crtc->ddp_comp_nr - 1] remains NULL
+until mtk_crtc_update_output() populates it during mtk_crtc_atomic_enable().
+
+Because mtk_crtc_atomic_check() runs during the atomic check phase before
+mtk_crtc_atomic_enable() (for example on the initial modeset, a
+DRM_MODE_ATOMIC_TEST_ONLY commit, or when setting GAMMA_LUT while the CRTC =
+is
+disabled), passing a valid gamma_lut blob will reach the final iteration of
+the loop and pass NULL to mtk_ddp_gamma_get_lut_size():
+
+drivers/gpu/drm/mediatek/mtk_ddp_comp.h:mtk_ddp_gamma_get_lut_size() {
+	if (comp->funcs && comp->funcs->gamma_get_lut_size)
+		return comp->funcs->gamma_get_lut_size(comp->dev);
+
+	return 0;
+}
+
+Unlike mtk_ddp_comp_mode_valid(), which checks if comp is non-NULL before
+dereferencing comp->funcs, mtk_ddp_gamma_get_lut_size() dereferences comp
+unconditionally. Should mtk_ddp_gamma_get_lut_size() or
+mtk_crtc_atomic_check() guard against a NULL comp pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105091054.3993=
+611-1-fshao@chromium.org?part=3D1
