@@ -2,55 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D776F606D82B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C03606A32E
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKLlcrpe
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fnmfNiPP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F91B11278F;
-	Thu,  5 Nov 2026 15:33:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB5C211278D;
+	Thu,  5 Nov 2026 15:33:07 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28ECA11279D
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:32:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C483D11279E
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 12A8941B42;
- Thu,  5 Nov 2026 15:32:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722201F000C1;
- Thu,  5 Nov 2026 15:32:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AB84A411A8;
+ Thu,  5 Nov 2026 15:33:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F191F00A1C;
+ Thu,  5 Nov 2026 15:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892777;
- bh=nYmUc5HHKOvJ3khet2z/xu/L+H2nnfDpRrmSbLfBf4A=;
+ s=k20260515; t=1793892780;
+ bh=hGbAy1C0aUmhdcqzSGHC+7/3PmaFWfvAkLL+/GhSdlE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cKLlcrpe90tBodbZjTqCd3tYE7Hgomj/P3H5qIek9Rjl6mWkG9+WVk261674yAL9e
- TOal2LgqeL+MWR6Ud/axSnpQ0foiAPmrIfJ1mtbPqLEgL638lZLxyiMV5grrM3XwgH
- f2Jxcw+GEA27cAnS71eRMMHaEzXL22IjZeOIph9mBiGw9WsTt77Qlh8I4m/H8Y/JIf
- vC3SL+VNpS31Y5CdkAImpJvOILgivuPVCtpSdoff2xto46zOxaeRdf/n92pfkySIBm
- zU6jDa23WZtnIJ5YEsw3bzwKPmvHXdvUxntzTM2wV8LdjfPznewOQrml/45xa5zLT1
- YZnS+TRpCkE3A==
+ b=fnmfNiPPOoMI1AosE7Td/wxsduvCrFNjh1Q0Beel4e/eZmXZD2YwQOkx5jfYPclxi
+ hmWP/Gidd61+mBFe114H0LYM+M/BOVEpYq7h0xpamJEv26DMJmrln8qaUXpmtDSRH5
+ /oaSBDpk7CHta8nECDBtwBVK1gKKUEqBfZMQ7HT8wI2pyuCQ548XudFwazlRTjkB2l
+ 6RpDErU4WzPHnxu2r8C5VAiP+enjfWf4vHgXnfwLrh2166BHZqCZsDUN8XXt1TPQh2
+ tcwbm/2r8jfdgMG3KMwgXkbcjV9wbl7SZHSVd47KaKJTRppUhnlXQTcA2rzSNUNVkb
+ fQQZ8UxZ/W83Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:54 +0100
-Subject: [PATCH RESEND 45/83] drm/sti: Switch to
+Date: Thu, 05 Nov 2026 16:29:55 +0100
+Subject: [PATCH RESEND 46/83] drm/stm: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-45-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-46-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1322; i=mripard@kernel.org;
- h=from:subject:message-id; bh=2BPz/+S0a3SXdINLiumfWpXRtegQo08rLl0+EQr48fc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnzUvN45c2PkpsmGNdwM5zrZmmR36bDLx7afODF3X
- o9QGtPEjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRl/KM9bHyZttta5vav/Be
- dnjL8Jd5W/lfu0UKjI6sLuIBRQGTf84r2HFnhVT0mpg1Ez0yDl/awFifbqWw7XnZSZeGnN9TX66
- 5MOW5ZctMA49lgrWpp9dm1jRaS58tPBr7+0NiwAPjebeOVacBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1296; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=m+IeKbw6XLsYfGVum2nmmyA+iqtvPVFkbqzIC8mp/1o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnz847xY/N2DCYvPiN7/v1b4UcWstsl7bMub2rtLH
+ pQqexww6ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATUW1jrOGzLPpvcs5/2bZF
+ j+Zp7Y/ha5EPfFr8yf3g/0Udn6NZjT3v3Z5x7dtyoTNGk/dXl3dM0mds2MO41HzR9f/yNadXz7X
+ RSQ8UzJdK1JqtHznxV+lk5uT4kyV9r6Y8/bt/x/9P4ZvXf+mwAwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,32 +87,28 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alain Volmat <alain.volmat@foss.st.com>
-Cc: Raphael Gallais-Pou <rgallaispou@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Philippe Cornu <philippe.cornu@foss.st.com>
+Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>
 ---
- drivers/gpu/drm/sti/sti_drv.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/stm/drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_drv.c
-index d02d71866f2a..0ca6c6b41f18 100644
---- a/drivers/gpu/drm/sti/sti_drv.c
-+++ b/drivers/gpu/drm/sti/sti_drv.c
-@@ -203,5 +203,7 @@ static int sti_bind(struct device *dev)
- 		goto err_cleanup;
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index 0967b9b3451d..60343ffe02f7 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -105,5 +105,7 @@ static int drv_load(struct drm_device *ddev)
+ 		return ret;
  
 -	drm_mode_config_reset(ddev);
 +	ret = drm_mode_config_create_initial_state(ddev);
 +	if (ret)
-+		goto err_unregister;
++		return ret;
+ 	drm_kms_helper_poll_init(ddev);
  
- 	drm_client_setup(ddev, NULL);
-@@ -209,4 +211,6 @@ static int sti_bind(struct device *dev)
- 	return 0;
- 
-+err_unregister:
-+	drm_dev_unregister(ddev);
- err_cleanup:
- 	sti_cleanup(ddev);
 
 -- 
 2.55.0
