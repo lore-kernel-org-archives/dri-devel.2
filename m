@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93CB606D83C
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 01:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D552606D83D
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 01:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KUfR5Obr
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=P0NQ3y1E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFAD210EA1B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C65C110ED71;
 	Thu,  5 Nov 2026 01:01:32 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6923F10E8E2
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 01:01:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE2010E3F2
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 01:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793840475;
- bh=t4xm3scI4l7rWR2iBzxLstmE0RTUxpACdTblDz3oXNQ=;
+ s=mail; t=1793840470;
+ bh=Od3rHuNOHyA1VzcrsXhjpHEqrzqJe6mtaHS1vrkcfSQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KUfR5ObrP8jFka/2UPUUWjo5o+FDtK93b3osH2OAYgNva3uJp9kGslkH1OJPda5Zf
- 15X8CZOFNP1JNd9dCYuNZEnWFFVWRV3JrpqciB3HKcITk1exygNn1GPePk2JiLZIqy
- 6LiQEhNSQKDr4q5w8frc2zPmaLmytXKMtIYys4O7CaqzfsjbFZfi+PKeGal9ZXjTR8
- 2aOHtllwVzPI6ymja4nt2se6eWSmqQrg96a6lqDvy0zSfwfzPdLW84D9dTz2l55iyb
- As6jY4tda6vDPVLhwlAfVOQybrhbMNzJC/cveKrTF6i433O+G7wby2GR2vUOTHaOmq
- KvkFfAhG1aXCw==
+ b=P0NQ3y1ETTRVFBuf4eHlaWxZP603ebKwmHg7hFJDiegwMGm+zCouSON71HjbUn1X0
+ p7XFF/8mnEStFxRcSQehynWeHH9P1kO2BZDoJAGR0pcXfcGzGSplt7C3+UlGKcnBuA
+ MelsNOJaUwEHmbm5IELWUtAiRp/ZvMiKvgSyqDeJcPIcD4oZmVpdTICgIiPzJEcS2I
+ LVdWjeT0hsMwEfNS67a0W0G+xUKW5ox53o4prIGx7pLSmZtufJyYbuXe2wmTyvzqeW
+ XafHGVSI4d/Nos4t949IDBo/9DVI7k8rXi5i1IPUaT4a7pB0hpX4YhCdF0VBdFbwMv
+ vIfHZSY5p1N9Q==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 038DD17E0CE8;
- Thu, 05 Nov 2026 02:01:15 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6FEDF17E0D4A;
+ Thu, 05 Nov 2026 02:01:10 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:46 +0200
-Subject: [PATCH v6 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
- in atomic_check()
+Date: Thu, 05 Nov 2026 03:00:40 +0200
+Subject: [PATCH v6 06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
+ overflow on 32-bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-6-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -61,7 +61,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,41 +82,51 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dw_hdmi_qp_rockchip_get_vop_format() calls
-drm_atomic_get_bridge_state(), which takes the bridge private object
-lock through the atomic state's ww acquire context and may therefore
-fail with -EDEADLK when the lock is contended.
+VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
+the color-depth ratio when computing the maximum DCLK the HDMI PHY PLL
+can source.
 
-The DRM core expects -EDEADLK to be propagated up from atomic_check()
-so it can drop all held locks and restart the commit.  Replacing it
-with a hardcoded -EINVAL defeats this backoff mechanism, making
-otherwise valid commits fail spuriously when multiple threads perform
-atomic commits concurrently.
+On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
+is evaluated in 32-bit arithmetic and overflows: 4800000000 wraps to
+505032704 before it is promoted to the 64-bit argument of
+DIV_ROUND_CLOSEST_ULL().  At 8 bpc this collapses max_dclk from the
+intended 600 MHz down to roughly 63 MHz.
 
-Propagate the error code returned by the helper instead of
-unnecessarily overriding it.
+As a result, low-resolution modes (e.g. 640x480 or 720x480, whose pixel
+clocks are well under 30 MHz) still pass the clock <= max_dclk check and
+are reparented to the HDMI PHY PLL as expected, but higher-resolution
+modes such as 1280x720 (~74 MHz), 1920x1080 (~148 MHz) and above are
+wrongly rejected and fall back to the system CRU as the DCLK source.
 
+Define the constant as unsigned long long so that every expression using
+it is evaluated in 64-bit arithmetic, independent of the width of
+unsigned long.  This future-proofs any additional users of the macro as
+well.
+
+Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260902230603.AF5C61F000E9@smtp.kernel.org/
-Fixes: a18aa0dd7a0b ("drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property")
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index f2a1ea8dfefa..db1933d75ced 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -203,7 +203,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index d1329941d9f6..b85cd94d1e9d 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -102,7 +102,7 @@ enum vop2_afbc_format {
+ 	VOP2_AFBC_FMT_INVALID = -1,
+ };
  
- 	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
- 	if (ingest_fmt < 0)
--		return -EINVAL;
-+		return ingest_fmt;
+-#define VOP2_MAX_DCLK_RATE		600000000UL
++#define VOP2_MAX_DCLK_RATE		600000000ULL
  
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
- 	    s->output_bpc == conn_state->hdmi.output_bpc &&
+ /*
+  * bus-format types.
 
 -- 
 2.55.0
