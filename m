@@ -2,117 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E267F606A328
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:36:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95C6606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 14:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=CxMdBpVR
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSAua1Ac;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=76odSSKy;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AEImqxpM;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VUxoYqgF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21395112487;
-	Thu,  5 Nov 2026 14:36:30 +0000 (UTC)
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE25112487
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 14:36:23 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-1a8cc11ac42so1977804c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 06:36:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793889382; cv=none;
- d=google.com; s=arc-20260327;
- b=IdLIIiQzAL9mBFm315mhvgLIhx8zFu+f2dANV7ZkqbtoxgiVM5sFWUSZoENSKJ9iMh
- C4ei/e0T+ACQEEuRNCslOxq2CqhG7N9YpjvDt1uYnDo3KBgRAmN6G62DIp/SPAX4y7J7
- I7jLxQoByIURbjVsekFlG18/oFNXAwvEj8cA6YIC8AkTaK7bURDhhG7/IsokLHDba5Nj
- C/XVjBGhkR6PSUwOKE+Y2xM/LThV0TUWvJCylLFFUQA6zpsuyorQgaj7G1+vJcfGx3FG
- dQDB4/28VBX1j7UiO8/np6Pkl+lyRwkjsZipPZSNX7J2GPsoDT7cnxDzZCjE7CKuM4YP
- lEdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
- fh=asage0K7U8DocCvq1xa8eilVpG0P1T9W9mNFiLcXz14=;
- b=WensD2r9TivA/IEnqgBhk7YvZBvbBzQMk37ECbQ/wQPbaQ+Jt9xb7W4LmEXSwTToxv
- YLX/gnwScSGzkbDEMQdLDitIuxP0hDpx3rTz9kyDRQtInYiR/2MIb0kJxPkXUTMBYk3y
- 8f5o2Ph0sO3luB8MJwIhD3g+RLBntYbr5fCnZlKlqjoXx6700/Xt8XJKIFFkzaEU8jlw
- 75galJe4eFgHoL/hCJqOYw/ryYAFDNRDk4AGIS2005k4iwwKwtyc3Au2tVKBoomQVsXd
- Z0J5DCXuU1v4uza3Cx63w1NucR0HItwsK3xKcImVT5GMtA+2rYOORHTnjf2kGYTOklV3
- iNug==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1793889382; x=1794494182;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
- b=CxMdBpVRED5qbl/rLJZxK8tBfSk/8AYzfUzQ6IBNqyFRpv3TJvLO0QXN/GHCJVlh7/
- KY/Ik/fTGLrXHhFfRDvH+FUbj4T8QOQNqG0BQoe/sjYSKSNlmSVIJQvUQYW7luHUhYG8
- isn1ZsZGp2Pah3QhLIxXNgAzLWM6OiGAF6Iz3BnA7ILPMNdJR8IFFsRUNgwdY2+WuuBf
- WNb0gr8FICcFa0j+J9hs6UyAsBistQkJFumHHZejVeApnQZMxdiXmVSpTKAIQq6qhy2Q
- Nf2tWBGwAtZ5u67Iv397rfTgC2S1woXa2BPxstm8Z8z9J2XdRCs3AycCGGBy8K1xntZj
- 8XGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793889382; x=1794494182;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
- b=dd5MG90XVtU3iNT6I4sJ8LiseGDgGqIBHjIczuGlUmL51n/lzH7lsyjUYSgs/VxNeq
- 7RXIz2F1/uHN8kQ3qhm7/O7OyH47XWvPqzYyiQzA2qlBZJFmQlp2wR9IxGJFoXPzoEWW
- AfCbDBf5d/BhXt0C6rIkJp2KVppubM+HN2I4FcfGbgbdC1GEy0tcKH48GnAukIGeu9ga
- Oe7TqPFZbyQOkf8k81qtzsMpn9cCDU95SOgBTkif07dmytUrjVd77pcMXoXbEa96WKxA
- mFtwoO/Tq6fi/EVqFLqDBKqzDlxPm2NfmAnbiAxzPsC1kgHPGXNexrKcZ7IE4nTnE3ip
- 6rWg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByMdi9DxTEOHpHNZIIQcuMW3JURYbVvPRfCfTlINdBmGI+I96M2WAhOvMNwPikvns0uuFn8nhlLj0c=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+N6Wnxx6PvDqgYBMZF6LcI1uUNQZtb41R/3GWVN5Z+Ul3ZJWWV
- UvkNQcPcduiY8FHFS0qTpnRQVLgQocfR6I3dDQMpEbMbKNK4aBqmeNQoAFEraNe+361OAI88j0n
- 7ZV3/L7fSIjQvINbyNrvd2NpeshCLYbyJ778eq3jaew==
-X-Gm-Gg: AYBFou3qtJ77n5iK7LS8EJzicnyAUq6wzxgoXkCyKcnh/lZNzjrVVOu5hybLkfbpIss
- 1A2OM848KnrfcOV7tQoNvydYWgoUalXjPXpViZiSSJPLbc02fa/xg78uLLmgb0dYVI0wEInvpyB
- Fww+T3g046L6XZO0YAHh3iQlnL+lgiIaAsy0joPCj4e/XmaiCHCZL+xwb+iyHJTmDw+QoF1APnI
- gnEP5y0Nu8cDYt6RVZlz4SSZYEy8MgVS/HHsx3pL6bxJ9SajIYaTkzZTBh1sS/wV6ZxWYTYadm1
- SRIgUPz2OiuGf5cr1GWKI/3m3y9K05025w1ZWG/MjAL7bQ6BZ3wWMpAeOdA4riV8rPAER36gGjt
- SE2NGdIYEj30NuyTfC6ix0m2ZNg9XxHFSCwFy
-X-Received: by 2002:a05:701b:454d:20b0:1b2:3b5b:b80b with SMTP id
- a92af1059eb24-1b23b5bb847mr12680614c88.8.1793889382405; Thu, 05 Nov 2026
- 06:36:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244AC10E294;
+	Thu,  5 Nov 2026 14:39:30 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A7A10E2F3;
+ Thu,  5 Nov 2026 14:39:19 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DB80121F3C;
+ Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793889558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=ZSAua1AcIK1yop86/+6QW4s03h8pgdvbWC10Vf8XvTTvB8nyMSMspvKqzRtmed807KMN6t
+ jSrtza07BLQvpoJHJpbfqhdhpyiBKBGI2eVsKRmM5qQJqvQKimhiAdKVU7Bwd8I9+/H6Om
+ nqZvH/d1+gnPnRCjeBblRDBACH3gewY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793889558;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=76odSSKyN+ljpV7n7en0oS3kYD/O9xoLWFZdxwegYTc6d42xG4aj3dZ0s7e3lgbE845ljH
+ PWg1lWRW2Id4QdAw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AEImqxpM;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VUxoYqgF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793889557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=AEImqxpMfnK11mlhP1OdqJl7omcxMC0i+4onOHolTjrFj2pOZEBbocMeaf8FAHOzDD+kFn
+ 13pelAQvv+UzntUPRfgCygU/kGVXDWDVs3pv9+wv10cwy8HN+AN1ntOx0zdRuf/cmB7qZw
+ 8wgzJ0UQs2QQsYZBIztj0XB2/HrOdvU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793889557;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=VUxoYqgFAPzz2Jy62pjd7O7HSCQPWA2CLfGa8hOjWGWm/qM6eYvM6zwnRDSpi6heD2AyKE
+ rn57swKbNUAzxLAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54899133F6;
+ Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b9uAARWV7GoUMwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 14:39:17 +0000
+Date: Thu, 5 Nov 2026 15:39:15 +0100
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <20261105143915.GA896462@linux.fritz.box>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
- <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
- <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
- <34506010.aRNtrjHk3s@diego>
-In-Reply-To: <34506010.aRNtrjHk3s@diego>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 5 Nov 2026 14:36:10 +0000
-X-Gm-Features: AclHuK-P65od5HCTUxTkNtF8XI9WRdmLEVnuoZ_IAiO-y4WkOrppI1hKYcCtIdc
-Message-ID: <CAPj87rMyMB05OTMDLSPe+oDZJYUW=oHF9E-f2LaTPCsBrKAAhQ@mail.gmail.com>
-Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
- format on DW HDMI QP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: DB80121F3C
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-13.51 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,gitlab.freedesktop.org:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.51
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,22 +121,248 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 5 Nov 2026 at 13:22, Heiko St=C3=BCbner <heiko@sntech.de> wrote:
-> except patch 9 of 15, or mail hasn't turned up yet :-)
->
-> It does look fine to me, but if someone has an eye to spare ...
+Hi Dave, Sima,
 
-Nah, I just forgot to send the mail / was waiting to send until the
-dclk reset thing was fixed (I forget which).
+here is the PR from drm-misc-fixes for this week. I'm not sure what happened,
+but it appears as if we didn't have a -fixes PR in recent weeks. So it's a bit
+larger than usual.
 
-Either way, it's done now!
+Best regards
+Thomas
 
-Cheers,
-Daniel
+
+drm-misc-fixes-2026-11-05:
+Short summary of fixes pull:
+
+atomic:
+- Fix CRTC dma-fence handling
+
+bridge:
+- nwl-dsi: Fix LCDIF handling
+
+dma-buf:
+- Fix IOVA offset
+- Restore the scatter-list entry count before freeing
+
+dp:
+- Keep MOT set between messages when no_zero_sized is set
+
+etnaviv:
+- Fix NULL dereference in etnaviv_unbind()
+- Flush the tile status cache through both the PE and BLT
+
+imagination:
+- Align rogue_fwif_hwrtdata to 64 bytes
+
+loongson:
+- Fix BO handling in several places
+
+nouveau:
+- Map Kepler video engine contexts non-privileged
+- Clear use.enabled when subdev init fails
+- Avoid running VBIOS twice
+- Fix CE channel creation on pre-Kepler GPUs
+
+panel:
+- visionox-r66451: Set brightness MSB first; Increase reset waiting time
+
+panic:
+- Fix display loop
+- Fix line parsing
+
+sched:
+- Fix out of bounds entity priority check
+- Adjust run-queue when changing priority at runtime
+
+v3d:
+- Initialize job timedout_batches
+- Fix cache_clean_lock
+
+vc4:
+- Move output fence and BO unreserve out of job_lock
+- Power down PYH when output is disabled
+- hdmi: Fix scrambling
+The following changes since commit c347fef5f8f8927985bd67835331ce4cf7ff43a4:
+
+  drm/panthor: fix immortalis condition (2026-10-14 16:57:52 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-11-05
+
+for you to fetch changes up to 75709a35da45bc67f94c9ceb91bf8871fdfe4d9e:
+
+  drm/sched: Adjust run-queue when changing priority at runtime (2026-11-05 14:35:33 +0100)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+atomic:
+- Fix CRTC dma-fence handling
+
+bridge:
+- nwl-dsi: Fix LCDIF handling
+
+dma-buf:
+- Fix IOVA offset
+- Restore the scatter-list entry count before freeing
+
+dp:
+- Keep MOT set between messages when no_zero_sized is set
+
+etnaviv:
+- Fix NULL dereference in etnaviv_unbind()
+- Flush the tile status cache through both the PE and BLT
+
+imagination:
+- Align rogue_fwif_hwrtdata to 64 bytes
+
+loongson:
+- Fix BO handling in several places
+
+nouveau:
+- Map Kepler video engine contexts non-privileged
+- Clear use.enabled when subdev init fails
+- Avoid running VBIOS twice
+- Fix CE channel creation on pre-Kepler GPUs
+
+panel:
+- visionox-r66451: Set brightness MSB first; Increase reset waiting time
+
+panic:
+- Fix display loop
+- Fix line parsing
+
+sched:
+- Fix out of bounds entity priority check
+- Adjust run-queue when changing priority at runtime
+
+v3d:
+- Initialize job timedout_batches
+- Fix cache_clean_lock
+
+vc4:
+- Move output fence and BO unreserve out of job_lock
+- Power down PYH when output is disabled
+- hdmi: Fix scrambling
+
+----------------------------------------------------------------
+André Draszik (2):
+      drm/drm_crtc: ensure dma_fence_ops remain valid during device unbind
+      drm/drm_crtc: fix race with dma_fence_signal() in ::get_driver_name()
+
+Christian Gmeiner (2):
+      drm/etnaviv: Fix NULL dereference on unbind without PPU flop reset
+      drm/etnaviv: Flush the tile status cache through both the PE and BLT
+
+Davidlohr Bueso (1):
+      dma-buf: validate the attachment before asserting its reservation lock
+
+Devin Wittmayer (2):
+      drm/panic: Fix kmsg screen hang on a long log line
+      drm/panic: Accept a trailing newline in panic_screen
+
+Dom Cobley (1):
+      drm/vc4: hdmi: power down the BCM2712 PHY when the output is disabled
+
+Esben Haabendal (2):
+      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+
+Evanshenf (3):
+      drm/loongson: Fix framebuffer selection in async cursor updates
+      drm/loongson: Fix double free on BO initialization failure
+      drm/loongson: Handle buffer mapping failures when clearing a BO
+
+Finn Zeruhn (1):
+      drm/dp: keep MOT set between messages when no_zero_sized is set
+
+Ilia Mirkin (1):
+      drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts
+
+Jose Maria Casanova Crespo (1):
+      drm/v3d: Initialize timedout_batches when running a CSD job
+
+Karl Mehltretter (1):
+      dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+
+Konstantin Sinyuk (1):
+      MAINTAINERS: Update habanalabs maintainer contacts and status
+
+Leon Romanovsky (1):
+      dma-buf: Restore the scatterlist entry count before freeing
+
+Lucas Tanure (2):
+      drm/vc4: hdmi: always cancel the scrambling work synchronously
+      drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+
+Maíra Canal (3):
+      drm/vc4: Publish the output fence outside of job_lock
+      drm/vc4: Drop the BO reservations outside of job_lock
+      drm/v3d: Widen cache_clean_lock over the whole L2TCACTL sequence
+
+Michal Wilczynski (1):
+      drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
+
+Munique Feitoza (1):
+      drm/nouveau: Fix CE channel creation on pre-Kepler GPUs
+
+Rosen Penev (2):
+      drm/nouveau/fifo: map Kepler video engine contexts non-privileged
+      drm/nouveau/nvkm: clear use.enabled when subdev init fails
+
+Tvrtko Ursulin (2):
+      drm/sched: Fix out of bounds entity priority check
+      drm/sched: Adjust run-queue when changing priority at runtime
+
+Vladimir Zapolskiy (2):
+      drm/panel: visionox-r66451: Send the brightness value MSB first
+      drm/panel: visionox-r66451: Wait longer after the panel reset
+
+Yili Zhang (1):
+      dma-buf: Fix IOVA offset when linking phys vecs to sgt
+
+luyuantao (1):
+      drm/panic: Fix the loop that causes kmsg to not display correctly
+
+ .mailmap                                           |  2 ++
+ MAINTAINERS                                        |  6 ++--
+ drivers/dma-buf/dma-buf-mapping.c                  |  8 +++--
+ drivers/dma-buf/dma-buf.c                          |  4 +++
+ drivers/gpu/drm/bridge/nwl-dsi.c                   | 17 +++++----
+ drivers/gpu/drm/display/drm_dp_helper.c            |  3 +-
+ drivers/gpu/drm/drm_crtc.c                         | 18 ++++++----
+ drivers/gpu/drm/drm_panic.c                        | 12 +++++--
+ drivers/gpu/drm/etnaviv/etnaviv_buffer.c           | 40 ++++++++++------------
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c              |  6 ++--
+ drivers/gpu/drm/imagination/pvr_rogue_fwif.h       |  2 +-
+ drivers/gpu/drm/loongson/lsdc_gem.c                | 14 +++++---
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  2 +-
+ drivers/gpu/drm/loongson/lsdc_ttm.c                | 14 +++++---
+ drivers/gpu/drm/loongson/lsdc_ttm.h                |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c              |  7 +++-
+ drivers/gpu/drm/nouveau/nvkm/core/subdev.c         |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c   | 13 +++++++
+ .../gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c    | 20 +++++++++++
+ drivers/gpu/drm/panel/panel-visionox-r66451.c      |  4 +--
+ drivers/gpu/drm/scheduler/sched_entity.c           | 29 ++++++++--------
+ drivers/gpu/drm/v3d/v3d_gem.c                      |  5 ++-
+ drivers/gpu/drm/v3d/v3d_sched.c                    |  2 ++
+ drivers/gpu/drm/vc4/vc4_gem.c                      | 14 ++++++--
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     | 10 +++---
+ drivers/gpu/drm/vc4/vc4_hdmi_phy.c                 |  5 +++
+ 26 files changed, 172 insertions(+), 88 deletions(-)
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
