@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34AB606A328
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49586606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 17:07:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=did3b4jP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L8jmFBfT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E6210E314;
-	Thu,  5 Nov 2026 16:58:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB9910E021;
+	Thu,  5 Nov 2026 17:07:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17CD210E314
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:58:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D3DF10E1AC
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 17:07:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C74B940980;
- Thu,  5 Nov 2026 16:58:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89DC31F000C1;
- Thu,  5 Nov 2026 16:58:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3CBF043497;
+ Thu,  5 Nov 2026 17:07:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09161F000C1;
+ Thu,  5 Nov 2026 17:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793897898;
- bh=cuKnzuiteLk30OgfS5kxRYjnJ05fMe/EJVg7Yr3q20A=;
+ s=k20260515; t=1793898438;
+ bh=Kpl8+++8QJGKSdrsjHm4Wy9OAm6wG8uG3+wooafG0KE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=did3b4jPJDABIZxFjCD9yrq6TW3hJ4trQMjdOFVW0zyQ21co4J0P/OntL8kqCiKPp
- SPzxu670e8+LyxQLxJSFdSQ29LsPGni/2FApfX8rbL2Wr2nwXwCkXVZu0PHmqqhlEb
- V6KE/RKoxAd4EWoealKvez2hC9b8BfcoGdprwwHH+6Om2vbkuJtcRX0z1BGhJFxPv8
- p+unEGTCUwV3Z1WIJkVXVLM5fEnMbFXBtAkGqbiHW07w4y6ksFzIA0Q60jusj8iR5n
- QF8UKaKVQHnp89bIRKPpQO1fUmiSyqseRtiPVOBm4LfNEvD03HpaD4RDz1Ztujf8kJ
- ZcXHXPgsJH+Rg==
-Message-ID: <sashiko-outbox-199561@kernel.org>
+ b=L8jmFBfTZSykGVjmIr1qeuTAW6jB4Cl0JP2SfRJGBUKOCvyzevLenEFC4bVgBkptX
+ XdXPr4ZKOzPA61YZMPaDu9bhZVmeNTyk5+Fah7ntXhrft2phzZc+vok3V5IOFuUgxO
+ fJrDWUhFWx9/EghbV+q5TdYII3n2v6//5n4gtON/bo8Q4zKFAF9x/zDCMk0jYqtKT3
+ xgUJvoQga5aAV6vtLEqoUWXG4f+qVPcfwwfytd7T92v3Rz+s93sjGJPktScDxqkjKi
+ CEJqMfUZxkDIeRxZJEGU+NoCyTeZ2uGw84fuv39d4qGLny/6zcICiMln4bKOvMzhFC
+ KenIIosFyFrgw==
+Message-ID: <sashiko-outbox-199576@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/27] drm/connector: Add
- drm_display_info_is_vrr_capable
+Subject: Re: [PATCH v2 09/27] drm: Add VRR target frame rate properties
 To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-8-55f4215be2c2@collabora.com>
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
- <20261105-vrr-limiter-uapi-v2-8-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 16:58:18 +0000
+Date: Thu, 05 Nov 2026 17:07:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,111 +58,149 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/connector: false VRR capability in drm_display_info_is_vrr_c=
-apable()
+- [Medium] drm: missing DRM_MODE_PROP_ATOMIC flag on VRR limiter CRTC prope=
+rties
+- [Medium] drm: missing min <=3D max VRR rate check in drm_atomic_crtc_chec=
+k()
 --
 
-commit 2c6b233292887595c2334a70a795f9f766983787
+commit 221e142e46603679a11c0d1b71599449f1d7a39c
 Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-drm/connector: Add drm_display_info_is_vrr_capable
+drm: Add VRR target frame rate properties
 
-This commit adds drm_display_info_is_vrr_capable() to check whether a sink
-described by struct drm_display_info supports variable refresh rate signals.
-It checks info->hdmi.vrr_cap.supported for HDMI sinks and
-info->monitor_range.min_vfreq > 0 for other displays.
+This commit introduces four CRTC properties (VRR_MIN_NUMERATOR,
+VRR_MIN_DENOMINATOR, VRR_MAX_NUMERATOR, and VRR_MAX_DENOMINATOR) to allow
+userspace to configure a target frame rate range for Variable Refresh Rate
+as numerator/denominator fractions.
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 65c14b6e47a6f..a44afba8c5ff2 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1378,6 +1378,25 @@ int drm_display_info_set_bus_formats(struct drm_di=
-splay_info *info,
->  }
->  EXPORT_SYMBOL(drm_display_info_set_bus_formats);
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 9bb761eda59f4..da5c6925c349f 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -489,6 +489,7 @@ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
+>  static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_s=
+tate,
+>  				 const struct drm_crtc_state *new_crtc_state)
+>  {
+> +	const struct drm_crtc_vrr_state *vrr =3D &new_crtc_state->vrr_state;
+>  	struct drm_crtc *crtc =3D new_crtc_state->crtc;
 > =20
-> +/**
-> + * drm_display_info_is_vrr_capable - Check whether sink is VRR capable
-> + * @info: pointer to a &struct drm_display_info representing the sink
-> + *
-> + * Check whether the sink supports variable refresh rate signals.
-> + *
-> + * Returns:
-> + * - true if variable refresh rate is supported by the sink
-> + * - false otherwise
-> + */
-> +bool drm_display_info_is_vrr_capable(const struct drm_display_info *info)
-> +{
-> +	if (info->is_hdmi)
-> +		return info->hdmi.vrr_cap.supported;
-> +
-> +	return info->monitor_range.min_vfreq > 0;
-> +}
+>  	/* NOTE: we explicitly don't enforce constraints such as primary
+> @@ -544,6 +545,19 @@ static int drm_atomic_crtc_check(const struct drm_cr=
+tc_state *old_crtc_state,
+>  		return -EINVAL;
+>  	}
+> =20
+> +	/*
+> +	 * Reject VRR limiter ranges that only specify one end of the limit, or
+> +	 * specify a numerator > 0 with a denominator that is 0.
+> +	 */
+> +	if ((!vrr->vrr_min_n || !vrr->vrr_min_d ||
+> +	     !vrr->vrr_max_n || !vrr->vrr_max_d) &&
+> +	    (vrr->vrr_min_n > 0 || vrr->vrr_max_n > 0)) {
+> +		drm_dbg_atomic(crtc->dev,
+> +			       "[CRTC:%d:%s] incomplete VRR limiter range\n",
+> +			       crtc->base.id, crtc->name);
+> +		return -EINVAL;
+> +	}
 
 [Severity: Medium]
-As reported by Sashiko on RFC [1], in drm_display_info_is_vrr_capable() in
-drivers/gpu/drm/drm_connector.c, can returning info->monitor_range.min_vfre=
-q > 0
-for any sink where info->is_hdmi is false falsely report VRR support on
-non-VRR displays?
+As reported by Sashiko on RFC [1], should drm_atomic_crtc_check() also reje=
+ct
+inverted VRR target frame rate ranges where the minimum rate fraction excee=
+ds
+the maximum rate fraction?
 
-In drivers/gpu/drm/drm_edid.c, drm_get_monitor_range() -> get_monitor_range=
-()
-populates info->monitor_range from any standard EDID 1.4+ continuous-freque=
-ncy
-(DRM_EDID_FEATURE_CONTINUOUS_FREQ) Display Range Limits descriptor (tag 0xF=
-D)
-with DRM_EDID_RANGE_LIMITS_ONLY_FLAG:
+In include/drm/drm_mode_config.h, the kerneldoc for struct drm_mode_config
+documents that prop_vrr_max_numerator divided by prop_vrr_max_denominator m=
+ust
+result in a frame rate equal to or above prop_vrr_min_numerator divided by
+prop_vrr_min_denominator.
 
-drivers/gpu/drm/drm_edid.c:get_monitor_range() {
-	...
-	monitor_range->min_vfreq =3D range->min_vfreq;
-	monitor_range->max_vfreq =3D range->max_vfreq;
-	...
-}
+However, drm_atomic_crtc_check() only checks that all four values are non-z=
+ero
+when either numerator is positive. If userspace submits an atomic commit via
+DRM_IOCTL_MODE_ATOMIC with non-zero limiter values where vrr_min_n / vrr_mi=
+n_d
+is greater than vrr_max_n / vrr_max_d (for example while vrr_enabled is fal=
+se,
+or on a non-HDMI connector), the check succeeds and commits the inverted ra=
+nge
+into drm_crtc_state.
 
-Existing VRR checks in drivers/gpu/drm/i915/display/intel_vrr.c and
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c do not rely on
-min_vfreq > 0 alone. Both check for DPCD MSA timing ignore support and requ=
-ire
-a valid range span larger than 10 Hz:
+Would it make sense to check:
 
-drivers/gpu/drm/i915/display/intel_vrr.c:intel_vrr_is_capable() {
-	...
-	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
-	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
-		return false;
+    mul_u32_u32(vrr->vrr_min_n, vrr->vrr_max_d) >
+    mul_u32_u32(vrr->vrr_max_n, vrr->vrr_min_d)
 
-	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
-}
+when the limiter range is non-zero in drm_atomic_crtc_check()?
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c:amdgpu_dm_updat=
-e_freesync_caps() {
-	...
-	if (amdgpu_dm_connector->dc_link &&
-	    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param=
- &&
-	    amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
-		freesync_capable =3D true;
-	...
-}
+[ ... ]
 
-Without checking DPCD capabilities (which are not stored in struct
-drm_display_info) or validating max_vfreq and max_vfreq - min_vfreq > 10, a
-standard non-VRR monitor with a 50-60 Hz range descriptor, a malformed range
-descriptor, or a DVI/non-VSDB sink attached to an HDMI connector (where
-info->is_hdmi is false) will cause drm_display_info_is_vrr_capable() to ret=
-urn
-true. On HDMI encoders using this helper, that advertises vrr_capable as tr=
-ue
-even though HDMI VRR validation later rejects VRR commits with -EOPNOTSUPP.
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode=
+_config.c
+> index 48a56f23dadbb..da967d60f832a 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -535,6 +535,26 @@ static int drm_mode_create_standard_properties(struc=
+t drm_device *dev)
+>  		return -ENOMEM;
+>  	dev->mode_config.prop_vrr_enabled =3D prop;
+> =20
+> +	prop =3D drm_property_create_range(dev, 0, "VRR_MIN_NUMERATOR", 0, U32_=
+MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.prop_vrr_min_numerator =3D prop;
+> +
+> +	prop =3D drm_property_create_range(dev, 0, "VRR_MIN_DENOMINATOR", 0, U3=
+2_MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.prop_vrr_min_denominator =3D prop;
+> +
+> +	prop =3D drm_property_create_range(dev, 0, "VRR_MAX_NUMERATOR", 0, U32_=
+MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.prop_vrr_max_numerator =3D prop;
+> +
+> +	prop =3D drm_property_create_range(dev, 0, "VRR_MAX_DENOMINATOR", 0, U3=
+2_MAX);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.prop_vrr_max_denominator =3D prop;
 
-[1] https://lore.kernel.org/r/20260921-vrr-limiter-uapi-v1-9-2fcd7d011646@c=
-ollabora.com
+[Severity: Medium]
+As reported by Sashiko on RFC [2], should these four properties be created
+with the DRM_MODE_PROP_ATOMIC flag in drm_mode_create_standard_properties()?
+
+Because flags is passed as 0 to drm_property_create_range(),
+drm_mode_object_get_properties() exposes these properties to legacy non-ato=
+mic
+userspace clients. Non-atomic clients update properties one at a time via
+DRM_IOCTL_MODE_OBJ_SETPROPERTY:
+
+    drm_mode_obj_set_property_ioctl()
+      -> set_property_atomic()
+        -> drm_atomic_commit()
+          -> drm_atomic_check_only()
+            -> drm_atomic_crtc_check()
+
+Since drm_atomic_crtc_check() rejects any state where only part of the
+limiter range is non-zero with -EINVAL, a legacy client cannot transition
+from (0, 0, 0, 0) to an active range or clear an active range back to
+(0, 0, 0, 0) one property at a time without failing on the intermediate
+commits.
+
+[1] https://lore.kernel.org/r/20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@=
+collabora.com
+[2] https://lore.kernel.org/r/20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@=
+collabora.com
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-vrr-limite=
-r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D8
+r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D9
