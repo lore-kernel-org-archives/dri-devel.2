@@ -2,55 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E191E606EEAF
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AB6606A32D
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bp/aPeUA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSrK3f7s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 455F8112764;
-	Thu,  5 Nov 2026 15:30:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C95112777
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287C11125FF;
+	Thu,  5 Nov 2026 15:30:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A767A1125FF;
+ Thu,  5 Nov 2026 15:30:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 21CD960A07;
- Thu,  5 Nov 2026 15:30:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 531DF1F00919;
- Thu,  5 Nov 2026 15:30:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 74CE1436AF;
+ Thu,  5 Nov 2026 15:30:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61921F00A17;
+ Thu,  5 Nov 2026 15:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892617;
- bh=wYlrDbfZKbiUUduhrjo8be3m9UAQA5iV14plflcbeiw=;
+ s=k20260515; t=1793892621;
+ bh=f8wkGOeqdr9pn/y4Aqu039JA6nWq3yudpkpDEr1rZFE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Bp/aPeUAg7cBjr5ovLe/rVnSJe2Gfjy6F9iky8xiSPixVGd0D0v2UE0tf138jjrqz
- kW3g9mjoww5DWgpf97S6mzvw0/K0N7fomXKiGWxLNBQAILl0r2YDndW+qQrAx84dCW
- vPkhTx/9v5fX5z+GR9gCGuFPgaRGmWrg4eKd7tNN6ONcwezpzmB8VumgsESFhEFX/3
- p7aQXbubfqQ4T0eNNRGukbOFMyY7eqW73BbmmS6vA84Teai3mlBPgb0ZWLbRJRev/6
- wKWRAB8gW/wYcfmpiWSqa0hVnLi6By0VEnw3PTS6eCG4PFajLWg/Vm4i7AO8dkO13d
- TQKsQ9SyeqhZg==
+ b=FSrK3f7sOql/y8wZSzn5LJ1yu79K9t5jRsUQDS2BQw93CtFBBn7Pwr/YQoNFRrijg
+ HY79UnvpFe6wBilLJ/qfxJqGk9pfezidaCKJ5E33BFGFX0J+efizwSDOzo37Y3MNzC
+ yVkWtNsRwqX27lSo+47vbzvMTRMj27PNfeGj6zeM3XDmjbVSdPPDuRBLXFEI6KIRVy
+ b9IjrGbXrCVCdBqbWuUkg1TNJeChapBsHSL5ppIZdkq5e2zKUSG0zdsS2xzR1DnOTR
+ Wnxk/5bQS1OggjksZGTjZzxnpNkaSK+6HfTtyZO2YxwY6Z9pApzi/0/CpzbMB59fJk
+ jA2PltIcoxerA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:10 +0100
-Subject: [PATCH RESEND 01/83] drm/adp: Switch to
+Date: Thu, 05 Nov 2026 16:29:11 +0100
+Subject: [PATCH RESEND 02/83] drm/amdgpu: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-1-1f58d1e33380@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261105-drm-no-more-config-reset-v1-2-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Janne Grunau <j@jannau.net>, Sasha Finkelstein <k@chaosmail.tech>, 
- asahi@lists.linux.dev
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121; i=mripard@kernel.org;
- h=from:subject:message-id; bh=59FroMEoM8DobxGK+qYZEmLe1JeVhpd3TzvlRh+kQ9s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtyt1niz1b3Y+47lH55bN1SiG9c32xuet9lovTD1n
- HyN2tK6jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRX9mMDa37Ur6dWCW8rfh5
- omRKgc8096D1r40m7Po/e8rm6QWTguUcplhc7GvwfZv63k/N9YNxCGPD+Q9/51v23Nx6REM7sbx
- HN9Lp5KnVvtdafRc1/Jof/onPPcfoSPNT1TUueVIC088euj0fAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2805; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1MTSHO9pBKc60kjKwiLlQWG73uMkotyRJA4xLAgEmNM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtyr/ti672HjrUD2vuP75Kd+EZra5WNvX7RVsju6Z
+ GrHmqszOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE7KYw1tl+KPqxY8KsY3dS
+ 2IV/lLe2+b4uVg3aemnvFb7gipb6k1Ir9tX4WF86WTP5isTPohmzfBkbLtwVTaiX/DXD/b/V/Jd
+ rPr+oOdGy6ERV14yex+eU7Lesvm+oN1F+W1wKg0/hn/krjHb9AQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,26 +85,53 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Janne Grunau <j@jannau.net>
-Cc: Sasha Finkelstein <k@chaosmail.tech>
-Cc: asahi@lists.linux.dev
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 ---
- drivers/gpu/drm/adp/adp_drv.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c                              | 4 +++-
+ .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c    | 3 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c    | 4 +++-
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
-index fdf0e6316175..795e8a5d3b13 100644
---- a/drivers/gpu/drm/adp/adp_drv.c
-+++ b/drivers/gpu/drm/adp/adp_drv.c
-@@ -451,7 +451,5 @@ static int adp_setup_mode_config(struct adp_drv_private *adp)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 5c7e2172a372..1f8b531eb946 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -362,5 +362,7 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
  	}
  
--	drm_mode_config_reset(drm);
--
--	return 0;
-+	return drm_mode_config_create_initial_state(drm);
- }
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		goto err_attach;
  
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 009a017194e3..7966690dca96 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -9966,5 +9966,6 @@ dm_test_force_ctx_alloc(struct kunit *test, const struct drm_connector_funcs *fu
+ 	ctx->aconnector->base.encoder = encoder;
+ 
+-	drm_mode_config_reset(ctx->drm);
++	KUNIT_ASSERT_EQ(test,
++			drm_mode_config_create_initial_state(ctx->drm), 0);
+ 
+ 	drm_modeset_acquire_init(&ctx->acquire_ctx, 0);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+index 8c3e32f40a96..c9fa8308d254 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+@@ -3794,5 +3794,7 @@ dm_mst_test_alloc_dsc_link_ctx(struct kunit *test, int total_avail_slots)
+ 					    &dm_mst_test_dsc_link_conn_funcs,
+ 					    DRM_MODE_CONNECTOR_DisplayPort, NULL), 0);
+-	drm_mode_config_reset(ctx->drm);
++
++	KUNIT_ASSERT_EQ(test,
++			drm_mode_config_create_initial_state(ctx->drm), 0);
+ 
+ 	KUNIT_ASSERT_EQ(test,
 
 -- 
 2.55.0
