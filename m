@@ -2,56 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FE1606D80A
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0922F606A339
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMR4ZTnu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIbHfDoQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB761127AA;
-	Thu,  5 Nov 2026 15:33:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10F361127AA
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44DB8112794;
+	Thu,  5 Nov 2026 15:33:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36E7111279F
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:33:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ED02341A30;
- Thu,  5 Nov 2026 15:33:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55A9E1F000C1;
- Thu,  5 Nov 2026 15:33:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AF6D6600AA;
+ Thu,  5 Nov 2026 15:33:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25311F00A02;
+ Thu,  5 Nov 2026 15:33:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892805;
- bh=0LKJPCh1TWc/DqS2zQ/OLmPDuaMukdm/iy+0DRDtT+M=;
+ s=k20260515; t=1793892809;
+ bh=525MIyMDNB8fafolQ2ATdl1g51E+PeAOopyIe+wdKcM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HMR4ZTnuKd8WTyOJ5+bwYwo18Yt7GiSp5QzhjkJLloQ6SbmMvb2qkhK7vz1uP5uNR
- u7pJunqSRHQLQ+JaNXlXa1+RRBBed+oeafaL/RRwTmjciu4b0ZedQpglSL509dtPoT
- 8S81mpi5l7f+B7STntTmDoc7C8IW6UzObmZYB3UKsLpgAeohxN6/ggVA8dO0GEhUnt
- JXGiH6IdPhQGeleZWVVEKQfGj1QgkUtnsbTGsp1UDvkHu+3HvVVxcnDtTM5vmHF6KZ
- nt6dyqYqMnv7sejJOwhfluatsJCb/MaOo6Zi4+9auFNf6QN6PTLS+y1PjjLJMs4KRU
- W/8gY2wqChmoQ==
+ b=nIbHfDoQKBcqUyXgplsKZtvAe38AxbQDCtllYjuy2hL5AG3loxPB4FVgM0VqLixTO
+ rBdiNr26fHdtN/zEppixDm2hYHjY/55vPBdO+EiC8OGXkgPa5ocyfOmpcJ1OxiJBET
+ enQ/uQKO0aeSM98KhIzhLCAoQDMMrAVimPdqskdN748udaKmqAs59EiAOX1rUhsSQZ
+ Owz7/4fasQukhHAtyCEzl0eXiw2HCuilwFVsMTKwRRn4ylaCofb7Y3m3SZkezKFRq6
+ vSPt/6s1nrxFLHmrdHafnLNsGOvkQYr0nLQxpzOomr8sTxPFKizud9t60VU3PScYgU
+ hMN4JHmBFeaUA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:02 +0100
-Subject: [PATCH RESEND 53/83] drm/tegra: Switch to
+Date: Thu, 05 Nov 2026 16:30:03 +0100
+Subject: [PATCH RESEND 54/83] drm/tests: drm_atomic_state_test: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-53-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-54-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1194; i=mripard@kernel.org;
- h=from:subject:message-id; bh=5awi8HP4r9kVyKSa8V1a4QlD/EsWjb0kM2OXkegqfvw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnxRsPVNPhN8Y0/675gS75Czh5O6D+1SmdHxNEd4n
- env53/kO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE9r5kbDgtZMjrOl9IUyeU
- oSLOxrXLc+rrPsHlkWJept+D56zlDktofCbNUrPmwZJuZodl14P/MTZ8m3lxl9//lRuPNOZPsWO
- Piso/z9isZ833mC+PZV4P16EJp3Vu/3ususCxoSm1VHKj4BQA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1149; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=6v2wB1ge3iwo17/8oNPh+VljZJYKZjGbin3d1dgcXYU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFnx9nb/ubMKc6mNzfhcrb/sg7HstedOeruXzdcX9N
+ AyutBya2TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmUjiHsWGfpPuzJewCVdo3
+ mLL+JlXXs03bO1P+3HSHLr5QtSaOF8fMmQyE7h5b6Xj59aReQ8U6D8aG3xxLTGRn3po4MX9+XV3
+ ul7K5d+SnxP69dNw6esa9Ir9FwW+z/i84+aPul/m/aZ+mu8UuAwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,8 +65,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
@@ -86,27 +82,22 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>
-Cc: linux-tegra@vger.kernel.org
----
- drivers/gpu/drm/tegra/drm.c | 4 +++-
+ drivers/gpu/drm/tests/drm_atomic_commit_test.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index 324480c87fb1..9fdb9e70eb0a 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -1246,5 +1246,7 @@ static int host1x_drm_probe(struct host1x_device *dev)
- 		goto hub;
+diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+index 6ccb001f6264..97f60ce68b3e 100644
+--- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
++++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+@@ -135,5 +135,7 @@ drm_atomic_test_init_drm_components(struct kunit *test, bool has_connectors)
  
+ done:
 -	drm_mode_config_reset(drm);
-+	err = drm_mode_config_create_initial_state(drm);
-+	if (err)
-+		goto hub;
++	ret = drm_mode_config_create_initial_state(drm);
++	if (ret)
++		return ERR_PTR(ret);
  
- 	/*
+ 	return priv;
 
 -- 
 2.55.0
