@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D15606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA03E606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:34:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RaIXbvmu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HwAdfuRw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31C841127C0;
-	Thu,  5 Nov 2026 15:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417F31127CA;
+	Thu,  5 Nov 2026 15:34:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF1221127C1
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:34:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 760411127DA
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:34:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D5B6E40AD4;
- Thu,  5 Nov 2026 15:34:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37DB21F000C1;
- Thu,  5 Nov 2026 15:34:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F81E4077A;
+ Thu,  5 Nov 2026 15:34:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C170D1F000C1;
+ Thu,  5 Nov 2026 15:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892881;
- bh=dLPXgUX6gtrXo7fP4TxpM+LltPpUCdB038l68DbV5Ho=;
+ s=k20260515; t=1793892885;
+ bh=SDrjXMdJeb26KkyO9w+a5K5He8Db/y/BKZCfmuXgQdM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RaIXbvmuGhe4S9O+3gr+JB5cpY09hXnsdgmCn9myIUdLvA+yZ3K6CbD3bVSPA8xe/
- emileOLZiyDCxvs84BZQ1rYw7wl3xoQLD4ecCUywRO2AFNpUQQnWkCu7mQ2I1sPLEX
- NtN2uNytf6hkhNH//Rj0ce6Dk36xSrlgElCIwbqaLjTkfTXkQiBXN72YLiXPVTVGnn
- KS5w3xI0+SbncH4oVGFS/mpjhtTF4kC6Isx0+Y5cajn7EFaMVOg06N4qY49I/p+YlV
- fdTtlZFYsdrATgYAZLXpJrYu0NfxXKAPLpS7CB7n34FV5rJp5poRSRgTpjvtt6XBIC
- dlItZ1iKlBxxA==
+ b=HwAdfuRww33L9Q2DrzrkpGtfXZPplzniP39AClU7x20YUvI6/66gNnoOuiGZAuigO
+ MilZ9AoSDRWYdWW4wC2uElNfOeQVnCNBIce8QDXdbV+3/cgnmt0QhIwIcmqErIUqWb
+ KwgY3DLl+KniQii3WtkLH2iFzevUKhsMOhO9rs4m5QwSsoV1Fv1ZnHKTTDmnJFz7QA
+ xjvLWGp4GUvUzfiVz2IHAd4Uvlk8y/o/cgjiLxsefxu7QfMTvf3/65W0+ezeyKbe9Q
+ ZnQ+iUbv8x53XowGw4PvJmlXWZ9tCUafaxgsdU/crf4TmqVUyt7PhGDdRI7zsSCITx
+ VLIf02lvXPH8g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:30:23 +0100
-Subject: [PATCH RESEND 74/83] drm/tve200: Switch to
+Date: Thu, 05 Nov 2026 16:30:24 +0100
+Subject: [PATCH RESEND 75/83] drm/udl: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-74-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-75-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Linus Walleij <linusw@kernel.org>
+ Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1127; i=mripard@kernel.org;
- h=from:subject:message-id; bh=TmCu4JWuZu25CJK3tObO1ap8LrTYFGkPvQew20Jy+w8=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGrsoP2gEX88MTFArvIY2d5ypwtEehhnonpyyIIssDu2xvYFr
- oiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmrsoP0ACgkQJ1/OGaI9vnY/EQF+NQYz
- U+ymUbW0Vklrvi/ccpUXrvqY3OHA9XbNO5d/9hm/J+4jLB0DiB4PV3tJ4ZNPAX9/nuyHib08aDC
- Q0gs6lZ1xsiqN7XRsI6ZCwsAVSdgNK+FRgwZ3wmleMhLaUd2n4/I=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=/ZgHbbZm4v79lhM/An39QBd1YmtqCfqor/FTAycak0Y=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFvzTXdG7S3Yls91v8Q2Pv15n/jA7983viLcRyrOE5
+ 9+xCfzh2zGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmYnuEsU4r1WqPwm5LaX9L
+ qagb8//MufzKof/L0l+ffqdvephg+VpFKanvW8vrq4xHX9VvPv43yIyx4dQL+7LeibxTrteYxJ5
+ N2iIssyyvQi78dIRGBdMLL3Ue1sNnNVhzfoaufO/PvTU0T1AMAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,23 +83,24 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Linus Walleij <linusw@kernel.org>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Sean Paul <sean@poorly.run>
 ---
- drivers/gpu/drm/tve200/tve200_drv.c | 4 +++-
+ drivers/gpu/drm/udl/udl_modeset.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
-index 2bcb9dc86ffd..fe94b34d5b41 100644
---- a/drivers/gpu/drm/tve200/tve200_drv.c
-+++ b/drivers/gpu/drm/tve200/tve200_drv.c
-@@ -119,5 +119,7 @@ static int tve200_modeset_init(struct drm_device *dev)
- 	}
+diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
+index d8a617e2d2ea..02138457a97b 100644
+--- a/drivers/gpu/drm/udl/udl_modeset.c
++++ b/drivers/gpu/drm/udl/udl_modeset.c
+@@ -541,5 +541,7 @@ int udl_modeset_init(struct udl_device *udl)
+ 		return ret;
  
 -	drm_mode_config_reset(dev);
 +	ret = drm_mode_config_create_initial_state(dev);
 +	if (ret)
-+		goto out_bridge;
- 	drm_kms_helper_poll_init(dev);
++		return ret;
+ 	drmm_kms_helper_poll_init(dev);
  
 
 -- 
