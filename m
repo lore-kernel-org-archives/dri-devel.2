@@ -2,78 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF45E606A330
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 17:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA0C606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 17:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KcbI0FGU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrhsHiv7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD5D10E1AC;
-	Thu,  5 Nov 2026 17:08:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ADB410E1F7;
- Thu,  5 Nov 2026 17:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793898494; x=1825434494;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5SWCj7u+AZVyRuqaD0dvIIMKCEG7YeyHF+pdDOeuanA=;
- b=KcbI0FGUG3zknjZN2r5tzpvviPoGWzSyOtnxYEpVDrSXhQYG2jgNc1Xg
- vrZglcbAywPOjs1cZLdKQrWfQJoen35XoWoB4jIqXIwWXD/Y4GeD5jqoR
- dCf9nk9K4lzCbH0Lk5yIKncnYbUL4tqthpK2U7mWTzms4v2YYrqGmOEKo
- DHmSoCsNM4QURL+Pyf+YwqRN/C9u6nuowqn/7MiHb6MWd6pZacMWj+Esl
- bNC2Bm0NSQXPbW7Bxln21GQIkH4HE9g0uUd/gmLzDfZ+SkJVRONFID6+S
- hwZMfjtKafOws482djK4NuoDkrUG9GKa2HeBYGV7pxxMzeEsMlp4a7hao w==;
-X-CSE-ConnectionGUID: vPSyvuSKSeeM/ZCnDwnSnQ==
-X-CSE-MsgGUID: 01r4oe9jQLWwYXHkY7ieLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2610068"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2610068"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 09:08:14 -0800
-X-CSE-ConnectionGUID: AeNGSIuSRayL8fMkqkYhOw==
-X-CSE-MsgGUID: xpCkq7RMRQ2x9GCfaAtyzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7397912"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.198])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 09:08:07 -0800
-Date: Thu, 5 Nov 2026 19:08:04 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-sound@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- =?utf-8?B?VG9tw6HFoQ==?= Hnyk <tomashnyk@gmail.com>,
- Wim Taymans <wtaymans@redhat.com>, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/eld: Add drm_eld_set_port_id() helper
-Message-ID: <auy39DQZEc3SpqYo@intel.com>
-References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
- <20261105160240.2850042-2-kai.vehmanen@linux.intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105160240.2850042-2-kai.vehmanen@linux.intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED2810E963;
+	Thu,  5 Nov 2026 17:08:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8DCC10E960
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 17:08:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 34AB1600E4;
+ Thu,  5 Nov 2026 17:08:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D0C1F00A15;
+ Thu,  5 Nov 2026 17:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793898508;
+ bh=XONHmjXTxGC+0bTqoBQSxY2DRdFqjWOexxwkJrp1bIs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DrhsHiv7itiyvdpy2g0W3AQ6HziYW7v95WTxbDeFUGbKBhvcVcjwpwcKMsx7iLDkZ
+ r9536LhqNpTVT8EkSvKddGqDvPfSc1GexWtxRKIF9xzo9M+w8qcFEYk0zYv4S1qw/j
+ JXYdXJxikzC0iU+OqQ+c4g29CHFPWzSvCBXWPT7viICW6g4SdyeE0ORB1O6uxZGS6g
+ fn5or/kpQVMMMgLxTEm7ZAfkdllw7mEpJhpApb+7dDjiQ99TknIeDkr85WeZCH9hVy
+ jo3SMhk/KTmSMf9BlBQRjRgx3GbALPBtM+k5G/YCeZy48yKZEFnyBGyxVjjxh3P7vG
+ PRX0lP8Z0XF/Q==
+Message-ID: <sashiko-outbox-199577@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 10/27] drm/connector: Add vrr_display_{min,max}
+ connector properties
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-10-55f4215be2c2@collabora.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-10-55f4215be2c2@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 17:08:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,141 +49,180 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 05, 2026 at 06:02:39PM +0200, Kai Vehmanen wrote:
-> The ELD baseline block reserves bytes 8..15 for a 64-bit Port_ID that
-> identifies the source port of the audio endpoint. drm_edid_to_eld()
-> leaves the field zero, and no driver fills it in, so it carries no
-> information.
-> 
-> When two identical monitors are connected, their ELDs are then
-> byte-identical, and userspace has no passive way to tell which HDMI/DP
-> PCM belongs to which DRM connector. The only workaround is to toggle
-> the connector audio property and watch which ELD goes away, which
-> disrupts the endpoint.
-> 
-> Add a helper that drivers can use to fill in Port_ID with a common
-> layout:
-> 
->   bits 63:48 - PCI domain of the DRM device
->   bits 47:32 - PCI bus/device/function of the DRM device
->   bits 31:0  - DRM connector object ID
-> 
-> Userspace can read the connector object ID directly from KMS, and the
-> PCI address tells GPUs apart in multi-GPU systems. For non-PCI devices
-> the upper half is left zero.
-> 
-> The split between a 16-bit PCI BDF in the upper half and a per-device
-> display identifier in the lower half follows the Port_ID layout
-> documented for the AMD Azalia sink info registers in dce_audio.c.
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> ---
->  drivers/gpu/drm/drm_eld.c | 42 +++++++++++++++++++++++++++++++++++++++
->  include/drm/drm_eld.h     |  3 +++
->  2 files changed, 45 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_eld.c b/drivers/gpu/drm/drm_eld.c
-> index c0428d07de53..baebece7b4ed 100644
-> --- a/drivers/gpu/drm/drm_eld.c
-> +++ b/drivers/gpu/drm/drm_eld.c
-> @@ -4,7 +4,11 @@
->   */
->  
->  #include <linux/export.h>
-> +#include <linux/pci.h>
-> +#include <linux/unaligned.h>
->  
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_device.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_eld.h>
->  
-> @@ -55,3 +59,41 @@ int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad)
->  	return 0;
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] drm/hdmi: handle vrr_max =3D=3D 0 in drm_connector_hdmi_update_v=
+rr_limits()
+- [Medium] drm/hdmi: stale VRR limits on unplug in drm_connector_hdmi_updat=
+e_vrr_limits()
+- [Medium] drm/hdmi: unclamped cnmvrr max_hz in drm_connector_hdmi_update_v=
+rr_limits()
+--
+
+commit 8141ba1132150753b66c1d4aef2157bc2d78d4cb
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+drm/connector: Add vrr_display_{min,max} connector properties
+
+This commit adds the immutable vrr_display_min and vrr_display_max connector
+properties to expose the minimum and maximum integer refresh rates supported
+with VRR in the current mode. It also introduces helpers to attach these
+properties and update their values for HDMI connectors.
+
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/=
+display/drm_hdmi_helper.c
+> index f85cce3d62547..8f325d5e496d1 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> @@ -730,3 +730,58 @@ int drm_connector_hdmi_sync_scdc(struct drm_connecto=
+r *connector, bool plugged,
+>  	return ret;
 >  }
->  EXPORT_SYMBOL(drm_eld_sad_set);
+>  EXPORT_SYMBOL(drm_connector_hdmi_sync_scdc);
 > +
 > +/**
-> + * drm_eld_set_port_id - set the ELD Port_ID for a connector
-> + * @eld: ELD buffer
-> + * @connector: connector the ELD belongs to
+> + * drm_connector_hdmi_update_vrr_limits - update VRR display limit prope=
+rties
+> + * @conn: pointer to the &struct drm_connector to set the properties on
+> + * @mode: pointer to the &struct drm_display_mode to consider while upda=
+ting
 > + *
-> + * drm_edid_to_eld() leaves the 64-bit Port_ID field of the ELD baseline
-> + * block zero. Drivers can use this helper to fill it in with a value
-> + * that identifies the audio endpoint, so that userspace can associate an
-> + * ELD, and the PCM device it belongs to, with a DRM connector, even when
-> + * identical sinks are connected to multiple outputs.
+> + * Update the "vrr_display_min" and "vrr_display_max" properties on @con=
+n based
+> + * on its HDMI sink info and the current mode. Does not consider any dis=
+play
+> + * protocol other than HDMI.
 > + *
-> + * The Port_ID is stored in little-endian byte order, with the layout:
+> + * Will set both min and max to 0 if max happens to end up below min, wh=
+ich can
+> + * happen with CNMVRR=3D=3D0 and a lower refresh rate @mode.
 > + *
-> + * - bits 63:48 - PCI domain of the DRM device, truncated to 16 bits
-> + * - bits 47:32 - PCI bus/device/function of the DRM device
-> + * - bits 31:0  - DRM connector object ID
-> + *
-> + * For non-PCI devices bits 63:32 are zero.
-> + *
-> + * The connector object ID is only stable for the lifetime of the
-> + * connector, so userspace must look it up at runtime, and not store it.
+> + * Return: %0 on success, negative errno otherwise
 > + */
-> +void drm_eld_set_port_id(u8 *eld, const struct drm_connector *connector)
+> +int drm_connector_hdmi_update_vrr_limits(struct drm_connector *conn,
+> +					 const struct drm_display_mode *mode)
 > +{
-> +	struct device *dev = connector->dev->dev;
-> +	u64 port_id = connector->base.id;
+> +	struct drm_mode_object *obj =3D &conn->base;
+> +	const struct drm_display_info *info;
+> +	u16 min_hz, max_hz;
 > +
-> +	if (dev && dev_is_pci(dev)) {
-> +		struct pci_dev *pdev = to_pci_dev(dev);
+> +	if (!conn->vrr_display_min_property || !conn->vrr_display_max_property)
+> +		return -ENOENT;
 > +
-> +		port_id |= (u64)(pci_domain_nr(pdev->bus) & 0xffff) << 48 |
-> +			   (u64)pci_dev_id(pdev) << 32;
-
-The numbers look correct.
-
+> +	info =3D &conn->display_info;
+> +
+> +	if (!info->is_hdmi)
+> +		return -EINVAL;
+> +
+> +	if (conn->status !=3D connector_status_connected ||
+> +	    !info->hdmi.vrr_cap.supported) {
+> +		drm_object_property_set_value(obj, conn->vrr_display_min_property, 0);
+> +		drm_object_property_set_value(obj, conn->vrr_display_max_property, 0);
+> +
+> +		return 0;
 > +	}
+
+[Severity: Medium]
+When an HDMI VRR display is unplugged or replaced with a non-HDMI sink (such
+as DVI), drm_edid_connector_update() calls drm_reset_display_info():
+
+drivers/gpu/drm/drm_edid.c:drm_reset_display_info() {
+	...
+	info->is_hdmi =3D false;
+	info->has_audio =3D false;
+	info->has_hdmi_infoframe =3D false;
+	info->rgb_quant_range_selectable =3D false;
+	memset(&info->hdmi, 0, sizeof(info->hdmi));
+	...
+}
+
+Because drm_connector_hdmi_update_vrr_limits() checks !info->is_hdmi and
+returns -EINVAL before checking conn->status !=3D connector_status_connecte=
+d,
+won't calling this helper after an unplug or sink swap fail to reset
+vrr_display_min_property and vrr_display_max_property to 0, leaving stale
+non-zero limits exposed to userspace?
+
 > +
-> +	put_unaligned_le64(port_id, &eld[DRM_ELD_PORT_ID]);
-
-Endianness agrees with the HDA spec.
-
-The implementation looks good
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-But I'll leave it to someone else to judge the actual
-usefulness of the provided information.
-
-> +}
-> +EXPORT_SYMBOL(drm_eld_set_port_id);
-> diff --git a/include/drm/drm_eld.h b/include/drm/drm_eld.h
-> index 0a88d10b28b0..de0478720721 100644
-> --- a/include/drm/drm_eld.h
-> +++ b/include/drm/drm_eld.h
-> @@ -9,6 +9,7 @@
->  #include <linux/types.h>
->  
->  struct cea_sad;
-> +struct drm_connector;
->  
->  /* ELD Header Block */
->  #define DRM_ELD_HEADER_BLOCK_SIZE	4
-> @@ -80,6 +81,8 @@ static inline int drm_eld_mnl(const u8 *eld)
->  int drm_eld_sad_get(const u8 *eld, int sad_index, struct cea_sad *cta_sad);
->  int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad);
->  
-> +void drm_eld_set_port_id(u8 *eld, const struct drm_connector *connector);
+> +	min_hz =3D info->hdmi.vrr_cap.vrr_min;
 > +
->  /**
->   * drm_eld_sad - Get ELD SAD structures.
->   * @eld: pointer to an eld memory structure with sad_count set
-> -- 
-> 2.43.0
+> +	if (info->hdmi.vrr_cap.cnmvrr)
+> +		max_hz =3D info->hdmi.vrr_cap.vrr_max;
 
--- 
-Ville Syrjälä
-Intel
+[Severity: Medium]
+Should max_hz still be clamped to drm_mode_vrefresh(mode) when
+info->hdmi.vrr_cap.cnmvrr is set?
+
+In HDMI 2.1, negative M_VRR (cnmvrr) only allows shortening Vfront by at mo=
+st
+ceil(Vfront_base / 4) lines in constant-rate CinemaVRR mode for fractional
+pull-up (such as 59.94 Hz to 60 Hz), and cannot increase a lower-rate mode
+(such as 60 Hz or 24 Hz) up to vrr_max (such as 120 Hz) at that mode's pixel
+clock.
+
+In addition, hdmi_validate_vrr() in
+drivers/gpu/drm/display/drm_hdmi_state_helper.c unconditionally caps the
+maximum refresh rate to mode_refresh regardless of cnmvrr:
+
+	if (!max_vfreq_n || max_vfreq_n > mode_refresh)
+		max_vfreq_n =3D mode_refresh;
+	...
+	vrr_state->base_vtotal =3D max(vrr_state->base_vtotal, mode->crtc_vtotal);
+
+Leaving max_hz unclamped when cnmvrr is true advertises a vrr_display_max
+above mode_refresh that hdmi_validate_vrr() will reject, and also causes
+modes with drm_mode_vrefresh(mode) <=3D min_hz (for example, a 24 Hz mode o=
+n a
+48-120 Hz display) to bypass the max_hz <=3D min_hz check below instead of
+reporting 0.
+
+> +	else
+> +		max_hz =3D min(drm_mode_vrefresh(mode), info->hdmi.vrr_cap.vrr_max);
+> +
+> +	/* VRR is impossible in the current mode */
+> +	if (max_hz <=3D min_hz)
+> +		min_hz =3D max_hz =3D 0;
+
+[Severity: Medium]
+What happens here when a VRR-capable HDMI 2.1 sink leaves vrr_max as 0 in i=
+ts
+EDID HF-VSDB to indicate that the upper VRR bound is the video mode's base
+refresh rate?
+
+In drivers/gpu/drm/drm_edid.c, drm_parse_hdmi_gaming_info() treats
+vrr_max =3D=3D 0 as valid when VRR is supported:
+
+	vrr->vrr_min =3D db[9] & DRM_EDID_VRR_MIN_MASK;
+	vrr->supported =3D (vrr->vrr_min > 0 && vrr->vrr_min <=3D 48);
+
+	if (cea_db_payload_len(db) < 10)
+		return;
+
+	vrr->vrr_max =3D (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
+	vrr->supported &=3D (vrr->vrr_max =3D=3D 0 || vrr->vrr_max >=3D 100);
+
+And hdmi_validate_vrr() in drivers/gpu/drm/display/drm_hdmi_state_helper.c
+handles a 0 maximum by falling back to mode_refresh:
+
+	if (!max_vfreq_n || max_vfreq_n > mode_refresh)
+		max_vfreq_n =3D mode_refresh;
+
+In drm_connector_hdmi_update_vrr_limits(), however, if
+info->hdmi.vrr_cap.vrr_max is 0, both branches of the if/else evaluate
+max_hz to 0, which then triggers max_hz <=3D min_hz and sets both
+vrr_display_min_property and vrr_display_max_property to 0. Should a vrr_max
+of 0 fall back to drm_mode_vrefresh(mode) instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-vrr-limite=
+r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D10
