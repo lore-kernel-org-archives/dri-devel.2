@@ -2,68 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F55606B451
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C75606B451
 	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NFdow1Mz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYTWZRgz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E552211286D;
-	Thu,  5 Nov 2026 15:53:58 +0000 (UTC)
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D21B711284C;
- Thu,  5 Nov 2026 15:53:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793894023; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OmTeZTxAqlmANhnjCngef9pdUbuHsK9RH5SpmpXV1RgDOCNLK5Zyg0iJ/c4cd7yzlkxR/VW07bmL0Vp6qchKfggrqQwjJuMuE8eY0cB8Qw7HS+Uny+J6E7R95stUXxr1ie2C70XWnR2t/Zj1ZV5EiPIZoeSOGkyBMzKk9U6rSTE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793894023;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=W2FNCl6kD+yG1An6J1qP2q3ElD4JbRyD4zLE3KUhfnA=; 
- b=ccBnVQySOrUKamhS/52N58N3U9nGb1bvD3M9449W7kZ0zw2Mdb4xXWVzJdFs4pF8lkiaCcYk+cj1LZSuuXay23rVtVLbQQV2h8UVzdM89vduSktWd2RUzOwGpDJQdmELH1BaBEIIdaOvT3wm+/FLwJQC+OfSCCc940bT0sutibI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=NFdow1MzCjpa+Omtv1/OlQOn4J+aKeVH5qOLCmAUD1FMeB2Y8kLKnZOdIT6r21LYC/cCHLDxAt/50cRovCMtqCynQBA7f7ruG5YKZdHMbDplJRf9IxcbZVBXZ+mQufBVVyymOy8YC0bgYsd6tgeV2MUoQdM2aSO300uYhMyXkKM=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=W2FNCl6kD+yG1An6J1qP2q3ElD4JbRyD4zLE3KUhfnA=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179389402211268.39076411374003;
- Thu, 5 Nov 2026 07:53:42 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:52:02 +0100
-Subject: [PATCH v2 11/27] drm: Implement VRR rate limiting
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-11-55f4215be2c2@collabora.com>
-References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
- Derek Foreman <derek.foreman@collabora.com>, 
- wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C0411285C;
+	Thu,  5 Nov 2026 15:53:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D3F11286D
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8797542E87;
+ Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FCA81F000C1;
+ Thu,  5 Nov 2026 15:53:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793894033;
+ bh=SHBA1vqD/9luhzV9mQ1L/1X7uLuP80RiS5qXE97Uokg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KYTWZRgzcrBJ1sHB5lCHA2r5dI2XkE0TSPqUYZeHDdXZzGYL6SsmdyTDIGSon4i3i
+ j08Gzjoefd1KE43zZb1HxSW5jzamd5JhzNMpFrVP4Ak5pb3Q13PEitWzEIb3d++/Z3
+ 1upOaqBZv8AB+UtFDGqek/gLtxJ9mYVkWmEh2a+wExJhtJELPNvVrWzRR8o8s2jFx/
+ bElS9+L5WB6484jhosibgfe138mGNGMhzM0WLI5JA1iFDTNap5CYUVDbvrvAYyGEGt
+ KsM4bCKtlMkUtfryLG97x+d9/vLMLhjEp9uyaV6+V1y5xeIm3vydNEZ/vUGqkTDqtS
+ nbNBxpJuj9gSw==
+Message-ID: <sashiko-outbox-199365@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC] drm/msm/a6xx: Reset the GMU state when restoring
+ from hibernation
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261103-b4-drm-msm-a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com>
+References: <20261103-b4-drm-msm-a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 15:53:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,327 +48,204 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Currently, VRR is allowed to use the entire range advertised by the
-sink's EDID. Userspace may find it desirable, however, to limit this
-range, or set a fixed target rate entirely. The latter is mainly useful
-for multimedia playback applications, where judder can be avoided by
-matching the content's frame rate precisely.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/msm/a6xx: missing RSCC/PDC and ACD reinit in a6xx_gmu_power_cy=
+cled()
+- [High] drm/msm/a6xx: stale static loaded flag in a6xx_zap_shader_init() o=
+n restore
+- [High] drm/msm/a6xx: unconditional PDC_SLEEP clear in a6xx_gmu_power_cycl=
+ed()
+--
 
-With the new VRR target frame rate properties, the necessary
-infrastructure is in place to allow implementing this.
+commit 491412dbdff3368cc8067f8c98101632e337bedb
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-Add the necessary logic to hdmi_validate_vrr, as well as the VRR
-helpers. Since not every target rate can be reached precisely, the
-per-frame error is calculated, and dithered one row at a time across
-subsequent frames. This means some frames are one vtotal larger than
-others, so that averaged over the frames, the desired target rate is
-achieved. Such dithering is explicitly permitted by HDMI, and is still
-considered a constant target frame rate.
+drm/msm/a6xx: Reset the GMU state when restoring from hibernation
 
-Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
-Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 134 +++++++++++++++++++++---
- drivers/gpu/drm/drm_crtc_helper.c               |  34 +++++-
- include/drm/drm_crtc.h                          |   3 +
- include/drm/drm_crtc_helper.h                   |   2 +
- 4 files changed, 156 insertions(+), 17 deletions(-)
+This commit adds a power_cycled callback invoked from adreno_system_restore=
+()
+to clear GMU_STATUS_PDC_SLEEP and GMU_STATUS_SECURE_INIT when restoring from
+hibernation so that the GMU restarts as it does after probe.
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index ce680eaa5047..846f7a72fddc 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -5,6 +5,7 @@
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_connector.h>
-+#include <drm/drm_crtc_helper.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_print.h>
-@@ -1051,15 +1052,60 @@ static int hdmi_calculate_vtotal(const struct drm_display_mode *mode,
- 	return 0;
- }
- 
-+static int hdmi_validate_vrr_limits(struct drm_crtc_state *crtc_state, u16 vrr_min)
-+{
-+	struct drm_crtc_vrr_state *vrr_state = &crtc_state->vrr_state;
-+	const struct drm_display_mode *mode = &crtc_state->mode;
-+	u32 limit_d;
-+	u8 round;
-+	int ret;
-+
-+	/* No limiter, don't need to validate, but reset the error */
-+	if (!drm_crtc_helper_vrr_is_fixed_rate(vrr_state)) {
-+		vrr_state->per_frame_err = 0;
-+		vrr_state->cur_err = 0;
-+		return 0;
-+	}
-+
-+	/* Don't allow rates equal to or below the minimum VRR rate / 1.001 */
-+	if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
-+			 vrr_min * 1000, 1001) < 0)
-+		return -EINVAL;
-+
-+	if (check_mul_overflow(mode->crtc_htotal, vrr_state->vrr_min_n, &limit_d))
-+		return -ERANGE;
-+
-+	ret = hdmi_calculate_vtotal(&crtc_state->mode, vrr_state->vrr_min_n,
-+				    vrr_state->vrr_min_d, &vrr_state->base_vtotal,
-+				    &vrr_state->denom, &vrr_state->per_frame_err);
-+	if (ret)
-+		return ret;
-+
-+	/* Allow rounding up for the vtotal check below */
-+	if (vrr_state->per_frame_err >= vrr_state->denom / 2)
-+		round = 1;
-+	else
-+		round = 0;
-+
-+	if (vrr_state->base_vtotal + round < mode->crtc_vtotal)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static int hdmi_validate_vrr(struct drm_connector *connector,
- 			     struct drm_atomic_commit *state)
- {
- 	struct drm_connector_state *new_conn_state =
- 		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_connector_state *old_conn_state =
-+		drm_atomic_get_old_connector_state(state, connector);
- 	struct drm_crtc_state *new_crtc_state =
- 		drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
- 	struct drm_crtc_vrr_state *vrr_state =
- 		&new_crtc_state->vrr_state;
-+	struct drm_crtc_vrr_state *old_vrr_state;
-+	struct drm_crtc_state *old_crtc_state = NULL;
- 	struct drm_display_info *info = &connector->display_info;
- 	const struct drm_display_mode *mode = &new_crtc_state->mode;
- 	struct drm_device *dev = connector->dev;
-@@ -1068,10 +1114,14 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
- 	u32 min_vfreq_d = 1;
- 	u32 max_vfreq_n = info->hdmi.vrr_cap.vrr_max;
- 	u32 max_vfreq_d = 1;
-+	bool is_fixed;
- 
- 	if (!new_crtc_state->vrr_enabled)
- 		return 0;
- 
-+	if (old_conn_state)
-+		old_crtc_state = drm_atomic_get_old_crtc_state(state, old_conn_state->crtc);
-+
- 	if (!info->hdmi.vrr_cap.supported)
- 		return -EOPNOTSUPP;
- 
-@@ -1087,6 +1137,21 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
- 	if (!max_vfreq_n || max_vfreq_n > mode_refresh)
- 		max_vfreq_n = mode_refresh;
- 
-+	is_fixed = drm_crtc_helper_vrr_is_fixed_rate(vrr_state);
-+	if (is_fixed && info->hdmi.vrr_cap.cinema_vrr)
-+		min_vfreq_n = 24;
-+
-+	/* If the VRR target changed, make sure to reset the error accumulator */
-+	if (old_crtc_state) {
-+		old_vrr_state = &old_crtc_state->vrr_state;
-+		if (drm_crtc_helper_vrr_is_fixed_rate(old_vrr_state) != is_fixed ||
-+		    cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
-+				 old_vrr_state->vrr_min_n, old_vrr_state->vrr_min_d) ||
-+		    cmp_fraction(vrr_state->vrr_max_n, vrr_state->vrr_max_d,
-+				 old_vrr_state->vrr_max_n, old_vrr_state->vrr_max_d))
-+			vrr_state->cur_err = 0;
-+	}
-+
- 	if (!min_vfreq_n) {
- 		drm_dbg_kms(dev, "Could not get minimum VRR rate from sink\n");
- 		return -EINVAL;
-@@ -1098,25 +1163,64 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
- 		return -EINVAL;
- 	}
- 
--	if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > 0) {
--		drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
--			    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
--		return -EINVAL;
--	}
--
--	ret = hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
--				    &vrr_state->base_vtotal, NULL, NULL);
-+	ret = hdmi_validate_vrr_limits(new_crtc_state, min_vfreq_n);
- 	if (ret) {
--		drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret));
-+		drm_dbg_kms(dev, "Invalid VRR fixed target rate: %pe\n", ERR_PTR(ret));
- 		return ret;
- 	}
- 
--	/*
--	 * Even at its fastest, it can't go faster than the mode, so
--	 * clamp to avoid imprecisely rounded mode_refresh values we
--	 * can't do anything about from ruining our day.
--	 */
--	vrr_state->base_vtotal = max(vrr_state->base_vtotal, mode->crtc_vtotal);
-+	if (!is_fixed) {
-+		vrr_state->dynamic = true;
-+
-+		if (vrr_state->vrr_min_n) {
-+			if (!vrr_state->vrr_min_d)
-+				return -EINVAL;
-+
-+			if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
-+					 min_vfreq_n * 1000, 1001) < 0) {
-+				drm_dbg_kms(dev, "Target min (%u/%u) < supported min (%u/%u)\n",
-+					    vrr_state->vrr_min_n, vrr_state->vrr_min_d,
-+					    min_vfreq_n, min_vfreq_d);
-+				return -EINVAL;
-+			}
-+			min_vfreq_n = vrr_state->vrr_min_n;
-+			min_vfreq_d = vrr_state->vrr_min_d;
-+		}
-+		if (vrr_state->vrr_max_n) {
-+			if (!vrr_state->vrr_max_d)
-+				return -EINVAL;
-+
-+			if (cmp_fraction(vrr_state->vrr_max_n, vrr_state->vrr_max_d,
-+					 max_vfreq_n, max_vfreq_d) > 0) {
-+				drm_dbg_kms(dev, "Target max (%u/%u) > supported max (%u/%u)\n",
-+					    vrr_state->vrr_max_n, vrr_state->vrr_max_d,
-+					    max_vfreq_n, max_vfreq_d);
-+				return -EINVAL;
-+			}
-+			max_vfreq_n = vrr_state->vrr_max_n;
-+			max_vfreq_d = vrr_state->vrr_max_d;
-+		}
-+		if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > 0) {
-+			drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
-+				    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
-+			return -EINVAL;
-+		}
-+
-+		ret = hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
-+					    &vrr_state->base_vtotal, NULL, NULL);
-+		if (ret) {
-+			drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret));
-+			return ret;
-+		}
-+
-+		/*
-+		 * Even at its fastest, it can't go faster than the mode, so
-+		 * clamp to avoid imprecisely rounded mode_refresh values we
-+		 * can't do anything about from ruining our day.
-+		 */
-+		vrr_state->base_vtotal = max(vrr_state->base_vtotal,
-+					     mode->crtc_vtotal);
-+	}
- 
- 	if (cmp_fraction(min_vfreq_n, min_vfreq_d, mode_refresh, 1) >= 0) {
- 		/* refresh <= VRR min, don't do VRR vtotal adjustment */
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index 4ffb3b0b7878..dd696f0c5016 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -838,6 +838,22 @@ int drm_crtc_helper_set_config(struct drm_mode_set *set,
- }
- EXPORT_SYMBOL(drm_crtc_helper_set_config);
- 
-+bool drm_crtc_helper_vrr_is_fixed_rate(const struct drm_crtc_vrr_state *vrr)
-+{
-+	if (!vrr->vrr_min_n)
-+		return false;
-+
-+	if (!vrr->vrr_min_d || !vrr->vrr_max_d)
-+		return false;
-+
-+	if (mul_u32_u32(vrr->vrr_min_n, vrr->vrr_max_d) ==
-+	    mul_u32_u32(vrr->vrr_min_d, vrr->vrr_max_n))
-+		return true;
-+
-+	return false;
-+}
-+EXPORT_SYMBOL(drm_crtc_helper_vrr_is_fixed_rate);
-+
- /**
-  * drm_crtc_helper_vrr_flush - Update VRR state on frame ready
-  * @crtc_state: pointer to &struct drm_crtc_state of CRTC that has a new frame ready
-@@ -864,6 +880,9 @@ bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state)
- 		return false;
- 	}
- 
-+	if (drm_crtc_helper_vrr_is_fixed_rate(vrr))
-+		return false;
-+
- 	if (vrr->cur_vtotal == vrr->base_vtotal)
- 		return false;
- 
-@@ -889,10 +908,21 @@ bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state)
- 	struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
- 	u16 old_vtotal = vrr->cur_vtotal;
- 
--	if (!crtc_state->vrr_enabled)
-+	if (!crtc_state->vrr_enabled) {
- 		vrr->cur_vtotal = 0;
--	else
-+		vrr->cur_err = 0;
-+	} else if (drm_crtc_helper_vrr_is_fixed_rate(vrr)) {
-+		if (vrr->cur_err >= (int) (vrr->denom / 2)) {
-+			vrr->cur_err -= vrr->denom;
-+			vrr->cur_vtotal = vrr->base_vtotal + 1;
-+		} else {
-+			vrr->cur_vtotal = vrr->base_vtotal;
-+		}
-+
-+		vrr->cur_err += vrr->per_frame_err;
-+	} else {
- 		vrr->cur_vtotal = vrr->max_vtotal;
-+	}
- 
- 	if (abs_diff(vrr->cur_vtotal, old_vtotal) > 1)
- 		vrr->dynamic = true;
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 9004f7c2f21e..cfd051ccbd2e 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -70,6 +70,9 @@ struct drm_crtc_vrr_state {
- 	u32 vrr_min_d;
- 	u32 vrr_max_n;
- 	u32 vrr_max_d;
-+	u32 denom;
-+	u32 per_frame_err;
-+	int cur_err;
- 	u16 base_vtotal;
- 	bool dynamic;
- };
-diff --git a/include/drm/drm_crtc_helper.h b/include/drm/drm_crtc_helper.h
-index 0c8c11ea36dd..7d7b75045bd9 100644
---- a/include/drm/drm_crtc_helper.h
-+++ b/include/drm/drm_crtc_helper.h
-@@ -45,6 +45,7 @@ struct drm_framebuffer;
- struct drm_mode_set;
- struct drm_modeset_acquire_ctx;
- struct drm_crtc_state;
-+struct drm_crtc_vrr_state;
- 
- void drm_helper_disable_unused_functions(struct drm_device *dev);
- int drm_crtc_helper_set_config(struct drm_mode_set *set,
-@@ -63,6 +64,7 @@ int drm_helper_connector_dpms(struct drm_connector *connector, int mode);
- void drm_helper_resume_force_mode(struct drm_device *dev);
- int drm_helper_force_disable_all(struct drm_device *dev);
- 
-+bool drm_crtc_helper_vrr_is_fixed_rate(const struct drm_crtc_vrr_state *vrr);
- bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state);
- bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state);
- 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gmu.c
+> index 662f09bec9d52..1e6e47b635f08 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -1319,6 +1319,16 @@ static int a6xx_gmu_gxpd_put(struct a6xx_gmu *gmu)
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * After a power cycle the RSC does not expect a wakeup request and the =
+GMU
+> + * secure init is gone, so start the GMU like after probe.
+> + */
+> +void a6xx_gmu_power_cycled(struct a6xx_gpu *a6xx_gpu)
+> +{
+> +	clear_bit(GMU_STATUS_PDC_SLEEP, &a6xx_gpu->gmu.status);
 
--- 
-2.56.0
+[Severity: High]
+Is it always safe to unconditionally clear GMU_STATUS_PDC_SLEEP and assume a
+cold boot on every restore transition?
 
+If the boot kernel that loads the hibernation image opens the DRM device
+(for example via an initramfs splash screen calling
+msm_open() -> adreno_load_gpu() -> a6xx_gmu_resume()), it boots the GMU,
+sets REG_A7XX_CX_MISC_TCM_RET_CNTL =3D 1 or REG_A6XX_GMU_GENERAL_7 =3D 1, a=
+nd
+then suspends the GPU during runtime suspend or
+dpm_suspend_start(PMSG_QUIESCE) -> adreno_system_suspend() ->
+a6xx_gmu_stop() -> a6xx_rpmh_stop(), which puts the hardware GPU RSC into
+sleep mode. The same RSC sleep state also remains in effect when
+adreno_system_restore() runs without a power cycle, such as during
+HIBERNATION_TEST_RESUME or when hibernation_platform_enter() aborts after
+dpm_suspend_start(PMSG_HIBERNATE) and rolls back via PMSG_RESTORE.
+
+When a6xx_gmu_power_cycled() clears GMU_STATUS_PDC_SLEEP in those cases,
+a6xx_rpmh_start() will return early without waking the sleeping RSC:
+
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_rpmh_start() {
+	if (!test_and_clear_bit(GMU_STATUS_PDC_SLEEP, &gmu->status))
+		return 0;
+}
+
+Additionally, if the loader kernel booted the GMU prior to quiesce,
+a6xx_gmu_resume() in the restored kernel will still read 1 from
+REG_A7XX_CX_MISC_TCM_RET_CNTL or REG_A6XX_GMU_GENERAL_7 and select
+GMU_WARM_BOOT, skipping a6xx_gmu_fw_load() in a6xx_gmu_fw_start():
+
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_resume() {
+	if (adreno_is_a7xx(adreno_gpu) || adreno_is_a8xx(adreno_gpu)) {
+		status =3D a6xx_cx_misc_read(a6xx_gpu, REG_A7XX_CX_MISC_TCM_RET_CNTL) =3D=
+=3D 1 ?
+			GMU_WARM_BOOT : GMU_COLD_BOOT;
+	} else if (gmu->legacy) {
+		status =3D gmu_read(gmu, REG_A6XX_GMU_GENERAL_7) =3D=3D 1 ?
+			GMU_WARM_BOOT : GMU_COLD_BOOT;
+	...
+}
+
+Should this check the hardware RSC status (or re-initialize the hardware
+state) and ensure a cold boot so that GMU firmware is reloaded and the RSC
+state matches?
+
+> +	clear_bit(GMU_STATUS_SECURE_INIT, &a6xx_gpu->gmu.status);
+> +}
+
+[Severity: High]
+Does a6xx_gmu_power_cycled() also need to re-run the RSCC/PDC and ACD probe-
+time initialization when restoring from hibernation?
+
+The callback is wired into a6xx_gpu_funcs, a7xx_gpu_funcs, and
+a8xx_gpu_funcs. When the kernel that loads the hibernation image has not
+probed the msm driver, the hibernation power cycle resets RSCC, PDC, and AO=
+SS
+state to power-on defaults. During initial probe, a6xx_gmu_init() runs both
+a6xx_gmu_acd_probe() and a6xx_gmu_rpmh_init():
+
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_init() {
+	ret =3D a6xx_gmu_acd_probe(gmu);
+	if (ret)
+		goto detach_gxpd;
+
+	/* Set up the HFI queues */
+	a6xx_hfi_init(gmu);
+
+	/* Initialize RPMh */
+	a6xx_gmu_rpmh_init(gmu);
+}
+
+On A6xx and A7xx (unlike A8xx where AOP configures RSCC and PDC),
+a6xx_gmu_rpmh_init() programs the RSCC-PDC handshake registers, loads the
+RSCC sequencer microcode, loads PDC sequencer microcode and TCS commands on
+older targets, and enables the GPU PDC via REG_A6XX_PDC_GPU_ENABLE_PDC.
+Similarly, a6xx_gmu_acd_probe() sends the QMP notification to AOSS:
+
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_acd_probe() {
+	ret =3D qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", !!cmd->enabl=
+e_by_level);
+}
+
+Without re-running a6xx_gmu_rpmh_init() and re-notifying AOSS of the ACD
+state before a6xx_gmu_resume() -> a6xx_hfi_start() -> a6xx_hfi_enable_acd()
+enables HFI_FEATURE_ACD on the GMU, won't resume after hibernation leave
+RSCC/PDC unprogrammed on A6xx/A7xx and leave AOSS with ACD disabled while
+the GMU enables ACD?
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 92e8c8abb86da..962b497868daf 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -2796,6 +2796,11 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_de=
+vice *dev)
+>  	return gpu;
+>  }
+> =20
+> +static void a6xx_gpu_power_cycled(struct adreno_gpu *adreno_gpu)
+> +{
+> +	a6xx_gmu_power_cycled(to_a6xx_gpu(adreno_gpu));
+> +}
+
+[Severity: High]
+What happens to the zap shader state in a6xx_zap_shader_init() after
+a6xx_gpu_power_cycled() runs on hibernation restore?
+
+Before hibernation, hw_init() in a6xx_gpu.c and a8xx_gpu.c calls
+a6xx_zap_shader_init(), which loads the zap shader via
+adreno_zap_shader_load(gpu, GPU_PAS_ID) and sets its static loaded flag to
+true:
+
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_zap_shader_init() {
+	static bool loaded;
+	int ret;
+
+	if (loaded)
+		return 0;
+
+	ret =3D adreno_zap_shader_load(gpu, GPU_PAS_ID);
+
+	loaded =3D !ret;
+	return ret;
+}
+
+Across a hibernation power cycle, the no-map zap-shader memory region and
+secure world PAS state are wiped (even if the loader kernel has msm in its
+initramfs, unless the loader kernel also opened the DRM device to trigger
+adreno_load_gpu() -> hw_init()). Because loaded remains true in the restored
+kernel image, the next hw_init() sees a6xx_zap_shader_init() return 0
+without reloading the zap shader and immediately emits CP_SET_SECURE_MODE:
+
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
+	ret =3D a6xx_zap_shader_init(gpu);
+	if (!ret) {
+		OUT_PKT7(gpu->rb[0], CP_SET_SECURE_MODE, 1);
+		OUT_RING(gpu->rb[0], 0x00000000);
+
+		a6xx_flush(gpu, gpu->rb[0]);
+		if (!a6xx_idle(gpu, gpu->rb[0]))
+			return -EINVAL;
+	...
+}
+
+Won't CP_SET_SECURE_MODE fail or hang on A6xx, A7xx, and A8xx targets that
+use a zap shader unless the zap shader is also reloaded (or shut down and
+re-initialized via qcom_scm_pas_shutdown() / adreno_zap_shader_load()) acro=
+ss
+hibernation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-b4-drm-msm=
+-a6xx-rsc-restore-hibernation-v1-1-3250fd8eefb6@oss.qualcomm.com?part=3D1
