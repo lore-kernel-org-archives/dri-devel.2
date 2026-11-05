@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E60D606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1EED606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PvUUOgAO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gi6TI+yH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB571121D7;
-	Thu,  5 Nov 2026 07:39:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22DE81121D2;
+	Thu,  5 Nov 2026 07:40:05 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7091121AB
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 07:39:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D921121FF
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 07:39:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 07DE4601F7;
- Thu,  5 Nov 2026 07:39:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866B51F00A15;
- Thu,  5 Nov 2026 07:39:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5AA02601F7;
+ Thu,  5 Nov 2026 07:39:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09BE1F000C1;
+ Thu,  5 Nov 2026 07:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793864349;
- bh=WAdCXfefZsgHt9Vlank3I6FGxO4XwINITcX7BztfqcM=;
+ s=k20260515; t=1793864398;
+ bh=YuhmZy106RmqhDokR0skrNRjWDZ7iZ1bLDgNmD5yF3U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PvUUOgAOZY+rPXNts7Drb6YKp9ddCHbP4VwEwh1m3zi28kq8IK4L91FgxJkbLDKtE
- 2FoaCfwO4hEfESXFSV25O3rPug9+x2KhQ6K3lt9kbH7hbqnEPLWlj7VDoE3BKx+tlZ
- sPhcYyd9AjQmiiuc7NjRrTbzo1RU+7paVAvoNb0kJyvfRFsezOMU0N8exnsv6AIFbO
- Ascp33w0JEExRl1ROaBZ4EBSrXCuR8YhMkZ2j2R6kZpwV+4Ymui62t3nRitAOEygBG
- ZtCdC9rLls8GWpZBQK4iJ0Qhu9mcu48nj466Rp0ZU8UDZmVq7EAqReIevTxVFPCHmm
- 3AoLeyf5R5hJg==
-Message-ID: <sashiko-outbox-198687@kernel.org>
+ b=Gi6TI+yHCb+WNFx2E07QhEHXRIMyFm2+bRDqrW2qbd5oMC8H6ovrTmyN2zQaFj0oq
+ /FeSNq1iB2hgrgxZWVYNypoLr+NrCGr9Y7X2MkpFRvRYB3nxWvkcZfeZSdjfOoIFho
+ iCwMTMUuLn6zlw41zMjx2LUfoWmi7PESZu0xR62J0x5CporZHGjjD6zLNK+Ksi7cDe
+ jBy952JOkjRamzjIBqSn6HmNJEIZs5wiilYZ7ILz+5IxCg6UlBA//BCjbIAIFGyy6L
+ sx0T5JqjPRTzszcPrlaMBOylxZf6x7aT9dDvNQLbvPF+FU0Pw/U/6GcIG5/+rDq27m
+ sYB/GLyzKIS2A==
+Message-ID: <sashiko-outbox-198689@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv3 09/13] media: cec: core: add support for HPD_PRESENT
+Subject: Re: [PATCHv3 12/13] media: cec: core: implement
+ CEC_EVENT_FL_STATE_HPD_PRESENT
 To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <ae93656d52c429861504836a10c07b9eac3cd470.1793863347.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <b57a1fc1bb55bd53c9cfc938b0129a6b8b832e90.1793863347.git.hverkuil+cisco@kernel.org>
 References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
- <ae93656d52c429861504836a10c07b9eac3cd470.1793863347.git.hverkuil+cisco@kernel.org>
+ <b57a1fc1bb55bd53c9cfc938b0129a6b8b832e90.1793863347.git.hverkuil+cisco@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 07:39:08 +0000
+Date: Thu, 05 Nov 2026 07:39:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,135 +59,98 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: cec: undeclared CEC_CAP_HAS_HPD_PRESENT and CEC_LOG_ADDRS=
-_FL_HPD_PRESENT
-- [Medium] media: cec: cec_s_phys_addr() falsely sets HPD_PRESENT via cec_n=
-otifier
+- [High] media: cec: undeclared and unpopulated HPD_PRESENT flags in cec-ad=
+ap and cec-api
 --
 
-commit 9869442bbf59dec664959906e52999513a57f708
+commit 7888dab6341569ef2e99296246cbc101a56dde4e
 Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-media: cec: core: add support for HPD_PRESENT
+media: cec: core: implement CEC_EVENT_FL_STATE_HPD_PRESENT
 
-This commit adds support for tracking and reporting whether the HPD is
-present via the CEC_LOG_ADDRS_FL_HPD_PRESENT flag and
-CEC_CAP_HAS_HPD_PRESENT capability. It updates __cec_s_phys_addr(),
-cec_s_phys_addr(), cec_s_phys_addr_from_edid(), and
-cec_phys_addr_invalidate() to update this state.
+This commit updates cec_post_state_event() and cec_open() to set
+CEC_EVENT_FL_STATE_HPD_PRESENT on state change events when
+CEC_LOG_ADDRS_FL_HPD_PRESENT is set in adap->log_addrs.flags.
 
 > diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/c=
 ec-adap.c
-> index ee8a200b9803f..55b2e711fe77f 100644
+> index ee8a200b9803f..1920377d6b6e0 100644
 > --- a/drivers/media/cec/core/cec-adap.c
 > +++ b/drivers/media/cec/core/cec-adap.c
-> @@ -1727,18 +1727,35 @@ int cec_adap_enable(struct cec_adapter *adap)
->   *
->   * This function is called with adap->lock held.
->   */
-> -void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool blo=
-ck)
-> +void __cec_s_phys_addr(struct cec_adapter *adap, bool hpd_present,
-> +		       u16 phys_addr, bool block)
->  {
->  	bool becomes_invalid =3D phys_addr =3D=3D CEC_PHYS_ADDR_INVALID;
->  	bool is_invalid =3D adap->phys_addr =3D=3D CEC_PHYS_ADDR_INVALID;
-> +	bool hpd_was_present =3D
-> +		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_HPD_PRESENT;
-> =20
-> -	if (phys_addr =3D=3D adap->phys_addr)
-> -		return;
-> +	if (adap->capabilities & CEC_CAP_HAS_HPD_PRESENT) {
-> +		if (hpd_present)
-> +			adap->log_addrs.flags |=3D CEC_LOG_ADDRS_FL_HPD_PRESENT;
-> +		else
-> +			adap->log_addrs.flags &=3D ~CEC_LOG_ADDRS_FL_HPD_PRESENT;
-> +	} else {
-> +		hpd_present =3D false;
-> +	}
-
-[Severity: Medium]
-Was a hunk for include/uapi/linux/cec.h left out of this patch?
-
-In drivers/media/cec/core/cec-adap.c, __cec_s_phys_addr() and
-__cec_s_log_addrs() reference CEC_LOG_ADDRS_FL_HPD_PRESENT and
-CEC_CAP_HAS_HPD_PRESENT, and cec_allocate_adapter() in
-drivers/media/cec/core/cec-core.c also references CEC_CAP_HAS_HPD_PRESENT:
-
-	if (!(caps & CEC_CAP_PHYS_ADDR))
-		adap->capabilities |=3D CEC_CAP_HAS_HPD_PRESENT;
-
-However, include/uapi/linux/cec.h is not updated by this commit and neither
-macro is defined in the tree, causing the build to fail when CONFIG_CEC_CORE
-is enabled.
-
->  	if (!becomes_invalid && adap->devnode.unregistered)
->  		return;
-> +	if (phys_addr =3D=3D adap->phys_addr) {
-> +		if (hpd_was_present !=3D hpd_present) {
-> +			dprintk(1, "HPD is %spresent\n",
-> +				hpd_present ? "" : "not ");
-> +			cec_post_state_event(adap);
-> +		}
-> +		return;
-> +	}
-> =20
-> -	dprintk(1, "new physical address %x.%x.%x.%x\n",
-> -		cec_phys_addr_exp(phys_addr));
-> +	dprintk(1, "new physical address %x.%x.%x.%x, HPD is %spresent\n",
-> +		cec_phys_addr_exp(phys_addr), hpd_present ? "" : "not ");
->  	if (becomes_invalid || !is_invalid) {
->  		adap->phys_addr =3D CEC_PHYS_ADDR_INVALID;
->  		cec_adap_unconfigure(adap);
-> @@ -1767,11 +1784,22 @@ void cec_s_phys_addr(struct cec_adapter *adap, u1=
-6 phys_addr, bool block)
->  		return;
-> =20
->  	mutex_lock(&adap->lock);
-> -	__cec_s_phys_addr(adap, phys_addr, block);
-> +	__cec_s_phys_addr(adap, true, phys_addr, block);
->  	mutex_unlock(&adap->lock);
+> @@ -323,6 +323,8 @@ static void cec_post_state_event(struct cec_adapter *=
+adap)
+>  	ev.state_change.log_addr_mask =3D adap->log_addrs.log_addr_mask;
+>  	ev.state_change.have_conn_info =3D
+>  		adap->conn_info.type !=3D CEC_CONNECTOR_TYPE_NO_CONNECTOR;
+> +	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_HPD_PRESENT)
+> +		ev.flags |=3D CEC_EVENT_FL_STATE_HPD_PRESENT;
+>  	cec_queue_event(adap, &ev);
 >  }
->  EXPORT_SYMBOL_GPL(cec_s_phys_addr);
+> =20
+> diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/ce=
+c-api.c
+> index a491d7fc8a71a..f938668065fcb 100644
+> --- a/drivers/media/cec/core/cec-api.c
+> +++ b/drivers/media/cec/core/cec-api.c
+> @@ -559,10 +559,7 @@ static int cec_open(struct inode *inode, struct file=
+ *filp)
+>  	 * Initial events that are automatically sent when the cec device is
+>  	 * opened.
+>  	 */
+> -	struct cec_event ev =3D {
+> -		.event =3D CEC_EVENT_STATE_CHANGE,
+> -		.flags =3D CEC_EVENT_FL_INITIAL_STATE,
+> -	};
+> +	struct cec_event ev =3D {};
+>  	unsigned int i;
+>  	int err;
+> =20
+> @@ -588,12 +585,17 @@ static int cec_open(struct inode *inode, struct fil=
+e *filp)
+>  	filp->private_data =3D fh;
+> =20
+>  	/* Queue up initial state events */
+> +	ev.event =3D CEC_EVENT_STATE_CHANGE;
+>  	ev.state_change.phys_addr =3D adap->phys_addr;
+>  	ev.state_change.log_addr_mask =3D adap->log_addrs.log_addr_mask;
+>  	ev.state_change.have_conn_info =3D
+>  		adap->conn_info.type !=3D CEC_CONNECTOR_TYPE_NO_CONNECTOR;
+> +	ev.flags =3D CEC_EVENT_FL_INITIAL_STATE;
+> +	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_HPD_PRESENT)
+> +		ev.flags |=3D CEC_EVENT_FL_STATE_HPD_PRESENT;
 
-[Severity: Medium]
-Does passing hpd_present =3D true unconditionally in cec_s_phys_addr() cause
-CEC_LOG_ADDRS_FL_HPD_PRESENT to be falsely set for adapters using
-cec_notifier or invalidating the physical address via cec_s_phys_addr()?
+[Severity: High]
+Does this break the build when CONFIG_CEC_CORE is enabled?
 
-In drivers/media/cec/core/cec-core.c, cec_allocate_adapter() sets
-CEC_CAP_HAS_HPD_PRESENT on all adapters without CEC_CAP_PHYS_ADDR, which
-includes cec_notifier-based drivers.
+Both cec_post_state_event() in drivers/media/cec/core/cec-adap.c and
+cec_open() in drivers/media/cec/core/cec-api.c reference
+CEC_LOG_ADDRS_FL_HPD_PRESENT and CEC_EVENT_FL_STATE_HPD_PRESENT, but neither
+symbol is defined in include/uapi/linux/cec.h (or anywhere else in the tree=
+):
 
-In drivers/media/cec/core/cec-notifier.c, cec_notifier_cec_adap_register()
-initializes the adapter's physical address via cec_s_phys_addr():
+include/uapi/linux/cec.h:
+    #define CEC_EVENT_FL_INITIAL_STATE	(1 << 0)
+    #define CEC_EVENT_FL_DROPPED_EVENTS	(1 << 1)
 
-	if (!adap->adap_controls_phys_addr)
-		cec_s_phys_addr(adap, n->phys_addr, false);
+In addition, nothing in drivers/media/cec/ or any CEC driver sets
+CEC_LOG_ADDRS_FL_HPD_PRESENT in adap->log_addrs.flags, and
+cec_adap_s_log_addrs() in drivers/media/cec/core/cec-api.c masks out any ot=
+her
+flags before __cec_s_log_addrs() overwrites adap->log_addrs:
 
-When no sink is connected at registration time, n->phys_addr is
-CEC_PHYS_ADDR_INVALID, so calling cec_s_phys_addr() sets
-CEC_LOG_ADDRS_FL_HPD_PRESENT and posts a state change event even though HPD
-is low.
+drivers/media/cec/core/cec-api.c:cec_adap_s_log_addrs() {
+    ...
+	log_addrs.flags &=3D CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK |
+			   CEC_LOG_ADDRS_FL_ALLOW_RC_PASSTHRU |
+			   CEC_LOG_ADDRS_FL_CDC_ONLY;
+    ...
+}
 
-Similarly, when HPD goes low, cec_notifier_phys_addr_invalidate() in
-include/media/cec-notifier.h and cec_notifier_set_phys_addr_from_edid(n, NU=
-LL)
-in drivers/media/cec/core/cec-notifier.c both route through
-cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID):
-
-	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
-		cec_s_phys_addr(n->cec_adap, n->phys_addr, false);
-
-Because this calls cec_s_phys_addr() rather than cec_phys_addr_invalidate(),
-and other callers such as drm_dp_cec_attach() (when called from
-drm_dp_cec_set_edid(aux, NULL)), hdmi4_bridge_hpd_notify(), and
-adv7511_check_monitor_present_status() also pass CEC_PHYS_ADDR_INVALID to
-cec_s_phys_addr() on disconnect, won't CEC_LOG_ADDRS_FL_HPD_PRESENT remain
-set when HPD is lost?
+Were the header definitions and the code that populates
+CEC_LOG_ADDRS_FL_HPD_PRESENT left out of this commit?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ae93656d52c42986150=
-4836a10c07b9eac3cd470.1793863347.git.hverkuil+cisco@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/b57a1fc1bb55bd53c9c=
+fc938b0129a6b8b832e90.1793863347.git.hverkuil+cisco@kernel.org?part=3D1
