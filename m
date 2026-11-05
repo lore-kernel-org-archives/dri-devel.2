@@ -2,57 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85383606A339
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF57606A331
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BB5Ic7JH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqiPpiJB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAAA811277B;
-	Thu,  5 Nov 2026 15:31:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0D2C11276E
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94D4111277A;
+	Thu,  5 Nov 2026 15:31:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66BA411277A
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:31:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C404160A56;
- Thu,  5 Nov 2026 15:31:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4031F000C1;
- Thu,  5 Nov 2026 15:31:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4FD8140E39;
+ Thu,  5 Nov 2026 15:31:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F681F000C1;
+ Thu,  5 Nov 2026 15:31:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892682;
- bh=k4rz680V7cIAb7iutGeH77t262DzHjpYVR2yTCZegGo=;
+ s=k20260515; t=1793892686;
+ bh=/RuyPDJSOQkSvtGZQ699xnBIKRw+fZZ9SK+IyRUFhM0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BB5Ic7JHgdYxxa7vuMlU5JnZYwORREKVBE2MT134haR7UF3zBhU6h8PbsR9M5TfXN
- cO9kBzT8+IztfWtDx2jOcHTGgf24yPDMKVYKvPSOMOSaNVvUSHRHZVOC1GYPwJYN5N
- R3TNbTdkfqf/A5zrXBdgN7M3G423IHfADSCMNK0fW9s0DE8zU7YU+iaVFehLQJ/R1v
- 5lv73xrwqhzYk2zuvTOrVF+Ny9eYAsuSoz8aJ+THmAZ0mS5hZ/91YWAzHIF0v9fB0L
- M3TllWw6HqE5odMvbqDg+um+0VI96Gc+3aAIlqOICF4ZuoQT3AuLjRMQHJ21jX7i46
- lRWVrPmJLO0vQ==
+ b=UqiPpiJB3QyYkOa5ZFfohwKdWzS/k7C93mYTOj0zbyJVpSFD+tlIn//xp1wdr+u/7
+ z8Eu3e5SfgOBOjL61Nr5bg0L1kw6QWB6FxqNidtwvLmsCmmIF+5cHo3XhECWzleY4y
+ qttntWxU7+RQbQRSFcmikIEnQji1VePvwt/Qrlyblx9EPVkeetYTztv6flLJYy8LDy
+ OMYnFRKlmiNkR11xTUmOmkK3e0dMTvAJKseTvbRsYH/ZgXOEZ4D8QztfIDR4cd0Iu3
+ FyJHb+liJzRxF/mCQJ97bSFyDXqeDYKkQofoI81GWSpXcPIUIDlK6l3RjEAF2H+Tee
+ JG1Asownbpeaw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:28 +0100
-Subject: [PATCH RESEND 19/83] drm/imx/ipuv3: Switch to
+Date: Thu, 05 Nov 2026 16:29:29 +0100
+Subject: [PATCH RESEND 20/83] drm/ingenic: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-19-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-20-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1328; i=mripard@kernel.org;
- h=from:subject:message-id; bh=R1dioC/IosBGQUi4ZFDeC1cA3Y5gHU7STgC448dv8hY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjzte7NHXXrOct7GrVJMVqy3ndZsn/FfcOqztRpX1
- haI7Vq5qGMqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5FsJY33hs7DDsWH2x7bd
- afmzUtvI80JbnKLhWY7J769xzFVo0eadIjh1RrtC0KJvXH0hdxwa/jM2/HrcnuGXsPp87FmG7sD
- A1G3/eh8KTM1cGNyb//dnxkyJoiNrPxdeYLoq4bKw8knd0+veAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1219; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=9SWtkslaqOuBdZr7dXYA3MFs+LezwP69O0+5JcuvqD4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFjyzkFFfw58s4LswKMQkfAmXoa6JSt0m0bObr06Y6
+ TvfVci0YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkbytjrRD7vG1T4lgWlp71
+ myvY6LZu5nQPRuPABVUKYtvdOdUjsqUVz9Q7vF2avGSN21WhgKp2xvqotLUHjnpITlF/dXPjtK1
+ hi48oVfIL5AkqCH/r0XoZGLXcYhPLi2nOkbtOpCmxvP/L3QsA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,29 +84,25 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: imx@lists.linux.dev
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: linux-mips@vger.kernel.org
 ---
- drivers/gpu/drm/imx/ipuv3/imx-drm-core.c | 4 +++-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-index 51a0ec043248..b7b6ae8f9578 100644
---- a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-+++ b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-@@ -245,5 +245,7 @@ static int imx_drm_bind(struct device *dev)
- 		goto err_kms;
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 625ec76cf04d..63198fd59498 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -1355,5 +1355,7 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 	}
  
 -	drm_mode_config_reset(drm);
 +	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		goto err_poll_fini;
++		goto err_drvdata;
  
- 	/*
+ 	ret = clk_prepare_enable(priv->pix_clk);
 
 -- 
 2.55.0
