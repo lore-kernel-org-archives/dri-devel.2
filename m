@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7BE606A31B
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49218606A328
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN1nuO8u
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUmW27sB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45320112761;
-	Thu,  5 Nov 2026 15:30:35 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0D0C1125FA
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6909C11277C;
+	Thu,  5 Nov 2026 15:30:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E82191125FB
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 15:30:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A1B97439A8;
- Thu,  5 Nov 2026 15:30:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120081F00919;
- Thu,  5 Nov 2026 15:30:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5EBA360A07;
+ Thu,  5 Nov 2026 15:30:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9221B1F00A02;
+ Thu,  5 Nov 2026 15:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793892628;
- bh=vU3sYdXgaRja0if6xD36SsivS3eMUWznXPzuyNCbWow=;
+ s=k20260515; t=1793892632;
+ bh=4ZXkRrSh3hQhAL8mvalidLg0M81jXCN214hK6/Hkt7w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YN1nuO8uH2mT6XKJZnwYoaGLq/ScbTtetuqMlY03HS8WhJSUi7o5MVdVf8yQD8zwi
- XmGt52TQ2sr8ySstDzbZP9u+zzYXuLdJxuBpnJwPq22aWMqsz1dxCgudDm6XgdmPif
- 5QepSdZp1ScyfTmDRqhKq+24rQ78hwB7qCmKTw7+YHk/53VYi0Yj32xKLuUs/kymak
- F2KpV+RHva0A/bSQIDofLUFBpeU06IeL+B+vpLoUV6tIFnvc4Ck8HUUJ6i5leZePcs
- ZKDAlt/AHvDB386c59SHdtOkVetr/z7bl1rIT+0Z0bCabHcng7i7HLm5hNoeyYepAb
- 7TW/nr6ormZvg==
+ b=nUmW27sBUrIc0hLNGUbqwedEQo2w2t/9Xvf6IsNy2I4V4cst4bbpriuTMBjPx1lS7
+ owol6UoToUXjy5JgvQM1BX8LHhJ7jb95WoY3Xalw/04lR3tKbVg7+EMYuUsqvmt3Ev
+ j/CbaNp68H2s0o81hJVpK+bMH6U/9E8Hjk2zMSqiFXViaChhHn+CfpIq8iVaowm+HK
+ ARRT2p3I7Kt4iyTxS8b++3tmLOrqjFEGckKfbqD+HjnAd96Fc+5forBhS7EF9/zdkS
+ yIAU5Bri27814AG6voNMd3lVX6NfpMNIph1Y7cPZ0+3l2jbQHlaxKOmN0PxohESRBG
+ i2FTpGASSMMBg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 05 Nov 2026 16:29:13 +0100
-Subject: [PATCH RESEND 04/83] drm/komeda: Switch to
+Date: Thu, 05 Nov 2026 16:29:14 +0100
+Subject: [PATCH RESEND 05/83] drm/hdlcd: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-no-more-config-reset-v1-4-1f58d1e33380@kernel.org>
+Message-Id: <20261105-drm-no-more-config-reset-v1-5-1f58d1e33380@kernel.org>
 References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 To: David Airlie <airlied@gmail.com>, 
@@ -44,12 +44,12 @@ To: David Airlie <airlied@gmail.com>,
 Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
  Liviu Dudau <liviu.dudau@arm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1245; i=mripard@kernel.org;
- h=from:subject:message-id; bh=3nchJw0q1N9/BnW/w5ysD7bTFgFqvhG5c01i4QN6LMo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtyfp7XBffOfdaeLOpzSdya42st/bOs6dW+SVlTO+
- T0Caq1XO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEnhow1oq/ig9TnC/hNkdh
- 3celk9M/PrrUcezvFtkXl1Lnbtu789372a+1e6c4dgZqbO5u8lo8J4KxinlmfcirOtW8ibMMcy4
- s0V+0U3ux1y6pJYeLXWSeKmp8ErftrZpctyWHaebr5U+rpoXJAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=aaoN2s+KoMKL8fYeE6V5zgcj8hX6dhgF6xNELbuY0Qk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvFtzfrS1/4Ff3vZuLGqw5Xs0VX+/7X3SxvVN80MWFj
+ ILv7aZc65jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATacphbHjYYqZ762LcxIcB
+ VjM35ty0FfB+f+fNa7MzLH2HNkuG39ostllr9vntu7rzvmzX9Fl87yBjndESn097Lnu0LTzh3bd
+ 6+4NaYaOLGyI0TJft8Hm+6ViVot6T/cpNvNsdT05aGxW1IT9tGwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,22 +85,22 @@ Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 4 +++-
+ drivers/gpu/drm/arm/hdlcd_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-index faa8b041373a..66854c6cc03f 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-@@ -310,5 +310,7 @@ struct komeda_kms_dev *komeda_kms_attach(struct komeda_dev *mdev)
- 		goto cleanup_mode_config;
+diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+index 340b1bb38bf9..58ee8ad1d2ea 100644
+--- a/drivers/gpu/drm/arm/hdlcd_drv.c
++++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+@@ -319,5 +319,7 @@ static int hdlcd_probe(struct platform_device *pdev)
+ 	}
  
 -	drm_mode_config_reset(drm);
-+	err = drm_mode_config_create_initial_state(drm);
-+	if (err)
-+		goto cleanup_mode_config;
++	ret = drm_mode_config_create_initial_state(drm);
++	if (ret)
++		goto err_vblank;
+ 	drm_kms_helper_poll_init(drm);
  
- 	err = devm_request_irq(drm->dev, mdev->irq,
 
 -- 
 2.55.0
