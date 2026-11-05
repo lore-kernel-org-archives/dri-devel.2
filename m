@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06736606D82D
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:29:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EC86082BEA
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 19:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BS3XZKDa
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjJEPh8p
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 680BB10E293;
-	Thu,  5 Nov 2026 19:29:07 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF09C10E293
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:29:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE4B10E30E;
+	Thu,  5 Nov 2026 19:30:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8BA10E30E
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 19:29:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9619643BEE;
- Thu,  5 Nov 2026 19:29:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BECE1F00A02;
- Thu,  5 Nov 2026 19:28:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 81189601CF;
+ Thu,  5 Nov 2026 19:29:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBACC1F000C1;
+ Thu,  5 Nov 2026 19:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793906940;
- bh=bwgr0VzVaD2N9H/j3vgcXycx8H7hODk9Lndt/rv7J/s=;
+ s=k20260515; t=1793906994;
+ bh=Mq2TZRho3g/6dJEkd3aM2nJWP3IUjUSQ0d76Sv96NJo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BS3XZKDaZFqTzEkNK9cZ527vT05nQuRqIDjUKiUIf9jx85/EdPLYb0Z0y2P1F/dSr
- cLz8PVwZTDq2+LckdmqgyJzYBdcLi6vbD+TgraxVJ/TKav0Apjdcte0M2LitavcWXu
- 31sb0JElkWITsGXKzYHHXBcox2SfnEE32gjOr2QsFbRND4hlqQRt2MMTyGa/6k8cHB
- YEmqHkJb3KndD7l0LYWjOi4ddQ9wbEk5wPLHn/WamkFT57rjTzOkA05yE70xCSrR5q
- 981HyR3mf5h9r4lxyP6tj4pIri36VruMAV5ujmeRAKVrr3ZhUPLCXFzWwc1wxgznlM
- PAXiCJ1oQKLsQ==
-Message-ID: <sashiko-outbox-199869@kernel.org>
+ b=WjJEPh8pDtseuVUQk4qwZA9aci3gac063ZokyebNlvHp2beWZHvvSUeYQeiXMVXvr
+ gorR7o8d0SaoLeOi9bKNyUy3h6vHu09hw27HReSQrpP5tbdq5gCz3B6gixX9La77ez
+ A3GDPdSDz2e83FWBMhFysd0uKqafdxTW2wlSO3wrIC47SZJJWU00KVW3tU8R/XZoDc
+ l2HWNRW/SEC3nlzdu96mPwurJuhISd5di7F3WA+6g/riaXNTCLrXNXhDRDwZUn89Ok
+ 0Dcu6L25OUIAO131EMpgW4+6XspNy4+EDu3YAgYrAOfY0ko3kC83F2cPBr48QIfDJY
+ xKWD9ZPaIbjkw==
+Message-ID: <sashiko-outbox-199895@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v2 06/51] powerpc/pseries: put the node that the
- ofdt property commands look up
+Subject: Re: [PATCH RESEND v2 32/51] proc: resume readdir after the last
+ name it returned
 To: "Christian Brauner" <brauner@kernel.org>
 Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  "Jann Horn" <jannh@google.com>, "Josef
@@ -56,12 +56,12 @@ Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
  Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
  Gordeev" <agordeev@linux.ibm.com>,
  "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-6-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-32-021c84d852e0@kernel.org>
 References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
- <20261104-work-procfs-bugfixes-v2-6-021c84d852e0@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-32-021c84d852e0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:28:58 +0000
+Date: Thu, 05 Nov 2026 19:29:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,76 +84,107 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] powerpc/pseries: __free(device_node) declared =3D NULL at top of fu=
-nctions
+- [High] proc: proc_readdir_de() returns 1 at EOF, breaking old_readdir()
 --
 
-commit 3c337546ce05e068449f95031255af375235286d
+commit 6510b1c4f87c45306294a13ba8447b50990db356
 Author: Christian Brauner <brauner@kernel.org>
 
-powerpc/pseries: put the node that the ofdt property commands look up
+proc: resume readdir after the last name it returned
 
-This commit uses __free(device_node) in do_add_property(),
-do_remove_property(), and do_update_property() to release the device_node
-reference obtained by parse_node() via of_find_node_by_phandle().
+This commit records the name of the last emitted directory entry in a
+cursor stored in file->private_data so that subsequent readdir calls can
+resume after that entry by name rather than by numeric index. It also
+continues after an entry's name if the entry is removed while being
+emitted, and returns 1 when no entries remain at the start of
+proc_readdir_de().
 
-> diff --git a/arch/powerpc/platforms/pseries/reconfig.c b/arch/powerpc/pla=
-tforms/pseries/reconfig.c
-> index 18e3f1a036e35..5a0c9c0b6253f 100644
-> --- a/arch/powerpc/platforms/pseries/reconfig.c
-> +++ b/arch/powerpc/platforms/pseries/reconfig.c
-> @@ -271,8 +271,8 @@ static char *parse_node(char *buf, size_t bufsize, st=
-ruct device_node **npp)
-> =20
->  static int do_add_property(char *buf, size_t bufsize)
+> diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+> index 9e59796349e15..588999058e66d 100644
+> --- a/fs/proc/generic.c
+> +++ b/fs/proc/generic.c
+
+[ ... ]
+
+> @@ -290,23 +346,26 @@ struct dentry *proc_lookup(struct inode *dir, struc=
+t dentry *dentry,
+>  int proc_readdir_de(struct file *file, struct dir_context *ctx,
+>  		    struct proc_dir_entry *de)
 >  {
-> +	struct device_node *np __free(device_node) =3D NULL;
->  	struct property *prop =3D NULL;
-> -	struct device_node *np;
->  	unsigned char *value;
->  	char *name, *end;
->  	int length;
-> @@ -296,7 +296,7 @@ static int do_add_property(char *buf, size_t bufsize)
+> +	struct proc_dir_cursor *cursor =3D file->private_data;
+> +	struct proc_dir_entry *dir =3D de;
+>  	int i;
 > =20
->  static int do_remove_property(char *buf, size_t bufsize)
->  {
-> -	struct device_node *np;
-> +	struct device_node *np __free(device_node) =3D NULL;
->  	char *tmp;
->  	buf =3D parse_node(buf, bufsize, &np);
+>  	if (!dir_emit_dots(file, ctx))
+>  		return 0;
 > =20
-> @@ -315,7 +315,7 @@ static int do_remove_property(char *buf, size_t bufsi=
-ze)
-> =20
->  static int do_update_property(char *buf, size_t bufsize)
->  {
-> -	struct device_node *np;
-> +	struct device_node *np __free(device_node) =3D NULL;
+> -	i =3D ctx->pos - 2;
+>  	read_lock(&proc_subdir_lock);
+> -	de =3D pde_subdir_first(de);
+> -	for (;;) {
+> -		if (!de) {
+> -			read_unlock(&proc_subdir_lock);
+> -			return 0;
+> -		}
+> -		if (!i)
+> -			break;
+> -		de =3D pde_subdir_next(de);
+> -		i--;
+> +	if (cursor && cursor->pos =3D=3D ctx->pos) {
+> +		/* Resume after the last entry emitted, wherever it is now. */
+> +		de =3D pde_subdir_after(dir, cursor->name, cursor->len);
+> +	} else {
+> +		/* Moved by a seek, count from the start like always. */
+> +		de =3D pde_subdir_first(dir);
+> +		for (i =3D ctx->pos - 2; de && i; i--)
+> +			de =3D pde_subdir_next(de);
+> +	}
+> +	if (!de) {
+> +		read_unlock(&proc_subdir_lock);
+> +		return 1;
+>  	}
 
-[Severity: Low]
-This isn't a bug, but in do_add_property(), do_remove_property(), and
-do_update_property() in arch/powerpc/platforms/pseries/reconfig.c, np is
-declared with __free(device_node) =3D NULL at the top of each function and
-assigned later via parse_node(buf, bufsize, &np), whereas cleanup.h
-conventions require defining and initializing __free() variables in a single
-statement.
+[Severity: High]
+Does returning 1 here when !de cause old_readdir() and compat_old_readdir()
+to return 1 instead of 0 at end-of-directory on non-root /proc directories?
 
-Since parse_node() is a static helper only called by these three functions:
+While proc_root_readdir() checks for a positive return value from
+proc_readdir_de() to advance to the PID entries, proc_readdir() (for
+proc_dir_operations) and proc_tgid_net_readdir() (for proc_net_operations)
+return the result of proc_readdir_de() directly as their .iterate_shared
+return value:
 
-static char *parse_node(char *buf, size_t bufsize, struct device_node **npp)
-{
-	char *handle_str;
-	phandle handle;
-	*npp =3D NULL;
+fs/proc/generic.c:proc_readdir() {
 	...
-	*npp =3D of_find_node_by_phandle(handle);
-	return buf;
+	return proc_readdir_de(file, ctx, PDE(inode));
 }
 
-could parse_node() return struct device_node * directly (and advance char
-**buf) so that struct device_node *np __free(device_node) can be defined and
-initialized in one statement in each caller?
+fs/proc/proc_net.c:proc_tgid_net_readdir() {
+	...
+	ret =3D proc_readdir_de(file, ctx, net->proc_net);
+	put_net(net);
+	return ret;
+}
+
+Previously, proc_readdir_de() only returned 1 after completing the do-while
+loop (where dir_emit() had succeeded at least once and set buf.result =3D 1
+in fillonedir()), and returned 0 when !de at the start of the call.
+
+In fs/readdir.c, old_readdir() and compat_old_readdir() do:
+
+	error =3D iterate_dir(fd_file(f), &buf.ctx);
+	if (buf.result)
+		error =3D buf.result;
+
+	return error;
+
+When old_readdir() or compat_old_readdir() is called at EOF (ctx->pos >=3D 2
+and !de), dir_emit_dots() returns true without invoking ctx->actor, so
+buf.result remains 0 and iterate_dir() returns 1 from proc_readdir_de().
+Wouldn't old_readdir() and compat_old_readdir() then return 1 to userspace
+without writing to the dirent buffer or advancing file->f_pos, causing
+callers to read uninitialized or stale dirent memory in an infinite loop?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-work-procf=
-s-bugfixes-v2-0-021c84d852e0@kernel.org?part=3D6
+s-bugfixes-v2-0-021c84d852e0@kernel.org?part=3D32
