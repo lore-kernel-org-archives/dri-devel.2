@@ -2,83 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844A3606B453
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D637A60A2616
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=K7TGvezg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ndrc4iip;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YmgokFrP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IUTmOAq8
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=y2LFTKSd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7Z3qd3DE;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZizoNLSV;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xpQ5Iv7u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEFC21128E5;
-	Thu,  5 Nov 2026 16:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11BFE10E7B4;
+	Thu,  5 Nov 2026 16:02:52 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2EA31128E5
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:00:02 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF1610E1A7
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:02:40 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 05AEA1F7B1;
- Thu,  5 Nov 2026 16:00:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F145E1F749;
+ Thu,  5 Nov 2026 16:02:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AOGLXIyPI7o5Za2R8QBvmdRg9vZn7PxCeE+fD2XSeEM=;
- b=K7TGvezgvw+1oeQlU8uknTB+ktoSYuG+/ax6YjvsTVkW059mA3cYYV7aBFmKOIrjiMFMkI
- ylLYLgy59z8ZRS8XEp0+ZAPM8IxbZX9IFJxz4V10dnkS230jjeQJniwWv1eQ6+yudkg0h5
- sUhW7ujzj4tVFJfXGIjkr0cFfJhvMAQ=
+ bh=iAQq3IZ+ExUOrA6wQpCmxbtDK3cckcBQ/X2mEYWIGRk=;
+ b=y2LFTKSdEoBS+/0Y4juKbkUa/euVbuaXMiJwSm2ii0Gd5/cdHW+FJ+a8aq2iE/Fe4Eow+e
+ PfHTzT0H3WRFLQvQ89nE1/5rgoBXfCJcAFYNYkZ0l6UHgtulOgS9Ku4Kz1mEsGv1+hUv6M
+ Tx9os2GftrHa9agCBb+oAaNhBksVHoo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894401;
+ s=susede2_ed25519; t=1793894559;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AOGLXIyPI7o5Za2R8QBvmdRg9vZn7PxCeE+fD2XSeEM=;
- b=ndrc4iipoFbOoRY4M54xOXFBZfBcKbOKmuSI0Px6p+DNcgYHhsOfLoiohVBxKruuP1Gnec
- v3jsZPQrz7wV44Aw==
+ bh=iAQq3IZ+ExUOrA6wQpCmxbtDK3cckcBQ/X2mEYWIGRk=;
+ b=7Z3qd3DE00Dmk0eBRpeyfqve8DpELw3h6A+e8NVaN008PUHCxzpISwMD+9cCG/CI8BsvnM
+ D4v4QtUnJWWzaWBA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZizoNLSV;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xpQ5Iv7u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894400; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AOGLXIyPI7o5Za2R8QBvmdRg9vZn7PxCeE+fD2XSeEM=;
- b=YmgokFrPE7071Ubf2GleYzZ0PrqZc58IkDMuqjTRDzs47lTO9+xfKHxS48wq021h/4JVAW
- 2x9S1iUkw4pltl/Yvv8S0V1YnOl61+a0oKTZ2YtngtWOPiXR+4TQD7BYB3dOUBQkHHAYYD
- 60klEphWV/wyqMbBkc1R5pm5xqs9d2k=
+ bh=iAQq3IZ+ExUOrA6wQpCmxbtDK3cckcBQ/X2mEYWIGRk=;
+ b=ZizoNLSV6Y18HOql010CCV4fAw5RrLSS4cqGA5tmyYuP2CvJM215BczBWS1+9GZpzWJp/t
+ xMTCqbuUqq0Q6TfHkziq8Yr/GvivxiuDsnRTpbfxN3jQWXQWYjVqW78PKpC2EWcw1NPzyP
+ vlABkt/ssdSSo3OrKaG/zjqZkGf+e+Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894400;
+ s=susede2_ed25519; t=1793894558;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=AOGLXIyPI7o5Za2R8QBvmdRg9vZn7PxCeE+fD2XSeEM=;
- b=IUTmOAq8PXbv8XAwvshkFdk31NSzSvotrjZmJ0eZUTNw3/NAJDvxSEgIsvjUr8Aoem5IOc
- HUY6aEN0oojmWdAQ==
+ bh=iAQq3IZ+ExUOrA6wQpCmxbtDK3cckcBQ/X2mEYWIGRk=;
+ b=xpQ5Iv7u0cczbwV6OuWwAb+Vjs01Lp/3ezwL3X06bjZvWOAJs+5+zPvO7UzgfVIl3j3008
+ aXZ3lwEnfkL3saAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ABB34134F4;
- Thu,  5 Nov 2026 15:59:59 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A744E134F4;
+ Thu,  5 Nov 2026 16:02:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CBd8IP+n7Gr0CAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 15:59:59 +0000
-Message-ID: <b591dcf9-b84d-4488-bb17-d09414e51fcb@suse.de>
-Date: Thu, 5 Nov 2026 16:59:59 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id j4NzFZ6o7GqhCwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 16:02:38 +0000
+Message-ID: <b2d546fc-26b5-448e-b173-acc67be064de@suse.de>
+Date: Thu, 5 Nov 2026 17:02:37 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] MAINTAINERS: Move armada DRM under drm-misc
+Subject: Re: [PATCH 2/7] MAINTAINERS: Move Keem Bay DRM under drm-misc
 To: Maxime Ripard <mripard@kernel.org>, Simona Vetter
  <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org, Russell King <linux@armlinux.org.uk>
+Cc: dri-devel@lists.freedesktop.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>
 References: <20261105142127.708219-1-mripard@kernel.org>
+ <20261105142127.708219-2-mripard@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -105,25 +109,34 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261105142127.708219-1-mripard@kernel.org>
+In-Reply-To: <20261105142127.708219-2-mripard@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
  BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  FREEMAIL_TO(0.00)[kernel.org,ffwll.ch,gmail.com,lankhorst.se];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6]; FROM_EQ_ENVFROM(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email,
- armlinux.org.uk:email, imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[6];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim, suse.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -13.50
 X-Spam-Level: 
+X-Rspamd-Queue-Id: F145E1F749
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,29 +148,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-22.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
 
 Am 05.11.26 um 15:21 schrieb Maxime Ripard:
-> The armada DRM driver has its own tree entries in MAINTAINERS, pointing
-> to Russell King's drm-armada-devel and drm-armada-fixes branches.
+> The Intel Keem Bay DRM driver is excluded from drm-misc in MAINTAINERS,
+> implying it is maintained through a separate tree. However, no dedicated
+> tree is documented in the MAINTAINERS entry, no pull request has ever
+> been sent, and around 60 patches have been merged through drm-misc. The
+> driver is de facto maintained through drm-misc already.
 >
-> However, the last pull request from that tree was sent in July 2019, and
-> more than 80 patches have been merged through drm-misc since then.
-> The driver is de facto maintained through drm-misc already.
->
-> Remove the dedicated tree entries and the drm-misc exclusion for
-> armada to reflect the actual maintenance path.
-
-Makes sense.
-
+> Remove the drm-misc exclusion for kmb to reflect the actual maintenance
+> path.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
@@ -166,28 +175,21 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >
 > ---
 >
-> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Anitha Chrisanthus <anitha.chrisanthus@intel.com>
 > ---
->   MAINTAINERS | 3 ---
->   1 file changed, 3 deletions(-)
+>   MAINTAINERS | 1 -
+>   1 file changed, 1 deletion(-)
 >
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index c10342aa32f3..6856dd5a2b74 100644
+> index 6856dd5a2b74..f25c296665e5 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -8893,5 +8893,4 @@ F:	include/linux/vga*
->   F:	include/uapi/drm/
->   X:	drivers/gpu/drm/amd/
-> -X:	drivers/gpu/drm/armada/
->   X:	drivers/gpu/drm/etnaviv/
+> @@ -8896,5 +8896,4 @@ X:	drivers/gpu/drm/etnaviv/
 >   X:	drivers/gpu/drm/exynos/
-> @@ -16153,6 +16152,4 @@ MARVELL ARMADA DRM SUPPORT
->   M:	Russell King <linux@armlinux.org.uk>
->   S:	Maintained
-> -T:	git git://git.armlinux.org.uk/~rmk/linux-arm.git drm-armada-devel
-> -T:	git git://git.armlinux.org.uk/~rmk/linux-arm.git drm-armada-fixes
->   F:	Documentation/devicetree/bindings/display/armada/
->   F:	drivers/gpu/drm/armada/
+>   X:	drivers/gpu/drm/i915/
+> -X:	drivers/gpu/drm/kmb/
+>   X:	drivers/gpu/drm/mediatek/
+>   X:	drivers/gpu/drm/msm/
 
 -- 
 --
