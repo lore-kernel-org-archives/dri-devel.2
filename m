@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0BF606A603
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEA5606A603
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 15:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=U2fsk3BW
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Ki0h6WUl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3564A11282A;
-	Thu,  5 Nov 2026 15:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C23112815;
+	Thu,  5 Nov 2026 15:53:24 +0000 (UTC)
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237AD112806;
- Thu,  5 Nov 2026 15:53:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793893978; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5415611282F;
+ Thu,  5 Nov 2026 15:53:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793893984; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Q4f3MSalRIYdWoS7JT1p0KG481TBRMDwOFO6clo9A38Vwt4ppRF0k8v19UY5nNgC9qUCpx1/0EIHoyr1pgamdJiiqL4qln4gRwTIHP7FkFbcgPvoRF9C9qjyfZHbJjT0ugoiez7BsqNOiwSGAmyebcUAEQki7UkKSFR1G2KUZkU=
+ b=JlB8hVPPPDNcmszLLkIBvBwSag5xhD7SiapW3xecJ7C5W05AWfhRhnN/rRpzwhVVCakGdMNL9mDpTI0dH8NVErgqIeeydWHLkgQ2mtHkOr1kjzAh0p/zLiHKmxnBMUavcgUaroitAhy7icZOfObiJ/j3Q8Szh+KZhTzOS1eftto=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793893978;
+ s=zohoarc; t=1793893984;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+IFvGBiDHS/+wPz5FfqsRIQOtWki0vWdwd+Qq7+myMU=; 
- b=Bct4KT+KnNnFTsPOn8mDZSfKd31jQl0XZ6DYzsWEqVy8zeArCV/kXSzPw6uF/o0WBpFl+cmQwQ9SX6GZ0nDYM6i1pyhVIA1QPkrpZs0VQGGRtOePCL7f7BnbtPiWtXetA0OpZFlRDZAkM2F0SF+Po8c8BcFmko8fimOg9Vv7TCM=
+ bh=fTzNDSolmw7K2SsCbbZU91nxSTB00KcD9PPh6CHzKVg=; 
+ b=AYE3sbP2IplCW1BDlq6pjMXAlYtgXCiRV6i3jszZ/L54iL0l3YB+J4lZNS0AQZ0vyRHJBPArbgUws1KJN+PbGC34AoEo7XbFuGTJuH7SwlKGy5WaveL5RHtUB93dKsAzYZXVBBGHinRAoLsdHJQkWVUzAtQyNm13L2TD+uz/R/Q=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=U2fsk3BWPqJSZNdlrYflk1UxPTCQ+a7YwA6gblr+h1eeX+HofxfGLiPi2LqWBng5sjjJM7X97hbGlfKT5Fn0YCUKS4litw8vgMJiIV1zHuwLnjAE4GEzctcRGA1AN2q/qwh6t+fUv9iZOnLBMwFIKFnUZ54b/TQXvEXksU76iuM=;
+ b=Ki0h6WUlKLThrkF3KvCnaUd93eXjEjo+StMaGQ/y4aU5zjWNlImVOU+lBV0DDWrpZsy/eUlxAQ/hZX9Pf8aq5CiUS1uW0ZaS8Tai+mkkMXa/rI/6Ar37nMHwxIRw1evj09RZf0iFwtzv9yuv8VQh//vi39UnH6DmTuD3dRhz95I=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=+IFvGBiDHS/+wPz5FfqsRIQOtWki0vWdwd+Qq7+myMU=;
+ bh=fTzNDSolmw7K2SsCbbZU91nxSTB00KcD9PPh6CHzKVg=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793893977295617.0780215669394;
- Thu, 5 Nov 2026 07:52:57 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1793893983774815.9743865612031;
+ Thu, 5 Nov 2026 07:53:03 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:51:55 +0100
-Subject: [PATCH v2 04/27] drm/bridge: Add VTEM EMP support
+Date: Thu, 05 Nov 2026 16:51:56 +0100
+Subject: [PATCH v2 05/27] drm/connector: hdmi: Add VTEM EMP generation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-4-55f4215be2c2@collabora.com>
+Message-Id: <20261105-vrr-limiter-uapi-v2-5-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
@@ -84,154 +84,122 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Derek Foreman <derek.foreman@collabora.com>
 
-Add setters and support bit for VTEM emp to the bridge.
+Add VTEM EMP generation to enable variable refresh rate signalling over
+HDMI.
+
+These infoframes are only generated if the sink supports VRR.
 
 Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 41 ++++++++++++++++++++++++++
- include/drm/drm_bridge.h                       | 29 ++++++++++++++++++
- include/drm/drm_connector.h                    |  8 +++++
- 3 files changed, 78 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 63 +++++++++++++++++++++++++
+ include/drm/drm_connector.h                     |  5 ++
+ 2 files changed, 68 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 2202e6044444..0fbdba584c1b 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -611,6 +611,33 @@ static int drm_bridge_connector_scrambler_disable(struct drm_connector *connecto
- 	return bridge->funcs->hdmi_scrambler_disable(bridge);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index eb6abfd1350d..ce680eaa5047 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -853,6 +853,61 @@ static int hdmi_generate_hdmi_vendor_infoframe(const struct drm_connector *conne
+ 	return 0;
  }
  
-+static int drm_bridge_connector_clear_vtem_emp(struct drm_connector *connector)
++static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connector,
++					    struct drm_connector_state *conn_state)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
++	const struct drm_display_info *info = &connector->display_info;
++	const struct drm_crtc_state *crtc_state =
++		drm_atomic_get_crtc_state(conn_state->state, conn_state->crtc);
++	struct drm_connector_hdmi_infoframe *infoframe =
++		&conn_state->hdmi.infoframes.vtem;
++	struct hdmi_emp_infoframe_vtem *vtem =
++		&infoframe->data.vtem;
++	const struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
++	int vfront;
++	u8 avi_vic;
 +
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
++	infoframe->set = false;
++
++	if (!connector->hdmi.funcs->vtem.write_infoframe)
++		return 0;
++
++	if (!info->hdmi.vrr_cap.supported)
++		return 0;
++
++	if (conn_state->hdmi.infoframes.avi.set)
++		avi_vic = conn_state->hdmi.infoframes.avi.data.avi.video_code;
++	else
++		avi_vic = 0;
++
++	hdmi_emp_infoframe_vtem_init(vtem);
++
++	switch (conn_state->vrr_display_mode) {
++	case VRR_DISPLAY_MODE_GAME:
++		vtem->game_vrr_en = true;
++		vtem->m_const = !vrr->dynamic;
++		break;
++	case VRR_DISPLAY_MODE_OFF:
++		break;
++	default:
 +		return -EINVAL;
++	}
 +
-+	return bridge->funcs->hdmi_clear_vtem_emp(bridge);
++	if (vtem->game_vrr_en && !avi_vic) {
++		vtem->base_refresh_rate = drm_mode_vrefresh(&crtc_state->mode);
++		vfront = crtc_state->adjusted_mode.crtc_vsync_start -
++			 crtc_state->adjusted_mode.crtc_vdisplay;
++		if (vfront > U8_MAX || vfront < 0)
++			return -EINVAL;
++
++		vtem->base_vfront = vfront;
++	}
++
++	infoframe->set = true;
++
++	return 0;
 +}
 +
-+static int drm_bridge_connector_write_vtem_emp(struct drm_connector *connector,
-+					       const u8 *buffer, size_t len)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
-+
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_write_vtem_emp(bridge, buffer, len);
-+}
-+
- static const struct drm_edid *
- drm_bridge_connector_read_edid(struct drm_connector *connector)
- {
-@@ -656,6 +683,11 @@ static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_spd_
- 	.write_infoframe = drm_bridge_connector_write_spd_infoframe,
- };
+ static int
+ hdmi_generate_infoframes(const struct drm_connector *connector,
+ 			 struct drm_connector_state *conn_state)
+@@ -884,6 +939,10 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
+ 	if (ret)
+ 		return ret;
  
-+static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_vtem_emp = {
-+	.clear_infoframe = drm_bridge_connector_clear_vtem_emp,
-+	.write_infoframe = drm_bridge_connector_write_vtem_emp,
-+};
++	ret = hdmi_generate_emp_infoframe_vtem(connector, conn_state);
++	if (ret)
++		return ret;
 +
- static int drm_bridge_connector_audio_startup(struct drm_connector *connector)
- {
- 	struct drm_bridge_connector *bridge_connector =
-@@ -947,6 +979,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			     !bridge->funcs->hdmi_scrambler_disable))
- 				return ERR_PTR(-EINVAL);
+ 	return 0;
+ }
  
-+			if (bridge->ops & DRM_BRIDGE_OP_HDMI_VTEM_EMP &&
-+			    (!bridge->funcs->hdmi_write_vtem_emp ||
-+			     !bridge->funcs->hdmi_clear_vtem_emp))
-+				return ERR_PTR(-EINVAL);
+@@ -1475,6 +1534,10 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
+ 			goto out;
+ 	}
+ 
++	ret = write_or_clear_infoframe(connector, &funcs->vtem, "VTEM",
++				       &old_conn_state->hdmi.infoframes.vtem,
++				       &new_conn_state->hdmi.infoframes.vtem);
 +
- 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
- 		}
- 
-@@ -1073,6 +1110,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 				drm_bridge_connector_scrambler_disable;
- 		}
- 
-+		if (bridge_connector->bridge_hdmi->ops & DRM_BRIDGE_OP_HDMI_VTEM_EMP)
-+			bridge_connector->hdmi_funcs.vtem =
-+				drm_bridge_connector_hdmi_vtem_emp;
-+
- 		ret = drmm_connector_hdmi_init(drm, connector,
- 					       &drm_bridge_connector_funcs,
- 					       &bridge_connector->hdmi_funcs,
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 1981d24a700d..6913662023ca 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -684,6 +684,29 @@ struct drm_bridge_funcs {
- 	int (*hdmi_write_spd_infoframe)(struct drm_bridge *bridge,
- 					const u8 *buffer, size_t len);
- 
-+	/**
-+	 * @hdmi_clear_vtem_emp:
-+	 *
-+	 * This callback clears the emp in the hardware during commit.
-+	 *
-+	 * This callback is optional but it must be implemented by bridges that
-+	 * set the DRM_BRIDGE_OP_HDMI_VTEM_EMP flag in their
-+	 * &drm_bridge->ops.
-+	 */
-+	int (*hdmi_clear_vtem_emp)(struct drm_bridge *bridge);
-+
-+	/**
-+	 * @hdmi_write_spd_infoframe:
-+	 *
-+	 * Program the emp into the hardware.
-+	 *
-+	 * This callback is optional but it must be implemented by bridges that
-+	 * set the DRM_BRIDGE_OP_HDMI_VTEM_EMP flag in their
-+	 * &drm_bridge->ops.
-+	 */
-+	int (*hdmi_write_vtem_emp)(struct drm_bridge *bridge,
-+				   const u8 *buffer, size_t len);
-+
- 	/**
- 	 * @hdmi_clear_audio_infoframe:
- 	 *
-@@ -1021,6 +1044,12 @@ enum drm_bridge_ops {
- 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
- 	 */
- 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
-+	/**
-+	 * @DRM_BRIDGE_OP_HDMI_VTEM_EMP: The bridge supports
-+	 * &drm_bridge_funcs->hdmi_write_vtem_emp and
-+	 * &drm_bridge_funcs->hdmi_clear_vtem_emp callbacks.
-+	 */
-+	DRM_BRIDGE_OP_HDMI_VTEM_EMP = BIT(11),
- };
- 
- /**
+ out:
+ 	mutex_unlock(&connector->hdmi.infoframes.lock);
+ 	return ret;
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 8699f35cafcb..184b10c89508 100644
+index 184b10c89508..9df745ecff92 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
-@@ -1645,6 +1645,14 @@ struct drm_connector_hdmi_funcs {
- 	 * optional.
- 	 */
- 	struct drm_connector_infoframe_funcs spd;
+@@ -1186,6 +1186,11 @@ struct drm_connector_hdmi_state {
+ 		 * matching our state.
+ 		 */
+ 		struct drm_connector_hdmi_infoframe hdmi;
 +
-+	/**
-+	 * @vtem:
-+	 *
-+	 * Set of callbacks for handling the VTEM EMP. These callbacks are
-+	 * optional.
-+	 */
-+	struct drm_connector_infoframe_funcs vtem;
- };
++		/**
++		 * @vtem: VTEM EMP infoframes structure matching our state.
++		 */
++		struct drm_connector_hdmi_infoframe vtem;
+ 	} infoframes;
  
- /**
+ 	/**
 
 -- 
 2.56.0
