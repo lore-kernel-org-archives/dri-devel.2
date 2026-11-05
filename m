@@ -2,40 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB737606A32C
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1955606A330
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 07:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGGk3smT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CW03zdj8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4981C112170;
-	Thu,  5 Nov 2026 07:27:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C192D112173
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 07:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47F6611217D;
+	Thu,  5 Nov 2026 07:27:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6EB112194
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 07:27:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8000843E51;
+ by tor.source.kernel.org (Postfix) with ESMTP id 5187660213;
+ Thu,  5 Nov 2026 07:27:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C2E1F00A15;
  Thu,  5 Nov 2026 07:27:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C231F00919;
- Thu,  5 Nov 2026 07:27:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793863633;
- bh=ywPEyzaAYanE4W2VIIMG8Ajz8Cbe4AlS6X5FMdsMmzQ=;
+ s=k20260515; t=1793863636;
+ bh=HoQSRqfIYqOgLi8XZHfv0mjjaYOJ1yDtBes6djU885c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=MGGk3smT9ryQqKn4GQMcFYoJv9pZEYX7B718/wD3OV8S9+fzdG/I55y5ifJpxLRTn
- vJhb6EoKYw7FS2ZvxompjlCjrUDlSTELAu9cMHWjgQts7kXNpOI9n3z45zmFW0ASng
- 8LzBoml9xmQoi/S613SDHznsXN6c8M9HdmpZNsL7zgRe29VINmNLZfcINeeb1hDJtW
- EoZGZt4kJKnn0Gw4288baCEnYhLI7uP40+ZbWjQDQbz5PMzlm+s7FJZRzlTzjpDqER
- bU9O6mxIEIdVMkCMcUBsmQRCmFGCRuiIOt+QBdRFkCrzMvzPw8VxjLW6TruaptR0Lb
- oDc81OsZWouCQ==
+ b=CW03zdj8MeEJIWWk1xlof4nIHkkGPw1ul6DVk4+mqlHQ/GKPe+u9wFStzAJaWXXlK
+ mLLFTPBkyxYd+nG2eztJhQPDf8CD/3do7DMqJUEVIv+OwseNXvaTJCfc0nsl+mmn7l
+ Ob0ZjL4WJ7sKnDtxd4uZk+caYGmykcogtO85X5H8dT4PwVYU22z1IVoKzevyJy38OX
+ PZ8m1VB7klgLjqzOYgsTt3RLdPBJSJw67OIfgRFvPcy/Sa1qOLN2AfV1HK5XfSsJxS
+ j9H/apafPegn7I/sWd7NuWJpPKqIKOnAT3KnwiWIV/rNxnpoStS7DnFHzSVE2Vvgq5
+ Kmh7i+i1d2mRQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>
-Subject: [PATCHv3 01/13] gpu: drm: sti: call cec_notifier_phys_addr_invalidate
- if no HPD
-Date: Thu,  5 Nov 2026 08:22:15 +0100
-Message-ID: <bc93f90d0aa6fefcb37241a052c5e29dda2e4536.1793863347.git.hverkuil+cisco@kernel.org>
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Subject: [PATCHv3 02/13] gpu: drm: exynos: call
+ cec_notifier_phys_addr_invalidate if no HPD
+Date: Thu,  5 Nov 2026 08:22:16 +0100
+Message-ID: <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
 References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
@@ -70,31 +73,26 @@ This driver is one of the few that was using cec_notifier_set_phys_addr
 on disconnect instead of cec_notifier_phys_addr_invalidate.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/sti/sti_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index 7ba9e0b7ba6c..12e05505bbde 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 055dc04f9b3e..d03f4e531e05 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct drm_connector *connector,
+ 	if (gpiod_get_value(hdata->hpd_gpio))
+ 		return connector_status_connected;
  
- 	hdmi->enabled = false;
- 
--	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-+	cec_notifier_phys_addr_invalidate(hdmi->notifier);
- }
- 
- /*
-@@ -1068,7 +1068,7 @@ sti_hdmi_connector_detect(struct drm_connector *connector, bool force)
- 	}
- 
- 	DRM_DEBUG_DRIVER("hdmi cable disconnected\n");
--	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-+	cec_notifier_phys_addr_invalidate(hdmi->notifier);
+-	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
++	cec_notifier_phys_addr_invalidate(hdata->notifier);
  	return connector_status_disconnected;
  }
  
