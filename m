@@ -2,81 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E896D606A332
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2495F606A339
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TCI/ubGY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yoVCGqkl;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TCI/ubGY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yoVCGqkl
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=olwGkcaX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ERQUS+4z;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EZezIJWH;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H3OUTfJO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1667710E247;
-	Thu,  5 Nov 2026 16:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B0310ECCD;
+	Thu,  5 Nov 2026 16:05:08 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4546810E247
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:04:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265B810ECCD
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:04:57 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9D80D1F749;
- Thu,  5 Nov 2026 16:04:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 796DE1F785;
+ Thu,  5 Nov 2026 16:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
- b=TCI/ubGY/TXpARZ97dQIrIT8J4PnhNb18DBhPV4iABLX1e6T212oGOEAV8OMVcJoqvvSlu
- ZFjQcy/HsyHLVXf4K/coo5RxuLn7yui13yx+CEMToe7BLkx5HoBKnokb/yvPWAmFbbUJhJ
- 5CBrkl9bK3K0qh4H0QQ8A+bbWQmZcIA=
+ bh=h2zt0zBdqKT0RAQ2UN4UGVFmD6+i5+qlAEQMcFsMVYQ=;
+ b=olwGkcaXmAai8W+Fe+ykL6zs035sgimrn7r+Dyh8kGnlYapZ7lYP5RczTmIKpN+V2Yr5cB
+ eVfoOOflZF6kTHiFZPmdWjtdhDdOqlK/eABLm45NRhE8yKQk1NIfnedlKI9A8QRLvP9JYm
+ LTPzpyeOwSWvSDemwQQx0aUo+eqSiHo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894648;
+ s=susede2_ed25519; t=1793894695;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
- b=yoVCGqklq9wnEyw97G8Akf8EI/GnjhO9DQAyypKiktaxZhq2pAF/FdI2tXyRGnHNOpW2yG
- yFytuC5PJ6xwYHCg==
+ bh=h2zt0zBdqKT0RAQ2UN4UGVFmD6+i5+qlAEQMcFsMVYQ=;
+ b=ERQUS+4zg5hdDE19EJ+mmNm9v5KnnUp0PHtmk6GtSal09yx9XkeAHAV1ILtyauhhd2eODo
+ YDMRMjB6PQNImPBg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="TCI/ubGY";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yoVCGqkl
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EZezIJWH;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=H3OUTfJO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
- b=TCI/ubGY/TXpARZ97dQIrIT8J4PnhNb18DBhPV4iABLX1e6T212oGOEAV8OMVcJoqvvSlu
- ZFjQcy/HsyHLVXf4K/coo5RxuLn7yui13yx+CEMToe7BLkx5HoBKnokb/yvPWAmFbbUJhJ
- 5CBrkl9bK3K0qh4H0QQ8A+bbWQmZcIA=
+ bh=h2zt0zBdqKT0RAQ2UN4UGVFmD6+i5+qlAEQMcFsMVYQ=;
+ b=EZezIJWHolIVjkz29tjVI/S7y9ZXy1p2bRkh/7+vTt+Vi6rn+kvEBoeS7JKMge1J3gmUvm
+ NovM1oo3d5j5Z/X0107wvQA+t6Rq3e01htr2LRI3vjvYduPqEj01tVkj7ANanqUezVcbAq
+ rMngce0JQ5b0IP7uuIMW9TrcG4hxKwU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894648;
+ s=susede2_ed25519; t=1793894694;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
- b=yoVCGqklq9wnEyw97G8Akf8EI/GnjhO9DQAyypKiktaxZhq2pAF/FdI2tXyRGnHNOpW2yG
- yFytuC5PJ6xwYHCg==
+ bh=h2zt0zBdqKT0RAQ2UN4UGVFmD6+i5+qlAEQMcFsMVYQ=;
+ b=H3OUTfJOdlENIDnMyKK8l1gsXb89x4izjXb8fAJyQUcrIYewV4nS3ujJejSR14oufOjYiH
+ uCSKjKoLwDlKXDBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D089134F4;
- Thu,  5 Nov 2026 16:04:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 117C9134F4;
+ Thu,  5 Nov 2026 16:04:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wYTMMfeo7GqVDQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 16:04:07 +0000
-Message-ID: <8fd864ec-87ae-4700-b867-73c0829c3ff2@suse.de>
-Date: Thu, 5 Nov 2026 17:04:07 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id X0/6KiWp7GpjDgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 16:04:53 +0000
+Message-ID: <6a9954bc-ebe3-4120-81cc-a3b7238dd658@suse.de>
+Date: Thu, 5 Nov 2026 17:04:53 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] MAINTAINERS: Remove Jonas Karlman from bridge
- reviewers
+Subject: Re: [PATCH 5/7] MAINTAINERS: Remove Andrzej Hajda from bridge
+ maintainers
 To: Maxime Ripard <mripard@kernel.org>, Simona Vetter
  <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <dev@lankhorst.se>
@@ -86,7 +86,7 @@ Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>
 References: <20261105142127.708219-1-mripard@kernel.org>
- <20261105142127.708219-4-mripard@kernel.org>
+ <20261105142127.708219-5-mripard@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -113,13 +113,9 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261105142127.708219-4-mripard@kernel.org>
+In-Reply-To: <20261105142127.708219-5-mripard@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 9D80D1F749
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
  BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
  NEURAL_HAM_LONG(-1.00)[-1.000];
@@ -140,10 +136,15 @@ X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
  MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:email, linaro.org:email,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, bootlin.com:email,
- intel.com:email, ideasonboard.com:email, suse.com:url]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim,
+ ideasonboard.com:email, intel.com:email, suse.com:url, linaro.org:email,
+ kwiboo.se:email, bootlin.com:email, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-Spam-Score: -12.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 796DE1F785
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,15 +167,15 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 Am 05.11.26 um 15:21 schrieb Maxime Ripard:
-> Jonas Karlman's last review for the DRM bridge subsystem dates back to
-> 2019, and he has never committed to drm-misc. The bridge subsystem has
-> been de facto reviewed without his involvement since.
+> Andrzej Hajda's last commit to the DRM bridge subsystem dates back to
+> 2021, and his last bridge review to 2023. His focus has since moved to
+> the Intel GPU drivers.
 >
-> Remove the reviewer entry to match the current situation.
+> Remove the maintainer entry to match the current situation.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Thomas Zimmermann@suse.de
 
 >
 > ---
@@ -191,15 +192,15 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >   1 file changed, 1 deletion(-)
 >
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index 5bdb8e1bb32c..122a802a4eb6 100644
+> index 122a802a4eb6..9dcaab8bd5f6 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -8954,5 +8954,4 @@ M:	Neil Armstrong <neil.armstrong@linaro.org>
+> @@ -8950,5 +8950,4 @@ F:	drivers/gpu/drm/atmel-hlcdc/
+>   
+>   DRM DRIVERS FOR BRIDGE CHIPS
+> -M:	Andrzej Hajda <andrzej.hajda@intel.com>
+>   M:	Neil Armstrong <neil.armstrong@linaro.org>
 >   M:	Robert Foss <rfoss@kernel.org>
->   R:	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> -R:	Jonas Karlman <jonas@kwiboo.se>
->   R:	Jernej Skrabec <jernej.skrabec@gmail.com>
->   R:	Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
 --
