@@ -2,87 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C263A606BE88
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E896D606A332
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:04:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IiIbL2VN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f8hY1Zaj;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CpPliaIS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iH/+gJRQ
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TCI/ubGY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yoVCGqkl;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TCI/ubGY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yoVCGqkl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0524E10F28A;
-	Thu,  5 Nov 2026 16:03:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A718E10ECCD
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:03:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1667710E247;
+	Thu,  5 Nov 2026 16:04:21 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4546810E247
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:04:10 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E4DAC21E91;
- Thu,  5 Nov 2026 16:03:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9D80D1F749;
+ Thu,  5 Nov 2026 16:04:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+cn6KjIV3Xzk0AlKA5cNbRHKcaGPkuPXzFn1mOlznbo=;
- b=IiIbL2VNo1uWGm3qH7hzUYKeuUC5gQk370Z8duBdIzFty1nIPdkkZCkr7g8YmaPRx38J0j
- mhokRRMv0EM+syBb5tKkbCqp0hpWSUkXsVMCT9GBN0/bTjwHZDhogAPew/hPMLAaVUF6jo
- 5xuojnvqgBzXoHh0sjfPWB+LA9p4kdo=
+ bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
+ b=TCI/ubGY/TXpARZ97dQIrIT8J4PnhNb18DBhPV4iABLX1e6T212oGOEAV8OMVcJoqvvSlu
+ ZFjQcy/HsyHLVXf4K/coo5RxuLn7yui13yx+CEMToe7BLkx5HoBKnokb/yvPWAmFbbUJhJ
+ 5CBrkl9bK3K0qh4H0QQ8A+bbWQmZcIA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894604;
+ s=susede2_ed25519; t=1793894648;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+cn6KjIV3Xzk0AlKA5cNbRHKcaGPkuPXzFn1mOlznbo=;
- b=f8hY1Zaj0QnFagXXauPFItBqs6Xi6dpCWA8sYqtiRA43y3VnjWzjXQhrhcKBvUgb82kB5r
- S0buW3lUKfyK1cCw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CpPliaIS;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="iH/+gJRQ"
+ bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
+ b=yoVCGqklq9wnEyw97G8Akf8EI/GnjhO9DQAyypKiktaxZhq2pAF/FdI2tXyRGnHNOpW2yG
+ yFytuC5PJ6xwYHCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="TCI/ubGY";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yoVCGqkl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793894602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793894648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+cn6KjIV3Xzk0AlKA5cNbRHKcaGPkuPXzFn1mOlznbo=;
- b=CpPliaISGdZ1BXRcG5bAf331X4mr43OGq3dEy69hcp4fBqy3z6+RwDANK5J7RR+5JDYUDG
- lKlGv2KumD3NlstcLO4iaLTUVz9xDaE58iEV0wj2JcuVtZ0fbuPV6x0WjmHKTCbXVLLDdQ
- BpaedQN3oWiOmEwOQZkRSY8hRk8tUfc=
+ bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
+ b=TCI/ubGY/TXpARZ97dQIrIT8J4PnhNb18DBhPV4iABLX1e6T212oGOEAV8OMVcJoqvvSlu
+ ZFjQcy/HsyHLVXf4K/coo5RxuLn7yui13yx+CEMToe7BLkx5HoBKnokb/yvPWAmFbbUJhJ
+ 5CBrkl9bK3K0qh4H0QQ8A+bbWQmZcIA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793894602;
+ s=susede2_ed25519; t=1793894648;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+cn6KjIV3Xzk0AlKA5cNbRHKcaGPkuPXzFn1mOlznbo=;
- b=iH/+gJRQGDJ5H3Mq0vYZSSyJf+nEEJE1bkVMEOyvxLkXfPPAQ9uMVG+eDGp2zw36u/NDcu
- 7sUZeLX6GBRSscDg==
+ bh=YFuM8vtG1AaUhOhHHNiN6WMBHbQKVgrGSVv8dfqNSp0=;
+ b=yoVCGqklq9wnEyw97G8Akf8EI/GnjhO9DQAyypKiktaxZhq2pAF/FdI2tXyRGnHNOpW2yG
+ yFytuC5PJ6xwYHCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96A59134F4;
- Thu,  5 Nov 2026 16:03:22 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D089134F4;
+ Thu,  5 Nov 2026 16:04:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WV2YE8qo7GpKDAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 16:03:22 +0000
-Message-ID: <a491d279-0d43-4955-9117-bbf0c69499b7@suse.de>
-Date: Thu, 5 Nov 2026 17:03:21 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wYTMMfeo7GqVDQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 16:04:07 +0000
+Message-ID: <8fd864ec-87ae-4700-b867-73c0829c3ff2@suse.de>
+Date: Thu, 5 Nov 2026 17:04:07 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] MAINTAINERS: Move Tegra DRM under drm-misc
+Subject: Re: [PATCH 4/7] MAINTAINERS: Remove Jonas Karlman from bridge
+ reviewers
 To: Maxime Ripard <mripard@kernel.org>, Simona Vetter
  <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
 References: <20261105142127.708219-1-mripard@kernel.org>
- <20261105142127.708219-3-mripard@kernel.org>
+ <20261105142127.708219-4-mripard@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,35 +113,37 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261105142127.708219-3-mripard@kernel.org>
+In-Reply-To: <20261105142127.708219-4-mripard@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: E4DAC21E91
+X-Rspamd-Queue-Id: 9D80D1F749
 X-Spam-Level: 
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ XM_UA_NO_VERSION(0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[kernel.org,ffwll.ch,gmail.com,lankhorst.se];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; DKIM_TRACE(0.00)[suse.de:+];
+ RCPT_COUNT_TWELVE(0.00)[12];
+ FREEMAIL_TO(0.00)[kernel.org,ffwll.ch,gmail.com,lankhorst.se];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
  TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[7]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,intel.com,linaro.org,kernel.org,ideasonboard.com,kwiboo.se,gmail.com,bootlin.com];
+ MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[nvidia.com:email, gitlab.freedesktop.org:url,
- lists.freedesktop.org:email, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.de:email, suse.com:url]
-X-Spam-Score: -13.50
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:email, linaro.org:email,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, bootlin.com:email,
+ intel.com:email, ideasonboard.com:email, suse.com:url]
+X-Spam-Score: -12.00
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,16 +166,11 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 Am 05.11.26 um 15:21 schrieb Maxime Ripard:
-> The Tegra DRM driver is excluded from drm-misc in MAINTAINERS, with a
-> dedicated tree at gitlab.freedesktop.org/drm/tegra.git.
+> Jonas Karlman's last review for the DRM bridge subsystem dates back to
+> 2019, and he has never committed to drm-misc. The bridge subsystem has
+> been de facto reviewed without his involvement since.
 >
-> However, the last pull request from that tree was sent in April 2023,
-> and about 150 patches have been merged through drm-misc since, most of
-> them applied by the maintainers directly. The driver is de facto
-> maintained through drm-misc already.
->
-> Remove the dedicated tree entry and the drm-misc exclusion for tegra to
-> reflect the actual maintenance path.
+> Remove the reviewer entry to match the current situation.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
@@ -178,28 +179,27 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >
 > ---
 >
-> Cc: Mikko Perttunen <mperttunen@nvidia.com>
-> Cc: Thierry Reding <thierry.reding@kernel.org>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Robert Foss <rfoss@kernel.org>
+> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> Cc: Jonas Karlman <jonas@kwiboo.se>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > ---
->   MAINTAINERS | 2 --
->   1 file changed, 2 deletions(-)
+>   MAINTAINERS | 1 -
+>   1 file changed, 1 deletion(-)
 >
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index f25c296665e5..5bdb8e1bb32c 100644
+> index 5bdb8e1bb32c..122a802a4eb6 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -8900,5 +8900,4 @@ X:	drivers/gpu/drm/msm/
->   X:	drivers/gpu/drm/nova/
->   X:	drivers/gpu/drm/radeon/
-> -X:	drivers/gpu/drm/tegra/
->   X:	drivers/gpu/drm/tyr/
->   X:	drivers/gpu/drm/xe/
-> @@ -9083,5 +9082,4 @@ L:	dri-devel@lists.freedesktop.org
->   L:	linux-tegra@vger.kernel.org
->   S:	Supported
-> -T:	git https://gitlab.freedesktop.org/drm/tegra.git
->   F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
->   F:	Documentation/devicetree/bindings/gpu/host1x/
+> @@ -8954,5 +8954,4 @@ M:	Neil Armstrong <neil.armstrong@linaro.org>
+>   M:	Robert Foss <rfoss@kernel.org>
+>   R:	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> -R:	Jonas Karlman <jonas@kwiboo.se>
+>   R:	Jernej Skrabec <jernej.skrabec@gmail.com>
+>   R:	Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
 --
