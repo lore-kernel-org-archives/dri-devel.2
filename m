@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8697C606A331
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 18:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA65C606A31B
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 18:05:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2yK2usz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frEWTOgH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81A810E317;
-	Thu,  5 Nov 2026 18:03:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4106910E317
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 18:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B51310FCFE;
+	Thu,  5 Nov 2026 18:05:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D50310E95F
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 18:05:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F211643E6A;
- Thu,  5 Nov 2026 18:03:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DE71F00A22;
- Thu,  5 Nov 2026 18:03:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1125F601BE;
+ Thu,  5 Nov 2026 18:05:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993601F000C1;
+ Thu,  5 Nov 2026 18:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793901814;
- bh=oznmppvWic9WbH6tW/nUXpKQRRUkc4+2r8Z0Y57f93U=;
+ s=k20260515; t=1793901941;
+ bh=FqpZKtb6Iw0j+0nNkzygJEo/Lzt18OHSh3xX1n4U0qw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l2yK2usz8Ph+QY4Ls0lCN0dwemR9kzSHLbnSv1Rt5egGEVWo6t2kV3ENrE1gaot0Q
- gPXoA4oRaPZfKkrm6RjARsH1EzRZXghAaL7uzgiyjh+t9TJCSMSLTaZo86EIYg1ujm
- MJn9J/7S8xlGQj5kgfTe+AI0Nl1TTVca/9c7vKSAWi+UE9BHyjrzIZg7PEgIv/gtGF
- LhPk7U71ZR1im4e9nilJhaMu93zHR4ocGRiNK5Az72E8PpNNwIbZBOAM0wLAAVuGsw
- JuodqorXsEaCb5O97mPSWBxnrh1RKQ51DaLp37KwiNaWO0L4ESbNM0IjWZ224uqy8y
- tyQ8ju9oO/jag==
-Message-ID: <sashiko-outbox-199684@kernel.org>
+ b=frEWTOgHj1fdyGHqXU0IL7PxQk/L2OrCIpbv6fCE8LQfQm2JjCSlX6C3m/P80qI1w
+ fivPB481x0P81rIaUsjBqBaJEA8cUWs1SDLq/F2fNz5CjVu1YrescHd0aOMgEX7Nor
+ uefWIpmmVCBDZx4lsb8R3hdWmVD020kznLi+QOksEipgG+FRu75mBCDBpzxsN70CTt
+ WSkyhO8CdFjXiA3rWFsU26D5ZNs+OKIRSMtWq8OGl9sMwdiXmihQXDpt5g+fqHx1Rs
+ WTULa2HP4aToSRkENE+pzipRvScPT3RA5BTBA8qbUyTbnAiZsnI0lLwthcUUKeAM6r
+ OnA6PilpC3Bag==
+Message-ID: <sashiko-outbox-199686@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 27/27] drm/tests: hdmi: Add tests for
- vrr_display_{min,max} properties
+Subject: Re: [PATCH v2 26/27] drm/debugfs: Expose HDMI VRR in vrr_range debugfs
 To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-27-55f4215be2c2@collabora.com>
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-26-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
- <20261105-vrr-limiter-uapi-v2-27-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-26-55f4215be2c2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 18:03:34 +0000
+Date: Thu, 05 Nov 2026 18:05:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,150 +60,81 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/tests: WARN_ON() in VRR limit tests via drm_object_property_=
-get_value()
+- [Medium] drm/debugfs: vrr_range_show() reports Max: 0 when HDMI VRRmax is=
+ 0
 --
 
-commit 1a4f6d1ae4304b42e44e6989719d4059e858153e
+commit c20f012be0daea32ab333f3e4f526e77c8606b3b
 Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-drm/tests: hdmi: Add tests for vrr_display_{min,max} properties
+drm/debugfs: Expose HDMI VRR in vrr_range debugfs
 
-This commit attaches the vrr_display_min and vrr_display_max properties to
-the KUnit HDMI state helper test connector and adds two tests verifying
-drm_connector_hdmi_update_vrr_limits().
+This commit updates vrr_range_show() to report HDMI VRR limits from
+display_info.hdmi.vrr_cap when HDMI VRR is supported, and protects access
+to connector->status and connector->display_info with mode_config.mutex.
 
-> diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers=
-/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> index 95a922e7f2515..3f94133b20b10 100644
-> --- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> +++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-
-[ ... ]
-
-> @@ -3675,6 +3678,88 @@ static void drm_test_check_hdmi_vrr_flush_vsync(st=
-ruct kunit *test)
->  			crtc_state->vrr_state.max_vtotal);
->  }
-> =20
-> +/*
-> + * Check that on a VRR-capable sink, the HDMI VRR limits helper sets the
-> + * display_min/display_max connector properties to the right values.
-> + */
-> +static void drm_test_check_hdmi_vrr_display_limits(struct kunit *test)
-> +{
-> +	struct drm_atomic_helper_connector_hdmi_priv *priv;
-> +	struct drm_display_mode *preferred;
-> +	struct drm_connector *conn;
-> +	u64 disp_min, disp_max;
-> +	int ret;
+> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+> index a72f9723d3a97..476f44642ac3e 100644
+> --- a/drivers/gpu/drm/drm_debugfs.c
+> +++ b/drivers/gpu/drm/drm_debugfs.c
+> @@ -586,12 +586,26 @@ static ssize_t edid_write(struct file *file, const =
+char __user *ubuf,
+>  static int vrr_range_show(struct seq_file *m, void *data)
+>  {
+>  	struct drm_connector *connector =3D m->private;
+> +	u16 min_vfreq, max_vfreq;
 > +
-> +	priv =3D drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-> +				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-> +				8,
-> +				&dummy_connector_hdmi_funcs,
-> +				test_edid_hdmi_vrr);
-> +	KUNIT_ASSERT_NOT_NULL(test, priv);
+> +	scoped_cond_guard(mutex_intr, return -EINTR,
+> +			  &connector->dev->mode_config.mutex) {
+> +		struct drm_display_info *info =3D &connector->display_info;
 > +
-> +	conn =3D &priv->connector;
-> +	KUNIT_ASSERT_TRUE(test, conn->display_info.is_hdmi);
-> +	KUNIT_ASSERT_TRUE(test, conn->display_info.hdmi.vrr_cap.supported);
+> +		if (connector->status !=3D connector_status_connected)
+> +			return -ENODEV;
 > +
-> +	preferred =3D find_preferred_mode(conn);
-> +	KUNIT_ASSERT_NOT_NULL(test, preferred);
-> +
-> +	ret =3D drm_connector_hdmi_update_vrr_limits(conn, preferred);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	ret =3D drm_object_property_get_value(&conn->base, conn->vrr_display_mi=
-n_property,
-> +					    &disp_min);
-> +	KUNIT_EXPECT_EQ(test, ret, 0);
-> +
-> +	ret =3D drm_object_property_get_value(&conn->base, conn->vrr_display_ma=
-x_property,
-> +					    &disp_max);
-> +	KUNIT_EXPECT_EQ(test, ret, 0);
-> +
-> +	KUNIT_EXPECT_EQ(test, disp_min, 30);
-> +	KUNIT_EXPECT_EQ(test, disp_max, 120);
-> +}
-> +
-> +/*
-> + * Check that on a non-VRR-capable sink, the HDMI VRR limits helper sets=
- the
-> + * display_min/display_max connector properties to 0.
-> + */
-> +static void drm_test_check_hdmi_vrr_display_limits_zero(struct kunit *te=
-st)
-> +{
-> +	struct drm_atomic_helper_connector_hdmi_priv *priv;
-> +	struct drm_display_mode *preferred;
-> +	struct drm_connector *conn;
-> +	u64 disp_min, disp_max;
-> +	int ret;
-> +
-> +	priv =3D drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-> +				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-> +				8,
-> +				&dummy_connector_hdmi_funcs,
-> +				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
-> +	KUNIT_ASSERT_NOT_NULL(test, priv);
-> +
-> +	conn =3D &priv->connector;
-> +	KUNIT_ASSERT_TRUE(test, conn->display_info.is_hdmi);
-> +	KUNIT_ASSERT_FALSE(test, conn->display_info.hdmi.vrr_cap.supported);
-> +
-> +	preferred =3D find_preferred_mode(conn);
-> +	KUNIT_ASSERT_NOT_NULL(test, preferred);
-> +
-> +	ret =3D drm_connector_hdmi_update_vrr_limits(conn, preferred);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	ret =3D drm_object_property_get_value(&conn->base, conn->vrr_display_mi=
-n_property,
-> +					    &disp_min);
-> +	KUNIT_EXPECT_EQ(test, ret, 0);
-> +
-> +	ret =3D drm_object_property_get_value(&conn->base, conn->vrr_display_ma=
-x_property,
-> +					    &disp_max);
+> +		if (info->is_hdmi && info->hdmi.vrr_cap.supported) {
+> +			min_vfreq =3D info->hdmi.vrr_cap.vrr_min;
+> +			max_vfreq =3D info->hdmi.vrr_cap.vrr_max;
+> +		} else {
+> +			min_vfreq =3D info->monitor_range.min_vfreq;
+> +			max_vfreq =3D info->monitor_range.max_vfreq;
+> +		}
 
 [Severity: Medium]
-Will calling drm_object_property_get_value() in
-drm_test_check_hdmi_vrr_display_limits() and
-drm_test_check_hdmi_vrr_display_limits_zero() trigger a WARN_ON() when
-running these tests?
+Can vrr_range_show() in drivers/gpu/drm/drm_debugfs.c report "Max: 0" when
+an HDMI 2.1 sink advertises VRR support with VRRmax set to 0 in its HF-VSDB?
 
-Both tests initialize the test DRM device through
-drm_kunit_helper_connector_hdmi_init_with_edid_funcs() ->
-__connector_hdmi_init(), which allocates the device with DRIVER_ATOMIC:
+In drivers/gpu/drm/drm_edid.c, drm_parse_hdmi_gaming_info() sets
+vrr->supported =3D true even when vrr->vrr_max is 0 (either because byte 10
+of the HF-VSDB is omitted or because the 10-bit VRRmax field is 0, which
+HDMI 2.1 uses when the upper refresh limit is below 100 Hz or defined by
+the video mode / EDID monitor range):
 
-drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:__connector_hdmi_init() {
-	...
-	priv =3D drm_kunit_helper_alloc_drm_device(test, dev,
-						 struct drm_atomic_helper_connector_hdmi_priv, drm,
-						 DRIVER_MODESET | DRIVER_ATOMIC);
-	...
-}
+	vrr->vrr_min =3D db[9] & DRM_EDID_VRR_MIN_MASK;
+	vrr->supported =3D (vrr->vrr_min > 0 && vrr->vrr_min <=3D 48);
 
-Unlike drm_object_property_set_value(), drm_object_property_get_value() does
-not exempt DRM_MODE_PROP_IMMUTABLE properties and unconditionally warns on
-atomic devices:
+	if (cea_db_payload_len(db) < 10)
+		return;
 
-drivers/gpu/drm/drm_mode_object.c:
-int drm_object_property_get_value(struct drm_mode_object *obj,
-				  struct drm_property *property, uint64_t *val)
-{
-	WARN_ON(drm_drv_uses_atomic_modeset(property->dev));
+	vrr->vrr_max =3D (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
+	vrr->supported &=3D (vrr->vrr_max =3D=3D 0 || vrr->vrr_max >=3D 100);
 
-	return __drm_object_property_get_value(obj, property, val);
-}
+Drivers such as amdgpu handle vrr_cap.vrr_max =3D=3D 0 in
+amdgpu_dm_update_freesync_caps() in
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c by falling back
+to connector->display_info.monitor_range.max_vfreq (or the highest mode
+refresh rate, AMD FreeSync VSDB, and panel quirks) and storing the resolved
+bounds back into connector->display_info.monitor_range:
 
-Since vrr_display_min_property and vrr_display_max_property are created with
-DRM_MODE_PROP_IMMUTABLE, should both tests use
-drm_object_immutable_property_get_value() instead?
+		if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
+			amdgpu_dm_connector->min_vfreq =3D vrr_cap->vrr_min;
+			amdgpu_dm_connector->max_vfreq =3D vrr_cap->vrr_max ?
+				vrr_cap->vrr_max :
+				connector->display_info.monitor_range.max_vfreq;
+
+By checking info->is_hdmi && info->hdmi.vrr_cap.supported first and
+unconditionally reading info->hdmi.vrr_cap.vrr_max, won't vrr_range_show()
+bypass info->monitor_range and output "Max: 0" whenever VRRmax is 0?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-vrr-limite=
-r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D27
+r-uapi-v2-0-55f4215be2c2@collabora.com?part=3D26
