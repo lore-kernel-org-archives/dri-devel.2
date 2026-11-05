@@ -2,34 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4A2606A336
-	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C7E606A326
+	for <dri-devel@archiver.kernel.org>; Thu,  5 Nov 2026 16:52:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwerQ7j6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmXj4IDO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ECAC10ED82;
-	Thu,  5 Nov 2026 16:52:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29CE710E187
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:52:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8173210F488;
+	Thu,  5 Nov 2026 16:52:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD6EC10E2E8
+ for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 16:52:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 78E736062A;
+ by sea.source.kernel.org (Postfix) with ESMTP id 57CCB405F1;
+ Thu,  5 Nov 2026 16:52:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F6D1F00A15;
  Thu,  5 Nov 2026 16:52:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63A71F000C1;
- Thu,  5 Nov 2026 16:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793897562;
- bh=oan7Be93ViXW4gYEkS/gPnA8WQOj5WP16f3Bui9Wk7U=;
+ s=k20260515; t=1793897565;
+ bh=fVOwT2J+od3H7hOrDMRcALEBGpShVHk+/+H7TMrc+vg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GwerQ7j6pasgEGyVYTDs+rpslsBSxNGeuuJCR3gfQAwxU39ruFZGQVJsU6xOe4VOb
- p7GyIAkYyHavX5RkJS3Lv0Ze3kMZMHdhrj9+PyqK9tc5NKk+p36KA8imu+ft2p7EA2
- SL+c1rpEjgec6lf+I8mbaWwMxUCVpxAjHqR6bRKm4rkj30/1FLUAZ86AgDw7gqrnM/
- bTm/Yu/FEOyYbtHDF/RfEJgwhD4wl+w5ijxin0UYtDmvctTAwUTCcJxZYU+mCb2qNV
- mpAILzbOQtMP3TTteKWWvVXKZRDHvLVWthzxmlRt8cds/qw+P0gQaHaLFGjFO6CjBg
- LJCqfDltxAlpQ==
-Message-ID: <sashiko-outbox-199539@kernel.org>
+ b=TmXj4IDOuBfutiN9cQDhSU+MAtNOJuLmfbZzrjkNpPiOoR2Wj+PaPuDOQYMYOkVxq
+ Cv/k16hg7Uzqt6YS8bnvWR7lwcEVGOVTQux4OG0ov0Z1iN5aGoG9GgDWRGt98qyDWS
+ NKWiq5T2nf7hYoFYi8MXD+T5k3/phhAmd//4/EaiNT4lnl4EE/4mrJCoxhcI+L1Rha
+ VJmmtJDokziST3zi9NDWAvWIbY+KKnMA1s+4PQKuWPj7FBqDlazgS37ESHcrb48xl0
+ +asZgP/9U6q8LeOJrug/iNGgeTaHYfoegLwsHuKuX6Vp7X6pPL3sWV7QB9wqY6l1iT
+ fxgbJf60qqV2Q==
+Message-ID: <sashiko-outbox-199540@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
+Subject: Re: [PATCH v9 02/14] mm: Zero memory during shared memory transitions
 To: =?utf-8?b?QW5lZXNoIEt1bWFyIEsuViAoQXJtKQ==?= <aneesh.kumar@kernel.org>
 Cc: "Andrew Morton" <akpm@linux-foundation.org>,
  "Baoquan He" <baoquan.he@linux.dev>, "Mike
@@ -68,12 +68,12 @@ Cc: "Andrew Morton" <akpm@linux-foundation.org>,
  Lutomirski" <luto@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org, kvmarm@lists.linux.dev,
  "Oliver Upton" <oupton@kernel.org>, media-ci@linuxtv.org
-In-Reply-To: <20261104164555.3555725-2-aneesh.kumar@kernel.org>
+In-Reply-To: <20261104164555.3555725-3-aneesh.kumar@kernel.org>
 References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-2-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-3-aneesh.kumar@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 16:52:38 +0000
+Date: Thu, 05 Nov 2026 16:52:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,143 +94,300 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] mm: invalid cc_make_private() call on cc_make_shared() failure
+- [Critical] x86/hyperv: premature zeroing in hv_vtom_clear_present() befor=
+e transition
+- [High] Drivers: hv: uninitialized SynIC pages in hv_alloc_page() on non-C=
+oCo VMs
+- [High] dma-pool: dirty cache lines left on linear alias by set_memory_dec=
+rypted()
+- [Medium] x86/mm: set_memory_decrypted() zeroes legacy VGA VRAM/MMIO in VG=
+A_MAP_MEM()
+- [Medium] powerpc/pseries/svm: set_memory_decrypted() zeroes private page =
+before sharing
 --
 
-commit 8a434c0ee7399613dbf060530383d80bbc1ab7af
+commit 0a47431deefcabfb66f48104fa0c06cece49f6f0
 Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-mm: Add an allocator for CoCo shared memory
+mm: Zero memory during shared memory transitions
 
-This commit introduces a common allocator and transition helpers for
-confidential-computing shared memory, including alloc_cc_shared_pages(),
-alloc_cc_shared_pages_node(), and free_cc_shared_pages().
+This commit moves memory zeroing into the architecture-specific
+implementations of set_memory_decrypted() so each platform clears shared
+memory at the appropriate point in the private-to-shared transition. It
+also removes post-transition memset() calls from callers and keeps explicit
+zeroing on paths where no transition takes place.
 
-> diff --git a/mm/cc_shared.c b/mm/cc_shared.c
-> new file mode 100644
-> index 0000000000000..5c4c971cfb7b2
-> --- /dev/null
-> +++ b/mm/cc_shared.c
-> @@ -0,0 +1,233 @@
+> diff --git a/arch/powerpc/platforms/pseries/svm.c b/arch/powerpc/platform=
+s/pseries/svm.c
+> index 7a403dbd35ee5..a344e094fe1c8 100644
+> --- a/arch/powerpc/platforms/pseries/svm.c
+> +++ b/arch/powerpc/platforms/pseries/svm.c
+[ ... ]
+> @@ -59,6 +60,7 @@ int set_memory_decrypted(unsigned long addr, int numpag=
+es)
+>  	if (!PAGE_ALIGNED(addr))
+>  		return -EINVAL;
+> =20
+> +	memset((void *)addr, 0, (size_t)numpages << PAGE_SHIFT);
+>  	uv_share_page(PHYS_PFN(__pa(addr)), numpages);
+> =20
+>  	return 0;
+
+[Severity: Medium]
+Should the memset() in set_memory_decrypted() happen after uv_share_page()
+rather than before it?
+
+On PowerPC pSeries Secure VMs, memory is partitioned between secure memory
+and normal hypervisor-accessible memory rather than shared in place. When
+uv_share_page() is called, the Ultravisor unmaps the secure page and the
+hypervisor sets pvt->skip_page_out =3D true in kvmppc_share_page() before
+allocating a new normal page and mapping it into the guest:
+
+arch/powerpc/kvm/book3s_hv_uvmem.c:kvmppc_share_page() {
+	if (kvmppc_gfn_is_uvmem_pfn(gfn, kvm, &uvmem_pfn)) {
+		uvmem_page =3D pfn_to_page(uvmem_pfn);
+		pvt =3D uvmem_page->zone_device_data;
+		pvt->skip_page_out =3D true;
+		...
+}
+
+Zeroing addr before uv_share_page() writes zeros to the private secure page
+that is immediately unmapped and discarded (and faults in a secure page fir=
+st
+if one was not yet populated), instead of zeroing the shared mapping after
+the transition completes.
 
 [ ... ]
 
-> +static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
-> +					size_t requested,
-> +					struct cc_shared_pages *mem)
-> +{
-> +	struct cc_shared_layout layout;
-> +	struct page *page;
-> +	unsigned int order;
-> +	bool zero =3D gfp & __GFP_ZERO;
-> +	int ret;
+> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+> index 2ce4dfe534727..e9c7799a00943 100644
+> --- a/arch/x86/hyperv/ivm.c
+> +++ b/arch/x86/hyperv/ivm.c
+> @@ -755,6 +755,10 @@ static int hv_mark_gpa_visibility(u16 count, const u=
+64 pfn[],
+>   */
+>  static int hv_vtom_clear_present(unsigned long kbuffer, int pagecount, b=
+ool enc)
+>  {
+> +	if (!enc)
+> +		memset((void *)kbuffer, 0,
+> +		       (size_t)pagecount << PAGE_SHIFT);
 > +
-> +	ret =3D cc_shared_calc_layout(requested, &layout);
-> +	if (ret)
-> +		return ret;
+>  	return set_memory_np(kbuffer, pagecount);
+>  }
+
+[Severity: Critical]
+As reported by Sashiko on RFC v8 [1], doesn't zeroing kbuffer in
+hv_vtom_clear_present() clear the private mapping before the transition to
+shared completes, leaving the final shared mapping unzeroed?
+
+In hv_vtom_init(), hv_vtom_clear_present() is registered as
+x86_platform.guest.enc_status_change_prepare, while
+hv_vtom_set_host_visibility() is registered as
+x86_platform.guest.enc_status_change_finish.
+
+When set_memory_decrypted() runs on Hyper-V Isolation VMs using vTOM or a
+paravisor, __set_memory_enc_pgtable() invokes the callbacks in this order:
+
+__set_memory_enc_pgtable()
+  -> hv_vtom_clear_present()          (prepare: kbuffer is still private)
+  -> __change_page_attr_set_clr()     (updates PTEs with shared_gpa_boundar=
+y)
+  -> hv_vtom_set_host_visibility()    (finish: marks GPA host-visible and
+                                       restores _PAGE_PRESENT via
+                                       set_memory_p())
+
+Because memset() runs in hv_vtom_clear_present() while kbuffer still maps t=
+he
+encrypted/private GPA below ms_hyperv.shared_gpa_boundary, the shared mappi=
+ng
+above vTOM is never zeroed after hv_vtom_set_host_visibility() makes the
+pages host-visible and present again. With the post-transition memset() cal=
+ls
+removed from callers such as vmbus_connect(), hv_alloc_page(),
+dma_direct_alloc(), dma_direct_alloc_pages(), and
+__alloc_cc_shared_pages_node(), shared buffers on vTOM VMs will contain
+ciphertext or uninitialized data instead of zeros.
+
+Should this memset() be moved to the end of hv_vtom_set_host_visibility()
+after set_memory_p() succeeds?
+
+[ ... ]
+
+> diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
+> index 2f8c32173972d..a1199a74e9a3f 100644
+> --- a/arch/x86/mm/mem_encrypt_amd.c
+> +++ b/arch/x86/mm/mem_encrypt_amd.c
+[ ... ]
+> @@ -308,6 +309,9 @@ static int amd_enc_status_change_finish(unsigned long=
+ vaddr, int npages, bool en
+>  	if (!cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT))
+>  		enc_dec_hypercall(vaddr, npages << PAGE_SHIFT, enc);
+> =20
+> +	if (!enc)
+> +		memset((void *)vaddr, 0, (size_t)npages << PAGE_SHIFT);
 > +
-> +	order =3D get_order(layout.shared_size);
-> +	if (order > MAX_PAGE_ORDER)
-> +		return -EINVAL;
-> +	/*
-> +	 * State transitions require a linear-map address and may modify memory.
-> +	 * Allocate from low memory and defer requested zeroing until afterward=
-s.
-> +	 * Shared allocations have no migration support, so they must not
-> +	 * be allocated with __GFP_MOVABLE.
-> +	 */
-> +	gfp &=3D ~(__GFP_HIGHMEM | __GFP_ZERO | __GFP_MOVABLE);
-> +	if (nid =3D=3D NUMA_NO_NODE)
-> +		page =3D alloc_pages(gfp, order);
-> +	else
-> +		page =3D alloc_pages_node(nid, gfp, order);
-> +	if (!page)
-> +		return -ENOMEM;
-> +
-> +	ret =3D cc_make_shared(page_address(page), layout.shared_size);
-> +	if (ret) {
-> +		if (!cc_make_private(page_address(page), layout.shared_size))
-> +			__free_pages(page, order);
-> +		else
-> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
-> +					    layout.shared_size);
-> +		return ret;
+>  	return 0;
+>  }
+
+[Severity: Medium]
+What happens during vgacon_startup() when VGA_MAP_MEM() calls
+set_memory_decrypted() on the legacy VGA video memory range?
+
+In arch/x86/include/asm/vga.h, VGA_MAP_MEM() calls set_memory_decrypted() on
+the direct-map address of legacy VGA memory (0xb8000 or 0xb0000):
+
+#define VGA_MAP_MEM(x, s)					\
+({								\
+	unsigned long start =3D (unsigned long)phys_to_virt(x);	\
+								\
+	if (IS_ENABLED(CONFIG_AMD_MEM_ENCRYPT))			\
+		set_memory_decrypted(start, (s) >> PAGE_SHIFT);	\
+								\
+	start;							\
+})
+
+During console initialization, con_init() -> vgacon_startup() calls
+VGA_MAP_MEM(vga_vram_base, vga_vram_size) before probing for VGA hardware a=
+nd
+before vgacon_save_screen() saves the pre-boot screen contents.
+
+With amd_enc_status_change_finish() and tdx_enc_status_change_finish() now
+unconditionally calling memset() on !enc:
+
+1. On AMD SME/SEV, set_memory_decrypted() wipes the 32 KiB VGA text buffer
+   before vgacon_startup() checks the buffer or saves the initial screen.
+2. On AMD SEV-ES/SEV-SNP and Intel TDX guests, 0xb8000-0xbffff is an MMIO
+   range; executing memset() (which uses rep stosb when X86_FEATURE_FSRS is
+   set) on that shared MMIO range triggers a #VC or #VE exception that
+   insn_decode_mmio() cannot decode, panicking the kernel at boot.
+
+[ ... ]
+
+> diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
+> index fe50090dcc011..6e836a02910a0 100644
+> --- a/drivers/hv/hv.c
+> +++ b/drivers/hv/hv.c
+> @@ -123,12 +123,13 @@ static int hv_alloc_page(void **page, bool decrypt,=
+ const char *note)
+>  	if (!*page)
+>  		return -ENOMEM;
+> =20
+> -	if (decrypt)
+> +	if (decrypt) {
+>  		ret =3D set_memory_decrypted((unsigned long)*page, 1);
+> -	if (ret)
+> -		goto failed;
+> -
+> -	memset(*page, 0, PAGE_SIZE);
+> +		if (ret)
+> +			goto failed;
+> +	} else {
+> +		memset(*page, 0, PAGE_SIZE);
 > +	}
+>  	return 0;
+> =20
+>  failed:
 
 [Severity: High]
-Is it safe to call cc_make_private() across the entire layout.shared_size
-range when cc_make_shared() fails in __alloc_cc_shared_pages_node()?
+As reported by Sashiko on RFC v8 [2], doesn't skipping memset() when decrypt
+is true leave SynIC message and event pages uninitialized on standard
+(non-CoCo) Hyper-V VMs?
 
-When cc_make_shared() fails via set_memory_decrypted(), the pages in the
-range may not have been transitioned to shared state at all, or only a pref=
-ix
-of the range may have been transitioned.
+In hv_synic_alloc(), decrypt is set to !vmbus_is_confidential():
 
-For example, on x86 TDX in arch/x86/mm/pat/set_memory.c and
-arch/x86/coco/tdx/tdx.c:
-
-__set_memory_enc_pgtable() {
-	ret =3D x86_platform.guest.enc_status_change_prepare(addr, numpages, enc);
-	if (ret)
-		goto vmm_fail;
-
-	ret =3D __change_page_attr_set_clr(&cpa, 1);
+drivers/hv/hv.c:hv_synic_alloc() {
+	const bool decrypt =3D !vmbus_is_confidential();
 	...
-	if (ret)
-		return ret;
-
-	ret =3D x86_platform.guest.enc_status_change_finish(addr, numpages, enc);
-	if (ret)
-		goto vmm_fail;
+	if (!ms_hyperv.paravisor_present && !hv_root_partition()) {
+		ret =3D hv_alloc_page(&hv_cpu->hyp_synic_message_page,
+			decrypt, "hypervisor SynIC msg");
+		if (ret)
+			goto err;
+		ret =3D hv_alloc_page(&hv_cpu->hyp_synic_event_page,
+			decrypt, "hypervisor SynIC event");
+		...
 }
 
-tdx_enc_status_change_finish() {
-	if (!enc && !tdx_enc_status_changed(vaddr, numpages, enc))
-		return -EIO;
+On a standard non-confidential Hyper-V guest, vmbus_is_confidential() is
+false, so decrypt is true. However, on non-CoCo x86 and arm64 guests where
+memory encryption is inactive, set_memory_decrypted() is a no-op that retur=
+ns
+0 without zeroing the page. Because hv_alloc_page() allocates the page with
+__get_free_page(GFP_KERNEL) without __GFP_ZERO and skips the else branch wh=
+en
+decrypt is true, hyp_synic_message_page and hyp_synic_event_page are handed
+to the hypervisor with uninitialized kernel memory, leaving non-zero garbage
+in message slot headers (msg->header.message_type !=3D HVMSG_NONE) and event
+flags.
 
-	if (enc)
-		atomic_long_sub(numpages, &nr_shared);
+[ ... ]
+
+> diff --git a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c b/drivers/virt=
+/coco/pkvm-guest/arm-pkvm-guest.c
+> index 26fe9c3f22e36..7d922e0a28f96 100644
+> --- a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> +++ b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+[ ... ]
+> @@ -61,6 +62,8 @@ static int pkvm_set_memory_encrypted(unsigned long addr=
+, int numpages)
+> =20
+>  static int pkvm_set_memory_decrypted(unsigned long addr, int numpages)
+>  {
+> +	memset((void *)addr, 0, (size_t)numpages << PAGE_SHIFT);
+> +
+>  	return __set_memory_range(ARM_SMCCC_VENDOR_HYP_KVM_MEM_SHARE_FUNC_ID,
+>  				  addr, numpages);
+>  }
+
+[Severity: High]
+When atomic_pool_expand() expands a CoCo atomic DMA pool on arm64 (both here
+in pkvm_set_memory_decrypted() and in realm_set_memory_decrypted()), doesn't
+zeroing via the cacheable linear map allocate dirty cache lines after
+arch_dma_prep_coherent() has already cleaned the cache?
+
+In kernel/dma/pool.c:atomic_pool_expand(), arch_dma_prep_coherent() and the
+non-cacheable vmap remap happen before set_memory_decrypted() is called on
+page_to_virt(page):
+
+kernel/dma/pool.c:atomic_pool_expand() {
+	...
+	arch_dma_prep_coherent(page, pool_size);
+
+#ifdef CONFIG_DMA_DIRECT_REMAP
+	if (dma_pool->cc_shared)
+		prot =3D pgprot_decrypted(pgprot_dmacoherent(PAGE_KERNEL));
 	else
-		atomic_long_add(numpages, &nr_shared);
+		prot =3D pgprot_dmacoherent(PAGE_KERNEL);
 
-	return 0;
+	addr =3D dma_common_contiguous_remap(page, pool_size, prot,
+			__builtin_return_address(0));
+	if (!addr)
+		goto free_page;
+#else
+	addr =3D page_to_virt(page);
+#endif
+	if (dma_pool->cc_shared) {
+		ret =3D set_memory_decrypted((unsigned long)page_to_virt(page),
+					   1 << order);
+		...
 }
 
-If set_memory_decrypted() (enc =3D false) fails with -EBUSY on mem_enc_lock=
- or
-with -ENOMEM in __change_page_attr_set_clr() before
-tdx_enc_status_change_finish() is reached, the pages remain private and
-accepted in the TDX module, and nr_shared is not incremented. Calling
-cc_make_private() (set_memory_encrypted(), enc =3D true) then invokes
-tdx_enc_status_change_prepare() -> tdx_accept_memory() -> try_accept_one() =
-on
-already-accepted private memory, which fails and jumps to vmm_fail in
-__set_memory_enc_pgtable(), triggering a spurious WARN_ONCE and leaking mem=
-ory
-that was never shared.
+Because pkvm_set_memory_decrypted() and realm_set_memory_decrypted() execute
+memset() through the cacheable linear mapping page_to_virt(page) after
+arch_dma_prep_coherent() has already run, dirty zeroed cache lines remain in
+the CPU data cache for the linear alias while consumers of the atomic pool
+access the buffer through the non-cacheable vmap alias addr or via device
+DMA. If those dirty cache lines are later evicted, won't they overwrite data
+written via the non-cacheable mapping or by DMA?
 
-Conversely, if tdx_enc_status_change_finish() fails during cc_make_shared()
-before atomic_long_add(numpages, &nr_shared), and the subsequent
-cc_make_private() call succeeds, tdx_enc_status_change_finish() will execute
-atomic_long_sub(numpages, &nr_shared), underflowing nr_shared and corrupting
-the accounting checked in tdx_kexec_finish().
-
-Similarly, on arm64 pKVM in drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c,
-pkvm_set_memory_decrypted() shares pages one by one and stops at the first
-failing page, leaving the remaining pages private. Calling cc_make_private()
-across the full range then invokes KVM_MEM_UNSHARE on private pages, which
-fails with -EPERM.
-
-Other callers in the kernel (such as dma_direct_alloc_pages(),
-atomic_pool_expand(), and swiotlb_init_late()) do not call
-set_memory_encrypted() when set_memory_decrypted() fails, and instead leak =
-the
-pages directly because the transition state of the range is unknown. Should
-__alloc_cc_shared_pages_node() do the same here instead of calling
-cc_make_private()?
+[1] https://lore.kernel.org/r/20260924100529.1398790-3-aneesh.kumar@kernel.=
+org
+[2] https://lore.kernel.org/r/20260924100529.1398790-3-aneesh.kumar@kernel.=
+org
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104164555.3555=
-725-1-aneesh.kumar@kernel.org?part=3D1
+725-1-aneesh.kumar@kernel.org?part=3D2
