@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F187606A331
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DD5606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RhSpFLOX
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ovVoMRPu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9937010EA35;
-	Fri,  6 Nov 2026 13:26:54 +0000 (UTC)
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0511810EA4C
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8D8410EA4C;
+	Fri,  6 Nov 2026 13:27:09 +0000 (UTC)
+Received: from mta1.migadu.com (out-76.mta1.migadu.com [95.215.58.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB3210EA4C
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:27:02 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=ojgBXCCljWWMx/by6O5nBZ1cYADUOJnAnHqRvmqKFno=; 
+DKIM-Signature: a=rsa-sha256; bh=dKQ/3LCCVbNcrSr0Tnyt8Yullo0Ku/Vkln3W2FNUdns=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793971607; v=1; x=1794576407;
- b=RhSpFLOXLObPYfOZQizN/gUVaieND1gF8il/wL44FULXzU6xQgZ1CEaCqDf0xtyhdrnS5YOV
- fhLMVB6HjXgwd4PBzZ5RROoU60te8y81kQbD/7CaUZx+Dy61yP7A19mS2FG3Kto8yPtCIhhukbj
- B092ZGe2PRc/VpSxHHXvPZ6Q=
+ t=1793971620; v=1; x=1794576420;
+ b=ovVoMRPufikfF8t3AU342AFskr9QUkRkRKydE5FcGCNjk73hL6yWc7NUdcm0TobQCVJOvG3u
+ cWdc9yP888j6qAmXHu6ewxbrTVjkE805urzQ/9kcRI/KFVj7Jh10ti0JMfmYJ18wHzwXgcY8hW0
+ 36Tcbt6W+jdZ9jtcoR7a1Ops=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id fd2f547758ebbf7f;
- Fri, 06 Nov 2026 13:20:43 +0000
-X-Mizu-Trace-ID: fd2f547758ebbf7f
+Received: by smtp.migadu.com with ESMTPS id 178d9492481963cf;
+ Fri, 06 Nov 2026 13:20:55 +0000
+X-Mizu-Trace-ID: 178d9492481963cf
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
@@ -43,10 +43,10 @@ Cc: linux-mm@kvack.org, James.Bottomley@HansenPartnership.com,
  mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
  aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
  cui.tao@linux.dev, cuitao@kylinos.cn
-Subject: [PATCH 6/7] io_uring: account the ring context and SQPOLL thread data
- to memcg
-Date: Fri,  6 Nov 2026 21:18:28 +0800
-Message-ID: <20261106131829.3228926-7-cui.tao@linux.dev>
+Subject: [PATCH 7/7] io_uring: account the remaining per-object allocations to
+ memcg
+Date: Fri,  6 Nov 2026 21:18:29 +0800
+Message-ID: <20261106131829.3228926-8-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106131829.3228926-1-cui.tao@linux.dev>
 References: <20261106131829.3228926-1-cui.tao@linux.dev>
@@ -73,85 +73,85 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-The io_ring_ctx and the SQPOLL io_sqd are the last per-ring allocations
-made with plain GFP_KERNEL.  The larger surfaces around them are
-already charged: io_mapped_ubuf and io_rsrc_node since commit
-075d5837bafc ("io_uring/rsrc: charge buffer arrays and nodes to memcg"),
-the tctx node and its XArrays since commit 0b34e7b20a48 ("io_uring:
-charge tctx nodes and personalities").
+A handful of io_uring allocations still scale with user controlled
+counts on plain GFP_KERNEL: the per-ring io-wq and its workers, the
+alloc cache entry arrays, the provided buffer peek and import iovec
+arrays, and the registered eventfd contexts.  The tctx side is covered
+by commit 0b34e7b20a48 ("io_uring: charge tctx nodes and
+personalities").
 
-Charge the context and the SQPOLL thread data the same way.
+Charge what is left.
 
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- io_uring/io_uring.c | 2 +-
- io_uring/rsrc.c     | 3 ++-
- io_uring/sqpoll.c   | 2 +-
- io_uring/tctx.c     | 4 ++--
+ io_uring/alloc_cache.c | 3 ++-
+ io_uring/eventfd.c     | 2 +-
+ io_uring/io-wq.c       | 4 ++--
+ io_uring/kbuf.c        | 2 +-
  4 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 03724419c4e1..d39cdde49a9f 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -229,7 +229,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
- 	int hash_bits;
- 	bool ret;
+diff --git a/io_uring/alloc_cache.c b/io_uring/alloc_cache.c
+index 58423888b736..f41df1878633 100644
+--- a/io_uring/alloc_cache.c
++++ b/io_uring/alloc_cache.c
+@@ -22,7 +22,8 @@ bool io_alloc_cache_init(struct io_alloc_cache *cache,
+ 			 unsigned max_nr, unsigned int size,
+ 			 unsigned int init_bytes)
+ {
+-	cache->entries = kvmalloc_array(max_nr, sizeof(void *), GFP_KERNEL);
++	cache->entries = kvmalloc_array(max_nr, sizeof(void *),
++				      GFP_KERNEL_ACCOUNT);
+ 	if (!cache->entries)
+ 		return true;
  
--	ctx = kzalloc_obj(*ctx);
-+	ctx = kzalloc_obj(*ctx, GFP_KERNEL_ACCOUNT);
- 	if (!ctx)
- 		return NULL;
+diff --git a/io_uring/eventfd.c b/io_uring/eventfd.c
+index 63fe6e5d79ba..52f5d5b85f30 100644
+--- a/io_uring/eventfd.c
++++ b/io_uring/eventfd.c
+@@ -132,7 +132,7 @@ int io_eventfd_register(struct io_ring_ctx *ctx, void __user *arg,
+ 	if (copy_from_user(&fd, fds, sizeof(*fds)))
+ 		return -EFAULT;
  
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index e0345c3e764e..9a971c983686 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -825,7 +825,8 @@ static bool io_coalesce_buffer(struct page ***pages, int *nr_pages,
- 	unsigned i, j;
+-	ev_fd = kmalloc_obj(*ev_fd);
++	ev_fd = kmalloc_obj(*ev_fd, GFP_KERNEL_ACCOUNT);
+ 	if (!ev_fd)
+ 		return -ENOMEM;
  
- 	/* Store head pages only*/
--	new_array = kvmalloc_objs(struct page *, nr_folios);
-+	new_array = kvmalloc_objs(struct page *, nr_folios,
-+				  GFP_KERNEL_ACCOUNT);
- 	if (!new_array)
- 		return false;
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 92df54c6f50c..98f3aa378baf 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -981,7 +981,7 @@ static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
  
-diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index d387488db2de..b82d3a285337 100644
---- a/io_uring/sqpoll.c
-+++ b/io_uring/sqpoll.c
-@@ -172,7 +172,7 @@ static struct io_sq_data *io_get_sq_data(struct io_uring_params *p,
- 			return sqd;
- 	}
+ 	__set_current_state(TASK_RUNNING);
  
--	sqd = kzalloc_obj(*sqd);
-+	sqd = kzalloc_obj(*sqd, GFP_KERNEL_ACCOUNT);
- 	if (!sqd)
+-	worker = kzalloc_obj(*worker);
++	worker = kzalloc_obj(*worker, GFP_KERNEL_ACCOUNT);
+ 	if (!worker) {
+ fail:
+ 		atomic_dec(&acct->nr_running);
+@@ -1358,7 +1358,7 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
+ 	if (WARN_ON_ONCE(!bounded))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	wq = kzalloc_obj(struct io_wq);
++	wq = kzalloc_obj(struct io_wq, GFP_KERNEL_ACCOUNT);
+ 	if (!wq)
  		return ERR_PTR(-ENOMEM);
  
-diff --git a/io_uring/tctx.c b/io_uring/tctx.c
-index b4fecea3ea47..6673393100ec 100644
---- a/io_uring/tctx.c
-+++ b/io_uring/tctx.c
-@@ -23,7 +23,7 @@ static struct io_wq *io_init_wq_offload(struct io_ring_ctx *ctx,
- 	mutex_lock(&ctx->uring_lock);
- 	hash = ctx->hash_map;
- 	if (!hash) {
--		hash = kzalloc_obj(*hash);
-+		hash = kzalloc_obj(*hash, GFP_KERNEL_ACCOUNT);
- 		if (!hash) {
- 			mutex_unlock(&ctx->uring_lock);
- 			return ERR_PTR(-ENOMEM);
-@@ -85,7 +85,7 @@ __cold struct io_uring_task *io_uring_alloc_task_context(struct task_struct *tas
- 	struct io_uring_task *tctx;
- 	int ret;
- 
--	tctx = kzalloc_obj(*tctx);
-+	tctx = kzalloc_obj(*tctx, GFP_KERNEL_ACCOUNT);
- 	if (unlikely(!tctx))
- 		return ERR_PTR(-ENOMEM);
- 
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index abf44f5dba26..bc6e552a91dd 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -288,7 +288,7 @@ static int io_ring_buffers_peek(struct io_kiocb *req, struct buf_sel_arg *arg,
+ 	 * a speculative peek operation.
+ 	 */
+ 	if (arg->mode & KBUF_MODE_EXPAND && nr_avail > nr_iovs && arg->max_len) {
+-		iov = kmalloc_objs(struct iovec, nr_avail);
++		iov = kmalloc_objs(struct iovec, nr_avail, GFP_KERNEL_ACCOUNT);
+ 		if (unlikely(!iov))
+ 			return -ENOMEM;
+ 		arg->iovs = iov;
 -- 
 2.43.0
 
