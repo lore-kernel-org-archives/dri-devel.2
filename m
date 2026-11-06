@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CD8606A32C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:57:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492FF606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:57:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JxzsWmmG
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=itLuiafw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8652310EA7E;
-	Fri,  6 Nov 2026 14:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BABA10F57E;
+	Fri,  6 Nov 2026 14:57:24 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 753A910EA7E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 185EF10F76C;
  Fri,  6 Nov 2026 14:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=kke7mX9E+sbBJZCpeJEimA7sW8qvrrhtDygsM+pOJpE=; t=1793977030; x=2109337030; 
- b=JxzsWmmGnSMRqt4FFYYZB4LHbZnTclX0wWXLoWuMdEOxjqMJIienG4GgGyjJC2t5CKhbCxSC8vA
- 6fyjVDCBeBS0QMUYKySMTkN3QDnEYFJRyiCRjPkCWrq7E6cS5JjFMptsEqYvIJQzppKNDqD/jHdUg
- WdV8RBlGFUjV4E9MQyV2P2g5lyB47a/ZcQPzbUfxJMWUD5y7t6Z9Xp+eh/JFxGaoUTsVDDbYa1uV/
- 97JgYjQGF5kyzg9J0857c3l9gTJQMo2g28Kb1deXLYu6iNtH0Tx5AAs9kFLp2jUJ0t0sCYIXkhgp6
- Ps4WB2p/i1yhVJRur9kKr6cSZ2zPilSLtDAg==;
+ bh=MHR78M3S8W2zWkL8jOA+2W8vCx4JOlRYc/ASvlDShK4=; t=1793977030; x=2109337030; 
+ b=itLuiafw3agejS7EQfk6mmc6x0wB+ztVjd3U7iIc/4ArxKNkmeEVeF4bgWxNc89zt9CnWRk33yO
+ uI0Z5Xs0TnaYLAN60o1uou5YRItrySB0gmhLzf8OmM/ipyc8QUAszCrJX5aODD/iYkz16jxgxOyoS
+ v/7fgSFKbEtKBsfTulVsQ5p0wU0ZoVaMp3mdcuqtraeGov0TgxGD9ZvqeudWJU8TezJpWCb1IR+7A
+ 9nUoDNFfGlFcNCaoMB+/VizVVtNxb5U3LXJYSfkwBPT+5zbSU+EgCvnZ1cZeqWXJNVbtsD5xUvU/Y
+ 9vZuT0Drd+WUwOuicb05v6dUePm1mMqmjhFg==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xPLNL-004Vmq-0Q; Fri, 06 Nov 2026 15:57:07 +0100
+ id 1xPLNL-004Vmw-PT; Fri, 06 Nov 2026 15:57:07 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
  Matthew Brost <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- "Cc: Tomeu Vizoso" <tomeu@tomeuvizoso.net>,
- Sidong Yang <sidong.yang@furiosa.ai>
-Subject: [PATCH 4/7] drm/sched: Remove the single scheduler special case
-Date: Fri,  6 Nov 2026 14:56:59 +0000
-Message-ID: <20261106145702.61640-5-tvrtko.ursulin@igalia.com>
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH 5/7] drm/amdgpu: Rework the
+ amdgpu_job_stop_all_jobs_on_sched() hack
+Date: Fri,  6 Nov 2026 14:57:00 +0000
+Message-ID: <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
 References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
@@ -61,231 +60,177 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Long time ago in commit
-b3ac17667f11 ("drm/scheduler: rework entity creation")
-a change was made which prevented priority changes for entities with only
-one assigned scheduler.
+amdgpu_job_stop_all_jobs_on_sched is a semi broken hack used on only one
+platform which suffers from several problems as mentioned in
+https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
 
-That commit reduced drm_sched_entity_set_priority() to simply update the
-entities priority, but the run queue selection logic in
-drm_sched_entity_select_rq() was never able to actually change the
-originally assigned run queue.
+Until it can be fully removed, given that it directly acceses DRM scheduler
+internals which want to be changed, we need to rework it to allow for
+replacing the SPSC queue with a standard spin locked list.
 
-In practice that only affected amdgpu, being the only driver which can do
-dynamic priority changes, and it appears it was attempted to rectify this
-in commit
-2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-.
+Problem at hand is the lock inversion between the run-queue and entity
+lock which becomes apparent once locking is added to the job queue
+amdgpu_job_stop_all_jobs_on_sched().
 
-A few unresolved problems however remained:
+To work around it we change the approach of how queued jobs are drained by
+using trylock and restarting on locked entities until all queued jobs from
+all active entities are removed.
 
-The above only fixed drm_sched_entity_set_priority()
-if drm_sched_entity_modify_sched() was called first which was not
-documented anywhere.
+This slightly widens the existing scope for a live lock in case of
+userspace actively submitting new jobs. Whereas the current code can keep
+processing the single busy entity, this new implementation can retry on the
+entities which it previously processed.
 
-Secondly, that only worked if drm_sched_entity_modify_sched() is actually
-called, which in amdgpu's case is true only for gfx and compute. Priority
-changes for other engines, which have only one scheduler assigned such as
-jpeg and video decode still did not work.
+Since userspace submitting jobs so rapidly the GPU reset cannot finish and
+the problem already exists, plus the plan is to remove this code
+altogether, we can say this is acceptable in order to unblock the DRM
+scheduler rework.
 
-(Note that this was also noticed in 981b04d96856 ("drm/sched: improve docs
-around drm_sched_entity").)
-
-Completely different set of non-obvious confusion was that, whereas
-drm_sched_entity_init() was not keeping the passed in list of schedulers
-(courtesy of commit
-8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-), drm_sched_entity_modify_sched() was disagreeing with that and
-would simply assign the single item list. That incosistency appears to
-have been semi-silently fixed in commit
-ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-.
-
-What was also not documented is why it was important to not keep the list
-of schedulers when there is only one scheduler given. This was in fact due
-many of the callers passing in a stack container for this case. For the
-multiple schedulers on the other hand amdgpu and rocket are the only such
-callers and there the container is not on the stack but correctly follows
-the lifetime requirement. Keeping a stack backed list in the entity would
-obviously be undefined behaviour if the list was kept.
-
-Having said that, amdgpu however did only stop passing in stack backed
-container for the more than one scheduler case in commit
-977f7e1068be ("drm/amdgpu: allocate entities on demand")
-. Until then dereferencing freed stack from drm_sched_entity_select_rq()
-was a possibility.
-
-In order to untangle all this lets make this area behave consistently and
-store the single scheduler case directly in the entity. We can do that
-easily by creating an union between the current pointer to a list of
-schedulers, and a new pointer to the single scheduler.
-
-This allows removal of the special cases which artificially cleared
-entity->sched_list for a single scheduler case and fixes the amdgpu
-dynamic priority changes for the single IP instances.
+While at it we add the assert scheduler workqueue has been stopped by the
+caller and also correct the wrong order of signalling already submitted
+and queued fences.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: b3ac17667f11 ("drm/scheduler: rework entity creation")
-References: 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-References: 977f7e1068be ("drm/amdgpu: allocate entities on demand")
-References: 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-References: ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-References: 981b04d96856 ("drm/sched: improve docs around drm_sched_entity")
-References: 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
+References: https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Simona Vetter <simona@ffwll.ch>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: amd-gfx@lists.freedesktop.org
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 30 ++++++++++-------
- include/drm/gpu_scheduler.h              | 42 ++++++++++++++----------
- 2 files changed, 44 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 86 ++++++++++++++++++++-----
+ 1 file changed, 69 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 2a827522e23f..3495153ad4e5 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -102,7 +102,9 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
-  * @guilty: atomic_t set to 1 when a job on this queue
-  *          is found to be guilty causing a timeout
-  *
-- * Note that the &sched_list must have at least one element to schedule the entity.
-+ * Note that the &sched_list must have exactly one element to schedule the
-+ * entity. Callers which pass more than one scheduler on the @sched_list must
-+ * ensure the list remains valid for the lifetime of the entity.
-  *
-  * For changing @priority later on at runtime see
-  * drm_sched_entity_set_priority(). For changing the set of schedulers
-@@ -139,7 +141,10 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->guilty = guilty;
- 	entity->last_user = current->group_leader;
- 	entity->num_sched_list = num_sched_list;
--	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
-+	if (num_sched_list == 1)
-+		entity->sched = sched_list[0];
-+	else
-+		entity->sched_list = sched_list;
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
- 	if (priority >= sched_list[0]->num_user_rqs) {
-@@ -178,6 +183,9 @@ EXPORT_SYMBOL(drm_sched_entity_init);
-  *		 existing entity->sched_list
-  * @num_sched_list: number of drm sched in sched_list
-  *
-+ * Callers which pass more than one scheduler on the @sched_list must
-+ * ensure the list remains valid for the lifetime of the entity.
-+ *
-  * Note that this must be called under the same common lock for @entity as
-  * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
-  * guarantee through some other means that this is never called while new jobs
-@@ -198,7 +206,10 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 	}
- 
- 	spin_lock(&entity->lock);
--	entity->sched_list = sched_list;
-+	if (num_sched_list == 1)
-+		entity->sched = sched_list[0];
-+	else
-+		entity->sched_list = sched_list;
- 	entity->num_sched_list = num_sched_list;
- 	spin_unlock(&entity->lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 8689a3c933b2..1f4a4a5a978d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -457,13 +457,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ 	return fence;
  }
-@@ -587,10 +598,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
  
--	/* single possible engine and already selected */
--	if (!entity->sched_list)
--		return;
--
- 	/* queue non-empty, stay on the same engine */
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
-@@ -607,16 +614,17 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (fence && !dma_fence_is_signaled(fence))
- 		goto out;
- 
--	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-+	if (entity->num_sched_list == 1)
-+		sched = entity->sched;
-+	else
-+		sched = drm_sched_pick_best(entity->sched_list,
-+					    entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
- 	}
- 
--	if (entity->num_sched_list == 1)
--		entity->sched_list = NULL;
--
- out:
- 	spin_unlock(&entity->lock);
+-/*
+- * This is a duplicate function from DRM scheduler sched_internal.h.
+- * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
+- * latter being incorrect and racy.
+- *
+- * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
+- */
+ static struct drm_sched_job *
+ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+ {
+@@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+ 	return container_of(node, struct drm_sched_job, queue_node);
  }
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index c89a581f54bf..dfa399ace89f 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -120,23 +120,31 @@ struct drm_sched_entity {
- 	 */
- 	struct drm_sched_entity_stats	*stats;
  
--	/**
--	 * @sched_list:
--	 *
--	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this entity can
--	 * be scheduled on any scheduler on this list.
--	 *
--	 * This can be modified by calling drm_sched_entity_modify_sched().
--	 * Locking is entirely up to the driver, see the above function for more
--	 * details.
--	 *
--	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
--	 * set already.
--	 *
--	 * FIXME: This means priority changes through
--	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
--	 */
--	struct drm_gpu_scheduler        **sched_list;
-+	union {
-+		/**
-+		 * @sched_list:
-+		 *
-+		 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from
-+		 * this entity can be scheduled on any scheduler on this list.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        **sched_list;
+-void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
++static struct drm_sched_entity *
++get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity->lock)
+ {
+-	struct drm_sched_job *s_job;
+-	struct drm_sched_entity *s_entity = NULL;
++	struct drm_sched_entity *entity;
+ 	int i;
+ 
+-	/* Signal all jobs not yet scheduled */
++retry:
+ 	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+ 		struct drm_sched_rq *rq = sched->sched_rq[i];
 +
-+		/**
-+		 * @sched:
-+		 *
-+		 * A single struct drm_gpu_scheduler jobs from this entity will
-+		 * be scheduled on.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        *sched;
-+	};
+ 		spin_lock(&rq->lock);
+-		list_for_each_entry(s_entity, &rq->entities, list) {
+-			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
+-				struct drm_sched_fence *s_fence = s_job->s_fence;
++		list_for_each_entry(entity, &rq->entities, list) {
++			/*
++			 * This can false negative, but so could the previous
++			 * approach of scanning the run-queues once when
++			 * nothing prevents userspace to queue more jobs.
++			 */
++			if (!spsc_queue_count(&entity->job_queue))
++				continue;
  
- 	/**
- 	 * @num_sched_list:
+-				dma_fence_signal(&s_fence->scheduled);
+-				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+-				dma_fence_signal(&s_fence->finished);
++			/*
++			 * We must trylock because normal locking order is
++			 * entity then rq and here we already have rq locked
++			 * in order to be able to walk the entities.
++			 */
++			if (spin_trylock(&entity->lock)) {
++				/* Returns with a locked entity. */
++				spin_unlock(&rq->lock);
++				return entity;
++			} else {
++				/*
++				 * Busy entity - we will try again looking for a
++				 * window where trylock will succeed.
++				 */
++				spin_unlock(&rq->lock);
++				goto retry;
+ 			}
+ 		}
+ 		spin_unlock(&rq->lock);
+ 	}
+ 
++	return NULL;
++}
++
++/*
++ * amdgpu_job_stop_all_jobs_on_sched has a single purpose which is an
++ * unreliable and racy, as described in:
++ *  https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
++ *
++ * Plan is to remove it, together with the above open coded DRM scheduler
++ * helpers, and replace with a proper solution.
++ */
++void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
++{
++	struct drm_sched_job *s_job, *next;
++	struct drm_sched_entity *s_entity;
++	LIST_HEAD(queued);
++
++	WARN_ON_ONCE(!sched->pause_submit);
++
+ 	/* Signal all jobs already scheduled to HW */
+ 	list_for_each_entry(s_job, &sched->pending_list, list) {
+ 		struct drm_sched_fence *s_fence = s_job->s_fence;
+@@ -505,6 +536,27 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ 		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+ 		dma_fence_signal(&s_fence->finished);
+ 	}
++
++	/*
++	 * Signal all jobs not yet scheduled - note that the entity trylock loop
++	 * can in theory livelock if userspace keeps submitting new jobs more
++	 * rapidly than the loop can do a full pass over all run-queues and
++	 * entities.
++	 */
++	while ((s_entity = get_entity_with_jobs(sched)) != NULL) {
++		while ((s_job = drm_sched_entity_queue_pop(s_entity)))
++			list_add_tail(&s_job->list, &queued);
++		spin_unlock(&s_entity->lock);
++	}
++
++	list_for_each_entry_safe(s_job, next, &queued, list) {
++		struct drm_sched_fence *s_fence = s_job->s_fence;
++
++		list_del(&s_job->list);
++		dma_fence_signal(&s_fence->scheduled);
++		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
++		dma_fence_signal(&s_fence->finished);
++	}
+ }
+ 
+ const struct drm_sched_backend_ops amdgpu_sched_ops = {
 -- 
 2.56.0
 
