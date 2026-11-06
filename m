@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81056606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 02:56:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6353C606A31B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 02:57:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFfTkADv
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6pEHWik
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F7810E30C;
-	Fri,  6 Nov 2026 02:56:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC87210E033;
+	Fri,  6 Nov 2026 02:57:19 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA7610E30C
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 02:56:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79B1810E033
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 02:57:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 12C086020A;
- Fri,  6 Nov 2026 02:56:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41781F008A2;
- Fri,  6 Nov 2026 02:56:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E463F60202;
+ Fri,  6 Nov 2026 02:57:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827C61F0089F;
+ Fri,  6 Nov 2026 02:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793933776;
- bh=7O4eiLlqeLuaoXQ9+ZQRbb6F7XKyKjw3RekNq4/dbrY=;
+ s=k20260515; t=1793933832;
+ bh=ULTDaHMl0jSjWBw9wMf7qiezo6fJ1mALcgcMGKs0l/Y=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CFfTkADvdrFQmWp1ho11AyVTrI6LP1/hdy/XNTNiUr0xD0OKH3UKjY/VczaDR0JL2
- +DL4JFf8SXEksI0vP8QyUtXL7ACbSOS1aSzY9u4lm1ecmiJ3kj2xY9nMgRmcZslvbM
- KLo0Hs05wi7UGFRtF4Dp7tCp4N6YFt0FnZs3BloVJv3jWQjsm4RFDsXyiCxytnghnS
- 0yRuNZU2B0s5fEqosmFE/8VIVgapt7pmlWswBZqAg1iW4HUChCLsv885K/eAQP4DL1
- fFmThnj/bfHaRfEZ+jMKZLCty7x/8pkiaT2nhp606xY8UNJceCop8QwJV1L30r23tg
- 1sF56bpmHaXTg==
-Message-ID: <sashiko-outbox-200616@kernel.org>
+ b=F6pEHWikQ+HzOayAPkoiKVJ8ADC4u3VXMSJd+zagmzKENnzeFxmLYy79Oj/WJRXDV
+ Og/3ySrKMhryEDBVEtOXt2UUg6l+mzGv1RKOJU7e6+Qyz5qlcEiNNNoXlvDju84Cd3
+ 78KApLIzctm2B+v+KjMjJ0JgWNMHl8vMqNTrFmETAdmrJwXyO9LJSfHS0VcYmmaos7
+ /J/PeY5RdZFi6Hn7R0y8RABkeuR45pQDPY4CdAwhAjPmJihtIZiQXp4QpeXhDpwt+M
+ VZd1F2yeGb4wYeNhXPpY8iJlYhvmAY166kBfnGOUE7gMff8B3oHgXqGNpMVt3FLNf+
+ GQZ57ZnYZhg4A==
+Message-ID: <sashiko-outbox-200618@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/4] drm/fl2000: Add frame streaming
+Subject: Re: [PATCH RFC 1/4] drm/fl2000: Add USB driver with register and
+ I2C access
 To: "Angel Gabriel Crispin Valdivia" <angelcrispinvaldivia@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261105-fl2000-upstream-v1-3-bb163ecb2309@gmail.com>
+In-Reply-To: <20261105-fl2000-upstream-v1-1-bb163ecb2309@gmail.com>
 References: <20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com>
- <20261105-fl2000-upstream-v1-3-bb163ecb2309@gmail.com>
+ <20261105-fl2000-upstream-v1-1-bb163ecb2309@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 02:56:16 +0000
+Date: Fri, 06 Nov 2026 02:57:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,347 +59,311 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] drm/fl2000: out-of-bounds shadow write after fl2000_stream_mod=
-e_set() error
-- [High] drm/fl2000: NULL pointer dereference of sb->pages in fl2000_free_s=
-b()
-- [High] drm/fl2000: infinite retry loop on -EAGAIN in fl2000_submit_urb()
-- [High] drm/fl2000: invalid URB transfer_buffer usage in fl2000_stream_wor=
-k()
-- [Medium] drm/fl2000: missing flush_kernel_vmap_range() before SG DMA in f=
-l2000_stream_work()
+- [High] drm/fl2000: UAF and leaks attaching devres to usb_dev in fl2000_ge=
+t_devices()
+- [High] drm/fl2000: unvalidated message length and flags in fl2000_i2c_xfe=
+r()
+- [Medium] drm/fl2000: destructive second read of status reg in fl2000_read=
+_status()
+- [Medium] drm/fl2000: unlocked FL2000_VGA_I2C_SC_REG update in fl2000_usb_=
+magic()
 --
 
-commit 3826e48192d62fc9fe0e2b4c5ca7c2e42d218844
+commit 65acb73d91d8bb3b60de43aba3fc31aba51bb815
 Author: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
 
-drm/fl2000: Add frame streaming
+drm/fl2000: Add USB driver with register and I2C access
 
-This commit adds frame streaming support for the FL2000 USB display
-adapter, managing a pool of scatter-gather URB buffers, a shadow
-framebuffer for damage updates, pixel format conversion, and cursor
-blending.
+This patch adds the USB driver for the Fresco Logic FL2000DX display
+controller, binding its three USB interfaces, setting up a regmap over
+vendor control transfers, and registering an I2C adapter for the chip's
+I2C engine.
 
-> diff --git a/drivers/gpu/drm/fl2000/fl2000.h b/drivers/gpu/drm/fl2000/fl2=
-000.h
-> index 95603247907cf..d800d943e6e47 100644
-> --- a/drivers/gpu/drm/fl2000/fl2000.h
-> +++ b/drivers/gpu/drm/fl2000/fl2000.h
-> @@ -42,6 +42,48 @@ enum fl2000_interface {
->  	FL2000_USBIF_INTERRUPT =3D 2,
->  };
-> =20
-> +/* Process context only: may sleep between retries */
-> +static inline int fl2000_submit_urb(struct urb *urb)
-> +{
-> +	int ret;
-> +	int attempts =3D 10;
-> +
-> +	do {
-> +		ret =3D usb_submit_urb(urb, GFP_KERNEL);
-> +		switch (ret) {
-> +		case -ENXIO:
-> +		case -ENOMEM:
-> +			if (attempts--) {
-> +				cond_resched();
-> +				ret =3D -EAGAIN;
-> +			}
-> +			break;
-> +		default:
-> +			break;
-> +		}
-> +	} while (ret =3D=3D -EAGAIN);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-What happens in fl2000_submit_urb() in drivers/gpu/drm/fl2000/fl2000.h if
-usb_submit_urb() returns -EAGAIN directly?
-
-For example, usb_hcd_map_urb_for_dma() in drivers/usb/core/hcd.c and
-xhci_map_temp_buffer() in drivers/usb/host/xhci.c return -EAGAIN when DMA
-mapping fails (such as dma_map_sg() or dma_map_single()).
-
-When usb_submit_urb() returns -EAGAIN, the switch statement hits the
-default branch without decrementing attempts or calling cond_resched(),
-while the loop condition (ret =3D=3D -EAGAIN) remains true. Could this spin
-indefinitely in fl2000_stream_work() -> fl2000_stream_submit() ->
-fl2000_submit_urb()?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/fl2000/fl2000_streaming.c b/drivers/gpu/drm/=
-fl2000/fl2000_streaming.c
+> diff --git a/drivers/gpu/drm/fl2000/fl2000_drv.c b/drivers/gpu/drm/fl2000=
+/fl2000_drv.c
 > new file mode 100644
-> index 0000000000000..2d2c30cb74424
+> index 0000000000000..ea089d3c1d09c
 > --- /dev/null
-> +++ b/drivers/gpu/drm/fl2000/fl2000_streaming.c
+> +++ b/drivers/gpu/drm/fl2000/fl2000_drv.c
+> @@ -0,0 +1,150 @@
 
 [ ... ]
 
-> +static void fl2000_free_sb(struct fl2000_stream_buf *sb)
+> +/* Devices that are independent of interfaces, created for the lifetime =
+of the USB device */
+> +struct fl2000_devs {
+> +	struct regmap *regmap;
+> +	struct i2c_adapter *adapter;
+> +	int active_if;
+> +};
+> +
+> +static struct fl2000_devs *fl2000_get_devices(struct usb_device *usb_dev)
 > +{
-> +	vunmap(sb->vaddr);
+> +	struct fl2000_devs *devs;
 > +
-> +	sg_free_table(&sb->sgt);
+> +	devs =3D devm_kzalloc(&usb_dev->dev, sizeof(*devs), GFP_KERNEL);
+> +	if (!devs)
+> +		return ERR_PTR(-ENOMEM);
 > +
-> +	for (int i =3D 0; i < sb->nr_pages && sb->pages[i]; i++)
-> +		__free_page(sb->pages[i]);
-> +
-> +	kfree(sb->pages);
-> +
-> +	kfree(sb);
-> +}
-> +
-> +static struct fl2000_stream_buf *fl2000_alloc_sb(unsigned int size)
-> +{
-> +	int ret;
-> +	struct fl2000_stream_buf *sb;
-> +	unsigned int nr_pages =3D PAGE_ALIGN(size) >> PAGE_SHIFT;
-> +
-> +	sb =3D kzalloc_obj(*sb);
-> +	if (!sb)
-> +		return NULL;
-> +
-> +	sb->nr_pages =3D nr_pages;
-> +
-> +	sb->pages =3D kzalloc_objs(*sb->pages, nr_pages);
-> +	if (!sb->pages)
-> +		goto error;
-> +
-> +	for (int i =3D 0; i < nr_pages; i++) {
-> +		sb->pages[i] =3D alloc_page(GFP_KERNEL);
-> +		if (!sb->pages[i])
-> +			goto error;
+> +	devs->regmap =3D fl2000_regmap_init(usb_dev);
+> +	if (IS_ERR(devs->regmap)) {
+> +		dev_err(&usb_dev->dev, "Cannot initialize regmap (%pe)\n", devs->regma=
+p);
+> +		return ERR_CAST(devs->regmap);
 > +	}
 > +
-> +	ret =3D sg_alloc_table_from_pages(&sb->sgt, sb->pages, nr_pages, 0, siz=
-e, GFP_KERNEL);
-> +	if (ret !=3D 0)
-> +		goto error;
+> +	devs->adapter =3D fl2000_i2c_init(usb_dev);
+> +	if (IS_ERR(devs->adapter)) {
+> +		dev_err(&usb_dev->dev, "Cannot initialize I2C adapter (%pe)\n", devs->=
+adapter);
+> +		return ERR_CAST(devs->adapter);
+> +	}
 > +
-> +	sb->vaddr =3D vmap(sb->pages, nr_pages, VM_MAP, PAGE_KERNEL);
-> +	if (!sb->vaddr)
-> +		goto error;
+> +	dev_set_drvdata(&usb_dev->dev, devs);
 > +
-> +	INIT_LIST_HEAD(&sb->list);
-> +	memset(sb->vaddr, 0, nr_pages << PAGE_SHIFT);
-> +
-> +	return sb;
-> +
-> +error:
-> +	fl2000_free_sb(sb);
-> +
-> +	return NULL;
+> +	return devs;
 > +}
 
-[Severity: High]
-In drivers/gpu/drm/fl2000/fl2000_streaming.c, fl2000_alloc_sb() sets
-sb->nr_pages =3D nr_pages before allocating sb->pages with kzalloc_objs().
-If that allocation fails, it jumps to error and calls fl2000_free_sb(sb).
-
-In fl2000_free_sb(), the loop checks:
-
-	for (int i =3D 0; i < sb->nr_pages && sb->pages[i]; i++)
-
-When sb->nr_pages is non-zero and sb->pages is NULL, won't evaluating
-sb->pages[0] dereference a NULL pointer?
-
 [ ... ]
 
-> +static void fl2000_stream_data_completion(struct urb *urb)
+> +static void fl2000_disconnect(struct usb_interface *interface)
 > +{
-> +	struct fl2000_stream_buf *cur_sb =3D urb->transfer_buffer;
-> +	struct usb_device *usb_dev =3D urb->dev;
-> +	struct fl2000_stream *stream =3D urb->context;
-> +	unsigned long flags;
+> +	u8 iface_num =3D interface->cur_altsetting->desc.bInterfaceNumber;
+> +	struct usb_device *usb_dev =3D interface_to_usbdev(interface);
+> +	struct fl2000_devs *devs =3D dev_get_drvdata(&usb_dev->dev);
 > +
-> +	if (stream) {
-> +		spin_lock_irqsave(&stream->list_lock, flags);
-> +		list_move_tail(&cur_sb->list, &stream->render_list);
-> +		spin_unlock_irqrestore(&stream->list_lock, flags);
+> +	if (!devs)
+> +		return;
+> +
+> +	switch (iface_num) {
+> +	case FL2000_USBIF_AVCONTROL:
+> +	case FL2000_USBIF_STREAMING:
+> +	case FL2000_USBIF_INTERRUPT:
+> +		devs->active_if &=3D ~BIT(iface_num);
+> +		break;
+
+[Severity: High]
+What cleans up devs, devs->regmap, devs->adapter, and usb_dev->dev
+driver_data when the driver is unbound or unloaded while the USB device
+remains plugged in?
+
+fl2000_driver binds to struct usb_interface devices (&interface->dev), while
+the parent struct usb_device (&usb_dev->dev) stays bound to
+usb_generic_driver for the entire physical connection. However,
+fl2000_get_devices(), fl2000_regmap_init(), and fl2000_i2c_init() attach all
+devm allocations and registrations to &usb_dev->dev:
+
+  fl2000_probe()
+    fl2000_get_devices()
+      devm_kzalloc(&usb_dev->dev, ...)
+      fl2000_regmap_init()
+        devm_regmap_init(&usb_dev->dev, ...)
+      fl2000_i2c_init()
+        devm_kzalloc(&usb_dev->dev, ...)
+        devm_i2c_add_adapter(&usb_dev->dev, adapter)
+      dev_set_drvdata(&usb_dev->dev, devs)
+
+When fl2000_driver is unbound from the interfaces (for example via rmmod
+fl2000 or sysfs unbind), device_unbind_cleanup() only releases devres on
+&interface->dev, not on &usb_dev->dev, and fl2000_disconnect() only clears
+BIT(iface_num) in devs->active_if.
+
+After module unload, the I2C adapter and regmap remain registered with
+callbacks and structures (such as fl2000_i2c_algorithm, fl2000_i2c_quirks,
+fl2000_regmap_config, fl2000_reg_read, and fl2000_reg_write) pointing into
+freed module memory, and dev_get_drvdata(&usb_dev->dev) retains the stale
+pointer. Won't any subsequent I2C transfer, regmap debugfs access, module
+reload, or USB unplug trigger a use-after-free?
+
+Also, if fl2000_i2c_init() fails in fl2000_get_devices() (or if
+fl2000_probe() fails on an unexpected interface), really_probe() only cleans
+up &interface->dev, leaking the devm allocations attached to &usb_dev->dev
+on each interface probe attempt. Should the shared state be refcounted acro=
+ss
+the bound interfaces and explicitly torn down when the last interface
+disconnects (or on probe failure)?
+
+> diff --git a/drivers/gpu/drm/fl2000/fl2000_i2c.c b/drivers/gpu/drm/fl2000=
+/fl2000_i2c.c
+> new file mode 100644
+> index 0000000000000..eadbe0f679eb4
+> --- /dev/null
+> +++ b/drivers/gpu/drm/fl2000/fl2000_i2c.c
+> @@ -0,0 +1,182 @@
 
 [ ... ]
 
-> +		/*
-> +		 * Building the frame copies up to several MB and must run with
-> +		 * interrupts enabled, so cur_sb is owned (off all lists) for
-> +		 * the duration. Holding list_lock (which disables IRQs) across
-> +		 * it starves the whole system.
-> +		 */
-> +		fl2000_stream_build(stream, cur_sb);
+> +static int fl2000_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *=
+msgs, int num)
+> +{
+> +	int ret;
+> +	bool read;
+> +	u16 addr;
+> +	u8 idx;
+> +	u8 offset;
+> +	u32 data;
 > +
-> +		spin_lock_irq(&stream->list_lock);
-> +		list_add_tail(&cur_sb->list, &stream->wait_list);
-> +		spin_unlock_irq(&stream->list_lock);
+> +	addr =3D msgs[0].addr;
+> +	offset =3D msgs[0].buf[0] & I2C_XFER_ADDR_MASK;
+> +	idx =3D msgs[0].buf[0] - offset;
+> +
+> +	/*
+> +	 * We expect the following:
+> +	 * - 2 messages, each 1 byte, first write then read
+> +	 * - 1 message, 2 bytes, write
+> +	 */
+> +	if (num =3D=3D 2) {
+> +		read =3D true;
+> +	} else if (num =3D=3D 1) {
+> +		if (msgs[0].len =3D=3D 2 && !(msgs[0].flags & I2C_M_RD))
+> +			read =3D false;
+> +		else
+> +			return -EOPNOTSUPP;
+> +	} else {
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	/*
+> +	 * The FL2000 I2C engine only transfers aligned dwords, so the offset i=
+s aligned down to a
+> +	 * 4-byte boundary and the requested byte is picked out of (or merged i=
+nto) the dword.
+> +	 */
+> +	if (read) {
+> +		ret =3D fl2000_i2c_read_dword(adapter->algo_data, addr, offset, &data);
+> +		if (ret)
+> +			return ret;
+> +
+> +		msgs[1].buf[0] =3D data >> (idx * 8);
+
+[ ... ]
+
+> +static u32 fl2000_i2c_func(struct i2c_adapter *adap)
+> +{
+> +	return I2C_FUNC_I2C | I2C_FUNC_NOSTART;
+> +}
+> +
+> +static const struct i2c_algorithm fl2000_i2c_algorithm =3D {
+> +	.xfer =3D fl2000_i2c_xfer,
+> +	.functionality =3D fl2000_i2c_func,
+> +};
+> +
+> +static const struct i2c_adapter_quirks fl2000_i2c_quirks =3D {
+> +	/* Combined transfers only: an address write, then data, on the same ad=
+dress */
+> +	.flags =3D I2C_AQ_COMB | I2C_AQ_COMB_WRITE_FIRST | I2C_AQ_COMB_SAME_ADD=
+R,
+> +	.max_num_msgs =3D I2C_CMESSAGES_NUM,
+> +	.max_write_len =3D 2 * I2C_REG_DATA_SIZE,
+> +	.max_read_len =3D I2C_REG_DATA_SIZE,
+> +	.max_comb_1st_msg_len =3D I2C_REG_ADDR_SIZE,
+> +	.max_comb_2nd_msg_len =3D I2C_REG_DATA_SIZE,
+> +};
+
+[Severity: High]
+Can fl2000_i2c_xfer() dereference a NULL or ZERO_SIZE_PTR buffer on
+zero-length messages, or misclassify a 2-message write as a read?
+
+At the start of fl2000_i2c_xfer(), msgs[0].buf[0] is read before checking
+msgs[0].len. Because fl2000_i2c_quirks.flags does not set
+I2C_AQ_NO_ZERO_LEN, i2c_check_for_quirks() allows messages with len =3D=3D 0
+(for example, SMBus quick transfers from i2cdetect where msgs[0].buf is
+NULL, or zero-length I2C_RDWR ioctls where msgs[i].buf is ZERO_SIZE_PTR),
+which will fault on msgs[0].buf[0] or msgs[1].buf[0].
+
+In addition, when num =3D=3D 2, fl2000_i2c_xfer() sets read =3D true without
+checking that msgs[1].flags & I2C_M_RD is set or that both messages have
+len =3D=3D 1. Meanwhile, fl2000_i2c_func() advertises I2C_FUNC_NOSTART and
+fl2000_i2c_quirks.flags omits I2C_AQ_COMB_READ_SECOND (i.e.
+I2C_AQ_COMB_WRITE_THEN_READ). If a caller issues a 2-message write (such as
+regmap_i2c_gather_write() using I2C_M_NOSTART, or via i2c-dev), won't
+fl2000_i2c_xfer() perform a hardware read instead of a write and overwrite
+the caller's write buffer msgs[1].buf[0]?
+
+> diff --git a/drivers/gpu/drm/fl2000/fl2000_registers.c b/drivers/gpu/drm/=
+fl2000/fl2000_registers.c
+> new file mode 100644
+> index 0000000000000..231814471d20a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/fl2000/fl2000_registers.c
+> @@ -0,0 +1,320 @@
+
+[ ... ]
+
+> +int fl2000_usb_magic(struct usb_device *usb_dev)
+> +{
+> +	struct regmap *regmap =3D dev_get_regmap(&usb_dev->dev, NULL);
+> +	u32 val;
+> +
+> +	val =3D FL2000_VGA_I2C_SC_MONITOR_DETECT | FL2000_VGA_I2C_SC_EDID_DETEC=
+T;
+> +	regmap_write_bits(regmap, FL2000_VGA_I2C_SC_REG, val, val);
 
 [Severity: Medium]
-In fl2000_alloc_sb() in drivers/gpu/drm/fl2000/fl2000_streaming.c, the
-scatter-gather pages in sb->sgt are mapped into a virtually contiguous
-kernel range via vmap() at sb->vaddr, and fl2000_stream_build() writes the
-frame and cursor data through cur_sb->vaddr.
+Can updating FL2000_VGA_I2C_SC_REG in fl2000_usb_magic() race with an active
+I2C transfer or trigger an unintended I2C transaction?
 
-When fl2000_stream_work() then submits data_urb with data_urb->sg and
-data_urb->num_sgs, usb_hcd_map_urb_for_dma() calls dma_map_sg(), which only
-flushes the linear direct-map alias for each scatterlist page rather than
-the vmap() alias cur_sb->vaddr.
+In fl2000_i2c_dword(), writing FL2000_VGA_I2C_SC_REG with bit 31
+(FL2000_VGA_I2C_SC_DONE) cleared to 0 initiates an I2C transfer using the
+address, command, and offset in bits 15:0, and callers serialize the
+multi-step sequence (including polling across 200us sleeps in
+regmap_read_poll_timeout()) with i2c_lock_bus().
 
-On architectures with virtually indexed (VIVT or aliasing VIPT) caches
-where ARCH_IMPLEMENTS_FLUSH_KERNEL_VMAP_RANGE is set, does
-fl2000_stream_work() need to call flush_kernel_vmap_range(cur_sb->vaddr,
-stream->buf_size) after fl2000_stream_build() and before submitting the URB
-so dirty cache lines in the vmap alias are written back before DMA?
-
-> +
-> +		data_urb =3D usb_alloc_urb(0, GFP_KERNEL);
-> +		eof_urb =3D usb_alloc_urb(0, GFP_KERNEL);
-> +		if (!data_urb || !eof_urb) {
-> +			usb_free_urb(data_urb);
-> +			usb_free_urb(eof_urb);
-> +			dev_err(&usb_dev->dev, "Data URB allocation error\n");
-> +			WRITE_ONCE(stream->enabled, false);
-> +			return;
-> +		}
-> +
-> +		/*
-> +		 * Endpoint 1 bulk out. We store pointer to current stream buffer stru=
-cture in
-> +		 * transfer_buffer field of URB which is unused due to SGT.
-> +		 */
-> +		usb_fill_bulk_urb(data_urb, usb_dev, usb_sndbulkpipe(usb_dev, 1), cur_=
-sb,
-> +				  (int)stream->buf_size, fl2000_stream_data_completion, stream);
-> +		data_urb->interval =3D 0;
-> +		data_urb->sg =3D cur_sb->sgt.sgl;
-> +		data_urb->num_sgs =3D cur_sb->sgt.nents;
-
-[Severity: High]
-Is it safe to store cur_sb in data_urb->transfer_buffer while setting
-data_urb->transfer_buffer_length to stream->buf_size in
-fl2000_stream_work()?
-
-Even when urb->sg and urb->num_sgs are set, several paths in the USB core
-and host controller drivers inspect or overwrite urb->transfer_buffer:
-
-1. usb_submit_urb() calls kmsan_handle_urb(), which checks
-urb->transfer_buffer_length bytes starting at urb->transfer_buffer when
-urb->transfer_buffer is non-NULL, reading stream->buf_size bytes (several
-megabytes) out-of-bounds past the cur_sb slab object.
-
-2. In usb_hcd_map_urb_for_dma(), HCDs with hcd->localmem_pool check
-localmem_pool before urb->num_sgs and call hcd_alloc_coherent(), which
-copies urb->transfer_buffer_length bytes out-of-bounds from cur_sb and
-overwrites urb->transfer_buffer.
-
-3. In xhci_map_urb_for_dma(), when XHCI_SG_TRB_CACHE_SIZE_QUIRK triggers
-xhci_map_temp_buffer(), xHCI replaces urb->transfer_buffer with a temporary
-bounce buffer and xhci_unmap_temp_buf() sets urb->transfer_buffer =3D NULL
-before completion, causing fl2000_stream_data_completion() to read cur_sb
-as NULL and dereference it at list_move_tail(&cur_sb->list,
-&stream->render_list).
-
-Could data_urb->transfer_buffer be left NULL and urb->context (with a back
-pointer in struct fl2000_stream_buf to struct fl2000_stream) be used
-instead?
+Here in fl2000_usb_magic(), regmap_write_bits() performs a read-modify-write
+on the volatile FL2000_VGA_I2C_SC_REG without holding i2c_lock_bus() and
+without setting FL2000_VGA_I2C_SC_DONE in the value written back. If an I2C
+transfer is in progress when fl2000_usb_magic() runs, or if
+FL2000_VGA_I2C_SC_DONE reads back as 0 after reset, won't
+regmap_write_bits() write FL2000_VGA_I2C_SC_DONE =3D 0 back to
+FL2000_VGA_I2C_SC_REG and corrupt or re-trigger an I2C transaction?
 
 [ ... ]
 
-> +void fl2000_stream_compress(struct fl2000_stream *stream, const struct i=
-osys_map *src_map,
-> +			    bool imported, u32 format, unsigned int width, unsigned int heigh=
-t,
-> +			    unsigned int pitch, const struct drm_rect *clip)
+> +/*
+> + * Read the status register. Its event bits clear on read, so whoever re=
+ads it owns the events it
+> + * returns: callers must not drop them.
+> + */
+> +int fl2000_read_status(struct usb_device *usb_dev, u32 *status)
 > +{
-> +	bool wc =3D imported || src_map->is_iomem;
-> +	u32 dst_line_len;
-> +	u32 x_start, x_end, y_start, y_end;
-> +	size_t span;
-> +
-> +	x_start =3D min_t(u32, max_t(int, clip->x1, 0), width);
-> +	x_end =3D min_t(u32, max_t(int, clip->x2, 0), width);
-> +	y_start =3D min_t(u32, max_t(int, clip->y1, 0), height);
-> +	y_end =3D min_t(u32, max_t(int, clip->y2, 0), height);
-> +	if (x_start >=3D x_end || y_start >=3D y_end)
-> +		return;
-> +
-> +	guard(mutex)(&stream->shadow_lock);
-> +
-> +	if (!stream->shadow || width !=3D stream->width || height !=3D stream->=
-height)
-> +		return;
-
-[ ... ]
-
-> +int fl2000_stream_mode_set(struct fl2000_stream *stream, unsigned int wi=
-dth,
-> +			   unsigned int height, u32 bytes_pix)
-> +{
+> +	struct regmap *regmap =3D dev_get_regmap(&usb_dev->dev, NULL);
+> +	unsigned int val;
+> +	u32 mask;
 > +	int ret;
-> +	unsigned int size;
-> +	void *shadow;
 > +
-> +	/* Round buffer size up to multiple of 8 to meet HW expectations */
-> +	size =3D ALIGN(width * height * bytes_pix, 8);
-> +
-> +	guard(mutex)(&stream->shadow_lock);
-> +
-> +	stream->bytes_pix =3D bytes_pix;
-> +	stream->width =3D width;
-> +	stream->height =3D height;
-> +
-> +	/* If there are buffers with same size - keep them */
-> +	if (stream->buf_size =3D=3D size)
-> +		return 0;
-> +
-> +	/* Destroy wrong size buffers if they exist */
-> +	if (!list_empty(&stream->render_list))
-> +		fl2000_stream_put_buffers(stream);
-> +
-> +	/* Allocate new buffers */
-> +	ret =3D fl2000_stream_get_buffers(stream, size);
-> +	if (ret) {
-> +		fl2000_stream_put_buffers(stream);
-> +		stream->buf_size =3D 0;
+> +	ret =3D regmap_read(regmap, FL2000_VGA_STATUS_REG, &val);
+> +	if (ret)
 > +		return ret;
-> +	}
 > +
-> +	/* One full frame in the device format; only the CPU ever reads it */
-> +	shadow =3D vzalloc(size);
-> +	if (!shadow) {
-> +		fl2000_stream_put_buffers(stream);
-> +		stream->buf_size =3D 0;
-> +		return -ENOMEM;
-> +	}
-> +	vfree(stream->shadow);
-> +	stream->shadow =3D shadow;
+> +	/* LBUF issues are recoverable */
+> +	mask =3D val & (FL2000_VGA_STATUS_LBUF_OVERFLOW | FL2000_VGA_STATUS_LBU=
+F_UNDERFLOW);
+> +	if (mask)
+> +		regmap_write_bits(regmap, FL2000_VGA_STATUS_REG, mask, val);
 
-[Severity: Critical]
-In fl2000_stream_mode_set() in drivers/gpu/drm/fl2000/fl2000_streaming.c,
-stream->bytes_pix, stream->width, and stream->height are updated to the new
-mode dimensions before fl2000_stream_get_buffers(stream, size) and
-vzalloc(size) succeed.
+[Severity: Medium]
+Does calling regmap_write_bits() on FL2000_VGA_STATUS_REG in
+fl2000_read_status() perform a second hardware read that silently drops
+pending event bits?
 
-If a smaller mode was previously active and switching to a larger mode
-fails in fl2000_stream_get_buffers() or vzalloc(), the error paths set
-stream->buf_size =3D 0 but leave stream->shadow pointing to the old, smaller
-buffer while stream->width, stream->height, and stream->bytes_pix hold the
-new, larger dimensions.
+FL2000_VGA_STATUS_REG has seven read-self-clearing event bits (such as
+FL2000_VGA_STATUS_HDMI_EVENT, FL2000_VGA_STATUS_MONITOR_EVENT, and
+FL2000_VGA_STATUS_EDID_EVENT) and is marked volatile in
+FL2000_REG_VOLATILE().
 
-When fl2000_stream_compress() is subsequently called for the new mode, its
-check:
-
-	if (!stream->shadow || width !=3D stream->width || height !=3D stream->hei=
-ght)
-		return;
-
-succeeds because stream->shadow is non-NULL and width and height match the
-updated fields. Doesn't the conversion loop then write up to
-width * height * stream->bytes_pix bytes past the end of the old smaller
-stream->shadow allocation?
+When FL2000_VGA_STATUS_LBUF_OVERFLOW or FL2000_VGA_STATUS_LBUF_UNDERFLOW is
+set in val, fl2000_read_status() calls regmap_write_bits() on
+FL2000_VGA_STATUS_REG. Because the register is volatile (and precious_reg
+only prevents debugfs reads, not _regmap_update_bits()), regmap_write_bits()
+issues a second _regmap_read() of FL2000_VGA_STATUS_REG before writing it
+back. Any self-clearing event bits that assert between the initial
+regmap_read() and the internal read in regmap_write_bits() will be cleared
+by that second read and discarded instead of being returned in *status.
+Should this use regmap_write() with val directly instead of
+regmap_write_bits()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-fl2000-ups=
-tream-v1-0-bb163ecb2309@gmail.com?part=3D3
+tream-v1-0-bb163ecb2309@gmail.com?part=3D1
