@@ -2,109 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE8A606A32F
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB10606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hDp4YDG6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9pt5+7J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51BAC10EA6D;
-	Fri,  6 Nov 2026 14:48:39 +0000 (UTC)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2FCA10F2CE
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:48:33 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-36e795af1d4so623520eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 06:48:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793976513; cv=none;
- d=google.com; s=arc-20260327;
- b=g/mLexqBVVMbSjupSIPR2QQ/ZijUULS7c3YpJJrbdspLSlzuMP/OzRS3plDqrzjbbN
- g5fIPetcQoSSKiUe3FIFouZsUemUVR+U8cCeJlDDgNhuGLc6Hi1DcXp1ka+GseQSsKBD
- girsnSeuIMAvmn89OyTn7x5/09bYN+unAtVh1IXSgfrPmMPOLXK+Ym8hfxP3RJDHZqRt
- qzaX8LaXzCfn1LlSGenCXMfqn4+wWdgAinz8Y5lfrgvVx1+WTxCwWBiL2QnFEAhMhu8N
- 2gI92dzdbooK3tVw8fCOVMjGmmuIqxW3H51r8TCcSl+tIEorUG41+ggNvwubL6YorCUT
- 5L9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
- fh=fA0MOqgbX0vY9/8JnsXX8Q2k9/3+uD5Vnv5L+qB+TJQ=;
- b=CnrwtJT6MUlL8fCOHzWPFodxy/yMEqimtXrgw1Ivu+1indHAxd6vQecO24TtBv3Uq0
- 3sdJaOq50DK4ztOsI7hLU3ycUNraVvWqGNlFW/1OwgRtttO1ojaqoOAjxDQbXc9nT3Na
- f04Y+p1Jr3UhZGYB/b6vBvTaxl/UsjCuUZpUciwhcj0geuyGCW9Vh8Of0QUv7pJ88Jnd
- jatlI1L31sn8cWyzH08n72rhLAKORPq6xf2Ug63gw0/dR6ey+DbSOoIVazYWdrL9J7pd
- CdNfno+qvQTfi+zbc3U2k7z8K/oLT4nzpk78s+B/p10YJakH/emvOxuJrWSblpS48JDa
- EbXg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793976513; x=1794581313; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
- b=hDp4YDG6TJAIoXMvvIAc77YDCY0zrRDukIzPTx1klY2Stxw5C1laISMNtb3L4AtQgC
- /JnNctRkEXDkXmoRTwSVC/8d5j0ji94XwsCPfMzbcSUe/f4Esxv4+dfEqO1warGKjg1U
- 2i6TN4imQlWbtwhh0t3WTw2Bwo0ye1gooptbWzC2GXXPG/Ka5766i6Pt+BPVqQrGcg8S
- Hqy0lWafB2nowxzyx938FV9bTm9Rtkul9YCdRzeX56WZIJm9cuxyh6e1BwFmdOA2YjWK
- SDgzezuLCqAdlcDxZ5W2pNuMJgpFyj9KHYko3xrKrC6SbBdfSGNmFE1uW7/RU0R8OniY
- sYdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793976513; x=1794581313;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
- b=jygyr03dbaMSrpLYhH0PWYbw5urFwbzafdRM5PjzQlCKeUUqb3bKOjmHEK6HUNwf0V
- Zktj7GExxnme8Y7GxIAr3Yy7LY5OFS6LU2JVqs5MBPe0nkej48tiygFr7iFBbrqEmxFt
- Lkrqip9zhSXuAv7bs2rgRKfYMVkVWT3zLdzgrslaKA4YvdiWUh8/o9p6vayiSl++REbK
- nnJ4l1vB+q6SnPqUBzGHLg5hRUigb3pVFAfY8/hA2JbHSZdzAuSPUxHHGzqOlFympOb6
- f8g1/9FK1+e8gpJdwRbeoFhOSs4zpIvy/Qa/dl8y15yEDEm9Hvj/mWKr5RacS5O6Q3CV
- PqjQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErHMMjOcsXKsfJmbxG82JLywpQ+g5FOp4uO9MmjTL1L7JJ6IA9qcGaI4tOhe1j1mGOGbaXp5D8u+roY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+afjYpyZUAKDuNuWU8P+6xs43PjzZcmFh/pDXMmAGSXOkUdMds
- w94Fz7omcSBUAtl/8f5lBOxHfoRIVp1BvL2BicSHoL2JDUdJXNwRzHoux1mPa7tDMSoE+zOQvUX
- fB09OxB2W8ffSVRd7HJbvhlCv5rr4nYw=
-X-Gm-Gg: AYBFou0iO5UghoX5vDbaHuiSVd3KdPy5dnpmPUk9p3CkrtjkfwQ12d7K9oK2Jd2aCjL
- da4KvihqhAG7tnBMwbJXFmdGhiRmNWSSDsxC+vd/JxtfMBUeojUHloSkZgjF0XXxGjTm2LxWxJj
- A08svjHT+SkCMjcwaOPtYeo0eYknfKJfcC6NIk0lofZQrrQZZTmlOh37IJXNlpzdV0PxZ0FCyhf
- pVTNb9EU48kboeI93IZz79gUPogtHaW7dc6UEPTJwA+UMrZLH+x16bOLWldySQFPvtU8acayP30
- k8J8V2Y4srNpi0HBMM1yjlwMUs9AdW1WsnH1qzp7hzETHtsrVZ1UIdQwUTAEF2Ah6kdSXuC7kMP
- Q8Yo69pF+Vm9Htu5lTc2iZYcivaFIS8bbvUfVx3F2UU6/ghXXYpPcx2UD0hQhYcF+5PfUB2Serp
- dJ6PM5uxfcorIkAHV0eTMJGCvAca5iSg==
-X-Received: by 2002:a05:693c:3881:b0:36e:ca05:8c3c with SMTP id
- 5a478bee46e88-36eca058eeamr5256866eec.2.1793976512062; Fri, 06 Nov 2026
- 06:48:32 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-10-clamor95@gmail.com>
- <au3etybQlb5CtjBL@orome>
- <CAPVz0n3o5pc62eF6gv+PYmJh1KN1a5s=qmjxpNGJfxbCC4tqzQ@mail.gmail.com>
- <au3mloMMzQFPUept@orome>
-In-Reply-To: <au3mloMMzQFPUept@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 6 Nov 2026 16:48:17 +0200
-X-Gm-Features: AclHuK8DwPrQnJ-dtjZgKOk6mQHPlCNwM8DshspgESp7qhKKTAtefGWbono97xk
-Message-ID: <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D153C10E3C7;
+	Fri,  6 Nov 2026 14:53:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0AB710EA60
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:53:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B0807423D6;
+ Fri,  6 Nov 2026 14:53:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7A41F0089F;
+ Fri,  6 Nov 2026 14:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793976780;
+ bh=EsolZNfyD+bHiet81+Z3iBmlJDTRfQoAjTzfsBSlFiI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=U9pt5+7JZbuD1jlH9TmK0E30wyI6bOHT3EDfEbhJ/v5C0KCfPFdZHbBebbiXiLEIJ
+ /4WNH5kgWDKaL1eLf+RmHdFMj4a/iJVwR2fNNRZb+OlKtMrpR40aloS4DP7EX0niMF
+ jSxV4aoeTGN2YJ/YbGd//S+A/Cd+m83GPMeZdQgpHaJN73IWx4pUW3/ubMSFm+jPLx
+ LJWVeYLG9hZnyVCCXSY+Vm+15tD+K0F7dzFlfbe9dnS9OA/72mElCm6q6ivFFsCCCu
+ SZ+8n3/FGgtXgEEGzMTB4TF3mIKR8DsYuUSulAkFMHlae0RqMPn+5pxfE0PTUoxf93
+ jwpcWY6gb6AWw==
+Message-ID: <sashiko-outbox-201623@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 08/19] drm/bridge: inno-hdmi: Split probe out of bind
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-jh7110-clean-send-v7-8-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+ <CGME20261106135904eucas1p14897dcc411c444d202a38190fdffffe7@eucas1p1.samsung.com>
+ <20261106-jh7110-clean-send-v7-8-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 14:52:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,78 +50,118 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:40=
- Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, Nov 06, 2026 at 04:11:12PM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 1=
-6:08 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
-> > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > > > Tegra20/30 SoCs display controller.
-> > > >
-> > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++=
-++++
-> > > >  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
-> > > >  2 files changed, 135 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/display/tegra=
-/nvidia,tegra20-dbi.yaml
-> > > >
-> > > [...]
-> > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia=
-,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,t=
-egra20-dc.yaml
-> > > > index 69be95afd5627..ffeb124905dbf 100644
-> > > > --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra2=
-0-dc.yaml
-> > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra2=
-0-dc.yaml
-> > > > @@ -79,6 +79,16 @@ properties:
-> > > >    rgb:
-> > > >      type: object
-> > > >
-> > > > +  "#address-cells":
-> > > > +    const: 1
-> > > > +
-> > > > +  "#size-cells":
-> > > > +    const: 0
-> > > > +
-> > > > +patternProperties:
-> > > > +  "^dbi@[0-1]$":
-> > > > +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
-> > >
-> > > I think it might be better to group these under a separate dbi node a=
-t
-> > > the top-level, making it a sibling to the "rgb" node. If you add
-> > > #address-cells and #size-cells here, I think that means technically t=
-he
-> > > "rgb" is now in the same address space as those new dbi nodes and wou=
-ld
-> > > need its own "reg" property and such.
-> > >
-> >
-> > Only 1 DBI node per DC is available. Adding address/size cells means
-> > nothing for rgb.
->
-> If only one node is available, then "reg" isn't the right property.
-> "reg" indicates we're somehow addressing the child, which applies to all
-> children, so I don't think that would work here. A separate property
-> would make more sense in that case.
->
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/bridge: inno-hdmi: race on bridge.dev in inno_hdmi_irq()
+  after probe split
+--
 
-Check v5 and talk to Mikko
+commit b0209990726be89f8d7446a146a593a4fe328e8b
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-> Thierry
+drm/bridge: inno-hdmi: Split probe out of bind
+
+This commit splits hardware and bridge setup out of inno_hdmi_bind() into
+an exported inno_hdmi_probe() helper so standalone platform drivers can
+register the bridge without immediately attaching it to an encoder.
+
+> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
+inno-hdmi.c
+> index 5bfe59f18823a..aa64ffdbd3072 100644
+> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+> @@ -1063,11 +1063,24 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(=
+struct inno_hdmi *hdmi)
+>  	return adap;
+>  }
+> =20
+> -struct inno_hdmi *inno_hdmi_bind(struct device *dev,
+> -				 struct drm_encoder *encoder,
+> -				 const struct inno_hdmi_plat_data *plat_data)
+> +/**
+> + * inno_hdmi_probe - Internal helper to perform common setup
+> + * @pdev: platform device
+> + * @plat_data: SoC-specific platform data
+> + *
+> + * This function handles all the common hardware setup: allocating the m=
+ain
+> + * struct, mapping registers, getting clocks, initializing the hardware,
+> + * setting up the IRQ, and initializing the DDC adapter and bridge struc=
+t.
+> + *
+> + * It registers the bridge but does not attach it, for glue drivers that=
+ probe
+> + * as their own platform device rather than through a component bind.
+> + *
+> + * Return: the inno_hdmi instance on success, or an ERR_PTR() on failure.
+> + */
+> +struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
+> +				  const struct inno_hdmi_plat_data *plat_data)
+>  {
+> -	struct platform_device *pdev =3D to_platform_device(dev);
+> +	struct device *dev =3D &pdev->dev;
+>  	struct inno_hdmi *hdmi;
+>  	int irq;
+>  	int ret;
+> @@ -1131,7 +1144,23 @@ struct inno_hdmi *inno_hdmi_bind(struct device *de=
+v,
+>  	if (ret)
+>  		return ERR_PTR(ret);
+> =20
+> -	ret =3D drm_bridge_attach(encoder, &hdmi->bridge, NULL, DRM_BRIDGE_ATTA=
+CH_NO_CONNECTOR);
+> +	return hdmi;
+> +}
+> +EXPORT_SYMBOL_GPL(inno_hdmi_probe);
+
+[Severity: Medium]
+Can inno_hdmi_irq() race with drm_bridge_detach() on hdmi->bridge.dev when
+a standalone bridge driver uses inno_hdmi_probe()?
+
+Previously, inno_hdmi_bind() was called from component bind, so
+component_unbind_all() released the devm_request_threaded_irq() handler
+before drm_dev_put() detached the bridge and freed the drm_device.  When a
+standalone platform driver calls inno_hdmi_probe(), the threaded IRQ stays
+active for the lifetime of the bridge platform_device while the display
+driver attaches and detaches the bridge.
+
+drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_irq() {
+	/* bridge.dev is NULL until drm_bridge_attach() */
+	if (hdmi->bridge.dev)
+		drm_helper_hpd_irq_event(hdmi->bridge.dev);
+}
+
+If an HPD interrupt fires while the display driver is tearing down its
+drm_device, inno_hdmi_irq() reads hdmi->bridge.dev without synchronization
+against drm_bridge_detach() and drm_dev_put():
+
+CPU0                                  CPU1 (irq/inno_hdmi_irq)
+drm_dev_put(drm)
+  ...
+    drm_encoder_cleanup(encoder)
+      drm_bridge_detach(&hdmi->bridge)
+                                      if (hdmi->bridge.dev)
+        bridge->dev =3D NULL;
+  kfree(drm)
+                                        drm_helper_hpd_irq_event(...)
+                                          <-- use-after-free or NULL deref
+
+Depending on timing, this causes either a use-after-free of the drm_device
+or a NULL pointer dereference in drm_helper_hpd_irq_event() if the compiler
+reloads hdmi->bridge.dev.  Calling drm_bridge_hpd_notify(&hdmi->bridge,
+status) instead of drm_helper_hpd_irq_event() would serialize against HPD
+disable through bridge->hpd_mutex.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
+an-send-v7-0-68f7ea9913db@samsung.com?part=3D8
