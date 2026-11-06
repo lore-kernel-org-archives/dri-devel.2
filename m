@@ -2,25 +2,24 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5784D606A331
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B13606A338
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:47:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cXdG/Ad5
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BPb3pkTO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7408112418;
-	Fri,  6 Nov 2026 05:47:31 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011071.outbound.protection.outlook.com
- [40.93.194.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A4F10FFEC
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB96810FFEC;
+	Fri,  6 Nov 2026 05:47:42 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C1C112055
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:47:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DxgumLpbp9ZQ05Piy0s/c2n2nbj/+eTUlDkXMc4jBN9r50TikqMwjlVGZCIOti/zGKO2BsOKp9uFByk7lXEn+JCA/Q8xvnDE0ruhV6RQQALxfsKQLaWUMQF4PYAQSgMlgn5O2Jp/zf5A2Yq5g+g//STBhfW4VdFyWIZDrqfEC25+n+P9g5e8MsLNhivdPVxoWDrLK0vu3jIdFxlRDbHpY2HWnmoiBrIL33gBq6PA9ULkfbvqdOOjr1QwBXWjN9K9tnpZEXj/u7E9Oj/c+jMSQXzs56SBJfufTFTC1sR70S6DbrOutVHaCbhuJ6FmvUzkXgoXn5qPgON1t0gr/hwCOg==
+ b=wG6Xm4r60MbSeINEDR+PquFCng1SG+VBga5PXxyKo/m1UH5l1h5rXHhqr+QcJGff/+DV/8vSekIZQ8YgZjf/f9THMzYn2yxBCVILGxI+ArmuQsCCuY3rfCd45JKKDOEkUtPco5PyDkcev76WJ2Mz//PSn9BhRrq9C6SVDcIQWTHVxy3HKCbEUh1IGU2YTozc9Zpe+2ucYREN/k/DRHWQ7S12DpgLtG6qlSc574hfV1iE62DcKf7rukCgACdsDXlJcq5NY+5Zvx484qly+w93k99BVQSA/wQKhxGUS6UEs4ioN+J2DR2Xa6BByvpnGn9Ctu2sa8rLXC/tBN+7TvaN0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FHoV0hzNr5ODmocCpC8Fyt8vmsPlM9I76HMhrsMBgjs=;
- b=KlM3qWKbbQZqrbg3theaynjWL42guPdCXohzbcxqbCzg2Y8Fk1h6ByqC7dR4PUAaM0+PpzDWyLZOE1yivKMhdqJequwL9r9AHcvNBE3lshkxy8lJxddLiqzo4QH1BQHu7hWwHKcvGRYty1iUNR/vqo7VXkXwooitRLVzF77Y6D4+lmmIV26IVi9QjPFL5SVR+wTRr1AbEv2RIDuV8uJyg4MbLnFoN2H7Y5sVwqwYD5iJfU7dkJz9i1vVkB16v41FrEUHKwgZx8G1TQseciZyddjrjUJ0izr7HWzBl31VqR8rWxfiG3+u/B+bgr69qVjNtg9PlbSISI6nlEOQO5EdOg==
+ bh=YHM0DATVwYj1+TQXpHHq5s0uIfSh7Z1jau7VMlebINI=;
+ b=F2DDWa43hnqMpTs3igd/L4/I9hiy/fl2k8WWwxYZQZi3kdUTt3SnESE/MTH9bal90yUyXj2Fbw52qPM+Ul40431EvLTi6+QPTFy4/jNBvEoPV/RJjQYGuYHsGkp9CZ8F5sJHhAsiPJyAluH5+L6dQKCLrjMcmey67VCRcLdaSPZYQx5lArVAjAVbK2w1efoVeVoqzJOEanATegMsbjLX0w6VdN62pT/mmqTbnNZqDbs8umxc5hdZqW3ndWGIrkO9Fefv6S3LjCEsr1ggL047cFNkPTgQq1WNxnGfJn0C1p2BXqSHG2OLRmuiIVj/+yhEGUgFUpW7to0mouwGfx8yBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -28,18 +27,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FHoV0hzNr5ODmocCpC8Fyt8vmsPlM9I76HMhrsMBgjs=;
- b=cXdG/Ad5tnR1e9KbW9j59AHv1ztfQRC5312E4BRDUI0MgJqFE33j1N/WW2otXDU2ISLDZejYMi2fY0B3exDKbuRvMOUoTCW7sDIOKkomNSg+GZbAhU/tVgg0ko5aru+TWTlmKLC+NcByYC1/p1IIaLBiJYWH6Fk5iTslIlp3r5LkE+++fpRHP6MI8zOE/giPi9zBMQ3Pw31M1LfxYPhJgTrqBqoQaEcGPg5Zwv0sARIoeLMKJGnkrrwNGDnHUgldYMywnH/3hJ/UgyfIO+WoMyeFkJGDWwks2raXpsNxLI+HcLY/bw55+fMF+3lggXAZaSvMzjRIfMTgf6eSC1eFQw==
-Received: from SJ0PR05CA0184.namprd05.prod.outlook.com (2603:10b6:a03:330::9)
- by BN7PPFEE0F400A9.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6e9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 05:47:19 +0000
-Received: from PH7PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:a03:330:cafe::50) by SJ0PR05CA0184.outlook.office365.com
- (2603:10b6:a03:330::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4 via Frontend Transport; Fri, 6
- Nov 2026 05:47:18 +0000
+ bh=YHM0DATVwYj1+TQXpHHq5s0uIfSh7Z1jau7VMlebINI=;
+ b=BPb3pkTODMdzL6P1F0sv+jJPX245VIGiYWrdqFTSk+DXK+qt63d7Bwzw1AzBujB8F5NScDTUiRGNKWfTQ721xihNYIx/2LCzn72R1bLTjtBcpS7BlvGB0RGIE4jlV5unQIFyurriaIt8znS+0DnTD0pHEOHY7cdI5AtFQ6DbJH20gPHsZtYJx61xOItutw1o+Hm6dtQwhRefUuGR419ngbiaA36xWY7pGXnPeXNzmDaB9V7Wy0tBIqb0Man2TwZNXLOoHGrVeKOR1rGULhLr9UHur/2NQys7xXheInnXulwXJrULfcsBNhM1h2UTjbIGZAXCTRprIir3sqqGuKX17g==
+Received: from PH0PR07CA0116.namprd07.prod.outlook.com (2603:10b6:510:4::31)
+ by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 05:46:54 +0000
+Received: from PH7PEPF0000000C.namprd04.prod.outlook.com
+ (2603:10b6:510:4:cafe::57) by PH0PR07CA0116.outlook.office365.com
+ (2603:10b6:510:4::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 05:46:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
@@ -48,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- PH7PEPF00000009.mail.protection.outlook.com (10.167.243.40) with Microsoft
+ PH7PEPF0000000C.mail.protection.outlook.com (10.167.243.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:47:18 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:46:54 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 21:47:05 -0800
+ 2026 21:46:40 -0800
 Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:46:52 -0800
+ 15.2.2562.56; Thu, 5 Nov 2026 21:46:27 -0800
 From: Alok Kumar <alkumar@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -78,9 +77,10 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v4 28/32] gpu: nova-core: vgpu: update the GSP plugin BME state
-Date: Fri, 6 Nov 2026 11:10:01 +0530
-Message-ID: <7b6393dd83cf43e81f3be6dffc9daab5e8f23b4e.1793906667.git.alkumar@nvidia.com>
+Subject: [PATCH v4 26/32] gpu: nova-core: vgpu: negotiate the GSP plugin RPC
+ version
+Date: Fri, 6 Nov 2026 11:09:59 +0530
+Message-ID: <febc3089bb6480b991605b22119df087017ac8be.1793906667.git.alkumar@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793906667.git.alkumar@nvidia.com>
 References: <cover.1793906667.git.alkumar@nvidia.com>
@@ -92,29 +92,29 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PEPF00000009:EE_|BN7PPFEE0F400A9:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58d4c26f-f96d-4452-d969-08df3bc96b5d
+X-MS-TrafficTypeDiagnostic: PH7PEPF0000000C:EE_|BL1PR12MB5921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3143655d-6674-4266-e1eb-08df3bc95cef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|7416014|18002099003|22082099003|6133799003|3023799007|10067099003|11063799006|56012099006|261026121527099003|261009223027099003|261022075727099003|261102123227099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info: mupC0172U64fi+vNsUWQAvf9cIYfgG5yaHT8S+ShNpnnnTgBZBVxClaVchoTzWISJ0K6sB9YRfpnZSlpx4ATjU9gxccHCM64a9cniNAp3SM7+vXDTSEer4olM5L1HYVVv0CXFy4fjbX3n0XvlgQD2HVwJDfcwJoIG0kcmg/uRhgrG/WK93UazZ46tdoqW8lJnl42ZV8f9u19bzfHYFskJsAWPGUyW1IcEkfwt1f30N6VigJJa7MXMrvQ3qIlmXMrHLLayM2JlqkT9+75hE5P7b/xvk1N2lQACVI1ROZ1dYSkfOCJK3knQznlaOwwEB7M1TcPXTVrUNAs+V4x8a2CJ273bhMcK6lKPDm1J6qnm4zEYh4tYb7Jw5cu+j2J/IKO+yzNS9dANUUM4R/ed5/zuz2wQdoCASeFZLGCbg8xB1NJnB/uQ1GEluK8RufIvTBVIcRKy26hF/yMk36ioVtGEmvtxzBc5sbO4QX0oGmfI04UAQFwaeBadP/Y7DPt5Fz/q2/Bv4yM6NzpNRvWoOksy7JuY89A5/EhQ70G3YZz5Wp/KauMBls4r5p67Xj335r+QGgT6oqR3DhfjQIAOIOub6P2C8IlQAvCNtxveMq4Snou67lUavhh+xnxuZePwXJPgIGopVr2nJTVZdivta2GZf1HtZ5oiBG3UePxeEIq3074Kxz7qjWpDm52MtFXJpn0JhWeLcaQn2DeLM7sciNa9A==
+ ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261021135927099003|261022105027099003|261022075727099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: Hoz815tU9RsIh4gEQakJqVE/aClpjwpeU96JkSuhw8jeOcBHAaOw2z1Q/uzV3Wqhzvylupg7WruUiAWn8aFeUnAfHWds/FEXsYuu0sXC3oyD1adJysIyDIjKpil/puDgOM5alY8uPXci309GnWTzJTtaITalMBA3Q7LGdDMkmUEU31uNGD/MnpUzgZebyiu75Hf1QpYnjRLkZTAlnJdnFnrC9fyi2xEPCsdHwtJMpsDNfqfPLDWQiTZGtTSvjTwL4R0n2zjWNzgthflAtjtxy7kwDbkGrmvUTpRkIBPcr1gL3NiDJcByUIahbwUvLpgLUWUTcrGxDhP6fK3t2PkkL5mzGlMNb/Yc43688Gbzv0+98YKFslarxJqFEWKyDR6NSyV2s6n30Fs3XoxrPYhXRYyIg/8cZdyDLduO2NH/CiCGpYLmBVldulKYacboErVk1HQFLfVW0C8tBGo3jfk4CA7DmpYG+AuXqB5l2igax3suQu/NSSWq+je3zQyrrDdS6SJ2HYB2dz3hZB+K9jHJmLBCc1IILuVCQHw0nim37qupZjAsnXVfhO1dkEgIM++YqWFMcE0xJoKbZPpZzmH955JYeUmUTtLJHjUoli/AxX7HRYF2wfRIU4loYMSUeK91p9bEl7Rk700Fs4hwlYJ4Yi/Okztu5PS84QZMmvKzUJ6L0QSAhxzVqqDnsSTqu6OCliUr5LZny31nihWE/bSHQw==
 X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(7416014)(18002099003)(22082099003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(261026121527099003)(261009223027099003)(261022075727099003)(261102123227099003)(261021121427099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261021135927099003)(261022105027099003)(261022075727099003)(56012099006)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8UCyx1OBMACKaQlrEoVsrhLaBNOvYn+2y5bb9QjV7k0beh3ZMyIp9eM3vVMhZpiq3L8M9Cb4uexQu9BEEN2ToJv1gpV3v6PBs5yGsLpvFgkufNluQqgeBJYNt/ymfiMs0Umx9ugytYZGbvjmUs/Rl0k3UGrb3RA8x14bCIhFZj20WXrlkHY9+AAOoJzgudfEw+k7W0mbjOevW12URBeDGY3AB2fau6uBfyXEbctS2Bwn51QqLdKOxetb9J0orVDUXswmopDTIXpw8LUT6GgfVLaMNEwxgGThZGIKHgi97gyURh5+FjRtUW7G1wEOxZhG7i5bMYnpnq21dNqVn0H+t75vqlT0VJyLyM9mMrDNbXGuvaZHKM817G0L+LhNoNLQ8Mnui1wjuzoQGYkGkFnBLUClYKSsX5tTKTolhPrRr3BdqWgugEFRkRXcX0ii8um4
+X-MS-Exchange-AntiSpam-MessageData-0: W/pvGKzX11E0KwBvPMK4N36CKyw/5GJRtCLwywc05x0lo+PqOGQW47kHNThBs5XDxAu+OCAexGCjnav3ueXVUQ3cmYzJ7dwu1cncrrZwbYiOOcXkvfQfXd1/5pYTHGuYE1qMPVt+vDao3nvb2Cs4ATlet2fGHegOgmjPUZsleQJ/Lj4pw15W3425jel/AaALDY0c4XfiR27zo38hH4G4F6UbkjR+ydQMJNVTa/GtHUKGqh4dcjmW3+3FTeS51aZstNEaXzr73aZFKfEUkBOT7VhPKRMm1ZLup01Mj9CnufTidASnOU5TJwTK/0HZetwfZOByxeD0/BvHt7+MJjwuMXHpVqqUTpgxOZE40n75iVFuyVCxA0sdbI9uCB80dgUQi/WZQ/ypSXQtcg+HzCzALrAzkaTg2qQCRZcPuRRwDKUCT2mgNGTcVmg/TUL9wiIH
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:47:18.5115 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58d4c26f-f96d-4452-d969-08df3bc96b5d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:46:54.3035 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3143655d-6674-4266-e1eb-08df3bc95cef
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: PH7PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: PH7PEPF0000000C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFEE0F400A9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,103 +136,130 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Zhi Wang <zhiw@nvidia.com>
 
-The vGPU manager reports the enabled bus-mastering state to the GSP plugin
-after its initial configuration. The guest can then use the vGPU from now
-on.
+The host must negotiate the RPC protocol with the booted GSP plugin
+before sending instance configuration.
 
-Add the BME state request and NVKV encoder, and send the enabled state
-after configuration succeeds.
+After observing the plugin's ready marker, initialize the shared RPC
+buffers and submit the existing typed version-negotiation request
+through the instance's PluginRpc channel.
 
 Co-developed-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 ---
- drivers/gpu/nova-core/vgpu/commands.rs    | 11 +++++++++++
- drivers/gpu/nova-core/vgpu/fw/commands.rs | 22 ++++++++++++++++++++++
- drivers/gpu/nova-core/vgpu/instance.rs    |  2 ++
- 3 files changed, 35 insertions(+)
+ drivers/gpu/nova-core/vgpu/commands.rs       | 12 +++++++++++-
+ drivers/gpu/nova-core/vgpu/fw.rs             |  4 ++--
+ drivers/gpu/nova-core/vgpu/fw/commands.rs    |  1 -
+ drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs |  2 --
+ drivers/gpu/nova-core/vgpu/instance.rs       |  3 +++
+ 5 files changed, 16 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/vgpu/commands.rs b/drivers/gpu/nova-core/vgpu/commands.rs
-index 968942273b9e..7f26d2dabca4 100644
+index 00da8fa4f910..a68841fe4019 100644
 --- a/drivers/gpu/nova-core/vgpu/commands.rs
 +++ b/drivers/gpu/nova-core/vgpu/commands.rs
-@@ -26,6 +26,7 @@
- use super::{
-     fw::{
+@@ -28,13 +28,15 @@
          commands::{
-+            encode_plugin_set_bme,
              VgpuPropertiesSchema, //
          },
-         RpcMessage, //
-@@ -179,3 +180,13 @@ pub(super) fn send_plugin_config(
- ) -> Result {
-     rpc.rpc_call_nvkv(dev, RpcMessage::SetupConfigParamsAndInit, config)
++        RpcMessage, //
+         GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK,
+         GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES,
+         GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE,
+         GMCAPI_CMD_QUERY_VGPU_PROPERTIES,
+         GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK,
+-        GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE, //
++        GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE,
+     },
++    gsp_plugin_rpc::PluginRpc,
+     instance::Gfid, //
+ };
+ 
+@@ -160,3 +162,11 @@ pub(super) fn send_cleanup(
+     dev_dbg!(dev, "cleanup: gfid={} done\n", gfid.get());
+     Ok(())
  }
 +
-+/// Update the bus-mastering state reported to the GSP plugin.
-+pub(super) fn set_plugin_bme(
++/// Negotiate the host protocol with a bootloaded GSP plugin.
++pub(super) fn negotiate_plugin_version(
 +    dev: &device::Device<device::Bound>,
 +    rpc: &mut PluginRpc<'_, '_>,
-+    enable: bool,
 +) -> Result {
-+    let bme = encode_plugin_set_bme(enable)?;
-+    rpc.rpc_call_nvkv(dev, RpcMessage::UpdateBmeState, &bme)
++    rpc.rpc_call(dev, RpcMessage::VersionNegotiation, &[])
 +}
+diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
+index d80f36465296..6cec92c9b505 100644
+--- a/drivers/gpu/nova-core/vgpu/fw.rs
++++ b/drivers/gpu/nova-core/vgpu/fw.rs
+@@ -10,8 +10,6 @@
+ 
+ use crate::gsp::bindings;
+ 
+-pub(super) use commands::RpcMessage;
+-
+ pub(super) use bindings::{
+     GSP_PLUGIN_BOOTLOADED,
+     VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE,
+@@ -29,6 +27,8 @@
+     VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE, //
+ };
+ 
++pub(super) use commands::RpcMessage;
++
+ pub(super) const GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE: u32 =
+     bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
+ 
 diff --git a/drivers/gpu/nova-core/vgpu/fw/commands.rs b/drivers/gpu/nova-core/vgpu/fw/commands.rs
-index 3f94435e7a59..9356b4fb643a 100644
+index 917de4d21861..c3d0acece2eb 100644
 --- a/drivers/gpu/nova-core/vgpu/fw/commands.rs
 +++ b/drivers/gpu/nova-core/vgpu/fw/commands.rs
-@@ -36,6 +36,7 @@
- pub(crate) enum RpcMessage {
-     VersionNegotiation = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION,
-     SetupConfigParamsAndInit = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT,
-+    UpdateBmeState = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_UPDATE_BME_STATE,
- }
+@@ -30,7 +30,6 @@
+ use super::bindings;
  
- bitfield! {
-@@ -397,3 +398,24 @@ pub(crate) fn encode_plugin_config_params(
-     request.encode(&mut encoder)?;
-     Ok(encoder.finish())
- }
-+
-+nvkv_encode! {
-+    struct PluginSetBmeRequest {
-+        bme_enable: Key<bool, { Self::BME_ENABLE_KEY }, u32>,
-+    }
-+}
-+
-+impl PluginSetBmeRequest {
-+    const BME_ENABLE_KEY: KeyId = 0x0100;
-+}
-+
-+/// Encodes a plugin BME state update using the typed NVKV schema.
-+pub(crate) fn encode_plugin_set_bme(enable: bool) -> Result<KVVec<u64>> {
-+    let request = PluginSetBmeRequest {
-+        bme_enable: enable.into(),
-+    };
-+
-+    let mut encoder = Encoder::new();
-+    request.encode(&mut encoder)?;
-+    Ok(encoder.finish())
-+}
+ /// Message types supported by the nova-core plugin RPC channel.
+-#[expect(dead_code)]
+ #[derive(Clone, Copy)]
+ #[repr(u32)]
+ pub(crate) enum RpcMessage {
+diff --git a/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs b/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
+index 0ee32f011f63..696127c7169f 100644
+--- a/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
++++ b/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
+@@ -65,7 +65,6 @@ pub(super) fn comm(&self) -> &CommBufferRegion<'map, 'gpu> {
+     }
+ 
+     /// Initialize the control and response buffers for the first RPC.
+-    #[expect(dead_code)]
+     pub(super) fn init_rpc(&mut self) -> Result {
+         self.comm.initialize()?;
+         self.message_sequence = 0;
+@@ -82,7 +81,6 @@ fn next_sequence(&self) -> u32 {
+     }
+ 
+     /// Write one RPC message, ring the VF doorbell, and wait for its response.
+-    #[expect(dead_code)]
+     pub(super) fn rpc_call(
+         &mut self,
+         dev: &device::Device<device::Bound>,
 diff --git a/drivers/gpu/nova-core/vgpu/instance.rs b/drivers/gpu/nova-core/vgpu/instance.rs
-index 247e88bdc82f..23c2b791aa25 100644
+index 8a2d8e3970a3..445d7f513fdc 100644
 --- a/drivers/gpu/nova-core/vgpu/instance.rs
 +++ b/drivers/gpu/nova-core/vgpu/instance.rs
-@@ -36,6 +36,7 @@
+@@ -31,6 +31,7 @@
+ 
+ use super::{
+     commands::{
++        negotiate_plugin_version,
+         send_bootload,
          send_cleanup,
-         send_plugin_config,
          send_shutdown,
-+        set_plugin_bme,
-         Dbdf, //
-     },
-     fw::commands::{
-@@ -162,6 +163,7 @@ fn activate(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
-         self.plugin_rpc.init_rpc()?;
-         negotiate_plugin_version(dev, &mut self.plugin_rpc)?;
-         self.configure_plugin(dev)?;
-+        set_plugin_bme(dev, &mut self.plugin_rpc, true)?;
+@@ -156,6 +157,8 @@ impl<'gpu> VgpuInstance<'gpu> {
+     fn activate(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
+         let dev = vgpu.dev;
+         self.bootload(dev, vgpu.cmdq, &vgpu.fifo_engine_list)?;
++        self.plugin_rpc.init_rpc()?;
++        negotiate_plugin_version(dev, &mut self.plugin_rpc)?;
  
          Ok(())
      }
