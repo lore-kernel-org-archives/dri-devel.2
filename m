@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D75606A32C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615EF606A32F
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQFkIPP1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZNJVYbY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4088F10EA0F;
-	Fri,  6 Nov 2026 13:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCA0210EA1A;
+	Fri,  6 Nov 2026 13:15:32 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42F210EA0F
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1C210EA1A
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CB788433A2;
- Fri,  6 Nov 2026 13:15:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31DA41F008A1;
- Fri,  6 Nov 2026 13:15:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E7F39418AA;
+ Fri,  6 Nov 2026 13:15:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF5B1F0089F;
+ Fri,  6 Nov 2026 13:15:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970918;
- bh=36LbEfjymQdlvpApF+dR5BGReUwtF/eBUGdBaaM+mJ8=;
+ s=k20260515; t=1793970925;
+ bh=uc8X7tbTqA7uLMUacuIuI2pPLJ1+5D47eg8NECslcx8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=IQFkIPP1CfcuDSKLobuO57LjYcQ9c9I/wrxun/a/d4XTojzF+BpW4LNCLmIkN/SyB
- ScRmf7zH8nU77LxhrW9QExpQnIompMWOR5VF0dAAgtTp3YV0yFtHrZwd3ao48vuvX4
- b5ApMTotmF4rESn4yHIvu1POC0RfQB3pwWKNuVUxuYmWWeUIhF8cN/3ACrgMFPw5eZ
- mdE+RwCzHkt406h2cfQ5FoOvx9esKZ4HJGtlf492sWUTkRBKQkPRlpbAhgP+cV1w7g
- MJBDFC2sQGZxHeUIN9pbBy8RfaQpC5Gb51sVzn/Xj3S5HpTqwE6O3Fn8M8O99c+RTm
- 6fbP+wNcOlxNQ==
+ b=jZNJVYbYWsLPdKLQ9H5ePp2HHJsesFf+skHxLlQhYaoCVqjZimaQY9rzkMB2qk1JS
+ 5Dq+XlSaZpu+u6m9kMiWPJbJdTmcTtwP0TMkXqH0c2EIsb2acFzHklVV9AFr9vIpbS
+ yUYdeJwxv7wPQmdq0hhdApGsDjqeAr1R8Wi0jlYP4T4xeSR4xHYJc6AP9kPS6pF9Pp
+ YXc9+XeE/AWr3jiuLvsocYiRPfrdXlyhIZqSXA3x7UT9V1FjH+MoQq9/QJni6YQ/6S
+ E+nSS6pUu/sJXqLZlSrJNyqAvjUNGIDlrVnacuWu1sId42U0ecaEFIOrbgTKCz5hFh
+ lG4PWsISSxg2Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:23 +0100
-Subject: [PATCH v8 10/39] drm/fb-dma-helper: Handle framebuffers without a
- GEM object
+Date: Fri, 06 Nov 2026 14:14:25 +0100
+Subject: [PATCH v8 12/39] drm/atomic: Export drm_atomic_*_print_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-10-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-12-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,14 +46,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Jocelyn Falempe <jfalempe@redhat.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1756; i=mripard@kernel.org;
- h=from:subject:message-id; bh=fb4W1U93Je4A6XGffFp5RAQ5r71xg/Q1Zxy3ov8fdaI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL2201RO45BLtMm9RwP/3rtfMJsppxxZkLhLXONG+I
- zCM749Kx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjILh7Ghp/zvwflfDzyt7bq
- ztPkg5OYg5tvX553oYubj3lpxK0+TebqHsZSxojkmLvsPRzZVotKGRvm9up1OcdoTTRR4dO5OKH
- 2E/+6tsiLbftvuO3fvWayY1XKv8g/6lY/t18wnu5Ue+bF4VgA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3545; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=N5dy/VsMjawU/E7AoQtXMtayda60cE34AA8LSPvtdMA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL236s2qDaRjjokv+MSu+LshWSdBUcK2sTymcG549+
+ SL/3lsvO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEXAIYG/6HH5QyztsSa3+n
+ 0MhwVa3nSsb+iov+77TP2iScEsiJkAoMty1mC2jfIrTW41Gtd3U0Y53yh6AskRgjzjt2+3Z+kNA
+ OUWu+tSrrf6DLDM+vBfIcT3x2rXac/UKUp1Nlq+HkxRPO7QIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,51 +74,93 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The state readout documentation now states that a driver should
-return an error when the hardware was programmed with a
-configuration it cannot represent, so that the state initialization
-falls back to the regular path.
+The drm_atomic_plane_print_state(), drm_atomic_crtc_print_state(),
+drm_atomic_connector_print_state(), and
+drm_atomic_private_obj_print_state() functions are currently static.
 
-However, a readout can also succeed with objects that cannot be
-fully reconstructed. The framebuffer the firmware left in the
-hardware was allocated outside of the kernel memory allocator, so
-drivers won't have any GEM object to attach to its planes.
+The SRO infrastructure needs to call them from
+drm_atomic_state_readout.c to print the readout state for debugging
+purposes. Make them available by dropping the static qualifier and
+declaring them in drm_internal.h.
 
-drm_fb_dma_get_scanout_buffer() dereferences the GEM object of the
-first plane to fill the scanout buffer description used by
-drm_panic, and would thus crash during a panic happening before
-userspace had a chance to replace the framebuffer read out from the
-hardware state.
-
-Return -ENODEV for such framebuffers, like we already do for
-imported buffers that are not accessible from the CPU.
-
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
+ drivers/gpu/drm/drm_atomic.c   | 16 ++++++++--------
+ drivers/gpu/drm/drm_internal.h | 13 +++++++++++++
+ 2 files changed, 21 insertions(+), 8 deletions(-)
 
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
----
- drivers/gpu/drm/drm_fb_dma_helper.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
-index fd71969d2fb1..3a37253ab9f8 100644
---- a/drivers/gpu/drm/drm_fb_dma_helper.c
-+++ b/drivers/gpu/drm/drm_fb_dma_helper.c
-@@ -180,4 +180,12 @@ int drm_fb_dma_get_scanout_buffer(struct drm_plane *plane,
- 	dma_obj = drm_fb_dma_get_gem_obj(fb, 0);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 63647dd3204f..9fcd91aef154 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -559,6 +559,6 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+ }
  
-+	/*
-+	 * The framebuffer has no GEM object backing its first plane,
-+	 * like a framebuffer reconstructed from a hardware state
-+	 * readout: we cannot access its contents.
-+	 */
-+	if (!dma_obj)
-+		return -ENODEV;
-+
- 	/* Buffer should be accessible from the CPU */
- 	if (drm_gem_is_imported(&dma_obj->base))
+-static void drm_atomic_crtc_print_state(struct drm_printer *p,
+-		const struct drm_crtc_state *state)
++void drm_atomic_crtc_print_state(struct drm_printer *p,
++				 const struct drm_crtc_state *state)
+ {
+ 	struct drm_crtc *crtc = state->crtc;
+@@ -980,6 +980,6 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ }
+ 
+-static void drm_atomic_plane_print_state(struct drm_printer *p,
+-		const struct drm_plane_state *state)
++void drm_atomic_plane_print_state(struct drm_printer *p,
++				  const struct drm_plane_state *state)
+ {
+ 	struct drm_plane *plane = state->plane;
+@@ -1567,6 +1567,6 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_connector_state);
+ 
+-static void drm_atomic_connector_print_state(struct drm_printer *p,
+-		const struct drm_connector_state *state)
++void drm_atomic_connector_print_state(struct drm_printer *p,
++				      const struct drm_connector_state *state)
+ {
+ 	struct drm_connector *connector = state->connector;
+@@ -2213,6 +2213,6 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
+ EXPORT_SYMBOL(__drm_atomic_helper_set_config);
+ 
+-static void drm_atomic_private_obj_print_state(struct drm_printer *p,
+-					       const struct drm_private_state *state)
++void drm_atomic_private_obj_print_state(struct drm_printer *p,
++					const struct drm_private_state *state)
+ {
+ 	struct drm_private_obj *obj = state->obj;
+diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+index f893b1e3a596..815486557f51 100644
+--- a/drivers/gpu/drm/drm_internal.h
++++ b/drivers/gpu/drm/drm_internal.h
+@@ -40,13 +40,26 @@ struct dma_buf;
+ struct iosys_map;
+ struct drm_connector;
++struct drm_connector_state;
+ struct drm_crtc;
++struct drm_crtc_state;
+ struct drm_framebuffer;
+ struct drm_gem_object;
+ struct drm_master;
+ struct drm_minor;
++struct drm_plane_state;
+ struct drm_prime_file_private;
+ struct drm_printer;
++struct drm_private_state;
+ struct drm_vblank_crtc;
+ 
++/* drm_atomic.c */
++void drm_atomic_plane_print_state(struct drm_printer *p,
++				  const struct drm_plane_state *state);
++void drm_atomic_crtc_print_state(struct drm_printer *p,
++				 const struct drm_crtc_state *state);
++void drm_atomic_connector_print_state(struct drm_printer *p,
++				      const struct drm_connector_state *state);
++void drm_atomic_private_obj_print_state(struct drm_printer *p,
++					const struct drm_private_state *state);
+ /* drm_client_event.c */
+ #if defined(CONFIG_DRM_CLIENT)
 
 -- 
 2.55.0
