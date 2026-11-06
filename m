@@ -2,54 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C24606EE80
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C67606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:57:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAl0WPlB
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DquInywc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5013112DB3;
-	Fri,  6 Nov 2026 13:56:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56B85112DAC
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:56:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB1810E667;
+	Fri,  6 Nov 2026 13:57:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDDB5112DBD
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:57:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 10EC14379F;
- Fri,  6 Nov 2026 13:56:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B481F008A3;
- Fri,  6 Nov 2026 13:56:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D0D1E605EB
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:57:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA211F0089F;
+ Fri,  6 Nov 2026 13:57:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793973382;
- bh=0tuVHt6IugmTLSqrR8kmpMpjcLPQlDkTodDmg4T/FfU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=KAl0WPlBy7cje0tmYGjsxbd12WOsqAnJXQOTdvqYgYKjh0KE85IvzLMK8INqKOOwQ
- 0yywHJM421i0ZuS/kzPrI9ecYNnsnuH+jYeFsEZS8HDhCCybITn7MNStoNR+2COG1j
- ZdocQhxqSXK+jeVy4b0614NE18Zuu/ukFs5gBdATrrrFREGzfN7bJAgr4/d8VSXnN8
- cE8NxhXU2xY/C5Y4o0j8gTat9VfcvQ4WweXmrWbANNVXQ5mqawWiFThhj13qBmtkjQ
- w/0ipwuyGh5/LXNSJWPHq4FYMxY/hMrGK1q51sqqhm5RXgzGKYXzYJQia6Tg78yk6O
- Y+leCF1sfCpow==
-Date: Fri, 6 Nov 2026 14:56:19 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
-Message-ID: <au3X8tpU9KWas9ZM@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-5-clamor95@gmail.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rc2hc4wbfwun3tgx"
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-5-clamor95@gmail.com>
+ s=k20260515; t=1793973453;
+ bh=1kQxbp2OCusxFyNc/kVBro7U8NHmWMvoOddm8d7GYII=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DquInywcr83pOLMFJpNZ5GuVxbHacK5pxT1CcjD7bSYM86O6kQdLw+Qrgp08Kblg8
+ cVW7IxqDHmxrgWk6UbvqCMGdp9ze5smGwSaevhcn3/hA3v8TNHmEslfENfa5I//CNg
+ Ao5AkkViFJ3p3wRud2WN+6tTgd/TRtVII+plfauOr66lQgAdFl9W8dRGypQNBxL9bl
+ fFmnvBGxu62ndOKaZJtl/CHI87pWHlJxqgHEeRPpg1MJknYu8GdNPhpFlHRkjK7CWR
+ RItXrd1+xvO95lN/RK4MWcUsMTrOUP6OWHOOQ/L+OSNjqeCn5KTxeVY3+xH/HO8ku4
+ GzUh/+xTbyaIA==
+Message-ID: <sashiko-outbox-201513@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 39/39] fixup! drm/tidss: Implement readout support
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261106-drm-state-readout-v8-39-cbe78624e1bc@kernel.org>
+References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
+ <20261106-drm-state-readout-v8-39-cbe78624e1bc@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 13:57:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,235 +48,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/tidss: oldi: bus flags mismatch in
+  tidss_oldi_bridge_readout_state()
+- [Low] drm/tidss: oldi: unsquashed fixup commit and unused header
+  includes
+--
 
---rc2hc4wbfwun3tgx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
-MIME-Version: 1.0
+commit cca2438eb6832da31ab86d7cdd455e9f4115f969
+Author: Maxime Ripard <mripard@kernel.org>
 
-On Thu, Nov 05, 2026 at 04:05:04PM +0200, Svyatoslav Ryhel wrote:
-> Refactor and expand existing DC register definitions with additional
-> fields in preparation for adding the 8-bit CPU interface.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/drm/tegra/dc.c  |  11 +-
->  drivers/gpu/drm/tegra/dc.h  | 856 +++++++++++++++++++++---------------
->  drivers/gpu/drm/tegra/rgb.c |   8 +-
->  3 files changed, 514 insertions(+), 361 deletions(-)
+fixup! drm/tidss: Implement readout support
 
-This is impossible to review. Please split this up into refactor and
-expand patches. Each should be a separate change.
+This commit adds atomic state and connector hardware readout callbacks for
+the TI DSS OLDI bridge.
 
-Also, a lot of the "refactor" is just pointless whitespace changes that
-are just not necessary. Please keep the changes to a minimum.
-
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-[...]
-> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
-c *crtc,
+> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/t=
+idss_oldi.c
+> index 82b059f852449..7dbfbb380205e 100644
+> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+> @@ -5,6 +5,7 @@
+>   * Aradhya Bhatia <a-bhatia1@ti.com>
+>   */
 > =20
->  	if (dc->rgb) {
->  		/* XXX: parameterize? */
-> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
-> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
-
-This type of change seems entirely useless to me. It's neither more
-readable nor shorter.
-
-[...]
-> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-> index 0cb0515968b35..2b87bb675d4cf 100644
-> --- a/drivers/gpu/drm/tegra/dc.h
-> +++ b/drivers/gpu/drm/tegra/dc.h
-> @@ -178,9 +178,11 @@ int tegra_dc_rgb_init(struct drm_device *drm, struct=
- tegra_dc *dc);
->  int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> +#include <linux/bitfield.h>
+>  #include <linux/clk.h>
+>  #include <linux/of.h>
+>  #include <linux/of_graph.h>
+> @@ -13,8 +14,12 @@
+>  #include <linux/regmap.h>
 > =20
->  #define DC_CMD_GENERAL_INCR_SYNCPT		0x000
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_atomic_state_readout.h>
+> +#include <drm/drm_atomic_state_readout_helper.h>
+>  #include <drm/drm_bridge.h>
+> +#include <drm/drm_connector.h>
+>  #include <drm/drm_of.h>
+> +#include <drm/drm_panel.h>
+
+[Severity: Low]
+This isn't a bug, but <linux/bitfield.h> and <drm/drm_panel.h> are not used
+in tidss_oldi.c.  Also, this commit is still formatted as an unsquashed
+"fixup!" patch with a placeholder commit message instead of being squashed
+into commit "drm/tidss: Implement readout support" or given a full
+changelog.
+
+[ ... ]
+
+> @@ -351,6 +356,135 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
+>  	return 0;
+>  }
+
+[ ... ]
+
+> +static int
+> +tidss_oldi_bridge_readout_state(struct drm_bridge *bridge,
+> +				struct drm_atomic_sro_state *state,
+> +				struct drm_bridge_state *bridge_state,
+> +				struct drm_crtc_state *crtc_state,
+> +				struct drm_connector_state *conn_state)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * tidss_oldi_atomic_check() forces positive edge sampling on
+> +	 * the input side, and the DE polarity is programmed from the
+> +	 * negotiated flags: OLDI_DEPOL is set when the DE is active
+> +	 * low.
+> +	 */
+> +	bridge_state->input_bus_cfg.flags =3D
+> +		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
+> +		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE |
+> +		((cfg & OLDI_DEPOL) ? DRM_BUS_FLAG_DE_LOW :
+> +				      DRM_BUS_FLAG_DE_HIGH);
 > +
->  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL	0x001
-> -#define  SYNCPT_CNTRL_NO_STALL   (1 << 8)
-> -#define  SYNCPT_CNTRL_SOFT_RESET (1 << 0)
-> +#define  SYNCPT_CNTRL_NO_STALL			BIT(8)
-> +#define  SYNCPT_CNTRL_SOFT_RESET		BIT(0)
-
-The whitespace changes here are completely arbitrary, it's changing one
-preference for another. You're actually changing the contents in this
-case, so it's not that bad. Still unnecessary, though.
-
-> -#define DISP_CTRL_MODE_STOP (0 << 5)
-> -#define DISP_CTRL_MODE_C_DISPLAY (1 << 5)
-> -#define DISP_CTRL_MODE_NC_DISPLAY (2 << 5)
-> -#define DISP_CTRL_MODE_MASK (3 << 5)
-> +#define  DISP_CTRL_MODE_STOP			(0 << 5)
-> +#define  DISP_CTRL_MODE_C_DISPLAY		(1 << 5)
-> +#define  DISP_CTRL_MODE_NC_DISPLAY		(2 << 5)
-> +#define  DISP_CTRL_MODE_MASK			(3 << 5)
-
-These are purely whitespace changes. Please don't do that.
-
->  #define DC_COM_CRC_CONTROL			0x300
-> -#define  DC_COM_CRC_CONTROL_ALWAYS (1 << 3)
-> -#define  DC_COM_CRC_CONTROL_FULL_FRAME  (0 << 2)
-> -#define  DC_COM_CRC_CONTROL_ACTIVE_DATA (1 << 2)
-> -#define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
-> -#define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
-> +#define  DC_COM_CRC_CONTROL_ALWAYS		BIT(3)
-> +#define  DC_COM_CRC_CONTROL_FULL_FRAME		(0 << 2)
-> +#define  DC_COM_CRC_CONTROL_ACTIVE_DATA		BIT(2)
-> +#define  DC_COM_CRC_CONTROL_WAIT		BIT(1)
-> +#define  DC_COM_CRC_CONTROL_ENABLE		BIT(0)
-
-FULL_FRAME and ACTIVE_DATA were previously consistent, now it just looks
-weird. Either use proper GENMASK() definitions where applicable, along
-with modifications in the driver to use FIELD_PREP() and FIELD_GET(), or
-just don't change it at all.
-
+> +	bridge_state->output_bus_cfg.flags =3D
+> +		(cfg & OLDI_DEPOL) ? DRM_BUS_FLAG_DE_LOW :
+> +				     DRM_BUS_FLAG_DE_HIGH;
 > +
->  #define DC_COM_CRC_CHECKSUM			0x301
-> -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
-> -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
-> -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
-> -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
-> -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
-> -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
-> -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
-> -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
-> +
-> +/* Defines in PIN_OUTPUT/INPUT_* describe pin position, not state */
+> +	return 0;
+> +}
 
-This comment is completely confusing to me. The registers themselves
-define the state and bit positions within them seem to indicate the pin
-positions.
+[Severity: Medium]
+Will input_bus_cfg.flags and output_bus_cfg.flags mismatch the committed
+state during drm_atomic_helper_bridge_compare_state() when the downstream
+panel or bridge sets other bus flags or omits DE polarity?
 
-> +#define DC_COM_PIN_OUTPUT_ENABLE(x)		(0x302 + (x))
-> +#define DC_COM_PIN_OUTPUT_POLARITY(x)		(0x306 + (x))
-> +#define DC_COM_PIN_OUTPUT_DATA(x)		(0x30a + (x))
-> +#define  PIN_UNMASK(x)				BIT((x) + 1)
+During atomic check, drm_atomic_bridge_propagate_bus_flags() copies the
+downstream bridge's input_bus_cfg.flags (populated by panel_bridge from
+connector->display_info.bus_flags) into both output_bus_cfg.flags and
+input_bus_cfg.flags, and tidss_oldi_atomic_check() only adjusts the sampling
+edge flags on input_bus_cfg.flags:
 
-Given that pin positions are in steps of two for all registers, does
-that PIN_UNMASK apply to all of them or just PIN_OUTPUT_DATA?
+drivers/gpu/drm/tidss/tidss_oldi.c:tidss_oldi_atomic_check() {
+	bridge_state->input_bus_cfg.flags &=3D
+		~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
+		  DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
 
-> +#define DC_COM_PIN_INPUT_ENABLE(x)		(0x30e + (x))
-> +
-[...]
-> +/* DC_COM_PIN_OUTPUT/INPUT_*_3 */
-> +#define PIN_LSCK				0
-> +#define PIN_LSDA				2
-> +#define PIN_LCSN				4
-> +#define PIN_LDC					6
-> +#define PIN_LSPI				8
-> +#define PIN_LSDI				10
-> +
-> +#define DC_COM_PIN_INPUT_DATA(x)		(0x312 + (x))
+	bridge_state->input_bus_cfg.flags |=3D
+		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
+		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
+}
 
-It's not clear that PIN_INPUT_DATA_* can take any of those PIN_*
-defines. Given that there are only two PIN_INPUT_DATA registers that's
-probably not true, so I think it'd be good to somehow specify how that
-works here.
+For LVDS panels driven by panel-lvds (which sets
+DRM_BUS_FLAG_DATA_MSB_TO_LSB or DRM_BUS_FLAG_DATA_LSB_TO_MSB in
+display_info.bus_flags) or panels that leave both DE polarity flags unset,
+the committed bridge state retains those flags in input_bus_cfg.flags and
+output_bus_cfg.flags, whereas tidss_oldi_bridge_readout_state() reconstructs
+only DRM_BUS_FLAG_DE_LOW or DRM_BUS_FLAG_DE_HIGH from OLDI_DEPOL.  Every
+blocking atomic modeset on those panels will therefore report a bridge state
+readout mismatch.
 
-> +#define DC_COM_PIN_OUTPUT_SELECT(x)		(0x314 + (x))
-> +#define  PIN_OUTPUT_SELECT_MASK(x)		(0x7 << (x))
-> +#define  PIN_OUTPUT_SELECT_PRIM(x)		(0 << (x))
-> +#define  PIN_OUTPUT_SELECT_OUT(x)		(1 << (x))
-> +#define  PIN_OUTPUT_SELECT_F2(x)		(2 << (x))
-> +#define  PIN_OUTPUT_SELECT_F3(x)		(3 << (x))
-> +#define  PIN_OUTPUT_SELECT_F4(x)		(4 << (x))
-> +#define  PIN_OUTPUT_SELECT_F5(x)		(5 << (x))
-> +#define  PIN_OUTPUT_SELECT_F6(x)		(6 << (x))
-> +#define  PIN_OUTPUT_SELECT_F7(x)		(7 << (x))
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT0 */
-> +#define PIN_OUTPUT_SELECT_LD0			0
-> +#define PIN_OUTPUT_SELECT_LD1			4
-> +#define PIN_OUTPUT_SELECT_LD2			8
-> +#define PIN_OUTPUT_SELECT_LD3			12
-> +#define PIN_OUTPUT_SELECT_LD4			16
-> +#define PIN_OUTPUT_SELECT_LD5			20
-> +#define PIN_OUTPUT_SELECT_LD6			24
-> +#define PIN_OUTPUT_SELECT_LD7			28
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT1 */
-> +#define PIN_OUTPUT_SELECT_LD8			0
-> +#define PIN_OUTPUT_SELECT_LD9			4
-> +#define PIN_OUTPUT_SELECT_LD10			8
-> +#define PIN_OUTPUT_SELECT_LD11			12
-> +#define PIN_OUTPUT_SELECT_LD12			16
-> +#define PIN_OUTPUT_SELECT_LD13			20
-> +#define PIN_OUTPUT_SELECT_LD14			24
-> +#define PIN_OUTPUT_SELECT_LD15			28
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT2 */
-> +#define PIN_OUTPUT_SELECT_LD16			0
-> +#define PIN_OUTPUT_SELECT_LD17			4
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT3 */
-> +#define PIN_OUTPUT_SELECT_LPW0			0
-> +#define PIN_OUTPUT_SELECT_LPW1			4
-> +#define PIN_OUTPUT_SELECT_LPW2			8
-> +#define PIN_OUTPUT_SELECT_LSC0			16
-> +#define PIN_OUTPUT_SELECT_LSC1			20
-> +#define PIN_OUTPUT_SELECT_LVS			24
-> +#define PIN_OUTPUT_SELECT_LHS			28
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT4 */
-> +#define PIN_OUTPUT_SELECT_LHP0			0
-> +#define PIN_OUTPUT_SELECT_LHP1			4
-> +#define PIN_OUTPUT_SELECT_LHP2			8
-> +#define PIN_OUTPUT_SELECT_LVP0			16
-> +#define PIN_OUTPUT_SELECT_LVP1			20
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT5 */
-> +#define PIN_OUTPUT_SELECT_LM0			0
-> +#define PIN_OUTPUT_SELECT_LM1			4
-> +#define PIN_OUTPUT_SELECT_LDI			8
-> +#define PIN_OUTPUT_SELECT_LPP			12
-> +
-> +/* DC_COM_PIN_OUTPUT_SELECT6 */
-> +#define PIN_OUTPUT_SELECT_LSCK			0
-> +#define PIN_OUTPUT_SELECT_LSDA			4
-> +#define PIN_OUTPUT_SELECT_LCSN			8
-> +#define PIN_OUTPUT_SELECT_LDC			12
-> +#define PIN_OUTPUT_SELECT_LSPI			16
-> +#define PIN_OUTPUT_SELECT_LSDI			20
-> =20
->  #define DC_COM_PIN_MISC_CONTROL			0x31b
-
-If there's only one PIN_MISC_CONTROL register, does that take these same
-PIN_* values as bit indices?
-
-Thierry
-
---rc2hc4wbfwun3tgx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt3H8ACgkQ3SOs138+
-s6Eawg//fb7MsJNQ3AzGo0VwehFF5urNwd+gNHtrrFdGXhYJuGdWiYytyrZ5W6qX
-GMLLJmAdrv+iez6rDoG6vAbxYDB8gRqx7miJ4aUW/JNAwk8ym5z/EXx25LH09vcm
-9UKu3rmSuY0UIw02b+dsMUYYIPNspLRmUzBp9XIOqaUWH5gTKTLVbdiaU+UHGOux
-w+xkrNwan+GiEYAats9zFPrElJUBDp4hYPCPsdQd++XKb4n0wQtYnEQl8hkB5NgA
-8FrPLufBvP5k2xQ/wxk8DJ+3hcSPj5V6Sx3WVoTGpL6S5pHGTwiR1KZQAvD51jzp
-TX5C96MiPqqDVOE0NIgn3p8mtpL9zFxHfGZVGDT6fyxbPAo829DJKS8PgyOeeu7n
-sV1432QC3/Hz/GwzKQKdcVfvZ0PQ62C8tw6tHBhEnNVqAjhw5SniTer6ptAgNBqo
-jVxiTinPOY7rCMYmYgfInL7eccaUv5F1cMcfrbXyWhpkJia5kLvXjvQKnjaCdx2g
-bkwJlZdYV8zeP4GjhOtL2F0h00EpSPBOIi4oFLgJU57Mlz+cqHx9KIE3gduXc4oK
-oMnbVnI65ej9s4BwLmzsSf5IRqFC3g1sFUAC1ZZIQYGxUKMEFMt0e9WkIN81VA01
-gRv+vUpafvirRbhUJ+oFFaK9JwwU1CjiGXs5CT8JkwKJUj5uq0c=
-=ogZo
------END PGP SIGNATURE-----
-
---rc2hc4wbfwun3tgx--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-drm-state-=
+readout-v8-0-cbe78624e1bc@kernel.org?part=3D39
