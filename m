@@ -2,66 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36106606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE41606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:17:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gojR8o9V
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6rg1+C7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A553110FC4A;
-	Fri,  6 Nov 2026 15:12:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C0C10FC4A
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 313FB10EA71;
+	Fri,  6 Nov 2026 15:17:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2923D10FA9A
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:17:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 505EA40A58;
- Fri,  6 Nov 2026 15:12:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4681F008A7;
- Fri,  6 Nov 2026 15:12:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 66FEA60202;
+ Fri,  6 Nov 2026 15:17:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96AF1F0089F;
+ Fri,  6 Nov 2026 15:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793977935;
- bh=hYAhdRZ346GdySQVm8ErITnE75pewwTHH/p/a0LZ4bg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gojR8o9Vz8rMHwL4OvOwqt3sWaBUwqynD/NYppvqBWwi6x+XQURLAms6v27+clPEF
- dEZzTouUtrWd3UzjGSdIphjhX8Xs1jQKBRifobgu5U3mwDps9fAoX3F/BwsYvfXo9x
- zT929y2H4Udpmi5PYq/k98oBuQz96LUOyx44K3U6ntM1OwJ8kTtd7X5s7LUtdtmlOk
- qpSms9muW5kBwVYw1AiybVPKvsjXtYPEBuAvUkWlwEyn1N0GGy19e+h+fVpmTF6Bf0
- FiqnEm9xQbSB71MYupQqw0yEPzm6a/TcwmkXF55qFIwYwVm8vNneRRdK8ljSE8cZ6A
- UUg97AuJGk3Jw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 16:11:45 +0100
-Subject: [PATCH v8 7/7] drm/vkms: Add driver-specific plane property for
- testing
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-reset-state-flag-v8-7-50fd046b705f@kernel.org>
-References: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
-In-Reply-To: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5674; i=mripard@kernel.org;
- h=from:subject:message-id; bh=PzcuUCLqW+hrny0SdJ5K+Atc69gzwY7AsRho41Hd/pk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3xmxX09Zdm/LgvXxIVbyt020AzbZfBdg2fRm3rNG2
- fD74XMLO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEwtUZayXkYj5fmr37srG9
- x+uf3Q+8L16fXPolQrbTvGHx3OUp12v8u0qaQ9dxR791VfwwbZ6WN2PDmoIk2fLZL55p+N4uT9y
- z6kPEaf3cWVJfbsTvtS4xWXYz+qHxpmu31V1fx+zMv7Hhwo0AAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+ s=k20260515; t=1793978259;
+ bh=p/nuiejwzbuNdqG1S7CYo8b06UygXGfd6lMUU+TvJvo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=g6rg1+C705WrADK4VZpmsTxg2hbdaMPKfU1OemL6+WzzquzZCMBlbCq8NvfO8CedX
+ Ey19DQPEYK0F0AE7EL7mwUz13FW9/b3vqFnhOCk6khnDIBkqN2m3LTP1JjLGRnNhti
+ vMaQ0wZlydG8wcR6QajoPGB2HHs1BjhkcR5ew8epf5jxJUlUOr3UJdLUnAflvq63/Y
+ OT7FFaJgXd40b2pO2fusQUv9yYKfUNAce1Qc8vT0x5Byw34VvDFctrm/hRQlrcQC/b
+ pNCroRqvrodiruvJRdOxmVlVjwAq+6kJYwA1Pk+xnheiTCMqsxaUKetjHI/A29xKKY
+ P/r4idWynl9ow==
+Message-ID: <sashiko-outbox-201655@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 12/19] drm/bridge: inno-hdmi: Make the PHY
+ configuration table optional
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-jh7110-clean-send-v7-12-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+ <CGME20261106135912eucas1p182016acc39d162adfbb9cb598ed7ca1c@eucas1p1.samsung.com>
+ <20261106-jh7110-clean-send-v7-12-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 15:17:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,167 +51,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/bridge: inno-hdmi: unguarded integrated-PHY writes when
+  phy_configs is NULL
+--
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+commit f1f2bae7d85c6c615ff85796724277a1cd86c36d
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
+drm/bridge: inno-hdmi: Make the PHY configuration table optional
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 64 insertions(+), 2 deletions(-)
+This commit makes plat_data->phy_configs optional so platforms with a
+separate PHY device skip the integrated-PHY register writes in
+inno_hdmi_power_up() and the table lookup in inno_hdmi_bridge_mode_valid().
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -147,4 +147,5 @@ struct conversion_matrix {
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
-@@ -153,8 +154,10 @@ struct vkms_plane_state {
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
- 
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..42513cb462ac 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -12,8 +12,12 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
-@@ -55,4 +59,5 @@ static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
-@@ -61,4 +66,6 @@ vkms_plane_duplicate_state(struct drm_plane *plane)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
-@@ -86,5 +93,7 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
-@@ -96,12 +105,51 @@ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
-@@ -284,4 +332,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
- 
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (!plane->vkms_test_do_not_use_property)
-+		return ERR_PTR(-ENOMEM);
-+
-+	drm_object_attach_property(&plane->base.base,
-+				   plane->vkms_test_do_not_use_property,
-+				   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
+> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
+inno-hdmi.c
+> index 3219558d6ef41..84d00ee52b732 100644
+> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+> @@ -534,8 +534,14 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdm=
+i,
+>  			       unsigned long mpixelclock)
+>  {
+>  	struct inno_hdmi_phy_config *phy_config;
+> -	int ret =3D inno_hdmi_find_phy_config(hdmi, mpixelclock);
+> +	int ret;
+> +
+> +	inno_hdmi_sys_power(hdmi, false);
+> +
+> +	if (!hdmi->plat_data->phy_configs)
+> +		goto out;
 
--- 
-2.55.0
+[Severity: Medium]
+Should inno_hdmi_standby() and inno_hdmi_config_video_timing() also skip
+the integrated-PHY register writes when hdmi->plat_data->phy_configs is
+NULL?
 
+inno_hdmi_standby() (called from inno_hdmi_init_hw() at probe and
+inno_hdmi_bridge_atomic_disable() on disable) still unconditionally writes
+to the same HDMI_PHY_DRIVER, HDMI_PHY_PRE_EMPHASIS, HDMI_PHY_CHG_PWR, and
+HDMI_PHY_SYS_CTL registers that inno_hdmi_power_up() now skips restoring.
+inno_hdmi_config_video_timing() likewise still writes to
+HDMI_PHY_PRE_DIV_RATIO, HDMI_PHY_FEEDBACK_DIV_RATIO_LOW, and
+HDMI_PHY_FEEDBACK_DIV_RATIO_HIGH on modeset.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
+an-send-v7-0-68f7ea9913db@samsung.com?part=3D12
