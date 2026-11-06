@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98206606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F187606A331
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OA1uIkgi
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RhSpFLOX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05063112D5D;
-	Fri,  6 Nov 2026 13:26:36 +0000 (UTC)
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A52112D5D
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9937010EA35;
+	Fri,  6 Nov 2026 13:26:54 +0000 (UTC)
+Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0511810EA4C
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:26:48 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=lnwy3IIIUITEEW39wV2rv1u7rm4YP9o1MSolIsKb45g=; 
+DKIM-Signature: a=rsa-sha256; bh=ojgBXCCljWWMx/by6O5nBZ1cYADUOJnAnHqRvmqKFno=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793971587; v=1; x=1794576387;
- b=OA1uIkgiaN4r0zvj6ublIecrPHGtkbWtKtwihfI9ccqDDw3V/PMBcJXtCb8NOf/Gm5noaS+s
- zAWisHoPCBdLvbILRTYUrpJhYZdWE/BfjZJLxK/RDFzOflNHCAwXbQIdiYpg4xd4tdLzoUIymhQ
- YtX5sOf8qRUl+QFvN348h5E4=
+ t=1793971607; v=1; x=1794576407;
+ b=RhSpFLOXLObPYfOZQizN/gUVaieND1gF8il/wL44FULXzU6xQgZ1CEaCqDf0xtyhdrnS5YOV
+ fhLMVB6HjXgwd4PBzZ5RROoU60te8y81kQbD/7CaUZx+Dy61yP7A19mS2FG3Kto8yPtCIhhukbj
+ B092ZGe2PRc/VpSxHHXvPZ6Q=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 42ebb214afb95bc7;
- Fri, 06 Nov 2026 13:20:17 +0000
-X-Mizu-Trace-ID: 42ebb214afb95bc7
+Received: by smtp.migadu.com with ESMTPS id fd2f547758ebbf7f;
+ Fri, 06 Nov 2026 13:20:43 +0000
+X-Mizu-Trace-ID: fd2f547758ebbf7f
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
@@ -43,9 +43,10 @@ Cc: linux-mm@kvack.org, James.Bottomley@HansenPartnership.com,
  mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
  aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
  cui.tao@linux.dev, cuitao@kylinos.cn
-Subject: [PATCH 5/7] iommufd: account the hw_queue page array to memcg
-Date: Fri,  6 Nov 2026 21:18:27 +0800
-Message-ID: <20261106131829.3228926-6-cui.tao@linux.dev>
+Subject: [PATCH 6/7] io_uring: account the ring context and SQPOLL thread data
+ to memcg
+Date: Fri,  6 Nov 2026 21:18:28 +0800
+Message-ID: <20261106131829.3228926-7-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106131829.3228926-1-cui.tao@linux.dev>
 References: <20261106131829.3228926-1-cui.tao@linux.dev>
@@ -72,35 +73,83 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-IOMMUFD_CMD_HW_QUEUE_ALLOC pins up to max_npages pages just to check
-that a user supplied queue region is physically contiguous, and the
-page array for that check is plain GFP_KERNEL.  The size comes from
-cmd->length, a u64 that is only overflow checked, and the array is
-freed again as soon as the contiguity check fails, so the allocation
-can be repeated concurrently: a 1GB region costs about 2MB of
-uncharged memory per attempt.
+The io_ring_ctx and the SQPOLL io_sqd are the last per-ring allocations
+made with plain GFP_KERNEL.  The larger surfaces around them are
+already charged: io_mapped_ubuf and io_rsrc_node since commit
+075d5837bafc ("io_uring/rsrc: charge buffer arrays and nodes to memcg"),
+the tctx node and its XArrays since commit 0b34e7b20a48 ("io_uring:
+charge tctx nodes and personalities").
 
-Every other iommufd allocation that scales with user input is already
-charged, and the pinned pages charge the mapper at map time.  Charge
-this array like the rest.
+Charge the context and the SQPOLL thread data the same way.
 
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- drivers/iommu/iommufd/viommu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ io_uring/io_uring.c | 2 +-
+ io_uring/rsrc.c     | 3 ++-
+ io_uring/sqpoll.c   | 2 +-
+ io_uring/tctx.c     | 4 ++--
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
-index f7951057a1e5..ab17e190da49 100644
---- a/drivers/iommu/iommufd/viommu.c
-+++ b/drivers/iommu/iommufd/viommu.c
-@@ -330,7 +330,8 @@ iommufd_hw_queue_alloc_phys(struct iommu_hw_queue_alloc *cmd,
- 	 * Use kvcalloc() to avoid memory fragmentation for a large page array.
- 	 * Set __GFP_NOWARN to avoid syzkaller blowups
- 	 */
--	pages = kvzalloc_objs(*pages, max_npages, GFP_KERNEL | __GFP_NOWARN);
-+	pages = kvzalloc_objs(*pages, max_npages,
-+			      GFP_KERNEL | __GFP_NOWARN | __GFP_ACCOUNT);
- 	if (!pages)
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 03724419c4e1..d39cdde49a9f 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -229,7 +229,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 	int hash_bits;
+ 	bool ret;
+ 
+-	ctx = kzalloc_obj(*ctx);
++	ctx = kzalloc_obj(*ctx, GFP_KERNEL_ACCOUNT);
+ 	if (!ctx)
+ 		return NULL;
+ 
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index e0345c3e764e..9a971c983686 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -825,7 +825,8 @@ static bool io_coalesce_buffer(struct page ***pages, int *nr_pages,
+ 	unsigned i, j;
+ 
+ 	/* Store head pages only*/
+-	new_array = kvmalloc_objs(struct page *, nr_folios);
++	new_array = kvmalloc_objs(struct page *, nr_folios,
++				  GFP_KERNEL_ACCOUNT);
+ 	if (!new_array)
+ 		return false;
+ 
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index d387488db2de..b82d3a285337 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -172,7 +172,7 @@ static struct io_sq_data *io_get_sq_data(struct io_uring_params *p,
+ 			return sqd;
+ 	}
+ 
+-	sqd = kzalloc_obj(*sqd);
++	sqd = kzalloc_obj(*sqd, GFP_KERNEL_ACCOUNT);
+ 	if (!sqd)
+ 		return ERR_PTR(-ENOMEM);
+ 
+diff --git a/io_uring/tctx.c b/io_uring/tctx.c
+index b4fecea3ea47..6673393100ec 100644
+--- a/io_uring/tctx.c
++++ b/io_uring/tctx.c
+@@ -23,7 +23,7 @@ static struct io_wq *io_init_wq_offload(struct io_ring_ctx *ctx,
+ 	mutex_lock(&ctx->uring_lock);
+ 	hash = ctx->hash_map;
+ 	if (!hash) {
+-		hash = kzalloc_obj(*hash);
++		hash = kzalloc_obj(*hash, GFP_KERNEL_ACCOUNT);
+ 		if (!hash) {
+ 			mutex_unlock(&ctx->uring_lock);
+ 			return ERR_PTR(-ENOMEM);
+@@ -85,7 +85,7 @@ __cold struct io_uring_task *io_uring_alloc_task_context(struct task_struct *tas
+ 	struct io_uring_task *tctx;
+ 	int ret;
+ 
+-	tctx = kzalloc_obj(*tctx);
++	tctx = kzalloc_obj(*tctx, GFP_KERNEL_ACCOUNT);
+ 	if (unlikely(!tctx))
  		return ERR_PTR(-ENOMEM);
  
 -- 
