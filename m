@@ -2,159 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C56606A335
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3692606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oDzUxncx;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xshqq/4s
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 548B210E0E9;
-	Fri,  6 Nov 2026 14:37:29 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B31510E271
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:37:17 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A6EQ9rF4164147
- for <dri-devel@lists.freedesktop.org>; Fri, 6 Nov 2026 14:37:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=; b=oD
- zUxncxZqM9j4vcCOndXBF3iIc4/WR1NvKSLy+dBwaYOm4erSCtt7mQL+KFrwYI3z
- 70bIWvfQbCccOyYxOcCoKpXLXqaVtbZ8+XgQBGNdyrGdw1450R4r7383q+QOGIR0
- kzNMuT7bcO7muQGmD59w4tTETIoglXoIE98yc4zvFoWh7vohmFc9NGopOXqNOAyA
- XHpkS/ORTc4ycLhJDjiatf4u19cSTI41hyx+6UzGHCreR0moT69Gfqp2yFA2JJuO
- kjGt/kQGHbViURKEabcJ8k8BA6JOzdNjtQ6ZkaD82H6uwGWijD/hVFqq5m6FSZMr
- 0whNfEAoKReAM0Fjhgmg==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa34s7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 14:37:17 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id
- a92af1059eb24-1383723dfddso1241773c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 06:37:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793975836; cv=none;
- d=google.com; s=arc-20260327;
- b=QX61hIXLaVeWA6DPwtJ66JDLg/7w1uvqFMyZVg+L/vum4Srzc8h8tirEKKWe73mjK+
- UIWjwkb3q5mP91ef02UVQly64fg1LMfF6otZFpbFAOygrPL3m3ctmnLUVP1oMgVI/ZV8
- 5jNK1fa4MJwdbnfewLQvFNwLz3WzDRuQF/S7n4NkLjU/q4VEpWJKi7eZt5flVXWwb03P
- pbVMZtSXTyvBYgEvBGAZ6IT6ndKCX5dRn51He6D7DqXMWYr48pCwxXnYhCTYluT3EuTK
- r8uC89xpNin2yYRoooPVRImQeYQjsKVGF3l4OSXlDdDmmzgkFeHbeaoHfFtgWVK/5ywc
- MNmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
- fh=5vW80q4ckH8WaC8qOQw2xoFvYxGLDq54xTaPAQmLc7g=;
- b=MXflc1aaCpeyve/zeJK0z9zrL6v1hIq7KXishTFHANL71Cn64WqyOGq+tLmDos67oA
- TMczyM+SiGjT0Cj5Wsf238e7DWMUHKhko2ar1ZaTIpR8uyFhJ4oBFZGI7cm69T5lESLG
- IGOrfCwTWbVxrsQSWG8A7t+IKKuHdzFNGqh1MvW/2ZUkZx7bfX6MiGZ7EVW0F2pcabBO
- 0xWZRKlpXgkcUIwySEiwRnOY1UdivIp5F3swaDTBa+r0oiBbyJtv7FKX9fCjLKJtVIGJ
- tIYbS5ygunAvbfnKYAlS7R0YbHAjJLprHkVLSgqtRYq6FXTFdB673RgHfE69KSC2jbTY
- I7ag==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793975836; x=1794580636;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
- b=Xshqq/4s7SjdJpTh+/CH2nONzjdwU8EcUSkEma3O4OIoF7+2uQTUqNKMbhQ3uL5nJl
- LtCy6CNQXKEYtBeruIefgWhJvy14+EbMLHfZv6hIcXcVKzfExhI5cAf/QbfxxKdT9eCT
- 9ec4Zwt71TMBaUa1q3il4BhUkb8RmcRphppG0JNn8rlJONbp2GW02BLmE9mV2gMAFZ/M
- B0xqzn9RPjYB9TLgm0SrxcaBjqSw9gkvLQdrzRp7xsAifw3Ktgos/Bon/uW1Nultf69o
- 2IUr4jmt+TSzvenJjw9R8gzzVXk351F+WFEKI9al2pwpRXAAySjrtV0dqUORyL3ecND8
- zTNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793975836; x=1794580636;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
- b=oULANpR8Pcn1PckO7NLciN+XuWCWmHxYnV0CKxAG6NexuqbWh/HqgoOkTEqMl3/L4n
- VboDhUifgCWUw0VMDR7EGlRW+7ZM87y6dusZ/RzFDC29bdLEYou4SIzw9udCRmgvvb72
- MGk/g9UOdDrTXV7b5PwQKc5Ot5JvaM8yCcX2TYWLcAU8zE4pMdtlr+1yqpiaEMlLKQ0z
- 3MkUCmmGLD/1IvyryN52XHM9NfRHnb54SDwJcsNBwwN84GgLMhf/NxxdmVChCNXkBXu8
- g35ZT0qoQ5GQ4bzlvteJBjBtswn2/+yKN4WhK3EFlpz6XcfAmzTuvJBNtOah1PbP+pLI
- FN0Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx6SEgFlg6rESXSw4qgYXcR5SaAhQBVtRLRJtFZrMswTvHW/kxsejV+mD6MUL4DPuCi/1b98X/7YkA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ea9hGUyasuW4+ALz48QJduXWSkOS+HOnrSzIN6e6NmHKKvpMs
- yQQ86l/wKS77F1PwFDAXAwu4IvC0JeSRjo/AAJquh4YziTroTJKHwx30Jan+WZSUhJkdcwd84PG
- 6vvR8f2hNCjufnma8uDKtwTZm/smC3QSy86xjYhOnDxvgvCrSrseLuWsDBUgpkeuUr1kTkS9cW4
- 1ur3UtIXCVnxC3rVJbHsDAE/E5iqGfcv1S+pU3aMBQ4E99KQ==
-X-Gm-Gg: AYBFou008WqDsQO4KfitMTi2JiCYl91jgZHopdUfqvegRSQ40HTl3x6DoKU/6zPfx9v
- jqz8z/TDFWQn74vwTOmd6Plyt92V54gRvi6hEQipXNVmB0wL/QOUm/j8H1QEI3/n+ChtKkibD0W
- 0JThQfi0IZQCDx5JO8TuPzFQSAmNtMwa2Fngg1MGmS7nsiBRY9XrAWSHq7U8SMySQ36fhn3++PS
- jV+jpZ/AJnfcGfvKoX51w==
-X-Received: by 2002:a05:7022:1201:b0:144:fb42:52 with SMTP id
- a92af1059eb24-1b25d31e166mr2771657c88.28.1793975836121; 
- Fri, 06 Nov 2026 06:37:16 -0800 (PST)
-X-Received: by 2002:a05:7022:1201:b0:144:fb42:52 with SMTP id
- a92af1059eb24-1b25d31e166mr2771610c88.28.1793975835251; Fri, 06 Nov 2026
- 06:37:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10D6610E409;
+	Fri,  6 Nov 2026 14:38:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A61110E409
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:38:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7B6BF602D4;
+ Fri,  6 Nov 2026 14:38:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40C71F0089F;
+ Fri,  6 Nov 2026 14:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793975920;
+ bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=TqzkEA0Vv6FiA/EyNHSGPazSRIxmze7NsRy2HS9UFnZLYngP5FU/k984j22IxxLSt
+ G1mXSy3pJUZtcOX0uuCh0BGPfEtKxeqPMH7iMDq1BsZtJcBmY1BE0UVjD6CfBra6HG
+ Ag+Be9z8npxA1OZxTFuN75Ezvh/jqeYPCyuiSOmri16kQEwfLaLejNUSC+x6slW0KF
+ d5QZgMnG4JaXAkKum09Kqzk3Tq66QmT3NfSoU+yNr6XdAc6ce+jld5vFKHTk6MlHvd
+ wjTgR+FYIcW4Gqo/TsLmp3ku1M5OmutAW9+ET0CKcI3MjvK/5ieNg8L0Aw5+JWl32a
+ tAC9Z8tsKdIng==
+Date: Fri, 6 Nov 2026 15:38:37 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <au3fy-xiCqgSTB49@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-11-clamor95@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261106-ubwc-format-docs-v2-0-82949f88f030@oss.qualcomm.com>
- <20261106-ubwc-format-docs-v2-2-82949f88f030@oss.qualcomm.com>
-In-Reply-To: <20261106-ubwc-format-docs-v2-2-82949f88f030@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Fri, 6 Nov 2026 06:37:03 -0800
-X-Gm-Features: AclHuK-nYIdYytSxiDZGvmJ75_P0qcwPygnczJxVB0uKsMZiJo7oTk6OLzODjmg
-Message-ID: <CACSVV01xGvudO4yjFeWzp8zk6wtOaHsEj=sJ=0E_7=wvKfhcdA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/8] drm/msm: separate compressed P010 and P030 (TP10)
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- "Bryan O'Donoghue" <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Robert Mader <robert.mader@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=PLeaavqC c=1 sm=1 tr=0 ts=6aede61d cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=PWnpOtEoW80h80myw98A:9
- a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfX26Fdiu/Iw/j9
- iZBgITiicXzZwUmsjtDjn6NiIzIAs9mloJii0qBLL4KGUzvzIu08vqJYiFjLRQ5GvkfMdbx+O8A
- Rqcbsl7qSBpP7EJdiCpoFz0G/5epu3Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfXxW8u43Gd66ym
- 1YEIg0l7WunsxTmtZPknts4WE9TurmyseN25xjR+7FUKhYDqEAdKxSdPQjK05UqLdBSLzc1AiKN
- EZRQZrob78Ff6Osu0CGWDEebI8r1d1Mc4EeIQ53mJSSQOQfbSBsqWpKy9LldrK+d+ojHW5YFPJ4
- 9VLdlxZ/jQTsS4CaEtGnF9oVaxFxJnynLeNSb6iCU5KkCaCpks3EiWLXLDDLTffb1r2i/VdjaWd
- ppnCE+uhDGJzVN5fkz0tO2VQ3Rr0ZQvRvGvqsGiVuGA3crnICk41HDK60+SxMR35qqBbW3TkoTV
- wU2+mG+bz9jPr6skZ/Y43lnKR22tXIhUcnqjG2CE22uCswFR1Hb/H7IN2rJimw+CQdhDV5ZGu9e
- pBdTFDI2qDHIU653wp0uczvlkvig8u/eYNqGAAxWfxx71KYLlF/Wa2J/5hxFcZgSMx1X1DoEVRI
- 5F8jQ3F2XIjvZBLXK3g==
-X-Proofpoint-GUID: Q_CB58l2v45FwaYd6NRUxtIguzjBMvdT
-X-Proofpoint-ORIG-GUID: Q_CB58l2v45FwaYd6NRUxtIguzjBMvdT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060058
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="bfslmjupan46ngr7"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-11-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,138 +60,364 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 6, 2026 at 5:44=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> The UBWC entry for DRM_FORMAT_P010 is set up for P030 (TP10), three
-> 10-bit samples in each 32-bit word, the layout the video decoders
-> produce for QC10C. It doesn't match P010: compressed P010, as the GPU
-> writes it, keeps 16-bit samples and is scanned out as garbage.
->
-> Use DRM_FORMAT_P030 for that entry, compressed only, as the SSPP can't
-> fetch linear P030, and give P010 its own UBWC entry with 16-bit samples.
->
-> This changes what compressed P010 means. Nothing is known to depend on
-> the old meaning: Mesa and minigbm never allocate it, the vendor stack
-> uses its own modifier bits, and the only user found is a draft
-> GStreamer merge request.
->
-> Fixes: f07c9946cc1a ("drm/msm/dpu: Add support for P010 format")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+--bfslmjupan46ngr7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+MIME-Version: 1.0
 
-This one, in particular, we should pick for -fixes
-
-BR,
--R
-
+On Thu, Nov 05, 2026 at 04:05:10PM +0200, Svyatoslav Ryhel wrote:
+> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+> that closely resembles the MIPI DBI Type B protocol and is referred to as
+> '8-bit CPU'. Each display controller provides two such interfaces, which
+> can be used to send MIPI DCS commands to initialize and control the panel
+> while image data is transmitted via 16/18/24-line RGB.
+>=20
+> The '8-bit CPU', although being the DC interface, is modeled using a
+> bridge framework for flexibility and convenience. This implementation does
+> not change the existing codebase besides registering the bus.
+>=20
+> Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # DC command transf=
+er
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      |  4 +++-
->  drivers/gpu/drm/msm/disp/mdp_format.c          | 13 +++++++++----
->  3 files changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu=
-/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 107150a8553f..f755c0d57abe 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -173,6 +173,7 @@ static const uint32_t plane_formats_yuv[] =3D {
->         DRM_FORMAT_BGRX4444,
->
->         DRM_FORMAT_P010,
-> +       DRM_FORMAT_P030,
->         DRM_FORMAT_NV12,
->         DRM_FORMAT_NV21,
->         DRM_FORMAT_NV16,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_plane.c
-> index 1a471cdf767b..09146023d13e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -68,6 +68,7 @@ static const uint32_t qcom_compressed_supported_formats=
-[] =3D {
->
->         DRM_FORMAT_NV12,
->         DRM_FORMAT_P010,
-> +       DRM_FORMAT_P030,
->  };
->
->  /*
-> @@ -1779,8 +1780,9 @@ static bool dpu_plane_format_mod_supported(struct d=
-rm_plane *plane,
->         struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
->         bool has_no_ubwc =3D (dpu_kms->mdss->ubwc_enc_version =3D=3D 0);
->
-> +       /* the SSPP can only fetch P030 compressed */
->         if (modifier =3D=3D DRM_FORMAT_MOD_LINEAR)
-> -               return true;
-> +               return format !=3D DRM_FORMAT_P030;
->
->         if (modifier =3D=3D DRM_FORMAT_MOD_QCOM_COMPRESSED && !has_no_ubw=
-c)
->                 return dpu_find_format(format, qcom_compressed_supported_=
-formats,
-> diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/=
-disp/mdp_format.c
-> index 33da569eae5e..2712a73e5783 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp_format.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp_format.c
-> @@ -298,8 +298,7 @@ static struct csc_cfg csc_convert[CSC_MAX] =3D {
->         .unpack_count =3D 2,                                             =
-   \
->         .bpp =3D 2,                                                      =
-   \
->         .fetch_mode =3D MDP_FETCH_UBWC,                                  =
-   \
-> -       .flags =3D MSM_FORMAT_FLAG_UNPACK_TIGHT |                        =
-   \
-> -                MSM_FORMAT_FLAG_YUV |                                   =
- \
-> +       .flags =3D MSM_FORMAT_FLAG_YUV |                                 =
-   \
->                  MSM_FORMAT_FLAG_COMPRESSED | flg,                       =
- \
->         .num_planes =3D 4,                                               =
-   \
->         .tile_height =3D th                                              =
-   \
-> @@ -606,13 +605,19 @@ static const struct msm_format mdp_formats_ubwc[] =
-=3D {
->         PSEUDO_YUV_FMT_TILED(NV12,
->                 BPC8, BPC8, BPC8,
->                 C1_B_Cb, C2_R_Cr,
-> -               CHROMA_420, 0,
-> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_TIGHT,
->                 MDP_TILE_HEIGHT_NV12),
->
-> +       PSEUDO_YUV_FMT_TILED(P030,
-> +               BPC8, BPC8, BPC8,
-> +               C1_B_Cb, C2_R_Cr,
-> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_TIGHT | MSM_FORMAT_FLA=
-G_DX,
-> +               MDP_TILE_HEIGHT_UBWC),
+>  drivers/gpu/drm/tegra/Kconfig  |   1 +
+>  drivers/gpu/drm/tegra/Makefile |   1 +
+>  drivers/gpu/drm/tegra/dbi.c    | 576 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/tegra/dc.c     |   4 +
+>  drivers/gpu/drm/tegra/dc.h     |   3 +
+>  5 files changed, 585 insertions(+)
+>  create mode 100644 drivers/gpu/drm/tegra/dbi.c
+>=20
+> diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+> index 8a3b16aac5d68..6f57fd3985edc 100644
+> --- a/drivers/gpu/drm/tegra/Kconfig
+> +++ b/drivers/gpu/drm/tegra/Kconfig
+> @@ -12,6 +12,7 @@ config DRM_TEGRA
+>  	select DRM_BRIDGE_CONNECTOR
+>  	select DRM_DISPLAY_DP_AUX_BUS
+>  	select DRM_KMS_HELPER
+> +	select DRM_MIPI_DBI
+>  	select DRM_MIPI_DSI
+>  	select DRM_PANEL
+>  	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
+> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
+ile
+> index e399b40d64a1d..ae7fccb3d6421 100644
+> --- a/drivers/gpu/drm/tegra/Makefile
+> +++ b/drivers/gpu/drm/tegra/Makefile
+> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
+>  	hdmi.o \
+>  	mipi-phy.o \
+>  	dsi.o \
+> +	dbi.o \
+>  	sor.o \
+>  	dpaux.o \
+>  	gr2d.o \
+> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
+> new file mode 100644
+> index 0000000000000..32d390f64ddbd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tegra/dbi.c
+> @@ -0,0 +1,576 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Nvidia Tegra20/30 MIPI-DBI Type B host driver
+> + *
+> + * Copyright (C) 2026 Svyatoslav Ryhel <clamor95@gmail.com>
+> + */
 > +
->         PSEUDO_YUV_FMT_TILED(P010,
->                 BPC8, BPC8, BPC8,
->                 C1_B_Cb, C2_R_Cr,
-> -               CHROMA_420, MSM_FORMAT_FLAG_DX,
-> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB | MSM_FORMAT=
-_FLAG_DX,
->                 MDP_TILE_HEIGHT_UBWC),
->  };
->
->
-> --
-> 2.47.3
->
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/kernel.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/property.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/string.h>
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_mipi_dbi.h>
+> +#include <drm/drm_mipi_dbi_bus.h>
+> +#include <drm/drm_of.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include "dc.h"
+> +
+> +enum tegra_dbi_dc_signal {
+> +	TEGRA_DBI_COMMAND,
+> +	TEGRA_DBI_DATA
+> +};
+
+These look like register offsets for sending DBI commands, so maybe just
+use defines for them?
+
+> +
+> +enum tegra_dbi_iface {
+> +	TEGRA_DBI_INTERFACE_PRIMARY,
+> +	TEGRA_DBI_INTERFACE_SECONDARY,
+> +	TEGRA_DBI_INTERFACE_MAX
+> +};
+
+The only place where this seems to be used is in the definition of the
+two interfaces. But in those cases PRIMARY and SECONDARY match the index
+into the array and MAX is the size of the array, which can be determined
+dynamically. Drop this.
+
+> +
+> +#define TEGRA_DBI_DATA_PINS_MAX			8
+> +#define TEGRA_DBI_DEFAULT_BUS_WIDTH		24
+> +
+> +struct reg_entry {
+> +	u32 offset;
+> +	u32 value;
+> +};
+> +
+> +static const u32 tegra_dbi_pin_regs[] =3D {
+> +	DC_COM_PIN_OUTPUT_ENABLE(0),
+> +	DC_COM_PIN_OUTPUT_ENABLE(1),
+> +	DC_COM_PIN_OUTPUT_ENABLE(2),
+> +	DC_COM_PIN_OUTPUT_ENABLE(3),
+> +	DC_COM_PIN_OUTPUT_POLARITY(0),
+> +	DC_COM_PIN_OUTPUT_POLARITY(1),
+> +	DC_COM_PIN_OUTPUT_POLARITY(2),
+> +	DC_COM_PIN_OUTPUT_POLARITY(3),
+> +	DC_COM_PIN_OUTPUT_DATA(0),
+> +	DC_COM_PIN_OUTPUT_DATA(1),
+> +	DC_COM_PIN_OUTPUT_DATA(2),
+> +	DC_COM_PIN_OUTPUT_DATA(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(0),
+> +	DC_COM_PIN_OUTPUT_SELECT(1),
+> +	DC_COM_PIN_OUTPUT_SELECT(2),
+> +	DC_COM_PIN_OUTPUT_SELECT(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(4),
+> +	DC_COM_PIN_OUTPUT_SELECT(5),
+> +	DC_COM_PIN_OUTPUT_SELECT(6),
+> +};
+> +
+> +struct tegra_dbi_priv {
+> +	struct device *dev;
+> +	struct tegra_dc *dc;
+> +
+> +	struct mipi_dbi dbi;
+> +	struct mipi_dbi_host dbi_host;
+> +
+> +	struct drm_bridge bridge;
+> +	struct drm_bridge *next_bridge;
+> +
+> +	const struct tegra_dbi_interface *interface;
+> +	struct reg_entry com_pin_backup[ARRAY_SIZE(tegra_dbi_pin_regs)];
+
+You can just make this a u32 array since you're always iterating over
+that tegra_dbi_pin_regs array anyway and can get the offset from there.
+No need to duplicate that data into another set of variables.
+
+[...]
+> +static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct tegra_db=
+i_pin *pin, bool value)
+> +{
+> +	u32 val =3D BIT(pin->pos + 1); /* unmask is 1 bit above position */
+> +
+> +	if (value)
+> +		val |=3D BIT(pin->pos);
+> +
+> +	tegra_dc_writel(dc, val, pin->reg);
+> +}
+
+So the PIN_UNMASK exists for all registers. In that case, the definition
+should probably not be intermixed like it was in that header "refactor
+and expand" patch.
+
+> +
+> +static void tegra_dbi_write(struct tegra_dbi_priv *priv,
+> +			    enum tegra_dbi_dc_signal signal, u8 value)
+> +{
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	const struct tegra_dbi_interface *interface =3D priv->interface;
+> +
+> +	tegra_dbi_pin_set(dc, &interface->dc, signal);
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 0);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 0);
+> +
+> +	for (int i =3D 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
+> +		tegra_dbi_pin_set(dc, &interface->data[i], field_get(BIT(i), value));
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 1);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 1);
+> +
+> +	udelay(10);
+
+Umpf... I guess we're effectively bit-banging here, but a udelay() here
+is potentially a lot of spinning time. If I recall correctly this can
+end up being called a lot, on the order of 100 or so times during panel
+initialization.
+
+> +
+> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	u32 value;
+> +
+> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
+> +	value &=3D ~DISP_CTRL_MODE_MASK;
+> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
+> +
+> +	/* Disable all options except cursor if enabled */
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
+> +	value &=3D CURSOR_ENABLE;
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
+> +
+> +	tegra_dc_commit(dc);
+> +
+> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
+> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
+> +
+> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
+> +
+> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
+> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
+> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
+> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
+> +
+> +	/* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
+> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
+ATA_A);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
+> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
+> +
+> +	/* Set LDC pin to V Pulse 1 */
+> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
+> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
+> +
+> +	value =3D SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
+> +		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
+> +	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+> +
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
+> +	value &=3D ~BASE_COLOR_SIZE_MASK;
+> +
+> +	switch (priv->bus_width) {
+> +	case 16:
+> +		value |=3D BASE_COLOR_SIZE_565;
+> +		break;
+> +	case 18:
+> +		value |=3D BASE_COLOR_SIZE_666;
+> +		break;
+> +	case 24:
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	default:
+> +		WARN(1, "%u bus width not supported\n", priv->bus_width);
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	}
+> +
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
+> +
+> +	/*
+> +	 * Backup registers before unshadowing since actual register values
+> +	 * may differ and their state backed up now is the correct one.
+> +	 */
+> +	for (int i =3D 0; i < ARRAY_SIZE(tegra_dbi_pin_regs); i++)
+> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
+> +			priv->com_pin_backup[i].offset);
+> +
+> +	/* Unshadow to set up command and data pins */
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	if (priv->interface->interface)
+> +		tegra_dbi_init_secondary_interface(priv);
+> +	else
+> +		tegra_dbi_init_primary_interface(priv);
+
+Maybe hook this into priv->interface directly using a .init() callback.
+That way you don't need to branch based on interface index here.
+
+[...]
+> +int tegra_dc_dbi_probe(struct tegra_dc *dc)
+> +{
+> +	struct device *dev =3D dc->dev;
+> +	struct device_node *dbi_np __free(device_node) =3D
+> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
+> +	struct mipi_dbi_device *dbidev;
+> +	struct tegra_dbi_priv *priv;
+> +	struct device_node *np;
+> +	u32 reg;
+> +	int ret;
+> +
+> +	/* Missing node means that DBI is not used, continue DC probe */
+> +	if (!dbi_np)
+> +		return 0;
+
+Maybe this should have an extra check to see if dbi_np is available.
+That would help create this node in a DTSI file and just keep it
+disabled by default.
+
+> +
+> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
+> +				     &tegra_dbi_funcs);
+> +	if (IS_ERR(priv))
+> +		return PTR_ERR(priv);
+> +
+> +	priv->dc =3D dc;
+> +	priv->dev =3D dev;
+> +
+> +	ret =3D of_property_read_u32(dbi_np, "reg", &reg);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get reg\n");
+> +
+> +	if (reg !=3D 0 && reg !=3D 1)
+> +		return dev_err_probe(dev, -EINVAL, "Wrong reg value: %d\n", reg);
+
+Maybe sort these before the call to devm_drm_bridge_alloc()?
+
+Thierry
+
+--bfslmjupan46ngr7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt5msACgkQ3SOs138+
+s6HbVA/+Irze+1lgUBGNGoqgvX6eTzI5eAKi5CDyxwOvFOj2ceKp6ymnZ1d7jDvP
+FKC/P5Oy0uizKDGpl2KLQ1vt9VwPpNIj6MsUe1wLzSyQbRoFOULt/pcJArd+peZa
+N6pw+4kp91kyCVJ35aDl2BOntlDP7HltoDPkp2IkxINm43e167aQqDfOrqNycl46
+3TCaCum2+AidUfE2vIYqMkpPnLO8jJVDy6dExkgX9JYTFDrBQ418R6GGAb81HlSQ
+L+otESxpgz8INwiRHv0p121Bo4tCPI3N1qTgXBDQHPgLCB/SlkznF9MpHfg/7502
+v6UQo/Sto4n41S+lG/8NXv8GiRh/ydZyZ3TEBQZ9+u/HT9mGmM14dKFR36CPVGbr
+g9mKNrectQMVYs1Bdo6AT3U+z4NTr5u3yxQygDgSQSMotzFrp4K0B72ozq27aTw8
+1kZj8OpdJ5bVwZiiluwKpVhbfGtgbbIBAg8QS8Zej4P/q0x6nRidwflWplILvFKy
+eoArEGgOLnbiPHS1VNTpTrL54wou151WA2mlvvhN63V+Viqpfptk9FfyjiB89rhW
+jCrk7UQgnEwHL4h4j3LY3wRlquEAFyFE7CA65CSEhhaOiqSZaqFUIIVorkKsytRk
+4gsS8zUz9OslndEa0caVrPbd3rhDdMMZv9HB4fuJPOHcPpYEekM=
+=vBTH
+-----END PGP SIGNATURE-----
+
+--bfslmjupan46ngr7--
