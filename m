@@ -2,87 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E58606A32E
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:27:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C35606A32F
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DHVKiFL2
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WpWTbD5O
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4784D10E634;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADC510E633;
 	Sat,  7 Nov 2026 14:27:51 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E83A510F2A9
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 11:22:46 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-49134c8509fso462421f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 03:22:46 -0800 (PST)
+X-Greylist: delayed 545 seconds by postgrey-1.36 at gabe;
+ Fri, 06 Nov 2026 10:07:01 UTC
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com
+ [111.22.67.151])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D2FF7112BC0
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964165; x=1794568965;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
- b=DHVKiFL2pVrg1KyYae8ETNyuWb+reEHBjgjX7AsN5kberYlJpJ6REUtIfJNZgKJmoD
- tURZ2A32fC926KzqD9ACcB2YDhB6WOAzfOgb/yTMBdEzvTcVQDxmFrEOV0Ji49lDXobs
- cACHhWLLF8m4/iX8WjIUVl5U3/oG4mUh6Jg/oSu6drRYVS2b0RZVeWe8CIBdBNxmGElG
- XioHBtAfDIvNnyfKG5oKsgCfRIq4PwHLQPV803rIslE7X0wqDtJykD4LvHWuccU6td8T
- cIDvSE0xLnQrYpeaT/GIVgwasGtmPaqtB/Hs3ThW19R/MFsCE+1PdP7lbD8gDV8qN5RO
- 3ryg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793964165; x=1794568965;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
- b=UTrWuYBpSq6FzP2RbOrXYuxj6iuuUBiXJAg1AO0BVUb62WLs63IvRJlgYv1BK2UU/R
- 4tmNAXJa6pJYBYF4P+UdYkQlBV51X260TdBAP6V8zWxkrtZi8lN5UQ+Fh7tsbbtk98a0
- eO1DINGwuMR74s0YvgijgGMLd4yrxcGbgJXGyaoRBcOyVeXz6snZDObZVC4N6i9KVUDh
- Gg8UqBvFyf4UVb9Aa+dc380WFuTdaFB6Vi3ZCGeiXLQViEkdUa3ikb/1HIqmugtHniw0
- 1egZjgMl0W/lZz7lRER1TWvtQ1mCaUSwCFCcSQ3isUFbzaz4MmMhcB2q6959Z70CNrai
- tGVA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFUWXFcTwM4QkT4NMdMh3cZO53s2OHqZkV+nP4peqiGEUjMcSmOTOVrpAcSmuZqkhtH97PTISlNI7U=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8uP0nqNJVHhh2iOFN31sQkUZ5n/YLiy8yX6LaqUPo+1TalIqL3
- cRqrklfVQjLUaKD9q3Svn05YxJIDWrJ5GSxOloVrg3aZlskaOR0mG2v4UqjFzto5UWk=
-X-Gm-Gg: AYBFou2YvhENEeEFHyH3/7JFya0xnPB6SjBmdQY0/ucU6aq11BtGpwibEHFIVmIp40n
- +3pd0bojsYPCQxqmAU0U9j+AnoBGzpfgcqznJ6XcAJmNgzZNOylMIA5fyKA3FD5SfNF3YKqvA7f
- CT0tkSl1yqq95LIGiHQKnSvvjoF/g+ytFJl68mG58u2Y/w2ygxBhgIP3kxbb1JOdPRpFToGFs6D
- 5dpDJkmYkPkwbkW6gZfbmqDBvxPMaRUxXNohTcbnM6xf+MPVOnvADImpMr8XYUJBRmmIAEksTUc
- Rymfd7jZZmTxTKG///fFFz21yhGA99nQ69XtXDNmmAr3v0Yus4Oo5ODfhy/5h7dmwShe1bBKX5m
- 4Aml8oS+VO84/bp8mCOzHtvapGBx5aIptGYrRJhrWVXr93iQWuyvj8z92Lj4nktBud+IHRHiUjP
- hOAXhyeoshM0nUS35qWdbg3on0mCupna8bFV0etfXqBekcOY8Tul3JlP/cZH53b8K4LipNOMLje
- QGF2moeRG/vh7Oaymdh/6Qkt4IJbfiY+OTngu3/l5b8s5et2TqnHN07rbIQLmAIoyN/VNYI5rBZ
- lvZwdyev6DtvsnQsvItk9Be95rgT2AJ62SwGO7oSVfZLkxDlWkrFwjho1bDxNGwDG1IChJ04NRa
- 8/XFfv1rq
-X-Received: by 2002:a05:6000:1861:b0:493:803e:800f with SMTP id
- ffacd0b85a97d-493803e802cmr669893f8f.29.1793964165187; 
- Fri, 06 Nov 2026 03:22:45 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-493070bde9bsm2890244f8f.36.2026.11.06.03.22.44
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 06 Nov 2026 03:22:44 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ d=cmss.chinamobile.com; s=default; l=0;
+ h=from:subject:message-id:to:cc:mime-version;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=WpWTbD5O+I1qBhYxRhUoMwr1RkpnWbPp8QK3mp15S6j5u5W9JrH61xHYTQ/62/f7bX8/zwpYXkPR8
+ /whB4ZNaXWb0dRbCdwgBtc9OYRUH8k57P7iTI7rbtLzjOwXxFyjpUUv0tfkLeQGWomy8uHRRojfx2X
+ R4+l3kVYvrgHB/v0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
+ by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeda49dfc8-7d9e6;
+ Fri, 06 Nov 2026 17:57:49 +0800 (CST)
+X-RM-TRANSID: 2ee66aeda49dfc8-7d9e6
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[10.55.1.72])
+ by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aeda49bbde-1be40;
+ Fri, 06 Nov 2026 17:57:48 +0800 (CST)
+X-RM-TRANSID: 2ee76aeda49bbde-1be40
+From: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-Date: Fri,  6 Nov 2026 12:21:28 +0100
-Message-ID: <20261106112128.14213-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
-References: <20261025191640.13592-3-olivier@mgcrea.io>
- <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
+Cc: tongzhiwei@cmss.chinamobile.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/syncobj: Fix fence and syncobj leak on
+ dma_fence_chain_alloc failure
+Date: Fri,  6 Nov 2026 17:57:20 +0800
+Message-ID: <20261106095730.166-1-tongzhiwei@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.45.0.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -98,48 +61,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Nikolaus,
+NOTE: this commit is worked by llm completely
 
-On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
-> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
-> documentation identifies this block as the "DPU (Display Processing Unit)
-> Display Controller" (located at base address 0x13050000 on all three SoC).
-[...]
-> Please update the compatible string to "ingenic,x1600-dpu" (with "ingenic,dpu"
-> as the fallback) and rename the file to ingenic-dpu.c to reflect that this is
-> a scalable DPU driver not limited to "LCD".
+In drm_syncobj_import_sync_file_fence(), when point is non-zero and
+dma_fence_chain_alloc() returns NULL, the function returns -ENOMEM
+without releasing the fence reference (obtained via sync_file_get_fence)
+or the syncobj reference (obtained via drm_syncobj_find).  Both
+references are permanently leaked.
 
-Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
-DPU too in its register and clock names, and when I checked the driver
-against the X2000 manual it came out as the X2000's DPU without the
-composer.
+Add dma_fence_put(fence) and drm_syncobj_put(syncobj) before returning
+-ENOMEM on the allocation failure path.
 
-No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
-compatibles rather than family names, so an X2000 would be
-ingenic,x2000-dpu, with the X1600's as its fallback if its registers
-allow.
+Assisted-by: LLM
+Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+---
+ drivers/gpu/drm/drm_syncobj.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The driver keeps its file name for now. It only drives what the X1600
-has and what I can test (parallel RGB from one plane), so the split
-between the core and the interfaces, and the X2600's rotation, is better
-shaped by whoever adds the X2000 with a board to test it on.
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index f1d4da168545..1825055e9b54 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -743,8 +743,11 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+ 	if (point) {
+ 		struct dma_fence_chain *chain = dma_fence_chain_alloc();
+ 
+-		if (!chain)
++		if (!chain) {
++			dma_fence_put(fence);
++			drm_syncobj_put(syncobj);
+ 			return -ENOMEM;
++		}
+ 
+ 		drm_syncobj_add_point(syncobj, chain, fence, point);
+ 	} else {
+-- 
+2.43.0
 
-> However, this approach triggered a kernel lockup during boot
-> right after successfully running lg35583_get_modes().
 
-I can't reproduce it here, the R1 comes up with its panel at every boot
-(with v3 again today). With nothing on the pins I don't know yet where
-it would hang. If you get a log of it (the last lines with
-initcall_debug) I'll have a look.
 
-v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
-
-Thanks for the review,
-Olivier
