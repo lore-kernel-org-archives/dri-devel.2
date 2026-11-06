@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6722606A32E
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C2D606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjQO15OU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYtohhFS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E91710E4FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEB3410EA08;
 	Fri,  6 Nov 2026 13:15:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3962410EA07
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3E810E4FE
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B10C3605DE;
- Fri,  6 Nov 2026 13:15:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7E41F0089F;
- Fri,  6 Nov 2026 13:14:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2D92C42488;
+ Fri,  6 Nov 2026 13:15:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872AA1F0089F;
+ Fri,  6 Nov 2026 13:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970900;
- bh=Zr8TzRGaHcMF6ELnnCUbqOOdckHDHJI0PUDDdv10xoM=;
+ s=k20260515; t=1793970904;
+ bh=Tzzi+q72iXHiFsz8ENn2h2L3JLnJA5jqNgcq6rFSyUw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HjQO15OU+RJZQ8wQQGGhgvVg6BFsTXAzrXWohD9QotVPWh91MYUQDp79caws2/LRR
- fcSzjy/HnjJeP33D1y4cyF/a9A3WJ7+cT9HH1nD2C1XUvJYuEpF+Htvk0XklXvs2iM
- TmhZqIiWJQh04l97Tz81HpSRKwrTHgtRQUoThm0imKlR6E11pIVOegARFezXkydM43
- GzSpnebeHDI8xT0zmuFNKDqqEF+wYcVgkFInO1pY3SLzKdxjJtcXNNV+nqdq2Mp4P4
- A+UOxNvigUJ37Lr/CMEZcHAT8WKLsr2JmtcVTUTbWJvfvmFEuAPz21Atj0VBTcn0dV
- 9fv5p6FK4EqfQ==
+ b=TYtohhFS9VJPX+Pm1oyiHU7RsiPopwWByBZYe+zkgrKoyUXDXn+XW8rC82JCmdN4F
+ vd69Jl/eVueyFuQR3m2HfT6qNCIOons8/6K0mQgTLsYVqRZcz53tT6XaCjcJbryvkS
+ jblE2PKYvLxp6uCwU3PiZcjVGPX95RCOMKjKpbkBziwsImvQgJ/DbicmCu6FOt6c9h
+ /16UG9TAiBfkUAPN+tLW8LadO92HFdb2EvhbGsmJ87/sTdUliVRTU36eB66KqvvHvX
+ g/HEZsiR4QnT9UizMU44Tb6ZOdtQva+AW/Ik8JRdc6n+/8bXRsr/LQ7KXrTHp2d9gW
+ Uj3L4yBpnKJmw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:18 +0100
-Subject: [PATCH v8 05/39] drm/colorop: Export
- drm_atomic_helper_colorop_create_state()
+Date: Fri, 06 Nov 2026 14:14:19 +0100
+Subject: [PATCH v8 06/39] drm/atomic: Fix private obj error handling
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-5-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-6-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,14 +46,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=901; i=mripard@kernel.org;
- h=from:subject:message-id; bh=isUMppVXT92BwDU1OuSl015x+kzbbovU361R8zhyhco=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL62/v/rEph+d57gnFbE1OokzaGf+6vH/FlXIc/fMs
- vj31c3vOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEusIZG97+6rWK9hHa7bzG
- NtBf8Fty/d1AdZd0j6fn1z1jmhEXek0gdDbj6m2eS8/csn+5KphzFmN9ap/4sWVvJKpebX2et3B
- KbFv2vV/nQvjnb7o293uWWP6189J7WVTPhO/3813q4r/43oEdAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2525; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=F2D3zpePnzO3XHf2BSurzq6EE6ySG8V0m2MGQaeHwvU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL62XPRw2u/zRIrfYF3HTuyZFvGfdMK0q3OHs3tlOJ
+ 32b3nq3dExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJzLvK2DDjp5P9wsCp1W1d
+ PtJr5+35NrlULLYr6TXDXbfg42xnfbNa8r2Pf83tUJtb1rdF6465F2OtBOuM/Hk1918pc87zYLo
+ mvkdm51m+xQeNQxqjEt57yqX7HJqd4sBgLftv+m1L4Z87dqQBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,30 +75,81 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_helper_colorop_create_state() is only called by
-drm_mode_config_create_state(), which lives in the same module, so it
-never needed to be exported.
+drm_atomic_private_obj_init() initializes the modeset lock and adds the
+object to the privobj_list before calling atomic_create_state().
 
-The atomic state readout helpers we'll introduce call it
-from drm_kms_helper to allocate the colorop states. Without the
-export, building the kernel with CONFIG_DRM_KMS_HELPER=m fails at
-modpost with an undefined symbol.
+However, if atomic_create_state() fails, the function returns the error
+directly without removing the object from the list or cleaning up the
+lock. This leaves a dangling entry in privobj_list and a leaked lock.
 
+Fix this by unwinding both operations in an error path.
+
+Fixes: b962a12050a3 ("drm/atomic: integrate modeset lock with private objects")
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_colorop.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_atomic.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 95da03d6c65c..319557d1436f 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -649,4 +649,5 @@ drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop)
- 	return state;
- }
-+EXPORT_SYMBOL(drm_atomic_helper_colorop_create_state);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..a1f18fc96b4c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1063,6 +1063,15 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
+ {
+ 	struct drm_private_state *state;
++	int ret;
++
+ 	memset(obj, 0, sizeof(*obj));
  
- /**
++	/*
++	 * Keep the list node in a state drm_atomic_private_obj_fini()
++	 * can safely handle if we fail before adding it to the private
++	 * objects list.
++	 */
++	INIT_LIST_HEAD(&obj->head);
++
+ 	drm_modeset_lock_init(&obj->lock);
+ 
+@@ -1072,10 +1081,17 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
+ 
+ 	state = obj->funcs->atomic_create_state(obj);
+-	if (IS_ERR(state))
+-		return PTR_ERR(state);
++	if (IS_ERR(state)) {
++		ret = PTR_ERR(state);
++		goto err_list_del;
++	}
+ 
+ 	obj->state = state;
+ 
+ 	return 0;
++
++err_list_del:
++	list_del_init(&obj->head);
++	drm_modeset_lock_fini(&obj->lock);
++	return ret;
+ }
+ EXPORT_SYMBOL(drm_atomic_private_obj_init);
+@@ -1090,5 +1106,16 @@ void
+ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
+ {
+-	list_del(&obj->head);
++	/*
++	 * Some callers ignore drm_atomic_private_obj_init() failures
++	 * and unconditionally register a teardown action that calls
++	 * this function. Use list_del_init() rather than list_del() so
++	 * that calling drm_atomic_private_obj_fini() twice, after both
++	 * a failed and a successful drm_atomic_private_obj_init(),
++	 * remains safe.
++	 */
++	if (list_empty(&obj->head))
++		return;
++
++	list_del_init(&obj->head);
+ 	obj->funcs->atomic_destroy_state(obj, obj->state);
+ 	drm_modeset_lock_fini(&obj->lock);
 
 -- 
 2.55.0
