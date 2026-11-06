@@ -2,52 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18694606D83B
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83E9606D82B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4DB112C8A;
-	Fri,  6 Nov 2026 09:20:38 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4E6112C80
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 09:20:14 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowAAXJpfGm+1qoTlrAA--.5294S2;
- Fri, 06 Nov 2026 17:20:06 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: mcanal@igalia.com,
-	airlied@gmail.com
-Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
- kernel-list@raspberrypi.com, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
-Date: Fri,  6 Nov 2026 09:20:16 +0000
-Message-Id: <20261106092016.2282805-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
-References: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC01112C8E;
+	Fri,  6 Nov 2026 09:20:40 +0000 (UTC)
+Received: from smtp4.hiworks.co.kr (smtp4.hiworks.co.kr [121.254.168.203])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B41A3112623
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:50:03 +0000 (UTC)
+Received: from hi-smtp-node1 (unknown [172.18.0.2])
+ by smtp4.hiworks.co.kr (Postfix) with ESMTPS id 4jLSjw6swDzcNXX1
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:42:12 +0900 (KST)
+Received: from hi-smtp-node1 (unknown [192.168.71.54])
+ by hi-smtp-node1 (Postfix) with ESMTP id 4jLSjw6SKvzQLZQW
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:42:12 +0900 (KST)
+Received: from hi-total-node5
+ (amphora-3294b420-308a-4b9e-8a1d-bf25580dae1f.openstack.gabia.io)
+ by hi-smtp-node1 with ESMTP id zyxinvyvissmapbb;
+ Fri, 06 Nov 2026 14:42:12 +0900 (KST)
+X-Authinfo: HIWORKS SMTP authenticated
+ <nirvanah@nirvanahyj.com|114.203.237.180|nirvanah@nirvanahyj.com|261106144212_6581351674>
+X-Hiworks-Remote-IP: 114.203.237.180
+X-Hiworks-User: (SASL_USER) nirvanah@nirvanahyj.com
+X-MailFrom-INFO: <country_code:KR|rbl_level:0>
+Received: from localhost.localdomain (unknown [114.203.237.180])
+ (Authenticated sender: nirvanah@nirvanahyj.com)
+ by hi-total-node5 (Postfix) with ESMTPSA id 4jLSjt5KQTzSqYc4;
+ Fri,  6 Nov 2026 14:42:10 +0900 (KST)
+From: Young-Jun Hong <nirvanah@nirvanahyj.com>
+To: 
+Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+ Alexey Sheplyakov <asheplyakov@basealt.ru>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>, Rob Herring <robh@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Simona Vetter <simona@ffwll.ch>,
+ Stephen Boyd <sboyd@kernel.org>, Steven Price <steven.price@arm.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "Vadim V. Vlasov" <vadim.vlasov@elpitech.ru>, Will Deacon <will@kernel.org>
+Subject: [PATCH 0/4] Exynos 5422: Mali-T628 GPU compute fixes
+Date: Fri,  6 Nov 2026 14:41:47 +0900
+Message-ID: <20261106054210.2893230-1-nirvanah@nirvanahyj.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowAAXJpfGm+1qoTlrAA--.5294S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZry3WrW8Ww4kZwb_yoW5JryUpF
- 43GFWYyrWDGrWfK3y0yr4kZFySyan3JrWfCry8u3Z5Cr1rArykJry0y39YgryUAFW8J3W3
- GFnxtr1xJF1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
- cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
- AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
- 6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
- W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
- WUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
- xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s
- 026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
- JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
- v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
- j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
- 0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZSdgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtlCIdSAAAso
+X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,76 +71,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The firmware reference taken via rpi_firmware_get() is leaked when
-either of the devm_clk_get() calls for the core or display clocks
-fails, as both error paths return without releasing it.
+These patches make the Mali-T628 MP6 GPU of the Exynos 5422 (Samsung
+ARTIK 10, also Odroid-XU3/XU4) usable for OpenCL compute with panfrost
+and Mesa Rusticl. They touch three subsystems and can be taken
+independently:
 
-Fix it by moving the firmware lookup below the clock lookups, so that
-the reference is taken right before the firmware property is read and
-released immediately afterwards.  The rpi_firmware_find_node() call
-moves with it: the device node reference it returns would otherwise be
-leaked by those same error paths.
+  1/4 iommu: the GPU is not cache coherent on this SoC; its LPAE page
+      tables must use inner shareable, or the first large GPU buffer
+      after boot hangs the SoC.
+  2/4 clk: VPLL rates for GPU operating points above 600 MHz. The
+      ARTIK 10 device tree is not in mainline, and the mainline 5422
+      boards stop at 600 MHz; they can use these rates once higher
+      OPPs are added.
+  3/4 drm/panfrost: the job affinity names only the shader cores that
+      are powered.
+  4/4 drm/panfrost (RFC): power both core groups and let a job opt in
+      to all of them; the L2 caches of the two groups are not coherent,
+      so the default stays on the first group.
 
-The candidate was found by our static analysis tooling, and this change
-was prepared with assistance from DeepSeek-V4.1-Flash and GPT-6.1-Sol.
+1-3 were tested on the board (Linux 6.12.55 based) and cross-compiled
+on 7.4-rc1. 4 is compile-tested on 7.4-rc1; the same logic, ported to the
+board's 6.12-based panfrost module, was tested with the matching Mesa
+change: jobs without the flag stay on the first group, jobs that opt in
+use all six cores, and global atomics stay correct.
+Background, test programs and results:
+https://github.com/nirvanahyj-com/mali-t628-opencl/tree/v1
 
-Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
-Cc: stable@vger.kernel.org
-Suggested-by: Maíra Canal <mcanal@igalia.com>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Sorry for the very late reply, and thanks for the review.
-- Move the firmware and device node lookups below the clock lookups
-  instead of adding rpi_firmware_put() to the two error paths, as
-  suggested by Maíra.
-- Link to v1: https://lore.kernel.org/all/20260916154137.2058618-1-vulab@iscas.ac.cn/
----
- drivers/gpu/drm/vc4/vc4_hvs.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+The analysis, the code and the changelogs were produced with Claude Code
+(Anthropic), a coding assistant.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index b1fb096858cc..537aaa992129 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1677,15 +1677,6 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 		struct device_node *node;
- 		unsigned int max_rate;
- 
--		node = rpi_firmware_find_node();
--		if (!node)
--			return -EINVAL;
--
--		firmware = rpi_firmware_get(node);
--		of_node_put(node);
--		if (!firmware)
--			return -EPROBE_DEFER;
--
- 		hvs->core_clk = devm_clk_get(&pdev->dev,
- 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
- 		if (IS_ERR(hvs->core_clk)) {
-@@ -1700,6 +1691,15 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 			return PTR_ERR(hvs->disp_clk);
- 		}
- 
-+		node = rpi_firmware_find_node();
-+		if (!node)
-+			return -EINVAL;
-+
-+		firmware = rpi_firmware_get(node);
-+		of_node_put(node);
-+		if (!firmware)
-+			return -EPROBE_DEFER;
-+
- 		max_rate = rpi_firmware_clk_get_max_rate(firmware,
- 							 RPI_FIRMWARE_CORE_CLK_ID);
- 		rpi_firmware_put(firmware);
+Young-Jun Hong (4):
+  iommu/io-pgtable-arm: use inner shareable for Mali LPAE on a
+    non-coherent GPU
+  clk: samsung: exynos5420: add VPLL rates for 650, 700 and 750 MHz
+  drm/panfrost: only put powered shader cores in the job affinity
+  drm/panfrost: let jobs opt in to all core groups
+
+ drivers/clk/samsung/clk-exynos5420.c    |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_drv.c |  7 ++++++-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c | 25 +++++++++++++++----------
+ drivers/gpu/drm/panfrost/panfrost_gpu.h |  2 ++
+ drivers/gpu/drm/panfrost/panfrost_job.c | 10 ++++++----
+ drivers/iommu/io-pgtable-arm.c          |  7 +++++++
+ include/uapi/drm/panfrost_drm.h         | 10 ++++++++++
+ 7 files changed, 49 insertions(+), 15 deletions(-)
+
 -- 
-2.34.1
+2.47.3
 
