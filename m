@@ -2,88 +2,158 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516AE606A32D
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 02:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC141606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 02:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/LN3arJ
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IQa7CsP3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEDD112926;
-	Fri,  6 Nov 2026 02:34:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32091128CA
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 02:34:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9C26D43F47;
- Fri,  6 Nov 2026 02:34:50 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793932490;
- b=HdMm2dLTY5Ks94+Ncz66SAD0npfEiydNKdEmkAIpBU88mULMYj/dzPuFAOfsJBlWqT9H
- z1uFfumYS+2pg89rkEPBXo2yH/zVArVT7S9bZXMFI03PL6yajAfbhGuHfGnQwrmcYnizg
- ydnet5JTvC7tH8BJSc7ROp83o6IIhE12WGYb1muDuqOpBXFWnBjg6BnOT0wVl9riSItR0
- U/utGVyA5ksyzQPexyMHFCTorsDIU9k0htP0anIKSy9PQl3NX0FjQYaDL/zN/mS0kGv3g
- WDUwirfJkrRkyy+fnOp9d7an+X0rrmBvL4MhsMQVQwNe7BqNuKce1m2QA/4pDyWnSRQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793932490;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=xq62zx5yVHkVggUmX53KY26xFQzHYpdFmxuccXV3Z8o=;
- b=ztOsFjOHypIiTRRr0cTn80JN6WmReX3b20Z9hUPDVO7kLSF9oYuOmyQHfqCpeXI75aef
- Q0F7cvJOt5M3Ss5ytdrIqep/ceorIRgkUzjVEPTXUHu9tPuI2FqNI5wouiQl02s5ZgMal
- 2YtpIsMj2cCLPTYIhVpdIayi0eRvi3G0sAYcYp2TcsaUg5ML2TR5U3QJFFUz5LwRcMiNz
- PsfNGgrdAH37JD38k5epj+5jip6P9Pa3vnXcCh+aZvoNTr2FjM5rhAZ8dGFrWnv1K2Fxc
- QCGp800JDdx1nyLOBXvYd8Hq2MrBEx85hZ0n/NDmynnb3y93meLcVtZ5CafvTESBw+w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 75FCC1F008A4;
- Fri,  6 Nov 2026 02:34:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793932490;
- bh=xq62zx5yVHkVggUmX53KY26xFQzHYpdFmxuccXV3Z8o=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=j/LN3arJMbGr0soV42fBETLslJahysTMCJXHhj2M/g5D0j4qnrtPvlUdcFrcLg/YS
- d6Mo8AOLc/Jzsrdl2dB6GIWnZExEMnMtSgKFEuv07leC2nSxrv2rnPFCc8KnuaO0E/
- zZzhBgSj6I05qg05bvhf4KlKZ8tIDdaKq580sxbgBbDLcNCIak5xDtt8wQXFLHizxL
- Q+bWbkcDkaOyP1FNGBOkrGkAUns2SPf719bl3KWRSsjw0FlmV13zOqPzU+2YZxFiJ0
- ipuTsRVBUqLqjkzogiMRcCU5hjARRhl1a3ro6UOXpLcyOsIAGePvo7vABlCFbxAS+w
- 24Fh5eORImyAA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 01CDA45B68;
- Fri,  6 Nov 2026 02:34:44 +0000 (UTC)
-From: Angel Gabriel Crispin Valdivia via B4 Relay
- <devnull+angelcrispinvaldivia.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 21:34:35 -0500
-Subject: [PATCH RFC 3/4] drm/fl2000: Add frame streaming
+	by gabe.freedesktop.org (Postfix) with ESMTP id D04BE112BD5;
+	Fri,  6 Nov 2026 02:35:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C15112926;
+ Fri,  6 Nov 2026 02:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793932492; x=1825468492;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=jOK+cEcib63sKBDhaVVpSBecH0dpc6GNuxcV/5Blqec=;
+ b=IQa7CsP3reoPR/XR6x2Br7SLaUbHuhg6DaM4DSjdNkoRGRG7E/t3MLEs
+ EOenpkwNSkikpeWKXJlM2gJtwDlxHf+4I52yPzDU37J8Y+1fJZEYkGRk+
+ V4CA/KxqVSX/3XG7h+4ncOA3gN/o6L7FzASVR7ChdlIBlTHFtXAE+Rre5
+ uf2t7H76YMTmWBvwim1QcENVz9KdaFJmAs/DmdvSXnDAp2W/U94r6ceW4
+ WhIvWV6mND6T3fzHdDE+aViMysUaQDd0LxE3Tk5phOa9RX8NLX7geHKFZ
+ bjzxPUPcaosAjxFRMkZ2dI9lt1LtOKBu1Y28PplsZOGVkeOM9gcnKvGFn Q==;
+X-CSE-ConnectionGUID: qW4R0I1jTXySenUV89bTuQ==
+X-CSE-MsgGUID: lrC/HyLVSsOe0i2yxiSb3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2618978"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2618978"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 18:34:51 -0800
+X-CSE-ConnectionGUID: cSrqSlaOSFKzjhu7M/ci6g==
+X-CSE-MsgGUID: BRFqrSOgTse2gPmODv7CPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7067788"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 18:34:52 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:34:51 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 18:34:51 -0800
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.57) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:34:50 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dG0/K14hwV5c2S5y21VO3TjUWiVxzNlghCNMft2GyRm/MCpnXdsyY12sOddWxO0Rve+VegXnEb4+wtGivrOQ9pBHAWz/kwR8ebqKF5Mz9nrDH4TgvYRycHkpxiGUlHjC+R8OCbUXKCiXTXsefYVukjJwSrkwNiXqf23UeAmxovDwOL2xuxtRUEOJodIxRE2Y/uk6w/KKhz4G+e54O1eVa18CbfhKlRqquISo/yHN3sVbPehCK62RD9jk6l8/2XBc9HLY50gLVljdSsn/8tJ7vvey8uDA3nKTkRpSni15ppyzWOBwMUtItyJF/WDcKNyK8yp+DSaj4t6RrW0kbpGiCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uuMY761HyEgpEy5+bUtEwARvPPUKYICOeq7Db/Gnihk=;
+ b=pYreI4e2t1DjFtv4udaQpVsbm/Qr+G+AVahzQRrulHocuDppskvUAC1KVynHITebzlMK+o6f7wxK78XsBc3nQdQGWZXQ5YSdLPFAJD3OyH0eHv91sSQj2JUYqyIIYHUBlWGl6oI9QWvB+ysb6X5w7C+z2RbVBHsfojxKuvbKhhZC/FtRV2n6Ej83cOEypbOKy0kN5gRpqSJpW9M3odJj2rrmiKziOI+vB5FAeEANOMkuBhr2KshfrvJAljkFjqKkl4LD6pRhOnZ03z9h+4/kkFdnHq/Fx9TaMktqKbcb8CKCAo7X1Ml7zkNUtHMk+ciIbdVhijTRDImWnI9aTyvYRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by MN2PR11MB4568.namprd11.prod.outlook.com (2603:10b6:208:266::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 02:34:43 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
+ 02:34:43 +0000
+Date: Thu, 5 Nov 2026 18:34:40 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 03/33] drm/ttm: Record sub-optimal page order
+ allocations in ttm_tt
+Message-ID: <au08wNRON0_b5wuG@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-4-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-4-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0159.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c7::14) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-fl2000-upstream-v1-3-bb163ecb2309@gmail.com>
-References: <20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com>
-In-Reply-To: <20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793932482; l=37869;
- i=angelcrispinvaldivia@gmail.com; s=20261106; h=from:subject:message-id;
- bh=rjTlWNor5vjeBjiIwJ4ifMWiajESe6R5cEjav0O/RSY=;
- b=sfVtM9nn9MDdhCmYh2cSHNVTVVoZQ02KW/kPUu8SBjWD5msCOuTaYsIdZy3rfFvM9MtF35upY
- QB/xZ4+84kCDrkPRCSqjikdj/xnjG/tKl6jK8i3KEfqcF68EwqeEb7J
-X-Developer-Key: i=angelcrispinvaldivia@gmail.com; a=ed25519;
- pk=80bQU/p2R0pLIfdfJaB5I/2obI+RxQHondq5DEM0tbg=
-X-Endpoint-Received: by B4 Relay for
- angelcrispinvaldivia@gmail.com/20261106 with auth_id=1425
-X-Original-From: Angel Gabriel Crispin Valdivia
- <angelcrispinvaldivia@gmail.com>
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|MN2PR11MB4568:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3809caa-171d-427e-2960-08df3bae83a7
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|4143699003|261026121527099003|11063799006|56012099006|5023799004|261009223027099003|261009221727099003|261009221227099003|261009223327099003|261028144727099003|261009220027099003|261021123027099003|261102123227099003|261022105027099003|261026140227099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: xstMLZw8wbLZ/yVqVx0EM7KziGb0EU84WIFOjJqzYCt2t4rNJi3ImhaH03pY2lETVSozYCSOeTGxYGno91XYEHQN7ORYYQqsky0qeBlrEz5Z6e1nfnQzJCggFbjOCbH3FhhLAkddQP9VEUDRo4fLa9v3xzEieJ17LKT/8dT3kacwNE6Neasz2goki7W62VQnLxvr53I0m3ABsTjhaJCdVlLo4YW6L8kEMLyVz9meRtXc/kmuoc9pjt4Nm6qDzVDDsMnfU7jZyyrniS032xIbrZwjC+OxRX2dqnaqeRFDAQEZ+GBlh1d+L8ISxZKTek4SEEu9wcP5Vz4d0w92xz1tTO7eNt50gU0EMmUsKECKKgzBEHZlZHpHEJHUSt3eC5Y076FLDMBwadf2mqD6ukm/QH38l3y2R669yuRBi/1YF0GPJiYFamBN+vhwiF9ztfeSTDU4LMKgoQjcoOJ59v1/KyyJyJR5WFs8JrjzbI+IM7EU8UaU0QR/5h5HyiPoLD2DMgk+i0FU4j0/Rtj1Hu8fQ/oW60QhLMizVoz+a5r694tLDAruFpoQki7bWQ1wjJBhBood4lq5pHFdYbYhDMuqfWIZrXjV1g7TTBQxiphox0XzlaPH+OHMa5R6v0hkYvKTi5F1k562BGdJHfpdiAMhDtlvTVCl9WbqGj+/f1OtoOM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(261026121527099003)(11063799006)(56012099006)(5023799004)(261009223027099003)(261009221727099003)(261009221227099003)(261009223327099003)(261028144727099003)(261009220027099003)(261021123027099003)(261102123227099003)(261022105027099003)(261026140227099003)(261021121427099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?+ZoogYbviOQ8vDyL87IX9hV7PgLpulPG1iPOAcANdBLlmqluK9nK7Hpq+x?=
+ =?iso-8859-1?Q?0y6/iHNRfIFJDJJC6b4c3V+y68QFZ/cj39g/i427v18xc1p+kV7UI8QscG?=
+ =?iso-8859-1?Q?VjtccUCJuC/jpnf4xXW7/L24lxqag6KuengHlFPW/7jN7yB8v9RRe228YT?=
+ =?iso-8859-1?Q?0pLWHd3sF6pU5N33xOpIsoYQpzU9FstLLpUCEo6qMe8qY2wYF4HmmSkRmK?=
+ =?iso-8859-1?Q?CK07BmaXYyQbz61JeV3fcvlLMCSgpvmqRoKL3xBFh5hGcMh+6sCq0Lr16g?=
+ =?iso-8859-1?Q?zEwsBbxnBOwbo4CnyhX82b0bSXlFPcj7UOaN1gZUopkVRAezAxfDCAh/Ys?=
+ =?iso-8859-1?Q?8xGXE2NuGEKuPpAytI/xEUzE7AntT5ki8CvJ54y9D23p7QICBSE8B25cwp?=
+ =?iso-8859-1?Q?dUDZQjCY2QAy89CxMHlI5UA27ULBdl6vKvJHiMuivU2Aji7STrsCFskvQM?=
+ =?iso-8859-1?Q?3p3jQijZgfR7A6zEMEgLchulQ9JGwrjPR1yrqoQo9qXrBuDcVrputJveSF?=
+ =?iso-8859-1?Q?5gOzqRh933+cpN1q6Mv80dtAoGGP9lWemBJ9a1H8tcsYGcQe7WoZkNAfaB?=
+ =?iso-8859-1?Q?ONBiFkM5XaRGiGalR8Lg1K0LwYD+1c1C7G9WU8RfUtVn2YUpWhEdXOcAmv?=
+ =?iso-8859-1?Q?uJSLVW+up35Ump4rbfV8LE0DZG+QHK4lZN9ptm/H+ChzH36asm0J6OB01q?=
+ =?iso-8859-1?Q?1HL+yTrAMzHQfHuMA75RBj/RZNb57sG1EiUo4fDx3y5MSgWw1F1tnf8xal?=
+ =?iso-8859-1?Q?vaS0awoZYPV8nN4+2NwvqrYIq2WPeu5K4WyK4ZJu1biLwjY+DvYkVJFxMd?=
+ =?iso-8859-1?Q?+6rrTRRP2v0NvaXMgFi1fqzmMW7hyPHNmidYA8etbvnJ47qjql505ojDQQ?=
+ =?iso-8859-1?Q?a6GJz4v0cog5O/k4Cw66Fh0XJYZWi06qV6JOEuI71MyrLyXlPfLYbnCz+n?=
+ =?iso-8859-1?Q?Tb5sizORW26dJvZNj6+eC1Xs+LYtMtyOLb+iIrNy3X89fS+su8gIyvWyHQ?=
+ =?iso-8859-1?Q?HZi5HhpDPhAaTlbZieour9AC008VxPhQsYoAUhoZ6ZL3Mc5fJuYEbbmiJa?=
+ =?iso-8859-1?Q?cK3yJFd8nvYbdiKGjE8bzw6l540G0KOYzdi3KseSex31T8JpZNxY9VJNUv?=
+ =?iso-8859-1?Q?2RvKRnYOtxChhOU7r5OnVaKPQoHuAfMlOxr9NhcQ05GPYDn7o3+Mwsquir?=
+ =?iso-8859-1?Q?p8fx4JE0gpvR7c8u7Ab1bouOXrMPyFYVuRazeQl1GhKoK6lhq4WcpWXYPi?=
+ =?iso-8859-1?Q?UZMLXsb+2ANfWx9sYT7DaXyHOTJM58CuuqCYYWF6BJiOazG707wZyLllL9?=
+ =?iso-8859-1?Q?3zh6ei/hpAyEVvQTJUngIZIGVRf2CoZ2EV0YhjMMzggVnYqNQ/baFTi4yc?=
+ =?iso-8859-1?Q?OGXVcXPPuRVpSnjUoyRhrqErwUmwUMrlqARKnvalNneqpUskwuJFTKs6zZ?=
+ =?iso-8859-1?Q?8Et7KvV1nrFhjT01y5QZa749qRnW9Be4lYIFaFWBcp/zYfK7p4jXQJFY1C?=
+ =?iso-8859-1?Q?acLmZvPR3TPGQeDLlblTMH2rlnU5rCLFYqysj/GsWWk7xKdRzCiNO9Mfx0?=
+ =?iso-8859-1?Q?Us9TRW46GvQDE2/I2UAh4L/yLMBknukHZpmpz2OA7muwHWrPfaHa9W0vOy?=
+ =?iso-8859-1?Q?ZiWXIVS5WeDhm3Q38scsN3YvvZZOvActGyu7NkJAb6f1wgWxjPoPnPhic5?=
+ =?iso-8859-1?Q?QfjyJo7oOqrsO/RAGygwWN6T6upjjURU4VAPNKtattSMFSeMENuP2LbIeZ?=
+ =?iso-8859-1?Q?JDghbsKJoJjOeykll5citilTzKnXHicaTyZZ/8lmoVccOx1yxxcaOAy/J6?=
+ =?iso-8859-1?Q?AZQUrLd0Qrnbww1/CY4bf/ruCZOZXUxwdzzIOd5YTQTQjI7TAOEw?=
+X-Exchange-RoutingPolicyChecked: jBzRSAmxOz2wKZUyVI4raGQI0A8mz+aZmztb8wRr6mtR1MPMvvF4yKcfzvRl8NGDFtbdaGaICSUKKgCKlyz7xx9fNJ90DVFMe2UmJ5cX1D0MVBg2K1nXDnLv5zMzh0IOUx/+IXGYqJTyM261a9qwm5l5NtEz0PtzP6yjo8Hs8XbPaZoTX5zmbF9nmDhTyJorWnW3UtB0wdAayqEedvy6MiixN1aNq5M657u7gFVJLthQO+24OuUGcmsUQ2ZxpZuXOsJY54kbN+Loe9an2LfpH3t0vg0tBmgi7mnfN82foDqlHvz/L8jMOstZwovP4qt/wyYeOo+nYycka6F3zfSVYQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3809caa-171d-427e-2960-08df3bae83a7
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:34:43.2857 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3hPn7ghXOl4lHR15AZTTvE/9ipm1z4j3hTOFdZGv9jK8m9GV9vXWbk98XKnoyF0JcV5hTlh60nv7iW7nEfymjrVtp+bjwCX6jRkaB+JIkY/DfhiGIp3QD/IZTivyCXOi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4568
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,1151 +164,155 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: angelcrispinvaldivia@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+On Fri, Jul 10, 2026 at 07:55:49PM -0700, Matthew Brost wrote:
+>When __ttm_pool_alloc() fails to allocate a chunk at the device's
+>beneficial order and falls back to a smaller order, the object ends up
+>backed by a sub-optimal set of pages. Nothing currently records this, so
+>a driver has no way to know an object would benefit from being re-backed
+>with beneficial-order pages later.
+>
+>Add TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED to struct ttm_tt page_flags,
+>cleared at the start of every fresh allocation (in both ttm_pool_alloc()
+>and ttm_pool_restore_and_alloc()). Set it in __ttm_pool_alloc() when an
+>allocation at exactly the beneficial order fails before dropping to a
+>lower order.
+>
+>Drivers can use this hint to queue the buffer object for later
+>defragmentation.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 13 +++++++++++++
+> include/drm/ttm/ttm_tt.h       | 24 +++++++++++++++++++++++-
+> 2 files changed, 36 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index 5b7d7f5ae53d..e9175c0290d7 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -796,6 +796,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			    struct ttm_pool_alloc_state *alloc,
+> 			    struct ttm_pool_tt_restore *restore)
+> {
+>+	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
+> 	enum ttm_caching page_caching;
+> 	gfp_t gfp_flags = GFP_USER;
+> 	pgoff_t caching_divide;
+>@@ -846,6 +847,16 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		/* If that fails, lower the order if possible and retry. */
+> 		if (!p) {
+> 			if (order) {
+>+				/*
+>+				 * Failing to allocate at the device's beneficial
+>+				 * order means we are about to back this object
+>+				 * with a sub-optimal (smaller order) set of
+>+				 * pages. Record it so the driver can later try to
+>+				 * defragment the object back to beneficial order.
+>+				 */
+>+				if (beneficial_order && order == beneficial_order)
+>+					tt->page_flags |=
+>+						TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
 
-Frames are sent as one bulk transfer per frame on endpoint 1 OUT, after
-switching the AV control interface to altsetting 1. Three URBs are kept
-in flight from a pool of six scatter-gather buffers, and when no new
-frame is ready the current one is sent again, so the FL2000 always has
-data to scan out.
+I haven't looked at beneficial_reclaim_backoff usecase yet, but this flag
+gets set irrespective of whether the allocation failure resulted with/without
+the beneficial_reclaim_backoff request from the driver. Is that intended?
 
-The current frame is kept in a shadow buffer in the device's pixel
-format. Only the damaged rectangle of the framebuffer is converted, into
-the shadow, and each outgoing buffer is brought up to date from it just
-before it is submitted, by replaying the damage rectangles it missed or
-with a full copy when it is too far behind. The send path never waits
-for a conversion in progress: it resends the newest complete frame
-instead. A cursor sprite is blended into each outgoing buffer rather
-than into the shadow, so moving the pointer does not touch the
-framebuffer.
+Other than that, the change here LGTM, though I still need to look at how driver uses
+this flag in more detail.
 
-The framebuffer is often a buffer imported from the primary GPU and
-lives in its VRAM, mapped write-combined. It is read a scanline at a
-time with drm_memcpy_from_wc(), which uses streaming loads: a 1080p
-frame then converts in about 8 ms instead of the ~88 ms of
-memcpy_fromio(). The FL2000 wants the two 32-bit halves of every 64-bit
-word swapped, which the converters do as they write. Copies run with the
-buffer taken off the lists, so list_lock, which is also taken from URB
-completion, is never held across multi-megabyte work.
+Niranjana
 
-The stream is wired up to KMS in the next patch.
-
-Signed-off-by: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
----
- drivers/gpu/drm/fl2000/Makefile           |   3 +-
- drivers/gpu/drm/fl2000/fl2000.h           |  67 ++
- drivers/gpu/drm/fl2000/fl2000_streaming.c | 993 ++++++++++++++++++++++++++++++
- 3 files changed, 1062 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/fl2000/Makefile b/drivers/gpu/drm/fl2000/Makefile
-index f64057634..0671c867e 100644
---- a/drivers/gpu/drm/fl2000/Makefile
-+++ b/drivers/gpu/drm/fl2000/Makefile
-@@ -4,6 +4,7 @@ fl2000-y := \
- 	fl2000_drv.o \
- 	fl2000_i2c.o \
- 	fl2000_it66121.o \
--	fl2000_registers.o
-+	fl2000_registers.o \
-+	fl2000_streaming.o
- 
- obj-$(CONFIG_DRM_FL2000) += fl2000.o
-diff --git a/drivers/gpu/drm/fl2000/fl2000.h b/drivers/gpu/drm/fl2000/fl2000.h
-index 956032479..d800d943e 100644
---- a/drivers/gpu/drm/fl2000/fl2000.h
-+++ b/drivers/gpu/drm/fl2000/fl2000.h
-@@ -42,6 +42,48 @@ enum fl2000_interface {
- 	FL2000_USBIF_INTERRUPT = 2,
- };
- 
-+/* Process context only: may sleep between retries */
-+static inline int fl2000_submit_urb(struct urb *urb)
-+{
-+	int ret;
-+	int attempts = 10;
-+
-+	do {
-+		ret = usb_submit_urb(urb, GFP_KERNEL);
-+		switch (ret) {
-+		case -ENXIO:
-+		case -ENOMEM:
-+			if (attempts--) {
-+				cond_resched();
-+				ret = -EAGAIN;
-+			}
-+			break;
-+		default:
-+			break;
-+		}
-+	} while (ret == -EAGAIN);
-+
-+	return ret;
-+}
-+
-+/* Called from URB completion handlers, i.e. in atomic context */
-+static inline int fl2000_urb_status(struct usb_device *usb_dev, int status)
-+{
-+	switch (status) {
-+	case 0:
-+	case -ECONNRESET:
-+	case -ENOENT:
-+	case -ESHUTDOWN:
-+		/* Success, or the URB was unlinked / the device is going away */
-+		break;
-+	default:
-+		dev_err_ratelimited(&usb_dev->dev, "Nonzero urb status, %d\n", status);
-+		break;
-+	}
-+
-+	return status;
-+}
-+
- struct fl2000_timings {
- 	u32 hactive;
- 	u32 htotal;
-@@ -64,6 +106,31 @@ struct fl2000_pll {
- #define I2C_RDWR_INTERVAL 200
- #define I2C_RDWR_TIMEOUT  (256 * 1000)
- 
-+/* Streaming transfer task */
-+struct fl2000_stream;
-+struct fl2000_stream *fl2000_stream_create(struct usb_device *usb_dev);
-+void fl2000_stream_destroy(struct usb_device *usb_dev);
-+
-+/* Streaming interface */
-+int fl2000_stream_mode_set(struct fl2000_stream *stream, unsigned int width,
-+			   unsigned int height, u32 bytes_pix);
-+struct drm_rect;
-+struct iosys_map;
-+void fl2000_stream_compress(struct fl2000_stream *stream, const struct iosys_map *src,
-+			    bool imported, u32 format, unsigned int width, unsigned int height,
-+			    unsigned int pitch, const struct drm_rect *clip);
-+void fl2000_stream_note_render(struct fl2000_stream *stream, unsigned int conv_us,
-+			       unsigned int damage_px);
-+
-+/* Largest cursor sprite the blend path accepts, advertised to userspace */
-+#define FL2000_CURSOR_MAX 64
-+
-+void fl2000_stream_set_cursor(struct fl2000_stream *stream, const u32 *argb, unsigned int w,
-+			      unsigned int h, int x, int y);
-+void fl2000_stream_move_cursor(struct fl2000_stream *stream, int x, int y);
-+int fl2000_stream_enable(struct fl2000_stream *stream);
-+void fl2000_stream_disable(struct fl2000_stream *stream);
-+
- /* I2C adapter interface creation */
- struct i2c_adapter *fl2000_i2c_init(struct usb_device *usb_dev);
- int fl2000_ddc_read_block(struct i2c_adapter *adapter, u8 *buf, unsigned int block, size_t len);
-diff --git a/drivers/gpu/drm/fl2000/fl2000_streaming.c b/drivers/gpu/drm/fl2000/fl2000_streaming.c
-new file mode 100644
-index 000000000..2d2c30cb7
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000_streaming.c
-@@ -0,0 +1,993 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Frame streaming. The pixel data is sent as one bulk transfer per frame on
-+ * endpoint 1 OUT, followed by a zero-length packet that ends the frame, after
-+ * switching the AV control interface (#0) to altsetting 1. The hardware
-+ * exposes endpoint #1 on more than one interface, which the USB specification
-+ * only allows across alternate settings.
-+ *
-+ * The current frame lives in a shadow buffer, already in the device's pixel
-+ * format. Damage is converted into the shadow and nowhere else, and every
-+ * outgoing URB buffer is brought up to date from it just before it is sent,
-+ * with the cursor blended in on the way out.
-+ *
-+ * (C) Copyright 2017, Fresco Logic, Incorporated.
-+ * (C) Copyright 2018-2020, Artem Mygaiev
-+ */
-+
-+#include <linux/iosys-map.h>
-+#include <linux/scatterlist.h>
-+#include <linux/vmalloc.h>
-+
-+#include <drm/drm_cache.h>
-+#include <drm/drm_rect.h>
-+
-+#include "fl2000.h"
-+
-+/*
-+ * FL2000_SB_MIN URBs are kept in flight; the rest are spares the send path
-+ * draws from. Damage does not depend on this pool - it lands in the shadow
-+ * frame - so an empty pool only delays a send, it can never lose an update.
-+ */
-+#define FL2000_SB_MIN 3
-+#define FL2000_SB_NUM (FL2000_SB_MIN * 2)
-+
-+#define FL2000_URB_TIMEOUT 100
-+
-+/*
-+ * How many shadow generations of damage history are kept. A buffer further
-+ * behind than this is refreshed with a full copy.
-+ */
-+#define FL2000_DAMAGE_LOG 16
-+
-+/* Must cover FL2000_MAX_WIDTH from fl2000_drm.c */
-+#define FL2000_MAX_LINE_PIXELS 4096
-+
-+struct fl2000_stream_buf {
-+	struct list_head list;
-+	/*
-+	 * Generation of the desktop content and of the cursor this buffer was
-+	 * built from. Both matching means the buffer can be resent as it is.
-+	 */
-+	u32 seq;
-+	u32 cursor_seq;
-+	/* Where the cursor was blended in, so it can be lifted again */
-+	struct drm_rect cursor_rect;
-+	struct sg_table sgt;
-+	struct page **pages;
-+	unsigned int nr_pages;
-+	void *vaddr;
-+};
-+
-+struct fl2000_stream {
-+	struct usb_device *usb_dev;
-+	/* Each buffer journey: render (free) -> wait (in flight) -> render */
-+	struct list_head render_list;
-+	struct list_head wait_list;
-+	spinlock_t list_lock; /* Protects the lists, taken from URB completion */
-+	size_t buf_size;
-+	u32 bytes_pix;
-+	unsigned int width;
-+	unsigned int height;
-+	/*
-+	 * The authoritative copy of the current frame, in the device's pixel
-+	 * format. Damage lands here and nowhere else, and every outgoing URB
-+	 * buffer is a copy of it.
-+	 */
-+	void *shadow;
-+	struct mutex shadow_lock; /* Serialises shadow and cursor against the send path */
-+	u32 shadow_seq;
-+	/*
-+	 * What changed at each shadow generation. A buffer that is only a few
-+	 * generations behind is caught up by replaying these rectangles
-+	 * instead of copying the whole frame.
-+	 */
-+	struct drm_rect damage_log[FL2000_DAMAGE_LOG];
-+	/*
-+	 * Bumped by cursor changes only, so moving the pointer never
-+	 * invalidates the desktop content a buffer already holds.
-+	 */
-+	u32 cursor_seq;
-+	/*
-+	 * The buffer that carries the most recent content. Only the send path
-+	 * writes a buffer, and never one that is in flight, so it can be
-+	 * copied from without a lock.
-+	 */
-+	struct fl2000_stream_buf *newest_sb;
-+	/* Cursor sprite in ARGB8888, blended on the way out */
-+	u32 *cursor_argb;
-+	unsigned int cursor_w;
-+	unsigned int cursor_h;
-+	int cursor_x;
-+	int cursor_y;
-+	struct work_struct work;
-+	struct workqueue_struct *work_queue;
-+	/* URBs the work may still submit: limits the frames in flight */
-+	atomic_t credits;
-+	wait_queue_head_t credits_wq;
-+	bool enabled;
-+	struct usb_anchor anchor;
-+	/* Throughput accounting, see fl2000_stream_report() */
-+	atomic_t frames;
-+	atomic_t rendered;
-+	atomic_t stalled;
-+	atomic_t conv_us_total;
-+	atomic_t conv_us_max;
-+	atomic_t damage_px_total;
-+	ktime_t last_report;
-+	/* Cached staging buffer for one scanline of XRGB8888 source pixels */
-+	u32 *line_buf;
-+};
-+
-+/*
-+ * Periodic throughput line:
-+ *
-+ *  sent     - URBs completed, new frames and resends alike: the link rate.
-+ *  rendered - frames the compositor actually handed over: what the eye sees.
-+ *  stalled  - sends that could not use the shadow because no buffer was free
-+ *             or a conversion held it. No update is lost, the frame that goes
-+ *             out is one generation older.
-+ *  conv     - time converting pixels, and the average damaged area it covered.
-+ */
-+#define FL2000_REPORT_INTERVAL_MS 5000
-+
-+static void fl2000_stream_report(struct fl2000_stream *stream)
-+{
-+	ktime_t now = ktime_get();
-+	s64 elapsed_ms = ktime_ms_delta(now, stream->last_report);
-+	unsigned int frames, rendered, stalled;
-+	unsigned int conv_us, conv_max, damage_px;
-+
-+	if (elapsed_ms < FL2000_REPORT_INTERVAL_MS)
-+		return;
-+
-+	stream->last_report = now;
-+	frames = atomic_xchg(&stream->frames, 0);
-+	rendered = atomic_xchg(&stream->rendered, 0);
-+	stalled = atomic_xchg(&stream->stalled, 0);
-+	conv_us = atomic_xchg(&stream->conv_us_total, 0);
-+	conv_max = atomic_xchg(&stream->conv_us_max, 0);
-+	damage_px = atomic_xchg(&stream->damage_px_total, 0);
-+
-+	/* div64_u64(): the MB/s divisor does not fit in 32 bits */
-+	dev_dbg(&stream->usb_dev->dev,
-+		"Stream: %llu sent/s, %llu rendered/s, %llu MB/s, %u stalled, conv %u us (max %u) over %u px\n",
-+		div64_u64((u64)frames * 1000, elapsed_ms),
-+		div64_u64((u64)rendered * 1000, elapsed_ms),
-+		div64_u64((u64)frames * stream->buf_size * 1000, (u64)elapsed_ms * 1024 * 1024),
-+		stalled, rendered ? conv_us / rendered : 0, conv_max,
-+		rendered ? damage_px / rendered : 0);
-+}
-+
-+/* Called by the primary plane update with the cost of one damage update */
-+void fl2000_stream_note_render(struct fl2000_stream *stream, unsigned int conv_us,
-+			       unsigned int damage_px)
-+{
-+	atomic_inc(&stream->rendered);
-+	atomic_add(conv_us, &stream->conv_us_total);
-+	atomic_add(damage_px, &stream->damage_px_total);
-+	if (conv_us > (unsigned int)atomic_read(&stream->conv_us_max))
-+		atomic_set(&stream->conv_us_max, conv_us);
-+}
-+
-+static void fl2000_free_sb(struct fl2000_stream_buf *sb)
-+{
-+	vunmap(sb->vaddr);
-+
-+	sg_free_table(&sb->sgt);
-+
-+	for (int i = 0; i < sb->nr_pages && sb->pages[i]; i++)
-+		__free_page(sb->pages[i]);
-+
-+	kfree(sb->pages);
-+
-+	kfree(sb);
-+}
-+
-+static struct fl2000_stream_buf *fl2000_alloc_sb(unsigned int size)
-+{
-+	int ret;
-+	struct fl2000_stream_buf *sb;
-+	unsigned int nr_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
-+
-+	sb = kzalloc_obj(*sb);
-+	if (!sb)
-+		return NULL;
-+
-+	sb->nr_pages = nr_pages;
-+
-+	sb->pages = kzalloc_objs(*sb->pages, nr_pages);
-+	if (!sb->pages)
-+		goto error;
-+
-+	for (int i = 0; i < nr_pages; i++) {
-+		sb->pages[i] = alloc_page(GFP_KERNEL);
-+		if (!sb->pages[i])
-+			goto error;
-+	}
-+
-+	ret = sg_alloc_table_from_pages(&sb->sgt, sb->pages, nr_pages, 0, size, GFP_KERNEL);
-+	if (ret != 0)
-+		goto error;
-+
-+	sb->vaddr = vmap(sb->pages, nr_pages, VM_MAP, PAGE_KERNEL);
-+	if (!sb->vaddr)
-+		goto error;
-+
-+	INIT_LIST_HEAD(&sb->list);
-+	memset(sb->vaddr, 0, nr_pages << PAGE_SHIFT);
-+
-+	return sb;
-+
-+error:
-+	fl2000_free_sb(sb);
-+
-+	return NULL;
-+}
-+
-+static void fl2000_stream_put_buffers(struct fl2000_stream *stream)
-+{
-+	struct fl2000_stream_buf *cur_sb;
-+	struct fl2000_stream_buf *temp_sb;
-+
-+	list_for_each_entry_safe(cur_sb, temp_sb, &stream->render_list, list) {
-+		list_del(&cur_sb->list);
-+		fl2000_free_sb(cur_sb);
-+	}
-+
-+	/* These are gone; the send path must not copy from one of them */
-+	stream->newest_sb = NULL;
-+}
-+
-+static int fl2000_stream_get_buffers(struct fl2000_stream *stream, unsigned int size)
-+{
-+	int ret;
-+	struct fl2000_stream_buf *cur_sb;
-+
-+	if (WARN_ON(!list_empty(&stream->render_list)))
-+		return -EBUSY;
-+
-+	for (int i = 0; i < FL2000_SB_NUM; i++) {
-+		cur_sb = fl2000_alloc_sb(size);
-+		if (!cur_sb) {
-+			ret = -ENOMEM;
-+			goto error;
-+		}
-+
-+		list_add(&cur_sb->list, &stream->render_list);
-+	}
-+
-+	return 0;
-+
-+error:
-+	fl2000_stream_put_buffers(stream);
-+	return ret;
-+}
-+
-+static void fl2000_stream_release(struct device *dev, void *res)
-+{
-+	struct fl2000_stream *stream = res;
-+
-+	fl2000_stream_disable(stream);
-+	destroy_workqueue(stream->work_queue);
-+	fl2000_stream_put_buffers(stream);
-+	vfree(stream->shadow);
-+	kfree(stream->cursor_argb);
-+	kfree(stream->line_buf);
-+	mutex_destroy(&stream->shadow_lock);
-+}
-+
-+static void fl2000_stream_data_completion(struct urb *urb)
-+{
-+	struct fl2000_stream_buf *cur_sb = urb->transfer_buffer;
-+	struct usb_device *usb_dev = urb->dev;
-+	struct fl2000_stream *stream = urb->context;
-+	unsigned long flags;
-+
-+	if (stream) {
-+		spin_lock_irqsave(&stream->list_lock, flags);
-+		list_move_tail(&cur_sb->list, &stream->render_list);
-+		spin_unlock_irqrestore(&stream->list_lock, flags);
-+
-+		atomic_inc(&stream->frames);
-+
-+		/* Return the credit and kick the transmit work */
-+		atomic_inc(&stream->credits);
-+		wake_up(&stream->credits_wq);
-+
-+		fl2000_urb_status(usb_dev, urb->status);
-+	}
-+
-+	usb_free_urb(urb);
-+}
-+
-+/* The end-of-frame packet carries no buffer: only its errors matter */
-+static void fl2000_stream_eof_completion(struct urb *urb)
-+{
-+	fl2000_urb_status(urb->dev, urb->status);
-+
-+	usb_free_urb(urb);
-+}
-+
-+/*
-+ * Anchor and submit one URB. Its completion frees it; one that could not be
-+ * submitted is freed here.
-+ */
-+static int fl2000_stream_submit(struct fl2000_stream *stream, struct urb *urb)
-+{
-+	int ret;
-+
-+	usb_anchor_urb(urb, &stream->anchor);
-+	ret = fl2000_submit_urb(urb);
-+	if (ret) {
-+		/*
-+		 * A URB that was never submitted stays on the anchor. Freeing
-+		 * it there leaves a dangling entry that
-+		 * usb_kill_anchored_urbs() would spin on forever, which hangs
-+		 * the machine when the adapter is unplugged while streaming.
-+		 */
-+		usb_unanchor_urb(urb);
-+		usb_free_urb(urb);
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * Frame layout. The FL2000 expects the two 32-bit halves of every 64-bit word
-+ * of the frame swapped, and the frame is one flat stream: a line does not start
-+ * on a word boundary unless its length is a multiple of 8 bytes (1366 pixels at
-+ * 3 bytes per pixel is 4098). Every writer below therefore applies the swizzle
-+ * ('^ 4' on bytes for 24bpp, '^ 2' on 16-bit words for 16bpp) to the offset
-+ * from the start of the FRAME, which is why they take the frame base and the
-+ * offset of the line in it, never a pointer to the line.
-+ *
-+ * Cursor compositing. The sprite is blended into each outgoing frame rather
-+ * than into the shadow, so moving the pointer costs one 64x64 blend and never
-+ * re-reads the source framebuffer.
-+ */
-+static inline u8 fl2000_blend_channel(u8 dst, u8 src, u8 alpha)
-+{
-+	return (u8)((src * alpha + dst * (255 - alpha) + 127) / 255);
-+}
-+
-+/* 'line' is the offset of the line in the frame, in 16-bit words */
-+static void fl2000_blend_cursor_rgb565_line(u16 *frame, size_t line, const u32 *cbuf, u32 x_start,
-+					    u32 x_end)
-+{
-+	for (unsigned int x = x_start; x < x_end; x++) {
-+		size_t idx = (line + x) ^ 2;
-+		u32 pix = *cbuf++;
-+		u8 alpha = (u8)(pix >> 24);
-+		u16 dst;
-+		u8 r, g, b;
-+
-+		if (!alpha)
-+			continue;
-+
-+		/* Expand the destination to 8 bits per channel, blend, pack again */
-+		dst = frame[idx];
-+		r = (u8)(((dst & 0xF800) >> 8) | ((dst & 0xF800) >> 13));
-+		g = (u8)(((dst & 0x07E0) >> 3) | ((dst & 0x07E0) >> 9));
-+		b = (u8)(((dst & 0x001F) << 3) | ((dst & 0x001F) >> 2));
-+
-+		r = fl2000_blend_channel(r, (u8)(pix >> 16), alpha);
-+		g = fl2000_blend_channel(g, (u8)(pix >> 8), alpha);
-+		b = fl2000_blend_channel(b, (u8)pix, alpha);
-+
-+		frame[idx] = (u16)(((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3));
-+	}
-+}
-+
-+/* 'line' is the offset of the line in the frame, in bytes */
-+static void fl2000_blend_cursor_rgb888_line(u8 *frame, size_t line, const u32 *cbuf, u32 x_start,
-+					    u32 x_end)
-+{
-+	size_t xx = line + (size_t)x_start * 3;
-+
-+	for (unsigned int x = x_start; x < x_end; x++) {
-+		u32 pix = *cbuf++;
-+		u8 alpha = (u8)(pix >> 24);
-+
-+		if (!alpha) {
-+			xx += 3;
-+			continue;
-+		}
-+
-+		/* Read and write through the swizzle */
-+		frame[xx ^ 4] = fl2000_blend_channel(frame[xx ^ 4], (u8)pix, alpha);
-+		xx++;
-+		frame[xx ^ 4] = fl2000_blend_channel(frame[xx ^ 4], (u8)(pix >> 8), alpha);
-+		xx++;
-+		frame[xx ^ 4] = fl2000_blend_channel(frame[xx ^ 4], (u8)(pix >> 16), alpha);
-+		xx++;
-+	}
-+}
-+
-+/*
-+ * Blend the cursor into 'dst' and report the area it covered in 'rect', so the
-+ * next rebuild knows exactly what to restore.
-+ */
-+static void fl2000_blend_cursor(struct fl2000_stream *stream, void *dst, struct drm_rect *rect)
-+{
-+	u32 dst_line_len = stream->width * stream->bytes_pix;
-+	int cy_start, cy_end, cx_start, cx_end;
-+
-+	*rect = (struct drm_rect){ 0, 0, 0, 0 };
-+
-+	if (!stream->cursor_w || !stream->cursor_h || !stream->width)
-+		return;
-+
-+	/* The cursor may hang off any edge of the frame */
-+	cx_start = max(stream->cursor_x, 0);
-+	cy_start = max(stream->cursor_y, 0);
-+	cx_end = min(stream->cursor_x + (int)stream->cursor_w, (int)stream->width);
-+	cy_end = min(stream->cursor_y + (int)stream->cursor_h, (int)stream->height);
-+	if (cx_start >= cx_end || cy_start >= cy_end)
-+		return;
-+
-+	*rect = (struct drm_rect){ cx_start, cy_start, cx_end, cy_end };
-+
-+	for (int y = cy_start; y < cy_end; y++) {
-+		const u32 *cline = stream->cursor_argb +
-+				   (size_t)(y - stream->cursor_y) * stream->cursor_w +
-+				   (cx_start - stream->cursor_x);
-+
-+		if (stream->bytes_pix == 2)
-+			fl2000_blend_cursor_rgb565_line(dst, (size_t)y * stream->width, cline,
-+							cx_start, cx_end);
-+		else if (stream->bytes_pix == 3)
-+			fl2000_blend_cursor_rgb888_line(dst, (size_t)y * dst_line_len, cline,
-+							cx_start, cx_end);
-+	}
-+}
-+
-+/*
-+ * Copy one rectangle of the shadow into an outgoing buffer. The pixels of a
-+ * line sit in 64-bit words whose halves are swapped, so a pixel's bytes can lie
-+ * up to 4 bytes outside the plain byte range of the pixel: copy whole words.
-+ */
-+static void fl2000_copy_rect(struct fl2000_stream *stream, void *dst, const struct drm_rect *r)
-+{
-+	u32 line_len = stream->width * stream->bytes_pix;
-+	size_t off, span;
-+	int x1, x2, y1, y2;
-+
-+	/*
-+	 * A rectangle can outlive the geometry it was recorded under: a mode
-+	 * change that keeps the buffer size keeps the buffers too.
-+	 */
-+	x1 = clamp(r->x1, 0, (int)stream->width);
-+	x2 = clamp(r->x2, 0, (int)stream->width);
-+	y1 = clamp(r->y1, 0, (int)stream->height);
-+	y2 = clamp(r->y2, 0, (int)stream->height);
-+	if (x1 >= x2 || y1 >= y2)
-+		return;
-+
-+	off = (size_t)x1 * stream->bytes_pix;
-+	span = (size_t)(x2 - x1) * stream->bytes_pix;
-+
-+	for (int y = y1; y < y2; y++) {
-+		size_t start = round_down((size_t)y * line_len + off, 8);
-+		size_t end = min_t(size_t, round_up((size_t)y * line_len + off + span, 8),
-+				   stream->buf_size);
-+
-+		memcpy(dst + start, stream->shadow + start, end - start);
-+	}
-+}
-+
-+/*
-+ * Fill one URB buffer with what should be on screen now: the shadow frame plus
-+ * the cursor. A buffer that is only a few generations behind replays the
-+ * damage rectangles since, rather than copying the whole frame, and a buffer
-+ * whose desktop content is current only has the cursor lifted and re-blended.
-+ */
-+static void fl2000_stream_build(struct fl2000_stream *stream, struct fl2000_stream_buf *sb)
-+{
-+	/*
-+	 * Never block here. fl2000_stream_compress() holds the mutex for as
-+	 * long as one conversion takes, and waiting for it stops URB
-+	 * submission for that whole time: the device runs out of data and the
-+	 * monitor blinks. Resend instead, but never a frame older than the
-+	 * newest one already sent, or the picture would step back in time.
-+	 */
-+	if (!mutex_trylock(&stream->shadow_lock)) {
-+		struct fl2000_stream_buf *newest = stream->newest_sb;
-+
-+		atomic_inc(&stream->stalled);
-+
-+		if (newest && newest != sb &&
-+		    (sb->seq != newest->seq || sb->cursor_seq != newest->cursor_seq)) {
-+			memcpy(sb->vaddr, newest->vaddr, stream->buf_size);
-+			sb->seq = newest->seq;
-+			sb->cursor_seq = newest->cursor_seq;
-+			sb->cursor_rect = newest->cursor_rect;
-+		}
-+
-+		return;
-+	}
-+
-+	if (!stream->shadow) {
-+		mutex_unlock(&stream->shadow_lock);
-+		return;
-+	}
-+
-+	if (sb->seq != stream->shadow_seq) {
-+		u32 behind = stream->shadow_seq - sb->seq;
-+
-+		if (!sb->seq || behind >= FL2000_DAMAGE_LOG) {
-+			memcpy(sb->vaddr, stream->shadow, stream->buf_size);
-+		} else {
-+			/*
-+			 * Replay the rectangles one by one rather than their
-+			 * bounding box: damage in two opposite corners would
-+			 * otherwise cost a full-frame copy.
-+			 */
-+			for (u32 seq = sb->seq + 1; seq != stream->shadow_seq + 1; seq++)
-+				fl2000_copy_rect(stream, sb->vaddr,
-+						 &stream->damage_log[seq % FL2000_DAMAGE_LOG]);
-+		}
-+
-+		sb->seq = stream->shadow_seq;
-+		/* The copy may have overwritten part of the blended cursor */
-+		sb->cursor_seq = 0;
-+	}
-+
-+	if (sb->cursor_seq != stream->cursor_seq) {
-+		/* Lift the old cursor by restoring the desktop underneath it */
-+		fl2000_copy_rect(stream, sb->vaddr, &sb->cursor_rect);
-+		fl2000_blend_cursor(stream, sb->vaddr, &sb->cursor_rect);
-+		sb->cursor_seq = stream->cursor_seq;
-+	}
-+
-+	stream->newest_sb = sb;
-+	mutex_unlock(&stream->shadow_lock);
-+}
-+
-+static void fl2000_stream_work(struct work_struct *work)
-+{
-+	int ret;
-+	struct fl2000_stream *stream = container_of(work, struct fl2000_stream, work);
-+	struct usb_device *usb_dev = stream->usb_dev;
-+	struct fl2000_stream_buf *cur_sb;
-+	struct urb *data_urb, *eof_urb;
-+
-+	while (READ_ONCE(stream->enabled)) {
-+		/* Interruptible sleep: an idle stream may wait here indefinitely */
-+		ret = wait_event_interruptible(stream->credits_wq, !READ_ONCE(stream->enabled) ||
-+					       atomic_add_unless(&stream->credits, -1, 0));
-+		if (ret) {
-+			dev_err(&usb_dev->dev, "Work interrupt error %d\n", ret);
-+			WRITE_ONCE(stream->enabled, false);
-+			return;
-+		}
-+		if (!READ_ONCE(stream->enabled))
-+			break;
-+
-+		fl2000_stream_report(stream);
-+
-+		spin_lock_irq(&stream->list_lock);
-+		if (list_empty(&stream->render_list)) {
-+			/*
-+			 * No buffer available - should not happen. Give the
-+			 * credit back: only completions replenish them, so one
-+			 * taken without submitting a URB is lost for good.
-+			 */
-+			spin_unlock_irq(&stream->list_lock);
-+			atomic_inc(&stream->stalled);
-+			atomic_inc(&stream->credits);
-+			usleep_range(1000, 2000);
-+			continue;
-+		}
-+		cur_sb = list_first_entry(&stream->render_list, struct fl2000_stream_buf, list);
-+		list_del_init(&cur_sb->list);
-+		spin_unlock_irq(&stream->list_lock);
-+
-+		/*
-+		 * Building the frame copies up to several MB and must run with
-+		 * interrupts enabled, so cur_sb is owned (off all lists) for
-+		 * the duration. Holding list_lock (which disables IRQs) across
-+		 * it starves the whole system.
-+		 */
-+		fl2000_stream_build(stream, cur_sb);
-+
-+		spin_lock_irq(&stream->list_lock);
-+		list_add_tail(&cur_sb->list, &stream->wait_list);
-+		spin_unlock_irq(&stream->list_lock);
-+
-+		data_urb = usb_alloc_urb(0, GFP_KERNEL);
-+		eof_urb = usb_alloc_urb(0, GFP_KERNEL);
-+		if (!data_urb || !eof_urb) {
-+			usb_free_urb(data_urb);
-+			usb_free_urb(eof_urb);
-+			dev_err(&usb_dev->dev, "Data URB allocation error\n");
-+			WRITE_ONCE(stream->enabled, false);
-+			return;
-+		}
-+
-+		/*
-+		 * Endpoint 1 bulk out. We store pointer to current stream buffer structure in
-+		 * transfer_buffer field of URB which is unused due to SGT.
-+		 */
-+		usb_fill_bulk_urb(data_urb, usb_dev, usb_sndbulkpipe(usb_dev, 1), cur_sb,
-+				  (int)stream->buf_size, fl2000_stream_data_completion, stream);
-+		data_urb->interval = 0;
-+		data_urb->sg = cur_sb->sgt.sgl;
-+		data_urb->num_sgs = cur_sb->sgt.nents;
-+
-+		/*
-+		 * The device ends a frame at a zero-length packet
-+		 * (FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN), so send one of its
-+		 * own after every frame, as the vendor driver does.
-+		 * URB_ZERO_PACKET is not enough: it only adds the packet when
-+		 * the frame is a whole number of packets. Any other frame
-+		 * (1366x768 at 3 bytes per pixel is 3073.5 packets of 1024
-+		 * bytes) ends in a short packet, the device never sees the end
-+		 * of the frame, and the screen stays black while the device
-+		 * drains data at one pixel per clock, blanking included.
-+		 */
-+		usb_fill_bulk_urb(eof_urb, usb_dev, usb_sndbulkpipe(usb_dev, 1), NULL, 0,
-+				  fl2000_stream_eof_completion, stream);
-+
-+		ret = fl2000_stream_submit(stream, data_urb);
-+		if (ret)
-+			usb_free_urb(eof_urb);
-+		else
-+			ret = fl2000_stream_submit(stream, eof_urb);
-+		if (ret) {
-+			dev_err(&usb_dev->dev, "Data URB error %d\n", ret);
-+			WRITE_ONCE(stream->enabled, false);
-+		}
-+	}
-+}
-+
-+/*
-+ * The converters write through the frame swizzle described above. 'frame' is
-+ * the start of the destination frame, 'line' the offset of the destination line
-+ * in it (in bytes for 24bpp, in 16-bit words for 16bpp) and the x range is
-+ * absolute. 'sbuf' points at the first pixel of the span in the staging line.
-+ */
-+static void fl2000_xrgb8888_to_rgb888_line(u8 *frame, size_t line, const u32 *sbuf, u32 x_start,
-+					   u32 x_end)
-+{
-+	size_t xx = line + (size_t)x_start * 3;
-+
-+	for (unsigned int x = x_start; x < x_end; x++) {
-+		u32 pix = *sbuf++;
-+
-+		frame[xx++ ^ 4] = (pix & 0x000000FF) >> 0;
-+		frame[xx++ ^ 4] = (pix & 0x0000FF00) >> 8;
-+		frame[xx++ ^ 4] = (pix & 0x00FF0000) >> 16;
-+	}
-+}
-+
-+static void fl2000_xrgb8888_to_rgb565_line(u16 *frame, size_t line, const u32 *sbuf, u32 x_start,
-+					   u32 x_end)
-+{
-+	for (unsigned int x = x_start; x < x_end; x++) {
-+		u32 pix = *sbuf++;
-+
-+		frame[(line + x) ^ 2] = ((pix & 0x00F80000) >> 8) | ((pix & 0x0000FC00) >> 5) |
-+					((pix & 0x000000F8) >> 3);
-+	}
-+}
-+
-+/*
-+ * The 10-bit formats keep the colour in bits 29:0 (bits 31:30 are unused or
-+ * alpha, which the primary plane ignores). Drop the two low bits of each
-+ * channel, in place, so the converters above only deal with XRGB8888.
-+ */
-+static void fl2000_xrgb2101010_to_xrgb8888_line(u32 *buf, u32 x_start, u32 x_end)
-+{
-+	for (unsigned int x = x_start; x < x_end; x++) {
-+		u32 pix = buf[x - x_start];
-+
-+		buf[x - x_start] = (((pix >> 22) & 0xFF) << 16) | (((pix >> 12) & 0xFF) << 8) |
-+				   ((pix >> 2) & 0xFF);
-+	}
-+}
-+
-+/*
-+ * Pull one span of source pixels into the cached line buffer.
-+ *
-+ * A framebuffer imported from the primary GPU is mapped write-combining,
-+ * whether it sits in VRAM (I/O memory) or in system memory pinned for us,
-+ * and a plain memcpy reads it at ~100 MB/s: every access is a partial
-+ * cache-line transaction. drm_memcpy_from_wc() uses streaming loads to fetch
-+ * whole lines, about ten times faster. On our own cached shmem buffers a
-+ * non-temporal load is slower than a plain memcpy, so choose per source.
-+ *
-+ * Streaming loads move whole 16 bytes and fall back to the slow plain read for
-+ * any other length, and a line of 1366 pixels is 5464 bytes (78 ms instead of
-+ * 8 ms per frame). From a 16-byte aligned address the length can be rounded
-+ * up without leaving the buffer, whose size is whole pages; the pixels past
-+ * the span land in the line buffer but are not converted.
-+ */
-+static void fl2000_read_span(struct fl2000_stream *stream, const struct iosys_map *src_map,
-+			     bool wc, size_t offset, size_t len)
-+{
-+	struct iosys_map dst = IOSYS_MAP_INIT_VADDR(stream->line_buf);
-+	struct iosys_map src = *src_map;
-+	uintptr_t addr;
-+
-+	if (!wc) {
-+		iosys_map_memcpy_from(stream->line_buf, src_map, offset, len);
-+		return;
-+	}
-+
-+	iosys_map_incr(&src, offset);
-+	addr = src.is_iomem ? (uintptr_t)src.vaddr_iomem : (uintptr_t)src.vaddr;
-+	if (IS_ALIGNED(addr, 16))
-+		len = ALIGN(len, 16);
-+	drm_memcpy_from_wc(&dst, &src, len);
-+}
-+
-+/*
-+ * Convert one damaged rectangle of the source framebuffer into the shadow
-+ * frame. The shadow is the only thing written here, so it is always the
-+ * complete current frame: an update can never be lost because no URB buffer
-+ * happened to be free.
-+ */
-+void fl2000_stream_compress(struct fl2000_stream *stream, const struct iosys_map *src_map,
-+			    bool imported, u32 format, unsigned int width, unsigned int height,
-+			    unsigned int pitch, const struct drm_rect *clip)
-+{
-+	bool wc = imported || src_map->is_iomem;
-+	u32 dst_line_len;
-+	u32 x_start, x_end, y_start, y_end;
-+	size_t span;
-+
-+	x_start = min_t(u32, max_t(int, clip->x1, 0), width);
-+	x_end = min_t(u32, max_t(int, clip->x2, 0), width);
-+	y_start = min_t(u32, max_t(int, clip->y1, 0), height);
-+	y_end = min_t(u32, max_t(int, clip->y2, 0), height);
-+	if (x_start >= x_end || y_start >= y_end)
-+		return;
-+
-+	guard(mutex)(&stream->shadow_lock);
-+
-+	if (!stream->shadow || width != stream->width || height != stream->height)
-+		return;
-+
-+	/*
-+	 * Streaming loads need 16-byte alignment, which is 4 source pixels.
-+	 * Widening the span converts a few pixels twice, which is free next to
-+	 * losing the fast path.
-+	 */
-+	x_start &= ~3U;
-+	x_end = min(ALIGN(x_end, 4), width);
-+
-+	dst_line_len = width * stream->bytes_pix;
-+	span = (x_end - x_start) * sizeof(u32);
-+
-+	for (unsigned int y = y_start; y < y_end; y++) {
-+		/*
-+		 * Pull the span into a cached line buffer in one bulk transfer
-+		 * and convert from there: converting straight from an uncached
-+		 * source issues one read per pixel.
-+		 */
-+		fl2000_read_span(stream, src_map, wc,
-+				 (size_t)y * pitch + (size_t)x_start * sizeof(u32), span);
-+
-+		if (format != DRM_FORMAT_XRGB8888)
-+			fl2000_xrgb2101010_to_xrgb8888_line(stream->line_buf, x_start, x_end);
-+
-+		switch (stream->bytes_pix) {
-+		case 2:
-+			fl2000_xrgb8888_to_rgb565_line(stream->shadow, (size_t)y * width,
-+						       stream->line_buf, x_start, x_end);
-+			break;
-+		case 3:
-+			fl2000_xrgb8888_to_rgb888_line(stream->shadow, (size_t)y * dst_line_len,
-+						       stream->line_buf, x_start, x_end);
-+			break;
-+		default:
-+			/* Rejected by fl2000_get_bytes_pix() */
-+			break;
-+		}
-+	}
-+
-+	stream->shadow_seq++;
-+	stream->damage_log[stream->shadow_seq % FL2000_DAMAGE_LOG] =
-+		(struct drm_rect){ x_start, y_start, x_end, y_end };
-+}
-+
-+/*
-+ * Hand the cursor sprite and its position to the send path. 'argb' may be NULL
-+ * to hide the cursor.
-+ */
-+void fl2000_stream_set_cursor(struct fl2000_stream *stream, const u32 *argb, unsigned int w,
-+			      unsigned int h, int x, int y)
-+{
-+	if (w > FL2000_CURSOR_MAX || h > FL2000_CURSOR_MAX)
-+		return;
-+
-+	guard(mutex)(&stream->shadow_lock);
-+
-+	/* Nothing visible before or after: do not rebuild every outgoing frame */
-+	if (!argb && !stream->cursor_w)
-+		return;
-+
-+	if (argb) {
-+		memcpy(stream->cursor_argb, argb, (size_t)w * h * sizeof(u32));
-+		stream->cursor_w = w;
-+		stream->cursor_h = h;
-+		stream->cursor_x = x;
-+		stream->cursor_y = y;
-+	} else {
-+		stream->cursor_w = 0;
-+		stream->cursor_h = 0;
-+	}
-+
-+	stream->cursor_seq++;
-+}
-+
-+/* Move the cursor without touching its image, the common case by far */
-+void fl2000_stream_move_cursor(struct fl2000_stream *stream, int x, int y)
-+{
-+	guard(mutex)(&stream->shadow_lock);
-+
-+	if (!stream->cursor_w || (stream->cursor_x == x && stream->cursor_y == y))
-+		return;
-+
-+	stream->cursor_x = x;
-+	stream->cursor_y = y;
-+	stream->cursor_seq++;
-+}
-+
-+int fl2000_stream_mode_set(struct fl2000_stream *stream, unsigned int width,
-+			   unsigned int height, u32 bytes_pix)
-+{
-+	int ret;
-+	unsigned int size;
-+	void *shadow;
-+
-+	/* Round buffer size up to multiple of 8 to meet HW expectations */
-+	size = ALIGN(width * height * bytes_pix, 8);
-+
-+	guard(mutex)(&stream->shadow_lock);
-+
-+	stream->bytes_pix = bytes_pix;
-+	stream->width = width;
-+	stream->height = height;
-+
-+	/* If there are buffers with same size - keep them */
-+	if (stream->buf_size == size)
-+		return 0;
-+
-+	/* Destroy wrong size buffers if they exist */
-+	if (!list_empty(&stream->render_list))
-+		fl2000_stream_put_buffers(stream);
-+
-+	/* Allocate new buffers */
-+	ret = fl2000_stream_get_buffers(stream, size);
-+	if (ret) {
-+		fl2000_stream_put_buffers(stream);
-+		stream->buf_size = 0;
-+		return ret;
-+	}
-+
-+	/* One full frame in the device format; only the CPU ever reads it */
-+	shadow = vzalloc(size);
-+	if (!shadow) {
-+		fl2000_stream_put_buffers(stream);
-+		stream->buf_size = 0;
-+		return -ENOMEM;
-+	}
-+	vfree(stream->shadow);
-+	stream->shadow = shadow;
-+	/*
-+	 * Both generations move on from zero: a buffer carrying zero has never
-+	 * been built and always takes the full-copy path.
-+	 */
-+	stream->shadow_seq++;
-+	stream->cursor_seq++;
-+
-+	stream->buf_size = size;
-+
-+	return 0;
-+}
-+
-+int fl2000_stream_enable(struct fl2000_stream *stream)
-+{
-+	if (WARN_ON(list_empty(&stream->render_list)))
-+		return -ENOMEM;
-+
-+	stream->last_report = ktime_get();
-+	atomic_set(&stream->frames, 0);
-+	atomic_set(&stream->rendered, 0);
-+	atomic_set(&stream->stalled, 0);
-+	atomic_set(&stream->conv_us_total, 0);
-+	atomic_set(&stream->conv_us_max, 0);
-+	atomic_set(&stream->damage_px_total, 0);
-+
-+	/* Start the transmit work with the minimum number of buffers in flight */
-+	atomic_set(&stream->credits, FL2000_SB_MIN);
-+	WRITE_ONCE(stream->enabled, true);
-+	queue_work(stream->work_queue, &stream->work);
-+
-+	return 0;
-+}
-+
-+void fl2000_stream_disable(struct fl2000_stream *stream)
-+{
-+	struct fl2000_stream_buf *cur_sb;
-+
-+	/* Wake the work up even when no URB is in flight to complete */
-+	WRITE_ONCE(stream->enabled, false);
-+	wake_up(&stream->credits_wq);
-+
-+	drain_workqueue(stream->work_queue);
-+
-+	if (!usb_wait_anchor_empty_timeout(&stream->anchor, 1000))
-+		usb_kill_anchored_urbs(&stream->anchor);
-+
-+	spin_lock_irq(&stream->list_lock);
-+	while (!list_empty(&stream->wait_list)) {
-+		cur_sb = list_first_entry(&stream->wait_list, struct fl2000_stream_buf, list);
-+		list_move_tail(&cur_sb->list, &stream->render_list);
-+	}
-+	spin_unlock_irq(&stream->list_lock);
-+}
-+
-+/**
-+ * fl2000_stream_create() - streaming processing context creation
-+ * @usb_dev: FL2000 USB device
-+ *
-+ * Called on DRM master bind. It shall not initiate any USB transfers: buffers
-+ * and URBs are allocated later, once the mode (and thus the frame size) is
-+ * known.
-+ *
-+ * Return: stream context, or an ERR_PTR() on failure
-+ */
-+struct fl2000_stream *fl2000_stream_create(struct usb_device *usb_dev)
-+{
-+	int ret;
-+	struct fl2000_stream *stream;
-+
-+	/* Altsetting 1 on interface 0 */
-+	ret = usb_set_interface(usb_dev, FL2000_USBIF_AVCONTROL, 1);
-+	if (ret) {
-+		dev_err(&usb_dev->dev, "Cannot set streaming interface for bulk transfers\n");
-+		return ERR_PTR(ret);
-+	}
-+
-+	stream = devres_alloc(&fl2000_stream_release, sizeof(*stream), GFP_KERNEL);
-+	if (!stream)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_WORK(&stream->work, &fl2000_stream_work);
-+	INIT_LIST_HEAD(&stream->render_list);
-+	INIT_LIST_HEAD(&stream->wait_list);
-+	spin_lock_init(&stream->list_lock);
-+	mutex_init(&stream->shadow_lock);
-+	init_usb_anchor(&stream->anchor);
-+	atomic_set(&stream->credits, 0);
-+	init_waitqueue_head(&stream->credits_wq);
-+	stream->usb_dev = usb_dev;
-+
-+	/* One scanline of source pixels, for the widest mode we advertise */
-+	stream->line_buf = kmalloc_objs(*stream->line_buf, FL2000_MAX_LINE_PIXELS);
-+	/* The largest cursor, allocated once: the atomic update must not fail */
-+	stream->cursor_argb = kmalloc_objs(*stream->cursor_argb,
-+					   FL2000_CURSOR_MAX * FL2000_CURSOR_MAX);
-+	stream->work_queue = alloc_ordered_workqueue("fl2000_stream", 0);
-+	if (!stream->line_buf || !stream->cursor_argb || !stream->work_queue) {
-+		if (stream->work_queue)
-+			destroy_workqueue(stream->work_queue);
-+		kfree(stream->cursor_argb);
-+		kfree(stream->line_buf);
-+		mutex_destroy(&stream->shadow_lock);
-+		devres_free(stream);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	devres_add(&usb_dev->dev, stream);
-+
-+	return stream;
-+}
-+
-+void fl2000_stream_destroy(struct usb_device *usb_dev)
-+{
-+	devres_release(&usb_dev->dev, fl2000_stream_release, NULL, NULL);
-+}
-
--- 
-2.56.0
-
-
+> 				--order;
+> 				page_caching = tt->caching;
+> 				allow_pools = true;
+>@@ -910,6 +921,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+> 		return -EINVAL;
+>
+>+	tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+> 	ttm_pool_alloc_state_init(tt, &alloc);
+>
+> 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
+>@@ -942,6 +954,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	if (!restore) {
+> 		gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
+>
+>+		tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+> 		ttm_pool_alloc_state_init(tt, &alloc);
+> 		if (ctx->gfp_retry_mayfail)
+> 			gfp |= __GFP_RETRY_MAYFAIL;
+>diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+>index 406437ad674b..ce7533677d77 100644
+>--- a/include/drm/ttm/ttm_tt.h
+>+++ b/include/drm/ttm/ttm_tt.h
+>@@ -90,6 +90,14 @@ struct ttm_tt {
+> 	 * TTM_TT_FLAG_BACKED_UP: TTM internal only. This is set if the
+> 	 * struct ttm_tt has been (possibly partially) backed up.
+> 	 *
+>+	 * TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED: Set by the TTM pool allocator
+>+	 * when at least one chunk that could have been allocated at the pool's
+>+	 * beneficial order had to fall back to a smaller order. This indicates
+>+	 * that a sub-optimal set of pages was chosen for this object, and can
+>+	 * be used by drivers to queue the buffer object for later
+>+	 * defragmentation. Drivers should access this via the
+>+	 * ttm_tt_is_beneficial_order_failed() helper.
+>+	 *
+> 	 * TTM_TT_FLAG_PRIV_POPULATED: TTM internal only. DO NOT USE. This is
+> 	 * set by TTM after ttm_tt_populate() has successfully returned, and is
+> 	 * then unset when TTM calls ttm_tt_unpopulate().
+>@@ -101,8 +109,9 @@ struct ttm_tt {
+> #define TTM_TT_FLAG_EXTERNAL_MAPPABLE	BIT(3)
+> #define TTM_TT_FLAG_DECRYPTED		BIT(4)
+> #define TTM_TT_FLAG_BACKED_UP	        BIT(5)
+>+#define TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED	BIT(6)
+>
+>-#define TTM_TT_FLAG_PRIV_POPULATED	BIT(6)
+>+#define TTM_TT_FLAG_PRIV_POPULATED	BIT(7)
+> 	uint32_t page_flags;
+> 	/** @num_pages: Number of pages in the page array. */
+> 	uint32_t num_pages;
+>@@ -179,6 +188,19 @@ static inline void ttm_tt_clear_backed_up(struct ttm_tt *tt)
+> 	tt->page_flags &= ~TTM_TT_FLAG_BACKED_UP;
+> }
+>
+>+/**
+>+ * ttm_tt_is_beneficial_order_failed() - Whether the tt is backed at a
+>+ * sub-optimal page order
+>+ * @tt: The struct ttm_tt.
+>+ *
+>+ * Return: true if the pool allocator had to fall back below the pool's
+>+ * beneficial order when backing this tt, false otherwise.
+>+ */
+>+static inline bool ttm_tt_is_beneficial_order_failed(const struct ttm_tt *tt)
+>+{
+>+	return tt->page_flags & TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+>+}
+>+
+> /**
+>  * ttm_tt_create
+>  *
+>-- 
+>2.34.1
+>
