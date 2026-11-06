@@ -2,35 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B9B606A338
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 19:06:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FF6606A32D
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 19:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m/rwaVYR
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EsbygLqL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF3F410E446;
-	Fri,  6 Nov 2026 19:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5A210E0BD;
+	Fri,  6 Nov 2026 19:09:12 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D080910E446;
- Fri,  6 Nov 2026 19:05:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65C7B10E0BD;
+ Fri,  6 Nov 2026 19:09:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793991956;
- bh=6LdXT14KOb6OCBtyF62RqXz9icJXVGvFn0shQuZytOU=;
+ s=mail; t=1793992145;
+ bh=r6VDpg3FAxOwfz4ISFxVWsC4rSt8VUYBM2cnkHmSp+U=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=m/rwaVYRyrhwiNzeDi/swPJtjeqJ6hzjz0zmjSpsv68KvWhW1dawlq7AtTJYMd2jO
- etDDXsOvYgoLbBFBtIuPEb+bHOXR8pFXqcyt5fHe4h9942XugEr6BUfACFw1ESD4Yv
- k87VluyvP3L0x9Fgpx0yzDJ/fVpqjzUT6ct7PU9CznK3Udf8lfhsWTeKoWtWfva9nz
- CaprmoSJvrXOPOk0SVzCGZTjbs27J5XpWj61DAYWuJzqtd+dtlvMFePjxuLiLC1o41
- ompPNeaZPvJLVwyfROMxEea2+WvzxpbUpEJmmpyJQpAm/cQNARuB4ZOdnDh0xBO49X
- 9QqxIOIGV6KbQ==
+ b=EsbygLqLPWd0rmghvY5UCxhMhDSZWcS5VFmeTbrrpV7uViRl31ScU8dw4/v/oAuCO
+ cTChOITZ/SIqYTBkqVKnNpUZcq3aYEoDiOz9dMGSImoOsYw9dfcNt6oXy05l7JHx9f
+ 8gM35kyfDF4sghgXyAYrvXgwaf1f6TB97a3UJFkDJPChIbxF24+Qsltaf+bF/Vhqyi
+ 7+sRiFvqROb+M2NxQ8w7rixEFRxgv/V7YzW893/WnDoGTmoe66J8ekeRgNRppcXedH
+ gJqKDnvycf/t6Axq2D72A+dpN5d5uDWqsy7BvLaKcjukXEPfHdpeoBsxsEzbIVFTSO
+ w5MFs93Ruhk/Q==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
+ key-exchange secp256r1) (No client certificate requested)
  (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A66E617E0411;
- Fri, 06 Nov 2026 20:05:53 +0100 (CET)
-Message-ID: <2e69b386374ae46177a2fd975814a31e4016c3d9.camel@collabora.com>
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 327CF17E0411;
+ Fri, 06 Nov 2026 20:09:02 +0100 (CET)
+Message-ID: <8f3c80b4b518835e2d8b3da62e84572338657f68.camel@collabora.com>
 Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: rob.clark@oss.qualcomm.com
@@ -50,14 +49,15 @@ Cc: Robert Mader <robert.mader@collabora.com>, Dmitry Baryshkov
  <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
  <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
  <neil.armstrong@linaro.org>
-Date: Fri, 06 Nov 2026 14:05:51 -0500
-In-Reply-To: <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
+Date: Fri, 06 Nov 2026 14:09:01 -0500
+In-Reply-To: <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
 References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
  <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
  <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
  <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
- <062fe7dca00f77dac05197552d22897b28dc2143.camel@collabora.com>
- <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
+ <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
+ <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
+ <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -73,7 +73,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-XurZlOBuCgoi/+wYTJZt"
+ protocol="application/pgp-signature"; boundary="=-MRU/X/3RbhtvxHzHto3I"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -88,92 +88,145 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---=-XurZlOBuCgoi/+wYTJZt
+--=-MRU/X/3RbhtvxHzHto3I
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
-
-Le jeudi 05 novembre 2026 =C3=A0 13:07 -0800, Rob Clark a =C3=A9crit=C2=A0:
-> On the v4l2 side, I'm not sure.=C2=A0 But it is also not clear to me if t=
+Le jeudi 05 novembre 2026 =C3=A0 12:52 -0800, Rob Clark a =C3=A9crit=C2=A0:
+> On Thu, Nov 5, 2026 at 12:35=E2=80=AFPM Nicolas Dufresne
+> <nicolas.dufresne@collabora.com> wrote:
+> >=20
+> > Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=
+ :
+> > > On 04.11.26 23:11, Rob Clark wrote:
+> > > > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@=
+collabora.com> wrote:
+> > > > > Nice, very happy to see the series!
+> > > > >=20
+> > > > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > > > > > The comment describing the QC10C buffer layout calls it a compr=
+essed
+> > > > > > P010. It is not:
+> > > > > If I'm not mistaken the display engine / the DRM side (including =
+Mesa)
+> > > > > describes it as P010+QCOM_COMPRESSED as well, and so does my pend=
+ing
+> > > > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> > > > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wi=
+re that
+> > > > > up everywhere etc. OTOH if we want to keep the DRM side as is, th=
+en the
+> > > > > comment should reflect that, IMO.
+> > > > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P0=
+10
+> > > > as distinct formats, both with and without UBWC.  I'm not sure if t=
 he
-> viddec hw (iris) supports all four combinations of P010/TP10 vs
-> linear/UBWC.=C2=A0 I guess there is already some fourcc translation neede=
-d
-> between v4l2 and drm, so maybe it is ok to stick with QC10C on the
-> v4l2 side?
-
-Commenting on this aspect specially, and Dmitry is really going in the righ=
+> > > > same is true on video side but P010+UBWC was never exposed, or if i=
 t
-direction, V4L2_PIX_FMT_QC08C and 4L2_PIX_FMT_QC10C was under specified, an=
-d so
-the implementation didn't have anything to be verified against. Just descri=
-bing
-what the format is and what kind of alignment is needed is a great start. T=
-he
-stride is not being used in practice by the importers (gpu and display), an=
-d I
-think we can turn that to our advantage.
+> > > > truely only supports linear P010 and UBWC TP10.
+> > >=20
+> > > Oh, do I understand you correctly that the P010+UBWC implementation i=
+s
+> > > not compatible with QC10C, meaning on the GPU side (Mesa and display)=
+ we
+> > > don't yet have any support for QC10C exposed to userspace? If that's =
+so
+> > > then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+> > >=20
+> > > On the plus side - this would allow us to make the format single plan=
+e,
+> > > matching what we get on the V4L2 side.
+> >=20
+> > Since its single plane, we should aim for a variation of
+> > DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious l=
+inear
+> > single plane packing for that, it would only be there to support the
+> > compression. Or maybe this one is abstract enough to be used anyway?
+>=20
+> Oh, sorry, maybe I was a bit misleading/unclear.   TP10 is still a
+> semi-planar format with a Y and UV plane.  But each of those planes
+> combines UBWC metadata and pixel data.
+>=20
+> Within each plane, the pixel part of the data combines 3 samples in
+> 32b (compared to P010 which is a single sample per 16b.  So not quite
+> the same thing as DRM_FORMAT_YUV420_10BIT.
 
-What I lately ask, is to just directly document for V4L2 users which
-fourcc+modifier should this v4l2 format map to. How many planes are expecte=
-d to
-be exposed, etc. When I naively asked, I thought the answer would have been
-unique and well known, but we uncovered issues. This comes from a simple ta=
-sk,
-that we must do for every V4L2 format in GStreamer, which is to map the
-format/modifier pair to its DRM format, as GStreamer negotiate DMABuf with =
-DRM
-formats these days. Whatever we tried, either failed to import in the GPU, =
-or
-failed in the display controller, due to interoperability issue, miss-
-interpretation.
+I believe DRM_FORMAT_YUV420_10BIT is defined as fully packed, no padding in=
+deed,
+but I'm not sure if it actually matters considering there is no linear
+representation of these. What really matter is that its a single stride/off=
+set
+format, which TP10 is not. I would not mind to see another pair for format,=
+ but
+I just wanted to emphasis about the number of expected strides.
 
-On your proposal, I'd like to highlight that NV12/TP10 usage is quite broke=
-n
-(though its fine if we have to live with that for backward compat, we'll co=
-de
-the exception).
-
-We commonly deduce the number of planes (or I should say the number of stri=
-des
-and offsets needed) from the base format. These two have 2 planes, but the =
-new
-doc states QC compressed has one plane. Same discussion happened with Arm a=
-nd
-Amlogic Frame Buffer Compression. They both are single plane, and for that
-reason DRM_FORMAT_YUV420_8BIT and DRM_FORMAT_YUV420_10BIT got introduced. T=
-hese
-don't have a linear representation, they reflect the depth, the subsampling=
- and
-are specified as single plane (single stride). The stride in AFBC is still
-allowed, to avoid forcing the width to be a padded width. The importers sho=
-uld
-walk backward the stride to find the padded width. QC compressed importer
-currently ignores the stride completely, so you have to have the padded wid=
-th.
-
-hope this helps,
 Nicolas
 
---=-XurZlOBuCgoi/+wYTJZt
+>=20
+> BR,
+> -R
+>=20
+> > Nicolas
+> >=20
+> > >=20
+> > > >=20
+> > > > BR,
+> > > > -R
+> > > >=20
+> > > > > Best regards,
+> > > > >=20
+> > > > > Robert
+> > > > >=20
+> > > > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_req=
+uests/8195
+> > > > >=20
+> > > > > > P010 stores each sample in 16 bits, QC10C packs three
+> > > > > > 10-bit samples in each 32-bit word, which is what the stride co=
+mputed
+> > > > > > below (width * 4 / 3) assumes. Name the format correctly.
+> > > > > >=20
+> > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.=
+com>
+> > > > > > ---
+> > > > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> > > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > >=20
+> > > > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/d=
+rivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > index eb8de60c1177..ec2bf2a2d953 100644
+> > > > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struc=
+t iris_inst *inst)
+> > > > > >=20
+> > > > > >    /*
+> > > > > >     * QC10C:
+> > > > > > - * UBWC-compressed format for P010.
+> > > > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples p=
+acked in 32 bits.
+> > > > > >     * Contains 4 planes in the following order -
+> > > > > >     * (A) Y_Meta_Plane
+> > > > > >     * (B) Y_UBWC_Plane
+> > > > > >=20
+
+--=-MRU/X/3RbhtvxHzHto3I
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lDwAKCRDZQZRRKWBy
-9B09AQCiNR+l/1e2VeNu+RNjbJP0jSKScgnUcsZqLFd8m2lwlQEAgTgIn5070Dvr
-MBTt0SmP8C/5crzqIXMK409biSzy3gQ=
-=mcCx
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lzQAKCRDZQZRRKWBy
+9FnqAP49S1oZaKGOY3Hv3ojnOCcc44EO1hORyLd//hdYPKnC3QEA75cJxJYAPQ2S
+4kb8vGbFauZWYlct28W1Lw1n+jFKpgY=
+=RDiY
 -----END PGP SIGNATURE-----
 
---=-XurZlOBuCgoi/+wYTJZt--
+--=-MRU/X/3RbhtvxHzHto3I--
