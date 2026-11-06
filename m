@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02C9606A32E
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F79F606D807
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:12:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5MkiU4O
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tixt9pNe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36A1B10F87E;
-	Fri,  6 Nov 2026 15:12:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B64A10F881
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0553D10F881;
+	Fri,  6 Nov 2026 15:12:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F2010EA86
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:12:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63AC6439D8;
- Fri,  6 Nov 2026 15:11:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C606A1F008A2;
- Fri,  6 Nov 2026 15:11:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 551696014A;
+ Fri,  6 Nov 2026 15:12:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A41F1F008A2;
+ Fri,  6 Nov 2026 15:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793977917;
- bh=fBR/d2kDO7ofonwugntYIl0PHaKrMZ/PUvdO3M4g6VM=;
+ s=k20260515; t=1793977921;
+ bh=TLDbmk1ZXcxHrpcMpC7HafFvi1Pw8dGElTyKgkks43w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=E5MkiU4OkCagSJTioDoqawNCSolUj0Lfd3dcSFbpbyQrs3H3laSMpCLHesKF6aTli
- RRZIav9d+5CawdLmWR4TBB3VOGtdP2Vbxfx1LjPqQKcAoSnjN4kOpv4Sb4coveH4cr
- 05Et8b85DQQ10gYTqJnGdnsuTavEjwUhhUNRlRYrMPenBnGT56xrOoKqZm+t7BzT5s
- tYhrXZDYn9+YYxCMl2g+iYrssHDCOhgNdDGduAf2iVeBcFH/tJDvl8GoZAEBPfP0go
- XOX2fQK+qgWl/yTymlMCdn8ATV4BTLAbKSbQfPn3SfN32MifHogFoRmPAwf2cFgz+Y
- 5LDbD1qHZUrAw==
+ b=Tixt9pNezgojkPjKPPpC984lO7ihMcXPmi6oh9eyPLi3/w/ktJErKzPWkRc8eqolj
+ D6nqBByoqbOxA7y2kopVk3n/xK6yJWpebtM4zr49JRGq3nHT0tSN7lV0Cd8FNGR55/
+ 99UGYkla7/BCoi+lzGqOewAnjNrYHF9k+UIK/UyTCmyEe/6w5oEDmPGgYHonXxlhd/
+ 6S8S/goCsccZ//Wt6zf8dfYMsY8bdnzglHbxm2fVN4l2Mf6B8pCP6cEeQ5ffHqLouB
+ nuSDQd5UojQ1quY1+vfRrnp4J4SNYXR+j/LlW+uBeLhV+CYcRDt5QWf8l/HyS99tIJ
+ 4VtBr3ZWFU6sA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 16:11:40 +0100
-Subject: [PATCH v8 2/7] drm/atomic: Add
- drm_atomic_implements_create_state() helper
+Date: Fri, 06 Nov 2026 16:11:41 +0100
+Subject: [PATCH v8 3/7] drm/lease: Add a helper to tell whether a lease was
+ revoked
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-reset-state-flag-v8-2-50fd046b705f@kernel.org>
+Message-Id: <20261106-drm-reset-state-flag-v8-3-50fd046b705f@kernel.org>
 References: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 In-Reply-To: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3340; i=mripard@kernel.org;
- h=from:subject:message-id; bh=eNy3jfcG0T74BgjzpyssXa+LxgGLkHAW2kof6DzNhSc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3+mrxR8tvem7V9Lur4THu7LP36QPcP3doVYibWlef
- Xe5537RjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRWW6M9S4bnub+WhXVwPTZ
- 3z+fbd/kSX1Xtb2vqUnkL7vz+/3Enbvie8+2sx1h4m5o/l2blvckg7GKef2s1E3HHbNTnul0C70
- S3/mrtvxoytLKzmqB0289LLX8DxtXdV28tvvGl6lrPG/svVwHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2028; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=yJ3G96wvMCcjTj2LVCQz3AR51PPKuK+Q3wkQvYzXiSY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3xk8cvSb9TZnunb+GSGnz6Xu71UXuk2LbCrRn3N7/
+ 4rF5U7pHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi3Y2MteK+7tPK9y/ItdKM
+ FFJXYcxZHrH1tk/70uDNac8W/Zv/cmK5ujCfht9ToR3XHLNmd9rNYGy4feN9aHjwxIb9/w68bF3
+ izjtf/t1ss628bNMkV8ziPnbd9OyF7tqpjPaPWkqL7Zb13/sOAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,94 +81,66 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The atomic reset path will need to create pristine default states from
-scratch for every plane, CRTC, and connector. This requires all of them
-to implement the atomic_create_state hook.
+drm_lease_held() only answers whether a given object is part of a lease,
+and the answer can change from one call to the next. Code that needs to
+look at several objects in a row has no way to tell whether the lease it
+has been checking against is still around by the time it is done.
 
-Introduce a drm_atomic_implements_create_state() helper that iterates
-over all planes, CRTCs, and connectors and returns whether they all
-provide the hook. Color operations are excluded since they always use
-drm_atomic_helper_colorop_create_state() directly.
+Add a helper reporting whether a lease has been revoked, so that such
+code can bail out instead of acting on a lease that went away.
 
-This will be used both as a precondition before filling a commit with
-default states, and to report the device capability to userspace.
-
-Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |  2 ++
- 2 files changed, 51 insertions(+)
+ drivers/gpu/drm/drm_lease.c | 26 ++++++++++++++++++++++++++
+ include/drm/drm_lease.h     |  2 ++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..7a77051096c9 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1601,4 +1601,53 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
- EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+index 5d2cf724cbd7..dd59df14dcc0 100644
+--- a/drivers/gpu/drm/drm_lease.c
++++ b/drivers/gpu/drm/drm_lease.c
+@@ -148,4 +148,30 @@ bool drm_lease_held(struct drm_file *file_priv, int id)
+ }
  
-+/**
-+ * drm_atomic_implements_create_state - check if a device supports creating pristine states
-+ * @dev: DRM device
-+ *
-+ * Check whether every plane, CRTC, and connector in @dev implements the
-+ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
-+ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
-+ * are required to create default states from scratch rather than duplicating
-+ * the current state.
-+ *
-+ * Color operations are not checked because they always use
-+ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-+ *
-+ * Returns:
-+ * True if all objects implement atomic_create_state, false otherwise.
++/*
++ * Checks whether the file is a lessee whose lease has been revoked. A
++ * lease is always revoked as a whole, so an empty one has been revoked.
 + */
-+bool drm_atomic_implements_create_state(struct drm_device *dev)
++bool drm_lease_revoked(struct drm_file *file_priv)
 +{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	struct drm_plane *plane;
-+	struct drm_crtc *crtc;
++	struct drm_master *master;
++	bool ret = false;
 +
-+	/*
-+	 * colorops don't have an atomic_create_state hook but
-+	 * drm_atomic_helper_colorop_create_state()
-+	 */
++	if (!file_priv)
++		return false;
 +
-+	drm_for_each_plane(plane, dev)
-+		if (!plane->funcs->atomic_create_state)
-+			return false;
++	master = drm_file_get_master(file_priv);
++	if (!master)
++		return false;
 +
-+	drm_for_each_crtc(crtc, dev)
-+		if (!crtc->funcs->atomic_create_state)
-+			return false;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->funcs->atomic_create_state) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return false;
-+		}
++	if (master->lessor) {
++		mutex_lock(&master->dev->mode_config.idr_mutex);
++		ret = idr_is_empty(&master->leases);
++		mutex_unlock(&master->dev->mode_config.idr_mutex);
 +	}
-+	drm_connector_list_iter_end(&conn_iter);
 +
-+	return true;
++	drm_master_put(&master);
++	return ret;
 +}
-+EXPORT_SYMBOL(drm_atomic_implements_create_state);
 +
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..72c3d420f40c 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -703,4 +703,6 @@ drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
+ /*
+  * Given a bitmask of crtcs to check, reconstructs a crtc mask based on the
+diff --git a/include/drm/drm_lease.h b/include/drm/drm_lease.h
+index 53545b4ca9ef..03f7ea36c37c 100644
+--- a/include/drm/drm_lease.h
++++ b/include/drm/drm_lease.h
+@@ -21,4 +21,6 @@ bool drm_lease_held(struct drm_file *file_priv, int id);
+ bool _drm_lease_held(struct drm_file *file_priv, int id);
  
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
++bool drm_lease_revoked(struct drm_file *file_priv);
 +
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
+ void drm_lease_revoke(struct drm_master *master);
+ 
 
 -- 
 2.55.0
