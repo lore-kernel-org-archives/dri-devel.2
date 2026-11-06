@@ -2,82 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0A4606A32C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1F9606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=ILp+aPhX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHfHZnPS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6093112E75;
-	Fri,  6 Nov 2026 15:44:20 +0000 (UTC)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32583112E73
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:44:14 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-3ae1da332bcso363345a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 07:44:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1793979854; x=1794584654; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kdSQ6gbIkbrqZrODfVj2GaSXZ9iZOLx1/t0MWwXpq7k=;
- b=ILp+aPhX0Imo9I5F63+5pwIn4Wveiu6XZYv4CeDd8IODLK3xskM++cj0/0Gq4Mc5fV
- p3xaN2y8XzBkhmMqmTtJEjXU+K5C6aHJUzbGa5XV+b10tEy6A7BYXFjIEspsyp/Ls21B
- 3QkXS/YrAp7l2e9BQt164V6n/BFyKYlIRhZx8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793979854; x=1794584654;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kdSQ6gbIkbrqZrODfVj2GaSXZ9iZOLx1/t0MWwXpq7k=;
- b=zl0QQT9nagJ6jH6LtNpf9+8flwAfcNnbz/X/kNQLcWdgikOeDVhB5cszv2LRyNFVnW
- wU/II0vXYc2+wTQP4HQMXjbFsz0VIy5EhQhK1S2R9YQejQGk7rNudxOMv48FmBmOaRyz
- tYCx96KahK63LcKEWdO6vIlw4RYi9BYnJVxkDoKo8B2GfG7+2GAP0rf89QH3xO+JHxst
- zpzMBXM8RL9akYER9Uukxo+rHW36AqjspcX28ooqZd5qDVN7hPs+T9DTL4HLqz2zeadQ
- bFRwfE+GF1lKxMe5xx0EHVFALdDFKvJETm+MjZHn4MdJlAl5wLQYDv418gKr7qLxirm+
- OmjQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGFTCzemykA5o/0CS2uhu0S0MYEub05BgaXhyvcXq56AD9cwFx2ed+qA/eyoUaK0kpwA2xr485nRoo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z85274axQpQC9zJjrRgsBrfHaVkhRRGTdYOwjvs6UQnmTKAb+iJ
- F/LJqhKefI+7hTLKLpGUzw/VDIAircs+Q+CH16vEB47f5k+tuxpOkzkZaFLbTBYX43Q=
-X-Gm-Gg: AYBFou346HcaVf48+RlLYOomYWpeMP9A6Ig/ORk38TYYc3qAxI8nzTjtVQEfTKoIlP2
- IuHCGOD4tErMluMuZ2mLJMJhkgmRHHUo9mBE0DiveBxR85ZnqJzv0XKN+wKO5CsIQX/KKqjtzlb
- /Evc3hN7efhk9ocojytXW+xPx7MGOykJPnJOhUw9a+oG6I5p3KBoAsJ2RGMI1cBoYxEvv3K/3WY
- VgRw8zdTfFLIXJ/hqIUuhC/jQRimZ1u6mB1TeeUQfb+bDCnOWToEqvPK08+BmCbiy4Ff2oxZ2Db
- ajCRZcreI0MOI1OOrb6b7EuoqlUlqpOd0cdI1Yw9qoIoGRJG7AJkfkQAZd09UVQFo474u2AVrBo
- 8THLWv2pAyJHhrAOMe9W2tB3k2Lb8N5CgZtVhHEqGuHTqASw1VEKfXGR9Q0ZH9Gn6OhQYCkHtUi
- e8YkVZYYP4zQBqFqBrldQtvf59tuy4esL10Y+tll0GTPk9fJ0bIRjo24GaY/hb5XqFtkj9Hyyaw
- j23+V7syOtXlc7BkFLwMGs5kMXvmRlXXqKhCaQSLUwWrAQpbI6BMfevOePk1/xuExwtktJIkfXc
- zGRq1IguBwNeYiaevx/akJgDG1zy9OQIIV62CPYJKvWqALHETzUaLZxksttwlTPzJm9izFgkMcO
- exKFvujBWsjw=
-X-Received: by 2002:a17:90b:57ce:b0:3a4:fe48:d410 with SMTP id
- 98e67ed59e1d1-3b0db6e584fmr2823135a91.30.1793979854271; 
- Fri, 06 Nov 2026 07:44:14 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b0b326add7sm8301270a91.8.2026.11.06.07.44.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2026 07:44:13 -0800 (PST)
-Date: Sat, 7 Nov 2026 00:44:08 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Gyeyoung Baek <gye976@gmail.com>, Philipp Stanner <phasta@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
-Message-ID: <au31m2jC9SmQ6iZh@rock-5b-plus>
-References: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
- <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
- <33ccceef-3498-426a-ae7c-a8bafbb88992@igalia.com>
- <2ca12f1b-89f6-4069-aedf-4e5d645e8deb@ursulin.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053D9112E4F;
+	Fri,  6 Nov 2026 15:45:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2760A112E4F
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:45:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C680640784;
+ Fri,  6 Nov 2026 15:45:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1B21F008A1;
+ Fri,  6 Nov 2026 15:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793979950;
+ bh=Sf7jpXPq+wp6SBfVuD5VhfW8K2K7PrL3pzRu30lk/Qs=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=NHfHZnPSDSHLthC28xmc7Tynk3g3EuBVtAtF3YePrjls2avEgiFGihXMqKalL6SYK
+ SeJfbKbhS1SHWhGP9tCN6jALT7jREvu0x9m17dhcE0oLL42alVk0H4Ve6UWnQsZ17V
+ pOd3zRki1UcQZ29EAFK0E5v9T4pzWtOa2Z1QlBdeIUapAvd2pzBNLlIfkVE6aLRurr
+ uq5rcOkbHr9280TJ3ts+7TSC30ovRao2lHyLtEiO9tHldNoUeF0owFJmmy9pFG8jCG
+ 5cQRmxsKh588fJfaFewhWE1XgoaoMSVyjoOt6yV+WAzO5GfLn/FYQd7wPywABOqUIP
+ iCRRMFk+OTbyQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-mm@kvack.org,
+ kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
+In-Reply-To: <86zevn1c9a.wl-maz@kernel.org>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+ <86zevn1c9a.wl-maz@kernel.org>
+Date: Fri, 06 Nov 2026 21:15:29 +0530
+Message-ID: <yq5ah5huoteu.fsf@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2ca12f1b-89f6-4069-aedf-4e5d645e8deb@ursulin.net>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,22 +92,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 05, 2026 at 11:04:29AM +0000, Tvrtko Ursulin wrote:
-> It would just be adding u64 drm_sched_entity_get_runtime(entity).
-> Nothing else would need to be exported and the implementation simply
-> locks entity->stats and returns the runtime. As long as the caller knows
-> they haven't destroyed the entity it is safe since entity holds a
-> reference to the stats object.
+Marc Zyngier <maz@kernel.org> writes:
 
-Thanks for the suggestion. If Philipp and Danilo are fine with it, may I
-add drm_sched_entity_get_runtime() and switch rocket to it in v5?
+> On Wed, 04 Nov 2026 16:45:55 +0000,
+> "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
+>> 
+>> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
+>> not allowed.  Remove the page allocation from this atomic path.
+>> 
+>> Use a blocking allocation for the boot CPU and record the resulting table
+>> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
+>> stage for each secondary CPU.  Consume the preallocated page only when the CPU
+>> cannot inherit an existing redistributor or ITS table.
+>> 
+>> Reclaim unused preallocations after the CPU reaches the online state, and from
+>> the prepare-state teardown when CPU bring-up aborts.
+>
+> No. The way to do it is to move the ITS probing out of the
+> non-sleepable CPU hotplug path.
+>
+> I proposed a potential hack at [1] (which I find far more palatable
+> than this proposal), but the real fix is to probe the ITSs as
+> devices.
+>
 
-Thanks,
-Sidong
+Could you share a bit more detail on what you have in mind?
+
+Are you suggesting that we create a platform device for each ITS and
+initialize it through the driver's probe callback, while the rest of the
+GIC initialization stays in the existing early boot path?
+
+Would that mean the main GIC is operational during early boot, while
+ITS-dependent features, such as MSI delivery and direct injection, become
+available after the ITS devices probe?
+
+Is that the split you have in mind?
+
+-aneesh
