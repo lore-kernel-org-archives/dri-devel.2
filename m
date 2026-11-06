@@ -2,66 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988BE606A332
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9708606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqNn2ZPS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l77HuDWW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF1B7112F0A;
-	Fri,  6 Nov 2026 16:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7AAD112F19;
+	Fri,  6 Nov 2026 16:40:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E74C5112F0D
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:37:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB7D5112F12
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:40:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C50CA409B9;
- Fri,  6 Nov 2026 16:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D491F0089F;
- Fri,  6 Nov 2026 16:37:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A3B9E42AE1;
+ Fri,  6 Nov 2026 16:40:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A2581F008A5;
+ Fri,  6 Nov 2026 16:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793983072;
- bh=vLjr3aN3svtfAg+boMWqs422HvhByANgbsByJPhijUM=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=PqNn2ZPSbtV+aliQY+qri8OzTkVFhHX/RcF49t9kMRpCsmPtKLGAl0ofmvvRDZC1Q
- fb1ipwVXN1A4Hc8z4lDPpyFl3WE1mN4JFnsoGy/qYfl20qH+Ck7uk3eg4l5zXL6MYf
- Pr+TxompeaQ8TKyJuTx//wd6WZaHngdB155MKoKHABCivkcdlDFl/UTxAlvyIe4Ifi
- bT37UmUYBvXd103eTyacBfHfGkarkpKeQ47YiQr2PGsTBfXIiuO5NA/aC1Od04JWdQ
- Z+LIwjb2VR0o8jyq5nS7FbefvW398n1HhNvy3a/AdTFwIVpcA5X+MalQJ7AelTbhjM
- nGHTloIhjADYA==
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+ s=k20260515; t=1793983214;
+ bh=Ay2elfYczK0OYydR8mDHF51I2gsg5W+QJhXacNMWDz8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=l77HuDWWO6hC/1ORGbwYjSMq8wMbRO5BIupU3oGbhlevPYQ4BI4B2zSaNgwEpfQeF
+ /t0HhdKtlG/Q9y9KSqObHsksz8rye0pHo5YchlQbWxEOS/56ZG7OmCBYiWr60BPFsY
+ nEHqfLFbk3unVX18WA33UEIACD4UuAS3SiF7CkPnS0uwkwLLSXDPtTthOde2bid3Zo
+ szCEq56VGtcrZBI6S6diTOczD5mEuLVXj+E39utwUtAvfzNm2AGC1H4kWrnU+eOT0Y
+ UrDw2sh7rOIbNfTiPnHaSPIGTqd1igR0BI2yUsUPqbjYi//6BYVctqOrIV4dzrEe7D
+ s/FSRxNOGli0g==
+Message-ID: <sashiko-outbox-201842@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/todo: remove drmm_of_get_bridge()
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-3-c0ea3382b798@bootlin.com>
+References: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
+ <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-3-c0ea3382b798@bootlin.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 06 Nov 2026 17:37:47 +0100
-Message-Id: <DMO9X7V4K1MQ.2PSHDUJKA9Z2B@kernel.org>
-To: "Jani Nikula" <jani.nikula@linux.intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [RFC] linux-next: replace the DRM trees with a single
- drm-for-linux-next
-Cc: "Dave Airlie" <airlied@gmail.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Alex Deucher" <alexdeucher@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>,
- "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <dri-devel@lists.freedesktop.org>, "Mark Brown"
- <broonie@kernel.org>, <linux-next@vger.kernel.org>
-References: <DMKY979I29AF.BS1DF5YAZMOY@kernel.org>
- <aujikV14tF6K1Xqw@intel.com> <DMKZR0YZV1CX.DWVK9V47GR1J@kernel.org>
- <CAPM=9tww=CJdxzvfUvLwQ6V4uoszg8JrB1XCAcp15upM-xPvSg@mail.gmail.com>
- <DMLTRKUXTL3P.11VRVU1A8ERMG@kernel.org> <aupFKGpAwAiGXN0U@intel.com>
- <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
- <CADnq5_N-6_T8EnihjoTSqpHGb_mZPogi6z=Ti-7_oue5d07oTw@mail.gmail.com>
- <aupktBCwcN_coHEH@intel.com> <DMLY7GDT8VBO.EE1P01ZX2HPK@kernel.org>
- <auqaZdocMvOIxN1c@intel.com>
- <CAPM=9tzu6MYQ-Y0iYK=2PLiM5=1BsEN+Q5WnmYh=hkKnLJ4b1Q@mail.gmail.com>
- <629d19bcd0f61974f3e1c94c90b4052216d2a967@intel.com>
- <DMNL1MG0A8P4.1VPON40R8BX2U@kernel.org>
- <3678ff00381a70148d6abafcf20ba3726bff2fc7@intel.com>
-In-Reply-To: <3678ff00381a70148d6abafcf20ba3726bff2fc7@intel.com>
+Date: Fri, 06 Nov 2026 16:40:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +48,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri Nov 6, 2026 at 12:08 PM CET, Jani Nikula wrote:
-> Anyway, how about just *prompting* "Is this expected to be the final
-> pull request for the development cycle?", and if yes, update
-> drm-*-next-fixes while at it, and have the automation handle the rest.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/todo: premature removal of drmm_of_get_bridge() with
+  remaining vc4 callers
+--
 
-I think that's a good idea! So what about just git request-pull prompts:
+commit 73f1f37bf0d85f99c672e8364cc4d9cbf3a65321
+Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-	 Close this tree for the upcoming merge window?
+drm/todo: remove drmm_of_get_bridge()
 
-and in addition have --close-tree / --keep-tree-open options that bypass th=
-e
-prompt.
+This commit removes drmm_of_get_bridge() from the list of deprecated
+panel_bridge functions to remove in the DRM TODO documentation.
+
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index a437ae5c71f47..a2500418ff2ef 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -494,7 +494,6 @@ transparently, and the are deprecated.
+>  The funcions to remove are:
+>   - drm_panel_bridge_add_typed()
+>   - devm_drm_of_get_bridge()
+> - - drmm_of_get_bridge()
+>   - drm_panel_bridge_remove()
+>   - drmm_drm_panel_bridge_release()
+>   - devm_drm_panel_bridge_release()
+
+[Severity: Medium]
+Is it premature to remove drmm_of_get_bridge() from the TODO list and the
+kernel?
+
+Two unconverted callers remain in the VC4 driver: vc4_dpi_init_bridge() in
+drivers/gpu/drm/vc4/vc4_dpi.c and vc4_dsi_bind() in
+drivers/gpu/drm/vc4/vc4_dsi.c.  With drmm_of_get_bridge() removed in
+commit "drm/panel: remove drmm_of_get_bridge()", building with
+CONFIG_DRM_VC4 enabled fails until those callers are converted as well.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-drm-panel_=
+bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com?part=3D3
