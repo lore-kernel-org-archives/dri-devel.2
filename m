@@ -2,101 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DC7606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:19:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17361606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UHUNjpAV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxqvMYR8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 583A910FA9A;
-	Fri,  6 Nov 2026 15:19:40 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FCDD10FA9A
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:19:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1793978373;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=L6QE5LUaMLGNUcgDxlWZZglb/NRd2D5dLMiLzKGOWzQ=;
- b=UHUNjpAVm/IKE3rVqX0lXFgJ37DNAqsaC13IdL8cLhr4jrsbFy1vC9lIKISO2pc8PBPYjf
- FW72Q2n9F+Jtk/t+Rity2jmg+VL6nbWV6+ylvjauWVBXfu61blmXvfnJ5uFh3Z7I4roEsM
- Lx0eHsLJF/haKVz2RSxCJ8CsI0qSw5I=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-Kqgu7L8JO0egdLQAcUmKsQ-1; Fri, 06 Nov 2026 10:19:28 -0500
-X-MC-Unique: Kqgu7L8JO0egdLQAcUmKsQ-1
-X-Mimecast-MFC-AGG-ID: Kqgu7L8JO0egdLQAcUmKsQ_1793978368
-Received: by mail-oi1-f199.google.com with SMTP id
- 5614622812f47-4cc89e86e9eso842512b6e.3
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 07:19:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793978368; x=1794583168;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=L6QE5LUaMLGNUcgDxlWZZglb/NRd2D5dLMiLzKGOWzQ=;
- b=kw8Y0oqU/SiwRQwvgGlxv2IGQHo3f+33wXzfqGBr1+ogJhpUUfN6vGS54S2prNM+5l
- KGJXfSM63Py2j0ZVpZkmnDLAb/ARrZTIfs3AFTcRmJqjUUzBZEO94svGUlhBHBfAZ7NK
- iZp62fIBrGwZ4iCjwiOKNicYFh8XpXJGShzpE4h6vMf7YU64y8TScJUKyykXuB38gtTD
- bkY+iZ1J95H/u2cmCWE0m1mj6Hh8/I8s88ya3wI0KL0kATH63VK1P6I5wD0Hkw1gmTSp
- QftKRtoPKw+fqAMOqI9989oqFBIqcNsbeM1QfMi0l3Otym81zwYhHqncKP3LPwpY1L2f
- p2vA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxAUunVDWHyFOnwG8MCnk90QcfATKOSE6U50nvBgivOTeCjWAPAC7F8UHTng4wzjTmagdA+NC+ZRuY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+jQYCv+yGMw+l2yMYxphfDmHreJY0w8iJMObmeGGaGdL0zzEY2
- 4iHkgn1vXQ5YWkUB8EwlxVdE7PJJV614vdIUk8Sk/RDHqzjd5uguhiV4FXuWLayIREgRQupbH6y
- SW6PILEVtWGPXMOn19ifx90JpWr7qG9Tanmtv6irtObr1ht628G/84sDf8PxybLn6HOeCFpRNZR
- CGrnBZ4gwjmVTJtq+NFB4hSudiQFfsrdeHwA/JMJaQQfP9
-X-Gm-Gg: AYBFou2nDmnoOqg2bcWO/ovgX8YUphIZRk/vtRyqMz83AJQXQ9pJr28+UeqPMqzO4Tc
- b6ljXw/9iqeXh/D+V0tyj7iqH8BiQq1xVsA5eezTyBnknxLCrmIXQyTI+Q4NLjoDLrg53xjcOZD
- tSiX4fdgKiJalJrSAVmI8uFO+uVaIvsbDaDTv7+zeXqAIrMPN6CJ0ZV++5
-X-Received: by 2002:a05:6808:6413:b0:4e9:3412:14ac with SMTP id
- 5614622812f47-567e10ac541mr2034250b6e.33.1793978367817; 
- Fri, 06 Nov 2026 07:19:27 -0800 (PST)
-X-Received: by 2002:a05:6808:6413:b0:4e9:3412:14ac with SMTP id
- 5614622812f47-567e10ac541mr2034200b6e.33.1793978367246; Fri, 06 Nov 2026
- 07:19:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 689C910FDE8;
+	Fri,  6 Nov 2026 15:19:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8038C10FDE8
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:19:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2362643B05;
+ Fri,  6 Nov 2026 15:19:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758E01F008A1;
+ Fri,  6 Nov 2026 15:19:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793978380;
+ bh=TjKm4iQuA3o4uEU1I1bQg4XGGc1wJZI3d+s7EI8o888=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UxqvMYR8jFBKse3vSX1JHfmDUefXKyKFoFWGXFTOAMUEL2M1V09XvQK47Y+GKGasA
+ oEYKxEgGtmRdZWrNvhzd98d8S6UuwI+ng1VlP4LhIm5X9lOdc/vSP0eQ2b69og5RSq
+ LTTc/H20DTYLsX+YWmkt4X4r/aMwxhBUCTKtraLbtlX5zSWtrQd0LeOdEXzrO8DGBO
+ wZWDGniulef5AJIFJWeCgwzEPOMlxM+pK31IV62u2Pr8LXhzaf19HmPiDJHxVWrN3O
+ 9D7hNBkNFQRqnoQowocdiz/mKYYn7lRzApjQ4bvZSxVeIL6WLqX39v6Ykrna+zHfjN
+ oJbjTjXclIc7A==
+Date: Fri, 6 Nov 2026 16:19:37 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+Message-ID: <au3telUE9A43PDWv@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-2-clamor95@gmail.com>
+ <au3NWsXz-hg2LNr_@orome>
+ <CAPVz0n3_oRz8aMr1W=8K7dnHhM=vuGpHjpq6+=80oXiFj5wfSg@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
- <20261104-v2_20230123_tjmercier_google_com-v4-6-1819a017000b@redhat.com>
- <sashiko-outbox-198921@kernel.org>
-In-Reply-To: <sashiko-outbox-198921@kernel.org>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 6 Nov 2026 16:19:15 +0100
-X-Gm-Features: AclHuK_9kd4-vi33h14qEUizW5VOTBDWrh0Qg0FV14Te6uxs8q7OXuaFrYepPH8
-Message-ID: <CADSE00LW0+EwEg8OBXUzZSkAu1-X=ofX5Dirq0+gbTTBUho6_w@mail.gmail.com>
-Subject: Re: [PATCH v4 6/8] selinux: Restrict cross-cgroup dma-buf charging
-To: sashiko-reviews@lists.linux.dev
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, Shuah Khan <shuah@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, media-ci@linuxtv.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _VsnZNLJi0rNFZtn6LzUyww1yLiQQh7pgmf4h0B8cdU_1793978368
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="n7zrqbgnjyyoeiad"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n3_oRz8aMr1W=8K7dnHhM=vuGpHjpq6+=80oXiFj5wfSg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,123 +71,164 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 5, 2026 at 12:12=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] selinux: one-off dma_buf class instead of general cgroup acces=
-s control model
-> --
->
-> commit 675e985fff50ea6716b8c00023a75c07ff345a6f
-> Author: Albert Esteve <aesteve@redhat.com>
->
-> selinux: Restrict cross-cgroup dma-buf charging
->
-> This commit implements the selinux_dma_buf_charge_task() hook and adds a
-> new dma_buf object class with a charge_task permission in SELinux to
-> restrict cross-cgroup dma-buf memory charging.
->
-> > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> > index 30776b0107f29..8f39d91eabc97 100644
-> > --- a/security/selinux/hooks.c
-> > +++ b/security/selinux/hooks.c
-> > @@ -2204,6 +2204,12 @@ static int selinux_capable(const struct cred *cr=
-ed, struct user_namespace *ns,
-> >       return cred_has_capability(cred, cap, opts, ns =3D=3D &init_user_=
-ns);
-> >  }
+
+--n7zrqbgnjyyoeiad
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+MIME-Version: 1.0
+
+On Fri, Nov 06, 2026 at 03:59:05PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:=
+14 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 > >
-> > +static int selinux_dma_buf_charge_task(const struct cred *from, const =
-struct cred *to)
-> > +{
-> > +     return avc_has_perm(cred_sid(from), cred_sid(to),
-> > +                         SECCLASS_DMA_BUF, DMA_BUF__CHARGE_TASK, NULL)=
-;
-> > +}
-> > +
-> >  static int selinux_quotactl(int cmds, int type, int id, const struct s=
-uper_block *sb)
-> >  {
-> >       const struct cred *cred =3D current_cred();
->
-> [ ... ]
->
-> > diff --git a/security/selinux/include/classmap.h b/security/selinux/inc=
-lude/classmap.h
-> > index 90cb61b164256..b4ebedc6e4240 100644
-> > --- a/security/selinux/include/classmap.h
-> > +++ b/security/selinux/include/classmap.h
-> > @@ -181,6 +181,7 @@ const struct security_class_mapping secclass_map[] =
-=3D {
-> >       { "user_namespace", { "create", NULL } },
-> >       { "memfd_file",
-> >         { COMMON_FILE_PERMS, "execute_no_trans", "entrypoint", NULL } }=
-,
-> > +     { "dma_buf", { "charge_task", NULL } },
->
-> [Severity: Medium]
-> As reported by Paul Moore on RFC [1], adding a one-off SELinux object cla=
-ss
-> and permission for a specific subsystem's cgroup charging (previously
-> dma_heap with charge_to, now dma_buf with charge_task in secclass_map[]
-> and selinux_dma_buf_charge_task(), along with charge_cgroup in a later
-> patch in this series) introduces a narrow, subsystem-specific policy clas=
-s
-> rather than a general cgroup and resource access control model for SELinu=
-x.
->
-> Although resolving the target memcg from charge_fd moved into generic
-> memcontrol code in mem_cgroup_get_from_fd(), the SELinux hook in
-> selinux_dma_buf_charge_task() and class definition in secclass_map[] stil=
-l
-> define a dma-buf-specific class instead of a broader cgroup access contro=
-l
-> abstraction.
->
-> Should this permission check be designed around a general cgroup or resou=
-rce
-> SELinux object class rather than a one-off dma_buf class?
->
-> [1] https://lore.kernel.org/r/16093a0278a6d7d1a0a8bc055c228bed@paul-moore=
-.com
+> > On Thu, Nov 05, 2026 at 04:05:01PM +0200, Svyatoslav Ryhel wrote:
+> > [...]
+> > > diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm=
+_mipi_dbi_bus.c
+> > [...]
+> > > +/**
+> > > + * devm_mipi_dbi_device_register() - create a managed MIPI DBI device
+> > > + * @dev: device to tie the MIPI-DBI device lifetime to
+> > > + * @host: DBI host to which this device is connected
+> > > + * @np: device tree node associated with the panel MIPI DBI device
+> > > + *
+> > > + * This function is called by DBI host driver to create panel device.
+> > > + * It automatically calls mipi_dbi_device_unregister() when @dev is
+> > > + * unbound. It does not automatically free passed device node pointe=
+r,
+> > > + * it must be put manually.
+> > > + *
+> > > + * Returns:
+> > > + * A pointer to the newly created MIPI DBI device, or, a pointer enc=
+oded
+> > > + * with an error.
+> > > + */
+> > > +struct mipi_dbi_device *
+> > > +devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_ho=
+st *host,
+> > > +                           struct device_node *np)
+> > > +{
+> > > +     struct mipi_dbi_device *dbidev;
+> > > +     int ret;
+> > > +
+> > > +     if (!host || !host->dev || !host->dbi || !host->dbi->command ||
+> > > +         !host->ops || !host->ops->attach || !host->ops->detach || !=
+np)
+> > > +             return ERR_PTR(-EINVAL);
+> >
+> > Do we want dev->of_node to serve as a fallback for !np?
+> >
+>=20
+> No we don't dev->of_node is hosts node, and np is panel node.
 
-I held off on this so the core charging proposal could settle first,
-and then refine the LSM side later / in a separate series depending on
-the feedback.
+Fair enough. The parameter name is a bit generic, but I guess if you
+read the documentation it becomes clearer what it means.
 
-For v5 I'm adding a capability baseline in mem_cgroup_get_from_fd()
-following a Sashiko report, so that charging a memcg outside the
-caller's own subtree requires CAP_SYS_RESOURCE. With that in place the
-LSM hooks no longer act as the only check, they add finer-grained
-policy on top of it. Also, unlike the RFC, they are now called from
-generic memcg code rather than dma-buf code, so I should have renamed
-them (and plan to) to security_memcg_charge_{task,cgroup}().
+> > > +
+> > > +     if (!of_device_is_available(np))
+> > > +             return ERR_PTR(-ENODEV);
+> > > +
+> > > +     dbidev =3D kzalloc_obj(*dbidev);
+> > > +     if (!dbidev)
+> > > +             return ERR_PTR(-ENOMEM);
+> > > +
+> > > +     if (of_node_test_and_set_flag(np, OF_POPULATED)) {
+> > > +             kfree(dbidev);
+> > > +             return ERR_PTR(-EBUSY);
+> > > +     }
+> > > +
+> > > +     dbidev->host =3D host;
+> > > +     dbidev->dbi =3D host->dbi;
+> > > +     device_initialize(&dbidev->dev);
+> > > +     dbidev->dev.parent =3D host->dev;
+> > > +     dbidev->dev.bus =3D &mipi_dbi_bus_type;
+> > > +     dbidev->dev.release =3D mipi_dbi_device_release;
+> > > +     device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np))=
+);
+> > > +
+> > > +     ret =3D dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev)=
+, np->full_name);
+> > > +     if (ret)
+> > > +             goto put_device;
+> > > +
+> > > +     ret =3D device_add(&dbidev->dev);
+> > > +     if (ret)
+> > > +             goto put_device;
+> > > +
+> > > +     ret =3D devm_add_action_or_reset(dev, mipi_dbi_device_unregiste=
+r,
+> > > +                                    &dbidev->dev);
+> > > +     if (ret)
+> > > +             return ERR_PTR(ret);
+> > > +
+> > > +     return dbidev;
+> > > +
+> > > +put_device:
+> > > +     of_node_clear_flag(np, OF_POPULATED);
+> > > +     put_device(&dbidev->dev);
+> > > +     return ERR_PTR(ret);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
+> >
+> > Don't we need to of_node_put() here on failure? Otherwise we're leaking
+> > the reference that we obtained inside the device_set_node() argument.
+> >
+>=20
+> This is fully repeats device_register logic of drm_mipi_dsi.c so
+> unless DSI framework has leak, this should be correct
 
-Regarding the broader cgroup model, as far as I can tell, existing
-cgroup control points are kernfs file operations, which SELinux
-already covers. The only non-file operations taking a cgroup fd (i.e.,
-BPF attach and perf cgroup events) use their own subsystem classes.
-Since remote charging in this series consumes the target cgroup's
-resources, checking against the cgroup's label (as patch 7 already
-does) sounds like a good fit.
+Nobody said that drm_mipi_dsi.c is correct. I'm reviewing this patch and
+it seems like it's wrong. If drm_mipi_dsi.c does the same thing it
+probably is wrong, too.
 
-So to Sashiko remark and Paul's comment, rather than a dma-buf
-specific class, would something like a "cgroup" class with a
-"charge_to" permission for the cgroupfd path, and a process (process2
-really) permission for the pidfd path, be an acceptable first step,
-with the class growing as other non-file control points come up? I'm
-happy to adjust the naming or structure to what works best.
+> > > +static int mipi_dbi_drv_remove(struct device *dev)
+> > > +{
+> > > +     struct mipi_dbi_driver *drv =3D to_mipi_dbi_driver(dev->driver);
+> > > +     struct mipi_dbi_device *dbidev =3D to_mipi_dbi_device(dev);
+> > > +
+> > > +     drv->remove(dbidev);
+> > > +
+> > > +     return 0;
+> > > +}
+> >
+> > Might as well make drv->remove() return an error and propagate that
+> > here.
+> >
+>=20
+> Have you even checked the code? remove() callback is and should be void.
 
-BR,
-Albert
+I don't know what you're trying to say here. Yes I can see that the
+remove callback returns void. My point is that device_driver.remove does
+*not* return void and since this is merely a wrapper around it for DBI
+it could also just return int for symmetry.
 
+But there's also continuous work trying to convert all driver remove
+callbacks to return void, so that's eventually going to get "fixed" here
+anyway, so might as well leave it like this.
 
+Thierry
 
+--n7zrqbgnjyyoeiad
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-v2_20230=
-123_tjmercier_google_com-v4-0-1819a017000b@redhat.com?part=3D6
->
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt8AYACgkQ3SOs138+
+s6HVoQ/+POh4HlRUlHe6NSx8seh6DwhH+inL91RyV3iSKS4nB3C1m4iGWUjLyp2Q
+eg+OL5F6fMfhpRPwvlUvs9ADUz8dexvUm27i4kafzixOuGcTxQ9xzMqow2RkkzHC
+l95B/VeBEmbCFoHDmalyCiVxLtgoZY22q6WxrL3BANzv+mNlWVtRxjnr7UEqfU4L
+Y9T8afI+g36yKJNgVXQIy6/FjWupJAFnBll2fk0GC62p6r6G90TJ4MXFnCIBpl85
+5Q6Nh/G7Wmz22n6coyXZGb1mDxe6Bp3OmaBOZdeMUxGsNH5+HSaCzs1NRyfrHMZV
+57d0hFItwNR6XOMMtwgXCnEMIO6BmJTtt8/PwmrLkb9QKiRdSHmWsQ/q4cW5Ceqr
+rQoEVS14Khr9MFtdMUtSPrhjDuNBBD7Oa1DEhbBXzQuyGEbW0BlxFMSwqD7fdqM7
+X6MZ6tDkiv6ry06Qa86+i5toWK8Bon3b/vayH1YWWFhcweDahZm+EMMcc5jcFFfu
+f86BVqiDBUu0iQmr+SxXHYeCgDagwS/3Wbp7Q+An51oRi10Igf418Qjj4bBcBENP
+JMJJsIiRZKQz552SKSs+D7dYKQfnmwukVJRy1Nlg7VOa3tRph9Ysj/VRMmVcrd54
+iO+BpszR90V2KnC6pFdsKEDa5xTfToAGxTlEA4/KaX0ukjGqALQ=
+=IE6M
+-----END PGP SIGNATURE-----
+
+--n7zrqbgnjyyoeiad--
