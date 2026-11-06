@@ -2,43 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9E4606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64B4606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:51:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTeUN4bp
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=awlDE23z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49DAF10EA5B;
-	Fri,  6 Nov 2026 13:50:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1F9112DB9
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:50:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3877443CE9
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:50:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4321F0089F;
- Fri,  6 Nov 2026 13:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793973050;
- bh=qkAkSngZBQyQai2Zcxp61RQPJ/ihpHJguWgwQuvyd4g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MTeUN4bpl9FXvyODZQ2fma8yAnoIT4P5MXLL21zfcIEqokNksRSurKdqrc2JEzpJp
- BP07kxPVjO9UHv1xnVJHTtUeaBrfCve8ejAFu7OrdOD5NFZDzpkNtYlQBWh3hklm1u
- jVj8BVTxKAzq8VwEU4pofhIyh3C4KBM4B4dHNIjhhelblAFHrcxGECVLToKumgE+SP
- xW58ngbYRYdVPuEhz9dqRmvCUpkyuZhKxGIqThEOmwG3Nw7gxkao0HdWfZV7R25Gub
- JWYChkwATRKg6lWnoe14qTXv4YEtjLCQ5gbGUmQ2EyPl7T2kHBWDDItErlgc/jiYhq
- askqNNe3FOY6A==
-Message-ID: <sashiko-outbox-201508@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 30/39] drm/bridge: display-connector: Implement
- readout support
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261106-drm-state-readout-v8-30-cbe78624e1bc@kernel.org>
-References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <20261106-drm-state-readout-v8-30-cbe78624e1bc@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1137210E3E1;
+	Fri,  6 Nov 2026 13:51:54 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 586DF10E667
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:51:47 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 5207C4E41216;
+ Fri,  6 Nov 2026 13:51:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id F2E2C5FFBC;
+ Fri,  6 Nov 2026 13:51:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D0A0C103291F5; Fri,  6 Nov 2026 14:51:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1793973099; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=cCB42j4uUQaazWTHguvVYIuQDyPtBSzCq0l1oIWDdA4=;
+ b=awlDE23zN6815brW6O76EzSVaIyUtC2uOEdfCdLXIce8XGeHvSgL0A9pAAuC9URQ3bxF+3
+ BVMYZOD+xme1YW1lX0ngMvGK2ytXOuKMc2LvkAfBEXEnMJ25Qja3GMJhQybhsd7AoavoYB
+ /XYy5fJvZEGs3lT/5W3LSBvUx93+eqt34D0iyb5j9ji1/jiy/q4rPXufG1u462SD2nhOZt
+ ermhSIVhqYaAisV5JWsUzOIElEA9rNYSvYmyPt9rOKXIsqdkrW3KTgXQ4331qfENoie7vy
+ g8usz7bYMo6qyMlbE+bSnvadGUkLw4h3u6H9RZPQRfUybcmi8qoIsF4miZQ0NQ==
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 13:50:49 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Nov 2026 14:51:33 +0100
+Message-Id: <DMO6DXVL3192.142ATKP8CWVXD@bootlin.com>
+Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+Cc: "Florian Fainelli" <f.fainelli@gmail.com>,
+ <linux-kernel@vger.kernel.org>, "Paul Boddie" <paul@boddie.org.uk>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"
+ <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>, "Discussions about the Letux Kernel"
+ <letux-kernel@openphoenux.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, "Paul Cercueil"
+ <paul@crapouillou.net>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261105203517.2293404-1-f.fainelli@gmail.com>
+ <5197EDEE-A739-4ADB-A1A9-08B0516735C7@goldelico.com>
+ <23f5885b4339800f24ae33fbb782f43da931be10.camel@crapouillou.net>
+ <80369640-E1F7-489A-B25B-69B83061C8DE@goldelico.com>
+In-Reply-To: <80369640-E1F7-489A-B25B-69B83061C8DE@goldelico.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,105 +67,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/bridge: unreachable fallback in
-  display_connector_readout_state()
+Hello all,
+
+On Fri Nov 6, 2026 at 1:28 PM CET, H. Nikolaus Schaller wrote:
+>
+>
+>> Am 06.11.2026 um 13:21 schrieb Paul Cercueil <paul@crapouillou.net>:
+>>
+>> Nikolaus:
+>>
+>> Le vendredi 06 novembre 2026 =C3=A0 11:59 +0100, H. Nikolaus Schaller a =
+=C3=A9crit :
+>>> Hi,
+>>>
+>>>> Am 05.11.2026 um 21:35 schrieb Florian Fainelli <f.fainelli@gmail.com>=
+:
+>>>>
+>>>> The LCD controller's internal bridge is embedded in an object allocate=
+d
+>>>> with drmm_encoder_alloc(). This initializes the encoder but leaves the
+>>>> bridge's reference count at zero. Since drm_bridge_attach() takes a
+>>>> reference, probing the CI20 display produces addition-on-zero and
+>>>> underflow warnings and fails to attach the HDMI bridge chain.
+>>>>
+>>>> Allocate the internal bridge with devm_drm_bridge_alloc() and register
+>>>> it with devm_drm_bridge_add() before attaching it. Keep the encoder in=
+ a
+>>>> separate DRM-managed allocation: encoder cleanup can drop the final
+>>>> bridge reference before it has finished accessing the encoder. Find
+>>>> the internal bridge through the encoder's bridge chain during mode
+>>>> setting, and use the bridge argument directly in bridge callbacks.
+>>>>
+>>>> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+>>>> drm_bridge_attach/detach()")
+>>>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+>>>> ---
+>>>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
+>>>> 1 file changed, 21 insertions(+), 10 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>>> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>>> index 625ec76cf04d..520912f9ed0d 100644
+>>>> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>>> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>>> @@ -121,16 +121,15 @@ struct ingenic_drm {
+>>>> };
+>>>>
+>>>> struct ingenic_drm_bridge {
+>>>> - struct drm_encoder encoder;
+>>>> struct drm_bridge bridge, *next_bridge;
+>>>>
+>>>> struct drm_bus_cfg bus_cfg;
+>>>> };
+>>>>
+>>>> static inline struct ingenic_drm_bridge *
+>>>> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
+>>>> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
+>>>> {
+>>>> - return container_of(encoder, struct ingenic_drm_bridge, encoder);
+>>>> + return container_of(bridge, struct ingenic_drm_bridge, bridge);
+>>>> }
+>>>>
+>>>> static inline struct ingenic_drm_private_state *
+>>>> @@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(st=
+ruct
+>>>> drm_encoder *encoder,
+>>>> {
+>>>> struct ingenic_drm *priv =3D drm_device_get_priv(encoder->dev);
+>>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+>>>> - struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(encoder)=
+;
+>>>> + struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
+>>>> + drm_bridge_chain_get_first_bridge(encoder);
+>>>> + struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(first_br=
+idge);
+>>>> unsigned int cfg, rgbcfg =3D 0;
+>>>>
+>>>> priv->panel_is_sharp =3D bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SI=
+GNALS;
+>>>> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_br=
+idge
+>>>> *bridge,
+>>>>     struct drm_encoder *encoder,
+>>>>     enum drm_bridge_attach_flags flags)
+>>>> {
+>>>> - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(encoder);
+>>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
+>>>>
+>>>> return drm_bridge_attach(encoder, ib->next_bridge,
+>>>> &ib->bridge, flags);
+>>>> @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
+>>>> drm_bridge *bridge,
+>>>>   struct drm_connector_state *conn_state)
+>>>> {
+>>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+>>>> - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge->enco=
+der);
+>>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
+>>>>
+>>>> ib->bus_cfg =3D bridge_state->output_bus_cfg;
+>>>>
+>>>> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev=
+, bool
+>>>> has_components)
+>>>> drm_panel_put(panel);
+>>>> }
+>>>>
+>>>> - ib =3D drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
+>>>> - NULL, DRM_MODE_ENCODER_DPI, NULL);
+>>>> + ib =3D devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
+>>>> +   &ingenic_drm_bridge_funcs);
+>>>> if (IS_ERR(ib)) {
+>>>> ret =3D PTR_ERR(ib);
+>>>> + dev_err(dev, "Failed to allocate bridge: %d\n", ret);
+>>>> + goto err_drvdata;
+>>>> + }
+>>>> +
+>>>> + encoder =3D drmm_plain_encoder_alloc(drm, NULL,
+>>>> +   DRM_MODE_ENCODER_DPI, NULL);
+>>>> + if (IS_ERR(encoder)) {
+>>>> + ret =3D PTR_ERR(encoder);
+>>>> dev_err(dev, "Failed to init encoder: %d\n", ret);
+>>>> goto err_drvdata;
+>>>> }
+>>>>
+>>>> - encoder =3D &ib->encoder;
+>>>> encoder->possible_crtcs =3D drm_crtc_mask(&priv->crtc);
+>>>>
+>>>> drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+>>>>
+>>>> - ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+>>>> ib->next_bridge =3D bridge;
+>>>>
+>>>> + ret =3D devm_drm_bridge_add(dev, &ib->bridge);
+>>>> + if (ret)
+>>>> + goto err_drvdata;
+>>>> +
+>>>> ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+>>>> DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>>>> if (ret) {
+>>>> --
+>>>> 2.53.0
+>>>
+>>> Works for me on CI20 with HDMI display.
+>>>
+>>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
+>>
+>> This patches basically overrides your "[PATCH v6] drm/ingenic: fix bridg=
+e
+>> allocation", correct?
+>
+> Indeed.
+>
+> Well, I am not sure which is the right one. Both work for me. So you can =
+choose
+> (e.g. if struct ingenic_drm_bridge should embed an struct drm_encoder enc=
+oder
+> or not.
+
+Sorry I hadn't seen the previous patches by Nikolaus. And I missed this
+driver while converting bridge users to devm_drm_bridge_alloc().
+
+Both patches look technically correct, but this one looks cleaner to me, so
+I'd apply this one.
+
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 --
-
-commit d3498648d3d0edd4924c54f60279025ca800e6f7
-Author: Maxime Ripard <mripard@kernel.org>
-
-drm/bridge: display-connector: Implement readout support
-
-This commit adds state readout support to the display-connector bridge by
-implementing the atomic_sro_readout_state callback and wiring up
-drm_atomic_helper_bridge_compare_state().
-
-> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
-/bridge/display-connector.c
-> index eb3412ec30a07..781684da1da4c 100644
-> --- a/drivers/gpu/drm/bridge/display-connector.c
-> +++ b/drivers/gpu/drm/bridge/display-connector.c
-[ ... ]
-> @@ -213,6 +216,70 @@ static u32 *display_connector_get_input_bus_fmts(str=
-uct drm_bridge *bridge,
-[ ... ]
-> +static int
-> +display_connector_readout_state(struct drm_bridge *bridge,
-> +				struct drm_atomic_sro_state *state,
-> +				struct drm_bridge_state *bridge_state,
-> +				struct drm_crtc_state *crtc_state,
-> +				struct drm_connector_state *conn_state)
-> +{
-> +	struct drm_display_info *di =3D &conn_state->connector->display_info;
-> +	struct drm_bridge *prev_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_get_prev_bridge(bridge);
-> +
-> +	if (prev_bridge) {
-> +		struct drm_private_state *prev_priv_state =3D
-> +			drm_atomic_sro_get_private_obj_state(state,
-> +							     &prev_bridge->base);
-> +
-> +		if (prev_priv_state) {
-> +			struct drm_bridge_state *prev_bridge_state =3D
-> +				drm_priv_to_bridge_state(prev_priv_state);
-> +
-> +			bridge_state->input_bus_cfg.format =3D
-> +				prev_bridge_state->output_bus_cfg.format;
-> +			bridge_state->input_bus_cfg.flags =3D
-> +				prev_bridge_state->output_bus_cfg.flags;
-> +			goto out_input;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * The previous bridge might not have readout support, so we
-> +	 * can't treat a missing state as an error.
-> +	 */
-> +	bridge_state->input_bus_cfg.format =3D MEDIA_BUS_FMT_FIXED;
-> +	bridge_state->input_bus_cfg.flags =3D di->bus_flags;
-
-[Severity: Medium]
-Can this fallback ever be reached when prev_bridge is present but lacks
-readout support?
-
-When a bridge does not implement atomic_sro_readout_state,
-drm_atomic_helper_sro_readout_bridge_state() still allocates a zeroed
-pristine state and stores it in the SRO state container:
-
-drivers/gpu/drm/drm_atomic_state_readout_helper.c:drm_atomic_helper_sro_rea=
-dout_bridge_state() {
-	if (!bridge_obj_funcs->atomic_sro_readout_state) {
-		...
-		bridge_obj_state =3D bridge_obj_funcs->atomic_create_state(bridge_obj);
-		if (drm_WARN_ON(dev, IS_ERR(bridge_obj_state)))
-			return PTR_ERR(bridge_obj_state);
-
-		drm_atomic_sro_set_private_obj_state(state, bridge_obj,
-						     bridge_obj_state);
-		return 0;
-	}
-}
-
-Because prev_priv_state is non-NULL, display_connector_readout_state()
-copies the zeroed output_bus_cfg.format and output_bus_cfg.flags from that
-pristine state instead of falling back to MEDIA_BUS_FMT_FIXED and
-di->bus_flags, causing drm_atomic_helper_bridge_compare_state() to report
-false input bus mismatches when drm.atomic_readout skips missing readout
-implementations.  Checking prev_bridge->funcs->atomic_sro_readout_state
-before using prev_priv_state would avoid this.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-drm-state-=
-readout-v8-0-cbe78624e1bc@kernel.org?part=3D30
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
