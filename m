@@ -2,78 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EEF606A32E
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 10:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B8E606A33B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 10:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fYoXIAYm
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=utoaj1zN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9E510E9EE;
-	Fri,  6 Nov 2026 10:39:53 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6AD10E9EE
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:39:47 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1ae18eb9ad0so682721c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 02:39:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3F810E3B7;
+	Fri,  6 Nov 2026 10:48:10 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F4B210E3B7
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:48:04 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b5669a5100so596097a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 02:48:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793962082; cv=none;
+ d=google.com; s=arc-20260327;
+ b=L1x7hW58qcmfjYpG+72GqzPUMUSR9EfecxQLe1F9iAAgXoWWWDEOdytnuBvdfTgLbN
+ WUc4/Li1+2OObDPrYvsaj1ifOincDH+P3BgDZFKkO2x+pXwIaVOHwPjlz0/bGnX7X4cq
+ 795n24GYsi/Or/Vw3czyT8mHUXqJcnXl+d3fqyz3sWCobVzGdYE2hzDZLc/qZ+PA6vYa
+ OM+xzlaFcMz5IK6uOVufHrVPanb311wlxeNG1klsXCFvRoiF8SpcAs6xqEi4T+JO6jH1
+ 2QNsW0JyfOx2nSbKBc8zR64SLFKR0HnClSOT7fkqsL4CIbXWkjO8ObBSMOFmOQ3Jk3iG
+ neTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=VpgWzd6V3pj0d+lX1xpLYiKEZn+iD7UorgL21Ew16ls=;
+ fh=Zxvqd2FqT4mv14um2loPp2nXSWTNcECwNty1Vmod62U=;
+ b=ovps5G6nr62sMD3QYdFwDdT0PPX+o2TNOuvuZ9SNRKCRi3co75OqXRI0W80bOoBu/C
+ Pa7YBaGUA7r7Jz7MD4ny1Pv4YAgUvUlNiynSJxIKcyWeesn61bE2vvPI/AH7W+aTUntN
+ 5kPpryC3LtTj89wGLRBdnS4MCRIq+YpPhR+zOXKVXG7g2yeXh3QS190o2vFlxUAw5ZtJ
+ GhQODbt+5Pj44xhWXw95tYb/Gysca296vOeHNdPiGFQQjwc8UZoUNrWCS91iogCaKtzh
+ t3updtAap/H5X60hqWgLgIdAY3ZtF8xCg9kW3DXG/a+Rl9IxB4dVIZr+kF/HYogJqDDT
+ M2yw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1793961586; x=1794566386;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0jFx9X9ijYmEuuqlS+6ReLoSBlbDgO7KnvPAxuJX2v0=;
- b=fYoXIAYmzql16h/kosPGDRGzAxnMKPSJJBx59KQBNqKZHDZEp3sJXTtDcqtDNC4o0C
- JLUYyq3QXgdLr/VNkQvQ7cxJ4TAWgf7JEWHhmjdnRdEgQeXqC04Kn4Gr1ApK9bvIJV7a
- Wf4cogivqUu8q6HqTvc+iTh36enRFH2Ew4U5E=
+ d=gmail.com; s=20260707; t=1793962082; x=1794566882; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=VpgWzd6V3pj0d+lX1xpLYiKEZn+iD7UorgL21Ew16ls=;
+ b=utoaj1zNUNftBcJ4XDqN/aDs3+IuIlvQJqFdvW3BD45sf4C+1q4oUCFd4coAEo991K
+ 8vzI7KMF27SBnb91a7cDuKGojflbch3eV4t4aSWJwqcM6t485XOif4Q7Ud3Hj2e4qP4K
+ jzojt36H2vueHJUXhuX/g1ycoc7ZE97uBlXWj5c7NOSpIjoACKlgdjqRfoBG6KSrbhxw
+ Wv1PfZ7vc0zkh1/WDKFZCW6s8fJ1oqqTALCZy3IozsolxjPgSfcQ0LuX3wFlbNurYfAG
+ RroVviPg9/wGr+/Er3sy+WTvzikoG0rXM0SJpMWIpXTxg9TodDLNiD+Di+17Op/w9bnK
+ qC7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793961586; x=1794566386;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0jFx9X9ijYmEuuqlS+6ReLoSBlbDgO7KnvPAxuJX2v0=;
- b=FMh25VCfRDmLpxqZjP8dVtfGvXSG/ARIF/KQNMcWkVxl56jZO4rQ60s/INJHYhyTYK
- RJQg8SFgvAvvVrpQmLW3BJpGWh0NwiNhiW3aOCBOmIzOPioNe9hKc/v0EmrW0hxE8DmQ
- 2qh2IEilM2AzqaW/QoZPBCXhtNjCkuH3GFz1x1aVKF+v/rISmNdU38pQwyvZbO3WNZQG
- 6LUKiYS6dCy00LWO7WpENcC/xJxkB0wP4JlkeJvDeMW28say5qUtCgNXhkr48QfdKuge
- sQH7HaAbCMfAPlKk3p9nrfMzlDGzVOLw8+0i2xfQgvoqkk/mWtQu6xDmRLKwO6+L4+d8
- O8Vw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw8cGjDv9gQhaGz9F70BRK1yFrDgwLodquweJh5UKnV4FxsFz5zr8ApHwf5QLfvjoYeNJam63Qu8E8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9UJaVCO7xS3zx39kOpDnQKspuwJm6qT4ZjCNU4UKUitNs7mBuW
- DEITfwiEc85bxroIry3sOlFIlJuhOxVJPGt9GnT4BlBz5AGpnLsU604e6hbAuo+8xw==
-X-Gm-Gg: AYBFou2CjKHkJ5wBHnK7yb0PPyMeMl4TwoZLWQlERauIkGX8dXvOWXG66ck+GE5YhaH
- u38k6g55TPgzaIcHtNO4eylAk0uae7mvpqCNbp5ZFaQSeJ+0rnfBCZbzbBSemxRSNhOymqvAa6O
- X/VsHfWUdP+qMVkzbftc1i7ZVBU38p+uzrnF8tSJ5PGtJYpVkjWvgji6yUDSJzlF5OyNedTuZJk
- s0VmsyM/6pdaZCvIOj8UKW+tSREVc+ZD2XfCmCqvG24tQQhFVfykTFxmJsakURrU6tTFC6xNuFR
- n1BBe5KN7CKyPL6uJl8oKl48etzhHyORlkyT0aZy4wCXruTmU6W9kFwFUmyidRodsew9t2SOZCh
- o/ryJpuektFcZWuAXJxkqnuI704oKewWkGSG375RyvUusnoZ0pSRRJeBVrHe3pHnlmmPmIPRCLN
- 1RufLSZ/XZJC15NfIHKa4JeQTjoQVuemz6ZiavusbCnrAxB0xGu6J4bo9xhrbNRudsOLOYuKBRz
- Tzh/Hk6gUkGZiTaEnifjwrBRB8lcGNqi9n8XNu+iTvVeFLybym72Mv45WF/vFG7SsBR9amJZgKR
- MhTr2UJwu/D5ibr/Y0XcbiScaak1MKyJt22rIKhxeIpc1lIahodvCZO5PA+eOL015Oz023MDFnW
- 2IA3EbCDU0/By0V+y
-X-Received: by 2002:a05:7022:fc0b:b0:16a:c6f2:60c2 with SMTP id
- a92af1059eb24-1b25d315d2emr2054258c88.12.1793961586179; 
- Fri, 06 Nov 2026 02:39:46 -0800 (PST)
-Received: from fshao-cloudtop.c.googlers.com.com
- (61.14.81.34.bc.googleusercontent.com. [34.81.14.61])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b25e4c1df6sm5133779c88.14.2026.11.06.02.39.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2026 02:39:45 -0800 (PST)
-From: Fei Shao <fshao@chromium.org>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Fei Shao <fshao@chromium.org>, David Airlie <airlied@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: [PATCH v2] drm/mediatek: Validate gamma_lut size
-Date: Fri,  6 Nov 2026 18:39:05 +0800
-Message-ID: <20261106103932.1219696-1-fshao@chromium.org>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+ d=1e100.net; s=20260707; t=1793962082; x=1794566882;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=VpgWzd6V3pj0d+lX1xpLYiKEZn+iD7UorgL21Ew16ls=;
+ b=CPjKKWmHLIEVLrb2cnsMJ8/9KvUxO+coX4S737esAA+OqcZCtOq+4adfTik+m9hNI8
+ wk7bcBZf3+6773leeFSaTTanHoXWBAqn7G+tGvkl19OZi/PXI1nWmml2nhgVjIr/ivS+
+ Q8EGvVkC56DNiU0iW2akUj/BTiniDos058DE00QNBY1Vw1M4dyE9hHdBOdxd5xs+FZU0
+ uZft7QAUaBBctJg3egCRSjmurdOdfr2LECgbdiDG8aBf/+vXRlhlvwek3bpQxodtkCUP
+ GE3g9WE2KXm++7q8/2oH6ShC7MVsWj2cN8SBk8Q9m2m5mlzM4jhMvC1SHETr5QKKVMBk
+ HXfA==
+X-Gm-Message-State: APuU4Z/iW36QFKHSp0URJRNkmkc5iKpPKi0Xqz3n+nr6FsoDl4MfZY43
+ yabPqwI6zSmqDT85VDSN6aPGuHNpIgn90uDJ9+fxSX6awau8IqIy53viMhly4OBJCigbMgG3Yp3
+ 1SRcDBzJ7bpR7CzBYI2G0iuYPljIlZtz371+FvvYIgg==
+X-Gm-Gg: AYBFou2hrkWlVefIbZHv60UGThYaCNLelghP0OLsZTQosuh1VWT7zg929T7g1NZkqW9
+ cv1GRBgK9Tznpq4TLoPedSQ0h0jqxtDuohQczVu3Ij4GBlrjZryU9+Cm4WxkTqh6aXtMNVErnZ1
+ gouACyabY3Vew6z+tqk2fkcedDm3xqDiLn7UjoUz/S+5pHLoAVzbUGxyO3RjeowXUQz8PjVRpNF
+ zeg//FST0Ax9+20tbnSYuQl+XutEsxYlhVcJeWTx1JXQk3zbtmoonYtqujmveV0OlaD3wcpThx4
+ AT3Vwa7Nh4Crquk4gvJycZH8NToolxJOcLXvGGB2qY4ku9SURpQgzjLDSEodyGnOS8RUU14VXXd
+ ANgFCjLiV11xGnNSF8iuCxHBWIYweTI1x+V7qD0oPGIdfcc0vyTvLGL7TV5SQiAE3HQw=
+X-Received: by 2002:a05:6402:e8a:b0:6b5:7792:d82c with SMTP id
+ 4fb4d7f45d1cf-6b59781621fmr1391524a12.16.1793962082384; Fri, 06 Nov 2026
+ 02:48:02 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAFGNeajNF_VMAvtDDVZPxdzskUR7Y6HPNQp+sH6eihf3PLviXw@mail.gmail.com>
+ <CAFGNeaih0pByA9harSnSd4opyCu4EFKmSR9quD3cNzXEEp+0kw@mail.gmail.com>
+ <CAMeQTsZEwmb3iCPWUa7H2J00x2QBsaCG9GmKMn3U7iJgcHb_RQ@mail.gmail.com>
+In-Reply-To: <CAMeQTsZEwmb3iCPWUa7H2J00x2QBsaCG9GmKMn3U7iJgcHb_RQ@mail.gmail.com>
+From: "Operating System's Depression" <operatingsystemsdepression@gmail.com>
+Date: Fri, 6 Nov 2026 07:47:50 -0300
+X-Gm-Features: AclHuK9eoIHOOl-jWVCYHYnEyTadpR0syeKsgRMUfNqU3K__zn-fC_qvkIRoMYM
+Message-ID: <CAFGNeahsXsKQLoGkxTyX+-c44PnXDS-OWOQ3Y-K_T+2M4Derrg@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000a93fbe065f995855"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,69 +98,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DRM core checks that a gamma_lut blob is aligned to
-sizeof(struct drm_color_lut) and at most GAMMA_LUT_SIZE entries, so
-shorter blobs still reach the driver. mtk_aal_gamma_set() and
-mtk_gamma_set() read up to the fixed hardware LUT size, which is an OOB
-read when the blob is shorter.
+--000000000000a93fbe065f995855
+Content-Type: text/plain; charset="UTF-8"
 
-Add mtk_crtc_atomic_check() and reject gamma_lut if its entry count does
-not match crtc->gamma_size.
+Hi Patrik, Thanks for the reply, I'll keep the SGX535 code in gma500 and
+prepare a small RFC patch next week (between this Sunday and Tuesday).
 
-Fixes: 2f3f4dda747c ("drm/mediatek: Add gamma correction.")
-Signed-off-by: Fei Shao <fshao@chromium.org>
----
+And yes, I used Google Translate and AI to make my English less bad since
+it's not my native language, Google Translate seems to be getting worse
+lately, sorry.
 
-Changes in v2:
-- Use drm_color_lut_size() and check against crtc->gamma_size, which
-  mtk_crtc_create() already sets for the pipeline. This drops the
-  ddp_comp[] loop and avoids the NULL conn_routes slot before enable.
-- Move mtk_crtc_atomic_check() before mtk_crtc_atomic_begin() so the
-  patch applies cleanly both to linux-next (next-20261104) and on top of
-  the mediatek-drm restructuring series.
-  https://lore.kernel.org/r/20260714114414.184512-1-angelogioacchino.delregno@collabora.com
+I'll keep the next emails and commit messages shorter
 
- drivers/gpu/drm/mediatek/mtk_crtc.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Thanks for the help with gma500 and KMS!
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 2920f3198ef6..67c2288ab8e0 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -841,6 +841,17 @@ static void mtk_crtc_atomic_disable(struct drm_crtc *crtc,
- 	mtk_crtc->enabled = false;
- }
- 
-+static int mtk_crtc_atomic_check(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_property_blob *gamma_lut = crtc_state->gamma_lut;
-+
-+	if (gamma_lut && drm_color_lut_size(gamma_lut) != crtc->gamma_size)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static void mtk_crtc_atomic_begin(struct drm_crtc *crtc,
- 				  struct drm_atomic_commit *state)
- {
-@@ -895,6 +906,7 @@ static const struct drm_crtc_helper_funcs mtk_crtc_helper_funcs = {
- 	.mode_fixup	= mtk_crtc_mode_fixup,
- 	.mode_set_nofb	= mtk_crtc_mode_set_nofb,
- 	.mode_valid	= mtk_crtc_mode_valid,
-+	.atomic_check	= mtk_crtc_atomic_check,
- 	.atomic_begin	= mtk_crtc_atomic_begin,
- 	.atomic_flush	= mtk_crtc_atomic_flush,
- 	.atomic_enable	= mtk_crtc_atomic_enable,
--- 
-2.56.0.455.g6c5a503b38-goog
+--000000000000a93fbe065f995855
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"auto"><div dir=3D"auto"><p>Hi Patrik, Thanks for the reply, I&#=
+39;ll keep the SGX535 code in gma500 and prepare a small RFC patch next wee=
+k (between this Sunday and Tuesday).</p><p>And yes, I used Google Translate=
+ and AI to make my English less bad since it&#39;s not my native language, =
+Google Translate seems to be getting worse lately, sorry.</p><p>I&#39;ll ke=
+ep the next emails and commit messages shorter</p><p>Thanks for the help wi=
+th gma500 and KMS!</p></div></div>
+
+--000000000000a93fbe065f995855--
