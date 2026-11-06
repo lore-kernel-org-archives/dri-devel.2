@@ -2,78 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B22606A32D
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0eZ3aLEK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3AA606A32D
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5368A10EA36;
-	Sat,  7 Nov 2026 14:28:02 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01B210E452
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 19:48:25 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48fd2e38825so674565f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 11:48:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793994504; x=1794599304; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=I/21Es773AUDvFmxDpw0bwxLoX1T07xfM8g2Md/BJQ4=;
- b=0eZ3aLEKmCJC9zlQd8KtO3SsluNNQlsbKaxitj5KmwE3RN53e4YxbvFDrwORGKq6GK
- v3LGrvT73pEeg6EbQCKRMWxzfeQLYUlaXHXLC1QSIpIfO8Zzck4dlm+LXJuQKQMVThSh
- Vg8uYsq0Cp6eEh5J0TbFDIuAD0XP/NrSAqoyRsDO8IAnp72QQ7jNPoh/jNDh6ruxcfsd
- myb7iieWWJNfV0sozjeLRJsE8jYXt2HXEUW6XfjI7Y0jFeFdOpBABiad1G9tOJyt9yOR
- YhGflA/RzS2q5trcjmqP/HGWY1Y9lUgcuDUI40IDyxXMlk3M3X2iqwklMo3AaEe3W0fJ
- o1yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793994504; x=1794599304;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=I/21Es773AUDvFmxDpw0bwxLoX1T07xfM8g2Md/BJQ4=;
- b=Nyar14623YVDNor9mREBhjRDTzgFKPHe+DsSsYhiFC1MHsUTK0XXs3gQ3r/oVaXFse
- ipsG/Y0PPpIFDyz1lZWiAqwfnD3brDLBCm/OjxcOZP4acL3R/ELEJ5kZh5TPPSoZ0z9G
- u3rhAPgUue5j/yzj79yiRawUu1oCpd0cgQgJn20kd1XExp+X/vrzzrJV4UA3FDSgB2Zk
- cn3g9xvOQQCdb1mKANunP2kuR0SY8t8CHKrzGHKIcpwfjgzhYoj1bYNTFwHHlDDDabJL
- tX7Y8L2kgEEt6vCcYoSeUboF9SO7qP2W3cBOR+xT4T5Nh3JTw7wOEUdiHAuW+CT7VuTA
- Mxiw==
-X-Gm-Message-State: APuU4Z8SRc1UYxLRZ90ayUBLjXo19kszSu1LW6kQ/6ursviuh04Kkia+
- 9WhFQqyQXHcgb6m12UKK6oJAaJp1a0jg8nPPG7jVPX5b+/48rNe3c5km
-X-Gm-Gg: AYBFou1MmUDWBM2rhIStb4iz9lHUj1uBI37SVHrsTfkH8GR5AK8hIDbeeldn9/d+zQg
- fMMjQ20je5328dKmLYM4czFu7/1codo7/eb2vYqXZQi0LBlJYoATrIJ+tBRjnUV7Yz1JwWenrdI
- OhhiuefIfI3mIgMOoaVRFG+zCkc8+ycBTeMv32rnEQCQC0PnhczLT9Bf+TV0+V8yAf34HMTFWkB
- /OlhY8i2KEPQqlj0D60BonU7+FnHUK2rAq7K89jq7gLhz0OZ1d9cz9+bLLLde2dVho48AH+dhrX
- qvJPzGWTFG3xkQHtTxhg1OyiN9/0BbgBqFRpJm6xsNJG5ALI9WyXXrr29SDkk+CdakpuMpMsS7L
- c6zAlj57rWm9axx5JQiHWm5baQc6KMP9m0QFQ5E0DFijK8hrm8A03OJTVc0Le7t/yIAMwY6n6mS
- yQvViiJ1u9QlWRewuG9eEgUwHIGfIUT1HInms4iFb4vQwFNrUpL2glh6OdkQnNu0tAs6QM9BNEA
- S7Owzu8+7b5r5BpQNfs5IOOHxavIBZeEIPGiI5JMK+4jHuzodsri1VUZXA2aOrVt8og9/vJymNk
- bMbqmzI90v2CSG2lT4zrm8iREhMFc5Y=
-X-Received: by 2002:a05:6000:1acd:b0:490:9fe2:6a39 with SMTP id
- ffacd0b85a97d-49275fe4e8fmr6979074f8f.20.1793994503735; 
- Fri, 06 Nov 2026 11:48:23 -0800 (PST)
-Received: from hp-z640.fritz.box ([64.43.161.7])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-492d73286cdsm4928130f8f.28.2026.11.06.11.48.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2026 11:48:23 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Heiko Stuebner <heiko@sntech.de>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v7 00/19] drm: starfive: jh7110: Enable display subsystem
-Date: Fri,  6 Nov 2026 19:48:22 +0000
-Message-ID: <20261106194822.4153919-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 065ED10EB60;
+	Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11023134.outbound.protection.outlook.com [52.101.127.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22BC10E3B7
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:47:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=anJpVoEJrufsgR4I+z6XUtvv7ROFEYQoG/bDAABz8/2FNnmZr1YozhFppmYK62N9sIHJ2rcvRxPZhUgY+Yk6fSjyZAu/alTdgJC6mjiuLIDyZG4aoBAsZ0/G9unC1C/9N00Q+1mvvbQpJFjKwL+Df27rVF7MCQDQYC4jl2SIykisbGzr86UqctpOiec2ogynJRllUOIgaBVvds5prpUYXMJljGdUB46xJ8hVF6mnmSH89RL88HZ0ZySxq54TbkpPao5czksa1GOIGwZ46cxXhEIgNeBRSgYAoYnRdfJK89pH4pyrQKC+t6rwVgjqvkgnyqmaAysNsq43jXDBfUgUQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hy9gFYTveJgCHC3VkCJIkxsZGmNRezdUbbJ0LlXZWFc=;
+ b=AYUrg2jhOMo67IkrGBo3SAy72YLOYYApfNohJZjkZt2PpbPTedtoDyKNFZU/lcDTDXbxgiEHj/E/RStpSNhLQMCASfkyDS2XLQ/de9w6qDWfqU+JdWSJw+5Oaw031DEJvAtPCiLIOsmpRya/5WtS+AGCUxNOP27EVIRAaDMIcZ4rIwuzhGS28PBevSFCjtLYRvl7ojeDuVrGwN+Hhn24/Po75i92Jepd4K/PSSPSF9csYxA3fBo/IE43k0oOEJhPUxBo1M9sV4pqnWJtx90Hpx99CcYT9dSteWbPEzxlqPkKcrxWhvg3raCyBTgtrWDUR/grO2lvFP36vIq8E26n0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from OS7PR01CA0207.jpnprd01.prod.outlook.com (2603:1096:604:24a::10)
+ by TYNPR06MB8782.apcprd06.prod.outlook.com (2603:1096:405:3c5::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
+ 10:47:37 +0000
+Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
+ (2603:1096:604:24a:cafe::a) by OS7PR01CA0207.outlook.office365.com
+ (2603:1096:604:24a::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 10:47:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:36 +0000
+Received: from cix (unknown [172.16.64.42])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 93E134102E60;
+ Fri,  6 Nov 2026 18:47:35 +0800 (CST)
+From: Cunyuan Liu <cunyuan.liu@cixtech.com>
+To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ gary.yang@cixtech.com, fugang.duan@cixtech.com
+Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ robin.wang@cixtech.com, cunyuan.liu@cixtech.com
+Subject: [PATCH 0/3] Add initial GPU support for CIX Sky1
+Date: Fri,  6 Nov 2026 18:47:32 +0800
+Message-ID: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|TYNPR06MB8782:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261022075727099003|56012099006|3023799007|261021123027099003|261026140227099003|261021121427099003|6133799003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: XZAYsGl+v9Z9v0l+pl7qQVSILbPz7T6t5AwvfqZvzxXfTXRevxc/enOxuVBHsiH7KMnU/9WkKVPXso1IBRSSqlb/jiCNgaAj4Bt4NQ5+vaJC0kEazs0LOgiagHX8XNBmY7BElVwSfvBN0K407ojYAEvRg3LFuWzKf479/1SyjPFdPySFw75n9SMeg4ACt5zoaajoHGrYCz1DeS9PjBAsjW50jiTBcn15x1tj9iOpxCcgaJYrg1AoH2PupZojFE81fB6/MDiPwNOPSgtnZKv8ly4v68f7IGxhrqA1bge3gzGxVmX3MSuacJ3q+xorbzIKtuBhV566j835AA0J4g96Pe/Fg1EYRJLLQUXxtOvGiGmDSHLa7N8OK/O7dZ9/O7g8NWyZrj28yLMFBfhI6qlsXAfOgJzp6hPsQfnP5S73lWj4oMs0t1IaW7qWKzBiOEu1vXmVbPPRBDvsvz6MJ2okWynT5WqNqFs51gjQiJejAkm36uVnmakmwWuQDK71Ax4D7EpuRWeg8eiP+NMfq9+zXigmCOmUUbxHqDcGa7MU+P7IXM0S0c7XiDkXG4jntuFqNDiXqehK0AjWUA4um0lvoY6egWhItEeltmLMgpafEtJOQ4ofN+/5XuQ/2neUiIXPFG+yQsnAUwzmoJaQb7ovcxpPMdVe0+EVXss4vRjjjeRJZRyx/KteU4l8RQO+1YMk
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261022075727099003)(56012099006)(3023799007)(261021123027099003)(261026140227099003)(261021121427099003)(6133799003)(10067099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 6HU+iO2agx8RonEIpQnK9YZdgd2t5ptWTBfrTU1uH8ssunP925RRSXYZv5aScBuAy4Al19v7NjQCiHHsdWfFHxK45YbmaBZCxb9Gp0QDuTDBvioprzQqe3D0cFS+0FI1gF9ADvA9CLry2m6fJXzQZdB+x+Yilqhq2cZ27AB0Gx2S4GvH9GZs70XBVTcL+0haxHL0rK0SIUTeXxt5h6jcx4JfqTY03ENSO3+CjYh68AgOLuZJfolLYWCfaWNiUO4/6jQgMTkEbt0jQkfasfLclPww6SbA3+6WrdVHrnFkao030Td8rvgRIKiC5RLvby9hhCdqmubOaEVy4CnlLmcxQL3OZrLOMGX0dbqyN3i05XbC3SqslU6uN+v8xaIXTWle7MTbMssR2KmT1RDG4ff0S+1jUcK+JCsViWTAK3I3TlHcD7DQiD1/i2A1imYMutND
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:36.5656 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: OSA0EPF000000CA.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8782
 X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,24 +101,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Tested on a VisionFive 2 v1.3B with this series and the v7 PHY series
-on next-20261105. All 24 modes the sink advertises set with modetest,
-from 1920x1080@60 down to 640x480, including the mixed sync polarity
-modes 1680x1050@59.88, 1280x800@59.91 and 720x400@70.08, with nothing
-in dmesg.
+This series adds initial support for the Mali GPU on CIX Sky1 and
+enables it on the Radxa Orion O6 board.
 
-One thing outside this series: the modetest pattern showed small black
-bars until I wrote 200 MB of other data, which pushed the pattern out of
-the CPU cache into memory, after which it was clean. The U74 has no
-Svpbmt, so the dumb buffer mapping stays cached here. My v5 run had the
-SiFive uncached-alias errata patches applied and did not show it.
+The GPU requires an external reset before the driver first accesses
+the hardware. Add SoC-specific data to Panthor to perform this reset
+during initialization.
 
-Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
+This initial version keeps the PM firmware default clock settings and
+skips devfreq. It does not read OPPs or request a performance level.
+The firmware sets the default GPU frequency to 1 GHz. No devfreq
+governor or GPU cooling device is registered.
+
+Configure the system-level cache before L2 power-on using the settings
+from the working CIX Sky1 driver. On Sky1, devices on the MMHUB bus
+cannot access the system-level cache, so buffers shared between the GPU
+and MMHUB devices require a specific system-level cache policy. Without
+this configuration, the GPU display output is corrupted.
+
+The series contains three patches:
+[1/3] dt-bindings: gpu: Add CIX Sky1 Mali support
+[2/3] drm/panthor: Add initial support for CIX Sky1
+[3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
+
+
+Tested on Radxa Orion O6:
+  - Offscreen rendering with pixel readback
+  - kmscube
+  - glmark2 at 1080p
+  - Runtime suspend and resume with a retained EGL context
+  - Reset-worker operations
+  - Module unload and reload
+
+
+Best regards,
+Cunyuan
+
+Cunyuan Liu (3):
+  dt-bindings: gpu: Add CIX Sky1 Mali support
+  drm/panthor: Add initial support for CIX Sky1
+  arm64: dts: cix: Add GPU support for Sky1 Orion O6
+
+ .../bindings/gpu/arm,mali-valhall-csf.yaml    | 51 +++++++++++++++++++
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  4 ++
+ arch/arm64/boot/dts/cix/sky1.dtsi             | 16 ++++++
+ drivers/gpu/drm/panthor/panthor_devfreq.c     | 11 +++-
+ drivers/gpu/drm/panthor/panthor_device.c      | 15 ++++++
+ drivers/gpu/drm/panthor/panthor_device.h      | 25 +++++++++
+ drivers/gpu/drm/panthor/panthor_drv.c         | 15 ++++++
+ drivers/gpu/drm/panthor/panthor_gpu.c         | 14 +++++
+ drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  2 +
+ 9 files changed, 152 insertions(+), 1 deletion(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.53.0
+
