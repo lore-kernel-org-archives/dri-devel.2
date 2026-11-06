@@ -2,84 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCD4606A331
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AE8606A333
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stEUFMN+
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=HHyEkdmY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EACBF112C88;
-	Fri,  6 Nov 2026 09:19:22 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3E810E295
- for <dri-devel@lists.freedesktop.org>; Thu,  5 Nov 2026 20:07:16 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a1fbd52ab6so16925205e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 05 Nov 2026 12:07:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793909235; x=1794514035; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ZwrKsB6tOpT/G+EQ3qCbOkWdsaYoyG0ZDwls387/DiQ=;
- b=stEUFMN+NpetEHNpPGnTwbwz6zYlGIsN5J5DkWmOPsYZDzJTeNLY2HI0EsqVP/NjU+
- CQ9IjAS2vxoIWxpA0e96R+BtvxKGDHGRtRvFPvg8yjltnBP1+O67f2wX+UK9joae4q/S
- YD7oTeGmA89R5o8I+Axb6YJaVk6IxerOx+7IwjIkzzF1TjgGSLhWFCNFz8k8SDiVZ4A2
- Xl7nX//sbSYzT1+SOKAhsm2Bu81LhvY1KXsP1zkktSuU/ni3DjrnKsfrKmmZgmNDkd/R
- 51D5GRbpplEp4UyWxqDVDIS6TfPgFq8A3N0y4+ya/iVZkuxocqJqzPq64xF2I0jKGVf/
- w3Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793909235; x=1794514035;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ZwrKsB6tOpT/G+EQ3qCbOkWdsaYoyG0ZDwls387/DiQ=;
- b=xN92v5cq+meELCTPh1pakys5rThmQS07n1FcYhTkcxXW2IEs/a+PoWgS4mJjtOW6Yn
- oBF8DsaP9Lt+Qmkfz33Zgen3zf8Hyc/Yb+NlMeLtDd4r6Q251axkSgtDr5jCqnTLzamZ
- nhm8qpab4s5CmtTAdWig+d0UbBRhYmcnapoFXXwEKoCD3TUP+1sPHim2CoNNWQvddKH7
- PaSxZ7Q/QePgaPGeVtPD0i6WszrdSCROG9ambrQ9NF6QMirOV6cWhp1Thkn0WIzzeL3r
- zqHth1BoMk119IWtD242TaUmEFzGM/bJIAkjldw+vqOhQPMx/3fN70ewewWLx+Qy1Krm
- 0TfQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz3GkPv2kYv2MBkCPI1DOC6VmFW1ZAe2aAc/muJrc2kSv0fLNkl7gOygGmqjAtILPYl/y9//yOFv+k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/2aGhQV7Ns/dgDbrx+zNA0jZR8sB/NICjmm8zntglKL/quzCdR
- UVOb3gvYPesHPBnx93eD5zfD9QPOif31+KWYBj+cpdo0PJMPiLzoi9/6
-X-Gm-Gg: AYBFou0F9HYfpDgniSmVdr+8/2VilccpxSzXYVML29sNQnxBC5gTClPWGZCvt+Swqf3
- CE8psf+GTHKZMvM95spYkuRNHX8gm2bVbB8AsbxlmVJ46XcQYqLoyHEFVMglOXHxWMwKQ7jdNq3
- qEltXXbgPo58TIgPuvlepW9HbSvKhIJ5IByKYPZRi0dHxKXrghH2VGL0Mk9i3kSkoXvkmj50g68
- j/v/x5w2MBwutAGxZdC4SQzaBTUF9z6vsJ3EQ7xs3uXxaqtMjmb/JNxTT4o08y93utw52eOlXw9
- bowwl08A2z5a6SpMEnQW7UEWhoMkVHnGvKORpGZzAx1Z11VckjbZb7JrpxUpCX5ihUkE7CiWWmQ
- BqjX4hPDdqcMHN7oU0JGIkMa6c3nngcUcbe4RdxvNq3GOL/4OHcyYaM/aPfivFsUJrr94fAlEvb
- 6KqQLv88aDCeK4L/oH/0mAdSsFLDTHF2/sxF4hZ2wy9JlV71d678egiOrloYC5OTKjYXDW/6BQw
- sGEX0MvgdglmJRayx/pdqsPLJybe7BNhedEwMgcT9PuCNhC708A6rIikbXslMThhXMr/WfsOlOC
- seDdyUD2hj4sLGDVrZZcOPwg6aWkVNT6D94mI407VSnKfSEh7SxvNWPBwws=
-X-Received: by 2002:a05:600c:6387:b0:4a7:9025:5c3b with SMTP id
- 5b1f17b1804b1-4b6de1c6450mr3686705e9.19.1793909234959; 
- Thu, 05 Nov 2026 12:07:14 -0800 (PST)
-Received: from antoniarch (78-212-29-45.subs.proxad.net. [78.212.29.45])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b433ebd278sm131671835e9.3.2026.11.05.12.07.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 12:07:14 -0800 (PST)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi,
- andreas@kemnade.info, khilman@baylibre.com, rogerq@kernel.org,
- tony@atomide.com, jmkrzyszt@gmail.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org
-Cc: linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH 1/3] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-Date: Thu,  5 Nov 2026 21:05:52 +0100
-Message-ID: <20261105200556.34240-3-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105200556.34240-2-apokusinski01@gmail.com>
-References: <20261105200556.34240-2-apokusinski01@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13205112C7E;
+	Fri,  6 Nov 2026 09:19:24 +0000 (UTC)
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazolkn19013087.outbound.protection.outlook.com [52.103.43.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6013110E114;
+ Fri,  6 Nov 2026 03:26:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oJwCtVEWE53gjhEby0D23N1yQT7cyNlB5C5LdjsYI3cgEFt5Hc/88i/vThtSx1n3HBOKUuhWE7rbLf1SNcxAB+jcwuOk0tmLN9LNVeqkymIhdYdElj4E9nWH1P9DD3W2iy070k1R/3AcoF7cxqyT2Ui7oogOQv6dR19WnQINz9mUJkAYgjtCBIMVPx9r9AWaMbx/UCmld545uXnOHTgbF3FdfLspPzAmGMMHSLZszSiDEPSJczL3We0JcAKWus38HMSMJAZdiMTBdLfHydb4LAXYT6PJDL8HWUK3xDXWwonukQITfGZb4/wDsoiP66I+uLKQ8TYbQqKmyb0rEbRWyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
+ b=i/8hJ9wTyaLm3/hhb/Fo1LGdHr3pgtG/iLS7rIXWtDYkaby9ob9wcV6xGsRWnE53S3UE4MvoAiB5JcK9EVC1hG8wLtQS4lKJuSNVAx1DWzTX6BvXE75nMz+VXQLzX4mPJLU5Xcy7nmUXrn7Bw0fF6XCAIi5oNMsyLDWcjTCrc6nqVIKHYR444XU7rp4Z1Wg5R/nJYKpSHBDi21fQc/cohDmm1lOjACqHAZr3jbn4Fc8sic+2luogF4a+POYBe4MSxUg1Mv6tvz5mzqJbjBRCW2uQNuYwnUkpl6NeshDuD1T0gECrXZts512IHK+mGKmri57iZFuglXFMw1CyM4/oWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
+ b=HHyEkdmYKF4bWIfuzRg2MNFmkz5pl+DoND13TQ0MbxS2vQ6t4d1mV3lMIMYVi4SV/aMt3rnd8Rvad4DsWufgC3KPeZDTl9uf3x3vU3vp/hqKmyNZe3Zrhx2eVB3kMMkhAX6cImKVoUswzjT8+lffXTxfIinEIRFNkW53Sm5psZ6GN0bn2NyEladlVRxerOrDuqCO6QxMg59fiVRh0yNOFAumB6xwLRcqM/vgP8i2/p25woJKJ+UrwDLzjjoOsh6bKhssBf3AWd8gaYDA8ZxchNTbrlrbzpMOVvXXZExGygVTC/wjMzcRKGt/RLKAjj0mcojFn2+3G+61NHMXdPyh4A==
+Received: from SEYPR04MB9237.apcprd04.prod.outlook.com (2603:1096:101:2f1::20)
+ by TYSPR04MB7281.apcprd04.prod.outlook.com (2603:1096:400:476::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 03:25:55 +0000
+Received: from SEYPR04MB9237.apcprd04.prod.outlook.com
+ ([fe80::decd:90bc:3bca:9f8]) by SEYPR04MB9237.apcprd04.prod.outlook.com
+ ([fe80::decd:90bc:3bca:9f8%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 03:25:54 +0000
+From: Zhang Zhenzhe <zhenzhe.zhang@outlook.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Austin Zheng <austin.zheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
+Thread-Topic: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
+Thread-Index: AQHcsvuFzeiUQFQOEEa7ePJTe6Ab+Lch1p95
+Date: Fri, 6 Nov 2026 03:25:54 +0000
+Message-ID: <SEYPR04MB923770653CE59AF6FE8E9485E6762@SEYPR04MB9237.apcprd04.prod.outlook.com>
+References: <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
+In-Reply-To: <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR04MB9237:EE_|TYSPR04MB7281:EE_
+x-ms-office365-filtering-correlation-id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|19101099003|25010399006|15030799006|51005399006|31061999003|15080799012|19110799012|22091999003|8062599012|24121999003|8060799015|40105399003|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?qjto9+7DC76FA3KxPNd7ld6MDAcvsSotwfFu5onf/f5wn1Xwa38jc7C9CY?=
+ =?iso-8859-1?Q?s6J2Zy+IpDO32/fC5oQG6xlwsoCWclKb6ebdleishLxpCVOUcIvgxDcCx2?=
+ =?iso-8859-1?Q?iO+7WLeAtCqSFc2yA0E2EEqUwKcZO2z2+LJUUGchPx5gzvk+HgWxAHaWxK?=
+ =?iso-8859-1?Q?f8S6sky6nAWk9BBHrdLtc1QB/JnoXOvVef/qSMlabVMfYvZB6w8fdhsWzE?=
+ =?iso-8859-1?Q?WBSFie071c5ba/v5b33sinluyQagfYbin2S3b1hNtvmYii8/o1bUtv7HnD?=
+ =?iso-8859-1?Q?XZn7v7P89MDPd576lx/9V6NyeTr01xUXdYTCkBuWeo+DQCSscygMD0F40N?=
+ =?iso-8859-1?Q?xw50Z/jtbzolckscMNfRbuFWv1x+6rPE+5qCXKBZoJ8cjTdh8Q/sNwJKV5?=
+ =?iso-8859-1?Q?O++3ta8mILCKR2QxNh4gQfMes0ChuZZ2ljkL0NMmRaP+m1xELTnqd2t3Og?=
+ =?iso-8859-1?Q?ANvG+DiSs3OWolxVTSKa+0A/FGERQoCA8ssYGBhLZYpc6UlS8Ffx9t7fcu?=
+ =?iso-8859-1?Q?PUEZl/Wejt/br550qWcNFws3ICrOn+HVR9w8eduabxKjXcE5W4C/o9B/oV?=
+ =?iso-8859-1?Q?SItp1o+61nE8AyAf8I/jPCMswgHMjLd3/OHmlM3ZjuTm3JV+f1bzDl297h?=
+ =?iso-8859-1?Q?kUVr/VfGHbymbgfWmd9ceMxWWdLP7z4pwVUXwaIg8Nh+Pqo7frwCWmIk7V?=
+ =?iso-8859-1?Q?lWh2ET8h4S46I6KcLxvNCbnnzysaG8NJfPHxTene3YHkwXhd70UClSFzmr?=
+ =?iso-8859-1?Q?G77aOY0PwZAKqF7Er8oa5RN3Cdn5uSLBul/3jNVzDEBQJGmRBkn3BlHy7V?=
+ =?iso-8859-1?Q?bEV+NppfFr9BE3Nbrj6AxEnVryGVhvCrixUUgAdjzGZxO8mc3xgWw6Rhah?=
+ =?iso-8859-1?Q?mz8ItsBdVgE3f7PdKfzK+wAkHvmPH4PiueE3IeXSIvee3KJw6AP3P2RJuB?=
+ =?iso-8859-1?Q?Iti++mFycFDzdipU2WUSRLSnU4RXBCsbC9ylxEht03ZS4Vmngcy8OjHxfn?=
+ =?iso-8859-1?Q?3G6/EUkIitgwDFw0U7ibvgkE9D834DsJoRps6PZx7D/vUkj2WNK3Uz7RU0?=
+ =?iso-8859-1?Q?RNgctcNWkj9WMnIsSCoT3hE=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?cTw4YhmGtm0hxyaY2vXv1FZ4zVz/E1LDPk2IKy8SZryyHi8RQkZpWOri2F?=
+ =?iso-8859-1?Q?vmuXUbl5k3zlO50jIPBiQdsnZScPnWZoob2aRH64mNDCiMXd/AcU9Y+Nbm?=
+ =?iso-8859-1?Q?kMLWwWttL5nnNXS/Ot4W8Red8q76KtFRn+1y1uJtnRyOiL3q9mWDOO50Ob?=
+ =?iso-8859-1?Q?CNqt6qytnz02rC+avq5T/69pnVIrshbAHLE1UqmR2X+yiCUxdzhuyDvukn?=
+ =?iso-8859-1?Q?2D02tP4EkDZw6euvX00HAIxg9RfOoSe2EZeI+5v01pHQhNydZ1lIM8pU2w?=
+ =?iso-8859-1?Q?m/laicw0lJBTfZGgwtgsljyghyv+30miuVw+x9/nYYncH56C9rgReKGRVL?=
+ =?iso-8859-1?Q?rPazu8tSgJZtdKNncUhfW3WR4EMLonWwQ3DraBkHCWCbdmDa6uSYvXlmaX?=
+ =?iso-8859-1?Q?krjkI3B4Zba4YrKdtwTGkDSIRcOJl1T8tuViDPA+11L7aDlCpREpnGWIMD?=
+ =?iso-8859-1?Q?Zm/Jvczd73cyE966Qvf0x+djM1wkmlXgO/SZo4spav6ZG18QRlFStS5yZ9?=
+ =?iso-8859-1?Q?4RzVKJBI3vX+k4tWLZPYk6y+9tyUQns3QfWsS0DD97IpeHJKb/DCmbxarA?=
+ =?iso-8859-1?Q?ITCaAKLDiF6DsOYhSsoYgdhhL/MiqZ+JDFcbpPKT5EVi4a0b7N/6mKd4zo?=
+ =?iso-8859-1?Q?3Dj9qI/MN1eDZZD6oVE7UGF4rCCQBxU9HD2+uRkeesu3a68Ra7fm2vH2z7?=
+ =?iso-8859-1?Q?soheK2u4V0u4aYEXCqS38Mjgx/SL07HBTYC9neifyJiusywafKTh3Z7dOy?=
+ =?iso-8859-1?Q?ABxPDLkQwhPMuBE2XTNTRZ/c+P3p71FeCmg+wbyFL4P0irFQaIuCF/PR47?=
+ =?iso-8859-1?Q?cAFm0u+ukRcyrXMxAzpZ/ly1wzhu3tKxg1fIhOVbDjIPFEAIQei5/b4akW?=
+ =?iso-8859-1?Q?70z8zrYHnq7i5VbcwgZPRWZ2QCyGOmkfMj5NrhsnPJbDib0E2y73WrB7UE?=
+ =?iso-8859-1?Q?XyVMMsETXpHHXN3EuR9POrS0Qp75fbzk2q4cFgHZy/m9PP1kMfiZ3S22pn?=
+ =?iso-8859-1?Q?ViCtbdXfyWIrW5snEgeOCYzK5zzAp3wj2PvOIkY5zJDj8IoSLUglQHLJUT?=
+ =?iso-8859-1?Q?oMGYj22x3SwgPM21bOvlQmIfaH6B1iuUnQz+3mhc7oupbfpf542wNgvAS9?=
+ =?iso-8859-1?Q?8ZzpkfFXzufDijT2VfIiXcaSxo4wjG2BXVn/Q2MHuXnLUUyHnVD6IOM+IO?=
+ =?iso-8859-1?Q?1DYdQ6Jx0ERqzQyYBs3i/FbYlQxUOcbd/grQZAtUTw1S7US5rJAdub89h6?=
+ =?iso-8859-1?Q?Y1ST2nhO5zlX2VnkuMeK+RQ9ufQjqCK4OhCTQBnXpLHUNX/U+wyzsiwNeS?=
+ =?iso-8859-1?Q?rurh5pLblubiUhZQbFO8tk2e3vLlzWCy8jdnLs71KITgw95kc3XC/L+7/t?=
+ =?iso-8859-1?Q?nJiYdX6PwE9ht6bTdVd4YLAqFjAL4uLMkNPZmm95PrxHeYE8UGRQG5Oh7w?=
+ =?iso-8859-1?Q?qcxzvBG/0GUnelhq?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR04MB9237.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 03:25:54.4517 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR04MB7281
 X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,50 +134,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the TX and RX DMA request channels featured
-by the OMAP I2C controller.
-
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-index 58d32ceeacfc..ff946fdfaad3 100644
---- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-@@ -37,6 +37,16 @@ properties:
-   clock-names:
-     const: fck
- 
-+  dmas:
-+    items:
-+      - description: TX DMA channel phandle
-+      - description: RX DMA channel phandle
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-   power-domains: true
- 
-   ti,hwmods:
-@@ -93,4 +103,6 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         mux-states = <&i2c_mux 1>;
-+        dmas = <&edma 58 0>, <&edma 59 0>;
-+        dma-names = "tx", "rx";
-     };
--- 
-2.56.0
-
+Hi,=0A=
+=0A=
+Just following up on this patch, as it hasn't received any maintainer feedb=
+ack yet.=0A=
+=0A=
+This patch follows the same approach as commit 318917e1d8ec ("drm/amd/displ=
+ay: Increase DCN35 SR enter/exit latency"), which addresses a similar displ=
+ay underflow issue on DCN35.=0A=
+=0A=
+On DCN314 with LPDDR5 memory, increasing the SR enter/exit latencies by 1us=
+ also resolves the underflow issue in my testing.=0A=
+=0A=
+I also noticed that the original commit message incorrectly used the Fixes:=
+ tag for a GitLab issue. I'll change it to Closes: in v2 if needed.=0A=
+=0A=
+Could someone from the AMD display team take a look and let me know if any =
+additional testing or changes are needed?=0A=
+=0A=
+Thanks,=0A=
+Zhenzhe=
