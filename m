@@ -2,114 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399B46082BFE
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A66606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A022210EA6E;
-	Fri,  6 Nov 2026 15:02:28 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B49F410EA6E
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:02:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 42E9522189;
- Fri,  6 Nov 2026 15:02:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1793977336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
- b=MVW024mu3KUwb1eDIw9bJ7PUOylrtjz83alILp27tKzUsdCksGRqb2eNBKhuCftDFHtDtf
- KABuC9It6O4tyCiPhUZjyZ0u1CeiNtO1HN59BmgR16E4h4eTs/ZpBWkV5LTiB8N+XVmgMb
- 7B6PnDrfL/H4DtYHAIw1gx2QjGhRbKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1793977336;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
- b=1Lr3dwzbGO42cHRrGquEh+E16qepkp47m3zjRAPxn7qf0CmFHNw6zxA6wxNnbXYCoqd78j
- 473SBMFwRpWhQHDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1793977336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
- b=MVW024mu3KUwb1eDIw9bJ7PUOylrtjz83alILp27tKzUsdCksGRqb2eNBKhuCftDFHtDtf
- KABuC9It6O4tyCiPhUZjyZ0u1CeiNtO1HN59BmgR16E4h4eTs/ZpBWkV5LTiB8N+XVmgMb
- 7B6PnDrfL/H4DtYHAIw1gx2QjGhRbKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1793977336;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
- b=1Lr3dwzbGO42cHRrGquEh+E16qepkp47m3zjRAPxn7qf0CmFHNw6zxA6wxNnbXYCoqd78j
- 473SBMFwRpWhQHDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19C6F132C9;
- Fri,  6 Nov 2026 15:02:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id guvJOffr7WpFFwAAD6G6ig
- (envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 15:02:16 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
- id A02AA21BA3; Fri, 06 Nov 2026 16:02:00 +0100 (CET)
-Date: Fri, 6 Nov 2026 16:02:00 +0100
-From: Jan Kara <jack@suse.cz>
-To: Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/2] Add scope-based cleanup capability to eventfd_ctx
-Message-ID: <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
-References: <20261027-efd-autofree-v3-0-caa2442e1beb@arm.com>
- <20261106-hinein-lagebericht-abbezahlen-cb826d68d175@brauner>
- <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
- <sp6gvawt6petvrlky7g6pqaqsp3jwouu6ixarevis5m5vd7fwe@xjxeakzi3nn3>
- <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9505891AA;
+	Fri,  6 Nov 2026 15:06:58 +0000 (UTC)
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 082E3891AA
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:06:56 +0000 (UTC)
+Message-ID: <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
+Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
+ controller
+From: Paul Cercueil <paul@crapouillou.net>
+To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, Thomas
+ Petazzoni	 <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Fri, 06 Nov 2026 16:06:50 +0100
+In-Reply-To: <20261106143827.15926-1-olivier@mgcrea.io>
+References: <20261106112000.1612-4-olivier@mgcrea.io>
+ <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
+ <20261106143827.15926-1-olivier@mgcrea.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
-X-Spamd-Result: default: False [-12.80 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[12]; RCVD_COUNT_THREE(0.00)[3];
- RCVD_TLS_LAST(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_CC(0.00)[suse.cz,kernel.org,zeniv.linux.org.uk,linux.intel.com,suse.de,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
- MISSING_XM_UA(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, arm.com:email,
- suse.com:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,78 +45,117 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi!
+Le vendredi 06 novembre 2026 =C3=A0 15:38 +0100, Olivier Louvignes a =C3=A9=
+crit=C2=A0:
+> Hi Paul,
+>=20
+> On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
+> > > +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
+> >=20
+> > This bothers me a bit, shouldn't it be using 'crtc_state'?
+>=20
+> Yes. v4 takes the mode from crtc_state.
+>=20
+> > > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
+> > > X1600_LCD_CLR_ST);
+> >=20
+> > Not fond of the writel(readl()) nesting here.
+>=20
+> OK, a local in v4, here and in probe.
+>=20
+> > > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
+> >=20
+> > This whole block above looks like out of place. Why not do it in
+> > x1600_lcd_encoder_atomic_mode_set()?
+> >=20
+> > Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variab=
+les.
+>=20
+> The controller only takes register writes while its clock runs, and the
+> clock is off when atomic_mode_set() is called: on a full modeset the
+> CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
+> again afterwards. I checked it on the R1: with the clock gated (CLKGR0
+> bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
+> the register still holds the old value once the clock is back.
+>=20
+> So moving the block means starting the clock in atomic_mode_set() too,
+> or leaving it running while the CRTC is off. I'd rather keep the writes
+> in atomic_enable(), next to clk_prepare_enable(), and look the bus
+> format up in the new connector state there, so the two fields go
+> anyway. Would that work for you?
 
-On Fri 06-11-26 15:30:07, Bence Csókás wrote:
-> On 2026. 11. 06. 15:13, Jan Kara wrote:
-> > Hi!
-> > 
-> > On Fri 06-11-26 10:31:58, Bence Csókás wrote:
-> > > On 2026. 11. 06. 10:05, Christian Brauner wrote:
-> > > > On Tue, Oct 27, 2026 at 05:22:00PM +0100, Bence Csokas wrote:
-> > > > > Add __free() support to eventfd and update drm_syncobj to use it as an
-> > > > > example consumer.
-> > > > > 
-> > > > > A minor discrepancy I encountered is whether to put a semicolon after
-> > > > > DEFINE_FREE(). It seems some in-tree code does, some doesn't. In the end,
-> > > > > I followed the example set in core-api/cleanup.rst, and omitted it.
-> > > > > 
-> > > > > Signed-off-by: Bence Csokas <bence.csokas@arm.com>
-> > > > > ---
-> > > > 
-> > > > I'm really having trouble seeing how this improves anything
-> > > > significantly. Probably others have the same impression which is why
-> > > > this doesn't get a lot of review.
-> > > 
-> > > The goal of the __free() API is to reduce the number of goto-based error
-> > > paths. Normally, you'd have to keep the state of every local in your head
-> > > for every early return. (Has it been initialized? Has it been consumed? Or
-> > > does it need to be freed?) Then you need to arrange your "goto tree" (error
-> > > labels) in a way that frees everything, and then for every early exit, jump
-> > > to the correct one. This can be quite complex for some functions. Look at
-> > > KVM or HyperV eventfd code, for example.
-> > > 
-> > > By contrast, you just mark the local var with _free() and an appropriate
-> > > destructor snippet, and the consumption point (the point after which we
-> > > don't need to free it on a return) with no_free_ptr(), and the compiler
-> > > instruments every early return accordingly.
-> > 
-> > Sure, but there's also the other side about which you don't speak: unless
-> > the destructor is trivial (like kfree()), there are implications about
-> > locking, when resources (such as references held by the object) get
-> > released etc. So it can also be more complex to wrap your head around
-> > __free usage than around standard cleanup code.
-> 
-> Sure. Thankfully eventfd_ctx_put() is one of the pretty trivial ones,
-> basically just calling kfree() on itself when the kref drops to 0.
+Is there really a point in enabling the clock on-demand? Why not keep it en=
+abled
+always? It makes the driver more complex and I don't see a real benefit.
 
-Ok, fair.
+>=20
+> > > +	if (pixels > X1600_LCD_MAX_PIXELS)
+> > > +		return MODE_MEM;
+> >=20
+> > The max resolution is 1280x720 so you should check mode->hdisplay / mod=
+e-
+> > > vdisplay individually. Otherwise bogus resolutions like 1920x480 woul=
+d be
+> > accepted.
+>=20
+> Right for 1920x480, but 720 per side would refuse the R1's own panel,
+> which is 480x800 in portrait. The manual only says "frame size up to
+> 720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
+> would that do?
 
-> > So unless __free is providing a noticeable simplification of some goto
-> > hell, cleanup in many functions or similar, I generally don't find it worth
-> > it...
-> 
-> Look into for instance mshv_irqfd_assign() and weep... And then imagine how
-> much simpler it'd be if it were using __free() instead.
+Ok. Then I guess keep the current check.
 
-Well, over the years I've seen much worse things :) But I agree for that
-function using __free would be a simplification.
+> > > +		spin_lock(&lcd->drm.event_lock);
+> >=20
+> > spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IR=
+Q
+> > handler. I *think* you don't need to lock it here anyway, as the spinlo=
+ck is
+> > locked in other places using spin_lock_irq().
+>=20
+> On PREEMPT_RT the handler doesn't run in hard IRQ context:
+> force_irqthreads() is always true there, and the IRQ is requested
+> without IRQF_NO_THREAD, so the handler runs in a thread, where a
+> spinlock_t is fine (Documentation/locking/locktypes.rst).
+>=20
+> And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
+> hold event_lock, and lcd->event is shared with queue_event() and
+> atomic_disable(). Their spin_lock_irq() only keeps the handler off the
+> CPU they run on. armada, omapdrm and malidp take event_lock the same way
+> in their handlers. So I'd keep it.
 
-> For the example in 2/2, I deliberately chose one callsite where it's trivial
-> to deduce that behaviour is unchanged.
+Ok.
 
-Well, the change is kind of "meh, I don't care much" for me. So I guess if
-you include some conversion that actually makes code simpler, I guess
-Christian might be open to merging this.
+> > You enable it later in the probe, so you could just use
+> > devm_clk_get_enabled()
+> > here.
+>=20
+> Probe only enables it to stop what the boot loader left running, and
+> disables it again before drm_dev_register(). From then on atomic_enable()
+> and atomic_disable() gate it. devm_clk_get_enabled() would keep it
+> running for as long as the driver is bound, display off included.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Yeah, I forgot that the devm action would cause a clk_disable_unprepare() t=
+o be
+called on unprobe, which wouldn't work here. So ignore that.
+
+As for the clock running for as long as the driver is bound, I don't think
+that's much of a problem.
+
+> > I saw a patch from Maxime replacing these - you should be calling
+> > drm_mode_config_create_initial_state(drm) here (and handle the error).
+>=20
+> Will do, it's in drm-misc-next already.
+>=20
+> I'll leave v3 a few more days for the drm-misc side before sending v4.
+
+Great.
+
+Cheers,
+-Paul
