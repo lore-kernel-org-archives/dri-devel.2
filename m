@@ -2,57 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8547D606A338
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:26:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA751606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:29:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI4S+TyZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ZjbSwH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3042112E1D;
-	Fri,  6 Nov 2026 15:26:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6472112E3E
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354D410EA5A;
+	Fri,  6 Nov 2026 15:29:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2CF10EA5A
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:29:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E55C6601D5;
- Fri,  6 Nov 2026 15:26:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0B61F0089F;
- Fri,  6 Nov 2026 15:26:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1AD6540460;
+ Fri,  6 Nov 2026 15:29:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2081F0089F;
+ Fri,  6 Nov 2026 15:29:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793978771;
- bh=791jtVI/FiCvxKr+UIajb8iUBdDdnr9l0lcd66baFFc=;
+ s=k20260515; t=1793978960;
+ bh=48rljzKvoUg9v4zCJJmQB8ccTlJM08PmCKtx6YIOPJA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hI4S+TyZD8dLdZm63gpV3tRRD5zDd9iiECcx40cwuPZ7FGkXRdpyb+XIF13nk17Up
- 0dMl2zHRuk3iFGcJdzb7jvP1dGD/fPLV+tU+Gk+3nngsZYT7OsAAQ4FbsA1C0sUHaP
- TRz5J3zHRMOaSGAD/d/VCu8gAbh18O+U1YYHmkc1rAMPBUCHnP3WxHk8DTUqZcsCZS
- MVHhmrdu7U8NcxdQVvgzlrSLnWnB9+w6PWdLBgPPX6Q0vqZ8J1siuN15cyMkvFxyJ2
- rV7JPaH8IJMpZMKNFxTOra772W60OQlsdFF4BFog+RyoMPELbdRp6nXrQAiJT4BYUD
- LTKAVoinJOxGA==
-Date: Fri, 6 Nov 2026 16:26:09 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ b=A8ZjbSwHU20MhVdWCWsRQ+KFXa54YccwjaujcZwWf33hDNUgV4Arp04bJGZXtVcoz
+ etXQZtX2+GCWQmeJ8OGC/LEBOLsWftUfVIXKPUKIw9vZhMWl1i+DUCNVni8kio35pl
+ NlX+mGPl+MloBvZj4CoMuGUPahCxH7sCrcE7YdiZ9Vs6nxOnX+mXtuVSyufdxHjx3V
+ PIB5RlZU7/uXUot8EW8HI6ICST0+oPGA/ZupU54YiE6A94Nat8GHhbXxJxH7g1CISb
+ zqUo4ETB4NsLXuDG+zSPSxPWr/jNc3l12jX+zb54sH+JdI2qq3FUa2vbf0nBsiQTuf
+ Kh4dq4meZu8sw==
+Date: Fri, 6 Nov 2026 09:29:15 -0600
+From: Rob Herring <robh@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
- MIPI DBI bus
-Message-ID: <au3w5Euhy-DyY5qQ@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-3-clamor95@gmail.com>
- <au3TcHXFt5Yhs_V8@orome>
- <CAPVz0n0ngn4nf9uTOsM6OKB9jgTnJN1FrPp0UyeHwuAwoL5_tA@mail.gmail.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Message-ID: <20261106152915.GA3406543-robh@kernel.org>
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-3-damon.ding@rock-chips.com>
+ <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
+ <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="p7lbsm6ewx54bynh"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAPVz0n0ngn4nf9uTOsM6OKB9jgTnJN1FrPp0UyeHwuAwoL5_tA@mail.gmail.com>
+In-Reply-To: <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,82 +78,103 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
---p7lbsm6ewx54bynh
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
- MIPI DBI bus
-MIME-Version: 1.0
-
-On Fri, Nov 06, 2026 at 04:00:45PM +0200, Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:=
-19 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Thu, Nov 05, 2026 at 04:05:02PM +0200, Svyatoslav Ryhel wrote:
-> > > Switch from a generic platform driver to a dedicated MIPI DBI driver.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On Wed, Nov 04, 2026 at 04:59:58PM +0800, Damon Ding wrote:
+> Hi Krzysztof,
+> 
+> On 11/3/2026 7:20 PM, Krzysztof Kozlowski wrote:
+> > On Fri, Oct 30, 2026 at 02:49:01PM +0800, Damon Ding wrote:
+> > > Document the eDP transmitter PHY with NaNeng IP block found on the
+> > > RK3568 SoC.  The PHY has its own register window inside the eDP PHY
+> > > GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
+> > > a reg property describing that window.  Also add the
+> > > "rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
+> > > the Rockchip GRF schema.
+> > > 
+> > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> > > 
 > > > ---
-> > >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 167 ++++++++--------=
---
-> > >  1 file changed, 78 insertions(+), 89 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/dr=
-ivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > index 83c2af1be9755..d5d7ba2096608 100644
-> > > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > @@ -14,6 +14,7 @@
-> > >  #include <video/mipi_display.h>
-> > >
-> > >  #include <drm/drm_mipi_dbi.h>
-> > > +#include <drm/drm_mipi_dbi_bus.h>
-> > >  #include <drm/drm_modes.h>
-> > >  #include <drm/drm_of.h>
-> > >  #include <drm/drm_panel.h>
-> > > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx1=
-0d07vm0baa_supplies[] =3D {
-> > >
-> > >  struct hitachi_tx10d07vm0baa {
-> > >       struct drm_panel panel;
-> > > -     struct mipi_dbi *dbi;
-> > > +     struct mipi_dbi_device *dbi;
-> >
-> > It's somewhat difficult to exactly see the difference between mipi_dbi
-> > and mipi_dbi_device. Maybe that should be explained better in the cover
-> > letter of patch 1? Or the documentation added in patch1.
-> >
->=20
-> It is already documented in detail in the drm_mipi_dbi.h
+> > > 
+> > > Changes in v4:
+> > > - Add the reg entry for the PHY node and the ranges/#address-cells/
+> > >    #size-cells for the parent syscon node.
+> > > ---
+> > >   .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
+> > >   .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
+> > >   2 files changed, 88 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > new file mode 100644
+> > > index 000000000000..b78da00ffefd
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > @@ -0,0 +1,68 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Rockchip eDP Transmitter PHY with NaNeng IP block
+> > > +
+> > > +maintainers:
+> > > +  - Damon Ding <damon.ding@rock-chips.com>
+> > > +  - Heiko Stuebner <heiko@sntech.de>
+> > > +
+> > > +description:
+> > > +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
+> > > +  registers, therefore the PHY node is expected to be a child of the
+> > > +  eDP PHY GRF syscon node.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: rockchip,rk3568-edp-phy
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +    description: PHY registers within the eDP PHY GRF.
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  clock-names:
+> > > +    const: refclk
+> > 
+> > Just "ref"
+> 
+> Will fix in v5.
+> 
+> > 
+> > > +
+> > > +  "#phy-cells":
+> > > +    const: 0
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - clocks
+> > > +  - clock-names
+> > > +  - "#phy-cells"
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    #include <dt-bindings/clock/rk3568-cru.h>
+> > > +
+> > > +    soc {
+> > > +      #address-cells = <2>;
+> > > +      #size-cells = <2>;
+> > > +
+> > > +      edp_phy_grf: syscon@fdcb0000 {
+> > > +        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+> > 
+> > This is beyond the scope of this binding. Drop entire node.
+> 
+> Will Drop in v5. The example should only show the PHY node itself.
 
-That documents what the struct mipi_dbi is. I'm asking about the
-difference between mipi_dbi_device and mipi_dbi and mipi_dbi_dev. It's
-not clear to me why we have both mipi_dbi_device *and* mipi_dbi_dev,
-especially since they're very similarly named. People are going to
-easily confuse where to use which.
+Actually, drop the whole thing and put in GRF binding if you want an 
+example. MFD examples should be complete, not piecemeal with each 
+sub-device.
 
-Thierry
-
---p7lbsm6ewx54bynh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt8ZEACgkQ3SOs138+
-s6GKSQ/8CO+1lWO38xYwHMKy3he1QZi7KnwlWMuqXSlkTnr70L03IIS91e9xT7y8
-ErXIomywS8xrLKQO01zd4QHj8WccK0/98EwwhIQ5x8BuYVl78PVW/QjvgjT/75Jf
-xRPbTK3T/mWao7bW5uGAv8z5QHVBF6f+Mks1jLvv4Lg1z7DxeHo2oC0Znz3DpaE8
-r4CfqX5aIig5TguQtyZlrZf4ZPKAslewfgW2ebu09knOM1utULbEBrRH+ljVrp4u
-eGjrbJ/GoziEBB4vzn9L2qYJMEei54YmBLgaLqhTgkoK+5sX5AvmteeqKUaqWGrr
-evGwrd0R0/nJ6kzUQtNqttLijm9YgRWdHHyFQcKI2ldkvZQrJ+MWiC5q7dE2hUHn
-RHbaS1Y1oJHX5VW3yiimkOnBeywVpxKMWJ1g4JB+tCIyfMDhDNlOP0yfSCQSxa3v
-s/RZHkIQ0NUzIJjmTru80SYyWwGwzl5bAcTJrZlOgFQVvqumn8AZ2YfUzwoH11jx
-UILAmqV2CNtD1VNNCfXtQJ4AfvcugHYHcXEPhUhyJo8q32hJHVUjf5apuPWah5fc
-8yjHaty6gQzn0hr8lSa8TRED1PiZVcpVD6/mGngUATv3DpRuImwyit+knR3H5dF7
-BW9zZOM8UA02PEPTP6AIiVGEVrrBfHvoGi1i+AqnYRVhMFOxp78=
-=Nriy
------END PGP SIGNATURE-----
-
---p7lbsm6ewx54bynh--
+Rob
