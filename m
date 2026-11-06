@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C93E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12BF606A326
 	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QpSrSTW9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i07hsSyF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4C9411204E;
-	Fri,  6 Nov 2026 13:17:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ADE810EA0E
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9AB112207;
+	Fri,  6 Nov 2026 13:17:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF3FF10EE4D
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:16:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 537414188C;
- Fri,  6 Nov 2026 13:15:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56751F0089F;
- Fri,  6 Nov 2026 13:15:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5346260204;
+ Fri,  6 Nov 2026 13:16:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F971F008A2;
+ Fri,  6 Nov 2026 13:16:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970922;
- bh=myAjFqZu7a5de0oww4kgYmP111C92VmIrkUhhg2hJ7M=;
+ s=k20260515; t=1793970998;
+ bh=FPnz4viegh40Y8FbVckUOVgc65gekVWbxCYSiJJpdsw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QpSrSTW9C/nZdEwvbf/77wgsxFNWV+psC/rWbT3pOrggUVzvmbo5R1grtBWbKBLNZ
- NPGoUTdVXlVKsxfk0DMRWgwBPlIZcSgZewYVuEOKyMKWkPSG9NibD9RKaPEZP3htzK
- l2H2RdwY2vrb1TQTRjD5v5Z5Z/EkBFZRDEZyOiXplMVhC6QyYQW7azmvCbYi6l0E8a
- 6a74gRk5oSS+/oQcMRqwj8IIbVR8hCbvpgW4cHxignxYVEbz0WEBPtoUm78NrVuga4
- TUaGBH2smgQDZFgFmoIGT8itdXfNS+2At/gtrp1zRQkK1rygYlvz3A/qN8Z6aO6a+e
- 3tk8werHVnKyA==
+ b=i07hsSyF/7LNONijtv7s664P+K/vSRRIZ473UKg3BPUEMtIzYSMAHNvaCKHGKh+UH
+ kKP48mv4+2/BUjxTC5u6iaIg/xGLnZfM7T3MsMVK4PlI244wTZbupMEo/0/DILpBtO
+ ALWg9BkCwtj7fZqUtju289Bo69qSl4NwTSFo17Vpt6WNYI0ylraopNgOXTvBVoxmGr
+ zevJ8/+ZE114p8o8yRCtg+xCwtMU7eJICNCmam74W3jEP/byorbTqndm3prVbNC4uQ
+ S4SoEiJoG7JPsCz+BXPZdUthQyUg17V9SWqNLv7NY5f4imuFCqxfsGNC32TbsIhxrA
+ +Aj2riKCB5UrQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:24 +0100
-Subject: [PATCH v8 11/39] drm/gem-atomic-helper: Handle framebuffers
- without a GEM object
+Date: Fri, 06 Nov 2026 14:14:45 +0100
+Subject: [PATCH v8 32/39] drm/tidss: crtc: Add atomic_print_state
+ implementation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-11-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-32-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2221; i=mripard@kernel.org;
- h=from:subject:message-id; bh=d4LnqSojmsuNGIwnBQCAjx7dqIFwcU5h6vsWpvRz+5A=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL23Men628c1TldZV37/xF8QvnGNdxzn/7rYX3mcSV
- 07eGffuSMdUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYSP9WxjprJeNYBh4zG6EP
- 2n/ftve/0OpfEDHnapPubWlz96+JbvZbZjCwrFuYVHH/wVXj/3/CzzA27O+Z8p/FTNaFXc74yYK
- QmtSW61Pe70p69CS71ur31YBfU+fWeqcLXGGYb5Jin+S6ZMMnAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1636; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=vmtxEmtpExW1wORchVnJCeHyXPM+Yje8pPZ5jtRGk2M=;
+ b=kA0DAAkTJ1/OGaI9vnYByyZiAGrt0rvIPVGgZjKz/Yx8uucFFIWEmOgtzO9hDsg6AUzrwav86
+ 4iVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmrt0rsACgkQJ1/OGaI9vnZ5TQGAqQjf
+ ULsYTYFYLKvtGrtP1Eyngw7paAVd3FmuG57o9ellgJ4gi428qV6LIvRhSHbRAYC9n6PvmT43N42
+ FBaHXFwqLBxmTcK8ZE4osd8soyXQVtpVzK7wMWYoLkL9bSN+ks/Y=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,58 +75,44 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A framebuffer reconstructed from a hardware state readout describes a
-buffer that the firmware allocated, outside of the kernel memory
-allocator, so its planes have no GEM object attached.
+The tidss CRTC subclasses drm_crtc_state with bus_format and bus_flags
+fields that are set during atomic check and state readout. These fields
+are not visible in the standard atomic state dumps, making it harder to
+debug bus format negotiation issues.
 
-drm_gem_plane_helper_prepare_fb() retrieves the GEM object of every
-plane through drm_gem_fb_get_obj() to extract the implicit fences from
-its reservation. For a readout framebuffer, this triggers
-drm_WARN_ON_ONCE(!fb->obj[plane]), returns NULL, and fails the whole
-commit with -EINVAL.
+Add an atomic_print_state hook to expose them in debugfs and kernel log
+state dumps.
 
-This can be hit as soon as the state readout installs such a
-framebuffer on a plane: any commit that includes the plane without
-userspace providing a new framebuffer will duplicate its current
-state, readout framebuffer included, and run prepare_fb() on it.
-Blanking the display through DPMS right after boot is such a case,
-since it pulls the plane in through drm_atomic_add_affected_planes().
-
-Access the framebuffer obj[] array directly and skip the planes
-without a GEM object: there is no reservation to extract implicit
-fences from anyway. This mirrors what drm_fb_dma_get_scanout_buffer()
-does for such framebuffers.
-
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_gem_atomic_helper.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tidss/tidss_crtc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-index c952cfed84c1..bab354d12fe7 100644
---- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-@@ -138,11 +138,15 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
+index ae9c66831b6c..d2664bda53a9 100644
+--- a/drivers/gpu/drm/tidss/tidss_crtc.c
++++ b/drivers/gpu/drm/tidss/tidss_crtc.c
+@@ -404,4 +404,13 @@ static void tidss_crtc_destroy(struct drm_crtc *crtc)
+ }
  
- 	for (i = 0; i < state->fb->format->num_planes; ++i) {
--		struct drm_gem_object *obj = drm_gem_fb_get_obj(state->fb, i);
-+		struct drm_gem_object *obj = state->fb->obj[i];
- 		struct dma_fence *new;
- 
--		if (!obj) {
--			ret = -EINVAL;
--			goto error;
--		}
-+		/*
-+		 * A framebuffer reconstructed from a hardware state
-+		 * readout has no GEM object backing its planes, as it
-+		 * describes a buffer allocated outside of the kernel:
-+		 * there is no implicit fencing to wait on.
-+		 */
-+		if (!obj)
-+			continue;
- 
- 		ret = dma_resv_get_singleton(obj->resv, usage, &new);
++static void tidss_crtc_atomic_print_state(struct drm_printer *p,
++					  const struct drm_crtc_state *state)
++{
++	const struct tidss_crtc_state *tstate = to_tidss_crtc_state(state);
++
++	drm_printf_indent(p, 1, "bus_format=0x%08x\n", tstate->bus_format);
++	drm_printf_indent(p, 1, "bus_flags=0x%08x\n", tstate->bus_flags);
++}
++
+ static const struct drm_crtc_funcs tidss_crtc_funcs = {
+ 	.destroy = tidss_crtc_destroy,
+@@ -411,4 +420,5 @@ static const struct drm_crtc_funcs tidss_crtc_funcs = {
+ 	.atomic_duplicate_state = tidss_crtc_duplicate_state,
+ 	.atomic_destroy_state = tidss_crtc_destroy_state,
++	.atomic_print_state = tidss_crtc_atomic_print_state,
+ 	.enable_vblank = tidss_crtc_enable_vblank,
+ 	.disable_vblank = tidss_crtc_disable_vblank,
 
 -- 
 2.55.0
