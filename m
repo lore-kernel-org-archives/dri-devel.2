@@ -2,85 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1F9606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D79606A32D
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHfHZnPS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kO97JVYX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053D9112E4F;
-	Fri,  6 Nov 2026 15:45:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2760A112E4F
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E9910E2D8;
+	Fri,  6 Nov 2026 15:51:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B98E10E425
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:51:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C680640784;
- Fri,  6 Nov 2026 15:45:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1B21F008A1;
- Fri,  6 Nov 2026 15:45:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 004CC601D5;
+ Fri,  6 Nov 2026 15:51:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268191F008A1;
+ Fri,  6 Nov 2026 15:51:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793979950;
- bh=Sf7jpXPq+wp6SBfVuD5VhfW8K2K7PrL3pzRu30lk/Qs=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=NHfHZnPSDSHLthC28xmc7Tynk3g3EuBVtAtF3YePrjls2avEgiFGihXMqKalL6SYK
- SeJfbKbhS1SHWhGP9tCN6jALT7jREvu0x9m17dhcE0oLL42alVk0H4Ve6UWnQsZ17V
- pOd3zRki1UcQZ29EAFK0E5v9T4pzWtOa2Z1QlBdeIUapAvd2pzBNLlIfkVE6aLRurr
- uq5rcOkbHr9280TJ3ts+7TSC30ovRao2lHyLtEiO9tHldNoUeF0owFJmmy9pFG8jCG
- 5cQRmxsKh588fJfaFewhWE1XgoaoMSVyjoOt6yV+WAzO5GfLn/FYQd7wPywABOqUIP
- iCRRMFk+OTbyQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org,
- kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
-In-Reply-To: <86zevn1c9a.wl-maz@kernel.org>
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-15-aneesh.kumar@kernel.org>
- <86zevn1c9a.wl-maz@kernel.org>
-Date: Fri, 06 Nov 2026 21:15:29 +0530
-Message-ID: <yq5ah5huoteu.fsf@kernel.org>
+ s=k20260515; t=1793980293;
+ bh=badGVcjXYLu33rvUqhFwfV7h3p1+hHs0e3PjCdrYub4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kO97JVYXV+WZdMxw3KD+/M1wnRgW06OdDxSfNtfjslKXN6rAxRn68s3RXrVWxRBnl
+ Bx0yEVaHPK6Y6z6vI/DLUs0LfaoI4I44P+cmh7em2/CFobLMcTFzxeUKKORZmeN1d6
+ X00MN3lr0cXcinXIY9WWI6wWXoNzTl17sXqiG2U+vMp8yhRHL+HJZQZtZtCa9y0VzK
+ vvc6WXE7x8Cm/4edC5z0Yp7x52UccqzwswM8foO3l1wJKHh6VGDWPXu9hk7Nc1+FLn
+ t8XNcry4KfnqBOgK11iMyj8QRaieEOZw518PtDV4mJaONNz0/WHdWGnS6rbSQ/fiCp
+ DJ8nVwxQ17iUQ==
+Date: Fri, 6 Nov 2026 16:51:31 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Message-ID: <au33NIR4bCAkokJH@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-10-clamor95@gmail.com>
+ <au3etybQlb5CtjBL@orome>
+ <CAPVz0n3o5pc62eF6gv+PYmJh1KN1a5s=qmjxpNGJfxbCC4tqzQ@mail.gmail.com>
+ <au3mloMMzQFPUept@orome>
+ <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4dphqbl3ubrnxlyn"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,47 +66,110 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Marc Zyngier <maz@kernel.org> writes:
 
-> On Wed, 04 Nov 2026 16:45:55 +0000,
-> "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
->> 
->> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
->> not allowed.  Remove the page allocation from this atomic path.
->> 
->> Use a blocking allocation for the boot CPU and record the resulting table
->> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
->> stage for each secondary CPU.  Consume the preallocated page only when the CPU
->> cannot inherit an existing redistributor or ITS table.
->> 
->> Reclaim unused preallocations after the CPU reaches the online state, and from
->> the prepare-state teardown when CPU bring-up aborts.
->
-> No. The way to do it is to move the ITS probing out of the
-> non-sleepable CPU hotplug path.
->
-> I proposed a potential hack at [1] (which I find far more palatable
-> than this proposal), but the real fix is to probe the ITSs as
-> devices.
->
+--4dphqbl3ubrnxlyn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+MIME-Version: 1.0
 
-Could you share a bit more detail on what you have in mind?
+On Fri, Nov 06, 2026 at 04:48:17PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
+40 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Fri, Nov 06, 2026 at 04:11:12PM +0200, Svyatoslav Ryhel wrote:
+> > > =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE=
+ 16:08 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > >
+> > > > On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
+> > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> > > > > Tegra20/30 SoCs display controller.
+> > > > >
+> > > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > ---
+> > > > >  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++=
+++++++
+> > > > >  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
+> > > > >  2 files changed, 135 insertions(+)
+> > > > >  create mode 100644 Documentation/devicetree/bindings/display/teg=
+ra/nvidia,tegra20-dbi.yaml
+> > > > >
+> > > > [...]
+> > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvid=
+ia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
+,tegra20-dc.yaml
+> > > > > index 69be95afd5627..ffeb124905dbf 100644
+> > > > > --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegr=
+a20-dc.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegr=
+a20-dc.yaml
+> > > > > @@ -79,6 +79,16 @@ properties:
+> > > > >    rgb:
+> > > > >      type: object
+> > > > >
+> > > > > +  "#address-cells":
+> > > > > +    const: 1
+> > > > > +
+> > > > > +  "#size-cells":
+> > > > > +    const: 0
+> > > > > +
+> > > > > +patternProperties:
+> > > > > +  "^dbi@[0-1]$":
+> > > > > +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
+> > > >
+> > > > I think it might be better to group these under a separate dbi node=
+ at
+> > > > the top-level, making it a sibling to the "rgb" node. If you add
+> > > > #address-cells and #size-cells here, I think that means technically=
+ the
+> > > > "rgb" is now in the same address space as those new dbi nodes and w=
+ould
+> > > > need its own "reg" property and such.
+> > > >
+> > >
+> > > Only 1 DBI node per DC is available. Adding address/size cells means
+> > > nothing for rgb.
+> >
+> > If only one node is available, then "reg" isn't the right property.
+> > "reg" indicates we're somehow addressing the child, which applies to all
+> > children, so I don't think that would work here. A separate property
+> > would make more sense in that case.
+> >
+>=20
+> Check v5 and talk to Mikko
 
-Are you suggesting that we create a platform device for each ITS and
-initialize it through the driver's probe callback, while the rest of the
-GIC initialization stays in the existing early boot path?
+I checked v5. I disagree.
 
-Would that mean the main GIC is operational during early boot, while
-ITS-dependent features, such as MSI delivery and direct injection, become
-available after the ITS devices probe?
+Thierry
 
-Is that the split you have in mind?
+--4dphqbl3ubrnxlyn
+Content-Type: application/pgp-signature; name="signature.asc"
 
--aneesh
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt94AACgkQ3SOs138+
+s6E5ChAAtfIO3/13Os0v4C8Bi+ASzT/z6pjirTsujn0WkYYLXCnMYPNDPQEXXAHp
+vIchNUxW5ZQ5ngVEYrIEAQikIcd+VXxgJNOKujiEcaN4BorI2fVDnvrpzi/oQvYm
+UN88vY7AskjjaX5++WhaXRu+PipGxZ3RmF3hEzOtB9UTHBn7HODhOF28UgUsq3Uj
+hyVWHeJmWa+Fl78CBjiZ3Kx9wKO2Bu2DM79ZueKRP2o8wvtk6acLOJjzJGVyyELi
+/M4UztX2cQW+MO8X74vVcSjjQ+OR95teYhERxenjiTnooM2Qf0SGf1kZbf89oY2t
+DNRhJ4WO7fTqG+gLPFXMNt9m6jGEsbRvK0/i4ODEdDc/p1eGzA5wSTWnt8ze2Ohb
+U2+sNN+l9scplO7svmQ0BjdqOlYpt4DDgTHSTekN1q8+ai5pODFN3l3zR/HC1eNm
+NarPdtHxhdXcsHmscsl1yTdX/KrH7cFlS6qgOAjVzIDT3WszlKG8E6/ETjdXhklp
+0of9eVwKeBsSZIYa5hkiAnoIf4KZSeG6FewFHA1VidSy5v8CzsOCSpxbAk6/Ylmv
+wYyBJL7GUEHc1OM2rE+4GuwFrSTAauvYGK1b1ypWOq4OsoEij8gI5Xkh82tndo0C
+vloQ8ZYKfmAtjv+3mjX4jTlTI8dYYxd2TZwTlbGbgv5ea+XRtl8=
+=z+S4
+-----END PGP SIGNATURE-----
+
+--4dphqbl3ubrnxlyn--
