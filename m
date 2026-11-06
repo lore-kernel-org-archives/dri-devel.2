@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72105606A33B
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491E8606A33B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:18:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W9m7kDZV
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ztKXed1m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9410F10EA84;
-	Fri,  6 Nov 2026 16:17:48 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DAB10EA84
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2CB112ED6;
+	Fri,  6 Nov 2026 16:17:55 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5F0112ED6
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:17:49 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id DCEE8C69169;
- Fri,  6 Nov 2026 16:17:39 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 7CF2B4E4147C;
+ Fri,  6 Nov 2026 16:17:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 27FBE5FFBC;
- Fri,  6 Nov 2026 16:17:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4A8EC5FFBC;
+ Fri,  6 Nov 2026 16:17:47 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E0748103291BA; Fri,  6 Nov 2026 17:17:27 +0100 (CET)
+ with ESMTPSA id 38D58103292CA; Fri,  6 Nov 2026 17:17:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793981854; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=dzJFO/S+7wj28zkoa8OYMaOX0CGTMgtEm0abeBbxaag=;
- b=W9m7kDZVuK5V/pTrifvzwAK7qqMYgQeVyTZNrHKeSIqBRzEgAj4Yr269jjOfHH18Alto5h
- H8o3HyPhrxQfQXYzZdS1HnNae/LM/L1OvKI2XNDu9fp0HBmTE6oi+JSExaVbatcn7uqntS
- hYA22kZnfDIyHctBc5qz4AcAdcelv96BzvLqkEZ+R3f39s1DPSpLHgEruianXC6GfIz510
- fddVSC3bobRurQmx4bRYU2nNWl2PAR3FEzJiXbM1zpfkV/1j5RgUbFuRr7tLd5DdMu1q8+
- 3CN9eAzsJgHrxfgwvjcmg4c71GNqRLhwRkP18THra0Ig+Jbtrcx7EnpGjfFxoA==
+ t=1793981861; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=CKwMnEUj4bTsuKO0oSBkdV6rE9qwvY1RjDCI8454OCM=;
+ b=ztKXed1mjd73LCPlNvEG2FOfcKs8NtEVdr3hJjrfgoVmpXKrrpfRnBcrKROTALsd7FeCP+
+ yv72DeWFJA6VSKkYDYD48JFeSnz9Bcp3IeLFrWBA3afasjcQS23AOBB5j1nntFpaNU1Qrb
+ SM62WQNYcMk+uVlGpPW1rpqlrPhpRxv9QraQswzqx2MnhHj5fFHYTZxJA/Zar2yB32U9S7
+ 0ZqeFs+oydqbnD+PanIDfAH/CKJ5gs/iaL/WHuowN4sYvs9M7DDb/wiq/SFT40loe27QQn
+ c3ISR82B7tmAel4rISMxnhptzSlW2NW0FxoKLA/U6Sn6gE7Ca+AiCtac5dEvsA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 0/3] drm: remove drmm_of_get_bridge()
-Date: Fri, 06 Nov 2026 17:17:03 +0100
-Message-Id: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
+Date: Fri, 06 Nov 2026 17:17:04 +0100
+Subject: [PATCH 1/3] drm: adp: stop using deprecated drmm_of_get_bridge()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNQQqDMBBFryKzbiBxodirlBISZ2KnNIlMVAri3
- Rtbunz/wX87FBKmAtdmB6GNC+dUwVwaGB8uTaQYK0Or284Y3SmUqGaX6GW9MFYvFPNG5x5tDna
- i5W/6wXjUQTsceqiHs1Dg9zd2u/+4rP5J43IW4Dg+lAabPY4AAAA=
-X-Change-ID: 20261106-drm-panel_bridge-remove-drmm_of_get_bridge-791bd0f0ad97
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-1-c0ea3382b798@bootlin.com>
+References: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
+In-Reply-To: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
 To: Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -74,78 +73,63 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drmm_of_get_bridge() is deprecated. By now it is just a complicated wrapper
-to of_drm_get_bridge_by_endpoint(), and it does not implement bridge
-refcounting. Replace the only user and remove it.
-
-== Grand plan
-
-This is part of the work to support hotplug of DRM bridges.
-
-Here's the work breakdown (➜ marks the current series):
-
- 1. ➜ add refcounting to DRM bridges struct drm_bridge,
-      based on devm_drm_bridge_alloc()
-    A. ✔ add new alloc API and refcounting (v6.16)
-    B. ✔ convert all bridge drivers to new API (v6.17)
-    C. ✔ kunit tests (v6.17)
-    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
-         and warn on old allocation pattern (v6.17)
-    E. ➜ add get/put on drm_bridge accessors
-       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
-       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
-       3. ✔ drm_bridge_get_next_bridge() (v6.19)
-       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
-       5. ✔ drm_bridge_connector_init (v6.19)
-       6. ✔ protect encoder bridge chain with a mutex (v7.2)
-       7. ✔ of_drm_find_bridge
-          a. ✔ add of_drm_get_bridge() (v7.0),
-               convert basic direct users (v7.0-v7.1)
-          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
-          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
-          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
-          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
-       8. ➜ panel_bridge lifetime
-          a. ✔ cleanup DRM_PANEL in bridge drivers (v7.4)
-	  b. ✔ embed a drm_bridge in every drm_panel (v7.4)
-	  c. ✔ remove *_of_get_bridge(): non-OF drivers (v7.5)
-	  d. ➜ remove drmm_of_get_bridge()
-	  e.   remove devm_drm_of_get_bridge()
-       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
-    F. ✔ debugfs improvements
-       1. ✔ add top-level 'bridges' file (v6.16)
-       2. ✔ show refcount and list lingering bridges (v6.19)
- 2. ✔ handle gracefully atomic updates during bridge removal
-    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
-    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
- 3. ✕ DSI host-device driver interaction
- 4. ✔ removing the need for the "always-disconnected" connector
- 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
- 6. … DRM bridge hotplug
-    A. … Bridge hotplug management in the DRM core
-       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
-       2. … drm bridge hotplug
-    B.   Device tree description
+drmm_of_get_bridge() is deprecated, switch to
+of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
+a refcounted bridge, ensure the reference is put on later bind error and on
+unbind.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
-Luca Ceresoli (3):
-      drm: adp: stop using deprecated drmm_of_get_bridge()
-      drm/panel: remove drmm_of_get_bridge()
-      drm/todo: remove drmm_of_get_bridge()
-
- Documentation/gpu/todo.rst    |  1 -
  drivers/gpu/drm/adp/adp_drv.c | 13 +++++++++----
- drivers/gpu/drm/drm_panel.c   | 40 ----------------------------------------
- include/drm/drm_panel.h       | 10 ----------
- 4 files changed, 9 insertions(+), 55 deletions(-)
----
-base-commit: 4524052b65a75166c1c557921c786bd82302de13
-change-id: 20261106-drm-panel_bridge-remove-drmm_of_get_bridge-791bd0f0ad97
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
+index fdf0e6316175..1c4c39695e42 100644
+--- a/drivers/gpu/drm/adp/adp_drv.c
++++ b/drivers/gpu/drm/adp/adp_drv.c
+@@ -517,7 +517,7 @@ static int adp_drm_bind(struct device *dev)
+ 
+ 	writel(ADP_CTRL_FIFO_ON, adp->fe + ADP_CTRL);
+ 
+-	adp->next_bridge = drmm_of_get_bridge(&adp->drm, dev->of_node, 0, 0);
++	adp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
+ 	if (IS_ERR(adp->next_bridge)) {
+ 		dev_err(dev, "failed to find next bridge");
+ 		return PTR_ERR(adp->next_bridge);
+@@ -525,17 +525,21 @@ static int adp_drm_bind(struct device *dev)
+ 
+ 	err = adp_setup_mode_config(adp);
+ 	if (err < 0)
+-		return err;
++		goto err_put_next_bridge;
+ 
+ 	err = request_irq(adp->fe_irq, adp_fe_irq, 0, "adp-fe", adp);
+ 	if (err)
+-		return err;
++		goto err_put_next_bridge;
+ 
+ 	err = drm_dev_register(&adp->drm, 0);
+ 	if (err)
+-		return err;
++		goto err_put_next_bridge;
+ 
+ 	return 0;
++
++err_put_next_bridge:
++	drm_bridge_clear_and_put(&adp->next_bridge);
++	return err;
+ }
+ 
+ static void adp_drm_unbind(struct device *dev)
+@@ -546,6 +550,7 @@ static void adp_drm_unbind(struct device *dev)
+ 	drm_dev_unregister(drm);
+ 	drm_atomic_helper_shutdown(drm);
+ 	free_irq(adp->fe_irq, adp);
++	drm_bridge_clear_and_put(&adp->next_bridge);
+ }
+ 
+ static const struct component_master_ops adp_master_ops = {
+
+-- 
+2.56.0
 
