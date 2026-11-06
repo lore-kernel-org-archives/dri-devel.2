@@ -2,64 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618E5606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 18:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665C5606A32C
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 18:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z9RabMH9
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o+SGWGfL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCF6112F9D;
-	Fri,  6 Nov 2026 18:42:54 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E25C910E3C4
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 18:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF1610E3C4;
+	Fri,  6 Nov 2026 18:43:00 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011002.outbound.protection.outlook.com [40.107.208.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAF9112F9A
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 18:42:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X2VaVZnfpteLdyblMhamWvlEgrFUi7i2HZM9bfOsdScEx17L3RM132E351U/6r+KSDOW2bjMp1bQgPuTeZdIR3yBoqbjZpvnx8CugiyfseGKg4N0mC+d1VrpAlD+qbk+97L0EMyPpSaUYzj4eETB5XQAdGb9dfuaThUhQXto+LmG+q73qmJ5odICw11/kwGeGN5y22D/IT7hzDqkO6swAplQM9AniWi99QNINGHLtZWy0fb+iBsdQzyqvcMSyyeNPS9CCgT4vLh27/se9yJRKNwId9hC3g0bIxUpksmO/9aZjJONpmpynW49/oN+yPWt1sfk0pXjYaEfaOaokEtFEg==
+ b=fWqW6HUq+xzlOFkx31+ECdzZFxEWuH6EmxmM5TPe7X1R1soFc75wjYFyZRk2cJ05t2r9Dc45tBcDjAFVIKjkoYKsox20dRgCjaH3pHXQnJ8rT0uBscQ+fydnoBLI3mHZX2sjJf4xXbTO29va597i5LvY3IJXUU0NkL8WJtUPGco6ZAsBxq3fdRUTm55/EIsPeObrRX9wH8Wg3+x4LRFp0PFNOZqAFyVTdYYlvHnsI8dPEVKtxPUGcW33xnuEnBMVCsPIyvYKlkPdeVZS10sDMarAGg15/fDs3+sVWN6F7wjQRCYjr2iPtxAnbtsUECePiYY8hvnjpzhoR5SCxrCKvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f1ILj9DNL1VjVY0jiKO78Zmdb2oxDA9xuEcdC80ladI=;
- b=aZNIQX5VZwan9J9GNVtFQoOpcqMkPFUmDR2gRz61aar8s04K97lNBge+2s6c4yN3P5cCwTmcLc3uVxo6dY9PcFZW1gvleBjfwA323uRkgfpf13eaIVg2tXg8digK5Pe4H3oPKJOk+urHtFZzTQV55WKiRCdQumJqRwt1CwDmyHNiJr+MNxN+RNWsRck3fX/spAJJEHbj3MH6MCX95Ayc2kleCUglD2RVYSOwGyMTpDf51qcwrSh5yN6TjUKNagAPAEYFmcqUaqYoGasmhWHPpRl80dxfZ+7yknXu+b976hVSetQ+J8uazYIrMCtMln1J3CNsmW27TwY/oivQtfEARw==
+ bh=Nk5su1MJTCoyBP+48he1QNLgng4jrDHUaheHP990Fq8=;
+ b=qq2qcnKnELRK5BiOcP+PONXgLnbAYry1NiPrzfKKqdVKHPvZFVjYpAQtwNo2c0Udatx+ASM5NtSwQx8qYmwb5w7IHMxYEkso1eMbeEoXnbiULviDmvP3RgxD22N5RvYCDwX8QrG67nHjFdEmJPes8wArFu/F5qo8UI80XkUPbynq6qXAxUTpimcpBpHOTIusRJ2m2Fmq545P8VmRA2PJSmfTETTP3hVy+nEJdIHTogafjISa5Qcko83pu8JJ+EMJqVOkU1Cwiy5gRyye/MC6GCzAtUwdGoo8bW9gP4c3dT6CLz8xIwUnDOghxMn4YGYpVDmFfZ+sAlxTVyLv3cRvCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f1ILj9DNL1VjVY0jiKO78Zmdb2oxDA9xuEcdC80ladI=;
- b=Z9RabMH9s2Swx/x2w9RA4ebNn45SgglZ9JiIR0XroFXbil4H+z71dz+SOukAstq0xJUQzWa5+06gCWSHmu9z/ohRWzyQ/NyxalVMrYJgnypsvBbXbvvOeEd2lFnraJWufqju9mfkmIAiVJIJJmP3Jr8m3zwPXY5aQI4scoG5y14=
-Received: from CH5P223CA0003.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::19)
- by CH2PR12MB9518.namprd12.prod.outlook.com (2603:10b6:610:27e::11)
+ bh=Nk5su1MJTCoyBP+48he1QNLgng4jrDHUaheHP990Fq8=;
+ b=o+SGWGfLyaiquiVdaCE78ayUdI1e/7jPmIimSOI8AOV9qmbR4DVbyT2DEud9iZjoge9tQxCf68JyY4jJfxZBftpfXdx9Zb6c9mvtRrBbMXZoKUmIYo6drj+l9LEc2OtTM52M0yA2EIZpUGQgPaJ36ZM5hY0/aVsdQZiGqd1QpmI=
+Received: from PH7P221CA0058.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::28)
+ by IA0PR12MB8227.namprd12.prod.outlook.com (2603:10b6:208:406::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 18:42:37 +0000
-Received: from DS8PEPF000000DE.namprd05.prod.outlook.com
- (2603:10b6:610:1f3:cafe::7c) by CH5P223CA0003.outlook.office365.com
- (2603:10b6:610:1f3::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:42:39 +0000
+Received: from PH2PEPF00048916.namprd05.prod.outlook.com
+ (2603:10b6:510:33c:cafe::2f) by PH7P221CA0058.outlook.office365.com
+ (2603:10b6:510:33c::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 18:42:37 +0000
+ Nov 2026 18:42:36 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS8PEPF000000DE.mail.protection.outlook.com (10.167.23.199) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH2PEPF00048916.mail.protection.outlook.com (10.167.243.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 18:42:37 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 18:42:36 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 12:42:36 -0600
+ 2026 12:42:35 -0600
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 12:42:36 -0600
+ 2026 12:42:35 -0600
 Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 12:42:35 -0600
+ Transport; Fri, 6 Nov 2026 12:42:34 -0600
 From: Lizhi Hou <lizhi.hou@amd.com>
 To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
  <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
@@ -68,42 +68,40 @@ To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
  <honghuan@amd.com>
 CC: Matthew Brost <matthew.brost@intel.com>, <linux-kernel@vger.kernel.org>,
  <sonal.santan@amd.com>, Lizhi Hou <lizhi.hou@amd.com>
-Subject: [PATCH V1 2/2] accel/amdxdna: use drm_gpusvm_pages for user mapping
- tracking
-Date: Fri, 6 Nov 2026 10:42:17 -0800
-Message-ID: <20261106184217.2720718-2-lizhi.hou@amd.com>
+Subject: [PATCH V1 1/2] drm/gpusvm: add drm_gpusvm_pages unmapped and retry
+ helpers
+Date: Fri, 6 Nov 2026 10:42:16 -0800
+Message-ID: <20261106184217.2720718-1-lizhi.hou@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106184217.2720718-1-lizhi.hou@amd.com>
-References: <20261106184217.2720718-1-lizhi.hou@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000DE:EE_|CH2PR12MB9518:EE_
-X-MS-Office365-Filtering-Correlation-Id: 148b9055-1bf1-4e4b-37e5-08df3c35baa5
+X-MS-TrafficTypeDiagnostic: PH2PEPF00048916:EE_|IA0PR12MB8227:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf3e0db5-7dd5-4cbe-2a39-08df3c35ba1a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|22082099003|18002099003|10067099003|56012099006|5023799004|11063799006|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261022113327099003|261102123227099003|261009223027099003|261009223327099003|261009221727099003|261009221227099003|261009220027099003;
-X-Microsoft-Antispam-Message-Info: auHEUeTXcac1uT/ySqQ94JUf39YzYD0QG7L0jUxCzEYw+GUg7Svzh+ge5j1Dlhk4ltzqiQbKy4m70ZQnoGMB+CrLOIBC2MahCbXL08KkKHrNQwSaGqVAGhXHUS67OLOWN2OhxWdOOg2KDpOVXdBYO5XhtFa57cWDxgs/YRRJ+5RECJYM8eh2UVQIhufwhavmApjTh+r+QBKTlRaojDJtZgvajlKsowWQyzvv8gXp/PC/IyDu2RMIkWURvbDsSzV6snTB0r6GmxD63jOlrPrus04OisWxE9GzLHyx4unhBZy88D0q7Q8ib4PZPVdstYRNArq+kA158eLPQ4BMA1Ybx+VZEF1Ur5fMQa3RhggtL4B9R2H31wXBcLkxSAgs8ZnLUjCD5PANzRFL0Y1LSi3FYv3pCuV/B6X63JWawb1HtIdHzy2B1afZS7lEU7jRcEFhc0SLPiYQVv2PBtX68nrDDjOpSjCqu9hrLLe9GQfvNKz47bFsUX8jw6g87q0YrfUvKfelX9GvZRztHv1zfbhngF4ukPAnbVENo5gAF8GtP+wIqXa/+FxVrAlSsO9GNIpQQe+myc5rW7jCrb2Fem/VslVGQAl9P2s7ddat2BhB/aD2/PoVNvqaPyokLSQUze3EtipLmjCCRqGt4MPBIvPVMg1qWNE70TOi+Ie4Cj1z2vKF3ociAc8nlcnc5UBCMAkXF+GIa2cQ8HQ3zUG864oErg==
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|18002099003|11063799006|56012099006|261009223027099003|261009221227099003|261102123227099003|261102130727099003|261021123027099003|261022105027099003|261021121427099003|261028144727099003|261026140227099003|261026121527099003|10067099003;
+X-Microsoft-Antispam-Message-Info: g3wzS3awf4LDellSzTaTox20DPAJWyUf+McEkpVs4dtqpkglIj1/k0BbX7hCQ2aA+iMAVuo5rgKOi78FDbgCBN1Wy3JNrBv8x0snViOqKSYxS4iuwoojOrTgdgIWzSreyPHkYMm3+v8c/xx72UNmFhrYu+mOJDA440H+E789wNWJbPC/lWQvrem4ks13nyyWJk1JYleQVNmzQOJXNlUamBfyix4jMyIEi33eBKnCZF+dZBxBR0Mm+oTL0jqOwiR1AW/dW6MsdNWN2v+YMOcJChih88X9MRMiBLCbLXzWerjwQbNqKR+KEC/QY8+F68dTbLFMyPd195zn3F/6Ks/cwD7iwtw41XlwzVclmsLHRhPZgThE8hOms3VHCYJg1fhuJGIjNo5sknxBoldXxCODmadyMulsc6PjBsnaBkjS76wOcUFE5xTR4bzsZRo2+r8XBy64qFQhAte/ce7PFfbngWDWUt1dRoewaJpjtD9VjYHV5rzsIs2/HJUDn9HaRHIY1v2IXUCjFGkJdqa/VJvOmWS+slormMvogZSOn+7CciAd/nO8Mm+SXfxsiHkNzrbKhugIM0nBZceDeQQGRxOfYWU7+AJphjG6MJfyblsRVf8cy/RMROoROadpgZHqoL4+a5M4RZ8jBcTEe+rco7HvI/iYK3yNLq7GjqNb0mrfw/xRkQzewhDHCzQ1b9xhxHTeR8DW7pFIqSMbmQ7I0hl25Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(56012099006)(5023799004)(11063799006)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261022113327099003)(261102123227099003)(261009223027099003)(261009223327099003)(261009221727099003)(261009221227099003)(261009220027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(18002099003)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(261102123227099003)(261102130727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: h9cFyXfdDsyXtCMHqH6oZA+h2N8UMxj7ZjfHQ6lywjlTBg/JjYe5xz1sTRwyafgXeRlFgg2HfrpdSwX7vAXeG3bmkePHw6JVoOdaWlAKgJsdEsF9P0HecRxZ7RGEaL93dpatFRx09VJhstlt2lqfqJhyEc0hXezZviBUB5ywk+8bNgxX5TzQ+z0CjSL5AcaD7v/VupT+XhYWMAmDDtZwWnHKm3LW2q5ynvCyknr1ek3yg6MJ9D3IxE5JWykSKekn9vFLl+/pckoh4KRlR7AAa2rwLzBzA1KglRWH9WXTOAYeBWcfa/z0x9XG+e7gPEFq95Dsutd3W6PG209rayN9IxrCzteLSl/fDRhzxRrq9TDNSVuZbwOzNhPim+6iDBY89qAIFsMpZlGi8/RyTTzfBwe/tDuNxu+Bxeyod5sJFThHh10DRywVtT5XMDc3iG2q
+X-MS-Exchange-AntiSpam-MessageData-0: zbPhZzZtes56I/6d6npGJraS8JFmh4O5AHOReA4T8jASr0m/KgbjG95gV/uW7bFshj55AM/R+soNb8dmghrvVWdW6QA+TKxrEhXGHVdD7RVR0FBhZfM2gGq4kvZqL7jRT9uYlsS3Dy6rhFb2R8CFzCAe7l6VmF1zHbjtvIc9aFjVrxlsFhPhhbV6I6L393N6ZH5bzMPNouR2MlQ34td/Dfu8giEHF6UvKgathSs6Sxkc4AnuEQur2Stcp3oAwYNriyKp9MByKvbKDphDWHTykDesCaSfc34nsVRSrHBmh+cUNopkVn9Xpjlxu/t5AoSW27ovPPK4Te6459lunQOXSUgpogrO7cvYGrk6qc/vdlUeatHI4QhNxOIM0pxktaYxkBFvzEdrwE9jNvJ+2xqxxFjC6LfvzqbEz+rxPGreNtcjJf3bKBQ9vA7fq3j1Cwt1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 18:42:37.1392 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 148b9055-1bf1-4e4b-37e5-08df3c35baa5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 18:42:36.1975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf3e0db5-7dd5-4cbe-2a39-08df3c35ba1a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS8PEPF000000DE.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: PH2PEPF00048916.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9518
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8227
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,779 +123,151 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-In PASID mode the device accesses user mappings of a BO through the
-IOMMU, but cannot take page faults, so the driver faults the CPU pages
-in with HMM before submitting a job and waits for the job from the MMU
-notifier. The HMM PFNs themselves are never used.
+Drivers which only use the drm_gpusvm_pages API (no drm_gpusvm_range)
+have no way to mark pages unmapped from their MMU notifier, as
+drm_gpusvm_range_set_unmapped() requires a range. They also have to open
+code the mmu_interval_read_retry() check on the recorded notifier_seq
+to commit pages faulted with &drm_gpusvm_ctx.no_dma_map.
 
-The open coded implementation of this has a few problems:
-
-- Each mapping embeds a struct hmm_range, and keeps the PFN array it
-  points at allocated for the lifetime of the mapping, although the
-  PFNs are dropped as soon as the fault returns.
-- The per mapping invalid flag duplicates what the notifier sequence
-  number already tracks, and must be kept in sync with it.
-- The notifier lock is taken in write mode on the populate path.
-- Submission locks all reservations, finds the first BO with an
-  invalidated mapping, unlocks everything, faults that single BO in and
-  starts over, once per invalidated BO.
-
-drm_gpusvm already implements the fault and retry loop, including
-faulting without a DMA mapping (&drm_gpusvm_ctx.no_dma_map), and its
-pages only mode does not require the driver to use drm_gpusvm ranges.
-Use it:
-
-- Replace the device notifier_lock with a pages only struct drm_gpusvm
-  and its notifier lock.
-- Replace the embedded hmm_range and the invalid/unmapped flags with a
-  struct drm_gpusvm_pages. A mapping is stale when
-  drm_gpusvm_pages_read_retry() says so and it is not unmapped.
-- Fault in all stale mappings with drm_gpusvm_get_pages() before
-  locking the reservations, then check that none went stale again
-  under the notifier lock, which is held until the job fences are
-  published, as before.
-- The invalidate callback only bumps the sequence number and marks the
-  mapping unmapped on MMU_NOTIFY_UNMAP under the write lock, before
-  waiting for the jobs.
-
-A temporary PFN array is now allocated per fault instead of keeping one
-per mapping, which also removes the race above.
+Split the pages part of drm_gpusvm_range_set_unmapped() into
+drm_gpusvm_pages_set_unmapped(), and add drm_gpusvm_pages_read_retry()
+which performs the commit side check with a lockdep assert on the
+notifier lock.
 
 Assisted-by: LLM
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-[Lizhi: Merge with latest code]
 Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/accel/amdxdna/Kconfig           |   2 +-
- drivers/accel/amdxdna/aie2_ctx.c        |  31 +--
- drivers/accel/amdxdna/aie4_ctx.c        |  29 +--
- drivers/accel/amdxdna/amdxdna_gem.c     | 312 +++++++++++++-----------
- drivers/accel/amdxdna/amdxdna_gem.h     |  23 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.c |  15 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.h |   3 +-
- 7 files changed, 213 insertions(+), 202 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c | 49 +++++++++++++++++++++++++-----------
+ include/drm/drm_gpusvm.h     | 29 +++++++++++++++++++++
+ 2 files changed, 64 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
-index eddff490b4f75..3721eb580b71a 100644
---- a/drivers/accel/amdxdna/Kconfig
-+++ b/drivers/accel/amdxdna/Kconfig
-@@ -7,10 +7,10 @@ config DRM_ACCEL_AMDXDNA
- 	depends on PCI && HAS_IOMEM
- 	depends on X86_64
- 	depends on AMD_PMF || !AMD_PMF
-+	select DRM_GPUSVM
- 	select DRM_SCHED
- 	select DRM_GEM_SHMEM_HELPER
- 	select FW_LOADER
--	select HMM_MIRROR
- 	help
- 	  Choose this option to enable support for NPU integrated into AMD
- 	  client CPUs like AMD Ryzen AI 300 Series. AMD NPU can be used to
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index e1c0e0689b12e..552c30ea6e387 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -1116,8 +1116,7 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 	struct amdxdna_dev *xdna = hwctx->client->xdna;
- 	struct ww_acquire_ctx acquire_ctx;
- 	struct dma_fence_chain *chain;
--	struct amdxdna_gem_obj *abo;
--	unsigned long timeout = 0;
-+	unsigned long deadline;
- 	int ret, i;
- 
- 	ret = down_interruptible(&hwctx->priv->job_sem);
-@@ -1140,7 +1139,15 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 		goto free_chain;
- 	}
- 
-+	deadline = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
- retry:
-+	for (i = 0; i < job->bo_cnt; i++) {
-+		ret = amdxdna_gem_umap_populate(to_xdna_obj(job->bos[i]),
-+						deadline);
-+		if (ret)
-+			goto cleanup_job;
-+	}
-+
- 	ret = drm_gem_lock_reservations(job->bos, job->bo_cnt, &acquire_ctx);
- 	if (ret) {
- 		XDNA_WARN(xdna, "Failed to lock BOs, ret %d", ret);
-@@ -1156,23 +1163,11 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 		}
- 	}
- 
--	down_read(&xdna->notifier_lock);
-+	drm_gpusvm_notifier_lock(&xdna->gpusvm);
- 	for (i = 0; i < job->bo_cnt; i++) {
--		abo = to_xdna_obj(job->bos[i]);
--		if (abo->mem.map_invalid) {
--			up_read(&xdna->notifier_lock);
-+		if (amdxdna_gem_umap_stale(to_xdna_obj(job->bos[i]))) {
-+			drm_gpusvm_notifier_unlock(&xdna->gpusvm);
- 			drm_gem_unlock_reservations(job->bos, job->bo_cnt, &acquire_ctx);
--			if (!timeout) {
--				timeout = jiffies +
--					msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
--			} else if (time_after(jiffies, timeout)) {
--				ret = -ETIME;
--				goto cleanup_job;
--			}
--
--			ret = amdxdna_populate_range(abo);
--			if (ret)
--				goto cleanup_job;
- 			goto retry;
- 		}
- 	}
-@@ -1192,7 +1187,7 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 	drm_syncobj_add_point(hwctx->priv->syncobj, chain, job->out_fence, *seq);
- 	mutex_unlock(&hwctx->priv->io_lock);
- 
--	up_read(&xdna->notifier_lock);
-+	drm_gpusvm_notifier_unlock(&xdna->gpusvm);
- 	drm_gem_unlock_reservations(job->bos, job->bo_cnt, &acquire_ctx);
- 
- 	aie2_job_put(job);
-diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-index a3f0a69b93b75..0db7dcdf106ba 100644
---- a/drivers/accel/amdxdna/aie4_ctx.c
-+++ b/drivers/accel/amdxdna/aie4_ctx.c
-@@ -1059,8 +1059,7 @@ static int fence_job_bos(struct amdxdna_dev *xdna, struct amdxdna_sched_job *job
- {
- 	struct ww_acquire_ctx acquire_ctx;
- 	struct drm_gem_object **objs;
--	struct amdxdna_gem_obj *abo;
--	unsigned long timeout = 0;
-+	unsigned long deadline;
- 	u32 cnt = 0;
- 	int ret;
- 	u32 i;
-@@ -1076,7 +1075,13 @@ static int fence_job_bos(struct amdxdna_dev *xdna, struct amdxdna_sched_job *job
- 	for (i = 0; i < job->aie4_cmd_bo_cnt; i++)
- 		add_lock_obj(objs, &cnt, to_gobj(job->aie4_cmd_bos[i]));
- 
-+	deadline = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
- retry:
-+	for (i = 0; i < cnt; i++) {
-+		ret = amdxdna_gem_umap_populate(to_xdna_obj(objs[i]), deadline);
-+		if (ret)
-+			goto free_objs;
-+	}
- 	ret = drm_gem_lock_reservations(objs, cnt, &acquire_ctx);
- 	if (ret) {
- 		XDNA_WARN(xdna, "Failed to lock BOs, ret %d", ret);
-@@ -1091,23 +1096,11 @@ static int fence_job_bos(struct amdxdna_dev *xdna, struct amdxdna_sched_job *job
- 		}
- 	}
- 
--	down_read(&xdna->notifier_lock);
-+	drm_gpusvm_notifier_lock(&xdna->gpusvm);
- 	for (i = 0; i < cnt; i++) {
--		abo = to_xdna_obj(objs[i]);
--		if (abo->mem.map_invalid) {
--			up_read(&xdna->notifier_lock);
-+		if (amdxdna_gem_umap_stale(to_xdna_obj(objs[i]))) {
-+			drm_gpusvm_notifier_unlock(&xdna->gpusvm);
- 			drm_gem_unlock_reservations(objs, cnt, &acquire_ctx);
--			if (!timeout) {
--				timeout = jiffies +
--					msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
--			} else if (time_after(jiffies, timeout)) {
--				ret = -ETIME;
--				goto free_objs;
--			}
--
--			ret = amdxdna_populate_range(abo);
--			if (ret)
--				goto free_objs;
- 			goto retry;
- 		}
- 	}
-@@ -1115,7 +1108,7 @@ static int fence_job_bos(struct amdxdna_dev *xdna, struct amdxdna_sched_job *job
- 	job->out_fence = dma_fence_get(job->fence);
- 	for (i = 0; i < cnt; i++)
- 		dma_resv_add_fence(objs[i]->resv, job->out_fence, DMA_RESV_USAGE_WRITE);
--	up_read(&xdna->notifier_lock);
-+	drm_gpusvm_notifier_unlock(&xdna->gpusvm);
- 
- unlock:
- 	drm_gem_unlock_reservations(objs, cnt, &acquire_ctx);
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 09e48c794e1b0..57d87fa98d671 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -232,37 +232,46 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
- {
- 	struct amdxdna_umap *mapp = container_of(mni, struct amdxdna_umap, notifier);
- 	struct amdxdna_gem_obj *abo = mapp->abo;
--	struct amdxdna_dev *xdna;
-+	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
-+	bool unreg;
- 
- 	if (!mmu_notifier_range_blockable(range))
- 		return false;
- 
--	if (mapp->unmapped)
--		return true;
--
--	xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	XDNA_DBG(xdna, "Invalidating range 0x%lx, 0x%lx, type %d",
--		 mapp->range.start, mapp->range.end, abo->type);
-+		 mapp->start, mapp->end, abo->type);
- 
--	down_write(&xdna->notifier_lock);
--	abo->mem.map_invalid = true;
--	mapp->invalid = true;
--	mmu_interval_set_seq(&mapp->notifier, cur_seq);
--	up_write(&xdna->notifier_lock);
-+	down_write(&xdna->gpusvm.notifier_lock);
-+	mmu_interval_set_seq(mni, cur_seq);
-+	/*
-+	 * Flag the mapping as gone before the wait below, so that a submission
-+	 * racing with the unmap does not try to fault it in again.
-+	 */
-+	unreg = !mapp->pages.flags.unmapped && range->event == MMU_NOTIFY_UNMAP;
-+	if (unreg)
-+		drm_gpusvm_pages_set_unmapped(&xdna->gpusvm, &mapp->pages, 1);
-+	up_write(&xdna->gpusvm.notifier_lock);
- 
- 	/*
- 	 * The pages must not be released while the device may still access
- 	 * them, so this wait must be neither interruptible nor time limited.
-+	 *
-+	 * Every invalidation of the mapping has to wait, including the ones
-+	 * which find it already flagged: the flag is set above before the wait,
-+	 * so it does not tell whether the jobs of a concurrent invalidation
-+	 * have finished.
- 	 */
- 	dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKEEP,
- 			      false, MAX_SCHEDULE_TIMEOUT);
- 
--	if (range->event == MMU_NOTIFY_UNMAP) {
--		down_write(&xdna->notifier_lock);
--		mapp->unmapped = true;
-+	/*
-+	 * Queue the unregistration only once the jobs are done: it drops the
-+	 * last reference of the mapping, and mmu_interval_notifier_remove()
-+	 * waits for this callback, which would pin the single worker of the
-+	 * ordered WQ_MEM_RECLAIM notifier_wq for as long as a job runs.
-+	 */
-+	if (unreg)
- 		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
--		up_write(&xdna->notifier_lock);
--	}
- 
- 	return true;
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 03dbe304e4b8f..63a26919f59db 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1761,9 +1761,8 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
+  *
+  * With &drm_gpusvm_ctx.no_dma_map no mapping state is recorded, so
+  * drm_gpusvm_pages_valid() never returns true and success is only a snapshot:
+- * the caller must recheck mmu_interval_read_retry() against the recorded
+- * &drm_gpusvm_pages.notifier_seq under the notifier lock, and hold it until
+- * its work is visible to invalidation.
++ * the caller must recheck drm_gpusvm_pages_read_retry() under the notifier
++ * lock, and hold it until its work is visible to invalidation.
+  *
+  * Return: 0 on success, negative error code on failure.
+  */
+@@ -2021,6 +2020,38 @@ bool drm_gpusvm_has_mapping(struct drm_gpusvm *gpusvm, unsigned long start,
  }
-@@ -271,12 +280,25 @@ static const struct mmu_interval_notifier_ops amdxdna_hmm_ops = {
- 	.invalidate = amdxdna_hmm_invalidate,
- };
+ EXPORT_SYMBOL_GPL(drm_gpusvm_has_mapping);
  
--static inline bool compare_range(struct amdxdna_umap *mapp,
--				 struct mm_struct *mm,
--				 unsigned long start, unsigned long end)
-+static bool amdxdna_umap_match(struct amdxdna_umap *mapp,
-+			       struct mm_struct *mm,
-+			       unsigned long start, unsigned long end)
- {
--	return (!mapp->unmapped && mapp->notifier.mm == mm &&
--		mapp->range.start == start && mapp->range.end == end);
-+	return !mapp->pages.flags.unmapped && mapp->notifier.mm == mm &&
-+		mapp->start == start && mapp->end == end;
-+}
-+
-+static bool amdxdna_umap_stale(struct drm_gpusvm *gpusvm,
-+			       struct amdxdna_umap *mapp)
-+{
-+	/*
-+	 * The pages of a BO whose mappings mmap() populated upfront are never
-+	 * faulted in. Neither are the ones of a mapping which is gone: device
-+	 * accesses through it are rejected by the IOMMU, so there is nothing
-+	 * to fault in for it.
-+	 */
-+	return mapp->abo->mem.map_invalid && !mapp->pages.flags.unmapped &&
-+		drm_gpusvm_pages_read_retry(gpusvm, &mapp->pages, &mapp->notifier);
- }
- 
- static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
-@@ -285,15 +307,28 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	struct amdxdna_umap *mapp;
- 
--	down_write(&xdna->notifier_lock);
-+	down_write(&xdna->gpusvm.notifier_lock);
- 	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
--		if (!compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end))
-+		if (!amdxdna_umap_match(mapp, vma->vm_mm, vma->vm_start, vma->vm_end))
- 			continue;
- 
--		mapp->unmapped = true;
-+		drm_gpusvm_pages_set_unmapped(&xdna->gpusvm, &mapp->pages, 1);
- 		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
- 	}
--	up_write(&xdna->notifier_lock);
-+	up_write(&xdna->gpusvm.notifier_lock);
-+}
-+
-+static void amdxdna_umap_release(struct kref *ref)
-+{
-+	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
-+
-+	mmu_interval_notifier_remove(&mapp->notifier);
-+	kfree(mapp);
-+}
-+
-+static void amdxdna_umap_put(struct amdxdna_umap *mapp)
-+{
-+	kref_put(&mapp->refcnt, amdxdna_umap_release);
- }
- 
- static void amdxdna_hmm_unreg_umaps(struct amdxdna_gem_obj *abo, bool force)
-@@ -302,121 +337,119 @@ static void amdxdna_hmm_unreg_umaps(struct amdxdna_gem_obj *abo, bool force)
- 	struct amdxdna_umap *mapp, *tmp;
- 	LIST_HEAD(dead);
- 
--	down_write(&xdna->notifier_lock);
-+	down_write(&xdna->gpusvm.notifier_lock);
- 	list_for_each_entry_safe(mapp, tmp, &abo->mem.umap_list, node) {
--		if (!force && !mapp->unmapped)
-+		if (!force && !mapp->pages.flags.unmapped)
- 			continue;
- 
--		mapp->unmapped = true;
-+		drm_gpusvm_pages_set_unmapped(&xdna->gpusvm, &mapp->pages, 1);
- 		list_move(&mapp->node, &dead);
- 	}
- 	if (list_empty(&abo->mem.umap_list))
- 		abo->mem.uva = AMDXDNA_INVALID_ADDR;
--	up_write(&xdna->notifier_lock);
-+	up_write(&xdna->gpusvm.notifier_lock);
- 
- 	list_for_each_entry_safe(mapp, tmp, &dead, node)
- 		amdxdna_umap_put(mapp);
- }
- 
--static void amdxdna_umap_release(struct kref *ref)
-+static void amdxdna_hmm_unreg_work(struct work_struct *work)
- {
--	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
--
--	mmu_interval_notifier_remove(&mapp->notifier);
--	mutex_destroy(&mapp->lock);
--	kvfree(mapp->range.hmm_pfns);
--	kfree(mapp);
--}
-+	struct amdxdna_gem_obj *abo = container_of(work, struct amdxdna_gem_obj,
-+						   hmm_unreg_work);
- 
--void amdxdna_umap_put(struct amdxdna_umap *mapp)
--{
--	kref_put(&mapp->refcnt, amdxdna_umap_release);
-+	amdxdna_hmm_unreg_umaps(abo, false);
- }
- 
--int amdxdna_populate_range(struct amdxdna_gem_obj *abo)
 +/**
-+ * amdxdna_gem_umap_populate() - Fault in the invalidated user mappings of a BO
-+ * @abo: The BO.
-+ * @deadline: Jiffies after which to give up.
++ * drm_gpusvm_pages_set_unmapped() - Mark GPU SVM pages as unmapped
++ * @gpusvm: Pointer to the GPU SVM structure.
++ * @pages: Pointer to the GPU SVM pages structure(s).
++ * @pages_count: Number of GPU SVM pages structure(s) passed in.
 + *
-+ * The device accesses user mappings through the PASID and cannot take page
-+ * faults, so the CPU pages of every mapping of @abo invalidated since it was
-+ * last faulted are faulted in again here. This is only a snapshot, the caller
-+ * must check amdxdna_gem_umap_stale() under the notifier lock before using
-+ * the mappings and retry if it fails.
-+ *
-+ * Two hardware contexts may fault the same mapping at the same time. That is
-+ * left unserialized: with &drm_gpusvm_ctx.no_dma_map the only state recorded
-+ * for a mapping is its notifier sequence, and the loser of such a race can
-+ * only store an older sequence, which makes amdxdna_gem_umap_stale() report
-+ * stale and the caller fault again.
-+ *
-+ * Return: 0 on success, -ETIME if @deadline passed, negative error code on
-+ * other failures.
++ * Mark @pages as unmapped, after which drm_gpusvm_get_pages() fails with
++ * -EFAULT for them. Intended to be called from the driver's MMU notifier on
++ * MMU_NOTIFY_UNMAP, and usable without a &drm_gpusvm_range by drivers that
++ * only use the drm_gpusvm_pages API. The caller must hold the notifier lock
++ * in write mode.
 + */
-+int amdxdna_gem_umap_populate(struct amdxdna_gem_obj *abo,
-+			      unsigned long deadline)
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
-+	struct drm_gpusvm *gpusvm = &xdna->gpusvm;
- 	struct amdxdna_umap *mapp;
--	unsigned long timeout;
--	struct mm_struct *mm;
--	bool found;
-+	bool found, unmapped;
- 	int ret;
- 
--	timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
--again:
--	found = false;
--	down_write(&xdna->notifier_lock);
--	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
--		/*
--		 * Skip entries that have already been unmapped.
--		 *
--		 * If userspace unmaps the address and later submits I/O using
--		 * it, the IOMMU will reject the access and report a fault.
--		 * Ignore such entries here.
--		 */
--		if (mapp->unmapped)
--			continue;
-+	for (;;) {
-+		struct drm_gpusvm_ctx ctx = { .no_dma_map = 1 };
- 
--		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
--			found = true;
--			break;
-+		found = false;
-+		drm_gpusvm_notifier_lock(gpusvm);
-+		list_for_each_entry(mapp, &abo->mem.umap_list, node) {
-+			if (amdxdna_umap_stale(gpusvm, mapp) &&
-+			    kref_get_unless_zero(&mapp->refcnt)) {
-+				found = true;
-+				break;
-+			}
- 		}
--	}
--
--	if (!found) {
--		/*
--		 * This also covers the case where all mappings have been
--		 * removed. There are no invalid mappings left to process.
--		 * Any subsequent I/O using the unmapped address will be
--		 * rejected by the IOMMU.
--		 */
--		abo->mem.map_invalid = false;
--		up_write(&xdna->notifier_lock);
--		return 0;
--	}
--
--	up_write(&xdna->notifier_lock);
--
--	mm = mapp->notifier.mm;
--	if (!mmget_not_zero(mm)) {
--		amdxdna_umap_put(mapp);
--		return -EFAULT;
--	}
-+		drm_gpusvm_notifier_unlock(gpusvm);
-+		if (!found)
-+			return 0;
- 
--	mutex_lock(&mapp->lock);
--	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
--	if (ret) {
--		mutex_unlock(&mapp->lock);
--		goto put_mm;
--	}
-+		if (time_after(jiffies, deadline)) {
-+			amdxdna_umap_put(mapp);
-+			return -ETIME;
-+		}
- 
--	down_write(&xdna->notifier_lock);
--	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
--		up_write(&xdna->notifier_lock);
--		mutex_unlock(&mapp->lock);
-+		ctx.read_only = mapp->read_only;
-+		ret = drm_gpusvm_get_pages(gpusvm, &mapp->pages, 1,
-+					   mapp->notifier.mm, &mapp->notifier,
-+					   mapp->start, mapp->end, &ctx);
-+		if (ret == -EFAULT) {
-+			drm_gpusvm_notifier_lock(gpusvm);
-+			unmapped = mapp->pages.flags.unmapped;
-+			drm_gpusvm_notifier_unlock(gpusvm);
-+			if (unmapped)
-+				ret = 0;
-+		}
- 		amdxdna_umap_put(mapp);
--		mmput(mm);
--		goto again;
-+		if (ret)
-+			return ret == -EBUSY ? -ETIME : ret;
- 	}
--	mapp->invalid = false;
--	up_write(&xdna->notifier_lock);
--	mutex_unlock(&mapp->lock);
--	amdxdna_umap_put(mapp);
--	mmput(mm);
--	goto again;
--
--put_mm:
--	amdxdna_umap_put(mapp);
--	mmput(mm);
--	return ret == -EBUSY ? -ETIME : ret;
- }
- 
--static void amdxdna_hmm_unreg_work(struct work_struct *work)
-+/**
-+ * amdxdna_gem_umap_stale() - Check whether a BO needs its user mappings faulted
-+ * @abo: The BO.
-+ *
-+ * Must be called with the notifier lock held, which must be kept held until
-+ * the fences of the jobs using @abo are published in its reservation object.
-+ *
-+ * Return: True if amdxdna_gem_umap_populate() must be called for @abo.
-+ */
-+bool amdxdna_gem_umap_stale(struct amdxdna_gem_obj *abo)
- {
--	struct amdxdna_gem_obj *abo = container_of(work, struct amdxdna_gem_obj,
--						   hmm_unreg_work);
-+	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
-+	struct amdxdna_umap *mapp;
- 
--	amdxdna_hmm_unreg_umaps(abo, false);
-+	lockdep_assert_held(&xdna->gpusvm.notifier_lock);
++void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
++				   struct drm_gpusvm_pages *pages,
++				   unsigned int pages_count)
++{
++	unsigned int i;
 +
-+	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
-+		if (amdxdna_umap_stale(&xdna->gpusvm, mapp))
-+			return true;
++	lockdep_assert_held_write(&gpusvm->notifier_lock);
++
++	for (i = 0; i < pages_count; ++i) {
++		struct drm_gpusvm_pages_flags flags = {
++			.__flags = pages[i].flags.__flags,
++		};
++
++		flags.unmapped = true;
++		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
++		WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
 +	}
++}
++EXPORT_SYMBOL_GPL(drm_gpusvm_pages_set_unmapped);
 +
-+	return false;
- }
+ /**
+  * drm_gpusvm_range_set_unmapped() - Mark a GPU SVM range as unmapped
+  * @range: Pointer to the GPU SVM range structure.
+@@ -2039,20 +2070,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+ 	struct drm_gpusvm_range_flags range_flags = {
+ 		.__flags = range->flags.__flags,
+ 	};
+-	unsigned int i;
  
- static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
-@@ -426,7 +459,6 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 	unsigned long len = vma->vm_end - vma->vm_start;
- 	unsigned long addr = vma->vm_start;
- 	struct amdxdna_umap *mapp;
--	unsigned long nr_pages;
- 	int ret;
+-	lockdep_assert_held_write(&range->gpusvm->notifier_lock);
++	drm_gpusvm_pages_set_unmapped(range->gpusvm, pages, pages_count);
  
- 	/*
-@@ -441,38 +473,34 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 		return 0;
- 	}
- 
--	down_read(&xdna->notifier_lock);
-+	down_read(&xdna->gpusvm.notifier_lock);
- 	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
--		if (compare_range(mapp, current->mm, addr, addr + len)) {
--			up_read(&xdna->notifier_lock);
-+		if (amdxdna_umap_match(mapp, current->mm, addr, addr + len)) {
-+			up_read(&xdna->gpusvm.notifier_lock);
- 			return 0;
- 		}
- 	}
--	up_read(&xdna->notifier_lock);
-+	up_read(&xdna->gpusvm.notifier_lock);
- 
- 	mapp = kzalloc_obj(*mapp);
- 	if (!mapp)
- 		return -ENOMEM;
- 
--	nr_pages = (PAGE_ALIGN(addr + len) - (addr & PAGE_MASK)) >> PAGE_SHIFT;
--	mapp->range.hmm_pfns = kvzalloc_objs(*mapp->range.hmm_pfns, nr_pages);
--	if (!mapp->range.hmm_pfns) {
--		ret = -ENOMEM;
--		goto free_map;
--	}
-+	/*
-+	 * Never faulted, so stale until the first amdxdna_gem_umap_populate(),
-+	 * should the pages of the BO have to be faulted in at all.
-+	 */
-+	drm_gpusvm_init_pages(&mapp->pages, &xdna->ddev);
-+	mapp->start = addr;
-+	mapp->end = addr + len;
- 
--	mapp->range.notifier = &mapp->notifier;
--	mapp->range.start = vma->vm_start;
--	mapp->range.end = vma->vm_end;
- 	/*
- 	 * Access permissions are fixed at mmap() time. Changing them later
--	 * with mprotect() is not supported: the range keeps requesting the
-+	 * with mprotect() is not supported: the mapping keeps requesting the
- 	 * original permissions, so the application may see a fault failure
- 	 * or an IOMMU fault.
- 	 */
--	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
--	if (vma->vm_flags & VM_WRITE)
--		mapp->range.default_flags |= HMM_PFN_REQ_WRITE;
-+	mapp->read_only = !(vma->vm_flags & VM_WRITE);
- 	mapp->abo = abo;
- 	kref_init(&mapp->refcnt);
- 
-@@ -483,23 +511,17 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 						  &amdxdna_hmm_ops);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Insert mmu notifier failed, ret %d", ret);
--		goto free_pfns;
-+		kfree(mapp);
-+		return ret;
- 	}
- 
--	mutex_init(&mapp->lock);
--	down_write(&xdna->notifier_lock);
-+	down_write(&xdna->gpusvm.notifier_lock);
- 	if (list_empty(&abo->mem.umap_list))
- 		abo->mem.uva = addr;
- 	list_add_tail(&mapp->node, &abo->mem.umap_list);
--	up_write(&xdna->notifier_lock);
-+	up_write(&xdna->gpusvm.notifier_lock);
- 
- 	return 0;
+ 	range_flags.unmapped = true;
+-	for (i = 0; i < pages_count; ++i) {
+-		struct drm_gpusvm_pages_flags flags = {
+-			.__flags = pages[i].flags.__flags,
+-		};
 -
--free_pfns:
--	kvfree(mapp->range.hmm_pfns);
--free_map:
--	kfree(mapp);
--	return ret;
- }
- 
- static struct amdxdna_gem_obj *
-@@ -547,21 +569,13 @@ static void amdxdna_gem_dev_obj_free(struct drm_gem_object *gobj)
- 	amdxdna_gem_destroy_obj(abo);
- }
- 
--static void amdxdna_mark_mapp_invalid(struct amdxdna_gem_obj *abo,
--				      struct vm_area_struct *vma)
-+static void amdxdna_mark_map_invalid(struct amdxdna_gem_obj *abo)
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
--	struct amdxdna_umap *mapp;
- 
--	down_write(&xdna->notifier_lock);
-+	down_write(&xdna->gpusvm.notifier_lock);
- 	abo->mem.map_invalid = true;
--	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
--		if (compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end)) {
--			mapp->invalid = true;
--			break;
--		}
+-		flags.unmapped = true;
+-		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+-		WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
 -	}
--	up_write(&xdna->notifier_lock);
-+	up_write(&xdna->gpusvm.notifier_lock);
- }
+ 	if (drm_gpusvm_range_start(range) < mmu_range->start ||
+ 	    drm_gpusvm_range_end(range) > mmu_range->end)
+ 		range_flags.partial_unmap = true;
+diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+index 4d31c6bba7455..b43432af56377 100644
+--- a/include/drm/drm_gpusvm.h
++++ b/include/drm/drm_gpusvm.h
+@@ -349,6 +349,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+ 				   unsigned int pages_count,
+ 				   const struct mmu_notifier_range *mmu_range);
  
- static int amdxdna_remap_pages(struct amdxdna_gem_obj *abo,
-@@ -628,7 +642,7 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- 		}
- 
- 		if (!(vma->vm_flags & VM_PFNMAP))
--			amdxdna_mark_mapp_invalid(abo, vma);
-+			amdxdna_mark_map_invalid(abo);
- 
- 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
- 		drm_gem_object_put(to_gobj(abo));
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-index 5c429869992e8..2deead107d6b1 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.h
-+++ b/drivers/accel/amdxdna/amdxdna_gem.h
-@@ -7,19 +7,19 @@
- #define _AMDXDNA_GEM_H_
- 
- #include <drm/drm_gem_shmem_helper.h>
--#include <linux/hmm.h>
-+#include <drm/drm_gpusvm.h>
- #include <linux/iova.h>
- #include "amdxdna_pci_drv.h"
- 
- struct amdxdna_umap {
- 	struct mmu_interval_notifier	notifier;
--	struct hmm_range		range;
-+	struct drm_gpusvm_pages		pages;
-+	unsigned long			start;
-+	unsigned long			end;
-+	bool				read_only;
- 	struct amdxdna_gem_obj		*abo;
- 	struct list_head		node;
- 	struct kref			refcnt;
--	bool				invalid;
--	bool				unmapped;
--	struct mutex			lock; /* protect range */
- };
- 
- struct amdxdna_mem {
-@@ -27,10 +27,16 @@ struct amdxdna_mem {
- 	u64				dma_addr;
- 	size_t				size;
- 	struct list_head		umap_list;
-+	/*
-+	 * True, if the pages of the user mappings have to be faulted in before
-+	 * the device accesses them. A mapping which mmap() populated upfront,
-+	 * which is a VM_PFNMAP one, must not be faulted in: hmm_range_fault()
-+	 * rejects such a VMA.
-+	 */
- 	bool				map_invalid;
- 	/*
- 	 * Cache the first mmap uva as PASID addr, which can be accessed by driver
--	 * without taking notifier_lock.
-+	 * without taking the gpusvm notifier lock.
- 	 */
- 	u64				uva;
- };
-@@ -103,8 +109,9 @@ static inline u64 amdxdna_obj_dma_addr(struct amdxdna_gem_obj *abo)
- 		abo->mem.dma_addr : amdxdna_gem_uva(abo);
- }
- 
--void amdxdna_umap_put(struct amdxdna_umap *mapp);
--int amdxdna_populate_range(struct amdxdna_gem_obj *abo);
-+int amdxdna_gem_umap_populate(struct amdxdna_gem_obj *abo,
-+			      unsigned long deadline);
-+bool amdxdna_gem_umap_stale(struct amdxdna_gem_obj *abo);
- void amdxdna_gem_heap_free(struct amdxdna_client *client, struct amdxdna_gem_obj *abo);
- 
- struct drm_gem_object *
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index f233eb70a2957..18bd7bdd12969 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -363,6 +363,7 @@ static void amdxdna_xdna_drm_release(struct drm_device *drm, void *res)
- 	struct amdxdna_dev *xdna = res;
- 
- 	amdxdna_carveout_fini(xdna);
-+	drm_gpusvm_fini(&xdna->gpusvm);
- }
- 
- static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-@@ -389,18 +390,18 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (ret)
- 		return ret;
- 
--	init_rwsem(&xdna->notifier_lock);
-+	ret = drm_gpusvm_init(&xdna->gpusvm, "amdxdna", NULL, 0, 0, 0, NULL,
-+			      NULL, 0);
-+	if (ret)
-+		return ret;
++void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
++				   struct drm_gpusvm_pages *pages,
++				   unsigned int pages_count);
 +
- 	INIT_LIST_HEAD(&xdna->client_list);
- 	pci_set_drvdata(pdev, xdna);
+ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 			 struct drm_gpusvm_pages *svm_pages,
+ 			 unsigned int num_pages,
+@@ -383,6 +387,31 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+ 	svm_pages->notifier_seq = LONG_MAX;
+ }
  
- 	ret = drmm_add_action(ddev, amdxdna_xdna_drm_release, xdna);
--	if (ret)
-+	if (ret) {
-+		drm_gpusvm_fini(&xdna->gpusvm);
- 		return ret;
--
--	if (IS_ENABLED(CONFIG_LOCKDEP)) {
--		fs_reclaim_acquire(GFP_KERNEL);
--		might_lock(&xdna->notifier_lock);
--		fs_reclaim_release(GFP_KERNEL);
- 	}
- 
- 	ret = amdxdna_iommu_init(xdna);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index 27593190dcf67..7663b883d4f8b 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -7,6 +7,7 @@
- #define _AMDXDNA_PCI_DRV_H_
- 
- #include <drm/amdxdna_accel.h>
-+#include <drm/drm_gpusvm.h>
- #include <drm/drm_mm.h>
- #include <drm/drm_print.h>
- #include <linux/iommu.h>
-@@ -118,7 +119,7 @@ struct amdxdna_dev {
- 	struct list_head		client_list;
- 	struct mutex			client_lock; /* client_list */
- 	struct amdxdna_drm_query_firmware_version fw_ver;
--	struct rw_semaphore		notifier_lock; /* for mmu notifier*/
-+	struct drm_gpusvm		gpusvm; /* notifier lock for user mappings */
- 	struct workqueue_struct		*notifier_wq;
- 
- 	struct iommu_group		*group;
++/**
++ * drm_gpusvm_pages_read_retry() - Check whether GPU SVM pages went stale
++ * @gpusvm: Pointer to the GPU SVM structure.
++ * @svm_pages: Pointer to the drm_gpusvm_pages.
++ * @notifier: The notifier passed to drm_gpusvm_get_pages() for @svm_pages.
++ *
++ * Check whether @notifier was invalidated since the last successful
++ * drm_gpusvm_get_pages() for @svm_pages. This is the commit side check for
++ * pages faulted with &drm_gpusvm_ctx.no_dma_map, where no mapping state is
++ * tracked. Pages that were never faulted always report as stale. The caller
++ * must hold the notifier lock and keep holding it until its use of the pages
++ * is visible to the invalidation path.
++ *
++ * Return: True if the pages must be faulted again, false otherwise.
++ */
++static inline bool
++drm_gpusvm_pages_read_retry(struct drm_gpusvm *gpusvm,
++			    struct drm_gpusvm_pages *svm_pages,
++			    struct mmu_interval_notifier *notifier)
++{
++	lockdep_assert_held(&gpusvm->notifier_lock);
++
++	return mmu_interval_read_retry(notifier, svm_pages->notifier_seq);
++}
++
+ /**
+  * drm_gpusvm_pages_first_dma() - Resolve the device address array
+  * @svm_pages: Pointer to the drm_gpusvm_pages.
+
+base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
 -- 
 2.34.1
 
