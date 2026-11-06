@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0153E606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBE1606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:17:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fI/uif97
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVoDWz3a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556CF10FF9C;
-	Fri,  6 Nov 2026 13:17:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBB210FF9C
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87E4112322;
+	Fri,  6 Nov 2026 13:17:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C05610FF1B
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:17:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86038601BF;
- Fri,  6 Nov 2026 13:17:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B891F0089F;
- Fri,  6 Nov 2026 13:16:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 148E5401CE;
+ Fri,  6 Nov 2026 13:17:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FD51F0089F;
+ Fri,  6 Nov 2026 13:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793971020;
- bh=/aZ/VnojpAo/iy2F82NG2ed4PhTjohlKEvOSWgmRs0E=;
+ s=k20260515; t=1793971024;
+ bh=GqUbyL0AozZl+ozFoNV2MVYgqmN4SKFBbniYapI+VZg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fI/uif97qi6OOfs5dIv4x1odEZEdjz63NrdnbAdQVc6/0hjCMBUza4Mrd17pRfqIY
- F6KCBh2/oxkb+QhBy9zBVXqzBHDbIOjiTqaMnN8706/+diK2hvZNZ5+jQA8nhJkv6F
- N7F0pi1lMCASSip44orahJJEAgJ60O5RTn9KAINdmHluVdVr7sSsRW9xUjxd3Lsf1l
- SsE38hEXMmKKBO4+c71U3p6ui4b0lgTCisLNXdMPDT63CzldzEyfodCTqtpfhQPUsu
- 3nVWpOAtvulpgKpTgfs0GnVSP40QU39k3eptPPSwBjz07zbffp68ElsVLZCSKDdxWv
- XybyyYoAOMuYw==
+ b=LVoDWz3aRbw5aV6gkkJ/Uylw6agHVsR7OahPzIL2VolYLriIL2JH13+QmZh4FnX3w
+ 8dP9X3JmkwPbI6aLR9WWtU1KCrc8PoRNMhetdhWrg5/QpXA6G64+9KtwCjFlqTV9Wo
+ UeFliO2lXCu4XvVdpOI+bIFgik+Ezm40G3v2PnBthisJwj6DDjMl5tSTO1G1zXKSD5
+ Y79AlOH5Ta4KOMIhx46wiUoJALfI7OMJE5sKlu/egVzItSf7Az/CoEX+da+SUpw8CZ
+ YW+J22PYBe9SZ4V1gKjxpi/HbtEXsuEmDuLSTo2HIB9kgVh2uzWjlEkGGzFMxLvkks
+ Pl/S7HbJHqXvA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:51 +0100
-Subject: [PATCH v8 38/39] drm/panel: Implement state readout support
+Date: Fri, 06 Nov 2026 14:14:52 +0100
+Subject: [PATCH v8 39/39] fixup! drm/tidss: Implement readout support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-38-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-39-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6998; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Jr9o8BFeWWT3ybaP7nXd+P2K00LMLa3tjvkg8yYQLyw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL+3d0mSzND+goJUxN+3xsjU7k0/rKLZNEV/s9cvz8
- /x5nWmzOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE/q5irOG6aFpSrc2yIlHw
- 2+6n6+ZXf/jsvWPbQeUj0ctyaja2PBOwvDU7ZuVMLmNOnmqn2jmeZYx1OhOWLOz0+JP60MndfNW
- zeqETyZc9tLhTy798UruwV6m44LxdC8tCHo4dN8u22ChU1HgAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6771; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=7eUwX8IHKJZgj3+zfa9sQdoKkzblka6+mBAl+wLlw40=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL+27fvaZN2e5Wr7zRfW5l6ezLmefe/KvzdJlO1aE9
+ P112Sac1TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmMrWCsVZim37RAt7Lv51b
+ oiXLJdOO3Wms71t90+Hmi9QYj4+7Nt2bG7Xd6snEqDczsiturbmqy8NYK7KZp15oV2VsbcdNnyO
+ npEOPRXkyT0tgSLbbUHVeTLVy+SPJ2ad4+5l+2z740yHYcGQ5AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,143 +74,162 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A panel bridge has no state of its own to read out of the hardware:
-neither the panel enable state nor the bus configuration is observable
-through it.
-
-The bus configuration the atomic helpers negotiate can however be
-reconstructed: the panel bridge is always the last bridge of a chain, so
-the negotiation picks the first connector display info format as its
-output format, or MEDIA_BUS_FMT_FIXED when the display info has none,
-passes it through to its input end, and propagates the display info
-flags to both ends. The atomic_sro_readout_state hook reports that
-configuration. The display info is only populated once the connector
-modes have been read, after the initial state has been created: the
-fixed format reported then matches what the negotiation would produce,
-and is harmless as the initial state is never compared.
-
-The atomic_sro_connector_readout hook reports the connector as bound to
-the current CRTC of its encoder whenever that CRTC was read out as
-active, the panel being assumed enabled whenever its pipeline is.  A
-panel bridge only carries DRM_BRIDGE_OP_CONNECTOR_HW_READOUT when no
-bridge attached earlier in its chain provides a connector readout:
-drm_bridge_connector_init() picks the last bridge carrying that op, and
-earlier bridges may know the actual link state.
+This has not been tested, but if it works should be squashed.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_panel.c | 123 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 123 insertions(+)
+ drivers/gpu/drm/tidss/tidss_dispc.c |   5 ++
+ drivers/gpu/drm/tidss/tidss_dispc.h |   1 +
+ drivers/gpu/drm/tidss/tidss_oldi.c  | 138 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 144 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 560ea57591bd..bef0e6af73ba 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -10,8 +10,11 @@
- #include <linux/err.h>
- #include <linux/export.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index c3117745965b..023dd6135cd8 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -561,4 +561,9 @@ void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport)
+ }
+ 
++u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport)
++{
++	return dispc_vp_read(tidss->dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG);
++}
++
+ /*
+  * TRM gives bitfields as start:end, where start is the higher bit
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index 159fe3b94b0a..2322abd1c181 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -107,4 +107,5 @@ int tidss_configure_oldi(struct tidss_device *tidss, u32 hw_videoport,
+ 			 u32 oldi_cfg);
+ void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport);
++u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport);
+ unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate);
+ 
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 82b059f85244..7dbfbb380205 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -6,4 +6,5 @@
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
  #include <linux/of.h>
+@@ -14,6 +15,10 @@
  
  #include <drm/drm_atomic_helper.h>
 +#include <drm/drm_atomic_state_readout.h>
 +#include <drm/drm_atomic_state_readout_helper.h>
  #include <drm/drm_bridge.h>
- #include <drm/drm_connector.h>
-@@ -84,6 +87,29 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
- 	struct drm_panel *panel = drm_bridge_to_panel(bridge);
- 	struct drm_connector *connector = &panel->connector;
-+	bool upstream_readout = false;
- 	int ret;
++#include <drm/drm_connector.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
  
-+	/*
-+	 * drm_bridge_connector_init() picks the connector readout
-+	 * provider from the last bridge of the chain carrying
-+	 * DRM_BRIDGE_OP_CONNECTOR_HW_READOUT. Only provide the
-+	 * fallback readout of a panel bridge when no bridge earlier
-+	 * in the chain provides one, as those know the actual link
-+	 * state while a panel bridge can only assume the panel is
-+	 * enabled.
-+	 */
-+	drm_for_each_bridge_in_chain(encoder, iter) {
-+		if (iter == bridge)
-+			break;
-+
-+		if (iter->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
-+			upstream_readout = true;
-+			break;
-+		}
-+	}
-+
-+	if (!upstream_readout)
-+		bridge->ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
-+
- 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
- 		return 0;
-@@ -227,4 +253,98 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
+ #include "tidss_dispc.h"
+@@ -352,4 +357,133 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
  }
  
-+/*
-+ * A panel bridge has no state of its own to read out of the hardware:
-+ * reconstruct the bus configuration the atomic helpers negotiate
-+ * instead.
-+ *
-+ * The panel bridge is always the last bridge of a chain, and the
-+ * negotiation picks the first connector display info format as its
-+ * output format (or MEDIA_BUS_FMT_FIXED when the display info has
-+ * none), which drm_atomic_helper_bridge_propagate_bus_fmt() passes
-+ * through to its input. drm_atomic_bridge_propagate_bus_flags()
-+ * similarly propagates the display info flags to both its output and
-+ * input. This is also what happens when the display info has no
-+ * formats yet, like during the initial state creation at probe time
-+ * before any mode has been read: the bus configuration then reports
-+ * a fixed format, which is harmless as the initial state is never
-+ * compared, and every commit negotiates the bus configuration anew.
-+ *
-+ * The format the negotiation selects can only differ from the first
-+ * display info format when the connector reports several formats and
-+ * the rest of the bridge chain rejects it, which panel connectors
-+ * don't do.
-+ */
-+static int
-+panel_bridge_readout_state(struct drm_bridge *bridge,
-+			   struct drm_atomic_sro_state *state,
-+			   struct drm_bridge_state *bridge_state,
-+			   struct drm_crtc_state *crtc_state,
-+			   struct drm_connector_state *conn_state)
++static u32 tidss_oldi_read_config(struct tidss_oldi *oldi)
 +{
-+	struct drm_connector *connector = conn_state->connector;
-+	struct drm_display_info *info = &connector->display_info;
-+	u32 format;
++	u32 cfg;
 +
-+	if (info->num_bus_formats)
-+		format = info->bus_formats[0];
-+	else
-+		format = MEDIA_BUS_FMT_FIXED;
++	tidss_runtime_get(oldi->tidss);
++	cfg = tidss_get_oldi_config(oldi->tidss, oldi->parent_vp);
++	tidss_runtime_put(oldi->tidss);
 +
-+	bridge_state->input_bus_cfg.format = format;
-+	bridge_state->output_bus_cfg.format = format;
++	return cfg;
++}
 +
-+	bridge_state->input_bus_cfg.flags = info->bus_flags;
-+	bridge_state->output_bus_cfg.flags = info->bus_flags;
++static int
++tidss_oldi_bridge_readout_state(struct drm_bridge *bridge,
++				struct drm_atomic_sro_state *state,
++				struct drm_bridge_state *bridge_state,
++				struct drm_crtc_state *crtc_state,
++				struct drm_connector_state *conn_state)
++{
++	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
++	const struct oldi_bus_format *bus_fmt = NULL;
++	unsigned int i;
++	u32 cfg, map;
++
++	cfg = tidss_oldi_read_config(oldi);
++
++	/* The transmitter is off, there is nothing to read out. */
++	if (!(cfg & OLDI_ENABLE))
++		return 0;
++
++	/*
++	 * The most significant bit of the data mapping field carries
++	 * the dual-link flag rather than the LVDS mapping: mask it out
++	 * before looking for the bus format the mapping corresponds
++	 * to.
++	 */
++	map = cfg & (OLDI_MAP & ~BIT(3));
++
++	for (i = 0; i < ARRAY_SIZE(oldi_bus_formats); i++) {
++		if (oldi_bus_formats[i].oldi_mode_reg_val << 1 != map)
++			continue;
++
++		if ((cfg & OLDI_MSB) ?
++		    oldi_bus_formats[i].data_width != 24 :
++		    oldi_bus_formats[i].data_width != 18)
++			continue;
++
++		bus_fmt = &oldi_bus_formats[i];
++		break;
++	}
++
++	if (!bus_fmt) {
++		dev_err(oldi->dev,
++			"OLDI%u: unrecognised mapping in the config register\n",
++			oldi->oldi_instance);
++		return -EINVAL;
++	}
++
++	/*
++	 * Reconstruct the bus configuration the atomic helpers
++	 * negotiate: the OLDI transmitter takes the parallel RGB
++	 * output of the video port and serialises it with the LVDS
++	 * mapping found in the config register.
++	 */
++	bridge_state->input_bus_cfg.format = bus_fmt->input_bus_fmt;
++	bridge_state->output_bus_cfg.format = bus_fmt->bus_fmt;
++
++	/*
++	 * tidss_oldi_atomic_check() forces positive edge sampling on
++	 * the input side, and the DE polarity is programmed from the
++	 * negotiated flags: OLDI_DEPOL is set when the DE is active
++	 * low.
++	 */
++	bridge_state->input_bus_cfg.flags =
++		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE |
++		((cfg & OLDI_DEPOL) ? DRM_BUS_FLAG_DE_LOW :
++				      DRM_BUS_FLAG_DE_HIGH);
++
++	bridge_state->output_bus_cfg.flags =
++		(cfg & OLDI_DEPOL) ? DRM_BUS_FLAG_DE_LOW :
++				     DRM_BUS_FLAG_DE_HIGH;
 +
 +	return 0;
 +}
 +
-+/*
-+ * A panel bridge has no way to read the panel state out of the
-+ * hardware: assume the panel is enabled whenever its pipeline is.
-+ */
 +static int
-+panel_bridge_connector_readout(struct drm_bridge *bridge,
-+			       struct drm_atomic_sro_state *state,
-+			       struct drm_connector_state *conn_state)
++tidss_oldi_bridge_connector_readout(struct drm_bridge *bridge,
++				    struct drm_atomic_sro_state *state,
++				    struct drm_connector_state *conn_state)
 +{
++	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
 +	struct drm_connector *connector = conn_state->connector;
 +	struct drm_crtc_state *crtc_state;
 +	struct drm_encoder *encoder;
 +	struct drm_crtc *crtc;
++
++	/* The transmitter is off, there is nothing to read out. */
++	if (!(tidss_oldi_read_config(oldi) & OLDI_ENABLE))
++		return 0;
 +
 +	encoder = bridge->encoder;
 +	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
@@ -223,10 +242,6 @@ index 560ea57591bd..bef0e6af73ba 100644
 +	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
 +	if (!crtc_state)
 +		return -ENODEV;
-+
-+	/* The pipeline is off, there is nothing to read out. */
-+	if (!crtc_state->active)
-+		return 0;
 +
 +	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
 +	crtc_state->connector_mask |= drm_connector_mask(connector);
@@ -245,16 +260,22 @@ index 560ea57591bd..bef0e6af73ba 100644
 +	return 0;
 +}
 +
- static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.attach = panel_bridge_attach,
-@@ -240,4 +360,7 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
- 	.debugfs_init = panel_bridge_debugfs_init,
-+	.atomic_sro_readout_state = panel_bridge_readout_state,
+ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+ 	.attach = tidss_oldi_bridge_attach,
+@@ -362,4 +496,7 @@ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.mode_valid = tidss_oldi_mode_valid,
++	.atomic_sro_readout_state = tidss_oldi_bridge_readout_state,
 +	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
-+	.atomic_sro_connector_readout = panel_bridge_connector_readout,
++	.atomic_sro_connector_readout = tidss_oldi_bridge_connector_readout,
  };
  
+@@ -622,4 +759,5 @@ int tidss_oldi_init(struct tidss_device *tidss)
+ 		oldi->bridge.of_node = child;
+ 		oldi->bridge.driver_private = oldi;
++		oldi->bridge.ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
+ 
+ 		tidss->oldis[tidss->num_oldis++] = oldi;
 
 -- 
 2.55.0
