@@ -2,56 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F6E606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66601606A32C
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g11xEAwD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETNLZwmH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEB08112E10;
-	Fri,  6 Nov 2026 14:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C732C112E13;
+	Fri,  6 Nov 2026 14:18:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F536112E10
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:16:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84EF8112E13
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:18:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A7BEE43D77;
- Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587F31F008AB;
- Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 44C61411E2;
+ Fri,  6 Nov 2026 14:18:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46D11F0089F;
+ Fri,  6 Nov 2026 14:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793974616;
- bh=dwXHHpm3CuU/WL5LiGP9uPvStnllZcs54IcKag8FfB8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=g11xEAwDI+0oChFkS4bRa3cXnLHKP4QCFHvBnsTlh4KVSDwQzEctFtGXMpnaImf9Y
- AJzcwR+ywpe5HuPPTZ5wt4C9CgTmoUGnp4RzJKIVvu/JPxrai5QE/uB+jO0mCbTIiy
- icM4FgM9zAlSTWojIfDWFrhGu7x5Wqp4V58/CEf3RE/FEC8yJRRnsuMaVwy8jpiGI+
- 2nHCnEUkJah2+3zxo6hyycPaDPd+b5NyKvreqGpAzyLHjmd4hpF1Fx+PzfLd0CZIpc
- 7IY8t3s2WaKJ0RGQA1t++NFqdUbKwLvwgTWgq1jwKrvnZ+YTqmNPUQ6wQTrMZpamw4
- XoRN48wjpCcfg==
-Date: Fri, 6 Nov 2026 08:16:53 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v6 05/10] dt-bindings: display: tegra: Document Tegra20
- DSI port
-Message-ID: <179397461264.2992702.17337813112926510440.robh@kernel.org>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-6-clamor95@gmail.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-6-clamor95@gmail.com>
+ s=k20260515; t=1793974725;
+ bh=4F/nkuv8fdeRgAx0B6n+wUt8uR7zMegMzliJuQqCmUg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ETNLZwmHLkBJ8VIUnR566/MXztPjgEqJNsPjssr/ztPAhrK+p4b6VdasjmCs2Cebj
+ L+0A8W9wzDZe3PmXKPYtNXbByn5d+/v55oTyBFohWKrIlCcO/X+gMYKFyjk+aoSFpl
+ 3LrKMHV+9VxTH/juDsTxRnSqoX9afVohs2xIkwcSOPEoiDhdH3De8wevSDahsHaB4E
+ 7KsJY68V8Khi452FkMPeMNnj+3D3VYY3HJNNrq1JWARUS2lHuSr4UrkIwxQNu39OLD
+ t1kbxt1wT4lODQkbq85wpp9PBh5ZmvrWzRYQYTgmsP0Rgo/cEpylhJQMwanyrb0shm
+ vccRqnqyWMdxA==
+Message-ID: <sashiko-outbox-201565@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/8] rust: DmaFence: Replace is_signaled() with status()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
+ gary@garyguo.net
+In-Reply-To: <20261106140752.520386-7-phasta@kernel.org>
+References: <20261106140752.520386-2-phasta@kernel.org>
+ <20261106140752.520386-7-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 14:18:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,24 +49,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] rust: dma_fence: missing #[inline] on Fence::status() and
+  Fence::__status()
+--
 
-On Thu, 05 Nov 2026 16:05:05 +0200, Svyatoslav Ryhel wrote:
-> Document the optional port node, which is required for correctly modeling
-> a dual-mode panel.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../bindings/display/tegra/nvidia,tegra20-dsi.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
+commit a2517bd1921c87adc707463adc2934165a311348
+Author: Philipp Stanner <phasta@kernel.org>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+rust: DmaFence: Replace is_signaled() with status()
 
+This commit replaces Fence::is_signaled() with Fence::status() and
+introduces FenceStatus so callers check whether a signaled fence completed
+with an error under the fence lock.
+
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> index f74119b4d7f87..b0c0e32462aeb 100644
+> --- a/rust/kernel/dma_buf/dma_fence.rs
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> @@ -504,40 +504,49 @@ unsafe impl Send for Fence {}
+>  // SAFETY: Fences are literally designed to be shared between threads.
+>  unsafe impl Sync for Fence {}
+> =20
+> +/// Fence-Status queried through [`Fence::status()`].
+> +#[derive(Debug)]
+> +pub enum FenceStatus {
+> +    /// The fence is not yet signaled.
+> +    Unsignaled,
+> +    /// The fence is signaled. Might have been signaled with an error.
+> +    Signaled(Result),
+> +}
+> +
+>  impl Fence {
+> -    /// Check whether the fence was signaled at the moment of the functi=
+on call.
+> +    /// Query a fence's error code and turn it into a [`Result`].
+>      ///
+> -    /// Note that this can return `true` for a [`Fence`] whose [`DriverF=
+ence`]
+> -    /// has not yet been dropped. The reason is that the fence ops callb=
+acks can
+> -    /// cause the fence to get signaled by the C backend.
+> -    #[inline]
+> -    pub fn is_signaled(&self) -> bool {
+[ ... ]
+> +    /// # Safety
+> +    ///
+> +    /// The caller must only call this on fences that are already signal=
+ed.
+> +    unsafe fn __status(&self) -> Result {
+> +        // SAFETY: Safe by the function's safety requirements.
+> +        let res =3D unsafe { (*self.as_raw()).error };
+> =20
+> -        ret
+> +        to_result(res)
+> +    }
+> +
+> +    /// Query a fence's status at the moment of the function call.
+> +    ///
+> +    /// If it is signaled, return the fence's result, i.e., determine if=
+ it was
+> +    /// signaled with an error.
+> +    pub fn status(&self) -> FenceStatus {
+> +        // The C backend provides `dma_fence_is_signaled()`. However, th=
+is is
+> +        // currently racy and could lead to misordering with our reading=
+ of the
+> +        // fence error code. Take the lock to prevent that.
+> +        let fence =3D self.lock();
+> +        // SAFETY: `fence` is valid because `self` is valid. The lock was
+> +        // taken above.
+> +        let signaled =3D unsafe { bindings::dma_fence_is_signaled_locked=
+(fence.as_raw()) };
+> +
+> +        if signaled {
+> +            // SAFETY: The fence is signaled.
+> +            let status =3D unsafe { fence.__status() };
+> +
+> +            return FenceStatus::Signaled(status);
+> +        }
+> +
+> +        FenceStatus::Unsignaled
+>      }
+
+[Severity: Low]
+Should Fence::__status() and Fence::status() retain the #[inline] attribute
+that Fence::is_signaled() had, so downstream crates can inline these small
+C-binding wrappers across crate boundaries?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106140752.5203=
+86-2-phasta@kernel.org?part=3D5
