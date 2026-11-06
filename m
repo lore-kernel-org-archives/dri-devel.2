@@ -2,102 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C8B606A331
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 08:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21750606A32C
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 08:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RcoKxpYJ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qDlaTras
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4187F10E9DC;
-	Fri,  6 Nov 2026 08:27:10 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010053.outbound.protection.outlook.com [52.101.85.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E97A10E9DC
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 08:27:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5187C1127D1;
+	Fri,  6 Nov 2026 08:28:22 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013036.outbound.protection.outlook.com
+ [40.107.201.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48D211283A;
+ Fri,  6 Nov 2026 08:28:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OSvlZOEWOT5rIzKxaJf7vyCmyP3dOHGjqTk/rRPT+8/mBaRxjrQAptbOeU8woOzOmDrhjD0FPE0B/JJ5nF7AWT1qdZjen23pct2X6cFu+XhOW9o0EoMexgOCsrZL+wX0VtH6e2jbRLmh1gX8cuYfnogz6OqlMRPD8BBUF2+3hG6l5NbyrWB6FN/7s+FNKFwzB/WVI5NOeDWfH8ag4r7x2HLsft50v8UceDUduiF06/Llki0ELN0lIQ6QE4T07lFfPcrb72yxQTM/g/SX2+1h9hju7N0z4fFAr0fMRnkyDml/sqp77IE8A2/nx9MlyOzE0f7Zbr7ABu4UrDSOoPl1Iw==
+ b=O8GIJAIqw3F8eITf6zGMO7ZqGpufCqAc2s0hVSmpWQYJ5suOVPwwvACU5BJ+XlF1UX1Gg+SzjqmzQkv4SnCWqShShsh55JMBiyC1YhRhsfVBqAbN/zfR8Mnp7gSA4q5oG2Wj9pOXrY5ux88W9fyHAybyMgGbqqhL41FIRjgD8K3AZ3VjpG7N0fRK8y3yBICZRYpmx43xSmdnxK4qqg6bn9YDXFG2XtcLU1mw9v+Vi4wA6WpYHHdgAyTO4gbYQD5m6u5bhigrjxwU6oPPezwO2nLlOoayDB4gKqw+h/+OBdZczjklImxF4DDcV28JvckZFgncpAJGzTNQRX6WfkWS/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pGmFB007Frp/MntR5Tn+q3d6/whdgWsjzPHSyUBhalo=;
- b=BNQbXuexS6O9cN/0zs8+fgRGOrKZGRyUoiDQj3J7AzOmt32ufzCE5BqlSHnILcN1ywHvvI3VoRCziPjk3ux3F7JzdzmOvvz04kx0hnkPT50/eLBPAY/QC1w5DqJDXy1eKt0FR0+oS/FpuwMzvrAAi1i1nD3JOtbC8GygzILG9r0GNkL4LUwAF5V5aUOW+dwbXLVKqjgqRmqyCkRyBhFaIBoMoVlObzaNFEsHUkYKecjBc/QH3OtWiA9v5cFRA2EbMqrqDVNpPPSU3V0IMpLMSQSvhpizaazdTu8x24nuB6ZNZHUv21PRi5NxBowv0Lrb0SN+iJV8FmcAduzwAROowg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Bilc6I3HyJuHmTJmSHKnlhgHiYx6oessjpn4Uq1mbfE=;
+ b=HMl/O5CUWsIrftGCTb7LaQCvy46HgkkayigrBDz5nPEqg9v+aRFt1rf6hPFXzK7D/JjeUGsUxYnFArroHYb44HoaesRPLz537kJgtf6LPoeBEicmA8zvq0uiGneiDrZFb3xbQNpijU8D5g1AOYbPz50I10c/hBmIKdavxzJ2XgN/qzrGeiQI/xP8sMxJa6hWgsfjFjk5F77AooRz5TlsHxqya3B98+f0vZzIOIMGhdESbOnMfZsQDunfp20HBi5xCfimovNlr/SL4iD3gvnehtxyrtDnZV/1i2log9S7/7AgqLOighjSvPHM6yieLhvXEAhKXvn8LMX2hdTCTOhkcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pGmFB007Frp/MntR5Tn+q3d6/whdgWsjzPHSyUBhalo=;
- b=RcoKxpYJTNw/Zys8/mR9jtrq2lRM+5uRZbD7jag7F1/cXmj+FkY/QlRM+j5F7MWVnIiVzjAWV7TUOjqSF5tCIZ6CC14VOCIpG1h0J8wmz7Iqn6EtjtZpzrq6W13955aGeSgyZagv/ohzBa1SZjF7IjfZs0QadfnMFw8kEk6Z4Ss=
-Received: from MW4PR04CA0305.namprd04.prod.outlook.com (2603:10b6:303:82::10)
- by PH7PR12MB7356.namprd12.prod.outlook.com (2603:10b6:510:20f::12)
+ bh=Bilc6I3HyJuHmTJmSHKnlhgHiYx6oessjpn4Uq1mbfE=;
+ b=qDlaTraswtmDuAGdFBe7h4p6I1B8nTWHM7/+BF9ek/j0wrJYHQldqQAvJ14fCED6x5wqAFkvDcXYors0iCU/MGC1X0s3GUhLia4guWrEOj/gqVAxR90178/iwMSwgxWztccSJBPQMB02hykRpm1LoPMGVqcGGvkCgKTARgzR1uc=
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
+ by DS6PR12MB534567.namprd12.prod.outlook.com (2603:10b6:8:498::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 08:26:53 +0000
-Received: from CO1PEPF0001885D.namprd02.prod.outlook.com
- (2603:10b6:303:82:cafe::a4) by MW4PR04CA0305.outlook.office365.com
- (2603:10b6:303:82::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 08:26:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF0001885D.mail.protection.outlook.com (10.167.249.246) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 08:26:53 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 02:26:47 -0600
-From: Honglei Huang <honghuan@amd.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
- <odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
- Hoffmann" <kraxel@redhat.com>
-CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
- <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
-Subject: [RFC PATCH v10 3/4] drm/virtio: implement userptr resource support
-Date: Fri, 6 Nov 2026 16:26:24 +0800
-Message-ID: <20261106082625.812860-4-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106082625.812860-1-honghuan@amd.com>
-References: <20261106082625.812860-1-honghuan@amd.com>
+ 2026 08:28:13 +0000
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::757b:8342:952f:7cb4]) by PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::757b:8342:952f:7cb4%4]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
+ 08:28:12 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+CC: David Airlie <airlied@redhat.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/client: Don't warn when a client's VBLANK wait times
+ out
+Thread-Topic: [PATCH] drm/client: Don't warn when a client's VBLANK wait times
+ out
+Thread-Index: AQHdbAX6Q4eRssTLSkKsHM0kTNv/JbcfldaAgAEhGKA=
+Date: Fri, 6 Nov 2026 08:28:12 +0000
+Message-ID: <PH7PR12MB6000215092E10B0C62D68733FB762@PH7PR12MB6000.namprd12.prod.outlook.com>
+References: <20261104024106.3109873-1-Prike.Liang@amd.com>
+ <bad6a4e6-bd1f-49de-aa86-a7d8e4eb64f5@suse.de>
+In-Reply-To: <bad6a4e6-bd1f-49de-aa86-a7d8e4eb64f5@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-06T08:19:05.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB6000:EE_|DS6PR12MB534567:EE_
+x-ms-office365-filtering-correlation-id: e2aa3c1e-ba6f-4198-bdae-08df3bdfe5c4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|5023799004|11063799006|4143699003|56012099006|261022115727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003|261009221227099003|261102130727099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003|6133799003;
+x-microsoft-antispam-message-info: Vd4yhcb3nmhqtzuubWs9Os7ppCUmyaNEeFt3D0qRgpP0ws3TMKyHmAkRTh7aAVT8tD6VbX5DhXXeu4zhKTou3wYyz85XvpflwxASJzNnorCVihtEhQA7y7f7wZJBsPKBLXdXfHWNV3tbCRChUNCZfDPdI9SSYYCHOPKOZYX37CidbOqenDYdbns72dDroj9aOhhldA/tr/xIFQqOaJ2AnO8DmA4t+iD7A7Nn5q1nxW+8bI+qIIfRlvWHBVXeiPhZGjfrtYxC974yMYbVjt2jl9JhhqJACCugaV+8zrYra7e25rjzyso0ZTVDS21HY0Dvr8XlDodYzGfWkPP1GQXt91kHD+uCJ07BmMxsEAsIfLpV8OQwWWcFtBdOiBG9KZV8mmu1y/ZGEgsMEw9uvLQikAEPAIQPDBOhIJHqmekwtQDQAbdunladKC6uw8fTtikUCYff0KDAQXhbmLS+JJzWI3k+5DHLrYWdjMgCGsNnGoU2ciE98NhL1imr07mX8y45Oe3//YPrPByc5KCbLXYzfoGI9e+3DvMbFMYD2owCdhYX7YHUoVBWVC7Ko+iBRyxxLbDJsYDqQDsJQ+HxIqQBgT+wnHIfQdrKZ2Bd1R8ZvErsxDq26q62iWm7k14Np94OdSGLJvDI9Jaay0RSpKA9l8QEqgg6cpeJw3MrP3rdCIA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(5023799004)(11063799006)(4143699003)(56012099006)(261022115727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003)(261009221227099003)(261102130727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NjZJWEpMdFRuS2U3ckxTdUc4YWlpZCtIT3hIQk1xeUNoR0JxSkNDZGFmTEt5?=
+ =?utf-8?B?bE1qVERXYVNsZXA3RDI4M2h1RXErOFlQMzQzVGxhS1BqdTY5MVZXY2JQUmlT?=
+ =?utf-8?B?ajl5R01WNDRtRXlxcVFQMllWOVNodWwwTUVYdG5QK1Y1Vms5ZzQzZlh3bTVa?=
+ =?utf-8?B?NGZzTlFicHozWmhISmQrWDFuVldWU0RXUVIzelpQYmJ3dmw2NmlXZHo3WTN0?=
+ =?utf-8?B?UkdWMnI4MnYrYWtPY09uaUFvZmdKL2lRMWRMTzlmUEZSaFhhMU9QeFhTajRL?=
+ =?utf-8?B?TTg1V1JKeUJWRzhpUVM3V0U0TW40L2tqVjlxak5LZXFMdTJiTlJpemppMDM0?=
+ =?utf-8?B?alByS0ZpQmtxRXp4elJ6ZklNQmVtaHgzL01XNVAybEtpUUNFSVNva08zeTdj?=
+ =?utf-8?B?UDlUSDh4RWdpT1ZDalp3ZFdwaVRIOWNBa0NIK1Bxemx5OXc4eWwwYm5GcTFF?=
+ =?utf-8?B?dThLcFBxVURoMVZ5TTRDYzBNenNZVHFNQzRwMEZtMDFYbk5waElpcXVFa2tw?=
+ =?utf-8?B?cVVDWnhCZGRhcyswWlp1U0s0U2I1YktFekJhaFI2VXBHcGpVcUJ5ZjBYLytO?=
+ =?utf-8?B?WjFpMlRtRjR2aFFKckJkRjFxY2RsOVpqR0R4aU5ma05mVUNQVExPZ3hTS0g5?=
+ =?utf-8?B?MEhsN0hvcFNrWXBQeXVzT0xVZ2VUV0V5MUU4enFEbFE2TFpnZ3pVOWNhZUZx?=
+ =?utf-8?B?Y3ovUTh5Ti81c1cvb1FYZ2ZpODdWZTdidnduaG03cVkyQjVuakJobThWdENV?=
+ =?utf-8?B?NExCcnpSWEl5QlNLRmJkUDJTV0draFRaRUk1YkFnNmpRK2lIcDNDRWQxQVJ4?=
+ =?utf-8?B?R1RwbkpDMVoyalFyMUhsQ3BJS3JoM2ZGbG54aWdBWWZ6YzVnNTJEb1NtS1Bu?=
+ =?utf-8?B?UXlubWtiRWdXRVhGaHFjNVpzZE11QU56ZmxSZkpVR0dhSy9keHB5RXhYd1hn?=
+ =?utf-8?B?eDQzSjNQMHN3YnJkUUtaZnBua21ydi9uKzhZSTkxeUxkYldzN2Vjb0cvcnlQ?=
+ =?utf-8?B?T2hPaXdQVVRFa0twSzJwV1FlMGl6NktZRDBrcFpSdG5yemo4ZWtnT3dwRi9J?=
+ =?utf-8?B?aFJaMVpRZmVONUtSQWpJT3RaU3RpeXVMZlo0cTlnV3VndEcrS2tkMHFKMVFy?=
+ =?utf-8?B?TlFEcGg0ZnEyL1ZyamNVT0kwYVd2eTdVMkhuZkVKbGFkV2RJRml5U2l3eGsz?=
+ =?utf-8?B?Ny8rWGY1dTd2RDhEa0lQdDlMRVQxaWhaYTkvdjNkelBUMmI4cFVRdlJRTk5B?=
+ =?utf-8?B?V2hlVHVDV1p3cEt4M21LZExBQWc0Z3ZEQ2hFMGozZE0waWRZZ0psZmh4bnFk?=
+ =?utf-8?B?elNUbG0xc2ZoMEphbmp2QVNWMWp2akhtcFRac0VnaERYWHNXQ1puQkM1MkhX?=
+ =?utf-8?B?SDYrekxES3RaN2h2dHVVdHJIRlNtVDJ4SUlpekRnSWg3NXU5WU41aXZsU0hY?=
+ =?utf-8?B?eDFJMUY4Y1oxN1ZMVGJyOXFGN05mYWJ3ZTE5VUNzclI3RUpVWnZCZFpxRGJI?=
+ =?utf-8?B?OTV0SEZ6ODFXclF4c202bGRTWXhBV0xzQ3VDNituMDU2dzZlVlhSVEYwU1U0?=
+ =?utf-8?B?MWJxaXNGb0ZqdVRwcWkzUWc5STJYNHRaTnlwcFNLdmh5UVVlcVVma2dVYTFX?=
+ =?utf-8?B?elFQMExyUTFhSUs3cU9ia0Yrc3B6MFZtRXBiODAxSEZpMXpCRFZKazJJSzBp?=
+ =?utf-8?B?OUdYOU1IR0lZRm9Uc2Z0b0RReEQxbWVUd3hyVFd5TjJWZ255azVVWExNMFR1?=
+ =?utf-8?B?TGN0Y2xaelE3Uk1PQW54Q043bHVKb1RXYTNrUEZHZ2NQM2NuV05KOWtNY1ht?=
+ =?utf-8?B?SFdYcjZOeTFaTnRUUFJyTkU5U25vbllMWmp0c3NHcEFZNWZpeCtrK0Z0Rk1m?=
+ =?utf-8?B?bjc2U1VzQlZRWWdaNUpuM0JnN1NqeTVaNVdxM0xTR1I2U1hyU0p5emlsWElh?=
+ =?utf-8?B?K1B2aFFqUWhtTml6cUxidXZRaHpCT0t5RTNORmJzOFR3TzNSME43TWFkWkR1?=
+ =?utf-8?B?VkRlQzZwRDBRY3hqT1p2dFJ6T1NPQXNIL3lxZnU2MERHQVYvbXlYaWZFTjFV?=
+ =?utf-8?B?d2ZmWnJSb1o5YzZpVHRyV1JxU0laamZvUDlEcmgrK3JZS2I0T2F2dFF1enJJ?=
+ =?utf-8?B?Tll0bUlWMk9lNUYyU1Zvc3VXZUF6a3htUHVTbERWQ2lINHlYSXRuOWZMbFRp?=
+ =?utf-8?B?N0h4NzcwZnh5S3dVQ2xsbGtYTXRjNllNSTZuTWNnNkZTNlBjUVk1M1FOcHpu?=
+ =?utf-8?B?WCswQ0lXb3VDKzFvSW5reVY4YUN0ejJxZ2tqcDlMMHVlalhhczFGOE12MmJE?=
+ =?utf-8?Q?0UENcYOxYoWftuMhg6?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF0001885D:EE_|PH7PR12MB7356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a0baa31-dd5b-4af5-ac2d-08df3bdfb681
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102130727099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Lnd8rfqYAjMj8kvYR75LQ1TdvLnq27Qqmnur4+HZNUMvKvs2bPVlN3TKQTl0ayI5PTlzZqXm2jZ+UTFAkdvAlcib7U5NjKmmgf5KmHN/Dfj+gxh2BYCeGe51qsN/0kBIV+eFqOSAwJNrzxCN06zpCSfyNrv3mCwSFnRINa5T9z62CKaQF5SFQBHJpXRIWROZMcpUr6PTVB498dn0FfKg0t9oACL33vHqP5eLbW6JdbwhJXnG66t3R4YtRm8V7KDaG3pJnqTI+kNzBRDMTwS+NR4tWYCcsJTWoz4gPSoqAauTmbBNpL7AkCCs6K/Ys2zDEHJRcCpCGw8QtH2DD4YJUaZBnISzZmJMUojU7WkR35eRJLHCdyMUvoPC61oKThfdlAE1yWS0HcSinSGYme3yy5Fn8dfPAyF9rd/Fb6gPfJ7ok76ZB/jzSsm3vtpysSptbD0edzQ8CgCELv5Ic8rItLiOJIkiUclvqKgH8W1HtN091qOkcGrXs/7xuZkjUc00kPnWi20j7rX47tgfpB0xxkbvYQo1IsYnWjosybAx6hlin3Bjl1XFlWDg73etR39V+FK0dp4lUaEzAb0WuubYFYs5dIiNW2T8R1zoTL1qrrcE8voT89/g7l4rSHy3ee6QDpGrWQUZEarbkcMSz8FBjCcrJYiE/qkPdNk7/dTgmU6tjE4Qy5/xHpaMIkjt39arokf0pH/Tor+QAXQNOfXkJw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102130727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: y3tQQQOCi8Fs9dP8eeNqSIbQDxLYs3zOnvD2hikXh+sadsHQUSmU3b/H1klZTOmjbEyR52oX+myO0cxSPvrD7E9XgypJedUz4Xtgv5HjSL8y33nWIwJY1pTprQ4jghNovYH8MgEg7mcDWO/Jay2yOjt/ieNl+ogTJqvP2fvIjbImS40m4W99sZlKnDO+uP9dZ6c1+/Jq3fhq3fI776wVsVDJhLvzn3AUduL+CGIYyT8NuCrVbumqRsFqUPj1RDoBWUAK0coqiNTZRIuqxEMsHqAFS8yAqZXiUdKP7YU9f9phpcJvWhnk/S3/rqRzFJje1OeQRMQ7pafSP5gJIhQS2Q6V+nXV/jZGiasCxhuflu2Ap5BGOnqBKlnE+yQLEHR82icCgIBnfA4Yy0MBR8C0NyynNTQU/dgoegJvOeJTxayCxg28U0waeULJAC3Ecr/T
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:26:53.4235 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a0baa31-dd5b-4af5-ac2d-08df3bdfb681
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF0001885D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2aa3c1e-ba6f-4198-bdae-08df3bdfe5c4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 08:28:12.7918 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FnwtxRLs6I8BDOqhBf2ap5vLmMQsv+WQJ9RubWblWGTsK5OT4QgPK9l/dN/5LYwO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB534567
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,531 +144,96 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add userptr blob objects so the guest kernel can pin an existing
-userspace mapping and advertise it as CREATE_BLOB backing entries.
-
-- New virtio_gpu_object_userptr type for userptr resources
-- Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
-- Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
-- Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
-- DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
-  required; use DMA_TO_DEVICE for USE_READONLY blobs
-- Mark writable pages dirty when unpinning
-- Keep pages pinned until RESOURCE_UNREF is queued; drop them from
-  cleanup_object() on the unref response or on create failure
-- Clear userptr->pages on pin failure to avoid double-free on cleanup
-- Reject unaligned or overflowing userptr ranges at create time
-- Disallow PRIME export of userptr objects
-- Save CREATE_BLOB params and restore userptr resources after
-  hibernation without using the shmem restore path
-
-Map with DMA_ATTR_REQUIRE_COHERENT at create time, on hibernation
-restore, and on unmap.
-
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/virtio/Makefile          |   3 +-
- drivers/gpu/drm/virtio/virtgpu_drv.h     |  42 +++
- drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
- drivers/gpu/drm/virtio/virtgpu_userptr.c | 350 +++++++++++++++++++++++
- 4 files changed, 416 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
-
-diff --git a/drivers/gpu/drm/virtio/Makefile b/drivers/gpu/drm/virtio/Makefile
-index d2e1788a82..fe7332a621 100644
---- a/drivers/gpu/drm/virtio/Makefile
-+++ b/drivers/gpu/drm/virtio/Makefile
-@@ -6,6 +6,7 @@
- virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_gem.o virtgpu_vram.o \
- 	virtgpu_display.o virtgpu_vq.o \
- 	virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o virtgpu_plane.o \
--	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o
-+	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o \
-+	virtgpu_userptr.o
- 
- obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 9df4c71173..a29429b415 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -105,6 +105,7 @@ struct virtio_gpu_object_params {
- 	uint32_t blob_flags;
- 	uint64_t blob_id;
- 	uint32_t blob_hints;
-+	uint64_t userptr;
- };
- 
- struct virtio_gpu_object {
-@@ -138,12 +139,42 @@ struct virtio_gpu_object_vram {
- 	struct drm_mm_node vram_node;
- };
- 
-+struct virtio_gpu_object_userptr;
-+
-+struct virtio_gpu_object_userptr_ops {
-+	int (*get_pages)(struct virtio_gpu_object_userptr *userptr);
-+	void (*put_pages)(struct virtio_gpu_object_userptr *userptr);
-+};
-+
-+struct virtio_gpu_object_userptr {
-+	struct virtio_gpu_object base;
-+	const struct virtio_gpu_object_userptr_ops *ops;
-+	/* Protects @pages, @sgt and @dma_mapped. */
-+	struct mutex lock;
-+
-+	uint64_t start;
-+	uint32_t npages;
-+	uint32_t bo_handle;
-+	uint32_t flags;
-+
-+	struct virtio_gpu_device *vgdev;
-+	struct drm_file *file;
-+	struct page **pages;
-+	struct sg_table *sgt;
-+	bool dma_mapped;
-+	enum dma_data_direction dma_dir;
-+	struct mm_struct *mm;
-+};
-+
- #define to_virtio_gpu_shmem(virtio_gpu_object) \
- 	container_of((virtio_gpu_object), struct virtio_gpu_object_shmem, base)
- 
- #define to_virtio_gpu_vram(virtio_gpu_object) \
- 	container_of((virtio_gpu_object), struct virtio_gpu_object_vram, base)
- 
-+#define to_virtio_gpu_userptr(virtio_gpu_object) \
-+	container_of((virtio_gpu_object), struct virtio_gpu_object_userptr, base)
-+
- struct virtio_gpu_object_array {
- 	struct ww_acquire_ctx ticket;
- 	struct list_head next;
-@@ -284,6 +315,7 @@ struct virtio_gpu_device {
- 	bool has_host_visible;
- 	bool has_context_init;
- 	bool has_blob_alignment;
-+	bool has_blob_readonly;
- 	bool hibernated;
- 	struct virtio_shm_region host_visible_region;
- 	struct drm_mm host_visible_mm;
-@@ -562,4 +594,14 @@ void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram);
- int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
- 				struct drm_file *file);
- 
-+/* virtgpu_userptr.c */
-+int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
-+			      struct drm_file *file,
-+			      struct virtio_gpu_object_params *params,
-+			      struct virtio_gpu_object **bo_ptr);
-+bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo);
-+int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
-+			       struct virtio_gpu_object *bo,
-+			       struct virtio_gpu_mem_entry **ents,
-+			       unsigned int *nents);
- #endif
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index 49899485be..ab21494b1c 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -91,6 +91,16 @@ void virtio_gpu_cleanup_object(struct virtio_gpu_object *bo)
- 		drm_gem_free_mmap_offset(&vram->base.base.base);
- 		drm_gem_object_release(&vram->base.base.base);
- 		kfree(vram);
-+	} else if (virtio_gpu_is_userptr(bo)) {
-+		struct virtio_gpu_object_userptr *userptr =
-+			to_virtio_gpu_userptr(bo);
-+
-+		mutex_lock(&userptr->lock);
-+		userptr->ops->put_pages(userptr);
-+		mutex_unlock(&userptr->lock);
-+		mutex_destroy(&userptr->lock);
-+		drm_gem_object_release(&userptr->base.base.base);
-+		kfree(userptr);
- 	} else {
- 		drm_gem_object_release(&bo->base.base);
- 		kfree(bo);
-@@ -316,6 +326,18 @@ int virtio_gpu_object_restore_all(struct virtio_gpu_device *vgdev)
- 			continue;
- 		}
- 
-+		if (virtio_gpu_is_userptr(bo)) {
-+			ret = virtio_gpu_userptr_restore(vgdev, bo, &ents,
-+							 &nents);
-+			if (ret)
-+				break;
-+
-+			virtio_gpu_cmd_resource_create_blob(vgdev, bo,
-+							    &bo->params,
-+							    ents, nents);
-+			continue;
-+		}
-+
- 		if (bo->params.blob || bo->attached) {
- 			ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents,
- 							   &nents);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-new file mode 100644
-index 0000000000..b860693255
---- /dev/null
-+++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-@@ -0,0 +1,350 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/dma-mapping.h>
-+#include <linux/limits.h>
-+#include <linux/mm.h>
-+#include <linux/overflow.h>
-+#include <linux/pid.h>
-+#include <linux/sched/mm.h>
-+#include <linux/sched/signal.h>
-+#include <linux/vmalloc.h>
-+
-+#include "virtgpu_drv.h"
-+#include <drm/drm_gem.h>
-+
-+static void virtio_gpu_userptr_free(struct drm_gem_object *obj)
-+{
-+	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
-+	struct virtio_gpu_device *vgdev = obj->dev->dev_private;
-+
-+	/*
-+	 * Pages stay pinned until RESOURCE_UNREF finishes. Its callback
-+	 * calls virtio_gpu_cleanup_object to drop them.
-+	 */
-+	if (bo->created) {
-+		virtio_gpu_remove_from_restore_list(bo);
-+		virtio_gpu_cmd_unref_resource(vgdev, bo, false);
-+		virtio_gpu_notify(vgdev);
-+		return;
-+	}
-+
-+	virtio_gpu_cleanup_object(bo);
-+}
-+
-+static struct dma_buf *
-+virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
-+{
-+	return ERR_PTR(-EINVAL);
-+}
-+
-+static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
-+	.open = virtio_gpu_gem_object_open,
-+	.close = virtio_gpu_gem_object_close,
-+	.free = virtio_gpu_userptr_free,
-+	.export = virtio_gpu_userptr_prime_export,
-+};
-+
-+bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo)
-+{
-+	return bo->base.base.funcs == &virtio_gpu_userptr_funcs;
-+}
-+
-+static int
-+virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
-+{
-+	unsigned int flag = FOLL_LONGTERM;
-+	unsigned int num_pages, pinned = 0;
-+	int ret = 0;
-+
-+	if (userptr->pages)
-+		return 0;
-+
-+	userptr->pages = kvmalloc_array(userptr->npages, sizeof(struct page *),
-+					GFP_KERNEL);
-+	if (!userptr->pages)
-+		return -ENOMEM;
-+
-+	if (!(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY))
-+		flag |= FOLL_WRITE;
-+
-+	do {
-+		num_pages = userptr->npages - pinned;
-+
-+		ret = pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
-+					  num_pages, flag,
-+					  userptr->pages + pinned);
-+
-+		if (ret < 0) {
-+			if (pinned)
-+				unpin_user_pages(userptr->pages, pinned);
-+			kvfree(userptr->pages);
-+			userptr->pages = NULL;
-+			return ret;
-+		}
-+
-+		pinned += ret;
-+
-+	} while (pinned < userptr->npages);
-+
-+	return 0;
-+}
-+
-+static void
-+virtio_gpu_userptr_unaccount(struct virtio_gpu_object_userptr *userptr)
-+{
-+	if (!userptr->mm)
-+		return;
-+
-+	atomic64_sub(userptr->npages, &userptr->mm->pinned_vm);
-+	mmdrop(userptr->mm);
-+	userptr->mm = NULL;
-+}
-+
-+static void
-+virtio_gpu_userptr_put_pages(struct virtio_gpu_object_userptr *userptr)
-+{
-+	struct drm_device *dev = userptr->base.base.base.dev;
-+
-+	if (userptr->sgt) {
-+		if (userptr->dma_mapped)
-+			dma_unmap_sgtable(drm_dev_dma_dev(dev), userptr->sgt,
-+					  userptr->dma_dir,
-+					  DMA_ATTR_REQUIRE_COHERENT);
-+		userptr->dma_mapped = false;
-+		sg_free_table(userptr->sgt);
-+		kfree(userptr->sgt);
-+		userptr->sgt = NULL;
-+	}
-+
-+	if (userptr->pages) {
-+		bool dirty = !(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY);
-+
-+		unpin_user_pages_dirty_lock(userptr->pages, userptr->npages,
-+					    dirty);
-+		kvfree(userptr->pages);
-+		userptr->pages = NULL;
-+	}
-+
-+	virtio_gpu_userptr_unaccount(userptr);
-+}
-+
-+static int
-+virtio_gpu_userptr_get_entries(struct virtio_gpu_device *vgdev,
-+			       struct virtio_gpu_object_userptr *userptr,
-+			       struct virtio_gpu_mem_entry **ents,
-+			       unsigned int *nents)
-+{
-+	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
-+	struct scatterlist *sg;
-+	unsigned int count;
-+	int si;
-+
-+	count = use_dma_api ? userptr->sgt->nents : userptr->sgt->orig_nents;
-+	if (!count)
-+		return -EINVAL;
-+
-+	*ents = kvmalloc_array(count, sizeof(**ents), GFP_KERNEL);
-+	if (!*ents)
-+		return -ENOMEM;
-+
-+	if (use_dma_api) {
-+		for_each_sgtable_dma_sg(userptr->sgt, sg, si) {
-+			(*ents)[si].addr = cpu_to_le64(sg_dma_address(sg));
-+			(*ents)[si].length = cpu_to_le32(sg_dma_len(sg));
-+			(*ents)[si].padding = 0;
-+		}
-+	} else {
-+		for_each_sgtable_sg(userptr->sgt, sg, si) {
-+			(*ents)[si].addr = cpu_to_le64(sg_phys(sg));
-+			(*ents)[si].length = cpu_to_le32(sg->length);
-+			(*ents)[si].padding = 0;
-+		}
-+	}
-+
-+	*nents = count;
-+	return 0;
-+}
-+
-+int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
-+			       struct virtio_gpu_object *bo,
-+			       struct virtio_gpu_mem_entry **ents,
-+			       unsigned int *nents)
-+{
-+	struct virtio_gpu_object_userptr *userptr = to_virtio_gpu_userptr(bo);
-+	int ret;
-+
-+	mutex_lock(&userptr->lock);
-+	if (!userptr->sgt || !userptr->pages) {
-+		mutex_unlock(&userptr->lock);
-+		return -EINVAL;
-+	}
-+
-+	if (userptr->dma_mapped) {
-+		struct device *dev = drm_dev_dma_dev(vgdev->ddev);
-+
-+		dma_unmap_sgtable(dev, userptr->sgt, userptr->dma_dir,
-+				  DMA_ATTR_REQUIRE_COHERENT);
-+		userptr->dma_mapped = false;
-+
-+		ret = dma_map_sgtable(dev, userptr->sgt, userptr->dma_dir,
-+				      DMA_ATTR_REQUIRE_COHERENT);
-+		if (ret) {
-+			mutex_unlock(&userptr->lock);
-+			return ret;
-+		}
-+		userptr->dma_mapped = true;
-+	}
-+
-+	ret = virtio_gpu_userptr_get_entries(vgdev, userptr, ents, nents);
-+	mutex_unlock(&userptr->lock);
-+	return ret;
-+}
-+
-+static int
-+virtio_gpu_userptr_init(struct drm_device *dev, struct drm_file *file,
-+			struct virtio_gpu_object_userptr *userptr,
-+			struct virtio_gpu_object_params *params,
-+			const struct virtio_gpu_object_userptr_ops *ops)
-+{
-+	struct drm_gem_object *obj;
-+	int ret;
-+
-+	userptr->start = params->userptr;
-+	userptr->npages = params->size >> PAGE_SHIFT;
-+	userptr->flags = params->blob_flags;
-+
-+	mutex_init(&userptr->lock);
-+	userptr->vgdev = dev->dev_private;
-+	userptr->file = file;
-+	userptr->ops = ops;
-+
-+	/*
-+	 * Get the resource id before GEM init, so a failed call here
-+	 * just needs a plain kfree and no special id zero check in the
-+	 * shared resource_id_put helper.
-+	 */
-+	ret = virtio_gpu_resource_id_get(userptr->vgdev,
-+					 &userptr->base.hw_res_handle);
-+	if (ret) {
-+		mutex_destroy(&userptr->lock);
-+		return ret;
-+	}
-+
-+	obj = &userptr->base.base.base;
-+	obj->funcs = &virtio_gpu_userptr_funcs;
-+
-+	drm_gem_private_object_init(dev, obj, params->size);
-+	INIT_LIST_HEAD(&userptr->base.restore_node);
-+
-+	return 0;
-+}
-+
-+static const struct virtio_gpu_object_userptr_ops virtio_gpu_userptr_ops = {
-+	.get_pages = virtio_gpu_userptr_get_pages,
-+	.put_pages = virtio_gpu_userptr_put_pages,
-+};
-+
-+int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
-+			      struct drm_file *file,
-+			      struct virtio_gpu_object_params *params,
-+			      struct virtio_gpu_object **bo_ptr)
-+{
-+	struct virtio_gpu_object_userptr *userptr;
-+	struct virtio_gpu_mem_entry *ents = NULL;
-+	struct sg_table *sgt;
-+	struct mm_struct *mm;
-+	unsigned long lock_limit;
-+	unsigned long start;
-+	unsigned long end;
-+	s64 new_pinned;
-+	unsigned int nents;
-+	int ret;
-+
-+	*bo_ptr = NULL;
-+
-+	if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
-+	    params->userptr != (unsigned long)params->userptr)
-+		return -EINVAL;
-+
-+	start = params->userptr;
-+	if (!IS_ALIGNED(start, PAGE_SIZE) ||
-+	    check_add_overflow(start, (unsigned long)params->size, &end))
-+		return -EINVAL;
-+
-+	if (!can_do_mlock())
-+		return -EPERM;
-+
-+	if (params->size >> PAGE_SHIFT > INT_MAX)
-+		return -E2BIG;
-+
-+	if (!access_ok((void __user *)start, params->size))
-+		return -EFAULT;
-+
-+	userptr = kzalloc_obj(*userptr);
-+	if (!userptr)
-+		return -ENOMEM;
-+
-+	ret = virtio_gpu_userptr_init(vgdev->ddev, file, userptr, params,
-+				      &virtio_gpu_userptr_ops);
-+	if (ret) {
-+		kfree(userptr);
-+		return ret;
-+	}
-+
-+	mm = current->mm;
-+	mmgrab(mm);
-+	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-+	new_pinned = atomic64_add_return(userptr->npages, &mm->pinned_vm);
-+	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
-+		atomic64_sub(userptr->npages, &mm->pinned_vm);
-+		mmdrop(mm);
-+		ret = -ENOMEM;
-+		goto err_cleanup;
-+	}
-+	userptr->mm = mm;
-+
-+	mutex_lock(&userptr->lock);
-+	ret = userptr->ops->get_pages(userptr);
-+	mutex_unlock(&userptr->lock);
-+	if (ret)
-+		goto err_cleanup;
-+
-+	sgt = drm_prime_pages_to_sg(vgdev->ddev, userptr->pages,
-+				    userptr->npages);
-+	if (IS_ERR(sgt)) {
-+		ret = PTR_ERR(sgt);
-+		goto err_cleanup;
-+	}
-+
-+	userptr->sgt = sgt;
-+
-+	if (virtio_gpu_use_dma_api(vgdev->vdev)) {
-+		enum dma_data_direction dir =
-+			(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
-+			DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
-+
-+		ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
-+				      dir, DMA_ATTR_REQUIRE_COHERENT);
-+		if (ret)
-+			goto err_cleanup;
-+
-+		userptr->dma_dir = dir;
-+		userptr->dma_mapped = true;
-+	}
-+
-+	ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, &nents);
-+	if (ret)
-+		goto err_cleanup;
-+
-+	virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, params, ents,
-+					    nents);
-+
-+	userptr->base.params = *params;
-+	virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
-+
-+	*bo_ptr = &userptr->base;
-+	return 0;
-+
-+err_cleanup:
-+	virtio_gpu_cleanup_object(&userptr->base);
-+	return ret;
-+}
--- 
-2.34.1
-
+QU1EIEdlbmVyYWwNCg0KUmVnYXJkcywNCiAgICAgIFByaWtlDQoNCj4gLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCj4gRnJvbTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2Uu
+ZGU+DQo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciA1LCAyMDI2IDExOjA0IFBNDQo+IFRvOiBM
+aWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZzsgZHJpLQ0KPiBkZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERhdmlk
+IEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPjsgV2VudGxhbmQsIEhhcnJ5DQo+IDxIYXJyeS5X
+ZW50bGFuZEBhbWQuY29tPjsgTGksIFN1biBwZW5nIChMZW8pIDxTdW5wZW5nLkxpQGFtZC5jb20+
+Ow0KPiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2Vu
+aWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBS
+ZTogW1BBVENIXSBkcm0vY2xpZW50OiBEb24ndCB3YXJuIHdoZW4gYSBjbGllbnQncyBWQkxBTksg
+d2FpdCB0aW1lcyBvdXQNCj4NCj4gSGkNCj4NCj4gQW0gMDQuMTEuMjYgdW0gMDM6NDEgc2Nocmll
+YiBQcmlrZSBMaWFuZzoNCj4gPiBkcm1fY2xpZW50X21vZGVzZXRfd2FpdF9mb3JfdmJsYW5rKCkg
+b25seSByYXRlLWxpbWl0cyBmYmRldiBkYW1hZ2UNCj4gPiB1cGRhdGVzIGFuZCBzZXJ2ZXMgRkJJ
+T19XQUlURk9SVlNZTkMsIGJ1dCBpdCB3YWl0cyB3aXRoDQo+ID4gZHJtX2NydGNfd2FpdF9vbmVf
+dmJsYW5rKCksIHdoaWNoIHdhcm5zIGlmIG5vIFZCTEFOSyBhcnJpdmVzIGluIHRpbWUuDQo+ID4N
+Cj4gPiBWQkxBTksgaW50ZXJydXB0cyBjYW4gc3RvcCB3aGlsZSB0aGUgZmJkZXYgY2xpZW50IGtl
+ZXBzIHJ1bm5pbmcuIFNpbmNlDQo+ID4gY29tbWl0IGViYzMzNTFjYzRhOSAoImRybS9hbWRncHU6
+IHJlbW92ZSBzdXNwZW5kL3Jlc3VtZSBEUk0gY2xpZW50cw0KPiA+IGR1cmluZyBHUFUgcmVjb3Zl
+cnkiKSwgYW1kZ3B1IG5vIGxvbmdlciBzdXNwZW5kcyBEUk0gY2xpZW50cyBmb3IgR1BVDQo+ID4g
+cmVjb3ZlcnksIGFzIHRoYXQgbWFkZSByZWNvdmVyeSB3YWl0IGZvciBjbGllbnRsaXN0X211dGV4
+LCB0aGUgY29uc29sZQ0KPg0KPiBJc24ndCB0aGF0IHJhdGhlciBhIGJ1ZyBpbiBhbWRncHU/DQoN
+CkhpIFRob21hcywNCg0KWWVzLCBpdCBpcyBhIHRyYWRlLW9mZiBzb2x1dGlvbi4gV2hpbGUgdGhl
+IHZibGFuayBpbnRlcnJ1cHQgaXMgZGlzYWJsZWQgZHVyaW5nDQpHUFUgcmVzZXQsIHN1c3BlbmRp
+bmcgdGhlIERSTSBjbGllbnRzIGJsb2NrcyBvbiB3YWl0cyB0aGF0IGNhdXNlDQpsb2NrLW9yZGVy
+IHByb2JsZW1zIHdpdGggdGhlIHJlc2V0LiBOb3Qgc3VzcGVuZGluZyB0aGVtIGF2b2lkcyB0aG9z
+ZQ0KcHJvYmxlbXMsIGJ1dCB0aGVuIHRoZSBmYmRldiBkYW1hZ2Ugd29ya2VyJ3MgdmJsYW5rIHdh
+aXQgdGltZXMgb3V0Lg0KDQpJJ2xsIGxvb2sgaW50byB3aGV0aGVyIHRoaXMgY2FuIGJlIGZpeGVk
+IGluIGFtZGdwdSBpbnN0ZWFkLCBieQ0Kc3RvcHBpbmcgdmJsYW5rIHdhaXRzIG9uY2UgdGhlIGRp
+c3BsYXkgY29yZSBoYXMgZGlzYWJsZWQgdGhlIHZibGFuaw0KaW50ZXJydXB0cy4NCg0KVGhhbmtz
+LA0KICAgUHJpa2UNCg0KPiBCZXN0IHJlZ2FyZHMNCj4gVGhvbWFzDQo+DQo+ID4gbG9jayBhbmQg
+dGhlIGRhbWFnZSB3b3JrZXIsIHdob3NlIGhvbGRlcnMgY2FuIGRlcGVuZCBvbiBmZW5jZXMgdGhh
+dA0KPiA+IG9ubHkgc2lnbmFsIGFmdGVyIHRoZSByZXNldC4gVGhlIGRpc3BsYXkgaXMgc3RpbGwg
+c2h1dCBkb3duIGZvciB0aGUNCj4gPiByZXNldCwgc28gdGhlIGRhbWFnZSB3b3JrZXIgbm93IHRp
+bWVzIG91dCBhbmQgd2FybnM6DQo+ID4NCj4gPiAgICBhbWRncHUgMDAwMDowMzowMC4wOiBbZHJt
+XSB2Ymxhbmsgd2FpdCB0aW1lZCBvdXQgb24gY3J0YyAwDQo+ID4gICAgV0FSTklORzogZHJpdmVy
+cy9ncHUvZHJtL2RybV92YmxhbmsuYzoxMzIwIGF0DQo+IGRybV9jcnRjX3dhaXRfb25lX3ZibGFu
+aysweDE5NC8weDIwMA0KPiA+ICAgIFdvcmtxdWV1ZTogZXZlbnRzIGRybV9mYl9oZWxwZXJfZGFt
+YWdlX3dvcmsNCj4gPiAgICBDYWxsIFRyYWNlOg0KPiA+ICAgICBkcm1fY2xpZW50X21vZGVzZXRf
+d2FpdF9mb3JfdmJsYW5rKzB4NjMvMHg4MA0KPiA+ICAgICBkcm1fZmJfaGVscGVyX2RhbWFnZV93
+b3JrKzB4ODkvMHgxYTANCj4gPg0KPiA+IFVzZXJzcGFjZSBjYW4gdHJpZ2dlciB0aGUgc2FtZSB3
+YXJuaW5nIHdpdGggRkJJT19XQUlURk9SVlNZTkMuIFdhaXQgb24NCj4gPiB0aGUgVkJMQU5LIHF1
+ZXVlIHdpdGggdGhlIHNhbWUgdGltZW91dCwgYnV0IGxvZyBhIGRlYnVnIG1lc3NhZ2UNCj4gPiBp
+bnN0ZWFkIG9mIHdhcm5pbmcgd2hlbiBpdCBleHBpcmVzOyBhIG1pc3NlZCBWQkxBTksgb25seSBt
+ZWFucyB0aGUNCj4gPiB1cGRhdGUgaXNuJ3Qgc3luY2hyb25pemVkLg0KPiA+DQo+ID4gRml4ZXM6
+IGQ4YzRiZGRjZDhiYyAoImRybS9mYi1oZWxwZXI6IFN5bmNocm9uaXplIGRpcnR5IHdvcmtlciB3
+aXRoDQo+ID4gdmJsYW5rIikNCj4gPiBTaWduZWQtb2ZmLWJ5OiBQcmlrZSBMaWFuZyA8UHJpa2Uu
+TGlhbmdAYW1kLmNvbT4NCj4gPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+
+DQo+ID4gQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPiBDYzogSGFycnkg
+V2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+DQo+ID4gQ2M6IExlbyBMaSA8c3VucGVu
+Zy5saUBhbWQuY29tPg0KPiA+IENjOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
+ZS5kZT4NCj4gPiBDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0K
+PiA+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+ID4g
+LS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2NsaWVudF9tb2Rlc2V0LmMgfCAxMiArKysr
+KysrKysrLS0NCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50
+X21vZGVzZXQuYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnRfbW9kZXNldC5jDQo+
+ID4gaW5kZXggMDA4MGE4ZTk1NTZhLi43YjMxOTNkNzNiYmYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2RybV9jbGllbnRfbW9kZXNldC5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2RybV9jbGllbnRfbW9kZXNldC5jDQo+ID4gQEAgLTEzMDEsNyArMTMwMSw4IEBAIEVYUE9S
+VF9TWU1CT0woZHJtX2NsaWVudF9tb2Rlc2V0X2RwbXMpOw0KPiA+ICAgICoNCj4gPiAgICAqIEJs
+b2NrIHRoZSBjYWxsZXIgdW50aWwgdGhlIGdpdmVuIENSVEMgaGFzIHNlZW4gYSBWQkxBTksuIERv
+IG5vdGhpbmcNCj4gPiAgICAqIGlmIHRoZSBDUlRDIGlzIGRpc2FibGVkLiBJZiB0aGVyZSdzIGFu
+b3RoZXIgRFJNIG1hc3RlciBwcmVzZW50LA0KPiA+IGZhaWwNCj4gPiAtICogd2l0aCAtRUJVU1ku
+DQo+ID4gKyAqIHdpdGggLUVCVVNZLiBHaXZlIHVwIHdpdGhvdXQgYSB3YXJuaW5nIGlmIG5vIFZC
+TEFOSyBhcnJpdmVzIHdpdGhpbg0KPiA+ICsgYQ0KPiA+ICsgKiBzZWNvbmQsIGUuZy4gd2hpbGUg
+dGhlIGRyaXZlciByZXNldHMgdGhlIGRpc3BsYXkgaGFyZHdhcmUuDQo+ID4gICAgKg0KPiA+ICAg
+ICogUmV0dXJuczoNCj4gPiAgICAqIDAgb24gc3VjY2Vzcywgb3IgbmVnYXRpdmUgZXJyb3IgY29k
+ZSBvdGhlcndpc2UuDQo+ID4gQEAgLTEzMjgsNyArMTMyOSwxNCBAQCBpbnQgZHJtX2NsaWVudF9t
+b2Rlc2V0X3dhaXRfZm9yX3ZibGFuayhzdHJ1Y3QNCj4gZHJtX2NsaWVudF9kZXYgKmNsaWVudCwg
+dW5zaWduZWQgaQ0KPiA+ICAgICAgKi8NCj4gPiAgICAgcmV0ID0gZHJtX2NydGNfdmJsYW5rX2dl
+dChjcnRjKTsNCj4gPiAgICAgaWYgKCFyZXQpIHsNCj4gPiAtICAgICAgICAgICBkcm1fY3J0Y193
+YWl0X29uZV92YmxhbmsoY3J0Yyk7DQo+ID4gKyAgICAgICAgICAgdTY0IGxhc3QgPSBkcm1fY3J0
+Y192YmxhbmtfY291bnQoY3J0Yyk7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgIC8qIFVubGlrZSBk
+cm1fY3J0Y193YWl0X29uZV92YmxhbmsoKSwgZG9uJ3Qgd2FybiBpZiBWQkxBTktzIHN0b3AuICov
+DQo+ID4gKyAgICAgICAgICAgaWYgKCF3YWl0X2V2ZW50X3RpbWVvdXQoKmRybV9jcnRjX3ZibGFu
+a193YWl0cXVldWUoY3J0YyksDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgZHJtX2NydGNfdmJsYW5rX2NvdW50KGNydGMpICE9IGxhc3QsDQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgbXNlY3NfdG9famlmZmllcygxMDAwKSkpDQo+ID4gKyAg
+ICAgICAgICAgICAgICAgICBkcm1fZGJnX3ZibChkZXYsICJbQ1JUQzolZDolc10gdmJsYW5rIHdh
+aXQgdGltZWQgb3V0XG4iLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3J0
+Yy0+YmFzZS5pZCwgY3J0Yy0+bmFtZSk7DQo+ID4gICAgICAgICAgICAgZHJtX2NydGNfdmJsYW5r
+X3B1dChjcnRjKTsNCj4gPiAgICAgfQ0KPiA+DQo+DQo+IC0tDQo+IC0tDQo+IFRob21hcyBaaW1t
+ZXJtYW5uDQo+IEdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINCj4gU1VTRSBTb2Z0d2FyZSBTb2x1
+dGlvbnMgR2VybWFueSBHbWJIDQo+IEZyYW5rZW5zdHIuIDE0NiwgOTA0NjEgTsO8cm5iZXJnLCBH
+ZXJtYW55LCB3d3cuc3VzZS5jb20NCj4gR0Y6IFN0ZWZhbiBHYWlzZXIsIEpvY2hlbiBKYXNlciwg
+QWJoaW5hdiBQdXJpLCAoSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQo+DQoNCg==
