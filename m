@@ -2,81 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FF6606A32D
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 19:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A33606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 19:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EsbygLqL
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JD87gYg+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5A210E0BD;
-	Fri,  6 Nov 2026 19:09:12 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C7B10E0BD;
- Fri,  6 Nov 2026 19:09:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793992145;
- bh=r6VDpg3FAxOwfz4ISFxVWsC4rSt8VUYBM2cnkHmSp+U=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=EsbygLqLPWd0rmghvY5UCxhMhDSZWcS5VFmeTbrrpV7uViRl31ScU8dw4/v/oAuCO
- cTChOITZ/SIqYTBkqVKnNpUZcq3aYEoDiOz9dMGSImoOsYw9dfcNt6oXy05l7JHx9f
- 8gM35kyfDF4sghgXyAYrvXgwaf1f6TB97a3UJFkDJPChIbxF24+Qsltaf+bF/Vhqyi
- 7+sRiFvqROb+M2NxQ8w7rixEFRxgv/V7YzW893/WnDoGTmoe66J8ekeRgNRppcXedH
- gJqKDnvycf/t6Axq2D72A+dpN5d5uDWqsy7BvLaKcjukXEPfHdpeoBsxsEzbIVFTSO
- w5MFs93Ruhk/Q==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1) (No client certificate requested)
- (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 327CF17E0411;
- Fri, 06 Nov 2026 20:09:02 +0100 (CET)
-Message-ID: <8f3c80b4b518835e2d8b3da62e84572338657f68.camel@collabora.com>
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: rob.clark@oss.qualcomm.com
-Cc: Robert Mader <robert.mader@collabora.com>, Dmitry Baryshkov	
- <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,  Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
- O'Donoghue <bod@kernel.org>,  Stanimir Varbanov
- <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jordan Crouse	 <jordan@cosmicpenguin.net>,
- linux-media@vger.kernel.org, Vikash Garodia	
- <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
- <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Date: Fri, 06 Nov 2026 14:09:01 -0500
-In-Reply-To: <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
- <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
- <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
- <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
- <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
- <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-MRU/X/3RbhtvxHzHto3I"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD8B10EA11;
+	Fri,  6 Nov 2026 19:18:01 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A69F710EA11
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 19:17:55 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6b56c428212so1100715a12.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 11:17:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1793992674; x=1794597474;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ymJzB0WN5FbKDzsluXNV7fmXp6O2GJpqiouyp8507gw=;
+ b=JD87gYg+tZiKkKoDZKjNNMElNKagBRIqU4/BaugPvMIjkalmW3f/3jogYFKlHxIDKA
+ pb3S6nXihMDIQZLBHzmZ1UW70UlKqlTWF0UHss+A2dyYpksyO2NoXMn6E2Tm3XlF5aKc
+ txHtQR7siwkm/2aboU4wTLhtJA1WIaZAZKEvE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793992674; x=1794597474;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ymJzB0WN5FbKDzsluXNV7fmXp6O2GJpqiouyp8507gw=;
+ b=XBhoKIRc+qh3l8xTc12Dqe7kQA/ULTwQiPTssfU+SmAzjOaMHEvGmKkNBQV8SDm4id
+ huwCd4s3oihjRgv7Hygha9swHaHJFnuLvk3UQdVq6sblO0sqkS5esmrroUi0fo4kVSGz
+ 7dQzaTFsiRablYrVQRlS9mbRijZf98l+8XWYqLmPdDK1tVEyz6UsuaYwBIklCJ2DVq9N
+ qRHYkAlkVZVpGB5IWvHbOPrtOM2bEufSK/liejSYej2RsKH+/6xY1Swy/TyQr9JduSnE
+ YzrAJ0xMOk3FaZg0hcNUx3gFGoQL81qBrld5BRUugdRCpC+6cNXnqkfzXJ1MmJkQEo68
+ S0Yw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEeKbftMeyHPTilrekACT+FcQBOONF85tKnGvaXF8JaMCgtMIp8Lrk7SjA8ZvsRFGk3pTSbaBWPyAk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+tPid0sV/eIMwBzt2h8fawYX1Ux6Ndr9e8ytpWTZOmNJ1egBV7
+ 1vZhMRpk/hZfUZNAeYr52KVXtniSHgCWxz7Z8YfnqiG701Yicmw2aFuiUvDJBLZ5Js72EJKzv+i
+ yELwy6E0O
+X-Gm-Gg: AYBFou3mQiaTdzVdebzgPuPxQXTGV8hMZCVJKz3xha3CHNEsx7Dc2pi2weTrtkAI9N7
+ eCIwvOo7FOEEbfWxHS3vTiNRkR+DAflF3L4m8QruPwnLICZqbIB+q17x7maCjPkJYH6sVAGLiYG
+ yXFRn8chTyACemIbxGq0ngLaZW9JpAqCWjta7IUwEqkPw+3yLPLZg11/puv/xni+AGtqH283F4j
+ VV293gPd3SCuik/62z3WpwBp6L59ohA73gxL7Fqwrhw9tzQyolEJxSFBMj8zINnv426C5PmR0k5
+ piCiDakd4wLjN+LmbRN60u+hdYNi6XgvaNZfXQUO9GTSGAayYZ4bXKMDNQk/w6wdQlyQiD/+58w
+ sMy1+aWM14LOHsHXs3OCPjJdZYMjSRzIuiWTjiAIB7RR2rpCdUChXEC9jVdk5Gk1xRDniFE6i+m
+ 91a2T+ps32ER+DfiacRAReLgtwVs5ztkh9lBtKM/2nG1W3ARUopH6tttC7tc0ZnjoS/FAqInTZI
+ H+vpcr4XuMl0/yBywwBFkqLV1xwyKPnJ5MrnFOOFIiC47DkbegQk5ynQDog3QFkVc/w+WxUmUtq
+ 0S+dGgrRqolVVCeWNHtBryzshRCkmRkHT4kfUBmGVUhwKIzEWXPiRxmPOLTL++jr5T8=
+X-Received: by 2002:aa7:d655:0:b0:6b5:6a24:6cf9 with SMTP id
+ 4fb4d7f45d1cf-6b5978230a0mr1885190a12.45.1793992673974; 
+ Fri, 06 Nov 2026 11:17:53 -0800 (PST)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
+ [209.85.221.46]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b664b0239csm1066324a12.26.2026.11.06.11.17.52
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Nov 2026 11:17:53 -0800 (PST)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-48e46e449e8so648171f8f.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 11:17:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErEFA8DpFY389aUMciHab7gsyOevz72mwpvf0Jwja4C8mRTn3YS7Qu8RdLZZLUY3VTrDx490eecqm8Q=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:1869:b0:490:a3e7:8af3 with SMTP id
+ ffacd0b85a97d-49277219a56mr7321822f8f.35.1793992671239; Fri, 06 Nov 2026
+ 11:17:51 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+References: <20261106-panel-edp-boe-ns140wum-l61-v1-1-4c9747ec9186@oss.qualcomm.com>
+In-Reply-To: <20261106-panel-edp-boe-ns140wum-l61-v1-1-4c9747ec9186@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 6 Nov 2026 11:17:39 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UaXzyEbzE2iuz9_Sgsw8FZ9ueaTTwZkwgHFgLOJ-_dfw@mail.gmail.com>
+X-Gm-Features: AclHuK-_kku1KjQXSkbP2droWmHGBLJtmBrXMtrNqV8mW9pN1c52FbMy49q66lY
+Message-ID: <CAD=FV=UaXzyEbzE2iuz9_Sgsw8FZ9ueaTTwZkwgHFgLOJ-_dfw@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: add BOE NS140WUM-L61 entry
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,145 +101,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---=-MRU/X/3RbhtvxHzHto3I
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Le jeudi 05 novembre 2026 =C3=A0 12:52 -0800, Rob Clark a =C3=A9crit=C2=A0:
-> On Thu, Nov 5, 2026 at 12:35=E2=80=AFPM Nicolas Dufresne
-> <nicolas.dufresne@collabora.com> wrote:
-> >=20
-> > Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=
- :
-> > > On 04.11.26 23:11, Rob Clark wrote:
-> > > > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@=
-collabora.com> wrote:
-> > > > > Nice, very happy to see the series!
-> > > > >=20
-> > > > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> > > > > > The comment describing the QC10C buffer layout calls it a compr=
-essed
-> > > > > > P010. It is not:
-> > > > > If I'm not mistaken the display engine / the DRM side (including =
-Mesa)
-> > > > > describes it as P010+QCOM_COMPRESSED as well, and so does my pend=
-ing
-> > > > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
-> > > > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wi=
-re that
-> > > > > up everywhere etc. OTOH if we want to keep the DRM side as is, th=
-en the
-> > > > > comment should reflect that, IMO.
-> > > > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P0=
-10
-> > > > as distinct formats, both with and without UBWC.  I'm not sure if t=
-he
-> > > > same is true on video side but P010+UBWC was never exposed, or if i=
-t
-> > > > truely only supports linear P010 and UBWC TP10.
-> > >=20
-> > > Oh, do I understand you correctly that the P010+UBWC implementation i=
-s
-> > > not compatible with QC10C, meaning on the GPU side (Mesa and display)=
- we
-> > > don't yet have any support for QC10C exposed to userspace? If that's =
-so
-> > > then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
-> > >=20
-> > > On the plus side - this would allow us to make the format single plan=
-e,
-> > > matching what we get on the V4L2 side.
-> >=20
-> > Since its single plane, we should aim for a variation of
-> > DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious l=
-inear
-> > single plane packing for that, it would only be there to support the
-> > compression. Or maybe this one is abstract enough to be used anyway?
->=20
-> Oh, sorry, maybe I was a bit misleading/unclear.   TP10 is still a
-> semi-planar format with a Y and UV plane.  But each of those planes
-> combines UBWC metadata and pixel data.
->=20
-> Within each plane, the pixel part of the data combines 3 samples in
-> 32b (compared to P010 which is a single sample per 16b.  So not quite
-> the same thing as DRM_FORMAT_YUV420_10BIT.
+On Fri, Nov 6, 2026 at 7:36=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.co=
+m> wrote:
+>
+> The Lenovo ThinkPad T14s Gen 7 (Mahua) LCD variant ships with a
+> 14" 1920x1200 BOE NS140WUM-L61 panel, which reports itself as BOE
+> 0x0d9d. Since there is no matching entry, panel-edp warns about an
+> unknown panel and uses the conservative timings.
+>
+> Raw EDID of the panel on this machine:
+>
+>   00 ff ff ff ff ff ff 00 09 e5 9d 0d 00 00 00 00
+>   0c 23 01 04 a5 1e 13 78 07 53 38 a3 57 4b 99 25
+>   0f 51 57 00 00 00 01 01 01 01 01 01 01 01 01 01
+>   01 01 01 01 01 01 10 44 80 18 71 b0 78 40 30 20
+>   f6 0c 2e bc 10 00 00 1a 00 00 00 fd 00 1e 3c 4f
+>   4f 11 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
+>   4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fc
+>   00 4e 53 31 34 30 57 55 4d 2d 4c 36 31 0a 01 2c
+>
+>   70 20 79 02 00 81 00 15 74 1a 00 00 03 51 1e 3c
+>   00 00 6a 3e 6a 3e 3c 00 00 00 00 80 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 87 90
+>
+>   Manufacturer: BOE
+>   Model: 0x0d9d
+>   Made in: week 12 of 2025
+>   Display Product Name: 'NS140WUM-L61'
+>   ASCII String: 'BOE CQ'
+>   DTD 1: 1920x1200 60.000000 Hz 16:10 (302 mm x 188 mm)
+>
+> No datasheet was at hand, so use delay_200_500_e80, which is what
+> the other 14" WUXGA BOE panels in the table (NE140WUM-N6S and
+> NE140WUM-N41) use.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-I believe DRM_FORMAT_YUV420_10BIT is defined as fully packed, no padding in=
-deed,
-but I'm not sure if it actually matters considering there is no linear
-representation of these. What really matter is that its a single stride/off=
-set
-format, which TP10 is not. I would not mind to see another pair for format,=
- but
-I just wanted to emphasis about the number of expected strides.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-Nicolas
+Pushed to drm-misc-next:
 
->=20
-> BR,
-> -R
->=20
-> > Nicolas
-> >=20
-> > >=20
-> > > >=20
-> > > > BR,
-> > > > -R
-> > > >=20
-> > > > > Best regards,
-> > > > >=20
-> > > > > Robert
-> > > > >=20
-> > > > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_req=
-uests/8195
-> > > > >=20
-> > > > > > P010 stores each sample in 16 bits, QC10C packs three
-> > > > > > 10-bit samples in each 32-bit word, which is what the stride co=
-mputed
-> > > > > > below (width * 4 / 3) assumes. Name the format correctly.
-> > > > > >=20
-> > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.=
-com>
-> > > > > > ---
-> > > > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
-> > > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > > >=20
-> > > > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/d=
-rivers/media/platform/qcom/iris/iris_buffer.c
-> > > > > > index eb8de60c1177..ec2bf2a2d953 100644
-> > > > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struc=
-t iris_inst *inst)
-> > > > > >=20
-> > > > > >    /*
-> > > > > >     * QC10C:
-> > > > > > - * UBWC-compressed format for P010.
-> > > > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples p=
-acked in 32 bits.
-> > > > > >     * Contains 4 planes in the following order -
-> > > > > >     * (A) Y_Meta_Plane
-> > > > > >     * (B) Y_UBWC_Plane
-> > > > > >=20
-
---=-MRU/X/3RbhtvxHzHto3I
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lzQAKCRDZQZRRKWBy
-9FnqAP49S1oZaKGOY3Hv3ojnOCcc44EO1hORyLd//hdYPKnC3QEA75cJxJYAPQ2S
-4kb8vGbFauZWYlct28W1Lw1n+jFKpgY=
-=RDiY
------END PGP SIGNATURE-----
-
---=-MRU/X/3RbhtvxHzHto3I--
+[1/1] drm/panel-edp: add BOE NS140WUM-L61 entry
+      commit: 2d5a8313d9cf989b8f53a5689a96e891bf99fb2c
