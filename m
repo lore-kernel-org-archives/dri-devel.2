@@ -2,86 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5D6606A32E
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EABB606A32C
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DOz6Mp/1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W0jAzO7h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 952DE10EB64;
-	Sat,  7 Nov 2026 14:28:20 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDA7C10E521
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 11:21:19 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4a5b2be99a8so3618595e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 03:21:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F22310EB69;
+	Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7E05112C81
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 09:20:30 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-36ff9c9da34so360181eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 01:20:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964078; x=1794568878;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=g2yTl4PVSyd+fgLTgPgtlO0e+H5KFW8y2uBPZ5q/jBQ=;
- b=DOz6Mp/1tpFPsbO6DedwzUgaAF8eEW3VmwCgbaaadlKLh+5DAN+Z3o+33grZR8XiS3
- FIRgNGpe4uvbG/kxKh6y2+tWswiEVlZn8yMTABd4hhjV5SDo9FzIDFWRdKZar1TXe4I0
- Z3J0J6iKgQV1fOrStLg2Ec9GisjbWLtwpBnuQf3L74v5/fRY38tjOFvkbjkVsuzDlU+5
- r+53tAIUrkDACPTBAqFwMDQFWCLf326c94BiPmdehcmz+2ge1kBLi41euWLmy6hoC/FN
- eJLa3rrLQZKi0D08ucLRJeqzYZ+B0rw/wAdb3vxXdrrkkCREWWWTw0xIxaljIaF6C6s6
- jxyQ==
+ d=gmail.com; s=20260707; t=1793956830; x=1794561630; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ggqU2z0JBuwwyOOBFpelvoLoHdUUbWw3FkHf6dtYia8=;
+ b=W0jAzO7hm9xdSSHpHLn5B8+hXW1mwrO5PFW39KYJvMyQr4ruKRAWWlhiQPGBw+vr4r
+ irD1ZQCJZj/5FqEpeILNnVAKWxLwehPU2IS9FD0p+Q/ND8axy0wVQ7GhTx5n+lcCeRjv
+ 1l8r2bVwXEtjuP6GpZ6WVooMcBt9+LDXJqzEuzDQR2y+/DhBxVpmTAmX/r+YmX2TL8aW
+ XsiybQ1Zw7ce7LRTBAR+ONbJ8JF05TR59GEctGGdPKvIoD2TJWy0B6AlAc4WJjXyLhvq
+ g1T593nRsEJRS/caHKpWIdkFeGstUDGe2a5C7+j6Rcj277Vvvtz/XRfAMdEGyLZfHG4w
+ V9dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793964078; x=1794568878;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=g2yTl4PVSyd+fgLTgPgtlO0e+H5KFW8y2uBPZ5q/jBQ=;
- b=zjFM8c1Hsbhvjnm33Vk/hmT0m+3c4dJVymZqTHV6NQhfZLJCbkvT+uBu1QKQ85+PN/
- jyeQu43i+++DDBdW/NoP/5yXeACRoPUQV8mJErL5N0pVD/XCQ7Vxbh4pKDwFJW+fsFD2
- XfbEUxOgNk+LgjVDk3pZr9onScuCmphwtheosTIQnGlZjPcL3jkVj25bHb/oXarUuT6K
- sjjO82nmX6P1d9Aa9uny9Znlmpi0+AV4x7EcoidP5pr6jBOrR7/NTaqB66JqfNURDdY4
- i+G/tZ2YDaGeCXdI+/unZ952D6xQHn81nDFaBkvbyCTd6A2x40XQNR0mgV38zSee3gjr
- k86g==
+ d=1e100.net; s=20260707; t=1793956830; x=1794561630;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ggqU2z0JBuwwyOOBFpelvoLoHdUUbWw3FkHf6dtYia8=;
+ b=Uh2F0niqLFJFFz1CP698rVSzVoAclwyCowQjOHV9uNdLpx0d7D+Eu9FTIlTTraxiOQ
+ 2PXI4Jd8/7GqS/Fw7J+vRt+sqNIU70chmFHLyNhh6attA5Oi2nkU0M+ZJLv+rB01GjzZ
+ aUaU3rZH/T0I/Mhmbg92ADC0NYmgKhp74rrw9mHGkzDeZfrOXdfRx3UCIAhCFwylLwlE
+ 9Pc1RTNIBimwzUJQ+6hR4o8Ti1QAft0zySssjm+oSBkouTau8TOSBHoqC1jeM/3WaqTc
+ 26w4POML0oDSKykWXJEoR+XxpNlkqwpBmONi0DRL1K+UJctsGqUT8Ghco5te0ujaafaO
+ wuJA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxu3zEwHtAmiJBoIpWlfGnMM0IQJX+Qvoz87OUS142lggWrrIhEHyRUl+7PczE1wUG4AzLgSE3NwZA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/Vo7sKrWnjqaveocOmPh2Zf4I2QwJGVLvT2KvfPG3oOhv4VmgL
- 0YJnUHTtbOMId36wcVJw2NtuiWkiFnfIjFw3p1iN6c4I/S56AhZmc8OphasmPZlwka0=
-X-Gm-Gg: AYBFou2+JDatVBuonhldqx0DqCUJ6y3Pu743CDOCAV1/6H1otApNPsvacN3evQyajVp
- lU4pi6kZ2qPZLmna8EfSdA7+zAZkXpbrrpWOmehXb3LyWcDe8b3saVwzcZ1VY16gO7Gmk/6PIc4
- D9uKuDiBPjvH7ya9+DK4MYI5jkoK90XK8Ntg4lv2XDT+/2LEWdsz+WJ5uUA+28n3E5D4ITEJEjs
- KdDsJZozeE9ksIlDUkaaEFSRej9dUUiodVOKX6g8Ms5kTFiada1kc3/M4VFHd3DaKTu5K25TLwL
- aTeI8ffIXQzkRHYDhET12VSu4yOUyGdUWYivJvqRRt6EYXwiJg3SYnwG5L6mpvh8jj0OqlmmqM8
- to8ZoLZFx6CLlMp/+2Bipj4neL4k1CS3LkvADTHaXgWIwDdRyWnDItEkGo1Wmyj5eoFxANK+6Tw
- ZpOQBkHxUS6QnMKnnrCuv2Ew98lW/ZqVnT7ylNYPwmxM2SL79b26FgEXjLA/wbXTtXw8DeOW72I
- 7JdJ0Z6X3+RrtSjw9mpndWrecHCoqX8bJJU240Wx7iA7bCXi7JYhTL3h7WtGTXpmuSuo39gb00M
- v/bctdl9/9bzdgABwiqYYfLlmD40pOFEX4cQVnrzbb4bp0RD+ROKLxLncsh7EgM=
-X-Received: by 2002:a05:600c:a015:b0:4a2:1612:6367 with SMTP id
- 5b1f17b1804b1-4b6df11d637mr31306905e9.15.1793964078175; 
- Fri, 06 Nov 2026 03:21:18 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
+ AKwUvBwOalASZ72QGB620twbtMoUbyjBLqJgfWhttLLrmr5q/tCUsSKUC2QqGqh+mE2RfbJX6Dy4I4k/qWo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z914BSOXJWF47q2TkW7GZjMZC/V5sOc4o/nXFCRe3EwfXZcfCqp
+ sbb1UkcseYAY5IN4qWv6pSVz5DspSx7+Ic6fZFCH4BFw2x8rP9DYH2w=
+X-Gm-Gg: AYBFou02Nfko1Agf65NpRov/tMGFXkQMrObE6/wZjffXPb0aeReLKgpw0SUmGbHFpiV
+ UJf+kod8RtinfjmpfffKNlRiXSnZ8qYhx9GyTiXoMmgIGu6RgNlwdvWZM4GAJ2y7lXztb+1zqo7
+ G8AJZZ3ylfV6x2C4dmTA/gPW7OKSFjYSUeawtN2/GR+4RC7xsBtVN/c1AxEu2h3eDfP71PDB9dM
+ LItIabWu91EKXINPojwII0Wu43EJeRJsiVyBCsuGjAm0WFvhkTaTt3/lNNS/UTmfpLSD632R9zz
+ SR+GGCbGAEu22gE77kmd/aRNrD7uaE6ToI4iCyc00XJzMj4gbWwy/CUNvscAPAi6vE3csaGNE46
+ m6Nx8Po1iIuA3VvmTfkaA2oP3iKd3NOnvrelJz+ygTvWdvDHMLa+lhLzMvtWeUtzupWz1sYu8Jo
+ R8jWCOWaNkUyrwY0Kojw+emXOiNSV36wx8oG5Z90OLWNjF67DGPiub49YSCHqzGc+2oRos2T2nC
+ 10FuxRCdD4X52wJz2uyql/IKzIqXCPnRYbRXbc93mBx1XkmCFTwV9LlVMQjRjpATfWLYBCnlqQI
+ lZt/w4GBnGHdO/M+5rA5rzXKGHtU2YpHOhsJnn9nfRMKliuj12dM0QNp
+X-Received: by 2002:a05:701b:4507:20b0:1b0:f0f5:e38f with SMTP id
+ a92af1059eb24-1b25d346c12mr2313612c88.34.1793956829858; 
+ Fri, 06 Nov 2026 01:20:29 -0800 (PST)
+Received: from localhost.localdomain ([155.69.103.70])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b6e2028d9bsm102404695e9.9.2026.11.06.03.21.17
+ a92af1059eb24-1b25e4a610fsm3783796c88.11.2026.11.06.01.20.26
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 06 Nov 2026 03:21:17 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- "H . Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Olivier Louvignes <olivier@mgcrea.io>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/5] dt-bindings: vendor-prefixes: Add HiBy
-Date: Fri,  6 Nov 2026 12:19:56 +0100
-Message-ID: <20261106112000.1612-2-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261106112000.1612-1-olivier@mgcrea.io>
-References: <20261106112000.1612-1-olivier@mgcrea.io>
+ Fri, 06 Nov 2026 01:20:29 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Yige Jiang <yigejiang86@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/mediatek: Keep the mutex node reference across deferred
+ binds
+Date: Fri,  6 Nov 2026 17:20:23 +0800
+Message-ID: <confirmed-20261105-38-2e09963f1b23@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,34 +89,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-HiBy makes digital audio players, among them the R1.
+mtk_drm_probe() acquires private->mutex_node and releases that reference
+on probe failure or in mtk_drm_remove(). The component bind callback does
+not acquire another reference, so it must not put the node when the mutex
+platform device is not available.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+If this bind failure propagates through component_master_add_with_match(),
+the probe error path puts the same reference again. A bind attempted after
+probe has returned can also leave the stored node without its reference
+for a later bind or remove.
+
+Remove the bind-time put and leave the node reference with its probe/remove
+owner.
+
+Fixes: 119f5173628a ("drm/mediatek: Add DRM Driver for Mediatek SoC MT8173.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+AI assistance was used for analysis and patch preparation.
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 7602034374d7..0bbab57d6c25 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -732,6 +732,8 @@ patternProperties:
-     description: HEAD acoustics
-   "^hechuang,.*":
-     description: Shenzhen Hechuang Intelligent Co.
-+  "^hiby,.*":
-+    description: Guangzhou HiBy Technology Co., Ltd.
-   "^hideep,.*":
-     description: HiDeep Inc.
-   "^himax,.*":
--- 
-2.39.5
+Based on next-20261104 (8b7179210b22).
+Compile-tested: arm64, GCC 14.2.0, W=1, drivers/gpu/drm/mediatek/mtk_drm_drv.o;
+baseline and patched objects built with no warnings.
+Static source review; no hardware, boot, or KASAN test was performed.
 
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index dc8e3e917dd771b950167d04c1ab87c14dbabf72..64c912ba95899128bfb1a41765579d9d70979a27 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -630,7 +630,6 @@ static int mtk_drm_bind(struct device *dev)
+ 	if (!pdev) {
+ 		dev_err(dev, "Waiting for disp-mutex device %pOF\n",
+ 			private->mutex_node);
+-		of_node_put(private->mutex_node);
+ 		return -EPROBE_DEFER;
+ 	}
+
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
