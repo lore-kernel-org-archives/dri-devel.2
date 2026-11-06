@@ -2,93 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3AA606A32D
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7971606A332
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jut/I5P8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 065ED10EB60;
-	Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023134.outbound.protection.outlook.com [52.101.127.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F22BC10E3B7
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:47:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=anJpVoEJrufsgR4I+z6XUtvv7ROFEYQoG/bDAABz8/2FNnmZr1YozhFppmYK62N9sIHJ2rcvRxPZhUgY+Yk6fSjyZAu/alTdgJC6mjiuLIDyZG4aoBAsZ0/G9unC1C/9N00Q+1mvvbQpJFjKwL+Df27rVF7MCQDQYC4jl2SIykisbGzr86UqctpOiec2ogynJRllUOIgaBVvds5prpUYXMJljGdUB46xJ8hVF6mnmSH89RL88HZ0ZySxq54TbkpPao5czksa1GOIGwZ46cxXhEIgNeBRSgYAoYnRdfJK89pH4pyrQKC+t6rwVgjqvkgnyqmaAysNsq43jXDBfUgUQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hy9gFYTveJgCHC3VkCJIkxsZGmNRezdUbbJ0LlXZWFc=;
- b=AYUrg2jhOMo67IkrGBo3SAy72YLOYYApfNohJZjkZt2PpbPTedtoDyKNFZU/lcDTDXbxgiEHj/E/RStpSNhLQMCASfkyDS2XLQ/de9w6qDWfqU+JdWSJw+5Oaw031DEJvAtPCiLIOsmpRya/5WtS+AGCUxNOP27EVIRAaDMIcZ4rIwuzhGS28PBevSFCjtLYRvl7ojeDuVrGwN+Hhn24/Po75i92Jepd4K/PSSPSF9csYxA3fBo/IE43k0oOEJhPUxBo1M9sV4pqnWJtx90Hpx99CcYT9dSteWbPEzxlqPkKcrxWhvg3raCyBTgtrWDUR/grO2lvFP36vIq8E26n0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from OS7PR01CA0207.jpnprd01.prod.outlook.com (2603:1096:604:24a::10)
- by TYNPR06MB8782.apcprd06.prod.outlook.com (2603:1096:405:3c5::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
- 10:47:37 +0000
-Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
- (2603:1096:604:24a:cafe::a) by OS7PR01CA0207.outlook.office365.com
- (2603:1096:604:24a::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 10:47:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:36 +0000
-Received: from cix (unknown [172.16.64.42])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 93E134102E60;
- Fri,  6 Nov 2026 18:47:35 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gary.yang@cixtech.com, fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4107410EB13;
+	Sat,  7 Nov 2026 14:28:20 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB0210E9F2
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 11:21:23 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso4572875e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 03:21:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964081; x=1794568881;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RGgFReAaTRafr/XVNhuFl93ugo0WWp7slsgd2/vr9Os=;
+ b=jut/I5P80/VGZRtyhThX/7IuVGkexGHlkplf5CsrXhmC2XWpt57LiZ38wLVI3h6LGT
+ 2jhfICwg749A+MEQTWMapBoflp+uYwP56drWi711TYf7lDfmMO70TBrlvG7J6pypi2cH
+ 3b0HQwuVKgOl7/OMRJg0R7sPxl1Y1aH65wQcfAcNq/AqiO6ESL8Z8NtRWEVx4KlW5h0P
+ XwVh7nLAAKiRSNX4eucblWHdhzE9aDEFAXY/UPbSkZnbb2oyIskZFqYtlPP8kZBDKkGK
+ gpUJERmhaCSIOxHyrU7qymihAb6q9Md/9VM+vBCfIxoxbyV0X8rQ/thMLz1eIaVT2i2/
+ chfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793964081; x=1794568881;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RGgFReAaTRafr/XVNhuFl93ugo0WWp7slsgd2/vr9Os=;
+ b=0hcRVQxF3051Op4QJ4gWnRr0deBLC7yTLiVvwO/9Kvz2OsBUEyBclmav8wVeMR3vWz
+ JeZyxL9x75MBXgSajGNhxvKpqEwlWnI7dHPWuvAtkl2joA3WCK7Lka6hfQb1O6neZTYY
+ QQjCrKiICNSksVqjQ5Ujdkfr6W/+OFpR83lp1pOPcfq3467wIfEc97tY2p7WhxuMntTj
+ BLEQLNw+mgsJniEQD0LJWxmVd31ys3W4YtscxBDsTNYswrQLgBVOvrZcnZ43dh9SlgVS
+ Sw2LhWPxfAuUSQ5jgkZGqH1tRS3BGFG1josdm0W5W56cp2k+p51i/EXenpH4ChGexsGk
+ rhrg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy7vyrOsctcf7bDgNKMpCzOZTDjdTtKbO8eEA6GH6ES+4k8BWqKrM7mQ50YxFzRltih39gEzjSht6A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9IOCTXQOJmkRZJtXE/fJXzPeh6skYUIYhIIVJqoU1ysGzVQALS
+ XdcZH5cxhfWiwN6J8IMD1oeahzCXFdsrfzOt+Bqu727oICaFkbm4GziM5Xz74YnXa7A=
+X-Gm-Gg: AYBFou1mQHITM4obVaicxYoEDVqsCROF2aK5iKNZn2pbIAQgnvhQeVDrvocwMKDe+qr
+ gFXMg9AQcZPATMivcVACGgjzJF0nXdrDa7Mc7mgBl3kWlAwTNb+GMrScQdBvjg3v6vX260i6lHB
+ R9qoRmo9e7vsJMcbU1kdBfVEs/y5bPVGQ7m5+C/pegkuormMv0wmd+fHL2Xrit+GGffD30vBcUu
+ t57gSO+rOpwpOIjHqgpgKG+hy3eb2ISp1hkcBwBZxtdKcuCKZfpxVrOnqy73BMhAp55V9GcYuMn
+ GGWs9lMCcnFy2HiYVWEZajrVekqS9fIz+WzVeOvAUyT3R+ZHlIf0/hFJaVoIHTxOO6LJHthG0f2
+ 2dJ0ysMXOGaMII/wkBpx/OrfyjXotxtaLglOvdJ2b6yVyhL6cGaomqSNMselZ3P7CJ7vH+aj7Do
+ eRtVVuePgpz/45eRBOpyOGFUi+LcCSgUrkKoZY64fej+KFIGDTk2bIv8cjoBQiW0kb2SDhy8zI3
+ kDvd5TDb1qOW79lROhBwNaEObDWBW1jkUz/MAoOIHnaNq8jadQ/5NV0iLlGtpLOkC+Z2BDTjyYf
+ ty5kYh5XA8giuWt/gDdeviplJrMu3qsan0Kk346joRZrMoc3eyhZgmxsqJAGWLs=
+X-Received: by 2002:a05:600c:818e:b0:4a3:5a55:f454 with SMTP id
+ 5b1f17b1804b1-4b6df5ea9eemr33727555e9.19.1793964081533; 
+ Fri, 06 Nov 2026 03:21:21 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b6e2028d9bsm102404695e9.9.2026.11.06.03.21.20
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 06 Nov 2026 03:21:21 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ "H . Nikolaus Schaller" <hns@goldelico.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- robin.wang@cixtech.com, cunyuan.liu@cixtech.com
-Subject: [PATCH 0/3] Add initial GPU support for CIX Sky1
-Date: Fri,  6 Nov 2026 18:47:32 +0800
-Message-ID: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v3 5/5] drm/panel: Add the HiBy LG35583
+Date: Fri,  6 Nov 2026 12:20:00 +0100
+Message-ID: <20261106112000.1612-6-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261106112000.1612-1-olivier@mgcrea.io>
+References: <20261106112000.1612-1-olivier@mgcrea.io>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|TYNPR06MB8782:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261022075727099003|56012099006|3023799007|261021123027099003|261026140227099003|261021121427099003|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: XZAYsGl+v9Z9v0l+pl7qQVSILbPz7T6t5AwvfqZvzxXfTXRevxc/enOxuVBHsiH7KMnU/9WkKVPXso1IBRSSqlb/jiCNgaAj4Bt4NQ5+vaJC0kEazs0LOgiagHX8XNBmY7BElVwSfvBN0K407ojYAEvRg3LFuWzKf479/1SyjPFdPySFw75n9SMeg4ACt5zoaajoHGrYCz1DeS9PjBAsjW50jiTBcn15x1tj9iOpxCcgaJYrg1AoH2PupZojFE81fB6/MDiPwNOPSgtnZKv8ly4v68f7IGxhrqA1bge3gzGxVmX3MSuacJ3q+xorbzIKtuBhV566j835AA0J4g96Pe/Fg1EYRJLLQUXxtOvGiGmDSHLa7N8OK/O7dZ9/O7g8NWyZrj28yLMFBfhI6qlsXAfOgJzp6hPsQfnP5S73lWj4oMs0t1IaW7qWKzBiOEu1vXmVbPPRBDvsvz6MJ2okWynT5WqNqFs51gjQiJejAkm36uVnmakmwWuQDK71Ax4D7EpuRWeg8eiP+NMfq9+zXigmCOmUUbxHqDcGa7MU+P7IXM0S0c7XiDkXG4jntuFqNDiXqehK0AjWUA4um0lvoY6egWhItEeltmLMgpafEtJOQ4ofN+/5XuQ/2neUiIXPFG+yQsnAUwzmoJaQb7ovcxpPMdVe0+EVXss4vRjjjeRJZRyx/KteU4l8RQO+1YMk
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261022075727099003)(56012099006)(3023799007)(261021123027099003)(261026140227099003)(261021121427099003)(6133799003)(10067099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6HU+iO2agx8RonEIpQnK9YZdgd2t5ptWTBfrTU1uH8ssunP925RRSXYZv5aScBuAy4Al19v7NjQCiHHsdWfFHxK45YbmaBZCxb9Gp0QDuTDBvioprzQqe3D0cFS+0FI1gF9ADvA9CLry2m6fJXzQZdB+x+Yilqhq2cZ27AB0Gx2S4GvH9GZs70XBVTcL+0haxHL0rK0SIUTeXxt5h6jcx4JfqTY03ENSO3+CjYh68AgOLuZJfolLYWCfaWNiUO4/6jQgMTkEbt0jQkfasfLclPww6SbA3+6WrdVHrnFkao030Td8rvgRIKiC5RLvby9hhCdqmubOaEVy4CnlLmcxQL3OZrLOMGX0dbqyN3i05XbC3SqslU6uN+v8xaIXTWle7MTbMssR2KmT1RDG4ff0S+1jUcK+JCsViWTAK3I3TlHcD7DQiD1/i2A1imYMutND
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:36.5656 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: OSA0EPF000000CA.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8782
 X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,67 +96,422 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds initial support for the Mali GPU on CIX Sky1 and
-enables it on the Radxa Orion O6 board.
+The 480x800 parallel RGB panel of the HiBy R1. It is set up over a 3-wire
+SPI bus with 16-bit words, each carrying a register address byte or a
+data byte, which no existing panel driver speaks. The set-up sequence is
+the vendor kernel's; prepare sends it up to sleep-out, and enable and
+disable switch the display on and off. It asks for BGR666: in RGB order the
+R1 shows red and blue swapped.
 
-The GPU requires an external reset before the driver first accesses
-the hardware. Add SoC-specific data to Panthor to perform this reset
-during initialization.
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/panel/Kconfig              |  10 +
+ drivers/gpu/drm/panel/Makefile             |   1 +
+ drivers/gpu/drm/panel/panel-hiby-lg35583.c | 342 +++++++++++++++++++++
+ 4 files changed, 354 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
 
-This initial version keeps the PM firmware default clock settings and
-skips devfreq. It does not read OPPs or request a performance level.
-The firmware sets the default GPU frequency to 1 GHz. No devfreq
-governor or GPU cooling device is registered.
-
-Configure the system-level cache before L2 power-on using the settings
-from the working CIX Sky1 driver. On Sky1, devices on the MMHUB bus
-cannot access the system-level cache, so buffers shared between the GPU
-and MMHUB devices require a specific system-level cache policy. Without
-this configuration, the GPU display output is corrupted.
-
-The series contains three patches:
-[1/3] dt-bindings: gpu: Add CIX Sky1 Mali support
-[2/3] drm/panthor: Add initial support for CIX Sky1
-[3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
-
-Tested on Radxa Orion O6:
-  - Offscreen rendering with pixel readback
-  - kmscube
-  - glmark2 at 1080p
-  - Runtime suspend and resume with a retained EGL context
-  - Reset-worker operations
-  - Module unload and reload
-
-
-Best regards,
-Cunyuan
-
-Cunyuan Liu (3):
-  dt-bindings: gpu: Add CIX Sky1 Mali support
-  drm/panthor: Add initial support for CIX Sky1
-  arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
- .../bindings/gpu/arm,mali-valhall-csf.yaml    | 51 +++++++++++++++++++
- arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  4 ++
- arch/arm64/boot/dts/cix/sky1.dtsi             | 16 ++++++
- drivers/gpu/drm/panthor/panthor_devfreq.c     | 11 +++-
- drivers/gpu/drm/panthor/panthor_device.c      | 15 ++++++
- drivers/gpu/drm/panthor/panthor_device.h      | 25 +++++++++
- drivers/gpu/drm/panthor/panthor_drv.c         | 15 ++++++
- drivers/gpu/drm/panthor/panthor_gpu.c         | 14 +++++
- drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  2 +
- 9 files changed, 152 insertions(+), 1 deletion(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 474d8a597e1c..f7543e55d7b9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8347,6 +8347,7 @@ DRM DRIVER FOR HIBY LG35583 PANEL
+ M:	Olivier Louvignes <olivier@mgcrea.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
++F:	drivers/gpu/drm/panel/panel-hiby-lg35583.c
+ 
+ DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
+ M:	Ondrej Jirman <megi@xff.cz>
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 26ffa2378f55..79528ff0100a 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -209,6 +209,16 @@ config DRM_PANEL_LVDS
+ 	  handling of power supplies or control signals. It implements automatic
+ 	  backlight handling if the panel is attached to a backlight controller.
+ 
++config DRM_PANEL_HIBY_LG35583
++	tristate "HiBy LG35583 RGB/SPI panel"
++	depends on OF && SPI
++	help
++	  Say Y here if you want to enable support for the LG35583, the
++	  480x800 parallel RGB panel of the HiBy R1 digital audio player,
++	  which is set up over a 3-wire SPI bus.
++
++	  To compile this driver as a module, choose M here.
++
+ config DRM_PANEL_HIMAX_HX8279
+ 	tristate "Himax HX8279-based panels"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 365f2e73f6b4..9f5cacfaba29 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -21,6 +21,7 @@ obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
+ obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
+ obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
+ obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
++obj-$(CONFIG_DRM_PANEL_HIBY_LG35583) += panel-hiby-lg35583.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
+diff --git a/drivers/gpu/drm/panel/panel-hiby-lg35583.c b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+new file mode 100644
+index 000000000000..47aba09e91a4
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+@@ -0,0 +1,342 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * The LG35583 panel of the HiBy R1
++ *
++ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
++ *
++ * A 480x800 parallel RGB panel, set up over a 3-wire SPI bus with 16-bit
++ * words: 0x20 and a register's high byte, 0x00 and its low byte, then 0x40
++ * and each data byte. HiBy calls it the LG35583; its controller is not
++ * identified. The set-up sequence is the one the vendor kernel sends.
++ */
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/media-bus-format.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++#include <linux/spi/spi.h>
++
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++
++#define LG35583_ADDR_HI		0x2000
++#define LG35583_ADDR_LO		0x0000
++#define LG35583_DATA		0x4000
++
++#define LG35583_SLPIN		0x1000
++#define LG35583_SLPOUT		0x1100
++#define LG35583_DISPOFF		0x2800
++#define LG35583_DISPON		0x2900
++#define LG35583_RAMWR		0x2c00
++
++struct lg35583_write {
++	u16 reg;	/* 0: wait val milliseconds */
++	s16 val;	/* -1: no data */
++};
++
++#define REG(r, v)	{ (r), (v) }
++#define CMD(r)		{ (r), -1 }
++#define DELAY(ms)	{ 0, (ms) }
++
++static const struct lg35583_write lg35583_init[] = {
++	REG(0xb100, 0x06), REG(0xb101, 0x01), REG(0xb102, 0x54),
++	REG(0xb104, 0x07), REG(0xb105, 0x06), REG(0xb106, 0x06),
++	REG(0xb107, 0x4a), REG(0xb108, 0x21), REG(0xb109, 0x08),
++	REG(0xf101, 0xc0), REG(0xf103, 0x01),
++	DELAY(5),
++	REG(0xb400, 0x01), REG(0xb600, 0x10),
++	REG(0x3a00, 0x77), REG(0x3b00, 0x03), REG(0x5e04, 0x02),
++	REG(0x3600, 0x08),
++	DELAY(5),
++	/* Gamma */
++	REG(0xe000, 0x00), REG(0xe001, 0x2f), REG(0xe002, 0x3f),
++	REG(0xe003, 0x1f), REG(0xe004, 0x21), REG(0xe005, 0x2c),
++	REG(0xe006, 0x2c), REG(0xe007, 0x61), REG(0xe008, 0x1c),
++	REG(0xe009, 0x18), REG(0xe00a, 0xbc), REG(0xe00b, 0x27),
++	REG(0xe00c, 0x59), REG(0xe00d, 0x6a), REG(0xe00e, 0xbb),
++	REG(0xe00f, 0xbe), REG(0xe010, 0x3e), REG(0xe011, 0x48),
++	REG(0xe100, 0x00), REG(0xe101, 0x32), REG(0xe102, 0x45),
++	REG(0xe103, 0x26), REG(0xe104, 0x21), REG(0xe105, 0x2c),
++	REG(0xe106, 0x5c), REG(0xe107, 0x63), REG(0xe108, 0x1c),
++	REG(0xe109, 0x19), REG(0xe10a, 0xd3), REG(0xe10b, 0x28),
++	REG(0xe10c, 0x59), REG(0xe10d, 0x6b), REG(0xe10e, 0xdb),
++	REG(0xe10f, 0xde), REG(0xe110, 0x5f), REG(0xe111, 0x6b),
++	REG(0xe200, 0x7f), REG(0xe201, 0x7d), REG(0xe202, 0x86),
++	REG(0xe203, 0x89), REG(0xe204, 0x10), REG(0xe205, 0x1e),
++	REG(0xe206, 0x41), REG(0xe207, 0x77), REG(0xe208, 0x0d),
++	REG(0xe209, 0x1d), REG(0xe20a, 0xc8), REG(0xe20b, 0x30),
++	REG(0xe20c, 0x5f), REG(0xe20d, 0x71), REG(0xe20e, 0xc3),
++	REG(0xe20f, 0xbe), REG(0xe210, 0x3e), REG(0xe211, 0x48),
++	REG(0xe300, 0x7f), REG(0xe301, 0x7f), REG(0xe302, 0x86),
++	REG(0xe303, 0x93), REG(0xe304, 0x10), REG(0xe305, 0x1e),
++	REG(0xe306, 0x41), REG(0xe307, 0x89), REG(0xe308, 0x0d),
++	REG(0xe309, 0x1d), REG(0xe30a, 0xe0), REG(0xe30b, 0x30),
++	REG(0xe30c, 0x5f), REG(0xe30d, 0x70), REG(0xe30e, 0xe4),
++	REG(0xe30f, 0xdf), REG(0xe310, 0x5f), REG(0xe311, 0x6b),
++	REG(0xe400, 0x00), REG(0xe401, 0x43), REG(0xe402, 0x6f),
++	REG(0xe403, 0x60), REG(0xe404, 0x21), REG(0xe405, 0x2c),
++	REG(0xe406, 0x5a), REG(0xe407, 0x6d), REG(0xe408, 0x1c),
++	REG(0xe409, 0x18), REG(0xe40a, 0xc6), REG(0xe40b, 0x27),
++	REG(0xe40c, 0x59), REG(0xe40d, 0x6a), REG(0xe40e, 0xbb),
++	REG(0xe40f, 0xbe), REG(0xe410, 0x3e), REG(0xe411, 0x48),
++	REG(0xe500, 0x00), REG(0xe501, 0x46), REG(0xe502, 0x75),
++	REG(0xe503, 0x67), REG(0xe504, 0x21), REG(0xe505, 0x2c),
++	REG(0xe506, 0x5a), REG(0xe507, 0x7e), REG(0xe508, 0x1c),
++	REG(0xe509, 0x19), REG(0xe50a, 0xdd), REG(0xe50b, 0x28),
++	REG(0xe50c, 0x59), REG(0xe50d, 0x6b), REG(0xe50e, 0xdb),
++	REG(0xe50f, 0xde), REG(0xe510, 0x5f), REG(0xe511, 0x6b),
++	DELAY(5),
++	REG(0xc200, 0x70), REG(0xc202, 0x70), REG(0xc203, 0x44),
++	DELAY(20),
++	REG(0xc200, 0x51), REG(0xc201, 0x06), REG(0xc202, 0x51),
++	REG(0xc203, 0x66),
++	DELAY(20),
++	REG(0xc100, 0x45),
++	DELAY(5),
++	REG(0xc700, 0x46), REG(0xc000, 0xa3), REG(0xc002, 0x8a),
++	DELAY(5),
++	CMD(LG35583_SLPOUT),
++	DELAY(130),
++};
++
++struct lg35583 {
++	struct drm_panel panel;
++	struct spi_device *spi;
++	struct gpio_desc *reset;
++	struct regulator *vcc;
++	struct regulator *vccio;
++};
++
++static const struct drm_display_mode lg35583_mode = {
++	.clock = 28000,
++	.hdisplay = 480,
++	.hsync_start = 480 + 24,
++	.hsync_end = 480 + 24 + 24,
++	.htotal = 480 + 24 + 24 + 24,
++	.vdisplay = 800,
++	.vsync_start = 800 + 14,
++	.vsync_end = 800 + 14 + 5,
++	.vtotal = 800 + 14 + 5 + 8,
++	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static struct lg35583 *to_lg35583(struct drm_panel *panel)
++{
++	return container_of(panel, struct lg35583, panel);
++}
++
++static int lg35583_word(struct lg35583 *ctx, u16 word)
++{
++	/* Copied to a DMA-safe buffer. */
++	return spi_write_then_read(ctx->spi, &word, sizeof(word), NULL, 0);
++}
++
++static int lg35583_cmd(struct lg35583 *ctx, u16 reg)
++{
++	int ret;
++
++	ret = lg35583_word(ctx, LG35583_ADDR_HI | (reg >> 8));
++	if (ret)
++		return ret;
++	return lg35583_word(ctx, LG35583_ADDR_LO | (reg & 0xff));
++}
++
++static int lg35583_write(struct lg35583 *ctx, const struct lg35583_write *w)
++{
++	int ret;
++
++	if (!w->reg) {
++		msleep(w->val);
++		return 0;
++	}
++
++	ret = lg35583_cmd(ctx, w->reg);
++	if (ret || w->val < 0)
++		return ret;
++	return lg35583_word(ctx, LG35583_DATA | w->val);
++}
++
++static int lg35583_prepare(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	unsigned int i;
++	int ret;
++
++	ret = regulator_enable(ctx->vccio);
++	if (ret)
++		return ret;
++	usleep_range(5000, 6000);
++
++	ret = regulator_enable(ctx->vcc);
++	if (ret)
++		goto err_vccio;
++	usleep_range(5000, 6000);
++
++	gpiod_set_value_cansleep(ctx->reset, 0);
++	usleep_range(5000, 6000);
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	msleep(50);
++	gpiod_set_value_cansleep(ctx->reset, 0);
++	msleep(30);
++
++	for (i = 0; i < ARRAY_SIZE(lg35583_init); i++) {
++		ret = lg35583_write(ctx, &lg35583_init[i]);
++		if (ret) {
++			dev_err(panel->dev, "Unable to set up the panel: %d\n", ret);
++			goto err_vcc;
++		}
++	}
++
++	return 0;
++
++err_vcc:
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	regulator_disable(ctx->vcc);
++err_vccio:
++	regulator_disable(ctx->vccio);
++	return ret;
++}
++
++static int lg35583_enable(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	int ret;
++
++	ret = lg35583_cmd(ctx, LG35583_DISPON);
++	if (ret)
++		return ret;
++
++	return lg35583_cmd(ctx, LG35583_RAMWR);
++}
++
++static int lg35583_disable(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	int ret;
++
++	ret = lg35583_cmd(ctx, LG35583_DISPOFF);
++	usleep_range(5000, 6000);
++	return ret;
++}
++
++static int lg35583_unprepare(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++
++	lg35583_cmd(ctx, LG35583_SLPIN);
++	usleep_range(5000, 6000);
++
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	regulator_disable(ctx->vccio);
++	regulator_disable(ctx->vcc);
++	return 0;
++}
++
++static int lg35583_get_modes(struct drm_panel *panel, struct drm_connector *connector)
++{
++	/* Red and blue are swapped on the R1 without it. */
++	static const u32 bus_format = MEDIA_BUS_FMT_BGR666_1X18;
++	struct drm_display_mode *mode;
++
++	mode = drm_mode_duplicate(connector->dev, &lg35583_mode);
++	if (!mode)
++		return -ENOMEM;
++
++	drm_mode_set_name(mode);
++	drm_mode_probed_add(connector, mode);
++
++	connector->display_info.bpc = 6;
++	connector->display_info.bus_flags = DRM_BUS_FLAG_DE_HIGH |
++					    DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
++	drm_display_info_set_bus_formats(&connector->display_info, &bus_format, 1);
++
++	return 1;
++}
++
++static const struct drm_panel_funcs lg35583_funcs = {
++	.prepare = lg35583_prepare,
++	.enable = lg35583_enable,
++	.disable = lg35583_disable,
++	.unprepare = lg35583_unprepare,
++	.get_modes = lg35583_get_modes,
++};
++
++static int lg35583_probe(struct spi_device *spi)
++{
++	struct device *dev = &spi->dev;
++	struct lg35583 *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct lg35583, panel, &lg35583_funcs,
++				   DRM_MODE_CONNECTOR_DPI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ctx->spi = spi;
++	spi_set_drvdata(spi, ctx);
++
++	spi->bits_per_word = 16;
++	ret = spi_setup(spi);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to set up SPI\n");
++
++	ctx->vcc = devm_regulator_get(dev, "vcc");
++	if (IS_ERR(ctx->vcc))
++		return dev_err_probe(dev, PTR_ERR(ctx->vcc), "Unable to get vcc\n");
++
++	ctx->vccio = devm_regulator_get(dev, "vccio");
++	if (IS_ERR(ctx->vccio))
++		return dev_err_probe(dev, PTR_ERR(ctx->vccio), "Unable to get vccio\n");
++
++	/*
++	 * Deasserted, which keeps a panel the boot loader left on as it is, but
++	 * as an output: after a reset the pin is an input, and prepare's reset
++	 * pulse would never reach the panel.
++	 */
++	ctx->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset), "Unable to get reset\n");
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return ret;
++
++	drm_panel_add(&ctx->panel);
++	return 0;
++}
++
++static void lg35583_remove(struct spi_device *spi)
++{
++	struct lg35583 *ctx = spi_get_drvdata(spi);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id lg35583_of_match[] = {
++	{ .compatible = "hiby,lg35583" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lg35583_of_match);
++
++static const struct spi_device_id lg35583_ids[] = {
++	{ "lg35583" },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, lg35583_ids);
++
++static struct spi_driver lg35583_driver = {
++	.probe = lg35583_probe,
++	.remove = lg35583_remove,
++	.id_table = lg35583_ids,
++	.driver = {
++		.name = "panel-hiby-lg35583",
++		.of_match_table = lg35583_of_match,
++	},
++};
++module_spi_driver(lg35583_driver);
++
++MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
++MODULE_DESCRIPTION("HiBy R1 LG35583 panel driver");
++MODULE_LICENSE("GPL");
 -- 
-2.53.0
+2.39.5
 
