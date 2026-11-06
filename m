@@ -2,55 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8119A606D837
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B493606D818
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owrlddSJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WeDynIun
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E257310EA61;
-	Fri,  6 Nov 2026 14:08:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE60E112DE6;
+	Fri,  6 Nov 2026 14:09:30 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D4510EA61
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:08:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03917112E01
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:09:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7EDE1605D7;
- Fri,  6 Nov 2026 14:08:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82191F008A6;
- Fri,  6 Nov 2026 14:08:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 197DB6020F;
+ Fri,  6 Nov 2026 14:09:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884051F0089F;
+ Fri,  6 Nov 2026 14:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793974088;
- bh=Izey0YBOmcZkE1lp+pLrWr5YZYx/6LfMAQiArWMbf3s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=owrlddSJvI7VaXhET0+UXtEfznGpZVWBtrnnW5ZIDM+EZk5h58b58LB7pjJoRy+rw
- qBdsFQ3jBMEdSMNYWCtXSKpI4fQVkKuRPI+sQy25ai1y2ErK8etdaFIOlJo7/KYfxz
- tFeDz6jwxqO7gwtENb38BrMK/iMTPKLSsmbp1568rjoQtq7AYr5BldsnMihy/HO6U2
- HEfpNB7xfsZ4PvDtMrgZR6hyenTgx/jxXf9L3m6RuhbBYBl9gW5DeSBHNT+Dt//MFg
- JEQdVO8/4Nx0nSrgsgXnLWCadVvoELRhnAL3B/GAoICoZjf3mqQKbGvv0Mb1+RwgDn
- huejvWYUdFyvA==
-Date: Fri, 6 Nov 2026 15:08:05 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <au3etybQlb5CtjBL@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-10-clamor95@gmail.com>
+ s=k20260515; t=1793974162;
+ bh=+l3jNbIDS76WPNvh/NK944sUo4wbpr4s9at1CgYGR6g=;
+ h=From:To:Cc:Subject:Date;
+ b=WeDynIunenyp7YlBM64P8U3/KYF0JPTr973XGHfE2NzH0frBK2n8pb+XsD1F0/euL
+ meQ9bkWa3mWhIUnXMqfJu1iDyFgS7gfyHOANjx/AP+MzknIFIv4FIP5liLS4jmZaBY
+ 7RJpgWn7SZKCjxI39fU1kIQokvODS75dvDCyQtU5t8N2jsip/1wZd9owG5lNwtqRVc
+ ZvmjiHLQHoiuVdQs2ww8KXJDqJ4PT/51uBXAMWFEV8qcemh50A5zSm8DhjYrQ+u5yZ
+ 2Pk+E1OiGo3xH9DrRXl5xFuZED716nN+JsCyUuM7bVriCNc38R567HkPjm6oRYXnGh
+ +SHu+aFUatZgA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: [PATCH 0/8] rust: Add drm::JobQueue
+Date: Fri,  6 Nov 2026 15:07:45 +0100
+Message-ID: <20261106140752.520386-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="le22g3n3ml5qqrw4"
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-10-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,84 +62,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Changes since RFCv7:
+  - Write a bunch of documentation, mostly about the kill() backend_ops.
+  - Add creations of own work_queues (requires some work with the life
+    times still; last relevant TODO AFAICS).
 
---le22g3n3ml5qqrw4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+Depends on the workqueue series:
+https://lore.kernel.org/rust-for-linux/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/
 
-On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
->=20
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++++++
->  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
->  2 files changed, 135 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidi=
-a,tegra20-dbi.yaml
->=20
-[...]
-> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
-20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20=
--dc.yaml
-> index 69be95afd5627..ffeb124905dbf 100644
-> --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.y=
-aml
-> @@ -79,6 +79,16 @@ properties:
->    rgb:
->      type: object
-> =20
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^dbi@[0-1]$":
-> +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
+Besides based on drm-rust-next
 
-I think it might be better to group these under a separate dbi node at
-the top-level, making it a sibling to the "rgb" node. If you add
-#address-cells and #size-cells here, I think that means technically the
-"rgb" is now in the same address space as those new dbi nodes and would
-need its own "reg" property and such.
+Daniel tested an earlier RFC (v6 I think) on Tyr and reports that it ran
+well. In v2 I want to have our own workqueues ready, perhaps after the
+workqueue has gone upstream.
 
-Thierry
+But I thought it's time to present this as v1 since we settled on the
+design, it's mostly working already and we can now begin diving out the
+remaining problems.
 
---le22g3n3ml5qqrw4
-Content-Type: application/pgp-signature; name="signature.asc"
+So please review :)
 
------BEGIN PGP SIGNATURE-----
+Thx again to everyone who helped with moving this forward.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt30UACgkQ3SOs138+
-s6GGVBAAubMFZSQ0mFCPlqAMqXSNCvqndsgYdUzR3UA/a03TL4Ii+ULGIqx6ux82
-uibYRjgtaTaAxeuGUvL2KWes1lkUvWGEGt9hD3BS0jHUGEiYJN0u7yx79oAho8DJ
-i+5HZ8CIpcERvEXpzczFo2vbw0ztc6sdvA+dsIo2S8pXTOCQ8GG8oTBZOMIADLBB
-mgALNPpt9nWpY+gZYo179Sr4TIPpuFXDEg/ZIv/qlV641SYuhi/Ahs1exBCAJAZ8
-CuOS1KAEVR9ZVVclHFN+24Hq+nbbX8giUue6Ii2dwL3YnBBmJaGdj0jbowdO1dQl
-VOQha1/l350eA0wgPl8q9P6xCKLDic9j40HpaLVRoH7hXbK+4ZwYy6iubx+2hKjD
-I7oPkf9BkCehmsPhPTim3yER6zV9eAnaHe+tm0TcCRw723d90dg4t8W/w22MGTr9
-YXcSd1DlDePAMyzt4KR968mvSaa1B0jzkRa2Y0oFFWJ4qyfP+I/Ovq0OrsfHtcRd
-UW0UtAE2JmFl2jLxaXsl+nIuX2bUNTBDwIfscb1n7oWr6fx4jxkL77yp8ffVxYrJ
-eVDs9GZpDInSjSO6tgMOFjSG0+sc3wfyHw95YVD+h/qb8wHmxmiEeSHL0bsBdiNT
-nK0YAYcHUjI7lGmB/uB6EWRCxs/9XX1iltQM1iAVawf4kNo1pD4=
-=F4XT
------END PGP SIGNATURE-----
+Last RFC:
+https://lore.kernel.org/dri-devel/20261103153138.1087330-2-phasta@kernel.org/
 
---le22g3n3ml5qqrw4--
+Repo:
+https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/tree/jobqueue-jobqueue-v1-2?ref_type=heads
+
+
+PS:
+Note that this version now obtains a fence->error under lock,
+because I strongly suspect that this pattern
+
+if (dma_fence_is_signaled(f))
+  pr_info("err: %i\n", f->error);
+
+is UB since there is no memory ordering between the reads (which would
+proof that fences' locks are not "just for the cb_list", as was sometimes
+suggested). My discussions regarding fixing that in C can be found here:
+
+https://lore.kernel.org/dri-devel/20261020100034.759183-2-phasta@kernel.org/
+https://lore.kernel.org/dri-devel/2db0f1b4-6628-465e-928e-d779b89f59dc@amd.com/
+
+
+Philipp Stanner (8):
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Add ID accessor for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: DmaFence: Replace is_signaled() with status()
+  rust: DmaFence: Pass result in callbacks
+  rust: drm: Add JobQueue
+  MAINTAINERS: Add drm::JobQueue to drm_sched's entry
+
+ MAINTAINERS                      |   1 +
+ rust/helpers/dma_fence.c         |   4 +-
+ rust/kernel/dma_buf/dma_fence.rs | 234 ++++-----
+ rust/kernel/dma_buf/mod.rs       |   3 +-
+ rust/kernel/drm/job_queue.rs     | 873 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ 6 files changed, 996 insertions(+), 123 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+
+
+base-commit: 7a6bc132f1b51437063c9203e7221067b40a791e
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: e4ebcb108207c2d06130382c59c12ffe09a7a6db
+prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad
+prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f
+prerequisite-patch-id: ea89aac6f42582c91174068c1db4d171bd7a8920
+-- 
+2.56.0
+
