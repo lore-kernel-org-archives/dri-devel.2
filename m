@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC97A606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F24606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:57:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=h3L1l0Co
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=OU7AUQIV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F00310EA6B;
-	Fri,  6 Nov 2026 14:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3582E10EB77;
+	Fri,  6 Nov 2026 14:57:15 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8C7A10EB77;
- Fri,  6 Nov 2026 14:57:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6364C10F91F;
+ Fri,  6 Nov 2026 14:57:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=uEob53vGgLQ4iMVQkdH5VH1rqTBiA/SP6OGWRgL0ooI=; t=1793977026; x=2109337026; 
- b=h3L1l0Co2sA65Qtb18wYeinaEjTMP+m6VbM/2XEjgMJP2Q2tnfYnVHi+WYHB8YvmdIY1G1VQTNQ
- LXEmYgVcwwCDjWWIjHtkv5MuEc0wRSd/AVgA9XSYmMg+dNWr8HFHd7Vs9FkAwMsR/kQFmFcrJzylf
- ogbEb3CSXoWMimqsyMqtN3DVMr0HanSLSzbEBsmxCm47WWPr3MZnrgKj8tw+crVXq93vj9GzxlamU
- jte+oIBG8QwlLmoaQRd+2s4XAqfjx5v3AULwZkBzSzXPIk2DBT6YmSzZuNGVmXJ1pp57ml1EeX0Jz
- dmkZQtle4OaK6FmkWaQaN1rAa2WlNE2zCXRA==;
+ bh=cwZ+WophZbD5EZ+IEm2J/v9FXuVOIifsozqAD8M0f9I=; t=1793977028; x=2109337028; 
+ b=OU7AUQIVcDi+EJbE2ZNWiDJVtfFsDlRlcV1bf/0E7IFnw2vEkL34Md03zuP/v1BH349ovzTjnaR
+ 4xq1uxTi7/DeWimxLxsEvwHHR0DblG2gG0U80HzncTC/OI2j1IhWYYTZQEBP0Hm9IH1apzV9BiHZh
+ 8QDZCxrkFJW1ed9yVJNZGJHrOc9YaFiXGYEhV2kon2zbmi3lC9I/z41jviMwLzoU7EI/DV+1zyXh/
+ 0Qg0wGYn769epadDqTXY9aeJj7I1OzBgj02RckC3RF7Y1J1l164zJU/iT2KmeqUL4HbqP16s0frED
+ Kimvh0sjmA9RX9FPdtiYNPyLrmMXlHTMTG1Q==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xPLNI-004VmQ-Q3; Fri, 06 Nov 2026 15:57:04 +0100
+ id 1xPLNK-004Vmh-9n; Fri, 06 Nov 2026 15:57:06 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -33,11 +33,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 1/7] drm/sched: Disallow initializing entities with
- un-initialized schedulers
-Date: Fri,  6 Nov 2026 14:56:56 +0000
-Message-ID: <20261106145702.61640-2-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>, intel-xe@lists.freedesktop.org
+Subject: [PATCH 3/7] drm/sched: Replace completion with a flush
+Date: Fri,  6 Nov 2026 14:56:58 +0000
+Message-ID: <20261106145702.61640-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
 References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
@@ -64,85 +63,210 @@ X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Simplify the code and theoretical runtime combinations by disallowing
-initializing entities with un-initialized schedulers.
+Due the scheduler locking design, and the inability to always lock both
+the entity and the run-queue in the consistent order, a completion exists
+which effectively marks the entity as in use from a call path which is not
+able to lock it.
+
+When entity is selected from the run job worker, its completion is marked
+as non-idle all until the code is sure it will not be dereferencing it any
+more, at which point it signals it as idle, releasing the potential
+parallel cleanup path.
+
+We can remove the need for this completion by implementing the identical
+guarantee by simply flushing the run job work from the cleanup path, after
+having removed the entity from the run queue.
+
+We then know that the entity is no longer reachable by the run queue
+selection logic, so as soon as any pending work is done the cleanup can
+safely proceed. And because we have marked the entity as stopped, we also
+know that the entity cannot re-enter the run queue.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
 ---
-I do not *think* any of the drivers relies on this inverted initialization
-order but it needs more eyes for sure.
----
- drivers/gpu/drm/scheduler/sched_entity.c | 30 +++++++++++++++---------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c   | 18 ++++++++++--------
+ drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++++--
+ drivers/gpu/drm/scheduler/sched_main.c     |  2 --
+ drivers/gpu/drm/scheduler/sched_rq.c       | 19 +++++++++++++------
+ include/drm/gpu_scheduler.h                |  9 ---------
+ 5 files changed, 35 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 03e68b4102d5..2844049d4c66 100644
+index a18f637f9e99..2a827522e23f 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -119,9 +119,16 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 			  unsigned int num_sched_list,
- 			  atomic_t *guilty)
- {
--	if (!entity || !sched_list || !num_sched_list || !sched_list[0])
-+	unsigned int i;
-+
-+	if (!entity || !sched_list || !num_sched_list)
- 		return -EINVAL;
- 
-+	for (i = 0; i < num_sched_list; i++) {
-+		if (!sched_list[i] || !sched_list[i]->sched_rq)
-+			return -EINVAL;
-+	}
-+
- 	memset(entity, 0, sizeof(struct drm_sched_entity));
- 
- 	entity->stats = drm_sched_entity_stats_new();
-@@ -135,13 +142,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
--	if (!sched_list[0]->sched_rq) {
--		/* Since every entry covered by num_sched_list
--		 * should be non-NULL and therefore we warn drivers
--		 * not to do this and to fix their DRM calling order.
--		 */
--		pr_warn("%s: called with uninitialized scheduler\n", __func__);
--	} else if (priority >= sched_list[0]->num_user_rqs) {
-+	if (priority >= sched_list[0]->num_user_rqs) {
- 		/*
- 		 * The "priority" of an entity cannot exceed the number of
- 		 * run-queues of a scheduler. Protect against num_rqs being 0,
-@@ -158,8 +159,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->priority = priority;
- 	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
+@@ -161,11 +161,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
  			      DRM_SCHED_PRIORITY_KERNEL : priority;
--	if (sched_list[0]->sched_rq)
--		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
-+	entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
+ 	entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
  
- 	init_completion(&entity->entity_idle);
+-	init_completion(&entity->entity_idle);
+-
+-	/* We start in an idle state. */
+-	complete_all(&entity->entity_idle);
+-
+ 	spin_lock_init(&entity->lock);
+ 	spsc_queue_init(&entity->job_queue);
  
-@@ -192,7 +192,15 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 				    struct drm_gpu_scheduler **sched_list,
- 				    unsigned int num_sched_list)
+@@ -312,16 +307,23 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+  */
+ void drm_sched_entity_kill(struct drm_sched_entity *entity)
  {
--	WARN_ON(!num_sched_list || !sched_list);
-+	unsigned int i;
-+
-+	if (WARN_ON(!num_sched_list || !sched_list))
-+		return;
-+
-+	for (i = 0; i < num_sched_list; i++) {
-+		if (WARN_ON(!sched_list[i] || !sched_list[i]->sched_rq))
-+			return;
-+	}
++	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_job *job;
+ 	struct dma_fence *prev;
  
  	spin_lock(&entity->lock);
- 	entity->sched_list = sched_list;
+ 	entity->stopped = true;
+-	drm_sched_rq_remove_entity(entity->rq, entity);
++	sched = drm_sched_rq_remove_entity(entity->rq, entity);
+ 	spin_unlock(&entity->lock);
+ 
+-	/* Make sure this entity is not used by the scheduler at the moment */
+-	wait_for_completion(&entity->entity_idle);
++	/*
++	 * Make sure this entity is not used by the scheduler at the moment.
++	 *
++	 * Scheduler is guaranteed to be stable after the entity was stopped and
++	 * removed from the run-queue.
++	 */
++	if (sched)
++		drm_sched_flush_run_work(sched);
+ 
+ 	spin_lock(&entity->lock);
+ 	prev = dma_fence_get(entity->last_scheduled);
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 32d3ddb820be..ca724a8a4433 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -42,13 +42,23 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+ 			 struct drm_sched_entity *entity);
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ 
++/**
++ * drm_sched_flush_run_work - flush the run-job work
++ * @sched: scheduler instance
++ */
++static inline void drm_sched_flush_run_work(struct drm_gpu_scheduler *sched)
++{
++	flush_work(&sched->work_run_job);
++}
++
+ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+ 		       struct drm_sched_rq *rq);
+ 
+ struct drm_gpu_scheduler *
+ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
+-void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+-				struct drm_sched_entity *entity);
++struct drm_gpu_scheduler *
++drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
++			   struct drm_sched_entity *entity);
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+ 
+ struct drm_sched_entity *
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 2355acc2b867..338050390fc8 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -1033,7 +1033,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 
+ 	sched_job = drm_sched_entity_pop_job(entity);
+ 	if (!sched_job) {
+-		complete_all(&entity->entity_idle);
+ 		drm_sched_run_job_queue(sched);
+ 		return;
+ 	}
+@@ -1049,7 +1048,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 	 * refcount has been incremented for the scheduler already.
+ 	 */
+ 	fence = sched->ops->run_job(sched_job);
+-	complete_all(&entity->entity_idle);
+ 	drm_sched_fence_scheduled(s_fence, fence);
+ 
+ 	if (!IS_ERR_OR_NULL(fence)) {
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index 23f46ec610e7..79f7bdb5b3f0 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -297,23 +297,32 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+  * @entity: scheduler entity
+  *
+  * Removes a scheduler entity from the run queue.
++ *
++ * Return: DRM scheduler selected to handle this entity or NULL if entity has
++ * already been removed.
+  */
+-void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+-				struct drm_sched_entity *entity)
++struct drm_gpu_scheduler *
++drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
++			   struct drm_sched_entity *entity)
+ {
++	struct drm_gpu_scheduler *sched;
++
+ 	lockdep_assert_held(&entity->lock);
+ 
+ 	if (list_empty(&entity->list))
+-		return;
++		return NULL;
+ 
+ 	spin_lock(&rq->lock);
+ 
+-	atomic_dec(rq->sched->score);
++	sched = rq->sched;
++	atomic_dec(sched->score);
+ 	list_del_init(&entity->list);
+ 
+ 	drm_sched_rq_remove_fifo_locked(entity, rq);
+ 
+ 	spin_unlock(&rq->lock);
++
++	return sched;
+ }
+ 
+ static ktime_t
+@@ -407,8 +416,6 @@ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+ 				spin_unlock(&rq->lock);
+ 				return ERR_PTR(-ENOSPC);
+ 			}
+-
+-			reinit_completion(&entity->entity_idle);
+ 			break;
+ 		}
+ 	}
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 3b0978fa8cf0..c89a581f54bf 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -27,7 +27,6 @@
+ #include <drm/spsc_queue.h>
+ #include <linux/average.h>
+ #include <linux/dma-fence.h>
+-#include <linux/completion.h>
+ #include <linux/xarray.h>
+ #include <linux/workqueue.h>
+ 
+@@ -232,14 +231,6 @@ struct drm_sched_entity {
+ 	 */
+ 	bool 				stopped;
+ 
+-	/**
+-	 * @entity_idle:
+-	 *
+-	 * Signals when entity is not in use, used to sequence entity cleanup in
+-	 * drm_sched_entity_fini().
+-	 */
+-	struct completion		entity_idle;
+-
+ 	/**
+ 	 * @oldest_job_waiting:
+ 	 *
 -- 
 2.56.0
 
