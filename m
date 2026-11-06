@@ -2,56 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5617D606A335
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:49:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D537606A330
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 16:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=KrB138xA
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W02Ia50l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95185112F22;
-	Fri,  6 Nov 2026 16:49:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0751E112F22
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:48:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F76E40951;
- Fri,  6 Nov 2026 16:48:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FAAA1F0089F;
- Fri,  6 Nov 2026 16:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E535112F24;
+	Fri,  6 Nov 2026 16:51:04 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D31112F24
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 16:50:57 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-48e09aa5264so491596f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 08:50:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1793983738;
- bh=HqTUPu4uDFtmEky3eJGu8FbX8sNx+Or+hz+eWSfrOqw=;
- h=Date:From:To:Subject:In-Reply-To:References;
- b=KrB138xAbdqLx8TVda6AqfjjiVZ0NsgU1TRW1cY618TT61y16rSjHyRHAkKV03uqz
- EuGNu32HEURaTyQCeheMZKE+ynBrS6XYkA6s95y02MrhkypV+S2pgdVQW34S+4eq/o
- Pt7wGOjdZo8mi7Wok+w4eX/kTwtVv8PT19SVyadw=
-Date: Fri, 6 Nov 2026 08:48:56 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>, "David Hildenbrand (Arm)"
- <david@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev
- Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
- <kas@kernel.org>, Peter Xu <peterx@redhat.com>, Alex Williamson
- <alex@shazbot.org>, kvm@vger.kernel.org, =?ISO-8859-1?Q?Lo=EFc?= Molinari
- <loic.molinari@collabora.com>, Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan
- <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 0/4] mm/huge_memory: copy PMDs at fork like the PTE
- path does
-Message-Id: <20261106084856.4b254c973694345ee58a9b63@linux-foundation.org>
-In-Reply-To: <20261105211819.2a6a349b2edc077784ca52f9@linux-foundation.org>
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
- <20261105211819.2a6a349b2edc077784ca52f9@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ d=gmail.com; s=20260707; t=1793983856; x=1794588656; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IS+ky/vWC05xeihTw9LuH+K6BwhSb4C82XABxemvMx8=;
+ b=W02Ia50l9HWPZIcYTmmz45iFH1dmwYLhw7zMF+zlAWf2pBgwgjLABRg/4YsefOyG+i
+ 049yK2BZjExqWIDQmXpe6wy3EORma7xMfJ4hbd7Ps392lufMus3xR4gx+O17WWBmkOaT
+ bHkge1tWKjdgTmzmPlslVEscNXIH1U0QqzhOO1v4NDrJy+8felX7C2ABb6xL79261oqK
+ JlQT3Ei8W4PCAIla7DapUN3YjZ6F+yYcvp2HE8PzkcDGjC4+F7XaIymBeYXVS4u8/Ss7
+ 5Dkpymm2cPdvmv2sD7FFrm0CCLCrB54aVMONcC/4Butm/ZiAhJvtpaH+BebxUFCGSvkR
+ Nkvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793983856; x=1794588656;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IS+ky/vWC05xeihTw9LuH+K6BwhSb4C82XABxemvMx8=;
+ b=dKkR1JqN//kYQWgqIU8xBT7wq4FwHUeEi1dPpRRsZZiA1+byxtj0ZlRa3qO5rCRJQ6
+ 1XPFKCjJdBFs+wP420cbo5b/qp3e0gjtEqVmhou0RWLL22TEMBGZeCexCDhyQbHkdbJG
+ iAY6je1HsOwycL+n5/fXNeZC9z48NQZDHAPs7wdzLSeHub/eMhApC2j3JSzt/x+Y0OEJ
+ CLPQzhn3aKSCQYpGfVztJYAjHkkGY5OdtqkUONunHsLsWNFpe2dSLDFUlpnDGWGC4OAg
+ Lwaj9s6rVQdyiDEsWLmQIvOtiQqagjeLUhpd2MXO5NdPa1EgDoTmRSW/Bkb+km+ySFiF
+ 0Paw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGQRvW4+YqcA9vDlEN75vXjx8O12hUkN4wDMYWOAfQjkHwHxVZP+/EYueUf21+qmxC8ZBFbO9oNi40=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9RAgSd6HhKUXBuylAzzoG5mpfrWEKRh2mgEDWa4FYcLUCAQdKF
+ ac3jJEb1thu4WS54HgjhcN0gYf80yYIjcAd0pUuAZAaYlOalsvHXwWyu
+X-Gm-Gg: AYBFou2CTTlW9vw4vgZYAGS4KkfQu1WG5V3i3a/JY0GSImN1zDfUWNc9XFobC9RLG5D
+ VySA7fqq1MLbMUpedwY7UsF6teyDJXhsiFYXAJb3i4v1iu9GaAEUOvUU9rirNPQGKozV5BEks+7
+ Q5i6yPS34Y6Y/zdF6sdDR1VmZOprOHme9lvBVfcLOlMN0bpiyN4EuWaxyT+Jd89FEquZmjNEkGR
+ idyOkFvjLnffPLHPwtz5dlvAB7e9trHND1CqOzeGrr+kDQ+QgYQ4bJ8UKOjfZVb+cQHebVokZvb
+ JZqDs5gb0ts9qmgDHnE/InwcrDDsdIR1p2UcMvEBaB1yZpE2FnGG0Xf1A6BjTv3/oug7ADRLXi9
+ 6p9vxTQNF6sJRThyL9WUv8H+IlyN1ben5PVMIcXj3HMhHDgkvSH5wpE1hM2rP3AyMdO/VR0AXOv
+ GzbiZHOgZZTHlu2VgajC2uGWBf5F/o2y2UI+Jq5iw2VpN4ypN/WTc4EYRik+RnVjle1GA+h+Yrk
+ iu8Hu1t98Gk72khpPkeRfuy3GLmzu2l51n3kKYJgKKUl2UKHDW3KlWDy10ahy0+JHfhE1BxvfBy
+ 32s21nvXYm2eaWpkg107w1IjuGLc0EXyshU=
+X-Received: by 2002:a05:6000:26cb:b0:491:a219:8506 with SMTP id
+ ffacd0b85a97d-4927863e2c8mr7103774f8f.48.1793983856073; 
+ Fri, 06 Nov 2026 08:50:56 -0800 (PST)
+Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-492d6d63ae2sm5011066f8f.11.2026.11.06.08.50.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2026 08:50:54 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Karthik Sarvan <karthiks1mail@gmail.com>, dri-devel@lists.freedesktop.org,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>
+Subject: Re: [PATCH] drm/vkms: Set preferred_depth to 24 for XRGB8888 default
+Date: Fri,  6 Nov 2026 16:50:44 +0000
+Message-ID: <20261106165044.540444-1-oaroraetimis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <090616c5-774c-43e1-817a-20303c92a27d@suse.de>
+References: <20261026071933.48366-1-karthiks1mail@gmail.com>
+ <090616c5-774c-43e1-817a-20303c92a27d@suse.de>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,74 +89,11 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 5 Nov 2026 21:18:19 -0800 Andrew Morton <akpm@linux-foundation.org> wrote:
-
-> I'm attempting to runtime test this on local LLM-driven live kernel
-> test setup, but it keeps on kicking me out and calling me a
-> cybercriminal.  Sigh.  Giving up
-
-Success.
-
-tl;dr: all seems good.  The expected performance gains and losses were
-observed.  Can't performance-test powerpc because the unpatched kernels
-crashed due to the bug the series fixes.
-
-: I tested the four v5 patches and the selftest fix on matched x86-64
-: kernels. Both shmem fork tests passed with the series and skipped on
-: the pre-series kernel, as expected. They checked inherited PMDs,
-: private and shared writes, parent mappings and ShmemPmdMapped after
-: child exit.
-: 
-: The special-PMD race was reproduced with a virtual QXL device mapped
-: through VFIO. Revocation before fork produced SIGBUS on both kernels.
-: When revocation completed during a controlled pause in fork, the child
-: accessed the revoked mapping before the series and received SIGBUS with
-: the series. Both pauses were reached without timing out. No BUG,
-: WARNING, KASAN report or oops appeared in these x86-64 runs.
-: 
-: I also built matched PowerPC kernels and tested a POWER9/pseries
-: hash-MMU guest under software emulation: two vCPUs, 2 GiB RAM, 64 KiB
-: base pages and 16 MiB PMDs. A trace confirmed order-8 VFIO PMD
-: insertion from a 64 MiB virtual PCI shared-memory BAR. On the
-: pre-series kernel, the child's first access after fork caused a NULL
-: pointer dereference in __hash_page_thp() and a soft lockup; that guest
-: required a bounded timeout. With the series, the child read and exited
-: normally. Revocation before fork gave the child SIGBUS with the series.
-: This is one comparison, not a PowerPC stress test.
-: 
-: I measured fork costs with a 512 MiB private shmem mapping, including
-: 510 MiB actually mapped with PMDs. Median times from 100 forks per
-: condition on each x86-64 kernel, following five warmups:
-: 
-:                          Before    With series
-:   fork only                49 us       63 us
-:   fork through child exit,
-:     no child reads        132 us      202 us
-:   fork through child exit,
-:     one read per PMD      637 us      326 us
-: 
-: This workload pays more at fork and takes about half as long end-to-end
-: when the child reads every PMD. These are single-boot measurements, not
-: a broader performance characterization. The timing kernels had KASAN,
-: lockdep and DEBUG_VM disabled; the correctness kernels had them enabled.
-: The x86-64 KVM guests had 8 GiB, four vCPUs (one virtual socket, four
-: single-threaded virtual cores) and one virtual NUMA node. The host has
-: 64 physical cores and 128 SMT threads on one physical NUMA node;
-: individual vCPUs were not pinned.
-: 
-: I attempted a PowerPC VFIO fork-only timing comparison. The pre-series
-: kernel faulted on the first child exit, even without a child read, and
-: the guest was stopped after a 90-second timeout. The patched kernel
-: completed 100 fork/exit operations, averaging 2.77 ms under software
-: emulation with tracing enabled. There is no matched PowerPC performance
-: comparison.
-: 
-: Tested-by: Andrew Morton <akpm@linux-foundation.org>
-
+Thanks for your guidance.
