@@ -2,127 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C94606D808
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zg+N9Od5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18694606D83B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99922112C7D;
-	Fri,  6 Nov 2026 09:19:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1258112372;
- Thu,  5 Nov 2026 11:39:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9849760F48;
- Thu,  5 Nov 2026 11:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511611F000C1;
- Thu,  5 Nov 2026 11:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793878764;
- bh=nBYw1ywhOZ/qkhjAQYbGVUhl6PlTBeWYLHkpD07E2JA=;
- h=From:To:Cc:Subject:Date;
- b=Zg+N9Od5zSsBpPaBLRFCUpb24UpOsG40XB2g0jmYK6PIQt6/NgQ6o2D2xIuTzZ/Yk
- n6qi1h1mcFVesVxnhwbMsmTUH1QB6RESQX4KKKY9qM5V5a1Qt34ympeOCATm10u+Qb
- KsD8LoDt+yYWFple6BRBYHS00aQXSP21UQIPEWU+iZu0aTrXsVViG1oSfnzN4lbid7
- +NtTSPHgZdaPtu4vtc2CGV3LS2PrgEkos8Ndw3PblxkRKOpgx3J0ri4gsEugrTYfHe
- 7DmN1Y0bubaFVVlSZVlcXHAXCWDlBUlRQw5uW10GtWu6zcyakaDEKVloKzQiGJGquJ
- mxbW2ns2oLR1g==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Heiko Stuebner <heiko@sntech.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Neill Kapron <nkapron@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Rosca <david.rosca@amd.com>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Shixiong Ou <oushixiong@kylinos.cn>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Al Viro <viro@zeniv.linux.org.uk>,
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
-Subject: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-Date: Thu,  5 Nov 2026 12:35:27 +0100
-Message-ID: <20261105113529.1989375-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4DB112C8A;
+	Fri,  6 Nov 2026 09:20:38 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4E6112C80
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 09:20:14 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowAAXJpfGm+1qoTlrAA--.5294S2;
+ Fri, 06 Nov 2026 17:20:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mcanal@igalia.com,
+	airlied@gmail.com
+Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, stable@vger.kernel.org
+Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+Date: Fri,  6 Nov 2026 09:20:16 +0000
+Message-Id: <20261106092016.2282805-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+References: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 06 Nov 2026 09:18:40 +0000
+X-CM-TRANSID: rQCowAAXJpfGm+1qoTlrAA--.5294S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZry3WrW8Ww4kZwb_yoW5JryUpF
+ 43GFWYyrWDGrWfK3y0yr4kZFySyan3JrWfCry8u3Z5Cr1rArykJry0y39YgryUAFW8J3W3
+ GFnxtr1xJF1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+ cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+ AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+ 6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+ W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+ 7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
+ xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s
+ 026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+ JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+ v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+ j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
+ 0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZSdgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtlCIdSAAAso
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,95 +59,77 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We recently had a discussion about reworking dma_fence init to close a
-race-window [1].
+The firmware reference taken via rpi_firmware_get() is leaked when
+either of the devm_clk_get() calls for the core or display clocks
+fails, as both error paths return without releasing it.
 
-The community agreement seems to have been that we can get rid of
-dma_fence_init64(), so let's do that already. In the meantime we can
-continue our discussions regarding the race in [1].
+Fix it by moving the firmware lookup below the clock lookups, so that
+the reference is taken right before the firmware property is read and
+released immediately afterwards.  The rpi_firmware_find_node() call
+moves with it: the device node reference it returns would otherwise be
+leaked by those same error paths.
 
-This also touches the Rust dma_fence, which actually should use 64-bit
-seqnos (was forgotten so far). Rust fence has no users currently, so
-needs no backporting, so I would like to address that in a distinct
-patch.
+The candidate was found by our static analysis tooling, and this change
+was prepared with assistance from DeepSeek-V4.1-Flash and GPT-6.1-Sol.
 
-Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
-the USER flag, so I hope we're fine.
+Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
+Cc: stable@vger.kernel.org
+Suggested-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Sorry for the very late reply, and thanks for the review.
+- Move the firmware and device node lookups below the clock lookups
+  instead of adding rpi_firmware_put() to the two error paths, as
+  suggested by Maíra.
+- Link to v1: https://lore.kernel.org/all/20260916154137.2058618-1-vulab@iscas.ac.cn/
+---
+ drivers/gpu/drm/vc4/vc4_hvs.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-
-P.
-
-[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
-
-
-Philipp Stanner (3):
-  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
-  dma-buf: Port users of dma_fence_init64()
-  dma-buf: dma-fence: Remove dma_fence_init64()
-
- drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
- drivers/accel/ethosu/ethosu_job.c             |  2 +-
- drivers/accel/ivpu/ivpu_job.c                 |  2 +-
- drivers/accel/rocket/rocket_job.c             |  2 +-
- drivers/dma-buf/dma-fence-array.c             |  2 +-
- drivers/dma-buf/dma-fence-chain.c             |  4 +-
- drivers/dma-buf/dma-fence.c                   | 58 +++++++++----------
- drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
- drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
- drivers/dma-buf/st-dma-fence.c                |  2 +-
- drivers/dma-buf/st-dma-resv.c                 |  2 +-
- drivers/dma-buf/sw_sync.c                     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
- .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
- drivers/gpu/drm/drm_crtc.c                    |  2 +-
- drivers/gpu/drm/drm_writeback.c               |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
- drivers/gpu/drm/i915/i915_request.c           |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
- drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
- .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
- drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
- drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
- drivers/gpu/drm/lima/lima_sched.c             |  2 +-
- drivers/gpu/drm/msm/msm_fence.c               |  2 +-
- drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
- drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
- drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
- drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
- drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
- .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
- drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
- drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
- drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
- drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
- drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
- drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
- drivers/gpu/host1x/fence.c                    |  2 +-
- drivers/iio/industrialio-buffer.c             |  2 +-
- drivers/usb/gadget/function/f_fs.c            |  2 +-
- include/linux/dma-fence.h                     | 14 +++--
- rust/kernel/dma_buf/dma_fence.rs              |  2 +-
- 52 files changed, 95 insertions(+), 94 deletions(-)
-
-
-base-commit: 8258a37702b9b9cf27f5c0ea07625e3e6bd74f5a
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index b1fb096858cc..537aaa992129 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -1677,15 +1677,6 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 		struct device_node *node;
+ 		unsigned int max_rate;
+ 
+-		node = rpi_firmware_find_node();
+-		if (!node)
+-			return -EINVAL;
+-
+-		firmware = rpi_firmware_get(node);
+-		of_node_put(node);
+-		if (!firmware)
+-			return -EPROBE_DEFER;
+-
+ 		hvs->core_clk = devm_clk_get(&pdev->dev,
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+ 		if (IS_ERR(hvs->core_clk)) {
+@@ -1700,6 +1691,15 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 			return PTR_ERR(hvs->disp_clk);
+ 		}
+ 
++		node = rpi_firmware_find_node();
++		if (!node)
++			return -EINVAL;
++
++		firmware = rpi_firmware_get(node);
++		of_node_put(node);
++		if (!firmware)
++			return -EPROBE_DEFER;
++
+ 		max_rate = rpi_firmware_clk_get_max_rate(firmware,
+ 							 RPI_FIRMWARE_CORE_CLK_ID);
+ 		rpi_firmware_put(firmware);
 -- 
-2.56.0
+2.34.1
 
