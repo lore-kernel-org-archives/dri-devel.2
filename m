@@ -2,84 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B94606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:30:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762C6606A32C
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 15:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYmaiq/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F161D112DCE;
-	Fri,  6 Nov 2026 15:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B41C110E41C;
+	Fri,  6 Nov 2026 15:34:12 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C87B112DCE
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:30:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A20210E41C
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 15:34:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D825E411C6;
- Fri,  6 Nov 2026 15:30:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E4D1F0089F;
- Fri,  6 Nov 2026 15:30:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CA09C40242;
+ Fri,  6 Nov 2026 15:34:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288121F0089F;
+ Fri,  6 Nov 2026 15:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793979021;
- bh=6ajX4lfiph+VivXIsw2riYK43KZT3Do0cgXxc26s8IY=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=ZRYmaiq/u/SQjBF4ufiS7XCsUtIWBR8hL8WYwn3u9em1LPif/YCL7ChpmRJhgOyIX
- 7IC3EXVPCAkmKpLit8fAZGhbU6zO4Vo41xdkh0y1FE4VLwuE7EJ30uktOPNCEggpHD
- MbD1RX7dmUIkjT1awTBDV15avM4RN85WC1q1el5mr5tbkabk3V6dhoZUlfF40LSpgk
- KGlR22lgb9rXJhGOGQUNnGEHkpSn3m9hgHzxauJLxhjdxnvoN5U5o3aZh72JhgeHUT
- 8BdOqsA5VITYBbXwdbZ6w5prD5p1MVjT+3jhhqFtkmeHdpWI1SXbbXixdwYl6O4EkL
- ecOySiCRp0UYA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	linux-coco@lists.linux.dev
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org,
- kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
-In-Reply-To: <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com>
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-2-aneesh.kumar@kernel.org>
- <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com>
-Date: Fri, 06 Nov 2026 21:00:01 +0530
-Message-ID: <yq5ald76ou4m.fsf@kernel.org>
+ s=k20260515; t=1793979246;
+ bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ofnNNgjskEICYvaBMQ5Hxz2bF9n4sLEzhep/feYz49X59zjApKsMY9OE9pz2qlqY8
+ mAqOwsksfHjWbUMw0F7zZ20suWnYkKVpNrZ3IcJvWPoTDb+jjQZnejbYVXq0a5hroi
+ t/bAdCups3F9fq2K/2vn9ARUPX5zG7sQrF94/+0pJcd9kPB1q6/IgESQu7dQGAvhVU
+ D65A/Y9Ry8DICZsndZx0xUSMBL2ysSK9VLYzqjt1dJfpEZc9RESdrJHWV9KPH7n/XZ
+ S0Jy+01bWKjj4NJjAEADzoeTpWedtFeBAf/CG6MdJ7pXiiRljY7yU4N/tAor/3n5Ak
+ VEYK51K2qEKnw==
+Date: Fri, 6 Nov 2026 16:34:04 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+Message-ID: <au3yeJQPgRNiOM_R@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-7-clamor95@gmail.com>
+ <au3dMlmsLEOUqan9@orome>
+ <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vsbcwdisnglh5dny"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,40 +64,90 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Suzuki K Poulose <suzuki.poulose@arm.com> writes:
 
-> On 04/11/2026 16:45, Aneesh Kumar K.V (Arm) wrote:
->> Confidential-computing guests may require memory shared with the host to
->> be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
->> users need struct page-backed allocations satisfying these requirements.
->> Provide a common allocator instead of requiring each user to open-code
->> this sequence.
->> 
->> Add alloc_cc_shared_pages() and its node-aware variant. The allocator
->> rounds the requested size to the architecture's shared granule,
->> allocates suitably aligned contiguous pages and transitions the
->> complete range to shared state. It also preserves the caller's GFP
->> policy.
->> 
->> A private-to-shared transition may alter memory contents. Mask
->> __GFP_ZERO from the underlying allocation and when requested, clear the
->> complete transitioned range after cc_make_shared() succeeds.
->
-> This is not true for pKVM though. It is the other way around. i.e,
-> pages must be cleared before transition (e.g., from private to shared)
-> to make sure the contents don't leak into the host.
->
-> Do we need to handle such cases with a pre_conversion and 
-> post_conversion hook ?
->
+--vsbcwdisnglh5dny
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+MIME-Version: 1.0
 
-Patch 2 does something similar.
+On Fri, Nov 06, 2026 at 04:09:36PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
+00 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Thu, Nov 05, 2026 at 04:05:06PM +0200, Svyatoslav Ryhel wrote:
+> > > The tegra_output_probe() performs panel parsing unconditionally, even=
+ for
+> > > devices that do not require it (such as HDMI) or that handle panel pa=
+rsing
+> > > on their own (like DSI). Make panel parsing configurable.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/tegra/drm.h    |  2 +-
+> > >  drivers/gpu/drm/tegra/dsi.c    |  2 +-
+> > >  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
+> > >  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++--------------=
+--
+> > >  drivers/gpu/drm/tegra/rgb.c    |  2 +-
+> > >  drivers/gpu/drm/tegra/sor.c    |  2 +-
+> > >  6 files changed, 32 insertions(+), 30 deletions(-)
+> >
+> > Does it break anything to try and parse this even when it's not needed?
+> > In all cases we error out early, so there shouldn't be a whole lot of
+> > extra overhead either.
+> >
+> > Adding this extra parameter just adds extra complexity for seemingly no
+> > benefit.
+> >
+>=20
+> Dual DSI panel fail for Xiaomi Mi Pad. Maybe you should check your
+> email a bit more often?
 
--aneesh
+What's with the passive aggressivity?
+
+> https://lore.kernel.org/lkml/20260305161035.64548-1-clamor95@gmail.com/#t
+
+That's a thread from over half a year ago. I don't usually keep track of
+email from that long ago.
+
+Also, I asked previously if this broke anything. If it does, then the
+commit message should say so to make it obvious that this is an actual
+fix. And it should explain the problem so people can think about the
+problem and judge whether this is a proper solution or not.
+
+Your commit message doesn't mention any of this and makes it look like
+you're trying to micro-optimize for no reason.
+
+Thierry
+
+--vsbcwdisnglh5dny
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt82wACgkQ3SOs138+
+s6Ge9RAAs0gRNuV8ajPe0zMqQ7l0nh5k5pTb0yKxufq6QJJsYFvp/fivU8sBmS2L
+qq2gjLv/OnCZOmDdDWdfwUStRuTVzI7eQbFouVvGadxjxyWY0VfV7XSXcI6aCH2u
+s+hcgNEDaHy1YT+8tyUtOYm+3uVN+tJNnjIbFMxZ8q+s460Qh58+LRe8nyokwRVJ
+fjocfQUL7A2VSJWEakyoyD9KNasvaUZ9jTi4cJbxsSM+IfS4lohDFl2VoKZE4o+H
+j4QtGAdJu1fYPH8dDiY4160+zPqyQyDms6tw5ZuVA2BFZPRFrKcPgWnKuYNQbl1m
+DTMP2XzNO0+7c6m98CCcaBq4lo+jsmlyCkgaXkpLyRFpQP/0SfFD6DQUQHi6asUr
+NblJ95fJeYCS6+hlUJi4QJj1uSoqqa7lMeozkKCZGcBseJTnvIOi2d5pErL3dwmE
+BcsQk/yBd24kdmEAwN+v9Yz8L+5MfpOJ602GJWMrZ31Sj16CLbeBu6aTa8iE4hgb
+gKTG1omK/iF8FHZFzV5xeEHCa7U3LbscouO7o7hwHb6124QfNwBTNLJKC9CFMf6I
+yYgKCj2kMyAnEtl0fZCueYvRssTGVhUmHE8GuMBOv5UjCZWEotP2UMuHt6+w258f
+K9NmJpqT3ARg6tcamiSLKwUSoTR7yGdNNmGd02C7CPGsRoMWuoA=
+=t1Ik
+-----END PGP SIGNATURE-----
+
+--vsbcwdisnglh5dny--
