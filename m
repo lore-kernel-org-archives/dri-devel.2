@@ -2,33 +2,33 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C42606A336
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 20:19:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CD2606A32D
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 20:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=XWc8nnta
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ljobCUNp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE1F112FEE;
-	Fri,  6 Nov 2026 20:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 664A7112FEA;
+	Fri,  6 Nov 2026 20:19:17 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D8D10E460
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 20:19:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A66B6112FF7
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 20:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793996344;
- bh=pwd6DxkkKSBkH6XDxp/BgFIvuH/w5Ic/r7WqKCZT3R8=;
+ s=mail; t=1793996349;
+ bh=I+apwHNvDJ9qzV547nI9iSVA0rcQuBlDAab2hFi4Omw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XWc8nntaW4GdojXCyFIzjSr2JHl4zbzltcl6L6uexzYoBTg46IPFLp/IsL6fF+RJG
- GDs8jJ2eix1MHBaZxYTKWYMgnrpZjESpLom6xvF92XP9iMyzMQyjQ2qd+B1eG24CGk
- EuTsOh6rV4BV8bGgdZYhhEg091Kbb+W7wkqQDl6qf1yp87Tg0LcINUTBs1onwPMLQf
- ScyG1LCrpTDKKoTPwdya77CZQLmHA7cj1uVqTYELB+NLhUeXvlnhg8iqkTlz1NlZwh
- Wtjo2DSe1mAnf7LiPxU5Cjg7Fzw/pfW2AKZTZd8qVu2N/wgj2mh06uw2o65qqqIMwv
- 8zSt+/hRZ2phw==
+ b=ljobCUNpLhrLdQFhdiUNZplL8k6j9eFU20waLtDpbEUAf7DZX3hMP5OMF5KpaCC0k
+ iNowMxP8v7Aw4LyPAYtVqJwN+RZBkusFgu9j8BBkIP7ShdOpg+EXgvKTl31fgc8TJH
+ nNpo64HErYHGwgNUJPvjNUdit/uHj8GnVsLLkElOoneKNArtWmVjmQe7IxH24JF00E
+ R7tFVW/UvHJTsua7fChGeCcZZRaL+HvnJvE4ywCJ/zjDP8ImTTJMMVjwHToyPCmFp6
+ 4mTKWbSw6Y7K9/ag6LIxX6Lf5J6tPyMvqmY5S/KmX/pAE1b6bbMVqPYgOWAsvxq32u
+ VCC5mlYpGsrKA==
 Received: from archlinux (unknown [100.64.1.80])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 74ADF17E05D6;
- Fri, 06 Nov 2026 21:18:59 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EE28217E0885;
+ Fri, 06 Nov 2026 21:19:04 +0100 (CET)
 From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 To: louis.chauvet@bootlin.com
 Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
@@ -37,9 +37,10 @@ Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
  mripard@kernel.org, pekka.paalanen@collabora.com,
  robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 05/12] drm/vkms: remove linear_eotf
-Date: Fri,  6 Nov 2026 17:18:06 -0300
-Message-ID: <20261106201813.129911-6-leandro.ribeiro@collabora.com>
+Subject: [PATCH v2 06/12] drm/vkms: improve the way in which we access LUT
+ member
+Date: Fri,  6 Nov 2026 17:18:07 -0300
+Message-ID: <20261106201813.129911-7-leandro.ribeiro@collabora.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
 References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
@@ -65,338 +66,80 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is being used only for testing purposes. We can have a similar test
-using test_linear_lut, so let's drop it.
+apply_lut_to_channel_value() indexes a struct drm_color_lut array, and
+then cast to (__u16 *) and index with the channel (r -> index 0, g ->
+index 1, b -> index 2). This is a bit fragile and prone to issues.
 
-test_linear_lut has fewer taps than linear_eotf (16 versus 256), but
-that is enough here because the test only evaluates values corresponding
-to LUT entries, so interpolation between LUT entries is not being
-exercised.
-
-In the next commits we change the tests to exercise
-apply_lut_to_channel_value() in a more relevant way.
-
-v2:
-- Address feedback from Sashiko bot: in the previous version, I forgot
-  to update the multiplier.
-https://sashiko.dev/#/patchset/20260804203351.148521-1-leandro.ribeiro@collabora.com?part=4
+Instead, add a more robust helper lut_channel_value() such that, given a
+struct drm_color_lut and a color channel, it retrives the value.
 
 Reviewed-by: Robert Mader <robert.mader@collabora.com>
 Tested-by: Robert Mader <robert.mader@collabora.com>
 Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_color_test.c |   6 +-
- drivers/gpu/drm/vkms/vkms_luts.c             | 266 -------------------
- drivers/gpu/drm/vkms/vkms_luts.h             |   1 -
- 3 files changed, 3 insertions(+), 270 deletions(-)
+ drivers/gpu/drm/vkms/vkms_composer.c | 30 ++++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-index 3489513af352..83ef2afcc819 100644
---- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-+++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-@@ -126,10 +126,10 @@ static void vkms_color_test_lerp(struct kunit *test)
- 
- static void vkms_color_test_linear(struct kunit *test)
- {
--	for (int i = 0; i < linear_eotf.lut_length; i++) {
--		int linear = apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT_RED);
-+	for (int i = 0; i < test_linear_lut.lut_length; i++) {
-+		int linear = apply_lut_to_channel_value(&test_linear_lut, i * 0x1111, LUT_RED);
- 
--		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
-+		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x1111), i);
- 	}
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 0fc915a954ba..b4a433be1b2d 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -75,6 +75,24 @@ VISIBLE_IF_KUNIT u16 lerp_u16(u16 a, u16 b, s64 t)
  }
+ EXPORT_SYMBOL_IF_KUNIT(lerp_u16);
  
-diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms_luts.c
-index 6dcdef26bda8..d0e96df2c120 100644
---- a/drivers/gpu/drm/vkms/vkms_luts.c
-+++ b/drivers/gpu/drm/vkms/vkms_luts.c
-@@ -12,272 +12,6 @@
-  * https://gitlab.freedesktop.org/hwentland/lutgen
-  */
++static inline u16 lut_channel_value(const struct drm_color_lut *lut,
++				    enum lut_channel channel)
++{
++	switch (channel) {
++	case LUT_RED:
++		return lut->red;
++	case LUT_BLUE:
++		return lut->blue;
++	case LUT_GREEN:
++		return lut->green;
++	case LUT_RESERVED:
++		DRM_DEBUG_DRIVER("LUT_RESERVED channel should not be accessed");
++		return 0;
++	}
++	DRM_DEBUG_DRIVER("unknown LUT channel");
++	return 0;
++}
++
+ VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
+ {
+ 	s64 color_channel_fp = drm_int2fixp(channel_value);
+@@ -86,8 +104,8 @@ EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
+ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+ 						enum lut_channel channel)
+ {
++	const struct drm_color_lut *lut_y_floor, *lut_y_ceil;
+ 	s64 lut_index = get_lut_index(lut, channel_value);
+-	u16 *floor_lut_value, *ceil_lut_value;
+ 	u16 floor_channel_value, ceil_channel_value;
  
--static struct drm_color_lut linear_array[] = {
--	{ 0x0, 0x0, 0x0, 0 },
--	{ 0x101, 0x101, 0x101, 0 },
--	{ 0x202, 0x202, 0x202, 0 },
--	{ 0x303, 0x303, 0x303, 0 },
--	{ 0x404, 0x404, 0x404, 0 },
--	{ 0x505, 0x505, 0x505, 0 },
--	{ 0x606, 0x606, 0x606, 0 },
--	{ 0x707, 0x707, 0x707, 0 },
--	{ 0x808, 0x808, 0x808, 0 },
--	{ 0x909, 0x909, 0x909, 0 },
--	{ 0xa0a, 0xa0a, 0xa0a, 0 },
--	{ 0xb0b, 0xb0b, 0xb0b, 0 },
--	{ 0xc0c, 0xc0c, 0xc0c, 0 },
--	{ 0xd0d, 0xd0d, 0xd0d, 0 },
--	{ 0xe0e, 0xe0e, 0xe0e, 0 },
--	{ 0xf0f, 0xf0f, 0xf0f, 0 },
--	{ 0x1010, 0x1010, 0x1010, 0 },
--	{ 0x1111, 0x1111, 0x1111, 0 },
--	{ 0x1212, 0x1212, 0x1212, 0 },
--	{ 0x1313, 0x1313, 0x1313, 0 },
--	{ 0x1414, 0x1414, 0x1414, 0 },
--	{ 0x1515, 0x1515, 0x1515, 0 },
--	{ 0x1616, 0x1616, 0x1616, 0 },
--	{ 0x1717, 0x1717, 0x1717, 0 },
--	{ 0x1818, 0x1818, 0x1818, 0 },
--	{ 0x1919, 0x1919, 0x1919, 0 },
--	{ 0x1a1a, 0x1a1a, 0x1a1a, 0 },
--	{ 0x1b1b, 0x1b1b, 0x1b1b, 0 },
--	{ 0x1c1c, 0x1c1c, 0x1c1c, 0 },
--	{ 0x1d1d, 0x1d1d, 0x1d1d, 0 },
--	{ 0x1e1e, 0x1e1e, 0x1e1e, 0 },
--	{ 0x1f1f, 0x1f1f, 0x1f1f, 0 },
--	{ 0x2020, 0x2020, 0x2020, 0 },
--	{ 0x2121, 0x2121, 0x2121, 0 },
--	{ 0x2222, 0x2222, 0x2222, 0 },
--	{ 0x2323, 0x2323, 0x2323, 0 },
--	{ 0x2424, 0x2424, 0x2424, 0 },
--	{ 0x2525, 0x2525, 0x2525, 0 },
--	{ 0x2626, 0x2626, 0x2626, 0 },
--	{ 0x2727, 0x2727, 0x2727, 0 },
--	{ 0x2828, 0x2828, 0x2828, 0 },
--	{ 0x2929, 0x2929, 0x2929, 0 },
--	{ 0x2a2a, 0x2a2a, 0x2a2a, 0 },
--	{ 0x2b2b, 0x2b2b, 0x2b2b, 0 },
--	{ 0x2c2c, 0x2c2c, 0x2c2c, 0 },
--	{ 0x2d2d, 0x2d2d, 0x2d2d, 0 },
--	{ 0x2e2e, 0x2e2e, 0x2e2e, 0 },
--	{ 0x2f2f, 0x2f2f, 0x2f2f, 0 },
--	{ 0x3030, 0x3030, 0x3030, 0 },
--	{ 0x3131, 0x3131, 0x3131, 0 },
--	{ 0x3232, 0x3232, 0x3232, 0 },
--	{ 0x3333, 0x3333, 0x3333, 0 },
--	{ 0x3434, 0x3434, 0x3434, 0 },
--	{ 0x3535, 0x3535, 0x3535, 0 },
--	{ 0x3636, 0x3636, 0x3636, 0 },
--	{ 0x3737, 0x3737, 0x3737, 0 },
--	{ 0x3838, 0x3838, 0x3838, 0 },
--	{ 0x3939, 0x3939, 0x3939, 0 },
--	{ 0x3a3a, 0x3a3a, 0x3a3a, 0 },
--	{ 0x3b3b, 0x3b3b, 0x3b3b, 0 },
--	{ 0x3c3c, 0x3c3c, 0x3c3c, 0 },
--	{ 0x3d3d, 0x3d3d, 0x3d3d, 0 },
--	{ 0x3e3e, 0x3e3e, 0x3e3e, 0 },
--	{ 0x3f3f, 0x3f3f, 0x3f3f, 0 },
--	{ 0x4040, 0x4040, 0x4040, 0 },
--	{ 0x4141, 0x4141, 0x4141, 0 },
--	{ 0x4242, 0x4242, 0x4242, 0 },
--	{ 0x4343, 0x4343, 0x4343, 0 },
--	{ 0x4444, 0x4444, 0x4444, 0 },
--	{ 0x4545, 0x4545, 0x4545, 0 },
--	{ 0x4646, 0x4646, 0x4646, 0 },
--	{ 0x4747, 0x4747, 0x4747, 0 },
--	{ 0x4848, 0x4848, 0x4848, 0 },
--	{ 0x4949, 0x4949, 0x4949, 0 },
--	{ 0x4a4a, 0x4a4a, 0x4a4a, 0 },
--	{ 0x4b4b, 0x4b4b, 0x4b4b, 0 },
--	{ 0x4c4c, 0x4c4c, 0x4c4c, 0 },
--	{ 0x4d4d, 0x4d4d, 0x4d4d, 0 },
--	{ 0x4e4e, 0x4e4e, 0x4e4e, 0 },
--	{ 0x4f4f, 0x4f4f, 0x4f4f, 0 },
--	{ 0x5050, 0x5050, 0x5050, 0 },
--	{ 0x5151, 0x5151, 0x5151, 0 },
--	{ 0x5252, 0x5252, 0x5252, 0 },
--	{ 0x5353, 0x5353, 0x5353, 0 },
--	{ 0x5454, 0x5454, 0x5454, 0 },
--	{ 0x5555, 0x5555, 0x5555, 0 },
--	{ 0x5656, 0x5656, 0x5656, 0 },
--	{ 0x5757, 0x5757, 0x5757, 0 },
--	{ 0x5858, 0x5858, 0x5858, 0 },
--	{ 0x5959, 0x5959, 0x5959, 0 },
--	{ 0x5a5a, 0x5a5a, 0x5a5a, 0 },
--	{ 0x5b5b, 0x5b5b, 0x5b5b, 0 },
--	{ 0x5c5c, 0x5c5c, 0x5c5c, 0 },
--	{ 0x5d5d, 0x5d5d, 0x5d5d, 0 },
--	{ 0x5e5e, 0x5e5e, 0x5e5e, 0 },
--	{ 0x5f5f, 0x5f5f, 0x5f5f, 0 },
--	{ 0x6060, 0x6060, 0x6060, 0 },
--	{ 0x6161, 0x6161, 0x6161, 0 },
--	{ 0x6262, 0x6262, 0x6262, 0 },
--	{ 0x6363, 0x6363, 0x6363, 0 },
--	{ 0x6464, 0x6464, 0x6464, 0 },
--	{ 0x6565, 0x6565, 0x6565, 0 },
--	{ 0x6666, 0x6666, 0x6666, 0 },
--	{ 0x6767, 0x6767, 0x6767, 0 },
--	{ 0x6868, 0x6868, 0x6868, 0 },
--	{ 0x6969, 0x6969, 0x6969, 0 },
--	{ 0x6a6a, 0x6a6a, 0x6a6a, 0 },
--	{ 0x6b6b, 0x6b6b, 0x6b6b, 0 },
--	{ 0x6c6c, 0x6c6c, 0x6c6c, 0 },
--	{ 0x6d6d, 0x6d6d, 0x6d6d, 0 },
--	{ 0x6e6e, 0x6e6e, 0x6e6e, 0 },
--	{ 0x6f6f, 0x6f6f, 0x6f6f, 0 },
--	{ 0x7070, 0x7070, 0x7070, 0 },
--	{ 0x7171, 0x7171, 0x7171, 0 },
--	{ 0x7272, 0x7272, 0x7272, 0 },
--	{ 0x7373, 0x7373, 0x7373, 0 },
--	{ 0x7474, 0x7474, 0x7474, 0 },
--	{ 0x7575, 0x7575, 0x7575, 0 },
--	{ 0x7676, 0x7676, 0x7676, 0 },
--	{ 0x7777, 0x7777, 0x7777, 0 },
--	{ 0x7878, 0x7878, 0x7878, 0 },
--	{ 0x7979, 0x7979, 0x7979, 0 },
--	{ 0x7a7a, 0x7a7a, 0x7a7a, 0 },
--	{ 0x7b7b, 0x7b7b, 0x7b7b, 0 },
--	{ 0x7c7c, 0x7c7c, 0x7c7c, 0 },
--	{ 0x7d7d, 0x7d7d, 0x7d7d, 0 },
--	{ 0x7e7e, 0x7e7e, 0x7e7e, 0 },
--	{ 0x7f7f, 0x7f7f, 0x7f7f, 0 },
--	{ 0x8080, 0x8080, 0x8080, 0 },
--	{ 0x8181, 0x8181, 0x8181, 0 },
--	{ 0x8282, 0x8282, 0x8282, 0 },
--	{ 0x8383, 0x8383, 0x8383, 0 },
--	{ 0x8484, 0x8484, 0x8484, 0 },
--	{ 0x8585, 0x8585, 0x8585, 0 },
--	{ 0x8686, 0x8686, 0x8686, 0 },
--	{ 0x8787, 0x8787, 0x8787, 0 },
--	{ 0x8888, 0x8888, 0x8888, 0 },
--	{ 0x8989, 0x8989, 0x8989, 0 },
--	{ 0x8a8a, 0x8a8a, 0x8a8a, 0 },
--	{ 0x8b8b, 0x8b8b, 0x8b8b, 0 },
--	{ 0x8c8c, 0x8c8c, 0x8c8c, 0 },
--	{ 0x8d8d, 0x8d8d, 0x8d8d, 0 },
--	{ 0x8e8e, 0x8e8e, 0x8e8e, 0 },
--	{ 0x8f8f, 0x8f8f, 0x8f8f, 0 },
--	{ 0x9090, 0x9090, 0x9090, 0 },
--	{ 0x9191, 0x9191, 0x9191, 0 },
--	{ 0x9292, 0x9292, 0x9292, 0 },
--	{ 0x9393, 0x9393, 0x9393, 0 },
--	{ 0x9494, 0x9494, 0x9494, 0 },
--	{ 0x9595, 0x9595, 0x9595, 0 },
--	{ 0x9696, 0x9696, 0x9696, 0 },
--	{ 0x9797, 0x9797, 0x9797, 0 },
--	{ 0x9898, 0x9898, 0x9898, 0 },
--	{ 0x9999, 0x9999, 0x9999, 0 },
--	{ 0x9a9a, 0x9a9a, 0x9a9a, 0 },
--	{ 0x9b9b, 0x9b9b, 0x9b9b, 0 },
--	{ 0x9c9c, 0x9c9c, 0x9c9c, 0 },
--	{ 0x9d9d, 0x9d9d, 0x9d9d, 0 },
--	{ 0x9e9e, 0x9e9e, 0x9e9e, 0 },
--	{ 0x9f9f, 0x9f9f, 0x9f9f, 0 },
--	{ 0xa0a0, 0xa0a0, 0xa0a0, 0 },
--	{ 0xa1a1, 0xa1a1, 0xa1a1, 0 },
--	{ 0xa2a2, 0xa2a2, 0xa2a2, 0 },
--	{ 0xa3a3, 0xa3a3, 0xa3a3, 0 },
--	{ 0xa4a4, 0xa4a4, 0xa4a4, 0 },
--	{ 0xa5a5, 0xa5a5, 0xa5a5, 0 },
--	{ 0xa6a6, 0xa6a6, 0xa6a6, 0 },
--	{ 0xa7a7, 0xa7a7, 0xa7a7, 0 },
--	{ 0xa8a8, 0xa8a8, 0xa8a8, 0 },
--	{ 0xa9a9, 0xa9a9, 0xa9a9, 0 },
--	{ 0xaaaa, 0xaaaa, 0xaaaa, 0 },
--	{ 0xabab, 0xabab, 0xabab, 0 },
--	{ 0xacac, 0xacac, 0xacac, 0 },
--	{ 0xadad, 0xadad, 0xadad, 0 },
--	{ 0xaeae, 0xaeae, 0xaeae, 0 },
--	{ 0xafaf, 0xafaf, 0xafaf, 0 },
--	{ 0xb0b0, 0xb0b0, 0xb0b0, 0 },
--	{ 0xb1b1, 0xb1b1, 0xb1b1, 0 },
--	{ 0xb2b2, 0xb2b2, 0xb2b2, 0 },
--	{ 0xb3b3, 0xb3b3, 0xb3b3, 0 },
--	{ 0xb4b4, 0xb4b4, 0xb4b4, 0 },
--	{ 0xb5b5, 0xb5b5, 0xb5b5, 0 },
--	{ 0xb6b6, 0xb6b6, 0xb6b6, 0 },
--	{ 0xb7b7, 0xb7b7, 0xb7b7, 0 },
--	{ 0xb8b8, 0xb8b8, 0xb8b8, 0 },
--	{ 0xb9b9, 0xb9b9, 0xb9b9, 0 },
--	{ 0xbaba, 0xbaba, 0xbaba, 0 },
--	{ 0xbbbb, 0xbbbb, 0xbbbb, 0 },
--	{ 0xbcbc, 0xbcbc, 0xbcbc, 0 },
--	{ 0xbdbd, 0xbdbd, 0xbdbd, 0 },
--	{ 0xbebe, 0xbebe, 0xbebe, 0 },
--	{ 0xbfbf, 0xbfbf, 0xbfbf, 0 },
--	{ 0xc0c0, 0xc0c0, 0xc0c0, 0 },
--	{ 0xc1c1, 0xc1c1, 0xc1c1, 0 },
--	{ 0xc2c2, 0xc2c2, 0xc2c2, 0 },
--	{ 0xc3c3, 0xc3c3, 0xc3c3, 0 },
--	{ 0xc4c4, 0xc4c4, 0xc4c4, 0 },
--	{ 0xc5c5, 0xc5c5, 0xc5c5, 0 },
--	{ 0xc6c6, 0xc6c6, 0xc6c6, 0 },
--	{ 0xc7c7, 0xc7c7, 0xc7c7, 0 },
--	{ 0xc8c8, 0xc8c8, 0xc8c8, 0 },
--	{ 0xc9c9, 0xc9c9, 0xc9c9, 0 },
--	{ 0xcaca, 0xcaca, 0xcaca, 0 },
--	{ 0xcbcb, 0xcbcb, 0xcbcb, 0 },
--	{ 0xcccc, 0xcccc, 0xcccc, 0 },
--	{ 0xcdcd, 0xcdcd, 0xcdcd, 0 },
--	{ 0xcece, 0xcece, 0xcece, 0 },
--	{ 0xcfcf, 0xcfcf, 0xcfcf, 0 },
--	{ 0xd0d0, 0xd0d0, 0xd0d0, 0 },
--	{ 0xd1d1, 0xd1d1, 0xd1d1, 0 },
--	{ 0xd2d2, 0xd2d2, 0xd2d2, 0 },
--	{ 0xd3d3, 0xd3d3, 0xd3d3, 0 },
--	{ 0xd4d4, 0xd4d4, 0xd4d4, 0 },
--	{ 0xd5d5, 0xd5d5, 0xd5d5, 0 },
--	{ 0xd6d6, 0xd6d6, 0xd6d6, 0 },
--	{ 0xd7d7, 0xd7d7, 0xd7d7, 0 },
--	{ 0xd8d8, 0xd8d8, 0xd8d8, 0 },
--	{ 0xd9d9, 0xd9d9, 0xd9d9, 0 },
--	{ 0xdada, 0xdada, 0xdada, 0 },
--	{ 0xdbdb, 0xdbdb, 0xdbdb, 0 },
--	{ 0xdcdc, 0xdcdc, 0xdcdc, 0 },
--	{ 0xdddd, 0xdddd, 0xdddd, 0 },
--	{ 0xdede, 0xdede, 0xdede, 0 },
--	{ 0xdfdf, 0xdfdf, 0xdfdf, 0 },
--	{ 0xe0e0, 0xe0e0, 0xe0e0, 0 },
--	{ 0xe1e1, 0xe1e1, 0xe1e1, 0 },
--	{ 0xe2e2, 0xe2e2, 0xe2e2, 0 },
--	{ 0xe3e3, 0xe3e3, 0xe3e3, 0 },
--	{ 0xe4e4, 0xe4e4, 0xe4e4, 0 },
--	{ 0xe5e5, 0xe5e5, 0xe5e5, 0 },
--	{ 0xe6e6, 0xe6e6, 0xe6e6, 0 },
--	{ 0xe7e7, 0xe7e7, 0xe7e7, 0 },
--	{ 0xe8e8, 0xe8e8, 0xe8e8, 0 },
--	{ 0xe9e9, 0xe9e9, 0xe9e9, 0 },
--	{ 0xeaea, 0xeaea, 0xeaea, 0 },
--	{ 0xebeb, 0xebeb, 0xebeb, 0 },
--	{ 0xecec, 0xecec, 0xecec, 0 },
--	{ 0xeded, 0xeded, 0xeded, 0 },
--	{ 0xeeee, 0xeeee, 0xeeee, 0 },
--	{ 0xefef, 0xefef, 0xefef, 0 },
--	{ 0xf0f0, 0xf0f0, 0xf0f0, 0 },
--	{ 0xf1f1, 0xf1f1, 0xf1f1, 0 },
--	{ 0xf2f2, 0xf2f2, 0xf2f2, 0 },
--	{ 0xf3f3, 0xf3f3, 0xf3f3, 0 },
--	{ 0xf4f4, 0xf4f4, 0xf4f4, 0 },
--	{ 0xf5f5, 0xf5f5, 0xf5f5, 0 },
--	{ 0xf6f6, 0xf6f6, 0xf6f6, 0 },
--	{ 0xf7f7, 0xf7f7, 0xf7f7, 0 },
--	{ 0xf8f8, 0xf8f8, 0xf8f8, 0 },
--	{ 0xf9f9, 0xf9f9, 0xf9f9, 0 },
--	{ 0xfafa, 0xfafa, 0xfafa, 0 },
--	{ 0xfbfb, 0xfbfb, 0xfbfb, 0 },
--	{ 0xfcfc, 0xfcfc, 0xfcfc, 0 },
--	{ 0xfdfd, 0xfdfd, 0xfdfd, 0 },
--	{ 0xfefe, 0xfefe, 0xfefe, 0 },
--	{ 0xffff, 0xffff, 0xffff, 0 },
--};
--
--const struct vkms_color_lut linear_eotf = {
--	.base = linear_array,
--	.lut_length = ARRAY_SIZE(linear_array),
--	.channel_value2index_ratio = 0xff00ffll
--};
--EXPORT_SYMBOL(linear_eotf);
--
- static struct drm_color_lut srgb_array[] = {
- 	{ 0x0, 0x0, 0x0, 0 },
- 	{ 0x13, 0x13, 0x13, 0 },
-diff --git a/drivers/gpu/drm/vkms/vkms_luts.h b/drivers/gpu/drm/vkms/vkms_luts.h
-index 8078ab33b83e..655e9553cd91 100644
---- a/drivers/gpu/drm/vkms/vkms_luts.h
-+++ b/drivers/gpu/drm/vkms/vkms_luts.h
-@@ -3,7 +3,6 @@
- #ifndef _VKMS_LUTS_H_
- #define _VKMS_LUTS_H_
+ 	/*
+@@ -96,15 +114,15 @@ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut
+ 	 */
+ 	static_assert(sizeof(struct drm_color_lut) == sizeof(__u16) * 4);
  
--extern const struct vkms_color_lut linear_eotf;
- extern const struct vkms_color_lut srgb_eotf;
- extern const struct vkms_color_lut srgb_inv_eotf;
+-	floor_lut_value = (__u16 *)&lut->base[drm_fixp2int(lut_index)];
++	lut_y_floor = &lut->base[drm_fixp2int(lut_index)];
+ 	if (drm_fixp2int(lut_index) == (lut->lut_length - 1))
+ 		/* We're at the end of the LUT array, use same value for ceil and floor */
+-		ceil_lut_value = floor_lut_value;
++		lut_y_ceil = lut_y_floor;
+ 	else
+-		ceil_lut_value = (__u16 *)&lut->base[drm_fixp2int_ceil(lut_index)];
++		lut_y_ceil = &lut->base[drm_fixp2int_ceil(lut_index)];
  
+-	floor_channel_value = floor_lut_value[channel];
+-	ceil_channel_value = ceil_lut_value[channel];
++	floor_channel_value = lut_channel_value(lut_y_floor, channel);
++	ceil_channel_value = lut_channel_value(lut_y_ceil, channel);
+ 
+ 	return lerp_u16(floor_channel_value, ceil_channel_value,
+ 			lut_index & DRM_FIXED_DECIMAL_MASK);
 -- 
 2.56.0
 
