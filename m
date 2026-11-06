@@ -2,54 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E37606D82E
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:34:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F11606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 09:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=w/c1l5vq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 860AB1128F1;
-	Fri,  6 Nov 2026 09:34:46 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0049010E3B5
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 09:34:43 +0000 (UTC)
-Received: from [172.100.0.8] (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowAB3hJUqn+1qZ3ZrAA--.6348S2;
- Fri, 06 Nov 2026 17:34:35 +0800 (CST)
-Subject: [PATCH v2] drm/tidss: Fix serial clock reference leak in
- tidss_oldi_init()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Aradhya Bhatia <a-bhatia1@ti.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Date: Fri, 06 Nov 2026 09:34:44 -0000
-Message-ID: <179395768470.2284859.2950332168774127628@iscas.ac.cn>
-In-Reply-To: <59a88d56-264f-4540-90e3-b9f609681486@ideasonboard.com>
-References: <20260916182950.2092071-1-vulab@iscas.ac.cn>
- <59a88d56-264f-4540-90e3-b9f609681486@ideasonboard.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCC8810E9AB;
+	Fri,  6 Nov 2026 09:39:14 +0000 (UTC)
+X-Greylist: delayed 450 seconds by postgrey-1.36 at gabe;
+ Fri, 06 Nov 2026 09:39:07 UTC
+Received: from smtpout1.mo2.mail-out.ovh.net (smtpout1.mo2.mail-out.ovh.net
+ [79.137.123.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF5FB10F11D;
+ Fri,  6 Nov 2026 09:39:07 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [79.137.60.225])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4jLYpZ1T23z43dw;
+ Fri,  6 Nov 2026 09:31:34 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <arunpravin.paneerselvam@amd.com>; Fri,  6 Nov 2026 09:31:33 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.192])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4jLYpY6HWBz6Nm6; Fri,  6 Nov 2026 09:31:33 +0000 (UTC)
+Received: from mailstore88.priv.ovhmail-u1.ea.mail.ovh.net (unknown
+ [10.2.8.88])
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTP id 118338E2088;
+ Fri,  6 Nov 2026 09:31:33 +0000 (UTC)
+Date: Fri, 6 Nov 2026 09:31:32 +0000 (UTC)
+From: Natalie Vock <nat@pixelcluster.dev>
+To: intel-xe@lists.freedesktop.org, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Arun Pravin <arunpravin.paneerselvam@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>, 
+ dri-devel@lists.freedesktop.org
+Message-ID: <289528879.16714375.1793957492810.JavaMail.zimbra@pixelcluster.dev>
+In-Reply-To: <UT7TwVbFQeWC9z3ZsJ5EGg@pixelcluster.dev>
+References: <20261104201331.2462-1-thomas.hellstrom@linux.intel.com>
+ <20261104201331.2462-5-thomas.hellstrom@linux.intel.com>
+ <UT7TwVbFQeWC9z3ZsJ5EGg@pixelcluster.dev>
+Subject: Re: [PATCH 4/4] drm/ttm, drm/xe: Gate reserve-dipping backup
+ retries on may_writeback
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAB3hJUqn+1qZ3ZrAA--.6348S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr18uw4kCr17JFyUZF1DKFg_yoW8Kw4fpF
- 4UGrsFqF95JFW8Kw47Aw4UXFyj93ZFyFyrKFWvkwsa9r1Yqr1aqFnrta48WFWqvrZYya1j
- 9r95X3Z2gr1qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
- cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
- AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
- 6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
- 0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
- Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
- v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_
- Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxV
- CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
- 6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
- WUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0
- rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJV
- WxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgADA2rtkzgtFwAAsQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-User: nat@pixelcluster.dev
+X-Zimbra-Message-Verification: hash=SHA256;
+ guid=ZjMzODRmZTUxY2Y4NjVmMzM4ZWIyMmNjNjcxMWIyMjdjNjZkZjUxODFiNzU3ZTRiNGQ2ODY2YmY5N2RhMGZhZA==
+Thread-Topic: drm/ttm,
+ drm/xe: Gate reserve-dipping backup retries on may_writeback
+Thread-Index: 7kO8N8GFxYKS/ExEqqnG5UuuP2r3fg==
+x-ovh-tracer-id: 11418032432920944919
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGleUKzJGhhheamRhdKHzhX5WmhEezG3dhR83CAF9trPeLiJR2H7d7E8EuzB0IObpQhv5Rh3WMs2aZviMl2hpyShhbrAfSCv8XKEXSjdNjfxFzsM4bOcjswQfvs36trYt6OHkj0nXv6lf7Fafgfu60z26vfC4YP1qeWI1agfocJQhpEf7cBZ2wWtrJOEniUVzJq5BAokMedPm83kCWg8dgNJ8TcoZMzBizHb3+g1JSawJt/H/tQWCiFINyU1eJRWeJTSkpTiKJY+p/p1qi3AVlEwXgYpu2kK+nOBmQAE7IcwlHaib3arzHYB4TuhnwYeJoYK+LfA4CbzoSwkqpIWV+Jau9BdwrQQSzKc1komfaiNqeOWKio/z9paDQ+wgGdIUcYKmvfXrhigG0xxMpwhNIAaFpqMkqQcBNOnRCu1BZympXquPFZmp7Q7XJEOQDGARtn9Ka8Uyil29Mf3XucBYXPbl3PDFgb1g2BPInHfl7RwqpdySeVexw0RIpL0/g9l+cRcTRNX1vmrVcCLDDNXHlk8C4evEq6sGPeelX9SxYyAhyQ9/rdMdTOfXPc6ELsy9Ze5mKsYOO4pSQElSlumsPRpPlYWUdr/A47gtHIMs7KoXDtaKvdb8q/4LbpFihk/IPqFOKn4FDWGm3A+QsDzoFAMAmyNf7dOoBruIX0hzI/YQ
+DKIM-Signature: a=rsa-sha256; bh=yUuXr08L4Muu7mgvIUpR4QTj1uzbuXupMj5KHz2SALc=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1793957494; v=1;
+ b=w/c1l5vqcbpJNhVaghAlK73zgzFlPIA8qnpYkGuaxcvnKSzqHtYd1xl2xJCGxs2tMD9V6qLz
+ 3cpYhF3TesuBMHdyw1IG34k/B/JtwoGbalxxGptVrJesy1co0f81YxbLtLi3OKQc8SnnJuX2pK5
+ hHZL9tMjh69ssHuoQhKP6Tc8kne6TlxmQfobQdXhtAserv36M1A/ioU+pLIbP6Rdtag1Jo6Jm0X
+ UNgqz0kvBgkMll+xXVQSddwr2TjEFeRuB5CT3wN7qgNXd2lRz8z5m9+uxJUuzJLfbdrw13prUhx
+ CJ4l1oP5Uj2Hd6eezRbHjfa+5c8zH1sifbJsG4bNlgSgw==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +80,201 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From 55466ce37d710051279174f70d4f2f89af161636 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Fri, 6 Nov 2026 08:58:25 +0000
-Subject: [PATCH v2] drm/tidss: Fix serial clock reference leak in
- tidss_oldi_init()
+Hi,
 
-The reference to the OLDI serial clock taken with of_clk_get_by_name()
-is kept in the OLDI bridge structure for the whole driver lifetime, but
-it is never released.
+the general idea of this patch looks sensible. A few naming/style nitpicks
+below:
 
-On driver unbind, tidss_oldi_deinit() removes the bridges without
-dropping that reference. The situation is worse when the OLDI
-initialisation fails for a second transmitter: tidss_oldi_init() returns
-an error and tidss_oldi_deinit() is not called at all, so the reference
-taken for the first transmitter leaks too.
+On Wednesday, 4 November 2026 21:13 Thomas Hellstr=C3=B6m wrote:
+> Backup of a page allocates the shmem destination folio with
+> __GFP_NOMEMALLOC for high-order pages, to avoid dipping into kernel
+> memory reserves, but order-0 pages were always backed up without it.
+> When a high-order allocation fails mid-compound, the compound is split
+> and the remaining subpages are individually retried at order 0 without
+> __GFP_NOMEMALLOC.
+>=20
+> That retry happened unconditionally, regardless of whether the caller
+> wanted writeback or could tolerate blocking. Retrying without
+> writeback only grows dirty shmem rather than relieving the memory
+> pressure that caused the original failure, and the retry itself may
+> need to reclaim or block.
+>=20
+> Back up all pages with __GFP_NOMEMALLOC first, and add two flags,
+> may_writeback and force_writeback, to struct ttm_backup_flags,
+> replacing the single writeback flag:
+> - may_writeback governs whether a failed backup allocation is retried
+>   without __GFP_NOMEMALLOC, splitting a high-order page if needed.
+>   When clear, the backup stops at the failure, keeping whatever
+>   progress was already made and leaving the remainder resident for a
+>   later retry.
+> - force_writeback replaces the old writeback flag and is honoured both
+>   for the regular backup and for any retry, so a caller that allows the
+>   retry can also choose to force it to actually complete and relieve
+>   memory pressure instead of just relocating it.
 
-Use devm_get_clk_from_child() instead, which is of_clk_get_by_name()
-with a device managed reference. The clock is then released when the
-driver is unbound, or when probe fails.
+Can you explain why you'd call it "may_writeback"? The name implies that
+no writeback is ever performed when unset, which isn't really accurate.
+AFAICT, all this flag really does is govern how hard we try to allocate
+backup shmem, and force_writeback still is the only thing that determines
+whether to immediately do a writeback. Or am I misunderstanding?
 
-The candidate issue was found with static analysis tools.
-DeepSeek-V4.1-Flash and GPT-6.1 Sol were used to help audit the error
-paths and to prepare this change; the result was reviewed manually
-before submission.
+Maybe replace may_writeback with something like use_kernel_reserves.
+Renaming writeback to force_writeback doesn't seem necessary as the semanti=
+cs
+are still the exact same, so that one can just stay.
 
-Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
-Cc: stable@vger.kernel.org
-Reported-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Closes: https://lore.kernel.org/r/59a88d56-264f-4540-90e3-b9f609681486@ideasonboard.com
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Use devm_get_clk_from_child() instead of adding a clk_put() to
-  tidss_oldi_deinit(), so that the clock reference is also released when
-  tidss_oldi_init() fails for a later OLDI transmitter.
-- Apologies for the very late reply.
+>=20
+> Thread the two new flags all the way from the xe shrinker down through
+> xe_bo_shrink_flags and ttm_bo_shrink_flags to ttm_backup_flags.
+> xe_shrinker_walk() now takes an explicit allow_writeback
+> parameter (computed once from __GFP_IO and no_wait_gpu in
+> xe_shrinker_scan()) rather than carrying that gfp-context permission
+> inside the per-call flags, and uses it to decide, pass by pass, whether
+> the retry is allowed (may_writeback) and whether it should be
+> forced to completion (force_writeback).
+>=20
+> Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> ---
+>  drivers/gpu/drm/ttm/ttm_bo_util.c |  3 +-
+>  drivers/gpu/drm/ttm/ttm_pool.c    | 47 +++++++++++++++++++++----------
+>  drivers/gpu/drm/xe/xe_bo.c        |  6 ++--
+>  drivers/gpu/drm/xe/xe_bo.h        |  9 ++++--
+>  drivers/gpu/drm/xe/xe_shrinker.c  | 39 ++++++++++++++++++++-----
+>  include/drm/ttm/ttm_bo.h          |  9 ++++--
+>  include/drm/ttm/ttm_tt.h          | 13 +++++++--
+>  7 files changed, 93 insertions(+), 33 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_=
+bo_util.c
+> index 975dea33075f..21317c212c27 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -1122,7 +1122,8 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, s=
+truct ttm_buffer_object *bo,
+> =20
+>  =09lret =3D ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
+>  =09=09=09     {.purge =3D flags.purge,
+> -=09=09=09      .writeback =3D flags.writeback});
+> +=09=09=09      .may_writeback =3D flags.may_writeback,
+> +=09=09=09      .force_writeback =3D flags.force_writeback});
+> =20
+>  =09if (lret > 0 && !ttm_tt_is_partial(bo->ttm)) {
+>  =09=09spin_lock(&bdev->lru_lock);
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> index 8f05257e4f54..87c1ac39af94 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -1158,7 +1158,10 @@ static void ttm_pool_restore_abort(struct ttm_tt *=
+tt)
+>   * If backup of a page fails for whatever reason, @ttm will still be
+>   * partially backed up, retaining those pages for which backup fails.
+>   * In that case, this function can be retried, possibly after freeing up
+> - * memory resources.
+> + * memory resources. In particular, if allocating backup memory fails
+> + * without dipping into kernel reserves, and @flags->may_writeback is no=
+t
+> + * set, the backup stops at that point, also leaving @ttm partially back=
+ed
+> + * up.
+>   *
+>   * Return: Number of pages actually backed up or freed, or negative
+>   * error code on error.
+> @@ -1174,6 +1177,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct =
+ttm_tt *tt,
+>  =09pgoff_t shrunken =3D 0;
+>  =09pgoff_t i, j, num_pages, npages;
+>  =09pgoff_t nr_backed;
+> +=09bool dip_reserves;
 
- drivers/gpu/drm/tidss/tidss_oldi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+It's a bit nitpicky, but I'm not sure I like the boolean here (in particula=
+r,
+the ternary at high levels of indentation is uncomfortable to read).
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 5eb749f495d5..485e9f862fb6 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -586,7 +586,8 @@ int tidss_oldi_init(struct tidss_device *tidss)
- 				goto err_put_node;
- 			}
- 
--			oldi->serial = of_clk_get_by_name(child, "serial");
-+			oldi->serial = devm_get_clk_from_child(tidss->dev, child,
-+							       "serial");
- 			if (IS_ERR(oldi->serial)) {
- 				ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->serial),
- 						    "OLDI%u: Failed to get serial clock.\n",
+How about removing the boolean and doing:
 
+>  =09bool partial =3D ttm_tt_is_partial(tt);
+> =20
+>  =09if (WARN_ON(ttm_tt_is_backed_up(tt)))
+> @@ -1256,7 +1260,9 @@ long ttm_pool_backup(struct ttm_pool *pool, struct =
+ttm_tt *tt,
+>  =09else
+>  =09=09gfp =3D GFP_HIGHUSER;
+> =20
+> -=09alloc_gfp =3D GFP_KERNEL | __GFP_HIGH | __GFP_NOWARN | __GFP_RETRY_MA=
+YFAIL;
+> +=09/* Don't dip into kernel reserves unless @flags->may_writeback is set=
+. */
+> +=09alloc_gfp =3D GFP_KERNEL | __GFP_HIGH | __GFP_NOWARN |
+> +=09=09    __GFP_RETRY_MAYFAIL | __GFP_NOMEMALLOC;
+
+=09alloc_gfp =3D GFP_KERNEL | __GFP_HIGH | __GFP_NOWARN |
+=09=09    __GFP_RETRY_MAYFAIL;
+
+> =20
+>  =09num_pages =3D tt->num_pages;
+> =20
+> @@ -1280,14 +1286,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct=
+ ttm_tt *tt,
+>  =09=09order =3D ttm_pool_page_order(pool, page);
+>  =09=09npages =3D 1UL << order;
+> =20
+> -=09=09/*
+> -=09=09 * We don't allow dipping kernel reserves for high order backup
+> -=09=09 */
+> -=09=09if (order)
+> -=09=09=09alloc_gfp |=3D __GFP_NOMEMALLOC;
+> -=09=09else
+> -=09=09=09alloc_gfp &=3D ~__GFP_NOMEMALLOC;
+> -
+> +=09=09dip_reserves =3D false;
+
+=09=09alloc_gfp |=3D __GFP_NOMEMALLOC;
+
+>  =09=09/*
+>  =09=09 * Back up the compound atomically at its native order. If
+>  =09=09 * fault injection truncated num_pages mid-compound, skip
+> @@ -1296,10 +1295,18 @@ long ttm_pool_backup(struct ttm_pool *pool, struc=
+t ttm_tt *tt,
+>  =09=09if (unlikely(i + npages > num_pages))
+>  =09=09=09break;
+> =20
+> +retry:
+>  =09=09handle =3D ttm_backup_backup_folio(backup, page_folio(page),
+> -=09=09=09=09=09=09 order, flags->writeback, i,
+> -=09=09=09=09=09=09 gfp, alloc_gfp,
+> -=09=09=09=09=09=09 &nr_backed);
+> +=09=09=09=09=09=09 order, flags->force_writeback, i,
+> +=09=09=09=09=09=09 gfp, dip_reserves ?
+> +=09=09=09=09=09=09 alloc_gfp & ~__GFP_NOMEMALLOC :
+> +=09=09=09=09=09=09 alloc_gfp, &nr_backed);
+
+=09=09=09=09=09=09 order, flags->force_writeback, i,
+=09=09=09=09=09=09 gfp, alloc_gfp,
+=09=09=09=09=09=09 &nr_backed);
+
+> +=09=09if (unlikely(handle =3D=3D -ENOMEM && !nr_backed &&
+> +=09=09=09     flags->may_writeback && !dip_reserves)) {
+> +=09=09=09dip_reserves =3D true;
+> +=09=09=09goto retry;
+> +=09=09}
+
+=09=09if (unlikely(handle =3D=3D -ENOMEM && !nr_backed &&
+=09=09=09     flags->may_writeback &&
+=09=09=09     (alloc_gfp & __GFP_NOMEMALLOC))) {
+=09=09=09alloc_gfp &=3D ~__GFP_NOMEMALLOC;
+=09=09=09goto retry;
+=09=09}
+
+This is basically what the original logic already did, too. I think I
+liked that better.
+
+Natalie
