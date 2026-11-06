@@ -2,24 +2,25 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A6E606A328
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:44:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19544606A328
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VQr023HM
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KFAixgYq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D49C10FCCD;
-	Fri,  6 Nov 2026 05:44:31 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF58610FCCD
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:44:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51F5310FD30;
+	Fri,  6 Nov 2026 05:44:35 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013003.outbound.protection.outlook.com
+ [40.107.201.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06D210FCF1
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:44:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nbKtH59UbnPYWgQrw8tlSEVFc2aYqv+MCXr2fbmu7myW1j6Ycq+sPqpDyebhRjPUXavJWjsdFRGTV/zyiKpeT9qg4vBuEMn7CNbpkDuEvrckx/p0jbpa+/0SsVyMRJL17yv+N2sdslc5lrToncK5Xi0m0ygVtMzYCiHGxgKQGq0hoPzV8t/Y1pe2ti/pd1gnSwmyUJwQlNrE0agQdVK8yXBk8exeyS5+OFOi6KoTRVc5nD//C1i9ByUKbdoEnfLQOJFRbYN14OvyyowzW6hkJzTvbwZJ3sxCT6V5vey3MJXuOfaDjSCj7rBfj2jTpWoIkSF9st7ahDLCb6WBZAsuSQ==
+ b=q7/2WLl+Iz4tHoSTUbooTBFY/PRiiqJUTghZ/k/j6bRCyJsR+HZBp2qAuFT6/APtgTkPWcCr+XacS1QctvOzvUYz5Yd4afhzopT2cFmQcZzQ8AWRWqjIjW1PH2dhbUa7VLijMFynGG5sC2nCx9GIWfwwFro20Oxmoqwvf4uXhnd7InA5aKjAzicCew5urHMDB/aaYKpcqx1oLRijI6TuRErt0Xhl8ftlX/c2jV6NbfiuhN4MsST0mAkmhTac9Tbp7jxANCIOnXs4fIXY+nleyNHDazLz/ZXnbYaFqQILwQ2jUYB8hUdTM6OH3xuRDxN/kqsZmlm50FnAiNc0KuAcxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2oexfqJvBlQ2Gq87Q3AJ95M/kddT8qTpZDxWywKsuso=;
- b=VqSW0N1TBJ7pOpt7YErcvC/DmvbXknzlSAtghMlxVgAYFlSI/78XimQ85v3KcqcSNzZYnYF0PkE+b7jU7znVFdgdKMxovASCqljuwzDwqQ10XuW70HWGTX/79zHdipjZUAFQElegiK8R2shjRHldm2huKViUnnCnVZfCEXLa9ouGy+B13GDSm0RQFFdlWWj5Oo9Fl5MoUZilT8iNYoZ5HfIqp1/fyPLBELZtwG/5BW9f5xT6sGaAYkznfjCZDUfxlPo/tTtTlcD6STeSPXKr/rhX421MJSVorGfBX7tCEnUGo+n/JfO75eJJ5fvtZZyGLlYjNfAbMxAgDjOH/YxlwQ==
+ bh=SH80IliGuHfkwNODgWnsqyt0O2pGYkWmPKmvR7HI2vg=;
+ b=qLgxsU9hu2Qml3yUXPq8sqejOvTY5zjpuNQcIZdjogJoDsfVz1JEtF1+yT2Mxl9prPKe//onWzOOuL6GE3UbNXngW9dkG0ru0/jp6X6nowy+jqszC+R5GTWcMrodkvr2HPxlG90WqwH3dgP0E7NgTZ5RJdLd2xdVOE315YgBOjmXRt9piXfETXcR5eK8thYDTKQ9uz2U49Hgwp/HKWXcRTlQsLVoZ8GqZCEs90RtfTnRaU5zAoWiT0Pjhm/Nq4Anb8xtmsy0IQA0fofYerUa3P5zhLxGtddJGk78p8WOXTU0PVB/UoTBFxm0hi3cT5QDoiYBGU69v41dnNJXM1ORQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -27,18 +28,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2oexfqJvBlQ2Gq87Q3AJ95M/kddT8qTpZDxWywKsuso=;
- b=VQr023HMEvUI3z1DMvMUVjPK+BUyyfZFFdyV2rIITESc23ClMG0/xkBr3wdWwJrTv9kYHXmSI5rmEbZ5BXL+DNuFvXSGzudBXtVVSptTSeI83b2h7cx22QGhfCc99hokxDAILvO06bplYvxMSWaFi7OXt4t2SREoMRkq2M4eWEBEw47g1NrhfkvltkrsycQBHoQUKh4uJnvlROTGOxeLjFKnG2Iy/CCjMxt+9+eEtX2JJ6q5cOl/+cSXEpU9hF0UvvrabtSBeNoBdOpxNi3wu7JNddC9Es4w/Ps9KXZUWSw4C0PTDhmwJ5fKypAF4GXtGy6HTWwT7UOxHGMh4Vsx+A==
-Received: from DM6PR08CA0054.namprd08.prod.outlook.com (2603:10b6:5:1e0::28)
- by MN2PR12MB4469.namprd12.prod.outlook.com (2603:10b6:208:268::22) with
+ bh=SH80IliGuHfkwNODgWnsqyt0O2pGYkWmPKmvR7HI2vg=;
+ b=KFAixgYqVD/+Mph7jDu4/A3Y2viCqH/ASF1nQUUIZN/3JBnK9jZWBR/U4v00g2kyv9QwJNxGcYvCgVWsKqRXJcmiFPWWWuEcTVPq493g0bKjA95D1tssR8rSR6IXXBR3WZFH4bmXoj6EoYqrOrG4Elh6rJtpJkqTmT7i1qtZfqpY8GZx7CrxMTyJhvuo+v4mT5vyYqLzVY2EnEiCYiwe12bPCTNqGZL9Fgb1VgNE1UNqaJDnyLL9LY/T0yWW55Q4HfCy/bWVUDagCMn+Mh0g+OgaInM+/ywgNQe/hoIBaG9cXwJX8DPu84L1fGtMZGgkoK7KQvO37TX5zJwwHty9sA==
+Received: from DS1PR03CA0007.namprd03.prod.outlook.com (2603:10b6:8:450::19)
+ by LV2PR12MB6014.namprd12.prod.outlook.com (2603:10b6:408:170::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
- 2026 05:44:20 +0000
-Received: from DM3PEPF000265C1.namprd03.prod.outlook.com
- (2603:10b6:5:1e0:cafe::1a) by DM6PR08CA0054.outlook.office365.com
- (2603:10b6:5:1e0::28) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 05:42:20 +0000
+Received: from DM3PEPF000265C5.namprd03.prod.outlook.com
+ (2603:10b6:8:450:cafe::2e) by DS1PR03CA0007.outlook.office365.com
+ (2603:10b6:8:450::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 05:44:20 +0000
+ Nov 2026 05:42:20 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
@@ -47,17 +48,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- DM3PEPF000265C1.mail.protection.outlook.com (10.167.23.182) with Microsoft
+ DM3PEPF000265C5.mail.protection.outlook.com (10.167.23.186) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:44:19 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:42:19 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 21:44:09 -0800
+ 2026 21:42:05 -0800
 Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:43:57 -0800
+ 15.2.2562.56; Thu, 5 Nov 2026 21:41:52 -0800
 From: Alok Kumar <alkumar@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -77,9 +78,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v4 14/32] gpu: nova-core: gsp: wait for GMC completion events
-Date: Fri, 6 Nov 2026 11:09:47 +0530
-Message-ID: <8ddb36b189feb56642ed531e5199d3a01e7d7f5e.1793906667.git.alkumar@nvidia.com>
+Subject: [PATCH v4 04/32] gpu: nova-core: vgpu: detect boot state independently
+Date: Fri, 6 Nov 2026 11:09:37 +0530
+Message-ID: <ec70c38e3160a75ec2727a2261b4a1d21de33c4d.1793906667.git.alkumar@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793906667.git.alkumar@nvidia.com>
 References: <cover.1793906667.git.alkumar@nvidia.com>
@@ -91,29 +92,29 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C1:EE_|MN2PR12MB4469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 732dcb90-4ae6-4424-2952-08df3bc900f6
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C5:EE_|LV2PR12MB6014:EE_
+X-MS-Office365-Filtering-Correlation-Id: df524648-191f-46f7-0cb8-08df3bc8b968
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|82310400026|376014|36860700016|261026121527099003|56012099006|11063799006|261021121427099003|261102123227099003|261026140227099003|261009223027099003|261021135927099003|261028144727099003|261021123027099003|261022105027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: C/zKVAaXetEp9s30m/+Y47qOa45/eNDzm/7UIlRwCthKSwsoK+NlU3c5Z9uJZp49GxzohBIlOJ2oFO8IwHaMmASeKEg8bZU+HfRQpOsqQpZ9CYhILV4hfDbR40Cv4pkzXfxD1+e2HBRewoImddL75IoFNTGTaLoaJhu+vk7ZSsfY8qIhHhmLTUhTQEGvZ9aNJW9NUI+qvQ35GtRcABWnbt5DrZu2M12YJhfcnkdgD2uwpLAuhOlYSKPtcI25yIl26ipqZP2sS44hIF3bho1cJSRy4mVeF1JJyJPiGoSL2gUDH+vFb7HLBk+cQKiJxgjaH4K3z5N20h/Df9bnyVZBauXD/gL+RffWxMiNFJEh75A5Y/vZjMb2uamPc7p+YMKv6uRLzO3lh7CMOCTkNInMDJw+mN2alYsNQbmWVI8/UL9nJSlBJbxKE6iJSWZwY2FMVNliGidlsvLqFLID982dHruPZhICP/F6yTmFZtg5IILD/Z+ydIVhXt6U1uxetZ2R6TIgEz5KaEGucKbPABPtkisks/aTizUeTHd+tRla16l4AfKsuVkjXRyX15vVooKMfCbodb5wqZSN1M8kLjbc4ju2DyBNQcYnrDiEbCFVSLuAsnR23iT7RtxjKJbfB6VMHyWoqYnIhQ02YqPEmija+K6rQZ0mb/kNOcUtZPbSDiqooahzP+s9k+8k3tzED6IiXoMnFZ2Ylvuv53HyeJ1d6g==
+ ARA:13230040|376014|23010399003|7416014|1800799024|36860700016|82310400026|261026140227099003|261021123027099003|261026121527099003|56012099006|261021121427099003|11063799006|261028144727099003|261009223027099003|261022105027099003|10067099003|22082099003|261102123227099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VS6B6XP1uQkgal/xa9gPAbSUCCI9+CKc7gufDbOlORfAaVa/zdo5RozBugY9oRc1le2HSxGXI8GTyshqnsiBcBqd6ld0NlSvBQMbbrYBVGT8T1i3u9Cj3KTHyCjNt3QtTn0wcSyFXhBjGalM2bvAJ/pYOw3R5RzkD7s9njejzoMFrVXJjlVc7UIZvHGLB3RyiHAWFuIx+zL+S4qCJj1MFfYvvbn8QtYcwwIT18kN7FYlOm7xqpgACA8jJmjjEEgC9h5L3/ch+swbZgtAAWza8w45BWDw2PVPSxSH925FRk/HQfds/SLIIkDVJwqoMT2chCIaBaQL0/Cknm3eRHSNxdC7JbGie+wvxCe3X/oWK4Apu5M5oGQCiCN4gllxCDSsetwNyclER08GxpN2yB6STeDSjnAx7yydJPB/GmYJ/UKdxvp9l52AYTkS4yVh2yNHRQW9XMwU+g695EEomaeWqMH0s4z3ojYo6lTZTDzpzt7tVS7HQ4YlNqlViS59CiKqme91UbmGIEi6T1HBagnum+0Amf1Re22Ad4ji3ZKq8+l/lgM2yFnsOVaMgpDoeIgxFo4IfqstlgtqOenp4Py7KmKF7q2tY9Po+yW8/eEklGt+FmYLVB1oUUjQE7TLz1f2f8I3vsLn1X/V/oMh+v3QkUh3rvN7iiYUZQFUn5GEj/KiQo31klRHdg+mKj1jbtxaP4fll4QvCIxHd8nTT76UWQ==
 X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(82310400026)(376014)(36860700016)(261026121527099003)(56012099006)(11063799006)(261021121427099003)(261102123227099003)(261026140227099003)(261009223027099003)(261021135927099003)(261028144727099003)(261021123027099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(36860700016)(82310400026)(261026140227099003)(261021123027099003)(261026121527099003)(56012099006)(261021121427099003)(11063799006)(261028144727099003)(261009223027099003)(261022105027099003)(10067099003)(22082099003)(261102123227099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uVxHotoR+4aXtXA4nN8HqLxglA08ywVhGYzXBTExKyoboucvZEbpx1p1qmLSh1trgOJYbixSlEGcXH8UKPridmtwnSDCb+anwritDzfsQMViAGHbmBqe86lPXz1ChuO/aMwklzW5SWx/nFG9ArqL+CCI5eLMOnCxfv0FmDLrtighzkLELDc77n/liBvbDRl6eyLoqcpyF/tOgldrozyvygGhw1GsGzMYRBLX36/oI4HZC/te1anp10VPUEhaUnr8RDMjx5ydYYorSZ8xCSpJFz/61OHXHMre/DdSxvawhG55VGLCgND/1dx1tUAUepYqYSwzwexl3H+9+X8sI1WGaQOvmBpf+RdrlWArBoDcWUiG/sbskkmA+6/TFVdoHZRL4FjyQLNLVfaJH6KdRLy1SxXGQxu+n4FtyIshi1vobidC4+fs/Z89Zrru6QjuVVW4
+X-MS-Exchange-AntiSpam-MessageData-0: R2Ptc0chNvi/bmrNj51D5FDseYh5sMQmDDw7MWR1AJHKizcFIHd5WJLxCCQaKGDDrBC4FyVBO0RPUyGWTKULZE7Ikz13zst0trxj/YdA5st+KF/XvAZx1RLGDc9Cb6iBzgTatgjKJOGFM+WqoRM1n/k4CKRujpAHqlGmm+uUdb/O9SvhSaG9FqvAO/KjeKeS0WOEkyWhyZkCnyfXabDd4j22jk2jgi7kzBHbiRJJGgnZtkI0vkw14nnBLig7SeK868CTW/XkE6JSxNYUx5LyGXX7tsdPGrycbB1aSc0lw+akA0agdyq6N4XDNmg0pDcqvpts6Ecc4pZKntHHO4MBpSOl1C4fs4XmnuB//2bg9ra/r70o6O88JYAf3CxV+TLuQsc8y1sTdCb5BW9YCvbM2WAfjBCZ59qkStGDzrwqci9uQpQID74Pr0rzhsTsWbIg
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:44:19.9492 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 732dcb90-4ae6-4424-2952-08df3bc900f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:42:19.9059 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df524648-191f-46f7-0cb8-08df3bc8b968
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4469
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6014
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,153 +136,134 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Zhi Wang <zhiw@nvidia.com>
 
-GSP plugin shutdown completes through a separate event carrying the
-GFID. Releasing the queue guard after sending would let another receiver
-consume that completion.
+The vGPU manager currently contains only the detected boot mode. Its
+construction couples mode detection to an object with no runtime
+management responsibilities.
 
-Keep the guard from sending through the matching event and use the
-shared Inner receive deadline. Offer GMC events to the completion
-predicate, pass unmatched events to the caller's handler, and consume
-interleaved responses and RPC messages. Represent completion with a
-value and all continuing cases with None.
+Firmware setup needs the mode before allocating GSP resources, even
+when vGPU is disabled. Keeping that value with GspResources also makes
+it available throughout the firmware lifecycle without a manager.
 
-Propagate callback errors after consuming the current valid element.
-Document callback non-reentrancy and that the receive timeout starts
-after sending, excluding mutex acquisition and command-queue space
-waits.
+Move detection to VgpuState and store its result in GspResources.
+Borrow it directly when constructing the boot and unload contexts, and
+remove the state-only manager wrapper. Preserve the FSP query order,
+existing diagnostics and disabled fallback.
 
+No functional change is intended.
+
+Cc: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Co-developed-by: Alok Kumar <alkumar@nvidia.com>
 Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 ---
- Documentation/gpu/nova/core/interrupts.rst |  9 +--
- drivers/gpu/nova-core/gsp/cmdq/gmc.rs      | 65 ++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw.rs            |  9 +++
- 3 files changed, 79 insertions(+), 4 deletions(-)
+ drivers/gpu/nova-core/gpu.rs  | 11 +++++------
+ drivers/gpu/nova-core/vgpu.rs | 25 ++++++++-----------------
+ 2 files changed, 13 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/gpu/nova/core/interrupts.rst b/Documentation/gpu/nova/core/interrupts.rst
-index 7f61e5d6334e..d686d8004aea 100644
---- a/Documentation/gpu/nova/core/interrupts.rst
-+++ b/Documentation/gpu/nova/core/interrupts.rst
-@@ -582,7 +582,8 @@ command reply or an unsolicited event, and the two differ in the function code.
-   arrival with its sequence number, function code, and length.
- * A GMC message carries a command id in place of a function code. The
-   ``GSP_INIT`` wait and synchronous GMC transactions claim responses with the
--  expected command id and sequence number. These waits consume interleaved RPC
-+  expected command id and sequence number. A GMC completion-event wait uses its
-+  caller's predicate to select an event. These waits consume interleaved RPC
-   messages as events. Unmatched GMC messages are handled by the wait's callback
-   or logged and consumed; a queue drain with no waiting caller logs unclaimed
-   responses and unknown commands at warning level and drops them.
-@@ -607,9 +608,9 @@ mutex. Replies and events share one queue and one read pointer, so one lock is
- held across the whole drain. A thread waiting for a reply logs each event that
- arrives before the reply and keeps waiting. One receive deadline applies to
- all messages in the wait. The default timeout is 5 seconds; GMC transactions
--can specify another timeout. For send-and-wait operations the receive deadline
--starts after sending, so it does not bound waiting for the mutex or for
--command-queue space. The thread holds the mutex from sending through receiving,
-+and completion-event waits can specify another timeout. For send-and-wait
-+operations the receive deadline starts after sending, so it does not bound
-+waiting for the mutex or for command-queue space. The thread holds the mutex from sending through receiving,
- so no other caller consumes the message it waits for.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index d29e83f50137..fd0442f9a40b 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -52,7 +52,7 @@
+         GpuMm,
+         VramAddress, //
+     },
+-    vgpu::VgpuManager, //
++    vgpu::VgpuState, //
+ };
  
- With one lock, a drain waits for an in-flight command's receive to finish or
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-index 392143e534f6..c5ae5943c8b8 100644
---- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-@@ -448,6 +448,71 @@ pub(crate) fn send_gmc_and_receive_timeout(
-         })
+ #[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
+@@ -337,8 +337,7 @@ struct GspResources<'gpu> {
+     // TODO: use different resource types for each boot method, and make the relevant Gsp methods
+     // generic against them.
+     fsp: Option<Fsp<'gpu>>,
+-    /// vGPU state detected before GSP boot.
+-    vgpu: VgpuManager,
++    vgpu_state: VgpuState,
+     /// GSP runtime data.
+     #[pin]
+     gsp: Gsp<'gpu>,
+@@ -447,7 +446,7 @@ fn drop(self: Pin<&mut Self>) {
+                     gsp_falcon: &*this.gsp_falcon,
+                     sec2_falcon: &*this.sec2_falcon,
+                     fsp: this.fsp.as_mut(),
+-                    vgpu_state: this.vgpu.state(),
++                    vgpu_state: this.vgpu_state,
+                 },
+                 bundle,
+             )
+@@ -508,7 +507,7 @@ pub(crate) fn new<'a>(
+ 
+                 fsp: Fsp::try_new(dev, bar, spec.chipset)?,
+ 
+-                vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
++                vgpu_state: VgpuState::detect(pdev, spec.chipset, fsp.as_mut()),
+ 
+                 gsp <- Gsp::new(pdev, *spec, bar),
+ 
+@@ -522,7 +521,7 @@ pub(crate) fn new<'a>(
+                     gsp_falcon,
+                     sec2_falcon,
+                     fsp: fsp.as_mut(),
+-                    vgpu_state: vgpu.state(),
++                    vgpu_state,
+                 })?,
+             }),
+ 
+diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
+index 905b3a7331fd..b405ba49c490 100644
+--- a/drivers/gpu/nova-core/vgpu.rs
++++ b/drivers/gpu/nova-core/vgpu.rs
+@@ -30,19 +30,16 @@ pub(crate) enum VgpuState {
+     },
+ }
+ 
+-/// vGPU state manager.
+-pub(crate) struct VgpuManager {
+-    state: VgpuState,
+-}
+-
+-impl VgpuManager {
+-    /// Creates a vGPU manager by querying SR-IOV and the FSP PRC vGPU knob.
+-    pub(crate) fn new(
++impl VgpuState {
++    /// Detects the boot mode, falling back to disabled if querying the device fails.
++    ///
++    /// Call after creating the FSP and before allocating GSP firmware resources.
++    pub(crate) fn detect(
+         pdev: &pci::Device<device::Core<'_>>,
+         chipset: Chipset,
+         fsp: Option<&mut Fsp<'_>>,
+     ) -> Self {
+-        let state = Self::detect_state(pdev, chipset, fsp).unwrap_or_else(|e| {
++        let state = Self::query_state(pdev, chipset, fsp).unwrap_or_else(|e| {
+             dev_warn!(
+                 pdev,
+                 "vGPU state detection failed: {:?}; disabling vGPU\n",
+@@ -51,12 +48,11 @@ pub(crate) fn new(
+             VgpuState::Disabled
+         });
+         dev_dbg!(pdev, "vGPU state: {:?}\n", state);
+-
+-        Self { state }
++        state
      }
  
-+    /// Sends an asynchronous GMC command and waits atomically for its event.
-+    ///
-+    /// The command queue remains locked from the send through the matching
-+    /// event, preventing another transaction from consuming its completion.
-+    /// GMC events are passed to `predicate`, then to `handler` if the predicate returns false.
-+    /// GMC responses are debug-logged and consumed without invoking either callback. Interleaved
-+    /// RPC messages are logged as events and consumed.
-+    ///
-+    /// One receive deadline starts after sending and is not extended by other messages. It does
-+    /// not bound waiting for the mutex or for space to send the request.
-+    ///
-+    /// Both callbacks run with the queue locked and must not reenter this queue or reset it.
-+    /// Their second argument is the raw `max_resp_or_status` word of the event header.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EMSGSIZE` if the request exceeds the command queue's maximum element size.
-+    /// - `ETIMEDOUT` if space does not become available to send the request, or if no event
-+    ///   satisfies `predicate` before the receive deadline.
-+    /// - `EIO` if the command queue slot cannot hold the request headers, the receive queue is
-+    ///   stalled by an invalid element, or a received element fails framing validation.
-+    ///
-+    /// Errors from initializing the request headers and from either callback are propagated
-+    /// as-is. The current valid element is consumed before a callback error is returned.
-+    #[expect(dead_code)]
-+    pub(crate) fn send_gmc_and_wait_event(
-+        &self,
-+        command_id: u32,
-+        payload: &[u8],
-+        timeout: Delta,
-+        mut predicate: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result<bool>,
-+        mut handler: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result,
-+    ) -> Result {
-+        let mut inner = self.inner.lock();
-+        inner.send_command_element(RawGmcCommand {
-+            command_id,
-+            payload,
-+            max_response_size: 0,
-+        })?;
-+        let dev = inner.dev;
-+        let deadline = Instant::<Monotonic>::now() + timeout;
-+
-+        inner.await_msg_with_deadline(deadline, |message| {
-+            let GspParsedMessage::Gmc(message) = message else {
-+                message.log(dev);
-+                return Ok(None);
-+            };
-+            let header = message.header();
-+            let (payload_0, payload_1) = message.payload();
-+            if header.command().is_response() {
-+                return Ok(None);
-+            }
-+
-+            let command = GmcCommand::from(header.command()).0;
-+            let max_resp_or_status = header.raw_status_word();
-+            let sequence = header.sequence();
-+            if predicate(command, max_resp_or_status, sequence, payload_0, payload_1)? {
-+                return Ok(Some(()));
-+            }
-+
-+            handler(command, max_resp_or_status, sequence, payload_0, payload_1)?;
-+            Ok(None)
-+        })
-+    }
-+
-     /// Sends `command` to the GSP and waits for the reply.
-     ///
-     /// GMC events that arrive before the reply are passed to `on_event`, and RPC messages are
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index c75488e7a787..ce4a7c45caf2 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -905,6 +905,15 @@ pub(crate) fn payload_size(&self) -> usize {
-         num::u32_as_usize(self.inner.size)
+     /// Detects the vGPU state from the chipset, SR-IOV capability and FSP PRC knob.
+-    fn detect_state(
++    fn query_state(
+         pdev: &pci::Device<device::Core<'_>>,
+         chipset: Chipset,
+         fsp: Option<&mut Fsp<'_>>,
+@@ -83,9 +79,4 @@ fn detect_state(
+             VgpuMode::Disabled => Ok(VgpuState::Disabled),
+         }
      }
- 
-+    /// Returns the raw `max_resp_or_status` word carried by a GMC header.
-+    ///
-+    /// Its meaning for an event is defined by that event's command.
-+    pub(crate) fn raw_status_word(&self) -> u32 {
-+        // SAFETY: Both union views contain a `u32` at the same offset, so every bit pattern is
-+        // valid regardless of whether the header represents a request, response, or event.
-+        unsafe { self.inner.__bindgen_anon_1.request.max_response_size }
-+    }
-+
-     /// Returns the `NV_STATUS` carried by a response to a command.
-     ///
-     /// Returns `Some` with the `NV_STATUS` code if the `response` flag of [`Self::command`] is set;
+-
+-    /// Returns the detected vGPU state for this boot.
+-    pub(crate) fn state(&self) -> &VgpuState {
+-        &self.state
+-    }
+ }
 -- 
 2.53.0
 
