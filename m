@@ -2,61 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B2A606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC52606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6Q0r7hl
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4s8PBd2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A228210EA85;
-	Fri,  6 Nov 2026 13:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A6D10EA1C;
+	Fri,  6 Nov 2026 13:15:50 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63F2110EA20
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA2710EA28
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DB795609F5
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960401F008A2
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0F8BC6020F;
+ Fri,  6 Nov 2026 13:15:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430D01F008A1;
+ Fri,  6 Nov 2026 13:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970941;
- bh=PH+V+UUTFtmAFGfpboIZDmCpwyqIyHQilX8b/TmtTVY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=n6Q0r7hl8yF8V8oEXe412uVMO5DXETWVXnge4l/oK7KeJIN4qrJnSs4ECKmBf7iUZ
- vtt4cosHCrCTYcy1qk/UdQKHIXGgMnmHH0orIdxyclTrA6w6X9s844NPHg6XFa1Ke/
- MmEwyg/fvS6DAbv6hPSWfUjpr96ZUFItNlPwYFawkuMbOq+myP8NQvgxjOvZgmzo3O
- 8dqDb3xyWxdfWdXsQhMx+Wnv3uWY95U4eRA1D2d1M+aI4YzKinE/jenU2A8zv4Wvms
- BAf9bccmFm/rAg1xVyIfuZByN8H16Po5JrcItRMepfGfJxanJjIn08RULvoucHBqjE
- ViBMM/Kp6dMuw==
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5bcdae234ecso478630e87.3
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 05:15:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AKwUvBw0azqQPDVsBxpvrzDk7dtGe+sX0xX0kJ/7uy39FJoUdxjrkyGkvrtYBFsiLT1LVAEwmvgNUhxw3Ck=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8zmenGhe/cSOB3htKq2b53Z6qPjgb/LCfi4OWnl/2XvqRXC36Y
- /koAs4Wpc8sTAz8axD5MH5bcfqtRZdbQMthrE/CW1m5vvYeImA9AxYxKV7rLbVotUwlB1+ZAzgs
- 3OpG7GFp+qomIHAfaNsKhSYhWeev0/bc=
-X-Received: by 2002:a05:6512:1315:b0:5bf:b952:e57f with SMTP id
- 2adb3069b0e04-5c003ad5782mr844789e87.59.1793970940404; Fri, 06 Nov 2026
- 05:15:40 -0800 (PST)
+ s=k20260515; t=1793970943;
+ bh=WnlQgXv6wsILtew7P1+DbGLBlMBDIykxpn9KD/zk9s8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=F4s8PBd2E1ouzPWRYLcUKYIpnkv0AXnJ+4PN/WJaGdC4NfvmDr0lco5H8476Bcqtz
+ 5L83MBfPT5vyOjycSW/eNSxuQoOBq/3YPmoqsx2iZmM1j+R4Hfqj0wSIRjr40g4bay
+ bVWpe6A/X9L/ifiqG73PMYnkahnIS7c4b78QEr/Smmvao2/bwjwSR1bn/NZjkm3AwS
+ 6HkgtbdG+0xRI4QtDMWJTBb2YPOsJNg4C3e5OXLZCbo7AvBqGNydTiveebUZZZNjrF
+ t0RUSoh/M5krWgIKvcnLiEHq45j19N+pFBoXvTdH0YLpX+iG/MMOyNBRgSyWaMrgzI
+ Au9jeRRzBrIAg==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 06 Nov 2026 14:14:30 +0100
+Subject: [PATCH v8 17/39] drm/atomic_sro: Create documentation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
- <20261105-drm-no-more-config-reset-v1-24-1f58d1e33380@kernel.org>
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-24-1f58d1e33380@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:15:26 +0100
-X-Gmail-Original-Message-ID: <CAD++jLm7RfccF5cCTSmjWBwT+cWHEZmfExHV35Sozax=bp4jrg@mail.gmail.com>
-X-Gm-Features: AclHuK8C5WOmRZdGXq8DLEZLtjZ3AzzlMEngY-TJFok9-5U8_uLq23Pxa7Szemg
-Message-ID: <CAD++jLm7RfccF5cCTSmjWBwT+cWHEZmfExHV35Sozax=bp4jrg@mail.gmail.com>
-Subject: Re: [PATCH RESEND 24/83] drm/mcde: Switch to
- drm_mode_config_create_initial_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-drm-state-readout-v8-17-cbe78624e1bc@kernel.org>
+References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
+In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3552; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zdVueWHQub7aVZv5znC7EbAZZleq66pYkvIye0lUaPs=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL23pOjI5dsGZmxvsJ+0+XbVro4V/8emY2l2LTePrn
+ x3etDtjZ8dUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYyM2XjA3Tly+adydTv9go
+ 82zXgt0foowb+83TFLZri7ismrCa792zU/92KT8/lL9DzU3/4TPptwqMDfcisrZcdJWIX+mkwd/
+ w/1Gn1yYlp3SLuKYm6czNC9zLko/3Ljp8/oK1/r+lvw4fPnjWCQA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,30 +67,99 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 5, 2026 at 4:31=E2=80=AFPM Maxime Ripard <mripard@kernel.org> w=
-rote:
+The SRO infrastructure has grown to span multiple files and hooks
+but lacks an overview section explaining the overall design and how
+drivers should integrate with it.
 
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles.
->
-> Since the two roles need different behaviors (notably for objects like
-> drm_private_obj that must persist across suspend/resume),
-> drm_mode_config_create_initial_state() was introduced to handle only
-> the initial state creation at probe time.
->
-> Switch to drm_mode_config_create_initial_state().
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Add a DOC: overview section to drm_atomic_state_readout.c describing the
+various SRO phases and how drivers wire up the callbacks.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ Documentation/gpu/drm-kms-helpers.rst      | 17 ++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_readout.c | 36 ++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index d64f941d34f5..b75bde712faf 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -83,4 +83,21 @@ Atomic State Helper Reference
+    :export:
+ 
++.. _drm_atomic_sro:
++
++Atomic State Read-Out
++---------------------
++
++.. kernel-doc:: drivers/gpu/drm/drm_atomic_state_readout.c
++   :doc: overview
++
++Atomic State Read-Out Reference
++--------------------------------
++
++.. kernel-doc:: include/drm/drm_atomic_state_readout.h
++   :internal:
++
++.. kernel-doc:: drivers/gpu/drm/drm_atomic_state_readout.c
++   :export:
++
+ GEM Atomic Helper Reference
+ ---------------------------
+diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm/drm_atomic_state_readout.c
+index de0f27186bea..d0f8665860ff 100644
+--- a/drivers/gpu/drm/drm_atomic_state_readout.c
++++ b/drivers/gpu/drm/drm_atomic_state_readout.c
+@@ -16,4 +16,40 @@
+ #include "drm_crtc_internal.h"
+ 
++/**
++ * DOC: overview
++ *
++ * The atomic State Read-Out (SRO) infrastructure allows drivers to
++ * initialize the KMS atomic state from the hardware state left by the
++ * firmware at boot, rather than programming a new state. This enables
++ * flicker-free boot (also called "fastboot" by i915): if the
++ * firmware already configured the display, the first userspace
++ * modeset can be skipped when the requested mode matches.
++ *
++ * The SRO lifecycle has two phases. The first phase is the readout
++ * itself: at driver registration time, each KMS object (CRTCs, planes,
++ * connectors, bridges, private objects) has its
++ * atomic_sro_readout_state hook called to populate a
++ * &struct drm_atomic_sro_state from hardware registers.
++ *
++ * The hardware may have been programmed with a configuration that
++ * the driver doesn't support. The readout hooks are then expected
++ * to return a negative error code, and the state initialization
++ * will fall back to the regular path.
++ *
++ * The second phase is the installation. Once all states have been read
++ * out, drm_atomic_sro_install_state() walks through the
++ * &struct drm_atomic_sro_state and assigns each readout state as the
++ * object's current state. Before doing so, it calls the optional
++ * atomic_sro_install_state hook on each object. This gives drivers a
++ * chance to acquire the resources needed to keep the hardware state
++ * active, such as power domains, clocks, or interrupts. This hook
++ * cannot fail.
++ *
++ * Drivers integrate with SRO by implementing the readout hooks in their
++ * object funcs vtables and setting the
++ * &drm_mode_config_funcs.atomic_sro_readout_state and
++ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks.
++ */
++
+ static unsigned int atomic_readout = DRM_ATOMIC_READOUT_ENABLED;
+ module_param_unsafe(atomic_readout, uint, 0400);
+
+-- 
+2.55.0
+
