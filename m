@@ -2,99 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147F5606EE97
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:45:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42500606EEA1
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EeQM/4kW;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ceHyJc/i
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Tzq6u5mM;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FFYTOK0c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6EF1112DA2;
-	Fri,  6 Nov 2026 13:45:01 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0EC1112D9D
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:47 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4344D112D97;
+	Fri,  6 Nov 2026 13:45:02 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D03112DA2
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:50 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A6APOGQ2076370
- for <dri-devel@lists.freedesktop.org>; Fri, 6 Nov 2026 13:44:47 GMT
+ 6A6APNC2114837
+ for <dri-devel@lists.freedesktop.org>; Fri, 6 Nov 2026 13:44:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- T1R6BuIc6DXQGz75sImpTyNUbfCE2LnmujKp5A9+yb4=; b=EeQM/4kWhFmOJuwe
- PcaNygUpWGunYh1Mf9T4qVZvMW/qajo+zbGNycZemiUV+mb2LW/W92nVqxyNzi4S
- +q8Q++hDwx3V7UcsJ5+yRX+iWA1MXrB4Ey4m3GNoDB1p/a0gJRnAhLpaN3q02Bkn
- iZed9h2i4K/C7bLJvI3upAb40DuZL9Gq9JTWEYbn0H9PiXtWg5h8k+GpIdCUmNiZ
- 118LSYTGGWXuTfYHB9JMHvHUOwk0IBAD2iygGw4PNIYKe7RgpeMbApj+hEoSF4BV
- m/OYzV7nV06BbQtRwzlZkJsD9P9P6uFRflxNYDydoZQYNa2HuCbngaeIaFhTyyRf
- Oa6ipg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pcaycw-1
+ cMGWArbInFfU56ZSuyy57z76nw1Q/B0mKQVzCGj4gek=; b=Tzq6u5mMsJ9yzKJx
+ 10rfn7hWFlrl+4uV5O7yRbkf5OFW1QMdWTQcnAiBpTUCIVj2aH95BFJMGli27USs
+ E0JqDVuUhWw3NYWH90IEGLBRblSKSoCB2GTDiPabFQvSA8pRny74HAQ8/nLhukDx
+ FkRKe2881SuQrtuQDn4NlXLOeli0wp/JXjObNnkkvTJXmY36WwsAq93r6EYa94Xj
+ HLhn0CYjFQdl3sM+dSxMIk0AO6GAgfUNQpV1yrqxI7RCuUi4X2ubhrhy8z5aGcHe
+ k0dpAUU8DLGDQXB9myTxKBuK3hkQfjFNERTjfssf2HCaXMXeOZSVAWj9ata1r3Q6
+ 7Nie9w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3patywd-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 13:44:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93cb98809caso120318285a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 05:44:47 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 13:44:49 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93f33438950so150233585a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 05:44:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793972686; x=1794577486;
+ d=oss.qualcomm.com; s=google; t=1793972688; x=1794577488;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=T1R6BuIc6DXQGz75sImpTyNUbfCE2LnmujKp5A9+yb4=;
- b=ceHyJc/i0wM2aGC9C0XiIPmmvvVsIM34lCwKNCKms9yB8pEs3DdIhirUAmUB04GeBQ
- DYUrzFreFH9piUMP0El3hbThkYUcPdX7K8L4o+09krMGEfbMgd/6ksn86sPOJh9shQ63
- rnIRi36ihxvQdRWvyi26qOVE59U/xGTbIIKDOH4paSz9pnkKvwKQ8QHsju/uDSl99e5J
- Sqxx4vhb0CILhI/kqZW7cjPJiLb21Px5sbryKNRW/fPy8DtyEO4Ch1zwM2ODKz7OXkDa
- yW4pDGfRE9nN87w+lRopbjUOXmb7AT/u7ho+IZUN9LO5BHl9Lp+bpcajPBYsRW6eV983
- d19Q==
+ bh=cMGWArbInFfU56ZSuyy57z76nw1Q/B0mKQVzCGj4gek=;
+ b=FFYTOK0cILgxJHO+q7itk2nzQg8EbbGcrNc+YIPLKrAx7tU1lq1sgSH/sDp2AZsBJr
+ oS9UZ8zm3lAOvIpGvJg81kD2aBbwEGojTgWzpWh/4tpZxA87XQAgrtX8QOzlMAFplBaR
+ tixPzHaDeu8lHqYSWa/i+k3fflcPgU9GSnYTylWhhZJ2z4cCu0xag7F7dBwz7mr6YpOh
+ 9QHx1QReYefEyctQTB6YAAtvq4grPzOWKe5e1pv//zzrXVZfF32tuUsqGiwgbbHkrDND
+ guWb9HH0RwMKNql2KemGmsEbo/mQfO0w/J45DftMOIP7ZEkIo1rWNv7PwVVepiPpntod
+ 40kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793972686; x=1794577486;
+ d=1e100.net; s=20260707; t=1793972688; x=1794577488;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=T1R6BuIc6DXQGz75sImpTyNUbfCE2LnmujKp5A9+yb4=;
- b=gP9xpxs5a0Mtf5xOyVv7+ecuS6Sal6qGTzMR0n3PmstnUqfx1ep7iTDQYqd9QWKMkk
- YOXdunb4BGKQOHX7Pnr52UEZT69mj4GsaWmvct5OprKpM+xfWQguy/u86HpZe24qIogj
- /xrohege1fjfvVGTnAxrldVo8twF2wy93P/MU8XTQ68jjDmcSx3O4BzIRz1nPqzdzrKv
- LaZ2Q28zLeccE2tDabQ+s+2rc46PIvO30eiqkAMOywHg41qqTXeYpTe5K8J09H0C8UNz
- ivVwz+jIkbMxvEmSvMbJtrsKr7J+oDNPRKv98xpSibAUWaMDOJRSC/5YlAUTwZvaCbOB
- A2Wg==
+ bh=cMGWArbInFfU56ZSuyy57z76nw1Q/B0mKQVzCGj4gek=;
+ b=1GjdCBNeYvXJ/4bo2otNPlaQQiHlmxLTs7pUj1t1zK+3w7Lcz4uguAYPANBp61GuTW
+ R/MxK3ZDPMf1GITU9g9BinjxJY24MlUyL6NZ4QsWsepysD/lBq1HDxIeQIcfKJNKN/uQ
+ mwKMYGnADFF6IVOanGCHsdzRBB5yH41o/2MzYAI7n7COJddLGR5vl7/j2p2Z0iplUOtH
+ 0YwcTCWRhXckCk6WjwZ7Zo7YR6ZdzD22dOsbpDFCA8G3NSZcz0eeSrNoe6D9z9INWI3P
+ fB5ir9wsu/evPJ6JOuV5IWckR5Xg2YX+s2+whjG4gt3Uqr++aNqmnquwBVYy3PJXUHk7
+ j46A==
 X-Forwarded-Encrypted: i=1;
- AKwUvByhqKbZmdEEsvrRGCACFjyVl/Dog9dMCVS4KHkUILhaScd+p5wspFJtR3TQIV410mlMXekHaulaU/g=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/bfKC4O1WLpAN3/RFUKliO1Op6G/esRFjK/+YWTY8LMdshbY3O
- Hcs4H+QWJlnwFTC6FZ9gytPBwyCzNDKgVbTTExvpEUNNjhO92fv7+7B6QJVqBgScUIHZOxJpSJx
- Mtuwt56wLkND+cMtQk7r9gGjxXr7Di7KBlBq8awAzrzXHxaUUVLjM19SaLwWfiqSXhJcfHpM=
-X-Gm-Gg: AYBFou1QZAYV+kvwChRKROxB00PY1zgeeNnCO9oPqmwKEUOV4XXxxsctG0qpOa/5le3
- qa/3mFWqT5uuCgFeOezOEEnLUTYfmh3bIttLJ8t3WqXyOs2giG7xxqg4zVxXlZBSGGXHM5jCQw6
- kz8JTeVGx25AA4eXJkR8/tyfsx0+pnAzFib0LsoTe6j+m1roKLkPXakFSW5/6hxIafDVQBT0F+a
- H2bDvWVIKToy8R/Yp3TQdQzcHVw/536tpil0TV1mYL6YOD2Sl4E6Bk1lUj6iSGr+qxzeoW6H6F6
- CLsyQGZqOHRvKPQ5NW096qQO+FARzfMw4Z9LSi8smvfPlLSCh1ZGOFcla2n0djtbMdxeBhFxP/9
- zR2Sj+7bj+n1h70myt5g7vLbHsZ0fO4jLr2RoDvFVG9CYpEpflj9KyaL99Q4ArOE9OQXJ7YAX6Z
- w+1PXGvKN47GMpDm8VQXuE2m5VMnFG9YWsFLys0vTwGI+yvbLH1SlE8Q/CvPZISA==
-X-Received: by 2002:a05:620a:4397:b0:93f:2941:6b8d with SMTP id
- af79cd13be357-945f33aa172mr297780985a.6.1793972686134; 
- Fri, 06 Nov 2026 05:44:46 -0800 (PST)
-X-Received: by 2002:a05:620a:4397:b0:93f:2941:6b8d with SMTP id
- af79cd13be357-945f33aa172mr297777385a.6.1793972685536; 
- Fri, 06 Nov 2026 05:44:45 -0800 (PST)
+ AKwUvBxnNL9+OStcmMWYkKc5WUvKX4ongADqMT5KzUGQ7rgY0rYqo8A6vB1q+33LL28XIzyoDqcgu9Nj7zE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/P4Bwqj2J1DXZUCdegQp/wXo2tKRSdQJv858DcbCE4DaFWl5eJ
+ GvF8M/zbgWTFeiKk79QOJQez5D+9imXU1dgMhMi7g5FCsXwH2aRdo/lbzYgRyhZp3PLnPulQXca
+ Z6ZHyw/+laWGeS1XsnYYE/OwPFiCInlDHjTPa4sbzrMbi3/budbFxWRW4nkLxHnVilCy0q70=
+X-Gm-Gg: AYBFou31IGCu3+I1HBL4q98yOp4tADcFAYlbnJF3xLuRub6mjUkYmqEFxPzH2kGvt58
+ nWn9w97IyBDpVxVxofWBrsNzrTf9mxAKTtSw8Al4sKw08CEVuZeo6Jk0aSoeJDXkCwR7HZkaKun
+ tCMD+XCLbq00dGL22HLGtqV5TqwzpnTU32m2eEujCRt9kiI5g7FCRHPhFGcO4sLo7t9xdPCIGng
+ a3WgId+jHPgjfY+sSNXN5NEEDiaC2VeyQ/Ld0NtY1edBKvAuHhrAYi0ooEJ0yIGHnxxKkSbx9MX
+ 5PV39XRB/uBqKpZm5Yt/ggIcd6fXtHovnRrRj2+/Q2oJKWiFIwJMFnAtBndEW/w0oyltNuzuUER
+ 6YeBgPuBm8OXowmqvCBKPJF4aNp/QtsEmcCKh5NZ67CQgGWwRB8vMhEw3oNkhtmWv4JbX/EMUDU
+ xHjtTsMJQpCfpCcZkxIEb21OHM6jyC/fh3blaWVJhwOAcTyv7L8HYVFKCnrzHK1w==
+X-Received: by 2002:a05:620a:271a:b0:93e:c12c:f12f with SMTP id
+ af79cd13be357-945f3631799mr344952885a.74.1793972688293; 
+ Fri, 06 Nov 2026 05:44:48 -0800 (PST)
+X-Received: by 2002:a05:620a:271a:b0:93e:c12c:f12f with SMTP id
+ af79cd13be357-945f3631799mr344947285a.74.1793972687619; 
+ Fri, 06 Nov 2026 05:44:47 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c003055a5csm382747e87.13.2026.11.06.05.44.43
+ 2adb3069b0e04-5c003055a5csm382747e87.13.2026.11.06.05.44.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2026 05:44:44 -0800 (PST)
+ Fri, 06 Nov 2026 05:44:46 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 15:44:11 +0200
-Subject: [PATCH v2 5/8] drm/fourcc: describe the Qualcomm UBWC layout
+Date: Fri, 06 Nov 2026 15:44:12 +0200
+Subject: [PATCH v2 6/8] media: docs: pixfmt-reserved: describe the QC08C
+ and QC10C layout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-ubwc-format-docs-v2-5-82949f88f030@oss.qualcomm.com>
+Message-Id: <20261106-ubwc-format-docs-v2-6-82949f88f030@oss.qualcomm.com>
 References: <20261106-ubwc-format-docs-v2-0-82949f88f030@oss.qualcomm.com>
 In-Reply-To: <20261106-ubwc-format-docs-v2-0-82949f88f030@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -116,44 +117,45 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Robert Mader <robert.mader@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5526;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5342;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=PBEbayVdH87klbKtk5JOaPGn9vN61SzfT+b4Hydj4Zc=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq7dm4K3gdV0YxTzrffH3VlVj75NZoqa3yzqEaQ
- a9GxW2OtPqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCau3ZuAAKCRCLPIo+Aiko
- 1TvCCACZKz5loZofq82owJSku5llc757ammPyLgmm0rXElo0OADaT0aD3SruDuNtNJpWCQroA8y
- oHrCGBz2fJjxdCrxIhQEA1qMZ/yoeRfRMShwqLN/d+8MdRtNuhpWhlhToB2KmVvBRmi7uDNSDqp
- WT6I4JhhR6edEeW+sOuTxWgMoYResv+ZDakPhqmr/YzkvcmTNLQOujrlIySARsCbT35Pu65si8L
- uZqcNf4Fj+eES6fIKRtEsRbpMlYRGU9L63hcX7w6DUEeVUR/ZZlsRfVNQcv9N9qznrMooNv1Sf6
- BUozs0duG3j+G3ppFiKX2a8fjlsE/ZDAxmy5ypJLz/eDs+yW
+ bh=oufDthB7YeDdLirPSwGJfiDiJMRXmbblsnYc5GIVcCM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq7dm6s+PXrSOIvYkMo0otYumwJstunDxuMg8An
+ mz9B+Mnhd2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCau3ZugAKCRCLPIo+Aiko
+ 1c2QCACoHzDU8tM05kGPtQOJguY/awpHZnGl4M1B6ngb6r5IY6yedWDjfHCVdiWrKwpjHTReknn
+ ZBZMYt7o0pTBEIFJC7FeB3iX5fGSR2auFc9/3WbG7RLc4H+s9651VWxPyniD/pjHIO1Y7MhCvk5
+ 2Xacpzuu90iX4Y0hQWDvgEJfZK5I8NpFR4ws0YpZ/q2V4EkputE8TyYD92q7/UVbuT7R0Pfbng3
+ CSISTsDI8Ir5nVHpRJOywmK7ZAR8KY/lmH4g5pZZOIU9mUTk5LFhJragEjgxl/hfT0hln6wfHyt
+ 6p2qhXN20Uv3Vz80P9sPw0ZgB7suipVCTNBnGuzHE2bmQlk1
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: OoQgg7LKsCleovxq8_7o4H1Y15hcYzzX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1NCBTYWx0ZWRfXzPKnXsmBL7YL
- QtphE8jtbv3XTtspVNMnBk02i4JSzXlvyhSVlKDk6cxPjfGNaF20zHpzx4aNmZljQxh6F/9871W
- lwbXwEfa/0Hbcnafde65CZtSvPXTDXu0LZgo4Y+tkEBMlZs5q7yNQZrTCZBhL6lOWxVDK7MnPXE
- U4hefE327eNkRuHIg6dXaYXyaYUDNzI8LkmpSi/KaJiniakQQ87tC0iEiARso9u7Lyx0M9om1PK
- 1bxmxqBCFCEOYK77oXDpmH0Wp5NjM1bxOTTMjbE/c0FWWwunVQT6fJ7iftERpl/fdKYqlbe5I/R
- r24XpzrvBMOIOG2SXxQyhDy0AWVp0rQzhgFj2bVIDwkTCpxVxj3NRRAVF245eIl0UJHuFnmdHQb
- 8DfNIc1Hg04H4nHp68BEOpbfuBMAP2MCSt9s/vZzuN5ibUUO79aGlV8kjYUGrd1rabUAQtyton1
- odf+pI6IaJbq1Cq78gg==
-X-Proofpoint-GUID: OoQgg7LKsCleovxq8_7o4H1Y15hcYzzX
-X-Authority-Analysis: v=2.4 cv=TI3Q2Fla c=1 sm=1 tr=0 ts=6aedd9cf cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1NCBTYWx0ZWRfX/7X/7wVZHw01
+ zWWWQ70wgKpuGKSh1z5jqMCIgifzMLfQ0qSV5tMPMnRiXmNvVZXDEkRqHenlTS59t3nw9+OIbHx
+ VxmhaMLGXmtQQWdlSgoFzILBv4o6y2Lc/O0tOmEittNek1rip8uciJx3sZgrvduO2W0GTfLW99+
+ fyYgF6P7/goQvhVa0ZEq5CnkX3+aSB9xbJu704e4YFuKgZ0rsu73MtWqu5SWvmeaaPE3aExUSuP
+ iD2GSclyy2Ejzvn8w9MDQ3B5uo2lyQyTjQ6l1EFrdN6Qg4Kx98s0khlC42pSblxRYmzRlYMhkXI
+ 42tp/Iv7T4ZIe6x0OM+sjniA+/PxzabHsaySNI3guGdTNDste/20J6SXiS75lDREc0DMSdEzP5M
+ sX7/PDdRe3pyGy2fpt7s1mu5QsDfdNs3MnfAlMcoPDcqmmOe93BumAmYTic+0Z5g97zcxszyrWB
+ mLasb73O1r2lRPyh3tw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1NCBTYWx0ZWRfXwdhtNlHd0qDU
+ OrrI+lfyKNwoneOA3+S4Hsem0Dm6aXdMGHo55YRFwv88xCiGNLIjQOKn/TEPTfDYOm5DlF3PMmq
+ lzc10DrDx537H9jLvHt9AtJzLXmu/5U=
+X-Proofpoint-GUID: zDU3WlYlQp8wjyahVuE0wfOahsZfsxBG
+X-Authority-Analysis: v=2.4 cv=P4ivFSAu c=1 sm=1 tr=0 ts=6aedd9d1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=U_HTlJNxgaGUaFeKA3EA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1NCBTYWx0ZWRfX1BYEPKLotj2i
- 6oNEoB8n2zxoTllpYp4Tkxx/S7Mx8tW81yIeaLlOFAQFSoHeMbMy3aWCvntZQwUQK3SUOl2g7mj
- mgDTptx7HLvIGiseWgHsq379BxXb5yE=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=Eh1Ucz_HWyYK4_jupWgA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: zDU3WlYlQp8wjyahVuE0wfOahsZfsxBG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_03,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060054
+ adultscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,108 +175,101 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DRM_FORMAT_MOD_QCOM_COMPRESSED description talks about macrotiles
-but does not say where the metadata is, what the pitch refers to or how
-large the planes are. The msm driver derives all of that from the width
-and the height, and the GPU drivers and video decoders allocate buffers
-to match, so the layout is uAPI whether it is written down or not.
+QC08C and QC10C are documented as opaque formats with four planes, or
+eight for interlaced video. Neither is true for the drivers: Venus and
+Iris use a single memory plane, nothing produces interlaced buffers, and
+the display controller and the GPU import these buffers, so the layout
+is part of the contract between them.
 
-Document it for the formats the display controller supports: the
-metadata before the data in each plane, the tile sizes and alignments,
-and the CbCr plane following the Y plane in the first buffer. The
-display controller has always fetched it from there, ignoring
-offsets[1] and pitches[1], and existing userspace depends on it: turnip
-reports offset 0 for both planes. V4L2_PIX_FMT_QC08C and
-V4L2_PIX_FMT_QC10C are the same layouts for NV12 and P030.
-
-The layout is stricter than the display controller or the camera need,
-as they can address the metadata and the data of each plane separately,
-but other users depend on it. The video firmware takes a single address
-per frame and places all four sections itself, and the Adreno texture
-descriptor for multi-planar YUV has only one address per plane, finding
-the data after the metadata. Buffers shared with these devices have
-to follow it.
+Describe the sections of the buffer, their order, strides, line counts
+and alignment. The compressed contents stay opaque, they depend on the
+UBWC configuration of the platform.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- include/uapi/drm/drm_fourcc.h | 64 ++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 7 deletions(-)
+ .../userspace-api/media/v4l/pixfmt-reserved.rst    | 64 +++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 9 deletions(-)
 
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index 0bb049f91524..2c9f56df64c0 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -820,13 +820,63 @@ extern "C" {
- /*
-  * Qualcomm Compressed Format
-  *
-- * Refers to a compressed variant of the base format that is compressed.
-- * Implementation may be platform and base-format specific.
-- *
-- * Each macrotile consists of m x n (mostly 4 x 4) tiles.
-- * Pixel data pitch/stride is aligned with macrotile width.
-- * Pixel data height is aligned with macrotile height.
-- * Entire pixel data buffer is aligned with 4k(bytes).
-+ * Universal Bandwidth Compression (UBWC), a lossless compression used by the
-+ * GPU, display controller, video accelerators and camera. The compressed
-+ * contents depend on the UBWC version and memory configuration of the
-+ * platform and are only meant to be accessed by the hardware. The layout of
-+ * the buffer depends only on the format and the size.
-+ *
-+ * Each plane consists of a metadata section followed by a data section, and
-+ * the planes follow each other, all in the buffer referenced by handles[0],
-+ * starting at offsets[0]. Each section starts on a 4096-byte boundary and its
-+ * size is rounded up to a multiple of 4096 bytes. The metadata holds one byte
-+ * for each tile of the data. pitches[0] is the stride of the first plane's
-+ * data and must match the value below; all other strides and offsets are
-+ * computed from the width and height of the framebuffer.
-+ *
-+ * For a width x height framebuffer, with subsampled planes being
-+ * DIV_ROUND_UP(width, 2) x DIV_ROUND_UP(height, 2) samples:
-+ *
-+ * RGB formats with 2 or 4 bytes per pixel (cpp), one plane:
-+ *   data: pitch ALIGN(width * cpp, 256), ALIGN(height, 16) lines
-+ *   metadata: 16x4 pixel tiles, stride ALIGN(DIV_ROUND_UP(width, 16), 64),
-+ *   ALIGN(DIV_ROUND_UP(height, 4), 16) lines
-+ *
-+ * DRM_FORMAT_NV12, two planes, Y then CbCr (V4L2_PIX_FMT_QC08C):
-+ *   Y data: pitch ALIGN(width, 128), ALIGN(height, 32) lines
-+ *   Y metadata: 32x8 pixel tiles, stride ALIGN(DIV_ROUND_UP(width, 32), 64),
-+ *   ALIGN(DIV_ROUND_UP(height, 8), 16) lines
-+ *   CbCr data: pitch ALIGN(width, 128),
-+ *   ALIGN(DIV_ROUND_UP(height, 2), 32) lines
-+ *   CbCr metadata: 16x8 sample tiles,
-+ *   stride ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 16), 64),
-+ *   ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 8), 16) lines
-+ *
-+ * DRM_FORMAT_P010, two planes, Y then CbCr, 16 bits per sample:
-+ *   Y data: pitch ALIGN(width * 2, 256), ALIGN(height, 16) lines
-+ *   Y metadata: 32x4 pixel tiles, stride ALIGN(DIV_ROUND_UP(width, 32), 64),
-+ *   ALIGN(DIV_ROUND_UP(height, 4), 16) lines
-+ *   CbCr data: pitch ALIGN(width * 2, 256),
-+ *   ALIGN(DIV_ROUND_UP(height, 2), 16) lines
-+ *   CbCr metadata: 16x4 sample tiles,
-+ *   stride ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 16), 64),
-+ *   ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 4), 16) lines
-+ *
-+ * DRM_FORMAT_P030, two planes, Y then CbCr (V4L2_PIX_FMT_QC10C):
-+ *   Y data: pitch DIV_ROUND_UP(width, 192) * 256, ALIGN(height, 16) lines
-+ *   Y metadata: 48x4 pixel tiles, stride ALIGN(DIV_ROUND_UP(width, 48), 64),
-+ *   ALIGN(DIV_ROUND_UP(height, 4), 16) lines
-+ *   CbCr data: pitch DIV_ROUND_UP(width, 192) * 256,
-+ *   ALIGN(DIV_ROUND_UP(height, 2), 16) lines
-+ *   CbCr metadata: 24x4 sample tiles,
-+ *   stride ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 24), 64),
-+ *   ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 4), 16) lines
-+ *
-+ * Two-plane images are allocated as a single buffer holding both planes,
-+ * with the CbCr metadata following the Y data, so the CbCr plane starts at
-+ * offsets[0] + Y metadata size + Y data size. handles[1] must refer to the
-+ * same buffer as handles[0]; offsets[1] and pitches[1] are ignored, userspace
-+ * should set them to the CbCr plane offset and the CbCr data stride.
-  */
- #define DRM_FORMAT_MOD_QCOM_COMPRESSED	fourcc_mod_code(QCOM, 1)
+diff --git a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
+index 1cf6c59f4bc4..ec67a1bd7743 100644
+--- a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
++++ b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
+@@ -245,20 +245,66 @@ please make a proposal on the linux-media mailing list.
+       - ``V4L2_PIX_FMT_QC08C``
+       - 'QC08C'
+       - Compressed Macro-tile 8-Bit YUV420 format used by Qualcomm platforms.
+-        It is an opaque intermediate format. The used compression is lossless
+-        and it is used by various multimedia hardware blocks like GPU, display
+-        controllers, ISP and video accelerators.
+-        It contains four planes for progressive video and eight planes for
+-        interlaced video.
++        This is NV12 compressed with Universal Bandwidth Compression (UBWC),
++        a lossless compression used by the video accelerators, GPU, display
++        controller and camera. The compressed contents depend on the UBWC
++        version and memory configuration of the platform and are only meant
++        to be accessed by the hardware; the layout of the buffer is defined
++        below.
++
++        The format uses a single memory plane that holds four sections in
++        this order: Y metadata, Y data, CbCr metadata and CbCr data. Each
++        section starts at the beginning of the previous section plus its
++        size, which is rounded up to a multiple of 4096 bytes. The metadata
++        holds one byte for each tile of the data. ``bytesperline`` is the
++        stride of the Y and CbCr data. For a ``width`` x ``height`` buffer,
++        with the CbCr plane being ``DIV_ROUND_UP(width, 2)`` x
++        ``DIV_ROUND_UP(height, 2)`` samples:
++
++        - Y data: stride ``ALIGN(width, 128)`` bytes,
++          ``ALIGN(height, 32)`` lines.
++        - CbCr data: stride ``ALIGN(width, 128)`` bytes,
++          ``ALIGN(DIV_ROUND_UP(height, 2), 32)`` lines.
++        - Y metadata: 32x8 pixel tiles, stride
++          ``ALIGN(DIV_ROUND_UP(width, 32), 64)`` bytes,
++          ``ALIGN(DIV_ROUND_UP(height, 8), 16)`` lines.
++        - CbCr metadata: 16x8 sample tiles, stride
++          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 16), 64)`` bytes,
++          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 8), 16)`` lines.
++
++        ``sizeimage`` may be larger than the sum of the sections.
++        The same layout is described by ``DRM_FORMAT_NV12`` with the
++        ``DRM_FORMAT_MOD_QCOM_COMPRESSED`` modifier, with both DRM planes
++        referring to the same buffer and the Y metadata at ``offsets[0]``.
+     * .. _V4L2-PIX-FMT-QC10C:
  
+       - ``V4L2_PIX_FMT_QC10C``
+       - 'QC10C'
+       - Compressed Macro-tile 10-Bit YUV420 format used by Qualcomm platforms.
+-        It is an opaque intermediate format. The used compression is lossless
+-        and it is used by various multimedia hardware blocks like GPU, display
+-        controllers, ISP and video accelerators.
+-        It contains four planes for progressive video.
++        This is the P030 (TP10) format, YUV420 with three 10-bit samples
++        packed in each 32-bit word, in both the Y plane and the interleaved
++        CbCr plane, compressed with UBWC as described for
++        ``V4L2_PIX_FMT_QC08C``. Each 192 samples of a line take 256 bytes.
++
++        The format uses a single memory plane with the same four sections as
++        ``V4L2_PIX_FMT_QC08C``. ``bytesperline`` is the stride of the Y and
++        CbCr data. For a ``width`` x ``height`` buffer:
++
++        - Y data: stride ``DIV_ROUND_UP(width, 192) * 256`` bytes,
++          ``ALIGN(height, 16)`` lines.
++        - CbCr data: stride ``DIV_ROUND_UP(width, 192) * 256`` bytes,
++          ``ALIGN(DIV_ROUND_UP(height, 2), 16)`` lines.
++        - Y metadata: 48x4 pixel tiles, stride
++          ``ALIGN(DIV_ROUND_UP(width, 48), 64)`` bytes,
++          ``ALIGN(DIV_ROUND_UP(height, 4), 16)`` lines.
++        - CbCr metadata: 24x4 sample tiles, stride
++          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 24), 64)`` bytes,
++          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 4), 16)`` lines.
++
++        ``sizeimage`` may be larger than the sum of the sections.
++        The same layout is described by ``DRM_FORMAT_P030`` with the
++        ``DRM_FORMAT_MOD_QCOM_COMPRESSED`` modifier, with both DRM planes
++        referring to the same buffer and the Y metadata at ``offsets[0]``.
+     * .. _V4L2-PIX-FMT-AJPG:
+ 
+       - ``V4L2_PIX_FMT_AJPG``
 
 -- 
 2.47.3
