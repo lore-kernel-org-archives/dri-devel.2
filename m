@@ -2,61 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64B4606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85551606A32F
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=awlDE23z
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MBXWhteI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1137210E3E1;
-	Fri,  6 Nov 2026 13:51:54 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586DF10E667
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:51:47 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 5207C4E41216;
- Fri,  6 Nov 2026 13:51:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F2E2C5FFBC;
- Fri,  6 Nov 2026 13:51:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D0A0C103291F5; Fri,  6 Nov 2026 14:51:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793973099; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=cCB42j4uUQaazWTHguvVYIuQDyPtBSzCq0l1oIWDdA4=;
- b=awlDE23zN6815brW6O76EzSVaIyUtC2uOEdfCdLXIce8XGeHvSgL0A9pAAuC9URQ3bxF+3
- BVMYZOD+xme1YW1lX0ngMvGK2ytXOuKMc2LvkAfBEXEnMJ25Qja3GMJhQybhsd7AoavoYB
- /XYy5fJvZEGs3lT/5W3LSBvUx93+eqt34D0iyb5j9ji1/jiy/q4rPXufG1u462SD2nhOZt
- ermhSIVhqYaAisV5JWsUzOIElEA9rNYSvYmyPt9rOKXIsqdkrW3KTgXQ4331qfENoie7vy
- g8usz7bYMo6qyMlbE+bSnvadGUkLw4h3u6H9RZPQRfUybcmi8qoIsF4miZQ0NQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E384610E374;
+	Fri,  6 Nov 2026 13:54:56 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D51010E374
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:54:50 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-491971ac844so585052f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 05:54:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793973288; x=1794578088; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
+ b=MBXWhteI62uU8vLtY55Pp1cry9jdiFQrphfZagoq4mbiia5MwsUTM3P/1gqoRyTg34
+ VivV80wE0qy2jKNXZ5jSzIBoc/4Ak9TPDJx+s2imAx0ckero3/LJ+urSf8pZ/jqgvM4A
+ pqLlgO7/hgE2qtkY3sIKrhW9iZmkXGGMJHQXOfCkKx6s6qqIepkoEgcjHJ0hv0BvGLTK
+ //P0g8HldnjNGkuUQZ1geMj85iqGa0e1m5JVU2RlKWLYUU2WEx8xps2ZHYe1weeecltZ
+ KV3sWGTDPBiN/o9/wO+v3Mk7hdMLsbZoh+YAnTTdzHvG9DQj5vj8sngRFdL/QduZ9Uco
+ yGiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793973288; x=1794578088;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
+ b=oIE1BKIjg2nq6TErcTd1U8CktRmNTGh/cjT+XxnnD+nuh3UjZr+mzWTMSWoYqfj5c7
+ iTswIfADjdZ2skL5CEZZ2DtD5NIl5FFZjC3MELBN8SBex9eaByVJycIrCyng2DFpuBbr
+ zMdcubJGdLFVGgJEt2jS20+oX4mJGxNbH4CJNmxecwD8vWGLIzqhrExnw6RwEI1d+zGg
+ IrdQ14QTw8V/1keQWMjPW5TBCLERQmw25G01efAKJ9r5G8IgxQP4A6EbmRJbNxl2JNn4
+ kI1ImWO09HBD+jWKzW6M2mYM94Si1YjpMIZd6EotSCjsFdqfp0BGv4y0Mxt9tlVbezTe
+ D3pg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHHK3Of+CWP8UltfwSg9aVs92IytlAK2xSJTMLdP+0qkw+6fEFejsU+eW3trF9HThljpwtCUGZ+jBY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9k/O1MtzjHHj/tZrLnak7bZ+KjITzmVcprtNf2F8Meag0w8HMT
+ BOCzAbY/aNlaWSg166Cs6EdMG1+1lnq9Z/GMy+528QiO0kqPXVzF6nzY
+X-Gm-Gg: AYBFou0Q1QoBeP5BKFmfspm1P98aaQxI1sUXHXwvHYoBgnwABbZWbQ5iVPK+qAWZEtP
+ T8qOnD3bMTd8iWmZJkkPfs/A+pzquIQ9lGEBbL19Us612iiRQhvptwf08cQZgwWKYeDWvCMzFya
+ qovL6j4Y62wtVU8KzGX9zzDrXjvfKXeHwJ6M7O2b6XbgpyhB4zRV4yM82lvAKSuMv+qs8AiXidg
+ qX8vDsnUbblb9+s34i2NMK76S02m7JbOzX+p9O4v0h84jWLd0dPqis/+/jwpyZwLFeRAo8H+0m6
+ 4gn0q6aAa6TbB/2kZ83S0HneuIvGX9LVqMBxPxZEkfiAfR9e6khpxVOPaS7r2hQk4/ENMxAJO2O
+ Pf8uyaRSxj/r0h2pNRXas4qhz3J7V4nkoi7qFSAVbJ1roVbvvXabAk5Zi8Zp14GxfolCCGMHOcl
+ 9LOcpolgPU2a+MEM3S5p2W34faDREhs4rOaxlvzgqP1BnCnxNvM0O8fsk5w5MRCUrgqEUInx4e6
+ QD4lqF1C3TIc8hR1sOE5BSjeUvFi/ZFQox5BsqscrHgpGqeo6ra/WYhOcmKcRBSp4ygDimlmRdV
+ NyRvfy1VbQDG3Zq6uLOphUo+LwCLS2bLWNDuKTbP7Whq6UZtPV7uvwOjAr0lPU5i91XUHTOSchN
+ +qF1QOqZOCJgPx4sw2eUKHA5ypUM=
+X-Received: by 2002:a5d:6f0a:0:b0:48d:dfff:fe6b with SMTP id
+ ffacd0b85a97d-492760da71cmr5896957f8f.34.1793973288307; 
+ Fri, 06 Nov 2026 05:54:48 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.lan
+ ([2001:861:39c2:e340:6118:66fe:a6e9:e648])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-492d087a3c5sm3393124f8f.0.2026.11.06.05.54.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2026 05:54:47 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: airlied@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, igor@reznichenko.net,
+ jesszhan0024@gmail.com, krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, robh@kernel.org,
+ sashiko-reviews@lists.linux.dev, simona@ffwll.ch, tzimmermann@suse.de
+Subject: Re: [PATCH 1/4] dt-bindings: vendor-prefixes: add PocketGo
+Date: Fri,  6 Nov 2026 14:54:46 +0100
+Message-ID: <20261106135446.1334980-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
+References: <20261103110524.2812831-2-romain.tisserand@gmail.com>
+ <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 06 Nov 2026 14:51:33 +0100
-Message-Id: <DMO6DXVL3192.142ATKP8CWVXD@bootlin.com>
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-Cc: "Florian Fainelli" <f.fainelli@gmail.com>,
- <linux-kernel@vger.kernel.org>, "Paul Boddie" <paul@boddie.org.uk>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"
- <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, "Discussions about the Letux Kernel"
- <letux-kernel@openphoenux.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, "Paul Cercueil"
- <paul@crapouillou.net>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261105203517.2293404-1-f.fainelli@gmail.com>
- <5197EDEE-A739-4ADB-A1A9-08B0516735C7@goldelico.com>
- <23f5885b4339800f24ae33fbb782f43da931be10.camel@crapouillou.net>
- <80369640-E1F7-489A-B25B-69B83061C8DE@goldelico.com>
-In-Reply-To: <80369640-E1F7-489A-B25B-69B83061C8DE@goldelico.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,180 +92,28 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello all,
-
-On Fri Nov 6, 2026 at 1:28 PM CET, H. Nikolaus Schaller wrote:
+On Fri, Nov 06, 2026 at 01:58:02PM +0100, Krzysztof Kozlowski wrote:
+> On Tue, Nov 03, 2026 at 12:05:21PM +0100, Romain TISSERAND wrote:
+> > PocketGo is the brand of handheld game consoles such as the PocketGo S30
 >
->
->> Am 06.11.2026 um 13:21 schrieb Paul Cercueil <paul@crapouillou.net>:
->>
->> Nikolaus:
->>
->> Le vendredi 06 novembre 2026 =C3=A0 11:59 +0100, H. Nikolaus Schaller a =
-=C3=A9crit :
->>> Hi,
->>>
->>>> Am 05.11.2026 um 21:35 schrieb Florian Fainelli <f.fainelli@gmail.com>=
-:
->>>>
->>>> The LCD controller's internal bridge is embedded in an object allocate=
-d
->>>> with drmm_encoder_alloc(). This initializes the encoder but leaves the
->>>> bridge's reference count at zero. Since drm_bridge_attach() takes a
->>>> reference, probing the CI20 display produces addition-on-zero and
->>>> underflow warnings and fails to attach the HDMI bridge chain.
->>>>
->>>> Allocate the internal bridge with devm_drm_bridge_alloc() and register
->>>> it with devm_drm_bridge_add() before attaching it. Keep the encoder in=
- a
->>>> separate DRM-managed allocation: encoder cleanup can drop the final
->>>> bridge reference before it has finished accessing the encoder. Find
->>>> the internal bridge through the encoder's bridge chain during mode
->>>> setting, and use the bridge argument directly in bridge callbacks.
->>>>
->>>> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
->>>> drm_bridge_attach/detach()")
->>>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
->>>> ---
->>>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
->>>> 1 file changed, 21 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>>> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>>> index 625ec76cf04d..520912f9ed0d 100644
->>>> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>>> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>>> @@ -121,16 +121,15 @@ struct ingenic_drm {
->>>> };
->>>>
->>>> struct ingenic_drm_bridge {
->>>> - struct drm_encoder encoder;
->>>> struct drm_bridge bridge, *next_bridge;
->>>>
->>>> struct drm_bus_cfg bus_cfg;
->>>> };
->>>>
->>>> static inline struct ingenic_drm_bridge *
->>>> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
->>>> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
->>>> {
->>>> - return container_of(encoder, struct ingenic_drm_bridge, encoder);
->>>> + return container_of(bridge, struct ingenic_drm_bridge, bridge);
->>>> }
->>>>
->>>> static inline struct ingenic_drm_private_state *
->>>> @@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(st=
-ruct
->>>> drm_encoder *encoder,
->>>> {
->>>> struct ingenic_drm *priv =3D drm_device_get_priv(encoder->dev);
->>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
->>>> - struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(encoder)=
-;
->>>> + struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
->>>> + drm_bridge_chain_get_first_bridge(encoder);
->>>> + struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(first_br=
-idge);
->>>> unsigned int cfg, rgbcfg =3D 0;
->>>>
->>>> priv->panel_is_sharp =3D bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SI=
-GNALS;
->>>> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_br=
-idge
->>>> *bridge,
->>>>     struct drm_encoder *encoder,
->>>>     enum drm_bridge_attach_flags flags)
->>>> {
->>>> - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(encoder);
->>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
->>>>
->>>> return drm_bridge_attach(encoder, ib->next_bridge,
->>>> &ib->bridge, flags);
->>>> @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
->>>> drm_bridge *bridge,
->>>>   struct drm_connector_state *conn_state)
->>>> {
->>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
->>>> - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge->enco=
-der);
->>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
->>>>
->>>> ib->bus_cfg =3D bridge_state->output_bus_cfg;
->>>>
->>>> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev=
-, bool
->>>> has_components)
->>>> drm_panel_put(panel);
->>>> }
->>>>
->>>> - ib =3D drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
->>>> - NULL, DRM_MODE_ENCODER_DPI, NULL);
->>>> + ib =3D devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
->>>> +   &ingenic_drm_bridge_funcs);
->>>> if (IS_ERR(ib)) {
->>>> ret =3D PTR_ERR(ib);
->>>> + dev_err(dev, "Failed to allocate bridge: %d\n", ret);
->>>> + goto err_drvdata;
->>>> + }
->>>> +
->>>> + encoder =3D drmm_plain_encoder_alloc(drm, NULL,
->>>> +   DRM_MODE_ENCODER_DPI, NULL);
->>>> + if (IS_ERR(encoder)) {
->>>> + ret =3D PTR_ERR(encoder);
->>>> dev_err(dev, "Failed to init encoder: %d\n", ret);
->>>> goto err_drvdata;
->>>> }
->>>>
->>>> - encoder =3D &ib->encoder;
->>>> encoder->possible_crtcs =3D drm_crtc_mask(&priv->crtc);
->>>>
->>>> drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
->>>>
->>>> - ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
->>>> ib->next_bridge =3D bridge;
->>>>
->>>> + ret =3D devm_drm_bridge_add(dev, &ib->bridge);
->>>> + if (ret)
->>>> + goto err_drvdata;
->>>> +
->>>> ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
->>>> DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->>>> if (ret) {
->>>> --
->>>> 2.53.0
->>>
->>> Works for me on CI20 with HDMI display.
->>>
->>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
->>
->> This patches basically overrides your "[PATCH v6] drm/ingenic: fix bridg=
-e
->> allocation", correct?
->
-> Indeed.
->
-> Well, I am not sure which is the right one. Both work for me. So you can =
-choose
-> (e.g. if struct ingenic_drm_bridge should embed an struct drm_encoder enc=
-oder
-> or not.
+> Vendor prefixes are for companies and I cannot find anything about
+> PocketGo, except it is a brand. What's the website?
 
-Sorry I hadn't seen the previous patches by Nikolaus. And I missed this
-driver while converting bridge users to devm_drm_bridge_alloc().
+You are right, PocketGo is not a company, it is a product line. The
+S30 is made by Bittboy, which is Miyoo, see e.g.:
 
-Both patches look technically correct, but this one looks cleaner to me, so
-I'd apply this one.
+https://www.retroshelf.org/devices/bittboy-miyoo-wolsen-pocket-go-s30
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+I will drop this patch in v2 and use the existing "miyoo" prefix
+instead ("miyoo,pocketgo-s30").
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks,
+Romain
