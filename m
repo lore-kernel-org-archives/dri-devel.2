@@ -2,42 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE049606A32F
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:07:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2E8606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 14:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRUc8QcS
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB0MJ5Gy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A5688A27;
-	Fri,  6 Nov 2026 14:07:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00E70112DF3
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:06:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 217856020F
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:06:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41DF1F0089F;
- Fri,  6 Nov 2026 14:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793974017;
- bh=Rge4lu9kpKsnTowsl8nkJdYBqHNW5UZnKbXZCv1uV0w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JRUc8QcSnNIjsKK4bDBEKBcbKdRQCsF864dHDokJSog9+ifHyk/M/+pYkdKJP6yCW
- q+he/M7p+ZQHAfhFDYhenhYZGD8xT5fdKQENbr1ixZMWxVE6oGtHleaQsQycj5Cha/
- uplNi7ZA04sFCFkIHLa68ygvja9Dc8kAp7diy6y7fB2KgznrB7UbnJVl/gygZlOxL0
- JkhngKZhf6ytdKCqupGRP3mjx7u2mnxDhM4F7JcJsdumEKSZbcFAgDLDG2rB3umOER
- 6+4jF8Ez5fXeVr0LHbPAZNtMFrZR6oPflTj1wTR2odRP2UFfMSQW8i/1GAtShYb3/p
- 0Ep76REtDM8wQ==
-Message-ID: <sashiko-outbox-201540@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 35/39] drm/tidss: Implement readout support
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261106-drm-state-readout-v8-35-cbe78624e1bc@kernel.org>
-References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <20261106-drm-state-readout-v8-35-cbe78624e1bc@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F7710EA44;
+	Fri,  6 Nov 2026 14:07:14 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40C5C112DF7
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:07:08 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c4d30639709so84113666b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 06:07:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793974026; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RXPJr6NtjlNX0Rrg5RnmxwzdE2KIh0aOWuJ+9nKkWfZR0YrKX09bSXHt6jWdr5RxUb
+ 9zDIkmML0w2fISGHbJMWnVx1FVD/zSnS0UpaVKz2atDO7j3ByrzVfDC70QeN9DWK6Qb5
+ c0rIsOwu38FRzK5OTl39yIxemFg2VnOpkjIgwNnZzpuRSuI21IVx+O7aSykx5jp2iE/p
+ 4IPVoVmpucrvOrpuviVdbRW7kAuoKuBx8WWAzy0zZZv3xkuaNBIxLX6GE8SSpBkj+UWB
+ QcAyija0RcynI2fNBztKnb2vtI+1M2qPGaySoy65PFwSdf1AhfSDAtvBzdTy3ogORTyZ
+ mxGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+ fh=Iiwdn0ocT8wpXSQjMd/6F8OjWquPv6BZOzpr2iRb1tQ=;
+ b=mgBmoudTx8B7i8MDwpcgzCDm6ixbrHlGKMiIbWvWEOqHGRlZuRUiLk2/2CnmTPFjRD
+ /fF/bk9AYSyJ3jmrTtr/pnqARPO0tQqDSk5r4LGDZoeHkzF8RFVXMXZwuHQILvljPW+B
+ Yxm+Yphx4sCquY/hIJp19AdX0++9StjUYJnvvf/zHJ0OS0LA/bGamBDGiipEx/LmfPz7
+ wr9zBZATIk8qN9I84Vb/AYiobgX+in3fi1DQY8I0f/nAZILe4l8dnIvvRAkv5F/eNzGG
+ BVqxu3GITGbtJ1R5DvGh2NdkzZg2lNBdgAZIvbydecVmatgW5vpCo0wSTLenIrsH6GAD
+ xIKQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793974026; x=1794578826; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+ b=YB0MJ5Gydji+PJFYaQeSiKaEIcXUZzNfzYhl46LOV9yTdweapw7UyctdIF+eODhIcY
+ IAI0UiPWGeoGWfkG7Ya4PTpCNbLXrpcyUv7Q6CcFiQmS7z8McIB4cWMnz0yqpBMvFEdo
+ c0957BHsweVMrgzPUYauheZ+K2K16dtsTjszf5QqBeotMgusE1dFvCFMg6xG1Ord4cg/
+ 0AIO7WjzaqnbCzx6JYlMIQXvoqBvsrqWPvqOwQSK1uCvcZSlPJe29Tr8NojvagJqfZ1x
+ AnOOZtwHCJvWu7PJdUpFfpYIeg8eQLXNlAq7Ie/XY6GO6OBaLCM7ZdrWrI44Gxtfwfyx
+ DyNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793974026; x=1794578826;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+ b=mAmmghGv7IyEzdhEKc0+NOqoqbhu+4mSxmnbIcgm1Y1kGfAZdAnzw1ADibLqBD/rgQ
+ ZhICxCH6NMg7Pufffeu2XfPPaBSOaNYBvjVXN18puwd3QJ+VIqfibUAvOr8Mg0Iksnai
+ 2MNDVOH6oOpc9gE4DXzQQZJfFJpreMslosG/OVHP/pk9Ry38dTInDcw4NBv3W3ZweAAt
+ BbENpByeG4PGJus5Kbg2E7AcV9WcHCtV0wN30qHVoGgCmjTb3Jo0nKJTtlXZjsy41wiG
+ BqZ9DR2l2a3/ptiJgUobiIKxTRReWc6txw0PDzgSrS0R0L+VkMhy80RvpX/F2ARhUNLn
+ HnTw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwne7IkNHLU4eXrpIIBWxbl11XzcTNf1x6IiK8z7gz15/5nASgXVVd6R4kHJqGnp7vlkBUSBMZcnss=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+me0L3JCz7iQThYAzUzKR6teuoC8boIfHHD1qIuRj9J8fBx6WG
+ t2u58h9Nq/hKFFbdzyFMGussQItlk1yVLF/lUza0hrekhlWyyGgGSFFbjiRoVCqS64Ns0eK/qfo
+ /S5GIw0AINLKz2N8vIl0EzG6zPnYWaVY=
+X-Gm-Gg: AYBFou1uCWAt64VbDoq1sp7UkTJNaIL8rlFcHG0530RIcEIejL/PWGb7YWi2eS33Lku
+ 2rsFlbYFXLk6ETPBqei6FFgOE/6zYZRFPl8xnKyfyFDzAgedwFxD+yiOc24OBVzTdagpcvyR4Do
+ RNi8IrWImUt9Ot1PrbG64smoWJJEm4gU7EI8Ldc5XqCexLBNB91zUhM9Da6DlKeQwJbfLw7MI8V
+ 8a+bPcqAGHnjlDp7g0wWdMZcLhdyJ9AktZh2GnXW/3HWfqXBQo7cTE0E54vCKt8ri6v1NNQxncS
+ OVhXvkcArBHCZFm5t74V9RRUBXAySlhlHBMKzcrUEn+Z2D1Zhz716MHc34KvitQOgINI1uBVyP/
+ 1TnWAEr9O3hAXdbNDunWpfETy7gHNzfdcZ3BRCSPLUNN4iL9oXbGEWTo5CTJdqf0y8tMzOQ1ZP+
+ 1XHjcC5S27PR086pWhnhsP3FBPsHoJcsGbWuEgW3ICyPx1DSnRupI=
+X-Received: by 2002:a17:906:794a:b0:c36:179b:6d68 with SMTP id
+ a640c23a62f3a-c4d34babc94mr212442366b.24.1793974026265; Fri, 06 Nov 2026
+ 06:07:06 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-5-clamor95@gmail.com>
+ <au3X8tpU9KWas9ZM@orome>
+In-Reply-To: <au3X8tpU9KWas9ZM@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 6 Nov 2026 16:06:52 +0200
+X-Gm-Features: AclHuK9W8h_VdmRrbmlRdGVn94XocWlAhADiJndzE0sl5T8qxllPsgvIMFjUVog
+Message-ID: <CAPVz0n1h8SS09Nt9fw4q806ktEM59fQRXTqdP053E7+2onzmYA@mail.gmail.com>
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 14:06:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,408 +112,228 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [High] drm/tidss: dispc_vp_init() clears DPIENABLE and dpi_output is
-  unset on readout
-- [High] drm/tidss: tidss_crtc_install_state() runs before
-  tidss_irq_install() in probe
-- [Medium] drm/tidss: missing drm_crtc_vblank_reset() in
-  tidss_crtc_install_state()
-- [Medium] drm/tidss: wrong channel ID comparison in
-  dispc_ovr_get_plane()
-- [Medium] drm/tidss: plane readout fails in
-  tidss_plane_atomic_readout_state() when CRTC is disabled
-- [Medium] drm/tidss: zpos and cropping mismatches in
-  tidss_plane_atomic_readout_state()
-- [Medium] drm/tidss: refcount imbalance and leak from
-  tidss_crtc_install_state()
-- [Medium] drm/tidss: bus_flags mismatch in dispc_vp_get_bus_flags()
-  readout
---
+=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:56=
+ Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Nov 05, 2026 at 04:05:04PM +0200, Svyatoslav Ryhel wrote:
+> > Refactor and expand existing DC register definitions with additional
+> > fields in preparation for adding the 8-bit CPU interface.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/gpu/drm/tegra/dc.c  |  11 +-
+> >  drivers/gpu/drm/tegra/dc.h  | 856 +++++++++++++++++++++---------------
+> >  drivers/gpu/drm/tegra/rgb.c |   8 +-
+> >  3 files changed, 514 insertions(+), 361 deletions(-)
+>
+> This is impossible to review. Please split this up into refactor and
+> expand patches. Each should be a separate change.
+>
+> Also, a lot of the "refactor" is just pointless whitespace changes that
+> are just not necessary. Please keep the changes to a minimum.
+>
 
-commit 3df04a68595619e1ce0b980646624376e9262bc8
-Author: Maxime Ripard <mripard@kernel.org>
+Well, I did what Mikko asked. It is not my problem that this header is
+a hot mess. Initially I just wanted to add fragments needed by dbi.
 
-drm/tidss: Implement readout support
+> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> [...]
+> > @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_c=
+rtc *crtc,
+> >
+> >       if (dc->rgb) {
+> >               /* XXX: parameterize? */
+> > -             value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> > +             value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> > +                     SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+>
+> This type of change seems entirely useless to me. It's neither more
+> readable nor shorter.
+>
+> [...]
+> > diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> > index 0cb0515968b35..2b87bb675d4cf 100644
+> > --- a/drivers/gpu/drm/tegra/dc.h
+> > +++ b/drivers/gpu/drm/tegra/dc.h
+> > @@ -178,9 +178,11 @@ int tegra_dc_rgb_init(struct drm_device *drm, stru=
+ct tegra_dc *dc);
+> >  int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >
+> >  #define DC_CMD_GENERAL_INCR_SYNCPT           0x000
+> > +
+> >  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL     0x001
+> > -#define  SYNCPT_CNTRL_NO_STALL   (1 << 8)
+> > -#define  SYNCPT_CNTRL_SOFT_RESET (1 << 0)
+> > +#define  SYNCPT_CNTRL_NO_STALL                       BIT(8)
+> > +#define  SYNCPT_CNTRL_SOFT_RESET             BIT(0)
+>
+> The whitespace changes here are completely arbitrary, it's changing one
+> preference for another. You're actually changing the contents in this
+> case, so it's not that bad. Still unnecessary, though.
+>
+> > -#define DISP_CTRL_MODE_STOP (0 << 5)
+> > -#define DISP_CTRL_MODE_C_DISPLAY (1 << 5)
+> > -#define DISP_CTRL_MODE_NC_DISPLAY (2 << 5)
+> > -#define DISP_CTRL_MODE_MASK (3 << 5)
+> > +#define  DISP_CTRL_MODE_STOP                 (0 << 5)
+> > +#define  DISP_CTRL_MODE_C_DISPLAY            (1 << 5)
+> > +#define  DISP_CTRL_MODE_NC_DISPLAY           (2 << 5)
+> > +#define  DISP_CTRL_MODE_MASK                 (3 << 5)
+>
+> These are purely whitespace changes. Please don't do that.
+>
 
-This commit implements KMS hardware state readout callbacks for the tidss
-CRTC, encoder bridge, plane, and DISPC layers.
+This separates register content for register definitions
 
-> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/t=
-idss_crtc.c
-> index d2664bda53a99..38d7a5dfe4f3d 100644
-> --- a/drivers/gpu/drm/tidss/tidss_crtc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-[ ... ]
-> @@ -372,6 +376,108 @@ static struct drm_crtc_state *tidss_crtc_create_sta=
-te(struct drm_crtc *crtc)
->  	return &tstate->base;
->  }
-> =20
-> +static int tidss_crtc_readout_state(struct drm_crtc *crtc,
-> +				    struct drm_atomic_sro_state *state,
-> +				    struct drm_crtc_state *crtc_state)
-> +{
-> +	struct drm_device *ddev =3D crtc->dev;
-> +	struct tidss_device *tidss =3D to_tidss(ddev);
-> +	struct dispc_device *dispc =3D tidss->dispc;
-> +	struct tidss_crtc_state *tstate =3D to_tidss_crtc_state(crtc_state);
-> +	struct tidss_crtc *tcrtc =3D
-> +		to_tidss_crtc(crtc);
-> +	struct drm_display_mode mode =3D {};
-> +	int ret;
-> +
-> +	tidss_runtime_get(tidss);
-> +
-> +	if (!dispc_vp_is_enabled(dispc, tcrtc->hw_videoport))
-> +		goto out;
+> >  #define DC_COM_CRC_CONTROL                   0x300
+> > -#define  DC_COM_CRC_CONTROL_ALWAYS (1 << 3)
+> > -#define  DC_COM_CRC_CONTROL_FULL_FRAME  (0 << 2)
+> > -#define  DC_COM_CRC_CONTROL_ACTIVE_DATA (1 << 2)
+> > -#define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+> > -#define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+> > +#define  DC_COM_CRC_CONTROL_ALWAYS           BIT(3)
+> > +#define  DC_COM_CRC_CONTROL_FULL_FRAME               (0 << 2)
+> > +#define  DC_COM_CRC_CONTROL_ACTIVE_DATA              BIT(2)
+> > +#define  DC_COM_CRC_CONTROL_WAIT             BIT(1)
+> > +#define  DC_COM_CRC_CONTROL_ENABLE           BIT(0)
+>
+> FULL_FRAME and ACTIVE_DATA were previously consistent, now it just looks
+> weird. Either use proper GENMASK() definitions where applicable, along
+> with modifications in the driver to use FIELD_PREP() and FIELD_GET(), or
+> just don't change it at all.
+>
 
-[Severity: High]
-Does the first tidss_runtime_get() during boot readout disable active DPI
-outputs on SoCs with has_vp_control_dpienable set (AM62L)?
+This one seems legit, I must have missed that.
 
-During tidss_probe(), the device starts runtime-suspended, so the first
-tidss_runtime_get() calls dispc_runtime_resume() -> dispc_initial_config() =
-->
-dispc_vp_init():
+> > +
+> >  #define DC_COM_CRC_CHECKSUM                  0x301
+> > -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> > -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> > -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> > -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> > -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> > -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> > -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> > -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
+> > +
+> > +/* Defines in PIN_OUTPUT/INPUT_* describe pin position, not state */
+>
+> This comment is completely confusing to me. The registers themselves
+> define the state and bit positions within them seem to indicate the pin
+> positions.
+>
+> > +#define DC_COM_PIN_OUTPUT_ENABLE(x)          (0x302 + (x))
+> > +#define DC_COM_PIN_OUTPUT_POLARITY(x)                (0x306 + (x))
+> > +#define DC_COM_PIN_OUTPUT_DATA(x)            (0x30a + (x))
+> > +#define  PIN_UNMASK(x)                               BIT((x) + 1)
+>
+> Given that pin positions are in steps of two for all registers, does
+> that PIN_UNMASK apply to all of them or just PIN_OUTPUT_DATA?
+>
 
-drivers/gpu/drm/tidss/tidss_dispc.c:dispc_vp_init() {
-	for (i =3D 0; i < dispc->feat->num_vps; i++) {
-		VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONFIG, 1,
-			       DISPC_VP_CONFIG_GAMMAENABLE_MASK);
+Check TRM
 
-		if (dispc->feat->has_vp_control_dpienable) {
-			/* Disable DPIENABLE for all VPs */
-			VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONTROL, 0,
-				       DISPC_VP_CONTROL_DPIENABLE_MASK);
-		}
-	}
-}
+> > +#define DC_COM_PIN_INPUT_ENABLE(x)           (0x30e + (x))
+> > +
+> [...]
+> > +/* DC_COM_PIN_OUTPUT/INPUT_*_3 */
+> > +#define PIN_LSCK                             0
+> > +#define PIN_LSDA                             2
+> > +#define PIN_LCSN                             4
+> > +#define PIN_LDC                                      6
+> > +#define PIN_LSPI                             8
+> > +#define PIN_LSDI                             10
+> > +
+> > +#define DC_COM_PIN_INPUT_DATA(x)             (0x312 + (x))
+>
+> It's not clear that PIN_INPUT_DATA_* can take any of those PIN_*
+> defines. Given that there are only two PIN_INPUT_DATA registers that's
+> probably not true, so I think it'd be good to somehow specify how that
+> works here.
+>
 
-Because DISPC_VP_CONTROL_ENABLE_MASK stays set, dispc_vp_is_enabled() still
-returns true and state readout succeeds without a full modeset, leaving
-DISPC_VP_CONTROL_DPIENABLE_MASK cleared and the DPI display blank.
+I do not need input data, hence this field is not populated
 
-In addition, dispc->vp_data[hw_videoport].dpi_output is only populated in
-dispc_vp_setup() during tidss_crtc_atomic_enable() or
-tidss_crtc_atomic_flush(), so tidss_crtc_install_state() leaves it false on=
- a
-read-out CRTC and a subsequent tidss_crtc_atomic_disable() skips clearing
-DISPC_VP_CONTROL_DPIENABLE_MASK in dispc_vp_unprepare().
+> > +#define DC_COM_PIN_OUTPUT_SELECT(x)          (0x314 + (x))
+> > +#define  PIN_OUTPUT_SELECT_MASK(x)           (0x7 << (x))
+> > +#define  PIN_OUTPUT_SELECT_PRIM(x)           (0 << (x))
+> > +#define  PIN_OUTPUT_SELECT_OUT(x)            (1 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F2(x)             (2 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F3(x)             (3 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F4(x)             (4 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F5(x)             (5 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F6(x)             (6 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F7(x)             (7 << (x))
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT0 */
+> > +#define PIN_OUTPUT_SELECT_LD0                        0
+> > +#define PIN_OUTPUT_SELECT_LD1                        4
+> > +#define PIN_OUTPUT_SELECT_LD2                        8
+> > +#define PIN_OUTPUT_SELECT_LD3                        12
+> > +#define PIN_OUTPUT_SELECT_LD4                        16
+> > +#define PIN_OUTPUT_SELECT_LD5                        20
+> > +#define PIN_OUTPUT_SELECT_LD6                        24
+> > +#define PIN_OUTPUT_SELECT_LD7                        28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT1 */
+> > +#define PIN_OUTPUT_SELECT_LD8                        0
+> > +#define PIN_OUTPUT_SELECT_LD9                        4
+> > +#define PIN_OUTPUT_SELECT_LD10                       8
+> > +#define PIN_OUTPUT_SELECT_LD11                       12
+> > +#define PIN_OUTPUT_SELECT_LD12                       16
+> > +#define PIN_OUTPUT_SELECT_LD13                       20
+> > +#define PIN_OUTPUT_SELECT_LD14                       24
+> > +#define PIN_OUTPUT_SELECT_LD15                       28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT2 */
+> > +#define PIN_OUTPUT_SELECT_LD16                       0
+> > +#define PIN_OUTPUT_SELECT_LD17                       4
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT3 */
+> > +#define PIN_OUTPUT_SELECT_LPW0                       0
+> > +#define PIN_OUTPUT_SELECT_LPW1                       4
+> > +#define PIN_OUTPUT_SELECT_LPW2                       8
+> > +#define PIN_OUTPUT_SELECT_LSC0                       16
+> > +#define PIN_OUTPUT_SELECT_LSC1                       20
+> > +#define PIN_OUTPUT_SELECT_LVS                        24
+> > +#define PIN_OUTPUT_SELECT_LHS                        28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT4 */
+> > +#define PIN_OUTPUT_SELECT_LHP0                       0
+> > +#define PIN_OUTPUT_SELECT_LHP1                       4
+> > +#define PIN_OUTPUT_SELECT_LHP2                       8
+> > +#define PIN_OUTPUT_SELECT_LVP0                       16
+> > +#define PIN_OUTPUT_SELECT_LVP1                       20
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT5 */
+> > +#define PIN_OUTPUT_SELECT_LM0                        0
+> > +#define PIN_OUTPUT_SELECT_LM1                        4
+> > +#define PIN_OUTPUT_SELECT_LDI                        8
+> > +#define PIN_OUTPUT_SELECT_LPP                        12
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT6 */
+> > +#define PIN_OUTPUT_SELECT_LSCK                       0
+> > +#define PIN_OUTPUT_SELECT_LSDA                       4
+> > +#define PIN_OUTPUT_SELECT_LCSN                       8
+> > +#define PIN_OUTPUT_SELECT_LDC                        12
+> > +#define PIN_OUTPUT_SELECT_LSPI                       16
+> > +#define PIN_OUTPUT_SELECT_LSDI                       20
+> >
+> >  #define DC_COM_PIN_MISC_CONTROL                      0x31b
+>
+> If there's only one PIN_MISC_CONTROL register, does that take these same
+> PIN_* values as bit indices?
+>
 
-[ ... ]
+Check TRM
 
-> +static void tidss_crtc_install_state(struct drm_crtc *crtc,
-> +				     struct drm_crtc_state *crtc_state)
-> +{
-> +	struct tidss_crtc *tcrtc =3D to_tidss_crtc(crtc);
-> +	struct drm_device *ddev =3D crtc->dev;
-> +	struct tidss_device *tidss =3D to_tidss(ddev);
-> +	int ret;
-> +
-> +	/*
-> +	 * The video port wasn't enabled in hardware: nothing to take
-> +	 * over for it, and enabling the clock and the vblank reporting
-> +	 * would leak their reference for a CRTC that no disable will
-> +	 * ever release.
-> +	 */
-> +	if (!crtc_state->active)
-> +		return;
-
-[Severity: Medium]
-Should the inactive branch call drm_crtc_vblank_reset(crtc) before returnin=
-g?
-
-When drm_mode_config_create_initial_state() succeeds via state readout, it
-skips the drm_mode_config_create_state() fallback that normally calls
-drm_crtc_vblank_reset().  Returning early here leaves vblank->inmodeset at 0
-after drm_vblank_init(), allowing userspace vblank ioctls such as
-DRM_IOCTL_WAIT_VBLANK to enable vblank interrupts on a disabled video port
-instead of failing with -EINVAL.
-
-> +
-> +	tidss_runtime_get(tidss);
-> +
-> +	ret =3D dispc_vp_enable_clk(tidss->dispc, tcrtc->hw_videoport);
-> +	if (ret !=3D 0) {
-> +		tidss_runtime_put(tidss);
-> +		return;
-> +	}
-
-[Severity: Medium]
-If dispc_vp_enable_clk() fails here, or if tidss_probe() fails after
-drm_mode_config_create_initial_state(), does this cause a clock and runtime
-PM refcount imbalance?
-
-When dispc_vp_enable_clk() fails, tidss_crtc_install_state() drops the
-runtime PM reference and returns without enabling vp_clk, but crtc->state is
-still installed with active =3D true, so a later tidss_crtc_atomic_disable()
-unconditionally calls drm_crtc_vblank_off(), dispc_vp_disable_clk(), and
-tidss_runtime_put(), underflowing both counts.  Conversely, if tidss_probe()
-fails in platform_get_irq(), tidss_irq_install(), drm_dev_register(), or
-aperture_remove_all_conflicting_devices(), the error path never unwinds the
-vp_clk and runtime PM references acquired here for active CRTCs.
-
-> +
-> +	/* Turn vertical blanking interrupt reporting on. */\
-> +	drm_crtc_vblank_on(crtc);
-> +}
-
-[Severity: High]
-Does running tidss_crtc_install_state() before tidss_irq_install() in
-tidss_probe() leave hardware interrupts unprogrammed while a read-out CRTC =
-is
-active?
-
-In tidss_probe(), drm_mode_config_create_initial_state() runs before
-tidss_irq_install():
-
-drivers/gpu/drm/tidss/tidss_drv.c:tidss_probe() {
-    ...
-	ret =3D drm_mode_config_create_initial_state(ddev);
-	if (ret) {
-		dev_err(dev, "failed to create initial state: %d\n", ret);
-		goto err_runtime_suspend;
-	}
-
-	irq =3D platform_get_irq(pdev, 0);
-	if (irq < 0) {
-		ret =3D irq;
-		goto err_runtime_suspend;
-	}
-	tidss->irq =3D irq;
-
-	ret =3D tidss_irq_install(ddev, irq);
-    ...
-}
-
-When readout finds an active CRTC, tidss_crtc_install_state() keeps the
-device runtime-active and calls drm_crtc_vblank_on(crtc).  tidss_irq_instal=
-l()
-then resets tidss->irq_mask =3D 0 (wiping any vblank IRQ bits set when
-drm_vblank_offdelay =3D=3D 0) and populates DSS_IRQ_VP_FRAME_DONE,
-DSS_IRQ_VP_SYNC_LOST, and DSS_IRQ_PLANE_FIFO_UNDERFLOW in tidss->irq_mask
-without writing the mask to hardware.  Because the device is already runtime
-active, dispc_runtime_resume() -> tidss_irq_resume() does not run again, so
-FRAME_DONE remains disabled in hardware and a subsequent
-tidss_crtc_atomic_disable() times out waiting for framedone_completion.
-
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/=
-tidss_dispc.c
-> index 8720403af9ed3..c3117745965b7 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-[ ... ]
-> @@ -1474,6 +1480,228 @@ int dispc_vp_set_clk_rate(struct dispc_device *di=
-spc, u32 hw_videoport,
-[ ... ]
-> +u32 dispc_vp_get_bus_flags(struct dispc_device *dispc, u32 hw_videoport)
-> +{
-> +	u32 flags =3D 0;
-> +	u32 val;
-> +
-> +	val =3D dispc_vp_read(dispc, hw_videoport, DISPC_VP_POL_FREQ);
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_IPC_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
-> +
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_IEO_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_DE_LOW;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_DE_HIGH;
-> +
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_RF_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_SYNC_DRIVE_POSEDGE;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_SYNC_DRIVE_NEGEDGE;
-> +
-> +	return flags;
-> +}
-
-[Severity: Medium]
-Will dispc_vp_get_bus_flags() cause state comparison mismatches in
-tidss_crtc_compare_state() and drm_atomic_helper_bridge_compare_state() whe=
-n a
-panel or bridge leaves some polarity flags unset?
-
-In tidss_bridge_atomic_check(), tcrtc_state->bus_flags is copied directly
-from the next bridge or connector display_info without normalizing unset
-polarity bits, and dispc_vp_prepare() defaults unset bits in hardware to
-POSEDGE / DE_HIGH / NEGEDGE (for example, rocktech_rk101ii01d_ct on AM654
-OLDI only sets DRM_BUS_FLAG_DE_HIGH).  Because dispc_vp_get_bus_flags()
-unconditionally sets all three polarity flags, the read-out bus_flags will
-not match the committed bus_flags after a blocking commit.
-
-> +
->  /* OVR */
->  static void dispc_k2g_ovr_set_plane(struct dispc_device *dispc,
->  				    u32 hw_plane, u32 hw_videoport,
-> @@ -1547,6 +1775,94 @@ void dispc_ovr_enable_layer(struct dispc_device *d=
-ispc,
-[ ... ]
-> +int dispc_ovr_get_plane(struct dispc_device *dispc, u32 hw_plane,
-> +			u32 *hw_videoport, int *x, int *y, u32 *layer)
-> +{
-> +	u32 vp, l;
-> +
-> +	switch (dispc->feat->subrev) {
-[ ... ]
-> +	case DISPC_AM625:
-> +	case DISPC_AM62A7:
-> +	case DISPC_AM62L:
-> +	case DISPC_AM65X:
-> +	case DISPC_J721E:
-> +		for (vp =3D 0; vp < dispc->feat->num_vps; vp++) {
-> +			for (l =3D 0; l < dispc->feat->num_vids; l++) {
-> +				u32 attrs =3D dispc_ovr_read(dispc, vp,
-> +							   DISPC_OVR_ATTRIBUTES(l));
-> +
-> +				if (!(attrs & DISPC_OVR_ATTRIBUTES_ENABLE_MASK))
-> +					continue;
-> +
-> +				if (FIELD_GET(DISPC_OVR_ATTRIBUTES_CHANNELIN_MASK,
-> +					      attrs) !=3D hw_plane)
-> +					continue;
-
-[Severity: Medium]
-Should DISPC_OVR_ATTRIBUTES_CHANNELIN_MASK be compared against
-dispc->feat->vid_info[hw_plane].hw_id instead of hw_plane?
-
-dispc_am65x_ovr_set_plane() and dispc_j721e_ovr_set_plane() program CHANNEL=
-IN
-with dispc->feat->vid_info[hw_plane].hw_id.  On DISPC_AM62L, the single pla=
-ne
-has software index hw_plane =3D 0 but vid_info[0].hw_id =3D 1, so
-dispc_ovr_get_plane() never matches the enabled layer and returns -ENODEV,
-breaking both initial state readout and post-commit readout verification.
-
-> diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/=
-tidss_plane.c
-> index b0d5d6959b885..94824cff77f9d 100644
-> --- a/drivers/gpu/drm/tidss/tidss_plane.c
-> +++ b/drivers/gpu/drm/tidss/tidss_plane.c
-[ ... ]
-> @@ -176,11 +179,213 @@ static const struct drm_plane_helper_funcs tidss_p=
-rimary_plane_helper_funcs =3D {
-[ ... ]
-> +static int tidss_plane_atomic_readout_state(struct drm_plane *plane,
-> +					    struct drm_atomic_sro_state *state,
-> +					    struct drm_plane_state *plane_state)
-> +{
-> +	struct drm_device *ddev =3D plane->dev;
-> +	struct tidss_device *tidss =3D to_tidss(ddev);
-> +	struct dispc_device *dispc =3D tidss->dispc;
-> +	struct tidss_plane *tplane =3D to_tidss_plane(plane);
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_framebuffer *fb;
-> +	struct drm_crtc *crtc;
-> +	unsigned int in_w, in_h;
-> +	int crtc_x, crtc_y;
-> +	u32 normalized_zpos;
-> +	int ret;
-> +
-> +	tidss_runtime_get(tidss);
-> +
-> +	if (!dispc_plane_is_enabled(dispc, tplane->hw_plane_id))
-> +		goto out;
-> +
-> +	fb =3D tidss_plane_readout_fb(plane);
-> +	if (IS_ERR(fb)) {
-> +		ret =3D PTR_ERR(fb);
-> +		goto err_runtime_pm;
-> +	}
-> +
-> +	crtc =3D tidss_plane_readout_crtc(plane, &crtc_x, &crtc_y,
-> +					&normalized_zpos);
-> +	if (IS_ERR(crtc)) {
-> +		drm_framebuffer_put(fb);
-> +		ret =3D PTR_ERR(crtc);
-> +		goto err_runtime_pm;
-> +	}
-
-[Severity: Medium]
-Does plane state readout fail or report stale active planes when a CRTC is
-disabled?
-
-When a CRTC is disabled, tidss_crtc_atomic_disable() disables the OVR layers
-and video port, while tidss_atomic_commit_tail() passes
-DRM_PLANE_COMMIT_ACTIVE_ONLY to drm_atomic_helper_commit_planes(), skipping
-tidss_plane_atomic_disable() on the newly inactive CRTC and leaving
-DISPC_VID_ATTRIBUTES_ENABLE_MASK set in hardware.  When post-commit readout
-runs:
-- on K3 SoCs, dispc_ovr_get_plane() finds no enabled OVR layer and returns
-  -ENODEV, which tidss_plane_atomic_readout_state() treats as a fatal error
-  instead of an unrouted/inactive plane;
-- on K2G, dispc_ovr_get_plane() unconditionally returns videoport 0 even wh=
-en
-  the video port is disabled, and tidss_plane_atomic_readout_state() never
-  checks crtc_state->active before marking the plane visible and attaching =
-it
-  to the disabled CRTC.
-
-> +
-> +	plane_state->fb =3D fb;
-> +	plane_state->crtc =3D crtc;
-> +	plane_state->visible =3D true;
-> +
-> +	dispc_plane_get_picture_size(dispc, tplane->hw_plane_id, &in_w, &in_h);
-> +	plane_state->src_w =3D in_w << 16;
-> +	plane_state->src_h =3D in_h << 16;
-> +
-> +	dispc_plane_get_size(dispc, tplane->hw_plane_id, &plane_state->crtc_w,
-> +			     &plane_state->crtc_h);
-> +
-> +	plane_state->crtc_x =3D crtc_x;
-> +	plane_state->crtc_y =3D crtc_y;
-> +
-> +	/*
-> +	 * The overlay layer index a plane is routed to is its
-> +	 * normalized zpos, as that is what the atomic update uses as
-> +	 * the layer index. The raw zpos property userspace set
-> +	 * cannot be recovered from the hardware.
-> +	 */
-> +	plane_state->normalized_zpos =3D normalized_zpos;
-> +	plane_state->zpos =3D normalized_zpos;
-> +
-> +	// TODO: Handle src_x/src_y, see DISPC_VID_BA_0
-> +
-> +	plane_state->src.x1 =3D 0;
-> +	plane_state->src.x2 =3D plane_state->src_w;
-> +	plane_state->src.y1 =3D 0;
-> +	plane_state->src.y2 =3D plane_state->src_h;
-
-[Severity: Medium]
-Will using drm_atomic_helper_plane_compare_state() trigger false mismatch
-warnings whenever zpos !=3D normalized_zpos or a plane is cropped?
-
-tidss_plane_create() initializes each plane's default zpos to its global
-plane index (0, 1, 2, ...), whereas drm_atomic_normalize_zpos() normalizes
-normalized_zpos per CRTC starting from 0.  Whenever plane 1 (such as the
-primary plane on a second CRTC) or an overlay plane is enabled without all
-lower-numbered planes on the same CRTC, expected->zpos differs from
-normalized_zpos and STATE_CHECK_U32() on zpos in
-drm_atomic_helper_plane_compare_state() fails.
-
-Similarly, when a plane uses source cropping or non-zero src_x/src_y offset=
-s,
-tidss_plane_readout_fb() sets fb->width and fb->height from
-DISPC_VID_PICTURE_SIZE (the cropped source dimensions) and
-tidss_plane_atomic_readout_state() leaves src_x and src_y at 0, causing
-drm_atomic_helper_plane_compare_state() to warn on fb->width, fb->height,
-src_x, src_y, and src.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-drm-state-=
-readout-v8-0-cbe78624e1bc@kernel.org?part=3D35
+> Thierry
