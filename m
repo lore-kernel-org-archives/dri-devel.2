@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B501E606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:44:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EED606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJM5fR/s
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EY5GvC2z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2E0112DAE;
-	Fri,  6 Nov 2026 13:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BAFF10E107;
+	Fri,  6 Nov 2026 13:44:29 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B464710E107
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C538E112DA9
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6706F435CC
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D481F008A4;
- Fri,  6 Nov 2026 13:44:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AB8D641EEF
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:44:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676F21F008A6;
+ Fri,  6 Nov 2026 13:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793972656;
- bh=kbV98MR3subs+zpPDryV4tAuJJ93EP8V5zXnZXDFgWU=;
+ s=k20260515; t=1793972662;
+ bh=3JGNwXg0XUM0B1COfbc5dQgAith6E4jpEsqUxJIvCzQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HJM5fR/s+J+WYxhcVuQQ3KnqdpFwuZVcp/RzgSuWoaFp8P8AYxwjXnVSANrZonwHN
- ctYewpmVpXaU0Csxtjr/Pws/CJTpgOFRDSJC6BCn6c0f+Hf1qolUfYC3FHBr1emiNQ
- +2JESGvxUSU4FmQTaPpAjC+KvDL/J4Mn3exAGURcLGqfFoRuX/YaA7r74w5NNCfzk3
- dZc+PAPifPX+aEjEJvSEgk48CWzP9+NS+yvRNKnScuKgntKHLkhegWlQAiPz3hCP48
- NNbFYS73ci8f3mYE9oyZAz07sKhIrV0LRSyC7ZlWow3NpKJ2dlcthlX0ybYMahpKVk
- eOh8/UQ0HHsXg==
-Message-ID: <sashiko-outbox-201489@kernel.org>
+ b=EY5GvC2zh5scNIRJ2jn8NgQ/7Wy1H2Y2Vc25mIp+P0hDjHVZoYITV4Z7CQ9BePDEb
+ wDj/jN/mxy0Rj+FyXAtXosD08Yv3Rzz57bixqJc0U/eIUEKa54cUukpOHqpL6x4h1r
+ Nq+wj6JSTDngnRdP04YObhmUMipKLrZwQPZE56gQVlrwAmVeFj/b96nr/KJYdJ4nCc
+ S9yc7NYOrHpWBKb1I8ob6Ozb8buX+0+QIy6o6FhIigr5ri8yCc//DZhE9NFoumdxwd
+ WaCn9IoZuz0odgWubj+ZSt5tEJV4TPPf8mJZH7TuKTKBWt3TVgaeORBMAwy7IhM5js
+ qk8t7Gb2oPABg==
+Message-ID: <sashiko-outbox-201491@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 28/39] drm/tests: Add tests for the atomic state readout
+Subject: Re: [PATCH v8 20/39] drm/atomic_sro: Provide helpers to implement
+ hardware state readout
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261106-drm-state-readout-v8-28-cbe78624e1bc@kernel.org>
+In-Reply-To: <20261106-drm-state-readout-v8-20-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <20261106-drm-state-readout-v8-28-cbe78624e1bc@kernel.org>
+ <20261106-drm-state-readout-v8-20-cbe78624e1bc@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 13:44:15 +0000
+Date: Fri, 06 Nov 2026 13:44:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,155 +59,100 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/tests: missing -EDEADLK backoff in atomic readout KUnit
-  tests
-- [Low] drm/tests: unchecked init calls in mock_device_create()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/atomic_sro: missing drm_crtc_vblank_reset() in CRTC state
+  readout
 --
 
-commit 012e80f1472ac3f4ff4d9e75c5b23df0a05d93bd
+commit 3ceb67bab8b0a4cc05a31256122d1df0b3736c93
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tests: Add tests for the atomic state readout
+drm/atomic_sro: Provide helpers to implement hardware state readout
 
-This commit adds KUnit test suites for the DRM atomic state readout
-infrastructure, covering state containers, readout and state comparison
-helpers, readout modes, and initial state creation.
+This commit adds helper functions to read out KMS object states from
+hardware and install them as the initial atomic state.
 
-> diff --git a/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c b/driv=
-ers/gpu/drm/tests/drm_atomic_state_readout_test.c
+> diff --git a/drivers/gpu/drm/drm_atomic_state_readout_helper.c b/drivers/=
+gpu/drm/drm_atomic_state_readout_helper.c
 > new file mode 100644
-> index 0000000000000..f2bc6d52c5b22
+> index 0000000000000..1b6cf304702c2
 > --- /dev/null
-> +++ b/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c
-
+> +++ b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
 [ ... ]
-
-> +static struct sro_test_priv *
-> +mock_device_create(struct kunit *test,
-> +		   const struct drm_mode_config_funcs *mode_config_funcs,
-> +		   const struct drm_mode_config_helper_funcs *helper_funcs,
-> +		   const struct drm_plane_funcs *plane_funcs,
-> +		   const struct drm_crtc_funcs *crtc_funcs,
-> +		   const struct drm_connector_funcs *connector_funcs)
+> +int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
 > +{
-
-[ ... ]
-
-> +	drm_atomic_private_obj_init(drm, &priv->private_obj,
-> +				    "test private obj",
-> +				    &mock_private_obj_with_sro_funcs);
-> +	kunit_add_action_or_reset(test, mock_private_obj_fini,
-> +				  &priv->private_obj);
+> +	const struct drm_mode_config_helper_funcs *funcs =3D
+> +		dev->mode_config.helper_private;
+> +	struct drm_atomic_sro_state *state;
+> +	struct drm_colorop *colorop;
 > +
-> +	return priv;
+> +	if (!drm_atomic_sro_device_can_readout(dev)) {
+> +		drm_info(dev, "Device doesn't support hardware state readout.");
+> +		return -ENOTSUPP;
+> +	}
+> +
+> +	state =3D funcs->atomic_sro_build_state(dev, NULL);
+> +	if (IS_ERR(state)) {
+> +		drm_warn(dev, "Couldn't read out the hardware state: %pe\n",
+> +			 state);
+> +		return PTR_ERR(state);
+> +	}
+> +
+> +	/* TODO: Add colorop state readout support */
+> +	drm_for_each_colorop(colorop, dev) {
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		/*
+> +		 * The colorop states are already initialized when the
+> +		 * colorops are created. Only create a pristine state for
+> +		 * the ones that don't have one, like
+> +		 * drm_mode_config_create_state() does.
+> +		 */
+> +		if (colorop->state)
+> +			continue;
+> +
+> +		colorop_state =3D drm_atomic_helper_colorop_create_state(colorop);
+> +		if (IS_ERR(colorop_state)) {
+> +			drm_atomic_sro_state_free(state);
+> +			return PTR_ERR(colorop_state);
+> +		}
+> +
+> +		colorop->state =3D colorop_state;
+> +	}
+> +
+> +	drm_atomic_sro_install_state(state);
+> +	drm_atomic_sro_state_free(state);
+> +
+> +	return 0;
 > +}
+> +EXPORT_SYMBOL(drm_atomic_helper_sro_readout_state);
 
-[Severity: Low]
-Should mock_device_create() assert the return values of
-drm_atomic_private_obj_init() and kunit_add_action_or_reset() with
-KUNIT_ASSERT_EQ(test, ret, 0)?  If either fails, priv->private_obj is left
-off drm->mode_config.privobj_list (or torn down with a dangling state
-pointer), so drm_atomic_sro_state_alloc() allocates state->private_objs as
-ZERO_SIZE_PTR and drm_atomic_sro_set_private_obj_state() dereferences it.
+[Severity: High]
+Does bypassing drm_mode_config_create_state() when readout succeeds leave
+disabled CRTCs without a drm_crtc_vblank_reset() call?
 
-[ ... ]
+On the non-readout path, drm_mode_config_crtc_create_state() resets each
+CRTC's vblank state when drm_dev_has_vblank(crtc->dev) is true:
 
-> +static void drm_test_sro_readout_no_modeset(struct kunit *test)
-> +{
+drivers/gpu/drm/drm_mode_config.c:drm_mode_config_crtc_create_state() {
+    ...
+	if (drm_dev_has_vblank(crtc->dev))
+		drm_crtc_vblank_reset(crtc);
+}
 
-[ ... ]
-
-> +	/* A commit with a different configuration needs a modeset. */
-> +	drm_modeset_acquire_init(&ctx, 0);
-> +
-> +retry:
-> +	commit =3D drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, commit);
-> +
-> +	crtc_state =3D drm_atomic_get_crtc_state(commit, priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-> +
-> +	mode =3D drm_kunit_display_mode_from_cea_vic(test, &priv->drm,
-> +						   SRO_TEST_OTHER_MODE_VIC);
-> +	KUNIT_ASSERT_NOT_NULL(test, mode);
-> +
-> +	ret =3D drm_atomic_set_mode_for_crtc(crtc_state, mode);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	commit->allow_modeset =3D true;
-> +
-> +	ret =3D drm_atomic_check_only(commit);
-> +	if (ret =3D=3D -EDEADLK)
-> +		goto backoff;
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +	KUNIT_EXPECT_TRUE(test, crtc_state->mode_changed);
-> +
-> +	drm_modeset_drop_locks(&ctx);
-> +	drm_modeset_acquire_fini(&ctx);
-> +
-> +	return;
-> +
-> +backoff:
-> +	drm_atomic_commit_clear(commit);
-> +	drm_modeset_backoff(&ctx);
-> +	goto retry;
-> +}
-> +
-> +/*
-> + * Test that blanking a pipeline isn't reported as a mismatch. A DPMS
-> + * off commit only clears drm_crtc_state.active and leaves the
-> + * connector bound to its CRTC, while the hardware readout of a
-> + * disabled pipeline reports an unbound connector: the two states
-> + * differ, but there is nothing to compare for a pipeline that doesn't
-> + * drive a picture anymore.
-> + */
-> +static void drm_test_sro_readout_and_compare_blanked(struct kunit *test)
-> +{
-> +	struct drm_modeset_acquire_ctx ctx;
-> +	struct drm_connector_state *conn_state;
-> +	struct drm_atomic_commit *commit;
-> +	struct sro_test_priv *priv;
-> +	struct drm_crtc_state *crtc_state;
-> +	bool identical;
-> +	int ret;
-> +
-> +	priv =3D mock_device_with_sro_create(test);
-> +
-> +	/* Install the mock hardware state, with the pipeline enabled */
-> +	ret =3D drm_atomic_helper_sro_readout_state(&priv->drm);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	drm_modeset_acquire_init(&ctx, 0);
-> +
-> +	commit =3D drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, commit);
-> +
-> +	crtc_state =3D drm_atomic_get_crtc_state(commit, priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-> +
-> +	conn_state =3D drm_atomic_get_connector_state(commit, &priv->connector);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-
-[Severity: Medium]
-Can drm_atomic_get_connector_state() return ERR_PTR(-EDEADLK) here when
-CONFIG_DEBUG_WW_MUTEX_SLOWPATH is enabled?
-
-drm_atomic_get_crtc_state() acquires priv->crtc->mutex as the first lock in
-ctx, and drm_atomic_get_connector_state() then acquires connection_mutex as
-the second lock, where ww_mutex_deadlock_injection() can inject -EDEADLK.
-Without a backoff retry loop, KUNIT_ASSERT_NOT_ERR_OR_NULL(test,
-conn_state) aborts the test before drm_modeset_drop_locks() and
-drm_modeset_acquire_fini() run, leaving priv->crtc->mutex locked during
-device teardown.
-
-In drm_test_sro_readout_no_modeset() above, after drm_modeset_backoff(&ctx)
-locks the contended lock, drm_atomic_get_crtc_state() becomes the second
-lock acquisition in ctx and can likewise return ERR_PTR(-EDEADLK), and the
-retry label also reallocates commit and mode on each backoff iteration even
-though backoff clears commit with drm_atomic_commit_clear().
+Because crtc_funcs->atomic_create_state() is side-effect-free and readout
+skips drm_mode_config_create_state(), any CRTC that is read out as
+inactive (or that falls back to a pristine state when drm.atomic_readout
+skips missing readout hooks) is left with vblank->inmodeset =3D=3D 0 and
+vblank->refcount =3D=3D 0 after drm_vblank_init().  If userspace issues
+DRM_IOCTL_WAIT_VBLANK on that disabled CRTC before a modeset,
+drm_vblank_get() transitions refcount from 0 to 1 and invokes
+crtc->funcs->enable_vblank() on disabled hardware instead of returning
+-EINVAL, and any call to drm_crtc_set_max_vblank_count() before
+drm_crtc_vblank_on() will hit drm_WARN_ON(dev, !READ_ONCE(vblank->inmodeset=
+)).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-drm-state-=
-readout-v8-0-cbe78624e1bc@kernel.org?part=3D28
+readout-v8-0-cbe78624e1bc@kernel.org?part=3D20
