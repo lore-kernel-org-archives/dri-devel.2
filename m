@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBC8606A336
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0321D606A32F
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EQ8yhtr3
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lG5J72GY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF97112D5A;
-	Fri,  6 Nov 2026 13:26:04 +0000 (UTC)
-Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08998112D5A
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66055112D5C;
+	Fri,  6 Nov 2026 13:26:16 +0000 (UTC)
+Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA6B112D5C
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:26:09 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=73QCibDvpuaBGtRTNbIkxL+btURCG2VkLUsjiT9bmAg=; 
+DKIM-Signature: a=rsa-sha256; bh=SEovZ4ALBXSWOhtuKK3tlcth4LgwnYMDhPbgNF54x8Y=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793971556; v=1; x=1794576356;
- b=EQ8yhtr3DkzyaaBQKLTWajPXq11cAzY91sNff/hjD/4HLUCFlCIIf5BKa2quTPPBf3BpI2NY
- FmvQeGGUtf3S0iH514ZEY3A27jgjWy3HiaVV27KP4yXK4C+LuPXjlZOBlZW4F0KeL0LZqAfPm73
- A36RVExyAojNz7KwBOItpZ9E=
+ t=1793971567; v=1; x=1794576367;
+ b=lG5J72GYzxWPLZEG9sHk4miBvJwFjeZXz2YQDcXsgLVggkQrwENkMNh2E9f3jT0g/HzqGOnQ
+ J/w3B3/aPpY/GZ3FQWhfgt3iQ23OOPjbgPxaXAcJLqeE4AznuvqFKfrwma6MIWjVYxN6jigdCBk
+ f5F/DYg0el/95DemxgsBg3mQ=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id b2c073d8feb08521;
- Fri, 06 Nov 2026 13:19:52 +0000
-X-Mizu-Trace-ID: b2c073d8feb08521
+Received: by smtp.migadu.com with ESMTPS id 7dc7413b7e7a1b47;
+ Fri, 06 Nov 2026 13:20:03 +0000
+X-Mizu-Trace-ID: 7dc7413b7e7a1b47
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
@@ -43,9 +43,10 @@ Cc: linux-mm@kvack.org, James.Bottomley@HansenPartnership.com,
  mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
  aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
  cui.tao@linux.dev, cuitao@kylinos.cn
-Subject: [PATCH 3/7] vhost: account the per-device kernel allocations to memcg
-Date: Fri,  6 Nov 2026 21:18:25 +0800
-Message-ID: <20261106131829.3228926-4-cui.tao@linux.dev>
+Subject: [PATCH 4/7] tracing: account ring buffer pages and trace_array
+ metadata to memcg
+Date: Fri,  6 Nov 2026 21:18:26 +0800
+Message-ID: <20261106131829.3228926-5-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106131829.3228926-1-cui.tao@linux.dev>
 References: <20261106131829.3228926-1-cui.tao@linux.dev>
@@ -72,140 +73,71 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-Everything except the worker struct is allocated with plain GFP_KERNEL:
-the per-vq iovec and log arrays at VHOST_SET_OWNER, the memory table at
-VHOST_SET_MEM_TABLE whose size follows the user supplied region count,
-the pending message nodes, and the vhost_net/vhost_vsock device structs
-with their fallback to vmalloc.  The worker has been accounted since the
-vhost_task conversion.
+Creating an instance immediately allocates two full sets of per-cpu
+ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
+on the default config, plus the trace_array and its name.  None of it
+is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
+while user_events in the same directory accounts everything it
+allocates.
 
-A container that can open /dev/vhost-net or /dev/vhost-vsock, which
-device plugins hand out with passthrough, holds roughly 150KB of
-resident kernel memory per device after SET_OWNER.  Charge the rest the
-same way the worker already is.
+Instance creation is currently gated by tracefs file permissions
+alone, so a
+rootful container with the host tracefs bound in can create instances
+until the host runs out of memory.  Charge the ring buffer pages and
+the trace_array metadata to the creating cgroup.
 
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- drivers/vhost/net.c   | 14 ++++++++------
- drivers/vhost/vhost.c | 16 ++++++++++------
- drivers/vhost/vsock.c |  5 +++--
- 3 files changed, 21 insertions(+), 14 deletions(-)
+ kernel/trace/ring_buffer.c | 8 +++++++-
+ kernel/trace/trace.c       | 6 +++---
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
-index 4570a4ffbab2..bab6597c696d 100644
---- a/drivers/vhost/net.c
-+++ b/drivers/vhost/net.c
-@@ -249,7 +249,7 @@ vhost_net_ubuf_alloc(struct vhost_virtqueue *vq, bool zcopy)
- 	/* No zero copy backend? Nothing to count. */
- 	if (!zcopy)
- 		return NULL;
--	ubufs = kmalloc_obj(*ubufs);
-+	ubufs = kmalloc_obj(*ubufs, GFP_KERNEL_ACCOUNT);
- 	if (!ubufs)
- 		return ERR_PTR(-ENOMEM);
- 	atomic_set(&ubufs->refcount, 1);
-@@ -302,7 +302,8 @@ static int vhost_net_set_ubuf_info(struct vhost_net *n)
- 		if (!zcopy)
- 			continue;
- 		n->vqs[i].ubuf_info =
--			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV);
-+			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV,
-+				     GFP_KERNEL_ACCOUNT);
- 		if  (!n->vqs[i].ubuf_info)
- 			goto err;
- 	}
-@@ -1344,17 +1345,18 @@ static int vhost_net_open(struct inode *inode, struct file *f)
- 	struct xdp_buff *xdp;
- 	int i;
- 
--	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
-+	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-+			 __GFP_ACCOUNT);
- 	if (!n)
- 		return -ENOMEM;
--	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX);
-+	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX, GFP_KERNEL_ACCOUNT);
- 	if (!vqs) {
- 		kvfree(n);
- 		return -ENOMEM;
- 	}
- 
- 	queue = kmalloc_array(VHOST_NET_BATCH, sizeof(void *),
--			      GFP_KERNEL);
-+			      GFP_KERNEL_ACCOUNT);
- 	if (!queue) {
- 		kfree(vqs);
- 		kvfree(n);
-@@ -1362,7 +1364,7 @@ static int vhost_net_open(struct inode *inode, struct file *f)
- 	}
- 	n->vqs[VHOST_NET_VQ_RX].rxq.queue = queue;
- 
--	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH);
-+	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH, GFP_KERNEL_ACCOUNT);
- 	if (!xdp) {
- 		kfree(vqs);
- 		kvfree(n);
-diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-index ea127af58ada..d1274106ad5d 100644
---- a/drivers/vhost/vhost.c
-+++ b/drivers/vhost/vhost.c
-@@ -526,11 +526,14 @@ static long vhost_dev_alloc_iovecs(struct vhost_dev *dev)
- 
- 	for (i = 0; i < dev->nvqs; ++i) {
- 		vq = dev->vqs[i];
--		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV);
--		vq->log = kmalloc_objs(*vq->log, dev->iov_limit);
--		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit);
-+		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV,
-+					    GFP_KERNEL_ACCOUNT);
-+		vq->log = kmalloc_objs(*vq->log, dev->iov_limit,
-+				       GFP_KERNEL_ACCOUNT);
-+		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit,
-+					 GFP_KERNEL_ACCOUNT);
- 		vq->nheads = kmalloc_array(dev->iov_limit, sizeof(*vq->nheads),
--					   GFP_KERNEL);
-+					   GFP_KERNEL_ACCOUNT);
- 		if (!vq->indirect || !vq->log || !vq->heads || !vq->nheads)
- 			goto err_nomem;
- 	}
-@@ -2053,7 +2056,8 @@ static long vhost_set_memory(struct vhost_dev *d, struct vhost_memory __user *m)
- 		return -E2BIG;
- 	if (max_iotlb_entries <= 0)
- 		return -EINVAL;
--	newmem = kvzalloc_flex(*newmem, regions, mem.nregions);
-+	newmem = kvzalloc_flex(*newmem, regions, mem.nregions,
-+			       GFP_KERNEL_ACCOUNT);
- 	if (!newmem)
- 		return -ENOMEM;
- 
-@@ -3405,7 +3409,7 @@ EXPORT_SYMBOL_GPL(vhost_disable_notify);
- struct vhost_msg_node *vhost_new_msg(struct vhost_virtqueue *vq, int type)
- {
- 	/* Make sure all padding within the structure is initialized. */
--	struct vhost_msg_node *node = kzalloc_obj(*node);
-+	struct vhost_msg_node *node = kzalloc_obj(*node, GFP_KERNEL_ACCOUNT);
- 	if (!node)
- 		return NULL;
- 
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index 0cb87971d749..600daeb05e7b 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -721,11 +721,12 @@ static int vhost_vsock_dev_open(struct inode *inode, struct file *file)
- 	/* This struct is large and allocation could fail, fall back to vmalloc
- 	 * if there is no other way.
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a72e6ee..676c059c112c 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
+ 	 * gracefully without invoking oom-killer and the system is not
+ 	 * destabilized.
  	 */
--	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
-+	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
-+			     __GFP_ACCOUNT);
- 	if (!vsock)
- 		return -ENOMEM;
+-	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
++	/*
++	 * The subbuffers are charged to the memcg of whoever caused the
++	 * allocation: the creator of a trace instance, or root at boot for
++	 * the global trace.
++	 */
++	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
++		  __GFP_ACCOUNT;
  
--	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs));
-+	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs), GFP_KERNEL_ACCOUNT);
- 	if (!vqs) {
- 		ret = -ENOMEM;
- 		goto out;
+ 	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
+ 	if (!page)
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index e8c4efa8107b..04b60b9cc4f5 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8693,11 +8693,11 @@ trace_array_create_systems(const char *name, const char *systems,
+ 	int ret;
+ 
+ 	ret = -ENOMEM;
+-	tr = kzalloc_obj(*tr);
++	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
+ 	if (!tr)
+ 		return ERR_PTR(ret);
+ 
+-	tr->name = kstrdup(name, GFP_KERNEL);
++	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
+ 	if (!tr->name)
+ 		goto out_free_tr;
+ 
+@@ -8708,7 +8708,7 @@ trace_array_create_systems(const char *name, const char *systems,
+ 		goto out_free_tr;
+ 
+ 	if (systems) {
+-		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
++		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
+ 		if (!tr->system_names)
+ 			goto out_free_tr;
+ 	}
 -- 
 2.43.0
 
