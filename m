@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE474606A329
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:16:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C410C606A329
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dH+IhPf6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRFWq5B0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F250110EAED;
-	Fri,  6 Nov 2026 13:16:15 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE6610EAED
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:16:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3129010EA48;
+	Fri,  6 Nov 2026 13:16:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C88210EA48
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:16:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 366AB4395A;
- Fri,  6 Nov 2026 13:16:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4781F008A1;
- Fri,  6 Nov 2026 13:16:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E5CCE601BF;
+ Fri,  6 Nov 2026 13:16:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CED1F0089F;
+ Fri,  6 Nov 2026 13:16:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970969;
- bh=xyXUwhrg9ImOa/JC5J1Wxl+85IvRWVt3MrsPokCrqcA=;
+ s=k20260515; t=1793970972;
+ bh=BQvcoXa7rGcZWq4wmEAI027XCDJF7lPhVZGwlnWGrA0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=dH+IhPf6dChVVBUn+EAXIa2DzmzNdCLqfkzHkQxtPAam9u5gS37JF23VCQzgv9W10
- e/CN8mqAei6DSBNx5FEw5GiaqWfhOit5ApBTVbRoS4T20/cyl9EB11BY/1UGLH2Laa
- AtFzA987zD0w+rdXZ4FZR6mmFMXxZLZffGQC0gBxPEsU1cuXpI7JXp5J8YkepzWdjJ
- DsHPo1nH+BI4mhpy0YJGBlcfU4ud+gZDhMA+63BIFId4CFGQYX11sXuebprzY05pZk
- Q0LQmq1fp1ymWLD9iOwVzQ/uGZmBViwJ9UMaAVTxSpvd27zk665Z/+A78mrXJWvNu7
- uBMLPw6Bv5anQ==
+ b=lRFWq5B0nA/AEQD3Fy+kgNUfRpU37wqSnF8XjufxBzI4ipbA6IC90US8QFOElFTi3
+ HNGsiOvWSCynaFJ9bAKOT1h3yODJn6N/ShFWgP5bLJTHY73GPhmJ5B3CL6Yb4LGXHA
+ f9S0eJpFUoQSj1WnOdOmmQBawkGnkJvKHUFPjfJbZxeb84kKYIRexmvseZayRyukA3
+ DFNd0VrQF9CAf7pSEaYIsb6gDd7GNiIq/nIPe03tmO9ljHtyctPrPlDwM3hw/pZyVT
+ 0mwHyG5RL9hTnTche+b9Z+9iPHsbDQWYPriLycNE7LTIHg7pp3ZNxmOZqNyYHLOk4N
+ Z5yAi+A+TXZ0A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:37 +0100
-Subject: [PATCH v8 24/39] drm/atomic-state-helper: Provide comparison
- macros
+Date: Fri, 06 Nov 2026 14:14:38 +0100
+Subject: [PATCH v8 25/39] drm/atomic-state-helper: Provide
+ atomic_compare_state helpers
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-24-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-25-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10212; i=mripard@kernel.org;
- h=from:subject:message-id; bh=njz1h97G0vB7yH/8DOkXJhjPvFyq83fBJ5WuvDp3tKw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL23/7slzpmN+1utXX13ez2d4J3P9a/4pgdPm7yytD
- hb/69De3zGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmEn+bseHk35bowlBW7s8M
- 7B+PF9vOztSMf8E/Z3PJnz1XFDiZ7OWtuzWjyt60Lj8uZHl7tuqCRMYarglvXm6zFdrzXH8C+8e
- pD6cpqtyQ9c5pEEq7Ot1k/r+Kj4wy3hr1u26c5q4tv3r/jZ0+AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20231; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=0+QqesZospbuDgDUmodJszyPOLhIjdZbA1bJdwakfOY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL21XPXBkq/63LK4zasolGrarjy0/JdzHfjMhq0Jfw
+ LuqYum+jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARlueMDX3pjE3+Pvb7FNPu
+ 7m0V0//lGMMhpM6Y9bREyaSMxSdBt5w9rX7n5fl9Xg9Zfk/mU9vM2PD6WWZE+j7Fgun8ZZscOr7
+ eLdHQeunGdnTqxPLVl3LMoydHFrgwlgkKdO9XXnpALTj/JQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,290 +75,470 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In order to make the implementation of atomic_sro_compare_state easier
-and reduce the boilerplate, introduce a set of STATE_CHECK_* macros to
-compare state field values depending on their type.
+Now that we have introduced some new infrastructure to compare state
+instances, provide helpers for the default states.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_readout_helper.c |  30 +++
- include/drm/drm_atomic_state_readout_helper.h     | 220 ++++++++++++++++++++++
- 2 files changed, 250 insertions(+)
+ drivers/gpu/drm/drm_atomic_state_readout_helper.c | 306 ++++++++++++++++++++++
+ drivers/gpu/drm/drm_bridge.c                      |  16 ++
+ include/drm/drm_atomic_state_readout_helper.h     |  28 ++
+ include/drm/drm_bridge.h                          |   5 +-
+ include/drm/drm_connector.h                       |   5 +-
+ include/drm/drm_crtc.h                            |   5 +-
+ include/drm/drm_plane.h                           |   5 +-
+ 7 files changed, 366 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic_state_readout_helper.c b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-index 1b6cf304702c..4156f3a27f04 100644
+index 4156f3a27f04..57376c9d4014 100644
 --- a/drivers/gpu/drm/drm_atomic_state_readout_helper.c
 +++ b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-@@ -788,2 +788,32 @@ int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
- }
+@@ -9,4 +9,5 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
++#include <drm/drm_framebuffer.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_plane.h>
+@@ -789,4 +790,309 @@ int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
  EXPORT_SYMBOL(drm_atomic_helper_sro_readout_state);
+ 
++static bool drm_atomic_helper_fb_compare(struct drm_printer *p,
++					 struct drm_framebuffer *expected,
++					 struct drm_framebuffer *actual)
++{
++	unsigned int i;
++	bool ret = true;
++
++	STATE_CHECK_FORMAT_INFO(ret, p, "framebuffer", expected, actual, format);
++
++	for (i = 0; i < expected->format->num_planes; i++) {
++		STATE_CHECK_U32(ret, p, "framebuffer", expected, actual, pitches[i]);
++		STATE_CHECK_U32(ret, p, "framebuffer", expected, actual, offsets[i]);
++	}
++
++	STATE_CHECK_U64(ret, p, "framebuffer", expected, actual, modifier);
++	STATE_CHECK_U32(ret, p, "framebuffer", expected, actual, width);
++	STATE_CHECK_U32(ret, p, "framebuffer", expected, actual, height);
++	STATE_CHECK_S32_X(ret, p, "framebuffer", expected, actual, flags);
++
++	return ret;
++}
 +
 +/**
-+ * drm_atomic_helper_print_state_mismatch - report a state comparison mismatch
-+ * @p: printer to report through
-+ * @name: human-readable name of the object (e.g. plane or CRTC name)
-+ * @field: name of the mismatching field
-+ * @format: printf-style format string describing the mismatch
++ * drm_atomic_helper_plane_compare_state - default &drm_plane_funcs.atomic_sro_compare_state hook
++ * @plane: the plane being compared
++ * @p: printer for reporting mismatches
++ * @expected: the committed &struct drm_plane_state
++ * @actual: the &struct drm_plane_state read out from hardware
 + *
-+ * Helper used by atomic_sro_compare_state implementations and the
-+ * STATE_CHECK_* macros to report a field-level mismatch between the
-+ * committed state and the state read back from hardware.
++ * Compares the base &struct drm_plane_state fields of @actual to
++ * @expected and reports any mismatches through @p. Drivers subclassing
++ * the plane state should call this first, then compare their own fields.
++ *
++ * RETURNS:
++ *
++ * True if the states are identical, false otherwise.
 + */
-+void __printf(4, 5)
-+drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
-+				       const char *name,
-+				       const char *field,
-+				       const char *format, ...)
++bool drm_atomic_helper_plane_compare_state(struct drm_plane *plane,
++					   struct drm_printer *p,
++					   struct drm_plane_state *expected,
++					   struct drm_plane_state *actual)
 +{
-+	struct va_format vaf;
-+	va_list args;
++	bool ret = true;
 +
-+	va_start(args, format);
-+	vaf.fmt = format;
-+	vaf.va = &args;
++	STATE_CHECK_PTR(ret, p, plane->name, expected, actual, plane);
++	STATE_CHECK_PTR(ret, p, plane->name, expected, actual, crtc);
 +
-+	drm_printf(p, "%s configuration mismatch in %s %pV\n", name, field, &vaf);
++	/* Both disabled, geometry is meaningless. */
++	if (!expected->fb && !actual->fb)
++		return ret;
 +
-+	va_end(args);
++	/* One enabled and the other disabled, that's a mismatch. */
++	if (!expected->fb || !actual->fb) {
++		drm_atomic_helper_print_state_mismatch(p,
++						       plane->name,
++						       "fb",
++						       "expected framebuffer is %s, got %s",
++						       expected->fb ? "non-NULL" : "NULL",
++						       actual->fb ? "non-NULL" : "NULL");
++		return false;
++	}
++
++	/* Both enabled, compare framebuffer and geometry. */
++	if (!drm_atomic_helper_fb_compare(p, expected->fb, actual->fb))
++		ret = false;
++
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, crtc_x);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, crtc_y);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, crtc_w);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, crtc_h);
++	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_x);
++	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_y);
++	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_w);
++	STATE_CHECK_U32_16_16(ret, p, plane->name, expected, actual, src_h);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, hotspot_x);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, hotspot_y);
++	STATE_CHECK_U16(ret, p, plane->name, expected, actual, alpha);
++	STATE_CHECK_U16(ret, p, plane->name, expected, actual, pixel_blend_mode);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, rotation);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, zpos);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, normalized_zpos);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, color_encoding);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, color_range);
++
++	/*
++	 * NOTE: We can't check fb_damage_clips and ignore_damage_clips
++	 * because they are transient, per-commit software fields that
++	 * are reset when the state is duplicated and never stored in
++	 * the hardware.
++	 */
++
++	STATE_CHECK_PTR(ret, p, plane->name, expected, actual, color_pipeline);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.x1);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.x2);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.y1);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, src.y2);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.x1);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.x2);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.y1);
++	STATE_CHECK_S32(ret, p, plane->name, expected, actual, dst.y2);
++	STATE_CHECK_BOOL(ret, p, plane->name, expected, actual, visible);
++	STATE_CHECK_U32(ret, p, plane->name, expected, actual, scaling_filter);
++
++	return ret;
 +}
-+EXPORT_SYMBOL(drm_atomic_helper_print_state_mismatch);
++EXPORT_SYMBOL(drm_atomic_helper_plane_compare_state);
++
++/**
++ * drm_atomic_helper_crtc_compare_state - default &drm_crtc_funcs.atomic_sro_compare_state hook
++ * @crtc: the CRTC being compared
++ * @p: printer for reporting mismatches
++ * @expected: the committed &struct drm_crtc_state
++ * @actual: the &struct drm_crtc_state read out from hardware
++ *
++ * Compares the base &struct drm_crtc_state fields of @actual to
++ * @expected and reports any mismatches through @p. Drivers subclassing
++ * the CRTC state should call this first, then compare their own fields.
++ *
++ * RETURNS:
++ *
++ * True if the states are identical, false otherwise.
++ */
++bool drm_atomic_helper_crtc_compare_state(struct drm_crtc *crtc,
++					  struct drm_printer *p,
++					  struct drm_crtc_state *expected,
++					  struct drm_crtc_state *actual)
++{
++	bool ret = true;
++
++	STATE_CHECK_PTR(ret, p, crtc->name, expected, actual, crtc);
++	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, active);
++
++	/* Both inactive, mode and properties are meaningless. */
++	if (!expected->active && !actual->active)
++		return ret;
++
++	/* One active and the other inactive, that's a mismatch. */
++	if (!expected->active || !actual->active)
++		return false;
++
++	/*
++	 * Both active, compare everything. enable is only checked at
++	 * this point: a DPMS off commit keeps enable set while the
++	 * hardware, and thus the readout, reports an inactive CRTC.
++	 */
++	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, enable);
++
++	/* Both active, compare everything. */
++	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, no_vblank);
++	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, plane_mask);
++	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, connector_mask);
++	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, encoder_mask);
++
++	STATE_CHECK_DISPLAY_MODE(ret, p, crtc->name, expected, actual, mode);
++	STATE_CHECK_DISPLAY_MODE(ret, p, crtc->name, expected, actual, adjusted_mode);
++
++	/*
++	 * NOTE: We can't check mode_blob: its payload also carries the
++	 * mode type and name, and neither can be reconstructed from the
++	 * hardware. The modes themselves are covered by the checks
++	 * above.
++	 */
++	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, degamma_lut);
++	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, ctm);
++	STATE_CHECK_PROPERTY_BLOB(ret, p, crtc->name, expected, actual, gamma_lut);
++	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, vrr_enabled);
++	STATE_CHECK_BOOL(ret, p, crtc->name, expected, actual, self_refresh_active);
++	STATE_CHECK_U32(ret, p, crtc->name, expected, actual, scaling_filter);
++	STATE_CHECK_U64(ret, p, crtc->name, expected, actual, background_color);
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_atomic_helper_crtc_compare_state);
++
++/**
++ * drm_atomic_helper_connector_compare_state - default &drm_connector_funcs.atomic_sro_compare_state hook
++ * @conn: the connector being compared
++ * @p: printer for reporting mismatches
++ * @expected: the committed &struct drm_connector_state
++ * @actual: the &struct drm_connector_state read out from hardware
++ *
++ * Compares the base &struct drm_connector_state fields of @actual to
++ * @expected and reports any mismatches through @p. Drivers subclassing
++ * the connector state should call this first, then compare their own
++ * fields.
++ *
++ * RETURNS:
++ *
++ * True if the states are identical, false otherwise.
++ */
++bool drm_atomic_helper_connector_compare_state(struct drm_connector *conn,
++					       struct drm_printer *p,
++					       struct drm_connector_state *expected,
++					       struct drm_connector_state *actual)
++{
++	bool ret = true;
++
++	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, connector);
++
++	/*
++	 * Both unbound, the routing and the negotiated properties are
++	 * meaningless: a disabled connector keeps the values it was
++	 * last enabled with, while a state read out from a disabled
++	 * pipeline is pristine.
++	 */
++	if (!expected->crtc && !actual->crtc)
++		return ret;
++
++	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, crtc);
++	STATE_CHECK_PTR(ret, p, conn->name, expected, actual, best_encoder);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, link_status);
++
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, tv.select_subconnector);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, tv.subconnector);
++
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, self_refresh_aware);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, picture_aspect_ratio);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, content_type);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdcp_content_type);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, scaling_mode);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, content_protection);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, colorspace);
++
++	/*
++	 * NOTE: We can't check max_bpc, max_requested_bpc,
++	 * color_format or hdmi.broadcast_rgb because they are
++	 * userspace requests negotiated during atomic_check into
++	 * output_bpc, output_format and hdmi.is_limited_range. The
++	 * hardware only stores the negotiated result.
++	 */
++
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, privacy_screen_sw_state);
++
++	/*
++	 * NOTE: We can't check hdr_output_metadata: it's a userspace
++	 * request, and the hardware only stores the resulting HDR
++	 * infoframe, compared below.
++	 */
++
++	/*
++	 * NOTE: The infoframe payloads are only compared when the
++	 * infoframe is enabled in both states: the disabled ones keep
++	 * stale data from earlier commits around in the expected
++	 * state, while the readout state is pristine.
++	 */
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.avi.set);
++	if (expected->hdmi.infoframes.avi.set && actual->hdmi.infoframes.avi.set)
++		STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infoframes.avi.data);
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.hdr_drm.set);
++	if (expected->hdmi.infoframes.hdr_drm.set && actual->hdmi.infoframes.hdr_drm.set)
++		STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infoframes.hdr_drm.data);
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.spd.set);
++	if (expected->hdmi.infoframes.spd.set && actual->hdmi.infoframes.spd.set)
++		STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infoframes.spd.data);
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.infoframes.hdmi.set);
++	if (expected->hdmi.infoframes.hdmi.set && actual->hdmi.infoframes.hdmi.set)
++		STATE_CHECK_INFOFRAME(ret, p, conn->name, expected, actual, hdmi.infoframes.hdmi.data);
++
++	STATE_CHECK_BOOL(ret, p, conn->name, expected, actual, hdmi.is_limited_range);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdmi.output_bpc);
++	STATE_CHECK_U32(ret, p, conn->name, expected, actual, hdmi.output_format);
++	STATE_CHECK_U64(ret, p, conn->name, expected, actual, hdmi.tmds_char_rate);
++
++	/*
++	 * hdmi.scrambler_needed is derived from hdmi.tmds_char_rate, so
++	 * comparing tmds_char_rate already covers it.
++	 */
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_atomic_helper_connector_compare_state);
++
++/**
++ * drm_atomic_helper_bridge_compare_state - default &drm_bridge_funcs.atomic_sro_compare_state hook
++ * @bridge: the bridge being compared
++ * @p: printer for reporting mismatches
++ * @expected: the committed &struct drm_bridge_state
++ * @actual: the &struct drm_bridge_state read out from hardware
++ *
++ * Compares the base &struct drm_bridge_state fields of @actual to
++ * @expected and reports any mismatches through @p. Drivers subclassing
++ * the bridge state should call this first, then compare their own
++ * fields.
++ *
++ * RETURNS:
++ *
++ * True if the states are identical, false otherwise.
++ */
++bool drm_atomic_helper_bridge_compare_state(struct drm_bridge *bridge,
++					    struct drm_printer *p,
++					    struct drm_bridge_state *expected,
++					    struct drm_bridge_state *actual)
++{
++	bool ret = true;
++
++	STATE_CHECK_PTR(ret, p, bridge->name, expected, actual, bridge);
++	STATE_CHECK_U32_X(ret, p, bridge->name, expected, actual, input_bus_cfg.format);
++	STATE_CHECK_U32_X(ret, p, bridge->name, expected, actual, input_bus_cfg.flags);
++	STATE_CHECK_U32_X(ret, p, bridge->name, expected, actual, output_bus_cfg.format);
++	STATE_CHECK_U32_X(ret, p, bridge->name, expected, actual, output_bus_cfg.flags);
++
++	return ret;
++}
++EXPORT_SYMBOL(drm_atomic_helper_bridge_compare_state);
++
+ /**
+  * drm_atomic_helper_print_state_mismatch - report a state comparison mismatch
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index b183002b7b3d..81174015309f 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -638,4 +638,19 @@ drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
+ }
+ 
++static bool drm_bridge_atomic_compare_priv_state(struct drm_private_obj *obj,
++						 struct drm_printer *p,
++						 struct drm_private_state *a,
++						 struct drm_private_state *b)
++{
++	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
++	struct drm_bridge_state *state_a = drm_priv_to_bridge_state(a);
++	struct drm_bridge_state *state_b = drm_priv_to_bridge_state(b);
++
++	if (bridge->funcs->atomic_sro_compare_state)
++		return bridge->funcs->atomic_sro_compare_state(bridge, p, state_a, state_b);
++	else
++		return false;
++}
++
+ static void
+ drm_bridge_atomic_print_priv_state(struct drm_printer *p,
+@@ -666,4 +681,5 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ 
+ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs_with_sro = {
++	.atomic_sro_compare_state = drm_bridge_atomic_compare_priv_state,
+ 	.atomic_sro_readout_state = drm_bridge_atomic_readout_priv_state,
+ 	.atomic_create_state = drm_bridge_atomic_create_priv_state,
 diff --git a/include/drm/drm_atomic_state_readout_helper.h b/include/drm/drm_atomic_state_readout_helper.h
-index d685644ec25a..d4e941ab7452 100644
+index d4e941ab7452..2dd871787837 100644
 --- a/include/drm/drm_atomic_state_readout_helper.h
 +++ b/include/drm/drm_atomic_state_readout_helper.h
-@@ -4,7 +4,10 @@
- #define DRM_ATOMIC_SRO_HELPER_H_
- 
-+#include <linux/string_choices.h>
-+
+@@ -8,5 +8,13 @@
  struct drm_atomic_commit;
  struct drm_atomic_sro_state;
++struct drm_bridge;
++struct drm_bridge_state;
++struct drm_connector;
++struct drm_connector_state;
++struct drm_crtc;
++struct drm_crtc_state;
  struct drm_device;
-+struct drm_printer;
++struct drm_plane;
++struct drm_plane_state;
+ struct drm_printer;
  
- int
-@@ -33,3 +36,220 @@ drm_atomic_helper_sro_build_state(struct drm_device *dev,
+@@ -36,4 +44,24 @@ drm_atomic_helper_sro_build_state(struct drm_device *dev,
  int drm_atomic_helper_sro_readout_state(struct drm_device *dev);
  
-+void __printf(4, 5)
-+drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
-+				       const char *name,
-+				       const char *field,
-+				       const char *format, ...);
++bool drm_atomic_helper_connector_compare_state(struct drm_connector *connector,
++					       struct drm_printer *p,
++					       struct drm_connector_state *expected,
++					       struct drm_connector_state *actual);
 +
-+#define STATE_CHECK_BOOL(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, bool),			\
-+			      __stringify(f) " is not a bool");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %s, got %s", \
-+							       str_yes_no(sa->f), \
-+							       str_yes_no(sb->f)); \
-+			r = false;					\
-+		}							\
-+	} while (0)
++bool drm_atomic_helper_crtc_compare_state(struct drm_crtc *crtc,
++					  struct drm_printer *p,
++					  struct drm_crtc_state *expected,
++					  struct drm_crtc_state *actual);
 +
-+#define STATE_CHECK_DISPLAY_MODE(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, struct drm_display_mode), \
-+			      __stringify(f) " is not a drm_display_mode structure"); \
-+		if (!drm_mode_equal(&sa->f, &sb->f)) {			\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected " DRM_MODE_FMT ", got " DRM_MODE_FMT, \
-+							       DRM_MODE_ARG(&sa->f), \
-+							       DRM_MODE_ARG(&sb->f)); \
-+			r = false;					\
-+		}							\
-+	} while (0)
++bool drm_atomic_helper_plane_compare_state(struct drm_plane *plane,
++					   struct drm_printer *p,
++					   struct drm_plane_state *expected,
++					   struct drm_plane_state *actual);
 +
-+#define STATE_CHECK_INFOFRAME(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, union hdmi_infoframe), \
-+			      __stringify(f) " is not an hdmi_infoframe union"); \
-+		if (memcmp(&sa->f, &sb->f, sizeof(union hdmi_infoframe))) { \
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "infoframes don't match"); \
-+			r = false;					\
-+		}							\
-+	} while (0)
++bool drm_atomic_helper_bridge_compare_state(struct drm_bridge *bridge,
++					    struct drm_printer *p,
++					    struct drm_bridge_state *expected,
++					    struct drm_bridge_state *actual);
 +
-+#define STATE_CHECK_FORMAT_INFO(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, const struct drm_format_info *), \
-+			      __stringify(f) " is not a drm_format_info pointer"); \
-+		if (sa->f != sb->f) {			\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %p4cc, got %p4cc", \
-+							       sa->f ? &sa->f->format : NULL, \
-+							       sb->f ? &sb->f->format : NULL); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_PROPERTY_BLOB(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, struct drm_property_blob *), \
-+			      __stringify(f) " is not a drm_property_blob pointer"); \
-+		if (sa->f != sb->f &&					\
-+		    (!sa->f || !sb->f ||				\
-+		     sa->f->length != sb->f->length ||			\
-+		     memcmp(sa->f->data, sb->f->data, sa->f->length))) { \
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "blobs don't match"); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_PTR(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %p, got %p",	\
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_S32(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (s32)0),		\
-+			      __stringify(f) " is not an s32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %d, got %d", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_S32_X(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (s32)0),		\
-+			      __stringify(f) " is not an s32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %x, got %x", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U16(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u16)0),		\
-+			      __stringify(f) " is not a u16");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %u, got %u", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %u, got %u", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32_16_16(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %d.%06u, got %d.%06u", \
-+							       sa->f >> 16, ((sa->f & 0xffff) * 15625) >> 10, \
-+							       sb->f >> 16, ((sb->f & 0xffff) * 15625) >> 10); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32_X(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %08x, got %08x", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U64(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u64)0),		\
-+			      __stringify(f) " is not a u64");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %llu, got %llu", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
- #endif /* DRM_ATOMIC_SRO_HELPER_H_ */
+ void __printf(4, 5)
+ drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 030467e2cb1e..436dfffb25ad 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -325,5 +325,8 @@ struct drm_bridge_funcs {
+ 	 * It is called after blocking commits to verify that the
+ 	 * committed state matches what can be read back from the
+-	 * hardware.
++	 * hardware. Drivers subclassing the state should implement this
++	 * to compare their driver-private fields, calling
++	 * drm_atomic_helper_bridge_compare_state() first for the base
++	 * state fields.
+ 	 *
+ 	 * This hook is mandatory for drivers implementing SRO, but can
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 3892a20a6cca..6d10b9543a78 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1915,5 +1915,8 @@ struct drm_connector_funcs {
+ 	 * It is called after blocking commits to verify that the
+ 	 * committed state matches what can be read back from the
+-	 * hardware.
++	 * hardware. Drivers subclassing the state should implement this
++	 * to compare their driver-private fields, calling
++	 * drm_atomic_helper_connector_compare_state() first for the
++	 * base state fields.
+ 	 *
+ 	 * This hook is mandatory for drivers implementing SRO, but can
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index e5662ddb61fb..a327d858c465 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -744,5 +744,8 @@ struct drm_crtc_funcs {
+ 	 * It is called after blocking commits to verify that the
+ 	 * committed state matches what can be read back from the
+-	 * hardware.
++	 * hardware. Drivers subclassing the state should implement this
++	 * to compare their driver-private fields, calling
++	 * drm_atomic_helper_crtc_compare_state() first for the base
++	 * state fields.
+ 	 *
+ 	 * This hook is mandatory for drivers implementing SRO, but can
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 0a18d26eb397..05d73102fef4 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -496,5 +496,8 @@ struct drm_plane_funcs {
+ 	 * It is called after blocking commits to verify that the
+ 	 * committed state matches what can be read back from the
+-	 * hardware.
++	 * hardware. Drivers subclassing the state should implement this
++	 * to compare their driver-private fields, calling
++	 * drm_atomic_helper_plane_compare_state() first for the base
++	 * state fields.
+ 	 *
+ 	 * This hook is mandatory for drivers implementing SRO, but can
 
 -- 
 2.55.0
