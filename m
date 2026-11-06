@@ -2,178 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA01606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 08:36:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6229606A326
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 08:37:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ZSoeRNbH;
-	dkim=pass (1024-bit key, unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=HV7BR69L
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kfLrDXa6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C15A1112857;
-	Fri,  6 Nov 2026 08:36:34 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D4BA11283A
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 08:36:23 +0000 (UTC)
-X-UUID: 234d8930d9bd11f18dc8c9802ae25ab1-20261106
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=kB+X+9Cz09bxjis1cG8SubO+c6I3qEYhlI0P2vxPyz4=; 
- b=ZSoeRNbH9yWUuIkL4dTGFkbxnFSD6znKXL4xwtJrcNm+KVDwByG5nKZcU/wbTvSCMDrA+Fi7c8enTA/sbCGWcGJPUkavZF4z6/Qvf/ZhPzUbyATH0kALg7NodFxq+me6Lz+5174PDYCFjuXHMZPq+bVj0VvcdgIzmKcY6divlrI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21, REQID:0dc37710-a95e-493b-b447-90faf913fbea, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:b0318ac, CLOUDID:fda12aee-6961-456c-adce-6d277e14e6ad,
- B
- ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
- Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:n
- il,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 234d8930d9bd11f18dc8c9802ae25ab1-20261106
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by
- mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 2034233557; Fri, 06 Nov 2026 16:36:18 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 6 Nov 2026 16:36:17 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 6 Nov 2026 16:36:17 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O+hu9SZxuQyZCfAfws2C05Xeqc5SAiCP92fJP4QaY1k1ujzX1Uc9iGOMBOa9hbaErXw7q5K0vUjE53LhcQDAjrqJ/l2R4aSHmmzwkWwLqx/C/RpK/048nr0WeMuQaaFz+vUP1Yq4bwktPsB7cC8q6aWziCpNoKx/xVLc4ouKr7wnCNo5CgSARSl3uJhL43mpqEUxlaJGjEJSextj4m6geE/M0plfoIlvWQos6rMydT7NMd7Wg5VMuJ7FZ05KRTa4GTWNEc5e/uuZwcUpQEr2nh4p3/AnI107hYOKBBibVszobxtY4Xbr8pF8Jl3l6P06RlsW0kRhIMd+eYncjMFeIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kB+X+9Cz09bxjis1cG8SubO+c6I3qEYhlI0P2vxPyz4=;
- b=mJQv64wwdQUY4TdKJQUhzJ2dx4vtCw2wW+GFEzP3GKeihjQNWQo+qwhxHgt7PokGRYHZrGSjuws/LrvMtpXRx/Cw9PtAroJ2Whm+Lxe9SXugshcmatJDPOoC28x0U9J2o1dnEupCgcM2lfPdVHnfdvvp1fjj2EIsdCpUk1nY7h9DA5JI0hg/P8moae3/t7J5DIk7jfNIpLrlTM+uwHcrHnC1W1rnAFoPsPlnj0RLeJc70qJoJaKdaYXyQ6E0J8Mto3u9VuFJfYhfRCcIk4tjUa/KfPEa7IEqIAxSh1Ig544jPemDhNrVytyA42UIKx9cJe1S7awm2CBvUx7qs36xcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id D02B51127C4;
+	Fri,  6 Nov 2026 08:37:47 +0000 (UTC)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF0010E117
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 08:37:41 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-4af173320f9so229264b6e.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 00:37:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793954260; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UPouI2nSGSgL0uTVTDuy78z3vfT8+lBD77S+NuF7lIjix9W4bynn0yYR3s+BPTWcPw
+ WIdyyHYmlNWDFyYckWz2+d6GufFOSLxJnC+SnAB59Clly1xc6jSWT2/0r0R17H3z//0G
+ pBm6pgBLnSYzh7tiC/5Qhl+NhxzLtiofpj/CTlyX5CyYDOw2VAbyPy1RgYDBvFkCfCPo
+ SV2tBOACwMUi1rzUoZLuFWiUBPthum/gcEJalkSHk+ZXvIMBIpjgfimUj7yGoLI/kqdh
+ 2KNFQdr4iTk/jVLt+Uv/7CrYeFeL75MgQEF658gfGL0YyjTixn08ASnyfS68r1104h7F
+ prHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=yuc/CuUWd+Sel3gSNxUvERKwTZoThyCDyBn6276wNqI=;
+ fh=UvhXpY9Okb+hMuMufCG2ZnYjHwyJ1BUR6xoMcgb4nwU=;
+ b=NgKZfyfuh0SQDWgj4Y+t9D+drG1e601mKltnEN9LJREoVFKmHdYbY2Gb136J80HAK8
+ FTl3oQOb2fgHhSF6jDejJR6HlsY/RxfWCPH/xoAzLrDNQwxFW+mBQFS3XRQ0VvNj9ejV
+ 5YC7R2LJURzzWoI4Rk6ELohCHUvlQKP0Ke6XGOFNI+QrlAF80PG/VhYCNjNNuSpLfGwn
+ ZkAZ2I/dvKDHCLKmmIbSzIE+4lwmFeeEhNfnntXgeAYw4LH+g2xMIY2JnzFmLTLL4Xos
+ DaglYFo9fz2vLU2gTAqSPxqYA5zW3oyXbpPZHM30q+B+1pkl3mBMZJpL4zAV3gwUBXaX
+ cVGA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kB+X+9Cz09bxjis1cG8SubO+c6I3qEYhlI0P2vxPyz4=;
- b=HV7BR69LypMJvWrP18WvuGryHfvC9/h1Zvl7VXjlFY+uY3lxXns59BlBsS/cewMSWhtfB5UC+2yfqsEfQoVqWByVATvDuROwGeCnrExADEe2sWBNNrM2YvxjcqW4DALcbAwQAVAdB1GbBR+aqrG0xG85Qa1Z6zfpGZTsLbk42/g=
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
- by OSQPR03MB8747.apcprd03.prod.outlook.com (2603:1096:604:282::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 08:36:11 +0000
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 08:36:10 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "robh@kernel.org" <robh@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "mripard@kernel.org" <mripard@kernel.org>, "kernel@collabora.com"
- <kernel@collabora.com>, "linux-mediatek@lists.infradead.org"
- <linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
- =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH v2 23/46] drm/mediatek: Fully migrate to new Display
- Controller HW indexing
-Thread-Topic: [PATCH v2 23/46] drm/mediatek: Fully migrate to new Display
- Controller HW indexing
-Thread-Index: AQHdE4ZgtyEAp8vnA0uZTTyYmRu0S7chbLIA
-Date: Fri, 6 Nov 2026 08:36:10 +0000
-Message-ID: <e720371d6a3e4bb9ffa56bd8e06ae759c4d4c5cc.camel@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-24-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-24-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|OSQPR03MB8747:EE_
-x-ms-office365-filtering-correlation-id: baba10e2-7dca-421a-c64b-08df3be10287
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|1800799024|42112799006|366016|38070700021|261026140227099003|11063799006|4143699003|56012099006|261102123227099003|261021121427099003|261021123027099003|261009223027099003|261022105027099003|261028144727099003|261022075727099003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info: h3ZEyi4FK38y6kUhtxl0wsx59/2ueSaLu+/Ynu5mDk+r/78kFVvZSv2h1P+WaHR9TyFkJQ1BOhd0xmiaxtr9Oji2Fv8ue2w5ZIIYkDK1vFTovWW4ySOrk7g5Cz+7gV4pnNs2Zz+twOcg8vyADYjVcp2k2+ikqRg+0+CexfjvKfRd9OrcdW0Gzat7BI5vj6z+4EM3FZcIoR/Oxo5OOKZaAIgT8eWjpt21CHWzyoyu849aIwpFq33YutcLTExjtloVJd+dx62QZvjTuFArz81qLrsGXJPN3aoQi5LuVGyoA/+FyuK85Io0t7Zj3rWvJ6F4MSd7oYb7fVWpy9/9HjK9euhJ9DhDOxeVm6H/YzcFKkHkkU+Uyz63cxvpt+43Nx76fMn/rURJLvr81HAk9hQomFFJ8chsyZjhaj3sMjCg61mGRmkrzi1XKeh0q4Wjlrnt9gyTkWv41ewuLlfV3Ynj4ACAJwRKGaeF/6EnEZOC7V/8rVihU2aN8vUwzTLf3VQOQDRJh6jNVdxug8Y9/O8ISFkLZD/K87MrnpXTkpyIRr/bWYqEmrC3N+vE/Mu1dgh49BQRxUjPD5RtnjDH0CgsRMS4q4MwFqRrqND+PiISJud25868Mdg/R5JmwTfKaL34v8Mumeci2DfVZQqNd9DvZQebfJ22qHtqgeBKVB/Cf9s598+Er2qjrHa+UlNXA7a08i2+6uAryuEa1vxIZkqyIfANf9+R6umvMGbfHkM2BTE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KUYPR03MB9902.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(42112799006)(366016)(38070700021)(261026140227099003)(11063799006)(4143699003)(56012099006)(261102123227099003)(261021121427099003)(261021123027099003)(261009223027099003)(261022105027099003)(261028144727099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WW1TekZsUjZ2OWJPbGV2TXlJYXFabERtUHRTeUxDMGJpQURxTHpSdXh5NXY4?=
- =?utf-8?B?amRFRVFnOU9Xb0pxdjZvTmJMR0tkUTlQMGx5ZHJGWXFzZGR6TFUwNDBlbktX?=
- =?utf-8?B?Q1VpNTNwVURlaHpDOEk1YnNDR2NKNmJoL3JhTXI3aUVZL1BjV0pXQ3UxaGF1?=
- =?utf-8?B?bEVoZWlHQTMvNXRYdHE1b3dncFpSR3ppQXNpRHNkYmhBdjJWekEzL0Y3cHc0?=
- =?utf-8?B?aUl2NXkwTURhZ3VKbXErR3JoZ0VwWG5rWGh3eHRZa0p4UXJNR1V2dWRoOXZ3?=
- =?utf-8?B?ak1oV1N5cnhVbzk2UWFSbVdWWXVaMCt6TVFpNm5WaTlxeTFXU25oTGhUMlBK?=
- =?utf-8?B?L3JxeE5QQ1BScmRsYk94dE5iMlBvbVBWNk0vMklZeXludXhZUFl4a2dYZnIy?=
- =?utf-8?B?N3pJaUV6bzFVSGM2WVFjT1dPK1p6cTNOVVdVclhsaFJqcHpNSDdMSlR2RHF1?=
- =?utf-8?B?RitxVnF2T0FIRU1iUGQ1ckJDQjduUkxNZkMwZFpORTN6a0x1VzIxV3pLNldI?=
- =?utf-8?B?bG1uYkNldE8yOTRpUDcwOVhEZlRCalB6NEhMcVJwQ1dybGVFTExWYm1MYjQy?=
- =?utf-8?B?bnA5dzdZUmw1L1ZIa09YdXJnZkdJUmhYL1l1V0tPenFqa3ZrRlJDNWM0Tnl5?=
- =?utf-8?B?di92dzVSa3ltSDBlV2JFRmtseHhxK2ZwMGc4NkY4TTJVenBxQjRtay9uM1Z1?=
- =?utf-8?B?T1BEY0FReG9zU2U4bUloblBpMTBNSlIxYllNWkJ5dC92ckllV2o4M2lLcFZw?=
- =?utf-8?B?QStyaXFIRUpWV2tMSDh4TGpYUlR5SlM3QWZxRDQzVEoxNFZRMVd1VlpBcTlH?=
- =?utf-8?B?K01jVXVOTEcwZnVwWUErL0Fwd2FTNElya0JveDZpc0JQNWRjbmdhdkgrSmdN?=
- =?utf-8?B?YVE4Z1M3WHE2Mi91Ti9nS3o0bmxsMnZpUFpBTXNMTmgybDdNSDVRQzlLMUlk?=
- =?utf-8?B?ZXZENlVNem5sN3Z6cVN1ZWErUHllOEFaTWt6c3ByUVloaFI0dEN3Nk83cVpQ?=
- =?utf-8?B?c1JWZFpubm9RNnAxQjhsRDRsMUQ4VFFlRXhpcTBVK2RXNHVQWkNKWDFKWUxQ?=
- =?utf-8?B?ZnQ1a0s1UGJhQVNUcFRpSFhVbzlLK3FWVFozQVppSDdPOVZSS2ZSRmEwSjZJ?=
- =?utf-8?B?TXZvSHdoSnF0Qit4aXlGUlZOV1I4WkFtVmVZMk5uKzZYd21lV3o2VEJQOGF3?=
- =?utf-8?B?WnBaOXNweDVNd2ZpUmZ3S21ZM0l0OVphOG11alVaQ0hKU0xXdnk4bFBPOEx6?=
- =?utf-8?B?dU82amVIbHVMNlVZSTRjTnMxZFhBMFpkcFk5UDdrQmo1dFRzZ1FWOUh2dFIy?=
- =?utf-8?B?ZVphUG1TdUhKVUo2TjJZaE01WDNYRGtHaFc1a1pIUkpmY2YyNlovK0JjSXo4?=
- =?utf-8?B?ZmJObjFCTTBiSkdxNlQzQ3dlTjJvNkhpWGwwREJ2RzZ2R3VlMWptbWV3REpP?=
- =?utf-8?B?OE9YNUtIdnNZNnRSZC9lekYrYXE2ZXFVbjlhaWJ2YTNqcU9Fem1icmJaZG9K?=
- =?utf-8?B?NTIvVWcyN2VsRThlYzk1OEdYVWhyTHNWeUFVWVhGREdwdWpaamo4YWFCREJy?=
- =?utf-8?B?Vk9EaEdJM3lyYjhZUmRsMTFaZDA2UkFjV1NTTzRDcEwweUJGZXNpZnNibzl5?=
- =?utf-8?B?T2hKdm45dzQweDhtdW5NS05PM3p2YUJnUGl1cVRGR2crcElqMnVDb3dQSytQ?=
- =?utf-8?B?MmgxM0YvWmxld0h0N2RYc2l0UWQwT0lYbG0yUi9BaTBOWENpUlJZeVJoRTFt?=
- =?utf-8?B?SkZPV1YzZ1habElmbDBhODZZMmRQLy95WHB2aVk4NlpqZGErb1BDZzUrWUNH?=
- =?utf-8?B?RTRhUEhYblhKa3ZOdXFBb0ZCN1hzdnFDZ0Q2cnJRdVBVZjB2d2paR0k1aEYr?=
- =?utf-8?B?bFRwdFJSbFNGMmpHYWMvRXo5Q2J3VGZ6WndjbUJHdVd6eWhaV05ncXA1bVFn?=
- =?utf-8?B?ME93Nm9NRmZ3cmdiZVFyT21VSUswbnZYcG1NS3lVcUZFbGhmR2Vjek9TaGl4?=
- =?utf-8?B?TmlYMkZ2ZkNOVWkvQlpOQkNsb1BETUVMNjVNWFJEcE1BeStDMEFtZURaVDRr?=
- =?utf-8?B?dzZyQTl1c2prMTUxaHpvekNGK0J2a1dIdDVnSE9ZVTlsQWFVK0I3Tnh3SkhV?=
- =?utf-8?B?aTR0aGl0UnlCTU9LYTNtemtNN04zZEE5bVIxeFpuTUUwRy9qeHI1Tm55aitV?=
- =?utf-8?B?eG1qdnppSy9Iem5qcU5uYmlLdXZnRGp6d1dibE9ZREwvUlB3d3EyMTNnYUQx?=
- =?utf-8?B?TW9hQlpOMUorcTN4M3dJeXViZkUwWmFjVERWUWV5QkdIbW9vWG9wVklXVWR2?=
- =?utf-8?B?bk1uaEdnWm1GbExBRHZkSnlseG1XMEtBTmI3eGpIcnoxWmY0and5QT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <1AE78617498E444C8B8A7BB068FFF4D0@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ d=gmail.com; s=20260707; t=1793954260; x=1794559060; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=yuc/CuUWd+Sel3gSNxUvERKwTZoThyCDyBn6276wNqI=;
+ b=kfLrDXa6x9/vDvUV3qqkHJfg0XTodoNpwK0cQTYzLDUyFW+zlWzJAd9LHsVeWyQGm8
+ zCfhM0kFzmyCHOAwpDZxD7CieeakzwRNXuokhng04sDj6WzIqvyI3ajcyEBivhMoA/tx
+ 0x3u3Je/noZKDlk86P/hJsti3HdUN0NR4+lFatql3+eGwBz61YVF5nHOK+mjBE+yg+87
+ pswRe0188xY3Hgkdkw928KaawBVHMb13QzNleMiG434zgedMAvC5eF3XzyCW01/bnEuy
+ LEWnOR6P/Bj9Od5p5V1hoOFfZPVJbguATSuXzHSP9x/hPdbGRVHTL86sNj91zvX8zAKg
+ AfXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793954260; x=1794559060;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=yuc/CuUWd+Sel3gSNxUvERKwTZoThyCDyBn6276wNqI=;
+ b=bIqltS6xxdzYzz8aup5h1ISmcGD2rtfOrdpIMmRiXwEeVgTyHK2R2m17571A3OpvG4
+ HHMkwJ7+pTU60GWE7SENR5Lz5a7RcnzSTHQTMSLCb9jWhKu663xDdrsjlZuTwGDWnBuA
+ 43/jKV7TWFSs9QJHLKV3hnnQKA8lsTTopMAneDsWuhS6O93za8Si4IU0cTkAruoT4dq7
+ +VDDeYg0jX7bActKx7Gju5RmuFSznuwWvxFrOCn/c2XQSwZWyPdrS7SknjPomPoTIE1i
+ 8cxkwFfWa1792UqQ44GkKq0BEEDc8zR/YEsNMBb8ZKTmXcU4fQTG/VQB3MzMp7mdZ+mZ
+ 1LuA==
+X-Gm-Message-State: APuU4Z8aas56KbCvH4qBHEAGZjisn9aLiCU7W+HK0c92qymgfu/Qnk1C
+ rJrf+5brUDksHX0ftI4SnMlJfnG5Zw/OMYqhcFG+sADubw6bDBLSrpCWZ/zRWjeCcNOpzed9huH
+ y6ot8RixYFxgWQWSBPuJccppAwg6oc3k=
+X-Gm-Gg: AYBFou0bnKuL41exzXvi99epdufgp9nj4vJWpOzTE/u51Nj9mO4qNFIyGYlqooGmkEP
+ j0hovHDo0gXIrKNwkggg0Hj+WB8Srlxm1Hp1sqlDgivi92UNYp30qUAPu/wcvnvJs8pdgoMpoO2
+ yqoSr199L6oAiZ+s82iMUbDs5hTMY1roDXi10kRa1NUcX6Q/GgOTCPidQb/lBAIxYaKhwUytaI1
+ hEmkKYbba/VPu3f3qBKmHh0HzUmzvUmYUwzuZ8/tpUMDCTLzEb9bFgckg+O2kAWdYUh1zkvZ2pU
+ RKE+GYcuRuHfF4fEitCO06UZZD1O5OmxD28lPWi2oKKQvY9VByo2jEOdXsghZyl80kwaNms02Aj
+ uPrvDzqNJ+H9Po7QDN8kLiKlEAOMsuVBOmUiTXIV4lG/cs5dpcoKqd1y+
+X-Received: by 2002:a05:6808:4f4c:b0:4d5:295c:a831 with SMTP id
+ 5614622812f47-567e141d17bmr1221367b6e.62.1793954260523; Fri, 06 Nov 2026
+ 00:37:40 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 2A9FjpmaP9xHDfPcTzMrc2nzx9pR2TJ3KpptE38Di0qcwP9/DvM5aAguWTzIsEuLIIx1KgIsKmpgyLdO1rY06uMpV6SRihVS2AvYD5l9wleQkN0pQTrs7TiNgO9RW0W9WozxobNiWVcnRaffzGa+YSX0VcFDoE44ZMwzrY2Z0/xTRTR6TNor2FTRxtkH06NSxOVeOLX6ALreg1b1n+vzwpyQmyz6Hzg7lUMzE0XrYmhEjvHFBYiAiWMG2bnzMdoLAYI5YN3cnVLlr1OPGlr2+2xr2IWFVr9TJibsP9I/hw07AJvGFr0tE5hPO13bS5GvalQYLnVQaqEiby2Yc87sgA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: baba10e2-7dca-421a-c64b-08df3be10287
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 08:36:10.5424 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hwXzTM0LkG+3uyZB4Jo1m4rco1qjI4/snywwAdqMsbYKpLqvelwudQ0deDXqMM3e147+mJeHPAxFIGGLOzwv/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR03MB8747
-X-MTK: N
+References: <CAFGNeajNF_VMAvtDDVZPxdzskUR7Y6HPNQp+sH6eihf3PLviXw@mail.gmail.com>
+ <CAFGNeaih0pByA9harSnSd4opyCu4EFKmSR9quD3cNzXEEp+0kw@mail.gmail.com>
+In-Reply-To: <CAFGNeaih0pByA9harSnSd4opyCu4EFKmSR9quD3cNzXEEp+0kw@mail.gmail.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Fri, 6 Nov 2026 09:37:28 +0100
+X-Gm-Features: AclHuK843WarVW34NjesUVFVzNz9EL4GjcVYkQNMj8QYGVIsokoEylcbeQZLLgs
+Message-ID: <CAMeQTsZEwmb3iCPWUa7H2J00x2QBsaCG9GmKMn3U7iJgcHb_RQ@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: "Operating System's Depression" <operatingsystemsdepression@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,116 +100,246 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-T24gVHVlLCAyMDI2LTA3LTE0IGF0IDEzOjQzICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gUGVyZm9ybSBhIGZ1bGwgbWlncmF0aW9uIHRvIEhXIFR5cGUgLT4gSFcg
-SW5zdGFuY2UgSUQgaW5kZXhpbmcNCj4gZm9yIGFsbCBvZiB0aGUgY3VycmVudGx5IHN1cHBvcnRl
-ZCBEaXNwbGF5IENvbnRyb2xsZXIgaGFyZHdhcmUNCj4gc3ViLWNvbXBvbmVudHMuDQo+IA0KPiBU
-aGlzIGFsbG93cyB0byByZW1vdmUgdGhlIGJpZyBmaXhlZC1zaXplIGNhdGNoLWFsbCBjb21wb25l
-bnRzDQo+IGFycmF5ICh0aGF0IGNvbnRhaW5zIGFzIG1hbnkgZWxlbWVudCBhcyBtdWNoIGFzIHRo
-ZSBudW1iZXIgb2YNCj4gc3VwcG9ydGVkIGhhcmR3YXJlIGFuZCBudW1iZXIgb2YgaW5zdGFuY2Vz
-IG9mIHRoYXQpLCB3aGljaCBpcw0KPiBjdXJyZW50bHkgZ3Jvd2luZyBiaWdnZXIgYW5kIGJpZ2dl
-ciBhdCBldmVyeSBzdWItaXAgc3VwcG9ydA0KPiBhZGRpdGlvbiBpbiBtZWRpYXRlay1kcm0uDQo+
-IA0KPiBOb3RlIHRoYXQgdGhpcyBjbGVhbnVwIGJlY2FtZSBuZWNlc3Nhcnkgc2VlbiB0aGUgbmVl
-ZCB0byBhZGQNCj4gc3VwcG9ydCBmb3IgbmV3IGNvbXBvbmVudHMgZm91bmQgaW4gTVQ4MTk2LCBN
-VDg5OTQgYW5kIG90aGVyDQo+IHZhcmlhbnRzIG9mIGl0LCBhbmQgb2YgY291cnNlIHRob3NlIFNv
-Q3Mgd29uJ3QgYmUgdGhlIGxhc3QNCj4gb25lcyB0byBiZSB1cHN0cmVhbWVkLi4uIHNvIHRoZSBz
-aXplIG9mIHRoYXQgYXJyYXkgd291bGQgZ2V0DQo+IG91dCBvZiBjb250cm9sIHByZXR0eSBmYXN0
-IChhbmQgYWdhaW4sIGl0J3MgYWxyZWFkeSB2ZXJ5IGJpZykuDQo+IA0KPiBBcyBhIHNpZGUgZWZm
-ZWN0LCB3aGlsZSBzYXZpbmcgbWVtb3J5IGNvbXBhcmVkIHRvIGJlZm9yZSB0aGlzDQo+IGNoYW5n
-ZSwgdGhpcyBhbHNvIGFsbG93cyB0byBoYXZlIHVwIHRvIDI0IChhcyBhbiBleHRlbnNpYmxlIGZp
-eGVkDQo+IHNpemUgZGVjbGFyZWQgaW4gdGhpcyBkcml2ZXIpIGluc3RhbmNlcyBvZiB0aGUgc2Ft
-ZSBIVyBUeXBlIHdpdGgNCj4gbm8gZnVydGhlciBpbmNyZWFzZSBpbiBtZW1vcnkgZm9vdHByaW50
-Lg0KPiBTaW1pbGFybHksIGFkZGluZyBzdXBwb3J0IGZvciBuZXcgaGFyZHdhcmUgd2lsbCBub3Qg
-cHJvZHVjZSBhbg0KPiBpbmNyZWFzZSBvZiBtZW1vcnkgZm9vdHByaW50IG9uIGFsbCBTb0NzIChp
-ZiBub3Qgb25seSB0ZW1wb3JhcmlseQ0KPiB3aGlsZSB0aGUgcHJvYmUgcHJvY2VzcyBpcyBpbiBw
-bGFjZSkgYXMgdGhlcmUncyBubyBtb3JlIGNhdGNoLWFsbA0KPiBhcnJheSwgYnV0IG9ubHkgYSBk
-eW5hbWljYWxseSBhbGxvY2F0ZWQgbGlzdCBvZiBwZXIgZGlzcGxheSBvdXRwdXQNCj4gY29tcG9u
-ZW50cy4NCj4gDQo+IFVuZm9ydHVuYXRlbHksIHRoaXMgY2hhbmdlIG5lZWRzIHRvIGdvIGFsb25n
-IHdpdGggdGhlIHJlbGF0ZWQgb25lDQo+IGluIHRoZSBtdGstbW1zeXMgZHJpdmVyLCBvdGhlcndp
-c2UgZnVuY3Rpb25hbGl0eSBvZiB0aGUgRGlzcGxheQ0KPiBDb250cm9sbGVyIHdpbGwgcmVncmVz
-cy4NCj4gDQo+IFRoZSBvbmx5IHdheSB0byBtYWtlIHRoaXMgcG9zc2libGUgaW4gdHdvIHN0ZXBz
-IGlzIHRvIGR1cGxpY2F0ZQ0KPiBhbGwgb2YgdGhlIHJvdXRlcyBzdHJ1Y3R1cmUgYXJyYXlzIGZv
-ciBhbGwgb2YgdGhlIFNvQ3MsIHdoaWNoDQo+IHdvdWxkIHJlc3VsdCBpbiBhIHRvdGFsIG9mIGFy
-b3VuZCB+MTIwMCBsaW5lcyBjaGFuZ2VkIHR3aWNlLCBhbmQNCj4gdGhhdCBpZ25vcmVzIHRoZSBi
-aWcgaW5jcmVhc2UgaW4gc2l6ZSBmb3IgdGhpcyBkcml2ZXIgZHVyaW5nIHRoZQ0KPiBtaWdyYXRp
-b24gcHJvY2VzcyBzbywgaW4gb3JkZXIgdG8gYXZvaWQgdXNlbGVzcyBibG9hdCwgSSBvcHRlZA0K
-PiBmb3IgYW4gaW50ZXItZGVwZW5kZW5jeSBiZXR3ZWVuIHRoZSB0d28gY2hhbmdlczogbWVkaWF0
-ZWstZHJtDQo+IGFuZCBtdGstbW1zeXMuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbmdlbG9HaW9h
-Y2NoaW5vIERlbCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xsYWJvcmEuY29t
-Pg0KPiAtLS0NCg0KW3NuaXBdDQoNCj4gQEAgLTExNDMsMjUgKzExNTgsMTUgQEAgaW50IG10a19j
-cnRjX2NyZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2RldiwNCj4gIAkJY3J0Y19pKys7DQo+
-ICANCj4gIAlmb3IgKGkgPSAwOyBpIDwgb3V0cHV0X3BhdGhbaV0ubGVuOyBpKyspIHsNCj4gLQkJ
-ZW51bSBtdGtfZGRwX2NvbXBfaWQgY29tcF9pZCA9IG91dHB1dF9wYXRoLT5jb21wW2ldLnR5cGU7
-DQo+IC0JCXN0cnVjdCBkZXZpY2Vfbm9kZSAqbm9kZTsNCj4gKwkJZW51bSBtdGtfZGRwX2NvbXBf
-dHlwZSBjb21wX3R5cGUgPSBvdXRwdXRfcGF0aC0+Y29tcFtpXS50eXBlOw0KPiArCQl1OCBjb21w
-X2luc3QgPSBvdXRwdXRfcGF0aC0+Y29tcFtpXS5pbnN0X2lkOw0KPiAgCQlzdHJ1Y3QgbXRrX2Rk
-cF9jb21wICpjb21wOw0KPiAgDQo+IC0JCW5vZGUgPSBwcml2LT5jb21wX25vZGVbY29tcF9pZF07
-DQo+IC0JCWNvbXAgPSBtdGtfZGRwX2NvbXBfZmluZF9ieV9pZCgmcHJpdi0+aGxpc3QsIGNvbXBf
-aWQpOw0KPiAtDQo+IC0JCS8qIE5vdCBhbGwgZHJtIGNvbXBvbmVudHMgaGF2ZSBhIERUUyBkZXZp
-Y2Ugbm9kZSwgc3VjaCBhcyBvdmxfYWRhcHRvciwNCj4gLQkJICogd2hpY2ggaXMgdGhlIGRybSBi
-cmluZyB1cCBzdWIgZHJpdmVyDQo+IC0JCSAqLw0KPiAtCQlpZiAoIW5vZGUgJiYgY29tcF9pZCAh
-PSBERFBfQ09NUE9ORU5UX0RSTV9PVkxfQURBUFRPUikgew0KPiAtCQkJZGV2X2luZm8oZGV2LA0K
-PiAtCQkJCSJOb3QgY3JlYXRpbmcgY3J0YyAlZCBiZWNhdXNlIGNvbXBvbmVudCAlZCBpcyBkaXNh
-YmxlZCBvciBtaXNzaW5nXG4iLA0KPiAtCQkJCWNydGNfaSwgY29tcF9pZCk7DQo+IC0JCQlyZXR1
-cm4gMDsNCg0KVGhlIG9yaWdpbmFsIGJlaGF2aW9yIGZvciBkaXNhYmxlZCBjb21wb25lbnQgd291
-bGQgcmV0dXJuIDAsIGJ1dCB5b3UgY2hhbmdlIHRoZSBiZWhhdmlvciBoZXJlLg0KSXMgaXMgc2Fm
-ZSBmb3IgbGVnYWN5IFNvQz8NCg0KPiAtCQl9DQo+IC0NCj4gKwkJY29tcCA9IG10a19kZHBfY29t
-cF9maW5kX2J5X2lkKCZwcml2LT5obGlzdCwgY29tcF90eXBlLCBjb21wX2luc3QpOw0KPiAgCQlp
-ZiAoIWNvbXAgfHwgIWNvbXAtPmRldikgew0KPiAtCQkJZGV2X2VycihkZXYsICJDb21wb25lbnQg
-JXBPRiBub3QgaW5pdGlhbGl6ZWRcbiIsIG5vZGUpOw0KPiArCQkJZGV2X2VycihkZXYsDQo+ICsJ
-CQkJIkNSVEMlZDogQ29tcG9uZW50IHR5cGU9JXUgaW5zdD0ldSBub3QgaW5pdGlhbGl6ZWRcbiIs
-DQo+ICsJCQkJY3J0Y19pLCBjb21wX3R5cGUsIGNvbXBfaW5zdCk7DQo+ICAJCQlyZXR1cm4gLUVO
-T0RFVjsNCj4gIAkJfQ0KPiAgCX0NCj4gDQoNCltzbmlwXQ0KDQo+ICBzdGF0aWMgYm9vbCBtdGtf
-ZGRwX2ZpbmRfY29tcF9kZXZfaW5fdGFibGUoY29uc3Qgc3RydWN0IG10a19kcm1fY29tcF9saXN0
-ICpobGlzdCwNCj4gLQkJCQkJICAgY29uc3QgdW5zaWduZWQgaW50IGNvbXBfaWQsDQo+ICsJCQkJ
-CSAgIGNvbnN0IHVuc2lnbmVkIGludCBjb21wX3R5cGUsDQo+ICAJCQkJCSAgIHN0cnVjdCBkZXZp
-Y2UgKmRldikNCj4gIHsNCj4gIAlzdHJ1Y3QgbXRrX2RkcF9jb21wICpkZHBfY29tcDsNCj4gIA0K
-PiAtCWhhc2hfZm9yX2VhY2hfcG9zc2libGUoaGxpc3QtPmRkcF9saXN0LCBkZHBfY29tcCwgbG5v
-ZGUsIGNvbXBfaWQpIHsNCj4gKwloYXNoX2Zvcl9lYWNoX3Bvc3NpYmxlKGhsaXN0LT5kZHBfbGlz
-dCwgZGRwX2NvbXAsIGxub2RlLCBjb21wX3R5cGUpIHsNCg0KWW91IGNoYW5nZSB0aGUgY29tcF9p
-ZCB0byBjb21wX3R5cGUuDQpJZiB0aGUgY29ycmVjdCBtYXRjaCBpcyBEUEkwLCBhZnRlciB0aGlz
-IHBhdGNoLCB0aGUgRFBJMSB3b3VsZCBtYXRjaD8NCg0KPiAgCQlpZiAoZGRwX2NvbXAtPmRldiA9
-PSBkZXYpDQo+ICAJCQlyZXR1cm4gdHJ1ZTsNCj4gIAl9DQo+IA0KDQpbc25pcF0NCg0KPiAgaW50
-IG10a19kZHBfY29tcF9nZXRfaWQoc3RydWN0IGRldmljZV9ub2RlICpub2RlLA0KPiAgCQkJZW51
-bSBtdGtfZGRwX2NvbXBfdHlwZSBjb21wX3R5cGUpDQo+ICB7DQo+IC0JaW50IGlkID0gb2ZfYWxp
-YXNfZ2V0X2lkKG5vZGUsIG10a19kZHBfY29tcF9zdGVtW2NvbXBfdHlwZV0pOw0KPiAtCWludCBp
-Ow0KPiAtDQo+IC0JZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUobXRrX2RkcF9tYXRjaGVzKTsg
-aSsrKSB7DQo+IC0JCWlmIChjb21wX3R5cGUgPT0gbXRrX2RkcF9tYXRjaGVzW2ldLnR5cGUgJiYN
-Cj4gLQkJICAgIChpZCA8IDAgfHwgaWQgPT0gbXRrX2RkcF9tYXRjaGVzW2ldLmFsaWFzX2lkKSkN
-Cj4gLQkJCXJldHVybiBpOw0KPiArCS8qIElmIHRoZXJlJ3MgYW4gYWxpYXMsIHJldHVybiB0aGUg
-SUQgZnJvbSB0aGF0ICovDQo+ICsJaWYgKG10a19kZHBfY29tcF9zdGVtW2NvbXBfdHlwZV0pIHsN
-Cj4gKwkJaW50IGFsaWFzX2lkID0gb2ZfYWxpYXNfZ2V0X2lkKG5vZGUsIG10a19kZHBfY29tcF9z
-dGVtW2NvbXBfdHlwZV0pOw0KPiArCQlpZiAoYWxpYXNfaWQgPj0gMCkNCj4gKwkJCXJldHVybiBh
-bGlhc19pZDsNCj4gIAl9DQo+ICANCj4gLQlyZXR1cm4gLUVJTlZBTDsNCj4gKwlyZXR1cm4gMDsN
-Cg0KMCBpcyB2YWxpZCBpZCBzbyB0aGlzIGZ1bmN0aW9uIHdvdWxkIG5vdCByZXR1cm4gZXJyb3Iu
-DQpZb3UgY2hhbmdlIHRoaXMgYmVoYXZpb3IsIHNvIEkgd291bGQgbGlrZSBzb21lIGV4cGxhaW4u
-DQoNCj4gIH0NCj4gIA0KPiAgaW50IG10a19maW5kX3Bvc3NpYmxlX2NydGNzKHN0cnVjdCBkcm1f
-ZGV2aWNlICpkcm0sIHN0cnVjdCBkZXZpY2UgKmRldikNCj4gDQoNCltzbmlwXQ0KDQo+IEBAIC0x
-Niw2ICsxNiw3IEBADQo+ICAjaW5jbHVkZSA8ZHJtL2RybV9tb2Rlcy5oPg0KPiAgDQo+ICAjZGVm
-aW5lIE1US19ESVNQX0NPTlRST0xMRVJfTUFYX0NPTVBfUEVSX1BBVEgJCTI0DQo+ICsjZGVmaW5l
-IE1US19ESVNQX0NPTlRST0xMRVJfTUFYX0hXX0NPTVBfSU5TVEFOQ0UJMzINCg0KTVRLX0RJU1Bf
-Q09OVFJPTExFUl9NQVhfSFdfQ09NUF9JTlNUQU5DRSBpcyB1c2VsZXNzLCBzbyBkcm9wIGl0Lg0K
-DQo+ICANCj4gIHN0cnVjdCBkZXZpY2U7DQo+ICBzdHJ1Y3QgZGV2aWNlX25vZGU7DQo+IA0KDQpb
-c25pcF0NCg0KPiBAQCAtOTI0LDE4ICs5MjgsMTYgQEAgc3RhdGljIGludCBtdGtfZHJtX3Byb2Jl
-KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ICAJCQljb250aW51ZTsNCj4gIAkJfQ0K
-PiAgDQo+IC0JCWNvbXBfaWQgPSBtdGtfZGRwX2NvbXBfZ2V0X2lkKG5vZGUsIGNvbXBfdHlwZSk7
-DQo+IC0JCWlmIChjb21wX2lkIDwgMCkgew0KPiArCQljb21wX2luc3RfaWQgPSBtdGtfZGRwX2Nv
-bXBfZ2V0X2lkKG5vZGUsIGNvbXBfdHlwZSk7DQo+ICsJCWlmIChjb21wX2luc3RfaWQgPCAwKSB7
-DQoNCmNvbXBfaW5zdF9pZCBpcyB1OCwgc28gdGhpcyB3b3VsZCBuZXZlciBoYXBwZW4uDQoNClJl
-Z2FyZHMsDQpDSw0KDQo+ICAJCQlkZXZfd2FybihkZXYsICJTa2lwcGluZyB1bmtub3duIGNvbXBv
-bmVudCAlcE9GXG4iLA0KPiAgCQkJCSBub2RlKTsNCj4gIAkJCWNvbnRpbnVlOw0KPiAgCQl9DQo+
-ICANCj4gLQkJaWYgKCFtdGtfZHJtX2ZpbmRfbW1zeXNfY29tcChwcml2YXRlLCBjb21wX2lkKSkN
-Cj4gKwkJaWYgKCFtdGtfZHJtX2ZpbmRfbW1zeXNfY29tcChwcml2YXRlLCBjb21wX3R5cGUsIGNv
-bXBfaW5zdF9pZCkpDQo+ICAJCQljb250aW51ZTsNCj4gIA0KPiAtCQlwcml2YXRlLT5jb21wX25v
-ZGVbY29tcF9pZF0gPSBvZl9ub2RlX2dldChub2RlKTsNCj4gLQ0KPiAgCQkvKg0KPiAgCQkgKiBD
-dXJyZW50bHkgb25seSB0aGUgQUFMLCBDQ09SUiwgQ09MT1IsIEdBTU1BLCBNRVJHRSwgT1ZMLCBS
-RE1BLCBEU0ksIGFuZCBEUEkNCj4gIAkJICogYmxvY2tzIGhhdmUgc2VwYXJhdGUgY29tcG9uZW50
-IHBsYXRmb3JtIGRyaXZlcnMgYW5kIGluaXRpYWxpemUgdGhlaXIgb3duDQo+IA0KDQoNCg==
+On Fri, Nov 6, 2026 at 7:31=E2=80=AFAM Operating System's Depression
+<operatingsystemsdepression@gmail.com> wrote:
+>
+> Hi,
+
+Hi Gabriel,
+
+>
+> Following up on my SGX535 render architecture RFC.
+>
+> Since the original RFC, the experimental implementation has demonstrated =
+physical Gallium/NIR scene submission, GPU command completion and retiremen=
+t, and successful COLOR/Z24 readback on PowerVR SGX535 (GMA500) hardware
+>
+> These results have been validated on an Intel Poulsbo GMA500 system runni=
+ng a Linux 5.10-based kernel. I'm currently looking for a lightweight Linux=
+ distribution with a recent kernel to begin testing against newer kernel ve=
+rsions
+>
+> I'm currently planning a modular architecture, with clearly separated res=
+ponsibilities for GPU memory management and MMU mappings, GEM buffer owners=
+hip and lifetime management, GPU command submission and execution, completi=
+on fences and synchronization, and timeout handling, error recovery, and de=
+vice removal.
+>
+> My current preference is to integrate SGX535 rendering within the existin=
+g drm/gma500 driver, rather than introduce a completely separate DRM driver=
+.
+>
+> The intention is to preserve the existing display infrastructure while ad=
+ding rendering capabilities through modular components that can be reviewed=
+ and maintained independently.
+>
+> However, this is still a proposed direction, and I'm open to a separate D=
+RM render driver if the maintainers consider that a better architectural fi=
+t.
+>
+> Before proceeding with the initial patch series, I'd appreciate feedback =
+on three architectural questions:
+>
+> 1- Should SGX535 rendering remain within drm/gma500, sharing display-devi=
+ce ownership, or would a separate DRM render driver be preferable?
+
+If you only plan on targeting gma500 hardware then I'd suggest you
+keep the SGX535 code in the gma500 driver. If you plan to target other
+devices it might be better to separate them.
+
+>
+> 2- What would be the preferred ownership model for GPU MMU mappings, GEM =
+buffer lifetimes, and completion fences, particularly when coordinating ren=
+dering with the existing display infrastructure?
+
+IIRC, the old implementation of the MMU mapped the GTT and MMU
+identically. This might not be desirable depending on what the MMU is
+capable of, but I suppose you will need to figure that out during the
+reverse engineering.
+
+>
+> 3- What is the minimum acceptable recovery contract for GPU submission fa=
+ilures, timeouts, suspend/resume, and device removal?
+
+Preferably suspend/resume, GPU reset and device removal should work,
+but unrecoverable GPU hangs do happen and old hardware like SGX535
+might not behave as well as we would like. I wouldn't worry too much
+about this now.
+
+>
+> The overall implementation remains experimental. However, parts of the ke=
+rnel-side infrastructure may already be suitable for an initial RFC patch, =
+subject to architectural review
+>
+> I'm considering submitting a small initial RFC patch within the next few =
+days, focusing on foundational infrastructure and architectural integration=
+ rather than submitting the entire experimental implementation at once
+
+Sure, I prefer you "submit early and often" rather than spending too
+much time on something that is fundamentally wrong to begin with.
+
+>
+> My goal is to keep the initial changes small, reviewable, and compatible =
+with the existing gma500 driver, while establishing a foundation for subseq=
+uent SGX535 rendering support
+>
+> I'd appreciate any early feedback on the proposed architecture, particula=
+rly regarding driver ownership and the preferred upstream integration path =
+:D
+
+I'm assuming much of this is AI generated so please be brief with
+explanations and commit messages. I often get very long descriptions
+from AI submissions and I usually end up not reading it just because
+of that.
+
+Also, we probably need to update the KMS code for the gma500 driver.
+It's fairly ancient and could certainly need things like atomic
+modesetting. I can have a look at that.
+
+Patrik
+
+>
+> Thanks!
+>
+>
+> Em dom., 1 de nov. de 2026 17:13, Operating System's Depression <operatin=
+gsystemsdepression@gmail.com> escreveu:
+>>
+>> Resending after subscribing to dri-devel, as I could not confirm whether=
+ my original message reached the list. Apologies if this is a duplicate.
+>>
+>> Hello Patrik and DRM developers,
+>>
+>> I'm developing SGX535-reMESA, an independent Mesa/Gallium rendering path=
+ for Intel Poulsbo/GMA 500. Before designing a production submission UAPI, =
+I'd appreciate advice on the ownership and lifetime model alongside existin=
+g gma500 display support. My intention is to preserve the existing display =
+functionality while exploring render support under appropriate shared-devic=
+e ownership.
+>>
+>> This is an architecture discussion, with no patch series or request to m=
+erge the experimental interfaces.
+>>
+>> The test machine is a Dell Inspiron Mini 12, Atom Z520, PCI 8086:8108, S=
+GX535 core 0x01130000/revision 0x00010201. Kernel work currently targets an=
+tiX 5.10.240-antix.1-486-smp on 32-bit x86; it has not been ported or quali=
+fied against current mainline.
+>>
+>> There is physical evidence for a restricted 1280x800 600-frame/600-submi=
+ssion glxgears run, isolated native 2D copy/fill, and bounded fixed-profile=
+ private-MMU jobs. These results do not qualify the general renderer.
+>>
+>> Recent experimental runs have also exercised the general-scene submissio=
+n path on physical hardware. Completion was observed, but COLOR/Z readbacks=
+ did not establish correct rendered output. General-scene execution remains=
+ unqualified.
+>>
+>> Gallium frontend integration and shared COLOR/Z fence handling have pass=
+ed selected offline tests. Physical qualification of the integrated path is=
+ still pending. Whole-desktop acceleration, GLES 2.0, desktop OpenGL 2.1 an=
+d an installable driver remain goals.
+>>
+>> The experimental design is deliberately serialized:
+>>
+>> * GEM-backed objects are held by jobs with generation-checked private ID=
+s. A private GPU page directory maps retained backing with narrowed access;=
+ CPU-only storage is excluded. Mapping/control pages and backing lifetimes =
+remain held until a verified release, or are quarantined on uncertainty.
+>>
+>> * Native 2D, rendering and IRQ attribution share device exclusion. The e=
+xisting fixed-profile executor holds an endpoint mutex and the MMU writer s=
+emaphore across root binding, issue, completion, CPU visibility, default-ro=
+ot restoration and source closure. It does not yet implement a production a=
+synchronous queue or a complete dma_fence/dma_resv/syncobj contract.
+>>
+>> * Failure does not fabricate completion or root restoration. Unplug guar=
+ds revoke admission, while uncertain GPU state prevents unsafe reclamation =
+or rebinding. This is not proof that SGX DMA has stopped. PCI save/restore =
+and power-management admission checks do not establish reset, suspend or ru=
+ntime-PM safety.
+>>
+>> My questions, in priority order:
+>>
+>> 1. Device ownership and gma500 integration
+>>
+>> Would extending the existing gma500 DRM device be the preferred starting=
+ point for SGX535 render support, given the shared PCI function, GEM/GTT/MM=
+U resources, IRQ handling and power state?
+>>
+>> I intend to preserve existing display support rather than introduce a co=
+mpeting PCI driver. What separation between display and render components w=
+ould you recommend before proposing a render node or submission UAPI?
+>>
+>> 2. GEM, MMU and synchronization
+>>
+>> For an initially single-job design, should job-held GEM references, expl=
+icit per-job GPU mappings and one global exclusion domain be the baseline, =
+with dma_resv fences for object hazards and CPU access?
+>>
+>> Which current DRM helpers or small driver would you recommend as a model=
+?
+>>
+>> I want root switching and cache publication to have explicit ownership w=
+ithout treating the current private IDs or synchronous ioctl as ABI.
+>>
+>> 3. Failure handling, removal and suspend
+>>
+>> Without a demonstrated SGX reset/stop sequence, is a terminal wedged sta=
+te with retained backing a reasonable development policy?
+>>
+>> What stop/isolation proof must removal provide before translations can b=
+e reclaimed, and how should active hardware detach be separated from later =
+GEM destruction?
+>>
+>> In particular, old file/VMA/fault callbacks must not touch MMIO/GTT or P=
+M state after unplug or a later rebind.
+>>
+>> Should suspend be refused while work/root state is uncertain until that =
+same stop-and-restore contract is demonstrated?
+>>
+>> 4. Upstream development sequence
+>>
+>> Which current DRM tree should host the first reviewable work: small gma5=
+00 lifetime/admission fixes first, then submission/synchronization together=
+ with real open Mesa userspace?
+>>
+>> I intend to forward-port and use current GEM/PM APIs rather than propose=
+ a cross-version abstraction around this 5.10 experiment.
+>>
+>> Are there specific gma500 constraints that should change that order, esp=
+ecially before enabling runtime PM?
+>>
+>> Project and public evidence index:
+>> https://github.com/reMESA-devgroup/SGX535-reMESA
+>>
+>> The current development snapshot includes local, unpublished changes; th=
+e public repository alone does not reproduce the latest experimental kernel=
+ or physical runs.
+>>
+>> The relevant source areas are kernel/remesa/gma500/ (remesa_gem_private_=
+execute.inc, remesa_mmu_private.inc, remesa_mmu_switch.inc and the private =
+lifetime/power guards), integrated for the experiment by tools/remesa/stage=
+_twod_reservation.py.
+>>
+>> Source staging is a build aid, not the proposed upstream patch format.
+>>
+>> I understand that a future DRM UAPI needs corresponding real open-source=
+ userspace, including error handling, reviewed for a suitable upstream proj=
+ect.
+>>
+>> I can follow up with a small current-kernel diff and a focused lifetime/=
+state-transition description once the integration direction is clear.
+>>
+>> Feedback on the ownership boundary or the most useful first diff would b=
+e particularly helpful.
+>>
+>> Thanks,
+>> Gabriel Gama
+>> operatingsystemsdepression@gmail.com
