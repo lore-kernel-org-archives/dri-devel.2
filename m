@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C2D606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37553606A330
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 13:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYtohhFS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0C7nzaR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB3410EA08;
-	Fri,  6 Nov 2026 13:15:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 707B310EA04;
+	Fri,  6 Nov 2026 13:15:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3E810E4FE
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E77D210EA04
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 13:15:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D92C42488;
- Fri,  6 Nov 2026 13:15:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872AA1F0089F;
- Fri,  6 Nov 2026 13:15:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CF377406BE;
+ Fri,  6 Nov 2026 13:15:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336E01F008A4;
+ Fri,  6 Nov 2026 13:15:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793970904;
- bh=Tzzi+q72iXHiFsz8ENn2h2L3JLnJA5jqNgcq6rFSyUw=;
+ s=k20260515; t=1793970907;
+ bh=0EMevcFm+gDuAewio/JYQvwY17McfQzXKCyL+WsU+EA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=TYtohhFS9VJPX+Pm1oyiHU7RsiPopwWByBZYe+zkgrKoyUXDXn+XW8rC82JCmdN4F
- vd69Jl/eVueyFuQR3m2HfT6qNCIOons8/6K0mQgTLsYVqRZcz53tT6XaCjcJbryvkS
- jblE2PKYvLxp6uCwU3PiZcjVGPX95RCOMKjKpbkBziwsImvQgJ/DbicmCu6FOt6c9h
- /16UG9TAiBfkUAPN+tLW8LadO92HFdb2EvhbGsmJ87/sTdUliVRTU36eB66KqvvHvX
- g/HEZsiR4QnT9UizMU44Tb6ZOdtQva+AW/Ik8JRdc6n+/8bXRsr/LQ7KXrTHp2d9gW
- Uj3L4yBpnKJmw==
+ b=U0C7nzaRDwsOf1ZvB9Zxhh098rmRzRT1qkG9+zvaj3S3xWHinMlDc9d6GFE4BPJ4P
+ fg8DbFqQWH4E54GPZ/Vmv2yBMJTLIKakS/R9yzGu2nhG2XDP1FTJ2agLLmQXZasP9W
+ 1Sup3yMWY4UIGi9RmamRbaLXbb1sw76w5YD+kHgF9MkCF+q7Eb9qWEh+pWaTBtaymQ
+ Sq74yJrjwmUTO0GAIXuiUUfaskIbio7lda8Xh1pu7xfq21kvliyPEmNhJ5rjX1f6+r
+ XE2sMvrywQTvFFYDHOMSMab7S2R2aqW6KwTByhZCKycVpYdoawD8fId3cUm2VsfPdd
+ wn8/54pocLOCA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 14:14:19 +0100
-Subject: [PATCH v8 06/39] drm/atomic: Fix private obj error handling
+Date: Fri, 06 Nov 2026 14:14:20 +0100
+Subject: [PATCH v8 07/39] drm/atomic: Add drm_private_obj name
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-state-readout-v8-6-cbe78624e1bc@kernel.org>
+Message-Id: <20261106-drm-state-readout-v8-7-cbe78624e1bc@kernel.org>
 References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 In-Reply-To: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -46,15 +46,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2525; i=mripard@kernel.org;
- h=from:subject:message-id; bh=F2D3zpePnzO3XHf2BSurzq6EE6ySG8V0m2MGQaeHwvU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL62XPRw2u/zRIrfYF3HTuyZFvGfdMK0q3OHs3tlOJ
- 32b3nq3dExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJzLvK2DDjp5P9wsCp1W1d
- PtJr5+35NrlULLYr6TXDXbfg42xnfbNa8r2Pf83tUJtb1rdF6465F2OtBOuM/Hk1918pc87zYLo
- mvkdm51m+xQeNQxqjEt57yqX7HJqd4sBgLftv+m1L4Z87dqQBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14623; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=+7O0nf2PHitES+7nznOX1d6VdKKtjxmsJp6dWkPu4FE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlvL23wOrLrn+3rJwXWjxjDHUK27nlbaqwWwb6WZ+4DK
+ 83GDjPtjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjAR0cOMDev5l/Om33P5r/Ba
+ R1DCWvB98sv49V61utlmG/Q47FbO2NnA2VF3SGh5LaNCSO3z+nuhjPXx27UNuCW0eg6UdR9+wB2
+ 9XaqcgcdC1+zDiiMz5qdUtHSF3l7hWnivZ8bSX1c+5KknPwAA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,81 +74,373 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_private_obj_init() initializes the modeset lock and adds the
-object to the privobj_list before calling atomic_create_state().
+drm_private_obj does not carry a human-readable name, which makes
+debug messages hard to interpret when multiple private objects are
+registered on the same device.
 
-However, if atomic_create_state() fails, the function returns the error
-directly without removing the object from the list or cleaning up the
-lock. This leaves a dangling entry in privobj_list and a leaked lock.
+Add a name field to drm_private_obj, passed through
+drm_atomic_private_obj_init() and freed in
+drm_atomic_private_obj_fini(). Update the existing callers to pass a
+name.
 
-Fix this by unwinding both operations in an error path.
-
-Fixes: b962a12050a3 ("drm/atomic: integrate modeset lock with private objects")
-Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    |  8 ++++
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |  2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c            | 21 ++++++++++-
+ drivers/gpu/drm/drm_atomic.c                       | 43 ++++++++++++++++++++++
+ drivers/gpu/drm/drm_bridge.c                       | 10 ++++-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  1 +
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 +
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |  1 +
+ drivers/gpu/drm/tegra/hub.c                        |  1 +
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  3 ++
+ include/drm/drm_atomic.h                           | 10 +++++
+ include/drm/drm_bridge.h                           |  2 +
+ 15 files changed, 103 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0ea45ab12119..a92c58efe21a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2302,4 +2302,5 @@ STATIC_IFN_KUNIT int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+ 	drm_atomic_private_obj_init(adev_to_drm(adev),
+ 				    &adev->dm.atomic_obj,
++				    "amdgpu_dc_state",
+ 				    &dm_atomic_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
+index 77b3f361091f..8a3c9fcf3844 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
+@@ -67,4 +67,5 @@ static int komeda_layer_obj_add(struct komeda_kms_dev *kms,
+ {
+ 	drm_atomic_private_obj_init(&kms->base, &layer->base.obj,
++				    "komeda_layer",
+ 				    &komeda_layer_obj_funcs);
+ 	return 0;
+@@ -120,4 +121,5 @@ static int komeda_scaler_obj_add(struct komeda_kms_dev *kms,
+ 	drm_atomic_private_obj_init(&kms->base,
+ 				    &scaler->base.obj,
++				    "komeda_scaler",
+ 				    &komeda_scaler_obj_funcs);
+ 	return 0;
+@@ -172,4 +174,5 @@ static int komeda_compiz_obj_add(struct komeda_kms_dev *kms,
+ {
+ 	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj,
++				    "komeda_compiz",
+ 				    &komeda_compiz_obj_funcs);
+ 
+@@ -226,4 +229,5 @@ static int komeda_splitter_obj_add(struct komeda_kms_dev *kms,
+ 	drm_atomic_private_obj_init(&kms->base,
+ 				    &splitter->base.obj,
++				    "komeda_splitter",
+ 				    &komeda_splitter_obj_funcs);
+ 
+@@ -279,4 +283,5 @@ static int komeda_merger_obj_add(struct komeda_kms_dev *kms,
+ 	drm_atomic_private_obj_init(&kms->base,
+ 				    &merger->base.obj,
++				    "komeda_merger",
+ 				    &komeda_merger_obj_funcs);
+ 
+@@ -332,4 +337,5 @@ static int komeda_improc_obj_add(struct komeda_kms_dev *kms,
+ {
+ 	drm_atomic_private_obj_init(&kms->base, &improc->base.obj,
++				    "komeda_improc",
+ 				    &komeda_improc_obj_funcs);
+ 
+@@ -385,4 +391,5 @@ static int komeda_timing_ctrlr_obj_add(struct komeda_kms_dev *kms,
+ {
+ 	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj,
++				    "komeda_timing_ctrlr",
+ 				    &komeda_timing_ctrlr_obj_funcs);
+ 
+@@ -439,4 +446,5 @@ static int komeda_pipeline_obj_add(struct komeda_kms_dev *kms,
+ {
+ 	drm_atomic_private_obj_init(&kms->base, &pipe->obj,
++				    "komeda_pipeline",
+ 				    &komeda_pipeline_obj_funcs);
+ 
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index b7fce0bf8acc..c7c3f6b0cf76 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5775,5 +5775,5 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 	mgr->conn_base_id = conn_base_id;
+ 
+-	drm_atomic_private_obj_init(dev, &mgr->base,
++	drm_atomic_private_obj_init(dev, &mgr->base, "drm_dp_mst_topology",
+ 				    &drm_dp_mst_topology_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
+index d29ad4116e64..5f30f82b2ebb 100644
+--- a/drivers/gpu/drm/display/drm_dp_tunnel.c
++++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
+@@ -390,4 +390,12 @@ lookup_or_alloc_group(struct drm_dp_tunnel_mgr *mgr, u8 drv_group_id)
+ 		 tunnel_group_id(drv_group_id) & ((1 << DP_USB4_DRIVER_ID_BITS) - 1));
+ 
++	/*
++	 * The private object was named after the group index when it
++	 * was initialized, since the group identifier wasn't known
++	 * yet. Refresh it now that we have one. The name is only used
++	 * for debug messages, so ignore any allocation failure.
++	 */
++	drm_atomic_private_obj_set_name(&group->base, group->name);
++
+ 	return group;
+ }
+@@ -1728,9 +1736,20 @@ EXPORT_SYMBOL(drm_dp_tunnel_atomic_get_new_state);
+ static bool init_group(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_tunnel_group *group)
+ {
++	char name[32];
++
+ 	group->mgr = mgr;
+ 	group->available_bw = -1;
+ 	INIT_LIST_HEAD(&group->tunnels);
+ 
+-	drm_atomic_private_obj_init(mgr->dev, &group->base,
++	/*
++	 * The group identifier, and thus the group name, is only known
++	 * once a tunnel has been added to the group. Name the private
++	 * object after the group index until then,
++	 * lookup_or_alloc_group() will refresh it.
++	 */
++	snprintf(name, sizeof(name), "dp-tunnel-group-%d",
++		 (int)(group - mgr->groups));
++
++	drm_atomic_private_obj_init(mgr->dev, &group->base, name,
+ 				    &tunnel_group_funcs);
+ 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..a1f18fc96b4c 100644
+index a1f18fc96b4c..63647dd3204f 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1063,6 +1063,15 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
+@@ -1049,4 +1049,5 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
+  * @dev: DRM device this object will be attached to
+  * @obj: private object
++ * @name: human-readable name for debug messages
+  * @funcs: pointer to the struct of function pointers that identify the object
+  * type
+@@ -1060,4 +1061,5 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
+ int drm_atomic_private_obj_init(struct drm_device *dev,
+ 				struct drm_private_obj *obj,
++				const char *name,
+ 				const struct drm_private_state_funcs *funcs)
  {
- 	struct drm_private_state *state;
-+	int ret;
-+
- 	memset(obj, 0, sizeof(*obj));
- 
-+	/*
-+	 * Keep the list node in a state drm_atomic_private_obj_fini()
-+	 * can safely handle if we fail before adding it to the private
-+	 * objects list.
-+	 */
-+	INIT_LIST_HEAD(&obj->head);
-+
- 	drm_modeset_lock_init(&obj->lock);
- 
-@@ -1072,10 +1081,17 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
- 
- 	state = obj->funcs->atomic_create_state(obj);
--	if (IS_ERR(state))
--		return PTR_ERR(state);
-+	if (IS_ERR(state)) {
-+		ret = PTR_ERR(state);
-+		goto err_list_del;
+@@ -1078,4 +1080,10 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
+ 	obj->dev = dev;
+ 	obj->funcs = funcs;
++	obj->name = kstrdup(name, GFP_KERNEL);
++	if (!obj->name) {
++		ret = -ENOMEM;
++		goto err_lock_fini;
 +	}
- 
- 	obj->state = state;
- 
- 	return 0;
 +
-+err_list_del:
-+	list_del_init(&obj->head);
-+	drm_modeset_lock_fini(&obj->lock);
-+	return ret;
- }
- EXPORT_SYMBOL(drm_atomic_private_obj_init);
-@@ -1090,5 +1106,16 @@ void
- drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- {
--	list_del(&obj->head);
-+	/*
-+	 * Some callers ignore drm_atomic_private_obj_init() failures
-+	 * and unconditionally register a teardown action that calls
-+	 * this function. Use list_del_init() rather than list_del() so
-+	 * that calling drm_atomic_private_obj_fini() twice, after both
-+	 * a failed and a successful drm_atomic_private_obj_init(),
-+	 * remains safe.
-+	 */
-+	if (list_empty(&obj->head))
-+		return;
-+
-+	list_del_init(&obj->head);
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
+ 	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
+ 
+@@ -1092,4 +1100,7 @@ int drm_atomic_private_obj_init(struct drm_device *dev,
+ err_list_del:
+ 	list_del_init(&obj->head);
++	kfree(obj->name);
++	obj->name = NULL;
++err_lock_fini:
  	drm_modeset_lock_fini(&obj->lock);
+ 	return ret;
+@@ -1119,4 +1130,5 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
+ 	list_del_init(&obj->head);
+ 	obj->funcs->atomic_destroy_state(obj, obj->state);
++	kfree(obj->name);
+ 	drm_modeset_lock_fini(&obj->lock);
+ }
+@@ -1152,4 +1164,35 @@ static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *com
+ }
+ 
++/**
++ * drm_atomic_private_obj_set_name - update the name of a private object
++ * @obj: private object
++ * @name: new human-readable name for debug messages
++ *
++ * Replaces the name of @obj previously set at
++ * drm_atomic_private_obj_init() time. This is meant for callers that
++ * only get a meaningful name well after the object has been
++ * initialized.
++ *
++ * RETURNS:
++ * Zero on success, a negative error code on allocation failure. The
++ * name is only used for debug messages, so callers can safely ignore
++ * the return value.
++ */
++int drm_atomic_private_obj_set_name(struct drm_private_obj *obj,
++				    const char *name)
++{
++	char *new_name;
++
++	new_name = kstrdup(name, GFP_KERNEL);
++	if (!new_name)
++		return -ENOMEM;
++
++	kfree(obj->name);
++	obj->name = new_name;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_atomic_private_obj_set_name);
++
+ /**
+  * drm_atomic_get_private_obj_state - get private object state
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8ae2f9b1db44..11aaa4ae5102 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -319,4 +319,5 @@ static void __drm_bridge_free(struct kref *kref)
+ 	drm_bridge_put(bridge->next_bridge);
+ 
++	kfree(bridge->name);
+ 	kfree(bridge->container);
+ }
+@@ -420,4 +421,11 @@ void *__devm_drm_bridge_alloc(struct device *dev, size_t size, size_t offset,
+ 
+ 	bridge = container + offset;
++
++	bridge->name = kasprintf(GFP_KERNEL, "bridge-%s", dev_name(dev));
++	if (!bridge->name) {
++		kfree(container);
++		return ERR_PTR(-ENOMEM);
++	}
++
+ 	INIT_LIST_HEAD(&bridge->list);
+ 	bridge->container = container;
+@@ -655,5 +663,5 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+ 	}
+ 
+-	drm_atomic_private_obj_init(bridge->dev, &bridge->base,
++	drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
+ 				    &drm_bridge_priv_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 8cad8dcfae60..ea24c8666191 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -1412,4 +1412,5 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 	drm_atomic_private_obj_init(drm, &priv->private_obj,
++				    "ingenic_drm",
+ 				    &ingenic_drm_private_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/ingenic/ingenic-ipu.c
+index bf24882e8d9f..795f6db5ce59 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
++++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
+@@ -903,4 +903,5 @@ static int ingenic_ipu_bind(struct device *dev, struct device *master, void *d)
+ 
+ 	drm_atomic_private_obj_init(drm, &ipu->private_obj,
++				    "ingenic_ipu_state",
+ 				    &ingenic_ipu_private_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index da3556eb6ecc..fb3a0c847a9e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1156,4 +1156,5 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 
+ 	drm_atomic_private_obj_init(dpu_kms->dev, &dpu_kms->global_state,
++				    "dpu_kms_global_state",
+ 				    &dpu_kms_global_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 3934cd060b27..b53f59f25fb0 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -713,4 +713,5 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 
+ 	drm_atomic_private_obj_init(mdp5_kms->dev, &mdp5_kms->glob_state,
++				    "mdp5_global_state",
+ 				    &mdp5_global_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
+index db216c888a8f..3f66cd66443f 100644
+--- a/drivers/gpu/drm/omapdrm/omap_drv.c
++++ b/drivers/gpu/drm/omapdrm/omap_drv.c
+@@ -300,4 +300,5 @@ static int omap_global_obj_init(struct drm_device *dev)
+ 
+ 	drm_atomic_private_obj_init(dev, &priv->glob_obj,
++				    "omap_global",
+ 				    &omap_global_state_funcs);
+ 	return 0;
+diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
+index 448f49f3a7d7..854b671dfec8 100644
+--- a/drivers/gpu/drm/tegra/hub.c
++++ b/drivers/gpu/drm/tegra/hub.c
+@@ -961,4 +961,5 @@ static int tegra_display_hub_init(struct host1x_client *client)
+ 
+ 	drm_atomic_private_obj_init(drm, &hub->base,
++				    "tegra_display_hub",
+ 				    &tegra_display_hub_state_funcs);
+ 
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index ab551eb2da50..e43d59cff4df 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -118,4 +118,5 @@ static int vc4_ctm_obj_init(struct vc4_dev *vc4)
+ 
+ 	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
++				    "vc4_ctm",
+ 				    &vc4_ctm_state_funcs);
+ 
+@@ -758,4 +759,5 @@ static int vc4_load_tracker_obj_init(struct vc4_dev *vc4)
+ {
+ 	drm_atomic_private_obj_init(&vc4->base, &vc4->load_tracker,
++				    "vc4_load_tracker",
+ 				    &vc4_load_tracker_state_funcs);
+ 
+@@ -849,4 +851,5 @@ static int vc4_hvs_channels_obj_init(struct vc4_dev *vc4)
+ {
+ 	drm_atomic_private_obj_init(&vc4->base, &vc4->hvs_channels,
++				    "vc4_hvs_channels",
+ 				    &vc4_hvs_state_funcs);
+ 
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 3ae35b09c0cf..f55c7a1371ae 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -376,4 +376,9 @@ struct drm_private_obj {
+ 	struct drm_device *dev;
+ 
++	/**
++	 * @name: human-readable name for debug messages
++	 */
++	const char *name;
++
+ 	/**
+ 	 * @head: List entry used to attach a private object to a &drm_device
+@@ -758,7 +763,12 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ int drm_atomic_private_obj_init(struct drm_device *dev,
+ 				struct drm_private_obj *obj,
++				const char *name,
+ 				const struct drm_private_state_funcs *funcs);
++
+ void drm_atomic_private_obj_fini(struct drm_private_obj *obj);
+ 
++int drm_atomic_private_obj_set_name(struct drm_private_obj *obj,
++				    const char *name);
++
+ struct drm_private_state * __must_check
+ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 1981d24a700d..54cf0d223bba 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1032,4 +1032,6 @@ struct drm_bridge {
+ 	/** @dev: DRM device this bridge belongs to */
+ 	struct drm_device *dev;
++	/** @name: human-readable name for debug messages */
++	const char *name;
+ 	/** @encoder: encoder to which this bridge is connected */
+ 	struct drm_encoder *encoder;
 
 -- 
 2.55.0
