@@ -2,92 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD03606D81C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 12:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8F3606D82B
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 12:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o9rmqepd;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=qS28xxyN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uh7Wk2ah
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82000112D19;
-	Fri,  6 Nov 2026 12:08:42 +0000 (UTC)
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34848112D19
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 12:08:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793966901; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=JDAPGUGRPdUSvJn4Wu8v0f1eTCPjRVx2NF6ILteEuirA9XncE3YverJYaLCxiZCysp
- 32mAUqyi7VPMeiEvulp38kOKprTPOGwXfsQxvf5K17qlZ923Uo0hehkalFYDrb8b6YTk
- ecnI8J5jYhfuLLg1yKC4mrXTn3PJT7nG8VhPwMcDKP2vjGNt4wIRiQwmkGTkIzU3ynOy
- X3itaWFFY4+IvKbUqYn8EK/Xghl23VW24Ud2ZOBU4vhikXLy92ppq7EtnF5L0B/YfBaj
- 9yeEQM1ylOY3cUG/v49cLodxlNIHzlsZW0MYbDfD/hcsbs2DzN2CaTxJhdUWCZJ0MLMa
- R9zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
- b=lNGqd9gz1manGZIRqWmVtVCwxatG0vUQWNVJqKdx5KuHf9Gg2UAN8xkP4kSjPLfS6C
- VIXfFuiebt4U6UoytOV7e8+/X4JRAp1hojpCW5rtD7xUqsNEIueaiSUzDwERWSPp08Pp
- i4JYqffktuPZ/Nn+D+GHRW6gi0pQldlW+bPeS4XsvEoJkVz2So1F2RVnsmuy02KCr4vr
- XtP7JXQiKBZcvbY5wgoYDhAQvkW5ezHEbdPXgbZC0A0G3FWCFEx0TtL/GUe4uu5nR2KY
- 5XsglSPH2NTYWtI6Brpw0vhH0IKJtjZpEVdVC++v4TruF/pylSw+MdTrn8K8vsEjGnyO
- gbrA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
- b=o9rmqepdfAPTt8aI0tMoKKkAJ6J2ZVGfy7Nhbyx0MZAgWIwN/Y69GeDXez64nSlhTJ
- WIU+Nd2Gh5Ipjtganfk1jOQq1OwR3f0OkrnnHdbWSgQHcfHQo46eBAqyqod4ZeEKrzsI
- mD1Nbr/AjwL3nAEaAUT8SVbYmFSqYE0fep2nJ3RFkZZ0jY3RIHGKIfxvbJfuS2O0Y92o
- HDBcmMRcaFFc3e73OZ3HtnHn3ULMGopNM9Z4MvCMjHDYjwTvLE/tiBnXDDYfn9JbU+2b
- PgitfGbDGVw6OxG2uW0N6Zs/i5Hn026p9DlLRTGfvRAcOnsX3CyiHLJTnbo7De+NRdub
- /5BQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793966900;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
- b=qS28xxyN+IL3tnsQy1w6FGAyEUpwJI9p/qJtcOtFTfgvZhggwms4zIPfuApSsFmYQT
- oLQdge3SQG9uufzZbbDw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22A6C8JnIv
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Fri, 6 Nov 2026 13:08:19 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261106112128.14213-1-olivier@mgcrea.io>
-Date: Fri, 6 Nov 2026 13:07:48 +0100
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4388510F807;
+	Fri,  6 Nov 2026 12:10:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 323C410F807
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 12:10:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DE097402A9;
+ Fri,  6 Nov 2026 12:10:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738AC1F008A3;
+ Fri,  6 Nov 2026 12:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793967039;
+ bh=ok4nzVjEAyulzs2BMTaD8yb49YheAsDCLG78vvfmKO0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Uh7Wk2ahqQHRwfkfAMzQoiEjOLra6/YVadF+NOmmtg+TugdV9HsgkNPnmY9j9ruUw
+ JdjIT/ErzzieAS/KXoycwX997OK9yPkIRM0K/Rg6j4SD4Yhh0IzBovmY23jeC6lBbJ
+ uKYCHVXm0O5BwF1Jg/0TEOWQcBDOVnGMV6WDoMKjCCDByxK9oFcdRmzGEycp3gEZCV
+ 3du6DFF2V+3W1M2AO4JEJSXyLZPAUE3ypQ/8oxEo+fh1lOAUIDDHxI/3FL0V3JzPbz
+ 1hWuhBfTSZvW5Ocg549rfXLGXihzieb2S+tQtGjVUpBo9BiuUNcQEoOzPHLVn7ccTd
+ 5TQ8aMXmRoGrg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+ id AC19128055B2; Fri, 06 Nov 2026 12:10:27 +0000 (GMT)
+Date: Fri, 6 Nov 2026 12:10:27 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@gmail.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexdeucher@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <875B7793-58C3-4659-B115-1B759D4F8C50@goldelico.com>
-References: <20261025191640.13592-3-olivier@mgcrea.io>
- <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
- <20261106112128.14213-1-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-next@vger.kernel.org
+Subject: Re: [RFC] linux-next: replace the DRM trees with a single
+ drm-for-linux-next
+Message-ID: <717db488-ac4f-4969-be69-7e34ae9b79fb@sirena.org.uk>
+References: <aupFKGpAwAiGXN0U@intel.com>
+ <DMLVPRO7XF7F.21199FO61MFRD@kernel.org>
+ <CADnq5_N-6_T8EnihjoTSqpHGb_mZPogi6z=Ti-7_oue5d07oTw@mail.gmail.com>
+ <aupktBCwcN_coHEH@intel.com> <DMLY7GDT8VBO.EE1P01ZX2HPK@kernel.org>
+ <auqaZdocMvOIxN1c@intel.com>
+ <CAPM=9tzu6MYQ-Y0iYK=2PLiM5=1BsEN+Q5WnmYh=hkKnLJ4b1Q@mail.gmail.com>
+ <629d19bcd0f61974f3e1c94c90b4052216d2a967@intel.com>
+ <DMNL1MG0A8P4.1VPON40R8BX2U@kernel.org>
+ <3678ff00381a70148d6abafcf20ba3726bff2fc7@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="MPrVwXwP1R0HP6vm"
+Content-Disposition: inline
+In-Reply-To: <3678ff00381a70148d6abafcf20ba3726bff2fc7@intel.com>
+X-Cookie: Whoever dies with the most toys wins.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,81 +76,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Olivier,
 
-> Am 06.11.2026 um 12:21 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> Hi Nikolaus,
->=20
-> On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
->> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
->> documentation identifies this block as the "DPU (Display Processing =
-Unit)
->> Display Controller" (located at base address 0x13050000 on all three =
-SoC).
-> [...]
->> Please update the compatible string to "ingenic,x1600-dpu" (with =
-"ingenic,dpu"
->> as the fallback) and rename the file to ingenic-dpu.c to reflect that =
-this is
->> a scalable DPU driver not limited to "LCD".
->=20
-> Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
-> DPU too in its register and clock names, and when I checked the driver
-> against the X2000 manual it came out as the X2000's DPU without the
-> composer.
->=20
-> No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
-> compatibles rather than family names, so an X2000 would be
-> ingenic,x2000-dpu, with the X1600's as its fallback if its registers
-> allow.
->=20
-> The driver keeps its file name for now. It only drives what the X1600
-> has and what I can test (parallel RGB from one plane), so the split
-> between the core and the interfaces, and the X2600's rotation, is =
-better
-> shaped by whoever adds the X2000 with a board to test it on.
+--MPrVwXwP1R0HP6vm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So we will have:
+On Fri, Nov 06, 2026 at 01:08:19PM +0200, Jani Nikula wrote:
 
-$ ls -1 drivers/gpu/drm/ingenic/*.c
-drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-drivers/gpu/drm/ingenic/ingenic-drm.mod.c
-drivers/gpu/drm/ingenic/ingenic-dw-hdmi.c
-drivers/gpu/drm/ingenic/ingenic-ipu.c
-drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+> The reason we have dim in the first place is to make us do stuff the
+> same way, every time, and not forget stuff. When we screwed up, we
+> addressed it in dim to not screw up again.
 
-What about ingenic-dpu-x1600.c then? I.e. make the DPU variant a suffix?
+FWIW it might be worth having something that checks if an incoming PR
+has actually been in -next at least once, there seems to be a pattern of
+people sending them without waiting for that.
 
->> However, this approach triggered a kernel lockup during boot
->> right after successfully running lg35583_get_modes().
->=20
-> I can't reproduce it here, the R1 comes up with its panel at every =
-boot
-> (with v3 again today). With nothing on the pins I don't know yet where
-> it would hang. If you get a log of it (the last lines with
-> initcall_debug) I'll have a look.
+--MPrVwXwP1R0HP6vm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Indeed. What I have done is to hack some return 0; into the driver =
-because
-probe fails without missing SPI client - as it should and likely does if
-you disconnect the panel.
+-----BEGIN PGP SIGNATURE-----
 
-So I should try to locate a non-SPI panel and pretend in the device tree
-it is connected...
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau3DswAKCRAv73Ows9A4
+icPcAQCNZ4CRayrdtEryWm1lyac8cKhf/2XZKOEG5zqyXCea0AEAxarfw/d6i9Q0
+i1y2zMqsvvunGQjc40hLrhxqmoKPhgQ=
+=4fv4
+-----END PGP SIGNATURE-----
 
->=20
-> v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
->=20
-> Thanks for the review,
-> Olivier
-
-You are welcome,
-Nikolaus
-
+--MPrVwXwP1R0HP6vm--
