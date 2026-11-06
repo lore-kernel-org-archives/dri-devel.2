@@ -2,62 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508B6606A33B
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DF7606D81E
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 05:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oZ6qFFDO
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=b6miyil4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E90B10FF53;
-	Fri,  6 Nov 2026 05:46:33 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010027.outbound.protection.outlook.com [52.101.61.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA0C510FF53
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6FC10FF61;
+	Fri,  6 Nov 2026 05:46:36 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013026.outbound.protection.outlook.com
+ [40.107.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6EEC10FF61
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 05:46:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pox2xnWij9ozJcDFkq9bnMh8n44jFekHRyeeAeek/+98s68TJniI7K4eTUhtq0IjE/erFlU2bNroYGwJfdeaPEhZkRZ4XUoChmGiCDVBZTSSPGfqR0hpBiAEUAcXg2CuYdtgytYBrO7x8Fsc18cwgVjGz7z++cCEPxD76UbCcEyfkDXlMZcSAaA0gq0b2kPI7ceqCiUIZ1PggbgFTnp1tDUo8NKGPoZbQ7bTwHtUgUNzoCaYmeE+PJSiu4B+Tu4Dxw1LkUuZuxtxWTqarGxWVH/Mn7q20kweuD5uVvZQ7wtc+lobGqQUVJo9QBA4KV8VwHvEnRpjYwN+VaDXB5oBuA==
+ b=gpgctFLZeWQvNNu50on4ozGD7ajU0oeECWpHmbrI/Nd+68nrhEH3het2rPqilNfauYbWrohjjfuywMrFrNpZ4HvCj1avRmmLPaC1t45HSaoggThnHM1Yc4856t7Y1FklUEPD1YMoqsUi1896bBPFmF4Y1Bdlj3X3P+ox5xqPVElN/QhbHIhExClqpnw2ym/8ttU6xyMT6/WDyT1imGM0sSDK5n0FZMTnmteGT214iF5TtbKmLgl1gWP14O3TZBfOu7drvbwMuSBi/eAfK8xK2ayUIHxPL1pi75OXf2TFhVDZZiGyynriGZuj4VKPZ2oNZfBoXwSgfxCvTVnRDLZ/KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=obc3t+izecPi55HUeVY0nlZHc41MLcXIDSdVz/pmPCs=;
- b=HMs/Z4ZPb+Rb0UIn81SmlFBd9muqj5Fxg9xqIlF2KRhvsREQXlart7GMh4LKooJGHtUNVZmNExgE989Z5fhWwnjvYd/SzQBzmb4DcV6TTxTKGw927D5CvH4Bcj0Dvowgov3cpJj7F7a62B3JBMcRf2DGD7rh02dAblw/36EsTXGxHCvpXxOfbxxclaXpoyZB6uEPJRyJ77AIoWYh0NTyvM+kvdY3qf5zSgW7fbT4rnhYDr78WepQaMq4qPNGnz/RabTBel0tPRyw5ZSihEXMc2BwNyNveYOcbKdzk3qLD2t6g8chKgQCEOEEbRGTXVBdLCJaA7Zg5Khd245D5c7gPA==
+ bh=p05P81KRoGY5eh4F8ULUN9R6ypc1slLAnjhLoXi8zXo=;
+ b=EPxVgmVfG8rcFGALbFbsAxp7txHTfyJ4IqYmYfo2rzBDTjx+yfNLGqnfdaLQP8inp/aHtkeUo4B+CtHCEdDszxX5wv5vq2L4n23di41io01P/r8yKTvuszYVxjwQSbqyeItemoxZ9ZaKsXnEzrK2paZsx4b2T9pk/mwGIhMhyx4F7pYl8Hoy8WAXi9PmRnAoM7QLEqCaNQUXKX9Wxx6jHvamG2RankcS22+IXxvVucaTxEXX+QUw3LukkYzwK/DOC9Q/7lt/VX2zpA0A7H0EZQ25YBKC5wpknTPcdfgKQ+pLYX+6z4mkkr62aUgLQdrBtzIgKFdUziNzBAclLlDttA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=obc3t+izecPi55HUeVY0nlZHc41MLcXIDSdVz/pmPCs=;
- b=oZ6qFFDOMbqLLQfi6z9BzzrC+C72OZTE1xSLC0TlqKJx/dl09vSKUr+mzHqphkMGXv7EvgBhD9Dcc1QrRJXu2ndasXhXn3JWwMIebRZGdbFDrM5unsbp9WUsulmoNkQFcyazc041BI0sRZsJAkkNA6mhjJZcn48tgWMkBkHkHLGeJraLbhHuYaQIKqTfQJiOmf61+dQxGIO+fQAMazT4OdpquZzTFYKnc3qCjxAma+cGqAMVQC7gEwsIP0zIDnxPWlM7jCaMpXp7XzbC1hbyDqZ3/PR40RB3dm4oulE3CLe5r+YylG1JBQR+ZbSxd7wHREVLSZ2+35SNW4EQwmT0Eg==
-Received: from PH8PR05CA0009.namprd05.prod.outlook.com (2603:10b6:510:2cc::26)
- by MN2PR12MB4421.namprd12.prod.outlook.com (2603:10b6:208:26c::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=p05P81KRoGY5eh4F8ULUN9R6ypc1slLAnjhLoXi8zXo=;
+ b=b6miyil4doDd7PxeD8PfQAXmBGl3VRfRlM7RtsWtq5r8vH0WBzDZhPH0GnqYvTwwn4nlTCxSmdSco87R8obfBBDEvi3cIhAM840HrMhSgLdcDsy7K96gCW9TBzOGBNmRfArzE1wQZ4BZs22RYz4sv1huqnH8pvf3nJ6mniqTwTpV5KbmohRn+dym7HyW8SgIFO+agNrtUmId58rVe+VgA+NWA2NQokyXCZ2pLyPH70AGTbtG9FQu53Q5JDOk/T+B0HhtjL3w1P8HipgiCePgnmRqcp+FM88LivviKsIgBcGqnGt7zi8LBGHkx0eUd21booNHgi5Jjka/6cKtbwP7sQ==
+Received: from PH1PEPF00013306.namprd07.prod.outlook.com (2603:10b6:518:1::13)
+ by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 05:45:15 +0000
-Received: from CY4PEPF000392DA.namprd03.prod.outlook.com
- (2603:10b6:510:2cc:cafe::5f) by PH8PR05CA0009.outlook.office365.com
- (2603:10b6:510:2cc::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
- Nov 2026 05:45:15 +0000
+ 2026 05:46:21 +0000
+Received: from PH7PEPF0000000B.namprd04.prod.outlook.com
+ (2a01:111:f403:c95d::5) by PH1PEPF00013306.outlook.office365.com
+ (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 05:46:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161)
+ is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CY4PEPF000392DA.mail.protection.outlook.com (10.167.247.120) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ PH7PEPF0000000B.mail.protection.outlook.com (10.167.243.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:45:14 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:46:21 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 21:44:59 -0800
+ 2026 21:46:02 -0800
 Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:44:47 -0800
+ 15.2.2562.56; Thu, 5 Nov 2026 21:45:50 -0800
 From: Alok Kumar <alkumar@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -77,10 +78,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v4 18/32] gpu: nova-core: vgpu: query VF assignments and
- properties
-Date: Fri, 6 Nov 2026 11:09:51 +0530
-Message-ID: <287040b1d5369fa6c76d9baa1829d96778cd4fcf.1793906667.git.alkumar@nvidia.com>
+Subject: [PATCH v4 23/32] gpu: nova-core: vgpu: add instance shutdown
+Date: Fri, 6 Nov 2026 11:09:56 +0530
+Message-ID: <33da25f031dd9a32cc52bafd3d44b69b250d4cfd.1793906667.git.alkumar@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793906667.git.alkumar@nvidia.com>
 References: <cover.1793906667.git.alkumar@nvidia.com>
@@ -92,29 +92,29 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF000392DA:EE_|MN2PR12MB4421:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b4484b7-8088-42a4-aeb1-08df3bc921b1
+X-MS-TrafficTypeDiagnostic: PH7PEPF0000000B:EE_|DM6PR12MB4266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e345971-5f99-4056-f967-08df3bc94936
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|7416014|36860700016|376014|261022113327099003|261026140227099003|56012099006|11063799006|261021135927099003|261021123027099003|261021121427099003|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261009223027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: vaegz03QG35hrO5M1oveOfoTwhwIJZ8+1t5uwXyRPMy7bsyUPngQ8KUrUOcc4jdTFAxoD2tAG4KGd7YOLiPCSCF0zVgfH0KchCIWW4c5lenMCFo2QOZcZUDFsbkDdyKKm4ZTlJlaPyTYXEqQsB/zFdBWrdypVHeueCpqqjR5pdYuTcDqGS+vPkQoI5byPp2Ohg4ly40nE8N4REI9iK6c60k5lxSw+wBh3AXeVxdsg6DWBX/f9ruMbuZ4a16BL7te52Q3bJimTqnh4rH/56AysjzgpjzfzyVBLME2URmCKwhm3L/1XB+jOVtbCzD+AfSPvpVwRYd0PcwmabyRwvpQiSbH6cHq2j+c7AjswyM9vyeT+ovlrHLcYL5fyy1wlfGXUWRz4NrcpdFZ1WLLHP/wxlgDdiGV9BG77RqqH661yZ1otjeHjDFrZzB/K0oERntrxuGid4PC0kFZYBVUntusqxPWX1I/UUNQWfa4Nq8TuTW6O2vvvp8p2vcymjmVyLUo19yyBo+32TsN6PX/oiBfrxqhHForrwRQt318B98ZR59UJ6ME48vnAdDKUJ9DN5GcIkDMUtXZr1rcGvTQyk2GcGF+o4gnOQfOusbccqEXi/UKjqvFNcgUY00mCfWokmWKyf7HavnvfoRMh1GbgNY9+Y9PhFo6aqLqsRNi49rUmqjUFlUnkousQvexyxIPg457EqArgpeXe9U5Aoi/hpkkaw==
-X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(7416014)(36860700016)(376014)(261022113327099003)(261026140227099003)(56012099006)(11063799006)(261021135927099003)(261021123027099003)(261021121427099003)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261009223027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|261102123227099003|11063799006|56012099006|261021121427099003|261021123027099003|261021135927099003|261026140227099003|261028144727099003|261022105027099003|261026121527099003|261009223027099003|18002099003|22082099003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info: dVEsX5IuJpgWVusnKnbePnPmqmFpsUSVoQcT26wm8mlFAD8VHbYlmfPoOGvBq5+81xlqcteG9Mjlts/BFbfqmpF1XKWxeOgoQvK8DTvG3MvdWE5jh/jDxvPUAEl+bEAfNXhZTk2sC0dPurbrEPyu94s9DJBn/JOBjks1404+kklxRv63kooSKnAeRrJlELf6kyY8drMNGpe5yE6moIN2uRWNe2LBky3OOWMKtz+5gsF53cgvwYMk9xMC6dfSeN0sazaj18yF37Ok82gcxlz6Uf+s96CbJ023/R+4z/jN3cICvCBsA6bq0WGx0Z/JAtwSaTyecikoIPKmBWYDn4SJzDs2Spx9ICucomTpzrb1Mp8uAFA361jdWGSlV+BLmXcWTtP9/5PC9j8Oh5e7AklOL1begAfdyD/MGmTNr0icl1Bz5u36Zn0UJIiApdV7wXNNPQavontLod77+bNCYSkkPvRolHiSDybfpOmLi4H9D9WlRPqTxtxtvRJ3Aq1i8CRkPpXXFbCYDkVQnqGAnfa2Vq5tb1vBZIIUlkBySWlwlW1VqLr0BYQBKlcC0iWShAMgOR9T3ZB+Jm+SlC3V/oKuScHmlw5VKlmidGGEQsX70jMZCXBWtU3bKwvd1oxxOhNmxGre3TqGmGROETNvclK+pyZM2Mu/P1Udl+KzFQFbct0bOYOl4ixmY5qBCLhSbFrT3TjZ6qj25AyZ8CiQ+LEe5A==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(261102123227099003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261021135927099003)(261026140227099003)(261028144727099003)(261022105027099003)(261026121527099003)(261009223027099003)(18002099003)(22082099003)(10067099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: URLRP9X4BC29vEptTGS7uXt6bWXnYCcdE9cr2a6UOkD7Jcj5fnsPTaLzn48ll3nQR2NrrrjkYWuL5rZ+fRvRSbsMuIr2wPHX+UdPHxcw0PPNDdwEvEOBz3O1iC+97pCT8cjCrGES5g9UG0Ni3bCFyOLQdIFcIBsMsSvTvDSXWTd/SHV2wGPF1uQMkzv+dEZO7gvluhYvrq2CAhPaGfRsy1xr/S4Wf+kxlD790Mh1acH842Vgh0RgZk/DGPhUkEK3iSHzrbFoYAkDqwusGObKjf1M5N+h/+9NxLe4VcsOXPlXNqsIZb3yuYksGDnySuqp6fKbl7AIqgjo+W83eOgUTGR7XVDvtzDXksl6CYHHd+IJdun/4y1h/XzQOe2dK+JlJZpuk/JJccrhYIZTGin33+qCE5GUijcZP5LZ3wJ9no6d36FocZ4yKivvY6E80xNg
+X-MS-Exchange-AntiSpam-MessageData-0: gAeaQq+lJvXh49lm9J180aE1KfOEQ7wiDlkVkjiXRT2vA8nwglqeHqeiKZybXckZ/O6F5aBsXpZnBN64DtFAfImQie382oUUSSRyJQfp9O8TejerU0rXF81d3F7vOXPlFp1x/lGwPTmdZMntxXRqNZdRFav+mPAS7vQhgvKnJdpBYN8lxjfyCNJOm13uUzjOGP86vNOCTDppUdFlDIGbA7yLLYjZ+h4V92+/1Sj0Mf13yv0MZ01hqR7Sb5DxIVWmBpfODmQfpykm0lfyg2BeWKAsHYXWiynlNoBrv4b2jS5TFP8XqtMMEnRHWhOujCdqZ2yBr99++ILwy9XjyFjpjndxUnsbvvBEmjr8oSmhDBwAoeDzQVuZFMqYkyse4HbdhVM8Ax+Vi15K7QQSeWYVH/0QIywQbyOHxYr3FAa8ilPPE6+1VnJur6apFABEu8Py
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:45:14.9000 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b4484b7-8088-42a4-aeb1-08df3bc921b1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:46:21.2133 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e345971-5f99-4056-f967-08df3bc94936
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF000392DA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: PH7PEPF0000000B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4421
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,319 +136,351 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Zhi Wang <zhiw@nvidia.com>
 
-Creating an instance requires its VF assignment and the corresponding
-vGPU properties before reserving resources.
+Stop the GSP plugin, wait for SHUTDOWN completion, and release its
+firmware resources with CLEANUP before unmapping the communication
+buffers.
 
-Call Cmdq's synchronous GMC interface with each query's command ID,
-request payload and receive capacity. Check the matching reply's
-firmware status before decoding it, and report the command and raw
-NV_STATUS when firmware rejects the request.
+Add PendingInstance rollback and manager teardown. Register host resources
+before firmware work, and retain them until device removal if firmware
+state is uncertain or teardown fails. Keep the manager's dependencies
+alive until cleanup finishes.
 
-Decode the VF assignment and NVKV property replies at their query entry
-points. Validate the returned type ID and nonzero instance limit, and
-initialize the decoded properties on the heap. Keep the raw queue
-interface available to firmware-control clients.
-
-Co-developed-by: Eliot Courtney <ecourtney@nvidia.com>
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Co-developed-by: Alok Kumar <alkumar@nvidia.com>
 Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp.rs              |  1 +
- drivers/gpu/nova-core/gsp/cmdq/gmc.rs     |  3 -
- drivers/gpu/nova-core/gsp/fw.rs           |  2 +-
- drivers/gpu/nova-core/vgpu.rs             |  2 +
- drivers/gpu/nova-core/vgpu/commands.rs    | 92 ++++++++++++++++++++++
- drivers/gpu/nova-core/vgpu/fw.rs          | 17 ++++
- drivers/gpu/nova-core/vgpu/fw/commands.rs | 95 +++++++++++++++++++++++
- 7 files changed, 208 insertions(+), 4 deletions(-)
- create mode 100644 drivers/gpu/nova-core/vgpu/commands.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/fw.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/fw/commands.rs
+ drivers/gpu/nova-core/gsp/cmdq/gmc.rs         |   1 -
+ drivers/gpu/nova-core/vgpu.rs                 |   9 +-
+ drivers/gpu/nova-core/vgpu/commands.rs        |  55 +++++++-
+ drivers/gpu/nova-core/vgpu/fw.rs              |   9 ++
+ drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs |   1 -
+ drivers/gpu/nova-core/vgpu/instance.rs        | 118 +++++++++++++++++-
+ 6 files changed, 182 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 8424aa3937e7..7e10a1deeafe 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -32,6 +32,7 @@
- mod regs;
- 
- pub(crate) use fw::{
-+    r000_00 as bindings,
-     GspFmcBootParams,
-     GspFwWprMeta,
-     LibosMemoryRegionInitArgument,
 diff --git a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-index c5ae5943c8b8..d41d5e533cf7 100644
+index d41d5e533cf7..3bceb080f9a9 100644
 --- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
 +++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-@@ -302,10 +302,8 @@ pub(super) fn log(&self, dev: &device::Device) {
- /// Response from a GMC API command.
- pub(crate) struct GmcResponse {
-     /// Response status (`NV_STATUS` code). Zero means success.
--    #[expect(dead_code)]
-     pub(crate) status: u32,
-     /// Response payload copied out of the message queue.
--    #[expect(dead_code)]
-     pub(crate) payload: KVec<u8>,
- }
- 
-@@ -356,7 +354,6 @@ impl Cmdq<'_> {
-     /// # Errors
+@@ -469,7 +469,6 @@ pub(crate) fn send_gmc_and_receive_timeout(
      ///
-     /// Returns the same errors as [`Self::send_gmc_and_receive_timeout`].
+     /// Errors from initializing the request headers and from either callback are propagated
+     /// as-is. The current valid element is consumed before a callback error is returned.
 -    #[expect(dead_code)]
-     pub(crate) fn send_gmc_and_receive(
+     pub(crate) fn send_gmc_and_wait_event(
          &self,
          command_id: u32,
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index ce4a7c45caf2..94ecf35ac04b 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -2,7 +2,7 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- pub(crate) mod commands;
--mod r000_00;
-+pub(crate) mod r000_00;
- 
- // Alias to avoid repeating the version number with every use.
- use r000_00 as bindings;
 diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
-index 1402e37541b7..d910445dd2b0 100644
+index 84c4d0b3839d..f7184e7009a5 100644
 --- a/drivers/gpu/nova-core/vgpu.rs
 +++ b/drivers/gpu/nova-core/vgpu.rs
-@@ -20,6 +20,8 @@
-     gsp::commands::FifoEngineList, //
+@@ -105,7 +105,7 @@ fn query_state(
+ use self::instance::VgpuInstances;
+ 
+ /// Runtime resources for an enabled vGPU boot.
+-#[pin_data]
++#[pin_data(PinnedDrop)]
+ pub(crate) struct VgpuManager<'gpu> {
+     #[pin]
+     instances: Mutex<VgpuInstances<'gpu>>,
+@@ -146,3 +146,10 @@ pub(crate) fn new(
+         })
+     }
+ }
++
++#[pinned_drop]
++impl PinnedDrop for VgpuManager<'_> {
++    fn drop(self: Pin<&mut Self>) {
++        self.instances.lock().release_all(&self);
++    }
++}
+diff --git a/drivers/gpu/nova-core/vgpu/commands.rs b/drivers/gpu/nova-core/vgpu/commands.rs
+index 6207211d7f9d..00da8fa4f910 100644
+--- a/drivers/gpu/nova-core/vgpu/commands.rs
++++ b/drivers/gpu/nova-core/vgpu/commands.rs
+@@ -29,9 +29,13 @@
+             VgpuPropertiesSchema, //
+         },
+         GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK,
++        GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES,
+         GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE,
+-        GMCAPI_CMD_QUERY_VGPU_PROPERTIES, //
+-    }, //
++        GMCAPI_CMD_QUERY_VGPU_PROPERTIES,
++        GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK,
++        GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE, //
++    },
++    instance::Gfid, //
  };
  
-+mod commands;
-+mod fw;
- mod hal;
- mod vram;
- 
-diff --git a/drivers/gpu/nova-core/vgpu/commands.rs b/drivers/gpu/nova-core/vgpu/commands.rs
-new file mode 100644
-index 000000000000..dc2534175e11
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/commands.rs
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ pub(super) use super::fw::commands::{
+@@ -109,3 +113,50 @@ pub(super) fn send_bootload(
+     )?;
+     check_status(dev, command_id, response.status)
+ }
 +
-+//! vGPU firmware command operations.
-+//!
-+//! Sends requests, checks responses and coordinates the firmware command
-+//! sequences used by instance lifecycle operations.
-+
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
-+
-+use crate::gsp::{
-+    cmdq::Cmdq,
-+    nvkv::{
-+        nvkv_words,
-+        Decoder,
-+        Schema,
-+        UnknownKeyPolicy, //
-+    }, //
-+};
-+
-+use super::{
-+    fw::{
-+        commands::{
-+            VgpuPropertiesSchema, //
++/// Shut down a vGPU plugin task and wait for its completion event.
++pub(super) fn send_shutdown(
++    dev: &device::Device<device::Bound>,
++    cmdq: &Cmdq<'_>,
++    gfid: Gfid,
++) -> Result {
++    let payload = u32::from(gfid.get()).to_le_bytes();
++    cmdq.send_gmc_and_wait_event(
++        GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK,
++        &payload,
++        Delta::from_secs(10),
++        |command_id, _max_response_size, _sequence, payload_0, payload_1| {
++            Ok(
++                command_id == GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE
++                    && payload
++                        .iter()
++                        .copied()
++                        .eq(Iterator::chain(payload_0.iter(), payload_1)
++                            .take(payload.len())
++                            .copied()),
++            )
 +        },
-+        GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE,
-+        GMCAPI_CMD_QUERY_VGPU_PROPERTIES, //
-+    }, //
-+};
-+
-+pub(super) use super::fw::commands::{
-+    Dbdf,
-+    VgpuProperties, //
-+};
-+
-+/// Reports a matching command's raw firmware status before translating rejection to `EIO`.
-+fn check_status(dev: &device::Device<device::Bound>, command_id: u32, status: u32) -> Result {
-+    if status == 0 {
-+        Ok(())
-+    } else {
-+        dev_err!(
-+            dev,
-+            "GMC command {:#x} rejected: NV_STATUS={:#x}\n",
-+            command_id,
-+            status,
-+        );
-+        Err(EIO)
-+    }
++        |command_id, _max_response_size, _sequence, _payload_0, _payload_1| {
++            dev_dbg!(
++                dev,
++                "shutdown: ignoring unrelated event command={:#x}\n",
++                command_id,
++            );
++            Ok(())
++        },
++    )
 +}
 +
-+/// Query the vGPU type assigned to a VF by its DBDF.
-+#[expect(dead_code)]
-+pub(super) fn query_assigned_vf_type(
++/// Release firmware resources after a plugin task has stopped.
++pub(super) fn send_cleanup(
 +    dev: &device::Device<device::Bound>,
 +    cmdq: &Cmdq<'_>,
-+    dbdf: Dbdf,
-+) -> Result<u32> {
-+    let command_id = GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
-+    let payload = u64::from(dbdf.into_raw()).to_le_bytes();
-+    // Preserve the firmware receive budget; only the leading type ID is consumed.
-+    let response = cmdq.send_gmc_and_receive(command_id, &payload, 64)?;
++    gfid: Gfid,
++) -> Result {
++    let command_id = GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES;
++    let response =
++        cmdq.send_gmc_and_receive(command_id, &u32::from(gfid.get()).to_le_bytes(), 0)?;
 +    check_status(dev, command_id, response.status)?;
-+
-+    let bytes = response.payload.first_chunk::<4>().ok_or(ENODEV)?;
-+    Ok(u32::from_le_bytes(*bytes))
-+}
-+
-+/// Query and decode the firmware properties of one vGPU type.
-+#[expect(dead_code)]
-+pub(super) fn query_vgpu_properties(
-+    dev: &device::Device<device::Bound>,
-+    cmdq: &Cmdq<'_>,
-+    type_id: u32,
-+) -> Result<KBox<VgpuProperties>> {
-+    let command_id = GMCAPI_CMD_QUERY_VGPU_PROPERTIES;
-+    // NVKV replies vary in length. This is a receive capacity, not their encoded size.
-+    let response = cmdq.send_gmc_and_receive(command_id, &type_id.to_le_bytes(), 4096)?;
-+    check_status(dev, command_id, response.status)?;
-+
-+    let words = nvkv_words(&response.payload, &[])?;
-+    let decoder = Decoder::new(&words, UnknownKeyPolicy::Ignore);
-+    let mut schema = KBox::init(VgpuPropertiesSchema::init(), GFP_KERNEL)?;
-+    let properties = KBox::try_init(decoder.decode(&mut *schema)?, GFP_KERNEL)?;
-+    if properties.type_id != type_id || properties.max_instance == 0 {
-+        Err(EINVAL)
-+    } else {
-+        Ok(properties)
-+    }
++    dev_dbg!(dev, "cleanup: gfid={} done\n", gfid.get());
++    Ok(())
 +}
 diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
-new file mode 100644
-index 000000000000..23097cb13121
---- /dev/null
+index 82c29dfb467a..1528cc56ce74 100644
+--- a/drivers/gpu/nova-core/vgpu/fw.rs
 +++ b/drivers/gpu/nova-core/vgpu/fw.rs
-@@ -0,0 +1,17 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+@@ -33,3 +33,12 @@
+ 
+ pub(super) const GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK: u32 =
+     bindings::GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK;
 +
-+//! vGPU firmware interface.
-+//!
-+//! Exposes command constants and communication buffer layout types from
-+//! raw firmware bindings.
++pub(super) const GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK: u32 =
++    bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK;
 +
-+pub(super) mod commands;
++pub(super) const GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE: u32 =
++    bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE;
 +
-+use crate::gsp::bindings;
++pub(super) const GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES: u32 =
++    bindings::GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES;
+diff --git a/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
+index 0b4d03c5f0fc..a00f4d2affc7 100644
+--- a/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
++++ b/drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
+@@ -210,7 +210,6 @@ pub(super) fn is_plugin_ready(&self) -> Result<bool> {
+     }
+ 
+     /// Invalidate the PTEs and release the communication mapping.
+-    #[expect(dead_code)]
+     pub(super) fn unmap(&mut self) -> Result {
+         self.map.unmap()
+     }
+diff --git a/drivers/gpu/nova-core/vgpu/instance.rs b/drivers/gpu/nova-core/vgpu/instance.rs
+index b2a0b25c0e15..bf02595590e1 100644
+--- a/drivers/gpu/nova-core/vgpu/instance.rs
++++ b/drivers/gpu/nova-core/vgpu/instance.rs
+@@ -31,6 +31,8 @@
+ use super::{
+     commands::{
+         send_bootload,
++        send_cleanup,
++        send_shutdown,
+         Dbdf, //
+     },
+     fw::commands::{
+@@ -143,10 +145,12 @@ struct VgpuInstance<'gpu> {
+     // Unmap the communication region before returning its slot and channel IDs.
+     vram_slot: VgpuVramSlot,
+     chids: ChannelIdReservation<'gpu>,
++    needs_teardown: bool,
++    /// An uncertain or failed operation retains resources until device removal.
++    failure: Option<Error>,
+ }
+ 
+ impl<'gpu> VgpuInstance<'gpu> {
+-    #[expect(dead_code)]
+     fn activate(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
+         let dev = vgpu.dev;
+         self.bootload(dev, vgpu.cmdq, &vgpu.fifo_engine_list)?;
+@@ -154,6 +158,26 @@ fn activate(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
+         Ok(())
+     }
+ 
++    /// Tear down once, retaining all remaining resources if an operation fails.
++    fn teardown(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
++        if let Some(error) = self.failure {
++            return Err(error);
++        }
++        let result = (|| {
++            self.shutdown(vgpu.dev, vgpu.cmdq)?;
 +
-+pub(super) const GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE: u32 =
-+    bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
++            if self.needs_teardown {
++                send_cleanup(vgpu.dev, vgpu.cmdq, self.gfid)?;
++                self.needs_teardown = false;
++            }
++            self.comm.unmap()
++        })();
++        if let Err(error) = result {
++            self.failure = Some(error);
++        }
++        result
++    }
 +
-+pub(super) const GMCAPI_CMD_QUERY_VGPU_PROPERTIES: u32 =
-+    bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES;
-diff --git a/drivers/gpu/nova-core/vgpu/fw/commands.rs b/drivers/gpu/nova-core/vgpu/fw/commands.rs
-new file mode 100644
-index 000000000000..efab30287f05
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/fw/commands.rs
-@@ -0,0 +1,95 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+     /// Bootload the GSP vGPU plugin and wait for its BAR1 ready indication.
+     fn bootload(
+         &mut self,
+@@ -192,6 +216,7 @@ fn bootload(
+         );
+ 
+         self.comm.clear_plugin_ready()?;
++        self.needs_teardown = true;
+         send_bootload(dev, cmdq, &payload)?;
+ 
+         wait_plugin_ready(dev, &self.comm)?;
+@@ -199,6 +224,15 @@ fn bootload(
+         dev_dbg!(dev, "bootload: gfid={} plugin ready\n", self.gfid.get());
+         Ok(())
+     }
 +
-+//! Wire types and codecs for vGPU commands.
-+//!
-+//! Defines request encoders and response schemas independently of command
-+//! submission and instance lifecycle operations.
++    /// Stop the plugin when firmware may own instance resources.
++    fn shutdown(&mut self, dev: &device::Device<device::Bound>, cmdq: &Cmdq<'_>) -> Result {
++        if self.needs_teardown {
++            send_shutdown(dev, cmdq, self.gfid)?;
++            dev_dbg!(dev, "shutdown: gfid={} stopped\n", self.gfid.get());
++        }
++        Ok(())
++    }
+ }
+ 
+ /// Identity and firmware profile used to allocate an instance.
+@@ -255,8 +289,12 @@ fn alloc_vram_slot(&mut self, mm: &GpuMm<'_>, layout: VgpuVramLayout) -> Result<
+         Ok(slot)
+     }
+ 
+-    /// Allocate resources and register a new inactive vGPU instance.
+-    fn allocate_instance(&mut self, vgpu: &VgpuManager<'gpu>, info: InstanceInfo) -> Result<Gfid> {
++    /// Register host resources before submitting any firmware work.
++    fn allocate_instance<'a>(
++        &'a mut self,
++        vgpu: &'a VgpuManager<'gpu>,
++        info: InstanceInfo,
++    ) -> Result<PendingInstance<'a, 'gpu>> {
+         let InstanceInfo {
+             gfid,
+             dbdf,
+@@ -316,23 +354,91 @@ fn allocate_instance(&mut self, vgpu: &VgpuManager<'gpu>, info: InstanceInfo) ->
+             comm,
+             vram_slot,
+             chids,
++            needs_teardown: false,
++            failure: None,
+         };
+         self.instances
+             .push_within_capacity(instance)
+             .map_err(|_| EIO)?;
+ 
+-        Ok(gfid)
++        Ok(PendingInstance {
++            instances: self,
++            vgpu,
++            gfid,
++            committed: false,
++        })
+     }
+ 
+-    /// Remove an instance and release its channel and VRAM reservations.
+-    fn destroy_instance(&mut self, gfid: Gfid) -> Result {
++    /// Remove an instance only after firmware and mapping teardown have succeeded.
++    fn destroy_instance(&mut self, vgpu: &VgpuManager<'gpu>, gfid: Gfid) -> Result {
+         let instance_index = self
+             .instances
+             .iter()
+             .position(|instance| instance.gfid == gfid)
+             .ok_or(ENOENT)?;
++        let instance = self.instances.get_mut(instance_index).ok_or(EIO)?;
++        instance.teardown(vgpu)?;
 +
-+use kernel::{
-+    alloc::ArrayVec,
-+    bitfield, //
-+};
+         let instance = self.instances.remove(instance_index).map_err(|_| EIO)?;
+         drop(instance);
+         Ok(())
+     }
 +
-+use crate::{
-+    gsp::nvkv::{
-+        nvkv_decode,
-+        Array,
-+        Key,
-+        KeyId,
-+        Required, //
-+    }, //
-+};
-+
-+bitfield! {
-+    pub(crate) struct Dbdf(u32) {
-+        2:0 function;
-+        7:3 device;
-+        15:8 bus;
-+        31:16 domain;
++    /// Release the registry while the manager's MM and firmware dependencies remain available.
++    pub(super) fn release_all(&mut self, vgpu: &VgpuManager<'gpu>) {
++        for instance in &mut self.instances {
++            // Failed operations retain their resources until this final device removal.
++            // Do not resubmit commands whose firmware outcome was uncertain.
++            if instance.failure.is_none() {
++                if let Err(error) = instance.teardown(vgpu) {
++                    dev_err!(
++                        vgpu.dev,
++                        "vGPU teardown failed for gfid={}: {:?}\n",
++                        instance.gfid.get(),
++                        error,
++                    );
++                }
++            }
++        }
++        self.instances.clear();
 +    }
 +}
 +
-+nvkv_decode! {
-+    pub(crate) struct VgpuPropertiesSchema => VgpuProperties {
-+        // TODO: `name`/`class` required?
-+        name: Array<u8, { VgpuProperties::STRING_LEN }, { Self::TYPE_NAME_KEY }>,
-+        class: Array<u8, { VgpuProperties::STRING_LEN }, { Self::CLASS_KEY }>,
-+        type_id: Required<Key<u32, { Self::TYPE_ID_KEY }>>,
-+        bar1_length: Required<Key<u64, { Self::BAR1_LENGTH_KEY }>>,
-+        max_instance: Required<Key<u32, { Self::MAX_INSTANCE_KEY }>>,
-+        ecc: Key<u32, { Self::ECC_KEY }>,
-+        profile_size: Required<Key<u64, { Self::PROFILE_SIZE_KEY }>>,
-+        max_fps: Key<u32, { Self::MAX_FPS_KEY }>,
-+        num_heads: Key<u32, { Self::NUM_HEADS_KEY }>,
-+        max_res_x: Key<u32, { Self::MAX_RES_X_KEY }>,
-+        max_res_y: Key<u32, { Self::MAX_RES_Y_KEY }>,
-+        dev_id: Required<Key<u32, { Self::DEV_ID_KEY }>>,
-+        subsystem_id: Required<Key<u32, { Self::SUBSYSTEM_ID_KEY }>>,
-+        fb_length: Required<Key<u64, { Self::FB_LENGTH_KEY }>>,
-+        gsp_heap_size: Required<Key<u64, { Self::GSP_HEAP_SIZE_KEY }>>,
-+        fb_reservation: Required<Key<u64, { Self::FB_RESERVATION_KEY }>>,
++/// Rolls back this creation attempt unless ownership has passed to the caller.
++struct PendingInstance<'a, 'gpu> {
++    instances: &'a mut VgpuInstances<'gpu>,
++    vgpu: &'a VgpuManager<'gpu>,
++    gfid: Gfid,
++    committed: bool,
++}
++
++#[expect(dead_code)]
++impl PendingInstance<'_, '_> {
++    fn activate(mut self) -> Result {
++        let instance = self
++            .instances
++            .instances
++            .iter_mut()
++            .find(|instance| instance.gfid == self.gfid)
++            .ok_or(EIO)?;
++        instance.activate(self.vgpu)?;
++        self.committed = true;
++        Ok(())
 +    }
 +}
 +
-+impl VgpuPropertiesSchema {
-+    const TYPE_NAME_KEY: KeyId = 0x3100;
-+    const CLASS_KEY: KeyId = 0x3101;
-+    const TYPE_ID_KEY: KeyId = 0x3102;
-+    const BAR1_LENGTH_KEY: KeyId = 0x3103;
-+    const MAX_INSTANCE_KEY: KeyId = 0x3104;
-+    const ECC_KEY: KeyId = 0x3105;
-+    const PROFILE_SIZE_KEY: KeyId = 0x3106;
-+    const MAX_FPS_KEY: KeyId = 0x3107;
-+    const NUM_HEADS_KEY: KeyId = 0x3108;
-+    const MAX_RES_X_KEY: KeyId = 0x3109;
-+    const MAX_RES_Y_KEY: KeyId = 0x310A;
-+    const DEV_ID_KEY: KeyId = 0x310B;
-+    const SUBSYSTEM_ID_KEY: KeyId = 0x310C;
-+    const FB_LENGTH_KEY: KeyId = 0x310D;
-+    const GSP_HEAP_SIZE_KEY: KeyId = 0x310E;
-+    const FB_RESERVATION_KEY: KeyId = 0x310F;
-+}
-+
-+pub(crate) struct VgpuProperties {
-+    name: ArrayVec<u8, { Self::STRING_LEN }>,
-+    class: ArrayVec<u8, { Self::STRING_LEN }>,
-+    pub(crate) type_id: u32,
-+    pub(crate) bar1_length: u64,
-+    pub(crate) max_instance: u32,
-+    ecc: u32,
-+    profile_size: u64,
-+    max_fps: u32,
-+    num_heads: u32,
-+    max_res_x: u32,
-+    max_res_y: u32,
-+    pub(crate) dev_id: u32,
-+    pub(crate) subsystem_id: u32,
-+    pub(crate) fb_length: u64,
-+    pub(crate) gsp_heap_size: u64,
-+    fb_reservation: u64,
-+}
-+
-+impl VgpuProperties {
-+    const STRING_LEN: usize = 64;
-+}
++impl Drop for PendingInstance<'_, '_> {
++    fn drop(&mut self) {
++        if self.committed {
++            return;
++        }
++        if let Err(error) = self.instances.destroy_instance(self.vgpu, self.gfid) {
++            dev_err!(
++                self.vgpu.dev,
++                "vGPU creation could not release gfid={}: {:?}; resources retained until removal\n",
++                self.gfid.get(),
++                error,
++            );
++        }
++    }
+ }
 -- 
 2.53.0
 
