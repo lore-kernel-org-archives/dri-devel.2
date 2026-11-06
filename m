@@ -2,90 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427D2606A33C
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 18:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD61606A339
+	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 18:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nr0EVk/t
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=em9RQ3XA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3B510E45D;
-	Fri,  6 Nov 2026 18:18:41 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD1E110E204
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 18:12:45 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A6HtA8w1075691; Fri, 6 Nov 2026 18:12:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=gO0P5VpQuCoxaaenUEBBWz4dwRcwcFr6ChW
- hT2qPqTc=; b=Nr0EVk/tjvtC/yicRRUQB+dSm9E1aLimK27ItlZh2USBaSU6blR
- rsZs5ajNEYZEpUH1zGyOjmRfQxmLE2z07qW3v1b3K8aKd9R1KRnYh4O+i9zn5bw2
- NpFTbS0EJMZ/kJXDz3KR+BTMOyjIcJ12lhatce5nYWvjRcxqpUh+uK8Yiz1EVNZv
- wUMxXSTzrHTQuOTMBTibKZX/hwNo/zjA1sZ9C0YRwp/3IRIkXieDRTAE3LwWsns1
- 4lB9O65aChgI+HHDl8NlQCG3ZjhfipcEsisVf4b01baZfUlFgP95S19Yq3FHucC8
- FliYbinvjEFIUctWSw5iEE0aAtKa4hrKLYw==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pb42s4-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2026 18:12:36 +0000 (GMT)
-Received: from pps.filterd (nalasppmta02.qualcomm.com [127.0.0.1])
- by NALASPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A6ICZj0752657; Fri, 6 Nov 2026 18:12:35 GMT
-Received: from hu-devc-lv-u24-a.qualcomm.com (hu-zmckevit-lv.qualcomm.com
- [10.81.84.220])
- by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 6A6ICYKl752643
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2026 18:12:35 +0000 (GMT)
-Received: by hu-devc-lv-u24-a.qualcomm.com (Postfix, from userid 4696302)
- id C893F2219E; Fri,  6 Nov 2026 10:12:34 -0800 (PST)
-From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
- riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
- rodrigo.vivi@intel.com, raag.jadav@intel.com, simona.vetter@ffwll.ch,
- airlied@gmail.com, kuba@kernel.org, ogabbay@kernel.org,
- lizhi.hou@amd.com, karol.wachowski@linux.intel.com
-Cc: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
- troy.hanson@oss.qualcomm.com, youssef.abdulrahman@oss.qualcomm.com,
- Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-Subject: [PATCH v3 0/3] Extend drm_ras for qaic telemetry
-Date: Fri,  6 Nov 2026 10:12:22 -0800
-Message-ID: <20261106181225.3333260-1-zachary.mckevitt@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE7C3112F77;
+	Fri,  6 Nov 2026 18:42:24 +0000 (UTC)
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+ [209.85.160.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F46A10E3C4
+ for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 18:42:18 +0000 (UTC)
+Received: by mail-qt1-f175.google.com with SMTP id
+ d75a77b69052e-533202fe429so95091cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 10:42:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793990537; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Lw4PSV0ZgmZ3EFX0dD/8XUngqUyIp3qHOO/6XSz8+sXux0VzUyi7p9wBIUbyIkimeE
+ PfBOTzm/HzWModcpKP3xpvHNZSB1xou61aj3ACsaDGKmRjuIsKYfLhca0VTt4OgdozA9
+ Bt7sy++oTHCBiHmjaeQmyNSnhraEVP5T0MyKz6xFxvz38s/mNBTQ92u/xjaUUvNoizpd
+ 9Yl2CZW29oM0li73i43tMpulyHUo7s+La7DSMd/14v+KoP4SxDeZ6tfK1tTzYTlHxU34
+ duTJ0+oNWDOHJluYqrBumo4EIekmdf697A4AUUIKuDI6wXmW+z6bGTqfllQtkPiKP5SQ
+ Kweg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9O0I1WlvitVAffqL6IMDmurKacq17pLSSS1ily/aCXQ=;
+ fh=7MfP7+PduiKHwybBd8sjtj4cvDy2e/CR6209fhE8LrA=;
+ b=QakV46DEAce105QK5HQzqsZsuykwtG4EzqDIuk86AP4vm+JRtzFxhKlgctksSp0O5v
+ Jg29Ujwhj5QrC0yquJ12wiRHL8s5X3OJ9YfaME85krw4fGWJiJF4FTNN4+8WAEfIv7Gb
+ 1FvRW6UXwCGpDyQ9gs/V4B2Y9d4ZwbA9yS0C6VHTQ2rh1GEWZjEWu0NseAtpoL8nxi7F
+ lpHDQ0Pe8VEp+vt8fVAYadNH4HKo9pUpns4I5DYTFCLo5bDh9r/fOkF8WcLTNvsHmLCB
+ e/+1CzhvoLbHyz7VIP+o623aI98j8jVdWkFNeyZ0yivo1gG8zMnS8nHDqz71+Za14bcH
+ m5lw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1793990537; x=1794595337;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9O0I1WlvitVAffqL6IMDmurKacq17pLSSS1ily/aCXQ=;
+ b=em9RQ3XAP0IB9itE3a3VA2HIXW0iYRkOcj8J3IEqkORKNnJ1zbjTRSch8pzNBoivO6
+ XbGCBmpbvYluG6Cd4ly59sVnH7J6zEvBnVkimW/mMCIQp8jEo7I/qtC3zCBcpVkYQLZg
+ sH0EZZgJsfZtO+CZifMlOk8T7c+QrffalVdYIrG/pz60MZFT8iQgQYb6qx35+Y1lNS9w
+ CdWUVM5zWfeTUxYvyJwtGZXfFsEV/b2BYG5htkFbYOX9wt24J59IFxr36COhqPu10GFY
+ RQYsSCx7B0Fxl5gLdhCe/P/1UljhNsmclHl+7P1G0XpACe38fXY/PRo4xRYjW6xxRZRd
+ 6Kvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793990537; x=1794595337;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9O0I1WlvitVAffqL6IMDmurKacq17pLSSS1ily/aCXQ=;
+ b=BYv6Fv/Yik8QnVVWPFCS5Os8+zis0OEwTIgYAjZZhKGLUwKPSFdkgw873BhdiPtBO9
+ 1AzVzYAadRIvMgjNhcOpFbU2GvvlVvSCB45Je/bUCdEoapi8sBh/1aAbiNrdl7/6baqC
+ b7ZH1+lkLqyKSw8byb6FNjoQY2h99fYwADjGDowATM1Kez203F+j2GDnlOq+wpefn3/H
+ YNpMjQX78bjOiRGKbPyyhQZdu6pTIk784OqUoo8gtrTBYUDmkWEgODx9DMlnWMx0JHMu
+ vh/VuqORzsBungor/VEGFzibWpdMoXFeFC9vN20jxsUTp1+1tfN0Gqe1AZn9FcRVVqif
+ vU8g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwl8f+6o6yQQCfUM0fmXokVo1hJ5JF++MrTYAcmFp8t30YvTJsGiBXPy4SVCHPP32EvcJrDxIgqIoo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z873TtqHES4/ET+yyKf9e6szqjqnbzXXQpHQ/9OHD7h+DNtrTf3
+ C5EII8UNH6w0VsjScMRKRCtvVlYh71meGI8HN/YTQ+iheFXcOQ5D8gHMw4yMfYfNXC+LL6Vk+HK
+ 22FAhBo6vPZA72DrwqI5czpiatZmiPz13twGv7d+c
+X-Gm-Gg: AYBFou3KW8xLcyGKNMW+uZ8CWibFR+v7rVlbYhiuLWfrg70o1lEV046UhiiIo7MfWjt
+ ly9FEkJ/eIZjXq2r26K+NTaf7kX2vFtHX9Lu2V3qNHjtrj0yqpJWxm7+4/OKkxMyqxxzUrNsqlE
+ 7NHp4DxrGI8Ph21Q0xhieED2kC99xqWFMG+V51y7v2sI7mY9r0KvyiUsaDToAm5oMepKvqUyEJL
+ HHTLG/Q64iDh9fcWT5ej2yL4k0OoOU8lORUl9aC+9HgDoF6B3SlQSc05GYDCk/IwkuMM8E/HMGK
+ szTtJW4OheOp9bUD+8fss0UNdNw81Yu/ocSkUXGvtrU/Te/ivZrOdbwMbh/YNvja6/P5DhdBPb/
+ AORumOrZrMVrbxdNM0lKU+Iwk7dyHCtWRUlJXqALFnhTpePwZT9Nekl5P52n4qePYEIM6YHS+Xn
+ qW/CD1RrOgrW4uf/e9ot6aMoM=
+X-Received: by 2002:a05:622a:90c:b0:533:9746:9a86 with SMTP id
+ d75a77b69052e-54f5c235197mr3962781cf.5.1793990536696; Fri, 06 Nov 2026
+ 10:42:16 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: F4tnFHbNGp3rUx4oFwT--3610XfbG8c8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA3MiBTYWx0ZWRfX7QlRicRznu9T
- OPJB5QBt92QBUbmScqWgc+c5bb52jgD1p/krKlHNRfRO0rlEAfz+zxgXg8wetBGeFZPFUZkC6NN
- vPnu6soCJjwCoQX7QJu42N6u84n7tu4=
-X-Authority-Analysis: v=2.4 cv=LIrz05W9 c=1 sm=1 tr=0 ts=6aee1894 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=UCRyeg6Ua9RyKZwra7UA:9
-X-Proofpoint-ORIG-GUID: F4tnFHbNGp3rUx4oFwT--3610XfbG8c8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA3MiBTYWx0ZWRfXwcX5erxMvlw8
- R7P+iIYxL7LTAWsfATbGl1hQPK1QOr+GIOgOazWTEg1KPOSxLQSC0kmUWh5AbAbFlbpK6IDVkvX
- Q+MTkYccPdfIa5TyvilzzlRNh6ZX/FkgcCNsxnL4ryh/GcJhvnHODzPQsuHVHi0SITIReyzZ0bO
- XIyUZ4ww7FMPfpe91HRPeU9uDNjMSaNxAqo6lRHZ/wjpC2ExZ5Ru4XVcIDiJeQMjP63rJCIpTgn
- +T4YJoTenrMjICbdNzGw0szhaHMAZHW8Lgd1FVstuSkMjJzVRh9a3Mb2Cf00R8toIS4Q4WZQN1g
- jCIqS1RJY1S+xT+X0by69FzFeOt9KIrEbY0ah5l1B15nVvQuC7iov2mxS3Oyu2CcmB6LYkEu3dE
- H1xCSYCet0Ysw7VUxpBeWT5lAtWuADVtsnr/aFA2i7TmuoJTu6QxzB5TWEv2vQsu8BmN/DV+Q2q
- q98PTii3AARHxBMrCxg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611060072
+References: <20260811204123.3198370-1-tjmercier@google.com>
+ <CAO_48GEUhpyeenX8Vu1NoDnvzib5FGv3rOBYNYwQEWu1-6cjaQ@mail.gmail.com>
+ <CABdmKX0uiX=QKFAYgwwBPHW-X3vh-Rm7w-cNp9EsJzQarTzDpQ@mail.gmail.com>
+In-Reply-To: <CABdmKX0uiX=QKFAYgwwBPHW-X3vh-Rm7w-cNp9EsJzQarTzDpQ@mail.gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 6 Nov 2026 10:42:03 -0800
+X-Gm-Features: AclHuK8a9YKRuRmcG8Sb2ftYE5SfU2l8w8O16-ruNv6bWd_JSLmgbTqw6Ki40U8
+Message-ID: <CABdmKX3Ep0cAPakwKDYWnOkrFgfhsJAv9Mh1us+OfscyNeb2tw@mail.gmail.com>
+Subject: Re: [PATCH] kselftests: dmabuf-heaps: Open heap device files O_RDONLY
+To: Sumit Semwal <sumit.semwal@linaro.org>, christian.koenig@amd.com
+Cc: benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, shuah@kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,92 +107,48 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This patch series extends the drm_ras netlink interface to include a new
-node type for telemetry nodes. Telemetry nodes support two operations,
-getting and setting, and drivers may specify an optional predoit function
-to validate each operation.
+On Wed, Aug 12, 2026 at 9:06=E2=80=AFAM T.J. Mercier <tjmercier@google.com>=
+ wrote:
+>
+> On Wed, Aug 12, 2026 at 8:02=E2=80=AFAM Sumit Semwal <sumit.semwal@linaro=
+.org> wrote:
+> >
+> > Hello T J,
+> >
+> > On Wed, 12 Aug 2026 at 02:11, T.J. Mercier <tjmercier@google.com> wrote=
+:
+> > >
+> > > Write permissions on the /dev/dma_heap/* device files are not require=
+d
+> > > to issue ioctls and allocate dmabufs. Applications should be opening
+> > > these file as O_RDONLY. The BPF dmabuf_iter selftest already does
+> > > this. [1]
+> > >
+> > > Users are pointing to these selftests as examples of how use dmabuf,
+> > > and encountering permission errors on systems where write permissions
+> > > are not available on /dev/dma_heap/*. Apply the principle of least
+> > > privilege to selftests which open dmabuf heaps by removing the write
+> > > access mode and using O_RDONLY for the open() instead.
+> >
+> > Thanks for the patch.
+> > >
+> > > The same is true for the vgem test using /dev/dri/card.
+> > >
+> > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
+t/tree/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c?h=3Dv7.1#n49
+> > >
+> > > Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> > Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+>
+> Thanks for the quick revieews John, Christian, and Sumit!
 
-Telemetry get operations take the drm_ras node id and telemetry field to
-be read and return the field's value and any status reported by the driver.
-Telemetry set operations take the node id, telemetry field, and value,
-and return only the status reported by the driver.
-
-This extension removes the admin requirement on the list-nodes operation.
-This allows drm_ras nodes to be discovered by userspace programs for
-drivers that do not necessarily require admin privileges, like qaic.
-
-The new drm_ras telemetry interface is implemented by the qaic driver,
-which exposes the telemetry fields to userspace and enforces filesystem-
-esque permission checks on telemetry operations in its telemetry_pre
-callback.
-
-Changes in v3:
- - Address Sashiko comments:
-    - Properly return status when telemetry request is successful but a
-      hardware error occurs.
-    - Validate telemetry fields against their gettable/settable fields
-      lists when invoking the predoit.
-    - Update documentation in include/drm/drm_ras.h.
-    - Moved calls to qaic_drm_ras_register/unregister to mhi_probe/remove
-      instead of pci_probe/remove.
-    - Added srcu read locks around calls to telemetry_request() in get
-      and set callbacks in qaic_telemetry.c.
-    - Added a tele_ch check to telemetry_request().
-    - Properly handle a -ERESTARTSYS return from
-      wait_for_completion_interrputable in telemetry_request().
-    - Ensure field can be truncated to a u8 in qaic's telemetry get and
-      set callbacks.
- - Minor code cleanups (typos, header ordering, etc).
-
-Link to v2: https://lore.kernel.org/all/20261029203000.1763447-1-zachary.mckevitt@oss.qualcomm.com/
-
-Changes in v2:
- - Address Sashiko comments:
-    - Initialize certain stack variables in drm_ras.c.
-    - Added attribute guards (GENL_REQ_ATTR_CHECK) in telemetry doits.
-    - Added a valid node check in drm_ras_nl_pre_telemetry.
-    - Fixed improper node callback in telemetry_set.
-    - Now registering drm_ras node after MHI initialization.
-    - Now removing drm_ras node before freeing MHI controller.
-    - Added scoped_with_init_fs guard to qaic_telemetry_pre's inode check.
-    - Fixed improper kfree in qaic_drm_ras_register_node.
- - Changed telemetry value attribute to sint and dropped padding attribute.
- - Updated documentation in drm_ras.yaml.
- - Renamed telemetry read/write to get/set.
- - Added dumpit for gettable and settable telemetry values.
- - Made telemetry_set optional and added admin-perm for it.
- - Specified ynl file regeneration in commit message for patch 2.
-
-Link to v1: https://lore.kernel.org/all/20261009173152.2436195-1-zachary.mckevitt@oss.qualcomm.com/
-
-Zack McKevitt (3):
-  drm/drm_ras: Remove admin-perm flag from list-nodes operation
-  drm/drm_ras: Extend DRM RAS interface to include telemetry nodes
-  accel/qaic: Add callbacks for DRM RAS netlink telemetry
-
- Documentation/netlink/specs/drm_ras.yaml |  83 +++-
- drivers/accel/qaic/Makefile              |   1 +
- drivers/accel/qaic/qaic.h                |  19 +
- drivers/accel/qaic/qaic_drv.c            |  14 +
- drivers/accel/qaic/qaic_telemetry.c      | 563 +++++++++++++++++++++++
- drivers/accel/qaic/qaic_telemetry.h      |  18 +
- drivers/gpu/drm/drm_ras.c                | 331 ++++++++++++-
- drivers/gpu/drm/drm_ras_nl.c             |  55 ++-
- drivers/gpu/drm/drm_ras_nl.h             |   9 +
- include/drm/drm_ras.h                    |  67 +++
- include/uapi/drm/drm_ras.h               |  19 +-
- include/uapi/drm/qaic_accel.h            |  28 ++
- 12 files changed, 1190 insertions(+), 17 deletions(-)
- create mode 100644 drivers/accel/qaic/qaic_telemetry.c
- create mode 100644 drivers/accel/qaic/qaic_telemetry.h
-
--- 
-2.43.0
-
+Hi, I don't think this has made it into any tree. Can this get picked up pl=
+ease?
