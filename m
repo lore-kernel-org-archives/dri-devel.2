@@ -2,127 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E242606A334
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 01:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9FE606A326
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 01:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pCkYqA77
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GfSkgKrg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE4F10EB0E;
-	Sat,  7 Nov 2026 01:26:39 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010017.outbound.protection.outlook.com [52.101.201.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B47F10EAEA
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 01:26:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DPJoGsQaZyEqFq8ZJEMs+FURpr6uSi4umZCE9ze7YA+F01MC9f07Q0SFEKwdYnXcxVw4yJnNHMuuArHvtpqb4Wt3673RLVZBaGrcalkS6BP5egXecPkkmdYcXUL0aHfAPlN2pmn/Z02bahx9OxAv3LccMUcli6/sy8sHji544w/3bHLlPonpUuArmuGlCQmmGOjUaH0FiSIyEEGc/RZYUvk8SQiJhhpgGlXy8sk6lChfSeKOQ31W6qo9cI2TxUpkeLAI0xYdgekh3hBO8pyitVICXVrfmIu3Kl7dpJHu9fm4zn4LD+QMZUvauo4wirgyjvu8Hkc2mmRhmS+Ghh8Ohg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OeAhvGsyF5D4LwiVGiBGlu0QrByZZrdIpVxA56Z4AIs=;
- b=nyTx3QetFBckc/79BvtaFpOf3eU/KqTlw/oi1YDxO8scwpdXoO2dXKAMbjnNkDRD6RThn7s2PIrqV0svz/o0iGIhw5kLTG6WQs2nqMu0xUjKionCMNNZb/x2pgaqQnlBq5e35gV8mcZXdD8wjHOJiExo8rqBCHqB98ZwHAozr9xp/0lnhqJ3uDiRF1CcnUsM5r/L/aB20oQvAtUjBd3oK2mJfNv9i94fWabdbMiTNoxnCPQuSDL1s6bmEwWWHdLbmdAvocLEoKegql0pDLE9a+OaJT9jqmWYztQONfFZcEFlGHp63mmhXUieNOfkSiZHKKE0wPxJ2/1rp8oMh8cc6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OeAhvGsyF5D4LwiVGiBGlu0QrByZZrdIpVxA56Z4AIs=;
- b=pCkYqA77iY1n3U4IVJ/Y2/wh7VrzDNeiSScyXAZVp5J40KaGxxLf0P8dW34Gig01pqE0JpLAVd4f8c6N6PHhHsgmqTixqmbQqAPjSag92DR9n2oNa/RTaNJi1GdD2q0MPXYv0ay2SZkc46Ro5jEyOi++ANDWQKc91tP904NEqJdZK/cBgx5Mq3yRKXkXHxavFMUwhMn0tFmDCquGRFC6AHUPgMSQGiLz1mPl2pcBRc3tXbwImIeVjg3a3woTKaTbD1DL31GuRelXrLTEDv1TJmdr5e9mUy7zC8KC70SLr5axc9OXO8GZ481+zfKpTr5drrv8EiwIdZHw0IoH34yHTw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DSVPR12MB999309.namprd12.prod.outlook.com (2603:10b6:8:41f::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 01:26:27 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 01:26:27 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 10:26:24 +0900
-Message-Id: <DMOL5YCIIWZ4.3QZ73GMLSITG@nvidia.com>
-Cc: <dakr@kernel.org>, <jhubbard@nvidia.com>, <aliceryhl@google.com>,
- <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v6 2/3] gpu: nova-core: gsp: retain the GSP-RM log
- buffers after unbind
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <20261014154554.231015-3-vladazaharova2018@gmail.com>
-In-Reply-To: <20261014154554.231015-3-vladazaharova2018@gmail.com>
-X-ClientProxiedBy: TYCP286CA0286.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E332110E289;
+	Sat,  7 Nov 2026 01:32:43 +0000 (UTC)
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
+ [209.85.214.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B3D10E289
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 01:32:37 +0000 (UTC)
+Received: by mail-pl1-f226.google.com with SMTP id
+ d9443c01a7336-2e9d7791b00so8640895ad.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 17:32:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794015157; x=1794619957;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=o0tyMpLVRGMz/SfqbWAZq6acOJWNHMe+7Y+AOuq26s4=;
+ b=On5UlDa5Q5/sdaxSrt/Yl6dambfvZyS8MuM12ckkzcis3dCvFbBLL+4dgvHoQAClgV
+ rfKtD7i7JeT7gOnPGsDMOTMhcjrkjBYbuKXi4Jwo0+F880ApjSLnsghEqSJXVW8QE4hW
+ Gr6rHVeCZMhLI1FXG++BvS8hcmBZm1RfZ1diVRU0CUe/o7hQ3cFIYIUH+tjXHNKD7CrU
+ EUSyjQrGFuF1bWtWK2G4y7x0PGopnsOC8kekKTNAbYGxOhx+p8vJyQHmYcr4e7W/jseQ
+ 6NHXMuLIQAd501Y5v3e8UQ+UkjL0rKVngBSW3CKCGew3WtsI1q21zBhI/5Or/0AvkUBg
+ /iYA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHE3dkHVfWWpIB7ZiIhd0uB9rooArdqq4kmfi8TfSniYHnLnULtTW4isJ/caPONPKpISLaQ8zWO/B4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z83hbThAgiTBjm3ODE9wxCd2A1XUx1pwxmnDH5jS2UXoTyKom/2
+ 7gQe9aV1m7xxo+GUBscIzyduFQWUSO5qwYfWnVWNL6+aMVMwgjMapNsMf1qFjGRhPHIISpwvNrw
+ yGiMdnLGp31GYrXjKTzkVmdY8aUYN8kjoAypOFqH6YCcFmliDnDzUEg70vDs7amz6ndZihCMB8N
+ R5UQDnp1uxnQQiiACjPO0VpMyi8NirX0mo9iehLxdkBfeIGOqVwNPA/U3aArsO7EAy+r+UACen6
+ CF12bJ0ryBkIhNyPyR9
+X-Gm-Gg: AYBFou3juXz3vQbjl87XGHpZG/k3SMA/qmOylsE719SJRJc6nzx45YjnwLXeU84xR8R
+ hXSpAOlO8MfG/M2jcS4/XE3Z0+SxKOnGg6e1UFEzqLeTGE5YySNRH431tUL97kkCMNr03HijBWj
+ wldISzfBAVjnGFiJeyF+a2ETpD/rDZ7qTvxy0jWKDRmhtsmoioantp0ITHLXNPW6wbv8JqlDTI8
+ JzRyqF2SwB5WKf3i8qcqkh554ZJ/koV/QHftPECe9416rbRUVj21voe0tzAgE+oN9Hz92fXytEl
+ FqUiuZFE6j00mcj7S4tWU1yVTZpTvbWoV8AF0kCRUJqJrt/mycBF0amkra61versG0CK2bSvXvj
+ /l8xpzvJ6BUwwI0XfcUHZtMBxqpO0t5axvPvKUvHToaiastwvl5J9lqv2gNYQpUHj1bNZ0lLhGc
+ gdWhsb5xThCNL5DFBGNRdF5V8EEW8M0JcF
+X-Received: by 2002:a17:90b:270e:b0:3b0:ac2c:1619 with SMTP id
+ 98e67ed59e1d1-3b0db70a2b5mr3984814a91.39.1794015157260; 
+ Fri, 06 Nov 2026 17:32:37 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+ by smtp-relay.gmail.com with ESMTPS id
+ 98e67ed59e1d1-3b1057da2c5sm599646a91.4.2026.11.06.17.32.36
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 06 Nov 2026 17:32:37 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-5bfd95238e3so133064e87.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 17:32:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1794015155; x=1794619955;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=o0tyMpLVRGMz/SfqbWAZq6acOJWNHMe+7Y+AOuq26s4=;
+ b=GfSkgKrgrJ4WyIF+YQuqv5P5dI7UVMmyxJwtTSASbBVXXyiasQfggpfK8ww6zFPH7s
+ QaKZjFLVTx335hFlnlMLj1585uV6enNtD0W8FV5pzDqaFpbzszul2tnm+NB9rJCZq2s8
+ iMtRECFXsFEvUg26gi6e+pLoCQ/C7IRqR/F0Y=
+X-Forwarded-Encrypted: i=1;
+ AL+hErHey1+WOqWZR0QiIXpJah6pMBYQ6eeZylgeQxc/sT37aAfytUACjwPDc+09MEz/aEgi/gjGSMl8+PY=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:1585:b0:5c0:1c6:69ee with SMTP id
+ 2adb3069b0e04-5c00b609da4mr138120e87.4.1794015154794; 
+ Fri, 06 Nov 2026 17:32:34 -0800 (PST)
+X-Received: by 2002:a05:6512:1585:b0:5c0:1c6:69ee with SMTP id
+ 2adb3069b0e04-5c00b609da4mr138118e87.4.1794015154255; Fri, 06 Nov 2026
+ 17:32:34 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DSVPR12MB999309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d91ea74-7af8-46e5-5a72-08df3c6e24da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|10070799003|366016|5023799004|11063799006|4143699003|56012099006|261021135927099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 2SpInPFvUq/zMmneG8xHiRTExIdqZZ2XiMu7ElH1BXph9srxlwlK67uo5A4YsDJZTtHbaAsFw9haM/Qb/AsNwrqiu8S2CxnHkoThcsI1gtACmL3vVku8AiV4TpwRIa7NLSi77jEiXVRjte+2KRCUpgpcIQ7K74O/HAU6l3/fHy3vV1TjTIkxb9hcdsx04P+/jk6rMEDRJUFHLdLgbJEt0fSVuWpszSaP3GsluOdITdczLI1V0GDDeDnY+cNQrn+Y7cI6AMp3j7e5Vm8cvKRdty9GKitx2bArKewMue6SKZK9mbejQkSBMK0tSsv/7hLIxq7KxdnlAvNBd0MOD8xvdo59bBGQasmgCOjR39+tVKuMPqBZfCl8rWVL0QRHDvlt6YI4rtNs/hT50LJsJr9HIDWCX/XT9cXO0oOuK6J1p3uXQ7II7bZLZl4XUJxQs+K3nHeEDnc4T07QgT3JqfiGK5PUYde0tf2noyOStIQvqzQ0D6aWqopeja4w1pJE3GrBSfWlvlpLj1c+e+5vZX3EHDEsMqT67JlEn7HofS2/gGwmTzjHDWKqu2a1IrQ67L3/XZ4FYvEkqUYg6Q+jq7N/urllsNqZOn7Eg+NXtPO26xyn76h0jJPGUmGpbtCEFnzzhDc/MfSBFeX2KJwrWkWT0+TBeDZlCqnDpg83zwsSDx0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(10070799003)(366016)(5023799004)(11063799006)(4143699003)(56012099006)(261021135927099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWw2dWdkL0JnYzJNd3kvNEZWMitVZGtGNnNIZHNRYVB1S3JOZS9iQWd4N2lP?=
- =?utf-8?B?SThSRmgvcmRMNDNzaUlncE9YOUlFQ09OdlZkdEt5ZWNwWW03TUJEbHQwTkU5?=
- =?utf-8?B?cDJwQ1FoVG4xOHlHL1FQZTZRTW5vdVZlUE5MUE1aR2N5SmE2QmtMenNYWkRB?=
- =?utf-8?B?Vno2Snl3dThWRVUzL2F3dWlYT0Q2Z0xWbG1Ia2pLWWJaMWlqams0czkzejN3?=
- =?utf-8?B?U3JvZUVwU3h1V3lBN0pzYTNmV0VxbFNVVWlaYkVFNWJnUFZ5eWcvRnFWc3VC?=
- =?utf-8?B?N0ZBencxN0pxUDEzS3diYjdwbE1QNkdtMXIxL1ZJa09Ha2w5YXQ1djM1V210?=
- =?utf-8?B?VjVWZytvbVU4SURNY1JLbFJ5d1FFYkFScVJCTTYxMnUxeDBjRUhZdXE3NUpM?=
- =?utf-8?B?TUp2dmFabVVIdjBqdTNPQWFXdGRvdGhIMnpGT0x0NnV3NHBwSzc4T1g2MlFF?=
- =?utf-8?B?VytqczhQQXYzbUJwdWZtY09SUWdXdTEvTzlyU1hWTmdoZFN0UnRtMndGUVpD?=
- =?utf-8?B?TmRPTWlMcWdpRjIyS3VTWUJNaDRqalkyQW1RSU83SGppL09LaFB3dkM4U3R1?=
- =?utf-8?B?bGdRcmpJVVJyeTQvRzNaeGJ3dEJyM0U1STdQZUluYWl6a295UTd2aFhncGNk?=
- =?utf-8?B?bkZxZVRsbFNXUDBaN28yUUI4dktYNUhUNWphUnpVanZGa3RwbmJoTm5uSnVp?=
- =?utf-8?B?blVJbThHT1JKaE1qWTZPVk1UTWJVc2RoOTludFlDeWFLcEJ2U0dtblRrbXlU?=
- =?utf-8?B?NkpwZkFja0R4ODl5MDNoSjZ6VUV1NmZ6dUtXNnBhcW1sNGE1Y3NxaTBZQmJI?=
- =?utf-8?B?N3gzZXBnTWxDNVg0MWs0Qms4VHF4TlE3OTh2UXk4QXI4MUhYUXdkbUFOcThz?=
- =?utf-8?B?RVYzL1pRdE1ES1pxVGFVZk5qcmNrQi9zazJyZm1pWjR1TFFPc3Mxa0FMZjN1?=
- =?utf-8?B?bFg4OWNTS3U0VnBjRkFNZlVuWVBLa0N6SUxNaFZveVZGeHp3UEdGcTZxNHFn?=
- =?utf-8?B?MFlPWVgzVGxFdzRzeU1Sb1I2V1Brb1dLOTZmQmZ6RUt5bzJENWlZclhMbHlB?=
- =?utf-8?B?cHJoUnppUXI5TVg0M1NiWS9STUdCUmw0YTJlQVJjb29pcGJpbXFuZHVnZk0z?=
- =?utf-8?B?dm5aZ1dvbjdLcW5COU56d3hZTzhBMXJnT3BFek5wQ3hqZm1DdWwvemszVFlN?=
- =?utf-8?B?bDFUVWZCWTU5R0VJbnUyS2plL0E5emVpVmt5UXBueHk3SEJPSUg5dUJZZlc4?=
- =?utf-8?B?VE13ZFNTV1NBWkJvZVhINGhiUy9JaWkxNjlpeUtQTGpBc3RJSC9XSFJVUk5S?=
- =?utf-8?B?ZW5oQWMyM2NzYUNXT0pJMWZ1eHpaZjJzcEFQa1A1SjI3My91cWNZUzlpOXB6?=
- =?utf-8?B?R2ZkRVFEdE92L3ZYQVlaN0ZaRFRUU2cvSUE4UGswajQwaE82VXNBNEIyMm5S?=
- =?utf-8?B?WXBLR0F0QXJvRkpONHIxTG5oUDdEbGJkSHRNUG0zVHJJQlFzOHE1ZWpmQk1w?=
- =?utf-8?B?NS9qZUMxZzhBRWtPZkdiUXp1c25YUUx3cjVrdktpYU5QUXJOMDFvWm4vM0E1?=
- =?utf-8?B?UFEwTTl3ZWdWZTFPblZIMTlpNGlzNW5pOW5WMlFBaE8vbkRwd2xoY2VFRmw3?=
- =?utf-8?B?SkhvckdZVHJFTHo2dEY5V1JKUkVVTU44YkFxYmQwM3FwdVVOM3lLanhJaXcw?=
- =?utf-8?B?ZFVmUXhaSWozR2wxU25uODMyQXFnMFQ4bGVpRXJCNUMzc0poL2dpTUQ0aDFY?=
- =?utf-8?B?VG42WkVsaGZoS1M3cXJoeDljLzJnUHRRMFJTcFVsS0NxMEsrY2FiMEQvYzBn?=
- =?utf-8?B?NGRDQkhDWEVhblFPWjI4S0pTbHhVK2dpeUUxejQ0UldGRitJZDdiNVdBczNj?=
- =?utf-8?B?QkRwY1FMc003aU0rWldqLzJBUmJkM0FxR2padVpmc2VtMTZiZlBPRnUxdzhs?=
- =?utf-8?B?OHBMMGx4ejM1ZXVXUWNsMVR6UVc3UDdmSzE0bm1Faklab0YxSkVCZ0ZMeDZh?=
- =?utf-8?B?L3M0TW5wVytLYUdQRHJZTWx5Sms4dUZGOXJYenQ3TUFHRlFIYlRBS2lzTzN3?=
- =?utf-8?B?SGcvUll6RlA1UkRSOGhXUmFmT1pWTUhVd05yZnVHTG9HakRURE9nb3c2U0V4?=
- =?utf-8?B?dU13UmovQUU3YjJmWGFlZUJ4dnl5OFNSTittZEU4L1hYM2F0YWsrWmc4eVdk?=
- =?utf-8?B?UVAvVzZDcVJXb1pmZTlYOHpVV0ZmOTFSZXNXbHNDOG1vM3dVM3pnNlBJcUtF?=
- =?utf-8?B?bnJZRkYrdlBVZFdiTjJBaHcyN0g1STNFOWlsWktHanNBeHBKVE5BRmZrM3ZE?=
- =?utf-8?B?M0NaNU9uUkp1WnJRN3JzVkxldENCN1N1d0ZHaUlBUStHWmZSV2t4UnFYV2ZU?=
- =?utf-8?Q?1sw+O/wc56jSTTAF1FwlKcg7mQHtrjivcrceVmQwVYDyU?=
-X-MS-Exchange-AntiSpam-MessageData-1: pinhhxg8AIWOqA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d91ea74-7af8-46e5-5a72-08df3c6e24da
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 01:26:27.3367 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dRqm9fLsLX9n/cCesGJh50c9UAgrUX58nqiwlJpSjcIerR3QzAZU53QGHJ5Zi5/ODxZePmeterkUpbcG4gXN0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999309
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-81-1f58d1e33380@kernel.org>
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-81-1f58d1e33380@kernel.org>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Fri, 6 Nov 2026 20:32:22 -0500
+X-Gm-Features: AclHuK82P0H9PYI848O6qIh9OVQqrPdudm2dMansQX7WHTGnvbQX4fRyp21QPwo
+Message-ID: <CABQX2QMg=Jybnpe+06uS8YX5nph4KJt=vUVu-49e+kXM8-0thg@mail.gmail.com>
+Subject: Re: [PATCH RESEND 81/83] drm/vmwgfx: Switch to
+ drm_mode_config_create_initial_state
+To: Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="0000000000000d6156065fa5b42d"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,60 +105,199 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
-> The GSP-RM log buffers are exposed through debugfs, but the Scope that
-> owns them lives in Gsp, inside GspResources, inside the Gpu built by
-> probe(). They are DMA allocations of the device and cannot outlive it,
-> so the entries go away as soon as the GPU is unbound - and, more to the
-> point, as soon as probe() fails, which is exactly when the log of a GSP
-> that did not come up is the thing one wants to read.
+--0000000000000d6156065fa5b42d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Nov 5, 2026 at 10:35=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
+wrote:
 >
-> Add a gsp_keep_logs module parameter. When it is set, dropping the log
-> buffers copies whatever the GSP wrote into memory owned by the module
-> and exposes the copies until the module is unloaded. A buffer whose
-> "put" pointer is still zero was never written to and is skipped.
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles.
 >
-> The GSP has normally been stopped by the time the buffers are dropped,
-> but a boot that timed out can leave it still appending, so a DMA read
-> barrier orders the read of the "put" pointer before the copy, and that
-> value, not the one the copy reads again, is what the copy keeps.
-
-That paragraph is nice as a code comment, but that's an implementation
-detail that doesn't belong to a commit log. The commit log should tell
-us *why* you are doing this, not go into excruciating details of *how*
-you did it - only the big lines to make review easier.
-
-I'd appreciate if you could do a pass on the commit logs and code
-comments to deslop them and make them shorter and to the point
-(similarly to what I tried to do on patch 1). Right now this patch
-is pretty heavy to read.
-
+> Since the two roles need different behaviors (notably for objects like
+> drm_private_obj that must persist across suspend/resume),
+> drm_mode_config_create_initial_state() was introduced to handle only
+> the initial state creation at probe time.
 >
-> The copies belong to the module data next to the debugfs root, and live
-> in a "retained" directory created during module init rather than on
-> first use, which keeps the teardown path of a device from having to
-> create anything. Keeping them out of the directory used by bound GPUs
-> also means a device coming back does not find its debugfs name taken by
-> its own history; nouveau, which recreates the entries under the name of
-> the GPU that just went away, has that problem.
-
-What Nouveau does is irrevelant - that's the kind of unneeeded
-information I'd like us to avoid.
-
+> Switch to drm_mode_config_create_initial_state().
 >
-> While at it, move the log buffer code out of gsp.rs into gsp/logbuffer.rs=
-.
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadc=
+om.com>
+> Cc: Zack Rusin <zack.rusin@broadcom.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  | 4 +++-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 4 +---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 4 +---
+>  3 files changed, 5 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_ldu.c
+> index 0dea09cc29a7..93d755b81887 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+> @@ -568,5 +568,7 @@ int vmw_kms_ldu_init_display(struct vmw_private *dev_=
+priv)
+>         dev_priv->active_display_unit =3D vmw_du_legacy;
+>
+> -       drm_mode_config_reset(dev);
+> +       ret =3D drm_mode_config_create_initial_state(dev);
+> +       if (ret)
+> +               goto err_free;
+>
+>         return 0;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_scrn.c
+> index 39d58fc392bf..82fe7db26633 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> @@ -940,7 +940,5 @@ int vmw_kms_sou_init_display(struct vmw_private *dev_=
+priv)
+>         dev_priv->active_display_unit =3D vmw_du_screen_object;
+>
+> -       drm_mode_config_reset(dev);
+> -
+> -       return 0;
+> +       return drm_mode_config_create_initial_state(dev);
+>  }
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_stdu.c
+> index b505f8ba3e83..80defd735813 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> @@ -1709,6 +1709,4 @@ int vmw_kms_stdu_init_display(struct vmw_private *d=
+ev_priv)
+>         }
+>
+> -       drm_mode_config_reset(dev);
+> -
+> -       return 0;
+> +       return drm_mode_config_create_initial_state(dev);
+>  }
+>
+> --
+> 2.55.0
+>
 
-"While at it" means this should be two patches: a first one that moves
-the code into `gsp/logbuffer.rs`, a second one that performs the changes
-you need there.
+Hi, Maxime.
 
-Right now this moves things while changing them, making it more
-difficult to review than it could be.
+Sashiko is right that this is not ideal. To be fair that code just
+doesn't have recovery paths so if you'd like to just add a /* FIXME:
+recover in case of an error */ for the code in vmwgfx_scrn.c and
+vmwgfx_stdu.c then we can handle the rest.
+
+z
+
+--0000000000000d6156065fa5b42d
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIFNk
+iwLAyF++qHxpH5d8YCIJXH/mWVTzf1jaVQWMeAJUMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTEwNzAxMzIzNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAB+eSYaq45V+9TPGzqBV1XnNuB72h7tig+vPHVvd
+t7kXDIqR+GmXJ+QRW2jBHNvVTIKHPzsXA7YGvZA5QZixQXjfqo644jG72xxoZnP4QjdTdOrqr2K6
+4wXTfcJcc454lMVAnfULC/i8uido7dClR0N/pJYRBN9gmeaxfvcKzHlgVeUyZb0yb46ogR4ZveCU
+bXP8+z87VsoQbBRUxc7bx3jnqLXLUxjeotAMMRQE4hwOsyBb6dJWdCvNQQg4DjSNzJHkLUzn1SvS
+P41T9XWcjF6h5F4Kw9Vw9Wng2nUysFKK9tL7wm0WHEiPEX5kaa+nDoTo/37g3NFpWNqmuVvwROc=
+--0000000000000d6156065fa5b42d--
