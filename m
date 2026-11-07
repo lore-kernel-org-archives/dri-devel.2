@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA5606A32C
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 10:47:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD6B606A337
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 10:47:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z/gYSgaP
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dps2u7tP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8B410E576;
-	Sat,  7 Nov 2026 10:47:44 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EED910E330
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 10:47:38 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a207b02a2cso9394635e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 02:47:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8773910E56C;
+	Sat,  7 Nov 2026 10:47:47 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4047510E56C
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 10:47:41 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a3517554f7so15005685e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 02:47:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794048457; x=1794653257; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794048460; x=1794653260; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Gs6IOJ2d9nrR4hk6rBiqyfNHtcU7Qx4Hjf4P/81L2vQ=;
- b=Z/gYSgaP5grFBY/PoDlMh73pPAn8cfHY9SxDLp0AIz89N21a4g/+tuQG5N+xxtzcFn
- y5Jl3OSzgWSej7X+Ul30UDTXZtl/npwmOYTzziTTitG8IsFcTrqTcj2Lh7a6CrO9VK5v
- f/pfHSEVSOAJa9qncpw/W0zvQnU4iOwGgHToylmIosGPrVxXertq1QChPMprMQdOG1c8
- QPcgeBjrlQ+qeho5Mn2pFrzZyh3XyxwF9bOqdnoKlScxKXXfCJZBX04IaeIy2KQDhkMA
- z9l2DuoSRyMiGy9hXpVJmA3cP8CGuUzJqDO7nognQvawMmn5tkQ3n5gu41sRzFcRatjC
- HtPA==
+ bh=rW6VoKT52yP08kYUcZyVOPG+H41QN9/GqRijZgl3S1g=;
+ b=dps2u7tP7ZSZQGW3sJIMKhMNFSXYolpnL7FsQzxdwfn2kU6Sy2G61+X+w01QWBO81U
+ AbOTbSpXTAMBnLPhr6HURfTkFFumtZUuMlmWH4zu6aaNrFyb1wUB37IVN/AUjvWyHcHL
+ Sk+Ml/vlgfaq864YFshysRX0aEAKA2+A07+/a3Q0UdbjpqeP/cJZ121H9dGpy41K4+zH
+ CYwZTqT6ygCMeXXlV+Beg/1sOZhu+KTc3rKvDH1iuBA1AbCZmuVuD6XssQfC+U/NPJIc
+ IMh9/Kqe0wcoIalFEvk1wryJ47XZyUqpxSoDvVV4z/7lrbGLxq4PTLIPCVMf2ssUdHIJ
+ AMnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794048457; x=1794653257;
+ d=1e100.net; s=20260707; t=1794048460; x=1794653260;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Gs6IOJ2d9nrR4hk6rBiqyfNHtcU7Qx4Hjf4P/81L2vQ=;
- b=K/ceYw12QLPjWq5jSw8dfeZCvC2eQ0y8xwM/GFBSLkLadZ/1Oh2zASkGJuvTZTFbfx
- kEH5Zdxvin8krp02LBGUX0GwR5kvLBqDOkRze5JI3bA5MGcEdH1Ph9mZPUdxiLjfYFoT
- LDIIGaSTF3mXHxOyCcW3QtNf/VyhtarcRk+ThKU1Gzng61UzXWfwGMmXtjizxCZCd66e
- 2191VAXfHcmu16HvBzFhb67T0rzaZNqlmpKYdeKbqsuN9rSf3BW5WyBQh0cN5XEcuwZ0
- yTVUShoDsqbf6S6B3Za2V96Ks/khgKzWW4h8wbDqeQJg1eii6qNksZQQXaQaxpW8rqqs
- jKbw==
+ bh=rW6VoKT52yP08kYUcZyVOPG+H41QN9/GqRijZgl3S1g=;
+ b=zK+OdUWipa+M6bx4UrghxmC4PiiG955HXv1hbc6aj8qPwHug5SGpEbgsnRUBhP6qod
+ sdiFV0R5sAI3QMH/lTYUuqm5deHdkD+Rly4v2SAdOketPLA91keCBADnNZR79bVVX9Ar
+ m/9l+qpaL3s4fwm5d+JaWhWBgVmi7707Utrd69nim5HGsvxhH+nPOFZTBAKZI+36cJEr
+ 28IeTdyR/lFJuytQXJqpklM0Fqa/+nncXVDzb0gwdemFXsStANuFl93vuNMSbHjqSC6O
+ 0LdTEWQrRs1GGlSkva0mCs66OI4odi6se+Asz3wf0tY+sJnv0aDddRHPl7Uf4J9DTJpt
+ 7iQg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzfnj2m+pLBm+HduEpYVRToReAOpdh3z61sTX6uKQlMoowKF6CfMfdJdnWpNmZOXEB/wzAqSwPwaao=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8A+rBrkr/5/dUcopjPCxaNHS6AmYMMlPMaPaRNhqDZGh6t4S85
- fzEWo5jOsfFcaO1ou6QPdl0otmtJzR+km2TXyJ0gEbdzovmAZxHPSccG
-X-Gm-Gg: AYBFou0p/4IivhmLVd5jaX7EHbO05Gj8xDC3QHtLOYKExzig01wBuSB68Pp0KrQWC/c
- iHgL+ZSER6IceC8ys0H2SJahnbwBTAC9pO49H/Mm18fz5gZSEK9EfrzO6G/G1taXaFzdjz+GCNb
- juHppy0m2TTq+QLlup5EdwujNoZnhncwoFgP40Skjtm259TH9Xw842umZ6qX9jkX6qUeOfDkva7
- /YXYRk7sFYevibBJDxvXoEjTjwCNjPh2lENeuxuVqRnFTnj5HQTxx34nP1nTEq7MoJl9oHoGi2q
- ACiDpX1Ywwb2HT0upGE4VcPK3wSw+A1Az38wZC4l3hqIj7qr2/O0ylsLMTTfz8bxlLpFtDZX+sg
- qGZphE7wWzSc/junuVjXEYXHe86sLJvk7Ujz0gbyqOA9PAL2a1I0pQ3XyCvDN2xBYETLPwGQDny
- 33wyTXcShcJpUEcjddX+ejiVZHvIwmxLYrdWrHM6K5Q9Qo1Itl9Yj1i3c1a8d3ySZ3FwxpBFmAd
- iMWtUX5d5C3893y6mug0HlSCQFC7c5AtcrxRTC5Jp0gVIAGvCNMx4vTWuLbCYo/UVABaR62xfLJ
- U+Mc9Z9SyiwnMSy1MLmd0DwtNbfOCrEo9aoUDyzvbtc403h2856uY8Z6rZ++2tzlAjYP6q/6jfV
- VPFGgN7T5skURRGxHe3m1K5ABddIVg5mtnIGnKdMQLk4e9AZRxRZ2od5OXa7IXSLd6AAlk0AIUL
- QkmbCeEsAZHwqbhAqOlpVCQ5/pI5JR64oljvm7
-X-Received: by 2002:a05:600d:82e1:b0:4a1:9663:7639 with SMTP id
- 5b1f17b1804b1-4b6e0cf4464mr101136445e9.34.1794048456657; 
- Sat, 07 Nov 2026 02:47:36 -0800 (PST)
+ AKwUvBwPPdFMjJGwJ/Fq81CTZ/v+/z8aGmsAKbut03m8VfRWh9XUiJh1CwY8re3CGxZXGWfdH4sAYVgbmQk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8Zvcr4fRkTIDL7GtVg07xZDZ7jzCUvkHaZgQGyLdU76TRpdlkh
+ foweV7uY755QgWTRuf5/TbJsJQRHVUK5vzkkRX+aV9Z6qszePSM43otV
+X-Gm-Gg: AYBFou1fjCAN6CvYRFYuMgh6P3HtK1mIOZN2iJpVdRkxUPmxkw+zT/RNHvmRiRXG3TV
+ HivNcLf1eMU05/+mIOyw1347/y6cot+hTEW7q4X/4MfrONYBpB6Rz3yctPUmbSBDKlJxGphyKxD
+ sOpzOR/wi2UgEcYY9iUuBBquoIVYs9W/bNmJbfPETWg+nNu4UHuZyEogkdkp0soxF/6ix5KfCWb
+ iNWWf/A4JaYpZwZJYnwipvJEr7AJFTKNwGKK2arQLoTz//gMo99RKwTy9fdTcSNGV4z4dBnCCrm
+ B7QomcjG3NoNFV0rhUma1EfB0vl/PZ6uxw0GGHE187LDyX+X4t6AfGgvGIwhFEGK+3PEn8zGf/M
+ PXFB1nCVYWjOJH38ylYf8QRv2dYBirzQj3AtUcvTeZW7lmJx25uyws0RmP81P1zTRFQZVbgiNwi
+ vsfPU1MT2IELOI8Xr8jeZQIY6EjVW6mcUbCRhSwZ1H5uUlIuahAAb+FInQUWBoYdfWlRSS67xFw
+ c3vwKFUpq3PmW6QEcMZzu9H8yzeNIR6W7pzrXw3UoaUBV4qQTc7ZW4+ykDeB/MdrqEHwWrQu47O
+ MC4xm2z7iw7DiQoGm4kswChijg9yLHsdRwIGpJk51OHtWzKmZf2MBa9WrI5Bmj1LK5p8sfZb/HF
+ EFyzBiNIl5KDdJ62HoSV5KcJiN5p2P7BabUVLDowwusrfAXqLUX+XTj3vuAKxJzvoSebK0BESl1
+ V00ZnwUZDyyLl9yaHJ+UBz1Cs0wqGLXO7wxsvX
+X-Received: by 2002:a05:600c:3104:b0:4a1:fe26:24f0 with SMTP id
+ 5b1f17b1804b1-4b6df7d4119mr94096405e9.20.1794048459465; 
+ Sat, 07 Nov 2026 02:47:39 -0800 (PST)
 Received: from localhost.localdomain
  (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de.
  [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.35
+ 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.38
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 07 Nov 2026 02:47:36 -0800 (PST)
+ Sat, 07 Nov 2026 02:47:39 -0800 (PST)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Tomasz Figa <tfiga@chromium.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
@@ -77,9 +77,10 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] media: videobuf2: add opt-in DMA-BUF CPU access
-Date: Sat,  7 Nov 2026 11:47:01 +0100
-Message-Id: <20261107104703.44111-2-kmehltretter@gmail.com>
+Subject: [PATCH v2 2/3] media: uvcvideo: synchronize imported DMA-BUFs for CPU
+ access
+Date: Sat,  7 Nov 2026 11:47:02 +0100
+Message-Id: <20261107104703.44111-3-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261107104703.44111-1-kmehltretter@gmail.com>
 References: <20261107104703.44111-1-kmehltretter@gmail.com>
@@ -105,170 +106,30 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Drivers that transfer buffer contents with the CPU must bracket access to
-imported DMA-BUFs with dma_buf_begin_cpu_access() and
-dma_buf_end_cpu_access().
+uvcvideo writes USB payloads into imported DMA-BUFs with the CPU without
+cache synchronization, leaving physical RAM stale for non-coherent DMA
+importers.
 
-Add a uses_cpu_access queue flag for vb2-vmalloc queues to bracket the
-interval from buf_prepare() through buf_finish(), using read access for
-output queues and write access for capture queues.
+Set uses_cpu_access to bracket the driver's CPU access.
 
-Keep this opt-in because some vb2-vmalloc drivers pass imported buffers to
-hardware, and end access in process context because DMA-BUF callbacks may
-sleep and return errors.
-
+Fixes: ccc4c539c05f ("[media] v4l: uvc: add support for DMABUF importing")
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-v2:
-- Scope uses_cpu_access to vb2-vmalloc queues and drop the attach_dmabuf
-  dma_dir parameter from vb2_mem_ops and the allocators (Tomasz Figa).
-- Call __vb2_buf_end_cpu_access() from __vb2_buf_cancel() (Tomasz Figa).
+ drivers/media/usb/uvc/uvc_queue.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../media/common/videobuf2/videobuf2-core.c   | 76 +++++++++++++++++++
- include/media/videobuf2-core.h                |  5 ++
- 2 files changed, 81 insertions(+)
-
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index 29e539ee002e..6c32d3cccb93 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -371,6 +371,65 @@ static void __vb2_buf_mem_finish(struct vb2_buffer *vb)
- 		call_void_memop(vb, finish, vb->planes[plane].mem_priv);
- }
- 
-+/* Output buffers are read by the driver; capture buffers are written. */
-+static enum dma_data_direction vb2_cpu_access_dir(const struct vb2_queue *q)
-+{
-+	return q->is_output ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-+}
-+
-+static bool __vb2_dmabuf_is_duplicate(const struct vb2_buffer *vb,
-+				      unsigned int plane)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < plane; i++)
-+		if (vb->planes[i].dbuf == vb->planes[plane].dbuf)
-+			return true;
-+
-+	return false;
-+}
-+
-+static void __vb2_buf_end_cpu_access(struct vb2_buffer *vb,
-+				     unsigned int num_planes)
-+{
-+	struct vb2_queue *q = vb->vb2_queue;
-+	enum dma_data_direction dir = vb2_cpu_access_dir(q);
-+	unsigned int plane;
-+
-+	for (plane = 0; plane < num_planes; plane++) {
-+		int ret;
-+
-+		if (__vb2_dmabuf_is_duplicate(vb, plane))
-+			continue;
-+
-+		ret = dma_buf_end_cpu_access(vb->planes[plane].dbuf, dir);
-+		if (ret)
-+			pr_warn_ratelimited("[%s] failed to end CPU access to dmabuf plane %u: %d\n",
-+					    q->name, plane, ret);
-+	}
-+}
-+
-+static int __vb2_buf_begin_cpu_access(struct vb2_buffer *vb)
-+{
-+	struct vb2_queue *q = vb->vb2_queue;
-+	enum dma_data_direction dir = vb2_cpu_access_dir(q);
-+	unsigned int plane;
-+	int ret;
-+
-+	for (plane = 0; plane < vb->num_planes; plane++) {
-+		if (__vb2_dmabuf_is_duplicate(vb, plane))
-+			continue;
-+
-+		ret = dma_buf_begin_cpu_access(vb->planes[plane].dbuf, dir);
-+		if (ret) {
-+			__vb2_buf_end_cpu_access(vb, plane);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * __setup_offsets() - setup unique offsets ("cookies") for every plane in
-  * the buffer.
-@@ -1504,9 +1563,21 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
- 		}
- 	}
- 
-+	if (q->uses_cpu_access) {
-+		ret = __vb2_buf_begin_cpu_access(vb);
-+		if (ret) {
-+			dprintk(q, 1, "failed to begin CPU access to dmabuf: %d\n",
-+				ret);
-+			call_void_vb_qop(vb, buf_cleanup, vb);
-+			goto err_put_vb2_buf;
-+		}
-+	}
-+
- 	ret = call_vb_qop(vb, buf_prepare, vb);
- 	if (ret) {
- 		dprintk(q, 1, "buffer preparation failed\n");
-+		if (q->uses_cpu_access)
-+			__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 		call_void_vb_qop(vb, buf_cleanup, vb);
- 		goto err_put_vb2_buf;
- 	}
-@@ -1720,6 +1791,7 @@ EXPORT_SYMBOL_GPL(vb2_core_prepare_buf);
- static void __vb2_buf_cancel(struct vb2_buffer *vb)
- {
- 	struct media_request *req = vb->req_obj.req;
-+	struct vb2_queue *q = vb->vb2_queue;
- 
- 	/*
- 	 * If a request is associated with this buffer, then
-@@ -1743,6 +1815,8 @@ static void __vb2_buf_cancel(struct vb2_buffer *vb)
- 
- 	if (vb->prepared) {
- 		call_void_vb_qop(vb, buf_finish, vb);
-+		if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-+			__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 		vb->prepared = 0;
- 	}
- 	__vb2_dqbuf(vb);
-@@ -2191,6 +2265,8 @@ int vb2_core_dqbuf(struct vb2_queue *q, unsigned int *pindex, void *pb,
- 	}
- 
- 	call_void_vb_qop(vb, buf_finish, vb);
-+	if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-+		__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 	vb->prepared = 0;
- 
- 	if (pindex)
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index 4b4f4c15c53a..bbcdd8c8989a 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -510,6 +510,10 @@ struct vb2_buf_ops {
-  *		->finish().
-  * @non_coherent_mem: when set queue will attempt to allocate buffers using
-  *		non-coherent memory.
-+ * @uses_cpu_access: the driver transfers buffer data with the CPU instead of
-+ *		DMA. For imported dma-bufs on vb2-vmalloc queues, videobuf2
-+ *		brackets the interval from buf_prepare through buf_finish with
-+ *		dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
-  * @lock:	pointer to a mutex that protects the &struct vb2_queue. The
-  *		driver must set this to a mutex to let the v4l2 core serialize
-  *		the queuing ioctls. This lock is used when waiting for a new
-@@ -614,6 +618,7 @@ struct vb2_queue {
- 	unsigned int			uses_requests:1;
- 	unsigned int			allow_cache_hints:1;
- 	unsigned int			non_coherent_mem:1;
-+	unsigned int			uses_cpu_access:1;
- 
- 	struct mutex			*lock;
- 	void				*owner;
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442f..1f92ee96e071 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -247,6 +247,7 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+ 	queue->queue.drv_priv = queue;
+ 	queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
+ 	queue->queue.mem_ops = &vb2_vmalloc_memops;
++	queue->queue.uses_cpu_access = true;
+ 	queue->queue.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC
+ 		| V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
+ 	queue->queue.lock = &queue->mutex;
 -- 
 2.39.5 (Apple Git-154)
 
