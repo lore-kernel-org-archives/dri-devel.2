@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B77606A32D
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 20:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC1C606A331
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 20:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X562X8Et
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPvPuU8M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF9710E21B;
-	Sat,  7 Nov 2026 20:26:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD59510E100;
- Sat,  7 Nov 2026 20:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB2A10E6B1;
+	Sat,  7 Nov 2026 20:26:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 268F410E5EB;
+ Sat,  7 Nov 2026 20:26:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A2A0439B0;
- Sat,  7 Nov 2026 20:26:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EE791611B9;
+ Sat,  7 Nov 2026 20:26:11 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794083172;
- b=sDhwv3TH9yV/llP290c3TnHfs3TO4SaG1AUh6eFUmI8AO1aCeQLa9CLLEet/z1VQ6lu3
- YOc5XhXks3lh9v5EuRa2qOC34+VkCkvZZZD6AhnvH41jpXZlrRZtLRkR0c1B0tX9e20uI
- hU+nzsuuJH8xQdUVJvyAJVKmu0YAXTmZiIbM7jfqdbOGGaRtgoeuL65aCUAre4bcJm5B0
- 9yVLojO3jBMbnTDfYfIPK0HPcT6nRB0izwi1q9SjjZqse4TfB4cN+sKGQ7HPDQp9I3VSN
- OIseP3Nl4aDeAy5hyThzGZKHEMnZ37R+q05zc/5q259J5crMtkaqxMBLtSsjFAhbDwQ==
+ t=1794083171;
+ b=UkB72y68VR1hApCx+DhsuPmokH4c8DUWmqG0N//E016QZVnPbv3OR5F/RFDf38IQgWbr
+ 5ZDR9oJRbdkddBQRBREjrOxEhp6VGo/tu0dTL3GFpsB1fUCjvHgBQ8E6g/6PEuH4QLSIw
+ reb72HSYaYUF+0ffF/UlQIrefm5Jh2eKoUtupIuk6JgyL6nh3nt4r6eFCv8zp7kd2qLxJ
+ o8T0o4dh6Qd/9Rg9lYkmntinSoQKlEgO/NWtHFsELdWyxtFyj/jdiixc8mKUs5yZUybGH
+ pfBaMnPyJKy8aetIYcxdoRRCwSo1MRwMB1vuYeGfExYAgCnzzi+pqlIoABtoR5KW72A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794083172;
+ c=relaxed/relaxed; t=1794083171;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=GIprRia/RJ9SCW3Nz10/Cuw3C9XQlfLSKDzw5fbfJpM=;
- b=R7enfhfeF38UW/FQQ/m1DOmjMqA9ytzpOasVkWeD9ztxoRnH4hoYoxA20O90onthy4UQ
- +f26M7qDTKzlq1uZ/yMUcqR3So4cjrWraKSL/0R6rnkkvB9X0FKeEQWdOJeSIHlHZWiw5
- Cu4LZB9uilAk/Yfiwhvlxa8//D5UTwVNnugkvdtg04hzCQiAuH1+/ZUjhtyNeRZgyKcC+
- f94+6AAmIJg8xMwZGKG5ZX8vwp9dpDxlQf87NqXvvwmL4hiIPKR0NwXRI/LWiSADN7VSe
- YTqogxNjOzLdUbZ4+oOGBvkHslNA85yebIX0YlyMcj6TV6uSP9mBhxqv9Q6qAfE0Q8g==
+ bh=mDePkqFwOIRt6vrMmH95TRvT3OacLhO08wSp0V/X8Gc=;
+ b=Svc5Gi0KFExtoW9KFPU35hSNZukj4ZmB4ryjDeHs5YWUT5gwZas+Eqw+jsoeyGlHnMf4
+ xHnkwAXKSMUNmo0q/yLecCWhviusJxg3hLhLOWZWofl/7hyrKBl8hkRUfUKUjdZiW1kau
+ 2JUNuxs0BbY/ztn4BzabroGkg35RKzHK59GNfVkMEMWLuBtY79MXvyfqxQ+kG6/cGrSs+
+ BpKHPkDu8bGyCorA7XVNXIFO31O7VlyZna16U/EHL7HR2nFF4wtmWIWSlaN9vWRsLc7e2
+ p3Ru73EHGiUSAwkY8m1XlDtPagENWG0eSQr2mECoEIOA0cws0RvhmIvlfVyFXm5MLkA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 148CF1F008A3;
+ by smtp.kernel.org (Postfix) with ESMTPS id 0D5A91F008A2;
  Sat,  7 Nov 2026 20:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794083172;
- bh=GIprRia/RJ9SCW3Nz10/Cuw3C9XQlfLSKDzw5fbfJpM=;
+ s=k20260515; t=1794083171;
+ bh=mDePkqFwOIRt6vrMmH95TRvT3OacLhO08wSp0V/X8Gc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=X562X8EtoNhDaJzVbOyxJH+/t1rUxpAs2cHfhfnmG1JMAOZ9pXIhROcUTgUBTLhUR
- WyeBw/u6aaizrhvv+1QnuknY2eXcw230qhOE/+OFNeUv8YL0A3HOs9+yIeC5Fdjc1j
- OrA8QgXX5utkXx2hXg3gF978pMZNyH+s7tAxOOFWAFbuni8nxAFE7HK8z0KodNDvIK
- jmgA7kkVJZplDwftPHt7trfUOXg5PTqhNGukYcGLA+A0S/45GcH79/VjtPqsYkfRH0
- aXK0pKBL/uXw+q2F8XYUQavqpbn086v0zNqRFOZqvFkIC1RLpZMBitmEqp7XhHVX4/
- 4VKFOUQlC1FSw==
+ b=XPvPuU8MRuBsZ7ZHo1UUNc1Joz1jCv6dFi4Ri5AaPYzxFkyGEabOIbhnl3GIkpAtF
+ pm6OiPy5bWM/YYIVZOUowNnYYh2oiFAiHDSjeVSQ3CU1By23wq7bxClMMQ9zA+Twx0
+ UG4WFdby5PzTfy/LBEAngfd56Z71/FO2EIy/Cff8+08GXjXNQl3dj6HmjTo3AYpP0v
+ D+h2XQsCcpXNijw6p4EhTfk5I4+5c09TkbXIUJtR23mSGJGvBqUpPzFnMZNTTZ6reL
+ 81ndas4O2SyuNxIVsBFnXYUM3wBKdC7sjg0V+JJNaI+3UnfIk62m+EYVB/qSLqgnlr
+ gCGNe2lPZZ7jg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 94F7F47CFF;
+ by lkml.kernel.org (Postfix) with ESMTP id 7574347CF3;
  Sat,  7 Nov 2026 20:26:10 +0000 (UTC)
 From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 17:26:09 -0300
-Subject: [PATCH v3 3/4] drm/msm/a5xx: Hold a CPU latency request while the
- GPU is powered
+Date: Sat, 07 Nov 2026 17:26:07 -0300
+Subject: [PATCH v3 1/4] drm/msm: Resume devfreq from each GPU's resume callback
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-a5xx-gpu-pm-v3-3-e2480408abea@gmail.com>
+Message-Id: <20261107-a5xx-gpu-pm-v3-1-e2480408abea@gmail.com>
 References: <20261107-a5xx-gpu-pm-v3-0-e2480408abea@gmail.com>
 In-Reply-To: <20261107-a5xx-gpu-pm-v3-0-e2480408abea@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
@@ -79,11 +78,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Paul Sajna <sajattack@postmarketos.org>, 
  Fabricio Akio <fabricioakio@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794083169; l=7433;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794083169; l=3502;
  i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=/JhjEL22ii7W3xtMdsbYk5EVd1ODpfhSOJcl87x/rEg=;
- b=hY+iT1s8tq99aKO8Zxfxj7ClVUZkSZGqc4dnMe6jcnFR1ZG1vo9ulRR7htIx2/3tL8+jhzZZY
- OTJafopTzkaBUVregT0wy4TEarLgGIIhb8KlPFOJRaovoXDGgmjC9+W
+ bh=WKx98tYEeskV/kIUiXfz3iSMFdKKmrq0cO+ilFuFsnE=;
+ b=UD+hnPGkt24XPuPzx9SUtXtuTqDNI0/yrMudI7K1Cx/+2gSDCNxoj9bXknwMRUheOSU5sQnnE
+ TTigYJlo942BNKsjkIX36R1eZABb808jP7i0jzUYtR8PcqNGzp/Oze1
 X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
  pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
 X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
@@ -102,186 +101,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: fabricioakio@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Fabricio Akio <fabricioakio@gmail.com>
 
-On SDM630 the GPU was observed to stop executing while the SoC is in
-system-level power collapse, and to continue once the SoC wakes. Its
-interrupts have no wakeup route through the MPM, so it cannot wake the
-SoC itself. A submission overlapping such a state would stall until a
-CPU wakes, and a stall longer than the hang detector's threshold makes
-the driver recover the GPU, which can lose a frame.
+msm_gpu_pm_resume() resumes devfreq, which samples the GPU's busy
+counter as the baseline of its next poll. A resume callback that resets
+the GPU after msm_gpu_pm_resume() clears that counter, and the next
+poll then subtracts the old count from the new one and wraps.
 
-Qualcomm's downstream driver holds a CPU latency request while the GPU
-is active, qcom,pm-qos-active-latency. Do the same: take the request
-when the GPU resumes and drop it when it suspends, so the state is
-available again once the GPU has gone idle, and on destroy, which
-unbind reaches even when suspending the GPU failed.
+Move the call out of msm_gpu_pm_resume() into the resume callbacks that
+use it, as A6xx already does, so that each GPU can resume devfreq once
+its hardware is ready. The A3xx, A4xx and A5xx callbacks call it right
+after msm_gpu_pm_resume(), where it ran before, so nothing changes yet.
+A2xx has no gpu_busy callback, so it has no devfreq.
 
-The limit is a per-GPU catalog value. Only the system-level state needs
-blocking, so the A508 in SDM630, the A509 in SDM636 and the A512 in
-SDM660 take 2336 us, the largest entry plus exit latency of the CPU and
-cluster idle states these SoCs share: every one of those states stays
-available while the GPU is powered. Mainline does not describe the
-system-level state yet, so until it does the request blocks nothing.
-
+Suggested-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
-Changes in v3:
-- Take 2336 us instead of downstream's 424 and 518 us, which also
-  kept every CPU out of power collapse (Dmitry)
-- Drop the request on destroy after adreno_gpu_cleanup(), which stops
-  runtime PM and the GPU worker, so nothing can take it again before
-  it is freed (Sashiko)
+New in v3.
 
-The system-level state comes from a series not yet sent, which adds
-SDM630's cluster and system power domains; its entry plus exit latency
-is 14773 us, and any limit from 2336 us to just under that blocks the
-same states. With it, on an A508, no request gave 205 and 272 hang
-detections in 585 and 634 jobs, and 2336 us none in 416 and 479.
-
-Downstream's MPM map lists the GPU's interrupt, SPI 300, as 332 with no
-pin:
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm630-gpu.dtsi#L62
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm630-pm.dtsi#L585
-
-Downstream's 424 and 518 us:
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm630-gpu.dtsi#L117
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm660-gpu.dtsi#L126
-It reads the value at probe, applies it when the GPU starts and drops
-it when the GPU slumbers:
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno.c#L887
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno.c#L1451
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2753
-
-Tested on an A508 only; the A509 and A512 share its CPU and cluster
-idle states.
+Tested on A508 only; the A3xx and A4xx callbacks call it where
+msm_gpu_pm_resume() did.
 ---
- drivers/gpu/drm/msm/adreno/a5xx_catalog.c |  3 +++
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 14 ++++++++++++++
- drivers/gpu/drm/msm/adreno/a5xx_gpu.h     |  4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  5 +++++
- 4 files changed, 26 insertions(+)
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 15 ++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c |  2 ++
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.c         |  2 --
+ 4 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
-index babd320f3b73..ae9127940a22 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
-@@ -55,6 +55,7 @@ static const struct adreno_info a5xx_gpus[] = {
- 		 * the GDSC which appears to make it grumpy
- 		 */
- 		.inactive_period = 250,
-+		.cpu_latency_us = 2336,
- 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
- 		.funcs = &a5xx_gpu_funcs,
- 		.zapfw = "a508_zap.mdt",
-@@ -72,6 +73,7 @@ static const struct adreno_info a5xx_gpus[] = {
- 		 * the GDSC which appears to make it grumpy
- 		 */
- 		.inactive_period = 250,
-+		.cpu_latency_us = 2336,
- 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
- 		.funcs = &a5xx_gpu_funcs,
- 		/* Adreno 509 uses the same ZAP as 512 */
-@@ -105,6 +107,7 @@ static const struct adreno_info a5xx_gpus[] = {
- 		 * the GDSC which appears to make it grumpy
- 		 */
- 		.inactive_period = 250,
-+		.cpu_latency_us = 2336,
- 		.quirks = ADRENO_QUIRK_LMLOADKILL_DISABLE,
- 		.funcs = &a5xx_gpu_funcs,
- 		.zapfw = "a512_zap.mdt",
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 5b5429033986..b3f9bbf997c9 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1061,6 +1061,11 @@ static void a5xx_destroy(struct msm_gpu *gpu)
- 	}
- 
- 	adreno_gpu_cleanup(adreno_gpu);
-+
-+	/* Still held if suspending the GPU failed before it was destroyed */
-+	if (cpu_latency_qos_request_active(&a5xx_gpu->pm_qos_req))
-+		cpu_latency_qos_remove_request(&a5xx_gpu->pm_qos_req);
-+
- 	kfree(a5xx_gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 160d302e16a3..a3aa4ae1fdb0 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -534,6 +534,19 @@ static int a3xx_pm_suspend(struct msm_gpu *gpu)
+ 	return msm_gpu_pm_suspend(gpu);
  }
  
-@@ -1360,6 +1365,7 @@ static void a5xx_dump(struct msm_gpu *gpu)
- static int a5xx_pm_resume(struct msm_gpu *gpu)
++static int a3xx_pm_resume(struct msm_gpu *gpu)
++{
++	int ret;
++
++	ret = msm_gpu_pm_resume(gpu);
++	if (ret)
++		return ret;
++
++	msm_devfreq_resume(gpu);
++
++	return 0;
++}
++
+ static u32 a3xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
  {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a5xx_gpu *a5xx_gpu = to_a5xx_gpu(adreno_gpu);
- 	int ret;
- 
- 	/* Turn on the core power */
-@@ -1367,6 +1373,11 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
+ 	ring->memptrs->rptr = gpu_read(gpu, REG_AXXX_CP_RB_RPTR);
+@@ -637,7 +650,7 @@ const struct adreno_gpu_funcs a3xx_gpu_funcs = {
+ 		.set_param = adreno_set_param,
+ 		.hw_init = a3xx_hw_init,
+ 		.pm_suspend = a3xx_pm_suspend,
+-		.pm_resume = msm_gpu_pm_resume,
++		.pm_resume = a3xx_pm_resume,
+ 		.recover = a3xx_recover,
+ 		.submit = a3xx_submit,
+ 		.active_ring = adreno_active_ring,
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+index 6392126f48f2..289204d53311 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+@@ -577,6 +577,8 @@ static int a4xx_pm_resume(struct msm_gpu *gpu) {
  	if (ret)
  		return ret;
  
-+	if (adreno_gpu->info->cpu_latency_us &&
-+	    !cpu_latency_qos_request_active(&a5xx_gpu->pm_qos_req))
-+		cpu_latency_qos_add_request(&a5xx_gpu->pm_qos_req,
-+					    adreno_gpu->info->cpu_latency_us);
++	msm_devfreq_resume(gpu);
 +
- 	/*
- 	 * The GX power domain is not necessarily switched off while we are
- 	 * suspended: on SDM630, SDM660 and MSM8998 the device tree attaches it
-@@ -1450,6 +1461,9 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
+ 	if (adreno_is_a430(adreno_gpu)) {
+ 		unsigned int reg;
+ 		/* Set the default register values; set SW_COLLAPSE to 0 */
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index 16c7335c4b1f..c81f67c639c8 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -1367,6 +1367,8 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
  	if (ret)
  		return ret;
  
-+	if (cpu_latency_qos_request_active(&a5xx_gpu->pm_qos_req))
-+		cpu_latency_qos_remove_request(&a5xx_gpu->pm_qos_req);
++	msm_devfreq_resume(gpu);
 +
- 	if (a5xx_gpu->has_whereami)
- 		for (i = 0; i < gpu->nr_rings; i++)
- 			a5xx_gpu->shadow[i] = 0;
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.h b/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-index fb05f1ca3e81..07a36c05be25 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-@@ -4,6 +4,8 @@
- #ifndef __A5XX_GPU_H__
- #define __A5XX_GPU_H__
+ 	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
+ 	if (!(adreno_is_a530(adreno_gpu) || adreno_is_a540(adreno_gpu))) {
+ 		/* Halt the sp_input_clk at HM level */
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 0c2c35636251..d33612fb3e53 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -116,8 +116,6 @@ int msm_gpu_pm_resume(struct msm_gpu *gpu)
+ 	if (ret)
+ 		return ret;
  
-+#include <linux/pm_qos.h>
-+
- #include "adreno_gpu.h"
+-	msm_devfreq_resume(gpu);
+-
+ 	gpu->needs_hw_init = true;
  
- /* Bringing over the hack from the previous targets */
-@@ -48,6 +50,8 @@ struct a5xx_gpu {
- 
- 	/* True if the microcode supports the WHERE_AM_I opcode */
- 	bool has_whereami;
-+
-+	struct pm_qos_request pm_qos_req;
- };
- 
- #define to_a5xx_gpu(x) container_of(x, struct a5xx_gpu, base)
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 4b2156825bdf..fcc382f4a9a1 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -118,6 +118,11 @@ struct adreno_info {
- 	const struct adreno_gpu_funcs *funcs;
- 	const char *zapfw;
- 	u32 inactive_period;
-+	/**
-+	 * @cpu_latency_us: CPU latency limit to hold while the GPU is
-+	 * powered, in microseconds, or 0 for none
-+	 */
-+	u32 cpu_latency_us;
- 	union {
- 		const struct a6xx_info *a6xx;
- 	};
+ 	return 0;
 
 -- 
 2.56.0
