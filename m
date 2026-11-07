@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFB7606A326
-	for <dri-devel@archiver.kernel.org>; Fri,  6 Nov 2026 23:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E63D606A326
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 00:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPJvha8W
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNQEz9Fi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4363113247;
-	Fri,  6 Nov 2026 23:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5845610E032;
+	Sat,  7 Nov 2026 00:12:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8030411323D
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 23:53:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A1810E032
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 00:12:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 34DD4407B6;
- Fri,  6 Nov 2026 23:53:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF591F0089F;
- Fri,  6 Nov 2026 23:53:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CC77E40917;
+ Sat,  7 Nov 2026 00:12:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D161F0089F;
+ Sat,  7 Nov 2026 00:12:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794009223;
- bh=xJa0jZcpZqeN5vtRcyXU8zvbcrJMLdSjJP3qA98Wz4o=;
+ s=k20260515; t=1794010341;
+ bh=uNVQmzo/bHycePIwRqcpdfaMQStdj9PdAW1IeyQRRcc=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=LPJvha8WWQCrwK8+nJ6utvCdxSE0N9Y6BAIKkcUaOySQyBW9xRUX+wc+qK6DabAcV
- LUseEWT0glyjPlN3zjpxTh/SQJeEgZ0r/LkdTuV4KrrbC0JQHuFTBRPkBlfgEEStRa
- Uraa6ZgY0jcsmgaR+EZ9BYismSuPzKEtWDmwGGEAXLrn4kqZwLX4gWXLw3MmcDGtS6
- bPpy6cKDxggzFW6u9iyht5wVrNaCUc9S3n+yD6I7AL4xjJ+E2PZwCaavR4GyOUidmz
- dHWFHo0ux0kqU2b2ry/6Zn+jBbTCBjZSwGpxwhPzWGQWVahjIRsKu80UZP9TPhRNRf
- 5IalwUAWoAUpA==
-Message-ID: <sashiko-outbox-202393@kernel.org>
+ b=QNQEz9FigoGEUHfAuxKirO26K/U5OC5hY9W7a0Z5KJUJ9hY/CFLJCgmE5VATNVTtj
+ /LNQDleujtEbPSGI7AIW/pb9IiyNscNB7rES3Fl2RJpBbfWlanmvik5lbagIFJOo1R
+ 6r5ZcC5xLXQZZf+GSOrNbcNJW4qLwLJSGcwJ3GAnZAati1P5kzESwTtrUe+vuH8lLD
+ KtYMduSaLhYEVFxfK0Kxro/7Ifda0mKtI9L8BHDfKb00BXylfd8RwMVikFewyP89Nj
+ 4xPz6KtNg+KMRmGz1mfAZ6uGJ6zMhLTGhwwfQ17jtQVEshlohK9MSXcxfNvdqo5Gf2
+ DbF0lJ6vp7Zmg==
+Message-ID: <sashiko-outbox-202414@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/15] drm/msm/a8xx: Add missing a850 ifpc reglist
- entries
+Subject: Re: [PATCH v7 08/15] drm/msm/adreno: Fix PROTECT span length
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261106232220.47602-6-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261106232220.47602-9-robin.clark@oss.qualcomm.com>
 References: <20261106232220.47602-1-robin.clark@oss.qualcomm.com>
- <20261106232220.47602-6-robin.clark@oss.qualcomm.com>
+ <20261106232220.47602-9-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 23:53:42 +0000
+Date: Sat, 07 Nov 2026 00:12:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,16 +59,16 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/msm/a8xx: missing Fixes trailer on a850_ifpc_reglist_regs
-  bug fix
+- [Low] drm/msm/adreno: missing Fixes trailer for CP_PROTECT span length
+  mask fix
 --
 
-commit a11014b95b303f1f3c8636f209c0da394344bee8
+commit 7bc09402b77f2e494b3bf9d1610efc50f87c8cb5
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-> drm/msm/a8xx: Add missing a850 ifpc reglist entries
+> drm/msm/adreno: Fix PROTECT span length
 >
-> We want to save/restore all of the CP_PROTECT regs across IFPC.
+> Don't let the length bleed into b31.
 >
 > Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone =
 3a)
@@ -78,11 +77,11 @@ Author: Rob Clark <robin.clark@oss.qualcomm.com>
 > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 
 [Severity: Low]
-This fixes an incomplete IFPC register save/restore list in
-a850_ifpc_reglist_regs.  Should this include:
+This fixes the _len bitmask in A6XX_PROTECT_NORDWR and
+A6XX_PROTECT_RDONLY.  Should this include:
 
-  Fixes: b0e029f7cf87 ("drm/msm/a8xx: Add Adreno 850 support")
+  Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106232220.4760=
-2-1-robin.clark@oss.qualcomm.com?part=3D5
+2-1-robin.clark@oss.qualcomm.com?part=3D8
