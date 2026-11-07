@@ -2,93 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441A5606A330
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 08:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5A6606A326
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 08:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FF8RqXYn
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rvYcZIQM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF2710E073;
-	Sat,  7 Nov 2026 08:47:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACB110E073
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 08:46:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 78651438E1;
- Sat,  7 Nov 2026 08:46:58 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794041218;
- b=g5jUbZ7i6+5hbtQKE547WWTYXfZ22ih1P5M6ILXhqLR5T5/YbsLTOBv2IZsC5Wg+fXOW
- VQr+C5ZQk7K5unNodxK7nBpWvu5tBdZCwrZNunAk4gVuShd8QIAHZLtjS6TFALovbdZPb
- 6kIruiE1DdZw0dWLFJR21o3xfxokufcGdvbxGg/lXvIi+Dfz0NXLKUuQfSvVelemFCYx2
- WTzcz47tAKpNIeybnjQejk0QuKup0vTBj6mEavXjab4WHiVp+GFZS4ESbnnWbxV7/5Rty
- uk6ozCtipyym++xUKeJ6dDFpFIWvrvDJeodcvaZfVBJ+ueyv92WH04HPd2NPKaYgQFg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794041218;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
- b=SgE43hTHLKfsZmRifaLKmcFPUJWZfW6I4orNVpdr3bkiSuwwCwPqNk01Ldk5JdgL4+E/
- 4HsaDSzahzF9i1QcQqdsUbixxUqGTVdwpgsFAhsJB09M7br4TYAYNRM8WpCbp74fWAjpS
- +T8AmLfKtBQEI2OXfy8eXGNwgB519X0TiRE+5Vn0mY/dJYK+MbvaLQkFQaN9385B2PdCd
- tIpV96e9GKPTU2aL5ahnUSNUfkFVteFlA/NW2ByX9yhLKj4uEMDlkDC86BffGWyzsAx+Z
- NB2IA0UbYD5Xhj5k5RRGDChf8jJivJTpNoKg8RRSlWQfYOgdAzTiy3DcKsRbgWZHtxA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B28671F0089F;
- Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794041218;
- bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=FF8RqXYntGFx92+sfkOztEgA4WIAyQcpfDrN5w6rcRI4PN/aC/aikAS+NjSvOT/0N
- vJvvYAQRcf7sIzfPnGj5gehP7i3fxpAsDjwL4dTIEJ3Pt35Lp+TCjFg9cHU3TCqeUf
- Eca9sLD/bKlApKMdYImE6f+1xe68TgiuePOpSja7IEkBc/HmLjWkaY1CSykrcv6kIx
- QagCqkKMKCYYWh5dBwbrDehR8zjQM9LvnedxhAzOiCRgzJ3rzl+vKa5dYEAFEVgKLu
- IrfHBjWPon79bxCmQKqlCS7yhMbUjY1qQWvVGr/Qy6YDeGTuD9Y/z97pFk0m+DECiN
- g7zfpJ7j6KQsg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 10B8B47B20;
- Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
-From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 07 Nov 2026 16:46:40 +0800
-Subject: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
- host bridges
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF2B910E347;
+	Sat,  7 Nov 2026 08:58:03 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5664510E509
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 08:57:57 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a35d5d4a20so14989555e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 00:57:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794041875; x=1794646675; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=kw2zLGhVUDQnO5rFq8cwt1gUENr7fOzbT4vb4xG8V9g=;
+ b=rvYcZIQMH+WCux42vzqTcwUzsWPvrdbZUqoG60qSiRDwAePx2rZLAX30Gq8TUfv+Ys
+ M+rL7OIwfW2WgPAAn2U+RRy2FsOKubyuwlGUgYg3VyfZQNelMm5cD5KGLw+EWcF1gpf0
+ RNvuecJjfGopOzLWrx86ivIbB/UIXvYhLpKcZIVwteG9qyI2PECtb9Urg+4NX0xKai/h
+ R/CeNawwyasZ4Y9xHecnoenJqkfTs9MehY3UFWFvllN/ORT/eq2dhPvHzkRF9HSkgQ5a
+ Kx7A76h2ampKGyOuAM14GqpNybKayUu6ckjU4V0fzGcmBJ4q21VR/sRQwLyjnHbbKxf5
+ rpUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794041875; x=1794646675;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kw2zLGhVUDQnO5rFq8cwt1gUENr7fOzbT4vb4xG8V9g=;
+ b=t94cw7BzojLURESkyfQd/DvbQ34KSz41IQeBVM+5kgOvq+HShsI+gpC6sanD1Zin3Z
+ qE2ZmUbMZ5azjw3LeM8RpS+yWkITuBWv1EM3EsD6NsuJaU62epVbYKDOjuy9B2yodG6G
+ C/d9nJqgnHMEVhfcFsKp0fWSaITOP82ybFSnWgzS57VEovfKJ8V3QfJoTjg08pKYEgpj
+ TULe0ZKpNOuf1JeMyQXMV2OhSqKsfpq7UFlNNrIibBWNx6DdFIKEKpvWkgaDxJIGDuoN
+ rezEs4VuvuvB07sSEqqecPtdewCEYU/XAkJ5qUmb9kPiWd2DxF0dO06YqslLaEx7jyLV
+ LqkA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzgnVr2vV4PaMnlLy6i56ERnFakeyhNfiyTaeYAzEnYPGDxfk+vqsCMq2wagAWc3rfyp9qtnXnYR20=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+WDMrpXXF80iXSLJUTeHsxDOL4aMEDKodzaPBU3zDGddtpcUqd
+ g85Q8uQJRqTdOTcsymOFfxRuzrL+e6l1LRCiv1KeM08swyeQlT2f+ciP
+X-Gm-Gg: AYBFou39Tnn7gGM/y5Nxv9zKsMgXe2xCmPleAmSIJc7NiONWEDKynMFtKQypEFipX2P
+ YYqNGEfRlXcEAfKCSS17NkTyIdqzLVd3fG+aoutiKaVtkOvPG2UAm8Y6rS+tNJn3NMqt+3cVZlT
+ B0tLfFvfSQXrqs11/Difn2yRYqXqJ4Qv1ZB3qoJTm2X+lIRa7ANZYm133pvyG/dn28qmuOr0nQc
+ 7RgSLoQ9kWJSPcLNnw0GUpkZFSyHND8klnYqzrqB9vUnwpnNmAPSp6OZ9hnDNFNZ0pLMxv2GW4i
+ RRJpt/UqdCKhjMEE3aCTjvIMJJpdUhiQhcjTWz2rsQ21iaPeDj4aheVzU9UR4Sux00dFTcd9tnE
+ u3JdaBQhqHcQy+x6DbodEu2lx89lba7dkCefPF2vEzZ7Aq9apaC3yK6r8UQy36cgJG9cbco+utk
+ CqUGBPjxX+o/gfQQlIQV7vJ+MRsWg7rN6zWj9ptCcJ5V86Dqox89FSFZIdK0ExKjwUHAZSdQmRi
+ yVH+1OXIaoXJPephR2GHm9tD/+nFZJSIpnQqccB43tyRG+TsoaubR6KWR/FqdbIV+vzlVm9+t+h
+ zpmybO01k3i7MuHe6zCLEYreQuk8BasAPPhW1NgQHwNK5kdQVQoyYBYwt14WDko36P0q+MfVuc3
+ tCIAcCRQjGSV2HTwH6MtL2Lphslx16HZ0c25xd4BCqUPi/10O9cQfDle/6VLVSVv9
+X-Received: by 2002:a05:600c:a015:b0:4a3:5a91:5f61 with SMTP id
+ 5b1f17b1804b1-4b6df028f04mr88902585e9.14.1794041875269; 
+ Sat, 07 Nov 2026 00:57:55 -0800 (PST)
+Received: from unknown748F3CBA5068
+ (dynamic-095-114-115-226.95.114.pool.telefonica.de. [95.114.115.226])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-492d7701af6sm8597238f8f.38.2026.11.07.00.57.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Nov 2026 00:57:54 -0800 (PST)
+Date: Sat, 7 Nov 2026 09:57:22 +0100
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, 
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, 
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v2 06/23] dma-buf: Let the exporter select mapping type
+ at pin/map
+Message-ID: <au7mBMbRC8q6NILj@gmail.com>
+References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+ <20261105-dma_mapping_type_v4-v2-6-78b8dc9ae80a@nvidia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4atI1gbaOqjMVQYXto0aFyqNilK8+
- 1Rdfg/eH0EoMAl8swiBdhaepwSdZ+CGduoJ2SeDUabUWlUop3QW/YqLY6SOb1SFVbUn/7EG0nE
- JaT+e6K95LZsdya13Ca7rDywKGgR2AAAA
-X-Change-ID: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
-To: Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, Borislav Petkov <bp@suse.de>, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- Han Gao <rabenda.cn@gmail.com>, stable@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794041216; l=3936;
- i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=kYFDOzF/Itut71CnG8RI8WDwvweu0YIXUO3C925lonU=;
- b=f49pP12LVp3nDhY5/qNCdRrn7GKGKv+PAeF7rRNnQhocxFGvzzftFz+q/x/2lTZdiAgXP2VPM
- Spx0r81cSHOD19AjA6XvuruJdovxQmXrcjLGkzR1exrcTYj1jtHjwTP
-X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
- pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
-X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
- auth_id=1262
-X-Original-From: Han Gao <gaohan@iscas.ac.cn>
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-dma_mapping_type_v4-v2-6-78b8dc9ae80a@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,123 +112,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: gaohan@iscas.ac.cn
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Han Gao <gaohan@iscas.ac.cn>
+On Thu, Nov 05, 2026 at 05:40:41PM +0100, Alistair Popple wrote:
+> + * A pin or map that fails after dma_buf_mapping_select() may reopen the
+> + * choice only if it was the one that made it. A selection that predates the
+> + * call belongs to a live pin or mapping and must survive, otherwise the next
+> + * pin or map would reselect under it without an invalidate.
+> + */
+> +void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
+> +			      bool was_selected)
+> +{
+> +	dma_resv_assert_held(attach->dmabuf->resv);
+> +
+> +	if (was_selected)
+> +		return;
+> +
+> +	attach->selected = false;
+> +	attach->selected_idx = 0;
+> +}
+> +
 
-With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
-claims the framebuffer memory when it is added. On DT systems, the PCI
-host bridge may probe later and then fails to claim its memory window.
-On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
-built as a module:
+After dma_buf_invalidate_mappings(), attach->selected is false while
+attach->selected_idx still holds that mapping's entry for a pending
+unmap. 
 
-  [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
+If a pin/map fails before that unmap runs, was_selected is false and
+dma_buf_mapping_unselect() resets attach->selected_idx to 0.
 
-In that case, register an efi-framebuffer device instead. It claims no
-memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
-of PCIe backed efifb on DT systems") makes it wait for the host bridge.
+A subsequent dma_buf_unmap_sgt() then uses matches[0].
 
-Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
-QEMU.
+>  int dma_buf_pin(struct dma_buf_attachment *attach)
+>  {
+>  	struct dma_buf *dmabuf = attach->dmabuf;
+> +	bool selected = attach->selected;
+>  	int ret = 0;
+>  
+>  	WARN_ON(!attach->importer_ops);
+>  
+>  	dma_resv_assert_held(dmabuf->resv);
+>  
+> -	if (dmabuf->ops->pin)
+> +	ret = dma_buf_mapping_select(attach);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (dmabuf->ops->pin) {
+>  		ret = dmabuf->ops->pin(attach);
+> +		if (ret)
+> +			dma_buf_mapping_unselect(attach, selected);
+> +	}
 
-Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
-Cc: stable@vger.kernel.org
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
-In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
-With pci-host-generic built in, simpledrm is still used.
----
- drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
- drivers/firmware/sysfb.c         |  8 +++++++-
- include/linux/sysfb.h            |  6 ++++++
- 3 files changed, 29 insertions(+), 1 deletion(-)
+dma_buf_mapping_select() sets attach->selected = true before ops->pin()
+and the map callbacks run.
 
-diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
-index 2338de73c62c..5c2cb87178ff 100644
---- a/drivers/firmware/efi/sysfb_efi.c
-+++ b/drivers/firmware/efi/sysfb_efi.c
-@@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
- 		dmi_check_system(efifb_dmi_swap_width_height);
- }
- 
-+/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
-+__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-+{
-+	struct device_node *np;
-+
-+	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
-+		return false;
-+
-+	np = find_pci_overlap_node();
-+	if (!np)
-+		return false;
-+
-+	of_node_put(np);
-+	return true;
-+}
-+
- __init void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd)
- {
- 	if (si->orig_video_isVGA == VIDEO_TYPE_EFI && IS_ENABLED(CONFIG_PCI)) {
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c1883..8853a74560b9 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -164,8 +164,14 @@ static __init int sysfb_init(void)
- 		goto unlock_mutex;
- 	}
- 
--	/* try to create a simple-framebuffer device */
-+	/*
-+	 * Try to create a simple-framebuffer device. It claims the memory
-+	 * when it is added, so a DT PCI host bridge that probes later would
-+	 * fail. Use an efi-framebuffer device there; it waits for the bridge.
-+	 */
- 	compatible = sysfb_parse_mode(si, &mode);
-+	if (compatible && !parent && sysfb_efifb_behind_dt_pci(si))
-+		compatible = false;
- 	if (compatible) {
- 		pd = sysfb_create_simplefb(si, &mode, parent);
- 		if (!IS_ERR(pd))
-diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
-index ed23d6516223..b136fdebc746 100644
---- a/include/linux/sysfb.h
-+++ b/include/linux/sysfb.h
-@@ -95,6 +95,7 @@ static inline bool sysfb_handles_screen_info(void)
- 
- extern struct efifb_dmi_info efifb_dmi_list[];
- void sysfb_apply_efi_quirks(struct screen_info *si);
-+bool sysfb_efifb_behind_dt_pci(const struct screen_info *si);
- void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd);
- 
- #else /* CONFIG_EFI */
-@@ -103,6 +104,11 @@ static inline void sysfb_apply_efi_quirks(struct screen_info *si)
- {
- }
- 
-+static inline bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-+{
-+	return false;
-+}
-+
- static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
- 					  struct platform_device *pd)
- {
+In patches 14/15, xe/amdgpu migrate a VRAM buffer to system memory
+during pin and map when the attachment does not accept P2P.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
+That migration calls dma_buf_invalidate_mappings() and clears
+attach->selected on every attachment, also the one being pinned/mapped. 
 
-Best regards,
---  
-Han Gao <gaohan@iscas.ac.cn>
+When the callback succeeds, the attachment stays pinned or mapped with
+attach->selected == false.
 
+A later map/pin on the same attachment can then reselect without an
+invalidation.
 
+Thanks,
+Karl
