@@ -2,92 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5572D606A326
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E6C606A332
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Bq2ecLd/
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aLpXS1fD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C1B10EB6D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC6FD10EB72;
 	Sat,  7 Nov 2026 14:28:21 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A04A10E90D
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 14:39:47 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-492f563d1c6so222281f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 06:39:47 -0800 (PST)
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE7510E3B5
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 03:18:58 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-1b1ce85287aso1287186c88.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 19:18:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793975985; x=1794580785;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20260707; t=1794021537; x=1794626337; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ApDnH3pFxBWP98MgBtsP9HN4PO7e1RUuQTYY+krhQJU=;
- b=Bq2ecLd/KY0zPzlhiez22fvOtatqzpodFTFkd9whAiD9M40IEYYRcXiQyZg6i0C9nY
- foue9xcmEi/QIy3qamWjfHkc4DRsnKH3i85XNy55i2TkjZcl/kOWEWzoDiHPS7Qmfl2v
- fM5PZ1u6vm5f9zvTh+09tgICGhtMIaFzmP190ahhJMqV6zXCkrGLdp/B8ipQyJWg36EP
- GRq6iePpRLOInyxw0dt+265jKtHko+7jZ3BoCXLSoKyvL4HZvz54lGHjrAepoacecPzU
- kVjB7YxB2wes1yy4adaora5j5+GUaDgsHD98sYLd8QrrUmLTf4hXY0/O8oKgjylH3eIn
- ysKA==
+ bh=y7unajM2tsEtL6kyV7l2dYlgYPenWJUuAJfXbqODBpI=;
+ b=aLpXS1fDA5YskIT5xQtJTxbFTZF5D/I+3fUwi94C8EHhYJzDLhnko77gdDOOOvemwM
+ Lsi9gakMbERqXVLotKMzIBTyaqwHcqrIDLM5ul/yWmhSFk1e/jlIdFSebIXpxmbNPRFx
+ 3nTv4VtwQgmECmopnFjeQWfGCJaX53oQZyqqo+vGMZMPUHnZljgA4lh1MV0Aqu6852td
+ 8Fys5XR3muqA1GZOfmat9DdKHpRRFV5UCLpzyvFex70u28Hj1y5TX6Ap5cGUJPZttEk9
+ 3xCL1cYsrjaZkcmxMkYyXIL80u75xtNW8pW4x67sMG3UbMacwE+zSGcVD2EH8veNrdr7
+ qaiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793975985; x=1794580785;
+ d=1e100.net; s=20260707; t=1794021537; x=1794626337;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ApDnH3pFxBWP98MgBtsP9HN4PO7e1RUuQTYY+krhQJU=;
- b=jyO7SIMCWCjj7ZmPohiiVEvutRT6Ow1PLz/O87UMDNSW+bmv584RytEP1GtlLVtM2U
- ZhgEr2QbkXXrIlRaUkkQHVEwYweuHjcjQm5O4t8FhLseP8azYtu5GXmFkQSC9WWkoWnH
- IA+ByjlopwV5doU7V98ysmqj7Nuzb9UGxLsTCeIUMUNU39cxBneDOLW3QeokGgJ+C/jb
- emvuvYfzsUuGWpuce0U3IrOXhK+z0x+sucxLD0NdjwyJwH3yZIPneNwPZxj5fRGF4xjF
- +f+zVL7X2rw7omdN5s/esR356Aj4uWXYsoBMi13vIPeKiy3IsdCCwvSiKmpwtm3D2Sae
- ff+g==
-X-Forwarded-Encrypted: i=1;
- AL+hErG9sUb7w7gMJUZDbVmx5DLIe7XEQ2tmiVU2ODCSc0bCEPWVpOtw50NTNweaDL+O2ke2kDclO82xIzo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/3ZZhw7dU5jkWhw05zzfvxWaT11Yd4/2jQTHxpYttLKaNhKDau
- /d1XpGIRU0HMYcb1WRrnbTmoCYYUN0E35DiFb0emzl07qqNQdRpWOGmpgk4R1bubSSY=
-X-Gm-Gg: AYBFou2brKvfn6lmPbI0ExoybbvqIlro4PywvVjbNBG8fdnhTUwsXw+pPUpY0/7lvQv
- 869PU8519VncvBzIBout5+UvXo0GrY/SRGoIWdR23ojWhrn5PM3qM+PhC9ogpZ1iI2ZzmusLj6E
- hDesVyHjjhU1JK0ou8iSTD5/wBgSglmTJuR5YhY6zhVVtkEg9PtBzcxeFWBBdbpLnbU8JNl/5Gh
- kkuVfSFVAjn+I/IRQxbDryPd+j7Oatcrx3Oqps7DZqSC5c0Fp2eqENDLGQx/GvD1DcnINMU6Ov7
- RJjdMOGhiVWCyqCKkmjzbpz7IhUiNKqKHdzIahp0MmykBcaDDgL8iNa3ZeCTzHrqjFeiNgd0qAZ
- 7PjUyeBo7L1auLv+mjQICLg/ddnI75lB37AoNrrDob9VCna912YG3U2rds3SLWeH5l8065eNY9s
- Jw6iiVuYHcXVKG5V0kq0HW+mfRcFUqIw7tPhRdtura2tg8qz5EsnwvhNru+KVHCEYx4btMwZ5RH
- 0T74hRfwMG4YzQPkfMsP3+xSp3yUbHVjZGGrD3q0Je7nomEMienrCNwYY4LhKeiALS7+ZmWETZf
- IIxLq/2/0y/6YnxYIj2Zkh/Ny6IY3iRc54Eacxw1vu6OEJWSvsc4jq6AaN6XJDs=
-X-Received: by 2002:a05:6000:1861:b0:493:803e:800f with SMTP id
- ffacd0b85a97d-493803e802cmr1981879f8f.29.1793975985393; 
- Fri, 06 Nov 2026 06:39:45 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:30ce:e69c:9ae:c94a])
+ bh=y7unajM2tsEtL6kyV7l2dYlgYPenWJUuAJfXbqODBpI=;
+ b=yJKsH+sPpaG5UCJoOXKpOVth+quyw3xoJ4whnY927TE8R8+zRwu5eIPgqzl5JUlx4s
+ xKzlWqp/h6+e9VRfiXqqr7MBDadXHXXlYh8sZ6jC14zoSzBqti6mhAFq2zgkGWfcxEHo
+ Af2q+acRVP6cWSXT0arSNhKJclj6OpclN9//BRAWsEFTrwNovvoWNGEGmjuvQraDWKoi
+ lBciuJKacbD1qSSNE81Z1rzON6FrO1yn2VhcQAPhOb3CEx0CRUpdna2LYb09ze9rMLu4
+ 6UIpKkm7ycljpCcUTPHtlwzCasLqjzTZwZFDOzkHdty+6xJ6ve4ADQHYIQ5csEb5L6gm
+ 7sBw==
+X-Gm-Message-State: APuU4Z8IVKmk50+nYM/cWnZRcLbfEjbm37rFKg9h/1Nfr0NJld2wKU95
+ lMy+zC+cvQIG/b7rfe1TE09MuWhMliADd/iBb4wX2oBsUPIvjXNjgxUnMX36TAhc
+X-Gm-Gg: AYBFou0QCaeFVR+83FWFyY7pqXmXAPOHpDInJ7mP1I27AMyEBtOr6XQO/bwguGSrtkF
+ p67vphsmCFNo9v5S0fb83DGryFidVtqqjfSJshnpzmLn7iFandHeBVUS2fQmkHAOTP6KfsLXRI6
+ JQhGfJrmswzIFLYmh3J+dNdnKUf+ZqacpPRsiSHLF+QEVjlS28nAlFDSbJsXtpQPQFYFw68gz2Z
+ +U7yREgML5mvRZrDC/3rgjqS74Ozg1h9Seog3Ja1FTh6F842f/GpG58K2RPX4z/+QfxjTxx6qdC
+ aTd7uYXmi5prFUYM6BNW2yVrppCdBfyLYr5skdgZ5xmCfUoAtgg4VVTpGcFrXCeQJrw/b/baB+H
+ aD8gdzsz2Pcsu3fNOe8/fgCBNhXWLrKWo/Bo1D1HcmP5F0/KHo6dTwIqTtZFmAHdaH0aO4gsE6Y
+ XZooCtPUKpAQuiYw2acTMUMvGkLQ4mV60xcBEoo9ZaD9DB9w+aFdMdvH8ZKJXlYfnXryXchLbrt
+ O+M7oOr9/PdyuM18K2wlJzDj8++R6d9BuZW61IUF58UhIN2XjfPAQQsm9tpUZ5zckb0iWKDJVKN
+ 3HjMlk/gFXnqNDGtLUjUTwlxChQ8Ex/9nGeZ8tm7oHa39gEEpDeMdSrIuQlLllG3LWkMevlCUZE
+ qeanzv2H5ANnDYHUDE1NmdvK84V5ysdTIaI1Kp0YL+93qJ70TL5Pe8Y7LHcFnsC+v33yyIus=
+X-Received: by 2002:a05:701b:424f:20b0:1b2:4f97:27d7 with SMTP id
+ a92af1059eb24-1b25d32eef9mr5595214c88.36.1794021537288; 
+ Fri, 06 Nov 2026 19:18:57 -0800 (PST)
+Received: from Karthik ([2405:201:c01e:69e8:376b:daa2:909a:eabb])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-492d6d6382dsm3633050f8f.19.2026.11.06.06.39.44
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 06 Nov 2026 06:39:45 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Paul Cercueil <paul@crapouillou.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "H . Nikolaus Schaller" <hns@goldelico.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
- controller
-Date: Fri,  6 Nov 2026 15:38:27 +0100
-Message-ID: <20261106143827.15926-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
-References: <20261106112000.1612-4-olivier@mgcrea.io>
- <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
+ a92af1059eb24-1b25e485ce2sm9706545c88.7.2026.11.06.19.18.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2026 19:18:56 -0800 (PST)
+From: Karthik Sarvan <karthiks1mail@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de, louis.chauvet@bootlin.com, melissa.srw@gmail.com,
+ simona@ffwll.ch, oaroraetimis@gmail.com,
+ Karthik Sarvan <karthiks1mail@gmail.com>
+Subject: [PATCH v2] drm/vkms: Set preferred_depth to 24 for XRGB8888 default
+Date: Sat,  7 Nov 2026 08:48:42 +0530
+Message-ID: <20261107031842.18152-1-karthiks1mail@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026071933.48366-1-karthiks1mail@gmail.com>
+References: <20261026071933.48366-1-karthiks1mail@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
+X-Mailman-Approved-At: Sat, 07 Nov 2026 14:28:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,92 +85,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Paul,
+VKMS defaults to XRGB8888, which has a color depth of 24 bits stored
+in a 32 bpp container. Setting preferred_depth to 24 reports the actual
+depth to userspace (such as Xorg) via DRM_CAP_DUMB_PREFERRED_DEPTH
+rather than returning 0, while keeping the fbdev default intact.
 
-On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
-> > +	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
->
-> This bothers me a bit, shouldn't it be using 'crtc_state'?
+Signed-off-by: Karthik Sarvan <karthiks1mail@gmail.com>
+---
+v2:
+- Add commit description (Thomas Zimmermann).
 
-Yes. v4 takes the mode from crtc_state.
+ drivers/gpu/drm/vkms/vkms_drv.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-> > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
-> > X1600_LCD_CLR_ST);
->
-> Not fond of the writel(readl()) nesting here.
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+index 5a640b531d88..10337889b1b0 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.c
++++ b/drivers/gpu/drm/vkms/vkms_drv.c
+@@ -146,12 +146,8 @@ static int vkms_modeset_init(struct vkms_device *vkmsdev)
+ 	dev->mode_config.max_height = YRES_MAX;
+ 	dev->mode_config.cursor_width = 512;
+ 	dev->mode_config.cursor_height = 512;
+-	/*
+-	 * FIXME: There's a confusion between bpp and depth between this and
+-	 * fbdev helpers. We have to go with 0, meaning "pick the default",
+-	 * which is XRGB8888 in all cases.
+-	 */
+-	dev->mode_config.preferred_depth = 0;
++	/* XRGB8888 has 24 bits of color data stored in 32 bits per pixel. */
++	dev->mode_config.preferred_depth = 24;
+ 	dev->mode_config.helper_private = &vkms_mode_config_helpers;
+ 
+ 	return vkms_output_init(vkmsdev);
+-- 
+2.56.0
 
-OK, a local in v4, here and in probe.
-
-> > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
->
-> This whole block above looks like out of place. Why not do it in
-> x1600_lcd_encoder_atomic_mode_set()?
->
-> Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variables.
-
-The controller only takes register writes while its clock runs, and the
-clock is off when atomic_mode_set() is called: on a full modeset the
-CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
-again afterwards. I checked it on the R1: with the clock gated (CLKGR0
-bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
-the register still holds the old value once the clock is back.
-
-So moving the block means starting the clock in atomic_mode_set() too,
-or leaving it running while the CRTC is off. I'd rather keep the writes
-in atomic_enable(), next to clk_prepare_enable(), and look the bus
-format up in the new connector state there, so the two fields go
-anyway. Would that work for you?
-
-> > +	if (pixels > X1600_LCD_MAX_PIXELS)
-> > +		return MODE_MEM;
->
-> The max resolution is 1280x720 so you should check mode->hdisplay / mode-
-> >vdisplay individually. Otherwise bogus resolutions like 1920x480 would be
-> accepted.
-
-Right for 1920x480, but 720 per side would refuse the R1's own panel,
-which is 480x800 in portrait. The manual only says "frame size up to
-720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
-would that do?
-
-> > +		spin_lock(&lcd->drm.event_lock);
->
-> spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IRQ
-> handler. I *think* you don't need to lock it here anyway, as the spinlock is
-> locked in other places using spin_lock_irq().
-
-On PREEMPT_RT the handler doesn't run in hard IRQ context:
-force_irqthreads() is always true there, and the IRQ is requested
-without IRQF_NO_THREAD, so the handler runs in a thread, where a
-spinlock_t is fine (Documentation/locking/locktypes.rst).
-
-And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
-hold event_lock, and lcd->event is shared with queue_event() and
-atomic_disable(). Their spin_lock_irq() only keeps the handler off the
-CPU they run on. armada, omapdrm and malidp take event_lock the same way
-in their handlers. So I'd keep it.
-
-> You enable it later in the probe, so you could just use devm_clk_get_enabled()
-> here.
-
-Probe only enables it to stop what the boot loader left running, and
-disables it again before drm_dev_register(). From then on atomic_enable()
-and atomic_disable() gate it. devm_clk_get_enabled() would keep it
-running for as long as the driver is bound, display off included.
-
-> I saw a patch from Maxime replacing these - you should be calling
-> drm_mode_config_create_initial_state(drm) here (and handle the error).
-
-Will do, it's in drm-misc-next already.
-
-I'll leave v3 a few more days for the drm-misc side before sending v4.
-
-Thanks for the review,
-Olivier
