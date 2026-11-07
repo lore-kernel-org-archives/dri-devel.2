@@ -2,70 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5A7606A326
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 07:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F219606A326
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 07:31:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ArJrYcIg
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LV0xyQZa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A9D10E584;
-	Sat,  7 Nov 2026 07:00:26 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB2B410EB45
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 07:00:19 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a35db1f202so10733705e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 23:00:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A0D10E51E;
+	Sat,  7 Nov 2026 07:31:38 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2942410E527
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 07:31:33 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a20a37703bso9333355e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 23:31:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794034818; x=1794639618; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794036691; x=1794641491; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=n786pQm1n+c0v7mw5akrNmhoZ378gFgM45vYyIAzf38=;
- b=ArJrYcIgm4jlBRxADzzf1wq4GeZRy7/mHLPkJkl+OH4QErbm9/teIhIF8QWI40aqjK
- 38HjvIP/GPBTbCy5gZbwSEnY9gWOYJWCyJ86yKCI6JDfC5M+YTEaDAYimndkf3qMms6x
- JhlscOw2e8LGCat4gW3cVw7fAO0yKzDyu+GmYZvRZwL7dEAGH1opWx2sC6BDaRCybKmv
- n3xoasCHq1mBqMAnxn+Rf5E0Upi3555SMVonPllu8IVNKNtkqN76srNm1I/kjyZNdNDP
- zgwaZSO2D4RM8mBCsd6a63YXRTeImmT87WXhvnlK93SpYVprvGM3fGEgpIOGLAhqNxLR
- hp1w==
+ :content-type; bh=GtaWYHPm4HYRZp6fsjCqnEzPGr6jgfDenl0ZwJSm4zI=;
+ b=LV0xyQZaMJrErkOCFTamyFF48UWPlD0ozmsgNEqCnUSIVildAhCz6slbZVcG04EDFi
+ 3NnZnN/V64GNCO/HuHzHJY/6BOHwdw9mnpR89M0KtixOQLpKxxZr/aAOpTl0qKFHG1ta
+ alm0L8+fXdgJTppsRrq3pVQFqujragxk+8B/GwmhFOrKs1BOAqkEgVSD33OX7grFeryg
+ pUnrCFt4mXLyZMaaF9ThvplHsbKx+6GXZ9T0gg1fdnmkpGI7tI0aRON+FRR05FxHYG3J
+ IQJOR0k2Fd3jDuySB8CqBZLIthEtWk8yvj1QJxN0mu6iJq3GwxBFRW3Ivhv5Je3f8VwY
+ Frjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794034818; x=1794639618;
+ d=1e100.net; s=20260707; t=1794036691; x=1794641491;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=n786pQm1n+c0v7mw5akrNmhoZ378gFgM45vYyIAzf38=;
- b=y04sv1KI6KaDKmF2BeCG0uef/p/g2sBSRPh4wjluZ/2dsyVS7mKudFm9l5+CBe35e3
- VxNQniH+taWsgarAn9fXXeffjI1aBp/MABEPMpoQ9HHA7P2I8uWpz7p+btqW9FST+hTc
- TVTCgtzE1t1YzvCWhaD3EBWf8a66priAWd/JuP57XyFQVy/7pGQ97gCNWiUyqb6u2MVf
- p58AWoza3563x6fGO1dtALBC57xlcuDUDNx4n+Mcyr9jxUtuBZSVkL36c23gQuueMPxS
- Aa2i4FOeoONrSWPyKniW9HaFX57ObS9DXv1w7SG6k7XS0LDKKryNaDL0k7uoWStVpdoz
- LRpg==
+ bh=GtaWYHPm4HYRZp6fsjCqnEzPGr6jgfDenl0ZwJSm4zI=;
+ b=HON3OU7/EU201RfrFsJb4wAdrUwXEpz+bQyE8UE197067wmIbo2lIztkG08zzGFtzO
+ O+XbcL9KERODEN8zJVYsTviBYKpag+Z+heuhPF1OursiDmuDqlUhDqOH0AYW7nqE77Po
+ YRdebbbUUvRt4tuZG7IVTEjY0WrzaF/U6NzCbJvOG909822nzrjpFanGX0E7m+KpVWiK
+ R63yepVQRF8i5qXxJazEptt/9MsrU+hRnR9kY0PVVvJEtpMW4f9yYWl6qa/uqvGn3EvR
+ GKZpWD63AKJvd5sRnf/w3djtDNLicXcwYs5vRkkX3jCXANUVbnhArgjthXTMCo7YgZgf
+ HApg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy/54F6/85aWWOc9c6FDP+mjJoQ9ptIZ2NXKQ9iJLpI7wFgN0GJclVG0eI5Qe9TSp8ZNaLDLSF5E8M=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8dj4vbpegxRIRNy/jgm4jPNJInwPEzK6XhmJ4fimDDSYHwec5Z
- GaY1AEd/SRs4F+/SRH4eaU+aL+EIpFaGL/E+axFxtlKe7MWGi6cqg4XG
-X-Gm-Gg: AYBFou3JqbeU8VUJWe8PpL6uEltG7DWeDB4C2wb0Jaxqwirrx2D+KOICEJ8ZFHxHYUs
- 4wCtBIaS9UAk0yeF4m4A7ujZrrRd52Lnnr7KhPcfOAA0ux6OdtUd7coWL0A3WGug7K7HOdVX4w1
- iK9y0P0sqaAsSLCydPD9QhraF9f03VhM83ZbK+BEsObV5tD3eO6bzsnRts49VcPkdcBnoQGAzm9
- ta335UuzJbTX2hJYWvA9dT0Cn5l+/heD6/eC3g4m+1wOFyDwVzXU/RxQuatdbjmYU6AK+abeq7C
- 4d9DeCizpORNyed97m6HVZGYfLzCgdDcF6eZRbm0CP62xqgtzza2u4TEJws6uWrQ5tksv2U3doz
- d64xGqWmmBzq0GfislLseQjzlRhn6voojPIyG9rsosWu+QKbx6W3mfB//A6nTof8cwY+W0Wsp3A
- a5ynM+uGHFVlavr78dGYnUzri02dyfcYYu6rnbRgvTrFmZu2+qZ/i0O1J7p3uZ2RzpT6uD3uOfl
- k7CvXVo6iqIMSB6rWLCnc3frk4mnPO720DZNrQ2wIMbFJMaTEWlKCO4Mo/L6UvsCaNP4xIq39SA
- 2UmBkgNF5OC1xP3LAwiH/ARJoxjf3jLqAy8pJBCi2yWGOHEKYRZh28FnsE3QJJTQGokwi3y1kUr
- LPw==
-X-Received: by 2002:a05:600c:3e8f:b0:4a5:87b3:ddc1 with SMTP id
- 5b1f17b1804b1-4b6de4a6ba1mr75908605e9.13.1794034816841; 
- Fri, 06 Nov 2026 23:00:16 -0800 (PST)
+ AKwUvBxkeAszagUBIEHxVkuAL2UMd3aNYsGdfXYJ+IT5Wet78XnAHDZxIvZYG11+2N5dIsw0kF0PubQ4nxc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+tEnn6rJo/0WgtAaEn2Wx0sjZIZaJrHMLdXJs8Uvd2S141gUgR
+ l6oXaB8bdzlX5/i15K4xsUrMP6icworjmC7CMHHM0Mwbat7dJBVKJBtV
+X-Gm-Gg: AYBFou1OxlcuURng1Rw9wbKeQwoUGtD6zZqVoPDj0JiATPgQjpv25XwDDQmSygEginZ
+ ohHc/rXn0mZEuKoRWQ/nhrrNFouTM8NJE04OtdylOzf3eU8fsnLN4gJN0xXFSrEeawva7dDM1Kk
+ v42eSGZaLeJbP9eOvGiHQOkGF1EDUcDJ2gSlsAvNhq/rvSFtxpk5Nd4RxpxlrkxQ8WXn8ec7078
+ 3+5+5CiXqVq12rNYm8Utma7456t4nS8ph8482h88NWZkFvAAdqOU+09hPB41TpmTHutYLNm9IkM
+ IkTnzyCRsj9z5C3g8F8SuVS9ehOXXQ3EJml5BXTPM4P0rrahHrc6XuCccL4u3bI+NLLVf0JYaCA
+ oLrUZ0olQx+1xaxr0dV2woeX/sy/2QrBQQbtb8BSBDAMghc6WJd8RM9RCm0w/OXoUkkfJ/FH2Wt
+ fb5GtuD3zaVrcbnnGAnKTsoFnwf5QllYfT6WyDX6FGGB6IcT2ah8iKSxqoVLe0dCaT7bQTxnvnV
+ azxiS0POPGOy5Nd3CpMD33gbDmi21N1gJRokLVdumqmy6n4LDYszzRO23Ac5+qiCp7aAjC3GG3C
+ GXcVJNtEd8izr0BeMa9DkZHnmUoQNfmduLWNsfFRDxjq8zKxK0+P2ZBAtIHrZWG9VHy0OpuVZY7
+ nVA==
+X-Received: by 2002:a05:600c:6990:b0:4a1:ce33:1536 with SMTP id
+ 5b1f17b1804b1-4b6dd82aa17mr71513925e9.9.1794036691250; 
+ Fri, 06 Nov 2026 23:31:31 -0800 (PST)
 Received: from ?IPV6:240e:47e:5028:4996:f1e2:8616:8524:8b7?
  ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-492d73286cdsm7294188f8f.28.2026.11.06.23.00.10
+ 5b1f17b1804b1-4b7e2e9ad7esm45804755e9.1.2026.11.06.23.31.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Nov 2026 23:00:15 -0800 (PST)
-Message-ID: <d03a6988-2fe1-4ff3-b18a-31faf3d140f7@gmail.com>
-Date: Sat, 7 Nov 2026 07:00:05 +0000
+ Fri, 06 Nov 2026 23:31:30 -0800 (PST)
+Message-ID: <74b9133d-92bd-4fe0-898c-340c2fd46fd4@gmail.com>
+Date: Sat, 7 Nov 2026 07:31:26 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
@@ -100,8 +100,14 @@ X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
+I can't find v2 in the archives ; it seems it wasn't CC'd to the list.
 
+Could you resend it to the list as a new thread, as is customary for new 
+versions?
+
+
+Thank you,
+Oarora Etimis
 On 11/7/26 3:18 AM, Karthik Sarvan wrote:
 > VKMS defaults to XRGB8888, which has a color depth of 24 bits stored
 > in a 32 bpp container. Setting preferred_depth to 24 reports the actual
