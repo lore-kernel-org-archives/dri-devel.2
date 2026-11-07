@@ -2,76 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D65606A326
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253D0606A32E
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tWmLWarb
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=qOdY7Exy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3727A10EB76;
-	Sat,  7 Nov 2026 14:28:27 +0000 (UTC)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DEB010E35C
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 09:02:57 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-cdab8873d9dso577306a12.1
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 01:02:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794042177; x=1794646977; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Msgr/ei5SuDAvl2P+N05cPht0vpFHzkCnX6RCf+TJHk=;
- b=tWmLWarbUNx4bdzTm1tVW4Q8jX9kMrT7u+ypVZXSiMuJMSlk+0+qXpZZSD3VB8k9v2
- 8m7OX6HLXcPg2E+NdKY9F8Rc1TgsHTddPk8PA3Wj2N33M2uH7/+MzENP4qOnN2oW/h5l
- CYNMT/DWDhtlRf8QZoRTgG9JXzHgJ3YpWtOgbkNMPVHvB9VGqQbQLsR7P4izu86E/RxW
- hOpDRgnCpB66obpgBfaLB5hPpmXKDTJw9snmouEQkeKbwGBWaoZTbRAf5iiTYGECLwyt
- YHKFUGQJWFP6ReEpgI9a5yFjiWcwtSNXQCmDkkKOoIRVUcNMOwAIys3hBkq0KipPFUDk
- WFHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794042177; x=1794646977;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Msgr/ei5SuDAvl2P+N05cPht0vpFHzkCnX6RCf+TJHk=;
- b=s4vQAu1qMJ6XCcbbeIzIZ1aENiOcstSbovzDn2Omp8kbQTnSeo8pMzy+h/zA8czQiJ
- PAKu2nUiDY2RTSNiFPDta+dhsZVoW++tOCzqkI/Cd8IyXSr/4LG+EzAYguYlyzmQ30E1
- c38v7CiQrIFBfuVkiI2rD83b71FsiY0eL1EuDNXk99lZHF/ka0XgPERYj0R2k4lv1eMj
- H1JkYyTk2wLeUbdRqGneXBqqlO2nbi23DQfzo1ijiaw1FF8Ae+6nJyB7YoVv0YARnJHq
- FLLrsn9u/vvu6QUH01uQtZqLmj6oTviKnHOzdKuSUN8EmQSmCwWYxosAMpUhIIWttVAR
- l7sg==
-X-Gm-Message-State: APuU4Z9eo1g3jkjfbE6DaX0ialwCGga1A6b9zLbrYS8/p7LeAW13jyXk
- 90imm573CDdc07EuKnDejQGoV8qW18IgcscmVVSXP8ZBPJ1ZOjw6fMhwEXKEEoH7
-X-Gm-Gg: AYBFou1kuNbyjQZkW84objHo+eoBUhUFvmzr9MAOqENxMdZhsh+3hZYy6x9nbgEXH6Q
- 2dwiMS8U0CXjLpc8gqJxW+8i0S9jBxJ2VZLDPMq5v4PzS+wRHoRAXUCCRwC08rCis9BIvqjVWZ/
- mRX4rrc10vwsdoaqZcHjH6MbWkq7Agnglg3ClZy+VEmvfN+5WJpKJsSl3dAWKFqDifTqFRyiPF4
- lihMyBve9fwy1lZxF1Qyek7SY5UmHsNwRI/iVQSTmXADz9vtKCYuecl99aeIl0Umf3I0PaoLr4K
- ZlqvDy+qC6WbPg6P2m6mj30oi/9RN79cVmWuI3aYGnwQ8jOFmVTySCP+q+cm6NefpiHXESn9PGk
- v1umiJC0sT7oWfn9xTKW1h5NGjjuW4/prNMqLCFIPt4mOCRQ9De3FMDfDYYmplNYTWbc45necDu
- NOi65MCa1BSsdj+zluU4rscGCuSXipUDi36IJIJ4JXdMKZtS9unthRQkBX4Ud4ZyvRA9kZOt6F+
- uy7ei1mpqq4CHKGA4ECFBQgNRviheIyTjLDU7EKmm4bD2u1pdTAFLrv+A371o/dGnsN7oUnR8wh
- thmSK6hYlz82kOpk/SmEzPlzodl+iLpRe+mFvbxeBwsGzqjrT2EW3CbsXFhDpgEdYzFxYZSJalL
- 2gWG3m56Pmtn3un88XQo/8b134b0aBA6DPeMY0on/woqZRC/v6g==
-X-Received: by 2002:a17:90b:3889:b0:3ac:a521:960 with SMTP id
- 98e67ed59e1d1-3b0db5f1305mr5282291a91.1.1794042176597; 
- Sat, 07 Nov 2026 01:02:56 -0800 (PST)
-Received: from Karthik ([2405:201:c01e:69e8:376b:daa2:909a:eabb])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ed47528e35sm11773085ad.5.2026.11.07.01.02.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 01:02:55 -0800 (PST)
-From: Karthik Sarvan <karthiks1mail@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, louis.chauvet@bootlin.com, melissa.srw@gmail.com,
- simona@ffwll.ch, oaroraetimis@gmail.com,
- Karthik Sarvan <karthiks1mail@gmail.com>
-Subject: [PATCH v2] drm/vkms: Set preferred_depth to 24 for XRGB8888 default
-Date: Sat,  7 Nov 2026 14:32:38 +0530
-Message-ID: <20261107090238.18181-1-karthiks1mail@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB3A910EB75;
+	Sat,  7 Nov 2026 14:28:25 +0000 (UTC)
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFDA10E53E
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 06:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail2; t=1794031609; x=1794290809;
+ bh=JaFhQlbGMVu6dPzMiMumPiDBerU8ltcrj5X8PekJ3O0=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=qOdY7ExymmNPoK9Zkd77ploFiNc1Og/RXWxlC8UVkDx069fl+qZEIgn8CVqDQH9B/
+ Tiu2zYXFs4hNIPv1s00lzeXH4ZKQGgCTyBIBnYrz+QqT+1MxsQAd8YkYn4MaW6Xg8m
+ 1aX6glQgedIuJTZa5ig5WggvDyTCO3yLgv5kgRBmyQV6+CB1hZNGCSB+bbEcF/uAHB
+ IUxh+cP4W75z07/HOmWOPujh5PVVUuBzoYV9stFLjDdB4H4rwm2EgvzEHiQ6PfsXC7
+ aqKLWxnH7ZMc+kAQZ689fgv9ZF/5X1IZqMETv7hkaXHeEsgm7i1f53lxZR6xfNqngk
+ c53Z/lpN7hplw==
+Date: Sat, 07 Nov 2026 06:06:46 +0000
+To: Alex Hung <alex.hung@amd.com>
+From: Kylie <kyliepc@proton.me>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: Don't select zero V_TOTAL_MIN/MAX on
+ DCN2 seamless boot
+Message-ID: <47gCGmeNagej2jpE8s4BwyMJo60YGRhrG930vkJHcmiNmxej2wKyTvZXnchut8Vjkh0BOB5l5T-Q-Mv_uQzav_AYLw6tt463Wp58qo_EoHQ=@proton.me>
+In-Reply-To: <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
+References: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
+ <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
+Feedback-ID: 112467285:user:proton
+X-Pm-Message-ID: 46eae040950bedaba9044ca028d5aa48e3b45a3f
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 07 Nov 2026 14:28:21 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,49 +59,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-VKMS defaults to XRGB8888, which has a color depth of 24 bits stored
-in a 32 bpp container. Setting preferred_depth to 24 reports the actual
-depth to userspace (such as Xorg) via DRM_CAP_DUMB_PREFERRED_DEPTH
-rather than returning 0, while keeping the fbdev default intact.
 
-Signed-off-by: Karthik Sarvan <karthiks1mail@gmail.com>
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
----
-v2:
-- Add commit description (Thomas Zimmermann).
-- Collect Reviewed-by from Oarora Etimis.
-- Resend as standalone thread per reviewer request.
+As this solves the black screen issue with seamless on DCN 2.1 (maybe 2.0?)=
+ could seamless be enabled by default?
 
- drivers/gpu/drm/vkms/vkms_drv.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+I only have access to the 1 Renoir laptop so that is as far as my testing g=
+oes.
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 5a640b531d88..10337889b1b0 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -146,12 +146,8 @@ static int vkms_modeset_init(struct vkms_device *vkmsdev)
- 	dev->mode_config.max_height = YRES_MAX;
- 	dev->mode_config.cursor_width = 512;
- 	dev->mode_config.cursor_height = 512;
--	/*
--	 * FIXME: There's a confusion between bpp and depth between this and
--	 * fbdev helpers. We have to go with 0, meaning "pick the default",
--	 * which is XRGB8888 in all cases.
--	 */
--	dev->mode_config.preferred_depth = 0;
-+	/* XRGB8888 has 24 bits of color data stored in 32 bits per pixel. */
-+	dev->mode_config.preferred_depth = 24;
- 	dev->mode_config.helper_private = &vkms_mode_config_helpers;
- 
- 	return vkms_output_init(vkmsdev);
--- 
-2.56.0
+Thanks.
 
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D218483
+
+
+On Friday, October 30th, 2026 at 9:58 PM, Alex Hung <alex.hung@amd.com> wro=
+te:
+
+> This affects more than DCN2, but I can fix patch title by removing "DCN2"=
+.
+>=20
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>=20
+> 
