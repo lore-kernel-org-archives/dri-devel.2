@@ -2,95 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BF3606A326
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6512606A331
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tYhCA5HG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F8410E6A2;
-	Sat,  7 Nov 2026 14:27:55 +0000 (UTC)
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11022116.outbound.protection.outlook.com [52.101.126.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 033B310E3B7
- for <dri-devel@lists.freedesktop.org>; Fri,  6 Nov 2026 10:47:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VEk/Iz5eoMkHGHX5GlZfBbtq1/DJmyBodBF879VneXHiGIfHtSu2zUzvLEUkSnvNJPSat9PU1sEWnzJaZbbkHuz9AdMTTi5tCzlCYGWKCtWlF5xRkbHB4yi0h5GPnTuV40Gwvo9I8d7+SwoUSHUoMifJAolqhANWWMzBeSCw3jrH+bHpfbVWCLB0gMUOjsR1r/9ghYKJy7dIH0Mom59NNgW4HabYh2QvwsaxAibtsRssQfsSFbPgzkv0tHxTW7XOYYce176l6D+Y9A7n8MovpxyipnJYIFgbddKOkkHGDsgM8+2MJTeGw/4yFgjC3Wt19DzCM8+aylL7+TjsfZt0Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WPlVlU2UV9mHMfaomqo6/Sg61l5uabak2Vep0xvsPN0=;
- b=gU3+PyWTsjFaRp7UajWsX0/GnxU4pFYw1+Jb4XeBndXFYTKG2qQKFzyRnVHh8bSJCizwyhz+CO26TxEV+q7byguE25M2a7fFlkolstOQHP1iZzlVzu2ckg463lqMIfd6EnnIYaV13K7zQ8tOFPfh16C6z6KO74pLCinEJnIVu99I3BxhZQK+Suv/YFWFkrg0wNUa1+BnNLK52r4/q1/RF+QWKldDEUIQbZkEZxaYI7hhPEIsD3mE+geW/XGH5arMuLm3ON3L1nj+ZwKZbFe0W56KcBZyriJTGqCueVrXoSJVTV7FL6tUxMnKet4QDgzxhgiXgtgKv/Ru/GySif6DxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR01CA0006.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::19) by KUXPR06MB8294.apcprd06.prod.outlook.com
- (2603:1096:d10:5f::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
- 10:47:37 +0000
-Received: from SG1PEPF000082E4.apcprd02.prod.outlook.com
- (2603:1096:4:296:cafe::7b) by SI3PR01CA0006.outlook.office365.com
- (2603:1096:4:296::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 10:47:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E4.mail.protection.outlook.com (10.167.240.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:36 +0000
-Received: from cix (unknown [172.16.64.42])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B4C9D40920E1;
- Fri,  6 Nov 2026 18:47:35 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gary.yang@cixtech.com, fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- robin.wang@cixtech.com, cunyuan.liu@cixtech.com
-Subject: [PATCH 2/3] drm/panthor: Add initial support for CIX Sky1
-Date: Fri,  6 Nov 2026 18:47:34 +0800
-Message-ID: <20261106104735.1651267-3-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
-References: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAB8310E62B;
+	Sat,  7 Nov 2026 14:27:50 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F92E10E4DA
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 02:12:14 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-35829219da8so271532eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 06 Nov 2026 18:12:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794017534; x=1794622334; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=agfHd5pdc/EdSGq69ep6mXfkA+pM523Mmt9NosKXhZI=;
+ b=tYhCA5HGhVxR+zAfP1G8S2HNWoQVP6GS7MMHWjPUp+/e6hK5hakaGeX1KJfBdNJgce
+ MhEcBkM9M1i0GZmpZhcqOR+khcj8vSLnOXn9VGtVUi6Pi6LzZ2i+CJ1+lMkMveLx+6bz
+ mkcgkfQfcbjVr12lCn5gYGfxIzwMS4edBHTr7++JiNktKOHwPZNPA7uegGL+I4reMyJ4
+ QHgsRK+P2U/JPupd+kp/rV1Lzo4pSUT5qoJuy+JVYq5Tpmx1Q7FX52XJ8C7IKscfXbr3
+ oh+uRKurIz3yPhLH938kF4KwpbZfi6IwfHEYmUuzQzA/8Fv+SEdqS/DBMr3UtQgwgBZo
+ HvVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794017534; x=1794622334;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=agfHd5pdc/EdSGq69ep6mXfkA+pM523Mmt9NosKXhZI=;
+ b=EpgOlN8lHBUvK3GaXGle1WckgBfiyHps4CNtEg5DgRh0g1L6pEIuuwNMS42c6JtHgl
+ b7Bw4H0u1qTQcOpFIhoHsxN8sTjvNpLu+cgJCPrRuxUxx29I4fk6RUT23Bbeh17hWBgk
+ Deda7rD3l+uuGQqWl6KvkAqn27xkg0BtV2/26naxHwrjOkvrfx3ePk8RPJqWgateXEBq
+ 3/+cnY6URU+cEHH/oql3h2wQRLAUbregRX16s9c31zLcxUbF2frPdpVeZ8WruEpW7qaZ
+ RVSYYPGzBuYaIW3n8oSdg/ZPqyr75B1JEL4b1GFItUljJ4FpjYsdquzLOoW0m/x7vhrK
+ KJEQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGMXWd8lNwbLyM3IASHJK6N/1sqtzT/8zLcVUs4fzOdsidROTE+cR6obKyZX7iRmxjTWvQJTHtIIBo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+c8ZywImqFyfXZiIewzi1wOQEF4huyPkOX3/n24+SWLdkgqtNW
+ cxYvGIAePxLioGFrLcUcFacFTPllGoCNaahlchdJi3lJdHbcVCcwXY5h
+X-Gm-Gg: AYBFou3qX8IQayvDbMxf1omE9PwMX0QHboW08wA1YJBi/TCuZuco1iJMwF+Cops3qS/
+ Ed+QLmkvvUSswtmF2aJLa+G0fZ8w2dW1c/eoRX7iZMHHoKfHv1Sn9tcMoyCNjPViKMtHbnbHNpT
+ qkjTGCSpQj/p1TdjqZPJQ+/jSGpFoe+CrgdnCn5JJkemYzmMhggn5TYJgujlJEewRPXI4R5hnWj
+ X+0+R/5Ug2AIrELfAi1tmaxtK9R7bcokicZqztfkjRIQsdgRDqJCCkidv2xOE0V1bLjA4lh0Pzv
+ lO7Ea7Qx6ZR8+E/C/qtAje3Ve9+Vlg29tmmdAH3hbGiJdioBhLUX7y9rsILrj3UuQyYl+IFUTzo
+ wy5trouXlZ0nLDJmKAfbk8VfSe+nPXpGkFXCq/oFjLmC1atpjaCFNpvAKKdHyRuEySfpBMK3lfK
+ tGKC0pmC/hFawckA+jQll2n/FUZppwsRv2mStZGkxSk9o47Kskr7bfiuxBLSTLlmAU56bGqaaWr
+ 6YheaP23Jg8PAa7fq4YdIJk34X7zfOkfbAVEYTDgVeufzBoJxeK2NDpSKh7VPKoCAA8646IWpC5
+ YvM5ubWdvY5Lt9QOOxNxh6NWE/Qx/SHHBgtWIHiCdnjys4DF65PyVwady6jNLRSqVA==
+X-Received: by 2002:a05:693c:88d0:10b0:361:2a55:b94e with SMTP id
+ 5a478bee46e88-370f71bacabmr1019359eec.15.1794017533493; 
+ Fri, 06 Nov 2026 18:12:13 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36faa4b8aacsm10374563eec.23.2026.11.06.18.12.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2026 18:12:13 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: aux-hpd-bridge: replay last HPD status on
+ hpd_enable
+Date: Sat,  7 Nov 2026 11:12:16 +0900
+Message-ID: <20261107021216.952-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20260803-drm-usbdp-preboot-v1-1-2539b362be00@oss.qualcomm.com>
+References: <20260803-drm-usbdp-preboot-v1-1-2539b362be00@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E4:EE_|KUXPR06MB8294:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 08bd4072-ed13-489b-f634-08df3bf35f09
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|7416014|1800799024|82310400026|261026121527099003|56012099006|261022075727099003|261102123227099003|261021121427099003|261028144727099003|261026140227099003|261021123027099003|261022105027099003|261009223027099003|22082099003|18002099003|6133799003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info: aJP1yRTLnRPT+s9HCOIY9c8PmyfhdRi4Hfk8IXuWlyum7dJ8wO6LyivxkBmQOmmCs90YDebSD8IDA4qJ5VdvvmoyiiCj3lbiVjh1qOKQ1iowkKSShMm6ReBRBSPTCMrgZc/M/Kpnz2wwrFtmwy6uuuxxFE1DB7iQbTy+f/HQEEZl2z8xi/yO7niCFO0g4+Y6Anj/+AxNTghUtaUGebHhZUYl7bvbEOmx/5gpdgLiO02OXVeKORWsvJNgu1uqKKnj6zy2LGB5uDbG9btGzy0pQO0jMeWWhN5ZhDuFpCr3ndiu63GFDFfiCtTAx1CBqQ9seg+fj7t2LBlRRyxGUlfSwdf9yquVYLrGrnZNe0u05lGUOPidjU3lpffxBuJvAhlbzilt9uO11y/2pbHAxunIBOrVFfmhpLhV1BtQXSgf+88mYqMZVR1cxGF4+hC4M9eDwO0VbQq03ojAAYJsiY8dvTLA64nVHhh7oTdQ0UZPEELYbQZHxuqem7I43XrI0VyfaXUJtMSCFd3EAWsbn5Wpq5wB+QTgC12g4CNdPGqIvii2KXapBhtbF/oSnn4vynl2Nt6tQoRUHe2as+Pzki5YaI0oSy5N3khKe7U6GIysb26gqrqF3QaX7T9nL4EvjFVeTgasUW45pz7UE0mmFHNu2K14WmwVzRHeHsIp40gNVMmZ/Opw7DCtCbGjm2sxqkrPsfksZCMCmh24bGBIOROmEA==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(7416014)(1800799024)(82310400026)(261026121527099003)(56012099006)(261022075727099003)(261102123227099003)(261021121427099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022105027099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rhqusBKyonV5xorBIASXDSIv+G/WZ+ptxkOTELtTZpTyN6d5q1EpsF80L1cVPUTQww9k6WMEOcNNkLZdjNyQc4NOwHJsQMh1FourJ6Q3zF8vwvgngMaOJ6NVbc4Pya/LEthXW7CbFMYG9dhUTAmDu7iK/CO6FhOsK8Jgg98foP0/ZbgfUqvQE8gSKe981wcu+mgxvlE66pRc6mA6NufrN0xRxTbV+nYb3v89zvz1Z9oz2zXpkIBE16xC75PQOsPdoWWYubIFojuJh8OAnQ0sg/m6ryAQX+4o2hwduED7Dk9W3bfraMe3fyZd72IuEq4fRNcPNzDyHTcExbCyYaxs4aNNNA7dDl9wj1CC8fthM1/ovXUbD1te+MrMXBhOd5Bo63SecrPa1LXGBQCr9ax3ePi4Hru7wybws8MhD/Sg0i8AMKJmQe+ieBQPubyZqF0D
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:36.3687 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08bd4072-ed13-489b-f634-08df3bf35f09
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: SG1PEPF000082E4.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8294
 X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,241 +98,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add Sky1 SoC data to support the external reset and system-level cache
-settings, and to skip devfreq.
+On Mon, 03 Aug 2026 16:43:08 +0800, Yongxing Mou wrote:
+> If a downstream consumer (e.g. drm_bridge_connector attached by the
+> msm/dp driver) registers its HPD callback after an upstream driver
+> has already reported a HPD event through drm_aux_hpd_bridge_notify(),
+> the notification is dropped because bridge->hpd_cb is still NULL.
 
-The GPU on CIX Sky1 needs an external reset before the driver first
-accesses the hardware. Without this reset, the GPU hardware cannot be
-accessed correctly.
+The same happens on the Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a
+monitor attached at boot, when pmic_glink_altmode probes late because a
+mode switch it waits for is a module. A kprobe trace shows the HPD event
+from pmic_glink_altmode arriving with no hpd_cb set, and the DP driver
+enabling HPD about 2.6 s later.
 
-Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
-rendering results are displayed incorrectly.
+On the two Sashiko points: I tested a variant that replays the status
+from .hpd_enable directly instead of from a work item.
+drm_bridge_hpd_enable() has already released hpd_mutex when it calls
+.hpd_enable (only hpd_state_mutex is held), so drm_bridge_hpd_notify()
+can be called there, and there is no work item to cancel on unbind.
+That leaves the stale status. A mutex in drm_aux_hpd_bridge_data, held
+around storing and notifying in drm_aux_hpd_bridge_notify() and around
+reading and notifying in .hpd_enable, closes it. Roughly (plus
+devm_mutex_init() and the initial unknown status in probe):
 
-Keep the clock settings provided by the PM firmware. This first version
-does not read OPPs or enable devfreq. It does not register a GPU cooling
-device.
-
-Tested on Orion O6: offscreen pixel readback, kmscube, glmark2 at 1080p,
-runtime suspend and resume with a retained EGL context, software-triggered
-reset-worker tests, and module unload and reload. Display tests used
-local Komeda support.
-
-Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
----
- drivers/gpu/drm/panthor/panthor_devfreq.c  | 11 +++++++++-
- drivers/gpu/drm/panthor/panthor_device.c   | 15 +++++++++++++
- drivers/gpu/drm/panthor/panthor_device.h   | 25 ++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_drv.c      | 15 +++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu.c      | 14 ++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 ++
- 6 files changed, 81 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4af..1914549f7b1f 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
- 
- 	ptdev->devfreq = pdevfreq;
- 
-+	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
-+	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-+		ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-+		return 0;
-+	}
-+
- 	/*
- 	 * The power domain associated with the GPU may have already added an
- 	 * OPP table, complete with OPPs, as part of the platform bus
-@@ -323,8 +329,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
- 	unsigned long freq = 0;
- 	int ret;
- 
--	if (!pdevfreq->devfreq)
-+	if (!pdevfreq->devfreq) {
-+		if (ptdev->soc_data && ptdev->soc_data->skip_devfreq)
-+			return clk_get_rate(ptdev->clks.core);
- 		return 0;
-+	}
- 
- 	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
- 	if (ret)
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 9687c59de350..1d682731a181 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -229,6 +229,13 @@ int panthor_device_init(struct panthor_device *ptdev)
- 		return ret;
- 	}
- 
-+	if (ptdev->soc_data && ptdev->soc_data->needs_external_reset) {
-+		ptdev->reset_control = devm_reset_control_get_exclusive(ptdev->base.dev, NULL);
-+		if (IS_ERR(ptdev->reset_control))
-+			return dev_err_probe(ptdev->base.dev, PTR_ERR(ptdev->reset_control),
-+					     "Failed to get GPU reset\n");
-+	}
-+
- 	ret = panthor_devfreq_init(ptdev);
- 	if (ret)
- 		return ret;
-@@ -511,6 +518,12 @@ int panthor_device_resume(struct device *dev)
- 	if (ret)
- 		goto err_disable_stacks_clk;
- 
-+	if (ptdev->reset_control && !panthor_device_is_initialized(ptdev)) {
-+		ret = reset_control_reset(ptdev->reset_control);
-+		if (ret)
-+			goto err_disable_coregroup_clk;
-+	}
-+
- 	panthor_devfreq_resume(ptdev);
- 
- 	if (panthor_device_is_initialized(ptdev) &&
-@@ -553,6 +566,8 @@ int panthor_device_resume(struct device *dev)
- 
- err_suspend_devfreq:
- 	panthor_devfreq_suspend(ptdev);
-+
-+err_disable_coregroup_clk:
- 	clk_disable_unprepare(ptdev->clks.coregroup);
- 
- err_disable_stacks_clk:
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index b55a3f9edd41..0923cc5df042 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -19,6 +19,8 @@
- #include <drm/gpu_scheduler.h>
- #include <drm/panthor_drm.h>
- 
-+struct reset_control;
-+
- struct panthor_csf;
- struct panthor_csf_ctx;
- struct panthor_device;
-@@ -34,10 +36,30 @@ struct panthor_pwr;
- struct panthor_vm;
- struct panthor_vm_pool;
- 
-+/**
-+ * struct panthor_sysc_config - GPU system-cache configuration
-+ */
-+struct panthor_sysc_config {
-+	/** @alloc: System-cache allocation policies for GPU access types. */
-+	u32 alloc[8];
-+};
-+
- /**
-  * struct panthor_soc_data - Panthor SoC Data
-  */
- struct panthor_soc_data {
-+	/**
-+	 * @needs_external_reset: Reset the GPU after enabling its clocks
-+	 * during initial probe.
-+	 */
-+	bool needs_external_reset;
-+
-+	/** @skip_devfreq: Keep the firmware clock settings without devfreq. */
-+	bool skip_devfreq;
-+
-+	/** @sysc_config: System-cache configuration, or NULL to keep defaults. */
-+	const struct panthor_sysc_config *sysc_config;
-+
- 	/** @asn_hash_enable: True if GPU_L2_CONFIG_ASN_HASH_ENABLE must be set. */
- 	bool asn_hash_enable;
- 
-@@ -138,6 +160,9 @@ struct panthor_device {
- 	/** @soc_data: Optional SoC data. */
- 	const struct panthor_soc_data *soc_data;
- 
-+	/** @reset_control: Optional external GPU reset. */
-+	struct reset_control *reset_control;
-+
- 	/** @phys_addr: Physical address of the iomem region. */
- 	phys_addr_t phys_addr;
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index dc8d0191aef4..766df6505a7b 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1872,12 +1872,27 @@ static struct attribute *panthor_attrs[] = {
- 
- ATTRIBUTE_GROUPS(panthor);
- 
-+static const struct panthor_sysc_config sysc_config_cix_sky1 = {
-+	/* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
-+	.alloc = {
-+		0x00230000, 0x00000023, 0x00000000, 0x00000000,
-+		0x00523222, 0x00523200, 0x00000022, 0x00000032,
-+	},
-+};
-+
-+static const struct panthor_soc_data soc_data_cix_sky1 = {
-+	.needs_external_reset = true,
-+	.skip_devfreq = true,
-+	.sysc_config = &sysc_config_cix_sky1,
-+};
-+
- static const struct panthor_soc_data soc_data_mediatek_mt8196 = {
- 	.asn_hash_enable = true,
- 	.asn_hash = { 0xb, 0xe, 0x0, },
+ struct drm_aux_hpd_bridge_data {
+ 	struct drm_bridge bridge;
+ 	struct device *dev;
++	struct mutex lock;
++	enum drm_connector_status status;
  };
+@@ drm_aux_hpd_bridge_notify()
+ 	if (!data)
+ 		return;
  
- static const struct of_device_id dt_match[] = {
-+	{ .compatible = "cix,sky1-mali", .data = &soc_data_cix_sky1 },
- 	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
- 	{ .compatible = "rockchip,rk3588-mali" },
- 	{ .compatible = "arm,mali-valhall-csf" },
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index a383b04f101e..9a6963fe62ae 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -63,6 +63,19 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
- 		  ptdev->gpu_info.selected_coherency);
++	guard(mutex)(&data->lock);
++	data->status = status;
+ 	drm_bridge_hpd_notify(&data->bridge, status);
  }
- 
-+static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
+@@
++static void drm_aux_hpd_bridge_hpd_enable(struct drm_bridge *bridge)
 +{
-+	const struct panthor_sysc_config *config;
-+	unsigned int i;
++	struct drm_aux_hpd_bridge_data *data =
++		container_of(bridge, struct drm_aux_hpd_bridge_data, bridge);
 +
-+	if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
-+		return;
-+
-+	config = ptdev->soc_data->sysc_config;
-+	for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
-+		gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
++	guard(mutex)(&data->lock);
++	if (data->status != connector_status_unknown)
++		drm_bridge_hpd_notify(bridge, data->status);
 +}
-+
- static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
- {
- 	struct panthor_gpu *gpu = ptdev->gpu;
-@@ -317,6 +330,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
- 	}
- 
- 	/* Set the desired coherency mode and L2 config before the power up of L2 */
-+	panthor_gpu_sysc_config_set(ptdev);
- 	panthor_gpu_coherency_set(ptdev);
- 	panthor_gpu_l2_config_set(ptdev);
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-index 4c5b953796e4..f9b65a4dae83 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-@@ -116,4 +116,6 @@
- #define   GPU_COHERENCY_ACE				1
- #define   GPU_COHERENCY_NONE				31
- 
-+#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
-+
- #endif /* __PANTHOR_GPU_REGS_H__ */
--- 
-2.53.0
 
+With the mutex, the monitor was detected in 2 of 2 boots, and 2
+replugs and 2 s2idle cycles still worked. An earlier version without
+the mutex was detected in 4 of 4 boots.
+
+Dmitry's "drm/bridge: aux-hpd: let drivers pass IRQ_HPD events"
+changes drm_aux_hpd_bridge_notify(), so v2 may need to go on top of it:
+https://lore.kernel.org/all/20261024-hpd-irq-events-v8-5-6ee949e7a384@oss.qualcomm.com/
+
+I can test v2.
+
+Thanks,
+Joonhoe Kim
