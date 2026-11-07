@@ -2,52 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253D0606A32E
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAE1606A330
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:48:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=qOdY7Exy
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FKZtLoBZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB3A910EB75;
-	Sat,  7 Nov 2026 14:28:25 +0000 (UTC)
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFDA10E53E
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 06:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail2; t=1794031609; x=1794290809;
- bh=JaFhQlbGMVu6dPzMiMumPiDBerU8ltcrj5X8PekJ3O0=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=qOdY7ExymmNPoK9Zkd77ploFiNc1Og/RXWxlC8UVkDx069fl+qZEIgn8CVqDQH9B/
- Tiu2zYXFs4hNIPv1s00lzeXH4ZKQGgCTyBIBnYrz+QqT+1MxsQAd8YkYn4MaW6Xg8m
- 1aX6glQgedIuJTZa5ig5WggvDyTCO3yLgv5kgRBmyQV6+CB1hZNGCSB+bbEcF/uAHB
- IUxh+cP4W75z07/HOmWOPujh5PVVUuBzoYV9stFLjDdB4H4rwm2EgvzEHiQ6PfsXC7
- aqKLWxnH7ZMc+kAQZ689fgv9ZF/5X1IZqMETv7hkaXHeEsgm7i1f53lxZR6xfNqngk
- c53Z/lpN7hplw==
-Date: Sat, 07 Nov 2026 06:06:46 +0000
-To: Alex Hung <alex.hung@amd.com>
-From: Kylie <kyliepc@proton.me>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/display: Don't select zero V_TOTAL_MIN/MAX on
- DCN2 seamless boot
-Message-ID: <47gCGmeNagej2jpE8s4BwyMJo60YGRhrG930vkJHcmiNmxej2wKyTvZXnchut8Vjkh0BOB5l5T-Q-Mv_uQzav_AYLw6tt463Wp58qo_EoHQ=@proton.me>
-In-Reply-To: <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
-References: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
- <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
-Feedback-ID: 112467285:user:proton
-X-Pm-Message-ID: 46eae040950bedaba9044ca028d5aa48e3b45a3f
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D60310EB82;
+	Sat,  7 Nov 2026 14:48:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACBB10EB82
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 14:47:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 93BF5605ED;
+ Sat,  7 Nov 2026 14:47:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0531F0089F;
+ Sat,  7 Nov 2026 14:47:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1794062874;
+ bh=PzaVDxtBmX30QuVM/XjfjrGm28JfWHUWOCKfiAqgJyA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=FKZtLoBZOkA+aIDRuhNH1GCdubkcUEItI8PAUAll5Clcx8NU78jqncV05+7Sxd+c0
+ +WBvqMSHhW5UCA2a1yiAmVBbLSLUff/zqFpf+xt6MFcDCECcjYSPZefBQ7X3XpLgVd
+ o3GpNVYjuJDx5VzIHf0J3Vqm55MIgA80TvGYT5QQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 157/869] drm/panic: Test address from kmap op for NULL
+Date: Sat,  7 Nov 2026 08:47:19 -0500
+Message-ID: <20261107134857.625432553@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
+References: <20261107134852.069646174@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sat, 07 Nov 2026 14:27:39 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +54,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-As this solves the black screen issue with seamless on DCN 2.1 (maybe 2.0?)=
- could seamless be enabled by default?
+------------------
 
-I only have access to the 1 Renoir laptop so that is as far as my testing g=
-oes.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Thanks.
+[ Upstream commit 6a6304ec3ceee879e3a2545b217eb11c8b7870e5 ]
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D218483
+Do nothing if kmap_local_page_try_from_panic() returns NULL. This is
+not likely to hapen, as the previous page from the same memory area
+has been mapped successfully.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 23437509a694 ("drm/panic: Fix 24bit pixel crossing page boundaries")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.18+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Link: https://patch.msgid.link/20260911124540.279841-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/drm_panic.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index b95d869257a84..9c4ac2febc931 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -184,6 +184,8 @@ static void drm_panic_write_pixel24_xpage(void *vaddr, struct page *next_page,
+ 	u8 *p = vaddr + offset;
+ 
+ 	vaddr2 = kmap_local_page_try_from_panic(next_page);
++	if (!vaddr2)
++		return;
+ 
+ 	*p++ = color & 0xff;
+ 	color >>= 8;
+-- 
+2.53.0
 
 
-On Friday, October 30th, 2026 at 9:58 PM, Alex Hung <alex.hung@amd.com> wro=
-te:
 
-> This affects more than DCN2, but I can fix patch title by removing "DCN2"=
-.
->=20
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
->=20
-> 
