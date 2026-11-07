@@ -2,38 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAE1606A330
-	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06645606A32C
+	for <dri-devel@archiver.kernel.org>; Sat,  7 Nov 2026 14:48:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FKZtLoBZ
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WTycPMw/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D60310EB82;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B46A10EB92;
 	Sat,  7 Nov 2026 14:48:01 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACBB10EB82
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 14:47:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6B910EB7F
+ for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 14:47:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 93BF5605ED;
- Sat,  7 Nov 2026 14:47:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0531F0089F;
- Sat,  7 Nov 2026 14:47:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 60B9860618;
+ Sat,  7 Nov 2026 14:47:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9051F0089F;
+ Sat,  7 Nov 2026 14:47:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1794062874;
- bh=PzaVDxtBmX30QuVM/XjfjrGm28JfWHUWOCKfiAqgJyA=;
+ s=korg; t=1794062873;
+ bh=pbq+gh+2s8PSuMr+1iFDlit4CKg8xZiFkZyIHosWMsg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FKZtLoBZOkA+aIDRuhNH1GCdubkcUEItI8PAUAll5Clcx8NU78jqncV05+7Sxd+c0
- +WBvqMSHhW5UCA2a1yiAmVBbLSLUff/zqFpf+xt6MFcDCECcjYSPZefBQ7X3XpLgVd
- o3GpNVYjuJDx5VzIHf0J3Vqm55MIgA80TvGYT5QQ=
+ b=WTycPMw/y5jHErUFM28kOb+yMZogWBg3mKdQfn6fu8aPk3qMpsTJNS6auejgLsIe2
+ 2XiivC0nUUi08GywzN+ZbGFCnYVqbG1OlfGLJZgXHDCElX6yIeFuXeMV08yg/pQpX0
+ 7+poMdZC7AeKHIS+D1r62RMxMry0Y66Jfw6iH3kM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
  Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 157/869] drm/panic: Test address from kmap op for NULL
-Date: Sat,  7 Nov 2026 08:47:19 -0500
-Message-ID: <20261107134857.625432553@linuxfoundation.org>
+ dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 156/869] drm/panic: Do not use un-escaped URL as format
+ string
+Date: Sat,  7 Nov 2026 08:47:18 -0500
+Message-ID: <20261107134857.595959615@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -68,38 +69,42 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 6a6304ec3ceee879e3a2545b217eb11c8b7870e5 ]
+[ Upstream commit 6596aae25585b183ebd528206bde6f12efaf8db1 ]
 
-Do nothing if kmap_local_page_try_from_panic() returns NULL. This is
-not likely to hapen, as the previous page from the same memory area
-has been mapped successfully.
+Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
+with a %s conversion specifier. Avoids a possible vulnerabilty from
+a crafted URL string.
+
+As the attacker needs to control the kernel at the Kconfig level, the
+potential for an exploit is likely low.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 23437509a694 ("drm/panic: Fix 24bit pixel crossing page boundaries")
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 Cc: Jocelyn Falempe <jfalempe@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.18+
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Link: https://patch.msgid.link/20260911124540.279841-3-tzimmermann@suse.de
+Cc: <stable@vger.kernel.org> # v6.12+
+Link: https://patch.msgid.link/20260911124540.279841-2-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_panic.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_panic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index b95d869257a84..9c4ac2febc931 100644
+index d4b6ea42db0fe..b95d869257a84 100644
 --- a/drivers/gpu/drm/drm_panic.c
 +++ b/drivers/gpu/drm/drm_panic.c
-@@ -184,6 +184,8 @@ static void drm_panic_write_pixel24_xpage(void *vaddr, struct page *next_page,
- 	u8 *p = vaddr + offset;
+@@ -662,7 +662,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
+ 	char *kmsg;
+ 	int max_qr_data_size, url_len;
  
- 	vaddr2 = kmap_local_page_try_from_panic(next_page);
-+	if (!vaddr2)
-+		return;
+-	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&z=",
++	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&z=",
++			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
+ 			   utsname()->machine, utsname()->release);
  
- 	*p++ = color & 0xff;
- 	color >>= 8;
+ 	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
 -- 
 2.53.0
 
