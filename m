@@ -2,61 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C548606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 17:31:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E174606A321
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 19:00:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=ibqBwFDu
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q/nluvsv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42CE310E122;
-	Sun,  8 Nov 2026 17:31:33 +0000 (UTC)
-X-Greylist: delayed 310 seconds by postgrey-1.36 at gabe;
- Sun, 08 Nov 2026 17:31:27 UTC
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC1010E122
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 17:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1794159086;
- bh=hemgZh0VCBkKkqRpdHvkov2TkhHbiZ6AzcSNbOBw6T0=;
- b=ibqBwFDuc5NwVdo7qAdWyCnHbdi6G4KaYCV1k3dWpxGAy2c8qs1UzXp8Bi5CXI7tjbJQusjOx
- mz9GgjPsoPR0jRlPX7Vyufjx/lSvq1UVok/umr4taPSvpBKnIx1PTL6p2kPUn/Hmr92jE9FiI33
- hhniyrOoTNmFoAvFAcO0syJPdI2+AFbrmkN7rTS7FHqqcD1NZ8UBneeFbfm7E0KakSI95GORqNW
- w+dlyYdHqcrtIL5+FyDmwlCE+tmtdFZa6fAvMt/cN6aAAn10udRUfFfWvkTUmQ6wmWxHXVlzoGG
- mqHYFBcQ7CXQWDL47Ktq4YSmwHAxICou1ZEgIb/IC9nw==
-X-Forward-Email-ID: 6af0b0b4af4d9019958770cd
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.19.13
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACE4310E04E;
+	Sun,  8 Nov 2026 19:00:04 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4C410E04E
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 18:59:58 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4b79502c27aso1791565e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 10:59:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794164397; x=1794769197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JLhUwzup1lwefYy8NOOFjthYnrByVfTsqIe79kkV+Lk=;
+ b=q/nluvsvopgD2V3ZMrUDYo6XYIYjRWzDbpVq2/Ru7zmZtfcGcRewYFkq1GR7rh0A3H
+ Z9VZUnuHSaC7m92xju3LXKGpui95MidHJwkTXmh/AIxPHz+b5hXEhzfQFav1lPRMoFf6
+ 4QrZfu8WQ78JZrUMdg//0L8RCukLG0RYOrCgYsX02/qX1KcF9oWgmt2ajW182oXFbKM5
+ zJobmuanD625v3XhoX6ha73msKzYNsgEwg6L1nQOOaUGcEz0qFOIIjv0XGrUooFwMmbz
+ PsE5b+br0rXDp/hIL2ZrNId16n2bDYhyVNRiNsh6i6XI0AYt68FxEAl5MbiOF2bNKC3q
+ Qi3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794164397; x=1794769197;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JLhUwzup1lwefYy8NOOFjthYnrByVfTsqIe79kkV+Lk=;
+ b=gY0yZrTdwNuTb6uozQnOLgGg3frUvnygplNyqEYATK+2+8RUuj3CO45xe8aM6R0zaK
+ 2SSg4JxJZ7hEBmhrVVH4NGjPo3m7mMGOQl4E1etrT5Uet3rRso1d1zLnXqoU6jwQaUKK
+ KqmpacWDfT09Vagf2+2zUolKyOzcr5sf34Z6pMhWT3tkGG8A9YLxOzMRTiE8R7Mf0FXw
+ aNyl6pjImAhw+xFkru5AWB8PvnuL8exmvrlgeeuOq5Am2naA+JhZ/eIymVvyPEqf136x
+ RWkiA4qfLyzScJm6/Y3ET+ZMNC3lFdWEi84aYPKRLN94iWWTjGGLNDCaJUG8JV8KIMec
+ LZ4A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH9Fp93o2sp21m58i4+RXbjHaBh+eNBEuuHY5mHn9Ji7GI2WQM130aCzdyT9mNDL2DV3sy63kT6q68=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z90swGirYIZaoNEdEHcKhwCcg2SUcnddWPwJ96P3FONr0W9qE3/
+ jh1uHgeRYwhpufJjKo+C7nLO6Yl/HXMl776yveSSdRMoq92v6OjLS0xp
+X-Gm-Gg: AYBFou2M+8jARknE91IcyupfwqIAFm44/ao7ReYk/e/Qx49Sj3ighpV4mR5s0NkdWYf
+ 0yOPKt9DIB2/Bo4ECcQc/XchOIVeYDAJHQGIjoPkglTDKojOzn/IHC7jUmYbYmEJWIHeDa7/kTW
+ m5PP8q2YFTmzTfn1hXnGvS6sMfvEPOG6zUiSOJvZtZ5Fr/mPpyJ+vy54vb2yAzHdihaxL/CXrq0
+ ZNGesl6B+D6Y9qvIUFQLwnw5fCTCKqPcGT9EsXYBv+d7iH8NLYgnDWTaQMHoM/dmbhR2IaLMxvA
+ R4yhXNI0jPbWzqeTj19mNS6M1QTMm3r+Rf6us44Y5P7RKqSTQnzOxBhgDn2zIy3DEVfT0BQua94
+ w5cVtRQYok2RLrashEBgLjWyQLVzwNCGkQEalJK3BWmEEY291eFw/YUTdh5hQ+9su7ns7IgYo9J
+ 2fQMzEAcEhYAVbohVUbgdrLGTfae3O5Csce9SZQMkjEFgV7+xRkUsGx/XDndOqcFHra0LwZc524
+ Zo5kOvpB7T+B4oMZA+Jn5n7hIjxFjt4xu4rzr8oEcNej3q+hAut+faC1m5XAtEeimE+6SAPZqtS
+ rqc3To1VTxVM4F3LVK9wkDsf2yYGElU+XI6ecJzUwc1245nx7aQBi2MAciMq9s6x
+X-Received: by 2002:a05:600c:468f:b0:4a1:7e77:c382 with SMTP id
+ 5b1f17b1804b1-4b960d9b170mr35982125e9.5.1794164396406; 
+ Sun, 08 Nov 2026 10:59:56 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b7efb1f3acsm185228445e9.14.2026.11.08.10.59.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 Nov 2026 10:59:56 -0800 (PST)
+Date: Sun, 8 Nov 2026 18:59:53 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-fsdevel@vger.kernel.org, Linus Torvalds
+ <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik
+ <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, Jeff Layton
+ <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet
+ <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Al Viro
+ <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph
+ Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados
+ <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara
+ <jack@suse.cz>, Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ netdev@vger.kernel.org, ntfs3@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org, coreteam@netfilter.org,
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net,
+ jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-mm@kvack.org, linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, Chuck Lever
+ <cel@kernel.org>
+Subject: Re: [PATCH RESEND v2 14/23] proc: let procfs copy in writes before
+ pinning the entry
+Message-ID: <20261108185953.28054fb3@pumpkin>
+In-Reply-To: <20261107-akteur-gemieden-eckdaten-21304d085e35@brauner>
+References: <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
+ <CAMuHMdVfakapgBK6TBhO1iWX8qzvLDk8jzRS=t2MVa5G=MCUeg@mail.gmail.com>
+ <20261107-akteur-gemieden-eckdaten-21304d085e35@brauner>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Sun, 08 Nov 2026 12:26:10 -0500
-Message-Id: <DMQ07CEZJVG0.230CONY47IYFZ@ubuntu.com>
-Subject: Re: [PATCH 0/3] drm: remove drmm_of_get_bridge()
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Sasha Finkelstein"
- <k@chaosmail.tech>, "Janne Grunau" <j@jannau.net>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- "Dmitry Baryshkov" <lumag@kernel.org>
-Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <asahi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
-In-Reply-To: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,100 +118,24 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 6, 2026 at 11:17 AM EST, Luca Ceresoli wrote:
-> drmm_of_get_bridge() is deprecated. By now it is just a complicated wrapp=
-er
-> to of_drm_get_bridge_by_endpoint(), and it does not implement bridge
-> refcounting. Replace the only user and remove it.
->
-> =3D=3D Grand plan
->
-> This is part of the work to support hotplug of DRM bridges.
->
-> Here's the work breakdown (=E2=9E=9C marks the current series):
->
->  1. =E2=9E=9C add refcounting to DRM bridges struct drm_bridge,
->       based on devm_drm_bridge_alloc()
->     A. =E2=9C=94 add new alloc API and refcounting (v6.16)
->     B. =E2=9C=94 convert all bridge drivers to new API (v6.17)
->     C. =E2=9C=94 kunit tests (v6.17)
->     D. =E2=9C=94 add get/put to drm_bridge_add/remove() + attach/detach()
->          and warn on old allocation pattern (v6.17)
->     E. =E2=9E=9C add get/put on drm_bridge accessors
->        1. =E2=9C=94 drm_bridge_chain_get_first_bridge(), add cleanup acti=
-on (v6.18)
->        2. =E2=9C=94 drm_bridge_get_prev_bridge() (v6.18)
->        3. =E2=9C=94 drm_bridge_get_next_bridge() (v6.19)
->        4. =E2=9C=94 drm_for_each_bridge_in_chain() (v6.19)
->        5. =E2=9C=94 drm_bridge_connector_init (v6.19)
->        6. =E2=9C=94 protect encoder bridge chain with a mutex (v7.2)
->        7. =E2=9C=94 of_drm_find_bridge
->           a. =E2=9C=94 add of_drm_get_bridge() (v7.0),
->                convert basic direct users (v7.0-v7.1)
->           b. =E2=9C=94 convert direct of_drm_get_bridge() users, part 2 (=
-v7.0)
->           c. =E2=9C=94 convert direct of_drm_get_bridge() users, part 3 (=
-v7.0)
->           d. =E2=9C=94 convert direct of_drm_get_bridge() users, part 4 (=
-v7.1-v7.2)
->           e. =E2=9C=94 bridge-only drm_of_find_panel_or_bridge() users (v=
-7.2)
->        8. =E2=9E=9C panel_bridge lifetime
->           a. =E2=9C=94 cleanup DRM_PANEL in bridge drivers (v7.4)
-> 	  b. =E2=9C=94 embed a drm_bridge in every drm_panel (v7.4)
-> 	  c. =E2=9C=94 remove *_of_get_bridge(): non-OF drivers (v7.5)
-> 	  d. =E2=9E=9C remove drmm_of_get_bridge()
-> 	  e.   remove devm_drm_of_get_bridge()
->        9. =E2=9C=94 enforce drm_bridge_add before drm_bridge_attach (v6.1=
-9)
->     F. =E2=9C=94 debugfs improvements
->        1. =E2=9C=94 add top-level 'bridges' file (v6.16)
->        2. =E2=9C=94 show refcount and list lingering bridges (v6.19)
->  2. =E2=9C=94 handle gracefully atomic updates during bridge removal
->     A. =E2=9C=94 Add drm_bridge_enter/exit() to protect device resources =
-(v7.0)
->     B. =E2=9C=94 Add drm_bridge_clear_and_put() (v7.1)
->  3. =E2=9C=95 DSI host-device driver interaction
->  4. =E2=9C=94 removing the need for the "always-disconnected" connector
->  5. =E2=9C=94 Migrate i.MX LCDIF driver to bridge-connector (v7.2)
->  6. =E2=80=A6 DRM bridge hotplug
->     A. =E2=80=A6 Bridge hotplug management in the DRM core
->        1. =E2=9C=94 bridge-connector: attach encoder to the connector (v7=
-.2)
->        2. =E2=80=A6 drm bridge hotplug
->     B.   Device tree description
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
-> Luca Ceresoli (3):
->       drm: adp: stop using deprecated drmm_of_get_bridge()
->       drm/panel: remove drmm_of_get_bridge()
->       drm/todo: remove drmm_of_get_bridge()
->
->  Documentation/gpu/todo.rst    |  1 -
->  drivers/gpu/drm/adp/adp_drv.c | 13 +++++++++----
->  drivers/gpu/drm/drm_panel.c   | 40 -------------------------------------=
----
->  include/drm/drm_panel.h       | 10 ----------
->  4 files changed, 9 insertions(+), 55 deletions(-)
-> ---
-> base-commit: 4524052b65a75166c1c557921c786bd82302de13
-> change-id: 20261106-drm-panel_bridge-remove-drmm_of_get_bridge-791bd0f0ad=
-97
->
-> Best regards,
-> -- =20
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+On Sat, 7 Nov 2026 10:48:35 +0100
+Christian Brauner <brauner@kernel.org> wrote:
 
-Looks good
+> > While at it, I think it would be good to use this conversion as an
+> > opportunity to replace "char *" by "void *", which will probably let
+> > you drop several casts from users.  
+> 
+> So I tried that too. The thing is it drops exactly one u8 * cast in
+> ntfs3's label write. 
 
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Since char is now unsigned that one isn't even needed...
+
+David
