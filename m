@@ -2,47 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E36606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 10:09:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972C5606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 11:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IGdFcVa0
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=mcFEHqRF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE7410E4A3;
-	Sun,  8 Nov 2026 10:09:39 +0000 (UTC)
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
- [91.216.248.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED9910E4A3;
- Sun,  8 Nov 2026 10:09:32 +0000 (UTC)
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 0cb6624c-966a-4a95-a126-0519d608ab05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1794132570;
- bh=S6Y/LwG+wCmImnTNaesKgeOzR3fz30WpQYzLROThjVQ=;
- h=From:To:Cc:Subject:Date:From;
- b=IGdFcVa0bidLQ3V6WX5gz1QLex4rCqOuR9A/6rS4Mi5BcStBYv7sEXYtNC+u17+ck
- 4Y2GdUVRw/GmC7SkGlLWLZh9k3q4LbQUZWc/m5/QzC/hmCx7/Tln68oUBv/GkqdMMd
- Wn5PdWnZLBCVT4SutpfwE2sM7CRIzY++Dar86UWTONIj4ZlNldiBzsCGZ9e5Bcy3yG
- 0U1Lcu5IGK/AGZ1jghZciN8xbJAAvqtPYH3ZutsiDOQOUE0GBcZhlN2owqiF9677hn
- W2fMkh8yPpLwR/7EBZPI1U7nv0sd/RBtZEuxmE3aUGJw+bxMlD68GhTgyr1sGhM5Hc
- 9AoFEUZS/IHPw==
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH] drm/i915/backlight: restore the gmux brightness on dual GPU
- T2 MacBook Pros
-Date: Sun,  8 Nov 2026 11:09:26 +0100
-Message-ID: <20261108100926.28950-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDE2210E034;
+	Sun,  8 Nov 2026 11:01:33 +0000 (UTC)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Sun, 08 Nov 2026 11:01:27 UTC
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A8210E034;
+ Sun,  8 Nov 2026 11:01:27 +0000 (UTC)
+Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfdd4;
+ Sun, 8 Nov 2026 18:56:19 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hongyan Xu <getshell@seu.edu.cn>
+Subject: [PATCH] drm/amdkfd: fix use-after-free in create_process() error path
+Date: Sun,  8 Nov 2026 18:56:17 +0800
+Message-ID: <20261108105617.1309-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1bacd4ba303a1kunm2cabcdaace62f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTElPVk0ZGRoZSRoZHkoeQ1YeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+ xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=mcFEHqRFpau+wg/fQNt+tNfumMVFWV3R/lwdCO/yVAMQgcDAWUpkmDSeZxOM7I5eeMdgwHh4hWtpiZlqclgjFFMEHa31l4uM+kKxFtVUpyhIf/6xKBouGo1fgl51BwivVCOJsNmXzsulbYCfatGS9gHvPieRpC7nv2ogYcpEEso=;
+ s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
+ bh=e9Dpgey3aCA/wo/6U2AQsfdlzUC0B34C1vFmZygVNXA=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,149 +62,164 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When i915 drives the panel of a dual GPU T2 MacBook Pro, the panel comes
-back at 80% brightness after every screen lock, login and resume, while
-the gmux backlight device still reports the level userspace set.
+create_process() publishes the process in kfd_processes_table before its
+last failing call (alloc_notifier() must find it there), and its error path
+frees it with a bare kfree(), ignoring the refcount.  find_process() takes
+its reference inside the sRCU critical section but callers use the process
+after leaving it, so synchronize_srcu() misses them, and the error path
+cannot unref once either: it holds two (kref_init() and the one keeping
+free_notifier() from starting kfd_process_wq_release()).
 
-gmux resets its brightness register to 0xcccc of 0xffff when i915 powers
-the panel off and applies that value when the panel comes back on.
+Release the process as soon as it is visible: take the lead thread
+reference right after lead_thread is assigned, run ida_init() before
+mmu_notifier_get(), so the release work is safe on a half-built object.
+The published error paths unlink with hash_del_rcu(), synchronize_srcu()
+and drop both references, so the last one runs kfd_process_wq_release().
+Both labels hold exactly two references, so nothing is freed early and no
+path falls into the unwind the unpublished labels keep, now with
+put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
+pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
+kfd_debugfs_remove_process() by process, not pid.
 
-This cannot be handled in apple-gmux. gmux raises no interrupt when the
-panel is powered off or on. Only the GPU driver knows when the panel is
-back.
-
-amdgpu needs no such restore. When it drives the panel, the gmux
-brightness register and the panel's DPCD brightness stay unchanged across
-a screen lock.
-
-Add a DMI quirk for these models and write the cached level back through
-the gmux backlight device after enabling the backlight. The device is
-looked up by name so i915 does not depend on apple-gmux.
-
-Tested on the MacBookPro15,1 and MacBookPro16,1.
-
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- .../gpu/drm/i915/display/intel_backlight.c    | 31 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c   | 37 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 69 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
+ 2 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb..fddd2292e 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -793,6 +793,35 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
- }
- 
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-+/*
-+ * The gmux of dual GPU T2 MacBook Pros falls back to its default brightness
-+ * whenever the panel is powered off and raises no interrupt for it. Its
-+ * backlight device still holds the level userspace set, so apply that level
-+ * again once the panel is back on.
-+ */
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+	struct backlight_device *bd;
-+
-+	if (!intel_has_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS))
-+		return;
-+
-+	bd = backlight_device_get_by_name("gmux_backlight");
-+	if (!bd)
-+		return;
-+
-+	drm_dbg_kms(display->drm, "restoring gmux brightness %d\n",
-+		    bd->props.brightness);
-+	backlight_update_status(bd);
-+	put_device(&bd->dev);
-+}
-+#else
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+}
-+#endif
-+
- void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state)
- {
-@@ -811,6 +840,8 @@ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 	__intel_backlight_enable(crtc_state, conn_state);
- 
- 	mutex_unlock(&display->backlight.lock);
-+
-+	intel_backlight_restore_gmux(display);
- }
- 
- #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 96eb9a40d..739e030cf 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,13 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/* The gmux of dual GPU T2 MacBook Pros resets the brightness on panel power off */
-+static void quirk_gmux_resets_brightness(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS);
-+	drm_info(display->drm, "Applying gmux brightness restore quirk\n");
-+}
-+
- static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -196,6 +203,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.ident = "MacBookPro15,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro15,3",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,4",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_gmux_resets_brightness,
-+	},
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 7d4e07452cdb..a17a3a307266 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -33,6 +33,7 @@ static struct list_head procs;
+ struct debugfs_proc_entry {
+ 	struct list_head list;
+ 	struct dentry *proc_dentry;
++	struct kfd_process *process;
+ 	pid_t pid;
  };
  
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 4996419ae..7498583c1 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -24,6 +24,7 @@ enum intel_quirk_id {
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
- 	QUIRK_ENABLE_DPCD_BACKLIGHT,
-+	QUIRK_GMUX_RESETS_BRIGHTNESS,
- };
+@@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
+ 		return;
  
- void intel_init_quirks(struct intel_display *display);
+ 	list_add(&entry->list, &procs);
++	entry->process = p;
+ 	entry->pid = p->lead_thread->pid;
+ 	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+ 		 (int)entry->pid);
+@@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+ {
+ 	struct debugfs_proc_entry *entry, *next;
+ 
++	/*
++	 * Match the entry that was added for this process and not one that
++	 * merely has the same pid: kfd_process_wq_release() also runs for a
++	 * process that failed in create_process() and never got an entry,
++	 * and after an exec(3) the old and the new primary kfd_process of a
++	 * process have the same lead thread while a file descriptor keeps
++	 * the old one alive.
++	 */
+ 	mutex_lock(&kfd_processes_mutex);
+ 	list_for_each_entry_safe(entry, next, &procs, list) {
+-		if (entry->pid != p->lead_thread->pid)
++		if (entry->process != p)
+ 			continue;
+ 
+ 		debugfs_remove_recursive(entry->proc_dentry);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 12e24fbf8c46..f118f7f03de7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	mutex_init(&process->mutex);
+ 	process->mm = thread->mm;
+ 	process->lead_thread = thread->group_leader;
++	/*
++	 * Take the reference on the lead thread before the process can be
++	 * released through kfd_process_wq_release(), which drops it again.
++	 */
++	get_task_struct(process->lead_thread);
+ 	process->n_pdds = 0;
+ 	process->queues_paused = false;
+ 
+@@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	 */
+ 	if (primary) {
+ 		process->context_id = KFD_CONTEXT_ID_PRIMARY;
++		/*
++		 * Must be initialized before the process can be given to
++		 * kfd_process_wq_release(), which destroys it.
++		 */
++		ida_init(&process->id_table);
+ 		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
+ 		if (IS_ERR(mn)) {
+ 			err = PTR_ERR(mn);
+ 			goto err_register_notifier;
+ 		}
+ 		BUG_ON(mn != &process->mmu_notifier);
+-		ida_init(&process->id_table);
+ 	}
+ 
+ 	err = kfd_process_alloc_id(process);
+@@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	}
+ 
+ 	kfd_unref_process(process);
+-	get_task_struct(process->lead_thread);
+ 
+ 	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
+ 
+@@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ err_alloc_id:
+ 	kfd_process_free_id(process);
+ err_register_notifier:
++	/*
++	 * The process is already in kfd_processes_table, so find_process()
++	 * may have handed it out with a reference taken on it.  Unlink it
++	 * and wait for the readers that are still walking the table before
++	 * dropping the references held here: afterwards no new reference
++	 * can be taken and the ones already taken keep the process alive.
++	 * The memory is then freed by kfd_process_wq_release() when the
++	 * last reference is dropped.
++	 */
+ 	hash_del_rcu(&process->kfd_processes);
+-	svm_range_list_fini(process);
++	synchronize_srcu(&kfd_processes_srcu);
++
++	/*
++	 * kfd_process_wq_release() frees the memory, but it does not
++	 * destroy the queue manager: on the normal path that is done by
++	 * kfd_process_notifier_release_internal(), which neither of these
++	 * two error paths can reach, because no mmu notifier was
++	 * registered for the process.  The process is unlinked and no
++	 * reader can reach the pqm any more, so destroy it here, before
++	 * the references are dropped.
++	 */
++	pqm_uninit(&process->pqm);
++
++	/*
++	 * Drop the reference that keeps a failing free_notifier() from
++	 * starting kfd_process_wq_release() and the one taken by
++	 * kref_init().
++	 */
++	kfd_unref_process(process);
++	kfd_unref_process(process);
++
++	return ERR_PTR(err);
++
+ err_init_svm_range_list:
+ 	kfd_process_free_outstanding_kfd_bos(process);
+ 	kfd_process_destroy_pdds(process);
+@@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	kfd_event_free_process(process);
+ err_event_init:
+ 	mutex_destroy(&process->mutex);
++	put_task_struct(process->lead_thread);
+ 	kfree(process);
+ err_alloc_process:
+ 	return ERR_PTR(err);
+-- 
+2.50.1.windows.1
 
-base-commit: 7b42cc130bec053d6989b849785c553f27b752ce
