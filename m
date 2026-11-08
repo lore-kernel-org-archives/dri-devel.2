@@ -2,74 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE02C606A321
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 05:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98EF606A33B
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 05:17:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RCcZpHI8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uwNpdQ9q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F77010E339;
-	Sun,  8 Nov 2026 05:16:54 +0000 (UTC)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBD810E339
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 05:16:47 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-36dbde64409so313413eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 21:16:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2279210E76B;
+	Sun,  8 Nov 2026 05:16:57 +0000 (UTC)
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7863B10E75F
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 05:16:51 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-1b1ce85287aso52612c88.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 21:16:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794115006; x=1794719806; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794115011; x=1794719811; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=YVx8EibVSDmqX/AcJMPqICHqAKqCDOESNCCkjO2gyzE=;
- b=RCcZpHI8xZlNVqpfytpAh6rfbUk4TKGymx6kkDrqhlCghQOOgjR52OcS9PXaXANvwG
- NFh4/10UDgCnio0mlJR4jdNjrXMMddQ0de1jVeCSOC9ghABx4gOt8ZqdIaz4q7yoXu4t
- qpiZ3sXXcLX6uDxpy8c92/q3y7zAlSHTvrrCcl4v6SF/R0ctev+mTvmEwI2BM9zbzN9r
- h8GqLpzxZEAkdAp1Dpw42zvN73gcbbmUigNv0wFXmw1mra3kQraH+v44jINRz8870Imh
- ERnozHgsnBUnK5y2syb3Z/8Eoluh4EOq28Mq6fRuqTzZrYkJU5RoDu/gAAeeyZl7JNa8
- O/Gw==
+ bh=NRKj6bOqQvpAl7mRq0D5pUwiApxRT0gl15oz7QQ4eDc=;
+ b=uwNpdQ9qy912mV2nHilVzUY/Fs0gG1fMvDqrIe1UwRsilRLVTt3y1TxtMl0BUq6Be2
+ sBRavD6EzRmWn576fpQj1Ob4Ma8To4gBdA3hvIcvIeG/frPLViTApLLrcHiGglEisnRX
+ 3EhezWaGxkLSgWb18wo2H1uVQyOjLujStaicrMrE1SpudUZB9Fcx1WD2891H8xok0BIn
+ sdv+E5JQJG9Yz71nDwuiGGTsvAIWwkS/JBC0JqtC9zMNIV6kvFPIj4cL468n1V/bENIO
+ NMtcQoFtN5xK7O/mDiB2KyxYKjs1X5DaGrCPbyvs/rp36hhOdHPb+WekkzoSi/ddxe0W
+ 0BUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794115006; x=1794719806;
+ d=1e100.net; s=20260707; t=1794115011; x=1794719811;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=YVx8EibVSDmqX/AcJMPqICHqAKqCDOESNCCkjO2gyzE=;
- b=AR7K9Tdh0OHdhfa6Es3OEsAbAAnsZSVkw7qy2dsNYJRzExw2PiXotacCV72CpUFgpb
- Kv+cisv60OFsobvktU6vufp+K/M086jylS6TuFe/PUtdMKBgYmeV9UkVe6kMT3892Tb3
- Sb1IVioLoI7pw4W13xLKxD0F+0iEJ9PI6zU8qaLZo+3A1JYlxIBZGKb3hpDFqHS9FOdK
- 05YdoYmFPvM3QsDCxh5P4sPUAuW7k0iklXgoppVuZ2Ctun4uvBy3ZIHQuxI05RdAJIy5
- ZUgUVkVzW5PJpqdcH8XObmnLJ0/xG13xVO5NXxHz0Kp07PZtycWDs4m06pmHC46yUbbb
- HTew==
+ bh=NRKj6bOqQvpAl7mRq0D5pUwiApxRT0gl15oz7QQ4eDc=;
+ b=MhzxXJorQepzFcqUn+jlT6Z+LBA25+OB0OM+rKqG7G93mTRY8+QFBGIO9x96efEA/F
+ 0WXgYR/9hoBoffy/eGgxOJZpCkuOcO1HdG9odr0+RsA+9hQey0obxF+t2YhxJyhJfAUy
+ PErKfA5VUqpy6R0+B2jJX8EMOxSyr0kx80VlcAlH74NHefXZU+vYtsFWwwa+nHtlf8/N
+ 1zGY23uzVDEQKAyzqHn0vJ5soCTreMWw7I85Bnr/W8X/E4CqkS1n/jWqZl6GVEQbDeWz
+ 3p+0rLuQ2JM4TymEA0+ySj+b4kRFusPB9C9bp5kPN0i8gkOXV5LW89jGGUfc/rTo4s9Y
+ neqg==
 X-Forwarded-Encrypted: i=1;
- AL+hErESbZBLrkJ7gDQVYRFb8Xgjn41/pKVrejuXRRkeKAxRiirTCeZNDrT7hfoKgMUMsnPSbSCVsg7PGtw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9oFvwh5/iW8m2NeUn/n14LvbwoSrnpAXddjIZFUBjIKuM9DCLj
- kNLuhNdb3/U/EbXgYdu3lg48CWtxLYhCFqG0jWTdrXWXXWVNsyzt4qAu
-X-Gm-Gg: AYBFou2ad8jrunuo1q9r3V1HrN7cCMN1D17RNWs3t1fRYDznLIuLB3wjM+/syXQSctY
- QO9CD7eKJiQGw0JKuNf1xO9dPZUArelbcAphnhWg60B8yR11qkKXluuRMk+smeUEu4TpuYULD76
- 78Y5K4zAYQVqV3u8VmpqRsU2NdRlKqVECMS2ZyoukFSujqREMaBIyCk9jbHyNnVhtE5vPMED/m7
- N6a+qLxUaTCRPrRWraIawwXrNmRN1fE+fhh9HJ7ecd4nY8GjSurysqu9qmZr5I7mXJMyRGTkLQe
- v+BQgZKe0LIA6oRB3i62E21gItYsY3s/XE62EE6BRrplNOcvsSRxZ2jWDw6NLNBSY9NPccm6mNF
- ighPd6SuDkGL0I4AkU6JOmW5d3QqJKCM2KYaq4SFlrAAYNehlA1ibGr4VdNqOKzhXKR0LzmaBRl
- Ard3GRgDBY+y9vaT8kwUjw7HVAXdv+6QDUwHYJP53gnHfEHof5I5q5XhZJCihnurC6hNVYhQD05
- PFk87zo8m3aqQLYJ57edsQyZj3NI/Ja8q/7K6dFNu/UJiMN0t+PSLmYa70ElE2rRLiYWgF3cKX4
- Ri2NbC0HUEhp8jiqDxcujQJ/8Q==
-X-Received: by 2002:a05:7301:430c:b0:36e:97b4:1071 with SMTP id
- 5a478bee46e88-37257aa2df0mr1675347eec.14.1794115006342; 
- Sat, 07 Nov 2026 21:16:46 -0800 (PST)
+ AKwUvBzjKYNh7XoYla0DrqBPi34D0SeczDgd+YiQ7zP1GCODat+t6XA00q6kOiRDsnwU/SQXNeokrLeAtho=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/tzWO+iba3EqDTKBkjoeY8Yun+hT0X8b4Her+32/CbXIxtMMch
+ d1+KaBPtHUbulRs/nPv4mCUvG8t1+G9w5PF/bObtpCExA2M/YjfklmuE
+X-Gm-Gg: AYBFou2M+kLtU3kVGNPH/Ut4fFdmqRcyRLOQL4zk0v/1WBYcS57O1e/L4dAM2FCnphZ
+ 2oZ7fUbdJMGueVZKlOZFr73mtf5aP2S6LiIsTIuP0ktRhHOp44mWIyYHiQLVSL0kbRvyD42Phy+
+ T4/AOKpPH29OWYdxbXCXRlhn16LDjcy1SQHNdY0bTMz8nGWiAYBk35hi5yFugRsFqTMWRToSwPb
+ 52E7XgwpZzdTY3rK7Obs2HIjRpOa9MLeOWmW6WR3ACwJTp+QNuyuEVQlYvzgKxk3zqj/JUKp0qO
+ UPp9L6YJ3oA3zMs5NeXKWjpLyuWjR2Fu1Lsq5NTFie1XbtxNfUoMJDFUrOy1ny0opEW6hx5Jwca
+ kPlSsoFzaiu2+JytPBXAvF+akJKRXd5NudWtqdWDItGVfOM36w9hpAHHYYDumUeQu3bvV9HSM0l
+ NZKmf9zArRqWOcSy4NtyQJ9ryXv7gEycbEQZ4/dQBFme6jN1V83mxmENMs+wCifycWzK7W7IYPG
+ Lrdy5mmXKNLngF3Q0Gg6umiJPKexHqno7xkvGzUceHrr0T5402dHNFcXWsWTVveh9wuPjITZvf/
+ 6ObnYGTuJ31G8azY7xREmAJxfA==
+X-Received: by 2002:a05:701a:c919:b0:189:d6bf:7eaa with SMTP id
+ a92af1059eb24-1b39fe93a6cmr866284c88.16.1794115010609; 
+ Sat, 07 Nov 2026 21:16:50 -0800 (PST)
 Received: from [127.0.1.1] ([121.125.115.175])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-372667d60absm2750989eec.26.2026.11.07.21.16.42
+ 5a478bee46e88-372667d60absm2750989eec.26.2026.11.07.21.16.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 21:16:45 -0800 (PST)
+ Sat, 07 Nov 2026 21:16:50 -0800 (PST)
 From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sun, 08 Nov 2026 14:16:23 +0900
-Subject: [PATCH v2 1/6] drm/imagination: Switch the GPUVM to immediate mode
+Date: Sun, 08 Nov 2026 14:16:24 +0900
+Subject: [PATCH v2 2/6] drm/imagination: Stop locking reservations around
+ map and unmap
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-pvr-vm-bind-v2-1-730103d2cc9a@gmail.com>
+Message-Id: <20261108-pvr-vm-bind-v2-2-730103d2cc9a@gmail.com>
 References: <20261108-pvr-vm-bind-v2-0-730103d2cc9a@gmail.com>
 In-Reply-To: <20261108-pvr-vm-bind-v2-0-730103d2cc9a@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
@@ -109,194 +109,108 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM's GPUVA list is protected
-by its gpuva.lock instead of its dma_resv. This prepares for
-asynchronous VM_BIND, whose run_job() will update the GPUVA lists
-before signalling its fence. That section imposes three rules:
+The GPUVA lists are now protected by gpuva.lock instead of the
+reservations, so map and unmap no longer need to lock the reservations.
+Nothing else on that path relies on them.
 
-1. No dma_resv: another thread may hold it while waiting for the job's
-   fence, directly or through a dependency.
-   -> Protect the lists with gpuva.lock, and take it around
-      drm_gpuva_link().
-
-2. No allocation under a lock run_job() takes: reclaim may wait for a
-   fence that depends on the job.
-   -> Allocate the vm_bo before taking gpuva.lock:
-      drm_gpuvm_bo_obtain_locked() becomes drm_gpuvm_bo_create() +
-      drm_gpuvm_bo_obtain_prealloc().
-
-3. No freeing of GEM objects: that takes their dma_resv, and under
-   gpuva.lock would free the held lock too.
-   -> Defer it: drm_gpuva_unlink() and drm_gpuvm_bo_put() become
-      drm_gpuva_unlink_defer() and drm_gpuvm_bo_put_deferred(), and
-      drm_gpuvm_bo_deferred_cleanup() frees once the locks are dropped.
-
-This also fixes an unlocked GPUVA list update: when a map fails,
-pvr_vm_bind_op_fini() drops the last vm_bo reference without holding
-the object's dma_resv.
-
-Failing VM_MAP allocations with fail-nth shows
-it on a lockdep kernel (real allocation failures under memory pressure
-take the same path):
-
-  WARNING: drivers/gpu/drm/drm_gpuvm.c:1661 at drm_gpuvm_bo_put+0x2ec/0x660 [drm_gpuvm]
-  Call trace:
-   drm_gpuvm_bo_put
-   pvr_vm_bind_op_fini
-   pvr_vm_map
-   pvr_ioctl_vm_map
-
-Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
 Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
 ---
- drivers/gpu/drm/imagination/pvr_vm.c | 39 +++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/imagination/pvr_vm.c | 44 ------------------------------------
+ 1 file changed, 44 deletions(-)
 
 diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index af1f5526a78..d551d9a4ab4 100644
+index d551d9a4ab4..12ebf0daf88 100644
 --- a/drivers/gpu/drm/imagination/pvr_vm.c
 +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -214,7 +214,7 @@ static int pvr_vm_bind_op_exec(struct pvr_vm_bind_op *bind_op)
+@@ -10,7 +10,6 @@
+ #include "pvr_rogue_fwif.h"
+ #include "pvr_rogue_heap_config.h"
  
- static void pvr_vm_bind_op_fini(struct pvr_vm_bind_op *bind_op)
- {
--	drm_gpuvm_bo_put(bind_op->gpuvm_bo);
-+	drm_gpuvm_bo_put_deferred(bind_op->gpuvm_bo);
- 
- 	kfree(bind_op->new_va);
- 	kfree(bind_op->prev_va);
-@@ -255,11 +255,11 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
- 
- 	bind_op->type = PVR_VM_BIND_TYPE_MAP;
- 
--	dma_resv_lock(obj->resv, NULL);
--	bind_op->gpuvm_bo = drm_gpuvm_bo_obtain_locked(&vm_ctx->gpuvm_mgr, obj);
--	dma_resv_unlock(obj->resv);
--	if (IS_ERR(bind_op->gpuvm_bo))
--		return PTR_ERR(bind_op->gpuvm_bo);
-+	bind_op->gpuvm_bo = drm_gpuvm_bo_create(&vm_ctx->gpuvm_mgr, obj);
-+	if (!bind_op->gpuvm_bo)
-+		return -ENOMEM;
-+
-+	bind_op->gpuvm_bo = drm_gpuvm_bo_obtain_prealloc(bind_op->gpuvm_bo);
- 
- 	bind_op->new_va = kzalloc_obj(*bind_op->new_va);
- 	bind_op->prev_va = kzalloc_obj(*bind_op->prev_va);
-@@ -293,6 +293,8 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
- 
- err_bind_op_fini:
- 	pvr_vm_bind_op_fini(bind_op);
-+	/* Drain what fini() deferred. */
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
- 
- 	return err;
+-#include <drm/drm_exec.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_gpuvm.h>
+ #include <drm/drm_print.h>
+@@ -684,16 +683,6 @@ void pvr_destroy_vm_contexts_for_file(struct pvr_file *pvr_file)
+ 	}
  }
-@@ -366,7 +368,11 @@ pvr_vm_gpuva_map(struct drm_gpuva_op *op, void *op_ctx)
- 		return err;
  
- 	drm_gpuva_map(&ctx->vm_ctx->gpuvm_mgr, &ctx->new_va->base, &op->map);
-+
-+	mutex_lock(&op->map.gem.obj->gpuva.lock);
- 	drm_gpuva_link(&ctx->new_va->base, ctx->gpuvm_bo);
-+	mutex_unlock(&op->map.gem.obj->gpuva.lock);
-+
- 	ctx->new_va = NULL;
- 
- 	return 0;
-@@ -396,7 +402,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
- 		return err;
- 
- 	drm_gpuva_unmap(&op->unmap);
--	drm_gpuva_unlink(op->unmap.va);
-+	drm_gpuva_unlink_defer(op->unmap.va);
- 	kfree(to_pvr_vm_gpuva(op->unmap.va));
- 
- 	return 0;
-@@ -418,6 +424,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
- static int
- pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+-static int
+-pvr_vm_lock_extra(struct drm_gpuvm_exec *vm_exec)
+-{
+-	struct pvr_vm_bind_op *bind_op = vm_exec->extra.priv;
+-	struct pvr_gem_object *pvr_obj = bind_op->pvr_obj;
+-
+-	/* Acquire lock on the GEM object being mapped/unmapped. */
+-	return drm_exec_lock_obj(&vm_exec->exec, gem_from_pvr_gem(pvr_obj));
+-}
+-
+ /**
+  * pvr_vm_map() - Map a section of physical memory into a section of
+  * device-virtual memory.
+@@ -721,15 +710,6 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
+ 	   u64 pvr_obj_offset, u64 device_addr, u64 size)
  {
-+	struct drm_gem_object *obj = op->remap.unmap->va->gem.obj;
- 	/* The split parts belong to the object of the mapping being split. */
- 	struct drm_gpuvm_bo *vm_bo = op->remap.unmap->va->vm_bo;
- 	struct pvr_vm_bind_op *ctx = op_ctx;
-@@ -435,16 +442,20 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
- 	drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->remap);
+ 	struct pvr_vm_bind_op bind_op = {0};
+-	struct drm_gpuvm_exec vm_exec = {
+-		.vm = &vm_ctx->gpuvm_mgr,
+-		.flags = DRM_EXEC_INTERRUPTIBLE_WAIT |
+-			 DRM_EXEC_IGNORE_DUPLICATES,
+-		.extra = {
+-			.fn = pvr_vm_lock_extra,
+-			.priv = &bind_op,
+-		},
+-	};
  
- 	if (op->remap.prev) {
-+		mutex_lock(&obj->gpuva.lock);
- 		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
-+		mutex_unlock(&obj->gpuva.lock);
- 		ctx->prev_va = NULL;
- 	}
+ 	int err = pvr_vm_bind_op_map_init(&bind_op, vm_ctx, pvr_obj,
+ 					  pvr_obj_offset, device_addr,
+@@ -741,15 +721,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
+ 	pvr_gem_object_get(pvr_obj);
  
- 	if (op->remap.next) {
-+		mutex_lock(&obj->gpuva.lock);
- 		drm_gpuva_link(&ctx->next_va->base, vm_bo);
-+		mutex_unlock(&obj->gpuva.lock);
- 		ctx->next_va = NULL;
- 	}
- 
--	drm_gpuva_unlink(op->remap.unmap->va);
-+	drm_gpuva_unlink_defer(op->remap.unmap->va);
- 	kfree(to_pvr_vm_gpuva(op->remap.unmap->va));
- 
- 	return 0;
-@@ -568,7 +579,8 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
- 	drm_gem_private_object_init(&pvr_dev->base, &vm_ctx->dummy_gem, 0);
- 	drm_gpuvm_init(&vm_ctx->gpuvm_mgr,
- 		       is_userspace_context ? "PowerVR-user-VM" : "PowerVR-FW-VM",
--		       0, &pvr_dev->base, &vm_ctx->dummy_gem,
-+		       DRM_GPUVM_IMMEDIATE_MODE, &pvr_dev->base,
-+		       &vm_ctx->dummy_gem,
- 		       0, PVR_PAGE_TABLE_ADDR_SPACE_SIZE, 0, 0, &pvr_vm_gpuva_ops);
- 
- 	mutex_init(&vm_ctx->lock);
-@@ -602,6 +614,7 @@ pvr_vm_context_release(struct kref *ref_count)
- 		pvr_fw_object_destroy(vm_ctx->fw_mem_ctx_obj);
- 
- 	pvr_vm_unmap_all(vm_ctx);
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
- 
- 	pvr_mmu_context_destroy(vm_ctx->mmu_ctx);
- 	drm_gem_private_object_fini(&vm_ctx->dummy_gem);
-@@ -738,7 +751,9 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
- 
- err_cleanup:
+ 	mutex_lock(&vm_ctx->lock);
+-	err = drm_gpuvm_exec_lock(&vm_exec);
+-	if (err)
+-		goto err_cleanup;
+-
+ 	err = pvr_vm_bind_op_exec(&bind_op);
+-
+-	drm_gpuvm_exec_unlock(&vm_exec);
+-
+-err_cleanup:
  	mutex_unlock(&vm_ctx->lock);
-+
+ 
  	pvr_vm_bind_op_fini(&bind_op);
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+@@ -782,15 +754,6 @@ pvr_vm_unmap_obj_locked(struct pvr_vm_context *vm_ctx,
+ 			u64 device_addr, u64 size)
+ {
+ 	struct pvr_vm_bind_op bind_op = {0};
+-	struct drm_gpuvm_exec vm_exec = {
+-		.vm = &vm_ctx->gpuvm_mgr,
+-		.flags = DRM_EXEC_INTERRUPTIBLE_WAIT |
+-			 DRM_EXEC_IGNORE_DUPLICATES,
+-		.extra = {
+-			.fn = pvr_vm_lock_extra,
+-			.priv = &bind_op,
+-		},
+-	};
+ 
+ 	int err = pvr_vm_bind_op_unmap_init(&bind_op, vm_ctx, pvr_obj,
+ 					    device_addr, size);
+@@ -799,15 +762,8 @@ pvr_vm_unmap_obj_locked(struct pvr_vm_context *vm_ctx,
+ 
+ 	pvr_gem_object_get(pvr_obj);
+ 
+-	err = drm_gpuvm_exec_lock(&vm_exec);
+-	if (err)
+-		goto err_cleanup;
+-
+ 	err = pvr_vm_bind_op_exec(&bind_op);
+ 
+-	drm_gpuvm_exec_unlock(&vm_exec);
+-
+-err_cleanup:
+ 	pvr_vm_bind_op_fini(&bind_op);
  
  	return err;
- }
-@@ -820,6 +835,8 @@ pvr_vm_unmap_obj(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
- 	err = pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj, device_addr, size);
- 	mutex_unlock(&vm_ctx->lock);
- 
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
-+
- 	return err;
- }
- 
-@@ -854,6 +871,8 @@ pvr_vm_unmap(struct pvr_vm_context *vm_ctx, u64 device_addr, u64 size)
- 
- 	mutex_unlock(&vm_ctx->lock);
- 
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
-+
- 	return err;
- }
- 
-@@ -889,6 +908,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
- 	}
- 
- 	mutex_unlock(&vm_ctx->lock);
-+
-+	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
- }
- 
- /* Static data areas are determined by firmware. */
 
 -- 
 2.43.0
