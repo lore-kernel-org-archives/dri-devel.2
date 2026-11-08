@@ -2,88 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE252606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 07:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CA1606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 07:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=DPp6/sWp;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mYSNldut
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=R2pCNZfs;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BaiwJNkM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B7BF10E778;
-	Sun,  8 Nov 2026 07:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31B610E77B;
+	Sun,  8 Nov 2026 07:06:49 +0000 (UTC)
 Received: from fhigh-b3-smtp.messagingengine.com
  (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6F110E776
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 736AC10E778
  for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 07:06:30 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 428C07A00FF
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 02:00:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Sun, 08 Nov 2026 02:00:59 -0500
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 7400A7A00F6
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 01:59:35 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 01:59:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1794121255; x=
- 1794207655; bh=qCmx6DpnIrwTlTWDw4oEodoP0i+gU4Ja/jIjM7NRimI=; b=D
- Pp6/sWphpY/crljA3CuZR9fExWocMAM3i4BCC9f7aECItz0A4jefcdUIMIWL6QO/
- 9onbhUQGpKmwOYA21hr6zCHqHe7/GJkPFqKSUSoAHuNwquMBWKLT/dekAnveZnp/
- lah0DtRtoC+811lz2RnE/eN5Jd3Jx+D76eHQBhuTZCSt7VpUS+YaoIrAWFMsOxdN
- CXaoxUrkgafDtMXijoI5hSJIFPUITcvX2+iA3bYKOMYGltcZqZy6K3iAviETUCEN
- RZWuRws7gWC52Z/eTBWjSEK38CKSimYlAEUvEenByH8Rh3CuDfiUhUmKnhS86g1I
- xSIXbu5+ocdqJcl1GZFEA==
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm1; t=1794121171; x=1794207571; bh=5c5YwQfw6g
+ lIQ3sp4LG2WJX6kW+CuAO4TASY3DLJo6c=; b=R2pCNZfsdGPizmH5CFvrMPVhSi
+ OAJH4u+rQ0yqv9p2Wtb10U/13JqZ5eHfEorwGfC2TP5FmVf0nPdnHtcyNun3ysvt
+ ufyX+AM3FCXyAr2ketrgBeEX0Qzx+sNt/hCclyEjNZCgyLiQNznmBBI+3YbRDbno
+ JyPb36dliryUdP4JKJJwLytADlpuTypj+LaXNGKNHcZ9MJ/mzQ4jC4tbd5nW/TNc
+ vR8SIhr4MSa7F/AecrkXBnk2ZvzcWefNG2F1QlvRpz5hQR8rxjFpX1WiN5vkLDT9
+ hagwji5hLb7FRepYcdp7Rg1r40EiH7Q5hE6tCsgm75hQLBXcuL4NRjgWJcPw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1794121255; x=1794207655; bh=q
- Cmx6DpnIrwTlTWDw4oEodoP0i+gU4Ja/jIjM7NRimI=; b=mYSNldutDrm0MG/h/
- +Mr6ezLeeCBnq7S0rc0Plf+eiKFotqm4Oc22/79wQTX4ChTvXNpCV/ip7bewLFhy
- k8+ZrhlsvJw5IKMZo3hJNdYcGtI2VH8aIvotfL3PUUg2COqXQSy+HRgtOdBCZ+gx
- qenI8v08Tq2DJkL4Q6K1oR3g9UcR213mhB/cw5iUoucqpz/wopi+B7YE1n7ju5Bs
- riYahlhqIrd62TBLdNwI/ZHtP4agXyTUeq8rWaBGEZOA3UIwYwHTz6/K5c3qwEZ5
- DPOUqCBUB9GuNjwUKoMQKTdaXiBo3jV8atshb1Dnpb0eCsHSSgxoiDxhxvu7f3U1
- tZuJw==
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1794121171; x=1794207571; bh=5c5YwQfw6glIQ3sp4LG2WJX6kW+CuAO4TAS
+ Y3DLJo6c=; b=BaiwJNkMLqwzOWQcRZZ7F8J83bvyMzXYj1itNLJhGP6dGbo9VDY
+ fLZeL+XvErD1jsMz97S3E8Vsc3MkzgA32Oh2FRvcTgA7rUrs62zkEK6EhrltO8pU
+ VH4zdoatvU9MntcNB7v9MODrE7shoTSWG9K95BuAmica6z5kyXvGAZlzG2WECaRp
+ vipYBrPTj4UE9uZgEhEjPkmbCS9LUxX8jiYyUFLT6cNv1Fj7mAOBwLHJzxtGOrn9
+ jz8mgrf0BT+jU1SIpi6VYqO6GJU3162g0Bgh68h0WA91YhcS1/X+kW25pdtbx/+h
+ mDOmyQY2G8whs6UBQJ6mStRI8jMlqEtR7jg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794121255; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1794121171; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:CfAX7j84deiuMwZS7J72gfDt9I/ixRombbnVLiqYr8LspCk
- qZW6l1VVE0zW3Z+VzWZvMOdPcASkPEMH1UFAjM2Iouf7jJTchXKQcB8Jd8oQeG2i
- jB8BQ/SlZ67eS+O+NPhgckj+7WiMJdzH8Pd4zJSZjp5U/UfyIi9jJ3MDDnE3vCNi
- rUZoDsoo7hodWp04N7q0734nen3CSNMDpsoJZ53rDt0aVb50Vi+5VEVeuqfJhUGw
- l+vwC6GrxHfJ4bjfQ+Pgt8Ra0dTxQa25nHaI6kUpS6RPyGCKxLWl9GI2ckupWtSO
- yUDkaSEVmhOWPim34OPdY0R0daYWRVkPTWC7H/g==;
+ s=fm1:rsa-sha256:Iwug8MfCMcT4Fs83WAnVVdGkq/2xt/CEGX9D3uqnfegaZeZ
+ tte1ZihJeSI0Q3fPa07nFaestoEZZUmb/A8+yvoieXSycli57aLkEvxFXoNZBkOR
+ oOycZD+o0MTBBlHXMdwDyNPe/puytoBZn1WwdYDQHx/3VfJKjrkX+NSy3woLLBzE
+ Xz9+vt551lxXWhW85o8actLv7lE7MyjJuGcImKDEJnPN/Qk59yFFlkdVs0T8F6C+
+ YITHLsYgbUGwsdIP63973LC6mNXxWs7v044A4oHpxeMh5t0t0OKWr8Nk+d4PY6al
+ 68EDqLuFQnw09QLaE1sJ9+Jg6L3CvaU/PuHWr/A==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=11;
+ action=mi-m=1; hc=9;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
- in-reply-to,message-id,mime-version,references,subject,to;
+ message-id,mime-version,subject,to;
 Message-Instance: m=1;
- h=sha256:mD+YezxNul0uW96XjIapcxbq7AFt6rwK50+Ib7PpJsM=:DlVKbproDw44VuK3FXRaoSxqI9g6sF0q1Q+SGJiiono=;
-X-ME-Sender: <xms:Jh7wansapv0-e4bMLHvr0jylxmpkEJzKZjZNU_oDj-biO76uJYq4AQ>
- <xme:Jh7wakkTxlk4rJMImOugPpa-lEKAqJ6JNUHsOCMVAtSFgsFKhKvWp_lIYizWtg94C
- fA3l2HtNbHowZbkAwL9sQtert_h2xwPMYcKlSpSYXPo9YcrQmmdD6F1>
-X-ME-Received: <xmr:Jh7wakDoSgEtxYEtL9PvAoefULDOn10-gmZpgrtCj9XbdLxZJNNl2H0AT4grgAjDMckATXqX>
-X-ME-Proxy-Cause: dmFkZTFKhclCCJN9i5LFQp5fvn9DylL5PDR95+qcmUDEkBDvAaUlhVhO6JW1PTcA0oiilr
- afxU+kS37MwfkRVrV2sLhNS1OkBSH9hrpfUYkvEeAEfTx8oUhC1lvQdEqsrvfO12L2kPDm
- Y90xvEv61R5vWsABT3XVmqKcWsSTBPoQRHs33ySAWpN7mh8mIX7nfmpu6Q5St0DdZLVl6o
- GJpMHUC7TjUVqLMHfqfKk9SHn10f5lL6CdG6YeehrsosttZtbM1aNiFk46XYC+svmJcMBn
- 4w1I3sJZaXrv8SSndHCWUOH7cbPZHBY65Sr1oZjnZZRxSV2wTTFO+3xU/Lmvhk4YCMlhJn
- An92hf5ayiDz+JlUMx2f9ip6BPNZSyXqeXxkmvmU2+bQCo+6Ag/d4J/t+61YixRab1Msqm
- itojlPIWBp2werHJglOT5dTuhiS/TbONUWnYE1ymbnAb5T1c+G+UozmRi5FoQqyiLD5T4j
- dlsU0vGXJWFGiijgCcUtqvb8qh9HwCtr6jkXyR4Q6DIAYohu/AdBwoHhXdwaGnLxRUDVho
- 2VCSN767LQnBQCKCmSgMzo6uQOBati/L8USUdRk1zsgA9zDobnCjvLdcMSRJaqRGt6TkEz
- dfO6e//4ABIWBCaozAk6nDHnUCojDu7A+bZDNYdGbgLU/XmnoT7Yp0ASlv2Q
-X-ME-Proxy: <xmx:Jh7walTIccjng5cx9DN9G4zk5QL5sm8fApOITmG0kb6VksoMnujtcw>
- <xmx:Jh7wasK6XW7NFbx3EfQ_RXy7o7ZY1aU-dR0EIadZ7s-bN2d9KlYbCQ>
- <xmx:Jh7wam3FbG9Y_XBgK53zEGoO4RHf4Ltgod0stcqlMOclcAWIJLNjpw>
- <xmx:Jh7waguA9lI57fMbP8qlASKNhMy4VYRNjWlnHiD-mosoxxra0TNlmA>
- <xmx:Jx7wakW8cb9ZncY6CxXvwbkTgfIKCzJfhnrsXLvQ1oU0a_c__odKaORI>
+ h=sha256:0Hb6NGQTbSiP6J9K8ROHO2Z8lf23EXIb76JFPze2l+8=:lIARtbVoyFTth3P9LXxTFUZ0gGbe4ogIP4TasWzB74c=;
+X-ME-Sender: <xms:0R3wakADAhVpUtvk0PojSS1Fnbs5bIIv-h-f4KepwONWz0JXkGPTWw>
+ <xme:0R3wai9jViP-GoO5mFkUCsW0FRJIBf99zjIrOlzqV2HSoIm4pFW9XwZdTzEbocA0-
+ Vr1kHxA5kvswsCv-jvvAYC95UbWGG6lbKNwp7caIK6QcN_S277Mu43g>
+X-ME-Received: <xmr:0R3wau2_FuWMJ9JmGKBnZLwinNaEct-wyhcsqRHrHQ6jIUjj6HULVeQyJFZ2BKy4e8uQffK9>
+X-ME-Proxy-Cause: dmFkZTFWwKTEx2JlF6gbxz/CcZ5fOIEPMTwVUWzP082guo7LQMgK7h789MowHkag1AGdJv
+ Qi5S3iCW7IkIlV0pVZbVxPkmE51+n7fGqs28fdNBe7OImR6ZReSfOcge1vefQ2dYIPjd/3
+ 8oouzHrOzwizmnPo1Jrj2K0Cz6p+y7cnDV1Q7f64sIfTb/RehvLUFbgwKi6YssWkzdFwq6
+ PiOomVYP7898vo56/KT6uE/vFspwIACRCqrPnfnGSDvko45DWPmIgV1QsN1iiB6XoRbR5/
+ hqF7mdebvlnyTwN4YuJ6h5Db0Q4msVL+t3WXN9SrQ1fzPlgWJWmpS+HhRxJYCi1m+5oETc
+ Hf/c0rOLaIGYwsXYUJk9RDSvEHRxWZa5odvrMxGFaVYAzpZ+RJ6pmy7HNp+L6KNMbjZvcs
+ 5w4IeTnfFHNhPQQDXU6R0fvBgaB8bdUCo2xV+DP47ptSNs2iew7ns9kHjQaMGBcENSDf6/
+ 1n/tGYGTDpygfLAksUvvLewffFcyx3AiAuqTTRNQpBYBRjpD3ImuWZZwEIJ7NaPqz2Ep0i
+ 18NtNYfg3+xwDtsI5f84X0HU/kW5w1owhcdQZh5+RAm/sDzXXggz/GJ3dNjWp/b9ew7SN/
+ tfKtl6cZGQqJIXK0jvbXvDXh6ES2z+DXksOqFyi8EDmUX3DsGB8IwnAhIF2g
+X-ME-Proxy: <xmx:0R3wahTC7yxmYtakbLUznZAn9t9if0Fy93KVG1ar7_RatWT5ahJz_g>
+ <xmx:0R3wapj_xiA45HSZ_mXP_UzBWDt_4dsh_9Qnbbrj15vMN_mZ60ub7g>
+ <xmx:0R3warZa_YTgKxAvMtBxd5tRo-OKbLO7byRud17rUUgFTasbB4wgfg>
+ <xmx:0R3walEYCYjyyHdOG4qxGLNKQPqPju1LTZLedIb1PASn4FGkBN_9wQ>
+ <xmx:0x3wak7QszLLyOVvxgx-4hIUGD2clfHh3Rw9oszNcOA9TTF1ZsIPB8xj>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 02:00:45 -0500 (EST)
+ 8 Nov 2026 01:59:19 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -99,13 +97,10 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v16 05/16] accel/rocket: factor the completion tail out of the
- IRQ handler
-Date: Sun,  8 Nov 2026 19:59:06 +1300
-Message-ID: <20261108065917.135194-6-gahing@gahingwoo.com>
+Subject: [PATCH v16 00/16] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sun,  8 Nov 2026 19:59:01 +1300
+Message-ID: <20261108065917.135194-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261108065917.135194-1-gahing@gahingwoo.com>
-References: <20261108065917.135194-1-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -121,72 +116,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move the part of the IRQ handler that starts the next task or finishes
-the current job into rocket_job_next_locked(). This makes the code easier
-to follow and does not change behaviour.
+This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
+driver.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
----
- drivers/accel/rocket/rocket_job.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+Based on: next-20261105
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 4a577b642849..ea23a44b1d9e 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -365,6 +365,24 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
- 	return ERR_PTR(ret);
- }
- 
-+static void rocket_job_next_locked(struct rocket_core *core)
-+{
-+	lockdep_assert_held(&core->job_lock);
-+
-+	if (!core->in_flight_job)
-+		return;
-+
-+	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
-+		rocket_job_hw_submit(core, core->in_flight_job);
-+		return;
-+	}
-+
-+	iommu_detach_group(NULL, iommu_group_get(core->dev));
-+	dma_fence_signal(core->in_flight_job->done_fence);
-+	pm_runtime_put_autosuspend(core->dev);
-+	core->in_flight_job = NULL;
-+}
-+
- static void rocket_job_handle_irq(struct rocket_core *core)
- {
- 	pm_runtime_mark_last_busy(core->dev);
-@@ -378,17 +396,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
- 		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- 
--		if (core->in_flight_job) {
--			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
--				rocket_job_hw_submit(core, core->in_flight_job);
--				return;
--			}
--
--			iommu_detach_group(NULL, iommu_group_get(core->dev));
--			dma_fence_signal(core->in_flight_job->done_fence);
--			pm_runtime_put_autosuspend(core->dev);
--			core->in_flight_job = NULL;
--		}
-+		rocket_job_next_locked(core);
- 	}
- }
- 
+Changes in v16:
+
+- Tomeu: rewrote the descriptions and code comments of the accel/rocket
+  patches; I write them in Chinese first and translate them into English
+  with an LLM. Added a GET_PARAM ioctl that gives userspace the NPU
+  hardware version (13/16). Please check whether the proposed enum values
+  are fine (RK3588 = 1, RK3576 = 2).
+- Heiko: shortened the commit messages of 1/16 and 3/16 and kept the
+  original comment in 3/16; moved to one power domain per core, and cut
+  the IOMMU clocks from five to four. The measurements are in 8/16 and
+  15/16.
+- Chaoyi: removed the unneeded comment in 11/16.
+- Sashiko: 4/16 now drops the runtime PM reference after
+  rocket_core_reset(), with an A/B test showing that the old order hangs
+  the board.
+
+Testing, on a ROCK 4D and an ArmSoM CM5-IO, both running Armbian edge 7.3
+with the v16 changes:
+
+- Tested with charsiu (https://github.com/gahingwoo/charsiu), an open
+  source LLM inference runtime. It drives the NPU directly through the
+  rocket UAPI (/dev/accel), without Mesa or the vendor runtime.
+- Llama-3.2-1B (Q4_0), with both NPU cores running together, gives
+  correct results.
+- Perplexity on the same model and the same text is 41.1009, identical to
+  the previous version.
+- On the ROCK 4D, tested IOMMU clock combinations; four clocks are needed.
+- On the ROCK 4D, repeated resets with a 2 ms job timeout, to compare the
+  two orders of dropping the runtime PM reference.
+
+Armbian has merged support based on v14, in armbian/build#11162
+and armbian/build#11163.
+
+Known issue: after repeated resets with a 2 ms job timeout, the IOMMU
+does not recover ("MMU_DTE_ADDR is not functioning"). I have not looked
+into it further.
+
+Tool use:
+
+An LLM helped me read code and technical material and write part of the
+implementation. Some of the code in the series was first drafted by an
+LLM, and the commit messages and cover letters of earlier versions were
+mostly written by an LLM.
+
+I reviewed the generated code and tested the changes on real hardware.
+I also used an LLM to write test scripts and to compare register write
+traces.
+
+For v16 I rewrote the cover letter, commit messages and code comments
+myself in Chinese first and translated them into English with an LLM.
+
+Tag changes:
+
+- Picked up Heiko's Reviewed-by tags from v15.
+- 4/16 changed after Heiko's Reviewed-by. Heiko, please confirm whether
+  it still applies.
+- Igor's Tested-by on 4/16 was given on the earlier code, so I've dropped
+  it until it is retested.
+- 8/16 has Conor's Acked-by. The clock count changed from five to four;
+  Conor, please confirm whether it still applies.
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (15):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle an optional power-domain reset on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  accel/rocket: add a GET_PARAM ioctl for the hardware version
+  arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        | 26 ++++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 40 ++++++++-
+ .../power/rockchip,power-controller.yaml      |  8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 22 +++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 82 ++++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 14 ++-
+ drivers/accel/rocket/rocket_core.h            | 10 ++-
+ drivers/accel/rocket/rocket_device.c          |  3 +-
+ drivers/accel/rocket/rocket_drv.c             | 61 +++++++++++--
+ drivers/accel/rocket/rocket_drv.h             |  2 +
+ drivers/accel/rocket/rocket_job.c             | 84 ++++++++++++-----
+ drivers/pmdomain/rockchip/pm-domains.c        | 89 ++++++++++++++-----
+ include/uapi/drm/rocket_accel.h               | 40 +++++++++
+ 13 files changed, 419 insertions(+), 62 deletions(-)
+
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 -- 
 2.43.0
 
