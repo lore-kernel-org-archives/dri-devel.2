@@ -2,87 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48286082BD2
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1106082BD0
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EsPShtvr
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eGGNkyC4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F3710E87D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57D4510E882;
 	Mon,  9 Nov 2026 09:31:15 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 236D010E16B
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 22:15:44 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4a5177d78c7so2159945e9.2
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 14:15:43 -0800 (PST)
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1081D10E707
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 01:15:03 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-170135e43c7so113174c88.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 17:15:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1794176142; x=1794780942;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20260707; t=1794100502; x=1794705302; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
- b=EsPShtvrddRy4MozG9bxhIGQvspAT9/aY6Uyni0mAGtrDBvE8aSMbZhb3/C4MZ30Vq
- IIe87UbEloT+pecaweaW3Dw2zr6V5Shv6nW5Yl5Ggwq9+oU32kS9RrrUIpuz4jnL7xOK
- aswkvH+v9Y/uL0p1at5wCc43/JSprK781fy6AozS58EVHaZCQLtPqHZGCgCGigslrlND
- MU+EZnuVsdyIEdD6M1t4UJl0gm7lXS+R4j9ZL1p7XaPz4PffgfDsBmP3yWS2O7gVKdz0
- TLGgk/5TAkGUzfHk9LYhw23oDkof7brq9x9dna3g82BCZVR0qdwGAKYDhZ/odPkzYSmr
- u9gQ==
+ bh=u9X20r2n586k0YtBJ9MVy2V2Dt8dvj2V/QpRqyWFCCU=;
+ b=eGGNkyC4O0pLoha1yK1rbKZKJyfAX7hdCxBkPbqRmmZhghs4fb8dgwmn3OnbGfbwev
+ Uvy7Mulv2j4T8LeNtx7suF+DpLopss7Ko0/xfGQI7AwTh6SRypDH2PPTRWkyhdnbkAJz
+ Yjjtu4xr3fyTTI3JxbA/LGIrl3bwdL4xvVzdlrE0rQFMlmeFtecQBvsmJdNedawqY27j
+ 0Pa8insRbhsKum2GJKWbp8QcUFcpmoL/R+3RXcgyHehClYFFR2qbnALn8k6k5O4vZhEW
+ B5SnClZfknG+VL2yc0I4Fvm8GTCI7e9Koo0rYjPqawpg2+qP8tltFDmnGgYyFvsBHCRL
+ vYJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794176142; x=1794780942;
+ d=1e100.net; s=20260707; t=1794100502; x=1794705302;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
- b=fc6zpeAiqvDKbcWOUFQXtUH1yPY06rJnBCdDfkMvoRBQGFJ1Qa9w5TZb/V4qBidAGK
- Ab62KjPHVfDbzTNcEcWxLRjnbEyp+NzGnQqNiuqCJOBw/KqaZMzCoEt1EPoBIVW+KXB7
- 8SdF7HMX73Dwr+lz/1m2wKVongfERJfpqgO/ajMz49uYnwywz4lzi7wQ8Lvth1DiEHOW
- 4yQjkCsa5CoozyHSEdSr6m4JifIvL0kp7DXtXU7wnDzVi+2NW2A+y9YeTAmlqFxFJsDj
- KdvIJFGjfVXi1V6XhiKICml47aKV21mfPADhqQSqRLlEyxyJRxOtUjBBorgG6KF/398b
- YbpQ==
+ bh=u9X20r2n586k0YtBJ9MVy2V2Dt8dvj2V/QpRqyWFCCU=;
+ b=mqXclQ4dtBZDkKoauNSdhOhjgr40G7GRdl/qOejEQW3Ra60h40tE6KFqvh1kfkK+sU
+ JVz8bQUJJrA7BmIXh0IDUQwu7TLgsFRXMrBZm+CukFd8jeU4X8wDyQvXn00gTc9Bk5db
+ xZkU2X5gZoo0L0H1jZCyOdrZrQzIU4ZWytzPkyZKZl98hIpg3D4RqnWL+OQDLNUuIq8B
+ z0zfmaGvow5ga8Gpd0UXCU6LC0T8tB3pnDDjiLR8dzv16pjIqriKJnLC0mUYmaxsIf7L
+ AYPD/myhegSLhdp+7euqQUSQljd5Vcw6N3MnbgIG4F59/nsegsPL3TBXqdW5I9Ximjdj
+ uXtA==
 X-Forwarded-Encrypted: i=1;
- AL+hErFKv6qlsN2vs42UrdYV/BOso7oipoqRJNPBnsAuh+9mcHF5fN+tCIKpy3WzUTqCcMV5Z6rGJRuYzaA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8eEUO5mwnLluezE1I/2hmlUaI8OgJ00HuY61eTUMP0RCFy9mGU
- +I7UtdUWf7KPTQfizlWKJFgB/UkTrfcaSIBK+smLQ0O9roXyt47zygJfnr40cvutdg==
-X-Gm-Gg: AYBFou0GdwfoqWT6yBuSw8ob3+TLcqNF5GSVa2PK7cmHHWr9yD5gAQQ23hrtJoPnqWQ
- JI0GRmi89E8NoBcEFu+yLa4elRyVWYT8WI3l021WnayK4BLL8IVMAa0YdUvr1xHpmTzqZLPFG2V
- aXXnIJXJObh2lxR7zHTpR3nxIe7tju+Nxa/1BybI6dIWCDQ6g141nZHKVp5BjC43Mm32Lzvo01b
- lLnRg0Ifpm/yC3KhNVZWX7LKjEXA4m7smyESjXelrbVmYEYdN2rMRDWYMUQm3/+1I1OPubDD3KT
- SZcxgZUN43E+Q900VBTvvNpEDz3CPKr4Kz+e2WK99IwiBG4Im9GbyqBn9A3aM/lFpoVXhwnWHOY
- fswpRudn86ex0MLFM93EVjfvFmAPVwhdOZFzU26ZPHWq45uHOy66FHGSn63WNEGJoSfH2gbgt49
- QeaN1hdnSzy9kvmHYBuPXwrv4IxcPIr3+yZFur4F02DXgGbhDe8Ax1bjssEjV8pF/AY/Pbk4MXe
- RqZ+eXnfbHdjC8ZoVH5rpL4ZOlcSAWhZ/UMhQ35O6KdkcHEaY5OjBpJlRT1l8oz3SGqjF2jmeOn
- v4Ma4BTRjgMVzidOEvfXd1LnBMYKRas7YhX1sZIy
-X-Received: by 2002:a05:600c:4e87:b0:4a1:e69d:90e8 with SMTP id
- 5b1f17b1804b1-4b963c8e6e7mr40922425e9.22.1794176141294; 
- Sun, 08 Nov 2026 14:15:41 -0800 (PST)
-Received: from mbp2019.tail53dac2.ts.net
- ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
+ AKwUvBwOCwxzW1HSjOhzh04TCi8cM4we8GfERtjfuhWMpJn52C9D+hXKXTxGzKgeHaR/C4TQG0nS1YS5eA0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/NCa9JLu1ZD/vrc08xrdXfhqiDLm1ZYnachlCsmJlxWsQxgPLT
+ LAkeybnU7DmyfLhArRy/Q27MYzRe8qfaQ9x2/8wvSsWOIgLdvOghQ8iJkNRRT8EDgNhZPQ==
+X-Gm-Gg: AYBFou39W+jR43kO5k8ROcX2ut3BpM+zFaCiLozW+9U7SceLKeQNMo96t7tZGlbi9Or
+ 8MBN6PteipTT7jmG39mHyAVRC4QExCUselYG7c7YExA/o6VHBiQoPlg7y/xMsv7lADv1kH+oZCX
+ hD5ghqLg3mqLkqoF8mQa+50c97N6KajWQfPeypyIr10RuCXOmLYOdyi5PkzNlO9tEezxrj+U+IP
+ LkgbYrAUuIlA3DTez/8SPgjJiXXggBaKoNUSUUm8eifIm0IIkfm5+IL5ty8Mf94ohb/+ZL0Fkea
+ UGQ52qwv54+Exwo5y9t/1x1O0KUQO7c4Ug90pfwTd2yHiHlBUGwW3TKkfEx1wu7KQTKZOAHwNIJ
+ hUEEnzmnSPYFUkQRat1tO5tkECJ1gE/9X6llFbswB9fSKYkL5UG8SA6WsKmJ3VjyjK5F65NP2w5
+ c7eEB9rqclxQ5mR7BFvVHPUDBO0HTdjLv5QuRIiB6S7oTvIo/tMHK0MKY8h8yF5x9mM+d8ByPnF
+ DEoLn1aAp5FpdzCt9J2ThRM2ri81fUfVB/uJtf9qSdq1GVsNhrSkuS8h6fhMJKInU4Hni8wTF/u
+ uF5rdFJPtjUO3SsPgq0KN3AL93/kf27uk3Hm/MkfQ9U59GGh2kZfiDjBZ1kvPhgWrg==
+X-Received: by 2002:a05:7022:b045:20b0:1ac:9da7:e881 with SMTP id
+ a92af1059eb24-1b39ff16e06mr339869c88.36.1794100501891; 
+ Sat, 07 Nov 2026 17:15:01 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b7bb101537sm76735525e9.0.2026.11.08.14.15.39
+ a92af1059eb24-1b375603ee8sm1916788c88.9.2026.11.07.17.14.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 14:15:40 -0800 (PST)
-From: James Skillen <jahs@jahs.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Andre Eikmeyer <dev@deq.rocks>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
- MacBookPro16, 1
-Date: Sun,  8 Nov 2026 22:15:38 +0000
-Message-ID: <20261108221538.32132-1-jahs@jahs.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
-References: <20261024162109.307247-1-dev@deq.rocks>
- <20261102232450.61301-1-jahs@jahs.net>
- <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
+ Sat, 07 Nov 2026 17:15:01 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pengyu Luo <mitltlatltl@gmail.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 7/9] drm/msm/dp: handle the IRQ_HPD events reported by
+ USB-C
+Date: Sun,  8 Nov 2026 10:15:01 +0900
+Message-ID: <20261108011501.4466-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261024-hpd-irq-events-v8-7-6ee949e7a384@oss.qualcomm.com>
+References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-7-6ee949e7a384@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -99,75 +97,82 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Alex,
+On Sat, 24 Oct 2026 03:35:23 +0300, Dmitry Baryshkov wrote:
+> +		if (hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT ||
+> +		    event == DRM_CONNECTOR_DP_IRQ_HPD)
+> +			msm_dp_irq_hpd_handle(dp);
 
-On Tue, 3 Nov 2026 09:35:29 -0500, Alex Deucher wrote:
-> Can you try this patch instead:
-> https://patchwork.freedesktop.org/patch/765668/?series=174386&rev=2
+With this, an IRQ_HPD that arrives while the link is down hangs the
+board. I hit it on the Lenovo Y700 Gen 5 (TB323FU, Kaanapali), DP over
+USB-C (pmic_glink altmode), when booting with a 5120x2160 SST monitor
+attached. The tree is Linux v7.3 with this series (6/9 replaced by an
+equivalent local change), the MST v7 series [1] and a few local fixes
+outside this path.
 
-Many thanks for following this up, and for checking with the Windows
-team.
+The path itself is not new: the native HPD block can reach it through
+ISR_IRQ_HPD_PULSE_COUNT. This patch makes it reachable from USB-C,
+where every IRQ_HPD now goes there.
 
-I tested v5 ("drm/amd/pm: defer UCLK DPM on selected Apple Navi
-GPUs") on the same MacBookPro16,1 (Pro 5300M, 1002:7340 rev 0x43,
-106b:0210, VBIOS 113-D32207P1-019). Kernel 7.3.3 plus the t2linux
-patches, v5 applied unmodified. Its navi10_ppt.c differs from
-amd-staging-drm-next 178d00b only in the error returns of
-navi10_force_clk_levels ("return 0" vs "return ret"); none of these
-tests took an error path there. Panel on the Radeon, dcdebugmask=0x1
-as before, and SMU messages logged with
-amdgpu.dyndbg="file smu_cmn.c +p".
+When the boot-time mode is disabled for the first modeset from
+userspace, the monitor loses the link and sends an IRQ_HPD with
+LINK_STATUS_UPDATED (DPCD 0x204 = 0x80). From a boot with the
+active_stream_cnt check described below and drm.debug=0x100
+(msm_dp_irq_hpd_handle() is inlined into msm_dp_bridge_hpd_notify()):
 
-v5 works as described: UCLK is left out of the allowed mask at init
-(SetAllowedFeaturesMaskLow 0xa7dfbfb3, stock 0xa7dfbfbb) and enabled
-with EnableSmuFeaturesLow(0x8) about 1.2 s after DC init. It boots
-cleanly, as stock does on this board. It does not change the UCLK
-levels, and the hang is in level 2:
+ [    4.572532] [drm:msm_dp_ctrl_off_link] disable
+ [    4.573756] [drm:msm_dp_ctrl_link_clk_disable] disabled link clocks
+ [    4.608443] msm_dpu 9801000.display-controller: [drm:msm_dp_bridge_hpd_notify] type=10 link hpd_link_status=0x0, status=1
+ ...
+ [    4.823192] [drm:msm_dp_link_process_link_status_update] channel_eq_done = 0, clock_recovery_done = 0
+ [    4.823194] [drm:msm_dp_link_process_request] sink request=0x80
+ [    4.823197] msm_dpu 9801000.display-controller: [drm:msm_dp_bridge_hpd_notify] sink_request=128
+ [    4.823199] msm_dpu 9801000.display-controller: [drm:msm_dp_bridge_hpd_notify] 128
+ [    4.823201] msm_dpu 9801000.display-controller: [drm:msm_dp_bridge_hpd_notify] After, type=10, sink_count=1
 
-                     UCLK levels       UCLK level 2 pinned at idle,
-                     (MHz)             ~5 min after boot
-  stock 7.3.3        95/496/736/750    SMU no response after 3.4 s,
-                                       GPU reset fails, machine hangs
-  v5                 95/496/736/750    SMU no response after 3.5 s,
-                                       same
-  v5 + trained       95/496/598/736    ok, also under load (below)
-  levels
+Without the check, msm_dp_display_handle_irq_hpd() calls
+msm_dp_ctrl_handle_sink_request(), and msm_dp_ctrl_link_maintenance()
+starts with msm_dp_ctrl_push_idle(), which writes REG_DP_STATE_CTRL
+while the link clocks are off. The board hung on 3 of 3 boots with the
+monitor attached. On the one hung boot with drm.debug, the printk ring
+ends at the "128" line, the drm_dbg_dp() just before
+msm_dp_ctrl_handle_sink_request(). In the two RAM dumps I could
+analyse, CPU0 is still running pmic_glink_altmode_worker, which holds
+the encoder's bridge_chain_mutex taken in
+drm_bridge_connector_hpd_notify(), and ctrl->link_clks_on is false.
 
-"Machine hangs": a heartbeat sent over the network every 5 s stopped
-within ~10 s of the failed GPU reset in both runs, so it was the whole
-machine, not only the display.
+Locally I skip sink requests while the link is down. On this series
+alone the check would be on power_on:
 
-v5, SMU messages around the pin:
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -400,3 +400,6 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+ 	drm_dbg_dp(dp->drm_dev, "%d\n", sink_request);
+ 
++	if (!dp->msm_dp_display.power_on)
++		return 0;
++
+ 	msm_dp_ctrl_handle_sink_request(dp->ctrl, dp->panel);
 
-  [311.750451] smu send message: SetSoftMaxByFreq(27), resp: 0x00000001
-               in params:000202e0
-  [311.750635] smu send message: SetSoftMinByFreq(26), resp: 0x00000001
-               in params:000202e0
-  [315.231058] SMU: No response msg_reg: 12 resp_reg: 0
+This matches the !power_on check that already guards
+msm_dp_ctrl_push_idle() in msm_dp_display_atomic_disable().
 
-For the last row the levels came from a pp_table upload with the
-umc_info training points, the values Andre's patch sets in the
-driver. v5's late enable ran again after the SMU restart. Forced
-switches through every level transition at idle, level 2 pinned under
-llama.cpp and memtest_vulkan, memtest_vulkan with forced switches
-every 3 s, and a load run at DPM auto all passed, with no SMU or ring
-errors. So on this board v5 and the corrected levels work together.
+In my tree the MST series replaces power_on with active_stream_cnt.
+With the same check on active_stream_cnt, 2 of 2 boots came up on the
+monitor; the link is retrained about 1.2 s later, when the stream is
+enabled.
 
-The root cause is in the board's VBIOS: its pptable UCLK levels
-(736/750 MHz) don't match the umc_info training points (598/736 MHz).
-A corrected VBIOS would be the clean fix; failing that, a driver check
-that uses umc_info when the two disagree (a no-op on a correct VBIOS)
-seems the practical one.
+A check on ctrl->link_clks_on in msm_dp_ctrl_handle_sink_request()
+should also work.
 
-The testing above and this reply were prepared with help from
-claude-opus-5-5; I have checked the results and the text.
+[1] https://lore.kernel.org/all/20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com/
 
-Kind regards,
-James
+Thanks,
+Joonhoe Kim
