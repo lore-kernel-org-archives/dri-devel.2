@@ -2,47 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972C5606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 11:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42268606A320
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:13:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=mcFEHqRF
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zHpWCQf6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDE2210E034;
-	Sun,  8 Nov 2026 11:01:33 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Sun, 08 Nov 2026 11:01:27 UTC
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33A8210E034;
- Sun,  8 Nov 2026 11:01:27 +0000 (UTC)
-Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfdd4;
- Sun, 8 Nov 2026 18:56:19 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] drm/amdkfd: fix use-after-free in create_process() error path
-Date: Sun,  8 Nov 2026 18:56:17 +0800
-Message-ID: <20261108105617.1309-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51AAC10E14F;
+	Sun,  8 Nov 2026 12:13:16 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4A710E14F
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:13:09 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-490c3ae81d3so22877f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 04:13:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794139988; x=1794744788; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ygaGJYoEs4KFSYAAlwAVylXljw/N65/5dysb1mPUS9Q=;
+ b=zHpWCQf6lMO9jvB89CIR6Muvv2pYpKOLJs4/PTZcbIPtevKUOzwftu8sMHe9qv4lom
+ Gu3RR9sov2sX7nuTg00oSH+aR2S2C5aqlshrAhZf1tFuxNYF2DThTWwRC016Vl7byN9q
+ NPrhS8N70O9uvEmp63JUw/x8y17xXAHINZBWFyCTNVrFXNOgCk3XRzIv0pzYCvnmvMBQ
+ Wk2TPVeDrp0ozU2lC2z1iRCt6LuitRdqtkGPAZvNS6duuYV4FfgO9SHKKevsjduQF3+w
+ MZSBTLuNTzw3wFxjwJhgCC9Azut/GJywxn4UUleKB3XecO19evrEwGec2YlRCCHn2uNI
+ sDlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794139988; x=1794744788;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=ygaGJYoEs4KFSYAAlwAVylXljw/N65/5dysb1mPUS9Q=;
+ b=C0ix8t+juHKLPvFf6q5lN1+DAOpjuIrgUoi5pfSSC7DYA0GmSYmgwItgFf+GJ+TIyQ
+ vqLeG3mNc4pIwnKulLtxOIKpVh7pOg66dCZaJlUNKBfKXPX030tbLazlhAUqdCkx2mOM
+ SFtwMw15SHYpPoSanW0nt4ha9v/ap/wQxuN4xQvULzpk1bngOg4MNlJWYrEKFeZDKB7O
+ 2ZasdDGSF2PkiJ2YOBw72ystn/wRPAnJlzgfKRwCPTqQQ/atWLgvCOcP5mBACZPptfk3
+ AqxJXH1KhVRJ5SUVJR5vqRD1/0pzB+VGnWHCmny1DJoEjvV1SMPjy4ogner0FnaG08Px
+ YKaA==
+X-Gm-Message-State: APuU4Z9xxLFELVymt5JfsGtkEmH7cVZZ3o8XwwCUFErz/Mf5eaFq5YUN
+ AXrR0YRSgK4nFK5gpYBSMkA1qlqR2/cBouZ2YQmA1W2yttHinYpXyhx8
+X-Gm-Gg: AYBFou3+sT6JocJWMetU9OeGilJ8ViL+x2h6CRK1YF0qwmQd0PL6AhhfEkx027GqrES
+ +iT8obPUqtxT/uZIUKibslIAD6/N+5rjdNY2C3Vxmt7EWbX87pPTa3Z00ac9M/cAmXE5i159JaW
+ MAtuDyhW7Ugm5HfEM6qLpKAm9aDe+rT+KHH+sn7AOiPCbtgT9/ihHkGFsf66lg6SEZqQ1IFY+v6
+ FsZJkEViYvKjjM9S+GGeITLsX/xovlROyAuRo741KUQqRTbNBeZd8+0hQpUmmHTCf6Thfn6qohi
+ bMHRKLETUr517VwwoUVuCqItQgPhOhsLH9D6UP0kpcH4WrOJUGpXkxgFZ8ukNTI2Pmg4BINVof+
+ o6mA3lS5B7bJHxJ49joSLJUVTUmCeMCe576ubs+DRaIl2lWN9nEqAu3uB2O9fYV5JjAOQex9561
+ kWLWRBlosL4YAn5PeLdOktTQaYCcQf3+LAUous2IcLtYcgIBIJdqksseUMXnoN0hk5K6q3oDoaq
+ CR8DuxjBznmbU18mhZmu4ZuxVPEgLjt50Rovw6s2gTDx3ljx8RntOlu5/U8vgcOGAMC1Wp3OVr+
+ +QXAPSoxHoPumtIsLcnF4RhmtluHMhIcOtPpjMaIxVlJORcIjsILXU7wpH2thaVe06VUD/AFTev
+ km7dGfuIZcn/stTkZFu38QuJR9OVXKCeexxU+vVDrx9/pdew9QQo=
+X-Received: by 2002:a5d:584e:0:b0:488:823d:5086 with SMTP id
+ ffacd0b85a97d-49583ee2ab6mr3013316f8f.0.1794139987564; 
+ Sun, 08 Nov 2026 04:13:07 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
+ [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49597090444sm3945815f8f.31.2026.11.08.04.13.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 Nov 2026 04:13:05 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Sun, 08 Nov 2026 13:12:59 +0100
+Subject: [PATCH] drm/mxsfb: Complete page flips only once the new buffer is
+ latched
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1bacd4ba303a1kunm2cabcdaace62f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTElPVk0ZGRoZSRoZHkoeQ1YeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
- xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=mcFEHqRFpau+wg/fQNt+tNfumMVFWV3R/lwdCO/yVAMQgcDAWUpkmDSeZxOM7I5eeMdgwHh4hWtpiZlqclgjFFMEHa31l4uM+kKxFtVUpyhIf/6xKBouGo1fgl51BwivVCOJsNmXzsulbYCfatGS9gHvPieRpC7nv2ogYcpEEso=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=e9Dpgey3aCA/wo/6U2AQsfdlzUC0B34C1vFmZygVNXA=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQK4muEi3MxhqwHzQiEO+et
+ PwW7yWIFJgiDFWCQA9HPo8CWVdgN3OshLwUgxJKSyl63N/oZnSeL/TmthuS6xrbdkrPRkPJrkC
+ O3385Tjl/QGTg9WIAAAA=
+X-Change-ID: 20261108-mxsfb-flip-latch-ef53c4526ba6
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,172 +96,153 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-create_process() publishes the process in kfd_processes_table before its
-last failing call (alloc_notifier() must find it there), and its error path
-frees it with a bare kfree(), ignoring the refcount.  find_process() takes
-its reference inside the sRCU critical section but callers use the process
-after leaving it, so synchronize_srcu() misses them, and the error path
-cannot unref once either: it holds two (kref_init() and the one keeping
-free_notifier() from starting kfd_process_wq_release()).
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-Release the process as soon as it is visible: take the lead thread
-reference right after lead_thread is assigned, run ida_init() before
-mmu_notifier_get(), so the release work is safe on a half-built object.
-The published error paths unlink with hash_del_rcu(), synchronize_srcu()
-and drop both references, so the last one runs kfd_process_wq_release().
-Both labels hold exactly two references, so nothing is freed early and no
-path falls into the unwind the unpublished labels keep, now with
-put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
-pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
-kfd_debugfs_remove_process() by process, not pid.
+The controller copies NEXT_BUF to CUR_BUF at the end of each frame. When
+a commit writes NEXT_BUF just after that point, the new buffer is only
+scanned out one frame later, but the event armed in atomic_flush is
+still sent at the next frame done interrupt. Userspace then renders into
+a buffer that is still on screen, which shows up as half drawn frames
+when a compositor renders directly into its scanout buffers.
 
-Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
+Keep the event in the driver and send it from the interrupt handler once
+CUR_BUF matches NEXT_BUF, and AS_BUF matches AS_NEXT_BUF for an enabled
+overlay. On i.MX8MQ about 2% of the flips completed one frame early
+before this change, for both planes.
+
+Fixes: b9f5937680a8 ("drm: mxsfb: Enable vblank handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
- 2 files changed, 54 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c |  2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h |  3 +++
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c | 47 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-index 7d4e07452cdb..a17a3a307266 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-@@ -33,6 +33,7 @@ static struct list_head procs;
- struct debugfs_proc_entry {
- 	struct list_head list;
- 	struct dentry *proc_dentry;
-+	struct kfd_process *process;
- 	pid_t pid;
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+index 641691fc92c8..d21f12074a81 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+@@ -166,7 +166,7 @@ static irqreturn_t mxsfb_irq_handler(int irq, void *data)
+ 	reg = readl(mxsfb->base + LCDC_CTRL1);
+ 
+ 	if (reg & CTRL1_CUR_FRAME_DONE_IRQ) {
+-		drm_crtc_handle_vblank(&mxsfb->crtc);
++		mxsfb_crtc_handle_vblank(mxsfb);
+ 		if (mxsfb->crc_active) {
+ 			crc = readl(mxsfb->base + LCDC_V4_CRC_STAT);
+ 			vbc = drm_crtc_accurate_vblank_count(&mxsfb->crtc);
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+index bdc47ce5be79..9264ca53999d 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+@@ -49,6 +49,8 @@ struct mxsfb_drm_private {
+ 	u32				bus_format;
+ 
+ 	bool				crc_active;
++
++	struct drm_pending_vblank_event	*event;
  };
  
-@@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
- 		return;
+ static inline struct mxsfb_drm_private *
+@@ -61,5 +63,6 @@ void mxsfb_enable_axi_clk(struct mxsfb_drm_private *mxsfb);
+ void mxsfb_disable_axi_clk(struct mxsfb_drm_private *mxsfb);
  
- 	list_add(&entry->list, &procs);
-+	entry->process = p;
- 	entry->pid = p->lead_thread->pid;
- 	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
- 		 (int)entry->pid);
-@@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+ int mxsfb_kms_init(struct mxsfb_drm_private *mxsfb);
++void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb);
+ 
+ #endif /* __MXSFB_DRV_H__ */
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+index bbc2a2df9f16..c7e516758a1a 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+@@ -328,6 +328,7 @@ static int mxsfb_crtc_atomic_check(struct drm_crtc *crtc,
+ static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
+ 				    struct drm_atomic_commit *state)
  {
- 	struct debugfs_proc_entry *entry, *next;
++	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
+ 	struct drm_pending_vblank_event *event;
  
+ 	event = crtc->state->event;
+@@ -338,12 +339,54 @@ static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
+ 
+ 	spin_lock_irq(&crtc->dev->event_lock);
+ 	if (drm_crtc_vblank_get(crtc) == 0)
+-		drm_crtc_arm_vblank_event(crtc, event);
++		mxsfb->event = event;
+ 	else
+ 		drm_crtc_send_vblank_event(crtc, event);
+ 	spin_unlock_irq(&crtc->dev->event_lock);
+ }
+ 
++static bool mxsfb_crtc_buffers_latched(struct mxsfb_drm_private *mxsfb)
++{
++	if (readl(mxsfb->base + mxsfb->devdata->cur_buf) !=
++	    readl(mxsfb->base + mxsfb->devdata->next_buf))
++		return false;
++
++	if (mxsfb->devdata->has_overlay &&
++	    (readl(mxsfb->base + LCDC_AS_CTRL) & AS_CTRL_AS_ENABLE) &&
++	    readl(mxsfb->base + LCDC_AS_BUF) != readl(mxsfb->base + LCDC_AS_NEXT_BUF))
++		return false;
++
++	return true;
++}
++
++static void mxsfb_crtc_finish_page_flip(struct mxsfb_drm_private *mxsfb)
++{
++	struct drm_crtc *crtc = &mxsfb->crtc;
++
++	drm_crtc_send_vblank_event(crtc, mxsfb->event);
++	drm_crtc_vblank_put(crtc);
++	mxsfb->event = NULL;
++}
++
++void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb)
++{
++	struct drm_crtc *crtc = &mxsfb->crtc;
++
++	drm_crtc_handle_vblank(crtc);
++
 +	/*
-+	 * Match the entry that was added for this process and not one that
-+	 * merely has the same pid: kfd_process_wq_release() also runs for a
-+	 * process that failed in create_process() and never got an entry,
-+	 * and after an exec(3) the old and the new primary kfd_process of a
-+	 * process have the same lead thread while a file descriptor keeps
-+	 * the old one alive.
++	 * The controller copies NEXT_BUF to CUR_BUF at the end of a frame. If
++	 * the commit wrote NEXT_BUF after that point, the new buffer is only
++	 * scanned out from the next frame on. Complete the flip only once the
++	 * hardware has latched it, otherwise userspace gets back a buffer that
++	 * is still being scanned out.
 +	 */
- 	mutex_lock(&kfd_processes_mutex);
- 	list_for_each_entry_safe(entry, next, &procs, list) {
--		if (entry->pid != p->lead_thread->pid)
-+		if (entry->process != p)
- 			continue;
- 
- 		debugfs_remove_recursive(entry->proc_dentry);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 12e24fbf8c46..f118f7f03de7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	mutex_init(&process->mutex);
- 	process->mm = thread->mm;
- 	process->lead_thread = thread->group_leader;
-+	/*
-+	 * Take the reference on the lead thread before the process can be
-+	 * released through kfd_process_wq_release(), which drops it again.
-+	 */
-+	get_task_struct(process->lead_thread);
- 	process->n_pdds = 0;
- 	process->queues_paused = false;
- 
-@@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	 */
- 	if (primary) {
- 		process->context_id = KFD_CONTEXT_ID_PRIMARY;
-+		/*
-+		 * Must be initialized before the process can be given to
-+		 * kfd_process_wq_release(), which destroys it.
-+		 */
-+		ida_init(&process->id_table);
- 		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
- 		if (IS_ERR(mn)) {
- 			err = PTR_ERR(mn);
- 			goto err_register_notifier;
- 		}
- 		BUG_ON(mn != &process->mmu_notifier);
--		ida_init(&process->id_table);
++	spin_lock(&crtc->dev->event_lock);
++	if (mxsfb->event && mxsfb_crtc_buffers_latched(mxsfb))
++		mxsfb_crtc_finish_page_flip(mxsfb);
++	spin_unlock(&crtc->dev->event_lock);
++}
++
+ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+ 				     struct drm_atomic_commit *state)
+ {
+@@ -425,6 +468,8 @@ static void mxsfb_crtc_atomic_disable(struct drm_crtc *crtc,
+ 		crtc->state->event = NULL;
+ 		drm_crtc_send_vblank_event(crtc, event);
  	}
++	if (mxsfb->event)
++		mxsfb_crtc_finish_page_flip(mxsfb);
+ 	spin_unlock_irq(&drm->event_lock);
  
- 	err = kfd_process_alloc_id(process);
-@@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	}
- 
- 	kfd_unref_process(process);
--	get_task_struct(process->lead_thread);
- 
- 	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
- 
-@@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- err_alloc_id:
- 	kfd_process_free_id(process);
- err_register_notifier:
-+	/*
-+	 * The process is already in kfd_processes_table, so find_process()
-+	 * may have handed it out with a reference taken on it.  Unlink it
-+	 * and wait for the readers that are still walking the table before
-+	 * dropping the references held here: afterwards no new reference
-+	 * can be taken and the ones already taken keep the process alive.
-+	 * The memory is then freed by kfd_process_wq_release() when the
-+	 * last reference is dropped.
-+	 */
- 	hash_del_rcu(&process->kfd_processes);
--	svm_range_list_fini(process);
-+	synchronize_srcu(&kfd_processes_srcu);
-+
-+	/*
-+	 * kfd_process_wq_release() frees the memory, but it does not
-+	 * destroy the queue manager: on the normal path that is done by
-+	 * kfd_process_notifier_release_internal(), which neither of these
-+	 * two error paths can reach, because no mmu notifier was
-+	 * registered for the process.  The process is unlinked and no
-+	 * reader can reach the pqm any more, so destroy it here, before
-+	 * the references are dropped.
-+	 */
-+	pqm_uninit(&process->pqm);
-+
-+	/*
-+	 * Drop the reference that keeps a failing free_notifier() from
-+	 * starting kfd_process_wq_release() and the one taken by
-+	 * kref_init().
-+	 */
-+	kfd_unref_process(process);
-+	kfd_unref_process(process);
-+
-+	return ERR_PTR(err);
-+
- err_init_svm_range_list:
- 	kfd_process_free_outstanding_kfd_bos(process);
- 	kfd_process_destroy_pdds(process);
-@@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	kfd_event_free_process(process);
- err_event_init:
- 	mutex_destroy(&process->mutex);
-+	put_task_struct(process->lead_thread);
- 	kfree(process);
- err_alloc_process:
- 	return ERR_PTR(err);
+ 	drm_crtc_vblank_off(crtc);
+
+---
+base-commit: 19e67d977d3d4d0c54f03906ef578578190db9e1
+change-id: 20261108-mxsfb-flip-latch-ef53c4526ba6
+
+Best regards,
 -- 
-2.50.1.windows.1
+Christian Gmeiner <cgmeiner@igalia.com>
 
