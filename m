@@ -2,89 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42268606A320
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AD7606D80C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zHpWCQf6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iouYYt4y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51AAC10E14F;
-	Sun,  8 Nov 2026 12:13:16 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4A710E14F
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:13:09 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-490c3ae81d3so22877f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 04:13:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794139988; x=1794744788; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=ygaGJYoEs4KFSYAAlwAVylXljw/N65/5dysb1mPUS9Q=;
- b=zHpWCQf6lMO9jvB89CIR6Muvv2pYpKOLJs4/PTZcbIPtevKUOzwftu8sMHe9qv4lom
- Gu3RR9sov2sX7nuTg00oSH+aR2S2C5aqlshrAhZf1tFuxNYF2DThTWwRC016Vl7byN9q
- NPrhS8N70O9uvEmp63JUw/x8y17xXAHINZBWFyCTNVrFXNOgCk3XRzIv0pzYCvnmvMBQ
- Wk2TPVeDrp0ozU2lC2z1iRCt6LuitRdqtkGPAZvNS6duuYV4FfgO9SHKKevsjduQF3+w
- MZSBTLuNTzw3wFxjwJhgCC9Azut/GJywxn4UUleKB3XecO19evrEwGec2YlRCCHn2uNI
- sDlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794139988; x=1794744788;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=ygaGJYoEs4KFSYAAlwAVylXljw/N65/5dysb1mPUS9Q=;
- b=C0ix8t+juHKLPvFf6q5lN1+DAOpjuIrgUoi5pfSSC7DYA0GmSYmgwItgFf+GJ+TIyQ
- vqLeG3mNc4pIwnKulLtxOIKpVh7pOg66dCZaJlUNKBfKXPX030tbLazlhAUqdCkx2mOM
- SFtwMw15SHYpPoSanW0nt4ha9v/ap/wQxuN4xQvULzpk1bngOg4MNlJWYrEKFeZDKB7O
- 2ZasdDGSF2PkiJ2YOBw72ystn/wRPAnJlzgfKRwCPTqQQ/atWLgvCOcP5mBACZPptfk3
- AqxJXH1KhVRJ5SUVJR5vqRD1/0pzB+VGnWHCmny1DJoEjvV1SMPjy4ogner0FnaG08Px
- YKaA==
-X-Gm-Message-State: APuU4Z9xxLFELVymt5JfsGtkEmH7cVZZ3o8XwwCUFErz/Mf5eaFq5YUN
- AXrR0YRSgK4nFK5gpYBSMkA1qlqR2/cBouZ2YQmA1W2yttHinYpXyhx8
-X-Gm-Gg: AYBFou3+sT6JocJWMetU9OeGilJ8ViL+x2h6CRK1YF0qwmQd0PL6AhhfEkx027GqrES
- +iT8obPUqtxT/uZIUKibslIAD6/N+5rjdNY2C3Vxmt7EWbX87pPTa3Z00ac9M/cAmXE5i159JaW
- MAtuDyhW7Ugm5HfEM6qLpKAm9aDe+rT+KHH+sn7AOiPCbtgT9/ihHkGFsf66lg6SEZqQ1IFY+v6
- FsZJkEViYvKjjM9S+GGeITLsX/xovlROyAuRo741KUQqRTbNBeZd8+0hQpUmmHTCf6Thfn6qohi
- bMHRKLETUr517VwwoUVuCqItQgPhOhsLH9D6UP0kpcH4WrOJUGpXkxgFZ8ukNTI2Pmg4BINVof+
- o6mA3lS5B7bJHxJ49joSLJUVTUmCeMCe576ubs+DRaIl2lWN9nEqAu3uB2O9fYV5JjAOQex9561
- kWLWRBlosL4YAn5PeLdOktTQaYCcQf3+LAUous2IcLtYcgIBIJdqksseUMXnoN0hk5K6q3oDoaq
- CR8DuxjBznmbU18mhZmu4ZuxVPEgLjt50Rovw6s2gTDx3ljx8RntOlu5/U8vgcOGAMC1Wp3OVr+
- +QXAPSoxHoPumtIsLcnF4RhmtluHMhIcOtPpjMaIxVlJORcIjsILXU7wpH2thaVe06VUD/AFTev
- km7dGfuIZcn/stTkZFu38QuJR9OVXKCeexxU+vVDrx9/pdew9QQo=
-X-Received: by 2002:a5d:584e:0:b0:488:823d:5086 with SMTP id
- ffacd0b85a97d-49583ee2ab6mr3013316f8f.0.1794139987564; 
- Sun, 08 Nov 2026 04:13:07 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
- [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49597090444sm3945815f8f.31.2026.11.08.04.13.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 04:13:05 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Sun, 08 Nov 2026 13:12:59 +0100
-Subject: [PATCH] drm/mxsfb: Complete page flips only once the new buffer is
- latched
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E16410E4CB;
+	Sun,  8 Nov 2026 12:32:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A834A10E4CB
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 61D014475B;
+ Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794141154;
+ b=ilY64JAUB82ZQLnxYdWwBURHUPrUV/K+uMQOZEp3RAk8YDDFhdOAQ4Wdx8GZxYifi91L
+ 8eDTLE8eBPTewv7BI3SCYJ06wuxRL+iSDkldkGagifflUaSP+4LUN1UYWmDHgLBDGczP9
+ 1/DfdD82kZuGZSURhbNORBeArGOSz8i+klBAZ8ChcdzvPnhoodkLKINpAk13Y3GCyLewA
+ FPIViRqX8qbQUGzdBxmOdGORsM/AlwkH56myaWhLYrLtpvST0Tsl09PWR6VnJVFHlsytu
+ +Xor8N4nfy0I9vVi30a3IPKDOwwzHwIOrBb2wwY9Ux1dQ3I7UBf+A7M/NZ2ydmJi1GA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794141154;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=RztI6V2PThRIEHZuh9fdxJgBPEpj1vB8r2dlVTopDJ4=;
+ b=2ZvvE5CfPHiDUH9GyHzEyf5Du4U0fD3hXlzGFLWRJARmi4uICT0UGsb/AKoLPdtnFm11
+ 1B/qIngZvjsX/bwEsW1Y0kATmIt36RMecIanZ1aEytXjcsOBRtaqi8gkqmqxAUYc0G425
+ WbPtqfAJSQoF8HuPqZ4yAiQ2maMfLfJ4LATKD3NZszeI8uZtD/PJAEQ7Sik/KuvoIN9ba
+ bdsrvh3G1KuKtv9Ves9PXkOK27sTZ8SHMSdc/snCRxW0mItRL1brth2lFJnzEss2NS+DF
+ yADSvVKdQ3J3THKqkbpOPzRtirkzH2G9Q13jNCgU735HyWlkxlng+yXuXxq0ZR1WJQA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id BFC231F008A1;
+ Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794141154;
+ bh=RztI6V2PThRIEHZuh9fdxJgBPEpj1vB8r2dlVTopDJ4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=iouYYt4y4+GTgOr2OCo5RHhDLjAT/HNBcCjSqCn0IvGL7b0RZeL3Rhmgbh6clbsBZ
+ a1sONNMNEWh0pe031VNYkE7PmTb0XJ2yJ6tXI91LJm8NsnqHn52DGu6DlPa/W3Tlsp
+ eVmZjq2Wzakng5WUjIaZA4Ymh8jnsEoL3RmHRlGqxyDZpc27zkf2SHwhW42QroJDUL
+ TgNqUL0sLRqcOwKIV26wF9QhTievqxYxlR6/ivtBUUhIIiak/MIY+GloPk4J9M8d+k
+ EErDI8V5nLZQOli9TBfCLfTAb1L21jU4z2I/PQZQEvGzJrEpPR4zhb54qTCtvgj5nG
+ a/l8NZbk7fWBQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 4494647F69;
+ Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 08 Nov 2026 12:32:23 +0000
+Subject: [PATCH v3 02/10] dt-bindings: display: panel: samsung,s6e3ha8: Add
+ AMB630QY01 panel
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQK4muEi3MxhqwHzQiEO+et
- PwW7yWIFJgiDFWCQA9HPo8CWVdgN3OshLwUgxJKSyl63N/oZnSeL/TmthuS6xrbdkrPRkPJrkC
- O3385Tjl/QGTg9WIAAAA=
-X-Change-ID: 20261108-mxsfb-flip-latch-ef53c4526ba6
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+Message-Id: <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
+References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+In-Reply-To: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+To: Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2506; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=pZ1ZmXYMSPnJNhdcyRsXwav3/Ps9JEOeKZPs9vUMmAY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GveYsFn4MOgQrLFx0dCv5N497ruFnJpbSIzr
+ nMBWJw1ncqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3gAKCRBgAj/E00kg
+ cud3D/9NnqzWe1/59sdRxpx6q+S/WSpsUSO/543/8NwT98l019Imrlzk+fmcmGvqKBc9k9f579J
+ mShb9iBeXF9QIg7oRHm+ZjEX5TRUz9CAa7HrsCcLto0a1Gy2LUJZPN54qriSbdOKah3GRU+wdLN
+ vVkg/+hYMzNy/CAuOYINJeuFGElcSAmiccPkz4Q5Wr9ftACSvOq+w3nKxEmAFspBoge+AOYaIRO
+ ltAEDaU9TJAlWoHvPbY/5wyN0VREzZjk7p1pQ8H7jT01UMV/VUYdIwSsc0+tucglWs95tOI/bil
+ CTm0m68+O2U9cXvF4dAAxCFH4Ynst8DHxeTFe5QX6aiqdxkcp2TdBtHz/1lFlNUz9GRd11XFRYY
+ axVKhBR7HD233/h17dhkYQ5zOZmFiD6eRsEUrnQiMc8PJ52ajo4o9QqdCFh2CmlOVmPRXnKJyfT
+ Wubgw8YJFtwXPBdOs6tEj2kzxF8Hq8ovLdIIMLr4cStXgitL5RH9eruK5GElAxHdKMAmSNsGeQ/
+ CFpTjNUwrrKvHUg1WE9TjfdM2MQSSY6dDaEhUqqWWm17unBLlmU2Zd8ZvpfabCd/CVNpVytCP3r
+ ewaloyOjWglTikrYJNaEpZYis7DhZJ/WgovsDInjDQXTxKUHkcCREJrTzHq9UexsYTLV7bZOFvb
+ CLw1kFNtM2Vzbbg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,154 +111,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+From: David Heidelberg <david@ixit.cz>
 
-The controller copies NEXT_BUF to CUR_BUF at the end of each frame. When
-a commit writes NEXT_BUF just after that point, the new buffer is only
-scanned out one frame later, but the event armed in atomic_flush is
-still sent at the next frame done interrupt. Userspace then renders into
-a buffer that is still on screen, which shows up as half drawn frames
-when a compositor renders directly into its scanout buffers.
+The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
+1440x2960 flexible AMOLED panel.
 
-Keep the event in the driver and send it from the interrupt handler once
-CUR_BUF matches NEXT_BUF, and AS_BUF matches AS_NEXT_BUF for an enabled
-overlay. On i.MX8MQ about 2% of the flips completed one frame early
-before this change, for both planes.
-
-Fixes: b9f5937680a8 ("drm: mxsfb: Enable vblank handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/mxsfb/mxsfb_drv.c |  2 +-
- drivers/gpu/drm/mxsfb/mxsfb_drv.h |  3 +++
- drivers/gpu/drm/mxsfb/mxsfb_kms.c | 47 ++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 50 insertions(+), 2 deletions(-)
+ .../bindings/display/panel/samsung,s6e3ha8.yaml    | 41 ++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-index 641691fc92c8..d21f12074a81 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-@@ -166,7 +166,7 @@ static irqreturn_t mxsfb_irq_handler(int irq, void *data)
- 	reg = readl(mxsfb->base + LCDC_CTRL1);
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+index ca250b1b91712..dcf347fe5ca83 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+@@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Samsung s6e3ha8 AMOLED DSI panel
  
- 	if (reg & CTRL1_CUR_FRAME_DONE_IRQ) {
--		drm_crtc_handle_vblank(&mxsfb->crtc);
-+		mxsfb_crtc_handle_vblank(mxsfb);
- 		if (mxsfb->crc_active) {
- 			crc = readl(mxsfb->base + LCDC_V4_CRC_STAT);
- 			vbc = drm_crtc_accurate_vblank_count(&mxsfb->crtc);
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-index bdc47ce5be79..9264ca53999d 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-@@ -49,6 +49,8 @@ struct mxsfb_drm_private {
- 	u32				bus_format;
+ description: |
+   The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
+   Samsung Mobile Displays (SMD).
  
- 	bool				crc_active;
-+
-+	struct drm_pending_vblank_event	*event;
- };
+   Known panels:
+     - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
++    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
  
- static inline struct mxsfb_drm_private *
-@@ -61,5 +63,6 @@ void mxsfb_enable_axi_clk(struct mxsfb_drm_private *mxsfb);
- void mxsfb_disable_axi_clk(struct mxsfb_drm_private *mxsfb);
+ maintainers:
+   - Dzmitry Sankouski <dsankouski@gmail.com>
  
- int mxsfb_kms_init(struct mxsfb_drm_private *mxsfb);
-+void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb);
++required:
++  - compatible
++  - reset-gpios
++  - vdd3-supply
++  - vci-supply
++
+ allOf:
+   - $ref: panel-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - samsung,s6e3ha8
++              - samsung,s6e3ha8-amb577px01
++    then:
++      required:
++        - vddr-supply
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,s6e3ha8-amb630qy01
++    then:
++      required:
++        - vddpos-supply
++        - vddneg-supply
  
- #endif /* __MXSFB_DRV_H__ */
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-index bbc2a2df9f16..c7e516758a1a 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-@@ -328,6 +328,7 @@ static int mxsfb_crtc_atomic_check(struct drm_crtc *crtc,
- static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
- 				    struct drm_atomic_commit *state)
- {
-+	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
- 	struct drm_pending_vblank_event *event;
+ properties:
+   compatible:
+     oneOf:
+-      - const: samsung,s6e3ha8-amb577px01
++      - enum:
++          - samsung,s6e3ha8-amb577px01
++          - samsung,s6e3ha8-amb630qy01
+       - const: samsung,s6e3ha8
+         deprecated: true
  
- 	event = crtc->state->event;
-@@ -338,12 +339,54 @@ static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
+   reg:
+     maxItems: 1
  
- 	spin_lock_irq(&crtc->dev->event_lock);
- 	if (drm_crtc_vblank_get(crtc) == 0)
--		drm_crtc_arm_vblank_event(crtc, event);
-+		mxsfb->event = event;
- 	else
- 		drm_crtc_send_vblank_event(crtc, event);
- 	spin_unlock_irq(&crtc->dev->event_lock);
- }
+   vdd3-supply:
+     description: VDD regulator
  
-+static bool mxsfb_crtc_buffers_latched(struct mxsfb_drm_private *mxsfb)
-+{
-+	if (readl(mxsfb->base + mxsfb->devdata->cur_buf) !=
-+	    readl(mxsfb->base + mxsfb->devdata->next_buf))
-+		return false;
-+
-+	if (mxsfb->devdata->has_overlay &&
-+	    (readl(mxsfb->base + LCDC_AS_CTRL) & AS_CTRL_AS_ENABLE) &&
-+	    readl(mxsfb->base + LCDC_AS_BUF) != readl(mxsfb->base + LCDC_AS_NEXT_BUF))
-+		return false;
-+
-+	return true;
-+}
-+
-+static void mxsfb_crtc_finish_page_flip(struct mxsfb_drm_private *mxsfb)
-+{
-+	struct drm_crtc *crtc = &mxsfb->crtc;
-+
-+	drm_crtc_send_vblank_event(crtc, mxsfb->event);
-+	drm_crtc_vblank_put(crtc);
-+	mxsfb->event = NULL;
-+}
-+
-+void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb)
-+{
-+	struct drm_crtc *crtc = &mxsfb->crtc;
-+
-+	drm_crtc_handle_vblank(crtc);
-+
-+	/*
-+	 * The controller copies NEXT_BUF to CUR_BUF at the end of a frame. If
-+	 * the commit wrote NEXT_BUF after that point, the new buffer is only
-+	 * scanned out from the next frame on. Complete the flip only once the
-+	 * hardware has latched it, otherwise userspace gets back a buffer that
-+	 * is still being scanned out.
-+	 */
-+	spin_lock(&crtc->dev->event_lock);
-+	if (mxsfb->event && mxsfb_crtc_buffers_latched(mxsfb))
-+		mxsfb_crtc_finish_page_flip(mxsfb);
-+	spin_unlock(&crtc->dev->event_lock);
-+}
-+
- static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
- 				     struct drm_atomic_commit *state)
- {
-@@ -425,6 +468,8 @@ static void mxsfb_crtc_atomic_disable(struct drm_crtc *crtc,
- 		crtc->state->event = NULL;
- 		drm_crtc_send_vblank_event(crtc, event);
- 	}
-+	if (mxsfb->event)
-+		mxsfb_crtc_finish_page_flip(mxsfb);
- 	spin_unlock_irq(&drm->event_lock);
+   vci-supply:
+     description: VCI regulator
  
- 	drm_crtc_vblank_off(crtc);
+   vddr-supply:
+     description: VDDR regulator
+ 
+-required:
+-  - compatible
+-  - reset-gpios
+-  - vdd3-supply
+-  - vci-supply
+-  - vddr-supply
++  vddpos-supply:
++    description: positive boost supply regulator (ELVDD)
++
++  vddneg-supply:
++    description: negative boost supply regulator (ELVSS)
+ 
+ unevaluatedProperties: false
+ 
+ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+ 
+     dsi {
 
----
-base-commit: 19e67d977d3d4d0c54f03906ef578578190db9e1
-change-id: 20261108-mxsfb-flip-latch-ef53c4526ba6
-
-Best regards,
 -- 
-Christian Gmeiner <cgmeiner@igalia.com>
+2.55.0
+
 
