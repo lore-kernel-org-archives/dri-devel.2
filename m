@@ -2,99 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58766082BE4
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C972C606A337
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l/4XsHrD
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=docomonet.jp header.i=@docomonet.jp header.a=rsa-sha256 header.s=20240125 header.b=h4Yto5rt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14FF710F129;
-	Mon,  9 Nov 2026 09:31:41 +0000 (UTC)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5236210E19C
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 07:18:08 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- 006d021491bc7-6d68de53053so186626eaf.0
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 23:18:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794122287; cv=none;
- d=google.com; s=arc-20260327;
- b=EnpaxViG5+2ex+Nn2ihNoF3C1X90vN2e5C7MvU3+h85XBJRZNXjZxY5VXffv/tOpxb
- HQ8ZRx1YvgVuVV90pQrVAfe4Xgk7W3C7wLi3neVdPycUabc8awJQ73GDuWiz3WUGqJWx
- xTOjIditwmfsne731SlGX6TF7ZjcW/Z1bz/LPalBL8iwooxQscGhH1EfzHLaFIVDBrDa
- yFDodjuGEhAI6L9kW/7GrFAnJ/8QqNBngpXqw4jUvEbw148d0b8uS0oMI26w4NO3EfzL
- 8FfGZfDCm+ESUKiecpk/e+zHlBQD4rItbymjx5ki47L/5u6/9VhDaDFE/c+KgFmz7eVR
- 3Rcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=NcRrq3gEPrpdv1ZQteio9YneHMJdpZak6tVDegOFnzM=;
- fh=DQ5z3x7Muht7VMF2BG11x0r/tRkwczTQM4/k5+SV3w4=;
- b=ps1xkfpfe4AhQPFALfHf6I3wrOkbbIxedgLYtWuKFn+HEDuPorTMyMgEW1X1TI5AIe
- qiLlad7e0SA8ZWAyXuTXaPqkzoHKVVFy6KCEijSlAs7CP6M+S8l5t3RLJF39fobWaUAO
- BxPE1sgw7Ye4pMng10daQHQcblBM6wY8f3vOi0aBTkoZfqwRB32RVLXdG9fBekZlQFoF
- C+Cro6+JH8z4U0coqkh8CuMaq01CTPOXSCbgGS657tN6urCN3Xg90Icrym9Pdbso+tM9
- ik4BVwZPxPXeXggtkHm8klJQdFJqJrzV1Jrkozx0AYs6aXSfRbPqFQB7JhtVjs0ZfuAp
- AqhA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794122287; x=1794727087; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NcRrq3gEPrpdv1ZQteio9YneHMJdpZak6tVDegOFnzM=;
- b=l/4XsHrD2xFPZelAFDSw7XkeI36LxE73mGik45Bl7xWBG89rzjfUV24i95hSYq9+66
- jv8T2ckSDwXl/7Hzkz1LFoQONlmVEYLsootkWd5xiYoLeYswlfFXvhF31gLhKUEgFkFC
- zcSpYqzqeEjQKSjh+ZUp57EcvyqbZV4cWSXZh6UaAsOW08/RS/b/BlITlnDEJExqkWeu
- PSzyeBTftqTuMT7lydp6xZh2VHbT5xOruxklsNyXfi9SMQjFc6WNeLxazVW80PKS75Ds
- 4AGo9P9+RfSFFz3xJTvl/n1CnV0WzrSC5yc6+/aTccFw/pbBXFM8rEQAMQFFv2TP0Xz3
- cIoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794122287; x=1794727087;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=NcRrq3gEPrpdv1ZQteio9YneHMJdpZak6tVDegOFnzM=;
- b=tRkFipTYngauBemIBIKPG2oeDG+syDACHzMXmvjpYlEpoecZCEkVRz5MgZYMJGvgYf
- 1RptvPQw3PtI64Cn5IURs9F+HLc2noPapxQPsvOzRMYUTu3xjKnHJ4KQliSU+ANsm1be
- GveJbNu0U6TTP7m9hmpfkJ0oNfQ2ZVmjQ/I9JZ6gsLzC7GIWOSxupbTrHQHOUFmpgTGm
- n2PPS4mTq8Ju7WkZWkD81dxjy7ysxMR2jjwdZZMJ/4YrfmIFZea7wFEexQ9wVR32354N
- YP43O1YThkWvAdWeFzQ09bqckVdVeGbSsV+WC5eGfTknoxUUZ9tYwebUiLcfT5yt3PEu
- 1Pug==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxeA3OUQFW/UIU0hjAvILxY9XCRXZSpaqmoDIK/m7FWH7XcpyBjYg/d2iVxQPnGwstGTjRdy/ELobU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/Swk5vM0+w4qLLh4oksiWbUpj6JJrzaNaqnsY6/VnbU8kgYr1t
- d4OJz9Pngt1Yf/cAFDacxFsE7SP3eleGl6dt9N6hhcXQay8ddMRR8pRv4B3Km0U8IqDRF2wY4kY
- LnlBMBjT4Dc17mBG8Qu6QeE047W07AEM=
-X-Gm-Gg: AYBFou2MalIeTWCjTWq9AaK0qUzW4Y5v8rsAZqatmawhJco5LmBP6s1GnY6nxhGf336
- ds+GW41P6/R1a67cAqoX5bnHKWnyH8iS1hXGG86+essz+Hbzy6f/7hidXTLdOXEVhniWkAbOqmq
- R0CoJMrXvpKBWrT0M++CYYYaa1ma8PKrV42ZIuArChg0268lIgcdZ+ctM2u1qU0I3hGQGLtoVOT
- oO6O+4MIDrKnhD/d/JY12+DqB8b4NAN2JFNIdZMrZ8s9yCWGQ03fOc1Q8HvZZKWcuBxbisVTM4n
- SAQALBKU1rssMd5oyTtz+koyKFgS/lhxPp7E4kAN2kI6qUDgrXt6oS6MAxFCyIY+PL7ILNjHSpT
- ZdwwceQSPCg0tgYFdjJ2jMqJVH2o07dOaArybS6Kj4kvi4UEG8a6mBD7+qePgJhFQuZN2+PMlii
- 8V3lXnjPQ5vy3DY//dCOL9T9OYfX3K25JEZsNVv/J0orBw1C7lSijfwsGltYJlEpjrnrndJXc=
-X-Received: by 2002:a05:6808:23cb:b0:53a:e153:e8e7 with SMTP id
- 5614622812f47-568145d336emr529936b6e.44.1794122287109; Sat, 07 Nov 2026
- 23:18:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB5310F133;
+	Mon,  9 Nov 2026 09:31:43 +0000 (UTC)
+X-Greylist: delayed 357 seconds by postgrey-1.36 at gabe;
+ Sun, 08 Nov 2026 03:17:20 UTC
+Received: from ocn-dfr-mts-118c2.ocn.ad.jp (ocn-dfr-mts-118c2.ocn.ad.jp
+ [153.128.190.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E2D10E04C
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 03:17:20 +0000 (UTC)
+Received: from ocn-ckd-mts-117c37.ocn.ad.jp (ocn-ckd-mts-117c37.ocn.ad.jp
+ [122.28.128.102])
+ by ocn-dfr-mts-118c2.ocn.ad.jp (Postfix) with ESMTP id 3CFF21C0001FB
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:11:21 +0900 (JST)
+Received: from ocn-spm-mts-103c1.ocn.ad.jp (ocn-spm-mts-103c1.ocn.ad.jp
+ [153.128.190.230])
+ by ocn-ckd-mts-117c37.ocn.ad.jp (Postfix) with ESMTP id 974F34003112;
+ Sun,  8 Nov 2026 12:11:18 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=docomonet.jp;
+ s=20240125; t=1794107478;
+ bh=GQvfNp65FBXmcF3uK/s2GXnfQ0y/t47EhDsCV7hVUL8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=h4Yto5rt/S4/h7ZlyTQ/vq17Y7qA0reVKb/xAGxFXwDU7A8yUz95Z+5WvGn+N6HvZ
+ A4Nb2mHlH8YR4FyUQuYE4QbF5Fe1JS6fqqLrQRpbuIGoGdeQOXK7NAL+pgf/Ih0UO7
+ eNPJQblhEB8UR0kt1UFfFk/Ggo88Zgy27JSjtSmg=
+Received: from ocn-vc-mts-108c1.ocn.ad.jp ([153.149.236.202])
+ by ocn-spm-mts-103c1 with ngmta
+ id 811bd508-18e5f33f0194fd6a; Sun, 08 Nov 2026 12:11:18 +0900
+Received: from ocn-sdpx-mts-113c1.ocn.ad.jp ([153.128.117.211])
+ by ocn-vc-mts-108c1 with ngmta
+ id c06a01b4-18e5f33ec017da7b; Sun, 08 Nov 2026 12:11:18 +0900
+Received: from docomonet.jp (p3688129-ipoe.ipoe.ocn.ne.jp [153.238.101.128])
+ by ocn-sdpx-mts-113c1.ocn.ad.jp (Postfix) with ESMTPA;
+ Sun,  8 Nov 2026 12:11:17 +0900 (JST)
+From: "Shigeaki Asai" <y-asai.0816@docomonet.jp>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Nicolas Belin <nbelin@baylibre.com>,
+ Jagan Teki <jagan@amarulasolutions.com>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, John Williams <porschemad911@gmail.com>
+Subject: Re: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while ENCL
+ is disabled
+Date: Sun, 08 Nov 2026 12:11:16 +0900
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261101125808.9770-1-sowmyatorra@gmail.com>
- <20261108060418.4554-1-sowmyatorra@gmail.com>
-In-Reply-To: <20261108060418.4554-1-sowmyatorra@gmail.com>
-From: Sowmya Torra <sowmyatorra@gmail.com>
-Date: Sun, 8 Nov 2026 12:47:55 +0530
-X-Gm-Features: AclHuK_AWNWzoTHZGt6quHeK_0iVsD6npnwX0A7nfswTgR9HefL9of-94iq9oyA
-Message-ID: <CAFsBPPmrD3ca=8-9c-baz+hEh7SBEr-n2nF0j2eZmDwp8h1Q+g@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/xe: Remove unused xe_vm_restart tracepoint
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
- rodrigo.vivi@intel.com
-Cc: airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- outreachy@lists.linux.dev, rostedt@goodmis.org, julianbraha@gmail.com, 
- julia.lawall@inria.fr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Mailer: HidemaruMail 7.47 (WinNT,A00)
+In-Reply-To: <022f5372-7963-41b1-ba76-2d89c51aa8c6@linaro.org>
+References: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
+ <022f5372-7963-41b1-ba76-2d89c51aa8c6@linaro.org>
+Message-Id: <5DD6F2ED1CC4592F3006A@docomonet.jp>
 X-Mailman-Approved-At: Mon, 09 Nov 2026 09:31:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,68 +76,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi everyone,
+On 10/4/26 17:31, Neil Armstrong wrote:
+>Thanks for figuring this out !
+>
+>Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>
+>Thanks,
+>Neil
 
-I missed Steven=E2=80=99s request to combine this with the xe_vma_flush
-removal before sending v3. Please hold off on applying this version.
-I=E2=80=99m testing a combined revision and will send it shortly.
+Hi Neil,
 
-Sorry for the extra email.
+Gentle ping on this one. It has your Reviewed-by, could it be picked
+up for drm-misc-fixes? Please let me know if anything else is needed.
 
-Best regards,
-Sowmya
-
-On Sun, Nov 8, 2026 at 11:35=E2=80=AFAM Torra Sowmya <sowmyatorra@gmail.com=
-> wrote:
->
-> Commit f3e9b1f43458 ("drm/xe: Remove async worker and rework sync
-> binds") removed the call to trace_xe_vm_restart(), but left the
-> event definition behind.
->
-> Remove the unused definition from xe_trace_bo.h to avoid generating
-> code and data for an event that has no callers.
->
-> With the tested x86-64 configuration, size reports a reduction of
-> 436 bytes in xe_trace_bo.o, from 20262 to 19826 bytes: 140 bytes
-> in text and 296 bytes in data.
->
-> Fixes: f3e9b1f43458 ("drm/xe: Remove async worker and rework sync binds")
-> Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
-> ---
-> Changes in v3:
-> - Add the Fixes tag.
->
-> Changes in v2:
-> - Document the measured object-size reduction.
->
->  drivers/gpu/drm/xe/xe_trace_bo.h | 5 -----
->  1 file changed, 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_tra=
-ce_bo.h
-> index 86323cf3be2c..fa91dd2b2174 100644
-> --- a/drivers/gpu/drm/xe/xe_trace_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-> @@ -228,11 +228,6 @@ DEFINE_EVENT(xe_vm, xe_vm_cpu_bind,
->              TP_ARGS(vm)
->  );
->
-> -DEFINE_EVENT(xe_vm, xe_vm_restart,
-> -            TP_PROTO(struct xe_vm *vm),
-> -            TP_ARGS(vm)
-> -);
-> -
->  DEFINE_EVENT(xe_vm, xe_vm_rebind_worker_enter,
->              TP_PROTO(struct xe_vm *vm),
->              TP_ARGS(vm)
-> --
-> 2.47.3
->
+Thanks,
+Shigeaki
