@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF27A606D814
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CCD606D81D
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4ci0Jza
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5G6CuIB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5456610E7D8;
-	Sun,  8 Nov 2026 12:32:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1559510E7D8
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFBE10E759;
+	Sun,  8 Nov 2026 12:32:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8185D10E7BE
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:32:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E84204478F;
- Sun,  8 Nov 2026 12:32:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F03EB60D6A;
+ Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794141155;
- b=qE1cm9B6s0JinNGypvXISQ3mz/OdvDIw/UY36UR1M18rnvvjn5b+YrWgC5nsC4iaJsNI
- dw4TkTeGVqmCEwfWhqscyTJI28lF1pmdIa7uPCo9I50DFdfEzXMzr7YFVhvqDqhYyJIA5
- 3cQ9zGlyjNMa+INV7nPQTWhZvBvG4p20BcGStFNZ9lE0GnKhGUGq5h8GEnwIafViQqZ+b
- OPFRg+nuRG7G+rC6P7EsGqa8IRsUZivav0gE/+4pA0PBOicjusoemMzIlqejKTjChcQwO
- aLE1K5sZlLhWlPqlSdUB8Pm1Ttx+8KeuygOA5EIWrZXfcuFPnCSiRQ74J1WOJbCf/Bw==
+ t=1794141154;
+ b=R4ePuv23TbygEJ2z8pVqp5wllq9bfyGvO3Ep9IBjQA9RxDyc7TDG+aPoohlkyNbmlnMm
+ v9/ODcd8fBawpUiycQ6/7UyB/H3s3iPIrClC3Q3K4cwHM9qCeX+mR6y5uE0HIoWjEq5zn
+ 5PZjIxrzYSoivhiIFs3nlDK7ar1dBjGs6EUUFxUiORx7FOWnVYGJPKWD9h4uXJQC1dMDs
+ UOFKonoeoku+StaoL5HiuGHSxWsylekFogafGixmWtt6Ylqh3w1aT41sBah7oJvwqysGq
+ GJmttS4TpAwPl9ucxfKmmrGfvkUkVvQKQH5Pdc0N6ovNTmC4PX4I2kwMXpgPSPDrygQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794141155;
+ c=relaxed/relaxed; t=1794141154;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=PpE3OPjkv9DCsAIkITa/qVZLLjfJmnTHjrYDZvjOENE=;
- b=phy3aKas8L/kZqzLxlwCdc7JvygrChU8kW2yajt7PoDbU7RYgGBTh4W3A/a3rHNUy1Wl
- 6sGL1+O6+2AVp7/SARWkWMDn2KkmnjXHZWDEk8NPbnIglYUgCB3E1uwQXGoteDMStvrLV
- 7P2S6Me5kPi9DHiQ0EMRQ4+VY+h9VCHd/4l7mzFehcvvAvG28VQC9ZT6Ii4DeeMC527Rp
- F7lLkTKTWgGmLhpo8o6fmecUH2LosmOhu9R0Tpe7PrAFN8zQ+a/5/XVy92WC1WGbX6UjJ
- wkEbobjmzltohen7fEflZTq1duo/CfbNG10IKJhGdO/FzDktoHom9063oiGceJ8f1Tg==
+ bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
+ b=QoyJUvtMKEANAnHb07Jv2j6njN8rcWw+SsuvstzB9VBXOmSxa7NVdLt04XjKjufEcEgg
+ /O9fDAvojws2TA0NX5z7m74ppXNNVz4APkjYGcfCjol+5VPdGQ9e6zWhEjffhA2invakT
+ 2F6GzxAMru8OCViL87QX4gypTLGrzUfjps8Cbb5pNcHpYXjh/VzYTlx2kw0QUoBUwdIHz
+ bDf+1+ZIWUUGxUKXQ3Sc/56tN4BIGOfgJa15KwW3/s0X2/5Fi4kensgUHvuMZOpFwJS9V
+ CfJnLIrNz8+QjtHcMEkLknGlKkZa/bviVG1iy5vGu75sirDF6JwliQnWMlRQcS0eQvw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D22871F00901;
+ by smtp.kernel.org (Postfix) with ESMTPS id 144CD1F008A3;
  Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794141155;
- bh=PpE3OPjkv9DCsAIkITa/qVZLLjfJmnTHjrYDZvjOENE=;
+ s=k20260515; t=1794141154;
+ bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=J4ci0JzayRKabbnztLyQz3cteAZp7pSSfViWLEyDXZJl3qm3/wPbyPd3S/rV2PfPK
- LUOJTlsnDRzTASi1x92t67EbQPZq3IgxCR1ahH1pXKoUJ7r9m/bZN9zhG4GGBkggEH
- tyeVvoD3XLWnrpAIwIydlOnr9a7Mnp9Z3bUgADjYIKA4XjaRKNwpTmZWfr62NwhO4O
- tV/cJ+qLx1zRQECAJfr/F9RasINUq3zRPInuOhyVM7NeGyCggOvtRRDXnWYMW9VvqL
- RGHnpn4Z+JjL38qEUYqPwGTY95uuaiM22AlhE0Dtg6dKb0OM0B1uRs2nWc8FN4L5zn
- hgYpSd+yETqNQ==
+ b=T5G6CuIBT6+ntKqlup4W1kXvlpF+U407taLldskgYYMcA8okVVCYhCjNEnVkZrEyJ
+ WM+GZF8eX57ESdpx03brZezXKaN1DsTSmYfUfX1nCH8qIe6YN3aEpXl9jNP9bAT7vN
+ qkp7Frhp5gObhPvtHra+iGz+sQyYeqoUio/J3qUf0gpUG+y6sWA2hWrhrknNhzuja/
+ 5DsJG2dT5pa6Zp0BuxRUZhVIoPJYFxM9EHf2DRIeOjG8ieyNe7mxY+gZPtpR/HmUkC
+ ++i3sTHFSZm4C9E4anQmKIEXcN5EBbqSkVnR8liUG3/89r7NjHSlEdS8sQl4oPLck5
+ iAfQlLH2lY7kA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id B090947F85;
+ by lkml.kernel.org (Postfix) with ESMTP id 8170747F79;
  Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 08 Nov 2026 12:32:30 +0000
-Subject: [PATCH v3 09/10] arm64: dts: qcom: sdm845-google: Move panel pins
- into common
+Date: Sun, 08 Nov 2026 12:32:27 +0000
+Subject: [PATCH v3 06/10] drm/panel: s6e3ha8: Assert reset GPIO in
+ unprepare
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-crosshatch-panel-v3-9-87dd4ec4f7cc@ixit.cz>
+Message-Id: <20261108-crosshatch-panel-v3-6-87dd4ec4f7cc@ixit.cz>
 References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
 In-Reply-To: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -81,21 +81,21 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2187; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1129; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=0xoSE8g8hQhjUJDUkLj1oNslYQIjrBTjTW8DNBjsTIM=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvfT+vBvIhZSx7g4ypyveRa4g157FIz9bUyO
- H2SIQMe3UOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3wAKCRBgAj/E00kg
- cq/gD/0YpTLcxsgciJ4LlTG4ERBQqJQsYwC2qyT7ubIjkK2iS5d8tOHXMqkaKkibUEHAoMhjZte
- Kb2cUIrDZbauMSSpeg1Ca61DT5WwSAhDyRn9Z7LqiGKRZciSiezkJPOZgBZNAlpfUUhXq+a2+13
- nomOP+GXwZy24+hz2itzxpMiwHrQO6PjTOAT93oAOY4jlPlTCJF+vhms0JKHJJA2giNh/+oIma+
- ryjHRtTbbsZP45WLGaAKYFH5gddSEjS+psnTvG1auVqwoNi68kdgQKsc1/nyJVo3G49eh+0BlFR
- HjjvceC/uMY6OS2TPu88bP43omcsYVSW2m7+vXhwYyOfXlEBIi/jJ5HbHy4HgfFhvKPsOvL5NiN
- bQQa1qADQUmmeHtotvd8RDkJi+P2CNrxRZmTcE+JcOv3aULZI4MiIpV38CCo8hOJUkngDSlew08
- DlYHBfp0+KMocEVWRwOKhbADKTJOOYE7zgiVRcfxHqG98Zdp1WHGTHI1vt6cUBjlx2e3ilqJVOT
- 6BL7QlDre/pMo+/A98PgreHOWicfbq8M8FPue0ZuR1NxRfg2FfYVN9TdJ6f7nEnhpaMtXFAejCj
- lY0JfSjwVik/s1Z3PZnjt7k6NLorHd1b/Og7bJ4NZzwJhUKyAOSsnUjPHdh0vW0qtx0y/twLn71
- 2pGskKNNEMBrKsg==
+ bh=YoR8O/9CziH74UhYPjrFBAlu0YEV4HfID7khfmE7WHM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvfEC5NRlkhJL4+HcK7VBEhx7z6sDuyw0I76
+ DppDT7mhqGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3wAKCRBgAj/E00kg
+ cjoDD/9J5mFkylqCbm65T/GFGtuzKg7d4xB5v+2mc+08FOvjJu5iwKFz9xcbIE+z/lOPY9UVXr+
+ 3fQPgIQsbNRr2AlfAKzdurdzikQrqYMWNKFD0nwYr5mfUPTcxH+6wwNP+2OHNgT66Gv0+yn9IVv
+ uZVxm1wU8/1Nnuj+apUbt+1ujM1d01by8IQ0Ml7Gui4W1+x6FESeKMEFwVZE7z8nrVV/Df7UTin
+ sX6khTTWJyAUEi0zf+aT9cgGt/Meqg+hPBoCqFdtkU4RQaWxKlj/usrTQKgKHlq8EATeKvL2z+1
+ J2UpRG59L5KOq+9RmTiZLoxvPYgVbGMcUkjrPOClhX47Lsms+tBhCuagu2I8sF0RVqXfqHnt8Z3
+ a+duinbh++ZG43mJVKK/TfJx3I4xKJ/Wc9a0ZzR0nlG4GL+GSpnCI3aCmXN+fQg1diqhmewf0E1
+ pTi4JPpZvkg4W/OI0CjHrXzvKYbtYih0CyPm59bx5rdMls6ulJUl7Mud04s4cKRgvYsSeLgWjgf
+ sWXZMl5N5aI90hQngHzFPYwBKewB+1xC8bahBrxYC7Q8G+UhvjBx3KmsatsIvR6AfVuc5FxmyPo
+ zg5/4s3M/k2+7SwPDJVQcqeNOBm7EKpjpKS8G75mGkNFWg4SBWuQGkbCq8zly5UxOehgE6FW/Nx
+ N5U5J0n8iTfGRdw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -123,87 +123,36 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: David Heidelberg <david@ixit.cz>
 
-Both devices share the pinctrl configuration.
+For correct shutdown, the reset should be asserted.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..a000c75494f1c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -61,29 +61,11 @@ &mdss_dsi0_out {
- };
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 99290913de69a..2591b8c1a7753 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -58,16 +58,17 @@ static int s6e3ha8_get_modes(struct drm_panel *panel,
  
- &mdss_dsi0_phy {
- 	vdds-supply = <&vdda_mipi_dsi0_pll>;
+ 	return drm_connector_helper_get_modes_fixed(connector, priv->desc->mode);
+ }
  
- 	status = "okay";
- };
+ static int s6e3ha8_unprepare(struct drm_panel *panel)
+ {
+ 	struct s6e3ha8 *priv = to_s6e3ha8(panel);
  
--&tlmm {
--	panel_default: panel-default-state {
--		reset-pins {
--			pins = "gpio6";
--			function = "gpio";
--			drive-strength = <8>;
--			bias-disable;
--		};
--
--		te-pins {
--			pins = "gpio12";
--			function = "mdp_vsync";
--			drive-strength = <2>;
--			bias-pull-down;
--		};
--	};
--};
--
- &wifi {
- 	qcom,calibration-variant = "Google_blueline";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index f1379857e2742..d54cb47cdf95b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -473,16 +473,32 @@ &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
++	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ 	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+ }
  
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
-+	panel_default: panel-default-state {
-+		reset-pins {
-+			pins = "gpio6";
-+			function = "gpio";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+
-+		te-pins {
-+			pins = "gpio12";
-+			function = "mdp_vsync";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+	};
-+
- 	nfc_default: nfc-default-state {
- 		enable-pins {
- 			pins = "gpio25";
- 			function = "gpio";
- 			drive-strength = <2>;
- 			bias-pull-down;
- 		};
- 
+ static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+ {
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+ 	usleep_range(5000, 6000);
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
 
 -- 
 2.55.0
