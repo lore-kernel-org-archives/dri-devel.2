@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B163606A9E6
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 20:22:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2885E606BA45
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 20:22:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcDvXr0x
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6z1qQH2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0BA10E551;
-	Sun,  8 Nov 2026 20:22:35 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4720510E14D
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 20:22:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 546BA10E5F9;
+	Sun,  8 Nov 2026 20:22:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A517F10E14D
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 20:22:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E8B961CFE;
- Sun,  8 Nov 2026 20:22:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1AF1F00901;
- Sun,  8 Nov 2026 20:22:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8E62F43ABB;
+ Sun,  8 Nov 2026 20:22:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B431F0089F;
+ Sun,  8 Nov 2026 20:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794169348;
- bh=+03jTVGIFZ0Ku5cXK7wtacYgGz6NzL+g69qARhp8Fy4=;
+ s=k20260515; t=1794169354;
+ bh=TQmicMAwCZ+veK2Wt9ragwSxHzWQriH/AV22oia2TQE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gcDvXr0xVLxLCrEjipigauQxpwf57I/2DdGp7aX+/aMzEi8hpwA/MRqRcvwr269lH
- C7RiqYLLdrpRQ/tTa88M2CuZJ5T4H1zCgTkc0ZZTp8dMfjgrVyzsb8xuirfdSN1MRr
- v/2KtyEPDqXYEL2lS/qnl3GF1+jZ7FcnjDVs+sW6JnkkJCRVyVBkB7bxL0fCBGFj1b
- GtYT8wp9TYJvm/Z8tfrpL1PXLsNrBED+qn7nZwRq9IJ3Aptska4EU6z65M6nwkkVyx
- McbxNVgkWYTMCA7b92nQRCRiPMtOS80gprYhyI4IwNON58nb+D/ZAZxafWP4M79wMT
- oIZo7myGggWRQ==
+ b=V6z1qQH23g2pnP8xOJSVocQNl4S7OnwjBUZ1W+jFtv1jCKr5rXrNDgYoPl1HzCtM+
+ BZIRHbwo5/Y/oFtJcr8z9MlhCNvAIWIx16AFbSpYzBXCSyRVH0kDsGaey/YNelyeqH
+ ATe4+PilfTH9NLCEUypFe19QGujsqnTitKWR9MckcF6kWMRZLL2r3boc2jNJ/MuHbj
+ Gwk4mIUE12pOLza5hTLpH/7VFoKO7O9NYsi7JfJT6FUa1jN73fycvudJy1n15JCVwa
+ N6UOz0iYlISoDOPmo9kqMZkHzJV5nw8yydgm5MQ9jUcC7oYQx2yzanJjPvKFXg/FwN
+ kOZDb7FKyNr+g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Abel Vesa <abelvesa@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/5] arm64: dts: qcom: support SDM845 HDK
-Date: Sun,  8 Nov 2026 14:19:36 -0600
-Message-ID: <179416929424.628393.17771350398079284903.b4-ty@b4>
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Mahima Bhattaram <mbhattar@qti.qualcomm.com>,
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: glymur: Fix fastrpc
+ compute-cb reg values for cdsp
+Date: Sun,  8 Nov 2026 14:19:40 -0600
+Message-ID: <179416929393.628393.13698830723595892104.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
-References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+In-Reply-To: <20261016-glymur-dtfix-v5-0-f56a8b94b4a9@oss.qualcomm.com>
+References: <20261016-glymur-dtfix-v5-0-f56a8b94b4a9@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -73,21 +73,23 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Mon, 19 Oct 2026 12:18:02 +0300, Dmitry Baryshkov wrote:
-> Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
-> for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
-> version of the chip (SDA845) and provides a rich set of the peripherals
-> and connectors. The DSI panel is an optional addon, so it is being split
-> to a separate overlay. To (hopefully) ease merging, the overlay is split
-> to a separate patch as it depends on the panel. The base DT doesn't have
-> external dependencies.
+On Fri, 16 Oct 2026 12:06:45 +0530, Ekansh Gupta wrote:
+> The reg value of a compute-cb node must match the SID (the lower nibble
+> of its IOMMU stream ID) it is associated with. In the cdsp fastrpc node
+> of the Glymur SoC, three compute-cb nodes had incorrect reg values that
+> did not match their SIDs, leading to SMMU translation errors.
+> 
+> The fix renames the nodes to use correct lowercase hex unit addresses
+> (per DTS convention) and corrects the reg values. Since the fastrpc
+> binding's patternProperties only allowed decimal digits in node names,
+> a binding update is included first to allow hex digits.
 > 
 > [...]
 
 Applied, thanks!
 
-[3/5] dt-bindings: arm: qcom: add Qualcomm SDM845 HDK
-      commit: 930173f0332cc16656996756a5351560a4cf6068
+[2/2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg values for cdsp
+      commit: 59cfafdd42611fe446c400e692814f8acaed8021
 
 Best regards,
 -- 
