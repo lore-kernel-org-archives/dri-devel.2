@@ -2,88 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5796606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 07:06:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5776F606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 07:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=ChHBQSFD;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KB1oFD/x
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=T1db98wB;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0MpJD2Y2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF7210E3AC;
-	Sun,  8 Nov 2026 07:06:39 +0000 (UTC)
-Received: from fout-b1-smtp.messagingengine.com
- (fout-b1-smtp.messagingengine.com [202.12.124.144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6663910E3AC
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 07:06:20 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.stl.internal (Postfix) with ESMTP id E5AC31D000D6
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 02:00:24 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Sun, 08 Nov 2026 02:00:24 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C3510E776;
+	Sun,  8 Nov 2026 07:06:45 +0000 (UTC)
+Received: from fhigh-b3-smtp.messagingengine.com
+ (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E08310E77B
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 07:06:30 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 064727A0140
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 02:00:09 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Sun, 08 Nov 2026 02:00:09 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1794121220; x=
- 1794207620; bh=6rGVUa+CyQ5+8OE1lg9RqFmhgqn4N3N/qaz4m3cLuMg=; b=C
- hHBQSFDn/kV236uLe15oy5JFDL6sFxb4Sd/cTxl9qA4XEDu6c/tlLSOxrAyjoFG/
- DQ3uGq09Geb4hAE+NnPUmR+6CeXYF+2FPBg29Aef2ceKPVkJvaoTOo174cA29ZT9
- y8wrGYb+xxESLELoQG8YnccHRUMG9d3ljKFFstuuQfWu64P1NNzhY6cJtr/mBcAg
- yQhvw5s9z8N9JT4VxgF3W0xmDrp+JHBl74TaehtPX8nJMRO+ZCOvesS1+f795VZL
- vTWtcYrtO0MDWMa7gYvs4UadWbmLjdV9aMojinxEMHA71adoRPp/2P9MLredrJM6
- /GWYqANutTHa5FhNBQvJQ==
+ :reply-to:subject:subject:to:to; s=fm1; t=1794121205; x=
+ 1794207605; bh=xh4FDfpKCu1l07Q85vVWgq/0/rjVj2rTpjI3ZLXV+Vc=; b=T
+ 1db98wB92XSaeJ3Vy0yeD+OQDZS9MTgAyJ9P7A4nwqFWKBuCWREV237hjEhBJV/V
+ oONrmNtvNpCsYNlt43HL8tGFRCxSvq74eB2JBzyZ1J8YCwqWnWH5mx+hZl6XMe/3
+ 9EhCHyOOeAIu4uBrRUF0a+c68Wktzv4fPawKEOR4dIhdMlnQ+w3CAqnljoxEAURW
+ b3hpvpJ94TPvQsbfU2KaOncfTno54Xq3lhKvFYiq4lv6u7AxvhNR+TXc3tUTYhF7
+ oJVQW6BxTQqIbNoUTXhDEv18XU9ECc8YwNCUJaDhbaZ61QC6JkPa8uucZ9SO44yV
+ O5hgat+JYFwLRgIVTWxhA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1794121220; x=1794207620; bh=6
- rGVUa+CyQ5+8OE1lg9RqFmhgqn4N3N/qaz4m3cLuMg=; b=KB1oFD/xUpG5KsGBU
- GSeQpBhFoaMnOB2i7ELK/HphG0vGPoWWo2nw3eg7J3NM0HjWP/6Fb9gVazF0IRJ1
- I6hAvUSmgn2quHkcTk5vWaAoJCYxssj3zM+lcri7x1H4X3gQvTq26B5oqK3rP7Sp
- ZMFZeGKItVfqpw1Y8p8lOMeipO7BGzm4TiHXfm62daqS8wOtx9YiiaRd8ruJK+0X
- 0Ayyg530CvRTFx8zsZU0jcjWKFWM39rvxzbHLFjaJjDuk2av59Vj2Nq30VDKDncR
- mNGfkd+jBWg28DfHmtVYiyNUnHE67oA3PuKwNjlAqzYKLMFOP+cvDfIQn26Zj3Lr
- UQVIg==
+ :x-me-sender:x-sasl-enc; s=fm3; t=1794121205; x=1794207605; bh=x
+ h4FDfpKCu1l07Q85vVWgq/0/rjVj2rTpjI3ZLXV+Vc=; b=0MpJD2Y2A2M02KiNW
+ 3e1Swp1HsZIJki7ELLy3oeDBNiWbQ0AMSN1lLoaL+fkJVVzXDaihQd6PUqTrP6sY
+ nAHXT/3UGeqjWpzAMj6jN1YvVJl5kbNZocUFarhxywMlcSpalu1Y/E2P3IqslX7z
+ A24VC5kZoLhdrxAHypTRoJh+xWtv1LzaJibx0v5ErD7KbOP3inKLBdS9T9xbTacV
+ MbLwKmL/k9y2C4JI/UBHAIxsDgAltk2rpFH2UXRmyaxPNfbnFL5mSSY8tGWk+sEA
+ U6SROZG6/DuUrwHTwFfq97mqi+qWheohLBPiVmhTUZJ85aQlORmNcZNQFO2rjpx/
+ SOEKQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794121220; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1794121205; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:AxaiWkuFUAYUweXxHt3h+aq8s6pBkqY4NlfnwvJNkutsg6M
- pYiJZIZ6wKOpxCKdyihkahsWj3x9oNDwX13E2C/A5P/F1xfGPzyXCBCe6DEmCNYd
- m2NqzHeFQDPTHaEcUu41x671zVb5Eapo/m+1E/5+QKfutmKPDYnVprfRaqB8e49J
- i6owICK/81b8zSGyRKYniupiNvTpy97gG0kS5kK1KIattM1QEndYrQHMP0IOunje
- gbo8aolapI7C08IiD3nMR5ZI1ySM4avA0atQtATbAK+rxvGZa0PNxc5pZPgFFEk8
- ep3LpDwwZMv7MQt4x9F8MgfG/1Z/dUYmgn0RFqQ==;
+ s=fm1:rsa-sha256:f1/8RFWZs5j8doUhDEKb7p6ApYvojlMq7CbDudtOfDOEU2m
+ b08GI6e8IR1Ji8OJVuqLXT3/wT+uyUNHBWtU69HFCxtYNCqi3O56LPuTr/KAgvK8
+ OS2PwNJflFzclUKJ6oyt8QTgKfUzsvZFvcYURNuUBcLUg7Typpxyx3Ss7y8Gaue3
+ em4Z9/a+F+Y2KhS8tenK+mHpeXpIRLann3ZovwfE8Y6xOr6hmzmWhYTR4AJFZ1eu
+ A5t7w2Eo92q2k9eH/GT1VPGc0/i6ZBS+jkkkXwYpap5CJDUmwQe6/p6dtOfX1tlj
+ 5WLkI9bffdjlTOysdx7+zAAnciqqD6v53u+oV2w==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
  action=mi-m=1; hc=11;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
  in-reply-to,message-id,mime-version,references,subject,to;
 Message-Instance: m=1;
- h=sha256:KSJ+rX/WU7s5r3p9C9QBvEFpFsrkJxqxj1NdHkYMHgo=:aLGKxOhk/Y5O51G6Z2X6eFH/ptjQRlHxYL48BlDz94k=;
-X-ME-Sender: <xms:BB7wajl1AgOqaBTytaQbx0ExFoToF9y7efuU1kPLBKyjX8nfqJyXQA>
- <xme:BB7wajSgeN8bl3acuyjrv8vohYhRP85zQxa1jwAthiHeh_4RBYZJthazkvK0b_BvV
- qsEpxvQp8uNW7gQZM5XwKCRcJI7Gch6fYnnL_SiH8er3oRtIrrNYcqD>
-X-ME-Received: <xmr:BB7wag45GVlEbyv7BJ5LaL1Jb7lPwBemZfFhznA9io3HFtaEJYJHY7HNsl3iN0rmKbybuaH5>
-X-ME-Proxy-Cause: dmFkZTEojRzwG8iXRxYpa/ehTSrYvEGv2oLw/Sk/XkMhq5fX7wZiH3xNi1i0ePqUksiFNz
- sCK5tgn3drkA0GtZvSRZKNCREkKgu/YMGTTKzlUjMYOltePFLEn+es0ErbEI87KjVOcqOy
- mJZ8Y9WoBILSXaY0XWkvqHJyxkZjLtwvzmsA/lOvpFWhD7iZIxn8BM8zTXzZDCDvthlILm
- FlZT/QuuevvKq197qlFGbgWkjTdBS5qUbMOigtsa22hAV8v3lOMNUn1gIhhZdPwhpoOUHq
- yOFXOpYOVuwQ8q1j3LqMXoUd7NYjCYyYc3T8lblVK3pqWZ0wyQS6WwTyQ4N1Z0W2O8eMAc
- FTaw9OjoXOh02DbnZdrI669OxVzlXEUQnEHYZoOREn84oF43kx5S1hxoQ55L2zZP0S9P8i
- IYpCYNbSHB6BRQZ1PyQZKmhKeYO6fZSnh5M8WzzxQrXPmNILP1YbdnPqG7wsWdiZA+sSEx
- mF37kg4lsW6RAVwNe/agSFxScYHTxNTyYmReIJ48sMRYXu44wVKz+ywA5AGhprrJ0/OoPZ
- tJKdAK15kKr2wj2OmUt4YmKxlazKqLaLGzxk88MnxotiF4pfYmBkuwdux+lKAXuEU1jAad
- T+DRYXTEuC32S8v8mXnF6scAlcq59rSV6mU12rlz+ElLcfk7ppQPiIotlSsQ
-X-ME-Proxy: <xmx:BB7waiH7PBOdPKDjTKuw-TH2Ff8EJnH-saXy16V9QgNDf5vkU6vh1Q>
- <xmx:BB7waiH45W6a6U2NeSLmizL1B1JNIuiPeEqfgMVQYDpTFnIuvjTazQ>
- <xmx:BB7wagtDxIcz4HefRIvDg0qrNYYIcG_yJPMug9-CBO4UeVfQyKHucw>
- <xmx:BB7waoJi0k_3QuG2EqI8WkEpomvqAapdfz8H5ExD5_QLOXwsyDf5ww>
- <xmx:BB7waqMJkZX3cjftF5cpv3vgA_PWFGxneohIKH5JV0tjIRGnmMW1gYO_>
+ h=sha256:P7qr9+Vk84mwgZ83Dm/8vDCMawrueFpw6qrFatp8LYw=:nSL1kRFz222Qw28hbW/GZoL62yXNlvTaEzwpjY7YddQ=;
+X-ME-Sender: <xms:9B3wajdnATmb6Z7bXePpjlSWGNq5sZmrrDhZDCeTfxH4z9P9MIvcBg>
+ <xme:9B3walWn5mtG3s5MVfmvTHyYeR4Wx_SyeWTrr8d4dN9p_y5zbJNKUwsADJ9OjOMev
+ y7J-ooe7rYbYw9IVTyQPcmTQ570NhgFLmpTFxTudIjE1Vi3LUvhXdbS>
+X-ME-Received: <xmr:9B3waly5POFM9KC7NffbuCX1nthczcpMpdMEuJJk0V-EpcWjZqS9mx2wtVpaiaS2r8xNoLhh>
+X-ME-Proxy-Cause: dmFkZTFKhclCCJN9i5LFQp5fvn9DylL5PDR95+qcmUDEkBDvAaUlhVhO6JW1PTcA0oiilr
+ afxU+kS37MwfkRVrV2sLhNS1OkBSH9hrpfUYkvEeAEfTx8oUhC1lvQdEqsrvfO12L2kPDm
+ Y90xvEv61R5vWsABT3XVmqKcWsSTBPoQRHs33ySAWpN7mh8mIX7nfmpu6Q5St0DdZLVl6o
+ GJpMHUC7TjUVqLMHfqfKk9SHn10f5lL6CdG6YeehrsosttZtbM1aNiFk46XYC+svmJcMBn
+ 4w1I3sJZaXrv8SSndHCWUOH7cbPZHBY65Sr1oZjnZZRxSV2wTTFO+3xU/Lmvhk4YCMlhWl
+ oG781Qdu0p4IjDuFIf3UJedZ3PC3oW9naVF/ZMpB5/6eyHLwa5Mtp9hVE47Dx1PnK1Da6V
+ NTplgmRe5ue9yuPYlEJfY6v4CLo4WLE4Ypelbcp0+vPIY8HN7Hdytg4gphobHpyoWCRlO6
+ hCM8kDy0g/jXljJD4gSAQNkfs504NgfEbWRpSIFN2UFizJPH/9WT55n5uSdQ5sXWMILie1
+ cwWAGTScrYMaIuEXAqrBp4HhDUTCbBrpG4HfT6rsdWIcEffb1VHjwbfgzXJrN5XQ9HkIdZ
+ pS85Oa4CpTtK+ekqtlWaS9sT2t3NzehhwDfRD5nw5Pt7Dr3QVz34c4ASBdxA
+X-ME-Proxy: <xmx:9B3wakD5FnJpVUxtgGApJ6rSqmqS1Ytg3V4Fn0_02ecxLffM3h0Qww>
+ <xmx:9B3waj6XN9WlMd0-MAQCOgvatNglR1U-M7ZlVIvxlZK-A9ylN1rXCw>
+ <xmx:9B3wajkOl8DJhcM_lesFSLAeA7FBVI_NjgRLy2Z1bhxWsdD5lTsOsw>
+ <xmx:9B3waufGbuMv803Mei5wiovbrwCBIE1Smh6aAIa5HHxfnaVvqJMzaQ>
+ <xmx:9R3warRSK6foKj0AthoIEZDPGoL9S1TMPKVBcYYCCLxpMuZqB-gvjZ_Z>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 02:00:12 -0500 (EST)
+ 8 Nov 2026 01:59:55 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -99,10 +99,10 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v16 03/16] accel/rocket: wait for a running IRQ handler before
- resetting a core
-Date: Sun,  8 Nov 2026 19:59:04 +1300
-Message-ID: <20261108065917.135194-4-gahing@gahingwoo.com>
+Subject: [PATCH v16 02/16] accel/rocket: take the completion register writes
+ under job_lock
+Date: Sun,  8 Nov 2026 19:59:03 +1300
+Message-ID: <20261108065917.135194-3-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261108065917.135194-1-gahing@gahingwoo.com>
 References: <20261108065917.135194-1-gahing@gahingwoo.com>
@@ -128,48 +128,56 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_sched_stop() does not wait for a threaded IRQ handler that is already
-running, so call synchronize_irq() after it to make sure the handler has
-finished before the reset.
+The IRQ handler writes OPERATION_ENABLE and INTERRUPT_CLEAR before it
+takes job_lock, while rocket_job_hw_submit() sets OPERATION_ENABLE to 1
+under that lock.
 
-Before synchronize_irq(), mask the interrupt and clear the raw status, so
-that the NPU core cannot report a completion afterwards.
+If the two run at the same time, the 0 written by the IRQ handler can
+overwrite the 1 written for a new task and stop a task that has just
+started.
 
-Do this under job_lock, because the submit path sets the interrupt mask
-under the same lock.
+Move both writes into the existing scoped_guard(), so they are under the
+same lock as the submit.
 
-Only touch these registers when the device is powered: check with
-pm_runtime_get_if_active(), so that a register access with the power
-domain off cannot raise an SError.
-
-Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 ---
- drivers/accel/rocket/rocket_job.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/accel/rocket/rocket_job.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 03e5f094f60b..abef12b86d48 100644
+index c3edb94355a3..03e5f094f60b 100644
 --- a/drivers/accel/rocket/rocket_job.c
 +++ b/drivers/accel/rocket/rocket_job.c
-@@ -400,6 +400,16 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+@@ -369,10 +369,15 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ {
+ 	pm_runtime_mark_last_busy(core->dev);
  
- 	drm_sched_stop(&core->sched, bad);
- 
+-	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+-	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
 +	scoped_guard(mutex, &core->job_lock) {
-+		if (pm_runtime_get_if_active(core->dev) > 0) {
-+			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-+			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-+			pm_runtime_put_autosuspend(core->dev);
-+		}
++		/*
++		 * Stopping the block belongs under the lock. hw_submit() writes
++		 * OPERATION_ENABLE too, and outside the lock this zero can land
++		 * after that one and stop a task that has only just started.
++		 */
++		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
++		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+ 
+-	scoped_guard(mutex, &core->job_lock)
+ 		if (core->in_flight_job) {
+ 			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
+ 				rocket_job_hw_submit(core, core->in_flight_job);
+@@ -384,6 +389,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+ 		}
 +	}
-+
-+	synchronize_irq(core->irq);
-+
- 	/*
- 	 * Remaining interrupts have been handled, but we might still have
- 	 * stuck jobs. Let's make sure the PM counters stay balanced by
+ }
+ 
+ static void
 -- 
 2.43.0
 
