@@ -2,68 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C972C606A337
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310BF6082BDD
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=docomonet.jp header.i=@docomonet.jp header.a=rsa-sha256 header.s=20240125 header.b=h4Yto5rt
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mFTHf5TF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB5310F133;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259A710F135;
 	Mon,  9 Nov 2026 09:31:43 +0000 (UTC)
-X-Greylist: delayed 357 seconds by postgrey-1.36 at gabe;
- Sun, 08 Nov 2026 03:17:20 UTC
-Received: from ocn-dfr-mts-118c2.ocn.ad.jp (ocn-dfr-mts-118c2.ocn.ad.jp
- [153.128.190.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31E2D10E04C
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 03:17:20 +0000 (UTC)
-Received: from ocn-ckd-mts-117c37.ocn.ad.jp (ocn-ckd-mts-117c37.ocn.ad.jp
- [122.28.128.102])
- by ocn-dfr-mts-118c2.ocn.ad.jp (Postfix) with ESMTP id 3CFF21C0001FB
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:11:21 +0900 (JST)
-Received: from ocn-spm-mts-103c1.ocn.ad.jp (ocn-spm-mts-103c1.ocn.ad.jp
- [153.128.190.230])
- by ocn-ckd-mts-117c37.ocn.ad.jp (Postfix) with ESMTP id 974F34003112;
- Sun,  8 Nov 2026 12:11:18 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=docomonet.jp;
- s=20240125; t=1794107478;
- bh=GQvfNp65FBXmcF3uK/s2GXnfQ0y/t47EhDsCV7hVUL8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=h4Yto5rt/S4/h7ZlyTQ/vq17Y7qA0reVKb/xAGxFXwDU7A8yUz95Z+5WvGn+N6HvZ
- A4Nb2mHlH8YR4FyUQuYE4QbF5Fe1JS6fqqLrQRpbuIGoGdeQOXK7NAL+pgf/Ih0UO7
- eNPJQblhEB8UR0kt1UFfFk/Ggo88Zgy27JSjtSmg=
-Received: from ocn-vc-mts-108c1.ocn.ad.jp ([153.149.236.202])
- by ocn-spm-mts-103c1 with ngmta
- id 811bd508-18e5f33f0194fd6a; Sun, 08 Nov 2026 12:11:18 +0900
-Received: from ocn-sdpx-mts-113c1.ocn.ad.jp ([153.128.117.211])
- by ocn-vc-mts-108c1 with ngmta
- id c06a01b4-18e5f33ec017da7b; Sun, 08 Nov 2026 12:11:18 +0900
-Received: from docomonet.jp (p3688129-ipoe.ipoe.ocn.ne.jp [153.238.101.128])
- by ocn-sdpx-mts-113c1.ocn.ad.jp (Postfix) with ESMTPA;
- Sun,  8 Nov 2026 12:11:17 +0900 (JST)
-From: "Shigeaki Asai" <y-asai.0816@docomonet.jp>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Nicolas Belin <nbelin@baylibre.com>,
- Jagan Teki <jagan@amarulasolutions.com>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, John Williams <porschemad911@gmail.com>
-Subject: Re: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while ENCL
- is disabled
-Date: Sun, 08 Nov 2026 12:11:16 +0900
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B11C10E111
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 22:32:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail2; t=1794177067; x=1794436267;
+ bh=hrR6uj82ahGfQqaO3EwipOvU/f/xUlTfwnwZhxjl76c=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=mFTHf5TFf7pz7nD7JJqYXcJfFZV7+IWxpkOnDapWSq0S5T6VlsdsYlgwuX29P8n3/
+ jIoM6KCyqtl39W+9Oz7k5xIMzWxxUHO/T20keouB6FoEiNOYXe0W9SFzDEeLQXH14J
+ LbGjG3S4+be9QmGGI51K6hDRcn8+QiEAYHTnpB0959bc/GRsjd3tPhyhJPiy2zZJCB
+ mPhFmxFIJ4aUwsqLgrk/XhDnTwydTqsAc2mQDWKP6E+YNgHI0DPyobfVsQbS3hDtzO
+ j8bB7D+D0V7d2BoJL/pz+//it5/2OHEQZrbSRkBJtCxUBMOkaV2LHjfmNh4fzlJxZB
+ GumiUYx0oAzMw==
+Date: Sun, 08 Nov 2026 22:31:02 +0000
+To: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com" <simona@ffwll.com>
+From: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string pointer
+Message-ID: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
+Feedback-ID: 186545857:user:proton
+X-Pm-Message-ID: adc73b7730ce65d5d72be26e93817641b3bd221b
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Mailer: HidemaruMail 7.47 (WinNT,A00)
-In-Reply-To: <022f5372-7963-41b1-ba76-2d89c51aa8c6@linaro.org>
-References: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
- <022f5372-7963-41b1-ba76-2d89c51aa8c6@linaro.org>
-Message-Id: <5DD6F2ED1CC4592F3006A@docomonet.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 09 Nov 2026 09:31:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,25 +52,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/4/26 17:31, Neil Armstrong wrote:
->Thanks for figuring this out !
->
->Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
->
->Thanks,
->Neil
+Hello,
 
-Hi Neil,
+In atom_get_vbios_pn(), when the part-number string is empty and
+atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
+computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
 
-Gentle ping on this one. It has your Reviewed-by, could it be picked
-up for drm-misc-fixes? Please let me know if anything else is needed.
+    vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+    if (vbios_str =3D=3D NULL)
+            vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
 
-Thanks,
-Shigeaki
+The subsequent range check is false for a near-NULL pointer, so the
+value survives and *vbios_str dereferences address 8 - a NULL-page oops
+during probe with a malformed VBIOS that passes the magic checks. The
+recent hardening of the neighboring date/version/build helpers closed
+their OOB reads; this fallback path was left intact.
+
+Simply leave the part number empty when the anchor is not found.
+
+Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
+(v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_g=
+et_vbios_pn).
+Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series =
+made it the sole fallback outcome.
+
+This was found during an assisted (AI-supported) static source review of
+mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
+very code path cited below was re-verified by the
+reporter against that tree. The patch below has NOT been compiled and has
+NOT been runtime tested, and no reproducer was produced - the triggering
+conditions are described above instead. Please treat this as a report for
+verification rather than a battle-tested fix.
+
+Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
+---
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu=
+/atom.c
+index 1a599d5..7598606 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1493,8 +1493,6 @@ static void atom_get_vbios_pn(struct atom_context *ct=
+x)
+=20
+ =09if (vbios_str =3D=3D NULL || *vbios_str =3D=3D 0) {
+ =09=09vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 6=
+4);
+-=09=09if (vbios_str =3D=3D NULL)
+-=09=09=09vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+ =09=09if (vbios_str >=3D p_rom + ctx->bios_size)
+ =09=09=09vbios_str =3D NULL;
+ =09}
+
