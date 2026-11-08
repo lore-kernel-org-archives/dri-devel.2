@@ -2,42 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A66606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021B0606A331
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 12:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHgWGgbI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klZbEdh7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A077510E7E1;
-	Sun,  8 Nov 2026 12:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5755310E7D3;
+	Sun,  8 Nov 2026 12:43:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96EC310E7E1
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:37:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2078B10E7D3
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 12:43:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4B5C6416EF;
- Sun,  8 Nov 2026 12:37:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A4C1F0089F;
- Sun,  8 Nov 2026 12:37:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C72B543EF5;
+ Sun,  8 Nov 2026 12:43:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7AF1F0089F;
+ Sun,  8 Nov 2026 12:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794141451;
- bh=wtqhuCAhz0EmO+3zYRfVGhM8rJcwLvDnaKbqoAkLTQo=;
+ s=k20260515; t=1794141791;
+ bh=pwLIRt8oLHmQi2GBVAVONFNIfIao7k665Kov0Bzqz1Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RHgWGgbIdxmacCsuJgJIt5BIwjVmF+AIsRBkSW2uFI0d1Rk9KlRcnnWSqZGbS5Edm
- Q9yyQ4TDx/oVcjk9G1PR4ZSUH+7S8VmeO3L7/24Z3k/4WIFIztaitOqcWVXfxiKPz9
- wqnYx8ysxylB1tu5psbyO3Xx3K7cXxWsJjzEj/ekGLHIorUzd72Ui9DqzKeDxq7rqx
- 2WLpxxrdg/9xh8ulndzSfeFcMkFaMNOUejEHMx3tgit8ixvZ9bkRyK28EqdEahO0vl
- pIShil5ShZ9EQSC24G396I8BINMLrQG2BtS21hh853CABrIQ93Zear68IHCGehw8bM
- 05XPDx/qkmm9Q==
-Message-ID: <sashiko-outbox-203735@kernel.org>
+ b=klZbEdh7UcPPn7KeKgR5l/lEC9oEdxLLUOYpvC0n3Acjd5BxVB486lu8Tdnus2ja+
+ EHw4EHvVmfj8XDSkW45i9+MVgcv/VMa2sh6m4SAtERH+5wb4cXrj6Yy3X3uxcorYGA
+ NnbDcGYdaSIDNxAfvGblfh6N/5+Hwqx+RYOGEU7H0gzDyk0ItdUZEQ9uxbXQkVBBZ9
+ zIVjsGPcJuyDEdygVSZemD1CPudy9BXB/ZXj1Wy/+LyI/KCewE4BUXInvhmgVN0HhK
+ ElhT6jFNM4IcLHMb/tUZnNmUox/XjnZHTXB71WTXTusr+NKhafsyWhaB1PEbPoGKN/
+ cJPVknZl45UhQ==
+Message-ID: <sashiko-outbox-203741@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/mxsfb: Complete page flips only once the new buffer
- is latched
-To: "Christian Gmeiner" <christian.gmeiner@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
-References: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
+Subject: Re: [PATCH v3 08/10] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Update panel compatible
+To: "David Heidelberg" <david@ixit.cz>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261108-crosshatch-panel-v3-8-87dd4ec4f7cc@ixit.cz>
+References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+ <20261108-crosshatch-panel-v3-8-87dd4ec4f7cc@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 12:37:30 +0000
+Date: Sun, 08 Nov 2026 12:43:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,125 +62,51 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] drm/mxsfb: premature plane cleanup in
-  mxsfb_crtc_handle_vblank()
+- [High] arm64: dts: qcom: incompatible panel@0 compatible and
+  reset-gpios change
 --
 
-commit c09da195fd06536925306459ef31e61d236a956a
-Author: Christian Gmeiner <cgmeiner@igalia.com>
+commit 73ab76c040fc6673b910317ac87e836c9478306e
+Author: David Heidelberg <david@ixit.cz>
 
-drm/mxsfb: Complete page flips only once the new buffer is latched
+arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
 
-This commit holds the pending vblank event in mxsfb_drm_private and
-sends it from the vblank interrupt handler only once CUR_BUF matches
-NEXT_BUF (and AS_BUF matches AS_NEXT_BUF when the overlay is enabled).
+This commit replaces the panel@0 compatible string with
+"samsung,s6e3ha8-amb577px01" and changes reset-gpios to GPIO_ACTIVE_LOW in
+sdm845-samsung-starqltechn.dts.
 
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mx=
-sfb_kms.c
-> index bbc2a2df9f161..c7e516758a1ae 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -328,6 +328,7 @@ static int mxsfb_crtc_atomic_check(struct drm_crtc *c=
-rtc,
->  static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
->  				    struct drm_atomic_commit *state)
->  {
-> +	struct mxsfb_drm_private *mxsfb =3D to_mxsfb_drm_private(crtc->dev);
->  	struct drm_pending_vblank_event *event;
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/ar=
+ch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> index bd59f1dcd96dc..c156ed3733b4e 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> @@ -267,13 +267,13 @@ &mdss_dsi0 {
+>  	status =3D "okay";
 > =20
->  	event =3D crtc->state->event;
-> @@ -338,12 +339,54 @@ static void mxsfb_crtc_atomic_flush(struct drm_crtc=
- *crtc,
-> =20
->  	spin_lock_irq(&crtc->dev->event_lock);
->  	if (drm_crtc_vblank_get(crtc) =3D=3D 0)
-> -		drm_crtc_arm_vblank_event(crtc, event);
-> +		mxsfb->event =3D event;
->  	else
->  		drm_crtc_send_vblank_event(crtc, event);
->  	spin_unlock_irq(&crtc->dev->event_lock);
->  }
-> =20
-> +static bool mxsfb_crtc_buffers_latched(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	if (readl(mxsfb->base + mxsfb->devdata->cur_buf) !=3D
-> +	    readl(mxsfb->base + mxsfb->devdata->next_buf))
-> +		return false;
-> +
-> +	if (mxsfb->devdata->has_overlay &&
-> +	    (readl(mxsfb->base + LCDC_AS_CTRL) & AS_CTRL_AS_ENABLE) &&
-> +	    readl(mxsfb->base + LCDC_AS_BUF) !=3D readl(mxsfb->base + LCDC_AS_N=
-EXT_BUF))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static void mxsfb_crtc_finish_page_flip(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	struct drm_crtc *crtc =3D &mxsfb->crtc;
-> +
-> +	drm_crtc_send_vblank_event(crtc, mxsfb->event);
-> +	drm_crtc_vblank_put(crtc);
-> +	mxsfb->event =3D NULL;
-> +}
-> +
-> +void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	struct drm_crtc *crtc =3D &mxsfb->crtc;
-> +
-> +	drm_crtc_handle_vblank(crtc);
-> +
-> +	/*
-> +	 * The controller copies NEXT_BUF to CUR_BUF at the end of a frame. If
-> +	 * the commit wrote NEXT_BUF after that point, the new buffer is only
-> +	 * scanned out from the next frame on. Complete the flip only once the
-> +	 * hardware has latched it, otherwise userspace gets back a buffer that
-> +	 * is still being scanned out.
-> +	 */
-> +	spin_lock(&crtc->dev->event_lock);
-> +	if (mxsfb->event && mxsfb_crtc_buffers_latched(mxsfb))
-> +		mxsfb_crtc_finish_page_flip(mxsfb);
-> +	spin_unlock(&crtc->dev->event_lock);
-> +}
+>  	panel@0 {
+> -		compatible =3D "samsung,s6e3ha8";
+> +		compatible =3D "samsung,s6e3ha8-amb577px01";
+>  		reg =3D <0>;
+>  		vci-supply =3D <&s2dos05_ldo4>;
+>  		vddr-supply =3D <&s2dos05_buck>;
+>  		vdd3-supply =3D <&s2dos05_ldo1>;
+>  		te-gpios =3D <&tlmm 10 GPIO_ACTIVE_HIGH>;
+> -		reset-gpios =3D <&tlmm 6 GPIO_ACTIVE_HIGH>;
+> +		reset-gpios =3D <&tlmm 6 GPIO_ACTIVE_LOW>;
 
 [Severity: High]
-Can calling drm_crtc_handle_vblank() before the new buffer is latched
-cause drm_atomic_helper_commit_tail_rpm() to clean up the old framebuffer
-while it is still being scanned out?
+As reported by Krzysztof Kozlowski on v2 [1], does replacing the
+"samsung,s6e3ha8" compatible string and inverting reset-gpios break DTB ABI
+compatibility for existing kernels and DTB consumers?
 
-mxsfb_mode_config_helpers uses drm_atomic_helper_commit_tail_rpm(), which
-waits via drm_atomic_helper_wait_for_vblanks() rather than
-drm_atomic_helper_wait_for_flip_done():
+Existing kernels and trees that only match "samsung,s6e3ha8" and expect
+GPIO_ACTIVE_HIGH (introduced in 70005c18c9f7 ("arm64: dts: qcom:
+sdm845-starqltechn: add graphics support")) will no longer bind or reset
+panel@0 when booted with this DTB, while the panel driver already handles
+the legacy compatible and polarity via broken_reset_polarity.
 
-drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_commit_tail_rpm() {
-	...
-	drm_atomic_helper_commit_hw_done(state);
-
-	drm_atomic_helper_wait_for_vblanks(dev, state);
-
-	drm_atomic_helper_cleanup_planes(dev, state);
-}
-
-When a commit writes NEXT_BUF just after the end-of-frame copy, the next
-frame-done interrupt sees mxsfb_crtc_buffers_latched() =3D=3D false and def=
-ers
-mxsfb_crtc_finish_page_flip() (leaving commit->flip_done unsignaled).
-However, drm_crtc_handle_vblank() still increments the vblank count and
-wakes drm_atomic_helper_wait_for_vblanks() on that unlatched interrupt.
-
-commit_tail() then immediately runs drm_atomic_helper_cleanup_planes() and
-drops the old framebuffer reference while the LCDIF DMA engine is still
-scanning it out from CUR_BUF for another frame.  For a blocking commit, it
-also returns to userspace before commit->flip_done is signaled, causing an
-immediate follow-up non-blocking flip to fail with -EBUSY in
-stall_checks().
-
-A custom atomic_commit_tail that calls
-drm_atomic_helper_wait_for_flip_done() instead of
-drm_atomic_helper_wait_for_vblanks() would keep plane cleanup and commit
-completion synchronized with mxsfb_crtc_finish_page_flip().
+[1] https://lore.kernel.org/r/20260929-spirited-umber-hedgehog-300ebd@quoll
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108-mxsfb-flip=
--latch-v1-1-ad816b23b646@igalia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108-crosshatch=
+-panel-v3-0-87dd4ec4f7cc@ixit.cz?part=3D8
