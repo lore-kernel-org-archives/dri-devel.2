@@ -2,34 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E65606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 23:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A8E606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 23:10:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uk3vcV63
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgbqD2XS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A676C10E255;
-	Sun,  8 Nov 2026 23:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B9610E159;
+	Sun,  8 Nov 2026 23:10:52 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169CC10E1EB
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 23:06:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03C6D10E159
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 23:10:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 236D161826;
- Sun,  8 Nov 2026 23:06:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F47C1F0089F;
- Sun,  8 Nov 2026 23:06:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C92D461826;
+ Sun,  8 Nov 2026 23:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0561F0089F;
+ Sun,  8 Nov 2026 23:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794179212;
- bh=+hmt8D//cWlFZIK2gd8XAWnqPSRmuN+AV7WN05g2ZKM=;
+ s=k20260515; t=1794179444;
+ bh=SJrTRZvefBM+D9+/dd7LygrzgO1jMHec9WFWbzhuafs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Uk3vcV63rJrfwcgVsOd67WdpIIzLM6aI1T6mxDWcVeAp89KEIrK1qs1Jo/0CXbfVr
- fcB5OfUYm6A1ofkxHDIimthku5D6up2AwfJclwou/xfssTEksmoTFCPh6qRYO822DJ
- EhRnEjLYzoTsnLBGoMmRlIqxXhO3J0qU3a9xkOUBKZ62/7E7gXpM0Y1/YVI0vshtSY
- 52prOE5oxeqq+KikhS0twOVm/jLDvQ4iNuV2r0zebHqOHd4g3oUQfCNUivQzCX6XdT
- UZFL6joCHzaV6LEr0rX1ZFk73a5tAndxwCDhfrV5IIcrXvBmWzHu1pyVC9JiNPnJot
- j+Mjz2sYtcMPA==
-Message-ID: <sashiko-outbox-204150@kernel.org>
+ b=UgbqD2XSdyGktVJEJhI8+QvVyWG+cq/0XfiKL6PYXQjacoO71WmQpzpgK3T9NEgyL
+ MCW+PU/nk2t29laNSG6YPzxo1waBrUXmR3iybjEjV7laQEBl1mK9n4vocFBccU1F8x
+ j5tfv+nVhTD9ayYbH3pP9d7ml5VNKgv86aTSnvuVPM24VoRdKG/Sh9EV2xMnMzesbI
+ Un8OivitWJrCoqvBYuaXCIeM+Q7+RExpdXNOupt3EphzCBK7sK1wOsnoAGf8P2Qkug
+ oTppSKhkwSZAregyJkTePZWKDOFT/ho+EHYl2EIR7zmYMenPpJddSOjHCFBoz2qAfD
+ McA00Yi8UNxNQ==
+Message-ID: <sashiko-outbox-204152@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/9] dlm: Free dlm_ls in kobject release callback
+Subject: Re: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for
+ ubifs_kset
 To: "Ian Rogers" <irogers@google.com>, "Danilo Krummrich" <dakr@kernel.org>,
  "Greg
  Kroah-Hartman" <gregkh@linuxfoundation.org>, "Kees Cook" <kees@kernel.org>,
@@ -57,12 +58,12 @@ Cc: "Madhavan Srinivasan" <maddy@linux.ibm.com>,
  Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
  Gordeev" <agordeev@linux.ibm.com>,
  "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261108223913.3624571-6-irogers@google.com>
+In-Reply-To: <20261108223913.3624571-8-irogers@google.com>
 References: <20261108223913.3624571-1-irogers@google.com>
- <20261108223913.3624571-6-irogers@google.com>
+ <20261108223913.3624571-8-irogers@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 23:06:49 +0000
+Date: Sun, 08 Nov 2026 23:10:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +86,38 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] dlm: wrong Fixes commit and misleading subject for
-  dlm_ls_release()
+- [Low] ubifs: sysfs: inaccurate Fixes trailer in commit message
 --
 
-commit cebf1bf6f5d4b67423eada980e5a294abe491cc6
+commit 05ad573fa4719a7a6e36bb8dcf3c9060b5c194b0
 Author: Ian Rogers <irogers@google.com>
 
-> dlm: Free dlm_ls in kobject release callback
+> ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
 >
-> struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
-> .release callback and dlm freed the lockspace structure directly via
-> kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=3Dy, freeing ls before the
-> delayed kobject release runs causes a use-after-free, and unloading the
-> module while the delayed release is pending results in an instruction
-> page fault.
+> ubifs_kset was a static struct kset using a custom ubifs_ktype that
+> had no default_groups and no .release callback. With
+> CONFIG_DEBUG_KOBJECT_RELEASE=3Dy, unloading the ubifs module while delayed
+> kobject release is pending causes a use-after-free on the static kset.
 >
-> Add a completion ls_kobj_done and dlm_ls_release() to complete it when
-> the last kobject reference is dropped, waiting for it in free_lockspace()
-> before kfree(ls) and in the new_lockspace() error path before module_put(=
-).
-> Also delete the kobject via kobject_del() before stopping dlm_recoverd
-> to close the window where concurrent sysfs writes could wake the stopped
-> recovery task.
+> Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
+> allocated kset via kset_create_and_add().
 >
-> Fixes: 3514faca19a6 ("kobject: remove struct kobj_type from struct kset")
-> Acked-by: Alexander Aring <aahringo@redhat.com>
+> Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
+> Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
 > Signed-off-by: Ian Rogers <irogers@google.com>
 
 [Severity: Low]
-3514faca19a6 ("kobject: remove struct kobj_type from struct kset") only
-removed the .ktype pointer from dlm_kset while leaving dlm_ktype.release
-set to lockspace_kobj_release().  The commit that dropped the release
-callback from dlm_ktype and started calling kfree(ls) directly after
-kobject_put(&ls->ls_kobj) is 8a4cf500f1dd ("dlm: drop kobject release
-callback handling").  Should the Fixes: tag point to that commit instead:
+203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()") only added
+an error-path kset_put() when kset_register() fails.  The static
+ubifs_kset, ubifs_ktype without a release callback, and kset_unregister()
+on module exit were introduced in 2e3cbf425804 ("ubifs: Export filesystem
+error counters").
 
-  Fixes: 8a4cf500f1dd ("dlm: drop kobject release callback handling")
+Should the Fixes tag instead be:
 
-Also, the subject line says dlm_ls is freed in the kobject release
-callback, whereas dlm_ls_release() only signals ls_kobj_done and kfree(ls)
-Still happens in free_lockspace() and new_lockspace().
+  Fixes: 2e3cbf425804 ("ubifs: Export filesystem error counters")
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108223913.3624=
-571-1-irogers@google.com?part=3D5
+571-1-irogers@google.com?part=3D7
