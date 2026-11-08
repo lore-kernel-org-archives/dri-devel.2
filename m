@@ -2,41 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4646F606A320
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 21:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FD6606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 21:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=ewY2GHnQ;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=O2ZuP0Vm
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=KBSlOmhZ;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=l2uqiUZ6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0DB10E0DE;
-	Sun,  8 Nov 2026 21:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED2D10E0B8;
+	Sun,  8 Nov 2026 21:52:58 +0000 (UTC)
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7552610E0DE
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 21:33:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 082DD10E0B8
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 21:52:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
  c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1794173578; bh=mld1YjQVRW7XQTMott+990Z
- WzRSiS3g1hcDI5GmZvEs=; b=ewY2GHnQ/pmFHOwOVOu3RQ+UT4GGCl9LSvnX7r6y6RjbYnG1Kb
- 3lUc88gD42HzocT/TH7KTBy7HvT5urPZKrksCYz+ezN8cu12wMN3eX8Yt6FQ3x4TrBIrjTlty74
- rTWUutVa58JbukKJ8W46reWp/MqZceQ+cK8OXmnfclgEeX8wAJqb5XKR1JmwPBUU+7RUrqPWvm0
- 7m81mNQKgt8+w53ZApnPqHZ1OlkU0843w6AWW4ZwkPiPmoKNvK8UgNBSjK5DyBicJpuNU7C3me7
- AAlL9LuzQtBg+UWIWdDGOhT4pjPZE/VkODP08yWwH6YZfV/8zupFiIi3lacikWb8ArQ==;
+ h=To:Message-Id:Subject:Date:From; t=1794174751; bh=ldyjCjRZaJMZqLlHkHwwP3p
+ Nt4BYTwknpDL4CbSPepU=; b=KBSlOmhZHO4IvV7zDJh+7TdaZEPp4ktdEGhBUARU3KYOR8W/xA
+ 08TdHoO/CZuB+T08vxVRrMvNVvma010MxZyrprz/tyOe2COTiXieoIqT5rj/xpI04StZMu2RQ2q
+ s2SZbiPj0PK9TSDncuJOj0KG1taxXYCu+H+sLHV24PJa5h7LWweOVOddT4IVihegqd6RyJtYwXs
+ +N9pTr56uwpknq+GLDWgUChydUz/SoOU1b1/t4AnfWsmBDv0srWJUvUyHnimKb3cn6Qi9JF6iTA
+ 2YhjO38yj7iXnu7S7QoRyHj91zcNvlDi1SD+8oDAJ0BPf3HMTSGdLHnq2KgE4PlKltg==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
  c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1794173578; bh=mld1YjQVRW7XQTMott+990Z
- WzRSiS3g1hcDI5GmZvEs=; b=O2ZuP0VmVFDWbNwvY1yDWjbb/aiRSnhIza9WfiVOOeVPxGrv45
- R0X8DLxWpNUZ04OdvQgn1Agd/uUjVYKtrzBA==;
+ h=To:Message-Id:Subject:Date:From; t=1794174751; bh=ldyjCjRZaJMZqLlHkHwwP3p
+ Nt4BYTwknpDL4CbSPepU=; b=l2uqiUZ6oD79zJPSbLciQtrJ2sDyB11/MUlsDS6Sp+lboOkAhg
+ hNdTVGU5Ti5HlZ6qDCy0Ga69ILkeLeSZgZBQ==;
 From: Dang Huynh <dang.huynh@mainlining.org>
-Date: Mon, 09 Nov 2026 04:32:50 +0700
-Subject: [PATCH] drm/panel: boe-bf060y8m-aj0: Correct display pixel clock
+Date: Mon, 09 Nov 2026 04:51:43 +0700
+Subject: [PATCH v2] drm/panel: boe-bf060y8m-aj0: Correct display pixel
+ clock
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-pro1x-display-pixelclock-v1-1-c81453fab5e4@mainlining.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBCF4auUWTswycIaryIu2mSio6EJmSqV0
- rs3xeXH4/0rKFdhhWu3QuWvqOSpwZw68M9hejBKaAZL9mwMOSw1mwWDaEnDD4ssnHzK/o2XkSi
- Sc72NAdq9VI5tPdK3+9/6GV/s56MH27YDZUoId3wAAAA=
+Message-Id: <20261109-pro1x-display-pixelclock-v2-1-670b1eeed6a9@mainlining.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NzRKCIBRGX8VhHQ2QlrbqPRoXiBe9RcCAOTqO7
+ x7UC7Q88/2cjUQICJFci40EmDGiswnEoSBqlHYAin1iIpg4c84a6oPjC+0xeiNX6nEBo4xTT1p
+ 3jGnWNBehe5LmPoBOab6+tz+O7+4Basp/uTFinFxYv+6Z594fmplTTlXNy+qkZVdBeXtJtAYt2
+ uHowkDafd8/t4pjFtcAAAA=
 X-Change-ID: 20261109-pro1x-display-pixelclock-8b00f09972fd
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -48,11 +50,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, Dang Huynh <dang.huynh@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794173575; l=1490;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174749; l=1747;
  i=dang.huynh@mainlining.org; s=20250917; h=from:subject:message-id;
- bh=Z1BQM/pf1WR+1Kl4QTU3Y+a6rdxjZnhPHpwNe7Jhyhw=;
- b=UK5ym6da1N3ikhvb16kUg2wQh779tDMoZuYealnE4vJzo9cep5u99nj6kD0nmPkqIkZfQ6S9A
- lvhg64ghIC3AVxgBlSfQbweDUVeaJIGGBrnN8mGyUMu4lr1GnAO31Lr
+ bh=RDBzpND+UCztKO9+6AcOViXnFNhPPCIUlyoaVDr0S1w=;
+ b=t3QoydIZm6OYXACMv2ygYsTQW2VAWKOKDNoWBLYGy9VcJr2OQ8WXng1pNUAm5E1eKlKuUbDcR
+ KSUlDAIe6ddDRUilo9ZZDSA5X1nVYxoeh43iUcE4Rwx9iJB8tmW7OUI
 X-Developer-Key: i=dang.huynh@mainlining.org; a=ed25519;
  pk=RyzH4CL4YU/ItXYUurA51EVBidfx4lIy8/E4EKRJCUk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,14 +83,19 @@ The panel is 60Hz, but the mainline driver ran at 165268 Hz
 which is 61Hz and the following formula can confirm this:
 (1080 + 36 + 24 + 96) * (2160 + 16 + 1 + 15) * 61 / 1000
 
-This causes the panel to show heavy signs of ghost touches, making
-the display unusable for anything practical.
+This causes the touchscreen on the F(x)tec Pro1x to show heavy
+signs of ghost touches, making the touchscreen unusable for
+anything practical.
 
-After the pixel clock is corrected, the display no longer show any
-sign of ghost touches.
+After the pixel clock is corrected, the touchscreen no longer show
+any sign of ghost touches.
 
 Fixes: a19125a28112 ("drm/panel: Add BOE BF060Y8M-AJ0 5.99" AMOLED panel driver")
 Signed-off-by: Dang Huynh <dang.huynh@mainlining.org>
+---
+Changes in v2:
+- The mentioned "panel" and "ghost touch" is the display unit on the F(x)tec Pro1x. Whoops!
+- Link to v1: https://patch.msgid.link/20261109-pro1x-display-pixelclock-v1-1-c81453fab5e4@mainlining.org
 ---
  drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
