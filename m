@@ -2,101 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94388606A31A
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 03:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1ED6606A330
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 05:16:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D/nVS26Q
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sScwjyR9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC08910E165;
-	Sun,  8 Nov 2026 03:46:31 +0000 (UTC)
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
- [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4854410E0C8
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 03:46:25 +0000 (UTC)
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-67bf3c6654fso113815d50.1
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 19:46:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794109584; cv=none;
- d=google.com; s=arc-20260327;
- b=QT9tNgeNqFoKZwK87ldNxS8uNeJeyxcSkd2LX9uAzZ9hJtn2TYHT7KvMXiK7YnGdZ2
- 8e/phy92FE07/Yk86x3J4BQnN6AicIJUtit0rKj6ncN1CKqnWB7MiIVI3+6bh0FJB34S
- cRo9InLZSArgUPn37zZ8ND8EEDTa60syUvPhg9a9R8h6meXe10ha2WYV7QGK171cbSwr
- d9c2grqlEZ1YJX+e5qK3avbIxo0kcEsDkeLWymPwlGft14A1w9DlW/LvYzNyF9FQmI8K
- 7mdRLZyaZ23Ol5Z6RRT/w42FQENBRCMjcKCoHWK+O0wFhpZ81HweTuY7oagzvj/m3FYL
- NCYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mwGWLAWLhd4acRs/22QrN9a6HRE6bKyPJ3bU28Dz5ng=;
- fh=5AHNeLWvBOEzGmUILUhTn1Sn3yWcRYhb6DaCSq03z1g=;
- b=Abr1Ummqs1O9rQl8LoSVrF1WYeSb6pXaF9/pyHmq0QJH4pbkFGkEMy5gYk2TRAHlzD
- Fh00BDKZo0mUv6jNWUpMLzsZvzmkUNHI285PiJqV40XDFJDgOEdC8RSXltbXl/IAdHv6
- oaOtJPijGNQ9JriJN2ohJoW50El0VZ6FuP6FW9v9IrjoUG55LivCEZPxpxeGkDurjhHs
- zAfgIhM2WiQPJd78tmqwAO6GpulJXDUiJG2MfWPKZzsVeMY6s4M7uwMAVnIC2eHPo232
- 5pZoY9HWcma3n1Athku/fgE37a35ND4NMDpvvxBk98x28jmQkAAru+gQQ65m/yHJ4bzM
- jlKw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A9510E12C;
+	Sun,  8 Nov 2026 05:16:49 +0000 (UTC)
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF51810E12C
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 05:16:42 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-36a315ed211so236086eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 21:16:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794109584; x=1794714384; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=mwGWLAWLhd4acRs/22QrN9a6HRE6bKyPJ3bU28Dz5ng=;
- b=D/nVS26QOXIVuA36KTtIiDjjqPIFmP2GlGld4gJOVemRFm5xdnk/uG5VvLiACwsQac
- FFlOMmiUuDwWEX83dILqVxMFq1/2dx3U2/8k0fQtY7B9PB1G3i56jROT2jknSkG2xwAF
- t4PJzFKg39WRvcDcfW7yeLoSh++Z6v4gUXJWlwV+O/YmYogVdgbG36K8Nk+XaZXCXjra
- vDZyx1LI0qiti81dzGoWlvhzGy3Z0+PZ0qnv05UXRURT4WPre5bsSBhRpNOSOl855xch
- rRANahXpiwBr7FvYLftd9/5f0vVfybFy7Wqlr3ArwWqjuvjFjWuzBtmvXCQ6YPcKv7cG
- PzrA==
+ d=gmail.com; s=20260707; t=1794115002; x=1794719802; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=gT62dXId+eAb8ukDUrV+GLnTEFym+aAlD/IHLPxFdUE=;
+ b=sScwjyR9ZwgIge6v/QaMsz9QbmDA22B4uH4+9Cfz9lpaVO0T7OEeogn/EDDutUdPNk
+ a5iusj4AH1V8co/cdYVVidsNu8BuowcOaLkKEXJmROl2bkmdyql/3aqXd9Xde5sFx0Jx
+ ntVZ5PSRnOmGWCKiQG/oqTrhRsWswgAVv+T5VTLl+ASbXti9n1W6fAd/eposPhAs1JpW
+ gBxacjYJzXsPrLZI5AT4d+khtktQjXomdorBA54cQgLTQKR7Hpo0cXURIwm+URqJobz6
+ 9aMPx483Swhi/3u+LKuxEiIw5/FXlOiFlvplFffgnrbcFQmD3bTkBmcWBFoKWCm2lBTu
+ zN1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794109584; x=1794714384;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=mwGWLAWLhd4acRs/22QrN9a6HRE6bKyPJ3bU28Dz5ng=;
- b=LXfNxMi+yRUGJZrB/LE/4aXY6LS1vJy7S2mmQtKz2KoUSSZt5Zp1OnXgLZ6XIhwic6
- bTy6ID1El3mdayEiVtPrRkqsjicAka3MtUz4PnYR6NWZ8NPTGZNheUrCfevfTYIzDUzE
- Pg6f90zRtjVXSwrX9hpJFC46g8OvMq9hG0rkRus+rgqNd1/AVDO6oV+vOzzD3mMzVSfh
- mwycUiawMZ1pdOmsGawxfxZQqPeivMzRX0XJv1/H3XnzGNdRm70XuPi5/DD+TA2KP0R2
- aA4Fh2ivtLPGoyVJ4zMBveya7LPO7s3h+X+qmvoiZTAzcs9qRcb88DFBJXK0Sf0a7E+p
- l9+g==
+ d=1e100.net; s=20260707; t=1794115002; x=1794719802;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=gT62dXId+eAb8ukDUrV+GLnTEFym+aAlD/IHLPxFdUE=;
+ b=WxAgxX5lpNMh/tC7zHaoUWaqb8z70mxiD/vVobjanUdIzAFpIVzQ3jvmyJy8ltjMV9
+ dBW/oWS7Vo9oyiNeZVRsP3b84mHWnJ9nyWHAR8PKsxD/nUMau5tzr8t/UYe5hVo74m1L
+ RwfMXz0RiJqvJtcZilX68Yw3MNZaHc25RVWnWBpwPk6GEUw9N1LXVeUkjel2JqQH3Uyl
+ Q14x7A5zOLzDlTJtJCGIpiskfCy1HLDo+AREQVXsvq4SSeIyRvhg6ll8DqAaYkSM5zMR
+ D551Wt68ePjYZgrc2gEsRDcbdJ5pBEemkzWWyIR5XiLIH0fDquaO/cabTeR1sOeeLSLV
+ qcRQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErHCteX5V5K9Y1Z8yhoCBLn+AXNiWTbnjfYLnfvZV36zzN57PzGFJ81tZk6nL0AFXhuL/ab5A24VyBc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+fRpKR/9t7NmMSp5PXCGd/6dxw/StlAfY/YKctWlnEIDESxJAC
- KV2t4trAsMe1GR16CkZjQNsAgU+F+fgaS0P51tKPH4wtDX+urtYKNb7QnTQmELoMJfoTEkJWzpS
- SJfNL5CvEA4QY/BJctppUAyrMeBBq5w4=
-X-Gm-Gg: AYBFou25JejSwqR3U1AGSyxVsVuBaYh5it99AhYrXaCnnWed/iqlFdZaOeKVc7xlu7/
- Q1+3TxqF5Uyma8KXKxZCSDX9nJrjsbpYKVkDLAose1ezxUSProNMciV4isAaiHDpYFuwTpQkFgr
- uH4V5xb3R7MkwDZaN5iBztY7yzxwvdrnkTbVYRGB31FiU3ze5MEC1hFlvmyQPv3yVCjbgnO33LQ
- JQp7NuMeWmPzBKm9gG1Y3KXzu3bFnx+OqSgBOZdyxgi7N0uLNMS6aI0yLDlHTGuzSb39Ud0KVcU
- pzsdRc6MJEaAMYci/VPHIRukcvjf4AYQ/SfrIqYmi4hiviO2AWYWCPQ6oxqR6FdIrsHkmBGnh5T
- VWqV7KZOmcRmnx6a/wQ5Z0E+8H34dvCwoytQa9N8=
-X-Received: by 2002:a05:690e:4105:b0:67b:f328:267d with SMTP id
- 956f58d0204a3-67c3d7b7539mr396607d50.22.1794109584001; Sat, 07 Nov 2026
- 19:46:24 -0800 (PST)
+ AKwUvByVDaGq0vfeNMaTDgBBsCdTmNlaJVfVKWOY7GMcxYPWaKC6VCnweJAuWMWdFgbxHpJLU/VV3rtlCME=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+iQvXYcanhzRt3IdDuccPLtf47t6VLJrvngeS8Jz0h88SNWll8
+ DJWf68wBJ9pdIjK0JL6Sbll1M3j8f/vgZjVGQHiDzmFJTFKqwFGACe6q
+X-Gm-Gg: AYBFou0U/2orrHwU66LzhWS3p2kfK0zrbyCS7sO54RRYsKIVquqDGNVlZudvLjy2ye4
+ MAquuJKFUbh5txVOJZW4cDp0X4zFEOqd+STknQEJYJkjbd6fKAlEj3pfd2CYKjYScDRSAdHd+o4
+ blKbt40AHqP2E3UA8WIyn1gRnxB3C3XJDMO/G76P8SCB9T3aOvn91Mr+Zrcp89It1gX62jbieUP
+ XFtajrqir7j7m6S4Lv/kwftNIrpy4wFKnUNwroRSlNwOSFaGc5op9i0mxMVuYmW6E0ZIw57nxlW
+ IdU/R8GZ8vZFhw5HtQNGuRt8DpOAxjqt9aVMD6NV1gwWbJXVRUYfC+Qy1dP8xCXtMLBX2UAedGr
+ IcYxKqtCgomfy66rRyqKM3xRQbrGhygqlOHj/jlyY44NAK0Wd22dIw4Cu6vwg/pg1EUGiJWzvi/
+ /OOGIcAd1DUENMenCsj1NbCUPYipbP+GWWraCh9N4qnx7T8PFT9RhcnGSzcNAJWrrVPREJV+Qxw
+ N0maUQuMHany2qKPvhB71MCP/mnsrgnGKZws07J0uSdBO1KEhygTLKvX+gDc+c+Qg8XpYUV/hX4
+ oDp7Sl86YG4SkEWll+lcORg6Yw==
+X-Received: by 2002:a05:693c:8819:20b0:36c:dbfc:ee6f with SMTP id
+ 5a478bee46e88-370f6ec412cmr5291748eec.14.1794115001952; 
+ Sat, 07 Nov 2026 21:16:41 -0800 (PST)
+Received: from [127.0.1.1] ([121.125.115.175])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-372667d60absm2750989eec.26.2026.11.07.21.16.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Nov 2026 21:16:41 -0800 (PST)
+From: Gyeyoung Baek <gye976@gmail.com>
+Subject: [PATCH v2 0/6] drm/imagination: Add async VM_BIND with sparse mappings
+Date: Sun, 08 Nov 2026 14:16:22 +0900
+Message-Id: <20261108-pvr-vm-bind-v2-0-730103d2cc9a@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105-fix-sparse-iomem-warning-v1-1-35c13069f271@imgtec.com>
-In-Reply-To: <20261105-fix-sparse-iomem-warning-v1-1-35c13069f271@imgtec.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sun, 8 Nov 2026 12:46:13 +0900
-X-Gm-Features: AclHuK_ZxINUxblx6s00SElV5UJduoCpBR5BIabEhj-lLu95QLXBiv2fJIiVvgs
-Message-ID: <CAKbEznvHw-0ovzz-YFnY5t58cCpYN0f+9Hywa53rgeX3nZzi5g@mail.gmail.com>
-Subject: Re: [PATCH] drm/imagination: use appropriate poll function for
- non-iomem
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- frank.binns@imgtec.com, brajesh.gupta@imgtec.com, 
- kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKgF8GoC/22QzU5DIRBGX6VhLYbhAheaxvgeposBhpbk/gntj
+ abpu0uvGjcuz2JOzjc3Vqlkqmy/u7FCa655nhrIpx0LZ5xOxHNszKSQRljo+bIWvo7c5ylyCKS
+ ScAh9r1i7WAql/LHZ3o6NPVbivuAUzpsjCNkRhdQpFY2K2AdrhfYGlZagQ0gyUhL6R1Xo/dp6L
+ t8+NlKtuPXsd4dHDgjQW851GnHhOAx8mOeFr8CBaxVMb6ICadzracQ8PId5fGG/VQ3GfGlDo0b
+ bQRddSM46b5PuUBvr0BmyDnxyLnkZ2GPPOdfLXD63Z62wVf37l1YguECRJHjqY2f/Ctjxfr9/A
+ Wnul1h2AQAA
+X-Change-ID: 20260817-pvr-vm-bind-1ce4f09a1774
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ Donald Robson <donald.robson@imgtec.com>, 
+ Sarah Walker <sarah.walker@imgtec.com>, 
+ Matt Coster <opensource@mtcoster.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,81 +105,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luigi,
+Userspace MR:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43794
 
-On Thu, Nov 5, 2026 at 9:26=E2=80=AFPM Luigi Santivetti
-<luigi.santivetti@imgtec.com> wrote:
->
-> pvr_power_send_command() checks the contents of some memory on the CPU
-> that's written to by the firmware. readl_poll_timeout() expects the addre=
-ss
-> to read from to be qualified with __iomem, that is generally used for
-> registers or memory that is accessed through a bus and other than regular
-> system memory.
->
-> For PowerVR in particular, __iomem is not accurate as the memory pointed =
-to
-> by can strictly be system memory only.
->
-> Fix this by lifting one level of abstraction in the macro expansion chain
-> and explicitly provide what routine should be used for reading.
->
-> Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure =
-and META FW support")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610302136.3nli2ijx-lkp@i=
-ntel.com/
-> Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
-> ---
-> Use a different routine when polling for reading from system memory, in
-> particular one that doesn't expect it to be qualified with __iomem and
-> at the same time try not to change the timing.
-> ---
->  drivers/gpu/drm/imagination/pvr_power.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/im=
-agination/pvr_power.c
-> index eb4b6ecdf4f4..c7c160913d7c 100644
-> --- a/drivers/gpu/drm/imagination/pvr_power.c
-> +++ b/drivers/gpu/drm/imagination/pvr_power.c
-> @@ -59,7 +59,8 @@ pvr_power_send_command(struct pvr_device *pvr_dev, stru=
-ct rogue_fwif_kccb_cmd *p
->                 return err;
->
->         /* Wait for FW to acknowledge. */
-> -       return readl_poll_timeout(pvr_dev->fw_dev.power_sync, value, valu=
-e !=3D 0, 100,
-> +       return readx_poll_timeout(READ_ONCE,
-> +                                 *pvr_dev->fw_dev.power_sync, value, val=
-ue !=3D 0, 100,
->                                   POWER_SYNC_TIMEOUT_US);
->  }
->
->
-> ---
-> base-commit: c347fef5f8f8927985bd67835331ce4cf7ff43a4
-> change-id: 20261104-fix-sparse-iomem-warning-2111c1e6dbed
->
-> Best regards,
-> --
-> Luigi Santivetti <luigi.santivetti@imgtec.com>
->
+This series is for Vulkan sparse binding.
 
-The previous sparse warning is gone:
-    pvr_power.c:62:16: warning: incorrect type in argument 1
-(different address spaces)
+- Patches 1-2 switch the GPUVM to immediate mode.
+- Patch 3 moves the existing map and unmap paths onto a single bind
+  entry point.
+- Patch 4 adds the VM_BIND ioctl.
+- Patch 5 adds asynchronous requests.
+- Patch 6 adds sparse mappings.
 
-Tested-by: Gyeyoung Baek <gye976@gmail.com>
+Patches 1-2 were sent separately [1]. They conflict with drm-misc-next,
+so they are rebased and included here.
 
---=20
-Thanks,
-Gyeyoung
+Testing:
+Tested on BeagleY-AI.
+- The existing IGT pvr_vm_map passes without regressions.
+- dEQP-VK.sparse_resources passes for the sparse features the Mesa MR
+  above exposes.
+
+[1] https://lore.kernel.org/r/20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com
+
+Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+---
+Changes in v2:
+- New patch 3, "Route map and unmap through pvr_vm_bind()".
+- Split v1 3/4 into the ioctl (4) and the asynchronous mode (5).
+- Bump the driver interface version to 1.2, as 1.1 is already taken by
+  another patch.
+- Link to v1: https://lore.kernel.org/r/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com
+
+---
+Gyeyoung Baek (6):
+      drm/imagination: Switch the GPUVM to immediate mode
+      drm/imagination: Stop locking reservations around map and unmap
+      drm/imagination: Route map and unmap through pvr_vm_bind()
+      drm/imagination: Add VM_BIND ioctl
+      drm/imagination: Add asynchronous VM_BIND
+      drm/imagination: Add MAP_SPARSE to VM_BIND
+
+ Documentation/gpu/imagination/uapi.rst     |  15 +
+ drivers/gpu/drm/imagination/pvr_device.h   |  10 +
+ drivers/gpu/drm/imagination/pvr_drv.c      | 331 ++++++++++++
+ drivers/gpu/drm/imagination/pvr_drv.h      |   4 +-
+ drivers/gpu/drm/imagination/pvr_fw_meta.c  |   6 +-
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c |   6 +-
+ drivers/gpu/drm/imagination/pvr_job.c      |   6 +
+ drivers/gpu/drm/imagination/pvr_mmu.c      |   2 +-
+ drivers/gpu/drm/imagination/pvr_mmu.h      |   1 +
+ drivers/gpu/drm/imagination/pvr_queue.c    |   3 +
+ drivers/gpu/drm/imagination/pvr_sync.c     | 146 +++++-
+ drivers/gpu/drm/imagination/pvr_sync.h     |  13 +
+ drivers/gpu/drm/imagination/pvr_vm.c       | 781 ++++++++++++++++++++++-------
+ drivers/gpu/drm/imagination/pvr_vm.h       |  63 ++-
+ include/uapi/drm/pvr_drm.h                 | 129 +++++
+ 15 files changed, 1303 insertions(+), 213 deletions(-)
+---
+base-commit: 2d5a8313d9cf989b8f53a5689a96e891bf99fb2c
+change-id: 20260817-pvr-vm-bind-1ce4f09a1774
+prerequisite-message-id: <20261015-pvr-unmap-all-loop-v1-1-54c676d41269@gmail.com>
+prerequisite-patch-id: 5188d944e90112e4cf2678e75255c7a91434ad09
+
+Best regards,
+--  
+Gyeyoung Baek <gye976@gmail.com>
+
