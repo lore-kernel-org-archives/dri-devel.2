@@ -2,62 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E530606A322
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 22:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A63606A321
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 22:40:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cY7a9U0r
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KPwVfHjF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F8310E2EB;
-	Sun,  8 Nov 2026 22:40:05 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8725810E1B5
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:55 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-36ecd5db581so237299eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F9810E391;
+	Sun,  8 Nov 2026 22:40:06 +0000 (UTC)
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 936E610E82F
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:53 +0000 (UTC)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-30bcb065bfdso724724eec.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794177595; x=1794782395;
+ d=google.com; s=20260707; t=1794177593; x=1794782393;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
- b=cY7a9U0rIB8PIAsHl4SSZaUy80Au26AM+AjkdaxScVgKdmW8prvTt5W/t/8X6zcDb2
- aMRb1Frz8CInoRCFGPwvdpnrAyR5B7yOZKNAbox18JGCZoBtlYn0iqKAp16QsrVJEA2B
- 7q/vn0NVyoNLBEUHZLBsetJXr3YBtBIg+5quYkRZ8wELSUnC1AO8MHtagmW5hZh0RH8p
- 4Z1fODMzRWSKOSVZnmLa78R4TfaBFdUY28vF57dOS6Gu0PEqmn7IehdsV284Aa7YN83O
- 1sgq5fnCn2TLJ8JHHbPsWKyfmVtyiidIzxHt7T1GbI37gggrN07pDhAtYbVAFjJycY68
- BVqQ==
+ :content-type; bh=noN8ey05POi7MkRY5IldCk9pju5ZMENfN/kneqqJ3/c=;
+ b=KPwVfHjFFH+gwS7Ytu46Jb2OLFtEmtmXtDd7+6wS7ZDROc9RRllH66e4YcFaHPcUbX
+ cUR+ygKulIEW69Y106QezVYk2YRr40MIXxOWtZW+mcO2F/37EZUG7vCyakCUUmvkBGOq
+ 9RMznzU8NYa0lsO6AemSPRXYQNNpqOa2Q+aDMceiKaPHjH3HlNqXDzjcN1oHD/iD9bAd
+ Y1G1dPZLP2+Qo/hRdq5Atm3R6tvVl3N9LzxLAdMhbDaQaik7GoMCFWuYJJZhcbgny4MR
+ XbOl6TbsyppSGpK1HcoddewWTbjGAh9txlBuqzmBeBM4qpPmRIyhwrAxNHBK5ISWXC82
+ 75KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794177595; x=1794782395;
+ d=1e100.net; s=20260707; t=1794177593; x=1794782393;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
- b=PyNDXKlmZzR1o9mAvdlWmMHoa7PlxCt8YAJC9Jhj1HYTowuK4jb3uhYug375gbnNp8
- QQi6LSCZfLuJua0PRAAGXpSyiRmVhN9EZnaxhxQ0nUDkTZVfz7TsqS3KVcmkFW5DIKyE
- hrpXpH0wcGUEKhQMQo5U0BZ5WPSuah+1UTlNcZjPYvFkpQHLDNBnKkIKR0KnP5QueC+w
- P6MMwzAEvx3HxyIQjjdEV5PxRE6RsBloTfrkJK8MinTyOsuz+dlEoaNccQQXs1Nk2yLf
- 7FtSPBEoTi2zjRMAmcTgK3oS7VYVqML/bgjcpdoJrMGC9DD8UfOE529GMLbI59FVZ6Wg
- 93Wg==
+ bh=noN8ey05POi7MkRY5IldCk9pju5ZMENfN/kneqqJ3/c=;
+ b=TiiJY/AYOiXowUbWAwSY0BSypXYuehdqVFARYKZ/kPXTlVN88V1JbeV/6zy0lBH6pE
+ LE/+WldD3/cnYHVxjGEyj1MScJb/XCjLh/aY1LiYVKBPz1zo+Vrfr6oOtw2NrE4LPxJO
+ rFjf2YJG9Q9KWAjO+bWaXEFRWWA1gzvCQ5BdgaS13r81DgC4hFiEs7gwZCM7Sg34bkpm
+ 4/B/8GaJAAQevSB9QEyW+mWvuBE+R+TuklUlG9CWz2UPocJKl18nRrQgNJly7zxbbFfs
+ hKJeCIZd/v6Wdr60hSvVAX/zbF9mNXQX2tbV1bnTRDI5RhIteQS6P1JbsFEr6cbY7Be9
+ rVoA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHwdCpFdswSpvNgzutHpIQc/JMoiwnaJMK1kvfPeBX4HLVRrpXxTNe2mniHjqlfbd/4+mCwAfvmhyU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+qh5QpCoxGIe0hJowCgzqtLQdvVuVqvk7L4Ht7ALp7LKtm+pVA
- jICyg3E9hHbRxwWD4htsO9Dz01VZJba17wTDCZisfM22ETDd+ut8kmF/87zp3kfKAeVjTT5rhDA
- fxongfFS+lw==
-X-Received: from dyblf39.prod.google.com ([2002:a05:7301:a27:b0:373:6c70:7c9c])
+ AL+hErF/hphNbVBi0mI173pTjpEcHYVsPtxGd/m1bEnvSElXQlENBmNU5qwZhN6SCGCmOV6g1JXqqah2xmc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8jpJFI3r2xo9mjsMjtDsLIhsjt7z7GY8hqhKC7WEB/mGqt3LDi
+ cjpDP2v3459PkhdH3PZHqtvkl+oAG4KbB73zc4uQSTW1/aJNeEgnhNL+sEvx6WOKm9vcUT0Yy6b
+ qOzxwTVDl+A==
+X-Received: from dlam9-n1.prod.google.com
+ ([2002:a05:701b:2089:10b0:195:beb6:14cc])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:d584:b0:36c:9f1a:30b8
- with SMTP id 5a478bee46e88-3725661520amr5331882eec.31.1794177594363; Sun, 08
- Nov 2026 14:39:54 -0800 (PST)
-Date: Sun,  8 Nov 2026 14:39:11 -0800
+ 2002:a05:7022:28b:10b0:1b0:430d:d81c
+ with SMTP id a92af1059eb24-1b39feab6a4mr3897188c88.25.1794177592505; Sun, 08
+ Nov 2026 14:39:52 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:10 -0800
 In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261108223913.3624571-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261108223913.3624571-8-irogers@google.com>
-Subject: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+Message-ID: <20261108223913.3624571-7-irogers@google.com>
+Subject: [PATCH v3 6/9] xen/sys-hypervisor: Add release callback to
+ hyp_sysfs_kobj_type
 From: Ian Rogers <irogers@google.com>
 To: Danilo Krummrich <dakr@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -111,74 +113,39 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-ubifs_kset was a static struct kset using a custom ubifs_ktype that
-had no default_groups and no .release callback. With
-CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
-kobject release is pending causes a use-after-free on the static kset.
+hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
+with kobject_create_and_add() (which allocates a dynamic kobject using
+dynamic_kobj_ktype), and hypervisor_subsys_init() in
+drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype with
+&hyp_sysfs_kobj_type, which had no .release callback.
 
-Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
-allocated kset via kset_create_and_add().
+Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
+kobject release behavior.
 
-Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
-Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- fs/ubifs/sysfs.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+ drivers/xen/sys-hypervisor.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
-index dbf967dcf26e..e20931e3a62f 100644
---- a/fs/ubifs/sysfs.c
-+++ b/fs/ubifs/sysfs.c
-@@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
- 	.release	= ubifs_sb_release,
+diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
+index 91923242a5ae..0e8a2cd69fd6 100644
+--- a/drivers/xen/sys-hypervisor.c
++++ b/drivers/xen/sys-hypervisor.c
+@@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops = {
+ 	.store = hyp_sysfs_store,
  };
  
--static const struct kobj_type ubifs_ktype = {
--	.sysfs_ops	= &ubifs_attr_ops,
--};
--
--static struct kset ubifs_kset = {
--	.kobj	= {.ktype = &ubifs_ktype},
--};
-+static struct kset *ubifs_kset;
++static void hyp_sysfs_release(struct kobject *kobj)
++{
++	kfree(kobj);
++}
++
+ static const struct kobj_type hyp_sysfs_kobj_type = {
++	.release = hyp_sysfs_release,
+ 	.sysfs_ops = &hyp_sysfs_ops,
+ };
  
- int ubifs_sysfs_register(struct ubifs_info *c)
- {
-@@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
- 		goto out_free;
- 	}
- 
--	c->kobj.kset = &ubifs_kset;
-+	c->kobj.kset = ubifs_kset;
- 	init_completion(&c->kobj_unregister);
- 
- 	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
-@@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
- 
- int __init ubifs_sysfs_init(void)
- {
--	int ret;
-+	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
-+	if (!ubifs_kset)
-+		return -ENOMEM;
- 
--	kobject_set_name(&ubifs_kset.kobj, "ubifs");
--	ubifs_kset.kobj.parent = fs_kobj;
--	ret = kset_register(&ubifs_kset);
--	if (ret)
--		kset_put(&ubifs_kset);
--
--	return ret;
-+	return 0;
- }
- 
- void ubifs_sysfs_exit(void)
- {
--	kset_unregister(&ubifs_kset);
-+	kset_unregister(ubifs_kset);
- }
 -- 
 2.56.0.455.g6c5a503b38-goog
 
