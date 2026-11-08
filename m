@@ -2,72 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C02E606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 19:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7620D606A31C
+	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 19:33:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKe140Od
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OlCBL85R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9BB10E831;
-	Sun,  8 Nov 2026 19:33:42 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D23B10E831
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 19:33:37 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4a59100fa83so1520395e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 11:33:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCBDD10E832;
+	Sun,  8 Nov 2026 19:33:50 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FCD910E832
+ for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 19:33:44 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49d05d51553so1321945e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 11:33:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794166415; x=1794771215; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794166423; x=1794771223; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gA1PeZUXcKToREHFxU8m4mbzxqXNLHeYj9MYxhwCIdI=;
- b=LKe140OdmUcHmY6fIrgeOnXuvjP0+x16DAU68fJW0wWpbSvn4yq9JAHrQLUCwxW2K2
- EegP32MgTVdqCYfuKOMXkcs0ZuXcMfr9XX0YJl1Awc7wSRZRTCSJdC1wbHvKTJx/NRf8
- WNjVe24EAfxhFgVXMPizCqn0u9evc+pdD7rUn6WrJ82mxbiyNad1gGD0nbQyfeSNtftC
- D6W9XwKzVBqDN+LsbWneBa/0WaNJnFQ6eVp3V9WXBL5/Hn1ajEEE2Z5WCdSxNES3D2C5
- YeOZZRq0Tm/ewsCT71OlAjaKuYyADbyv5+GQjVezDyhKbGpqiOBpAHFJFZRqt2csEq0a
- JkEg==
+ bh=ULPlCRcRnS9OCU3V953l4VzKGw19SLsXrW05Cs1Xiyc=;
+ b=OlCBL85RYxcWixZYqbs4slnc3+FMHdRYcV73ZnEPj2zoNagmQiol8HX1y5jV5Cp/hr
+ 3cuavHiaFkW7JCx8Ws4r/O8qGYIhPrUDoCwX9Fp5Vic4OXe1GvIK1j65/bXb/bYi0QTc
+ 5lbXGle6uyN1CGRfhHVXQLK5Z879f/qAb0EqfgYQ/IYcG/1wCSoqqRGBXmlt5b5IOA8b
+ rYTldFldliloDo+um4Sid/nO4BDAM+LYjiR3bbk/5C77jd4bhyZUlMCf+Bc03xdbE5ok
+ DjhffPpaTzZRJnzwGN5k0aqRualtiFYZIrHHCzoNTbJIigVb5NCt2u9uFpLJNybUdzXO
+ 6npw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794166415; x=1794771215;
+ d=1e100.net; s=20260707; t=1794166423; x=1794771223;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=gA1PeZUXcKToREHFxU8m4mbzxqXNLHeYj9MYxhwCIdI=;
- b=cFjarmaNBrCQSAyKY3VGblqR9Gw7lnccZSF78fElu3SXQ+isvYxn8K/ScdXtEVB4sd
- PfWejH99arMKkCflakW7St6A75gPtvAelcLWhuXTpNX9eu9NSIj8mP65hSPnB0DB6zGs
- JThYlRTYjm/SUhBahMvRvHoOyM9WCULSW2dKYiaL4OZpmCXtGBWX3KVdEBlCN+8VbXBR
- OOh7Ul3igCEJK0iDK0Lm3eZTqDCe+ez83aA+mbd3c9LRxTvgL9p/lGTYIDqKNgaFmzOq
- pIDJTcU4gVN1+XpvLXu+qoburVr6zbOm9aUKqZBBjny7Wi3FjwxHBA3ZNQdUDeZaCahE
- Mi0A==
-X-Gm-Message-State: APuU4Z9thxAalxgPFofgRLXCuO83jVur3a3n4rHcIiZSuILdv023l9mM
- 3lE6Mi4FGJghsI2wKWAcBxYJAvzhYD5g7cxZNgIU1AQOJWg7K4Mb0sxA
-X-Gm-Gg: AYBFou0aauukh0w6RhXTiDuryWX1xOhzhG0alf/onZO39GccgQJC7Bc94WSV//haI+W
- EyOzsN2JGNbUExKppMFPIXzH7v91pc2u217OW2xJn4U+RH7qKxF+bY4g6leyw1aQsSItcEMkTAv
- x42flB7GXTPmMlrrNgbB6/LLCFjc0/Xv1Nuv5SGUzQhoXn84Apa7AcJLkAAX/W5MF2BhHOVtzPs
- X29UX6ax6uQxUlHUGFOnP7XJZqmcBR0DfWXUBGVbeCfGH8swsGDb5Lj3wh9fCxov5ARda87TptK
- cplozDz63vJimT2+hfgyDlBvEQnAElT2q2oowQ94yS8yl1inNIJrR66lpnrKH1QATHwg+ECeAFY
- ZORT9MMDtu2w1+jyjONaVBWVAqxbNCnK3t407A1y3XHFoUSJKcy1Ia8sn3vtBN5I62sTnqyq+1f
- G9KKMU0fGdjUozcWX7dZEScHpwbOFI8VVlSVyR3+CFRG8iEskJgpR6+knsl9sGlaFFmYr4I0j+Q
- k83999YPhoV5XeMKwTxm9rh/d8vg36rVjeS5lLxIaj3ChoCzs55M/RaSOdW+uuNzNIHd05uykzt
- I8POrQ3YKBHvu3lD7T7HQFp26YUczxyydooS/vqulA==
-X-Received: by 2002:a05:600c:1d18:b0:4a6:42cc:bf6c with SMTP id
- 5b1f17b1804b1-4b960d9bb75mr43471715e9.7.1794166415480; 
- Sun, 08 Nov 2026 11:33:35 -0800 (PST)
+ bh=ULPlCRcRnS9OCU3V953l4VzKGw19SLsXrW05Cs1Xiyc=;
+ b=KGW/ol2pVPsFtioCBGFNlZ+7fRczmHoSUuVQDFsYd0BcLOl9NuuJH4bIGDC/fyomws
+ LCZ64PTZD5YvOpdpAY3StwZFFzUQSbDnkLVut5ActDDP/Y5lhsZzTKdEXMfRVCyxQD5V
+ kqnpOaKnTzZgl6mEZOn2f3OezYi6Qzjg1+RXZh+9wSr6+WbZbfBCzAj/204R9dCdyEF+
+ nb9CD66RVku/y4NYc7onAFkM5yfKY6o/hKBKUwlAjb5cq7aOy8vfQSqtv6zkjvlgkk7w
+ SDmHPu/qcYK827foxvS4vMmt0lqyUzOk5gkM1Xy8yKZSuxJebxnPOdQR7P05tL+RJnBd
+ dxpg==
+X-Gm-Message-State: APuU4Z9vIz6H3BdqlVIRJhpXDx82cy47tAzisicsQT7A0Df/eAPIGdlv
+ Qy7BJLX9JFt0Q8IxotqKvlunKKgucYUn0/K56Tg9duPh0ikrkyuSSdMW
+X-Gm-Gg: AYBFou1QBPT6oWMroznr+XMJ49qt5wSIjU3pFc9vTy2/ocbWyCoh7UoDyh5EXzKsi9f
+ pI/wPxxiQI2H9c8SH2wRjx89siSXEOHYuNwEgAt4sOESvitpflLWkG1PgKNKtH83n3WDN7XBYPT
+ XzZUcTsJxKgls+UdE69qd/GJkEe7f0zCan3kbSHrUGb0HNyQYm5eqaPGrM8alZMlIlt9LabFH37
+ nY4nZogZkHzKaQHBDqO5UKIr8tfJ2ZpGCB2QvLzbWj/kTCG/+n0RCBgKD9TK6QWGhV8xapFCpgT
+ PPdOmyIOO6hq+U7Myova848d9OlEC4owZaz1Khq/ZbHGGqbSX6p1S0PlsWf1w0OOL/FD9nXwnez
+ +B5noXzjgpDVI4mkYq25GELnY2c9gPWd3+nMqPHg0FXHBYxG4sZx2a7Zflm7DKD4a1BvJaAf31d
+ drLtju8AX1gjdATnzTve2ryE3UzKYBo8Yxkk0+Myde9Id25GJlu9nCJQPIiHWR51zu7ZGyMJfcH
+ RD7JeqUHhAsjiPTAI/MWaKQc1sAL8eDLs1ppSPBVBbCCjl+0Jre7iR99mjAwKLgJ6azDJn8WnDE
+ 6c0xtlhTWw4gEP9ErUpSsjXi5CFQJ9aTK6kQVXxTRQ==
+X-Received: by 2002:a05:600c:8b34:b0:4b4:49d7:bc25 with SMTP id
+ 5b1f17b1804b1-4b963c6d78cmr39472145e9.21.1794166422600; 
+ Sun, 08 Nov 2026 11:33:42 -0800 (PST)
 Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.30
+ 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 11:33:34 -0800 (PST)
+ Sun, 08 Nov 2026 11:33:41 -0800 (PST)
 From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Sun, 08 Nov 2026 19:33:11 +0000
-Subject: [PATCH 3/4] drm/vkms: add a KUnit test for the precomputed LUT table
+Date: Sun, 08 Nov 2026 19:33:12 +0000
+Subject: [PATCH 4/4] drm/ci: drop the kms_plane pixel-format xfails for
+ vkms
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-lut-v1-3-f762d70ae4cd@gmail.com>
+Message-Id: <20261108-lut-v1-4-f762d70ae4cd@gmail.com>
 References: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
 In-Reply-To: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -104,102 +105,34 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-build_lut_table() turns a per-pixel interpolation into a table lookup, so
-a wrong entry changes the composed output with no other symptom.
+kms_plane@pixel-format and pixel-format-source-clamping are listed as
+Timeout in vkms-none-fails.txt. With the per-pixel interpolation they take
+160.1-167.8 s and 78.9-83.8 s locally; with the precomputed LUT tables
+they take 9.70-9.84 s and 4.87-4.90 s, so the entries no longer describe
+the driver.
 
-Compare every entry against apply_lut_to_channel_value() for the same
-channel and value, for a 4-entry LUT whose channels differ and for the
-256-entry sRGB one. The check stops at the first mismatch and prints its
-channel, value and both results.
-
-The tables are built with apply_lut_to_channel_value(), so this proves the
-lookup matches the interpolation, not that the LUT arithmetic is right;
-vkms_color_srgb_inv_srgb() covers the latter.
+This patch depends on patch 2: removing the entries only helps once the
+subtests stop timing out, so a job that takes this patch without patch 2
+fails.
 
 Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_color_test.c | 54 ++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+ drivers/gpu/drm/ci/xfails/vkms-none-fails.txt | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-index 1a1c7cac2f15..cdbb74d16b5e 100644
---- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-+++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-@@ -88,6 +88,21 @@ static const struct vkms_color_lut test_linear_lut = {
- 	.channel_value2index_ratio = 0xf000fll
- };
- 
-+/* Channels differ, so a table built with the wrong channel does not match. */
-+static struct drm_color_lut test_distinct_array[] = {
-+	{ 0x0000, 0x0000, 0x0000, 0 },
-+	{ 0x1000, 0x6000, 0xb000, 0 },
-+	{ 0x2000, 0x4000, 0x9000, 0 },
-+	{ 0xffff, 0xffff, 0xffff, 0 },
-+};
-+
-+static const struct vkms_color_lut test_distinct_lut = {
-+	.base = test_distinct_array,
-+	.lut_length = ARRAY_SIZE(test_distinct_array),
-+	/* drm_fixp_div(drm_int2fixp(lut_length - 1), drm_int2fixp(0xffff)) */
-+	.channel_value2index_ratio = 0x30003ll
-+};
-+
- static void vkms_color_test_get_lut_index(struct kunit *test)
- {
- 	s64 lut_index;
-@@ -393,6 +408,44 @@ static void vkms_color_ctm_3x4_bt709(struct kunit *test)
- 	KUNIT_EXPECT_LT(test, out.b, 0x100);
- }
- 
-+static void vkms_color_test_check_lut_table(struct kunit *test,
-+					    const struct vkms_color_lut *lut,
-+					    const u16 *table)
-+{
-+	int i;
-+
-+	for (i = 0; i < LUT_RESERVED * LUT_TABLE_ENTRIES; i++) {
-+		enum lut_channel channel = i / LUT_TABLE_ENTRIES;
-+		u16 value = i % LUT_TABLE_ENTRIES;
-+		u16 expected = apply_lut_to_channel_value(lut, value, channel);
-+
-+		if (table[i] != expected) {
-+			KUNIT_FAIL(test, "channel %d, value %#06x: 0x%04x != 0x%04x",
-+				   channel, value, table[i], expected);
-+			return;
-+		}
-+	}
-+}
-+
-+static void vkms_color_test_build_lut_table(struct kunit *test)
-+{
-+	const struct vkms_color_lut *luts[] = {
-+		&test_distinct_lut,
-+		&srgb_eotf,
-+	};
-+	u16 *table;
-+	int l;
-+
-+	table = kunit_kzalloc(test, LUT_RESERVED * LUT_TABLE_ENTRIES * sizeof(*table),
-+			      GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, table);
-+
-+	for (l = 0; l < ARRAY_SIZE(luts); l++) {
-+		build_lut_table(luts[l], table);
-+		vkms_color_test_check_lut_table(test, luts[l], table);
-+	}
-+}
-+
- static struct kunit_case vkms_color_test_cases[] = {
- 	KUNIT_CASE(vkms_color_test_get_lut_index),
- 	KUNIT_CASE(vkms_color_test_lerp),
-@@ -400,6 +453,7 @@ static struct kunit_case vkms_color_test_cases[] = {
- 	KUNIT_CASE(vkms_color_srgb_inv_srgb),
- 	KUNIT_CASE(vkms_color_ctm_3x4_50_desat),
- 	KUNIT_CASE(vkms_color_ctm_3x4_bt709),
-+	KUNIT_CASE(vkms_color_test_build_lut_table),
- 	{}
- };
- 
+diff --git a/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt b/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt
+index 029bd4956e85..6ebcc7d89fbd 100644
+--- a/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt
+@@ -16,8 +16,6 @@ kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_flip@flip-vs-suspend,Fail
+ kms_flip@flip-vs-suspend-interruptible,Fail
+ kms_lease@lease-uevent,Fail
+-kms_plane@pixel-format-source-clamping,Timeout
+-kms_plane@pixel-format,Timeout
+ kms_writeback@writeback-check-output,Fail
+ kms_writeback@writeback-check-output-XRGB2101010,Fail
+ kms_writeback@writeback-fb-id,Fail
 
 -- 
 2.55.0
