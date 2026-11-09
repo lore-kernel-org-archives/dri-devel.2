@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77195606D825
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 14:23:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555B5606A32A
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 14:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1G5uTY9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GBy9Q0uQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB8610F3AA;
-	Mon,  9 Nov 2026 14:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA1710F3C2;
+	Mon,  9 Nov 2026 14:24:45 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B34410F3AA;
- Mon,  9 Nov 2026 14:22:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF5110F3BD;
+ Mon,  9 Nov 2026 14:24:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EFB3C4565F;
- Mon,  9 Nov 2026 14:22:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48031F0089F;
- Mon,  9 Nov 2026 14:22:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CBC3142A99;
+ Mon,  9 Nov 2026 14:24:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E85C1F0089F;
+ Mon,  9 Nov 2026 14:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794234172;
- bh=GVEKEY+PUt198qHgzkPXtxe0aUspKL7ogvSDH+cH8i0=;
+ s=k20260515; t=1794234278;
+ bh=vEtjykBn4MbKhX/Ba1zgM5WeS7HPcd4bmcpQAg5a5oY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F1G5uTY9AWuZEZ7NGWCkmSpRcqYIB5b4ud++HEDe/mim/HocACgX4NAZjXXfD2NZj
- Oh2xQJdU5vTAL5yfvOKMTIuvtJKPO0jx+lAVPzPuzyE5BwochgexMqnFPu58yK2/Qv
- 7LOHFgm/K/V4QXDljJK5OtojStvRmp4b6oRJ2c1l2nswrbMQ7bNGnO+JvGQsPVGLUX
- 4ndSQEKDQrmAmMSsxyoP3q4RD/KmU0Tv3kjDcE9KTdK7hqWVHlNugF4sNYrT4fcc7A
- gxcvQ+3Ylc/RH/DkVtJY1LHDUqo16fM9jBMPSVcLCodHySFpppVdWP0t9C0BCYlpsF
- ZOWYHzb9uqbxg==
-Message-ID: <sashiko-outbox-205083@kernel.org>
+ b=GBy9Q0uQrU78tNzrOFfe3wHvK2wEMRkIIdfOg/6QkqLMwhBTSNGCi6alZ6p0M6K2U
+ Ubblqw4rbEde9xPXnG2a1O5gpRDZkwCXo2ZgTBkTAaP6YZ2xIenKUnRUQcggDhMv1I
+ KJtQpJwFmVbddKMGDT2RxPPKKVSa1hxLs+4GqvjT9HCYitgg9qVKoa9W8lnCCvl/Ik
+ Nb/iGigk9IKL1mTA7FxZQpFYwlVJRnlSdeKFeh+t1eFQ9erQR+H2RiuNtalmihS9Z8
+ 6W3/tNRpehc6AyCrwRZLZJAHsWLyGiaqIONvSKQgJu7W8St5NRtr+KfemeLLL6ZSjI
+ eDyO9cVVFEmaw==
+Message-ID: <sashiko-outbox-205088@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/20] drm/xe/eudebug: Add ufence events with acks
+Subject: Re: [PATCH 18/20] drm/xe/eudebug: Introduce per device attention
+ scan worker
 To: "Mika Kuoppala" <mika.kuoppala@linux.intel.com>,
  intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109135549.4128280-13-mika.kuoppala@linux.intel.com>
+In-Reply-To: <20261109135549.4128280-19-mika.kuoppala@linux.intel.com>
 References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
- <20261109135549.4128280-13-mika.kuoppala@linux.intel.com>
+ <20261109135549.4128280-19-mika.kuoppala@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 14:22:52 +0000
+Date: Mon, 09 Nov 2026 14:24:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,188 +60,147 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/xe/eudebug: use of destroyed eudebug.lock in
-  xe_eudebug_detach()
-- [Low] drm/xe/eudebug: TOCTOU race in xe_eudebug_ack_event_ioctl() on
-  detach
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/xe/eudebug: attention seqno race with discover_client()
+  queue create
 --
 
-commit b38d3ecda4b8b7ae85aedf3b0af41c39cf303abb
-Author: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+commit 9b3fd09a4bd67b0862bac3d3c0bc36809193f44f
+Author: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
 
-drm/xe/eudebug: Add ufence events with acks
+drm/xe/eudebug: Introduce per device attention scan worker
 
-This commit adds DRM_XE_EUDEBUG_EVENT_VM_BIND_UFENCE events and the
-DRM_XE_EUDEBUG_IOCTL_ACK_EVENT ioctl so that a debugger can stall user
-fence signalling on a VM bind with debug data until the event is
-acknowledged.
+This commit introduces a periodic per-device delayed worker to scan for EU
+debugging attention bits and send DRM_XE_EUDEBUG_EVENT_EU_ATTENTION events
+when an attached debugger is present, or reset the GT if no debugger will
+service the halted threads.
 
 > diff --git a/drivers/gpu/drm/xe/xe_eudebug.c b/drivers/gpu/drm/xe/xe_eude=
 bug.c
-> index c6d08b27042d2..934dc116120e6 100644
+> index 4fab8304046b3..9b1f2f97b603b 100644
 > --- a/drivers/gpu/drm/xe/xe_eudebug.c
 > +++ b/drivers/gpu/drm/xe/xe_eudebug.c
-
 [ ... ]
-
-> @@ -1199,6 +1330,191 @@ static int vm_bind_op_event(struct xe_eudebug *d,
->  	return err;
->  }
-
-[ ... ]
-
-> +static int track_ufence(struct xe_eudebug *d,
-> +			struct xe_user_fence *ufence,
-> +			u64 bind_ref_seqno,
-> +			bool *tracked)
+> @@ -2218,6 +2233,362 @@ static const struct file_operations fops =3D {
+>  	.compat_ioctl	=3D compat_ptr_ioctl,
+>  };
+> =20
+> +/*
+> + * The uapi tells userspace the attention bitmask sits 8 byte aligned wi=
+thin
+> + * the event, so it may be scanned as u32 or u64 words. That holds today
+> + * because the preceding members are u64, but a field added ahead of the
+> + * array could quietly break it, so pin it down here. Only the offset can
+> + * be: plain __u64 members are 4 byte aligned on i386.
+> + */
+> +static_assert(offsetof(struct drm_xe_eudebug_event_eu_attention, bitmask=
+) %
+> +	      sizeof(__u64) =3D=3D 0);
+> +
+> +static int send_attention_event(struct xe_eudebug *d, struct xe_exec_que=
+ue *q,
+> +				int lrc_idx, void *bitmap, unsigned int size,
+> +				u64 seqno)
 > +{
-
-[ ... ]
-
-> +	/*
-> +	 * The ack and the event asking for it go in under one lock, so the
-> +	 * debugger cannot ack a fence it has not been told about. Once the
-> +	 * lock is dropped the ack may already be gone, so it is not touched
-> +	 * after that.
-> +	 */
+> +	struct drm_xe_eudebug_event_eu_attention *e;
+> +	struct drm_xe_eudebug_event *event;
+> +	const u32 sz =3D struct_size(e, bitmask, size);
+> +	int h_queue, h_lrc;
+> +	int ret;
+> +
+> +	if (lrc_idx < 0 || lrc_idx >=3D q->width)
+> +		return -EINVAL;
+> +
+> +	h_queue =3D find_handle(d, XE_EUDEBUG_RES_TYPE_EXEC_QUEUE, q);
+> +	if (h_queue < 0)
+> +		return h_queue;
+> +
+> +	h_lrc =3D find_handle(d, XE_EUDEBUG_RES_TYPE_LRC, q->lrc[lrc_idx]);
+> +	if (h_lrc < 0)
+> +		return h_lrc;
+> +
 > +	mutex_lock(&d->lock);
-> +	old =3D rb_find_add(&ack->rb_node, &d->acks.tree, ack_insert_cmp);
-> +	if (old) {
-> +		mutex_unlock(&d->lock);
-> +		xe_sync_ufence_put(ufence);
-> +		kfree(ack);
-> +		return -EEXIST;
-> +	}
-> +
-> +	*tracked =3D true;
-> +
-> +	event =3D xe_eudebug_prepare_event(d, DRM_XE_EUDEBUG_EVENT_VM_BIND_UFEN=
-CE,
-> +					 seqno, flags, sz);
+> +	event =3D xe_eudebug_prepare_event(d, DRM_XE_EUDEBUG_EVENT_EU_ATTENTION,
+> +					 seqno, DRM_XE_EUDEBUG_EVENT_STATE_CHANGE,
+> +					 sz);
 > +
 > +	e =3D cast_event(e, event);
-> +	e->vm_bind_ref_seqno =3D bind_ref_seqno;
+> +	e->exec_queue_handle =3D h_queue;
+> +	e->lrc_handle =3D h_lrc;
+> +	e->bitmask_size =3D size;
 > +
+> +	memcpy(e->bitmask, bitmap, size);
 > +	ret =3D xe_eudebug_queue_event(d, event);
 > +	mutex_unlock(&d->lock);
 > +
 > +	return ret;
 > +}
-
-[ ... ]
-
-> +bool xe_eudebug_ufence_track(struct xe_user_fence *ufence)
+> +
+> +static int relay_gt_attention(struct xe_eudebug *d, struct xe_exec_queue=
+ *q,
+> +			      struct xe_hw_engine *hwe, int lrc_idx)
 > +{
-> +	struct xe_eudebug *d;
-> +	u64 bind_ref_seqno;
-> +	bool tracked =3D false;
+> +	const u32 size =3D xe_gt_eu_attention_bitmap_size(q->gt);
+> +	void *bitmask;
+> +	u64 seqno;
 > +	int ret;
-
-[ ... ]
-
-> +	if (xe_eudebug_is_detached(d)) {
-> +		/* Nothing will ack this fence any more */
-> +		ufence_drop_debugger(ufence);
-> +		xe_eudebug_put(d);
-> +		return false;
-> +	}
 > +
-> +	ret =3D track_ufence(d, ufence, bind_ref_seqno, &tracked);
-> +	if (ret) {
-> +		/*
-> +		 * If we failed before the ack made it into the tree, the
-> +		 * disconnect below has nothing to release for this fence.
-> +		 */
-> +		if (!tracked)
-> +			ufence_drop_debugger(ufence);
+> +	/* If we fail at this time, assume we manage to send eventually */
+> +	bitmask =3D kvzalloc(size, GFP_KERNEL);
+> +	if (!bitmask)
+> +		return 0;
 > +
-> +		xe_eudebug_disconnect(d, ret);
-> +	}
+> +	/*
+> +	 * Attention is state, so the event is stamped where that state is
+> +	 * observed: as the bits are read. That is also before the handle
+> +	 * lookups in send_attention_event(), so a handle still found there is
+> +	 * destroyed with a later seqno. A round that ends up sending nothing
+> +	 * leaves a gap in the numbering, which the uapi allows.
+> +	 */
+> +	seqno =3D atomic64_inc_return(&d->events.seqno);
 > +
-> +	xe_eudebug_put(d);
-> +
-> +	return tracked;
-> +}
+> +	ret =3D xe_gt_eu_attention_bitmap(q->gt, bitmask, size);
 
 [Severity: Medium]
-Can xe_eudebug_ufence_track() lock a destroyed d->xe->eudebug.lock in
-xe_eudebug_detach()?
+Can relay_gt_attention() send a DRM_XE_EUDEBUG_EVENT_EU_ATTENTION event
+with a smaller seqno than the queue's DRM_XE_EUDEBUG_EVENT_CREATE event
+when racing with discover_client()?
 
-As noted above kick_ufence_worker(), user_fence_worker() runs on
-xe->ordered_wq, which xe_device_destroy() drains only after the drmm
-actions registered in xe_device_probe() have already run.  One of those
-actions is xe_eudebug_lock_fini(), which destroys xe->eudebug.lock:
+In xe_eudebug_attach(), add_debugger() publishes xef->eudebug.debugger
+before discover_client() runs, and handle_gt_attention() looks up the
+debugger via xe_eudebug_get_nolock() without holding xef->eudebug.ioctl_loc=
+k:
 
-drivers/gpu/drm/xe/xe_eudebug.c:xe_eudebug_lock_fini() {
-	mutex_destroy(&to_xe_device(dev)->eudebug.lock);
-}
+CPU0 (attention_wq)               CPU1 (connect ioctl)
+handle_gt_attention()             xe_eudebug_attach()
+  d =3D xe_eudebug_get_nolock(...)    discover_client()
+  relay_gt_attention()                ...
+    seqno =3D atomic64_inc_return()       exec_queue_create_event()
+      --> S1                              _xe_eudebug_add_handle(LRC)
+    xe_gt_eu_attention_bitmap()           mutex_lock(&d->lock)
+                                          __handle_insert(EXEC_QUEUE)
+                                            --> seqno =3D S2 (S2 > S1)
+                                          mutex_unlock(&d->lock)
+    send_attention_event()
+      find_handle(EXEC_QUEUE)
+      find_handle(LRC)
+      mutex_lock(&d->lock)
+      xe_eudebug_queue_event(S1)
+      mutex_unlock(&d->lock)
+                                          send_exec_queue_event(S2)
 
-A user fence holds a reference to struct xe_eudebug in
-ufence->eudebug.debugger, but not a drm_device reference:
+The attention event for q is stamped with seqno S1 < S2 and can also be
+queued into d->events.fifo ahead of the EXEC_QUEUE CREATE event because
+exec_queue_create_event() drops d->lock between __handle_insert() and
+send_exec_queue_event(), so userspace sees an attention event for handles
+that have not been created yet.
 
-CPU0 (user_fence_worker)          CPU1
-xe_eudebug_ufence_track()
-  xe_eudebug_is_detached(d)
-    -> false
-                                  xe_eudebug_release()
-                                    xe_eudebug_disconnect(d, 0)
-                                    drm_dev_put(&d->xe->drm)
-                                      ...
-                                      xe_eudebug_lock_fini()
-                                        mutex_destroy(&xe->eudebug.lock)
-                                      xe_device_destroy()
-                                        destroy_workqueue(xe->ordered_wq)
-  track_ufence()
-    xe_eudebug_queue_event()
-      -> -ENOTCONN
-  xe_eudebug_disconnect(d, ret)
-    xe_eudebug_detach()
-      mutex_lock(&d->xe->eudebug.lock)  <-- destroyed mutex
-
-With lock debugging enabled, mutex_lock() warns on the destroyed mutex.
-If track_ufence() checked __xe_eudebug_is_detached(d) under d->lock
-before inserting ack into d->acks.tree, a racing detach would not need a
-second xe_eudebug_disconnect() call.
-
-[ ... ]
-
-> @@ -1691,6 +2032,42 @@ static long xe_eudebug_read_event(struct xe_eudebu=
-g *d,
->  	return ret;
->  }
-> =20
-> +static long
-> +xe_eudebug_ack_event_ioctl(struct xe_eudebug *d,
-> +			   const u64 arg)
-> +{
-
-[ ... ]
-
-> +	if (XE_IOCTL_DBG(xe, xe_eudebug_is_detached(d)))
-> +		return -ENOTCONN;
-> +
-> +	ack =3D remove_ack(d, user_arg.seqno);
-> +	if (XE_IOCTL_DBG(xe, !ack))
-> +		return -EINVAL;
-> +
-> +	handle_ack(d, ack, false);
-> +
-> +	return 0;
-> +}
-
-[Severity: Low]
-Can xe_eudebug_ack_event_ioctl() return -EINVAL instead of -ENOTCONN when
-racing with xe_eudebug_detach()?
-
-xe_eudebug_is_detached() and remove_ack() take d->lock in separate
-critical sections.  If xe_eudebug_detach() runs in between, it clears
-d->target.xef and empties d->acks.tree under d->lock, so remove_ack()
-finds nothing and the ioctl returns -EINVAL for a valid seqno instead of
-the documented -ENOTCONN.  Checking __xe_eudebug_is_detached(d) inside
-remove_ack() under d->lock would avoid the race.
+Looking up h_queue and h_lrc before stamping seqno in relay_gt_attention()
+(and re-checking that the handles still exist before queueing, or holding
+xef->eudebug.ioctl_lock) would ensure discovery has already assigned the
+CREATE seqno first.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109135549.4128=
-280-1-mika.kuoppala@linux.intel.com?part=3D12
+280-1-mika.kuoppala@linux.intel.com?part=3D18
