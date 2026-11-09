@@ -2,68 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A8E606A31C
-	for <dri-devel@archiver.kernel.org>; Sun,  8 Nov 2026 23:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEFF606A323
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 00:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgbqD2XS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3sLDLWO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B9610E159;
-	Sun,  8 Nov 2026 23:10:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C6D10E159
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 23:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A8C10E1BD;
+	Mon,  9 Nov 2026 00:37:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63BD10E0A4
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 00:37:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C92D461826;
- Sun,  8 Nov 2026 23:10:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0561F0089F;
- Sun,  8 Nov 2026 23:10:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 659D6424CB;
+ Mon,  9 Nov 2026 00:37:03 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794184623;
+ b=O7uea2JAFh5HPx2ukcqG5Ast27CzVtNrvoVgYbWLexGQq+JaG5UJv0VZd66/myuXfnJI
+ 0rcyhRB/cu3gkegM5Les0UABy6QxpxSf6V+BGJYaVLh+1AmrTEbDpk5YnVHbrt58HFOBb
+ ogMFY9IQcudcb2GnvWbx0M5ocoK7e45/SAra4AQsaKEPn//VHrEFP3PBz+NaPEEDXcbF/
+ plhN4V/C1GH2+NdbiLKaGmTtSUdaQuKidVjn0kk1V39JdbVV6coqlfK9SrQVp812JwerE
+ ju4fSdLUZI78RQZYrgyC3I8/MHJ5tIGN11HrHQoe5f8hPJckkbFbS9vXlxb2cIp7uOQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794184623;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+ X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=QFH8hhV2YK7HwyH2eUEnQ8eSNYiXvxVjXzDuex5TAv0=;
+ b=F0uR6F3PxyCWii+cKC7L2b6bC37XVxwgY4ulw7OY3ScWgfxMXc8i4HdM3zB1Pjpla63G
+ eQECxH7O7Qoafrd4MpZu61iV+0JKFtdY36MD0e+ijqVSYNx8R30bVsi/pR2sXL7uDtFRR
+ z6yRlFhm/jIMXYiuCLnVCNP98MMS8WoXTTtxQOel4PIM+nT2XXmvRU6JpG/MfWNQNclqC
+ wkP0oFo0q2NVbAC2SOSoxpPojNUnxoPjjVYlD0hPV8tFn+Y8NxnyM/7gBSxZnON0ngwWZ
+ rPlQNQHGj8p9yxjgrnKS1rpvlKt2X1wVbp/ftDV+vzK9/NhGUhX6w5k/rpyy0mZVDnw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 9F3631F008A1;
+ Mon,  9 Nov 2026 00:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794179444;
- bh=SJrTRZvefBM+D9+/dd7LygrzgO1jMHec9WFWbzhuafs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UgbqD2XSdyGktVJEJhI8+QvVyWG+cq/0XfiKL6PYXQjacoO71WmQpzpgK3T9NEgyL
- MCW+PU/nk2t29laNSG6YPzxo1waBrUXmR3iybjEjV7laQEBl1mK9n4vocFBccU1F8x
- j5tfv+nVhTD9ayYbH3pP9d7ml5VNKgv86aTSnvuVPM24VoRdKG/Sh9EV2xMnMzesbI
- Un8OivitWJrCoqvBYuaXCIeM+Q7+RExpdXNOupt3EphzCBK7sK1wOsnoAGf8P2Qkug
- oTppSKhkwSZAregyJkTePZWKDOFT/ho+EHYl2EIR7zmYMenPpJddSOjHCFBoz2qAfD
- McA00Yi8UNxNQ==
-Message-ID: <sashiko-outbox-204152@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for
- ubifs_kset
-To: "Ian Rogers" <irogers@google.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Kees Cook" <kees@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Michael Ellerman" <mpe@ellerman.id.au>, "Nicholas
- Piggin" <npiggin@gmail.com>, "Christophe Leroy" <chleroy@kernel.org>, "Nayna
- Jain" <nayna@linux.ibm.com>, "Srish Srinivasan" <ssrish@linux.ibm.com>, "Mimi
- Zohar" <zohar@linux.ibm.com>, "Yoshinori Sato" <ysato@users.sourceforge.jp>,
- "Rich Felker" <dalias@libc.org>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>, "Juergen
- Gross" <jgross@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
- "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>,
- "Nathan Chancellor" <nathan@kernel.org>, "Nick
- Desaulniers" <ndesaulniers@google.com>,
- "Viresh Kumar" <viresh.kumar@linaro.org>, "Zhongqiu
- Han" <zhongqiu.han@oss.qualcomm.com>, "Alexander Aring" <aahringo@redhat.com>,
- "Felix Kuehling" <felix.kuehling@amd.com>,
- =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Zhihao
- Cheng" <chengzhihao1@huawei.com>, "Sumanth Korikkar" <sumanthk@linux.ibm.com>,
- "Bill
- Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
- linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
- dri-devel@lists.freedesktop.org, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20261108223913.3624571-8-irogers@google.com>
-References: <20261108223913.3624571-1-irogers@google.com>
- <20261108223913.3624571-8-irogers@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 23:10:42 +0000
+ s=k20260515; t=1794184623;
+ bh=QFH8hhV2YK7HwyH2eUEnQ8eSNYiXvxVjXzDuex5TAv0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=B3sLDLWOjEQ9xuiKZtpltjNMWe8QiuWA1KP+djLhllQ3y0JOLTSJ5bCQb/PlrmAYl
+ vRnB8rSIRmFk+wNUgNpQJAnzzYhcW+6HRGvltcRtMbF7SMo5X7kpMYa3k9jOLetEec
+ LgePC2JTJmxLJPJ+2Rhp2duRJ2ENyXIV7LlMGD4gLSyqSFPZjim6bR/pB7VpGBpCzl
+ JPhzBcpimmm9mkTdngRKgjag/Asff3aM+Z4sr0XLz9bMycUByhUf8SBG9+tNiADFaS
+ nvihBa9P9ZXDM0QuZnMs3a61kYrnpEJz9yNG1wuxmFtBeFOSBEZoFit5MefNrRJiYf
+ tQ8cNFDxmabTg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 11CA7481A5;
+ Mon,  9 Nov 2026 00:37:02 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Date: Mon, 09 Nov 2026 08:36:44 +0800
+Subject: [PATCH v6 01/10] rust: sizes: add SZ_4G constant
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261109-tyr-ioctls-v6-1-b2896bf2b3c9@kylinos.cn>
+References: <20261109-tyr-ioctls-v6-0-b2896bf2b3c9@kylinos.cn>
+In-Reply-To: <20261109-tyr-ioctls-v6-0-b2896bf2b3c9@kylinos.cn>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
+ Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794184620; l=1808;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=RC5TQEMWPe7CGSe6NzYoBKUAxyypO/SjxFkEThrMEs0=;
+ b=Ey688Yha//lunLV9csKQAGz4CQeyX8TuAFJ5yReptrF1o5VMnWsmeaIqqNHRZj6A1K46dzhmG
+ ksBtV6+Ti3eBquWFrvTK4MQQVRNj7HUo/X5T+SbTq4k71Bu7TvfsYqY
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +103,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: sunke@kylinos.cn
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ubifs: sysfs: inaccurate Fixes trailer in commit message
---
+From: Alvin Sun <alvin.sun@linux.dev>
 
-commit 05ad573fa4719a7a6e36bb8dcf3c9060b5c194b0
-Author: Ian Rogers <irogers@google.com>
+SZ_4G is used by Tyr when splitting the GPU VA range into
+user and kernel regions. Add a LargeSizeConstants trait, implemented
+for u64 since SizeConstants only covers sizes that fit in a u32.
 
-> ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
->
-> ubifs_kset was a static struct kset using a custom ubifs_ktype that
-> had no default_groups and no .release callback. With
-> CONFIG_DEBUG_KOBJECT_RELEASE=3Dy, unloading the ubifs module while delayed
-> kobject release is pending causes a use-after-free on the static kset.
->
-> Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
-> allocated kset via kset_create_and_add().
->
-> Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
-> Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+---
+ rust/bindings/bindings_helper.h |  1 +
+ rust/kernel/sizes.rs            | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
-[Severity: Low]
-203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()") only added
-an error-path kset_put() when kset_register() fails.  The static
-ubifs_kset, ubifs_ktype without a release callback, and kset_unregister()
-on module exit were introduced in 2e3cbf425804 ("ubifs: Export filesystem
-error counters").
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 3791af0aadc73..fd39cc954eaba 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -116,6 +116,7 @@ const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
+ const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
+ const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
+ const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
++const unsigned long long RUST_CONST_HELPER_SZ_4G = SZ_4G;
+ const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT = GFP_KERNEL_ACCOUNT;
+diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
+index 188e00c2b8b46..760d26ebe6ff6 100644
+--- a/rust/kernel/sizes.rs
++++ b/rust/kernel/sizes.rs
+@@ -177,3 +177,15 @@ impl SizeConstants for $first {
+ }
+ 
+ define_sizes!(u32, u64, usize);
++
++/// Large size constants (≥ 4 GiB).
++///
++/// Only implemented for [`u64`].
++pub trait LargeSizeConstants {
++    /// `0x1_0000_0000`.
++    const SZ_4G: Self;
++}
++
++impl LargeSizeConstants for u64 {
++    const SZ_4G: Self = bindings::SZ_4G;
++}
 
-Should the Fixes tag instead be:
+-- 
+2.43.0
 
-  Fixes: 2e3cbf425804 ("ubifs: Export filesystem error counters")
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108223913.3624=
-571-1-irogers@google.com?part=3D7
