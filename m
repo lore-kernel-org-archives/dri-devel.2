@@ -2,73 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5A7606D835
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z+/xRGNJ
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8656082BDD
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F161D10F117;
-	Mon,  9 Nov 2026 09:31:35 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB8510E637
- for <dri-devel@lists.freedesktop.org>; Sat,  7 Nov 2026 17:46:19 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-4922523d1afso935998f8f.0
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 09:46:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794073578; x=1794678378; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
- b=Z+/xRGNJBRU3WvFCxstjmD0q+HMpLXsSw/uVAF1a6qwM5Lm6neFszAfekko4vrP6kc
- rmltSiBK4p6qe+OKpaEYo7zLi4NBqYpCz5k9Bslud5+49UEKwdnQfA7KsMve76EkboG2
- 31g0Sp/bEFu0df6GMT0T2xZDHbJtGI1VJMqLW2oPeqRDit8BYCUOM8/hNmI811kSdxCv
- VUS3utlvf9crncF8HUvslavqRD8nzLPReB1qFo1GNNdj+YcPfTxHTkA9qM2gtLAyhY5n
- Xvxk5tT8bNhvYY8Uv8vWHoO7WOkDrmSKHz9D3kX/onF9MeeL+3f7BXKtyUkA1knwYnAh
- Wzmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794073578; x=1794678378;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
- b=uNvFGKsmaevADJDdi8jgm/am4zXmRpHqmrOYiGKiLn/uIFDNSTDDhBUtZw95Dkyd+9
- mbu+6NF7BAKLwSrzLnSgm61EOTqR4jhfGVhWq5RhPyp0tdWGtKP1JXMLQF7wDyXHkXTX
- 0doAIXUtuJ0Le6fpU7m0Au1JywBJDkeqRW/FdmloDRXpcgeh+CnmYeANTgj1gnVMIJ92
- BGTCq9vNJs6GEbSXf6XZITEah4MeZ1wQYtXopC1Ba4jw5sgAEmiPbGEFLv/L8ttTDWeM
- K4CY2fvv98zpX2rBsFH/ZPpEBWDV6JDr3ZX4vC/Xn6viAETAeucwlhHjkPBYMJdk0Mc+
- abiw==
-X-Gm-Message-State: APuU4Z/l8XxXF3tSW5Ek1bHVuExQMGGom+W2LOU43rZZfeBnAuWmhOBX
- HE3+siaNZTIZryMT0huuQWyeelbMbS1zlRamsD1PSayjOtb4gfkUmg4lI5rldTSg
-X-Gm-Gg: AYBFou0zEXkrz1tTFn13msdGD0t/9FG02iG8YOhkWew9OfBCihrk/mlqZNppSuNj1Ci
- FO3ZOVocFrh8615HnFSxNH7mmJj55K+Y5J82HQ36No3lFXlFCKxshwR2zyK0gKWlCytmBz72tyO
- YrknhW38ZYuUBGeyrolLztpgtjmheWkmr6bOejgbBA8r4HjPnc8ojmJRNsyzvZphNlv52JhJMHc
- EFy4hod9CjVTTYaImskvJpnUyGiWmHxxO8U1N12ri5MLNPUMlCcZ+oQ/YYeOoc6Syk+ICZS32It
- dZAftRNrC42d8ElqPAdRr3f5j+Sd6ZA+O8SSY2+XcZ6paXNmJB8e9xhUX8+j9vYakm0twFbC3yx
- qaCXisUHPVGdh7lX7vmxEZeWRbvuQN8ejFuZPKGbRwds+ajQs8Stg6jkhLYt2Wh+15ETJOExWj4
- rM6p1Q6CpI+vjP7jE/8HGYld9O/TOra0uUHHKA3mh+OfloeVUotOq5F135VnSJBlN4hn5PTMWoQ
- kNZq2QiUoq8yLiH5vDZbMQzxiMVxw2djs9frDJ7cy6qSLLaW0w+Uyogq2+4Ocw53Fd1i298Eqcg
- On+lgMyHBij3tAUhrnT4ms6pfaHqv/zPD+8iRcyEYQ==
-X-Received: by 2002:a05:6000:4690:b0:48d:f851:ee5f with SMTP id
- ffacd0b85a97d-4927721a2b2mr7918701f8f.24.1794073577747; 
- Sat, 07 Nov 2026 09:46:17 -0800 (PST)
-Received: from cachyos-x8664.local ([188.127.103.167])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-492d770248esm11055718f8f.42.2026.11.07.09.46.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 09:46:16 -0800 (PST)
-From: aic0d3r <igotmysoul@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, aic0d3r <igotmysoul@gmail.com>
-Subject: [PATCH] drm: panel-backlight-quirks: Add ASUS ROG Flow Z13 (GZ302)
-Date: Sat,  7 Nov 2026 18:45:53 +0100
-Message-ID: <20261107174553.123652-1-igotmysoul@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C10D10F132;
+	Mon,  9 Nov 2026 09:31:43 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3471110E86B;
+ Mon,  9 Nov 2026 08:39:22 +0000 (UTC)
+X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:ccdf3466-bade-4e70-bdde-89a7f4e8e66a, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:e99da3f601251e9ecbe5f7153963cfa0,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ 5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+ V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
+X-User: jiangwang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <jiangwang@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 577905332; Mon, 09 Nov 2026 16:39:14 +0800
+From: jiangwang@kylinos.cn
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org, Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: Clear HDMI audio descriptors for sinks without
+ audio
+Date: Mon,  9 Nov 2026 16:39:08 +0800
+Message-Id: <20261109083908.903757-1-jiangwang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -84,54 +56,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The firmware (ATIF) minimum backlight on the 2025 ASUS ROG Flow Z13
-(GZ302, Strix Halo) with its TMA 0x0803 panel is fairly bright: at the
-lowest brightness level actual_brightness reads 539 of 65535, which is
-uncomfortable in a dark room.
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-Lower min_input_signal to 1 via a min_brightness quirk. With it the
-lowest level reads back 0 and the panel is still lit and readable, so
-the usable range extends noticeably below the firmware floor.
+EDID without SAD left stale AZ descriptors; emulated ATI ELD faked
+audio capability. Clear them.
 
-Match on the product family rather than the product name, since the
-product name carries the SKU ("ROG Flow Z13 GZ302EA_GZ302EA"), and on the
-panel ID so other panels in the family are unaffected.
+The legacy implementation refers to ce9778b7a027,
+"ALSA: hda/hdmi: Consider ELD invalid when no SAD is present".
 
-Tested on a GZ302EA with BIOS GZ302EA.314 on 7.3.1.
-
-Signed-off-by: aic0d3r <igotmysoul@gmail.com>
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
 ---
- drivers/gpu/drm/drm_panel_backlight_quirks.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 +++++-
+ 3 files changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index dcb91e12b..fa5897bb2 100644
---- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -68,6 +68,15 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
- 		.dmi_match_other.value = "Galileo",
- 		.quirk = { .min_brightness = 1, },
- 	},
-+	/* ASUS ROG Flow Z13 (2025, GZ302) */
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ASUSTeK COMPUTER INC.",
-+		.dmi_match_other.field = DMI_PRODUCT_FAMILY,
-+		.dmi_match_other.value = "ROG Flow Z13",
-+		.ident.panel_id = drm_edid_encode_panel_id('T', 'M', 'A', 0x0803),
-+		.quirk = { .min_brightness = 2, },
-+	},
- 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
- 	{
- 		.dmi_match.field = DMI_SYS_VENDOR,
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index f2977fe6d824..f967ee505271 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1341,8 +1341,13 @@ static void dce_v10_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
++					   eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 	BUG_ON(!sads);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index c68de0fe1d7d..18c171c533de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1320,8 +1320,13 @@ static void dce_v6_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
++					   eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+ 		u32 value = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index c3906270f25e..62922736d569 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1313,8 +1313,12 @@ static void dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(offset, eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 	BUG_ON(!sads);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
 -- 
-2.56.0
+2.25.1
 
