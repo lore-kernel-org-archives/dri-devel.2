@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A3E606D802
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A90606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XfprxiV2
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MtFSnPFH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC7910F302;
-	Mon,  9 Nov 2026 13:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36CFC10F309;
+	Mon,  9 Nov 2026 13:56:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E7510F302;
- Mon,  9 Nov 2026 13:56:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA7F10F304;
+ Mon,  9 Nov 2026 13:56:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794232589; x=1825768589;
+ t=1794232594; x=1825768594;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=neLflSka4PeBwrvXXG0UlbYMOD7Sy6Rnfgfmg/qj1qc=;
- b=XfprxiV2oX2OCJ7X6db08zvxUzyiSe0T1VcKgRlATug/nlVLFCtRCmbB
- LBHWWIRyMvfaK5X/Qe1xJXNfqx3D8RIcI73hma2m3rIKmichULG7OiGSI
- v9n3845bwbHNphIC7dMLtY76hN2O2Zfp/4lOpI4EOOKCoiG20kUlDQ46O
- eRbHRWcQSUwSDwJrI2iJiMz8zm3HIwDl1piZI0dRbsuv2HPyEQEHTYkcD
- eWeih5mAbhN6Dxa1HOiKhuEk9At3c4TZ7kX86J1acvQ4SpOwPvN52sYEi
- USBwzMIWDeb01eHVYsMYUeIqDmQsnqOg3wfTA5g0qBRv6n3DxCgYFSMKd Q==;
-X-CSE-ConnectionGUID: +qlITD3XSrGTTrjruitnOg==
-X-CSE-MsgGUID: yNvcmeaATTeboHVIRCKp2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2850722"
+ bh=ZFP0GSeRTHpFHzej+c3V+AwIYKmXeSPTe+a9U34LLxw=;
+ b=MtFSnPFHmQZs1OMXk+TqJcjCCT5rqOR34oCJFCsO0+S6WtMMNnNoENVT
+ xfbuo3P9Baix2FxAwy+3o+VXW4G2kQEWeqDVpYMYyZxA8aAgelEHSwT4d
+ 3tHZH/WVJbA5MQWR24CHS86CMLOCpy2aYe0HbGVwxNDwcnmlyQJ7wBX6R
+ DpMuTPP68DWjZ8T47O5/5u6BxTsNZehbXOyzWJsYYi6ldthm98LMyqALy
+ Pz+jOsqz9LPAPaklYcwccx4nn2dalp+8NFoy9vhRRyFdi922NFHoBaorW
+ xV0brkJMcKl3IhUZVS6BWcUNubGWU7lBnpF1PIzJt4z9dYtAcrI5EuG94 A==;
+X-CSE-ConnectionGUID: YBEkHQK1RP2MkRcYpBg3ww==
+X-CSE-MsgGUID: ywnY5g4/RvyDLbR2cR9kGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2850729"
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2850722"
+   d="scan'208";a="2850729"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:56:29 -0800
-X-CSE-ConnectionGUID: RRGRRz4hSRqDkwOLjJ1i2A==
-X-CSE-MsgGUID: f9kkoDz2SMqgKKaSocm5tg==
+ 09 Nov 2026 05:56:34 -0800
+X-CSE-ConnectionGUID: Nfu8Y+2PRCmC2QbjNn0juQ==
+X-CSE-MsgGUID: 4O88QJBHSDmVJKM/mkmfnA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8202601"
+   d="scan'208";a="8202631"
 Received: from pgcooper-mobl2.ger.corp.intel.com (HELO
  mkuoppal-desk.home.arpa) ([10.245.246.220])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:56:24 -0800
+ 09 Nov 2026 05:56:28 -0800
 From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com, christian.koenig@amd.com,
@@ -50,17 +50,16 @@ Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com, christian.koenig@amd.com,
  andrzej.hajda@intel.com, matthew.auld@intel.com,
  maciej.patelczyk@intel.com, gwan-gyeong.mun@intel.com,
  michal.wajdeczko@intel.com, dri-devel@lists.freedesktop.org,
+ Christoph Manszewski <christoph.manszewski@intel.com>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Subject: [PATCH 04/20] drm/xe/eudebug: Add connection establishment
- documentation
-Date: Mon,  9 Nov 2026 15:55:29 +0200
-Message-ID: <20261109135549.4128280-5-mika.kuoppala@linux.intel.com>
+Subject: [PATCH 05/20] drm/xe: Implement SR-IOV and eudebug exclusivity
+Date: Mon,  9 Nov 2026 15:55:30 +0200
+Message-ID: <20261109135549.4128280-6-mika.kuoppala@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
 References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,162 +75,113 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add documentation for connecting to a target DRM Xe client
-for debugging.
+From: Christoph Manszewski <christoph.manszewski@intel.com>
 
-v2: improved Pipe and Fork documentation (Sashiko)
-v10: qualify the ptrace_may_access() parity claim per fd
-     acquisition method (Claude)
+EU debug functionality relies on access to specific mmio registers.
+Since VFs don't have access to those registers and in order to avoid
+interference with VFs, make SR-IOV and eudebug functionality exclusive.
+I.e. don't allow enabling eudebug in VF mode and don't allow enabling
+eudebug when any VFs are enabled. Likewise, don't allow enabling
+VFs when eudebug is enabled.
 
-Cc: Christian König <christian.koenig@amd.com>
+v2: initialize lock early (Sashiko)
+v3: say why eudebug was refused (Claude)
+v4: avoid racing with work (Sashiko)
+v5: - don't log per VF probe (Sashiko)
+v6: - cap_state under eudebug.lock (Mika)
+v7: - poll stop comment: a PF waits the last round out (Sashiko)
+v8: - move right after the interface documentation, the vm access, EU
+      control, attention worker and live tests patches now cover their
+      own parts (Mika)
+
+Signed-off-by: Christoph Manszewski <christoph.manszewski@intel.com>
+Signed-off-by: Maciej Patelczyk <maciej.patelczyk@intel.com>
 Signed-off-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- Documentation/gpu/xe/xe_eudebug.rst |  11 +++
- drivers/gpu/drm/xe/xe_eudebug.c     | 104 +++++++++++++++++++++++++++-
- 2 files changed, 114 insertions(+), 1 deletion(-)
+ .../ABI/testing/sysfs-driver-intel-xe-eudebug |  4 ++++
+ drivers/gpu/drm/xe/xe_eudebug.c               | 21 +++++++++++++++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/Documentation/gpu/xe/xe_eudebug.rst b/Documentation/gpu/xe/xe_eudebug.rst
-index a73f8bd9a8e9..9c6070784e84 100644
---- a/Documentation/gpu/xe/xe_eudebug.rst
-+++ b/Documentation/gpu/xe/xe_eudebug.rst
-@@ -27,6 +27,17 @@ Connection Establishment
- .. kernel-doc:: drivers/gpu/drm/xe/xe_eudebug.c
-    :doc: Connection Establishment
- 
-+File Descriptor Acquisition Methods
-+-----------------------------------
+diff --git a/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug b/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
+index 26aff5116b8a..884a791789ad 100644
+--- a/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
++++ b/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
+@@ -34,3 +34,7 @@ Description:	RW. Controls whether the EU debugger interface is armed for
+ 		CONFIG_DRM_XE_EUDEBUG and the interface was set up at probe
+ 		time. If probe could not set it up, the attribute is absent
+ 		and the connect ioctl fails with -EOPNOTSUPP.
 +
-+.. kernel-doc:: drivers/gpu/drm/xe/xe_eudebug.c
-+   :doc: File Descriptor Acquisition Methods
-+
-+Security Model
-+--------------
-+.. kernel-doc:: drivers/gpu/drm/xe/xe_eudebug.c
-+   :doc: Security Model
-+
- Events
- ======
- 
++		On an SR-IOV VF the attribute is absent. On a PF, writing 1
++		while VFs are enabled fails with -EBUSY, and while the
++		interface is enabled enabling VFs fails with -EPERM.
 diff --git a/drivers/gpu/drm/xe/xe_eudebug.c b/drivers/gpu/drm/xe/xe_eudebug.c
-index 61572c006d22..d18ba28f43b1 100644
+index d18ba28f43b1..ad8e1c02f20b 100644
 --- a/drivers/gpu/drm/xe/xe_eudebug.c
 +++ b/drivers/gpu/drm/xe/xe_eudebug.c
-@@ -23,8 +23,110 @@
-  * DOC: Connection Establishment
-  *
-  * To debug a target DRM client, the debugger must first establish
-- * a connection using :c:type:`drm_xe_eudebug_connect`.
-+ * a connection with the DRM_IOCTL_XE_EUDEBUG_CONNECT ioctl, issued on a
-+ * DRM file descriptor of its own for the same device and taking a
-+ * :c:type:`drm_xe_eudebug_connect`. On success the ioctl returns a new
-+ * file descriptor, the eudebug file descriptor, on which the debugger
-+ * reads events and issues the eudebug ioctls. Closing it ends the
-+ * connection.
-  *
-+ * The interface has to be enabled for the device first, by writing 1 to
-+ * its enable_eudebug sysfs attribute; until then the connect ioctl fails
-+ * with -EOPNOTSUPP. See Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug.
-+ *
-+ * The debug target's DRM client file descriptor is passed into the
-+ * connect ioctl via :c:member:`drm_xe_eudebug_connect.fd`.
-+ * This is the fd that the target process obtained from open('/dev/dri/cardX').
-+ *
-+ * This file descriptor must be a valid DRM client fd in the debugger's
-+ * (calling) process context. For debugging an Xe DRM client in
-+ * another process, pidfd_getfd() can be used to acquire a duplicate
-+ * of the file descriptor from the target process. See
-+ * :ref:`File Descriptor Acquisition Methods <fd_acquisition_methods>` for
-+ * details on how to obtain the target's fd.
-+ *
-+ */
-+
-+/**
-+ * DOC: Security Model
-+ *
-+ * If you are inside the same process, you can connect to your own DRM client
-+ * by simply passing its fd to drm_xe_eudebug_connect.
-+ *
-+ * For a remote process, possession of that process's DRM client fd is
-+ * the capability: the connect ioctl adds no credential check of its own.
-+ * What sets the bar is therefore how that fd was obtained.
-+ *
-+ * Taking an fd from a process that did not offer it goes through
-+ * pidfd_getfd(), and the kernel enforces credentials there.
-+ * __pidfd_fget() requires ptrace_may_access() with
-+ * PTRACE_MODE_ATTACH_REALCREDS, under the target's
-+ * signal->exec_update_lock. That is the check ptrace(PTRACE_ATTACH)
-+ * makes, and the one process_vm_readv() makes under the same lock in
-+ * mm_access(), so for this path the same ptrace_may_access() rules apply
-+ * as in CPU process debugging with gdb. Most of the File Descriptor
-+ * Acquisition Methods end up here, including those that only use procfs
-+ * to discover which fd number to ask for.
-+ *
-+ * Two methods do not involve ptrace_may_access(), because nothing is
-+ * being taken. With SCM_RIGHTS the target sends its own fd over a unix
-+ * socket, which is the target consenting. With fork() inheritance the fd
-+ * belonged to the debugger before the fork and the child merely
-+ * inherited a copy of it.
-+ *
-+ * See :ref:`File Descriptor Acquisition Methods <fd_acquisition_methods>`.
-+ */
-+
-+/**
-+ * DOC: File Descriptor Acquisition Methods
-+ * .. _fd_acquisition_methods:
-+ *
-+ * There are multiple ways to get the target DRM client fd for
-+ * another process:
-+ *
-+ * Unix domain socket
-+ *     The debugger can receive the DRM client fd from the target via a Unix
-+ *     domain socket using SCM_RIGHTS ancillary data. This is the standard
-+ *     mechanism for passing file descriptors between processes, but requires
-+ *     coordination to establish the socket connection.
-+ *
-+ * Pipe
-+ *     The target sends the fd number through a pipe, and the debugger
-+ *     duplicates it via pidfd_getfd(). This requires coordination between
-+ *     the processes to establish the pipe and synchronize the transfer.
-+ *
-+ * Fork
-+ *     If the debugger spawns the target process via fork(), a DRM client
-+ *     fd can be shared across the fork boundary — either inherited by the
-+ *     child from the debugger, or acquired from the child by the debugger
-+ *     via pidfd_getfd() after the child opens the device. This is useful
-+ *     when the debugger launches the target directly, similar to how gdb
-+ *     spawns inferiors.
-+ *
-+ * Ptrace
-+ *     The debugger can attach to the target process using ptrace. It can
-+ *     intercept the return value of the target's open() or drmOpen() call
-+ *     by inspecting registers at syscall exit to catch the fd when it is
-+ *     created. Alternatively, if the target has already opened the device,
-+ *     the debugger can read the target's memory using PTRACE_PEEKDATA to
-+ *     locate the stored fd value in a known variable or data structure.
-+ *     Once the fd number is known, pidfd_getfd() can be used to acquire a
-+ *     duplicate in the debugger's process context.
-+ *
-+ * Procfs
-+ *     The debugger can look through /proc/<targetpid>/fd for file descriptors
-+ *     and inspect /proc/<targetpid>/fdinfo to see which of those
-+ *     are for an Xe DRM client, then duplicate that fd number with
-+ *     pidfd_getfd().
-+ *
-+ * Brute force
-+ *     The debugger can duplicate each fd listed in /proc/<targetpid>/fd
-+ *     with pidfd_getfd() and try to connect with it to see if it succeeds.
-+ *
-+ * In both procfs methods the fd has to be taken with pidfd_getfd(). Opening
-+ * /proc/<targetpid>/fd/<N> instead opens the device node anew and yields a
-+ * new, empty DRM client of the debugger's own, which connect accepts but
-+ * which is not the target.
-  */
+@@ -17,6 +17,7 @@
+ #include "xe_eudebug.h"
+ #include "xe_eudebug_types.h"
+ #include "xe_macros.h"
++#include "xe_sriov_pf.h"
+ #include "xe_vm.h"
  
  /**
+@@ -1203,6 +1204,8 @@ void xe_eudebug_file_close(struct xe_file *xef)
+ 
+ static int xe_eudebug_enable(struct xe_device *xe, bool enable)
+ {
++	int ret;
++
+ 	guard(mutex)(&xe->eudebug.lock);
+ 
+ 	if (xe->eudebug.cap_state == XE_EUDEBUG_CAP_NOT_SUPPORTED)
+@@ -1214,9 +1217,21 @@ static int xe_eudebug_enable(struct xe_device *xe, bool enable)
+ 	if (enable == __xe_eudebug_is_enabled(xe))
+ 		return 0;
+ 
++	/* Lock VFs out first, so that a refusal leaves nothing to take back */
++	if (enable && IS_SRIOV_PF(xe)) {
++		ret = xe_sriov_pf_lockdown(xe);
++		if (ret) {
++			drm_dbg(&xe->drm, "Can't enable eudebug: VFs are enabled\n");
++			return ret;
++		}
++	}
++
+ 	set_cap_state(xe, enable ?
+ 		      XE_EUDEBUG_CAP_ENABLED : XE_EUDEBUG_CAP_DISABLED);
+ 
++	if (!enable && IS_SRIOV_PF(xe))
++		xe_sriov_pf_end_lockdown(xe);
++
+ 	return 0;
+ }
+ 
+@@ -1288,6 +1303,11 @@ void xe_eudebug_init(struct xe_device *xe)
+ 	if (xe->eudebug.cap_state == XE_EUDEBUG_CAP_NOT_SUPPORTED)
+ 		return;
+ 
++	if (IS_SRIOV_VF(xe)) {
++		drm_dbg(&xe->drm, "eudebug not available in SR-IOV VF mode\n");
++		goto out_not_supported;
++	}
++
+ 	err = devm_add_action_or_reset(dev->dev, xe_eudebug_sysfs_fini, xe);
+ 	if (err)
+ 		goto out_err;
+@@ -1307,6 +1327,7 @@ void xe_eudebug_init(struct xe_device *xe)
+ out_err:
+ 	drm_warn(&xe->drm, "eudebug disabled, init fail: %d\n", err);
+ 
++out_not_supported:
+ 	scoped_guard(mutex, &xe->eudebug.lock)
+ 		set_cap_state(xe, XE_EUDEBUG_CAP_NOT_SUPPORTED);
+ }
 -- 
 2.53.0
 
