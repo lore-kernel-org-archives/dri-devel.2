@@ -2,93 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AE8606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6902606A33F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7DdWtG6
+	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=xpkQT2Lx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD3D10E5F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3E3F10E930;
 	Tue, 10 Nov 2026 08:33:30 +0000 (UTC)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12ADF10E275
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:22:38 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-36f8cdd30beso1939346eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 19:22:38 -0800 (PST)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCE3810F483
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 17:47:59 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4a1fbd52ab6so7776325e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 09:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794280957; x=1794885757; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=W/wp6KJO63iMMRJlz6HcbO/i7czGvSk/CyVD5tv8Mv8=;
- b=Q7DdWtG6fTchx6tk/7ReOzPQbWhObOKpviR1wtQrBShE21/xndxyO+S/BpzAYJlFQh
- 7R2Ip+oydd6OQ7ILg9JU6yPZKEjw9Mdb2mpRs6pB2rlblmLT1PhP966WI41mmsuocLyh
- WyGd04vnSHS1M2ZDuXbKhtGJfk5HOCpC3Ltwiy9awzDvDs1Nas8XMs/eoh5VNGQS18gC
- fMKVW3f18Jnb5U6PBoUAm7nSJu3u4jqspGLu0a/3i031MaDk9Sna1KEOix0kdxI7aWPN
- Ys0Klq2D3kS0r0+7YgreXFHB5esPONAO+Kg1akMivjra4rx2NzSbAdZjLDR7T04E8UYQ
- p4BQ==
+ d=mgcrea.io; s=google; t=1794246478; x=1794851278; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZPQrRdeY/kRtnbmlFvQBDv3Ep9Z0Ve/f+uT8OM+fsyc=;
+ b=xpkQT2LxILUNGsQdIUOsYd92G01c4HoHsThqre9LvZ4tESYc1M5rcd0sMVst4P2bxn
+ dQT/wtr2+lqNKWMFhOu6LQlMKV4izdcYnMqRyOWWWZTrc1Dk/66qQJzE6istWyB0RthQ
+ RbIRwn7eg0qOS600HtM/SQJMyt6B2sIiXz5igIuXkOLTTtynsPR0vqvNisjttVUy1/cQ
+ /QXGAab9oU4bRHTiiMp7Od5baUuPI7EwqEvXbI/6WSwoYRu2rVwlINq2bbhMQl7qnKiZ
+ NbSSt3zvRmQ0x92xSBV/v9wRsqDic0/yKjWrrvtVDII3h1Z588kjWdv+UMuDcVsGP1Wu
+ r3wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794280957; x=1794885757;
- h=content-transfer-encoding:content-type:mime-version:references
- :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=W/wp6KJO63iMMRJlz6HcbO/i7czGvSk/CyVD5tv8Mv8=;
- b=PKf0VKW80RQshxnjXvEfVpaAXZvhIU1TtqBWg5wcrap1gloYUY7azbeu7aC0hsCDOa
- cn5VI0zvObCE5CCLBQ3AnA1XBdcnF3ef/P3dQ3kLaWJ3V/3IRXKRRewDCkgMihN9XQGU
- PhugSCR0NVIQyptxzVLGgT1d/fFa//9v87mxWmSjIbkA+dNe1u3mWl86TSe17BAghIlf
- 8h0zrPMEQ0HfQ1JpTblLAdqcBNzhn0koGys7KqT1hGMKAY2l+e2XkIltTfioHW9H0mvD
- yw9POtuU79S3u1ge1cBRKen8DOCeNQpdWAQv06BQsNrIsR3wVsRmsFsxQ13Auwq+Gy1+
- 0qGg==
+ d=1e100.net; s=20260707; t=1794246478; x=1794851278;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZPQrRdeY/kRtnbmlFvQBDv3Ep9Z0Ve/f+uT8OM+fsyc=;
+ b=0WkMGp37W1NTpN2djzM27L+wTdGoRtJM2RHL4rMwuPEQDJpPLtH2y5pTA66KEjw/Cd
+ sJpkF/TtjRi7Bkv9knncTxXl39+KcVMiHkGlbGVK/JNMuXB6yIqDN0kmysJbkg6DaOQL
+ Rw1PASMG6/bxxE8VF0YCR3v5zIOns1L+W9xP0kbwIRAsf9Jn+F573ZI9kbcptgaOVrfI
+ 5yTouk/hp9TloipxQinaYWIgdokMx3W+ETU9YHpAdsHByap2D2wixQVeSNxXgeTQSlPt
+ wHi+d1nbmt2LJO7BBd/cl5dPyl/WOJ8YRRWx1Aq0/qqGf7kvQu+4rikx8/+XXxkxaF0p
+ ifOA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHKaeatH4uT2pKFqp83X6UXGq/MYhZje1U7J8ezJ4JIWTgHd7ivqtCsGDrai49ydQVWtpJyJjlud8Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/GbSdNswRQVzwcBdibTPHgC/O+6fv+Og00ugGTJvCNY3UG57En
- OaAEBVNaZWYDqI7BxTvjh+8xXUFBPK2DPHFjoElEd3SFugQ8MsrETIim
-X-Gm-Gg: AYBFou1QKPU+6MQxHexsQKwaJHg4i7z7q6syNm7RAieTubHvwcMn7AYDhgOp830l4T2
- S9axJnFNxvuaeQM+47jYvh/HlZc10ongTXL3pCTf9OZuIOHIhk2bpgmoC3m0kzGVCVzhHgOTMvr
- H52rv1lR57eYm2la7HWSm0LdpiVv+7EG5k8vDSAwQ7VYcaEJUh8CsicAlcCcZ1GzTWYYytJmZZG
- CKa2Qe4KdHBlpX/tunXZv4zd6n6NGT+qMHtvRTSJcWnED+18zB8objGx8k1R8TqKHS++lHhGTCd
- Xiy0n+gqAMMij4d+Y65hfCXLaYqwivh0PxYscm7TqgRfhr73UWBqyD8bg5k/0u+oVzViCbpmPXH
- AunlnRG9jb7aD5dW+CxWH4R8F01e8MMrA74ul2zdPhNqbrT7FwDkXeoi4peKxpN7X1mBz2xNahk
- 8wfJxO1WZ7KiuIJMjQdN84TjH8JJ1lRzdIJQq2vX61UvwcGuAIYTNJ5dMkCZKoYHlWKLZqbg5kY
- 1ujfVpQaHIkEFLtR2bBEBvEc6RD+yaOKINSagnMXpEVj8njf3v3e4zIWxGg+kkU85Nb+/3P50FJ
- ZLZQzBosq7QAEbJbAYuRJ16WVaD3
-X-Received: by 2002:a05:7300:3b03:b0:366:2893:7421 with SMTP id
- 5a478bee46e88-3751e6acd4cmr2378114eec.10.1794280957102; 
- Mon, 09 Nov 2026 19:22:37 -0800 (PST)
-Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37520bf3e18sm4159008eec.16.2026.11.09.19.22.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 19:22:36 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, =?utf-8?Q?Lo?=
- =?utf-8?Q?=C3=AFc?= Molinari <loic.molinari@collabora.com>, Lorenzo Stoakes
- <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, Madhavan
- Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, Konstantin Khorenko
- <khorenko@virtuozzo.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the lock
- in copy_huge_pmd()
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
-Date: Tue, 10 Nov 2026 08:30:44 +0530
-Message-ID: <pkwd8k6b.ritesh.list@gmail.com>
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
- <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
+ AL+hErHlJQOx+/zMML2k3uP61qL18vkUeQm4f0QZqPej7tQflHDsu/WapDdhrwX56kDauJ5hoq9Kk9XU/UQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+mAjMWCZ0jmQl04ZnHCkEPW5xyxWlTntP9bObVn5ek1YnjLJQ8
+ jgYNZx7ykXo6O8wMR1G98Uw2TX3lTEg3E70Io7FJRGyWnZ1Noqb9Koqpq5brjiTlCPI=
+X-Gm-Gg: AYBFou0bCoNeG0cCBOnVzj0+QoaLZxT3PB1cPrPSETJuH3vs5wzdTE9jQpZosdN2JDS
+ 5BCElMuulr0khiC8dE+kT6Nf01nQCicedXyVkTHA0HSJh2BRRBQxpr+42UyZYb2l7iZOhq7oKe3
+ qB2tefX+9LhEiRDQbFnoGslnw4F2Y5zj6WF1X0yI3Xy+4TBiE+d1aRdsLn4DGUdE+0Bagg0e0f/
+ i0EEh1Esm60WuNn4OoyuFxABcl5Gi8VS6ynNdBodlY/wlbRT7SIDQXgzYmzsqGh0roSNsR/nQwo
+ QC5wyI30jAe7uhDuK/UbAQHTRUPBtYCuhAq654ozJp4j1GnRTl6mdLQvHgVi6JkWhaGTUBj6gj8
+ GIpja0XOuqWdd7ndgsHluofbOeuaRs0IdQO9X+Q/h2NNLH/JCXOH8bHzgMfVLfP76isTyq3dWJX
+ 1JS8n4R11msmPQJWHK3hKKU0Y31mQ7eK1bYbQzH5CVzGddw39N7+fVB017rhJlAfUG5pSjJnUIU
+ QeUf4o1ph2v1PM7MWGQiHfm2xD/+Ugc75+xCWBFFdKnW4GO8KyGq8/TZl4ugeJvw8eFcGDAFvxR
+ Sbq61G/tSxitWolKzIW6mkwU27mU5qgsQkQ6rxOQg2/OCxt68ttl23CFoltoOZ57CQVIpuq1BGk
+ OcPqwUf+f
+X-Received: by 2002:a05:600c:46d0:b0:4a1:fae5:f2e2 with SMTP id
+ 5b1f17b1804b1-4ba023052c9mr134995e9.4.1794246478209; 
+ Mon, 09 Nov 2026 09:47:58 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498369a3f4esm167322f8f.53.2026.11.09.09.47.57
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 09 Nov 2026 09:47:57 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ "H . Nikolaus Schaller" <hns@goldelico.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v4 2/5] dt-bindings: display: Add the Ingenic X1600 display
+ controller
+Date: Mon,  9 Nov 2026 18:46:37 +0100
+Message-ID: <20261109174640.96951-3-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109174640.96951-1-olivier@mgcrea.io>
+References: <20261109174640.96951-1-olivier@mgcrea.io>
 X-Archived-By: <archiver.kernel.org>
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,146 +98,112 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Konstantin Khorenko <khorenko@virtuozzo.com> writes:
+The X1600's display controller fetches frames through descriptors and
+keeps its interface and timings in register blocks of their own (X1600
+programming manual, chapter 10), so it shares nothing with the
+controllers ingenic,lcd.yaml describes. Its registers are those of the
+X2000's display controller without the composer, which the X2000 and
+X2600 manuals call the DPU, as the X1600 manual does in its register and
+clock names: hence ingenic,x1600-dpu, which an X2000 binding can extend.
 
-> copy_huge_pmd() reads a special PMD without the page table lock and
-> copies that value to the child. The mmap write lock held by fork does
-> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-> lock.
->
-> The zap visits the parent VMA before the child's, as dup_mmap() links
-> the child right after the parent in i_mmap. If it clears the parent PMD
-> after fork has read it, and passes the child before fork copies it, the
-> child keeps a mapping the driver has revoked, for example:
->
-> - vfio-pci: the child reaches the BAR after the device memory was
->   disabled or the device was reset, instead of getting SIGBUS;
-> - panthor: the child maps the pages of an evicted buffer object after
->   the driver has released them.
->
-> The same branch deposits no page table under the copy. ppc64 in hash
-> mode keeps the hash slot array of every huge PMD in that table, so the
-> child dereferences a NULL table on the first hash fault, in
-> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
->
-> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-> from a folio under them, as copy_present_ptes() does with
-> vm_normal_page(). The zap clears the parent PMD under the same lock, so
-> either fork finds it none and skips it, or the copy is in place before
-> the zap reaches the child.
->
-> The copy of a PFN mapping then goes through the same tail as a folio:
->
-> - it gets a page table where the architecture needs one;
-> - in a shared mapping it is marked clean in the child, as a PTE is;
-> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
->   protected instead of a warning being printed.
->
-> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ .../bindings/display/ingenic,x1600-dpu.yaml   | 61 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 66 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
 
-Thanks Konstantin, for fixing this. Without this patch I can reproduce the problem on Hash
-on Power (on my test dev setup), after fork(), when child touches those pages.
+diff --git a/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+new file mode 100644
+index 000000000000..0e9f4442e4b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ingenic,x1600-dpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ingenic X1600 display controller (DPU)
++
++maintainers:
++  - Olivier Louvignes <olivier@mgcrea.io>
++
++description:
++  The display controller of the Ingenic X1600 SoC, the DPU of the X2000
++  without its composer. It fetches frames through descriptors in memory
++  and drives a parallel RGB panel or a smart panel; its registers have
++  nothing in common with the controllers described in ingenic,lcd.yaml.
++
++properties:
++  compatible:
++    const: ingenic,x1600-dpu
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: The pixel clock, whose gate also gates the controller
++
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description: The output, to the panel or bridge.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    display-controller@13050000 {
++        compatible = "ingenic,x1600-dpu";
++        reg = <0x13050000 0x10000>;
++
++        interrupt-parent = <&intc>;
++        interrupts = <31>;
++
++        clocks = <&cgu 16>;
++
++        port {
++            dpu_out: endpoint {
++                remote-endpoint = <&panel_in>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1c3aec082b0a..ca3f1a4bbd3a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13182,6 +13182,11 @@ F:	include/linux/mfd/ingenic-tcu.h
+ F:	sound/soc/codecs/jz47*
+ F:	sound/soc/jz4740/
+ 
++INGENIC X1600 DRM DRIVER
++M:	Olivier Louvignes <olivier@mgcrea.io>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
++
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+ S:	Maintained
+-- 
+2.39.5
 
-[   62.543247][  T242] Kernel attempted to read user page (0) - exploit attempt? (uid: 0)
-[   62.544992][  T242] BUG: Kernel NULL pointer dereference on read at 0x00000000
-[   62.545335][  T242] Faulting instruction address: 0xc0000000000a0ee8
-cpu 0x0: Vector: 300 (Data Access) at [c00000002035f9d0]
-    pc: c0000000000a0ee8: __hash_page_thp+0x218/0x560
-    lr: c0000000000a0e14: __hash_page_thp+0x144/0x560
-    sp: c00000002035fc70
-   msr: 8000000000009033
-   dar: 0
- dsisr: 40000000
-  current = 0xc00000001fb08480
-  paca    = 0xc000000005010000   irqmask: 0x03   irq_happened: 0x09
-    pid   = 242, comm = vfio-fork
-enter ? for help
-[c00000002035fc70] 0000000000000000 (unreliable)
-[c00000002035fd30] c000000000098a40 hash_page_mm+0x688/0x8d0
-[c00000002035fe10] c000000000098dc8 do_hash_fault+0x140/0x368
-[c00000002035fe50] c000000000008be0 data_access_common_virt+0x210/0x220
----- Exception: 300 (Data Access) at 0000000010001b60
-SP (7fffde6dd7b0) is in userspace
-
-With this series, I see that the issue is fixed. Thanks for helping in
-fixing it. Please feel free to add:
-
-Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com> #PowerPC
-
-
-
-
-
-
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
->  mm/huge_memory.c | 24 +++---------------------
->  1 file changed, 3 insertions(+), 21 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index e00632edb3856..9cb5f99aba87f 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1961,25 +1961,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	int ret = -ENOMEM;
->  	bool writable;
->  
-> -	pmd = pmdp_get_lockless(src_pmd);
-> -	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
-> -		     !is_huge_zero_pmd(pmd))) {
-> -		dst_ptl = pmd_lock(dst_mm, dst_pmd);
-> -		src_ptl = pmd_lockptr(src_mm, src_pmd);
-> -		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-> -		/*
-> -		 * No need to recheck the pmd, it can't change with write
-> -		 * mmap lock held here.
-> -		 *
-> -		 * Meanwhile, making sure it's not a CoW VMA with writable
-> -		 * mapping, otherwise it means either the anon page wrongly
-> -		 * applied special bit, or we made the PRIVATE mapping be
-> -		 * able to wrongly write to the backend MMIO.
-> -		 */
-> -		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
-> -		goto set_pmd;
-> -	}
-> -
->  	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
->  		pgtable = pte_alloc_one(dst_mm);
->  		if (unlikely(!pgtable))
-> @@ -2021,7 +2002,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		goto copy_pmd;
->  	}
->  
-> -	src_page = pmd_page(pmd);
-> +	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
-> +	if (!src_page)
-> +		goto copy_pmd;
->  	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
->  	src_folio = page_folio(src_page);
->  
-> @@ -2061,7 +2044,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	}
->  	if (src_vma->vm_flags & VM_SHARED)
->  		pmd = pmd_mkclean(pmd);
-> -set_pmd:
->  	pmd = pmd_mkold(pmd);
->  	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
->  
->
-> -- 
-> 2.43.0
