@@ -2,48 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD0A606A321
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F7F606A322
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:38:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ap6ejG2m
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nztIIGP6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B141D10E8A0;
-	Mon,  9 Nov 2026 11:32:27 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4DF10E88E
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=vo6QyzQs0o4MmCEDBAEDfTcKi0qlPsBdi9a2qyFZL0Y=; t=1794223940; x=2109583940; 
- b=ap6ejG2mxK24Ys55fWVQ0OBfFBk7yenanuAD797PSZdFaJN6YS+m5cG4yoW25Z8U+t5k+3GzYYx
- kBUXVjxArygeG64yOmp0FIiI48nRSs1mW1iwfXR0fAspdTkJ/KDRWKvXxyopByGoYDuT6jzGUv8Sv
- LG+N/rZAVTnUl40/7TaZa+T2c6vheAHqxkKg1qtMzJSThFgEpmrvN8RmuseCUzQtj0hyCTadZ+mf5
- b5a3QAWUke+ztbGHvUFf4j/WL1irlrLLVZFF0cgP7vtRQoMr6gd8Xm7akeXVeffNJwv5Agqs5lwu1
- x7aRkm2HTzcjvbK9HvVqwf0bEvQwhaW+oU7A==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xQNbm-007Dme-0y; Mon, 09 Nov 2026 12:32:18 +0100
-Message-ID: <10bb1fac-61ce-47ab-939f-4ff72fed3425@igalia.com>
-Date: Mon, 9 Nov 2026 11:32:17 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE4B010E5AC;
+	Mon,  9 Nov 2026 11:38:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2DBA10E5AC;
+ Mon,  9 Nov 2026 11:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794224298; x=1825760298;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=yvNqnEtL1DrLHXAZmMvGuniZyPfPGwdqWzaQcBqBBVI=;
+ b=nztIIGP6wyLwdzvUtbDQyWqPabY+/iY5+Ru8zwI/ZoWXCYN0gaeq/HBJ
+ u98Nhqyx9TG9I4RZK5HAgY9k97hs3LIhZLnXvxe1vnifgFA8dK2tX1zue
+ VV6xlU6l1bfbLPCJVZXImIHR2D+3HQrYoboLKKx7AngtYyNH46D+kk1OD
+ 6Yz/u1uc+z8Fsu8T+oXW0chuDu/Flv1Zp2xSfkNZB7kZQT7qqcaWFaFbI
+ INlwoRmvX6EH86TnPq4gJz7soxbo+UI06Nc/C8jPZMRPv0irAgifSZZN/
+ kXKTOKQ5vIVkI7zGwinrhp2faZrpx+JTnuIBM/3xIE/lf88mWzwMBhLic w==;
+X-CSE-ConnectionGUID: g/SRH7XnS/SOlLL0A76VIA==
+X-CSE-MsgGUID: jTnqSb3HQoWAwWVB5KIKZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2938486"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2938486"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2026 03:38:18 -0800
+X-CSE-ConnectionGUID: y78UL7fKQ6qovUuBtQn3fw==
+X-CSE-MsgGUID: 7AspkSNIRxm3wK+aKmxWqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8282612"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2026 03:38:18 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 03:38:16 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 03:38:16 -0800
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.34) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 03:38:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=temCOaGAZBzHRPjdcPfjE+DpLDYPEK/kqOE9ep1+6gO5lUB5+UYRdF+UVryBjHzro//Y73BIa3foB0Dkul+ndChhImgJ4mCn2ZUgRs9Vsr7Iv7cRh3w+AfIvQJdViqUZ16cKq4bQmk9swCUOmSv4CLG4Z03MuofjpC9/x7V4j7iyjoYQfGIRTZ/QhDspR+dsc0tbXG9rLzEwvjrzR8iOwzXqIhUKyjii+jek0z43aYNCKWorHlZxrfD9h7/Did8TkkOXKYmNP0cba8++Up10Js7ONPH+sqsnjONNDUlfkKrMXJBfLCb1yEbW0k9c6c9B4hPb9TxfkAUlkqtPtr86sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fVm2RLZFSTKNEyPDbtWmjC++fH3u2Vrj/JdyXHpCu8I=;
+ b=Q7T8mz443GYuqsuNJa3gWNkpp9OALIUHfc0kkWn2+JRJMbF8srx0S5F8LeICIgBhBGSFVL3Yn0AB3k0xxgUSliiNWW6AgVrXwkC7poN2QqfS0kQERs/jT5InhGE2N9XgFiDxbjS40qF+9jb4Ag63AxHtSJkDbxNZnLy/Yy5Ko2/rZjI+afMFuIivzT+PpilhV8ky5FuMgz2y8RNDDBft3C/rsWbwSmgRo5z3rgqRtsByC7WVJ66/43ghXz4wiYWNZg0snLVfK6qRnc9R1zkAx2YnymRr4B4GDPSrsA/4ElN/dO6Baw3jWqN8UVcs2qslIVEnCVUDl9GziXRi0keH3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from EAYPR11MB115281.namprd11.prod.outlook.com
+ (2603:10b6:303:2fa::10) by IA1PR11MB7199.namprd11.prod.outlook.com
+ (2603:10b6:208:418::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 11:38:13 +0000
+Received: from EAYPR11MB115281.namprd11.prod.outlook.com
+ ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
+ ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 11:38:12 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
+ <michal.grzelak@intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
+Subject: [PATCH v8 0/6] drivers: Improve memory management for large object
+ allocations when i915/shmem is used with iommu
+Date: Mon, 9 Nov 2026 11:37:52 +0000
+Message-ID: <20261109113758.1491891-1-krzysztof.karas@intel.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DU2PR04CA0215.eurprd04.prod.outlook.com
+ (2603:10a6:10:2b1::10) To EAYPR11MB115281.namprd11.prod.outlook.com
+ (2603:10b6:303:2fa::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
-To: "Francis, David" <David.Francis@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-References: <20261103155411.3305376-1-David.Francis@amd.com>
- <ab5eeb46-f119-4430-9f91-e530a74f036c@igalia.com>
- <CHAPR12MB999247EFCE060F1DA5575E0381EF772@CHAPR12MB999247.namprd12.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <CHAPR12MB999247EFCE060F1DA5575E0381EF772@CHAPR12MB999247.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|IA1PR11MB7199:EE_
+X-MS-Office365-Filtering-Correlation-Id: 954e03bb-8704-4fe1-004d-08df3e55ef63
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|18002099003|6133799003|10067099003|11063799006|56012099006|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: jGMtOqJkSD4kkRmhmT+yhOQdY8c48iiQ1uLPj65xRAv+TeOpcVcT9G9zY7tnIkQqx6ANhEoHcdp3RedwPtDwd4java1vUHKfMQPj4q4IS4gFlG+M4NOzrKST/j+rmfE57rnJsYy6S/W/XoXubkhw8LGy9GDErLidC9DA7IJOxjhTZQyXFVF0psXwhdIwlaS6sx93N/4M/S/bCnvq1AZ5fIsRsqj3QeIVZSrs6IlGCBFx4nhviLCsuwrZflAPjjRPkFUk8Rr2bIpm4R/Hm62bMpeiMMAwQMOOOmdFY352nCRnEUJVl7kADMf+RTWnx4wFChRp6ov0al8kMJny4H4hKiLvcMXWFI+ZPpX4RxCPk38Ii2B3dv61ye+3mN2FKU5Hc2FKkbi3hm1wIOLdRDuZ/TJjJaL+Jngep1WI7wadia5FHPzhbRXvzCHTN8OIAFY9xUny8eHu0EcViEulO4wTtagqdc+5BgJKM1IiYgbQcmm856S5egeSyoE6YLpQIzC9Ff3PJs8JDMgLQ8A6isIeoqFbitIcCc7dXb3xjip3Tfp7kPA67FGKiLD/Kz/LfgwhT9d3oQm5PvmK0NuHfb4nM0mY59fDsHUiRJNMIy6PMPGOqaBFfXup13bKS+1imxsKbwik93qb+gLuX8XitllR5yy4HfdL/ZCEKV4Y+Qa9t3s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(18002099003)(6133799003)(10067099003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1Q5eNWK9J2wxqGBoB1oP8K2idTlpNtGO41IIdPlopQEXsJu9RWH9Sv669lVn?=
+ =?us-ascii?Q?YLbmjR/fQTCw57SCO6DRg6H4zN2HlRSIksUMy1qC9QyKrOyWuaIa/JX6qTfL?=
+ =?us-ascii?Q?st4mVXAalauCAGsVGuS4iJjLkWuhMhz4/RCFSnbU+iQ28wwjKi8ZXTk4Y+uT?=
+ =?us-ascii?Q?OSjfXsR1WrRqNaHm08HZ5wwiTWAsOMyy5od2czT95bXR7f5X34pQrnJzIGHl?=
+ =?us-ascii?Q?93NuyphA6XrY+F0UmuWnRCHFOuudpb/x9PbGzLVJMJ+vBejczD3qvfwvPvvq?=
+ =?us-ascii?Q?GvRasYH5qHZGiPO5FwYOCrSA0x72bZQCg+BMPF7CUVIaH27dJfu3P8wHmk10?=
+ =?us-ascii?Q?3I93mC5nlAhlT4m8V7zSzm6CUsjYlcg7tSD7Q0Ff0Q7C51RpAR2/RpYPnoOK?=
+ =?us-ascii?Q?KxpPNLtKP0zDhw9ejbiD8OsyQ7e3HpwxzAqS8VPBwj1KbzZihWkLo8Ay/QxO?=
+ =?us-ascii?Q?HnjxpxbXQUIlOrUH4JbR856kDe7yeimfk1hXv00carzYYb58G/+/gqnDtqSy?=
+ =?us-ascii?Q?zBRpdmF3C1TM8tubBYFGLCdME6mnvqos5aRTxZRNbKtE+/2D23uK6pjIjctG?=
+ =?us-ascii?Q?kAL7nSL0uYyfan1/6BpnaAmjm+O+pXUuDXRCegFNQhkPRqAFh/L9TXZ9Qg5/?=
+ =?us-ascii?Q?c9dvUaHZcjkQsNYewUUi9dGJKvwDP52g0NfhSEUjRYsDJvrGQwtRKot2l5M/?=
+ =?us-ascii?Q?af/iBBajlYLkd96HyfbUGyWOGZxZu6HQvizFD5xPbS247lpu4IL7XE4auq1W?=
+ =?us-ascii?Q?9nztYj4cM8aWi40VocAmz/x4FPRRo5vuu3NPw2DQsNnCBJUHEPyhOHXEUbTU?=
+ =?us-ascii?Q?Wx7G/Rsw6IpUN5zpRXngPM3WrY90pHqo/a+F9C7kANicRoN5l5d1tKeYjGmn?=
+ =?us-ascii?Q?0nIFJsKX+OF8ORZ1D+2sy5hXkX3jUgI2qJqB4cK0wrcQr7E/4PrOGRcvUpf4?=
+ =?us-ascii?Q?J6tZ56BC52QoF95F8vLNKoEP2FS/Vyp96rsstzZTz9/+UFQo/4VY1z4Sf8Sv?=
+ =?us-ascii?Q?Wc6CcohskWrE7TsR8M2uvYBMQRWlQZk8Mhf1s7dBZofbCcAIg3Q0o8GTpdUx?=
+ =?us-ascii?Q?8ua55ytu0d0fdrWd9wmAefGlwRsymW/wgGcmy/djq6XfOXSaZu+p2SdbrwRz?=
+ =?us-ascii?Q?3opn5m3FKNkQ857ccihzIS1NTJLIiUS3a2lUEQwkogr+Xbt8pxe6wzy0Z1t1?=
+ =?us-ascii?Q?ETsTnFyJe4mRtTYq+lx7YCbafo4z4myyFKdqf4yZlbjSBjSYlYu2X8wizhze?=
+ =?us-ascii?Q?fwFhf4xq/VDbmJfal1s+zwtUG3+bGQXv1YxMLLUs8PoicTeSOx097D+ynBH9?=
+ =?us-ascii?Q?8mw5zgK4Jhpuzd4arF5dDyVLRZZpCcblouRAm9fnzvypwSG/jJF87CVZBbqX?=
+ =?us-ascii?Q?O5AbPKZIBURtNnsPUVIjK+kwR2E6OTKmxm4mb9fLSEosUzB1Y1bgsLlSgYyt?=
+ =?us-ascii?Q?+ECMP0MJ87HTwe15iDRL+gstQGDUBKLSLv3GqaZt5KnVfo/fM38FY+eZXLs/?=
+ =?us-ascii?Q?mTvfVUe/fAlYykNuuyACn7/fgs0DRMguu8uB7+kdb8rlfqAXaXmJGgQAtNWc?=
+ =?us-ascii?Q?4aDLNkLIEhDtUApxBYuRlvxL6CA5MCDugM7vpmixJwVOBXtH8awapq5s2XsM?=
+ =?us-ascii?Q?zCo/yA86dTtbQR2Jl0zNpkkGxzJHHc+QiSymY1kP8BVlmH8F6kvdC96OVohM?=
+ =?us-ascii?Q?2cJA5Wsxz65t/SGn1QQwY/XrpcyRUPwBz8XYOvjaYclgr6jHqLL+4/J0s5x+?=
+ =?us-ascii?Q?vory9j1F0Kf7ncRvAOkDlGFwLfIaNN4=3D?=
+X-Exchange-RoutingPolicyChecked: DzjV2HJ7XlaHTwXcOvz/SWFSqtNvvx2sSeapUQhT6AK922I0JFQQKkWkFETYm0cgv2PVW5rKKCTr4sPpjfBfL9itmjV1YVz+0fLGPsjUGHbq4kW3Fg9XRWudh/No1JchIeKml7bf30/E7VfV6HsQyqvTycJlnUbpHIdcDO8qF5Kl5bcANYyC2GH7A4owHNPvRPnqw9ANjfJ+uSdS0UDZ5MQeM0+vUBuuph+JUcy59zteuhAi81DVbc4sx/7R3p8lFCT5/zuQX6MOCVhXrXp2oQThfcOV4/NWWxJIop9XU+boccI53IozvXSpQ8sy4d6Nq8QJcryafSCKnHZ3NfFtgQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 954e03bb-8704-4fe1-004d-08df3e55ef63
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:38:12.1565 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3VLol/7LPwhLoIFyubhxlQFypDiwA/uTDa1x5nRqdi6wx+LZ7D0q7uCIrDxAlPkHSvRiwpFXBEY89jVFYjxMeQnwzlqQ4Dwd/cm20lU5+CM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7199
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,243 +157,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+It was observed that allocating large objects via i915 driver
+(igt-gpu-tools/tests/gem_exec_big/single) the folios and their
+pages were not handled properly leading to buffer corruptions
+during relocations.
+Furthermore, using iommu driver in this context would leave
+residual mappings in memory that could not be released, hogging
+available RAM even after the process ended.
 
-On 05/11/2026 19:49, Francis, David wrote:
->>> +     if (new_handle == 0 || new_handle > INT_MAX ||
->>> +         args->handle == new_handle)
->>> +             return -EINVAL;
->>
->> I'd like to open the same discussion point that I opened in the
->> corresponding IGT. Should we or should we not check for INT_MAX here.
->> There I wrote this:
->>
->> """
->> About this one I am not sure. Is it not implementation details as long
->> as the uapi for handle is u32? Let say someone converts to XArray one
->> day and then we have to artificially limit that to s32 just so
->> gem_change_handle can keep working.
->> """
-> 
-> uapi is u32 but idr only does handles from 0 to INT_MAX. I think it's
-> correct for this to be an error now; if the interface one day changes
-> such that INT_MAX < handle < UINT_MAX is now valid, I think we're okay to have
-> some cases that were once errors now work (that's what happens whenever an
-> ioctl adds new flags / replaces padding with new inputs).
+v8:
+ * Removed Assisted-by: LLM tags.
 
-Okay I get it. Output handle from BO creation is u32, so rename is u32, 
-but internals cannot handle it and we want to avoid silent wrap. You 
-have to somehow handle it.. hm.. I guess we have to live with it. If we 
-replace IDR with XArray one day we can always artificially keep the same 
-s32 limit.
+Krzysztof Karas (6):
+  drm/i915/shmem: Validate max_segment
+  drm/i915/gem: Count mapped pages in a folio
+  drm/i915/gem: Free sg table on failure to acquire second folio
+  drm/i915/gem: Pull out size validation into a separate function
+  drm/i915/gem: Read and shrink memory in a separate function
+  drm/i915/gem: Remove iterator and use while loop
 
->>> +     ret = idr_alloc(&file_priv->object_idr, NULL, new_handle,
->>> +                     new_handle + 1, GFP_NOWAIT);
->>
->> And here I opened a point about what happens when target handle is taken
->> (again in IGT review):
->>
->> """
->> Hmm.. this is actually leaking the wrong implementation detail of
->> idr_alloc to ABI. ENOSPC is "no free handles". It feels it would be
->> better if gem_change_handle returned EBUSY or EEXIST for this case so it
->> is not conflated. Thoughts?
->> ""'
-> On balance EBUSY is probably a more accurate error code for this than
-> ENOSPC, I can make that change. Neither is perfect? "Busy" to me implies
-> a temporary use of a resource, but this is about a handle which is persistently
-> being used. EEXIST has the error message "File exists"; I don't know whether it's
-> used for cases like this is practice.
-> 
-> The definition of these error codes seems pretty loose, as long as it's distinct from
-> the other error codes this can return
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 163 ++++++++++++++--------
+ 1 file changed, 101 insertions(+), 62 deletions(-)
 
-I suppose all three could be argued for.
-
-ENOSPC - No space in the target range, just that the target range is a 
-single id in the case of rename.
-
-EBUSY - Target handle is busy.
-
-EEXIST - Target handle already exists.
-
-There is precedent in DRM for EBUSY and EXIST judging by a quick grep. 
-EBUSY sounds the weakest though.
-
-Don't know. If no one else provides their 2c in due time keep it as it is.
-
-Regards,
-
-Tvrtko
-
-____________________________________
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Sent: Thursday, November 5, 2026 6:12 AM
-> To: Francis, David; dri-devel@lists.freedesktop.org
-> Cc: Koenig, Christian; Simona Vetter
-> Subject: Re: [PATCH v3] drm/gem: Fix and enable CHANGE_HANDLE
-> 
-> 
-> On 03/11/2026 15:54, David Francis wrote:
->> Make the following changes to CHANGE_HANDLE
->> - reject new_handle = old_handle with -EINVAL
->> - idr_preload before idr_alloc
->> - reject new_handle = 0 with -EINVAL
->> and re-enable it.
->>
->> These changes are prerequisities for the enabling of this ioctl, which was
->> disabled over security concerns and the lack of IGT tests.
->>
->> For a summary of the saga so far, see
->> https://lists.freedesktop.org/archives/dri-devel/2026-June/571890.html
->>
->> I hope these changes leave the ioctl in a spot where it is safe to
->> re-enable. There are now igt tests covering all corner case behaviour
->> and race conditions between change_handle and itself, create, free,
->> import, and export.
->>
->> The new_handle = 0 and new_handle = old_handle corner cases
->> are now -EINVAL as recommended; these are covered in the igt tests.
->>
->> idr_preload is now correctly called before idr_alloc.
->>
->> With these changes the TODO can be removed and the ioctl can be
->> re-enabled.
->>
->> Accompanying IGT patch on igt-dev is
->> tests/intel: Add edge case and race condition tests for GEM_CHANGE_HANDLE
->>
->> v2: new_handle = old_handle is EINVAL
->> v3: More detailed commit message and some cleanup
->>
->> cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> cc: Christian Koenig <christian.koenig@amd.com>
->> cc: Simona Vetter <simona.vetter@ffwll.ch>
->> Signed-off-by: David Francis <David.Francis@amd.com>
->> ---
->>    drivers/gpu/drm/drm_gem.c   | 30 ++++++++++--------------------
->>    drivers/gpu/drm/drm_ioctl.c |  3 +--
->>    2 files changed, 11 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->> index 6a86bd2a0343e..bb55715e8d170 100644
->> --- a/drivers/gpu/drm/drm_gem.c
->> +++ b/drivers/gpu/drm/drm_gem.c
->> @@ -1018,19 +1018,6 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
->>        return ret;
->>    }
->>
->> -/*
->> - * This ioctl is disabled for security reasons but also it failed
->> - * to follow process in terms of adding testing in igt and verifying
->> - * all the corner cases which made fixing security bugs in it even
->> - * harder than necessary.
->> - *
->> - * To re-enable this ioctl
->> - * 1. land working IGT tests in igt-gpu-tools that cover
->> - *    all corner cases and race conditions.
->> - * 2. handle idr_preload
->> - * 3. handle == 0
->> - * 4. handle == new_handle semantics definition.
->> - */
->>    int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
->>                                struct drm_file *file_priv)
->>    {
->> @@ -1041,21 +1028,22 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
->>        if (!drm_core_check_feature(dev, DRIVER_GEM))
->>                return -EOPNOTSUPP;
->>
->> -     /* idr_alloc() limitation. */
->> -     if (args->new_handle > INT_MAX)
->> -             return -EINVAL;
->>        new_handle = args->new_handle;
->>
->> -     if (args->handle == new_handle)
->> -             return 0;
->> +     /* idr_alloc() limitations. */
-> 
-> Nit- it's now more than idr_alloc limitations.
-> 
->> +     if (new_handle == 0 || new_handle > INT_MAX ||
->> +         args->handle == new_handle)
->> +             return -EINVAL;
-> 
-> I'd like to open the same discussion point that I opened in the
-> corresponding IGT. Should we or should we not check for INT_MAX here.
-> There I wrote this:
-> 
-> """
-> About this one I am not sure. Is it not implementation details as long
-> as the uapi for handle is u32? Let say someone converts to XArray one
-> day and then we have to artificially limit that to s32 just so
-> gem_change_handle can keep working.
-> """
-> 
->>
->>        mutex_lock(&file_priv->prime.lock);
->> +     idr_preload(GFP_KERNEL);
->>        spin_lock(&file_priv->table_lock);
->> -     ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
->> -                     GFP_NOWAIT);
->> +     ret = idr_alloc(&file_priv->object_idr, NULL, new_handle,
->> +                     new_handle + 1, GFP_NOWAIT);
-> 
-> And here I opened a point about what happens when target handle is taken
-> (again in IGT review):
-> 
-> """
-> Hmm.. this is actually leaking the wrong implementation detail of
-> idr_alloc to ABI. ENOSPC is "no free handles". It feels it would be
-> better if gem_change_handle returned EBUSY or EEXIST for this case so it
-> is not conflated. Thoughts?
-> ""'
-> 
->>
->>        if (ret < 0) {
->>                spin_unlock(&file_priv->table_lock);
->> +             idr_preload_end();
->>                goto out_unlock;
->>        }
->>
->> @@ -1063,10 +1051,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
->>        if (IS_ERR_OR_NULL(obj)) {
->>                idr_remove(&file_priv->object_idr, new_handle);
->>                spin_unlock(&file_priv->table_lock);
->> +             idr_preload_end();
->>                ret = -ENOENT;
->>                goto out_unlock;
->>        }
->>        spin_unlock(&file_priv->table_lock);
->> +     idr_preload_end();
->>
->>        if (obj->dma_buf) {
->>                ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
->> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
->> index e2df4becce629..ff193155129e7 100644
->> --- a/drivers/gpu/drm/drm_ioctl.c
->> +++ b/drivers/gpu/drm/drm_ioctl.c
->> @@ -660,8 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
->>        DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
->>        DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
->>        DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
->> -     /* see drm_gem.c:drm_gem_change_handle_ioctl for why this is invalid */
->> -     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
->> +     DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
->>
->>        DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
->>
-> 
-> The rest looks good to me.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
+-- 
+2.34.1
 
