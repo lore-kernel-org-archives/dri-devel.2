@@ -2,72 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5B9606A323
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF6606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fjjWPL4i
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fq5o2D9m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3B7B10E5B4;
-	Mon,  9 Nov 2026 05:55:13 +0000 (UTC)
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
- [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF6F10E125
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:55:03 +0000 (UTC)
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-6774639a8a4so380577d50.0
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:55:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D7710E685;
+	Mon,  9 Nov 2026 05:55:18 +0000 (UTC)
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com
+ [74.125.224.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 841DB10E125
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:55:11 +0000 (UTC)
+Received: by mail-yx1-f48.google.com with SMTP id
+ 956f58d0204a3-67990a45e02so433486d50.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:55:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794203702; x=1794808502; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794203710; x=1794808510; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=w28YU3TcGbtifUArrQMyr3dsAatXtLgdaewuzdZz0ZM=;
- b=fjjWPL4i5o4hdsZYcHxquk1+l9fxMbd3UrdgkeVxeX0U1IyKb9ptgtnEraLUUowJg1
- l0+4noH/J/Wa7bnACARQmtfhDYf4NCuHQTNHrObl/4kUvfJ05Yany25eR2IssrHE4dsp
- BOn4jckbiARHNHaoHimCG7PVL5V8sf5sv0vYmdDuWG4XGAzai0kMKiFhIrMrrt5GdH3J
- vnnugsFQrArce2v94E5VYPXhZiXNL9im4oxmqlqIld+zXecx4A8Nq5DoGMmzEI0xpzL4
- ux0z5nZ5+AkcvKk58QAAucvkIy5JSrA0Frpup0OQEriF5rYn89Ao+cDW9xyAaz0rdwjk
- qdVw==
+ bh=/bvRK7S+n7S4510c95Yn3kuWggctXxRt3R5XIeRhEL8=;
+ b=fq5o2D9mDq9c3VUmEdhUdzWk9RfS1tOuOAgzqLFniLlXE3oP1KwB5dyED5rphar2gY
+ tOU6XcwfPViLVh4wwUz/hqzqotZ+h6Zwd/iKl7MyBRsUGxqFONEBu6DPIaJq/f0HAYZq
+ nn+XCVLmUCh+867V2twZfgQ+lxXG25SD6x6jw2JmRpQSM7aV/VS1bI2nKQegPzdNgVwT
+ vD5YFEXnK//G/i4vj40eou4PHe7MayDWh6OjWpL3nl4jjKU2+ly7BZyOMbBZq7bMO0Ip
+ 58/0ZE3N0KsPsXkp9cBLT/ko/CDJ+biTmnPi/XEBZHsT0FN5MjcfHsyehpGUywwd4Nl7
+ bN1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794203702; x=1794808502;
+ d=1e100.net; s=20260707; t=1794203710; x=1794808510;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=w28YU3TcGbtifUArrQMyr3dsAatXtLgdaewuzdZz0ZM=;
- b=FyuTKYdxzICcoop40x7pYFfQwp2qJhmfYbXWOmQp+2Eesb81i413efyfTfKfV/zpvW
- czP6FaFC3um8A3tcDe7olH1xMNUGI2/CfLmYHWHVes8OlgH+/rcMSVPu0sNxT2+by5W0
- G+5rA/UOYP72P7O3HbnXPnGCQyS8ZX94PQwjVSrPgHy8OExymltDyD3aFglL4PbI3jS1
- HslHs8Ze2gA41rkNondWrReSEu/jfco6G3s/q0KuPWtxd4oRM85JnI39nt0nv2M9jClE
- Woz2PUA3bDgcBXX4xLU1Ri2v1bhQqJsMhkGMu7WXXdfCRfBBdlC1WdeCc1K8uq6Y2DC+
- LTFw==
-X-Gm-Message-State: APuU4Z+BfxKCdgShpBcdJ8aIqZPjX66+Nca7ddCXTZr10uySaXUI4Nk2
- lo+gAQfZWL1aj6Qh5N3idtxvl9N/gBkhtpks1gXBSApqZCKmIsGQZpLNdZLYo4SV
-X-Gm-Gg: AYBFou0wyfGsU+84d3NsSF3r16znEmWBwOGerLsDfuYZEUu1GjJ3ZhuvnZLBFFIdMvI
- G1sZYX3odObRKCiHFQRP7/xX2aZTwlXdbyFbvHottOLOoyAbps8iyqkP0Va1k2j0bT11dx+lDCX
- 8/cAOyNnvtZAm1MAAjWjXzWd9PBHEzMOMUCsL85oah+4dRBvwHmw96Q4YFG3LEoabGyunHkX7Ck
- TuHT3NxrTL4WJFbopfhgjVLOPJPQzHf7+4+w20/a222m+BKZ3Ljb17pcfLZn8A6VMWq6FojfhLp
- dDyy+JQs+sZMJ+GTuo7EIvKBYcNZHGviM1fFAnsG4GSVxBoi3BZcBUj66GWW3ZiNGQGHLPnnjkF
- 6NPoRF2LsGxItkt7OU2KV8WEW97N2I7QqP5SsP4i9YtUQCgQq+odIfWqzYFIx00l1/KxyA7pRK4
- 6Gc6FfztfxAtfhjsoUTg85uMv82avzdiP8DMQFZH+7bX23TZqQ67F42DzD07Kdgh6tL1zfCAwfn
- St7J4deKxtHYV9QUXZw9HjVO/6PqiMk6H3x2z/DKWC00Aad7qrtLoX60Zr9SwGNau2pGtevXhy1
- adknt2bl1CsLhyRjIN1g7VPtQFfxz6E7C1IXCGJN/Nj6P+X2xL2M3sncrOfN/dVnjzE=
-X-Received: by 2002:a53:d807:0:b0:67a:8c43:753 with SMTP id
- 956f58d0204a3-67c3da9cb86mr1358648d50.97.1794203702385; 
- Sun, 08 Nov 2026 21:55:02 -0800 (PST)
+ bh=/bvRK7S+n7S4510c95Yn3kuWggctXxRt3R5XIeRhEL8=;
+ b=neR+y7aRmbQvCY+r8WVrIt9U0QImtXMjrBIb3cx7FZgv6pBHdjjfipyi911jWwM1SU
+ nC2zgQxekFP0+6loppsI8oWOd3LOzkkjFBdrXADSPQ4Qs/+bc7Qrs5vXHlQhrO6NTQOl
+ TMEuRxu3zzOhhmhaq4CndC1p4RYuiyHCkwBV1yFfGo4MTjBngs2R5v3EleNaZNnb01Rp
+ rSfyLJY0tO6JbO4DGUuI2XZFNTBNKoAIhPGlERbkQhvjG83vlVv/xggcEB2QaWlRG9w6
+ fEInP3llH14dW4KfQwPUiLM/GdeOqb5BVsECLDWSaF8f9UYjec/9398LbW7fzWEqNIEz
+ JB2A==
+X-Gm-Message-State: APuU4Z9j8ejiv84sdutQSft9K9fwBPcNmvQMjxeBDgKvszBUU4/M+egd
+ LIWLfV/aqg/pxIDOkwDCoHJZkRsMa09TXay9aWchI1OcXwCCjD7axsIKkK/BoJx3
+X-Gm-Gg: AYBFou0HzUnNWxUQw94XmUOAhmxmbsGhRhZH/MWswwAxEriXMPQuK+79sZQsrkZWEDU
+ z6lCxBMjWtT8pPEmNhj+lbqvGdmOXLjqs+Kc9gzlDltoTEcPyYr3B3KvYjNQ6WH7RdDITrANb/+
+ UeNtKNxfbBmpt+W6qo74Ob9IdU4sNRv7gWfEEDX2f0DQoJjpiFDBGNEfP11iDv6tWY1POUQwb46
+ /ak19eK9Azv/IOV+pHrp/kfpXvrzXA6hfIQXRI8kB5WCxOxK0N0+HWmW5FxKlhLA8MNBGaXEjHy
+ IVNtfo6tvxWrRbzcqwdJc7scA7sPkALqnUM9tvJbAiiKrZ73RF/krcpeEHodP3WrtOhdr3t4pWE
+ VftRNsvQ6IdpLoFMz5wvcEGioy2QD8t4wf0eTYtYrGlWy8VHurMv35igEPiggwKubN7aRoWC6pB
+ CmiNWi6XKJzJ0/kHTkaHaSSFEnNHoczpDfY2pR5T1v7zyQ2FR4pQdpECRReBf1mqM0Q9RXTJ+Li
+ mV46C1ZD/5K/zmxop074IOIFuaDC2y8AD6QHTGA0Fdv+O7GsV0GEUDoSTXFRnk3qRx9xS9sb3pL
+ d2xhVJzNHYPsnYeuORlCXmrCSvCiyWk9JM2PkaNGO8GHmDbCBsrFdl4Ng960O6pyexE=
+X-Received: by 2002:a05:690e:1488:b0:67c:1e85:bbe8 with SMTP id
+ 956f58d0204a3-67c3d9bece0mr2355943d50.52.1794203710371; 
+ Sun, 08 Nov 2026 21:55:10 -0800 (PST)
 Received: from localhost.localdomain
  ([2804:1254:81a4:f900:8485:f8a0:b2aa:dee6])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-67c3b83e8bdsm3312398d50.1.2026.11.08.21.55.00
+ 956f58d0204a3-67c3b83e8bdsm3312398d50.1.2026.11.08.21.55.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 21:55:02 -0800 (PST)
+ Sun, 08 Nov 2026 21:55:10 -0800 (PST)
 From: Gabriel Gama <operatingsystemsdepression@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: patrik.r.jakobsson@gmail.com,
  Gabriel Gama <operatingsystemsdepression@gmail.com>
-Subject: [RFC PATCH 3/6] drm/gma500: Fix SGX page-table cache-flush mapping
- lifetime
-Date: Mon,  9 Nov 2026 02:54:47 -0300
-Message-ID: <20261109055451.17458-4-operatingsystemsdepression@gmail.com>
+Subject: [RFC PATCH 6/6] drm/gma500: Add software-only KUnit coverage for SGX
+ page tables
+Date: Mon,  9 Nov 2026 02:54:50 -0300
+Message-ID: <20261109055451.17458-7-operatingsystemsdepression@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109055451.17458-1-operatingsystemsdepression@gmail.com>
 References: <20261109055451.17458-1-operatingsystemsdepression@gmail.com>
@@ -93,57 +93,275 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Flush the modified directory entry before unmapping it. The old order
-uses a kmap_atomic pointer outside its mapping lifetime, which DMA32
-direct mappings can mask. Use kmap_local_page under the existing spinlock.
+Add KUnit cases for invalid ranges and tiles, the final GPU page,
+directory crossings, PFN limits, collision rollback and removal holes.
 
-Also calculate the CLFLUSH iteration count only on the path that uses it,
-avoiding division by an uninitialized cache-line size when CLFLUSH
-is absent.
+The optional built-in fixture uses a software page directory with no DRM
+device and hw_context=-1. It performs no MMIO or GPU submission.
 
 Signed-off-by: Gabriel Gama <operatingsystemsdepression@gmail.com>
 
 ---
- drivers/gpu/drm/gma500/mmu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/gma500/Kconfig    |  10 ++
+ drivers/gpu/drm/gma500/Makefile   |   2 +
+ drivers/gpu/drm/gma500/mmu_test.c | 222 ++++++++++++++++++++++++++++++
+ 3 files changed, 234 insertions(+)
+ create mode 100644 drivers/gpu/drm/gma500/mmu_test.c
 
-diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
-index 4fbc22a59..34ae0f125 100644
---- a/drivers/gpu/drm/gma500/mmu.c
-+++ b/drivers/gpu/drm/gma500/mmu.c
-@@ -265,7 +265,7 @@ static struct psb_mmu_pt *psb_mmu_alloc_pt(struct psb_mmu_pd *pd)
- 	struct psb_mmu_pt *pt = kmalloc_obj(*pt);
- 	void *v;
- 	uint32_t clflush_add = pd->driver->clflush_add >> PAGE_SHIFT;
--	uint32_t clflush_count = PAGE_SIZE / clflush_add;
-+	u32 clflush_count;
- 	spinlock_t *lock = &pd->driver->lock;
- 	uint8_t *clf;
- 	uint32_t *ptes;
-@@ -289,6 +289,7 @@ static struct psb_mmu_pt *psb_mmu_alloc_pt(struct psb_mmu_pd *pd)
- 		*ptes++ = pd->invalid_pte;
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index dc4c56638..b6e2dda13 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -16,3 +16,13 @@ config DRM_GMA500
+ 	  Say yes for an experimental 2D KMS framebuffer driver for the
+ 	  Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
+ 	  Intel GMA3600/3650 (Cedar Trail).
++
++config DRM_GMA500_KUNIT_TEST
++	bool "KUnit tests for the GMA500 SGX page tables" if !KUNIT_ALL_TESTS
++	depends on DRM_GMA500=y && KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  Run software-only tests for SGX page-table range validation,
++	  rollback, mapping collisions and removal. The tests use a software
++	  page directory with no device or hardware context, and never
++	  submit commands to the GPU or access its registers.
+diff --git a/drivers/gpu/drm/gma500/Makefile b/drivers/gpu/drm/gma500/Makefile
+index 58fed80c7..069400d70 100644
+--- a/drivers/gpu/drm/gma500/Makefile
++++ b/drivers/gpu/drm/gma500/Makefile
+@@ -39,4 +39,6 @@ gma500_gfx-y += \
+ gma500_gfx-$(CONFIG_ACPI) +=  opregion.o
+ gma500_gfx-$(CONFIG_DRM_FBDEV_EMULATION) +=  fbdev.o
  
- 	if (pd->driver->has_clflush && pd->hw_context != -1) {
-+		clflush_count = PAGE_SIZE / clflush_add;
- 		mb();
- 		for (i = 0; i < clflush_count; ++i) {
- 			psb_clflush(clf);
-@@ -331,16 +332,15 @@ static struct psb_mmu_pt *psb_mmu_pt_alloc_map_lock(struct psb_mmu_pd *pd,
- 			continue;
- 		}
- 
--		v = kmap_atomic(pd->p);
-+		v = kmap_local_page(pd->p);
- 		pd->tables[index] = pt;
- 		v[index] = (page_to_pfn(pt->p) << 12) | pd->pd_mask;
- 		pt->index = index;
--		kunmap_atomic((void *) v);
--
- 		if (pd->hw_context != -1) {
- 			psb_mmu_clflush(pd->driver, (void *)&v[index]);
- 			atomic_set(&pd->driver->needs_tlbflush, 1);
- 		}
-+		kunmap_local(v);
- 	}
- 	pt->v = kmap_atomic(pt->p);
- 	return pt;
++gma500_gfx-$(CONFIG_DRM_GMA500_KUNIT_TEST) += mmu_test.o
++
+ obj-$(CONFIG_DRM_GMA500) += gma500_gfx.o
+diff --git a/drivers/gpu/drm/gma500/mmu_test.c b/drivers/gpu/drm/gma500/mmu_test.c
+new file mode 100644
+index 000000000..0581c7d9a
+--- /dev/null
++++ b/drivers/gpu/drm/gma500/mmu_test.c
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* SGX page-table tests. No device, hardware context, or MMIO is required. */
++#include <kunit/test.h>
++#include <linux/highmem.h>
++
++#include "mmu.h"
++#include "psb_drv.h"
++
++struct psb_mmu_test_context {
++	struct psb_mmu_driver driver;
++	struct psb_mmu_pd *pd;
++	struct page *pages[4];
++};
++
++static int psb_mmu_test_init(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx;
++	int i;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++	test->priv = ctx;
++	spin_lock_init(&ctx->driver.lock);
++	init_rwsem(&ctx->driver.sem);
++	ctx->pd = psb_mmu_alloc_pd(&ctx->driver, 1, 0);
++	if (!ctx->pd)
++		return -ENOMEM;
++	for (i = 0; i < ARRAY_SIZE(ctx->pages); i++) {
++		ctx->pages[i] = alloc_page(GFP_DMA32);
++		if (!ctx->pages[i]) {
++			while (i--)
++				__free_page(ctx->pages[i]);
++			psb_mmu_free_pagedir(ctx->pd);
++			return -ENOMEM;
++		}
++	}
++	return 0;
++}
++
++static void psb_mmu_test_exit(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(ctx->pages); i++)
++		__free_page(ctx->pages[i]);
++	psb_mmu_free_pagedir(ctx->pd);
++}
++
++static u32 psb_mmu_test_pte(struct psb_mmu_pd *pd, u32 address)
++{
++	struct psb_mmu_pt *pt = pd->tables[address >> PSB_PDE_SHIFT];
++	u32 *entries;
++	u32 value;
++
++	if (!pt)
++		return pd->invalid_pte;
++	entries = kmap_local_page(pt->p);
++	value = entries[(address >> PAGE_SHIFT) & 0x3ff];
++	kunmap_local(entries);
++	return value;
++}
++
++static void psb_mmu_zero_pages_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, NULL, 0, 0,
++						   0, 0, 0), 0);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0,
++							  0, 0, 0), 0);
++	psb_mmu_remove_pages(ctx->pd, 0, 0, 0, 0);
++	psb_mmu_remove_pfn_sequence(ctx->pd, 0, 0);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++}
++
++static void psb_mmu_range_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   1, 1, 0, 0, 0), -EINVAL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0xfffff000UL, 2, 0, 0, 0),
++			-ERANGE);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0, 4, 0, 4, 0), -EINVAL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0, 4, 3, 4, 0), -EINVAL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0, 4, 2, 1, 0), -EINVAL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0, 4, 2, U32_MAX, 0), -ERANGE);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, NULL,
++						   0, 1, 0, 0, 0), -EINVAL);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++}
++
++static void psb_mmu_last_page_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0xfffff000UL, 1, 0, 0, 0), 0);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0xfffff000),
++			(u32)(page_to_pfn(ctx->pages[0]) << PAGE_SHIFT) |
++			PSB_PTE_VALID);
++	psb_mmu_remove_pages(ctx->pd, 0xfffff000UL, 1, 0, 0);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[1023], NULL);
++}
++
++static void psb_mmu_directory_boundary_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0x3ff000, 2, 0, 0, 0), 0);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[0]->count, 1U);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[1]->count, 1U);
++	psb_mmu_remove_pages(ctx->pd, 0x3ff000, 2, 0, 0);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[1], NULL);
++}
++
++static void psb_mmu_collision_rollback_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++	u32 retained;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages + 3,
++						   0x400000, 1, 0, 0, 0), 0);
++	retained = psb_mmu_test_pte(ctx->pd, 0x400000);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0x3ff000, 2, 0, 0, 0), -EBUSY);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x400000), retained);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[1]->count, 1U);
++}
++
++static void psb_mmu_tiled_rollback_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++	u32 retained;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages + 3,
++						   0x8000, 1, 0, 0, 0), 0);
++	retained = psb_mmu_test_pte(ctx->pd, 0x8000);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0x3000, 4, 2, 4, 0), -EBUSY);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x3000), 0U);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x4000), 0U);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x7000), 0U);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x8000), retained);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[0]->count, 1U);
++}
++
++static void psb_mmu_pfn_range_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0x100000,
++							  0, 1, 0), -ERANGE);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0xfffff,
++							  0, 2, 0), -ERANGE);
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0xfffff,
++							  0, 1, 0), 0);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0), 0xfffff001U);
++	psb_mmu_remove_pfn_sequence(ctx->pd, 0, 1);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++}
++
++static void psb_mmu_pfn_rollback_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++	u32 retained;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0x100,
++							  0x400000, 1, 0), 0);
++	retained = psb_mmu_test_pte(ctx->pd, 0x400000);
++	KUNIT_EXPECT_EQ(test, psb_mmu_insert_pfn_sequence(ctx->pd, 0x200,
++							  0x3ff000, 2, 0), -EBUSY);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++	KUNIT_EXPECT_EQ(test, psb_mmu_test_pte(ctx->pd, 0x400000), retained);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[1]->count, 1U);
++}
++
++static void psb_mmu_remove_hole_test(struct kunit *test)
++{
++	struct psb_mmu_test_context *ctx = test->priv;
++
++	KUNIT_ASSERT_EQ(test, psb_mmu_insert_pages(ctx->pd, ctx->pages,
++						   0x1000, 1, 0, 0, 0), 0);
++	psb_mmu_remove_pages(ctx->pd, 0x2000, 1, 0, 0);
++	KUNIT_EXPECT_EQ(test, ctx->pd->tables[0]->count, 1U);
++	psb_mmu_remove_pages(ctx->pd, 0x1000, 1, 0, 0);
++	psb_mmu_remove_pfn_sequence(ctx->pd, 0x400000, 1);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[0], NULL);
++	KUNIT_EXPECT_PTR_EQ(test, ctx->pd->tables[1], NULL);
++}
++
++static struct kunit_case psb_mmu_test_cases[] = {
++	KUNIT_CASE(psb_mmu_zero_pages_test),
++	KUNIT_CASE(psb_mmu_range_test),
++	KUNIT_CASE(psb_mmu_last_page_test),
++	KUNIT_CASE(psb_mmu_directory_boundary_test),
++	KUNIT_CASE(psb_mmu_collision_rollback_test),
++	KUNIT_CASE(psb_mmu_tiled_rollback_test),
++	KUNIT_CASE(psb_mmu_pfn_range_test),
++	KUNIT_CASE(psb_mmu_pfn_rollback_test),
++	KUNIT_CASE(psb_mmu_remove_hole_test),
++	{}
++};
++
++static struct kunit_suite psb_mmu_test_suite = {
++	.name = "psb_mmu",
++	.init = psb_mmu_test_init,
++	.exit = psb_mmu_test_exit,
++	.test_cases = psb_mmu_test_cases,
++};
++
++kunit_test_suite(psb_mmu_test_suite);
