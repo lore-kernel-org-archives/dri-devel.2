@@ -2,52 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DC660A2630
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 20:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC2D606A334
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 20:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=pdWZLD5n
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=tVzjNwCj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDA5610F52F;
-	Mon,  9 Nov 2026 20:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D88810F50C;
+	Mon,  9 Nov 2026 20:36:27 +0000 (UTC)
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
  [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1B910E8D0;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3795A10F509;
  Mon,  9 Nov 2026 20:36:15 +0000 (UTC)
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
  by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
- 6A9Jxrvm3422877; Mon, 9 Nov 2026 20:36:06 GMT
+ 6A9Jxrvn3422877; Mon, 9 Nov 2026 20:36:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=+qwa/QpSDJbuRk4RrmcNdhE
- SzchNoi7TdB6SsEyKC3I=; b=pdWZLD5nWz69Z+7KSyG4/GXpVXznQFxCdBmkPh3
- beOPJnxPjXT5H8NhUli4en59hMk7gHnveWac6wGgB4kYf6i+qf/vZth17I/zMVHZ
- dvYMpk9stFqB+pqmahkqaouugmHT7Thdky0WHiGR7isatEOqVk+RTxKuHeyV238v
- 6+eMk8tQe7cbdCJrkU6TKjpKFm7R18w1Nnr6z2WBne6kEWpop74eOvAG0pEs41YA
- Bdhm15BJ8q8a072mfa8DHq/N1O3kIGl48fxqMNL80qd5nG56qdoCspTm3yTNfBxL
- 4RHisxVSRUaY9Dk3q1rvatzu6+giObkZuYU2xyRjlpOdLkg==
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=s
+ knmdDkQTO5Ldr11UDZTsw2bKwiyFyyJ90PVXDuF9BI=; b=tVzjNwCjp//szmtu0
+ 1Vfxtba1jt6ehYlHfOZc17aebltk/Mh0XJ0SZpc4UD85/xUCXJtCMZvDy+1mxfPw
+ skDxEYdyK/pmZ+LWrcHsINB+qVkS25SLX5Muylk5g1hcY0h458JxueU+ycZAKFeh
+ u+ceuYa9NVKn/0dU2Zuenejm4V2fQgzCrzHwjeVSHmv3DXe+yfh7P4F/eIjFAjcC
+ hrJyBAIN7MJuRnKYgBlL3hwGizX/UnKmIqvQepmT06IMpUVcs889LVK0+BGSdJbV
+ TkhHB3FZIzbukL8uQv0pWLRY0VbGsGiZy1+MQqZSIVmFXeDqi2AxZF1sTjfbSLNo
+ r9b2w==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1tk3-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1tk3-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
- key_exchange=secp384r1); Mon, 09 Nov 2026 20:36:05 +0000 (GMT)
+ key_exchange=secp384r1); Mon, 09 Nov 2026 20:36:06 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
- 2026 20:36:04 +0000
+ 2026 20:36:05 +0000
 From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Subject: [PATCH v2 0/2] drm/imagination: improve UAPI heap and static areas
- query ioctls
-Date: Mon, 9 Nov 2026 20:35:20 +0000
-Message-ID: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+Date: Mon, 9 Nov 2026 20:35:21 +0000
+Subject: [PATCH v2 1/2] drm/imagination: clamp stride of heaps and static
+ areas for legacy UM
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIgu8moC/42OQQ6CMBBFr0Jm7RhaCaIr72FYyHQKY5RqW4iEc
- HcLXsDly/95/88Q2AsHOGczeB4liOsT6F0G1N36llFMYtC5LpXKCxRH8YHvgf2E5IY+YoheDKO
- VDwcsDk1hrCZtqYIkeXneguS41j8OQ3Nniqt1bXQSovPT9mBUa+/vsVFhjrqxVWnMkaw+XeTZR
- qY9uSfUy7J8AQV4oCDfAAAA
-X-Change-ID: 20261104-ioctl-query-count-stride-fixes-43b4df2c2fc8
+Message-ID: <20261109-ioctl-query-count-stride-fixes-v2-1-228ea0e28dc3@imgtec.com>
+References: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+In-Reply-To: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
@@ -56,33 +54,32 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
  <brajesh.gupta@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794256564; l=1757;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794256564; l=7072;
  i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=AhKY/e+/K31ucN7ZgOqLo5iQOyRSxGxgR9Iewoj9sLc=;
- b=E2LwqUxj8yEu6GwwdjBkPR0WhQpEY22ENV+nH5igiQScUQ9UcqJieHs6Sf15rFhmRkuSc2M1l
- l+fgZkSk1nFBMLCqrvm5XOsmDHyfREiClPUUb6MJbCONSYr7w5UqeAz
+ bh=BtQCl/jQqu9IlaT2VJeUrDoOjvX4lBlJNJkGp+dN7yk=;
+ b=7ju1YjK1/3lcSqTeOj2iw0gNgWOYNsvw++Kql/nRFdhL7/qszrm21gXJ1QiwFPkdWJDgP7uet
+ BLwHu89k5aJAg+YCFCp18RJpk8hJ0If0xWfLmrcAo+wn3QR3jsOK0Qx
 X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
  pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfXx5Fr/tn7zpOt
- xqwUV6Ii6tx772kloqs7V/j9I1MpGLodMkji7okx42NS72H3xsF460jH43MSoQQwJ34VmC62WG4
- z+3Pl8Ki+PZRJ/X6Y9CVclIo/CRATMU=
-X-Proofpoint-ORIG-GUID: Q2_NQMvh7IlA0kTA7kWotLqcdzYrU6Al
-X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af22eb5 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX5uiXmvM+giJf
+ 4UoT0zHYicpes2rB4YsP7xdn9OIG/iLatWxd4TV5ydhj/EAH2iQmLK8zDzLCva3nrMs8NaKXJjS
+ aodmGnHzEswOODrpWzpNdAJglA/7ND0=
+X-Proofpoint-ORIG-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
+X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af22eb6 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=e5mUnYsNAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=lIUuuAuNjz2pWeUZIKMA:9
- a=QEXdDO2ut3YA:10 a=Vxmtnl_E_bksehYqCbjh:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX58SVUuQKU2uK
- sE3fqrA0gUbGkKGaxLOYrdkyLJGnpcrjsxKyv/eF4alSNYiRtasKJhmEDYMkcISOVF5iQXVGXCL
- 7lp2VzEoYQvbtQhpxhdPMYY+SFDUxH545uDBDo/X7DWuK+XnJB+G8GF5UW8XXOiym1fv4xth4om
- 1rVm9ySygVhawkO5sP7st88XzBV7MsWE76PzgWYmTGIxw/2EjK1BMCKcETKpaHeBGFsTpR5Gon2
- CUeiABiixkur/qzkw27geTCNTtEMWLm475zFClB0CPBICpxL9o5qO6cZeAJdNLK4UUOhCpcyc5V
- pAoZ6KdCs1vzj3jFqbQ2JQbSxCtOqQzlXI76A9wW6lITpxImaX8UdWo4ipQgMh2FyOtzgXdnPf+
- Vg14f1W+tLtkYKVJQEviDNOhNEfU1B0Km/ZtC9xR8lPz8IdKlO/BSLOlB3DQh5GePrK7D60fDF7
- MVgMW0yrDln22tpQXow==
-X-Proofpoint-GUID: Q2_NQMvh7IlA0kTA7kWotLqcdzYrU6Al
+ a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=wk5KyH1tZOMvrzhs76oA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX2L6O+tfBrm/Y
+ Nb6JUNI7D6y+w3XAW18PwRMszLr/ImpdNRoHp5Y9mwKKyjuD9jjXr8Lex6LJ9mk5zdLGqEfwAo/
+ yo13BFiJ3odtl7rF+QGw10IFJKJnwG0gLri5vbVwTbaoWnl3bb0gKcnP/vZWvMhH8Yf6CIXO202
+ E+qhq0oOBK4uf6ysIeiGyEraaqFR/dbh5rUg/0UOfdn3s0b3rchhHikU7gduJH+hcqUVllAAXxU
+ vMwLrf0yAggzGYmzyF3zbnKeELDPQHUQVh0XwE02PLuNoUN37KBLzTLemdXrQky3L8cRygRXfeo
+ HDDQsi/83HvSBUDo52Wr730eZknZ5WGwucshUqPHtjK9z7xoLZ3ZLcf9p6O1BhTRdDQqmq14wK0
+ J3khUj5QpF8OVLty8+GkKxXJoKKJyuMGbWoZP/GLgjvmvm4ppq7+tskcVk8DgeZvNpbn8ptggrs
+ tv3RlvDmMqVCeEWPOUg==
+X-Proofpoint-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,44 +99,166 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series is about better protecting userspace when either one of the
-heap or the static data areas query IOCTL is made as we go forward and
-extend the UAPI introducing new heaps or new fields to their related
-data types.
+Userspace before 4c18bbc6 in [1] failed to set the stride when doing the
+DRM_PVR_DEV_QUERY_HEAP_INFO_GET and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET
+query ioctl calls. This isn't a problem as long as the kernel and userspace
+use the same version of struct drm_pvr_heap and of drm_pvr_static_data_area
+and at present this is the case. However, nothing prevents it to change in
+the future, allowing userspace and kernel to run with a different version
+of either of those structures.
 
-Please refer to each patch commit message which describes in some detail
-the nature of the issue and the solution for it.
+In order to protect userspace before 4c18bbc6, change those ioctl calls now
+future proofing the value of the stride that is returned by the kernel.
+This means to take a snapshot of the size of struct drm_pvr_heap and of
+drm_pvr_static_data_area as of today and return it to old UMDs. Since the
+size has never changed so far, we may refer to this size in docs, code and
+comments as version 1, first released version, legacy or minimum supported
+version of the stride.
 
-In general terms this series makes the UAPI more flexible, introducing a
-distinction between a legacy (or minimum) and a current (or maximum) value
-for both the stride and the count that is returned to userspace.
+In order to be safe for userspace, make use of the following properties
+that hold in UM code before 4c18bbc6:
 
-With the new pattern in place, an older[*] version of userspace defaults
-to requesting and to obtaining the legacy (or minimum) value of both stride
-and count and this makes safe to update their maximum value going forward.
+  1. for both DRM_PVR_DEV_QUERY_{HEAP_INFO,STATIC_DATA_AREAS}_GET, it makes
+     two ioctl calls
+  2. it never sets struct drm_pvr_obj_array::stride in either ioctl calls
+  3. it assumes the stride from the kernel to match the stride of userspace
 
-[*] before https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44456
+In the second ioctl call the value of the stride is set to what the kernel
+had set it to in the first. Therefore, special case what is returned to UM
+in the first call, so that the value of the stride matches with the one
+userspace uses before 4c18bbc6.
+
+Although backwards compatible, this commit alters the semantics of how to
+retrieve the non-legacy or maximum supported stride going forward. The new
+pattern for interacting with the kernel is documented in the UAPI header.
+
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44456
 
 Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
 ---
-Changes in v2:
-- Rebase on drm-misc-next only
-- Link to v1: https://patch.msgid.link/20261104-ioctl-query-count-stride-fixes-v1-0-2bf86dd7cf29@imgtec.com
+ drivers/gpu/drm/imagination/pvr_drv.h | 21 +++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_vm.c  | 14 ++++++++++++--
+ include/uapi/drm/pvr_drm.h            | 33 +++++++++++++++++++++++++++------
+ 3 files changed, 60 insertions(+), 8 deletions(-)
 
----
-Luigi Santivetti (2):
-      drm/imagination: clamp stride of heaps and static areas for legacy UM
-      drm/imagination: clamp count of heaps and static areas for legacy UM
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
+index 4e058a6fdd5c..db3ffe55af29 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.h
++++ b/drivers/gpu/drm/imagination/pvr_drv.h
+@@ -72,6 +72,27 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
+ 	)
+ 
++/*
++ * Minimum supported values that are fetched by DRM_PVR_DEV_QUERY_HEAP_INFO_GET
++ * and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET ioctl calls from userspace.
++ *
++ * These values may depend on the GPU hardware and they must not change for
++ * cores that are already supported. However, new cores (and architectures)
++ * may have different minimum values and they should be introduced
++ * respecting the semantics described in the UAPI for Rogue.
++ */
++
++/* Size of the first released version of struct drm_pvr_heap for Rogue cores. */
++#define DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED \
++	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_heap, page_size_log2)
++
++/*
++ * Size of the first released version of struct drm_pvr_static_data_area for
++ * Rogue cores.
++ */
++#define DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED \
++	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_static_data_area, offset)
++
+ /**
+  * PVR_UOBJ_GET() - Copies from _src_usr_ptr to &_dest_obj.
+  * @_dest_obj: The destination container object in kernel space.
+diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
+index a4d2f4e273f9..6d11b85e5ec5 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm.c
++++ b/drivers/gpu/drm/imagination/pvr_vm.c
+@@ -984,8 +984,14 @@ pvr_static_data_areas_get(const struct pvr_device *pvr_dev,
+ 		return err;
+ 
+ 	if (!query.static_data_areas.array) {
++		u32 *stride = &query.static_data_areas.stride;
++
++		if (!query.static_data_areas.stride)
++			*stride = DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED;
++		else
++			*stride = sizeof(struct drm_pvr_static_data_area);
++
+ 		query.static_data_areas.count = ARRAY_SIZE(static_data_areas);
+-		query.static_data_areas.stride = sizeof(struct drm_pvr_static_data_area);
+ 		goto copy_out;
+ 	}
+ 
+@@ -1024,8 +1030,12 @@ pvr_heap_info_get(const struct pvr_device *pvr_dev,
+ 		return err;
+ 
+ 	if (!query.heaps.array) {
++		if (!query.heaps.stride)
++			query.heaps.stride = DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED;
++		else
++			query.heaps.stride = sizeof(struct drm_pvr_heap);
++
+ 		query.heaps.count = ARRAY_SIZE(pvr_heaps);
+-		query.heaps.stride = sizeof(struct drm_pvr_heap);
+ 		goto copy_out;
+ 	}
+ 
+diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+index 1179c1e7d92d..9e432f3ad7b4 100644
+--- a/include/uapi/drm/pvr_drm.h
++++ b/include/uapi/drm/pvr_drm.h
+@@ -319,9 +319,19 @@ struct drm_pvr_heap {
+  */
+ struct drm_pvr_dev_query_heap_info {
+ 	/**
+-	 * @heaps: Array of &struct drm_pvr_heap. If pointer is NULL, the count
+-	 * and stride will be updated with those known to the driver version, to
+-	 * facilitate allocation by the caller.
++	 * @heaps: Array of &struct drm_pvr_heap. To facilitate allocation by
++	 * the caller:
++	 *
++	 * - if &heaps.array is NULL, the count will be updated with the count
++	 *   of heaps known to the kernel driver.
++	 *
++	 * - If &heaps.array is NULL and &heaps.stride is set by the caller, the
++	 *   stride will be updated to the size of &struct drm_pvr_heap known to
++	 *   the kernel driver.
++	 *
++	 * - If &heaps.array is NULL and &heaps.stride is zero, the stride will
++	 *   be updated with a value that is the minimum supported by the kernel
++	 *   and this may differ based on the GPU ID.
+ 	 */
+ 	struct drm_pvr_obj_array heaps;
+ };
+@@ -427,9 +437,20 @@ struct drm_pvr_static_data_area {
+  */
+ struct drm_pvr_dev_query_static_data_areas {
+ 	/**
+-	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. If
+-	 * pointer is NULL, the count and stride will be updated with those
+-	 * known to the driver version, to facilitate allocation by the caller.
++	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. To
++	 * facilitate allocation by the caller:
++	 *
++	 * - if &static_data_areas.array is NULL, the count will be updated with
++	 *   the count of static areas known to the kernel driver.
++	 *
++	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
++	 *   is set by the caller, the stride will be updated to the size of
++	 *   &struct drm_pvr_static_data_area known to the kernel driver.
++	 *
++	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
++	 *   is zero, the stride will be updated with a value that is the
++	 *   minimum supported by the kernel and this may differ based on the
++	 *   GPU ID.
+ 	 */
+ 	struct drm_pvr_obj_array static_data_areas;
+ };
 
- drivers/gpu/drm/imagination/pvr_drv.h | 33 ++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_vm.c  | 32 ++++++++++++++++++---
- include/uapi/drm/pvr_drm.h            | 53 +++++++++++++++++++++++++++++++----
- 3 files changed, 108 insertions(+), 10 deletions(-)
----
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-change-id: 20261104-ioctl-query-count-stride-fixes-43b4df2c2fc8
-
-Best regards,
---  
-Luigi Santivetti <luigi.santivetti@imgtec.com>
+-- 
+2.43.0
 
