@@ -2,139 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48899606A323
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8692606D831
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:53:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gRQ7Q3oj
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pmxNQWcx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0006F10F1E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F094A10F1E5;
 	Mon,  9 Nov 2026 11:53:51 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011065.outbound.protection.outlook.com [52.101.52.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8AE710E89A
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:53:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JuMtt/FlH3v22DrKmBoCqpORbN5g4gKTaZBbLdnxtnmA8bthftiVrvf2nDNohNiwkr3IUW/h8ZkRfK9Cf0DQxT308pR9AoP+sCvlTKftY2CyoOMS9jHXLnVSsqz//YKsPpQVDqsdUsX/4qaHZRW0G/uHwRAgerbJ91xc39EjRrDYg6EGQ1rTnFYvTYqXPkg/jzabmuC9gGFEgHKab3pH7vujGVtmaZ0KQY6yXuFb9ZGXRgaHEdFEL9ifkopPs4tDh/UmTZDyseAhrGxnR9h0ATDLzp441n4UjIMfKt+TVj6iHUZqMuXI9yqXEMS4LD55n2xZWYGSdWtZM83Cgvwdjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zzpoGpFrjLv5rOIwR72nP+SQKWRu/TDRzIZT/coMizc=;
- b=mSfqs2LDuTq8W9kIkfQt6x5cX31hJxh0q2pmTBG8SS8ZTp80hrg81hpoOMMnL2CAYCD59EkEQYPca/ImyqS0ZFITjE+arTkpkXSmleU/FYTB8vlY5czSMgMCyfAC8IYW+ZedKsWj9rcu1NrjysPEm1K101N4ks3VkgdCRkhPt91VJ98JkHNaj+JjrJuF279J9QzCLggZzPpBKoSLmyhLan/JZyvYP/qxmaKY/b9i9KAP4sekuUA50vbjCXwkKVSE8GQ8z3J80bfJuJvG6kkVWdtrqdkLp3yHqn4u2SNsJxBhri64IaOr05CFrXieYY3AHajFfdkUQmd966XYVkDQ4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zzpoGpFrjLv5rOIwR72nP+SQKWRu/TDRzIZT/coMizc=;
- b=gRQ7Q3ojUQ3BKtvFe2OZRCurREsBAQiA0s+ucnFNr2LnsiBfkVyTDetciappn1PjN+uKDgx1Fk3/o0SQIaE4rXUOWh/BSDGxVuPOnmrZr86nVa8jVLsXpqtAIFy2EsYz2zZIjqm+DnF+Jo7IVJS2dHllRe6UbDtprbRBAKivD5q+Qwwk/nJTM+gLSZ/66sTBcAEwojqy7C3RiYV1pvhK5ZIz6uGhB/hIxc+js/wX9iIHGaG5vTSght1/3kG8mjYnjWXAdBr3DsR6/zQwgMwUNaMpV261VDAWyoBaHNgQaURc9jSLV7Z2IBZCwoaQpRJl4XLAphvfW1YMNl71ZWSpFA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH3PR12MB7713.namprd12.prod.outlook.com (2603:10b6:610:14d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:53:32 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 11:53:32 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 20:53:29 +0900
-Message-Id: <DMQNR66QDE1L.1Q6DFOYRS8W1E@nvidia.com>
-Subject: Re: [PATCH v5 3/9] rust: pci: add is_virtfn(), to check for VFs
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Simon Song" <xinmengs@nvidia.com>
-Cc: <dakr@kernel.org>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-Content-Transfer-Encoding: quoted-printable
-References: <20261030171230.196717-1-xinmengs@nvidia.com>
- <20261030171230.196717-4-xinmengs@nvidia.com>
-In-Reply-To: <20261030171230.196717-4-xinmengs@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0115.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37c::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C3210E8A3
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=vsp1SwFHmD5OLXEoTZ7OTNSqKFn73bTxg7GL6w+8KjU=; t=1794225216; x=2109585216; 
+ b=pmxNQWcxPTL2pMdeGMExvulYQZJn3VvwAW/r/AJJilgPy80cmfEQLvbU5QFGGELE1pAm2MmUWCm
+ uQjmObHEcQNHXJxX43K9dJYE+PdXmFxHck8EwLVDP6XvKEzgPrlWrpl1Y7xi7dZUzKCqOQe38TK6W
+ /xejSBwbtxWwtoHtW1KfeBNtjgRhMquSHBtsFLHTUlUwDZKdUskp3gZUMp2p+3ZtrF3WmA1zvclwp
+ uAyQ/GeTo0MHl9gkZkwjjIBytqXsJwewF6YSm7Ldu7Znb16XxKjbRgQ50kf92/Pl8CVq7LJN3PJbn
+ 0QAzZgIo5oEWYc1gU6hxITA7SRXGeRP1CiiA==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xQNwB-007Eep-5Q; Mon, 09 Nov 2026 12:53:23 +0100
+Message-ID: <e532cc6a-21d0-4021-9854-08963331223e@igalia.com>
+Date: Mon, 9 Nov 2026 08:53:19 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB7713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b2f0944-dd63-4295-0f67-08df3e5813dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006|261028144727099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: ugGdYdZG3aQ8wp/5JIk0vmsJdPCJ4yYuhuGGya48K9LDLP6RQfigV8nu+qssLYKxDVFaTJkDpIYSvRFhbYlrEdKifbISXseE3Yd9lK0zs92u/DWJjUARk4T1+0fsv6iduJAm6H8oQ5p6QNAPgfHrldDst7d6NyLxCpsWGK9gC3V1hYlWQIPoKB2feu41q0EZ3rkt6Zq7ZtFVyjCc6XYMAFzQ0gMW/EvEigXhmXv5ClAZfafi+hWtQMbQVvuh06e5X+C/mrRMiAkWjNncsrVmd2Wpx9PZgyrfoAz0TpyU35B9xdazW8ZsvrPg4FMGxZ9IuT90+envakZLtpwCXvNSPg81hyr7TMSvmpW1Lfg8hccSPcJKuja7lFKTrHhEe1UFz3ypTORaZM0ZVcNilRwGea5wJX+U1WoA6U/PWk4pLgQ7FPcgWCdl5XPrusyfR19SYNIVcWzZIoyL/eZ5nZZFKYZW5ElmCiJsgZT9dTI+wj58d0Ptp/48dIvB5cyw3JJlqU1SZtea1VcZxHzdoJkepzi6SNib80WbHsPdH6qWm3seVWrBlRDtFqhFfubLJuTu9SRq80wLROe6+isOlJjhZKfRiHeISJccqKqDTz1JbHQfIYLMli03GUxH2mwkVFCYICS7BjpOUxdsGE2+uJDko8osDm2cCrBBvXAG3JUWv1I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(261028144727099003)(261022105027099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VkkwaHBwMlYrRi9YaWFKRWpPcGMram5tMHI4VnREYWhoMGFBWEprT2I0QWpU?=
- =?utf-8?B?a3U5dXdpNk1jbkYwUnZ4alZRUjdYTHQ2cktyd2IxWVlwOVJ6QklsdWZ6bUEv?=
- =?utf-8?B?c0ZiT0IyUUNUZWNEWEJHbG1INGJKbHM3amdMKzYyRjdLbDQyQ0lGZkRnNTBm?=
- =?utf-8?B?VXFERGxVSFVYSmNEN2NqUFoweXB1SjUvNnA1UE50RjJVUUJhc1FubVVCY1Uv?=
- =?utf-8?B?NzhaYlZ1UjIwK3BMN1UxUm9kOFJ5TGlVdWVlQjlKT1lVanduZ1g3S2hNWG42?=
- =?utf-8?B?VHNlQTAzTVNCaCtTM29PSTNZbU1jY01DWjByTmgwbjB4bHF5WjIvQnhFUURl?=
- =?utf-8?B?YU5KWUtIc29keDYyR1k5ZG1La3h4Z3k5RzdSMVRoallhTmhuYnBNYmFGVXlV?=
- =?utf-8?B?ZTh2N1RRWTRxOXQwVThwZUc4ZmkxWDRGMTA3S1ptS0gzSHl5bFlxbXpzZHVt?=
- =?utf-8?B?VHdjRytrR0tKMUduSnlUeHhkR25rZDJ1MnVyenJRQnFrUUJTeTZLZSt2c2lL?=
- =?utf-8?B?eHFMeHJMSnRqQ2gzbVRYaTVURFJCWlN0ajh6VmlOTEtqUnI2S1lUM0VWWHNu?=
- =?utf-8?B?cFlnL0lWWU5ObGVZczZTYVhJWDRUSUNXbnplRnoyS0FpcFNRaTFZK002ZXE5?=
- =?utf-8?B?dG5uZHh4bGdCUEhiSzdid2xoMHE3YzgzN1pLYlByR1ZxNm1KNmpLcjNqMi9N?=
- =?utf-8?B?R2FNbWMvN0FpRTAyNGg3N1hNNXBPQThmNlc5V204d0drd2U3aGRUS2ErNHc0?=
- =?utf-8?B?WWJITnhaVGpmTlVkRUt5UHVpOVlvVm8rOHdLL3NVdUhZT2xGTkZMUFJhbVNM?=
- =?utf-8?B?azVOUHlYOElVZUZMTWJiZEVJS1cwaHV4eGo5TXVXMEN5elN0eEFGOHBkRTlY?=
- =?utf-8?B?aGdwamFNbkF1QXhIc0tDSUhRRm1WdTFpa3MxMHQ5VVhDakx4UzhteWZhaVRr?=
- =?utf-8?B?WkN2dVdzZzI1U2tYZVlIbkdTUWhhSUIyM3RjdHk1RDVTN1ExY0x2MFMyaVhh?=
- =?utf-8?B?TE4wbklub3FsUTJSZUFVZjJwYnREY2p3QTJ5YnJheXg0NVN2RTBwL0VqTHFY?=
- =?utf-8?B?TzltTnZvSXBzTXg3ZjYvNC9leG1MOXNNNmI5RkpVbi9MQ3ZXVGQzNjNpNGhL?=
- =?utf-8?B?RklRRkRLTFVFeXFLMHFNL0crKzJ2VWwxMDFGOVRTanQyZnY5aUFCU3VHZmV0?=
- =?utf-8?B?eW1WbTQvNm9Zby9KUkhKeXBleGxrN1dXc1hCNU9jeHZEdDh2TFp3cVNiZlpz?=
- =?utf-8?B?STdkUktBalhQSmt4cHpOOWR6ejI4OC9SQUtLZHdNd29QbHppY0MyeGJ0VlJ4?=
- =?utf-8?B?S1JYZlBVVGR0dDBTRUh6c1VjZmhLT1FEMmtNaTJWZ3JuemNXbjQraXduNElR?=
- =?utf-8?B?aXMwWC9pbHBQbkc0NjUzNldVMkszVEd4TVFnOXdiV3pRYlllL240Y3N3YzZm?=
- =?utf-8?B?UExid2dwYm5kdENCM0l6aFBXYldHc2FWMFYzb1Qza2U0WmdPMFUrWGg1cUhs?=
- =?utf-8?B?ZW5RTzFXb1laeDU2Ukp1NTNoY0Zhc3ZTcTR6UVk3cDQ2SHFnakJqdlYrUW1N?=
- =?utf-8?B?M1YwaW43T2MwdWdmd1c1ek11WUpyVGdYTitoRVVKa3ZibSsvbEVTd2tMRnRT?=
- =?utf-8?B?MW1PdVk1UVN0aFg3SjVjTjIzRVVzVllGb3B6dlUrREpiQ0dYSmVYTmxEeEJV?=
- =?utf-8?B?YjBicloxYU1USG5IRG52NWJOaC9ldEg0UHRiRUtRZkhRL2pMcHd1MjR3cWJw?=
- =?utf-8?B?dmtkakg1ZjBJZ0REQmZZVGpEb3lmMURIUzRyQXlYTm9lMHVpeDBTdFhuMVhy?=
- =?utf-8?B?Y3o4MURBWFRLSFNZaUlLRFAwdDd2b0VHR3JjaThWTjFyZHlESWZxeTE3SmlR?=
- =?utf-8?B?WmVCcWpYUzU5cTgya0pEUkFXdTFHYTFyNFQ3dTFoWFZ4MFpBb1ZYOU4vdnUr?=
- =?utf-8?B?ZEx1dk43UjZyM0IwMllEeDlVUk9ZSHNSK0lGTFozelhjU0R0ZkxKQWx2YXgz?=
- =?utf-8?B?SnQweXBGbm00SzhvRGdtL3VKUGpWZ1VXYVcvVmtLYmtXVzd4YXIvNkNqd3Jy?=
- =?utf-8?B?dTBlNjVrR1dDVys2ZFUrcG1mbzJoOHllRStpZ2FBb21Gek1HdXpUVzArNHJ6?=
- =?utf-8?B?MTBkSW9EOEhQSkJwQ3NiTHhrVmlnb3BxaDNPSjhjaHZLd0JqblZhN3ROOXNr?=
- =?utf-8?B?a0QyczBUc2JhdWQ4alBieVV0V29LdCthdVNnU1lJenBaZWhZMTdHQ1Z2a1c5?=
- =?utf-8?B?aEY0bmEvMHMxU3ZBWk5aOW15VExUaFAvM1ZLYTNQSDF4K1U3QTJrbTdTRm5k?=
- =?utf-8?B?ZUhuOUJ2SkpxTUQ4NjhWbDc4K0NFOFdwNk5yTngrcFFiRy9DZmZYSzArb2t2?=
- =?utf-8?Q?P+o0/PaeFy1nAF7nopUpkufGFYw3AmwTmlfgTShMceNrW?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8mmoA4SeIFJ3yg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2f0944-dd63-4295-0f67-08df3e5813dc
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:53:32.3103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UMMB9Ls30cqpFU9fJj/mdnDFcikC2W7sdlAXG4NMuCV/uymSRV7Iwb+SXCPpLw3lEcyxxqnO2b/mh5Mvm5K0wQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7713
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+ <20261014-vc4-common-scramb-v3-6-c68d58d959a2@collabora.com>
+ <45ea1610-360f-4f6b-9ea6-30b28fbe8514@igalia.com>
+ <8b1b7d8d-9656-4b3b-9f83-1526c8110ab7@collabora.com>
+ <b60a42bb-b48b-434a-a306-3ac9189027a5@collabora.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <b60a42bb-b48b-434a-a306-3ac9189027a5@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,24 +87,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat Oct 31, 2026 at 2:12 AM JST, Simon Song wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> Add a method to check if a PCI device is a Virtual Function (VF) created
-> through Single Root I/O Virtualization (SR-IOV).
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> Reviewed-by: Alistair Popple <apopple@nvidia.com>
-> Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-> Signed-off-by: Peter Colberg <peter@colberg.org>
-> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+Hi Cristian,
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+On 04/11/26 17:08, Cristian Ciocaltea wrote:
+> On 10/28/26 11:44 PM, Cristian Ciocaltea wrote:
+>> Hi Maíra,
+>>
+>> On 10/27/26 3:35 PM, Maíra Canal wrote:
+>>> Hi Cristian,
+>>>
+>>> On 13/10/26 22:03, Cristian Ciocaltea wrote:
+>>>> Replace driver local scrambling logic with the newly introduced common
+>>>> HDMI 2.0 scrambling support:
+>>>>
+>>>> - Advertise source-side scrambling capability by setting supported HDMI
+>>>>     version based on the variant's max_pixel_clock.
+>>>>
+>>>> - Provide minimal .scrambler_{enable,disable} connector callbacks that
+>>>>     only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
+>>>>     sink-side SCDC programming and periodic status monitoring to
+>>>>     drm_connector_hdmi_{enable,disable}_scrambling().
+>>>>
+>>>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>>>>     the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
+>>>>     which internally calls drm_connector_hdmi_sync_scdc() to trigger a
+>>>>     CRTC reset on reconnection.
+>>>>
+>>>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>>>>     flag, now tracked by the common drm_connector_hdmi layer, as well as
+>>>>     the now unused output_{bpc,color_format} driver data members.
+> 
+> [...]
+> 
+>> I'm going to test both fixes and send them out as a separate series, so we're
+>> not blocking on it.
+> 
+> I submitted the fixes earlier today:
+> 
+> https://lore.kernel.org/all/20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com/
+> 
+> I'm waiting for Lucas' scrambling patches to land in drm-misc-next so that I can
+> rebase this series and send v4.
+> 
+
+I believe Lucas' patches landed today in drm-misc-next.
+
+Best regards,
+- Maíra
+
