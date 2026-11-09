@@ -2,66 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4376082BE7
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 16:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F3D606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 16:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YqX8zXq6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGAoxmCP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB2010F417;
-	Mon,  9 Nov 2026 16:07:17 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBAF810F368
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:07:10 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4b4571ff080so12899875e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 08:07:10 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFEF10E1CA;
+	Mon,  9 Nov 2026 16:07:20 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1123910E1CA
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:07:13 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a5087a5348so9056015e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 08:07:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794240429; x=1794845229; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=PAVOiEo7yvU59/BVYzddko8QH5/O/35Z26C3YJ1MLT0=;
- b=YqX8zXq6xPRRE8MLOP/4+yafPcqiAggnT+QmC1CGzkFzl57YItImIqPQnFQMRqzPWl
- J4HKV0tlRCKq+vPR/yWdT8Cwn41DCx5TEGgHvjV26niY61tAYxRnaErGvAQTsGROiVAx
- eSNpQaL7Z44tUisOK8WWyU94gAX2NV7NDSX3+6swbEfkoriXjNJCGS9UKeYg9+FnMxgn
- VxLuZkGMnfN37S1T25g3gC+9tySVG6FQDH/n/SrS0CdZqYjtKPxwYF+6fZbOTHaqmoSC
- XetPEjpuQrY17/3bBJiZ/INQuDNoqFD/ou8cyycJjzuVM2CoU9AqZlRnQVw2XfvdS1nY
- O24Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794240429; x=1794845229;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794240431; x=1794845231; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=PAVOiEo7yvU59/BVYzddko8QH5/O/35Z26C3YJ1MLT0=;
- b=AypyKSAF5X2VBBSTwNBEecgbyVuaJPRmRzJwwZiM8ao93LzWUQIOXD01/dwb5IxvON
- 1TMHM98MoHoAB8Ssqj+/YZtWg66DgkF9Jbwq7BKz2UBCITrq+sHwQGWvK6UzfXfEzz7V
- TxWg6q6nLI/hWKfxemVRjEpnANuhYKqh1vGgZzVfM+k07z1ZNWHrKcFQB5yTAaYvv8+4
- sv1u0JE++HNwu31d/obXuanNvxT4eXv8oIBw2isuuIojH33HfQW2LslMfa4GmKvvlqHI
- bCSgKX/GChJpscP/AuiMy1w6SAtKDElwwjPhbHi/CBvconjaSu+gfkZ/GysnLw4Qu+W6
- WEQQ==
+ bh=YeXOVU3Dlu3RGzoo7GptmhPvzHeqqfiDgx6SA9rp6Cg=;
+ b=kGAoxmCPY1Fl6deze5Sw1qmBrIERiDgaECb3UN9RHL6tWmQnipyS6ZW012Epj9R6Ga
+ OQ2FqILVOFGUoTzMzdasSGG2DO9J4DRwyqNa1C9GlCOfyyVx+R3IzT9VHXDGJmgDjDwM
+ //C6DykvStT2DSQ19hrbX4fTMaHRR83gIkpMHKHE1kbZPl9sPvaAPrLvcCu6YnIox3sI
+ h9iVvvlqM3upNpHzxnH9pTcMcxWN4DnOK/nGO9YJyLl48LSLgRoQhYTpaY4dCTuHBbHG
+ DHeeNNgV3sRmQUlKQMTV2MCM6b1uL6QufNWP274X4WdOgsoKonnVzipPipAAybrRlPL4
+ 2aPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794240431; x=1794845231;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YeXOVU3Dlu3RGzoo7GptmhPvzHeqqfiDgx6SA9rp6Cg=;
+ b=DZJYjrTYv+6J1l+QzAY25yEl00ZWWhkEtYrDNMsDBmo+jcaWGXpt77BKcAM1AJeauf
+ 0q8+qju3CjCvC84wF+d/p2fq77uQvhgw2U+xc3yRYcB58cHEvVw/GKgbve02VZOIQz9P
+ 3+0nYPCuZMOA504HAJrToArQqtiQdoTMx5pZJFOImOh1F8m8B0Q0eH/gdywfbdbPXMvt
+ l6vVcmdz+doRmugjD2GuxZGS5jXgdqQfRcV8e25QhW/pb0t13XFT6Q3xn+tBTm1hxrii
+ QU1lSzXgy2lC2wYsiyW8msKpZeHYu0QHiAmesxu/uKHX76nuQkXH8cWtqROghbK7fHzR
+ hC2g==
 X-Forwarded-Encrypted: i=1;
- AL+hErEYpNyVrZsqUb1xxZ37vFTGPUYapmqv/Eja7omF9rFYe1r2sgDOSPoL9YofZwPIPpYMDNW5EA+1bL8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9behk7l3NdjHYjzfCNzoXoafCGHHJ1Bs92AWfR9DJEnpBfnE6I
- j65o4Gzhy5GAZh8mLFGwilXZfnztP82ZasV0/FBYYtFKZ1HsKcYSkWhD
-X-Gm-Gg: AYBFou1tm99tsmBApsS0wnRH7Nrq9rH5C6E10eCZbns4aGhaK3vj46uEjZJOObwRawk
- kmhqAkcPxEbaxu8+DWNEdDDlOBZQKtoxIFDW/WdMytAMA9lODHWm5EDsg84dB5fV9mQkbZFoPYY
- vIdcadpiOOHFsgU4qGhdiTtDHxcItXm6p6m9KpDKCVnVr6je6KmdKjLgOgbaBEFgTIj7CNQziXp
- IDGJWUY4S0mSvn/54J/pyBlyVUY2+cd6PwBojLmBNXRAKK3bsqz/Li/O1c9/V696BIM/6rnGuma
- zNl308atOAys/Z6Tq1a0uYIk8dEceDjnqYM5On5QWnOiTpRNxb7bO4yaRZ20pBRNRM7ID8WfqU5
- GZL7qEJeyOKcXrnsMx2Ka4ysL6Fn5of5xrPvpBUV3o1HKSbIq0nHNOuuFeBh+jP+AIUPRyb9La7
- Wh7NZ/159TdqntcK0U0WlMcyLPdrEcWj8FhooZGc9Px4pC9qauGaelZPGbKiF7ldYevfL4svEGN
- 8JAwLexve5LQyEQXpuO70I8fsl1p4c30A4CmqFrp73G8VJd0iWoZW5sDyud2ix13GG6z5sWxCM4
- fju+rx9y6AzCmzjsesWotgLBUgl46uV7sTkWpQsuUMv0wEdAV5AcDArWHwTjMpA9isZDmltnFf1
- 1kQbAsiO2TXrAhcvhoM4ngvE3jeLzeq227d2vMyqJfQ==
-X-Received: by 2002:a05:600c:4f86:b0:4a1:fa21:fd90 with SMTP id
- 5b1f17b1804b1-4b960d9b17dmr83943565e9.9.1794240428927; 
- Mon, 09 Nov 2026 08:07:08 -0800 (PST)
+ AL+hErEo5lKNZOkgcN7IxMw1H+6r5iFWs62Y3SLJJ6c3q1SXr4NsI/R1Xb5eFhwaJbBhu1tDTo6YEfxE/sI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+kIq2V4qwCVrv/Fqw3pARHWLgvmOQIt6cMjFmbmQlx9PviPGwF
+ ZGDDR6167hE56E+r+bg3AEzX2wWOsRJdfWXhnMAgcJMRxS+sWxIrUgDS
+X-Gm-Gg: AYBFou1UT1MWvMPluGgvu4CyTY3nl+pONwr2MjiBYqHKPEDbd70/lVWBAVzg4mZ1hi8
+ V33Kvy97SzE2v5LfpyzNK75/6iByal8SfZBehUnAzlRoStf9QL+TMFsYD+/AUPnVIxFZGPbPQgG
+ jGqsxb3VxBzM2SqKUxdoWYul4biToZHTTE2o4/9g2luX4ezPs+x8Plar6dwZguLcrRxz1kzGc0d
+ dZs8Fxo+7pT/nC6US4TVoVzvha57PIZg/+sJ3AFtYPEWtwwch3HZzkW9Bhi/vodKfnkR3jlqRQU
+ hRP89zBwz8o0wrCuCQ9MO42uIr3KnfndJud/binMwLHhI7mCHFl6zD8qNCY0tzMnUVw0G0VHYQd
+ gEVOsqwGwKGDtxt1CFIIo1u88+BavUNodP3ROTnYlfMWhwiSGGFVikO4SWRP8amklIgkWnBqY+z
+ VAexvNHiH3z7Ip0XdPupalgx8f5lXm4iYSyphaFngHb+HyQf4eBtzQcMIliR5YuBDKZcmqXFP5J
+ 2KbpP2c01uY2j7wD7mA948HNv5b0h1kT1HE6fmjmcIJCyd5lBMfC9IgSfdJH51YHdcD747n8TYP
+ ZglH/iQ0MgZM4EW/15eQuvx92wxNpjMDvRvAIwW0tajKNiQesfytmvWl9oa86BGSMRUOZoEuJ2g
+ vtCgI00zmxV1DF6JP98SecAFwMmX2pCwjJGj1ScDngsAxmX5zH3cA1ik2MBnrev8=
+X-Received: by 2002:a05:600c:34cc:b0:4a1:de8a:603a with SMTP id
+ 5b1f17b1804b1-4b960da49admr82912395e9.6.1794240430762; 
+ Mon, 09 Nov 2026 08:07:10 -0800 (PST)
 Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net
  ([2001:863:742:6109:ac9d:152:38c3:6463])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b90f119b96sm159174245e9.15.2026.11.09.08.07.07
+ 5b1f17b1804b1-4b90f119b96sm159174245e9.15.2026.11.09.08.07.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 08:07:08 -0800 (PST)
+ Mon, 09 Nov 2026 08:07:10 -0800 (PST)
 From: Romain TISSERAND <romain.tisserand@gmail.com>
 To: Igor Reznichenko <igor@reznichenko.net>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -74,10 +75,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  sashiko-reviews@lists.linux.dev
-Subject: [PATCH v2 0/3] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
-Date: Mon,  9 Nov 2026 17:07:03 +0100
-Message-ID: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+Subject: [PATCH v2 1/3] dt-bindings: display: panel: ilitek,
+ ili9488: make the port optional
+Date: Mon,  9 Nov 2026 17:07:04 +0100
+Message-ID: <20261109160706.2272332-2-romain.tisserand@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,62 +96,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Miyoo PocketGo S30 is an Allwinner A33 handheld with a 320x480
-1-lane MIPI-DSI panel built around an Ilitek ILI9488. The panel uses the
-existing ILI9488 DSI driver with its own init sequence (from the stock
-kernel), timings and DSI mode; the sequence is close to the
-E35GH-I-MW800CB one.
+The panel is a MIPI-DSI peripheral, a child node of its DSI host, and the
+driver does not use a graph port. A port is only needed when the host
+links its panel through the graph; other DSI hosts, such as the Allwinner
+sun6i-a31-mipi-dsi one, link the child node and have no output port to
+point at. The PinePhone panel is described that way on the same host,
+without a port.
 
-Patch 1 makes the binding's port optional: the Allwinner sun6i DSI host
-links its panel as a child node and has no output port, and the driver
-does not use one. Patch 2 adds the compatible, patch 3 the panel. The
-board devicetree will be sent to the sunxi tree separately.
+Keep the port allowed (panel-common) but no longer required, as for other
+DSI panels such as ilitek,ili9881c.
 
-Testing: each patch built with W=1 for arm (multi_v7_defconfig,
-DRM_PANEL_ILITEK_ILI9488=y and =m) and arm64 (defconfig, =m), no
-warnings; dt_binding_check clean for ilitek,ili9488.yaml. Tested on a
-PocketGo S30 on 7.3.1 with v1 (A33 sun6i DSI, one lane): the panel
-probes and attaches to the DSI host, and the picture shows the right
-colors, size and position. v2 only renames the compatible and edits a
-commit message.
+Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
+Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
+---
+ .../devicetree/bindings/display/panel/ilitek,ili9488.yaml        | 1 -
+ 1 file changed, 1 deletion(-)
 
-Changes in v2:
-- Drop the "pocketgo" vendor prefix patch: PocketGo is a product line,
-  not a company (Krzysztof). The S30 is made by Bittboy/Miyoo, so use
-  the existing "miyoo" prefix: "miyoo,pocketgo-s30-panel".
-- 3/3: drop the claim that COLMOD sets the panel to 6 bits per color
-  over DSI, only say the stock value is kept (Igor).
-- Add Igor's Reviewed-by. I kept it on 2/3 and 3/3 although their
-  compatible changed from "pocketgo,s30-panel" to
-  "miyoo,pocketgo-s30-panel"; nothing else changed in them.
-- Link to v1: https://lore.kernel.org/all/20261103110524.2812831-1-romain.tisserand@gmail.com/
-
-Tool disclosure: this series was prepared with Claude Opus 5.5
-(Anthropic) as a coding assistant, in an interactive session: it
-extracted the stock init table and timings, wrote the code, the
-bindings and the messages. I reviewed and understand it, and tested it
-as described.
-
-Romain TISSERAND (3):
-  dt-bindings: display: panel: ilitek,ili9488: make the port optional
-  dt-bindings: display: panel: ilitek,ili9488: add the PocketGo S30
-    panel
-  drm/panel: ilitek-ili9488: add the PocketGo S30 panel
-
- .../display/panel/ilitek,ili9488.yaml         |  2 +-
- drivers/gpu/drm/panel/panel-ilitek-ili9488.c  | 55 +++++++++++++++++++
- 2 files changed, 56 insertions(+), 1 deletion(-)
-
-
-base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
+index ea7449273022..016a573893b7 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
+@@ -32,7 +32,6 @@ required:
+   - iovcc-supply
+   - reset-gpios
+   - backlight
+-  - port
+ 
+ unevaluatedProperties: false
+ 
 -- 
 2.43.0
 
