@@ -2,112 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E60A606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6705B606A321
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:33:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LB5+w76c
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a70raC/1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8BD10F032;
-	Mon,  9 Nov 2026 05:23:14 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5407810F032
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:23:08 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c49c32650adso62451966b.0
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:23:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794201787; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C871910E213;
+	Mon,  9 Nov 2026 05:33:23 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2784210E213
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:33:18 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c468bd799ecso59432766b.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:33:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794202396; cv=none;
  d=google.com; s=arc-20260327;
- b=gLb8+svHZ8cDQWB86kCLDSK1n/FdADhD5wdPY5GTwiS1Sf5L41eQkLCaz9XiNDCgoW
- GMCHgrh18ebibg+yGQE3OuHnwyraCwF1NX+M+zOR7b59RKv1PQZSoHln5xYFLwCWgLvv
- 8KjDrsvxD7rp6qbNL8xJOXn293jYEfa8W8kYGJoNZPd5VfRbQ295RZNZjPVNufx7qf37
- c3wLbNuD4EYyJL59X0m391YXtObBClGJtFuUbzFouWVX8RzcWsQmj4UxZoeqBf4o+R3m
- ed9g08yajdJVKx2pjtaVQRIHJqXH9yL8XnQ1N2pTPO+2+94uyZ9WWq3MyJOGB+nA1D1J
- J2kw==
+ b=DvGWrZekNYaqWOzEGwMfkbQZyEyA2ygJ8hcoRm1R353qXXmjQIN7oe4rlBBJa9J4jX
+ Su0/OPUvesxjl2ADXsTHKFgJxoL74JF3b5IL0vtWvobPwxuBRxNDw45cD/ymCY9SrvUo
+ B+NVTZbc5+cZMRGOjrK7H0lqxlDuUYpbKGOvDpAyyVHNR1XmriPF+WwpPOEiy3i6P/rC
+ s0E4asEduVUOaXF5jRHBLq9rgzafRkMRgz3y+16pUFvq1RRJFfrn6ymlLp7IhLpek/xH
+ HyXsNxEAIeoZsd0l/qdpaD7JX+p7m3UmPRL/Qna3/iKwPVQVPq3FfZEZVpb8IvXh6HEk
+ rXOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
- fh=U4uP9QfhNkXGvrMQzVp741/LrLW7nqWLDh7hpaTUGfY=;
- b=gwte/x5EM7EDybyFPYQ0WSNWH0iOmy77mfrU6DZIYTQuOgEY5Ek2ke+FTotU0ZT9oe
- vArx0MpAJjySncRY9YD9tHjxP58MMO5VXdwpHAvS8MJW3eLa3wYuFWhTEA1FWQYS60Mx
- /zs8Lfxpw2VpxGaehN/TZagvaIUT2KXoJPenjJNshtsz8s0xwt+7ve2Ew+AxkqqzG3kk
- yUTx4iHkssafWIl6fBD07KFYE2yaMIQq72+5geM0GLlsUL6L5IFQ9r6YhTp3KB0doTQX
- wQ6KIWniTICfcFgycWDa4dl5xubuocjboPVl8ORfvVwZ+WnngqGaEIB6D6iyUyvYUDff
- DPkA==; darn=lists.freedesktop.org
+ bh=OM6oEuV+WEcl5iZPW6qWHn//Qd9/cDvZHfthnu4mT7k=;
+ fh=coJ4cfaQ7SAtG3KA/2OI572D1zm7hPERgBXIl4qk7mw=;
+ b=ZLGGOlwCoZFOyT6z/UloDDFHAnFaBPNVwJDSdevtZioM4YWW6mitUdXqOvL21qSLXi
+ /OJN0oni0/W1zyBzULxx4UUG/IyJfLB2rNft/NSu62zC0ZM7ZZscmJa1U8sA1Me66haI
+ ko8+R95y+tR51QkA5maHhKH6tGDlxKa4V7sSRWeLtHyvlqFL/A4M/rTpwpOyieIgHlSd
+ +mpoo+RHqCI3PZ21kdWc60E34UlGFwk1aXnPFun1fHjMCpbxr7EUbMu5UTulMc26Al3B
+ hvvALALNBzxfK03EbCeQiKC+T+9dAlVhFAqw0PhWKXP1od2N3+AeRLKGG8yGPVo7bwwA
+ 91Hg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794201787; x=1794806587; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794202396; x=1794807196; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
- b=LB5+w76cKSHOEVBcLBbSxtmQmTyW8gbim1FKoi36QIluTU5oUG8LyJG9u3xWBIxZfm
- yO3HSr6iITWcp7Ox5Zm8OlvlJl5x5Y1QzPRatpxzqnrULRCExDLeyWArddUtp4Ry/37z
- ELgvwZlEJbILwRUpWgxyhwkGK90ZYxGjvOF403QcrPWUESXGhuiAZJfiHg1MZm/ZSnF7
- mEPEBcM1RW8sTx3VOGDY62vtOkpooH7kqBV+arsUrFED15YglwVSxNNrv1JYOcbGUMP3
- C1MZXwakvv0Qsw6Edv+BDMngptjVqpf+PrCyksAHbUjCGfEJ0N3cxiZ+IueLi0JIEQnf
- AwOg==
+ bh=OM6oEuV+WEcl5iZPW6qWHn//Qd9/cDvZHfthnu4mT7k=;
+ b=a70raC/19c+0yKUIj5YaPoLsgAuQrXmGtUCVkKMLkKlq7Bu0uM17ZqlVp0OjWdtHVW
+ 7VffkGpr4w+4R1IH+v1ORsSPIfdX/SjZMY2LIaah7t5FyInebJodEjEfIdUBlFgERDo9
+ FraqwtLnjbUqGTRDe7VN88sWWlL3WllaJPk1FZEC92SM6Qvf61qCyatN7hTF/5bdZTWR
+ XERH7O+evjae5aJArQygqBuIdjkCmNY4IeC5DLBwz0WTVN+diNjH7qEu+ONuNTKng8yP
+ q1I41oRd8HkCk8IKneCar9ezpRUQTEKEpOPBSY2ZOelSU93pThX8LP80PPgc7lCl2d6l
+ mOyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794201787; x=1794806587;
+ d=1e100.net; s=20260707; t=1794202396; x=1794807196;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
- b=x7qiws2rdeyM/8vTKhUUFFFjltTkMD4Xnk3pTPFSfM0Ea9TTDopm8aX39uytGRh9up
- FmmZOrEe5aoibAfWokFOuIKtwRUOU8tzX4SdZbB46mcUrgNsUOQ6G9Z4Yp2B2CtmOeky
- s4nE+e6taCeEW2Su6Sy2NhMGR/izC01AuMtv8jShueFgNkGdHUB4KMGhPCVZL4vjzIXj
- OJIiZUel4MzVCe3Flczxn6CETV5HyhYR6KiOr2o7Q68DuUL5a/fDvW8y7hoZB1r5sLkF
- 86GPZExhCntdaKV1aLkU7KY9qXjjvpW68b3tGH1H5W2ao1/cDwKd0IHCiMC+NdyeHdSg
- Z2og==
+ bh=OM6oEuV+WEcl5iZPW6qWHn//Qd9/cDvZHfthnu4mT7k=;
+ b=aqISyv1qP2vCdzTVE9zQW/Xoon0pFHIDW6WMiIo6cPDQ/Z5Nm1ioozAvCBL2dUlPhM
+ PbIw1TeTOXGJxvfKRzajMX3Mg3NYnAA6BMgnSdxMcmixHc+vodTNAaKtL86/WzxT3ies
+ 8Y6Lr5z2kct1WLGMSnzv6M0ZqquaaxKSdRS58CBLgOZrVBc8PxSo7stJjw/4NO2iAW6y
+ mygF1sYamne+1D7kj9CVLEmAxUFG5TLN1H2h9oIKHUrpuPxtRdOymlS9EeWU5PDERTP7
+ F8NghJM3Nntkj+a0JBQ213RxvXNfKsfKKjfkOM0+PEzseUz8wXtRL5xZvT5oatsSoadn
+ 0a7w==
 X-Forwarded-Encrypted: i=1;
- AL+hErEvOM6qjjwZUwK+REXCYiP62zS6X0TUjrnZNwbSCGVEmRIGzPq1ctnXJq8/qPYqzEcIc5118J+ZYis=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9/C5+QBHOVwat11ftPS4N8Un2JiAgXqZ+41GaMqYHjaLyzSQs1
- I2B162VvB0hviirfXOCaMKGY+7xpoyLOklySjzzheGbnqtUQTWKkiAsGVEpZP3ij+tSC8VoxtSL
- buP4X5+Uspar6f0XCjD73V2jtd/HKXus=
-X-Gm-Gg: AYBFou1tBlRgirjNhuf50YBfBitAYI5jOMGWS2I6YfE3BmMJYuuuD1BsgHTbV/n5qX2
- dOwu1m/o8Buos4ibQMpPqSOJuQpRCPeRcEyj+ibhSMj5AEwwXX3fFpj4+hRc8oeOO9BtZ4RqBtv
- YzdxcHN1DhiFl7GLlUuH35lb1vuKRUDxYD/13rZDUfpjNg3dnnDr0ZDA6uOMDaNA5ebTqrSShn1
- H/lK2/IFwDZjw55wz6ZsvKIKzRfcIY4Fkx72pL9JVf6DSmeWgi97mYKc7YPteiX95dPMeIZaswe
- XBk0tUeGs/+H8AsmEKK8Gym5mV1fMhufhzb2/svE1A3+eUH+1AcssCtpMmhbZNL1zUjR3P8BkcG
- KGGnbQIKR9+YwjjgtqekbSAqEHABDKI8ZVF1lxOYm35ng39VKYCisFovu/RyVcR6eXFrS
-X-Received: by 2002:a17:906:99c4:b0:c40:80eb:c541 with SMTP id
- a640c23a62f3a-c4d6d162393mr200408166b.2.1794201786662; Sun, 08 Nov 2026
- 21:23:06 -0800 (PST)
+ AL+hErFxK89yhWgpjLtPOtjL2gu5Hk7Oo1y/IQY7Kj5V1UJmUbBKFMV04A7aI+gPqHHSKf+pZimeSShmkAI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+kSLYsAZOmh+BDe/uCCk1a1QFZ22lXZATePww326f4vTauFT/2
+ YRk9VedEZCKZlveDQ6/VXMDBi810H9bDsdmTUiyU+JjNT3D3K+Rzhe+erLiaL6fppTiwlOe1DVf
+ rP4zzAoe9CvnX3AhluseqzehB4pa1o7U=
+X-Gm-Gg: AYBFou3PXGDMFUV5GUixInpSW1Bm+Wh9fzpmmBQn3ZqVbI5WmH7BMwqk9137tWVhEcM
+ 8SYOn6utq31dSnLYtjdshgs6rGnw4/8H4ssD6my7GjTskcEuGYCZWmxj4V13SbO+t2Q3UQoEvNm
+ dQJVv8Owdojx3DzKsKpBkhli/eyeDMgtdVBriRxm1JmzWBmbo4kxfE/QP4LzhRLL+tHI/wWs8cL
+ rNoHMBn/Lk0b3JQf2hpUZIXdkQwxzObD8vnBrqtZMf5D6R7WXFIffY3n+xrLmzksKqF5wcTG1qx
+ LUMxDb9StoQVYCXRcGvRZNEuGUK6vTfFPGp1Zeamls2wZqzvmi/i6uhHqFScYRqSk+dDipNx7IL
+ Fe19S3D22TZbv789jE0eDf2/Me1PYCjPc+zf8Q9RIM+Js6o4ofvfZGEh2kq8zoS43E8gkGIL8Pu
+ PQ6Au2ZvarcjGf
+X-Received: by 2002:a17:907:6d07:b0:c40:4965:72cb with SMTP id
+ a640c23a62f3a-c4d6db36f84mr196935166b.21.1794202396398; Sun, 08 Nov 2026
+ 21:33:16 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
- <20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr>
-In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr>
+References: <20261102104642.925-1-laixiangwu@cmss.chinamobile.com>
+In-Reply-To: <20261102104642.925-1-laixiangwu@cmss.chinamobile.com>
 From: Inki Dae <daeinki@gmail.com>
-Date: Mon, 9 Nov 2026 14:22:29 +0900
-X-Gm-Features: AclHuK81atJWOGvLDgXq9hG63fw54it5ISsaMjIoBGuiYyjTASlvmDvAtFTGEpY
-Message-ID: <CAAQKjZNBb4CnhBn-TSD=8zbrOtWbu7fdpJDjOOvfAZQmAhNcYw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/exynos: exynos_dp: change poweron/off to encoder
- enable/disable
-To: tb@a-marquet.fr
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Douglas Anderson <dianders@chromium.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+Date: Mon, 9 Nov 2026 14:32:39 +0900
+X-Gm-Features: AclHuK81e7ha_bd7N8D98DCzYoOYBA4JG5Pa3ARfHZchUTi79ZwM-36h02cCqWc
+Message-ID: <CAAQKjZPOqEYe+iabUsdyfoxQyRRWUnX3Fe3eqEN8Uw-NU7vSFw@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: scaler: Fix runtime PM reference leak in
+ scaler_commit
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
- Hendrik Noack <hendrik-noack@gmx.de>
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -131,123 +118,53 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi,
 
-2026=EB=85=84 10=EC=9B=94 27=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 9:09, =
-Alexandre Marquet via B4 Relay
-<devnull+tb.a-marquet.fr@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+2026=EB=85=84 11=EC=9B=94 2=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 7:48, X=
+iangwu Lai <laixiangwu@cmss.chinamobile.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
 >
-> From: Alexandre Marquet <tb@a-marquet.fr>
+> scaler_commit() calls pm_runtime_resume_and_get(), but when the
+> scaler_reset() soft reset does not complete it returns -EIO directly
+> without dropping the reference.  On the success path the reference is
+> only dropped from the frame-end interrupt handler, and scaler->task
+> is not yet assigned on the error path, so the interrupt handler will
+> not drop it either.
 >
-> Current functions exynos_dp_poweron()/exynos_dp_poweroff(), that
-> supposedly powers on/off the device, actually only enable the encoder
-> clock. This cause issues where poweron() calls fail silently in
-> analogix_dp_probe(), leading in some cases to a state were the encoder
-> is never enabled but the rest of the driver assumes that it is.
+> Each failed scaler commit therefore leaks one runtime PM reference and
+> the scaler can never runtime suspend afterwards.
+>
+> This restores the pm_runtime_put() call that was already present in
+> the error path before the conversion to
+> pm_runtime_resume_and_get().
+>
+> Fixes: 445d3bed75de ("drm/exynos: use pm_runtime_resume_and_get()")
+> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 
-Moving the FIMD DP output clock control to the encoder callbacks makes
-sense. Analogix runtime resume can occur for AUX access before
-encoder->crtc is assigned, so its power_on callback is not a reliable
-place to enable the display pipeline clock. The DRM atomic helpers
-call encoder enable before enabling the bridge, and encoder disable
-after disabling the bridge. That ordering keeps the clock on while the
-display link needs it.
-The change looks good to me.
+Merged.
 
 Thanks,
 Inki Dae
 
->
-> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
 > ---
->  drivers/gpu/drm/exynos/exynos_dp.c | 40 +++++++++++++-------------------=
-------
->  1 file changed, 13 insertions(+), 27 deletions(-)
+>  drivers/gpu/drm/exynos/exynos_drm_scaler.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/=
-exynos_dp.c
-> index 82c238829921..16b00aacd55b 100644
-> --- a/drivers/gpu/drm/exynos/exynos_dp.c
-> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
-> @@ -43,39 +43,27 @@ struct exynos_dp_device {
->         struct analogix_dp_plat_data plat_data;
->  };
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_scaler.c b/drivers/gpu/drm=
+/exynos/exynos_drm_scaler.c
+> index c8a1b6b0a..dc8189685 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_scaler.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_scaler.c
+> @@ -372,8 +372,10 @@ static int scaler_commit(struct exynos_drm_ipp *ipp,
+>         if (ret < 0)
+>                 return ret;
 >
-> -static int exynos_dp_crtc_clock_enable(struct analogix_dp_plat_data *pla=
-t_data,
-> -                               bool enable)
-> -{
-> -       struct exynos_dp_device *dp =3D to_dp(plat_data);
-> -       struct drm_encoder *encoder =3D &dp->encoder;
-> -
-> -       if (!encoder->crtc)
-> -               return -EPERM;
-> -
-> -       exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc), enable)=
-;
-> -
-> -       return 0;
-> -}
-> -
-> -static int exynos_dp_poweron(struct analogix_dp_plat_data *plat_data)
-> +static void exynos_dp_mode_set(struct drm_encoder *encoder,
-> +                              struct drm_display_mode *mode,
-> +                              struct drm_display_mode *adjusted_mode)
->  {
-> -       return exynos_dp_crtc_clock_enable(plat_data, true);
->  }
+> -       if (scaler_reset(scaler))
+> +       if (scaler_reset(scaler)) {
+> +               pm_runtime_put(scaler->dev);
+>                 return -EIO;
+> +       }
 >
-> -static int exynos_dp_poweroff(struct analogix_dp_plat_data *plat_data)
-> +static void exynos_dp_crtc_clock_enable(struct drm_encoder *encoder,
-> +                                       bool enable)
->  {
-> -       return exynos_dp_crtc_clock_enable(plat_data, false);
-> +       if (encoder->crtc)
-> +               exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc),=
- enable);
->  }
+>         scaler->task =3D task;
 >
-> -static void exynos_dp_mode_set(struct drm_encoder *encoder,
-> -                              struct drm_display_mode *mode,
-> -                              struct drm_display_mode *adjusted_mode)
-> +static void exynos_dp_enable(struct drm_encoder *encoder)
->  {
-> +       exynos_dp_crtc_clock_enable(encoder, true);
->  }
->
-> -static void exynos_dp_nop(struct drm_encoder *encoder)
-> +static void exynos_dp_disable(struct drm_encoder *encoder)
->  {
-> -       /* do nothing */
-> +       exynos_dp_crtc_clock_enable(encoder, false);
->  }
->
->  static const struct drm_encoder_funcs exynos_dp_encoder_funcs =3D {
-> @@ -84,8 +72,8 @@ static const struct drm_encoder_funcs exynos_dp_encoder=
-_funcs =3D {
->
->  static const struct drm_encoder_helper_funcs exynos_dp_encoder_helper_fu=
-ncs =3D {
->         .mode_set =3D exynos_dp_mode_set,
-> -       .enable =3D exynos_dp_nop,
-> -       .disable =3D exynos_dp_nop,
-> +       .enable =3D exynos_dp_enable,
-> +       .disable =3D exynos_dp_disable,
->  };
->
->  static int exynos_dp_bind(struct device *dev, struct device *master, voi=
-d *data)
-> @@ -171,8 +159,6 @@ static int exynos_dp_probe(struct platform_device *pd=
-ev)
->
->         /* The remote port can be either a panel or a bridge */
->         dp->plat_data.dev_type =3D EXYNOS_DP;
-> -       dp->plat_data.power_on =3D exynos_dp_poweron;
-> -       dp->plat_data.power_off =3D exynos_dp_poweroff;
->         dp->plat_data.ops =3D &exynos_dp_ops;
->
->         dp->adp =3D analogix_dp_probe(dev, &dp->plat_data);
->
-> --
-> 2.43.0
 >
 >
 >
