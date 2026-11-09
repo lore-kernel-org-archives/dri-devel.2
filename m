@@ -2,44 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB117606A334
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 20:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B30606A332
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 20:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMWIIN+d
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oS55w/Wh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051F610E14E;
-	Mon,  9 Nov 2026 20:04:39 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B04C10E14E
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 20:04:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 04E634158F;
- Mon,  9 Nov 2026 20:04:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1DF91F0089F;
- Mon,  9 Nov 2026 20:04:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794254671;
- bh=E0GlRhDnLo/iOQKkl6haVCGh9Hkd4sWEaYoV7HwSoCA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WMWIIN+dL1J134sCPMRE6INceKfEldklelxGXCQgs9fW05jPGMZbXys0ZUzcrwghg
- 20i6OtiqNo1xeqmLImUbSmlEyFVQoNxu+mpsdXNzOAT9HclznWxml853Fnnda1qnba
- z9LRsdXGll0yNLP7PVazkFHQflszD5CCcldBjJcplwBNS5/0rNr8VCORi9qa8uQR+v
- MyOXDOaPKOcDXI3J9ewg/GD/qhzqLcLQGavVMXIju1aP8+WQbVI/4CyUy/N5kclBOm
- AbzkZQKanp0ovYmDBfubUyTNrdHUNRjvnBYTHpnoD0E+NRkiETmy+2aoqxArf1ZcJD
- ss2g4BOvu8u0Q==
-Message-ID: <sashiko-outbox-205531@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: add CIX Sky1 DisplayPort
- transmitter
-To: "Luo Liu" <Luo.Liu@cixtech.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261109092623.102291-2-Luo.Liu@cixtech.com>
-References: <20261109092623.102291-1-Luo.Liu@cixtech.com>
- <20261109092623.102291-2-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1CA10E88D;
+	Mon,  9 Nov 2026 20:17:50 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FBF10F500
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 20:17:44 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b56c90b38eso3106a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 12:17:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794255463; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UqLiJEZiinwMY9qcg5hu7pR/CvSGcBZulrI4hkYm/sO8o+bME8tchW38LCU0ZLy3M2
+ zn761EyREfaV8GrkqRm8owURes5XxCvVuSHpIiumbMuuO+Tbuw1JJa0L7bPr2fDNy9rJ
+ CDSnQq7igNcSeVxYsGebGI1DSjO2DLKH+XKkxZ0oEKnK2zqQSZ2NC2MzhZ7Cw56oFhcT
+ 3bbiHDNwUtnQvhXVTAVcOA++/q4xPrSup1Z+pVCdahLtgwXxl8mI4AvvF5qbRbC8p1Ki
+ CoeUbisS6IQ7c+mt5+Xp0O0KdSpZ8ieF96y/nUoCy+N7nxTPW7d+o9mqXYeYAwXBxEgX
+ 9LNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
+ fh=tB+gft8foCWdg2WSNxbWP+F4hMcAQDzXpwVo3gak2TU=;
+ b=aPN6lu5daIbpJRZan3OyLgeNYgOeAUBve3Rukrl5jnyongExZUGIAoceevCu0D1W90
+ ypcqbMS5NAjPRs4AsisyFs+Ahh9cZtoGKkwQImeZ8p+ULyztIg5kmfiSwLlfuPj+5od3
+ /dgMU0qZzOj6LSazUCiovCqH91xCvyw2tOjzF/qp8DEdYyK0GcI99yPZ9Kje/pe2Rytt
+ J6z8Brv+YQMDW7yIEC11XU8Oxp3+9EvKZQCnpaqbIJ/lq4JG6dBxEc81o3PfH7yp5aJg
+ 6NTWnATjr6yjCREj6vMtac44eI/d3q1q5dLR9FxGA46GrEpkE2fgK17DZ6YfxcGp84gZ
+ fKZg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1794255463; x=1794860263;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
+ b=oS55w/WhVazR9L/pD2gl+PDu4Ts45AA6DcV1agatenPypU1Et2ov6QTqv1KRLa2X2j
+ 3VNMFgkQyNob72Gb/ZFb1GdGJ+Hq6AtT5Pk35q4MuLXRmciIqtO+/KcAAkag0TG1y/8p
+ URHt4EUZCH19YXCw+97l2i4TmmRE7vrvmiBeJMTUCCSpIx52v/mE7DK0PF5cPwWGnzXc
+ jltudcM4RCyaPozD/xX88yojVGsNYIPXDp87KlXeomv6dXVhGcv7doFNtBrS3jPyeyu+
+ PI62VveReSmgwHKAisUxF1jU3Sl4OeuEkUAAF2U+X6lp0FZ9udaMAHfFPZYtwakk6ein
+ meRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794255463; x=1794860263;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
+ b=uVJj+eEy8Wguvars4Fraq8A7StTImi03Fr70iBbMTHeVkrQaX2pKxNzZdp+kbRsjMO
+ Zny6Yi/4SRrRe25ZdbGUvrDpepfrNr2cmORdP/JNu+a7ESO0BL7Y7c89YolN4SnTPoWZ
+ SvPMatBLmmMDUEQjlEgRglvnqUqDTY/p7y4fv57zm/eMkDEmA1emf1ilVg9YcB0X7SCk
+ O9Iv1HPM7Yae90lYxgLLnD3wSW9HuScvEvGQ8zBFuLZS2YVQJQ6yE4LAEDOEepnZ1IZy
+ dlHMVo25drBFJnzxsZJi/Ga7x2uKz7TCrKQDgaw6lT81n4djguaYissdX777Rb7677/6
+ xdIg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGUOWWhuiQR/WoDSeM5zC0JqcI2H+miu3/jAXnUD1WgZkdpJnGmte/vhJ798gF/9xXhZkRkkcs7gzo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/wV+I3hUUPemZZzRLv5nrDDbAogQIr304/xEzRPhQaKO0GOpv7
+ oK3JVU0E0JoVK0OTdu9/XIzyQ7ExmD8vuNrSjK0KkhXZHePkQTzhWEl/tsfo8LBoWQdipvt6wUi
+ Ki0AdHkos3Z6nKbqnA3zXlWHMhAPPBjTrxmGlwF+N
+X-Gm-Gg: AYBFou1JDuLkNbThvYjIZNedgVCM9QYa5/nFe/1kDUQSaE/IzOlZW6SA0zkdpWYjMyn
+ 1zODYHQ/LW4Co3RDHlrNJGtGJN33j46XbpsdhGooNdVP3ibvhrELzQY39HnWgQ2jAcJdnxWTDLp
+ nBfxsBro6/SaYjWGSGjwObsftYeS4YUFTO2t79LHKKku4T232hHtBLonkENf2D+hntuKZPWim/I
+ qxyHUFI2K5NWZR1cnot68cm0A/s7MVw15JR9EiEfg2gZIRE1hhZF6uepTqfB2Yp7IDVm2VVGt7V
+ cvfnocaFbvIlkfNWJcQPcO7PF8IqNoAHYV/VfkwQ1W77G+oFpPWqW30NjzX5+qkmlTPFO9p/ZHq
+ PTFzXqAC4NMuRO2cg3pcqrWmDt0/3x6N85szjfY2McZSI5AaC2+ZtqFT2aXTh7trAqkA=
+X-Received: by 2002:aa7:d7d3:0:b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b756af180fmr22485a12.16.1794255462346; Mon, 09 Nov 2026
+ 12:17:42 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261015163915.1166043-1-almasrymina@google.com>
+ <20261015163915.1166043-4-almasrymina@google.com>
+ <20261020121858.3b9107c5@kernel.org>
+ <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
+ <20261021132304.23e0a4e7@kernel.org>
+ <CAHS8izNTbs8ONvjhiw+6cRkZQq+cX3t=BZK9aCr39JNkVbY9gA@mail.gmail.com>
+ <20261109104959.181a3b35@kernel.org>
+In-Reply-To: <20261109104959.181a3b35@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 9 Nov 2026 12:17:30 -0800
+X-Gm-Features: AclHuK_0MFErjqghvOz060hZJCCzy2vAPCeLH5qWi-kHJsJTH_MqHsOjMY4lEMM
+Message-ID: <CAHS8izPcFSLdmq16ZrUDKpCqUJf513EMs+Y45brc56s+mUBmeg@mail.gmail.com>
+Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
+ Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 20:04:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,143 +120,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: display: custom vendor properties duplicate
-  standard DT bindings
-- [Medium] dt-bindings: display: incomplete OF graph ports and missing
-  required phys/port
---
+On Mon, Nov 9, 2026 at 10:50=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Sat, 7 Nov 2026 22:21:48 -0800 Mina Almasry wrote:
+> > So I started looking into whether we can improve test and fuzz
+> > coverage with an improved netdevsim. My LLM prototyped full datapath
+> > (with devmem) and offload support in netdevsim so the hardware
+> > selftests and packetdrill run and pass in a plain VM without physical
+> > NICs. I posted the branch at:
+> >
+> > https://github.com/mina/linux/tree/nsim-devmem-rx-tx
+> >
+> > The main problem is the total LLM generated diff to netdevsim: 62
+> > files changed with 5,525 additions and 672 deletions :( So it's a big
+> > change.
+>
+> Great! Please keep that slop to yourself, tho.
+> Upstream isn't built to host people weekend slop.
 
-commit 7968e7b18915fdc94006fbc915ec20e0e3171502
-Author: Luo Liu <Luo.Liu@cixtech.com>
-
-dt-bindings: display: add CIX Sky1 DisplayPort transmitter
-
-This commit adds the Device Tree binding schema for the CIX Sky1 Trilinear
-DisplayPort transmitter controller and adds a corresponding MAINTAINERS ent=
-ry.
-
-> diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml=
- b/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml
-> new file mode 100644
-> index 0000000000000..9087b5edd9f02
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml
-> @@ -0,0 +1,108 @@
-
-[ ... ]
-
-> +  phys:
-> +    maxItems: 1
-> +    description: DisplayPort PHY the controller transmits through.
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +    description:
-> +      Video input from the display pipeline that drives this controller.
-> +
-> +  cix,adapter-port:
-> +    description:
-> +      RCSU video adapter port of this transmitter. Sky1 numbers its five
-> +      transmitters from 1 to 5. Port 3 is the native DP/eDP output.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    maximum: 5
-> +
-> +  cix,dp-max-rate:
-> +    description:
-> +      Maximum link rate the board is wired for, in units of 10 kbit/s.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [162000, 270000, 540000, 810000]
-> +    default: 810000
-> +
-> +  cix,stream-id:
-> +    description:
-> +      Index of the video stream this controller uses. Sky1 has two strea=
-ms,
-> +      numbered 0 and 1.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 1
-> +    default: 0
-
-[Severity: Medium]
-Can standard Devicetree mechanisms replace cix,adapter-port, cix,dp-max-rat=
-e,
-and cix,stream-id instead of introducing custom vendor properties?
-
-cix,adapter-port encodes a 1-to-5 instance index where port 3 is the native
-DP/eDP output with a different RCSU register offset and bit layout from the
-USB-C DP transmitters; per writing-bindings.rst, differing programming mode=
-ls
-should be distinguished by compatible strings rather than an instance index
-property.
-
-cix,dp-max-rate exposes Linux DRM internal software units of 10 kbit/s
-without a standard unit suffix, duplicating the standard link-frequencies
-property (in Hz) from video-interfaces.yaml on the output graph endpoint.
-
-cix,stream-id hardcodes the input video stream index as a vendor property
-instead of modeling the display pipeline to transmitter routing through OF
-graph ports and endpoints.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - cix,adapter-port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    dp0: dp@14064000 {
-> +        compatible =3D "cix,sky1-dptx";
-> +        reg =3D <0x14064000 0x4000>,
-> +              <0x14050000 0x400>;
-> +        reg-names =3D "dp", "rcsu";
-> +        interrupts =3D <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks =3D <&clk 0>, <&clk 1>, <&clk 2>;
-> +        clock-names =3D "apb", "vid0", "vid1";
-> +        resets =3D <&rst 0>;
-> +        cix,adapter-port =3D <1>;
-> +    };
-
-[Severity: Medium]
-Should the binding define an output graph port and list phys and the OF gra=
-ph
-ports as required?
-
-The schema only defines a single input port from the display pipeline and
-omits the output port connecting this bridge to the downstream sink (such as
-a dp-connector, usb-c-connector, or eDP panel), which prevents describing
-board-level endpoint properties such as data-lanes and link-frequencies.
-
-In addition, each transmitter sits between a display pipeline and a
-DisplayPort PHY (and the driver unconditionally requires phys during probe),
-so phys and the OF graph ports should be listed under required and included=
- in
-the example.  The unreferenced dp0 label in the example should also be
-dropped per writing-schema.rst.
+Understood and sorry for the bad suggestion! I was indeed unsure how
+you felt about including that kind of slop in test code. It was a bit
+too tempting to suggest it to enable the extra test coverage.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109092623.1022=
-91-1-Luo.Liu@cixtech.com?part=3D1
+Thanks,
+Mina
