@@ -2,48 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D04460A3839
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C71F606EE8E
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=R1OFb2pD
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=lzmEgeUg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE8810F26A;
-	Mon,  9 Nov 2026 12:33:03 +0000 (UTC)
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D84F10F249;
- Mon,  9 Nov 2026 12:32:52 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
- 6A9CF9am2628950; Mon, 9 Nov 2026 12:32:41 GMT
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D6C10F255;
+	Mon,  9 Nov 2026 12:33:08 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7868910F24C;
+ Mon,  9 Nov 2026 12:32:54 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
+ 6A974jcf2011149; Mon, 9 Nov 2026 12:32:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=Q
- k8zMIXnRmlN0rqmJuhx8U/NAPm9x8oIUHviOle/7SI=; b=R1OFb2pDFhTmKts4I
- H2a/zUPd+6nR8cQsAFisZzCz5JSEjMlxBeaClQIG0LjhgW+hzST1h8XLxdPWdeil
- PLBJ6k6CmuwyOcF21Ua0F8F2ZlzQumyziSwzqebtfntHr7FexeS4NXx61SGu2DoF
- bw3d/NAy/jSOQe1va2c5ON9I+JIIkUMmV38O/oiQI8kTHECWzBJoIbA+IdXV1wqo
- cnDuZ7DYFDgPl+Lhd3eiCSG2N3SLdSAThrA06U1GzgD3SVJuWFNcMHKVfE4Ljrgj
- MZpisAWvf0WMRAMK5MzLiIrCQmenEM6BoOJo+D2mTzX2Dhdr0ykFA0kPjYWqV9kj
- bNJPg==
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=o
+ w+5sHC3WIN40j8WcPeuf1Jm4+f4G3UjTKRB20bgcac=; b=lzmEgeUg0COWbHyPJ
+ +h/uKuceNT2hKpBgzs1FZ05G/Ebdjc+erFg64UlYxr7skuhzTnfLyp8E5C3Hl0QK
+ C7o0a2DtrVn4CHfnTSQOA8fJfo65JXkMptfVJMUhSqpsZSPBjx6UdEGFGZJiACsM
+ r+ME0p/L++6w3g9M0uyZjwr+A+N5w18X21Um7bjFLAnBxMuTgNH988JBx+biJVsC
+ sNuXulwyw/uRa5GvjtHHgb8yar60VK1X07DSD/JqWAO1boIh+TXz2CjYBZWc6+hm
+ nJQpnkRnxmahocGbQqPHfzLs3udop3h7+cn3iBRT2e9aP4xN6Au7/G6VCpeLOxc1
+ f4wZw==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hu8pn871k-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1h5j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
- key_exchange=secp384r1); Mon, 09 Nov 2026 12:32:41 +0000 (GMT)
+ key_exchange=secp384r1); Mon, 09 Nov 2026 12:32:42 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
- 2026 12:32:39 +0000
+ 2026 12:32:40 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Mon, 9 Nov 2026 14:32:15 +0200
-Subject: [PATCH v6 1/4] drm/imagination: Limit access to the MIPS firmware
- interface
+Date: Mon, 9 Nov 2026 14:32:16 +0200
+Subject: [PATCH v6 2/4] drm/imagination: Make the MIPS firmware headers
+ arch-independent
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-b4-simplify-mips-pte-defs-v6-1-65153bc9a71c@imgtec.com>
+Message-ID: <20261109-b4-simplify-mips-pte-defs-v6-2-65153bc9a71c@imgtec.com>
 References: <20261109-b4-simplify-mips-pte-defs-v6-0-65153bc9a71c@imgtec.com>
 In-Reply-To: <20261109-b4-simplify-mips-pte-defs-v6-0-65153bc9a71c@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
@@ -54,35 +54,35 @@ To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
  Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
  Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
 CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
+ <dri-devel@lists.freedesktop.org>, Alexandru Dadu
+ <alexandru.dadu@imgtec.com>, Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794227557; l=22055;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794227557; l=45045;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=Jsc4l46MyyoIK9E5IuTEEEoZskBMCdKZBW+JqmB+Ii8=;
- b=P9c2eY56Npk8PjIp0CmY5MF3ioLyPWAw5A7srexQXcc5ZL/u4m0pIzwCAy8YEMtE+nwVwweRc
- 0vEAzPDFV1QDBVMG+yWodRqf3yn36D82tp3l09gjWYPROMU45z9vvlS
+ bh=N0SPqZDD5RwDPSi92gKqVw5tIPssJNv1NTFN/jgSKcE=;
+ b=B9Cqop3dniTB80s0Y7z2rf4EJhfPIEzBENPLSOp7H0/p1AigYoc55yYpryoKe4MTWxMWcYmPA
+ +sd3D6YPIl4Ae66B5eiCrIyGAr/SCEFX+2KP9nRA5uvPDAMrgA4nSqA
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Authority-Analysis: v=2.4 cv=P46vFSAu c=1 sm=1 tr=0 ts=6af1bd69 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0OSBTYWx0ZWRfX/bhSPRQ5UYt+
+ zkZ3KT9WjmGSlZ1ufFZwb6n7nLXRdh3d3wHV9XeHtFcRdies0+1IWIxi4OlbZbucWl+p6DIFaog
+ ft0OOfNV656u46vnZoT/dMG9qvmWREc=
+X-Proofpoint-ORIG-GUID: 8SgETiLEQCBgzal7J4m0qrnP7c4CMExh
+X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af1bd6a cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=_C6vD7yIWngb3mRO16oA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0OSBTYWx0ZWRfXzEsdp54Hq3qE
- I2aBFT+KmeGxwmk+2kIZiqezpNblwX2nKDyKuFmRvhieHO6VpjWmv/Jihfyrlynm3WN0O4Zk4sZ
- 4uusdcNmAsGp4zpHdY5TF+4Xm7uqaJmnmim0WEotT3rGN9yoIPfAcYPMZZki5EzRPPZ3hGjDbzW
- 3D4vIlU4bpj6IAVsBpYrK863fJtS+QTpIt28pHlJpbg+/Kx7VljOYMnEiLwRAbZrP66e/cz+o7R
- CKC2TiWs56mqmAMUjYD8s4sq1AVtmW99qaR0kaLrDpUG8QHouJmQ770T8HXNRHYQekcWroZ2c8H
- 5nvJ/tXPoTEAdyDc+enfHfyRDWgfPcsTlA+0svFycCzoNsTTxP0Z6miflFMrFXmQ5LWKcIwZ9+K
- Q1kfgLFuuWBrAg7WqdAoCvYn8c5Vi4NwWsUxxI/lzMdkMYG1JsrI3Qu4/BkfpxKkFA0H6VriXBJ
- iAgwwv2qdxS8dOxA2dA==
-X-Proofpoint-ORIG-GUID: 4atAfdRZI0iMqtZq0LtdvuQ9gdeGTane
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0OSBTYWx0ZWRfX3Wub7Ihrw4u3
- vzoAIu4M5jhSCNOnu9rRLOpinSW1J5v24SuHXu97C6imT3gUHLaFOyEtW31HR6OSxabCfy3jVJ+
- bHYesPPsM9o/fg4cmV0E4D+RaeKtJBk=
-X-Proofpoint-GUID: 4atAfdRZI0iMqtZq0LtdvuQ9gdeGTane
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=veFuZ-MWkUqy_VuYZwIA:9 a=Wi-m_hBPOQrF8Rj2:21
+ a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0OSBTYWx0ZWRfX7iP/vxIRZkRF
+ R89+hbcwJQj/o+TWl5PVA4PRXZQ3G6fOvli79CTG0Yh3BCoeFkZ3MFE8fQY9pEMxVW1quczI4rL
+ iGGuNdK3jK2oKktNOhJVXVE3PvPCOOVPFKhN7tbpVWbtnM+Qxdmo/r6XJYZ+4dFyGuwbqOHekUV
+ jMBggkUOaz5YZsXJaG08rpjOo8giKTXcpOJqTqfJ43O+emXgeCesBDcwUw9YPvrknjVcv4KZUTs
+ Rbj+4142EJlvDgGEffRbKwphXnib1qNJnDDy1vuFND2jHHqHniwEHNRB7RTGjFa+TgEnpEPbSvE
+ 1NohMJYliW7Xz+Ekmxx3+94ULnaEkjHrjxvnjdlRcvyUGiBH5NZLFJZi9U7KFDkb/AP2DQh0n2j
+ FYXX9x3qbJocYUUozjgABqoTIZJDGg6cKCpSDNRnOlQB7gtHwfDu6zza8lMefqDGbKZ7HBiyDYX
+ 4YgoCye8wICrfiXTBDg==
+X-Proofpoint-GUID: 8SgETiLEQCBgzal7J4m0qrnP7c4CMExh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,577 +104,1028 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alessio Belle <alessio.belle@imgtec.com>
 
-Ensure all accesses to the MIPS firmware interface are done using the
-generic firmware interface, or the MIPS-specific VM interface.
-To achieve this:
-
-- Split struct pvr_fw_mips_data from the MIPS firmware interface header,
-  which is essentially an interface between the "main" MIPS firmware
-  logic and the MIPS VM logic, into two structures internal to the main
-  and VM MIPS firmware logic.
-- To restore the interface between main and VM MIPS firmware logic, add
-  function to acquire the addresses of the MIPS firmware page table.
-- Remove the MIPS firmware interface header.
-- Rename the MIPS firmware processor headers adding an "internal"
-  suffix.
-- Add guard to the MIPS firmware processor header to prevent accidental
-  inclusion outside of the MIPS firmware specific logic.
+While this header is specific to Rogue, rename it and its contents
+anyway with arch-independent prefixes for consistency with the other
+firmware headers.
 
 Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw.h               |  11 +-
- drivers/gpu/drm/imagination/pvr_fw_mips.c          |  57 ++++++----
- drivers/gpu/drm/imagination/pvr_fw_mips.h          |  49 ---------
- drivers/gpu/drm/imagination/pvr_fw_riscv.c         |   1 -
- ...{pvr_rogue_mips.h => pvr_rogue_mips_internal.h} |  12 +-
- ...ips_check.h => pvr_rogue_mips_internal_check.h} |   6 +-
- drivers/gpu/drm/imagination/pvr_vm_mips.c          | 122 +++++++++++++++------
- drivers/gpu/drm/imagination/pvr_vm_mips.h          |   4 +
- 8 files changed, 150 insertions(+), 112 deletions(-)
+ drivers/gpu/drm/imagination/pvr_fw_mips.c          |  28 +-
+ drivers/gpu/drm/imagination/pvr_fw_mips_internal.h | 339 +++++++++++++++++++++
+ .../drm/imagination/pvr_fw_mips_internal_check.h   |  35 +++
+ .../gpu/drm/imagination/pvr_rogue_mips_internal.h  | 339 ---------------------
+ .../imagination/pvr_rogue_mips_internal_check.h    |  35 ---
+ drivers/gpu/drm/imagination/pvr_vm_mips.c          |  54 ++--
+ 6 files changed, 415 insertions(+), 415 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..bd6a1d3abae4 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -310,10 +310,15 @@ struct pvr_fw_device {
- 	/** @funcs: Function table for the FW processor used by this device. */
- 	const struct pvr_fw_defs *defs;
- 
--	/** @processor_data: Pointer to data specific to FW processor. */
-+	/** @processor_data: Data specific to FW processor. */
- 	union {
--		/** @mips_data: Pointer to MIPS-specific data. */
--		struct pvr_fw_mips_data *mips_data;
-+		/** @mips_data: MIPS-specific data. */
-+		struct {
-+			/** @fw_data: Pointer to MIPS-FW-specific data. */
-+			struct pvr_fw_mips_data *fw_data;
-+			/** @vm_data: Pointer to MIPS-VM-specific data. */
-+			struct pvr_vm_mips_data *vm_data;
-+		} mips_data;
- 	} processor_data;
- 
- 	/** @fw_heap_info: Firmware heap information. */
 diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips.c b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-index 6914fc46db50..7e4dd23e1f3f 100644
+index 7e4dd23e1f3f..de691aa06f86 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw_mips.c
 +++ b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-@@ -3,9 +3,10 @@
- 
+@@ -4,9 +4,9 @@
  #include "pvr_device.h"
  #include "pvr_fw.h"
--#include "pvr_fw_mips.h"
  #include "pvr_gem.h"
--#include "pvr_rogue_mips.h"
-+#define PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
-+#include "pvr_rogue_mips_internal.h"
-+#undef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
+-#define PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
+-#include "pvr_rogue_mips_internal.h"
+-#undef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
++#define PVR_FW_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_fw_mips_internal.h"
++#undef PVR_FW_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
  #include "pvr_vm_mips.h"
  
  #include <linux/err.h>
-@@ -15,9 +16,31 @@
- #define ROGUE_FW_HEAP_MIPS_SHIFT 24 /* 16 MB */
- #define ROGUE_FW_HEAP_MIPS_RESERVED_SIZE SZ_1M
- 
-+/**
-+ * struct pvr_fw_mips_data - MIPS-specific data
-+ */
-+struct pvr_fw_mips_data {
-+	/** @boot_code_dma_addr: DMA address of MIPS boot code. */
-+	dma_addr_t boot_code_dma_addr;
-+
-+	/** @boot_data_dma_addr: DMA address of MIPS boot data. */
-+	dma_addr_t boot_data_dma_addr;
-+
-+	/** @exception_code_dma_addr: DMA address of MIPS exception code. */
-+	dma_addr_t exception_code_dma_addr;
-+};
-+
- static int
- pvr_mips_init(struct pvr_device *pvr_dev)
- {
-+	struct pvr_fw_mips_data *fw_data;
-+
-+	fw_data = devm_kzalloc(pvr_dev->base.dev, sizeof(*fw_data), GFP_KERNEL);
-+	if (!fw_data)
-+		return -ENOMEM;
-+
-+	pvr_dev->fw_dev.processor_data.mips_data.fw_data = fw_data;
-+
- 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_MIPS_SHIFT, ROGUE_FW_HEAP_MIPS_RESERVED_SIZE);
- 
- 	return pvr_vm_mips_init(pvr_dev);
-@@ -35,7 +58,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
- 		    u32 core_code_alloc_size)
- {
- 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mips_data *mips_data = fw_dev->processor_data.mips_data;
-+	struct pvr_fw_mips_data *fw_data = fw_dev->processor_data.mips_data.fw_data;
- 	const struct pvr_fw_layout_entry *boot_code_entry;
+@@ -63,7 +63,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
  	const struct pvr_fw_layout_entry *boot_data_entry;
  	const struct pvr_fw_layout_entry *exception_code_entry;
-@@ -56,12 +79,12 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 	const struct pvr_fw_layout_entry *stack_entry;
+-	struct rogue_mipsfw_boot_data *boot_data;
++	struct pvr_mipsfw_boot_data *boot_data;
+ 	dma_addr_t dma_addr;
+ 	int err;
+ 
+@@ -90,8 +90,8 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 	if (!stack_entry)
  		return -EINVAL;
  
- 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem, boot_code_entry->alloc_offset,
--				     &mips_data->boot_code_dma_addr));
-+				     &fw_data->boot_code_dma_addr));
- 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.data_obj->gem, boot_data_entry->alloc_offset,
--				     &mips_data->boot_data_dma_addr));
-+				     &fw_data->boot_data_dma_addr));
- 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem,
- 				     exception_code_entry->alloc_offset,
--				     &mips_data->exception_code_dma_addr));
-+				     &fw_data->exception_code_dma_addr));
+-	boot_data = (struct rogue_mipsfw_boot_data *)(fw_data_ptr + boot_data_entry->alloc_offset +
+-						      ROGUE_MIPSFW_BOOTLDR_CONF_OFFSET);
++	boot_data = (struct pvr_mipsfw_boot_data *)(fw_data_ptr + boot_data_entry->alloc_offset +
++						    PVR_MIPSFW_BOOTLDR_CONF_OFFSET);
  
- 	stack_entry = pvr_fw_find_layout_entry(pvr_dev, MIPS_STACK);
- 	if (!stack_entry)
-@@ -76,14 +99,10 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 	WARN_ON(pvr_fw_object_get_dma_addr(fw_dev->mem.data_obj, stack_entry->alloc_offset,
+ 					   &dma_addr));
+@@ -104,8 +104,8 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 	if (err)
+ 		return err;
  
- 	boot_data->reg_base = pvr_dev->regs_resource->start;
+-	boot_data->pt_log2_page_size = ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
+-	boot_data->pt_num_pages = ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES;
++	boot_data->pt_log2_page_size = PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
++	boot_data->pt_num_pages = PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES;
+ 	boot_data->reserved1 = 0;
+ 	boot_data->reserved2 = 0;
  
--	for (u32 page_nr = 0; page_nr < ARRAY_SIZE(boot_data->pt_phys_addr); page_nr++) {
--		/* Firmware expects 4k pages, but host page size might be different. */
--		u32 src_page_nr = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
--		u32 page_offset = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
--
--		boot_data->pt_phys_addr[page_nr] = mips_data->pt_dma_addr[src_page_nr] +
--						   page_offset;
--	}
-+	err = pvr_vm_get_pt_phys_addrs(pvr_dev, boot_data->pt_phys_addr,
-+				       ARRAY_SIZE(boot_data->pt_phys_addr));
-+	if (err)
-+		return err;
- 
- 	boot_data->pt_log2_page_size = ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
- 	boot_data->pt_num_pages = ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES;
-@@ -96,7 +115,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
- static int
+@@ -116,7 +116,7 @@ static int
  pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
  {
--	struct pvr_fw_mips_data *mips_data = pvr_dev->fw_dev.processor_data.mips_data;
-+	struct pvr_fw_mips_data *fw_data = pvr_dev->fw_dev.processor_data.mips_data.fw_data;
- 	const u64 remap_settings = ROGUE_MIPSFW_BOOT_REMAP_LOG2_SEGMENT_SIZE;
+ 	struct pvr_fw_mips_data *fw_data = pvr_dev->fw_dev.processor_data.mips_data.fw_data;
+-	const u64 remap_settings = ROGUE_MIPSFW_BOOT_REMAP_LOG2_SEGMENT_SIZE;
++	const u64 remap_settings = PVR_MIPSFW_BOOT_REMAP_LOG2_SEGMENT_SIZE;
  	u32 phys_bus_width;
  
-@@ -119,7 +138,7 @@ pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
- 		       ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN |
+ 	int err = PVR_FEATURE_VALUE(pvr_dev, phys_bus_width, &phys_bus_width);
+@@ -129,13 +129,13 @@ pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
+ 		return -EINVAL;
+ 
+ 	pvr_cr_write32(pvr_dev, ROGUE_CR_MIPS_WRAPPER_CONFIG,
+-		       (ROGUE_MIPSFW_REGISTERS_VIRTUAL_BASE >>
+-			ROGUE_MIPSFW_WRAPPER_CONFIG_REGBANK_ADDR_ALIGN) |
++		       (PVR_MIPSFW_REGISTERS_VIRTUAL_BASE >>
++			PVR_MIPSFW_WRAPPER_CONFIG_REGBANK_ADDR_ALIGN) |
+ 		       ROGUE_CR_MIPS_WRAPPER_CONFIG_BOOT_ISA_MODE_MICROMIPS);
+ 
+ 	/* Configure remap for boot code, boot data and exceptions code areas. */
+ 	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP1_CONFIG1,
+-		       ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN |
++		       PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN |
  		       ROGUE_CR_MIPS_ADDR_REMAP1_CONFIG1_MODE_ENABLE_EN);
  	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP1_CONFIG2,
--		       (mips_data->boot_code_dma_addr &
-+		       (fw_data->boot_code_dma_addr &
- 			~ROGUE_CR_MIPS_ADDR_REMAP1_CONFIG2_ADDR_OUT_CLRMSK) | remap_settings);
- 
- 	if (PVR_HAS_QUIRK(pvr_dev, 63553)) {
-@@ -132,7 +151,7 @@ pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
- 		pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP5_CONFIG1,
- 			       ROGUE_CR_MIPS_ADDR_REMAP5_CONFIG1_MODE_ENABLE_EN);
- 		pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP5_CONFIG2,
--			       (mips_data->boot_code_dma_addr &
-+			       (fw_data->boot_code_dma_addr &
- 				~ROGUE_CR_MIPS_ADDR_REMAP5_CONFIG2_ADDR_OUT_CLRMSK) |
- 			       remap_settings);
+ 		       (fw_data->boot_code_dma_addr &
+@@ -157,14 +157,14 @@ pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
  	}
-@@ -141,14 +160,14 @@ pvr_mips_wrapper_init(struct pvr_device *pvr_dev)
- 		       ROGUE_MIPSFW_DATA_REMAP_PHYS_ADDR_IN |
+ 
+ 	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP2_CONFIG1,
+-		       ROGUE_MIPSFW_DATA_REMAP_PHYS_ADDR_IN |
++		       PVR_MIPSFW_DATA_REMAP_PHYS_ADDR_IN |
  		       ROGUE_CR_MIPS_ADDR_REMAP2_CONFIG1_MODE_ENABLE_EN);
  	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP2_CONFIG2,
--		       (mips_data->boot_data_dma_addr &
-+		       (fw_data->boot_data_dma_addr &
+ 		       (fw_data->boot_data_dma_addr &
  			~ROGUE_CR_MIPS_ADDR_REMAP2_CONFIG2_ADDR_OUT_CLRMSK) | remap_settings);
  
  	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP3_CONFIG1,
- 		       ROGUE_MIPSFW_CODE_REMAP_PHYS_ADDR_IN |
+-		       ROGUE_MIPSFW_CODE_REMAP_PHYS_ADDR_IN |
++		       PVR_MIPSFW_CODE_REMAP_PHYS_ADDR_IN |
  		       ROGUE_CR_MIPS_ADDR_REMAP3_CONFIG1_MODE_ENABLE_EN);
  	pvr_cr_write64(pvr_dev, ROGUE_CR_MIPS_ADDR_REMAP3_CONFIG2,
--		       (mips_data->exception_code_dma_addr &
-+		       (fw_data->exception_code_dma_addr &
- 			~ROGUE_CR_MIPS_ADDR_REMAP3_CONFIG2_ADDR_OUT_CLRMSK) | remap_settings);
- 
- 	/* Garten IDLE bit controlled by MIPS. */
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips.h b/drivers/gpu/drm/imagination/pvr_fw_mips.h
+ 		       (fw_data->exception_code_dma_addr &
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips_internal.h b/drivers/gpu/drm/imagination/pvr_fw_mips_internal.h
+new file mode 100644
+index 000000000000..f13829e63e1c
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_mips_internal.h
+@@ -0,0 +1,339 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
++/* Copyright (c) 2023 Imagination Technologies Ltd. */
++
++#ifndef PVR_FW_MIPS_INTERNAL_H
++#define PVR_FW_MIPS_INTERNAL_H
++
++#ifndef PVR_FW_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
++#error This file may only be included if explicitly defined
++#endif
++
++#include <linux/bits.h>
++#include <linux/types.h>
++
++/* Utility defines for memory management. */
++#define PVR_MIPSFW_LOG2_PAGE_SIZE_4K (12)
++#define PVR_MIPSFW_PAGE_SIZE_4K (0x1 << PVR_MIPSFW_LOG2_PAGE_SIZE_4K)
++#define PVR_MIPSFW_PAGE_MASK_4K (PVR_MIPSFW_PAGE_SIZE_4K - 1)
++#define PVR_MIPSFW_LOG2_PAGE_SIZE_64K (16)
++#define PVR_MIPSFW_PAGE_SIZE_64K (0x1 << PVR_MIPSFW_LOG2_PAGE_SIZE_64K)
++#define PVR_MIPSFW_PAGE_MASK_64K (PVR_MIPSFW_PAGE_SIZE_64K - 1)
++#define PVR_MIPSFW_LOG2_PAGE_SIZE_256K (18)
++#define PVR_MIPSFW_PAGE_SIZE_256K (0x1 << PVR_MIPSFW_LOG2_PAGE_SIZE_256K)
++#define PVR_MIPSFW_PAGE_MASK_256K (PVR_MIPSFW_PAGE_SIZE_256K - 1)
++#define PVR_MIPSFW_LOG2_PAGE_SIZE_1MB (20)
++#define PVR_MIPSFW_PAGE_SIZE_1MB (0x1 << PVR_MIPSFW_LOG2_PAGE_SIZE_1MB)
++#define PVR_MIPSFW_PAGE_MASK_1MB (PVR_MIPSFW_PAGE_SIZE_1MB - 1)
++#define PVR_MIPSFW_LOG2_PAGE_SIZE_4MB (22)
++#define PVR_MIPSFW_PAGE_SIZE_4MB (0x1 << PVR_MIPSFW_LOG2_PAGE_SIZE_4MB)
++#define PVR_MIPSFW_PAGE_MASK_4MB (PVR_MIPSFW_PAGE_SIZE_4MB - 1)
++#define PVR_MIPSFW_LOG2_PTE_ENTRY_SIZE (2)
++/* log2 page table sizes dependent on FW heap size and page size (for each OS). */
++#define PVR_MIPSFW_LOG2_PAGETABLE_SIZE_4K(pvr_dev) ((pvr_dev)->fw_dev.fw_heap_info.log2_size - \
++						    PVR_MIPSFW_LOG2_PAGE_SIZE_4K +    \
++						    PVR_MIPSFW_LOG2_PTE_ENTRY_SIZE)
++#define PVR_MIPSFW_LOG2_PAGETABLE_SIZE_64K(pvr_dev) ((pvr_dev)->fw_dev.fw_heap_info.log2_size - \
++						     PVR_MIPSFW_LOG2_PAGE_SIZE_64K +   \
++						     PVR_MIPSFW_LOG2_PTE_ENTRY_SIZE)
++/* Maximum number of page table pages (both Host and MIPS pages). */
++#define PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES (4)
++/* Total number of TLB entries. */
++#define PVR_MIPSFW_NUMBER_OF_TLB_ENTRIES (16)
++/* "Uncached" caching policy. */
++#define PVR_MIPSFW_UNCACHED_CACHE_POLICY (2)
++/* "Write-back write-allocate" caching policy. */
++#define PVR_MIPSFW_WRITEBACK_CACHE_POLICY (3)
++/* "Write-through no write-allocate" caching policy. */
++#define PVR_MIPSFW_WRITETHROUGH_CACHE_POLICY (1)
++/* Cached policy used by MIPS in case of physical bus on 32 bit. */
++#define PVR_MIPSFW_CACHED_POLICY (PVR_MIPSFW_WRITEBACK_CACHE_POLICY)
++/* Cached policy used by MIPS in case of physical bus on more than 32 bit. */
++#define PVR_MIPSFW_CACHED_POLICY_ABOVE_32BIT (PVR_MIPSFW_WRITETHROUGH_CACHE_POLICY)
++/* Total number of Remap entries. */
++#define PVR_MIPSFW_NUMBER_OF_REMAP_ENTRIES (2 * PVR_MIPSFW_NUMBER_OF_TLB_ENTRIES)
++
++/* MIPS EntryLo/PTE format. */
++
++#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_SHIFT (31U)
++#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_CLRMSK (0X7FFFFFFF)
++#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_EN (0X80000000)
++
++#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_SHIFT (30U)
++#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_CLRMSK (0XBFFFFFFF)
++#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_EN (0X40000000)
++
++/* Page Frame Number */
++#define PVR_MIPSFW_ENTRYLO_PFN_SHIFT (6)
++#define PVR_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT (12)
++/* Mask used for the MIPS Page Table in case of physical bus on 32 bit. */
++#define PVR_MIPSFW_ENTRYLO_PFN_MASK (0x03FFFFC0)
++#define PVR_MIPSFW_ENTRYLO_PFN_SIZE (20)
++/* Mask used for the MIPS Page Table in case of physical bus on more than 32 bit. */
++#define PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT (0x3FFFFFC0)
++#define PVR_MIPSFW_ENTRYLO_PFN_SIZE_ABOVE_32BIT (24)
++#define PVR_MIPSFW_ADDR_TO_ENTRYLO_PFN_RSHIFT (PVR_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT - \
++					       PVR_MIPSFW_ENTRYLO_PFN_SHIFT)
++
++#define PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT (3U)
++#define PVR_MIPSFW_ENTRYLO_CACHE_POLICY_CLRMSK (0XFFFFFFC7)
++
++#define PVR_MIPSFW_ENTRYLO_DIRTY_SHIFT (2U)
++#define PVR_MIPSFW_ENTRYLO_DIRTY_CLRMSK (0XFFFFFFFB)
++#define PVR_MIPSFW_ENTRYLO_DIRTY_EN (0X00000004)
++
++#define PVR_MIPSFW_ENTRYLO_VALID_SHIFT (1U)
++#define PVR_MIPSFW_ENTRYLO_VALID_CLRMSK (0XFFFFFFFD)
++#define PVR_MIPSFW_ENTRYLO_VALID_EN (0X00000002)
++
++#define PVR_MIPSFW_ENTRYLO_GLOBAL_SHIFT (0U)
++#define PVR_MIPSFW_ENTRYLO_GLOBAL_CLRMSK (0XFFFFFFFE)
++#define PVR_MIPSFW_ENTRYLO_GLOBAL_EN (0X00000001)
++
++#define PVR_MIPSFW_ENTRYLO_DVG (PVR_MIPSFW_ENTRYLO_DIRTY_EN | \
++				PVR_MIPSFW_ENTRYLO_VALID_EN | \
++				PVR_MIPSFW_ENTRYLO_GLOBAL_EN)
++#define PVR_MIPSFW_ENTRYLO_UNCACHED (PVR_MIPSFW_UNCACHED_CACHE_POLICY << \
++				     PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT)
++#define PVR_MIPSFW_ENTRYLO_DVG_UNCACHED (PVR_MIPSFW_ENTRYLO_DVG | \
++					 PVR_MIPSFW_ENTRYLO_UNCACHED)
++
++/* Remap Range Config Addr Out. */
++/* These defines refer to the upper half of the Remap Range Config register. */
++#define PVR_MIPSFW_REMAP_RANGE_ADDR_OUT_MASK (0x0FFFFFF0)
++#define PVR_MIPSFW_REMAP_RANGE_ADDR_OUT_SHIFT (4) /* wrt upper half of the register. */
++#define PVR_MIPSFW_REMAP_RANGE_ADDR_OUT_ALIGNSHIFT (12)
++#define PVR_MIPSFW_ADDR_TO_RR_ADDR_OUT_RSHIFT (PVR_MIPSFW_REMAP_RANGE_ADDR_OUT_ALIGNSHIFT - \
++					       PVR_MIPSFW_REMAP_RANGE_ADDR_OUT_SHIFT)
++
++/*
++ * Pages to trampoline problematic physical addresses:
++ *   - PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN : 0x1FC0_0000
++ *   - PVR_MIPSFW_DATA_REMAP_PHYS_ADDR_IN : 0x1FC0_1000
++ *   - PVR_MIPSFW_CODE_REMAP_PHYS_ADDR_IN : 0x1FC0_2000
++ *   - (benign trampoline)               : 0x1FC0_3000
++ * that would otherwise be erroneously remapped by the MIPS wrapper.
++ * (see "Firmware virtual layout and remap configuration" section below)
++ */
++
++#define PVR_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES (2)
++#define PVR_MIPSFW_TRAMPOLINE_NUMPAGES BIT(PVR_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES)
++#define PVR_MIPSFW_TRAMPOLINE_SIZE (PVR_MIPSFW_TRAMPOLINE_NUMPAGES << \
++				    PVR_MIPSFW_LOG2_PAGE_SIZE_4K)
++#define PVR_MIPSFW_TRAMPOLINE_LOG2_SEGMENT_SIZE (PVR_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES + \
++						 PVR_MIPSFW_LOG2_PAGE_SIZE_4K)
++
++#define PVR_MIPSFW_TRAMPOLINE_TARGET_PHYS_ADDR (PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN)
++#define PVR_MIPSFW_TRAMPOLINE_OFFSET(a) ((a) - PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN)
++
++#define PVR_MIPSFW_SENSITIVE_ADDR(a) (PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN == \
++				      (~((1 << PVR_MIPSFW_TRAMPOLINE_LOG2_SEGMENT_SIZE) - 1) \
++				       & (a)))
++
++/* Firmware virtual layout and remap configuration. */
++/*
++ * For each remap region we define:
++ * - the virtual base used by the Firmware to access code/data through that region
++ * - the microAptivAP physical address correspondent to the virtual base address,
++ *   used as input address and remapped to the actual physical address
++ * - log2 of size of the region remapped by the MIPS wrapper, i.e. number of bits from
++ *   the bottom of the base input address that survive onto the output address
++ *   (this defines both the alignment and the maximum size of the remapped region)
++ * - one or more code/data segments within the remapped region.
++ */
++
++/* Boot remap setup. */
++#define PVR_MIPSFW_BOOT_REMAP_VIRTUAL_BASE (0xBFC00000)
++#define PVR_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN (0x1FC00000)
++#define PVR_MIPSFW_BOOT_REMAP_LOG2_SEGMENT_SIZE (12)
++#define PVR_MIPSFW_BOOT_NMI_CODE_VIRTUAL_BASE (PVR_MIPSFW_BOOT_REMAP_VIRTUAL_BASE)
++
++/* Data remap setup. */
++#define PVR_MIPSFW_DATA_REMAP_VIRTUAL_BASE (0xBFC01000)
++#define PVR_MIPSFW_DATA_CACHED_REMAP_VIRTUAL_BASE (0x9FC01000)
++#define PVR_MIPSFW_DATA_REMAP_PHYS_ADDR_IN (0x1FC01000)
++#define PVR_MIPSFW_DATA_REMAP_LOG2_SEGMENT_SIZE (12)
++#define PVR_MIPSFW_BOOT_NMI_DATA_VIRTUAL_BASE (PVR_MIPSFW_DATA_REMAP_VIRTUAL_BASE)
++
++/* Code remap setup. */
++#define PVR_MIPSFW_CODE_REMAP_VIRTUAL_BASE (0x9FC02000)
++#define PVR_MIPSFW_CODE_REMAP_PHYS_ADDR_IN (0x1FC02000)
++#define PVR_MIPSFW_CODE_REMAP_LOG2_SEGMENT_SIZE (12)
++#define PVR_MIPSFW_EXCEPTIONS_VIRTUAL_BASE (PVR_MIPSFW_CODE_REMAP_VIRTUAL_BASE)
++
++/* Permanent mappings setup. */
++#define PVR_MIPSFW_PT_VIRTUAL_BASE (0xCF000000)
++#define PVR_MIPSFW_REGISTERS_VIRTUAL_BASE (0xCF800000)
++#define PVR_MIPSFW_STACK_VIRTUAL_BASE (0xCF600000)
++
++/* Bootloader configuration data. */
++/*
++ * Bootloader configuration offset (where PVR_MIPSFW_BOOT_DATA lives)
++ * within the bootloader/NMI data page.
++ */
++#define PVR_MIPSFW_BOOTLDR_CONF_OFFSET (0x0)
++
++/* NMI shared data. */
++/* Base address of the shared data within the bootloader/NMI data page. */
++#define PVR_MIPSFW_NMI_SHARED_DATA_BASE (0x100)
++/* Size used by Debug dump data. */
++#define PVR_MIPSFW_NMI_SHARED_SIZE (0x2B0)
++/* Offsets in the NMI shared area in 32-bit words. */
++#define PVR_MIPSFW_NMI_SYNC_FLAG_OFFSET (0x0)
++#define PVR_MIPSFW_NMI_STATE_OFFSET (0x1)
++#define PVR_MIPSFW_NMI_ERROR_STATE_SET (0x1)
++
++/* MIPS boot stage. */
++#define PVR_MIPSFW_BOOT_STAGE_OFFSET (0x400)
++
++/*
++ * MIPS private data in the bootloader data page.
++ * Memory below this offset is used by the FW only, no interface data allowed.
++ */
++#define PVR_MIPSFW_PRIVATE_DATA_OFFSET (0x800)
++
++struct pvr_mipsfw_boot_data {
++	u64 stack_phys_addr;
++	u64 reg_base;
++	u64 pt_phys_addr[PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES];
++	u32 pt_log2_page_size;
++	u32 pt_num_pages;
++	u32 reserved1;
++	u32 reserved2;
++};
++
++#define PVR_MIPSFW_GET_OFFSET_IN_DWORDS(offset) ((offset) / sizeof(u32))
++#define PVR_MIPSFW_GET_OFFSET_IN_QWORDS(offset) ((offset) / sizeof(u64))
++
++/* Used for compatibility checks. */
++#define PVR_MIPSFW_ARCHTYPE_VER_CLRMSK (0xFFFFE3FFU)
++#define PVR_MIPSFW_ARCHTYPE_VER_SHIFT (10U)
++#define PVR_MIPSFW_CORE_ID_VALUE (0x001U)
++#define PVR_FW_PROCESSOR_MIPS "MIPS"
++
++/* microAptivAP cache line size. */
++#define PVR_MIPSFW_MICROAPTIVEAP_CACHELINE_SIZE (16U)
++
++/*
++ * The SOCIF transactions are identified with the top 16 bits of the physical address emitted by
++ * the MIPS.
++ */
++#define PVR_MIPSFW_WRAPPER_CONFIG_REGBANK_ADDR_ALIGN (16U)
++
++/* Values to put in the MIPS selectors for performance counters. */
++/* Icache accesses in COUNTER0. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_ICACHE_ACCESSES_C0 (9U)
++/* Icache misses in COUNTER1. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_ICACHE_MISSES_C1 (9U)
++
++/* Dcache accesses in COUNTER0. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_DCACHE_ACCESSES_C0 (10U)
++/* Dcache misses in COUNTER1. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_DCACHE_MISSES_C1 (11U)
++
++/* ITLB instruction accesses in COUNTER0. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_ITLB_INSTR_ACCESSES_C0 (5U)
++/* JTLB instruction accesses misses in COUNTER1. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_JTLB_INSTR_MISSES_C1 (7U)
++
++  /* Instructions completed in COUNTER0. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_INSTR_COMPLETED_C0 (1U)
++/* JTLB data misses in COUNTER1. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_JTLB_DATA_MISSES_C1 (8U)
++
++/* Shift for the Event field in the MIPS perf ctrl registers. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_EVENT_SHIFT (5U)
++
++/* Additional flags for performance counters. See MIPS manual for further reference. */
++#define PVR_MIPSFW_PERF_COUNT_CTRL_COUNT_USER_MODE (8U)
++#define PVR_MIPSFW_PERF_COUNT_CTRL_COUNT_KERNEL_MODE (2U)
++#define PVR_MIPSFW_PERF_COUNT_CTRL_COUNT_EXL (1U)
++
++#define PVR_MIPSFW_C0_NBHWIRQ	8
++
++/* Macros to decode C0_Cause register. */
++#define PVR_MIPSFW_C0_CAUSE_EXCCODE(cause) (((cause) & 0x7c) >> 2)
++#define PVR_MIPSFW_C0_CAUSE_EXCCODE_FWERROR 9
++/* Use only when Coprocessor Unusable exception. */
++#define PVR_MIPSFW_C0_CAUSE_UNUSABLE_UNIT(cause) (((cause) >> 28) & 0x3)
++#define PVR_MIPSFW_C0_CAUSE_PENDING_HWIRQ(cause) (((cause) & 0x3fc00) >> 10)
++#define PVR_MIPSFW_C0_CAUSE_FDCIPENDING BIT(21)
++#define PVR_MIPSFW_C0_CAUSE_IV BIT(23)
++#define PVR_MIPSFW_C0_CAUSE_IC BIT(25)
++#define PVR_MIPSFW_C0_CAUSE_PCIPENDING BIT(26)
++#define PVR_MIPSFW_C0_CAUSE_TIPENDING BIT(30)
++#define PVR_MIPSFW_C0_CAUSE_BRANCH_DELAY BIT(31)
++
++/* Macros to decode C0_Debug register. */
++#define PVR_MIPSFW_C0_DEBUG_EXCCODE(debug) (((debug) >> 10) & 0x1f)
++#define PVR_MIPSFW_C0_DEBUG_DSS BIT(0)
++#define PVR_MIPSFW_C0_DEBUG_DBP BIT(1)
++#define PVR_MIPSFW_C0_DEBUG_DDBL BIT(2)
++#define PVR_MIPSFW_C0_DEBUG_DDBS BIT(3)
++#define PVR_MIPSFW_C0_DEBUG_DIB BIT(4)
++#define PVR_MIPSFW_C0_DEBUG_DINT BIT(5)
++#define PVR_MIPSFW_C0_DEBUG_DIBIMPR BIT(6)
++#define PVR_MIPSFW_C0_DEBUG_DDBLIMPR BIT(18)
++#define PVR_MIPSFW_C0_DEBUG_DDBSIMPR BIT(19)
++#define PVR_MIPSFW_C0_DEBUG_IEXI BIT(20)
++#define PVR_MIPSFW_C0_DEBUG_DBUSEP BIT(21)
++#define PVR_MIPSFW_C0_DEBUG_CACHEEP BIT(22)
++#define PVR_MIPSFW_C0_DEBUG_MCHECKP BIT(23)
++#define PVR_MIPSFW_C0_DEBUG_IBUSEP BIT(24)
++#define PVR_MIPSFW_C0_DEBUG_DM BIT(30)
++#define PVR_MIPSFW_C0_DEBUG_DBD BIT(31)
++
++/* Macros to decode TLB entries. */
++#define PVR_MIPSFW_TLB_GET_MASK(page_mask) (((page_mask) >> 13) & 0XFFFFU)
++/* Page size in KB. */
++#define PVR_MIPSFW_TLB_GET_PAGE_SIZE(page_mask) ((((page_mask) | 0x1FFF) + 1) >> 11)
++/* Page size in KB. */
++#define PVR_MIPSFW_TLB_GET_PAGE_MASK(page_size) ((((page_size) << 11) - 1) & ~0x7FF)
++#define PVR_MIPSFW_TLB_GET_VPN2(entry_hi) ((entry_hi) >> 13)
++#define PVR_MIPSFW_TLB_GET_COHERENCY(entry_lo) (((entry_lo) >> 3) & 0x7U)
++#define PVR_MIPSFW_TLB_GET_PFN(entry_lo) (((entry_lo) >> 6) & 0XFFFFFU)
++/* GET_PA uses a non-standard PFN mask for 36 bit addresses. */
++#define PVR_MIPSFW_TLB_GET_PA(entry_lo) (((u64)(entry_lo) & \
++					  PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT) << 6)
++#define PVR_MIPSFW_TLB_GET_INHIBIT(entry_lo) (((entry_lo) >> 30) & 0x3U)
++#define PVR_MIPSFW_TLB_GET_DGV(entry_lo) ((entry_lo) & 0x7U)
++#define PVR_MIPSFW_TLB_GLOBAL BIT(0)
++#define PVR_MIPSFW_TLB_VALID BIT(1)
++#define PVR_MIPSFW_TLB_DIRTY BIT(2)
++#define PVR_MIPSFW_TLB_XI BIT(30)
++#define PVR_MIPSFW_TLB_RI BIT(31)
++
++#define PVR_MIPSFW_REMAP_GET_REGION_SIZE(region_size_encoding) (1 << (((region_size_encoding) \
++								      + 1) << 1))
++
++struct pvr_mips_tlb_entry {
++	u32 tlb_page_mask;
++	u32 tlb_hi;
++	u32 tlb_lo0;
++	u32 tlb_lo1;
++};
++
++struct pvr_mips_remap_entry {
++	u32 remap_addr_in;  /* Always 4k aligned. */
++	u32 remap_addr_out; /* Always 4k aligned. */
++	u32 remap_region_size;
++};
++
++struct pvr_mips_state {
++	u32 error_state; /* This must come first in the structure. */
++	u32 error_epc;
++	u32 status_register;
++	u32 cause_register;
++	u32 bad_register;
++	u32 epc;
++	u32 sp;
++	u32 debug;
++	u32 depc;
++	u32 bad_instr;
++	u32 unmapped_address;
++	struct pvr_mips_tlb_entry tlb[PVR_MIPSFW_NUMBER_OF_TLB_ENTRIES];
++	struct pvr_mips_remap_entry remap[PVR_MIPSFW_NUMBER_OF_REMAP_ENTRIES];
++};
++
++#include "pvr_fw_mips_internal_check.h"
++
++#endif /* PVR_FW_MIPS_INTERNAL_H */
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips_internal_check.h b/drivers/gpu/drm/imagination/pvr_fw_mips_internal_check.h
+new file mode 100644
+index 000000000000..efa41b5c41f9
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_mips_internal_check.h
+@@ -0,0 +1,35 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
++/* Copyright (c) 2023 Imagination Technologies Ltd. */
++
++#ifndef PVR_FW_MIPS_INTERNAL_CHECK_H
++#define PVR_FW_MIPS_INTERNAL_CHECK_H
++
++#include "pvr_check.h"
++
++OFFSET_CHECK(struct pvr_mips_tlb_entry, tlb_page_mask, 0);
++OFFSET_CHECK(struct pvr_mips_tlb_entry, tlb_hi, 4);
++OFFSET_CHECK(struct pvr_mips_tlb_entry, tlb_lo0, 8);
++OFFSET_CHECK(struct pvr_mips_tlb_entry, tlb_lo1, 12);
++SIZE_CHECK(struct pvr_mips_tlb_entry, 16);
++
++OFFSET_CHECK(struct pvr_mips_remap_entry, remap_addr_in, 0);
++OFFSET_CHECK(struct pvr_mips_remap_entry, remap_addr_out, 4);
++OFFSET_CHECK(struct pvr_mips_remap_entry, remap_region_size, 8);
++SIZE_CHECK(struct pvr_mips_remap_entry, 12);
++
++OFFSET_CHECK(struct pvr_mips_state, error_state, 0);
++OFFSET_CHECK(struct pvr_mips_state, error_epc, 4);
++OFFSET_CHECK(struct pvr_mips_state, status_register, 8);
++OFFSET_CHECK(struct pvr_mips_state, cause_register, 12);
++OFFSET_CHECK(struct pvr_mips_state, bad_register, 16);
++OFFSET_CHECK(struct pvr_mips_state, epc, 20);
++OFFSET_CHECK(struct pvr_mips_state, sp, 24);
++OFFSET_CHECK(struct pvr_mips_state, debug, 28);
++OFFSET_CHECK(struct pvr_mips_state, depc, 32);
++OFFSET_CHECK(struct pvr_mips_state, bad_instr, 36);
++OFFSET_CHECK(struct pvr_mips_state, unmapped_address, 40);
++OFFSET_CHECK(struct pvr_mips_state, tlb, 44);
++OFFSET_CHECK(struct pvr_mips_state, remap, 300);
++SIZE_CHECK(struct pvr_mips_state, 684);
++
++#endif /* PVR_FW_MIPS_INTERNAL_CHECK_H */
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h
 deleted file mode 100644
-index a0c5c41c8aa2..000000000000
---- a/drivers/gpu/drm/imagination/pvr_fw_mips.h
+index 68b4db83cb4b..000000000000
+--- a/drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h
 +++ /dev/null
-@@ -1,49 +0,0 @@
+@@ -1,339 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
 -/* Copyright (c) 2023 Imagination Technologies Ltd. */
 -
--#ifndef PVR_FW_MIPS_H
--#define PVR_FW_MIPS_H
+-#ifndef PVR_ROGUE_MIPS_INTERNAL_H
+-#define PVR_ROGUE_MIPS_INTERNAL_H
 -
--#include "pvr_rogue_mips.h"
+-#ifndef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
+-#error This file may only be included if explicitly defined
+-#endif
 -
--#include <asm/page.h>
--#include <linux/math.h>
+-#include <linux/bits.h>
 -#include <linux/types.h>
 -
--/* Forward declaration from pvr_gem.h. */
--struct pvr_gem_object;
+-/* Utility defines for memory management. */
+-#define ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K (12)
+-#define ROGUE_MIPSFW_PAGE_SIZE_4K (0x1 << ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K)
+-#define ROGUE_MIPSFW_PAGE_MASK_4K (ROGUE_MIPSFW_PAGE_SIZE_4K - 1)
+-#define ROGUE_MIPSFW_LOG2_PAGE_SIZE_64K (16)
+-#define ROGUE_MIPSFW_PAGE_SIZE_64K (0x1 << ROGUE_MIPSFW_LOG2_PAGE_SIZE_64K)
+-#define ROGUE_MIPSFW_PAGE_MASK_64K (ROGUE_MIPSFW_PAGE_SIZE_64K - 1)
+-#define ROGUE_MIPSFW_LOG2_PAGE_SIZE_256K (18)
+-#define ROGUE_MIPSFW_PAGE_SIZE_256K (0x1 << ROGUE_MIPSFW_LOG2_PAGE_SIZE_256K)
+-#define ROGUE_MIPSFW_PAGE_MASK_256K (ROGUE_MIPSFW_PAGE_SIZE_256K - 1)
+-#define ROGUE_MIPSFW_LOG2_PAGE_SIZE_1MB (20)
+-#define ROGUE_MIPSFW_PAGE_SIZE_1MB (0x1 << ROGUE_MIPSFW_LOG2_PAGE_SIZE_1MB)
+-#define ROGUE_MIPSFW_PAGE_MASK_1MB (ROGUE_MIPSFW_PAGE_SIZE_1MB - 1)
+-#define ROGUE_MIPSFW_LOG2_PAGE_SIZE_4MB (22)
+-#define ROGUE_MIPSFW_PAGE_SIZE_4MB (0x1 << ROGUE_MIPSFW_LOG2_PAGE_SIZE_4MB)
+-#define ROGUE_MIPSFW_PAGE_MASK_4MB (ROGUE_MIPSFW_PAGE_SIZE_4MB - 1)
+-#define ROGUE_MIPSFW_LOG2_PTE_ENTRY_SIZE (2)
+-/* log2 page table sizes dependent on FW heap size and page size (for each OS). */
+-#define ROGUE_MIPSFW_LOG2_PAGETABLE_SIZE_4K(pvr_dev) ((pvr_dev)->fw_dev.fw_heap_info.log2_size - \
+-						      ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K +    \
+-						      ROGUE_MIPSFW_LOG2_PTE_ENTRY_SIZE)
+-#define ROGUE_MIPSFW_LOG2_PAGETABLE_SIZE_64K(pvr_dev) ((pvr_dev)->fw_dev.fw_heap_info.log2_size - \
+-						       ROGUE_MIPSFW_LOG2_PAGE_SIZE_64K +   \
+-						       ROGUE_MIPSFW_LOG2_PTE_ENTRY_SIZE)
+-/* Maximum number of page table pages (both Host and MIPS pages). */
+-#define ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES (4)
+-/* Total number of TLB entries. */
+-#define ROGUE_MIPSFW_NUMBER_OF_TLB_ENTRIES (16)
+-/* "Uncached" caching policy. */
+-#define ROGUE_MIPSFW_UNCACHED_CACHE_POLICY (2)
+-/* "Write-back write-allocate" caching policy. */
+-#define ROGUE_MIPSFW_WRITEBACK_CACHE_POLICY (3)
+-/* "Write-through no write-allocate" caching policy. */
+-#define ROGUE_MIPSFW_WRITETHROUGH_CACHE_POLICY (1)
+-/* Cached policy used by MIPS in case of physical bus on 32 bit. */
+-#define ROGUE_MIPSFW_CACHED_POLICY (ROGUE_MIPSFW_WRITEBACK_CACHE_POLICY)
+-/* Cached policy used by MIPS in case of physical bus on more than 32 bit. */
+-#define ROGUE_MIPSFW_CACHED_POLICY_ABOVE_32BIT (ROGUE_MIPSFW_WRITETHROUGH_CACHE_POLICY)
+-/* Total number of Remap entries. */
+-#define ROGUE_MIPSFW_NUMBER_OF_REMAP_ENTRIES (2 * ROGUE_MIPSFW_NUMBER_OF_TLB_ENTRIES)
 -
--#define PVR_MIPS_PT_PAGE_COUNT DIV_ROUND_UP(ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES * ROGUE_MIPSFW_PAGE_SIZE_4K, PAGE_SIZE)
+-/* MIPS EntryLo/PTE format. */
 -
--/**
-- * struct pvr_fw_mips_data - MIPS-specific data
+-#define ROGUE_MIPSFW_ENTRYLO_READ_INHIBIT_SHIFT (31U)
+-#define ROGUE_MIPSFW_ENTRYLO_READ_INHIBIT_CLRMSK (0X7FFFFFFF)
+-#define ROGUE_MIPSFW_ENTRYLO_READ_INHIBIT_EN (0X80000000)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_EXEC_INHIBIT_SHIFT (30U)
+-#define ROGUE_MIPSFW_ENTRYLO_EXEC_INHIBIT_CLRMSK (0XBFFFFFFF)
+-#define ROGUE_MIPSFW_ENTRYLO_EXEC_INHIBIT_EN (0X40000000)
+-
+-/* Page Frame Number */
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_SHIFT (6)
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT (12)
+-/* Mask used for the MIPS Page Table in case of physical bus on 32 bit. */
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_MASK (0x03FFFFC0)
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_SIZE (20)
+-/* Mask used for the MIPS Page Table in case of physical bus on more than 32 bit. */
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT (0x3FFFFFC0)
+-#define ROGUE_MIPSFW_ENTRYLO_PFN_SIZE_ABOVE_32BIT (24)
+-#define ROGUE_MIPSFW_ADDR_TO_ENTRYLO_PFN_RSHIFT (ROGUE_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT - \
+-						 ROGUE_MIPSFW_ENTRYLO_PFN_SHIFT)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT (3U)
+-#define ROGUE_MIPSFW_ENTRYLO_CACHE_POLICY_CLRMSK (0XFFFFFFC7)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_DIRTY_SHIFT (2U)
+-#define ROGUE_MIPSFW_ENTRYLO_DIRTY_CLRMSK (0XFFFFFFFB)
+-#define ROGUE_MIPSFW_ENTRYLO_DIRTY_EN (0X00000004)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_VALID_SHIFT (1U)
+-#define ROGUE_MIPSFW_ENTRYLO_VALID_CLRMSK (0XFFFFFFFD)
+-#define ROGUE_MIPSFW_ENTRYLO_VALID_EN (0X00000002)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_GLOBAL_SHIFT (0U)
+-#define ROGUE_MIPSFW_ENTRYLO_GLOBAL_CLRMSK (0XFFFFFFFE)
+-#define ROGUE_MIPSFW_ENTRYLO_GLOBAL_EN (0X00000001)
+-
+-#define ROGUE_MIPSFW_ENTRYLO_DVG (ROGUE_MIPSFW_ENTRYLO_DIRTY_EN | \
+-				  ROGUE_MIPSFW_ENTRYLO_VALID_EN | \
+-				  ROGUE_MIPSFW_ENTRYLO_GLOBAL_EN)
+-#define ROGUE_MIPSFW_ENTRYLO_UNCACHED (ROGUE_MIPSFW_UNCACHED_CACHE_POLICY << \
+-				       ROGUE_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT)
+-#define ROGUE_MIPSFW_ENTRYLO_DVG_UNCACHED (ROGUE_MIPSFW_ENTRYLO_DVG | \
+-					   ROGUE_MIPSFW_ENTRYLO_UNCACHED)
+-
+-/* Remap Range Config Addr Out. */
+-/* These defines refer to the upper half of the Remap Range Config register. */
+-#define ROGUE_MIPSFW_REMAP_RANGE_ADDR_OUT_MASK (0x0FFFFFF0)
+-#define ROGUE_MIPSFW_REMAP_RANGE_ADDR_OUT_SHIFT (4) /* wrt upper half of the register. */
+-#define ROGUE_MIPSFW_REMAP_RANGE_ADDR_OUT_ALIGNSHIFT (12)
+-#define ROGUE_MIPSFW_ADDR_TO_RR_ADDR_OUT_RSHIFT (ROGUE_MIPSFW_REMAP_RANGE_ADDR_OUT_ALIGNSHIFT - \
+-						 ROGUE_MIPSFW_REMAP_RANGE_ADDR_OUT_SHIFT)
+-
+-/*
+- * Pages to trampoline problematic physical addresses:
+- *   - ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN : 0x1FC0_0000
+- *   - ROGUE_MIPSFW_DATA_REMAP_PHYS_ADDR_IN : 0x1FC0_1000
+- *   - ROGUE_MIPSFW_CODE_REMAP_PHYS_ADDR_IN : 0x1FC0_2000
+- *   - (benign trampoline)               : 0x1FC0_3000
+- * that would otherwise be erroneously remapped by the MIPS wrapper.
+- * (see "Firmware virtual layout and remap configuration" section below)
 - */
--struct pvr_fw_mips_data {
--	/**
--	 * @pt_pages: Pages containing MIPS pagetable.
--	 */
--	struct page *pt_pages[PVR_MIPS_PT_PAGE_COUNT];
 -
--	/** @pt: Pointer to CPU mapping of MIPS pagetable. */
--	u32 *pt;
+-#define ROGUE_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES (2)
+-#define ROGUE_MIPSFW_TRAMPOLINE_NUMPAGES BIT(ROGUE_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES)
+-#define ROGUE_MIPSFW_TRAMPOLINE_SIZE (ROGUE_MIPSFW_TRAMPOLINE_NUMPAGES << \
+-				      ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K)
+-#define ROGUE_MIPSFW_TRAMPOLINE_LOG2_SEGMENT_SIZE (ROGUE_MIPSFW_TRAMPOLINE_LOG2_NUMPAGES + \
+-						   ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K)
 -
--	/** @pt_dma_addr: DMA mappings of MIPS pagetable. */
--	dma_addr_t pt_dma_addr[PVR_MIPS_PT_PAGE_COUNT];
+-#define ROGUE_MIPSFW_TRAMPOLINE_TARGET_PHYS_ADDR (ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN)
+-#define ROGUE_MIPSFW_TRAMPOLINE_OFFSET(a) ((a) - ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN)
 -
--	/** @boot_code_dma_addr: DMA address of MIPS boot code. */
--	dma_addr_t boot_code_dma_addr;
+-#define ROGUE_MIPSFW_SENSITIVE_ADDR(a) (ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN == \
+-					(~((1 << ROGUE_MIPSFW_TRAMPOLINE_LOG2_SEGMENT_SIZE) - 1) \
+-					 & (a)))
 -
--	/** @boot_data_dma_addr: DMA address of MIPS boot data. */
--	dma_addr_t boot_data_dma_addr;
+-/* Firmware virtual layout and remap configuration. */
+-/*
+- * For each remap region we define:
+- * - the virtual base used by the Firmware to access code/data through that region
+- * - the microAptivAP physical address correspondent to the virtual base address,
+- *   used as input address and remapped to the actual physical address
+- * - log2 of size of the region remapped by the MIPS wrapper, i.e. number of bits from
+- *   the bottom of the base input address that survive onto the output address
+- *   (this defines both the alignment and the maximum size of the remapped region)
+- * - one or more code/data segments within the remapped region.
+- */
 -
--	/** @exception_code_dma_addr: DMA address of MIPS exception code. */
--	dma_addr_t exception_code_dma_addr;
+-/* Boot remap setup. */
+-#define ROGUE_MIPSFW_BOOT_REMAP_VIRTUAL_BASE (0xBFC00000)
+-#define ROGUE_MIPSFW_BOOT_REMAP_PHYS_ADDR_IN (0x1FC00000)
+-#define ROGUE_MIPSFW_BOOT_REMAP_LOG2_SEGMENT_SIZE (12)
+-#define ROGUE_MIPSFW_BOOT_NMI_CODE_VIRTUAL_BASE (ROGUE_MIPSFW_BOOT_REMAP_VIRTUAL_BASE)
 -
--	/** @cache_policy: Cache policy for this processor. */
--	u32 cache_policy;
+-/* Data remap setup. */
+-#define ROGUE_MIPSFW_DATA_REMAP_VIRTUAL_BASE (0xBFC01000)
+-#define ROGUE_MIPSFW_DATA_CACHED_REMAP_VIRTUAL_BASE (0x9FC01000)
+-#define ROGUE_MIPSFW_DATA_REMAP_PHYS_ADDR_IN (0x1FC01000)
+-#define ROGUE_MIPSFW_DATA_REMAP_LOG2_SEGMENT_SIZE (12)
+-#define ROGUE_MIPSFW_BOOT_NMI_DATA_VIRTUAL_BASE (ROGUE_MIPSFW_DATA_REMAP_VIRTUAL_BASE)
 -
--	/** @pfn_mask: PFN mask for MIPS pagetable. */
--	u32 pfn_mask;
+-/* Code remap setup. */
+-#define ROGUE_MIPSFW_CODE_REMAP_VIRTUAL_BASE (0x9FC02000)
+-#define ROGUE_MIPSFW_CODE_REMAP_PHYS_ADDR_IN (0x1FC02000)
+-#define ROGUE_MIPSFW_CODE_REMAP_LOG2_SEGMENT_SIZE (12)
+-#define ROGUE_MIPSFW_EXCEPTIONS_VIRTUAL_BASE (ROGUE_MIPSFW_CODE_REMAP_VIRTUAL_BASE)
+-
+-/* Permanent mappings setup. */
+-#define ROGUE_MIPSFW_PT_VIRTUAL_BASE (0xCF000000)
+-#define ROGUE_MIPSFW_REGISTERS_VIRTUAL_BASE (0xCF800000)
+-#define ROGUE_MIPSFW_STACK_VIRTUAL_BASE (0xCF600000)
+-
+-/* Bootloader configuration data. */
+-/*
+- * Bootloader configuration offset (where ROGUE_MIPSFW_BOOT_DATA lives)
+- * within the bootloader/NMI data page.
+- */
+-#define ROGUE_MIPSFW_BOOTLDR_CONF_OFFSET (0x0)
+-
+-/* NMI shared data. */
+-/* Base address of the shared data within the bootloader/NMI data page. */
+-#define ROGUE_MIPSFW_NMI_SHARED_DATA_BASE (0x100)
+-/* Size used by Debug dump data. */
+-#define ROGUE_MIPSFW_NMI_SHARED_SIZE (0x2B0)
+-/* Offsets in the NMI shared area in 32-bit words. */
+-#define ROGUE_MIPSFW_NMI_SYNC_FLAG_OFFSET (0x0)
+-#define ROGUE_MIPSFW_NMI_STATE_OFFSET (0x1)
+-#define ROGUE_MIPSFW_NMI_ERROR_STATE_SET (0x1)
+-
+-/* MIPS boot stage. */
+-#define ROGUE_MIPSFW_BOOT_STAGE_OFFSET (0x400)
+-
+-/*
+- * MIPS private data in the bootloader data page.
+- * Memory below this offset is used by the FW only, no interface data allowed.
+- */
+-#define ROGUE_MIPSFW_PRIVATE_DATA_OFFSET (0x800)
+-
+-struct rogue_mipsfw_boot_data {
+-	u64 stack_phys_addr;
+-	u64 reg_base;
+-	u64 pt_phys_addr[ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES];
+-	u32 pt_log2_page_size;
+-	u32 pt_num_pages;
+-	u32 reserved1;
+-	u32 reserved2;
 -};
 -
--#endif /* PVR_FW_MIPS_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index cd84635bb88d..612feb5e0ded 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -4,7 +4,6 @@
- #include "pvr_device.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
--#include "pvr_fw_mips.h"
- #include "pvr_gem.h"
- #include "pvr_rogue_cr_defs.h"
- #include "pvr_rogue_riscv.h"
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mips.h b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h
-similarity index 98%
-rename from drivers/gpu/drm/imagination/pvr_rogue_mips.h
-rename to drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h
-index 41ed618fda3f..68b4db83cb4b 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_mips.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal.h
-@@ -1,8 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
- 
--#ifndef PVR_ROGUE_MIPS_H
--#define PVR_ROGUE_MIPS_H
-+#ifndef PVR_ROGUE_MIPS_INTERNAL_H
-+#define PVR_ROGUE_MIPS_INTERNAL_H
-+
-+#ifndef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
-+#error This file may only be included if explicitly defined
-+#endif
- 
- #include <linux/bits.h>
- #include <linux/types.h>
-@@ -330,6 +334,6 @@ struct rogue_mips_state {
- 	struct rogue_mips_remap_entry remap[ROGUE_MIPSFW_NUMBER_OF_REMAP_ENTRIES];
- };
- 
--#include "pvr_rogue_mips_check.h"
-+#include "pvr_rogue_mips_internal_check.h"
- 
--#endif /* PVR_ROGUE_MIPS_H */
-+#endif /* PVR_ROGUE_MIPS_INTERNAL_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mips_check.h b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h
-similarity index 91%
-rename from drivers/gpu/drm/imagination/pvr_rogue_mips_check.h
-rename to drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h
-index aebf231ce90f..60bc83d7cdbc 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_mips_check.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h
-@@ -1,8 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
- 
--#ifndef PVR_ROGUE_MIPS_CHECK_H
--#define PVR_ROGUE_MIPS_CHECK_H
-+#ifndef PVR_ROGUE_MIPS_INTERNAL_CHECK_H
-+#define PVR_ROGUE_MIPS_INTERNAL_CHECK_H
- 
- #include "pvr_check.h"
- 
-@@ -32,4 +32,4 @@ OFFSET_CHECK(struct rogue_mips_state, tlb, 44);
- OFFSET_CHECK(struct rogue_mips_state, remap, 300);
- SIZE_CHECK(struct rogue_mips_state, 684);
- 
--#endif /* PVR_ROGUE_MIPS_CHECK_H */
-+#endif /* PVR_ROGUE_MIPS_INTERNAL_CHECK_H */
+-#define ROGUE_MIPSFW_GET_OFFSET_IN_DWORDS(offset) ((offset) / sizeof(u32))
+-#define ROGUE_MIPSFW_GET_OFFSET_IN_QWORDS(offset) ((offset) / sizeof(u64))
+-
+-/* Used for compatibility checks. */
+-#define ROGUE_MIPSFW_ARCHTYPE_VER_CLRMSK (0xFFFFE3FFU)
+-#define ROGUE_MIPSFW_ARCHTYPE_VER_SHIFT (10U)
+-#define ROGUE_MIPSFW_CORE_ID_VALUE (0x001U)
+-#define ROGUE_FW_PROCESSOR_MIPS "MIPS"
+-
+-/* microAptivAP cache line size. */
+-#define ROGUE_MIPSFW_MICROAPTIVEAP_CACHELINE_SIZE (16U)
+-
+-/*
+- * The SOCIF transactions are identified with the top 16 bits of the physical address emitted by
+- * the MIPS.
+- */
+-#define ROGUE_MIPSFW_WRAPPER_CONFIG_REGBANK_ADDR_ALIGN (16U)
+-
+-/* Values to put in the MIPS selectors for performance counters. */
+-/* Icache accesses in COUNTER0. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_ICACHE_ACCESSES_C0 (9U)
+-/* Icache misses in COUNTER1. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_ICACHE_MISSES_C1 (9U)
+-
+-/* Dcache accesses in COUNTER0. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_DCACHE_ACCESSES_C0 (10U)
+-/* Dcache misses in COUNTER1. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_DCACHE_MISSES_C1 (11U)
+-
+-/* ITLB instruction accesses in COUNTER0. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_ITLB_INSTR_ACCESSES_C0 (5U)
+-/* JTLB instruction accesses misses in COUNTER1. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_JTLB_INSTR_MISSES_C1 (7U)
+-
+-  /* Instructions completed in COUNTER0. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_INSTR_COMPLETED_C0 (1U)
+-/* JTLB data misses in COUNTER1. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_JTLB_DATA_MISSES_C1 (8U)
+-
+-/* Shift for the Event field in the MIPS perf ctrl registers. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_EVENT_SHIFT (5U)
+-
+-/* Additional flags for performance counters. See MIPS manual for further reference. */
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_COUNT_USER_MODE (8U)
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_COUNT_KERNEL_MODE (2U)
+-#define ROGUE_MIPSFW_PERF_COUNT_CTRL_COUNT_EXL (1U)
+-
+-#define ROGUE_MIPSFW_C0_NBHWIRQ	8
+-
+-/* Macros to decode C0_Cause register. */
+-#define ROGUE_MIPSFW_C0_CAUSE_EXCCODE(cause) (((cause) & 0x7c) >> 2)
+-#define ROGUE_MIPSFW_C0_CAUSE_EXCCODE_FWERROR 9
+-/* Use only when Coprocessor Unusable exception. */
+-#define ROGUE_MIPSFW_C0_CAUSE_UNUSABLE_UNIT(cause) (((cause) >> 28) & 0x3)
+-#define ROGUE_MIPSFW_C0_CAUSE_PENDING_HWIRQ(cause) (((cause) & 0x3fc00) >> 10)
+-#define ROGUE_MIPSFW_C0_CAUSE_FDCIPENDING BIT(21)
+-#define ROGUE_MIPSFW_C0_CAUSE_IV BIT(23)
+-#define ROGUE_MIPSFW_C0_CAUSE_IC BIT(25)
+-#define ROGUE_MIPSFW_C0_CAUSE_PCIPENDING BIT(26)
+-#define ROGUE_MIPSFW_C0_CAUSE_TIPENDING BIT(30)
+-#define ROGUE_MIPSFW_C0_CAUSE_BRANCH_DELAY BIT(31)
+-
+-/* Macros to decode C0_Debug register. */
+-#define ROGUE_MIPSFW_C0_DEBUG_EXCCODE(debug) (((debug) >> 10) & 0x1f)
+-#define ROGUE_MIPSFW_C0_DEBUG_DSS BIT(0)
+-#define ROGUE_MIPSFW_C0_DEBUG_DBP BIT(1)
+-#define ROGUE_MIPSFW_C0_DEBUG_DDBL BIT(2)
+-#define ROGUE_MIPSFW_C0_DEBUG_DDBS BIT(3)
+-#define ROGUE_MIPSFW_C0_DEBUG_DIB BIT(4)
+-#define ROGUE_MIPSFW_C0_DEBUG_DINT BIT(5)
+-#define ROGUE_MIPSFW_C0_DEBUG_DIBIMPR BIT(6)
+-#define ROGUE_MIPSFW_C0_DEBUG_DDBLIMPR BIT(18)
+-#define ROGUE_MIPSFW_C0_DEBUG_DDBSIMPR BIT(19)
+-#define ROGUE_MIPSFW_C0_DEBUG_IEXI BIT(20)
+-#define ROGUE_MIPSFW_C0_DEBUG_DBUSEP BIT(21)
+-#define ROGUE_MIPSFW_C0_DEBUG_CACHEEP BIT(22)
+-#define ROGUE_MIPSFW_C0_DEBUG_MCHECKP BIT(23)
+-#define ROGUE_MIPSFW_C0_DEBUG_IBUSEP BIT(24)
+-#define ROGUE_MIPSFW_C0_DEBUG_DM BIT(30)
+-#define ROGUE_MIPSFW_C0_DEBUG_DBD BIT(31)
+-
+-/* Macros to decode TLB entries. */
+-#define ROGUE_MIPSFW_TLB_GET_MASK(page_mask) (((page_mask) >> 13) & 0XFFFFU)
+-/* Page size in KB. */
+-#define ROGUE_MIPSFW_TLB_GET_PAGE_SIZE(page_mask) ((((page_mask) | 0x1FFF) + 1) >> 11)
+-/* Page size in KB. */
+-#define ROGUE_MIPSFW_TLB_GET_PAGE_MASK(page_size) ((((page_size) << 11) - 1) & ~0x7FF)
+-#define ROGUE_MIPSFW_TLB_GET_VPN2(entry_hi) ((entry_hi) >> 13)
+-#define ROGUE_MIPSFW_TLB_GET_COHERENCY(entry_lo) (((entry_lo) >> 3) & 0x7U)
+-#define ROGUE_MIPSFW_TLB_GET_PFN(entry_lo) (((entry_lo) >> 6) & 0XFFFFFU)
+-/* GET_PA uses a non-standard PFN mask for 36 bit addresses. */
+-#define ROGUE_MIPSFW_TLB_GET_PA(entry_lo) (((u64)(entry_lo) & \
+-					    ROGUE_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT) << 6)
+-#define ROGUE_MIPSFW_TLB_GET_INHIBIT(entry_lo) (((entry_lo) >> 30) & 0x3U)
+-#define ROGUE_MIPSFW_TLB_GET_DGV(entry_lo) ((entry_lo) & 0x7U)
+-#define ROGUE_MIPSFW_TLB_GLOBAL BIT(0)
+-#define ROGUE_MIPSFW_TLB_VALID BIT(1)
+-#define ROGUE_MIPSFW_TLB_DIRTY BIT(2)
+-#define ROGUE_MIPSFW_TLB_XI BIT(30)
+-#define ROGUE_MIPSFW_TLB_RI BIT(31)
+-
+-#define ROGUE_MIPSFW_REMAP_GET_REGION_SIZE(region_size_encoding) (1 << (((region_size_encoding) \
+-									+ 1) << 1))
+-
+-struct rogue_mips_tlb_entry {
+-	u32 tlb_page_mask;
+-	u32 tlb_hi;
+-	u32 tlb_lo0;
+-	u32 tlb_lo1;
+-};
+-
+-struct rogue_mips_remap_entry {
+-	u32 remap_addr_in;  /* Always 4k aligned. */
+-	u32 remap_addr_out; /* Always 4k aligned. */
+-	u32 remap_region_size;
+-};
+-
+-struct rogue_mips_state {
+-	u32 error_state; /* This must come first in the structure. */
+-	u32 error_epc;
+-	u32 status_register;
+-	u32 cause_register;
+-	u32 bad_register;
+-	u32 epc;
+-	u32 sp;
+-	u32 debug;
+-	u32 depc;
+-	u32 bad_instr;
+-	u32 unmapped_address;
+-	struct rogue_mips_tlb_entry tlb[ROGUE_MIPSFW_NUMBER_OF_TLB_ENTRIES];
+-	struct rogue_mips_remap_entry remap[ROGUE_MIPSFW_NUMBER_OF_REMAP_ENTRIES];
+-};
+-
+-#include "pvr_rogue_mips_internal_check.h"
+-
+-#endif /* PVR_ROGUE_MIPS_INTERNAL_H */
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h b/drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h
+deleted file mode 100644
+index 60bc83d7cdbc..000000000000
+--- a/drivers/gpu/drm/imagination/pvr_rogue_mips_internal_check.h
++++ /dev/null
+@@ -1,35 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
+-/* Copyright (c) 2023 Imagination Technologies Ltd. */
+-
+-#ifndef PVR_ROGUE_MIPS_INTERNAL_CHECK_H
+-#define PVR_ROGUE_MIPS_INTERNAL_CHECK_H
+-
+-#include "pvr_check.h"
+-
+-OFFSET_CHECK(struct rogue_mips_tlb_entry, tlb_page_mask, 0);
+-OFFSET_CHECK(struct rogue_mips_tlb_entry, tlb_hi, 4);
+-OFFSET_CHECK(struct rogue_mips_tlb_entry, tlb_lo0, 8);
+-OFFSET_CHECK(struct rogue_mips_tlb_entry, tlb_lo1, 12);
+-SIZE_CHECK(struct rogue_mips_tlb_entry, 16);
+-
+-OFFSET_CHECK(struct rogue_mips_remap_entry, remap_addr_in, 0);
+-OFFSET_CHECK(struct rogue_mips_remap_entry, remap_addr_out, 4);
+-OFFSET_CHECK(struct rogue_mips_remap_entry, remap_region_size, 8);
+-SIZE_CHECK(struct rogue_mips_remap_entry, 12);
+-
+-OFFSET_CHECK(struct rogue_mips_state, error_state, 0);
+-OFFSET_CHECK(struct rogue_mips_state, error_epc, 4);
+-OFFSET_CHECK(struct rogue_mips_state, status_register, 8);
+-OFFSET_CHECK(struct rogue_mips_state, cause_register, 12);
+-OFFSET_CHECK(struct rogue_mips_state, bad_register, 16);
+-OFFSET_CHECK(struct rogue_mips_state, epc, 20);
+-OFFSET_CHECK(struct rogue_mips_state, sp, 24);
+-OFFSET_CHECK(struct rogue_mips_state, debug, 28);
+-OFFSET_CHECK(struct rogue_mips_state, depc, 32);
+-OFFSET_CHECK(struct rogue_mips_state, bad_instr, 36);
+-OFFSET_CHECK(struct rogue_mips_state, unmapped_address, 40);
+-OFFSET_CHECK(struct rogue_mips_state, tlb, 44);
+-OFFSET_CHECK(struct rogue_mips_state, remap, 300);
+-SIZE_CHECK(struct rogue_mips_state, 684);
+-
+-#endif /* PVR_ROGUE_MIPS_INTERNAL_CHECK_H */
 diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/imagination/pvr_vm_mips.c
-index 5847a1c92bea..264ea0fccf9c 100644
+index 264ea0fccf9c..726f900d3582 100644
 --- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
 +++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
-@@ -2,10 +2,11 @@
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
+@@ -3,10 +3,10 @@
  
  #include "pvr_device.h"
--#include "pvr_fw_mips.h"
  #include "pvr_gem.h"
++#define PVR_FW_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_fw_mips_internal.h"
++#undef PVR_FW_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
  #include "pvr_mmu.h"
--#include "pvr_rogue_mips.h"
-+#define PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
-+#include "pvr_rogue_mips_internal.h"
-+#undef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
+-#define PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
+-#include "pvr_rogue_mips_internal.h"
+-#undef PVR_ROGUE_MIPS_INTERNAL_H_EXPLICIT_INCLUDE
  #include "pvr_vm.h"
  #include "pvr_vm_mips.h"
  
-@@ -16,6 +17,31 @@
- #include <linux/types.h>
+@@ -18,7 +18,7 @@
  #include <linux/vmalloc.h>
  
-+#define PVR_MIPS_PT_PAGE_COUNT \
-+	DIV_ROUND_UP(ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES * ROGUE_MIPSFW_PAGE_SIZE_4K, PAGE_SIZE)
-+
-+/**
-+ * struct pvr_vm_mips_data - MIPS-VM-specific data
-+ */
-+struct pvr_vm_mips_data {
-+	/**
-+	 * @pt_pages: Pages containing MIPS pagetable.
-+	 */
-+	struct page *pt_pages[PVR_MIPS_PT_PAGE_COUNT];
-+
-+	/** @pt: Pointer to CPU mapping of MIPS pagetable. */
-+	u32 *pt;
-+
-+	/** @pt_dma_addr: DMA mappings of MIPS pagetable. */
-+	dma_addr_t pt_dma_addr[PVR_MIPS_PT_PAGE_COUNT];
-+
-+	/** @cache_policy: Cache policy for this processor. */
-+	u32 cache_policy;
-+
-+	/** @pfn_mask: PFN mask for MIPS pagetable. */
-+	u32 pfn_mask;
-+};
-+
+ #define PVR_MIPS_PT_PAGE_COUNT \
+-	DIV_ROUND_UP(ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES * ROGUE_MIPSFW_PAGE_SIZE_4K, PAGE_SIZE)
++	DIV_ROUND_UP(PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES * PVR_MIPSFW_PAGE_SIZE_4K, PAGE_SIZE)
+ 
  /**
-  * pvr_vm_mips_init() - Initialise MIPS FW pagetable
-  * @pvr_dev: Target PowerVR device.
-@@ -31,7 +57,7 @@ pvr_vm_mips_init(struct pvr_device *pvr_dev)
+  * struct pvr_vm_mips_data - MIPS-VM-specific data
+@@ -55,15 +55,15 @@ struct pvr_vm_mips_data {
+ int
+ pvr_vm_mips_init(struct pvr_device *pvr_dev)
  {
- 	u32 pt_size = 1 << ROGUE_MIPSFW_LOG2_PAGETABLE_SIZE_4K(pvr_dev);
+-	u32 pt_size = 1 << ROGUE_MIPSFW_LOG2_PAGETABLE_SIZE_4K(pvr_dev);
++	u32 pt_size = 1 << PVR_MIPSFW_LOG2_PAGETABLE_SIZE_4K(pvr_dev);
  	struct device *dev = from_pvr_device(pvr_dev)->dev;
--	struct pvr_fw_mips_data *mips_data;
-+	struct pvr_vm_mips_data *vm_data;
+ 	struct pvr_vm_mips_data *vm_data;
  	u32 phys_bus_width;
  	int page_nr;
  	int err;
-@@ -43,49 +69,49 @@ pvr_vm_mips_init(struct pvr_device *pvr_dev)
- 	if (PVR_FEATURE_VALUE(pvr_dev, phys_bus_width, &phys_bus_width))
+ 
+-	/* Page table size must be at most ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES * 4k pages. */
+-	if (pt_size > ROGUE_MIPSFW_MAX_NUM_PAGETABLE_PAGES * SZ_4K)
++	/* Page table size must be at most PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES * 4k pages. */
++	if (pt_size > PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES * SZ_4K)
  		return -EINVAL;
  
--	mips_data = drmm_kzalloc(from_pvr_device(pvr_dev), sizeof(*mips_data), GFP_KERNEL);
--	if (!mips_data)
-+	vm_data = drmm_kzalloc(from_pvr_device(pvr_dev), sizeof(*vm_data), GFP_KERNEL);
-+	if (!vm_data)
- 		return -ENOMEM;
- 
- 	for (page_nr = 0; page_nr < PVR_MIPS_PT_PAGE_COUNT; page_nr++) {
--		mips_data->pt_pages[page_nr] = alloc_page(GFP_KERNEL | __GFP_ZERO);
--		if (!mips_data->pt_pages[page_nr]) {
-+		vm_data->pt_pages[page_nr] = alloc_page(GFP_KERNEL | __GFP_ZERO);
-+		if (!vm_data->pt_pages[page_nr]) {
- 			err = -ENOMEM;
- 			goto err_free_pages;
- 		}
- 
--		mips_data->pt_dma_addr[page_nr] = dma_map_page(dev, mips_data->pt_pages[page_nr], 0,
--							       PAGE_SIZE, DMA_TO_DEVICE);
--		if (dma_mapping_error(dev, mips_data->pt_dma_addr[page_nr])) {
-+		vm_data->pt_dma_addr[page_nr] = dma_map_page(dev, vm_data->pt_pages[page_nr], 0,
-+							     PAGE_SIZE, DMA_TO_DEVICE);
-+		if (dma_mapping_error(dev, vm_data->pt_dma_addr[page_nr])) {
- 			err = -ENOMEM;
--			__free_page(mips_data->pt_pages[page_nr]);
-+			__free_page(vm_data->pt_pages[page_nr]);
- 			goto err_free_pages;
- 		}
- 	}
- 
--	mips_data->pt = vmap(mips_data->pt_pages, pt_size >> PAGE_SHIFT, VM_MAP,
--			     pgprot_writecombine(PAGE_KERNEL));
--	if (!mips_data->pt) {
-+	vm_data->pt = vmap(vm_data->pt_pages, pt_size >> PAGE_SHIFT, VM_MAP,
-+			   pgprot_writecombine(PAGE_KERNEL));
-+	if (!vm_data->pt) {
- 		err = -ENOMEM;
+ 	if (PVR_FEATURE_VALUE(pvr_dev, phys_bus_width, &phys_bus_width))
+@@ -96,11 +96,11 @@ pvr_vm_mips_init(struct pvr_device *pvr_dev)
  		goto err_free_pages;
  	}
  
--	mips_data->pfn_mask = (phys_bus_width > 32) ? ROGUE_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT :
--						      ROGUE_MIPSFW_ENTRYLO_PFN_MASK;
-+	vm_data->pfn_mask = (phys_bus_width > 32) ? ROGUE_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT :
-+						    ROGUE_MIPSFW_ENTRYLO_PFN_MASK;
+-	vm_data->pfn_mask = (phys_bus_width > 32) ? ROGUE_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT :
+-						    ROGUE_MIPSFW_ENTRYLO_PFN_MASK;
++	vm_data->pfn_mask = (phys_bus_width > 32) ? PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT :
++						    PVR_MIPSFW_ENTRYLO_PFN_MASK;
  
--	mips_data->cache_policy = (phys_bus_width > 32) ? ROGUE_MIPSFW_CACHED_POLICY_ABOVE_32BIT :
--							  ROGUE_MIPSFW_CACHED_POLICY;
-+	vm_data->cache_policy = (phys_bus_width > 32) ? ROGUE_MIPSFW_CACHED_POLICY_ABOVE_32BIT :
-+							ROGUE_MIPSFW_CACHED_POLICY;
+-	vm_data->cache_policy = (phys_bus_width > 32) ? ROGUE_MIPSFW_CACHED_POLICY_ABOVE_32BIT :
+-							ROGUE_MIPSFW_CACHED_POLICY;
++	vm_data->cache_policy = (phys_bus_width > 32) ? PVR_MIPSFW_CACHED_POLICY_ABOVE_32BIT :
++							PVR_MIPSFW_CACHED_POLICY;
  
--	pvr_dev->fw_dev.processor_data.mips_data = mips_data;
-+	pvr_dev->fw_dev.processor_data.mips_data.vm_data = vm_data;
+ 	pvr_dev->fw_dev.processor_data.mips_data.vm_data = vm_data;
  
- 	return 0;
+@@ -144,15 +144,15 @@ get_mips_pte_flags(bool read, bool write, u32 cache_policy)
+ 	u32 flags = 0;
  
- err_free_pages:
- 	while (--page_nr >= 0) {
- 		dma_unmap_page(from_pvr_device(pvr_dev)->dev,
--			       mips_data->pt_dma_addr[page_nr], PAGE_SIZE, DMA_TO_DEVICE);
-+			       vm_data->pt_dma_addr[page_nr], PAGE_SIZE, DMA_TO_DEVICE);
- 
--		__free_page(mips_data->pt_pages[page_nr]);
-+		__free_page(vm_data->pt_pages[page_nr]);
- 	}
- 
- 	return err;
-@@ -99,17 +125,17 @@ void
- pvr_vm_mips_fini(struct pvr_device *pvr_dev)
- {
- 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mips_data *mips_data = fw_dev->processor_data.mips_data;
-+	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
- 
--	vunmap(mips_data->pt);
-+	vunmap(vm_data->pt);
- 	for (int page_nr = PVR_MIPS_PT_PAGE_COUNT - 1; page_nr >= 0; page_nr--) {
- 		dma_unmap_page(from_pvr_device(pvr_dev)->dev,
--			       mips_data->pt_dma_addr[page_nr], PAGE_SIZE, DMA_TO_DEVICE);
-+			       vm_data->pt_dma_addr[page_nr], PAGE_SIZE, DMA_TO_DEVICE);
- 
--		__free_page(mips_data->pt_pages[page_nr]);
-+		__free_page(vm_data->pt_pages[page_nr]);
- 	}
- 
--	fw_dev->processor_data.mips_data = NULL;
-+	fw_dev->processor_data.mips_data.vm_data = NULL;
- }
- 
- static u32
-@@ -145,7 +171,7 @@ int
- pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- {
- 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mips_data *mips_data = fw_dev->processor_data.mips_data;
-+	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
- 	struct pvr_gem_object *pvr_obj = fw_obj->gem;
- 	const u64 start = fw_obj->fw_mm_node.start;
- 	const u64 size = fw_obj->fw_mm_node.size;
-@@ -174,7 +200,7 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- 	if (pvr_obj->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
- 		cache_policy = ROGUE_MIPSFW_UNCACHED_CACHE_POLICY;
+ 	if (read && write) /* Read/write. */
+-		flags |= ROGUE_MIPSFW_ENTRYLO_DIRTY_EN;
++		flags |= PVR_MIPSFW_ENTRYLO_DIRTY_EN;
+ 	else if (write)    /* Write only. */
+-		flags |= ROGUE_MIPSFW_ENTRYLO_READ_INHIBIT_EN;
++		flags |= PVR_MIPSFW_ENTRYLO_READ_INHIBIT_EN;
  	else
--		cache_policy = mips_data->cache_policy;
-+		cache_policy = vm_data->cache_policy;
+ 		WARN_ON(!read);
  
- 	pte_flags = get_mips_pte_flags(true, true, cache_policy);
+-	flags |= cache_policy << ROGUE_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT;
++	flags |= cache_policy << PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT;
  
-@@ -190,10 +216,10 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
+-	flags |= ROGUE_MIPSFW_ENTRYLO_VALID_EN | ROGUE_MIPSFW_ENTRYLO_GLOBAL_EN;
++	flags |= PVR_MIPSFW_ENTRYLO_VALID_EN | PVR_MIPSFW_ENTRYLO_GLOBAL_EN;
+ 
+ 	return flags;
+ }
+@@ -190,15 +190,15 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
+ 	    start >= ROGUE_FW_HEAP_BASE + fw_dev->fw_heap_info.raw_size ||
+ 	    end < ROGUE_FW_HEAP_BASE ||
+ 	    end >= ROGUE_FW_HEAP_BASE + fw_dev->fw_heap_info.raw_size ||
+-	    (start & ROGUE_MIPSFW_PAGE_MASK_4K) ||
+-	    ((end + 1) & ROGUE_MIPSFW_PAGE_MASK_4K))
++	    (start & PVR_MIPSFW_PAGE_MASK_4K) ||
++	    ((end + 1) & PVR_MIPSFW_PAGE_MASK_4K))
+ 		return -EINVAL;
+ 
+-	start_pfn = (start & fw_dev->fw_heap_info.offset_mask) >> ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
+-	end_pfn = (end & fw_dev->fw_heap_info.offset_mask) >> ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
++	start_pfn = (start & fw_dev->fw_heap_info.offset_mask) >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
++	end_pfn = (end & fw_dev->fw_heap_info.offset_mask) >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
+ 
+ 	if (pvr_obj->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
+-		cache_policy = ROGUE_MIPSFW_UNCACHED_CACHE_POLICY;
++		cache_policy = PVR_MIPSFW_UNCACHED_CACHE_POLICY;
+ 	else
+ 		cache_policy = vm_data->cache_policy;
+ 
+@@ -210,13 +210,13 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
+ 
+ 		err = pvr_fw_object_get_dma_addr(fw_obj,
+ 						 (pfn - start_pfn) <<
+-						 ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K,
++						 PVR_MIPSFW_LOG2_PAGE_SIZE_4K,
+ 						 &dma_addr);
+ 		if (err)
  			goto err_unmap_pages;
  
- 		pte = ((dma_addr >> ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K)
--		       << ROGUE_MIPSFW_ENTRYLO_PFN_SHIFT) & mips_data->pfn_mask;
-+		       << ROGUE_MIPSFW_ENTRYLO_PFN_SHIFT) & vm_data->pfn_mask;
+-		pte = ((dma_addr >> ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K)
+-		       << ROGUE_MIPSFW_ENTRYLO_PFN_SHIFT) & vm_data->pfn_mask;
++		pte = ((dma_addr >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K)
++		       << PVR_MIPSFW_ENTRYLO_PFN_SHIFT) & vm_data->pfn_mask;
  		pte |= pte_flags;
  
--		WRITE_ONCE(mips_data->pt[pfn], pte);
-+		WRITE_ONCE(vm_data->pt[pfn], pte);
- 	}
- 
- 	pvr_mmu_flush_request_all(pvr_dev);
-@@ -202,7 +228,7 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- 
- err_unmap_pages:
- 	while (--pfn >= start_pfn)
--		WRITE_ONCE(mips_data->pt[pfn], 0);
-+		WRITE_ONCE(vm_data->pt[pfn], 0);
- 
- 	pvr_mmu_flush_request_all(pvr_dev);
- 	WARN_ON(pvr_mmu_flush_exec(pvr_dev, true));
-@@ -219,7 +245,7 @@ void
- pvr_vm_mips_unmap(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- {
- 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mips_data *mips_data = fw_dev->processor_data.mips_data;
-+	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
- 	const u64 start = fw_obj->fw_mm_node.start;
- 	const u64 size = fw_obj->fw_mm_node.size;
+ 		WRITE_ONCE(vm_data->pt[pfn], pte);
+@@ -251,9 +251,9 @@ pvr_vm_mips_unmap(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
  	const u64 end = start + size;
-@@ -230,8 +256,38 @@ pvr_vm_mips_unmap(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- 			    ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
+ 
+ 	const u32 start_pfn = (start & fw_dev->fw_heap_info.offset_mask) >>
+-			      ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
++			      PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
+ 	const u32 end_pfn = (end & fw_dev->fw_heap_info.offset_mask) >>
+-			    ROGUE_MIPSFW_LOG2_PAGE_SIZE_4K;
++			    PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
  
  	for (u32 pfn = start_pfn; pfn < end_pfn; pfn++)
--		WRITE_ONCE(mips_data->pt[pfn], 0);
-+		WRITE_ONCE(vm_data->pt[pfn], 0);
+ 		WRITE_ONCE(vm_data->pt[pfn], 0);
+@@ -283,8 +283,8 @@ pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_nu
  
- 	pvr_mmu_flush_request_all(pvr_dev);
- 	WARN_ON(pvr_mmu_flush_exec(pvr_dev, true));
- }
-+
-+/**
-+ * pvr_vm_get_pt_phys_addrs() - Acquire the physical addresses of the MIPS FW page table pages
-+ * @pvr_dev: Target PowerVR device.
-+ * @phys_addrs: Output array for physical addresses of MIPS FW page table pages.
-+ * @max_num_addrs: Maximum number of addresses that can be written to @phys_addrs.
-+ *
-+ * Returns:
-+ *  * 0 on success, or
-+ *  * -%EINVAL if @phys_addrs cannot accommodate all MIPS FW page table pages.
-+ */
-+int
-+pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_num_addrs)
-+{
-+	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
-+	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
-+
-+	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs)
-+		return -EINVAL;
-+
-+	for (u32 page_nr = 0; page_nr < max_num_addrs; page_nr++) {
-+		/* Firmware expects 4k pages, but host page size might be different. */
-+		u32 src_page_nr = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
-+		u32 page_offset = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
-+
-+		phys_addrs[page_nr] = vm_data->pt_dma_addr[src_page_nr] + page_offset;
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.h b/drivers/gpu/drm/imagination/pvr_vm_mips.h
-index 0fd59f68fb5b..c6b1b7274bc3 100644
---- a/drivers/gpu/drm/imagination/pvr_vm_mips.h
-+++ b/drivers/gpu/drm/imagination/pvr_vm_mips.h
-@@ -4,6 +4,8 @@
- #ifndef PVR_VM_MIPS_H
- #define PVR_VM_MIPS_H
+ 	for (u32 page_nr = 0; page_nr < max_num_addrs; page_nr++) {
+ 		/* Firmware expects 4k pages, but host page size might be different. */
+-		u32 src_page_nr = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
+-		u32 page_offset = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
++		u32 src_page_nr = (page_nr * PVR_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
++		u32 page_offset = (page_nr * PVR_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
  
-+#include <linux/types.h>
-+
- /* Forward declaration from pvr_device.h. */
- struct pvr_device;
- 
-@@ -18,5 +20,7 @@ int
- pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj);
- void
- pvr_vm_mips_unmap(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj);
-+int
-+pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_num_addrs);
- 
- #endif /* PVR_VM_MIPS_H */
+ 		phys_addrs[page_nr] = vm_data->pt_dma_addr[src_page_nr] + page_offset;
+ 	}
 
 -- 
 2.43.0
