@@ -2,140 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6F7606A330
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE74606A33F
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=U8Nxj9Pe
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=s/8V5e1T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D504D10E1B6;
-	Mon,  9 Nov 2026 11:52:56 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011018.outbound.protection.outlook.com [40.107.208.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2E7D10E1B6
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:52:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B/iZOORejtaFWixUEjjvqE34oJmsBL6Y79Kt0Dws9nyo2oibSeiW0IkRVRwyAkEfB7ciODTKUL0fcQuQGN9kQVmN0zqVGj3bWryZPRY3qzGyeXiXNJOE59kHinu9euK7ZgmPDUxKKqUZ3xPWyUycqNR3RedOsGDRVklEfXJ5l9rEFvE9TyOlRSWyWRl/6UjrZyzFwn8qe7s+uDbs98h4zjc6CLvq/cch+OMmX1GOby4taaIFymPdWee2JUuBRzdrFz+AJn2AGZIxCQ5rok8YX2+MpdSVwc0Z9AQa5w4Fq7A5t9vYr1Hdac/WI2B4kUhIo2/qMa7T9CoX3R9YVSJvbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6QzpL0g8z9bS7RE0/qjXvS3AMH2NIGaqGEcTDCO/PQg=;
- b=u0ROis2z0/PDOyRh9aLj2OAECcloHGq74ila8LaorBbcnyf9DVR2/gDRU2N463W4Qtfq6oo7ZZBa/vGyyteCyE9L4lHc4DOl80Udl8JDqNajhQ8KwkRm3iBEmCOMcB4wYqVLl12PN82QpVjR8CegTJ43ksYnL/PcesWzalQgDIMbtukfMnLQSY2Jj2FcRtBbn9+ii/GiHQZHPAQJxzm7mKX2s4otTTXq3ckfmokDIwwhbTAxahM/53DyRMYqeA/91Kx6BrHqTl3I+YwIOxJypLyDu7m40Bc+3dgq6PZmTOeo9HxBY5iaU/EPeNPgIOHuQOvHWN8/4Y+ce9kr5IgQQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6QzpL0g8z9bS7RE0/qjXvS3AMH2NIGaqGEcTDCO/PQg=;
- b=U8Nxj9PerxqKg6NkyYzwhloR+QCZq5E5bPyesmjlSEfLfE5QoH1mRPkETbsaRE/atTdzmmu3Lh4/6OpmjEZ6PN58o9nXYaOZsPOSZA1jcPGIehXyogGdrJPeZvYH58B8VfgTIb/B6JOxtAkK/TacQ+lHAcosDa0bvI0J5rUlFha4hNgpw6tpm9zJWJK6Likk+Po6rGy97kRWov/1ji/IKTIeaWf9IylgTYBez7UrhVSjdkoPZDsfsmFOZ/coLDlvU9LhHVX44YvwgLx/wP/b6xZsPvgCffeSbGIh6C00yR13MdnAeHNhGOcM2q4BbXWLjcM7NTcAsE9V4PEMT+EEWA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH3PR12MB7713.namprd12.prod.outlook.com (2603:10b6:610:14d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:52:43 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 11:52:43 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 20:52:40 +0900
-Message-Id: <DMQNQJRORDDH.2NFX9UZO7SAK9@nvidia.com>
-Cc: <dakr@kernel.org>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-Subject: Re: [PATCH v5 1/9] rust: pci: add internal SR-IOV enable and
- disable helpers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Simon Song" <xinmengs@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20261030171230.196717-1-xinmengs@nvidia.com>
- <20261030171230.196717-2-xinmengs@nvidia.com>
-In-Reply-To: <20261030171230.196717-2-xinmengs@nvidia.com>
-X-ClientProxiedBy: TYWP286CA0025.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D42110E893;
+	Mon,  9 Nov 2026 11:53:39 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915BB10E893
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:53:33 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a4d7ae1ae9so6766025e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 03:53:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1794225212; x=1794830012; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zLTgbg+UpD4d4gieUiuEMrVcZ8oV4X6SKoeOC1j2dCA=;
+ b=s/8V5e1TlY4lesvzlFkTu+VjWcMu6T5QTCzopjF0cDsPaICw+4/+4TiyDyhgrB05D1
+ WUsP/Kv3OXl9JmufiMgD4EnCoAi4OQf+No/zsJBauAJRZ9SzPU7Wm8jF8I8XmaWqZFSw
+ /juzs4gf0dam4vfU+AnRPswYAgLvBNmcwMxL7f7w2zYz6Ts39sKRdF3dpPYZ4lwbf9NK
+ 5yMPvnWyUS2rnkv2wc3qZMAEsVbFiNIVCBiLLU7RnMbQH4JxLB0mOWvweTOZwQTz4uKt
+ r2BUDZ+HIRQCjn9/6ZQu+bjD0IgGDwW5taiOsxutcAWmF+SXkPK5+3BASlnIpm5QzE2j
+ zs7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794225212; x=1794830012;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=zLTgbg+UpD4d4gieUiuEMrVcZ8oV4X6SKoeOC1j2dCA=;
+ b=XS8GMfKFUIbOTK9vKAdfQQJreOyLU9FAuQeEEo1vjoPzDXDAKCx8fUdlK6/VPLMlmh
+ a4Uez3WeZ08e84l3pbOMUe501lOEtAm1aJ+jlMHG3/dtDsU+R/DtsaTbEPfUbf85Zm6N
+ T1i76DvJYFKIOLumeAT1fWt7jThUZc5Hiuk57TjHC7pocGj47uxhWrKX/N/VqtsKLC3j
+ kgNbt+ju8oF8+fvjh1+hWIOZNfd5UEGDGLDTXWBQH5F13SjUxX5bpbBon1cLaS58prAl
+ gpjOd//5p2petN4ZZT+jwSkrV4vDD1iR+b+IAzWUecxL54PKGV5Xmm2jN6d2J2t6co09
+ FLnQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFEI6vmg54/Y8gos0CdP7CCSFzvq8pOofgu825Hn10z44rW5k1QS9M5z0E5HDdQx0EZP5/WL3fQ6p8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8dpGOAn5oBscF89K1v2/rt7vecez0FHPj9EKVi3L/ld7Erc/wN
+ jV+qgJihM4bVOP2idzgnxuB7aPRhPG1qK0RaMd66rqDrXoxosNXbeL+JEo8OYQx/gvg=
+X-Gm-Gg: AYBFou256E4daUCW3iXjS8qisg244obkM4AiZF0iDeZFttqWtAPt9wF/LApJ0eiJnM4
+ 73Pav498sN7kMMZw/3RhbML7RJDUwNcFFiFZ3saLt0Mx6yL+/NTdbnGMiMg8PtI5MRQw6Ts/Ymz
+ 2/IpRdVzrzmKkutdNr5mJtOYol+9nDnVh74NulViheWsf53d4PV1WyO0IyB3f/2isJ1abUnoaIO
+ sCcMGGuQEgfp42jQY0dNnmHy9UjYdUYJVMZcsQdoSmrIzjjiEArluFECIOMGcX780H6QUAeeVtH
+ 71RmHEBylos3tPZZytmqsBiMxzYthuRxoQnblYOvkt+SEGQlf12dpFh6Za+Yq5nksjf0/hcXK3n
+ CoKNR2JUdP+mlBgyiQf6NuWy6+Z+R897SR7s7PnbvtH1acQ0KS10WHnsqtPmEf4pqYkxxj5dH7R
+ WF9tJS5THjBqXbIWK+Z5zdK2vBNAuqSj+JcfbhZ8lWGVuEuwO9xBFJIbvmgKKfD5TecJ4OPqQqc
+ 124eN1dWKJ4R/vgHv8tluFYWbkD8HtVxRQUUSFd447H7x6E1ADVioXbcMySwrhpwlq4d3EeseAy
+ O0kN4l09dZkrOMlguR2hY4EY9UhIcBNfMVXpoHDUp9o=
+X-Received: by 2002:a05:600c:4f42:b0:4b7:6a8b:9df2 with SMTP id
+ 5b1f17b1804b1-4b963c7ceccmr86905045e9.25.1794225211847; 
+ Mon, 09 Nov 2026 03:53:31 -0800 (PST)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49596ea5008sm9527362f8f.26.2026.11.09.03.53.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 03:53:31 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, Jose Nieto <jnieto.alaber@gmail.com>
+Cc: Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261104155119.284708-1-jnieto.alaber@gmail.com>
+References: <20261104155119.284708-1-jnieto.alaber@gmail.com>
+Subject: Re: [PATCH] drm/meson: plane: add pixel blend mode property
+Message-Id: <179422521075.1645559.4574757378913663782.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:53:30 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB7713:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb9b3222-9fcd-4688-a765-08df3e57f6b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|56012099006|11063799006|261028144727099003|261026121527099003|261102123227099003|261022115727099003|261022113327099003|261022075727099003|261022105027099003|261021130227099003|261021121427099003|261021123027099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: woPwEWUrTNk7P6wakLiB/imQwNutBVgVy/mGm5wM6plxDWWvkLFWG7UllKpAeugY2mAbQ0y9cUU0Tlt6h1eWRsbsS9XLAzYWKRCz/B22xfAaO8YzNU+/Q8kt6i2bIz1+oMNckjf3DZeJp/2aDn/+RFE2mzywrAQJrwwi3eFwjNJh7Wikv6zLyTFvePubLJysmw6TEGFChyoEohCh0fREVwekw57gGSNv8HnJOf2zYUO4cqrS5gFcgFgjNakBru1mA7/UlGKpWc7u4bC6r9plusS5PlwbVTcDxUAqQab2e5XD8tP37G8dOc0kqWEyikIxcZb3mu6vxeR6zuB/o3ItH+iuBuqoTU3LJTdQU3hxjYAGkzCM02U6FlVV+D+SSh+0ZOWmddyBHhcN125ynoO5HZzcSIGfUVY59dcHBMYRdl1KbszyxpS5Dy6oC4D/rpRuzRYtus5q10H5QcTjn04PzFqHuqC6qvs4eLlV4eut+cHrR17/qdW4fewqt/7gAQomASWR+4z4A33TnMh9DpNi6XO8DQPI4OdYmG7QDjyV6iaCN5QuPdv1FeKY/GXK7igRXtaQaXMnMuZRt1lSa4/ZD7Rz7G5SqaJM8cpG0xSeWUoL7EqJDteapcMusKd/dYl3kGY56E9SuNWqid8EB0tPcafnYfTjeMy07LmIJtU1N9E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261102123227099003)(261022115727099003)(261022113327099003)(261022075727099003)(261022105027099003)(261021130227099003)(261021121427099003)(261021123027099003)(261026140227099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWh4WVRaK3NPQlFxaHc3QUpUV3VpS0RoVkVuT3RTenBmWG42S3c0WFNrcDhU?=
- =?utf-8?B?empQVEYweEdTZHo3MlNnZE94REdqR1BEMHQvSTJjNDF3eURvdUVhcm9seEF3?=
- =?utf-8?B?b2hsbnY0OEtxS2puSW90ZC80QmsvcVVPRkliZzZOMUExSkhrQmJQRThHZE56?=
- =?utf-8?B?aHRNRk13UDNRNkZxNzhmNExPT2xWZHc0d21mMGZwQ0FvSXdjT3NTWWhtWk1Q?=
- =?utf-8?B?OUtCWGxrUG8rVG9DbXh5Ym4xanN0MzZsM1h3eldUc0NlVGdpdDBwd0ZEQk5r?=
- =?utf-8?B?ZnV1WGQ5TzJuUjgwWGMycXkySWNmY1lhbE9aVWZaSXcvWmhVTG1vRi93QTJI?=
- =?utf-8?B?T0ZnN2lybDlRMHVUMTdySi9kc2wrWnhPSUVhc0E4U1JpSkM1aVIvMnc3SnNN?=
- =?utf-8?B?MU9ocmtQMjZZcHZlOWtlRzg2OUN2aWcvN2VGNEduaWE2S3J6Qm92YUg4Z0Ex?=
- =?utf-8?B?UXRvQUZldjJGaGE5V25Zc0hJY2YrRkVsbVpFYXZqNjRFQjNYZUJoZU5zSkxy?=
- =?utf-8?B?RWJtYUU3MnB4U1IwSndmK1BpZXI0QU9QeEk2Y2cva3NXdjBCanNWUjN3V0I4?=
- =?utf-8?B?TEU4ZDkrSHd3UzNoRUhldUh6bHZZQlFIUFN4dmNiTXk0a09HRzU3R2dJRy9L?=
- =?utf-8?B?Z3VmVkkxRXBReTBxTitCYUFiUGpUTkhNaHNab1ZsdFVIMVN3aE5abEpnVGE1?=
- =?utf-8?B?eGhGQ09ubjRUOVh3c3Z5MTU1VFp0NVNuT3VvMXdXZmVRTXoxSU03MHhwR2Yr?=
- =?utf-8?B?Nk54b1lac1RVZERpYUc4RUNmUGUyaDc2Y2p0bVdZNWtuSC9XT2x3aVEzb2tP?=
- =?utf-8?B?UndZdGx6L3VNQTkwbFdrVURUd3UzVWl1TGM3NXpkdDluU1N0YnlrM3hzNXZj?=
- =?utf-8?B?ekVHd1dJZUlKZEJyRHoyYSt0NTZ0RVp6MEtvb01hcEJxT1VzVXIrVzlwOEdq?=
- =?utf-8?B?dVNxbDA1Mk0vN2pSSnBrTmp5QVpVVXRDVzI0RnNlcXZxb3VNbGlaZkVtb3V1?=
- =?utf-8?B?WGg1MGhrUVNDYVN3UTh1TVBNa090ayszQmk0TkJYTVNDR3Bnayt4RFN2K05u?=
- =?utf-8?B?SzJCakV2WktJRkpLVFdFalRkQjRLQUJ3NE5TaURrWm91bDRzK1dqalJnMC8w?=
- =?utf-8?B?M0tSUWZkM3RXZEhLZ3Q2NU9RTEo1VzI3NUsvd2RPdGliUlROODZDcUdVOVFH?=
- =?utf-8?B?UXd6K3g3cXl4YWhmRStNWjNQbXc1aDZvMDE0bnhFQnBqWXBxaE1aRUc1MWZ2?=
- =?utf-8?B?T1VyTk5MZnRVYjlRVTdkS2FmM0VjK3h4L3F4TUdwMWQ5QW9LbXpJcGtFM2V0?=
- =?utf-8?B?MzNrNzAyNDZodWdSK3lUWCtwRGF2Z1d0dVVPU0ZrM0RIVDJlcFNlU28rdUNy?=
- =?utf-8?B?TnBUSzM2R2tjSzBJMTZ4dkNmTlphTG1OVHUyMkpJUlRQODBya2c0ZDZOSFJL?=
- =?utf-8?B?aFpjcDIwV2I4UU0wYmZSbXdaOFZ5RGlFQ1E3UEtieXJsNkVidHZqNnZNdjVL?=
- =?utf-8?B?WXNNMDBzOVRNSE5kSTBTcmxxUEhoVk1HZDBqV2xkRWh5RGlKMTRmb05EWHFR?=
- =?utf-8?B?YmJjSkpWdjJtaE1kSFNEY1FPbXhrVWhJbjlsY3MrMGVoUElKdzJJTnVWVTB2?=
- =?utf-8?B?bW8rMnUxV3MyaHJaczYyTStTVnl4c3RJL3ZGb25MMTF4d2JNbVIwOHRBMkdZ?=
- =?utf-8?B?WjBYY1d6NWVNRXFvVXFtTm8rR2dodXV0RUV5VnBqT0hiTTRIRitjUHN3VjZs?=
- =?utf-8?B?N1lqVnBPNmFYWlVXTlJMZ0dWZkF3YzlBRGIwV25tVEFZZFNwZ3h0ZFVPbU1E?=
- =?utf-8?B?Mzloa0t3NUMyVmloVWJ6WTIxQU9zTkxtdktPY0FIUVE1Tm5KV3JxL2lxY2tZ?=
- =?utf-8?B?VjQzNXYxOENrQXVNOUtSVmVlbVU4aXJvN1NHUHBZWDdWY2ZVNHhaL09kcVZP?=
- =?utf-8?B?OU52amdDKzNEV09td2tMbkFvMjM4RzVCMmxYMEVndUR6RE9OY3EwZjh3cC9q?=
- =?utf-8?B?d2NUSUQ4RVByNE10dTFkRHRmR0lXM3FuN3MxUklkTVkyVzR4UktSNmtEZ1lK?=
- =?utf-8?B?UkZmZzZUVTdoL1VTNGxRUXgvOG1RUHJXUWFYTjIyS09ER005ekxScmJFSVFr?=
- =?utf-8?B?RncrQ01YSnZwd0M0R01adFlnd0RNa2NxY1BqUjdVTDZHUFpZbzYzcFNjUnAy?=
- =?utf-8?B?ems4NkJQRmJrSm5udzRiKzdzRFBXZjIwUUlGcVpaSks1KzRlOXhxOG9CUEhL?=
- =?utf-8?B?SmdNRlpGNHJ1TEdUSEYvQ1NtQmZjTDVpUm50dnJvQVRXNkZpNWNxc3pJOGpF?=
- =?utf-8?B?b3RuQW15a0FBQ1U5THZpa1Iyd3NNQnNsa3QyVW5OdytqQVo3K3FaRUxINnd3?=
- =?utf-8?Q?44G/LpDg5QRjTygfwvXpwJrIqz6kTSXamRtQ4vTFwMqok?=
-X-MS-Exchange-AntiSpam-MessageData-1: NOV8XJ7KQEVdiQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb9b3222-9fcd-4688-a765-08df3e57f6b2
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:52:43.4448 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CoLVZU+Qonnb2V4fJYbvIik/mg52Nc8DU0me0SYEYX91/l+4xONwl0V1itvtVoSgYCBtSr03njWq6uUU2ys6cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7713
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,113 +93,33 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat Oct 31, 2026 at 2:12 AM JST, Simon Song wrote:
-> From: Peter Colberg <peter@colberg.org>
->
-> Wrap pci_enable_sriov() and pci_disable_sriov() on Device<CoreInternal>
-> for use by the SR-IOV callback tokens and their rollback guard.
-> Keep these operations internal so drivers can only enable or disable
-> VFs through the callback-scoped API introduced later in this series.
->
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Peter Colberg <peter@colberg.org>
-> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+Hi,
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+On Wed, 04 Nov 2026 16:51:19 +0100, Jose Nieto wrote:
+> The primary plane exposes ARGB8888, a format with alpha, but never set up
+> the pixel blend mode property. This makes the DRM core warn at boot:
+> 
+>   [PLANE:...:meson_primary_plane] pixel format with alpha exposed but
+>   blend mode not setup. Please fix.
+> 
+> Advertise PIXEL_NONE and COVERAGE and derive OSD_REPLACE_EN from the
+> requested blend mode. Formats without alpha (e.g. XRGB8888) keep the
+> previous opaque behaviour.
+> 
+> [...]
 
-One tiny nit below.
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-> ---
->  rust/kernel/pci.rs     |  2 ++
->  rust/kernel/pci/iov.rs | 48 ++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 50 insertions(+)
->  create mode 100644 rust/kernel/pci/iov.rs
->
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index f47974d3e76..e522fdddc34 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -36,6 +36,8 @@
->  mod cap;
->  mod id;
->  mod io;
-> +#[cfg(CONFIG_PCI_IOV)]
-> +mod iov;
->  mod irq;
-> =20
->  pub use self::cap::{
-> diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
-> new file mode 100644
-> index 00000000000..6f8f95ed618
-> --- /dev/null
-> +++ b/rust/kernel/pci/iov.rs
-> @@ -0,0 +1,48 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Abstractions for PCI Single Root I/O Virtualization (SR-IOV) drivers=
-.
-> +
-> +use super::Device;
-> +
-> +use crate::{
-> +    bindings,
-> +    device,
-> +    error::to_result,
-> +    prelude::*, //
-> +};
-> +
-> +impl Device<device::CoreInternal<'_>> {
-> +    /// Enable the Single Root I/O Virtualization (SR-IOV) capability fo=
-r this device,
-> +    /// where `nr_virtfn` is number of Virtual Functions (VF) to enable.
-> +    #[inline]
-> +    #[expect(dead_code)]
-> +    pub(crate) fn enable_sriov(&self, nr_virtfn: u16) -> Result {
-> +        // SAFETY:
-> +        // - `self.as_raw` returns a valid pointer to a `struct pci_dev`=
-.
-> +        //
-> +        // - `pci_enable_sriov()` checks that the enable operation is va=
-lid:
-> +        //   - the device is a Physical Function (PF),
-> +        //   - SR-IOV is currently disabled, and
-> +        //   - `nr_virtfn` does not exceed the total number of supported=
- VFs.
-> +        //
-> +        // - The [`CoreInternal`] device context inherits from the [`Bou=
-nd`] device context,
+[1/1] drm/meson: plane: add pixel blend mode property
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f001f3ff2e0a81b934e7b14cf7a695ea668494a6
 
-nit: since these aren't doccomments, you should drop the `[` brackets as
-they won't turn into links.
+-- 
+Neil
 
-> +        //   which guarantees that the PF device is bound to a driver.
-> +        to_result(unsafe { bindings::pci_enable_sriov(self.as_raw(), nr_=
-virtfn.into()) })
-> +    }
-> +
-> +    /// Disable the Single Root I/O Virtualization (SR-IOV) capability f=
-or this device.
-> +    #[inline]
-> +    #[expect(dead_code)]
-> +    pub(crate) fn disable_sriov(&self) {
-> +        // SAFETY:
-> +        // - `self.as_raw` returns a valid pointer to a `struct pci_dev`=
-.
-> +        //
-> +        // - `pci_disable_sriov()` checks that the disable operation is =
-valid:
-> +        //   - the device is a Physical Function (PF), and
-> +        //   - SR-IOV is currently enabled.
-> +        //
-> +        // - The [`CoreInternal`] device context inherits from the [`Bou=
-nd`] device context,
-
-Same here.
