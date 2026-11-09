@@ -2,89 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A62606A325
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 10:30:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F249D606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 10:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ld9Fxt3K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A7C10EB7E;
-	Mon,  9 Nov 2026 10:30:25 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023089.outbound.protection.outlook.com [52.101.127.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A958210E871
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 10:30:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZY+OS+s/fPwnZ31oPO4pVhS3/78N0pmWXev2Y3NPpZ3CddM+FMQzE73dsszaF9y4ftQ0jvSWUlddYLagLVKV68N/pNXj3klh0BJ0eUV02f4ZDvFOuU3Mw4oEgkkuo+e+IHCjaZOgBFWdhp6FmCgCYoYiioZDxeN9rTnbuPyG0ghR4ALHStMqnV9qsoOQVoH/5jYxjJ0XUOZ4WFUKA6H2/uVV1bfsebq4gLF7BfZ79lDmvIYcvJrIy50JVeWf+zKBQ3ENu/ZQutSADW9ZKKZua1BG2ehffBs6I19Nx0G+zXDLPWs6xzpw4q0AsUu1OaxSwpyVDsdcX+hhIop4X8v9mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LP0Z8TA/eZkuzNwDEz9YUF9pu7NoYEjCfCEun5no4/4=;
- b=UB/dziT8hNeO2CPDUPe1++sgkKM5pUEt1G0qT7pC3vNYWWNPyMVeeIxzdCsOA9wCxdPu/AXDaqefOK6SVI7yUENk+i+grpi/dY6vvrYjYEI90AAaaA96nKO96v1eyzg0EgtcRbITCc40b0ohUsH29FvLUWdQIczauvrCXxBsmWk3DAUacbFO1TMPVb700XrsoGmGWQUq41/22nGMxh7WaOWiQAW1vhBga1eRtMD2nCc90peHSnIUEui9watz0eE8n1q20jwkbgUHu5NsQXEE4vwLxiAVUtRnkZtkBMyVs4bNbKUgSfVv+CHswGMcHX6BAFgeELJhkQfEamOrouSVlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR01CA0001.apcprd01.prod.exchangelabs.com
- (2603:1096:300:2d::13) by KL1PR06MB6577.apcprd06.prod.outlook.com
- (2603:1096:820:f8::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Mon, 9 Nov 2026
- 10:30:12 +0000
-Received: from TY2PEPF0000AB84.apcprd03.prod.outlook.com
- (2603:1096:300:2d:cafe::b) by PS2PR01CA0001.outlook.office365.com
- (2603:1096:300:2d::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 10:30:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB84.mail.protection.outlook.com (10.167.253.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 10:30:11 +0000
-Received: from localhost.localdomain (unknown [172.16.64.56])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 985764102E65;
- Mon,  9 Nov 2026 18:30:10 +0800 (CST)
-From: Luo Liu <Luo.Liu@cixtech.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Luo.Liu@cixtech.com, wuyi.shen@cixtech.com, cix-kernel-upstream@cixtech.com
-Subject: [PATCH 0/2] drm/cix: add Sky1 DisplayPort transmitter
-Date: Mon,  9 Nov 2026 18:30:08 +0800
-Message-Id: <20261109103010.110911-1-Luo.Liu@cixtech.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53A3010E34A;
+	Mon,  9 Nov 2026 10:33:23 +0000 (UTC)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF12A10E34A
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 10:33:17 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-36f6295304dso802949eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 02:33:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794220397; x=1794825197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=QfIpduHoe8eeZDLf/6O89XnVTMfwvHnF7GrEmwVWOqo=;
+ b=ld9Fxt3KjoA8qkVrZhYqCymdi0CG+SYBui7U/45pgdrJA8Ha5G6IRIigsPqBk2MPbB
+ juXcgbl9LQHe69dBduVQVcaHFgjSTsB1BYNoSJQEVK45qq82RF5jIdF2rx346xvFeb/1
+ c4kLis5A78vcg4Rc28CqYsTLXlwRdgkNmYYUUGoLIPMASkKrKXtR2NgklS6w1zgjESlK
+ 4ZKPcryTMnGPdiX4OnXq/ykMCXqiCTqSGj50bm/YNwPlgED7VlWkpfUvMwuL65BQGyZm
+ U11hWfcHb3hRirHFUbRBbUW0nnKdGWc76UoKD5Crs/7h0/i4CxwTOyaPHWGrFM3mObse
+ hzHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794220397; x=1794825197;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QfIpduHoe8eeZDLf/6O89XnVTMfwvHnF7GrEmwVWOqo=;
+ b=dQ27W2937g80lcmdezX9khhT4VJNAaDi9DdEQr6N950hcVZmWQc1jEIFoxm2kx3cyC
+ aofPRcbdElTplbxO3BOaW8ZYNY2gyUUkwlrEdeyOPpAVt12FRKSlvM4Rtp8CA33vNC3u
+ oH1auf2kOnbrKdwTxekodyLcAYH2FWk06f9j3QGvToFZF5HLzljWdUZd3TQEH01Eqy9v
+ 7litBBHwyDwsSRwbFJkF+X6fKi9Eq7EM5SonOOzd1J0kt4A9SUS9JMZKXzgpGqI3phjD
+ Q9+bz8CBJFz/GNhsiXP3pP05shDHOh3BwzT7kpxfgAiqfwc8m3FA3i4K2z/a8KD67skO
+ esYQ==
+X-Gm-Message-State: APuU4Z/90jMugRa2ghCmj1voh8lF9Sij1ELQTDoRama2w9j1la5cmv6G
+ iNh0WoFIfHlK1MqnXtVNJNEfnc67eSbjcYMS5E8n4l48ztNELMiTPL0S
+X-Gm-Gg: AYBFou388+SzGG1Ufr2A8ZoB6huEXTntuxDm2bu6yC3D21vjCTkJpWfJicAShOSt7LU
+ 7qw6cV1ECQksYnsOMrrA7Eas4hSyS/R0C0os68SpEDbbbrj3vFKMHwUuchUKeNfqzrfbPj/THg1
+ 2BnhgD4LcdY7A2gS9yClaVwx0cBkPLQmJNHkFKOUckXNJzbihJdFcAx0eac+ezkHIlbd95YIBZ1
+ G4j+nQeDJ/FUx1mWgxySrVRgZezU1lPnityLwgAdNubkF0EwrWJ9U3S6/o9Yx2bk+6B++iEKRYv
+ gXt3eqJgMAlWX4BB3hNWSqdE8ly2O3noB/t8Tryd2T9CdB91NBBQ1Td5ts44YcWFgmKq5kuHRgI
+ cUdQRphTHI0LfeUS375afg1qEWWn+OTH1+INzMBxmPyqCsPVjlVhWqKnSA+d6GFn4PgKm3tEHYy
+ PaCgq4YhNDgiXnvWRrsUGanqutPJeD/sIDSsX6eSkIxChjkmCP8lYgMxNiX4+jt8WZaPufnk025
+ d7m388DS7x4VCNHY021gs/TzGY6gYWcvRSqCKXlhqwdenekEFB03I+H6/bvePcuLpSOBtjwj/cd
+ mU7tw9jnUu5q8s3X7iFXKc1mFntpeXj2IQqRo1qhGgr71VAFwi3PgIry1oVHlWTX2FciOeeksNg
+ Aqb+kCy521/w/m9/BghKvGg415waz
+X-Received: by 2002:a05:7300:10a:b0:369:f70e:bd40 with SMTP id
+ 5a478bee46e88-37256bf1a40mr7451845eec.16.1794220396780; 
+ Mon, 09 Nov 2026 02:33:16 -0800 (PST)
+Received: from daeinki-virtual-machine.localdomain ([58.124.60.88])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-372656187f8sm11267999eec.5.2026.11.09.02.33.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 02:33:16 -0800 (PST)
+From: Inki Dae <inki.dae@samsung.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [GIT PULL] exynos-drm-fixes
+Date: Mon,  9 Nov 2026 19:33:12 +0900
+Message-Id: <20261109103312.7235-1-inki.dae@samsung.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB84:EE_|KL1PR06MB6577:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 49cd6db0-599c-43f6-7353-08df3e4c6f70
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|42112799006|23010399003|261102123227099003|261028144727099003|261009223027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: vDGEfVuS4GoMjcptpGYW+BHJutETE9fSi57do+IhC1wo3LUWq3UmJnyTcTsQe0K1djp4R0EgRAWHSAaKW1G0R6TBNeCTfem9SMwi7GY+k+P5kHrTCeDHWZrVOIUOhRyhC+cYEqXnKWGkJlctLC4EtSSOsL2HmqNMcfejEoB/8oBVXpgjFIRWh49KXHFmeMgMxJMT9rQwQu5zT0RcTaZV9bFnf3ibOJaHLgUgiuRzvZH3CWBS2RuIiBA2+LfikGTOjqoWR63jwG93QsKnRs3Q6476r9xYpZdOSMu5R5ZW8IYERXgs6SPSpR1EqfBEbd8k3rQQW3lQabR6bTI2E+efNSe0WtmLYJbQSPOYL2CjFYhKA36yI0lvvgORSfTUjl4u151ElViQVVQjkl1B8S290Zj8mm4NMqy1BvOl2a60yVfISxRQZrxAErPStMiEaMWlQ4VaDU+9xNEiMwbIj3CljyEOVgqgs3w8Aem4oWxrrst4cE2lmfCi1jbv12RvEyyP4Ca7pn998tgdeYaSDJoErj3XBFbiEdsLwoYWQY5dVNY34SBBUuq+U84ckk1atSbrM9907C5QyS5hmzsX7EdDovht48Z4DcgmqOt7GkcW72Yt5pXWejkY92f9mjyUFXP/NqVIeIuCr476cleXPKH0ain7ynycmyRyv0ftgWFwjIpGLS8ZKTKmEVXRqDK8pyvCRfeIVC/2VsI5lngCkqHD5w==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(42112799006)(23010399003)(261102123227099003)(261028144727099003)(261009223027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(56012099006)(10067099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: N6NvxQ1rsINRiQMyM8kYEQXVP8OkXuvxqV28tj15DsSVELjBwYvFCpM1yriC52XdbVLpLl+wtBL/AuTJ9nTHZnTZ0uAJ1Bd+CFdA9d78J03rIU9OrYO/R46AWTgI3xnZNP9a5WUWmGgc900Kgxbvd2ps+Bic2EpWiNVPFUve1i/nQmkrWLcTsDllu/Xc33EARtkDzCCqtjXP9i7q15AXRbOqsWCGwhFunHTuDvjPvt9FavdQEoWF9yOr308IE5kYcwkKcIyqumK8ygxiEmM4vTdKcFwgIhhrvO5EFUEWy3458W6qiCyEr1KDZEh9yQW/nhr19Q5SvlqPQHU+X9uH2jP3nd/0BDljXJISu/uxkcHMYOxHgh2Y2nKWmZX/7VjFE6kX7KQiTYXR5SAjELDi4ZCT/CiKyf1Vtyq8uBnqL5GioIADR3XhFcYAjOSCYu9s
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 10:30:11.4001 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49cd6db0-599c-43f6-7353-08df3e4c6f70
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB84.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6577
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,49 +82,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-21.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the binding and the DRM bridge driver for the CIX Sky1
-DisplayPort transmitter.
+Hi Dave and Daniel,
 
-The devicetree nodes are left out of this series. They depend on the
-DisplayPort PHY binding and driver, which are not yet upstream. The
-SoC and board nodes will be sent once that PHY series is accepted.
+   This pull request handles FIMD DP clock runtime resume failures and fixes
+   a scaler runtime PM reference leak. It also fixes HDMI EDID and DPI panel
+   node reference leaks.
 
-Luo Liu (2):
-  dt-bindings: display: add CIX Sky1 DisplayPort transmitter
-  drm/cix: add Sky1 DisplayPort transmitter driver
+   Please kindly let me know if there is any problem.
 
- .../bindings/display/cix,sky1-dptx.yaml       |  108 +
- MAINTAINERS                                   |    9 +
- drivers/gpu/drm/Kconfig                       |    1 +
- drivers/gpu/drm/Makefile                      |    1 +
- drivers/gpu/drm/cix/Kconfig                   |    3 +
- drivers/gpu/drm/cix/Makefile                  |    3 +
- drivers/gpu/drm/cix/dptx/Kconfig              |   16 +
- drivers/gpu/drm/cix/dptx/Makefile             |    4 +
- drivers/gpu/drm/cix/dptx/cix_dptx.c           | 2086 +++++++++++++++++
- drivers/gpu/drm/cix/dptx/cix_dptx.h           |  370 +++
- drivers/gpu/drm/cix/dptx/cix_dptx_drm.c       |  653 ++++++
- drivers/gpu/drm/cix/dptx/cix_dptx_drm.h       |   16 +
- 12 files changed, 3270 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/cix,sky1-dptx.yaml
- create mode 100644 drivers/gpu/drm/cix/Kconfig
- create mode 100644 drivers/gpu/drm/cix/Makefile
- create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
- create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
- create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
- create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.h
- create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
- create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
+Thanks,
+Inki Dae
 
+The following changes since commit 19e67d977d3d4d0c54f03906ef578578190db9e1:
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.25.1
+  Merge tag 'amd-drm-fixes-7.4-2026-11-05' of https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes (2026-11-06 10:43:59 +1000)
 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos tags/exynos-drm-fixes-for-v7.4-rc3
+
+for you to fetch changes up to 869fdc8ba846ee6fec452cc34cf104f9f7142113:
+
+  drm/exynos: dpi: fix panel node reference leak (2026-11-09 15:09:05 +0900)
+
+----------------------------------------------------------------
+Fixups
+- Handle runtime resume failures before enabling the FIMD DP clock.
+- Free the EDID when the HDMI connector update fails.
+- Release the scaler runtime PM reference when reset fails.
+- Release panel node references after lookup and on DPI parse errors.
+
+----------------------------------------------------------------
+Avi Weiss (1):
+      drm/exynos: hdmi: free EDID on connector update failure
+
+Jiale Yao (1):
+      drm/exynos: fimd: handle runtime resume failure for DP clock
+
+Wentao Liang (1):
+      drm/exynos: dpi: fix panel node reference leak
+
+Xiangwu Lai (1):
+      drm/exynos: scaler: Fix runtime PM reference leak in scaler_commit
+
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c    |  7 ++++++-
+ drivers/gpu/drm/exynos/exynos_drm_fimd.c   | 10 ++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_scaler.c |  4 +++-
+ drivers/gpu/drm/exynos/exynos_hdmi.c       |  4 +++-
+ 4 files changed, 20 insertions(+), 5 deletions(-)
