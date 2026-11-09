@@ -2,85 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EF9606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611FF606B9C6
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRxeEiRe
+	dkim=pass (2048-bit key, unprotected) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=VXYWJ++t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4021410EB07;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5946A10EB26;
 	Tue, 10 Nov 2026 08:33:34 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0FE010E2B5
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 01:04:48 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2e985106c0cso11586905ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 17:04:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794272688; cv=none;
- d=google.com; s=arc-20260327;
- b=Bl/HI0KoFT9oUJydZEs0MVyDzyYASQ7+Fkw4MgYCPMV1zA1vwJ/MErnwr/pTh0Enlf
- HuTh5WFN0M9kAX2K6o+PozI69xWhzHCOETpDXTJHqX9NZUXaqRyLdqAPpERpZvwwWH2w
- NbxRpTyJl4/NWteEvRXgud3KekEcIMtrxomn+fiGKUbum9WRavBheaxT0IZRI6cg1RPo
- aMUk59wNQvkuqXH1zofbHKsPcYNdl3d/DQ/ajbc9oglwzzuPSlqGtc+Nx1Do/aUSZSc6
- 3HxON0TjRISQ9U1qugeO8Hg/AknQoUKTXm7tK2BirIFAK1+A6ofckfb9XUz2+v0gxY6W
- H76Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
- fh=rdVGboUKQTe2PQPC07+N7izNoR5Mh+KRwIz2BQB2NMY=;
- b=bzVsaZqD53Mx4+sBY9I0BJ3V3FcEowRYfqu8xGNhCPnysCWcuNR8rT0nTf5R3EqV2A
- EXmSryONZl+7lvD1H7JuD5cMR28UIuV4e6S/Ro5SSCALjEaNnq6Eha0oivozgxxNZysI
- erDQbkt21CLUJnGgcz0JPBGRMSnTPi4G01xX+MgVok06g7A2Jm613r5863Qw6a8jzsSg
- 8zgWL+L7xigIOTNAyl23h6cuDuupoHVWXVlzOxb9A4t66M8037Sls2ZdZ4nIv2jc19Be
- pPCPJH2IfjFDKXnKqnEBwV0EhuhVj9py1Wn9UEDN06W0vczEfadbJKr30r+xUjq1SegQ
- JQGw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2745110E328
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 15:52:22 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a60f9474c4so12861645e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 07:52:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794272688; x=1794877488; darn=lists.freedesktop.org;
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
- b=XRxeEiRejGKtFLvrb0XJxFu7I09vvrOJxVk5hgKcxcMC7KwoiioFJ/xa5pSYCKF/25
- dhrJaUgTkSFOCM9hrABYEUNrRA5VwQPKIuk3U5Brn5FhWgceOa0ekdDtCcgqN/cZSnhq
- AvX6u6BsBTWZJ19LPdwLk0ExCYAeE3t80n8bT81HbBYXVVqin9Gf3jO9I5twRH6stul1
- FFSWh23GVcx8b39LR6T7ZuVapQA0XhT+RuwO8toumoQxCg0cQl9WVLQzh1E6bHM3xt1o
- zPx7s5u6+qN2NKnZi/c2OGT8/Rx0WjaEWszA4/MKmaPFbsMNY0ZCP+7zKTX6tL0M8MjG
- OfeQ==
+ d=cloudlinux.com; s=google; t=1794239540; x=1794844340;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=y58qGbx1bt3ohAjkcIc78J8UW3dBJ8T2wsogW/UvgDY=;
+ b=VXYWJ++tfX4w0m1lNCAeAdbFuSL/on35UBRSOXlLT5y24WIuVI4yTPf3eEUqAp9410
+ q0pH5D370P6B/w/veSw/NXSiTd1DxkPQrq+My6XVGFIlnrwapZ3WIA2DlWqJVGkxC5Uk
+ vIgnZhxVBab07nWaR2KKYsgzGba6kCd4F56DnDeX5pTQHbaNTpIy0ExfpnM5W5u+IKXx
+ mAahvMKXk/k9Bp4TOPueRBKzlHmQsT13zFCaYHhP/SMr78NQzkY+wnBB6GHHPQvPvmJG
+ mRQi4i2o79K/hePwNGnNyPjCO6wDwb5/sS9qYjpymt8t4WjVq74BrFGaAG/2dCt3TWSg
+ lXPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794272688; x=1794877488;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
- b=HBnsMvsuGKycmoiAWOO8t+JfcCGav/b1aHh2umILLa5WH84dnfYt8s66EF+42bjUbP
- ynFL+/CWJsBW+rlVZfbjt+Md1/WiDIaXv/a/Vd05mQAl5wiI83a1K3KiVEf7A4fEkggj
- mfoNDNaAbLyP1S6M/7tNG7E3BDm2eZ7kLHav39gtqFvd9Gcq6L8Ywow0ft5Zavj8p5Ob
- DdDIsqhAATYdhqAVdyCEEKoC+bEY7TlOp5rf8nfwEnRNAmBQkkyEP9s/hpKOpQNeFZll
- Tw22e6kOHEUVXsIpFfF+Ub9Vgm4DH770k4PiyRqj0X5xTg7s5TjMjJeVD28rEqlGklfj
- +fZA==
-X-Gm-Message-State: APuU4Z9KVC7Hpb0PyzBARnMoqolsz9RJwM163nT/T4/aQf9tXMluGRLT
- wdEi0djV6xWaRdw4/qtQ4aptdRXKxbUpSVyU7T8TGv+qFC/IhdPxW8AdVYn1ggR1XCeCANp3mH2
- rQKbSNkSt5Pi6J5cHydU9pQfqspyzyugRiSTI
-X-Gm-Gg: AYBFou0J5gCLeJNhDC//DXHhz5PSMGV6p95jKIfkoSpiyl6SsZorQlLoIF7EYpY9fyS
- NqYkoC6yysQeGHGLLMyzjFJjp888Sk8s4dIfafBKbn34dXTf3NVNT6X9f4/WyhHUF7mlaabnYb0
- 7KALLzwt9vwh/hVCwMG/z2KZw6pfFvymSEHxN/ja06u7Csf2wi7RM+7troLvHvz77VjEMWvteYm
- Td0ztZIbjeWwn9sTRWZX8uOYQJNxJ5zF6gGdP+JVa2fu93x4OD9+FHM35i1xvh+1/kPVypX1WzJ
- eV2lXukZ5ilu4W1vasEMxuC4uQLDfvXbowun3W0C5J6AJU6vxJyCQ8u1sQLswvKgUURylT2Nph0
- w8hRdCVUqkj3LppZE3QpYD7Zfau2rpi3RXwUTtTWIUe4BWxbKZ1JOQ2UrZdRAf6aHrJU=
-X-Received: by 2002:a17:903:2282:b0:2d9:4358:73ab with SMTP id
- d9443c01a7336-2edb91f56a0mr8401485ad.19.1794272687964; Mon, 09 Nov 2026
- 17:04:47 -0800 (PST)
+ d=1e100.net; s=20260707; t=1794239540; x=1794844340;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=y58qGbx1bt3ohAjkcIc78J8UW3dBJ8T2wsogW/UvgDY=;
+ b=NLQs8y/7druFWxzzRh4yVFQjAahatvMC1nMVKiPhcAc7dJHQPtTtvJ1f8ANlwwtolX
+ /iI25BKH4fIpLjt+sr7qRVh/xTnVGHpJe4hWQAE5zQQOvbVvRmALH/NVRHsFk0CuHgm3
+ V3zlbaXUOQV7/HSdk262tDORC7tvefP1WoRHJW7sI6f+Jih8YgCeYhuk+PSKBHKxOSDP
+ 53r+q/xBcNVDkqFjKbQhFqfMnA16wnnkVuCuLrx/7OvHI884DjblYBCSj8B/bz0M3FAn
+ QDHJby1rnecMslo60LWhCtdHTehQt6He4CsuHlrCAbfj8hMLp1dIhu3TPCQYMc+zEYCL
+ P8OQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGuOaGVf/9POfZsp5sqKKH8DxwQszoXJFgVytzwlwKG+rQ2XWrT/G5rVl3sNnSBZZSlFmJi1anSWaY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+uXf7d+dRvV0p6HF0ITZ5UblYouSOwf3+6IaN/NYcTp4sj07ef
+ t8PbLp8tXJXoc/w4o+mBVyFlGh+4azQY88q/Xh1vjz2siJWCuIkFPQ6uuga/RPXBN6Y=
+X-Gm-Gg: AYBFou2mC7m5XDDyGLXU69uHNBMlf+cp9pms/sonSsKSKG0xSxJXhdYltDvGWA5gkCz
+ liYgY3+tulB3ISym3BAgFw8duwxE3kj8kDNO7sVR4GWUUvdH0kleyamdsPRni+arwErFIoegZHM
+ 1phlfhsQOJKGa2Qj5FnsudmITKUlFdlG/Niq4fesDrErBWVhGithiHB06H8KlHTN+GtU36PenpI
+ PiT65EpETs1TM0SIVD85XU5sbzwmUrEhbo6T01Sm/+9ayVirKwHqJe+XJx3Pja/H1Pz2YNye3cd
+ ksSrzxIKAs9mo28Wwmnvnl9GRGMHlD6B1vg1Wj4hKUsRavOijenzakYu/dPXtE/pDHeFEjazhuV
+ mB6uL2Pp+VWxkfngll8FzmSjPYL7o3mABZqkpBIT+YekkC5kPH4EICLeMK09pT0W2Svx82N8j3R
+ +y/J/2Q5oNQmAB1qDfEd6LIzpHA5b0A33KBYwq7OvgrtIypKA38qlZQ1frgtNHfRKG20tdCMJva
+ z+QHllYlmJIhfkb1OVF1GSLudqH1HRpW2bWdlw87sEUXUXwpWzi7FqnxB3sIyuViWzh3lZPHHeG
+ D+Wh1ok0oD2w3Jll79t7z9Z5
+X-Received: by 2002:a05:600c:4eca:b0:4a2:5267:3cd4 with SMTP id
+ 5b1f17b1804b1-4b94d762f4dmr78506415e9.3.1794239540400; 
+ Mon, 09 Nov 2026 07:52:20 -0800 (PST)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b9f93c04afsm91196685e9.3.2026.11.09.07.52.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 07:52:19 -0800 (PST)
+From: Andrey Misiurov <amisiurov@cloudlinux.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/radeon: Bound GPIO I2C table entry count from VBIOS
+Date: Mon,  9 Nov 2026 16:52:15 +0100
+Message-ID: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
+X-Mailer: git-send-email 2.43.7
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Americo Simoes <amexsimoes@gmail.com>
-Date: Tue, 10 Nov 2026 09:04:35 +0800
-X-Gm-Features: AclHuK9BAoHo9Bicw70LJu0S11Ru1NXkSoc3qoWYKRokkcDbZZTE7WwC9rrzc4Y
-Message-ID: <CADw33JPRrx_EenTcQmsaXV=SvtEZ8gqP8v51b9FwsBiHGkbgTQ@mail.gmail.com>
-Subject: Measured DMA-BUF coherency hazard on i915 Gen9 with a working
- userspace contract
-To: dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="00000000000032567d065fe1aab4"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,136 +86,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---00000000000032567d065fe1aab4
-Content-Type: text/plain; charset="UTF-8"
+radeon_atombios_i2c_init() derives the number of GPIO I2C entries from
+the size field of the VBIOS GPIO_I2C_Info table and stores a bus for
+every valid entry in rdev->i2c_bus[i], which has RADEON_MAX_I2C_BUS
+(16) slots.  A table that claims more than 16 entries makes it write
+past the end of the array into the rest of struct radeon_device.  A
+size smaller than the common header wraps the subtraction and the loop
+walks far past the table.  radeon_lookup_i2c_gpio() uses the same
+calculation.
 
-Here is the email for `dri-devel@lists.freedesktop.org`. It is the one that
-reaches the people who actually maintain the DMA-BUF contract, and it asks
-a question they can answer rather than pitching a product.
+Reject undersized tables and cap the entry count at
+RADEON_MAX_I2C_BUS.
 
-**To:** dri-devel@lists.freedesktop.org
-**Subject:**
+Fixes: f376b94fbc0a ("drm/radeon/kms: unify i2c handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+---
+Found by code inspection.  Not reproduced at runtime; it needs a VBIOS
+with a malformed GPIO_I2C_Info table.
 
-Hello,
+ drivers/gpu/drm/radeon/radeon_atombios.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-I am writing with a measured result and a question about DMA-BUF coherency
-on i915, and a working userspace implementation that exercises it.
+diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+index 3dd9724..c4e1272 100644
+--- a/drivers/gpu/drm/radeon/radeon_atombios.c
++++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+@@ -125,6 +125,22 @@ static struct radeon_i2c_bus_rec radeon_get_bus_rec_for_i2c_gpio(ATOM_GPIO_I2C_A
+ 	return i2c;
+ }
+ 
++/*
++ * The VBIOS table size is not checked against the image; cap the
++ * entry count to RADEON_MAX_I2C_BUS, the size of rdev->i2c_bus[].
++ */
++static int radeon_atombios_gpio_i2c_num_entries(uint16_t size)
++{
++	u32 bytes;
++
++	if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
++		return 0;
++
++	bytes = size - sizeof(ATOM_COMMON_TABLE_HEADER);
++	return min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
++		     RADEON_MAX_I2C_BUS);
++}
++
+ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_device *rdev,
+ 							       uint8_t id)
+ {
+@@ -142,8 +158,7 @@ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_device *rd
+ 	if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
+ 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
+ 
+-		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+-			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
++		num_indices = radeon_atombios_gpio_i2c_num_entries(size);
+ 
+ 		gpio = &i2c_info->asGPIO_Info[0];
+ 		for (i = 0; i < num_indices; i++) {
+@@ -176,8 +191,7 @@ void radeon_atombios_i2c_init(struct radeon_device *rdev)
+ 	if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
+ 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
+ 
+-		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+-			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
++		num_indices = radeon_atombios_gpio_i2c_num_entries(size);
+ 
+ 		gpio = &i2c_info->asGPIO_Info[0];
+ 		for (i = 0; i < num_indices; i++) {
+-- 
+2.43.7
 
-The measurement
-
-I have a userspace test that allocates a buffer via i915 GEM + PRIME,
-exports it as a DMA-BUF, maps it for CPU access, submits an
-`XY_SRC_COPY_BLT` to the BLT ring with softpin, and brackets the CPU read
-with `DMA_BUF_IOCTL_SYNC`. The composition test passes: 0 mismatches out of
-1024 elements.
-
-The negative control runs the same copy with the `DMA_BUF_IOCTL_SYNC`
-bracket removed, 100 times per case, on a Skylake-U iGPU (HD Graphics 520,
-Gen9, kernel 7.2.13). Results:
-
-- Both sync calls omitted: across batches, 42 to 99 stale reads out of 100.
-- Output sync omitted only: 87 to 100 stale reads out of 100.
-
-The hazard is real and timing-dependent. The rate varies between batches,
-which is expected for a race. The output bracket is the more critical of
-the two. An earlier single-run negative control landed in the clean
-minority and reported "no stale reads"; the 100-run loop exposed the race.
-
-The question
-
-The bracket is required by the DMA-BUF contract, and the measurement
-confirms it is load-bearing on this hardware. What I would like to
-understand is whether this matches what the i915 and DMA-BUF maintainers
-expect on Gen9, or whether there is a kernel-side reason the hazard is
-timing-dependent rather than deterministic. If the bracket is supposed to
-be mandatory, is there a reason a single run can appear clean? If there is
-a documented explanation, a pointer would be useful for the audit document
-that records this work.
-
-The implementation
-
-The library is at `github.com/SimoesCTT/the-level`. `chipmem` is the
-allocation and coherency contract; `blit` is the async 2D engine with three
-backends (i915 BLT zero-copy, Rusticl with a copy, CPU fallback). The audit
-document at `docs/linux-equivalents.md` records the paths that did not work
-(udmabuf returning `EINVAL` on first sync, `GEM_SET_DOMAIN` being retired,
-`GEM_WAIT` returning `ENODEV`, relocations rejected on Gen9) and the exact
-measurement methodology.
-
-I am not proposing a kernel change. The kernel machinery is there. I am
-reporting a measurement and asking whether it is consistent with the
-framework's expectations.
-
-Thank you for your time.
-
-Americo Simoes
-`github.com/SimoesCTT/the-level`
-*Tel: +65 87635603*
-
-
-*email: amexsimoes@gmail.com <amexsimoes@gmail.com>*
-
---00000000000032567d065fe1aab4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Here is the email for `<a href=3D"mailto:dri-devel@li=
-sts.freedesktop.org">dri-devel@lists.freedesktop.org</a>`. It is the one th=
-at reaches the people who actually maintain the DMA-BUF contract, and it as=
-ks a question they can answer rather than pitching a product.<br><br>**To:*=
-* <a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freede=
-sktop.org</a><br>**Subject:**=C2=A0<br><br>Hello,<br><br>I am writing with =
-a measured result and a question about DMA-BUF coherency on i915, and a wor=
-king userspace implementation that exercises it.<br><br>The measurement<br>=
-<br>I have a userspace test that allocates a buffer via i915 GEM + PRIME, e=
-xports it as a DMA-BUF, maps it for CPU access, submits an `XY_SRC_COPY_BLT=
-` to the BLT ring with softpin, and brackets the CPU read with `DMA_BUF_IOC=
-TL_SYNC`. The composition test passes: 0 mismatches out of 1024 elements.<b=
-r><br>The negative control runs the same copy with the `DMA_BUF_IOCTL_SYNC`=
- bracket removed, 100 times per case, on a Skylake-U iGPU (HD Graphics 520,=
- Gen9, kernel 7.2.13). Results:<br><br>- Both sync calls omitted: across ba=
-tches, 42 to 99 stale reads out of 100.<br>- Output sync omitted only: 87 t=
-o 100 stale reads out of 100.<br><br>The hazard is real and timing-dependen=
-t. The rate varies between batches, which is expected for a race. The outpu=
-t bracket is the more critical of the two. An earlier single-run negative c=
-ontrol landed in the clean minority and reported &quot;no stale reads&quot;=
-; the 100-run loop exposed the race.<br><br>The question<br><br>The bracket=
- is required by the DMA-BUF contract, and the measurement confirms it is lo=
-ad-bearing on this hardware. What I would like to understand is whether thi=
-s matches what the i915 and DMA-BUF maintainers expect on Gen9, or whether =
-there is a kernel-side reason the hazard is timing-dependent rather than de=
-terministic. If the bracket is supposed to be mandatory, is there a reason =
-a single run can appear clean? If there is a documented explanation, a poin=
-ter would be useful for the audit document that records this work.<br><br>T=
-he implementation<br><br>The library is at `<a href=3D"http://github.com/Si=
-moesCTT/the-level`">github.com/SimoesCTT/the-level`</a>. `chipmem` is the a=
-llocation and coherency contract; `blit` is the async 2D engine with three =
-backends (i915 BLT zero-copy, Rusticl with a copy, CPU fallback). The audit=
- document at `docs/linux-equivalents.md` records the paths that did not wor=
-k (udmabuf returning `EINVAL` on first sync, `GEM_SET_DOMAIN` being retired=
-, `GEM_WAIT` returning `ENODEV`, relocations rejected on Gen9) and the exac=
-t measurement methodology.<br><br>I am not proposing a kernel change. The k=
-ernel machinery is there. I am reporting a measurement and asking whether i=
-t is consistent with the framework&#39;s expectations.<br><br>Thank you for=
- your time.<br><br>Americo Simoes<br>`<a href=3D"http://github.com/SimoesCT=
-T/the-level`">github.com/SimoesCTT/the-level`</a><br><b style=3D"background=
--color:transparent;font-size:10pt;font-family:verdana,sans-serif">Tel: +65 =
-87635603</b></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smar=
-tmail=3D"gmail_signature"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr=
-"><div dir=3D"ltr"><div dir=3D"ltr"><div><p style=3D"margin-bottom:0cm;line=
--height:100%" align=3D"justify"><font style=3D"font-size:10pt" size=3D"2" f=
-ace=3D"verdana, sans-serif"><b>email: <a href=3D"mailto:amexsimoes@gmail.co=
-m" target=3D"_blank">amexsimoes@gmail.com</a><br></b></font></p><p style=3D=
-"margin-bottom:0cm;line-height:100%" align=3D"justify"><br><br></p></div><s=
-pan style=3D"color:rgb(204,0,0)"><span></span></span></div></div></div></di=
-v></div></div></div></div>
-
---00000000000032567d065fe1aab4--
