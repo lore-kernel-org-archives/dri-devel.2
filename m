@@ -2,61 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8FC606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4CE606A9AE
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Zcz5Pw/K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F5710E298;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D2F10E2CA;
 	Tue, 10 Nov 2026 08:33:28 +0000 (UTC)
-X-Greylist: delayed 909 seconds by postgrey-1.36 at gabe;
- Mon, 09 Nov 2026 20:30:59 UTC
-Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35E410E8C3;
- Mon,  9 Nov 2026 20:30:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794255338; cv=none; d=zohomail.in; s=zohoarc; 
- b=erZCLL66+1fQWRpIBiKg7j2TY+gkw0XD9MSe3JsdLfzxr3QrarZlJxkbEExc7Gx4NHRhYJ8tvkucNf1feY22oo+QhL/WuTc8AZF1U+dizXT6YdrccE6nAy/44tt1B5YOiDp+apVnJg2tvzQ6p7mWj0ow3sW7O8YoHS0E1v8LMLA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
- s=zohoarc; t=1794255338;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; 
- b=MNLBKj+29IHllT8rF0ru1Yj3gzXURUaFibyJCUEZ8dXEBORGGIL95Y7GYvlcLqKKeNIse7Yky7gp0Mxsyi0C6yFOAnZmXSsuhrI3a4FNTmdu+Ki77XMAKYTadLLYYOmkK706CTjcC7rWYcjjVyW/lqSlBnQDHZ8gmQazjHEr/Dk=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
- dkim=pass  header.i=zohomail.in;
- spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
- dmarc=pass header.from=<shivamkalra98@zohomail.in>
-DKIM-Signature: a=rsa-sha256;
- b=Rwtmn6OwsUENniwoHLto46EAP445ByULk+e8+bpaVkbyd6d6LRJvz8Xc5ZJcoNHc5PoqZuJj/ZOVP9BWtinIgWs5Afr2JeVUvDSJGW/r0/YOMCiEgv46MBQa1sefpkaXaUJg63rwLtyUqSVnpYOCHotLVmvjxI9HpcLlRNEJ/u4=;
- c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1;
- bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.in with SMTPS id 1794255336648577.8557176644065;
- Tue, 10 Nov 2026 01:45:36 +0530 (IST)
-Message-ID: <2caf9f85-8d5d-482a-8479-dd682cbf96fa@zohomail.in>
-Date: Tue, 10 Nov 2026 01:45:35 +0530
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9C7310F444;
+ Mon,  9 Nov 2026 17:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=michaelmcallister.org; s=protonmail2; t=1794243718; x=1794502918;
+ bh=oG2TQCsxpY9LqxmAzIoNvh0i+sGuT0ezlKI+pPVi9Lk=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=Zcz5Pw/K/Nb3lm/LjVL2d3V4Czp5fRaoBS8WWx4EAednhE+aadDUSA8XzrdTKH4H8
+ IMUWYxKkcKrq8Pcc7uVhFZfdOK7aAUEfTNYwrIHy9alzBX8rO2N7WFHE1+cVitlIrp
+ 1lMlR5rKPJAbVtNsrCZw8v/qvO6tx4otFbLd4zv/NqpfWB/T5YiocbYaJqex8tnSMT
+ ra9aRsyOZw7BcfIUhrIpYamHV3jtOq8SsQhjbyw06GBOa6F7ds+GYH00uk6x1Aj1mu
+ Hwi4Voenn515X0j6MHHxKI0dZblI1BvrzJpty55OuNQtxvem9kdsdx3oxh/IZZ/Qdt
+ q1BxQ+xZD5sMw==
+X-Pm-Submission-Id: 4jNbfr2WvNz2ScWs
+From: Michael McAllister <me@michaelmcallister.org>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm: avoid an unmatched fbdev IOVA pin
+Date: Mon, 09 Nov 2026 17:01:51 +0000
+Message-ID: <179424371125.96483.2462884435294600442.msm-fbdev-pin-leak@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use atomic commit for panel power savings
-To: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
- Wayne Lin <Wayne.Lin@amd.com>
-References: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
- <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Language: en-US
-From: Shivam Kalra <shivamkalra98@zohomail.in>
-In-Reply-To: <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,29 +49,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 06/11/26 03:15, Alex Hung wrote:
-> 
-> 
-> On 10/30/26 15:58, Shivam Kalra via B4 Relay wrote:
-> 
-> Hi Shivam,
-> 
-> Thanks for the patch. Moving this to an atomic commit is the right direction, but as it stands every write still ends in a full modeset.
-> 
-> In amdgpu_dm_atomic_check(), any abm_level difference between the old and new connector state sets new_crtc_state->connectors_changed = true. That makes drm_atomic_crtc_needs_modeset() true, and commit_tail skips the abm_changed / stream_update.abm_level fast path. Users would see a blank/flicker on the eDP panel on every power-profile change.
-> 
-> Could you try keeping drm_atomic_get_crtc_state() and setting connectors_changed only for scaling? ABM would then go through the existing stream update with no modeset, like David's [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes - https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
-> 
-> Please run IGT amd_abm, including abm_gradual, before v2.
-> 
-> Also see inline comments.
-> 
-Thanks for review! I will send out v2 shortly.
+Unbinding the display on the Moto G10 produces a pin-count warning when
+the console framebuffer is freed. The fbdev probe takes an IOVA pin,
+but normal teardown never drops it.
+
+Use msm_gem_get_iova() to reserve the address without taking that extra
+pin. Scanout already pins the buffer while it is in use, and the CPU
+mapping holds its own pin. Drop the matching unpin from the error path.
+
+Fixes: 7ad0e8cf6317 ("drm/msm: Count how many times iova memory is pinned")
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+---
+Hi,
+
+I found another pin-count warning while testing display teardown on the
+Moto G10. This one is in fbdev: it takes a pin when creating the console
+framebuffer, but doesn't drop it when the framebuffer is freed.
+
+I tested this alongside the other display fixes on 7.2.9, including
+unbind/rebind with the compositor stopped. It is independent of the DSI
+command-buffer fix I sent earlier.
+
+Thanks,
+Michael
+
+ drivers/gpu/drm/msm/msm_fbdev.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index dd6d6c507d..c3bec6719c 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -137,12 +137,8 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 		goto err_drm_gem_handle_delete;
+ 	}
+ 
+-	/*
+-	 * NOTE: if we can be guaranteed to be able to map buffer
+-	 * in panic (ie. lock-safe, etc) we could avoid pinning the
+-	 * buffer now:
+-	 */
+-	ret = msm_gem_get_and_pin_iova(bo, priv->kms->vm, &paddr);
++	/* Scanout pins the buffer; only reserve its address here. */
++	ret = msm_gem_get_iova(bo, priv->kms->vm, &paddr);
+ 	if (ret) {
+ 		drm_err(dev, "failed to get buffer obj iova: %d\n", ret);
+ 		goto err_drm_client_buffer_delete;
+@@ -162,7 +158,7 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	fbi->screen_buffer = msm_gem_get_vaddr(bo);
+ 	if (IS_ERR(fbi->screen_buffer)) {
+ 		ret = PTR_ERR(fbi->screen_buffer);
+-		goto err_msm_gem_unpin;
++		goto err_msm_gem_vma_put;
+ 	}
+ 	fbi->screen_size = bo->size;
+ 	fbi->fix.smem_start = paddr;
+@@ -179,8 +175,7 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 
+ 	return 0;
+ 
+-err_msm_gem_unpin:
+-	msm_gem_unpin_iova(bo, priv->kms->vm);
++err_msm_gem_vma_put:
+ 	msm_gem_vma_put(bo);
+ err_drm_client_buffer_delete:
+ 	drm_client_buffer_delete(buffer);
+
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+-- 
+2.39.5
 
