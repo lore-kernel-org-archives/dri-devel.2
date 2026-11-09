@@ -2,49 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05660606EE84
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 16:08:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A51606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 16:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=OFX7f41l
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNTYIhWy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60DA610E3D2;
-	Mon,  9 Nov 2026 16:07:55 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3646110E3D2
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:07:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=z1QALcT9YcY855Aj6PsigUBHSBfEix7sXDBjfUwG7Cs=; t=1794240469; x=2109600469; 
- b=OFX7f41lj9BCqdI2kq3IlGFbOusdkM9k09GhbD8BxVgxDvpJ5Xys1PpqkjCm59X9Wyi3VA5z+Iy
- nx+0VA4g337vyMpDivYWCMvHnrHPQWalCPQZspnumDlpIepCe6a82vbLm4g64BdcVY+sC0G6J2M2k
- fiT5sL3h8usQ7MtwK/QyycEpoW5V6BX8gBBX+A5qcFFHDTVJpMpeZPPUDpQJxFPSyoEVIg5JGqS3G
- eCHvqUSDkqijfaHw40MvYdHqw2Rq/avrFKtxN7sIzfVZtJN1xaG0qKOX2CM8/syzzyxVEcAgUtGrb
- e1T76fKjYHWexefFBLFsah5ZT1bSSaLTsH1w==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xQRuL-007QWE-Pi; Mon, 09 Nov 2026 17:07:45 +0100
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/sched: Ensure stopped entity cannot be re-added to the
- run-queue
-Date: Mon,  9 Nov 2026 16:07:43 +0000
-Message-ID: <20261109160743.17020-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF32210F34E;
+	Mon,  9 Nov 2026 16:54:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF1F10F434
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:54:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C8D4A41E7C
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:54:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD571F008A7
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 16:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794243249;
+ bh=1HDtwLDGfSRrUZ/V7Ccnlt8XRob7ixLwnD6AArPjBEg=;
+ h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+ b=lNTYIhWyh0pZzKnL2tR9hpeq6ddbd8RQRirnojvBgYsvmM1l1rIJVGWiQamXZNFiX
+ 2yUV1ul3sJhA0O6Laskk3E2LTKXWvkAPJTRVtRzsBD8WAMOilp2Ocb3C/d6zaof0zw
+ oMrHZndlwXz5TDjJqcIJFjuBPqnaqdevqnbvlXXpIZ8lRe7dmUB8FigPn/B/dwPoeT
+ FA4X9yTQuDUujEt3e/aV4PeYZj99NJ9+tI/RQr1ducpwBYr76Yv106CRVQnA9PVH6h
+ U89Z9FMuU6zAPVmXNCIQ35ki2rCJ/YFR+G5Z5KS3B04GcGfJA7Ir4v6WcqMkCMaIV5
+ PEVC2/O7PoZrQ==
+Received: by mail-oi1-f180.google.com with SMTP id
+ 5614622812f47-4b190cdc9feso611273b6e.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 08:54:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErESkDKw7RxR22L09DiiRiIeDKRloC1wflIc2Kq8dQycvSBBhBTyO6ErOBt3tkA/79VfMVmosK7oEkU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+tU+RTv15UG9D5juMlxqXGTQCzOb163OhiqzIECC8BngR31o1O
+ 7LRDfxrckLsi8rbsxQFIDox04kl7L7dchehu7M8hQyajiFHefcWPr/VMmZWBtfuHL1g14u8nKtM
+ 86qC0uC7yKk+hg2yV/95wqdgguP2pSX8=
+X-Received: by 2002:a05:6808:124d:b0:4cb:f21b:6f8b with SMTP id
+ 5614622812f47-5683cd808femr133852b6e.30.1794243248824; Mon, 09 Nov 2026
+ 08:54:08 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261104185659.884455-1-jernej.skrabec@gmail.com>
+In-Reply-To: <20261104185659.884455-1-jernej.skrabec@gmail.com>
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 10 Nov 2026 01:53:54 +0900
+X-Gmail-Original-Message-ID: <CAGb2v64xKf-w_Zuqqpg3Y=p9PZw+hdtW6hCdsXjR4Gxp_=gWpA@mail.gmail.com>
+X-Gm-Features: AclHuK_bYfJMnl5Ic49VL29CSJbv2z-P7IUwDE--H7P2QG7_ODWK-Rv_7ZMYaAc
+Message-ID: <CAGb2v64xKf-w_Zuqqpg3Y=p9PZw+hdtW6hCdsXjR4Gxp_=gWpA@mail.gmail.com>
+Subject: Re: [PATCH] drm/sun4i: dw-hdmi: Deinit PHY in bind error path
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,92 +68,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: wens@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When entities are torn down in drm_sched_entity_kill() a multi-step
-process is undertaken to synchronize with a drm_sched_run_job_work()
-consuming jobs from the same entity.
+On Thu, Nov 5, 2026 at 3:57=E2=80=AFAM Jernej Skrabec <jernej.skrabec@gmail=
+.com> wrote:
+>
+> sun8i_hdmi_phy_init() enables the PHY clocks and deasserts the PHY
+> reset. When dw_hdmi_bind() fails afterwards, the error path doesn't
+> undo that, so the clocks stay enabled and every further bind attempt
+> enables them once more.
+>
+> Call sun8i_hdmi_phy_deinit() in the error path, like unbind does.
+>
+> Fixes: c64c8e04a12e ("drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup")
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-First the entity is marked as stopped and removed from the run-queue,
-with both the entity and run-queue lock correctly taken. The process then
-waits for the entity idle via the completion after which point it assumes
-it is the only accessor to the entity in question.
-
-What can happen however in drm_sched_run_job_work() if there are at least
-two outstanding runnable jobs on an entity, is that
-drm_sched_entity_pop_job() can re-add it to the run-queue due the
-unconditial add to the rbtree via drm_sched_rq_update_fifo_locked().
-
-What is required is that the teardown starts after the run job has
-selected the entity and that it gets to it's completion waiting stage
-before the run job goes to dequeue a job, and for the run job to be able
-to de-queue a job before teardown has consumed too many.
-
-Run job will then see there is another job pending (after the one about
-to be de-queued) and it will re-add the entity to the run-queue. Run job
-will then signal the completion and entity teardown will proceed
-incorrectly thinking it's removal of the entity was final.
-
-End result is a pointer to an entity about to be freed dangling forever in
-the rbtree.
-
-  drm_sched_run_job_work()	drm_sched_entity_kill()
-    drm_sched_select_entity
-				  stops and removes entity
-				  wait_for_completion
-    drm_sched_entity_pop_job
-	-> re-adds to run-queue due more jobs
-    complete_all
-				  drm_sched_entity_queue_pop
-				  ... fini entity ...
-    drm_sched_run_job_queue
-    drm_sched_select_entity - UAF
-
-This race existed ever since the FIFO policy was first added.
-
-Lets mirror the guard from drm_sched_rq_add_entity() in
-drm_sched_rq_pop_entity() and close this gap.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: https://sashiko.dev/#/patchset/20261020154123.33631-1-tvrtko.ursulin@igalia.com?part=7
-Fixes: 08fb97de03aa ("drm/sched: Add FIFO sched policy to run queue")
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: <stable@vger.kernel.org> # v6.2+
----
- drivers/gpu/drm/scheduler/sched_rq.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 23f46ec610e7..6f67a146d99c 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -345,6 +345,13 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- 
- 	lockdep_assert_held(&entity->lock);
- 
-+	/*
-+	 * If entity is getting torn down via drm_sched_entity_kill() we need
-+	 * to ensure it does not get re-added to the tree behind it's back.
-+	 */
-+	if (entity->stopped)
-+		return;
-+
- 	spin_lock(&rq->lock);
- 
- 	/*
--- 
-2.56.0
-
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
