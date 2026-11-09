@@ -2,74 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60798606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:04:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA642606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pZeehOCz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sH2YwJQx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F41610E89E;
-	Mon,  9 Nov 2026 12:04:19 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D3410E89E
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=poUHFhBacCIBc6IKxtGxEHUIb6ec3qc6fq+C0UVooSA=; t=1794225854; x=2109585854; 
- b=pZeehOCzlSKrTHD+6PZKMYHfb4tEhZR9+FsJX0bApz77iVC7ubtHJO50C2xj1EWeG39n5phzU2o
- 54AGfULaWB56MuWgvk5T4c9N6BYdEXI2bYgjebf3Tn1Qk1QKIUdwLArDYqcKeECss14PMNT1++tf4
- ZHFd4XAcL0lu7pUBnVhrnDneK9uLpdAqqXG5CqUh9TpLQ6nknbO5ADhou+eBby4zJA4PQ4PLlRmZw
- p1hEyAS4r5rfoemzzhAzYeJj536ZXfOr186LULDr/5FTSJ+W9lJ0p4BlzAkqZPbBUkFV/TPeRjXLN
- T7tv16LncKgyUvAAeQ1yEl0SiA5zEZer7fcw==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xQO6V-007FBg-H3; Mon, 09 Nov 2026 13:04:03 +0100
-Message-ID: <9c8f001a-afcb-4b52-b5d5-645289c74513@igalia.com>
-Date: Mon, 9 Nov 2026 09:04:00 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id B519E10F1CB;
+	Mon,  9 Nov 2026 12:04:26 +0000 (UTC)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B668E10F1C9
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:04:16 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-85d363fb73cso377214a34.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 04:04:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794225856; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Il0Ynk8pEECCAc0++ftR8vKsXMO/oRqgYyPJLiDcV4ucdLXtXh+cUN+M0Fh/u5HjFu
+ WJkpTowL+a7Z/XXIIXDQHEMrJ0+PF56SWZ/b2fah5yQsPnAQMR16uqfWeLUfEKrh704V
+ VtsrEpOdStBngHaotNA5q9uO7/3WrfHUw9C5iQhI09LAoyTghIac7VUBxWISi0dRqMPt
+ L4ElQD/pSRAoLelXuQXGep736D+9HPzlAJS8l+f6E6CTE7AMTSdSVxpuxLU2c/ADVrCI
+ cija471O8uKFvD4r+R4EJcwIh/vlx61/28ffWoyF7m5g8ycHxdfggtksM/iNaVKauQoE
+ 2vPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4MXvg5vJ/kEt2tXj6TzaVD4BRpobTl9Uihp8vaVmD94=;
+ fh=D42Wl65qZaiKzGAnB1OBOzqHBWWovZD+9BgtUBO4C9U=;
+ b=U4wkb7OpFi6T+fsLqk8Rhfyjyii6nquvDlIM7R4JvXMTArXB7GsNek1ScrE8seKYX5
+ 4XeOgHZs1Lp+hfUH1H5jO8YjVdfsVV7YypHJJjiuhSlG//vVljbeKFIw2LhBfFJTITTR
+ Dt3xpmFIzYygRUNnTwlLwBEl22LGHiM8jrRXCPVZqbNXhYlD9kyp5EpWXnGptDPHp5dz
+ j3PXnC6m5d7Wcd2hICBssruB8vbAN74WUp8KzzewZXpXXnSE4dPNlZz1loJe+Fw9m4Bs
+ qtsGBRJ/BIbYtBBcrpHoPZ6djgp7BNfcO/yCrkaT50Pt2Fw7KhL4XrS7nw3aLOBhBz9A
+ ICHw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794225856; x=1794830656; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=4MXvg5vJ/kEt2tXj6TzaVD4BRpobTl9Uihp8vaVmD94=;
+ b=sH2YwJQxNYAddbc/0Z4cXPEbYIdMBU4e8hBQP1fUa57kXuV5LbLGLfJ4W2XKK5Xy9G
+ kKLHUc1rSMz1S9BaU/PmUKNgDcxFEnhfDU9olHNbO/2eVOG5MEZWjSTUWuBJ5h4B72JE
+ X4X5ufne5wZL8bALKUxIhREzV/jB8sOEVs94mvNmQKllcDFKZ3lUbmQ07LLlvetDAe0v
+ MwePwWxcGPE20q2KKQb8i5l5JXjebtJ2m601OEZMMJ+0PxsTZWD9KNjABH+nPdkI4xGV
+ bNY3fDTdTUHNP7b/2wvDC0rcTSv4dYli15oLNEn42ZxeKWuSeQ2Nh66hypAc40eino8h
+ lkXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794225856; x=1794830656;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4MXvg5vJ/kEt2tXj6TzaVD4BRpobTl9Uihp8vaVmD94=;
+ b=Z4AjqN2jZ2n9wd4TggRjs/SXpdOdIUcf3gySh3CpGzF1+4icCzBkjfzPxFVpDr6up8
+ NLDtfPZr53SJ7AAocPWnmE1Ze5rBM4XYV8p3MbbNqe+JwnBccF0iccxU8D2u+Q+KFeZQ
+ DdJPOOM2caxlLHds5aQ+R607GR+6pIPzqhwRxUefPUqXcPFT1IWi9UYE6I7Yen3c3cng
+ V9UPJ/M4+Nzl5/1g6s/JDtEPNX2RFfVZIFq8TxE26cPns7TgZnD++b4LDmCTa0pXNGzY
+ XN08Y+TjSy6XZLRPPHmi1qO/Fw2f34m/SYWXuOge53ZSOWcLzk0RGWxbcKNg8XzqMz3a
+ eVjA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHykq3txtfVhjoWWjN9TSksuRRukaWPA3ZQx2lBwWPYB5uCg/e7WaSXmldkGVg9Km+WWH32o4hOljE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+mnxnbcp+EYM++7iZVhU3hYCqwnKwzktK6Sp2nCwlCfAcbrtv1
+ ftqStnfpCPosnMfH0YV0JImUWJ6Uk8Xe4UmFcaLi8tq5lYALc7DI6u7JR0/k6f9AL80lxukpheP
+ 0VSPQOsRoOjJDEp2KLh3MlUWNmtQHpbs=
+X-Gm-Gg: AYBFou3DDkiPqP6SDpBHaUV7sQUbVSG/pc+LLSsrzNtVZ+tP+gYkr7gCzBB2qPael62
+ ZldiHVOX32UZbbf4sCYz3gy02eDKcxLBs5T2B2CDz4hSiJZpUhlyzvIVKHMHZ5XX97IJGhFgoEN
+ 7+zuCKZzKsA0B9pBHbTi1VR1j//wUos3m41D21kQMIgmKDMHFohRvXyynAYQ5950kvZrDTbDYT3
+ VRP1TxhP48sYaMEraV+BgP1IYDFVXOBggZ8EuuoSuL9Qj8rFsFajRp67ewfVWAajP0VmCopGo2e
+ zr1AuNjZaDKRv7+Iju4vTZd+gTUo7hGOFDFbt8v95vpDY8Y+ff9r1ZegwSOIfrQ3AZib970a83a
+ Cu57tXLtwdbd6Ct4CkWqCgiswWQDTkr1n+2Y=
+X-Received: by 2002:a05:6808:199e:b0:4f0:1b0b:4dae with SMTP id
+ 5614622812f47-568144bbc67mr2733770b6e.20.1794225855707; Mon, 09 Nov 2026
+ 04:04:15 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/display: hdmi: Use committed state to decide on
- SCDC resync
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
- <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <CAFGNeajNF_VMAvtDDVZPxdzskUR7Y6HPNQp+sH6eihf3PLviXw@mail.gmail.com>
+ <CAFGNeaih0pByA9harSnSd4opyCu4EFKmSR9quD3cNzXEEp+0kw@mail.gmail.com>
+ <CAMeQTsZEwmb3iCPWUa7H2J00x2QBsaCG9GmKMn3U7iJgcHb_RQ@mail.gmail.com>
+ <CAFGNeahsXsKQLoGkxTyX+-c44PnXDS-OWOQ3Y-K_T+2M4Derrg@mail.gmail.com>
+ <CAFGNeajahc1Amwqg_hX43CfcJEq1E0xQK8Grv0sCukjT1TK0bA@mail.gmail.com>
+ <f245aa61-ea8c-4d65-8801-f90a492d5dbd@suse.de>
+ <CAFGNeagv2Lc0L_4r28k5N7Exh=pkNTESh3agUp+3NkLp0YF8VA@mail.gmail.com>
+ <CAFGNeaghfuFwWMetu1D3+bnW++cC3VJo_8YcPZ8ToLO58jxwng@mail.gmail.com>
+In-Reply-To: <CAFGNeaghfuFwWMetu1D3+bnW++cC3VJo_8YcPZ8ToLO58jxwng@mail.gmail.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Mon, 9 Nov 2026 13:04:04 +0100
+X-Gm-Features: AclHuK9jDelAJwncloA3g9Y7Tp49jCg2Ll0Tnkm9szhUCvVsl75UxzO90kp5Xgg
+Message-ID: <CAMeQTsb6CESYugWG32JHiNOVVHUUqTY1JdKCCd4Wf0Uf3T9XFw@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,94 +108,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Cristian,
+On Mon, Nov 9, 2026 at 11:47=E2=80=AFAM Gabriel Gama
+<operatingsystemsdepression@gmail.com> wrote:
+>
+> Just a quick follow-up about Mesa, I'm still working on the OpenGL 2.1
+> driver along with the kernel changes, hopefully I'll have something
+> usable in the next few days.
+> Also someone tested my 2D work on a different SGX535 device
+> (OpenFrame, Z520), and it seems to work pretty well. Funny enough the
+> CPU is still faster at some things like fills and console scrolling
+> lol, but for copying framebuffer data the GPU was about 17.7x faster
+> than the CPU, a hybrid system would really help.
 
-On 04/11/26 10:26, Cristian Ciocaltea wrote:
-> drm_connector_hdmi_sync_scdc() uses the scrambler_enabled flag to decide
-> whether the sink-side SCDC status is worth checking on a hotplug/detect
-> event.  That flag tracks the source-side scrambler status, which is not
-> necessarily in sync with what the committed mode actually requires.
-> 
-> In particular, a source driver may deliberately set scrambler_enabled at
-> init to force a disable at boot and resync hardware left enabled by the
-> firmware, as vc4 does.  If the pipeline doesn't get disabled afterwards,
-> e.g. because no display was active at probe time, the flag remains
-> stale.  A subsequent detect (e.g. an HPD event) then finds scrambling
-> disabled on the sink while the flag claims otherwise, and triggers a
-> CRTC reset.  This results in a one-time spurious flicker on an otherwise
-> correctly configured non-scrambled mode.
-> 
-> Verify conn_state->hdmi.scrambler_needed instead, as it is computed
-> during atomic check and reliably describes the requirements of the
-> active mode.
-> 
-> Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-170670@kernel.org/
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+I once wrote a 2D driver but scrapped it for this very reason, and
+later versions of the platform (oaktrail and cedarview) dropped the 2D
+engine altogether. So if you decide to go for a hybrid system I would
+make the 2D part optional in case you want to support the later stuff.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+One more thing that came to mind; IIRC the SGX needs a firmware to be
+uploaded. Do you know if this is redistributable or not?
 
-Best regards,
-- Maíra
+-Patrik
 
-> ---
->   drivers/gpu/drm/display/drm_hdmi_helper.c | 17 +++++++++++------
->   1 file changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> index 872f7e32e8d2..974d5de6d380 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> @@ -653,7 +653,6 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
->   int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   				 struct drm_modeset_acquire_ctx *ctx)
->   {
-> -	struct drm_connector_hdmi *hdmi;
->   	struct drm_connector_state *conn_state;
->   	struct drm_device *dev;
->   	struct drm_crtc *crtc;
-> @@ -663,7 +662,6 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   	if (!connector || !plugged || !ctx)
->   		return 0;
->   
-> -	hdmi = &connector->hdmi;
->   	dev = connector->dev;
->   
->   	/*
-> @@ -677,14 +675,21 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   
->   	/* TODO: Also handle HDMI 2.1 FRL link training */
->   
-> -	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-> -	    !READ_ONCE(hdmi->scrambler_enabled))
-> -		return 0;
-> -
->   	conn_state = connector->state;
->   	if (!conn_state)
->   		return 0;
->   
-> +	/*
-> +	 * Rely on the committed connector state rather than on the current
-> +	 * scrambler status: a source driver may force scrambler_enabled at
-> +	 * init to get a disable at boot (e.g. vc4), and that value would
-> +	 * remain stale until the first disable actually happens, leading to
-> +	 * a spurious CRTC reset whenever the active mode needs no scrambling.
-> +	 */
-> +	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-> +	    !conn_state->hdmi.scrambler_needed)
-> +		return 0;
-> +
->   	crtc = conn_state->crtc;
->   	if (!crtc)
->   		return 0;
-> 
-
+> He put the tests and code here:
+> https://github.com/birdslikewires/openframe-kernel/tree/main/experiments/=
+gma500-2d-engine
+> The Mesa part isn't ready yet, but once it is I'll link it with the
+> kernel patches for review.
+> Also hopefully Gmail has updated my display name by now, lol, sorry
+> for the previous display name.
