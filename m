@@ -2,100 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B1B606A321
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 04:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0528E606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 04:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KNbB0MHO
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEx6W+6P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C8910EB30;
-	Mon,  9 Nov 2026 04:17:44 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47AFA10EB30
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 04:17:38 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-c4d7d591607so63716166b.2
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 20:17:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794197856; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F33FD10F002;
+	Mon,  9 Nov 2026 04:34:08 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 411F510E1F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 04:34:02 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-c3f04e0e65fso61291666b.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 20:34:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794198840; cv=none;
  d=google.com; s=arc-20260327;
- b=gN+KTRDDcYN4xRV6KWs1e57LJbUnLTZovEMooK5XWUSAz+x+Vce+rQwRh0tZ47i/G+
- J6+9V7BcphueC10WLv1QzA1tQvpppt6BtY6TakZZsZ8AOKQYxvYQQtVdqKbRKPQj5ve7
- Wr6JFjsOqyhCyx8/44V6BcnXt/5YyZecP6Vr4RDG6Esq0P15oeUbbQ0jUqs7SzntPgdv
- IuHVL/m4RtB3pRBvDECDC2+5kqJ5eSB6DtesecJrI2sZxRNxx4U0VB05YMRFh1UrA6eJ
- cuLtv3RvxumphmeBtGx1GWfZ3eQJfylyoI3Ot8JwTKfihBQLewAVeYVn+/zJCfgTB+sC
- jxaA==
+ b=oW7JMqZ+DB53MYXszli99nLBQrDiR6qpGS8wBfmFjMBUpvnYszA+MtNx6Ta5IU/kOV
+ eNZCZPxVBqqTC1uVHVBpTDT6z+xg2Kv9MQh1+LCs+f1Qe8DsCm1M4/xLflMplHy9qEaA
+ BiYDzpqGTMf2SRAYi8AiRrsn9xRSwNQLmaFJNtIr3P4xUhUESlLXVW+nwb9/wYhBLvnd
+ p8mGGb1Duo3ukw0nV5L2ZenmwHodGM49vh8m0q1SdVw7ZE7VuY+bh96PeEpNIGY2MlK+
+ n8dxmIPLKqGDFA2nSmvmCcb2boXenDQ7tm1JpC2usAIfWLbS6S1HxKTRUqTZBpBIdGiz
+ 93Eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=LoqW5deJGeRyx4LL4mvcaMizyiaP0FzBVvAer8RqNLI=;
- fh=7Ss9UAjYxP4lHpJ5egJRAqSvY8JlcZIYXiK9XFgYvsY=;
- b=ay9nmF9FPnOchtGvDTn/mJwPoDx81Ki/+ZtX+CvqmfCJaVZcndamocl55ZP0GL5EEq
- MyMaWWH1/3M9ItSMD3I1t+VDPYbpZB+tpJm3D+mlddcs0dQSH7d3kIM8UZ39Gj+ffRhW
- KZIrwYgjfrBckJCLYg7asrSmHKnzPt11KusV178FAgQSVXMFXfX8qosJP2XuJ3BYOwri
- LNNyvFVFZZmVay1pIfTDDwWvpM1S5eHVmcokeM3fZ62HupwvW1ZdSFbgE43S3ixww90X
- QbIl/DcBV92javWS17oxKikwBKtj1179AtEsdPsKFmg/s6smiQI93KgS52UPlt3P0oMa
- 9ypw==; darn=lists.freedesktop.org
+ bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
+ fh=F/R6BUeKFSHvVzIfdtLKRKQWKD2Oss/+SWvOFO5OcQM=;
+ b=L33PPcCWSwm+Kmr6k7pPIJ1dG/deOSa6gClAMLEzvAC27tJke6yiLjf4Deba4ZElLS
+ cThDHdsV8DFdScq6wQRx9Q/QdkCPEls2yHwunyZUVj0REQfaV2qNfPD8d8Sif/puSnLd
+ 7rY5tH+2jTSXr/GYY320tiwlD3fluZxd9Cz62R3ukKcCWuQfs2/dihoKP6VnJ2yNnKrT
+ dfxWxs7ZwbcOn9Lj/TyqbOd4PhvQjXeF39daxoqAdOBAhcfWZcMuRp4vd/JM0gyuCvHz
+ GTeHO4r69Qdnt1UvIvhY83agbz7LFM3aLCgiahVb/sTviLpI0RUPHfBmZKhRp5ZSC6y+
+ ep7A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794197856; x=1794802656; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794198840; x=1794803640; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=LoqW5deJGeRyx4LL4mvcaMizyiaP0FzBVvAer8RqNLI=;
- b=KNbB0MHOGeek+unqeFSu01SQZ3UBusxYqnkCoXvGREy4QPWnYB8U0CxgCydYS9dh2E
- m4Kh+nJqvOwkuJoH2XRl88NrqoeBL1PjGEoxOwvW1Q8Z6BmuT1OyYHaG2reYZ9n0h+Fy
- Z6BqWIzb1sg7kHQIf8xRSq/UVxrBtVZT23CfyR7DWn862rvR9fosYEf5LBNY9oe3i4rs
- 0jiFOt1kYZc9d88/a7ncS01eh6oSz4JU5AHUU1SAZm0DGFR08KEgesN3KXBIt6bY7vM1
- +9eHePbku2DUbLdKLwYFnCzB76CRCWli2oqnsT9n3fA87X7BDeQuXAXGYCkWW9xFySJb
- a+qw==
+ bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
+ b=eEx6W+6PUiZ+LWSQP4Yku+nE2debE4oWteziG2ARA8EJylz1H3Z1Msyv4sG1gTTtCk
+ +BR898/ASyUhu2Gou+Gt20mAqMryEm16N+a8MDp2yAO8RTA8q7RFExOO5HU3lbVg9/LN
+ BH/4x5W9fTF8AFCR3pLwLfk254S8Nm/DKbH+0gNr9JaxCBMlAFZd2egtIr5KQRhtMOg+
+ ckTuxPTYR4kQQgR7R9HsEMjHLKiwFJB7m8CvHh453njc8NKFJt8YJdaNcP71plOOx3eZ
+ fj1oodZIsl17uf3RDzFOQVB7r/Gc239yQFAAlyyD4eLlnUGtC6yuo0uy/V7ZzDPfHyph
+ OyKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794197856; x=1794802656;
+ d=1e100.net; s=20260707; t=1794198840; x=1794803640;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=LoqW5deJGeRyx4LL4mvcaMizyiaP0FzBVvAer8RqNLI=;
- b=fls5YhPzgNyXCzY3prkV1qsIEKnVhfxw31MobCzz8gCImwc5BUJFfEm9iT2+UGU+6T
- ey9YqtlY7mts5qb0V3z2yrbAJUs4yNUo5M9pjK9o7Sp/JB0gjm3t/hdQ6cXUIrNOJKoE
- n3fRtCWvePTH+6IQ+UXqsziJyaqjdzVoEIeK29gKspML3KJTsqf0sd/sz8yCxBr+49Wp
- jgCr0oLcMpzc9hl+irecAhPnIUjNHWXVDuldJcVnYnA+r7ebSxTJ5x3rv8kaT/vWrGC+
- P/qxZqJ/emlGVJS5I0JR3InrP4BJM8mpPC5Xmrse7F4qg9Lp6r7nxVItvrq5tJNEsByu
- bKWA==
-X-Forwarded-Encrypted: i=1;
- AL+hErHb+y5OpvgW5Hz4k7tAtqwBfZ+EQjvbI4T5Q+TrVbNW/DGO+Hr51W1gWQ/bIAeA4BK6JlzGkpN1QD8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/2I+KLj9+FBbFSSvn/m7UJ6OI3XEZBM4DkZX2nhtBxOBW4zd8X
- 2QsxmFh7BYrFi2NeXM8sQgOwQrdOByYpmmqF79ioE6lf3UqJ+rY4Rw3Ph9u0I3cxg7G2hL7lys0
- 8Mkrk1dZV9isOVB7n0ivsbRaND3J2KZo=
-X-Gm-Gg: AYBFou0WoQZ24I60A/LL/Pk/Oa+Y0qbngXM+YcFKOLQ8kFXklfalHjnJLR1GxAGZJeJ
- BM494Fh+hgIiZ7c8tJCVrvix5mhGyWjgfcGAgSq+m45Qcc0cdHQtFnAjYq1jHzRzoAbKtHs18yC
- iHWYmnT33Pubu6fz6PJxtF2Pl3NRLuijoAnnjjxBV+8ZC3Rz6c46WRVuhicFeYTbrzHP1zw2qbA
- qkuKsUKyWuDLxxv0Mvopm2em4hSYzVXvwT4KY8lMfkUvzdTI1hJbO0z28CgXwzH/HcRKvATepPl
- V9JqGNPCPul8ytzrnLY/pd9nlydBndQoHaXFA/nksFHSmyZzcGVP+KMmqeJZbCvnWgxGFltKuvu
- 7gTNYEle2y0+rx5K/Ejt+3z8So2L3af9DSHX1AViLYt1lSM8qT2w2Gqa8g57mLBO0V34=
-X-Received: by 2002:a17:907:6d1f:b0:c31:7495:e5b with SMTP id
- a640c23a62f3a-c4d6d4a3b57mr182492066b.10.1794197856252; Sun, 08 Nov 2026
- 20:17:36 -0800 (PST)
+ bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
+ b=cqkkVDmdVcEyHFtU+TxbSXLGH0m7wgEU/NEUK1DOKy8iLbWjwIVOcLyNim6w/5jyDq
+ /q//jepV7vssfWJ13vXQa52VNnp3Y8xVmvaWehYA8Vip7vMx6o7gDnV8zvZIBnFisH6I
+ QD/plVuTh5DQJULL7R1yTdAjKqJyuSV/d8p7SFPs0QNuEsu1jbjqs9fLqq6vGUHyjs0z
+ tTsnvRjAcBLkNawGJxiNk9ECKoq/NLDCY06GPl5+EMC6Mk9OI31oaq7DiEp72P1vOxOH
+ MbfuZlV8Q7VogJHda8PliePvnIN8pKvRO94rwTgXVw0gFTBjbhJ7evPgK74YilZV8l9/
+ IdmA==
+X-Gm-Message-State: APuU4Z9MmHZxNdYN5h3xwLzHAxFTmwnb8tSlKtu4sv2642Wl/WRsH92c
+ Qb7vVhuQ5WcKluYJOcso+N+4GbfKiryNOh15XkTB3FxIxiBRIQRfc6XsqQuIx9t1lD6XetxX8AP
+ fSxZvrBQ+rEOkaUU2CQgq2/v4iM2zNvI=
+X-Gm-Gg: AYBFou2ZKOfAAH7YPDW3F6b8CQL+dvbXvjAiWyOndomGyvOa27/jg0VZU8CUvnTj6U9
+ UUOTmkMsOuDfdIV5KS0tPaTia7TGqCGwTuA+ow8emRa5vBcpN/3iOkIE0nge7FmxljF3ZU+8kSg
+ +kAoP5dt+OHfKvug4QECl4M+raKUmC03gkpymwFCr4Dvb9zBYIbiwX1Jh8aYx5QZT5PtOPjYPuI
+ zinz5YdT79tUhmddgbpO1agUZV+YWk9BD5oNtPCcs42FXp0olMHoF3xfOWwF7TeGDsip2/df79i
+ VR+ml0+DOCGy4rQebZin1raokQ6ZeBm/deT0B+9C3wy/1QMXKAk1EVFx7T1gbAME6i8FTyCAmGm
+ 7dDgQJaeayJEyTC479YU5fDnTw9PRxt1LCDFuWxNNznc8iD01PBh1LcsIqo+9b1D5eMjqAqMs24
+ hKGQJ5ny0aH28c
+X-Received: by 2002:a17:907:72c2:b0:c2e:4292:d268 with SMTP id
+ a640c23a62f3a-c4d6daf7c64mr226694166b.16.1794198840452; Sun, 08 Nov 2026
+ 20:34:00 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261003080927.430719-1-yaojiale02@163.com>
-In-Reply-To: <20261003080927.430719-1-yaojiale02@163.com>
+References: <20261005001118.576198-1-rosenp@gmail.com>
+In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
 From: Inki Dae <daeinki@gmail.com>
-Date: Mon, 9 Nov 2026 13:17:00 +0900
-X-Gm-Features: AclHuK_-J55s4cWgSUjxGa52TLLl1osPNTJb75kFDeEkQ09-Bw0YuPtbJyTYZXU
-Message-ID: <CAAQKjZM991J2BoFkqnsyP35Lv91FYmmdpN93vqRVxRsTV-pu8A@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: fimd: handle runtime resume failure for DP
- clock
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+Date: Mon, 9 Nov 2026 13:33:24 +0900
+X-Gm-Features: AclHuK8JGFlUXZkSE5CgvPvR5Q5pqnVQnyO-MTmGLdNc0lY8Yjx1OxeFaWmjmHc
+Message-ID: <CAAQKjZObmQm1X28cbpjd+dEVx93wfBwKNaaaxpU08o8JeFaZfA@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: fimc: allocate formats as a flexible array
+ member
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ "moderated list:ARM/SAMSUNG S3C,
+ S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
+ "open list:ARM/SAMSUNG S3C,
+ S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:KERNEL HARDENING (not covered by other
+ areas):Keyword:b__counted_by(_le|_be|_ptr)?b"
+ <linux-hardening@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,65 +120,105 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-HI,
+Hi,
 
-2026=EB=85=84 10=EC=9B=94 3=EC=9D=BC (=ED=86=A0) =EC=98=A4=ED=9B=84 5:13, J=
-iale Yao <yaojiale02@163.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+2026=EB=85=84 10=EC=9B=94 5=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 9:11, R=
+osen Penev <rosenp@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> fimd_dp_clock_enable() ignores runtime resume failures and still writes
-> the DP clock register and updates dp_clk_enabled. This can access an
-> unavailable device, record a state that was not applied to hardware,
-> and later drop a runtime PM reference that was never acquired.
+> The formats array is allocated separately with devm_kcalloc() and only
+> referenced through the fimc_context. Make it a flexible array member at
+> the end of the context and allocate both in one go with struct_size().
 >
-> Return without changing the clock state when runtime resume fails.
+> Annotate it with __counted_by(num_formats) so the array accesses can be
+> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
 >
-> Fixes: 5d91394f2361 ("drm/exynos: fimd: Guard display clock control with =
-runtime PM calls")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_fimd.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimd.c b/drivers/gpu/drm/e=
-xynos/exynos_drm_fimd.c
-> index b6abdc4f2b0a..ea2b961f0cbc 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fimd.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimd.c
-> @@ -1049,12 +1049,18 @@ static void fimd_dp_clock_enable(struct exynos_dr=
-m_clk *clk, bool enable)
->         struct fimd_context *ctx =3D container_of(clk, struct fimd_contex=
-t,
->                                                 dp_clk);
->         u32 val =3D enable ? DP_MIE_CLK_DP_ENABLE : DP_MIE_CLK_DISABLE;
-> +       int ret;
->
->         if (enable =3D=3D ctx->dp_clk_enabled)
->                 return;
->
-> -       if (enable)
-> -               pm_runtime_resume_and_get(ctx->dev);
-> +       if (enable) {
-> +               ret =3D pm_runtime_resume_and_get(ctx->dev);
-> +               if (ret < 0) {
-> +                       dev_warn(ctx->dev, "failed to enable FIMD device:=
- %d\n", ret);
-> +                       return;
-> +               }
-> +       }
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-The early return on runtime resume failure avoids accessing the FIMD
-register while the device is unavailable. It also leaves
-dp_clk_enabled unchanged, so a later disable will not drop a PM
-reference that was never acquired. The change looks good to me.
-Merged.
+The allocation size, initialization order, and format array lifetime
+look correct to me.
+checkpatch.pl reports an error for Assisted-by: LLM like below. Please
+describe the AI assistance in the commit message instead of using this
+trailer.
+
+WARNING: Non-standard signature: Assisted-by:
+#57:
+Assisted-by: LLM
+
+ERROR: Unrecognized email address: 'LLM'
+#57:
+Assisted-by: LLM
+
 
 Thanks,
 Inki Dae
 
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_fimc.c | 17 +++++------------
+>  1 file changed, 5 insertions(+), 12 deletions(-)
 >
->         ctx->dp_clk_enabled =3D enable;
->         writel(val, ctx->regs + DP_MIE_CLKCON);
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/e=
+xynos/exynos_drm_fimc.c
+> index 09e33a26caaf..079d24d0671c 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+> @@ -99,7 +99,6 @@ struct fimc_context {
+>         void            *dma_priv;
+>         struct device   *dev;
+>         struct exynos_drm_ipp_task      *task;
+> -       struct exynos_drm_ipp_formats   *formats;
+>         unsigned int                    num_formats;
+>
+>         void __iomem    *regs;
+> @@ -108,6 +107,7 @@ struct fimc_context {
+>         struct fimc_scaler      sc;
+>         int     id;
+>         int     irq;
+> +       struct exynos_drm_ipp_formats   formats[] __counted_by(num_format=
+s);
+>  };
+>
+>  static u32 fimc_read(struct fimc_context *ctx, u32 reg)
+> @@ -1273,20 +1273,16 @@ static int fimc_probe(struct platform_device *pde=
+v)
+>         if (exynos_drm_check_fimc_device(dev) !=3D 0)
+>                 return -ENODEV;
+>
+> -       ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +       num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_=
+formats);
+> +       ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats),=
+ GFP_KERNEL);
+>         if (!ctx)
+>                 return -ENOMEM;
+>
+> +       ctx->num_formats =3D num_formats;
+> +       formats =3D ctx->formats;
+>         ctx->dev =3D dev;
+>         ctx->id =3D of_alias_get_id(dev->of_node, "fimc");
+>
+> -       /* construct formats/limits array */
+> -       num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_=
+formats);
+> -       formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats),
+> -                              GFP_KERNEL);
+> -       if (!formats)
+> -               return -ENOMEM;
+> -
+>         /* linear formats */
+>         if (ctx->id < 3) {
+>                 limits =3D fimc_4210_limits_v1;
+> @@ -1320,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
+>                 formats[j].num_limits =3D num_limits;
+>         }
+>
+> -       ctx->formats =3D formats;
+> -       ctx->num_formats =3D num_formats;
+> -
+>         /* resource memory */
+>         ctx->regs =3D devm_platform_ioremap_resource(pdev, 0);
+>         if (IS_ERR(ctx->regs))
 > --
-> 2.34.1
+> 2.56.0
 >
 >
