@@ -2,93 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E36606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F35606A33F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=tLmSvOJc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1AC10EB78;
-	Tue, 10 Nov 2026 08:33:34 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023115.outbound.protection.outlook.com [52.101.127.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 116DB10E848
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:09:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SAz5uplkhZjAJ/HkDOi67tbM0vQ4uEHATap4kRKlo7J4m3jZO04lTg7PRDTvRmam35HO3fgpB5zhGm/HV4ykFu2HIkasXyYh7G0qUCkm9mHsP8G9W5CzRMSpaMOpBs1vUiXRGw6ajbs/7zbgiq0huSYvZ4thtbc4kWz/EH0VJQekv7SIyXpbNp6YIdPNqqBlwkRx4E3//RNJBuJ5e4Fy+ssNGpRlVUrjKQOM23wAOu7+IgwLoaJdjzZYl+qGcyy26WxSvQSYVBSC8wYz23r3h4yMHXBX7yiWUfiDi/SxfRHUtF4zabQz9z3NMRi6Ea9h5m/9kvPMqhOdoghlV7+cjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a/GTny8y0Fq03kHeou/H4pJdVMeDeQY+v7vRik/494U=;
- b=t1REAI0JYwu2L541JTC+9VFKgNNiZeSUr6dMiBx6ymbtsaGO1gtmRCMHb0lOHYKUWI/VxtZfwfMQfCo1N+taaUjeszC5Uf3OTopunkaisYLzdX49pivGhlqJGPlhXkrZqMuF7BD0Evec0UacZyyNWOyRugZY6z7oR3TfGi2xmW7osqxgFMj8eBBGQujAYYhyo090VFFRlNWSaa8xJve9+GwzbhEYhAWOIKmdfv+VWV7uchuZSfWoz/BZi5BHOX9DLj3FBlhyOui4HWbpMkZTqt551gIsWbU+/mJsv+fRYKP1tGpXl6uRaetbztMOOBxQP+MS+OJ+Tqb8XhplJHAB9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR02CA0013.apcprd02.prod.outlook.com (2603:1096:4:295::10)
- by SEZPR06MB8912.apcprd06.prod.outlook.com (2603:1096:101:33d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Mon, 9 Nov 2026
- 12:09:05 +0000
-Received: from OSA0EPF000000CC.apcprd02.prod.outlook.com
- (2603:1096:4:295:cafe::84) by SI3PR02CA0013.outlook.office365.com
- (2603:1096:4:295::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 12:09:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CC.mail.protection.outlook.com (10.167.240.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 12:09:04 +0000
-Received: from cix (unknown [172.16.64.42])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2D89D4102E74;
- Mon,  9 Nov 2026 20:09:02 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gary.yang@cixtech.com, fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
+	by gabe.freedesktop.org (Postfix) with ESMTP id A70D510E7CD;
+	Tue, 10 Nov 2026 08:33:29 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 046B110E877
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:24:05 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4ac95761c85so5437045e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 04:24:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794227043; x=1794831843;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qYbJCi5+nwNEi61CS2emr9alE1zi1Zmi+juvvOHmGRo=;
+ b=tLmSvOJcucNCkcJjZIDQHq3ulg0JCpzZVcH7j/DxLCzXN2X5CZf1/BOxv/aqp3u1mc
+ DCBt12pJbtxsEhKHrJ/tthVQe+PgNhDue6YHLeJnrfwCtJ7Uz2nowlIyvBChbk3kSNGp
+ SQxo90lec/jWMRWeqE+HJvsDau3UoOt1Do28waWVugxS0RR61gEh1SYYaa4Ie0xddX3o
+ bkMOIP6jiNTv5VA7kPzNcrrMSxrmHTaVBcI8y5VtjqilqkuZjTaOjG7tscVq/RpDPYgd
+ ahXvR7dwGuc47zFN6416ktV7pyq4w90ZyAhe3g60QEMAtKBeYxkfADq6fg5wh7MUe74F
+ peMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794227043; x=1794831843;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qYbJCi5+nwNEi61CS2emr9alE1zi1Zmi+juvvOHmGRo=;
+ b=2DPzTLWJv7o6kd9Rt2/d7ar3qd3BOD+cdv+ew2NtQZD9fuZ0NkR39tRHBhz5f9pEh0
+ EpUF3RuO1CBcznZ8He20pNprwpoJ4QcdfFX7kuCievSq0mofcQO5gCR4FDH98X5bI5r/
+ SzXedQ9skR16YVDJWTsk1g1ADXozw2b9VCS17Qz7Kl0NaCLM5zzizPF4PoJqzteOsvNX
+ o5pwd4d7eTgS5bDm2lpgmi9rtjG3IkqPErtriWlm0gINjO8PBaaiS8xYmwjLhKS7s67d
+ KNnRXH4wNjDHkht+VTDvFFyBZCg+ewZlIw7jH3jQmA3HycRHVroNoL7b0QtrX722Blxa
+ iSfA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEFDdryu1DvPmyIDKjLjo9l/gcp6u2f7eCLz3e6GPf24ZXQsWwJFy6pW1gQGsap4xSkXiPhi0DyBm4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9C6cJSaJJWHA/vG58tocR2u5dW4BG5XT2HKwK837A1ZrGb/nup
+ 5eX+4fOMpzs/ro9OOQDCs3mvQ26ULlRy4hJMlSU6deNzcZUJABhlYzNxe9024uHEUJU=
+X-Gm-Gg: AYBFou3Id05q9ptEF1fJ7SqFJ7SxtHikkbpVYFRP7gzdVJrM2Rs9igt09tjBVbHhRSM
+ IrFo/JzyopTvtUG6LNlXoCpMsoM19Qb4B0YnzBpbsnisY3W6F0L8LOmU5a+D+Ha9GKJLRkCTNVR
+ 8qPav+7i7cy2dOFkkNhlsM2HTwgx1N5Q1MOTnOm/eOWFB1tKdUBx9Hzdq/O/nd3UGiAeHPYkScv
+ kOVO1QXUnPjwqE8a/Xq0SDf9wbGBqgjQ0mR4ySq168clmcoRZOTV/2lln4/Lu5cfAYP3HGjXxhP
+ FopfqLahUj10lPl+H4i6XTfkWok5HMj0zhDTNZtE9pSvWzW9BYVOxa0NXi6JLPMSxk/l0+U0Utb
+ 7ppPlMznRMU+z6dkitWviejOLVe8cLfzTV503FzdGBd2ry2IpuCJ6eQ2lPJ4sQEpvUW3uOzMRg3
+ sWzhJthTpOC8WSfMDfP3UyMHM3Rq3U5aSUttm2GJwp642Sj8UwFhrcNSKeUd0Kya8yrcDdhWX50
+ kbyV2RbBHHAqvrNxE+J/QkFL99t2ATv3p/mllfBlKwHDlSwZuK11421RyFJTCm1unzwdtTDXz+e
+ mYHyBd/2EkTpKtR9xFU3hi45FfBlufKT0iOr6aVIioGK5Uydt8Bj7V7mNHIWDrnJ/iNrjjqlWjX
+ zKPasGbSfkw==
+X-Received: by 2002:a05:600c:8b70:b0:4a2:fd2:985d with SMTP id
+ 5b1f17b1804b1-4b963c73ab1mr72661995e9.12.1794227043509; 
+ Mon, 09 Nov 2026 04:24:03 -0800 (PST)
+Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net.
+ [83.150.40.162]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49597652ca7sm10500318f8f.39.2026.11.09.04.24.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 04:24:02 -0800 (PST)
+From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+To: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexander Forsch <alexander.forsch@bytesatwork.ch>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- robin.wang@cixtech.com, cunyuan.liu@cixtech.com
-Subject: [PATCH v2 0/3] Add initial GPU support for CIX Sky1
-Date: Mon,  9 Nov 2026 20:08:58 +0800
-Message-ID: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Frank Obergfell <frank.obergfell@bytesatwork.ch>
+Subject: [PATCH 3/5] arm64: dts: freescale: imx93: Add MIPI DSI controller node
+Date: Mon,  9 Nov 2026 13:22:48 +0100
+Message-ID: <20261109122250.720757-4-frank.obergfell@bytesatwork.ch>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109122250.720757-1-frank.obergfell@bytesatwork.ch>
+References: <20261109122250.720757-1-frank.obergfell@bytesatwork.ch>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CC:EE_|SEZPR06MB8912:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: af872209-5929-4319-701d-08df3e5a3fd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|10067099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: foHW/4yj7Jh+S7ImBFbxQboGzflUB85LVE6u3nRhB4W4/Dkihc4VXfQfdLPS1iCnv+ikU8QyO37K2eW3tDGTyKUAbVFsXjmQTSvUPyT2sZYcYUqsyVeGE2RlfcWx++nmPUmDJMDWRy8Wmrk0HToZmq05rkieTKmXmZDho3wnEBasz/k+ThpERsBrVGxCWZN7xl3OEVId/eaTU13TyMuVAeqbQgp60SXv+4KLEofm8+z8KeUi4mF0mCP70KXxD0T8biBkC7zdosAVSvzm/M7twWewxM9tIHz4SKJUez4dAurKZ/5z/Cl+Z5B/7L1W2diZDm+0Vg+FQpb/w/kEnjq8rFcS1d1qAQAr1pFHAbsTO+02emI0dimv9K6cyh5t4FDiHph7xYUXpicbcs56HNS1DgbMp1kw8Y43x9RiUfolj4ALFnM5cibZEpN8hxToQmUqjzaupOVrkLcMSONa3ORLmjApUWlNN37T4wq47n9NIYzEr1lfLMUCCxIBvg7nTcWkoGM8Ubi9KDq1Vt4teOk2l5whScz3zHLzmDLT4NOp6FFksVjcMsoXcM6VnGMsaXd33aivO2XrKm6bluSaXvO/WCIqjaNy4gKaJGfLpotCE/GHNMovzDl0P8X3IVWYcAauKxHiHlaAOqhelCgchC7OQQ==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: I49n9k9nsQ/JjEnBu0+OEa6NZpXlHwolbNj4kMi/cb/Mf+6uLFNRwJJZVmDh1T5zFPMp9GSHAzLCa8MTbs6DBZ5q7ygSIawaFMr7zav5GTwf2Uw2uUC6JFKA72vwZmxdxQzTTawOxRzBT5Mxd4Y1DvTFTHN0zR0DSkw6UqOpplG3iUtKg2RFPY4bgxbEPVBB/bg6qdb7W7cEw1TaM2NUIKjqVRPNsOeoc1mTMflY+CwnwTuALr8jpoQoAZx/SDV4zXCnq62WlaN0cGBuziNkLx7Ne2FWYSfVjRtsJoMutTsZ4yqJhFaSqA/aLGstq55666AziJ8XYrkXqjS/0zEjXXBUoo5uSX7TL/NEUHV0Pl8BG1hKl0BUEt52rMxwHzt14KyTQwnRnblHWkuVKCK78cPLThCT0Mcs9+R/DGap/19QzEEE3Nh6AP3H3S3t8xPy
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 12:09:04.6083 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: af872209-5929-4319-701d-08df3e5a3fd0
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: OSA0EPF000000CC.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB8912
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,77 +98,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds initial support for the Mali GPU on CIX Sky1 and
-enables it on the Radxa Orion O6 board.
+Add dsi node to the i.MX93 for support with mipi dsi panels
 
-The GPU requires an external reset before the driver first accesses
-the hardware. Add optional reset support to Panthor to perform this
-reset during initialization.
+Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+---
+ arch/arm64/boot/dts/freescale/imx93.dtsi | 34 ++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-This initial version keeps the PM firmware default clock settings and
-skips devfreq. It does not read OPPs or request a performance level.
-The firmware sets the default GPU frequency to 1 GHz. No devfreq
-governor or GPU cooling device is registered.
-
-Configure the system-level cache before L2 power-on using the settings
-from the working CIX Sky1 driver. On Sky1, devices on the MMHUB bus
-cannot access the system-level cache, so buffers shared between the GPU
-and MMHUB devices require a specific system-level cache policy. Without
-this configuration, the GPU display output is corrupted.
-
-The series contains three patches:
-[1/3] dt-bindings: gpu: Add CIX Sky1 Mali support
-[2/3] drm/panthor: Add initial support for CIX Sky1
-[3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
-
-Tested on Radxa Orion O6:
-  - Offscreen rendering with pixel readback
-  - kmscube
-  - glmark2 at 1080p
-  - Runtime suspend and resume with a retained EGL context
-  - Reset-worker operations
-  - Module unload and reload
-
-
-Changes in v2:
-  - Use devm_reset_control_get_optional_exclusive() unconditionally,
-    remove the redundant NULL check before reset_control_reset(), and
-    drop needs_external_reset, as suggested by Philipp Zabel.
-  - Add Conor Dooley's Acked-by to the unchanged binding patch.
-
-Link to v1:
-https://lore.kernel.org/all/20261106104735.1651267-1-cunyuan.liu@cixtech.com/
-
-
-Best regards,
-Cunyuan
-
-Cunyuan Liu (3):
-  dt-bindings: gpu: Add CIX Sky1 Mali support
-  drm/panthor: Add initial support for CIX Sky1
-  arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
- .../bindings/gpu/arm,mali-valhall-csf.yaml    | 51 +++++++++++++++++++
- arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  4 ++
- arch/arm64/boot/dts/cix/sky1.dtsi             | 16 ++++++
- drivers/gpu/drm/panthor/panthor_devfreq.c     | 11 +++-
- drivers/gpu/drm/panthor/panthor_device.c      | 13 +++++
- drivers/gpu/drm/panthor/panthor_device.h      | 19 +++++++
- drivers/gpu/drm/panthor/panthor_drv.c         | 14 +++++
- drivers/gpu/drm/panthor/panthor_gpu.c         | 14 +++++
- drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  2 +
- 9 files changed, 143 insertions(+), 1 deletion(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/arch/arm64/boot/dts/freescale/imx93.dtsi b/arch/arm64/boot/dts/freescale/imx93.dtsi
+index e926b6360a9d..1123e372eb79 100644
+--- a/arch/arm64/boot/dts/freescale/imx93.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93.dtsi
+@@ -58,6 +58,39 @@ npu@4a900000 {
+ 						 <&clk IMX93_CLK_SYS_PLL_PFD1_DIV2>;
+ 			assigned-clock-rates = <800000000>, <133000000>;
+ 		};
++
++		dsi: dsi@4ae10000 {
++			compatible = "fsl,imx93-mipi-dsi";
++			reg = <0x4ae10000 0x10000>;
++			interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk IMX93_CLK_MIPI_DSI_GATE>,
++				 <&clk IMX93_CLK_MEDIA_DISP_PIX>,
++				 <&clk IMX93_CLK_MIPI_PHY_CFG>,
++				 <&clk IMX93_CLK_24M>;
++			clock-names = "pclk", "pix", "phy_cfg", "phy_ref";
++			fsl,media-blk-ctrl = <&media_blk_ctrl>;
++			power-domains = <&media_blk_ctrl 0>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					dsi_to_lcdif: endpoint {
++						remote-endpoint = <&lcdif_to_dsi>;
++					};
++				};
++
++				dsi_out_port: port@1 {
++					reg = <1>;
++				};
++			};
++		};
+ 	};
+ 
+ 	sram: sram@20480000 {
+@@ -183,6 +216,7 @@ lcdif_to_ldb: endpoint@1 {
+ 
+ 		lcdif_to_dsi: endpoint@2 {
+ 			reg = <2>;
++			remote-endpoint = <&dsi_to_lcdif>;
+ 		};
+ 	};
+ };
 -- 
-2.53.0
+2.47.3
 
