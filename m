@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD175606D83B
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8034D606A322
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UFlDN21a
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eD1EhzID
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44ED510F283;
-	Mon,  9 Nov 2026 13:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60AD10F284;
+	Mon,  9 Nov 2026 13:11:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3DBF10F280;
- Mon,  9 Nov 2026 13:10:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1874710F29D;
+ Mon,  9 Nov 2026 13:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794229847; x=1825765847;
+ t=1794229860; x=1825765860;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rVfe0EdQ0ADK9rlXStdj2gNQkQxng4CaytjOvju+JrI=;
- b=UFlDN21aMqFmRK3oaPS37hGXAPdt3k3xMCH5/cOUwShNsnG1pHonyGbW
- adhoD1/2mBn7IvLZNMPRvq0i0xc76ckJqZPX/HiLMKIZwVGUGtaD0sJ9Z
- DRtcKi0MrXudHLjLGBxUPB1gyMwi+X+1PLZhituz8cztmZWhzgFuj/24f
- NCLVnw1vp135H1f1+HHvSrt5wF5TX+vWvolefPfsSY6t+A6h9B8b0Xo5Y
- +ceafZGc4kpYt3XDDVIYyCwiTPbDBA3bvMXTx7dxP4ucHLcMQyxmT15FM
- +y83F2dy2LY6li6oIG+HvQIL4LLsSLHhY8xG3Bf1C+xBQwckdUdDhE4JT Q==;
-X-CSE-ConnectionGUID: Bh23wO6dTZyeBp+ljD0Fvw==
-X-CSE-MsgGUID: QosFYfeDQ2qdoeZRQJcoeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2843604"
+ bh=KiHN1pxVayKxO5mupz+g4G35Vt9fAcltz04pRwX/fbg=;
+ b=eD1EhzIDSORkpsWPSlE4mxd9u32A6NiQRpTYoJbGpBxO0IEyywSjxVGZ
+ VYCP0R5tV3ulOE6dclP5RKoCxjzafmiittiB3SmWRmFqNa6AggxVDCwHu
+ LhHbedQU9GgdtqdiWXZEQtOuReQbd9bqC9webzTC7vn/o5dHK0eBt2CRd
+ LMOSeLOkwqsZw+Zyzus20wHBRWInoasgQjnAx4yGAJkq9awsCcta/IO9k
+ Q51u3aZ/KPG5wyYPR/5oXKxMyhFqhtLLceN4gHvqyGe/dT1El40EsKpEu
+ dHmjvX7K/ZpJMfw8iRWtMbjoJKiIAOuaH1nMHuKpV2hdK78qGdHzU3t+e A==;
+X-CSE-ConnectionGUID: sOJxSviITBek2HV3ruoPyA==
+X-CSE-MsgGUID: sjvJZcFuQveTpH6w+sUvEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2843627"
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2843604"
+   d="scan'208";a="2843627"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:10:47 -0800
-X-CSE-ConnectionGUID: 4fBXfPgtRFGEsMcsVR789w==
-X-CSE-MsgGUID: Z21x23CJTFGEmtrWRwK2Nw==
+ 09 Nov 2026 05:11:00 -0800
+X-CSE-ConnectionGUID: pK5ua5WPTUKCTO+ozskMtg==
+X-CSE-MsgGUID: msX1r8hZQGewA2KlQ6L/PQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7683709"
+   d="scan'208";a="7683823"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.139])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:10:42 -0800
+ 09 Nov 2026 05:10:54 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
@@ -48,12 +48,13 @@ To: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 2/3] drm/xe: Remove driver side resource assignment after BAR
- resize
-Date: Mon,  9 Nov 2026 15:10:09 +0200
-Message-ID: <20261109131011.1815-3-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 3/3] drm/i915: Remove driver side resource assignment after
+ BAR resize
+Date: Mon,  9 Nov 2026 15:10:10 +0200
+Message-ID: <20261109131011.1815-4-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
 References: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
@@ -87,25 +88,25 @@ call manages to assign more resources in some scenario, the problem
 should be fixed inside pci_resize_resource() instead.
 
 Remove the pci_assign_unassigned_bus_resources() call from
-xe_pci_rebar_resize().
+i915_resize_lmem_bar().
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_pci_rebar.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_pci_rebar.c b/drivers/gpu/drm/xe/xe_pci_rebar.c
-index 7e2c7079b6ff..f47b3c039abd 100644
---- a/drivers/gpu/drm/xe/xe_pci_rebar.c
-+++ b/drivers/gpu/drm/xe/xe_pci_rebar.c
-@@ -100,7 +100,5 @@ void xe_pci_rebar_resize(struct xe_device *xe)
- 	pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd & ~PCI_COMMAND_MEMORY);
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index b8a39567a334..d6f5e340657c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -104,7 +104,6 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
  
- 	resize_bar(xe, LMEM_BAR, rebar_size);
--
--	pci_assign_unassigned_bus_resources(pdev->bus);
- 	pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
- }
+ 		_resize_bar(i915, GEN12_LMEM_BAR, rebar_size);
+ 
+-		pci_assign_unassigned_bus_resources(pdev->bus);
+ 		pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
+ 		intel_uncore_forcewake_put(&i915->uncore, FORCEWAKE_ALL);
+ 	}
 -- 
 2.47.3
 
