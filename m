@@ -2,88 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E5F6082BDD
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FAC6082BE8
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 09:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlIB3j3o
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WjEBiJ2G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAE710F06F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71EDB10F064;
 	Mon,  9 Nov 2026 09:31:35 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7768210E054
- for <dri-devel@lists.freedesktop.org>; Sun,  8 Nov 2026 01:14:51 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-36e99cf7bb3so234076eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 07 Nov 2026 17:14:51 -0800 (PST)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180EF10E82D
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 07:57:18 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso5337055e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 23:57:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794100491; x=1794705291; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=axwt+uxCb6RU8443n13TL3SuB1RoRoLly/8X+nI0FOg=;
- b=HlIB3j3oTnffLZrvcxfGoQqKQfpUo2x3czjNW88ot+OVMeAtMyle8vuLL1YZg6Byrp
- Q3ICnSvFdNpgU0InsqEelvpg6wBvRhhdB88rkG/f1UW+G91jcaALXi3C4FWSit8wAtL2
- 8XMvr4Sx6MGiy1feoiQdzfNqbndM7/slE6QOSpNmulKjUdypVTY9dgBSfezyoSpsW/Rp
- oJ12g9HGJNTy/NJgILrVGstGoapthevXFGwWp6l83YJ/3urtzbY7/YOP8XhNZ4wYGU8Q
- oxyy1ViD7+h8wzeQFrfTFaGWxzavjPwMYXuvOjmG4L/I7j06W9OoePI8g7FNZuUMdiBI
- lVXg==
+ d=gmail.com; s=20260707; t=1794211036; x=1794815836; darn=lists.freedesktop.org;
+ h=content-type:mime-version:cc:to:from:importance:subject:date
+ :savedfromemail:message-id:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=oSZtnQqmO91815YCl6w8B1jBmlR+NMPXcHdswCv7Md0=;
+ b=WjEBiJ2GB6oq2KmkWhP99b8yRXj2ZNyW9ITjF4Z/R0/786NlJ2NHFr7SM7W0Qi2SHy
+ ZOorG0qm9L9CvrQKCKzApS6Em4Yd15lT3B9bKqMps9MmdDBj3lH55HOodmuq4NN48+U7
+ KRN5xYjwQWCcvSqsqWQ9P8YCrCtJgydHq0ZS1xTTGP455Xkpfm8xAzI4icCGnRA8NFnn
+ 0xiOztgkpuLktQQ8AKwww7adJ4GsJKEd3VkgSt7CnHRB6or7KtWpNxr2pw+5Ob1obHgg
+ CaF014VZ9WSZxSGfLdMcOJF6ngB/ehUUBQtXvGwF4YA5W0mkVXZTneXZbQIWgb2RO9ZB
+ NemQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794100491; x=1794705291;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=axwt+uxCb6RU8443n13TL3SuB1RoRoLly/8X+nI0FOg=;
- b=PYS4MdWpK8co2icPSoOlPKIobM1MUpvL+OMXNCFzQ3xVilTjRNKwg6FPPUH1cqdIS+
- O/kZDFHYhy6gadoB4Sx84wTuKowAHe3DNB5dWkdTdNZm/jxMpuriKFceon8rwH9RBE8T
- 66ebBzR/6Vcv9dq5kiu73vA/EZfEmTD6mogcKBFfI/qzHV9hkJGUkozIrTo0eSPY1Ghc
- GtzfaCw+v/9BEgGhlEw59nEHjqsFS06Nq4oam0tZgXUYY+Rf+CvUashZnDAjQouKUsqZ
- 8aBjYzRG4Le8DsHhAHC5bUyT8JJ14uQzrVdwZJXDZyv9KY6dssPhA7gTWL7FL1Vfw4NT
- P2IA==
+ d=1e100.net; s=20260707; t=1794211036; x=1794815836;
+ h=content-type:mime-version:cc:to:from:importance:subject:date
+ :savedfromemail:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=oSZtnQqmO91815YCl6w8B1jBmlR+NMPXcHdswCv7Md0=;
+ b=Vc13S/YMeQ6kNF5cm1Oulvb2pfxjknLmvkI5rMcu+gZz9kv+tq4FFEttG8sqsM9iM0
+ tnFzakcBOv6WvMAC2Wjzb6jM1/jc8oYn4RMR7UY90Ohl6gf/d6IEbpFoMZTIQXvK8GBy
+ IWus1SgutkSTeszcd+g2yEYZewXGExabJ6Mp8rphqIbCQxs+p8PJCTZ2BghEb1ZplQ5R
+ Kxhh2zOjw3cWrtsOt/pG6XDJ208MCSI5btOwHf+ByHQbgKIwXGH3/7QXM5pf1LpYDDwW
+ QD9LpUh7ahpqkqBVcToxdLZqrfqiJxrCDCY8pB0wDZjeJInIBmPIxqVeoTxM9w2jurBN
+ 6DYw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwiM4lQeGVXukCt3NfaiPS7po7UXxC8Ru4ZzjW6kEumIsGqJTAO0ypH67Pvu6uq+hIyh1oog8RttQY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Dobfj9CCtBn09GLpY49TaZiLywnCAZFYUrzv+mVAWDPStp5aL
- vp/pezBt3mqVucDO/hiuHpCQM/SUaCy0Fr/oOFdGsbOMqjPecBZQUsqL
-X-Gm-Gg: AYBFou1F5WGa1z0bhEhzV0beT8Fv2UYA7oHdhMgiqy09n/LUjva0wc4qdSvQAEQNNE5
- UGwlUuAP9gfJRgdm+p59/SuGfkPA2wlJxnd9dhrdpZbC80IIHkM229jVMpvRqVpheiGACyEh8y3
- alnpwF2rWjPPZakI6wh4R8dZBsp9qxaTvB7nE09rhd3lwpfXM6vXj2Exm7MzjH2OpmE+oad3lrv
- twRDCOgRQGCAKK3pmC/aLCm5N1UoRgSnkJHp1lat/aeCawNFjkri6MqtTA+kl9LzSrz/l9CK0yI
- cvU+QT08cC9UltkWiSX2+7v1UOG4LNs+Of0XqHAu3eBXQ0vFdp+aTF50LF4EIq6pq97DUy4paVu
- zJzGL2kTJWfzWDrbDi8OEvaw3Mp608xeNst+aq/YjpMzTEgt0nRQcOyrM5ybov+Tc7T6ZhkU6iY
- 6xxRNLVpRw/J4NZTa3Lqc9I7CHIjPfhJOrgr6WZW6HM1cnUUPECKiftbv/Tu22c9wQIiVoGvqT6
- AuoMU5cBeYE4nqVQJNjgM5cYkKTtUMPJJqtAYSyEVkedjOnhv18d8F1shbClFajCIdZVZWmFOJR
- ULDMOEmQw3EcpzoQ8nZWRKU8NtJTFpT6ETqrdWSwpLAZMAdDGSSeGuoZgV8GftRrnA==
-X-Received: by 2002:a05:693c:62da:b0:36f:4615:9747 with SMTP id
- 5a478bee46e88-3724ff5a59dmr908439eec.0.1794100490242; 
- Sat, 07 Nov 2026 17:14:50 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ AL+hErEWR5RDGj8DJu76g/NKRMlnWxq+dnhKUE2WsvY8/brq97B229EO8iM7hBMuwhezcqcbLt8PKJ7fTvY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/SZGwLYheEXLiY3QzkoSsOdrJ2VIA/4j/aEtpDBXpOqHOwfJwD
+ XWnF0jt6Jb9NSprCNzA37fn3SQoChDHVpUFappvqq+0f4cjLzCYxb3tT
+X-Gm-Gg: AYBFou2hKIoRymJbdNWittNLsafMYbm4pX1xqNcX8cFWsjSgXryLGgXBPtwAw5TCIco
+ lb4Lzvku78/iyJ0LTvlmiW+VNsEebUsck57xyQuP6RxJi1pNB+Yi+SO+CrKrb9YNeKyDErXuSPO
+ 0ew11/S7IqT+Yk9G4/wtUi5scBfFSAzYtaQyeUHG/gZGzr3GNVU37dZ5oA9ZRwzholpQnY3YbWR
+ 9xDy9OTqJ94DdCeFMQrYPmKYvTw4OL4PXGd0hwmtjrrhe3MQMSB0KHdMbqPHxzj/E5j5i5+kY1E
+ UdZLNN+VUTriXNhCTGEj5wyUlsfWjKS7/9aBkD5RMw5+N3H1B/CYBRajictm4a3mD3QjlW/oS0Q
+ AJgyowdI9beVlHEVZrms9+Fb4OnxdxD0smVqzXA/R504TxD68lzWkfCHFPbUZJ0aQnMkwILlzBT
+ bvvRQcZTYHgcGVbaLI5CEmmfigSl7KdH4nZZvtuGsg35OCTgqMbX1h54pZI4O5shbxJZUzagFAn
+ JBlKcUOAHYO7ATcXlZcNQUs97EAmahpnscGHNaATmKZ1GHRGtNJVQtpr2rjtiGxm+VDEGpWfyaV
+ LAnBog//RsnOxfupHASqYjZMrkeKRjao3xyfO8WSsUkT0XxqYZIhbtNRwCNUZk9o6K+Sr7oLQB7
+ IeIw=
+X-Received: by 2002:a05:600c:8b61:b0:4a1:f99e:f22d with SMTP id
+ 5b1f17b1804b1-4b963c664e5mr55374945e9.6.1794211036241; 
+ Sun, 08 Nov 2026 23:57:16 -0800 (PST)
+Received: from ?IPv6:2a00:1d36:5f19:6e00:ecb3:a0a0:381:92f5?
+ ([2a00:1d36:5f19:6e00:ecb3:a0a0:381:92f5])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-372656187f8sm1335220eec.5.2026.11.07.17.14.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 17:14:49 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 00/35] drm/msm/dp: Add MST support for MSM chipsets
-Date: Sun,  8 Nov 2026 10:14:50 +0900
-Message-ID: <20261108011450.4428-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
+ 5b1f17b1804b1-4b7a0e1f298sm141274445e9.4.2026.11.08.23.57.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Nov 2026 23:57:15 -0800 (PST)
+Message-ID: <6af17cdb.63afbf66.14af03.b907@mx.google.com>
+SavedFromEmail: atailhan2006@gmail.com
+Date: Mon, 09 Nov 2026 10:57:13 +0300
+Subject: [REGRESSION] amdgpu: Raven/Picasso MCLK stays at 1200 MHz after
+ Chromium exits
+Importance: normal
+From: =?UTF-8?Q?Ata_=C4=B0lhan_K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative;
+ boundary="--_com.samsung.android.email_409555773741660"
 X-Mailman-Approved-At: Mon, 09 Nov 2026 09:31:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,126 +88,199 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I tested this series on the Lenovo Y700 Gen 5 (TB323FU, Kaanapali):
-DP0 over USB-C (pmic_glink altmode) to a dual-screen monitor with a
-built-in Realtek MST hub (two 1920x1200@60 sinks), with the built-in
-dual-DSI 1904x3040 panel also on. The base is Linux v7.3, not
-linux-next, with Dmitry's "drm: handle IRQ_HPD events correctly" v8
-[1] (the cover letter lists v5) and this series. A few hunks were
-adapted to other patches I carry. On hpd v8 the second hunk of 34/35 is
-not needed, because msm_dp_bridge_hpd_notify() already handles the
-plug before IRQ_HPD.
+----_com.samsung.android.email_409555773741660
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-With three local changes, both screens show separate desktops next to
-the built-in panel and come back after s2idle.
+SGksT24gYSBQaWNhc3NvL1JhdmVuMiBsYXB0b3AsIE1DTEsgc3RheXMgcGlubmVkIGF0IGl0cyBo
+aWdoZXN0IGxldmVsKDEyMDAgTUh6KSBhZnRlciBhIENocm9taXVtLWJhc2VkIGJyb3dzZXIgKEJy
+YXZlKSBoYXMgdXNlZCB0aGUgR1BVIGFuZGJlZW4gY2xvc2VkLiBJIGNvdWxkIG5vdCBmaW5kIHdo
+ZXJlIHRoZSBzdGF0ZSBpcyBzZXQgb3IgcmVsZWFzZWQgZnJvbXRoZSBkcml2ZXIgc2lkZSwgc28g
+SSBhbSBhc2tpbmcgd2hldGhlciB0aGlzIGlzIGtub3duIGFuZCB3aGF0IGVsc2UgSXNob3VsZCBj
+b2xsZWN0LiBJIGhhdmUgdGhlIGtlcm5lbCB0cmVlIGFuZCBjYW4gdGVzdCBwYXRjaGVzLj09IFN5
+c3RlbSA9PUxhcHRvcDrCoCBIdWF3ZWkgTWF0ZUJvb2sgRDE0IChOQkxLLVdBWDlYKSwgUnl6ZW4g
+NSAzNTAwVSzCoMKgwqDCoMKgwqDCoMKgwqAgUGljYXNzby9SYXZlbjIgMTAwMjoxNWQ4IHJldiBj
+MkRpc3RybzrCoCBGZWRvcmEgNDQsIFN3YXkgMS4xMSBvbiBXYXlsYW5kS2VybmVsOsKgIDcuMi4x
+My0yMDAuZmM0NC54ODZfNjQgKEZlZG9yYSBrZXJuZWwsIG5vdCB0ZXN0ZWQgb24gZHJtLW5leHQp
+YW1kZ3B1IDMuNjQuMCwgRENOIDEuMCwgU01VMTAsIFZDTiAxLjAgKEVOQyAxLjE1IERFQyAzIFZF
+UCAwIFJldiA5KU1lc2EgMjYuMi41LCBsaWJ2YSAyLjIzLjBCb290OsKgwqDCoCBhbWRncHUubm9y
+ZXRyeT0wIGFtZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZmZmZmYJIGFtZGdwdS5ncHVfcmVjb3Zl
+cnk9MSBhbWRncHUudmNuZndfbG9nPTEJIGFtZGdwdS5kY2RlYnVnbWFzaz0weDEwVXNlcnNwYWNl
+OiBubyBkYWVtb24gb3IgdG9vbCB3cml0ZXMgdG8gYW1kZ3B1IHN5c2ZzLj09IFN5bXB0b20gPT1J
+ZGxlOiBwcF9kcG1fbWNsayBzaG93cyAiMDogNjY3TWh6ICoiLkFmdGVyIFdlYkdMIChXZWJHTCBB
+cXVhcml1bSwgc29tZXRpbWVzIHRoaXMgZG9lc24ndCB0cmlnZ2VyPykgb3JWQS1BUEkgdmlkZW8g
+KFlvdVR1YmUsIFZQOSAxMDgwcCkgaW4gQnJhdmUsIGFuZCBjbG9zaW5nIHRoZSB0YWJvciB0aGUg
+d2hvbGUgYnJvd3NlciwgcHBfZHBtX21jbGsgc2hvd3MgIjM6IDEyMDBNaHogKiIgaW5kZWZpbml0
+ZWx5LHdpdGggR1BVIGxvYWQgMCUgYW5kIFNDTEsgYmFjayBhdCBpZGxlLiBhbWRncHVfcG1faW5m
+byByZXBvcnRzIlZDTjogUG93ZXJlZCBkb3duIi4gQmF0dGVyeSBkcmFpbiBpcyBhYm91dCA1IFcg
+aGlnaGVyLCAod2hpY2ggZm9ybXkgbWFjaGluZSBpdCBtYWtlcyBhYm91dCAxLjUgaG91ciBhdCBt
+eSBkYWlseSB1c2FnZSkuLSBQZXJzaXN0cyBhY3Jvc3MgdGFiIGNsb3NlLCBicm93c2VyIGtpbGwg
+LTksIGFsbCBmZHMgY2xvc2VkLCBWVCBzd2l0Y2guLSBwb3dlcl9kcG1fZm9yY2VfcGVyZm9ybWFu
+Y2VfbGV2ZWwgc3RheXMgImF1dG8iIGFuZMKgwqAgcHBfcG93ZXJfcHJvZmlsZV9tb2RlIHN0YXlz
+IEJPT1RVUF9ERUZBVUxUIHRocm91Z2hvdXQuLSBXaGlsZSBsYXRjaGVkLCB3cml0aW5nICJsb3ci
+IG9yIG1hbnVhbCBNQ0xLIGxldmVscyBkb2VzIG5vdCBtb3ZlIGl0LsKgwqAgQWZ0ZXIgaXQgaXMg
+Y2xlYXJlZCwgTUNMSyBmb2xsb3dzIGxvdy9tYW51YWwgcmVxdWVzdHMgbm9ybWFsbHkuLSBDbGVh
+cmVkIGJ5OiBhbWRncHVfZ3B1X3JlY292ZXIgKGRlYnVnZnMpLCBvciBieSBwbGF5aW5nIGEgdmlk
+ZW8gaW7CoMKgIEZpcmVmb3ggKE1DTEsgZ29lcyB0byA2NjcgTUh6IC1zb21ldGltZXMgOTMzIE1I
+ei0gZHVyaW5nIHBsYXliYWNrKS4tIEZpcmVmb3ggaXRzZWxmIGRvZXMgbm90IHRyaWdnZXIgaXQu
+PT0gV2hhdCB0cmlnZ2VycyBpdCA9PS0gV2ViR0wgYWxvbmUgaW4gQnJhdmUgbGF0Y2hlcyBpdCwg
+d2l0aCBWQ04gcG93ZXJlZCBkb3duIHRoZSB3aG9sZcKgwqAgdGltZS4gU28gdGhpcyBpcyBub3Qg
+c3BlY2lmaWMgdG8gYSBWQ04gZGVjb2RlIHRlYXJkb3duIHBhdGguwqDCoCBBIGNsZWFuIEJyYXZl
+IHdpdGhvdXQgY3VzdG9tIGZsYWdzIGJlaGF2ZXMgdGhlIHNhbWUuLSBWQS1BUEkgdmlkZW8gZGVj
+b2RlIGluIEJyYXZlIGxhdGNoZXMgaXQgd2l0aCBWYWFwaVZpZGVvRGVjb2RlcsKgwqAgY29uZmly
+bWVkIGFjdGl2ZSBpbiBtZWRpYS1pbnRlcm5hbHMsIGluIGVhY2ggb2YgdGhlc2UgdmFyaWFudHM6
+wqDCoCBkZWZhdWx0IGZsYWdzLCAtLXVzZS1hbmdsZT1nbCzCoMKgIC0tZGlzYWJsZS1mZWF0dXJl
+cz1Vc2VNdWx0aVBsYW5lRm9ybWF0Rm9ySGFyZHdhcmVWaWRlbyzCoMKgIC0tZGlzYWJsZS1mZWF0
+dXJlcz1WYWFwaUlnbm9yZURyaXZlckNoZWNrcywgZXZlbiBJIHJ1biB3aXRowqDCoCB0ZW1wIHVz
+ZXIgZGlyZWN0b3J5IHdpdGggbm8gZmxhZ3MsIFZBLUFQSSBkZWNvZGluZyByYW4gYW5kIHNhbWUg
+aXNzdWXCoMKgIGNvbnRpbnVlZC4tIG1wdiAtLWh3ZGVjPXZhYXBpIG9uIHRoZSBzYW1lIGZpbGU6
+IE1DTEsgaXMgOTMzIE1IeiBkdXJpbmcgcGxheWJhY2suPT0gS2VybmVsLXNpZGUgPT1JIGF0dGFj
+aGVkIGJwZnRyYWNlIGtwcm9iZXMgKHdpdGgga3N0YWNrKSB0byBzbXVtX3NlbmRfbXNnX3RvX3Nt
+YyBhbmRzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlciBhbmQgcmFuOiBCcmF2ZSBX
+ZWJHTCwgQnJhdmVZb3VUdWJlLCBjbG9zZSAobGF0Y2hlZCksIEZpcmVmb3ggV2ViR0wsIEZpcmVm
+b3ggdmlkZW8gKHJlbGVhc2VkKSx0aGVuIGFtZGdwdV9ncHVfcmVjb3Zlci4tIEJlZm9yZSB0aGUg
+bGF0Y2ggd2FzIGZpcnN0IG9ic2VydmVkOiAxNTIgU01VIG1lc3NhZ2VzLCBhbGwgZWl0aGVywqDC
+oCBHRlhPRkYgZW5hYmxlL2Rpc2FibGUgKHNtdTEwX2dmeF9vZmZfY29udHJvbCkgb3IgdHdvIFZD
+TiBwb3dlcsKgwqAgdXAvZG93biBwYWlycyAoc211MTBfcG93ZXJnYXRlX3ZjbikuIE5vIHNtdTEw
+X2RwbV9mb3JjZV9kcG1fbGV2ZWwswqDCoCBubyBoYXJkLW1pbiwgYWN0aXZlLWRpc3BsYXktY291
+bnQgb3IgZGVlcC1zbGVlcCBtZXNzYWdlcy4tIEJldHdlZW4gdGhlIGxhdGNoZWQgcmVhZCBhbmQg
+dGhlIHJlbGVhc2VkIHJlYWQgKEZpcmVmb3gpOiBhZ2FpbiBvbmx5wqDCoCBHRlhPRkYgdG9nZ2xl
+cyBhbmQgdHdvIGJhbGFuY2VkIFZDTiB1cC9kb3duIHBhaXJzLiBCcmF2ZSdzIHZpZGVvwqDCoCBz
+ZXNzaW9uIHByb2R1Y2VzIHRoZSBzYW1lIHR3byBwYWlycyBhbmQgZG9lcyBub3QgcmVsZWFzZS4t
+IEEga3Byb2JlIG9uIHJ2MV91cGRhdGVfY2xvY2tzIG5ldmVyIGZpcmVzIGR1cmluZyBhbnkgYnJv
+d3NlcsKgwqAgYWN0aXZpdHksIG9ubHkgZHVyaW5nIGdwdV9yZWNvdmVyLi0gRWFjaCByZWFkIG9m
+IHBwX2RwbV9zY2xrL3BwX2RwbV9tY2xrIGlzc3VlcyBhbiBTTVUgcXVlcnnCoMKgIChzbXUxMF9l
+bWl0X2Nsb2NrX2xldmVscyksIHNvIHRoZSByZXBvcnRlZCB2YWx1ZSBpcyBsaXZlLlNvIG5laXRo
+ZXIgc2V0dGluZyBub3IgcmVsZWFzaW5nIHRoZSBzdGF0ZSBpcyB2aXNpYmxlIG9uIHRoZSBTTVVt
+YWlsYm94IHRocm91Z2ggdGhlc2Ugd3JhcHBlcnMuIFRoaXMgd291bGQgbm90IHNob3cgZGlyZWN0
+IHJlZ2lzdGVyIG9ydGFibGUgd3JpdGVzLiBJIGNhbm5vdCB0ZWxsIHdoZXRoZXIgdGhlIHN0YXRl
+IGxpdmVzIGluIFNNVSBmaXJtd2FyZSxpbiB0aGUgZGlzcGxheS9kYXRhIGZhYnJpYyBwLXN0YXRl
+IGhhbmRzaGFrZSwgb3IgZWxzZXdoZXJlLj09IFF1ZXN0aW9ucyA9PTEuIElzIHRoaXMgYSBrbm93
+biBpc3N1ZSBvbiBSYXZlbi9QaWNhc3NvPzIuIE9uIFNNVTEwLCB3aGF0IG90aGVyIHBhdGggY2Fu
+IGhvbGQgRkNMSy9NQ0xLIGhpZ2ggdGhhdCBkb2VzIG5vdCBnb8KgwqDCoCB0aHJvdWdoIHRoZSBt
+YWlsYm94IChEQ04gaHViYnViIHdhdGVybWFya3MsIERGIHAtc3RhdGUsIGZpcm13YXJlwqDCoMKg
+IGludGVybmFsIHN0YXRlKT8zLiBXaGF0IHNob3VsZCBJIHRyYWNlIG5leHQ/IGFtZGdwdV9kbV9k
+dG5fbG9nIHJldHVybnMgRVBFUk0gaGVyZSBldmVuwqDCoMKgIGFzIHJvb3QgKHByb2JhYmx5IGxv
+Y2tkb3duKTsgSSBjYW4gYm9vdCB3aXRob3V0IFNlY3VyZSBCb290IGlmIHRoYXTCoMKgwqAgb3V0
+cHV0IHdvdWxkIGhlbHAuRnVsbCB0cmFjZSBsb2dzIGFuZCBicmF2ZTovL21lZGlhLWludGVybmFs
+cyBvdXRwdXQgYXJlIGF2YWlsYWJsZTsgSSBjYW5hdHRhY2ggdGhlbSBpZiBhc2tlZC5UaGFua3Ms
+QXRh
 
-1. The plugged_lock / mode_config.mutex deadlock that Sashiko reported
-   on 32/35 happens at boot with the monitor attached. The stacks are
-   in my reply there [2]. I dropped 32/35.
+----_com.samsung.android.email_409555773741660
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-From the cover letter:
+PGh0bWw+PGhlYWQ+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0
+L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPjwvaGVhZD48Ym9keSBkaXI9ImF1dG8iPkhpLDxiciBkaXI9
+ImF1dG8iPjxiciBkaXI9ImF1dG8iPk9uIGEgUGljYXNzby9SYXZlbjIgbGFwdG9wLCBNQ0xLIHN0
+YXlzIHBpbm5lZCBhdCBpdHMgaGlnaGVzdCBsZXZlbDxiciBkaXI9ImF1dG8iPigxMjAwIE1Ieikg
+YWZ0ZXIgYSBDaHJvbWl1bS1iYXNlZCBicm93c2VyIChCcmF2ZSkgaGFzIHVzZWQgdGhlIEdQVSBh
+bmQ8YnIgZGlyPSJhdXRvIj5iZWVuIGNsb3NlZC4gSSBjb3VsZCBub3QgZmluZCB3aGVyZSB0aGUg
+c3RhdGUgaXMgc2V0IG9yIHJlbGVhc2VkIGZyb208YnIgZGlyPSJhdXRvIj50aGUgZHJpdmVyIHNp
+ZGUsIHNvIEkgYW0gYXNraW5nIHdoZXRoZXIgdGhpcyBpcyBrbm93biBhbmQgd2hhdCBlbHNlIEk8
+YnIgZGlyPSJhdXRvIj5zaG91bGQgY29sbGVjdC4gSSBoYXZlIHRoZSBrZXJuZWwgdHJlZSBhbmQg
+Y2FuIHRlc3QgcGF0Y2hlcy48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBTeXN0ZW0g
+PT08YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj5MYXB0b3A6Jm5ic3A7IEh1YXdlaSBNYXRl
+Qm9vayBEMTQgKE5CTEstV0FYOVgpLCBSeXplbiA1IDM1MDBVLDxiciBkaXI9ImF1dG8iPiZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBQaWNhc3Nv
+L1JhdmVuMiAxMDAyOjE1ZDggcmV2IGMyPGJyIGRpcj0iYXV0byI+RGlzdHJvOiZuYnNwOyBGZWRv
+cmEgNDQsIFN3YXkgMS4xMSBvbiBXYXlsYW5kPGJyIGRpcj0iYXV0byI+S2VybmVsOiZuYnNwOyA3
+LjIuMTMtMjAwLmZjNDQueDg2XzY0IChGZWRvcmEga2VybmVsLCBub3QgdGVzdGVkIG9uIGRybS1u
+ZXh0KTxiciBkaXI9ImF1dG8iPmFtZGdwdSAzLjY0LjAsIERDTiAxLjAsIFNNVTEwLCBWQ04gMS4w
+IChFTkMgMS4xNSBERUMgMyBWRVAgMCBSZXYgOSk8YnIgZGlyPSJhdXRvIj5NZXNhIDI2LjIuNSwg
+bGlidmEgMi4yMy4wPGJyIGRpcj0iYXV0byI+Qm9vdDombmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1
+Lm5vcmV0cnk9MCBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmZmZmZmPGJyIGRpcj0iYXV0byI+
+CSBhbWRncHUuZ3B1X3JlY292ZXJ5PTEgYW1kZ3B1LnZjbmZ3X2xvZz0xPGJyIGRpcj0iYXV0byI+
+CSBhbWRncHUuZGNkZWJ1Z21hc2s9MHgxMDxiciBkaXI9ImF1dG8iPlVzZXJzcGFjZTogbm8gZGFl
+bW9uIG9yIHRvb2wgd3JpdGVzIHRvIGFtZGdwdSBzeXNmcy48YnIgZGlyPSJhdXRvIj48YnIgZGly
+PSJhdXRvIj49PSBTeW1wdG9tID09PGJyIGRpcj0iYXV0byI+PGJyIGRpcj0iYXV0byI+SWRsZTog
+cHBfZHBtX21jbGsgc2hvd3MgIjA6IDY2N01oeiAqIi48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJh
+dXRvIj5BZnRlciBXZWJHTCAoV2ViR0wgQXF1YXJpdW0sIHNvbWV0aW1lcyB0aGlzIGRvZXNuJ3Qg
+dHJpZ2dlcj8pIG9yPGJyIGRpcj0iYXV0byI+VkEtQVBJIHZpZGVvIChZb3VUdWJlLCBWUDkgMTA4
+MHApIGluIEJyYXZlLCBhbmQgY2xvc2luZyB0aGUgdGFiPGJyIGRpcj0iYXV0byI+b3IgdGhlIHdo
+b2xlIGJyb3dzZXIsIHBwX2RwbV9tY2xrIHNob3dzICIzOiAxMjAwTWh6ICoiIGluZGVmaW5pdGVs
+eSw8YnIgZGlyPSJhdXRvIj53aXRoIEdQVSBsb2FkIDAlIGFuZCBTQ0xLIGJhY2sgYXQgaWRsZS4g
+YW1kZ3B1X3BtX2luZm8gcmVwb3J0czxiciBkaXI9ImF1dG8iPiJWQ046IFBvd2VyZWQgZG93biIu
+IEJhdHRlcnkgZHJhaW4gaXMgYWJvdXQgNSBXIGhpZ2hlciwgKHdoaWNoIGZvcjxiciBkaXI9ImF1
+dG8iPm15IG1hY2hpbmUgaXQgbWFrZXMgYWJvdXQgMS41IGhvdXIgYXQgbXkgZGFpbHkgdXNhZ2Up
+LjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPi0gUGVyc2lzdHMgYWNyb3NzIHRhYiBjbG9z
+ZSwgYnJvd3NlciBraWxsIC05LCBhbGwgZmRzIGNsb3NlZCwgVlQgc3dpdGNoLjxiciBkaXI9ImF1
+dG8iPi0gcG93ZXJfZHBtX2ZvcmNlX3BlcmZvcm1hbmNlX2xldmVsIHN0YXlzICJhdXRvIiBhbmQ8
+YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgcHBfcG93ZXJfcHJvZmlsZV9tb2RlIHN0YXlzIEJP
+T1RVUF9ERUZBVUxUIHRocm91Z2hvdXQuPGJyIGRpcj0iYXV0byI+LSBXaGlsZSBsYXRjaGVkLCB3
+cml0aW5nICJsb3ciIG9yIG1hbnVhbCBNQ0xLIGxldmVscyBkb2VzIG5vdCBtb3ZlIGl0LjxiciBk
+aXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBBZnRlciBpdCBpcyBjbGVhcmVkLCBNQ0xLIGZvbGxvd3Mg
+bG93L21hbnVhbCByZXF1ZXN0cyBub3JtYWxseS48YnIgZGlyPSJhdXRvIj4tIENsZWFyZWQgYnk6
+IGFtZGdwdV9ncHVfcmVjb3ZlciAoZGVidWdmcyksIG9yIGJ5IHBsYXlpbmcgYSB2aWRlbyBpbjxi
+ciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBGaXJlZm94IChNQ0xLIGdvZXMgdG8gNjY3IE1IeiAt
+c29tZXRpbWVzIDkzMyBNSHotIGR1cmluZyBwbGF5YmFjaykuPGJyIGRpcj0iYXV0byI+LSBGaXJl
+Zm94IGl0c2VsZiBkb2VzIG5vdCB0cmlnZ2VyIGl0LjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1
+dG8iPj09IFdoYXQgdHJpZ2dlcnMgaXQgPT08YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj4t
+IFdlYkdMIGFsb25lIGluIEJyYXZlIGxhdGNoZXMgaXQsIHdpdGggVkNOIHBvd2VyZWQgZG93biB0
+aGUgd2hvbGU8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgdGltZS4gU28gdGhpcyBpcyBub3Qg
+c3BlY2lmaWMgdG8gYSBWQ04gZGVjb2RlIHRlYXJkb3duIHBhdGguPGJyIGRpcj0iYXV0byI+Jm5i
+c3A7Jm5ic3A7IEEgY2xlYW4gQnJhdmUgd2l0aG91dCBjdXN0b20gZmxhZ3MgYmVoYXZlcyB0aGUg
+c2FtZS48YnIgZGlyPSJhdXRvIj4tIFZBLUFQSSB2aWRlbyBkZWNvZGUgaW4gQnJhdmUgbGF0Y2hl
+cyBpdCB3aXRoIFZhYXBpVmlkZW9EZWNvZGVyPGJyIGRpcj0iYXV0byI+Jm5ic3A7Jm5ic3A7IGNv
+bmZpcm1lZCBhY3RpdmUgaW4gbWVkaWEtaW50ZXJuYWxzLCBpbiBlYWNoIG9mIHRoZXNlIHZhcmlh
+bnRzOjxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBkZWZhdWx0IGZsYWdzLCAtLXVzZS1hbmds
+ZT1nbCw8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgLS1kaXNhYmxlLWZlYXR1cmVzPVVzZU11
+bHRpUGxhbmVGb3JtYXRGb3JIYXJkd2FyZVZpZGVvLDxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNw
+OyAtLWRpc2FibGUtZmVhdHVyZXM9VmFhcGlJZ25vcmVEcml2ZXJDaGVja3MsIGV2ZW4gSSBydW4g
+d2l0aDxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyB0ZW1wIHVzZXIgZGlyZWN0b3J5IHdpdGgg
+bm8gZmxhZ3MsIFZBLUFQSSBkZWNvZGluZyByYW4gYW5kIHNhbWUgaXNzdWU8YnIgZGlyPSJhdXRv
+Ij4mbmJzcDsmbmJzcDsgY29udGludWVkLjxiciBkaXI9ImF1dG8iPi0gbXB2IC0taHdkZWM9dmFh
+cGkgb24gdGhlIHNhbWUgZmlsZTogTUNMSyBpcyA5MzMgTUh6IGR1cmluZyBwbGF5YmFjay48YnIg
+ZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBLZXJuZWwtc2lkZSA9PTxiciBkaXI9ImF1dG8i
+PjxiciBkaXI9ImF1dG8iPkkgYXR0YWNoZWQgYnBmdHJhY2Uga3Byb2JlcyAod2l0aCBrc3RhY2sp
+IHRvIHNtdW1fc2VuZF9tc2dfdG9fc21jIGFuZDxiciBkaXI9ImF1dG8iPnNtdW1fc2VuZF9tc2df
+dG9fc21jX3dpdGhfcGFyYW1ldGVyIGFuZCByYW46IEJyYXZlIFdlYkdMLCBCcmF2ZTxiciBkaXI9
+ImF1dG8iPllvdVR1YmUsIGNsb3NlIChsYXRjaGVkKSwgRmlyZWZveCBXZWJHTCwgRmlyZWZveCB2
+aWRlbyAocmVsZWFzZWQpLDxiciBkaXI9ImF1dG8iPnRoZW4gYW1kZ3B1X2dwdV9yZWNvdmVyLjxi
+ciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPi0gQmVmb3JlIHRoZSBsYXRjaCB3YXMgZmlyc3Qg
+b2JzZXJ2ZWQ6IDE1MiBTTVUgbWVzc2FnZXMsIGFsbCBlaXRoZXI8YnIgZGlyPSJhdXRvIj4mbmJz
+cDsmbmJzcDsgR0ZYT0ZGIGVuYWJsZS9kaXNhYmxlIChzbXUxMF9nZnhfb2ZmX2NvbnRyb2wpIG9y
+IHR3byBWQ04gcG93ZXI8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgdXAvZG93biBwYWlycyAo
+c211MTBfcG93ZXJnYXRlX3ZjbikuIE5vIHNtdTEwX2RwbV9mb3JjZV9kcG1fbGV2ZWwsPGJyIGRp
+cj0iYXV0byI+Jm5ic3A7Jm5ic3A7IG5vIGhhcmQtbWluLCBhY3RpdmUtZGlzcGxheS1jb3VudCBv
+ciBkZWVwLXNsZWVwIG1lc3NhZ2VzLjxiciBkaXI9ImF1dG8iPi0gQmV0d2VlbiB0aGUgbGF0Y2hl
+ZCByZWFkIGFuZCB0aGUgcmVsZWFzZWQgcmVhZCAoRmlyZWZveCk6IGFnYWluIG9ubHk8YnIgZGly
+PSJhdXRvIj4mbmJzcDsmbmJzcDsgR0ZYT0ZGIHRvZ2dsZXMgYW5kIHR3byBiYWxhbmNlZCBWQ04g
+dXAvZG93biBwYWlycy4gQnJhdmUncyB2aWRlbzxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBz
+ZXNzaW9uIHByb2R1Y2VzIHRoZSBzYW1lIHR3byBwYWlycyBhbmQgZG9lcyBub3QgcmVsZWFzZS48
+YnIgZGlyPSJhdXRvIj4tIEEga3Byb2JlIG9uIHJ2MV91cGRhdGVfY2xvY2tzIG5ldmVyIGZpcmVz
+IGR1cmluZyBhbnkgYnJvd3NlcjxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBhY3Rpdml0eSwg
+b25seSBkdXJpbmcgZ3B1X3JlY292ZXIuPGJyIGRpcj0iYXV0byI+LSBFYWNoIHJlYWQgb2YgcHBf
+ZHBtX3NjbGsvcHBfZHBtX21jbGsgaXNzdWVzIGFuIFNNVSBxdWVyeTxiciBkaXI9ImF1dG8iPiZu
+YnNwOyZuYnNwOyAoc211MTBfZW1pdF9jbG9ja19sZXZlbHMpLCBzbyB0aGUgcmVwb3J0ZWQgdmFs
+dWUgaXMgbGl2ZS48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj5TbyBuZWl0aGVyIHNldHRp
+bmcgbm9yIHJlbGVhc2luZyB0aGUgc3RhdGUgaXMgdmlzaWJsZSBvbiB0aGUgU01VPGJyIGRpcj0i
+YXV0byI+bWFpbGJveCB0aHJvdWdoIHRoZXNlIHdyYXBwZXJzLiBUaGlzIHdvdWxkIG5vdCBzaG93
+IGRpcmVjdCByZWdpc3RlciBvcjxiciBkaXI9ImF1dG8iPnRhYmxlIHdyaXRlcy4gSSBjYW5ub3Qg
+dGVsbCB3aGV0aGVyIHRoZSBzdGF0ZSBsaXZlcyBpbiBTTVUgZmlybXdhcmUsPGJyIGRpcj0iYXV0
+byI+aW4gdGhlIGRpc3BsYXkvZGF0YSBmYWJyaWMgcC1zdGF0ZSBoYW5kc2hha2UsIG9yIGVsc2V3
+aGVyZS48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBRdWVzdGlvbnMgPT08YnIgZGly
+PSJhdXRvIj48YnIgZGlyPSJhdXRvIj4xLiBJcyB0aGlzIGEga25vd24gaXNzdWUgb24gUmF2ZW4v
+UGljYXNzbz88YnIgZGlyPSJhdXRvIj4yLiBPbiBTTVUxMCwgd2hhdCBvdGhlciBwYXRoIGNhbiBo
+b2xkIEZDTEsvTUNMSyBoaWdoIHRoYXQgZG9lcyBub3QgZ288YnIgZGlyPSJhdXRvIj4mbmJzcDsm
+bmJzcDsmbmJzcDsgdGhyb3VnaCB0aGUgbWFpbGJveCAoRENOIGh1YmJ1YiB3YXRlcm1hcmtzLCBE
+RiBwLXN0YXRlLCBmaXJtd2FyZTxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyZuYnNwOyBpbnRl
+cm5hbCBzdGF0ZSk/PGJyIGRpcj0iYXV0byI+My4gV2hhdCBzaG91bGQgSSB0cmFjZSBuZXh0PyBh
+bWRncHVfZG1fZHRuX2xvZyByZXR1cm5zIEVQRVJNIGhlcmUgZXZlbjxiciBkaXI9ImF1dG8iPiZu
+YnNwOyZuYnNwOyZuYnNwOyBhcyByb290IChwcm9iYWJseSBsb2NrZG93bik7IEkgY2FuIGJvb3Qg
+d2l0aG91dCBTZWN1cmUgQm9vdCBpZiB0aGF0PGJyIGRpcj0iYXV0byI+Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IG91dHB1dCB3b3VsZCBoZWxwLjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPkZ1bGwg
+dHJhY2UgbG9ncyBhbmQgYnJhdmU6Ly9tZWRpYS1pbnRlcm5hbHMgb3V0cHV0IGFyZSBhdmFpbGFi
+bGU7IEkgY2FuPGJyIGRpcj0iYXV0byI+YXR0YWNoIHRoZW0gaWYgYXNrZWQuPGJyIGRpcj0iYXV0
+byI+PGJyIGRpcj0iYXV0byI+VGhhbmtzLDxiciBkaXI9ImF1dG8iPkF0YTxiciBkaXI9ImF1dG8i
+PjwvYm9keT48L2h0bWw+
 
-> With 4x4K monitors, due to lack of layer mixers that combination will not
-> work but this can be supported as well after some rework on the DPU side.
+----_com.samsung.android.email_409555773741660--
 
-2. With all three displays on, the commit for the second MST screen
-   fails:
-
-   [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]LM_4, invalid DSPP_-1
-   [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]LM_5, invalid DSPP_-1
-   [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]LM_6, invalid DSPP_-1
-   [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]LM_7, invalid DSPP_-1
-   [drm:_dpu_rm_make_reservation] [dpu error]unable to find appropriate mixers
-   [drm:dpu_rm_reserve] [dpu error]failed to reserve hw resources: -119
-
-   The compositor sets a CTM on every CRTC, identity when unused
-   (adding or removing a CTM later forces a modeset that reassigns
-   resources), so each CRTC asks for one DSPP per LM. Kaanapali has
-   DSPPs only on LM 0-3. The built-in panel takes LM 0-1, and the
-   first MST screen takes LM 2-3 because 1920 > MAX_HDISPLAY_SPLIT
-   (1080), which leaves no DSPP for the second MST screen.
-
-   This is a DPU topology issue rather than an MST one; MST just makes
-   three active CRTCs easy to reach. Locally, a CRTC that needs DSPPs
-   uses one LM up to max_mixer_width (2560) instead of
-   MAX_HDISPLAY_SPLIT, and the two MST screens then get LM 2 and LM 3.
-   This touches the same decision as Mahadevan's LM rework [3], which
-   drops max_mixer_width, so I have not sent it as a patch.
-
-   Mahadevan, should a CRTC that needs DSPPs prefer a single LM
-   whenever the mode fits in one, on top of your rework?
-
-3. s2idle with both MST screens active hangs in resume. The console is
-   suspended; the printk ring in the RAM dump shows devices resuming,
-   nothing from DRM, and then "watchdog0: pretimeout event". The
-   rtcwake task is stuck in an AUX transfer in resume, while the MST
-   stream is re-enabled:
-
-    wait_for_completion_timeout
-    msm_dp_aux_cmd_fifo_tx
-    msm_dp_aux_transfer
-    drm_dp_dpcd_access
-    drm_dp_dpcd_write
-    drm_dp_dpcd_write_data
-    drm_dp_dpcd_write_payload
-    drm_dp_create_payload_at_dfp
-    drm_dp_add_payload_part1
-    msm_dp_mst_stream_enable
-    dpu_encoder_mst_atomic_enable
-    drm_atomic_helper_commit_encoder_bridge_enable
-    drm_atomic_helper_commit_modeset_enables
-    ...
-    drm_atomic_helper_resume
-    drm_mode_config_helper_resume
-    msm_kms_pm_complete
-    dpm_complete
-
-   Several kworkers wait for a modeset lock in
-   drm_self_refresh_helper_entry_work().
-
-   At the hang active_stream_cnt is 0 but link_ready is 1, so
-   msm_dp_display_prepare_link() returns early and the payload write
-   goes over a link that system suspend has powered down
-   (aux->retry_cnt, the count of consecutive AUX failures, was 107).
-   While mst_active is set,
-   msm_dp_mst_stream_post_disable() does not unprepare the link after
-   the last stream, so nothing tears it down for system suspend.
-
-   The series also does not call drm_dp_mst_topology_mgr_suspend() or
-   drm_dp_mst_topology_mgr_resume(); i915, nouveau and amdgpu call
-   them around their atomic suspend and resume.
-
-   Locally, the DP system-suspend callback calls
-   drm_dp_mst_topology_mgr_suspend() and, when MST is active, tears
-   the link down through the unprepare path (clearing link_ready)
-   before pm_runtime_force_suspend(). On resume, after
-   pm_runtime_force_resume(), it re-inits the PHY and AUX and calls
-   drm_dp_mst_topology_mgr_resume(mgr, true); if that fails, it turns
-   MST off and sends a hotplug event. With that, 3 of 3 RTC-woken
-   s2idle cycles resumed with both screens on. After the third the
-   topology was rebuilt (the MST connectors came back under new
-   names). I can send this as a patch on top of the next version of
-   this series if you want it.
-
-Unplug and replug mostly works. When it failed (3 of 6 sequences),
-the hub had dropped HPD or stopped answering AUX right after the
-plug, and one or both screens stayed dark; the stock Android kernel
-shows similar failures with this monitor.
-
-Not tested: daisy chain, 4K, audio over MST (no audio sink here).
-If it helps, I can test the next version of this series on this
-device.
-
-[1] https://lore.kernel.org/all/20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com/
-[2] https://lore.kernel.org/all/20261108010724.4061-1-26rote@gmail.com/
-[3] https://lore.kernel.org/all/20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com/
-
-Thanks,
-Joonhoe Kim
