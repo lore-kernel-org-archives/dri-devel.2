@@ -2,43 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7DC606A321
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 14:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27453606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 14:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsWEU2Il
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Tog7+VH0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C9810F2FB;
-	Mon,  9 Nov 2026 14:35:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC65210F2FB;
- Mon,  9 Nov 2026 14:35:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D4BEE63366;
- Mon,  9 Nov 2026 14:35:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0DC1F008A1;
- Mon,  9 Nov 2026 14:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794234932;
- bh=YOOe7Kh928MF/9g/e+ebiKeOOvxwkJVdEZAugjwpAZs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lsWEU2IlJ1ALU1vGcQYcSWNE7p0l9q78fBtNerMYRKriy6W2U//bLK3Nt+NEj8N6H
- vYJSKMWAkBA+D7JMsWxsHFrTfozabc+wMHBNEsf/ZJm7FNn4xWVQEHXV4USOvn5nZa
- pA+P7IpqLMwyf844OdtJVhAgGzOhLpEZwHN5dOmKuuL+xPI7I94/m5sOdmlTHj+ICm
- 2V0gzSBrn7f/ljLzjPdrTEnfJiPmkYYvT5Y4YQG+qmP9+WW6+gb7tStHmXT+QQB7/Z
- qWXcFy1epGPnZPLnFQjkUWbOA4OITrWwohHKYn+XDIMPKpvcXh2t8onLthnlUsgAhM
- +p4nnx2GXemEg==
-Message-ID: <sashiko-outbox-205119@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 17/20] drm/xe/eudebug: Introduce EU control interface
-To: "Mika Kuoppala" <mika.kuoppala@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109135549.4128280-18-mika.kuoppala@linux.intel.com>
-References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
- <20261109135549.4128280-18-mika.kuoppala@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 14:35:31 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80E7810F3B1;
+	Mon,  9 Nov 2026 14:45:58 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFC610E7D2;
+ Mon,  9 Nov 2026 14:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=h+GkudQWo+SK1Si/H8t6duIVnLCqHVmI1n70EBgg3BI=; t=1794235551; x=2109595551; 
+ b=Tog7+VH0ZXE5Bn4jw2rfhtL182jP6m5xPrXN8fs6KQhqMXVZ0YjHDp57VUoziz+aAiJWa4Y8azP
+ FQYduHDrlEW/Ox3lZ2MG7JeUK91E4YrYsdul8HvFv11u6k8va1aUxlyRwQ4yE6dqfZJWMDFrucxLK
+ 0902bqiBrJuAIXGbCxtG3EQ76zkTOiGMkbJLrDFMn9QkVKyfd+bOyuPbzKMJ8iNcNaHmT/oLoP+Kj
+ uHulqrS9ZzUjWu2wmpQAU98X/dRIBnDGs9K+Xho6IQQrnnKiiA67Hw8bwWBDxPtvn4rbnDLJafeoy
+ Gczr744T3UFczm3rc1jVyDIJnzv4zsGWQDsA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xQQd2-007NMC-J0; Mon, 09 Nov 2026 15:45:48 +0100
+Message-ID: <55a418ad-2d18-4996-be3d-833ee143eb1a@igalia.com>
+Date: Mon, 9 Nov 2026 14:45:47 +0000
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] drm/amdgpu: Rework the
+ amdgpu_job_stop_all_jobs_on_sched() hack
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Danilo Krummrich <dakr@kernel.org>
+References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+ <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
+ <e857e8e7edfe4c91aeda47478d6512a9d3ff5fe4.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <e857e8e7edfe4c91aeda47478d6512a9d3ff5fe4.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,168 +58,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/xe/eudebug: missing wedged and unplug guards in
-  do_eu_control()
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [High] drm/xe/oa: unbalanced de-whitelisting in
-  xe_oa_stream_open_ioctl_locked() [1]
---
 
-commit c12aefb410d72e1670863e0bab5fd107ad1622e4
-Author: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
+On 09/11/2026 12:46, Philipp Stanner wrote:
+> On Fri, 2026-11-06 at 14:57 +0000, Tvrtko Ursulin wrote:
+>> -/*
+>> - * This is a duplicate function from DRM scheduler sched_internal.h.
+>> - * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
+>> - * latter being incorrect and racy.
+>> - *
+>> - * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
+>> - */
+>>   static struct drm_sched_job *
+>>   drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+> 
+> Why remove that comment? A reader will still wonder why a drm_sched
+> function is defined here.
 
-drm/xe/eudebug: Introduce EU control interface
+It effectively moved down in the diff.
 
-This commit adds the DRM_XE_EUDEBUG_IOCTL_EU_CONTROL ioctl to let an EU
-debugger interrupt, query, and resume EU threads on debuggable execution
-queues, and makes eudebug and OA streams mutually exclusive.
+>>   {
+>> @@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>>   	return container_of(node, struct drm_sched_job, queue_node);
+>>   }
+>>   
+>> -void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+>> +static struct drm_sched_entity *
+>> +get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity->lock)
+> 
+> […]
+> 
+>> +retry:
+>>   	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+>>   		struct drm_sched_rq *rq = sched->sched_rq[i];
+>> +
+>>   		spin_lock(&rq->lock);
+>> -		list_for_each_entry(s_entity, &rq->entities, list) {
+>> -			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
+>> -				struct drm_sched_fence *s_fence = s_job->s_fence;
+>> +		list_for_each_entry(entity, &rq->entities, list) {
+>> +			/*
+>> +			 * This can false negative, but so could the previous
+>> +			 * approach of scanning the run-queues once when
+>> +			 * nothing prevents userspace to queue more jobs.
+>> +			 */
+>> +			if (!spsc_queue_count(&entity->job_queue))
+>> +				continue;
+>>   
+>> -				dma_fence_signal(&s_fence->scheduled);
+>> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+>> -				dma_fence_signal(&s_fence->finished);
+>> +			/*
+>> +			 * We must trylock because normal locking order is
+>> +			 * entity then rq and here we already have rq locked
+>> +			 * in order to be able to walk the entities.
+>> +			 */
+>> +			if (spin_trylock(&entity->lock)) {
+>> +				/* Returns with a locked entity. */
+>> +				spin_unlock(&rq->lock);
+>> +				return entity;
+> 
+> Ah, now I understand.
+> 
+> Hmm. I guess considering the circumstances we're in that's the best-ish
+> option we have?
+> 
+> I hope the AMD folks can't see technical blockers.
 
-> diff --git a/drivers/gpu/drm/xe/xe_eudebug_hw.c b/drivers/gpu/drm/xe/xe_e=
-udebug_hw.c
-> index 7388facfe0a5d..3c025f279488f 100644
-> --- a/drivers/gpu/drm/xe/xe_eudebug_hw.c
-> +++ b/drivers/gpu/drm/xe/xe_eudebug_hw.c
-[ ... ]
-> +static int do_eu_control(struct xe_eudebug *d,
-> +			 const struct drm_xe_eudebug_eu_control * const arg,
-> +			 struct drm_xe_eudebug_eu_control __user * const user_ptr)
-> +{
-[ ... ]
-> +	lrc =3D xe_eudebug_find_lrc(d, arg->lrc_handle);
-> +	if (XE_IOCTL_DBG(xe, !lrc)) {
-> +		ret =3D -EINVAL;
-> +		goto queue_put;
-> +	}
-> +
-> +	if (!xe_pm_runtime_get_if_active(xe)) {
-> +		ret =3D -EIO;
-> +		goto queue_put;
-> +	}
-> +
-> +	active =3D xe_gt_runalone_active_queue_get(q->gt, &active_hwe, &lrc_idx=
-);
-> +	if (XE_IOCTL_DBG(xe, IS_ERR(active))) {
-> +		ret =3D PTR_ERR(active);
-> +		goto out_pm;
-> +	}
+Yeah I think it's the best before AMD follows up with the promised 
+complete rework of how this is handled.
 
-[Severity: Medium]
-Can do_eu_control() race with PCI device unbind or run on a wedged device
-to dereference a NULL hwe->gt or access unmapped MMIO registers?
+I am hoping this hacky rework, assuming it is no more broken by the 
+original, and that AMD can test it (I don't have the required hardware), 
+can be a motivator. :)
 
-Unlike DRM character device ioctls, DRM_XE_EUDEBUG_IOCTL_EU_CONTROL is
-dispatched directly on the anonymous [xe_eudebug] file, which holds a
-drm_dev_get() reference that keeps struct xe_device alive after PCI
-unbind.  xe_pm_runtime_get_if_active(xe) does not stop callers during or
-after unbind because xe_pm_runtime_fini() calls pm_runtime_get_sync() and
-pm_runtime_forbid(), leaving runtime PM active while devres tears down
-the device:
+>> +			} else {
+>> +				/*
+>> +				 * Busy entity - we will try again looking for a
+>> +				 * window where trylock will succeed.
+>> +				 */
+>> +				spin_unlock(&rq->lock);
+>> +				goto retry;
+> 
+> In classic anti-deadlock strategies, wouldn't you want some random
+> delay here to avoid cycling?
 
-CPU0                                  CPU1
-do_eu_control()
-  xe_pm_runtime_get_if_active(xe)
-  ...
-  memdup_user() / usleep_range()
-                                      xe_pci_remove()
-                                        drm_dev_unplug(&xe->drm)
-                                        ...
-                                        devres_release_all()
-                                          hw_engine_fini()
-                                            hwe->gt =3D NULL
-                                          pcim_iomap_release()
-  check_lrc_active(active_hwe, lrc)
-    read_hw_lrca(hwe, &lrc_hw)
-      gt_to_fw(hwe->gt)  <-- NULL pointer dereference
+I did not see a reason to not make this thread the most greedy it can 
+be. Because the longer it runs the more potential for livelock has.
 
-If hwe->gt is instead cleared during get_runalone_active_hw_engine(),
-engine_status() dereferences hwe->gt as well, and after mmio_fini() clears
-xe->mmio.regs, MMIO accesses trigger device warnings.  Sibling anonymous
-fd callbacks in drivers/gpu/drm/xe/xe_eudebug_vm.c guard against both
-cases via vm_file_enter(), which checks xe_wedged(xe) and wraps hardware
-accesses in drm_dev_enter() / drm_dev_exit().
+Same is true for the existing solution to be clear, but this patch does 
+increase the window a bit by adding trylock and restart. I think. Or 
+perhaps it is the same potential because all that is required in the 
+current code is for an entity to keep submitting and 
+amdgpu_job_stop_all_jobs_on_sched() never exits the pop loop. With this 
+patch any entity doing a submit can trigger a re-scan of all entities, 
+so any submitting anything new will be handled, until the time this 
+loops needs to finish the re-scan is lower than the submit frequency. 
+Hence I thought the faster it goes the better.
 
-> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-> index fe91abaccb14a..52b3f342344a3 100644
-> --- a/drivers/gpu/drm/xe/xe_oa.c
-> +++ b/drivers/gpu/drm/xe/xe_oa.c
-[ ... ]
-> @@ -1880,6 +1914,21 @@ static int xe_oa_stream_open_ioctl_locked(struct x=
-e_oa *oa,
->  		goto exit;
->  	}
-> =20
-> +	/*
-> +	 * eudebug and OA both change EU and engine state that the other
-> +	 * relies on, such as the debug registers and workarounds eudebug
-> +	 * keeps in hwe->reg_sr and the settings OA changes and restores
-> +	 * around a stream. They do not have to run at the same time, so
-> +	 * refuse rather than interleave. xe_eudebug_enable() checks the
-> +	 * other direction with xe_oa_stream_active(), under the same
-> +	 * gt_lock held here.
-> +	 */
-> +	if (xe_eudebug_is_enabled_oa(param->hwe->gt)) {
-> +		drm_dbg(&oa->xe->drm, "OA not available while eudebug is enabled\n");
-> +		ret =3D -EBUSY;
-> +		goto exit;
-> +	}
+Regards,
 
-[Severity: High]
-This problem wasn't introduced by this patch, but can
-xe_oa_stream_open_ioctl_locked() cause an unbalanced
-xe_reg_dewhitelist_oa_regs() call [1] when opening a stream with
-DRM_XE_OA_PROPERTY_SAMPLE_OA fails?
+Tvrtko
 
-xe_oa_stream_init() sets stream->sample =3D param->sample, but
-xe_reg_whitelist_oa_regs() is only called after xe_oa_enable_locked() and
-anon_inode_getfd() both succeed:
-
-drivers/gpu/drm/xe/xe_oa.c:xe_oa_stream_open_ioctl_locked() {
-    ...
-	if (!param->disabled) {
-		ret =3D xe_oa_enable_locked(stream);
-		if (ret)
-			goto err_destroy;
-	}
-
-	stream_fd =3D anon_inode_getfd("[xe_oa]", &xe_oa_fops, stream, 0);
-	if (stream_fd < 0) {
-		ret =3D stream_fd;
-		goto err_disable;
-	}
-
-	if (stream->sample)
-		xe_reg_whitelist_oa_regs(stream->gt);
-    ...
-err_disable:
-	if (!param->disabled)
-		xe_oa_disable_locked(stream);
-err_destroy:
-	xe_oa_stream_destroy(stream);
-    ...
-}
-
-If anon_inode_getfd() fails (for example with -EMFILE) or
-xe_oa_enable_locked() fails, xe_oa_stream_destroy() sees stream->sample
-set and calls xe_reg_dewhitelist_oa_regs(stream->gt) without a matching
-xe_reg_whitelist_oa_regs().  That triggers xe_assert() and underflows
-gt->oa.whitelist_count from 0 to U32_MAX (or drops another active OA
-unit's whitelist reference on the same GT).
-
-[1] https://sashiko.dev/#/bug/linux-44e618e3-ff9f-4811-9ea1-86af519616cc
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109135549.4128=
-280-1-mika.kuoppala@linux.intel.com?part=3D17
