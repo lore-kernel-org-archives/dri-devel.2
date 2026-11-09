@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD9A606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 17:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A27F606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 17:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5TgHiZN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEaUpSyi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE30310E687;
-	Mon,  9 Nov 2026 17:30:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C036410E687
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 17:30:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C43D10E2CE;
+	Mon,  9 Nov 2026 17:36:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 513D410E2CE
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 17:36:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 804C240B8B;
- Mon,  9 Nov 2026 17:30:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CEC1F0089F;
- Mon,  9 Nov 2026 17:30:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DEA561157;
+ Mon,  9 Nov 2026 17:36:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F17041F0089F;
+ Mon,  9 Nov 2026 17:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794245452;
- bh=mwTQDW4k4GrCFHxdbMXG++dbVCAks4t/Z2lMxkoz4nI=;
+ s=k20260515; t=1794245785;
+ bh=nsQYzaw5bFvoSoU0zeowIHQLxI+cVGY4HO/jZvgR+hw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=m5TgHiZNxyui20F96Hstx8uSXDavzTeb8fH096DzT2CpBrVgnUrkdTSCjs1t0mYfR
- r4dgktp1B+rWY31ufCEo4utHF5lp5ySeoUeMAPCnb2ly3I7eoT9qHwTtF9YnxVO0Oh
- 83Ofi18cN/Cw83iDMUsXQny4hAeCkaKcT9BqrWGrmNfQXjStvfuw+YJqIFj2ILK/A3
- HPqFpWwTTE6cCkHOsfhJNPVhZM4SjLvxdlhQwMkWdS5pEvCjN5MU8LyHnDgpMmLU29
- v5psjCO7pkjXk74PG4iK4FuOW7ZsvML8V/nhCfnrmxJsX0/zxh7opnbYKZWevTAUba
- IT3ggeLSZta6g==
-Message-ID: <sashiko-outbox-205304@kernel.org>
+ b=hEaUpSyiIKmPqBFz7rE2FCan61KZ5RDm1GixVuPwSvC2bWc2NReJaK4jZDTnkTCZu
+ q3ckqetNNrAGZdppjjovoI2wsaF6lodqBG+u75pLhvwPrTLdOXW04AZ0d5uV41Wd4y
+ ElxRXjikGVZ50AvKGC0AOPIP7m2czvi/58+He8tahWA7+tpnZSNu2/TPEcITu8s1qs
+ PYquGDqn5+LWhwEkkXMs2QYAKkXto9YU78L27rJhnff/nuxowgnX1PYQnWqJd5LlIS
+ 1W4k6SuWxvXP1XW+c1+EHIvL8uxEr1lAuVenrG9A1XbQDtqEKcvwhzwPuZBogqaK1/
+ vqB01XtX9e/9Q==
+Message-ID: <sashiko-outbox-205314@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/6] drm/amdkfd: avoid NULL kfd_process_device in
- kfd_profiler_pmc
+Subject: Re: [PATCH v4 4/6] drm/amdgpu: handle gpu_recovery per device
 To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109171333.4329-1-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20261109171333.4329-4-pierre-eric.pelloux-prayer@amd.com>
 References: <20261109171333.4329-1-pierre-eric.pelloux-prayer@amd.com>
+ <20261109171333.4329-4-pierre-eric.pelloux-prayer@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 17:30:51 +0000
+Date: Mon, 09 Nov 2026 17:36:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,82 +50,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] drm/amdkfd: un-reverted lock state on NULL pdd in
-  kfd_profiler_pmc()
-- [Low] drm/amdkfd: missing Fixes trailer in kfd_profiler_pmc() commit
+- [High] drm/amdgpu: broken gpu_recovery init and ordering in
+  amdgpu_device_init()
+- [Medium] drm/amdgpu: sysfs reset_mask leak when gpu_recovery is
+  disabled at runtime
 --
 
-commit 04f061e589d38a636c5063f9828ed5587bde69f6
+commit da82b226214b96b7716dea3ad2863a26a7b52c07
 Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-> drm/amdkfd: avoid NULL kfd_process_device in kfd_profiler_pmc
->
-> All other callers of kfd_process_device_data_by_id deal with
-> a possible NULL return value except kfd_profiler_pmc.
->
-> Check it after the mutex unlock and return -EINVAL as others
-> place do.
->
-> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261029152000.22001-1-pierre-eric=
-.pelloux-prayer@amd.com?part=3D4
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
-.com>
+drm/amdgpu: handle gpu_recovery per device
 
-[Severity: Low]
-Since this fixes a NULL pointer dereference in kfd_profiler_pmc(), should
-the commit message include a Fixes tag?
+This commit moves the gpu_recovery setting from a global module parameter
+check into struct amdgpu_device and makes the amdgpu_gpu_recover debugfs
+file writable so auto-recovery can be toggled per device.
 
-  Fixes: a789761de305 ("amd/amdkfd: Add kfd_ioctl_profiler to contain profi=
-ler kernel driver changes")
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_chardev.c
-> index d65ae53c81a5c..95921369abb26 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -3463,8 +3463,10 @@ static inline int kfd_profiler_pmc(struct kfd_proc=
-ess *p,
->  	/* Enable/disable perfcount if requested */
->  	mutex_lock(&p->mutex);
->  	pdd =3D kfd_process_device_data_by_id(p, args->gpu_id);
-> -	dqm =3D pdd->dev->dqm;
->  	mutex_unlock(&p->mutex);
-> +	if (!pdd)
-> +		return -EINVAL;
-> +	dqm =3D pdd->dev->dqm;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 9c6d51445f820..f284e433b72bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3769,6 +3769,45 @@ amdgpu_device_should_register_switcheroo(struct am=
+dgpu_device *adev, bool px)
+>  		       apple_gmux_detect(NULL, NULL)));
+>  }
 > =20
->  	dqm->ops.set_perfcount(dqm, args->perfcount_enable);
->  	return status;
+> +static void amdgpu_device_init_gpu_recovery(struct amdgpu_device *adev)
+> +{
+> +	adev->gpu_recovery =3D 0;
+> +
+> +	if (amdgpu_gpu_recovery =3D=3D 0)
+> +		return;
+> +
+> +	/* Skip soft reset check in fatal error mode */
+> +	if (!amdgpu_ras_is_poison_mode_supported(adev) ||
+> +	    amdgpu_sriov_vf(adev)) {
+> +		adev->gpu_recovery =3D adev->gpu_recovery > 0 ?
+> +			adev->gpu_recovery :-1;
+> +	} else if (amdgpu_gpu_recovery =3D=3D -1) {
+> +		switch (adev->asic_type) {
+> +#ifdef CONFIG_DRM_AMDGPU_SI
+> +		case CHIP_VERDE:
+> +		case CHIP_TAHITI:
+> +		case CHIP_PITCAIRN:
+> +		case CHIP_OLAND:
+> +		case CHIP_HAINAN:
+> +#endif
+> +#ifdef CONFIG_DRM_AMDGPU_CIK
+> +		case CHIP_KAVERI:
+> +		case CHIP_KABINI:
+> +		case CHIP_MULLINS:
+> +#endif
+> +		case CHIP_CARRIZO:
+> +		case CHIP_STONEY:
+> +		case CHIP_CYAN_SKILLFISH:
+> +			return;
+> +		default:
+> +			adev->gpu_recovery =3D 1;
+> +			break;
+> +		}
+> +	} else {
+> +		adev->gpu_recovery =3D amdgpu_gpu_recovery;
+> +	}
+> +}
+> +
+>  /**
+>   * amdgpu_device_init - initialize the driver
+>   *
+> @@ -4117,6 +4156,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		}
+>  	}
+> =20
+> +	amdgpu_device_init_gpu_recovery(adev);
+> +
+>  fence_driver_init:
+>  	/* Fence driver */
+>  	r =3D amdgpu_fence_driver_sw_init(adev);
+
+[Severity: High]
+Does amdgpu_device_init_gpu_recovery() always set adev->gpu_recovery to
+(unsigned int)-1 whenever amdgpu_gpu_recovery !=3D 0?
+
+adev->gpu_recovery (declared as unsigned int in struct amdgpu_device) is set
+to 0 at the top of the function, and then the first branch tests
+adev->gpu_recovery > 0 instead of amdgpu_gpu_recovery > 0.  That overwrites
+positive module parameter values such as amdgpu.gpu_recovery=3D4 or 5 with =
+-1,
+so the adev->gpu_recovery =3D=3D 4 || adev->gpu_recovery =3D=3D 5 check in
+soc15_asic_reset_method() can never select Mode-2 reset.
+
+In addition, amdgpu_device_init() calls amdgpu_device_init_gpu_recovery()
+before amdgpu_device_ip_init() -> amdgpu_ras_init() allocates the RAS conte=
+xt
+and sets con->poison_supported.  At this point
+amdgpu_ras_is_poison_mode_supported(adev) always returns false (and legacy
+SI/CIK/Carrizo/Stoney/Cyan Skillfish ASICs do not support RAS poison mode
+either), making the else-if per-ASIC exclusion switch and the final else
+branch unreachable dead code.  Placing the call here also leaves
+adev->gpu_recovery at 0 during the earlier reset-on-init amdgpu_asic_reset()
+call and skips it altogether when amdgpu_emu_mode =3D=3D 1 jumps to
+fence_driver_init.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 0ae6e990c3102..28f9048f806cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2299,7 +2299,7 @@ static int amdgpu_gfx_sysfs_reset_mask_init(struct =
+amdgpu_device *adev)
+>  {
+>  	int r =3D 0;
+> =20
+> -	if (!amdgpu_gpu_recovery)
+> +	if (!amdgpu_device_should_recover_gpu(adev))
+>  		return r;
+> =20
+>  	if (adev->gfx.num_gfx_rings) {
+> @@ -2319,7 +2319,7 @@ static int amdgpu_gfx_sysfs_reset_mask_init(struct =
+amdgpu_device *adev)
+> =20
+>  static void amdgpu_gfx_sysfs_reset_mask_fini(struct amdgpu_device *adev)
+>  {
+> -	if (!amdgpu_gpu_recovery)
+> +	if (!amdgpu_device_should_recover_gpu(adev))
+>  		return;
+> =20
+>  	if (adev->gfx.num_gfx_rings)
 
 [Severity: Medium]
-Does returning -EINVAL here leave the device profiler lock and PTL disable
-request leaked when args->lock =3D=3D 1?
+Can disabling gpu_recovery at runtime via debugfs leak the reset_mask sysfs
+files on teardown?
 
-profile_lock_device() has already looked up pdd under p->mutex, set
-kfd->profiler_process =3D p, and called kfd_ptl_disable_request(pdd, p).
-Because p->mutex is dropped between the two lookups, a concurrent
-criu_restore_devices() call updating pdd->user_gpu_id (or the device
-becoming wedged later in this series) can cause this second
-kfd_process_device_data_by_id() call to return NULL.  Returning -EINVAL at
-that point leaves kfd->profiler_process and the PTL disable state held
-when locking, so later profiling attempts fail with -EALREADY or -EBUSY
-(or skips updating perfcount on the queues after unlocking when
-args->lock =3D=3D 0).
-
-Looking up pdd once or passing pdd from profile_lock_device() would avoid
-the second lookup and the un-reverted state.
+If GPU recovery is enabled during sw_init, amdgpu_gfx_sysfs_reset_mask_init=
+()
+and amdgpu_sdma_sysfs_reset_mask_init() create gfx_reset_mask,
+compute_reset_mask, and sdma_reset_mask on adev->dev.  If a user then writes
+0 to amdgpu_gpu_recover in debugfs before driver unbind or module unload,
+amdgpu_device_should_recover_gpu(adev) is false in
+amdgpu_gfx_sysfs_reset_mask_fini() and amdgpu_sdma_sysfs_reset_mask_fini(),
+so device_remove_file() is skipped.  The dangling sysfs attributes remain on
+the PCI device, causing a subsequent re-bind to fail with -EEXIST in
+device_create_file() and allowing reads of those attributes to access freed
+adev memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109171333.4329=
--1-pierre-eric.pelloux-prayer@amd.com?part=3D1
+-1-pierre-eric.pelloux-prayer@amd.com?part=3D4
