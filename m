@@ -2,76 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84D4606B9C8
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9F1606A33F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yov7ds+T
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=5MBBv6Y5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87DA710ED9E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E2A10EE31;
 	Tue, 10 Nov 2026 08:33:35 +0000 (UTC)
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3F010E25C
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 20:23:39 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-170135e43c7so1890968c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 12:23:39 -0800 (PST)
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
+ [79.135.106.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190D610F244
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794255818; x=1794860618; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Jj+ZuKIakpIecXslA+K9xsh0cQAuJwVzh7t+4VVhc7w=;
- b=yov7ds+TLeGU95TkNGE8AkNTl2faLhP9Y4TzEHKUjW4JvXrTo30OlLLVsE2T4C322Z
- vKdaPHTTh29uAR8hj4sHWuppHQhDHGu0F34+55lVrhjxq8cjxLFUfS5FfW9Iil33L6iI
- eAY7G3+dfxJ2hRiC9GxABmYIPQAuNtxGFlhHulTTjwyELqxnNSq1jcptNdevLaYIfHi7
- 4iHONlCTIwzeg6g1lG6rgdnrCJfF5eXwiqEm2yCbFJ/RBwpuQ/8f2nf4Kh9AL3QIHuvT
- JQzXvIe3gUgrzCN2KmnObxQz0HQFTr+gLXpqW56xVaBIkr2YuVK5eQ6bGkJ8MevtKbPC
- IKgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794255818; x=1794860618;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Jj+ZuKIakpIecXslA+K9xsh0cQAuJwVzh7t+4VVhc7w=;
- b=xCzAxTpjvc9k0yRghKztIB0voBgWI7eddC8mIrqzzee67v/WH6lj+45sk+6mjiDVm/
- o+lF3bbhXT5aO3uDG7BpEdyikA1LLez86xyqPmvrznEM0qPh7Vah0VKCnqyo0vpGkYUd
- XBNRfPSPrQMUaUZd/niMxDWG+0LZ13H24vvUAL6fmHr3S7oDUYlGsVbaDGiQ3ZUb0/1n
- qLElXo08tNnzxPMgcD+hCXYQHSoqEia3Ik03LKPQ0eWGAA74wigHiL1h4Mf0dvO7myAw
- lM42KQJjHgBCCIc7B2B9gD6hOasQvI8kCqrt2PjUbfqbTwIf7Dfdr0wo8KbqIjjRG9k+
- fG7g==
-X-Forwarded-Encrypted: i=1;
- AL+hErHczXsyFduysMyD0Dnb0ozaIjJJ9LVlO/ish6p+fmniI8X14GgdbM7hheLqV+iVH/Tl+hUeClWmt/c=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9++oO+ijO+rdLdctSyh13rRBKi7DeDh7CtCQt2WyYlE/smjnkL
- UREYbW2m3MwzBoBmY8pzMrfrO3TusSoU/AbCnqGBKOLesN86yhMuerE37WstkeOtytM=
-X-Gm-Gg: AYBFou0Rj+GMJJscJxePSNvA3RdX6+LuDy1eQaTDOL49MmpAepqWHt6sGFhyaAdEdNy
- ELJwIviAwV1mjhbqUrazrxGQVGADInT63tKdGqUbF+VDChAGO5TOgAdwoHsGAALkFesIfQ7XwJU
- 4WYbKjjQJN+uB+h98yBT/h7OPFkQI8FK4dat+1KbcgJ5Q55ClmoFKWR+W6xjKHc1RkynrukZ4KI
- cFtx6nRwvu/LtTJwku6ZHao+QBFzzkwEA6hs35mYP3fGafsvrxPNyva4iUldiBIMIFF2qCfAYBz
- 45gkyX7xvMFoUnWY3SmaY2Umq3R78NXs55arNHLSsNF3IKtH1RZP5UcdYNUTC7pGrVi55rFc+1Z
- nX1EVLvi+KQKpLPAc88WjO/fi9ShCDBeUwe8P7jC77voNtt2KfnmCLG21AmnDzbYqEmPLdpPP+N
- pqT9EzWHPOetCGTR4qaocwxwvNKx6maUTLuNKyY3YPrFSrflhMVxtpr6bWTbgokCVEBQa3wiCd8
- vsaSKiE1fZDGHYcnBmX8cK4rfl8bzJe7iFKG8jOyEmbqe3fv7zkm4SWtEi7fI+qDSS8kYiWh98Z
- +zqeZQIuEOhkDodu4uEwDVw9avzzFZ0SI+H9lZE2oJOzTm+7KsyUmQ==
-X-Received: by 2002:a05:7022:92c:b0:165:aced:1fde with SMTP id
- a92af1059eb24-1b3b5bc4ceamr1248497c88.0.1794255817923; 
- Mon, 09 Nov 2026 12:23:37 -0800 (PST)
-Received: from DESKTOP-6A237H8.localdomain ([106.219.176.229])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b3b5890584sm1520455c88.3.2026.11.09.12.23.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 12:23:37 -0800 (PST)
-From: kaii-k <harshicon28@gmail.com>
-To: nat@pixelcluster.dev,
-	arunpravin.paneerselvam@amd.com
-Cc: ckoenig@amd.com, thomas.hellstrom@linux.intel.com, matthew.auld@intel.com,
- matthew.brost@intel.com, dri-devel@lists.freedesktop.org,
- Harsh Parmar <kaii02ctf@gmail.com>
-Subject: [PATCH 1/3] drm/ttm: check for NULL resource in ttm_bo_kmap()
-Date: Tue, 10 Nov 2026 01:53:28 +0530
-Message-ID: <20261109202330.1816799-1-harshicon28@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ d=michaelmcallister.org; s=protonmail2; t=1794227533; x=1794486733;
+ bh=eerlHc+2nw9LU1blteBgbDf72O/+xt2VeIxgqcPfxtY=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=5MBBv6Y5HpHr3wguQtHSBZaHetMylu67S5tbrJtq9xyxFfFjNu8/uBGd1+RNzDsYl
+ MjN1jdQRTG8BMp3We6zvMpRGVYYq1FA5lmyE9gEiKOFPf4ILHQm23xhGIl3wz26Ej9
+ x8QTTpJYMBNWAqOJchCYkaMyyD9R4MP9lsDuhSGIP3hEcj5Qh7Eb3xqmceKyfXOMm7
+ aKGkXW7/NW072roRpMqRcoAB/BUx1QnMX8NguugA3OaP8qazwGbBR0wxRhnROUm0nf
+ JDclYc0VCqAAqKNTz5bDFh7+F0Ccf8o6edAX3zjuWP1pByPCSxbxmKf2yhzZ2JQMqe
+ o55mTh2+LBgMg==
+X-Pm-Submission-Id: 4jNTgV4YVsz2ScQG
+From: Michael McAllister <me@michaelmcallister.org>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dsi: avoid pinning the command buffer on every
+ transfer
+Date: Mon, 09 Nov 2026 12:32:05 +0000
+Message-ID: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,45 +52,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Harsh Parmar <kaii02ctf@gmail.com>
+The command buffer is already pinned by msm_gem_kernel_new() when it is
+allocated. Calling msm_gem_get_and_pin_iova() to fetch its DMA address
+adds another pin for each transfer, while teardown only drops the
+allocation's lifetime pin. This leaves outstanding pins on the buffer.
 
-A buffer object can legitimately have no backing store: a driver may
-call ttm_bo_init_reserved() with zero placements, which leaves
-bo->resource NULL. It can also become NULL after the backing store has
-been released.
+Use msm_gem_get_iova() to retrieve the address without taking another
+pin. The allocation's existing pin keeps the mapping valid until
+msm_gem_kernel_put() releases the buffer.
 
-ttm_bo_kmap() dereferences bo->resource unconditionally (res->size),
-causing a NULL pointer dereference and kernel oops when called on such a
-buffer.
-
-Bail out with -EINVAL if the buffer has no backing store.
-
-Fixes: d3116756a710 ("drm/ttm: rename bo->mem and make it a pointer")
-Signed-off-by: Harsh Parmar <kaii02ctf@gmail.com>
+Fixes: 7ad0e8cf6317 ("drm/msm: Count how many times iova memory is pinned")
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 2 ++
- 1 file changed, 2 insertions(+)
+Hi,
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f9458a4..158f0df 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -435,6 +435,8 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
- 
- 	map->virtual = NULL;
- 	map->bo = bo;
-+	if (!res)
-+		return -EINVAL;
- 	if (num_pages > PFN_UP(res->size))
+I ran into this while testing display teardown on the Moto G10. The DSI
+command buffer is already pinned for its lifetime, so this avoids taking
+another pin every time we fetch its DMA address.
+
+I tested this as part of the G10 display fixes on 7.2.9, including display
+power cycling, suspend/resume and teardown with the compositor stopped.
+
+Thanks,
+Michael
+
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index d92659d80f..64fc54dff4 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1428,7 +1428,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *dma_base)
+ 	if (!dma_base)
  		return -EINVAL;
- 	if ((start_page + num_pages) > PFN_UP(res->size))
+ 
+-	return msm_gem_get_and_pin_iova(msm_host->tx_gem_obj,
++	/* The command buffer stays pinned from allocation until teardown. */
++	return msm_gem_get_iova(msm_host->tx_gem_obj,
+ 				priv->kms->vm, dma_base);
+ }
+ 
+
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
 -- 
-2.53.0
+2.39.5
 
