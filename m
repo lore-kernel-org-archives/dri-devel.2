@@ -2,128 +2,140 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6535B606A330
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF07606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wnU4QLvL
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=H3l0PWGL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6BB310F1EE;
-	Mon,  9 Nov 2026 11:54:41 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012045.outbound.protection.outlook.com [52.101.43.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8ACD10E89A
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B173010F1EF;
+	Mon,  9 Nov 2026 11:55:14 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011067.outbound.protection.outlook.com [52.101.62.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F109910E89A
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 11:55:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HK+yGy2624cI4F9IehoRNnPinRdZ3iCmyXUrDV4oxi1ZtWjN3cnWZBhW701A3riLPZtPYH7M3fZzjc1KH6TNkBNGVN7Qx7b8ZPUZts74tjRRwSphsVxsmPXq5IqxvJngK3UQ5y8sL/YFd0Jbcc68CSbZNdw3R5WhdnMHlcJE46icf4X0qSoOI03Lvv/rvTzOZfGQWd1cnV/mXUMiW2Wk7gjIoiEQSY+Y5WueUMH+GopVFPPEk3UsYhfK4wfM1giVvVEo5H2QuNHprcwpcRHmkl6NS8Q5HZsMwmAmESvL20nWm734J90Aofc7JZBbckAx+ME7OeZKuwtyBx++8VbWBQ==
+ b=NZAmlL/PwIqm1GJzAAvliP3drfZHiGyCZnt0CvD2DlVBDL70tZ2bMiMbDwNjE1ivobl88CYMFJCopi9txDUzDJRH5wkJhv+53a8YShmdHNu6RLhDoZL+ZEtLh5u23dxXQA24QrgZHVsmqfNEjGb1HCABaCUvDy4CpcwJFEjugCmJo1Dn+WTs+0no/PVvM99jeeFgklCH8opCgv/zv7umuc+Di9W5GZlYuo1XxKp26Bd90mojGA2jGP6s29fU10XIll20HKG6lpk7tqoJfNe6HahNlhbGq/VPzdk/1GReX8JdL/PYD4/vx8keMsIEZtfQPc4SXkahcPiP1evX3AEBRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N6T+xqRBe02CsLidTs+IL9dgnZwCx+CZF9sL7P0Hkn4=;
- b=Nqv09AmrPKCD7UL+3ChwSL8CWPrJGhkZKg/FWOFq72TBZsIvMJRBbeFTXaIoGoVYWB5efP8zhUTkKtVqMfsRKiKtA7gn8udOIS+QJPYT1R0KYl3FL6w46SwAmqnz3ltf0tm+eQOkjOexnS4aGCarC4wGiCHG/uTQoyAMxwAqWaqMFOerW9rpsEMmNyencpJCnFHF+bwWFubIqH06ZFWhSiO83cYtjJu001NRXTE2tpyP2uITwzLntezfKCSBA3AXj72cfjNfMcvkl+4OkO7uynPtfMrNIukYi1gGbjE/k/YDEWdWuIfjNnRXpGxYIPxmPvJPEHuKWMGfiLUqb8BgPg==
+ bh=kGv5wGSONRrATLDDiu9PDtaInIU/Se1KVnXVbCbk9qM=;
+ b=nacOmdgKuqqVnmoEO5o7ZIczkgDcS1qzu4jtYBTGZ7EczLdzcGpLU/H4NVrdmtg19muf1/XpLREMdudNs8wsrB4b42NTgwRakw7mwi7am7ZyVyNItesUywkkNp7jx4lnfFcaWRvXh4chxOG2CNz2tiyUuCYhEN0j7VGlNhxnvLxjfJ7Z03+dEHukM7B+NWov3zuRW0heRoV43AehSx9AD03BHYp8nLNQBWYOG8+KPihMMyvWINlIdWkLd1G5aP/rb/mfJJGgBgPRYuH4jYFIu5Ksi51geVSlKdlGlYcfVqa8NftZ6Vdzqvc80Xi8/cQhSFiE9iRsuMUV7tihJV081A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6T+xqRBe02CsLidTs+IL9dgnZwCx+CZF9sL7P0Hkn4=;
- b=wnU4QLvLUiK2tR/bn14+dxQ9J4pRYW/H9lFZEaBvRloa29lJ/cT6Qt766IdzxnbYt/81kuHT9of5NJ5Ga4yE5JzhUJzfru52CKecDz1YYP+c3VFzeAbjQ7isGYuZTDQu4LPUfvCOICYV44nr2twX7Lxyv9cv/hn6/z6OSV5xIm8=
+ bh=kGv5wGSONRrATLDDiu9PDtaInIU/Se1KVnXVbCbk9qM=;
+ b=H3l0PWGLo810F8s3tx1xZjy5BRNUt/3A8VTaXui0O+AqoYzDguzJkIPFdDu8W8Ufq4NyqUULO0MLEfCid5omCPhn0u4a7xB1ekH+6VrGtl7mHOa3MBbdrp8KdGswzHau2faDsGrx99pNfMx9NJnF5uMWQCHpsQAD0E2K67NWkJwqvmfTKKkvFOhAeKAKeRA+5rd3TG18Qz9BmyapDBA3K9eaAAfu9nRjBsyuIa2YpGw9W3KJq0kRgbDZu5JiVU/aLndk2kIANMS4uYHxHDRauw6JIc91JADwGJxYOUwI63MWU9s2OaYiKdhMCABDNdEfRheQRW+aEUVsuk10Zov4sw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB6649.namprd12.prod.outlook.com (2603:10b6:208:3a2::6)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SA1PR12MB9002.namprd12.prod.outlook.com (2603:10b6:806:38b::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Mon, 9 Nov
- 2026 11:54:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 11:54:25 +0000
-Message-ID: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
-Date: Mon, 9 Nov 2026 12:54:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/syncobj: Limit the number of handles and use
- kvmalloc for user-sized arrays
-To: "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
- Madhur Kumar <madhurkumar004@gmail.com>, stable@vger.kernel.org
-References: <20261109014852.2127723-1-fei.yu@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261109014852.2127723-1-fei.yu@intel.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Mon, 9 Nov
+ 2026 11:54:20 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 11:54:18 +0000
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0165.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Date: Mon, 09 Nov 2026 20:54:14 +0900
+Message-Id: <DMQNRR2496PU.6NLE17ACRIEZ@nvidia.com>
+Cc: <dakr@kernel.org>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
+ <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+Subject: Re: [PATCH v5 9/9] samples: rust: add Rust SR-IOV PF and VF driver
+ samples
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Simon Song" <xinmengs@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20261030171230.196717-1-xinmengs@nvidia.com>
+ <20261030171230.196717-10-xinmengs@nvidia.com>
+In-Reply-To: <20261030171230.196717-10-xinmengs@nvidia.com>
+X-ClientProxiedBy: TY6PR01CA0006.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bc::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6649:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9012fb3-34d4-4548-94bf-08df3e58337e
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB9002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16c9e6e0-5d38-407e-5fb1-08df3e582f1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|23010399003|261028144727099003|11063799006|56012099006|261022105027099003|261022075727099003|261009223027099003|261021123027099003|261021121427099003|261009221227099003|261026121527099003|261102123227099003|261026140227099003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: s5YiyoXF3Tq4F++EppvcX2L7mbLqFXbMK7r1qBm3UXikYFGxcgPlqcwaVZ8lplldTiktynAJTxrXE7ZCW1wSsvBOM6QFWvUSFfiMalaAtmJOCCbiQNlt1FkUjLC0c6LQmi+ahUdX4Qjytxw9akpQyIYLX4MI1fg8q1N+VKSqGLSDaFEixibK/ID5A9hDCrV9Wt0cBFks7fJRmHnXnMpOQp9PNveAl7nXf5IAUWBqJQsvCT8LNDJPnEkLoUt7fGzRm+wiGSjwaIZWurD0P8FFNNZ+EHk4s6okTgTwuqIplUU5FF5ER8h1iXtCikTwGfjKu1qbp/IwrMqZ3jBzeaYaD2T92gepZfQ3VV9mDCjy7kcsG9rzx/xAsb43vSnijBgrJkLmwtL/S3HKtOnJ+dqTCxXnjVhXlRrHeeGH7j+lsBJ0NqiAr/u5vQpbXGfK1GjRRm+/wWMEuU7iQphZgTXTNvrWqFN97C5fN3jmkGP7lVOvSiVreWPoAbOzxJyDl5+zOr8+tK5loaHxZkBtev8q4zvu9ezEzdxlHox/qfGWMlRY0qlVeyqayPoqEqXoRGNd8n0hVq9bM3zn5OEzj5GjrkUNvwwQgcMdp79eyx0ui2m6N8+3TXc1jySA4Rn56Fbv
+ ARA:13230040|23010399003|376014|10070799003|7416014|366016|1800799024|11063799006|4143699003|261022113327099003|261022075727099003|56012099006|261009223027099003|261022105027099003|261021121427099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|261102130727099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: ZvJ96Bl8uwR/GfkE5xUf1mvoWariovxtf2FHj4z8E5aCuWiR/BwW2gyrvbM1QUjk70+gnJTYOMh3GxOwPTqTOjR5bhZCUcchBGOpVkrepgvR0ud2rSUOPdL50zttX7NpF2Dp7HqO/cVOtIGDV0jm4YpFF2ZsA0ORFX0lpYCeykO0yEAu0HpzWIH3LNfucWde7NnGcWWkJ3arTHeaLADCGEN61f4cHmUP7c21Y15hvRMrDi6P2PiO5eIkE3pJIi6f8PSsABjSbdmuu+BeT5ukmiM2dRv+XYbSTO1z3gnTPCRrHNeUlMdmWfVygNc71NUSdRjzY31RgiVrQgjFTk8KgE/hsegZ0t7xRoyJIjq8Ejq2h/jwrUFUlvH2LOEs4WGz1JeGJV1FQ3rRBCrnAakLdTmFMff7fd9mpSsMvrzIrdwTu5pmZG9YF1ChxVnGSkl0p3MFaC8xF6TBIBScrbdq+CQ5/LMnN2KTAY70RNZVu1HeYYSYRW2FqKQzsFLPSP+jeV14LiY7Ee1b/IVj6q5inEIjsfHYdYoF8CSF4bC1/K7eL7eR/Yo/LTKOp+64cGeqam2Jf8mlo/wkTmXynpIJbAEQ5LICOzmkdEPnAsmwRrnaaC2BZa1LAelZ3D1705SkbMUY1KiYwlq7QHoazzAhvFhQTWJCbFr0ppv0udP+s34=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(261028144727099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261021123027099003)(261021121427099003)(261009221227099003)(261026121527099003)(261102123227099003)(261026140227099003)(22082099003)(18002099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(10070799003)(7416014)(366016)(1800799024)(11063799006)(4143699003)(261022113327099003)(261022075727099003)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102130727099003)(10067099003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1lmWUpGWU02L2pwZ3MxWmdWcVRQeklCRlZoSkFhVm1Mb0wycWNKM09CSTBm?=
- =?utf-8?B?S3IrUnNtMVJReGNibEFXdmVPTkV5UGxjVysvdUJXUXFxcHlUWlA2Z2Nua2pu?=
- =?utf-8?B?RmhjWFh6bzJDdFRSd0JldkUxYkQwQkhMMHFOSjFSTkl2bVRWZXRGQ2cxUzZG?=
- =?utf-8?B?RCt4bUtSbE1JRmQzekJMWFhTMVNLdE1LZnRXb00rQkRpdGt1NWk1djZNdmFE?=
- =?utf-8?B?QXdnZGgrQlNTRHpZeFpWeXJaL05qU2dVTjdCaElkNWhqd3d4VWc2bGxVZGZm?=
- =?utf-8?B?UHc0TE1FdTNudk1FbDdDRVZrMkNiNERabXArdExjcHo5ZkNwRDVINWM2dGZr?=
- =?utf-8?B?RzIrUC84Y24rNU1ZMStmYzdSMS9MSzQ3M0MxTEhINlIvbHptblIzdVFHZGhU?=
- =?utf-8?B?Y0pua0Q3NnhNMlFLd0FUN2hidGxOYVJOejZrb3E5OS9rcUFmemZTd3RrWUh1?=
- =?utf-8?B?d1hzR2RWa29FaVRmUHBpRDBuRUZ5U1VwZkJlay9ZQ3dMYzNHd25ZeXlwb1l5?=
- =?utf-8?B?QTFrYVJwSEluYkc3TGRDQXZ4MDVUU3hoYmR0Z2NoT2pReUJuQWZHK2x6aUZJ?=
- =?utf-8?B?c0NRV3FRVkhlSE1oTnNhcjMxd3R2Um5md0hzUXRmYkFBT05MeXk2THhIVi9Y?=
- =?utf-8?B?bGUyWWgyeENOeFU0NkFSYzBFOG1xZnFoSUo1aDNXUGpuZjJxTHlTa0IyazhZ?=
- =?utf-8?B?bUZWQ0dzbVhzL1pPUndKblZlVUM3VDNFOWNQSEk1N1o4ZFBpV0wxUlFiK0Er?=
- =?utf-8?B?bDY1N3RUMFhTTWVqV2FJRk5NU3hrcUFZTjEvdmpZZ0krUStwRS9wZ0ZXdEZx?=
- =?utf-8?B?MEZhSW03RlY0Q3NBN0ExTkM0V09RMzVBOXVmOCtOZndRb0xJTUE4OENkWWh3?=
- =?utf-8?B?ODJtZkdWMlpCb1d4NVJVTWhwcnRDbk4yaThqTDNGMVV4TUp4VVQ4ZE1wbFBo?=
- =?utf-8?B?NHUyZERzMFg5NmtKQTlIaHpjMmlGc2VMbU1yTTZrRFJyZUZuYVZOMEJnUzg4?=
- =?utf-8?B?ZmI4SjlSa1dad20wVUs5STB4OGF2VlUxUmh2UTJQY3c4NDdaY1JjSlJPR1li?=
- =?utf-8?B?NU8xVXBZMkZhRnorMXBqc2ZHRmNtc201R0NibU11RTFUUWUwdGY2MHVBWFRz?=
- =?utf-8?B?N0xJZitqTHJqTlBBRVBxMVlLN2s1aVpuQ0czR0lCN3RHeS9Va1FndWFZSmxj?=
- =?utf-8?B?QWNlRlNmWTdnK2VGL0hmd3M5dDMxLzF3RG51K3B5QmRwTnlUaHhRd3BlWXA4?=
- =?utf-8?B?SDVkWUllRExoTmdIV1AyY3BkVFFIT2hWS1cvOWRFYnJzVmVlYzFaN052bTFX?=
- =?utf-8?B?NVNnVGdGREdkT3VBVFlHMStsYzVVcEErOTFyY1pjOHBJaGpNVExnZzFQamhu?=
- =?utf-8?B?V0hsekV4RGpldlFFNGJ0clVsazFIQUNvb0pTQXBSb1ladDg4QWxDaVFUK3RQ?=
- =?utf-8?B?VE1ZQU11aDAvM0Y5QjluanpMSWM4UGRUamNRaFZRbXoyZ1BYNnVaYXEyS1hj?=
- =?utf-8?B?cWJpd0Fqa2pGUzAyUFlMSXNzaVdwc0ZYQVg1QXlEdWZmTHZyUG94QjN4am42?=
- =?utf-8?B?bFZvRGhzaEkvbENxMGRXbXp5RlBnY2ZncElPZENnUkMySVZiTXMzV0ZiTXZv?=
- =?utf-8?B?OG85aTVSUUZ0Yjlxb093ajVNd0JIeGJ5eHNHUHNQejl6aWlIdWlkcHlzdEdi?=
- =?utf-8?B?NWNjQ0lvVWNCcGVGOWNOSnFGU1ZnTHlJemZCSnlOdXFnZnFiZHJyb0RVTEc2?=
- =?utf-8?B?S1N3ZEJWR2lsWXNFUThZUkVtbGFlYzQraEFlUUpjdktVMlhLOUR4REZiM1Er?=
- =?utf-8?B?VjROQWU1TjNQRDZXbU41WloxZzdGdUdHUk5UcWVnNzVVNzEvRzZmaDVnaE9N?=
- =?utf-8?B?eUhnS0hTR0U3eG5Uak1OQkl1N0pLTlZRRURHdUhTZG5zLzhvSnJmdlBBNGlV?=
- =?utf-8?B?YkwvOVZRME8zUy82bjZCOVpldzI0WlphU2dGMXFCSEZOdFlpUlRaMVZ3dlFH?=
- =?utf-8?B?Wk1EV3R5U1IvZW05akJya0dRenl2WGxYV20ydXYzMnozVGtnNnl0TWdoaGdp?=
- =?utf-8?B?cVZlMlIvYTUwTTl2WmxoQlpZZGw2UDE4MkJrWW9WSVNoa2ZHRzdIbVhvdm9o?=
- =?utf-8?B?V2dFV2RJNGw0YjBmb2RHT0xRN3UycWhiSFlZWktDMUNuYTZDaDZDRnl0VkFY?=
- =?utf-8?B?dUR4VHBsUlkvenhtTjBiZ2RNQlByMTZ6NnE1eTNqdFB6dVJvU041eVFpcklR?=
- =?utf-8?B?UGNCKzl6dVo3SVRURUJ3MmtzV0tpekQvOTh5c0R0Nlk2dko3MDk4SWFRb3ZU?=
- =?utf-8?Q?S60Tg+WqzGowf6Iv5X?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9012fb3-34d4-4548-94bf-08df3e58337e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekxIeFEwYnJzKzJnNEpaWnppSE5TdGtDc3NRN0NZcjFIekwyUTVTanZtSnVY?=
+ =?utf-8?B?NTc4VmNGWHo4WnU2UHc4YnpqY2NFNFhyeStZL0twMDdOaktpVlA5Q0krZEtY?=
+ =?utf-8?B?OVJ5dTBIMHNaUVVCMzZvRm9qSHltRXMrSm9rSFVEb256WGNaUEVQV1hLdXBz?=
+ =?utf-8?B?V2Z5YzBGU29CMXpIVTF4eG9zNFJHMHJRK3p1a0pPaS8vblBCdENuMk1yb1Fn?=
+ =?utf-8?B?TXhCckhWRVlkdElDWkIyN2FIMFcvQWtqUlNJNmtYYzFjcUJZejRXUm5SWVBw?=
+ =?utf-8?B?OTU5NkxEVnhkaWNjeHI4MFFaQUZqYSs1enZOVzk3Z2MrTlQ0cnp6R09xKzIy?=
+ =?utf-8?B?S3dnNFhVa0hQOUdJcUJ6Mk5hUGcrZVRSWnNhMy96T1cwdlVNcmNyVEF6dXFn?=
+ =?utf-8?B?Wmh3Z2E1NzRlb2lEWXpDbWtSaG1KTEZVYnlLVEIzTXhKSGNpRldDS3E1T0N2?=
+ =?utf-8?B?WUMzTzFkUFB0WC8wU005U0I3WHQ2aGpTeFpqWldiRGU5TVlCREhPakZZcVBT?=
+ =?utf-8?B?dkdYNlpUanlaSkpGanVNRzhNbDdQUC8yUWN5Ny8zMFJOM05QU3ZrMVYyeTFl?=
+ =?utf-8?B?YmJmY1hYNGVjSi9SNlZDbTN5QWhtQXAzSU9ONXBhU01laW9meC9Vd1h1VWc4?=
+ =?utf-8?B?eGdoOGQwdk5rYnVqRUsyaFVST213NEZQWTA0bVQxM01LWjlzeGlVNEF2S2Zh?=
+ =?utf-8?B?YVVpVU5YVWp0MUJFTU5KN2ZyS0RMTXNsZHA0WTlVSTY5YldJYTJOYUFFeHJw?=
+ =?utf-8?B?dnBPeTY4YkEyMjdlbXVYZHp0YkJMY21rTk0zTlBEYVJNM1BydmdRblJ6d1V5?=
+ =?utf-8?B?OEJBckZGcEdmUTNXUCtHN3Jya3RZZTJCOVdvWWx2RG1mY2JRdDhUNlNXdjV3?=
+ =?utf-8?B?d3JBVkJFWXdoaHdXYXZlZEdpdXhaZW02N1RzOVRIZGk1N0dTMUVDT2Y4RVZV?=
+ =?utf-8?B?bjFkTE5aOTJYTkpFWEdFR2o5cjBmQThVaXRNVWVPMWNiQ3d1Y2RYaHg4enkw?=
+ =?utf-8?B?bkpIWVBDeFdLNlBxdlNjMC9BeW9vcVl0U2dZM0JMVjMrMnUrdFlSV0hMdW92?=
+ =?utf-8?B?QU9kVFpGZ3ZzVUplaGRlVUtsVzVMQXY0SlMrdm9OM21Ba095WExPbG12SEpu?=
+ =?utf-8?B?TDl2WGdhK2pVUVAzOFFMcUwzS28veU1rY1dJZDlYVEhUdGwvdHhuK1d4SVdF?=
+ =?utf-8?B?VU1yaHhob1NNSC9raDI5V3U4ZmpxQ0RkK2VoN016RkpzTnBiNE9BbGhiRFVw?=
+ =?utf-8?B?eVk5cU9ScmJXSHVmVjBTem1ZNzVna0tNNmZYTzJsOFY4aElTRTlCV3pGTWpY?=
+ =?utf-8?B?bXFabVB4YVVDb0xkaE5nVlJsWVVzZlVIZEZkL2pSRmtETDg4Y2ZqK21DNjF2?=
+ =?utf-8?B?V3JPMWhtL0R6UFBKNGdZbkY2VytYZG92MUtLMmRkdFcreTNGSHVkU3ZqK05Z?=
+ =?utf-8?B?Vy9mNlZ4K0h0SnhXSEcvOTdhUFhWMm9mNXFMRG1zQy9OS24yOERuZVR6ZEJQ?=
+ =?utf-8?B?T3hqN1dlbDYzbDdFdnpZTjBFOVhQZEhDN3JhQ2xTQ3h3c1JVY0FCWTM2SFU5?=
+ =?utf-8?B?OVlRaDVDZURwcWxjUnptU3NlUHlOaXNaNCtjSDBaQ3dPTE9UZ2ZJMmtuZ3BC?=
+ =?utf-8?B?enhNcFV5RXpwbUR6QWhaa0R6MGp0eUJpYUhIa1ptTEJkUlU4dzJjbjQxSkFT?=
+ =?utf-8?B?VWNaUnF0dWtMRmFiVEd1Uzk5TTZRRnE4RW55VFV0Q0doLzUwY21GMHJLL0w3?=
+ =?utf-8?B?K21rZlBsSlE5SXVPSEJKS0QzeHBKaS9sT0s0MHFtUXBtaE0yNzU3STRrdU5w?=
+ =?utf-8?B?SGVuczBzbUthQXVVdHpDYmplVDhOVWR1RW55aGxxQWd0WWVTZ1NmOXhheEN5?=
+ =?utf-8?B?SFVUcVF3djZCbDF2ZXJxUzlmSVVQYml1RTQ0RmJ1RnFjUWdFSW84Z29laXA1?=
+ =?utf-8?B?czM1bFIzT1U1UVhXOUFhWDB5SDRyQzg3L01YMlhhejhUOURtVTFsbCsvNWxN?=
+ =?utf-8?B?VC84UUx5QXE1TjdQb3NVMTNFbm13RTF2czZ5SU9sM3hxeU9SdzUxQVRCT3ZY?=
+ =?utf-8?B?NmhsUUlrTncwNUthUmVsaG9BaVBzL0xBdDZWM0ZKNWJsU0phMkVKN0l2alUw?=
+ =?utf-8?B?RS9xRzVIRkowbW1vellLNjNtVDFsZnZsdkRMNDBqdVREbnBHS2RsakEwNUc2?=
+ =?utf-8?B?ZjdBeUN3cGVsd1ExYjlJNTh2dVlxa1laTDFSTDJLcHduMk9XT0NWM3dtYmk3?=
+ =?utf-8?B?emo5andvVWc0SXNsSnlKb002dVJ2QTN2UVl5dHhkdFBzd2dLd0lvb2syQmdw?=
+ =?utf-8?B?b2JHN0J6SU05dDFtb241ZHczSDFGVjFSeXN5TkwwbHNYZ01EMnVLVlJUK1lW?=
+ =?utf-8?Q?nJVg6P9N03uze/QKJ+FB/9liyPqQHn9L6x1VtUVIjId+w?=
+X-MS-Exchange-AntiSpam-MessageData-1: ZY7HfltWI1PhHA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16c9e6e0-5d38-407e-5fb1-08df3e582f1d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:54:25.4268 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:54:18.0012 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xDJr+XwRjx0OJpv70fhgJ6oD3tByCFPSAsF0PLLe9v0v0kU+p80F6f2MgS1r+eOW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6649
+X-MS-Exchange-CrossTenant-UserPrincipalName: +1krY71/T+HO1jhetibr3a0WvhYUxcQ+w4GW0p09PUBR6a9eI7GCELpcD3jiC9gbWqWQpRSQYw5XFwDtPOmulA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9002
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,261 +147,256 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/9/26 02:48, Yu, Fei wrote:
-> From: Fei Yu <fei.yu@intel.com>
-> 
-> The syncobj ioctls allocate several temporary arrays whose size is taken
-> directly from the u32 count_handles provided by userspace:
-> 
->  - handles and syncobjs in drm_syncobj_array_find()
->  - points and entries in drm_syncobj_array_wait_timeout()
->  - points and chains in drm_syncobj_timeline_signal_ioctl()
-> 
-> These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
-> element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-> 
->   WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
->   Call Trace:
->    __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
->    __do_kmalloc_node mm/slub.c:5519 [inline]
->    __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
->    _kmalloc_noprof include/linux/slab.h:995 [inline]
->    _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
->    drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
->    drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
->    drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
->    drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
-> 
-> The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
-> KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
-> today, with a warning.
-> 
-> Fix this in two parts:
-> 
->  - Reject more than DRM_SYNCOBJ_MAX_HANDLES (1M) handles with -EINVAL in
->    drm_syncobj_array_find(), which every ioctl taking a handle array goes
->    through. The limit is a fixed number, so it is the same on all
->    architectures. It is above what these ioctls can handle today: with a
->    4 MiB KMALLOC_MAX_SIZE the 8-byte arrays already fail above 512K
->    handles on 64-bit, so no request that succeeds now is rejected. A
->    static_assert() makes sure that the largest per-handle allocation, the
->    wait entries, stays below the INT_MAX size limit of kvmalloc().
-> 
->  - Switch the six allocations to kvmalloc(), so that handle counts up to
->    the limit (64 MiB of wait entries for 1M handles) no longer depend on
->    physically contiguous memory.
-> 
-> Using kvmalloc() alone is not enough: the reproducer asks for more than
-> INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
-> instead.
-> 
-> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fei Yu <fei.yu@intel.com>
+On Sat Oct 31, 2026 at 2:12 AM JST, Simon Song wrote:
+> From: Peter Colberg <peter@colberg.org>
+>
+> Add separate PF and VF driver modules that demonstrate SR-IOV using
+> QEMU's 82576 (igb) emulation.
+>
+> The PF publishes a pinned API object in its private data and exposes a
+> submit_request() helper. The VF calls this helper with its Bound device
+> borrow. The helper performs the typed registration lookup in the PF
+> crate, keeping the API object and its lifetime encoding private.
+>
+> Adapt the nova-core/nova-drm rules in drivers/gpu/Makefile, preserving
+> their metadata, export-selection and MODVERSIONS recipes with the sample
+> object names and paths. Set the PF crate name explicitly because its Rust
+> root file has a _main suffix.
+>
+> Keep the helper out of line so the VF module has a real symbol dependency
+> on the PF module. The module loader therefore holds the PF module while
+> the VF module is loaded, and modprobe loads the dependency automatically.
+>
+> Each driver has its own module registration. The VF module can be unloade=
+d
+> and reloaded while the PF remains bound. Unbinding the PF disables SR-IOV
+> and removes its VFs before releasing the registered data. The shared
+> Kconfig option builds both drivers as modules or both into the kernel.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+I agree with Danilo that having two modules is unneeded here, especially
+if loading the vf module ends up automatically loading the pf one
+anyway. Let's keep sample code simple.
 
-Let me know if you need somebody to push this to drm-misc-next.
-
-Regards,
-Christian.
-
-> ---
-> v3:
->  - Use a fixed DRM_SYNCOBJ_MAX_HANDLES of SZ_1M instead of deriving it from
->    sizeof(struct syncobj_wait_entry), so the limit is the same on 32-bit
->    and 64-bit, and add a static_assert() against the kvmalloc() INT_MAX
->    limit (Christian).
->  - 1M rather than 64K: with a 4 MiB KMALLOC_MAX_SIZE, reset, signal, query
->    and timeline_signal currently work up to 512K handles on 64-bit, so a
->    64K limit would turn requests that work today into -EINVAL.
->  - Keep the define kernel internal for -fixes; documenting the limit in
->    the uAPI struct comments will be a separate patch for -next.
->  - Add Cc: stable.
->  - v2: https://lore.kernel.org/all/20261104030930.3852781-1-fei.yu@intel.com/
-> 
-> v2:
->  - Drop __GFP_NOWARN (Christian).
->  - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
->    arrays to kvmalloc() (Christian).
->  - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
-> 
-> The vmemdup_array_user() conversion and the points array cleanup Christian
-> pointed out are left to Tvrtko's series, which he will rebase on top of
-> this fix for -next.
-> 
-> Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
->  - syzbot C reproducer: base warns in ___kmalloc_large_node(), patched is
->    clean, the ioctl returns -EINVAL.
->  - 1048576 signaled syncobjs; wait, timeline_wait, timeline_signal, query,
->    reset and signal with count 200000, 1M and 1M + 1:
->      base:    200000: wait and timeline_wait fail with -ENOMEM and the
->               warning, the others succeed. 1M: all six fail with -ENOMEM.
->      patched: 200000 and 1M: all succeed. 1M + 1: all return -EINVAL.
->  - drm_syncobj.o builds for i386 with W=1 (static_assert holds).
->  - checkpatch --strict clean, W=1 clean, kmemleak clean,
->    DRM KUnit 667/667 passed.
->  - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
->    202/202 subtests pass, same as base.
-> 
->  drivers/gpu/drm/drm_syncobj.c | 44 +++++++++++++++++++++++------------
->  1 file changed, 29 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index f1d4da168545..c8a8c49d12fb 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -199,6 +199,7 @@
->  #include <linux/file.h>
->  #include <linux/fs.h>
->  #include <linux/sched/signal.h>
-> +#include <linux/sizes.h>
->  #include <linux/sync_file.h>
->  #include <linux/uaccess.h>
-> 
-> @@ -220,6 +221,16 @@ struct syncobj_wait_entry {
->  	u64    point;
->  };
-> 
-> +/*
-> + * Upper limit for the number of handles passed to a single ioctl. This is a
-> + * fixed number so that the limit is the same on all architectures. The
-> + * largest per-handle allocation is the wait entry array, which must stay
-> + * below the INT_MAX size limit of kvmalloc().
-> + */
-> +#define DRM_SYNCOBJ_MAX_HANDLES	SZ_1M
-> +static_assert(DRM_SYNCOBJ_MAX_HANDLES <=
-> +	      INT_MAX / sizeof(struct syncobj_wait_entry));
+<...>
+> diff --git a/samples/rust/rust_driver_sriov_pf_main.rs b/samples/rust/rus=
+t_driver_sriov_pf_main.rs
+> new file mode 100644
+> index 00000000000..b0795663aea
+> --- /dev/null
+> +++ b/samples/rust/rust_driver_sriov_pf_main.rs
+> @@ -0,0 +1,164 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +
->  static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
->  				      struct syncobj_wait_entry *wait);
-> 
-> @@ -1051,7 +1062,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  		lockdep_assert_none_held_once();
->  	}
-> 
-> -	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-> +	points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
->  	if (points == NULL)
->  		return -ENOMEM;
-> 
-> @@ -1064,7 +1075,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  		goto err_free_points;
->  	}
-> 
-> -	entries = kzalloc_objs(*entries, count);
-> +	entries = kvzalloc_objs(*entries, count);
->  	if (!entries) {
->  		timeout = -ENOMEM;
->  		goto err_free_points;
-> @@ -1185,10 +1196,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  						  &entries[i].fence_cb);
->  		dma_fence_put(entries[i].fence);
->  	}
-> -	kfree(entries);
-> +	kvfree(entries);
-> 
->  err_free_points:
-> -	kfree(points);
-> +	kvfree(points);
-> 
->  	return timeout;
->  }
-> @@ -1238,7 +1249,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->  	struct drm_syncobj **syncobjs;
->  	int ret;
-> 
-> -	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-> +	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-> +		return -EINVAL;
+> +//! Rust SR-IOV driver sample based on QEMU's 82576 ([igb]) emulation.
+> +//!
+> +//! To make this driver probe, QEMU must be run with `-device igb`.
+> +//!
+> +//! Further, enable [vIOMMU] with interrupt remapping using, e.g.,
+> +//!
+> +//! `-M q35,accel=3Dkvm,kernel-irqchip=3Dsplit -device intel-iommu,intre=
+map=3Don,caching-mode=3Don`
+> +//!
+> +//! and append `intel_iommu=3Don` to the guest kernel arguments.
+> +//!
+> +//! Load `rust_driver_sriov_vf` with `modprobe` to load both the PF and =
+VF drivers.
+> +//! The VF module depends on the PF module through [`submit_request()`].
+> +//!
+> +//! [igb]: https://www.qemu.org/docs/master/system/devices/igb.html
+> +//! [vIOMMU]: https://wiki.qemu.org/Features/VT-d
 > +
-> +	handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
->  	if (handles == NULL)
->  		return -ENOMEM;
-> 
-> @@ -1248,7 +1262,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->  		goto err_free_handles;
->  	}
-> 
-> -	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-> +	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
->  	if (syncobjs == NULL) {
->  		ret = -ENOMEM;
->  		goto err_free_handles;
-> @@ -1262,16 +1276,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
->  		}
->  	}
-> 
-> -	kfree(handles);
-> +	kvfree(handles);
->  	*syncobjs_out = syncobjs;
->  	return 0;
-> 
->  err_put_syncobjs:
->  	while (i-- > 0)
->  		drm_syncobj_put(syncobjs[i]);
-> -	kfree(syncobjs);
-> +	kvfree(syncobjs);
->  err_free_handles:
-> -	kfree(handles);
-> +	kvfree(handles);
-> 
->  	return ret;
->  }
-> @@ -1283,7 +1297,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
-> 
->  	for (i = 0; i < count; i++)
->  		drm_syncobj_put(syncobjs[i]);
-> -	kfree(syncobjs);
-> +	kvfree(syncobjs);
->  }
-> 
->  int
-> @@ -1572,8 +1586,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->  	if (ret < 0)
->  		return ret;
-> 
-> -	points = kmalloc_array(args->count_handles, sizeof(*points),
-> -			       GFP_KERNEL);
-> +	points = kvmalloc_array(args->count_handles, sizeof(*points),
-> +				GFP_KERNEL);
->  	if (!points) {
->  		ret = -ENOMEM;
->  		goto out;
-> @@ -1586,7 +1600,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->  		goto err_points;
->  	}
-> 
-> -	chains = kmalloc_objs(*chains, args->count_handles);
-> +	chains = kvmalloc_objs(*chains, args->count_handles);
->  	if (!chains) {
->  		ret = -ENOMEM;
->  		goto err_points;
-> @@ -1609,9 +1623,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->  		dma_fence_put(fence);
->  	}
->  err_chains:
-> -	kfree(chains);
-> +	kvfree(chains);
->  err_points:
-> -	kfree(points);
-> +	kvfree(points);
->  out:
->  	drm_syncobj_array_free(syncobjs, args->count_handles);
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> --
-> 2.53.0
+> +use kernel::{
+> +    device::{
+> +        Bound,
+> +        Core, //
+> +    },
+> +    new_mutex,
+> +    pci,
+> +    prelude::*,
+> +    sync::Mutex,
+> +    types::CovariantForLt, //
+> +};
+> +
+> +struct SamplePfDriver;
+> +
+> +#[pin_data]
+> +struct PfApi<'bound> {
+> +    pdev: &'bound pci::Device<Bound>,
+> +    #[pin]
+> +    requests: Mutex<u64>,
+> +}
+> +
+> +type PfApiForLt =3D CovariantForLt!(PfApi<'_>);
+> +
+> +impl PfApi<'_> {
+> +    fn submit(self: Pin<&Self>, vf: &pci::Device<Bound>) -> Result<u64> =
+{
+> +        let mut requests =3D self.requests.lock();
+> +        let request =3D requests.checked_add(1).ok_or(EOVERFLOW)?;
+> +        *requests =3D request;
+> +        drop(requests);
 
+Would it make sense to just use an atomic type here?
+
+> +
+> +        dev_info!(
+> +            self.pdev,
+> +            "Handle PF request {} from VF devfn {:#x}.\n",
+> +            request,
+> +            vf.dev_id()
+> +        );
+> +
+> +        Ok(request)
+> +    }
+> +}
+> +
+> +/// Submits a request to the PF associated with a bound VF.
+> +// Keep this call out of line so the VF module has a symbol dependency o=
+n the PF module.
+> +#[inline(never)]
+> +pub fn submit_request(vf: &pci::Device<Bound>) -> Result<u64> {
+> +    vf.vf_registration_data::<PfApiForLt>()?.submit(vf)
+> +}
+> +
+> +#[pin_data]
+> +struct PfDriverData<'bound> {
+> +    #[pin]
+> +    _registration: pci::VfRegistration<'bound, PfApiForLt>,
+> +    pdev: &'bound pci::Device<Bound>,
+> +}
+> +
+> +kernel::pci_device_table!(
+> +    PF_TABLE,
+> +    <SamplePfDriver as pci::Driver>::IdInfo,
+> +    [(
+> +        // E1000_DEV_ID_82576
+> +        pci::DeviceId::from_id(pci::Vendor::INTEL, 0x10c9),
+> +        ()
+> +    )]
+> +);
+> +
+> +#[vtable]
+> +impl pci::Driver for SamplePfDriver {
+> +    type IdInfo =3D ();
+> +    type Data<'bound> =3D PfDriverData<'bound>;
+> +
+> +    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PF_TABLE;
+> +
+> +    fn probe<'bound>(
+> +        pdev: &'bound pci::Device<Core<'_>>,
+> +        _info: Option<&'bound Self::IdInfo>,
+> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+> +        try_pin_init!(PfDriverData {
+> +            _: {
+> +                dev_info!(
+> +                    pdev,
+> +                    "Probe Rust SR-IOV PF sample (PCI ID: {}, 0x{:x}).\n=
+",
+> +                    pdev.vendor_id(),
+> +                    pdev.device_id()
+> +                );
+> +            },
+> +            // SAFETY: The registration is embedded in the PF driver's p=
+rivate data.
+> +            _registration <- unsafe {
+> +                pci::VfRegistration::new(
+> +                    pdev,
+> +                    try_pin_init!(PfApi {
+> +                        pdev,
+> +                        requests <- new_mutex!(0),
+> +                    }),
+> +                )
+> +            },
+> +            _: {
+> +                pdev.enable_device_mem()?;
+> +                pdev.set_master();
+> +            },
+> +            pdev,
+> +        })
+> +    }
+> +
+> +    fn sriov_enable<'a>(
+> +        dev: &'a pci::Device<Core<'_>>,
+> +        data: Pin<&Self::Data<'a>>,
+> +        token: pci::SriovEnable<'a>,
+> +    ) -> Result<pci::SriovEnabled<'a>> {
+> +        dev_info!(
+> +            data.pdev,
+> +            "Enable SR-IOV (PCI ID: {}, 0x{:x}).\n",
+> +            data.pdev.vendor_id(),
+> +            data.pdev.device_id()
+> +        );
+> +
+> +        let num_vfs =3D token.num_vfs();
+> +        let enabled =3D token.enable(num_vfs)?;
+> +        assert_eq!(dev.num_vf(), num_vfs);
+
+Is this assert useful?
+
+> +        Ok(enabled)
+> +    }
+> +
+> +    fn sriov_disable<'a>(
+> +        dev: &'a pci::Device<Core<'_>>,
+> +        data: Pin<&Self::Data<'a>>,
+> +        token: pci::SriovDisable<'a>,
+> +    ) -> Result {
+> +        dev_info!(
+> +            data.pdev,
+> +            "Disable SR-IOV (PCI ID: {}, 0x{:x}).\n",
+> +            data.pdev.vendor_id(),
+> +            data.pdev.device_id()
+> +        );
+> +
+> +        token.disable();
+> +        assert_eq!(dev.num_vf(), 0);
+
+Same here.
+
+> +        Ok(())
+> +    }
+> +}
+> +
+> +kernel::module_pci_driver! {
+> +    type: SamplePfDriver,
+> +    name: "rust_driver_sriov_pf",
+> +    authors: ["Peter Colberg"],
+> +    description: "Rust SR-IOV PF driver",
+> +    license: "GPL v2",
+> +}
+> diff --git a/samples/rust/rust_driver_sriov_vf.rs b/samples/rust/rust_dri=
+ver_sriov_vf.rs
+> new file mode 100644
+> index 00000000000..bc8e5fdc8ce
+> --- /dev/null
+> +++ b/samples/rust/rust_driver_sriov_vf.rs
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Virtual Function driver for the Rust SR-IOV sample.
+> +
+> +use kernel::{
+> +    device::{
+> +        Bound,
+> +        Core, //
+> +    },
+> +    pci,
+> +    prelude::*, //
+> +};
+> +
+> +struct SampleVfDriver;
+> +
+> +#[pin_data]
+> +struct VfDriverData<'bound> {
+> +    pdev: &'bound pci::Device<Bound>,
+
+Is `pdev` ever used for something? It looks like the intent was to use
+that to call `submit_request`, but this only happens in the `probe`
+method at the moment.
