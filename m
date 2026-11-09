@@ -2,60 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA1D606A320
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 02:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EB7606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 02:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kA66ix4o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42E1D10E68C;
-	Mon,  9 Nov 2026 02:33:12 +0000 (UTC)
-Received: from mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE60310E68C
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 02:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4D810ED12;
+	Mon,  9 Nov 2026 02:35:56 +0000 (UTC)
+Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA1FF10ED12
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 02:35:48 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=nmqRaiM/EiJNizjn79AmK4k2MmWrkYTwEz2GWquosKA=; 
+DKIM-Signature: a=rsa-sha256; bh=sahaBfdN8dM3MC+nyYsLDXJ4FM7JRPlU6iwwEbjUDHg=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191583; v=1; x=1794796383;
- b=ojX0EpIoXW4Q3WWoKTSHFyYfVB5/NGKPMoZkCmCbZqBScUyhu6sLm3yjkz3APWW4PPjlGsGs
- 08BhfDJF0/bIs+cEwtmQZ/pXWdCFPiZK/kLkGbfQD3yI047xH2MZMmKuO4QwBQXVhNIdwf/A+O3
- H3ZmjPkz0bDxno5X6rlhxv2w=
+ t=1794191746; v=1; x=1794796546;
+ b=kA66ix4oBjp4zQg4b2a4lEPHHzpy24nuFI7y8yO2hI6FUE4lwNDQ4yKfibzsxPzpKvAAm4HC
+ QpvzQ7yTyFe49ekLtwGNhR3XsjclCoZHSbmaKqV/VIQni7chUMraprKVvYsByyjWC7eHBibwRYi
+ l0GmyOWDwLf66w6+eS5BO6OY=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id fa418301c63af391;
- Mon, 09 Nov 2026 02:33:03 +0000
-X-Mizu-Trace-ID: fa418301c63af391
+Received: by smtp.migadu.com with ESMTPS id ccc0e3a2462894c9;
+ Mon, 09 Nov 2026 02:35:24 +0000
+X-Mizu-Trace-ID: ccc0e3a2462894c9
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <c6bf9ef4-5a61-4f4f-ab39-11d1ddf59d64@linux.dev>
-Date: Mon, 9 Nov 2026 10:32:01 +0800
+Message-ID: <f10075aa-0917-472c-855d-afabbc9697ff@linux.dev>
+Date: Mon, 9 Nov 2026 10:35:12 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
- mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
- vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
- rostedt@goodmis.org, vdonnefort@google.com, mhiramat@kernel.org,
- jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
- James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
- phasta@kernel.org, joro@8bytes.org, will@kernel.org,
- linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, virtualization@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: cui.tao@linux.dev, linux-mm@kvack.org,
+ James.Bottomley@HansenPartnership.com, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
+ will@kernel.org, linux-scsi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
  bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com,
  robin.murphy@arm.com, mason@kernel.org, aesteve@redhat.com,
- harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
-Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to
- memcg
-To: "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ tjmercier@google.com, harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn,
+ media-ci@linuxtv.org
+Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
+ metadata to memcg
+To: sashiko-reviews@lists.linux.dev, akpm@linux-foundation.org,
+ dgilbert@interlog.com, mkp@kernel.org, loberman@redhat.com,
+ jmeneghi@redhat.com, kraxel@redhat.com, vivek.kasireddy@intel.com,
+ mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
+ stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org,
+ vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca,
+ kevin.tian@intel.com, axboe@kernel.dk
 References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-3-cui.tao@linux.dev>
- <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com>
- <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+ <20261106131829.3228926-5-cui.tao@linux.dev>
+ <sashiko-outbox-202921@kernel.org>
 From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+In-Reply-To: <sashiko-outbox-202921@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,74 +68,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello，Christian，T.J.
+Hi,
 
-在 2026/11/7 01:25, T.J. Mercier 写道:
-> On Fri, Nov 6, 2026 at 5:23 AM Christian König <christian.koenig@amd.com> wrote:
->>
->> On 11/6/26 14:18, Tao Cui wrote:
->>> From: Tao Cui <cuitao@kylinos.cn>
->>>
->>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
->>> data pages keep the accounting of the memfd they were instantiated in,
->>> but the bookkeeping around them does not: the page pointer array and
->>> the pinned_folios array, both sized by the buffer page count, plus the
->>> transient folios array sized by the memfd folio count, are plain
->>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
->>> memory, and size_limit_mb defaults to INT_MAX.
->>>
->>> Charge the three kvmalloc allocations so the creator pays for the
->>> metadata it induces.  The system heap in the same subsystem already
->>> accounts its buffer allocation;
-> 
-> Only if the mem_accounting param is set to true. We (Android)
-> currently depend on it being disabled because system heap buffers
-> don't have a single owner for their entire lifetime (ownership often
-> changes immediately after they are allocated), and the kernel doesn't
-> have the ability to switch who is charged for the buffer memory quite
-> yet. Albert is working hard on it at the moment.
-> 
-> Could you update the message to note the mem_accounting param pls?
-> 
->>> the data pages here stay with the
->>> memfd.
-> 
-> memfd / udmabuf is a little special because it uses shmem for the
-> backing store, which is already tracked by memcg under all conditions
-> (except hugetlb). We don't currently use udmabuf, so the lack of memcg
-> charge transfer for udmabuf is not an issue. But once we get charge
-> transfer working for the system heap it'd be good to follow up with
-> udmabuf.
-> 
->> T.J. needs to take a look here, but I fear that this might break uAPI.
-> 
-> Thanks for looping me in Christian. The buffer allocations cost
-> gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
-> so I don't expect charging them to break anyone. Leaving them
-> uncharged is an accounting gap though, since someone could spam many
-> udmabufs from the same memfd and only pay for the memfd pages once. So
-> this change is ok with me.
-> 
->> A lot of the DMA-buf resources are intentionally not charged against memcg.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
-> With the commit message updated to mention the mem_accounting param:
-> Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Thanks, Christian，T.J.
+在 2026/11/7 21:27, sashiko-bot@kernel.org 写道:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [Medium] tracing: alloc_cpu_data() mischarges global_trace and
+>   read-page swaps
+Correct.  Charging alloc_cpu_data() unconditionally pins the global
+trace buffers to whoever first triggers the lazy expansion, and the
+read-page swap can move charges between the reader's memcg and the
+ring buffer.
+> - [Medium] tracing: alloc_cpu_data() memcg limit triggers
+>   trace_rb_cpu_prepare() WARN
+Also possible.  With __GFP_ACCOUNT, allocation failures from memcg
+limits can now reach this path as well, making the existing WARN()
+reachable from a constrained memcg.  I'll avoid charging allocations
+performed from the hotplug prepare path in the respin.
+> - [Low] tracing: inaccurate snapshot size claim and inconsistent
+>   GFP_KERNEL_ACCOUNT use
+The snapshot size description in the changelog will be corrected in the
+respin.
+> It also noticed 1 related pre-existing issue this patch does not
+> introduce:
+> - [Medium] tracing: memory leak in trace_array_create_systems() [1]
+That one predates this series as well.  I'll investigate it separately
+and send a dedicated fix if confirmed.
 
-I'll update the commit message to clarify the mem_accounting parameter
-and pick up your Reviewed-by tag in v2.
+The v2 respin narrows the accounting.  Only buffers belonging to
+non-root trace instances will be allocated with __GFP_ACCOUNT (via a
+new RB_FL_ACCOUNT flag).  The global trace, read-page pool and CPU
+hotplug allocations will remain unaccounted, and the changelog will be
+updated accordingly.
 
-Tao
+Thank
+> --
+> 
+> commit a11da3138f9fda850c1b05bae82b0be7e738b994
+> Author: Tao Cui <cuitao@kylinos.cn>
+> 
+> tracing: account ring buffer pages and trace_array metadata to memcg
+> 
+> This commit adds __GFP_ACCOUNT to ring buffer subbuffer allocations in
+> alloc_cpu_data() and switches trace_array allocations in
+> trace_array_create_systems() to GFP_KERNEL_ACCOUNT.
+> 
+>> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+>> index e760d2fe386fb..f925936378639 100644
+>> --- a/kernel/trace/ring_buffer.c
+>> +++ b/kernel/trace/ring_buffer.c
+>> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
+>>  	 * gracefully without invoking oom-killer and the system is not
+>>  	 * destabilized.
+>>  	 */
+>> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
+>> +	/*
+>> +	 * The subbuffers are charged to the memcg of whoever caused the
+>> +	 * allocation: the creator of a trace instance, or root at boot for
+>> +	 * the global trace.
+>> +	 */
+>> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
+>> +		  __GFP_ACCOUNT;
+>>  
+>>  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
+>>  	if (!page)
+> 
+> [Severity: Medium]
+> Does charging every alloc_cpu_data() call to current's memcg misattribute
+> global_trace subbuffers and swapped read pages?
+> 
+> At boot, tracer_alloc_buffers() keeps global_trace at its minimum size
+> (ring_buf_size = 1) when ring_buffer_expanded is false.  global_trace is
+> only expanded to trace_buf_size at runtime in tracing_update_buffers() or
+> tracing_set_tracer() when a task first enables an event, sets a tracer, or
+> loads a module using trace_printk().  With __GFP_ACCOUNT in
+> alloc_cpu_data(), those global_trace pages are charged to whichever cgroup
+> triggers the lazy expansion and stay pinned to that memcg because
+> global_trace is never freed.
+> 
+> In addition, ring_buffer_alloc_read_page() calls alloc_cpu_data() when
+> reading or splicing from trace_pipe_raw, and ring_buffer_read_page() swaps
+> that reader-allocated page directly into reader->page while handing the old
+> ring buffer page back to the reader to be freed:
+> 
+> kernel/trace/ring_buffer.c:ring_buffer_read_page() {
+>     ...
+> 		dpage = reader->page;
+> 		reader->page = data_page->data;
+> 		local_set(&reader->write, 0);
+> 		local_set(&reader->entries, 0);
+> 		reader->read = 0;
+> 		data_page->data = dpage;
+>     ...
+> }
+> 
+> A host process reading trace_pipe_raw from a container's instance will
+> replace the container's charged pages with uncharged pages and uncharge the
+> container as the old pages are freed, while a cgroup task reading
+> global_trace will swap pages charged to its own memcg into global_trace.
+> Similarly, trace_rb_cpu_prepare() during runtime CPU hotplug allocates
+> per-CPU buffers for all existing instances in the context of the task
+> onlining the CPU.
+> 
+> [Severity: Medium]
+> Can hitting the memcg limit in alloc_cpu_data() during instance creation
+> trigger the WARN(1) in trace_rb_cpu_prepare()?
+> 
+> When alloc_buffer() creates a ring buffer, it allocates the first CPU's
+> buffer directly and then calls
+> cpuhp_state_add_instance(CPUHP_TRACE_RB_PREPARE, &buffer->node), which runs
+> trace_rb_cpu_prepare() for each remaining present CPU:
+> 
+> kernel/trace/ring_buffer.c:trace_rb_cpu_prepare() {
+>     ...
+> 	buffer->buffers[cpu] =
+> 		rb_allocate_cpu_buffer(buffer, nr_pages, cpu);
+> 	if (!buffer->buffers[cpu]) {
+> 		WARN(1, "failed to allocate ring buffer on CPU %u\n",
+> 		     cpu);
+> 		return -ENOMEM;
+> 	}
+>     ...
+> }
+> 
+> Because __rb_allocate_pages() only checks si_mem_available() against global
+> memory, a cgroup with enough headroom for the first CPU (~1.375 MB) that
+> hits its memcg limit on any subsequent CPU in trace_rb_cpu_prepare() will
+> trigger this WARN(1) and crash the host if panic_on_warn is set.
+> 
+>> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+>> index 08614af8fad1c..fd1cfd1f66fbe 100644
+>> --- a/kernel/trace/trace.c
+>> +++ b/kernel/trace/trace.c
+>> @@ -8677,11 +8677,11 @@ trace_array_create_systems(const char *name, const char *systems,
+>>  	int ret;
+>>  
+>>  	ret = -ENOMEM;
+>> -	tr = kzalloc_obj(*tr);
+>> +	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
+>>  	if (!tr)
+>>  		return ERR_PTR(ret);
+>>  
+>> -	tr->name = kstrdup(name, GFP_KERNEL);
+>> +	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
+>>  	if (!tr->name)
+>>  		goto out_free_tr;
+>>  
+>> @@ -8692,7 +8692,7 @@ trace_array_create_systems(const char *name, const char *systems,
+>>  		goto out_free_tr;
+>>  
+>>  	if (systems) {
+>> -		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
+>> +		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
+>>  		if (!tr->system_names)
+>>  			goto out_free_tr;
+>>  	}
+> 
+> [Severity: Low]
+> Should the alloc_cpumask_var() and zalloc_cpumask_var() calls right between
+> tr->name and tr->system_names, as well as alloc_cpu_page() and
+> alloc_cpu_buffer() in ring_buffer.c, also use GFP_KERNEL_ACCOUNT?
+> 
+> Also, the commit message says creating an instance immediately allocates a
+> full ~1.375 MB per-CPU snapshot buffer, but trace_allocate_snapshot() passes
+> size = 1 when allocate_snapshot is false (which is always the case after
+> boot), so snapshot_buffer only allocates the minimum pages until a snapshot
+> is armed.
+> 
+> [Severity: Medium]
+> This problem wasn't introduced by this patch, but in
+> trace_array_create_systems() [1], does the out_free_tr error path leak
+> tr->tracers when trace_array_create_dir() fails?
+> 
+> trace_array_create_dir() calls __update_tracer() -> add_tracer(), which
+> allocates struct tracers and struct tracer_flags entries on tr->tracers.  If
+> a later step in trace_array_create_dir() fails and jumps to out_free_tr,
+> nothing calls free_tracers(tr), leaking the entries already added to
+> tr->tracers.
+> 
+> [1] https://sashiko.dev/#/bug/linux-9449d18e-1233-4181-9199-09eaead7b576
+> 
 
