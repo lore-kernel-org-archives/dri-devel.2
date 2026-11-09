@@ -2,152 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBDA606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:38:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86BB606A330
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 11:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gLT+gN3Y
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=UV4zqCPH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6795810F1D2;
-	Mon,  9 Nov 2026 11:38:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13C9F10F1C4;
- Mon,  9 Nov 2026 11:38:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794224312; x=1825760312;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=uM4j0sLFKg3e0xBL4/USnT+kQDf4aOaaDGzUSoaW3NY=;
- b=gLT+gN3YJ6UycSjGmY9ldq0rl3J0S9zFZ9cK715O72Qtl2VfdxjkHQ+O
- zdQP3EIV1JyxJhxFbEiLoWaNaGxrg7/rlX88Z/r9QZNHtcqgqLd92tW21
- oHkImcj5jgYNwkQMKLPXQn/V8ROo6InpNCm9AP8OG3ByEXJXPSpFGveHh
- soyg2O5qVpdXw0dTnDYfMmtTVU4/wmQo4k6/Lq+IhJdrK+F+RSBi7VUpB
- tKF9FbJdiAQXfXCxsON8dZGbUZxOPe0gi2oNPodoaHhLFi4Lqb0T3PJoo
- S2jIy1otS2KyDqib/kCOvZgdtxyyPyffRsBwh0Ta9r5fljUX2ljp6o5t2 w==;
-X-CSE-ConnectionGUID: KGf+76c7QnmsNDNdN4WRqA==
-X-CSE-MsgGUID: XfnP8sarSIyoiIFZ21p55Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2938511"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2938511"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 03:38:32 -0800
-X-CSE-ConnectionGUID: y+BOHoAzTg2hsONMrdERGA==
-X-CSE-MsgGUID: Ufxtt3bRRiuqBArSxyo63w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8282699"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 03:38:31 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:38:30 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 03:38:30 -0800
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.22) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:38:30 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yIBJ03b5Z6DoGM0bB3g2KCetnwHlK+EKEp55MWwE157zr2CwFLXvTxGtPj7cJ9flY2jMYHKd5I00fCNHpOxf7iGyNVvVpksFWg1ZjOldXR/UGHiFkEL3pc4PtIGc3DKuKbAElkRTDJqfwsIk3+apYxx7ITTGT3UWc5uhlCEpWNwl93RF8GdlKAKbNgV2dj3LKjaxpavsY4ITBlM8rvOzdZmfLhJi50p3xaf+FU/L3Xu/4hpMo4CWz1Zxp+CzptEWnfRm+fr8DL9E6+q1ujyUE1HkKvESnX9CxUljMBq3gpr77+62PgyATCl/fdu5mC3yiC6YLbqWzmBBXZ5loJ+V3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CG2O0iTP8hP/8Nt55QGWDD0TLd1fQxKKzZW9rJU7EAo=;
- b=b5W7AfPx+NgPZDHv8tmo0lxTkMcg9QDlAoOcOMvSLOPR1X/MD4GZQPvndKBnZ+f5nHX6HMF9MRE+jviT5QnDxq9byCI/JeNupwTQqH8vLM5m9HQ/HbXG621rlmh4yTlJDy/6O3tSsrgUJohlVu3U2c7ZOPnmQgQEIHmAOuouLFs3NYHsWwDQKdlXEdJn3KJHI8mqtj+BnhFTY4GlrvHuqu6mwLSUs7y3k1onIElnq8BZvU995tZeyReV2Fw4GsOIQVHEpKbVV2pUrwySdLW11xrzxjzPoSyJhLMhwV/o/V9IgeI9jw3nN+JTup5pyxKMoj0l6jGdIPT+rhFJSpLzkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by IA1PR11MB7199.namprd11.prod.outlook.com
- (2603:10b6:208:418::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:38:20 +0000
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 11:38:20 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
- <michal.grzelak@intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [PATCH v8 4/6] drm/i915/gem: Pull out size validation into a separate
- function
-Date: Mon, 9 Nov 2026 11:37:56 +0000
-Message-ID: <20261109113758.1491891-5-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109113758.1491891-1-krzysztof.karas@intel.com>
-References: <20261109113758.1491891-1-krzysztof.karas@intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DU2PR04CA0215.eurprd04.prod.outlook.com
- (2603:10a6:10:2b1::10) To EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E504110E845;
+	Mon,  9 Nov 2026 11:45:28 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3FCC10E845;
+ Mon,  9 Nov 2026 11:45:22 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
+ 6A97OPRb2046631; Mon, 9 Nov 2026 11:45:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=irG90fauHo+0sxPX4/6DXZ3
+ VbObB3qleZnxDyg6JX1k=; b=UV4zqCPHfSIkzAHnTAeZ10OhW+KjwM9IWsSZGf3
+ ku7LdhuH6QLFM+LhMeiP6TlnoICss09QQljjv+25gRJJ4WAefz709mPSDw7hIhKn
+ LM1OvbebfZYS/rmX+fvneag4wO2TJKaDNLHwtgV4WkH4CGfJaOjx1Jm6j9JzSVsb
+ 6H6sx42BlVVPUOEhSOz4VcOz/Fz0OTjfvnEQffa3qIdd9OyPfB69TGPBATZCc6b1
+ nQ/qhkaMz8AVEZk4UsoY4ZDY+acXRVXAN1kzU2bThd4I9LXhMcIeiUXfOdJF3zBC
+ BVcw0bQJgPCQu0Z4+c7Uah9VzKz3hAgzVUyKIRiGyLyP41Q==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1g4h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
+ key_exchange=secp384r1); Mon, 09 Nov 2026 11:45:12 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 11:45:10 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH v4 0/2] drm/imagination: MMU defines updates and improvements
+Date: Mon, 9 Nov 2026 13:44:50 +0200
+Message-ID: <20261109-b4-include-mmu-defines-only-in-mmu-code-v4-0-20a857dcbbbb@imgtec.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|IA1PR11MB7199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4050db2d-0b0a-4c11-d949-08df3e55f4a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: RIBlYdRgv7J5Er/xnlZ2nwuEGgoL4FsxxokzKOiUE3cbiTZ9Zele3M3Iu3IQEW8R9bvvWQuQkLEWdToIdXACDbOqGQqLR1ssp+AlpnkC8fGeAJYOsyXXD0P5cwmdLp3JljpbBlWzETWzHNiHQvyCDCAHEb8BCxrJ6m1/fiRXLJ7hsbaU7gq6EAvp2Syq7Wr5Hw7nj+P54xX0tkv9s1fOxi7osu/UY3yZnBS0EzXDTETkUXoenoJZ6FCDW6TjAlF39T/0fOkYwW5ZevE93ZQwMCrMzm2fCT0d39rN+tWXLfODlH3ELkx4yyoGULX9o4SaYuSW/1m3tBH15g/ggYUeqtGPoVtIKJ1iWpO8HE+8XvQxX8GpgfvIdeDITIRTLEsHrRynJFKddY0t2zJQR1eYUwrUcqoTLo4Z5MGyGRB4IR41r+RKic6I3E3bUfqTDcucJOaisw/iBvndKWJzLNAnLbx0y941tZul2DoU75TgbjQ67/9uHtNv/ZC0a6XPRBgD2LKQnRhXPsQdSAGBSM1VNpP0LEuRvo8Kr1m4YeQNJUNjCZ0fSLGPppuYzFNM1EBY3Mzx2mxfEpA/pjvxzNu3+FwJ234ZcsayXksXeTH6Rr2egw1lnw2UldRVovFb/bPO5HBux7k7J1sOXj8c/t+lln4Wk+1y99jTF0kCD1oAk0U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?teHLZrMWXy0IspHd/uGPfMxra8mx/V6ZMi3ZlgLoTtU3JNL1uBCHExSIYSlP?=
- =?us-ascii?Q?1uPY2hZyFs+R9DGPnKU/+oF1DFDTYlIzpZcu43jV+y7tmTBbHkC/veZJuiSV?=
- =?us-ascii?Q?JeqrG6MovVTC6W+i4uigj3/7G+Rr1GnWoZbollb3/yjBHXGwh6QYthLDKrdY?=
- =?us-ascii?Q?kFNLyBu5Prw67x0nCQ94t46QLNZz/E86EK2eebRnIyxD5KEmkuFSbum/35qF?=
- =?us-ascii?Q?Lro1M9TBDprZk3YE4yZm219OaDnKk+rXl7V97SDClWRa5MxPYgXaIlYs627i?=
- =?us-ascii?Q?DgvHu3Dupr1f9xDAtNAQ1sYbeHk/nenNodvnXkWDMCFCg8R0XmWFDdy0+WDn?=
- =?us-ascii?Q?ohW/D7UR5+jupUxd2mzLP0BXmF1xP4NH+//VIPS+HSn5wrmR98qQ3BmYAjXs?=
- =?us-ascii?Q?7Hz2N7bhxyCvzK5MoQYOr6GCv/pDM0Ue9XW5282d7ouBpyuGT5PyA/TdHtzH?=
- =?us-ascii?Q?lxPaMMyTbO+sUQI0FKNkz0UOlsfbtOF9gOoMLXXcK2YDZroS1KGQasDVcLj2?=
- =?us-ascii?Q?NctpKXQP9MABZU/YaLARSR3P+JHQbBqRxoVcNTYGcHRdVKM6AQ97fwajKyMb?=
- =?us-ascii?Q?kFkaJD+rX3XFzeGECt8KeWTGizSesZqcksEsS1wkxckXCPthiWD1L2KeYZZf?=
- =?us-ascii?Q?BOHDx7FRVK5mrv6k4vrqxplvriMDRmSWxT5aNniFOmGBdde7zsMCTjaOPfSP?=
- =?us-ascii?Q?7AVfpWSGthqCg+5iZY3r2eOoY+6+TRf0QjuAWMYWuOIgE9P9zvdOlD6I53Zh?=
- =?us-ascii?Q?v4wgARYTCqLeAMMDjaHU06tTejKWKqOIRTEyc68EtZ3d09B/NWvdkpuZVbZA?=
- =?us-ascii?Q?GcKrNPt8pdEhsoCbuAuXmgfMnWc8NY+g7Pdm2jwoZ51OUiP98g8JXM4MLw/d?=
- =?us-ascii?Q?q0sAIOIzX0amImJYoUVr8AZgbT5FXei//blAALXSbGk1rK50Gq0gWE17UYVJ?=
- =?us-ascii?Q?/Sb6uvSKXa6PTd7BHQ8Qa/6Vc8mUgqbJ7hHbx6XNxK0zwsK6cXz0CvUb5Teo?=
- =?us-ascii?Q?avpFtplG4k+eSuxr4T79iW0lCldKrhIt5NpQNxY+0SXLKbI7PLfoCnfby+Lm?=
- =?us-ascii?Q?t9PUGY4LT5LrAEjdL9DrBgXZ3kzUw0dPkED9Efwx8X+/uCZ3DOZs9IZZzuMW?=
- =?us-ascii?Q?INPZ6Mzi2oxgVMoLbbLEuZcqMPjCgOzeA1rJOioc8EecWE3zxgbg/1A4c/Sh?=
- =?us-ascii?Q?dJazCMhGXIdHw8vFwVqr+QR0ujUD+K/2a0u71tUXmVsev7aPaFNcXbrCWlKc?=
- =?us-ascii?Q?shdUk8eDSlNK3gowcen0snQmOrwQ8gnYfFA1qt5H091A4pUxdyEgcbA7QJY+?=
- =?us-ascii?Q?M2BS0GOHzdaiogk/4G1YPFTrj0Happn/aWn2ZN3/t2PRFB5tgEZIGZipjE30?=
- =?us-ascii?Q?TliX4PVIL/ObIgZ0ilSFBOjbdJJrLmmeirWxR0nQgLk78cougn4CPZ4xq8HA?=
- =?us-ascii?Q?wjxRJD/suh83hu36ARgNvkt5S77PNtGDYSVN500MkIf+VrreIwLgsfV41cw1?=
- =?us-ascii?Q?ZMdTIJQC7ikXVM0vEIhAQF6rQqwkqZu67R1zp6AP2CKwhN7H7cwnanNVvK6z?=
- =?us-ascii?Q?WuBxpkWAtmT1gylq/SxbTiJLVO1jI5hASG0RO8PK+sd73E+xP4qgXuhcx44x?=
- =?us-ascii?Q?UgAmfhvHSAG43odIBG8Nfm1+21tOSsfDC9gJumf58Iku8u8JMW1fbi0hJ+P6?=
- =?us-ascii?Q?rtjOXw5Vtyb1brhXI2xe40lUEeivjKcjNbJ40qkIfQmmjrN4/xfT8AFYA7IF?=
- =?us-ascii?Q?X5md9WZAUixsVevuEZUlYLem8L7rdm8=3D?=
-X-Exchange-RoutingPolicyChecked: S1LdMbBcGFKTCVLyW20Qm9uGpGAF1/7PtOlpLcMHVhqcfi37+lBXyxD9tOKkqsFjTzXsjTxUiwSUZQJo3d6dI6MA3QtzXmbHQKmyhtFliF72xhEQsXLr/ywCGYmtDsNDAyRNebT5WhRS3qPp1u7Y0TL3MjfvXUgP7dDMsLCYdPqQHrVej4/skWDVTxg0D2+OblWog2Bcdo+YQSfmBw3KypZjCPXtovLhUBRktCHgnMKtoQBa4v68FU8FlvcKK+nclxQtj6meIpmoiTUVgcGk5gBx9utgKCb0/548YV7Cyr7Leh7ty8uMtv3YjDeS31f3zpA2LTMwAz2Pa+6+QY+Z8w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4050db2d-0b0a-4c11-d949-08df3e55f4a8
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:38:20.8688 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F2KJC44jcuwVq0PCY5qTJcisGE9rcIlLYqAbk3JaJJx0w+/m6qsIvk07zRUwMbWUp2HzWIb/HAckmrFb19YbzzerN8kNZQ9dfWi91ZKMAcM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7199
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADKy8WoC/5XOTW7DIBAF4KtErEPFjx1DVr1HlQUMQ0IUQ2RsK
+ 5bluxc7Uqqqm3T5mKfvMZOMXcBMjruZdDiGHFIsodrvCFxMPCMNrmQimDgwLRm1FQ0RboND2rY
+ DdehDxExTvE3lsL1BKkfDpVaK+cYDkqLdu9J8bEtfp2fOg70i9Cu/Ni4h96mbtq+MfO39f3Xkl
+ FGhORrnHQppP0N77hE+ILVknR3FC+aMi/dhUWBlEGrVNI2xhz+w/IE5q96HZYG91qKuuLbKwi9
+ 4WZZva6I8NKMBAAA=
+X-Change-ID: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>, Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794224710; l=2051;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=6RDFas5RD6WjDcSw2Arfda599rDAkM+c4RDwOfRkiu8=;
+ b=eCHYenkwkXCOcBAwrp3D+O325SAS9LOfiBtvnzsaG4C4s6xDqvizerFM7bDjHSL/U4c079AVP
+ Ri8lWM9UPCCCEdyj4llTQ8rPG2IXQSU8mC2r5z2pocXOueMCfpE1hnk
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX0xi4EHBtvT1N
+ nofIm7oczSHU5lR7N1N+6n1+9MLplnrxJQWCXzT5nnQ7saPRMUxbfZfvVazcWy0c8bRafZAH0E6
+ er0TLFASy0SOpm0VP9Rb7WZJteCX+z0=
+X-Proofpoint-ORIG-GUID: ijNWrFzLBlw0WqJhymLJuv1_a3B_wyVh
+X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af1b248 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
+ a=VwQbUJbxAAAA:8 a=e5mUnYsNAAAA:8 a=aErvwOJsbcN-9OlzexIA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfXzgoyf79BfTKV
+ aiuj/lZERcSAKTjBQZrVc+/j/XsMxG77cYe3IMeNjLdBXzXxebRuTAPA1TVfcEUHFO7HX+ykwP4
+ Z5BPUhn3Wg1QL6AQJf+7ZGtuv7K64e+1Qy8H/QlcvcPiqnqhi0yNuyAQmQd0Hj3JJYxu2iwEg77
+ B2cgdkjwIuEGcQqmYI/1npQ6OlS6tItRDORtwTfG0QexB4K6l4TGK9fGtlZFlZv58JNPoDzG4UM
+ lr9qXONk/kmUDpzUYOuiwcdcx+3PcjqNLKsMas/QVONzH4f9X4TCNCXaXXIGV+EFX8tSizRRhlb
+ lekrfi+eJALAZa7988XxZq6uqDUkeZNcctRLZ9bLvVoSzBAFGVJrPuv1XwYaIMuFeFG9LnrFNY2
+ x5LWqshiPoMNJRBqQv7dZlXKOlorPDvETTdhB2zZGEUPLBYxjUYHgbR82Hrt8Ey9lUTjMXOyfop
+ mI/lKuj62uwFtvZOKyw==
+X-Proofpoint-GUID: ijNWrFzLBlw0WqJhymLJuv1_a3B_wyVh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,73 +95,60 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-shmem_sg_alloc_table is a very large and hard to read function,
-so reduce the number of operations it is responsible for by
-placing "size" validation and page_count assignment in a new
-helper.
+- Restrict the inclusion of MMU defines to MMU code.
+- Refactor MMU defines to use kernel style and access.
 
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Reviewed-by: Gyeyoung Baek <gye976@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 30 +++++++++++++++--------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+Changes in v4:
+- Added "Reviewed-by" tags to the commits.
+- Link to v3: https://patch.msgid.link/20261104-b4-include-mmu-defines-only-in-mmu-code-v3-0-f9925419b8bc@imgtec.com
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index f4a2a3f34c36..b09b83402b8c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -62,6 +62,23 @@ void shmem_sg_free_table(struct sg_table *st, struct address_space *mapping,
- 	sg_free_table(st);
- }
- 
-+static int validate_set_page_count(size_t size, unsigned int *page_count,
-+				   struct intel_memory_region *mr)
-+{
-+	if (overflows_type(size / PAGE_SIZE, *page_count))
-+		return -E2BIG;
-+
-+	/*
-+	 * If there's no chance of allocating enough pages for the whole
-+	 * object, bail early.
-+	 */
-+	if (size > resource_size(&mr->region))
-+		return -ENOMEM;
-+
-+	*page_count = size / PAGE_SIZE;
-+	return 0;
-+}
-+
- int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 			 size_t size, struct intel_memory_region *mr,
- 			 struct address_space *mapping,
-@@ -75,16 +92,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	gfp_t noreclaim;
- 	int ret;
- 
--	if (overflows_type(size / PAGE_SIZE, page_count))
--		return -E2BIG;
--
--	page_count = size / PAGE_SIZE;
--	/*
--	 * If there's no chance of allocating enough pages for the whole
--	 * object, bail early.
--	 */
--	if (size > resource_size(&mr->region))
--		return -ENOMEM;
-+	ret = validate_set_page_count(size, &page_count, mr);
-+	if (ret)
-+		return ret;
- 
- 	if (max_segment < PAGE_SIZE || !PAGE_ALIGNED(max_segment))
- 		return -EINVAL;
--- 
-2.34.1
+Changes in v3:
+- Added ROGUE_MMUCTRL_VADDR_[PC|PD|PT]_INDEX_SHIFT defines.
+- Updated the cover letter with the "Reviewed-by" tags.
+- Rebased onto a more recent drm-misc-next.
+- Link to v2: https://patch.msgid.link/20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com
+
+Changes in v2:
+- Update the pvr_page_table_l2_entry_raw_set() description to better reflect the general changes.
+- Link to v1: https://patch.msgid.link/20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com
+
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Alessio Belle (2):
+      drm/imagination: Switch to kernel-style MMU defines and access
+      drm/imagination: Don't include MMU defines outside of MMU code
+
+ drivers/gpu/drm/imagination/pvr_mmu.c            |  91 ++++-----
+ drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h | 244 +++++++++++------------
+ drivers/gpu/drm/imagination/pvr_vm.h             |   2 -
+ 3 files changed, 156 insertions(+), 181 deletions(-)
+---
+base-commit: 49f40f15d20f5b4073d517da7efbcea079f1b9e3
+change-id: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
