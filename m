@@ -2,41 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFEE606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 22:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D981A60A2608
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 22:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+a0ez7V
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrAW11MW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37A6910F572;
-	Mon,  9 Nov 2026 22:46:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2E0E10F572
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 22:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73ED810E260;
+	Mon,  9 Nov 2026 22:51:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C8910E260;
+ Mon,  9 Nov 2026 22:51:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7321841737;
- Mon,  9 Nov 2026 22:46:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFAB1F0089F;
- Mon,  9 Nov 2026 22:46:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B56DD61E10;
+ Mon,  9 Nov 2026 22:51:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1271F008A3;
+ Mon,  9 Nov 2026 22:51:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794264385;
- bh=T4ZZ1ikEyYI9WjgqoX/wEQsB934cMtTSYWKZe0WjRyQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c+a0ez7VuhU72Ul6h6jsUV6b1BnlqmD7X+8n1S5GeMJKZWzzqqjDkmrx+UUbZvBYs
- d249Aj1zG28qfBCgBb78PREJ0GibOiLEHpuAM88QXxgqxtX8J2rEsjrj/h/6UqnYCS
- WrilX9e1o/PlkLFF/iW5zIoMsr9yUKJ2vukzjXSJZG0FpA2T2e7qV3XThxqO6aVrOL
- 5d+gkn8R5NtvnXhMKkP5ZhV0ee73TiVjKnOBKSAN8Mps0IOKYkNs02ZfxQHi8SVPC9
- qXstvvwg3EtZz6rQ7Y0hwAHjzzFHgXVFRZ63LhZBVOSpAHbhfjD+Y2A1od4/2tPGz7
- hMa57jPAAXG+w==
-Message-ID: <sashiko-outbox-205768@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/msm: align kernel-managed GPU VAs to 64 KiB
-To: "Gaurav Suman" <gauravsuman007@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109-msm-va-align-v1-1-2e9b576d2e4e@gmail.com>
-References: <20261109-msm-va-align-v1-1-2e9b576d2e4e@gmail.com>
+ s=k20260515; t=1794264690;
+ bh=OLJ67V8X7KC85E5hy4wyiU8tc9lVp4VzA68SRJcP5ck=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=VrAW11MWqmE8FHeSQc8ncdp1WQph7/ZKqQKoG5d04gFFAh/KiyOeMyhbs9tgUPVEH
+ yu0Sw/LVrEnq1l0/D1Ogtek0IwM86wjZL3ojvdP6jRRRvgmhv+3Yt1Qlzl2Ay3tSfi
+ CGCdK0drexkQf8k6w5Z73HDDhrQ0OlxihxA9oNkzZhHXoFCMq+7x9TlJyew0p1V8ix
+ dAfTAyuGDAb2n7DcSnbSgQBxeYdtPNk1xfWrFJ5zmfRW9HQ5lVc+fCuBDBWH3eY7mp
+ qXuHsRYFc7+UJBGV9tH7o+jCuK7GtShutCPiQGcOj8hWCcvxwDoO5/MJYxga8YJXp+
+ rFWDHRUqWDABw==
+Date: Mon, 9 Nov 2026 16:51:29 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Subject: Re: [PATCH 0/3] PCI: remove redundant resource assignments done
+ after BAR resize
+Message-ID: <20261109225129.GA334675@bhelgaas>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 22:46:24 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,76 +57,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/msm: sub-64K hole scan and VA fragmentation in
-  msm_gem_vma_new()
---
+On Mon, Nov 09, 2026 at 03:10:07PM +0200, Ilpo Järvinen wrote:
+> The BAR resize rework removed the resource assignment call that
+> followed the BAR resize in amdgpu. The xe and i915 drivers and the
+> PCI sysfs resize interface still make the same call.
+>  
+> The current BAR resize code should properly assign all resources and
+> handle fallback gracefully so a driver-side call to assign resource
+> right after BAR resize is just duplicate work (no-op). If that isn't
+> the case somewhere, the fix belongs either the BAR resize code or the
+> code that left the resource unassigned (e.g. a hotplug race or whatever
+> left an resource unassigned prior to resize).
+> 
+> If drm wants to take their patches out of these, it's fine with me
+> (either drm+pci or through pci tree only works for me).
+> 
+> 
+> Ilpo Järvinen (3):
+>   PCI/sysfs: Remove resource assignment after BAR resize
+>   drm/xe: Remove driver side resource assignment after BAR resize
+>   drm/i915: Remove driver side resource assignment after BAR resize
+> 
+>  drivers/gpu/drm/i915/gt/intel_region_lmem.c | 1 -
+>  drivers/gpu/drm/xe/xe_pci_rebar.c           | 2 --
+>  drivers/pci/pci-sysfs.c                     | 3 ---
+>  3 files changed, 6 deletions(-)
 
-commit dbbe11968537b24a2b140215f7ad31d5a022afb3
-Author: Gaurav Suman <gauravsuman007@gmail.com>
-
-drm/msm: align kernel-managed GPU VAs to 64 KiB
-
-This commit aligns virtual address allocations in kernel-managed GPU VMs to
-64 KiB in msm_gem_vma_new(), falling back to PAGE_SIZE alignment on -ENOSPC.
-
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_=
-gem_vma.c
-> index f687a629629d3..2af4329128994 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -388,9 +388,20 @@ msm_gem_vma_new(struct drm_gpuvm *gpuvm, struct drm_=
-gem_object *obj,
->  	if (vm->managed) {
->  		BUG_ON(offset !=3D 0);
->  		BUG_ON(!obj);  /* NULL mappings not valid for kernel managed VM */
-> +		/*
-> +		 * On a6xx (seen on A640) the CCU can read the 64 KiB-aligned
-> +		 * start of the block that holds a bound render target. Align
-> +		 * kernel-managed VAs to 64 KiB so that block start lies inside
-> +		 * the buffer itself; callers with a tight fixed window, such as
-> +		 * the GMU, fall back to page alignment.
-> +		 */
->  		ret =3D drm_mm_insert_node_in_range(&vm->mm, &vma->node,
-> -						obj->size, PAGE_SIZE, 0,
-> +						obj->size, SZ_64K, 0,
->  						range_start, range_end, 0);
-> +		if (ret =3D=3D -ENOSPC)
-> +			ret =3D drm_mm_insert_node_in_range(&vm->mm, &vma->node,
-> +							  obj->size, PAGE_SIZE, 0,
-> +							  range_start, range_end, 0);
-
-[Severity: Medium]
-Does aligning vma->node to SZ_64K while keeping obj->size page-aligned
-degrade small BO allocations in vm->mm to an O(N) hole scan and fragment
-small kernel-managed VMs?
-
-When obj->size is not a multiple of 64 KiB (such as a 4 KiB BO), rounding
-the next allocation up to a 64 KiB boundary in drm_mm_insert_node_in_range()
-leaves an unaligned gap of up to 60 KiB in vm->mm.holes_size that contains
-no 64 KiB-aligned address.  Because mode 0 (DRM_MM_INSERT_BEST) starts at
-the smallest hole >=3D obj->size and steps through vm->mm.holes_size in
-non-decreasing size order, every subsequent SZ_64K-aligned allocation of a
-small BO walks past all accumulated sub-64 KiB holes before reaching a
-usable hole.
-
-This also applies to all kernel-managed VMs rather than just a6xx: in
-a2xx_create_vm(), the GPU VM is only 0xfff * SZ_64K (~256 MiB), so 4095
-4 KiB BOs fragment the entire address space into 60 KiB holes and cause any
-subsequent allocation of size >=3D 64 KiB to fail with -ENOSPC even with the
-PAGE_SIZE fallback.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-msm-va-ali=
-gn-v1-1-2e9b576d2e4e@gmail.com?part=3D1
+All applied to pci/resource for v7.5, thank you!
