@@ -2,75 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65606606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 17:01:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA64A606A321
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 17:13:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yWuJtjM2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KeDNwZxd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C93DB10E536;
-	Mon,  9 Nov 2026 17:01:48 +0000 (UTC)
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFD8310F444
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 17:01:42 +0000 (UTC)
-Received: by mail-pj2-f2.google.com with SMTP id
- 98e67ed59e1d1-3b1478f06e3so282136a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 09:01:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEDC10F456;
+	Mon,  9 Nov 2026 17:13:38 +0000 (UTC)
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com
+ [74.125.227.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BA210F457
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 17:13:32 +0000 (UTC)
+Received: by mail-pj2-f11.google.com with SMTP id
+ 98e67ed59e1d1-3adfd217146so432577a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 09:13:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794243702; x=1794848502; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794244412; x=1794849212; darn=lists.freedesktop.org;
  h=references:in-reply-to:cc:to:message-id:date:from:subject
  :content-transfer-encoding:content-type:mime-version:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=b/pzLwZr61TwH4Z8hnWdS9fb2v4tophLaBPLYRGm3iE=;
- b=yWuJtjM200e+eCQ/oe0UEQjI3M+nPrh0aRiaS9cnLf/l/nMdA1A5C2qswFczRMEUqy
- bwKn2RY7B6sjlpduCY/pgpoNZRC0eh7JIddYLO4HZjUY2PMXIc4+MeQSbPur+ubzdCuR
- NCsLPp3HfnNH0J0t9FGcAtrh88gEFt/Gn5C9FeYpeeNsNXGL/rAbt5sEzi6LZ783RKwS
- 6ohlEe4dDWmNZQJJsxrkSgan7blsiKqUCVxml6HxOxBX9nMaP0iqmUoupS27epKZTDNQ
- RZrq4bXbPXxxzcsF2VShP4sFlu4SL5ATYem+GvK7dSdvhVUYu6SCfpbpr8Q/vNePm1cB
- 4ovg==
+ bh=oeNE+sqLHyyLIoS+hr3FxhWoJgh8QINKzJXl7a9fZrI=;
+ b=KeDNwZxdU8S+2XKJbfPFgxkNONBUtC5F2U+a7I1IY7uWpTYvUfLWKONYnV9CSG2FJd
+ np3lljoymiwCAQd5FvR/BqLXThTNPf7bFxcW3dtXaTaKQfqTAGkYj0chYe8jNdgB0RSs
+ 3sWlgxGXrsVIYUPwmlL6QP87J4AU5/alDxFD6coIPdq5LjXeDrl2mRT13bN04t7FfDPc
+ zDVPHrtqgmz5yK8LbI0YkNpfxjparh2rc/Ty2hjlfh4DMQDftAFXleCpEv6HmR+83AHj
+ jPMJ7TqHJXoN03febAcZWT8caTsoi/el+02VPvID+nGZTewtobPG8q3nzGTUzvjC8lEP
+ ohKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794243702; x=1794848502;
+ d=1e100.net; s=20260707; t=1794244412; x=1794849212;
  h=references:in-reply-to:cc:to:message-id:date:from:subject
  :content-transfer-encoding:content-type:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=b/pzLwZr61TwH4Z8hnWdS9fb2v4tophLaBPLYRGm3iE=;
- b=YLlwhqUpjoYGTEnykWjcLTN3VEOhYtmtNZ+2CxV9jO9wdJKYryGAscA4CtxiHRfG0z
- /3PiB23PlDJAOAWFWnrhAcqBpVkaLz95x5QqfK7s+BEsHgbFE+VhrSeKO3STgdUxQfDx
- 8/1aSttZvEAJtQSwN15BthsZcHSrpIW+aZDo/GcKL+ce5bI8gh/lBrJJ1LK9i76TLunX
- GEsPEWxapp7NsTP7YIiiMzB6GUY+iSZRTQJwIzjdK/Y70hYAMg1FwwCIuUXe9X5GQEEl
- DT8qP+3eopcRsYKPHIu6qLv+kcMICLL3MKrpoxa+Wz3oFGEkdNPcHLKkEebL8NeGkFM6
- ACJw==
+ bh=oeNE+sqLHyyLIoS+hr3FxhWoJgh8QINKzJXl7a9fZrI=;
+ b=CRuWLCHMfebNiEXLOZKuw9cGsqTkZk8WHs2JyOBtCaMaxlwIHD/7PaMbu3OUZWGMfr
+ hTBWdLmjtaTQqw3q4sB6uwvDW7hF4NqJc6tlpX/UMKYqaFyjdfewCAhQ43M5oY+jC3Zz
+ BFCDWJyOCm8blPoapE+YK8vzV5iNXDRlAsrWYJEb1t1bg47qnZHzc21UII5TXP6Ux5Ym
+ XpyGJN3GpBprf7L24Ou4rV6pgY+HC+I4onVcr5QK73fx/FXBALcDhyhURowwZOHHKE7X
+ sQrEyNCQxiYkNLaovQatNF3aCdvbpBOho6r2+z+qo5sDkT90O69PxskOvtAfhJzMXMAq
+ 42Pg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFwFrmsrasu5kjQD8jeFfjV3IuM8gtWqLH94OgKrVdeFMOOUm4s+WH981yTgZQFS2doVfLZosQgxvA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/aQeJ0XXjf0i7etBbdKZC2At0DJa3xrT2IQ96y2EIPm6+efV5V
- q4MCVgKYkYdpwFRmukHgZGOXsST1XeVMI4u3hpgA0QHT6XZtaI24IbPa
-X-Gm-Gg: AYBFou2bgQcvv6Uyp8oh5uwTKg1VGBY/2r2TQUmRHU2kFxWHSJWZQHmDqOD4UPHGowZ
- VuyZpiOFXuaAYXJ+1xGCPiVJaT+2Jz08re/X+hF9ZLH2E2CQYJNLnPFxkOOTDh1YM4jYmtL9T48
- j58K1wycp+DhsjubEK4qCX2NrGHhixUnUZBhQ6+7os5k8QiZe8NFYEWUmcUGLWkQtSQytlRPn3z
- pxjpK5RrL3vV+ne2HAxgIYF6YW+6OlGDqPZ4MfUt6PTkrziVRsxvl6sn3nAX6r1RzyXesaQYpnr
- uT8OGjvulzMppRhk/ytoWJtColZ52GlscBoqtDCO+SivHIdGTtNo2cVaTgRzdHBYTXq+kY3NAY9
- qhez4RRtRpMTd8iFYlkSBy3H3NIZC4N44VWGBfUSk94Ji06SAP9F+SZNiI7+lJ/lwBtege7EPN7
- d9VKSooerU/C9RUTIXbRCh0TRQl1yVhfEhPWHW6g+hVJeUG4n3fpGJkiVNH8JiM4jnYGs3n8OFB
- Iro9b8gb9o2ND4kbLV9l1gL7/4jt4/zhtkUAQU2bvhNG6x9Y86EuThLW9O3lRI0+7MwTOF79Aa0
- 3IdOV09EjYBxbETntKvJ3JZExJEKin2sJEIESrXPSqKiRg9SbXFyLtAnKK7ZZ9NMmrvBmFaq3+g
- zoVAGw4Wh1IbpWoDqkkHcv9NjKXh43w8n
-X-Received: by 2002:a17:90b:2cc6:b0:39e:6795:f7da with SMTP id
- 98e67ed59e1d1-3b166c89a19mr230128a91.19.1794243702117; 
- Mon, 09 Nov 2026 09:01:42 -0800 (PST)
+ AL+hErFUTWthEfYMzjwaPYGPrJs3EoRmfxiqbCSUtMMHob6Ei0/+hhCseIF8qd30X2nEJhE/dsbMsgxIJ/4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+oQlVKY1o5t4ZOnXU/jWnUKDXiX4VG3yl65IcsDWxSbngill2p
+ CQTpIPcjn+vyWG2gvs1fHJM5ZRq2OqUIAqjU1ErYGDXexKgel6+bWBPT
+X-Gm-Gg: AYBFou1RZC7yOLfTN8qgoz6FYLmgXHB+GRAk/q98ZszKMBW5xxjJmR6rZ90A4mr2fgW
+ V5Jd3/GWfjqPi89fQBdXTuGIlB3sx1HJppfUBXqheEHbwFlFbuXf4CwotDavQEVJ8yZcoVGLy9I
+ 9QlLCXnZ+0aw8dnpvHR24SW8J7DPUHfFDeENAFCC/IGrTA+EuvWqWuSwgdYUkeEqfGGNaQJP49M
+ YTSahKRl30TbsHuGrEogUVVcGHoaWASzA+yqcSgfCJzCOgiIkHk9RXVWcRzp7s0iFKmKzdRX/WW
+ sLORTj8l3GF/NEanEsBIXxeaDxqtKvziaT0W4p8XFSEJwvHBW0n1X4kmUkdaVTlVo1Gu1Ho6BPD
+ EhpqHU2W0+y6RVUmEECfkY1C53eIrLgtwlJx2RyfcYT0y4YNXXeBuYnseuVahoBeIzxp2hdAxu/
+ rNemadKldwlx+J/j7S44kxLdfGIPHSqPfZqEjXcyHsZWoGxkU3g0S+Bz8veNPlQmWGCkqz+O94r
+ 79/z612IcuXxHMTLQhgJ4f00vx8ZizcVfMEd277AOAuyAEqFJZJkFXWbDGw8JMXjGMysK3Ig1my
+ JO1n33rRB+NUnSo8Ou7TqTh+2aPRcetNr4RMu8cr2vg/5LJvSsBOVunGNKs/90en3f0A3oQNnJn
+ 6X+QNn1AxBfc4bRSV6eVO/khV4C/cc2V3
+X-Received: by 2002:a17:90b:586f:b0:3a8:cb54:e135 with SMTP id
+ 98e67ed59e1d1-3b166cd7343mr254891a91.19.1794244411414; 
+ Mon, 09 Nov 2026 09:13:31 -0800 (PST)
 Received: from [100.64.227.9] (n106-71-19-159.sun21.vic.optusnet.com.au.
  [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b16708f963sm211545a91.1.2026.11.09.09.01.23
+ 98e67ed59e1d1-3b1679c41aasm92356a91.0.2026.11.09.09.13.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 09:01:41 -0800 (PST)
+ Mon, 09 Nov 2026 09:13:31 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 11/22] drm/amdgpu: add SVM ioctl entry and fault
- handler module
+Subject: Re: [PATCH v10 08/22] drm/amdgpu: implement SVM range notifier and
+ GC helpers
 From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 10 Nov 2026 03:47:18 +1100
-Message-Id: <179424283809.193292.9522281129166256376.b4-reply@b4>
+Date: Tue, 10 Nov 2026 04:12:45 +1100
+Message-Id: <179424436564.222336.1790875367286789154.b4-reply@b4>
 To: Huang Rui <ray.huang@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org, 
@@ -84,9 +85,9 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  Simona Vetter <simona@ffwll.ch>, 
  =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
  Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>
-In-Reply-To: <20261021025915.2433837-12-ray.huang@amd.com>
+In-Reply-To: <20261021025915.2433837-9-ray.huang@amd.com>
 References: <20261021025915.2433837-1-ray.huang@amd.com>
- <20261021025915.2433837-12-ray.huang@amd.com>
+ <20261021025915.2433837-9-ray.huang@amd.com>
 X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,24 +109,37 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi Ray,
 
-On Wed, 21 Oct 2026 10:58:50 +0800 Huang Rui wrote:
+On Wed, 21 Oct 2026 10:58:47 +0800 Huang Rui wrote:
 
-> +	ret = fault_check_allowed(svm, fault_addr, write_fault);
-> +	if (ret)
-> +		return ret;
+> + * Invalidate the GPU view of @range over the notifier window: zap the
+> + * affected PTEs and clear the gpu_mapped flag. The range is not removed
+> + * here; structural removal if needed happens in the event-end phase.
 
-This checks the VMA permissions but not attrs->access, so I think
-INACCESSIBLE isn't really enforced. SET_ATTR invalidates the existing
-GPU mapping, but the next retry fault just maps the range again.
+I think this can leave stale PTEs behind when only part of a range is
+invalidated. Take a one-page notifier event on a larger system-memory
+range mapped with 4K PTEs. This zaps that one PTE but clears gpu_mapped
+for the whole range, and then the event-end callback unmaps DMA for the
+whole range. The other PTEs are still valid at that point, but their DMA
+mappings are gone. A later notifier won't zap them either, because
+gpu_mapped is already false.
 
-IN_PLACE has a similar problem. With preferred_loc=LOCAL, the
-migration added by 22/22 can still move migratable system-memory pages
-into VRAM on a pagemap-capable GPU. Both seem to go against the access
-definitions in 01/22, and the prefetch path doesn't check access
-either.
+Maybe the zap should cover the full range when its DMA mapping is
+going away?
 
-Could the fault and prefetch paths check access before mapping or
-migrating?
+> +			if (crosses_boundary) {
+
+Another case is GPU_RO going from 1 to 0 over a whole mapped
+GPUSVM range. This branch isn't taken, so the PTEs are zapped but the
+old DMA_TO_DEVICE mapping stays around. The next get_pages() sees valid
+pages and reuses it, so the writable GPU PTE goes in without an
+HMM_PFN_REQ_WRITE fault or a DMA_BIDIRECTIONAL remap. If it's a VM_WRITE
+MAP_PRIVATE mapping whose CPU PTE still needs COW, I think it can miss
+the write fault. So could the old DMA mapping be dropped before the
+writable PTE goes in?
+
+I couldn't tell from the cover which drm_gpusvm base this is on, so I
+used 671b7825dbfe for both of these. I haven't reproduced either one on
+a GPU, though.
 
 Thanks,
 Aveline Noir
