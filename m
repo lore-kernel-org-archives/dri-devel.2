@@ -2,71 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37862606A321
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5B9606A323
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 05:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xql2aFgh
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fjjWPL4i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06EE510E67F;
-	Mon,  9 Nov 2026 05:55:08 +0000 (UTC)
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5575010E66A
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:55:01 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-67be6030c9fso315450d50.3
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:55:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3B7B10E5B4;
+	Mon,  9 Nov 2026 05:55:13 +0000 (UTC)
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF6F10E125
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 05:55:03 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-6774639a8a4so380577d50.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 21:55:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794203700; x=1794808500; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794203702; x=1794808502; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=WuEkyJlGmaVmS+cJe0Zg9gFqtsrOZkdKM+2bmPOdgzA=;
- b=Xql2aFgh/oI94LtAfy+Yci7PZay/ePAE3A7/tttIfRq4kglpfw72G6iOw5mnYkdVrs
- oqPIlT0m8pru9wVGxhP1W1+gXcZCXsM5YSk9O0AdOGPJvfhq6sDw0wlsrWpdefPRPNsm
- aeEW9g4W3HnobQn4VD+F8bd65fvd1LwzC+3J/5imW7Dygcgonwxvp8xaj7b8pOvamMQ1
- BlYoWZ36+7IvaPnoT5ox+8t6VIpNYVDwLgLd6RMorO1IwMZBgzCCis50DCOUJUE7rmoR
- EnzfCZW1XjDErZzlkr2p6xV9rKPpOibXc/71jf7nbbJMnqt2KzM2oYsAtTOYIEbJ/Sap
- Dt2g==
+ bh=w28YU3TcGbtifUArrQMyr3dsAatXtLgdaewuzdZz0ZM=;
+ b=fjjWPL4i5o4hdsZYcHxquk1+l9fxMbd3UrdgkeVxeX0U1IyKb9ptgtnEraLUUowJg1
+ l0+4noH/J/Wa7bnACARQmtfhDYf4NCuHQTNHrObl/4kUvfJ05Yany25eR2IssrHE4dsp
+ BOn4jckbiARHNHaoHimCG7PVL5V8sf5sv0vYmdDuWG4XGAzai0kMKiFhIrMrrt5GdH3J
+ vnnugsFQrArce2v94E5VYPXhZiXNL9im4oxmqlqIld+zXecx4A8Nq5DoGMmzEI0xpzL4
+ ux0z5nZ5+AkcvKk58QAAucvkIy5JSrA0Frpup0OQEriF5rYn89Ao+cDW9xyAaz0rdwjk
+ qdVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794203700; x=1794808500;
+ d=1e100.net; s=20260707; t=1794203702; x=1794808502;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WuEkyJlGmaVmS+cJe0Zg9gFqtsrOZkdKM+2bmPOdgzA=;
- b=ay2VlIJ6XeXmksq8szyEn7TcBAlwY9WznvJ0rRVkF8mozAFwCNDnP1fdE/2E4mYmHR
- S85xR2h8JgxMeXs807QX++HZvupXEnch5Dkp5ELbNcv5hOSWhDIoF2TmsdlEYDGXccZi
- tZeXy2VwlnpBn/IUfLAmXpAbmzr5Zkyrcbe5/CZ5klo4/v6e21zJFW7YaYJHfT1C5C5E
- Qu6bHlZYOF53WSwODYpQdf0tH8ENKc8/iBc+IKzeFEl77FiPBo1PxgePQZOLzuIHeIGT
- Okeiav6zbZXjJ+g6tqyLafNzrhYVVYivJB7qFzZiq57HO49Sw568X6UG9FlzkF8HN/SI
- a85A==
-X-Gm-Message-State: APuU4Z+n53k9OsaDuJFwKDWbDk4MzGWvtxRcpmGNC+Qsx/fX8eBmI1De
- BvRdZb7Yoi0K6P0x6SCFOEFoGLUA7hrna9iSmCyQzlpjqFN0nRtjGTffxSM3ntrL
-X-Gm-Gg: AYBFou2mZ80WhZfMQZcbc0gqzU9o8W2YIbzf/0vu0bTEoVoW4pGN+WkNzmD1SYGSYet
- mSNeAb6gPtrMTBM1FWE3OwcFfshJH+wZUJrlrNeSbcrQ4WGVmqawQgSMQiKB6FISZymvaPMALvb
- WqxklBagCKq6b+Qlppsa5chs/ZZl14aCHNPirssnVb63lajDEpU/OaMXR6gWX22gf0k0+Qu9MHM
- ZPyzH7f+e7yALh4NNIS1iZOJu1UNf52LfGmhRylpAQ1grYlqh8wv5Df1iisFl0gsMTTrPaED3+u
- oNZlo54EjSbeEt2bVuwvehjXdI0PjzLHhVGNMnuODNTVDiUs0cVfBqQ9GoT2/a+ZYkcFyXinIRg
- UvO+3oNqLID98xUJUH19AXKidj83mHefwFdefJ6r2t0xJxesBpieOetrNqhciUsTe475jXQU0Q/
- pQkRsDgySXR4s6pS1nKdS4FCzqrBqUO0M3fvRzJnP4AbTyAef6Qkow7KbErmhSmQdVmFaKdRA6x
- Kj2oysClVDrmvRraV1okh+ec5o8V0iyrqL5WzB/eB5IEfnde9GY3QYKn1mCjr2QFUHjMPD2D3Xk
- KSIVCJeXwym8u3RWXLsu65H6Tn6oreRE6MqZcc56llaqIMzVgi8oPWnes/EzTVho1w0=
-X-Received: by 2002:a05:690e:43d0:b0:67c:1ad6:5c6 with SMTP id
- 956f58d0204a3-67c3da5d35emr1212215d50.81.1794203700304; 
- Sun, 08 Nov 2026 21:55:00 -0800 (PST)
+ bh=w28YU3TcGbtifUArrQMyr3dsAatXtLgdaewuzdZz0ZM=;
+ b=FyuTKYdxzICcoop40x7pYFfQwp2qJhmfYbXWOmQp+2Eesb81i413efyfTfKfV/zpvW
+ czP6FaFC3um8A3tcDe7olH1xMNUGI2/CfLmYHWHVes8OlgH+/rcMSVPu0sNxT2+by5W0
+ G+5rA/UOYP72P7O3HbnXPnGCQyS8ZX94PQwjVSrPgHy8OExymltDyD3aFglL4PbI3jS1
+ HslHs8Ze2gA41rkNondWrReSEu/jfco6G3s/q0KuPWtxd4oRM85JnI39nt0nv2M9jClE
+ Woz2PUA3bDgcBXX4xLU1Ri2v1bhQqJsMhkGMu7WXXdfCRfBBdlC1WdeCc1K8uq6Y2DC+
+ LTFw==
+X-Gm-Message-State: APuU4Z+BfxKCdgShpBcdJ8aIqZPjX66+Nca7ddCXTZr10uySaXUI4Nk2
+ lo+gAQfZWL1aj6Qh5N3idtxvl9N/gBkhtpks1gXBSApqZCKmIsGQZpLNdZLYo4SV
+X-Gm-Gg: AYBFou0wyfGsU+84d3NsSF3r16znEmWBwOGerLsDfuYZEUu1GjJ3ZhuvnZLBFFIdMvI
+ G1sZYX3odObRKCiHFQRP7/xX2aZTwlXdbyFbvHottOLOoyAbps8iyqkP0Va1k2j0bT11dx+lDCX
+ 8/cAOyNnvtZAm1MAAjWjXzWd9PBHEzMOMUCsL85oah+4dRBvwHmw96Q4YFG3LEoabGyunHkX7Ck
+ TuHT3NxrTL4WJFbopfhgjVLOPJPQzHf7+4+w20/a222m+BKZ3Ljb17pcfLZn8A6VMWq6FojfhLp
+ dDyy+JQs+sZMJ+GTuo7EIvKBYcNZHGviM1fFAnsG4GSVxBoi3BZcBUj66GWW3ZiNGQGHLPnnjkF
+ 6NPoRF2LsGxItkt7OU2KV8WEW97N2I7QqP5SsP4i9YtUQCgQq+odIfWqzYFIx00l1/KxyA7pRK4
+ 6Gc6FfztfxAtfhjsoUTg85uMv82avzdiP8DMQFZH+7bX23TZqQ67F42DzD07Kdgh6tL1zfCAwfn
+ St7J4deKxtHYV9QUXZw9HjVO/6PqiMk6H3x2z/DKWC00Aad7qrtLoX60Zr9SwGNau2pGtevXhy1
+ adknt2bl1CsLhyRjIN1g7VPtQFfxz6E7C1IXCGJN/Nj6P+X2xL2M3sncrOfN/dVnjzE=
+X-Received: by 2002:a53:d807:0:b0:67a:8c43:753 with SMTP id
+ 956f58d0204a3-67c3da9cb86mr1358648d50.97.1794203702385; 
+ Sun, 08 Nov 2026 21:55:02 -0800 (PST)
 Received: from localhost.localdomain
  ([2804:1254:81a4:f900:8485:f8a0:b2aa:dee6])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-67c3b83e8bdsm3312398d50.1.2026.11.08.21.54.58
+ 956f58d0204a3-67c3b83e8bdsm3312398d50.1.2026.11.08.21.55.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 21:55:00 -0800 (PST)
+ Sun, 08 Nov 2026 21:55:02 -0800 (PST)
 From: Gabriel Gama <operatingsystemsdepression@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: patrik.r.jakobsson@gmail.com,
  Gabriel Gama <operatingsystemsdepression@gmail.com>
-Subject: [RFC PATCH 2/6] drm/gma500: do not underflow an unpinned GEM object
-Date: Mon,  9 Nov 2026 02:54:46 -0300
-Message-ID: <20261109055451.17458-3-operatingsystemsdepression@gmail.com>
+Subject: [RFC PATCH 3/6] drm/gma500: Fix SGX page-table cache-flush mapping
+ lifetime
+Date: Mon,  9 Nov 2026 02:54:47 -0300
+Message-ID: <20261109055451.17458-4-operatingsystemsdepression@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109055451.17458-1-operatingsystemsdepression@gmail.com>
 References: <20261109055451.17458-1-operatingsystemsdepression@gmail.com>
@@ -92,27 +93,57 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Return after warning if psb_gem_unpin() is called without a pin.
-Decrementing zero makes in_gart negative, so later pins incorrectly skip
-backing-page and mapping setup. Release the reservation lock normally.
+Flush the modified directory entry before unmapping it. The old order
+uses a kmap_atomic pointer outside its mapping lifetime, which DMA32
+direct mappings can mask. Use kmap_local_page under the existing spinlock.
+
+Also calculate the CLFLUSH iteration count only on the path that uses it,
+avoiding division by an uninitialized cache-line size when CLFLUSH
+is absent.
 
 Signed-off-by: Gabriel Gama <operatingsystemsdepression@gmail.com>
 
 ---
- drivers/gpu/drm/gma500/gem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/gma500/mmu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/gem.c b/drivers/gpu/drm/gma500/gem.c
-index 7250bf660..fa5d3f137 100644
---- a/drivers/gpu/drm/gma500/gem.c
-+++ b/drivers/gpu/drm/gma500/gem.c
-@@ -85,7 +85,8 @@ void psb_gem_unpin(struct psb_gem_object *pobj)
- 	if (drm_WARN_ONCE(dev, ret, "dma_resv_lock() failed, ret=%d\n", ret))
- 		return;
+diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
+index 4fbc22a59..34ae0f125 100644
+--- a/drivers/gpu/drm/gma500/mmu.c
++++ b/drivers/gpu/drm/gma500/mmu.c
+@@ -265,7 +265,7 @@ static struct psb_mmu_pt *psb_mmu_alloc_pt(struct psb_mmu_pd *pd)
+ 	struct psb_mmu_pt *pt = kmalloc_obj(*pt);
+ 	void *v;
+ 	uint32_t clflush_add = pd->driver->clflush_add >> PAGE_SHIFT;
+-	uint32_t clflush_count = PAGE_SIZE / clflush_add;
++	u32 clflush_count;
+ 	spinlock_t *lock = &pd->driver->lock;
+ 	uint8_t *clf;
+ 	uint32_t *ptes;
+@@ -289,6 +289,7 @@ static struct psb_mmu_pt *psb_mmu_alloc_pt(struct psb_mmu_pd *pd)
+ 		*ptes++ = pd->invalid_pte;
  
--	WARN_ON(!pobj->in_gart);
-+	if (WARN_ON(!pobj->in_gart))
-+		goto out;
+ 	if (pd->driver->has_clflush && pd->hw_context != -1) {
++		clflush_count = PAGE_SIZE / clflush_add;
+ 		mb();
+ 		for (i = 0; i < clflush_count; ++i) {
+ 			psb_clflush(clf);
+@@ -331,16 +332,15 @@ static struct psb_mmu_pt *psb_mmu_pt_alloc_map_lock(struct psb_mmu_pd *pd,
+ 			continue;
+ 		}
  
- 	--pobj->in_gart;
- 
+-		v = kmap_atomic(pd->p);
++		v = kmap_local_page(pd->p);
+ 		pd->tables[index] = pt;
+ 		v[index] = (page_to_pfn(pt->p) << 12) | pd->pd_mask;
+ 		pt->index = index;
+-		kunmap_atomic((void *) v);
+-
+ 		if (pd->hw_context != -1) {
+ 			psb_mmu_clflush(pd->driver, (void *)&v[index]);
+ 			atomic_set(&pd->driver->needs_tlbflush, 1);
+ 		}
++		kunmap_local(v);
+ 	}
+ 	pt->v = kmap_atomic(pt->p);
+ 	return pt;
