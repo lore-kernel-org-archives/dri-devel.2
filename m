@@ -2,48 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22009606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 02:10:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6C0606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 02:26:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVVM4NSf
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mxJ5f8vT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3CD10E662;
-	Mon,  9 Nov 2026 02:09:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3533510E662
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 02:09:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2AD2661EE8;
- Mon,  9 Nov 2026 02:09:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62AE81F0089F;
- Mon,  9 Nov 2026 02:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794190187;
- bh=AGlA800/A1ayCVptXG9KT/P7KQrv/2x+66sQSAFdyOY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HVVM4NSfe9RiSG+B2HBbNRu2xYaywBPuAqT+22NA+bz+m+vjt93lIMgOrUKELKmO+
- ROCv58H8v0pUjFgI8cO099czmgNc0X3Bqt40thISG2fRdlYws4xqaT59rq0qM2X3TA
- CsSQoeO/YYTCUWfZCmdaFh3MqHDgKAq+tZcZJZBjwvaf9Q6tJ26+HOjRBuXWnip1IW
- puQKiIydj5hcPCKrZrjuPtFmz4AfLwDrwh2V1XShnS1syAa111hr1wftNCGbyHTInn
- qj7v5Rd8uGeHzV9vcPs4JLYtewtotnz3+xHY8uOUIGxGE4/6EPGJDWXLkID4KBK8gi
- U9350heq1pucg==
-Message-ID: <sashiko-outbox-204344@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] gpu: nova-core: add support for GPU timer block.
- (v6)
-To: "Dave Airlie" <airlied@redhat.com>,
- "Andreas Hindborg" <a.hindborg@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo" <gary@garyguo.net>, "Alice
- Ryhl" <aliceryhl@google.com>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109-nova-timer-v6-2-5544a3bd8b28@redhat.com>
-References: <20261109-nova-timer-v6-0-5544a3bd8b28@redhat.com>
- <20261109-nova-timer-v6-2-5544a3bd8b28@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 02:09:46 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F378810E689;
+	Mon,  9 Nov 2026 02:26:06 +0000 (UTC)
+Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F94C10E689
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 02:26:00 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=3wQFNru/GSW5wMzbNQX/aezP9rAklvDUaKeBXnZI+gw=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794191158; v=1; x=1794795958;
+ b=mxJ5f8vTD5vQI/xxFid8apJbYaunElojr7df5vF3uWKiE8sIfF7AXHUkOhzPmEzINJxLhVlA
+ QB5jKEX5FmNVqABGE1BGcfxACrjburhNnxQzOJ1Zb90mvmrXxE12AWSIOAg8A5UukyrxkPv8ZCP
+ tOv3XPDPn4x+AOdU9HhQ0lQg=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 1a20c7d2490421e5;
+ Mon, 09 Nov 2026 02:25:58 +0000
+X-Mizu-Trace-ID: 1a20c7d2490421e5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a583bcd4-b502-4733-9592-58203e941d7d@linux.dev>
+Date: Mon, 9 Nov 2026 10:25:49 +0800
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, linux-mm@kvack.org,
+ James.Bottomley@HansenPartnership.com, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
+ will@kernel.org, linux-scsi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com,
+ robin.murphy@arm.com, mason@kernel.org, aesteve@redhat.com,
+ tjmercier@google.com, harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn,
+ media-ci@linuxtv.org
+Subject: Re: [PATCH 1/7] scsi: sg and st: account the command buffer memory to
+ memcg
+To: sashiko-reviews@lists.linux.dev, akpm@linux-foundation.org,
+ dgilbert@interlog.com, mkp@kernel.org, loberman@redhat.com,
+ jmeneghi@redhat.com, kraxel@redhat.com, vivek.kasireddy@intel.com,
+ mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
+ stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org,
+ vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca,
+ kevin.tian@intel.com, axboe@kernel.dk
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-2-cui.tao@linux.dev>
+ <sashiko-outbox-202918@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <sashiko-outbox-202918@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,74 +66,224 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] gpu: nova-core: wrapped timer offset programmed in
-  set_sys_timer_offset()
---
+Hi,
 
-commit 7d2284f17f67e098294d4252bcce87d29a2a59b1
-Author: Dave Airlie <airlied@redhat.com>
+在 2026/11/7 21:27, sashiko-bot@kernel.org 写道:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issues to consider:
+> - [High] scsi: sg: GFP_ATOMIC | __GFP_ACCOUNT in sg_build_indirect()
+>   bypasses memcg max
+I'll take another look at the allocation context and whether GFP_ATOMIC
+is still required here.
+> - [Medium] scsi: sg: unrelated and broken blktrace CAP_SYS_ADMIN gate in
+>   sg_ioctl_common()
+The capability check doesn't belong in this patch.  It was accidentally
+carried over while splitting the series and should have remained in the
+separate blktrace patch.  I'll remove it from this patch.
+> - [Medium] scsi: st: misattributed GFP_KERNEL_ACCOUNT probe charges in
+>   new_tape_buffer()
+Thanks for pointing this out.  v2 drops the st side and keeps the
+accounting on the sg side.
+> - [Low] scsi: sg: commit message cites non-existent history in
+>   sg_build_indirect()
+The commit message is indeed inaccurate.  I'll fix the historical
+description and clarify the reserved buffer limit in the next revision.
+> It also noticed 1 related pre-existing issue this patch does not
+> introduce:
+> - [High] scsi: sg: shift-out-of-bounds in sg_build_indirect() [1]
+Thanks for pointing that out.  It predates the series, and I'll
+investigate it separately.
+> --
+> 
+> commit ec96b2b0cdd1df3575b4521cd9f81da9824bc2b2
+> Author: Tao Cui <cuitao@kylinos.cn>
+> 
+> scsi: sg and st: account the command buffer memory to memcg
+> 
+> This commit adds __GFP_ACCOUNT to buffer and descriptor allocations in the
+> sg and st drivers to charge them to the calling process's memory cgroup, and
+> adds a CAP_SYS_ADMIN check for blktrace ioctls in sg_ioctl_common().
+> 
+>> The sg data buffers are unaccounted: the per-fd reserved buffer, the
+>> scatter-gather page array, and the order-0..N pages behind it, plus the
+>> per-device tape buffer in st.  All of it is user controllable.  The
+>> reserved size is capped only by the device max_sectors, SG_MAX_QUEUE
+>> (16) commands can be in flight per fd, and the fd count is bounded by
+>> RLIMIT_NOFILE.  Nothing is charged to the memcg of the process driving
+>> it.  The September 2026 fixes in sg_build_indirect reshaped the element
+>> sizing and left the accounting alone.
+> 
+> [Severity: Low]
+> Is the commit message accurate about the history of sg_build_indirect() and
+> the reserved buffer cap?
+> 
+> In git history, sg_build_indirect() has not been modified since
+> aaff5ebaa269 ("scsi: remove the unchecked_isa_dma flag") in 2021, and its
+> element sizing has not changed since 10db10d144c0 ("sg: convert the indirect
+> IO path to use the block layer") in 2008.  In addition, the initial per-fd
+> reserved buffer in sg_add_sfp() is capped by min_t(int, def_reserved_size,
+> max_sectors_bytes(sdp->device->request_queue)), while only resizing via
+> SG_SET_RESERVED_SIZE is capped solely by max_sectors_bytes().
+> 
+>> diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+>> index 5408f002e6c01..80d919fa5cf91 100644
+>> --- a/drivers/scsi/sg.c
+>> +++ b/drivers/scsi/sg.c
+>> @@ -910,6 +910,19 @@ static int put_compat_request_table(struct compat_sg_req_info __user *o,
+>>  }
+>>  #endif
+>>  
+>> +/*
+>> + * The sg passthrough of the blktrace ioctls has the same exposure as the
+>> + * block device path: holding the node is the only requirement today, and
+>> + * a created trace outlives the fd.  Must match the gate in
+>> + * blk_trace_ioctl().
+>> + */
+>> +static bool sg_is_blktrace_cmd(unsigned int cmd)
+>> +{
+>> +	return cmd == BLKTRACESETUP || cmd == BLKTRACESETUP2 ||
+>> +	       cmd == BLKTRACESTART || cmd == BLKTRACESTOP ||
+>> +	       cmd == BLKTRACETEARDOWN;
+>> +}
+>> +
+>>  static long
+>>  sg_ioctl_common(struct file *filp, Sg_device *sdp, Sg_fd *sfp,
+>>  		unsigned int cmd_in, void __user *p)
+>> @@ -919,6 +932,9 @@ sg_ioctl_common(struct file *filp, Sg_device *sdp, Sg_fd *sfp,
+>>  	Sg_request *srp;
+>>  	unsigned long iflags;
+>>  
+>> +	if (sg_is_blktrace_cmd(cmd_in) && !capable(CAP_SYS_ADMIN))
+>> +		return -EPERM;
+>> +
+> 
+> [Severity: Medium]
+> Does this capability check belong in a memcg accounting commit, and does it
+> cause a UAPI regression for unprivileged users with access to /dev/sg*?
+> 
+> Despite the comment, blk_trace_ioctl() in kernel/trace/blktrace.c does not
+> check capable(CAP_SYS_ADMIN); block devices gate these ioctls only on access
+> to the device node.  Moreover, sg_is_blktrace_cmd() matches BLKTRACESETUP2
+> even though sg_ioctl_common() only implements BLKTRACESETUP, BLKTRACESTART,
+> BLKTRACESTOP, and BLKTRACETEARDOWN, so unprivileged callers now get -EPERM
+> instead of -ENOTTY for BLKTRACESETUP2.
+> 
+>> @@ -1841,7 +1857,7 @@ static int
+>>  sg_build_sgat(Sg_scatter_hold * schp, const Sg_fd * sfp, int tablesize)
+>>  {
+>>  	int sg_bufflen = tablesize * sizeof(struct page *);
+>> -	gfp_t gfp_flags = GFP_ATOMIC | __GFP_NOWARN;
+>> +	gfp_t gfp_flags = GFP_ATOMIC | __GFP_NOWARN | __GFP_ACCOUNT;
+>>  
+>>  	schp->pages = kzalloc(sg_bufflen, gfp_flags);
+>>  	if (!schp->pages)
+>> @@ -1856,7 +1872,8 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
+>>  	int ret_sz = 0, i, k, rem_sz, num, mx_sc_elems;
+>>  	int sg_tablesize = sfp->parentdp->sg_tablesize;
+>>  	int blk_size = buff_size, order;
+>> -	gfp_t gfp_mask = GFP_ATOMIC | __GFP_COMP | __GFP_NOWARN | __GFP_ZERO;
+>> +	gfp_t gfp_mask = GFP_ATOMIC | __GFP_COMP | __GFP_NOWARN |
+>> +			 __GFP_ACCOUNT | __GFP_ZERO;
+>>  
+>>  	if (blk_size < 0)
+>>  		return -EFAULT;
+> 
+> [Severity: High]
+> This problem wasn't introduced by this patch, but can the ret_sz shift in
+> sg_build_indirect() trigger a signed shift-out-of-bounds [1]?
+> 
+> drivers/scsi/sg.c:sg_build_indirect() {
+> 	...
+> 	num = scatter_elem_sz;
+> 	...
+> 	order = get_order(num);
+> retry:
+> 	ret_sz = 1 << (PAGE_SHIFT + order);
+> 	...
+> }
+> 
+> On 4 KB page architectures, setting the scatter_elem_sz module parameter
+> near INT_MAX gives order == 19, so 1 << (PAGE_SHIFT + order) evaluates the
+> signed 32-bit shift 1 << 31, triggering UBSAN or yielding a negative ret_sz
+> that corrupts the allocation loop.
+> 
+>> @@ -2146,7 +2163,7 @@ sg_add_sfp(Sg_device * sdp)
+>>  	unsigned long iflags;
+>>  	int bufflen;
+>>  
+>> -	sfp = kzalloc_obj(*sfp, GFP_ATOMIC | __GFP_NOWARN);
+>> +	sfp = kzalloc_obj(*sfp, GFP_ATOMIC | __GFP_NOWARN | __GFP_ACCOUNT);
+>>  	if (!sfp)
+>>  		return ERR_PTR(-ENOMEM);
+> 
+> [Severity: High]
+> Does combining GFP_ATOMIC with __GFP_ACCOUNT in sg_build_sgat(),
+> sg_build_indirect(), and sg_add_sfp() allow processes to bypass their memcg
+> memory.max limit?
+> 
+> GFP_ATOMIC sets __GFP_HIGH and lacks __GFP_DIRECT_RECLAIM.  When a memcg is
+> at memory.max, try_charge_memcg() skips reclaim because the allocation
+> cannot block and then force-charges past memory.max because __GFP_HIGH is
+> set:
+> 
+> mm/memcontrol.c:try_charge_memcg() {
+> 	...
+> nomem:
+> 	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+> 		return -ENOMEM;
+> force:
+> 	page_counter_charge(&memcg->memory, nr_pages);
+> 	...
+> }
+> 
+> All callers of sg_add_sfp(), sg_build_sgat(), and sg_build_indirect()
+> (sg_open(), SG_SET_RESERVED_SIZE in sg_ioctl_common(), and sg_start_req())
+> run in sleepable process context holding only mutexes, so using GFP_KERNEL
+> would allow memcg reclaim and enforce memory.max.
+> 
+>> diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
+>> index f1c3c49466379..7083d37622c08 100644
+>> --- a/drivers/scsi/st.c
+>> +++ b/drivers/scsi/st.c
+>> @@ -3973,7 +3973,7 @@ static struct st_buffer *new_tape_buffer(int max_sg)
+>>  {
+>>  	struct st_buffer *tb;
+>>  
+>> -	tb = kzalloc_obj(struct st_buffer);
+>> +	tb = kzalloc_obj(struct st_buffer, GFP_KERNEL_ACCOUNT);
+>>  	if (!tb) {
+>>  		printk(KERN_NOTICE "st: Can't allocate new tape buffer.\n");
+>>  		return NULL;
+>> @@ -3982,7 +3982,8 @@ static struct st_buffer *new_tape_buffer(int max_sg)
+>>  	tb->use_sg = max_sg;
+>>  	tb->buffer_size = 0;
+>>  
+>> -	tb->reserved_pages = kzalloc_objs(struct page *, max_sg);
+>> +	tb->reserved_pages = kzalloc_objs(struct page *, max_sg,
+>> +					  GFP_KERNEL_ACCOUNT);
+>>  	if (!tb->reserved_pages) {
+>>  		kfree(tb);
+>>  		return NULL;
+> 
+> [Severity: Medium]
+> Does using GFP_KERNEL_ACCOUNT in new_tape_buffer() charge the device probe
+> context instead of the process driving tape I/O?
+> 
+> new_tape_buffer() is only called from st_probe() when a tape device is
+> attached, and both tb and tb->reserved_pages live until scsi_tape_release(),
+> so they are never charged to the process performing I/O.  Meanwhile, the
+> per-I/O page array allocated in the driving process's context during direct
+> I/O in sgl_map_user_pages() (pages = kmalloc_objs(*pages, max_pages))
+> remains unaccounted.
+> 
+> [1] https://sashiko.dev/#/bug/linux-ccac9556-cc9e-4b08-b44f-5f7ffb342827
+> 
 
-gpu: nova-core: add support for GPU timer block. (v6)
-
-This commit adds GPU timer block initialization for Turing through
-Blackwell GPUs to compute the system timer offset for GSP initialization,
-including a GH100 FSP ucode version check for bug 3957833.
-
-> diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-=
-core/timer/hal/gh100.rs
-> new file mode 100644
-> index 0000000000000..154c7a301a0c1
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
-
-[ ... ]
-
-> +fn set_sys_timer_offset(bar: Bar0<'_>, fsp: &Fsp<'_>, time_ns: u64) -> R=
-esult<u64> {
-> +    let sec_timer_ns =3D sec_timer_read(bar);
-> +
-> +    let sys_timer_offset_ns =3D time_ns.wrapping_sub(sec_timer_ns);
-> +
-> +    // Don't set the timer offset registers on buggy firmware
-> +    if !fsp.is_bug_3957833_affected(bar) {
-> +        bar.write_reg(NV_PGC6_SCI_SYS_TIMER_OFFSET_1::from_nsec(
-> +            sys_timer_offset_ns,
-> +        ));
-> +        bar.write_reg(
-> +            NV_PGC6_SCI_SYS_TIMER_OFFSET_0::from_nsec(sys_timer_offset_n=
-s).with_update(true),
-> +        );
-> +    }
-> +    Ok(sys_timer_offset_ns)
-> +}
-
-[Severity: Medium]
-As reported by Alexandre Courbot on v4 [1], can set_sys_timer_offset()
-program a wrapped value into NV_PGC6_SCI_SYS_TIMER_OFFSET_1 and
-NV_PGC6_SCI_SYS_TIMER_OFFSET_0 when sec_timer_ns exceeds time_ns?
-
-If the host wall-clock time is behind the GPU secure timer, wrapping_sub()
-produces a large wrapped u64 that nsec_hi() truncates to 61 bits when
-writing the hardware offset registers while returning the unmasked 64-bit
-value for GSP initialization.  In OpenRM, tmrSetCurrentTime_GH100 verifies
-secTimerNs < osTimeNs and returns early without programming the offset
-registers if the delta is not positive, with the caller logging and
-ignoring the error.
-
-[1] https://lore.kernel.org/r/DMO7FUYY05LK.123ZPLIW24C2S@nvidia.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109-nova-timer=
--v6-0-5544a3bd8b28@redhat.com?part=3D2
