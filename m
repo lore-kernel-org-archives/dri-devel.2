@@ -2,102 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B31606A32A
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 04:42:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A437606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 04:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XoYM0/+Y
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JNDkjr1U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8874310F009;
-	Mon,  9 Nov 2026 04:41:55 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B2C010F009
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 04:41:49 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c4d427836e9so57452066b.1
- for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 20:41:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794199307; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 515A910F00E;
+	Mon,  9 Nov 2026 04:47:13 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8266010F00E
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 04:47:07 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c450ab1483cso70216866b.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 08 Nov 2026 20:47:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794199626; cv=none;
  d=google.com; s=arc-20260327;
- b=sfyukSIuFPwCKZxEqgdzd3eRx6k2wJ8Bh3H7iPgSEWTm1kF60Wv7AALcUKPBfw614d
- hhNVY8SrE67lyaXinYHMU0tLRKz34CpNYvHOjEUoR04b5I9x8MS7jwNjbBp1qmyQHppu
- Vec7CPHySMUsd5VTaWQjUNs0uwCtFlISfXaCPRoIUlP8dA6/R6D1Ih+YUTJaxFyWEDrv
- h7zx51/ex0dvEIazW60Qn7ilaqCyC/vNB0841kE1c83FYOnt33+qL46r5PHDXRL20j5q
- ghRjd98qvue8EmsPDhLYAODCL+jIcSuwqW7+49H/gjf2PAJgA31+IqVV8zkC4eonY3OQ
- 3ilQ==
+ b=IznqvYBxTbVNJpiDwuv7dIacbgNhPJ+Az3nP7gmCbFHabTTqhwgV8aC5b/e5j4OZNl
+ HJQ50dxOQ00W/suUTHziKEPGa9N7xkF9R+dDje4iKRdABn2HEyrxnD4PXwQYYccWHMJ1
+ ftmdEsrfn+RC3A3zM+C5wGy/UjSYyCx3+AP7dx7RYvL2vdLJOlRKQFhd9CRJbEAnX7tf
+ u+zwjl7da9pYnTPvAz4F8BqFaZ8WNX+Qr1VJYi2V6Earfjc6Pxg661wtFJgwgY74mMih
+ IAT5b+EDzKb7p60LRS7TFmP5u58m5fQdXTncVzsac4Fmrbhe+U2E3QqwR89qf4UnyyMI
+ rQ7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
- fh=F/R6BUeKFSHvVzIfdtLKRKQWKD2Oss/+SWvOFO5OcQM=;
- b=KeqDZ5/Cs/uvNo0QSh4WtpntgFeEBmMjh6VUCG32VmXqH5XyV6qS7a36VHikeHquSQ
- iDJZJZ3+hDuJKFJbDXvJpclgVcjcmRSurADA0Bg5I4tcRjFe3wANStTBSez9tkjyLpNc
- QJB0hryzC7d9vMZJp0Lxpu+2fI1eEiKXBxMsKRO4/02g/bRs16M/6/h3m2w13LxuyVl9
- Flz1z15wuomdIGswtfsU6P2etqkx9U1Sg6g49jhezp79jgF9u6RD1ISyUnSGJDsVT3Yl
- O1m+PUMgtwhtaMUDaOE2mqJWyuMvuDTlonT0Iszy0zmjDr3TokpwtEnaVhN8TatUccgn
- 34+Q==; darn=lists.freedesktop.org
+ bh=CrfIutPa9zzmKoZjuVxyntYvgSPp8Myo4B82If1gVcQ=;
+ fh=cPBsh3kV1nVk2VxP2RhmKErIJU9yeY25ZyMxeEyjwKI=;
+ b=Vg/12nSLLX9sNl1OvK5zvLY0SzoayMSP2iw4OsCiLAcoiD7uzusxl5PhS+kv9psvZk
+ Rso0yTMjD9kI7d9RHVugvhumEr1aiA4kNgnPdb3Ov1z6xqa+Jo7zxOawaEzVb/Yx+hl6
+ KmUHZwiaJpZHy+NOJiX2zyJaF7Fe1Q/LJ0sQFDEhLG+xmsll02jIeeAdfivi0/JXS1mf
+ m6SvCLLwLhYYyHtdKz3hNP3Gy62mafTR7hU8rAzoycwpLGINvfa+nNEOWovytkhPXmEQ
+ Jjzn7saE6mjNKOhhrNG14n9rvpMwWyMb8k8DYIbB+jxAXbm/ovmIE7T6Nfo1qmHKUfYu
+ mDOQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794199307; x=1794804107; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794199626; x=1794804426; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
- b=XoYM0/+YUd/9nfkSAR/t0M2oNX+9FMEwDTVj31XIKi0X2zDBbUSQieCeeRhzi0qamT
- htFQs8Y7yWfMKG1/5PaheNFRba6VSmmd40E5QXxsPrRyuCXr/9Q8PGx2HHXQyr51nSUM
- eOq+dR9BYghMFWJIu7DWbDhLeANR7kzXuD85daQx727CbC5r80JxKO8fJj2A2/88F6ov
- 4dVLILqfLbw82GrmVS5i7VYRZN+oxvlBCUD5CIcD9fGtM4uOMl0tec0/aOtJ3xh7XZ9L
- I2zhr/ZRQLR+lTPG3Rab58R7J80jwtmBHe5ps7LasXK5iCgCgXiMYq6B/wt0+PDy25Gv
- X/Iw==
+ bh=CrfIutPa9zzmKoZjuVxyntYvgSPp8Myo4B82If1gVcQ=;
+ b=JNDkjr1UArLInb9UEGgn4IRghLvhaLL473l86vEXqWLnHUhPKqV3d5XqoLO2Lfm3O1
+ 4TA4j3sK1aaj5uOP6xBdRnlxMUZb4aMV/w5aNVZ9ZsV5W8NwLCEt7Xws9FgoMgyq3mYD
+ vCLKv1ji573alAQzn+pD5z5bpt1Ua2VN8trX7OQS5r9O2aB0Z4vyo7fuA9oNJbuYg/Yn
+ 2FX3v0S8eJdPlAtIFgL5njjAVCvCac0Fd2slxp4LQktEpMVF5iKty/EJf2oy3Bi8hq6Q
+ dw6xYzE4k0y2C6gYuo7uwodPTbknuz0zItRQtWofMqZrZZSnp7EbaO2X78RqQQwz1MJc
+ 5pbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794199307; x=1794804107;
+ d=1e100.net; s=20260707; t=1794199626; x=1794804426;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
- b=BmzUML1QmoQ+Y1VXTMPjq/uHh/NzA8RbDLCDU1KMOwiv1Zy8COuRB9ngZfBbnnuYXT
- Vza0cKxSsuw1IcyKbnGRHskRcqJ/E0ALITns4Aaqjyu5s6h3Bl2oOnv7apNa4cJkYJJb
- IgPxvTIK9aGCJxKwhcFz+sjvAYD3qDLmF3vY4oFKpF9N+gTAY4lc4CnqOHIM3QTfVLxH
- +Y+Zva16pkDEUkVE36BykkuTa0HBXf2OwOj/oE8erWdQFbDLHfRRl0npwLIIbs5DNoVl
- zEVlm7f3LpxUZIjODOGGP0L55vBQE7nKrtibeOciX52WzhKCjk8xFDyvEgkEWuakRjxD
- zgjA==
-X-Gm-Message-State: APuU4Z+WPAPy+Y42qzi3w6REC3xQEM4d/cAFLLAAHZiEZiT0bGR4rVgy
- mBm7p0FhHDMrAcTfhRrrMypeZGGb/w5q6e9kGJaRm/Vcjf5SnAi4yzjp/A086L56NnE+FZ+R6or
- QCPY6U0u8o9AV14wTHUWZ3L29nzic+9M=
-X-Gm-Gg: AYBFou0Kcck1u6ZyFkIIPARl03VZIeisvQ3fdRuxjubKcQDd6ngWjWUQAZBMZmhTdg4
- j9ViZsfwEnikzmsVsYYTEHDD+IYdMe8l3zf0rPPwdkJdX4qqZfGgaht8i+z0gK95y8edOMzfsmV
- 05cJWSzP+vJ7cXgC/6O4EOxwYMCmGiTf/cAOduaenrYn7eemDuFsoDYHYDd9YWU6LThj08vF3q9
- UKG2ZX55dCnnIZXlZQNrKd8P6YZKzKdL68zpd7X6ZgEhPLG0Gf7h0wzAdPvC7EHuvVFw/g20O87
- PJbw+a0tcQgWlR7dEwbe4ccRXRY2b2bfn7vnoBWv17ecddUu4RfRasnFIwIFP1xoC79Hxz5goJ4
- 0pAwxz94bQtLHH1dnACAKUaVe1dzkA+vjudq5jImPxJpm2/IU6XIUoFSrxh0FVv8zbfo=
-X-Received: by 2002:a17:907:2d93:b0:c26:19de:9aec with SMTP id
- a640c23a62f3a-c4d6dd8cb24mr224378766b.43.1794199307082; Sun, 08 Nov 2026
- 20:41:47 -0800 (PST)
+ bh=CrfIutPa9zzmKoZjuVxyntYvgSPp8Myo4B82If1gVcQ=;
+ b=HbDEo+TvRcxoXwHardu6/zmeMZ8YkJoYqf6MhlxQSqaRzD9tZOnCGhgKVKFmqbbLUe
+ aqT1HjaG3j8NL91jEodUh9YGW6Ax1OaXUDr6OcdTLehqhi8NUbu7JwzFtcq7C3pvgrHx
+ WMkt/G3QtoHTFLeRTK+GsmtKqnkxxzifaW/6/JRrvRqCL+E3hzsBEI/qyrpuKX9m1+oN
+ XkYPdZCSZ1RmuKTieWbJZGtkffss/JJnIHPgXRuiePOaKB3RY6XNnN9HRb+a3ME8Owp4
+ J2rmHSR/M2ASzv61kkCJi5jLJPCktMSFPE9vHHNNWBwrgwmBFnLyn5Op3gWxKGhtM/n6
+ OJAA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFgTkpXiqfwEzJaf01zl8YxPZ38154+m48e0y+I+VcoU2LaDP0YORa8fZ97VUqnQ8/S+mtdClPS3wI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+dS0vtR0dcItib8QEtQnrGxgJqIdz890dIHopBOmOJsZsbqLkX
+ IxNlh6u63lpbyFuAUqK8ZV0R2wykEpatFAf7K+Bxf8UYdr+A7fGNxWL98VPddFq20HvYO/UveGc
+ Si+b5IBLuMm4n2upjfUVQBsUpQfKSbSI=
+X-Gm-Gg: AYBFou1sMNLphAG7iicwSrCC6mJjFFW+BdWTXW/pVBQL3JCUVG3OxrnNutXHHpvmexo
+ 5BfgqWaSWTLE0QPg/iqZhaAULjwlqaqcfvSMs5NXAYIm4U+e/m+ceh4e9QcFWVX/wKHc6OiKqGf
+ xw5VCapahC3zNuBzYrr8UIOjRstHtSLQcquHax7HfFZYi97xPF3aywnWidgJtOD0vAIT7JtLlHY
+ 2Cp2Lch99m/XJrjQW74xmpThn88NOOS4Qcwo18eRuq7z0jjZOBsO0muB/gzCbicFdTtYUraVvaz
+ P7UR+P7MwM3u+iSZB3Fb7jvn6v5U7Ou6sjM2E1caOV3xKCET8dvuabgJZwGhruORLO0uqbUbt8z
+ jQRnYNQoqZh01KI8h6x6DHf9gJx3QaZ9h2dcvTvT6epIpoDMmOxjZmO2DyJmFsnudGH8=
+X-Received: by 2002:a17:907:3d91:b0:c3f:d8f2:f08e with SMTP id
+ a640c23a62f3a-c4d6db3a64emr196944966b.44.1794199625715; Sun, 08 Nov 2026
+ 20:47:05 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261005001143.576737-1-rosenp@gmail.com>
-In-Reply-To: <20261005001143.576737-1-rosenp@gmail.com>
+References: <20261012064334.3193085-1-thnkslprpt@gmail.com>
+In-Reply-To: <20261012064334.3193085-1-thnkslprpt@gmail.com>
 From: Inki Dae <daeinki@gmail.com>
-Date: Mon, 9 Nov 2026 13:41:10 +0900
-X-Gm-Features: AclHuK-aAUizeCRuM8WnAlvp8mvibSB9oiekBPg9ucUpGQvhhZ0l_iKHx8QZ7R4
-Message-ID: <CAAQKjZOm5vA+38XVo5D4qV5B9eRT1seOShk-eFk_Jg_EQPdaOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: gsc: allocate formats as a flexible array
- member
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- "moderated list:ARM/SAMSUNG S3C,
- S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/SAMSUNG S3C,
- S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
- open list <linux-kernel@vger.kernel.org>, 
- "open list:KERNEL HARDENING (not covered by other
- areas):Keyword:b__counted_by(_le|_be|_ptr)?b"
- <linux-hardening@vger.kernel.org>
+Date: Mon, 9 Nov 2026 13:46:28 +0900
+X-Gm-Features: AclHuK-TjmziQBVGGqzRv77wQmyocEKBYuMMJR_pnwJjtYpt4X-8bxATAwTIBkE
+Message-ID: <CAAQKjZMYrG6C5KWkbqcZX9Jdu0TVVimRksV7xNe=G=653S5PsA@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: hdmi: free EDID on connector update failure
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,96 +113,51 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi,
 
-2026=EB=85=84 10=EC=9B=94 5=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 9:11, R=
-osen Penev <rosenp@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+2026=EB=85=84 10=EC=9B=94 12=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 3:44, =
+Avi Weiss <thnkslprpt@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> The formats array is allocated separately with devm_kcalloc() and only
-> referenced through the gsc_context. Make it a flexible array member at
-> the end of the context and allocate both in one go with struct_size().
+> If drm_edid_connector_update() fails, hdmi_get_modes() returns
+> without freeing the EDID allocated by drm_edid_read_ddc(). It's
+> an unlikely error path but nevertheless possible and should be
+> cleaned up fully.
 >
-> Annotate it with __counted_by(num_formats) so the array accesses can be
-> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
->
-> Assisted-by: LLM
+> Free the EDID before returning, while keeping the existing return
+> value of 0.
 
-The allocation and lifetime changes look reasonable to me, but
-Assisted-by: LLM causes checkpatch.pl to report a non-standard
-signature and an unrecognized email address. Please describe the AI
-assistance in the commit message prose instead.
+Merged.
 
 Thanks,
 Inki Dae
 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>
+> Fixes: f6e4f57fd90dc ("drm/exynos: hdmi: convert to struct drm_edid")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 > ---
->  drivers/gpu/drm/exynos/exynos_drm_gsc.c | 17 ++++++-----------
->  1 file changed, 6 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/exynos/exynos_hdmi.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gsc.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_gsc.c
-> index d9637ddfcfc4..f1807ef664e1 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gsc.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gsc.c
-> @@ -99,7 +99,6 @@ struct gsc_context {
->         void            *dma_priv;
->         struct device   *dev;
->         struct exynos_drm_ipp_task      *task;
-> -       struct exynos_drm_ipp_formats   *formats;
->         unsigned int                    num_formats;
+> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exyno=
+s/exynos_hdmi.c
+> index d4fce39c2b61..386557a7f5e8 100644
+> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> @@ -893,8 +893,10 @@ static int hdmi_get_modes(struct drm_connector *conn=
+ector)
+>         drm_edid =3D drm_edid_read_ddc(connector, hdata->ddc_adpt);
 >
->         void __iomem    *regs;
-> @@ -110,6 +109,7 @@ struct gsc_context {
->         int     id;
->         int     irq;
->         bool    rotation;
-> +       struct exynos_drm_ipp_formats   formats[] __counted_by(num_format=
-s);
->  };
+>         ret =3D drm_edid_connector_update(connector, drm_edid);
+> -       if (ret)
+> +       if (ret) {
+> +               drm_edid_free(drm_edid);
+>                 return 0;
+> +       }
 >
->  /**
-> @@ -1222,21 +1222,19 @@ static int gsc_probe(struct platform_device *pdev=
-)
->         struct gsc_context *ctx;
->         int num_formats, ret, i, j;
+>         cec_notifier_set_phys_addr(hdata->notifier, info->source_physical=
+_address);
 >
-> -       ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> +       num_formats =3D ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_fo=
-rmats);
-> +       ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats),=
- GFP_KERNEL);
->         if (!ctx)
->                 return -ENOMEM;
 >
-> +       ctx->num_formats =3D num_formats;
-> +       formats =3D ctx->formats;
-> +
->         driver_data =3D device_get_match_data(dev);
->         ctx->dev =3D dev;
->         ctx->num_clocks =3D driver_data->num_clocks;
->         ctx->clk_names =3D driver_data->clk_names;
->
-> -       /* construct formats/limits array */
-> -       num_formats =3D ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_fo=
-rmats);
-> -       formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats), GFP_=
-KERNEL);
-> -       if (!formats)
-> -               return -ENOMEM;
-> -
->         /* linear formats */
->         for (i =3D 0; i < ARRAY_SIZE(gsc_formats); i++) {
->                 formats[i].fourcc =3D gsc_formats[i];
-> @@ -1256,9 +1254,6 @@ static int gsc_probe(struct platform_device *pdev)
->                 formats[j].num_limits =3D driver_data->num_limits;
->         }
->
-> -       ctx->formats =3D formats;
-> -       ctx->num_formats =3D num_formats;
-> -
->         /* clock control */
->         for (i =3D 0; i < ctx->num_clocks; i++) {
->                 ctx->clocks[i] =3D devm_clk_get(dev, ctx->clk_names[i]);
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 > --
-> 2.56.0
+> 2.43.0
 >
 >
