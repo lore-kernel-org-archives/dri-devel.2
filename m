@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67474606A338
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60798606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 12:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VuFh6IHf
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pZeehOCz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACED410F1B7;
-	Mon,  9 Nov 2026 12:00:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F41610E89E;
+	Mon,  9 Nov 2026 12:04:19 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD13E10F1B7
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:00:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D3410E89E
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:04:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=dq28cqfmtysNsVpkbSf7JyApBlljxc11I1gvc1Urhy4=; t=1794225647; x=2109585647; 
- b=VuFh6IHf74lRRvFytKqScSIdETvJFUcKbeLtRswZR68+uCxdzjAouL+PCwbiV3SwHpZg71K79uG
- 64cuFyWGm4kbEL3GDiHYiDMX/bhgnc1JEBiKoZ1O8qZFl4Ck0dPr0Goz9FnTm2rzWqT1LMtxkESzI
- 1VMtoTxVNqu16syl37fg2WeMtv+10ZZpiFy0W7k2dnKJP85CRuHnrXqSsJhdRyV9mZquOKbwbC3RS
- T51uOwuDWbeyqjNE453otsGPomc2r3l/ehaI1EB6ilOkyNTz9EUuxH20Q9i0EdcoZrlE+IwfzyVRn
- mr36A/PFkaOWMqkQnAoiFY3NIKoyTI+F3lDg==;
+ bh=poUHFhBacCIBc6IKxtGxEHUIb6ec3qc6fq+C0UVooSA=; t=1794225854; x=2109585854; 
+ b=pZeehOCzlSKrTHD+6PZKMYHfb4tEhZR9+FsJX0bApz77iVC7ubtHJO50C2xj1EWeG39n5phzU2o
+ 54AGfULaWB56MuWgvk5T4c9N6BYdEXI2bYgjebf3Tn1Qk1QKIUdwLArDYqcKeECss14PMNT1++tf4
+ ZHFd4XAcL0lu7pUBnVhrnDneK9uLpdAqqXG5CqUh9TpLQ6nknbO5ADhou+eBby4zJA4PQ4PLlRmZw
+ p1hEyAS4r5rfoemzzhAzYeJj536ZXfOr186LULDr/5FTSJ+W9lJ0p4BlzAkqZPbBUkFV/TPeRjXLN
+ T7tv16LncKgyUvAAeQ1yEl0SiA5zEZer7fcw==;
 Received: from [179.105.94.163] (helo=[192.168.0.4])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xQO39-007F2d-Gu; Mon, 09 Nov 2026 13:00:35 +0100
-Message-ID: <712f4d29-f69c-4130-9cc6-3efccacba3aa@igalia.com>
-Date: Mon, 9 Nov 2026 09:00:31 -0300
+ id 1xQO6V-007FBg-H3; Mon, 09 Nov 2026 13:04:03 +0100
+Message-ID: <9c8f001a-afcb-4b52-b5d5-645289c74513@igalia.com>
+Date: Mon, 9 Nov 2026 09:04:00 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/display: hdmi: Prevent NULL pointer dereference
- in sync_scdc()
+Subject: Re: [PATCH 2/3] drm/display: hdmi: Use committed state to decide on
+ SCDC resync
 To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
 References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
- <20261104-hdmi-scdc-scramb-fixes-v1-1-16a9bb3d64a6@collabora.com>
+ <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
 From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
 Autocrypt: addr=mcanal@igalia.com; keydata=
@@ -67,7 +67,7 @@ Autocrypt: addr=mcanal@igalia.com; keydata=
  Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
  uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
  raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-1-16a9bb3d64a6@collabora.com>
+In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,64 +92,83 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 Hi Cristian,
 
 On 04/11/26 10:26, Cristian Ciocaltea wrote:
-> The connector pointer is used to initialize the local variables hdmi and
-> dev before the NULL check takes place, leading to the following Smatch
-> complaint:
+> drm_connector_hdmi_sync_scdc() uses the scrambler_enabled flag to decide
+> whether the sink-side SCDC status is worth checking on a hotplug/detect
+> event.  That flag tracks the source-side scrambler status, which is not
+> necessarily in sync with what the committed mode actually requires.
 > 
->    drivers/gpu/drm/display/drm_hdmi_helper.c:663 drm_connector_hdmi_sync_scdc()
->    warn: variable dereferenced before check 'connector' (see line 657)
+> In particular, a source driver may deliberately set scrambler_enabled at
+> init to force a disable at boot and resync hardware left enabled by the
+> firmware, as vc4 does.  If the pipeline doesn't get disabled afterwards,
+> e.g. because no display was active at probe time, the flag remains
+> stale.  A subsequent detect (e.g. an HPD event) then finds scrambling
+> disabled on the sink while the flag claims otherwise, and triggers a
+> CRTC reset.  This results in a one-time spurious flicker on an otherwise
+> correctly configured non-scrambled mode.
 > 
-> Move those initializations after the sanity check to avoid a potential
-> NULL pointer dereference.
+> Verify conn_state->hdmi.scrambler_needed instead, as it is computed
+> during atomic check and reliably describes the requirements of the
+> active mode.
 > 
 > Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Closes: https://lore.kernel.org/all/arJo7A7L5hud3tyc@stanley.mountain/
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/sashiko-outbox-170670@kernel.org/
 > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->   drivers/gpu/drm/display/drm_hdmi_helper.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> index f85cce3d6254..872f7e32e8d2 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> @@ -653,9 +653,9 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
->   int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   				 struct drm_modeset_acquire_ctx *ctx)
->   {
-> -	struct drm_connector_hdmi *hdmi = &connector->hdmi;
-> -	struct drm_device *dev = connector->dev;
-> +	struct drm_connector_hdmi *hdmi;
->   	struct drm_connector_state *conn_state;
-> +	struct drm_device *dev;
->   	struct drm_crtc *crtc;
->   	u8 config;
->   	int ret;
-> @@ -663,6 +663,9 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   	if (!connector || !plugged || !ctx)
->   		return 0;
->   
-> +	hdmi = &connector->hdmi;
-
-hdmi is only used once (and you are going to delete it in the next
-commit), so personally, I would prefer to delete this variable in this
-commit and use connector->hdmi directly when needed.
-
-> +	dev = connector->dev;
-> +
->   	/*
->   	 * This is normally part of .detect_ctx() call path, which already holds
->   	 * connection_mutex through @ctx.  However, re-acquiring it with the
-> 
-
-drm_modeset_lock() here could use the variable dev instead of
-&connector->dev.
-
-Anyway, these are just a few nits.
 
 Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
 Best regards,
 - Maíra
+
+> ---
+>   drivers/gpu/drm/display/drm_hdmi_helper.c | 17 +++++++++++------
+>   1 file changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> index 872f7e32e8d2..974d5de6d380 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+> @@ -653,7 +653,6 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
+>   int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+>   				 struct drm_modeset_acquire_ctx *ctx)
+>   {
+> -	struct drm_connector_hdmi *hdmi;
+>   	struct drm_connector_state *conn_state;
+>   	struct drm_device *dev;
+>   	struct drm_crtc *crtc;
+> @@ -663,7 +662,6 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+>   	if (!connector || !plugged || !ctx)
+>   		return 0;
+>   
+> -	hdmi = &connector->hdmi;
+>   	dev = connector->dev;
+>   
+>   	/*
+> @@ -677,14 +675,21 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
+>   
+>   	/* TODO: Also handle HDMI 2.1 FRL link training */
+>   
+> -	if (!drm_connector_hdmi_scrambler_supported(connector) ||
+> -	    !READ_ONCE(hdmi->scrambler_enabled))
+> -		return 0;
+> -
+>   	conn_state = connector->state;
+>   	if (!conn_state)
+>   		return 0;
+>   
+> +	/*
+> +	 * Rely on the committed connector state rather than on the current
+> +	 * scrambler status: a source driver may force scrambler_enabled at
+> +	 * init to get a disable at boot (e.g. vc4), and that value would
+> +	 * remain stale until the first disable actually happens, leading to
+> +	 * a spurious CRTC reset whenever the active mode needs no scrambling.
+> +	 */
+> +	if (!drm_connector_hdmi_scrambler_supported(connector) ||
+> +	    !conn_state->hdmi.scrambler_needed)
+> +		return 0;
+> +
+>   	crtc = conn_state->crtc;
+>   	if (!crtc)
+>   		return 0;
+> 
 
