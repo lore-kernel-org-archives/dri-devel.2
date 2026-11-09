@@ -2,52 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE7606A321
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 18:48:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE73606A33F
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 18:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwBvG3Ku
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofj2ioGg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1549910E5CE;
-	Mon,  9 Nov 2026 18:48:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4A510E5CE
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 18:48:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1809B10E8BA;
+	Mon,  9 Nov 2026 18:50:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B481910F4C2
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 18:50:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9799061133;
- Mon,  9 Nov 2026 18:48:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39181F0089F;
- Mon,  9 Nov 2026 18:48:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 728D84088E;
+ Mon,  9 Nov 2026 18:50:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696021F008A1;
+ Mon,  9 Nov 2026 18:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794250091;
- bh=wzcq643kxqzm6dmiI//QkyvyRvgf5SDiG72cWiaVszc=;
- h=From:To:Cc:Subject:Date;
- b=ZwBvG3Ku4ZEwKSKey17VtGpJlOGR7qSBiroi5pBDv8Aw5R1tZ2MCU/eWgnF/33DS5
- h/zqFPVc3LQLug14ppeQv8CNu8NpLAY2BCrW4zPdB/CQ/0Bzs94BOHpadBvfwE+EU/
- SOcbuPHL3VQouyX0LpqkU8K3pTzhsrIbX3cNouXEzVs900C3ZbuzJUcGAbxZOUTULy
- tcOVZ8yYFL5Xu5yeijdEdnBtUBjsAulBNpkYv0OfITgqxP6nmRLYZmx07/j7w59dtp
- fVFxaE4Is5/s6PjIETaMJOSGL6/Z2v3G4eHnueTyipoMnLHhvtS3Za2Nuqty0uefsz
- 2lsBotMH0L9Jw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andyshrk@163.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Andy Yan <andy.yan@rock-chip.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: display: rockchip: Allow single 'port' node for
- DP input port
-Date: Mon,  9 Nov 2026 12:47:58 -0600
-Message-ID: <20261109184759.467215-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+ s=k20260515; t=1794250201;
+ bh=eNp1Wnd7c4jN3oPa7QIZpI0WRmhIRL8VX/H8V1tIkCc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=ofj2ioGgh6SnMMTdAbmtSrXMvkdlQMrjoWzlyBnquYH/PHlS6Xud8JU49Zfk6/cpn
+ ZiY+TtKqwlpRyOlXJ4lEffLdMKX0KTEz+2u6joa5gjS4kjEi+h4tzExCAb0y2ZtPEc
+ l3eNS9EXxO4soY1p3zcovYxD7Qgj8ABe7e6R3jpJ7Flv/ralgOtb+0FHEthonSqa7I
+ etxgWrgaRINs3IuWU2M8D4hqZJxA5hPDMyyZHePLQQjJbqseXwZ5gb5S4Frg9WV4u/
+ REzp1s9jzpRZipnx4HiNF+Ttbn1BFa1QcpmVOV7PVfah9f6kt3ifNrLCJyMQSsB3zG
+ qhSfs+BcazzQg==
+Date: Mon, 9 Nov 2026 10:49:59 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
+ Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>, Bobby
+ Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman
+ <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
+Message-ID: <20261109104959.181a3b35@kernel.org>
+In-Reply-To: <CAHS8izNTbs8ONvjhiw+6cRkZQq+cX3t=BZK9aCr39JNkVbY9gA@mail.gmail.com>
+References: <20261015163915.1166043-1-almasrymina@google.com>
+ <20261015163915.1166043-4-almasrymina@google.com>
+ <20261020121858.3b9107c5@kernel.org>
+ <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
+ <20261021132304.23e0a4e7@kernel.org>
+ <CAHS8izNTbs8ONvjhiw+6cRkZQq+cX3t=BZK9aCr39JNkVbY9gA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +68,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Existing RK3399 users have only a single 'port' node. This was common before
-connector nodes were defined. Allow for this since there are already stable
-users.
+On Sat, 7 Nov 2026 22:21:48 -0800 Mina Almasry wrote:
+> So I started looking into whether we can improve test and fuzz
+> coverage with an improved netdevsim. My LLM prototyped full datapath
+> (with devmem) and offload support in netdevsim so the hardware
+> selftests and packetdrill run and pass in a plain VM without physical
+> NICs. I posted the branch at:
+> 
+> https://github.com/mina/linux/tree/nsim-devmem-rx-tx
+> 
+> The main problem is the total LLM generated diff to netdevsim: 62
+> files changed with 5,525 additions and 672 deletions :( So it's a big
+> change.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../rockchip/rockchip,rk3399-cdn-dp.yaml      | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-index 195f665970bf..425b27346132 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-@@ -63,7 +63,12 @@ properties:
-     $ref: /schemas/graph.yaml#/properties/ports
- 
-     properties:
--      port@0:
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Output of the CDN DP
-+
-+    patternProperties:
-+      '^port(@0)?$':
-         $ref: /schemas/graph.yaml#/properties/port
-         description: Input of the CDN DP
- 
-@@ -74,13 +79,11 @@ properties:
-           endpoint@1:
-             description: Connection to the VOPL
- 
--      port@1:
--        $ref: /schemas/graph.yaml#/properties/port
--        description: Output of the CDN DP
--
--    required:
--      - port@0
--      - port@1
-+    oneOf:
-+      - required:
-+          - port@0
-+      - required:
-+          - port
- 
-   power-domains:
-     maxItems: 1
--- 
-2.53.0
-
+Great! Please keep that slop to yourself, tho.
+Upstream isn't built to host people weekend slop.
