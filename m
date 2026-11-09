@@ -2,95 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A33606A9AE
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491B9606A9AE
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayBA5VUk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC5210E369;
-	Tue, 10 Nov 2026 08:33:29 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023097.outbound.protection.outlook.com [52.101.127.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 227AB10E848
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:09:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dtb5mIsV6yREYI8hBPCkOt1SbWu3jqGH/GxFyBAMZG3DLD6JJl6FJUQgoeniXmohaPXU7lSOKiIE98BJOhAPdD5udBVM+bym8wItfYE+SdXt2uH5IEUDm5vwm4JeoaBz2x7RFeHmVGdGpfLnMZHzxtoWhk4GPCJG6ANRltIQAqJtKX0Rd7yMs/KMdLOgUhE0mhjO354zqKOZzCrwvu55+CD6zdo+qBtJycrfw2JDx6abLP68aLlX/nmwwzOn2XcDsXmrQ1LcythOShhOQ0XeZzGmiICihxpOJcRRNm0k5JMklM78OoiWLnZzxfuQmz/VtouxqKUUDwN3JobDbwtNZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pGHjZZb01s//+FHZsg85wITdJCCurRihxWUJSHBj4ag=;
- b=DOQBd1GXzhMD/xAZFOTiG03p7u9vnCVjYt1j14CrsALCsc/jiyWyPfMywUiRB2NoXM3n62hSz88w646+svQrMWTmnQ/FQtXs7CIafHvPhZrIkziOyuKsHU/qL1OhcTkg2nx3qtoFSqVdjKgF0pErOa4SHNCXG/MHrndpK5h6eFjeP43rBYjYV2RNxtfpq6uRzyqtzI57oykbyG/6QCIOqrXWhdyUzX5MUhbVgwCRsE+TXaRGHnSbvUCct75dhU4OwWwRnde23GWRuOWMs5YXjvIkTBUIC7XrCPQ8IURMXrM2bJrztLKoJvjf8xOKgmTeNQli2kLx+diMeOhKs2V9fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR02CA0061.apcprd02.prod.outlook.com (2603:1096:300:5a::25)
- by TYZPR06MB5507.apcprd06.prod.outlook.com (2603:1096:400:289::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Mon, 9 Nov 2026
- 12:09:04 +0000
-Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
- (2603:1096:300:5a:cafe::4a) by PS2PR02CA0061.outlook.office365.com
- (2603:1096:300:5a::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 12:09:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 12:09:03 +0000
-Received: from cix (unknown [172.16.64.42])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 6168E40920F6;
- Mon,  9 Nov 2026 20:09:02 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gary.yang@cixtech.com, fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- robin.wang@cixtech.com, cunyuan.liu@cixtech.com
-Subject: [PATCH v2 3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
-Date: Mon,  9 Nov 2026 20:09:01 +0800
-Message-ID: <20261109120902.125242-4-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
-References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6B610E1D1;
+	Tue, 10 Nov 2026 08:33:28 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B23F010E8AB
+ for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 13:37:42 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-33bf40b0c8bso800715eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 05:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794231462; x=1794836262; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QWyQhqJ9ucdQAcEnl95DfWPx+aoHDTMLg3gXeTbngSs=;
+ b=ayBA5VUkmcmIkq4GV5nWMDpLsEu34WtmKDCwNbE6jdQRuHDoAVQCMwgdHbtE3VUx/z
+ fPhIrUHmDFgUnuKiEzDPk8932qRxl/oZF9jPEFKvwgQfHwPW0lhU0AXc1OC6mlXY0vmK
+ gPgMHjZrElPoPjkWb7QUpsZeIRdNVb3gyNsjjUYTbu1dwO3gvysTXr/qFAHXDAKk6a2b
+ 0jVZ+HZ1zXoPyDOUQH08PvV32R/jnwRC4Nummeu1LzkRkv8W9fG4S7Un+KdVll1wJQ3U
+ /8YFlTzryqQVJM5WxefNezecbISUk7eDhLJ/cyEUyAVIEguP9tk1s7rlIx8ysrJbYdII
+ 7eaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794231462; x=1794836262;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QWyQhqJ9ucdQAcEnl95DfWPx+aoHDTMLg3gXeTbngSs=;
+ b=SWUb31baKAQxIkHD8CIV77N7+3qSFcJSpKxe41Y5hItzz4H+lbD9EgXqO5S05jseH2
+ DerYFqZiMXsaCZDKjRqTP3IuzhlUgCZ3KbO+I2BxLPBnS/iI8UyrCpFcIYomQrAsqMA1
+ vqosweXicf0UlMqBg6/jOMdGA3CSFZHnXmPeAidtlG/LaIBXbJuZWcfT0dAzvuYSPzWK
+ e2l3HGO0NSOdbBFBpx4gcUb/rfZgQQqm//OslTicoYMFFHm7jg24BO0pY+Q/cjde804+
+ tY++js/gARXP8eMYZCGgc4fP2XsfOTUnxpa5RM0F7e/vUhQ8Yu47RoUSoAWobrRNH5JD
+ EQwg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE+1OhE3ypDsqI2a7EthI025EPSNJYHwB8/OnZAttckC2O91VTx+pSWI0x5l9Gf/KqKXOsT+XQ+i/s=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+HeRhODRg7TAsx9wZS8LHO1BCZ7nqejOcGShlmLSA3P18nWuZ8
+ Vh5tHfvrUTOALcpE1ztl2oQW7ofqYOvhjg+rWWjS+wuaHRTuoA7RupxM
+X-Gm-Gg: AYBFou0UJUflBIeY2h2Crn5766d75KVWUG5/rIlXvk+2mV25DpahFvQk552gvgfVa3j
+ jZFi9Uq/VfGoucmxU31Y7MlDdW/6x0aWUmpaR8cEYdxoTx2UecaisPEZczsZoYvNpUIayRMQx7x
+ qU89l+toiFRA6MYi4qT0F3l8Oy5i34of+8NSt8X00n6eDLIdq/hk8P9ObGieFt6xrHEtZqWFm52
+ 16qMjKiMNnPUOLfCGvENi8iw0iHP6MWhkplmfn3yu8hKF7uCwWF5XoCPn6dGIAI0u/nw/zVCoQA
+ NsAUEAGkOHoS2SbtdYa7k967Li7Vu7AcinlsaSIkDZYaKbyibs/REySFVK3gyHnyvgs2Oqh/yoz
+ gbRU9LqnSmNo7lIE/en+nHEcxtY56C+hkaJwMjOkPgehWYABsCS6j4vDjkYZbnhYvpTU3pgypc1
+ wLvySN/f0kFGLNA4yEl6uU+TvDNP68vbxWZRFGFLpJvpCfVawshArNEhqzGvRFRaeYzPlvE1eRk
+ zLngVKinr2yBWmvZWHXMwlgnAk8MqQ6SNXtOaylUMvOIWork+xeug4qBfUfsE2uN9BEXfUUKi3Z
+ oO4LLfuerUpJMMbKIDtzfylf+Vfzc1g/QkAA82sWycDy39/WMcwxpjC6C+hmkJuMio08D7rmbbd
+ XCH2nIGRYa6VVT4z8svw14ExMBpq9q/+1IoFbqPxcCKSv
+X-Received: by 2002:a05:7301:6497:b0:369:efd5:9cad with SMTP id
+ 5a478bee46e88-37255475628mr7236459eec.8.1794231461483; 
+ Mon, 09 Nov 2026 05:37:41 -0800 (PST)
+Received: from localhost.localdomain ([203.92.58.30])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-372666d2fcbsm13225525eec.24.2026.11.09.05.37.38
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 09 Nov 2026 05:37:40 -0800 (PST)
+From: Shivani Patel <patelshivani2283@gmail.com>
+To: outreachy@lists.linux.dev, Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Shivani Patel <patelshivani2283@gmail.com>
+Subject: [PATCH] staging: fbtft: fix spelling mistake "writte" -> "written"
+Date: Mon,  9 Nov 2026 19:07:31 +0530
+Message-ID: <20261109133731.66016-1-patelshivani2283@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|TYZPR06MB5507:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: b8688254-ca93-4424-b817-08df3e5a3f71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|7416014|22082099003|18002099003|10067099003|261026121527099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|56012099006|261009223027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: 1t6DXYaAcv488eRTxLOc4EK5BmgD6DaE9go+b6qfMNnxKz04y1Jk7Z8i+D9JY/ChAytWw+L+EKXwug8L2ObhYmywd/0Doso/XVQb8iL2ktuwJ+j84E+Q+JjccPSXjC/ru6sw9v7UmU0ZnNCNd29yLTZpVQ/H4OcK3q93CSZMnkjlBB/iaKSw/2FZAdFRiFgrmTvhP0ikEqlihCSi0DO9uTRFbjLdUISHveoeim7oizulb0e86HAn1JbbmvwTEQb9hU1XuwfTh4JFkkZwk5sXAyXFFXs/IXiikNOuqZex+fL+6AA6hQ7nRn8kuzy8DpUENxQO5BCJz9WzBqwm4H0gcizEwuEbK0s3sJGJyDc/MeYdXAoyWUrk5xZnjP57zOIA18TKk3l7J97OpeORXqDS56Y9aPCOf2w+kmBwPA9Xt25Ab1da9C8RPg5EeWDWA41L3FdKSCG4Ag7+pLLZD+RzkowNYpBenyxo26ZtObsbxyTmjkyW92Ad4hrn3f1ZJl4F/Uk6+65dnXic2+92Iclg3lY3mhF7hqeW4OBv/hbxvp/TFo8cA/hAS5a/FJfGG84+qJFrNtjyMTxrFU0InDve+ghZkxD3Tv5SDcOKWU0XG4IJrBqjoXFizcC2OaazOJdsZB9E0BZDndsiCXbbNddMcWnzMgKcpViL4Bpr2Y80SRIhlivpzFs/6qnpZMuyiZxC5hnZtmCEr1UUqNMSrowssQ==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(10067099003)(261026121527099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(56012099006)(261009223027099003)(261022105027099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Ga7ZGmdH/NS423SHtiAGhNlS6ep7yxwlZFjopVkoUxF5DuIf69tZOH51ttBTbDLMc3aowQHM8Nx0IUZR1F44TO5l2GO0z/3CfKgIpNdzNf3+EmoggAxUacYKAP0KWkfKz0cmrNcsC6B70dkHzO18jAaUt4HQoeoAOX4B8ew9+kVKsCaKjph/QOBgMZWxpt9Yvn9AtoxVp/ZMDG1n10JmxZtBD7zs/Vsi8lQFW2iNzd1GwWOoyHyEdAm3YqxOl5tb7ofmpRpao/w6VtHHUfgJuKwE9mnZUCpFlCezxfBveXad90K/2El5XQAn5AMV0xykEb4LttAtJnVHhTVktCVhALdD61l4SW1PwNmviEpS45pvFZX4MxPIeGBh83bpxB0kA7wW7BAwuQydBitapzitoQ19p4HAi+YzIQo4+HEYolDnfWSDgeFN1i8CQMvI0hkf
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 12:09:03.8121 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8688254-ca93-4424-b817-08df3e5a3f71
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB87.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5507
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,66 +85,34 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the Sky1 Mali GPU node with its registers, interrupts, clocks,
-external reset and GPU power domain.
+Correct spelling mistake in comment ("writte" -> "written").
 
-Keep the node disabled in the SoC file and enable it on Orion O6.
-
-Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
+Signed-off-by: Shivani Patel <patelshivani2283@gmail.com>
 ---
- arch/arm64/boot/dts/cix/sky1-orion-o6.dts |  4 ++++
- arch/arm64/boot/dts/cix/sky1.dtsi         | 16 ++++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/staging/fbtft/fb_st7789v.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts b/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-index e39c87774c12..853c9c6f202c 100644
---- a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-+++ b/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-@@ -52,6 +52,10 @@ &fch_gpio3 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
- &iomuxc {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_hog>;
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..d5d347964ad7 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -762,6 +762,22 @@ ppi_partition1: interrupt-partition-1 {
- 			};
- 		};
- 
-+		gpu: gpu@15010000 {
-+			compatible = "cix,sky1-mali", "arm,mali-valhall-csf";
-+			reg = <0x0 0x15010000 0x0 0x480000>;
-+			interrupts = <GIC_SPI 237 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 238 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "job", "mmu", "gpu";
-+			clocks = <&scmi_clk CLK_TREE_GPU_CLK_CORE>,
-+				 <&scmi_clk CLK_TREE_GPU_CLK_STACKS>;
-+			clock-names = "core", "stacks";
-+			resets = <&s5_syscon SKY1_GPU_RESET_N>;
-+			power-domains = <&smc_devpd SKY1_PD_GPU>;
-+
-+			status = "disabled";
-+		};
-+
- 		s5_syscon: syscon@16000000 {
- 			compatible = "cix,sky1-s5-system-control", "syscon";
- 			reg = <0x0 0x16000000 0x0 0x1000>;
+diff --git a/drivers/staging/fbtft/fb_st7789v.c b/drivers/staging/fbtft/fb_st7789v.c
+index 861a15414..c4db681eb 100644
+--- a/drivers/staging/fbtft/fb_st7789v.c
++++ b/drivers/staging/fbtft/fb_st7789v.c
+@@ -221,7 +221,7 @@ static int init_display(struct fbtft_par *par)
+  * write_vmem() - write data to display.
+  * @par: FBTFT parameter object.
+  * @offset: offset from screen_buffer.
+- * @len: the length of data to be writte.
++ * @len: the length of data to be written.
+  *
+  * Return: 0 on success, or a negative error code otherwise.
+  */
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
