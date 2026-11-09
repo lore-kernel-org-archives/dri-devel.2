@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B817606A31C
-	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB3606A31C
+	for <dri-devel@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AU2IWKn2
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I9ggAX1M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BBF10E8B3;
-	Mon,  9 Nov 2026 13:56:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A215310F304;
+	Mon,  9 Nov 2026 13:56:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 558C010E4A8;
- Mon,  9 Nov 2026 13:56:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F065110F306;
+ Mon,  9 Nov 2026 13:56:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794232604; x=1825768604;
+ t=1794232609; x=1825768609;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=f6OHxQPWLyEBdBjSXY8wfjrVr9mHiwS1tzioJwnNzQM=;
- b=AU2IWKn2Dd4rcU39sOurmZhUrPHmTQSTQpm96yMOSCbYw1ggiENK0OKo
- a/AbkVU/qKK9jhqqDYXpFEbqRkVMkVBsWtJzUtuc6tXiVhhgQPyHB/6YU
- ApcfkYd3jb/XlkhDhgT1PBEeQAG87loYmcYUnvzXwZAIP2bxYoVLGzFl6
- rmMUnUQFF0oPivEeOJLW2dqCCYTgTeacyOvOLslWeK6tpTZTy1iRMvdxK
- p2exdSmNprcyVdrgs7Xxp8N0nbWarJ514VAoEqnM6Kbgkfb8raJ13jKVz
- ZR+DQkgji90b7lxbitF0Q8ufFLr6279XpDd7cDd5xMsue2XIpe5eEzIJy w==;
-X-CSE-ConnectionGUID: KMa8oKb+RwuxKEARKRDpQg==
-X-CSE-MsgGUID: INKx93x1RPO1c0jeZkb+Bg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2850759"
+ bh=q7PYS5ahW27ntJhSKcXLcP1VEHCzvkfjeOC9nu0iKv4=;
+ b=I9ggAX1MYm8PaZpOb/rzAVI3xlaQAVuk0TkAjAkaS0GI6zUTh12eFg9e
+ s1HzbA990SynHHBYyYIdxaAw/fp815WuTgDVAyusPzIiBxvQV3Ng6BbSX
+ p8E+205z4qn/en5cYmf5LIcKYtn0+o9f2AGv2qojzdrDlVUNHGOJ9p0Ul
+ 3HmW7zDwO3oQ64lmuX4YMbnwKhp6SAz9WxNTYgiDaaT0U9gwysAGb89XG
+ bT9t4rQutqCyI9uS49PFnJRGcczKAkZUWEr3+frcE8yqLOYWKbjHQfmb5
+ 4llkvDyW+l6HIJGSkFZXzoj3vFRpfGGenDtekd2lKJlS+CB8ZH48mkx1K Q==;
+X-CSE-ConnectionGUID: T2F/L1MjR1i1pbeI4oiFPA==
+X-CSE-MsgGUID: GYuAjBrfS4i4YKkuHdl9zQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2850781"
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2850759"
+   d="scan'208";a="2850781"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:56:44 -0800
-X-CSE-ConnectionGUID: Aw4tGhsfQYCQlhQkRSexEg==
-X-CSE-MsgGUID: 9vFr6umYQZ2iaNXZ9TMGAw==
+ 09 Nov 2026 05:56:48 -0800
+X-CSE-ConnectionGUID: r+4/ogOTTsCbxa7XoeAQDA==
+X-CSE-MsgGUID: 3EvEW4HET7Ck/XnSDwvVWw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8202671"
+   d="scan'208";a="8202707"
 Received: from pgcooper-mobl2.ger.corp.intel.com (HELO
  mkuoppal-desk.home.arpa) ([10.245.246.220])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:56:38 -0800
+ 09 Nov 2026 05:56:43 -0800
 From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com, christian.koenig@amd.com,
@@ -52,9 +52,9 @@ Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com, christian.koenig@amd.com,
  michal.wajdeczko@intel.com, dri-devel@lists.freedesktop.org,
  Dominik Grzegorzek <dominik.grzegorzek@intel.com>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Subject: [PATCH 07/20] drm/xe: Add EUDEBUG_ENABLE exec queue property
-Date: Mon,  9 Nov 2026 15:55:32 +0200
-Message-ID: <20261109135549.4128280-8-mika.kuoppala@linux.intel.com>
+Subject: [PATCH 08/20] drm/xe/eudebug: Introduce exec_queue events
+Date: Mon,  9 Nov 2026 15:55:33 +0200
+Message-ID: <20261109135549.4128280-9-mika.kuoppala@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
 References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
@@ -75,266 +75,511 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
 
-Introduce an immutable eudebug property for exec_queues,
-using a flags value to enable eudebug-specific features. For now, the
-engine LRC uses this flag to enable the runalone hardware feature.
-Runalone ensures that only one hardware engine in a group
-[rcs0, ccs0-3] is active on a tile.
+Add events to inform the debugger about the creation and destruction of
+exec_queues. Use user engine class types instead of the internal
+xe_engine_class enum in exec_queue events. During discovery, only advertise
+exec_queues with render or compute class, excluding others.
 
-v2: - check CONFIG_DRM_XE_EUDEBUG and LR mode (Matthew)
-    - disable preempt (Dominik)
-    - lrc_create remove from engine init
-v3: - remove redundant runalone setup (Sashiko)
-v4: - deny if pxp is on (Sashiko)
-    - deny if secondary mq (Sashiko)
-    - deny if parallel (Sashiko)
-    - really deny if pxp (Claude)
-v5: - fix the multiqueue (Sashiko)
+v2: - Only track long running queues
+    - Checkpatch (Tilak)
+v3: __counted_by added
+v4: - use helpers for filtering engines (Mika)
+v5: - fix lrc handles memcpy size bug (Mika)
+v6: - lookup for create event (Sashiko)
+    - defer engine class lookup (Sashiko)
+    - avoid uninitialized read on adding handle (Sashiko)
+    - too strict warn on q->width check (Sashiko)
+    - create eudebug eq event early (Claude)
+    - dont drop session if vm is already gone (Claude)
+v7: - lookups under the debugger lock (Mika)
 
-Cc: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
+Signed-off-by: Maciej Patelczyk <maciej.patelczyk@intel.com>
 Signed-off-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- .../ABI/testing/sysfs-driver-intel-xe-eudebug | 10 +++
- drivers/gpu/drm/xe/xe_exec_queue.c            | 81 ++++++++++++++++++-
- drivers/gpu/drm/xe/xe_exec_queue.h            |  2 +
- drivers/gpu/drm/xe/xe_exec_queue_types.h      |  7 ++
- drivers/gpu/drm/xe/xe_hw_engine.h             |  9 +++
- include/uapi/drm/xe_drm.h                     | 12 +++
- 6 files changed, 120 insertions(+), 1 deletion(-)
+ Documentation/gpu/xe/xe_eudebug.rst   |   3 +
+ drivers/gpu/drm/xe/xe_eudebug.c       | 282 +++++++++++++++++++++++++-
+ drivers/gpu/drm/xe/xe_eudebug.h       |   7 +
+ drivers/gpu/drm/xe/xe_eudebug_types.h |   6 +-
+ drivers/gpu/drm/xe/xe_exec_queue.c    |   8 +-
+ include/uapi/drm/xe_drm_eudebug.h     |  31 +++
+ 6 files changed, 330 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug b/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
-index 884a791789ad..50ab7db1f811 100644
---- a/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
-+++ b/Documentation/ABI/testing/sysfs-driver-intel-xe-eudebug
-@@ -24,6 +24,16 @@ Description:	RW. Controls whether the EU debugger interface is armed for
- 		have to close them or be terminated. A connection shows up as
- 		an "anon_inode:[xe_eudebug]" entry under /proc/<pid>/fd.
+diff --git a/Documentation/gpu/xe/xe_eudebug.rst b/Documentation/gpu/xe/xe_eudebug.rst
+index 9c6070784e84..f3152a13e250 100644
+--- a/Documentation/gpu/xe/xe_eudebug.rst
++++ b/Documentation/gpu/xe/xe_eudebug.rst
+@@ -65,3 +65,6 @@ Resource Event Types
  
-+		Once enabled, any client with access to the render node can
-+		also create debuggable exec queues
-+		(DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG), whether or not a
-+		debugger is attached. While such a queue executes, the other
-+		render and compute engines of its tile are kept idle
-+		(runalone), and as its preemption timeout is infinite it is
-+		not reset if it does not yield the engine when preempted.
-+		Work from other clients on those engines can therefore be
-+		held off for as long as such a queue keeps running.
+ .. kernel-doc:: include/uapi/drm/xe_drm_eudebug.h
+    :identifiers: drm_xe_eudebug_event_vm
 +
- 		Each connection allocates about 4 MiB of kernel memory for
- 		its event queue, held until the connection is closed. The
- 		number of connections is not limited beyond the file
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-index 7ade915c59a8..e65bda492e58 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.c
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-@@ -31,6 +31,7 @@
- #include "xe_trace.h"
++.. kernel-doc:: include/uapi/drm/xe_drm_eudebug.h
++   :identifiers: drm_xe_eudebug_event_exec_queue
+diff --git a/drivers/gpu/drm/xe/xe_eudebug.c b/drivers/gpu/drm/xe/xe_eudebug.c
+index e0ef34588d3d..0f8b0452f9ba 100644
+--- a/drivers/gpu/drm/xe/xe_eudebug.c
++++ b/drivers/gpu/drm/xe/xe_eudebug.c
+@@ -16,6 +16,8 @@
+ #include "xe_device.h"
+ #include "xe_eudebug.h"
+ #include "xe_eudebug_types.h"
++#include "xe_exec_queue.h"
++#include "xe_hw_engine.h"
+ #include "xe_macros.h"
+ #include "xe_sriov_pf.h"
  #include "xe_vm.h"
- #include "xe_pxp.h"
-+#include "xe_eudebug.h"
- 
- /**
-  * DOC: Execution Queue
-@@ -416,6 +417,9 @@ static int __xe_exec_queue_init(struct xe_exec_queue *q, u32 exec_queue_flags)
- 	if (q->flags & EXEC_QUEUE_FLAG_DISABLE_STATE_CACHE_PERF_FIX)
- 		flags |= XE_LRC_DISABLE_STATE_CACHE_PERF_FIX;
- 
-+	if (q->eudebug_flags & EXEC_QUEUE_EUDEBUG_FLAG_ENABLE)
-+		flags |= XE_LRC_CREATE_RUNALONE;
-+
- 	err = q->ops->init(q);
- 	if (err)
- 		return err;
-@@ -1050,6 +1054,57 @@ static int exec_queue_set_state_cache_perf_fix(struct xe_device *xe, struct xe_e
- 	return 0;
+@@ -486,6 +488,28 @@ __find_handle(struct xe_eudebug_resource *r,
+ 	return h;
  }
  
-+static int exec_queue_set_eudebug(struct xe_device *xe, struct xe_exec_queue *q,
-+				  u64 value)
++static int find_handle(struct xe_eudebug *d,
++		       const int type,
++		       const void *p)
 +{
-+	const u64 known_flags = DRM_XE_EXEC_QUEUE_EUDEBUG_FLAG_ENABLE;
++	const u64 key = (uintptr_t)p;
++	struct xe_eudebug_resource *r;
++	struct xe_eudebug_handle *h;
++	int id;
 +
-+	if (XE_IOCTL_DBG(xe, !xe_engine_supports_eudebug(q->class)))
++	if (XE_WARN_ON(!key))
 +		return -EINVAL;
 +
-+	if (XE_IOCTL_DBG(xe, (value & ~known_flags)))
++	r = resource_from_type(d, type);
++
++	mutex_lock(&d->lock);
++	h = __find_handle(r, key);
++	id = h ? h->id : -ENOENT;
++	mutex_unlock(&d->lock);
++
++	return id;
++}
++
+ /*
+  * Adding a handle is split around d->lock: handle_prepare() allocates the
+  * handle and reserves its id, __handle_insert() publishes it and stamps
+@@ -799,6 +823,244 @@ void xe_eudebug_vm_destroy(struct xe_file *xef, struct xe_vm *vm)
+ 	xe_eudebug_put(d);
+ }
+ 
++static const u16 xe_to_user_engine_class[] = {
++	[XE_ENGINE_CLASS_RENDER] = DRM_XE_ENGINE_CLASS_RENDER,
++	[XE_ENGINE_CLASS_COPY] = DRM_XE_ENGINE_CLASS_COPY,
++	[XE_ENGINE_CLASS_VIDEO_DECODE] = DRM_XE_ENGINE_CLASS_VIDEO_DECODE,
++	[XE_ENGINE_CLASS_VIDEO_ENHANCE] = DRM_XE_ENGINE_CLASS_VIDEO_ENHANCE,
++	[XE_ENGINE_CLASS_COMPUTE] = DRM_XE_ENGINE_CLASS_COMPUTE,
++};
++
++static int send_exec_queue_event(struct xe_eudebug *d, u32 flags,
++				 u64 vm_handle, u64 exec_queue_handle,
++				 enum xe_engine_class class,
++				 u32 width, u64 *lrc_handles, u64 seqno)
++{
++	struct drm_xe_eudebug_event *event;
++	struct drm_xe_eudebug_event_exec_queue *e;
++	const u32 sz = struct_size(e, lrc_handle, width);
++	u32 xe_engine_class;
++	int err;
++
++	if (!xe_engine_supports_eudebug(class))
 +		return -EINVAL;
 +
-+	if (XE_IOCTL_DBG(xe, !IS_ENABLED(CONFIG_DRM_XE_EUDEBUG)))
-+		return -EOPNOTSUPP;
++	xe_engine_class = xe_to_user_engine_class[class];
++
++	mutex_lock(&d->lock);
++	event = xe_eudebug_prepare_event(d, DRM_XE_EUDEBUG_EVENT_EXEC_QUEUE,
++					 seqno, flags, sz);
++	e = cast_event(e, event);
++
++	e->vm_handle = vm_handle;
++	e->exec_queue_handle = exec_queue_handle;
++	e->engine_class = xe_engine_class;
++	e->width = width;
++
++	memcpy(e->lrc_handle, lrc_handles, width * sizeof(u64));
++
++	err = xe_eudebug_queue_event(d, event);
++	mutex_unlock(&d->lock);
++
++	return err;
++}
++
++/*
++ * A debuggable queue needs only an LR vm, and a fault mode vm can be
++ * destroyed while its queues live on: xe_vm_destroy_ioctl() only refuses
++ * a vm with preempt fence mode queues. The debugger has then already seen
++ * the vm go, so report such a queue against vm handle 0 rather than
++ * treating the missing handle as a diverged resource map.
++ *
++ * Looked up in the critical section that stamps the queue event's seqno.
++ * A vm destroy removes the handle and stamps its own seqno under the same
++ * lock, so the handle is gone exactly when the vm destroy came first in
++ * seqno order, and a debugger replaying the events never sees a queue
++ * event on a vm it has dropped, or vm 0 for one it has not.
++ */
++static int __exec_queue_vm_handle(struct xe_eudebug *d, struct xe_exec_queue *q)
++{
++	struct xe_eudebug_handle *h;
++
++	lockdep_assert_held(&d->lock);
++
++	h = __find_handle(resource_from_type(d, XE_EUDEBUG_RES_TYPE_VM),
++			  (uintptr_t)q->vm);
++
++	return h ? h->id : 0;
++}
++
++static int exec_queue_create_event(struct xe_eudebug *d,
++				   struct xe_file *xef, struct xe_exec_queue *q)
++{
++	struct xe_eudebug_handle *h;
++	int h_vm, h_queue;
++	u64 h_lrc[XE_HW_ENGINE_MAX_INSTANCE], seqno;
++	int i;
++	int ret;
++
++	if (!xe_exec_queue_is_debuggable(q))
++		return 0;
++
++	if (XE_WARN_ON(q->width > XE_HW_ENGINE_MAX_INSTANCE))
++		return -EINVAL;
++
++	ret = 0;
++	for (i = 0; i < q->width; i++) {
++		ret = _xe_eudebug_add_handle(d,
++					     XE_EUDEBUG_RES_TYPE_LRC,
++					     q->lrc[i],
++					     NULL);
++
++		if (ret < 0)
++			break;
++
++		XE_WARN_ON(!ret);
++
++		h_lrc[i] = ret;
++	}
++
++	if (ret < 0)
++		return ret;
++
++	h = handle_prepare(d, XE_EUDEBUG_RES_TYPE_EXEC_QUEUE, q);
++	if (IS_ERR(h))
++		return PTR_ERR(h);
++
++	scoped_guard(mutex, &d->lock) {
++		h_queue = __handle_insert(d, XE_EUDEBUG_RES_TYPE_EXEC_QUEUE, h,
++					  &seqno);
++		h_vm = __exec_queue_vm_handle(d, q);
++	}
++
++	eu_dbg(d, "exec queue %p added: %d, vm %d\n", q, h_queue, h_vm);
++
++	if (h_queue < 0) {
++		handle_abort(d, XE_EUDEBUG_RES_TYPE_EXEC_QUEUE, h);
++		return h_queue;
++	}
++
++	/* No need to cleanup for added handles on error as if we fail
++	 * we disconnect
++	 */
++
++	ret = send_exec_queue_event(d, DRM_XE_EUDEBUG_EVENT_CREATE,
++				    h_vm, h_queue, q->class,
++				    q->width, h_lrc, seqno);
++
++	if (ret)
++		eu_dbg(d, "send_exec_queue_event create error %d", ret);
++
++	return ret;
++}
++
++static int exec_queue_destroy_event(struct xe_eudebug *d,
++				    struct xe_file *xef,
++				    struct xe_exec_queue *q)
++{
++	int h_vm, h_queue;
++	u64 h_lrc[XE_HW_ENGINE_MAX_INSTANCE], seqno;
++	int i;
++	int ret, err = 0;
++
++	if (!xe_exec_queue_is_debuggable(q))
++		return 0;
 +
 +	/*
-+	 * The preemption timeout below is infinite, which is only safe where
-+	 * no dma-fence waits for the queue to be preempted: a fault mode vm
-+	 * has no preempt fences.
++	 * A queue we never handed out to the debugger needs no destroy event.
++	 * The queue handle is added last on create, so its presence implies
++	 * the lrc handles are there too. Past this point a missing handle
++	 * means our resource map and the client have diverged, and that has
++	 * to drop the session. The exception is a concurrent detach, which
++	 * empties the maps without the ioctl_lock, but only after marking us
++	 * detached.
 +	 */
-+	if (XE_IOCTL_DBG(xe, !xe_exec_queue_is_lr(q) ||
-+			 !xe_vm_in_fault_mode(q->vm)))
++	if (find_handle(d, XE_EUDEBUG_RES_TYPE_EXEC_QUEUE, q) == -ENOENT)
++		return 0;
++
++	if (XE_WARN_ON(q->width > XE_HW_ENGINE_MAX_INSTANCE))
 +		return -EINVAL;
 +
-+	if (XE_IOCTL_DBG(xe, xe_exec_queue_is_parallel(q)))
-+		return -EINVAL;
++	for (i = 0; i < q->width; i++) {
++		ret = _xe_eudebug_remove_handle(d,
++						XE_EUDEBUG_RES_TYPE_LRC,
++						q->lrc[i],
++						NULL);
++		if (ret < 0) {
++			XE_WARN_ON(!xe_eudebug_is_detached(d));
++			if (!err)
++				err = ret;
++			h_lrc[i] = 0;
++			continue;
++		}
 +
-+	if (XE_IOCTL_DBG(xe,
-+			 !(value & DRM_XE_EXEC_QUEUE_EUDEBUG_FLAG_ENABLE)))
-+		return -EINVAL;
++		XE_WARN_ON(!ret);
++		h_lrc[i] = ret;
++	}
 +
-+	if (XE_IOCTL_DBG(xe, !xe_eudebug_is_enabled(xe)))
-+		return -EPERM;
++	if (err)
++		return err;
 +
-+	q->eudebug_flags = EXEC_QUEUE_EUDEBUG_FLAG_ENABLE;
-+	q->sched_props.preempt_timeout_us = 0;
++	scoped_guard(mutex, &d->lock) {
++		h_queue = __xe_eudebug_remove_handle(d,
++						     XE_EUDEBUG_RES_TYPE_EXEC_QUEUE,
++						     q, &seqno);
++		h_vm = __exec_queue_vm_handle(d, q);
++	}
 +
-+	return 0;
++	eu_dbg(d, "exec queue %p removed: %d, vm %d\n", q, h_queue, h_vm);
++
++	if (h_queue < 0)
++		return h_queue;
++
++	ret = send_exec_queue_event(d, DRM_XE_EUDEBUG_EVENT_DESTROY,
++				    h_vm, h_queue, q->class,
++				    q->width, h_lrc, seqno);
++
++	if (ret)
++		eu_dbg(d, "send_exec_queue_event destroy error %d\n", ret);
++
++	return ret;
 +}
 +
-+/**
-+ * xe_exec_queue_is_debuggable() - Whether an exec_queue is debuggable
-+ * @q: The exec_queue
-+ *
-+ * Return: True if @q was created with %DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG,
-+ * false otherwise.
-+ */
-+bool xe_exec_queue_is_debuggable(struct xe_exec_queue *q)
++void xe_eudebug_exec_queue_create(struct xe_file *xef, struct xe_exec_queue *q)
 +{
-+	return q->eudebug_flags & EXEC_QUEUE_EUDEBUG_FLAG_ENABLE;
++	struct xe_eudebug *d;
++	int err;
++
++	if (!xe_engine_supports_eudebug(q->class))
++		return;
++
++	d = xe_eudebug_get(xef);
++	if (!d)
++		return;
++
++	err = exec_queue_create_event(d, xef, q);
++	if (err)
++		xe_eudebug_disconnect(d, err);
++
++	xe_eudebug_put(d);
 +}
 +
- typedef int (*xe_exec_queue_set_property_fn)(struct xe_device *xe,
- 					     struct xe_exec_queue *q,
- 					     u64 value);
-@@ -1064,6 +1119,7 @@ static const xe_exec_queue_set_property_fn exec_queue_set_property_funcs[] = {
- 							exec_queue_set_multi_queue_priority,
- 	[DRM_XE_EXEC_QUEUE_SET_DISABLE_STATE_CACHE_PERF_FIX] =
- 							exec_queue_set_state_cache_perf_fix,
-+	[DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG] = exec_queue_set_eudebug,
++void xe_eudebug_exec_queue_destroy(struct xe_file *xef, struct xe_exec_queue *q)
++{
++	struct xe_eudebug *d;
++	int err;
++
++	if (!xe_engine_supports_eudebug(q->class))
++		return;
++
++	d = xe_eudebug_get(xef);
++	if (!d)
++		return;
++
++	err = exec_queue_destroy_event(d, xef, q);
++	if (err)
++		xe_eudebug_disconnect(d, err);
++
++	xe_eudebug_put(d);
++}
++
+ /*
+  * All the relevant ioctls that manipulate the xe_file resources eudebug
+  * cares about are gated behind down_read(&xef->eudebug.ioctl_lock). The
+@@ -807,9 +1069,10 @@ void xe_eudebug_vm_destroy(struct xe_file *xef, struct xe_vm *vm)
+  */
+ static int discover_client(struct xe_eudebug *d, struct xe_file *xef)
+ {
++	struct xe_exec_queue *q;
+ 	struct xe_vm *vm;
+ 	unsigned long i;
+-	unsigned int vm_count = 0;
++	unsigned int vm_count = 0, eq_count = 0;
+ 	int err = 0;
+ 
+ 	lockdep_assert_held_write(&xef->eudebug.ioctl_lock);
+@@ -828,10 +1091,21 @@ static int discover_client(struct xe_eudebug *d, struct xe_file *xef)
+ 		vm_count++;
+ 	}
+ 
++	xa_for_each(&xef->exec_queue.xa, i, q) {
++		if (!xe_engine_supports_eudebug(q->class))
++			continue;
++
++		err = exec_queue_create_event(d, xef, q);
++		if (err)
++			goto out;
++
++		eq_count++;
++	}
++
+ out:
+-	if (vm_count)
+-		eu_dbg(d, "Discovery found %u vms",
+-		       vm_count);
++	if (vm_count || eq_count)
++		eu_dbg(d, "Discovery found %u vms, %u exec_queues",
++		       vm_count, eq_count);
+ 
+ 	eu_dbg(d, "Discovery end for %llu: %d", d->session, err);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_eudebug.h b/drivers/gpu/drm/xe/xe_eudebug.h
+index 413a45129193..ec07c567356d 100644
+--- a/drivers/gpu/drm/xe/xe_eudebug.h
++++ b/drivers/gpu/drm/xe/xe_eudebug.h
+@@ -14,6 +14,7 @@ struct drm_file;
+ struct xe_device;
+ struct xe_file;
+ struct xe_vm;
++struct xe_exec_queue;
+ struct xe_eudebug;
+ 
+ #if IS_ENABLED(CONFIG_DRM_XE_EUDEBUG)
+@@ -49,6 +50,9 @@ void xe_eudebug_file_close(struct xe_file *xef);
+ void xe_eudebug_vm_create(struct xe_file *xef, struct xe_vm *vm);
+ void xe_eudebug_vm_destroy(struct xe_file *xef, struct xe_vm *vm);
+ 
++void xe_eudebug_exec_queue_create(struct xe_file *xef, struct xe_exec_queue *q);
++void xe_eudebug_exec_queue_destroy(struct xe_file *xef, struct xe_exec_queue *q);
++
+ #else
+ 
+ static inline int xe_eudebug_connect_ioctl(struct drm_device *dev,
+@@ -64,6 +68,9 @@ static inline void xe_eudebug_file_close(struct xe_file *xef) { }
+ static inline void xe_eudebug_vm_create(struct xe_file *xef, struct xe_vm *vm) { }
+ static inline void xe_eudebug_vm_destroy(struct xe_file *xef, struct xe_vm *vm) { }
+ 
++static inline void xe_eudebug_exec_queue_create(struct xe_file *xef, struct xe_exec_queue *q) { }
++static inline void xe_eudebug_exec_queue_destroy(struct xe_file *xef, struct xe_exec_queue *q) { }
++
+ #endif /* CONFIG_DRM_XE_EUDEBUG */
+ 
+ #endif /* _XE_EUDEBUG_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_eudebug_types.h b/drivers/gpu/drm/xe/xe_eudebug_types.h
+index 598abb249195..0cb1b3b678e4 100644
+--- a/drivers/gpu/drm/xe/xe_eudebug_types.h
++++ b/drivers/gpu/drm/xe/xe_eudebug_types.h
+@@ -31,7 +31,7 @@ enum xe_eudebug_cap_state {
+ 	XE_EUDEBUG_CAP_ENABLED,
  };
  
+-#define XE_EUDEBUG_MAX_EVENT_TYPE DRM_XE_EUDEBUG_EVENT_VM
++#define XE_EUDEBUG_MAX_EVENT_TYPE DRM_XE_EUDEBUG_EVENT_EXEC_QUEUE
+ 
  /**
-@@ -1136,6 +1192,28 @@ static int exec_queue_user_ext_check(struct xe_exec_queue *q, u64 properties)
- 			 (properties & BIT_ULL(DRM_XE_EXEC_QUEUE_SET_PROPERTY_PXP_TYPE))))
- 		return -EINVAL;
+  * struct xe_eudebug_handle - eudebug resource handle
+@@ -62,7 +62,9 @@ struct xe_eudebug_resource {
+ };
  
-+	/*
-+	 * A debugger can inspect and modify the EU state and memory of a
-+	 * debuggable queue, so it must not be combined with protected content.
-+	 * Test the property mask rather than the queue state, as the extensions
-+	 * are applied in the order userspace chained them and either one may be
-+	 * processed first.
-+	 */
-+	if (XE_IOCTL_DBG(xe, (properties & BIT_ULL(DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG)) &&
-+			 (properties & BIT_ULL(DRM_XE_EXEC_QUEUE_SET_PROPERTY_PXP_TYPE))))
-+		return -EINVAL;
+ #define XE_EUDEBUG_RES_TYPE_VM		0
+-#define XE_EUDEBUG_RES_TYPE_COUNT	(XE_EUDEBUG_RES_TYPE_VM + 1)
++#define XE_EUDEBUG_RES_TYPE_EXEC_QUEUE  1
++#define XE_EUDEBUG_RES_TYPE_LRC		2
++#define XE_EUDEBUG_RES_TYPE_COUNT	(XE_EUDEBUG_RES_TYPE_LRC + 1)
+ 
+ /**
+  * struct xe_eudebug - Top level struct for eudebug: the connection
+diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
+index e65bda492e58..3eeb8a108b40 100644
+--- a/drivers/gpu/drm/xe/xe_exec_queue.c
++++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+@@ -1548,10 +1548,14 @@ int xe_exec_queue_create_ioctl(struct drm_device *dev, void *data,
+ 	if (eci[0].engine_class != DRM_XE_ENGINE_CLASS_VM_BIND)
+ 		xe_vm_add_exec_queue(vm, q);
+ 
++	xe_eudebug_exec_queue_create(xef, q);
 +
-+	/*
-+	 * EUDEBUG turns on runalone, which lets a single engine of the group
-+	 * execute at a time, while a multi-queue group is there to run several
-+	 * in parallel. Reject the combination. Testing the property mask
-+	 * covers the primary as well, and does not depend on the order in
-+	 * which userspace chained the extensions.
-+	 */
-+	if (XE_IOCTL_DBG(xe, (properties & BIT_ULL(DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG)) &&
-+			 (properties & BIT_ULL(DRM_XE_EXEC_QUEUE_SET_PROPERTY_MULTI_GROUP))))
-+		return -EINVAL;
+ 	/* user id alloc must always be last in ioctl to prevent UAF */
+ 	err = xa_alloc(&xef->exec_queue.xa, &id, q, xa_limit_32b, GFP_KERNEL);
+-	if (err)
++	if (err) {
++		xe_eudebug_exec_queue_destroy(xef, q);
+ 		goto del_hw_engine_group;
++	}
+ 
+ 	args->exec_queue_id = id;
+ 
+@@ -1736,6 +1740,8 @@ int xe_exec_queue_destroy_ioctl(struct drm_device *dev, void *data,
+ 	if (q->vm && q->hwe->hw_engine_group)
+ 		xe_hw_engine_group_del_exec_queue(q->hwe->hw_engine_group, q);
+ 
++	xe_eudebug_exec_queue_destroy(xef, q);
 +
- 	return 0;
- }
+ 	xe_exec_queue_kill(q);
  
-@@ -1171,7 +1249,8 @@ static int exec_queue_user_ext_set_property(struct xe_device *xe,
- 			 ext.property != DRM_XE_EXEC_QUEUE_SET_HANG_REPLAY_STATE &&
- 			 ext.property != DRM_XE_EXEC_QUEUE_SET_PROPERTY_MULTI_GROUP &&
- 			 ext.property != DRM_XE_EXEC_QUEUE_SET_PROPERTY_MULTI_QUEUE_PRIORITY &&
--			 ext.property != DRM_XE_EXEC_QUEUE_SET_DISABLE_STATE_CACHE_PERF_FIX))
-+			 ext.property != DRM_XE_EXEC_QUEUE_SET_DISABLE_STATE_CACHE_PERF_FIX &&
-+			 ext.property != DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG))
- 		return -EINVAL;
+ 	trace_xe_exec_queue_close(q);
+diff --git a/include/uapi/drm/xe_drm_eudebug.h b/include/uapi/drm/xe_drm_eudebug.h
+index 63f4a6142a1a..12e905441f1d 100644
+--- a/include/uapi/drm/xe_drm_eudebug.h
++++ b/include/uapi/drm/xe_drm_eudebug.h
+@@ -78,6 +78,7 @@ struct drm_xe_eudebug_event {
+ #define DRM_XE_EUDEBUG_EVENT_NONE		0
+ #define DRM_XE_EUDEBUG_EVENT_READ		1
+ #define DRM_XE_EUDEBUG_EVENT_VM			2
++#define DRM_XE_EUDEBUG_EVENT_EXEC_QUEUE		3
  
- 	idx = array_index_nospec(ext.property, ARRAY_SIZE(exec_queue_set_property_funcs));
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.h b/drivers/gpu/drm/xe/xe_exec_queue.h
-index e8963f85cabd..95a0d84b9590 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.h
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.h
-@@ -162,4 +162,6 @@ int xe_exec_queue_contexts_hwsp_rebase(struct xe_exec_queue *q, void *scratch);
- struct xe_lrc *xe_exec_queue_lrc(struct xe_exec_queue *q);
- struct xe_lrc *xe_exec_queue_get_lrc(struct xe_exec_queue *q, u16 idx);
+ 	/** @flags: Flags */
+ 	__u16 flags;
+@@ -124,6 +125,36 @@ struct drm_xe_eudebug_event_vm {
+ 	__u64 vm_handle;
+ };
  
-+bool xe_exec_queue_is_debuggable(struct xe_exec_queue *q);
++/**
++ * struct drm_xe_eudebug_event_exec_queue - Exec Queue resource event
++ *
++ * Resource creation/destruction event for an Exec Queue
++ */
++struct drm_xe_eudebug_event_exec_queue {
++	/** @base: base event */
++	struct drm_xe_eudebug_event base;
 +
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue_types.h b/drivers/gpu/drm/xe/xe_exec_queue_types.h
-index 48c05398b016..32893341287d 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue_types.h
-+++ b/drivers/gpu/drm/xe/xe_exec_queue_types.h
-@@ -155,6 +155,13 @@ struct xe_exec_queue {
- 	/** @ban_reason: Bitmask of ban reasons (DRM_XE_EXEC_QUEUE_BAN_REASON_*) */
- 	atomic_t ban_reason;
- 
 +	/**
-+	 * @eudebug_flags: immutable eudebug flags for this exec queue.
-+	 * Set up with DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG.
++	 * @vm_handle: the vm handle this exec queue belongs to, or 0 if the
++	 * vm was destroyed before this event. A vm can be destroyed while
++	 * its exec queues live on, so a destroy event can carry 0 where the
++	 * create event carried the vm handle.
 +	 */
-+#define EXEC_QUEUE_EUDEBUG_FLAG_ENABLE		BIT(0)
-+	unsigned long eudebug_flags;
++	__u64 vm_handle;
 +
- 	union {
- 		/** @execlist: execlist backend specific state for exec queue */
- 		struct xe_execlist_exec_queue *execlist;
-diff --git a/drivers/gpu/drm/xe/xe_hw_engine.h b/drivers/gpu/drm/xe/xe_hw_engine.h
-index c3ee37f8cfc0..532d69677981 100644
---- a/drivers/gpu/drm/xe/xe_hw_engine.h
-+++ b/drivers/gpu/drm/xe/xe_hw_engine.h
-@@ -78,4 +78,13 @@ enum xe_force_wake_domains xe_hw_engine_to_fw_domain(struct xe_hw_engine *hwe);
- 
- u32 xe_hw_engine_mmio_read32(struct xe_hw_engine *hwe, struct xe_reg reg);
- 
-+static inline bool xe_engine_supports_eudebug(const enum xe_engine_class ec)
-+{
-+	if (ec == XE_ENGINE_CLASS_COMPUTE ||
-+	    ec == XE_ENGINE_CLASS_RENDER)
-+		return true;
++	/** @exec_queue_handle: unique handle for this exec queue */
++	__u64 exec_queue_handle;
 +
-+	return false;
-+}
++	/** @engine_class: engine class, a %DRM_XE_ENGINE_CLASS_* value */
++	__u32 engine_class;
 +
++	/** @width: width of exec queue, how many lrcs (handles) it has */
++	__u32 width;
++
++	/** @lrc_handle: array of lrc handles */
++	__u64 lrc_handle[] __counted_by(width);
++};
++
+ #if defined(__cplusplus)
+ }
  #endif
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index e84b11324f08..1a157bf1589c 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -1396,6 +1396,16 @@ struct drm_xe_vm_get_property {
-  *  - %DRM_XE_EXEC_QUEUE_SET_DISABLE_STATE_CACHE_PERF_FIX - Set the queue to
-  *    enable render color cache keying on BTP+BTI instead of just BTI
-  *    (only valid for render queues).
-+ *  - %DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG - Make the queue debuggable
-+ *    by an EU debugger. The queue runs in runalone mode, one engine at
-+ *    a time, with a preemption timeout of 0. Fails with -EINVAL unless
-+ *    the value is exactly %DRM_XE_EXEC_QUEUE_EUDEBUG_FLAG_ENABLE and the
-+ *    queue is a width 1 render or compute queue on a VM created with
-+ *    %DRM_XE_VM_CREATE_FLAG_FAULT_MODE,
-+ *    not combined with %DRM_XE_EXEC_QUEUE_SET_PROPERTY_PXP_TYPE or
-+ *    %DRM_XE_EXEC_QUEUE_SET_PROPERTY_MULTI_GROUP. Fails with
-+ *    -EOPNOTSUPP if the kernel is built without CONFIG_DRM_XE_EUDEBUG,
-+ *    and with -EPERM if eudebug is not enabled through sysfs.
-  *
-  * The example below shows how to use &struct drm_xe_exec_queue_create to create
-  * a simple exec_queue (no parallel submission) of class
-@@ -1443,6 +1453,8 @@ struct drm_xe_exec_queue_create {
- #define     DRM_XE_MULTI_GROUP_CREATE				(1ull << 63)
- #define   DRM_XE_EXEC_QUEUE_SET_PROPERTY_MULTI_QUEUE_PRIORITY	5
- #define   DRM_XE_EXEC_QUEUE_SET_DISABLE_STATE_CACHE_PERF_FIX	6
-+#define   DRM_XE_EXEC_QUEUE_SET_PROPERTY_EUDEBUG		7
-+#define     DRM_XE_EXEC_QUEUE_EUDEBUG_FLAG_ENABLE		(1 << 0)
- 	/** @extensions: Pointer to the first extension struct, if any */
- 	__u64 extensions;
- 
 -- 
 2.53.0
 
