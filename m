@@ -2,58 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE068606EF36
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C045A60A6F4E
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SZiLUHbw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2D2110E09D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D751B10EF78;
 	Tue, 10 Nov 2026 10:22:02 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB8AA10E4D4
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:26:30 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.172])
- by gateway (Coremail) with SMTP id _____8Axj9E_4_JqSiMeAA--.21632S3;
- Tue, 10 Nov 2026 17:26:23 +0800 (CST)
-Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
- by front1 (Coremail) with SMTP id qMiowJDxSs494_Jql3UzAA--.21244S2;
- Tue, 10 Nov 2026 17:26:21 +0800 (CST)
-From: wuqianhai@loongson.cn
-To: chenhuacai@kernel.org, kernel@xen0n.name, tzimmermann@suse.de,
- deller@gmx.de, bhelgaas@google.com
-Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
- loongarch@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- wuqianhai <wuqianhai@loongson.cn>
-Subject: [PATCH v3 5/6] efi/libstub: Enable direct sysfb_primary_display
- access on LoongArch
-Date: Tue, 10 Nov 2026 17:24:24 +0800
-Message-Id: <20261110092424.2647921-1-wuqianhai@loongson.cn>
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 988D310E0EF
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:21:36 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-1b244fb7fffso2239094c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 01:21:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794302496; x=1794907296; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=l1QfgrbnbtJPWPrv6Vkv+oigt5sBIAOXszw1RRjXWG0=;
+ b=SZiLUHbweE3Vsd874MLMBs//TZuQcKJY0lJUfnbyl7+8ulljsaWsmnWlnWA45kwiLD
+ 05nHM1wX7EpBD9GX6DE0lICpOYJaXMiX6ut7UbX7QNI4CKTSCCx57dksbyKoK/e9vcO8
+ glE+WWp01+dfDwQil1hK7FFz4tGKa7rBHZTZAyhwzBfM0FZh1dJgOuwgwpeINjIap58Y
+ +FAJuewzntPWoSHshaLaV/PAW0RLAS5N87LV4lTxhWX8c/55WgkekEng6xNH1yWSEeZ/
+ SgSkDq3bCBIOJUhBTRJzuD4oWlxKWVhtF6JLg8Q2Mk16vjj8T6Vt6SUUTTs24cGTeA9G
+ wI7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794302496; x=1794907296;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=l1QfgrbnbtJPWPrv6Vkv+oigt5sBIAOXszw1RRjXWG0=;
+ b=LMOKEvqn7OSArFj3JyzGrrFlCqixFwNQwRO01UhPfpU9mJP1yHaSB1hwYQXlLrSJf/
+ dGWxRkQEdA4ayyyLnbYS9RTXiUlsC+x9Lx/77zXyE4IoM9aUKeS1clUjAqMmR32I3WHq
+ 7e9veXF2LoKCtC//xwjbwhImb7iXqocUMsyCVmr3vlh7iJbJ5cV049XQ4kvMO6NajL9T
+ 9FYt6tsBX7J7tuSFFk9JWDs+85QpXUIOjrBfBnzinR07fE6NEGNfxMsnzDRhqLGeLzk+
+ 4Knyuk0XKqtEhYeCVG2IUkPS+VqTFDqZDOWXbrzwo9yKPzkGpSrnviV1tmLYOhicqTPs
+ EXdw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHiCDhTAo++TI1aHS9EL+d4Rq5hH1NjQJ8FJicJvGarTorjJ4tiWXYKFKv5pYWtLbjjP8FcM/PJOxM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8ZtHlD9/49AiTf9gwLEj4NkoLNndSeYvS4w0WflHIMeMaYx0yy
+ C+o2xsgmMtckpp31Ity5pNtTu/o4sAacfQRlBrUka23+dhScaZhYS2Hl
+X-Gm-Gg: AYBFou2Gc//IaLj58xvSquqGd7lA8OC2swEXIt5ypbVIedfPrDLMV8kcAD6exnFm9Fm
+ Txw+MEeJFBYlQ9WZe7rfVo6S/OyliuNkZ6VEy23/dtP6BEJwC/rSFJ+vYDdlycBNkGcoR2VoXk+
+ pXTBZYczTridW1JWQ2ns2M/0rYPhZQEHo6y57HnEmyR7adCZAQPjSuC8neyebZXLKgzku9R6c5L
+ 3tfD7lnXXLqLMhQxGafjql5Tkz75bHSUmv1j0KgBRunBFuMhRHOzL/y1CZdIDK97l+q/FLAIC00
+ Y3FjqhCL5I+PnF6s2n+2pKZ3a06bOAXKiLK5WPqtEcI8JIbKxgFol+Etzk42xByUOumM153l9Jl
+ gS0bT6fADGspDyI7HjY76XNZPd6T6Iil1tNNH/C+JEyvLB1p3UxDUPXKyYvHQuHuAgfVhtC8g73
+ 0YQAxWDcQUwZmw7Xo82gOPvI3GV3gCWQ7MlyPCoLGsJ3IAv6nrbhGlhwYGh39YDgHohhKBIvcfj
+ dUNYfnORE2M/1iti1o11TZ73J3L1NfA7YXhZ79YGotDw7G5B/g4FQ6IOqDw8qVmqCpdTCQZaT/T
+ YtDtCBX9r22b0qd/ZG0hMBTM4C7PJdBfDmh56zP66Yi0
+X-Received: by 2002:a05:7022:e881:b0:176:a225:e364 with SMTP id
+ a92af1059eb24-1b3b6026851mr2714089c88.35.1794302495694; 
+ Tue, 10 Nov 2026 01:21:35 -0800 (PST)
+Received: from evo.www.tendawifi.com ([103.98.7.212])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b3b5b79649sm6138716c88.21.2026.11.10.01.21.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2026 01:21:34 -0800 (PST)
+From: Archit More <architmore303@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Archit More <architmore303@gmail.com>
+Subject: [PATCH v2] drm/panel: kingdisplay-kd097d04: Use mipi_dsi_*_multi()
+ functions
+Date: Tue, 10 Nov 2026 14:51:12 +0530
+Message-Id: <20261110092112.4262-1-architmore303@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
-References: <20261110090203.2631481-1-wuqianhai@loongson.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJDxSs494_Jql3UzAA--.21244S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7GF1fCFW5GrWxCFykWFWxuFX_yoWkCFgEya
- s8urZrWr4j9ryYgr4UKrWfuas0qay0qw1kZF92yrW3tw4jgwn5Ww4kXwn7CF13AryvkrZ8
- A3WDCF9xAr48tosvyTuYvTs0mTUanT9S1TB71UUUU1JqnTZGkaVYY2UrUUUUj1kv1TuYvT
- s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
- cSsGvfJTRUUUbBxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
- vaj40_Wr0E3s1l1IIY67AEw4v_JF0_JFyl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
- w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6r4UJVWxJr1ln4kS14v26r1q6r43M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
- 6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
- 0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v2
- 6r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14
- v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
- sGvfC2KfnxnUUI43ZEXa7IUYsJ55UUUUU==
 X-Mailman-Approved-At: Tue, 10 Nov 2026 10:21:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,38 +88,121 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: wuqianhai <wuqianhai@loongson.cn>
+    The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used
+    by this driver are deprecated in favor of their _multi() counterparts,
+    as noted in Documentation/gpu/todo.rst.
 
-alloc_primary_display() returns NULL on LoongArch when neither
-CONFIG_EFI_EARLYCON nor CONFIG_SYSFB is enabled, so the EFI stub does not
-populate the core kernel's sysfb_primary_display.  Allow LoongArch to link
-directly to sysfb_primary_display, like x86, so the firmware framebuffer
-information is always available.
+    Convert disable(), unprepare(), and prepare() to use the _multi() APIs.
 
-Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+Signed-off-by: Archit More <architmore303@gmail.com>
 ---
- drivers/firmware/efi/libstub/efi-stub-entry.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/panel/panel-kingdisplay-kd097d04.c    | 50 ++++++-------------
+ 1 file changed, 15 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/firmware/efi/libstub/efi-stub-entry.c b/drivers/firmware/efi/libstub/efi-stub-entry.c
-index efa3ab8ad1c6..2ac22720675c 100644
---- a/drivers/firmware/efi/libstub/efi-stub-entry.c
-+++ b/drivers/firmware/efi/libstub/efi-stub-entry.c
-@@ -20,6 +20,7 @@ struct sysfb_display_info *alloc_primary_display(void)
- 		return __alloc_primary_display();
+diff --git a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
+index 893af9b16756..9cc2fa0f2b36 100644
+--- a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
++++ b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
+@@ -180,11 +180,9 @@ struct kingdisplay_panel *to_kingdisplay_panel(struct drm_panel *panel)
+ static int kingdisplay_panel_disable(struct drm_panel *panel)
+ {
+ 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
+-	int err;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
  
- 	if (IS_ENABLED(CONFIG_X86) ||
-+	    IS_ENABLED(CONFIG_LOONGARCH) ||
- 	    IS_ENABLED(CONFIG_EFI_EARLYCON) ||
- 	    IS_ENABLED(CONFIG_SYSFB))
- 		return kernel_image_addr(&sysfb_primary_display);
+-	err = mipi_dsi_dcs_set_display_off(kingdisplay->link);
+-	if (err < 0)
+-		dev_err(panel->dev, "failed to set display off: %d\n", err);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+ 	return 0;
+ }
+@@ -192,16 +190,11 @@ static int kingdisplay_panel_disable(struct drm_panel *panel)
+ static int kingdisplay_panel_unprepare(struct drm_panel *panel)
+ {
+ 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
+ 	int err;
+ 
+-	err = mipi_dsi_dcs_enter_sleep_mode(kingdisplay->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
+-		return err;
+-	}
+-
+-	/* T15: 120ms */
+-	msleep(120);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
+ 
+ 	gpiod_set_value_cansleep(kingdisplay->enable_gpio, 0);
+ 
+@@ -215,6 +208,7 @@ static int kingdisplay_panel_unprepare(struct drm_panel *panel)
+ static int kingdisplay_panel_prepare(struct drm_panel *panel)
+ {
+ 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
+ 	int err, regulator_err;
+ 	unsigned int i;
+ 
+@@ -232,32 +226,18 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
+ 	/* T4: 15ms */
+ 	usleep_range(15000, 16000);
+ 
+-	for (i = 0; i < ARRAY_SIZE(init_code); i++) {
+-		err = mipi_dsi_generic_write(kingdisplay->link, &init_code[i],
+-					sizeof(struct kingdisplay_panel_cmd));
+-		if (err < 0) {
+-			dev_err(panel->dev, "failed write init cmds: %d\n", err);
+-			goto poweroff;
+-		}
+-	}
++	for (i = 0; i < ARRAY_SIZE(init_code); i++)
++		mipi_dsi_generic_write_multi(&dsi_ctx, &init_code[i],
++					     sizeof(struct kingdisplay_panel_cmd));
+ 
+-	err = mipi_dsi_dcs_exit_sleep_mode(kingdisplay->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to exit sleep mode: %d\n", err);
+-		goto poweroff;
+-	}
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
+ 
+-	/* T6: 120ms */
+-	msleep(120);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
+ 
+-	err = mipi_dsi_dcs_set_display_on(kingdisplay->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to set display on: %d\n", err);
++	if (dsi_ctx.accum_err)
+ 		goto poweroff;
+-	}
+-
+-	/* T7: 10ms */
+-	usleep_range(10000, 11000);
+ 
+ 	return 0;
+ 
+@@ -268,7 +248,7 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
+ 	if (regulator_err)
+ 		dev_err(panel->dev, "failed to disable regulator: %d\n", regulator_err);
+ 
+-	return err;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static const struct drm_display_mode default_mode = {
 -- 
 2.34.1
 
