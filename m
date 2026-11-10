@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D19260A380B
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C6160A3814
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdQebsA2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SIYnvH1g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8B710F7E2;
-	Tue, 10 Nov 2026 16:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2830710F7E4;
+	Tue, 10 Nov 2026 16:03:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D472D10E286
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:03:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC8BD10E286;
+ Tue, 10 Nov 2026 16:03:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BA9A0408E4;
- Tue, 10 Nov 2026 16:03:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277E71F008A1;
- Tue, 10 Nov 2026 16:03:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B4D3C47348;
+ Tue, 10 Nov 2026 16:03:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0241F008A2;
+ Tue, 10 Nov 2026 16:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794326588;
- bh=7zFGNXlFmiDlKphOw9gE6Suz75kYBooRAaTMdNAvHRs=;
+ s=k20260515; t=1794326582;
+ bh=UkOSdliZy5NcC9iMihtdWt/3rQm4DJPq0I8hePeq5xk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UdQebsA2Lyev6lleTOHlSz3LNbGQJpdR/3ojci5kmedmTUV0LaTyZgdnlzeEDJhQa
- fEAh5bZJQOdfqN//hzgprPybWuo64l+YUvDgIRdMIU/so9Pr0niYrow17tnPcVIj8W
- QSozyA7bUrSd7EoVL4v1URCw/RmdSbVg+X9I2qoHnsPYWYus4MaCxJDlML08/vjIDJ
- C4u1JIRDDjD8Sin85k9gQTE6RKm3eYrTzHRMJ3v2fDGB9fN7WzyIoLxZqLQliNmeK1
- CMJ8GaW3TuwVAf178m2gP56c2woowC88Iu2UyOTUhUKaqSKn2+JcLsEvCP9uP0uLLP
- cKk9Uj1/pqGuw==
+ b=SIYnvH1g5qwQgJy7rUfsceO7ga5ZEXmW7pESO04RqKET9BDCdMBqDHAAOU9fya5g0
+ rvSLmnIuTHCuwaLyrCtOqdytVdtYEWzLIfS72G4ry9PemSI6hBP6ecPcAyPpuQTDyj
+ t7JaIPLWAaFUES+fW3W1cNRTo+gBJkMfw5RODpDtnZhBkjVGhvSMSb2fPnOP3JF0Tr
+ iH88+ZPqxXHH1aRYdlC8PP9wI7SGGlHrcB04GrvVXAx0/PCZC03NC79yD/5FnG2Vzu
+ 8hOb/MKYYGIsbd3VKGksXUPAn6o+qTDn4MKhCmUnZuBJ41iUBqpxDEGFGcex9UH9MF
+ PxwEVr+noaDwQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 10 Nov 2026 17:02:50 +0100
-Subject: [PATCH v9 03/10] drm/lease: Add a helper to tell whether a lease
- was revoked
+Date: Tue, 10 Nov 2026 17:02:48 +0100
+Subject: [PATCH v9 01/10] drm/amd/display: Fix planes atomic_create_state
+ implementation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-drm-reset-state-flag-v9-3-ddb0e26324a0@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-drm-reset-state-flag-v9-1-ddb0e26324a0@kernel.org>
 References: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
 In-Reply-To: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,14 +52,18 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3964; i=mripard@kernel.org;
- h=from:subject:message-id; bh=EsmMQmMKUkmYuQ+1Yc+AthpKw8En1e/H47yFFQoBocY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmfHXR1275c3uPp8mBiz6/dpSaqrZkX/x3/8LE5SP3Ih
- xk7Nh507JjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT+X6EseFFns9W3b6rGTa9
- 0bsO6K2RVvLyvzlF0OPQJK49ZxT2V86fvnXSZfWIZovZUi5q9kL3ljM2TDmmn6i4Iags7kFSy3k
- nxgPpxV953e1uv1v81zfdIfO1zaYdGu11K4T4jH6kZO5oatgHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1941; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zI+tdKHs08TxNrStUefce1G/xTYeY9pNWe0/0yA5fbQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmfHXS+hXh3p1nvNlnVKXuugWVZbdUqzbr43bEd2w6zH
+ e625fnXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYS+JSx4Ypn040lKWdmZK/Z
+ lnBhgYGSgHxyUMxuy4dxXM82aAo+9pp5tOOB8t7LPL/sYl3YfaZHMNaH/zzJvENGkHHJ12DhuUm
+ 5SwK3Gv9+azR7WkNz5sfvJouu1jeeqfx17kJ9+6M7pkH/1AMB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,120 +85,50 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_lease_held() only answers whether a given object is part of a lease,
-and the answer can change from one call to the next. Code that needs to
-look at several objects in a row has no way to tell whether the lease it
-has been checking against is still around by the time it is done.
+Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+converted the amdgpu planes to use atomic_create_state instead of reset.
 
-Add a helper reporting whether a lease has been revoked, so that such
-code can bail out instead of acting on a lease that went away.
+Unlike reset, atomic_create_state is meant to allocate a new default
+state without any side effect on the hardware or software state.
 
+However, during the conversion we forgot to remove the call to destroy
+the existing plane state if any. While this was expected from a reset
+implementation, it's not for an atomic_create_state one. Remove it.
+
+Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_lease.c | 30 ++++++++++++++++++++++++++++++
- include/drm/drm_auth.h      | 11 +++++++++++
- include/drm/drm_lease.h     |  2 ++
- 3 files changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
-index 5d2cf724cbd7..f2370a9a18fc 100644
---- a/drivers/gpu/drm/drm_lease.c
-+++ b/drivers/gpu/drm/drm_lease.c
-@@ -145,10 +145,38 @@ bool drm_lease_held(struct drm_file *file_priv, int id)
- out:
- 	drm_master_put(&master);
- 	return ret;
- }
+---
+
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 91398230d408..31101c810bac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1801,13 +1801,10 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
+ 		kfree(amdgpu_state->plane_info);
+ 		kfree(amdgpu_state);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
  
-+/*
-+ * Checks whether the file is a lessee whose lease has been revoked. A
-+ * lease is always revoked as a whole, but empty leases can also be
-+ * created on purpose, so the revocation is tracked explicitly in
-+ * drm_master rather than inferred from an empty lease.
-+ */
-+bool drm_lease_revoked(struct drm_file *file_priv)
-+{
-+	struct drm_master *master;
-+	bool ret = false;
-+
-+	if (!file_priv)
-+		return false;
-+
-+	master = drm_file_get_master(file_priv);
-+	if (!master)
-+		return false;
-+
-+	if (master->lessor) {
-+		mutex_lock(&master->dev->mode_config.idr_mutex);
-+		ret = master->lease_revoked;
-+		mutex_unlock(&master->dev->mode_config.idr_mutex);
-+	}
-+
-+	drm_master_put(&master);
-+	return ret;
-+}
-+
- /*
-  * Given a bitmask of crtcs to check, reconstructs a crtc mask based on the
-  * crtcs which are visible through the specified file.
-  */
- uint32_t drm_lease_filter_crtcs(struct drm_file *file_priv, uint32_t crtcs_in)
-@@ -315,10 +343,12 @@ static void _drm_lease_revoke(struct drm_master *top)
- 
- 		/* Evacuate the lease */
- 		idr_for_each_entry(&master->leases, entry, object)
- 			idr_remove(&master->leases, object);
- 
-+		master->lease_revoked = true;
-+
- 		/* Depth-first list walk */
- 
- 		/* Down */
- 		if (!list_empty(&master->lessees)) {
- 			master = list_first_entry(&master->lessees, struct drm_master, lessee_list);
-diff --git a/include/drm/drm_auth.h b/include/drm/drm_auth.h
-index 50131383ed81..b1962f197b05 100644
---- a/include/drm/drm_auth.h
-+++ b/include/drm/drm_auth.h
-@@ -118,10 +118,21 @@ struct drm_master {
- 	 * Objects are leased all together in drm_lease_create(), and are
- 	 * removed all together when the lease is revoked.
- 	 */
- 	struct idr leases;
- 
-+	/**
-+	 * @lease_revoked:
-+	 *
-+	 * Whether the lease of this drm_master has been revoked. Since empty
-+	 * leases can be created on purpose, an empty &leases doesn't imply a
-+	 * revocation, so it has to be tracked explicitly. Never cleared once
-+	 * set: a revoked master cannot be leased anything again. Protected by
-+	 * &drm_device.mode_config's &drm_mode_config.idr_mutex.
-+	 */
-+	bool lease_revoked;
-+
- 	/**
- 	 * @lessee_idr:
- 	 *
- 	 * All lessees under this owner (only used where @lessor is NULL).
- 	 * Protected by &drm_device.mode_config's &drm_mode_config.idr_mutex.
-diff --git a/include/drm/drm_lease.h b/include/drm/drm_lease.h
-index 53545b4ca9ef..03f7ea36c37c 100644
---- a/include/drm/drm_lease.h
-+++ b/include/drm/drm_lease.h
-@@ -18,10 +18,12 @@ void drm_lease_destroy(struct drm_master *lessee);
- 
- bool drm_lease_held(struct drm_file *file_priv, int id);
- 
- bool _drm_lease_held(struct drm_file *file_priv, int id);
- 
-+bool drm_lease_revoked(struct drm_file *file_priv);
-+
- void drm_lease_revoke(struct drm_master *master);
- 
- uint32_t drm_lease_filter_crtcs(struct drm_file *file_priv, uint32_t crtcs);
- 
- int drm_mode_create_lease_ioctl(struct drm_device *dev,
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
+-
+ 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+ 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
 
 -- 
 2.56.0
