@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000B6606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 22:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7AE606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 22:50:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RckBByqh
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4hvvhv9i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A4D10E1A4;
-	Tue, 10 Nov 2026 22:50:30 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012049.outbound.protection.outlook.com [40.107.209.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEF710E1A4;
- Tue, 10 Nov 2026 22:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56E6610E97B;
+	Tue, 10 Nov 2026 22:50:34 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010014.outbound.protection.outlook.com [52.101.46.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2395D10E0D8;
+ Tue, 10 Nov 2026 22:50:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xcyQJXSvADv3PncUZK2zHvkbly3NYwHSxBnK51Hnc37IA/uHm6TCxwbmEkh7mWaZ5RGFajepVH8761lBQbgAt8ZeOgabjFU05QP/GXY34fjhwI23nRgEjVELnheTItTT69nfDS3cBb4QupmHnwh1/yMZPD6wMIkCwcI7tQryUKZBPafRyD29euXEv7FBWigA4mwn3J25PsGEeNBNucBk/zbkJAVPi2EEZNr3IW3ojo3+95SxuneODPP3YXe4mKru4OUt+VpCi7lAZ7miadiiU6yJ4wzB28csiU8sCz1FKavBOZDKuP4WAjRynnJRbF4uLzosBnOmqhKl/DCCdULGTg==
+ b=xXzCmeVKcyNjayT2gX3UlugI6TefKJpvoVhFR8dYtTxOBv8HuP0Yj7Vgl0zJwRkJik7D37fhqZpDe5yfLjXj4OjGaWMIXwwRFYvsqOFp5NIOTdzTZDt8nT51NPlAx4X7w/Hvg/dQuMzc8v7aqFUmuucbQ3dI04C6DcXTNx9LAEj86RVlTFImkZxGp3TxfTcLnBUy9xCQ2G+cOdC8WhJB0d+IofsqNAXg5ICC9jvqSVeoX7M46tbZWrzoqgMrj09PE0sitdoibUaI44bkhVXo+UXokzZl2+m8xeG9EnfXnFPk6g8NmHDd6z0w2j44KR5ZA4pOr+A4a2d4wKTNv0kb1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RmmTW4DX4MJjjdBN4roQ9AvmjDIecJUmvRTHhWR1Sm8=;
- b=fqeibzNXRNQu6srlXsqVEf20Wbagum5Fkc45KHVear4AMk9FDGJADHZQcJ4XqhlAbkqU31pRFfhvkYLwMFAHxm49urPOkvkKmJnUvg4AFjVBuuSdFmZgkyrbWv3GlO2M1SEsKtI/gQQ4DGQuRVPSC9n7ZgsAlbYMa2MUibMcfDvlmryifdmMSoZt7jPt45WZ2ZjwlMf3E7sZJvfBVnCaFeFlxh0P+W8ZXf2GatkRGK2I7/wGxk3lDOugnJLew9zzFouLEa7wPB/K/f6jXl10YK8O9GZarGFXNpxXyaH/ZU3iVviZJeOaQt5eTJt5AOwdKNqhc8Kzmu06ZHTT4DgzQA==
+ bh=DyQQHjoEJxULnN5Ajvw4LYytjIvxD+0flCCAvCCl9Bg=;
+ b=nsv58n6LAIPIMk2G6h+KNaj4eRqLuT7HOcp8pJmv1YpDhNnTbMhyvqAFTMSnb1pLV6OIvd66bV3V6bI/kdVGA68880pFF3JHCtBHzYTKxm44nJ69yHGwVxql7XE9lfLWjPkv3h9BrrNh7eL+arwvTFkwkg5VWLMfGyJZtTczpgiEsbb8bH6KJrN2+1ers85bg5nx/+eOV5k0JNhGrMwYNLmyjtamliH9GTG05o4iC9Lz02nAPkpZaO+tkVAWgwdOhgNfvz1hlbhegR5KwyECvHrrV31IRLyRGQ+FcrJBFet1M1l2W9y0Twhz01L1UZfx9W8MprMA8F0V61HPcrU15Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RmmTW4DX4MJjjdBN4roQ9AvmjDIecJUmvRTHhWR1Sm8=;
- b=RckBByqhkSvB3oGCjBU7SdXEt3CTf1thsY1/1rxVUmHd9xC/HvuQ5rblCk8lKHXb2V5fcXvbiis3JBkpXGy5Iz/rdvuu63hEFVnafcm6jv5jp2mKuVLpDZJWF1F6uQDGIG9ccjpx0tsZPI3nZFTvaMzM8zgCjQmos6Rr97mVuDc=
-Received: from BN9PR03CA0552.namprd03.prod.outlook.com (2603:10b6:408:138::17)
- by MW4PR12MB6950.namprd12.prod.outlook.com (2603:10b6:303:207::11)
+ bh=DyQQHjoEJxULnN5Ajvw4LYytjIvxD+0flCCAvCCl9Bg=;
+ b=4hvvhv9iGJIkRA28HblzdIthkMr0EK6kEu8t8Y73kOr1uEzmdyqNKEuWNHllVMCjeolar1dus9zTRjdNUNz2A1Pxhhq+N10PO/V0kaAWf1XSMHBIpN2OQuFJ5lYsjYmj13b5m96WKCKAqP2Vb/KQPmfu0tjvlUwDvsnqfJ8/Vc0=
+Received: from BN9PR03CA0542.namprd03.prod.outlook.com (2603:10b6:408:138::7)
+ by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 22:50:15 +0000
+ 2026 22:50:16 +0000
 Received: from BN3PEPF00022BC0.namprd04.prod.outlook.com
- (2603:10b6:408:138:cafe::a1) by BN9PR03CA0552.outlook.office365.com
- (2603:10b6:408:138::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 22:50:14 +0000
+ (2603:10b6:408:138:cafe::9) by BN9PR03CA0542.outlook.office365.com
+ (2603:10b6:408:138::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 10
+ Nov 2026 22:50:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,25 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF00022BC0.mail.protection.outlook.com (10.167.248.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 22:50:14 +0000
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 22:50:16 +0000
 Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 16:50:08 -0600
+ 2026 16:50:09 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v5 0/3] Fix amdgpu detection of pci=realloc
-Date: Tue, 10 Nov 2026 16:48:20 -0600
-Message-ID: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+Date: Tue, 10 Nov 2026 16:48:22 -0600
+Subject: [PATCH v5 2/3] drm/amdgpu: Match VFCT using initial PCI bus number
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADSf82oC/3XNzW7CMBAE4FdBPtfIXv8k7on3qDi43g24EqSyg
- 1WE8u614UBQxHGk+WZuLFOKlNnn5sYSlZjjeK7BfGxYOPrzgXjEmhkIsFJIx8sQJp7okCi3Lge
- pYQgGegOeVfWbaIh/98Wv/SPny/cPhanNtMYx5mlM1/tlka33fr1ILrjxViGi6nrEnT/hNown1
- rYLLDSItYaqEZTTKKU2wr9qtdR2rVXVAznTW0Lruv5V66Xu1lpXLaiTTpByAcJTz/P8D/xZtL9
- 4AQAA
-X-Change-ID: 20261019-vfct-regression-2142fc52852a
+Message-ID: <20261110-vfct-regression-v5-2-f49fae981bf3@amd.com>
+References: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+In-Reply-To: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
 To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
  <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -79,29 +75,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC0:EE_|MW4PR12MB6950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71604548-6448-4bf5-c550-08df3f7cfc32
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC0:EE_|SA1PR12MB7409:EE_
+X-MS-Office365-Filtering-Correlation-Id: f94b86d8-d701-4b97-5a71-08df3f7cfd08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|6133799003|13003099007|56012099006|261022115727099003|11063799006|261026140227099003|261028144727099003|261022105027099003|261102123227099003|261021123027099003|261022075727099003|261021121427099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: qZ7kYD2BE0z3vCP6L1j88s9j6y/ZWwFy8fIXfb9dvCcaxQd4uRcJTh9MkKZkbxtPOrbj+9Pwmt9cp8SamX7cxEPtqIe2REUmzQ7RLyzlxSvHW9UIYrynBKT96CENMndjuuzxYOV+XJQhzEr3E0X0mUZYESPcNLb5SA81ZQZE4S3Oj3JpCIQQ9xuPQ22I85BgVup9n/gEKozIPqacZQKGNuDyPEyt+fNinxjRkdmVZdogDzMAikg/Bf18BhNQHpiwKdT9IUS5Y+pGckHmrz/oR2HtyKYJqno12mhKYXmgilfecSSzI+MlQkRkUnaxdQ9+7WXRtw5n5Thg7ofgmgNI2CElQULZhOVOP/Rvf0nxHSQ/2Jh6gS3KYMf1Zm/mfnzAdwMLmJqzA4FQb8qNUbtosa3QeZ9/A54GpYb91d5kEWe4voOydF1FQRYE8CrLjQKEeCk99zmcrLgHn84qDnmApR+sfSJfsBqwFn7O+K6ZMUrztkaLizf1awwBx6LGlfLijUgRkqiqKHvDk2U0sxCT74YbTmPMgkcRscvTeXWxsl99yxT4E29NgdP3+bgtQki+0WtoREmPHrukv1EcjXlDhfPMwhJohzEd/4MYXDG6Pk/LiZrwD8v7te8/6bPGiGLfmW/wxlknDUFuvyNa7tJTFvtQ6RSx+p3br0b93GiGf2E=
+ ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|22082099003|56012099006|261022115727099003|11063799006|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261102123227099003|261021123027099003|261022075727099003|261021121427099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: fWFNHuHqJCKnxfXnFdJv69+Dox6aSZzmAFvvGyr98BFLRhT8MCUVC3CRq2114ByUXcmMw/fxMlW1rw54e0kgSnlKNO6UGlVsLL8IxZwbCkJlVcnZBZwniphgMxk6YIycFeBxaxRbft/2Y+1hTIK1ce67KK/nidB1XKcPz+lsemaQpmsulDa5mV8qkKmYELf+cD0WCRdjMKG47UNhPqtom/6CnxBoFxYFqns7YJAAUtGtCewFlsIkoIY4PLYPOtAFpkf2ghunuXQmrZj0qeB+4MFPjM27Vr80RFeqlk3cnHOkxyAefXZndZVlxe0YHWN33p9Z8j0qs1LqgZGWHWxCvlcTmeYZs+djvUozDsXS/YDdSNSuTEAY5ZAM9qyc+6Wd1/0vpmqhahBP7hs8bwIJ6xj6w2ZCDkWkuSpsjOcb22jUONWEtkDMPMzIRds8L6QuUL0Cpkce9xWaoYrCrKy5wBOpnMaW6WZCM3kvglz0XrvfGbovJVbWRWuylix6wxUtl/UH5OHKLFAkDKW3Z24SO4JVHJN332tiDLsB+3OSNbanVBa4CIVqDT/icHJkGxLzZMbBMhG9gLN5072RU1442uizgADfmr1irvrAl3Tw7QZKBkEMakIbRD1fb6ommYCjzTjVRt1Z9w23F7RjZ4CbQ2+8qQXIALXthGeX8ixzECA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(13003099007)(56012099006)(261022115727099003)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(261009223027099003)(10067099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(56012099006)(261022115727099003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(261009223027099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Y8avOZ9drYXZaDxW0DyMPe144VL2xU9ThxGLJMlF/3at1c6RFQNMwXPdVMZd9kKDnQxjHY+ytB9bb84N7Q6JAu9s5FvdIkWqv+qHHKFLHhOJG/tJ7BZXGzVXDsapYLm4+9Ir3+/z5UAxVS0vMskV2ItQJTZ9Sn6ajy5/sXtNzROvJIY2Nej6zxdo0gQfTM6Lb07LwrYvtmcwIHbEwtMGd3JRoKr5i06HzmsSvQtlIRGJ1Q4zwCEOBXGK4BzYgvkvBUFaRP0doxJnlNCttoJE9HAIvGsEeEvjDDl0m9qHCgimz8Qb4LzKjgrkxLX68SZre5pw5iZdA39XyiLtDq80lhkmgRysQbydL1Vb1aU5oKvQMLebzYf3JSq/x5KQy+p2iTF29cn0kvuQ6ca4p6zn5GBWj6mRNp/t7rHWXkNRh+0yTxYu7/QJTT/okVbv36A4
+X-MS-Exchange-AntiSpam-MessageData-0: ULv1m76mWvlXFe6S99EyGfAHa9JA4UNmuRHs8aM0CGmAtlU4UkKksIfz3Ox3AoH+7FS2xStoTNGHwJYtwhr/FEc2AwJQfs9f2EU1WAxZ/LPazMUG6EyGJ9dMtpMEvWFjfwQfMn+BxxY0Oq7fPm0roHvmmBnm1xyM0K1Tgyl+PzUSlKTnJTbj1loQ+girq3CKgj3Ps5KNXL4aPta0gzOkMX1cF3yMQuitrDXZ7d9qnNfhVxNJsO+tUI6DxvS/VVRXrE3vhZKxy+dmnnvq7zueDmWpxv6unDWpuI9HO1m8Pc0w8kKpTz54AzIiDSAU82I3nFlaCMNfrsQhzJhrEis/o6gS0y9OluNeceHjBiIANWKn3qlTdeZA4QchmqkiPz+pGsIN33FdhmRAPDs8EOJIOm7OSvoFtSeqV+yNLpWtMTWOq+nZbj1ZmfnRr9c1jws+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 22:50:14.9200 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71604548-6448-4bf5-c550-08df3f7cfc32
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 22:50:16.3139 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f94b86d8-d701-4b97-5a71-08df3f7cfd08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC0.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6950
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,63 +117,69 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu needs to know the bus number the platform assigned a device to
-be able to match firmware images against the right device.
+VFCT records the PCI bus number from BIOS POST. The current bus number
+can change after PCI core renumbers the bus, while accepting a mismatch
+based only on device identity can select the wrong VFCT image when
+matching devices are present. Compare against the bus number captured
+from the firmware bus assignment before bridge renumbering.
 
-This was previously adjusted to be a soft filter due to
-commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
-soft filter") where if everything but the number matched to take a device.
-
-This however fails when there are two identical devices.  Instead save the
-initial bus number to the PCI device structure and then match that.
-
-Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
-Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
+Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
+Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Changes in v5:
-- Record the firmware secondary bus number only on the bridge struct pci_dev,
-  guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
-- Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
-  number when matching VFCT entries.
-
-Changes in v4:
-- Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
-  from it during allocation, before registration callbacks run. (Sashiko)
-- Rename variable to clarify it's for bridges (Lijo)
-- Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
-
-Changes in v3:
-- Preserve the firmware bus number across bridge renumbering, capturing the
-  secondary bus number before pci_scan_bridge_extend() clears it.
-- Adjust member name in all patches
-- Add tags
-- Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
-
-Changes in v2:
-- pci_alloc_dev(NULL) remains safe.
-- For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
-  number before clearing the bridge configuration and carries it into the newly allocated bus.
-  Devices discovered there inherit that original number.
-- Add changes for radeon too.
-- Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
-
----
-Mario Limonciello (3):
-      PCI: Cache bridge firmware secondary bus number
-      drm/amdgpu: Match VFCT using initial PCI bus number
-      drm/radeon: Match VFCT using initial PCI bus number
-
  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
- drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
- drivers/pci/probe.c                      |  4 ++++
- include/linux/pci.h                      |  3 +++
- 4 files changed, 28 insertions(+), 27 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261019-vfct-regression-2142fc52852a
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 08ed1eb695586..a562265eafd26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -386,16 +386,17 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+  * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
++ * value.  Match using the bus number captured when the device was
++ * discovered, before any bus renumbering.
+  *
+  * Returns: 0 on match, -ENODEV on no match
+  */
+ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+ 				  VFCT_IMAGE_HEADER *vhdr)
+ {
++	struct pci_dev *bridge = adev->pdev->bus->self;
++	unsigned char initial_bus;
++
+ 	/* Vendor and device IDs must always match */
+ 	if (vhdr->VendorID != adev->pdev->vendor ||
+ 	    vhdr->DeviceID != adev->pdev->device)
+@@ -405,16 +406,12 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+ 	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
+ 		return -ENODEV;
+ 
+-	/* Exact bus number match - preferred */
+-	if (vhdr->PCIBus == adev->pdev->bus->number)
+-		return 0;
++	if (bridge && bridge->fw_sec_busnr_valid)
++		initial_bus = bridge->fw_sec_busnr;
++	else
++		initial_bus = adev->pdev->bus->number;
+ 
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
+-	dev_notice(adev->dev,
+-		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+-		   vhdr->PCIBus, adev->pdev->bus->number,
+-		   adev->pdev->vendor, adev->pdev->device);
+-	return 0;
++	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
+ }
+ 
+ static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+
+-- 
+2.43.0
 
