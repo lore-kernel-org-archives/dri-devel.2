@@ -2,59 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D697606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:48:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737BA606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rLG1ZE
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y3wUuZx7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7350D10E322;
-	Tue, 10 Nov 2026 00:48:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06FBD10E322
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:47:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC2064249A;
- Tue, 10 Nov 2026 00:47:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36221F008A1;
- Tue, 10 Nov 2026 00:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794271677;
- bh=/v7Lk8oO1TnQwIeXyiFCZJA2BdIlQJEIsX7ukbQLF7A=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=K1rLG1ZEHoNXAsQPyaiZDlHextA0PwC/XEZxrHa/HQZfaSnARzEtMt8fUkpc8uR5J
- a11J68iI74SfPU5FabImCTr/IVE3qHi+WURhy/mQ6EGyOZGDGKuXufULXGvDwdCytg
- ASTOp1hM3YcSJi93nK4vM95LGOd5wpJcfTLZ+SNb2BXcEBU9mN49VoZdSp9WGAs0U/
- X1wrQiKBCN1TH2wTPCdP1Y8P36nfRaBkl/SjCh4JMpGmMcxOD7GFyJ0gxHN7M/ZwOj
- fuhhN+A6+EvK8U56KIMO1l7bEJyndnrxqApxcdytF9pWmAKlYAOf+fLh2ju20LJNCW
- QUMYR4PaftjWw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B44B310F5D9;
+	Tue, 10 Nov 2026 00:53:02 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D802110F5DA
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:52:55 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-93efc0452b5so98940785a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 16:52:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794271974; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RxIf9ugRBjdRscqaT1JejNMqo/JMwXrbUlMErZrQw8XeigLYKDSwL6lG+wftlhLMeh
+ hJbbtzOAvxDVhzY2C+bvJyzOkBPS4ouNBHhqtDXyMGhSufaxqT4JGEh1eSuU3zV9Ilyw
+ +Gz1PZP8WRvNw8VPWHGo/ElxTh0PKALhJCmJATahpZ3E+K4DxCHnMme95U5gC2tFtEq8
+ c5VGv41DZlR10kBXpIeLWN2pIS9Hb++oX16VHr6jZOxk7Dk5jDJ7zg/OHDhBajC33Gu/
+ 9RtJLpjUQCGwZaNvm2bqmG4lQoj422a68ja9pmExPi0RQW/BtQ05dPnDtYzGSyACZ2v3
+ 9JWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=fIHfnj++q/SlsevrSlgQl/5lS3DkgecVq4KF0bU+zN4=;
+ fh=JEAYc/Reu/mVzpeT4b53VNs4rr9Bka7tIpG/HnRiMDg=;
+ b=Xdf1AgyuCYkLVS5byh3sjkHClZy74GHAcIy4u4TIPwu71kq2L0bLZoDV7EuxsSsRIU
+ B11ZZrLswy67plZa5eUfzgtR1Iwviwi8z2fghNUQyJT4MTKbSBQllgo9x9GNOEPM2cYh
+ ZvoE0rJRcC/VhWL4BMQ5QLITnFrUSXz663SzXLC14bbIXzLoV0SdJhoejq+JENBo6JHX
+ o4Py0kRJ+Opb2zDAJGh2HAjIz9sr0zmBy1lQcjMv2Exh3I/jYY5gHLoHUSPouLbp+JgH
+ bNDqNTvHItV+xERia9oxcSxu79FXybO/UT5kmUaRMRwQeiik1cMVXsTsILWJ/hUIqIvt
+ AFCQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794271974; x=1794876774; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=fIHfnj++q/SlsevrSlgQl/5lS3DkgecVq4KF0bU+zN4=;
+ b=y3wUuZx7VhTII2bH7UnzN3FL/soINeG6m3ie4RasDEfWHapDNbEe8iDzHmYQhrILJL
+ QaZ0+RA16sDnLMTjpGW+1zc1hIK3Ok+Iwi+QfIOPoEY4KDkAE3xDFaBUdfvSCQCHOwXi
+ 4Br4/MzatfE0Wfx4e/9DTeShti22liQCLl0qxTbuC1woP4/6w+BDXSmhplcKwvWyh/S4
+ cbK6jIweiQWpyqgjXJMT9jitFhiX+JgvcMsxOQnnNRx6RodjSH7+fxc/qj0LNJomucG3
+ 0krjuyAAkE/xBFoCZfIbBNPkW0aWPlGoQpa2jPo9Nd+n2MdPyDWrkTqKCCLYzH5CAjvu
+ yYTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794271974; x=1794876774;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=fIHfnj++q/SlsevrSlgQl/5lS3DkgecVq4KF0bU+zN4=;
+ b=JkpxeRowayUmPEQ6bfKGEmTRoRh3LJkZhYkTYIq+o/PDEnBy7oUEML0tCpwDG0tG9k
+ rQAFy2dm1JhYO+MuHh10IgHebgLbbCtP6DYMGdR8mZ9rb98T0dMKQsJnWe61gsojq731
+ jzjNQnQR/HBtDzQsxzfrm2mb+ozf1ztHa17ZyZbjI6TojEOvtkc+WrrRQMxTWsIG0c4D
+ 6EkNpi4c3/Lo7jCE0GTN84cOWlcTxfp/f1GT3GUUK8Ayd7SwPYY1F9QaZOp0a+2DgZoW
+ FrA/JsLFllgoQfs+FDeropVfHhOuipVHJbsM7F4lC5cA93lw8bjWbhmiXEwD4iKhl2IZ
+ TN6g==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGPRJvHe6yy5+uNE67ZpPdYw0tZ3V8LK0qLy0R0Kw17Iq5yGvzmjU5KTFU+dVB0De5p4/cYJSnG8PE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+dk09Nfq7qJrSTGXl+gf6oPwTTCvMJRchLiOkxFu1o0qp5UWLb
+ QQq1JjPmKMcxrKwMlQd1r495ZsFrw9AItu5xXj5nJWCbGTx2OkSMQ1STF6DXuZ0cv1HWumoTXY3
+ JbwaIpXQ8Xl48GsXKvi23iaHV1dqAsIY=
+X-Gm-Gg: AYBFou0mn2pOlPb6vFRTUUQT1b04wRKNo7X9NpTEqN4sSe+ZDE19L/NQf+pN/1kl4U7
+ XtzKFB6APACWvqa4W1OUa8js+PWthNeL+6gispKcXpmVSsVxuL5VsH8X+0WzQ+zvsqoSYIWsnsr
+ I9dWkHSxs6GK/51XPY8J0mN25a02UhYAE1AwEtGetX9Rv0yajq0X/YBLf6fB6E3/7vii5vh5AXK
+ AIX91TizOJUF4q/k8xER1HADIrsSxrP1A7yWiyYrKrnlK3rnm7FKps5kzdClBAORRk4DO2Cvdzy
+ LGa6QXrpD/aVkdPNqmY/4E4PF1jMlqCBtQxzmpZiw4LHvUaNYQjEMbiFSo+U+ovMn/GAMdbhay3
+ 2d7BaNUqFbsNyKNRXaJ6VpVar5KL4VhFSslLBF3MuNWSKdQbGJSoO6su3Rg1InGYFRYeNmv9Vcp
+ pO4XZ5qA+kr1/kNbEMyXhcJw==
+X-Received: by 2002:a05:620a:4693:b0:93e:c12c:fbcd with SMTP id
+ af79cd13be357-9479f35eedemr193057885a.73.1794271974270; Mon, 09 Nov 2026
+ 16:52:54 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 01:47:48 +0100
-Message-Id: <DMR481ABCB7M.27TE44YRCBZK2@kernel.org>
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 07/12] rust: pci: add an error_detected callback
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
- <20261023154009.2246627-8-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-8-xinmengs@nvidia.com>
+MIME-Version: 1.0
+References: <629c8bdedca971d38b08ffd32acec1a804ff7d7d.camel.ref@aol.com>
+ <629c8bdedca971d38b08ffd32acec1a804ff7d7d.camel@aol.com>
+In-Reply-To: <629c8bdedca971d38b08ffd32acec1a804ff7d7d.camel@aol.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 10 Nov 2026 10:52:42 +1000
+X-Gm-Features: AclHuK8Ki-kawuemorAfz7rrtZVSws_7w7m2uRxFuzWM_1_yfCTSwNT-D28Rts4
+Message-ID: <CAPM=9tzS3qS=Xn1y+6fveWJxayOsBei9AuygLJV=dw3_H4QY=A@mail.gmail.com>
+Subject: Re: [REGRESSION] nouveau oops on 7.4-rc2
+To: Ruben Wauters <rubenru09@aol.com>
+Cc: lyude@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,137 +100,167 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
-> VFIO PCI variant drivers will use error_detected() to notify userspace
-> of PCI errors through vfio-pci-core.
+On Tue, 10 Nov 2026 at 07:06, Ruben Wauters <rubenru09@aol.com> wrote:
 >
-> Adding error_detected() to pci::Driver lets VFIO variants reuse the PCI
-> adapter's error callback dispatch. A following patch removes the
-> duplicate vfio::pci::Adapter.
+> Since 7.4, I have been encountering the following oops when booting my
+> computer. The issue is present in rc1 and rc2, 7.3 boots fine.
+> The kernel booted fine and passed to init, which then tried to start
+> gdm, gdm did not launch, leading me to dig and encounter the following
+> oops in the journal.
 >
-> Suggested-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
-> ---
->  rust/kernel/pci.rs      | 33 +++++++++++++++++++++++++++++++--
->  rust/kernel/vfio/pci.rs |  6 ++++++
->  2 files changed, 37 insertions(+), 2 deletions(-)
+> It is worth noting that my laptop, where I encountered this oops, has
+> two gpus in a hybrid system, one intel integrated, and one nvidia.
+
+Can you boot with drm.debug=0x10 and attach the complete dmesg?
+
+I've booted a Fedora 44 GP107 laptop this morning with a intel/nvidia
+combo on 7.4-rc2 and not seeing anything, so we will need more info.
+
+Also:
+https://gitlab.freedesktop.org/drm/nouveau/-/work_items?sort=cr
+
+might be an easier place to keep track of things.
+
+Dave.
+
 >
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index 1951b3c8a5c..ddc28099087 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -109,7 +109,7 @@ unsafe fn register(
->              (*pdrv.get()).remove =3D Some(Self::remove_callback);
->              (*pdrv.get()).id_table =3D T::ID_TABLE.as_ptr();
->              (*pdrv.get()).driver_managed_dma =3D T::DRIVER_MANAGED_DMA;
-> -            if T::HAS_RESET_PREPARE || T::HAS_RESET_DONE {
-> +            if T::HAS_ERROR_DETECTED || T::HAS_RESET_PREPARE || T::HAS_R=
-ESET_DONE {
->                  (*pdrv.get()).err_handler =3D &Self::ERROR_HANDLERS;
->              }
->              #[cfg(CONFIG_PCI_IOV)]
-> @@ -223,8 +223,27 @@ extern "C" fn reset_done_callback(pdev: *mut binding=
-s::pci_dev) {
->          };
->      }
-> =20
-> +    extern "C" fn error_detected_callback(
-> +        pdev: *mut bindings::pci_dev,
-> +        state: bindings::pci_channel_state_t,
-> +    ) -> bindings::pci_ers_result_t {
-> +        // SAFETY: PCI error recovery holds the device lock.
-> +        let dev =3D unsafe { &*pdev.cast::<Device<device::CoreInternal<'=
-_>>>() };
-> +        // SAFETY: The device lock prevents removal of installed driver =
-data.
-> +        unsafe {
-> +            Self::callback_data_with(&raw mut (*pdev).dev, |data| {
-
-Please use Device::drvdata_borrow().
-
-> +                T::error_detected(dev, data, state)
-> +            })
-> +        }
-> +        .unwrap_or(bindings::pci_ers_result_PCI_ERS_RESULT_CAN_RECOVER)
-> +    }
-> +
->      const ERROR_HANDLERS: bindings::pci_error_handlers =3D bindings::pci=
-_error_handlers {
-> -        error_detected: None,
-> +        error_detected: if T::HAS_ERROR_DETECTED {
-> +            Some(Self::error_detected_callback)
-> +        } else {
-> +            None
-> +        },
->          mmio_enabled: None,
->          slot_reset: None,
->          reset_prepare: if T::HAS_RESET_PREPARE {
-> @@ -461,6 +480,16 @@ fn reset_done<'bound>(dev: &Device<device::Core<'_>>=
-, this: Pin<&Self::Data<'bou
->          build_error!(crate::error::VTABLE_DEFAULT_ERROR)
->      }
-> =20
-> +    /// Handle a PCI error and return the PCI recovery result, with the =
-device lock held.
-> +    fn error_detected<'bound>(
-
-This can use #[optional].
-
-> +        dev: &Device<device::Core<'_>>,
-> +        this: Pin<&Self::Data<'bound>>,
-> +        state: bindings::pci_channel_state_t,
-
-This should be represented as a Rust type, maybe something like:
-
-	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-	pub enum ChannelState {
-	    /// The I/O channel remains operational.
-	    Normal,
-	    /// I/O to the device is blocked.
-	    Frozen,
-	    /// The device has permanently failed.
-	    PermanentFailure,
-	}
-
-> +    ) -> bindings::pci_ers_result_t {
-> +        let _ =3D (dev, this, state);
-> +        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
-> +    }
-> +
->      /// Enables Single Root I/O Virtualization (SR-IOV) for a PF.
->      ///
->      /// Called when userspace writes a nonzero VF count to `sriov_numvfs=
-`. The token carries the
-> diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
-> index db30dbce6a8..0fbc6a920dc 100644
-> --- a/rust/kernel/vfio/pci.rs
-> +++ b/rust/kernel/vfio/pci.rs
-> @@ -1096,6 +1096,12 @@ pub fn reset_done(&self) -> Result {
->          // SAFETY: This owner keeps the pinned registration data alive.
->          unsafe { self.dev.registration_data_with(T::reset_done) }
->      }
-> +
-> +    /// Signal the VFIO error interrupt and return the PCI recovery resu=
-lt.
-> +    pub fn error_detected(&self) -> bindings::pci_ers_result_t {
-
-Same for bindings::pci_ers_result_t.
-
-> +        // SAFETY: This owner keeps the initialized VFIO core device ali=
-ve.
-> +        unsafe { bindings::vfio_pci_core_aer_err_detected(self.dev.core_=
-device()) }
-> +    }
->  }
-> =20
->  impl<T: Operations> Drop for Registration<'_, T> {
-> --=20
-> 2.43.7
-
+> It looks to me like something return an -ENOPROTOOPT (likely due to the
+> hybrid GPU situation) and then another func tried to deference this
+> without checking for errors.
+>
+> Some quick digging shows that it could potentially be related to atomic
+> mode setting being enabled in 7.4, whereas it wasn't before.
+>
+> I tried to take a look myself at a patch, but unfortunately I got a bit
+> lost in nouveau, sorry for not being able to fix it, I hope you're able
+> to. If you need any further information, please don't hesitate to
+> contact me.
+>
+> Ruben Wauters
+>
+> Oops: Oops: 0010 [#1] SMP NOPTI
+> CPU: 6 UID: 0 PID: 464 Comm: (udev-worker) Not tainted 7.4.0-rc2 #1
+> PREEMPT(lazy)
+> Hardware name: ASUSTeK COMPUTER INC. Vivobook_ASUSLaptop
+> X3500PCB_K3500PC/X3500PCB, BIOS X3500PCB.305 10/13/2023
+> RIP: 0010:0x0
+> Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+> RSP: 0018:ffffce1000a37668 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: ffff8dff8a97d300 RCX: ffffffffaff4b406
+> RDX: 0000000000000000 RSI: ffff8dff8a97d300 RDI: ffff8dff86b91000
+> RBP: ffff8dff86b91000 R08: ffff8dff8a97d300 R09: 0000000000000000
+> R10: 0000000000000010 R11: 0000000000000000 R12: ffff8dff86b91000
+> R13: 0000000000000001 R14: ffff8dff86b91000 R15: ffff8dff8299fa00
+> FS:  00007f9bcede9880(0000) GS:ffff8e0349bd8000(0000)
+> knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: ffffffffffffffd6 CR3: 0000000104854004 CR4: 0000000000f72ef0
+> PKRU: 55555554
+> Call Trace:
+>  <TASK>
+>  drm_atomic_commit+0xb1/0xe0
+>  ? __pfx___drm_printfn_info+0x10/0x10
+>  drm_client_modeset_commit_atomic+0x25c/0x2d0
+>  drm_client_modeset_commit_locked+0x61/0x180
+>  ? drm_master_internal_acquire+0x1d/0x40
+>  drm_client_modeset_commit+0x25/0x40
+>  drm_fb_helper_single_fb_probe+0x1aa/0x1c0 [drm_client_lib]
+>  __drm_fb_helper_initial_config_and_unlock+0xa8/0x1b0 [drm_client_lib]
+>  drm_fbdev_client_hotplug+0x79/0xb0 [drm_client_lib]
+>  ? drm_client_init+0x116/0x150
+>  drm_client_register+0x79/0xc0
+>  drm_fbdev_client_setup+0xc9/0x1e0 [drm_client_lib]
+>  drm_client_setup+0x6a/0x90 [drm_client_lib]
+>  nouveau_drm_probe+0x15b/0x1e0 [nouveau]
+>  local_pci_probe+0x4a/0x90
+>  ? cpu_hotplug_disable+0x15/0x30
+>  pci_call_probe+0x5a/0x1a0
+>  pci_device_probe+0xdb/0x180
+>  call_driver_probe+0x23/0x100
+>  ? driver_sysfs_add+0x55/0xc0
+>  really_probe+0xd7/0x2d0
+>  ? __pm_runtime_resume+0x50/0x60
+>  __driver_probe_device+0x9c/0x1b0
+>  driver_probe_device+0x1f/0x80
+>  ? __pfx___driver_attach+0x10/0x10
+>  __driver_attach+0xcc/0x200
+>  bus_for_each_dev+0x9c/0x100
+>  ? bus_add_driver+0x84/0x280
+>  bus_add_driver+0x1d0/0x280
+>  ? __pfx_init_module+0x10/0x10 [nouveau]
+>  ? __pfx_init_module+0x10/0x10 [nouveau]
+>  driver_register+0x75/0xe0
+>  nouveau_drm_init+0x60/0xff0 [nouveau]
+>  do_one_initcall+0x89/0x340
+>  do_init_module+0x8e/0x2b0
+>  init_module_from_file+0xfe/0x170
+>  idempotent_init_module+0x23e/0x360
+>  __x64_sys_finit_module+0x7f/0x110
+>  do_syscall_64+0xc2/0x4d0
+>  ? switch_fpu_return+0x5e/0xf0
+>  ? ksys_pread64+0x61/0xd0
+>  ? arch_exit_to_user_mode_prepare.isra.0+0x84/0xa0
+>  ? do_syscall_64+0xff/0x4d0
+>  ? do_sys_openat2+0x75/0xe0
+>  ? switch_fpu_return+0x5e/0xf0
+>  ? arch_exit_to_user_mode_prepare.isra.0+0x84/0xa0
+>  ? do_syscall_64+0xff/0x4d0
+>  ? do_syscall_64+0xff/0x4d0
+>  ? clear_bhb_loop+0x60/0xb0
+>  ? do_syscall_64+0x37/0x4d0
+>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> RIP: 0033:0x7f9bce71f95d
+> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89
+> f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01
+> f0 ff ff 73 01 c3 48 8b 0d 6b 64 0d 00 f7 d8 64 89 01 48
+> RSP: 002b:00007ffdb99bcab8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> RAX: ffffffffffffffda RBX: 0000564b33e33130 RCX: 00007f9bce71f95d
+> RDX: 0000000000000000 RSI: 00007f9bced703af RDI: 000000000000004a
+> RBP: 0000000000000000 R08: 0000000000000000 R09: 0000564b33e30d90
+> R10: 0000000000000000 R11: 0000000000000246 R12: 00007f9bced703af
+> R13: 0000000000020000 R14: 0000564b33e2dd30 R15: 0000000000000000
+>  </TASK>
+> Modules linked in: drm_gpusvm_helper drm_suballoc_helper snd_hda_intel
+> snd_sof_pci_intel_tgl snd_sof_pci_intel_cnl snd_sof_intel_hda_generic
+> soundwire_intel snd_sof_intel_hda_sdw_bpt snd_sof_intel_hda_common
+> snd_soc_hdac_hda snd_sof_intel_hda_mlink snd_sof_intel_hda
+> soundwire_cadence snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils
+> snd_soc_acpi_intel_match vfat snd_soc_acpi_intel_sdca_quirks fat
+> nouveau(+) soundwire_generic_allocation snd_soc_sdw_utils snd_soc_acpi
+> crc8 i915 soundwire_bus snd_soc_sdca intel_rapl_msr
+> intel_uncore_frequency intel_uncore_frequency_common snd_soc_avs
+> intel_tcc_cooling x86_pkg_temp_thermal intel_powerclamp coretemp
+> snd_soc_hda_codec mt7921e snd_hda_ext_core mt7921_common snd_hda_codec
+> kvm_intel mt792x_lib snd_hda_core mt76_connac_lib mt76 snd_intel_dspcfg
+> snd_intel_sdw_acpi snd_hwdep snd_ctl_led kvm snd_soc_core asus_nb_wmi
+> mac80211 snd_compress ac97_bus btusb asus_armoury snd_pcm_dmaengine
+> btmtk irqbypass uvcvideo spi_nor snd_pcm drm_gpuvm btrtl rapl mxm_wmi
+> btbcm
+>  intel_cstate mtd uvc drm_ttm_helper firmware_attributes_class iTCO_wdt
+> drm_buddy btintel videobuf2_vmalloc intel_pmc_bxt
+> processor_thermal_device_pci_legacy ttm snd_timer mei_pxp >
+>  fsdev_dax ucsi_acpi typec_ucsi typec hid_multitouch i2c_hid_acpi
+> i2c_hid video wmi thunderbolt pinctrl_tigerlake intel_oc_wdt vmd
+> serio_raw rtsx_usb_sdmmc mmc_core rtsx_usb
+> CR2: 0000000000000000
+> ---[ end trace 0000000000000000 ]---
+> RIP: 0010:0x0
+> Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+> RSP: 0018:ffffce1000a37668 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: ffff8dff8a97d300 RCX: ffffffffaff4b406
+> RDX: 0000000000000000 RSI: ffff8dff8a97d300 RDI: ffff8dff86b91000
+> RBP: ffff8dff86b91000 R08: ffff8dff8a97d300 R09: 0000000000000000
+> R10: 0000000000000010 R11: 0000000000000000 R12: ffff8dff86b91000
+> R13: 0000000000000001 R14: ffff8dff86b91000 R15: ffff8dff8299fa00
+> FS:  00007f9bcede9880(0000) GS:ffff8e0349bd8000(0000)
+> knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: ffffffffffffffd6 CR3: 0000000104854004 CR4: 0000000000f72ef0
+> PKRU: 55555554
