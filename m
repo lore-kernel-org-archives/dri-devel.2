@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FC9606A332
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9038606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYDwUbn2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXCdf5Oh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2225D10EE32;
-	Tue, 10 Nov 2026 07:19:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2074210E92D
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260EF10EE51;
+	Tue, 10 Nov 2026 07:19:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B693610EE28
  for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:18:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D17C543835;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A0AB637C1;
  Tue, 10 Nov 2026 07:18:51 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1794295131;
- b=D2MbeHoA3l9YEyTFjG6JSCv2nSTvTCXoo7XxfkG4KBsC50tna4C+lb48ZaXxr6+zi1uf
- 32GHvwr3w7TLl8PcFRDdrUGDcZ8Q0ingE8Xg7z4c5XnLU7h+YJEbqgMUzbNawTV3xjD3+
- SR5bdr4RoulvvvqAIV0VwoG7T6ZWMEJw4fniXCrwvj0wBRlgcFJfFrB5+/DA2nhgRpMkM
- p/L4xMmJ7O8wKM3VvA0ODALLfQ49Wl5vElplbZdJiFBpkWIRjx77ffC9EncoPwCAhPBOF
- NvMgUDI+X5a3bUCvkp36AWo3lWZ6VjIRKn6xSFWcRl2ThcozP27QCVB9BcqauIlxw9w==
+ b=0LCTCimwYOuMsdudMrR/ZAsyxWartm9GN8T+0glBjNV9J0bgXN6cclQ19t0Ks96WWDrH
+ NKJwdsm064BGzjEy2OJoLAyO8qNksFy35izdy1GX9gQSNUmyQNVLs0nBCVXcCq5uWgKkB
+ cii5oOc272gO8eG850ApS5BihOomcbZ/N3RBuS86BLUpb6QK1YowoSgjFMYL8/hwCDieX
+ HBa4Uq9Jalf3O7R5sF8Xdyod6w5863hhEIxNBNKymDywr9UStbAB0uzGjMyRIZmeRZusc
+ LjiLAjHw2cFfgV6dm5QmdWW4UX8fcZJj4HtAd0ECxiHfuKCOFbrMj7Yabrck62YBDmg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1794295131;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=htUIZOmME/MasIKcXZAexGRPo4KujE2PBLv1BZKe0IE=;
- b=29vGMnje0V87AaKBpdMLeSxCNGBkmTyjrA1KxjGeJdND58jqt18uY6a/KpPqIKZYKyp6
- NtILRDdKiE3mzYj9Zo2sxNjIRg9rNabowTH05lTllGGBWmQ7RhSC8lEHBu0gazepyY5vr
- rnIJMXJId5Pgrm7GrpYLQoirF8GghNds5N+Qd6fplvfkC0bm9XlAadEk2q9m5e+jSHXnT
- TUIyTDyDKT9oLRt1h7RJZd87etouFrRE6ITZ2jWiqCxetKQv6SHSX9RiFYxRSqQ60WpNv
- AqyNLwiD3JDKWBT4w+JlrXmcCyJMoS0Yclc6O/GCxokH6iHSZK2p+QZX24TTEIEXxUg==
+ bh=xf9jjECCHCJTLAEiaGfeK99eKdy6RyIXv+cYpPJ4C2s=;
+ b=SgPa0D72IGrh28kE1wJYMhLIahJoIqS2GhS3A14Ay1woB691KxkLJkhqBJemPMfBhOM0
+ YoOUOr5CkhGRnHtqrsw0TtHRBZ7QMGyDsUBSekPeG6e+j2caSrSU62VIzML6QfRwbpMjr
+ AV0PYJejr+QNjWPptJEOG6jZDCIEIEnLmlV0Uh1764FMTMTUgBt11OGP9CWt9k0HrJpla
+ q9m80RLKp8V0P911Cq7BO3pZjkrZQzfOlltdIlMf31BZcAyzHuYbZ+LXTKZ2OKaXmrMot
+ SmpH9yoW5mhMOXKwLfIj4K4QpR3v5QuRgmX2rnrD2FL1qdvm4EFSKgPT+ZEB9Gi+quA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 4F6E51F008BE;
+ by smtp.kernel.org (Postfix) with ESMTPS id 2B0771F008A6;
  Tue, 10 Nov 2026 07:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1794295131;
- bh=htUIZOmME/MasIKcXZAexGRPo4KujE2PBLv1BZKe0IE=;
+ bh=xf9jjECCHCJTLAEiaGfeK99eKdy6RyIXv+cYpPJ4C2s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=OYDwUbn2gEwRXz2qB2TZ+eeMrRS5Xx6tMq4D3s6TIcah937bd57UtdMbB/xMPd/Ql
- VUMzsyZkVsUEBMIH3KxZjs/7OjiBcwiqF0yDOIkjRVUG+1pez3I78nsyHXCxpdaVts
- qugXzw2ZCl0NSk+VHbUQas2zXI7ZaiuR9sDuXNyLzzLEodcOIeimn7NcIWfNVM/Pcp
- bgYVWk1cXhe2GwBAQU49youTQWpppsErJHl5J7vTAoybYa7dods0FmOxviNnjap8LO
- pcfL4JL7IFcf+WrVix7cfWT8Ch4AZmKEivctch8+thyLL3m2s21OwPzgE55LP4xihd
- YrWmPUv6L+REg==
+ b=LXCdf5OhoTAyo43LI6ESJV/6YH2EQlk10j6+fXkgX80i1vn6mwRVfDWSC1DwUQqIG
+ ysqs1DPMYc7Ly0uGAo1gYhfMlrTPxKZ0tAQV+KkZn3BljTD30/2v9zHxXaSD2zV9AN
+ MqOsiff4NNvmsL2mH58n/+rslk6D30aD9FVhdh5VO8GDnKEKePkOVR6xBj+J29AFnH
+ kwM7pr/7XpR9vYJMwN839T6lKbwGXzY35J9+dlnqZVJFwJL4mVG7ydOV0ORTkUxTrL
+ vdwsGDrltwn3CQZ7clUcZOE+qsSa2vNi7k1a2HX0JUcgs4QoPTVEFMsne4IgSLy7jJ
+ K71ox7665UOBg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D834F489BD;
+ by lkml.kernel.org (Postfix) with ESMTP id B4686489B8;
  Tue, 10 Nov 2026 07:18:49 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:51 +0000
-Subject: [PATCH 3/8] drm/rockchip: vop2: Don't accept AFBC YTR for RGB565
+Date: Tue, 10 Nov 2026 07:18:49 +0000
+Subject: [PATCH 1/8] drm/rockchip: vop2: Don't use uninitialised dividers
  on RK3588
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-vop2-fixes-v1-3-d336e9dd90d3@gmail.com>
+Message-Id: <20261110-vop2-fixes-v1-1-d336e9dd90d3@gmail.com>
 References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
 In-Reply-To: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -76,11 +76,11 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295129; l=2483;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295129; l=2150;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=dSPTheuoeEWtYE05OjR52Fc58lXeV69Gfn0Qylp8Rv0=;
- b=s4HVCmDwgYdPn6T1iLJbkUsMIfeJ+cpWRdDnv8reZ6dalUFrLsggZfWE8XBkuxhFbsVyfPrTF
- HxKH211/MEGDHFmDV3N05Sk2K5j1912ImX9Eti7sR9lTWRyJEJmQfnB
+ bh=+pfuSp1M99YrjvoyOVjakpSrJdneJ0OxzWPX/oIDiA8=;
+ b=Ijs7lPZRCA6KdrR800EY6IwB81foe4E/RT1X3/IF8fwrzC3MnaeOGjcesbSuRis4oavX3TfY1
+ ArfuXNwoZzbBKfToIyuwcVmpEGLigdMXgYvf1tYYxONrIeTigZJTUNV
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -109,56 +109,54 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The Cluster windows of the RK3588 VOP2 advertise every AFBC modifier
-of format_modifiers_afbc for RGB565 and BGR565, including the ones
-with the lossless colour transform (YTR). Scanning out an RGB565
-buffer rendered by the Mali-G610 (panfrost) with
-AFBC(16x16 | SPARSE | YTR) gives a black picture and POST_BUF_EMPTY
-on the video port, on every Cluster window, while the same buffer
-rendered with AFBC(16x16 | SPARSE) displays correctly, as do 32 bpp
-formats with YTR.
+rk3588_calc_cru_cfg() converts all four dividers to their register
+encoding with ilog2(), but only sets the ones the interface uses:
+dclk_out_div is left uninitialised for HDMI, eDP and DPI, and
+if_pixclk_div/if_dclk_div for DP and DPI. The garbage is then written to
+RK3588_VP_CLK_CTRL; on an Orange Pi 5 the dclk_out divider of the HDMI
+video port reads back as 3 (/8) in every mode.
 
-YTR on RGB565 is also a questionable pairing to start with:
-Documentation/gpu/afbc.rst requires the R, G, B component order when
-YTR is used, with component 0 in the least significant bits, which
-DRM_FORMAT_RGB565 (B in the low bits) doesn't have, and the Arm
-Mali-D71 (komeda) only accepts AFBC for BGR565.
-
-Stop advertising and accepting YTR for the two 16 bpp RGB formats on
-RK3588, so that userspace picks a modifier the decoder handles. The
-BGR565 case could not be tested (Mesa can't import BGR565 dma-bufs),
-it's rejected as well because the decoder is configured identically
-for both formats, apart from the R/B swap after decoding.
+Start all dividers at 1. dclk_out only feeds DP and MIPI (and HDMI with
+DSC, which is not supported), so for the other interfaces keep it at the
+dclk_core rate, as the vendor kernel does for HDMI with DSC, instead of
+letting it run at the full DCLK rate.
 
 Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 12 ++++++++++++
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 12 ++++++++++++
  1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 76d151b8bc52..629ea7f11250 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -404,6 +404,18 @@ static bool rockchip_vop2_mod_supported(struct drm_plane *plane, u32 format,
- 	if (vop2_convert_afbc_format(format) == VOP2_AFBC_FMT_INVALID)
- 		return false;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index c44648e1bc0d..659fd0a3ab63 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1579,6 +1579,15 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 	unsigned long if_pixclk_rate;
+ 	int K = 1;
  
 +	/*
-+	 * The AFBC decoder of the RK3588 Cluster windows can't decode 16 bpp
-+	 * RGB that uses the lossless colour transform: the picture stays
-+	 * black and the video port reports POST_BUF_EMPTY, while the same
-+	 * buffers without YTR display fine.
++	 * Not every interface uses every divider: dclk_out only feeds DP and
++	 * MIPI, the interface dividers are unused for DP. Start from 1 so that
++	 * no divider is left uninitialised when its value is converted below.
 +	 */
-+	if (vop2->version == VOP_VERSION_RK3588 && (modifier & AFBC_FORMAT_MOD_YTR) &&
-+	    (format == DRM_FORMAT_RGB565 || format == DRM_FORMAT_BGR565)) {
-+		drm_dbg_kms(vop2->drm, "No AFBC YTR support for 16 bpp RGB\n");
-+		return false;
-+	}
++	*dclk_out_div = 1;
++	*if_pixclk_div = 1;
++	*if_dclk_div = 1;
 +
- 	/* Different windows have different format/modifier support */
- 	for (i = 0; i < plane->modifier_count; i++) {
- 		if (plane->modifiers[i] == modifier)
+ 	if (vop2_output_if_is_hdmi(id)) {
+ 		/*
+ 		 * K = 2: dclk_core = if_pixclk_rate > if_dclk_rate
+@@ -1648,6 +1657,9 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 	}
+ 
+ 	*dclk_core_div = dclk_rate / dclk_core_rate;
++	/* An unused dclk_out must not run faster than dclk_core */
++	if (!vop2_output_if_is_dp(id) && !vop2_output_if_is_mipi(id))
++		*dclk_out_div = *dclk_core_div;
+ 	*if_pixclk_div = ilog2(*if_pixclk_div);
+ 	*if_dclk_div = ilog2(*if_dclk_div);
+ 	*dclk_core_div = ilog2(*dclk_core_div);
 
 -- 
 2.55.0
