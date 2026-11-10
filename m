@@ -2,51 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ACE606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:37:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CF4606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CLS4xbqd
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YVMNeYzC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2B010EFB1;
-	Tue, 10 Nov 2026 10:37:01 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 088E210EFAF
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:36:55 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 835441E7D
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:36:51 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 588243F85F
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:36:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1794307014; bh=AqF58HrT3bhON+KbWlWZ11YZ8tIs9dlGm5SmVttprrQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CLS4xbqdYm2USKSDGwgAUngGw8UOPZmQfQiuyDA0qqQ61CUtXRaNUx6KIQ6Y1TdO4
- bHTAePHgR/0fQyUXFJ8uyonTTRocn0Nx6+Nony1BWFp7Tx5n+3CzxTfXlp9ZkphUaE
- zu+QAYdUAOLY4iwSdWgdi3qXHomMjjEd+XM55IyM=
-Date: Tue, 10 Nov 2026 10:36:43 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: aiyengar1990@gmail.com
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, Jonas Karlman <jonas@kwiboo.se>
-Subject: Re: [PATCH] drm/panthor: Do not change the GPU clock rate while
- suspended
-Message-ID: <avLzu40gKwgJJiNK@e142607>
-References: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536DC10EF8F;
+	Tue, 10 Nov 2026 10:37:06 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257A810EF8F
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:36:57 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5bccb867d6fso2319729e87.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:36:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794307015; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qfGPQ+jOgE85BW6MTKeYuO+L7TpO+YJipKbONb9LZl9ODKnrGZgcKGyBidI0PyTF16
+ g7NjQX9RDKJeSEX3DRryVfIZ3052PUIu/EqWd1XvcKtzo3nRjnINHYk+e/jGUJ3kg86b
+ MSu6GgbDs/TYr+OacrQ6Zn8b90ISqyRJCw0GV2eSJV+Nt/TLViollJa137jDqEHcRAXl
+ tfiJH0GPPU66DIupxizlRGuTYz+CYEnRJ0vlmUEObGA799cFtPvwyDesTuPgJ8o6ryGY
+ PThydfC4Xh3N9kd7nwi36uir8hLic+owk3SItRotqstVj8JssmfTKpoeAHAyPtGhHHpy
+ 6Zhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
+ fh=eaZA37743h9OGlFOIKP1vei3SGTivX8bULk7O7dZEec=;
+ b=CETMai62eXxcWLqbQ92ACgMWssONYuwj1zScR/kJUInx0Jo8Ry/J6A9MQg6bWfC+KT
+ 1aqfNdFZOCF0B+bYlkEv46YpgFDj/ILAdj/PgwebF+Cr30VYN17/ahvbK3jgYeOb0cY1
+ edzl4/EshVfPHxJWM4Gml8u/eihJtUtI7iw+hsyyW1ZT7DdSX0tTR0BNvR63w5HWAGZC
+ zWEuV4kgSBpIlHPgEVjaOMPNAMkI2SXMqQNweB3Lu1MBHfIHyUuBheC5N/HrSTw3ESQC
+ l+MSreKQ/9eQK/8HbmYZBXtvh+pkxonwlb9gHUMatEN1Z8wv2YqC24LLWErOUf8YV59Y
+ fEOQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794307015; x=1794911815; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
+ b=YVMNeYzCv3e4iUzPlWISxCiJJEW8wqGa5R4et3IcvaqrIz/A6g6Zgd5PocfhfBTlD3
+ nOtaKXItJVYubI3rWpjwg7181ONbP8FWFvtq8P7hFogGHHAuh3pgNVg3QeeoBpO2wt9E
+ Lo/PrLiaorWXri0EY2WWY6h/KvFZRNls2ldkLXCFzMtjh8rLEwCLjGf9GpZMf7JkcaBE
+ MCkvCVw1dkh200YfyXQdhbsYuREPXJ68WdhiydJ9fgKk/aYBwHbt8VJqWnnxvtYpenBx
+ WBYxaXNdas2oZn3ddvrMUVkjuCNWHAyeQQcaNlg7H1xSkAnN+3XROjGrpx8qxG9pZA5z
+ TBvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794307015; x=1794911815;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=LOElH1vxD2BF5QjJ4dSWC0zMCWPZ1/SGqr8lDSB91pU=;
+ b=u9pT+cSyfEjH6o82d0i9J/J1LHfMlKbFpBaC7zH3/4xOCffXa2XaTkAmWhPScC8WQ7
+ bZF/XHOlVNBcsTUkzY8dQ1VYPwlLriCj97hCPZ0x0jayuVmDB358sIGXfLyfBYnHJFOq
+ LcMxpVuJIfHX4P/LEYWHqbAONMLkIWWgM0cbrd1wdVJ6T9JObkWmGrvI98a6Z/RtWR+M
+ pGN6ecWtmFiBSJYk6+Lc4J7o7bLa9vFzW3xSm8D7ELhfyRr2WZ0C8sDK4cXN0JsI2tTu
+ bTOciqImL8QhrtqPCpRs6HDgiX7dDjdnmWatTEewZuUaoFdpJZ1vvCcGMSddyO3bUHto
+ cIrg==
+X-Gm-Message-State: APuU4Z8rYPGFFkGtoSyhAHwMby2PENJO1+gwiRhwOQo3ugHJjBSEUpvw
+ RDTHuRXkSvx+mQJgawMTGm9koR8XA06hJRu0K5OHIbJqrr8a1XZkUZNxwiEg51OVuQzSo/n7rEH
+ 6tWNjhJx0PjrSYW7reSAhmgbmm8qDAVrh6FKd
+X-Gm-Gg: AYBFou2bPxcB4sboIuhAtce2OvicJtbCLkK2oTs21/by97hwmXk6RgWrILtOYhU3Wly
+ /TG9IW2uKdej2KFlLrmVvs4246qVmyiwfT/ZdONr6dBZbouUZB3XupcD+LKeHqgYrLzRB+1fgit
+ dIdwEbaTOUaxWKTg6gJAPB8pwYRXXhq0Ud+S1iSqasGhrjtF8LkDVNJHfN1ez9mbn88Petr/8qO
+ 1UjKNKmfk56Bi7p3TsspnborBJ2dnMTJ3dPQCG5iiPOMniTqHkmbJoJcCukR0wcRiOsl5z9I4II
+ xt8/uM0h1M1iLwSoXo/RzcvKOfQCr+XO90lzg0PizNtfmk+9TP4nRlEG6t+GnmAZFQulhFLwG8J
+ vjb5wWmYB4Jo4WRRjsQ/GQL8A2rkLfZDx5oMY8NvMUwALSPSQMfHpKBhos9EoFVX57BIAnFbfRs
+ IZWnnrxmfK7PMNTbOv3UfU29ra6/DT5LhBDBoxJP78hxDbiOzj3IBnvfFSAHdac9+2KieyIIht/
+ 3uCDKGzGij+YpNthgFeMdI298GTtR1iEVuh
+X-Received: by 2002:a05:6512:1090:b0:5bf:c5e8:7451 with SMTP id
+ 2adb3069b0e04-5c156ef6a9amr665923e87.65.1794307014867; Tue, 10 Nov 2026
+ 02:36:54 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
+References: <20261011154556.155831-1-kieweg.leander@gmail.com>
+In-Reply-To: <20261011154556.155831-1-kieweg.leander@gmail.com>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Tue, 10 Nov 2026 11:36:42 +0100
+X-Gm-Features: AclHuK8uvc2i2P_Jt29Mbu3rg5cUM-90uDWt_jYSqLTDdxYVxLIh3qQpLucOIBo
+Message-ID: <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
+Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP
+ GPU)
+To: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,164 +100,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 07:15:00AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> From the start of panthor_device_suspend() until panthor_device_resume()
-> has enabled the clocks again, the GPU clocks are off or about to be, and
-> the GPU power domain may be down. devfreq can still call ->target() in
-> that window: a write to min_freq or max_freq in sysfs, a thermal cooling
-> state change or a PM QoS request all end up in update_devfreq() whatever
-> the device state.
-> 
-> With the RK3588 GPU core clock switched to the firmware-managed
-> SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
-> a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
-> GRF, which sit in the GPU power domain, and with the domain off that
-> access ends in an asynchronous SError and a kernel panic, for example
-> after
-> 
->   echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
-> 
-> while the GPU is runtime suspended.
+Hi Thomas,
 
-Maybe what needs to be done is to disable the clock when the power domain
-goes down.
-
-> 
-> Only apply a rate to the hardware while the device is resuming or
-> active, plus the suspend frequency that devfreq_suspend_device() applies
-> from the suspend path while the GPU is still powered. Other requests are
-> still accepted and recorded by devfreq, which applies them on resume or
-> at the next governor update.
-> 
-> The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
-> carried in Armbian's linux-rockchip pull request 380) checked the
-> runtime PM status instead. That
-> status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
-> which leaves a window where the rate can be raised again right before
-> the power domain goes down. The devfreq suspend count cannot be used
-> either: panthor's first runtime resume calls devfreq_resume_device()
-> without a matching suspend, so the count is -1 while the GPU is active
-> and 0 while it is suspended.
-> 
-> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Tested on an Orange Pi 5 (RK3588S) with the GPU core clock switched to
-> SCMI_CLK_GPU and a 200 MHz opp-suspend (the configuration from the RFC,
-> not yet in mainline): writing min_freq while the GPU was runtime
-> suspended no longer ends in an SError, the request takes effect at the
-> next job (1 GHz measured), max_freq likewise; 200 suspend/resume cycles
-> with short GPU jobs and a 3 minute sustained load ran without faults.
-> With the mainline device tree (CRU clock, no suspend OPP) the SError is
-> not reachable and the guard only skips rate changes while the GPU is
-> powered down.
-> 
-> This patch was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit message, and I reviewed and tested it
-> as described above.
-> ---
->  drivers/gpu/drm/panthor/panthor_devfreq.c | 42 ++++++++++++++++++++++++++++---
->  1 file changed, 39 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> index 2249b41ca4af..cab86e9c9d46 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
->  	pdevfreq->time_last_update = now;
->  }
->  
-> +/*
-> + * Whether a new rate can be applied to the hardware now.
-> + *
-> + * From the start of panthor_device_suspend() until panthor_device_resume()
-> + * has enabled the clocks again, the GPU clocks are about to be disabled
-> + * or are off, and the GPU power domain may be down. devfreq can still
-> + * call ->target() in that window: sysfs
-> + * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
-> + * up in update_devfreq() whatever the device state.
-> + *
-> + * Changing the rate then is pointless, and harmful where the core clock
-> + * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
-> + * rate with the GPU power domain off makes TF-A access the powered-down
-> + * GPU GRF, which ends in an asynchronous SError. So while the device is
-> + * suspending only the suspend frequency, applied by
-> + * devfreq_suspend_device(), reaches the hardware, and nothing does
-> + * while it is suspended. devfreq records the other requests: they are
-> + * applied on resume or at the next governor update.
-
-Can this comment be rewritten to be less verbose?
-
-> + */
-> +static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
-> +					 unsigned long freq)
-> +{
-> +	struct devfreq *devfreq = ptdev->devfreq ? ptdev->devfreq->devfreq : NULL;
-> +
-> +	switch (atomic_read(&ptdev->pm.state)) {
-> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
-> +		return false;
-> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
-> +		return devfreq && devfreq->suspend_freq &&
-> +		       freq == devfreq->suspend_freq;
-> +	default:
-> +		return true;
-> +	}
-> +}
-> +
->  static int panthor_devfreq_target(struct device *dev, unsigned long *freq,
->  				  u32 flags)
->  {
-> +	struct panthor_device *ptdev = dev_get_drvdata(dev);
->  	struct dev_pm_opp *opp;
-> -	int err;
->  
->  	opp = devfreq_recommended_opp(dev, freq, flags);
->  	if (IS_ERR(opp))
->  		return PTR_ERR(opp);
->  	dev_pm_opp_put(opp);
->  
-> -	err = dev_pm_opp_set_rate(dev, *freq);
-> +	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
-> +		return 0;
-
-Hmm, why not return an error here? -EINVAL?
-
->  
-> -	return err;
-> +	return dev_pm_opp_set_rate(dev, *freq);
->  }
->  
->  static void panthor_devfreq_reset(struct panthor_devfreq *pdevfreq)
-> 
-> ---
-> base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-> change-id: 20261110-panthor-suspend-clk-11d5604fe5be
-> 
-> Best regards,
-> --  
-> Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> 
+a gentle ping on v6 of the GlandaGPU series. Is there anything else I
+should change before it can be merged?
 
 Best regards,
-Liviu
+Leander
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Am So., 11. Okt. 2026 um 17:46 Uhr schrieb Leander Kieweg
+<kieweg.leander@gmail.com>:
+>
+> This is v6 of the GlandaGPU DRM driver series [1][2][3][4][5]. It
+> addresses review feedback from Thomas Zimmermann on v5.
+>
+> GlandaGPU is a small VHDL soft-IP 2D display controller, currently
+> targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
+> been tested against a QEMU digital twin and on real hardware.
+>
+> Hardware/VHDL:   https://github.com/stiangglanda/GlandaGPU
+> QEMU fork:       https://github.com/stiangglanda/qemu-glandagpu
+> Userspace tests: https://github.com/stiangglanda/GlandaGPU-userspace-tests
+>
+> Changes since v5:
+>
+> driver core:
+> - Replace the custom glanda_crtc_atomic_flush() with
+>   drm_crtc_vblank_atomic_flush() (Thomas Zimmermann).
+>
+> On the QEMU device ID: it's currently a placeholder from the
+> experimental range, since I haven't submitted the QEMU patch to get
+> an official one yet. Is that fine to merge as is, with a follow-up
+> kernel patch once the official ID is assigned?
+>
+> [1] v1: https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
+> [2] v2: https://lore.kernel.org/dri-devel/20260730173643.256052-1-kieweg.leander@gmail.com/T/#t
+> [3] v3: https://lore.kernel.org/dri-devel/20260824195418.17707-1-kieweg.leander@gmail.com/T/#t
+> [4] v4: https://lore.kernel.org/dri-devel/20260913205007.118552-1-kieweg.leander@gmail.com/T/#t
+> [5] v5: https://lore.kernel.org/dri-devel/20260920193944.110983-1-kieweg.leander@gmail.com/T/#t
+>
+> Leander Kieweg (2):
+>   dt-bindings: display: Add GlandaGPU binding
+>   drm/glanda: Add initial DRM driver for GlandaGPU
+>
+>  .../bindings/display/kieweg,gpu.yaml          |  56 ++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  MAINTAINERS                                   |   6 +
+>  drivers/gpu/drm/tiny/Kconfig                  |  11 +
+>  drivers/gpu/drm/tiny/Makefile                 |   1 +
+>  drivers/gpu/drm/tiny/glandagpu.c              | 634 ++++++++++++++++++
+>  6 files changed, 710 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+>  create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
+>
+> --
+> 2.43.0
+>
