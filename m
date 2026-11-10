@@ -2,90 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EBD606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101B2606A31C
 	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IwOMmVDQ
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ZUitLn4h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF2F10F952;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F98F10F950;
 	Wed, 11 Nov 2026 08:23:41 +0000 (UTC)
-Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E659710E280
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 02:47:25 +0000 (UTC)
-Received: by mail-oo2-f9.google.com with SMTP id
- 46e09a7af769-85f2bfd7a07so1061899a34.0
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 18:47:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794365245; x=1794970045; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=0Jnm/5z8Q1yoIKS0OWVHvnc1/e7g1Ta22xUQi/ka3a4=;
- b=IwOMmVDQsjXv52mV4h+o/vFQTMccBhgCLVC3Vpuk4dotCzs7zq9XoCO1ShU0O3ZKMe
- vs3RNTMQpl9tAb6u8IzDYVOlU+GStU3EUUlzcg4oEKZG8OXHuAUYP9Eo69mUEi1HKHiJ
- F0PxpQZfJxf7gVTbuz3VmWyhdTaQ3l1NPO+E7Zp828CHihNbC1PxiR6tDUHkLsw1JpmU
- mhU433bRMaXdRL3NeGJR3AHTH4t6cN4E3TBAErfOSuOTsBMYYvRgAciG9xjx13NhU5vw
- m3Iv4G7TCp7405gefhcn4AyCRNG+SHxLWJOHJnj5abvnL+OH7VwyogWJLe4RkNgOTL85
- GNcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794365245; x=1794970045;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0Jnm/5z8Q1yoIKS0OWVHvnc1/e7g1Ta22xUQi/ka3a4=;
- b=pYQ+ZMykV36RpqZAge0hUPMFOvkRrBPE8ZiCIbm8qk8urrjh26WyNecii0k+Gl3xKp
- 32mpQtrDe0NDN/OvxT1+mE3WDIbRZrQddXVuLtv1xpw90cWw/K11iv/FLzG0MNfng3r+
- e6fTAKT6bt2Tia6NM3l3uU22fL9z6mlcyBbVBWJHBXmt3X2WjQWCD5vFbsZQtFMe/g9/
- qAJaE89dL7edcbq1VgijkLOChSeixjVAnBtPZOIfrg6JtWxtAa+10l58B464Xa/Ypww/
- bLx26ZRFKYrawP2M0UECj32jJCiLgR24I1v1uqQY44GBWcL9kzfHavVLLYAuY7J+xlBG
- zWoQ==
-X-Gm-Message-State: APuU4Z+jQM1IK55n6p7pa4DN9PGooAfSXxVpyrztLk2Bpkgjc5DBdEsG
- ovCR27l34/bKzCzblC0+BcjeVGlQwhNbGoNouxT5L4LRK2AVXQvFfmKY
-X-Gm-Gg: AYBFou11FfqZx4i2CD87rDaU9FLZZmU1mwEriiDbymuU7J9F3onN1brroPyKzdkItz+
- 8d8UYAZHIUhxvKQVK+qdKkrcSMgZRS9KH6LTFEMlG+2QTlSf9ZSrcI05KGD2YxmMN8zx/pgmF+v
- eywMt39Xl5lcffxdBJ7BfEmWO+TKg1mxfRIu7tFlTr/SR20uq7c2+VwAqRNt7x3P/50HyHaEwvE
- ZAb8//1/8ljIJ2ri1+BmYjcowZwKsrO5c+echSWC8kLtB6ABDfHUgy7RDYRmeLDsnq1Tr4rK750
- GlXrgV40m1+NJlx8he9D4zexnicj6Jz0+sxzfS/RgKu6Y3mmyCoM0+Ym44hTHk/LfCMKlRwHJir
- eX/YCbUEL03rZRdXXIHm0WU4mFMSkAhYXvNIe+czX2Tp/NVLitv0Lr27K0XA/thCgFz0Sct6fgJ
- 2RCnUPfrFPHHcd2uItj+mLh9C7nTbTgJdIXNggL6oMeUCHNLTJhr1JitQMLeUqhE+qby5++et1T
- kk1a2pzlOi+JgaP4vdg7QUDcOvF5SRxr15F+B491t9dP6hkuzuhFTQamILxwooAjFuaZdBB0o28
- WCZWAXalf7Xpyl5RFFdN7KbizdWyelevA2LA3zoxxP/C/Q==
-X-Received: by 2002:a05:6830:914:b0:80c:d30f:97a with SMTP id
- 46e09a7af769-860f294e49dmr1058089a34.27.1794365245058; 
- Tue, 10 Nov 2026 18:47:25 -0800 (PST)
-Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-860dcb5f7b4sm3385800a34.4.2026.11.10.18.47.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2026 18:47:23 -0800 (PST)
-Message-ID: <9d13c622-4e8e-4a69-be47-31861f6972d5@gmail.com>
-Date: Tue, 10 Nov 2026 20:47:21 -0600
+X-Greylist: delayed 419 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Nov 2026 18:55:59 UTC
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru
+ [37.230.196.243])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75CD810E321
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 18:55:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+ s=mail; t=1794336536;
+ bh=jegcFOu8qaT2jcRlBX2akbwxJzGRCez4pO/j9if0ZOA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZUitLn4hDLwR4dPGt6gBgP94Jd1TCaTjqARbtL4+Kvz6yCt1UhXUV+JvnakT2MI0X
+ lQXjeApoMi8beKDSY8i+3FuBHIWGxPvpu1X0lNk3KXte5MfmqwahXb/wtibi4GWoqh
+ OJcLpj11rvmZKydMjYAAQFxlcLAgXNisyYKdCFLyvKZIlkYzqiJpvMVdAw/BqPdtZ7
+ uFcVuRs90O9vUg1wBJVik6NdBXnXCP6uag76yeW5qGcnJkAKgLBMFvhWQUkw1iMB4j
+ Rw+XnCWcsi2iWZQPh9DcoXLfePg7IZyNDwWPYm4clqNwgqjGqQn+VlMedzT9dMwp2N
+ RwSyM5Y6uaz2A==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+ by mail-gw01.astralinux.ru (Postfix) with ESMTP id 7957025A66;
+ Tue, 10 Nov 2026 21:48:56 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.8])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+ Tue, 10 Nov 2026 21:48:53 +0300 (MSK)
+Received: from rbta-spb-lt-115149.astralinux.ru
+ (rbta-spb-lt-115149.astralinux.ru [10.198.28.148])
+ by mail.astralinux.ru (Postfix) with ESMTPA id 4jPFzm59Nqz6pr;
+ Tue, 10 Nov 2026 21:48:52 +0300 (MSK)
+From: Elizaveta Tereshkina <etereshkina@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Elizaveta Tereshkina <etereshkina@astralinux.ru>,
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Chen-Yu Tsai <wens@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, lvc-project@linuxtesting.org,
+ Ethan Tidmore <ethantidmore06@gmail.com>
+Subject: [PATCH 5.10/5.15 v2] drm/sun4i: backend: fix error pointer dereference
+Date: Tue, 10 Nov 2026 21:48:45 +0300
+Message-ID: <20261110184847.439523-1-etereshkina@astralinux.ru>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/mediatek: dsi: force command mode in
- mtk_dsi_poweron()
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
- <8c8ff7e2-d1a4-45c8-aacf-bca93439a32d@gmail.com>
- <524b9675fd10d0d21880821c10a4f0e188d24956.camel@mediatek.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <524b9675fd10d0d21880821c10a4f0e188d24956.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/10 18:31:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: etereshkina@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134
+ ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld},
+ {Tracking_uf_ne_domains}, {Tracking_internal2},
+ {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1; 127.0.0.199:7.1.2;
+ mail.astralinux.ru:7.1.1; d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;
+ patch.msgid.link:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207384 [Nov 10 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854,
+ bases: 2026/11/10 17:50:00 #28834512
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/10 18:31:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 X-Mailman-Approved-At: Wed, 11 Nov 2026 08:22:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,27 +94,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/10/26 8:43 PM, CK Hu (胡俊光) wrote:
-> Hi, I'm Chun-Kuang [1].
-> It's not necessary to resend.
-> I would apply this patch later.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93e97f715b24114169d18654e09c646fd9e14979
->
-> Chun-Kuang.
+From: Ethan Tidmore <ethantidmore06@gmail.com>
 
-Hi Chun-Kuang,
+commit 06277983eca4a31d3c2114fa33d99a6e82484b11 upstream.
 
-I'm so sorry, my brain must be taking a day off :p thank you for the 
-response!
+The function drm_atomic_get_plane_state() can return an error pointer
+and is not checked for it. Add error pointer check.
 
-Best Regards,
-Ryan Brue
+Detected by Smatch:
+drivers/gpu/drm/sun4i/sun4i_backend.c:496 sun4i_backend_atomic_check() error:
+'plane_state' dereferencing possible ERR_PTR()
+
+Fixes: 96180dde23b79 ("drm/sun4i: backend: Add a custom atomic_check for the frontend")
+Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Link: https://patch.msgid.link/20260217014801.60760-1-ethantidmore06@gmail.com
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Elizaveta Tereshkina <etereshkina@astralinux.ru>
+---
+Backport fix for CVE-2026-53066
+
+v2: Separate variables declarations to avoid instance of warning due to
+lack of b5ec6fd286df ("kbuild: Drop -Wdeclaration-after-statement")
+
+ drivers/gpu/drm/sun4i/sun4i_backend.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
+index 9c4581a3b65f..20740ff02a81 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_backend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
+@@ -505,13 +505,19 @@ static int sun4i_backend_atomic_check(struct sunxi_engine *engine,
+ 		return 0;
+ 
+ 	drm_for_each_plane_mask(plane, drm, crtc_state->plane_mask) {
+-		struct drm_plane_state *plane_state =
+-			drm_atomic_get_plane_state(state, plane);
+-		struct sun4i_layer_state *layer_state =
+-			state_to_sun4i_layer_state(plane_state);
+-		struct drm_framebuffer *fb = plane_state->fb;
++		struct drm_plane_state *plane_state;
++		struct sun4i_layer_state *layer_state;
++		struct drm_framebuffer *fb;
+ 		struct drm_format_name_buf format_name;
+ 
++		plane_state = drm_atomic_get_plane_state(state, plane);
++
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
++
++		layer_state = state_to_sun4i_layer_state(plane_state);
++		fb = plane_state->fb;
++
+ 		if (!sun4i_backend_plane_is_supported(plane_state,
+ 						      &layer_state->uses_frontend))
+ 			return -EINVAL;
+-- 
+2.43.0
+
