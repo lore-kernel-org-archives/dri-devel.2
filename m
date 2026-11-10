@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EA760A2601
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A03606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:12:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmHk+BoH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cvNOL0Qz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D9910EE7F;
-	Tue, 10 Nov 2026 08:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B57910EE83;
+	Tue, 10 Nov 2026 08:12:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2753010EE7F
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 08:10:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA8310EE83
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 08:11:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D000540370;
- Tue, 10 Nov 2026 08:10:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90FB01F0089F;
- Tue, 10 Nov 2026 08:10:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BA32D4022D;
+ Tue, 10 Nov 2026 08:11:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3E71F008A5;
+ Tue, 10 Nov 2026 08:11:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794298229;
- bh=K3Wp8UVVrf5H3V18BPbLB5d0YvAYmu8wRxAxyoQIV2M=;
+ s=k20260515; t=1794298315;
+ bh=LMRGxyiVzeg4rLe/xhj8gf6Vz3TI7nO8vgFSeQqW4sA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FmHk+BoHSRtGpvG6omrB/oqFRHTliWoq6eSEGrMxJWZsWtmz1sNRFf0xLFWgjI2i4
- 2ShqAHrGDPw1A1f+8hpDeitbGQlODuKly8Xrg53y4rOwn1LCNz5AjTN/WNsAwFUSZs
- YFtPJa0nryam049CEpdhIZ+L573TFMkgBtyse/rnOZbWnAer3OtqM6bvMr1Yv5SBD4
- IDhQoMMEAAPcAGtrvnZMCgO3TzQRduj0gjKI+g1ofE5l9hevZGuZkxMTQ6mOU/Mutl
- v9/O8Wrzk10/ch7bpEP4MnobUMc3p4sQjqEDRBqGPviS05lj+e9jLi5z2/gq0ZB8t+
- dDN07jw3ZuJ5g==
-Message-ID: <sashiko-outbox-206570@kernel.org>
+ b=cvNOL0QzCL2Yzx7arJPqFHzkNddaV4JXTSICUlgnO/dEU4VQlPi7AkVMJxRxo6Tkr
+ 1KFDVZJYLOh2LKuuDfia9q/FlJAiZOzs3riOau7vou+Ie3c3cJn5MJ9BdR//ofzUb3
+ ZX+9+2uDTVln6x3cFYeUzBff7T/9d4BMqo6DDETTJWe+hSIrEDdMapDVOlzZXKark0
+ cIWPSSdTwQwfi9P0AKFpZuo8aStvNjw/9VaQGp48O5awcFN61/e023o3K1vBerGB5b
+ gvy/PH3+Ggl5wjZhW8gjErP7HIGIkOzA1R0i+eklwzliySSduhTcTDUGPrF+JKvHsE
+ MZhACMZeACiTw==
+Message-ID: <sashiko-outbox-206573@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] drm/panfrost: Name the BOs around an unhandled page
- fault
+Subject: Re: [PATCH 5/8] drm/rockchip: vop2: Report POST_BUF_EMPTY at most
+ once per frame
 To: "Arun Iyengar" <aiyengar1990@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-panfrost-long-jobs-v1-7-24508939ae8d@gmail.com>
-References: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
- <20261110-panfrost-long-jobs-v1-7-24508939ae8d@gmail.com>
+In-Reply-To: <20261110-vop2-fixes-v1-5-d336e9dd90d3@gmail.com>
+References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
+ <20261110-vop2-fixes-v1-5-d336e9dd90d3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 08:10:29 +0000
+Date: Tue, 10 Nov 2026 08:11:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,192 +51,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] drm/panfrost: UAF on zero-refcount mappings in
-  panfrost_mmu_report_fault_bos()
-- [Low] drm/panfrost: unmapped BOs are removed from mmu->mm before fault
-  lookup
+- [Medium] drm/rockchip: vop2: stale FS status in
+  vop2_crtc_handle_post_buf_empty()
+- [Medium] drm/rockchip: vop2: VP_INT_FS_FIELD left enabled across CRTC
+  disable
+- [Low] drm/rockchip: vop2: vop2_crtc_enable_vblank() clears pending FS
+  irq
+- [Low] drm/rockchip: vop2: missing Fixes trailer for POST_BUF_EMPTY irq
+  storm
 --
 
-commit ead4ad306bba42948b358f03bb31d38d71c27615
+commit 225fca8d582460d4af5df41d587daa2368d818f1
 Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-drm/panfrost: Name the BOs around an unhandled page fault
-
-This commit logs the buffer object containing an unhandled GPU page fault
-address, or the nearest buffer objects below and above it in the faulting
-address space.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_mmu.c
-> index 13728b0c46efc..b0319d680b12c 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> @@ -595,6 +595,86 @@ addr_to_mapping(struct panfrost_device *pfdev, int a=
-s, u64 addr)
->  	return mapping;
->  }
-> =20
-> +static void panfrost_mmu_print_fault_bo(struct panfrost_device *pfdev,
-> +					struct panfrost_gem_mapping *m,
-> +					u64 addr, const char *where)
-> +{
-> +	struct panfrost_gem_object *bo =3D m->obj;
-> +	u64 start =3D m->mmnode.start << PAGE_SHIFT;
-> +	u64 end =3D (m->mmnode.start + m->mmnode.size) << PAGE_SHIFT;
-> +	u64 dist =3D addr < start ? start - addr : addr >=3D end ? addr - end :=
- addr - start;
-> +
-> +	mutex_lock(&bo->label.lock);
-> +	dev_err(pfdev->base.dev,
-> +		"fault bo: %s: VA [0x%llx-0x%llx) size 0x%zx, fault at %s0x%llx, %s%s%=
-s, label \"%s\"\n",
-> +		where, start, end, bo->base.base.size,
-> +		addr < start ? "-" : addr >=3D end ? "end+" : "start+", dist,
-> +		m->active ? "mapped" : "NOT mapped",
-> +		bo->is_heap ? ", heap" : "", bo->noexec ? ", noexec" : "",
-> +		bo->label.str ? bo->label.str : "");
-> +	mutex_unlock(&bo->label.lock);
-> +}
-> +
-> +/*
-> + * Report the BOs around an unhandled fault address in the faulting addr=
-ess
-> + * space: the one containing it (if any), else the nearest one below and=
- above.
-> + * An access just past the end of a BO that a hole follows is a GPU over=
-run of
-> + * that BO (userspace or hardware), a fault inside a BO whose mapping is=
- gone
-> + * points at the kernel, an address far from any BO at a stale or garbage
-> + * pointer.
-> + */
+> drm/rockchip: vop2: Report POST_BUF_EMPTY at most once per frame
+>
+> POST_BUF_EMPTY is raised for every line on which the post processing
+> stage of a video port finds no data. The interrupt handler only
+> rate-limits the error message and leaves the interrupt enabled, so an
+> underflowing video port keeps the CPU in the interrupt handler 50000 to
+> 300000 times per second, for as long as the configuration that causes
+> the underflow stays in place (e.g. 120000 interrupts per second for
+> 3840x2160@120 with two full screen layers on one AXI port).
+>
+> Mask POST_BUF_EMPTY when it fires and unmask it at the next frame start.
+> The frame start (FS) interrupt is enabled for that frame even when
+> vblank reporting is off, and disabled again once POST_BUF_EMPTY is
+> re-armed. A new per video port lock serialises the interrupt enable
+> bookkeeping between the interrupt handler and the vblank callbacks.
+> The error is still reported, now at most once per frame and video port.
+>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
 [Severity: Low]
-Can a BO whose mapping has been torn down ever be reported as "inside" and
-"NOT mapped" here?
+This fixes a per-line interrupt storm on underflowing video ports.  Should
+this include:
 
-panfrost_mmu_unmap() is only called from panfrost_gem_teardown_mapping(),
-which immediately acquires mapping->mmu->mm_lock and removes
-mapping->mmnode from mmu->mm.  Once a mapping is torn down (whether on
-handle close or shrinker purge), its node is no longer in mmu->mm, so a
-fault at its old VA will be reported between the neighboring "below" and
-"above" BOs rather than inside an unmapped BO.  Conversely, for nodes still
-in mmu->mm (outside transient setup or teardown windows), m->active is only
-false for a heap BO that has not faulted in its first chunk yet, while a
-partially mapped heap BO has m->active set to true even when faulting in an
-unmapped chunk.
+  Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 
-> +static void panfrost_mmu_report_fault_bos(struct panfrost_device *pfdev,
-> +					  int as, u64 addr)
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index 9aeb90c6aa4b1..3323e50224c55 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -841,6 +841,48 @@ static void vop2_crtc_disable_irq(struct vop2_video_=
+port *vp, u32 irq)
+>  	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id), irq << 16);
+>  }
+> =20
+> +/*
+> + * POST_BUF_EMPTY is raised for every line the post processing stage fin=
+ds
+> + * no data for, so an underflowing video port can raise it 100000 times =
+per
+> + * second. Report it at most once per frame: mask it when it fires and
+> + * unmask it at the next frame start, using the FS interrupt even when
+> + * vblank reporting is off.
+> + */
+> +static void vop2_crtc_enable_post_buf_empty_irq(struct vop2_video_port *=
+vp)
 > +{
-> +	struct panfrost_gem_mapping *below =3D NULL, *above =3D NULL;
-> +	u64 offset =3D addr >> PAGE_SHIFT;
-> +	struct drm_mm_node *node;
-> +	struct panfrost_mmu *mmu;
-> +	bool inside =3D false;
+> +	unsigned long flags;
 > +
-> +	spin_lock(&pfdev->as_lock);
-> +	list_for_each_entry(mmu, &pfdev->as_lru_list, list) {
-> +		if (as =3D=3D mmu->as)
-> +			goto found_mmu;
-> +	}
-> +	spin_unlock(&pfdev->as_lock);
-> +	dev_err(pfdev->base.dev, "fault bo: no context holds AS%d\n", as);
-> +	return;
-> +
-> +found_mmu:
-> +	spin_lock(&mmu->mm_lock);
-> +	/* The node list is sorted by address. */
-> +	drm_mm_for_each_node(node, &mmu->mm) {
-> +		if (node->start > offset) {
-> +			above =3D drm_mm_node_to_panfrost_mapping(node);
-> +			break;
-> +		}
-> +		below =3D drm_mm_node_to_panfrost_mapping(node);
-> +	}
-> +	if (below) {
-> +		inside =3D offset < below->mmnode.start + below->mmnode.size;
-> +		kref_get(&below->refcount);
-> +		if (inside)
-> +			above =3D NULL;
-> +	}
-> +	if (above)
-> +		kref_get(&above->refcount);
-> +	spin_unlock(&mmu->mm_lock);
-> +	spin_unlock(&pfdev->as_lock);
-> +
-> +	if (!below && !above)
-> +		dev_err(pfdev->base.dev, "fault bo: AS%d has no BO\n", as);
-> +	if (below) {
-> +		panfrost_mmu_print_fault_bo(pfdev, below, addr,
-> +					    inside ? "inside" : "below");
-> +		panfrost_gem_mapping_put(below);
-> +	}
-> +	if (above) {
-> +		panfrost_mmu_print_fault_bo(pfdev, above, addr, "above");
-> +		panfrost_gem_mapping_put(above);
-> +	}
+> +	spin_lock_irqsave(&vp->irq_lock, flags);
+> +	vp->post_buf_empty_masked =3D false;
+> +	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
+> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
 > +}
 
-[Severity: High]
-Can kref_get() in panfrost_mmu_report_fault_bos() race with
-panfrost_gem_mapping_release() and cause a refcount addition-on-zero and
-use-after-free on below or above?
+[Severity: Medium]
+Can VP_INT_FS_FIELD stay enabled permanently after a CRTC disable and
+re-enable cycle?
 
-When the last reference to a mapping is dropped in
-panfrost_gem_mapping_put(), mapping->refcount reaches zero before
-panfrost_gem_teardown_mapping() unmaps the page tables and acquires
-mapping->mmu->mm_lock to remove mapping->mmnode from mmu->mm:
+If VP_INT_POST_BUF_EMPTY fires during the last frame of a video port
+(either before drm_crtc_vblank_off() or while vop2_crtc_atomic_disable()
+waits on vp->dsp_hold_completion), vop2_crtc_handle_post_buf_empty() sets
+vp->post_buf_empty_masked =3D true and enables VP_INT_FS_FIELD.
+drm_crtc_vblank_off() -> vop2_crtc_disable_vblank() then sees
+vp->post_buf_empty_masked =3D=3D true and leaves VP_INT_FS_FIELD enabled in
+RK3568_VP_INT_EN(vp->id) when the video port enters standby.
 
-drivers/gpu/drm/panfrost/panfrost_gem.c:panfrost_gem_teardown_mapping() {
-	if (mapping->active)
-		panfrost_mmu_unmap(mapping);
+When the CRTC is later re-enabled (while another active video port kept
+VOP2 powered on), vop2_crtc_enable_post_buf_empty_irq() resets
+vp->post_buf_empty_masked =3D false without disabling VP_INT_FS_FIELD.  Once
+vblank turns off, the video port runs with both vp->vblank_enabled and
+vp->post_buf_empty_masked false while VP_INT_FS_FIELD fires an unhandled
+interrupt on every frame.  In addition, vop2_crtc_atomic_disable() and the
+err_put_enable_count error paths in vop2_crtc_atomic_enable() never disable
+VP_INT_POST_BUF_EMPTY.
 
-	spin_lock(&mapping->mmu->mm_lock);
-	if (drm_mm_node_allocated(&mapping->mmnode))
-		drm_mm_remove_node(&mapping->mmnode);
-	spin_unlock(&mapping->mmu->mm_lock);
-}
+> +
+> +static void vop2_crtc_handle_post_buf_empty(struct vop2_video_port *vp)
+> +{
+> +	struct vop2 *vop2 =3D vp->vop2;
+> +
+> +	spin_lock(&vp->irq_lock);
+> +	vop2_crtc_disable_irq(vp, VP_INT_POST_BUF_EMPTY);
+> +	vp->post_buf_empty_masked =3D true;
+> +	/* don't clear a pending FS, it may carry a vblank event */
+> +	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id),
+> +		    VP_INT_FS_FIELD << 16 | VP_INT_FS_FIELD);
+> +	spin_unlock(&vp->irq_lock);
+> +}
 
-If a GPU job accesses that BO while its GEM handle is being closed,
-panfrost_mmu_unmap() triggers the unhandled GPU page fault while
-mapping->mmnode is still in mmu->mm with refcount =3D=3D 0:
+[Severity: Medium]
+When vp->vblank_enabled is false, does unmasking VP_INT_FS_FIELD without
+clearing RK3568_VP_INT_CLR(vp->id) immediately trigger a spurious mid-frame
+FS interrupt?
 
-CPU0                                  CPU1
-panfrost_gem_close()
-  panfrost_gem_mapping_put()
-    kref_put(&mapping->refcount, ...)
-      panfrost_gem_mapping_release()
-        panfrost_gem_teardown_mapping()
-          panfrost_mmu_unmap(mapping)
-                                      panfrost_mmu_irq_handler_thread()
-                                        panfrost_mmu_report_fault_bos()
-                                          spin_lock(&mmu->mm_lock)
-                                          kref_get(&below->refcount)
-                                            <-- addition on zero
-                                          spin_unlock(&mmu->mm_lock)
-          spin_lock(&mmu->mm_lock)
-          drm_mm_remove_node(...)
-          spin_unlock(&mmu->mm_lock)
-        drm_gem_object_put(...)
-        kfree(mapping)
-                                        panfrost_mmu_print_fault_bo()
-                                          mutex_lock(&bo->label.lock)
-                                            <-- use-after-free
+VOP2 latches raw interrupt status even while an interrupt is masked, and
+vop2_isr() / rk3576_vp_isr() only clear bits returned by the masked status
+register RK3568_VP_INT_STATUS(vp->id).  While vblank reporting is disabled,
+the raw VP_INT_FS_FIELD bit latched at the start of the current frame stays
+set during active scanout.  Writing RK3568_VP_INT_EN(vp->id) here without
+clearing RK3568_VP_INT_CLR(vp->id) causes VP_INT_FS_FIELD to fire
+immediately on that stale status and call vop2_crtc_rearm_post_buf_empty()
+mid-frame, allowing VP_INT_POST_BUF_EMPTY to fire a second time in the same
+frame.
 
-Using kref_get_unless_zero() (or skipping nodes whose refcount is already
-zero while walking mmu->mm) would avoid grabbing a dying mapping.
+When vp->vblank_enabled is true, VP_INT_FS_FIELD is already enabled; when
+!vp->vblank_enabled, calling vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD) will
+clear the stale raw status before enabling it.
+
+[ ... ]
+
+> @@ -1668,8 +1710,12 @@ static const struct drm_plane_funcs vop2_plane_fun=
+cs =3D {
+>  static int vop2_crtc_enable_vblank(struct drm_crtc *crtc)
+>  {
+>  	struct vop2_video_port *vp =3D to_vop2_video_port(crtc);
+> +	unsigned long flags;
+> =20
+> +	spin_lock_irqsave(&vp->irq_lock, flags);
+> +	vp->vblank_enabled =3D true;
+>  	vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD);
+> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
+> =20
+>  	return 0;
+>  }
+
+[Severity: Low]
+Can vop2_crtc_enable_vblank() clear a pending VP_INT_FS_FIELD interrupt if
+vp->post_buf_empty_masked is already true?
+
+When vp->post_buf_empty_masked is true, VP_INT_FS_FIELD is already enabled
+in hardware.  Calling vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD)
+unconditionally writes RK3568_VP_INT_CLR(vp->id), which can drop a pending
+frame-start interrupt that raced with vop2_crtc_enable_vblank() and delay
+both vblank handling and vop2_crtc_rearm_post_buf_empty() by a frame.
+Guard the vop2_crtc_enable_irq() call with if (!vp->post_buf_empty_masked),
+matching vop2_crtc_disable_vblank().
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-panfrost-l=
-ong-jobs-v1-0-24508939ae8d@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-vop2-fixes=
+-v1-0-d336e9dd90d3@gmail.com?part=3D5
