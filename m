@@ -2,125 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF922606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:13:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A71606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUH9bsd4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C518F10E1DA;
-	Tue, 10 Nov 2026 16:13:20 +0000 (UTC)
-Received: from flow-a7-smtp.messagingengine.com
- (flow-a7-smtp.messagingengine.com [103.168.172.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F2410E48E
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:13:09 +0000 (UTC)
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
- by mailflow.phl.internal (Postfix) with ESMTP id 845011381074
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:13:08 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
- by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
- x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
- asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
- S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
- S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
- /gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
- Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
- LLVckhHoSzC+MGE1iJu5eg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
- 1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
- jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
- GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
- Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
- mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
- auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
- Tsc8Y3Jb1FgwsS6Y0dcjg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de; mf=PGFybmRAYXJuZGIuZGU+;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm2:rsa-sha256:djHWkvUMZsjzhfS8ucfYqMrknbm4+nC3cfPuO3POQshYqzs
- R7dCmknEm9GJg6twY98+Y4myULJ650kt8n6KpsNCRYSE/r+mPUEJu+kruDKA5c0o
- 2uOzKQIyc0ytr1iYiX4SJGdh197P/TwCZqoDR1HqjKAwCqC/Kc9FCUk7LkdUpgyb
- XzSNSgDA2wbXM/H3jili3RYFMS/LNwvfT3m9eMjVgtnujZEAV7F5lRz/AMdMxDUE
- CGkGEllg3Hm+onKFtG+4TDeHr0pdFDclDLCycDJubAl2E6YJrFUJd2fxSLqbanGS
- IbGAdJadlSqCwuiJ1bTcxT4nso3WoMR/K+/7buA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=12;
- hn=cc,content-transfer-encoding,content-type,date,feedback-id,
- from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1;
- h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
-X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
- <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
- sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
-X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
- Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
- XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
- DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
- +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
- wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
- D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
- DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
- LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
- x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
-X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
- <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
- <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
- <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
- <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
- id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: AK-jVwBtQCQR
-Date: Tue, 10 Nov 2026 17:12:28 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann" <arnd@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>, 
- "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
- "Support Opensource" <support.opensource@diasemi.com>
-Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
-In-Reply-To: <avM5EnC9yujUZcCO@nsa>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA7A510E48E;
+	Tue, 10 Nov 2026 16:15:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7969E10F809
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:15:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7A32E633D2;
+ Tue, 10 Nov 2026 16:15:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119751F0089F;
+ Tue, 10 Nov 2026 16:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794327332;
+ bh=Hpij1J5z8i+Ya85H6nRzIULrPiQ6sCD0zxbt1BX/ECs=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=FUH9bsd4h5XwfX/G9wwktFqVV7a5jb0fGMDjs4BPl+9INleXiIFWNmMaIkufW3eqz
+ C9zcNIK9muQpoTbJtA1xdI7WePc25X8Li5+djayT83ToVZOp7ZIyIqO6ilPJeoC38Q
+ JfuBbw90S22zJu3KkS6pa4lhAYwoQOyTvgCJMPcldw3kuPJz4kt257s8BT+KJG0tXQ
+ 6r3mvvqHrsvBhTSc5YRcMSzij+8BAyO1cqMja4Z0sGRU0FcyFv8sRKVEP2HyuQEfu4
+ zYNNl5nxVCf8Kiq+vop7dUEGMb/FJURU4AzwDzjsE+q1xjue3/vukzFqVvx58ovZsM
+ kThHL2jR/N+8g==
+Message-ID: <sashiko-outbox-207348@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 21/28] drm/panthor: Request AW to yield GPU access on
+ idle
+To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110153907.3241978-22-karunika.choo@arm.com>
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-22-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 16:15:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,66 +48,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
-> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
->> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
-ote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/panthor: dropped YIELD_IDLE command in
+  arb_sched_next_locked()
+- [Medium] drm/panthor: dropped GPU_REQUEST in
+  panthor_arbitration_sched_on_request()
+--
 
->> > drivers/iio/adc/ad7793.c
->> Maybe. Analog devices ack needed.
->>=20
->> Production part but this one indeed fails to probe.  Analog
->> folk, do you want to fix this one up?
->
-> Given it's production we should fix. Looking at platdata seems to nice=
-ly
-> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
-> just remove platdata and assume some defaults.
+commit f99f87c6e1d4cdf3c37b5e1e28569f0fc943d72a
+Author: Karunika Choo <karunika.choo@arm.com>
 
-Sounds good. I already dropped my removal patch for this one.
+drm/panthor: Request AW to yield GPU access on idle
 
->> > drivers/iio/frequency/ad9523.c
->> Maybe. Analog Devices ack needed.
->>=20
->
-> Hmm we definitely use this one and we have OF support out of tree with
-> likely some DT abuse of what can be in DT or not. Not sure if I have
-> some HW around but we'll need to fix it.
->
-> In general for ADI parts, I think we can drop the ones that are not
-> recommended for new designs. All the others I tempted to say we should
-> keep. Naturally we need to fix all the drivers that do not compile
-> without platdata. And for the ones with defaults we can also just remo=
-ve
-> platdata and use the plain defaults.
+This commit sends a YIELD_IDLE notification to the active access window
+when other access windows are waiting in the arbitration scheduler queue
+or when a second access window requests GPU access.
 
-Ok, I'll leave it alone as well now.
+> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sche=
+d.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+> index 16bd0fac2514e..f137b73deaa32 100644
+> --- a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+[ ... ]
+> @@ -382,6 +394,10 @@ static int arb_sched_next_locked(struct panthor_arbi=
+tration_sched *sched)
+> =20
+>  	arb_sched_grant_locked(sched);
+> =20
+> +	if (sched->phase =3D=3D ARB_SCHED_PHASE_GRANTED &&
+> +	    !kfifo_is_empty(&sched->queue))
+> +		arb_sched_yield_idle_locked(sched);
+> +
+>  	wake_up_all(&sched->waitqueue);
+> =20
+>  	return 0;
 
-I currently still have patches to remove adp8860/8870 (backlight), ad7877
-(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
-are currently unusable with DT but are all listed as in production.
+[Severity: Medium]
+Can arb_sched_yield_idle_locked() silently drop the YIELD_IDLE command
+when called immediately after arb_sched_grant_locked()?
 
-I assume you want to fix all of these and keep them in the kernel,
-but possibly still remove the adxl34x and only keep the IIO driver for
-that part?
+arb_sched_grant_locked() calls window_open(), which writes
+PART_CMD_OPEN_WINDOW to AM_PART_COMMAND and returns 0 without waiting for
+AM_PART_STATE to leave PART_STATE_RESET.  When arb_sched_yield_idle_locked()
+then calls yield_idle(), AM_PART_STATE can still read as PART_STATE_RESET:
 
-I also have patches to remove platform_data probing from ad5761, adf4350,
-ad5791, ad5421 and ad5504, these all have DT support.
+drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:yield_idle(=
+) {
+	guard(spinlock_irqsave)(&pc->lock);
 
-See=20
-https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
-?h=3Dboard-remove-7.4
-for the updated series. I hope to slowly get through that. Let
-me know if you want me to skip any more of those patches.
+	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
+		return 0;
 
-Thanks,
+	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
+		return -EAGAIN;
+    ...
+}
 
-    Arnd
+Because yield_idle() returns 0 instead of -EAGAIN in PART_STATE_RESET,
+arb_sched_yield_idle_locked() does not queue PANTHOR_ARB_WORK_YIELD_IDLE,
+and the active access window holds the GPU even while idle until
+grant_timer expires.
+
+[ ... ]
+
+> @@ -551,8 +573,18 @@ int panthor_arbitration_sched_on_request(struct pant=
+hor_arbitration_sched *sched
+>  	 * Grant timer for the current AW has previously expired, request it to
+>  	 * yield the GPU.
+>  	 */
+> -	if (sched->grant_previously_expired)
+> +	if (sched->grant_previously_expired) {
+>  		arb_sched_request_stop_locked(sched);
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * GPU was previously granted to a lone requesting AW, YIELD_IDLE was
+> +	 * not sent to it. Send YIELD_IDLE to it now that multiple AWs are
+> +	 * requesting for the GPU.
+> +	 */
+> +	if (sched->phase =3D=3D ARB_SCHED_PHASE_GRANTED && kfifo_len(&sched->qu=
+eue) =3D=3D 1)
+> +		arb_sched_yield_idle_locked(sched);
+> =20
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Will panthor_arbitration_sched_on_request() drop a new GPU_REQUEST from an
+access window that just yielded due to YIELD_IDLE?
+
+Unlike arb_sched_request_stop_locked(), which sets sched->phase to
+ARB_SCHED_PHASE_STOPPING before sending PART_CMD_YIELD_NOW, sending
+PART_CMD_YIELD_IDLE leaves sched->phase as ARB_SCHED_PHASE_GRANTED.  When
+the active access window yields on idle, it receives
+WINDOW_IRQ_WINDOW_CLOSED and can issue a new VM_ARB_GPU_REQUEST before the
+partition control IRQ processes PART_RESET_DONE and calls
+panthor_arbitration_on_stopped():
+
+drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c:panthor_arb=
+itration_sched_on_request() {
+    ...
+	if (test_bit(aw_id, sched->queued_mask) ||
+	    (sched->active_aw_id =3D=3D aw_id &&
+	     sched->phase !=3D ARB_SCHED_PHASE_STOPPING)) {
+		dev_warn(sched->dev, "%s: AW%u already in request queue.",
+			 sched->name, aw_id);
+		return -EEXIST;
+	}
+    ...
+}
+
+Because sched->active_aw_id is still aw_id and sched->phase is still
+ARB_SCHED_PHASE_GRANTED, panthor_arbitration_sched_on_request() rejects
+the request with -EEXIST, leaving the access window to time out in
+panthor_aw_request().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
+978-1-karunika.choo@arm.com?part=3D21
