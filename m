@@ -2,101 +2,139 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BBF606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 22:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCCB606A327
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 22:44:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LImKCfbG
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jCPorHTg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4F9810E031;
-	Tue, 10 Nov 2026 22:20:47 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D78CD10E382
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 22:20:41 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-6b2237b596cso5587139a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 14:20:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794349240; cv=none;
- d=google.com; s=arc-20260327;
- b=flB7ARPFQBe/U/8Vf6lKVw9I1fVB2YA52FZa0Gndrih225X5eQzi5e1rchVnTJgexX
- sdQZk+c3qOpaOBZwbRmOzAo1VZ5bHSz+5R0dZm/3XBxyfLOkOrdTCfLwnHP8Trvu0yOH
- CQVGfqWmUpMKLKwYnWQdh6Fps70cJXRwpNeD7X7Yy2eMDjcT5NY2OotMi18oq5CvN4/8
- ffA31j1n6orDmdFajwbjXNrB2A+YVM2UCwNinxNH91Dp3rYWOyJ5iUFDg8EO0cA6ejGw
- qQvSIFJ6zRjn0QQGwRm7JgUjOO7su5Y4F/M14Dc2jUj8upK/VIARaJ2SyXlnbnwB1caY
- 3OKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- fh=/Gf4wAWTX3WuOD4H14ZaCpd7ApX7J4ROTH7/eviOvKU=;
- b=bd/O04/dioLNOqavQBoM0r5VF1+cO1vEOJG7dxnvhQbw7gkOTLEjV5XO/dD8bKwB8/
- z4wzjCPidRWxGPVNmFU3GApa9uC+fuKfQrba81ylv8+E7aX6vEdnVLQSbnfxYHKi83MA
- 080EaOFb828eI37smJ9A7tqn0VOtI5tVJBBheU82BuyhoYIVXs5R8LKdb0amWZCX9gFM
- H3JxFr0Kd1QwYwVw2KVTpEjJC4gP05l/kfFYy2zZsDHG1kUXS5bfzR6xyaW3HW0WmIWx
- IELa+hmsfGWh588mRFsFmp6fYWH5//R8f3Iz8kJCJTiUPoak5hTZH9coUZx19j4klpnu
- DQRA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794349240; x=1794954040; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- b=LImKCfbGmx+1FDeOMzEPrJOGjTdFIiXW4T8Z5MlBotn71iOBONrZf9sK/XjLaVNj/z
- rVZKRnFFc+WpOWMdgwddBMlllDTPKMbwWwmcxzIwTWhtQ8u46TPyI9BaFUZg3IrAZ9d2
- yvrbQpNeESO24wOgFY9S7IO23PaaNxAbO1ZDUBEy0QnfdQZPquaZngncJVvaoTSZxwFH
- 0vK0SnlG0SpkgGdpCedd7M67t4mD3JC1HHV8X1B1FZnoxavmIJ5qcSaMGlnSwHy6jqNA
- ZOTZ+NI42qvfZ88JwqZmtgaK3+7JBMX6OmHgKMf3H8t/CdfJeH2bodKnb19GYih2Vdwb
- aJTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794349240; x=1794954040;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- b=BpiDP18t4djTQhrfKzo7tpJUFscJ03UnS/PpBi6fa/9t/vnj/XIq9VhGcd0V73P/mJ
- Ft6l3oDOKCOelqXsM1gMfSvDqQoFqVp/sX4K4tz6Sw+GozGzVqcE8G/ewovMV8sRVZxw
- 96Z4HWPl/0InTKAvvkZs6Sd53WASCVXqGiJ94gpWjOWHi2LmmbZ5BNwmQo5zKXDCppWT
- KUqJIip+0I9oQsLrTz7RnBaEn59NRvNPx+pZvfHwcwqrItIhId3/fTpr+NVQ41DX2Dma
- yfEO0WhPVsgQtljdOiXI+cMSq7cFc4Y7ERW53YsQ9dMb0ncNt23Z7u4OEPjeUNJRYQql
- Jsrw==
-X-Forwarded-Encrypted: i=1;
- AL+hErE+Ta+mMVxL2xeASw0cCGx5OLYEFP51SsqgXSRSk+ZHr4GtnZqX8e+2KBPnXaRVWKXotAT4GmVpn2o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8pRS/sN6HEV88100wejkgg30V3chT7wOfJCbIKpPUy6f9/xSRL
- b7YlkR2gnnI6wjRXJE4N8NU1LkBc1c+93PCdhdPm3JSjExkbFKNOMG+FiXulG9Hj3Pkp6oFHfT6
- UpnU+oi9qi0ybKdls2cC1XFAJ89CshgQ=
-X-Gm-Gg: AYBFou3iaCnLVkQOU8VELT2XwGxopoDOsbIXJ2GUyH6iiCHGktmz/s0RcfUjmS5DLNe
- ILbFcNYj5XrhjEOUeAviXQTmN6cKphCPrFl0kt1SkNN9jNZjOzXX+78IGrto5UCIkV1Y7iDaZzy
- 1ZlmgfsU2hWAd562G1cIb0vFTDypk4IeSsS1fxyF46CRsmsMC2jVWJg3g1+ySd3iAlwxxWF3vM/
- Eg9+oZMYWCtOvZCgUo6AduJ82WuBSoLzueqQYpvqyuGOzFPQs2/jYegYGcDoYfJwnUNwF7LOQTT
- vk5wv/szx75TW1A3+bygOoKUnHdb9ytrUdmZ5xPHzQMIf3ooA0THDjN4igUDSRuPl4MjruxUl8X
- DYU/5NpYXEPd9OnECy0IZ96e556ezK33+fBh+9OU1AV9jJHWR7CHyFXIGzzFfZvt13xLMkt7n
-X-Received: by 2002:a05:6402:2279:b0:6b4:e433:ee16 with SMTP id
- 4fb4d7f45d1cf-6b777832d28mr414278a12.43.1794349239980; Tue, 10 Nov 2026
- 14:20:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265BC10E03C;
+	Tue, 10 Nov 2026 22:44:39 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013029.outbound.protection.outlook.com
+ [40.93.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB94F10E03C
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 22:44:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cAU+eBdkdyVjSM1Xz+d0NcrgdbebZPIK/dz3oB/00a+8Dp9QGDRa3XHHgFLRSUE+0sOfoHVwaE84MMu2FSt/iBbIWxffHwZh++J3oxs+X4dLfm6bECTYnYxadgcxYZlKIO6w7z8bp32VSw8rjtG0sFZzx4Gf1//8bhB85W8RQHS0TG2rHLtUSDARKtrFHz8QiA25Nn32AflyWcMgPQwEQjUXjbU8XTvPYhKr/qcTakEY0V6mqtt0nDkzt0Q2bTU47E7iaPURLHgwjJXcQpwvmMUJD8lOLAy35dQo19HfQyrb6xI3GlONklDnsA5aWo5GwvPE77aE8jWr9wgnOdei0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4C9NbM+1wkE92zwEzA1poagYe2zKbZNc/NpPLZr8HZw=;
+ b=aYBZIUWIFj4mKWB+Ax0ieNeWlQ3NuJjJoAuUKf+Hb3B/fngv/OrBr5Eepidpn1+009RNZK1S5UPLdKzf+519O8F/ECrDOTZBM6mJwwoAKAAPO2R3fGIE6wrF3c4BcxrnSTRjQpolHogXkDqX3wyt+JwvsiUxs5gaT3XCzEz1vkTYfNYDztyWspzVvFPRXPPUeLc7/VfjV0FunyhbGhSGK9f9Mxz/76120RXKMJ9aiG93Knym9UrFBjoo+oOEu7ICiA7CmSQrhfhX0V/NjQUgOV1C1xw++B1Z0W3nJeUZK3uFCixMSXBXXdD9Ahv5HJT3Vwsle8zBqin4kQ/Z9mg09g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4C9NbM+1wkE92zwEzA1poagYe2zKbZNc/NpPLZr8HZw=;
+ b=jCPorHTgza87kNBKNGrTUKTfJ9yiD01YmAVbpHSDNET4eXE4icl3TRaHieQYfM9Q7pHcivfCpW9UVvx0OyTpJKEiGcr7DYVHEjtqNGaeCF6p7e/n2rF76FAAebN3TETpFtFvoC6i9zw9yr6eicO+JQJ/yAOLmRR+b67woNDMLvv6Y9z4MJ0SvBzsuZL7iM4RyXibbcHkIsUuTTy4CZxjmfehNQihVtmvcbbzP/tTXT/ui7oY2N7JXNYHWG/s7QXLGqfY02W5uAAFz2eBct5OJI7iJ3Hc0fYvpHFS6wH+0A/DybeIU/NxmLldsOdR6tMt7YV/h1y+vpsxtP+41ml4bA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DM4PR12MB6301.namprd12.prod.outlook.com (2603:10b6:8:a5::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 22:44:23 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 22:44:22 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 07:44:19 +0900
+Message-Id: <DMRW81BTJRI1.6KL933YC1FM8@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Yury Norov" <ynorov@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
+ <20261109-chid-v11-4-082aa9bf5a91@nvidia.com> <avNXkJjOoTzUu-1r@yury>
+In-Reply-To: <avNXkJjOoTzUu-1r@yury>
+X-ClientProxiedBy: TYCP286CA0247.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:456::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-In-Reply-To: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-From: =?UTF-8?Q?Andrzej_Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-Date: Tue, 10 Nov 2026 23:20:03 +0100
-X-Gm-Features: AclHuK9T0jEWuuyeKcsaFJF8n0gaPG1UTvH-Fz13rz1eUpDPmmJS8CQsHVhEDC4
-Message-ID: <CABwS-fbOhshTN1KQV81LNRmyZ9cOvJsHgyYnOQvosLUF87iAog@mail.gmail.com>
-Subject: Re: [PATCH 0/3] drm/amd/display: HDMI FRL training fixes for slow
- sinks
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Relja Vojvodic <Relja.Vojvodic@amd.com>, 
- Ilya Bakoulin <Ilya.Bakoulin@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB6301:EE_
+X-MS-Office365-Filtering-Correlation-Id: d89d5994-c6c8-4191-8651-08df3f7c2a29
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|10070799003|366016|1800799024|4143699003|56012099006|11063799006|261021121427099003|261022105027099003|10067099003|261026140227099003|261026121527099003|261021123027099003|261028144727099003|261021135927099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: EfYbyJ9urD5iYDKTaQi7aqgwfHaUyjtJ1n8AVBJbWsX9X1u5oBqu3H3v4zCrLh52siULAKzBd6BdWhjUNeluPzp5GIqKPbzL8MbhEcTSpMga501wx3Z6Jvp/RDNou5X2OL/wXmFG/lMvR50+LOCuwe9eirSCwLTebhysA7rco88lFxJDLSKzpTvAKBt+8V+eH/3uV00PoIFzkQh5se7psLvqFKeLL/hur6eSkuV1ZC8VbOPwqDR8HEBCWPKOXgZzRPBv2oR3tXqI1Lth+IOnJSX7ciKte+3+4+IIf/71T4kmy7eDu24YyTOqHDnMCa6yUWCSI23kgOVMDRgovm698xfbK3g1GHmmFs+A7rH9gJ1m6WN5OlJcCsaOk2xLy2qOe9yENqI+y5xnBHIpRDbRVYm0tMdykK3hf4B4Yhe/57jMhbRbFY4sI1qcCT6GoXXAFZSwEPc00VNBIdvfS+/qOYGFJoNIn2BYSSA3aobBXjBcMM0lOziSuSSO/UKiDdoRuksZI+BXOSPzJztfLPaLvkd/tQddEYMakK+WJ8rGyjdfypfhfCONyEkQtN3lswjoPN9YmoOIUNFjmTvDxPpZC1AjOaqB2z9HQb19riJm6krIFuCFLKePqaW4w1uucUaiT6MbbpYV3vAn49I4aExnPM0kZ5ah3Knr3hoa1OcP0KM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(10070799003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(261021121427099003)(261022105027099003)(10067099003)(261026140227099003)(261026121527099003)(261021123027099003)(261028144727099003)(261021135927099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUtqcnAralRkQ01iRXArcXJaRVVhZUoyOE00Q0JFTDRBZDcvWGFvdzJERHR0?=
+ =?utf-8?B?MjIzaDkxZkRJM21GaEY0UlAvSnloOFZOaWpIL0tZYXZzd3lHN25NVjR2VE42?=
+ =?utf-8?B?UFZPaVZNY2VQQTVzaUN0VDlQVFdVWkNTdXA4NFJCa29ZNy8wK3o1RWJSU3Ru?=
+ =?utf-8?B?MEYzcjZ3TGlLenRkZHhSMWdGNUx4cHhwRG5DdUlvS1Q2UFNFS1FMSVN0M1VU?=
+ =?utf-8?B?emRnUkxlK250RWpsZTNmNlJUSnQvM1ZteWJIMGQzMU1lVzlqRS9jT283eWJl?=
+ =?utf-8?B?YWExWHRrRnB6RGxFVUVkTDIwK2JZTkFTMGhLTlJRZm04bFlNNnA0YjlqTHAv?=
+ =?utf-8?B?ZDJSUDdybFBOVlVPTkdIQzMzd3ZSVDFRRERNTHZNSkpwZ0Y1VjVwR0QyTzNG?=
+ =?utf-8?B?cjFWR05icndBbXBvaVNHRUhjUW1wNmVKZURwRHYwV1p3MjlxcVNkSkF3SmFF?=
+ =?utf-8?B?aUQ2Qko2RnVTcHlTWEpNTjF1cmtWOERKR2hYdEpuK1JlVHFlZFExYlVLUjhj?=
+ =?utf-8?B?YWV2aTlKZ09iQmFtQ0t5QlBEUzBQem95aWlFZVFQQ285dTlqTlNtYWNrMTRI?=
+ =?utf-8?B?ZUJ2ZERGT1o3SnpOeHdlc044MlRVYWtEcit6MWsyR3JRRnVWYjVXZlQ2T3Y3?=
+ =?utf-8?B?cCtOVFZ1NE1GU2ljc3ZlU0VGYkU5MUJCYk9xMFhHMktQb2NhWlQzNmN4TTg5?=
+ =?utf-8?B?bnBIL0tXNG54M3RYcnJqRW9FY0F3anlRd2VTOEtFT0NlWXk1cExCSzhMRjVH?=
+ =?utf-8?B?dFFYMUdySUwwOHM3YnJSME1PcGM0aFFkNkpUV3RnQTlzNEpjZ3FKSU12SmVM?=
+ =?utf-8?B?ejMxUEl0MXAwTEcxc2JPcG53SEpGOFQwNFBLQ3F4NXNKUHhCekhCTlJJVjVT?=
+ =?utf-8?B?Vk1TVWJjME9JUVJMREpTVy94ci8xWTdManVJbEJvZjJ0SXJVSmdydDdKR2hm?=
+ =?utf-8?B?SEo3b3VURmovVE1HaUgzS0pyemEzME5RWjduU1dOL0h6bEJxYmx0anIrZ043?=
+ =?utf-8?B?bUZ5SkQ1MnJsSE4xdFAzbURPVHI0TWxFY2hzLzlDaXl3WmdUd09OaXBzcHJ1?=
+ =?utf-8?B?dGFNcWx6enFGeDUxM3hjZWJUQXZVQUt5ZjFWU1hhNXQ3UjZOL1RXdVBwVnFE?=
+ =?utf-8?B?M05FV0hhNFRzdXFySnkyVXZZTDVSdGFqZ1FjQTBKVjd0MlE0c3VVcnlrS29V?=
+ =?utf-8?B?Mm1tQU96N25KWlRSKzNWRGdBOTdFR1R1QjNwRnlIa0VsZGE1Qmw5amdST01W?=
+ =?utf-8?B?SHo0S2NxcUl5Z3ZhSllvRUJRTWVaUCt2UDhKQ2I2eUZrNWNjcWQ4MDhldDcx?=
+ =?utf-8?B?QzBFbEdkQzJKRW1TK0lPTVhWNTRqK1Q4Mm1GbDlORmtkSE8wYkYrbk0wa0M2?=
+ =?utf-8?B?V0l4MXdZRzFjN1pzYktYZzVKeVZtekZvcWZMQ2pBZDhLVnAvczlFK2lPWStp?=
+ =?utf-8?B?YU9GTFN2MHlLaVdQWTM4NmJ4UytIOGJXayswWVlaQmpCckxIdng3MjZkVUpS?=
+ =?utf-8?B?NERhZTB6VmUvSVpTb1ZzVDZwYVFxNHM4NEpQOUh1YUVBbEp4QmZ4d3RrNS9q?=
+ =?utf-8?B?VndoV0oyeE1JdG5GZi92SXk1VTRxOEgwWFg5dXkveTNDd212Y0s2WHdyUmgy?=
+ =?utf-8?B?dll6SzBoYks0ajUrVm5IMGloNXIvZjFCSURBbUJDR0QyYW5BbUk1UmlqNTFD?=
+ =?utf-8?B?LzdpTENGRXdlbzdOUVhyZW1qVG9uVEdLZ1A2ZWtpaFUzZDhXZy8wNlR1bS8z?=
+ =?utf-8?B?ZUhmNWMyaUpZOElXVXovN0piY0xwVmMwR01YSkNtWk9CQjRrUXZLYzZqZkNU?=
+ =?utf-8?B?QU1XZlhZN0R6emd4Nk1OdzgvbTZyb3AwSUo1N0NVWk9KaTFqeFc3VWlQZlVT?=
+ =?utf-8?B?N2JsdUlyY0hMQlduVWRPWTRKYTVmd0lzdUZVREthamtGaXArNzl2cVB3VkhV?=
+ =?utf-8?B?Mkpkd0RHNHY4UE82WVQ5ZFp1UnJOMzlySU5oMHdyNGhOYUVaNGs1cU9rcEZ6?=
+ =?utf-8?B?bnk3aEcrcE5nK0lUbDI2bGVhWHMzZG5xbS8yMWY2N3RrMVZ5d1R6QkkrZFc3?=
+ =?utf-8?B?ZDFvZTZnSXUyUlprTUNiQlcvTklXWTFnM2w1RFR4M213SVY0SEk5MFJ5V21B?=
+ =?utf-8?B?cm8zWmxwUWtDQ0NIRUpXZVdJbFhNdlJaVTluLzAwVWJTdXZpMk1YeW5Qczhr?=
+ =?utf-8?B?a2JoNU0vcDh2SllMRWZkTjZFYmhWVzZyNHh2bDloZEdIN3ZNTnlodjFha0hL?=
+ =?utf-8?B?M0pKQWV1QUJLSVJWUi9RR0wrR3Q1RVBzL0lJWUorc2FDSHdmUnNrYk5OK0Fj?=
+ =?utf-8?B?cmJ4ZXAyVzdyUVNXRU92QzQ4WDA4eUhudVpDQXJvWkZEQnpjZDAvS212TUs1?=
+ =?utf-8?Q?ot6YK7G71pX1fCAdYLxHbcqj0aw0AS8v7egG9M0FuxPZb?=
+X-MS-Exchange-AntiSpam-MessageData-1: xuvSApzMOswgMg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d89d5994-c6c8-4191-8651-08df3f7c2a29
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 22:44:22.7707 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RnRWynyKFQTQzjCR6ZPSQFElrg8YIZJZ1rf2RQ/hPQLooXjJNqXUW3oG6HT9IHJyakzgx/AGSjuvFrfLR7phWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6301
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,60 +146,130 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Please drop this series.
+On Wed Nov 11, 2026 at 2:42 AM JST, Yury Norov wrote:
+> On Mon, Nov 09, 2026 at 05:32:52PM +0900, Eliot Courtney wrote:
+>> Current code in IdPool::with_capacity rounds the capacity up to
+>> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+>> smaller than this and still uses an inline representation. Remove this
+>> behaviour.
+>>=20
+>> This allows specifying a real capacity of 0, which was not previously
+>> possible.
+>
+> How real capacity 0 became possible? Did we eventually find a use case
+> for it? If not, it should not be possible, and the implementation
+> should not explicitly handle that case.
+>
+>> This breaks `grow_request` in this case, so change it to grow
+>> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+>> `shrink_request`.
+>
+> Not the grow_request only, I believe. I recall the discussion about
+> panic on most operations on a 0-bit pool.
 
-As Sashiko pointed out, patch 2 raises the LTS:3 timeout past the HDMI
-T_FLT limit, which commits f38686268b0d and 007834be6760 tuned for
-compliance. I'll send a v2 that keeps patch 1 as a general fix and
-enables the rest only for the affected TV, through an EDID quirk.
+You have panics on most operations of a pool of any size if accessed out
+of bounds. Zero size is not special.
 
-Thanks,
-Andrzej
+> =20
+>> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+>> Reviewed-by: Burak Emir <burak.emir@gmail.com>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+>>  1 file changed, 32 insertions(+), 6 deletions(-)
+>>=20
+>> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+>> index 92eeb7caa243..f77bd90325ff 100644
+>> --- a/rust/kernel/id_pool.rs
+>> +++ b/rust/kernel/id_pool.rs
+>> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+>>      }
+>> =20
+>>      /// Constructs a new [`IdPool`] with space for a specific number of=
+ bits.
+>> -    ///
+>> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE=
+_LEN`].
+>> -    ///
+>> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>>      #[inline]
+>>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, =
+AllocError> {
+>> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>>          let map =3D BitmapVec::new(num_ids, flags)?;
+>>          Ok(Self { map })
+>>      }
+>> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+>>      /// let resizer =3D alloc_request.realloc(GFP_KERNEL)?;
+>>      /// pool.shrink(resizer);
+>>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+>> +    ///
+>> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+>> +    /// assert!(pool.shrink_request().is_none());
+>> +    ///
+>> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+>> +    /// let small =3D IdPool::with_capacity(8, GFP_KERNEL)?;
+>> +    /// assert!(small.shrink_request().is_none());
+>>      /// # Ok::<(), AllocError>(())
+>>      /// ```
+>>      #[inline]
+>> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer)=
+ {
+>> =20
+>>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if po=
+ssible.
+>>      ///
+>> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`]=
+.
+>>      ///
+>> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// use kernel::{
+>> +    ///     alloc::AllocError,
+>> +    ///     bitmap::BitmapVec,
+>> +    ///     id_pool::IdPool, //
+>> +    /// };
+>> +    ///
+>> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+>> +    /// let mut pool =3D IdPool::with_capacity(1, GFP_KERNEL)?;
+>> +    /// let resizer =3D pool.grow_request().ok_or(AllocError)?.realloc(=
+GFP_KERNEL)?;
+>> +    /// pool.grow(resizer);
+>> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+>> +    ///
+>> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+>> +    /// let resizer =3D pool.grow_request().ok_or(AllocError)?.realloc(=
+GFP_KERNEL)?;
+>> +    /// pool.grow(resizer);
+>> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+>> +    /// # Ok::<(), AllocError>(())
+>> +    /// ```
+>>      #[inline]
+>>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+>> -        let num_ids =3D self.capacity() * 2;
+>> +        let num_ids =3D usize::max(BitmapVec::MAX_INLINE_LEN, self.capa=
+city() * 2);
+>
+> You only need this max(...) thing to fix the behavior of 0-len bitmap.
+> We don't have any users with the request to support them. Please don't
+> add any extra code to handle unwanted and unsupported cases.
 
+No, this code is a side-effect of the pool not being rounded up to
+`MAX_INLINE_LEN` (note how the `max` moved from `with_capacity). It
+would still be there even if we did not support zero-size.
 
-wt., 10 lis 2026 o 14:15 Andrzej Pi=C4=85tyszek
-<andrzej.piatyszek@gmail.com> napisa=C5=82(a):
->
-> With FRL on by default since commit 5fd3b60d9b80 ("drm/amd/display:
-> Enable HDMI FRL by default"), an RX 9070 XT mostly trains a Samsung
-> QE65Q80T (2020) at 6 Gbps x 3, where 4K 120 Hz needs DSC. Windows on
-> the same machine trains it at 10 Gbps x 4.
->
-> The TV needs one TxFFE step at 10 Gbps x 4, but requested levels never
-> reach the PHY; with patch 1, the driver programs them right away. The
-> TV sometimes answers an LTP request only after up to 967 ms, while the
-> driver waits only 220 ms in LTS:3; patch 2 raises the limit to 1 s.
-> After waking up, the TV can stay silent at 10 Gbps x 4 for up to about
-> four seconds, but link verification gives up on that rate after one
-> attempt; with patch 3, verification tries the same rate again first, as
-> the enable path does.
->
-> Tested on 7.3 with an equivalent backport. Without the series, 4 of 6
-> boots and TV wake-ups ended at 6 Gbps x 3. With patches 1 and 2, 16 of
-> 20 reached 10 Gbps x 4, and the other 4 are the case patch 3 handles.
-> With all three, all 63 boots and TV wake-ups over 12 days reached
-> 10 Gbps x 4. In 13 of them the sink stayed silent at first during link
-> verification and answered after one to three more attempts at the same
-> rate. On amd-staging-drm-next the series is build-tested only.
->
-> Andrzej Pi=C4=85tyszek (3):
->   drm/amd/display: Apply requested TxFFE level right away in FRL
->     training
->   drm/amd/display: Wait up to 1 s for slow sinks in FRL link training
->   drm/amd/display: Retry the same FRL rate after a sink timeout
->
->  .../display/dc/link/protocols/link_hdmi_frl.c | 56 +++++++++++--------
->  1 file changed, 33 insertions(+), 23 deletions(-)
->
->
-> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-> --
-> 2.56.0
->
+Forbidding zero-sized pools would actually require *more* code in this
+patch to enforce that rule, and would not allow us to remove any in
+exchange afaict.
