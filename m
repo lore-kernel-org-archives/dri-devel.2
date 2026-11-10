@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03253606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:49:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C296B606A325
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvsEJrAy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMkWyIN7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3626210E02C;
-	Tue, 10 Nov 2026 16:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E773C10E039;
+	Tue, 10 Nov 2026 16:50:44 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88E510E142
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:49:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303EA10E5F8
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:50:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5DC2143AE9
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:49:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230181F008A2;
- Tue, 10 Nov 2026 16:49:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15E354504F;
+ Tue, 10 Nov 2026 16:50:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CECC51F008A5;
+ Tue, 10 Nov 2026 16:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794329382;
- bh=bzslCrHQCwB8fYjytqgsR/UGO4YI5hP89ZJZZA3PW2w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HvsEJrAyrBQrbc2/SlSlVHmK825Rj6bClNnkRAFfx+pVEdooukjrw2kkpmovCsU8G
- jN0+RTwSBvj8ULhAl+KGO8CIX/2YILw98OJEGf+XUNmBgH9O6ghsAmMVrq3l3RwkIZ
- nbinAVs+GCCiAcwDCk9087B/HO0YUl2g5Wr01vsgobKAvkGs2ekjLWrYqKdjMk6qPk
- xe90vDSYsEp/6Lr/LJTIp5fGdEfnIf2GEorv7m/ajFq3+RRDW37MwJZnpIOEJkcGnm
- hdvexTSN4UXGNd20OFGYwWbY5uVCiTWeoDdM9UAEFdqiqd3NQVgsjjft05TcyuVZjj
- oaagi56qj8Kaw==
-Message-ID: <sashiko-outbox-207416@kernel.org>
+ s=k20260515; t=1794329438;
+ bh=Gj80cEpUFU62uslEx6ZDNzSu655g76QPxINlJBB6oxA=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=YMkWyIN7h5Ff+B5uR5X6Ez/gxe1pYzhmrzeVLVJ56O9dblviVZ/+C+zehkduBi/5G
+ I8hnQ1mwC3qoCx1oww7sySm4gAdXE77yR4m2EI0ZKAU6Q9gtHaNv9H93B9Ptl1q8oM
+ j68xCXCqs/rq2yzPPyWc15QC2VoBvz4tWhSZlaZ9isK1UFTSEHdjSg8kHwNp4foYuy
+ Vfk8qiaPB3kXK2s+rf89aPsnXfWviLowLYkFHIhm4FfSUGDkSSmJuFxuJd//8+3OQk
+ nf/a4wi76YoXHKrpsWhiRxnpDLIROAmP2qXkgLxZmZbtxBO3Q7ExZ6IV+oCR4QcM2M
+ vHqZGK+gmIoYw==
+Message-ID: <sashiko-outbox-207417@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 04/10] drm/atomic: Allow filling a commit with
- pristine object states
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-drm-reset-state-flag-v9-4-ddb0e26324a0@kernel.org>
-References: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
- <20261110-drm-reset-state-flag-v9-4-ddb0e26324a0@kernel.org>
+Subject: Re: [PATCH v2 25/28] drm/panthor: Route HW component PM through
+ access windows
+To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110153907.3241978-26-karunika.choo@arm.com>
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-26-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 16:49:41 +0000
+Date: Tue, 10 Nov 2026 16:50:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,231 +58,311 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issues to consider:
-- [High] drm/atomic: race on plane->state in
-  drm_atomic_commit_fill_with_defaults()
-- [High] drm/atomic: preserve normalized_zpos in
-  drm_atomic_commit_fill_with_defaults()
-- [Medium] drm/atomic: unleased connector pull in
-  drm_atomic_commit_fill_with_defaults()
+- [High] drm/panthor: missing panthor_sched_suspend() in
+  panthor_aw_post_yield_work()
+- [High] drm/panthor: race between panthor_aw_ensure_gpu_access() and
+  post_yield_work
+- [High] drm/panthor: endless AW yield-request ping-pong from
+  panthor_aw_post_yield_work()
+- [Medium] drm/panthor: panthor_device_resume() treats -EAGAIN as
+  fast-reset failure
+- [Medium] drm/panthor: __panthor_aw_suspend() leaves state as
+  SUSPEND_PENDING
+- [Medium] drm/panthor: unhandled -EAGAIN from panthor_aw_resume() on PM
+  paths
 --
 
-commit 0fce0c540da05484e00eeed0228bcc4903e9743e
-Author: Maxime Ripard <mripard@kernel.org>
+commit 4fae2615b4ec401e9748b231f8ea063e488e1f9a
+Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/atomic: Allow filling a commit with pristine object states
+drm/panthor: Route HW component PM through access windows
 
-This commit adds drm_atomic_commit_fill_with_defaults() to populate an
-atomic commit with pristine default states for CRTCs, connectors, planes,
-and color operations via atomic_create_state().
+This commit routes hardware component suspend and resume through the access
+window layer when AW support is present, defers post-yield cleanup to a
+workqueue, and updates panthor_device_resume_and_get() to ensure GPU access=
+ is
+granted before returning.
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 7a77051096c91..b469a8169ca6d 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-
+> diff --git a/drivers/gpu/drm/panthor/panthor_aw.c b/drivers/gpu/drm/panth=
+or/panthor_aw.c
+> index 5ab1d44f0a22e..3b418c816d824 100644
+> --- a/drivers/gpu/drm/panthor/panthor_aw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_aw.c
 [ ... ]
-
-> +static int drm_atomic_commit_fill_connector_with_defaults(struct drm_fil=
-e *file_priv,
-> +							  struct drm_atomic_commit *commit,
-> +							  struct drm_connector *connector)
+> @@ -114,6 +117,66 @@ static int panthor_aw_state_wait(struct panthor_aw *=
+aw,
+>  	return panthor_aw_wait_cond(aw, atomic_read(&aw->state) =3D=3D target, =
+timeout_ms);
+>  }
+> =20
+> +static int panthor_aw_state_wait_transition(struct panthor_aw *aw, u32 t=
+imeout_ms)
 > +{
-
-[ ... ]
-
-> +	} else {
-> +		/*
-> +		 * The connector isn't part of the lease so it keeps its
-> +		 * current state. If it is bound to a leased CRTC though,
-> +		 * that CRTC is being reset under it and comes with an
-> +		 * empty connector mask, so
-> +		 * drm_atomic_add_affected_connectors() won't find the
-> +		 * connector during the check. Pull it in here so that its
-> +		 * routing and encoder are properly handled.
-> +		 *
-> +		 * The leased CRTCs are all part of the commit by now. An
-> +		 * unleased one might not be yet, but it keeps its
-> +		 * connector mask, so the helpers will pull the connector
-> +		 * in on their own if that CRTC ends up being changed.
-> +		 */
-> +		if (!connector->state->crtc)
-> +			return 0;
+> +	return panthor_aw_wait_cond(
+> +		aw,
+> +		(atomic_read(&aw->state) =3D=3D PANTHOR_AW_STATE_READY ||
+> +		 atomic_read(&aw->state) =3D=3D PANTHOR_AW_STATE_GPU_GRANTED),
+> +		timeout_ms);
+> +}
 > +
-> +		crtc_state =3D drm_atomic_get_new_crtc_state(commit,
-> +							   connector->state->crtc);
-> +		if (!crtc_state)
-> +			return 0;
+> +static void panthor_aw_post_yield_work(struct work_struct *work)
+> +{
+> +	struct panthor_aw *aw =3D
+> +		container_of(work, struct panthor_aw, post_yield_work);
+> +	struct panthor_device *ptdev =3D aw->ptdev;
+> +	struct device *dev =3D ptdev->base.dev;
+> +	int ret;
 > +
-> +		connector_state =3D drm_atomic_get_connector_state(commit,
-> +								 connector);
-> +		if (IS_ERR(connector_state))
-> +			return PTR_ERR(connector_state);
-> +
-> +		/*
-> +		 * The connector can't stay bound to a CRTC that the reset
-> +		 * disables, whether it is a leased one being reset or an
-> +		 * unleased one that just lost its last leased connector:
-> +		 * update_connector_routing() would keep it attached to a
-> +		 * disabled CRTC. Detach it like userspace setting CRTC_ID
-> +		 * to 0 would.
-> +		 */
-> +		if (!crtc_state->enable) {
-> +			ret =3D drm_atomic_set_crtc_for_connector(connector_state,
-> +								NULL);
-> +			if (ret)
-> +				return ret;
-> +		}
+> +	scoped_guard(spinlock_irqsave, &aw->lock) {
+> +		/* Something else has progressed the state to READY. */
+> +		if (atomic_read(&aw->state) !=3D PANTHOR_AW_STATE_SUSPEND_PENDING)
+> +			return;
 > +	}
 
 [Severity: Medium]
-Should this check !crtc_state->enable before calling
-drm_atomic_get_connector_state(), like the unleased plane loop below does?
+Does any other path ever transition aw->state from
+PANTHOR_AW_STATE_SUSPEND_PENDING to PANTHOR_AW_STATE_READY?
 
-When an unleased CRTC drives both a leased connector and an unleased
-connector in clone mode, and the leased connector precedes the unleased
-one in connector_list, the leased connector pulls the unleased CRTC into
-the commit while leaving it enabled because the unleased connector's bit
-remains in crtc_state->connector_mask.  Calling
-drm_atomic_get_connector_state() here then adds the unleased connector to
-the commit before drm_atomic_helper_check_modeset() runs, which marks it
-as added_by_user in user_connectors_mask.  If that unleased connector was
-hot-unplugged and unregistered while the unleased CRTC stays active,
-update_connector_routing() rejects the lessee's reset commit with -EINVAL:
+When panthor_aw_suspend() runs after a WINDOW_CLOSED interrupt sets
+PANTHOR_AW_STATE_SUSPEND_PENDING, it suspends the hardware components and
+calls __panthor_aw_suspend(), which returns 0 on
+PANTHOR_AW_STATE_SUSPEND_PENDING without updating aw->state:
 
-drivers/gpu/drm/drm_atomic_helper.c:update_connector_routing() {
-	...
-	if (!state->duplicated && drm_connector_is_unregistered(connector) &&
-	    added_by_user && crtc_state->active) {
-		drm_dbg_atomic(connector->dev,
-			       "[CONNECTOR:%d:%s] is not registered\n",
-			       connector->base.id, connector->name);
-		return -EINVAL;
-	}
-	...
+drivers/gpu/drm/panthor/panthor_aw.c:__panthor_aw_suspend() {
+	scoped_guard(spinlock_irqsave, &aw->lock) {
+		switch (atomic_read(&aw->state)) {
+		case PANTHOR_AW_STATE_READY:
+			return 0;
+		case PANTHOR_AW_STATE_SUSPEND_PENDING:
+			return 0;
+    ...
 }
 
-Also, the comment notes that an unleased connector could be bound to an
-unleased CRTC that just lost its last leased connector and was disabled,
-which cannot happen while this unleased connector's bit is still set in
-crtc_state->connector_mask.
+Because aw->state remains PANTHOR_AW_STATE_SUSPEND_PENDING after runtime
+suspend finishes, panthor_aw_post_yield_work() does not exit early here and
+calls panthor_sched_resume(), which schedules tick_work and wakes the
+suspended GPU back up.  If system resume (pm_runtime_force_resume()) runs
+before post_yield_work instead, panthor_aw_resume() sees
+PANTHOR_AW_STATE_SUSPEND_PENDING and fails system resume with -EAGAIN.
+
+> +
+> +	/*
+> +	 * Ensure in-progress resume is completed and prevent future RPM suspend
+> +	 * to keep the clocks turned on when accessing HW registers.
+> +	 */
+> +	pm_runtime_get_noresume(dev);
+> +	pm_runtime_barrier(dev);
+> +
+> +	ret =3D panthor_device_suspend_hw_components(ptdev);
+> +	if (ret)
+> +		dev_warn(dev, "Failed to suspend hardware components.");
+
+[Severity: High]
+Doesn't panthor_aw_post_yield_work() need to suspend or unbind scheduler
+groups before calling panthor_device_suspend_hw_components()?
+
+Unlike panthor_device_suspend(), which calls panthor_sched_suspend() before
+panthor_aw_suspend(), panthor_aw_post_yield_work() leaves groups bound in
+sched->csg_slots[] with group->csg_id >=3D 0 while
+panthor_device_suspend_hw_components() stops the MCU and calls
+panthor_mmu_suspend().  panthor_mmu_suspend() disables all active address
+spaces and calls panthor_vm_release_as_locked(), resetting vm->as.id =3D -1=
+ and
+vm->as.active_cnt =3D 0 on those still-bound groups.
+
+On the next scheduler tick after hardware components resume, tick_ctx_apply=
+()
+sees group->csg_id >=3D 0 and skips group_bind_locked(), panthor_vm_active(=
+),
+and CSG programming, leaving the bound groups unmapped in the MMU and
+unconfigured on the rebooted MCU.  When those groups are later unbound in
+group_unbind_locked(), panthor_vm_idle() decrements vm->as.active_cnt from 0
+(underflowing refcount_t) and hits drm_WARN_ON(&ptdev->base, vm->as.id =3D=
+=3D -1).
+In addition, if runtime suspend runs before the hardware components are
+resumed again, panthor_device_suspend() will call panthor_sched_suspend()
+while the MCU is stopped and the access window is closed.
+
+> +
+> +	scoped_guard(spinlock_irqsave, &aw->lock)
+> +		panthor_aw_state_set(aw, PANTHOR_AW_STATE_READY);
+> +
+> +	/*
+> +	 * schedule an immediate tick to re-evaluate if there is any additional
+> +	 * work. This will request access to the GPU again and if the driver has
+> +	 * gone idle, it will yield GPU access via the runtime suspend path.
+> +	 */
+> +	panthor_sched_resume(ptdev);
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +}
+
+[Severity: High]
+Can calling panthor_sched_resume() unconditionally here cause an endless
+request/yield livelock between two idle access windows sharing a partition?
+
+When AW0 is idle inside its 50ms autosuspend window and AW1 requests the GP=
+U,
+the arbiter issues PART_CMD_YIELD_IDLE and FW v2 closes AW0's window,
+scheduling panthor_aw_post_yield_work() on AW0.  panthor_sched_resume() then
+queues tick_work with delay 0, and tick_work() calls
+panthor_device_resume_and_get() -> panthor_aw_ensure_gpu_access() ->
+panthor_aw_request() before checking whether AW0 has any runnable groups.
+
+Sending VM_ARB_GPU_REQUEST from idle AW0 causes the arbiter to issue
+PART_CMD_YIELD_IDLE to AW1.  Once AW1 finishes its work and yields to AW0,
+AW1's panthor_aw_post_yield_work() likewise requests the GPU back from AW0,
+while AW0's tick_work() finds no runnable work and resets its 50ms
+autosuspend timer via pm_runtime_put_autosuspend().  Both access windows can
+then ping-pong GPU ownership and hardware component suspend/resume
+indefinitely without ever reaching runtime autosuspend.
 
 [ ... ]
 
-> +			plane_state =3D plane->funcs->atomic_create_state(plane);
-> +			if (IS_ERR(plane_state))
-> +				return PTR_ERR(plane_state);
+> @@ -463,21 +538,41 @@ int panthor_aw_resume(struct panthor_device *ptdev)
+>  	struct panthor_aw *aw =3D ptdev->aw;
+>  	int ret;
+> =20
+> +	/* resume hw components directly if AW is not supported */
+>  	if (!aw)
+> -		return 0;
+> +		return panthor_device_resume_hw_components(ptdev);
+> =20
+>  	panthor_aw_irq_resume(&aw->irq);
+> =20
+> +again:
+>  	ret =3D panthor_aw_request(aw);
+> +	if (ret)
+> +		goto err_out;
 > +
-> +			/*
-> +			 * Same thing for the planes: report a color pipeline change
-> +			 * compared to the current state.
-> +			 */
-> +			plane_state->color_mgmt_changed =3D
-> +				plane->state->color_pipeline !=3D plane_state->color_pipeline;
-> +
-> +			drm_atomic_commit_set_plane_state(commit, plane, plane_state);
+> +	ret =3D panthor_device_resume_hw_components(ptdev);
+>  	if (ret) {
+> -		drm_warn(&ptdev->base, "Timedout waiting for GPU to be granted");
+> +		/* Yield GPU access if HW components failed to resume */
+> +		__panthor_aw_suspend(aw);
+>  		goto err_out;
+>  	}
+> =20
+> -	return 0;
+> +	switch (atomic_read(&aw->state)) {
+> +	case PANTHOR_AW_STATE_SUSPEND_PENDING:
+> +		/*
+> +		 * WINDOW_CLOSED won the race. Suspend components before the
+> +		 * caller can disable clocks. post_yield_work will transition
+> +		 * state to READY after this PM transition completes.
+> +		 */
+> +		panthor_device_suspend_hw_components(ptdev);
+> +		ret =3D -EAGAIN;
+> +		break;
+> +	case PANTHOR_AW_STATE_GPU_GRANTED:
+> +		return 0;
+> +	default:
+> +		goto again;
+> +	}
+> =20
+>  err_out:
+> -	panthor_aw_irq_suspend(&aw->irq);
+>  	return ret;
+>  }
 
 [Severity: High]
-Does plane_state also need to carry over plane->state->normalized_zpos,
-just as connector_state->best_encoder and crtc_state->adjusted_mode are
-preserved above?
+Can panthor_aw_ensure_gpu_access() -> panthor_aw_resume() race with
+panthor_aw_post_yield_work() when the device is already RPM_ACTIVE?
 
-__drm_atomic_helper_plane_state_init() initializes normalized_zpos to the
-un-normalized default zpos value, and drm_atomic_plane_set_property() only
-updates state->zpos when userspace sets the zpos property.  During atomic
-check, drm_atomic_normalize_zpos() only recalculates normalized_zpos if
-plane_mask or a plane's zpos changed between old and new states:
+panthor_aw_post_yield_work() uses pm_runtime_barrier(dev) to wait for an
+in-progress runtime resume, but panthor_device_resume_and_get() calls
+panthor_aw_ensure_gpu_access() after pm_runtime_resume_and_get() has already
+set the device to RPM_ACTIVE.  In that state pm_runtime_barrier(dev) returns
+immediately, and nothing serializes panthor_aw_resume() against
+panthor_aw_post_yield_work() or a second caller of
+panthor_aw_ensure_gpu_access():
 
-drivers/gpu/drm/drm_blend.c:drm_atomic_normalize_zpos() {
-	...
-	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_st=
-ate, i) {
-		crtc =3D new_plane_state->crtc;
-		if (!crtc)
-			continue;
-		if (old_plane_state->zpos !=3D new_plane_state->zpos) {
-			new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
-			new_crtc_state->zpos_changed =3D true;
-		}
-	}
+CPU0                              CPU1 (kworker / second caller)
+panthor_aw_ensure_gpu_access()
+  panthor_aw_resume()
+    panthor_device_resume_hw_components()
+    /* WINDOW_CLOSED sets SUSPEND_PENDING */
+    switch (atomic_read(&aw->state))
+    case PANTHOR_AW_STATE_SUSPEND_PENDING:
+                                  panthor_aw_post_yield_work()
+                                    pm_runtime_barrier() /* no-op */
+                                    panthor_device_suspend_hw_components()
+                                    panthor_aw_state_set(READY)
+                                  panthor_aw_ensure_gpu_access()
+                                    panthor_aw_resume()
+                                      panthor_aw_request() /* GRANTED */
+                                      panthor_device_resume_hw_components()
+                                      return 0
+      panthor_device_suspend_hw_components()
+      <-- suspends FW/MMU/GPU/PWR while CPU1 is using the GPU
 
-	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state,=
- i) {
-		if (old_crtc_state->plane_mask !=3D new_crtc_state->plane_mask ||
-		    new_crtc_state->zpos_changed) {
-			ret =3D drm_atomic_helper_crtc_normalize_zpos(crtc,
-								    new_crtc_state);
-	...
-}
+Alternatively, if WINDOW_CLOSED fires after panthor_aw_request() succeeds on
+CPU0 but before CPU0 takes hw_component_lock in
+panthor_device_resume_hw_components(), panthor_aw_post_yield_work() can fin=
+ish
+and set aw->state to PANTHOR_AW_STATE_READY first; CPU0 then resumes hardwa=
+re
+components while the window is closed, sees PANTHOR_AW_STATE_READY, and tak=
+es
+default: goto again without suspending them.
 
-When a reset commit re-applies the active plane_mask and zpos values on a
-CRTC, drm_atomic_normalize_zpos() skips normalization and leaves
-new_plane_state->normalized_zpos at its un-normalized default, corrupting
-plane z-ordering or causing a NULL pointer dereference in drivers such as
-sun4i_backend_atomic_check() that index an array by normalized_zpos and
-dereference plane_states[i]->fb.
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
+anthor/panthor_device.c
+> index ba5252c27410f..d1ef460577c99 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+[ ... ]
+> @@ -577,15 +579,17 @@ int panthor_device_resume(struct device *dev)
+>  			atomic_set(&ptdev->reset.pending, 0);
+>  		}
+> =20
+> -		ret =3D panthor_device_resume_hw_components(ptdev);
+> +		ret =3D panthor_aw_resume(ptdev);
+>  		if (ret && ptdev->reset.fast) {
+>  			drm_err(&ptdev->base, "Fast reset failed, trying a slow reset");
+>  			ptdev->reset.fast =3D false;
+> -			ret =3D panthor_device_resume_hw_components(ptdev);
+> +			ret =3D panthor_aw_resume(ptdev);
+>  		}
 
-> +		} else if (plane->state->crtc) {
-> +			/*
-> +			 * An unleased plane keeps its current state, unless
-> +			 * the CRTC it is enabled on is disabled by the reset:
-> +			 * that CRTC is either leased and comes with a
-> +			 * pristine state, or unleased and just lost its last
-> +			 * leased connector. The plane can't remain enabled on
-> +			 * a disabled CRTC: the atomic helpers would pull it in
-> +			 * with its current state during the check and reject
-> +			 * the commit. Disable it like userspace setting
-> +			 * CRTC_ID and FB_ID to 0 would.
-> +			 */
-> +			crtc_state =3D drm_atomic_get_new_crtc_state(commit,
-> +								   plane->state->crtc);
-> +			if (!crtc_state || crtc_state->enable)
-> +				continue;
-> +
-> +			plane_state =3D drm_atomic_get_plane_state(commit, plane);
-> +			if (IS_ERR(plane_state))
-> +				return PTR_ERR(plane_state);
-> +
-> +			ret =3D drm_atomic_set_crtc_for_plane(plane_state, NULL);
-> +			if (ret)
-> +				return ret;
-> +
-> +			drm_atomic_set_fb_for_plane(plane_state, NULL);
-> +		}
+[Severity: Medium]
+Does panthor_device_resume() treat -EAGAIN from panthor_aw_resume() as a
+fast-reset failure?
 
-[Severity: High]
-Can reading plane->state->crtc without holding plane->mutex here cause a
-use-after-free or NULL pointer dereference when a concurrent commit updates
-an unleased plane?
+When panthor_aw_resume() returns -EAGAIN because aw->state is
+PANTHOR_AW_STATE_SUSPEND_PENDING, panthor_device_resume() logs a false fast
+reset error, clears ptdev->reset.fast =3D false (forcing a full firmware re=
+load
+on the next resume), and immediately retries panthor_aw_resume() while the
+device is still RPM_RESUMING and panthor_aw_post_yield_work() is still bloc=
+ked
+in pm_runtime_barrier(dev), so the retry is guaranteed to fail with -EAGAIN
+as well.  Conversely, when panthor_device_resume_hw_components() is called
+from panthor_aw_ensure_gpu_access() -> panthor_aw_resume() while the device
+is already RPM_ACTIVE, there is no fallback to retry with
+ptdev->reset.fast =3D false if a fast reset fails.
 
-Unlike the leased branch above, which locks plane->mutex before reading
-plane->state->crtc, the unleased branch dereferences plane->state twice
-before drm_atomic_get_plane_state() acquires plane->mutex.  A concurrent
-non-modeset plane update or page flip on an unleased plane and unleased
-CRTC does not take connection_mutex, so it can swap and free the old
-drm_plane_state or clear plane->state->crtc in parallel:
+> =20
+>  		if (!ret)
+>  			panthor_sched_resume(ptdev);
+> +		else
+> +			panthor_aw_suspend(ptdev);
+> =20
+>  		drm_dev_exit(cookie);
 
-CPU0 (lessee reset)               CPU1 (lessor plane update)
-drm_atomic_commit_fill_with_defaults()
-  else if (plane->state->crtc)
-                                  drm_mode_atomic_ioctl()
-                                    ...
-                                    drm_atomic_helper_swap_state()
-                                      /* plane->state->crtc =3D NULL */
-                                    drm_atomic_commit_put()
-                                      ...
-                                      atomic_destroy_state(old_plane_state)
-  drm_atomic_get_new_crtc_state(commit,
-                                plane->state->crtc)
-    drm_crtc_index(NULL)  <-- NULL pointer dereference (or UAF on old state)
+[Severity: Medium]
+What happens when panthor_device_resume() returns -EAGAIN to callers other
+than panthor_device_resume_and_get()?
 
-In addition, if the unleased plane was on a CRTC being disabled when
-checked unlocked, but a concurrent commit moves it onto an active unleased
-CRTC before drm_atomic_get_plane_state() takes plane->mutex, this branch
-will detach and disable the unleased plane on that active CRTC.  Locking
-plane->mutex before reading plane->state->crtc avoids these races.
+panthor_device_resume_and_get() catches -EAGAIN, waits with
+panthor_aw_wait_transition_complete(), and retries, but
+panthor_device_unplug() calls pm_runtime_get_sync() directly (triggering
+drm_WARN_ON() and proceeding with unplug while suspended) and
+panthor_device_system_resume() calls pm_runtime_force_resume() directly
+(failing system resume and leaving the device suspended).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-drm-reset-=
-state-flag-v9-0-ddb0e26324a0@kernel.org?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
+978-1-karunika.choo@arm.com?part=3D25
