@@ -2,125 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992D360A3825
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 03:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECA0606A325
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 03:48:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ALEsgktN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btWkBDH4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E2510E282;
-	Tue, 10 Nov 2026 03:37:21 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013004.outbound.protection.outlook.com
- [40.93.196.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5397510E282
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:37:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cRrwhnh44FGOngd9eYE3CxLfFmTU+/jBvhXZt7s3c3j0cNrZVavKsgRV0N/FzqNe4sV5oYDnynuSTh+2Y65Q9yd72IwgukcNtCWEoffrDvSWksv3J/hqO8w3SvUjzoeLpm9XnbM/cVtCk4/ms9TFW0t3GheSUz207B3WrUqZPLjev1C0Yx8FQzMxjKNkOc6upeYJP4r3Vg6mr1zzbx78l2PDrgAxa1QA8GCoIHNpLTFsJ+5+QPlXZaWgDCM3rQIpgUBHxqKU1iaREjG5CDgasEckxyDQfMwXGMVPFhHwR5loOUYTNFhYhaz1VjHNgj+X4fisqS7SKTUFgbxCNlisWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UA3JzOcD8AseSokwXvgTFCDIVIanwkUCoO93Mvm0Jc8=;
- b=jhs9DjXoCeLCWioTTXRXbWYFO3SsHvIkAzZIppIIRFComkxtKM7Wwj8+Bcb+lOEPoOeXG0nTVo8oLPAYtFJyjMyhVowbM5b2DY8RlVouX90ufyQDoW7qJM7m/d8kr9XpxNQzlQyMsBgl63981EuOo7Tt3i4y8fW4wNmMjHXcR1zXQKsbjpMc3x/aIlIUj2uRY9gnUPqmrEvIEJy0FsDJ2G68CXOEEoWllQrlj3xNvdQ3Ln2ZzkkqBfqz5jCjx+Ter7MRR5j45F3KLpS8KZ223TYiCz0uperpjwyq9mRpSluNSgw7BGIzr79xMzn0n2pohaK4tZ+eAt5/OPxtAyANmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UA3JzOcD8AseSokwXvgTFCDIVIanwkUCoO93Mvm0Jc8=;
- b=ALEsgktNmUuVI49RQwexZkpUCLf8fUyRExsF7vzoHVR/0W4kyChgWHaFpVbwfO8jyRoVXBNHjuhX4YJBWcv9ggnBR+ALt3czULjtIfZjz+srqNK73YYylGoOGdn1T6e9s9OQXt+URBygwce/LkJyK0bHLovbPAHn0okCGSRl/8xsfg+atpArqzXXw9SRPXxcrs+WOj2Tbj8li1ePuWbgTzXUXbBbIyyCuFeGp83tJxHITaax1VGclb/DyYjZrkP8EbHJeCdfT1Rh2S7GKwHk0GUTMwNNtoxXxDhvYFq5cd8iRqqMeCo0w203H1aXROqG42/192QpujZq4KaK8Vf8Aw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 03:37:01 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 03:37:01 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- LKML <linux-kernel@vger.kernel.org>, linux-pci@vger.kernel.org,
- rust-for-linux@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 2/2] gpu: nova-core: factor out and expose
- Falcon::is_processor_suspended()
-Date: Mon,  9 Nov 2026 19:36:54 -0800
-Message-ID: <20261110033655.148487-3-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110033655.148487-1-jhubbard@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B379A10E0A3;
+	Tue, 10 Nov 2026 03:48:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE07910E0A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:48:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D6A76634E9;
+ Tue, 10 Nov 2026 03:48:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74E01F008A6;
+ Tue, 10 Nov 2026 03:48:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794282512;
+ bh=PxEd3OjSksbK7+nLb9kkcFQkg3P4HBKGiE8PTgwn2v8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=btWkBDH4lyFeV+0ZZl/xjOdA3NcZ0EepKn7YSJAIt7cNvt9C59fP836Ns/ssZrymf
+ +3povOsXK+SGg6hkqJY0tq4LMJwibmuMLhGCtuxR9oIS/2rru+txm/8CO4ZBZOLhec
+ AISl44KtYjEcXec+Bsnc7TKp5qWT/ANFKeO8c/nX7QdImwagNi6eLyk0pm+EU9wrEU
+ Nd0A1JhIvdnXv5QQlaTqoTp10YZSXdZmH+mr7J26E1HmdpcgOhRp6VFhZsTbwL6lvu
+ Np7BjZym669R/KVCWTLfja9vlSKUzSREGYKegrcdC/uiL7OrFssiwDCok7e591LnxD
+ XvQLlsI6trbkw==
+Message-ID: <sashiko-outbox-206149@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] rust: pci: add domain_nr() accessor
+To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
+ =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+In-Reply-To: <20261110033655.148487-2-jhubbard@nvidia.com>
 References: <20261110033655.148487-1-jhubbard@nvidia.com>
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0221.namprd13.prod.outlook.com
- (2603:10b6:a03:2c1::16) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|SA1PR12MB9514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85e7a17b-8383-4959-8d07-08df3edbe1a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|56012099006|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261009223027099003|261021121427099003|261021123027099003|261022113327099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: Unm9qImJ5eYCuEy4myDEtFLPmVZUXPVv5rADgD8srUrHXFGdPjZTzl3CfXy5ZZjtyX2dlCKrMiAGnEuAapOqS/ubGGYvY7QnooiXufcC8gCSzskSUlvVcekMlNwOS5zkugVPu6rfZHrQaKtm0O6IZQiwwaVaZKeKIKhZNDCBJEotwawqjxThW1j0scnDA+rBT7S2GBfOPcVNcn6kHYpoG55bRpWZBcqFyO9Wp8z/Frtc/0efn8GqLarh7izYl4LISP+aGLaG8vm4kKlA0JBVusthKrAAyVcP+GcSWcu88oemqRatDls5KEtzf9xoGiTA9LKCRq4tNetEKQU8hNltu1dnwoA/zvqCFudNe16O5Qk/NvjDJr3hVU3P1O9HfUdymFirWA2I0jHHc5LOk3rCLr/5GM7lprvzA1A2Wp6w+S4YfE9sny6cB+23bzLjSdUNq05Z9G6allgEsKdA6SNZFXHzxfdJ4JmsI9hKjjWiaXZOP8RJj60q7eIOiN0Mt9mfqFuj7QFVO9BL0x+fPHY/Xgo2n04LgW/WdFuSWrc9a/+55i/vWyAOMxQjZMtNTFWvDabKsONF1IVy0Nwp+xJU4N77Z5S3COYfCuDl0dbFh3mTCVa0jLHwLEAYvlv+uiVkcVzD8uvtpqEZKBzaA4+ZMx2v5O1gp6WuAK23iOVmnVg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB5614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261009223027099003)(261021121427099003)(261021123027099003)(261022113327099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?njnaSXwBgqtsymoP/4duUu3/Hp0k9HaPM2qo4RsJM9fiAL/nqrRjTUhafIme?=
- =?us-ascii?Q?HMCYRa6h7FM6DtzMZiN2aXSDMh2ssBSAC3jnfHsA9I3Zi5uoorRNgS5/Ye/N?=
- =?us-ascii?Q?tqcBIX5RR63tUcmdA0cHWmPq0MSiu0Hab69AeNsjjtrPmhatMlnQ4HP5MERD?=
- =?us-ascii?Q?4QyAzK7+Q6LW29GrKZEIJWESjJ6rb3qv1TeNx2OX7KdX34qIlJ0+AssFgNft?=
- =?us-ascii?Q?miLJyB+V3wViXjHoRqNocFME79Y/TqqoXGgvKYD0jM92ar/AfBbV1Wy0fXed?=
- =?us-ascii?Q?oXiGu0j7UJ9LjC7ztB8pRmGkUeQ62j3PM1kEOcKRucLmVKqULq7FUScu3tgg?=
- =?us-ascii?Q?yCFXwKwkfEJwM1WnI8TbBkqweGq36+3bGHVsjJ+FtTlrCsNk2tYPwATPZ1ax?=
- =?us-ascii?Q?u5xMlf//H6/1Alr+25o3dgQfWFAIIc84AbxK2MRrYr3S2yhFdV/SjE63hNYJ?=
- =?us-ascii?Q?aJQ1Y0oxvYZZyvpgA1hVZLcPO0/B/mD6ckT/iWU2H5qje2zoteQvWM992V+X?=
- =?us-ascii?Q?PvvaJwhEq+KJfXPKcA2VMskzQAfK6GbVJkmZ2ws13IZb5eNyQx3LeefYAgA8?=
- =?us-ascii?Q?ydMv6UecgVjTAj5ANiORkFyBeKJ1mfBk6GCenN6Yr8141CWGmlgDfEC3SFy2?=
- =?us-ascii?Q?oFyaOOy5mXCHPH3gpSQT+MUQG4UB5juBUJUOkdwl8VjZxhFEDpoq/DQD+Quk?=
- =?us-ascii?Q?PzH+NeKQD1XSF3weto5kH3eaOfUpjWaiwza/+uCbRJiwxQcajI1MKT+FPGrM?=
- =?us-ascii?Q?JpynHMxwFysLS+ITimenkZz2g0btPnPfME63JkHjQt15CaA4fnqBnqmgv4I4?=
- =?us-ascii?Q?XYhWPiepe5K8OMMsdbYG91Ab/ljlaqGkYyzguQG8rrgUOxJL42Z9jScZOCuC?=
- =?us-ascii?Q?TvdnCaAQ9XPJ3xeJQKORSrnOwGeRCAGOmIJPvHYUipK2ynObkVfOJQfkxD9w?=
- =?us-ascii?Q?fP07ZpayFxe/kBe5v2l9iNKaNTK/P/fXDrJo+Cw8WzBnMrVCYnviZ4QuTDPa?=
- =?us-ascii?Q?a2L2QJCvy/X2EIID97phK2UxbZ/s0V4cKhG30DstjX0aCSwr3OsEiGuQMC5W?=
- =?us-ascii?Q?1q0Km9gG+hEUQsteqKGzQS4Rdx1oCN7IH7FUvigMC5BXqkyi6tEuVY64ZRev?=
- =?us-ascii?Q?UZeTsTmDAFSPy5rynxXuPcyc4dLayAnPOjcYCnfULGSzoVvO5zcxjwOAJb41?=
- =?us-ascii?Q?TwPfVnnk3lpZ4F+JOCmnz6Ae/B4TRf5B9nyzyRdRn0DJpgAQt06Oje0iC/vF?=
- =?us-ascii?Q?sW03E6+GZlgFSlrZfn5WNBk9jclF7NTU9zN4rEnth2pNEKJww8k6Nk9xJLnn?=
- =?us-ascii?Q?92asDBcXUggZGIGc72RiR66dtTRf5HDo7b3VJxy/XFZwJTiYQQXhWhrON79L?=
- =?us-ascii?Q?PpcrsTC+U/wmqpFAYBx35ZCkysfHEfmWdgZJkRDBWyBhV3zeCjU7aEnCN6pK?=
- =?us-ascii?Q?PyBD51aJj7wUHthUYUZ1bhUR1D5Bd0u3t4zUJiUnBWiGPcJCrwJhKKxrojx6?=
- =?us-ascii?Q?xEkrARZvOGC0vukttD2WW5W0E9CV/6SeB0k1lCp19S4GEZ5s54L3TvErgUv6?=
- =?us-ascii?Q?EbgDw5+LNcj+pgbrffGJXZuvIP7tOPuLfDtnCPQwdeldtKEhmgpa3cv/fvCK?=
- =?us-ascii?Q?wZbcvRKdtdA5RgJnl4f7QvOSY7jWMU7ZVsIlNcxKvPoo4uA5EKoDM+MnuW6Q?=
- =?us-ascii?Q?YwedxSuBbrvSttBXc9G/sgrwFOaCY+Dtf1DaDzFg4+7V2TUQ6f2UakguQQBy?=
- =?us-ascii?Q?Gy062z8blg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85e7a17b-8383-4959-8d07-08df3edbe1a3
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:37:01.5646 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 99Ym+OVfjWFA8YqBq1ozphCwmPETU8YO023DneKEbd5Wm3ZYZaKk4MmfMyLxnnf8AOrJfFGMgjLcsFQ999deYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
+ <20261110033655.148487-2-jhubbard@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 03:48:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,96 +59,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The r000 boot protocol requires the driver to wait for the GSP suspend
-bit after each load-and-execute event. The shutdown path already does
-this.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] rust: pci: signature mismatch in rust_helper_pci_domain_nr()
+  on ppc and s390
+--
 
-The boot sequence will soon need this same functionality, so factor it
-out into a method, and put it in it's logical location as well, as a new
-method of Falcon<Gsp>.
+commit 40ebd2410b826b9813de5dae1bbe6075723a08bc
+Author: John Hubbard <jhubbard@nvidia.com>
 
-Also, use register!() for this, instead of manually masking off bit 31.
-As usual, that results in much more readable code.
+rust: pci: add domain_nr() accessor
 
-No functional changes.
+This commit adds a domain_nr() accessor to pci::Device and a corresponding
+rust_helper_pci_domain_nr() C helper to retrieve the PCI domain number.
 
-Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
----
- drivers/gpu/nova-core/falcon/gsp.rs | 7 +++++++
- drivers/gpu/nova-core/gsp/boot.rs   | 6 ++----
- drivers/gpu/nova-core/regs.rs       | 5 +++++
- 3 files changed, 14 insertions(+), 4 deletions(-)
+> diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
+> index a8540f90b13ce..49f2c089d2369 100644
+> --- a/rust/helpers/pci.c
+> +++ b/rust/helpers/pci.c
+> @@ -7,6 +7,11 @@ __rust_helper u16 rust_helper_pci_dev_id(struct pci_dev =
+*dev)
+>  	return PCI_DEVID(dev->bus->number, dev->devfn);
+>  }
+> =20
+> +__rust_helper int rust_helper_pci_domain_nr(struct pci_dev *dev)
+> +{
+> +	return pci_domain_nr(dev->bus);
+> +}
+> +
+>  __rust_helper resource_size_t
+>  rust_helper_pci_resource_start(struct pci_dev *pdev, int bar)
+>  {
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index 769d01d234296..57718e48208d5 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -408,6 +408,20 @@ pub fn dev_id(&self) -> u16 {
+>          unsafe { bindings::pci_dev_id(self.as_raw()) }
+>      }
+> =20
+> +    /// Returns the PCI domain number of the bus that this device is on.
+> +    #[inline]
+> +    pub fn domain_nr(&self) -> u32 {
+> +        // SAFETY: By its type invariant `self.as_raw` is always a valid=
+ pointer to a
+> +        // `struct pci_dev`.
+> +        let domain_nr =3D unsafe { bindings::pci_domain_nr(self.as_raw()=
+) };
 
-diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
-index 1faefaede9fe..54247691b53c 100644
---- a/drivers/gpu/nova-core/falcon/gsp.rs
-+++ b/drivers/gpu/nova-core/falcon/gsp.rs
-@@ -47,6 +47,13 @@ fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, super::PFalcon2Registers> {
- }
- 
- impl<'a> Falcon<'a, Gsp> {
-+    /// Returns `true` if GSP-RM has suspended the RISC-V core.
-+    pub(crate) fn is_processor_suspended(&self) -> bool {
-+        self.pfalcon
-+            .read(regs::NV_PFALCON_FALCON_MAILBOX0_LIBOS)
-+            .processor_suspended()
-+    }
-+
-     /// Clears the SWGEN0 latch in the GSP falcon.
-     ///
-     /// While the latch is set, no later message signals the tree, so a caller that consumed a
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 1887806dc330..9d5da5b165ac 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -2,7 +2,6 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- use kernel::{
--    bits,
-     io::poll::read_poll_timeout,
-     prelude::*,
-     time::Delta,
-@@ -98,10 +97,9 @@ fn shutdown_gsp(
-         cmdq.send_rpc_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
- 
-         // Wait until GSP signals it is suspended.
--        const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
-         read_poll_timeout(
--            || Ok(gsp_falcon.read_mailbox0()),
--            |&mb0| mb0 & LIBOS_INTERRUPT_PROCESSOR_SUSPENDED != 0,
-+            || Ok(gsp_falcon.is_processor_suspended()),
-+            |suspended| *suspended,
-             Delta::from_millis(10),
-             Delta::from_secs(5),
-         )
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index df2eddc58efb..3a0c7159fa7e 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -147,6 +147,11 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         31:0    value => u32;
-     }
- 
-+    /// `MAILBOX0` as LibOS, the kernel that GSP-RM runs on, writes it.
-+    pub(crate) NV_PFALCON_FALCON_MAILBOX0_LIBOS(u32) => NV_PFALCON_FALCON_MAILBOX0 {
-+        31:31   processor_suspended => bool;
-+    }
-+
-     pub(crate) NV_PFALCON_FALCON_MAILBOX1(u32) @ 0x00000044 {
-         31:0    value => u32;
-     }
--- 
-2.56.0
+[Severity: Medium]
+Does bindings::pci_domain_nr(self.as_raw()) fail to compile on PowerPC and
+s390 due to a pointer type mismatch?
 
+In rust/bindings/lib.rs, bindings_generated.rs is included after
+pub use super::bindings_helper::*, so any non-inline C function emitted by
+bindgen shadows a rust_helper_* wrapper of the same stripped name.  On Powe=
+rPC
+(arch/powerpc/include/asm/pci.h) and s390 (arch/s390/include/asm/pci.h),
+pci_domain_nr() is declared as a non-inline extern function taking
+struct pci_bus * rather than a static inline function:
+
+arch/powerpc/include/asm/pci.h:
+extern int pci_domain_nr(struct pci_bus *bus);
+
+On those architectures, bindings::pci_domain_nr resolves to the C declarati=
+on
+expecting *mut bindings::pci_bus instead of the helper's
+*mut bindings::pci_dev, breaking the build when CONFIG_RUST and CONFIG_PCI =
+are
+enabled.  Either rust_helper_pci_domain_nr() should take struct pci_bus *bu=
+s to
+match the C signature (with domain_nr() passing (*self.as_raw()).bus), or t=
+he
+helper should use a distinct name that does not collide with C pci_domain_n=
+r().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110033655.1484=
+87-1-jhubbard@nvidia.com?part=3D1
