@@ -2,59 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDF2606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A9D606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:33:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LuF9HOBs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEqx7Sb+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA56B10F5C7;
-	Tue, 10 Nov 2026 00:23:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E53A410E1E2;
+	Tue, 10 Nov 2026 00:33:12 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDF4010F5C7
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:23:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 349B910E1E2
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:33:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D5A8C61142;
- Tue, 10 Nov 2026 00:23:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8191F008A1;
- Tue, 10 Nov 2026 00:23:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1927062D65;
+ Tue, 10 Nov 2026 00:33:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99551F0089F;
+ Tue, 10 Nov 2026 00:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794270199;
- bh=sKvriVSDBbGJQaP6slnuzJbWvo0ZE+7oinAMAyjKJKQ=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=LuF9HOBs/K6Dwf+7wPbZDpRcyFwILy2slNg/nG69qEjrab0yd/nBL3bMMfWAll7RT
- /PDliEYnMjlbiI/3C9DKbL/VU/1/CxwdwwUobWAP62N3sS8xc/uwhw2BgyTsQMqVIr
- SuRzYHlaAq7hPlqIqjjud5+9/1/1+puzsBOxkdtXV/dgXixC0dqZ7p1k78iVRKmYpy
- LYJa6hk9uMC/wEevhQe7M4dBAB8T0gpd1FVpqMZYo0OMhWe65cXuFoe41ODTumdO0o
- +qMZdzY7Cx/JnncSJaB/L7CFS1BDEH7wOD9ZXFy07tJL4hB5k0d8a9JAzdl3d59C6d
- HAJbE32sI+MaA==
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+ s=k20260515; t=1794270785;
+ bh=jOpEvRPbDw0u4EXWwjW8vP+Sd0HPBuXavYAOBxb1sCI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UEqx7Sb+0Oz448YRBBugVNPQnZUqLJE6jshUjPnbOzPsghF2xJb2lP1l/yFAPe31v
+ BgqTJFIRSmOza6pFny17LzXjN9UbzyTNLbZYT+mXDfyHjmmn9Pkfy1HQ4/1Pouromo
+ eDM/bnBNz4P/YcjubQmbx8HNYwqnhLAT6HNm/YUEzOZhq8X/72PdLOmBJvlPYh1DHC
+ zUm5ewcLpFdgdUlnnLN5OTZKn4pGfTrqUrfOSHqOA14dRdWbpKm9ljGVXrAInOdePt
+ 5RuyS00DcU+fOfutOJFENllN6ol8UNpLjBdT2ThZlI3OkDWxofJm+JsaNjhoxWLzoA
+ t+Lxv02tKG6Tg==
+Message-ID: <sashiko-outbox-205865@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/9] drm/vc4: hdmi: Propagate -EDEADLK to the top level
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
+References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
+ <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 01:23:10 +0100
-Message-Id: <DMR3P6C8PXIG.3DU0W7JE95ZL6@kernel.org>
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 08/12] rust: pci: add runtime PM callbacks
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
- <20261023154009.2246627-9-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-9-xinmengs@nvidia.com>
+Date: Tue, 10 Nov 2026 00:33:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +48,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
-> +    /// Prepare for runtime suspend, without holding the PCI device lock=
-.
-> +    #[cfg(CONFIG_PM)]
-> +    fn runtime_suspend<'bound>(
-> +        dev: &Device<device::Bound>,
-> +        this: Pin<&Self::Data<'bound>>,
-> +    ) -> Result
-> +    where
-> +        for<'a> Self::Data<'a>: Sync,
-> +    {
-> +        let _ =3D (dev, this);
-> +        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
-> +    }
-> +
-> +    /// Finish runtime resume, without holding the PCI device lock.
-> +    #[cfg(CONFIG_PM)]
-> +    fn runtime_resume<'bound>(dev: &Device<device::Bound>, this: Pin<&Se=
-lf::Data<'bound>>) -> Result
-> +    where
-> +        for<'a> Self::Data<'a>: Sync,
-> +    {
-> +        let _ =3D (dev, this);
-> +        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
-> +    }
-> +
-> +    /// Runtime PM callbacks, if any. Construct with [`PmOps::new`].
-> +    #[cfg(CONFIG_PM)]
-> +    const PM_OPS: Option<PmOps<Self>> =3D None;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/vc4: hdmi: missing Fixes trailer for
+  vc4_hdmi_handle_hotplug()
+--
 
-As mentioned in my reply to patch 6, please use the generic runtime PM code=
-.
+commit 6d4e22aadcba086750601443588ce618f73cc846
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+> drm/vc4: hdmi: Propagate -EDEADLK to the top level
+>
+> drm_connector_helper_funcs.detect_ctx() is expected to propagate
+> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
+> perform the required backoff and retry.
+>
+> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
+> drm_modeset_backoff() on an acquire context it does not own.  This drops
+> all locks in the context, including connection_mutex held by the core.
+>
+> Drop the local retry logic and propagate -EDEADLK to the caller instead.
+> This aligns VC4 with the expected detect_ctx() semantics.
+>
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+[Severity: Low]
+Since this fixes the local retry loop and drm_modeset_backoff() call in
+vc4_hdmi_handle_hotplug(), should this include a Fixes tag?
+
+  Fixes: 479d4f0be423 ("drm/vc4: drop all currently held locks if deadlock =
+happens")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-vc4-common=
+-scramb-v4-0-eaa141a0da0f@collabora.com?part=3D4
