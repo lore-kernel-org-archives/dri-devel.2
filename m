@@ -2,46 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901B660A263C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:58:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3E9606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIko30H9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D8wYpWD3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05A1B10E92A;
-	Tue, 10 Nov 2026 09:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B8810EF2A;
+	Tue, 10 Nov 2026 09:58:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9448110EF2A
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:58:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0AE10EF2A
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:58:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D69E4708D;
- Tue, 10 Nov 2026 09:58:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CFF01F008AB;
- Tue, 10 Nov 2026 09:58:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 439DA44E99;
+ Tue, 10 Nov 2026 09:58:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0E41F008A1;
+ Tue, 10 Nov 2026 09:58:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794304717;
- bh=LjLsTdbykZWYOu2Xqqak4ExujA0ehtqs8pmgzlzZOnw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hIko30H9sGqtkr1koKEYyU13EfXnIW4ETy/QPkoOEri+qhUvkqXP6tPjCaaKQjRQD
- vNON+qHaRuip2bi8ND9IEZFahDUAWQFkd0v3Id+h3ZlAdgoqIobKWO8yR7onvPksvQ
- sH3usHBcfqt7+ezyCaizlqwPvDFcK324D2NA7A+8+iMmO6Hp23RezAfm6Nd/hiH4Zx
- Qud6A9Lc/RMOCGdFP6ig+OFqZZroHKGL8CJU6P1LesEGBSwW1OSm96xwC9Kl6ABIlc
- 0K8Mn1B8lJpf34wbTpDaYj7V0DstdQdIaiGAZB3Z0qVV8G98SZQhk8xibmX76x/cr2
- YBDyewSJohgJw==
-Message-ID: <sashiko-outbox-206820@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] LoongArch: video: Implement primary framebuffer
- device detection
-To: wuqianhai@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name,
- tzimmermann@suse.de, deller@gmx.de, bhelgaas@google.com
-Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
- linux-pci@vger.kernel.org, linux-efi@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110092418.2647821-1-wuqianhai@loongson.cn>
-References: <20261110090203.2631481-1-wuqianhai@loongson.cn>
- <20261110092418.2647821-1-wuqianhai@loongson.cn>
+ s=k20260515; t=1794304724;
+ bh=W8NrUTXS+LrVl+4LNXtC4XbJICo4rp0FZcarwaw4bxg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=D8wYpWD3mKltGhr/pqNpRPsnGHAwSeCy5CN1sj2sgX9wDCzOJCaA9BreQcDOTvZTu
+ DrPaGRMF4jfQfwOg3YGiyXv5sXX4dv3qydwZQiBL9AqYlfgQyd2fj5H2fgmbAuzqua
+ PxXRf/9IwelanbJxeJuHcLnw67PwjLisOy/+oUjRyBiKWeyZsP7yIfdrYY46hrLaXr
+ 73qiA5xGedxg5TdwBMPXPTV0yy96FefrAMOQtW9LnM0c4wNnD9xsCC0lJcA5cNAm5x
+ NDGpoW+RhSsWRiNdUCOdH4sYz2CP/8bsmqXDSPXwfJwDmA8Yhvk0ftVKAhK5YZqmyO
+ Ek0nM7aEhKHyg==
+Date: Tue, 10 Nov 2026 10:58:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>, 
+ "H . Nikolaus Schaller" <hns@goldelico.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/5] dt-bindings: display: Add the Ingenic X1600
+ display controller
+Message-ID: <20261110-annoying-classy-chinchilla-67cde0@quoll>
+References: <20261109174640.96951-1-olivier@mgcrea.io>
+ <20261109174640.96951-3-olivier@mgcrea.io>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 09:58:36 +0000
+Content-Disposition: inline
+In-Reply-To: <20261109174640.96951-3-olivier@mgcrea.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,80 +60,32 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] LoongArch: video: missing linux/export.h include in
-  video-common.c
---
+On Mon, Nov 09, 2026 at 06:46:37PM +0100, Olivier Louvignes wrote:
+> The X1600's display controller fetches frames through descriptors and
+> keeps its interface and timings in register blocks of their own (X1600
+> programming manual, chapter 10), so it shares nothing with the
+> controllers ingenic,lcd.yaml describes. Its registers are those of the
+> X2000's display controller without the composer, which the X2000 and
+> X2600 manuals call the DPU, as the X1600 manual does in its register and
+> clock names: hence ingenic,x1600-dpu, which an X2000 binding can extend.
+> 
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+>  .../bindings/display/ingenic,x1600-dpu.yaml   | 61 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 ++
+>  2 files changed, 66 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
 
-commit 3e46d96932a555bf0346972f71660950e04f755d
-Author: wuqianhai <wuqianhai@loongson.cn>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-LoongArch: video: Implement primary framebuffer device detection
+Best regards,
+Krzysztof
 
-This commit implements video_is_primary_device() for LoongArch by checking
-whether a PCI display device matches vga_default_device().
-
-> diff --git a/arch/loongarch/video/video-common.c b/arch/loongarch/video/v=
-ideo-common.c
-> new file mode 100644
-> index 0000000000000..6fea46661cb64
-> --- /dev/null
-> +++ b/arch/loongarch/video/video-common.c
-> @@ -0,0 +1,29 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Loongson Technology Corporation Limited
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/pci.h>
-> +#include <linux/vgaarb.h>
-> +
-> +#include <asm/video.h>
-> +
-> +bool video_is_primary_device(struct device *dev)
-> +{
-> +	struct pci_dev *pdev;
-> +
-> +	if (!dev_is_pci(dev))
-> +		return false;
-> +
-> +	pdev =3D to_pci_dev(dev);
-> +
-> +	if (!pci_is_display(pdev))
-> +		return false;
-> +
-> +	return pdev =3D=3D vga_default_device();
-> +}
-> +EXPORT_SYMBOL(video_is_primary_device);
-> +
-> +MODULE_DESCRIPTION("LoongArch video helpers");
-> +MODULE_LICENSE("GPL");
-
-[Severity: Low]
-Should this file include <linux/export.h> instead of <linux/module.h>?
-
-Using EXPORT_SYMBOL() without a direct #include <linux/export.h> triggers
-a scripts/misc-check warning when building with W=3D2:
-
-  arch/loongarch/video/video-common.c: warning: EXPORT_SYMBOL() is used, bu=
-t #include <linux/export.h> is missing
-
-Since CONFIG_VIDEO is a bool Kconfig symbol, video-common.o is only ever
-built-in and does not need <linux/module.h>, MODULE_DESCRIPTION(), or
-MODULE_LICENSE().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110090203.2631=
-481-1-wuqianhai@loongson.cn?part=3D4
