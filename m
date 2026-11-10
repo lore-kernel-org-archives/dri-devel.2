@@ -2,51 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B35F606A334
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:05:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D51606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SodkZsSv
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUHAEy+8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ECC310EE3E;
-	Tue, 10 Nov 2026 21:05:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4482B10EE3E;
- Tue, 10 Nov 2026 21:05:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC05310E002;
+	Tue, 10 Nov 2026 21:27:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBB310E002
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:27:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F37734471F;
- Tue, 10 Nov 2026 21:05:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34DF21F008A1;
- Tue, 10 Nov 2026 21:05:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CA8260254
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:27:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA131F0089F;
+ Tue, 10 Nov 2026 21:27:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794344730;
- bh=0b2l1Y81eKOfXpUQOu6uV2zt7HAtkcBx7c0jPfJ0UKs=;
- h=From:Date:Subject:To:Cc;
- b=SodkZsSvJCYnJR+Bs/SVlQG9tkVuDLIRijnngKUiUG91XSqgSPukO4p4zg+8dRtwY
- UYMwavtyM+pnIm30QHsSXtuFhhtCHFkQg9Ix7UwVx3OsqShjExDrmUWoL5e8V3lsMj
- PFFrzJzUYPu2eEUfzcGw9ojSxugaGYOmKkJSdMEsMHwZCLd7jj6rdsLLYVwnpX8x+8
- zA9LsD0VRDiygeXC6eS5swjyY1t8t9WuDYvvspt2Xl8oNr99GKL2OA6JjS+HgKPCk7
- nmEgl60VwUJEKu6O42fymV/ObqsPiPi6lbo3XkBIxB5M/11RvoAxx9Ry2wmeVL6Xjl
- onqEyqylQ32hA==
-From: Mario Limonciello <superm1@kernel.org>
-Date: Tue, 10 Nov 2026 15:05:21 -0600
-Subject: [PATCH v3] drm/amd/display: Route connector DDC over AUX for
+ s=k20260515; t=1794346041;
+ bh=72+moSR4CwGXr/jKUo6yl9Yk/rGpxTrHtwqfJai4CoM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KUHAEy+8Dv45KIOMAsZ9BZBetK4aXeRx2NjzrwLzsKRC+npoIgGaTKLboV3Cd/iMP
+ ksLhaTm1KAOSHCUT7k5wmP46Yv2+bjNDdU3gP2SVz6GWnyCelV3Ie4ZPJIw8bmMswL
+ y/zCOFwV4O/6GI+KPHUdsEM8NyM7cQ2cNIda25RRAfyx8g/LSkc24NIgROJ1HcANkn
+ MqoKHL7oeJvBYtzUv14LkJumjoDBYzpGY9xvtOOhA6GD9q8umI0Sd598wouOsROpgr
+ UXn2liWz11wxhdYYDOjuyY8H2efxUanCCNQxPLhBU9s8Cu1fFMYz3umAqcQ9juWqei
+ pcg1YEAwuzjcg==
+Message-ID: <sashiko-outbox-207767@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/amd/display: Route connector DDC over AUX for
  native DP sinks
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTQ6DIBAF4Ks0rIuBwdqflfdoXAiMSlvFgJI2x
- rsX7KaLpsuXefO9hXh0Bj257BbiMBhv7BCD2O+I6uqhRWp0zAQYFJwzoH4e0fWc1r1ux5lqrWg
- hGoaSM8UASHwcHTbmuaHX6pP9LG+opiSlRmf8ZN1rWw089f4OBE45PauDknmdNwXoMh4zZXuS+
- ADfgPgJQASOUmOhGcvFCco7ugEfmXUtqdZ1fQMFRMvyCAEAAA==
-X-Change-ID: 20261102-superm1-amdgpu-ddc-63f0eb10c022
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Richard Hughes <richard@hughsie.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, simonit.orig@gmail.com, 
- Mario Limonciello <superm1@kernel.org>
-X-Mailer: b4 0.16.0
+To: "Mario Limonciello" <superm1@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org>
+References: <20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 21:27:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,86 +48,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
-but the connector's "ddc" adapter ("AMDGPU DM i2c hw bus N") always
-drives the physical i2c pins, which don't reach a native DP sink.  The
-AUX backed adapter ("AMDGPU DM aux hw bus N") does, so userspace such as
-fwupd, which uses the "ddc" sysfs link for DDC/CI, has to work around
-this.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amd/display: stale link->aux_mode in amdgpu_dm_i2c_xfer()
+  breaks DP++
+--
 
-Keep a single i2c bus per connector and pick the transport per transfer
-based on the link's transaction mode (link->aux_mode), as the EDID read
-helpers already do: for native DP/eDP/MST sinks forward the transfer to
-the AUX adapter, otherwise (DVI/HDMI, including DP++ with a passive
-adapter) use the hw i2c engine as before.
+commit 98cc22cc3e67bb7ce06a4e571268aa8a05d6952f
+Author: Mario Limonciello <superm1@kernel.org>
 
-Reported-by: simonit.orig@gmail.com
-Closes: https://github.com/fwupd/fwupd/pull/11308
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
----
-Changes in v3:
-- Select the transport with link->aux_mode instead of
-  link->local_sink->sink_signal, matching the EDID read helpers in
-  amdgpu_dm_helpers.c.  This drops the unlocked local_sink dereference
-  that could race with link detection/hotplug (use-after-free), and it
-  also covers MST links (local_sink is NULL there) and links with
-  force_to_use_aux set.
-- Check ddc_service->link for NULL before dereferencing it, so
-  amdgpu_dm_i2c_xfer() still returns -EIO when there is no ddc_pin
-  (fixes dm_test_i2c_xfer_no_ddc_pin()).
-- Reword the commit message to describe the aux_mode selection.
-- Link to v2: https://patch.msgid.link/20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org
+drm/amd/display: Route connector DDC over AUX for native DP sinks
 
-Changes in v2:
-- Check which i2c bus to use on the fly instead of changing static symlink to
-  avoid regressing passive adapters.
-- Link to v1: https://patch.msgid.link/20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+This commit routes I2C transfers on a connector's DDC adapter to the AUX
+DDC adapter when link->aux_mode is set so that userspace DDC/CI transfers
+reach native DisplayPort sinks.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index b498fc5fbb140..f80de9e7f850c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int i;
- 	int result = -EIO;
- 
-+	if (!i2c->oem && ddc_service->link) {
-+		struct dc_link *link = ddc_service->link;
-+		struct amdgpu_dm_connector *aconnector = link->priv;
-+
-+		/*
-+		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
-+		 * tunneled over the AUX channel; the physical i2c pins only
-+		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
-+		 * Use the same aux_mode selection as the EDID read helpers so
-+		 * the connector's single "ddc" bus works for either sink.
-+		 */
-+		if (aconnector && link->aux_mode &&
-+		    aconnector->dm_dp_aux.aux.ddc.algo)
-+			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-+	}
-+
- 	if (!ddc_service->ddc_pin)
- 		return result;
- 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index b498fc5fbb140..f80de9e7f850c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c=
+_adapter *i2c_adap,
+>  	int i;
+>  	int result =3D -EIO;
+> =20
+> +	if (!i2c->oem && ddc_service->link) {
+> +		struct dc_link *link =3D ddc_service->link;
+> +		struct amdgpu_dm_connector *aconnector =3D link->priv;
+> +
+> +		/*
+> +		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
+> +		 * tunneled over the AUX channel; the physical i2c pins only
+> +		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
+> +		 * Use the same aux_mode selection as the EDID read helpers so
+> +		 * the connector's single "ddc" bus works for either sink.
+> +		 */
+> +		if (aconnector && link->aux_mode &&
+> +		    aconnector->dm_dp_aux.aux.ddc.algo)
+> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
+> +	}
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
+[Severity: High]
+Can checking link->aux_mode here misroute passive DP++ dongle detection
+over AUX when a passive DP-to-HDMI adapter is plugged into a port that
+previously had a native DP sink connected?
 
-Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
+In detect_link_and_local_sink(), link->aux_mode is not cleared on
+disconnect and is only updated after detect_dp() finishes:
 
+drivers/gpu/drm/amd/display/dc/link/link_detection.c:detect_link_and_local_=
+sink() {
+	...
+			if (!detect_dp(link, &sink_caps, reason)) {
+	...
+		set_ddc_transaction_type(link->ddc,
+					 sink_caps.transaction_type);
+
+		link->aux_mode =3D
+			link_is_in_aux_transaction_mode(link->ddc);
+	...
+}
+
+While dm_helpers_read_local_edid() runs after link->aux_mode is updated,
+detect_dp() runs before it and calls dp_passive_dongle_detection() ->
+query_dp_dual_mode_adaptor() -> i2c_read() -> dm_helpers_submit_i2c(),
+which goes through i2c_transfer(&aconnector->i2c->base, ...) and
+amdgpu_dm_i2c_xfer().  If a native DP monitor was previously connected,
+link->aux_mode is still true during detect_dp(), so the read of
+DP_HDMI_DONGLE_ADDRESS (0x40) is redirected to the AUX adapter instead of
+the physical I2C pins.  Because a passive adapter has no AUX responder,
+the read fails and query_dp_dual_mode_adaptor() falls back to
+DISPLAY_DONGLE_DP_DVI_DONGLE (SIGNAL_TYPE_DVI_SINGLE_LINK), capping the
+pixel clock to 165 MHz and disabling HDMI audio and infoframes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-superm1-am=
+dgpu-ddc-v3-1-9436b04d1e31@kernel.org?part=3D1
