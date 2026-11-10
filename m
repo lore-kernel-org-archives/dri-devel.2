@@ -2,42 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A9D606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D697606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 00:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEqx7Sb+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rLG1ZE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E53A410E1E2;
-	Tue, 10 Nov 2026 00:33:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 349B910E1E2
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7350D10E322;
+	Tue, 10 Nov 2026 00:48:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06FBD10E322
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 00:47:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1927062D65;
- Tue, 10 Nov 2026 00:33:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99551F0089F;
- Tue, 10 Nov 2026 00:33:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AC2064249A;
+ Tue, 10 Nov 2026 00:47:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36221F008A1;
+ Tue, 10 Nov 2026 00:47:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794270785;
- bh=jOpEvRPbDw0u4EXWwjW8vP+Sd0HPBuXavYAOBxb1sCI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UEqx7Sb+0Oz448YRBBugVNPQnZUqLJE6jshUjPnbOzPsghF2xJb2lP1l/yFAPe31v
- BgqTJFIRSmOza6pFny17LzXjN9UbzyTNLbZYT+mXDfyHjmmn9Pkfy1HQ4/1Pouromo
- eDM/bnBNz4P/YcjubQmbx8HNYwqnhLAT6HNm/YUEzOZhq8X/72PdLOmBJvlPYh1DHC
- zUm5ewcLpFdgdUlnnLN5OTZKn4pGfTrqUrfOSHqOA14dRdWbpKm9ljGVXrAInOdePt
- 5RuyS00DcU+fOfutOJFENllN6ol8UNpLjBdT2ThZlI3OkDWxofJm+JsaNjhoxWLzoA
- t+Lxv02tKG6Tg==
-Message-ID: <sashiko-outbox-205865@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/9] drm/vc4: hdmi: Propagate -EDEADLK to the top level
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
-References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
- <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1794271677;
+ bh=/v7Lk8oO1TnQwIeXyiFCZJA2BdIlQJEIsX7ukbQLF7A=;
+ h=Date:Cc:To:From:Subject:References:In-Reply-To;
+ b=K1rLG1ZEHoNXAsQPyaiZDlHextA0PwC/XEZxrHa/HQZfaSnARzEtMt8fUkpc8uR5J
+ a11J68iI74SfPU5FabImCTr/IVE3qHi+WURhy/mQ6EGyOZGDGKuXufULXGvDwdCytg
+ ASTOp1hM3YcSJi93nK4vM95LGOd5wpJcfTLZ+SNb2BXcEBU9mN49VoZdSp9WGAs0U/
+ X1wrQiKBCN1TH2wTPCdP1Y8P36nfRaBkl/SjCh4JMpGmMcxOD7GFyJ0gxHN7M/ZwOj
+ fuhhN+A6+EvK8U56KIMO1l7bEJyndnrxqApxcdytF9pWmAKlYAOf+fLh2ju20LJNCW
+ QUMYR4PaftjWw==
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 00:33:05 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 01:47:48 +0100
+Message-Id: <DMR481ABCB7M.27TE44YRCBZK2@kernel.org>
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 07/12] rust: pci: add an error_detected callback
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ <20261023154009.2246627-8-xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-8-xinmengs@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,48 +65,138 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/vc4: hdmi: missing Fixes trailer for
-  vc4_hdmi_handle_hotplug()
---
-
-commit 6d4e22aadcba086750601443588ce618f73cc846
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-> drm/vc4: hdmi: Propagate -EDEADLK to the top level
+On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
+> VFIO PCI variant drivers will use error_detected() to notify userspace
+> of PCI errors through vfio-pci-core.
 >
-> drm_connector_helper_funcs.detect_ctx() is expected to propagate
-> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-> perform the required backoff and retry.
+> Adding error_detected() to pci::Driver lets VFIO variants reuse the PCI
+> adapter's error callback dispatch. A following patch removes the
+> duplicate vfio::pci::Adapter.
 >
-> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
-> drm_modeset_backoff() on an acquire context it does not own.  This drops
-> all locks in the context, including connection_mutex held by the core.
+> Suggested-by: Zhi Wang <zhiw@nvidia.com>
+> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+> ---
+>  rust/kernel/pci.rs      | 33 +++++++++++++++++++++++++++++++--
+>  rust/kernel/vfio/pci.rs |  6 ++++++
+>  2 files changed, 37 insertions(+), 2 deletions(-)
 >
-> Drop the local retry logic and propagate -EDEADLK to the caller instead.
-> This aligns VC4 with the expected detect_ctx() semantics.
->
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index 1951b3c8a5c..ddc28099087 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -109,7 +109,7 @@ unsafe fn register(
+>              (*pdrv.get()).remove =3D Some(Self::remove_callback);
+>              (*pdrv.get()).id_table =3D T::ID_TABLE.as_ptr();
+>              (*pdrv.get()).driver_managed_dma =3D T::DRIVER_MANAGED_DMA;
+> -            if T::HAS_RESET_PREPARE || T::HAS_RESET_DONE {
+> +            if T::HAS_ERROR_DETECTED || T::HAS_RESET_PREPARE || T::HAS_R=
+ESET_DONE {
+>                  (*pdrv.get()).err_handler =3D &Self::ERROR_HANDLERS;
+>              }
+>              #[cfg(CONFIG_PCI_IOV)]
+> @@ -223,8 +223,27 @@ extern "C" fn reset_done_callback(pdev: *mut binding=
+s::pci_dev) {
+>          };
+>      }
+> =20
+> +    extern "C" fn error_detected_callback(
+> +        pdev: *mut bindings::pci_dev,
+> +        state: bindings::pci_channel_state_t,
+> +    ) -> bindings::pci_ers_result_t {
+> +        // SAFETY: PCI error recovery holds the device lock.
+> +        let dev =3D unsafe { &*pdev.cast::<Device<device::CoreInternal<'=
+_>>>() };
+> +        // SAFETY: The device lock prevents removal of installed driver =
+data.
+> +        unsafe {
+> +            Self::callback_data_with(&raw mut (*pdev).dev, |data| {
 
-[Severity: Low]
-Since this fixes the local retry loop and drm_modeset_backoff() call in
-vc4_hdmi_handle_hotplug(), should this include a Fixes tag?
+Please use Device::drvdata_borrow().
 
-  Fixes: 479d4f0be423 ("drm/vc4: drop all currently held locks if deadlock =
-happens")
+> +                T::error_detected(dev, data, state)
+> +            })
+> +        }
+> +        .unwrap_or(bindings::pci_ers_result_PCI_ERS_RESULT_CAN_RECOVER)
+> +    }
+> +
+>      const ERROR_HANDLERS: bindings::pci_error_handlers =3D bindings::pci=
+_error_handlers {
+> -        error_detected: None,
+> +        error_detected: if T::HAS_ERROR_DETECTED {
+> +            Some(Self::error_detected_callback)
+> +        } else {
+> +            None
+> +        },
+>          mmio_enabled: None,
+>          slot_reset: None,
+>          reset_prepare: if T::HAS_RESET_PREPARE {
+> @@ -461,6 +480,16 @@ fn reset_done<'bound>(dev: &Device<device::Core<'_>>=
+, this: Pin<&Self::Data<'bou
+>          build_error!(crate::error::VTABLE_DEFAULT_ERROR)
+>      }
+> =20
+> +    /// Handle a PCI error and return the PCI recovery result, with the =
+device lock held.
+> +    fn error_detected<'bound>(
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-vc4-common=
--scramb-v4-0-eaa141a0da0f@collabora.com?part=3D4
+This can use #[optional].
+
+> +        dev: &Device<device::Core<'_>>,
+> +        this: Pin<&Self::Data<'bound>>,
+> +        state: bindings::pci_channel_state_t,
+
+This should be represented as a Rust type, maybe something like:
+
+	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+	pub enum ChannelState {
+	    /// The I/O channel remains operational.
+	    Normal,
+	    /// I/O to the device is blocked.
+	    Frozen,
+	    /// The device has permanently failed.
+	    PermanentFailure,
+	}
+
+> +    ) -> bindings::pci_ers_result_t {
+> +        let _ =3D (dev, this, state);
+> +        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
+> +    }
+> +
+>      /// Enables Single Root I/O Virtualization (SR-IOV) for a PF.
+>      ///
+>      /// Called when userspace writes a nonzero VF count to `sriov_numvfs=
+`. The token carries the
+> diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
+> index db30dbce6a8..0fbc6a920dc 100644
+> --- a/rust/kernel/vfio/pci.rs
+> +++ b/rust/kernel/vfio/pci.rs
+> @@ -1096,6 +1096,12 @@ pub fn reset_done(&self) -> Result {
+>          // SAFETY: This owner keeps the pinned registration data alive.
+>          unsafe { self.dev.registration_data_with(T::reset_done) }
+>      }
+> +
+> +    /// Signal the VFIO error interrupt and return the PCI recovery resu=
+lt.
+> +    pub fn error_detected(&self) -> bindings::pci_ers_result_t {
+
+Same for bindings::pci_ers_result_t.
+
+> +        // SAFETY: This owner keeps the initialized VFIO core device ali=
+ve.
+> +        unsafe { bindings::vfio_pci_core_aer_err_detected(self.dev.core_=
+device()) }
+> +    }
+>  }
+> =20
+>  impl<T: Operations> Drop for Registration<'_, T> {
+> --=20
+> 2.43.7
+
