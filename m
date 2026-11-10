@@ -2,85 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00736606A332
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD3160A3810
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz9tni4C
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAMi9Vle
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8C810EE58;
-	Tue, 10 Nov 2026 07:19:13 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426C110EE51
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51DAE10EE5F;
+	Tue, 10 Nov 2026 07:19:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E91CB10E92D
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:19:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70DA341432;
- Tue, 10 Nov 2026 07:18:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6BE34637D7;
+ Tue, 10 Nov 2026 07:19:29 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794295133;
- b=A7JwVDefH9OPRgPc9/usUtlo9QPY6UlJO8lWr7ER0gZB2HhF1Ty7sHW69yyCNnRsmv5q
- MxeU8fXA2T+e0r/0UAdyuM/TiZojmn+xL34Id9jKY2xKhk55ZrgSxGolSmG/6cP/ibQ5Q
- 6Jf/wHwuiM033VTnrH4vTENxZKv+nhwHFoBEkwjv+aLerdrU4fuErFR80330vdKfXzYjc
- CgYx3CcnzyfyKkiyfJgJB20YJRPABhagsXXJkmaXWaoSNT1N3RV/Yapkw635Xkd52tMnS
- pyIy+GodFxgTWcZkQTgDLjp0QJEvLtkkMBaEn5olsKvmJtnh6n/+Q7l9lFBaEsDl29w==
+ t=1794295169;
+ b=MYxaczkZ6IyW/ybPnWJqsNtr5NtvNgdboBpR09WSQOkQyQ5TK6K2I1gsL4Ibikd34dFs
+ ySgKRuEpCV2vSROUDEiGNNm7uAKUPUiyVR29lARQS4dHULmCDu0bZWcZu1piaMU+9Vw2U
+ A3n9u7pQ1K70qvJbXIjNq7LzW5Oz0iuNbfSpdW9o+P7w0eDpQ9xvpKiyXH97wY4GkXSeq
+ YBPl4zACd17pI54onJdQZZuKi7qgsTFWodYMIVniENMVSPsS4GH9dAb0ObYU7WzAAU5FG
+ P8FDS3aAItK2oozP6Opo49A+ZHlxaLhmyPVw69z3oDr9UiCuGQHGY+9ag0Tmb/bfCUQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794295133;
+ c=relaxed/relaxed; t=1794295169;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=J2agN2crGUChBNyRpetJq57O8IKkI+AJqP0nz2zxorQ=;
- b=JSoK7UMgX7s4G0+VjzuLJ3WEzKSX5Do0DzulnEK7tjgXLg9JzbC/9CWVc4aQ6IQKhczf
- Sk5fnzvniaHCppJYSvqxNAJdCd+RVeKmjD/kSuyrUfiWfmuQ7mrZ/T1eoI/XTxx4/kYcm
- TSb+uA9ajuUdkIFIzU6aZOEUyW/5m+G3DEEMlhveA8Omwo9vNsDq1bDD2hZlKWAw/BmPg
- E79UOT1kZ9/2J3DuHgpSNQUxDzFltqLkGWpoJVCkJYx5piT8tgDDdbuDpuyOXpQ8f+BLP
- GhZSzJWLuoQ4U5Fsz13fB/BtEnhW/MVR0a6azYy45UoKZobne/lV4yNNZIrSh79e9Zg==
+ bh=zaVmZOMrBjPzc+fEuDwXTYn0rY5LTU6XQyWkDq4ewRM=;
+ b=QowQvlijKwhPFrQhqDR6n3GIYip539wSQTh/n9+Px8bvaLfRCEH4Fs08PWf+KJqosAVA
+ FrIe7umCoapH2jJP1r9lZLMZxB2fOiN2GPPWd+p2XdijhBurkyvFOuYgZn9DOvu+oE6yt
+ jgltGe9RutX5zB6NndVar6jfKcs7vbqmRUCZcbM/sqUC0ym+N91EMd5TWaCXMdaVEm5fp
+ /9knTOJ6niVr0kxB834Xdns3gR8q59sTV+ZIc+l8v6CM7VfGMkr6DOAccpcqEhaXgeoTQ
+ neY0zd30JxmQabmr11I4fMO+uF8fbFX+6RbzGDhaFG6OVlB9eWW1PgQ3vwWyc8FlTqw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id A83DF1F008A7;
- Tue, 10 Nov 2026 07:18:51 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 6F03D1F0089F;
+ Tue, 10 Nov 2026 07:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794295133;
- bh=J2agN2crGUChBNyRpetJq57O8IKkI+AJqP0nz2zxorQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Bz9tni4CDwoGZHWhkeFntaFp5LBmlFGZkHbU7G3L9ktlkpktihipGwhfLjZ9HYgHR
- YsQPxGiWU0dsrvSI8+memHGPHHu9k6asqOOG9KVpLbVv9Bt/2Dh89vGyqOREL6Hz6c
- chz6M7K/gn4qZfeKtNSpuQn3bm4NhYvE7VcSdiXitpPkaVNExFAvqpOGiv36i9w1og
- WPOCWe1YF4chjmg1tbXSd3sb+0jyO/0R4/DfWEiOuORwZPPdlhU15Rq/P/m8RIO71N
- NS1hBXiuaVtWGGyHR1cRc1VxMNkjgbBzLgDab7mbpLYP3wCYCBjKR44UtrG0LbG3RD
- o76OtYg1qrxGg==
+ s=k20260515; t=1794295169;
+ bh=zaVmZOMrBjPzc+fEuDwXTYn0rY5LTU6XQyWkDq4ewRM=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=LAMi9VleqId3cEvSSQwUFlqlfUCXL6YOTcs6UrjDV6xJTpGRljTwWlfMh3S1NvN3K
+ sVm3p/dlPBBYesIPtUJYA/6Gton/nRjIajCi7tV7xi9sl/ohCGEbX7ZCHGtOUOugtb
+ ddh8E/Bt+Ax/584XkAzzCDnbqqqwXlensBmB+6RpEYJAsz3uMDEYwIx+kJ1J/mPWZ0
+ ZoUuZ3Xf6N/bPZ1K2nkeDHcH55LedMa138WtECs80iHui2WR2odxOeVA/wQuWs0V17
+ ejZcsFfbWzlMULNtf1s5OZ/T6Uvapqiwfz1pTdvKvwreZjmzsxC8GfCKufuyHBv3Is
+ CstNF7jJ9Cw6Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 2D601489CD;
- Tue, 10 Nov 2026 07:18:50 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 03995488E6;
+ Tue, 10 Nov 2026 07:19:28 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:55 +0000
-Subject: [PATCH 7/8] drm/rockchip: vop2: Keep the other LUT_PORT_SEL fields
- on gamma LUT updates
+Date: Tue, 10 Nov 2026 07:19:28 +0000
+Subject: [PATCH] drm/bridge: Fail an unsatisfiable bus format negotiation
+ with -EINVAL
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-vop2-fixes-v1-7-d336e9dd90d3@gmail.com>
-References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
-In-Reply-To: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
+Message-Id: <20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q6CMAyF4VchvbbJOgwRX8V4wbaCJTJNC4SE8
+ O5Ovfxycv4djFXY4FrtoLyKySsX0KmC+OjywCipGLzzDRE5TDphUEllCYv104wsee2e6GO8hDq
+ RO7c1lPtbuZftl77d/7YljBznbw+O4wPXWCeLfAAAAA==
+X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295129; l=1358;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295167; l=2931;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=/+0LMBwuZNZCecG+Fu7CU68hi7oF5xZmzzhq/ceRbpE=;
- b=Fdfc8Pef3L3/LJG/JYhZ8bVLGge3v3zhLIa/A7NLxZww4zOUUh0lqK0533jFx9all8T4yvLz7
- qoNNcyGyEa7Cunqff53gUq65Zr1YK7O9iVo1iwKArccs+wmYyf1Baeg
+ bh=6XMYzP0YUE+EgwGGwMYmFB73J3HaaBRqLqa6SWZe9Zw=;
+ b=tKDI+fU38XeKY5fsQssGVW69baV1Qxo0SkqKz0o5wZreiIkudAVUWXiy68hPx040+wtvEH5ts
+ yST01F+7SnsDWSenN9uq8r6RjEi7I/kKdLSn+PTM92BoBvmJ5bw3Wkg
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -109,37 +111,73 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On RK3588 the gamma LUT of a video port is written through a window that
-GAMMA_AHB_WRITE_SEL in SYS_CTRL_LUT_PORT_SEL selects. The register also
-holds the dclk source selection of video ports 0 and 2 and the enable of
-the video port 0/1 merge for modes wider than 4096 pixels, which writing
-the whole register clears.
+drm_atomic_bridge_chain_select_bus_fmts() reports that no chain of bus
+formats fits with -ENOTSUPP, and drm_atomic_bridge_chain_check() passes
+that straight back through drm_atomic_helper_check_modeset() to the
+atomic and legacy modeset ioctls. -ENOTSUPP (524) is a kernel-internal
+code that userspace does not know; for a configuration the hardware
+cannot do the atomic API returns -EINVAL. Since the connector "color
+format" property makes the negotiation fail for any requested format a
+bridge chain cannot output, userspace now hits this routinely: a DW DP
+connector asked for YCbCr 4:2:0 on a sink without 4:2:0 support gets
+here with no matching format and would fail the atomic commit with
+errno 524, where an HDMI connector asked for the same returns EINVAL
+from the HDMI state helper.
 
-Only update the write select field.
+Return -EINVAL when the negotiation finds no chain, with a debug
+message naming the encoder.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Found while making the DW DP bridge honour the "color format" connector
+property on an Orange Pi 5 (RK3588S): once dw-dp only offers the bus
+formats of the requested colour format, a request the sink or the mode
+cannot take leaves the chain with no format, and the atomic check
+returns the kernel-internal -ENOTSUPP.
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 3323e50224c5..9ad138457204 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1774,8 +1774,9 @@ static void vop2_crtc_atomic_set_gamma_seamless(struct vop2 *vop2,
- 						struct vop2_video_port *vp,
- 						struct drm_crtc *crtc)
- {
--	vop2_writel(vop2, RK3568_LUT_PORT_SEL,
--		    FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
-+	regmap_update_bits(vop2->map, RK3568_LUT_PORT_SEL,
-+			   RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL,
-+			   FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
- 	vop2_vp_dsp_lut_enable(vp);
- 	vop2_crtc_write_gamma_lut(vop2, crtc);
- 	vop2_vp_dsp_lut_update_enable(vp);
+Tested on that board with this patch and that dw-dp change, with a
+DisplayPort monitor whose EDID has no YCbCr 4:2:0 support: all 74
+commits asking for YCbCr 4:2:0 over the monitor's modes and depths are
+refused with EINVAL, as the same request on the HDMI connector is; the
+296 RGB, YCbCr 4:4:4/4:2:2 and automatic cases still get their format,
+with the picture checked by a camera.
 
--- 
-2.55.0
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
+---
+ drivers/gpu/drm/drm_bridge.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8ae2f9b1db44..6a97b579c604 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1437,6 +1437,17 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
+ 
+ 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
+ 						      conn_state);
++	/*
++	 * -ENOTSUPP is the internal "no bus format chain" code of the
++	 * negotiation. It is not a valid userspace error code; an atomic
++	 * check that cannot be satisfied fails with -EINVAL.
++	 */
++	if (ret == -ENOTSUPP) {
++		drm_dbg_atomic(bridge->dev,
++			       "[ENCODER:%d:%s] no bus format chain found\n",
++			       bridge->encoder->base.id, bridge->encoder->name);
++		return -EINVAL;
++	}
+ 	if (ret)
+ 		return ret;
+ 
+
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
