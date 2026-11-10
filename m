@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFFF606A205
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B536606A32E
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJN1eucK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcqbUlmU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42BC10E30D;
-	Tue, 10 Nov 2026 16:30:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8BDD10E30D
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73AF810E029;
+	Tue, 10 Nov 2026 16:43:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D0010E029
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:43:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1ADCE63A70;
- Tue, 10 Nov 2026 16:30:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87AD1F008BC;
- Tue, 10 Nov 2026 16:30:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B547340C2B
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:43:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710F01F0089F;
+ Tue, 10 Nov 2026 16:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794328219;
- bh=fKRoeHopfh1UW8XpO4YH9uQaY8Taf59vZuXGzqoMAy4=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=dJN1eucKMtPIIGPIDG1wfWzqMWuvGLL2OrXLlA23OGVnf2oLg/76zwuPX7yBFaev8
- 7pW124Ys14cFCaR6yYU4bNb1aLgMzdvVeaH5+hJxTpr/tsgWSE0AU/HahE0tAgc9zf
- F6Lf5OwNcUjCxNzemfis/BE6JMfHCC6TvM5pnLLei6a7wJ/4tF+ychZA+QO4WOp7yp
- xYoPCQyLSsyAHktFTAHkqMXROYS3w/cBzftRcLCzX/AUcSXlTW9ncYffhJeUuzfVAk
- rD1Q/h5oMriBpWqHIDm5Kcoyy6J3MDw5GdQ58vwv3AgIf73R7ejQ0VJEvXX0KWkoLL
- pZc/LKWITrhgQ==
-Message-ID: <sashiko-outbox-207383@kernel.org>
+ s=k20260515; t=1794329032;
+ bh=zsab9H8XoGewsLDmLphXph8qD76A8Gtu3Pfwh3iF9Xo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DcqbUlmUevRw8GDAKd1be51hgcXWWf9XhRYAALpAzSoGPZkhGa6PnwABkM89EaDFa
+ 8aBzE+WnHBJRq7+gINbKhMxbSy7CUTZtihFnkhuCnNVgO+3XmfuMJValvFHwb034Bd
+ JplzAp4AZBG4QfBiEpUbiWTHLPp34/gntUCGQ63TdQlvj6pcjyKanleUKKHLa590V8
+ A0wHAqweMgJpPJK5G1QFVLCpsROo+tN91OnZ2wEXEFtnlpVkGwANZfJ9cyV8wxwFED
+ TQnM0UHAVQDB0efkRR2Y6fJ+38FVay807PrmWe5sSufoXxp28YfJrH2beF6q1wnQbZ
+ Z22wMcLIYm09g==
+Message-ID: <sashiko-outbox-207402@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 26/28] drm/panthor: Tolerate access-window loss
- during HW waits
-To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110153907.3241978-27-karunika.choo@arm.com>
-References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-27-karunika.choo@arm.com>
+Subject: Re: [RFC PATCH] dma-buf/dma-fence: Close race window against error
+ checks
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110155817.1492359-3-phasta@kernel.org>
+References: <20261110155817.1492359-3-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 16:30:19 +0000
+Date: Tue, 10 Nov 2026 16:43:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,227 +58,144 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] drm/panthor: false success in panthor_fw_start() and
-  panthor_fw_mcu_halted()
-- [High] drm/panthor: panthor_sched_report_fw_events() drops FW events
-  on access loss
-- [Medium] drm/panthor: unguarded PWR_STATUS checks fail on access loss
-  in panthor_pwr.c
-- [Medium] drm/panthor: unawakened waits stall on access loss in flush,
-  reset, and FW
-- [Low] drm/panthor: missing early return on access loss in
-  panthor_pwr_l2_power_off()
+- [Critical] dma-buf/dma-fence: recursive lock deadlock in
+  dma_fence_is_signaled()
+- [Critical] dma-buf/dma-fence: extern_lock UAF in
+  dma_fence_is_signaled() after signal
+- [Medium] dma-buf/dma-fence: redundant IO rmb() in
+  dma_fence_is_signaled_locked()
 --
 
-commit d06b3bf7778829600d32bed288afa3f04bcf72dd
-Author: Karunika Choo <karunika.choo@arm.com>
+commit 9ba8604395f23b0369fb06fa36c061d180ce127f
+Author: Philipp Stanner <phasta@kernel.org>
 
-drm/panthor: Tolerate access-window loss during HW waits
+dma-buf/dma-fence: Close race window against error checks
 
-This commit adds panthor_aw_has_gpu_access() and updates firmware, GPU cache
-flush, power control, and scheduler paths to stop waiting or suppress timeo=
-ut
-errors when the access window closes.
+This commit adds an rmb() to dma_fence_is_signaled_locked() and acquires the
+fence spinlock in dma_fence_is_signaled() to order signaled-flag checks
+against subsequent reads of fence->error.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 1449d9a66302e..8643e7bbfc108 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1140,9 +1140,10 @@ static int panthor_fw_start(struct panthor_device =
-*ptdev)
->  	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+Link: https://lore.kernel.org/dri-devel/20261020100034.759183-2-phasta@kern=
+el.org/
+
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index dd07d128adc3b..fe6fbc5a5a35d 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -517,8 +517,18 @@ static inline bool
+>  dma_fence_is_signaled_locked(struct dma_fence *fence)
+>  {
+>  	const struct dma_fence_ops *ops;
+> +	bool signaled;
 > =20
->  	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
-> -				ptdev->fw->booted,
-> +				(ptdev->fw->booted ||
-> +				 !panthor_aw_has_gpu_access(ptdev)),
->  				msecs_to_jiffies(1000))) {
-> -		if (!ptdev->fw->booted &&
-> +		if (!ptdev->fw->booted && panthor_aw_has_gpu_access(ptdev) &&
->  		    !(gpu_read(fw->irq.iomem, INT_STAT) & JOB_INT_GLOBAL_IF))
->  			timedout =3D true;
->  	}
-> @@ -1180,6 +1181,9 @@ static bool panthor_fw_mcu_halted(struct panthor_de=
-vice *ptdev)
->  	struct panthor_fw_global_iface *glb_iface =3D panthor_fw_get_glb_iface(=
-ptdev);
->  	bool halted;
+> -	if (dma_fence_test_signaled_flag(fence))
+> +	signaled =3D dma_fence_test_signaled_flag(fence);
+> +	/*
+> +	 * Whoever holds the lock might next try to obtain the fence's error
+> +	 * code - but there is no ordering between reading the signaled flag
+> +	 * and the reading of the error code.
+> +	 *
+> +	 * Order properly with rmb() since fences might be involved in IO.
+> +	 */
+> +	rmb();
+> +	if (signaled)
+>  		return true;
 > =20
-> +	if (!panthor_aw_has_gpu_access(ptdev))
-> +		return true;
-> +
->  	halted =3D gpu_read(ptdev->fw->iomem, MCU_STATUS) =3D=3D MCU_STATUS_HAL=
-T;
-
-[Severity: High]
-Can returning 0 from panthor_fw_start() and true from panthor_fw_mcu_halted=
-()
-on access loss cause callers to treat an unbooted MCU as booted and corrupt
-ptdev->reset.fast?
-
-If the access window closes in panthor_fw_start() before JOB_INT_GLOBAL_IF
-sets ptdev->fw->booted, panthor_fw_start() returns 0 while ptdev->fw->booted
-is still false.  In panthor_fw_init(), execution continues into
-panthor_fw_init_ifaces() before the MCU has populated the shared control
-interface.  In panthor_aw_resume() -> panthor_device_resume_hw_components()=
- ->
-panthor_fw_post_reset(), an interrupted slow reset (where ptdev->reset.fast
-was false and firmware sections were freshly reloaded) succeeds and is
-immediately followed by panthor_device_suspend_hw_components() ->
-panthor_fw_pre_reset().  Because panthor_fw_mcu_halted() unconditionally
-returns true when !panthor_aw_has_gpu_access(ptdev), panthor_fw_pre_reset()
-sets ptdev->reset.fast =3D true even though the MCU never finished booting,=
- so
-the next resume skips panthor_reload_fw_sections() and attempts a fast reset
-on unbooted firmware memory.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
-hor/panthor_gpu.c
-> index 2e1b00e86cdea..d5666264c1fe6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -377,7 +378,8 @@ int panthor_gpu_flush_caches(struct panthor_device *p=
-tdev,
->  				msecs_to_jiffies(100))) {
->  		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
->  			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) !=3D =
-0 &&
-> -			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_CO=
-MPLETED))
-> +			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) &
-> +			      GPU_IRQ_CLEAN_CACHES_COMPLETED) && panthor_aw_has_gpu_access(pt=
-dev))
->  				ret =3D -ETIMEDOUT;
->  			else
->  				ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  	rcu_read_lock();
 
 [Severity: Medium]
-Does panthor_gpu_flush_caches() still block for the full 100ms timeout per
-active VM whenever the access window closes?
+Why is a mandatory I/O rmb() executed unconditionally here, even when
+signaled is false and the caller already holds the fence spinlock?
 
-When panthor_aw_handle_window_closed() sets aw->state to
-PANTHOR_AW_STATE_SUSPEND_PENDING and schedules panthor_aw_post_yield_work(),
-panthor_device_suspend_hw_components() -> panthor_mmu_suspend() ->
-panthor_mmu_as_disable() calls panthor_gpu_flush_caches() for each bound MMU
-address space slot while holding ptdev->mmu->as.slots_lock and
-ptdev->pm.hw_component_lock.  Because panthor_gpu_flush_caches() only checks
-panthor_aw_has_gpu_access(ptdev) after wait_event_timeout() expires (and
-ptdev->gpu->reqs_acked is not woken on access-window close), every yield
-sleeps for 100ms per active VM.  Similarly, panthor_pwr_reset() and
-panthor_fw_wait_acks() do not include !panthor_aw_has_gpu_access(ptdev) in
-their wait_event_timeout() conditions, so in-flight waits there also sleep
-until their full timeout expires when access is lost.
+Because dma_fence_signal_timestamp_locked() sets DMA_FENCE_FLAG_SIGNALED_BIT
+with test_and_set_bit() under the same spinlock, a reader holding that lock
+is already ordered against any prior dma_fence_set_error() once the bit is
+observed set, and running rmb() before checking if (signaled) adds a heavy
+I/O barrier to every unsignaled check in dma_fence_get_status().  Meanwhile,
+because dma_fence_test_signaled_flag() still uses relaxed test_bit() instead
+of test_bit_acquire(), lockless callers such as the -ENOENT fast path in
+dma_fence_add_callback() remain unordered when callers like
+dma_fence_array_enable_signaling() immediately read fence->error.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/pant=
-hor/panthor_pwr.c
-> index 1cfd4b658c81b..66a2c54b070dc 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-
-[ ... ]
-
-> @@ -400,9 +411,13 @@ static int delegate_domain(struct panthor_device *pt=
-dev, u32 domain)
->  	 * allow-flag will be cleared with delegated-flag being set.
->  	 */
->  	ret =3D gpu_read64_poll_timeout(pwr->iomem, PWR_STATUS, val,
-> -				      ((delegated_mask | allow_mask) & val) =3D=3D delegated_mask,
-> +				      (((delegated_mask | allow_mask) & val) =3D=3D delegated_mask ||
-> +				       !panthor_aw_has_gpu_access(ptdev)),
->  				      10, PWR_TRANSITION_TIMEOUT_US);
->  	if (ret) {
-> +		if (!panthor_aw_has_gpu_access(ptdev))
-> +			return 0;
-> +
->  		drm_err(&ptdev->base, "Delegating %s domain timeout, cmd(0x%x)",
->  			get_domain_name(domain), pwr_cmd);
->  		return ret;
-
-[Severity: Medium]
-What happens in panthor_pwr_l2_power_on() when panthor_pwr_domain_transitio=
-n()
-or delegate_domain() returns 0 after losing GPU access?
-
-panthor_pwr_l2_power_on() powers on the L2 domain and then calls
-panthor_pwr_delegate_domains(), which runs delegate_domain() for the neural,
-shader, and tiler domains in sequence.  Once the access window closes, MMIO
-reads from PWR_STATUS return 0, so the next delegate_domain() call hits the
-unguarded !(pwr_status & allow_mask) check at the start of the function, lo=
-gs
-a warning, and fails with -EPERM.  The initial PWR_STATUS checks in
-panthor_pwr_l2_power_on() and panthor_pwr_reset_soft() have the same issue =
-and
-fail with -EPERM and -EOPNOTSUPP when entered after access loss.
-
-> @@ -542,7 +557,7 @@ void panthor_pwr_l2_power_off(struct panthor_device *=
-ptdev)
->  	const bool has_neural =3D panthor_hw_has_neural(ptdev);
+> @@ -553,9 +563,17 @@ static inline bool
+>  dma_fence_is_signaled(struct dma_fence *fence)
+>  {
+>  	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
 > =20
->  	/* Abort if L2 power off constraints are not satisfied */
-> -	if (!(pwr_status & l2_allow_mask)) {
-> +	if (!(pwr_status & l2_allow_mask) && panthor_aw_has_gpu_access(ptdev)) {
->  		drm_warn(&ptdev->base, "Power off L2 domain not allowed");
->  		return;
->  	}
-
-[Severity: Low]
-Should panthor_pwr_l2_power_off() still return early when GPU access is los=
-t,
-while only gating drm_warn() on panthor_aw_has_gpu_access(ptdev)?
-
-With the condition written this way, calling panthor_pwr_l2_power_off() when
-!panthor_aw_has_gpu_access(ptdev) (such as during panthor_aw_post_yield_wor=
-k()
--> panthor_device_suspend_hw_components() -> panthor_gpu_suspend()) bypasses
-the return and falls through to panthor_pwr_domain_force_off() and
-panthor_pwr_domain_power_off() across all domains on a closed access window.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index 729eeb339fa40..addc5986554df 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1887,6 +1887,9 @@ void panthor_sched_report_fw_events(struct panthor_=
-device *ptdev, u32 events)
+> -	if (dma_fence_test_signaled_flag(fence))
+> +	/*
+> +	 * Take the lock to order against people reading the fence's error code.
+> +	 */
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	if (dma_fence_test_signaled_flag(fence)) {
+> +		dma_fence_unlock_irqrestore(fence, flags);
+>  		return true;
+> +	}
+> +	dma_fence_unlock_irqrestore(fence, flags);
 > =20
->  	guard(spinlock)(&ptdev->scheduler->events_lock);
-> =20
-> +	if (!panthor_aw_has_gpu_access(ptdev))
-> +		return;
-> +
->  	if (events & JOB_INT_GLOBAL_IF) {
->  		sched_process_global_irq_locked(ptdev);
->  		events &=3D ~JOB_INT_GLOBAL_IF;
+>  	rcu_read_lock();
+>  	ops =3D rcu_dereference(fence->ops);
 
-[Severity: High]
-Can returning early here drop job completions and CSG events when the MCU
-raises a job IRQ just before yielding the access window?
+[Severity: Critical]
+Does taking the fence spinlock in dma_fence_is_signaled() cause a recursive
+spinlock deadlock when signaling is enabled on an AMDKFD eviction fence?
 
-kthread (job irq)                 <hardirq> (aw irq)
-panthor_job_irq_handler()
-  status =3D gpu_read(INT_RAWSTAT)
-  gpu_write(INT_CLEAR, status)
-                                  panthor_aw_irq_raw_hander()
-                                    panthor_aw_handle_window_closed()
-                                      aw->state =3D
-                                        PANTHOR_AW_STATE_SUSPEND_PENDING
-  panthor_sched_report_fw_events()
-    if (!panthor_aw_has_gpu_access(ptdev))
-      return;  <-- drops status events
+dma_fence_enable_signaling() and dma_fence_add_callback() acquire the fence
+spinlock before calling __dma_fence_enable_signaling(), which invokes
+ops->enable_signaling() with the lock held and interrupts disabled:
 
-With YIELD_IDLE enabled, the MCU updates group sync objects and CSG output
-structures in host DRAM, raises the job interrupt, and immediately yields t=
-he
-access window.  Because panthor_job_irq_handler() has already cleared the
-interrupt before calling panthor_sched_report_fw_events(), bailing out when
-!panthor_aw_has_gpu_access(ptdev) discards those events (such as
-CSG_SYNC_UPDATE and CS_FAULT) even though the global and CSG interfaces live
-in shared DRAM, leaving completed jobs' dma_fences unsignaled across fast
-resets.
+  dma_fence_enable_signaling()
+    dma_fence_lock_irqsave(fence, flags)
+    __dma_fence_enable_signaling(fence)
+      amdkfd_fence_enable_signaling(fence)
+        dma_fence_is_signaled(fence)
+          dma_fence_lock_irqsave(fence, flags)  <-- spins forever
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c:amdkfd_fence_enable_signal=
+ing() {
+	struct amdgpu_amdkfd_fence *fence =3D to_amdgpu_amdkfd_fence(f);
+
+	if (!fence)
+		return false;
+
+	if (dma_fence_is_signaled(f))
+		return true;
+    ...
+}
+
+Any wait, callback registration, or TTM eviction on an unsignaled AMDKFD
+fence will lock up the CPU.
+
+[Severity: Critical]
+Can taking the fence spinlock before testing DMA_FENCE_FLAG_SIGNALED_BIT
+cause a use-after-free on fence->extern_lock when querying an already
+signaled fence?
+
+As documented in "Safe external access to driver provided object members" in
+include/linux/dma-fence.h, data not embedded in struct dma_fence, including
+the external spinlock passed to dma_fence_init(), must not be accessed after
+the fence has signaled because drivers may free the lock container once the
+fence signals and an RCU grace period elapses:
+
+  CPU0                              CPU1
+  ffs_dmabuf_signal_done()
+    dma_fence_signal(&fence->base)
+  ffs_dmabuf_detach()
+    ...
+      ffs_dmabuf_release()
+        kfree(priv)
+                                    dma_resv_add_fence()
+                                      dma_fence_is_signaled(fence)
+                                        dma_fence_lock_irqsave(fence, flags)
+                                          <-- use-after-free on priv->lock
+
+Drivers such as f_fs, panthor, xe, and msm allocate the spinlock in a driver
+object that can be freed after signaling while references to the signaled
+struct dma_fence remain in dma_resv or sync_file.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
-978-1-karunika.choo@arm.com?part=3D26
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110155817.1492=
+359-3-phasta@kernel.org?part=3D1
