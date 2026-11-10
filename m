@@ -2,41 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA27C60A262D
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF922606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KS2DPWE2
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E38D310F805;
-	Tue, 10 Nov 2026 16:10:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5076410F80C
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:10:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0833D471A6;
- Tue, 10 Nov 2026 16:10:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24E31F00925;
- Tue, 10 Nov 2026 16:10:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794327019;
- bh=TkxvmwLdo0oRGQupVX1ZAM1/DKfPThJSqAoH0MrtGS4=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=KS2DPWE2jJlMVEqtRmqGd6qhB7RBHcbz/PEW8MLc1ERHkOwLeKMWOfY1U5McGbuOd
- JVAHSu8omnFMOdMFg02vR2iVdqbprpcZstV0jsm2Tmjuj2eTLf/Di/CWt5uvkVvvGI
- yucMe9nO69TeYdmq560BVX067WZL8wqdDz7C5Q9DyRA4RJNt2nKATqH14QLPq5s3ci
- NRsI3+mfoiJ6ZzrLFyMTbCRbAvUUin/OLBnGOIsxcLvZE/lxN81vmlpAUCCLweClcQ
- 0Z1X4MPIXZRC+uG07kKAV9mOgCU8oLkkQP6C0BVb7gi/b51IRXyaNyvyeAKNpUA91f
- r0qQRaKkRg7cw==
-Message-ID: <sashiko-outbox-207343@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/28] drm/panthor: Add AM_PARTITION_CONTROL support
-To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110153907.3241978-15-karunika.choo@arm.com>
-References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-15-karunika.choo@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C518F10E1DA;
+	Tue, 10 Nov 2026 16:13:20 +0000 (UTC)
+Received: from flow-a7-smtp.messagingengine.com
+ (flow-a7-smtp.messagingengine.com [103.168.172.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F2410E48E
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:13:09 +0000 (UTC)
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+ by mailflow.phl.internal (Postfix) with ESMTP id 845011381074
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:13:08 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+ by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
+ x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
+ asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
+ S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
+ S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
+ /gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
+ Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
+ LLVckhHoSzC+MGE1iJu5eg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
+ 1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
+ jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
+ GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
+ Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
+ mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
+ auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
+ Tsc8Y3Jb1FgwsS6Y0dcjg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de; mf=PGFybmRAYXJuZGIuZGU+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm2:rsa-sha256:djHWkvUMZsjzhfS8ucfYqMrknbm4+nC3cfPuO3POQshYqzs
+ R7dCmknEm9GJg6twY98+Y4myULJ650kt8n6KpsNCRYSE/r+mPUEJu+kruDKA5c0o
+ 2uOzKQIyc0ytr1iYiX4SJGdh197P/TwCZqoDR1HqjKAwCqC/Kc9FCUk7LkdUpgyb
+ XzSNSgDA2wbXM/H3jili3RYFMS/LNwvfT3m9eMjVgtnujZEAV7F5lRz/AMdMxDUE
+ CGkGEllg3Hm+onKFtG+4TDeHr0pdFDclDLCycDJubAl2E6YJrFUJd2fxSLqbanGS
+ IbGAdJadlSqCwuiJ1bTcxT4nso3WoMR/K+/7buA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=mi-m=1; hc=12;
+ hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+ from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1;
+ h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
+X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
+ <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
+ sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
+X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
+ Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
+ XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
+ DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
+ +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
+ wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
+ D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
+ DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
+ LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
+ x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
+X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
+ <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
+ <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
+ <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
+ <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+ id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-ThreadId: AK-jVwBtQCQR
+Date: Tue, 10 Nov 2026 17:12:28 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann" <arnd@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>, 
+ "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
+ patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
+ "Support Opensource" <support.opensource@diasemi.com>
+Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
+In-Reply-To: <avM5EnC9yujUZcCO@nsa>
+References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+ <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 16:10:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,241 +131,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] drm/panthor: TOCTOU race from multiple AM_PART_STATE reads in
-  window helpers
-- [Medium] drm/panthor: panthor_partition_control_term() fails on
-  in-progress state transitions
-- [Low] drm/panthor: unused devm allocations in partition_control_init()
-  on -ENODEV
-- [Low] drm/panthor: unchecked devm_kasprintf() in
-  partition_control_init()
---
+On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
+> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
+>> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
+ote:
 
-commit 9f7b5a10199859069acf5b5904f5b9aca326fc89
-Author: Karunika Choo <karunika.choo@arm.com>
+>> > drivers/iio/adc/ad7793.c
+>> Maybe. Analog devices ack needed.
+>>=20
+>> Production part but this one indeed fails to probe.  Analog
+>> folk, do you want to fix this one up?
+>
+> Given it's production we should fix. Looking at platdata seems to nice=
+ly
+> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
+> just remove platdata and assume some defaults.
 
-drm/panthor: Add AM_PARTITION_CONTROL support
+Sounds good. I already dropped my removal patch for this one.
 
-This commit adds the Panthor arbitration platform driver and partition
-control support to manage access windows on Mali v15 AM GPUs.
+>> > drivers/iio/frequency/ad9523.c
+>> Maybe. Analog Devices ack needed.
+>>=20
+>
+> Hmm we definitely use this one and we have OF support out of tree with
+> likely some DT abuse of what can be in DT or not. Not sure if I have
+> some HW around but we'll need to fix it.
+>
+> In general for ADI parts, I think we can drop the ones that are not
+> recommended for new designs. All the others I tempted to say we should
+> keep. Naturally we need to fix all the drivers that do not compile
+> without platdata. And for the ones with defaults we can also just remo=
+ve
+> platdata and use the plain defaults.
 
-Link: https://lore.kernel.org/all/20260922205802.1AC3E1F000FF@smtp.kernel.o=
-rg/
+Ok, I'll leave it alone as well now.
 
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_contro=
-l.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-> new file mode 100644
-> index 0000000000000..330d0bf5fd375
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+I currently still have patches to remove adp8860/8870 (backlight), ad7877
+(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
+are currently unusable with DT but are all listed as in production.
 
-[ ... ]
+I assume you want to fix all of these and keep them in the kernel,
+but possibly still remove the adxl34x and only keep the IIO driver for
+that part?
 
-> +static u32 partition_state_get(struct panthor_partition_control *pc)
-> +{
-> +	const u32 state =3D gpu_read(pc->iomem, AM_PART_STATE);
-> +
-> +	return AM_PART_STATE_GET(state);
-> +}
-> +
-> +static u8 partition_aw_get(struct panthor_partition_control *pc)
-> +{
-> +	const u32 state =3D gpu_read(pc->iomem, AM_PART_STATE);
-> +
-> +	return AM_PART_STATE_WINDOW_GET(state);
-> +}
+I also have patches to remove platform_data probing from ad5761, adf4350,
+ad5791, ad5421 and ad5504, these all have DT support.
 
-[ ... ]
+See=20
+https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
+?h=3Dboard-remove-7.4
+for the updated series. I hope to slowly get through that. Let
+me know if you want me to skip any more of those patches.
 
-> +static int yield_now(struct panthor_partition_control *pc)
-> +{
-> +	guard(spinlock_irqsave)(&pc->lock);
-> +
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-> +		return 0;
-> +
-> +	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
-> +		return -EAGAIN;
-> +
-> +	gpu_write(pc->iomem, AM_PART_COMMAND,
-> +		  AM_PART_SET_COMMAND(PART_CMD_YIELD_NOW));
-> +
-> +	return 0;
-> +}
-> +
-> +static int yield_idle(struct panthor_partition_control *pc)
-> +{
-> +	guard(spinlock_irqsave)(&pc->lock);
-> +
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-> +		return 0;
-> +
-> +	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
-> +		return -EAGAIN;
-> +
-> +	gpu_write(pc->iomem, AM_PART_COMMAND,
-> +		  AM_PART_SET_COMMAND(PART_CMD_YIELD_IDLE));
-> +
-> +	return 0;
-> +}
-> +
-> +static int window_close(struct panthor_partition_control *pc)
-> +{
-> +	guard(spinlock_irqsave)(&pc->lock);
-> +
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-> +		return 0;
-> +
-> +	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
-> +		return -EAGAIN;
-> +
-> +	pc->closing =3D true;
-> +
-> +	gpu_write(pc->iomem, AM_PART_COMMAND,
-> +		  AM_PART_SET_COMMAND(PART_CMD_CLOSE_WINDOW));
-> +
-> +	return 0;
-> +}
-> +
-> +static int window_open(struct panthor_partition_control *pc, u8 aw_id)
-> +{
-> +	if (aw_id >=3D AM_ARB_MAX_AW_COUNT)
-> +		return -EINVAL;
-> +
-> +	guard(spinlock_irqsave)(&pc->lock);
-> +
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_WINDOW_OPEN) {
-> +		u8 cur_aw =3D partition_aw_get(pc);
-> +
-> +		if (cur_aw =3D=3D aw_id)
-> +			return 0;
-> +
-> +		dev_warn(pc->dev,
-> +			 "%s: OPEN_WINDOW(%u): Already opened for aw=3D%u, state=3D%u. Closin=
-g...",
-> +			 pc->name, aw_id, cur_aw, partition_state_get(pc));
-> +
-> +		return -EBUSY;
-> +	}
+Thanks,
 
-[Severity: Medium]
-Can an asynchronous hardware state transition between these back-to-back
-AM_PART_STATE reads cause yield_now(), yield_idle(), window_close(), and
-window_open() to act on inconsistent state?
-
-Each call to partition_state_get() and partition_aw_get() performs a
-separate MMIO read of AM_PART_STATE.  If the partition finishes closing or
-yielding and transitions into PART_STATE_RESET between the first and
-second partition_state_get() in yield_now(), yield_idle(), or
-window_close(), the first check is false and the second sees
-PART_STATE_RESET !=3D PART_STATE_WINDOW_OPEN, returning -EAGAIN instead of 0
-(which in panthor_partition_control_term() triggers WARN_ON() and skips
-partition_state_wait()).  In window_open(), if the partition resets
-between partition_state_get() and partition_aw_get(), cur_aw reads as 0;
-when aw_id is 0, window_open() returns 0 without issuing
-PART_CMD_OPEN_WINDOW.
-
-Also, the dev_warn() in window_open() performs a third MMIO read of
-AM_PART_STATE and still says "Closing..." even though window_open() no
-longer closes the window.  Reading AM_PART_STATE once into a local
-variable under pc->lock and extracting both fields from that value would
-avoid these races.
-
-[ ... ]
-
-> +void panthor_partition_control_term(struct panthor_arbitration *adev)
-> +{
-> +	for (int i =3D 0; i < AM_ARB_MAX_PC_COUNT; i++) {
-> +		struct panthor_partition_control *pc =3D adev->pc[i];
-> +
-> +		if (!pc)
-> +			continue;
-> +
-> +		partition_irq_suspend(pc);
-> +
-> +		if (!pm_runtime_status_suspended(pc->dev))
-> +			if (!WARN_ON(window_close(pc) < 0))
-> +				WARN_ON(partition_state_wait(pc, PART_STATE_RESET));
-> +	}
-> +}
-
-[Severity: Medium]
-What happens in panthor_partition_control_term() if a partition is already
-transitioning through PART_STATE_WINDOW_CLOSED or
-PART_STATE_WINDOW_OPENING when teardown runs?
-
-window_open(), window_close(), yield_now(), and yield_idle() issue
-commands without waiting for the state transition to complete, and
-window_close() returns -EAGAIN for any state other than PART_STATE_RESET
-and PART_STATE_WINDOW_OPEN.  If a transition is still in flight when
-panthor_partition_control_term() runs, window_close() returns -EAGAIN,
-triggering WARN_ON() and skipping partition_state_wait() while the
-hardware is still active.  Commit "drm/panthor: Reset partitions before
-starting arbitration" later in this series adds partition_ensure_reset()
-to handle in-progress states during init, so calling it here as well would
-ensure teardown waits for the reset to complete.
-
-> +static int partition_control_init(struct panthor_arbitration *adev, int =
-i)
-> +{
-> +	struct panthor_partition_control *pc;
-> +	struct device *dev =3D adev->dev;
-> +	struct irq_data *irqdata;
-> +	struct resource *res;
-> +	void __iomem *iomem;
-> +	u32 irq_flags =3D 0;
-> +	char *name;
-> +	int irq;
-> +	int ret;
-> +
-> +	if (adev->pc[i])
-> +		return dev_warn_probe(dev, -ENODEV,
-> +				      "partition %u already present", i);
-> +
-> +	pc =3D devm_kzalloc(dev, sizeof(*pc), GFP_KERNEL);
-> +	if (!pc)
-> +		return -ENOMEM;
-> +
-> +	name =3D devm_kasprintf(dev, GFP_KERNEL, "pc%d", i);
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	res =3D platform_get_resource_byname(to_platform_device(dev),
-> +					   IORESOURCE_MEM, name);
-> +	if (!res)
-> +		return -ENODEV;
-
-[Severity: Low]
-When platform_get_resource_byname() finds no resource and returns -ENODEV,
-panthor_partition_control_init() ignores -ENODEV and probe succeeds,
-leaving pc and name allocated on dev until the driver unbinds.  Could
-pc be allocated after looking up res (or the unused devm allocations be
-freed before returning -ENODEV)?
-
-[ ... ]
-
-> +	ret =3D devm_request_irq(
-> +		dev, irq, partition_irq_raw_handler, irq_flags | IRQF_SHARED,
-> +		devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), pc);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Low]
-Can devm_kasprintf() return NULL here and pass a NULL devname into
-devm_request_irq() instead of failing with -ENOMEM?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
-978-1-karunika.choo@arm.com?part=3D14
+    Arnd
