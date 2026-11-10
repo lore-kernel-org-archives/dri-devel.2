@@ -2,46 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFCD606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 05:58:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C1B60A2602
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 06:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqEYcoVo
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnQtlg8K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D963310E20D;
-	Tue, 10 Nov 2026 05:58:29 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9008A10E20D
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADE9210EDE4;
+	Tue, 10 Nov 2026 06:03:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C643710EDE4
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 06:03:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B3B8E63595;
- Tue, 10 Nov 2026 05:58:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32951F0089F;
- Tue, 10 Nov 2026 05:58:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8241C42B0F
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 06:03:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE921F0089F;
+ Tue, 10 Nov 2026 06:03:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794290302;
- bh=Z7iAk94rtQT4en12Oo5gzA5SIJCnJY/wdVZuGhW9uGk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=DqEYcoVoJ4NVzkUI12zFP/8ltyHR34sOhLNoZ+6EbcrhvFpnUVs7LbEo1Nnt97tc2
- JXmZOgO/GYesMTExVSk7Ej/JXo9wlaa4IKi2kAuHvBMNfCtyBPbw5DvFenTbm5fFvD
- DbBBci/lpJv/5T7fX0Mo9s6mZegLhlU9363QdTmxwLg7izEF6ggDS1ewpuyK7TE5q7
- LcdBuSgjv2TIWygxiGltY0aK3FhC67j2sZ9R5JLlfbXtin+G5n4GQtJTkXXiT+Wz1W
- gf+Wy9T6ElZRqQEWe2yrivKtTk1dw67Dr9k/e3Phtk6wJEwuOYWCa0wAxXmVs4m4Hk
- +7i9v23CCS8Bw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/panic: Do not use un-escaped URL as format string
-Date: Tue, 10 Nov 2026 00:58:20 -0500
-Message-ID: <20261110055810.483002-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051705-failed-6.12-6596aae25585@kernel.org>
+ s=k20260515; t=1794290604;
+ bh=A3QVZs894CF3Zo/s67tqg+DsBT/VsojaDWbCi5nSrXw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hnQtlg8KOSX0KSNn7Qm+fdchN/a634hAk2bf/Zl90g0uETOxkD0xQuSChhB4hSaDX
+ D5X7mSPnDCKstj5CIeJFWC95sKvL0O1dmpnVzFfv5Gs9LxEqhpcoyt6O13r1NIH/uS
+ 2GpFomUBRnSWzqfCGTTZ5YnpNitx1IO+v++TAKptDDxUxXH5Izg5Go6KBBy7qAJFQ6
+ TxrfCF3CP3t72d/3uqD4hSAjK4b10VKjiv23cUqkDKM5Xg/e9ghTAfcPuxoVQ8R7ZF
+ 94DpC+yQ9zc/NjazhUy4gVP7vb++5Yks2PGP7tmUR0eaXshmAFCFWT+V5mTp0kB+fr
+ P4ydOKdrV5JBQ==
+Message-ID: <sashiko-outbox-206389@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6.12.y] drm/panic: Do not use un-escaped URL as format
+ string
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110055810.483002-1-sashal@kernel.org>
 References: <20261107051705-failed-6.12-6596aae25585@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20261110055810.483002-1-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 06:03:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,54 +49,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] drm/panic: data corruption in drm_panic_get_qr_code_url()
+  [1]
+--
 
-[ Upstream commit 6596aae25585b183ebd528206bde6f12efaf8db1 ]
+commit 6107444dfad860987491c5c76fe37fcd55bcb9ae
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
-with a %s conversion specifier. Avoids a possible vulnerabilty from
-a crafted URL string.
+drm/panic: Do not use un-escaped URL as format string
 
-As the attacker needs to control the kernel at the Kconfig level, the
-potential for an exploit is likely low.
+This commit passes CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL via a %s format
+specifier in drm_panic_get_qr_code_url() instead of concatenating it
+directly into the snprintf() format string.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.12+
 Link: https://patch.msgid.link/20260911124540.279841-2-tzimmermann@suse.de
-[ sashal: Retained the zl= URL parameter instead of z= to match the older QR encoding. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/drm_panic.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index 06f0aa1cb4f74..f4662f88e2173 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -507,7 +507,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
- 	char *kmsg;
- 	int max_qr_data_size, url_len;
- 
--	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&zl=",
-+	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&zl=",
-+			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
- 			   utsname()->machine, utsname()->release);
- 
- 	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+> index 0aa87eafdacd5..7dedf18f9ed0c 100644
+> --- a/drivers/gpu/drm/drm_panic.c
+> +++ b/drivers/gpu/drm/drm_panic.c
+> @@ -502,7 +502,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
+>  	char *kmsg;
+>  	int max_qr_data_size, url_len;
+> =20
+> -	url_len =3D snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_=
+URL "?a=3D%s&v=3D%s&zl=3D",
+> +	url_len =3D snprintf(url, sizeof(url), "%s?a=3D%s&v=3D%s&zl=3D",
+> +			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
+>  			   utsname()->machine, utsname()->release);
+> =20
+>  	max_qr_data_size =3D drm_panic_qr_max_data_size(panic_qr_version, url_l=
+en);
 
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can concurrent debugfs
+writes across different DRM devices corrupt the global zlib stream and
+buffers in drm_panic_get_qr_code_url() [1]?
+
+draw_panic_plane() only serializes callers per device via
+drm_panic_trylock(plane->dev), while drm_panic_get_qr_code_url() and
+drm_panic_get_qr_code_raw() operate on shared file-scope globals:
+
+drivers/gpu/drm/drm_panic.c:
+static char *qrbuf1;
+static char *qrbuf2;
+static struct z_stream_s stream;
+
+CPU0                                    CPU1
+debugfs_panic_write() (dev A)           debugfs_panic_write() (dev B)
+  draw_panic_plane()                      draw_panic_plane()
+    drm_panic_trylock(dev A)                drm_panic_trylock(dev B)
+    ...                                     ...
+      drm_panic_get_qr_code_url()             drm_panic_get_qr_code_url()
+        zlib_deflateInit2(&stream, ...)
+                                                zlib_deflateInit2(&stream, =
+...)
+        stream.next_in =3D kmsg;                  stream.next_in =3D kmsg;
+                                                  <-- corrupts shared stream
+
+Concurrent writes to per-plane panic debugfs files on two DRM devices
+simultaneously mutate qrbuf1, qrbuf2, and stream, corrupting zlib state
+and kernel memory.
+
+[1] https://sashiko.dev/#/bug/linux-093f9782-c6d2-4cc0-b04c-5ef4dea5d6f9
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110055810.4830=
+02-1-sashal@kernel.org?part=3D1
