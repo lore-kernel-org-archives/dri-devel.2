@@ -2,42 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89B7606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:33:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9026F607258D
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN/hDOzA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/3fDxSK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B9510E921;
-	Tue, 10 Nov 2026 07:33:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E4D10E921
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B12E910E944;
+	Tue, 10 Nov 2026 07:45:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E2C10EE64
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:44:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 948BE439B5;
- Tue, 10 Nov 2026 07:33:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C691F0089F;
- Tue, 10 Nov 2026 07:33:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B6BE263791;
+ Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794296698;
+ b=d9u7Vgha6Uq1B01ky9RKnJuqkrn3kxYbQ1EKeDpnxlca+1ilE7k15v3OvdLXvcJnq4EF
+ haMY8W3U7zKGj0OW7J092U97BjwczYlr/Uv3W45FtxE8d+kBGEK4+WRm4dI3VI9YYMleB
+ SjfvCt9n5YzvcKnMmYrd4I4s0pT8CXyiaoxk2OZbK4MUhOnFhVM5AQvlzFEEaJYH8cHTl
+ DV4jmig+3L/vcqiXozqxh/D1FbljiEx5bIDcB1eR6USon2WOrpRnKqS/dW0G4ktuZwb1J
+ LyOBpMQ4NRx+ZRJjWSR5dVBECfOGqPfOnawbl+cmTlVf3yTzv5yRVrChUXeLa5nTrGw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794296698;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
+ b=esECSrGFm3KJ1EuNKaKaknxefSJXF6dVOWdoCqjXxk8/khyXzsnWYKS5CTTFXO2CJ5RZ
+ kn5LztJdHedUlPRUIqXMIV+Hk5J8neUQn8MOZhJGZWQkN0xjmmGat2qzOK5Gshdeme0t3
+ n4XfxJgas3Ks8ivXfKao4IYZUKfn7hsb/cXx1PM+yhg6VNQsuhl6JrDm1Q51g9wGNro/n
+ KL3uR4dmzbd+AHIhcA0kCoWG3STSQL0GmNHPHdj1SaGYL88jGXmWMH2ZJO/niXqZru7m/
+ TGoevV9ngufZmaGcSQNrHLCV4pKjRrk1l4avMWyB41imguImm3BkjbvXeGhLD/73arA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id C47B41F00903;
+ Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794295982;
- bh=A24MAzSBFFeu0eMnzyc5HF0ADj2zpXsK8d+7f++FL44=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nN/hDOzAyfjD2R0Sfo8zJXvdVA8GjDUC+LB+ZXkcwrYAT0ez0sfspSkOCWK3EWVTD
- nu2vaNbqxdbEWexQAq6Amo9XThpJQoQJPpZiJT30dpIJkuAgJUmj3xxbjl8yUWBTgT
- PC9rF3hItZWk8VYcOvBqzXFL7M5awfcdPwgkQi55WB2q/XZOzctjGwze7sigv3qL5w
- KsSEThbsioSe372D9ArIWj/UqGAiCVne5Wngc4h+w3oBFB0N0fXXPlZehBi6cN/bLl
- OIQQ+N+sGoTUiuPLgPHfqKFZdN8cWPgu7osBm55+NO29lN3zOyDRDMbNZAr20iqcCh
- UBa2Q5yl0ngVg==
-Message-ID: <sashiko-outbox-206498@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panthor: Do not change the GPU clock rate while
- suspended
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
-References: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 07:33:01 +0000
+ s=k20260515; t=1794296698;
+ bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=i/3fDxSKRJ+5/qwKT6GNvZ33hF2ahjV83fFDRRZ22Bcwksloqxuf3pDMjY96WOrYq
+ jN9pkFOmoQuqsBbRgKYArasE4kX7oefsmcwhPD9EzQzYwEYReO7VDdN33pHTT4wuI/
+ Q5mu8dQeVNvAKUSmAAemS2o9W1g0jO3gV4/2F7p8QAotOqqudWAYJO6kKwxlrlwE7A
+ hWbeyAxmAsHrd1f+QJJ1hts2yKcSVBKcWGFBnB3vZrIBUa1VEIhBpkGjakXdHJuY4A
+ nXvVguaJqUyHvZKFX2Usxacq3lo0c+k5ifgq0yn9RsAsW1I0Ce+l3dMwZg6iLE6eb4
+ yicd/IOr+hUVg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 2381C48A0E;
+ Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH 0/7] drm/panfrost: Resume long jobs instead of resetting,
+ and mapping error path fixes
+Date: Tue, 10 Nov 2026 07:44:55 +0000
+Message-Id: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gZMFRWvIi5qJ2pkaKVxBkG8+
+ 3R0+Rb/n6AchRW67ITIX1EJPoHyDNxi/cwor2QwhamJqMDN+ikG3fEd/IxrGBWprkrTNtZYR5D
+ CLfIkxz3th8f6GVd2+/8E1/UDRvr78XYAAAA=
+X-Change-ID: 20261110-panfrost-long-jobs-1643287a2ac1
+To: David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=4091;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=spi4oruI9Mu1XmSFEL9ByMYtDiQL6HJu09Q2+nsBdAI=;
+ b=doXsrdVgudeHFP9TRuEw+MIqsZP2mBmCWKYTplTnRRshgc9927ATq5m1uebq/BfqiFmglLeoz
+ eAcQkNAuu9wCBi9IF9AZT/DL06JdnOf9ibJAASsPdXGrbqvS+2Peg5D
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,220 +99,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/panthor: skipped rates in panthor_devfreq_target() lost
-  across resume
-- [Medium] drm/panthor: lockless pm.state check in
-  panthor_devfreq_can_set_rate() races
-- [Low] drm/panthor: missing Fixes trailer on panthor_devfreq_target()
-  bug fix
---
+This series fixes problems found running the GLES, Vulkan and OpenCL
+conformance tests with Mesa on an Orange Pi Zero2 (Allwinner H616,
+Mali-G31 MP2, one shader core, 1 GB of RAM).
 
-commit b3aaf374222f607db90947d06a6fffd9f1ae68b2
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+Patches 1-3 fix the error paths of BO mapping under memory pressure: a
+WARN on an ordinary allocation failure, pages dropped while the cached
+sg table still maps them, PTEs left behind by a partial map_pages(),
+and the folios of a heap chunk kept after a failed fault, which makes
+the next fault in that chunk WARN.
 
-> drm/panthor: Do not change the GPU clock rate while suspended
->
-> From the start of panthor_device_suspend() until panthor_device_resume()
-> has enabled the clocks again, the GPU clocks are off or about to be, and
-> the GPU power domain may be down. devfreq can still call ->target() in
-> that window: a write to min_freq or max_freq in sysfs, a thermal cooling
-> state change or a PM QoS request all end up in update_devfreq() whatever
-> the device state.
->
-> With the RK3588 GPU core clock switched to the firmware-managed
-> SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
-> a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
-> GRF, which sit in the GPU power domain, and with the domain off that
-> access ends in an asynchronous SError and a kernel panic, for example
-> after
->
->   echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
->
-> while the GPU is runtime suspended.
->
-> Only apply a rate to the hardware while the device is resuming or
-> active, plus the suspend frequency that devfreq_suspend_device() applies
-> from the suspend path while the GPU is still powered. Other requests are
-> still accepted and recorded by devfreq, which applies them on resume or
-> at the next governor update.
->
-> The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
-> carried in Armbian's linux-rockchip pull request 380) checked the
-> runtime PM status instead. That
-> status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
-> which leaves a window where the rate can be raised again right before
-> the power domain goes down. The devfreq suspend count cannot be used
-> either: panthor's first runtime resume calls devfreq_resume_device()
-> without a matching suspend, so the count is -1 while the GPU is active
-> and 0 while it is suspended.
->
-> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Patches 4-6 change what happens when a job runs into the 500 ms job
+timeout. On a small GPU OpenCL kernels and heavy fragment jobs
+legitimately run longer, and resetting the GPU loses their work: the
+OpenCL CTS Integer Ops long math and Thread Dimensions tests, the
+KHR-GLES31 advanced blend mixedSequence test and several dEQP-VK
+spirv_assembly fragment cases fail that way. Following the Arm driver's
+job scheduling, a job whose slot is still active is soft-stopped and
+resumed from JS_TAIL without a reset, hard-stopped if it does not reach
+a task boundary within 5 s, and the GPU is reset only if the hard stop
+does not take effect either. Patch 4 makes sure a soft-stopped job is
+never resumed after a GPU reset (its progress is in the L2 that the
+reset discards), and patch 5 makes panfrost_reset() actually wait for
+the soft-stops (JOB_INT_JS_STATE is a snapshot, not the live state);
+both are needed by patch 6 and fix the reset path on their own.
 
-[Severity: Low]
-This fixes a crash when panthor_devfreq_target() is called while the device
-is suspended.  Should it include:
+Patch 7 adds the BOs around an unhandled page fault to the fault
+report, which told a texture over-read apart from a kernel problem.
 
-  Fixes: fac9b22df4b1 ("drm/panthor: Add the devfreq logical block")
+A job that keeps reaching task boundaries is resumed after every
+timeout and is never killed. If a limit on the total run time of a job
+is wanted, I can add one.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/=
-panthor/panthor_devfreq.c
-> index 2249b41ca4afe..cab86e9c9d46a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct=
- panthor_devfreq *pdevfreq)
->  	pdevfreq->time_last_update =3D now;
->  }
-> =20
-> +/*
-> + * Whether a new rate can be applied to the hardware now.
-> + *
-> + * From the start of panthor_device_suspend() until panthor_device_resum=
-e()
-> + * has enabled the clocks again, the GPU clocks are about to be disabled
-> + * or are off, and the GPU power domain may be down. devfreq can still
-> + * call ->target() in that window: sysfs
-> + * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
-> + * up in update_devfreq() whatever the device state.
-> + *
-> + * Changing the rate then is pointless, and harmful where the core clock
-> + * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
-> + * rate with the GPU power domain off makes TF-A access the powered-down
-> + * GPU GRF, which ends in an asynchronous SError. So while the device is
-> + * suspending only the suspend frequency, applied by
-> + * devfreq_suspend_device(), reaches the hardware, and nothing does
-> + * while it is suspended. devfreq records the other requests: they are
-> + * applied on resume or at the next governor update.
-> + */
-> +static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
-> +					 unsigned long freq)
-> +{
-> +	struct devfreq *devfreq =3D ptdev->devfreq ? ptdev->devfreq->devfreq : =
-NULL;
-> +
-> +	switch (atomic_read(&ptdev->pm.state)) {
-> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
-> +		return false;
-> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
-> +		return devfreq && devfreq->suspend_freq &&
-> +		       freq =3D=3D devfreq->suspend_freq;
-> +	default:
-> +		return true;
-> +	}
-> +}
+Testing: Orange Pi Zero2 (H616, Mali-G31), Mesa 26.2, with this series
+backported to v7.3.3:
+- OpenCL CTS Integer Ops quick_long_math/quick_ulong_math and Thread
+  Dimensions quick_2d_explicit_local pass (they failed before); dEQP-VK
+  spirv_assembly vec4 i8/u64 bit_field_insert count64 fragment cases
+  pass in 4-6 s (timed out before); KHR-GLES31 blend_equation_advanced
+  test_coherency.mixedSequence passes (failed before); none of them
+  resets the GPU;
+- a never-ending OpenCL kernel is hard-stopped after 5 s and the GPU
+  keeps working;
+- dEQP-GLES31 draw_indirect compute_interop large cases in memory
+  cgroups of 450-600 MB: the processes get allocation errors or are
+  OOM-killed, without a WARN, and the GPU keeps working;
+- a forced page fault prints the fault BO report;
+- no regressions in dEQP-GLES3 draw/occlusion_query/shaders.loops,
+  dEQP-GLES31 compute, KHR-GLES31 compute_shader and a set of OpenCL
+  CTS groups.
+Each patch builds without warnings with W=1 for arm64 and arm.
 
-[Severity: Medium]
-Can panthor_devfreq_can_set_rate() still allow dev_pm_opp_set_rate() to run
-while the GPU clocks are disabled or being turned off?
+These patches were developed with Claude (Anthropic) as a coding assistant:
+it investigated the problems, wrote the code and the commit messages. I
+reviewed them, and they were tested on an Orange Pi Zero2 (Allwinner H616,
+Mali-G31) as described above.
 
-Neither panthor_device_suspend() nor panthor_device_resume() synchronizes
-ptdev->pm.state transitions and clock enable/disable with devfreq->lock:
+---
+Arun Iyengar (7):
+      drm/panfrost: Don't WARN when a GEM mapping cannot get its pages
+      drm/panfrost: Unwind a failed GPU mapping without dropping its pages
+      drm/panfrost: Give back the pages of a heap chunk that failed to map
+      drm/panfrost: Don't resume a soft-stopped job after a GPU reset
+      drm/panfrost: Wait for the soft-stopped slots with the live slot status
+      drm/panfrost: Soft-stop and resume a job that outlives the timeout
+      drm/panfrost: Name the BOs around an unhandled page fault
 
-CPU0                                  CPU1
-panthor_device_suspend()
-  panthor_devfreq_suspend(ptdev)
-                                      update_devfreq()
-                                        panthor_devfreq_target()
-                                          panthor_devfreq_can_set_rate()
-                                            /* state is SUSPENDING and
-                                             * freq =3D=3D suspend_freq -> =
-true
-                                             */
-  clk_disable_unprepare(clks.coregroup)
-  clk_disable_unprepare(clks.stacks)
-  clk_disable_unprepare(clks.core)
-  atomic_set(..., SUSPENDED)
-  /* genpd powers down GPU */
-                                          dev_pm_opp_set_rate()
-                                            <-- accesses powered-down GPU G=
-RF
+ drivers/gpu/drm/panfrost/panfrost_device.h |   5 +
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 214 +++++++++++++++++++++++------
+ drivers/gpu/drm/panfrost/panfrost_job.h    |   8 ++
+ drivers/gpu/drm/panfrost/panfrost_mmu.c    | 139 +++++++++++++++++--
+ 4 files changed, 312 insertions(+), 54 deletions(-)
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-panfrost-long-jobs-1643287a2ac1
 
-The same race exists when panthor_devfreq_can_set_rate() sees
-PANTHOR_DEVICE_PM_STATE_ACTIVE right before panthor_device_suspend() disabl=
-es
-the clocks (when suspend_freq is 0 and polling is stopped,
-devfreq_suspend_device() does not take devfreq->lock).  Likewise,
-panthor_device_resume() sets PANTHOR_DEVICE_PM_STATE_RESUMING before
-enabling clks.core, clks.stacks and clks.coregroup, and leaves it set across
-clk_disable_unprepare() on the err_suspend_devfreq error path, where the
-default branch in panthor_devfreq_can_set_rate() returns true while the
-clocks are off.
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
-> +
->  static int panthor_devfreq_target(struct device *dev, unsigned long *fre=
-q,
->  				  u32 flags)
->  {
-> +	struct panthor_device *ptdev =3D dev_get_drvdata(dev);
->  	struct dev_pm_opp *opp;
-> -	int err;
-> =20
->  	opp =3D devfreq_recommended_opp(dev, freq, flags);
->  	if (IS_ERR(opp))
->  		return PTR_ERR(opp);
->  	dev_pm_opp_put(opp);
-> =20
-> -	err =3D dev_pm_opp_set_rate(dev, *freq);
-> +	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
-> +		return 0;
-> =20
-> -	return err;
-> +	return dev_pm_opp_set_rate(dev, *freq);
->  }
 
-[Severity: High]
-Does returning 0 from panthor_devfreq_target() without saving *freq cause
-frequency updates made while suspended to be lost across resume?
-
-In devfreq_set_target(), devfreq updates devfreq->previous_freq =3D new_fre=
-q,
-but only records devfreq->resume_freq when devfreq->suspend_freq is non-zer=
-o:
-
-drivers/devfreq/devfreq.c:devfreq_set_target() {
-    ...
-	devfreq->previous_freq =3D new_freq;
-
-	if (devfreq->suspend_freq)
-		devfreq->resume_freq =3D new_freq;
-    ...
-}
-
-When opp-suspend is not defined in DT (devfreq->suspend_freq =3D=3D 0),
-devfreq->resume_freq stays 0 and devfreq_resume_device() does not call
-devfreq_set_target() on resume.  With non-polling governors (performance,
-powersave, userspace), DEVFREQ_GOV_RESUME is a no-op, so any min_freq,
-max_freq, set_freq or governor change made while runtime-suspended updates
-devfreq->previous_freq without ever programming the hardware clock on resum=
-e.
-With simple_ondemand, devfreq_monitor_resume() overwrites
-devfreq->previous_freq with clk_get_rate() (the stale pre-suspend clock rat=
-e)
-and only queues polling work for polling_ms (50 ms) later, so resumed jobs
-run at the stale rate for the first 50 ms or across short job bursts.
-
-Even when devfreq->suspend_freq is non-zero, panthor_device_suspend() sets
-PANTHOR_DEVICE_PM_STATE_SUSPENDING before panthor_sched_suspend(),
-panthor_fw_suspend(), panthor_mmu_suspend(), panthor_gpu_suspend() and
-panthor_pwr_suspend().  Any rate change skipped during that window has its
-devfreq->resume_freq overwritten when panthor_devfreq_suspend() ->
-devfreq_suspend_device() calls devfreq_set_target(devfreq,
-devfreq->suspend_freq, 0), so devfreq_resume_device() restores suspend_freq
-instead of the requested rate.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-panthor-su=
-spend-clk-v1-1-53457050e51e@gmail.com?part=3D1
