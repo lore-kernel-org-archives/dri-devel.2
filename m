@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D5F606A323
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DFB606A332
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:20:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J7NJazhC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJmztAOS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77E5810E03B;
-	Tue, 10 Nov 2026 16:19:57 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC3310E063
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 052D710E063;
+	Tue, 10 Nov 2026 16:20:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA02B10E063
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:20:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 10183636D1;
- Tue, 10 Nov 2026 16:19:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941331F008A3;
- Tue, 10 Nov 2026 16:19:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F53940AF3;
+ Tue, 10 Nov 2026 16:20:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A531F0089F;
+ Tue, 10 Nov 2026 16:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794327590;
- bh=VtSRyp46rpa6noOezBu2lY6ft+nUoeFffYOoVEJO1CY=;
+ s=k20260515; t=1794327641;
+ bh=QcguJj1+l/XVuCR/LuPfp0/Y0DAkP2/rIQwy7GtLwlE=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=J7NJazhCNYLqM7Awzj7Xr598wek6/e65RJUZU9fzsqpgNtpk+A2BtNArHWk2i4S2j
- 5RWGUdwRfeGqEXpumhELs2Pt0yS5/etojmP8ANVYmVffTc1EryeFZ0gR9qx5hRT7Jl
- tQHKLm5w5JmIaARed7mzP9/1fLqv7TWE6AQNXErHtd7yzdPT3ItbeObCHk0Gt6PFjH
- G5R0wxk/36z1K9/RHqs1CgTW+IF9wPjj/oxvK+DWWoF7w79llZUHpTXe88R1iPFyAA
- wnc7DRkW18Xt36Yhj5+4gwTpPxVxsD2+0E1Ty4KftOjom5gr3ZVoIEkdrF4BUQtAME
- jCLw2RL9HEazA==
-Message-ID: <sashiko-outbox-207354@kernel.org>
+ b=NJmztAOSW5GPtGFvl75T+v+6wLJ2iKjGNRKtBXKFVpqaEuk++mpZUXMyVKrymR+tZ
+ JS0e9mKAzYtVX50SRf9AhaQf0YwyMubUbiBWbOAqf2qqkTIo488BgtM6r0atINuia3
+ ICIcCGei58HEyrm25taTWbihEyXI7Y0764G2SCl5UmU8Y6RqpmW+EcgxDlq7SN6ff6
+ a+ajKHeJghgFt5MzHE3VvZnmx6NyicDKD/uyqIKURGROTG8+XDkuU8mUTYuzdiZAqd
+ mBcbRJEI+VE2b7lmvhCV7gc1G9eYqnESuc+CI2Azx8cKIU3CoSmWCoojRC7LTfskK3
+ VdRo9O8XZSlfQ==
+Message-ID: <sashiko-outbox-207356@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 18/28] drm/panthor: Route arbitration events
+Subject: Re: [PATCH v2 22/28] drm/panthor: Add access-window support
 To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110153907.3241978-19-karunika.choo@arm.com>
+In-Reply-To: <20261110153907.3241978-23-karunika.choo@arm.com>
 References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-19-karunika.choo@arm.com>
+ <20261110153907.3241978-23-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 16:19:50 +0000
+Date: Tue, 10 Nov 2026 16:20:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,151 +57,270 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] drm/panthor: unhandled RESET and current_aw states wedge
-  arbitration
-- [Medium] drm/panthor: dropped GPU_REQUEST in
-  panthor_arbitration_sched_on_request()
+- [High] drm/panthor: uncanceled msg_retry_work in panthor_aw_suspend()
+  and resume
+- [Medium] drm/panthor: zero-delay workqueue busy loop in
+  panthor_aw_msg_retry_work()
+- [Medium] drm/panthor: unhandled INIT and GPU_REQUEST states in
+  __panthor_aw_suspend()
+- [Medium] drm/panthor: unhandled YIELDING timeout and INIT wait in
+  panthor_aw
+- [Low] drm/panthor: unchecked version in panthor_aw_handshake_handle()
+  resend path
 --
 
-commit 48a85078af75aa6fff27b7d739d44d8c4f545271
+commit 2a64ca6e72bd954e55857187b10a1459415f36df
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Route arbitration events
+drm/panthor: Add access-window support
 
-This commit wires arbitration events between resource-group message handlin=
-g,
-the arbitration scheduler, and partition control.
+This commit adds the VM-side access-window component for Mali v15 GPUs to
+negotiate the AM message protocol, request and yield GPU access from the
+arbiter, and defer reading hardware information until GPU access is
+granted.
 
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_contro=
-l.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-> index 330d0bf5fd375..d8fdafbf31864 100644
-> --- a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-> @@ -198,13 +198,22 @@ static int window_open(struct panthor_partition_con=
-trol *pc, u8 aw_id)
-> =20
->  static void partition_handle_reset_done(struct panthor_partition_control=
- *pc)
->  {
-> +	bool notify_stopped =3D false;
-> +	int aw_id;
+> diff --git a/drivers/gpu/drm/panthor/panthor_aw.c b/drivers/gpu/drm/panth=
+or/panthor_aw.c
+> new file mode 100644
+> index 0000000000000..5ab1d44f0a22e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_aw.c
+> @@ -0,0 +1,498 @@
+
+[ ... ]
+
+> +static void panthor_aw_msg_retry_work(struct work_struct *work)
+> +{
+> +	struct panthor_aw *aw =3D
+> +		container_of(work, struct panthor_aw, msg_retry_work);
+> +	struct panthor_am_msg *msg =3D &aw->msg;
+> +	int ret;
 > +
->  	scoped_guard(spinlock_irqsave, &pc->lock) {
-> +		aw_id =3D pc->current_aw;
->  		pc->current_aw =3D AW_UNASSIGNED;
-> =20
->  		/* RESET_DONE from CLOSE_WINDOW */
->  		if (pc->closing)
->  			pc->closing =3D false;
-> +		if (aw_id >=3D 0)
-> +			notify_stopped =3D true;
->  	}
+> +	ret =3D panthor_am_msg_retry(msg);
+> +	if (ret =3D=3D -EINVAL)
+> +		drm_warn(&aw->ptdev->base, "Send FIFO unexpectedly empty");
 > +
-> +	if (notify_stopped)
-> +		panthor_arbitration_on_stopped(dev_get_drvdata(pc->dev), aw_id);
->  }
-
-[Severity: High]
-Can relying solely on partition_handle_reset_done() with pc->current_aw >=
-=3D 0
-drop partition commands or wedge the arbitration scheduler in an infinite
-close loop?
-
-First, window_open() performs a posted write of PART_CMD_OPEN_WINDOW, sets
-pc->current_aw =3D aw_id, and returns 0 before AM_PART_STATE leaves
-PART_STATE_RESET. If the scheduler immediately follows up with a stop,
-yield, or close command (for example when sched->disabled is set in
-arb_sched_grant_locked(), or when another request is queued), yield_now()
-and window_close() see partition_state_get(pc) =3D=3D PART_STATE_RESET and
-return 0 without issuing a command or returning -EAGAIN:
-
-drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:window_clos=
-e() {
-	...
-	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-		return 0;
-
-	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
-		return -EAGAIN;
-	...
-}
-
-Because 0 is returned while pc->current_aw >=3D 0, the command is silently
-dropped instead of being retried once the window finishes opening.
-
-Second, if partition_state_get(pc) is already PART_STATE_WINDOW_OPEN on
-entry to window_open(), it returns 0 (when cur_aw =3D=3D aw_id) or -EBUSY (=
-which
-triggers reset_work -> arb_sched_force_close_locked()) before setting
-pc->current_aw =3D aw_id. When PART_RESET_DONE later fires, pc->current_aw =
-is
-still AW_UNASSIGNED, so partition_handle_reset_done() skips
-panthor_arbitration_on_stopped().
-
-Third, whenever the hardware partition is already in PART_STATE_RESET while
-sched->active_aw_id >=3D 0 (such as after a skipped
-panthor_arbitration_on_stopped() notification), arb_sched_close_locked()
-calls window_close(), gets 0 back without any PART_CMD_CLOSE_WINDOW or
-stopped notification, and starts close_timer. When close_timer expires,
-reset_work calls arb_sched_force_close_locked() -> arb_sched_close_locked(),
-repeating indefinitely and wedging GPU scheduling across all access windows.
-
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c=
- b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-> index e413cfd9e6d25..26b22461f6d39 100644
-> --- a/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-> @@ -163,10 +163,10 @@ static void rg_handle_message(struct panthor_resour=
-ce_group *rg, u8 aw_id,
-> =20
->  	switch (msg_id) {
->  	case VM_ARB_GPU_REQUEST:
-> -		/* TODO: on_request */
-> +		panthor_arbitration_on_request(dev_get_drvdata(rg->dev), aw_id);
->  		break;
->  	case VM_ARB_GPU_STOPPED:
-> -		/* TODO: on_idle */
-> +		panthor_arbitration_on_idle(dev_get_drvdata(rg->dev), aw_id);
->  		break;
+> +	if (ret =3D=3D -EBUSY || ret =3D=3D -EAGAIN)
+> +		queue_work(aw->wq, &aw->msg_retry_work);
+> +}
 
 [Severity: Medium]
-Can a VM_ARB_GPU_REQUEST sent right after VM_ARB_GPU_STOPPED be rejected
-with -EEXIST and lost while the partition is still closing?
+Does panthor_aw_msg_retry_work() spin in a zero-delay workqueue loop when
+panthor_am_msg_retry() returns -EBUSY?
 
-Receiving VM_ARB_GPU_STOPPED calls panthor_arbitration_sched_on_idle(),
-which sets sched->phase =3D ARB_SCHED_PHASE_CLOSING and starts an asynchron=
-ous
-PART_CMD_CLOSE_WINDOW while keeping sched->active_aw_id =3D=3D aw_id until
-PART_RESET_DONE fires on the partition control IRQ. Because the access
-window receives WINDOW_IRQ_WINDOW_CLOSED as soon as the window closes (prior
-to PART_RESET_DONE) and the resource group and partition control use
-separate interrupts, the access window can send a new VM_ARB_GPU_REQUEST
-while sched->phase is still ARB_SCHED_PHASE_CLOSING.
+When a second message is sent before the arbiter consumes the first from
+AM_OUTGOING_MESSAGE, panthor_am_msg_send() queues it in msg->send_fifo and
+schedules aw->msg_retry_work.  As long as AM_OUTGOING_MESSAGE_STATUS stays
+non-zero, panthor_am_msg_retry() returns -EBUSY and the worker immediately
+re-queues itself onto aw->wq without any backoff or bound, pegging a
+kworker at 100% CPU polling MMIO registers (unlike rg_retry_messages() in
+panthor_resource_group.c, which uses delayed_work).
 
-In panthor_arbitration_sched_on_request(), only ARB_SCHED_PHASE_STOPPING is
-exempted when checking whether the active access window may re-queue itself:
+> +
+> +static void panthor_aw_send_msg(struct panthor_aw *aw, u64 message)
+> +{
+> +	struct panthor_device *ptdev =3D aw->ptdev;
+> +	int ret;
+> +
+> +	ret =3D panthor_am_msg_send(&aw->msg, message);
+> +	if (ret =3D=3D -ENOSPC)
+> +		drm_err(&ptdev->base, "Send FIFO is full");
+> +
+> +	if (ret =3D=3D -EBUSY) {
+> +		drm_dbg(&ptdev->base, "Pending messages, scheduling retry work");
+> +		queue_work(aw->wq, &aw->msg_retry_work);
+> +	}
+> +}
+> +
+> +static void panthor_aw_handshake_handle(struct panthor_aw *aw, u64 messa=
+ge)
+> +{
+> +	struct panthor_device *ptdev =3D aw->ptdev;
+> +	bool acked =3D AM_MSG_ACK_GET(message);
+> +	u8 version =3D AM_MSG_VERSION_GET(message);
+> +	u8 reply_version =3D AM_MSG_CURRENT_VERSION;
+> +	int ret;
+> +
+> +	ret =3D panthor_am_msg_version_validate(&aw->msg, version, acked,
+> +					      &reply_version);
+> +	if (ret =3D=3D -EOPNOTSUPP)
+> +		drm_warn(&ptdev->base,
+> +			 "Msg protocol version less than minimum supported (%u < %u)",
+> +			 version, AM_MSG_MIN_SUPPORTED_VERSION);
+> +
+> +	if (!acked) {
+> +		u64 reply =3D VM_ARB_INIT_MAKE(1, reply_version);
+> +
+> +		panthor_aw_send_msg(aw, reply);
+> +
+> +		guard(spinlock_irqsave)(&aw->lock);
+> +
+> +		/*
+> +		 * If state is GPU_REQUEST, arbiter previously completed
+> +		 * handshake, New INIT could mean that the arbiter was restarted
+> +		 * and we need to resend GPU_REQUEST.
+> +		 */
+> +		if (atomic_read(&aw->state) =3D=3D PANTHOR_AW_STATE_GPU_REQUEST) {
+> +			panthor_aw_send_msg(aw, VM_ARB_GPU_REQUEST);
+> +			return;
+> +		}
+> +	}
 
-drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c:panthor_arb=
-itration_sched_on_request() {
-	...
-	if (test_bit(aw_id, sched->queued_mask) ||
-	    (sched->active_aw_id =3D=3D aw_id &&
-	     sched->phase !=3D ARB_SCHED_PHASE_STOPPING)) {
-		dev_warn(sched->dev, "%s: AW%u already in request queue.",
-			 sched->name, aw_id);
-		return -EEXIST;
-	}
-	...
-}
+[Severity: Low]
+Can this resend VM_ARB_GPU_REQUEST to an incompatible arbiter if the
+arbiter restarts with an unsupported protocol version while aw->state is
+PANTHOR_AW_STATE_GPU_REQUEST?
 
-The new request is dropped, and once PART_RESET_DONE completes, the
-scheduler becomes idle without granting the GPU back to the access window,
-stalling it until its request timeout expires. Allowing re-queuing when
-sched->phase =3D=3D ARB_SCHED_PHASE_CLOSING as well would avoid dropping the
-request.
+Even when panthor_am_msg_version_validate() returns -EOPNOTSUPP, the
+!acked branch still sends VM_ARB_GPU_REQUEST and returns early, leaving
+panthor_aw_request() waiting for the 5-second timeout instead of
+transitioning to PANTHOR_AW_STATE_READY so it can fail immediately with
+-EOPNOTSUPP.  Also, panthor_am_msg_version_validate() returns -EOPNOTSUPP
+when acked is true and version > AM_MSG_CURRENT_VERSION, so the warning
+above can log that version is less than AM_MSG_MIN_SUPPORTED_VERSION when
+it is actually greater than AM_MSG_CURRENT_VERSION.
+
+[ ... ]
+
+> +	ret =3D panthor_aw_wait_cond(aw, atomic_read(&aw->state) !=3D state, ti=
+meout_ms);
+> +	if (ret) {
+> +		scoped_guard(spinlock_irqsave, &aw->lock) {
+> +			switch (atomic_read(&aw->state)) {
+> +			case PANTHOR_AW_STATE_GPU_GRANTED:
+> +				return 0;
+> +			case PANTHOR_AW_STATE_GPU_REQUEST:
+> +				panthor_aw_state_set(aw, PANTHOR_AW_STATE_READY);
+> +				break;
+> +			default:
+> +				break;
+> +			}
+> +		}
+> +
+> +		return ret;
+> +	}
+> +
+> +	goto again;
+> +}
+
+[Severity: Medium]
+Can aw->state become permanently wedged in PANTHOR_AW_STATE_YIELDING if
+waiting for the window to close times out?
+
+If __panthor_aw_suspend() times out waiting for PANTHOR_AW_STATE_READY (or
+if WINDOW_IRQ_WINDOW_OPENED arrives just after panthor_aw_request() times
+out in panthor_aw_resume() and transitions READY -> YIELDING), the caller
+suspends the AW IRQ while aw->state is PANTHOR_AW_STATE_YIELDING.  If the
+hardware window finishes closing while the IRQ is masked, no
+WINDOW_IRQ_WINDOW_CLOSED interrupt fires on the next resume, and because
+neither __panthor_aw_suspend() nor panthor_aw_request() checks
+!panthor_aw_is_open(aw) or resets PANTHOR_AW_STATE_YIELDING to
+PANTHOR_AW_STATE_READY on timeout, every subsequent panthor_aw_request()
+call times out waiting on PANTHOR_AW_STATE_YIELDING.
+
+> +
+> +static int __panthor_aw_suspend(struct panthor_aw *aw)
+> +{
+> +	scoped_guard(spinlock_irqsave, &aw->lock) {
+> +		switch (atomic_read(&aw->state)) {
+> +		case PANTHOR_AW_STATE_READY:
+> +			return 0;
+> +		case PANTHOR_AW_STATE_SUSPEND_PENDING:
+> +			return 0;
+> +		case PANTHOR_AW_STATE_GPU_GRANTED:
+> +			panthor_aw_state_set(aw, PANTHOR_AW_STATE_YIELDING);
+> +			panthor_aw_send_msg(aw, VM_ARB_GPU_STOPPED);
+> +			break;
+> +		default:
+> +			break;
+> +		}
+> +	}
+> +
+> +	return panthor_aw_state_wait(aw, PANTHOR_AW_STATE_READY,
+> +				     PANTHOR_AW_STATE_TRANSITION_TIMEOUT_MS);
+> +}
+
+[Severity: Medium]
+What happens in __panthor_aw_suspend() when aw->state is
+PANTHOR_AW_STATE_INIT or PANTHOR_AW_STATE_GPU_REQUEST?
+
+If the initial handshake in panthor_aw_init() -> panthor_aw_request()
+times out, aw->state is still PANTHOR_AW_STATE_INIT when
+panthor_aw_unplug() calls __panthor_aw_suspend(), which hits default and
+blocks for another 5 seconds waiting for PANTHOR_AW_STATE_READY.  If
+__panthor_aw_suspend() is called while in PANTHOR_AW_STATE_GPU_REQUEST, it
+leaves the state as PANTHOR_AW_STATE_GPU_REQUEST while waiting for
+PANTHOR_AW_STATE_READY, so a concurrent WINDOW_IRQ_WINDOW_OPENED will
+transition it to PANTHOR_AW_STATE_GPU_GRANTED instead of yielding and
+cause suspend to time out with the window left open.
+
+[ ... ]
+
+> +int panthor_aw_resume(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_aw *aw =3D ptdev->aw;
+> +	int ret;
+> +
+> +	if (!aw)
+> +		return 0;
+> +
+> +	panthor_aw_irq_resume(&aw->irq);
+> +
+> +	ret =3D panthor_aw_request(aw);
+> +	if (ret) {
+> +		drm_warn(&ptdev->base, "Timedout waiting for GPU to be granted");
+> +		goto err_out;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_out:
+> +	panthor_aw_irq_suspend(&aw->irq);
+> +	return ret;
+> +}
+> +
+> +int panthor_aw_suspend(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_aw *aw =3D ptdev->aw;
+> +	int ret =3D 0;
+> +
+> +	/* suspend hw components directly if AW is not supported */
+> +	if (!aw)
+> +		return 0;
+> +
+> +	ret =3D __panthor_aw_suspend(aw);
+> +
+> +	panthor_aw_irq_suspend(&aw->irq);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Can aw->msg_retry_work run after panthor_aw_suspend() or the error path of
+panthor_aw_resume() returns and the caller disables the GPU clocks?
+
+CPU0                                  kworker
+panthor_device_suspend()
+  ...
+  panthor_aw_suspend()
+    __panthor_aw_suspend()
+      panthor_aw_send_msg()
+        queue_work(..., &msg_retry_work)
+    panthor_aw_irq_suspend()
+  clk_disable_unprepare(ptdev->clks.core)
+                                      panthor_aw_msg_retry_work()
+                                        panthor_am_msg_retry()
+                                          gpu_read(msg->iomem, ...)
+                                            <-- unclocked MMIO access
+
+Unlike panthor_aw_unplug(), neither panthor_aw_suspend() nor the err_out
+path of panthor_aw_resume() cancels aw->msg_retry_work, and
+panthor_aw_msg_retry_work() does not hold a runtime PM reference, so it
+can read and write msg->iomem after the clocks are turned off and trigger
+a synchronous external abort.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
-978-1-karunika.choo@arm.com?part=3D18
+978-1-karunika.choo@arm.com?part=3D22
