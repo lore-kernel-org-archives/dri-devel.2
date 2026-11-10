@@ -2,130 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1CA606A337
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ACE606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cWzOig87
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CLS4xbqd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC1410EFA3;
-	Tue, 10 Nov 2026 10:35:30 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012027.outbound.protection.outlook.com
- [40.93.195.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B4010EFA3
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:35:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NSFy6+HiXzorWbAb3DTc5jCo+3Qzki/vyxPDtZxq2Nj3dSRdCIOKUuKcytpWgBFaMHy90A+zXpH0fe6OJzHR9MC0bNVIWh015HGJbhDh64ac7Sk0m1ZIUgfDKVEheoIu0oJcvhLq1dDKaIZljU688A1rg7ZieTdHgtwT6AicVqs0A6e8fRtpuKh7HkSGAdkfHkW+ROe3e6TLts4pm0VIqCe5+PUP7y/s+ADxuYMrXxJzUt2vg5/5mdmITObshR/cXkTbiLNW3PhkKl6lewpbJR9crFqtMonmV28oGO0ElIvDbKDna/mZgbqbBfPve6s1aIBFp7r57qj1n+3sWLp6Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QwfYXsIdfpmBf4/2YepCLwVvS24ohMONopp8RJiFIjY=;
- b=AUaCMh2xHtGxGH4+VagkzdH7RuG3Aee7s2Dx/DwywfaQEtrmty9G0QYfn4+9geF9DKihg6O0heJoxTBCam3kSWxzDeSBqUVDr2/0o3gS8wvr7TDX/Z+gbRrHJqSibx29qtncgO89hJzHWge37J6WZsZ2qwpi1f/qKEiz61KT7RnaxuhIo+JVGbro8FTXQsiWTqrxZwUtRB4/HD9Jm8ebW6JPplZQoC44pvXzVlPRkvU8/ZZ9ljDijr59FYSkMneG7Bgf5wci2gsJiUSoi25OvLmRwCTQi3521W41HbZ46i+H+P/wm1imefWD9A6dv2rQFAMaaLFdEZwWNpOFYUXpSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QwfYXsIdfpmBf4/2YepCLwVvS24ohMONopp8RJiFIjY=;
- b=cWzOig877yawnBfw3XTm9MaPfHfltNr3pJ175ZrL1IIiW31bRL1CL/ftT0C0ijKNXUiZH6SwZk6RCa9+0AeCxmpZ+fV5bGH41tICaKIerWGsIZ5fBujnUsbOAz7/V5hNfzFI2yEfenHV+XeACtXEEUYTr0IMWN3u3NOSk7PrzGUdxfFloek6ZPDGGXZ588Hx5m7I3Y2/5uXL8m3JeWgJmdA9XmIncpjtcI4V9zE0ti6ky67V+UudfUboiQYlpIcCneI/q3iFyRzbu9Yh5N2/RQF8LUeUR8XAdWnlg0UaUntjvig9ct1ncKBKP3vU/nPdz2wRqBThIW1Nof9Luv26WQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 10:35:19 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 10:35:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 19:35:15 +0900
-Message-Id: <DMRGPTJ9CH1A.2M8LD751KZRIB@nvidia.com>
-Cc: <dakr@kernel.org>, <aliceryhl@google.com>, <ojeda@kernel.org>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
- <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Matteo Kloiber" <kernel@matt3o12.de>
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
-In-Reply-To: <20260831233215.287881-3-kernel@matt3o12.de>
-X-ClientProxiedBy: OS0P286CA0101.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:b1::16) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2B010EFB1;
+	Tue, 10 Nov 2026 10:37:01 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 088E210EFAF
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:36:55 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 835441E7D
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:36:51 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 588243F85F
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:36:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1794307014; bh=AqF58HrT3bhON+KbWlWZ11YZ8tIs9dlGm5SmVttprrQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CLS4xbqdYm2USKSDGwgAUngGw8UOPZmQfQiuyDA0qqQ61CUtXRaNUx6KIQ6Y1TdO4
+ bHTAePHgR/0fQyUXFJ8uyonTTRocn0Nx6+Nony1BWFp7Tx5n+3CzxTfXlp9ZkphUaE
+ zu+QAYdUAOLY4iwSdWgdi3qXHomMjjEd+XM55IyM=
+Date: Tue, 10 Nov 2026 10:36:43 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: aiyengar1990@gmail.com
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, Jonas Karlman <jonas@kwiboo.se>
+Subject: Re: [PATCH] drm/panthor: Do not change the GPU clock rate while
+ suspended
+Message-ID: <avLzu40gKwgJJiNK@e142607>
+References: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB9400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29e630b4-8eb9-48d5-abc3-08df3f1650cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|7416014|10070799003|22082099003|18002099003|10067099003|11063799006|4143699003|56012099006|261022075727099003|261022113327099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: cRpI0GrYeMKlBFr+eY+PCZroof8B921FwzHHjwzZQULdX9c9bRTbX/Zio+CY3evYETO323W437Y1QIStnN2Hqd32yDhsXxLHh81yMe/lBPmuhNTtGNN3Eq5CrHK0x6j/G6+NclMm4lS9P1vvdEiO3LZfQO4FR4cZYKIzZQnxRwm2qegCd3l1oaRA8VR3XdLy0v1evklXPkHAjRAPhrk4WKzu/e5yJasy2yqgG2S29aYaCeSu2cbkHW6HOCVj9A/FMaFS0KvkKMTP1VaBeJSFqXVI4iYBdQc2XBSAhMe1mtfuNSJ5etteU0TGB9VXudax+K0xoy9DneuYUmq9etV2Qd10ahnflrjsPvc00XU9mprVNk3XHT8zVie5xyeI7GTmbrFjfagDqEM9P/F5q7O0DkNKLLaE77umXUjzq1RRD9jwpdFTDTbl2H3ETniEA+QaovZ+6pimNpffCBboUHFlF4qPmpM76RqiWVHMGAgOpyzt8YXRcjB8Iq1qSOFi5UT3ngNMkvd/4SzyMsmSxaYCqfZiUuhDC6USuxcX2RL/PcxDnasC09J+KDtJ73sH8oDe6MADG0PJIZgmDj0kgIZEY5S/FD4kJQpj2nsrK2rGJnzZUIcTeaQl4nubYfpb8p2yJNemZ7nCZXrShLzAToVQPg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10070799003)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261022113327099003)(261026121527099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0hXNStFKzB4TlllVXpLQ2w2K0FJTmY4NjRreGQwNXE3eXUvNHkvUVRiTUR2?=
- =?utf-8?B?Smxmd1pVbVRDOWdERHlNWmJFNXdaSkdaM2RTMDFWMTNkNGdZcWNMMXNjSU9E?=
- =?utf-8?B?OEtNK25BVDFEMGhXZStCYnAzZWNEcFRpb21CbDhuejJnTVJ6dGZYMXd5OUhm?=
- =?utf-8?B?NWtMb1N4blJ4TXE0ZTNtYzAxR2k4NkYwVHRrODV1c3NzbGZJUW9leWlJbTlJ?=
- =?utf-8?B?NHRjREUxWXFrUWgrVmtDU202ZGlOSDlCSzI0N2ZHSUd1TEVwNVZxWVJEYUR0?=
- =?utf-8?B?RXdBSUZCMzVaM3JLL0l1R3VyZjZMN0NLY0YyTDlNTytkZ0FHbmc2cmUrNHh1?=
- =?utf-8?B?cUZVMlYyM1h2WGdkZEJhd2ZUaEYxRDhvMndueHVxTTBIWVN2eUhiMktDVkov?=
- =?utf-8?B?UEwxU1RwVWFZZDhSUW90YlR3aUc3UnIzcmI2bmF3WDVoUGN3WTJicS84dXcz?=
- =?utf-8?B?VFBpY09Bc2hWOVJxRXovRTc4UlpWSWROMWdZd1VlaDBRbkpuRWplZ1o1YkRr?=
- =?utf-8?B?WHBTYzU2Skg1RnZwNFlwMUdqN2svS3VHaW9LYzRDREVONXl0M2pabnBqY3JT?=
- =?utf-8?B?bXJRbFgrZEEvK1JySFJSUTA1RUM1ZnlMYjdzQm1QVnI1d3BHYjFhVWJyOHAy?=
- =?utf-8?B?TDNEZFRWZ0pyekl5TDkveHQyMDJleHgvY0lhTVk4UHdNM1NmMm1Ub2dlMElh?=
- =?utf-8?B?Z1NHUnFhM0NSQkx1MUhNM2dyUjBwVVdnTWorTG8zM3NUMitEWStVUXJ0aEk2?=
- =?utf-8?B?VmowczhiamhSM3JIRGs4SG5yR1NCYUlpM1d2YkI0bklETWI2bVBneG9Ra0dY?=
- =?utf-8?B?cHJKNXdWVi9scHBucXFETHVqbUZMUVJ2TmU4ZDZoY0RFYVlhOEhqMTZRdVVO?=
- =?utf-8?B?UDRBbyttc3ZDNGRyVXA1anIzYTFacEs4UzhveWlhS2hBdUl6OTJPR0xVMFIw?=
- =?utf-8?B?L21ZRlJyZkhiTU1MbFVBdlZ2aVlGc0MrMkF6R2hBWkdKM3crb3FwQkdYQkVY?=
- =?utf-8?B?WTRYdGVNblp0NlpyVUVOZnVtNXhUSEFsSzNnZXFBQk42ckRFTHovVUNLR25h?=
- =?utf-8?B?WXJ5Qk9uWUtoaHBlL242UXdtbC95cDVCdDdiSlVNZ0ErbUE4UVBpZzRVc3dq?=
- =?utf-8?B?cy96Nmh4c2J4cWpjNllMTFRYS20vdEdEeCtGMzRTTHRJK2FFdEdJSTJFVzJ4?=
- =?utf-8?B?NkwyQktjUUNPZGFwR1ZDMTRpR0JzZVg5WnRETThPeTIveElvQzJFbGtiQllU?=
- =?utf-8?B?U2p1V2pEZVpqMkxWMElZQzh1TW5TNDBuZjdUQ0pDeWtuL2t5VGQzSGVCdm9F?=
- =?utf-8?B?UFRRYUJ3QWEweXV4WlJSSTIvZlh1UVhGMEtaOFpjNmdkTDNUUDBUYjUzdkdR?=
- =?utf-8?B?ZnRBbFdDVm83dWZvRGo2TzBCS3VNMEZ0ZUROdTlDa1M2WG1ncm85c2txVlgr?=
- =?utf-8?B?Y09hYU5vQUQ0ZFBWdXc4dTlOT2VkT1VHU2sreHBBV2Zwc2x0M1Q0dDQwSDJz?=
- =?utf-8?B?YS9ZYlVIRHdSMUlDZytiT0E0ZFVhVWx2TlhWdEo3d2p4eUJMbGF0VTk1eEl6?=
- =?utf-8?B?eVoxTWEycWUvYXFUY0JMY0Y2ZFNHUnNCUTJ5bHRvVldnNkVCVWxHYWt4cEEx?=
- =?utf-8?B?bUVJSS9WMTlkVWxDbDZTZEVUMFEvT01VT05aL0dsY3RNcTFCcmtzcGRMc1M0?=
- =?utf-8?B?TXNFbGIzUFVnOGs5NGxPOHQyRTUvLytVL0pHbVhyd2RqQXQ3S0hTY1I0bE9y?=
- =?utf-8?B?L0xacEJuWGhSU1FOS0dmYWRXTTJpZDdXcTZWMjc4K3ZPMTV4T0NhdytkdkpW?=
- =?utf-8?B?N0VlQXpuWmtFcDcrRGMxcmgwTWNkZzlQZFhQQW50ZUxuQjFCT2p0dTR2akNZ?=
- =?utf-8?B?UU0rTCtMRkxsUTBwVWVnSlZoUzdkK3hLYWYxMFNEdmluQ3czVUVKSzUrdHVl?=
- =?utf-8?B?QTROclJxMGpCNFl1OFRxbmo1ejFTK3NYVXlSQ20ycWt3WGtxVXp4MnlnWFRq?=
- =?utf-8?B?NC9CTllFVmFwYU95aGxiSEVZQ29oSFU3cFRNNlArNHIvbnRZd3NrR0I2NllO?=
- =?utf-8?B?SUp5Tk5KSjNoVGJtQ2FrZmp6N0VwWWV3RUltUGZaZjVoQUZrUTROcCtybEJC?=
- =?utf-8?B?bGc4d21ZYkZvTEV3V1MvV1NETVA3S04xMHlPQ0IzZXFnN1dIRXJMbjg2Zlpz?=
- =?utf-8?B?MUtYUERsWW5zNHd5MVdXQVFLc0pHMnBUbjBJRlB6aHFIRlRzTTNPYjNaS2Jy?=
- =?utf-8?B?WEdWWTBHQlRVeFpoa00xazcyc2lKbE53WkJHbVExVEdFc0Fja04zSmk4bGFB?=
- =?utf-8?B?bnRUd3dEemhsTTNhVmlCK1BxalBJeEtBMEFON1dZT1NjQkdzdFpuaGhjU1FZ?=
- =?utf-8?Q?vH7K82K+L+hONNxNZ0LRXfZVlOzk1Z2CgZIkiSABotbjn?=
-X-MS-Exchange-AntiSpam-MessageData-1: kN+vnwsEI9/Gpg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e630b4-8eb9-48d5-abc3-08df3f1650cc
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 10:35:18.9113 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RisSVmuTpKcGfF7xvXbxfXGN0igRU4/V1/eWL4lNnqUzt8Kqxxwc6jAv/ujHFKSjI3jC7X5s3hapEtIwaVX/gA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,25 +58,164 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Sep 1, 2026 at 8:32 AM JST, Matteo Kloiber wrote:
-> SGTable::new() caps segment length at dma_max_mapping_size() only, which
-> limits the DMA mapping path (e.g. swiotlb), not the device itself. The
-> per-device limit from dma_set_max_seg_size() is ignored, so contiguous
-> page segments can be longer than the declared max segment size,
-> potentially causing problems for future drivers that use this
-> abstraction.
->
-> nova-core declares an unlimited segment size, so this does not change
-> its behavior.
+On Tue, Nov 10, 2026 at 07:15:00AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> From the start of panthor_device_suspend() until panthor_device_resume()
+> has enabled the clocks again, the GPU clocks are off or about to be, and
+> the GPU power domain may be down. devfreq can still call ->target() in
+> that window: a write to min_freq or max_freq in sysfs, a thermal cooling
+> state change or a PM QoS request all end up in update_devfreq() whatever
+> the device state.
+> 
+> With the RK3588 GPU core clock switched to the firmware-managed
+> SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
+> a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
+> GRF, which sit in the GPU power domain, and with the domain off that
+> access ends in an asynchronous SError and a kernel panic, for example
+> after
+> 
+>   echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
+> 
+> while the GPU is runtime suspended.
 
-Hi Matteo,
+Maybe what needs to be done is to disable the clock when the power domain
+goes down.
 
-Do you have plans to keep working on this and follow up on the feedback
-received on this revision?
+> 
+> Only apply a rate to the hardware while the device is resuming or
+> active, plus the suspend frequency that devfreq_suspend_device() applies
+> from the suspend path while the GPU is still powered. Other requests are
+> still accepted and recorded by devfreq, which applies them on resume or
+> at the next governor update.
+> 
+> The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
+> carried in Armbian's linux-rockchip pull request 380) checked the
+> runtime PM status instead. That
+> status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
+> which leaves a window where the rate can be raised again right before
+> the power domain goes down. The devfreq suspend count cannot be used
+> either: panthor's first runtime resume calls devfreq_resume_device()
+> without a matching suspend, so the count is -1 while the GPU is active
+> and 0 while it is suspended.
+> 
+> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+> Tested on an Orange Pi 5 (RK3588S) with the GPU core clock switched to
+> SCMI_CLK_GPU and a 200 MHz opp-suspend (the configuration from the RFC,
+> not yet in mainline): writing min_freq while the GPU was runtime
+> suspended no longer ends in an SError, the request takes effect at the
+> next job (1 GHz measured), max_freq likewise; 200 suspend/resume cycles
+> with short GPU jobs and a 3 minute sustained load ran without faults.
+> With the mainline device tree (CRU clock, no suspend OPP) the SError is
+> not reachable and the guard only skips rate changes while the GPU is
+> powered down.
+> 
+> This patch was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit message, and I reviewed and tested it
+> as described above.
+> ---
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 42 ++++++++++++++++++++++++++++---
+>  1 file changed, 39 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4af..cab86e9c9d46 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
+>  	pdevfreq->time_last_update = now;
+>  }
+>  
+> +/*
+> + * Whether a new rate can be applied to the hardware now.
+> + *
+> + * From the start of panthor_device_suspend() until panthor_device_resume()
+> + * has enabled the clocks again, the GPU clocks are about to be disabled
+> + * or are off, and the GPU power domain may be down. devfreq can still
+> + * call ->target() in that window: sysfs
+> + * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
+> + * up in update_devfreq() whatever the device state.
+> + *
+> + * Changing the rate then is pointless, and harmful where the core clock
+> + * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
+> + * rate with the GPU power domain off makes TF-A access the powered-down
+> + * GPU GRF, which ends in an asynchronous SError. So while the device is
+> + * suspending only the suspend frequency, applied by
+> + * devfreq_suspend_device(), reaches the hardware, and nothing does
+> + * while it is suspended. devfreq records the other requests: they are
+> + * applied on resume or at the next governor update.
+
+Can this comment be rewritten to be less verbose?
+
+> + */
+> +static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
+> +					 unsigned long freq)
+> +{
+> +	struct devfreq *devfreq = ptdev->devfreq ? ptdev->devfreq->devfreq : NULL;
+> +
+> +	switch (atomic_read(&ptdev->pm.state)) {
+> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
+> +		return false;
+> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
+> +		return devfreq && devfreq->suspend_freq &&
+> +		       freq == devfreq->suspend_freq;
+> +	default:
+> +		return true;
+> +	}
+> +}
+> +
+>  static int panthor_devfreq_target(struct device *dev, unsigned long *freq,
+>  				  u32 flags)
+>  {
+> +	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	struct dev_pm_opp *opp;
+> -	int err;
+>  
+>  	opp = devfreq_recommended_opp(dev, freq, flags);
+>  	if (IS_ERR(opp))
+>  		return PTR_ERR(opp);
+>  	dev_pm_opp_put(opp);
+>  
+> -	err = dev_pm_opp_set_rate(dev, *freq);
+> +	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
+> +		return 0;
+
+Hmm, why not return an error here? -EINVAL?
+
+>  
+> -	return err;
+> +	return dev_pm_opp_set_rate(dev, *freq);
+>  }
+>  
+>  static void panthor_devfreq_reset(struct panthor_devfreq *pdevfreq)
+> 
+> ---
+> base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+> change-id: 20261110-panthor-suspend-clk-11d5604fe5be
+> 
+> Best regards,
+> --  
+> Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> 
+
+Best regards,
+Liviu
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
