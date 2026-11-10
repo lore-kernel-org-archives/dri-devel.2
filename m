@@ -2,80 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B37606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EF9606A33F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oh47ALlj
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRxeEiRe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1CEB10E7FC;
-	Tue, 10 Nov 2026 08:33:31 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9E0510E25C
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 20:23:45 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1b3a05f8b5bso1978515c88.1
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 12:23:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4021410EB07;
+	Tue, 10 Nov 2026 08:33:34 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0FE010E2B5
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 01:04:48 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2e985106c0cso11586905ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 17:04:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794272688; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Bl/HI0KoFT9oUJydZEs0MVyDzyYASQ7+Fkw4MgYCPMV1zA1vwJ/MErnwr/pTh0Enlf
+ HuTh5WFN0M9kAX2K6o+PozI69xWhzHCOETpDXTJHqX9NZUXaqRyLdqAPpERpZvwwWH2w
+ NbxRpTyJl4/NWteEvRXgud3KekEcIMtrxomn+fiGKUbum9WRavBheaxT0IZRI6cg1RPo
+ aMUk59wNQvkuqXH1zofbHKsPcYNdl3d/DQ/ajbc9oglwzzuPSlqGtc+Nx1Do/aUSZSc6
+ 3HxON0TjRISQ9U1qugeO8Hg/AknQoUKTXm7tK2BirIFAK1+A6ofckfb9XUz2+v0gxY6W
+ H76Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
+ fh=rdVGboUKQTe2PQPC07+N7izNoR5Mh+KRwIz2BQB2NMY=;
+ b=bzVsaZqD53Mx4+sBY9I0BJ3V3FcEowRYfqu8xGNhCPnysCWcuNR8rT0nTf5R3EqV2A
+ EXmSryONZl+7lvD1H7JuD5cMR28UIuV4e6S/Ro5SSCALjEaNnq6Eha0oivozgxxNZysI
+ erDQbkt21CLUJnGgcz0JPBGRMSnTPi4G01xX+MgVok06g7A2Jm613r5863Qw6a8jzsSg
+ 8zgWL+L7xigIOTNAyl23h6cuDuupoHVWXVlzOxb9A4t66M8037Sls2ZdZ4nIv2jc19Be
+ pPCPJH2IfjFDKXnKqnEBwV0EhuhVj9py1Wn9UEDN06W0vczEfadbJKr30r+xUjq1SegQ
+ JQGw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794255825; x=1794860625; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vZMlVuQCvzOzr707YkUZUysa5i36WCxjcozSPzEKGmM=;
- b=Oh47ALljgQLnDCqR5gi+bxvgnHzMKFNnZf12g5UrwEIW/XZMs2lUsGkrbSPGGDRknP
- J1/n/qw6ebicUTW5noFeOhAxes0rHf6xm7qwrFdPjw2SdY+bPVWYal32F6jmg1nIMVZK
- BADD7o9ZFTkxBr0I8SJ+FzU1xW2sdk1x27ypfok5JK5VAEh7vYF43p/qkg6p3V06th+7
- pX6y1bDyXfK2f62ir2S+hh1hzElRvPE7ldxmDZTqyxO5kpVN0DIKFXbSCBHsz+vbWxNz
- eNxgEJfERwFsjkvBMEQ19Hb3uEdoU0ftbihLV1Fp2JB+WZKovQ2tNsTpMFU8CTgCcV7I
- FW4Q==
+ d=gmail.com; s=20260707; t=1794272688; x=1794877488; darn=lists.freedesktop.org;
+ h=content-type:to:subject:message-id:date:from:mime-version:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
+ b=XRxeEiRejGKtFLvrb0XJxFu7I09vvrOJxVk5hgKcxcMC7KwoiioFJ/xa5pSYCKF/25
+ dhrJaUgTkSFOCM9hrABYEUNrRA5VwQPKIuk3U5Brn5FhWgceOa0ekdDtCcgqN/cZSnhq
+ AvX6u6BsBTWZJ19LPdwLk0ExCYAeE3t80n8bT81HbBYXVVqin9Gf3jO9I5twRH6stul1
+ FFSWh23GVcx8b39LR6T7ZuVapQA0XhT+RuwO8toumoQxCg0cQl9WVLQzh1E6bHM3xt1o
+ zPx7s5u6+qN2NKnZi/c2OGT8/Rx0WjaEWszA4/MKmaPFbsMNY0ZCP+7zKTX6tL0M8MjG
+ OfeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794255825; x=1794860625;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=vZMlVuQCvzOzr707YkUZUysa5i36WCxjcozSPzEKGmM=;
- b=hub7LCGi6Q3JVe4GiNshXO8eFgvsmKXvCovvtrqX89TazSd+wJZ+Za75QZqIRdkk0P
- 3irIolxvam8xD1lVJN6jbMxLiFsizvE06pYd7lClrvAHMLvKUDplejRvNxej0Xl83Psg
- mB7raBjo/1m4yJ1b9GbhquL4eVpnfsw5aasA0t6jXhk750mtJ5PAdYMoOA1oeN8cIrYM
- g6WQ7MYMElLqyYqBXrhpKEvdhNVf8yqHfKQjfuz4bZdMuYD18QazPI/AcT0caN2acqEU
- +Ks1oKeeI7V3wNs8USKCRgnT/WbFXb7unRTs5+kTkcq69SVyt8RqadYP4gEkHIConK8A
- G7kw==
-X-Forwarded-Encrypted: i=1;
- AL+hErFapHE2umKZBdvyW7x+njI749utfMMn3J9Py01CQp4dcfzwAt0/b0qrYk1oCwPPFOZazrCk6k8uEEA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8xz0xN9rGuKnqRvC11e1YxB/nSXLgtYmn3BjHTQz/47EWmbNxn
- naCwcT9v64NplzMCZZku0Q+3qpR3BkvFyCM644BtYf2zsqFKdli0ynXM
-X-Gm-Gg: AYBFou0eWV7xrh3dpTgw4tq6LmBfys/9AteSYewhHVA6EQuYaBqXU3O2f6ja1Qmy23h
- lwxkrWHR1dvmkkCsW9kNwbldw0JDfjbOksTiUlhquCudbxUrySHUnlQOsBzpMCgjqUpq4EPZOm7
- ZzbsKirEgWJe0Ze0K+6D1ahLdHkl98bb6bbTDDFLfO8lZdqqK2IdLRSVsWQb9MAqJ/VCBbV2THr
- R5YuGLcyMsxVb2135t3P0R/UnXtvgI4gzXijRwWt2N6bZjxHKcHNl94pL+koTZUIPUd4Y+DD0ne
- 0qKxm9cueS31w+2+bBpuoUIE8Cs0iy4a20uhPrfgpNUfsDLC5WptZ+YWyrur7Sx01PoLDetd5FU
- 9NuJSMSaAU8Kuuf9aGFKK2iEFtrS8+MvDodRnIHGxMYxYu75g+fgj72ZByzotalyS5eqCOWtaCN
- ZrZv1z4b4jvKaHwqR4St33skEadJo8tjawj1yjbrX3K9n3i7omVnqFKD7DsOG0XvokKbbkrL3fD
- w4hRzhWMTidYPYSOS0nPy1RVXV7EiekyfPjnAaxwt9lJXklJYiJe2/bK36x6vuHdYRu7FGb8SH9
- 5eQr3re8x4SkeVpbkpZvJtUeaR4b42QtHj7sObteDxouDpky9b5aYw==
-X-Received: by 2002:a05:7022:b052:20b0:191:ac4:55a7 with SMTP id
- a92af1059eb24-1b3b6025b98mr747973c88.23.1794255824624; 
- Mon, 09 Nov 2026 12:23:44 -0800 (PST)
-Received: from DESKTOP-6A237H8.localdomain ([106.219.176.229])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b3b5890584sm1520455c88.3.2026.11.09.12.23.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 12:23:44 -0800 (PST)
-From: kaii-k <harshicon28@gmail.com>
-To: nat@pixelcluster.dev,
-	arunpravin.paneerselvam@amd.com
-Cc: ckoenig@amd.com, thomas.hellstrom@linux.intel.com, matthew.auld@intel.com,
- matthew.brost@intel.com, dri-devel@lists.freedesktop.org,
- Harsh Parmar <kaii02ctf@gmail.com>
-Subject: [PATCH 3/3] drm/ttm: check for NULL resource in
- ttm_bo_vm_fault_reserved()
-Date: Tue, 10 Nov 2026 01:53:30 +0530
-Message-ID: <20261109202330.1816799-3-harshicon28@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202330.1816799-1-harshicon28@gmail.com>
-References: <20261109202330.1816799-1-harshicon28@gmail.com>
+ d=1e100.net; s=20260707; t=1794272688; x=1794877488;
+ h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ryk9ktTAYXBQ47FGJu+WGjFeXcDUCiNF7xVkpaBwbU8=;
+ b=HBnsMvsuGKycmoiAWOO8t+JfcCGav/b1aHh2umILLa5WH84dnfYt8s66EF+42bjUbP
+ ynFL+/CWJsBW+rlVZfbjt+Md1/WiDIaXv/a/Vd05mQAl5wiI83a1K3KiVEf7A4fEkggj
+ mfoNDNaAbLyP1S6M/7tNG7E3BDm2eZ7kLHav39gtqFvd9Gcq6L8Ywow0ft5Zavj8p5Ob
+ DdDIsqhAATYdhqAVdyCEEKoC+bEY7TlOp5rf8nfwEnRNAmBQkkyEP9s/hpKOpQNeFZll
+ Tw22e6kOHEUVXsIpFfF+Ub9Vgm4DH770k4PiyRqj0X5xTg7s5TjMjJeVD28rEqlGklfj
+ +fZA==
+X-Gm-Message-State: APuU4Z9KVC7Hpb0PyzBARnMoqolsz9RJwM163nT/T4/aQf9tXMluGRLT
+ wdEi0djV6xWaRdw4/qtQ4aptdRXKxbUpSVyU7T8TGv+qFC/IhdPxW8AdVYn1ggR1XCeCANp3mH2
+ rQKbSNkSt5Pi6J5cHydU9pQfqspyzyugRiSTI
+X-Gm-Gg: AYBFou0J5gCLeJNhDC//DXHhz5PSMGV6p95jKIfkoSpiyl6SsZorQlLoIF7EYpY9fyS
+ NqYkoC6yysQeGHGLLMyzjFJjp888Sk8s4dIfafBKbn34dXTf3NVNT6X9f4/WyhHUF7mlaabnYb0
+ 7KALLzwt9vwh/hVCwMG/z2KZw6pfFvymSEHxN/ja06u7Csf2wi7RM+7troLvHvz77VjEMWvteYm
+ Td0ztZIbjeWwn9sTRWZX8uOYQJNxJ5zF6gGdP+JVa2fu93x4OD9+FHM35i1xvh+1/kPVypX1WzJ
+ eV2lXukZ5ilu4W1vasEMxuC4uQLDfvXbowun3W0C5J6AJU6vxJyCQ8u1sQLswvKgUURylT2Nph0
+ w8hRdCVUqkj3LppZE3QpYD7Zfau2rpi3RXwUTtTWIUe4BWxbKZ1JOQ2UrZdRAf6aHrJU=
+X-Received: by 2002:a17:903:2282:b0:2d9:4358:73ab with SMTP id
+ d9443c01a7336-2edb91f56a0mr8401485ad.19.1794272687964; Mon, 09 Nov 2026
+ 17:04:47 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Americo Simoes <amexsimoes@gmail.com>
+Date: Tue, 10 Nov 2026 09:04:35 +0800
+X-Gm-Features: AclHuK9BAoHo9Bicw70LJu0S11Ru1NXkSoc3qoWYKRokkcDbZZTE7WwC9rrzc4Y
+Message-ID: <CADw33JPRrx_EenTcQmsaXV=SvtEZ8gqP8v51b9FwsBiHGkbgTQ@mail.gmail.com>
+Subject: Measured DMA-BUF coherency hazard on i915 Gen9 with a working
+ userspace contract
+To: dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000032567d065fe1aab4"
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,47 +93,136 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Harsh Parmar <kaii02ctf@gmail.com>
+--00000000000032567d065fe1aab4
+Content-Type: text/plain; charset="UTF-8"
 
-A buffer object can legitimately have no backing store: a driver may
-call ttm_bo_init_reserved() with zero placements, which leaves
-bo->resource NULL. It can also become NULL after the backing store has
-been released.
+Here is the email for `dri-devel@lists.freedesktop.org`. It is the one that
+reaches the people who actually maintain the DMA-BUF contract, and it asks
+a question they can answer rather than pitching a product.
 
-ttm_bo_vm_fault_reserved() passes bo->resource to ttm_mem_io_reserve()
-and dereferences it, causing a NULL pointer dereference when a fault hits
-a buffer with no backing store.
+**To:** dri-devel@lists.freedesktop.org
+**Subject:**
 
-Return VM_FAULT_SIGBUS if the buffer has no backing store.
+Hello,
 
-Fixes: d3116756a710 ("drm/ttm: rename bo->mem and make it a pointer")
-Signed-off-by: Harsh Parmar <kaii02ctf@gmail.com>
----
- drivers/gpu/drm/ttm/ttm_bo_vm.c | 3 +++
- 1 file changed, 3 insertions(+)
+I am writing with a measured result and a question about DMA-BUF coherency
+on i915, and a working userspace implementation that exercises it.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index 872bf44..69dd6bd 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -205,6 +205,9 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 	if (unlikely(ret != 0))
- 		return ret;
- 
-+	if (unlikely(!bo->resource))
-+		return VM_FAULT_SIGBUS;
-+
- 	err = ttm_mem_io_reserve(bo->bdev, bo->resource);
- 	if (unlikely(err != 0))
- 		return VM_FAULT_SIGBUS;
--- 
-2.53.0
+The measurement
 
+I have a userspace test that allocates a buffer via i915 GEM + PRIME,
+exports it as a DMA-BUF, maps it for CPU access, submits an
+`XY_SRC_COPY_BLT` to the BLT ring with softpin, and brackets the CPU read
+with `DMA_BUF_IOCTL_SYNC`. The composition test passes: 0 mismatches out of
+1024 elements.
+
+The negative control runs the same copy with the `DMA_BUF_IOCTL_SYNC`
+bracket removed, 100 times per case, on a Skylake-U iGPU (HD Graphics 520,
+Gen9, kernel 7.2.13). Results:
+
+- Both sync calls omitted: across batches, 42 to 99 stale reads out of 100.
+- Output sync omitted only: 87 to 100 stale reads out of 100.
+
+The hazard is real and timing-dependent. The rate varies between batches,
+which is expected for a race. The output bracket is the more critical of
+the two. An earlier single-run negative control landed in the clean
+minority and reported "no stale reads"; the 100-run loop exposed the race.
+
+The question
+
+The bracket is required by the DMA-BUF contract, and the measurement
+confirms it is load-bearing on this hardware. What I would like to
+understand is whether this matches what the i915 and DMA-BUF maintainers
+expect on Gen9, or whether there is a kernel-side reason the hazard is
+timing-dependent rather than deterministic. If the bracket is supposed to
+be mandatory, is there a reason a single run can appear clean? If there is
+a documented explanation, a pointer would be useful for the audit document
+that records this work.
+
+The implementation
+
+The library is at `github.com/SimoesCTT/the-level`. `chipmem` is the
+allocation and coherency contract; `blit` is the async 2D engine with three
+backends (i915 BLT zero-copy, Rusticl with a copy, CPU fallback). The audit
+document at `docs/linux-equivalents.md` records the paths that did not work
+(udmabuf returning `EINVAL` on first sync, `GEM_SET_DOMAIN` being retired,
+`GEM_WAIT` returning `ENODEV`, relocations rejected on Gen9) and the exact
+measurement methodology.
+
+I am not proposing a kernel change. The kernel machinery is there. I am
+reporting a measurement and asking whether it is consistent with the
+framework's expectations.
+
+Thank you for your time.
+
+Americo Simoes
+`github.com/SimoesCTT/the-level`
+*Tel: +65 87635603*
+
+
+*email: amexsimoes@gmail.com <amexsimoes@gmail.com>*
+
+--00000000000032567d065fe1aab4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Here is the email for `<a href=3D"mailto:dri-devel@li=
+sts.freedesktop.org">dri-devel@lists.freedesktop.org</a>`. It is the one th=
+at reaches the people who actually maintain the DMA-BUF contract, and it as=
+ks a question they can answer rather than pitching a product.<br><br>**To:*=
+* <a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freede=
+sktop.org</a><br>**Subject:**=C2=A0<br><br>Hello,<br><br>I am writing with =
+a measured result and a question about DMA-BUF coherency on i915, and a wor=
+king userspace implementation that exercises it.<br><br>The measurement<br>=
+<br>I have a userspace test that allocates a buffer via i915 GEM + PRIME, e=
+xports it as a DMA-BUF, maps it for CPU access, submits an `XY_SRC_COPY_BLT=
+` to the BLT ring with softpin, and brackets the CPU read with `DMA_BUF_IOC=
+TL_SYNC`. The composition test passes: 0 mismatches out of 1024 elements.<b=
+r><br>The negative control runs the same copy with the `DMA_BUF_IOCTL_SYNC`=
+ bracket removed, 100 times per case, on a Skylake-U iGPU (HD Graphics 520,=
+ Gen9, kernel 7.2.13). Results:<br><br>- Both sync calls omitted: across ba=
+tches, 42 to 99 stale reads out of 100.<br>- Output sync omitted only: 87 t=
+o 100 stale reads out of 100.<br><br>The hazard is real and timing-dependen=
+t. The rate varies between batches, which is expected for a race. The outpu=
+t bracket is the more critical of the two. An earlier single-run negative c=
+ontrol landed in the clean minority and reported &quot;no stale reads&quot;=
+; the 100-run loop exposed the race.<br><br>The question<br><br>The bracket=
+ is required by the DMA-BUF contract, and the measurement confirms it is lo=
+ad-bearing on this hardware. What I would like to understand is whether thi=
+s matches what the i915 and DMA-BUF maintainers expect on Gen9, or whether =
+there is a kernel-side reason the hazard is timing-dependent rather than de=
+terministic. If the bracket is supposed to be mandatory, is there a reason =
+a single run can appear clean? If there is a documented explanation, a poin=
+ter would be useful for the audit document that records this work.<br><br>T=
+he implementation<br><br>The library is at `<a href=3D"http://github.com/Si=
+moesCTT/the-level`">github.com/SimoesCTT/the-level`</a>. `chipmem` is the a=
+llocation and coherency contract; `blit` is the async 2D engine with three =
+backends (i915 BLT zero-copy, Rusticl with a copy, CPU fallback). The audit=
+ document at `docs/linux-equivalents.md` records the paths that did not wor=
+k (udmabuf returning `EINVAL` on first sync, `GEM_SET_DOMAIN` being retired=
+, `GEM_WAIT` returning `ENODEV`, relocations rejected on Gen9) and the exac=
+t measurement methodology.<br><br>I am not proposing a kernel change. The k=
+ernel machinery is there. I am reporting a measurement and asking whether i=
+t is consistent with the framework&#39;s expectations.<br><br>Thank you for=
+ your time.<br><br>Americo Simoes<br>`<a href=3D"http://github.com/SimoesCT=
+T/the-level`">github.com/SimoesCTT/the-level`</a><br><b style=3D"background=
+-color:transparent;font-size:10pt;font-family:verdana,sans-serif">Tel: +65 =
+87635603</b></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smar=
+tmail=3D"gmail_signature"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr=
+"><div dir=3D"ltr"><div dir=3D"ltr"><div><p style=3D"margin-bottom:0cm;line=
+-height:100%" align=3D"justify"><font style=3D"font-size:10pt" size=3D"2" f=
+ace=3D"verdana, sans-serif"><b>email: <a href=3D"mailto:amexsimoes@gmail.co=
+m" target=3D"_blank">amexsimoes@gmail.com</a><br></b></font></p><p style=3D=
+"margin-bottom:0cm;line-height:100%" align=3D"justify"><br><br></p></div><s=
+pan style=3D"color:rgb(204,0,0)"><span></span></span></div></div></div></di=
+v></div></div></div></div>
+
+--00000000000032567d065fe1aab4--
