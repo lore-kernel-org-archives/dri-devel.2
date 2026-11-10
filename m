@@ -2,136 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E7F606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:00:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E96606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:00:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=E9HIziqF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0W3ofRf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D1B810EEC1;
-	Tue, 10 Nov 2026 09:00:10 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011066.outbound.protection.outlook.com [52.101.57.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0693410EEB3;
- Tue, 10 Nov 2026 09:00:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QMmf2+wuA6L1l8PubsT+XBKX1qjr8/qOszOj2r4dBghUXyEEM2Weobp4X7HC8Q6eYlwcklHHaUfy8z1cxjoHnDAWo1htlpCq1jDoyDlX++4g/gvTj3LDmky4YIV8ZTLJurXasNIkIbsh+2C9NZygTbwB6F2HZ4bld5GS/taKudQ3Sc+VbhNSA2YLUOHQ5OPRTR9zzRmz3zZnVbQ5UQxEIlrGrPGkjOxLocbdvLXL6yDbrPV4PBK6Zf76sB1YD3CGa9FjMjvNVgIOrwTeUuODU284skWTl33wyYhEAIAQOoXdfPTJL5c7+Zf4YGvSZPzOKlz8aNwMoOLznZ4HnnX1dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0EL8IrPGX97k1F29/7ODcpD1gK8EHCV9Sdq/2nEG3bs=;
- b=xtMm1Zus0IdukTQXt9vWurOY3NMc1RZevnVlzzFdSxopCflr43EMS9bPzujQXdOZONnwAcWhMa273nMv+r7fLGUrFSt0SWPc3ZH4PpwiVKrPr6JoFJvtd0+mLEOKt2oE3wTD64dNRcvRkD3CINt/mWuRHYKUL8w6xKENHJ5CG21CobtKzmSxUl/eppr+Agq7xnRswEfr77AMmZs+B7JV7fkdtAYjxTIEd6EKI2kmePtToCAc5cfgYWaDhP87lxcXcA3uDMWW0zmqk6LAH3+oWJ42KNik7syud2wjK54QLkymaDZ0DnMQUqrRmayRDk4aMXvMONdazZALYa3k5UFEew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0EL8IrPGX97k1F29/7ODcpD1gK8EHCV9Sdq/2nEG3bs=;
- b=E9HIziqFJqvWR4UzVIL2jUYvPMphwzmZPeEr6zMC+54njFj6JGaU92f39+n9nL8R1Lbd3J3SOU3u7m2kx8CwN9htUKrU10xABhR9uwSNm7GBO8sIYfBQbVebrtn9ajOFWQdtLCIbHSKGrnnk/mJsHAJ+DZOqZPkVbGGrwJfw8kk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by IA0PPF4D923B935.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bcd) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
- 2026 08:59:58 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 08:59:58 +0000
-Message-ID: <9f0f7b8f-e837-4b3d-9e5c-c1366a00e734@amd.com>
-Date: Tue, 10 Nov 2026 16:59:48 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 11/22] drm/amdgpu: add SVM ioctl entry and fault
- handler module
-To: Aveline Noir <jm5905938@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- Felix Kuehling <felix.kuehling@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>,
- Junhua Shen <Junhua.Shen@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, Oak Zeng <Oak.Zeng@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>,
- Huang Rui <ray.huang@amd.com>
-References: <20261021025915.2433837-1-ray.huang@amd.com>
- <20261021025915.2433837-12-ray.huang@amd.com>
- <179424283809.193292.9522281129166256376.b4-reply@b4>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <179424283809.193292.9522281129166256376.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0048.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::17) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|IA0PPF4D923B935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 995d9bca-ac4a-4555-151b-08df3f08fec8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|11063799006|5023799004|4143699003|56012099006|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: NVhW2n56D/q4V9eRa6AfMQUcFnJt/7EWzyyvg0p7AEs5cKSu+qx5uWlDVwiVBJ9NIciDff0MhCNeYD0Z7qn4OoLDqh41RuK1bFCClywmce6LyqqWKx0+UF0RLQmJS9uaIarmeaEXyo/kXb+KhNihzA0BuOlh160kPZGYOGECMH13stCOJncwPQJT5VKGNJTFfJPvwr/BrkXzz+HZvHbcuoplIMYPtj5s23vtNcmTgBCpl0bSi06s9cGopC3ihGUVAVvU1EOHq+d6vQPgvdenmFxK2e99sdLQ2LQdIAKv/qOf9Bu1P2c/CGDkxpgz1bMtN2OTU0DM4So2UKejofWcQb3bVHvxNLreygHqz46rHdksvQWQ+VqAkW+33YdMsIgT6Ml6Wdo1MVCrrPLVVbU/E51nvhhzbdi6uE/7YSIM/MJBXmbjhZHBuv3pGtBJZyNSosTXBV5KN6dmtQ6ZXkj2RCWZ89c49UEWJWWvgKrDWkztNpD9X6ZGt4vR6NxOa95+CQQQjWDyUXaa7kCxQRQg00qcT5A8dnBnaCFy6H95ZSzKfQXjqpMjo+yyMaf+S85v+tFSfMn2jOH+B9/apBElqROSn2uZU3in3VsheZC+bGj2ntgAt/7W1vzWYRSJdXrzygUev3jskdd4vBBGpwMUY/zf9X42JGoorrmwsENqbOY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(5023799004)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVdYakZvcEp2a0g5NzM0SG95T3A1TnRKV1pYY1lwNGNmYTYzcy9LcHppK0ZL?=
- =?utf-8?B?SW1DT1YyWFpaTDlZODBsUWJ5cHlid0p3SFp3ZTZUNDJUemhMNHhnbm92RFpU?=
- =?utf-8?B?V20vc2IyYVh1UnlYeXVNSVlYbVJaMStDTHF3Sjk1d25WWFpPZUhjZmw2WFpn?=
- =?utf-8?B?NUlCM0Y3dW93TmswWUJ2eUxrWStnVEZWaThUSm04ejRJRFJWWWs3S3JidEh6?=
- =?utf-8?B?TXhLWW44UlpjQ2docTEyeThFWjFUOUoraXlDb1pNNk1HQktrQzFwN1c4N2dF?=
- =?utf-8?B?QTFZakFQRTJPdHJrdnYyTk9MTEdhRVFJY1BwOStvYlNaVjFJWWdXV0VBVGxV?=
- =?utf-8?B?bW9nMVJ0Z3B0ZndIRnFydnF0ekZKOUxNYk9BREZ0eDIwSVZLdnlKcUVWd1Iv?=
- =?utf-8?B?emx1SVFrMkZYb05SVzZuVE5VVTY5VXlVQ3pneFhOdzl1OWRmdVRGMmY5cFFm?=
- =?utf-8?B?bGx6a1JvUUh1TjEyMGNyRXZzSzNhclZ2a1V4bXIwZDZlTVUwS3BFNElSY0xq?=
- =?utf-8?B?WXpkS3JKQkxFeDgxVmxnaHNYbWRZbG5QZjBtd0I2NlIzYnZpbHB3R25mVzFV?=
- =?utf-8?B?SHRNNlBKekpVVlNXZit5dkRxcWp4eUtTTVkrcUVZMzZ3SitXdHY1YTA2dEM3?=
- =?utf-8?B?V0VBUHJOZWx6aVJJb2tOL3h5MHo5bXc5WldYREN0bnVtNGY2QXh1ZzdoVEYy?=
- =?utf-8?B?TlZjQ0pmQWxuVy95UlozendYZlBDYndweGhiL1dsQy9OT3oxbFF3ZkRqNGtY?=
- =?utf-8?B?V0F1bTV2alpUZmRiSTM2ZjdtTW5tMHZhbS9jL3VwZmF6VEkyYk5UNmlFelJZ?=
- =?utf-8?B?ZGJhYm9peHg3alRSUmtzamYvaE1MODRUTVQ2R002UG9ieGZVa1pOeG11OTlk?=
- =?utf-8?B?V2E1R0d6SVhZcjJhOGwvUmhJRFZvejdPRWVjTDZVb2dzS3RyMHllWE0xcFZ5?=
- =?utf-8?B?ajVGdmJHTkYxemlsWkNFQ2xpVTh2SGRmZnVIOEdyMHl4RFN6K2szbTRvZzdo?=
- =?utf-8?B?eE5kY0M5N1RMdmgyY1lqNkl2SEVBVGlOcUd1QWl5M0kyOTc5NURNZjloZ1N5?=
- =?utf-8?B?SlRCMkRuamh4VGQxL3djbi9yUm9peUxycDFIMzNKN05PQTNHLzR5MXl5NDFu?=
- =?utf-8?B?NlhVcUp3WUFha0MvN00yQUloWlNBay9UZVBKRE9QMW1vdkljZlFCZ2htNkgx?=
- =?utf-8?B?MVduY1lSR0hYTFdadHNlYkRqR1lSaVdEb1UwNTF2SnJaY2dHdkNTQklrRlFJ?=
- =?utf-8?B?SSt6UmFTc09MZjF4RC8rNWlua3QrbVUwNjdBZCsyeGcvVUx6bzFzVWRadGNp?=
- =?utf-8?B?TW5ZeWd5TTErM0lYQmk4Vyt5SFlMVURCZlVoM3B5VGRWVS85dldlMHBsQjU5?=
- =?utf-8?B?VE51RGZFQjBmWTJIYXBiYVFUWnEra3JhVDZwTmpWWGZsV2VXdUtXWWhYbThP?=
- =?utf-8?B?emZxSkNlOTRDcE04WHp5eThCZ0dsL2pGM0NES2podUtEQmh3Zi9EeEt4dTFs?=
- =?utf-8?B?dW52THQ4WFA2djh2QVhucVNscnRJOVBaYVhaOGl4aklJUnhiVHRKR0N5Zkk4?=
- =?utf-8?B?QXg0cEdyUWdQNDY1eldNMEJwNTV3YlJDMnVQbXFJN0drblZNSU1LZExtNEZ3?=
- =?utf-8?B?Y29FdW9jbG1JcmwwM05wVGdvdGZVcmJVR0tlenQ1TktBY1FzeEVxeHV3MGJC?=
- =?utf-8?B?bnJGclB2UW9IRHIwemRNUFpSbWtJRzdlNmw5RlpFa3hQVWRET2ZwdlJpN2lQ?=
- =?utf-8?B?a2UycW1mRjIzMUgrTXR5QlJYUm5EMFpZQjl5QXg0RVhUQkxiRUR2VU02QUty?=
- =?utf-8?B?THhMN09xdHdpdXZqbWxYV1JqVDh5TnRBQ3NLNXNGKysxVUpuZmh5Z0JhLzhZ?=
- =?utf-8?B?RXNJM3RJcSttNk8ycmpYeDkveGVxSzVTWHdEdjRaOS9Ta1dIalBOSnpmcDdy?=
- =?utf-8?B?K3lFL3BsL3Y3ZCttV3YrTENTYU1PLzA5UVZteWNBWU5HaFlkMjdJZFdMVUFQ?=
- =?utf-8?B?QXpuS0hoYlVmbTR2Wk1mcFhXbkRUc0RpS3ViWjZaUkExSVhyWmU0OFVQTk0v?=
- =?utf-8?B?aXRqaDhubk9iSm1lQTdDa29VQ2xvaXdjdnJrbnh6cW50UkhKMGVkdHQ2cExN?=
- =?utf-8?B?bzlEaXVjMDdJcUhDUTRtN2NVSkxpRmdlcW5tSFpkeDVTaXBHa29qaTVzcDgz?=
- =?utf-8?B?V3VTNko3VzNyU0hXb3lGZ3FHUGxUQmhpeTluSU1tU25YUXRUbTVRY0RnTjFj?=
- =?utf-8?B?d2ZaRlBLMkFJN2s0NFFWb0c4d2pESm9vejhEU0pyR3JQNmp1Sm5aQW1mWlhW?=
- =?utf-8?Q?dA52NTz673HkW4hlR5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 995d9bca-ac4a-4555-151b-08df3f08fec8
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:59:57.9786 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cxdQhrqb4An4mLY2YIhbSwxq8CvjH3OScbgEu/mdf2K6GnXG2afizPE/vHUg3A40smLeYhQftF6yuZ67ZWVl+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF4D923B935
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6720010E209;
+	Tue, 10 Nov 2026 09:00:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D90010EEBD
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:00:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 956A7637EF;
+ Tue, 10 Nov 2026 09:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203E71F008A1;
+ Tue, 10 Nov 2026 09:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794301245;
+ bh=Xatw6Qme9eHOIvmoKC15Nop8cYqUu0N4OeiHg2hYVTo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=W0W3ofRfoQFiNLDOGN3lpOeZULYJO8X8O4JR18TOy2GF6Vr0qCOIibXj5zEA08raM
+ UAv3oZp4CaODIawmVZBtPuaRKRUJ3O4XbJ8jQTeTmJWRzkpR3+P0WumvgUI9nsVjsl
+ iw9hUNx26tl4ufEFrNzTjKb8qwFnkyW2jb6jqC1LW8UKkjpM5yyMczAjh22n8BGZh9
+ 5G//JeXubM7e4nB/1dSKk2qTEYV1InkN+Ozddk/9MuFzrkoE00iBNyHHDmTU7cC+Eh
+ 74OaobmG6D2/U47RINA4/HHXudzlYJf5opb76fjquhlo1X7+LXiLvigv40cfgIgGul
+ WipTw0bTy47ew==
+Message-ID: <sashiko-outbox-206691@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: Only allow idle optimizations when all
+ CRTCs are idle
+To: "Claudio Forain" <claudioforain@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261109230147.16302-1-claudioforain@gmail.com>
+References: <20261109230147.16302-1-claudioforain@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 09:00:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,47 +48,141 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/amd/display: idle optimization stall in
+  dm_ism_all_crtcs_idle()
+- [High] drm/amd/display: unlocked crtc->state access in
+  dm_ism_all_crtcs_idle()
+- [Medium] drm/amd/display: NULL dereference in dm_ism_all_crtcs_idle()
+  in KUnit tests
+--
 
+commit 41942a97fda7dd8d4e331b05631c7ae4c3d2cd19
+Author: Claudio Forain <claudioforain@gmail.com>
 
-On 11/10/2026 12:47 AM, Aveline Noir wrote:
-> Hi Ray,
-> 
-> On Wed, 21 Oct 2026 10:58:50 +0800 Huang Rui wrote:
-> 
->> +	ret = fault_check_allowed(svm, fault_addr, write_fault);
->> +	if (ret)
->> +		return ret;
-> 
-> This checks the VMA permissions but not attrs->access, so I think
-> INACCESSIBLE isn't really enforced. SET_ATTR invalidates the existing
-> GPU mapping, but the next retry fault just maps the range again.
-> 
-> IN_PLACE has a similar problem. With preferred_loc=LOCAL, the
-> migration added by 22/22 can still move migratable system-memory pages
-> into VRAM on a pagemap-capable GPU. Both seem to go against the access
-> definitions in 01/22, and the prefetch path doesn't check access
-> either.
-> 
-> Could the fault and prefetch paths check access before mapping or
-> migrating?
+drm/amd/display: Only allow idle optimizations when all CRTCs are idle
 
-Will add access check in fault_check_allowed, IN_PLACE access, prefetch 
-access path.
+This commit adds dm_ism_all_crtcs_idle() so that hardware-wide idle
+optimizations are only enabled when every active CRTC's Idle State Manager
+is in an optimized idle state.
 
-Really thanks for the review!
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
 
-Regards,
-Honglei
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+> index 127eaba4de60b..79546ad592874 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+> @@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
+>  EXPORT_IF_KUNIT(dm_ism_trigger_event);
+> =20
+> =20
+> +/*
+> + * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only =
+allow
+> + * them once every active CRTC's ISM has reached an optimized idle state=
+, so a
+> + * static CRTC cannot enable idle optimizations while another CRTC is st=
+ill busy
+> + * (e.g. receiving cursor updates without a vblank reference). Otherwise=
+ every
+> + * cursor update on the busy CRTC must exit and re-enter idle through DM=
+UB.
+> + */
+> +static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)
+> +{
+> +	struct drm_crtc *crtc;
+> +
+> +	drm_for_each_crtc(crtc, adev_to_drm(dm->adev)) {
 
-> 
-> Thanks,
-> Aveline Noir
+[Severity: Medium]
+Does walking adev_to_drm(dm->adev)->mode_config.crtc_list here cause a NULL
+pointer dereference in the amdgpu_dm_ism KUnit test suite?
 
+Unlike amdgpu_dm_ism_disable(), amdgpu_dm_ism_force_full_power() and
+amdgpu_dm_ism_enable(), which pass dm->ddev to drm_for_each_crtc(), this
+uses adev_to_drm(dm->adev).  In amdgpu_dm_ism_test.c, alloc_test_acrtc() and
+setup_commit_test() set adev->dm.ddev =3D &adev->ddev, but leave adev->dm.a=
+dev
+NULL and do not initialize mode_config.crtc_list or register the test CRTC =
+on
+it, crashing the six behavioral commit and worker KUnit tests when they rea=
+ch
+dm_ism_commit_idle_optimization_state().
+
+> +		struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
+> +		struct dm_crtc_state *state =3D to_dm_crtc_state(crtc->state);
+> +
+> +		if (!state || !state->stream)
+> +			continue;
+
+[Severity: High]
+Can reading crtc->state and dereferencing state->stream across all CRTCs
+under only dm->dc_lock race with an atomic commit on another CRTC and cause=
+ a
+use-after-free?
+
+dm_ism_all_crtcs_idle() runs from ISM delayed work or
+amdgpu_dm_crtc_vblank_control_worker() holding dm->dc_lock, while crtc->sta=
+te
+is protected by crtc->mutex.  An atomic commit on another CRTC that does not
+take dm->dc_lock in amdgpu_dm_atomic_commit_tail() can swap and free the old
+CRTC state concurrently:
+
+CPU0 (ISM worker on CRTC 0)           CPU1 (atomic commit on CRTC 1)
+dm_ism_delayed_work_func()
+  mutex_lock(&dm->dc_lock)
+  ...
+  dm_ism_all_crtcs_idle(dm)
+    state =3D to_dm_crtc_state(
+              crtc1->state)
+                                      drm_atomic_helper_swap_state()
+                                        crtc1->state =3D new_crtc_state
+                                      ...
+                                      drm_atomic_commit_put()
+                                        amdgpu_dm_crtc_destroy_state()
+                                          kfree(old_crtc_state)
+    if (!state || !state->stream)  <-- use-after-free
+
+> +
+> +		if (acrtc->ism.current_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE &&
+> +		    acrtc->ism.current_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
+> +			return false;
+
+[Severity: High]
+Can requiring every active CRTC to be in DM_ISM_STATE_OPTIMIZED_IDLE or
+DM_ISM_STATE_OPTIMIZED_IDLE_SSO permanently block hardware-wide idle
+optimizations?
+
+Both amdgpu_dm_ism_init() and amdgpu_dm_ism_force_full_power() (called on
+suspend and GPU reset) leave each CRTC in DM_ISM_STATE_FULL_POWER_RUNNING.
+The only transition toward DM_ISM_STATE_OPTIMIZED_IDLE is
+DM_ISM_EVENT_ENTER_IDLE_REQUESTED, which is only sent from
+amdgpu_dm_crtc_vblank_control_worker() when vblank is disabled.
+
+When a CRTC is enabled from off via a modeset without a pageflip event, or
+restored on resume or GPU reset, manage_dm_interrupts() calls
+drm_crtc_vblank_on_config() without enabling vblank.  If that display stays
+static and never takes and drops a vblank reference, its ISM remains in
+DM_ISM_STATE_FULL_POWER_RUNNING and dm_ism_all_crtcs_idle() returns false
+forever.
+
+Similarly, in amdgpu_dm_commit_streams(), a modeset or disable on a CRTC in
+DM_ISM_STATE_HYSTERESIS_WAITING calls amdgpu_dm_ism_flush(), which cancels
+delayed_work without updating current_state or re-evaluating idle state for
+the remaining active CRTCs.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109230147.1630=
+2-1-claudioforain@gmail.com?part=3D1
