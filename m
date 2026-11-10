@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A71606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:15:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44156606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUH9bsd4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N7UIT39r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA7A510E48E;
-	Tue, 10 Nov 2026 16:15:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A78210F80E;
+	Tue, 10 Nov 2026 16:16:30 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7969E10F809
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:15:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFE6A10F812
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:16:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A32E633D2;
- Tue, 10 Nov 2026 16:15:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119751F0089F;
- Tue, 10 Nov 2026 16:15:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E00861263;
+ Tue, 10 Nov 2026 16:16:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0555B1F008A1;
+ Tue, 10 Nov 2026 16:16:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794327332;
- bh=Hpij1J5z8i+Ya85H6nRzIULrPiQ6sCD0zxbt1BX/ECs=;
+ s=k20260515; t=1794327383;
+ bh=3T2kbAUXBwbt29KsBCsxXi3KcjD9bsW53VXLWeDkCjY=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=FUH9bsd4h5XwfX/G9wwktFqVV7a5jb0fGMDjs4BPl+9INleXiIFWNmMaIkufW3eqz
- C9zcNIK9muQpoTbJtA1xdI7WePc25X8Li5+djayT83ToVZOp7ZIyIqO6ilPJeoC38Q
- JfuBbw90S22zJu3KkS6pa4lhAYwoQOyTvgCJMPcldw3kuPJz4kt257s8BT+KJG0tXQ
- 6r3mvvqHrsvBhTSc5YRcMSzij+8BAyO1cqMja4Z0sGRU0FcyFv8sRKVEP2HyuQEfu4
- zYNNl5nxVCf8Kiq+vop7dUEGMb/FJURU4AzwDzjsE+q1xjue3/vukzFqVvx58ovZsM
- kThHL2jR/N+8g==
-Message-ID: <sashiko-outbox-207348@kernel.org>
+ b=N7UIT39r0+Hn5QxNoZJ/ZLG0AQqA76d4yw04krQ8go+S9qUN/pSVhp6Mrdq0bOmB+
+ Q0qdUhM18a9hJ2d7L9PMR0JXjj7n0BA/aPmLva+jYOArMKoUGtJE2366ANu6Kcy2wz
+ EbTIMHS/CmG3ui1hRkTgf8iMGOzbyNTiiX6cIu1lvvQaxB3Sj6DyTMmnd7dgYh0XHy
+ X8LXkTm+4X6I30a5edI26GvFyYFSt4OLtVcRpnuDnFfUugrVae4rVYVWwfe/LZsVkB
+ BqULzN0L0fUFGPg9kbrBe7u+/l/Tv5BKsy7tehzbpBMMTqMTwd3G4chqrBTSaXMzBt
+ dXJALLjjn24rQ==
+Message-ID: <sashiko-outbox-207350@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 21/28] drm/panthor: Request AW to yield GPU access on
- idle
+Subject: Re: [PATCH v2 20/28] drm/panthor: Handle partition control
+ INVALID_COMMAND interrupt
 To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110153907.3241978-22-karunika.choo@arm.com>
+In-Reply-To: <20261110153907.3241978-21-karunika.choo@arm.com>
 References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-22-karunika.choo@arm.com>
+ <20261110153907.3241978-21-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 16:15:31 +0000
+Date: Tue, 10 Nov 2026 16:16:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,121 +60,182 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] drm/panthor: dropped YIELD_IDLE command in
-  arb_sched_next_locked()
-- [Medium] drm/panthor: dropped GPU_REQUEST in
-  panthor_arbitration_sched_on_request()
+- [Medium] drm/panthor: unassigned current_aw in window_open() breaks
+  recovery
+- [Medium] drm/panthor: stale last_cmd on PART_STATE_RESET in
+  yield/close helpers
 --
 
-commit f99f87c6e1d4cdf3c37b5e1e28569f0fc943d72a
+commit 94f33b60c028012f4fc4c4edbb429977e08e2557
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Request AW to yield GPU access on idle
+drm/panthor: Handle partition control INVALID_COMMAND interrupt
 
-This commit sends a YIELD_IDLE notification to the active access window
-when other access windows are waiting in the arbitration scheduler queue
-or when a second access window requests GPU access.
+This commit tracks the last sent partition command and handles
+PART_INVALID_COMMAND interrupts by retrying rejected commands or
+requesting scheduler recovery when the partition is open for a different
+access window.
 
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sche=
-d.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
-> index 16bd0fac2514e..f137b73deaa32 100644
-> --- a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_contro=
+l.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+> index d8fdafbf31864..3b472403f49d1 100644
+> --- a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
 [ ... ]
-> @@ -382,6 +394,10 @@ static int arb_sched_next_locked(struct panthor_arbi=
-tration_sched *sched)
+> @@ -128,8 +158,8 @@ static int yield_now(struct panthor_partition_control=
+ *pc)
+>  	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
+>  		return -EAGAIN;
 > =20
->  	arb_sched_grant_locked(sched);
-> =20
-> +	if (sched->phase =3D=3D ARB_SCHED_PHASE_GRANTED &&
-> +	    !kfifo_is_empty(&sched->queue))
-> +		arb_sched_yield_idle_locked(sched);
-> +
->  	wake_up_all(&sched->waitqueue);
+> -	gpu_write(pc->iomem, AM_PART_COMMAND,
+> -		  AM_PART_SET_COMMAND(PART_CMD_YIELD_NOW));
+> +	partition_command_write(pc, AM_PART_SET_COMMAND(PART_CMD_YIELD_NOW),
+> +				pc->current_aw);
 > =20
 >  	return 0;
-
-[Severity: Medium]
-Can arb_sched_yield_idle_locked() silently drop the YIELD_IDLE command
-when called immediately after arb_sched_grant_locked()?
-
-arb_sched_grant_locked() calls window_open(), which writes
-PART_CMD_OPEN_WINDOW to AM_PART_COMMAND and returns 0 without waiting for
-AM_PART_STATE to leave PART_STATE_RESET.  When arb_sched_yield_idle_locked()
-then calls yield_idle(), AM_PART_STATE can still read as PART_STATE_RESET:
-
-drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:yield_idle(=
-) {
-	guard(spinlock_irqsave)(&pc->lock);
-
-	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-		return 0;
-
-	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
-		return -EAGAIN;
-    ...
-}
-
-Because yield_idle() returns 0 instead of -EAGAIN in PART_STATE_RESET,
-arb_sched_yield_idle_locked() does not queue PANTHOR_ARB_WORK_YIELD_IDLE,
-and the active access window holds the GPU even while idle until
-grant_timer expires.
-
-[ ... ]
-
-> @@ -551,8 +573,18 @@ int panthor_arbitration_sched_on_request(struct pant=
-hor_arbitration_sched *sched
->  	 * Grant timer for the current AW has previously expired, request it to
->  	 * yield the GPU.
->  	 */
-> -	if (sched->grant_previously_expired)
-> +	if (sched->grant_previously_expired) {
->  		arb_sched_request_stop_locked(sched);
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * GPU was previously granted to a lone requesting AW, YIELD_IDLE was
-> +	 * not sent to it. Send YIELD_IDLE to it now that multiple AWs are
-> +	 * requesting for the GPU.
-> +	 */
-> +	if (sched->phase =3D=3D ARB_SCHED_PHASE_GRANTED && kfifo_len(&sched->qu=
-eue) =3D=3D 1)
-> +		arb_sched_yield_idle_locked(sched);
+>  }
+> @@ -144,8 +174,8 @@ static int yield_idle(struct panthor_partition_contro=
+l *pc)
+>  	if (partition_state_get(pc) !=3D PART_STATE_WINDOW_OPEN)
+>  		return -EAGAIN;
+> =20
+> -	gpu_write(pc->iomem, AM_PART_COMMAND,
+> -		  AM_PART_SET_COMMAND(PART_CMD_YIELD_IDLE));
+> +	partition_command_write(pc, AM_PART_SET_COMMAND(PART_CMD_YIELD_IDLE),
+> +				pc->current_aw);
+> =20
+>  	return 0;
+>  }
+> @@ -162,8 +192,8 @@ static int window_close(struct panthor_partition_cont=
+rol *pc)
+> =20
+>  	pc->closing =3D true;
+> =20
+> -	gpu_write(pc->iomem, AM_PART_COMMAND,
+> -		  AM_PART_SET_COMMAND(PART_CMD_CLOSE_WINDOW));
+> +	partition_command_write(pc, AM_PART_SET_COMMAND(PART_CMD_CLOSE_WINDOW),
+> +				pc->current_aw);
 > =20
 >  	return 0;
 >  }
 
 [Severity: Medium]
-Will panthor_arbitration_sched_on_request() drop a new GPU_REQUEST from an
-access window that just yielded due to YIELD_IDLE?
+Can a stale PART_CMD_OPEN_WINDOW in pc->last_cmd reopen the partition
+after yield_now(), yield_idle(), or window_close() has already returned 0?
 
-Unlike arb_sched_request_stop_locked(), which sets sched->phase to
-ARB_SCHED_PHASE_STOPPING before sending PART_CMD_YIELD_NOW, sending
-PART_CMD_YIELD_IDLE leaves sched->phase as ARB_SCHED_PHASE_GRANTED.  When
-the active access window yields on idle, it receives
-WINDOW_IRQ_WINDOW_CLOSED and can issue a new VM_ARB_GPU_REQUEST before the
-partition control IRQ processes PART_RESET_DONE and calls
-panthor_arbitration_on_stopped():
+window_open() writes PART_CMD_OPEN_WINDOW, stores it in pc->last_cmd, and
+returns 0 without waiting for AM_PART_STATE to leave PART_STATE_RESET.  If
+PART_CMD_OPEN_WINDOW is rejected while a previous reset is still finishing
+(or before the hardware leaves PART_STATE_RESET) and the scheduler then
+calls yield_now(), yield_idle(), or window_close(), those helpers see
+partition_state_get(pc) =3D=3D PART_STATE_RESET and return 0 without cleari=
+ng
+pc->last_cmd or scheduling retry_work:
 
-drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c:panthor_arb=
-itration_sched_on_request() {
-    ...
-	if (test_bit(aw_id, sched->queued_mask) ||
-	    (sched->active_aw_id =3D=3D aw_id &&
-	     sched->phase !=3D ARB_SCHED_PHASE_STOPPING)) {
-		dev_warn(sched->dev, "%s: AW%u already in request queue.",
-			 sched->name, aw_id);
-		return -EEXIST;
+drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:yield_now()=
+ {
+	guard(spinlock_irqsave)(&pc->lock);
+
+	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
+		return 0;
+
+When partition_handle_invalid_cmd() later runs for the rejected open
+command, pc->last_cmd.cmd is still PART_CMD_OPEN_WINDOW and the partition
+is not in PART_STATE_WINDOW_OPEN, so it re-issues PART_CMD_OPEN_WINDOW and
+opens the access window after the yield or close already succeeded.
+
+> @@ -188,8 +218,8 @@ static int window_open(struct panthor_partition_contr=
+ol *pc, u8 aw_id)
+>  		return -EBUSY;
+>  	}
+> =20
+> -	gpu_write(pc->iomem, AM_PART_COMMAND,
+> -		  AM_PART_SET_COMMAND(PART_CMD_OPEN_WINDOW) | AM_PART_SET_WINDOW(aw_id=
+));
+> +	partition_command_write(pc, (AM_PART_SET_COMMAND(PART_CMD_OPEN_WINDOW) |
+> +				     AM_PART_SET_WINDOW(aw_id)), aw_id);
+> =20
+>  	pc->current_aw =3D aw_id;
+> =20
+> @@ -201,10 +231,16 @@ static void partition_handle_reset_done(struct pant=
+hor_partition_control *pc)
+>  	bool notify_stopped =3D false;
+>  	int aw_id;
+> =20
+> +	gpu_write(pc->iomem, AM_PART_IRQ_CLEAR, PART_RESET_DONE);
+> +
+>  	scoped_guard(spinlock_irqsave, &pc->lock) {
+>  		aw_id =3D pc->current_aw;
+>  		pc->current_aw =3D AW_UNASSIGNED;
+> =20
+> +		/* invalidate last command */
+> +		pc->last_cmd.aw_id =3D AW_UNASSIGNED;
+> +		pc->last_cmd.cmd =3D 0;
+> +
+>  		/* RESET_DONE from CLOSE_WINDOW */
+>  		if (pc->closing)
+>  			pc->closing =3D false;
+> @@ -216,6 +252,55 @@ static void partition_handle_reset_done(struct panth=
+or_partition_control *pc)
+>  		panthor_arbitration_on_stopped(dev_get_drvdata(pc->dev), aw_id);
+>  }
+> =20
+> +static void partition_handle_invalid_cmd(struct panthor_partition_contro=
+l *pc)
+> +{
+> +	bool on_err =3D false;
+> +	int aw_id;
+> +
+> +	gpu_write(pc->iomem, AM_PART_IRQ_CLEAR, PART_INVALID_COMMAND);
+> +
+> +	scoped_guard(spinlock_irqsave, &pc->lock) {
+> +		if (!pc->last_cmd.cmd)
+> +			return;
+> +
+> +		if (pc->last_cmd.aw_id < 0)
+> +			return;
+
+[Severity: Medium]
+Does leaving pc->current_aw as AW_UNASSIGNED (-1) when window_open() finds
+the partition in PART_STATE_WINDOW_OPEN prevent command retries and
+scheduler recovery?
+
+When window_open() sees PART_STATE_WINDOW_OPEN, it returns 0 (if
+cur_aw =3D=3D aw_id) or -EBUSY (if cur_aw !=3D aw_id) before setting
+pc->current_aw =3D aw_id:
+
+drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:window_open=
+() {
+	if (partition_state_get(pc) =3D=3D PART_STATE_WINDOW_OPEN) {
+		u8 cur_aw =3D partition_aw_get(pc);
+
+		if (cur_aw =3D=3D aw_id)
+			return 0;
+
+		dev_warn(pc->dev,
+			 "%s: OPEN_WINDOW(%u): Already opened for aw=3D%u, state=3D%u. Closing..=
+.",
+			 pc->name, aw_id, cur_aw, partition_state_get(pc));
+
+		return -EBUSY;
 	}
-    ...
-}
 
-Because sched->active_aw_id is still aw_id and sched->phase is still
-ARB_SCHED_PHASE_GRANTED, panthor_arbitration_sched_on_request() rejects
-the request with -EEXIST, leaving the access window to time out in
-panthor_aw_request().
+On -EBUSY, arb_sched_grant_locked() queues sched->reset_work, which calls
+arb_sched_force_close_locked() -> arb_sched_close_locked() ->
+window_close().  Because pc->current_aw is still -1, window_close() (as
+well as yield_now() and yield_idle() when cur_aw =3D=3D aw_id) records
+pc->last_cmd.aw_id =3D -1.  If that command raises PART_INVALID_COMMAND,
+partition_handle_invalid_cmd() aborts at pc->last_cmd.aw_id < 0 without
+retrying it.  Furthermore, when PART_RESET_DONE later fires,
+partition_handle_reset_done() sees aw_id < 0 and skips
+panthor_arbitration_on_stopped(), leaving the scheduler stuck in
+ARB_SCHED_PHASE_LOST.
+
+In addition, panthor_partition_control_term() calls
+partition_irq_suspend() before window_close() and partition_state_wait(),
+which masks PART_INVALID_COMMAND so a rejected close command cannot be
+retried during teardown.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
-978-1-karunika.choo@arm.com?part=3D21
+978-1-karunika.choo@arm.com?part=3D20
