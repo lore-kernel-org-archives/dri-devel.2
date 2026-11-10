@@ -2,88 +2,153 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BFB60A2621
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 13:15:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500F56073B26
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 13:19:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NE/4JsED
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XTPfigwt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RmuvXnPR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6928A10F6D8;
-	Tue, 10 Nov 2026 13:15:51 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3C110F6D3
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:15:35 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-6b596569640so3180210a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:15:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4E6C10E036;
+	Tue, 10 Nov 2026 13:18:51 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E4F10E1DC
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:18:40 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AAB9qT63228346
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:18:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ x/m8qN0MPpjVIYc6xoOnMVMeEe7+lRfm54ryIioSZqI=; b=XTPfigwtgTvljF3i
+ 86m27RQrIcd+j5CVW8XsaTKNOo52BhyHmfJqrM3rLjEEC7UZBLagA+73oAuX/x2N
+ A1o74BHkFVwZPfJM7w54UBMMV2lFDporMuo4nOecBtOkNv3VYLXhnrV8afoUdzzn
+ W8Us1XxdQpXwiAOj5nfcJlTYsLU7OlK/QkDzJI2fKrLzdyoDBUvhur2EcsXlaGbP
+ A/eH4fAitC++hP5d0tdXiceO457XGdI92TSBYYc+x/9k6qugFXNGNzQ5KpO/He9R
+ 9PbCkxFwPeRI5+4HnjjaPHOfqFEmXgojcBtA1f8eYrOhR9a4DJccQLqIDNua+Or6
+ aB4Asg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huy5d951y-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:18:39 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93f13c143c8so378519285a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:18:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794316534; x=1794921334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oh2e2vjuLv+CFo3ixnoCrqgK7d1srk0NoRqmzsamSCw=;
- b=NE/4JsED4gmlB0Mq2YMZq3ODu3elhX0GCEN1cLVL7HHElpwNfMYhiiGAgyaV5LosL0
- JxMJhFxgrxKeq9yu1n8YYWtSZCFs+f0PA8rOHjFgDClTBT9xJ1ZQc1AdmAf4qhjgOvig
- yb8gvVK2/FFWr0aiy73ULi2buPqMhAVpA+EiAcSmruvhoUses5vsyeUrBQZvPq3ikn9I
- sMQJLMIXsagyKnyXDbHpbCgcg8Unm+F2rgeex63mJLJoMbmbdSjiWD2oUZH7QUOOQofF
- 5M3mvpggAb4K4Rkb4pFeoJuYYAC1SUk6MsUL/3xhiw109nY3IgYTHR0ru+V9TeIChk/n
- LopQ==
+ d=oss.qualcomm.com; s=google; t=1794316718; x=1794921518;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=x/m8qN0MPpjVIYc6xoOnMVMeEe7+lRfm54ryIioSZqI=;
+ b=RmuvXnPR84Yu/9AbRgGGA3obxNivcdRjeVgcscLZAMMUYXxcHrX7pYlJ7bopW+9wAg
+ kRqFM5PqMKYFrTwndjGKi7ClKL7MrK+I6+XYF8vtHgAR6GATUjBEgvAsrm1p2Op+6B5X
+ otIonmyCHFUJ2pibSgk56OB85cLd4Hmc4NgL7o0YZaidf2r4QlUGh3SBM2/Drj24btFL
+ k5bsWupJI+riOiYhO5O2IGSLa3wAHxWhJfXcii91Nr11npoaYoRMLDi/APHZ8AH9vB4a
+ us8lm7Dze8OnkXQyQvzW3QV1RW4COnHAw6NUUkM9yc2V0FIHzYeQ7CXetDk2dSI2+n0f
+ WeHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794316534; x=1794921334;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=oh2e2vjuLv+CFo3ixnoCrqgK7d1srk0NoRqmzsamSCw=;
- b=SBb2DLkLyG38fnG64I+RqjLGE2VelPuqJMGROtIF3oZ/qjgEMSyrBiZvGZu+WLWjT6
- J3RrPGUwweKmFVQYktHyd9MpW55isELMnH2t6KWTaZTavNcvmtR2A8htdKVRJm9gk1FJ
- VTr+V7JoKprGNTK62Ys0FchdBXdKExBD5NBMrXpHcDos7Tbm+KN2nn/UZGKX1ZJZnRiC
- w0VAUzS+3SsDIeskQ3UNzWsUPrxSui2tYYbm9DPWaYkZhsLo7z639KVz24MY7fwfhSjv
- xdjBnwQYEqc9jJ2qXd0rVyMLnqWDjduDUbhrnX1UAzWsh3KSJzGnJY8USFjatnQYNjTJ
- qH6Q==
+ d=1e100.net; s=20260707; t=1794316718; x=1794921518;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=x/m8qN0MPpjVIYc6xoOnMVMeEe7+lRfm54ryIioSZqI=;
+ b=KRyM0kHgDTYv92dE/+m8M+SCH1ERI5tkZOdjE2VNWghX152b6X2ruJVHopuaHmzDoG
+ r7NLtmT5uaWjux/owYQx3ANxbdqRzpGNsj7Ki4ZZ6z2wf/qI4U2AVPiGt5p54v75HIhH
+ epZfVq4hKmNWgX5iFETTqEHG0cdamnWMVtM/XxgYiv1ZibXOKYLMmxmC/I46UDWae7g6
+ XQa+SnRgOhDYNVjz0YBgPhejgWVr81TVUTTl4taToxlLxwGMbWpX6OHfdt3oYdJR3E/B
+ V6o5IpVHVPuKv8lWDkXm6c3ZhFcYoH7+ito/4D+FJGa/812F74B81bFdj0BQm674h9mv
+ UvWg==
 X-Forwarded-Encrypted: i=1;
- AL+hErEyJn3uT88KYMI12X/Gw+pzBvanNN8u1FakU4qEhOSUaTaXwOpO227gR7Xz8H2dvw5tlQOp7UWqAok=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+NYpMqHLzSQVYZEKvfnzxC6bXzbvoPkDZz1EhkXnPTMM+gjCvd
- SsHBlFC8+3dl3Bhlh7O1AA/1IAarC4uBjwLkoaWkm64fIL09SUnqoSTF
-X-Gm-Gg: AYBFou30yEoM0wHQ7cJZ3DMYxyrKqpKezbczgmlEo+3Yz1uAP6ex4aRjfQX9lnzeBGb
- u6HA4PeCohIZVckSUitKFnhRWLErvPURDY2pLTeGyBXIp8X99UzXzXyuE2xe1R6kgfdd25I2BMm
- jy5c4rskvjIP/Vsfb8QYsYWl/zYtb3Gw9omBy7Kqx2pqR3y2vJRphmZKxrnhWwARNFv9FynNPou
- ua0iU/tpfDT+R/Mnt3NsqEpMJTXZkgNlaA40AJW9ndmiSI4qMvpvBamkAzRccE2m8KMfpQPKFMy
- IW642YRkAvNRftbQw9tcQ/dkY4rdAOr0it0PQXzGuBdqrqKC5r81CX3neqyWu4HKo+zTu4DgXuy
- lrERD6//L/+ehmBXL2XluoGWJC8WJ4vhMGtrCacouyKCtDqSYTRXt2m2WWjTU04xMxpZ24eBNIi
- hY0u5lW55Lni+5IolagEX22xf/ulReo5je/iT7I+kve0BdWLzVPxmL0YsxR6esEisadtuL4yLnM
- YVFWQanPleCNvQmzlM270n+naO+9CgRnCxmAEgH7b+B9VVSXUFMYVm54xXMVbFU2N2uUc+5AWIv
- WJ6ezSU78y99geP6r0rRYjtDBRuTeKKB9ZCTqNYl71ZSlSWPYexKNAHKI+pR7/WTDakUg/taiDd
- K
-X-Received: by 2002:aa7:c6d5:0:b0:6a9:8863:ada4 with SMTP id
- 4fb4d7f45d1cf-6b7571c10acmr1542857a12.3.1794316533631; 
- Tue, 10 Nov 2026 05:15:33 -0800 (PST)
-Received: from desktop.home ([46.205.207.69]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b75790353asm1126372a12.31.2026.11.10.05.15.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 05:15:33 -0800 (PST)
-From: =?UTF-8?q?Andrzej=20Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Relja Vojvodic <Relja.Vojvodic@amd.com>,
- Ilya Bakoulin <Ilya.Bakoulin@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Andrzej=20Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-Subject: [PATCH 2/3] drm/amd/display: Wait up to 1 s for slow sinks in FRL
- link training
-Date: Tue, 10 Nov 2026 14:09:55 +0100
-Message-ID: <20261110130956.160024-3-andrzej.piatyszek@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-References: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
+ AL+hErG/Lk4F7gw6Ap3UoSJM8KCBZKGevRxIX9zE5fLBNLhYrm1NThTTmyR4NvcmhQj7ukNLz7vFAZ17dSo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/p8qRLVM6sHggOKNK0aFnRMiAVBccP4jgGvtW45h0bW1sAQeUh
+ wrAc4Px+4U9YSouzVbVUeT5UMQraqAtg5ZknIg0qkebIYspN+QnErkueLp0cZC3cBJQnl/rzkxd
+ bNOIGNl43ioG3KsrV6EDuNh0XS5szA75G6vLYRlrcVqi6SYG79cZsuWqsjrNuslk1bGEHI8Y=
+X-Gm-Gg: AYBFou1LR4DWwwX9yn5+AQTGEtrlo8cBlQdtjDTpRYKlnFBKAg2oNHPNQ9U30ejQihH
+ +XuE/IM3uf8ru0dMKoApW5Cw8tkgp3nZNZ72okYqsTWvLOhE2EZ2y3C6xMVeOZYAonhWb0AMV9u
+ fyZw5e75Eelu7udU7pyYnDKbKGrnAw2EbWZJY6e7G3uE9erpQb2b2MxUhpgUmNAET9jLKQqUaBP
+ wFfvOAB0O43CpUBd/ycxIdr1Komf68ubMdoR1sBysO/MTZJ124a/7rnEkWZk6har4jcyHx+XsI2
+ /NVcEFB1QFOEOF0ffufcqhbIm5NHLNU0OwEDqYzJCLe7uUvMuw2EAYoJFfgfs5tgoqKHvQ0F7rj
+ 4hweNg3+8FoV9tOuwzq1lJOTExqKCEZ18jw9LXDQ3ruSEEUhmCa8feMkeqqZWZtkQ34sRJ6j8UF
+ w=
+X-Received: by 2002:a05:620a:4152:b0:943:f4a1:7bb9 with SMTP id
+ af79cd13be357-9479f3017e1mr423388785a.18.1794316718561; 
+ Tue, 10 Nov 2026 05:18:38 -0800 (PST)
+X-Received: by 2002:a05:620a:4152:b0:943:f4a1:7bb9 with SMTP id
+ af79cd13be357-9479f3017e1mr423383385a.18.1794316718090; 
+ Tue, 10 Nov 2026 05:18:38 -0800 (PST)
+Received: from [192.168.1.110] ([178.197.218.7])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49835f1772dsm4995698f8f.31.2026.11.10.05.18.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Nov 2026 05:18:37 -0800 (PST)
+Message-ID: <7f052309-63b1-40d2-a4e4-29421e46d6c7@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 14:18:34 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: msm8916: Disable disconnected DSI
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Mahadevan <quic_mahap@quicinc.com>, Richard Acayan
+ <mailingradian@gmail.com>, Danila Tikhonov <danila@mainlining.org>,
+ Robert Foss <rfoss@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20261110-display-msm-of-graph-v1-0-0f3106f817b4@oss.qualcomm.com>
+ <20261110-display-msm-of-graph-v1-1-0f3106f817b4@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261110-display-msm-of-graph-v1-1-0f3106f817b4@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oe89Va05KI3lbK51PNpKazJUv0ozPKjV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MiBTYWx0ZWRfX2eW7A/Kf1Hqu
+ HUcHIaQbJ+khTtZ57NS8KvQ4S2SudFrCHbN8O7sBlNrb1ZEoOx4fQUn1dep2dXrzGZt4YZ9fnWW
+ ARI1bFWrCHiYVd0FHqOXJA5qraaTyns=
+X-Authority-Analysis: v=2.4 cv=d+9gWhjE c=1 sm=1 tr=0 ts=6af319af cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=udFPpGrmtiWedX3Zxo8A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: oe89Va05KI3lbK51PNpKazJUv0ozPKjV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MiBTYWx0ZWRfXxuUvJf9dktBf
+ jCc1YfRYnU5hpBEUrDWLATOIfJeyggrthGHIxOedYCo0qNZwqgOnPTlKJ6WZ8+udB07PUlxQKl0
+ PbPKp05BNw/ginkmdhWg9DVPzF6oxsx+U1cR1xzTRfQ3QpSiAvD217fRpOinm58cQtR8cE0gHlz
+ NuHGUdfnQe8Zm7blqxMrx+nIJYNHuTWRt4cim3L1zyht8OYJ48Klmk5lgKCyYvbcA/TvKuS539M
+ ILCAObJC57vjLGhCy/KgDiCpMuNFULurFxVFhkrWYUxxjwuuZs2sI5zxo2/O+EkzjL8h8MTzZ7Z
+ D5jQuLxc+t4KZakvS0GdlxwIBQbuX+W4rRmqqb8/gqG78Cy7Q75pZ13J+1u3nEmP37z9FcmTKZ0
+ DjjqoVxMU7Vv2eNh5q15PNJCFNODvu+ZbBYshZWp8nhmAnXWtpvkEaTvytZwgMf4HWPpD5cqc/f
+ PqFlZjXbdphmg7rpipQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,51 +160,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-LTS:3 gives the sink 220 ms (320 ms at 16 Gbps and above) to answer an
-LTP request before the driver gives up on the rate. A Samsung QE65Q80T
-(2020) sometimes answers at 10 Gbps x 4 only after 225 to 967 ms, so
-link verification falls back to 6 Gbps x 3.
+On 10/11/2026 13:57, Krzysztof Kozlowski wrote:
+> MDSS DSI and DSI PHY is useless, when nothing is attached (no panel
+> description in DTS), thus should be disabled in DTS.  Linux MSM DRM
+> drivers will also fail the probe.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/msm8916-samsung-a3u-eur.dts   | 6 ++++++
+>  arch/arm64/boot/dts/qcom/msm8916-samsung-gt510.dts     | 6 ++++++
+>  arch/arm64/boot/dts/qcom/msm8916-samsung-gt58.dts      | 6 ++++++
+>  arch/arm64/boot/dts/qcom/msm8916-samsung-serranove.dts | 6 ++++++
+>  arch/arm64/boot/dts/qcom/msm8916.dtsi                  | 4 ++++
+>  5 files changed, 28 insertions(+)
+> 
 
-Wait up to 1 s at every rate. Sinks that answer within the old limit
-are unaffected; a sink that never answers costs up to 1 s per rate in
-the polling loop instead of 220 ms.
+Valid Sashiko feedback, I missed apq8016.
 
-Fixes: cbb8e2044b9e ("drm/amd/display: Add DC link support for FRL")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Andrzej Piątyszek <andrzej.piatyszek@gmail.com>
----
- .../drm/amd/display/dc/link/protocols/link_hdmi_frl.c    | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-index 78e62bfec..97b2b9b74 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-@@ -612,10 +612,13 @@ static enum link_result hdmi_frl_perform_link_training(struct ddc_service *ddc_s
- 
- 		FRL_INFO("FRL LINK TRAINING:  Poll for FLT_UPDATE.\n");
- 		/*LTS:3: Start Link Training*/
--		/*Start FLT Timer = 200 ms, or 300ms if link rate >= 16Gbps*/
-+		/*
-+		 * Start FLT Timer. Some sinks need longer than the nominal 200 ms
-+		 * (300 ms at 16 Gbps and above) to answer an LTP request, so wait
-+		 * up to 1 s before giving up on this rate.
-+		 */
- 		num_polls = 0;
--		if (link_settings->frl_link_rate >= HDMI_FRL_LINK_RATE_16GBPS)
--			poll_timeout_ns = 320 * 1000 * 1000;
-+		poll_timeout_ns = 1000 * 1000 * 1000;
- 
- 		flt_poll_start = dm_get_timestamp(ddc_service->ctx);
- 		uint8_t prev_flt_update = 0;
--- 
-2.56.0
-
+Best regards,
+Krzysztof
