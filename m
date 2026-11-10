@@ -2,94 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18646606A339
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBCC606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ih23mt5/
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsWPymX7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78E9210E938;
-	Tue, 10 Nov 2026 12:39:33 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3E710E938
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794314365;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YUu0h9arLHi+h5Yn+kYOg06kGKRl9ThCJwlOdeMMI08=;
- b=ih23mt5/mkDp5+ZpAh+H1dl/mORgP+E21Y3hGGD0hdOeGGlDc/9YHQ6PXkpr4aWqTmLnjB
- QOuzS1IiAN6HtLscXiQX9yOAvxDjXha4fsDbcJ5/47Ps11f0EgxCbMdvxk0k9yYmrzci4y
- +dUWL6XtOTdc1IMEWSHJ3W4s79Hj1x0=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-630-1ue-F9H2N4-vvZQwxcGGFw-1; Tue, 10 Nov 2026 07:39:23 -0500
-X-MC-Unique: 1ue-F9H2N4-vvZQwxcGGFw-1
-X-Mimecast-MFC-AGG-ID: 1ue-F9H2N4-vvZQwxcGGFw_1794314362
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4b64722b5e6so23331275e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 04:39:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794314362; x=1794919162;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pwtPeU2sWzznNclKxCvFDxDPXTNBdV+ezO5+7hunkSs=;
- b=gRCgLxpY3iKaiL1v0NTqMCDEXJoMWwWFSIcoW74e5+0LYEZdPVnUXhPe5PKneuzMD6
- SmKpdJuHOrsaMLqilVdBl6NDEo5Cqm6uPB9LfiM8XSBQC7SnXIw/onwwBaAj3DBOJ4iM
- VJAFkxCIU4+JNIR3lxYOfh8tOZIJy0g4gLWIUiRToRJ5LjM5aBAXbUgYX30DyV1RhFFJ
- u9JVsMORSmEJlaA/AN9qQnp5CSj1063BXFWdcwODVihP4OHmZDjkmG+vbDfx71+9Syzt
- VQxoKRJAsyWE/p0IhBERjmAqvaWkv92o/QiZ+ejpTz9lPntHFu6Us2W9xj7EY0J7VzfI
- 3WIA==
-X-Gm-Message-State: APuU4Z+txRF0bfivCle4zt92MNOEAgMVZ298nZPM/MBhPcTPg8WBXeuZ
- jYFBZkoI3ePUQ4L5V0D9iWSGQB75fFKEZJkLDrM2N9f6Aqo1kihvOsop9R60azNoDI5fzbWtnGA
- n4Y2O8d9Eg7P/h6FzIrJbsl/41+h/KZQtjI2BucoaUuYdjqZkCHzEQdF26i//Vm5uFGg+Ng==
-X-Gm-Gg: AYBFou0TSaPEBUu3E2W42/6BizGOPMsN1rVJSlb3owmKxgmGNPJ+NIxQCa5Pho3zao4
- miPHBRg0V8/PK77cAZ9e3aFFHF2RWNuc+QMpOC8j2u5VrzwwW7Jv80zM3zeV2LcEYsIlOiNfvjJ
- XLV0E6R4/tHSle2TSh1nt3/fWiKZtS2bChpLsL2k/3CPTy6jTzZMJ7+N3cOsd7QMs9/U01053eD
- y2VZyKQ1G2rY6U83G6bMOUAnEqM+MGQux/rAzWnH28GOTimJuUr/hXz1M89GJGcqESMAIp3db+I
- nABI8RYUKiv5XzeEwVYJEoobg+fqHoV9Y5olhis4yte86HPoHH9y4mUfaUPgYZb3eQxJlBBqw4U
- Z3vRHAXwi8jyUizZ9c6xGDsnYkRLzCmnv6w7s6lXElVMzHMRxlWqE7spV87PO90KP+XPKGCy+Nv
- j87PPG1un4D8DP0dl7m2D+aAMhBjuiIxt1SRw/rhU=
-X-Received: by 2002:a05:600c:818d:b0:4a1:c5eb:b445 with SMTP id
- 5b1f17b1804b1-4ba023584f5mr45491425e9.35.1794314362107; 
- Tue, 10 Nov 2026 04:39:22 -0800 (PST)
-X-Received: by 2002:a05:600c:818d:b0:4a1:c5eb:b445 with SMTP id
- 5b1f17b1804b1-4ba023584f5mr45490665e9.35.1794314361627; 
- Tue, 10 Nov 2026 04:39:21 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4ba0204342asm71937455e9.6.2026.11.10.04.39.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 04:39:21 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Devarsh Thakkar <devarsht@ti.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero
- Kristo <kristo@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devarsht@ti.com, LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 00/14] Add DRM driver for Solomon SSD16xx e-paper
- display controllers
-In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
-Date: Tue, 10 Nov 2026 13:39:19 +0100
-Message-ID: <xlv1o6bweu88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1C810E1A6;
+	Tue, 10 Nov 2026 12:43:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5A010E1A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:43:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4100B63908;
+ Tue, 10 Nov 2026 12:43:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15C81F0089F;
+ Tue, 10 Nov 2026 12:43:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794314624;
+ bh=XPefT0fr3wupychDfnABDtN7x7rVMQKiNrbW2cLICoA=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=bsWPymX7+lfe73MT5e35/b1PX3m7Vta5PtxMBjI10WgFUUwnrU/Q4C0qJp6T0VKTg
+ 1SE59OtlHhLqFyp7UB8nK94wEW+5ypzsN92WP2QjGAcdhFm7Dxz5TLJQLxhRA8lzAv
+ 5zUWiLeaDowhPvo9jsuz1zKsQq3oMmbGwftVORred8EmSkDBWcVSVhQVVkWjFGQ7vj
+ kVdj5iaENTuBGloeoyVRgjkcuYnSqE1SYXpVJkG5ZnbG7wnndMd/qFThaC7DkurgBK
+ UQyNWYPQTS3h/U288xm1AXdVJk+vef7rgBYOYH2fgP3xun4TMeK4D1EfvTKdPTkEYF
+ Q8mHmqdxeDlPA==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: inX2yukEQ9pedmXANBU6u8Yiw8QgYE87iOVV1uBRfkE_1794314362
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 13:43:38 +0100
+Message-Id: <DMRJG3ZQXY6Q.1WSE0ZB1YLDO8@kernel.org>
+Subject: Re: [PATCH 1/2] rust: pci: add domain_nr() accessor
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "LKML"
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "John Hubbard" <jhubbard@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261110033655.148487-1-jhubbard@nvidia.com>
+ <20261110033655.148487-2-jhubbard@nvidia.com>
+In-Reply-To: <20261110033655.148487-2-jhubbard@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,46 +62,82 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Devarsh Thakkar <devarsht@ti.com> writes:
-
-Hello Devarsh,
-
-> This series adds a DRM driver for the Solomon Systech SSD16xx family of
-> e-paper display controllers (SSD1673, SSD1680, SSD1681, SSD1683), startin=
-g
-> with support for the Gooddisplay GDEY042T81, a 4.2" 400=C3=97300 black-an=
-d-white
-> e-paper panel driven by the SSD1683 controller.
+On Tue Nov 10, 2026 at 4:36 AM CET, John Hubbard wrote:
+> The nova-core driver has to send the GPU's PCI location to the GPU's
+> firmware as one word that holds the domain, the bus and the device
+> number.
 >
-> The driver is designed and architected keeping the bi-stable nature
-> and low-power requirements of epaper display based systems in mind
-> along with having adequate flexibility to support varying use-case
-> requirements for the e-paper display use-cases.
+> The PCI abstraction has dev_id(), which packs the bus, the device and
+> the function into one value. It has no accessor that reports the domain.
 >
+> Add an accessor for the domain number.
+>
+> Suggested-by: Miguel Ojeda <ojeda@kernel.org>
 
-[...]
+Is this tag intentional? (Just asking since my tooling flagged it as it was=
+n't
+present in the first submission of this patch and some other criteria.)
 
->   drm/solomon: ssd16xx: Expose refresh mode as plane property
->   drm/solomon: ssd16xx: Expose color mode as plane property
->   drm/solomon: ssd16xx: Expose session management as plane properties
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  rust/helpers/pci.c |  5 +++++
+>  rust/kernel/pci.rs | 14 ++++++++++++++
+>  2 files changed, 19 insertions(+)
+>
+> diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
+> index a8540f90b13c..49f2c089d236 100644
+> --- a/rust/helpers/pci.c
+> +++ b/rust/helpers/pci.c
+> @@ -7,6 +7,11 @@ __rust_helper u16 rust_helper_pci_dev_id(struct pci_dev =
+*dev)
+>  	return PCI_DEVID(dev->bus->number, dev->devfn);
+>  }
+> =20
+> +__rust_helper int rust_helper_pci_domain_nr(struct pci_dev *dev)
+> +{
+> +	return pci_domain_nr(dev->bus);
 
-There is a fundmental issue with these 3 patches. They are adding custom
-device-specific plane properties, but the KMS/DRM subsystem requires all
-KMS properties to be generic and standardized:
+Rust helpers should generally be transparent wrappers and not provide any
+semantics, even if it is just to resolve a pointer.
 
-https://docs.kernel.org/gpu/drm-kms.html#requirements
+> +}
+> +
+>  __rust_helper resource_size_t
+>  rust_helper_pci_resource_start(struct pci_dev *pdev, int bar)
+>  {
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index 769d01d23429..57718e48208d 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -408,6 +408,20 @@ pub fn dev_id(&self) -> u16 {
+>          unsafe { bindings::pci_dev_id(self.as_raw()) }
+>      }
+> =20
+> +    /// Returns the PCI domain number of the bus that this device is on.
+> +    #[inline]
+> +    pub fn domain_nr(&self) -> u32 {
+> +        // SAFETY: By its type invariant `self.as_raw` is always a valid=
+ pointer to a
+> +        // `struct pci_dev`.
+> +        let domain_nr =3D unsafe { bindings::pci_domain_nr(self.as_raw()=
+) };
+> +
+> +        // CAST: `pci_domain_nr()` returns an `int`, but a registered bu=
+s never has a negative
+> +        // domain, because `pci_register_host_bridge()` fails when the d=
+omain allocation fails.
+> +        // A negative value here is a kernel bug rather than a condition=
+ for a caller to handle.
+> +        debug_assert!(domain_nr >=3D 0);
+> +        domain_nr as u32
 
---=20
-Best regards,
+NIT: Please move the comment directly above the actual cast statement.
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+> +    }
