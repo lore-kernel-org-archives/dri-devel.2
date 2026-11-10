@@ -2,43 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70403606A916
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539146072650
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:25:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meJ5dehI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IUSSMtJg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C673A10EECC;
-	Tue, 10 Nov 2026 09:23:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40DB10E0EF
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:22:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 792064082E;
- Tue, 10 Nov 2026 09:22:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306441F008A2;
- Tue, 10 Nov 2026 09:22:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794302577;
- bh=Y5HFF9Lbqc/jUcxqumtCCcxHLkUdM953Ip1z6l6I7mE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=meJ5dehIBFgW7JGyQAbU/c7dZWEou7rp8OSZ5VH4+5zrSybPRUxr4VNmctLIqtKlI
- czG7+0HmeViyCD0az4oab3dMlXlPiwpEcPDVUNJ3KJ9kv5lGISPWHIvlcmBVQqKNS/
- 1oQtXn9xQ7Mx797qalnIFm0dbzVkgKbtm1j8mFy8kqJNImeQ135vc/m0djb/2ELMAh
- S1Tgw4XL27lelZy5HR63Oi3fP/dAEBQ8u21C27cIcSDqITTqkdcfuGKyax+twSSPay
- KZp8eKU94yFc5KfciWUeRgIh+U4FDamIpL6ulDlkx5lBdX4VMao8nBB0rFbAT3mo0e
- 1Dh7d16SJq80Q==
-Message-ID: <sashiko-outbox-206721@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/ttm: check for NULL resource in
- ttm_bo_vm_fault_reserved()
-To: kaii-k <harshicon28@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261109202330.1816799-3-harshicon28@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4FAC10E0EF;
+	Tue, 10 Nov 2026 09:25:12 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010067.outbound.protection.outlook.com [52.101.61.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D12810E0EF
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:25:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o/Q5yJS9AelnRExxaOSPg4jyAdSJGQKlbNfbwdHQZ+wQdrlXiGbIdFA4gp7viFxzFClV26MnSIp51JZCegafAeMgZr8Obaf+yh0CCYLPX9t+copPWTm8IVFtIuSxF5ybmE3+Dc1W1Co410zgHNWjG9yN1UL/LW+3w30PsCUFRaaXDpeTm0p59Ixh2scf8HTnm9NZDxO/woSJrjryBDMLCCCW+RpsZ8DgM8icXth/d3LvglIcG13jYp+vUQDdxe/M9bhnHIi6Xzns1Axkk/xhbWt6Kh3SL+PwGIBRSgKr+DFb6W2wT7Ar9xetir2KVxVvAKZqpslZV0YKBBTwGiyvPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6rcJgsbE84swGMqfW/5dYciOmzkOC1/uW7uX0ROus54=;
+ b=e+loo7ox0rfG9Tn7buAzdmEINzx7kitQK8gTZsVj5S6PwmGK7eFtN/S1nPl9LGrwnwh5W9wetXqj4ChpK+APM6pzWSa/rSD0AwJslAZVjMzc7B+dYzOEU+9N007Jpr/R1wq9v99FzOo6tipOE08ND5tCnT004DhH/pyZKg8HlZL4faAYDU9I6QP2gIrL0K2ZV32ykwkkGBsE5JqqRreWhQUB+Eb/bxqb64N5N4QiYQfZX2oYWuMXCtns7u35ggld4XBqfUEWFwwXanA4RPa9D3U+H4o+sFFjzRjPq7PCiAvViRQvrbtiwZdhUK+tgLip10UGDLywFHfvbharX/D8ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6rcJgsbE84swGMqfW/5dYciOmzkOC1/uW7uX0ROus54=;
+ b=IUSSMtJgg7kp7Lu7HZd0vcbae7dOMCJd9Rh3CQ41w3RlNL4RQ5ZxW9ATwxoci1TetZGnJ976P7PvCl1SNDZAexwjfzOAeU5UOom7bSLCciEHNoOoPRE9oJw/s8q9aiB8tI63v9lVhbGlIh7V0q6aEZFuodx+CEKl3stumo10elA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB6168.namprd12.prod.outlook.com (2603:10b6:8:97::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.8; Tue, 10 Nov 2026 09:24:57 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 09:24:56 +0000
+Message-ID: <cbf69ae3-9219-428f-9a8d-5642579c76f1@amd.com>
+Date: Tue, 10 Nov 2026 10:24:51 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/ttm: check for NULL resource in ttm_bo_kmap()
+To: kaii-k <harshicon28@gmail.com>, nat@pixelcluster.dev,
+ arunpravin.paneerselvam@amd.com
+Cc: ckoenig@amd.com, thomas.hellstrom@linux.intel.com,
+ matthew.auld@intel.com, matthew.brost@intel.com,
+ dri-devel@lists.freedesktop.org, Harsh Parmar <kaii02ctf@gmail.com>
 References: <20261109202330.1816799-1-harshicon28@gmail.com>
- <20261109202330.1816799-3-harshicon28@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 09:22:56 +0000
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261109202330.1816799-1-harshicon28@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB6168:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e87b9a4-d17b-41bb-e144-08df3f0c7c2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|261102123227099003|56012099006|261021121427099003|261022105027099003|261009223027099003|261009221227099003|261028144727099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: rZaBNoIglvZBMuNVpPBTaqiShsL/9n3KLAuAUmy9eBZcjmLG4gQ46IAqhrJanQzwF7wGaoPJz2nTuB7p4VLZEY00nJHpIjtV9LMo/DGgGXU1MXlg7kWVuNM5NUkasPlAPdORUgq1ib2rUAGX+3grlufJBOd+/Ync7FiRwFujFZs3UrkVBlh7EcF2QL0jAsXvL+7dAhoqPwE+h0ga9GxqE/NFrKgZl44+run0/GbOm+fImdGcrZBZgOka2kO8VaFqT45CmHIbavKirBcidNsq3d7UR///A0xNSpEDi18NyRZ78QUTkCZ01H7TlteC3HLmPc2p6UIwFUKJmv3fPnxB+xioHLFJXVtGLUVub8dq3lZlTiRysw8V/bBiUbHvnIrEFWCpBw2ylw2eL/R2J05sscSH2M0IMedy1++vsHnwm+7w36P6uDwC3IoV8yROth8W8u5OQxTxEPfcgD5DhFmOY0HHL/k//flefw6Zx81+peLb5L58vobp1B3frP5ek7QMWylzcBpCDMzbmHxSwgra+RQAu1tkar39lEXoWFaQ8jG42If/BpkzI1vmhj1tGZQxUNj9kq6ceEfRkWiuRnKIzxiOA/QsldOiTKiwkYJGCZwTOn6Gaya4Kcgr6NqpDyyLDdbUH5QEfiiTVtRhtI1df47qHkhk2GbxcBhWapZ34ks=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(261102123227099003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261009221227099003)(261028144727099003)(261026140227099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXVJSXplU09xZHAvbFdGVm1kdy8raFVjN2ZXViszaEQrNDAyYUpicG9lVnJ2?=
+ =?utf-8?B?b1J1WnpsNnJ3cnFSbTB1KzAwanBVVkJxWjN2QVA0S2s4YjFIcDRrMnJyUytH?=
+ =?utf-8?B?dU5WcWhLbUtiZlZERnFrc3lGdXY2NUhnQnU2QXpOZHZqNXhvMXNSSUtJcFlH?=
+ =?utf-8?B?bm5QVUNtc3I1V0Nzd1J3dlovV2o2bFRmeE42dmZiTkJLZDFocVN6MDlJZUhJ?=
+ =?utf-8?B?ZllMV0JxWlNGZFZWZEkxcGwxR2VBdWVzYkY2dENtOUNheGo4SFlldVZOYjRO?=
+ =?utf-8?B?c2c2Zy9PTG54YVQrQlFTdGVac25OT3FFM0liSkNYc2JiNDA3eEFzYUFDQ2Iz?=
+ =?utf-8?B?dkhVNGlpNXRxUnROWEUvTDI3b1g2bkM1b2tLUXFYVy80cmdEcm04SjRSWnVn?=
+ =?utf-8?B?MFZpY3B1Vk5JRHBIckdNTHZydUNWTlc1MGZhemZOZ1VVL3ZCclJrU0oweFhu?=
+ =?utf-8?B?SXYzUmJ3YUtydUEvZVcySThmdEljSUVWMkhKa29qSmMzdWRBNmVRUFk4WFB6?=
+ =?utf-8?B?MUhucEJldDVFT3djbGI4MXNReHhHS2liaUFJYUZNV1lHcTdOWGxkS29qZ1Rx?=
+ =?utf-8?B?akk0Q3l6Z0x6TFdoNDVtZk1pWnhrdEkrQjZwdzMvZkc3NkNYd09XbXRpMDVp?=
+ =?utf-8?B?ejFQWXR6NzVFUEZXYU9vaHcrZUtPamh6SVdiZEQrU2w4UXJMamJxTTdOMHB3?=
+ =?utf-8?B?bTJjQ1RkL1Y4WWoxMHMzZHZXa0ZGVnN6c1JmTnZqMUxsWndVTW9LT2hUYmRY?=
+ =?utf-8?B?SVJBemxMODlIc3ZZQjhUMjFXY2ZhdjJoQkFpVmpLTUd3Nm55Wk5Kb2dTM2FK?=
+ =?utf-8?B?bThvZkpGaUwwRkRvcVQ4bDFPdENJZlFvMi9ydFVVVG1nOTZmeHJJcWlHZ0lX?=
+ =?utf-8?B?d2lmN0h4dVU5MklXRUtuRDdkbFhRRkF3K1Y5cDVmKzFReEpFcEQ3YWhyQ2lZ?=
+ =?utf-8?B?dzIvSTRSczNVLzZKdHV3K1dOSFA0dlZITlpzejlqcWgxaytrLzhqUVpvb212?=
+ =?utf-8?B?UUk4UjdaaGFja09IRExSejdqeUErd3pjdjhIS09lNUJUdVRkRTVxZHVsaUlU?=
+ =?utf-8?B?b3VqL1JkTTh0ZHZSUXRSckJVNThyMk5zY2RoSzJjYVlHamgrckpGSzFGVmJy?=
+ =?utf-8?B?a0U4eS9pY2NJRndyb0lCWVA0bmtCQ3hDdmRrS3NVY3E0a05nRHFlY0c3Mysx?=
+ =?utf-8?B?dWFFK1pudmJaNVc3R0hzbnpBZEdkbHU3YUk5V0dkaFpXZGJ0VmtiRDBZTHNq?=
+ =?utf-8?B?NVJvUGxSSzBrdHBVdTVkbEJjY0duVDZQUDRad3o1U3dSZVJkT3BsdTV3RnNy?=
+ =?utf-8?B?bE8yenBHd0dBWVVLcENiaFc0c1UwditPUmxIMUM5bERtR3MyQXplc0M0NEVF?=
+ =?utf-8?B?U3g0a2ZxTzBMV2tjR3pvRWpPT2VyMlZuNG9CUFlVL3JwYlgyY0dNai9XUUx1?=
+ =?utf-8?B?NDJvcGpXUGFQS1o4UVhMLzIrcjkwWUFLQ3NDSHg5VU1RWTltek4zSnpaT05S?=
+ =?utf-8?B?eGVqTVAzS0FyZWhxZHVCRllOUnVIRCtPUEFvWURIaHVLUDYwME5MMVdRKzJq?=
+ =?utf-8?B?dzVybS95aFFsN2l2cFR4K1FxMkovby91cTA3WHlyT0F0UWlIOEJFVlZrU3oy?=
+ =?utf-8?B?WkVGUVZWR3NKaUhsQVExMjZCb3I1ZUxRemw5M2hKTEhtVUlybld1LzNRMHdv?=
+ =?utf-8?B?TjR4bG5DNVVQVTVXR1NFT1VubHVJdFU3bk8wNHUzb1FEQ3dHNHpSMkhkUFNu?=
+ =?utf-8?B?TEVHU0JlYUY1STlTNDNoWjBDMTZuQkg5SXBhVUJ5QURSTnE0UUo2V1ZScjZr?=
+ =?utf-8?B?TUlkTlV0TEYxdVJuSC8rQU96UklwaW1ra3dvSElHeFc2UUVhUTFuTk9lZklU?=
+ =?utf-8?B?VUNlaVFhK29nVGhlRWNHRk5xSnY4dlFQblc5RXVzdHBZMUQ4alNpYzY0ajg0?=
+ =?utf-8?B?N1M5T3BCT0JmdGFtWkk2clROV0FKOWk2a284b0VOcFNNdHB3clZxbmFIZGZK?=
+ =?utf-8?B?blZqSUIzWG5zOVZSS1JvdXhQbkZmK3VqUUhDQS80b1NocE52dHlvbHNLS2RU?=
+ =?utf-8?B?bk1NamlOSHJXdDY5aVcwZkhPYktCWnpwckdsMytiUE9URXFzWW01ZmJFMmVU?=
+ =?utf-8?B?c1RXSnBKVHMxbnl1MnlqMWFYYWx4bHByeDljNkliUXFzMzc1cUtvSDlyMGV0?=
+ =?utf-8?B?Y0MxZldNNitNNUJWQXZCc0Y4dHFSYkdWeWJldW5hcTZxbzlMb2ZkNzlwcjJ1?=
+ =?utf-8?B?RlA5KzI5MzByUy9maWNES2pQQmtwNFRSN2VjaDB3Ty8zSUNoeC9oc29JUWZ0?=
+ =?utf-8?Q?RPiTtIzm5soG7t4MQh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e87b9a4-d17b-41bb-e144-08df3f0c7c2d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:24:56.8182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nEnozYZKPn6vf3THWJhNvCWN/n1CSGlTfsLjbdmvyNWW1O5E6XgsSl7Fe+Ju/8mT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6168
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,91 +130,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] drm/xe/oa: missing vm_pgoff check in xe_oa_mmap() [1]
---
+On 11/9/26 21:23, kaii-k wrote:
+> From: Harsh Parmar <kaii02ctf@gmail.com>
+> 
+> A buffer object can legitimately have no backing store: a driver may
+> call ttm_bo_init_reserved() with zero placements, which leaves
+> bo->resource NULL. It can also become NULL after the backing store has
+> been released.
+> 
+> ttm_bo_kmap() dereferences bo->resource unconditionally (res->size),
+> causing a NULL pointer dereference and kernel oops when called on such a
+> buffer.
+> 
+> Bail out with -EINVAL if the buffer has no backing store.
+> 
+> Fixes: d3116756a710 ("drm/ttm: rename bo->mem and make it a pointer")
+> Signed-off-by: Harsh Parmar <kaii02ctf@gmail.com>
 
-commit e95d22b6c456f4e471c0ed18ffb86dc352011af3
-Author: Harsh Parmar <kaii02ctf@gmail.com>
+Reviewed-by: Christian König <christian.koenig@amd.com> for the entire series.
 
-drm/ttm: check for NULL resource in ttm_bo_vm_fault_reserved()
+> ---
+>  drivers/gpu/drm/ttm/ttm_bo_util.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index f9458a4..158f0df 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -435,6 +435,8 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
+> 
+>         map->virtual = NULL;
+>         map->bo = bo;
+> +       if (!res)
+> +               return -EINVAL;
+>         if (num_pages > PFN_UP(res->size))
+>                 return -EINVAL;
+>         if ((start_page + num_pages) > PFN_UP(res->size))
+> --
+> 2.53.0
+> 
 
-This commit adds a NULL check on bo->resource in ttm_bo_vm_fault_reserved()
-and returns VM_FAULT_SIGBUS when a buffer object has no backing store.
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo=
-_vm.c
-> index 872bf444b1f0f..69dd6bdd54022 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> @@ -205,6 +205,9 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *=
-vmf,
->  	if (unlikely(ret !=3D 0))
->  		return ret;
-> =20
-> +	if (unlikely(!bo->resource))
-> +		return VM_FAULT_SIGBUS;
-> +
->  	err =3D ttm_mem_io_reserve(bo->bdev, bo->resource);
->  	if (unlikely(err !=3D 0))
->  		return VM_FAULT_SIGBUS;
-
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can the prefault loop in
-ttm_bo_vm_fault_reserved() read past the end of ttm->pages[] [1] when a
-VMA has a non-zero vm_pgoff?
-
-drivers/gpu/drm/ttm/ttm_bo_vm.c:ttm_bo_vm_fault_reserved() {
-	...
-	page_offset =3D linear_page_index(vma, address) -
-		drm_vma_node_start(&bo->base.vma_node);
-	page_last =3D vma_end_pgoff(vma) -
-		drm_vma_node_start(&bo->base.vma_node);
-
-	if (unlikely(page_offset >=3D PFN_UP(bo->base.size)))
-		return VM_FAULT_SIGBUS;
-	...
-	for (i =3D 0; i < num_prefault; ++i) {
-		if (bo->resource->bus.is_iomem) {
-			pfn =3D ttm_bo_io_mem_pfn(bo, page_offset);
-		} else {
-			page =3D ttm->pages[page_offset];
-			...
-			pfn =3D page_to_pfn(page);
-		}
-		...
-		ret =3D vmf_insert_pfn_prot(vma, address, pfn, prot);
-		...
-		address +=3D PAGE_SIZE;
-		if (unlikely(++page_offset >=3D page_last))
-			break;
-	}
-}
-
-For example, xe_oa_mmap() checks that the VMA size equals xe_bo_size(bo)
-before calling drm_gem_mmap_obj(), but neither checks nor zeroes
-vma->vm_pgoff.  Because stream->oa_buffer.bo is a ttm_bo_type_kernel object,
-drm_vma_node_start(&bo->base.vma_node) is 0 and page_last becomes
-vma->vm_pgoff + PFN_UP(bo->base.size).  A fault near the end of the buffer
-passes the initial PFN_UP(bo->base.size) check, and the prefault loop then
-steps page_offset past PFN_UP(bo->base.size) toward page_last, dereferencing
-out-of-bounds ttm->pages[] entries or mapping out-of-bounds PFNs into
-userspace.
-
-[1] https://sashiko.dev/#/bug/linux-d5cc9df6-b93b-44e4-8837-59f1909411f7
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261109202330.1816=
-799-1-harshicon28@gmail.com?part=3D3
