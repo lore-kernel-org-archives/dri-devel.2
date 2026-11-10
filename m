@@ -2,80 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C045A60A6F4E
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SZiLUHbw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8826260A5BD2
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D751B10EF78;
-	Tue, 10 Nov 2026 10:22:02 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 988D310E0EF
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:21:36 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1b244fb7fffso2239094c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 01:21:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794302496; x=1794907296; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=l1QfgrbnbtJPWPrv6Vkv+oigt5sBIAOXszw1RRjXWG0=;
- b=SZiLUHbweE3Vsd874MLMBs//TZuQcKJY0lJUfnbyl7+8ulljsaWsmnWlnWA45kwiLD
- 05nHM1wX7EpBD9GX6DE0lICpOYJaXMiX6ut7UbX7QNI4CKTSCCx57dksbyKoK/e9vcO8
- glE+WWp01+dfDwQil1hK7FFz4tGKa7rBHZTZAyhwzBfM0FZh1dJgOuwgwpeINjIap58Y
- +FAJuewzntPWoSHshaLaV/PAW0RLAS5N87LV4lTxhWX8c/55WgkekEng6xNH1yWSEeZ/
- SgSkDq3bCBIOJUhBTRJzuD4oWlxKWVhtF6JLg8Q2Mk16vjj8T6Vt6SUUTTs24cGTeA9G
- wI7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794302496; x=1794907296;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=l1QfgrbnbtJPWPrv6Vkv+oigt5sBIAOXszw1RRjXWG0=;
- b=LMOKEvqn7OSArFj3JyzGrrFlCqixFwNQwRO01UhPfpU9mJP1yHaSB1hwYQXlLrSJf/
- dGWxRkQEdA4ayyyLnbYS9RTXiUlsC+x9Lx/77zXyE4IoM9aUKeS1clUjAqMmR32I3WHq
- 7e9veXF2LoKCtC//xwjbwhImb7iXqocUMsyCVmr3vlh7iJbJ5cV049XQ4kvMO6NajL9T
- 9FYt6tsBX7J7tuSFFk9JWDs+85QpXUIOjrBfBnzinR07fE6NEGNfxMsnzDRhqLGeLzk+
- 4Knyuk0XKqtEhYeCVG2IUkPS+VqTFDqZDOWXbrzwo9yKPzkGpSrnviV1tmLYOhicqTPs
- EXdw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHiCDhTAo++TI1aHS9EL+d4Rq5hH1NjQJ8FJicJvGarTorjJ4tiWXYKFKv5pYWtLbjjP8FcM/PJOxM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ZtHlD9/49AiTf9gwLEj4NkoLNndSeYvS4w0WflHIMeMaYx0yy
- C+o2xsgmMtckpp31Ity5pNtTu/o4sAacfQRlBrUka23+dhScaZhYS2Hl
-X-Gm-Gg: AYBFou2Gc//IaLj58xvSquqGd7lA8OC2swEXIt5ypbVIedfPrDLMV8kcAD6exnFm9Fm
- Txw+MEeJFBYlQ9WZe7rfVo6S/OyliuNkZ6VEy23/dtP6BEJwC/rSFJ+vYDdlycBNkGcoR2VoXk+
- pXTBZYczTridW1JWQ2ns2M/0rYPhZQEHo6y57HnEmyR7adCZAQPjSuC8neyebZXLKgzku9R6c5L
- 3tfD7lnXXLqLMhQxGafjql5Tkz75bHSUmv1j0KgBRunBFuMhRHOzL/y1CZdIDK97l+q/FLAIC00
- Y3FjqhCL5I+PnF6s2n+2pKZ3a06bOAXKiLK5WPqtEcI8JIbKxgFol+Etzk42xByUOumM153l9Jl
- gS0bT6fADGspDyI7HjY76XNZPd6T6Iil1tNNH/C+JEyvLB1p3UxDUPXKyYvHQuHuAgfVhtC8g73
- 0YQAxWDcQUwZmw7Xo82gOPvI3GV3gCWQ7MlyPCoLGsJ3IAv6nrbhGlhwYGh39YDgHohhKBIvcfj
- dUNYfnORE2M/1iti1o11TZ73J3L1NfA7YXhZ79YGotDw7G5B/g4FQ6IOqDw8qVmqCpdTCQZaT/T
- YtDtCBX9r22b0qd/ZG0hMBTM4C7PJdBfDmh56zP66Yi0
-X-Received: by 2002:a05:7022:e881:b0:176:a225:e364 with SMTP id
- a92af1059eb24-1b3b6026851mr2714089c88.35.1794302495694; 
- Tue, 10 Nov 2026 01:21:35 -0800 (PST)
-Received: from evo.www.tendawifi.com ([103.98.7.212])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b3b5b79649sm6138716c88.21.2026.11.10.01.21.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 01:21:34 -0800 (PST)
-From: Archit More <architmore303@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Douglas Anderson <dianders@chromium.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Archit More <architmore303@gmail.com>
-Subject: [PATCH v2] drm/panel: kingdisplay-kd097d04: Use mipi_dsi_*_multi()
- functions
-Date: Tue, 10 Nov 2026 14:51:12 +0530
-Message-Id: <20261110092112.4262-1-architmore303@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF03510EF7A;
+	Tue, 10 Nov 2026 10:22:12 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 762B510E209
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 08:59:33 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.172])
+ by gateway (Coremail) with SMTP id _____8CxKvDz3PJqxCAeAA--.21004S3;
+ Tue, 10 Nov 2026 16:59:31 +0800 (CST)
+Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
+ by front1 (Coremail) with SMTP id qMiowJBxa87t3PJqCXQzAA--.20943S2;
+ Tue, 10 Nov 2026 16:59:25 +0800 (CST)
+From: wuqianhai@loongson.cn
+To: chenhuacai@kernel.org, kernel@xen0n.name, tzimmermann@suse.de,
+ deller@gmx.de, bhelgaas@google.com
+Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
+ loongarch@lists.linux.dev, linux-pci@vger.kernel.org,
+ linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ wuqianhai <wuqianhai@loongson.cn>
+Subject: [PATCH v3 4/6] LoongArch: video: Implement primary framebuffer device
+ detection
+Date: Tue, 10 Nov 2026 16:57:27 +0800
+Message-Id: <20261110085729.2628009-1-wuqianhai@loongson.cn>
 X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowJBxa87t3PJqCXQzAA--.20943S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXr4rCFy8Cw13uF43XrWUGFX_yoW5tFWDpF
+ 1DAF95Jr4kWrn7G3sxJa43Zr15Jr1kGr1agFyI9Fy8CrnxXrn5Zr93tryDJa4UJ398JFWF
+ qF9xGw13WF45XabCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPqb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+ 14v26r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+ kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+ 6Fy26r45twAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+ vY0x0EwIxGrwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+ r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Ar0_tr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
+ Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jI6w
+ AUUUUU=
 X-Mailman-Approved-At: Tue, 10 Nov 2026 10:21:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,121 +64,113 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-    The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used
-    by this driver are deprecated in favor of their _multi() counterparts,
-    as noted in Documentation/gpu/todo.rst.
+From: wuqianhai <wuqianhai@loongson.cn>
 
-    Convert disable(), unprepare(), and prepare() to use the _multi() APIs.
+The LoongArch port does not implement video_is_primary_device(), so it
+falls back to the generic stub that always returns false.  As a result,
+with CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y the framebuffer console
+cannot map itself to the primary display device and instead binds to the
+first registered framebuffer, which is not necessarily the one the
+firmware used for the boot console.
 
-Signed-off-by: Archit More <architmore303@gmail.com>
+Implement video_is_primary_device() by returning whether the device is
+the VGA default device.  This reuses the VGA arbiter's choice instead of
+matching the firmware framebuffer by address, so it is stable across BAR
+resizing: the default device is fixed before any driver runs.
+
+Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
 ---
- .../drm/panel/panel-kingdisplay-kd097d04.c    | 50 ++++++-------------
- 1 file changed, 15 insertions(+), 35 deletions(-)
+ arch/loongarch/Makefile             |  3 +++
+ arch/loongarch/include/asm/video.h  |  7 +++++++
+ arch/loongarch/video/Makefile       |  3 +++
+ arch/loongarch/video/video-common.c | 29 +++++++++++++++++++++++++++++
+ 4 files changed, 42 insertions(+)
+ create mode 100644 arch/loongarch/video/Makefile
+ create mode 100644 arch/loongarch/video/video-common.c
 
-diff --git a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-index 893af9b16756..9cc2fa0f2b36 100644
---- a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-+++ b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-@@ -180,11 +180,9 @@ struct kingdisplay_panel *to_kingdisplay_panel(struct drm_panel *panel)
- static int kingdisplay_panel_disable(struct drm_panel *panel)
+diff --git a/arch/loongarch/Makefile b/arch/loongarch/Makefile
+index 4b22f95aaafb..7fca93298cef 100644
+--- a/arch/loongarch/Makefile
++++ b/arch/loongarch/Makefile
+@@ -166,6 +166,9 @@ bootvars-y	= VMLINUX_LOAD_ADDRESS=$(load-y)
+ 
+ drivers-$(CONFIG_PCI)		+= arch/loongarch/pci/
+ 
++# framebuffer console primary device detection
++drivers-$(CONFIG_VIDEO)		+= arch/loongarch/video/
++
+ KBUILD_AFLAGS	+= $(cflags-y)
+ KBUILD_CFLAGS	+= $(cflags-y)
+ KBUILD_CPPFLAGS += -DVMLINUX_LOAD_ADDRESS=$(load-y)
+diff --git a/arch/loongarch/include/asm/video.h b/arch/loongarch/include/asm/video.h
+index 9f76845f2d4f..7b38881ea1d6 100644
+--- a/arch/loongarch/include/asm/video.h
++++ b/arch/loongarch/include/asm/video.h
+@@ -8,6 +8,13 @@
+ #include <linux/compiler.h>
+ #include <linux/string.h>
+ 
++struct device;
++
++#ifdef CONFIG_VIDEO
++bool video_is_primary_device(struct device *dev);
++#define video_is_primary_device video_is_primary_device
++#endif
++
+ static inline void fb_memcpy_fromio(void *to, const volatile void __iomem *from, size_t n)
  {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
--	int err;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 
--	err = mipi_dsi_dcs_set_display_off(kingdisplay->link);
--	if (err < 0)
--		dev_err(panel->dev, "failed to set display off: %d\n", err);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
- 
- 	return 0;
- }
-@@ -192,16 +190,11 @@ static int kingdisplay_panel_disable(struct drm_panel *panel)
- static int kingdisplay_panel_unprepare(struct drm_panel *panel)
- {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 	int err;
- 
--	err = mipi_dsi_dcs_enter_sleep_mode(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
--		return err;
--	}
--
--	/* T15: 120ms */
--	msleep(120);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
- 
- 	gpiod_set_value_cansleep(kingdisplay->enable_gpio, 0);
- 
-@@ -215,6 +208,7 @@ static int kingdisplay_panel_unprepare(struct drm_panel *panel)
- static int kingdisplay_panel_prepare(struct drm_panel *panel)
- {
- 	struct kingdisplay_panel *kingdisplay = to_kingdisplay_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = kingdisplay->link };
- 	int err, regulator_err;
- 	unsigned int i;
- 
-@@ -232,32 +226,18 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
- 	/* T4: 15ms */
- 	usleep_range(15000, 16000);
- 
--	for (i = 0; i < ARRAY_SIZE(init_code); i++) {
--		err = mipi_dsi_generic_write(kingdisplay->link, &init_code[i],
--					sizeof(struct kingdisplay_panel_cmd));
--		if (err < 0) {
--			dev_err(panel->dev, "failed write init cmds: %d\n", err);
--			goto poweroff;
--		}
--	}
-+	for (i = 0; i < ARRAY_SIZE(init_code); i++)
-+		mipi_dsi_generic_write_multi(&dsi_ctx, &init_code[i],
-+					     sizeof(struct kingdisplay_panel_cmd));
- 
--	err = mipi_dsi_dcs_exit_sleep_mode(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to exit sleep mode: %d\n", err);
--		goto poweroff;
--	}
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
- 
--	/* T6: 120ms */
--	msleep(120);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
- 
--	err = mipi_dsi_dcs_set_display_on(kingdisplay->link);
--	if (err < 0) {
--		dev_err(panel->dev, "failed to set display on: %d\n", err);
-+	if (dsi_ctx.accum_err)
- 		goto poweroff;
--	}
--
--	/* T7: 10ms */
--	usleep_range(10000, 11000);
- 
- 	return 0;
- 
-@@ -268,7 +248,7 @@ static int kingdisplay_panel_prepare(struct drm_panel *panel)
- 	if (regulator_err)
- 		dev_err(panel->dev, "failed to disable regulator: %d\n", regulator_err);
- 
--	return err;
-+	return dsi_ctx.accum_err;
- }
- 
- static const struct drm_display_mode default_mode = {
+ 	memcpy(to, (void __force *)from, n);
+diff --git a/arch/loongarch/video/Makefile b/arch/loongarch/video/Makefile
+new file mode 100644
+index 000000000000..f1b2a7e54033
+--- /dev/null
++++ b/arch/loongarch/video/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++obj-$(CONFIG_VIDEO)		+= video-common.o
+diff --git a/arch/loongarch/video/video-common.c b/arch/loongarch/video/video-common.c
+new file mode 100644
+index 000000000000..6fea46661cb6
+--- /dev/null
++++ b/arch/loongarch/video/video-common.c
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Loongson Technology Corporation Limited
++ */
++
++#include <linux/module.h>
++#include <linux/pci.h>
++#include <linux/vgaarb.h>
++
++#include <asm/video.h>
++
++bool video_is_primary_device(struct device *dev)
++{
++	struct pci_dev *pdev;
++
++	if (!dev_is_pci(dev))
++		return false;
++
++	pdev = to_pci_dev(dev);
++
++	if (!pci_is_display(pdev))
++		return false;
++
++	return pdev == vga_default_device();
++}
++EXPORT_SYMBOL(video_is_primary_device);
++
++MODULE_DESCRIPTION("LoongArch video helpers");
++MODULE_LICENSE("GPL");
 -- 
 2.34.1
 
