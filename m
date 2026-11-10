@@ -2,53 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B577606A336
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 09:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F6A60A263F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 10:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NeQg5WF0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+hfUJO7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91EBC10EF2D;
-	Tue, 10 Nov 2026 09:59:48 +0000 (UTC)
-Received: from mail-m6040.netease.com (mail-m6040.netease.com [210.79.60.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCCC210EF2E
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:59:41 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 54272b12f;
- Tue, 10 Nov 2026 17:59:39 +0800 (GMT+08:00)
-Message-ID: <4fe3809c-1243-4290-abb7-c2025cfffe55@rock-chips.com>
-Date: Tue, 10 Nov 2026 17:59:34 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8834710EF2E;
+	Tue, 10 Nov 2026 10:01:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A6310EF2E
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 148CF43DB4
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2311F008A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794304866;
+ bh=InjrUa8PtgxebaoPU5gAdUxBP+Q7iA9KZue8Z0bePJ0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=K+hfUJO7sVbzoCoh+i1LFy+ufPpUI+d5dAtrssBx/TGKR0PeddorTjht1Ef9+5Mqz
+ EBuXqLBI4C0xb/2o0t4XecOnWq43i/1z9OInIaDmW3Sot4Z7VWjR1KCPSWDBYEjnS+
+ R6B5EjC88Ae9Nvq9gBtlEtQCQuu92xn1eJzaOCymhRBNVOcFDFrQTWkVapHl2WoEci
+ SCxsi6tBkIyI/L7zbE/D2crP9b9TAZ7TKrjL79Yz/cT0F4yFLSHpFpkkKX3mn07f/0
+ s+Y07IB4qT9OjKrj/dOjXFacjsuBoF7LG7Zkux4d7uzzt1hHyIVMs5cE9SABePpBbO
+ yReDGAkO9gfnQ==
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c4322d310e7so272663266b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 02:01:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErGZ2iYO/RZGdTSQMoqxShziv/HGaJh52pXcNBa1beIdeKIHbJ8Ros65pjOKoyuBcy58eRVQtA6Mxzs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+3gRJfPP6Mv9/q3/k72SQnsXe7dRd3AW/PEX6R7+YfC22VTIxK
+ hQUiHIlXAn44bN40/ackVGc1mEpOzYeACyDTWnozAPpmQk6kgxm/aU41xeY8RZY5EKvkyqtxHWu
+ kD5KHjn7kJGuX67NbMe9/oSB9eNCK8ko=
+X-Received: by 2002:a17:907:ea89:b0:c4d:31cd:9dec with SMTP id
+ a640c23a62f3a-c50495a3646mr156885666b.30.1794304864528; Tue, 10 Nov 2026
+ 02:01:04 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] drm/rockchip: vop2: Keep the other LUT_PORT_SEL
- fields on gamma LUT updates
-To: aiyengar1990@gmail.com
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
- <20261110-vop2-fixes-v1-7-d336e9dd90d3@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261110-vop2-fixes-v1-7-d336e9dd90d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1c4e6230803a7kunm170f4cac71683e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDT0lCVkhJGkIdGhlJTxgeH1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=NeQg5WF05QqwqNMEh/5PIv4tY08ihs/bAA0gQ9ZQ9b1HtYcrxvSNNVB3aFRXVWkgFWLUlRSbzJk7ESzhua4juivde+DQaRtroOjXb/jvRpla2nlxTgnra5jAFeTcGXusnSQgmxtQzSlyHpsjWe71Ev9+NUEjy1OWL/wPm1sNVco=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=B5FetUpkGwGLsikqm7LuzqYKP4h6EEv4RA9Kg5VS7Q4=;
- h=date:mime-version:subject:message-id:from;
+References: <20261029033440.973077-1-wuqianhai@loongson.cn>
+ <20261110090203.2631481-1-wuqianhai@loongson.cn>
+In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 10 Nov 2026 18:00:52 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
+X-Gm-Features: AclHuK-9P_C8nOOOdEbmYQVc8OO7W71bMN2RKSel305MdnvrCGkGtc7VDw_SrUo
+Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] LoongArch: Identify the firmware/boot display
+ device
+To: wuqianhai@loongson.cn
+Cc: kernel@xen0n.name, tzimmermann@suse.de, deller@gmx.de, bhelgaas@google.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com, 
+ loongarch@lists.linux.dev, linux-pci@vger.kernel.org, 
+ linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +69,119 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/10/2026 3:18 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> On RK3588 the gamma LUT of a video port is written through a window that
-> GAMMA_AHB_WRITE_SEL in SYS_CTRL_LUT_PORT_SEL selects. The register also
-> holds the dclk source selection of video ports 0 and 2 and the enable of
-> the video port 0/1 merge for modes wider than 4096 pixels, which writing
-> the whole register clears.
-> 
-> Only update the write select field.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Hi, Qianhai,
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+On Tue, Nov 10, 2026 at 5:04=E2=80=AFPM <wuqianhai@loongson.cn> wrote:
+>
+> From: wuqianhai <wuqianhai@loongson.cn>
+>
+> On LoongArch the kernel cannot reliably identify the display device that
+> was set up by the firmware and used for the boot console.  Two code paths
+> need this information and currently get it wrong:
+>
+>   * The PCI VGA arbiter: vga_is_firmware_default() is compiled only on
+>     x86, so on LoongArch vga_default_device() may select the wrong GPU
+>     when several are present (for example an integrated display
+>     controller and a discrete card).
+>
+>   * The framebuffer console: LoongArch does not implement
+>     video_is_primary_device(), so with
+>     CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=3Dy the console falls back =
+to
+>     the generic stub that always returns false and binds to the first
+>     registered framebuffer instead of the boot display.
+>
+> This series fixes both by publishing the firmware framebuffer information
+> through screen_info on LoongArch and consuming it the same way x86 does.
+>
+> Patch 1 always defines and initializes sysfb_primary_display, and always
+> provides its EFI stub alias, instead of guarding them behind
+> SYSFB/EFI_EARLYCON.
+>
+> Patch 2 refreshes screen_info from the PCI resource-assignment path after
+> the root-bus resources are assigned, so the framebuffer address is final
+> before the VGA arbiter and sysfb_init() consume it.  The call is placed
+> in the LoongArch PCI scan path because only LoongArch has this ordering:
+> acpi_init() relocates the BAR before vga_arb_device_init() runs.  On x86
+> the screen_info address is still accurate at that point.  If you would
+> rather have the helper called from the generic
+> pci_assign_unassigned_root_bus_resources() path so that all architectures
+> share it, that can be done instead.
+>
+> Patch 3 removes pci_fixup_vgadev(), which overrides the VGA default
+> device to a discrete card after the arbiter has already selected the
+> firmware framebuffer device, so vga_default_device() consistently
+> reflects the boot display.
+>
+> Patch 4 implements video_is_primary_device() for LoongArch by reusing the
+> VGA default device selected by the arbiter.
+>
+> Patch 5 lets the EFI stub link directly to sysfb_primary_display on
+> LoongArch, so the firmware framebuffer information is always populated.
+>
+> Patch 6 lets the VGA arbiter use CONFIG_SCREEN_INFO instead of an
+> architecture check and makes VGA_ARB select SCREEN_INFO on LoongArch.
+>
+> Patches 1-4 are LoongArch-specific.  Patches 5 and 6 touch generic code
+> (the EFI stub and the PCI VGA arbiter) and are placed last so they can be
+> reviewed and merged separately.  Patches 3 and 4 depend on patch 6 taking
+> effect, but are ordered ahead of it only to group the LoongArch changes
+> together.
+>
+> Changes since v2:
+>   - Split the screen_info refresh out of vga_arb_device_init() into the
+>     LoongArch PCI resource-assignment path (patch 2), following Thomas'
+>     suggestion to decouple it from sysfb_init().
+>   - Drop the per-architecture check in vgaarb.c and the select of SYSFB
+>     in favour of CONFIG_SCREEN_INFO and select SCREEN_INFO (patch 6).
+>   - Always define and initialize sysfb_primary_display, and let the EFI
+>     stub link to it directly (patches 1 and 5), instead of guarding them
+>     behind SYSFB/EFI_EARLYCON.
+>   - Remove the vga_default_device() override (patch 3) so the arbiter's
+>     firmware-framebuffer selection takes effect.
+>   - Implement video_is_primary_device() (patch 4) by reusing the arbiter'=
+s
+>     default device, so FRAMEBUFFER_CONSOLE_DETECT_PRIMARY works.
+>
+> Build-tested on loongarch64 with GCC 8.3.0.
+>
+> wuqianhai (6):
+>   LoongArch: efi: Provide sysfb_primary_display for screen_info users
+>   LoongArch/PCI: Refresh screen_info after resource assignment
+>   LoongArch/PCI: Remove vga default device override
+>   LoongArch: video: Implement primary framebuffer device detection
+>   efi/libstub: Enable direct sysfb_primary_display access on LoongArch
+Please fold this patch to the first one.
 
-> ---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> index 3323e50224c5..9ad138457204 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -1774,8 +1774,9 @@ static void vop2_crtc_atomic_set_gamma_seamless(struct vop2 *vop2,
->  						struct vop2_video_port *vp,
->  						struct drm_crtc *crtc)
->  {
-> -	vop2_writel(vop2, RK3568_LUT_PORT_SEL,
-> -		    FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
-> +	regmap_update_bits(vop2->map, RK3568_LUT_PORT_SEL,
-> +			   RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL,
-> +			   FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
->  	vop2_vp_dsp_lut_enable(vp);
->  	vop2_crtc_write_gamma_lut(vop2, crtc);
->  	vop2_vp_dsp_lut_update_enable(vp);
-> 
+And your signature should be:
+Qianhai Wu <wuqianhai@loongson.cn>
 
--- 
-Best, 
-Chaoyi
+Huacai
 
+>   PCI/VGA: Enable firmware default device detection on LoongArch
+>
+>  arch/loongarch/Makefile                       |  3 ++
+>  arch/loongarch/include/asm/video.h            |  7 +++++
+>  arch/loongarch/kernel/efi.c                   |  5 +---
+>  arch/loongarch/kernel/image-vars.h            |  2 --
+>  arch/loongarch/pci/acpi.c                     |  4 +++
+>  arch/loongarch/pci/pci.c                      | 18 ------------
+>  arch/loongarch/video/Makefile                 |  3 ++
+>  arch/loongarch/video/video-common.c           | 29 +++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub-entry.c |  1 +
+>  drivers/pci/Kconfig                           |  2 +-
+>  drivers/pci/vgaarb.c                          |  2 +-
+>  11 files changed, 50 insertions(+), 26 deletions(-)
+>  create mode 100644 arch/loongarch/video/Makefile
+>  create mode 100644 arch/loongarch/video/video-common.c
+>
+> --
+> 2.34.1
+>
