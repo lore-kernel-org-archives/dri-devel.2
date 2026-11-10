@@ -2,25 +2,25 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E699060A2635
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 15:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3E360A6F4F
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 15:41:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=iK1vpS04;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=iK1vpS04
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mP6Lcxse;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mP6Lcxse
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3686410F7AD;
-	Tue, 10 Nov 2026 15:41:16 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011059.outbound.protection.outlook.com [52.101.70.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D51F10F79B
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 15:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A48E810F79F;
+	Tue, 10 Nov 2026 15:41:22 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C994210F79F
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 15:41:10 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Lf2to4ePr2TfnDARlNUUpWw0f94P7hF/mUL+ERN3C1X1CSQ9UKUWrxkoss4HJuRqEhR1AT8DNxRe0oShoVovaUI6xmumA/owH8XxNnApJv+YhUoVENuWB6MGB7Evm69T7MdmqTAnjIHdkCIqTHuQ9zhOpKnTa5zbxCL5jTLAIWSxWSkcLQcUhAmMgnak+9+TzDszFz4denQXLESb5C0AFcNcfKtLFxKBhITSwUE6GeCUD4mU/ObruNbaKAvIqf+HMu4OeUqifJOkeZY59kEXvRF2mk9pxcb/6YBB8s3leDofgPKq5BJQkb2J2YfgX2NeSRb0yjEcqO2VwbARr+r/iA==
+ b=TgyECX9/ItnGsZPkHqbkfjLgCm/PabhFWANsqA0r+dZ6mSUNaaWHp6cC9YHp/djh3igZXC1rrQPbR3PwMYauR9a+D4tU/izMD8538DdF6KFNNFXmhjI7EWcGOtBjXXTyO/TYrLPhASCck0ZYqC8QFJ7/+QgBD+lu1LzX0FjqxsDZxvbH2kQlJH5DT+89KT9qh4lcateBRT62lVBu4QCgyfE2dnTfiylkH2ihLTY6OCqI9LbCKPB4xygXakxlPaPBRaP6Vy7Q+oVPkOv1xcTeE6SKErNt5HrYPvzc93vH9m+3zMINe92uUBHKcB1yrtPfl4+07ozp8bCrRuaIo6R20w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mH0jJIW1JsKHxUwax5IvsC2xKEX/3ApiklwxdKuA3X8=;
- b=RK/VS92PFj0nnxUocJyG+xPz3niKT0oEhldugy3sS51iwBW7d8LZrZpbtGhA6WcGTizo54o5kl7wAXIMK3D+2mvCWFtPbhR+/Vq4gvSmedQNwxGyPwRX08I48pq850OIRPqn9kK2HAYWuXdVPlkzLaBejc5uWRFYDlnnayXFVH6qGrmdOYdDyZiNxGoB+Em2IrXMh6+BYSXBJCp+NmuYjY873vrb384OPWoyIFcqcBLukj3ocCPOIz8exzEnNkKI9/GAaqFcRdP/lXj0QrhnCyP4BAqJZO3TtCWcplyHu7N+AUoDtZnq+Sq3F7Smws85+YSw9djXvLFFhN1WVtpi3w==
+ bh=0J1Tf5qPkWyn8nbEdFWlXWs9vzAKrxrRr2BmQ5ED81w=;
+ b=ZsbLPeX8WlPiO96FAwn/PVTxdlq6HUlZIH5d1LKgN8hhgC6LaDi/tdQ0tA4xuzXSQRZu60ZZvkmvnVV5WyNDzRsE8TB4IfXLSn/oKGLfzL6AvjWaivhqB2ZCEbb6srcm0WY2CXrSBIaTgOxAhliNSlTIaeQD1ONsrnkgaK/fxsKNA7YGT/O83ktF1X6aZQU2eKZDVcHB6VuH9T+JoCZj/enkybZ6Gec4rqLnFUIbKTtmFUD8saTrdXxM90iSoSgVIoZAbJDHlh6CPwAviFGCaQLcsctCV0aCjgivFa/6abV9P34uivljJamup0at/U+HuIrqJ/lVX5T/CXLVKKQ0gg==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -29,18 +29,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mH0jJIW1JsKHxUwax5IvsC2xKEX/3ApiklwxdKuA3X8=;
- b=iK1vpS04eimFJB/ynNwRgvoinAG/qsEw7j/95pHotoQiQB/eoGyfWba1WjO0bFsncayHNjCOc2Jo7xV96eHjPxdiLqEgmDq/J7L+3sWVpr+NsQrh+PpEPzmkj7hh7JkUZQ75f1xp0/TM55A0jtU7o6Wda/ay1akVbrpkjvvnmFc=
-Received: from PR1P264CA0113.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2cd::14)
- by PA6PR08MB11583.eurprd08.prod.outlook.com (2603:10a6:102:520::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 15:40:57 +0000
-Received: from MI3PEPF00008490.eurprd03.prod.outlook.com
- (2603:10a6:102:2cd:cafe::44) by PR1P264CA0113.outlook.office365.com
- (2603:10a6:102:2cd::14) with Microsoft SMTP Server (version=TLS1_3,
+ bh=0J1Tf5qPkWyn8nbEdFWlXWs9vzAKrxrRr2BmQ5ED81w=;
+ b=mP6LcxseNNsEpGMK0gcImB6HKOjtLYeHBDVNxoOzTNGXvYmxzoVBPB4ZToqmPNAR0KNQBtn1+MY3EisLvWaoQxxXxxMP9AgjzNblUAfNXUGVnzIfs4MdEa20yeVCEBdr8tCTx2jqxxx7Vs3C78TtYYPAn0wV6KMvLEnguOBRn2g=
+Received: from FR2P281CA0145.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:98::17)
+ by DB9PR08MB9561.eurprd08.prod.outlook.com (2603:10a6:10:452::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
+ 2026 15:40:59 +0000
+Received: from MI3PEPF0000855F.eurprd05.prod.outlook.com
+ (2603:10a6:d10:98:cafe::4b) by FR2P281CA0145.outlook.office365.com
+ (2603:10a6:d10:98::17) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 15:40:57 +0000
+ Nov 2026 15:40:59 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com;
  dkim=pass (signature was verified)
@@ -49,34 +49,34 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF00008490.mail.protection.outlook.com (10.167.240.151) with Microsoft
+ MI3PEPF0000855F.mail.protection.outlook.com (10.167.240.27) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Tue, 10 Nov 2026 15:40:56 +0000
+ via Frontend Transport; Tue, 10 Nov 2026 15:40:58 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ewDyPXyUSEMA8knvmDrzC9OT0MwIED0L8QTYLXLPwZufVp0jOMdOTdOG+KhkSlcrV5trH4alaKV3X/8lO2tpGWcPcS0BuEHhKyOfbYR6RY1/P1D/uPhHoKGBxqx6kWlogTnOEW4GWe8IRhS4iVBNUN1S/PENI0cmj+i2wP7c1NAeW7m5Hi4K2zMCYbaJDK591koD0bixgqEr69YXmFvl2xTJOe4wuIvIdzF7s9znjiyduH1U6xnvnPM6xhKc9wEXOdBV4x1HFZ3IEJA5miXTHf4HiMVCKI4nxr+Sqar24zrxGmlqAQaLycKRdS/ATQcFmIZrcRIg9xQQ4rTf/Mkp3g==
+ b=BYOxvu2Jc1E7mCeLHQLBKTdTIrq/ZuIdPVUFdUp7lMEJFbDPCyHOQj63lmuVpUt2ZbiBPzvQzfrjTHUC5MtXjMu3H8tgFZi5Eo/7NSnOkbJR66HzbuS0yAYEA5AvrI6QafM05Zj/MQq1Rd5g0/GsPO4yl6Ay/6M5q1U/6KtuvmgXg8taBmpCm/hG07GGmsxKxH9yLn+++BCOW4U/qK7Go7p/+p+44zGibrRlqgPqJ14u2BPQG7Wuf/0OpXTalKTZEdN5QfZEAHH/f45snHO6S7aqHMu/jrkFj/Nvs9D2EcNxZjXUAj9npvuSI/frmdv668yVDyiHbRBXtR/29UqnCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mH0jJIW1JsKHxUwax5IvsC2xKEX/3ApiklwxdKuA3X8=;
- b=g01uCOrnyg9EUhanTNk6J2yUvQgkjPnmZep3/8yRI3ZRo/0LDrszJEkp1+aS60rkc+saSHHhZaCOEoaxCbxtKO4KpZvQvKzQrqDRpbiejiq7Syrgh0mKHdx9lmHi/WuBWh9exGI5Hx3WkeglqHIwyVrZ8fWJv6COXxQYoACuerwLGfLcvWUDCOiBGmRpFkiaUNgo52biDv+aHQioGqOG/goMoLIttERyrHalVdChRvzs/3PhvK4ZrSCr9U/EgAFIPlI6ZOwkpzDM3kkydH1aFkMnDcLKEC6yc9GwbdLxH42Qdmtvgrtmn+LzGejXqgP9lxJur5y9DIK6OUDm+pzDrA==
+ bh=0J1Tf5qPkWyn8nbEdFWlXWs9vzAKrxrRr2BmQ5ED81w=;
+ b=v8v8CoatIlVNkn3QxhEGSsicSHINYHQIFeC+T8LrqEoZp/ZV8yCVOsC9CLkSLyJyrKlF1MqESX8dj9peTDPuhVmOrfWMm1b6UuUbUfxrII19rSx8A3xDoYcijXMw4HS3wKjTIbFGc3qGcvac0plCGPvnbreEr5c/P7Xfjb6iR+HKAMcCzdOMM2u4mEDuknK1Vrhon5VTnxwgbgrisof7TLcISM3KKop/TQu5Krfgij6Y0HuTWYf3k7jY+L8P4nJeoahq28egerJ3iniJ0i72f3iVsrBkqvosdUDcUgcUFPJPMvEuF2UJ+AfQFzPgaC+xCW9H5tWxaWzn4AysGvjyjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mH0jJIW1JsKHxUwax5IvsC2xKEX/3ApiklwxdKuA3X8=;
- b=iK1vpS04eimFJB/ynNwRgvoinAG/qsEw7j/95pHotoQiQB/eoGyfWba1WjO0bFsncayHNjCOc2Jo7xV96eHjPxdiLqEgmDq/J7L+3sWVpr+NsQrh+PpEPzmkj7hh7JkUZQ75f1xp0/TM55A0jtU7o6Wda/ay1akVbrpkjvvnmFc=
+ bh=0J1Tf5qPkWyn8nbEdFWlXWs9vzAKrxrRr2BmQ5ED81w=;
+ b=mP6LcxseNNsEpGMK0gcImB6HKOjtLYeHBDVNxoOzTNGXvYmxzoVBPB4ZToqmPNAR0KNQBtn1+MY3EisLvWaoQxxXxxMP9AgjzNblUAfNXUGVnzIfs4MdEa20yeVCEBdr8tCTx2jqxxx7Vs3C78TtYYPAn0wV6KMvLEnguOBRn2g=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16) by DB9PR08MB7844.eurprd08.prod.outlook.com
  (2603:10a6:10:39f::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Tue, 10 Nov
- 2026 15:40:24 +0000
+ 2026 15:40:26 +0000
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 15:40:22 +0000
+ 15:40:26 +0000
 From: Karunika Choo <karunika.choo@arm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
@@ -85,63 +85,62 @@ Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, rust-for-linux@vger.kernel.org
-Subject: [PATCH v2 09/28] drm/panthor: Add Mali v15 hardware support
-Date: Tue, 10 Nov 2026 15:38:30 +0000
-Message-ID: <20261110153907.3241978-10-karunika.choo@arm.com>
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2 10/28] drm/panthor: Skip devfreq when no OPP table is
+ present
+Date: Tue, 10 Nov 2026 15:38:31 +0000
+Message-ID: <20261110153907.3241978-11-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110153907.3241978-1-karunika.choo@arm.com>
 References: <20261110153907.3241978-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PA7P264CA0212.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:374::9) To MIWPR08MB568805.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0648.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:296::19) To MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: MIWPR08MB568805:EE_|DB9PR08MB7844:EE_|MI3PEPF00008490:EE_|PA6PR08MB11583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f34e673-9592-479e-7043-08df3f41034a
+X-MS-TrafficTypeDiagnostic: MIWPR08MB568805:EE_|DB9PR08MB7844:EE_|MI3PEPF0000855F:EE_|DB9PR08MB9561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7286f610-898d-4f78-89cf-08df3f410460
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|261022075727099003|11063799006|261009223027099003|261022105027099003|261021121427099003|261022113327099003|261021123027099003|261026121527099003|56012099006|261026140227099003|261028144727099003|261102123227099003|6133799003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info-Original: YdCqy2CZTfhNe/WqTt2AL8b5j7CCHf+aBqK/OmyQOhbjD3Qs1ErS2ci9+FEK4rhAdCxvpTJPPdP4th7qkUvAosXhPUz8dzh1rQge56rQetHwqG9HNlV/eBlyA70uPI2kkGErfOsRAmXI1zen4dwKN6Bdq+9zvznMFO6RpyM2+l3fJ70b7VWQtsak2wQIck0Q775NLPFuleTVCZfehickyim/gmojCaNvE+cNfc5g+v3uw6b379acU6DfpecUrfuSTz+yqN4rHBvQeD8QFEbJD9KcmcZdbUxTMro3tUPmDxofNABEIBGuetqiGHZahvxaibv/hIqgAlFwKLpSeobEWDGq5Ck/kjuA4aba3CZQ8PBZVJ5fayuvimd7Skvpl2BIZ4blXiacmZbuSIQXD6hmi5w2F+NiYhiLl+NXZqIYeYMED3ueSEcxI+safBE3rywRmhsLgDFvkQpoNMHu0ql+wA4weO+9oZV8mGD3pZSsoGJNUydv43JhZjYsUxGbfLpvVhdTMULxOKmauoqSW7KksG6Mp1Ww0W+yrZigeR7MhsqsbNQZ/5p6hx7JVqqVZMT4NuQSaB3BpcWu1VAtJhGseHFD3dVTWPxPu5zRteLkQDaDnuBAq8hj9K97WXeaf2ch
+ ARA:13230040|23010399003|376014|366016|1800799024|10067099003|261022075727099003|11063799006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|56012099006|261026140227099003|261028144727099003|261102123227099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: ppSemDitfrbzzYcMQbgYlt3MPoeHp8TMSWzgYKe6B/wI2OeQmmch+aCdqYaTIxcQG0wzxGsQAZ346QOcubmHTT5i4jqOy4CXtUNmZEpxMNX2LMl1x+ITIUHxiTAEMB10yV8z1Dho2xN8e+9wSmN5Xe1r5K4vHcqtGr0aJIDaG8AxSTFH8WAgH1QGvlnhkqHOLmCtkzJDOvYCe64E++kg64bpUJs8sZf45Wnik0ON+ie9uEHo3u0Lk5vGOS1R7cmbumtxGOqbNec2E7SQzpFf2Hgje3UCxZ2EM3hFAGl6TTb9M3xN+E3bExF2w0I8aF2ssO2e5yA8KS1GUDpyHgR7hu+TJ0FmC0v5tAz4Uf06mIXu+EUYoyvmDx2D/FwdmItPY6cFI2CuP8Ya932y0HniN0wJZz1h1cVLHjw1a/wwV5+Nu47pOOvM4pGlHmc9SPToDRH+JCFG+XabZbqGUdw0ZYhSZwqynoUsVCpNii1FjinzeWZY4pzwdxb1YXWvvfhBfVrPxo8b/Gdx+8Irg2NQadPAPQdcZh8crggoQSEUwuBqYy6bqPxuY7zxGwfgclnQkUSwy/sUjLOLnBOvIY0wXsiSxa/REy2okXMhwiIOmeUgjxnBxfpKxvMmQX7hU6KaH0XMUjlhkPqzpVAb24dFIA==
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:MIWPR08MB568805.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(261022075727099003)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261022113327099003)(261021123027099003)(261026121527099003)(56012099006)(261026140227099003)(261028144727099003)(261102123227099003)(6133799003)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(261022075727099003)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(56012099006)(261026140227099003)(261028144727099003)(261102123227099003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: sKwh44PuLmARt9saNTZY6eRSiX/xqcmibVh9d6sK2nP2jdW2kfAmk7PeoIojS0ikob9bZJ68XpylrC0pK6Sfu9tPhPRVvluBqW0b0lOOMaitz86yLjxLqdkpugYmm9PUbXz+hfnCkwsmMKHTrlWKaKvibZ1TWSaObQyQXx6ERCPc+dQCId++OpYacUkMAWSwDhh+stH+W/weYrAqQ499qdzv9mjLJm4+gaO0wFzb1Ak9+qqGWxdJJGOegCCmfZ+c49eMerbFSnwc4McUUgAgcBTYh39edjojuGj+KzI0k7BRbCmHJZ4NHx4NtrpOHE+gLbBeQ7eRPAV0diEA8AePoA==
+X-Exchange-RoutingPolicyChecked: EfJoDZ+5rX5fozpSRDQ1/HlUkaj2WMMssHH7Y2dL7cnvl/pQsrW31CGAf+VXfte0XiGQswM0OGqXkNjuDuCytme6Qx/yRFYnGSVOxAQFyuXAruSpSGr6Xv0tfpdpinmLhAWak47IDE5klE+sQ46fcyzGRX8ArHm5/o7uzlevKU+D7ENYSscKWUmASkYcyBeNyUJAlgBFAsdVz9m+FSizfWQsBDVuZHjp3tOsEU1srsWnZpoaR7egwqZQflcKZMHtj0RHOhLGmKmuwckWMkUMozPmIsB6XWideZVQHARua97J+acqNT7wu1iIWy5cQJB5K+C+sp0fps7g7fkrSeegbg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7844
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF00008490.eurprd03.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF0000855F.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 856e798c-61a3-44f8-c031-08df3f40eeb2
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 236f0302-9c02-453c-d1d4-08df3f40f0cb
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|35042699022|23010399003|14060799003|7416014|1800799024|261028144727099003|11063799006|261102123227099003|56012099006|261026121527099003|261021123027099003|261022075727099003|261022113327099003|261022105027099003|261026140227099003|261021121427099003|261009223027099003|10067099003|22082099003|18002099003|6133799003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info: kkYCU1JhjY11KIyRD1EYbLIQrLvJJ8iQOmSbT7Fa0i/BQrdxI5VYgQSIkF9gk+M8TmGZeVyKHVP9LlopfpBc+zzQ3EiFjH+s0r9SOrsm0AracIzxMotEgbdoDeKGmCoopfqSTjY13BWQSLCLxN98ZkNkDYjsQoyB4ViaAbe8p49AS6cbO3pH8z6jSyQurXmuzkmYUtjYwXKFNooW7Xkn2jDUsGJUMYA93HpTBeeHKdbAwfk61aq5aRdocq38PXWCQd9S05DSRd/+Nb09tFdXTGph+gIWNQUK9Ivuzwpr1LN57C/GKPUJ/UCEAaZGrKJimZWWxp+ofSsDH8W1isp2BJHkfC1FoCRSF9MpOlQuzolk1A8vs/bP5c5hRiZ/rm2qf2reXMo5U7WZ+X8O6rJ/KBSA12Q6qxv6T7BB8Gjz8Mms+1PlFq0ub3LbxZAxJGaX06fJ3FG+OXoutTHlQCoTmmchdjO3Lq8jAsPZo2nKIv5cjgqZX/+AhQduO5fMtVuVtrml3JIyjTxND26ohK3DmVVd5Mv61WtLQTNlxL2DEHHi+dVFP6C/9ZLKCjL/FjDIZSfAiitUWI/FQMKrvWn96KTVINj1rQX/qUBftE+zve1FRHAVVUAHcfsExBBep+IqDAboVns+JzB8KOJJjGy7Hw==
+ ARA:13230040|14060799003|376014|35042699022|23010399003|1800799024|36860700016|82310400026|261028144727099003|11063799006|261009223027099003|261021121427099003|261026140227099003|261026121527099003|261021123027099003|261022075727099003|261022105027099003|56012099006|261102123227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 7AJjGW5L+EXPY6uveaKKSNxVPI1th2r/mg/wsuPYsdK95P3FwHWfGmNvguoN+5yfKiE1jDCcBDBf02jnvautaaRvI20xh97MJvo5C8fGQgt0BJHthkM2d+Ewm24GImtP5a5UU6AldwVWz8c3HvnykkZyL5xHurZnI8LKyuNx70sCB7H4v3+p5vlaUr9rEOT/6E6qm60+bsCER7kzXf5FESv/BGrB0AMHw4Fs4d5/xAFBhY1G6cSUsJ7UIDo+Kvl1/MsQ90/8o2xrH+vbX03drRuLqBP68wWl7/a5vb3rITZA+iBiPX7O1NAHMO3qqGTIUO9JcgiYfC1syNUogQESSlJZD432Xma9jUBkEqXLZXoVTKabAgR59sJ+e5zq8QjzEPT4qiFG8aU5kOIPYVdoGqcETiZEusx3JaLKkIhnnFK2fQJcXS5FtAN1M8O0RQsa2citWxbU5zjnYOKQtV0Z/Jw0Uc7n9foNsSF5OSQ23d96Pd87kBWmdee+5HSBd70qnu4LhByccJMkEcuOO2w9/tPb2W0/ZpnQAV9/GDznSz7w7O6pZRWPMyGvv0X69geP2+ya702PoMn/K4i2t8ofMwl3Hl3IvBhZ28tXMUMz2pdFvLoMcns80lYWDuzhYjUELLSTK45YvzqUUYSsqQdFLXGZWCY3T5blm16pAMIptj8SDyB0AkZ8WE5qNwLgM6AY
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(35042699022)(23010399003)(14060799003)(7416014)(1800799024)(261028144727099003)(11063799006)(261102123227099003)(56012099006)(261026121527099003)(261021123027099003)(261022075727099003)(261022113327099003)(261022105027099003)(261026140227099003)(261021121427099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(13003099007)(3023799007);
+ SFS:(13230040)(14060799003)(376014)(35042699022)(23010399003)(1800799024)(36860700016)(82310400026)(261028144727099003)(11063799006)(261009223027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022075727099003)(261022105027099003)(56012099006)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fuFo1peSXtyj76ioGD8Ez+yLcA+Uwb/Rz6BSmhDRUmmbsNDnRW8op3GXAzbKq2Wf5kbrQiNHAoL5LXO0AEtBRSozqv5QqMDxrkL/SRbSdnwCITtk7F94XjNT5MbJuGDVe0i+bckBrVMzEkcDx34Hbu04X5cHQ9Kty7QLACo7XlahEFCEUusQ8j6MyMrfrDw5lsx93cw1bvdUSOn0dMeRfW1NtqKvKxmzd8Sg8YqKRiQ0AFUWNSeELAWBT29Q9599CSqFaGHI4/dlbDWOzWq3VGJMso2mbA0o0VooTeBgFdZPczafn1A53TaB6qP3kUyA9fp/jVHXYS4NLHUygsWMu5s8hgdKApIfpSn/cN1LyhYq+pogOurQrUhxhLyC54PEcd27ebNF1StBOES+SMotD/s9/J+RPpMSuRWENzNtTuWItce9t40ZVMRl4PSWCTJu
+X-MS-Exchange-AntiSpam-MessageData-0: 0RGuxF0sATpRie2wLqaYj1WVCGxjwR+XRhu5DS5HBH58RI0iBUT3n/b2/OE9wapjzW0sSyl3RKHI4qYChvGDVk/hBd66tTweLjjud5tiL2IEK2JqpD+DMiFTVfr0TKJkqC9da9eIQBNEKDlY0XQEGaeLIVLjaY1WJMINIZFwp8S4K8Jy6G2kyXCTLQL+pBUtmy78iPa9/UI8O19cFplSGANoP9SeUzsPAuvZBdSUh5aaX3O4LAu5VvYuGjj7gZwUzqIGuwXxPwNPk8SpqDrm0u+DBaDtTJD1g8aZU3Pua6eht9yqrqcFbIGpAaPDMUeuBeq5BExz9+NSFcH16j0wY+7ONjb8Hzw26X3Qkwupwn6WEJ3GLfju/v+V7ZGtvyOkvaTku7y1WowvaUca88fbvIH6+ybkJfNq57CNPK+n0fLVSQu62gztDKLDWGsHy5R/
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:40:56.8473 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f34e673-9592-479e-7043-08df3f41034a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:40:58.7017 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7286f610-898d-4f78-89cf-08df3f410460
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF00008490.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF0000855F.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB11583
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9561
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,366 +160,130 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the panthor hardware description for Mali v15 GPUs and hook it into
-device matching.
+On Mali v15 AM systems, frequency scaling is handled outside panthor by
+the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.
 
-This includes the v15 register map and product identification needed to
-populate the GPU information exposed by the driver and its uAPI.
+Make panthor_devfreq_init() return early when dev_pm_opp_get_opp_table()
+returns -ENODEV, and guard the devfreq helper paths against a missing
+devfreq instance. Also make it so that frequency can be queried even if
+the devfreq instance is missing.
 
-Add compatibility string for v15 GPUs and bump drm minor to 10.
+This keeps devfreq enabled for existing platforms while allowing v15 AM
+systems to probe without a local devfreq setup.
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
 v2:
-- check as_count is non-zero before generating as_present mask per
-  sashiko's comment.
-- Link: https://lore.kernel.org/all/20260922205812.C473B1F000FF@smtp.kernel.org/
-- clean up l2_features value assignment.
-- removed duplicated GPU_FEATURES macro definitions
+- Directly call functions instead of storing function pointers.
 - Picked up R-b from Liviu
 v1:
-- make COHERENCY_FEATURES register read use cached gpu_info values.
-- Added Mali-G2 name variants and NX aware model identification.
-- fix premature reading of l2_features gpu_info field during
-  panthor_hw_info_init().
-- build as_present using GENMASK.
+- Only skip panthor_devfreq init when OPP lookup returns -ENODEV instead
+  of direct DT-property check.
+- Support frequency query without devfreq.
 
- drivers/gpu/drm/panthor/panthor_drv.c         |  5 +-
- drivers/gpu/drm/panthor/panthor_fw.c          |  1 +
- drivers/gpu/drm/panthor/panthor_gpu.c         |  3 +-
- .../drm/panthor/panthor_gpu_discover_regs.h   | 23 +++++
- drivers/gpu/drm/panthor/panthor_heap.c        |  3 +-
- drivers/gpu/drm/panthor/panthor_hw.c          | 96 ++++++++++++++++++-
- drivers/gpu/drm/panthor/panthor_hw.h          | 13 +++
- include/uapi/drm/panthor_drm.h                | 10 +-
- 8 files changed, 145 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/panthor/panthor_devfreq.c | 29 +++++++++++++++++------
+ drivers/gpu/drm/panthor/panthor_hw.h      |  6 +++++
+ 2 files changed, 28 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index dc8d0191aef42..e9b71ff5ee53f 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1785,6 +1785,8 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-  * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-  * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
-  *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
-+ * - 1.10 - adds thread_num_active_granularity, gpu_rev_wide, l2_features_wide,
-+ *          and gpu_id_wide to drm_panthor_gpu_info
-  */
- static const struct drm_driver panthor_drm_driver = {
- 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-@@ -1798,7 +1800,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.name = "panthor",
- 	.desc = "Panthor DRM driver",
- 	.major = 1,
--	.minor = 9,
-+	.minor = 10,
+diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+index 2249b41ca4afe..d1814b5197221 100644
+--- a/drivers/gpu/drm/panthor/panthor_devfreq.c
++++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+@@ -12,6 +12,7 @@
  
- 	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
- 	.gem_prime_import = panthor_gem_prime_import,
-@@ -1881,6 +1883,7 @@ static const struct of_device_id dt_match[] = {
- 	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
- 	{ .compatible = "rockchip,rk3588-mali" },
- 	{ .compatible = "arm,mali-valhall-csf" },
-+	{ .compatible = "arm,mali-gen5-am" },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, dt_match);
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 679ea1d233d53..1449d9a66302e 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1563,3 +1563,4 @@ MODULE_FIRMWARE("arm/mali/arch11.8/mali_csffw.bin");
- MODULE_FIRMWARE("arm/mali/arch12.8/mali_csffw.bin");
- MODULE_FIRMWARE("arm/mali/arch13.8/mali_csffw.bin");
- MODULE_FIRMWARE("arm/mali/arch14.8/mali_csffw.bin");
-+MODULE_FIRMWARE("arm/mali/arch15.8/mali_csffw.bin");
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index ab54119314da0..2e1b00e86cdea 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -503,8 +503,7 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
- 	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
- 	 * ACE protocol has never been supported for command stream frontend GPUs.
- 	 */
--	if ((gpu_read(ptdev->gpu->iomem, GPU_COHERENCY_FEATURES) &
--		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
-+	if ((ptdev->gpu_info.coherency_features & GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
- 		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-index 6896c263f76b6..05e90950ec6ad 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-@@ -16,4 +16,27 @@
- #define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
- #define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
- 
-+#define DISCOVER_REVIDR					0x8
-+#define DISCOVER_GPU_FEATURES				0x20
-+#define   GPU_FEATURES_VARIABLE_RATE_SHADING		BIT(0)
-+#define   GPU_FEATURES_SIMD_STATE			BIT(1)
-+#define   GPU_FEATURES_CROSS_STREAM_SYNC		BIT(3)
-+#define   GPU_FEATURES_LD_LEA_TENSOR_INSTRUCTIONS	BIT(6)
-+#define DISCOVER_MCU_FEATURES				0x40
-+#define DISCOVER_PRFCNT_FEATURES			0x50
-+#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
-+#define DISCOVER_DOORBELL_FEATURES			0x60
-+#define DISCOVER_MEM_FEATURES				0x100
-+#define DISCOVER_MMU_FEATURES				0x108
-+#define   MMU_FEATURES_AS_COUNT(x)			(((x) & GENMASK(23, 16)) >> 16)
-+#define DISCOVER_AMBA_FEATURES				0x120
-+
-+#define DISCOVER_L2_FEATURES				0x128
-+#define DISCOVER_TILER_FEATURES				0x200
-+#define DISCOVER_CORE_FEATURES				0x300
-+#define DISCOVER_THREAD_FEATURES			0x320
-+#define DISCOVER_THREAD_MAX_THREADS			0x330
-+#define DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY		0x334
-+#define DISCOVER_TEXTURE_FEATURES			0x360
-+
- #endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1e91..afb7d68abc874 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -11,6 +11,7 @@
- #include "panthor_gem.h"
- #include "panthor_gpu_regs.h"
- #include "panthor_heap.h"
+ #include "panthor_devfreq.h"
+ #include "panthor_device.h"
 +#include "panthor_hw.h"
- #include "panthor_mmu.h"
  
- /*
-@@ -105,7 +106,7 @@ struct panthor_heap_pool {
- 
- static int panthor_heap_ctx_stride(struct panthor_device *ptdev)
+ /**
+  * struct panthor_devfreq - Device frequency management
+@@ -164,6 +165,19 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+ 	 */
+ 	table = dev_pm_opp_get_opp_table(dev);
+ 	if (IS_ERR_OR_NULL(table)) {
++		/*
++		 * On v15 GPUs, frequency scaling is handled outside of panthor
++		 * by the AM_GOVERNOR block, so the GPU DT node may not provide
++		 * an OPP table. In such cases, do not initialize devfreq for
++		 * panthor.
++		 */
++		if (panthor_hw_is_gen5_am(ptdev->base.dev) &&
++		    PTR_ERR(table) == -ENODEV) {
++			drmm_kfree(&ptdev->base, pdevfreq);
++			ptdev->devfreq = NULL;
++			return 0;
++		}
++
+ 		ret = devm_pm_opp_set_regulators(dev, reg_names);
+ 		if (ret && ret != -ENODEV) {
+ 			if (ret != -EPROBE_DEFER)
+@@ -267,7 +281,7 @@ void panthor_devfreq_resume(struct panthor_device *ptdev)
  {
--	u32 l2_features = ptdev->gpu_info.l2_features;
-+	u64 l2_features = panthor_hw_get_l2_features(ptdev);
- 	u32 gpu_cache_line_size = GPU_L2_FEATURES_LINE_SIZE(l2_features);
+ 	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
  
- 	return ALIGN(HEAP_CONTEXT_SIZE, gpu_cache_line_size);
-diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-index 3a344fa292168..e8e899c638128 100644
---- a/drivers/gpu/drm/panthor/panthor_hw.c
-+++ b/drivers/gpu/drm/panthor/panthor_hw.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
- /* Copyright 2025 ARM Limited. All rights reserved. */
+-	if (!pdevfreq->devfreq)
++	if (!pdevfreq || !pdevfreq->devfreq)
+ 		return;
  
-+#include <linux/bits.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/platform_device.h>
- #include <linux/wordpart.h>
-@@ -75,6 +76,29 @@ static struct panthor_hw panthor_hw_arch_v14 = {
- 	},
- };
- 
-+static struct panthor_hw panthor_hw_arch_v15 = {
-+	.ops = {
-+		.soft_reset = panthor_pwr_reset_soft,
-+		.l2_power_off = panthor_pwr_l2_power_off,
-+		.l2_power_on = panthor_pwr_l2_power_on,
-+	},
-+	.regs = {
-+		.gpu_control = {
-+			.offset = 0x3000,
-+		},
-+		.mcu_control = {
-+			.offset = 0x3100,
-+		},
-+		.pwr_control = {
-+			.offset = 0x3800,
-+		},
-+		.mmu_as_control = {
-+			.offset = 0x2800,
-+			.stride = 0x80,
-+		},
-+	},
-+};
-+
- static struct panthor_hw_entry panthor_hw_match[] = {
- 	{
- 		.arch_min = 10,
-@@ -86,6 +110,11 @@ static struct panthor_hw_entry panthor_hw_match[] = {
- 		.arch_max = 14,
- 		.hwdev = &panthor_hw_arch_v14,
- 	},
-+	{
-+		.arch_min = 15,
-+		.arch_max = 15,
-+		.hwdev = &panthor_hw_arch_v15,
-+	}
- };
- 
- static int panthor_hw_set_power_tracing(struct device *dev, void *data)
-@@ -153,8 +182,11 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
- 						gpu_id->prod_major);
- 	const bool ray_intersection = !!(ptdev->gpu_info.gpu_features &
- 					 GPU_FEATURES_RAY_INTERSECTION);
-+	const bool neural_present = !!(ptdev->gpu_info.gpu_features &
-+				       GPU_FEATURES_NX);
- 	const u8 shader_core_count = hweight64(ptdev->gpu_info.shader_present);
- 
-+
- 	switch (product_id) {
- 	case GPU_PROD_ID_MAKE(10, 2):
- 		return "Mali-G710";
-@@ -197,6 +229,18 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
- 		return "Mali-G1-Premium";
- 	case GPU_PROD_ID_MAKE(14, 3):
- 		return "Mali-G1-Pro";
-+	case GPU_PROD_ID_MAKE(15, 0):
-+		return "Mali-G2-Ultra-NX";
-+	case GPU_PROD_ID_MAKE(15, 1):
-+		if (neural_present)
-+			return "Mali-G2-Premium-NX";
-+
-+		return "Mali-G2-Premium";
-+	case GPU_PROD_ID_MAKE(15, 3):
-+		if (neural_present)
-+			return "Mali-G2-Pro-NX";
-+
-+		return "Mali-G2-Pro";
- 	}
- 
- 	return "(Unknown Mali GPU)";
-@@ -220,7 +264,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
- 	return 0;
- }
- 
--static int panthor_gpu_info_init(struct panthor_device *ptdev)
-+static void panthor_gpu_info_v10_init(struct panthor_device *ptdev)
+ 	panthor_devfreq_reset(pdevfreq);
+@@ -279,7 +293,7 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
  {
- 	unsigned int i;
+ 	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
  
-@@ -261,12 +305,57 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
- 		ptdev->gpu_info.tiler_present = gpu_read64(gpu_iomem, GPU_TILER_PRESENT);
- 		ptdev->gpu_info.l2_present = gpu_read64(gpu_iomem, GPU_L2_PRESENT);
- 	}
-+}
-+
-+static void panthor_gpu_info_v15_init(struct panthor_device *ptdev)
-+{
-+	void __iomem *pwr_iomem = ptdev->iomem + ptdev->hw->regs.pwr_control.offset;
-+	u64 texture_features;
-+	u32 as_count;
-+
-+	ptdev->gpu_info.gpu_rev_wide = gpu_read64(ptdev->iomem, DISCOVER_REVIDR);
-+	ptdev->gpu_info.l2_features_wide = gpu_read64(ptdev->iomem, DISCOVER_L2_FEATURES);
-+
-+	texture_features = gpu_read64(ptdev->iomem, DISCOVER_TEXTURE_FEATURES);
-+	ptdev->gpu_info.texture_features[0] = lower_32_bits(texture_features);
-+	ptdev->gpu_info.texture_features[1] = upper_32_bits(texture_features);
-+
-+	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, DISCOVER_THREAD_FEATURES);
-+	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, DISCOVER_THREAD_MAX_THREADS);
-+	ptdev->gpu_info.thread_num_active_granularity =
-+		gpu_read(ptdev->iomem, DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY);
-+
-+	/* The upper 32-bits of following registers do not contain any information (yet) */
-+	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, DISCOVER_GPU_FEATURES);
-+	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, DISCOVER_MEM_FEATURES);
-+	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, DISCOVER_MMU_FEATURES);
-+	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, DISCOVER_AMBA_FEATURES);
-+	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, DISCOVER_TILER_FEATURES);
-+	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, DISCOVER_CORE_FEATURES);
-+
-+	/* AS_PRESENT register removed on v15+ create virtual mask from MMU_FEATURES.AS_COUNT */
-+	as_count = MMU_FEATURES_AS_COUNT(ptdev->gpu_info.mmu_features);
-+	if (as_count)
-+		ptdev->gpu_info.as_present = GENMASK(as_count - 1, 0);
-+
-+	ptdev->gpu_info.l2_present = gpu_read64(pwr_iomem, PWR_L2_PRESENT);
-+	ptdev->gpu_info.tiler_present = gpu_read64(pwr_iomem, PWR_TILER_PRESENT);
-+	ptdev->gpu_info.shader_present = gpu_read64(pwr_iomem, PWR_SHADER_PRESENT);
-+}
-+
-+static int panthor_gpu_info_init(struct panthor_device *ptdev)
-+{
-+	if (panthor_hw_has_gpu_discover(ptdev))
-+		panthor_gpu_info_v15_init(ptdev);
-+	else
-+		panthor_gpu_info_v10_init(ptdev);
+-	if (!pdevfreq->devfreq)
++	if (!pdevfreq || !pdevfreq->devfreq)
+ 		return;
  
- 	return overload_shader_present(ptdev);
- }
+ 	drm_WARN_ON(&ptdev->base, devfreq_suspend_device(pdevfreq->devfreq));
+@@ -290,7 +304,7 @@ void panthor_devfreq_record_busy(struct panthor_device *ptdev)
+ 	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+ 	unsigned long irqflags;
  
- static int panthor_hw_info_init(struct panthor_device *ptdev)
- {
-+	u64 l2_features;
- 	u32 prod_id, major, minor, status;
+-	if (!pdevfreq->devfreq)
++	if (!pdevfreq || !pdevfreq->devfreq)
+ 		return;
+ 
+ 	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+@@ -306,7 +320,7 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev)
+ 	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+ 	unsigned long irqflags;
+ 
+-	if (!pdevfreq->devfreq)
++	if (!pdevfreq || !pdevfreq->devfreq)
+ 		return;
+ 
+ 	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+@@ -323,10 +337,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
+ 	unsigned long freq = 0;
  	int ret;
  
-@@ -288,13 +377,14 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
- 	major = ptdev->gpu_id.ver_major;
- 	minor = ptdev->gpu_id.ver_minor;
- 	status = ptdev->gpu_id.ver_status;
-+	l2_features = panthor_hw_get_l2_features(ptdev);
+-	if (!pdevfreq->devfreq)
+-		return 0;
++	if (!pdevfreq || !pdevfreq->devfreq)
++		ret = panthor_devfreq_get_cur_freq(ptdev->base.dev, &freq);
++	else
++		ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
  
- 	drm_info(&ptdev->base, "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
- 		 get_gpu_model_name(ptdev), prod_id, major, minor, status);
+-	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
+ 	if (ret)
+ 		return 0;
  
- 	drm_info(&ptdev->base,
--		 "Features: L2:%#x Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
--		 ptdev->gpu_info.l2_features,
-+		 "Features: L2:%#llx Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
-+		 l2_features,
- 		 ptdev->gpu_info.tiler_features,
- 		 ptdev->gpu_info.mem_features,
- 		 ptdev->gpu_info.mmu_features,
 diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-index 4cb603a3acef6..fe31c1088af5a 100644
+index fe31c1088af5a..dee641c698661 100644
 --- a/drivers/gpu/drm/panthor/panthor_hw.h
 +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-@@ -95,4 +95,17 @@ static inline bool panthor_hw_has_neural(struct panthor_device *ptdev)
- 		ptdev->gpu_info.gpu_features & GPU_FEATURES_NX);
+@@ -108,4 +108,10 @@ static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
+ 	return ptdev->gpu_info.l2_features;
  }
  
-+static inline bool panthor_hw_has_gpu_discover(struct panthor_device *ptdev)
++static inline bool panthor_hw_is_gen5_am(struct device *dev)
 +{
-+	return ptdev->gpu_id.arch_major >= 15;
-+}
-+
-+static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
-+{
-+	if (panthor_hw_has_gpu_discover(ptdev))
-+		return ptdev->gpu_info.l2_features_wide;
-+
-+	return ptdev->gpu_info.l2_features;
++	return device_property_match_string(dev, "compatible",
++					    "arm,mali-gen5-am") >= 0;
 +}
 +
  #endif /* __PANTHOR_HW_H__ */
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index 09b7f7931e4f4..da9f8f82413cf 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -371,8 +371,8 @@ struct drm_panthor_gpu_info {
- 	/** @core_features: Used to discriminate core variants when they exist. */
- 	__u32 core_features;
- 
--	/** @pad: MBZ. */
--	__u32 pad;
-+	/** @thread_num_active_granularity: Granularity of number of active threads */
-+	__u32 thread_num_active_granularity;
- 
- 	/** @gpu_features: Bitmask describing supported GPU-wide features */
- 	__u64 gpu_features;
-@@ -389,6 +389,12 @@ struct drm_panthor_gpu_info {
- #define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
- #define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
- #define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
-+
-+	/** @gpu_rev_wide: 64-bit GPU revision for v15 onwards */
-+	__u64 gpu_rev_wide;
-+
-+	/** @l2_features_wide: 64-bit L2_FEATURES for v15 onwards */
-+	__u64 l2_features_wide;
- };
- 
- /**
 -- 
 2.43.0
 
