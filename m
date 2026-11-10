@@ -2,25 +2,25 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CF360A3822
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 15:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1251606AB5B
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 15:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=k7gji7He;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=k7gji7He
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=RNdhkX7M;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=RNdhkX7M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B634910F7A3;
-	Tue, 10 Nov 2026 15:41:47 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011056.outbound.protection.outlook.com [52.101.70.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CAB310F7A3
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 15:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28C8610F7BC;
+	Tue, 10 Nov 2026 15:41:53 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010043.outbound.protection.outlook.com [52.101.69.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B361110F7B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 15:41:41 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Kovz9WUcIAHuqemApG0G8zVaEP2LGZ5YZ5Yp+qyEJsk9wzOSQcWeMQt8JP+x2UqT/k35gPiJiY+T2U9KXdyUcqp06jCwWVI+VUZy6TURcmO+RLR96S8QW4B6WnkTYr/u1aKnQ+cncxctZGFyhWDmaxMYXb188k17Cg7cXwfe9KYZKqw7N0KjQVQAqX4/3Gu5hFvRGdPJbm6mTLdZXV/r7O9N6YvajcWysCb63TWbZcljKWuwmTirvcrr+dUxg+lc9Mao3Sz/sA1FvZJ9lLCMQ+F0+AZ3uFBJclyVefNfyoeZYyAIqZrkRQ52SPLCOF41aAntqaiz6OADaCKYIGc5Qw==
+ b=S/vAA7KOJR6ziOkLAtwuAD7UOfYloYUzhfbC3k5zLWpNTvxFvE82Fjx1RbU5l8+Of5acUKzm+H27Vtjc+ctBpNhmR1Q7cBDDDbshUFvEQFd8pNNdk3tMKE0hXvyx+0ezcNqKxbeyklu48kG10brgvJ5jTurkNJMlyFFcyr/vGkSttzcJ3wJqOIZJjjKrZUL+A7+DwzWAYXnCZt8tXkbwzGlO5cdrDfuv5Zpwkest6AckcsfTy3Jsk9N2LUgQhQJoNUIiJP888Qn6zIzaA9TINBF4hyNhEPqw3u+V0wf8rJdfor1yUHWVytbAPTv66lf/kKCEauGucDTAwQqlY/YwEw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bo+OlT5Z6Zi0gN6S/Iso5u/Q3onwUZvyr14jU17OCi4=;
- b=i1tgRFg5H5VF6KbL9r7WGl1r4ubJb+Wde09lhMSDSyw1wyvIS8FiPuZ+GMOXj+WianQXWu2LMBab3x2/ylQoZZ1QRrUMZUskFbA014Tx7OFz2jYK6r779o/XGilJgApibaGfdWwqiVzP+xXMY2JtD8Y4bppdGDSps+fpmRLj3flItvsL5sYgFGfp7V1j4lXMj52YtPQUWWjBnhAPpp0o51mn267XKP0X0NiGqhI/6wSxy8+jFL96LJwfrMgCIgQj2iz02EvdSIT/WIO5QAvinYxZjl77L8SZO8uIER1Bn7YGZqhzpRsd0hu30q7hnt31ru4xEsU87sfY39pcUV3Wrw==
+ bh=H6pUOlOTbIgDQ/559PPChsI2tyHKAza9b2JiWLG0vyE=;
+ b=Az6l510yKTFYhhCIdLIL0g7aXAoPjKMcLhaZfanxEHMw5+uu8ZyKNYU4KCiZgstMe+V7Ltr55TGPG3GSgGCJeup26QfW7B394cGVhRixsxwPsMuYY6e91o/fH4ZXPa7mmz79ylIlJ+OOgNoEFwOhwDceHTyf0qsuqYFAA1wAvslVNOZD1Z1YGiOzllDYHvcbeny2tC6nL+fEWh44MyQH3fg80gI/G9fXoILGxsGeazSg1prMkZ1VwCYmSnia2JkNbeidGR9dbwnvNr07WAFtFXVgrD+L/I64vN3cmAuCjkLhT867PyMabYSWz4ce071312wzpH0o3mNRqX43Hr2Ttg==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -29,18 +29,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bo+OlT5Z6Zi0gN6S/Iso5u/Q3onwUZvyr14jU17OCi4=;
- b=k7gji7HenIMLlDrCtDb8Ieny/8UbBl7YnnCf89q84QffNRaiyk9k7Y+TaPN13RK5fNBMSpU+LvLGjvav7HvI/uD0yx7/AsKzW+S2wezFRVfQwRNBrLEyekPa4RjJNNAOR4yl7G+UUGzU2TYczx5ueAtSb1fTNJyp9rpEtbCfK3I=
-Received: from PAZP264CA0235.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:238::16)
- by WA4PR08MB661891.eurprd08.prod.outlook.com (2603:10a6:1d0:39::15)
+ bh=H6pUOlOTbIgDQ/559PPChsI2tyHKAza9b2JiWLG0vyE=;
+ b=RNdhkX7MOAASRywzcvdZ4KtmR70fe5+ygF4OoKdn9m4PWXdS4oswjWmyM5ng2uQmpUiW/C9V2mYEUv+96C0XQHSQMdtxh6qlpPbK0+OC/4jJ9zZozA1oCenXoCGR6dGjz38gdHtTVtMZTiaTbkYpFre9jPrDtG0kB1GQza0cvHY=
+Received: from PA7P264CA0255.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:371::11)
+ by VE1PR08MB5776.eurprd08.prod.outlook.com (2603:10a6:800:1ac::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
- 2026 15:41:31 +0000
-Received: from MI3PEPF0000849C.eurprd03.prod.outlook.com
- (2603:10a6:102:238:cafe::57) by PAZP264CA0235.outlook.office365.com
- (2603:10a6:102:238::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 15:41:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 15:41:35 +0000
+Received: from MI3PEPF00008556.eurprd05.prod.outlook.com
+ (2603:10a6:102:371:cafe::a0) by PA7P264CA0255.outlook.office365.com
+ (2603:10a6:102:371::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Tue,
+ 10 Nov 2026 15:41:34 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com;
  dkim=pass (signature was verified)
@@ -49,34 +49,34 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF0000849C.mail.protection.outlook.com (10.167.240.187) with Microsoft
+ MI3PEPF00008556.mail.protection.outlook.com (10.167.240.10) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Tue, 10 Nov 2026 15:41:30 +0000
+ via Frontend Transport; Tue, 10 Nov 2026 15:41:33 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WF56XsINwv2NVcyQtaxa1901xqcU9sNwZuZq8I6emapMgPvOqVZbrTgDQOmc7m+DOWJoV+2P8uU91JCuxE3hmuLPY889ztisCdKdGw80Tet9OYQ1UWKVuC5zvWjHonnb1BQcn/HAZvBB2qzy10nu66Du65PxTKvHinR5qiUvUwZSErAzu/9dyG+yeZSG1qwUqw2WNiumdo2lWuAhRZt029JaXxfoQalU0zcC7+5Za/v2uHZtZRB6b8+2oN1DR4j2ptJafJvSMM5DmVYpK7ljJHLRN3hHSdscQN4BznpViAyI1XK7dk45P6fpeq4S1EOZq95m12+zI1mz15wQvY3kDw==
+ b=OeW9JsxIvgkilChv5cZblgECzvTv3jrxtBCpRY608t2Yx8pAkVHjiNHWHPv91WkhIRNOPXiihK4h5dNz2P+jIWDvF9A9cgcV/hyxExNVz/d/UOsvQFkSXE2/71CyMNB3K505FNq963E8rkaf/yOj8k78t9N05/bxmpl9o3o9EVbijkeSeom2nGnzucjTexK03ftu9NDGOSTnbLNyjZiwuQpP/XSlQMnB8G2+QJMBjjuCWSEUgkWCSnrfcqLLuEwbekSxGDKVpdVFhPYgx6mQEgxOUGAkI3AwOKdl/l5x8klMYdECJ1qi+AQCBHbNJ4bqfFrSanY5grgC1UgTckO95g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bo+OlT5Z6Zi0gN6S/Iso5u/Q3onwUZvyr14jU17OCi4=;
- b=hRari2L9PNsLRKNlljE93XwT9KXkeXFRnvMfg8eLZR9IUHlvYM3s2EL+gOKAdzLEiIcNHvTX71dBa7idGcjZJfNUDGqXPxEf5ZNk7zEvQCDUZPFjm9NCN302C8tL5BcoaGUwBQOsmnV78AhN54UdxHTMVJZhSkrk2bBXY/pp4VroEj8hQdnmysAAdqOt6FUe3iJbBunm1vijRg8ZWyGKjKP4luX9sf0mjJ/Szz0RsIayrWqx31tWu+f4VWCzdfE0WwA0irUKQv/pd6qaKYCi8ltMbUNhFdeSNFsu6RMqxaH2EdKYdvWTjOyhZiDHfPod4L4GcBClxFOSrxA8ahdc4Q==
+ bh=H6pUOlOTbIgDQ/559PPChsI2tyHKAza9b2JiWLG0vyE=;
+ b=wH/op9dDZSlaUISAnBOA30nJzHW2c3bqBRuk8evUwGkGHP00HhP4ImOLJ9K0ohoDJhgcacgbNpcy9tulUBrrjpv2Nssgi9+AMvyESsweo1yCzZEH083YuSWi8CoJkjs3aZepu0m7mnQctWiudiU595uTJ+xKbxMlnfhpoSgrrEMVSqs3TO1oL6p8TBV1U1gwl80u64JNsS6iAcMTKvuoRRO+XYTaML93eSm8/75uxZfgxguQduFy2AluTSgmcwMJBLv1131C/CKvdNXE/wGCfcstvQA2REBUcgh2q+T0YcI5/uaCCy/yPQV6vpFAuXEjy/GW/1mHVq6QH+JQP567sg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bo+OlT5Z6Zi0gN6S/Iso5u/Q3onwUZvyr14jU17OCi4=;
- b=k7gji7HenIMLlDrCtDb8Ieny/8UbBl7YnnCf89q84QffNRaiyk9k7Y+TaPN13RK5fNBMSpU+LvLGjvav7HvI/uD0yx7/AsKzW+S2wezFRVfQwRNBrLEyekPa4RjJNNAOR4yl7G+UUGzU2TYczx5ueAtSb1fTNJyp9rpEtbCfK3I=
+ bh=H6pUOlOTbIgDQ/559PPChsI2tyHKAza9b2JiWLG0vyE=;
+ b=RNdhkX7MOAASRywzcvdZ4KtmR70fe5+ygF4OoKdn9m4PWXdS4oswjWmyM5ng2uQmpUiW/C9V2mYEUv+96C0XQHSQMdtxh6qlpPbK0+OC/4jJ9zZozA1oCenXoCGR6dGjz38gdHtTVtMZTiaTbkYpFre9jPrDtG0kB1GQza0cvHY=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16) by AS8PR08MB10290.eurprd08.prod.outlook.com
  (2603:10a6:20b:63c::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 15:40:57 +0000
+ 2026 15:41:01 +0000
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 15:40:56 +0000
+ 15:41:01 +0000
 From: Karunika Choo <karunika.choo@arm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
@@ -86,60 +86,60 @@ Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2 16/28] drm/panthor: Add AM_RESOURCE_GROUP support
-Date: Tue, 10 Nov 2026 15:38:37 +0000
-Message-ID: <20261110153907.3241978-17-karunika.choo@arm.com>
+Subject: [PATCH v2 17/28] drm/panthor: Add arbitration scheduler
+Date: Tue, 10 Nov 2026 15:38:38 +0000
+Message-ID: <20261110153907.3241978-18-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110153907.3241978-1-karunika.choo@arm.com>
 References: <20261110153907.3241978-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0417.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18b::8) To MIWPR08MB568805.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0303.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:391::14) To MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: MIWPR08MB568805:EE_|AS8PR08MB10290:EE_|MI3PEPF0000849C:EE_|WA4PR08MB661891:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19a7180b-f8f9-48a1-e36f-08df3f41172d
+X-MS-TrafficTypeDiagnostic: MIWPR08MB568805:EE_|AS8PR08MB10290:EE_|MI3PEPF00008556:EE_|VE1PR08MB5776:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea293455-1ffe-4064-6258-08df3f411945
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|261022105027099003|261102123227099003|261026121527099003|261022113327099003|56012099006|261026140227099003|261021121427099003|261021123027099003|261009221227099003|261022075727099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info-Original: aAqOg9SYLGjtj3W84YAr6UCOeiXd6DcvumjSgfWqJVMfrK8pTanuhbsksAgY9gEKazr3cKkll8k4qr6kn3oXtE8Qcw0fKmE+w2og/cEteEs/2DZYY48bzmRcHvgoUdjKZ/t5nCfsMy6LPYwOrgOFBS3Nfx0JJKcSU4Z0ZN3P44F1kytdP3IvHjato7lC4ZX66DdxHArRRRd5pHLDvzj5I54Th0YW4XjF4dNyUn3FWQsAmVy7LkQbLr2o0KY8oyPVXyJqddyKrEsIAtw33nL5uRvZhmxY12QwnhCJRGnKleoeKBH02O21VCqDiDMWiZIWEjvHpmS6RXAT71uiZphJys8bhqz1xvD3ew2DubCeYPzK2ajHuRXzRlSmhg5FAyI20U7uZ6/sB50MvEOu7WD+QKXAC2IF6PcxT+kh3ZQayjy7Pwt/ueaDJuj/Joz1fC9hPzXwTuW6UqDqWBJ0ag9ryFaHbUNQpOVDjOpUAf8CAZ7L3XRj01OpXAdUChNkfixMDnybXzqkBGdUTCGOt++GEOqF+r7hJWbR0+uzJchnjVGAvT4NYRE+BNUUkI+abmnwsySOTtB7iJLSBwEX1PwUVKN01xAfE6Cd1Ql91JgcWHGk1AyqJ87E2GIC74WnLIbm
+ ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|6133799003|10067099003|3023799007|261021135927099003|11063799006|261022105027099003|5023799004|261102123227099003|261026121527099003|261022113327099003|56012099006|261026140227099003|261021121427099003|261009221227099003|261022075727099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info-Original: 2M9YGWyLhcCf2efC8ZfugA/CknY3uhT22aSUlh2zMECaS/0D0zxL+rMH5UJBoPKQU7+AiQ7OQ6L0MoBpxYhqgCcvO7MRxaPv/vmMlM8BUd1HCBQkWBLt9nM2g/hleM+JEfY/O4A3fZ39u8WL9NyC3VkJ9r9+PF3O9QXAZY5S0gRdcOp59hLuOF82UTCA3vtRwQyPHx18gygP75+5J8gWm5SKqWat6tIOp7xBUc+a8mP4LlaGRgKEvGJpGLJ23WBnEtwU+NYjo0oMrZOPrMIvee4XOj0SeenRr088aWA0TYLPYLBPybkcRcgmVbDhwQAF1UmsGzmGkETIArH/H8GjlYRRiQp0MUHalxcUPqPHmwvLR3TRqrWHTqzhaxSzPcKbyI4V+N6gk91RE8tf4rt+BF0A1GI6qwodRj1Mb9hbti+IbNzY4WymIlLhflPOVGVqBUJgUmlvhf/G7pkdCcN/XnqZlgrAe55sIBsVVYvCrcxCouXQGCk45GfvuFgGG+GxosywYhbmp06fCBZG8NSuzc0IoUzitRGxA2sUlpqskRuBghyIL/GnN0pwdkL65ki7QtTB5P2g7Fuzq1K2D8Eu2Cm1mzrWZMQSs8b0rHUw11A=
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:MIWPR08MB568805.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(261022105027099003)(261102123227099003)(261026121527099003)(261022113327099003)(56012099006)(261026140227099003)(261021121427099003)(261021123027099003)(261009221227099003)(261022075727099003)(261009223027099003)(261028144727099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(261021135927099003)(11063799006)(261022105027099003)(5023799004)(261102123227099003)(261026121527099003)(261022113327099003)(56012099006)(261026140227099003)(261021121427099003)(261009221227099003)(261022075727099003)(261009223027099003)(261028144727099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: hNVxBNrL8Tc7MeQN5ZlJsgv6085wuFJgLmFgE8qBDHDAWjacoFfz2oU8csMwHlN+6sGae/HpmFdyTORQr6qS3jrd10JnuO9o6Gj1q2mFaZ/POImxhbASf+PVwaBFTFg21GlqjjbRCcTwchQxouJscAzrd589W0tQ4uQ9i9KdRi6k4k3uP0ywVjWXJdmUEL5yIRApK2SkdR0UCDtgwMYbnqID5zzX2mr5umXc2T6l7B00BOmbVgMCwbnVDFjRF9GLxP7qgl2lDQWw0MYdVKgeyTCX6lcrPSxyORb2jSBfRTF5AiwGgash4IRqP1rckf00NY37fxrcZa+vjrsaTQxzYg==
+X-Exchange-RoutingPolicyChecked: OnuaR9/qsDxknHupkfyKstDq54xjBo/HCU/MKvTC1kZk4TAq8STqDNa7AKm670MYnpz0p+esVDW2ulAfT6SbPhIch0c5ThH3X0bgalPaGdJKXHqydoV8iDFMTmwtS7beCswZHoojBUEBu1A37ULgW7gZ6Ue72WGEh0VdfpM9fOXNPKG4M5MrnlklrWBWdpaG6pzfoK40XtezdsuB814yeasnJXdcX89peVUqZPETW+rwkx2Yj0CdanPqwAcJfFVkmZfNq/As9bj+vi/6CEpPCFvjrjjS83KLQz7fPdx1JQAK6dmvHxDmaX6kKOaO/YPTSadfRcfzhCQbgeLO4wOGsg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10290
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF0000849C.eurprd03.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF00008556.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 99a3fc36-558c-4153-540c-08df3f4102f3
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 5de00a9f-6d32-418e-82dd-08df3f41059e
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|14060799003|23010399003|35042699022|376014|18002099003|6133799003|22082099003|3023799007|13003099007|10067099003|56012099006|261021123027099003|11063799006|261102123227099003|261028144727099003|261022113327099003|261022105027099003|261022075727099003|261009221227099003|261021121427099003|261009223027099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: yGaYYECwfxuF61wnU9NVUGaJCwaSdk+Bov56OX9FnMT8JQw8N/1f1Wk3DAxSXO3/YCQrG1/ADQJlCt0S33VHAd1YC5s6kN4uYXCpoZvAb+M2mhxi5gZANTMDk+w6i9PYkdpzA4HJ3N/UHU89by3pxkv8+g2jPSu5OQe1kC5y/BfrHjFJAZRMOkCKUKlwN4QTpYqXqLPS4frsZMhyIAGiGRjf/ZxQSAIopFTSqV756MFW/r5uwrFCboH4KBejZbX04O0VMOkGHeAWKO3+h7VmdFxsvAT/lIlNS9xaYuX4hajKVkMC89i+a7iyUjsC4Bwl7VWAnWYZz1turXNyPRfd4Mxjc6zHRka5mu/KJHjG7cG2IMEHUtFdSUa+6EQSRHEwhXnrSCOQjjju4E0Ay7TreBupjKmfq3T+xz56dLrSOiJ+aBsmYyHAc/CH36krwMwVkAA5JosyFgwGmkuKxlg+EqV1C6jAn8hcicSVn1Hn7c0RIcAmxmyIkLz6GtwMa7Xa6Ki6O/9+qfFayO8azPYaQWd2zkMTDjDBLai8Y90hLKGRu0pNo9W5HXE5UE8a9cmxO154+OVHjdoHFwct0x75Ghyvi00DQb1TRdhHCfsXaKzxBkpoKNxhdgZFY3IwQAJOty+G8rnRwZ0gZ7Xny+Dp+A==
+ ARA:13230040|82310400026|36860700016|23010399003|14060799003|376014|1800799024|35042699022|22082099003|18002099003|6133799003|10067099003|3023799007|13003099007|5023799004|11063799006|261022075727099003|261028144727099003|261102123227099003|261009223027099003|261009221227099003|261026140227099003|261026121527099003|261022113327099003|56012099006|261022105027099003|261021135927099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: xM2iI4M0DuL/cmprJP8BVDYHCxX/lMhbGvIVxEed8mdnoztF3ApfjkJS3YxFAJrahEeNHD0C7LViLxVJtsnY8KnuYnAleLNHbmUD0WZ7y4luMm34qEVIhh71hn/YiM1kgSfIvPArre9rvSBbvqcOrgxTUWuhx4v70rEhHHsa4OE6X9q52eX7CeOdDlldeidYiNW4vnoIe65nyLIIMdsEMMTa/9gZNYSKNVg5bx2pQnoohM/wN2ON69jXJV+IaUqCvEwHjFaoGprOUKkAODSshu2TDDxlR9LWi6myF0NV5Hn77jqBsdRNap7CsH4RZttPqsgag5m0N1B+W3lRBcKBUZjrQTM8ucbxSM0hR+zIPfdDOOEvUY+Iqcbq6ww1OcuRNl/JRcaxLedtEo3zYvBIlechTbV/O9tQZW3Innop70owTWuBdAcqJJu3UTTrm9UcFNV41sSeAIkVGXkHRqeoHBXcqY7GOEZ2ef5eUa0jxZbJaH4CUCxj4GE5FwiXxzWE19X+xlOER8j91HyPpsjGbZdCTFLPJlC3/6KQowtASIFY7xIwWSZMhB5dXqx5d8fAFypCV/IWKDWEQ9dijq+oW8UX6VJPkKNnSSYLzAzx2W+qE3+98t2tdLx0MXvls/Auz/PTAxONLSZ4B85DowsFxQ==
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(14060799003)(23010399003)(35042699022)(376014)(18002099003)(6133799003)(22082099003)(3023799007)(13003099007)(10067099003)(56012099006)(261021123027099003)(11063799006)(261102123227099003)(261028144727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261009221227099003)(261021121427099003)(261009223027099003)(261026140227099003)(261026121527099003);
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(14060799003)(376014)(1800799024)(35042699022)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007)(13003099007)(5023799004)(11063799006)(261022075727099003)(261028144727099003)(261102123227099003)(261009223027099003)(261009221227099003)(261026140227099003)(261026121527099003)(261022113327099003)(56012099006)(261022105027099003)(261021135927099003)(261021121427099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: FsIOE8Wh7HFAYKmztN8kk0ODdwEz7zAonF/ni4gXxHsk6qDBZVV0JGvIS3Sm+foLr+8NTodabaXSo9kiy7gTnPsiIFqzLoU0ZGnbxXHR6w+7zGmVMchDITeDWwGrM+LYQgk4dLZjmFs4fMMKnCCq8Q93I94+EzCpo7Q8eG//ULPA8ci7pztRi1N3GdtUFOUBzY5LlTKgCzLFcnjuW1Kdanpa/vieDEFnTeHdentmAL/Wcf3hWF9reMxBYJfXUXid6qx+enBZTUT5M83YVQOtjq8O6Mugzw4k7j+kKHtjFAaoWNy9OJ9EVHZ7Qo+K4EFyURPkeNIjUcb41aKXaSpCqRxxgubX/iWmUi+NzreqosqE8Qr6kPJc4jYQTPuXysrEL6uxEPJFl9iLAj3oKWc3/XHuUOWTohCc0YxdaUGYPZk4aozoDTA8C2ydgCr8/kiB
+X-MS-Exchange-AntiSpam-MessageData-0: o2YaYzoA/A7a8IGkDhodPmOwCN7c6wk+rkWgd68TU18z6CMGsn9CDGLdGWhNY4p4t5Bd8U6QSod96L/bnzCUOKsUoEtxrlnjZqkaz2A1EvlKIIv5n/GzfIttsX/WubqoP1FbtYw471nGd4XfLj7mZt5DVVgTm5IM15GJaHd/oTKXEJgmr95mrkobqiCVSm/AyDATi9mAclcx0IBO86qVAh4BFQFe8NdI7mN9/5HzmHBCrNOryj0BoqGp6DhGU1xh2HqbTWeGDnj5WALkf7/aEBnIJRwZapbENPqbT8Xun+zm32asKvPgJIFHSMfaBxx89nPPxp7gio4NnYPhmlk3ptNkcSOJBeiNbyNKkdZhNZgYavwp2pmkf5YqcvYlNjS5svCYrX8HOmQTUT3v9TPyR2oW/O6+0uJv64N83erZLNIfj0ubEB6fA7+6dacRv1aO
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:41:30.2112 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19a7180b-f8f9-48a1-e36f-08df3f41172d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:41:33.7305 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea293455-1ffe-4064-6258-08df3f411945
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF0000849C.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF00008556.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR08MB661891
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5776
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,510 +159,913 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add resource-group probing for the arbitration device, including MMIO
-resources, IRQ handling, per-AW AM message helpers, handshake
-negotiation, and retry work for deferred outgoing messages.
+Add a per-partition scheduler that queues access-window GPU requests and
+grants GPU access to queued windows in turn.
 
-Hook resource groups into arbitration init, teardown, and runtime PM.
+An uncontended access window can retain access after its timeslice
+expires. The scheduler requests a yield when the timeslice has expired
+and another window is waiting and force-closes the active window if it
+does not yield in time.
+
+Use hrtimers for GPU timeslices and stop/close completion deadlines.
+Start stop and close timers after successful command submission.
+
+Retry stop and close commands from workqueue context when submission
+returns -EAGAIN. Use scheduler reset work to recover from other
+command errors and completion timeouts.
 
 Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
 v2:
-- Revert child node parsing from v1.
-- Tighten protocol validation and reject incompatible messages.
-- Drain pending messages on suspend.
-- Fixes the following issues raised by sashiko:
-  - Simplify and clean up rutnime PM handling and termination paths.
-  - change message retry work to delayed work.
-  - Add irq_lock to prevent MMIO access as a result of shared IRQ while
-    GPU is powered off.
-  - Fix irq number storage.
+- Use sched_id instead of looking it up via the aw_id for sched to AW
+  operations.
+- Fix stale timer callback from running on a newer lease generation.
+- Fix following issues raised by sashiko:
+  - Simplify scheduler tear-down path.
+  - Fix timeout value truncation.
+  - Introduce retry path for commands that fail due to possibility of
+    partition commands being rejected due to transient state transition.
   - Add check for allocation failure from devm_kasprintf
-- Link: https://lore.kernel.org/all/20260922205638.7B1DE1F000FF@smtp.kernel.org/
+  - Rollback failed suspend / resume.
+- Link: https://lore.kernel.org/all/20260922210022.394441F00893@smtp.kernel.org/
 v1:
-- Updated DT structure and accompanying parsing to handle child nodes
-  instead of named platform resources.
-- Hold runtime PM reference during message retries.
-- Fix suspend resume ordering.
+- Move grant, stop and close operations from workqueues into IRQ-safe
+  paths. Retains work for scheduler recovery.
+- Add closing phase and timer to ensure CLOSE_WINDOW completes in due
+  time, otherwise enter recovery handling.
+- Rename "grant_timeout_us" to "request_timeout" and "yield_timeout_us"
+  to "yield_timeout". Both units are now in milliseconds.
+- Add ABI documentation
 
- drivers/gpu/drm/panthor/arbitration/Makefile  |   3 +-
- .../panthor/arbitration/panthor_arbitration.h |   5 +
- .../arbitration/panthor_arbitration_drv.c     |  15 +
- .../arbitration/panthor_resource_group.c      | 373 ++++++++++++++++++
- .../arbitration/panthor_resource_group.h      |  20 +
- 5 files changed, 415 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
- create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_resource_group.h
+ .../testing/sysfs-driver-panthor-arbitration  |  18 +
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/panthor/arbitration/Makefile  |   1 +
+ .../panthor/arbitration/panthor_arbitration.h |   9 +
+ .../arbitration/panthor_arbitration_drv.c     |  31 +
+ .../arbitration/panthor_arbitration_sched.c   | 838 ++++++++++++++++++
+ .../arbitration/panthor_arbitration_sched.h   |  38 +
+ 7 files changed, 936 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-panthor-arbitration
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.h
 
+diff --git a/Documentation/ABI/testing/sysfs-driver-panthor-arbitration b/Documentation/ABI/testing/sysfs-driver-panthor-arbitration
+new file mode 100644
+index 0000000000000..fbd21270a2412
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-driver-panthor-arbitration
+@@ -0,0 +1,18 @@
++What:		/sys/module/panthor_arbitration/parameters/request_timeout
++Date:		September 2026
++KernelVersion:	7.2.0
++Contact:	Arm Ltd.
++Description:
++		Controls how long, in milliseconds, the arbitration scheduler
++		allows an access window to keep the GPU before asking it to
++		yield when another access window is waiting.
++
++What:		/sys/module/panthor_arbitration/parameters/yield_timeout
++Date:		September 2026
++KernelVersion:	7.2.0
++Contact:	Arm Ltd.
++Description:
++		Controls how long, in milliseconds, the arbitration scheduler
++		waits for an access window to yield the GPU after a stop request.
++		If the timeout expires, the scheduler force-closes the access
++		window.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index bdf3cc1044c3e..4be924fdf6e29 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2400,6 +2400,7 @@ M:	Liviu Dudau <liviu.dudau@arm.com>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Supported
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/ABI/testing/sysfs-driver-panthor-arbitration
+ F:	Documentation/devicetree/bindings/gpu/arm,mali-gen5-am*.yaml
+ F:	Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+ F:	drivers/gpu/drm/ci/xfails/panthor*
 diff --git a/drivers/gpu/drm/panthor/arbitration/Makefile b/drivers/gpu/drm/panthor/arbitration/Makefile
-index b0b6b2e3edf8d..2d2684321d978 100644
+index 2d2684321d978..22ed68948fee3 100644
 --- a/drivers/gpu/drm/panthor/arbitration/Makefile
 +++ b/drivers/gpu/drm/panthor/arbitration/Makefile
-@@ -4,7 +4,8 @@
+@@ -4,6 +4,7 @@
  obj-$(CONFIG_DRM_PANTHOR_ARBITRATION) += panthor_arbitration.o
  panthor_arbitration-y := \
  	panthor_arbitration_drv.o \
--	panthor_partition_control.o
-+	panthor_partition_control.o \
-+	panthor_resource_group.o
++	panthor_arbitration_sched.o \
+ 	panthor_partition_control.o \
+ 	panthor_resource_group.o
  
- INCLUDES = \
- 	-I$(src)/..
 diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
-index fc3610aefae29..9612bfc6c4417 100644
+index 9612bfc6c4417..8d4c0aab12666 100644
 --- a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
 +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
-@@ -9,8 +9,10 @@
+@@ -6,8 +6,10 @@
+ 
+ #include <linux/ioport.h>
+ #include <linux/fwnode.h>
++#include <linux/types.h>
  
  struct device;
++struct panthor_arbitration_sched;
  struct panthor_partition_control;
-+struct panthor_resource_group;
+ struct panthor_resource_group;
  
- #define AM_ARB_MAX_PC_COUNT			1
-+#define AM_ARB_MAX_RG_COUNT			1
- #define AM_ARB_MAX_AW_COUNT			16
+@@ -27,6 +29,13 @@ struct panthor_arbitration {
  
- /**
-@@ -22,6 +24,9 @@ struct panthor_arbitration {
- 
- 	/** @pc: Pointer array to partition control data */
- 	struct panthor_partition_control *pc[AM_ARB_MAX_PC_COUNT];
+ 	/** @rg: Pointer array to resource group data */
+ 	struct panthor_resource_group *rg[AM_ARB_MAX_RG_COUNT];
 +
-+	/** @rg: Pointer array to resource group data */
-+	struct panthor_resource_group *rg[AM_ARB_MAX_RG_COUNT];
++	/** @sched: Pointer to scheduler data. 1 sched per partition */
++	struct panthor_arbitration_sched *sched[AM_ARB_MAX_PC_COUNT];
  };
  
++int panthor_arbitration_on_grant(struct panthor_arbitration *adev, u8 sched_id, u8 aw_id);
++int panthor_arbitration_on_stop(struct panthor_arbitration *adev, u8 sched_id);
++int panthor_arbitration_on_close(struct panthor_arbitration *adev, u8 sched_id);
++
  #endif
 diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
-index a27d24c3679fa..0e8ffd3c1e6da 100644
+index 0e8ffd3c1e6da..f26dcdcbc9198 100644
 --- a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
 +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
-@@ -12,6 +12,7 @@
+@@ -11,6 +11,7 @@
+ #include <linux/of.h>
  
  #include "panthor_arbitration.h"
++#include "panthor_arbitration_sched.h"
  #include "panthor_partition_control.h"
-+#include "panthor_resource_group.h"
+ #include "panthor_resource_group.h"
  
- #define PANTHOR_PM_AUTOSUSPEND_DELAY_MS 100
- 
-@@ -20,6 +21,10 @@ static int panthor_arbitration_runtime_suspend(struct device *dev)
+@@ -21,6 +22,10 @@ static int panthor_arbitration_runtime_suspend(struct device *dev)
  	struct panthor_arbitration *adev = dev_get_drvdata(dev);
  	int ret = 0;
  
-+	ret = panthor_resource_group_suspend(adev);
++	ret = panthor_arbitration_sched_suspend(adev);
 +	if (ret)
 +		return ret;
 +
- 	ret = panthor_partition_control_suspend(adev);
+ 	ret = panthor_resource_group_suspend(adev);
  	if (ret)
  		return ret;
-@@ -36,6 +41,10 @@ static int panthor_arbitration_runtime_resume(struct device *dev)
+@@ -45,6 +50,26 @@ static int panthor_arbitration_runtime_resume(struct device *dev)
  	if (ret)
  		return ret;
  
-+	ret = panthor_resource_group_resume(adev);
++	ret = panthor_arbitration_sched_resume(adev);
 +	if (ret)
 +		return ret;
 +
++	return 0;
++}
++
++/* Arbiter to AW events */
++int panthor_arbitration_on_grant(struct panthor_arbitration *adev, u8 sched_id, u8 aw_id)
++{
++	return 0;
++}
++
++int panthor_arbitration_on_stop(struct panthor_arbitration *adev, u8 sched_id)
++{
++	return 0;
++}
++
++int panthor_arbitration_on_close(struct panthor_arbitration *adev, u8 sched_id)
++{
  	return 0;
  }
  
-@@ -66,6 +75,10 @@ static int panthor_arbitration_probe(struct platform_device *pdev)
+@@ -71,6 +96,10 @@ static int panthor_arbitration_probe(struct platform_device *pdev)
  	if (ret)
- 		goto err_term;
+ 		goto err_disable_pm;
  
-+	ret = panthor_resource_group_init(adev);
++	ret = panthor_arbitration_sched_init(adev);
 +	if (ret)
 +		goto err_term;
 +
- 	ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
+ 	ret = panthor_partition_control_init(adev);
  	if (ret)
- 		goto err_depopulate;
-@@ -81,6 +94,7 @@ static int panthor_arbitration_probe(struct platform_device *pdev)
+ 		goto err_term;
+@@ -94,6 +123,7 @@ static int panthor_arbitration_probe(struct platform_device *pdev)
  	of_platform_depopulate(dev);
  
  err_term:
-+	panthor_resource_group_term(adev);
++	panthor_arbitration_sched_term(adev);
+ 	panthor_resource_group_term(adev);
  	panthor_partition_control_term(adev);
  	pm_runtime_put_sync_suspend(dev);
+@@ -119,6 +149,7 @@ static void panthor_arbitration_remove(struct platform_device *pdev)
  
-@@ -106,6 +120,7 @@ static void panthor_arbitration_remove(struct platform_device *pdev)
  	pm_runtime_disable(adev->dev);
  
++	panthor_arbitration_sched_term(adev);
  	panthor_partition_control_term(adev);
-+	panthor_resource_group_term(adev);
+ 	panthor_resource_group_term(adev);
  
- 	if (ret >= 0)
- 		pm_runtime_put_noidle(adev->dev);
-diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
 new file mode 100644
-index 0000000000000..e413cfd9e6d25
+index 0000000000000..23768739e9ef5
 --- /dev/null
-+++ b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-@@ -0,0 +1,373 @@
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
+@@ -0,0 +1,838 @@
 +// SPDX-License-Identifier: GPL-2.0 or MIT
 +/* Copyright 2026 ARM Limited. All rights reserved. */
 +
-+#include <linux/interrupt.h>
-+#include <linux/iopoll.h>
-+#include <linux/platform_device.h>
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/kfifo.h>
++#include <linux/moduleparam.h>
 +#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/workqueue.h>
++#include <linux/time.h>
++#include <linux/types.h>
 +
-+#include "panthor_am_msg.h"
 +#include "panthor_arbitration.h"
-+#include "panthor_device_io.h"
++#include "panthor_arbitration_sched.h"
 +#include "panthor_resource_group.h"
 +
-+#define AM_RG_IRQ_RAWSTAT			0x80
-+#define AM_RG_IRQ_CLEAR				0x84
-+#define AM_RG_IRQ_MASK				0x88
-+#define AM_RG_IRQ_STATUS			0x8C
-+#define   AM_RG_MESSAGE_MASK			GENMASK(15, 0)
++static u32 request_timeout = 1 * MSEC_PER_SEC;
++static u32 yield_timeout = 1 * MSEC_PER_SEC;
 +
-+#define AM_RG_AW_MESSAGE(n)			(0x100 + (n) * 0x20)
++module_param(request_timeout, uint, 0644);
++MODULE_PARM_DESC(request_timeout, "Time the GPU will be granted to the AW in milliseconds.");
 +
-+#define AM_RG_RETRY_DELAY_US			10
++module_param(yield_timeout, uint, 0644);
++MODULE_PARM_DESC(yield_timeout, "Time, in milliseconds, within which the AW must yield the GPU.");
 +
-+struct rg_aw_data {
-+	/** @msg: Messaging data */
-+	struct panthor_am_msg msg;
++enum arbitration_sched_phase {
++	ARB_SCHED_PHASE_IDLE = 0,
++	ARB_SCHED_PHASE_GRANTING,
++	ARB_SCHED_PHASE_GRANTED,
++	ARB_SCHED_PHASE_STOPPING,
++	ARB_SCHED_PHASE_CLOSING,
++	ARB_SCHED_PHASE_LOST,
 +};
 +
-+struct panthor_resource_group {
++struct panthor_arbitration_timer {
++	/** @timer: High-resolution timer */
++	struct hrtimer timer;
++
++	/** @epoch: The lease generation for which the timer was triggered */
++	u32 epoch;
++};
++
++struct panthor_arbitration_work {
++	/** @work: Work struct */
++	struct work_struct work;
++
++	/** @aw_id: Window for which the work was queued */
++	u8 aw_id;
++
++	/** @epoch: The lease generation for which the work was queued */
++	u32 epoch;
++};
++
++enum panthor_arbitration_retry_work {
++	PANTHOR_ARB_WORK_STOP = 0,
++	PANTHOR_ARB_WORK_CLOSE,
++	PANTHOR_ARB_WORK_COUNT,
++};
++
++struct panthor_arbitration_sched {
 +	/** @dev: Device pointer */
 +	struct device *dev;
 +
-+	/** @name: Resource name */
++	/** @id: Scheduler index. Sched N maps to partition control N */
++	u8 id;
++
++	/** @name: Scheduler name */
 +	char *name;
 +
-+	/** @iomem: CPU mapping of the partition control IOMEM region */
-+	void __iomem *iomem;
++	/** @waitqueue: Event wait queue. Not IRQ safe */
++	wait_queue_head_t waitqueue;
 +
-+	/** @irq: IRQ number */
-+	int irq;
++	/** @lock: Protects scheduler state */
++	spinlock_t lock;
 +
-+	/** @irq_lock: Lock protecting IRQ state. */
-+	spinlock_t irq_lock;
++	/** @queue: Pending request FIFO */
++	DECLARE_KFIFO(queue, u8, 16);
 +
-+	/** @irq_suspended: Flag indicating if IRQ was suspended. */
-+	bool irq_suspended;
++	/** @queued_mask: Mask of currently queued AWs */
++	DECLARE_BITMAP(queued_mask, AM_ARB_MAX_AW_COUNT);
 +
-+	/** @aw_data: Data for each access window */
-+	struct rg_aw_data aw_data[AM_ARB_MAX_AW_COUNT];
++	/** @active_aw_id: Currently active AW. Can be -1 */
++	s8 active_aw_id;
 +
-+	/** @wq: Resource group workqueue */
++	/** @phase: Current scheduling phase */
++	enum arbitration_sched_phase phase;
++
++	/** @epoch: Current active lease generation */
++	u32 epoch;
++
++	/** @wq: Scheduler workqueue to dispatch events */
 +	struct workqueue_struct *wq;
 +
-+	/** @msg_retry_work: Work to retry sending pending messages */
-+	struct delayed_work msg_retry_work;
++	/** @reset_work: Work to reset the scheduler */
++	struct panthor_arbitration_work reset_work;
++
++	/** @retry_work: Work to retry an operation */
++	struct panthor_arbitration_work retry_work;
++
++	/** @pending_retry_work: Retry work that is pending */
++	DECLARE_BITMAP(pending_retry_work, PANTHOR_ARB_WORK_COUNT);
++
++	/** @grant_timer: Timer to indicate grant window has lapsed */
++	struct panthor_arbitration_timer grant_timer;
++
++	/** @stop_timer: Timer to indicate yield window has lapsed */
++	struct panthor_arbitration_timer stop_timer;
++
++	/** @close_timer: Timer to indicate close window has lapsed */
++	struct panthor_arbitration_timer close_timer;
++
++	/** @disabled: Scheduler disabled. No further scheduling can happen */
++	u32 disabled;
++
++	/**
++	 * @grant_previously_expired: Grant period previously expired but was
++	 * not asked to stop
++	 */
++	bool grant_previously_expired;
 +};
 +
-+static void rg_retry_messages(struct work_struct *work)
++static int arb_sched_on_stopped_locked(struct panthor_arbitration_sched *sched, u8 aw_id);
++
++static inline struct panthor_arbitration *
++to_adev(struct panthor_arbitration_sched *sched)
 +{
-+	struct panthor_resource_group *rg = container_of(
-+		work, struct panthor_resource_group, msg_retry_work.work);
-+	bool retry = false;
++	return dev_get_drvdata(sched->dev);
++}
++
++static inline struct panthor_arbitration_work *to_work(struct work_struct *w)
++{
++	return container_of(w, struct panthor_arbitration_work, work);
++}
++
++static u32 panthor_arbitration_stop_timeout(struct panthor_arbitration_sched *sched)
++{
++	u64 timeout = (u64)READ_ONCE(request_timeout) + READ_ONCE(yield_timeout);
++
++	if (timeout > (u64)INT_MAX) {
++		dev_warn_once(sched->dev, "request/yield timeout too large.");
++		return INT_MAX;
++	}
++
++	return timeout;
++}
++
++static bool arb_sched_phase_reached(struct panthor_arbitration_sched *sched,
++				    enum arbitration_sched_phase phase)
++{
++	guard(spinlock_irqsave)(&sched->lock);
++
++	return sched->phase == phase;
++}
++
++/* This method is not IRQ safe as it sleeps. */
++static int arb_sched_wait_phase(struct panthor_arbitration_sched *sched,
++				enum arbitration_sched_phase phase,
++				u32 timeout_ms)
++{
++	if (!wait_event_timeout(
++		    sched->waitqueue, arb_sched_phase_reached(sched, phase),
++		    msecs_to_jiffies(timeout_ms))) {
++
++		if (!arb_sched_phase_reached(sched, phase))
++			return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++static void arb_sched_queue_work(struct panthor_arbitration_sched *sched,
++				 struct panthor_arbitration_work *work)
++{
++	lockdep_assert_held(&sched->lock);
++
++	work->aw_id = sched->active_aw_id;
++	work->epoch = sched->epoch;
++	queue_work(sched->wq, &work->work);
++}
++
++static void arb_sched_queue_retry_work(struct panthor_arbitration_sched *sched,
++				       enum panthor_arbitration_retry_work work)
++{
++	lockdep_assert_held(&sched->lock);
++
++	if (!test_and_set_bit(work, sched->pending_retry_work))
++		arb_sched_queue_work(sched, &sched->retry_work);
++}
++
++static int __arb_sched_stop_locked(struct panthor_arbitration_sched *sched)
++{
 +	int ret;
 +
-+	ret = pm_runtime_resume_and_get(rg->dev);
-+	if (ret) {
-+		dev_warn(rg->dev, "Failed to resume to retry messages");
-+		return;
++	lockdep_assert_held(&sched->lock);
++
++	ret = panthor_arbitration_on_stop(to_adev(sched), sched->id);
++	if (ret == -EAGAIN) {
++		arb_sched_queue_retry_work(sched, PANTHOR_ARB_WORK_STOP);
++	} else if (ret) {
++		dev_err(sched->dev, "%s: Failed to send yield to AW%u. %d",
++			sched->name, sched->active_aw_id, ret);
++
++		arb_sched_queue_work(sched, &sched->reset_work);
 +	}
 +
-+	for (u8 aw_id = 0; aw_id < AM_ARB_MAX_AW_COUNT; aw_id++) {
-+		struct panthor_am_msg *msg = &rg->aw_data[aw_id].msg;
-+		int ret;
-+
-+		ret = panthor_am_msg_retry(msg);
-+		if (ret == -EBUSY || ret == -EAGAIN)
-+			retry = true;
-+
-+		if (ret == -EINVAL)
-+			dev_warn(rg->dev, "AW%u send FIFO unexpectedly empty", aw_id);
-+	}
-+
-+	if (retry)
-+		mod_delayed_work(rg->wq, &rg->msg_retry_work,
-+				 usecs_to_jiffies(AM_RG_RETRY_DELAY_US));
-+
-+	pm_runtime_put_autosuspend(rg->dev);
++	return ret;
 +}
 +
-+static void rg_send_msg(struct panthor_resource_group *rg, u8 aw_id,
-+			u64 message)
++static void arb_sched_stop_locked(struct panthor_arbitration_sched *sched)
 +{
 +	int ret;
 +
-+	ret = panthor_am_msg_send(&rg->aw_data[aw_id].msg, message);
-+	if (ret == -ENOSPC)
-+		dev_err(rg->dev, "AW%u send FIFO is full", aw_id);
++	lockdep_assert_held(&sched->lock);
 +
-+	if (ret == -EBUSY) {
-+		dev_dbg(rg->dev, "AW%u has pending messages, scheduling retry work", aw_id);
-+		mod_delayed_work(rg->wq, &rg->msg_retry_work,
-+				 usecs_to_jiffies(AM_RG_RETRY_DELAY_US));
++	ret = __arb_sched_stop_locked(sched);
++	if (!ret) {
++		if (sched->phase != ARB_SCHED_PHASE_STOPPING) {
++			dev_warn(sched->dev, "%s: Stop ACKED when not yielding",
++				 sched->name);
++			return;
++		}
++
++		sched->stop_timer.epoch = sched->epoch;
++		hrtimer_start(&sched->stop_timer.timer,
++			      ms_to_ktime(yield_timeout), HRTIMER_MODE_REL);
 +	}
 +}
 +
-+static void rg_send_init_msg(struct panthor_resource_group *rg, u8 aw_id,
-+			     u8 ack, u8 version)
++static void arb_sched_grant_locked(struct panthor_arbitration_sched *sched)
 +{
-+	u64 message = ARB_VM_INIT_MAKE(ack, version);
-+
-+	rg_send_msg(rg, aw_id, message);
-+}
-+
-+static void rg_respond_to_handshake(struct panthor_resource_group *rg,
-+				    u8 aw_id, u64 message)
-+{
-+	struct rg_aw_data *aw_data = &rg->aw_data[aw_id];
-+	bool acked = AM_MSG_ACK_GET(message);
-+	u8 version = AM_MSG_VERSION_GET(message);
-+	u8 reply_version = AM_MSG_CURRENT_VERSION;
 +	int ret;
 +
-+	ret = panthor_am_msg_version_validate(&aw_data->msg, version, acked,
-+					      &reply_version);
-+	if (ret == -EOPNOTSUPP)
-+		dev_warn(rg->dev,
-+			 "AW%u protocol version (%u) not supported (min: %u, max: %u)",
-+			 aw_id, version, AM_MSG_MIN_SUPPORTED_VERSION,
-+			 AM_MSG_CURRENT_VERSION);
++	lockdep_assert_held(&sched->lock);
 +
-+	/* AW initiated the handshake, reply with supported version */
-+	if (!acked)
-+		rg_send_init_msg(rg, aw_id, 1, reply_version);
++	ret = panthor_arbitration_on_grant(to_adev(sched), sched->id, sched->active_aw_id);
++	if (!ret) {
++		if (sched->phase != ARB_SCHED_PHASE_GRANTING) {
++			dev_warn(sched->dev, "%s: Grant ACKED when not granting",
++				 sched->name);
++			return;
++		}
++
++		if (sched->disabled) {
++			sched->phase = ARB_SCHED_PHASE_STOPPING;
++			arb_sched_stop_locked(sched);
++		} else {
++			sched->phase = ARB_SCHED_PHASE_GRANTED;
++
++			sched->grant_timer.epoch = sched->epoch;
++			hrtimer_start(&sched->grant_timer.timer,
++				      ms_to_ktime(request_timeout),
++				      HRTIMER_MODE_REL);
++		}
++
++		wake_up_all(&sched->waitqueue);
++	} else if (ret < 0) {
++		dev_err(sched->dev, "%s: Failed to grant access to AW%u. %d",
++			sched->name, sched->active_aw_id, ret);
++
++		arb_sched_queue_work(sched, &sched->reset_work);
++	}
 +}
 +
-+static void rg_handshake_init(struct panthor_resource_group *rg)
++static int __arb_sched_close_locked(struct panthor_arbitration_sched *sched)
 +{
-+	for (u8 aw_id = 0; aw_id < AM_ARB_MAX_AW_COUNT; aw_id++)
-+		rg_send_init_msg(rg, aw_id, 0, AM_MSG_CURRENT_VERSION);
++	int ret;
++
++	lockdep_assert_held(&sched->lock);
++
++	ret = panthor_arbitration_on_close(to_adev(sched), sched->id);
++	if (ret == -EAGAIN) {
++		arb_sched_queue_retry_work(sched, PANTHOR_ARB_WORK_CLOSE);
++	} else if (ret < 0) {
++		dev_err(sched->dev, "%s: Failed to close AW%u. %d", sched->name,
++			sched->active_aw_id, ret);
++
++		arb_sched_queue_work(sched, &sched->reset_work);
++	}
++
++	return ret;
 +}
 +
-+static void rg_handle_message(struct panthor_resource_group *rg, u8 aw_id,
-+			      u64 message)
++static void arb_sched_close_locked(struct panthor_arbitration_sched *sched)
 +{
-+	struct rg_aw_data *aw_data = &rg->aw_data[aw_id];
-+	u8 msg_id = AM_MSG_ID_GET(message);
++	int ret;
 +
-+	if (!msg_id)
++	lockdep_assert_held(&sched->lock);
++
++	ret = __arb_sched_close_locked(sched);
++	if (!ret) {
++		sched->close_timer.epoch = sched->epoch;
++		hrtimer_start(&sched->close_timer.timer,
++			      ms_to_ktime(yield_timeout), HRTIMER_MODE_REL);
++	}
++}
++
++static void arb_sched_request_stop_locked(struct panthor_arbitration_sched *sched)
++{
++	lockdep_assert_held(&sched->lock);
++
++	if (sched->phase != ARB_SCHED_PHASE_GRANTED)
 +		return;
 +
-+	if (msg_id == VM_ARB_INIT) {
-+		rg_respond_to_handshake(rg, aw_id, message);
++	if (sched->active_aw_id < 0)
++		return;
++
++	/*
++	 * In the event of a single requesting AW, let it continue to
++	 * lease the GPU until another request comes in.
++	 */
++	if (!sched->disabled && kfifo_is_empty(&sched->queue)) {
++		sched->grant_previously_expired = true;
 +		return;
 +	}
 +
-+	if (!panthor_am_msg_supported(&aw_data->msg)) {
-+		dev_warn_ratelimited(
-+			rg->dev, "Unsupported AW%u (message protocol)", aw_id);
++	sched->phase = ARB_SCHED_PHASE_STOPPING;
++	arb_sched_stop_locked(sched);
++
++	wake_up_all(&sched->waitqueue);
++}
++
++static void arb_sched_request_stop(struct panthor_arbitration_sched *sched)
++{
++	guard(spinlock_irqsave)(&sched->lock);
++
++	arb_sched_request_stop_locked(sched);
++}
++
++static void arb_sched_force_close_locked(struct panthor_arbitration_sched *sched)
++{
++	lockdep_assert_held(&sched->lock);
++
++	if (sched->phase == ARB_SCHED_PHASE_IDLE)
 +		return;
++
++	if (sched->active_aw_id < 0)
++		return;
++
++	sched->phase = ARB_SCHED_PHASE_LOST;
++
++	arb_sched_close_locked(sched);
++
++	wake_up_all(&sched->waitqueue);
++}
++
++static int arb_sched_force_close(struct panthor_arbitration_sched *sched)
++{
++	scoped_guard(spinlock_irqsave, &sched->lock)
++		arb_sched_force_close_locked(sched);
++
++	return arb_sched_wait_phase(sched, ARB_SCHED_PHASE_IDLE,
++				    panthor_arbitration_stop_timeout(sched));
++}
++
++static int arb_sched_next_locked(struct panthor_arbitration_sched *sched)
++{
++	u8 aw_id;
++
++	lockdep_assert_held(&sched->lock);
++
++	if (sched->disabled)
++		return 0;
++
++	/* already have a running aw */
++	if (sched->active_aw_id >= 0)
++		return 0;
++
++	/* nothing to schedule */
++	if (kfifo_is_empty(&sched->queue))
++		return 0;
++
++	if (!kfifo_get(&sched->queue, &aw_id)) {
++		dev_warn(sched->dev, "%s: queue unexpectedly empty",
++				sched->name);
++		return -EINVAL;
 +	}
 +
-+	switch (msg_id) {
-+	case VM_ARB_GPU_REQUEST:
-+		/* TODO: on_request */
++	clear_bit(aw_id, sched->queued_mask);
++
++	sched->active_aw_id = aw_id;
++	sched->epoch++;
++	sched->phase = ARB_SCHED_PHASE_GRANTING;
++
++	arb_sched_grant_locked(sched);
++
++	wake_up_all(&sched->waitqueue);
++
++	return 0;
++}
++
++static int arb_sched_next(struct panthor_arbitration_sched *sched)
++{
++	guard(spinlock_irqsave)(&sched->lock);
++
++	return arb_sched_next_locked(sched);
++}
++
++static void arb_sched_reset_work(struct work_struct *work)
++{
++	struct panthor_arbitration_work *w = to_work(work);
++	struct panthor_arbitration_sched *sched =
++		container_of(w, struct panthor_arbitration_sched, reset_work);
++
++	guard(spinlock_irqsave)(&sched->lock);
++	if (sched->epoch != w->epoch)
++		return;
++
++	if (sched->active_aw_id != w->aw_id)
++		return;
++
++	dev_warn(sched->dev, "%s: scheduler reset. active_aw=%u",
++			sched->name, sched->active_aw_id);
++
++	arb_sched_force_close_locked(sched);
++}
++
++static void arb_sched_retry_work(struct work_struct *work)
++{
++	struct panthor_arbitration_work *w = to_work(work);
++	struct panthor_arbitration_sched *sched =
++		container_of(w, struct panthor_arbitration_sched, retry_work);
++	DECLARE_BITMAP(work_tmp, PANTHOR_ARB_WORK_COUNT);
++
++	guard(spinlock_irqsave)(&sched->lock);
++	if (bitmap_empty(sched->pending_retry_work, PANTHOR_ARB_WORK_COUNT))
++		return;
++
++	bitmap_copy(work_tmp, sched->pending_retry_work, PANTHOR_ARB_WORK_COUNT);
++	bitmap_zero(sched->pending_retry_work, PANTHOR_ARB_WORK_COUNT);
++
++	if (sched->epoch != w->epoch || sched->active_aw_id != w->aw_id)
++		return;
++
++	switch (sched->phase) {
++	case ARB_SCHED_PHASE_STOPPING:
++		if (test_bit(PANTHOR_ARB_WORK_STOP, work_tmp))
++			arb_sched_stop_locked(sched);
 +		break;
-+	case VM_ARB_GPU_STOPPED:
-+		/* TODO: on_idle */
++	case ARB_SCHED_PHASE_CLOSING:
++	case ARB_SCHED_PHASE_LOST:
++		if (test_bit(PANTHOR_ARB_WORK_CLOSE, work_tmp))
++			arb_sched_close_locked(sched);
 +		break;
 +	default:
-+		dev_warn(rg->dev, "Invalid message (0x%llx)", message);
 +		break;
 +	}
 +}
 +
-+static irqreturn_t rg_irq_raw_handler(int irq, void *data)
++static enum hrtimer_restart
++panthor_arbitration_sched_on_stop_timeout(struct hrtimer *timer)
 +{
-+	struct panthor_resource_group *rg = data;
-+	unsigned long message_mask;
-+	u32 status;
-+	u8 aw_id;
++	struct panthor_arbitration_timer *atmr = container_of(
++		timer, struct panthor_arbitration_timer, timer);
++	struct panthor_arbitration_sched *sched = container_of(
++		atmr, struct panthor_arbitration_sched, stop_timer);
 +
-+	scoped_guard(spinlock_irqsave, &rg->irq_lock) {
-+		if (rg->irq_suspended)
-+			return IRQ_NONE;
-+	}
++	guard(spinlock_irqsave)(&sched->lock);
 +
-+	status = gpu_read(rg->iomem, AM_RG_IRQ_STATUS);
-+	if (!status)
-+		return IRQ_NONE;
++	if (hrtimer_is_queued(timer))
++		return HRTIMER_NORESTART;
 +
-+	message_mask = status;
-+	for_each_set_bit(aw_id, &message_mask, AM_ARB_MAX_AW_COUNT) {
-+		u64 message = panthor_am_msg_read(&rg->aw_data[aw_id].msg);
++	if (sched->epoch != atmr->epoch ||
++	    sched->phase != ARB_SCHED_PHASE_STOPPING)
++		return HRTIMER_NORESTART;
 +
-+		rg_handle_message(rg, aw_id, message);
-+	}
++	dev_warn(sched->dev,
++		 "%s: AW%d failed to stop in time. Force closing...",
++		 sched->name, sched->active_aw_id);
++	arb_sched_force_close_locked(sched);
 +
-+	gpu_write(rg->iomem, AM_RG_IRQ_CLEAR, status);
-+
-+	return IRQ_HANDLED;
++	return HRTIMER_NORESTART;
 +}
 +
-+static void rg_drain_pending_messages(struct panthor_resource_group *rg)
++static enum hrtimer_restart
++panthor_arbitration_sched_on_grant_timeout(struct hrtimer *timer)
 +{
-+	unsigned long message_mask;
-+	u8 aw_id;
++	struct panthor_arbitration_timer *atmr = container_of(
++		timer, struct panthor_arbitration_timer, timer);
++	struct panthor_arbitration_sched *sched = container_of(
++		atmr, struct panthor_arbitration_sched, grant_timer);
 +
-+	if (pm_runtime_status_suspended(rg->dev))
-+		return;
++	guard(spinlock_irqsave)(&sched->lock);
 +
-+	message_mask = gpu_read(rg->iomem, AM_RG_IRQ_RAWSTAT) & AM_RG_MESSAGE_MASK;
++	if (hrtimer_is_queued(timer))
++		return HRTIMER_NORESTART;
 +
-+	for_each_set_bit(aw_id, &message_mask, AM_ARB_MAX_AW_COUNT) {
-+		u64 message = panthor_am_msg_read(&rg->aw_data[aw_id].msg);
++	if (sched->epoch != atmr->epoch)
++		return HRTIMER_NORESTART;
 +
-+		rg_handle_message(rg, aw_id, message);
-+	}
++	arb_sched_request_stop_locked(sched);
 +
-+	gpu_write(rg->iomem, AM_RG_IRQ_CLEAR, message_mask);
++	return HRTIMER_NORESTART;
 +}
 +
-+static void rg_irq_suspend(struct panthor_resource_group *rg)
++static enum hrtimer_restart
++panthor_arbitration_sched_on_close_timeout(struct hrtimer *timer)
 +{
-+	scoped_guard(spinlock_irqsave, &rg->irq_lock) {
-+		rg->irq_suspended = true;
++	struct panthor_arbitration_timer *atmr = container_of(
++		timer, struct panthor_arbitration_timer, timer);
++	struct panthor_arbitration_sched *sched = container_of(
++		atmr, struct panthor_arbitration_sched, close_timer);
 +
-+		if (!pm_runtime_status_suspended(rg->dev))
-+			gpu_write(rg->iomem, AM_RG_IRQ_MASK, 0);
-+	}
++	guard(spinlock_irqsave)(&sched->lock);
 +
-+	synchronize_irq(rg->irq);
++	if (hrtimer_is_queued(timer))
++		return HRTIMER_NORESTART;
++
++	if (sched->epoch != atmr->epoch)
++		return HRTIMER_NORESTART;
++
++	if (sched->phase != ARB_SCHED_PHASE_CLOSING &&
++	    sched->phase != ARB_SCHED_PHASE_LOST)
++		return HRTIMER_NORESTART;
++
++	dev_warn(sched->dev,
++		 "%s: AW%d failed to close in time. Resetting scheduler...",
++		 sched->name, sched->active_aw_id);
++
++	arb_sched_queue_work(sched, &sched->reset_work);
++
++	return HRTIMER_NORESTART;
 +}
 +
-+static void rg_irq_resume(struct panthor_resource_group *rg)
++int panthor_arbitration_sched_on_request(struct panthor_arbitration_sched *sched, u8 aw_id)
 +{
-+	guard(spinlock_irqsave)(&rg->irq_lock);
-+	rg->irq_suspended = false;
-+	gpu_write(rg->iomem, AM_RG_IRQ_MASK, AM_RG_MESSAGE_MASK);
-+}
++	guard(spinlock_irqsave)(&sched->lock);
 +
-+int panthor_resource_group_suspend(struct panthor_arbitration *adev)
-+{
-+	for (int i = 0; i < AM_ARB_MAX_RG_COUNT; i++) {
-+		struct panthor_resource_group *rg = adev->rg[i];
++	if (aw_id >= AM_ARB_MAX_AW_COUNT)
++		return -EINVAL;
 +
-+		if (!rg)
-+			continue;
-+
-+		rg_irq_suspend(rg);
-+		rg_drain_pending_messages(rg);
++	if (test_bit(aw_id, sched->queued_mask) ||
++	    (sched->active_aw_id == aw_id &&
++	     sched->phase != ARB_SCHED_PHASE_STOPPING)) {
++		dev_warn(sched->dev, "%s: AW%u already in request queue.",
++			 sched->name, aw_id);
++		return -EEXIST;
 +	}
++
++	/* Always put onto queue */
++	if (!kfifo_put(&sched->queue, aw_id)) {
++		dev_err(sched->dev, "%s: request queue unexpectedly full",
++			sched->name);
++		return -ENOSPC;
++	}
++	set_bit(aw_id, sched->queued_mask);
++
++	/* No active AW, schedule next AW */
++	if (sched->active_aw_id < 0)
++		return arb_sched_next_locked(sched);
++
++	/*
++	 * Grant timer for the current AW has previously expired, request it to
++	 * yield the GPU.
++	 */
++	if (sched->grant_previously_expired)
++		arb_sched_request_stop_locked(sched);
 +
 +	return 0;
 +}
 +
-+int panthor_resource_group_resume(struct panthor_arbitration *adev)
++int panthor_arbitration_sched_on_idle(struct panthor_arbitration_sched *sched, u8 aw_id)
 +{
-+	for (int i = 0; i < AM_ARB_MAX_RG_COUNT; i++) {
-+		struct panthor_resource_group *rg = adev->rg[i];
++	guard(spinlock_irqsave)(&sched->lock);
 +
-+		if (!rg)
-+			continue;
++	if (aw_id >= AM_ARB_MAX_AW_COUNT)
++		return -EINVAL;
 +
-+		rg_irq_resume(rg);
-+	}
++	if (sched->active_aw_id != aw_id)
++		return 0;
++
++	if (sched->phase != ARB_SCHED_PHASE_GRANTED &&
++	    sched->phase != ARB_SCHED_PHASE_STOPPING)
++		return 0;
++
++	sched->phase = ARB_SCHED_PHASE_CLOSING;
++	arb_sched_close_locked(sched);
 +
 +	return 0;
 +}
 +
-+void panthor_resource_group_term(struct panthor_arbitration *adev)
++static int arb_sched_on_stopped_locked(struct panthor_arbitration_sched *sched, u8 aw_id)
 +{
-+	for (int i = 0; i < AM_ARB_MAX_RG_COUNT; i++) {
-+		struct panthor_resource_group *rg = adev->rg[i];
++	if (aw_id >= AM_ARB_MAX_AW_COUNT)
++		return -EINVAL;
 +
-+		if (!rg)
-+			continue;
++	if (sched->phase == ARB_SCHED_PHASE_IDLE)
++		return 0;
 +
-+		disable_delayed_work_sync(&rg->msg_retry_work);
-+		rg_irq_suspend(rg);
-+	}
++	if (sched->active_aw_id != aw_id)
++		return 0;
++
++	/* retire old lease */
++	sched->epoch++;
++
++	sched->grant_previously_expired = false;
++	sched->active_aw_id = -1;
++	sched->phase = ARB_SCHED_PHASE_IDLE;
++	bitmap_zero(sched->pending_retry_work, PANTHOR_ARB_WORK_COUNT);
++
++	wake_up_all(&sched->waitqueue);
++
++	return arb_sched_next_locked(sched);
 +}
 +
-+static int resource_group_init(struct panthor_arbitration *adev, int i)
++int panthor_arbitration_sched_on_stopped(struct panthor_arbitration_sched *sched, u8 aw_id)
 +{
-+	struct panthor_resource_group *rg;
++	guard(spinlock_irqsave)(&sched->lock);
++
++	return arb_sched_on_stopped_locked(sched, aw_id);
++}
++
++static void arbitration_sched_disable_work(struct panthor_arbitration_sched *sched)
++{
++	disable_work_sync(&sched->reset_work.work);
++	disable_work_sync(&sched->retry_work.work);
++}
++
++static void arbitration_sched_cancel(struct panthor_arbitration_sched *sched)
++{
++	panthor_arbitration_sched_disable_set(sched, ARB_SCHED_DISABLE_PM);
++	arbitration_sched_disable_work(sched);
++	hrtimer_cancel(&sched->grant_timer.timer);
++	hrtimer_cancel(&sched->stop_timer.timer);
++	hrtimer_cancel(&sched->close_timer.timer);
++}
++
++static void arbitration_sched_term(struct panthor_arbitration_sched *sched)
++{
++	panthor_arbitration_sched_disable_set(sched, ARB_SCHED_DISABLE_TERM);
++
++	if (!pm_runtime_status_suspended(sched->dev))
++		WARN_ON(panthor_arbitration_sched_stop(sched));
++
++	arbitration_sched_cancel(sched);
++}
++
++static int arbitration_sched_init(struct panthor_arbitration *adev, int i)
++{
 +	struct device *dev = adev->dev;
-+	struct irq_data *irqdata;
-+	struct resource *res;
-+	void __iomem *iomem;
-+	u32 irq_flags = 0;
-+	char *name;
-+	int irq;
-+	int ret;
++	struct panthor_arbitration_sched *sched;
 +
-+	if (adev->rg[i])
-+		return dev_warn_probe(dev, -ENODEV,
-+				      "resource-group %u already present", i);
-+
-+	rg = devm_kzalloc(dev, sizeof(*rg), GFP_KERNEL);
-+	if (!rg)
++	sched = devm_kzalloc(dev, sizeof(*sched), GFP_KERNEL);
++	if (!sched)
 +		return -ENOMEM;
 +
-+	name = devm_kasprintf(dev, GFP_KERNEL, "rg%d", i);
-+	if (!name)
++	sched->name = devm_kasprintf(dev, GFP_KERNEL, "sched%d", i);
++	if (!sched->name)
 +		return -ENOMEM;
 +
-+	res = platform_get_resource_byname(to_platform_device(dev),
-+					   IORESOURCE_MEM, name);
-+	if (!res)
-+		return -ENODEV;
++	sched->id = i;
++	sched->dev = dev;
 +
-+	iomem = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(iomem))
-+		return dev_err_probe(dev, PTR_ERR(iomem), "%s: Failed to ioremap", name);
-+
-+	rg->name = name;
-+	rg->dev = dev;
-+	rg->iomem = iomem;
-+
-+	spin_lock_init(&rg->irq_lock);
-+	rg->irq_suspended = true;
-+
-+	rg->wq = devm_alloc_ordered_workqueue(dev, "panthor-%s-wq", WQ_FREEZABLE, name);
-+	if (!rg->wq)
++	sched->wq = devm_alloc_ordered_workqueue(dev, "%s-wq", 0, sched->name);
++	if (!sched->wq)
 +		return -ENOMEM;
 +
-+	INIT_DELAYED_WORK(&rg->msg_retry_work, rg_retry_messages);
++	INIT_WORK(&sched->reset_work.work, arb_sched_reset_work);
++	INIT_WORK(&sched->retry_work.work, arb_sched_retry_work);
 +
-+	for (int i = 0; i < AM_ARB_MAX_AW_COUNT; i++)
-+		panthor_am_msg_init(&rg->aw_data[i].msg,
-+				    rg->iomem + AM_RG_AW_MESSAGE(i));
++	init_waitqueue_head(&sched->waitqueue);
 +
-+	irq = platform_get_irq_byname(to_platform_device(dev), name);
-+	if (irq < 0)
-+		return irq;
++	spin_lock_init(&sched->lock);
++	INIT_KFIFO(sched->queue);
++	sched->active_aw_id = -1;
++	sched->phase = ARB_SCHED_PHASE_IDLE;
 +
-+	rg->irq = irq;
++	hrtimer_setup(&sched->grant_timer.timer,
++		      panthor_arbitration_sched_on_grant_timeout,
++		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	hrtimer_setup(&sched->stop_timer.timer,
++		      panthor_arbitration_sched_on_stop_timeout,
++		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	hrtimer_setup(&sched->close_timer.timer,
++		      panthor_arbitration_sched_on_close_timeout,
++		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 +
-+	irqdata = irq_get_irq_data(irq);
-+	if (irqdata)
-+		irq_flags = irqd_get_trigger_type(irqdata);
-+
-+	ret = devm_request_irq(
-+		dev, irq, rg_irq_raw_handler, irq_flags | IRQF_SHARED,
-+		devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), rg);
-+	if (ret)
-+		return ret;
-+
-+	adev->rg[i] = rg;
-+
-+	rg_irq_resume(rg);
-+
-+	rg_handshake_init(rg);
++	adev->sched[i] = sched;
 +
 +	return 0;
 +}
 +
-+int panthor_resource_group_init(struct panthor_arbitration *adev)
++void panthor_arbitration_sched_term(struct panthor_arbitration *adev)
 +{
-+	for (int i = 0; i < AM_ARB_MAX_RG_COUNT; i++) {
-+		int ret = resource_group_init(adev, i);
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_arbitration_sched *sched = adev->sched[i];
++
++		if (!sched)
++			continue;
++
++		arbitration_sched_term(sched);
++	}
++}
++
++int panthor_arbitration_sched_init(struct panthor_arbitration *adev)
++{
++
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		int ret = arbitration_sched_init(adev, i);
 +
 +		if (ret == -ENODEV)
 +			continue;
@@ -673,30 +1076,179 @@ index 0000000000000..e413cfd9e6d25
 +
 +	return 0;
 +}
-diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.h b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.h
++
++int panthor_arbitration_sched_suspend(struct panthor_arbitration *adev)
++{
++	int ret;
++	int i;
++
++	for (i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_arbitration_sched *sched = adev->sched[i];
++
++		if (!sched)
++			continue;
++
++		panthor_arbitration_sched_disable_set(sched, ARB_SCHED_DISABLE_PM);
++		ret = panthor_arbitration_sched_stop(sched);
++		if (ret)
++			goto err_rollback;
++	}
++
++	return 0;
++
++err_rollback:
++	for (; i >= 0; i--) {
++		struct panthor_arbitration_sched *sched = adev->sched[i];
++
++		if (!sched)
++			continue;
++
++		panthor_arbitration_sched_disable_clear(sched, ARB_SCHED_DISABLE_PM);
++		panthor_arbitration_sched_start(sched);
++	}
++
++	return ret;
++}
++
++int panthor_arbitration_sched_resume(struct panthor_arbitration *adev)
++{
++	int ret;
++	int i;
++
++	for (i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_arbitration_sched *sched = adev->sched[i];
++
++		if (!sched)
++			continue;
++
++		panthor_arbitration_sched_disable_clear(sched, ARB_SCHED_DISABLE_PM);
++		ret = panthor_arbitration_sched_start(sched);
++		if (ret)
++			goto err_rollback;
++	}
++
++	return 0;
++
++err_rollback:
++	for (; i >= 0; i--) {
++		struct panthor_arbitration_sched *sched = adev->sched[i];
++
++		if (!sched)
++			continue;
++
++		panthor_arbitration_sched_disable_set(sched, ARB_SCHED_DISABLE_PM);
++		panthor_arbitration_sched_stop(sched);
++	}
++
++	return ret;
++}
++
++/**
++ * panthor_arbitration_sched_stop - Stop active aw and pause scheduler
++ *
++ * @sched: Pointer to arbitration scheduler
++ *
++ * This method is not IRQ safe as it waits for on_stopped() to be called.
++ */
++int panthor_arbitration_sched_stop(struct panthor_arbitration_sched *sched)
++{
++	int ret;
++
++	arb_sched_request_stop(sched);
++
++	/*
++	 * Provisionally waiting for up to 2x yield_timeout, but path may
++	 * include time taken for panthor_arbitration_on_grant() to complete
++	 * if sched_request_stop() is called while in the GRANTING state.
++	 *
++	 * Realistically, if granting takes more than yield_timeout, HW is in
++	 * bad state either way. Best continue and stop the scheduler.
++	 */
++	ret = arb_sched_wait_phase(sched, ARB_SCHED_PHASE_IDLE,
++				   panthor_arbitration_stop_timeout(sched));
++	if (ret) {
++		/*
++		 * TODO: handle the timeout here by escalating the error when
++		 * reset escalation is supported.
++		 */
++		ret = arb_sched_force_close(sched);
++	}
++
++	/* Should no longer have any further activity. Cancel timer. */
++	hrtimer_cancel(&sched->grant_timer.timer);
++	hrtimer_cancel(&sched->stop_timer.timer);
++	hrtimer_cancel(&sched->close_timer.timer);
++	flush_workqueue(sched->wq);
++
++	scoped_guard(spinlock_irqsave, &sched->lock)
++		if (sched->phase == ARB_SCHED_PHASE_IDLE)
++			return 0;
++
++	return ret;
++}
++
++int panthor_arbitration_sched_start(struct panthor_arbitration_sched *sched)
++{
++	return arb_sched_next(sched);
++}
++
++void panthor_arbitration_sched_disable_set(struct panthor_arbitration_sched *sched,
++					   enum panthor_arb_sched_disable_reason reason)
++{
++	guard(spinlock_irqsave)(&sched->lock);
++
++	sched->disabled |= BIT(reason);
++}
++
++void panthor_arbitration_sched_disable_clear(struct panthor_arbitration_sched *sched,
++					     enum panthor_arb_sched_disable_reason reason)
++{
++	guard(spinlock_irqsave)(&sched->lock);
++
++	sched->disabled &= ~BIT(reason);
++}
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.h b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.h
 new file mode 100644
-index 0000000000000..b8633abdd8eb8
+index 0000000000000..4d0f72838d218
 --- /dev/null
-+++ b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.h
-@@ -0,0 +1,20 @@
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.h
+@@ -0,0 +1,38 @@
 +/* SPDX-License-Identifier: GPL-2.0 or MIT */
 +/* Copyright 2026 ARM Limited. All rights reserved. */
 +
-+#ifndef __PANTHOR_RESOURCE_GROUP_H__
-+#define __PANTHOR_RESOURCE_GROUP_H__
++#ifndef __PANTHOR_ARBITRATION_SCHED_H__
++#define __PANTHOR_ARBITRATION_SCHED_H__
 +
 +#include <linux/types.h>
 +
-+struct device;
 +struct panthor_arbitration;
++struct panthor_arbitration_sched;
 +
-+int panthor_resource_group_init(struct panthor_arbitration *adev);
++enum panthor_arb_sched_disable_reason {
++	/** @ARB_SCHED_DISABLE_PM: scheduler disabled due to PM suspend */
++	ARB_SCHED_DISABLE_PM = 0,
 +
-+void panthor_resource_group_term(struct panthor_arbitration *adev);
++	/** @ARB_SCHED_DISABLE_TERM: scheduler disabled for termination */
++	ARB_SCHED_DISABLE_TERM,
++};
 +
-+int panthor_resource_group_suspend(struct panthor_arbitration *adev);
++int panthor_arbitration_sched_init(struct panthor_arbitration *adev);
++void panthor_arbitration_sched_term(struct panthor_arbitration *adev);
 +
-+int panthor_resource_group_resume(struct panthor_arbitration *adev);
++int panthor_arbitration_sched_suspend(struct panthor_arbitration *adev);
++int panthor_arbitration_sched_resume(struct panthor_arbitration *adev);
++
++int panthor_arbitration_sched_stop(struct panthor_arbitration_sched *sched);
++int panthor_arbitration_sched_start(struct panthor_arbitration_sched *sched);
++
++void panthor_arbitration_sched_disable_set(struct panthor_arbitration_sched *sched,
++					   enum panthor_arb_sched_disable_reason reason);
++void panthor_arbitration_sched_disable_clear(struct panthor_arbitration_sched *sched,
++					     enum panthor_arb_sched_disable_reason reason);
++
++int panthor_arbitration_sched_on_request(struct panthor_arbitration_sched *sched, u8 aw_id);
++int panthor_arbitration_sched_on_idle(struct panthor_arbitration_sched *sched, u8 aw_id);
++int panthor_arbitration_sched_on_stopped(struct panthor_arbitration_sched *sched, u8 aw_id);
 +
 +#endif
 -- 
