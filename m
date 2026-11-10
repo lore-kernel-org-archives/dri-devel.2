@@ -2,42 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0378606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F29606A326
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:22:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyctobeQ
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MkV4TRck
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C50B10F647;
-	Tue, 10 Nov 2026 12:18:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8843910F63B
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 718FA41984;
- Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DB81F0089F;
- Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794313117;
- bh=l510YMPua9hQF3rHGQbO08Rvn89yLiLIgQBdXMzOQlU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UyctobeQt1oDFAWzbnAt8buLFwinOzq8T7Mqmk3P/TURhpU2zOFVGn6CRta9INugD
- ONa/tiLvNStRbZ3RmZmmVnrhkXDJCdgXj7rRCHkFnQnCiNNqCFvVuuTKRPs/0qf7lS
- Y8C79ce7+sLMw32znqnTi5qos/e2y5tOcSmlkoL7zMHhfthSVX3LYCAibpIlAUJTXg
- WaqozZu61IF4XnCll+O66atIxNfLkUYxwPhg3jiSeVs4SYAMVoK5FUgIWtzwDOwmWv
- z2KR1R+3dBHUK6NEFIQM5x0SCBK4ZN8OqG99fLRuDDrqnIJhxil30RRtCpqvJCHowS
- v8P/eKzXAiU9g==
-Message-ID: <sashiko-outbox-206999@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] drm/radeon: Inline drm_crtc_init()
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110120326.538252-5-tzimmermann@suse.de>
-References: <20261110120326.538252-1-tzimmermann@suse.de>
- <20261110120326.538252-5-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE78210E0DA;
+	Tue, 10 Nov 2026 12:22:34 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF2F10E0DA
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:22:27 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-498f5fa4f70so297862f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 04:22:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794313346; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JeNtrZpxHg5DXA0rAIpGjIo+YrtmnmJhahp3SP+ZRq7Cr7qV8FdUGl29dj8bJ7SBvB
+ CrMrKzYWuNMlJu4nmIhULeWMqEU9fl1HSCOPAJcYwyvoD33naG1apQXY/V53yDYlUrEe
+ 4eARubAoQuETNSpML+1oE/btmFHwQvEjiWxNj/cI1cvuXl9+RnwuIx8miRkdK5wWXFhy
+ mqdh9SkPNpZIBkRWqSy3cK4zqgamJHbh/5ADkuq75sAPKMuyezjasMckY/jXJT4YlB7e
+ UVYMhYqVTlIssnzihgujQi2jK8TP4IHnW4uODm1pXAVoi1q1XusRXlPeVmggb3rzR0ry
+ +TKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/+MHJzkrQTBa0PMMy0ZmVpPU2O2nIABhjZj+wACly9s=;
+ fh=lxDfkl/mmDs0gL8m6ldWbSGlTmVE26+tE1+BY5K1Drc=;
+ b=BDRdniyClH1ijOjEttYTxpBJJNe6sORn46BXwNAA+kN494yfjXj5bL+HdeFmKpBHjH
+ +MZvF6lgB0ZZtk4620imFPLJ0CMMLMTe7zOTffpnFm27uhDTOvb1ddCgDab9L/yIVSkB
+ +PPzvjUZbNYDxja4+uBEjghR3MGVkS7ZE0PHPJwBU7TfVlpDWq/u87zB9mHk8+Tehtcu
+ BpqAG9mPAcpsJPAb5k044zfANJRNejztLXy1GPC9ZFdiYwOCPnS4WeBl8BLRcaNgADl/
+ McRiewNuVp9+hi2WhD4K94FJaFynjy1FE1HSgPK26WrucuYK2W+NoJSUEzDRw7WVFDei
+ KW/Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794313346; x=1794918146; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/+MHJzkrQTBa0PMMy0ZmVpPU2O2nIABhjZj+wACly9s=;
+ b=MkV4TRck1hmrQ75BLx9BL2IPK7QDEhJBJdwpDmonp1viTZuATAvFwzffo7nDZ5qzJM
+ Ad7mG7pCeHBRWcVY5zgd5Xr6T/5fnNQ5rlxG1Ii6gjrG+JRwukvyobf6f5YoDsOft9vc
+ GpCYFp6zfCeWyIX+xFdkF6KWJaT9TSxuK2k7T1hNLV7Jr8yGgld2q7Z6YF5P0/JbbNpn
+ eUAsvJlvPbLqqsliY7fjOwDiu/Oe5qC80Mw5Mxdfy2MRWYV9yKlgOBw6Js6SuoSqzUNw
+ 7gnpSidsn/y3iFO7L71NjL6ZcTwh+1yj/xHh/6KB/dWdmrJ5oEhp2xtLE9W4yUurNunK
+ wRQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794313346; x=1794918146;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/+MHJzkrQTBa0PMMy0ZmVpPU2O2nIABhjZj+wACly9s=;
+ b=OwB+0v1W5t5Ww38CuSG6T9GiD30zrvZs1iwtb1B2mGc3u5HxLVbu9JeHkwNaU56z9v
+ OqfanGKagNP7B04D93tlthdnflAEdWlgQXS/TvDBrrWBXsRlMsJpTOLJ0fMXxDA9G3uJ
+ iHFRJ50lBLdZT5tHn5qsmcjxRZRa/4UENniN3wYe9vI0bkGcueUlrykXDlS8qplxMdW8
+ OIw/RyAjUIH88MtCojj/61YAqRxFmvSvVGcHzPynL2BEeUGMwRaECmdXT5suBYxzISGS
+ D3M9pa2KBDrOL1QxWsarSYszecgf8wrEsSygOkgoYpIzJxpQFbk93yn8vHd+4Xssr7rq
+ ZYSQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEfyJFTIVMOt3erwsMG+WRy5m13GVYCc0RT8TpeG76cGKtzLk0jdnfaVzcmBPZ2lNYCkaSqt6yJWzw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9+aNxLOB7+dXKfn+fF/gxbfmauM9C2nqJNkJJfQtUC6/dTlUHN
+ xS6x4/Xj6JokS4a+Cts5PtpO6y0iftZjCCm2IDxcVTb9DJWQZJpR6nuvRqP0W3+wQGf1cZfoUtu
+ PjEyIAn6JvQEbTXDShC7ohHA7aW32WxE=
+X-Gm-Gg: AYBFou128ZZR/5X4+y/oBfKuxN/9+JPDquIQSYmABdB4UEOFpggKMUCamyKke9vxH16
+ Cl9m4WhR9LgK2hzQHWYz/LV51CMRSWb/7JI2XvRqiqeqo+cY5u9lmm0EHVUbf8mDVGkLmTjY0jd
+ SE+mAg/Hu0TkGRiimxrZ/TBxg3IOy7VVE2YQZNkYMlOjYYkYH1oIbvA4s9UNcGISvEa4QIXHpoC
+ 6QcSBYz6+z0Xbjt5xYAaxy8U/sYOCneIxNUZv/8pIXeqWCXANHV6hFAZoZ0moC6eJRhvZxGXaTU
+ eGF5EakswWVL3DtgeGCWvIFhEHp0PqBmT5W2Cm89gaDSsNQtp4/S5ab5C+HymXE5MD8hVKHy2GH
+ lR63UfUwdEkBAlke15Ft7BJmyra7Ekvo/bEWHyNNfcBc/nWtWkkowrtHeAFihi7JFAjgHVH2nY+
+ jaGL6vsXKYuNgxSEdWLtKaxbTxrUMiqbArfv2TzgG7D3r2KlnA/U3jDxMOnA==
+X-Received: by 2002:a05:6000:4555:b0:485:8cc8:1f5f with SMTP id
+ ffacd0b85a97d-498309ae1c2mr3208558f8f.42.1794313345655; Tue, 10 Nov 2026
+ 04:22:25 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261110114622.229608-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <TY3PR01MB1134683B4AB5DC97B70F76FB586722@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB1134683B4AB5DC97B70F76FB586722@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 10 Nov 2026 12:21:59 +0000
+X-Gm-Features: AclHuK9UoXtdtc2HXij8q8Oj65-CKlwzKWMQawTDZRBatrdmul0O7w180edoOrI
+Message-ID: <CA+V-a8sZovqjaDTDFUrw7WJ8kqP4sjk1p0erV5A6tDL3qZNr5A@mail.gmail.com>
+Subject: Re: [PATCH] drm: renesas: rz-du: mipi-dsi: Drop duplicate
+ platform_set_drvdata() call
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 12:18:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,108 +111,47 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/radeon: radeon_crtc_init() breaks non-XRGB8888/ARGB8888
-  modesets
---
+Hi Biju,
 
-commit 084c2fdd462a7f679496ecdf20e1829b6180f22d
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+On Tue, Nov 10, 2026 at 11:59=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.c=
+om> wrote:
+>
+> Hi Prabhakar,
+>
+> Thanks for the patch.
+>
+> > -----Original Message-----
+> > From: Prabhakar <prabhakar.csengg@gmail.com>
+> > Sent: 10 November 2026 11:46
+> > Subject: [PATCH] drm: renesas: rz-du: mipi-dsi: Drop duplicate platform=
+_set_drvdata() call
+> >
+> > From: John Madieu <john.madieu.xa@bp.renesas.com>
+> >
+> > The platform driver data is already set earlier in rzg2l_mipi_dsi_probe=
+(). The subsequent
+> > platform_set_drvdata() call uses the same arguments and is therefore re=
+dundant.
+> >
+> > Remove the duplicate call.
+>
+> Some thread related to the patch [1]. Can you please drop the first one a=
+nd keep the second
+> one?
+>
+Ah, I missed this thread, I will update it and send a v4.
 
-drm/radeon: Inline drm_crtc_init()
+Cheers,
+Prabhakar
 
-This commit inlines drm_crtc_init() into radeon_crtc_init() by allocating
-a primary plane with __drm_universal_plane_alloc() and initializing the
-CRTC via drm_crtc_init_with_planes().
-
-> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
-deon/radeon_display.c
-> index aac6733ddd82c..4b784df4679f9 100644
-> --- a/drivers/gpu/drm/radeon/radeon_display.c
-> +++ b/drivers/gpu/drm/radeon/radeon_display.c
-> @@ -38,6 +38,7 @@
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_plane_helper.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/drm_vblank.h>
->  #include <drm/radeon_drm.h>
-> @@ -47,6 +48,17 @@
->  #include "radeon.h"
->  #include "radeon_kms.h"
-> =20
-> +static const u32 radeon_primary_plane_formats[] =3D {
-> +	DRM_FORMAT_XRGB8888,
-> +	DRM_FORMAT_ARGB8888,
-> +};
-> +
-> +static const struct drm_plane_funcs radeon_primary_plane_funcs =3D {
-> +	.update_plane =3D drm_plane_helper_update_primary,
-> +	.disable_plane =3D drm_plane_helper_disable_primary,
-> +	.destroy =3D drm_plane_helper_destroy,
-> +};
-> +
->  static void avivo_crtc_load_lut(struct drm_crtc *crtc)
->  {
->  	struct radeon_crtc *radeon_crtc =3D to_radeon_crtc(crtc);
-> @@ -680,20 +692,31 @@ static const struct drm_crtc_funcs radeon_crtc_func=
-s =3D {
->  static void radeon_crtc_init(struct drm_device *dev, int index)
->  {
->  	struct radeon_device *rdev =3D dev->dev_private;
-> +	struct drm_plane *primary;
->  	struct radeon_crtc *radeon_crtc;
-> +	int ret;
-> =20
-> -	radeon_crtc =3D kzalloc_obj(*radeon_crtc);
-> -	if (radeon_crtc =3D=3D NULL)
-> +	primary =3D __drm_universal_plane_alloc(dev, sizeof(*primary), 0, 0,
-> +					      &radeon_primary_plane_funcs,
-> +					      radeon_primary_plane_formats,
-> +					      ARRAY_SIZE(radeon_primary_plane_formats),
-> +					      NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
-
-[Severity: High]
-Does restricting radeon_primary_plane_formats[] to only two 32-bit formats
-cause drm_mode_setcrtc() to reject other pixel formats supported by radeon?
-
-Previously, drm_crtc_init() set primary->format_default =3D true, which made
-drm_mode_setcrtc() skip the drm_plane_has_format() check and leave format
-validation to the CRTC callbacks:
-
-drivers/gpu/drm/drm_crtc.c:drm_mode_setcrtc() {
-    ...
-		if (!plane->format_default) {
-			if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
-				drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
-					    &fb->format->format, fb->modifier);
-				ret =3D -EINVAL;
-				goto out;
-			}
-		}
-    ...
-}
-
-Allocating the primary plane via __drm_universal_plane_alloc() leaves
-primary->format_default as false (and follow-up commit "drm: Remove
-drm_crtc_init()" removes format_default altogether). As a result,
-drm_mode_setcrtc() now fails with -EINVAL for 8bpp, 15bpp, 16bpp, and 30bpp
-framebuffers (such as C8, RGB565, XRGB1555, and XRGB2101010) that
-dce4_crtc_do_set_base(), avivo_crtc_do_set_base(), and
-radeon_crtc_do_set_base() handle.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110120326.5382=
-52-1-tzimmermann@suse.de?part=3D4
+> [1] https://lore.kernel.org/all/TY6PR01MB173770FD0BA340F5A50633E21FF322@T=
+Y6PR01MB17377.jpnprd01.prod.outlook.com/
+>
