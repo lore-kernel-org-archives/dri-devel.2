@@ -2,42 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D51606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5AF60A2607
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUHAEy+8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xzvsi7K+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC05310E002;
-	Tue, 10 Nov 2026 21:27:29 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBBB310E002
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:27:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9CA8260254
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:27:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA131F0089F;
- Tue, 10 Nov 2026 21:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794346041;
- bh=72+moSR4CwGXr/jKUo6yl9Yk/rGpxTrHtwqfJai4CoM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KUHAEy+8Dv45KIOMAsZ9BZBetK4aXeRx2NjzrwLzsKRC+npoIgGaTKLboV3Cd/iMP
- ksLhaTm1KAOSHCUT7k5wmP46Yv2+bjNDdU3gP2SVz6GWnyCelV3Ie4ZPJIw8bmMswL
- y/zCOFwV4O/6GI+KPHUdsEM8NyM7cQ2cNIda25RRAfyx8g/LSkc24NIgROJ1HcANkn
- MqoKHL7oeJvBYtzUv14LkJumjoDBYzpGY9xvtOOhA6GD9q8umI0Sd598wouOsROpgr
- UXn2liWz11wxhdYYDOjuyY8H2efxUanCCNQxPLhBU9s8Cu1fFMYz3umAqcQ9juWqei
- pcg1YEAwuzjcg==
-Message-ID: <sashiko-outbox-207767@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
-To: "Mario Limonciello" <superm1@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org>
-References: <20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0961910F068;
+	Tue, 10 Nov 2026 21:50:03 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C90C410E33B
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:49:56 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-36dc4797082so360693eec.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:49:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794347396; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RT/uwkw8p3jvWSi8oW7OxqhHs1r9qjmEoB16di4tBJaohCuggoEbZUlye0eT2yFn+H
+ o4pgR4Iu2FNFglm9rNsDGzybLQjZ+T3eK8lyGJZ6Er3zLVJ+brXfb4VgRJphPhXAm9MQ
+ RdePrlYt+OygJM5bUv7t/KYzbNEqcFsOKXsLKih9LWnkbVHdin6wYzJLak0W/znvgBEF
+ yLY3sq10a2MQsZmQ5RfcCEPstxE9x/3IJBP/TgaAb0KqPMGA/jJ0L6QDz+RGdjNsv3+8
+ muWIzWkRylGw8cFHAAaR+dZK+Dcwl1jt55Q1D91Mg/arx50qfw35iGH9bFJZ4E5m/k6T
+ Hf3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
+ fh=Ak5/++zjkTSrPBtaoF0DHweHoik9aqhMe2gz5bOIz7I=;
+ b=JoAjBlyLveVBJ9Q6hiQ6XaB1g9b9tZXixGQo+xotJpsqgn1WzRP3VYMzppMjp3JA6A
+ fWAYblHW6fWIepLAFVYYH1ivc0Fj/5UBjhVB7ZFR18CX9aTxkV7x7VvE3Fpla6XIV8QG
+ UATte2E9B/5r3hMTZy5r54nrtXyE6bPiE5Og4gmEV1a1UuP4rB6Rf7ZND2akQoX+vlBh
+ ipwWFqCVzKwFXCWJcTCVrZFbenepIgHKD+8Tzdko5zzC9NsD9BeRP8QAyswCU88jwNUm
+ cz6hMdEOnm62CxBm2QYLnc8MoWWEZ/Tkozi+P2svahX5k8/p68yjHyRnS5JECsyiTLdO
+ xx7w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794347396; x=1794952196; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
+ b=xzvsi7K+Rxx1yTTQAbCLSkkRBIbkgyRzJKujahpc8PaT8Vapym4zYDm2BV0aDxxS4M
+ 49qkWCzWsbZewo7sMhrgMxkKnQWVDw2ywGBxR4M0dd50s1R7jMIfGhIfvphoqOS4M+U1
+ WfYV6XduF+G73yuQABpAQDEOcquhiS41Xs1EnIDlclpacuLgolCPJvTmjxuJmJg0Zo9U
+ Uw4Aso70xfOM6JVBzdY7lJhgTPcITIaRIt0TLqsHUV7eKTZT1NpzYeiudt1HNEZRuz5h
+ PHUMj/U+3rIFgaEm5wRoCpZTHhdBP7oAA14+784ddpmjYg1W//NZo+19xhbfSVj8ceGr
+ 1BoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794347396; x=1794952196;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
+ b=ii206kISRuxG7hIYXgpSAmDBOPLIXTw38ucc62kqp+ql9ppDRImFYwwUJo103SMlgB
+ /IVn05KncJvyqUhs0WqeYxAIOthXRaq9CtJbSIqQsl3u/rslRMSKdUZscFq03hnLFVQk
+ jMv9+Kn5XSR1czhxBc1n1yS/mVuWCYNwZzAXB9AQZODdrWVIv+255eq5t3jgpWG08Em0
+ Xaym0ntmtcpWCwQixI63Fz46J7X0JhSqWNmR6+GmelNZ4zxRqInplaQpjsPeUaPOOidr
+ wir14rKcmNeQxlIzL7jN0i5HpczMW8yMXWNCwq+umTaMxI8nTR7yezP3VMMaXYKwyVS2
+ H1hw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFcRMpSocvt9OpiA5qEMe5BMOkGWaTD0x08sOdUgvClE8gF/9wtQy5dcLC/UoFhf3c2OdxgGUHjHO4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+qYjL3TIg52KxEr1Pb6K18tQrQmAwuYfoF3dLtbNkStUJn/Z4p
+ O01MOHXS125U7ozjqAHkQEJS+rwl3pdmIChWgn1ZnN6PDdNDl8RGoqIOB2ThSXVq4zYu6ShDY3e
+ m2Q+YdJ0ne0xcW7YLtGWxjUitZeRVm7g=
+X-Gm-Gg: AYBFou3JdEpgTAdoNTsOoCPr+nmO0UZ6WV61zH26X9N/ZvIYuRblUIQ8m28ukdkLnSK
+ Rgc0iQ12DDWSes3QSe9heOwu0CmNUPG0GP2hyDX0F1BohfQEO5bIqLGwor7sFf6PLuVG/yMDYu9
+ p7cBIfmHuV7jIZ3sMjJO9/aruxIFwvM1T5NHo/AMeBK9hT8PAozIK42KDoumkLW/NVOgu7znAL+
+ 7WRh5E1/aP/uEeqgPa0MWG93L8s/4fGQd3Ke3aaZ5+v9KChihr2sfWfEkAkZ9YDxzeysfIBgi2s
+ aZWp3mIHM8bOnYg0Q+3Z5u7dYP+9mvGXpOeOAeqLewZ9blX5aqmtrmLLMleYe7ZQ/murWvcyv0S
+ Ih/IqMRg/P/tbs9dM5YNTds5CgcfDUmEcxWH+JTcLSce+CP3IozYynu3z3OOpwvZ2mwX9k4CtZq
+ sWoy2g44ebcAawTremlC+r1S0+ztJVVeYLItpNX2kLMMEvtg3QDuFv7a1ha2s=
+X-Received: by 2002:a05:693c:41cb:20b0:36e:66d8:1424 with SMTP id
+ 5a478bee46e88-37680a60bbdmr1218085eec.0.1794347395773; Tue, 10 Nov 2026
+ 13:49:55 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261110120326.538252-1-tzimmermann@suse.de>
+In-Reply-To: <20261110120326.538252-1-tzimmermann@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 Nov 2026 16:49:43 -0500
+X-Gm-Features: AclHuK_r02Bf4QXu75VAdsauSxMk2WkxkkNGMymOSn-A5ONgkHUPX0j_0Ud49DY
+Message-ID: <CADnq5_NCF2J0Dzea5swubs+eEKBLq+8ontc5n=kihYZVA3A1aw@mail.gmail.com>
+Subject: Re: [PATCH 0/5] drm/amdgpu,radeon: Inline drm_crtc_init()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ sashiko-reviews@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 21:27:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,90 +103,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amd/display: stale link->aux_mode in amdgpu_dm_i2c_xfer()
-  breaks DP++
---
+On Tue, Nov 10, 2026 at 7:11=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> The helper drm_crtc_init() sets up a CRTC with a primary plane for
+> non-atomic mode setting. Only drivers for some AMD hardware still
+> use it.
+>
+> Inline drm_crtc_init() into amdgpu and radeon and remove it from
+> DRM. All new code implements atomic mode setting, which does not
+> use drm_crtc_init().
+>
 
-commit 98cc22cc3e67bb7ce06a4e571268aa8a05d6952f
-Author: Mario Limonciello <superm1@kernel.org>
+I'd like to drop all of the old amdgpu non-DC code since DC is now the
+default, and we have an LTS kernel now.  I'm planning to send these
+out in the near future:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/remove-non-dc-display?=
+ref_type=3Dheads
+So that just leaves radeon.
 
-drm/amd/display: Route connector DDC over AUX for native DP sinks
+Alex
 
-This commit routes I2C transfers on a connector's DDC adapter to the AUX
-DDC adapter when link->aux_mode is set so that userspace DDC/CI transfers
-reach native DisplayPort sinks.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index b498fc5fbb140..f80de9e7f850c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c=
-_adapter *i2c_adap,
->  	int i;
->  	int result =3D -EIO;
-> =20
-> +	if (!i2c->oem && ddc_service->link) {
-> +		struct dc_link *link =3D ddc_service->link;
-> +		struct amdgpu_dm_connector *aconnector =3D link->priv;
-> +
-> +		/*
-> +		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
-> +		 * tunneled over the AUX channel; the physical i2c pins only
-> +		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
-> +		 * Use the same aux_mode selection as the EDID read helpers so
-> +		 * the connector's single "ddc" bus works for either sink.
-> +		 */
-> +		if (aconnector && link->aux_mode &&
-> +		    aconnector->dm_dp_aux.aux.ddc.algo)
-> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-> +	}
-
-[Severity: High]
-Can checking link->aux_mode here misroute passive DP++ dongle detection
-over AUX when a passive DP-to-HDMI adapter is plugged into a port that
-previously had a native DP sink connected?
-
-In detect_link_and_local_sink(), link->aux_mode is not cleared on
-disconnect and is only updated after detect_dp() finishes:
-
-drivers/gpu/drm/amd/display/dc/link/link_detection.c:detect_link_and_local_=
-sink() {
-	...
-			if (!detect_dp(link, &sink_caps, reason)) {
-	...
-		set_ddc_transaction_type(link->ddc,
-					 sink_caps.transaction_type);
-
-		link->aux_mode =3D
-			link_is_in_aux_transaction_mode(link->ddc);
-	...
-}
-
-While dm_helpers_read_local_edid() runs after link->aux_mode is updated,
-detect_dp() runs before it and calls dp_passive_dongle_detection() ->
-query_dp_dual_mode_adaptor() -> i2c_read() -> dm_helpers_submit_i2c(),
-which goes through i2c_transfer(&aconnector->i2c->base, ...) and
-amdgpu_dm_i2c_xfer().  If a native DP monitor was previously connected,
-link->aux_mode is still true during detect_dp(), so the read of
-DP_HDMI_DONGLE_ADDRESS (0x40) is redirected to the AUX adapter instead of
-the physical I2C pins.  Because a passive adapter has no AUX responder,
-the read fails and query_dp_dual_mode_adaptor() falls back to
-DISPLAY_DONGLE_DP_DVI_DONGLE (SIGNAL_TYPE_DVI_SINGLE_LINK), capping the
-pixel clock to 165 MHz and disabling HDMI audio and infoframes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-superm1-am=
-dgpu-ddc-v3-1-9436b04d1e31@kernel.org?part=3D1
+> DRM support for kernel panic is only implemented in amdgpu. Take
+> the panic helpers from drm_crtc_init() in amdgpu, but clean it up
+> in radeon.
+>
+> With this series in place, DRM's helpers for drawing panic screens
+> can be further integrated with other drawing helpers, as outlined
+> in [1].
+>
+> Tested on radeon with a Radeon HD 6570.
+>
+> [1] https://lore.kernel.org/dri-devel/20261019154612.777074-1-tzimmermann=
+@suse.de/
+>
+> Thomas Zimmermann (5):
+>   drm/amdgpu: dce_v6_0: Inline drm_crtc_init()
+>   drm/amdgpu: dce_v8_0: Inline drm_crtc_init()
+>   drm/amdgpu: dce_v10_0: Inline drm_crtc_init()
+>   drm/radeon: Inline drm_crtc_init()
+>   drm: Remove drm_crtc_init()
+>
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 44 ++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 44 ++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 44 ++++++++++++++-
+>  drivers/gpu/drm/drm_crtc.c              | 26 +++------
+>  drivers/gpu/drm/drm_modeset_helper.c    | 74 -------------------------
+>  drivers/gpu/drm/radeon/radeon_display.c | 47 +++++++++++++---
+>  include/drm/drm_modeset_helper.h        |  3 -
+>  include/drm/drm_plane.h                 |  5 --
+>  8 files changed, 170 insertions(+), 117 deletions(-)
+>
+> --
+> 2.56.0
+>
