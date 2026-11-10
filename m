@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D76F606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 05:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D43C606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 05:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cHZqdY5t
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nZjTpO0Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83AB810E28B;
-	Tue, 10 Nov 2026 05:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B46D210E925;
+	Tue, 10 Nov 2026 05:21:27 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF75310E28B
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:21:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6964110E925
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B301B41A57;
- Tue, 10 Nov 2026 05:21:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE991F0089F;
- Tue, 10 Nov 2026 05:21:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 53CCB4099E;
+ Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DEA1F0089F;
+ Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794288065;
- bh=AwgNMmOR33z/qsN2oMioaZGKlcCj6dIMAUsa2AwTt4Q=;
+ s=k20260515; t=1794288081;
+ bh=SkbrO0xEIvTkQs1+jxiHhKjvuvmI9gN6x5b+7M6xgKM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cHZqdY5tMjyUNgpa3fLa0rbMf2RUkUXjMmsHWZE+gsz6ZuE1e51HyRKfNQzqSs7vk
- BI9/r1hiAmtNyO56FWlHQpz2W2IfTvfhLnTVKS+xWcqjngmyIKfDYBmW5oz0bCIlpi
- EfSEeWM/6o1Mlki60ddMiJwqoAFdW2ZzzWJl48YWRFbbEIF4fCEzGRtsvOAZETHa9Z
- GV17c5ycn23bJmnB6vBZlj4F9cNKzz42WkKfl2Eqr6Y6u0LefktgT800dlPw1r8DP+
- S9Hw8YecoBUDP4k3Qt2OeBCcyL5u/teKCyIV32qjnCPzRFwRkd5pHOsJL59ASs3ZoI
- cZP66VUEUmSYA==
-Message-ID: <sashiko-outbox-206275@kernel.org>
+ b=nZjTpO0Zjk4RcONeN0fme+RM4UTzfkAyqznXYQUTGCjxtOQZDTYF509XcrbhBEijf
+ stFpVdIEqLZRCwhakDalJ7QTCK4/aLkG/f9tQnpO0yogkW99eR+wJdMcCvgjBbyg3i
+ 3Wl0G0USsCr5kHu+8Tujiy7pPXeoW4TyUPe25FA+MakOUSYFfj71rZtH979bBrom3D
+ dhyb+o3r8qn6ynOeJGoTZqb+2JqqwCd+Wwk4m8ABuH1Kp4OWt59OVhHNCKD8/g7VaX
+ hpYhXH2ppHdkKXU9K/klLDWYm2ZpaQwWf/fZY1FDyiP9MSG7BxhQbLwDuN6DPPWROX
+ kWUCnkutr4jkw==
+Message-ID: <sashiko-outbox-206276@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 26/29] drm/msm/dp: wake threaded handler for HPD IRQs
+Subject: Re: [PATCH v8 10/29] drm/msm/dp: add link_ready to manage
+ link-level operations
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-msm-dp-mst-v8-26-d040fb33db5f@oss.qualcomm.com>
+In-Reply-To: <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
 References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-26-d040fb33db5f@oss.qualcomm.com>
+ <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 05:21:05 +0000
+Date: Tue, 10 Nov 2026 05:21:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,83 +61,42 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/msm/dp: ret initialized to IRQ_HANDLED in
-  msm_dp_display_irq_handler()
+- [Low] drm/msm/dp: misleading debug message in
+  msm_dp_display_unprepare()
 --
 
-commit ee3e939cb1174f2996abe5c5ad053dbd42ebbbaa
+commit 88db74be5ac740123c07fc4d5b8d88136a13ec57
 Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: wake threaded handler for HPD IRQs
+drm/msm/dp: add link_ready to manage link-level operations
 
-This commit fixes msm_dp_display_irq_handler() to return IRQ_WAKE_THREAD
-when an HPD interrupt is pending, and updates msm_dp_ctrl_isr() to report
-DP_INTERRUPT_STATUS2 interrupts as IRQ_HANDLED.
+This commit adds a link_ready flag to struct msm_dp so that link preparation
+and teardown run only once when multiple streams share a DisplayPort link in
+MST mode.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 82fb3ae750f42..5623693d9242e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -3018,6 +3018,9 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm=
-_dp_ctrl,
->  	}
-> =20
->  	isr =3D msm_dp_ctrl_get_interrupt(ctrl);
-> +	/* All status2 sources are ACKed by msm_dp_ctrl_get_interrupt(). */
-> +	if (isr & DP_INTERRUPT_STATUS2)
-> +		ret =3D IRQ_HANDLED;
-> =20
->  	if (isr & DP_CTRL_INTR_READY_FOR_VIDEO) {
->  		drm_dbg_dp(ctrl->drm_dev, "dp_video_ready\n");
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index 8ea3d258a98f3..40b2f6e120cf0 100644
+> index 471085744c7c2..6a522cc71a2ac 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1091,23 +1091,24 @@ static irqreturn_t msm_dp_display_irq_handler(int=
- irq, void *dev_id)
->  	u32 hpd_isr_status;
->  	unsigned long flags;
->  	irqreturn_t ret =3D IRQ_HANDLED;
-> +	bool hpd_irq_pending;
-> =20
->  	hpd_isr_status =3D msm_dp_aux_get_hpd_intr_status(dp->aux);
-> +	hpd_irq_pending =3D hpd_isr_status & DP_DP_HPD_INT_MASK;
-> =20
-> -	if (hpd_isr_status & 0x0F) {
-> +	if (hpd_irq_pending) {
->  		drm_dbg_dp(dp->drm_dev, "type=3D%d isr=3D0x%x\n",
->  			dp->msm_dp_display.connector_type, hpd_isr_status);
-> =20
->  		spin_lock_irqsave(&dp->irq_thread_lock, flags);
->  		dp->hpd_isr_status |=3D hpd_isr_status;
-> -		ret =3D IRQ_WAKE_THREAD;
->  		spin_unlock_irqrestore(&dp->irq_thread_lock, flags);
->  	}
-> =20
->  	/* DP controller isr */
->  	ret |=3D msm_dp_ctrl_isr(dp->ctrl, dp->panel);
-> =20
-> -	return ret;
-> +	return hpd_irq_pending ? IRQ_WAKE_THREAD : ret;
->  }
 
-[Severity: Medium]
-Should ret in msm_dp_display_irq_handler() be initialized to IRQ_NONE (or
-assigned directly from msm_dp_ctrl_isr()) instead of IRQ_HANDLED?
+[ ... ]
 
-Because ret starts as IRQ_HANDLED (1) and msm_dp_ctrl_isr() only returns
-IRQ_NONE (0) or IRQ_HANDLED (1), "ret |=3D msm_dp_ctrl_isr(...)" always
-evaluates to IRQ_HANDLED.  This discards the return value of
-msm_dp_ctrl_isr(), makes the new DP_INTERRUPT_STATUS2 check a no-op, and
-prevents the IRQ core from ever seeing IRQ_NONE on unhandled or spurious
-interrupts.
+> @@ -1570,6 +1587,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_d=
+p_display)
+> =20
+>  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+dp_display);
+> =20
+> +	if (!msm_dp_display->link_ready) {
+> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+> +		return;
+> +	}
 
-Also, if ret is changed to reflect msm_dp_ctrl_isr(), should the PSR
-branch in msm_dp_ctrl_isr() set ret =3D IRQ_HANDLED when
-msm_dp_ctrl_get_psr_interrupt(ctrl) returns a non-zero status?
+[Severity: Low]
+Should this debug message say that the link is not ready or has already
+been torn down instead of "Link already setup, return"?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-msm-dp-mst=
--v8-0-d040fb33db5f@oss.qualcomm.com?part=3D26
+-v8-0-d040fb33db5f@oss.qualcomm.com?part=3D10
