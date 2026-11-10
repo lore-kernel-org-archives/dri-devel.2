@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D43C606A334
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 05:21:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF53606A326
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 05:21:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nZjTpO0Z
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHWHs1Qb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B46D210E925;
-	Tue, 10 Nov 2026 05:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F7E10EDB5;
+	Tue, 10 Nov 2026 05:21:30 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6964110E925
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFE310EB86
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:21:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 53CCB4099E;
+ by sea.source.kernel.org (Postfix) with ESMTP id EB9B5450D4;
  Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DEA1F0089F;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFE3C1F0089F;
  Tue, 10 Nov 2026 05:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1794288081;
- bh=SkbrO0xEIvTkQs1+jxiHhKjvuvmI9gN6x5b+7M6xgKM=;
+ bh=5Q0aV0oSq5gkKvkwCPVUph/xGekW848HB+67UwIjJxg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nZjTpO0Zjk4RcONeN0fme+RM4UTzfkAyqznXYQUTGCjxtOQZDTYF509XcrbhBEijf
- stFpVdIEqLZRCwhakDalJ7QTCK4/aLkG/f9tQnpO0yogkW99eR+wJdMcCvgjBbyg3i
- 3Wl0G0USsCr5kHu+8Tujiy7pPXeoW4TyUPe25FA+MakOUSYFfj71rZtH979bBrom3D
- dhyb+o3r8qn6ynOeJGoTZqb+2JqqwCd+Wwk4m8ABuH1Kp4OWt59OVhHNCKD8/g7VaX
- hpYhXH2ppHdkKXU9K/klLDWYm2ZpaQwWf/fZY1FDyiP9MSG7BxhQbLwDuN6DPPWROX
- kWUCnkutr4jkw==
-Message-ID: <sashiko-outbox-206276@kernel.org>
+ b=SHWHs1Qb0cCmaquSraovsInVMLuFywcyxbGgasK2yOCZyvJRUECvtIy8nFeeHllTw
+ J00BbhA+YhjA2zS8KeIgbyMHRK7qkOEL32B9cDoqzR4OYjLjkheMovsTIYG4VMpJG2
+ WCgiTr/8aUzhvg8/H1uWkxrLjSjHN/JshGl+eg8MV0NsPql6Dvy2UzxacpDImRm0DN
+ u9pp/zFezmst1ecj5xRMhSl2OINdqddS7IYQPpuoFjJ9IqIRDiM+lX9sU5Gttau1RH
+ +ph+WbcJpgHaM5DxuXjvTVHu5HZcDQYRgwVBsLvPkK6TcjC1sK3R3DQ56/3SwLQkt0
+ EarHOB7oMmyfg==
+Message-ID: <sashiko-outbox-206277@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 10/29] drm/msm/dp: add link_ready to manage
- link-level operations
+Subject: Re: [PATCH v8 07/29] drm/msm/dp: add support for MST channel slot
+ allocation
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
+In-Reply-To: <20261110-msm-dp-mst-v8-7-d040fb33db5f@oss.qualcomm.com>
 References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
+ <20261110-msm-dp-mst-v8-7-d040fb33db5f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 05:21:20 +0000
+Date: Tue, 10 Nov 2026 05:21:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +61,57 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/msm/dp: misleading debug message in
-  msm_dp_display_unprepare()
+- [Low] drm/msm/dp: unused DP_MAX_TIME_SLOTS macro in
+  msm_dp_ctrl_mst_calculate_rg()
 --
 
-commit 88db74be5ac740123c07fc4d5b8d88136a13ec57
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit 0628c2c6f6b7a217c52d585875dabea16424021f
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drm/msm/dp: add link_ready to manage link-level operations
+drm/msm/dp: add support for MST channel slot allocation
 
-This commit adds a link_ready flag to struct msm_dp so that link preparation
-and teardown run only once when multiple streams share a DisplayPort link in
-MST mode.
+This commit adds DP controller support for programming per-stream MST
+timeslot allocations and calculating the rate governor parameters.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 471085744c7c2..6a522cc71a2ac 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index 8a2396aec6d5e..0b34db3bd5d22 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -83,6 +83,7 @@
+>  #define MR_LINK_PRBS7 0x100
+>  #define MR_LINK_CUSTOM80 0x200
+>  #define MR_LINK_TRAINING4  0x40
+> +#define DP_MAX_TIME_SLOTS 64
 
 [ ... ]
 
-> @@ -1570,6 +1587,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_d=
-p_display)
-> =20
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> =20
-> +	if (!msm_dp_display->link_ready) {
-> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
-> +		return;
-> +	}
+> +static void msm_dp_ctrl_mst_calculate_rg(struct msm_dp_ctrl_private *ctr=
+l,
+> +					 struct msm_dp_panel *panel,
+> +					 const struct msm_dp_mst_slot_info *slots,
+> +					 u32 *p_x_int, u32 *p_y_frac_enum)
+> +{
+> +	u64 min_slot_cnt, max_slot_cnt;
+> +	u64 raw_target_sc, target_sc_fixp, scale_fixp;
+> +	u64 pclk =3D panel->msm_dp_mode.drm_mode.clock;
+> +	u64 lclk =3D 0;
+> +	u64 lanes =3D ctrl->link->link_params.num_lanes;
+> +	u64 bpp =3D panel->msm_dp_mode.bpp;
+> +	u64 pbn =3D slots[panel->stream_id].pbn;
+> +	u64 numerator, denominator, temp, temp1, scaled_target_sc;
+> +	u32 x_int =3D 0, y_frac_enum =3D 0;
+> +	u64 target_strm_sym, y_frac_enum_fixp;
+> +
+> +	lclk =3D ctrl->link->link_params.rate;
+> +
+> +	/* min_slot_cnt */
+> +	numerator =3D pclk * bpp * 64 * 1000;
 
 [Severity: Low]
-Should this debug message say that the link is not ready or has already
-been torn down instead of "Link already setup, return"?
+This isn't a bug, but DP_MAX_TIME_SLOTS is defined above and never used;
+should this calculation use DP_MAX_TIME_SLOTS instead of 64?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-msm-dp-mst=
--v8-0-d040fb33db5f@oss.qualcomm.com?part=3D10
+-v8-0-d040fb33db5f@oss.qualcomm.com?part=3D7
