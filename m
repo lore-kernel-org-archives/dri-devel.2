@@ -2,136 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E19606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 14:47:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B204606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 15:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=HR8pTqLf
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPPLUWd5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D7C10F759;
-	Tue, 10 Nov 2026 14:47:10 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013001.outbound.protection.outlook.com
- [40.107.201.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B8B10E219;
- Tue, 10 Nov 2026 14:47:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JkKXE7J+Eg3w8tTkZCmeObGq5gXs3+DHqMWGyNtWGQaoUtuVIbUMqqOiAg5+OujxANvlVUGpEZXJjAK/oqnYF6T+OinrAbh9IWtBqThou/L8jK6GIwjlBSO5V/qsBS57NYt04RBjrvykiwby5FmREqtWTgM22DAEOmwExvaK4unYgQcRRCouuBzcLvjPpWaTF4WpCWmaJ67EQTyNyzfalADjglz8zehj73KUcmsfBiwtX/qvq9eOVwCnQYMjs+ZNArTwgdNVjRifSd9mQJWcuJ6lzG25CFP7hihwo0dbK6VEsVR6wmEnFTGBT5k+bME5HJr8U7F6WEY6Mr5s7RdkUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B1L2b588dvnDsGZYZRysyR4XN80z7wzeHrPhT8yX6FE=;
- b=tBmoabAi9kgh9srFr1u611pcW+NCgrQwH6KeRQjG68ISA8/j7Thl8llQdGun3oK3t4dh+vYjVWxPvg/dg4Q5kuqoPDMsR1dP5C+7/9D2Cjf2ccGFm5QJ4ZbNWq6buZCP8kWmX3HMJoXogqv3rkysN5Wt/hNHqkQaYWgh8YRO2+OE9LZFzbVrIQB7tqsdzKDJGFGRSrT+afihPIRY4anHqMXBCJqXkXfNQ/8phg1L1zd80sIktPmQ98tAsUU4C/PcUX6swHtEgMXl8tXySz4EVJxyF9IyjDqEp8le9+lXCgWSxXhV7EHkuHwwd9pzQ6uZiBZBM7OGm6svbZOPGp6nWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B1L2b588dvnDsGZYZRysyR4XN80z7wzeHrPhT8yX6FE=;
- b=HR8pTqLf9nf8G//Yh0P1aEmJlRy38Pq/xK/T+tClKjBYpcjpe8J9tpTRRo/w6AHTLGHX8chUN1vn+oUgZU1eoiF+RjRSVqlNEczzrSOXOtX4jSu1ea1MQ1z3uU8Cb4kxt8wFoDovtgtnz8FDguBsP5tnS5hUkILbN7oBanmbRFI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by EAYPR12MB272970.namprd12.prod.outlook.com
- (2603:10b6:303:2fb::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 14:47:01 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 14:47:01 +0000
-Message-ID: <101922f3-d918-4429-a7c8-c96f72474993@amd.com>
-Date: Tue, 10 Nov 2026 09:46:59 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 02/22] drm/amdgpu: add SVM core header and VM
- integration
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Simona Vetter <simona@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
- Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
- Yiru Ma <yiru.ma@amd.com>, Honglei Huang <honghuan@amd.com>
-References: <20261021025915.2433837-1-ray.huang@amd.com>
- <20261021025915.2433837-3-ray.huang@amd.com>
- <ee28d94b-ab11-4625-9c01-435491548f9d@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <ee28d94b-ab11-4625-9c01-435491548f9d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::11) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|EAYPR12MB272970:EE_
-X-MS-Office365-Filtering-Correlation-Id: f841b24f-c405-4252-0406-08df3f397a65
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|3023799007|261026140227099003|261026121527099003|261021121427099003|261028144727099003|261022115727099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261022113327099003|261022105027099003|261022075727099003|261102123227099003|10067099003|11063799006|4143699003|56012099006|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 6K22wOMTtEfdo6tbPIWH+teiK9i+nqsnCzQH2JbJjBQkUUmD9xjWTuWbtMT0u8iAXQkqzOIKlOGEgdVycJjsp0Jtq1XMRTjsIXbxn1unAZ96u8ONOiqLwGX0O+33NZUnZ/viJL1vU+BqdC9DwTVTEN+pk5DkhbqYBc5YxD0iTCPsu0zYVT38b4BQQNcgloXf5GeTerq6QM+bK6PIdTY+KoyKnQXmt/h2x/FYGeIMnuy9xS0WClpZFWZMRmjJSRs6rJ0gwAv0euXAAIs5tW8PzsqkZWQSqn07kL7PqrtzW5kjj/cx18s98mc9ybXR2DSoexty6KOuwVhZR3q4udBeU3yjO5CThd57waCkerOmUTWGwjgqHIsfT3RIaPeMjHKCw+96st84V9TApTrfb+7E3iOcoMegQkQAzvddMWqO/ZNKQ2/YGUrV0GHEC/PTYxnos7laG1/bmygtLrETiflMzLcxQEk2a/FldlWJ2x9acYbEhWdEMuaM9ielRF+cO5lOzVb0RXzQJAf1JcBxC2OGgPa4IbD9gQL523aprHYgdbFbHNj6Hv0t4L4f/Q+moegIz3QNrazzhhdJhiApBelgWuoBSv7IP3l4BNp4oahBZ54C4JddNMblZ0aVBBRtbu3C/pKLGF/v3zrcW+As+tnZla2ElzYRotIb9lPUIEUj8gbQx1srI4Ve4bEGoM5ktn1Nzagzx6ZZW46X7UGUv1vNhg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(3023799007)(261026140227099003)(261026121527099003)(261021121427099003)(261028144727099003)(261022115727099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261022113327099003)(261022105027099003)(261022075727099003)(261102123227099003)(10067099003)(11063799006)(4143699003)(56012099006)(921020)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1dRTWNkbVdQTFd1WFovRkFhNFRxSUJxWWY5UDdPamlpdWIzZVBEcjRib2FK?=
- =?utf-8?B?ZXU4aEE4ODJvRXJkVGkxamptTnViNWZqUGswUUMyOGlNdXhEWklzZmdvTzY0?=
- =?utf-8?B?VnBYYzAwRVQzRWdpOUJlOERYY3pqYjVDVDJXTEprUVMvNTRHTUFSb1R2cEwv?=
- =?utf-8?B?U1pxbDhsL0VMU1QxRTQxYzA4dGMzQTRCOHNmRnN1K1hpcktaUmdzdkhvOFlt?=
- =?utf-8?B?Tkh5a01QMFEyM2wrVjhVazljOXFNeVlROTRSMWZDV3d1VW1qQ3YzUUdkYUxO?=
- =?utf-8?B?QS9lQXNUVnpCTmxsbmxxQkZsZ0ZhK05uZkNEUU83Tmg3UStSNTNkY0s2VGNT?=
- =?utf-8?B?Z0VXUVVTeXZhUkRTWjRWRDk2am5PUWttNHhFbWNwWlhUN2UwQjNpc0I0aElr?=
- =?utf-8?B?aEpEdFN0M1MzclFjTVpwbUFsaHNiMFJUYlQxVitUaE1EcURwOXZFRVZCVENh?=
- =?utf-8?B?OEdXWVlrVTQ0emlheDQwZU5OWWtIZjVXNGljcnBYdmRjb05xc3hzNElhRVhr?=
- =?utf-8?B?aEJnMmFvQ2RnNzErNlVhVndlVkJOTXVYaVIwcjZES3JyZGNsVUhheS9ZcGZY?=
- =?utf-8?B?dk5oQ3l3dXhEZ3M1NjdWb25VTFArVC9RWEp6MDgySXlrU1lpQTllTXNxVkg2?=
- =?utf-8?B?eHVncXgweTBRcFB1bDFCRnJNRlRUaGt6SWsvSzNnY1pOREMzRGNUR2wyck5Q?=
- =?utf-8?B?OHdwOEZjWjNZZmdnUTVYY3ExQVI0OWdDd1FoOFJENEhyQU12WmJRV2l6MWRM?=
- =?utf-8?B?ZXZPdWVRaE1LODduOWtvbVJBbDdIMGpoL25Ya0ZrKzNRNC9qaUhjWnpMTDUz?=
- =?utf-8?B?QU9TckpsV3JGRmdiRmowVC96d2FtL05EOS9IQXBpakd1VFJqcUJSbEd5V0sw?=
- =?utf-8?B?R2JMTkZ6dUlrUUVyLzgxdElxN2Evc1ZwM3p0dzExdnVJZmF0RFVwcGxhMnVD?=
- =?utf-8?B?cERvUUI4R0Rrc3F1WDJFVGY3d3BtK0ZFUGxaNkZNMUNvaWhEMGZ6c2YrRW5n?=
- =?utf-8?B?UCtmaTUvSmFQeUlQc3A2RThRWmNGT0ZOZEZISUFVbkRRcG9WRjZzYWQ5djh0?=
- =?utf-8?B?Sy84WGx6elNDQmR6RXRLa2pVWUpBMFF3R0NLRHdCUEZoU014NDl1bjJmYk5X?=
- =?utf-8?B?bTB3d2lTVHF2UlBpTHBvenFoenBBdDNsV01pRGxmZXNKNDZQa0RuVVFsbVdp?=
- =?utf-8?B?MDNTcFROYXE5eFBDOU43MkxQa0p5RnBTckducnBickpCZllMVWVxNXdoR3Vw?=
- =?utf-8?B?eXFUU1FXa0kxNDhVRjZ1U0dlZzQxQmRRVk9SKzVwYmZjaWZSNjYxeGNhU203?=
- =?utf-8?B?WktvTFNPNHdmY1pEZGM3NThSZC9XYnNrSkxFT29PQmdQSGw4YVRHUzYyVm0r?=
- =?utf-8?B?VGFjSTlxYVBtSFA4NDR1QVpyY3QyOU9ETmNHdUhCNytMZEZqbGNUbk5VbXRE?=
- =?utf-8?B?RUQ3cGtJTTc2S0MvOE5ZS3hhdisvYlIvY3pDd2NnUkc0NXR1dUprZTBiNFlo?=
- =?utf-8?B?VnI4eGdxRnBFeEZYZE9FbHF6UDZiQXFQVE9aMWROd0dPU0ZsdWdxM2lOMkNt?=
- =?utf-8?B?WVJUMTEzWkk3SUFpU3RMWDVkWC9XWnBLcXArZ0pXMzJYSXROREF6Vkw1dER3?=
- =?utf-8?B?YnpLYkptQUFac2c1bGc2TUQ3T0tVM29RaXFyZ3F3eVE5Q1NYUEUxMi96VVJK?=
- =?utf-8?B?a1BYa1VRcVNvNE8xVlJmQUlrOVJEclVUK3hUeCtMcFp0TCtlUnp3NWNNNFN6?=
- =?utf-8?B?TjRDMS9zOWRBMnFwdkNMVUw2Ums5QXRqbkRUUCtSMFNWdkJQWWE1OFVad1Yw?=
- =?utf-8?B?aTVMaFFNWU4rSGlVNFVGVTVMN2Y4TTR0Y09XbTdDbURjVmVVN2grTVlSNTJ2?=
- =?utf-8?B?K281bjVXOTExQW9MYU5zU1ZKZnVRajR0ZkZHUlhLazkyYjg0R2lYUXlTVXg2?=
- =?utf-8?B?ejhKQXhIcmxDR1MrNmpDZXlPaW9iTS9KcW5tSVJTNFFSajI4TWF3Z0dkSk0z?=
- =?utf-8?B?SmFZS05pRXMxWGRzNnY2a20vZ0pHQ1o1d1A5TXg0UlVsYXBJNG5DbVFqY0Yr?=
- =?utf-8?B?SjV3QnVGRkErU0xiVkJwWmRVWEhRUzdLOUVESnphZUQ5VnZrcmdxQUxxY0px?=
- =?utf-8?B?WnMvLzhuVGdMZzNxN1FmU1JEWkpuYUxjbVJ3aXFoNm1ueDB3TjI1YStnd1pk?=
- =?utf-8?B?VjhvQUw2dEMvNkJYMlB1bHlGK2V2QjZJOWkvVTRHKzNiYkxmeExEK3hub1Ry?=
- =?utf-8?B?RkI4WVY4UE1SUXVBSS9jcmpkazBPamIrcVZBSzM1a1VoOWF6QTVHczdYTkxD?=
- =?utf-8?B?eC93RlBHL2ZiTlFyVGo3NDBYblcrSEJVL1o2NG1lNTdudHNoanIrUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f841b24f-c405-4252-0406-08df3f397a65
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 14:47:01.0659 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a4w0CkWdeY/88CMy5Y2CApQmCUzndehJna0+kqvmPHagGgLbjktt5N2y9x7fH4XGjcHtaQ21cagXYH85qrMPDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB272970
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F31E10E1C9;
+	Tue, 10 Nov 2026 15:14:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 993DB10E14A
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 15:14:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D3C25636A7;
+ Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252AD1F008A1;
+ Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794323642;
+ bh=lhDDcg+XFL8juadnmK5nrRutOKs6R7LkB2wmeynZIlA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EPPLUWd5JT7h3t3vV/xFBpSL9MAB97x6x8A3vFz3mKyoFSPpOJq8Z2YK8aS72BU7P
+ VAN0aXpya+XPZVLFwvHUNTSx3iaDLq+vGbNWHBFrEooRTpkiTyfyl/wHfOboiNyiE/
+ emahqSZWmK+09JeAcQ4TLhSU84Vj/85mt/ptmQWZP+YmYNDAPxyrHJ2bVQDXktDh+h
+ 6psmQExmkrZjpkW5M8l5/Vxxat7gogo9godh4uaOYpF+E8r1/fFsvo6QWvFXt9oWXR
+ v0TUZnXyliGoDnfRVLkSvG9+HAIZSS65G3zqIDQ7n952TjDXCmlK11nFb1rlP0UFvh
+ lDUTzWfSi0FSw==
+Message-ID: <sashiko-outbox-207242@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 4/7] drm/imx: Add support for i.MX94 DCIF
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@kernel.org
+In-Reply-To: <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
+ <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 15:14:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,287 +50,401 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [High] drm/imx/dcif: unclocked MMIO access when runtime PM resume
+  fails
+- [Medium] drm/imx: dcif: missing vblank reference in
+  dcif_crc_source_enable()
+- [Medium] drm/imx/dcif: unmasked interrupt status handling in
+  dcif_irq_handler()
+- [Medium] drm/imx: dcif: unchecked runtime PM resume in
+  dcif_hw_probe_init()
+- [Medium] drm/imx: dcif: unbalanced clock disable if
+  dcif_runtime_resume() fails
+- [Low] drm/imx: dcif: signed overflow in dcif_crc_source_parse() ROI
+  check
+- [Low] drm/imx/dcif: split __free() declaration in
+  dcif_crtc_query_output_bus_format()
+- [Low] drm/imx: dcif: missing fb->pitches[0] bounds check in
+  dcif_plane_atomic_check()
+--
 
-On 2026-11-09 07:33, Christian König wrote:
-> On 10/21/26 04:58, Huang Rui wrote:
->> From: Honglei Huang <honghuan@amd.com>
->>
->> Add amdgpu_svm.h with SVM data structures and public API:
->> - enum amdgpu_svm_xnack_mode: OFF, ON and DEFAULT mode
->> - struct amdgpu_svm: core context with drm_gpusvm, kref lifecycle,
->>    attribute tree, rw_semaphore, GC workqueue, xnack state.
->> - struct amdgpu_svm_gc: garbage collector with workqueue and work_struct
->> - Kmem cache helpers: AMDGPU_SVM_KMEM_CACHE_CREATE/DESTROY
->> - Locking helpers: amdgpu_svm_lock/unlock/assert_locked
->> - Public API declarations (including clean_queue, sync_work)
->>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Suggested-by: Huang Rui <ray.huang@amd.com>
->> Signed-off-by: Honglei Huang <honghuan@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h | 195 ++++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |   4 +
->>   2 files changed, 199 insertions(+)
->>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
->> new file mode 100644
->> index 0000000000000..72f954d2df39e
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
->> @@ -0,0 +1,195 @@
->> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
->> +/*
->> + * Copyright 2026 Advanced Micro Devices, Inc.
->> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the "Software"),
->> + * to deal in the Software without restriction, including without limitation
->> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->> + * and/or sell copies of the Software, and to permit persons to whom the
->> + * Software is furnished to do so, subject to the following conditions:
->> + *
->> + * The above copyright notice and this permission notice shall be included in
->> + * all copies or substantial portions of the Software.
->> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
->> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
->> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
->> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->> + * OTHER DEALINGS IN THE SOFTWARE.
->> + *
->> + */
->> +
->> +#ifndef __AMDGPU_SVM_H__
->> +#define __AMDGPU_SVM_H__
->> +
->> +#include <drm/amdgpu_drm.h>
->> +#include <drm/drm_gpusvm.h>
->> +#include <linux/atomic.h>
->> +#include <linux/kref.h>
->> +#include <linux/list.h>
->> +#include <linux/printk.h>
->> +#include <linux/rwsem.h>
->> +#include <linux/slab.h>
->> +#include <linux/spinlock.h>
->> +#include <linux/types.h>
->> +#include <linux/workqueue.h>
->> +
->> +struct amdgpu_device;
->> +struct amdgpu_vm;
->> +struct amdgpu_svm_attr_tree;
->> +struct amdgpu_svm_attrs;
->> +struct drm_device;
->> +struct drm_file;
->> +
->> +enum amdgpu_svm_xnack_mode {
->> +	AMDGPU_SVM_XNACK_OFF,
->> +	AMDGPU_SVM_XNACK_ON,
->> +	AMDGPU_SVM_XNACK_DEFAULT,
->> +};
->> +
->> +#define amdgpu_svm_assert_in_notifier(svm__) \
->> +	lockdep_assert_held_write(&(svm__)->gpusvm.notifier_lock)
->> +
->> +/**
->> + * struct amdgpu_svm_gc - SVM range garbage collector used for unmapping
->> + * SVM ranges in response to mmu_notifier events.
->> + * @wq: Workqueue where @work runs on.
->> + * @list: Ranges list in garbage collector. Protected by amdgpu_svm.work_lock.
->> + * @work: Drains @list under amdgpu_svm.svm_lock.
->> + */
->> +struct amdgpu_svm_gc {
->> +	struct workqueue_struct *wq;
->> +	struct list_head list;
->> +	struct work_struct work;
->> +};
->> +
->> +/**
->> + * struct amdgpu_svm - shared virtual memory context
->> + * @gpusvm: Embedded drm_gpusvm base, manages the range/notifier trees.
->> + * @refcount: Reference count guarding the lifetime of this instance.
->> + * @adev: The amdgpu device this SVM context belongs to.
->> + * @vm: Back pointer to the owning amdgpu_vm.
->> + * @attr_tree: Interval tree of SVM attributes.
->> + * @svm_lock: The driver_svm_lock described in the GPU SVM locking section.
->> + *            registered by drm_gpusvm_driver_set_lock().
->> + * @work_lock: Protects the deferred work queues such as @gc.list.
->> + * @gc: garbage collector for ranges queued for destruction.
->> + * @exiting: Set once when the context starts tearing down.
->> + * @checkpoint_ts: IH ring timestamp captured on unmap, used to drop stale
->> + *                 faults.
->> + * @default_granularity: Default range granularity.
->> + * @xnack_enabled: Whether retry (XNACK) faults are enabled.
->> + * @invalidate_ranges: Callback of the MMU notifier invalidate event.
->> + */
->> +struct amdgpu_svm {
->> +	struct drm_gpusvm gpusvm;
->> +	struct kref refcount;
->> +	struct amdgpu_device *adev;
->> +	struct amdgpu_vm *vm;
->> +	struct amdgpu_svm_attr_tree *attr_tree;
->> +	struct rw_semaphore svm_lock;
->> +	spinlock_t work_lock;
->> +	struct amdgpu_svm_gc gc;
->> +	atomic_t exiting;
->> +	uint64_t checkpoint_ts;
-> By now we have figured out that TS in faults are not useable for fault handling.
->
-> Background is that they reset from time to time because of GFXOFF and may vary depending on the engine who sends the fault.
->
-> Adding Timur from Valve on CC, he send out a patch to completely remove the existing timestamp handling from the fault filter.
->
-> We need to come up with a different approach here.
+commit b9251fe09a901a215b6a40b8b790485d134d37e2
+Author: Sandor Yu <sandor.yu@nxp.com>
 
-At least for the fault filter that shouldn't be a big problem. We don't 
-need the SW fault filter on any GPU that has a CAM. That should be any 
-GPU that supports retry faults starting with Vega20. AFAIK the only GPUs 
-that still need the SW fault filter are Vega10 and Raven. If the 
-timestamps work on those, we're fine. If there are any newer GPUs left 
-that don't enable the CAM for whatever reason, let's fix that instead.
+drm/imx: Add support for i.MX94 DCIF
 
-Regards,
-   Felix
+This commit adds DRM/KMS driver support for the NXP i.MX94 Display Control
+Interface (DCIF), including CRTC, primary and overlay planes, and CRC
+generation.
 
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dc=
+if/dcif-crc.c
+> new file mode 100644
+> index 0000000000000..132e40d3f3d45
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+[ ... ]
+> +void dcif_crc_source_enable(struct dcif_dev *dcif, enum dcif_crc_source =
+source,
+> +			    struct drm_rect *roi, int ncrc)
+> +{
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	if (source =3D=3D DCIF_CRC_SRC_NONE)
+> +		return;
+> +
+> +	if (dcif->crc_is_enabled)
+> +		return;
+> +
+> +	dcif_crc_config(dcif, roi, ncrc);
+> +
+> +	regmap_set_bits(dcif->regmap, DCIF_CRC_CTRL,
+> +			DCIF_CRC_CTRL_CRC_MODE | DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN |
+> +			DCIF_CRC_CTRL_CRC_TRIG);
+> +
+> +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> +		dcif->crc_is_enabled =3D true;
+> +}
+> +
+> +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
+> +{
+> +	if (!dcif->crc_is_enabled)
+> +		return;
+> +
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncr=
+c));
+> +
+> +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> +		dcif->crc_is_enabled =3D false;
+> +}
 
->
->> +	u8 default_granularity;
->> +	bool xnack_enabled;
-> It's probably ok to have that here for now, but that will become a VM property in the future I think.
->
->> +	void (*invalidate_ranges)(struct amdgpu_svm *svm,
->> +				  struct drm_gpusvm_notifier *notifier,
->> +				  const struct mmu_notifier_range *mmu_range,
->> +				  struct drm_gpusvm_range *first,
->> +				  uint64_t adj_start, uint64_t adj_end);
-> That looks a bit questionable. Why is that a pointer inside the amdgpu_svm structure?
->
-> Apart from those questions that looks rather reasonable.
->
-> Regards,
-> Christian.
->
->> +};
->> +
->> +static inline struct amdgpu_svm *to_amdgpu_svm(struct drm_gpusvm *gpusvm)
->> +{
->> +	return container_of(gpusvm, struct amdgpu_svm, gpusvm);
->> +}
->> +
->> +/*
->> + * Helpers for amdgpu_svm.svm_lock, the driver_svm_lock registered with GPU SVM.
->> + * Hold it in write mode around structural GPU SVM updates, including
->> + * drm_gpusvm_range_find_or_insert() and drm_gpusvm_range_remove().
->> + */
->> +static inline void amdgpu_svm_lock(struct amdgpu_svm *svm)
->> +{
->> +	down_write(&svm->svm_lock);
->> +}
->> +
->> +static inline void amdgpu_svm_unlock(struct amdgpu_svm *svm)
->> +{
->> +	up_write(&svm->svm_lock);
->> +}
->> +
->> +static inline void amdgpu_svm_assert_locked(struct amdgpu_svm *svm)
->> +{
->> +	lockdep_assert_held_write(&svm->svm_lock);
->> +}
->> +
->> +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
->> +void amdgpu_svm_flush_tlb(struct amdgpu_svm *svm);
->> +
->> +int amdgpu_svm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
->> +void amdgpu_svm_close(struct amdgpu_vm *vm);
->> +void amdgpu_svm_fini(struct amdgpu_vm *vm);
->> +
->> +void amdgpu_svm_put(struct amdgpu_svm *svm);
->> +struct amdgpu_svm *amdgpu_svm_lookup_by_pasid(struct amdgpu_device *adev,
->> +					       uint32_t pasid);
->> +int amdgpu_svm_handle_fault(struct amdgpu_device *adev, uint32_t pasid,
->> +			    uint64_t fault_page, uint64_t ts,
->> +			    bool write_fault);
->> +bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm);
->> +
->> +int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
->> +			 struct drm_file *filp);
->> +void amdgpu_svm_clean_queue(struct amdgpu_svm *svm,
->> +			    struct list_head *work_list);
->> +void amdgpu_svm_sync_work(struct amdgpu_svm *svm);
->> +int amdgpu_svm_garbage_collector(struct amdgpu_svm *svm);
->> +int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
->> +				 const struct amdgpu_svm_attrs *old_attrs,
->> +				 const struct amdgpu_svm_attrs *new_attrs,
->> +				 unsigned long start_page,
->> +				 unsigned long last_page);
->> +bool amdgpu_svm_devmem_possible(struct amdgpu_svm *svm);
->> +#else
->> +static inline int amdgpu_svm_init(struct amdgpu_device *adev,
->> +				  struct amdgpu_vm *vm)
->> +{
->> +	return 0;
->> +}
->> +
->> +static inline void amdgpu_svm_close(struct amdgpu_vm *vm)
->> +{
->> +}
->> +
->> +static inline void amdgpu_svm_fini(struct amdgpu_vm *vm)
->> +{
->> +}
->> +
->> +static inline int amdgpu_svm_handle_fault(struct amdgpu_device *adev,
->> +					  uint32_t pasid,
->> +					  uint64_t fault_page,
->> +					  uint64_t ts,
->> +					  bool write_fault)
->> +{
->> +	return -EOPNOTSUPP;
->> +}
->> +
->> +static inline bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
->> +{
->> +	return false;
->> +}
->> +
->> +static inline int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
->> +				       struct drm_file *filp)
->> +{
->> +	return -EOPNOTSUPP;
->> +}
->> +#endif /* CONFIG_DRM_AMDGPU_SVM */
->> +
->> +#endif /* __AMDGPU_SVM_H__ */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index 9b07df5a2b816..b435e393be154 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -43,6 +43,7 @@ struct amdgpu_bo_va;
->>   struct amdgpu_job;
->>   struct amdgpu_bo_list_entry;
->>   struct amdgpu_bo_vm;
->> +struct amdgpu_svm;
->>   
->>   /*
->>    * GPUVM handling
->> @@ -381,6 +382,9 @@ struct amdgpu_vm {
->>   
->>   	/* cached fault info */
->>   	struct amdgpu_vm_fault_info fault_info;
->> +
->> +	/* SVM experimental implementation */
->> +	struct amdgpu_svm *svm;
->>   };
->>   
->>   struct amdgpu_vm_manager {
+[Severity: Medium]
+Should dcif_crc_source_enable() and dcif_crc_source_disable() acquire and
+release a vblank reference with drm_crtc_vblank_get() and
+drm_crtc_vblank_put()?
+
+dcif_irq_handler() only samples DCIF_CRC_VAL_R(0) and calls
+drm_crtc_add_crc_entry() when DCIF_INT0_VS_BLANK fires, and that interrupt
+is only unmasked while a vblank reference is held.  On a steady display
+without continuous page flips, the vblank disable timer will mask
+DCIF_INT0_VS_BLANK after the atomic commit that enables CRC finishes,
+causing reads from debugfs crc/data to block indefinitely.
+
+[ ... ]
+
+> +		while ((opt =3D strsep(&options, ",")) !=3D NULL) {
+> +			if (i > 3)
+> +				return -EINVAL;
+> +
+> +			ret =3D kstrtouint(opt, 10, &params[i]);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			i++;
+> +		}
+> +
+> +		if (i !=3D 4)
+> +			return -EINVAL;
+> +
+> +		roi->x1 =3D params[0];
+> +		roi->y1 =3D params[1];
+> +		roi->x2 =3D params[2];
+> +		roi->y2 =3D params[3];
+> +
+> +		if (!drm_rect_visible(roi))
+> +			return -EINVAL;
+
+[Severity: Low]
+Can unsigned values in params[] wrap to negative ints in struct drm_rect
+and bypass the ROI bounds checks?
+
+For example, "roi:10,0,2147483648,10" sets roi->x1 =3D 10 and
+roi->x2 =3D INT_MIN, which wraps in drm_rect_visible() to a positive width
+and then passes dcif_crtc_check_crc_roi() because roi->x1 >=3D 0 and
+roi->x2 <=3D m->hdisplay, programming truncated 12-bit coordinates into
+DCIF_CRC_POS_R and DCIF_CRC_SIZE_R.
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
+cif/dcif-crtc.c
+> new file mode 100644
+> index 0000000000000..d5285105fa4df
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+[ ... ]
+> +static int dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
+> +					     struct drm_crtc_state *crtc_state)
+> +{
+> +	struct dcif_crtc_state *dcif_state =3D to_dcif_crtc_state(crtc_state);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D NULL;
+> +	struct drm_bridge_state *bridge_state;
+> +	u32 bus_format;
+> +
+> +	dcif_state->bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
+> +	dcif_state->bus_flags =3D 0;
+> +
+> +	bridge =3D dcif_crtc_get_bridge(crtc, crtc_state);
+
+[Severity: Low]
+This isn't a bug, but per Cleanup API conventions, bridge should be defined
+and initialized in a single statement rather than declared with
+__free(drm_bridge_put) =3D NULL at the top of the function and assigned
+later.
+
+[ ... ]
+
+> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct drm_display_mode *adj =3D &crtc_state->adjusted_mode;
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +	int ret;
+> +
+> +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
+> +
+> +	/* enable power when we start to set mode for CRTC */
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
+> +		return;
+> +	}
+> +	dcif->crtc_pm_enabled =3D true;
+[ ... ]
+> +}
+> +
+> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +
+> +	if (dcif->has_crc && dcif_crtc_state->crc.source !=3D DCIF_CRC_SRC_NONE)
+> +		dcif_crc_source_disable(dcif, 0);
+> +
+> +	dcif_disable_controller(dcif);
+> +	dcif_disable_plane_panic(dcif);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +
+> +	if (dcif->crtc_pm_enabled) {
+> +		dcif->crtc_pm_enabled =3D false;
+> +		pm_runtime_put_sync(drm->dev);
+> +	}
+
+[Severity: High]
+If pm_runtime_resume_and_get() fails in dcif_crtc_atomic_enable(), won't
+subsequent callbacks still access DCIF MMIO registers while the clocks and
+power domain are off?
+
+After dcif_crtc_atomic_enable() returns early with dcif->crtc_pm_enabled
+set to false, drm_atomic_helper_commit_tail_rpm() still runs
+drm_atomic_helper_commit_planes() because crtc_state->active is true,
+invoking dcif_plane_atomic_update() and dcif_crtc_atomic_flush() without
+checking dcif->crtc_pm_enabled.  Later, dcif_crtc_atomic_disable() also
+calls dcif_crc_source_disable(), dcif_disable_controller(), and
+dcif_disable_plane_panic() before checking dcif->crtc_pm_enabled, causing
+unclocked MMIO accesses and an external abort on ARM64.
+
+[ ... ]
+
+> +irqreturn_t dcif_irq_handler(int irq, void *data)
+> +{
+> +	struct drm_device *drm =3D data;
+> +	struct dcif_dev *dcif =3D to_dcif_dev(drm);
+> +	int domain =3D dcif->cpu_domain;
+> +	u32 stat0, stat1, crc;
+> +
+> +	regmap_read(dcif->regmap, DCIF_IS0(domain), &stat0);
+> +	regmap_read(dcif->regmap, DCIF_IS1(domain), &stat1);
+> +	regmap_write(dcif->regmap, DCIF_IS0(domain), stat0);
+> +	regmap_write(dcif->regmap, DCIF_IS1(domain), stat1);
+> +
+> +	if (stat0 & DCIF_INT0_VS_BLANK) {
+> +		drm_crtc_handle_vblank(&dcif->crtc);
+> +
+> +		scoped_guard(spinlock_irqsave, &drm->event_lock) {
+> +			if (dcif->crc_is_enabled) {
+> +				regmap_read(dcif->regmap, DCIF_CRC_VAL_R(0), &crc);
+> +				drm_crtc_add_crc_entry(&dcif->crtc, false, 0, &crc);
+> +				dev_dbg(drm->dev, "crc=3D0x%x\n",  crc);
+> +			}
+> +		}
+> +	}
+> +
+> +	if (stat1 & (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1)) {
+> +		u32 panic =3D stat1 & (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1);
+> +
+> +		dev_dbg_ratelimited(drm->dev, "FIFO panic on %s\n",
+> +				    panic =3D=3D (DCIF_INT1_FIFO_PANIC0 | DCIF_INT1_FIFO_PANIC1) ?
+> +				    "layers 0 & 1" : panic =3D=3D DCIF_INT1_FIFO_PANIC0 ? "layer 0" :
+> +				    "layer 1");
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: Medium]
+Should dcif_irq_handler() mask stat0 and stat1 with DCIF_IE0(domain) and
+DCIF_IE1(domain), and return IRQ_NONE when no enabled interrupt is
+pending?
+
+DCIF_IS0(domain) latches DCIF_INT0_VS_BLANK on every vertical blank even
+when it is masked in DCIF_IE0(domain), which is why
+dcif_crtc_enable_vblank() clears DCIF_IS0(domain) before enabling it.
+Because FIFO panic interrupts remain enabled in DCIF_IE1(domain) whenever
+the CRTC is active, a FIFO panic interrupt firing mid-frame while vblanks
+are disabled will see the latched DCIF_INT0_VS_BLANK bit in stat0 and
+spuriously call drm_crtc_handle_vblank() and drm_crtc_add_crc_entry().
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dc=
+if/dcif-drv.c
+> new file mode 100644
+> index 0000000000000..3b1b9dbf0c6b0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+[ ... ]
+> +static void dcif_hw_probe_init(struct dcif_dev *dcif)
+> +{
+> +	struct drm_device *drm =3D &dcif->drm;
+> +	u32 val, vmin, vmaj;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF: %d\n", ret);
+> +		return;
+> +	}
+[ ... ]
+> +static int dcif_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	dcif_hw_probe_init(dcif);
+> +
+> +	ret =3D dcif_kms_prepare(dcif);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_request_irq(drm->dev, dcif->irq[dcif->cpu_domain],
+> +			       dcif_irq_handler, 0, drm->driver->name, drm);
+
+[Severity: Medium]
+Should dcif_hw_probe_init() return an error code so dcif_probe() can abort
+when pm_runtime_resume_and_get() fails?
+
+If runtime resume fails here, dcif_hw_probe_init() returns early without
+reading DCIF_VER, masking bootloader interrupts, or stopping the
+controller, and dcif_probe() continues on to request the IRQ and register
+the DRM device with uninitialized hardware state.  Also, calling
+dcif_hw_probe_init() before dcif_kms_prepare() powers on and disables the
+hardware before devm_drm_of_get_bridge() checks for probe deferral and
+before dcif_kms_link_suppliers() sets up the supplier device links.
+
+[ ... ]
+
+> +static int dcif_suspend(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D drm_mode_config_helper_suspend(&dcif->drm);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pm_runtime_suspended(dev))
+> +		return 0;
+> +
+> +	return dcif_runtime_suspend(dev);
+> +}
+> +
+> +static int dcif_resume(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (!pm_runtime_suspended(dev)) {
+> +		ret =3D dcif_runtime_resume(dev);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return drm_mode_config_helper_resume(&dcif->drm);
+> +}
+
+[Severity: Medium]
+If dcif_runtime_resume() fails in dcif_resume(), won't the runtime PM core
+call dcif_runtime_suspend() a second time on already disabled clocks?
+
+When the CRTC is active before system suspend, device_prepare() increments
+the runtime PM usage count so drm_mode_config_helper_suspend() ->
+pm_runtime_put_sync() leaves the device RPM_ACTIVE, and dcif_suspend()
+then calls dcif_runtime_suspend() directly without updating the runtime PM
+status.  If dcif_runtime_resume() fails during system resume, the clocks
+remain disabled while runtime_status is still RPM_ACTIVE, so
+device_complete() -> pm_runtime_put() will invoke dcif_runtime_suspend() ->
+clk_bulk_disable_unprepare() again.  Using pm_runtime_force_suspend() and
+pm_runtime_force_resume() would keep the runtime PM state in sync with the
+clocks.
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-plane.c b/drivers/gpu/drm/imx/=
+dcif/dcif-plane.c
+> new file mode 100644
+> index 0000000000000..9f54f1b2d8d17
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-plane.c
+[ ... ]
+> +static int dcif_plane_atomic_check(struct drm_plane *plane, struct drm_a=
+tomic_commit *state)
+> +{
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_st=
+ate(state, plane);
+> +	struct dcif_dev *dcif =3D plane_to_dcif_dev(plane);
+> +	struct drm_framebuffer *fb =3D new_plane_state->fb;
+> +	struct drm_crtc_state *crtc_state;
+> +	int ret;
+> +
+> +	if (!fb)
+> +		return 0;
+[ ... ]
+> +	if (new_plane_state->fb->format->has_alpha &&
+> +	    new_plane_state->pixel_blend_mode =3D=3D DRM_MODE_BLEND_COVERAGE &&
+> +	    new_plane_state->alpha !=3D DRM_BLEND_ALPHA_OPAQUE)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+Should dcif_plane_atomic_check() reject framebuffers with
+fb->pitches[0] > 0xffff?
+
+DCIF_CTRLDESC3_PITCH() is a 16-bit field (GENMASK(15, 0)), so a
+framebuffer stride >=3D 65536 bytes is silently truncated in
+dcif_plane_atomic_update(), corrupting scanout.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-dcif-upstr=
+eaming-v11-0-9e13c85ae0d8@oss.nxp.com?part=3D4
