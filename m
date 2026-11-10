@@ -2,54 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957EC606A33E
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 17:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1cgX7Ni
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5322F606A337
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 17:05:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C16EC10E172;
-	Tue, 10 Nov 2026 17:04:15 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 211F410E172
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 17:04:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 983A4401F0;
- Tue, 10 Nov 2026 17:04:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C4E1F0089F;
- Tue, 10 Nov 2026 17:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794330248;
- bh=Gq0M0cu2Lo2dpH/31tGMSg+0YblrzrHJ9B+jvPcEV1o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=G1cgX7NiXhXz1FiR4I3hiMIl8Zg3MlXjsdc+UHxBoZ71sJhJIeejhkHzBEscFHpyO
- ehXeoroAKlW9RB8Utvb0oBHHg2hzsHAfyeyVaqKEmnfTPmHMHRZD/yRcg1JToi9PnI
- Usds/guZ1hvt6T7e7+LeCxWlfnMFCQtCj/iYy2CUwcI+f3EovAcj1CG2UzgThf2hUB
- 68e+msgJJMgWlmk/1q2VsYMk7RuIEE8R4pA1OBmg0bprVRM3YqNZ4kRKHjto6nBwXt
- jbRyD0WTFLWru0NVnW6DKCgJwtUDRcEGjIf8dcgg/MaEWx11DbfdfUHVEBtgGWJCxe
- u/h8Pe+zuP63w==
-Date: Tue, 10 Nov 2026 18:04:03 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>, 
- Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/2] Add scope-based cleanup capability to eventfd_ctx
-Message-ID: <20261110-spekulant-erledigen-allumfassend-280fdca625e2@brauner>
-References: <20261027-efd-autofree-v3-0-caa2442e1beb@arm.com>
- <20261106-hinein-lagebericht-abbezahlen-cb826d68d175@brauner>
- <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
- <sp6gvawt6petvrlky7g6pqaqsp3jwouu6ixarevis5m5vd7fwe@xjxeakzi3nn3>
- <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
- <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 827A210E1C1;
+	Tue, 10 Nov 2026 17:05:14 +0000 (UTC)
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89DE10E1C1
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 17:05:12 +0000 (UTC)
+Message-ID: <c763b6e7f130d329242c098807957c4c88ca2262.camel@crapouillou.net>
+Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+From: Paul Cercueil <paul@crapouillou.net>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org, 
+ "H. Nikolaus Schaller"	 <hns@goldelico.com>, Paul Boddie
+ <paul@boddie.org.uk>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>,  "open
+ list:INGENIC JZ47xx SoCs"	 <linux-mips@vger.kernel.org>, "open list:DRM
+ DRIVERS"	 <dri-devel@lists.freedesktop.org>
+Date: Tue, 10 Nov 2026 18:05:07 +0100
+In-Reply-To: <avMt5CTevTANpXqO@houat>
+References: <20261105203517.2293404-1-f.fainelli@gmail.com>
+ <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
+ <avMt5CTevTANpXqO@houat>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,20 +43,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 06, 2026 at 04:02:00PM +0100, Jan Kara wrote:
-> Well, the change is kind of "meh, I don't care much" for me. So I guess if
-> you include some conversion that actually makes code simpler, I guess
-> Christian might be open to merging this.
+Hi Maxime,
 
-No, I agree with you. I think if at all it should go together with a
-conversion that actually gets rid of a goto mess, e.g.
-mshv_irqfd_assign() or sm.
+Le mardi 10 novembre 2026 =C3=A0 15:45 +0100, Maxime Ripard a =C3=A9crit=C2=
+=A0:
+> On Mon, Nov 09, 2026 at 08:46:40PM +0100, Paul Cercueil wrote:
+> > Hi,
+> >=20
+> > Le jeudi 05 novembre 2026 =C3=A0 12:35 -0800, Florian Fainelli a =C3=A9=
+crit=C2=A0:
+> > > The LCD controller's internal bridge is embedded in an object
+> > > allocated
+> > > with drmm_encoder_alloc(). This initializes the encoder but leaves
+> > > the
+> > > bridge's reference count at zero. Since drm_bridge_attach() takes a
+> > > reference, probing the CI20 display produces addition-on-zero and
+> > > underflow warnings and fails to attach the HDMI bridge chain.
+> > >=20
+> > > Allocate the internal bridge with devm_drm_bridge_alloc() and
+> > > register
+> > > it with devm_drm_bridge_add() before attaching it. Keep the encoder
+> > > in a
+> > > separate DRM-managed allocation: encoder cleanup can drop the final
+> > > bridge reference before it has finished accessing the encoder. Find
+> > > the internal bridge through the encoder's bridge chain during mode
+> > > setting, and use the bridge argument directly in bridge callbacks.
+> > >=20
+> > > Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+> > > drm_bridge_attach/detach()")
+> > > Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> >=20
+> > Looks like I lost my commit rights to drm-misc-next, I guess for
+> > inactivity.
+> >=20
+> > So I'll ack it (LGTM) and let someone else (Maxime?) commit it.
+>=20
+> I just checked, your account still have access to drm-misc, and the last
+> activity was yesterday.
+>=20
+> Did you lose access to that account?
 
--- 
+I connected to gitlab.freedesktop.org yesterday, that was me.
+
+I get a "denied publickey" when trying to sync the branch with dim, which i=
+s
+weird because my SSH public key set on gitlab is the correct one.
+
+Cheers,
+-Paul
