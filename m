@@ -2,95 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01142606A9AE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AE8606A33F
 	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7DdWtG6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4084610ED81;
-	Tue, 10 Nov 2026 08:33:35 +0000 (UTC)
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11022130.outbound.protection.outlook.com [52.101.126.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5355510E848
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 12:09:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uZG7DXrlXaCEmofEs4vxrVPh7zozhXF+kDcJUyKD0rxZ1sbjFk3Y1rFLhvI/gsIddDANBK55ZiKUNE5T06/DnHbP5vnaKIaqfXmoE/YFE75S26uuuBe36CiMbkRArcGb0rS/T21SjnByrYH7a87RkXgW5wHQOKUlIn2Dq1XDxmf6rx+GUngspmdP+M7jnrWzKIQXsW6JqUiYIqox5IXbpybA2tWTnojtFGTXyMKAJlO/gD4M/7jCb6/leVOJPK3R0L4DUu1eVLjk2CDSDJ1dQP5ylJApEsBDrzNfQ3Rjb1XJxOl8Ob6t5j+DtM9U57sNsSqbmrktTAcsb/f+zAJwHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kBukfvrKHWty/D0wEXAHNvBJZFd6vag33klQlUrVbYw=;
- b=ddgXB3KoJu6w/RKG9A45cyintVne38i1gQR3KuzYIMXhNhUwknfizS5yEcmqLTuY9A3+PGWGC83IK8PpBHbdQX3TK9u2sV30M6gEvVg6mOQDX0t98xUg06Ay5y4rqKj/9MiyBBjKkyEuVPHNF7ChsfD3cjs68Sy5b2dNqf5YQAlCSTEwGsf4wGpNclZ4ZcV2Ytnv1nAyWu0BpCKm81tBV+1xmbo44T5E54ArLhFymfwK2MqKxIvfLkdfIzPJUrigZ8r2lV/awW8usCoVj6ToTENPg2UX9C2iMQnA36cqkW4qot/Hh/Kl0P0kxn33I17WICJzjHg5AXfjbdNcCPKb2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR02CA0012.apcprd02.prod.outlook.com (2603:1096:4:295::11)
- by SE3PR06MB9162.apcprd06.prod.outlook.com (2603:1096:101:31f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Mon, 9 Nov 2026
- 12:09:07 +0000
-Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
- (2603:1096:4:295:cafe::7b) by SI3PR02CA0012.outlook.office365.com
- (2603:1096:4:295::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 12:09:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 12:09:05 +0000
-Received: from cix (unknown [172.16.64.42])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 4E7CA40920FB;
- Mon,  9 Nov 2026 20:09:02 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gary.yang@cixtech.com, fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com, aliceryhl@google.com, p.zabel@pengutronix.de,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- robin.wang@cixtech.com, cunyuan.liu@cixtech.com
-Subject: [PATCH v2 2/3] drm/panthor: Add initial support for CIX Sky1
-Date: Mon,  9 Nov 2026 20:09:00 +0800
-Message-ID: <20261109120902.125242-3-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
-References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD3D10E5F0;
+	Tue, 10 Nov 2026 08:33:30 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12ADF10E275
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:22:38 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-36f8cdd30beso1939346eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 19:22:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794280957; x=1794885757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=W/wp6KJO63iMMRJlz6HcbO/i7czGvSk/CyVD5tv8Mv8=;
+ b=Q7DdWtG6fTchx6tk/7ReOzPQbWhObOKpviR1wtQrBShE21/xndxyO+S/BpzAYJlFQh
+ 7R2Ip+oydd6OQ7ILg9JU6yPZKEjw9Mdb2mpRs6pB2rlblmLT1PhP966WI41mmsuocLyh
+ WyGd04vnSHS1M2ZDuXbKhtGJfk5HOCpC3Ltwiy9awzDvDs1Nas8XMs/eoh5VNGQS18gC
+ fMKVW3f18Jnb5U6PBoUAm7nSJu3u4jqspGLu0a/3i031MaDk9Sna1KEOix0kdxI7aWPN
+ Ys0Klq2D3kS0r0+7YgreXFHB5esPONAO+Kg1akMivjra4rx2NzSbAdZjLDR7T04E8UYQ
+ p4BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794280957; x=1794885757;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=W/wp6KJO63iMMRJlz6HcbO/i7czGvSk/CyVD5tv8Mv8=;
+ b=PKf0VKW80RQshxnjXvEfVpaAXZvhIU1TtqBWg5wcrap1gloYUY7azbeu7aC0hsCDOa
+ cn5VI0zvObCE5CCLBQ3AnA1XBdcnF3ef/P3dQ3kLaWJ3V/3IRXKRRewDCkgMihN9XQGU
+ PhugSCR0NVIQyptxzVLGgT1d/fFa//9v87mxWmSjIbkA+dNe1u3mWl86TSe17BAghIlf
+ 8h0zrPMEQ0HfQ1JpTblLAdqcBNzhn0koGys7KqT1hGMKAY2l+e2XkIltTfioHW9H0mvD
+ yw9POtuU79S3u1ge1cBRKen8DOCeNQpdWAQv06BQsNrIsR3wVsRmsFsxQ13Auwq+Gy1+
+ 0qGg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHKaeatH4uT2pKFqp83X6UXGq/MYhZje1U7J8ezJ4JIWTgHd7ivqtCsGDrai49ydQVWtpJyJjlud8Y=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/GbSdNswRQVzwcBdibTPHgC/O+6fv+Og00ugGTJvCNY3UG57En
+ OaAEBVNaZWYDqI7BxTvjh+8xXUFBPK2DPHFjoElEd3SFugQ8MsrETIim
+X-Gm-Gg: AYBFou1QKPU+6MQxHexsQKwaJHg4i7z7q6syNm7RAieTubHvwcMn7AYDhgOp830l4T2
+ S9axJnFNxvuaeQM+47jYvh/HlZc10ongTXL3pCTf9OZuIOHIhk2bpgmoC3m0kzGVCVzhHgOTMvr
+ H52rv1lR57eYm2la7HWSm0LdpiVv+7EG5k8vDSAwQ7VYcaEJUh8CsicAlcCcZ1GzTWYYytJmZZG
+ CKa2Qe4KdHBlpX/tunXZv4zd6n6NGT+qMHtvRTSJcWnED+18zB8objGx8k1R8TqKHS++lHhGTCd
+ Xiy0n+gqAMMij4d+Y65hfCXLaYqwivh0PxYscm7TqgRfhr73UWBqyD8bg5k/0u+oVzViCbpmPXH
+ AunlnRG9jb7aD5dW+CxWH4R8F01e8MMrA74ul2zdPhNqbrT7FwDkXeoi4peKxpN7X1mBz2xNahk
+ 8wfJxO1WZ7KiuIJMjQdN84TjH8JJ1lRzdIJQq2vX61UvwcGuAIYTNJ5dMkCZKoYHlWKLZqbg5kY
+ 1ujfVpQaHIkEFLtR2bBEBvEc6RD+yaOKINSagnMXpEVj8njf3v3e4zIWxGg+kkU85Nb+/3P50FJ
+ ZLZQzBosq7QAEbJbAYuRJ16WVaD3
+X-Received: by 2002:a05:7300:3b03:b0:366:2893:7421 with SMTP id
+ 5a478bee46e88-3751e6acd4cmr2378114eec.10.1794280957102; 
+ Mon, 09 Nov 2026 19:22:37 -0800 (PST)
+Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37520bf3e18sm4159008eec.16.2026.11.09.19.22.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 19:22:36 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, =?utf-8?Q?Lo?=
+ =?utf-8?Q?=C3=AFc?= Molinari <loic.molinari@collabora.com>, Lorenzo Stoakes
+ <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, Madhavan
+ Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, Konstantin Khorenko
+ <khorenko@virtuozzo.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the lock
+ in copy_huge_pmd()
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
+Date: Tue, 10 Nov 2026 08:30:44 +0530
+Message-ID: <pkwd8k6b.ritesh.list@gmail.com>
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+ <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|SE3PR06MB9162:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 0c4d08d6-c0a1-4aa9-7960-08df3e5a40a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|7416014|23010399003|261102123227099003|261028144727099003|261009223027099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|56012099006|3023799007|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SDshc3sgrYwKtynmi6DFMv8WunRU2GE0dyLcvBYtmAThC6mpLfJCVI8HE3ctBc/mQR34yS5avfyf5JCurzqZaxZSL6pKiMAI9LdfATF83+9yqdZNGkD/KD3BiSuJ+kxaNKQwVX+BqbvIiElFgYFlgklta+nrz2x0vytSQ5c1XH9sSsvIvA7nKxqwNsV+dtIkqx0ImUmM6JetlWs4f+dpOj9sxksyUPmRf2qLAfhY3S0toRiOUMbDBhpbi9sHXOLGufJxuH0ZmxmeFExYNVnHl+edo79XUAtPl/LL6gB01VE+zQia1zadkaMevkkINsjjC82s+ESYZfw/v++CyYvTC4/rYHyP2p4ayQZHnDxVcQD7wbtT6WwZokVxxQR12ej1FfPc+wnXTzCs0V0DJaSCvzzaGCv8QZUTHAZFZNaLvUOhoYQOOABUltxThFObw2tmEa4NvVzUSVoHyaVbHx+Ctd0chbhVgkbw/9/pWyWxz5BBejZj2jk/KlWMO97riSdMaw0qSzziqUer6NG1m7q5eEbynZqS2NF2gVRUgfz4kitJ4yDIoGBsnsu/TZLgLGBCkeCuxl12QQY4b04VmZqs/NlPFxzf4W9SMSPBPnA93EiJv+hMZQ9Or6rGBIGhOE5TGXC620L00cjwKm8S5YCSsVMbDVMe149V7Sx53Qw5r4/TVcFC9dJ3MOWD0yAgG3eAJLxEoIJa956BykBP7sh19g==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(7416014)(23010399003)(261102123227099003)(261028144727099003)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(56012099006)(3023799007)(10067099003)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hS6Qn/QYWQV63Voyt5540c2SPfrCaSTEj0WNNbSQsCD1Lr8OyKjz9n2jySK5pvyKiEjMOxC95WlEJH3MOqgg/WaladMkgAy13ofpzGWInOQ4ci58ruA0EbDUQcBjLLnnXhwGfJLoWf5B3h82lq/jv5laREIlWADUcpzsKFz39CBn2gVbTTX1pN5Flsns0Tvfqi/ON1lUEgPimp6ROmVyKoW5CngDG9W76caKr116Wp7KyNKbPUSd/0Zp6BX22VIEn6NMVqRUKQv9Jc6SKHbF8tYByaJgKIX4871rVe0NNkZRfi7RxudfydXcsMshE2HOEFO4CC7pVYcOQ0hpjflfdlF/IsePgR8dCXUdBZ9wt7hJzeXXfKlkpYmGfRKaVdPP986BsreCjNP4vNEmCpCsEWQpfPIa7nw3kKVSRFrsQ7lVXSWirPCXqZJ31XvNT0Xt
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 12:09:05.6922 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c4d08d6-c0a1-4aa9-7960-08df3e5a40a0
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: OSA0EPF000000C8.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB9162
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,233 +102,146 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add Sky1 SoC data for system-level cache settings and to skip devfreq.
+Konstantin Khorenko <khorenko@virtuozzo.com> writes:
 
-The GPU on CIX Sky1 needs an external reset before the driver first
-accesses the hardware. Without this reset, the GPU hardware cannot be
-accessed correctly. Acquire an optional exclusive reset for all platforms
-and apply it after enabling the clocks during initial probe. Platforms
-without a reset keep working through the reset framework NULL handling.
+> copy_huge_pmd() reads a special PMD without the page table lock and
+> copies that value to the child. The mmap write lock held by fork does
+> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+> lock.
+>
+> The zap visits the parent VMA before the child's, as dup_mmap() links
+> the child right after the parent in i_mmap. If it clears the parent PMD
+> after fork has read it, and passes the child before fork copies it, the
+> child keeps a mapping the driver has revoked, for example:
+>
+> - vfio-pci: the child reaches the BAR after the device memory was
+>   disabled or the device was reset, instead of getting SIGBUS;
+> - panthor: the child maps the pages of an evicted buffer object after
+>   the driver has released them.
+>
+> The same branch deposits no page table under the copy. ppc64 in hash
+> mode keeps the hash slot array of every huge PMD in that table, so the
+> child dereferences a NULL table on the first hash fault, in
+> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
+>
+> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
+> from a folio under them, as copy_present_ptes() does with
+> vm_normal_page(). The zap clears the parent PMD under the same lock, so
+> either fork finds it none and skips it, or the copy is in place before
+> the zap reaches the child.
+>
+> The copy of a PFN mapping then goes through the same tail as a folio:
+>
+> - it gets a page table where the architecture needs one;
+> - in a shared mapping it is marked clean in the child, as a PTE is;
+> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
+>   protected instead of a warning being printed.
+>
+> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
 
-Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
-rendering results are displayed incorrectly.
+Thanks Konstantin, for fixing this. Without this patch I can reproduce the problem on Hash
+on Power (on my test dev setup), after fork(), when child touches those pages.
 
-Keep the clock settings provided by the PM firmware. This first version
-does not read OPPs or enable devfreq. It does not register a GPU cooling
-device.
+[   62.543247][  T242] Kernel attempted to read user page (0) - exploit attempt? (uid: 0)
+[   62.544992][  T242] BUG: Kernel NULL pointer dereference on read at 0x00000000
+[   62.545335][  T242] Faulting instruction address: 0xc0000000000a0ee8
+cpu 0x0: Vector: 300 (Data Access) at [c00000002035f9d0]
+    pc: c0000000000a0ee8: __hash_page_thp+0x218/0x560
+    lr: c0000000000a0e14: __hash_page_thp+0x144/0x560
+    sp: c00000002035fc70
+   msr: 8000000000009033
+   dar: 0
+ dsisr: 40000000
+  current = 0xc00000001fb08480
+  paca    = 0xc000000005010000   irqmask: 0x03   irq_happened: 0x09
+    pid   = 242, comm = vfio-fork
+enter ? for help
+[c00000002035fc70] 0000000000000000 (unreliable)
+[c00000002035fd30] c000000000098a40 hash_page_mm+0x688/0x8d0
+[c00000002035fe10] c000000000098dc8 do_hash_fault+0x140/0x368
+[c00000002035fe50] c000000000008be0 data_access_common_virt+0x210/0x220
+---- Exception: 300 (Data Access) at 0000000010001b60
+SP (7fffde6dd7b0) is in userspace
 
-Tested on Orion O6: offscreen pixel readback, kmscube, glmark2 at 1080p,
-runtime suspend and resume with a retained EGL context, software-triggered
-reset-worker tests, and module unload and reload. Display tests used
-local Komeda support.
+With this series, I see that the issue is fixed. Thanks for helping in
+fixing it. Please feel free to add:
 
-Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
----
- drivers/gpu/drm/panthor/panthor_devfreq.c  | 11 ++++++++++-
- drivers/gpu/drm/panthor/panthor_device.c   | 13 +++++++++++++
- drivers/gpu/drm/panthor/panthor_device.h   | 19 +++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_drv.c      | 14 ++++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu.c      | 14 ++++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 ++
- 6 files changed, 72 insertions(+), 1 deletion(-)
+Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com> #PowerPC
 
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4af..1914549f7b1f 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
- 
- 	ptdev->devfreq = pdevfreq;
- 
-+	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
-+	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-+		ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-+		return 0;
-+	}
-+
- 	/*
- 	 * The power domain associated with the GPU may have already added an
- 	 * OPP table, complete with OPPs, as part of the platform bus
-@@ -323,8 +329,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
- 	unsigned long freq = 0;
- 	int ret;
- 
--	if (!pdevfreq->devfreq)
-+	if (!pdevfreq->devfreq) {
-+		if (ptdev->soc_data && ptdev->soc_data->skip_devfreq)
-+			return clk_get_rate(ptdev->clks.core);
- 		return 0;
-+	}
- 
- 	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
- 	if (ret)
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 9687c59de350..a3a32abec5f7 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -229,6 +229,11 @@ int panthor_device_init(struct panthor_device *ptdev)
- 		return ret;
- 	}
- 
-+	ptdev->reset_control = devm_reset_control_get_optional_exclusive(ptdev->base.dev, NULL);
-+	if (IS_ERR(ptdev->reset_control))
-+		return dev_err_probe(ptdev->base.dev, PTR_ERR(ptdev->reset_control),
-+				     "Failed to get GPU reset\n");
-+
- 	ret = panthor_devfreq_init(ptdev);
- 	if (ret)
- 		return ret;
-@@ -511,6 +516,12 @@ int panthor_device_resume(struct device *dev)
- 	if (ret)
- 		goto err_disable_stacks_clk;
- 
-+	if (!panthor_device_is_initialized(ptdev)) {
-+		ret = reset_control_reset(ptdev->reset_control);
-+		if (ret)
-+			goto err_disable_coregroup_clk;
-+	}
-+
- 	panthor_devfreq_resume(ptdev);
- 
- 	if (panthor_device_is_initialized(ptdev) &&
-@@ -553,6 +564,8 @@ int panthor_device_resume(struct device *dev)
- 
- err_suspend_devfreq:
- 	panthor_devfreq_suspend(ptdev);
-+
-+err_disable_coregroup_clk:
- 	clk_disable_unprepare(ptdev->clks.coregroup);
- 
- err_disable_stacks_clk:
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index b55a3f9edd41..afb4167bd364 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -19,6 +19,8 @@
- #include <drm/gpu_scheduler.h>
- #include <drm/panthor_drm.h>
- 
-+struct reset_control;
-+
- struct panthor_csf;
- struct panthor_csf_ctx;
- struct panthor_device;
-@@ -34,10 +36,24 @@ struct panthor_pwr;
- struct panthor_vm;
- struct panthor_vm_pool;
- 
-+/**
-+ * struct panthor_sysc_config - GPU system-cache configuration
-+ */
-+struct panthor_sysc_config {
-+	/** @alloc: System-cache allocation policies for GPU access types. */
-+	u32 alloc[8];
-+};
-+
- /**
-  * struct panthor_soc_data - Panthor SoC Data
-  */
- struct panthor_soc_data {
-+	/** @skip_devfreq: Keep the firmware clock settings without devfreq. */
-+	bool skip_devfreq;
-+
-+	/** @sysc_config: System-cache configuration, or NULL to keep defaults. */
-+	const struct panthor_sysc_config *sysc_config;
-+
- 	/** @asn_hash_enable: True if GPU_L2_CONFIG_ASN_HASH_ENABLE must be set. */
- 	bool asn_hash_enable;
- 
-@@ -138,6 +154,9 @@ struct panthor_device {
- 	/** @soc_data: Optional SoC data. */
- 	const struct panthor_soc_data *soc_data;
- 
-+	/** @reset_control: Optional external GPU reset. */
-+	struct reset_control *reset_control;
-+
- 	/** @phys_addr: Physical address of the iomem region. */
- 	phys_addr_t phys_addr;
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index dc8d0191aef4..4d7b1230cd7b 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1872,12 +1872,26 @@ static struct attribute *panthor_attrs[] = {
- 
- ATTRIBUTE_GROUPS(panthor);
- 
-+static const struct panthor_sysc_config sysc_config_cix_sky1 = {
-+	/* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
-+	.alloc = {
-+		0x00230000, 0x00000023, 0x00000000, 0x00000000,
-+		0x00523222, 0x00523200, 0x00000022, 0x00000032,
-+	},
-+};
-+
-+static const struct panthor_soc_data soc_data_cix_sky1 = {
-+	.skip_devfreq = true,
-+	.sysc_config = &sysc_config_cix_sky1,
-+};
-+
- static const struct panthor_soc_data soc_data_mediatek_mt8196 = {
- 	.asn_hash_enable = true,
- 	.asn_hash = { 0xb, 0xe, 0x0, },
- };
- 
- static const struct of_device_id dt_match[] = {
-+	{ .compatible = "cix,sky1-mali", .data = &soc_data_cix_sky1 },
- 	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
- 	{ .compatible = "rockchip,rk3588-mali" },
- 	{ .compatible = "arm,mali-valhall-csf" },
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index a383b04f101e..9a6963fe62ae 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -63,6 +63,19 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
- 		  ptdev->gpu_info.selected_coherency);
- }
- 
-+static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
-+{
-+	const struct panthor_sysc_config *config;
-+	unsigned int i;
-+
-+	if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
-+		return;
-+
-+	config = ptdev->soc_data->sysc_config;
-+	for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
-+		gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
-+}
-+
- static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
- {
- 	struct panthor_gpu *gpu = ptdev->gpu;
-@@ -317,6 +330,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
- 	}
- 
- 	/* Set the desired coherency mode and L2 config before the power up of L2 */
-+	panthor_gpu_sysc_config_set(ptdev);
- 	panthor_gpu_coherency_set(ptdev);
- 	panthor_gpu_l2_config_set(ptdev);
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-index 4c5b953796e4..f9b65a4dae83 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-@@ -116,4 +116,6 @@
- #define   GPU_COHERENCY_ACE				1
- #define   GPU_COHERENCY_NONE				31
- 
-+#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
-+
- #endif /* __PANTHOR_GPU_REGS_H__ */
--- 
-2.53.0
 
+
+
+
+
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>  mm/huge_memory.c | 24 +++---------------------
+>  1 file changed, 3 insertions(+), 21 deletions(-)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index e00632edb3856..9cb5f99aba87f 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1961,25 +1961,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	int ret = -ENOMEM;
+>  	bool writable;
+>  
+> -	pmd = pmdp_get_lockless(src_pmd);
+> -	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+> -		     !is_huge_zero_pmd(pmd))) {
+> -		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+> -		src_ptl = pmd_lockptr(src_mm, src_pmd);
+> -		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> -		/*
+> -		 * No need to recheck the pmd, it can't change with write
+> -		 * mmap lock held here.
+> -		 *
+> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+> -		 * mapping, otherwise it means either the anon page wrongly
+> -		 * applied special bit, or we made the PRIVATE mapping be
+> -		 * able to wrongly write to the backend MMIO.
+> -		 */
+> -		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+> -		goto set_pmd;
+> -	}
+> -
+>  	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
+>  		pgtable = pte_alloc_one(dst_mm);
+>  		if (unlikely(!pgtable))
+> @@ -2021,7 +2002,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		goto copy_pmd;
+>  	}
+>  
+> -	src_page = pmd_page(pmd);
+> +	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
+> +	if (!src_page)
+> +		goto copy_pmd;
+>  	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
+>  	src_folio = page_folio(src_page);
+>  
+> @@ -2061,7 +2044,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	}
+>  	if (src_vma->vm_flags & VM_SHARED)
+>  		pmd = pmd_mkclean(pmd);
+> -set_pmd:
+>  	pmd = pmd_mkold(pmd);
+>  	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+>  
+>
+> -- 
+> 2.43.0
