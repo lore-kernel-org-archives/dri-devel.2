@@ -2,58 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B67606A336
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0378606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWqDjOED
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyctobeQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30BCD10F643;
-	Tue, 10 Nov 2026 12:15:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1454710F643
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794312949; x=1825848949;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=l8AZHUbBT10rst5OFdt5Z0mDYj7qQK9sYESz6Ge7jes=;
- b=kWqDjOEDzj9wVNPTkfIEgvY4VcxmMm7p7rEhIKDfUV0iTcCzD2AUIFyM
- ebmiCSwwlOYCYTrRmdH/kJt5B5A2JnBtElkC7ezsLo0rI7vnKy6hItu2O
- XXz1MM36mtRwpHXnIhd9HGOj5M6HiBTJWkmb5B1IdK1BmxVKbWu9tp4pX
- JnUsVGkPYEECXDJCWFbViQncEfTWqOBeL467uPDprx+3oyr4Nk+cISX5v
- kwYCT31I9RMb7GqxFNak2XZCSup+K8EM/BmyilNgJ/nMiIs04dFWAYoJM
- VU3JbDP7u8gLVBAsalasZKjSpRIemCdgPQxoY8NyRFzaWAfJnQ6BwlH5U A==;
-X-CSE-ConnectionGUID: z7a+WK8rRiW2CwHEUG0T/Q==
-X-CSE-MsgGUID: SISvOntaSrSSLtOZtmNC1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2962376"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2962376"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 04:15:48 -0800
-X-CSE-ConnectionGUID: ed6m2X4pRcSXwkMq9opBfw==
-X-CSE-MsgGUID: JfABqc8UT1i0jAGjSI3Hcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8730891"
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 04:15:46 -0800
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: Daksh Sahni <swizzguy76@gmail.com>,
-	dri-devel@lists.freedesktop.org
-Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- dawid.osuchowski@linux.intel.com,
- Karol Wachowski <karol.wachowski@linux.intel.com>, stable@vger.kernel.org
-Subject: [PATCH v3] accel/ivpu: Defer recovery until probe completes
-Date: Tue, 10 Nov 2026 13:15:34 +0100
-Message-ID: <20261110121534.3566028-1-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C50B10F647;
+	Tue, 10 Nov 2026 12:18:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8843910F63B
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 718FA41984;
+ Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DB81F0089F;
+ Tue, 10 Nov 2026 12:18:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794313117;
+ bh=l510YMPua9hQF3rHGQbO08Rvn89yLiLIgQBdXMzOQlU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UyctobeQt1oDFAWzbnAt8buLFwinOzq8T7Mqmk3P/TURhpU2zOFVGn6CRta9INugD
+ ONa/tiLvNStRbZ3RmZmmVnrhkXDJCdgXj7rRCHkFnQnCiNNqCFvVuuTKRPs/0qf7lS
+ Y8C79ce7+sLMw32znqnTi5qos/e2y5tOcSmlkoL7zMHhfthSVX3LYCAibpIlAUJTXg
+ WaqozZu61IF4XnCll+O66atIxNfLkUYxwPhg3jiSeVs4SYAMVoK5FUgIWtzwDOwmWv
+ z2KR1R+3dBHUK6NEFIQM5x0SCBK4ZN8OqG99fLRuDDrqnIJhxil30RRtCpqvJCHowS
+ v8P/eKzXAiU9g==
+Message-ID: <sashiko-outbox-206999@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] drm/radeon: Inline drm_crtc_init()
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110120326.538252-5-tzimmermann@suse.de>
+References: <20261110120326.538252-1-tzimmermann@suse.de>
+ <20261110120326.538252-5-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 12:18:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,117 +48,108 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-An error IRQ that fires after ivpu_boot() enables interrupts queues
-recovery_work during probe. If probe then fails, the device is torn
-down while the work runs, and the work faults on the unmapped BARs:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/radeon: radeon_crtc_init() breaks non-XRGB8888/ARGB8888
+  modesets
+--
 
-  BUG: unable to handle page fault for address: ffffcfc6680200f4
-  Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
-  RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
-  Call Trace:
-   ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
-   ivpu_boot+0x9e/0x270 [intel_vpu]
-   ivpu_resume+0xa4/0xd0 [intel_vpu]
-   ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
-   ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
+commit 084c2fdd462a7f679496ecdf20e1829b6180f22d
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-If probe succeeds, the recovery runs concurrently with the rest of
-probe, and its pm_runtime_disable() discards the initial autosuspend
-request, leaving the NPU active until first use. Any recovery that
-starts while the NPU is idle loses the pending autosuspend the same way.
+drm/radeon: Inline drm_crtc_init()
 
-Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable().
-A trigger during probe still runs diagnostics and masks interrupts, and
-ivpu_pm_enable() runs the deferred recovery before the initial
-autosuspend request. A trigger racing with ivpu_pm_enable() can cause
-a second, harmless recovery. Request autosuspend at the end of
-ivpu_pm_reset_complete() so the NPU suspends again after every reset.
+This commit inlines drm_crtc_init() into radeon_crtc_init() by allocating
+a primary plane with __drm_universal_plane_alloc() and initializing the
+CRTC via drm_crtc_init_with_planes().
 
-Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
-Cc: stable@vger.kernel.org
-Reported-by: Daksh Sahni <swizzguy76@gmail.com>
-Closes: https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
----
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
+deon/radeon_display.c
+> index aac6733ddd82c..4b784df4679f9 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -38,6 +38,7 @@
+>  #include <drm/drm_framebuffer.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_modeset_helper.h>
+> +#include <drm/drm_plane_helper.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
+>  #include <drm/radeon_drm.h>
+> @@ -47,6 +48,17 @@
+>  #include "radeon.h"
+>  #include "radeon_kms.h"
+> =20
+> +static const u32 radeon_primary_plane_formats[] =3D {
+> +	DRM_FORMAT_XRGB8888,
+> +	DRM_FORMAT_ARGB8888,
+> +};
+> +
+> +static const struct drm_plane_funcs radeon_primary_plane_funcs =3D {
+> +	.update_plane =3D drm_plane_helper_update_primary,
+> +	.disable_plane =3D drm_plane_helper_disable_primary,
+> +	.destroy =3D drm_plane_helper_destroy,
+> +};
+> +
+>  static void avivo_crtc_load_lut(struct drm_crtc *crtc)
+>  {
+>  	struct radeon_crtc *radeon_crtc =3D to_radeon_crtc(crtc);
+> @@ -680,20 +692,31 @@ static const struct drm_crtc_funcs radeon_crtc_func=
+s =3D {
+>  static void radeon_crtc_init(struct drm_device *dev, int index)
+>  {
+>  	struct radeon_device *rdev =3D dev->dev_private;
+> +	struct drm_plane *primary;
+>  	struct radeon_crtc *radeon_crtc;
+> +	int ret;
+> =20
+> -	radeon_crtc =3D kzalloc_obj(*radeon_crtc);
+> -	if (radeon_crtc =3D=3D NULL)
+> +	primary =3D __drm_universal_plane_alloc(dev, sizeof(*primary), 0, 0,
+> +					      &radeon_primary_plane_funcs,
+> +					      radeon_primary_plane_formats,
+> +					      ARRAY_SIZE(radeon_primary_plane_formats),
+> +					      NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
 
-Notes:
-    v3:
-    - Request autosuspend at the end of ivpu_pm_reset_complete().
-      pm_runtime_disable() in ivpu_pm_reset_begin() cancels a pending
-      autosuspend request and pm_runtime_enable() does not re-issue it, so
-      a recovery racing with the initial autosuspend request in
-      ivpu_pm_enable() left the NPU active until first use (Sashiko).
-      A trigger racing with ivpu_pm_enable() can still queue recovery
-      twice. The second run is a full reset that leaves the device in a
-      consistent state, and autosuspend is now re-requested after each
-      reset.
-    - Replace pm_runtime_mark_last_busy() with pm_request_autosuspend() in
-      ivpu_pm_reset_complete(); it marks the device busy itself.
-    - Shorten the commit message.
-    - v2: https://lore.kernel.org/r/20261110085003.3527014-1-karol.wachowski@linux.intel.com
+[Severity: High]
+Does restricting radeon_primary_plane_formats[] to only two 32-bit formats
+cause drm_mode_setcrtc() to reject other pixel formats supported by radeon?
 
-    v2:
-    - Rework of Daksh's "accel/ivpu: Disable recovery work on probe failure":
-      https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
-    - Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable()
-      instead of disabling it on the probe error path, which is too late as
-      recovery may already run concurrently with ivpu_boot() (Sashiko)
-    - Run a recovery requested during probe from ivpu_pm_enable() and wait
-      for it before the initial autosuspend request, so the NPU is reset
-      before use and the autosuspend is not lost when probe succeeds
+Previously, drm_crtc_init() set primary->format_default =3D true, which made
+drm_mode_setcrtc() skip the drm_plane_has_format() check and leave format
+validation to the CRTC callbacks:
 
-    v1:
-    - Link: https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
+drivers/gpu/drm/drm_crtc.c:drm_mode_setcrtc() {
+    ...
+		if (!plane->format_default) {
+			if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
+				drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
+					    &fb->format->format, fb->modifier);
+				ret =3D -EINVAL;
+				goto out;
+			}
+		}
+    ...
+}
 
- drivers/accel/ivpu/ivpu_pm.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Allocating the primary plane via __drm_universal_plane_alloc() leaves
+primary->format_default as false (and follow-up commit "drm: Remove
+drm_crtc_init()" removes format_default altogether). As a result,
+drm_mode_setcrtc() now fails with -EINVAL for 8bpp, 15bpp, 16bpp, and 30bpp
+framebuffers (such as C8, RGB565, XRGB1555, and XRGB2101010) that
+dce4_crtc_do_set_base(), avivo_crtc_do_set_base(), and
+radeon_crtc_do_set_base() handle.
 
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index aa813262253e..e4b79c946ca0 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -150,8 +150,8 @@ static void ivpu_pm_reset_complete(struct ivpu_device *vdev)
- 	up_write(&vdev->pm->reset_lock);
- 	atomic_set(&vdev->pm->reset_pending, 0);
- 
--	pm_runtime_mark_last_busy(vdev->drm.dev);
- 	pm_runtime_enable(vdev->drm.dev);
-+	pm_request_autosuspend(vdev->drm.dev);
- }
- 
- static void ivpu_pm_recovery_work(struct work_struct *work)
-@@ -415,6 +415,7 @@ void ivpu_pm_init(struct ivpu_device *vdev)
- 	atomic_set(&pm->engine_reset_counter, 0);
- 
- 	INIT_WORK(&pm->recovery_work, ivpu_pm_recovery_work);
-+	disable_work(&pm->recovery_work);
- 	INIT_DELAYED_WORK(&pm->job_timeout_work, ivpu_job_timeout_work);
- 
- 	if (ivpu_disable_recovery)
-@@ -439,6 +440,12 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
- {
- 	struct device *dev = vdev->drm.dev;
- 
-+	enable_work(&vdev->pm->recovery_work);
-+	if (atomic_read(&vdev->pm->reset_pending)) {
-+		queue_work(system_dfl_wq, &vdev->pm->recovery_work);
-+		flush_work(&vdev->pm->recovery_work);
-+	}
-+
- 	pm_runtime_allow(dev);
- 	pm_runtime_put_autosuspend(dev);
- }
-
-base-commit: 54d3ff1b5ac08d0e28029b93a1719ddd9ff670a4
--- 
-2.43.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110120326.5382=
+52-1-tzimmermann@suse.de?part=3D4
