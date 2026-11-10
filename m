@@ -2,88 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4F8606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 19:39:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E006B606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 19:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX4rhzTs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6Uit6jO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1175A10E366;
-	Tue, 10 Nov 2026 19:39:15 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2944E10E334
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 19:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 178C510E0D9;
+	Tue, 10 Nov 2026 19:44:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C507110E0D9
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 19:44:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 10CE943963;
- Tue, 10 Nov 2026 19:39:02 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794339541;
- b=T9Dr6vNLpEg6NZ7vFPmJ+tEuNkiJYq3ABdt8qbm+KLPTX/c+8RCW2kUJBExbbw1bjJxQ
- 4DB7pQmiVpL3ztgbMbydCgXwkwcwfopQyQaeF5Qz5cOOGO8oPY2AVnGMBmDTWoeHYDMTm
- +6d3+LwM4OESaTdlHT0V85QetKbqjEbWbcPB5BU7LHELaI/rVI+sAYlWzZXExP369JXER
- YfEWgTSKPBtRPZ+TuRrVaXSD2y0Iq6GdD2WoJQhrAZT3RiYfgnn0xt7t4wxp8Ed0lq9lX
- 2IGLV4NjlgTR/JWmr6BdgmMfbyk8uifDlTPw1k3AV0rM+85MzNarX+VtbqeThBt4P5g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794339541;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=YJ260lSe/neQCxSi0JebgbI4CTavL15CM9mfgM7fevs=;
- b=TyaYwR5egdOIhwMQnxiwOaEM6DACSDQYm9JuGtX15jJ13w0EbUp+Cun2H+i/REWuHpbw
- r5y67s7nGOZKaPzwHbspUlt8tSSqYT+OblMi1tKb/+k05GR7Mf8kPDiJ8il7zXxoUl8xR
- Y37cDlAxiopaAo24jAQ4xjl4RljaxfPjFCIFjY3LFQXzhZ3+5792EyF1fOmq2FXLSRrXk
- 5s33XIT9wuyQQGlw3HB+fpyU8EMmwh+2xSuAlqxtHNk3s0iud7G5GE1RusQJIMEe6ohwI
- ivd021hDH1tHP2YMtrIM6xlpTlBFnFrbgfG1MjQ5I5xIMuuU95YBgtWOsE1XqiUcJVg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 2CEED1F008A2;
- Tue, 10 Nov 2026 19:39:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0CDA463576;
+ Tue, 10 Nov 2026 19:44:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE7C1F0089F;
+ Tue, 10 Nov 2026 19:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794339541;
- bh=YJ260lSe/neQCxSi0JebgbI4CTavL15CM9mfgM7fevs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=cX4rhzTswuzgzoR94Q4+V5WZ8c2QgxfFbKPlMqpcktEL0CYbeyJzZdONU/8unwhgn
- Y6XAcRDk2V0KAS90ZLvuw1pOHbC5EvLcU7EsfXxD3UNuZ2gFE4i+h+DELxQW9C+Emc
- 1WC+ER5//l3PIC9eItg3EwN/+o/ldRwQdCbY1qwO/oW/uurvYhye4ddid9XfnOBHsj
- /O/CVPvX2ZDIXUz6N66nutcLuIGUsFwns22h3OsNw2fFVad+SXbDAL5m4TWhnfBECn
- BGE6xBkOLbmXtORKkObIx5n9YMvoDyu6+dAmJDbHASo+0U6cLtWwKpI8XFbsZClXvN
- U8LPg6ncdhvlw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A692748C72;
- Tue, 10 Nov 2026 19:38:59 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 21:38:52 +0200
-Subject: [PATCH v2 2/2] backlight: add ktd3137 support
+ s=k20260515; t=1794339859;
+ bh=fWfqbq9OHseUAlW92SLhKNSaqa3qmI+MBczXn8z6J5A=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=O6Uit6jO3IsZoIfrOy3SW4hqltdD1ucWDADRC3HhxylC/zZnFAOdNMh7Q62k2iJNl
+ 98Y2Ol65S0WRG+Dsv/Fo7Ph6FVV+dR3TbRmS1vtGkkhsLH5/hY5NWEloToTLTMoBag
+ zzgQOQqOrX+UUlJIXG4FKrP1ZqkyAhbuOtxsWlACnLrAEqwFf2U9RYYzM9W1DsZwAi
+ dIrJ39C3ygTIBdBR7TmjPzKTghgaJaYX5iZ2CHTW5vBJUF1BeKaw76TENQUS21XL+u
+ xyn3mkt8y8SEL4D9QbqvNuKdAE47PNLXd4Q4xe8DdoRvdrn8pRk/vOWngLU9PJ7WpG
+ xy4in6w8m33zQ==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
-References: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
-In-Reply-To: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794339538; l=10109;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=kRX2DsfK/P16Pc7K10xoV7BnyUBL78NnDS9+cOkdHAY=;
- b=+U26cyiqgX+/1KRpU5+27JOcBm4PzBE2qGWn6+oX9T/Cw5XmSHQeVNnTN5weFTtsh921w+HKz
- daO5+CnGF6zDhlDYJrU0UpBYPg7VSIXlRQIyZOb0Bx7p+R7ARh300jF
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 20:44:09 +0100
+Message-Id: <DMRSE390GRTH.OZ9KS5QS8M4H@kernel.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 10/12] rust: vfio: separate common device handling
+ from PCI
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ <20261023154009.2246627-11-xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-11-xinmengs@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,341 +66,291 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rva333@protonmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
+> +/// A VFIO device, independent of its bus-specific wrapper.
+> +///
+> +/// # Invariants
+> +///
+> +/// The underlying `vfio_device` is initialized and remains alive while =
+borrowed.
+> +/// Callback contexts are borrowed only for the corresponding callback a=
+nd thread;
+> +/// only [`Normal`] references can be reference-counted.
+> +#[repr(transparent)]
+> +pub struct Device<Ctx: DeviceContext =3D Normal> {
+> +    raw: Opaque<bindings::vfio_device>,
+> +    _context: PhantomData<(Ctx, NotThreadSafe)>,
+> +}
 
-Add support for the KTD3137 display backlight IC. It's used in various
-Xiaomi phones, such as Xiaomi Redmi Note 9.
+I think this needs to be declared differently, see below.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- MAINTAINERS                       |   1 +
- drivers/video/backlight/Kconfig   |  11 ++
- drivers/video/backlight/Makefile  |   1 +
- drivers/video/backlight/ktd3137.c | 258 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 271 insertions(+)
+> +impl<Ctx: DeviceContext> Device<Ctx> {
+> +    /// # Safety
+> +    ///
+> +    /// `raw` must point to an initialized `vfio_device` that remains al=
+ive for
+> +    /// `'a`. The caller must provide the guarantees of `Ctx` throughout=
+ the borrow.
+> +    #[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
+> +    unsafe fn from_raw<'a>(raw: *mut bindings::vfio_device) -> &'a Self =
+{
+> +        // SAFETY: Self is a transparent wrapper; the caller guarantees =
+validity and context.
+> +        unsafe { &*raw.cast() }
+> +    }
+> +
+> +    fn as_raw(&self) -> *mut bindings::vfio_device {
+> +        self.raw.get()
+> +    }
+> +}
+> +
+> +// SAFETY: VFIO uses the embedded class device's refcount to own the ful=
+l allocation.
+> +unsafe impl AlwaysRefCounted for Device {
+> +    fn inc_ref(&self) {
+> +        // SAFETY: A shared reference keeps the initialized VFIO device =
+alive.
+> +        unsafe { bindings::get_device(&raw mut (*self.as_raw()).device) =
+};
+> +    }
+> +
+> +    unsafe fn dec_ref(obj: NonNull<Self>) {
+> +        // SAFETY: The caller owns the VFIO reference being released.
+> +        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).=
+device) };
+> +    }
+> +}
+> +
+> +// SAFETY: Ordinary VFIO references expose no unsynchronized callback op=
+erations.
+> +unsafe impl Send for Device {}
+> +// SAFETY: Shared access only changes the embedded class device's refere=
+nce count.
+> +unsafe impl Sync for Device {}
+> +
+> +/// Callback data stored after the bus-specific C device structure.
+> +///
+> +/// # Invariants
+> +///
+> +/// `reg_data` is dangling when unpublished; otherwise it borrows pinned=
+ data kept
+> +/// alive until callback access has ended. `open_data` is null outside a=
+ successful
+> +/// first open, otherwise owns a pinned allocation until the last close.
+> +/// The bus-specific layer drains callbacks before releasing either allo=
+cation.
+> +struct CallbackData<R: CovariantForLt, O: ForLt> {
+> +    reg_data: UnsafeCell<NonNull<R::Of<'static>>>,
+> +    open_data: UnsafeCell<*mut O::Of<'static>>,
+> +}
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 24dd5b43f167..23114fd09445 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
- M:	Roman Vivchar <rva333@protonmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-+F:	drivers/video/backlight/ktd3137.c
- 
- KTEST
- M:	Steven Rostedt <rostedt@goodmis.org>
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7c66b8840d88..0196b8597367 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
- 	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
- 	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
- 
-+config BACKLIGHT_KTD3137
-+	tristate "Backlight Driver for Kinetic KTD3137"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Kinetic KTD3137
-+	  found in various Xiaomi smartphones.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called ktd3137.
-+
- config BACKLIGHT_KTZ8866
- 	tristate "Backlight Driver for Kinetic KTZ8866"
- 	depends on I2C
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 34469711c6cd..b2d3b69e9e32 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
- obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
- obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
- obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
-+obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
- obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
- obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
- obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
-diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
-new file mode 100644
-index 000000000000..1595aefd46e6
---- /dev/null
-+++ b/drivers/video/backlight/ktd3137.c
-@@ -0,0 +1,258 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2025-2026 Roman Vivchar <rva333@protonmail.com>
-+ *
-+ * Backlight driver for the Kinetic KTD3137
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define KTD3137_REG_DEV_ID		0x00
-+#define KTD3137_REG_SW_RESET		0x01
-+#define KTD3137_REG_MODE		0x02
-+#define KTD3137_REG_CONTROL		0x03
-+#define KTD3137_REG_RATIO_LSB		0x04
-+#define KTD3137_REG_RATIO_MSB		0x05
-+#define KTD3137_REG_PWM			0x06
-+#define KTD3137_REG_RAMP_ON		0x07
-+#define KTD3137_REG_TRANS_RAMP		0x08
-+#define KTD3137_REG_FLASH_SETTING	0x09
-+#define KTD3137_REG_STATUS		0x0a
-+#define KTD3137_REG_MAX			0x0a
-+
-+/* KTD3137_REG_DEV_ID */
-+#define KTD3137_DEV_ID_A		0x12
-+#define KTD3137_DEV_ID_B		0x18
-+
-+/* KTD3137_REG_MODE */
-+#define KTD3137_MODE_BL_EN		BIT(0)
-+#define KTD3137_MODE_CURRENT_MASK	GENMASK(7, 3)
-+
-+/* KTD3137_REG_CONTROL */
-+#define KTD3137_CONTROL_LINEAR		(BIT(1) | BIT(2))
-+#define KTD3137_CONTROL_IND_2P6A	BIT(3)
-+#define KTD3137_CONTROL_OVP_32V		BIT(5)
-+#define KTD3137_CONTROL_FREQ_1000KHZ	BIT(6)
-+#define KTD3137_CONTROL_DEFAULT		(KTD3137_CONTROL_IND_2P6A | \
-+					 KTD3137_CONTROL_OVP_32V | \
-+					 KTD3137_CONTROL_FREQ_1000KHZ)
-+
-+/* KTD3137_REG_RATIO_LSB */
-+#define KTD3137_RATIO_LSB_MASK		GENMASK(2, 0)
-+
-+/* KTD3137_REG_PWM */
-+#define KTD3137_PWM_CH1_EN		BIT(0)
-+#define KTD3137_PWM_CH2_EN		BIT(1)
-+#define KTD3137_PWM_FILTER_6LSB		(BIT(3) | BIT(4))
-+#define KTD3137_PWM_DISABLE		BIT(7)
-+#define KTD3137_PWM_DEFAULT		(KTD3137_PWM_CH1_EN | \
-+					 KTD3137_PWM_CH2_EN | \
-+					 KTD3137_PWM_FILTER_6LSB | \
-+					 KTD3137_PWM_DISABLE)
-+
-+/* KTD3137_REG_RAMP_ON */
-+#define KTD3137_RAMP_ON_MASK		GENMASK(7, 4)
-+#define KTD3137_RAMP_OFF_MASK		GENMASK(3, 0)
-+/* Ramp ON: 2ms, OFF: 8ms */
-+#define KTD3137_RAMP_DEFAULT		(FIELD_PREP(KTD3137_RAMP_ON_MASK, 4) | \
-+					 FIELD_PREP(KTD3137_RAMP_OFF_MASK, 4))
-+
-+#define KTD3137_MAX_BRIGHTNESS		2047
-+
-+#define KTD3137_I_MIN_UA		5000
-+#define KTD3137_I_MAX_UA		29800
-+#define KTD3137_I_STEP_UA		800
-+#define KTD3137_I_DEFAULT_UA		20200
-+
-+struct ktd3137 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct gpio_desc *enable_gpio;
-+	u32 led_current;
-+};
-+
-+static const struct regmap_config ktd3137_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = KTD3137_REG_MAX,
-+};
-+
-+static int ktd3137_init(struct ktd3137 *ktd)
-+{
-+	int ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL,
-+			   KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
-+}
-+
-+static int ktd3137_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct ktd3137 *ktd = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	if (brightness > 0) {
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_LSB,
-+				   brightness & KTD3137_RATIO_LSB_MASK);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_MSB,
-+				   brightness >> 3);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_BL_EN,
-+				  brightness ? KTD3137_MODE_BL_EN : 0);
-+}
-+
-+static const struct backlight_ops ktd3137_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = ktd3137_backlight_update_status,
-+};
-+
-+static int ktd3137_parse_dt(struct ktd3137 *ktd)
-+{
-+	u32 max_ua = KTD3137_I_DEFAULT_UA;
-+	u32 val;
-+
-+	device_property_read_u32(ktd->dev, "led-max-microamp", &max_ua);
-+
-+	if (max_ua < KTD3137_I_MIN_UA || max_ua > KTD3137_I_MAX_UA)
-+		return dev_err_probe(ktd->dev, -EINVAL,
-+				     "led-max-microamp (%u) out of range\n", max_ua);
-+
-+	val = (max_ua - KTD3137_I_MIN_UA) / KTD3137_I_STEP_UA;
-+	ktd->led_current = FIELD_PREP(KTD3137_MODE_CURRENT_MASK, val);
-+
-+	return 0;
-+}
-+
-+static int ktd3137_probe(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev;
-+	struct backlight_properties props = { };
-+	struct ktd3137 *ktd;
-+	u32 val;
-+	int ret;
-+
-+	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
-+	if (!ktd)
-+		return -ENOMEM;
-+
-+	ktd->dev = &client->dev;
-+
-+	ret = devm_regulator_get_enable(ktd->dev, "vin");
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
-+
-+	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
-+						   GPIOD_OUT_HIGH);
-+	if (IS_ERR(ktd->enable_gpio))
-+		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
-+				     "failed to get enable gpio\n");
-+
-+	/* HWEN should stay HIGH for at least 150us before I2C can be used */
-+	fsleep(150);
-+
-+	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
-+	if (IS_ERR(ktd->regmap))
-+		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
-+				     "failed to init regmap\n");
-+
-+	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
-+
-+	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
-+		return dev_err_probe(ktd->dev, -ENODEV,
-+				     "unsupported chip id: 0x%02x\n", val);
-+
-+	ret = ktd3137_parse_dt(ktd);
-+	if (ret)
-+		return ret;
-+
-+	ret = ktd3137_init(ktd);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
-+
-+	backlight_dev = devm_backlight_device_register(ktd->dev,
-+						       "ktd3137-backlight",
-+						       ktd->dev, ktd,
-+						       &ktd3137_backlight_ops,
-+						       &props);
-+	if (IS_ERR(backlight_dev))
-+		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
-+				     "failed to register backlight device\n");
-+
-+	i2c_set_clientdata(client, backlight_dev);
-+	return backlight_update_status(backlight_dev);
-+}
-+
-+static void ktd3137_remove(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
-+
-+	backlight_dev->props.brightness = 0;
-+	backlight_update_status(backlight_dev);
-+}
-+
-+static const struct i2c_device_id ktd3137_ids[] = {
-+	{ "ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ktd3137_ids);
-+
-+static const struct of_device_id ktd3137_match_table[] = {
-+	{ .compatible = "kinetic,ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ktd3137_match_table);
-+
-+static struct i2c_driver ktd3137_driver = {
-+	.driver = {
-+		.name = "ktd3137",
-+		.of_match_table = ktd3137_match_table,
-+	},
-+	.probe = ktd3137_probe,
-+	.remove = ktd3137_remove,
-+	.id_table = ktd3137_ids,
-+};
-+module_i2c_driver(ktd3137_driver);
-+
-+MODULE_DESCRIPTION("Kinetic KTD3137 Backlight Driver");
-+MODULE_LICENSE("GPL");
+We don't need to arbitrarily limit registration data to require covariance,
+eventually we will need invariant data.
 
--- 
-2.56.0
+Also, I think we don't need ForLt/CovariantForLt at all. Both types are
+associated types of an ops trait, so they can just be GATs, i.e.:
 
+	type RegistrationData<'a>: Send + Sync + 'a;
+	type OpenData<'a, 'data: 'a>: Send + Sync + 'a;
 
+> +
+> +#[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
+> +impl<R: CovariantForLt, O: ForLt> CallbackData<R, O> {
+> +    fn new() -> Self {
+> +        Self {
+> +            reg_data: UnsafeCell::new(NonNull::dangling()),
+> +            open_data: UnsafeCell::new(core::ptr::null_mut()),
+> +        }
+> +    }
+> +
+> +    /// Access registration data without allowing its erased lifetime to=
+ escape.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Registration data must be published and remain valid through thi=
+s call.
+> +    /// The caller must exclude concurrent changes to `reg_data`.
+> +    unsafe fn registration_data_with<V>(&self, f: impl for<'a> FnOnce(&'=
+a R::Of<'a>) -> V) -> V {
+> +        // SAFETY: The caller keeps registration data alive and excludes=
+ mutation.
+> +        // Covariance permits shortening its erased lifetime to this bor=
+row.
+> +        let reg_data =3D unsafe { (*self.reg_data.get()).cast::<R::Of<'_=
+>>().as_ref() };
+> +        f(reg_data)
+> +    }
+> +
+> +    /// # Safety
+> +    ///
+> +    /// The caller must be an I/O callback while VFIO keeps the device o=
+pen.
+> +    /// Registration and open data must remain valid, with their pointer=
+ slots
+> +    /// unchanged throughout the call.
+> +    unsafe fn callback_data_with<V>(
+> +        &self,
+> +        f: impl for<'borrow, 'data> FnOnce(&'borrow R::Of<'data>, Pin<&'=
+borrow O::Of<'data>>) -> V,
+> +    ) -> V {
+> +        // SAFETY: The caller excludes open/close and unregister while b=
+orrowing the data.
+> +        unsafe {
+> +            self.registration_data_with(|reg_data| {
+> +                let ptr =3D (*self.open_data.get()).cast::<O::Of<'_>>();
+> +                // The data lifetime stays independent of the callback b=
+orrow,
+> +                // so borrowed OpenData fields cannot be stored back int=
+o OpenData.
+> +                f(reg_data, Pin::new_unchecked(&*ptr))
+> +            })
+> +        }
+> +    }
+
+I don't think we necessarily need the extra closure, we only ever pass this=
+ to
+callbacks of the ops trait, but it would allow us to make the accessor safe=
+:
+
+If we move them onto Device directly, we can leverage the type states. E.g.=
+ we
+can group them with traits and only implement e.g. callback_data_with() for=
+ type
+states that allow for this.
+
+> +
+> +    /// # Safety
+> +    ///
+> +    /// Call only during exclusive first open, with no existing open dat=
+a.
+> +    /// All resources borrowed for `'a` must remain valid until `close()=
+` returns.
+> +    unsafe fn open<'a, I: PinInit<O::Of<'a>, Error>>(&self, init: impl F=
+nOnce() -> I) -> Result {
+> +        // Allocate before calling the driver so allocation failure cann=
+ot follow open.
+> +        let data =3D KBox::<O::Of<'a>>::new_uninit(GFP_KERNEL)?;
+> +        let data =3D data.write_pin_init(init())?;
+> +
+> +        // SAFETY: Only the owning pointer moves; close drops the alloca=
+tion in place.
+> +        let raw =3D KBox::into_raw(unsafe { Pin::into_inner_unchecked(da=
+ta) });
+> +        // SAFETY: First open is exclusive; the caller keeps borrowed re=
+sources alive
+> +        // through close. Lifetimes do not affect the allocation's layou=
+t.
+> +        unsafe { *self.open_data.get() =3D raw.cast::<O::Of<'static>>() =
+};
+> +        Ok(())
+> +    }
+> +
+> +    /// # Safety
+> +    ///
+> +    /// Call once after a successful open, with all callbacks drained an=
+d the next
+> +    /// open excluded. Registration data and borrowed resources must rem=
+ain alive.
+> +    unsafe fn close(&self) {
+> +        // SAFETY: Last close exclusively takes the allocation published=
+ by open.
+> +        let raw =3D unsafe { core::mem::replace(&mut *self.open_data.get=
+(), core::ptr::null_mut()) };
+> +        // SAFETY: The allocation came from KBox::into_raw and is destro=
+yed without moving it.
+> +        unsafe { drop(KBox::from_raw(raw)) };
+> +    }
+
+This seems like a bit of a back and forth because logically we want those
+methods on vfio::Device so you can take advantage of the type system
+information.
+
+But in this implementation CallbackData lives in the vfio::pci::Device, lik=
+ely
+for memory layout reasons.
+
+But we can also do something like this:
+
+	#[repr(C)]
+	pub struct DeviceBase<Raw, R, O, T, Ctx =3D Normal> {
+	    raw: Opaque<Raw>,
+	    data: CallbackData<R, O>,
+	    _context: PhantomData<(T, Ctx, NotThreadSafe)>,
+	}
+
+	// vfio.rs
+	pub type Device<T, Ctx =3D Normal> =3D DeviceBase<
+	    bindings::vfio_device,
+	    T,
+	    <T as Operations>::RegistrationData<'static>,
+	    <T as Operations>::OpenData<'static, 'static>,
+	    Ctx,
+	>;
+=09
+	// vfio/pci.rs
+	pub type Device<T, Ctx =3D Normal> =3D super::DeviceBase<
+	    bindings::vfio_pci_core_device,
+	    T,
+	    <T as Operations>::RegistrationData<'static>,
+	    <T as Operations>::OpenData<'static, 'static>,
+	    Ctx,
+	>;
+=09
+Of course we can't have AsRef<vfio::Device> with this, but we don't need it=
+.
+
+For instance, there's only one AlwaysRefCounted impl needed:
+
+  unsafe impl<Raw: RawDevice, R, O, T> AlwaysRefCounted
+      for DeviceBase<Raw, R, O, Normal>
+  {
+      fn inc_ref(&self) {
+          let vdev =3D unsafe { Raw::raw_vfio_device(self.as_raw()) };
+
+          unsafe { bindings::get_device(&raw mut (*vdev).device) };
+      }
+
+      unsafe fn dec_ref(obj: NonNull<Self>) {
+          let raw =3D unsafe {
+              Opaque::cast_into(&raw const (*obj.as_ptr()).raw)
+          };
+
+          let vdev =3D unsafe { Raw::raw_vfio_device(raw) };
+
+          unsafe { bindings::put_device(&raw mut (*vdev).device) };
+      }
+  }
+
+We can either rely on the fact that vfio_pci_core_device's first member is =
+the
+vfio_device, or make it explicit with something like:
+
+	/// Maps a C device structure to its embedded VFIO device.
+	///
+	/// # Safety
+	///
+	/// Implementations must return the address of the `vfio_device` at the
+	/// beginning of `Self`, preserving the input pointer's provenance.
+	unsafe trait RawDevice {
+	    /// # Safety
+	    ///
+	    /// `raw` must point to an initialized, live `Self`.
+	    unsafe fn raw_vfio_device(
+	        raw: *mut Self,
+	    ) -> *mut bindings::vfio_device;
+	}
+
+Not that this isn't only to make use of some type system information (there=
+'s
+other ways to achieve that too) but also to make vfio::Device useful for no=
+n-PCI
+implementations, as they need CallbackData too.
