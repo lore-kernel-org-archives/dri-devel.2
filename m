@@ -2,97 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5AF60A2607
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BEB606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 21:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xzvsi7K+
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ix34q0C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0961910F068;
-	Tue, 10 Nov 2026 21:50:03 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C90C410E33B
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:49:56 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-36dc4797082so360693eec.2
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:49:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794347396; cv=none;
- d=google.com; s=arc-20260327;
- b=RT/uwkw8p3jvWSi8oW7OxqhHs1r9qjmEoB16di4tBJaohCuggoEbZUlye0eT2yFn+H
- o4pgR4Iu2FNFglm9rNsDGzybLQjZ+T3eK8lyGJZ6Er3zLVJ+brXfb4VgRJphPhXAm9MQ
- RdePrlYt+OygJM5bUv7t/KYzbNEqcFsOKXsLKih9LWnkbVHdin6wYzJLak0W/znvgBEF
- yLY3sq10a2MQsZmQ5RfcCEPstxE9x/3IJBP/TgaAb0KqPMGA/jJ0L6QDz+RGdjNsv3+8
- muWIzWkRylGw8cFHAAaR+dZK+Dcwl1jt55Q1D91Mg/arx50qfw35iGH9bFJZ4E5m/k6T
- Hf3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
- fh=Ak5/++zjkTSrPBtaoF0DHweHoik9aqhMe2gz5bOIz7I=;
- b=JoAjBlyLveVBJ9Q6hiQ6XaB1g9b9tZXixGQo+xotJpsqgn1WzRP3VYMzppMjp3JA6A
- fWAYblHW6fWIepLAFVYYH1ivc0Fj/5UBjhVB7ZFR18CX9aTxkV7x7VvE3Fpla6XIV8QG
- UATte2E9B/5r3hMTZy5r54nrtXyE6bPiE5Og4gmEV1a1UuP4rB6Rf7ZND2akQoX+vlBh
- ipwWFqCVzKwFXCWJcTCVrZFbenepIgHKD+8Tzdko5zzC9NsD9BeRP8QAyswCU88jwNUm
- cz6hMdEOnm62CxBm2QYLnc8MoWWEZ/Tkozi+P2svahX5k8/p68yjHyRnS5JECsyiTLdO
- xx7w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B58B10E398;
+	Tue, 10 Nov 2026 21:53:43 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 580E410E3A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 21:53:37 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-497614c95f0so1358959f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:53:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794347396; x=1794952196; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
- b=xzvsi7K+Rxx1yTTQAbCLSkkRBIbkgyRzJKujahpc8PaT8Vapym4zYDm2BV0aDxxS4M
- 49qkWCzWsbZewo7sMhrgMxkKnQWVDw2ywGBxR4M0dd50s1R7jMIfGhIfvphoqOS4M+U1
- WfYV6XduF+G73yuQABpAQDEOcquhiS41Xs1EnIDlclpacuLgolCPJvTmjxuJmJg0Zo9U
- Uw4Aso70xfOM6JVBzdY7lJhgTPcITIaRIt0TLqsHUV7eKTZT1NpzYeiudt1HNEZRuz5h
- PHUMj/U+3rIFgaEm5wRoCpZTHhdBP7oAA14+784ddpmjYg1W//NZo+19xhbfSVj8ceGr
- 1BoA==
+ d=gmail.com; s=20260707; t=1794347616; x=1794952416; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=AqrPq6DInPU+YVwPB2qO7zdIo9ZkitMttG/r01QX26E=;
+ b=0ix34q0CxQA7lBlgq9uQnwX2qRfsu5j675qF+zpg82FtBBdn/+sQes/Rhqcv7Y4/3X
+ Job8waKI4/IXr0TW9tcSwoaSrbX8qz2IEteWGydEmFeRsflC5cTL88AHbGDDw0YggLJr
+ hgTc+uR+UcgQo7L44J8p3cgHnVzOm8/3I0HoQdm9dXayMCTDMhCZ8ZT4nc8maDicwJd1
+ /pYushijvzlSw662V6LgmlovbzVoY5TGOwS110EV3jyCu346s5KQqbQ20SFjFpqxgAd0
+ pRKAmGii0qfW9Mx7MOE+CaKmBK4ueomwSwjbVZFZtnGC9peAEIRKCGIwznv6hCasFBNc
+ S06w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794347396; x=1794952196;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lc2d75OL7aQ19NWtHaPUWdOA/U+qQ69pXWLu70/x14s=;
- b=ii206kISRuxG7hIYXgpSAmDBOPLIXTw38ucc62kqp+ql9ppDRImFYwwUJo103SMlgB
- /IVn05KncJvyqUhs0WqeYxAIOthXRaq9CtJbSIqQsl3u/rslRMSKdUZscFq03hnLFVQk
- jMv9+Kn5XSR1czhxBc1n1yS/mVuWCYNwZzAXB9AQZODdrWVIv+255eq5t3jgpWG08Em0
- Xaym0ntmtcpWCwQixI63Fz46J7X0JhSqWNmR6+GmelNZ4zxRqInplaQpjsPeUaPOOidr
- wir14rKcmNeQxlIzL7jN0i5HpczMW8yMXWNCwq+umTaMxI8nTR7yezP3VMMaXYKwyVS2
- H1hw==
+ d=1e100.net; s=20260707; t=1794347616; x=1794952416;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=AqrPq6DInPU+YVwPB2qO7zdIo9ZkitMttG/r01QX26E=;
+ b=IsQIn0PkeBOkeWnWamK+uf6FkSQzm8aZ35UK6kxlThzVqxkD4rtsol8Rm9ZAVQkaTl
+ cpAYkyXHcSR1mHnc3jAlZHE8qC+JGkQlDOhhIxWnL62d0ilrz01+T+2FLYXBflLsHbON
+ qXTmKZYOdcIN7HgV09gXdB2rTVMb25orxQj+9ViPsGj3MTPEuQz/Cdog0QKUQqgsreQ0
+ ZCuSp+jy/nPFFmSx1MFrD3cx5Va0LOah68HDyOdRYSYzSGiXubcni3B+CclLSqTR+BRT
+ ImFLeRnpQCpL7rqr2Zdh4ETjqhHQ5kqd9x4G2Rw9oXD9h82AXrHJUhnAUEJ0oTePK/P4
+ ka4A==
 X-Forwarded-Encrypted: i=1;
- AL+hErFcRMpSocvt9OpiA5qEMe5BMOkGWaTD0x08sOdUgvClE8gF/9wtQy5dcLC/UoFhf3c2OdxgGUHjHO4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+qYjL3TIg52KxEr1Pb6K18tQrQmAwuYfoF3dLtbNkStUJn/Z4p
- O01MOHXS125U7ozjqAHkQEJS+rwl3pdmIChWgn1ZnN6PDdNDl8RGoqIOB2ThSXVq4zYu6ShDY3e
- m2Q+YdJ0ne0xcW7YLtGWxjUitZeRVm7g=
-X-Gm-Gg: AYBFou3JdEpgTAdoNTsOoCPr+nmO0UZ6WV61zH26X9N/ZvIYuRblUIQ8m28ukdkLnSK
- Rgc0iQ12DDWSes3QSe9heOwu0CmNUPG0GP2hyDX0F1BohfQEO5bIqLGwor7sFf6PLuVG/yMDYu9
- p7cBIfmHuV7jIZ3sMjJO9/aruxIFwvM1T5NHo/AMeBK9hT8PAozIK42KDoumkLW/NVOgu7znAL+
- 7WRh5E1/aP/uEeqgPa0MWG93L8s/4fGQd3Ke3aaZ5+v9KChihr2sfWfEkAkZ9YDxzeysfIBgi2s
- aZWp3mIHM8bOnYg0Q+3Z5u7dYP+9mvGXpOeOAeqLewZ9blX5aqmtrmLLMleYe7ZQ/murWvcyv0S
- Ih/IqMRg/P/tbs9dM5YNTds5CgcfDUmEcxWH+JTcLSce+CP3IozYynu3z3OOpwvZ2mwX9k4CtZq
- sWoy2g44ebcAawTremlC+r1S0+ztJVVeYLItpNX2kLMMEvtg3QDuFv7a1ha2s=
-X-Received: by 2002:a05:693c:41cb:20b0:36e:66d8:1424 with SMTP id
- 5a478bee46e88-37680a60bbdmr1218085eec.0.1794347395773; Tue, 10 Nov 2026
- 13:49:55 -0800 (PST)
+ AL+hErHYvlFimpFegYfGOEXYQCaPys7rjQXnksShJwpxRtH7dn6kievMtcosoPmo+WfTnvr20XUnyk6u+fc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9k7jwPQuhaH2ZDIDSrymQGOXSRla5vi5ocDdlU/VJGTbvcbHiF
+ I3nAev3Hgjevpx1eg8D0+2hoOgRTzUp5/bGRff7QpIwSzqmKv0X6DuKK
+X-Gm-Gg: AYBFou1VQdSSS3qtGKlzesQ4ze6rEQ7KGrQAEg06Ir72gY60yVK0Kt/qXLn37x38jsK
+ WwfFB1xgMopVfzX27CnQUWcd0jDZeIH93mfjI8OUzZMsTtV7CCKw+L63o54wtrqpzNTdeO/kzcJ
+ K0iWHUjGKQa3nN9VymEnNqHFueyinrkJ2tjE8w5msE7JSzmx9lxzM1ExfR12+TOkbPSxpdYB048
+ 5z413eBt9KB+TqmkQEj+AWzwac27w6PK/JVmbjtyO+j+g5K58PMNc90ie4wMqDIcm1zGVrYYdX5
+ mWnqdqgqa2n0z8f9XHDPOqOADKvBQzZruowbcrUc+bGP1VxKZq6u05/GLhsbihmlIU5/SJj6oDf
+ sEo6ewVlxVDwi7ZM2++HDHzLOHX0gYZ5TYUowwAcowGvSjMsPx3yh0sCCBl1L7PXd7mfoC0N/QT
+ 2+hVuv/1o0ea+VlgB6ASB5wj0U2LbadeOv9gRPRLHv/KM9tatJ0H0NuxOU5HFGIAFWp4OlO1yWa
+ Vza5f23F9Ze02S7ZStOF+jcZNl+6L1IoWY7LvN7onFSzSof5ye29W3rjWxLxh7oEIhyeJCm/bB3
+ W380Df3LaD2snYZi0PX1xNpn03c=
+X-Received: by 2002:a05:6000:2411:b0:48e:3647:c35d with SMTP id
+ ffacd0b85a97d-499c7a24acfmr395628f8f.21.1794347615587; 
+ Tue, 10 Nov 2026 13:53:35 -0800 (PST)
+Received: from localhost ([5.83.201.131]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4984e26f8e3sm6377221f8f.1.2026.11.10.13.53.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2026 13:53:35 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dillon Varone <Dillon.Varone@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: remove extra trailing semicolon from a
+ couple of statements
+Date: Tue, 10 Nov 2026 21:53:34 +0000
+Message-ID: <20261110215334.947250-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110120326.538252-1-tzimmermann@suse.de>
-In-Reply-To: <20261110120326.538252-1-tzimmermann@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Nov 2026 16:49:43 -0500
-X-Gm-Features: AclHuK_r02Bf4QXu75VAdsauSxMk2WkxkkNGMymOSn-A5ONgkHUPX0j_0Ud49DY
-Message-ID: <CADnq5_NCF2J0Dzea5swubs+eEKBLq+8ontc5n=kihYZVA3A1aw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] drm/amdgpu,radeon: Inline drm_crtc_init()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- sashiko-reviews@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,64 +91,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 7:11=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> The helper drm_crtc_init() sets up a CRTC with a primary plane for
-> non-atomic mode setting. Only drivers for some AMD hardware still
-> use it.
->
-> Inline drm_crtc_init() into amdgpu and radeon and remove it from
-> DRM. All new code implements atomic mode setting, which does not
-> use drm_crtc_init().
->
+There are a couple of statements that are terminated with ;; - fix this
+by removing the extra redundant semicolon.
 
-I'd like to drop all of the old amdgpu non-DC code since DC is now the
-default, and we have an LTS kernel now.  I'm planning to send these
-out in the near future:
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/remove-non-dc-display?=
-ref_type=3Dheads
-So that just leaves radeon.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ .../dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c   | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
+index 71d14fb8c830..5dd22003f165 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
+@@ -328,7 +328,7 @@ void dcn6_ms_calculate_writeback_bandwidth(
+ 		}
+ 	}
+ 
+-	DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cfg->num_planes, DML2_MAX_WRITEBACK);;
++	DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cfg->num_planes, DML2_MAX_WRITEBACK);
+ 	DML_LOG_FUNC_EXIT();
+ }
+ 
+@@ -4255,7 +4255,7 @@ enum dml2_status dml2_core_dcn6_funcs_validate_solution(struct dml2_core_instanc
+ 	enum dml2_status status = DML2_STATUS_OK;
+ 	struct dml2_core_calculate_ms_context *calc_ms_ctx = &core->scratch.mode_support_locals.calc_ms_ctx;
+ 	struct dml2_calculate_mcache_allocation_in_out *calc_mcache_allocation_params =
+-			&core->scratch.mode_support_locals.calc_mcache_allocation_params;;
++			&core->scratch.mode_support_locals.calc_mcache_allocation_params;
+ 	struct dml2_core_internal_display_mode_lib *mode_lib = &core->clean_me_up.mode_lib;
+ 	unsigned int i;
+ 
+-- 
+2.55.0
 
-> DRM support for kernel panic is only implemented in amdgpu. Take
-> the panic helpers from drm_crtc_init() in amdgpu, but clean it up
-> in radeon.
->
-> With this series in place, DRM's helpers for drawing panic screens
-> can be further integrated with other drawing helpers, as outlined
-> in [1].
->
-> Tested on radeon with a Radeon HD 6570.
->
-> [1] https://lore.kernel.org/dri-devel/20261019154612.777074-1-tzimmermann=
-@suse.de/
->
-> Thomas Zimmermann (5):
->   drm/amdgpu: dce_v6_0: Inline drm_crtc_init()
->   drm/amdgpu: dce_v8_0: Inline drm_crtc_init()
->   drm/amdgpu: dce_v10_0: Inline drm_crtc_init()
->   drm/radeon: Inline drm_crtc_init()
->   drm: Remove drm_crtc_init()
->
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 44 ++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 44 ++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 44 ++++++++++++++-
->  drivers/gpu/drm/drm_crtc.c              | 26 +++------
->  drivers/gpu/drm/drm_modeset_helper.c    | 74 -------------------------
->  drivers/gpu/drm/radeon/radeon_display.c | 47 +++++++++++++---
->  include/drm/drm_modeset_helper.h        |  3 -
->  include/drm/drm_plane.h                 |  5 --
->  8 files changed, 170 insertions(+), 117 deletions(-)
->
-> --
-> 2.56.0
->
