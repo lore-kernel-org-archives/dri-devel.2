@@ -2,100 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745DB606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:04:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142EF60A6F6A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:09:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uzeDSQ+l;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WGViF1Q7;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uzeDSQ+l;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WGViF1Q7
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=q9vTgOpW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4AA510F636;
-	Tue, 10 Nov 2026 12:04:17 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BDF610F635;
- Tue, 10 Nov 2026 12:04:06 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A78CC21ED0;
- Tue, 10 Nov 2026 12:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794312212; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LAAuX8bTZKrY820u1Aa9twHuXNdM18/vVAKUQE+qlSk=;
- b=uzeDSQ+lR/x3dQgiXLFK+7Vo9zVx1OY4BV62qBZJWy9g0ku1dc0ZYW3vUU1I/DN9yVXqFj
- YJ90k+bl1za27wqCRA7jvp5kNz7/OhwPX4EMzCw1WwWheXWG8JyTNXiA8VZ0cwZ8DsDE82
- ywUgizPq5HV1uKfyn+0TVPEQ8qwTHEw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794312212;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LAAuX8bTZKrY820u1Aa9twHuXNdM18/vVAKUQE+qlSk=;
- b=WGViF1Q7mHTp85MRRTROhiXOCzxXlSSCR5chhfKKON87XD6oj7HQe8oZe3EXHv0VnFLtto
- l7ccXQ44EqL/JHBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794312212; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LAAuX8bTZKrY820u1Aa9twHuXNdM18/vVAKUQE+qlSk=;
- b=uzeDSQ+lR/x3dQgiXLFK+7Vo9zVx1OY4BV62qBZJWy9g0ku1dc0ZYW3vUU1I/DN9yVXqFj
- YJ90k+bl1za27wqCRA7jvp5kNz7/OhwPX4EMzCw1WwWheXWG8JyTNXiA8VZ0cwZ8DsDE82
- ywUgizPq5HV1uKfyn+0TVPEQ8qwTHEw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794312212;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LAAuX8bTZKrY820u1Aa9twHuXNdM18/vVAKUQE+qlSk=;
- b=WGViF1Q7mHTp85MRRTROhiXOCzxXlSSCR5chhfKKON87XD6oj7HQe8oZe3EXHv0VnFLtto
- l7ccXQ44EqL/JHBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D5CF134F4;
- Tue, 10 Nov 2026 12:03:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9RxpJBII82qUDQAAD6G6ig:T6
- (envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 12:03:32 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 5/5] drm: Remove drm_crtc_init()
-Date: Tue, 10 Nov 2026 12:53:31 +0100
-Message-ID: <20261110120326.538252-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110120326.538252-1-tzimmermann@suse.de>
-References: <20261110120326.538252-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8149010F63C;
+	Tue, 10 Nov 2026 12:09:02 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81DBD10F63C
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:08:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=suRO7IXcHs/kdn6Tu9XVOti31enSt55p3HCSbFlmGg8=; t=1794312536; x=2109672536; 
+ b=q9vTgOpWfJ8yo4Hn7KBU74W5y7LLiix1TYhYT0LVBUJNo08cFKxNbNzdc6okJLr25FOAxcn8LuR
+ C8CcE7/Azg+weamk12OVPOfYQkpUd4wNg8BCMG6Q9rKVVXPSbgOoF2awB7rv36kIuIbmysqF/wcH4
+ TMVDLLtYU3Dksi3OwTawr8pvbvHxGtdoP+l/ZLALu7Zmhw9s5XMuKVj3zwGnBWSdBnueyEt8ZVfOh
+ OBqnniXm2miFch5bqJl6mOXDY0mqU88Djdt6DOwALu6MIq3p1L7vhQwH5AqrGZMQXys3EOM2OropT
+ QDNI49jvFcGOd8zN1h1bHi7wvpP0aEucjKgg==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xQkeV-00896x-9d; Tue, 10 Nov 2026 13:08:39 +0100
+Message-ID: <e997d667-0070-4f65-a552-51bc41e2af97@igalia.com>
+Date: Tue, 10 Nov 2026 09:08:31 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/9] drm/vc4: hdmi: Propagate -EDEADLK to the top level
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <lucas.tanure@neat.no>
+References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
+ <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261110-vc4-common-scramb-v4-4-eaa141a0da0f@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_SEVEN(0.00)[10];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -11.80
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,196 +83,92 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There are no remaining users of drm_crtc_init(), so remove the helper
-and the internal data structures for the primary plane that the helper
-creates.
 
-Also remove the format_default flag from struct drm_plane. Without
-drm_crtc_init(), no drivers set it to true.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_crtc.c           | 26 +++-------
- drivers/gpu/drm/drm_modeset_helper.c | 74 ----------------------------
- include/drm/drm_modeset_helper.h     |  3 --
- include/drm/drm_plane.h              |  5 --
- 4 files changed, 7 insertions(+), 101 deletions(-)
+On 09/11/26 21:13, Cristian Ciocaltea wrote:
+> drm_connector_helper_funcs.detect_ctx() is expected to propagate
+> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
+> perform the required backoff and retry.
+> 
+> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
+> drm_modeset_backoff() on an acquire context it does not own.  This drops
+> all locks in the context, including connection_mutex held by the core.
+> 
+> Drop the local retry logic and propagate -EDEADLK to the caller instead.
+> This aligns VC4 with the expected detect_ctx() semantics.
+> 
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 5295ec122e0d..b7cf18b79b1d 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -334,10 +334,7 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
-  * @funcs: callbacks for the new CRTC
-  * @name: printf style format string for the CRTC name, or NULL for default name
-  *
-- * Inits a new object created as base part of a driver crtc object. Drivers
-- * should use this function instead of drm_crtc_init(), which is only provided
-- * for backwards compatibility with drivers which do not yet support universal
-- * planes).
-+ * Inits a new object created as base part of a driver crtc object.
-  * The &drm_crtc_funcs.destroy hook should call drm_crtc_cleanup() and kfree()
-  * the crtc structure. The crtc structure should not be allocated with
-  * devm_kzalloc().
-@@ -417,10 +414,7 @@ static int __drmm_crtc_init_with_planes(struct drm_device *dev,
-  * @funcs: callbacks for the new CRTC
-  * @name: printf style format string for the CRTC name, or NULL for default name
-  *
-- * Inits a new object created as base part of a driver crtc object. Drivers
-- * should use this function instead of drm_crtc_init(), which is only provided
-- * for backwards compatibility with drivers which do not yet support universal
-- * planes).
-+ * Inits a new object created as base part of a driver crtc object.
-  *
-  * Cleanup is automatically handled through registering
-  * drmm_crtc_cleanup() with drmm_add_action(). The crtc structure should
-@@ -806,18 +800,12 @@ int drm_mode_setcrtc(struct drm_device *dev, void *data,
- 
- 		/*
- 		 * Check whether the primary plane supports the fb pixel format.
--		 * Drivers not implementing the universal planes API use a
--		 * default formats list provided by the DRM core which doesn't
--		 * match real hardware capabilities. Skip the check in that
--		 * case.
- 		 */
--		if (!plane->format_default) {
--			if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
--				drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
--					    &fb->format->format, fb->modifier);
--				ret = -EINVAL;
--				goto out;
--			}
-+		if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
-+			drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
-+				    &fb->format->format, fb->modifier);
-+			ret = -EINVAL;
-+			goto out;
- 		}
- 
- 		ret = drm_crtc_check_viewport(crtc, crtc_req->x, crtc_req->y,
-diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-index cca623eb23e5..d462b347bde6 100644
---- a/drivers/gpu/drm/drm_modeset_helper.c
-+++ b/drivers/gpu/drm/drm_modeset_helper.c
-@@ -101,80 +101,6 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_helper_mode_fill_fb_struct);
- 
--/*
-- * This is the minimal list of formats that seem to be safe for modeset use
-- * with all current DRM drivers.  Most hardware can actually support more
-- * formats than this and drivers may specify a more accurate list when
-- * creating the primary plane.
-- */
--static const uint32_t safe_modeset_formats[] = {
--	DRM_FORMAT_XRGB8888,
--	DRM_FORMAT_ARGB8888,
--};
--
--static const struct drm_plane_funcs primary_plane_funcs = {
--	DRM_PLANE_NON_ATOMIC_FUNCS,
--	DRM_PANIC_PLANE_FUNCS,
--};
--
--/**
-- * drm_crtc_init - Legacy CRTC initialization function
-- * @dev: DRM device
-- * @crtc: CRTC object to init
-- * @funcs: callbacks for the new CRTC
-- *
-- * Initialize a CRTC object with a default helper-provided primary plane and no
-- * cursor plane.
-- *
-- * Note that we make some assumptions about hardware limitations that may not be
-- * true for all hardware:
-- *
-- * 1. Primary plane cannot be repositioned.
-- * 2. Primary plane cannot be scaled.
-- * 3. Primary plane must cover the entire CRTC.
-- * 4. Subpixel positioning is not supported.
-- * 5. The primary plane must always be on if the CRTC is enabled.
-- *
-- * This is purely a backwards compatibility helper for old drivers. Drivers
-- * should instead implement their own primary plane. Atomic drivers must do so.
-- *
-- * Returns:
-- * Zero on success, error code on failure.
-- */
--int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
--		  const struct drm_crtc_funcs *funcs)
--{
--	struct drm_plane *primary;
--	int ret;
--
--	/* possible_crtc's will be filled in later by crtc_init */
--	primary = __drm_universal_plane_alloc(dev, sizeof(*primary), 0, 0,
--					      &primary_plane_funcs,
--					      safe_modeset_formats,
--					      ARRAY_SIZE(safe_modeset_formats),
--					      NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
--	if (IS_ERR(primary))
--		return PTR_ERR(primary);
--
--	/*
--	 * Remove the format_default field from drm_plane when dropping
--	 * this helper.
--	 */
--	primary->format_default = true;
--
--	ret = drm_crtc_init_with_planes(dev, crtc, primary, NULL, funcs, NULL);
--	if (ret)
--		goto err_drm_plane_cleanup;
--
--	return 0;
--
--err_drm_plane_cleanup:
--	drm_plane_cleanup(primary);
--	kfree(primary);
--	return ret;
--}
--EXPORT_SYMBOL(drm_crtc_init);
--
- /**
-  * drm_mode_config_helper_suspend - Modeset suspend helper
-  * @dev: DRM device
-diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
-index 7e3d4c5a7f66..6b9421aee536 100644
---- a/include/drm/drm_modeset_helper.h
-+++ b/include/drm/drm_modeset_helper.h
-@@ -37,9 +37,6 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- 				    const struct drm_format_info *info,
- 				    const struct drm_mode_fb_cmd2 *mode_cmd);
- 
--int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
--		  const struct drm_crtc_funcs *funcs);
--
- int drm_mode_config_helper_suspend(struct drm_device *dev);
- int drm_mode_config_helper_resume(struct drm_device *dev);
- 
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index 410d7b02b77a..3f6a1408cf5e 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -738,11 +738,6 @@ struct drm_plane {
- 	uint32_t *format_types;
- 	/** @format_count: Size of the array pointed at by @format_types. */
- 	unsigned int format_count;
--	/**
--	 * @format_default: driver hasn't supplied supported formats for the
--	 * plane. Used by the non-atomic driver compatibility wrapper only.
--	 */
--	bool format_default;
- 
- 	/** @modifiers: array of modifiers supported by this plane */
- 	uint64_t *modifiers;
--- 
-2.56.0
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
+
+Best regards,
+- Maíra
+
+> ---
+>   drivers/gpu/drm/vc4/vc4_hdmi.c | 23 +++++++----------------
+>   1 file changed, 7 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> index 0e6696644687..fc9d5fe07849 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -343,12 +343,11 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+>   	return drm_atomic_helper_reset_crtc(crtc, ctx);
+>   }
+>   
+> -static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+> -				    struct drm_modeset_acquire_ctx *ctx,
+> -				    enum drm_connector_status status)
+> +static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+> +				   struct drm_modeset_acquire_ctx *ctx,
+> +				   enum drm_connector_status status)
+>   {
+>   	struct drm_connector *connector = &vc4_hdmi->connector;
+> -	int ret;
+>   
+>   	/*
+>   	 * NOTE: This function should really be called with vc4_hdmi->mutex
+> @@ -367,17 +366,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+>   	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
+>   
+>   	if (status != connector_status_connected)
+> -		return;
+> +		return 0;
+>   
+> -	for (;;) {
+> -		ret = vc4_hdmi_reset_link(connector, ctx);
+> -		if (ret == -EDEADLK) {
+> -			drm_modeset_backoff(ctx);
+> -			continue;
+> -		}
+> -
+> -		break;
+> -	}
+> +	return vc4_hdmi_reset_link(connector, ctx);
+>   }
+>   
+>   static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
+> @@ -415,10 +406,10 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
+>   			status = connector_status_connected;
+>   	}
+>   
+> -	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
+> +	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
+>   	pm_runtime_put(&vc4_hdmi->pdev->dev);
+>   
+> -	return status;
+> +	return ret == -EDEADLK ? ret : status;
+>   }
+>   
+>   static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+> 
 
