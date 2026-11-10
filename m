@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB713606B41E
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B828606B41E
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 07:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MInf3EEt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGNbK/tx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0846E10EE1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA6C10EE28;
 	Tue, 10 Nov 2026 07:19:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D093A10EE2C
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:18:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2D8210E292
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 07:18:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B417E43CC0;
- Tue, 10 Nov 2026 07:18:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AAE5F40D3F;
+ Tue, 10 Nov 2026 07:18:51 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794295132;
- b=1WkfbbpBYj9Jjzkhoe94NJqTBRh48HlyQhVf9h2zgu0B8HPGCSSmMIh5wm7mAVN8++eq
- cRf+dR1cTkUbymuOHeqfM+QJLGTCN1w/U8kQ4dUyJ1eEDX+K2WXlCLbFVALGccsNOdXU5
- aOx74xgJZK2dL1gMwFH/FCbT1AqCzTSZW7KZP6TpZ4KF0yT/SqixkKbgRxHvKCIfz+kBj
- nxVHULcyfYs58yFPTGjFVuVKEOOco1/fQ/KrgdeUzOyqvrc5/qCaopnGFOXzTTbnjkESf
- TNCi8O87LjaXuH3dXN9vEbfY/eh4mw4XreCT44rGFXvJalKso6Z4RMLRgtNBLr0azgw==
+ t=1794295131;
+ b=UPf/O/mkvy/p1Kd/66N+4cpHujxHyh6uh1OkAqheW9RJ0H8k+7/6vLKR5H/7NJcKzgWA
+ K2tjP+hZFd0yC191EzhcGKE8v+xG42MTkT1oSe8sT+mQZ1YKXqtdk4ANxofwk5LyxGisH
+ EufH32IfymM07PRL3w+u7UYPeGodYvCSpg8yz+u2jmcbrxgGN0IRM+/QNpSehLszQczm1
+ IPBjoTqwKnF4G72O1BJKP6Cfq9ZDNhxu33HroSFp24Ps2rEr8GeXPPER+8LGQ/cmZQXdD
+ G8iCMtwfrtF9xhnsg/LzcJlgdhFN/0KFBzFRLWIkPrIoTdwJG3VT8tFc6dPdWmiToug==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794295132;
+ c=relaxed/relaxed; t=1794295131;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=JKFKYBntUHkXd17zAdiMdYN4w92xn7b3/o76NGWE9yc=;
- b=GQshGKP+wzqDmlrFhuWillExsaLsG4iV9D3W1zkZQb9TcpsonYdbimRfEwFCGvgh4vd7
- OLMvldbuabPgYLNVKl+GpvtLY32KLpwhmPjDvAtRj/5EMOFz3NnV4u0+k0NSfnDB5K9kI
- ho6KgkvzO4v9aW12Zmtk1nyEDCeDhYaTNBAbg+0cuIBnLKJpVwFY52TM2Z8dHNKEeqImG
- RqvuatqLeZzMNpxkUJQ3bIv4QGgwQ+8XSYElSYoyr3qj6oOT2cOqopBEcIqroUG3Cfu/P
- 262y2lc3bAaN8GJZ99W+m3XWgytjo3jlFj5j969NfdXjLn2fYXTOUq861hIgNMzHoBA==
+ bh=s1Qj21qpcNfOQIR9sV5LF1bI2tlwUQfLEP8RYtsxPDs=;
+ b=V6lWrytmgxxxqJ3AG39f3EfEDkZo6Tl38jTkJlU2uFQY739HK1QeYxqP08MiBO2M1kyr
+ R56rtk2sWvK0SxgK4ooFNx0kPK0kdZxwkaP5xbdwauAenu3TBJiXJT+p4VHe3Np4acNj7
+ I1GIbYVX4AV1wjmQWW97y3vErOX13ltZim7MaM+5lNZpF2k2+MfhWwordm2yy/BD51+Et
+ pH1oe1pIXjZ7c8EAMowlg14mo2lRIGPic2ao6I9mkrYVmj5IEBTWYDHcj7suhPLk4PQDR
+ 1SaUC6pffb2BcUcmN5eG/v3stcmki65Syn3ooBd3hfypOW5sGit8FX6uY8ehPcMa3BQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 4ABC81F008BC;
- Tue, 10 Nov 2026 07:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794295132;
- bh=JKFKYBntUHkXd17zAdiMdYN4w92xn7b3/o76NGWE9yc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=MInf3EEtWhmMgP83soPez97eJVak1moymlb/msZR7NL650Hv5nIO1dNk4avxuLBc4
- 9fbur89TuXyCxJhde79y+cMzuaLW8/E7zcswNSn6xCf0I8hqheON72G6DSt3SRJWS6
- OvCUif+Hn1hK7XpI+42IzC0BM75hfPgt+rA587MUdRwvD6PpAEaAqRFCboOLeyoKWO
- 6Hs1pDI6zK9M3CVEPAQturzlzTRSfZUjKZCfS78B5U9wp1YdS54k79EG5DJKtrUVrV
- 6562WVAjaKZbLMFEXBQLL9Y/697S93qLMVya0PUdKC5ELDFbMc7MtuwvwWqZBZYl5y
- 8/voPPLDmeT/Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 0923B489C5;
+ by smtp.kernel.org (Postfix) with ESMTPS id 3CF741F008BD;
  Tue, 10 Nov 2026 07:18:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794295131;
+ bh=s1Qj21qpcNfOQIR9sV5LF1bI2tlwUQfLEP8RYtsxPDs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=UGNbK/txuqVf6E1Mv/kZl5sGy+RvaUn8GR+u7bMds9gRg38xEoshXywzIXdmHYG12
+ qxY6ZsAtN1uzoiY4uAVQUg9bJ89dI9v/uj5wSCkQMhJqyZihIRXk9dHpA0KNe4TxAI
+ JeA90Kve/aboBTWRPqIW1vn45Ro9D7aaczPw6DZWCj55+mG+lkS6bj7tMvhafSJDN7
+ 6clkwDJacmWRPMHBFGQaFGWtuLafMxpifGyDxJpJPO0I8UuROiTE615e9v19qcfIFa
+ aDctrn1TZbACBjrMooLummV4KsQlV8HuBGOzI1GGlZxrXcVXNXJuzI04i5pI89PIQR
+ 2ZzVyVuXXmVCw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id C622D489B9;
+ Tue, 10 Nov 2026 07:18:49 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:53 +0000
-Subject: [PATCH 5/8] drm/rockchip: vop2: Report POST_BUF_EMPTY at most once
- per frame
+Date: Tue, 10 Nov 2026 07:18:50 +0000
+Subject: [PATCH 2/8] drm/rockchip: vop2: Fix the HDMI sync polarity on RK3588
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-vop2-fixes-v1-5-d336e9dd90d3@gmail.com>
+Message-Id: <20261110-vop2-fixes-v1-2-d336e9dd90d3@gmail.com>
 References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
 In-Reply-To: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -76,11 +75,11 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295129; l=6832;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295129; l=1785;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=+tkjwCkgUpSm5bDKcbgtDSlyT6K0gvv9mrt7/xcFUtg=;
- b=goO2Sk/a5wy8w43IPzdwu3qAeffjt9xkbsl/NDU57bCSowmq8MAIlGz236xyFJ50Ut4Vz8p6a
- nFwMx7BX110BNMwy/swbdy85qUWjiSWjc4YCVhPv+zlZw07TsS9xv0s
+ bh=/jrSLrVkUlalHW0TPexjIwQp3BO194HjqfgHRaS4qLM=;
+ b=HnWtJTR8ePkQiIPst0zqwNylcoBjEN4hJ2NMs1vb6p/D3dePg6kgqqaeDFKfjYqV5fqLL4PTw
+ M0pNS36M2UzBZFvNVCTyoEy3Qc/sfBBXs8yb23ZIESbzqYckL4pb84j
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -109,188 +108,49 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-POST_BUF_EMPTY is raised for every line on which the post processing
-stage of a video port finds no data. The interrupt handler only
-rate-limits the error message and leaves the interrupt enabled, so an
-underflowing video port keeps the CPU in the interrupt handler 50000 to
-300000 times per second, for as long as the configuration that causes
-the underflow stays in place (e.g. 120000 interrupts per second for
-3840x2160@120 with two full screen layers on one AXI port).
+rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
+rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
+VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
+for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
+every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
+and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
+positive.
 
-Mask POST_BUF_EMPTY when it fires and unmask it at the next frame start.
-The frame start (FS) interrupt is enabled for that frame even when
-vblank reporting is off, and disabled again once POST_BUF_EMPTY is
-re-armed. A new per video port lock serialises the interrupt enable
-bookkeeping between the interrupt handler and the vblank callbacks.
-The error is still reported, now at most once per frame and video port.
+The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
+vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
+flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
+POLFLAG bits accordingly.
 
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 63 ++++++++++++++++++++++++++--
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 10 +++++
- 2 files changed, 70 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 9aeb90c6aa4b..3323e50224c5 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -841,6 +841,48 @@ static void vop2_crtc_disable_irq(struct vop2_video_port *vp, u32 irq)
- 	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id), irq << 16);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 659fd0a3ab63..7c48b440cb29 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
+ 		return 0;
  }
  
+-static u32 rk3588_get_hdmi_pol(u32 flags)
 +/*
-+ * POST_BUF_EMPTY is raised for every line the post processing stage finds
-+ * no data for, so an underflowing video port can raise it 100000 times per
-+ * second. Report it at most once per frame: mask it when it fires and
-+ * unmask it at the next frame start, using the FS interrupt even when
-+ * vblank reporting is off.
++ * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
++ * (negative) sync.
 + */
-+static void vop2_crtc_enable_post_buf_empty_irq(struct vop2_video_port *vp)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&vp->irq_lock, flags);
-+	vp->post_buf_empty_masked = false;
-+	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-+	spin_unlock_irqrestore(&vp->irq_lock, flags);
-+}
-+
-+static void vop2_crtc_handle_post_buf_empty(struct vop2_video_port *vp)
-+{
-+	struct vop2 *vop2 = vp->vop2;
-+
-+	spin_lock(&vp->irq_lock);
-+	vop2_crtc_disable_irq(vp, VP_INT_POST_BUF_EMPTY);
-+	vp->post_buf_empty_masked = true;
-+	/* don't clear a pending FS, it may carry a vblank event */
-+	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id),
-+		    VP_INT_FS_FIELD << 16 | VP_INT_FS_FIELD);
-+	spin_unlock(&vp->irq_lock);
-+}
-+
-+static void vop2_crtc_rearm_post_buf_empty(struct vop2_video_port *vp)
-+{
-+	spin_lock(&vp->irq_lock);
-+	if (vp->post_buf_empty_masked) {
-+		vp->post_buf_empty_masked = false;
-+		vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-+		if (!vp->vblank_enabled)
-+			vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-+	}
-+	spin_unlock(&vp->irq_lock);
-+}
-+
- static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
++static u32 rk3588_get_hdmi_pol(u32 polflags)
  {
- 	int ret;
-@@ -1668,8 +1710,12 @@ static const struct drm_plane_funcs vop2_plane_funcs = {
- static int vop2_crtc_enable_vblank(struct drm_crtc *crtc)
- {
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
-+	unsigned long flags;
+ 	u32 val;
  
-+	spin_lock_irqsave(&vp->irq_lock, flags);
-+	vp->vblank_enabled = true;
- 	vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD);
-+	spin_unlock_irqrestore(&vp->irq_lock, flags);
+-	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
+-	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
++	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
++	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
  
- 	return 0;
+ 	return val;
  }
-@@ -1677,8 +1723,13 @@ static int vop2_crtc_enable_vblank(struct drm_crtc *crtc)
- static void vop2_crtc_disable_vblank(struct drm_crtc *crtc)
- {
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
-+	unsigned long flags;
- 
--	vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-+	spin_lock_irqsave(&vp->irq_lock, flags);
-+	vp->vblank_enabled = false;
-+	if (!vp->post_buf_empty_masked)
-+		vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-+	spin_unlock_irqrestore(&vp->irq_lock, flags);
- }
- 
- static enum drm_mode_status vop2_crtc_mode_valid(struct drm_crtc *crtc,
-@@ -1977,7 +2028,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	vcstate->yuv_overlay = is_yuv_output(vcstate->bus_format);
- 
--	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-+	vop2_crtc_enable_post_buf_empty_irq(vp);
- 
- 	polflags = 0;
- 	if (vcstate->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
-@@ -2535,6 +2586,7 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
- 	}
- 
- 	if (irqs & VP_INT_FS_FIELD) {
-+		vop2_crtc_rearm_post_buf_empty(vp);
- 		drm_crtc_handle_vblank(crtc);
- 		spin_lock(&crtc->dev->event_lock);
- 		if (vp->event) {
-@@ -2552,6 +2604,7 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
- 	}
- 
- 	if (irqs & VP_INT_POST_BUF_EMPTY) {
-+		vop2_crtc_handle_post_buf_empty(vp);
- 		drm_err_ratelimited(vop2->drm, "POST_BUF_EMPTY irq err at vp%d\n", vp->id);
- 		ret = IRQ_HANDLED;
- 	}
-@@ -2591,6 +2644,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
- 			}
- 
- 			if (irqs & VP_INT_FS_FIELD) {
-+				vop2_crtc_rearm_post_buf_empty(vp);
- 				drm_crtc_handle_vblank(crtc);
- 				spin_lock(&crtc->dev->event_lock);
- 				if (vp->event) {
-@@ -2608,6 +2662,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
- 			}
- 
- 			if (irqs & VP_INT_POST_BUF_EMPTY) {
-+				vop2_crtc_handle_post_buf_empty(vp);
- 				drm_err_ratelimited(vop2->drm,
- 						    "POST_BUF_EMPTY irq err at vp%d\n",
- 						    vp->id);
-@@ -2984,7 +3039,7 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
- 	struct vop2 *vop2;
- 	struct resource *res;
- 	size_t alloc_size;
--	int ret;
-+	int ret, i;
- 
- 	vop2_data = of_device_get_match_data(dev);
- 	if (!vop2_data)
-@@ -3102,6 +3157,8 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
- 	mutex_init(&vop2->vop2_lock);
- 	mutex_init(&vop2->ovl_lock);
- 	spin_lock_init(&vop2->axi_lock);
-+	for (i = 0; i < ARRAY_SIZE(vop2->vps); i++)
-+		spin_lock_init(&vop2->vps[i].irq_lock);
- 
- 	ret = devm_request_irq(dev, vop2->irq, vop2_isr, IRQF_SHARED, dev_name(dev), vop2);
- 	if (ret)
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index f1e35967e67f..7de32bef8d7b 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -272,6 +272,16 @@ struct vop2_video_port {
- 	struct drm_pending_vblank_event *event;
- 
- 	unsigned int nlayers;
-+
-+	/** @irq_lock: protects @vblank_enabled and @post_buf_empty_masked */
-+	spinlock_t irq_lock;
-+	/** @vblank_enabled: the FS interrupt is enabled for vblank reporting */
-+	bool vblank_enabled;
-+	/**
-+	 * @post_buf_empty_masked: POST_BUF_EMPTY is masked until the next
-+	 * frame start
-+	 */
-+	bool post_buf_empty_masked;
- };
- 
- /**
 
 -- 
 2.55.0
