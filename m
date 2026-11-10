@@ -2,43 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C92606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD8E606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPWnhgLq
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Tl7anW6B;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f9drRnks;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Tl7anW6B;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=f9drRnks
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA50E10E2C4;
-	Tue, 10 Nov 2026 08:44:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC27510E2C4
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 08:44:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A04D0437B5;
- Tue, 10 Nov 2026 08:44:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E261F0089F;
- Tue, 10 Nov 2026 08:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794300259;
- bh=4idCkFkRpH1req2etKHzdHiI/h61uOTNpanzDzYgeAw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YPWnhgLqqfPb4Lh7w1QnSZ/MYRXyLeF5A93kzcwF7hZ9Ooyo6B9MKrZ6qP42K2628
- 3eeake0FznlUN1pgWS9/j1undR++W+jUMJgb45xMgKqHYjI3IhqhnoT0VzjDb+GT7K
- oMH/QDthU5Mi9mJLFEI+Szj/FXDNZ32sJN+xxodxmimmDF92MY/mGfwR96RteGef0/
- 1aAsmfr+48zHbsLt9BgDCAjIxp+4rSMlOBTtsFXj+DdPM0li4u0gZl4yUy3Xh9f8TB
- MTC7Ehr319vgBjh6lrjZtoT2Z++gHFPD+bVtOPGkFD+jWdM1OW7TdFF7K0tvB9jUj1
- HFW4t2VM1ffog==
-Message-ID: <sashiko-outbox-206657@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/8] drm/rockchip: vop2: Fix the AFBC offsets of a
- source that starts inside a superblock
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-vop2-fixes-v1-8-d336e9dd90d3@gmail.com>
-References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
- <20261110-vop2-fixes-v1-8-d336e9dd90d3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 08:44:18 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 495A210EB56;
+	Tue, 10 Nov 2026 08:47:28 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E0B10EB56
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 08:47:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0D93B21F49;
+ Tue, 10 Nov 2026 08:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794300435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gf7pTwJPhFzUtbLnWfDnE0wE5d9lqMRUEpjDndG2sW4=;
+ b=Tl7anW6BmKqc2elIgxRlEJ5FM+FiqHaE61gVTDRL/ky1stHaAMRLALM38scHYIaPfer1QJ
+ ue33wHWTqTL+Sr++5cJm1DpCd44s9lJH8JRkmfeRW4j5D+NCzEw0IgMZZFtrNjUuCIrFr5
+ /8pMhCQ6yKNqfkK+GpWkYJSQAay4zbs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794300435;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gf7pTwJPhFzUtbLnWfDnE0wE5d9lqMRUEpjDndG2sW4=;
+ b=f9drRnksGQ5uESjzkO98F1QKCV819slfRgolVfNI79QPapfnT3br/+oemaWYXkipeRtDk9
+ YIcYPWGoDSg5WZAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794300435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gf7pTwJPhFzUtbLnWfDnE0wE5d9lqMRUEpjDndG2sW4=;
+ b=Tl7anW6BmKqc2elIgxRlEJ5FM+FiqHaE61gVTDRL/ky1stHaAMRLALM38scHYIaPfer1QJ
+ ue33wHWTqTL+Sr++5cJm1DpCd44s9lJH8JRkmfeRW4j5D+NCzEw0IgMZZFtrNjUuCIrFr5
+ /8pMhCQ6yKNqfkK+GpWkYJSQAay4zbs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794300435;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gf7pTwJPhFzUtbLnWfDnE0wE5d9lqMRUEpjDndG2sW4=;
+ b=f9drRnksGQ5uESjzkO98F1QKCV819slfRgolVfNI79QPapfnT3br/+oemaWYXkipeRtDk9
+ YIcYPWGoDSg5WZAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 92386134F4;
+ Tue, 10 Nov 2026 08:47:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GTbNGhLa8mojQwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 08:47:14 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
+ zack.rusin@broadcom.com, louis.chauvet@bootlin.com
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 0/2] drm/vblank: timer: Fix race condition in enable_vblank
+Date: Tue, 10 Nov 2026 09:45:18 +0100
+Message-ID: <20261110084710.503870-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,broadcom.com,bootlin.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,90 +103,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/rockchip: vop2: wrong 32x8 AFBC x mask in
-  vop2_afbc_transform_offset()
-- [Low] drm/rockchip: vop2: missing Fixes trailer for commit
-  604be85547ce
---
+Busy-waiting in drm_crtc_vblank_start_timer() until a previous vblank
+timer has completed can deadlock. Rework how the vblank timer's start
+and cancel helpers interact with the timer function.
 
-commit 1aeff8145623ebb58cb0a14969b5391365ee2e1c
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+Patch 1 fixes the possible deadlock by removing the busy-wait loop from
+drm_crtc_vblank_start_timer(). To avoid possible interference between
+_start_timer()'s hrtimer_start() and hrtimer_forward_now() in the timer
+function, extend the interval_lock around both. Both, _start_timer() and
+the timer function, can still overlap, but hrtimer initialization should
+work reliably. At most, the first vblank event after changing the interval
+might be off.
 
-> drm/rockchip: vop2: Fix the AFBC offsets of a source that starts inside a=
- superblock
->
-> The AFBC decoder of a window takes the position of the source in the
-> framebuffer (AFBC_PIC_OFFSET), the number of superblock columns to
-> decode (AFBC_TILE_NUM) and the offset of the first pixel inside its
-> superblock (the transform offset). For a source that doesn't start at
-> x =3D 0:
->
-> - The tile number only counts the superblocks of the source width, one
->   short when the source starts inside a superblock and ends inside
->   another one.
-> - The transform offset is the whole x position, truncated to the 8 bit
->   field, instead of the position in the 16 pixel wide superblock.
->
-> Count the superblock columns from the first one the source touches, and
-> take the x offset in the superblock, like the vendor kernel does for the
-> not mirrored cases. The X mirrored and rotated cases are left as they are.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Fix the possible overlap by canceling the vblank timer's internal hrtimer.
+Do this outside of the vblank code's critical section after switching
+the vblank timer off. With the hrtimer being canceled, the next vblank
+event will be sent at the correct time.
 
-[Severity: Low]
-Since this fixes a bug introduced with the initial VOP2 driver, should it
-include:
+Tested with bochs on qemu.
 
-  Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Additional notes: there have been reports about vblank timers not happening
+in time, such as [1]. We suspected that might happen due to guest systems
+running under high CPU load. But the problem could also be caused by the
+deadlock fixed in patch 1.
 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 9ad138457204f..dfb76bfbc358f 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -486,7 +486,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plan=
-e_state *pstate,
->  		ty =3D act_yoffset;
->  		break;
->  	case DRM_MODE_REFLECT_Y:
-> -		tx =3D act_xoffset;
-> +		tx =3D act_xoffset & 0xf;
->  		ty =3D bottom_crop_line_num - act_yoffset;
->  		break;
->  	case DRM_MODE_ROTATE_90:
-> @@ -498,7 +498,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plan=
-e_state *pstate,
->  		ty =3D vir_width - width - act_xoffset;
->  		break;
->  	case 0:
-> -		tx =3D act_xoffset;
-> +		tx =3D act_xoffset & 0xf;
->  		ty =3D act_yoffset;
->  		break;
->  	}
+v2:
+- handle uninitialized timer in drm_crtc_vblank_cancel_timer()
 
-[Severity: Medium]
-Does masking act_xoffset with 0xf break 32x8 AFBC superblocks when
-(act_xoffset % 32) is between 16 and 31?
+[1] https://lore.kernel.org/dri-devel/6a176ae6.d07c18fe.1069e4.0016.GAE@google.com/
 
-In vop2_plane_atomic_update(), block_w is 32 when
-AFBC_FORMAT_MOD_BLOCK_SIZE_32x8 is set (such as on RK3576 cluster windows),
-and afbc_tile_num is computed using (src->x1 >> 16) % block_w.  Hardcoding
-0xf here truncates tx to 0..15 instead of 0..31, shifting the decoded
-plane horizontally by 16 pixels whenever bit 4 of act_xoffset is set.
+Thomas Zimmermann (2):
+  drm/vblank: timer: Do not block within critical section
+  drm/vblank: Cancel vblank timer outside of critical section
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-vop2-fixes=
--v1-0-d336e9dd90d3@gmail.com?part=3D8
+ drivers/gpu/drm/drm_vblank.c         | 90 ++++++++++++++++++----------
+ drivers/gpu/drm/drm_vblank_helper.c  | 16 +++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  |  3 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c |  2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c |  2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c |  2 +-
+ include/drm/drm_crtc.h               |  9 +++
+ include/drm/drm_vblank.h             | 16 +++++
+ include/drm/drm_vblank_helper.h      |  2 +
+ 9 files changed, 108 insertions(+), 34 deletions(-)
+
+
+base-commit: 7d502136b31169f6b5575f7f89c3da60cdf7891d
+-- 
+2.56.0
+
