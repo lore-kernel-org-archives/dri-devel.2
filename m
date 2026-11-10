@@ -2,130 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C34606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 20:48:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3CF60A260A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 20:59:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cM+MsNCq;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FChECdGD
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=CgV8TBAL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1B410E973;
-	Tue, 10 Nov 2026 20:47:51 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B800710E973
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 20:47:40 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AAJIW08724713
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 20:47:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24Be
- yhdVmt3o=; b=cM+MsNCq59akQglTLxUZMR+ZNAXqoOuWeiS0DxJsrOW4utoRxP/
- WJDwu/hr6BykVKNtSywPkl/sAsOFKnOukWcv/E5w88c6P0422nKL37NGZ+aAji6J
- xwsJNNAJ09youM9HNFPDz7GArFwsv8vaZ54joAyUGBhIuGzShpsdNPKu+oxr97rg
- MGF1vQJNCZzI2QI684/piK3d9iyNz8DB910K3NVAPN0Xj2skzIRQA39p4br1rlWU
- 33fxh9QABXPbR+/vtSMP7ptEENVd/zUepugxCBt8VEr6B74/MGokP7HuguikZwiU
- Io0sL8M2dWpMUGisBkQtCDMCiFTf0eFZF1w==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97c8cd3-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 20:47:39 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2ed08904845so36341285ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:47:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794343658; x=1794948458;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24BeyhdVmt3o=;
- b=FChECdGDEMcnlcoDFYAJpYkDnCyYIQXkjtBEuAiA1zZFCoLYYo6cryDRW6C7vxJcLu
- CRKdbcuqg1pwYcytKZcvv4flLCUP7dbrqofmt4SjVzWt3ksg1lkpqokmO5KygJx9J2Uv
- NiZzNeG3SpYQeEsgutwZfktflpW2VeD0W6Ux07fI0cvYMfFpN8ZG3Qu5cpNRhxaSW7sW
- 8uFk1WLiQegny671U29ezhndricuhNsVXWVSQ5HTYmlvHqWup2u8m1TXYnXp5c9sYKXh
- OUIgmvpxfjnh4Z4FjHdWSMkKjpLMBOAxnBRIUWA0+/Ce8dGF53aoUSPLOdpybB+pajjJ
- NEIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794343658; x=1794948458;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24BeyhdVmt3o=;
- b=gXWQ/ywSSBfzo570VJNr5VNZLy6RqVRFyIeHlVa4b1PVX61ah0A0VZdc5wkXyS8ZB8
- bwMaB2PynjdsREk0E6PUbCwsI/iRcI3fHrqX4GhpBLe6J2cmQ96D1bBh3PoxnyBGQwTx
- 5vIpnDbohEpQtaK+VOhAB9OkLYkBYEHHcpOFoRcW1ZCdYlny5DVOUC4JDC98h32XLN4w
- 3OxUa44iY+xih5OJVp+W2kU29co3hIvzE6gWCJYSqWIi9I5dgaLprcEmtq1IUIBJqwME
- 0oGf+rRPXwbYnCFjS9ncfHQZtWf6ojRilJg8jDjhHX2rtmiwB1goPLiQoEqd9pSjQkeS
- okBw==
-X-Gm-Message-State: APuU4Z9mCxdX4Zjf41ULDDuPgNk3HJw4yrhB2StAmnTV1fx6ggUETaiS
- LToHlwc+1h+F74N5WYP2cqC/BMQYx+/yGtoa1XZhxjx1WKmJXmRi2Uq1nnkONTpoQXWDPKDHn6i
- xJ4PcTuZg5rjjR4d9XjzVwniQZHjTPUZWWLyLAeOBzMfDuIKJAuoP2bpF+SA296so3TsZxGzJdn
- ishvy6Mw==
-X-Gm-Gg: AYBFou1msm5VALUeYEknOz4doO4mIlo3j62ev/6iYhFBWMH9Os4eKveMUCQwvrYIoy9
- h2kVHO2JusIwWlNvE7q3FLWrYpiZ6CkjmLMN+Q+hNUTe/k5Hu7ZDptjpZxVJMJy81ypRZO48Lo5
- oUVmWx5kS9gGiRstrun/UsggVMZOwEXHDDusGnt5AlNwa/MscgypNBqh+W/iSvRXHANi2kvg4rL
- cgQpBJ4aP5GjVu0cRYDnMHkWgQt7LYzrR/jZWoiRMnDw5VMk2A0DLjClEJZ4kwidhlLWW9K7aus
- RNPOqQYIVFhT24ogVo1Uc19a9JGcmckJRmUZJ4HihMgevAkuCqHm000zzxrxMEXzhzkw9lSPD6Z
- HETMTJ7SSai0+T5aEGnCM/8WTVp8S1zwb0c1StNchsrbn804LmJ0Npy0eCl+lJXJafakP7yshWp
- law/dGJ9vXfsdVptPDM+nUymZJ5ohZpJGAAUrJX8yHRxI5dOXqUJwq9jkntrJEWg==
-X-Received: by 2002:a17:902:fd87:b0:2e9:5ed2:c39d with SMTP id
- d9443c01a7336-2edd79bf74cmr3474935ad.36.1794343658472; 
- Tue, 10 Nov 2026 12:47:38 -0800 (PST)
-X-Received: by 2002:a17:902:fd87:b0:2e9:5ed2:c39d with SMTP id
- d9443c01a7336-2edd79bf74cmr3474695ad.36.1794343658008; 
- Tue, 10 Nov 2026 12:47:38 -0800 (PST)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2edb6e0d5c0sm12824535ad.71.2026.11.10.12.47.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 12:47:37 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA6A510E33C;
+	Tue, 10 Nov 2026 20:59:48 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D1EC810E33C;
+ Tue, 10 Nov 2026 20:59:42 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id D469A20B7169; Tue, 10 Nov 2026 12:59:39 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D469A20B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1794344379;
+ bh=hqEoXUSKFKGUg4QQgsXBLzMoojP6WQd1py1huwZKVyM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CgV8TBALRe9PmD4BW9hQlDbLI6nY1UF7MLw/zlWsYa0lYfP8nPVNw7/jTQdw3zyF/
+ qMf34L7kUupiyUn3jiB93NtuLb66NFIIB534lqZ99YvFe730bnpmPhYMG56JV15PlU
+ WrhlGgwIVY1VmbTtvEIX1EOi7pTFbBOmh37iueFQ=
+Date: Tue, 10 Nov 2026 15:59:39 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: shivamkalra98@zohomail.in, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/a8xx: More nonctx list updates
-Date: Tue, 10 Nov 2026 12:47:32 -0800
-Message-ID: <20261110204732.531432-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
+ Alex Hung <alex.hung@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: use atomic commit for panel power
+ savings
+Message-ID: <avOFuxeIiMRr2V0p@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
+ <e925978e-7b1a-4780-9e0c-616b9455058b@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4MiBTYWx0ZWRfX2dHTMdNw/Hkq
- PSUwM+9Bq0dSQE5Yf5j/FUGL6uDZuki3gyDqAZNaqyGr4DhV2cdbWkzd+sR8Q7T+s/gROj8aaaC
- DtxDd4tF8SYmyJtGgGmaeedKCXNvmylWrQwkVaMVP0jvOdP8G5qe1ATPDsZHLeWFK+w+J1mFZ+R
- j7BqnC4Uwl7CyzVKs/+UEHb1MexcaqPhTk6SpXxn9luY0vd0wkuWUDofGd+vL7Lqu82L8ieXkX6
- d5lYjvzPCxIZcbxFiMBtKtO9SuZHe2LBAeZz4JWLzBty0M23Ve8/gMTF0I+9ImB1lm7O4OY02Gj
- aUGxYBH62BYkIHcIhNM5AJSx0McjjbIKLmDXjVokqPcrOzpVKXmUNo2SZsBWuLZXO/kG9i19m+y
- g4V0OUUFd+EvYivpvTcH3BPJVQR73XAwKwEGuLSTdpi70W+Y2cEY6FyxzOIfU8Obx6G8mjL3y3H
- NAUk4Jk2xL2vqJF9pEg==
-X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af382eb cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=dKKpEi-vj6lmmWfvBBYA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: 7fGAId3YfPE4jr1rkCwdZcEBDj5erwGZ
-X-Proofpoint-ORIG-GUID: 7fGAId3YfPE4jr1rkCwdZcEBDj5erwGZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4MiBTYWx0ZWRfX5E9wAQ2mrjRM
- 3U1C81fiubfnQCa6iEeV4/gek/cIQ4aez3J6PB9FEcbxMR6pufZuijRgmS2gAj2P1A97iwcb+LV
- Q1dZg4A+gL4pZIpGsIghGCfasnHdH+o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100082
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e925978e-7b1a-4780-9e0c-616b9455058b@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,62 +54,304 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+On Tue, Nov 10, 2026 at 02:30:04PM -0600, Mario Limonciello wrote:
+> 
+> 
+> On 11/10/26 13:24, Shivam Kalra via B4 Relay wrote:
+> > From: Shivam Kalra <shivamkalra98@zohomail.in>
+> > 
+> > panel_power_savings_store() mutates connector->state directly and sends a
+> > hotplug event. This bypasses atomic commit handling, so the new ABM level
+> > is only applied when userspace happens to perform another modeset, and it
+> > races with concurrent commits.
+> > 
+> > Build an atomic state, set the level on the connector state and commit it.
+> > If the connector is not attached to a CRTC, keep the level in the current
+> > state so the next modeset picks it up, as before.
+> > 
+> > In amdgpu_dm_atomic_check(), drm_atomic_get_crtc_state() already adds the
+> > CRTC to the atomic state so dm_update_crtc_state() can propagate abm_level
+> > to the CRTC state. Stop setting new_crtc_state->connectors_changed for ABM
+> > changes and keep it only for scaling changes, allowing ABM updates to go
+> > through the existing non-modeset stream update path without blanking the
+> > panel.
+> > 
+> > A previous attempt to avoid the modeset by calling into DMUB directly was
+> > reverted because it broke the abm_gradual IGT test (8d20a066fa9b,
+> > 95aaa207e9ef). This version instead uses the normal atomic stream update
+> > path.
+> > 
+> > Extend the backlight KUnit tests to cover the atomic commit and inactive
+> > connector sysfs paths.
+> > 
+> > Fixes: 63d0b87213a0 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
+> > Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Others should comment before merging though too.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-index 510c2f6017db..0c6dde3cbea9 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-@@ -282,6 +282,7 @@ static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
- 	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
- 	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
- 	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-+	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
-@@ -595,13 +596,15 @@ static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
- 	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
- 	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
- 	/* Disable Dead Draw Merge scheme on RB-HLSQ */
--	{ REG_A6XX_RB_RBP_CNTL, BIT(5), BIT(PIPE_BV) | BIT(PIPE_BR) },
-+	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
- 	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
-+	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
- 	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
- 	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
- 	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
- 	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
- 	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-+	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
-@@ -611,11 +614,11 @@ static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
- 	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
- 	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
- 	/* Disable mode_switch optimization in UMAS */
--	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24) | BIT(26), BIT(PIPE_NONE) },
-+	{ REG_A6XX_SP_CHICKEN_BITS, BIT(26), BIT(PIPE_NONE) },
- 	/* Disable LPAC large-LM mode */
- 	{ REG_A8XX_SP_SS_CHICKEN_BITS_0, BIT(3), BIT(PIPE_NONE) },
- 	/* Disable PS out of order retire */
--	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c21800, BIT(PIPE_NONE) },
-+	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c20800, BIT(PIPE_NONE) },
- 	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
- 	/* Disable SP2TP info attribute */
- 	{ REG_A8XX_SP_CHICKEN_BITS_4, 0x00000002, BIT(PIPE_NONE) },
--- 
-2.56.0
+I would suggest running this through the weekly promotion before
+merging. As I can recall there were a number of edge cases that
+prevented this approach in the past (mostly concerning display off and
+DC oddities).
 
+> > ---
+> > Changes in v2:
+> > - Avoid forcing a modeset for ABM-only changes, matching David Weber's
+> >    patch [1] (Alex Hung; issue also noted by Sashiko).
+> > - Make modeset-lock acquisition interruptible (Alex Hung).
+> > - Inline the state update and remove the redundant connector-state
+> >    lookup (Alex Hung).
+> > - Reuse existing connector-state helpers in KUnit (Sashiko).
+> > - Add a KUnit test for the sysfs commit branch with an attached CRTC.
+> > - Run the amd_abm IGT suite, including abm_gradual.
+> > - Link to v1: https://lore.kernel.org/r/20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in
+> > 
+> > [1] https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
+> > 
+> > Testing:
+> > - KUnit: amdgpu_dm_backlight, 74/74 tests passed.
+> > 
+> > - Hardware: v2 backported to 7.1.13-stable-manual on Rembrandt
+> >    (DCN 3.1.2, eDP-1). All five amd_abm IGT subtests passed, including
+> >    abm_gradual. No HOTPLUG=1 events were captured.
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  3 +-
+> >   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 64 +++++++++++++++---
+> >   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 79 +++++++++++++++++++++-
+> >   3 files changed, 132 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index dfbc384fbbdb..256699cdd0b5 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -6304,8 +6304,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+> >   			goto fail;
+> >   		}
+> > -		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
+> > -		    dm_old_con_state->scaling != dm_new_con_state->scaling)
+> > +		if (dm_old_con_state->scaling != dm_new_con_state->scaling)
+> >   			new_crtc_state->connectors_changed = true;
+> >   	}
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > index 27546febf90d..97684a58cd3d 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > @@ -719,31 +719,73 @@ ssize_t panel_power_savings_store(struct device *device,
+> >   {
+> >   	struct drm_connector *connector = dev_get_drvdata(device);
+> >   	struct drm_device *dev = connector->dev;
+> > +	struct drm_modeset_acquire_ctx ctx;
+> > +	struct drm_connector_state *conn_state;
+> > +	struct dm_connector_state *dm_conn_state;
+> > +	struct drm_atomic_commit *state;
+> > +	u8 abm_level;
+> >   	long val;
+> >   	int ret;
+> >   	ret = kstrtol(buf, 0, &val);
+> > -
+> >   	if (ret)
+> >   		return ret;
+> >   	if (val < 0 || val > 4)
+> >   		return -EINVAL;
+> > -	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> > -	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
+> > +	abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
+> > +
+> > +	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+> > +	state = drm_atomic_commit_alloc(dev);
+> > +	if (!state) {
+> > +		ret = -ENOMEM;
+> > +		goto out_ctx;
+> > +	}
+> > +	state->acquire_ctx = &ctx;
+> > +
+> > +retry:
+> > +	conn_state = drm_atomic_get_connector_state(state, connector);
+> > +	if (IS_ERR(conn_state)) {
+> > +		ret = PTR_ERR(conn_state);
+> > +		goto out_backoff;
+> > +	}
+> > +
+> > +	dm_conn_state = to_dm_connector_state(conn_state);
+> > +	if (dm_conn_state->abm_sysfs_forbidden) {
+> >   		ret = -EBUSY;
+> > -	else
+> > -		to_dm_connector_state(connector->state)->abm_level = val ?:
+> > -			ABM_LEVEL_IMMEDIATE_DISABLE;
+> > -	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> > +		goto out_state;
+> > +	}
+> > -	if (ret)
+> > -		return ret;
+> > +	dm_conn_state->abm_level = abm_level;
+> > +
+> > +	/*
+> > +	 * Without a CRTC there is no stream to update and nothing to commit.
+> > +	 * Keep the level in the current state so the next modeset picks it
+> > +	 * up, matching the behavior of the sysfs interface.
+> > +	 */
+> > +	if (!conn_state->crtc) {
+> > +		to_dm_connector_state(connector->state)->abm_level = abm_level;
+> > +		goto out_state;
+> > +	}
+> > +
+> > +	ret = drm_atomic_commit(state);
+> > +
+> > +out_backoff:
+> > +	if (ret == -EDEADLK) {
+> > +		drm_atomic_commit_clear(state);
+> > +		ret = drm_modeset_backoff(&ctx);
+> > +		if (!ret)
+> > +			goto retry;
+> > +	}
+> > -	drm_kms_helper_hotplug_event(dev);
+> > +out_state:
+> > +	drm_atomic_commit_put(state);
+> > +out_ctx:
+> > +	drm_modeset_drop_locks(&ctx);
+> > +	drm_modeset_acquire_fini(&ctx);
+> > -	return count;
+> > +	return ret ? ret : count;
+> >   }
+> >   EXPORT_IF_KUNIT(panel_power_savings_store);
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > index c6d15fb8ad98..586e838a8f63 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > @@ -20,6 +20,7 @@
+> >   #include "amdgpu_mode.h"
+> >   #include "amdgpu_dm.h"
+> >   #include "amdgpu_dm_backlight.h"
+> > +#include "amdgpu_dm_connector.h"
+> >   #include "amdgpu_dm_kunit_test_helpers.h"
+> >   #include "amd_shared.h"
+> >   #include "link_service.h"
+> > @@ -514,6 +515,43 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
+> >   			adev->dm.backlight_dev[0]), 0);
+> >   }
+> > +static int
+> > +dm_test_panel_power_savings_atomic_commit(struct drm_device *dev,
+> > +					  struct drm_atomic_commit *state,
+> > +					  bool nonblock)
+> > +{
+> > +	struct drm_connector_state *new_conn_state;
+> > +	struct drm_connector *connector;
+> > +	int i;
+> > +
+> > +	for_each_new_connector_in_state(state, connector, new_conn_state, i)
+> > +		to_dm_connector_state(connector->state)->abm_level =
+> > +			to_dm_connector_state(new_conn_state)->abm_level;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct drm_connector_funcs dm_test_panel_power_savings_connector_funcs = {
+> > +	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
+> > +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > +};
+> > +
+> > +static const struct drm_mode_config_funcs dm_test_panel_power_savings_mode_funcs = {
+> > +	.atomic_commit = dm_test_panel_power_savings_atomic_commit,
+> > +};
+> > +
+> > +static void
+> > +dm_test_panel_power_savings_crtc_destroy(struct drm_crtc *crtc)
+> > +{
+> > +	drm_crtc_cleanup(crtc);
+> > +}
+> > +
+> > +static const struct drm_crtc_funcs dm_test_panel_power_savings_crtc_funcs = {
+> > +	.destroy = dm_test_panel_power_savings_crtc_destroy,
+> > +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+> > +	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+> > +};
+> > +
+> >   static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
+> >   							 struct device **device_out,
+> >   							 struct dm_connector_state **state_out)
+> > @@ -527,6 +565,7 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+> >   	adev = dm_kunit_alloc_adev(test);
+> >   	ret = drmm_mode_config_init(&adev->ddev);
+> >   	KUNIT_ASSERT_EQ(test, ret, 0);
+> > +	adev->ddev.mode_config.funcs = &dm_test_panel_power_savings_mode_funcs;
+> >   	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+> >   	device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
+> > @@ -536,7 +575,11 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+> >   	KUNIT_ASSERT_NOT_NULL(test, state);
+> >   	connector->dev = &adev->ddev;
+> > +	connector->funcs = &dm_test_panel_power_savings_connector_funcs;
+> > +	connector->index = 0;
+> > +	kref_init(&connector->base.refcount);
+> >   	connector->state = &state->base;
+> > +	state->base.connector = connector;
+> >   	dev_set_drvdata(device, connector);
+> >   	*device_out = device;
+> >   	*state_out = state;
+> > @@ -614,10 +657,43 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
+> >   	setup_panel_power_savings_connector(test, &device, &state);
+> >   	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
+> > -			 (ssize_t)count);
+> > +			(ssize_t)count);
+> >   	KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
+> >   }
+> > +/**
+> > + * dm_test_panel_power_savings_store_commits_with_crtc - Test store with CRTC
+> > + * @test: The KUnit test context
+> > + */
+> > +static void dm_test_panel_power_savings_store_commits_with_crtc(struct kunit *test)
+> > +{
+> > +	struct dm_connector_state *state;
+> > +	struct drm_connector *connector;
+> > +	struct drm_crtc *crtc;
+> > +	struct device *device;
+> > +	size_t count = strlen("3");
+> > +	int ret;
+> > +
+> > +	connector = setup_panel_power_savings_connector(test, &device, &state);
+> > +
+> > +	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
+> > +	KUNIT_ASSERT_NOT_NULL(test, crtc);
+> > +	ret = drm_crtc_init_with_planes(connector->dev, crtc, NULL, NULL,
+> > +					&dm_test_panel_power_savings_crtc_funcs,
+> > +					NULL);
+> > +	KUNIT_ASSERT_EQ(test, ret, 0);
+> > +	drm_atomic_helper_crtc_reset(crtc);
+> > +	KUNIT_ASSERT_NOT_NULL(test, crtc->state);
+> > +	state->base.crtc = crtc;
+> > +
+> > +	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "3", count),
+> > +			(ssize_t)count);
+> > +	KUNIT_EXPECT_EQ(test, state->abm_level, 3);
+> > +
+> > +	state->base.crtc = NULL;
+> > +	drm_crtc_cleanup(crtc);
+> > +}
+> > +
+> >   /**
+> >    * dm_test_panel_power_savings_store_forbidden - Test forbidden update
+> >    * @test: The KUnit test context
+> > @@ -1939,6 +2015,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
+> >   	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_sets_disable),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_forbidden),
+> > +	KUNIT_CASE(dm_test_panel_power_savings_store_commits_with_crtc),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_invalid_text),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_out_of_range),
+> >   	/* amdgpu_dm_backlight_get_device_index */
+> > 
+> > ---
+> > base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> > change-id: 20261031-abm-sysfs-atomic-c79505f63a2e
+> > 
+> > Best regards,
+> > --
+> > Shivam Kalra <shivamkalra98@zohomail.in>
