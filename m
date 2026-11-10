@@ -2,134 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD29A606A320
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFFF606A205
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 16:30:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iYWrj5Xr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bHAcxfGF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MpfyAsz2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hRXH0l7P
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJN1eucK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA1210ECCD;
-	Tue, 10 Nov 2026 16:26:09 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0469510ECCD
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:25:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6B30321F57;
- Tue, 10 Nov 2026 16:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794327955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
- b=iYWrj5XrAZn5FDOjN9EYYVDFi6U9zlAiFRm+ThPRCq0Si49LXXuhxSISDFBor4JTEC1R6Q
- hKRDSYyJPEL0ABEAnDBTSmgqjlMbnkTDduS13Ds1s7/G8Ek8XcyVZ4lrW2Wsc4pBz6WgBk
- ezg3wU4NMEmU6VVZK0NEwORWH5hdAMI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794327955;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
- b=bHAcxfGFcv+p7zPtJdGDOlmOrVt89AeKhU5HhhuOgphJpP5qxPAl+6LT+K/Y0qp5EzS6PU
- FVbbuGMPZXzWePAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794327954; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
- b=MpfyAsz2fWr84UvXpemBvDAiJkBwJHEc9ZEjOK4QVPB9ROzkZUl2WfYFMxokTNOiSSqPxN
- mtRXBYs90YmC6Oi2X8SY7sEsZklxsIJGyjut4jPHkwmMNHlZ4FmWyRW0qIYPOjEhLQZmrU
- kdb0lplI7J8Ma9kuBay17Krw2BcB1jQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794327954;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
- b=hRXH0l7PQ1ia9RofC4xrbyWiC116wTXqMd+xdjjGaL5ysK8oho1oZCDEFEVvnbZALiYbp4
- dM711rXViNwzLeAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E34D413479;
- Tue, 10 Nov 2026 16:25:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uM4yLZFF82o0HwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 16:25:53 +0000
-Message-ID: <31fdcc5a-c944-43cf-9390-60e8cdd964ed@suse.de>
-Date: Tue, 10 Nov 2026 17:25:53 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] LoongArch: efi: Provide sysfb_primary_display for
- screen_info users
-To: wuqianhai@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name,
- deller@gmx.de, bhelgaas@google.com
-Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
- loongarch@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029033440.973077-1-wuqianhai@loongson.cn>
- <20261110085617.2626835-1-wuqianhai@loongson.cn>
- <20261110085617.2626835-2-wuqianhai@loongson.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261110085617.2626835-2-wuqianhai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_TO(0.00)[loongson.cn,kernel.org,xen0n.name,gmx.de,google.com];
- ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,loongson.cn:email];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[14]; RCVD_TLS_ALL(0.00)[];
- TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, loongson.cn:email,
- imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
-X-Spam-Level: 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A42BC10E30D;
+	Tue, 10 Nov 2026 16:30:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8BDD10E30D
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:30:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1ADCE63A70;
+ Tue, 10 Nov 2026 16:30:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87AD1F008BC;
+ Tue, 10 Nov 2026 16:30:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794328219;
+ bh=fKRoeHopfh1UW8XpO4YH9uQaY8Taf59vZuXGzqoMAy4=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=dJN1eucKMtPIIGPIDG1wfWzqMWuvGLL2OrXLlA23OGVnf2oLg/76zwuPX7yBFaev8
+ 7pW124Ys14cFCaR6yYU4bNb1aLgMzdvVeaH5+hJxTpr/tsgWSE0AU/HahE0tAgc9zf
+ F6Lf5OwNcUjCxNzemfis/BE6JMfHCC6TvM5pnLLei6a7wJ/4tF+ychZA+QO4WOp7yp
+ xYoPCQyLSsyAHktFTAHkqMXROYS3w/cBzftRcLCzX/AUcSXlTW9ncYffhJeUuzfVAk
+ rD1Q/h5oMriBpWqHIDm5Kcoyy6J3MDw5GdQ58vwv3AgIf73R7ejQ0VJEvXX0KWkoLL
+ pZc/LKWITrhgQ==
+Message-ID: <sashiko-outbox-207383@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 26/28] drm/panthor: Tolerate access-window loss
+ during HW waits
+To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110153907.3241978-27-karunika.choo@arm.com>
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-27-karunika.choo@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 16:30:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,90 +48,237 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi
-
-Am 10.11.26 um 09:56 schrieb wuqianhai@loongson.cn:
-> From: wuqianhai <wuqianhai@loongson.cn>
->
-> LoongArch defines and initializes sysfb_primary_display only when
-> CONFIG_SYSFB or CONFIG_EFI_EARLYCON is enabled.  The PCI VGA arbiter and
-> the framebuffer console need the firmware framebuffer information through
-> screen_info whenever CONFIG_SCREEN_INFO is enabled, even if neither of
-> those options is set.
->
-> Drop the guards so sysfb_primary_display is always defined and
-> initialized, and its EFI stub alias is always provided, mirroring x86.
-> This avoids selecting SYSFB just to obtain the symbol.
-
-The idea is that you select SYSFB is you're interested in that 
-information.  I guess we could make sysfb_primary_display available if 
-CONFIG_VGA_ARB=y.
-
-Best regards
-Thomas
-
->
-> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
-> ---
->   arch/loongarch/kernel/efi.c        | 5 +----
->   arch/loongarch/kernel/image-vars.h | 2 --
->   2 files changed, 1 insertion(+), 6 deletions(-)
->
-> diff --git a/arch/loongarch/kernel/efi.c b/arch/loongarch/kernel/efi.c
-> index 69dd83f8082f..e491a82b2e0d 100644
-> --- a/arch/loongarch/kernel/efi.c
-> +++ b/arch/loongarch/kernel/efi.c
-> @@ -74,10 +74,8 @@ bool efi_poweroff_required(void)
->   
->   unsigned long __initdata primary_display_table = EFI_INVALID_TABLE_ADDR;
->   
-> -#if defined(CONFIG_SYSFB) || defined(CONFIG_EFI_EARLYCON)
->   struct sysfb_display_info sysfb_primary_display __section(".data");
->   EXPORT_SYMBOL_GPL(sysfb_primary_display);
-> -#endif
->   
->   static void __init init_primary_display(void)
->   {
-> @@ -129,8 +127,7 @@ void __init efi_init(void)
->   
->   	set_bit(EFI_CONFIG_TABLES, &efi.flags);
->   
-> -	if (IS_ENABLED(CONFIG_EFI_EARLYCON) || IS_ENABLED(CONFIG_SYSFB))
-> -		init_primary_display();
-> +	init_primary_display();
->   
->   	if (boot_memmap == EFI_INVALID_TABLE_ADDR)
->   		return;
-> diff --git a/arch/loongarch/kernel/image-vars.h b/arch/loongarch/kernel/image-vars.h
-> index e557ebd46c2b..4d1d7978553a 100644
-> --- a/arch/loongarch/kernel/image-vars.h
-> +++ b/arch/loongarch/kernel/image-vars.h
-> @@ -11,9 +11,7 @@ __efistub_strcmp		= strcmp;
->   __efistub_kernel_entry		= kernel_entry;
->   __efistub_kernel_asize		= kernel_asize;
->   __efistub_kernel_fsize		= kernel_fsize;
-> -#if defined(CONFIG_EFI_EARLYCON) || defined(CONFIG_SYSFB)
->   __efistub_sysfb_primary_display	= sysfb_primary_display;
-> -#endif
->   
->   #endif
->   
-
--- 
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] drm/panthor: false success in panthor_fw_start() and
+  panthor_fw_mcu_halted()
+- [High] drm/panthor: panthor_sched_report_fw_events() drops FW events
+  on access loss
+- [Medium] drm/panthor: unguarded PWR_STATUS checks fail on access loss
+  in panthor_pwr.c
+- [Medium] drm/panthor: unawakened waits stall on access loss in flush,
+  reset, and FW
+- [Low] drm/panthor: missing early return on access loss in
+  panthor_pwr_l2_power_off()
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit d06b3bf7778829600d32bed288afa3f04bcf72dd
+Author: Karunika Choo <karunika.choo@arm.com>
 
+drm/panthor: Tolerate access-window loss during HW waits
+
+This commit adds panthor_aw_has_gpu_access() and updates firmware, GPU cache
+flush, power control, and scheduler paths to stop waiting or suppress timeo=
+ut
+errors when the access window closes.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
+or/panthor_fw.c
+> index 1449d9a66302e..8643e7bbfc108 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1140,9 +1140,10 @@ static int panthor_fw_start(struct panthor_device =
+*ptdev)
+>  	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+> =20
+>  	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
+> -				ptdev->fw->booted,
+> +				(ptdev->fw->booted ||
+> +				 !panthor_aw_has_gpu_access(ptdev)),
+>  				msecs_to_jiffies(1000))) {
+> -		if (!ptdev->fw->booted &&
+> +		if (!ptdev->fw->booted && panthor_aw_has_gpu_access(ptdev) &&
+>  		    !(gpu_read(fw->irq.iomem, INT_STAT) & JOB_INT_GLOBAL_IF))
+>  			timedout =3D true;
+>  	}
+> @@ -1180,6 +1181,9 @@ static bool panthor_fw_mcu_halted(struct panthor_de=
+vice *ptdev)
+>  	struct panthor_fw_global_iface *glb_iface =3D panthor_fw_get_glb_iface(=
+ptdev);
+>  	bool halted;
+> =20
+> +	if (!panthor_aw_has_gpu_access(ptdev))
+> +		return true;
+> +
+>  	halted =3D gpu_read(ptdev->fw->iomem, MCU_STATUS) =3D=3D MCU_STATUS_HAL=
+T;
+
+[Severity: High]
+Can returning 0 from panthor_fw_start() and true from panthor_fw_mcu_halted=
+()
+on access loss cause callers to treat an unbooted MCU as booted and corrupt
+ptdev->reset.fast?
+
+If the access window closes in panthor_fw_start() before JOB_INT_GLOBAL_IF
+sets ptdev->fw->booted, panthor_fw_start() returns 0 while ptdev->fw->booted
+is still false.  In panthor_fw_init(), execution continues into
+panthor_fw_init_ifaces() before the MCU has populated the shared control
+interface.  In panthor_aw_resume() -> panthor_device_resume_hw_components()=
+ ->
+panthor_fw_post_reset(), an interrupted slow reset (where ptdev->reset.fast
+was false and firmware sections were freshly reloaded) succeeds and is
+immediately followed by panthor_device_suspend_hw_components() ->
+panthor_fw_pre_reset().  Because panthor_fw_mcu_halted() unconditionally
+returns true when !panthor_aw_has_gpu_access(ptdev), panthor_fw_pre_reset()
+sets ptdev->reset.fast =3D true even though the MCU never finished booting,=
+ so
+the next resume skips panthor_reload_fw_sections() and attempts a fast reset
+on unbooted firmware memory.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
+hor/panthor_gpu.c
+> index 2e1b00e86cdea..d5666264c1fe6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -377,7 +378,8 @@ int panthor_gpu_flush_caches(struct panthor_device *p=
+tdev,
+>  				msecs_to_jiffies(100))) {
+>  		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+>  			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) !=3D =
+0 &&
+> -			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_CO=
+MPLETED))
+> +			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) &
+> +			      GPU_IRQ_CLEAN_CACHES_COMPLETED) && panthor_aw_has_gpu_access(pt=
+dev))
+>  				ret =3D -ETIMEDOUT;
+>  			else
+>  				ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+
+[Severity: Medium]
+Does panthor_gpu_flush_caches() still block for the full 100ms timeout per
+active VM whenever the access window closes?
+
+When panthor_aw_handle_window_closed() sets aw->state to
+PANTHOR_AW_STATE_SUSPEND_PENDING and schedules panthor_aw_post_yield_work(),
+panthor_device_suspend_hw_components() -> panthor_mmu_suspend() ->
+panthor_mmu_as_disable() calls panthor_gpu_flush_caches() for each bound MMU
+address space slot while holding ptdev->mmu->as.slots_lock and
+ptdev->pm.hw_component_lock.  Because panthor_gpu_flush_caches() only checks
+panthor_aw_has_gpu_access(ptdev) after wait_event_timeout() expires (and
+ptdev->gpu->reqs_acked is not woken on access-window close), every yield
+sleeps for 100ms per active VM.  Similarly, panthor_pwr_reset() and
+panthor_fw_wait_acks() do not include !panthor_aw_has_gpu_access(ptdev) in
+their wait_event_timeout() conditions, so in-flight waits there also sleep
+until their full timeout expires when access is lost.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/pant=
+hor/panthor_pwr.c
+> index 1cfd4b658c81b..66a2c54b070dc 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+
+[ ... ]
+
+> @@ -400,9 +411,13 @@ static int delegate_domain(struct panthor_device *pt=
+dev, u32 domain)
+>  	 * allow-flag will be cleared with delegated-flag being set.
+>  	 */
+>  	ret =3D gpu_read64_poll_timeout(pwr->iomem, PWR_STATUS, val,
+> -				      ((delegated_mask | allow_mask) & val) =3D=3D delegated_mask,
+> +				      (((delegated_mask | allow_mask) & val) =3D=3D delegated_mask ||
+> +				       !panthor_aw_has_gpu_access(ptdev)),
+>  				      10, PWR_TRANSITION_TIMEOUT_US);
+>  	if (ret) {
+> +		if (!panthor_aw_has_gpu_access(ptdev))
+> +			return 0;
+> +
+>  		drm_err(&ptdev->base, "Delegating %s domain timeout, cmd(0x%x)",
+>  			get_domain_name(domain), pwr_cmd);
+>  		return ret;
+
+[Severity: Medium]
+What happens in panthor_pwr_l2_power_on() when panthor_pwr_domain_transitio=
+n()
+or delegate_domain() returns 0 after losing GPU access?
+
+panthor_pwr_l2_power_on() powers on the L2 domain and then calls
+panthor_pwr_delegate_domains(), which runs delegate_domain() for the neural,
+shader, and tiler domains in sequence.  Once the access window closes, MMIO
+reads from PWR_STATUS return 0, so the next delegate_domain() call hits the
+unguarded !(pwr_status & allow_mask) check at the start of the function, lo=
+gs
+a warning, and fails with -EPERM.  The initial PWR_STATUS checks in
+panthor_pwr_l2_power_on() and panthor_pwr_reset_soft() have the same issue =
+and
+fail with -EPERM and -EOPNOTSUPP when entered after access loss.
+
+> @@ -542,7 +557,7 @@ void panthor_pwr_l2_power_off(struct panthor_device *=
+ptdev)
+>  	const bool has_neural =3D panthor_hw_has_neural(ptdev);
+> =20
+>  	/* Abort if L2 power off constraints are not satisfied */
+> -	if (!(pwr_status & l2_allow_mask)) {
+> +	if (!(pwr_status & l2_allow_mask) && panthor_aw_has_gpu_access(ptdev)) {
+>  		drm_warn(&ptdev->base, "Power off L2 domain not allowed");
+>  		return;
+>  	}
+
+[Severity: Low]
+Should panthor_pwr_l2_power_off() still return early when GPU access is los=
+t,
+while only gating drm_warn() on panthor_aw_has_gpu_access(ptdev)?
+
+With the condition written this way, calling panthor_pwr_l2_power_off() when
+!panthor_aw_has_gpu_access(ptdev) (such as during panthor_aw_post_yield_wor=
+k()
+-> panthor_device_suspend_hw_components() -> panthor_gpu_suspend()) bypasses
+the return and falls through to panthor_pwr_domain_force_off() and
+panthor_pwr_domain_power_off() across all domains on a closed access window.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
+nthor/panthor_sched.c
+> index 729eeb339fa40..addc5986554df 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -1887,6 +1887,9 @@ void panthor_sched_report_fw_events(struct panthor_=
+device *ptdev, u32 events)
+> =20
+>  	guard(spinlock)(&ptdev->scheduler->events_lock);
+> =20
+> +	if (!panthor_aw_has_gpu_access(ptdev))
+> +		return;
+> +
+>  	if (events & JOB_INT_GLOBAL_IF) {
+>  		sched_process_global_irq_locked(ptdev);
+>  		events &=3D ~JOB_INT_GLOBAL_IF;
+
+[Severity: High]
+Can returning early here drop job completions and CSG events when the MCU
+raises a job IRQ just before yielding the access window?
+
+kthread (job irq)                 <hardirq> (aw irq)
+panthor_job_irq_handler()
+  status =3D gpu_read(INT_RAWSTAT)
+  gpu_write(INT_CLEAR, status)
+                                  panthor_aw_irq_raw_hander()
+                                    panthor_aw_handle_window_closed()
+                                      aw->state =3D
+                                        PANTHOR_AW_STATE_SUSPEND_PENDING
+  panthor_sched_report_fw_events()
+    if (!panthor_aw_has_gpu_access(ptdev))
+      return;  <-- drops status events
+
+With YIELD_IDLE enabled, the MCU updates group sync objects and CSG output
+structures in host DRAM, raises the job interrupt, and immediately yields t=
+he
+access window.  Because panthor_job_irq_handler() has already cleared the
+interrupt before calling panthor_sched_report_fw_events(), bailing out when
+!panthor_aw_has_gpu_access(ptdev) discards those events (such as
+CSG_SYNC_UPDATE and CS_FAULT) even though the global and CSG interfaces live
+in shared DRAM, leaving completed jobs' dma_fences unsignaled across fast
+resets.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110153907.3241=
+978-1-karunika.choo@arm.com?part=3D26
