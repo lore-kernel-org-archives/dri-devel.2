@@ -2,58 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27588606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 11:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A1160A261A
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 11:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=MywEkYSE
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H2NZ64xm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A67910E14C;
-	Tue, 10 Nov 2026 11:53:13 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F071710E14C
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:53:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794311573; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=b5w7FJLnFk6mZ2P/Ygrw8rxJF7UhI9RAgv63hNtKPchYQLOfUfddhKrYvB2ylV6OFMydSvTIkstXJg8oBz1ilbavm7g3t7t3JWMnhGIDANlWTGISYueeh7isOl7S96dpMo+1n2cHuc3CQDkjspKnXp+ChOTFSswqKaDhpzA0A0I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794311573;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=DhEhwirpyKyrEjOgU/ZOhzRcKsoWGGzpaPLq4MoFNxs=; 
- b=icnwmDwzHav5tg5vsqRb7OKCMmCa4dmykHehZlxE+Swa5SVhxK8DSRgyp1jrmZOAD5WAuQJ7JKkCV6HeRm000cKty5iPki+OA7ctZsWtRSeWjWQ5CMporhWGTuXmcCP5pYWolZLQ/xa24ouLY930Mszm+YAxbtqora6cU+qf2ag=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=igor.torrente@collabora.com;
- dmarc=pass header.from=<igor.torrente@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=MywEkYSEXY5PuxQKJsEtRbYQMQpUxu84l5jDZMMhXzPGM3HzEnrA1XpU3WTEgBilnaYr/+upQcIIcc480wzxhQgXwbmqniWhyEbW+k03PNPQ09Lb8NrZ9L/Tqs3RFlVvOGOZMXgYJe4m85YuP1E1VN1xaR6rDHSKSBZEcQhV6PA=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=DhEhwirpyKyrEjOgU/ZOhzRcKsoWGGzpaPLq4MoFNxs=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1794311571955322.33854090543514;
- Tue, 10 Nov 2026 03:52:51 -0800 (PST)
-Date: Tue, 10 Nov 2026 08:52:51 -0300
-From: Igor Torrente <igor.torrente@collabora.com>
-To: "Daniel Stone" <daniel@fooishbar.org>
-Cc: "boris.brezillon" <boris.brezillon@collabora.com>,
- "steven.price" <steven.price@arm.com>, "liviu.dudau" <liviu.dudau@arm.com>,
- "maarten.lankhorst" <maarten.lankhorst@linux.intel.com>,
- "mripard" <mripard@kernel.org>, "tzimmermann" <tzimmermann@suse.de>,
- "airlied" <airlied@gmail.com>, "simona" <simona@ffwll.ch>,
- "dri-devel" <dri-devel@lists.freedesktop.org>
-Message-ID: <1a1c54dc9d7.326328084617249.176092468769907716@collabora.com>
-In-Reply-To: <CAPj87rM3_MCFMGSAL1P6hBzLsLNP0hNL58whe1AeegtxMvgBhA@mail.gmail.com>
-References: <20261109105652.7114-1-igor.torrente@collabora.com>
- <CAPj87rM3_MCFMGSAL1P6hBzLsLNP0hNL58whe1AeegtxMvgBhA@mail.gmail.com>
-Subject: Re: [PATCH] drm/panthor: Allow exporting BOs with an exclusive VM
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6699A10F607;
+	Tue, 10 Nov 2026 11:57:58 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3AD310E121
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:57:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=N1/wz6KUYVi+96sij3kj8fWuuxqtPbXXot2DW5Jb/e0=; t=1794311871; x=2109671871; 
+ b=H2NZ64xmIpUkptGCjA4cDwqE57HWxGrkrtPNEC8rcZOoiRYBUz5wQTC55CnyS5d2uwDQe5pfLIf
+ SFAbFgXuaU+6CcJbxNiNAelwCQ2Q0TKqRlVhQjRQDmeZ7l+DwJV8mXRkhWlOFO75aCOmTqCQjOK9b
+ 1WWooGSjRELTgCEbKYrkugNnw/xeXVKOr9s5z4oBif6ECsah9mzUIqhqjVSk2HiMfX6Lzyub9yUQY
+ jTQgcNit5hyt+9rgKbkYA8HDo6NH4TNiQH5uR4OZXfB/b89V3yTYXLlGitEaaPHx2ggqYNHkcC8ku
+ 1qQNSo9Z45PcBtrLo4mUe2TIXbvV/BOTIznQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xQkTg-0088nY-Pq; Tue, 10 Nov 2026 12:57:29 +0100
+Message-ID: <924b1db7-3498-4cc6-a57a-16b1c7c3bc73@igalia.com>
+Date: Tue, 10 Nov 2026 08:57:23 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/9] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <lucas.tanure@neat.no>
+References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
+ <20261110-vc4-common-scramb-v4-2-eaa141a0da0f@collabora.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261110-vc4-common-scramb-v4-2-eaa141a0da0f@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,79 +84,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Daniel,
+On 09/11/26 21:13, Cristian Ciocaltea wrote:
+> The VC4 HDMI driver has a local helper to check whether a mode requires
+> scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+> use the common helper instead.
+> 
+> No functional change intended.
+> 
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-De: Daniel Stone <daniel@fooishbar.org>
-Para: "Igor Torrente"<igor.torrente@collabora.com>
-Cc: <boris.brezillon@collabora.com>, <steven.price@arm.com>, <liviu.dudau@a=
-rm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimme=
-rmann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>, <dri-devel@lists.fr=
-eedesktop.org>
-Fecha: lun, 09 nov. 2026 14:38:57 -0300
-Asunto: Re: [PATCH] drm/panthor: Allow exporting BOs with an exclusive VM
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
- > Hi Igor,
- >=20
- > On Mon, 9 Nov 2026 at 10:57, Igor Torrente <igor.torrente@collabora.com>=
- wrote:
- > > Panthor currently does not allow exporting BOs with an exclusive VM.
- > > However, VDRM (native context) drivers export BOs for import by the gu=
-est
- > > VM, which does not attempt to bind them to any GPU VM.
- > >
- > > Allow these BOs to be exported and rely on
- > > panthor_vm_prepare_map_op_ctx() to reject attempts to bind them to a
- > > different GPU VM.
- >=20
- > I'm having a little trouble parsing this.
- >=20
- > Is the problem that:
- > - the guest requests allocation of a BO with exclusive_vm_root_gem =3D g=
-uest_vm
- > - the host passes that allocation through
- > - the host exports a dmabuf from the allocation (which fails)
- > - the host imports a dmabuf from the allocation (?)
- > - the guest requests the BO be attached to guest_vm
- >=20
- > i.e. is the problem that some host implementations (virglrenderer)
- > handle BO allocation exclusively via an export/import interface?
+Best regards,
+- Maíra
 
-I was testing and checking a few things. This patch needs at least a=20
-rewording, but maybe we can drop it entirely.
-
-The virtio_gpu part of Virglrenderer used to create a transitory export
-to mmap the BO and attach it to the guest VM (not import, as I previously w=
-rote).
-With resource_map, this transitory mapping is now obsolete.
-
-Vpipe still shares buffers with the client through FDs (even non-shareable =
-BOs).
-It seems that this is an expectation of the protocol. I will check to see i=
-f we
-can avoid this for non-shareable (exclusive-VM) cases.
-
-Lastly, if I=E2=80=99m not mistaken, CrosVM=E2=80=99s sandbox separates the=
- GPU device into another
-process, making the export necessary (possibly even for non-shareable BOs).=
- This may
-or may not be an issue.
-
-BR,
-Igor
-
- >=20
- > If that is the problem, it seems like it would be cleaner to have the
- > host implementation strip the exclusive VM ID from the request, until
- > they can be fixed to not require the export/import dance.
- >=20
- > Cheers,
- > Daniel
- >=20
-
+> ---
+>   drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+>   1 file changed, 4 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> index 22533f1c6207..d9383af60906 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -129,15 +129,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+>   	return true;
+>   }
+>   
+> -static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+> -					   unsigned int bpc,
+> -					   enum drm_output_color_format fmt)
+> -{
+> -	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+> -
+> -	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+> -}
+> -
+>   static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+>   {
+>   	struct drm_debugfs_entry *entry = m->private;
+> @@ -312,7 +303,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+>   		return 0;
+>   	}
+>   
+> -	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+> +	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+>   							   vc4_hdmi->output_bpc,
+>   							   vc4_hdmi->output_format);
+>   	if (!scrambling_needed) {
+> @@ -442,7 +433,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+>   		const struct drm_display_mode *mode;
+>   
+>   		list_for_each_entry(mode, &connector->probed_modes, head) {
+> -			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+> +			if (drm_hdmi_mode_needs_scrambling(mode, 8,
+> +							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+>   				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+>   				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+>   			}
+> @@ -819,7 +811,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+>   	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+>   		return;
+>   
+> -	if (!vc4_hdmi_mode_needs_scrambling(mode,
+> +	if (!drm_hdmi_mode_needs_scrambling(mode,
+>   					    vc4_hdmi->output_bpc,
+>   					    vc4_hdmi->output_format))
+>   		return;
+> 
 
