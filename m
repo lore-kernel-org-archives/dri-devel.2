@@ -2,60 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E006B606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 19:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FEA606A32D
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 19:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6Uit6jO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBEji5Ek
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178C510E0D9;
-	Tue, 10 Nov 2026 19:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05BD10E0C7;
+	Tue, 10 Nov 2026 19:49:18 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C507110E0D9
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 19:44:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC4D10E0C7
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 19:49:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0CDA463576;
- Tue, 10 Nov 2026 19:44:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE7C1F0089F;
- Tue, 10 Nov 2026 19:44:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4D5906015B;
+ Tue, 10 Nov 2026 19:49:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AEA1F0089F;
+ Tue, 10 Nov 2026 19:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794339859;
- bh=fWfqbq9OHseUAlW92SLhKNSaqa3qmI+MBczXn8z6J5A=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=O6Uit6jO3IsZoIfrOy3SW4hqltdD1ucWDADRC3HhxylC/zZnFAOdNMh7Q62k2iJNl
- 98Y2Ol65S0WRG+Dsv/Fo7Ph6FVV+dR3TbRmS1vtGkkhsLH5/hY5NWEloToTLTMoBag
- zzgQOQqOrX+UUlJIXG4FKrP1ZqkyAhbuOtxsWlACnLrAEqwFf2U9RYYzM9W1DsZwAi
- dIrJ39C3ygTIBdBR7TmjPzKTghgaJaYX5iZ2CHTW5vBJUF1BeKaw76TENQUS21XL+u
- xyn3mkt8y8SEL4D9QbqvNuKdAE47PNLXd4Q4xe8DdoRvdrn8pRk/vOWngLU9PJ7WpG
- xy4in6w8m33zQ==
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+ s=k20260515; t=1794340151;
+ bh=XgFkiaalUYGH25eD9eEfRJdOi43ZuGo2ADVP/IUyemI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dBEji5EktwQXVijgfeTc7chJnh47UX9U47ngoQUfa0S++uE6pUw4ke9IWrvhmIExF
+ 9EJrhpuzZiOh3U0m+CuyfkYp1WpQUjric1RqgR1sm6xyOa87DeOVHtmrS7l2jjMPaL
+ WZ0OFzCgpu4EMETLyexjd4SHqjvSD3ZF8790dc13SToZ1QjoF1Zi+x2g0NSUHbmAUs
+ jNq+eUynrGX+0gr680gi2O3B76Yfi0/pWI+WG4fMX38fMz8aLHMnxi2pOx4EHDrqiq
+ gIK7bQdsVjkqT+6wuntnzhiOyVCI4Iri/46WfOMSDe6znhFvf81Dnj3s6CyMaq1EK5
+ SReH+HoRbRGHg==
+Message-ID: <sashiko-outbox-207683@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] backlight: add ktd3137 support
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ lee@kernel.org
+In-Reply-To: <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
+References: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
+ <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 20:44:09 +0100
-Message-Id: <DMRSE390GRTH.OZ9KS5QS8M4H@kernel.org>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 10/12] rust: vfio: separate common device handling
- from PCI
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
- <20261023154009.2246627-11-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-11-xinmengs@nvidia.com>
+Date: Tue, 10 Nov 2026 19:49:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,291 +50,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
-> +/// A VFIO device, independent of its bus-specific wrapper.
-> +///
-> +/// # Invariants
-> +///
-> +/// The underlying `vfio_device` is initialized and remains alive while =
-borrowed.
-> +/// Callback contexts are borrowed only for the corresponding callback a=
-nd thread;
-> +/// only [`Normal`] references can be reference-counted.
-> +#[repr(transparent)]
-> +pub struct Device<Ctx: DeviceContext =3D Normal> {
-> +    raw: Opaque<bindings::vfio_device>,
-> +    _context: PhantomData<(Ctx, NotThreadSafe)>,
-> +}
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] backlight: ktd3137: use named initializer in ktd3137_ids
+--
 
-I think this needs to be declared differently, see below.
+commit 8835810206d0f5ccda9a816dd64ce8c1128ef9b3
+Author: Roman Vivchar <rva333@protonmail.com>
 
-> +impl<Ctx: DeviceContext> Device<Ctx> {
-> +    /// # Safety
-> +    ///
-> +    /// `raw` must point to an initialized `vfio_device` that remains al=
-ive for
-> +    /// `'a`. The caller must provide the guarantees of `Ctx` throughout=
- the borrow.
-> +    #[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
-> +    unsafe fn from_raw<'a>(raw: *mut bindings::vfio_device) -> &'a Self =
-{
-> +        // SAFETY: Self is a transparent wrapper; the caller guarantees =
-validity and context.
-> +        unsafe { &*raw.cast() }
-> +    }
-> +
-> +    fn as_raw(&self) -> *mut bindings::vfio_device {
-> +        self.raw.get()
-> +    }
-> +}
-> +
-> +// SAFETY: VFIO uses the embedded class device's refcount to own the ful=
-l allocation.
-> +unsafe impl AlwaysRefCounted for Device {
-> +    fn inc_ref(&self) {
-> +        // SAFETY: A shared reference keeps the initialized VFIO device =
-alive.
-> +        unsafe { bindings::get_device(&raw mut (*self.as_raw()).device) =
-};
-> +    }
-> +
-> +    unsafe fn dec_ref(obj: NonNull<Self>) {
-> +        // SAFETY: The caller owns the VFIO reference being released.
-> +        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).=
-device) };
-> +    }
-> +}
-> +
-> +// SAFETY: Ordinary VFIO references expose no unsynchronized callback op=
-erations.
-> +unsafe impl Send for Device {}
-> +// SAFETY: Shared access only changes the embedded class device's refere=
-nce count.
-> +unsafe impl Sync for Device {}
-> +
-> +/// Callback data stored after the bus-specific C device structure.
-> +///
-> +/// # Invariants
-> +///
-> +/// `reg_data` is dangling when unpublished; otherwise it borrows pinned=
- data kept
-> +/// alive until callback access has ended. `open_data` is null outside a=
- successful
-> +/// first open, otherwise owns a pinned allocation until the last close.
-> +/// The bus-specific layer drains callbacks before releasing either allo=
-cation.
-> +struct CallbackData<R: CovariantForLt, O: ForLt> {
-> +    reg_data: UnsafeCell<NonNull<R::Of<'static>>>,
-> +    open_data: UnsafeCell<*mut O::Of<'static>>,
-> +}
+backlight: add ktd3137 support
 
-We don't need to arbitrarily limit registration data to require covariance,
-eventually we will need invariant data.
+This commit adds an I2C backlight driver for the Kinetic KTD3137 display
+backlight IC.
 
-Also, I think we don't need ForLt/CovariantForLt at all. Both types are
-associated types of an ops trait, so they can just be GATs, i.e.:
+> diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/=
+ktd3137.c
+> new file mode 100644
+> index 0000000000000..1595aefd46e6c
+> --- /dev/null
+> +++ b/drivers/video/backlight/ktd3137.c
+> @@ -0,0 +1,258 @@
 
-	type RegistrationData<'a>: Send + Sync + 'a;
-	type OpenData<'a, 'data: 'a>: Send + Sync + 'a;
+[ ... ]
 
-> +
-> +#[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
-> +impl<R: CovariantForLt, O: ForLt> CallbackData<R, O> {
-> +    fn new() -> Self {
-> +        Self {
-> +            reg_data: UnsafeCell::new(NonNull::dangling()),
-> +            open_data: UnsafeCell::new(core::ptr::null_mut()),
-> +        }
-> +    }
-> +
-> +    /// Access registration data without allowing its erased lifetime to=
- escape.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Registration data must be published and remain valid through thi=
-s call.
-> +    /// The caller must exclude concurrent changes to `reg_data`.
-> +    unsafe fn registration_data_with<V>(&self, f: impl for<'a> FnOnce(&'=
-a R::Of<'a>) -> V) -> V {
-> +        // SAFETY: The caller keeps registration data alive and excludes=
- mutation.
-> +        // Covariance permits shortening its erased lifetime to this bor=
-row.
-> +        let reg_data =3D unsafe { (*self.reg_data.get()).cast::<R::Of<'_=
->>().as_ref() };
-> +        f(reg_data)
-> +    }
-> +
-> +    /// # Safety
-> +    ///
-> +    /// The caller must be an I/O callback while VFIO keeps the device o=
-pen.
-> +    /// Registration and open data must remain valid, with their pointer=
- slots
-> +    /// unchanged throughout the call.
-> +    unsafe fn callback_data_with<V>(
-> +        &self,
-> +        f: impl for<'borrow, 'data> FnOnce(&'borrow R::Of<'data>, Pin<&'=
-borrow O::Of<'data>>) -> V,
-> +    ) -> V {
-> +        // SAFETY: The caller excludes open/close and unregister while b=
-orrowing the data.
-> +        unsafe {
-> +            self.registration_data_with(|reg_data| {
-> +                let ptr =3D (*self.open_data.get()).cast::<O::Of<'_>>();
-> +                // The data lifetime stays independent of the callback b=
-orrow,
-> +                // so borrowed OpenData fields cannot be stored back int=
-o OpenData.
-> +                f(reg_data, Pin::new_unchecked(&*ptr))
-> +            })
-> +        }
-> +    }
+> +static const struct i2c_device_id ktd3137_ids[] =3D {
+> +	{ "ktd3137" },
+> +	{ }
+> +};
 
-I don't think we necessarily need the extra closure, we only ever pass this=
- to
-callbacks of the ops trait, but it would allow us to make the accessor safe=
-:
+[Severity: Low]
+This isn't a bug, but new struct i2c_device_id entries should use named
+initializers ({ .name =3D "ktd3137" }).
 
-If we move them onto Device directly, we can leverage the type states. E.g.=
- we
-can group them with traits and only implement e.g. callback_data_with() for=
- type
-states that allow for this.
-
-> +
-> +    /// # Safety
-> +    ///
-> +    /// Call only during exclusive first open, with no existing open dat=
-a.
-> +    /// All resources borrowed for `'a` must remain valid until `close()=
-` returns.
-> +    unsafe fn open<'a, I: PinInit<O::Of<'a>, Error>>(&self, init: impl F=
-nOnce() -> I) -> Result {
-> +        // Allocate before calling the driver so allocation failure cann=
-ot follow open.
-> +        let data =3D KBox::<O::Of<'a>>::new_uninit(GFP_KERNEL)?;
-> +        let data =3D data.write_pin_init(init())?;
-> +
-> +        // SAFETY: Only the owning pointer moves; close drops the alloca=
-tion in place.
-> +        let raw =3D KBox::into_raw(unsafe { Pin::into_inner_unchecked(da=
-ta) });
-> +        // SAFETY: First open is exclusive; the caller keeps borrowed re=
-sources alive
-> +        // through close. Lifetimes do not affect the allocation's layou=
-t.
-> +        unsafe { *self.open_data.get() =3D raw.cast::<O::Of<'static>>() =
-};
-> +        Ok(())
-> +    }
-> +
-> +    /// # Safety
-> +    ///
-> +    /// Call once after a successful open, with all callbacks drained an=
-d the next
-> +    /// open excluded. Registration data and borrowed resources must rem=
-ain alive.
-> +    unsafe fn close(&self) {
-> +        // SAFETY: Last close exclusively takes the allocation published=
- by open.
-> +        let raw =3D unsafe { core::mem::replace(&mut *self.open_data.get=
-(), core::ptr::null_mut()) };
-> +        // SAFETY: The allocation came from KBox::into_raw and is destro=
-yed without moving it.
-> +        unsafe { drop(KBox::from_raw(raw)) };
-> +    }
-
-This seems like a bit of a back and forth because logically we want those
-methods on vfio::Device so you can take advantage of the type system
-information.
-
-But in this implementation CallbackData lives in the vfio::pci::Device, lik=
-ely
-for memory layout reasons.
-
-But we can also do something like this:
-
-	#[repr(C)]
-	pub struct DeviceBase<Raw, R, O, T, Ctx =3D Normal> {
-	    raw: Opaque<Raw>,
-	    data: CallbackData<R, O>,
-	    _context: PhantomData<(T, Ctx, NotThreadSafe)>,
-	}
-
-	// vfio.rs
-	pub type Device<T, Ctx =3D Normal> =3D DeviceBase<
-	    bindings::vfio_device,
-	    T,
-	    <T as Operations>::RegistrationData<'static>,
-	    <T as Operations>::OpenData<'static, 'static>,
-	    Ctx,
-	>;
-=09
-	// vfio/pci.rs
-	pub type Device<T, Ctx =3D Normal> =3D super::DeviceBase<
-	    bindings::vfio_pci_core_device,
-	    T,
-	    <T as Operations>::RegistrationData<'static>,
-	    <T as Operations>::OpenData<'static, 'static>,
-	    Ctx,
-	>;
-=09
-Of course we can't have AsRef<vfio::Device> with this, but we don't need it=
-.
-
-For instance, there's only one AlwaysRefCounted impl needed:
-
-  unsafe impl<Raw: RawDevice, R, O, T> AlwaysRefCounted
-      for DeviceBase<Raw, R, O, Normal>
-  {
-      fn inc_ref(&self) {
-          let vdev =3D unsafe { Raw::raw_vfio_device(self.as_raw()) };
-
-          unsafe { bindings::get_device(&raw mut (*vdev).device) };
-      }
-
-      unsafe fn dec_ref(obj: NonNull<Self>) {
-          let raw =3D unsafe {
-              Opaque::cast_into(&raw const (*obj.as_ptr()).raw)
-          };
-
-          let vdev =3D unsafe { Raw::raw_vfio_device(raw) };
-
-          unsafe { bindings::put_device(&raw mut (*vdev).device) };
-      }
-  }
-
-We can either rely on the fact that vfio_pci_core_device's first member is =
-the
-vfio_device, or make it explicit with something like:
-
-	/// Maps a C device structure to its embedded VFIO device.
-	///
-	/// # Safety
-	///
-	/// Implementations must return the address of the `vfio_device` at the
-	/// beginning of `Self`, preserving the input pointer's provenance.
-	unsafe trait RawDevice {
-	    /// # Safety
-	    ///
-	    /// `raw` must point to an initialized, live `Self`.
-	    unsafe fn raw_vfio_device(
-	        raw: *mut Self,
-	    ) -> *mut bindings::vfio_device;
-	}
-
-Not that this isn't only to make use of some type system information (there=
-'s
-other ways to achieve that too) but also to make vfio::Device useful for no=
-n-PCI
-implementations, as they need CallbackData too.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-6768-ktd31=
+37-v2-0-9496c51efea4@protonmail.com?part=3D2
