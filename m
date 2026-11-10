@@ -2,57 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30329606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27331606A325
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 12:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=FiNvcPRL
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljepd4rt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9446610E1C7;
-	Tue, 10 Nov 2026 12:48:51 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB27710E1C7
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794314923;
- bh=7wwMww4yCB31QVSkiplgT0aOfc1KXC3ISCzbDNSdBdE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=FiNvcPRL4Q9c26/GdRuyWhKVtLZwsg/wxRGqyg8p8iZSA1JnZbvszJVbnqfQDLoom
- n/AsJRTyYYNc1/rWI95hpQ9pBqxfeEOtEpW1X5ahPMsTWCBFikxDPExQlVD6uawNHd
- hrpi1PLT4IqdpNs87BF2kF5veCOYspeNBkv4pWiyMKZoVTa+FGghJx1nudfNFEM/kO
- pBPZJJMtINTSYc03JMTi1EZRdC7lqSUpRg3TBp3Opd2318agYb7o3a73AlBiMM63Ao
- Mllw64ZqEEBXJ4YkQmbdBK8FJbkemn9+bGFbnAcwybEevxLKs7rfwNIn1QCJaSvltC
- TwhSxo2vstr6g==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E112717E003A;
- Tue, 10 Nov 2026 13:48:42 +0100 (CET)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Lucas Tanure <lucas.tanure@neat.no>, 
- Sashiko <sashiko-bot@kernel.org>
-In-Reply-To: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
-References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
-Subject: Re: [PATCH v4 0/9] drm/vc4: hdmi: Convert to common HDMI 2.0
- scrambling infrastructure
-Message-Id: <179431490625.565535.8973973008684301876.b4-ty@b4>
-Date: Tue, 10 Nov 2026 14:48:26 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88ADE10F642;
+	Tue, 10 Nov 2026 12:49:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF5E10F662
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 12:49:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E6139400B6;
+ Tue, 10 Nov 2026 12:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B7C1F0089F;
+ Tue, 10 Nov 2026 12:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794314945;
+ bh=zHXJPTkKerzfVJJNUx8F5qgPDu406iPyqd9JEKnwCR8=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=Ljepd4rto1iEmd+Tcv7jE9zOVDTxqkpn0TOaeAIdWl8+Z+DP+jwrsgRXPqYQYF4qv
+ SFgTk6OwyIpolXoq1MLgNE0r4X93ZxEn9zCEvPn+Hawwsbiqy10OeoVgqM97qLHdQW
+ 6dL0WnTVZAriiZhGLrPrPZBqb3w8vglv1sOiA6RRpehwliZVOBWXl7HPkEs6bL/MiH
+ him3PIskGnGVVjUAXONOTx6NGQSUHVeqMfj+31ChQwO7ltqvXyn1lc4E1ZCIkt/neN
+ z2bYRw1QMmZuk3L1hZHWaZuUvIIYvIu/RMkBY7dxVdzDfTivDj2//YWe93OxX/qC8B
+ cumb5sZPsZQ+g==
+Message-ID: <aac5e0a0-754a-4323-9417-cc17d7d42930@kernel.org>
+Date: Tue, 10 Nov 2026 13:48:56 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488: make
+ the port optional
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+ <20261109160706.2272332-2-romain.tisserand@gmail.com>
+ <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-36e3f
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,47 +107,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On Tue, 10 Nov 2026 02:13:37 +0200, Cristian Ciocaltea wrote:
-> This series includes patches 42-48 from "[PATCH v11 00/74] Add HDMI 2.0
-> support to DW HDMI QP TX" [1], which convert the VC4 HDMI driver to the
-> common HDMI 2.0 scrambling infrastructure as a proof of concept for
-> reusing the shared code.  It adopts the shared TMDS character rate
-> constants, switches to drm_hdmi_mode_needs_scrambling() and force_ctx(),
-> fixes -EDEADLK handling, and replaces the driver-local scrambling
-> implementation with the common SCDC scrambling helpers.
+On 10/11/2026 13:00, Krzysztof Kozlowski wrote:
+> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
+>> The panel is a MIPI-DSI peripheral, a child node of its DSI host, and the
+>> driver does not use a graph port. A port is only needed when the host
+>> links its panel through the graph; other DSI hosts, such as the Allwinner
+>> sun6i-a31-mipi-dsi one, link the child node and have no output port to
+>> point at. The PinePhone panel is described that way on the same host,
+>> without a port.
+>>
+>> Keep the port allowed (panel-common) but no longer required, as for other
+>> DSI panels such as ilitek,ili9881c.
 > 
-> [...]
+> ilitek,ili7807s and a few others have the same and it is confusing. The
+> port should be required when this is connected over SPI or I2C, but not
+> for MIPI DSI. I think that for MIPI DSI port is meaningless so actually
+> incorrect.
+> 
+> Why was it added in the first place?
+> 
 
-Applied, thanks!
-
-[1/9] drm/vc4: hdmi: Use common TMDS char rate constants
-      commit: 946fe5be9731d31e703f8d003c735dd85fcdc0fa
-[2/9] drm/vc4: hdmi: Switch to drm_hdmi_mode_needs_scrambling()
-      commit: 0ed2309a731a53c712442ba7379723023b6b7582
-[3/9] drm/vc4: hdmi: Switch to .force_ctx() connector helper
-      commit: 2cc4f77ac0a865a4bb0a7a0d2408545d43222d67
-[4/9] drm/vc4: hdmi: Propagate -EDEADLK to the top level
-      commit: 64d51eeec09f14af2fbadff3db1c9fa67403da07
-[5/9] drm/vc4: hdmi: Convert to drmm_connector_hdmi_init()
-      commit: 9a20b50406fd58bb557ba4cde8dfdbbb415acd34
-[6/9] drm/vc4: hdmi: Convert to common HDMI 2.0 scrambling infrastructure
-      commit: 1ab014b2002d05d68b8f86eeae7e4c1da7148b2f
-[7/9] drm/vc4: hdmi: Clamp CEC clock divider to its register field width
-      commit: 2d371302c633487482dd3ca510dbb26d01383a3f
-[8/9] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165 MHz
-      commit: 797dbdf80f7fa104b32216891aec9184308fe95b
-[9/9] drm/vc4: hdmi: Defer pixel clock validation to HDMI helpers
-      commit: 1116f4aee916ca13d3e40ce87e67835f51576fcb
+However won't all DRM drivers actually require panel? see b089c0a9b14c
+and 169466d4e59c which removed fallback to the child node.
 
 Best regards,
--- 
-Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
+Krzysztof
