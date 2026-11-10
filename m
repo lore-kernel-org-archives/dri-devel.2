@@ -2,52 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CB4606A336
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 11:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787CD606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 11:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jklgyYEv
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dCAeWmSC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C72710EFC3;
-	Tue, 10 Nov 2026 11:30:13 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id F131F10F058
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:30:06 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 466791516
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:30:03 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 14CF03F632
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 03:30:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1794310206; bh=rsCGYOGTSBUcdVShCpc2QjxywBTq8SQYSTxbo5VBt2s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jklgyYEvZAZ4ltbKAd5bJ9aS/OiZRVMerlPmx6CsH/Xc0oM9eLePhvX1OTRCvkLoB
- INYCP17W5OT1MOyfMgaabYNf+EDHU2q2RyXKr6cMonF3Zr8pRdgrR2RmugOSoze96W
- rHu4yUUAv/2tecUHIzFQ6gAUA5KZf4sf1VSb+q/o=
-Date: Tue, 10 Nov 2026 11:30:01 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Chris Diamand <chris.diamand@arm.com>
-Cc: Akash Goel <akash.goel@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Florent Tomasin <florent.tomasin@arm.com>,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
-Message-ID: <avMAOa8ujH5Qrf7D@e142607>
-References: <20261030144305.666845-1-liviu.dudau@arm.com>
- <20261030144805.667158-1-liviu.dudau@arm.com>
- <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
- <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD2B710EFDC;
+	Tue, 10 Nov 2026 11:41:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEFB510F126
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 11:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794310902; x=1825846902;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=iM7IWakVCcIz8WMJVolWHC/3np93vJAPlCV71FNMb/w=;
+ b=dCAeWmSCd0ng+r8cEGuJ8gV3iklFmnXrhwjE5QqJggvY/xY275IyuCcV
+ xwT7cZyRSszgQxHoE1j3bXfEDGs1PHPhkl5WykcvwbkxM1P8JYAahXzzg
+ R8lhYtp2w/ggYNsjhLkBOZYtylud7U90o2Er7XRH6bA9sjmSdOSkNzJ8p
+ bvln4wchOiN0yKZCB/a2h/7J9kGQPG3FTLGJ2PbC1HcPeoIQ1Dx+9cc/E
+ bADPc3GXh3k6zDcBF+45NY3govWORB6MW+qXVx3WQVHSW5fkpqF9Y5C0P
+ g9lfxQEd7jeb5G3R3X2u5/Q0Cq+g1Zu5s8pDTCEJ5llUziQhQUtskn8GS A==;
+X-CSE-ConnectionGUID: QMTR5aJDTiiHLKiDKjo7DA==
+X-CSE-MsgGUID: FV3T0PlgQEWKxkeUfHzPPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3053407"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3053407"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 03:41:42 -0800
+X-CSE-ConnectionGUID: j5tlAoxkRQy/q3wZA0e94g==
+X-CSE-MsgGUID: ushUxuIbTTi204rlZvcNdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8281806"
+Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.114])
+ ([10.217.180.114])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 03:41:42 -0800
+Message-ID: <413a803a-0978-467f-ace4-1121140418f6@linux.intel.com>
+Date: Tue, 10 Nov 2026 12:41:39 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Defer recovery until probe completes
+To: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20261107174215.15818-1-swizzguy76@gmail.com>
+ <20261110085003.3527014-1-karol.wachowski@linux.intel.com>
+ <sashiko-outbox-206716@kernel.org>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <sashiko-outbox-206716@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +67,98 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 12:40:54PM +0000, Chris Diamand wrote:
-> On 03/11/2026 10:58, Akash Goel wrote:
-> > 
-> > On 10/30/26 14:48, Liviu Dudau wrote:
-> >> We now have more people that can do reviews and contribute patches
-> >> to Panthor, so add their names to the list.
-> >>
-> >> Signed-off-by: Liviu Dudau<liviu.dudau@arm.com>
-> >>
-> >> ---
-> >> v2: Forgot to add Chris Diamand to the list, fixed.
-> >> ---
-> >>   MAINTAINERS | 4 ++++
-> >>   1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/MAINTAINERS b/MAINTAINERS
-> >> index 89ea35a35c680..ef92c462a8381 100644
-> >> --- a/MAINTAINERS
-> >> +++ b/MAINTAINERS
-> >> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
-> >>   M:    Boris Brezillon<boris.brezillon@collabora.com>
-> >>   M:    Steven Price<steven.price@arm.com>
-> >>   M:    Liviu Dudau<liviu.dudau@arm.com>
-> >> +R:    Akash Goel<akash.goel@arm.com>
-> >> +R:    Karunika Choo<karunika.choo@arm.com>
-> >> +R:    Lukas Zapolskas<lukas.zapolskas@arm.com>
-> >> +R:    Chris Diamand<chris.diamand@arm.com>
-> >>   L:    dri-devel@lists.freedesktop.org
-> >>   S:    Supported
-> >>   T:    githttps://gitlab.freedesktop.org/drm/misc/kernel.git
-> > 
-> > Acked-by: Akash Goel<akash.goel@arm.com>
-> > 
-> > Best regards,
-> > Akash
-> >
+On 10-Nov-26 10:13, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] accel/ivpu: race in ivpu_pm_enable() queues recovery_work
+>    twice
+> --
 > 
-> Acked-by: Chris Diamand <chris.diamand@arm.com>
+> commit 53feec71cd6cb0035da92ea965a242f974fa21d7
+> Author: Karol Wachowski <karol.wachowski@linux.intel.com>
 > 
-> Thanks Liviu!
-> Chris
+> accel/ivpu: Defer recovery until probe completes
+> 
+> This commit disables recovery_work in ivpu_pm_init() and re-enables and
+> flushes it in ivpu_pm_enable() to prevent recovery from running during
+> probe before device initialization finishes.
+> 
+>> diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+>> index aa813262253e4..7aee728b19ef1 100644
+>> --- a/drivers/accel/ivpu/ivpu_pm.c
+>> +++ b/drivers/accel/ivpu/ivpu_pm.c
+>> @@ -415,6 +415,7 @@ void ivpu_pm_init(struct ivpu_device *vdev)
+>>   	atomic_set(&pm->engine_reset_counter, 0);
+>>   
+>>   	INIT_WORK(&pm->recovery_work, ivpu_pm_recovery_work);
+>> +	disable_work(&pm->recovery_work);
+>>   	INIT_DELAYED_WORK(&pm->job_timeout_work, ivpu_job_timeout_work);
+>>   
+>>   	if (ivpu_disable_recovery)
+>> @@ -439,6 +440,12 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
+>>   {
+>>   	struct device *dev = vdev->drm.dev;
+>>   
+>> +	enable_work(&vdev->pm->recovery_work);
+>> +	if (atomic_read(&vdev->pm->reset_pending)) {
+>> +		queue_work(system_dfl_wq, &vdev->pm->recovery_work);
+>> +		flush_work(&vdev->pm->recovery_work);
+>> +	}
+> 
+> [Severity: Medium]
+> Can ivpu_pm_enable() race with ivpu_pm_trigger_recovery() and queue
+> recovery_work twice for a single fault?
+> 
+> In ivpu_pm_trigger_recovery(), reset_pending is set to 1 before
+> ivpu_hw_diagnose_failure(), ivpu_hw_irq_disable(), and queue_work():
+> 
+> drivers/accel/ivpu/ivpu_pm.c:ivpu_pm_trigger_recovery() {
+> 	...
+> 	if (atomic_cmpxchg(&vdev->pm->reset_pending, 0, 1) == 0) {
+> 		ivpu_hw_diagnose_failure(vdev);
+> 		ivpu_hw_irq_disable(vdev); /* Disable IRQ early to protect from IRQ storm */
+> 		queue_work(system_dfl_wq, &vdev->pm->recovery_work);
+> 	}
+> }
+> 
+> And reset_pending stays 1 until ivpu_pm_reset_complete() finishes, while
+> the workqueue clears WORK_STRUCT_PENDING_BIT as soon as a worker dequeues
+> recovery_work:
+> 
+> CPU0                              CPU1                        kworker
+> ivpu_pm_trigger_recovery()
+>    atomic_cmpxchg(reset_pending, 0, 1)
+>    ivpu_hw_diagnose_failure()
+>                                    ivpu_pm_enable()
+>                                      enable_work(&recovery_work)
+>                                      if (atomic_read(reset_pending))
+>                                        queue_work(&recovery_work)
+>                                        flush_work(&recovery_work)
+>                                                                ivpu_pm_recovery_work()
+>    ivpu_hw_irq_disable()
+>    queue_work(&recovery_work)  <-- queued a second time
+> 
+> The same double queueing happens if ivpu_pm_trigger_recovery() runs right
+> after enable_work() and a worker starts ivpu_pm_recovery_work() before
+> ivpu_pm_enable() checks reset_pending.
+> 
+> In the first interleaving, ivpu_pm_recovery_work() runs concurrently with
+> ivpu_hw_diagnose_failure() and ivpu_hw_irq_disable(), and flush_work()
+> only waits for the first execution.  The second queued recovery_work then
+> runs after flush_work() returns, performing a second full NPU reset
+> concurrently with pm_runtime_allow() and pm_runtime_put_autosuspend() and
+> reintroducing the race where recovery disables runtime PM during the
+> initial autosuspend request.
+> 
 
-Pushed to drm-misc-next.
+I'll send V3 that addresses recovery that leaves the device in D0.
 
-Best regards,
-Liviu
+Karol
 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
