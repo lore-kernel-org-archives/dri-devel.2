@@ -2,77 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6872E606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4746E606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 08:33:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EVJQU01t
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GW0J9v8p
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6503A10EE98;
-	Tue, 10 Nov 2026 08:33:41 +0000 (UTC)
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3276E10E291
- for <dri-devel@lists.freedesktop.org>; Mon,  9 Nov 2026 23:02:45 +0000 (UTC)
-Received: by mail-ot1-f45.google.com with SMTP id
- 46e09a7af769-85f34b20042so801762a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 15:02:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F77310EE9C;
+	Tue, 10 Nov 2026 08:33:43 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31D5D10E2E4
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 06:34:35 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-48dfc0421d9so1381776f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 09 Nov 2026 22:34:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794265364; x=1794870164; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=a4krrjNNHrHpQ9XaCev1J8mXOobYD6TWbvvVIVTH+Og=;
- b=EVJQU01t/8S8XhWcYqMNHoHCmtY/lNLHw/wlAx2vYr42HdilAF9wjnvQYwFEROg661
- wOkXdHj8DleQWuZnGY7W9VdajUXIVfI/hdVAKLDF2UJKxHEH3Rh0rWpv7S5Wo6qBwCxd
- 7pNYnRWpv8YjtOP7Gp6xgQDGCbI5GFmafuTfhblOe6b+HKehWV+tzP+5hxllmcDJuWDR
- puS54jCOrzrg8FHO0HhYzdx0TRVlPVa4s892LDz4CzbvLuK6nbSz9ydAGdnn6HJZXy8l
- KMJre6SN6Fdpwq8D5GCh3TCkXhSEFUHPGILDCpy6SEiQqyB8X1uxvQBTUkJHaAAYSP+u
- E9YQ==
+ d=baylibre.com; s=google; t=1794292474; x=1794897274;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=I9ebCGWZ0mC+PUR4y5En+fdWv9ikgrT2psh5wf3qqR0=;
+ b=GW0J9v8pYCjDH8BTLkA8ciCnxx77AJrQZkZR0AUrcUST1XFhUlO/Kj23nj+ta7/k0z
+ dYcFzfPtNQXVY2grRiwcIbxjki41rJQSEfd5V5u36MJI878BQo+eloWUuZjswimzOJsa
+ +bxQxcN9tzNdRjP98su9olCoyiy8LDdFgBLVWWiF7BS+kCmpumL8UnpYRp7/R/RtWXYL
+ Gyf/pNyG/PH68dcHX36Huxlbr8n49CupRmMgwzV3qzkGNXFuXGEod3ELmlQt9dIMTnK4
+ qRwnQaKZ4b6n8SnXnbZjem+pUmbRVgttvicCkgWNTIVWLGBZaij1WAiRuSy7eKqbBs61
+ aotw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794265364; x=1794870164;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1794292474; x=1794897274;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=a4krrjNNHrHpQ9XaCev1J8mXOobYD6TWbvvVIVTH+Og=;
- b=DAX+KGlE5bqGNQl8ihwWOmn43GKIVG2rN52le3Raa6otSkAVYgj5ftnASY9jrjRQI6
- M7KXAgF3WvTxAWqdfX5fKKypxyMvfR5137nLaSMbsp8a+73fvhb4C4qUCfO25G45lAX0
- HCbagd5ibekY5XtmHrs06IZjELN6/Ciwt/1hHS1/uySZ64NOP29Y48Zfj8AVI9XfK9bb
- yV/kRMqrbtH3bpH42ZoVyjZ4mZ+LsdWpaLmoUuSCK1zlHnsiHQOra6Q0/+qaEsYmoUkB
- WRD0Yt1gDXlFbExFJSbZeK5d33YVjLuvfPE1WFnBN9OcU/iYgYv7KDAzfW6nHpQMFfpN
- Zg3w==
+ bh=I9ebCGWZ0mC+PUR4y5En+fdWv9ikgrT2psh5wf3qqR0=;
+ b=w/zjFR2COHSPgDcRqyQ1AuC977zWfgAqMfWP0wyPpm6zNgVsS20HZj6WOsjXJRjc3W
+ VjTCQ7x8pATy6C+jSFAq0bMat/kWaB+ki9GK/He4F9j0wFddEzLq0Afj1jRqQATARLdr
+ QkiwU+VdN/DNhBmZnXdhTCcYOuQLftiq6xwSj7hE/3+t8+MhCP3yWf0omnqrlqH5JfHC
+ VdCOH3QXcGa3fcPxqNO1mGl0bU/WscVjCb6zjrjDj6MecF9uqyoZO3KiLvW57SSUCXS5
+ IzGWlAQqmZqLTX5aBu0lx6xmy1ZUCz4n+20IFT26uvJltfDocHQaLj4IBPQ7kny5mBJj
+ Lqvw==
 X-Forwarded-Encrypted: i=1;
- AL+hErFGsqZH6Jv98BD+I9frWXfqg59noCyaC8XEuAS9nymhaqGfah2tvGWPOQOmojIKIVIgRZZjuiTQiNM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z94sOp/39uc74ZF+IgqX5LIClRaZpxduZQdc72B0tysCbfUiOgo
- IVON9bAoJQejuu0ByRWpNhCNhUetrhuNKJ0aqHLwJYOhe0I6Ep73MUGx
-X-Gm-Gg: AYBFou26Cu4zyGzq7EVRSGCWiS78saIBKOSvljMKMpPz7J6Hzm6kwliC2d8TLywQnkJ
- ty0goALmm5zxcEjaiMOeXrMa0FacYh/2J7ted+gFS4B5riqHInuybTaC3GdZyKGK4Di6+avZw3A
- UnTkeBgc9zukbiTdga2DXJzo9eCHudbOEZY08wnCnU1eN4rjSINE77nVyYvs0f+PbKLUw+xu5KK
- lcxc/TJg1mJEHEoCn123BwiENl+LG/BSS9ODZ45VvkvSoV17BjMXJ5OIsUvZw814ytpuuRs7Bgr
- siWzCwdXfXV3pITUxR8VrLFGy8ox8hCi9nYssYT6/decrch0YrhXDJzCdyvRhnFBnBikXSJx7OV
- tq4umEaN9Q3NuPt49VqFLctPGRM/OI/hq6PP39bnGrxjjIecYLD96cCaqJThZnZ5PvpBj6Pu2W7
- 6BGVOLrcleW8jHTz8iwv3BuXVbZ3diWaJYut4h3Asmuv+RjjaQgScCqKZchBnRlLTWEDSGPuanY
- jBu/HuMCVqwmdf6ovz0gW4zPasrkafhZ9n0/fAbCrzC25VIFZXXKR8OWiAtQddIZemNo2YuYnRB
- mrNt7YQsi5Qh2yemphdYZfjB7P5RvDpYxGIRuYDfZB4t4IoCSbv0A7b/fDkhqd9xLTntsCSl4Zj
- 4hHBhcRrYOaxIaedpAHBDoWjMU1ilqYrEfwSryySYqjsW
-X-Received: by 2002:a05:6830:2705:b0:85f:4b0f:ca75 with SMTP id
- 46e09a7af769-860dc5b6b7bmr654994a34.3.1794265364158; 
- Mon, 09 Nov 2026 15:02:44 -0800 (PST)
-Received: from desktop ([68.248.142.83]) by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-860dca41bdcsm560771a34.2.2026.11.09.15.02.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 15:02:43 -0800 (PST)
-From: Claudio Forain <claudioforain@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- ray.wu@amd.com, superm1@kernel.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, Claudio Forain <claudioforain@gmail.com>
-Subject: [PATCH] drm/amd/display: Only allow idle optimizations when all CRTCs
- are idle
-Date: Mon,  9 Nov 2026 17:01:47 -0600
-Message-ID: <20261109230147.16302-1-claudioforain@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ AL+hErFihzyT1Yz0hB5cpdm9plbTqv7JSi9cye0dY/uGo0FqeU2/w4mbNC1rxt6zztoFS2TlB77A4PwSJws=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8LJAHEW6oZ00gpv5TwzTEy0yKSbcdGfgRGhhrDeaWdZm3wlBkY
+ rsD0UgeP795wR94OvL4R/L8pAb6sH3ZXtKRGDSmkSoS7GfZ1wsm1D6G9K8Js4rNrJ+8=
+X-Gm-Gg: AYBFou1mvtIu8/T7y6UA6y5rmCsOlVomL4O8fOvxJPltzbCgX5HVRo4npk3mebxFP68
+ 0hA9pbLicHXsc99QkMOpSXBPwid8YcAC5Ofn19k8rfHvc5h1VoQ7fARNofby/x5xlknNOAM1Tlc
+ JhpnpHLR4WO0HsEHAJP6VoOrJ8hRDv/wYUTW1JWVVFhKjZKKJdggVJTas/gvH2FLD5cs33HDdD/
+ MlVBwR167blRG0vjRB9bRpvjyDQE9x4UTMwGrkk23ysZWNFKbCguaUjvwyMuRhV5Z+UrzstJs1d
+ 24LI4EVeWqy/o+zw3Z0w9tHWvGqqF4llfPgFubhQ3ZYhZE5NkpwBWFj6FR9lUkjtKrISjDDQS5c
+ RReUapiFFSJ0DAcdHMpnX3sbgoiXvDe9TUcHVgIz+fRktiUqcFaJspDRX/kYf9SHDDLp7uONqb6
+ eCkbKsrCPOjLLKjOifAcpr+e/O/zl6vdujvSUKpSm5mXOdCR2RcSqnCZxtmBjvUjExZtuGW33QC
+ h4P+t7yr8h+NbmQonXbsto9IyIm54uQ+HkU812GUpDMim4Z9uXWyyYLkf9ZBpgS9nCeqYW55W2w
+ mA7g6YAN+G5hp+nIbLXu9JpzVA2Mz8aFlrZLkPhSDS9MoNB8L0tu4pdKF6txU9HGD+l4LgYq+cC
+ qMA==
+X-Received: by 2002:a05:6000:1884:b0:48e:4115:f3e8 with SMTP id
+ ffacd0b85a97d-4982fa5d320mr3039782f8f.27.1794292474246; 
+ Mon, 09 Nov 2026 22:34:34 -0800 (PST)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
+ ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498369a495csm3025664f8f.55.2026.11.09.22.34.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Nov 2026 22:34:33 -0800 (PST)
+Message-ID: <62ae500f-ab3d-4093-b7e4-5d4951419bf1@baylibre.com>
+Date: Tue, 10 Nov 2026 06:34:32 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/etnaviv: add the Allwinner T527 VIP9000 hardware
+ database entry
+To: Phong LE <ple@baylibre.com>, Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20261102094343.2086424-1-ple@baylibre.com>
+Content-Language: en-US
+From: Daniel Drake <ddrake@baylibre.com>
+In-Reply-To: <20261102094343.2086424-1-ple@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 08:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,136 +94,27 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-[Why]
-Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per
-CRTC. When a CRTC's ISM reaches OPTIMIZED_IDLE it enables idle
-optimizations globally as long as no CRTC holds a vblank reference
-(dm->active_vblank_irq_count == 0). It does not check whether the ISMs
-of the other CRTCs are idle.
+On 02/11/2026 09:42, Phong LE wrote:
+> Add a hardware database entry for the VIP9000 NPU found in the
+> Allwinner T527, as used on the Orange Pi 4A.
+> 
+> It's coming from allwinner BSP driver in gc_feature_database.h with
+> vip9000nano-si+ IDs.
 
-With two displays on X11, one static and one receiving cursor updates,
-the static CRTC's ISM enables idle optimizations while the cursor CRTC is
-busy. Legacy cursor updates do not take a vblank reference, so nothing
-vetoes it. On ASICs that set debug.exit_idle_opt_for_cursor_updates
-(DCN30x, DCN32x, DCN401, ...), every call to
-dc_stream_program_cursor_attributes() and
-dc_stream_program_cursor_position() then exits and re-enters idle
-optimizations itself. That is up to four synchronous DMUB commands per
-cursor update, each taking up to ~1.6 ms on DCN401, all under dc_lock in
-the X server's input thread. The cursor visibly speeds up and slows down
-while the desktop is otherwise idle.
+I checked the minor_features values against the vip9000nano-si+
+entry in the Orange Pi T527 BSP gc_feature_database.h. They match the 
+existing 0x8000/0x8002 VIPNano-Si+ entry apart from:
 
-Measured on RX 9070 XT (DCN401), 240 Hz + 60 Hz displays, Xorg, cursor
-moving continuously for 15 s (ftrace, cursor handler entry to
-dc_stream_program_cursor_position entry):
+- MULTICORE_SEMAPHORESTALL_V3 - not used at all in vendor kernel driver
+- SH_END_OF_BB - used in vendor driver PPU flop reset code, etnaviv
+   appears to have equivalent behaviour.
 
-                                 before      after
-  cursor updates/s                1686        2572
-  latency median / P95 / P99    144/858/927  17/19/87 us
-  samples > 500 us                5460           0
-  idle opt calls from cursor   58093           0
-    programming
-  dcn401_apply_idle_power_
-    optimizations calls          58198           6
+Reviewed-by: Daniel Drake <ddrake@baylibre.com>
 
-With a single display, or with any vblank requestor active, the issue
-does not occur. Commit a1fc7bf6677e ("drm/amd/display: Restore 5s vbl
-offdelay for NV3x+ DGPUs") hid the issue by keeping vblank enabled on the
-cursor CRTC; it reappeared with commit f39283eab44f ("Revert
-"drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"").
-
-[How]
-Before allowing idle optimizations, also require every CRTC with an
-active stream to be in OPTIMIZED_IDLE or OPTIMIZED_IDLE_SSO. The ISM
-updates current_state before dispatching, so the last CRTC to go idle
-still allows idle optimizations and no idle entry is lost. Idle
-optimizations are still entered on a static desktop (173 entries in a
-15 s static capture with the patch applied), idle GPU power is
-unchanged (25.9 W before, 25.8 W after), and vblank enable/disable is
-unchanged.
-
-The problem was found and the fix written with an AI coding assistant,
-working from ftrace captures taken on the affected system: function
-tracer counts and caller attribution, and function_graph durations of
-the cursor, ISM and DMUB paths. The assistant proposed the change and
-drafted this changelog; the submitter reproduced the issue, built and
-ran each test kernel, and confirmed the results.
-
-Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6115
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
-Assisted-by: claude-opus-5-5
-Signed-off-by: Claudio Forain <claudioforain@gmail.com>
----
-Testing and limitations:
-- Reproduced and tested on v7.3.3 (Gentoo) with RX 9070 XT (DCN401),
-  Xorg, two DP displays (240 Hz + 60 Hz). The issue reproduces only with
-  both displays active; disabling one makes stock 7.3.3 behave.
-- Built and booted on v7.3.3. This posting is rebased onto
-  amd-staging-drm-next, where it applies cleanly, but it has not been
-  built or run on that tree.
-- Not tested: other DCN generations, APUs, PSR/Replay panels (the
-  OPTIMIZED_IDLE_SSO path), Wayland compositors, hotplug and
-  suspend/resume with the patch, and the ISM KUnit tests.
-- Idle GPU power on a static desktop (hwmon power1_average, 40 x 1 s):
-  25.9 W before, 25.8 W after. Only checked on this setup.
-- crtc->state is read under dc_lock only, like the existing
-  to_dm_crtc_state(acrtc->base.state) in amdgpu_dm_ism_commit_event().
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index 127eaba..79546ad 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
- EXPORT_IF_KUNIT(dm_ism_trigger_event);
- 
- 
-+/*
-+ * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only allow
-+ * them once every active CRTC's ISM has reached an optimized idle state, so a
-+ * static CRTC cannot enable idle optimizations while another CRTC is still busy
-+ * (e.g. receiving cursor updates without a vblank reference). Otherwise every
-+ * cursor update on the busy CRTC must exit and re-enter idle through DMUB.
-+ */
-+static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)
-+{
-+	struct drm_crtc *crtc;
-+
-+	drm_for_each_crtc(crtc, adev_to_drm(dm->adev)) {
-+		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-+		struct dm_crtc_state *state = to_dm_crtc_state(crtc->state);
-+
-+		if (!state || !state->stream)
-+			continue;
-+
-+		if (acrtc->ism.current_state != DM_ISM_STATE_OPTIMIZED_IDLE &&
-+		    acrtc->ism.current_state != DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
- 					     struct dc_stream_state *stream,
- 					     bool vblank_enabled,
-@@ -326,7 +352,8 @@ static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
- 	 * optimizations at the start of this func -- we should disallow
- 	 * whenever there's *an* active CRTC.
- 	 */
--	if (!vblank_enabled && dm->active_vblank_irq_count == 0) {
-+	if (!vblank_enabled && dm->active_vblank_irq_count == 0 &&
-+	    dm_ism_all_crtcs_idle(dm)) {
- 		dc_post_update_surfaces_to_stream(dm->dc);
- 		dc_allow_idle_optimizations(dm->dc, true);
- 	}
--- 
-2.x
