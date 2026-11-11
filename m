@@ -2,133 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146F8606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 15:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271E2606A337
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 15:57:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fH9+ikMx;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IqMMeodp
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=QpOOdE6D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F75010FBE6;
-	Wed, 11 Nov 2026 15:52:15 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D6910FBC6
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:52:03 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABFPODo014772
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:52:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=V93kB7u05RsWp0bMsBHWnhdz
- wP8D9erQ42L3lDrjbOo=; b=fH9+ikMx82geJa3TucKjpmFU7n8JCGIyKlR0zHX5
- VqZ6kDY9HtMQIt4WvJc9rqbXVG0X0h2fZezpU8vwLoYUtCGJGBSmz5Dtly/pHuEa
- InOCM0hwq7g2RaG8aMwKk1yFunRudlRVNy/LapKZ+m8q5WS88xX6hhVJF1sEUmHV
- 0qNI7SpHEuwlWvRVz53b2H1MOvQfELWJ1kt/iDgMvyV4wiTTMndiH9p1HPfjNiSZ
- 9SB1jkwO8c24Q2Y+NS65/4Z7Wo4ZiK8KHwB1Tqu1jUFpDISSBQsXrxLlgjDZtVFC
- UNSmYCRNUTn0QKDBT3xhxuFesHrv4q02zQs999Lz8zxIiQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvtymr4jj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:52:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93f2373e9b4so407344185a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:52:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794412321; x=1795017121;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=V93kB7u05RsWp0bMsBHWnhdzwP8D9erQ42L3lDrjbOo=;
- b=IqMMeodp66bPVAqnvTGCrlWLq6r70pzxroGIoV9BjIzZgvd//cEH8auirDGTELT/Kb
- h611zX+VxLYEsq/0QLZUvaxMP1ej7c2NI9edr6YpKfHL1L9h7/4A7G9fpoFfczcMnFyB
- 6BpPq8U5azSW8nqahJOc1bn18nRqXyXi8yG9PDYOFPdo2Wv2+JKGsCRzj/baT8demiwI
- 9j53hz5x33QEMfH7wzmPi01n1OCIfbpffSBg3aT6Wmx8Zlj9s7R9Pfiz28WYn81Ax5wK
- 7vhZnSyFJC/Cf4i/ETo4E7JdFW/CWrI/BuBQycP/2PHXJlzrQwtuy7mcPVHcqjaeJR+5
- vVtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794412321; x=1795017121;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=V93kB7u05RsWp0bMsBHWnhdzwP8D9erQ42L3lDrjbOo=;
- b=WUbBbXhBI4wsbbSjSprDC1nc9tJXOJ0Mzp2J/810YOSO1PFM91ZDO/TXtwfgjM6aS1
- O3kPn7l/vYjlyjocCbHGoIV3uHNZtEBGLilzi9QYsP1Q9Ahi7ODjoGQBlUCLtyNOhSdc
- o3CEJVSzCLYAUmvMLwG+58dF67BtNrKoLUJqTwAjVyw7/ZhK1YiBVJZ81eutQ2nSCPlU
- 9SwSL3kk/3MeMIvodW92unxkPW2GWMq7f4RbOhatB1cjrSanASgRbhfl4aupw5bZ046A
- Hx/US+j7N8zFWA+6hPs+lDtPBJUU7MnM3PK4lur1y+AYsKt4hTDZRvr66n+tzcOJIwcZ
- 7enw==
-X-Gm-Message-State: APuU4Z+2li5BP1KbrM7FrCLT3NBd12ZZMOdChnk48/HncJ7jyP3uH9wd
- e5h+xICGhTM7O/1+YRajZOArRllGRbQ8VLa+SQi+XtLOs0I2KwsHm9d9OAred27t4bIN8S3sriP
- aYCVXcovJjj9wcvBOVywEzE+oPSUTPOGRcJNCZzLHWpM+hYPv7lXtQhOeBCeecheHu3XcZso=
-X-Gm-Gg: AYBFou0DIy2ohK7jjrpnQyj+FOuWcOkOTpTF/cQYN/WVSLCnb8ltnfEl0e9g1bKjjG8
- W8Kviz4I0CgfDNitPTveeZIOqLfLSTEUbryBoOt59e6DXgjo3A+H3U1qjz1o9G37Ze0Zi/OqAp7
- un0a0cMfQqNrOmtV2WHdUzz1dN3AC6sWh1auwoRVyfkDwoopKDpN5JZyZLHIr7juhCFW1Ec7AEV
- Fw0Yy8+D2nT++KShFe1buRUJEb0641R9F3sbiMKApElhtrLFXOF4yEFAh5Vj4ElbdlQjLQicPa1
- h2iyWtjOYCGtz5REbRR74HMEGs1L+kE5mCm3rOAbsctfmMkETBTLD3hehOI+RlseRodK4ytpJnE
- ZQ8hKFI780CCx8AE/FoTvEgZ9jcajOxVL/IP4WHr9eVTvTLJRC1NCHqWGXUJEJGQkzdmPY3CTCb
- b8bxZ0aQrqVw90Z9iqS9rUgJHWht0On7QqfjWIK3higtHNzYRQBubER1GcQeYDyA==
-X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id
- af79cd13be357-948d83321camr201207985a.3.1794412321462; 
- Wed, 11 Nov 2026 07:52:01 -0800 (PST)
-X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id
- af79cd13be357-948d83321camr201199685a.3.1794412320217; 
- Wed, 11 Nov 2026 07:52:00 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae092293b0sm11950441fa.17.2026.11.11.07.51.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 07:51:58 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:51:56 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm/gem: Deal with partial mmap's in fault path
-Message-ID: <ie2suz67iwxidcggliefmuyi64rxhbslk4to34cb47ctd7jmw4@a5ran3vouptl>
-References: <20261106190317.17904-1-robin.clark@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFE010EA9F;
+	Wed, 11 Nov 2026 15:57:02 +0000 (UTC)
+Received: from sender5-pp-e106.zoho.com (sender5-pp-e106.zoho.com
+ [165.173.182.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 533F310FBF3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:56:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794412614; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=DpqVUxcyN1oKz/4Wlh8tsoVR0bAE6bReI9Jai+qNkbUnnEsMyKovKk/xar2GGx0MH550F5mSARW2iYju0iJsE+vQ1beT/SVjqNC5lvHDmFAOZXXxz/g+utHNMbptAgC528xT7bbvE/tW4VsMYZd8q9uUYFDsP6BWjgd8GFowm1w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794412614;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xDRi6AptpCzfUFXVJSMOxBZIzihFxm0gmUYR69jcYuo=; 
+ b=IIL0iAVpgiBnabj1P6b2jm4yNcUq8aOBb3gP6YV7oHDHP/x0OFsunVqa7MPL7hoq+7laPpeEbIOyzN0akkqkFnU4CJSm4qJcHkdL/4tCAQHXseCPPsXAC4SXYebJD26+SkFdMABPfo5CnIBpzssVtOZVPjJb2QxSqL3bvLJ0CDk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256;
+ b=QpOOdE6DzjcGGF0K/MH11GxBJTVqdcFSiLtp4w3KfVvfaK9NXjKLLwDKFn4pQ91LxGHxxYSfFk0f1jaXMirT86zbEklY9obLVYVMDYXQEnu9IgnY7QKZw/dsustnv6bsL70POsKeCY2hhL2LU4kCiwTsq5XmAUMKcemF4CsZQ1vMI+A8wfsNJV+LPL0ecMCEe2SMnSLZs47WK4+YfFUj6udB0BcHyZKH1uengeqFqF/y6PXn9FJkwVjIW+TqdbvyEdoqivvRZmTydJEOaO4RbRXP9bDgSmpjC0xflgB2Ns7JqJmNZYfJg6TZGnw9gyD9f6nS0VHf1mBXVWP4Yvzdzw==;
+ c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
+ bh=xDRi6AptpCzfUFXVJSMOxBZIzihFxm0gmUYR69jcYuo=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794412612231901.0262834416521;
+ Wed, 11 Nov 2026 07:56:52 -0800 (PST)
+Message-ID: <968c395a22016056a29255d3a123eea8bd5c5c13.camel@icenowy.me>
+Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Maxime Ripard <mripard@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Joel Selvaraj
+ <jo@jsfamily.in>, Jagan Teki	 <jagan@amarulasolutions.com>, Ondrej Jirman
+ <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>, Michael
+ Trimarchi <michael@amarulasolutions.com>, Michael Tretter	
+ <m.tretter@pengutronix.de>, Cristian Cozzolino
+ <cristian_ci@protonmail.com>,  Sumit Semwal <sumit.semwal@linaro.org>, Ryan
+ Brue <ryanbrue.dev@gmail.com>, Nickolay Goppen	 <setotau@mainlining.org>,
+ Robert Chiras <robert.chiras@nxp.com>, Alexander Koskovich
+ <akoskovich@pm.me>, Marijn Suijten <marijn.suijten@somainline.org>, Geert
+ Uytterhoeven	 <geert+renesas@glider.be>, Magnus Damm
+ <magnus.damm@gmail.com>, Chris Morgan	 <macromorgan@hotmail.com>, Barnabas
+ Czeman <barnabas.czeman@mainlining.org>,  Heiko Stuebner	
+ <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>, Arpit Saini	
+ <arpit.saini@oss.qualcomm.com>, Michael Walle <mwalle@kernel.org>, Ritesh
+ Kumar	 <quic_riteshk@quicinc.com>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>,  Konrad Dybcio <konradybcio@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, Danila Tikhonov	
+ <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>, Michael Srba	
+ <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>, Alexandre
+ Mergnat	 <amergnat@baylibre.com>, Alexander Baransky
+ <sanyapilot496@gmail.com>,  Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, Romain
+ TISSERAND <romain.tisserand@gmail.com>
+Date: Wed, 11 Nov 2026 23:55:54 +0800
+In-Reply-To: <avRM_GhtR8vMdTO4@houat>
+References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avRM_GhtR8vMdTO4@houat>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106190317.17904-1-robin.clark@oss.qualcomm.com>
-X-Proofpoint-GUID: 2m3OKydAnboi3iidIn1JVURdt2LeXIyF
-X-Proofpoint-ORIG-GUID: 2m3OKydAnboi3iidIn1JVURdt2LeXIyF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2MyBTYWx0ZWRfX99wKKWBF+tE7
- YjI/1gQLms5wq4yLhcO/971D3eCw3tCKRMuLFgSixH3t0ao1nLuyET/UIRC9YUYPAZTHv4uXFmL
- 431tdxcfJVU0GxTS3fwsG59yUyeHwOvpOKKX04cMka1yKbtXhzJn6l7DR901FUOah+kbD7nzGHO
- PvK4y/68MQeU4ToiSzWTOLO1iIQWb9bLQJGmggARpvHDOP+4OgNtoDMAig4Bm/liX/c1sf6DqIf
- PaFuYGqWp/4+F/FFV/NkqnfVGHJvd91P9ujk/pCIknv1TlLRuBmFe5zodOzq4DMXN0sFQqDAX4M
- wwj4GN79okj1m1QsCHibaPWAkapa+Q4ILqUF4MCOUmzZ3Jg1flFnC7vSuJoazeZi/0XXGVnDl6T
- ZdGYPDdeirouqVdILRQPnwaUCEn0NUoIAn1p56hAtZFqSJkpekyENKwVmqmZ4RAJ869D/tblvqj
- IWOK460dEoKwQ5QB62w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2MyBTYWx0ZWRfXxqip8WwkMYUw
- O410mp0Tw0UDBLK4S3gWYI0dXowy+PLnDztCgSzUz0InglHc4opfkq5eoOS6kyFd+bd/q5PMqyE
- ev67ypx/BYV3ii+AbcNjl43M2V9VIKY=
-X-Authority-Analysis: v=2.4 cv=Q4BHcI2a c=1 sm=1 tr=0 ts=6af48f22 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=cM-CtGeE6IhlOtB9VQsA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110063
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,35 +88,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 06, 2026 at 11:03:17AM -0800, Rob Clark wrote:
-> Historically we ignored pgoff, as it was a "fake" offset that simply
-> served to map back to the gem handle.  Mmaping a partial obj was dis-
-> allowed.
-> 
-> But we can instead just subtract off the fake offset.
-> 
-> drm_gem_mmap() still expects an exact match on pgoff, so unless we use
-> our own path for that, like some other drivers, we don't fully support
-> partial mmap.  But this at least makes things more robust if userspace
-> does funny things like partal unmap.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+=E5=9C=A8 2026-11-11=E4=B8=89=E7=9A=84 12:13 +0100=EF=BC=8CMaxime Ripard=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
+> > DSI panels can be placed under DSI bus directly and many Linux DRM
+> > drivers will work fine with it: mipi_dsi_host_register() adds
+> > device for
+> > such panel and DRM driver does not use OF graph to configure lanes.
+>=20
+> That's not true. We do use the endpoints to configure the lanes
+> through
+> the data-lanes property. See drm_of_get_data_lanes*
+>=20
+> > The affected here Linux panel drivers do not use OF graph, either.
+> >=20
+> > Requiring graph port for such panels is tying the binding to one
+> > specific implementation of Linux DRM drivers, e.g. Qualcomm DRM
+> > which
+> > requires the port.=C2=A0 The port is not needed for the hardware to
+> > operate
+> > and for some of the Linux drivers, so it should be optional.
+> >=20
+> > Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
+> > Signed-off-by: Krzysztof Kozlowski
+> > <krzysztof.kozlowski@oss.qualcomm.com>
+>=20
+> DSI busses can handle multiple devices, and multiple data types. If
+> we
+> were to drop the port node, how does the upstream video device know
+> which device it should send its video output to?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+BTW I checked sun6i-mipi-dsi (which is the driver cared in the other
+thread), and it assumes the first DSI device attached is the panel.
 
-> 
+Maybe this is some kind of overfit, assuming a 1-to-1 connection?
 
--- 
-With best wishes
-Dmitry
+(And I wonder if anyone attached a bridge instead of a panel to a sunXi
+device.)
+
+Thanks,
+Icenowy
+
+>=20
+> Maxime
