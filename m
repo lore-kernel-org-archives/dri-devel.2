@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3377606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2169606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=f+Sze4Tq
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=rzmEcRsB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A981C10FDD1;
-	Wed, 11 Nov 2026 16:09:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88E5F10FDD4;
+	Wed, 11 Nov 2026 16:09:15 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2BC10FDC4;
- Wed, 11 Nov 2026 16:09:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB77910FD92;
+ Wed, 11 Nov 2026 16:08:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=KzLgvnnVCJQM8XoZgFKkHIxCpzTPL6wyxLCKsZPvLxA=;
- t=1794413344; x=2109773344; b=f+Sze4TqAEEyuMQw5v6IyVNhsD2Z4B4VBWummx+2nCvhHc+
- NgFk3QvHWVSiiClIPOczDUbFoZI4G1wmAVvd8ThLsa1k5h2uv3wbXxJ1sHKhmQx8lz+zvaaGHfSqF
- N5ukeisS7XdACCgxbH6bGGqwsFdYjRJGy0GQoJeukl6hO4DQh/OOk6gvgBKAr1ava0Qp5plaW/a0q
- vd9xd1h56C7pIeXvlUFcpOPeWhKHql27Fhv+ql9lxHgYCZhQF/Nze2b1aEaufa113o3gmAP0uyGOp
- o1X5pgFr1yO3DAf0mKyVaamL7BLbv0nkk7N3G8MXoufepwOnydgkCti9u8H9FbpA==;
+ Cc:To:From:From:Reply-To; bh=vhJpOnyWAz5uiZosJGVLwxlp+dogNJrP1/dgdKqGrCU=;
+ t=1794413339; x=2109773339; b=rzmEcRsBG1a6yKIhuTuqNWR738+UeQVzmcbTVJA4tz3bxl7
+ wdqhkkAtGQ8OfhqS+sDrSVGuQQ1wS4w6cMi4TmjW8szBI7BZJB2i48UR1wHWEIoHdmshtoqjuyzoD
+ G1Jh5VBDxtgLbkAmcUnm0m3YgNVq4NplkNOfBLyXy3FDxi5naGCxCIRR740JJSROlCrqUho3VrLhb
+ w7+PexxP2HLP86N0S4Q7Y2rQmRqRyuwy5jzlewW37yo0zB/QBdFSYthYneIzYWLOsL001F1vY7AtX
+ UqmDNAlPmVGA7xHQwNjitFzGv5ahZipfPHQmmNrBgFbvzhim9G+V4+2JHZ+QOBOg==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsO-008u8Y-Q2; Wed, 11 Nov 2026 17:08:44 +0100
+ id 1xRAsL-008u8Y-D3; Wed, 11 Nov 2026 17:08:41 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,10 +45,9 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 14/15] drm/atomic: make drm_atomic_add_affected_colorops()
- static
-Date: Wed, 11 Nov 2026 17:05:27 +0100
-Message-ID: <20261111160814.21326-15-mwen@igalia.com>
+Subject: [PATCH v5 11/15] drm/amd/display: make blnd bypass mode clearer
+Date: Wed, 11 Nov 2026 17:05:24 +0100
+Message-ID: <20261111160814.21326-12-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -74,160 +73,31 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-After refactoring the AMD colorop state lifetime,
-drm_atomic_add_affected_colorops() is no longer used anywhere but
-drm_atomic_duplicate_state. Move this helper to drm_atomic_helper.c,
-make it static and rename to duplicate_plane_colorops for clarity.
+If userspace set blnd colorop to bypass, AMD driver just skips blnd
+transfer function configuration. Currently, this is not an issue since
+dc plane state is a reset/default state, but it's not fully correct and
+doesn't mirror shaper tf helper. Make bypass mode setup clear by
+initially set tf->type as BYPASS and let the helper change its type
+according to userspace requests.
 
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic.c        | 46 -------------------------
- drivers/gpu/drm/drm_atomic_helper.c | 52 ++++++++++++++++++++++++++++-
- include/drm/drm_atomic.h            |  4 ---
- 3 files changed, 51 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index d8b56fa47d45..821e05eb232a 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1888,52 +1888,6 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
- }
- EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 6455898e2da9..686f718bd155 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1938,6 +1938,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
+ 	uint32_t blend_size = 0;
+ 	int i = 0;
  
--/**
-- * drm_atomic_add_affected_colorops - add colorops for plane
-- * @state: atomic state
-- * @plane: DRM plane
-- *
-- * This function walks the current configuration and adds all colorops
-- * currently used by @plane to the atomic configuration @state. This is useful
-- * when an atomic commit also needs to check all currently enabled colorop on
-- * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
-- * to avoid special code to force-enable all colorops.
-- *
-- * Since acquiring a colorop state will always also acquire the w/w mutex of the
-- * current plane for that colorop (if there is any) adding all the colorop states for
-- * a plane will not reduce parallelism of atomic updates.
-- *
-- * Returns:
-- * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-- * then the w/w mutex code has detected a deadlock and the entire atomic
-- * sequence must be restarted. All other errors are fatal.
-- */
--int
--drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
--				 struct drm_plane *plane)
--{
--	struct drm_colorop *colorop;
--	struct drm_colorop_state *colorop_state;
--
--	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
--
--	drm_dbg_atomic(plane->dev,
--		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
--		       plane->base.id, plane->name, state);
--
--	drm_for_each_colorop(colorop, plane->dev) {
--		if (colorop->plane != plane)
--			continue;
--
--		colorop_state = drm_atomic_get_colorop_state(state, colorop);
--		if (IS_ERR(colorop_state))
--			return PTR_ERR(colorop_state);
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
--
- /**
-  * drm_atomic_check_only - check whether a given config would work
-  * @state: atomic configuration to check
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 60e69061faa9..358b89e93620 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -3697,6 +3697,56 @@ void drm_atomic_helper_shutdown(struct drm_device *dev)
- }
- EXPORT_SYMBOL(drm_atomic_helper_shutdown);
++	tf->type = TF_TYPE_BYPASS;
+ 	dc_plane_state->cm.flags.bits.blend_enable = 0;
  
-+/*
-+ * duplicate_plane_colorops - add colorops for plane
-+ * @state: atomic state
-+ * @plane: DRM plane
-+ *
-+ * Add the state of each colorop of a given @plane to @state, including
-+ * colorops from color pipelines that are not currently active. This duplicated
-+ * state is used to restore the hardware state later; furthermore, the
-+ * drm_atomic_helper_resume() function, for instance, resets all colorop
-+ * states before committing it, and any colorop that is omitted would lose its
-+ * settings.
-+ *
-+ * Use this only in duplicated states: the drm_atomic_check_only() function
-+ * rejects colorops from a pipeline that the atomic commit is neither enabling
-+ * nor disabling it; this check is only bypassed when state->duplicated is set.
-+ *
-+ * Since acquiring a colorop state will always also acquire the w/w mutex of the
-+ * current plane for that colorop (if there is any) adding all the colorop states for
-+ * a plane will not reduce parallelism of atomic updates.
-+ *
-+ * Returns:
-+ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-+ * then the w/w mutex code has detected a deadlock and the entire atomic
-+ * sequence must be restarted. All other errors are fatal.
-+ */
-+static int
-+duplicate_plane_colorops(struct drm_atomic_commit *state,
-+			 struct drm_plane *plane)
-+{
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *colorop_state;
-+
-+	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
-+
-+	drm_dbg_atomic(plane->dev,
-+		       "Adding all colorops for [PLANE:%d:%s] to %p\n",
-+		       plane->base.id, plane->name, state);
-+
-+	drm_for_each_colorop(colorop, plane->dev) {
-+		if (colorop->plane != plane)
-+			continue;
-+
-+		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_helper_duplicate_state - duplicate an atomic state object
-  * @dev: DRM device
-@@ -3758,7 +3808,7 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
- 			goto free;
- 		}
- 
--		err = drm_atomic_add_affected_colorops(state, plane);
-+		err = duplicate_plane_colorops(state, plane);
- 		if (err)
- 			goto free;
- 	}
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..1ba000e392f4 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -937,10 +937,6 @@ drm_atomic_add_affected_connectors(struct drm_atomic_commit *state,
- int __must_check
- drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
- 			       struct drm_crtc *crtc);
--int __must_check
--drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
--				 struct drm_plane *plane);
--
- int __must_check drm_atomic_check_only(struct drm_atomic_commit *state);
- int __must_check drm_atomic_commit(struct drm_atomic_commit *state);
- int __must_check drm_atomic_nonblocking_commit(struct drm_atomic_commit *state);
+ 	/* 1D Curve - BLND TF: find state */
 -- 
 2.53.0
 
