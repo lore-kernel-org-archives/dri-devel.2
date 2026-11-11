@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342BC606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:29:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BBA606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kgAoWqWf
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=F0JXi3Jk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C5210EAA3;
-	Wed, 11 Nov 2026 17:29:42 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F91210EAA3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:29:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794418174; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A3D10FC40;
+	Wed, 11 Nov 2026 17:30:38 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98CBA10FC40
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:30:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794418230; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=J1wl3Zvpxev0DGwhYd1mPbQy7eKIy7/VxKt8XZnLehTZD5ZD+8s9X5oTWJJJ2X73LgUREJmHy9kSYJgNNmTTWebUihdpniJt0mVK7ZXY4K04l91DsPcjyR2Zt0zTi7Rlff07euI9BwH7DJe4Egw1nx0U5avM/9ixjMcUSBzOhTg=
+ b=XQ+4kTy1Sbg+S2qNqks5/t4BdOZlkR2RGbfx3y/El1qrOUQAACXO4gR1elMHCCnS3PfaFn1wyBg9AJ526lxZxpkoyUzWj2PWQBkFIRJEQ+3Te0fLtNfLc0j1S0paBxNAF5Bww5IlcEcXP1LqCG+U279JEiZ1r5cSe6yFngmRcP8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794418174;
+ s=zohoarc; t=1794418230;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
  bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
- b=aPoURh4oL3UsQVn7BxBtJ5OadUIbhpnT80S/0BqS0Zf3tB+LCofv8uPUbRocegjFR3rJYu46n2kFiFPJgSvSmW4shgrmRv9qW+GeFx3+Z7kRPQhflMQZEo9ueAYp2+cEGdZcK+ML5/x9T8HlQl5qtuqeHfafbAou4mUu6fIbwok=
+ b=DgKZQP5SIj85Z+b2Ao90Am8f3aCxiUdNAXLepTZn80nMH5elWAeJdpif3MJw/baWpFno75pkfxoJ+tVXfnemyJqpoy80pA7jGfxN3bUTRsNE0gpmHbhFrU+Cn/paHcjy84knPtCp+Ag8JgVyBJgrCgKUfM+NgsWIiZeF/KWjBLQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=kgAoWqWfpIkvKM+aQ4I08A6U5Far+l7wwYDCPLPfV5E29cIzpeXUM1VUnLIJvBXgkug6utdS6SjLsblp9nmTPtnJgHyORuT6Id8Ykic9Gdj2z5h3JgU0s1c1/rQ9RNXuMq1u40mP74wum/+IChJs2WrqpxstJ16C68hYzMv6mCU=;
+ b=F0JXi3Jk1+ckm+EuI/KcTpwx6KLcN8S2S6w05QcozMJ25TNkCNkLdBa8MvUdDiTbqO54Qc9Pxdxo/BkRd9NrBN2MZ2/YT/opWYXHRUTqFeB167MonfJNVH4nFVdRnAbmLKIuqKIWQtpn0z29rV7B/CY1Op1bhd8FU5YgkfLMg6M=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
  bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
 Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 17944181737439.499080471783259;
- Wed, 11 Nov 2026 09:29:33 -0800 (PST)
-Date: Wed, 11 Nov 2026 14:29:33 -0300
+ with SMTP id 1794418227715371.06425639823635;
+ Wed, 11 Nov 2026 09:30:27 -0800 (PST)
+Date: Wed, 11 Nov 2026 14:30:27 -0300
 From: Daniel Almeida <daniel.almeida@collabora.com>
 To: "Danilo Krummrich" <dakr@kernel.org>
 Cc: "aliceryhl" <aliceryhl@google.com>, "acourbot" <acourbot@nvidia.com>,
@@ -51,12 +51,11 @@ Cc: "aliceryhl" <aliceryhl@google.com>, "acourbot" <acourbot@nvidia.com>,
  "dri-devel" <dri-devel@lists.freedesktop.org>,
  "rust-for-linux" <rust-for-linux@vger.kernel.org>,
  "linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <1a1cba8671a.1ba93626263271.8137996775533663026@collabora.com>
-In-Reply-To: <20261107021427.2105374-7-dakr@kernel.org>
+Message-ID: <1a1cba939ec.316e688b263885.5117314523612320809@collabora.com>
+In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
 References: <20261107021427.2105374-1-dakr@kernel.org>
- <20261107021427.2105374-7-dakr@kernel.org>
-Subject: Re: [PATCH v2 6/7] rust: drm: return impl PinInit from
- DriverFile::open()
+ <20261107021427.2105374-8-dakr@kernel.org>
+Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File lifetime-parameterized
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
