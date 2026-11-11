@@ -2,55 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B9B606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4DF606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:06:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=u5oadQVn
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NvC/L5yg;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YGCO20W+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52E510E639;
-	Wed, 11 Nov 2026 13:06:10 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 175B210E908
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:06:04 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jPkKh3KJ3zKvqc;
- Wed, 11 Nov 2026 14:06:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794402360; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Q42OC0c9Pn7CRrdjSlnnwtksCQ1XJFWkVDKm+WIMTiU=;
- b=u5oadQVnRqRpnfQ1iEXvPmnaXM3Xc3vGrRD6VeDlPN2e1Z9z5WCsLIYe8O3Up5qTIf+TYP
- 6fe1VPHMUGO8L/aEMX+Rj0geKYzQM+w9aswW2OpUJk5bRdOLKse9ExyaZ58pq0XAmr4l1z
- xvlIMJSgd646+BnVcy2QT2cstu5QWqMcxJKosqFb0ByG+8Vah4D6muy1ZLQhDsBNOL9Wfq
- NGgnRerKDSMl+jKEnf8O4iSEtvkdo/NlsYddYY1kZWAhf6L1qleDimyozjPLOs6gYkYl0W
- ZjUeXFtrieWdNrAaw11yL/GFPKUprafzWqaUFD9bigH/4ctr6t58q3PgWmdYuA==
-Message-ID: <71ad23bcb3d48f771ce74270dbe4dfcf39827031.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not overaccount job runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, Gary
- Guo	 <gary@garyguo.net>, "Paul E. McKenney" <paulmck@kernel.org>
-Date: Wed, 11 Nov 2026 14:05:58 +0100
-In-Reply-To: <20261111105921.38710-1-tvrtko.ursulin@igalia.com>
-References: <20261111105921.38710-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC79610E553;
+	Wed, 11 Nov 2026 13:06:07 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D5910E908
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:39 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABCZBOm2288020
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ EQWl5k5Bb5z9sN1Rk2HwinSW3Pdya3j3yf455M6otcE=; b=NvC/L5ygkNX5bN3O
+ 06sEMHIa076XPn7KEoMUaduGu6JAabJZvOxMpehYGm1BhPSk5J+PaxNUGq8ZrsNf
+ E8v5ndHOsWpFff65yKypozPCGBr3erL1Yf1S2pcuBFuL87v2wP++UsxM+aSNLJZT
+ d/VuEpAqskFsN9/kqLMGd5udCvxzdNJ4XmKlGuDx8mXd3nx3ZLLhrDia9jBBdZsa
+ vYX26WVMI1bg9okDpnsqW6o1csnVGGedymqO4HRoVKfEsi4A31Y9KrnMoF+lhUMn
+ dZubSgJNY3AVcpXq1cGOuFIVaiqA93ES7HjRMU9o234LbZGPVLjOkdfr88MIIBjl
+ y2N4Jw==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
+ [209.85.221.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvksm9948-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:39 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id
+ 71dfb90a1353d-5c96bf59c31so962760e0c.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:05:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794402338; x=1795007138;
+ darn=lists.freedesktop.org; 
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=EQWl5k5Bb5z9sN1Rk2HwinSW3Pdya3j3yf455M6otcE=;
+ b=YGCO20W+nILk+AHY9eGz3Jvw3WvBMpp3t88+fSl8XpWv09gyr9lz+0IGLAx9XvmyMu
+ R0nT3ciFFjQpRCIVmT1/nkZAWxedEX8oDxJyY/6FU68zStkQHfbSsISQ2egXxLQBW0uS
+ KhmMntDCYz93S6j7heTiUDIU3WvN1NfzNekkjwpi0QR4sNDnG35fjhX7/iNif0MdNbsp
+ 0/5xEPTofAXLRp7kHZrQFb0UQ5uxeFOO9EISHfj9OPs3YkA88tZjquqMaZikbDUpLN3i
+ bTjEseEy4RjMmfHV2SiWsA1tjE6jnjxrEnaerFkyCJWxsTYm67JvsIATM46ry6nUc17I
+ 7/lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794402338; x=1795007138;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EQWl5k5Bb5z9sN1Rk2HwinSW3Pdya3j3yf455M6otcE=;
+ b=LDZfaVm86Ptzi/s6eMVxOt4DoMhiFe6H0N0kge5yHGdPhfJ+2F6FWXwGvOIempPkjR
+ TGoC/J2SwmdYxIQ8B7hwZuVpFY+JbcVWbJdQzDY/jKrlh05D1nGhqNmwI8iFI9HCtGST
+ sfsqW+SzAfX6xhyVI5172x8WW6pcq2MH1FB8+xDxJVSia2XaIWnIyDIVnjcH0Rd2zyNc
+ ELrj9X4iXxavIpN8tRvemHwG5mwDb+YuxlbCp6W0gj1bMQIbWY9h2uUboC1ZSIL5lkRu
+ Kt/VFPAMSG7CCaNzrYq8M78ppHOquHET7W+Fk8jdi4v4msnvuqlsF6MCUOj0afs8uGwA
+ NvWA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE9xPH22JTQs1nGiBQd8c/kWtZwoTykKZjyhDSTuLEVyfDbPJZp+bXY8F9w1fPCPzp2Wxq6LV+fIc4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/m2k6V5VrK9Xtl8YJhlXIaELhgRGLjbHdI4HGYxeUkeDJKSk0n
+ EiVia1PH3mP4Pw811JNNgnNLT/u3QYUwE7xptmpBBGLJo9melH9tYx/XMkHDFcLg1hpuvQWqB9B
+ au484K185jejUHXjbF5/aSMJnTlmpQktrxz84mZDwh6y9kMCnoUge7iI6XSJ49DVTGw5VPTQ=
+X-Gm-Gg: AYBFou2LT/P2T9yfCnyeoWzwriXRmtgFEq/iOQWnd/Y74t6guWSumCGqhVlyZ+5Nkav
+ Di3lsPge6jGOJkV7xlO1wlRt3hyzRqKkp/koy5BdnPk/Fm1oUVWnidzrwtXcWDytFCBi/spBAXT
+ aseP5AUrzgdqarA5gIV40aHDcEV6rIjh5cj7D6c2ogMad8mkfqM2gT/lRaUQLBKT5UezKlmbzZU
+ 8IvQr7E0o3o9fvweLwdSooUPUeVWY8VsoNhGOrVuh4FjjFtLF4guj4oBG7+eU41ztenZ8MnCOKi
+ ydvKz91hVnySkQhqSYGIDIbztAEEWZSawcZlwp0n3mesA+YG9Qd+Ooh9gd7i0ip+0HFE2SVrnQA
+ oQRhCQOTYBlheACa5l+WoZD3JoiJmyUeXPL38IVdO5DZBrw48pyfYun/U1O/rkWKBJVKd5WjwtF
+ KS4F2mX7Qk4q8FnpRUKtCdTEeP8RQ7r+aBrhoRN+gCZS6K6yzUZ88kKZvy59trcg==
+X-Received: by 2002:a05:6122:8891:b0:5ee:200a:8cda with SMTP id
+ 71dfb90a1353d-5ee200aebbfmr213530e0c.7.1794402338029; 
+ Wed, 11 Nov 2026 05:05:38 -0800 (PST)
+X-Received: by 2002:a05:6122:8891:b0:5ee:200a:8cda with SMTP id
+ 71dfb90a1353d-5ee200aebbfmr213505e0c.7.1794402337496; 
+ Wed, 11 Nov 2026 05:05:37 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c15d368e81sm391858e87.21.2026.11.11.05.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 05:05:36 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 15:05:16 +0200
+Subject: [PATCH 3/3] drm/msm/a3xx: update the CP_ME_INIT data to msm-3.10
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 8e20d91b689ee33448a
-X-MBO-RS-META: cpxj78cnjmjkcot4aj67z7awf8joyn6k
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-a3xx-fix-me-v1-3-d81f50f1ba1e@oss.qualcomm.com>
+References: <20261111-a3xx-fix-me-v1-0-d81f50f1ba1e@oss.qualcomm.com>
+In-Reply-To: <20261111-a3xx-fix-me-v1-0-d81f50f1ba1e@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=833;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=+ViPfrdASg19eIkYrm3pPJ/m7IB4rdlNRmFNly/QK20=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq9GgZZG5eJUlvVozg1SvFjWYOWtvOrP+He3MS8
+ ZTKpYzsOsyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCavRoGQAKCRCLPIo+Aiko
+ 1bT5B/sESP6mItRcWy5C+hS/P61fcKVneQJymiST9tKU5DB17cTE8vJdNQ3sPi67F8Wl7+26Ir2
+ s017/c+3kMM7z2yMayfefgUQjX+Kpgg5aycbRI5RNrRZbU09TvOdAUzy57fxjhsrAb1gH2TbOQP
+ Qnmq244amrMNd9x1KOmIgmjZAaH/28ENzw1NYkqBxfmRbUeCxoocDcxpuyVBjzA+BGOzOHv+8JM
+ /PkMuAkX6V6pW75qHDw57K1+p5JHFw5FrRPc8BW+mbpUqEBI2NY642plRP8VBZQ1z+gT+gnk/JD
+ B9TMg8DvZv4igBX8zVxbmcndRBT4nUyx9M6fiFt3Nj6/qUQK
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: 1dRQFe40SQWicresQiKfqhE3O1kYeJIF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfXxJGpe7glmG4l
+ uKGdYHRoF3eRHlOGEk8hITBbgFFrJP/Z8o6Dqb1mx/19Uyo1bEStkDaquYnxrgu9RrkO4MkmFm2
+ VDFxvvnHTyxkzkg9pXwRrQ3MjPAeFpsIeLomiklg35HqUkQLrBzBBdn5kf/BBeBoR36x2N8o8Ej
+ GPgJUjCWEjnFraYbzB6ekqnGHem5VzOYsAJJAWfGgqsjWh/JHv1RgLjEFVaO0soeHXekn7xFH7e
+ uhUgFc4cJKqP/H2JeKADGu/yBr6XwTAQ8+SJnnYYyq/mpEKu5whu+cXo28EaXEGsArjIdl0To4i
+ Uo1EcZ+GOfJ/u5c7qPpwTov/xNlq5kcuCPCq3BjEMGIG6zR96dtS8OfjXAO+My/WIrvbc1WpVbE
+ 5YX+ityVtQvUXG3HkaVL+s5cQM9ghrJ1MUnwgbBroOAsHlBW0gWrneWUZvcf0uhvScnJeNpgRVB
+ D2MoaUyBs9Vn9Jn4ewA==
+X-Proofpoint-ORIG-GUID: 1dRQFe40SQWicresQiKfqhE3O1kYeJIF
+X-Authority-Analysis: v=2.4 cv=O9isLx9W c=1 sm=1 tr=0 ts=6af46823 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=ypG0q2TZ0WS5u_ylJzIA:9 a=QEXdDO2ut3YA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfX7RfoWADD3Xpf
+ QzioMBG6c2Wl5BPrx+JSfl4jvsSsQmh4So9u79MrdyUx7nKqvYA7hKdmVs517Uub0XtE7b8scYv
+ MV45zpD8eyCtT31ChZezHlld9YpwXpE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,118 +156,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-+Cc folks from my other RFC
+Update the CP_ME_INIT payload to the values used by the msm-3.10 kgsl
+driver.
 
-On Wed, 2026-11-11 at 10:59 +0000, Tvrtko Ursulin wrote:
-> Currently the starting timestamp of the next job on the timeline is
-> adjusted to the end of a preceding job. This works if the next job has
-> been submitted while the preceding job was still executing, but not if it
-> was submitted in the window between it finishing and free job work runnin=
-g
-> the timestamp adjustment.
->=20
-> This can happen because the run job and free job work items share the sam=
-e
-> ordered workqueue and run job can easily submit the next job before the
-> free job gets a chance to run. This over accounting window is present
-> especially with single credit schedulers, but not limited too.
->=20
-> Fix it by only adjusting the starting timestamp if it is not already afte=
-r
-> the finish time of the preceding job.
->=20
-> While at it move the logic to a helper to keep indendation at bay.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 1774baa64f93 ("drm/scheduler: Change scheduled fence track v2")
+Fixes: 7198e6b03155 ("drm/msm: add a3xx gpu support")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-In antoher mail you mentioned a userspace change which motivated this
-patch. What is that about, some performance issue? So you want it in
-all old kernels or not?
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 1de4277ebf9a..1420f18bcf75 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -103,7 +103,7 @@ static bool a3xx_me_init(struct msm_gpu *gpu)
+ 	OUT_RING(ring, 0x00000001);
+ 	OUT_RING(ring, 0x00000000);
+ 	OUT_RING(ring, 0x00000000);
+-	OUT_RING(ring, 0x00000000);
++	OUT_RING(ring, 0x20000000);
+ 	OUT_RING(ring, 0x00000000);
+ 	OUT_RING(ring, 0x00000000);
+ 
 
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 24 +++++++++++++++++++----=
--
-> =C2=A01 file changed, 19 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index a030061d0390..136880fc193d 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -898,6 +898,24 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sc=
-hed)
-> =C2=A0	return IS_ERR(entity) ? NULL : entity;
-> =C2=A0}
-> =C2=A0
-> +static void
-> +adjust_next_job_start(struct drm_sched_job *job, struct drm_sched_job *n=
-ext)
+-- 
+2.47.3
 
-Not nitty with that usually, but since literally all our functions
-always start with drm_sched_, this one should probably be
-drm_sched_job_XXX()
-
-> +{
-> +	struct dma_fence *next_scheduled =3D &next->s_fence->scheduled;
-> +	ktime_t ts;
-> +
-> +	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &next_scheduled->flags))
-> +		return;
-> +
-> +	/*
-> +	 * If the next job has been submitted while the previous one was still
-> +	 * running adjust it's starting timestamp to avoid accounting overlap.
-> +	 */
-> +	ts =3D dma_fence_timestamp(&job->s_fence->finished);
-> +	if (ktime_after(ts, next_scheduled->timestamp))
-> +		next_scheduled->timestamp =3D ts;
-> +}
-> +
-> =C2=A0/**
-> =C2=A0 * drm_sched_get_finished_job - fetch the next finished job to be d=
-estroyed
-> =C2=A0 *
-> @@ -929,11 +947,7 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler =
-*sched)
-> =C2=A0						typeof(*next), list);
-> =C2=A0		if (next) {
-> =C2=A0			/* make the scheduled timestamp more accurate */
-> -			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0 &next->s_fence->scheduled.flags))
-> -				next->s_fence->scheduled.timestamp =3D
-> -					dma_fence_timestamp(&job->s_fence->finished);
-
-Urgh, only now am I realizing that we just "conveniently" overwrite a
-fence's internal timestamp, relying on how dma_fence works internally.
-
-Do you know what ordering is like btw for all of this?
-
-This is the *next* job's scheduled fence, so this sounds suspiciously
-racy. Testing the bit and overwriting the timestamp, can't that race?
-
-dma_fence_timestamp's cpu_relax() might serve as a barrier, but I can't
-see ordering between bit check and overwriting the timestamp?
-
-See my recent RFC where I strongly suspect that we have such race's
-with fences' error codes [1].
-
-
-P.
-
-
-[1] https://lore.kernel.org/dri-devel/20261110155817.1492359-3-phasta@kerne=
-l.org/
