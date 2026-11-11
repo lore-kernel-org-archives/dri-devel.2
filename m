@@ -2,60 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E64606A8A0
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:49:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B3C606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:50:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=Wzpapjrr
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=orInLMA2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 310CE10E190;
-	Wed, 11 Nov 2026 10:49:10 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3195310E9D8
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1794394138;
- bh=UcIU49IoMwkMcPqVgct5VcN4m8udnqO+yv6+Crgi7s8=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=Wzpapjrrl5t3gWo9iDKn1jyk+NtYI3fWGuLAdCwwM44sKU9JbK4sXihTqucOVCMmC
- mQbeyBBAQffCtcG4/uX5Ernoz8F+8c1wcp4YZ8eK+Q83xlTCOYMnoj1LZpKci57MEc
- CaB2iUEZ7k/HBnRqh02BnwjwOlfFW0TRXj1b0u77E9vFWILuk+dZO7luBhYApBhchK
- N/UxzXMRqHfNaDWsmwfENCVcXqKrpCheglaAAxj9b1YJUyvPKncLXGmzMysGu9+49A
- NzwUNL9cSRrgLBNhlfGxiIUfojcjZ8MTe7XArRgtHAP7/ZiL4WRsbdCqpgMf/aVlBn
- 73ZNIXg1s6sAg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4jPgHR2Zsdz4wKs;
- Wed, 11 Nov 2026 21:48:50 +1100 (AEDT)
-Message-ID: <df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
-Date: Wed, 11 Nov 2026 10:48:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CA510E9D8;
+	Wed, 11 Nov 2026 10:50:32 +0000 (UTC)
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com
+ [165.173.182.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EE010E9D8
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:50:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794394220; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=DvrtU2o00B0Y2Jj4/kXnw4llxFrSJJMmeFG6gkdPfdM3rU0vM4hti+ddaaby6HYH3Tro/hvlt19vWpUaLhZME9jwOjJgZiL0bWZEnpu/4Ug7hTKkgLbwKnYJBQ+p92b+l0pC+Q3S31J9q0BJsvjJtHCtop8t40oyQblxcagPEyM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794394220;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=nqwOqzySF41xP+3vbWTy+4PqTdvp+LYNGH4DxM7B10o=; 
+ b=FQbLI2IQ6aLuocLskqU8GiwCUZG7E/eg4QpVeyB0pe7vzgXUfXym1GfjaMN6qCpcObn0k/jgabQB72qvjXyZbnBOJrepUqD1bfWpXTI2maXvAD9gs0rZuA+SLmQ2S/3rbwhRAVgVkrpkubSFQEou1KqCV1hilmxCtCMuy28FSUc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256;
+ b=orInLMA2EkgsgLOrC4la/lkznRmTWyN4xG04Nb3b2qOmWvd1X8XdWpYL38B+BJCim0ILDNBCOcIYVchcJgUtYJJ9VqHZcLFgeLeI6UicTjwdUFiVM5gfxHvbn7/LY4MXJ0J/BNW5Soni89LXTsM4ITYkg6l+8UQQ0xtpI7HSW4VNlmaX+z353jp0r4cHm7Td+1ML0mkysmken5ZrIbpx1FnO6LidHOm4tJiv+E2yk73bFctpEucirZRKzn4p9/CwTefC85PEKlZwmzJzwNfhZ8NfpWWa8umE6/OGCV0al45PyxFILyrGf5d90wRhj6lljdoLDQ7M0BDXOXaroh1H8A==;
+ c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
+ bh=nqwOqzySF41xP+3vbWTy+4PqTdvp+LYNGH4DxM7B10o=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794394218186406.20269284396034; 
+ Wed, 11 Nov 2026 02:50:18 -0800 (PST)
+Message-ID: <7567f858b5a4e1a5ae59b73385f731180b721747.camel@icenowy.me>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488:
+ make the port optional
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Romain TISSERAND
+ <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, 	dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+Date: Wed, 11 Nov 2026 18:50:10 +0800
+In-Reply-To: <5398114b-538c-4e7a-9b36-35029f301630@kernel.org>
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+ <20261109160706.2272332-2-romain.tisserand@gmail.com>
+ <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+ <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
+ <5398114b-538c-4e7a-9b36-35029f301630@kernel.org>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>
-Cc: Alex Mastro <amastro@fb.com>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-9-matt@ozlabs.org>
- <20261013171347.54e856c7@shazbot.org>
- <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Content-Language: en-GB
-In-Reply-To: <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,140 +72,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Alex,
+=E5=9C=A8 2026-11-11=E4=B8=89=E7=9A=84 11:28 +0100=EF=BC=8CKrzysztof Kozlow=
+ski=E5=86=99=E9=81=93=EF=BC=9A
+> On 11/11/2026 11:26, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-11-10=E4=BA=8C=E7=9A=84 13:00 +0100=EF=BC=8CKrzysztof Ko=
+zlowski=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
+> > > > The panel is a MIPI-DSI peripheral, a child node of its DSI
+> > > > host,
+> > > > and the
+> > > > driver does not use a graph port. A port is only needed when
+> > > > the
+> > > > host
+> > > > links its panel through the graph; other DSI hosts, such as the
+> > > > Allwinner
+> > > > sun6i-a31-mipi-dsi one, link the child node and have no output
+> > > > port
+> > > > to
+> > > > point at. The PinePhone panel is described that way on the same
+> > > > host,
+> > > > without a port.
+> > > >=20
+> > > > Keep the port allowed (panel-common) but no longer required, as
+> > > > for
+> > > > other
+> > > > DSI panels such as ilitek,ili9881c.
+> > >=20
+> > > ilitek,ili7807s and a few others have the same and it is
+> > > confusing.
+> > > The
+> > > port should be required when this is connected over SPI or I2C,
+> > > but
+> > > not
+> > > for MIPI DSI. I think that for MIPI DSI port is meaningless so
+> > > actually
+> > > incorrect.
+> >=20
+> > I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs
+> > with
+> > dw_mipi_dsi-rockchip) would expect the panel to be connected via a
+> > port
+> > even if it's the child node of the DSI controller.
+> >=20
+> > Such an example is at arch/arm64/boot/dts/rockchip/rk3399-
+> > pinephone-
+> > pro.dts .
+> >=20
+>=20
+> Yes, the same for Qualcomm. So I actually wonder who needs the change
+> here.
 
-On 14/10/2026 21:38, Matt Evans wrote:
-> Hi Alexes,
-> 
-> On 14/10/2026 00:13, Alex Williamson wrote:
->> On Tue,  6 Oct 2026 20:36:36 +0100
->> Matt Evans <matt@ozlabs.org> wrote:
->>
->>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
->>> support for mmap() of this fd.  This provides another route for a
->>> process to map BARs, in which the process can only map a specific
->>> subset of a BAR represented by the exported DMABUF.
->>>
->>> mmap() support enables userspace drivers to safely delegate BAR
->>> sub-ranges to other processes by sharing a DMABUF fd, without having
->>> to share the (omnipotent) VFIO device fd with them.
->>>
->>> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() 
->>> reuses
->>> the existing vm_ops.
->>>
->>> The lifecycle of an exported DMABUF remains decoupled from that of the
->>> device fd it came from, i.e. the device fd could be closed with DMABUF
->>> VMAs present, meaning a fault on a VMA could happen concurrently with
->>> vfio_pci_dma_buf_cleanup().
->>>
->>> To deal with this scenario, the fault handler now temporarily takes a
->>> VFIO device registration to ensure the vdev remains valid, and then
->>> vdev locks can be taken.
->>
->> This sounds like potentially measurable overhead if something is
->> slamming the fault handler where huge-fault is not supported or active.
->> Have you considered a fast path for the internal dmabuf where the
->> lifecycle is constrained?
-> [snip]
-> 
-> Hmm.  I'll hack up a test to try to measure the relative overhead of VMA 
-> faults before/after (modulo access to meaningful HW).
+I wonder too because I just created a MIPI DSI driver based on the dw-
+mipi-dsi common code.
 
-Alex Mastro and I have put together some tests, and measured this 
-overhead on the v8 series.
-
-https://github.com/evansm7/vfio-playground/tree/master/vfio-barmap-perf
-
-Alex also generated a similar test with a slightly different method:
-  https://github.com/opsound/vfio-tools/blob/main/vfio_bar_bench.c
-
-
-Test method:
-
-Time accesses to a VFIO mmap'd BAR immediately after the mmap, to 
-measure the 'cold' initial fault time.  Re-time a second pass for which 
-the pagetable should now be populated, and subtract.  This should 
-isolate the cost of the fault (uarch exception, generic pagefault 
-plumbing, VFIO fault handler) from common costs (the MMIO access itself, 
-TLB misses, the loop iterating across the BAR).  Maximise the number of 
-faults by disabling hugepages (per concern above).
-
-This is done both for a single-threaded case which just iterates across 
-a new BAR mapping, and a multi-threaded contended case.  Rather than 
-just pthreads, this test fork()s to try to avoid seeing contention on 
-per-mm locks (e.g. mmap_lock) and to focus on the VMA/VFIO locking.
-
-The default test mmaps before forking, meaning there's one shared 
-mapping/DMABUF accessed from both processes.  The fault handler should 
-then contend on dmabuf->resv, vdev->memory_lock, and vdev->dmabuf_lock.
-
-For comparison/curiosity, the --mt-map-late option mmaps _after_ 
-forking; this leads to a mapping/DMABUF in each process so I expect no 
-contention on dmabuf->resv (but still on memory_lock/dmabuf_lock).
-
-Alex's test instead runs threads in-process, and goes further with 
-supporting a larger number of threads (though with the caveat that they 
-may also be fighting over intra-process mm locks).  It also supports a 
-mode where threads can access per-thread VMAs (which is comparable to 
-the 'mt-map-late' option of my test).  Both are interesting approaches IMO.
-
-
-Findings:
-
-On the dusty AMD Ryzen 3950X under my desk (targeting a 256MB BAR) I 
-found the following averaged over 200 runs:
-
-  - A single-threaded/uncontended fault became 5.8% slower
-  - A two-process contended case became 8.7% slower
-   - 0.5% of this is the "early mmap" dmabuf->resv contention, i.e. using
-     mt-map-late (a mapping in each process) reduces by 0.5%.
-
-Alex's runs on fancier EPYC 9334 machines show a similar (slightly 
-lower) overhead in the 1-2 case, and go on to show fairly high overhead 
-when many threads are involved (baseline times in ns, relative series v8 
-behaviour in percentage change):
-
-   Threads    One shared mapping   Mapping per thread
-              7.3     v8            7.3     v8
-   --------------------------------------------
-      1       761   +4.5%           777   +2.7%
-      2       869   +6.6%           840   +5.6%
-      8      1465    +78%          1363    +47%
-     16      4152    +97%          4258    +19%
-     32      9927    +92%         10158    +12%
-
-
-Now.  The absolute timings of these sub-microsecond faults indicate a 
-realistic application won't see a human-visible change.  Small BARs 
-mapped with 4k pages are still fast to map;  it is reasonable to ask 
-that applications map huge (GBs/TBs) BARs using huge (MB/GB) pages!  Of 
-course, this is just a one-time cost of warming up the VMA, not ongoing.
-
-
-Alex, my preference is not to complicate the fault handler with a fast 
-path just yet.  It's easy to think of a contrived scenario where this 
-matters but in middle-of-the-road application behaviour it would be 
-surprising if this was noticeable.  What are your thoughts?
-
-(In the previous mail I suggested keying off priv->vfile (or a flag 
-thereof), and it seems ~straightforward to skip the extra 
-synchronisation.  If you feel strongly that the fault handler doesn't 
-have enough if() statements yet and needs more paths then we could bring 
-this into v9, but would prefer to follow up later. :)  A fastpath diff 
-appears small but the reasoning overhead is bigger.)
-
+I think the different requirement between sun6i-mipi-dsi and dw-mipi-
+dsi is=C2=A0exposing the implementation details of the corresponding
+drivers. Maybe this should be eliminated, but this would be some big
+work.
 
 Thanks,
+Icenowy
 
-
-Matt
-
+>=20
+> Best regards,
+> Krzysztof
