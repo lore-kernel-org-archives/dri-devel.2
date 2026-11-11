@@ -2,102 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E53F606A884
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE07C606A338
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:47:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=uN7dyTP2
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Owo7S3hZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ABF410FCD6;
-	Wed, 11 Nov 2026 16:44:20 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010043.outbound.protection.outlook.com [52.101.61.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92AF110FCD6;
- Wed, 11 Nov 2026 16:44:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xYvu7nemI5IHCG1zVEQhjqyh1/0PchBru5f1PpMhgJMrcBgzmuw9TWbTd+AdSZJGw9/mxRIg43vd9p1zDMqt69xcPtAS9TTV6PbFKwt4r1ZcV8+idzebsNuY/FP2iIJd/pI8Rb5S4nAdxGF2epLbfsoxAOBYSxI1/S2V5eXUEv2OI8NBG5qdGNnAt9ACa6wvDl5+d6BBapHncyLVQDDlPFi+ulonSsuwTmYEsW1asuTX0DblGZ/jscD5YFn2U9Q/IwdpBprtUyX+41N19dY4LoMOqComSWws8OcmfNHBp+GOnQ/zHqgtKHd+6A1KUkatkWyKYZA4j6jMnme+JLul3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k5wy3FkSEjxSvPOk06r2FZAEDkpjh8xts2NVrDb1/Ew=;
- b=s46ZKFHw4nJozV7JtDfpmBM0MzsafopeMFcGuCrhBkxPo7c9K1TXoMPp/pelzptX0AjGZgWwofTvw6Mwyecm6izrhFMLrZlpqD3113WaStWC3JVeARo8pgn9n/5TpgBsXdw+Z5wMNp265LNLu95mQsnAU+cOgp5dPn4kSIwtTP6Bs0z+yipFb+ZI4YNmkhcRoqNpNk9lx3BVt6pQ2e5uqBqHfnHXzP97zIJTdRM/AxImCWiJqIUEG7czcD5eqgEEORAuJRz5EVr1EVSVyqiMLd+gJMajFME8tK8G7zWjXnSLHQ7e5/O8INEN3LTPOu7+yyOCAtfTnzRhP/JifEmC9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k5wy3FkSEjxSvPOk06r2FZAEDkpjh8xts2NVrDb1/Ew=;
- b=uN7dyTP2IHcB0mJzZY5fJwnWBZAaSh1T1xC7YH8+jP09/JGoVoKsk5gqUDYSR+NcYRtckLQr5qp9v4ytgXdwWEFyq4oXzQq+BAkFoKiDdRKKYb/caQDdeZXv/T6e79W5Ku3U4Ob57jI+OAS4eCNWVlHWtqsFTK0yWWS+svtUULs=
-Received: from MW4PR03CA0002.namprd03.prod.outlook.com (2603:10b6:303:8f::7)
- by PH7PR12MB5853.namprd12.prod.outlook.com (2603:10b6:510:1d4::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 16:43:44 +0000
-Received: from CO1PEPF00018868.namprd03.prod.outlook.com (2603:10b6:303:8f::4)
- by MW4PR03CA0002.outlook.office365.com (2603:10b6:303:8f::7) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9
- via Frontend Transport; Wed, 11 Nov 2026 16:43:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00018868.mail.protection.outlook.com (10.167.249.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 16:43:43 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 10:43:40 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 11 Nov 2026 10:43:20 -0600
-Subject: [PATCH v6 1/3] PCI: Cache bridge firmware secondary bus number
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2953610E2D8;
+	Wed, 11 Nov 2026 16:47:51 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF75210E2D8
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:47:44 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4a9a8d6cea8so238905e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:47:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1794415663; x=1795020463;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
+ b=Owo7S3hZz3yl2ehvqEC65G2PSL6dmxbG1Mtu/HpUFB1sZcVRbBnSSOc7GyfjDhqjUo
+ 0foQ/to4//FXOaN0Kn/n+O23ImvtjzRQ0ZWC7XNToNh/v8ZlPCbmIzwdReL97mF3jU8H
+ HSeuoyabDp8F2tMHB6YuB2I5vs1LLQatax+CdehoAtNvFlkspR6RXUeGPgL5VzYKLu7Z
+ RQTU+5QStf7p8D2LgbbS/nunKhglYB7OJ0JmuQF3UlTzLFV0B53q1h633Vq2e72rdkYh
+ lKPgD4A9WY98zRE0/Aagve7bfmMVfcSu717mbJw1cZOl+lVAyi8CZeANQ/uW0xagkaYX
+ gT9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794415663; x=1795020463;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
+ b=ptC+BSDgecnFs75ShI/yQtwINEvq2M56+3hSy0E5++Tv2ptzUenKpMhbFSdLQ/42vE
+ qkgYAN8PYCor34I0/8mGhflDBxcbfdyy4HJjzCe+jAQ/G8ppXQVmnDXylk5R2cUmStYn
+ 6yHkwHkJgB9Ijt0qWW3IrC29kyRd/jFSR0Zi0xahbfKLj3IkvN0NBxyXZymg0xMwS5oG
+ kZpPPV/VoLhRBRooM3XiVSQKCl4/UpulHCNxGUe9nNh9kAKoXD7wVEsxav4SsslYJqUS
+ SuUnJB4jiha3RtgVkbPROlSZ7nH+osBEu14X/oB1aAdi46ob8mhX+Kqf+0yWAK4mgunZ
+ To3A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHRuBKM9fQnJoe915qtmqjMsssSvQN0gI+lbw9teWR9xRMg5CoXWv5xj8Sjic4vGpXLPWnLUfBdh8Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/PRlIlGeJHd8amaVwAzAPJ/fCkMtNVwhJTQg6Uv3OmEBiP/WfV
+ j6LHKsRWPNXYO5Xv8hZ2doXroNIyHnYsDjRJ8c4oTmdn15CCRb4qTwFNj2WgwZDv7Q==
+X-Gm-Gg: AYBFou1PpV0Wsh6USanU83r7DgGZ+cNBdHoUBwFSY1nmyNriEsAHvFQyUrLZWu3UKbc
+ BtpKq0n5STpm2k2ml50mUumdEs392bjrpzwPryRSoLaj2VOynxleM1r3yEHWuufZfIBb+80kF14
+ dyXgIT5Ha7M7shw3Kj8Ssrc2ZdPfKOoYkcNwkM1kNreIcdpqhloKW5ORwtv7YviY6MJefQda9+5
+ hsuhJ6tom4GwcYSLNDyiWCwk2llGHPCzPthnBiPT+QG+7jQBr3DynI1DTyneuIERiZik7MhebtO
+ pj5WplSiuq4ASTTSitAWr+19/3BQjkBrOoERGZaUK/KJMilQU2E2Ruz2vTcsvfEuqCGdAemfWHv
+ 2PIgpGNyfKA08gdDXtkW0QUcD92mBSoclLIZt+sK4NzuHAWeBMSifQFoD09rSu+HN8H1J2H130e
+ aCoINFMghjd9WmD9LJ0WtUVmA/OZHlONoFLrbFwZkaEunxRo1tdjnGDUQ+LLG8lN6ApumpdvgIg
+ yRO5MUQor299w2/xD+fYRTPkEGwKijeiK5k5vC16bA1+cemQr4fErxfGH8M2jDwJLljg257DGHN
+ WCl96tThIcDdCVwWJ7rkWUKeZgdAQDT16hOtinMV9olsT3Ui6qfWQcDXQzJdRSLfdQ==
+X-Received: by 2002:a05:600c:3f07:b0:4a2:18c4:61a5 with SMTP id
+ 5b1f17b1804b1-4bb4e27994emr1100895e9.6.1794415662004; 
+ Wed, 11 Nov 2026 08:47:42 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498365cd06fsm11724877f8f.40.2026.11.11.08.47.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 08:47:41 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:47:38 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
+ loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
+ eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+ rostedt@goodmis.org, mhiramat@kernel.org, jgg@ziepe.ca,
+ kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
+ James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
+ will@kernel.org, linux-scsi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
+ mathieu.desnoyers@efficios.com, robin.murphy@arm.com,
+ mason@kernel.org, aesteve@redhat.com, tjmercier@google.com,
+ harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
+ metadata to memcg
+Message-ID: <avScKhR22kFOQ1z4@google.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-5-cui.tao@linux.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-vfct-regression-v6-1-393797bbb6e3@amd.com>
-References: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
-In-Reply-To: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018868:EE_|PH7PR12MB5853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14de68ab-c7c5-45f6-6f9e-08df4012f30c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|261009223027099003|10067099003|261026121527099003|3023799007|261022075727099003|261021121427099003|261021123027099003|261102123227099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: EamC+/K0CP2ahX1WxC4Vu6Uiz26DkIdZcdGQ7ndJ0jWDqdgQgZ9zd2SZiQuVj6PdXcJMLBCgOxxfuwE6CpaNz3tDztfkOOOYyKaTOy6q5x7ktvY5GX1oY/QA4oBP0J6kZGIuz64ufkcozdWiKtflUqI8UwdHl25nE1eUnrC7cNTn3Hvu+g+vyxRI+fv+yj9mHx6yhw1aoNmUs/b0qK3QvMNzQDoC+1D/LhH87PrlFSpojnjTYc69whaxpI35bCg62ihUJLUQxvB0n/NTMWQK6IWYPpH1wiFyIHv1XFvxR/ISkgqLFs3B7qqzkI4tQAlLF2HoJSmwcPGI/np3uNY+9MRD0Xq9VrRAjXg/3fHNty+8CXggSlmKtbzEuVnaIqqFLs5oTGpuWBoVlbOkwQRK4ix1KtQznHiMvdQ6UKrMenepw5GLNM6vB/7G2MmpU1+8qaJSiwxPDN/DG0W4eAgtsay1auLfqZzmKzlvJRT1JUV+pwo2vEuZa0UpICLKpPnWMU1cHnqc5CYPeCPa6iU7E/I4t0akqsxSsYiSef0IBCV0g2Ze3GPi6tbYTuTns1RRWDR/Fk5CH/bM0UWARBWkVtjJUoRBR3g5atkJW6IKN1pL8sx6bHXcykKJFWdc9fExqeNI9OOuXe4E9EshiECMgZIDjc7eBV0/wLesFb95h5pVURUv3pVCrAKQbHevl6N1C768C5hwc/Rqtjl9TZCnAg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(261009223027099003)(10067099003)(261026121527099003)(3023799007)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RLwx6QpL/+N7Iy4AGJXMd+vtukC3SL+/Xwi2iT03fuZxCzNRt93fCVon1dtsua8nX5BCm4qQLvgX61RtO184BXYeRoMo3C+nQdPmMKWxeXQ/KA0YChou/CoS6Y33R2YtKP8TlhXWc4VWAHjRiXsNuvQzsnL/7te52YUzc9o2uSgjIAjCciXaqJipyIJthVys63V2PZ8RfOIxTpkYdHVddiNq9eonIml5y9/IKrtC8BZLcqayxmipzmT8mKqxWPteBSpnSCk2oyrbsxOQ0+WeqvPDPSeMmw3HtagHzQO2fYtzo8C9IpqeYWGDyXof/RoehzdQQlJalCpxV8WUGWYuXXYofSliRXWY8QinKJJygwkWbejMQoncyAcRHCE/R/PuNyAcxBi69weMHTIgFo4iNjfHQkNbCmNgvDTYPGo2oOk9//S8zFFVxk53ZqB6VB70
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 16:43:43.9797 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14de68ab-c7c5-45f6-6f9e-08df4012f30c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018868.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5853
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106131829.3228926-5-cui.tao@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,87 +104,97 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Bridge scans are split into two passes when bus numbers need reassigning.
-Save the firmware secondary bus number on the bridge pci_dev during pass
-0, before the bridge is disabled, and keep it for pass 1 so devices
-discovered there can read the original bus number via their upstream
-bridge.
+On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
+> 
+> Creating an instance immediately allocates two full sets of per-cpu
+> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
+> on the default config, plus the trace_array and its name.  None of it
+> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
+> while user_events in the same directory accounts everything it
+> allocates.
+> 
+> Instance creation is currently gated by tracefs file permissions
+> alone, so a
+> rootful container with the host tracefs bound in can create instances
+> until the host runs out of memory.  Charge the ring buffer pages and
+> the trace_array metadata to the creating cgroup.
+> 
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>  kernel/trace/ring_buffer.c | 8 +++++++-
+>  kernel/trace/trace.c       | 6 +++---
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 1fd28a72e6ee..676c059c112c 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
+>  	 * gracefully without invoking oom-killer and the system is not
+>  	 * destabilized.
+>  	 */
+> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
+> +	/*
+> +	 * The subbuffers are charged to the memcg of whoever caused the
+> +	 * allocation: the creator of a trace instance, or root at boot for
+> +	 * the global trace.
+> +	 */
+> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
+> +		  __GFP_ACCOUNT;
+>  
+>  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
+>  	if (!page)
 
-Guard the cached value with a validity flag so later rescans do not
-overwrite it with the renumbered runtime value. Ignore unconfigured
-secondaries and remember that pass 0 has already run so we do not
-record runtime-assigned numbers on subsequent rescans.
+Hum, by default tracefs is root only. 
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/pci/probe.c | 16 ++++++++++++++--
- include/linux/pci.h |  4 ++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+And even if made accessible to other users: 
 
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 27008e2ea5afc..f20a4b8f7a23b 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_dev *dev, struct resource *res,
- static void pci_read_bridge_windows(struct pci_dev *bridge)
- {
- 	u32 buses;
-+	u8 secondary;
-+	u8 subordinate;
- 	u16 io;
- 	u32 pmem, tmp;
- 	struct resource res;
- 
- 	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
- 	res.flags = IORESOURCE_BUS;
--	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
--	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	secondary = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-+	subordinate = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	res.start = secondary;
-+	res.end = subordinate;
-+
-+	if (!bridge->fw_sec_bus_sampled) {
-+		bridge->fw_sec_bus_sampled = true;
-+		if (secondary > 0 && secondary < 0xff) {
-+			bridge->fw_sec_busnr = secondary;
-+			bridge->fw_sec_bus_valid = true;
-+		}
-+	}
- 	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
- 		 bridge->transparent ? " (subtractive decode)" : "");
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 5ffcf5ce8c966..045157488b8e7 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -363,6 +363,8 @@ struct pci_dev {
- 	struct pci_slot	*slot;		/* Physical slot this device is in */
- 
- 	unsigned int	devfn;		/* Encoded device & function index */
-+	/* Firmware secondary bus number saved across bridge scan passes */
-+	unsigned char	fw_sec_busnr;
- 	unsigned short	vendor;
- 	unsigned short	device;
- 	unsigned short	subsystem_vendor;
-@@ -414,6 +416,8 @@ struct pci_dev {
- 	unsigned int	pme_poll:1;	/* Poll device's PME status bit */
- 	unsigned int	pinned:1;	/* Whether this dev is pinned */
- 	unsigned int	config_rrs_sv:1; /* Config RRS software visibility */
-+	unsigned int	fw_sec_bus_valid:1; /* Firmware secondary bus number usable */
-+	unsigned int	fw_sec_bus_sampled:1; /* Firmware secondary bus number captured */
- 	unsigned int	imm_ready:1;	/* Supports Immediate Readiness */
- 	unsigned int	d1_support:1;	/* Low power state D1 is supported */
- 	unsigned int	d2_support:1;	/* Low power state D2 is supported */
+  1. The life span of a trace instance is not tied to the caller.
+  2. The ring buffer is shared by multiple users.
+
+Overall I am not convinced charging the creator makes much sense.
+
+Eventually a few allocations for iterators could be GFP_ACCOUNT.
 
 -- 
-2.43.0
+Vincent
 
+> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+> index e8c4efa8107b..04b60b9cc4f5 100644
+> --- a/kernel/trace/trace.c
+> +++ b/kernel/trace/trace.c
+> @@ -8693,11 +8693,11 @@ trace_array_create_systems(const char *name, const char *systems,
+>  	int ret;
+>  
+>  	ret = -ENOMEM;
+> -	tr = kzalloc_obj(*tr);
+> +	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
+>  	if (!tr)
+>  		return ERR_PTR(ret);
+>  
+> -	tr->name = kstrdup(name, GFP_KERNEL);
+> +	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
+>  	if (!tr->name)
+>  		goto out_free_tr;
+>  
+> @@ -8708,7 +8708,7 @@ trace_array_create_systems(const char *name, const char *systems,
+>  		goto out_free_tr;
+>  
+>  	if (systems) {
+> -		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
+> +		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
+>  		if (!tr->system_names)
+>  			goto out_free_tr;
+>  	}
+> -- 
+> 2.43.0
+> 
