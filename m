@@ -2,89 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B2A606A33B
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:05:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571CC606A334
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=eQIgQn/B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ew7SYgA6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD9BE10E9B3;
-	Wed, 11 Nov 2026 09:04:55 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7BA10E9B3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:04:49 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a35d5d4a20so34895285e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:04:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794387887; x=1794992687;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
- b=eQIgQn/BEHgv1PIxN/oPQH+GEMlJj8Ic1Qly6o2qIW5ZA6OFX0i1+Wb09yfE4JTXa3
- iwHv6HO6jukke0JK4qskPzi/03ek3vYFjgYzZqCgGqQmghb9LUx/gP6IbNzkycVnq1Lc
- ZFs+8P1FwKr3uCXQYRQ+eapHHF2h0KhHIC5hMEXxOlCqcXo9d4CX2LQZbMaLnQL+w74d
- qSZzF9z4q7XhxJi4YNbX3wm7Te/kPnxesk8fG4Cye4H97JUoP3BieAYvy/L0pSX7NYlN
- hLMBuDBOGOeOvPU2IjPjyzvV2A15QWp31lSajjtfB2roR+42zYItBtz0HTp/GGCpVPKq
- q1DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794387887; x=1794992687;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
- b=JZ3VxY6bJUvZuuvtZxVJEL06KiuW7JFNtk0O9L7s3NeYgbRHyb0N5cKcFsvf+Tot6R
- 9T/Pfp1Tel2fRsWHmtArDBUAlUARHRwBA80ebUBqR3aoYgysgZy+z4lhSV6aYS2jFtyy
- UmCxvDAo70ZaN6AZrZP5R5Q5lWw5oEd9tDNPi02AX1SAivzPGd7vDBoK6kqsObCSi4TK
- IwzFMKdvhAff//iXvs/edddBB0jD6xqv3ZCF02u4efqu6RE2IOaGTbyFHo3bOUegH3gj
- 94R9zm9hBZ/IGOfRGzAgpTNqWI8clyb+Nb8KfQHr8C0ckayGTh4kMYcQ+bZKA8SGWYTy
- rumA==
-X-Forwarded-Encrypted: i=1;
- AL+hErE0MAHR8Mg5vF7obIEkahr51Urt+eMPRDD76kAqLuTTkSSCRVTNF5ow6ycJs3GmmX5V9aaAKmDsajU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8LxtPwICGi2WH73gH3NqmhnEHrX7Za68m/DhW53dtph3R6JyQt
- hzsL0uC2UxC1lhszVw0yG1LPAAKwwRqQuU7qLxXJ4qRTcPA61E8Hh/TgKT3BzvPzgx4RJ7kcNMT
- Yj5r6iRQ=
-X-Gm-Gg: AYBFou1oxfLsc0HichhJOPzx0fx4zt+ogY7/ARgv/I9/abIKUyKTQ3TnGFCD3bpwXxf
- Jvy5i5Pz35NWNhAMfViNGDwmcP9dB3xDA2qPZsmhL9FXybm2ecYpcBRfOWv9sL3ueY5qd+f5/E1
- RgIRVA5lc4tDBXZ9h66p/LagyGtY8IcjgDLd6JtEkbiVoqxcNJPivCeUJbTNmUycVbRXLD9kwNR
- 7Msa5ajNGu1IUdDLZQZe0ZFEfXO0pem2T3pkLEJNRKAjDbaAjRL3+YXUkV/Sb0Vef81xtBTKJDY
- aOVlW4F96HWgsEEhjSL8/YvzeODm40L7hloaxrKw5GTugvTI4+NeTzh3nnp8ncBiurp6Ldglh0c
- KrUPCb8jB03evu0ZC8x7ky5yoII3DxEKJ9b1hd5AESGHUAWEV9AMc21UcAw0a4zuSPkQQFYgnPL
- mMWsurX5rzV2Ndmxl7rmV8zb2cdr1B72OpgHl/dBjnnwtkIqGZkFjDkW7mlnPsBQVDCKhwQlRo8
- te3OknxakgAFdgsrId2X0I7aae4/Ra/O0o/M5iDuj3UP8Vyx869la1QJlD1uWtMnrFgvIrY/Gx3
- 8J6Y5oWvzI5EavzJQWSF6xR7ItQSNm936XRaq3iYtyd0/lL9trdo28/3FmRySW7z2JAeNRRgF6w
- X1XjOePNzo4Ye2vNQmHyq2teoVzk7rHCQxg8=
-X-Received: by 2002:a05:600c:4e87:b0:49f:e772:6ddf with SMTP id
- 5b1f17b1804b1-4ba0938ae31mr28591735e9.32.1794387887546; 
- Wed, 11 Nov 2026 01:04:47 -0800 (PST)
-Received: from localhost
- (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de.
- [2003:f6:5f19:a904:6051:dd5:6fc:51af])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4ba09509c74sm24119845e9.2.2026.11.11.01.04.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 01:04:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:04:44 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-Message-ID: <avQvaiaEyWDUQsZz@monoceros>
-References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
- <aimXCmtgcejwInNg@monoceros>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pma5azs7fhrm2bnu"
-Content-Disposition: inline
-In-Reply-To: <aimXCmtgcejwInNg@monoceros>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6FEE10F9B6;
+	Wed, 11 Nov 2026 09:09:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5E210F9B6
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:09:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 432CD637DC;
+ Wed, 11 Nov 2026 09:09:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19001F00A05;
+ Wed, 11 Nov 2026 09:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794388177;
+ bh=ev8TwzbAoRhim8iJ3d3wItTcbuDYwwVoHEmIQ/BOWvU=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=Ew7SYgA6VbqOMDKZNySZsAr4R65lW9juHeBAZkriWY4YCpBsm+sSKHfRgRtnix9fM
+ aW3sA69+HcJm0R5lmcLiNhdZMIo+nNzctM9LJ3O8v31zCuDE6gfosnls8w8xMzB1Wu
+ qrMoO8vZGATAsfU8STT1PKSECLaXhWiAXrKMFQCG1P1uy5iCBwVcS3QpcA5uTNorjd
+ XIaJ1DU1ysoiTasvTKOtD4oHU+Jd0TLaikjGHwWSDUhdMFSlNDg1/s8TlwqDVzwyGs
+ 1bF/qVaI02UU9auN47CxmVJx5myM5dawfnOpXB4NPXpl26ZbZ58+j8frwknW+PyjZC
+ lOfG12O9cm9ow==
+Message-ID: <sashiko-outbox-208665@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] drm/amdgpu: keep reading the vblank counter in IRQ
+ context during reset
+To: "Prike Liang" <Prike.Liang@amd.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111083534.514290-5-Prike.Liang@amd.com>
+References: <20261111083534.514290-1-Prike.Liang@amd.com>
+ <20261111083534.514290-5-Prike.Liang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 09:09:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,73 +48,176 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] drm/amdgpu: missing Signed-off-by trailer in commit message
+- [High] drm/amdgpu: self-exclusion of reset task in
+  amdgpu_get_vblank_counter_kms()
+- [Medium] drm/amdgpu: vblank->last corruption in
+  amdgpu_get_vblank_counter_kms()
+- [Medium] drm/amdgpu: in_task() in amdgpu_get_vblank_counter_kms() true
+  in threaded IRQ
+- [Low] drm/amdgpu: commit message omits vblank->last fallback change
+--
 
---pma5azs7fhrm2bnu
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-MIME-Version: 1.0
+commit 65f179edc9e1f1c857a1c9cda00e5004a70269a6
+Author: Prike Liang <Prike.Liang@amd.com>
 
-On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> Hello,
->=20
-> On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> > ... and PCI device helpers.
-> >=20
-> > The struct pci_device_id array of supported device was initialized
-> > by list expressions. This isn't easily readable if you're not into PCI.
-> >=20
-> > Use PCI_DEVICE* helper macros and named initializers which is more
-> > explicit and thus easier to parse. Also skip explicit assignments of 0
-> > (which the compiler then takes care of).
-> >=20
-> > The secret plan is to make struct pci_device_id::driver_data an
-> > anonymous union (similar to
-> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
-re.com/)
-> > and that requires named initializers. But it's also a nice cleanup on
-> > its own.
-> >=20
-> > This change doesn't introduce changes to the compiled pci_device_id
-> > array. Tested on x86 and arm64.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> Similar to the amdgpu driver patch I just pinged, this patch would also
-> be great if it made it in for 7.2-rc1. Please?
+> drm/amdgpu: keep reading the vblank counter in IRQ context during reset
+>
+> amdgpu_get_vblank_counter_kms() returns the cached vblank->last instead
+> of reading the hardware counter whenever it can't take
+> reset_domain->sem for reading. The vblank interrupt reads the counter
+> through the same callback via drm_crtc_handle_vblank(), so once GPU
+> recovery holds the semaphore for writing, every vblank interrupt sees
+> diff =3D=3D 0 and the DRM vblank count stops advancing. The CRTCs keep
+> scanning out until dm_suspend() turns vblank off and stops the streams,
+> though, which only happens after the rest of the recovery preparation.
+>
+> Vblank waits in that window don't see a vblank anymore. They only end
+> when dm_suspend() turns vblank off, or after a second with the
+> "vblank wait timed out" warning if that takes longer. The fbdev damage
+> worker is likely to be waiting already, because recovery prints
+> "GPU reset begin!" right before it takes the semaphore.
+>
+> Vblank interrupts only arrive while a CRTC is scanning out, so the
+> interrupt path can read the hardware counter.
+> amdgpu_device_skip_hw_access() likewise only checks the reset semaphore
+> in task context. Only back off in task context, so the interrupt path
+> keeps the count moving until DM turns vblank off.
+>
+> Fixes: f2bc71d16e73 ("drm/amdgpu: serialize vblank counter reads against =
+GPU reset")
+> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Cc: James Lin <pinglei.lin@amd.com>
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Assisted-by: Copilot:claude-opus-5.5
 
-That didn't work and it failed to go into 7.4-rc1 either :-\ It still
-applies to next-20261110, is it still on your radar?
+[Severity: High]
+The commit message is missing a Signed-off-by: trailer.
 
-Best regards
-Uwe
+[Severity: Low]
+Prior to this patch, f2bc71d16e73 ("drm/amdgpu: serialize vblank counter
+reads against GPU reset") returned drm_crtc_vblank_count(crtc) rather than
+vblank->last when the trylock failed.  Should the commit message describe
+changing the fallback return value from drm_crtc_vblank_count(crtc) to
+drm_crtc_vblank_crtc(crtc)->last instead of stating that it already
+returned vblank->last?
 
---pma5azs7fhrm2bnu
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 8e7e522a89e42..07d178031abb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1691,6 +1691,7 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *=
+crtc)
+>  	struct drm_device *dev =3D crtc->dev;
+>  	unsigned int pipe =3D crtc->index;
+>  	struct amdgpu_device *adev =3D drm_to_adev(dev);
+> +	bool locked =3D false;
+>  	int vpos, hpos, stat;
+>  	u32 count;
+> =20
+> @@ -1698,9 +1699,26 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc =
+*crtc)
+>  		DRM_ERROR("Invalid crtc %u\n", pipe);
+>  		return -EINVAL;
+>  	}
+> -	if (!down_read_trylock(&adev->reset_domain->sem))
+> -		return drm_crtc_vblank_count(crtc);
+> =20
+> +	/*
+> +	 * A GPU reset is in progress and the display hardware cannot be read
+> +	 * safely. Return the hardware counter value DRM already cached rather
+> +	 * than the software vblank count: the core feeds this callback's
+> +	 * result back into vblank->last, and a software count lives in a
+> +	 * different numeric domain, which later trips
+> +	 * drm_WARN_ON_ONCE(cur_vblank !=3D vblank->last) in
+> +	 * drm_update_vblank_count().
+> +	 *
+> +	 * Only task context has to back off. Vblank interrupts only arrive
+> +	 * while a CRTC is scanning out, so the interrupt path can read the
+> +	 * hardware, and it has to keep counting: vblank waits that already
+> +	 * sleep when a reset takes the semaphore never complete otherwise.
+> +	 */
+> +	if (in_task()) {
+> +		if (!down_read_trylock(&adev->reset_domain->sem))
+> +			return drm_crtc_vblank_crtc(crtc)->last;
+> +		locked =3D true;
+> +	}
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Does down_read_trylock(&adev->reset_domain->sem) also exclude the GPU
+recovery task itself during dm_resume()?
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0L6kACgkQj4D7WH0S
-/k4KfAf/f5q3Vl7EnPVZaB/M3tX4n0SFtnKOCJkLtj4107/VpJ+jLb3mrCXFulXy
-Z1rgfK86pXvaFuknlwOCHRZ6mpoZCgbp7YQYcc1+hWncLfLYFcnGvQKoZLKP8RK6
-yHLzpWaGzaZvH7Q6DBQurfqIwGwTNRrFyZzi4ILzOS2nIhFGSsDwCxKAlkX1OrEp
-d1wJQgg7dLK5dcHAoejIUCKED5kOVs+Sh81KFrkkgvyDB6FunShTz3T3Q0BhTALD
-c1MP6XcJaHm5IpB4yWysfiiuKeYcO45KZSSKa0XoBjpmhXooicsJk6ggWaQbxElk
-MUXB5eCUZ9TeWy82BMLT7UZrHZzvRA==
-=gtpi
------END PGP SIGNATURE-----
+amdgpu_device_gpu_recover() holds reset_domain->sem for writing across
+amdgpu_device_asic_reset().  After the ASIC reset zeroes the 24-bit
+hardware frame counter, dm_resume() runs in task context while still
+holding the write lock and calls dm_gpureset_toggle_vblank() ->
+drm_crtc_vblank_on_config() -> drm_reset_vblank_timestamp() ->
+amdgpu_get_vblank_counter_kms().  Because down_read_trylock() fails even
+for the write-lock owner, drm_reset_vblank_timestamp() stores the stale
+pre-reset vblank->last instead of the zeroed post-reset hardware counter.
+On the first post-reset vblank interrupt or query,
+drm_update_vblank_count() computes (cur_vblank - vblank->last) &
+max_vblank_count with cur_vblank < vblank->last, wrapping around
+0x00ffffff and jumping the DRM vblank counter forward by ~16.7 million
+frames.
 
---pma5azs7fhrm2bnu--
+[Severity: Medium]
+Can returning vblank->last in task context corrupt vblank->last when
+vblank is enabled during the reset preparation window?
+
+If vblank was disabled before reset and a task (such as
+drm_fb_helper_damage_work) calls drm_vblank_get() -> drm_vblank_enable()
+after reset_domain->sem is write-locked but before dm_suspend() runs,
+amdgpu_dm_crtc_set_vblank() calls drm_crtc_vblank_restore() when IPS and
+self-refresh are enabled with disable_immediate:
+
+drivers/gpu/drm/drm_vblank.c:drm_vblank_restore() {
+    ...
+	get_vblank_counter_and_timestamp(dev, pipe, &cur_vblank,
+					 &t_vblank, false);
+
+	diff_ns =3D ktime_to_ns(ktime_sub(t_vblank, vblank->time));
+	if (framedur_ns)
+		diff =3D DIV_ROUND_CLOSEST_ULL(diff_ns, framedur_ns);
+    ...
+	vblank->last =3D (cur_vblank - diff) & max_vblank_count;
+}
+
+Because amdgpu_get_vblank_counter_kms() returns the stale vblank->last as
+cur_vblank while drm_get_last_vbltimestamp() ->
+amdgpu_crtc_get_scanout_position() still reads the display registers
+without holding reset_domain->sem (triggering the lockdep assert in
+amdgpu_device_skip_hw_access()), drm_vblank_restore() sets vblank->last to
+(vblank->last - diff) & max_vblank_count.  The next vblank interrupt then
+reads the real hardware counter in hardirq context and compares it against
+(vblank->last - diff), double-counting diff (or wrapping around
+max_vblank_count if IPS/PSR reset the hardware counter while vblank was
+off).
+
+[Severity: Medium]
+Does checking in_task() still back off in the vblank interrupt handler
+when forced IRQ threading (CONFIG_PREEMPT_RT or threadirqs) is enabled?
+
+amdgpu_irq_init() requests the IRQ without IRQF_NO_THREAD, so under forced
+IRQ threading amdgpu_irq_handler() runs in irq_forced_thread_fn() under
+local_bh_disable().  That sets SOFTIRQ_DISABLE_OFFSET rather than
+HARDIRQ_MASK or SOFTIRQ_OFFSET, so in_task() returns true and the threaded
+vblank interrupt handler still takes the trylock backoff path and returns
+vblank->last during reset.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111083534.5142=
+90-1-Prike.Liang@amd.com?part=3D5
