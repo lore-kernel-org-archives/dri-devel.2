@@ -2,148 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2BE606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06BF606A893
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:05:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DtZI6Reu;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B99jS6Jf
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dE9/VK19;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TVPYf262
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BAF10E3D7;
-	Wed, 11 Nov 2026 13:04:28 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA53910E3D7
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:04:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4A70F5C4E0;
- Wed, 11 Nov 2026 13:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794402255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
- b=DtZI6Reur2+aCCjHwohRzTX/jLFEtllaTu/GZ3Wb7fb5a0KCUQplnUpIsIy4XOZeS3mgmF
- SJdeMdV2GkgeSvy25qEK8DxAk/SQAq/AkgH9r2+XFb/HL86bVD35DJQn+uonwCCtC4fU10
- yjP+aq+CEMk2AnA6kNTAn6PhmDxihq8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794402255;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
- b=B99jS6Jf/Ym/k/J5HtVXOw06J0NYUWt1DlgTasENiCFMSag9Sbp2dZcPkTVPmrf7mfK/77
- I01KAjdzSWPUBjAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794402255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
- b=DtZI6Reur2+aCCjHwohRzTX/jLFEtllaTu/GZ3Wb7fb5a0KCUQplnUpIsIy4XOZeS3mgmF
- SJdeMdV2GkgeSvy25qEK8DxAk/SQAq/AkgH9r2+XFb/HL86bVD35DJQn+uonwCCtC4fU10
- yjP+aq+CEMk2AnA6kNTAn6PhmDxihq8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794402255;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXIi1oTzxmzik4fQEkb2sT89bv5gy4wFQ0vSFZHeTvU=;
- b=B99jS6Jf/Ym/k/J5HtVXOw06J0NYUWt1DlgTasENiCFMSag9Sbp2dZcPkTVPmrf7mfK/77
- I01KAjdzSWPUBjAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 566151339F;
- Wed, 11 Nov 2026 13:04:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uVx7A81n9GoAOAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:04:13 +0000
-Message-ID: <a23d9d70-a2e1-49a9-a590-3a3c035d5f1b@suse.de>
-Date: Wed, 11 Nov 2026 14:04:12 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB94410ECBB;
+	Wed, 11 Nov 2026 13:05:45 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB10B10E4A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:34 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABCYvFb2356424
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=6ovnIEyc2J8D+ybmpj/3V5
+ WAu/+92pfJIfGhuR0QfCc=; b=dE9/VK19NVGmAophCknixC+JA8zw2F7eBn/a3J
+ z7k3NiY2sd+Tjoek3WhPYPUeT6hZd2kclK+u4k2/WVEzmM6RbCBqGeWj0B4EeGAw
+ 5h9cLlDe7dzyRk+/esLyeI0NN7dh/jCZJ2dUiR30RqHM1PbBivhEQX2atQ/s8GA5
+ VMfqUfzf32fMLRLPnWXzRyTP6jHoXH4rp5LEzra2rH4GP+cMhQ2OJ2pbqx4tOQLF
+ ohil2VuLREnraiVT4ubFAQQYr4SXnu3pBt0TRG82sRbW9hQvAE5XgJeMbm3UFS0n
+ F+0GxnlsuzH7EqvNh4OAfGLodOFeAAPfhEmqN5kROjpYBhew==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdhx48-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:05:34 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id
+ 71dfb90a1353d-5eac41ff334so2901241e0c.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:05:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794402333; x=1795007133;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=6ovnIEyc2J8D+ybmpj/3V5WAu/+92pfJIfGhuR0QfCc=;
+ b=TVPYf262e0lVvEodTk+BeC5cFPbOAX2QoWU/hrEFyjILGtPr0bKmgXnHihZSsAboi4
+ GcUVgnPbQD1HianxSo8c3yHHDqDB/5Db9yFyWZ5mzJ9FvUco2JWsuaakvuR/waRBWHnC
+ 0TxLONnMFMyzGisdTauoh4uMgbXbndXPfGbuQCIkDtBrF9T11A3MkccXFg2Mx7g29faN
+ ZOCu1on4cfdVMPVYhkdWqWKYauLjZyCRVL2ulBntUnNamO35tCNQMrh5Q0w08sPoEddH
+ YomToflX7gz6UH5bsEZp2RzkRtelhpCVYJSTv2HqgUKBCxDGoHtfIe2wTwNLj3sPkFgu
+ GRqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794402333; x=1795007133;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=6ovnIEyc2J8D+ybmpj/3V5WAu/+92pfJIfGhuR0QfCc=;
+ b=p3h0Hi1fGNgSw8Du3WejVKzb1IY9Ge6LTSo/LwSUjI2NXVn04uVc5D6m6SjK9tNQoJ
+ y8zXHNu6P/vTpkvqStrjTXgyjcoIK6HjKspiu82JCRjlH4MPUkk9qr5jD3vlR2c6OIw6
+ NXSRTCmfWbTn1kZdTVEd1dg5afbv3jfCXh8Gel3X4O/aEUVsobgx8Hh3PeaPWNpcX+oM
+ pxd2hBrac4WtzXYFf2L1w1LoGLhcpd3W9ohy3JGdX4Jqcc7pvFl3sZMGgm/nhXwGbgtm
+ N2c1oolq3BZzUrlq8OJvmwRevjAGDiBfysYpAcbj7m6r3zM/lvddZaqefceP9mXXzaIv
+ 4BaQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH35VQTui3k9rx3LlqrmKQfPekv3h4PmmzRNKEL0MeaO5Snv64y3fBshiwKuDkVYok9YrSiDdEapP8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z80gLlgscVf8tDIGxizBbLII6vC7J38lX9fTX2WqT0YkgaWvHsO
+ coMGRUVkxOFlYbFaaKt6HZ/yv4/c9TytjHaF0BxAs9ExYhfbDnellkFv3Hwh3BNBOEZObX39g2H
+ JVfRrmJgXOXBhOkh/NC/cpEJ6a9nbh5O0HMGTK8A/caG5LxMCSA7fQXxDN3jto6XyJ2o4Mr8=
+X-Gm-Gg: AYBFou3flTWAQiFJbySxfAytuqefadwC2aR5LpBlag7Vgl3DwmORyatmM+q2jKY71C2
+ bGXLBrOsmVE+0iqig+HZy+ZeQa2Wi/JR+pdfRI2MVT+kM1PYRMKJyv7D60/N9JM4BoDUcf5pUJ2
+ UhHcrRR5vTzPT46jPKrVLy2d40Kf273OmS0y/VsDXqABp9Y3AbF5ZzXD5obZQwS2xuSZOmqQXLL
+ zzXeB+4RhoI1LU/zs6bQ97sMIk5hcRFL8/EttIkz9bfdbKbk5c+bYlblRboopC3jLfgBgLRRY1a
+ iItdaKonLzIkXcA8DHm/xDbbtJ/IapKZMhaLKbbn0bsk/eVgUyvyfG5weR0T6Ff7hk6kdnSAbxV
+ zepYoECVRzcqeFdSBHbE+gxnBkZc9ijnS1EszE415GGq2ZjwvDl9xZ1TXS3ivLHu0fqEaDPWz7U
+ ey6xkf8M3s3m7AzqLb9f9l60k+m31g9pesr/SbeM+fJnbjznfF8Zq6Cx7Ca2CinQ==
+X-Received: by 2002:a05:6122:1d12:b0:5e9:176f:a548 with SMTP id
+ 71dfb90a1353d-5ee1bf5e39cmr747000e0c.0.1794402333321; 
+ Wed, 11 Nov 2026 05:05:33 -0800 (PST)
+X-Received: by 2002:a05:6122:1d12:b0:5e9:176f:a548 with SMTP id
+ 71dfb90a1353d-5ee1bf5e39cmr746924e0c.0.1794402332787; 
+ Wed, 11 Nov 2026 05:05:32 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c15d368e81sm391858e87.21.2026.11.11.05.05.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 05:05:30 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/3] drm/msm/a3xx: follow the msm-3.10 kgsl CP setup
+Date: Wed, 11 Nov 2026 15:05:13 +0200
+Message-Id: <20261111-a3xx-fix-me-v1-0-d81f50f1ba1e@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/15] fbdev: efifb: move the BMP headers to
- <video/bmp.h>
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-4-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261027135342.2003632-4-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[dt];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[28]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- R_RATELIMIT(0.00)[to_ip_from(RL9smr3mp78sgfo6am5n6ykess)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.79
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAlo9GoC/yWM2wpAQBRFf0Xn2SlDefAr8sDMxlEuzaAp+XcH+
+ 221W+uiAC8IVCUXeZwSZF0UTJqQHdtlAItTpjzLS6PjtoiRe4k8g7veFCgtHKwjNTYPfb5a3fw
+ cjm6C3d8E3fcDbhvg0W8AAAA=
+X-Change-ID: 20261111-a3xx-fix-me-bf13e6cedecd
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=870;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=DUAj3e5OQiOBNMj5siOdfFBEyuSsNIZAllewi8t3uIg=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9aXDP4J/157b1z/K/PlrU3VvTt7QierN6Rm2RvvcJuUa
+ WK7Y5FxJ6MxCwMjF4OsmCKLT0HL1JhNyWEfdkythxnEygQyhYGLUwAmsriW/Z+yh5iDxGs/3Qot
+ pbUqMWrWi55N5V0WJz2pc6r40hqWxfU6b5fX3Z26sICpuEsgxLpNZD3Tt+kTBf8zMRSbaXf0Btg
+ YuyzdL1jz12n6im0/ndQXn5CyreEUY/F/+/KzvTRP1Lc/138m/ooN0TRU2TfxbcdxuePNKTcy/V
+ YHZ0fs/sCnVrYp0N1d3fxmckese+sHVTP7o8+/pCo9bQjaJ7MwcK/aCv5MAe9JErsnPTL9WuisE
+ ffwwH6ObycnfP/8Z2ULa/QzZtfK4OQgvvKrD6z7tv1RjnonV9t5ivPmlGv5G3REv/3Scghe/Uo5
+ 1Z558T9jtwnWn/2OSU8wXnUhlrV4epxulZVCVaXw4/2HAQ==
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af4681e cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=qa_B_Q5AuH6_wmrwAUAA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: UeavzyU7AMmmpBA0pxTjZ61jORSyhtuI
+X-Proofpoint-GUID: UeavzyU7AMmmpBA0pxTjZ61jORSyhtuI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfXzZRu5Qz2FeCd
+ jt76OFLk7RbwcvdEu3+WfIgvfC2ugZcjzCGZMcDLOz8MI6fIVAklb2bz7fJ0oRCMrAl5gtQm+q/
+ SmNHPqKLe56BotesLJS0u8ET3p9tmxVtDIMNUOdT4L5OKjFcVm2PFfKONQ3fCKQdSdFZYnn+3g+
+ 77nWlM3MrSYN83hHmvra2VgMwuSgJWQ9hzxuonfhRJBoGDFoqRNINevalt8OcPUWWBE8YM71Kgd
+ 9ry+Hgw9kbanYQ08jYk/xTKwDJq/TNDoRzpkPi2KHTyvPKUkIToTq/Sa0jrWgn90OMbkBuFZNrb
+ KhrLEQ+6RA3TgXY0ohlw+nw+uu/DbH0Cz6TvV9HthLg4GRXTjtYZFKkaL3dxzj6Fw2GWuHSk5QU
+ IrgnnNHbIP1AOT4oAs3yaw9nIDEcNcQeYcgpVU2gONjw0rGdTpeVTL0YGQC2rXZa8rxZczhBbVS
+ uZuyatsh80KD1ecutiw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfX2ceswnOG10sF
+ xRb2P9br8Eq61kHSZ1ogJ5GDSbc+SwmHWJ/xA1uHZNlMbfHZNlZhwFfIkc4EgY5YZP1bfD0/Ah/
+ FBQL8vQEQWpT/a3cSDRMfvq6WgGrL9U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,206 +157,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+The a3xx CP setup in msm still matches the msm-3.4 downstream driver,
+and a3xx_irq() silently acks the CP error interrupts it enables, so a
+CP error only shows up as a hangcheck timeout. Report those errors and
+bring the register range table and the CP_ME_INIT data in line with the
+msm-3.10 kgsl driver.
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (3):
+      drm/msm/a3xx: report CP protected mode faults
+      drm/msm/a3xx: update the CP protected register ranges
+      drm/msm/a3xx: update the CP_ME_INIT data to msm-3.10
 
-Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
-> The DRM splash client parses the same BMP headers as efifb. Rather than
-> keep a second copy of the structures, move them to include/video/bmp.h
-> with the magic number.
->
-> BMP is little endian whatever the CPU, so the header gives the fields
-> as __le16 and __le32, and efifb now reads them with
-> get_unaligned_le16() and get_unaligned_le32(). Width and height are
-> read signed, as the format has them. No change on the little endian
-> systems EFI runs on.
->
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+---
+base-commit: bbfe1d58f42ad2cb56a01f5717355901698075e4
+change-id: 20261111-a3xx-fix-me-bf13e6cedecd
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->
-> Notes:
->      TODO for the efifb maintainers, not changed here so that this patch
->      only moves the headers: the bound check
->      
->      	if ((bitmap_offset + bmp_pitch * bmp_height) > bgrt_image_size)
->      
->      is done in u32 and can wrap with a crafted BGRT image, for instance
->      with a bitmap_offset close to 4 GiB, and so can round_up(3 * bmp_width,
->      4) and the product with a huge width; image_offset_x + bmp_width against
->      lfb_width is a u32 sum too. efifb_copy_bmp() would then read outside the
->      mapped image. The DRM splash client checks the same headers with
->      check_add_overflow() and check_mul_overflow(). I can send a separate fix
->      if wanted.
->
->   drivers/video/fbdev/efifb.c | 49 ++++++++++++++-----------------------
->   include/video/bmp.h         | 40 ++++++++++++++++++++++++++++++
->   2 files changed, 58 insertions(+), 31 deletions(-)
->   create mode 100644 include/video/bmp.h
->
-> diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-> index 3411be06d3e6..fd348a72f780 100644
-> --- a/drivers/video/fbdev/efifb.c
-> +++ b/drivers/video/fbdev/efifb.c
-> @@ -16,32 +16,13 @@
->   #include <linux/platform_device.h>
->   #include <linux/printk.h>
->   #include <linux/sysfb.h>
-> +#include <linux/unaligned.h>
-> +#include <video/bmp.h>
->   #include <video/vga.h>
->   #include <asm/efi.h>
->   #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
->   #include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
->   
-> -struct bmp_file_header {
-> -	u16 id;
-> -	u32 file_size;
-> -	u32 reserved;
-> -	u32 bitmap_offset;
-> -} __packed;
-> -
-> -struct bmp_dib_header {
-> -	u32 dib_header_size;
-> -	s32 width;
-> -	s32 height;
-> -	u16 planes;
-> -	u16 bpp;
-> -	u32 compression;
-> -	u32 bitmap_size;
-> -	u32 horz_resolution;
-> -	u32 vert_resolution;
-> -	u32 colors_used;
-> -	u32 colors_important;
-> -} __packed;
-> -
->   static bool use_bgrt = true;
->   static bool request_mem_succeeded = false;
->   static u64 mem_flags = EFI_MEMORY_WC | EFI_MEMORY_UC;
-> @@ -145,9 +126,10 @@ static bool efifb_bgrt_sanity_check(const struct screen_info *si, u32 bmp_width)
->   
->   static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_info *si)
->   {
-> -	u32 bmp_width, bmp_height, bmp_pitch, dst_x, y, src_y;
-> +	u32 bmp_width, bmp_height, bmp_pitch, bitmap_offset, dst_x, y, src_y;
->   	struct bmp_file_header *file_header;
->   	struct bmp_dib_header *dib_header;
-> +	s32 width, height;
->   	void *bgrt_image = NULL;
->   	u8 *dst = info->screen_base;
->   
-> @@ -186,20 +168,25 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
->   		goto error;
->   
->   	file_header = bgrt_image;
-> -	if (file_header->id != 0x4d42 || file_header->reserved != 0)
-> +	if (get_unaligned_le16(&file_header->id) != BMP_FILE_MAGIC_ID ||
-> +	    get_unaligned_le32(&file_header->reserved) != 0)
->   		goto error;
-> +	bitmap_offset = get_unaligned_le32(&file_header->bitmap_offset);
->   
->   	dib_header = bgrt_image + sizeof(*file_header);
-> -	if (dib_header->dib_header_size != 40 || dib_header->width < 0 ||
-> -	    dib_header->planes != 1 || dib_header->bpp != 24 ||
-> -	    dib_header->compression != 0)
-> +	width = get_unaligned_le32(&dib_header->width);
-> +	height = get_unaligned_le32(&dib_header->height);
-> +	if (get_unaligned_le32(&dib_header->dib_header_size) != 40 ||
-> +	    width < 0 || get_unaligned_le16(&dib_header->planes) != 1 ||
-> +	    get_unaligned_le16(&dib_header->bpp) != 24 ||
-> +	    get_unaligned_le32(&dib_header->compression) != 0)
->   		goto error;
->   
-> -	bmp_width = dib_header->width;
-> -	bmp_height = abs(dib_header->height);
-> +	bmp_width = width;
-> +	bmp_height = abs(height);
->   	bmp_pitch = round_up(3 * bmp_width, 4);
->   
-> -	if ((file_header->bitmap_offset + bmp_pitch * bmp_height) >
-> +	if ((bitmap_offset + bmp_pitch * bmp_height) >
->   				bgrt_image_size)
->   		goto error;
->   
-> @@ -222,12 +209,12 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
->   
->   		src_y = y - bgrt_tab.image_offset_y;
->   		/* Positive header height means upside down row order */
-> -		if (dib_header->height > 0)
-> +		if (height > 0)
->   			src_y = (bmp_height - 1) - src_y;
->   
->   		memset(dst, 0, bgrt_tab.image_offset_x * 4);
->   		dst_x = bgrt_tab.image_offset_x;
-> -		efifb_copy_bmp(bgrt_image + file_header->bitmap_offset +
-> +		efifb_copy_bmp(bgrt_image + bitmap_offset +
->   					    src_y * bmp_pitch,
->   			       (u32 *)dst + dst_x, bmp_width, si);
->   		dst_x += bmp_width;
-> diff --git a/include/video/bmp.h b/include/video/bmp.h
-> new file mode 100644
-> index 000000000000..8aa249f2302f
-> --- /dev/null
-> +++ b/include/video/bmp.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _VIDEO_BMP_H
-> +#define _VIDEO_BMP_H
-> +
-> +#include <linux/types.h>
-> +
-> +/* "BM", the first two bytes of a BMP file */
-> +#define BMP_FILE_MAGIC_ID 0x4d42
-> +
-> +/*
-> + * The headers at the start of a BMP file. Every field is little endian,
-> + * whatever the CPU, and the headers need not be aligned in memory: read them
-> + * with get_unaligned_le16() and get_unaligned_le32().
-> + */
-> +struct bmp_file_header {
-> +	__le16 id;
-> +	__le32 file_size;
-> +	__le32 reserved;
-> +	__le32 bitmap_offset;
-> +} __packed;
-> +
-> +/*
-> + * BITMAPINFOHEADER. Width and height are signed: a negative width means
-> + * nothing, and a negative height that the rows go top to bottom.
-> + */
-> +struct bmp_dib_header {
-> +	__le32 dib_header_size;
-> +	__le32 width;
-> +	__le32 height;
-> +	__le16 planes;
-> +	__le16 bpp;
-> +	__le32 compression;
-> +	__le32 bitmap_size;
-> +	__le32 horz_resolution;
-> +	__le32 vert_resolution;
-> +	__le32 colors_used;
-> +	__le32 colors_important;
-> +} __packed;
-> +
-> +#endif /* _VIDEO_BMP_H */
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Best regards,
+--  
+With best wishes
+Dmitry
 
