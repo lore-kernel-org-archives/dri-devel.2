@@ -2,131 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93C0606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OLS1Kzv9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eLw2tp8q;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OLS1Kzv9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eLw2tp8q
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E255606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4301610FA20;
-	Wed, 11 Nov 2026 09:35:47 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5DCE10FA1A;
- Wed, 11 Nov 2026 09:35:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 44E5D1F7BF;
- Wed, 11 Nov 2026 09:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794389730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tatdaV5oo8zvvmhyDR1NT5m5W/wbsTmi+i9/rGo2mTA=;
- b=OLS1Kzv9Rv5l/i75knEotcq3+e9saIikdiabL/7FSVF2xIBpuxT3zOQ+MkQ5TGUof1bQih
- VW/Go1UbeI4GtsEYlv+VD7TGb6BChxV6Or0i0KdTxKR4LotCCmCvO7mGpRiauZhAUxN12h
- N+2YCgkSANJ4zFgNCJOgMtZyu49kaRs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794389730;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tatdaV5oo8zvvmhyDR1NT5m5W/wbsTmi+i9/rGo2mTA=;
- b=eLw2tp8q1G1XjDYyuBTLaJ4/z9KpsKdocZYGkUsVJSQf99k9E/Y3DF2Rb4jYzKYAxZ8XqI
- i03rm3viFCixYSDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794389730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tatdaV5oo8zvvmhyDR1NT5m5W/wbsTmi+i9/rGo2mTA=;
- b=OLS1Kzv9Rv5l/i75knEotcq3+e9saIikdiabL/7FSVF2xIBpuxT3zOQ+MkQ5TGUof1bQih
- VW/Go1UbeI4GtsEYlv+VD7TGb6BChxV6Or0i0KdTxKR4LotCCmCvO7mGpRiauZhAUxN12h
- N+2YCgkSANJ4zFgNCJOgMtZyu49kaRs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794389730;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tatdaV5oo8zvvmhyDR1NT5m5W/wbsTmi+i9/rGo2mTA=;
- b=eLw2tp8q1G1XjDYyuBTLaJ4/z9KpsKdocZYGkUsVJSQf99k9E/Y3DF2Rb4jYzKYAxZ8XqI
- i03rm3viFCixYSDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CF7231339F;
- Wed, 11 Nov 2026 09:35:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id d7g4H+E29GphWwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 09:35:29 +0000
-Message-ID: <cd49a9ea-a992-4b38-a5d7-d46d1647010f@suse.de>
-Date: Wed, 11 Nov 2026 10:35:29 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0364D89D39;
+	Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A330010F9A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:55:30 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-89d6bd67045so1626011b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:55:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794387330; x=1794992130;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kDDtfgXUqq2vWe9vI2nmZQX9n8pFv6185nZlpnia/WY=;
+ b=h1Q3VfqBZtiJyXKMa3WMYlKU6hRHtuan+eAeffkUTtzbm2pcgjTin8o1PcKtVb7elf
+ 5B7M5NCP+XNhEZnwLBxkU8p4Dies2lE5pp5Rx1SNHaUnq4MaIsRK8pz7Q+xk2Hs9j3KY
+ 9Quye8LJ+Ti/Xt37qF0/dD4F5brvTeSn1qQr9P9viFsObRNzFjV17Bx+aIiVIL5iEo1m
+ j4jTEYjIENN+7ZUzHPRwaoGUewkNxRI/IMkQjyKHyCeEDcqdipK7/IY8r3/7aDp3aR+K
+ 73OWgLbmWNNmtzmG0Ij6bLTGUXkx49lxWtFhBZ9qOvzQWgsF0Yaw8wUn1qGw+X8WfpxR
+ tpVA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEy+UbsX+aWvTX62QUzLffHPUqsm0Ivr31VKxwJgrZKHxfkS44kBC5nXzg2zCKU89ZXhkek5UGxoKs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+LXg6mv+9vetGq80zXS0lpT8MXwVLug0/N6kgVffdJeCV26F/g
+ 3Sz6zIOxowsZVIUS7zyIlvNWjjKYoFYmNjvMBJXm1qEQE1mEj6/TCkRyxzNt3ETd
+X-Gm-Gg: AYBFou1JQMi0E/PxQIIvqlbZRceoYb6dYRr9Y6Sob1WrRvzEPeaSdLeF/edcGmC2ClE
+ PCHS6F57H5MsjkmQP6mfu/mA9WR7U86kSjOagPX83qupqtxmvvK3jwqeAX6pzXpjXoNdK4183z7
+ 2i9kH5LTKhMJoMlROVVKa+IIdI8ZpjM344pXw5whwkNd9sy4x9YQ2RyodVCFUqhmm/F4xrHJinf
+ Gu6BAS63GQoC8Yp1e9PUBhX2cvpxlwrWQbnp4b8SaRbo3meZv/D/Qs/ErMLyaYdvz5Jd5qoW/5o
+ rBWMEmcFoODg1SQ2Jl2jYlvhqmnRckPUF9a78x02/dUNRorBMvsViFidkLryfESPek90QCUOVND
+ zGn0P3bqG+oSMNih9PgUnUR1aeQZ7JA0ySQjs2C5IaR1HA/wJazqJDRcjnw6B+N3dS3bv3vCMZm
+ L1xWmOYs4t2hs8YycFZo2VerSkvqybo9T1MCV0e8O8YJ+glRjoWLRPOwdxO49+bXNpP+WiUv+Ta
+ he/5WV+smgBiefOOKbEP6AaMigzCb6/skJwXr0Kwjn8v2ERuOBGgnYLd6n8fF9bmT+FfRNYUjNq
+ FWOeGgu7A/n82M3eBXBR6vGZlpWZErhxxuocs3FEzzG0iv8y9z4FnWSiMbLnQbyko9lcqYxvs2P
+ Wftm8ht4+eJ4R5pgoA8oSltB0eKIr3H/8ShP40q0vH6J/AXITkWMgMSDx+dJFFtQGxQ==
+X-Received: by 2002:a05:6a00:e16:b0:89e:9d69:c0bc with SMTP id
+ d2e1a72fcca58-8bc1d918e6amr1447513b3a.27.1794387330007; 
+ Wed, 11 Nov 2026 00:55:30 -0800 (PST)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com.
+ [74.125.82.176]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8baaa1b27cdsm1810471b3a.19.2026.11.11.00.55.29
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Nov 2026 00:55:29 -0800 (PST)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-37198ed3727so3669880eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:55:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErF3N9hUuh+vIQWcA4ORRuOvT+lAatuL+V595knyMQXOp1uQ/5NU4obpEdBQwB+YnfWm+H/z88WI3m4=@lists.freedesktop.org
+X-Received: by 2002:a05:7300:bc86:b0:36c:a3ae:936e with SMTP id
+ 5a478bee46e88-37669a36d11mr3294547eec.5.1794387328621; Wed, 11 Nov 2026
+ 00:55:28 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm/amdgpu,radeon: Inline drm_crtc_init()
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev
-References: <20261110120326.538252-1-tzimmermann@suse.de>
- <CADnq5_NCF2J0Dzea5swubs+eEKBLq+8ontc5n=kihYZVA3A1aw@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CADnq5_NCF2J0Dzea5swubs+eEKBLq+8ontc5n=kihYZVA3A1aw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; ARC_NA(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FREEMAIL_TO(0.00)[gmail.com];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,lists.freedesktop.org,lists.linux.dev];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:email]
-X-Spam-Score: -13.29
+References: <20261110-sysfb-dirtyfb-v1-1-8571d455ccbe@telaak.dev>
+ <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
+In-Reply-To: <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 11 Nov 2026 03:55:16 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
+X-Gm-Features: AclHuK-EsqBIwO9CGtat8AS-89hdImnJzEfTUQNfPyVgSSK9yYlt9MhNn6BdGfE
+Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
+Subject: Re: [PATCH RFC] drm/sysfb: Copy damage outside the DIRTYFB ioctl
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 11 Nov 2026 09:37:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,83 +89,18 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Hi Thomas,
 
-Am 10.11.26 um 22:49 schrieb Alex Deucher:
-> On Tue, Nov 10, 2026 at 7:11 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> The helper drm_crtc_init() sets up a CRTC with a primary plane for
->> non-atomic mode setting. Only drivers for some AMD hardware still
->> use it.
->>
->> Inline drm_crtc_init() into amdgpu and radeon and remove it from
->> DRM. All new code implements atomic mode setting, which does not
->> use drm_crtc_init().
->>
-> I'd like to drop all of the old amdgpu non-DC code since DC is now the
-> default, and we have an LTS kernel now.  I'm planning to send these
-> out in the near future:
-> https://gitlab.freedesktop.org/agd5f/linux/-/commits/remove-non-dc-display?ref_type=heads
+Thanks for the quick review, and for explaining why the blocking
+commit is required. That makes sense, so I=E2=80=99ll drop this patch and l=
+ook
+at handling it on the X side if it becomes a real problem.
 
-That's even better. :) Do you have an ETA for this work? Resolving 
-drm_crtc_init() is required for that series I referred to at [1].
-
-
-> So that just leaves radeon.
-
-I'll fix the Sashiko report and send this out in a separate patch.
-
-Best regards
-Thomas
-
->
-> Alex
->
->> DRM support for kernel panic is only implemented in amdgpu. Take
->> the panic helpers from drm_crtc_init() in amdgpu, but clean it up
->> in radeon.
->>
->> With this series in place, DRM's helpers for drawing panic screens
->> can be further integrated with other drawing helpers, as outlined
->> in [1].
->>
->> Tested on radeon with a Radeon HD 6570.
->>
->> [1] https://lore.kernel.org/dri-devel/20261019154612.777074-1-tzimmermann@suse.de/
->>
->> Thomas Zimmermann (5):
->>    drm/amdgpu: dce_v6_0: Inline drm_crtc_init()
->>    drm/amdgpu: dce_v8_0: Inline drm_crtc_init()
->>    drm/amdgpu: dce_v10_0: Inline drm_crtc_init()
->>    drm/radeon: Inline drm_crtc_init()
->>    drm: Remove drm_crtc_init()
->>
->>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 44 ++++++++++++++-
->>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 44 ++++++++++++++-
->>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 44 ++++++++++++++-
->>   drivers/gpu/drm/drm_crtc.c              | 26 +++------
->>   drivers/gpu/drm/drm_modeset_helper.c    | 74 -------------------------
->>   drivers/gpu/drm/radeon/radeon_display.c | 47 +++++++++++++---
->>   include/drm/drm_modeset_helper.h        |  3 -
->>   include/drm/drm_plane.h                 |  5 --
->>   8 files changed, 170 insertions(+), 117 deletions(-)
->>
->> --
->> 2.56.0
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Best regards,
+Joseph
