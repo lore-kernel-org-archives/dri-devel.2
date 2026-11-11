@@ -2,138 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBE3606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:49:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CAC606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:50:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CjZeU5PZ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OvTzYtal
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=B6zZgX2G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 263DB10E40B;
-	Wed, 11 Nov 2026 14:49:22 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 939E210EA4A
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABEKBQk926470
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=qhJ2whnh2ftT/2vZqPRp8bR6
- iMbwhkvUovT1Mfig/hw=; b=CjZeU5PZOdIkO4DoAP9sLaaNn5bjwdbcNRvH79Yn
- ZD3XlMsXfX03NcJsfmpTFHvSQjkEell6uXR48rWaV5Iuo2QRhF166/xzlPbb4Nde
- YgN0B45RpF4wc32tTFVRW/4OY6aDsrKKxPT+FznCIc2MTO9p35ACu7sDkWVoUw94
- SRbLETysH/wOOk90LhNbBoxsboYRe0kwgZ+OSJjk+FV2kaFUlrwTyz7mUytQHkFy
- tZycqW5p6Br7KQgFSheKzHMK6f6VjAJPv9BNH+1z08Qi+2ZKOUJqkGJXL8mCYHVP
- sMpryz8JUB1d46w3xoouvooBPjgTXrKsz0R+7/sZbIwKmA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv9b33yx1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-91ea5866643so61993096d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:49:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794408549; x=1795013349;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qhJ2whnh2ftT/2vZqPRp8bR6iMbwhkvUovT1Mfig/hw=;
- b=OvTzYtalOYK9lQDF/kgA4Q/U/5VYSIDFmwtFcnBGs7Vv+Gjyn6/tnsuvwEz0yiJpDb
- IMEJF01KbrVYwT6GvrGxtLJ9oHppzL/oH4h0EY1EX4ocvAc5hcEzWaJbcbztY03XWTEp
- MZxE5Clo2Zp1dxk9YaHk/Xw+ZzPf8JlEFzq8EhsxRCOKjZSzejaY0rGOnG/qGtFwlBX/
- cq90B8TVdtRsCy+iLExPzJ7f+fGfRp4eM3p3sdsGLS9jcri03eoPH2qP8OlYSVRZ9TId
- 6v3dxTWGGLgqTCBWaSYRA9EMIVRdqmwONNmgv1Em7JQ2VHJw9uad1/y9UyQwczODt1L7
- wO+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794408549; x=1795013349;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qhJ2whnh2ftT/2vZqPRp8bR6iMbwhkvUovT1Mfig/hw=;
- b=BJHkU/W4TedJxmJ8Sb1LjIJZ5GkCVJLDXYXIyn31/RHd35a9V47af5KG38AL0HPkmd
- Yfit/Fp36Yr6d9bhx+qaZtwjZnB7M3pYTsW3dKw5uHi4HEfgrjsOjdNNn9UQtdhX78n2
- xrrTuJJUlcnqgxEXK/iT1V/UfWMzF6ffuvsv5qWm2/UFYn+ljFyGFshMzxfuxrQzWGxb
- wB1wrMym/tijeb5MjnAyyNIgzvBgnRke23abKgURkEcXxC0HLBSlyjl6hgJ+O8vJ277+
- HHqtChgMWHKNdifxmamFpVLwGWjfqOc7sucuQXruim8wkMKDcS+Kf7n3Ux2IvAwQuoEH
- 6SPQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErEpHACtiINHryAqIvFUqzc2EEGuoN7p6WB6SRNwHN5T8xO3mxX6AdJXuYAy6p37AV/+m6YxW2FcCes=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8RNZOVuvmbCRtKKoNc6VS8R9Zcy/FOr/MpfPtypDmrx8oj3wBs
- lPuf3w7Ody5lBLGaG3y+92eKbabB4OtmfBPaFRLxAb++TNUBhPkLyWT8kH/+yo4wUYKkRzd/sLI
- QFtN9kfqxtG1G+JyXfUcZZJXT1TKSCWCEJtF1y/sz+SEu88dYSvVrQy4RwPFyUFyiJVaUJWc=
-X-Gm-Gg: AYBFou3zLr3YnfUGjVBiKblMcMVwtAeinCecfQtXlWY2dK0aO7rXaquqYkV6g2A7qDg
- JkeK40CjlTwDKmkKEWtB2BOWeSF+71nLvdQ3fburtCwFEhElQCrNHatHN//kqdK9Bepg4SyiSL2
- XQmUarMbnVjZ4xvh3mnlPFra5od747607EMclSjcR1mbNC6i5cLILX+7ON30a+eRwQYgvCjW7qe
- cc/qG1jp0LWTq30yujDeB/1B/EcApx+arBZhVpfcstnu4gyPIGo8xfrtHDYiYisjfbVSYy6d5uH
- 0k9EpAeD9/l+SqIl0DriiebhKJCd6+uzxKFpbMynVgALC8ww6XHVht1xSoWVyKHp0BJYaWPY10S
- Ncl2qNR3VTSgn8LHvIQogrKQkkm/qc0R7lZfxHsLuC1mgIjEhmiEzOqek7YAY+TWsEu1askZmAe
- xFdin56FETPyTqOzCOe+GsyYDdAXaSgichKYUUw/DMAMKyqmtyE3av/wNBJL2LdA==
-X-Received: by 2002:a05:6214:2028:b0:91c:65d0:1d85 with SMTP id
- 6a1803df08f44-91f0426ddcbmr48004036d6.53.1794408548821; 
- Wed, 11 Nov 2026 06:49:08 -0800 (PST)
-X-Received: by 2002:a05:6214:2028:b0:91c:65d0:1d85 with SMTP id
- 6a1803df08f44-91f0426ddcbmr48003236d6.53.1794408548137; 
- Wed, 11 Nov 2026 06:49:08 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae0923c164sm12141891fa.20.2026.11.11.06.49.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:49:07 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:49:05 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v8 10/29] drm/msm/dp: add link_ready to manage link-level
- operations
-Message-ID: <xdahtkmsoxposnxuomytx2wcxthelxjpopecnxjellidqbjq6g@lgmcy4privcj>
-References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E872910F5D8;
+	Wed, 11 Nov 2026 14:50:27 +0000 (UTC)
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022128.outbound.protection.outlook.com [52.101.101.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D9A10EA4A
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:50:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O4ILld7oaUbQrGpJEX/t0/Dnm+jyIUXGyrbvyN3iWVNfV3QFMPbl6euBAcoxGbwH3SPbX+mHKGfrfEG60A6W/iQbE1wDlssfkaAfOkJICl6WaHrCEYUAhMpOsrFWhe2DOQHsR6Ruqxa+ql0g/ApQ3QHvMjT+4ziWbHdfpMX+4dXk0plBdV/8pu+5T8zEeleDGxXEXKGI+k+vbr9lK6bKy4+V4xOcE/q7EvDwnm7ugTgagyo3C62dgIdQ/Rd83Il5SrPt90eOd8VuNZ32vgHEWEFJnz+jcrIpejHPEz08ULjo4dkAnwmU4q/JBXbj0zaZC+FzQhdz3RTMIG26xHIdcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TwcThwReGt7fXa2UvkjLM/2U7zUMDjWfAU1VRDTQZ/U=;
+ b=fWXxFbPSXEEsuF0vHfTHmbFytnb9DuI08135/mBiKHZ0Vej76BLxYkZO7ntE9vcnaV0O/c34QR7mZVkeO2RAhVTFHNctRusxWtprSjw7aZ/C65juxmbgQVT3Jacgwjywsg1w0CduBZvibQfZ1lkBFf8v3dFrNTl6CE7u5cPqGE4GtW5d4cr/FO9BSJKbyCBNsk1fYCjxt4eOa0Mpe0Lsg7/V9MFpm79KqJEqqEG6OSrr9Kc8mZ7mbSqZsAR/sgzrXSTEC2BB/9o2TVsayK1VP7DZb61njKFnYftXB8p+UhzZyxyyHWEPPYVmgI8gK81XJ9q2FFode+17GifJB2wDIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TwcThwReGt7fXa2UvkjLM/2U7zUMDjWfAU1VRDTQZ/U=;
+ b=B6zZgX2GgiOaOCyegWH3viywZOe8D8DJIDaE8UgUZRJE0apihfWKoMzcRR70dEJ08P07Ye9H422NpYOgNFhQ8Fgy58FM8CO5gDQA6nDF1l/Rds4dFEyjv5Hu3vri2tY4fluoQX/tqTD3TGXjOnjm6HwInXj0767E8XJcAVMT1SM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
+ by LO7P265MB7698.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:413::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 14:50:10 +0000
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 14:50:09 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 14:50:08 +0000
+Message-Id: <DMSGRISBB9SJ.2BW4HDF3LY1AU@garyguo.net>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v6 1/2] rust: time: expose as_nanos for clock sources.
+From: "Gary Guo" <gary@garyguo.net>
+To: <airlied@redhat.com>, "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261109-nova-timer-v6-0-5544a3bd8b28@redhat.com>
+ <20261109-nova-timer-v6-1-5544a3bd8b28@redhat.com>
+In-Reply-To: <20261109-nova-timer-v6-1-5544a3bd8b28@redhat.com>
+X-ClientProxiedBy: LO4P265CA0002.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::22) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1cb::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=GKGdgeNK c=1 sm=1 tr=0 ts=6af48066 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=9BbQWiF9P2Ean-TlPn4A:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX0+tvIzR/LJMC
- 3Y5Z4ptv5Mx0h6/BLbxawDV+rhrgdY/N13Wma5L+8fOEHhETxRpsuSvkSAC2yfbeqXH9uqqilqS
- lxCef2J1W/JaYkITa6SUuJhk6LpG+u9mmL/DrPZi+q4T7IZaA4CayHsVFOgoAtOe04PQL3Rs2b9
- m+fR/WqHEziC9papjwmavUwFXVPrC2blItl7CcR64ve/gLKLUk6PB+IEsqI7UUgVn2I6oL2AQTa
- RzeAib5+uyTZhe4cVY6H22OOizBbppZphsw/FimFJwvbSyFUu4Mh++C1sTszZ42ZfN/elRfrDCS
- QtahY1wD7bFY4uTbY9qrTJCD/WjDSezDDoa/Rf2VwbCoCxZQSg4kZgt6W5tvrcpdh3Muin5msSt
- qZ1cH6tM+bx07336zPEvM7cdWWLZPAwNY7umdIx31/sfNbetlMrjh8l9gb0pFdpPvq6jYvX0WeS
- 4UnlJJuz8n+/AoV8lag==
-X-Proofpoint-GUID: coE87o1IlbIkZWAGjGbSpNZgahWokyV2
-X-Proofpoint-ORIG-GUID: coE87o1IlbIkZWAGjGbSpNZgahWokyV2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX/qE0mQunDCuO
- 9bFf+dVb7OEaNEF9vgb9Ot8DHu3QGWCC0G9Rie3vs6OiSB3qaCO+ft9HmfXhpgPXWbhpHwC/qbS
- I3W7HjMiSk10xDi/gr9BlSlglds92LI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
- spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110058
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO7P265MB7698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85257458-5f7b-479a-f9b8-08df4003152c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|376014|23010399003|366016|1800799024|10067099003|261028144727099003|4143699003|56012099006|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261102123227099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: fZb6g3LV5kgKWK974MuYxr4euxvd1LvCLSY9XV5nfB8bKQXG9ILqKLKAPv89PT2KSzVCw5aKwGCG4g8GOsQPCqxxNZHEWDVzkUoPlgI+qV4vOU3RtkovEGRJ4qxfKZ7WqigEFx7KMrCGVF6UoSxMnOmB0cDjmImT21mKSmprzyFWewxyz2MdufZomdmV2uFMSOJPOqjEn/eV3dBIDaz+qaYQGesLNsp4reQqFWoWy+Sf2/PrSGvq7dyfaQUzoU9eZ0uDqo5PCkP+zSFI+WOq+0NnI8uSAOEi+lcr/DqPtOwHevw6YrSMBSWu2gXDbxP3mTuAOJUu9vqUQNekESjI/yuwWX0HkebFPgh9kxa6bl5cMUdL/LyfkbD5gFpkm96Hb+XeJg8oRdJZy+j7x7tMpSJg7m+0HHx3CPIfmacMRM1jfdumHM7PsrSgfL3Zp0IRMgIVfP5pq7JN5H0BFhheK5lHiKUgxIu4eDqfWgnf/mFw3XMJwQsVLBenJu155Tj8FfqqCvbqw5IU45Z6wpuZ+uG8cgdUAKTOqSV9qpdbSjhjSOnrLxsfRGpOVAwUKCRGh4PbibLH+6KQbu7RMRQ3x7G9et3lfcSgvFtaTOrB1D4hETYH8XVLaLA6Q7qq3oc5IoUlvYzYnXVL9+DVZHJSc34lOXqZ8HKXExUEpWmosXk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(23010399003)(366016)(1800799024)(10067099003)(261028144727099003)(4143699003)(56012099006)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261102123227099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzVnck00K3B0N3RxRm12djl6TEZxR1pYV04zZ0xUbjZ4UUlsN1B2bDhTS1Fx?=
+ =?utf-8?B?QzA0Nk1lazZyZ2UxUmhtOXgxVkt5UUJ0OUxhM2l3TmJIQ2l3MDhTUWtCRnNI?=
+ =?utf-8?B?QkVBS2xrb1duSFViN1YwT2VPaW5NUEt4a014UDNQNFAveFZGcngvWUd3ZXp5?=
+ =?utf-8?B?em5EZGJOTEh0MGFQNHNoNVZrbU05am9YeGtTN1NVQVRTZ0FQSDBvNFl0OHBz?=
+ =?utf-8?B?VVJ2amZ4Q0t4RjdXVC9vQzB4Sk95SjEyeU01aGlteitJb2xOc21FMFJUekVy?=
+ =?utf-8?B?cGxOQ0NreWNpZmNIMkpEUTVSNUNObVZiOFA3YzZQUlJKOFBTRko4cHRIVmUr?=
+ =?utf-8?B?THdGc1ZXNmRSQWdaU05jcnFLZjhDZ2FGL1ZvcmUrL1hZUmM5OE4xRHNtaGF5?=
+ =?utf-8?B?Rm1oQnBkNGxlNUoxSXE1bUM0cElnaTlLWk9FeWMwUmlqZ2FxQ0JHQVdQT2lv?=
+ =?utf-8?B?cXBFMVpXWUI4aGlueGt2bW02alBVcUgyUDJRR1BNV3lGdE5iTzBkeEE4SWNH?=
+ =?utf-8?B?Qm5YT2EvMjZDNHNQc1NBRHdYWlN5UVNwcjFmVTB1NHlPT05VQ3NuZ2NWblFv?=
+ =?utf-8?B?QkJ6Z3UvZm1VSzJsbVNtaGFrdWx4MGxURGVCV1FUVUdKNG1RTXNmRFVHY0Uv?=
+ =?utf-8?B?ZmY0cFIrYUFYSGU1V3RlYUsrMVRIL1c1eTZXS1c5REl3THdveTRSeHBzNlcr?=
+ =?utf-8?B?U3ZTZ2NYOCtyQ09CVGZLdXdNRnR4RVk1cldLTmhKT00xc0Rrcm9kcXJSYjg3?=
+ =?utf-8?B?Rkh2NFZseSt0U3h3Wm5LTXFqc01MRWVlVHIzWWNxMkVzWU1GTHpNRk93c2FZ?=
+ =?utf-8?B?TkFhc04zZ1ViVEFwQi9lYzV0VCt1OWkrM3djdnpxaFZ4ejR6ZEVSNFdzdXF1?=
+ =?utf-8?B?WGc0SlZmdEkxM21YYWMzREdCWmJYank3b3NTb1FuS2pyRnErejJ6Tjh3ZE5J?=
+ =?utf-8?B?QlMyU04yQno0OTB6YzdyK0xEa0FvRU15bzJsRlVHUUJtL2ZRQWVuNW5qNFpC?=
+ =?utf-8?B?U0FNUWJBTWc2amcrbm02ckN6WjAzeElQZDdJb3I0VE9yQURrM0o3VjVHakly?=
+ =?utf-8?B?QUozSnRHcVBTUlFNWitVMFBuUm1kTk5xZHYyaFFLODhTNzU4dUZVNnVsTnF2?=
+ =?utf-8?B?VlJSSkwwYnl1TzdSRDZxNnR0LzZvQXJmb1E4SGFiTFBjZFVXSXVSRGZvVjZL?=
+ =?utf-8?B?emdDQ2pDSGJlNlYzVHVpckFFTkVNV2xpME1nUksya2pISnlrUVovZHFqenl3?=
+ =?utf-8?B?ZU9rVmtRWFlEOEo1WWhvZHRlUEJWM2FVdFZqU3d1OC9uOHlEUWNGTzlnVE1I?=
+ =?utf-8?B?bnY1cTNTZS9EM0o3L3A2OXRST0p4QmxJdWE3M01OTlp5alRBQjVsem02b1BR?=
+ =?utf-8?B?ZENYck8wMFhqY3VaZG90ZGVQRmJVNlE0ZnBRWmpNTVhHRlE2UW1WKy9zMG9X?=
+ =?utf-8?B?VUNLQW1Yanh5bk92TitYRmZOMzlTWFY5TDUyYXkrT3hTN3Q5cWZMSlJ6UmxD?=
+ =?utf-8?B?M25oTFEweElmZ0lIczhjUVluVXZnUlluLy9zS25kVm9TcDMwRUtDMXhPQmdh?=
+ =?utf-8?B?WmtRZ20waCtXMGRJbEVTT3MrRkZPRGlvWmZPK3JMNmsrbXd2d2pFcUd6Uk0w?=
+ =?utf-8?B?K3JBV0RaVWlablk5RFFPMjc2Z1R1S1NCdVkwVjF3YVJVZEU3WFRIbE5iSE9w?=
+ =?utf-8?B?cGFheTJETHd3eU5sMThQSTM3WTB0WTBMQnhHQVYzV0FXNjVVWk1POWhhZ3hR?=
+ =?utf-8?B?RVJURUNma0w3ektOelc5cEpnSkFBdldtTERCdStlWXhkNE1LU3RsOGl2c0V4?=
+ =?utf-8?B?RlVhb2YwYVd2aHJPWUhOcG40VWg2NFNweWl4STdBYk5aWTdxOUlTRUlkRGgv?=
+ =?utf-8?B?bmJKNENaM1p6RUM2YlZzR0hrcHBEM0xybjFQYWlRTXdDOWxiUDlRejFBSkxq?=
+ =?utf-8?B?OUVMTkJWZHBzUU5xcEJVWFdzZ0grZ25UclVTckFxaS9BWTU4Vk5iTkNMWE9h?=
+ =?utf-8?B?dkhBeXExQ3BhQytsVHZ2NlNmYzZOSG1tTzBvUEFzR3loMFF6STZITmtEYTZh?=
+ =?utf-8?B?aDVEdVdlYXhtZ0xUQXZnYktGcklLcmU1R3NFZlc4a1dueFQ4NXNlbzkrQ05x?=
+ =?utf-8?B?WlhDU2RnT3VYdTdndHlZeFpDKzBDMUQvZ3FGQjZYWVRIWjNxQTNFeHBtZlIz?=
+ =?utf-8?B?UFlVdUhrU1hBREVGWkV1a1FXakp5b2t3SlRpK0RFL3RNZ2ZkTk8rTHJrUnQ0?=
+ =?utf-8?B?YjM4Mlo5Nmo5VzJxTFBNK3RDTFlKSmVSNUdqMlBxb2FsY3dmTmFEL2JQbGJl?=
+ =?utf-8?B?dWVOQWpQNlF6b3E4cEN0eEhqS3ZRVlVjU3BsS09lUExjUm85UG4vdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85257458-5f7b-479a-f9b8-08df4003152c
+X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:50:09.5926 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mhf5pQvPy0d88AdtgFogH+CDjiT/40CWzuzxK/3eMKpZeLO/KyWUNUbz9JWV679mvIZotFpTivX5TB0r8vjkwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7698
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,31 +140,21 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 12:54:31PM +0800, Yongxing Mou wrote:
-> In MST mode, multiple streams share the same DP link. Track a link_ready
-> state so msm_dp_display_prepare_link() runs only once per link and
-> repeated calls are skipped.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+On Mon Nov 9, 2026 at 1:55 AM GMT, Dave Airlie via B4 Relay wrote:
+> From: Dave Airlie <airlied@redhat.com>
+>=20
+> The nouveau C driver does ktime_to_ns(ktime_get()) to program
+> the cpu ns into some hw/fw, so allow this method for rust drivers.
+>=20
+> This is needed for following nova patch.
+>=20
+> Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
+
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++++++++++++++++----------
->  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->  2 files changed, 37 insertions(+), 12 deletions(-)
-> 
-> @@ -1570,6 +1587,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_dp_display)
->  
->  	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
->  
-> +	if (!msm_dp_display->link_ready) {
-> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+>  rust/kernel/time.rs | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 
-Link already disabled.
-
-With that fixed:
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
--- 
-With best wishes
-Dmitry
