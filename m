@@ -2,120 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160B9606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:08:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A0F606A893
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hax2IX9D
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AitVldWE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9FA10E452;
-	Wed, 11 Nov 2026 20:08:02 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011003.outbound.protection.outlook.com [52.101.65.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1095010E452
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:07:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QC7Lf5L9E/BMpaZqhpJkeKkGPQpfxM5n/38KRBFCOnCfI8YjN1M8M3uJ/dPfeDGPPdIhOU9aHuAafI06wGHcGjHEX4nA3yteIHyNImWGhC+VWkYCVeJGQ4Q5VguECN8T0KNaaebYvYzBnUGCh/QOdkkGMJi6qdU7VvN87BJkWsrp8YtM5qSX4JzCy9FNIXsuaChwlyhQDs3Ps/d4wAYw4pYEugbHj+ci8CWi2q5gOBW6PGmxzVhkbdbb0u5YhzwXwy0Em6+cg3ODiC0S1vypiGr4WPune63qDAdZzX1zuEI8At4FmRGmqvzSIEc9UPsV1WSdydyEL/TQpWwtXFqUbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Hd2pblsQRehI+CCzvQhKXYdpBhHTc1vxLjntnCUCeo=;
- b=DbFhdivve66eH0Zqw+do7ISMceH8G/Aq2am5o4ePkJjwIoBP506c+0LKH0D7yKEYvGYqs2Ob7l/HQUH8dL3PcJnSiLpfjRiMYf0ASDwbpm5Pg4HfU+f+QgITBYc1BCTVhgHvYLZNYFqCm+bDKPI03SAwaCFj+P2lmdumfPXaFyZK+5ChASLXTEsSCAy5g5aiNKl34au1lUyW4k648uvw1eZjctOhuhuqgl1flrCQ5ofDXToJAc3Uc5zCQHIxtAVVW5PKBa68etauHLNqCWEMd3N8rgF7zxmxoIT/3HrnrcY6RtldZPZuYhJ5q6a/7apPpQY90+j0diAAfZ3M9NZ91w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Hd2pblsQRehI+CCzvQhKXYdpBhHTc1vxLjntnCUCeo=;
- b=hax2IX9DvX1Qsg+2sRwMG7sCLiO32BK0rGdlYG7OqHhR5hhgah0mktIt/DgY9y19/O1KWIHfqN48Ztvnq57190WZgf0GvxAPfRR/WHL4YouDyFok+6E4a7HLfKW9c5sxAVl/2j7N0oSNNFfrfk6omG8n/pBHwqfViINZGBG+eR1rluCUS2KW4e09IRaPi/BoIp5uWPvmtoV8cWEoWwQKr39d2F8sk4FoFiSR3I6Y42BXc+IBzzIdysEFzFbQgOzR4qvwg8I39x0jW5yg74g3qYsFXb9c7ja08LTLKcUu3hoAAOL5ucQGTbbrh/NVNzJertlkSmVLYFrteOhLF5QoSQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV1PR04MB9118.eurprd04.prod.outlook.com (2603:10a6:150:25::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 20:07:49 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 20:07:49 +0000
-From: Frank.Li@oss.nxp.com
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Michal Simek <michal.simek@amd.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR XILINX),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
- linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 1/1] drm: xlnx: zynqmp_disp: use dmaengine_get_copy_align()
- accessor
-Date: Wed, 11 Nov 2026 15:07:37 -0500
-Message-ID: <20261111200739.3823753-1-Frank.Li@oss.nxp.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CCCF10E055;
+	Wed, 11 Nov 2026 20:37:23 +0000 (UTC)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
+ [209.85.222.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E85A410E055
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:37:17 +0000 (UTC)
+Received: by mail-ua1-f46.google.com with SMTP id
+ a1e0cc1a2514c-99075306daaso1733538241.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 12:37:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794429436; x=1795034236; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
+ b=AitVldWERn81kC4qA1XELo+dzHk7Tupz5ghj6QrYC80sefXRJ+BMMBQl0Dm9V5D00Y
+ k+NII3AnvNuifgpGEleEw9bfrP2/hTlWgKOX5jzuOY8+zO7Y6Ne+LjqZleN2eMvG4a57
+ X0H6QbQq52EfPOwGyUMVcWmDaMQXyHdY/hoCQspqUqlSTEsBMuS8t5tnndA1c00/LUi9
+ 6NZq0lPyIy/0P9eKlFm3KBRJVgN1OiwXAcHutClMRkq8FtQ2qnBmXE4Oia1IEw5tbwE+
+ oYG3sKAwEn/t1HtI70hmMB+341ckt09PNbVEa/vymZGMhrlyzzzSH0C3K6zvJumO7sFN
+ Fzjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794429436; x=1795034236;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
+ b=NaxnkP9zEe9r9jQWpIl3cBq83IoErUnstEFlwG4EyvES00yOe3yrlPeRpbEnmgbEem
+ zLng8ytnIzSMd2brQJS+Syun1zENmfrUSp6m9g5GoHGqL2lWST7tBT/6o7+Ps7OaaSH7
+ MyCjeBX/tZD8gv/dU3UhYktxKoHnIIWt9tYx+D9hrM6i2z47+ychwP5bIsP2Lcu+RGyZ
+ fkLIgCKyFMjC3oELxtsgN75tcw9dRPcT9j1caa8MtmuMZV1xROijhxpK5fRccH21+flU
+ 7HpTDIs1ZKgL8c3n8SYrdYJEY6ycfqTug5bLLM1HVx6mfMkYnH9nbO+/UyIbFiecJrDZ
+ eDpw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGdMKoHFkGNPQ4Ey4Mbr2yj3fPG6dZVTNN6dXvU3tiCtz89/ErS9YqzCvogPyxgg5T7JzxLomxTiXM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/FER/9InwSNx0XFvET9mYd1ey5ybjJBhz37StXemK5S6eCZXZa
+ Y1F7KKpbktrIfJRWU8V1sr2Qs0pkYD1kp6rVtCjWl2uz9FYyeWfExfY+
+X-Gm-Gg: AYBFou0AR2nFSfoUE+0mR96zRwapDDUsEbCCMQqEau8pg4gVlLIUKktByx2v09HZa/V
+ QT4I4UrS9WK4DIE41TJz/pTwCHGCMxgkiiTwJe0FAok68RLQWHk9qzufLYE3y4ILJQzXTaYnfxv
+ J8I0YS7HTodiL5GCxcT/HRYDOHBx7sZzOT53sQgpV3FR8p5+xJzU0TZ6Tl3HZiX8gk0py3uzqtG
+ ODHSvW875EtWq7Ai6MOTprZeqUGoxOc1lL4IJDoPlaj70lmvO97Qv29zzZrVHqf6+jDia/bF8N4
+ dqAY4jiCu8kddjmW2mUI4MZxzTjbIiwR7dWhkHRffF47j3HUHdXM0mPhxfUuxPTwF6uqYoz0UH0
+ B2To3t1FSeWadMOrLX6yrkeQBs09lDGSUbAiX8fY+5GVffr9FEqOOTpujdt0M9Fwvg3OE+pe2ie
+ Vb1i22ijFtvpkyx0AgkrtfCDyD6CPVmO5DJzEodD0jQ38423c+CDotfjc9tj/rE4dm1UQ1PyKTP
+ Q5KjzC8mWggn4XWyEffoYEMLVbD8OHodK4dqpDRSEvPRFXrhJsjqiErjp5ktRoxpBwknMeDkS6f
+ fa9GUzad51SWp9GW3a6teIfjAdbhVFLluwavpYMuIaYzoGUO8gk8OziN64KuWM1a0QwYotYvOEy
+ CNnXUCI89mqery/UoLtf2Dw==
+X-Received: by 2002:a05:6102:3585:b0:7c3:2f13:d905 with SMTP id
+ ada2fe7eead31-7d4eff7be7dmr1694934137.3.1794429436467; 
+ Wed, 11 Nov 2026 12:37:16 -0800 (PST)
+Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net
+ ([2804:1b3:a803:1afe:5307:7968:510:1cbd])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7d62241eca6sm1564816137.11.2026.11.11.12.37.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 12:37:15 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: p.zabel@pengutronix.de
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v3] dt-bindings: display: imx: Describe legacy display nodes
+Date: Wed, 11 Nov 2026 17:36:56 -0300
+Message-ID: <20261111203656.725823-1-festevam@gmail.com>
 X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH7P220CA0146.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::32) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB9118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d229518-ca10-4bc4-b875-08df402f75c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|7416014|376014|23010399003|366016|18002099003|261009223027099003|921020|11063799006|56012099006|261102123227099003|261021121427099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: FAv0Ceic4oJkDgv2Nw6RmP0iuC71yCp97LntpKqraE6LDNsk43YKz5t3u2ScSCEOwEBPfe7B9dYpz8wGSEobzW6rT8EsgR5KQLupviMX+WbPxm79ZfUCdOd5dIIRuLPIpSe6W65ZQNgSXwit3ficvuATQissox/7XsZx0vfrEeIdfDcfUFruMq4+V6K9nNzoQzENcaMhQfvtNrX+ORH9esAqhYsqhjvYyMD532nYTXB2CvztgdrXvczEq2aASabEVYKbmibfsP6EzBUoeTCmIsMiwGgtl4x9ghNXOuGq8LLmRvDdREHM+2ZAzk1QDal/eiI5FCR9xNwNikU4mfEEK5B7kD03Dhj+buFaExvXwhxXkNGiPP6wNW+AaoZifqGG7hdWROTgNLbCvTo61EbnORuCexfY6GlwV/N1ealhcGEb/zvNQTjZxC1s2hjOHHjvWLMCzyHckjtZPZcvAB1cbPmAD0P4aWLmb5pVgcxXI0WBAqWpDj567DxxjHAc9Z/iclDkZ5iPy31l0eLNa+wEf4+VkhdP03vKjA6lxs6qMvyLlyw/Nx9fScat4rm2dWt94PlIoRlWJ41VqWYJw6IsI7r29On2aP4qE86Y1scRKdNJ0ziUJt0tu4OBVqNq7j2TV2e7VCWWkMQCfFVu2wTzYXrKq7Pgt1a3W3u3InL3EyzEaFWECyueboAqq95SXsp2HFKqULELn5QQPtqtXCNGkg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(7416014)(376014)(23010399003)(366016)(18002099003)(261009223027099003)(921020)(11063799006)(56012099006)(261102123227099003)(261021121427099003)(261021123027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OqdgA/fdrurAIO9nJegX96jbx4XcUIh+Q+KIewSsf1IOTBNQU1dCUUI0tY+g?=
- =?us-ascii?Q?pMlsb6G5psPRceT0kRQyas8BL23FozCU8DMv2liwjYDjqxw72lx0e3Dkvpzp?=
- =?us-ascii?Q?Oa1nvSDn/Yv5gxF8uwIZ9Sf4RQetYIdmsngqTF/dqu2qhUG5BwI896uiUFjl?=
- =?us-ascii?Q?+qCXk4YS6spdtFhzWNwvdZgIwP1L7Sgg09r6n0Op2jnaTTtNuDo0P2hTyEHN?=
- =?us-ascii?Q?K1jmNj4fUM2s3YsjhlnO3AYgJA2Io8fjVakf4HHhGE+FhcvGi/gvAHZ69wsR?=
- =?us-ascii?Q?+lckItWa1NmIk51Cv8n0BeSRv4tiRqgH2fmBCFanmp7BtqkrhB8+uswvvcUi?=
- =?us-ascii?Q?fvfnC8+mTVvALGMECvZhOlol7UCfXrR8RvCjZCgQD/xdR0Sdab4pWF/0N/p6?=
- =?us-ascii?Q?TYpdQHlr56qgAjD3Z25ZpZ03pzc6C5kcFj6R1OgnKZuSppn5DFUvv/JapjMW?=
- =?us-ascii?Q?cXid/MDsp6jB/BPh+eKqz5WYFCUI77aEWtcKRnzpjx1kkcXGgKd7LRWIRGVf?=
- =?us-ascii?Q?K8fXdZQZ4ntpqKxkQ/eGdxfo0OOnK3zJfHgwJvgCwj5E3UkxxeuALP7L63yG?=
- =?us-ascii?Q?1dXu/7FHbL6/RSwWsMr9nS08aoun10eGSc5O1QDc3vz+x0Gfi/yZq4O0wP8G?=
- =?us-ascii?Q?jfnHGT4ytSV37EqvXPcLG3FOsOzll6S6qG3Fp2qpnJhXl6Lgfy9+cy6VJsfl?=
- =?us-ascii?Q?lQnhFS6rIZx1EvvlmLiabdQMUOA5SpcDjmM0eE2ItGlBsQFZ1qL6q4AlJGBP?=
- =?us-ascii?Q?CtCN4f/RjOoFjz/2qZzCL6jYkmgrQ9kPx68cG4DejCcKyh/r5URGD8PDDSI3?=
- =?us-ascii?Q?U5yuvlC0OuMGENLIDt0N2yRrTzo7k868a5tj+yDXBEimTGJup8zw6WvuV7D+?=
- =?us-ascii?Q?Iglbz9bC41sIr4QCxr8C8NnhAnUGn5DZtpeV+E3/ZXm5qWS+NrkreynxTtOx?=
- =?us-ascii?Q?FHor2ykXWxv6ZE602hIoAFzm6oJcAN6SIm5+9EsP9gF6IpI8aGgpbk7uZ/7n?=
- =?us-ascii?Q?dZLIIJP6voaMlTVXFyclJtRVndLK+Txr7dDjy4TdgtNomnm5s0lYMlPeKDCc?=
- =?us-ascii?Q?WJLCPlag3Jy9i1Ax1SgC25J8HsSKt17wKqVHa14rd+LKlsEdX4MVBluunADo?=
- =?us-ascii?Q?S8i0wmq0gdB0ISPG+adx60sQLpf5srfMnNpDTloDLuMzlkQje5m+jNN+OI0N?=
- =?us-ascii?Q?7g3sCaeAuP+Yb7t18MqehqfAeadYNPGvQTjUNe/mK71kqczRVdXU5zpyGzEU?=
- =?us-ascii?Q?kWudN8vGJz5Iea2pE6FVscxdj7TwbOp/PFWjCpqO3gISozRRWriPKiKBZVkF?=
- =?us-ascii?Q?jzz9I8nrdfgUtQUN+EOvBuGUNp7el9vonCfvpAkdGpF/pi1jGPJUNjcsOsSo?=
- =?us-ascii?Q?DIP/Q6RNwz8ZBQJ8objH/KfzrKrixYqEzQoyu0htdfQ2GNK68d+8Z7Z9VDwT?=
- =?us-ascii?Q?qDfPsFk19bbncB0jgjZfNzmRnFCS2hKmzlgGUJbt15ACfCUE+xirrGOtFGcD?=
- =?us-ascii?Q?2/EByaW0OkFotTa9mdWUdrHsFjtEwpmyScQd3l1UmleUdI4Y0yBP1faONbXK?=
- =?us-ascii?Q?Yu2MOr4gORkZsAZiE/5QPc6QhftMP3EWDOArat8bnwHNDSenWcsPwv+8ghnQ?=
- =?us-ascii?Q?zZpZ4jAm65lfNZhoqfukHjljICLjSJ7uZlG552S7oVX3BGTdE3ToCJJNv69a?=
- =?us-ascii?Q?QNXeQnkprJIa46KMaP7fmIg1cIDVWUDI4ms/1nOhkL3/00FIVXbXoJfFsw9i?=
- =?us-ascii?Q?r2LlXf1QjrB92aOFC+JWn2njyFRt+agQDMw7P0IU6IPudk1pcxHO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d229518-ca10-4bc4-b875-08df402f75c9
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:07:49.4331 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qV8a6tFvqijjG2ad8yvZov3LeGZUNo/E1GejD0Zy78SKZDQeKJS15bnLMSL2bApC4tRMIP5a0iXuHsH3r/HTdke7gaGLJ4usEcLEreiw1VjuWOh55WUbWBCrmz9VEqZc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9118
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,38 +85,119 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Frank Li <Frank.Li@nxp.com>
+Legacy i.MX LCD display nodes have no schema, leaving their properties
+unvalidated and causing dt-core.yaml warnings for fsl,pcr on several
+i.MX25 and i.MX27 boards:
 
-Use the dmaengine_get_copy_align() helper instead of directly accessing
-the copy_align field from the DMA device structure.
+  imx27-phytec-phycard-s-rdk.dtb: display: fsl,pcr:
+  b'\xf0\xc8\x80\x80' is not of type
+  'object', 'integer', 'array', 'boolean', 'null'
 
-No functional change and prepare to move struct dma_device to private.
+Add a display schema selected by the presence of fsl,pcr. Describe the
+panel model, framebuffer pixel depth, interface width and LCDC settings,
+and reference panel-common.yaml for common panel properties and display
+timings. Reject properties not covered by these definitions.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Keep the LCD controller schema limited to controller properties.
+
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
 ---
- drivers/gpu/drm/xlnx/zynqmp_disp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since v2:
+- Add a separate display-node schema selected by the presence of fsl,pcr. (Rob)
+- Describe model, bits-per-pixel, bus-width and fsl,aus-mode, and reference panel-common.yaml.
+- Reject unknown display properties with unevaluatedProperties: false.
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-index e998f22686748..0753236b9546a 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
-@@ -1433,7 +1433,7 @@ int zynqmp_disp_probe(struct zynqmp_dpsub *dpsub)
- 		struct zynqmp_disp_layer *layer;
- 
- 		layer = &disp->layers[ZYNQMP_DPSUB_LAYER_VID];
--		dpsub->dma_align = 1 << layer->dmas[0].chan->device->copy_align;
-+		dpsub->dma_align = 1 << dmaengine_get_copy_align(layer->dmas[0].chan);
- 	}
- 
- 	dpsub->disp = disp;
+ .../display/imx/fsl,imx-fb-display.yaml       | 73 +++++++++++++++++++
+ 1 file changed, 73 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
+
+diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
+new file mode 100644
+index 000000000000..72e567b9ed98
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/imx/fsl,imx-fb-display.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Freescale i.MX framebuffer display
++
++maintainers:
++  - Fabio Estevam <festevam@gmail.com>
++
++description:
++  Legacy display nodes referenced by the display property of the i.MX
++  LCD controller describe the panel and its interface configuration.
++
++select:
++  required:
++    - fsl,pcr
++
++allOf:
++  - $ref: /schemas/display/panel/panel-common.yaml#
++
++properties:
++  model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: Display panel model name.
++
++  bits-per-pixel:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Number of bits per pixel in the framebuffer.
++
++  bus-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Number of data lines connected to the panel.
++
++  fsl,pcr:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: LCDC Panel Configuration Register value.
++
++  fsl,aus-mode:
++    type: boolean
++    description: Enable AUS mode on i.MX21 and later LCD controllers.
++
++required:
++  - bits-per-pixel
++  - display-timings
++  - fsl,pcr
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    display {
++        model = "Primeview-PD050VL1";
++        bits-per-pixel = <16>;
++        fsl,pcr = <0xf0c88080>;
++
++        display-timings {
++            native-mode = <&timing0>;
++
++            timing0: timing0 {
++                hactive = <640>;
++                vactive = <480>;
++                hback-porch = <112>;
++                hfront-porch = <36>;
++                hsync-len = <32>;
++                vback-porch = <33>;
++                vfront-porch = <33>;
++                vsync-len = <2>;
++                clock-frequency = <25000000>;
++            };
++        };
++    };
 -- 
 2.43.0
 
