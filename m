@@ -2,78 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A0F606A893
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D669E606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AitVldWE
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DNfh+2eQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CCCF10E055;
-	Wed, 11 Nov 2026 20:37:23 +0000 (UTC)
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
- [209.85.222.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E85A410E055
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:37:17 +0000 (UTC)
-Received: by mail-ua1-f46.google.com with SMTP id
- a1e0cc1a2514c-99075306daaso1733538241.3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 12:37:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794429436; x=1795034236; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
- b=AitVldWERn81kC4qA1XELo+dzHk7Tupz5ghj6QrYC80sefXRJ+BMMBQl0Dm9V5D00Y
- k+NII3AnvNuifgpGEleEw9bfrP2/hTlWgKOX5jzuOY8+zO7Y6Ne+LjqZleN2eMvG4a57
- X0H6QbQq52EfPOwGyUMVcWmDaMQXyHdY/hoCQspqUqlSTEsBMuS8t5tnndA1c00/LUi9
- 6NZq0lPyIy/0P9eKlFm3KBRJVgN1OiwXAcHutClMRkq8FtQ2qnBmXE4Oia1IEw5tbwE+
- oYG3sKAwEn/t1HtI70hmMB+341ckt09PNbVEa/vymZGMhrlyzzzSH0C3K6zvJumO7sFN
- Fzjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794429436; x=1795034236;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MbMz2QduqBl0mlCaXRQxtGdqnfX132c6wYdK6b13hWY=;
- b=NaxnkP9zEe9r9jQWpIl3cBq83IoErUnstEFlwG4EyvES00yOe3yrlPeRpbEnmgbEem
- zLng8ytnIzSMd2brQJS+Syun1zENmfrUSp6m9g5GoHGqL2lWST7tBT/6o7+Ps7OaaSH7
- MyCjeBX/tZD8gv/dU3UhYktxKoHnIIWt9tYx+D9hrM6i2z47+ychwP5bIsP2Lcu+RGyZ
- fkLIgCKyFMjC3oELxtsgN75tcw9dRPcT9j1caa8MtmuMZV1xROijhxpK5fRccH21+flU
- 7HpTDIs1ZKgL8c3n8SYrdYJEY6ycfqTug5bLLM1HVx6mfMkYnH9nbO+/UyIbFiecJrDZ
- eDpw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGdMKoHFkGNPQ4Ey4Mbr2yj3fPG6dZVTNN6dXvU3tiCtz89/ErS9YqzCvogPyxgg5T7JzxLomxTiXM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/FER/9InwSNx0XFvET9mYd1ey5ybjJBhz37StXemK5S6eCZXZa
- Y1F7KKpbktrIfJRWU8V1sr2Qs0pkYD1kp6rVtCjWl2uz9FYyeWfExfY+
-X-Gm-Gg: AYBFou0AR2nFSfoUE+0mR96zRwapDDUsEbCCMQqEau8pg4gVlLIUKktByx2v09HZa/V
- QT4I4UrS9WK4DIE41TJz/pTwCHGCMxgkiiTwJe0FAok68RLQWHk9qzufLYE3y4ILJQzXTaYnfxv
- J8I0YS7HTodiL5GCxcT/HRYDOHBx7sZzOT53sQgpV3FR8p5+xJzU0TZ6Tl3HZiX8gk0py3uzqtG
- ODHSvW875EtWq7Ai6MOTprZeqUGoxOc1lL4IJDoPlaj70lmvO97Qv29zzZrVHqf6+jDia/bF8N4
- dqAY4jiCu8kddjmW2mUI4MZxzTjbIiwR7dWhkHRffF47j3HUHdXM0mPhxfUuxPTwF6uqYoz0UH0
- B2To3t1FSeWadMOrLX6yrkeQBs09lDGSUbAiX8fY+5GVffr9FEqOOTpujdt0M9Fwvg3OE+pe2ie
- Vb1i22ijFtvpkyx0AgkrtfCDyD6CPVmO5DJzEodD0jQ38423c+CDotfjc9tj/rE4dm1UQ1PyKTP
- Q5KjzC8mWggn4XWyEffoYEMLVbD8OHodK4dqpDRSEvPRFXrhJsjqiErjp5ktRoxpBwknMeDkS6f
- fa9GUzad51SWp9GW3a6teIfjAdbhVFLluwavpYMuIaYzoGUO8gk8OziN64KuWM1a0QwYotYvOEy
- CNnXUCI89mqery/UoLtf2Dw==
-X-Received: by 2002:a05:6102:3585:b0:7c3:2f13:d905 with SMTP id
- ada2fe7eead31-7d4eff7be7dmr1694934137.3.1794429436467; 
- Wed, 11 Nov 2026 12:37:16 -0800 (PST)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net
- ([2804:1b3:a803:1afe:5307:7968:510:1cbd])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7d62241eca6sm1564816137.11.2026.11.11.12.37.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 12:37:15 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: p.zabel@pengutronix.de
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v3] dt-bindings: display: imx: Describe legacy display nodes
-Date: Wed, 11 Nov 2026 17:36:56 -0300
-Message-ID: <20261111203656.725823-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3464810FDFA;
+	Wed, 11 Nov 2026 20:47:37 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E8B10E460
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:47:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W0SKenQf4mcffcGhdHMDL/VLQVyzfOIMk58t52TIEfaGzuLgmDm4DMTnnjTwg9/87QVJFdYgWFlGLZul2bieNWiuPdesVPGdsjKbBycTmlTgxAwHjJ+GfPDQPPc0syRaYqcn/0W6dRIKpwLwiX9h0Wxbt3XepUuEvjkfYkQCpXmUdFdSbu0igZCw1G/It9dBH2LvQWJlFD8OpqTDxg/14rx2KfiTQj1lKzmg/GcqJggxlrr/DfJYW9WS/P+8obajcNdVP5NvJ8DYhR/634hLq+vgzvPK64OZ3pXgqqPbsMGwPrjpym2AA3rYL1rHqiLwuqDnR6jM97Yc/drob3gZZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Na6ndTZniISHVBzl5iqz5UYWXSzKlLO7N99KsHmGVKE=;
+ b=JcH6fVdgxp8hEqlKuGKc54mX6TWhIKD0x/kes5RsztzpWI1InrJd+FEraHaQrUxsZfet3iz8CfqpC3/GbzZg+cEKx1VELb/MsqCxHHKbXbEuycLbGLQ/hwaKOgX3iPHqM32/LyoGa6AnIx+WxJAxNDO6UXa3QRqrys/rDsOkmeJGNppuCjmXrEe7mRkA1yMTQnB5ndMH4p0hliZM326yTV9MUblCQ6cyhRFdA4SihWcfN8pZ7oPj3INmvDdtTgFVnhng1NDA/eUMKvS+jSw1DEqvFUjF3+yFkL4s+SGYg7rX96c6QoOzGqsMuH89MQnRb1QlHUyHPnyWR/Zxa04JKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Na6ndTZniISHVBzl5iqz5UYWXSzKlLO7N99KsHmGVKE=;
+ b=DNfh+2eQ3jfXwIBkOdpH7X+IyYp312I23wCpx+UuL3VzzB5M0MebFlX1VD6sUCs0lIY6moSNMfw1Iz1XhX8IN3Hmr/t/+UHj0N1sA6N/bRc2sb4/To7rwllBb8Ref4n0htbhnqYCuQovvrXNXtIHrZ7lnKph77G6/0pMddaDiPTZKYM0qZspzvG12TpIZXQvzanOYyYMUpCirQGmPnFCHGLYq2Q0H4qgrnUc+K4xeU9HAf6Rk9E2hnH5LUIJ/PyWXt20SMNRdd6c583XzdBdEu3tqvgaGaxNDNbIRCxoSZVREK9+qS6D+YP8egu0H+kIeAKB2AnpSkdtDnweXHkEuA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by PH0PR12MB8128.namprd12.prod.outlook.com (2603:10b6:510:294::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
+ 2026 20:47:25 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 20:47:25 +0000
+Date: Wed, 11 Nov 2026 15:47:23 -0500
+From: Yury Norov <ynorov@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
+ Burak Emir <burak.emir@gmail.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+Message-ID: <avTUWznKqpgUI5M-@yury>
+References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
+ <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
+ <avNXkJjOoTzUu-1r@yury> <DMRW81BTJRI1.6KL933YC1FM8@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMRW81BTJRI1.6KL933YC1FM8@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0701.namprd03.prod.outlook.com
+ (2603:10b6:408:ef::16) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|PH0PR12MB8128:EE_
+X-MS-Office365-Filtering-Correlation-Id: 682bc37a-4822-4c60-85d1-08df4034fdbe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|10070799003|376014|23010399003|4143699003|261009223027099003|261021121427099003|11063799006|261021135927099003|261022105027099003|261026140227099003|261026121527099003|56012099006|261021123027099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: L4CRZQxTueq66H32Y4+dtXgIRTEcdD0PLiJM+kisaNtT7r8mCFmQ66qIAPYMfwMSZoLM/2UO+Odh1r+RSqoNCTyJ8NsztY9yftAhgUbWSyrWvYfrimDf3QbSD1EN79MYnWAMsDoXk2FPPVUuMHIPGZi5DfCTuvOA3qmyapSfYE00dixwglMe8sOUi4Pm3XyDTbMCM5Xi1GH4HQquakvmolevEnpAbCtGQJbaDTJoHLOzcSnYe6vXuYG3AgQz/QEZFdNqtUE+G98n+RFH1NNtnWYW6e28E84aLUR7go09fDW7iqGwXJz9udBH+JW31Pt5P5GoKPngIDIsUukz1NdMHSq3FN73k2jYZZ3X7QAgS4QC0F6alXT/AljCds/VmMPHxeSrEhNyV+nhui1g7h2/nEn8sbRdwMv8w1fMyfGLz0kqYxEvJ2ELpxTIvMAHUdyiDEeIwBS6xyGUqXq9OQY3S5O58L37rsg7AkKPGYyP28aPiSq7QR1r10cOT9iKlQB0BZCw2W4ywQC+AGZwewecMbpyM3zuS8EtZKi04aaoOXARw/Ap5KeVWXBe4dJEZnQd6OIWPzH7kfnMEH4O4//F0NLFUeG4DEKUkGHNjbKxBM+YcvSGT9LPwgFTMnqM1h+gD4Jkf6GoFaN8mAnQVUcVEtYSDAQbGilX2xMc64nwBM4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(10070799003)(376014)(23010399003)(4143699003)(261009223027099003)(261021121427099003)(11063799006)(261021135927099003)(261022105027099003)(261026140227099003)(261026121527099003)(56012099006)(261021123027099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C3+L5vU8mzVoM7J7QXhopWKn0t7A7BODtl+N0GH5vC9ol8QycV8pSLPh9bvy?=
+ =?us-ascii?Q?r5A0ahow08/teY4WqFGvNlqWTBCDWLxfFUDGRSAa8FfgNFIncX9eV5sxlbNV?=
+ =?us-ascii?Q?DFMCx5txWiqu8SqYVWb8oP4vLiJikkeBuH9E79eCIzJQd+IMLwp7YyIOhUJ4?=
+ =?us-ascii?Q?26bAEvaCYU9VHsYSLfZdQ6kyWjlEbShkiRFybzLw5KmcBpXTistST7NthKvY?=
+ =?us-ascii?Q?eXUrCIMPvnl3LpNL8N4kFk+9m5CBzuAWuadSiOnaWUP/F82HXH4yn9wWMtRc?=
+ =?us-ascii?Q?+RPyIl3It8CQS168sbDbJWfS7vIfjO/dbTqco2W024eENe6enqf9KHGoAMH8?=
+ =?us-ascii?Q?ChJeVauSOwPTon/irT3qwzTgaDdxz69jZptygwh4vX5xQ5xwDCgTYdnsaw5J?=
+ =?us-ascii?Q?lpU9PU0WRWbpEdPvqEpB3G8l4PLjn9bveVPlt81VJk6aSEikBItPOS5pUqIH?=
+ =?us-ascii?Q?hX8ReFkpUG/sjXrTY/PSAZ7IGAZNJML+TKtbWa4bfF6LMDcuYRvgv5kLn4oI?=
+ =?us-ascii?Q?XsAaj+FoJ7H+i+BM8eGBL81V0Dx45sYlqAbEq/hkML2Nd/hF5YO50M8jOwH8?=
+ =?us-ascii?Q?qFsloWjsmvxiC4xtAkMl5kBf19AN0jeQNXrt1jJyWZJySVXI856MXuC9kvG7?=
+ =?us-ascii?Q?rap6oqJOZDo8Z8LwPjLs/C7Z5Zxz3qC7+Up33A8yYvoWUMxmBofq1fij2ypu?=
+ =?us-ascii?Q?X/Vj4XKz1kJSH1zlZukjEgQt9ml5bgqsMsnsqDpWBpyY0hTyCsI8goqDJ9Qw?=
+ =?us-ascii?Q?SdjqshC3tCblY2BBcnf6/IqpwVLFs/jJFf9R8VnSCUNI/uuz366T83GranT0?=
+ =?us-ascii?Q?WBTNwuiFXWIWSpFR+xeGxSZRlVecPEbneTnGQ5Uq4rWS8RIdxFBKNaathzxv?=
+ =?us-ascii?Q?YpSN65Uxb9Rn57r+t/oPboctPTyV7diz8FiQ/Uky8A5BcKkZctEoyGIgfHSj?=
+ =?us-ascii?Q?WQEGLRsW1fmPif4MGVh0EaKb+zf0UI4Y9QaUImex3LIYmql99Ee5Ux4SxGtW?=
+ =?us-ascii?Q?rAQQ/QLMj7P8n7Bqgt/B95JvAelQpY8RU8BiTTBlJ9MVhVBX7ZJt6oFRD9Wn?=
+ =?us-ascii?Q?jxaTJue/qIrDcRSbfc1PMUdWANjx4SFk/2dMx2F9GDStz41qmhKgfmpwwtbg?=
+ =?us-ascii?Q?eWNkVMFHHthKCqksjKcfrF9pdlwPYTeDDGwARh5qbHk7Cuy4GC4byEncT48P?=
+ =?us-ascii?Q?hj1fRFD5vfnTXrQeeNXEQLrcJjctcdH2VHVRDbrDa3bfHZvCiP5T85Q4/LJL?=
+ =?us-ascii?Q?tt282sMh3mtsgZm+IN6CuB5QIZhqDD2JmmG8hoW0pp4JjtgGoT5AC0SqROCA?=
+ =?us-ascii?Q?kiBO5CftHtC++/8LAv55zfI08T8uHGao3VPuv+rIF0SXZbLZPTHduW9UdOsD?=
+ =?us-ascii?Q?WURji0/Byg373ZERP+P4tpClqfCn8RDtBiU9mOomTv0EnH7VAyGmpD0K6j2l?=
+ =?us-ascii?Q?18VS7vBzv3f6Tq1VqWzd1kf/wjp/HpsM+lnN4QRxUO/ZuKDlhTPPngtB0KEY?=
+ =?us-ascii?Q?G9bQdVge3b/mbTFq7AC7P9EhdIh3GPSVB96gi5AW5ZvHhZtT3RbgZTY7se1I?=
+ =?us-ascii?Q?cPXvrs0DKUIr4NBkBj8HdbbiclUqX8Fu5wUnUQQpVhP8maNlDRLzk8bTzunK?=
+ =?us-ascii?Q?O8A075QQZY5eAl3GOSN1i2k+cz4xA2ANsKdXL1l872zV0zMEQ/73dhP7GU9t?=
+ =?us-ascii?Q?e3qzHHhIJTdW0RdcuUgiFz0mvItk8zym31qXYEGyCG+YRxngHWU6HATFznUH?=
+ =?us-ascii?Q?U52GWPzPpBwpR/XniwJNkNHwuV+bqsuvzvWAIgUHujMUt3/TQcGy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 682bc37a-4822-4c60-85d1-08df4034fdbe
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:47:25.1076 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vjx/e3/47YoyrhOI3spNGyVGDnDMK7aNQSjOj3GLz4RWj1V49ZIUWRJbk0ZJbraohfW8f9z2/LRrEwYk5adY3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8128
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,119 +137,139 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Legacy i.MX LCD display nodes have no schema, leaving their properties
-unvalidated and causing dt-core.yaml warnings for fsl,pcr on several
-i.MX25 and i.MX27 boards:
+On Wed, Nov 11, 2026 at 07:44:19AM +0900, Alexandre Courbot wrote:
+> On Wed Nov 11, 2026 at 2:42 AM JST, Yury Norov wrote:
+> > On Mon, Nov 09, 2026 at 05:32:52PM +0900, Eliot Courtney wrote:
+> >> Current code in IdPool::with_capacity rounds the capacity up to
+> >> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> >> smaller than this and still uses an inline representation. Remove this
+> >> behaviour.
+> >> 
+> >> This allows specifying a real capacity of 0, which was not previously
+> >> possible.
+> >
+> > How real capacity 0 became possible? Did we eventually find a use case
+> > for it? If not, it should not be possible, and the implementation
+> > should not explicitly handle that case.
+> >
+> >> This breaks `grow_request` in this case, so change it to grow
+> >> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+> >> `shrink_request`.
+> >
+> > Not the grow_request only, I believe. I recall the discussion about
+> > panic on most operations on a 0-bit pool.
+> 
+> You have panics on most operations of a pool of any size if accessed out
+> of bounds. Zero size is not special.
+> 
+> >  
+> >> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> >> Reviewed-by: Burak Emir <burak.emir@gmail.com>
+> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >> ---
+> >>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+> >>  1 file changed, 32 insertions(+), 6 deletions(-)
+> >> 
+> >> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> >> index 92eeb7caa243..f77bd90325ff 100644
+> >> --- a/rust/kernel/id_pool.rs
+> >> +++ b/rust/kernel/id_pool.rs
+> >> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+> >>      }
+> >>  
+> >>      /// Constructs a new [`IdPool`] with space for a specific number of bits.
+> >> -    ///
+> >> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_LEN`].
+> >> -    ///
+> >> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+> >>      #[inline]
+> >>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, AllocError> {
+> >> -        let num_ids = usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+> >>          let map = BitmapVec::new(num_ids, flags)?;
+> >>          Ok(Self { map })
+> >>      }
+> >> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+> >>      /// let resizer = alloc_request.realloc(GFP_KERNEL)?;
+> >>      /// pool.shrink(resizer);
+> >>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> >> +    ///
+> >> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+> >> +    /// assert!(pool.shrink_request().is_none());
+> >> +    ///
+> >> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+> >> +    /// let small = IdPool::with_capacity(8, GFP_KERNEL)?;
+> >> +    /// assert!(small.shrink_request().is_none());
+> >>      /// # Ok::<(), AllocError>(())
+> >>      /// ```
+> >>      #[inline]
+> >> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer) {
+> >>  
+> >>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if possible.
+> >>      ///
+> >> +    /// Grows to at least [`MAX_INLINE_LEN`].
+> >>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`].
+> >>      ///
+> >> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+> >>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+> >> +    ///
+> >> +    /// # Examples
+> >> +    ///
+> >> +    /// ```
+> >> +    /// use kernel::{
+> >> +    ///     alloc::AllocError,
+> >> +    ///     bitmap::BitmapVec,
+> >> +    ///     id_pool::IdPool, //
+> >> +    /// };
+> >> +    ///
+> >> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+> >> +    /// let mut pool = IdPool::with_capacity(1, GFP_KERNEL)?;
+> >> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> >> +    /// pool.grow(resizer);
+> >> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> >> +    ///
+> >> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+> >> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> >> +    /// pool.grow(resizer);
+> >> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+> >> +    /// # Ok::<(), AllocError>(())
+> >> +    /// ```
+> >>      #[inline]
+> >>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+> >> -        let num_ids = self.capacity() * 2;
+> >> +        let num_ids = usize::max(BitmapVec::MAX_INLINE_LEN, self.capacity() * 2);
+> >
+> > You only need this max(...) thing to fix the behavior of 0-len bitmap.
+> > We don't have any users with the request to support them. Please don't
+> > add any extra code to handle unwanted and unsupported cases.
+> 
+> No, this code is a side-effect of the pool not being rounded up to
+> `MAX_INLINE_LEN` (note how the `max` moved from `with_capacity). It
+> would still be there even if we did not support zero-size.
 
-  imx27-phytec-phycard-s-rdk.dtb: display: fsl,pcr:
-  b'\xf0\xc8\x80\x80' is not of type
-  'object', 'integer', 'array', 'boolean', 'null'
+The commit message says exactly opposite:
 
-Add a display schema selected by the presence of fsl,pcr. Describe the
-panel model, framebuffer pixel depth, interface width and LCDC settings,
-and reference panel-common.yaml for common panel properties and display
-timings. Reject properties not covered by these definitions.
+  This allows specifying a real capacity of 0, which was not previously
+  possible.
 
-Keep the LCD controller schema limited to controller properties.
+Eliot, can you reword please? We don't have a single use-case for
+0-sized bitmap, nor in C, neither in rust. If your code handles such
+a bitmap correctly to some extend, it's purely accidentally, and
+nobody should rely on it.
+ 
+> Forbidding zero-sized pools would actually require *more* code in this
+> patch to enforce that rule, and would not allow us to remove any in
+> exchange afaict.
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-Changes since v2:
-- Add a separate display-node schema selected by the presence of fsl,pcr. (Rob)
-- Describe model, bits-per-pixel, bus-width and fsl,aus-mode, and reference panel-common.yaml.
-- Reject unknown display properties with unevaluatedProperties: false.
+I trust you here. Maybe declaring nbits in the allocation API as
+NonZero would help - IDK... I just want to make sure we're not
+bloating the implementation for unneeded and confusing functionality.
 
- .../display/imx/fsl,imx-fb-display.yaml       | 73 +++++++++++++++++++
- 1 file changed, 73 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-new file mode 100644
-index 000000000000..72e567b9ed98
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-fb-display.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/imx/fsl,imx-fb-display.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Freescale i.MX framebuffer display
-+
-+maintainers:
-+  - Fabio Estevam <festevam@gmail.com>
-+
-+description:
-+  Legacy display nodes referenced by the display property of the i.MX
-+  LCD controller describe the panel and its interface configuration.
-+
-+select:
-+  required:
-+    - fsl,pcr
-+
-+allOf:
-+  - $ref: /schemas/display/panel/panel-common.yaml#
-+
-+properties:
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Display panel model name.
-+
-+  bits-per-pixel:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of bits per pixel in the framebuffer.
-+
-+  bus-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of data lines connected to the panel.
-+
-+  fsl,pcr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: LCDC Panel Configuration Register value.
-+
-+  fsl,aus-mode:
-+    type: boolean
-+    description: Enable AUS mode on i.MX21 and later LCD controllers.
-+
-+required:
-+  - bits-per-pixel
-+  - display-timings
-+  - fsl,pcr
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    display {
-+        model = "Primeview-PD050VL1";
-+        bits-per-pixel = <16>;
-+        fsl,pcr = <0xf0c88080>;
-+
-+        display-timings {
-+            native-mode = <&timing0>;
-+
-+            timing0: timing0 {
-+                hactive = <640>;
-+                vactive = <480>;
-+                hback-porch = <112>;
-+                hfront-porch = <36>;
-+                hsync-len = <32>;
-+                vback-porch = <33>;
-+                vfront-porch = <33>;
-+                vsync-len = <2>;
-+                clock-frequency = <25000000>;
-+            };
-+        };
-+    };
--- 
-2.43.0
-
+Thanks,
+Yury
