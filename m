@@ -2,128 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1929A606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD2E606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GfjRE0+W
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=vaG3urt0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7708610E3ED;
-	Wed, 11 Nov 2026 11:18:19 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8737310E3ED
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:18:12 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-3700ed8dbe3so5406164eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 03:18:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794395892; cv=none;
- d=google.com; s=arc-20260327;
- b=JXRhjqQhCZo6Ghm1AyibL6HKeZnT6HeDZfI73SH0JQQsJrOz4oIPQ6KUyVhBYER1ur
- E9jR0KD22pvMpJZVyQUM4CFUJSwNZrMAH55mNVBZObezZt4gpK7Ey57Jh8nrwklcVdS+
- I9Jn7HGex+ZSbUHQBwWUYIL9Y0Fwn66/ROEVtbH27SkquoimUF1jPI/7hN42i3jCuYQn
- Eqj+KGdF+dBZ1aN0Oeb0jGVzmpkZoPJSzUn/6kcxdSk8WQMduKvJyGDVRkNOr2cagiqJ
- N+MeseMEM/C85Ao7bHo0+FEAPucyAd14h0STNzzVxwoEEaV1qq1TZBOqmoI/pLr/MsF9
- Gz7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
- fh=A6HbTTw15IO1mUdskjzF83v/K8eBewGKi0KrS3REtHs=;
- b=KMtt5sNnUGYApVsRm71yz0de7DmThKsGtcw8L6P1Reytmfl5dixnozTu6u8HIMu5AN
- bjoBjr4oeuu7eqTBzEqKqgaMv0zjQXWPwytzqs0nBYVu5bHylwPjeTfEOQ/eKSLahw0P
- z56BnuBQcHVy4Tsde+G+iJnRCTGP0xSsdYRhz+Ep6fB5OXacs1K6zQaCeKNQN70ydKyH
- XlwqVUm09mowPSONCRR21iZCOVWaMEse0rxyLHdeT7aObh6yqOkOfyF1f8jVO6O49aeH
- njCEAqL1RknsaI9udv1hTtGK4MWyS2mYkrP1OqOwfjTlLz4Rq9QjsM8qQbFhv4xkmnUu
- b7/A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794395892; x=1795000692; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
- b=GfjRE0+W0hlxnktso1sk9/mAM4J1WDLXY0WV5m2ki+3MzwdrVBluCaOHT7wLmkEZ95
- 24lGGaTbXfznZiWF73Ku6oYuoVZbpETtWJBsifop3RV4oNsBUd9858Z0Figwy+kWjZGq
- 5CA/YE7z14N8Vpc2MT0tSb+Ffcx4sXZHrSJGW/FUqOJacwQuUNy+1iJ12/SEkRoM6bHQ
- Ua+9BaF2u9z/VyIkVq/pMZIiVsS74Cvi3KmR5UDKuzur3S6Dp/wLnHl469lFNJK7TCpv
- A3tiEBWI60f4FSVf92HbUzAFmSELbyTnJCd8DZv1eH8bZzmtrZ48xfMo1orJr/LTde6F
- Lq0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794395892; x=1795000692;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
- b=PwoNfFVg8ddDq0wsF1MT/Ks0T6ysTMy6hoUZwLRyyzLCC7E7NleEpuV0PEx0D3SZvm
- cKGUnFiQiQzqqveHzlh006gKO6sZ7MT6O7NTzjbaVAIFxVV0lPOjx9q8JKkUQo4j5RVk
- Rgsye5d5FFYJUCNsx6l0TpgZSCzq1fLO3l6z7xjxFSJ0GFPmMf6h+WP4MwOFIR8fJY7Y
- dw8gTMenzdWGXrQbYK+ckvKhz3EE8KhWc5+lVK4GkC3hBXwLEc3QA3qNRBp0+xPuwVrx
- YqbHscCGXOxSR2VhAG1RQxpldsAc5yRVXJwugi/tWpTRaaa6OS+aaFiLoSc3r4ldh7LE
- fiHQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErFWZglKCSaBTUBjh5LPONw/YMfNiqZKRljHtxUHEF5DAImn6XAMahWxbfCSNSY3ZFYiN+z77lMysJQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/+yHgcKTep1y2u5ob0CpFvMv58eTAXHbFrwukzbkoB9kgB/bf0
- NpLjiGSE8vNF9Shqod3FQuYK9HFkmrxICgKDL3iA6Zqma03m8gZDOZ3uvODHg5smjphYwOMmuZ5
- yPqM0d9PARHifoFQ/YBY7flOr4ODM0Q4=
-X-Gm-Gg: AYBFou2qnmroCbUkkk3TWqKXw71AbpNC/ue8AsROh7JPP+6m72Q8rQgroXzSWcTfSmK
- JeMoZFF1a7KQqL+wtf8O0o0uhlbXuiq27CDFRY2s6GUivTvMlH9645W22bgUfCJ509rsM0knHE9
- bK+YaBrAUIulXaiLx7WTWHqMnrmLk+jjgvuZQn5bgQROUW3qg1FKgFHdIYNeSGyYSkTv1p3AFSM
- QNGnEvPvwNG4pSKEUPqa/9oPNt6hDOBhVUHtgb6WqrY7FGw8J9fY91Dhcwq9UUFAtDfP9ReYedI
- 97FfWVvt/zwezIB9rXa7zt90vcv+xi2H0mYeEZG+A1XggKrH7d1Qg8jPQv98jEbhmbnB85Qpd+G
- Y8ZzkEgfNF/pgS9ArD5Qbdaw4BEuRbn/xOuixBNwOngi0bjSUesb1CvSqczSDFMgo7y77rgnAnd
- nnBDPtanjkPYTelYS2QzpfMjxjjdkGkQ==
-X-Received: by 2002:a05:7300:d942:b0:375:50d9:474e with SMTP id
- 5a478bee46e88-3768366a40amr2582746eec.4.1794395891501; Wed, 11 Nov 2026
- 03:18:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A022B10E1F5;
+	Wed, 11 Nov 2026 11:19:53 +0000 (UTC)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F190E10E1F5
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=UGGOSnoQOa8uQR6vbajtQptujNdknjBUZcDCmSIDNdo=; t=1794395986; x=1795605586; 
+ b=vaG3urt0uFwxAfNjajQP8pU0H2nb3mAAEOD96YNNQbDjDu91OjVt8vVBSGCTG+CxpantSKUSpjg
+ f6vkBHUEGzjvLt+kvznwDvBvt3kuFj9WMPwld7Y57ez0yShnAMzTZ+UKRJ4TQ1tXimiKyoAlCRXVd
+ jqXLJK8/4GqOYdmLBQYP4XkFjtWtBqYaIKRxBcJOZJO/TwzeEzojBkPUWfYeCQjuJHqQX5eW0g1pr
+ iCRd22G5zt0T+RzeBbo6qt0y5donoBtad71k/AXgfxGrMDaCz1jCaWJlbX+K3O9Kfd3oEI1b9NS9v
+ MlXT2RxEVgflVzwZGwOpeL/jk0suPdhVvEeg==;
+Date: Wed, 11 Nov 2026 12:19:24 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, tomi.valkeinen@ideasonboard.com
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Paul Cercueil
+ <paul@crapouillou.net>, Paul Kocialkowski <paulk@sys-base.io>, Linus
+ Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, Jagan Teki
+ <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Albert
+ Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu
+ <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v3 17/19] drm/omap: dss: don't create a panel_bridge
+Message-ID: <20261111121924.0e54e7e8@kemnade.info>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-17-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-17-83afb4f1a707@bootlin.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 11 Nov 2026 13:18:00 +0200
-X-Gm-Features: AclHuK-O2dC4RAUcsZW-78NPaZ5DVC69K9fHpFDz6S6p3zKh72SRrQsMpZxuDAU
-Message-ID: <CAPVz0n0-jBU3jnDsA4FmAkiF22Bqba=87_VRU3P1H2dzHHbteA@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Joel Selvaraj <jo@jsfamily.in>, Jagan Teki <jagan@amarulasolutions.com>,
- Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Michael Tretter <m.tretter@pengutronix.de>,
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Nickolay Goppen <setotau@mainlining.org>, Robert Chiras <robert.chiras@nxp.com>,
- Alexander Koskovich <akoskovich@pm.me>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Chris Morgan <macromorgan@hotmail.com>,
- Barnabas Czeman <barnabas.czeman@mainlining.org>, 
- Heiko Stuebner <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>, 
- Arpit Saini <arpit.saini@oss.qualcomm.com>, Michael Walle <mwalle@kernel.org>, 
- Ritesh Kumar <quic_riteshk@quicinc.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Danila Tikhonov <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>, 
- Michael Srba <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>, 
- Alexandre Mergnat <amergnat@baylibre.com>,
- Alexander Baransky <sanyapilot496@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
- Romain TISSERAND <romain.tisserand@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,80 +72,137 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=D1=81=D1=80, 11 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:0=
-3 Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> DSI panels can be placed under DSI bus directly and many Linux DRM
-> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> such panel and DRM driver does not use OF graph to configure lanes.  The
-> affected here Linux panel drivers do not use OF graph, either.
->
-> Requiring graph port for such panels is tying the binding to one
-> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
-> requires the port.  The port is not needed for the hardware to operate
-> and for some of the Linux drivers, so it should be optional.
->
-> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> ---
->
-> Remaining one Ilitek is fixed in:
-> https://lore.kernel.org/all/20261109160706.2272332-2-romain.tisserand@gma=
-il.com/
-> ---
->  .../devicetree/bindings/display/panel/anbernic,td4310.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/boe,td4320.yaml  | 1 -
->  .../devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml      | 1 -
->  Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml | 1 -
->  .../devicetree/bindings/display/panel/elida,kd35t133.yaml        | 1 -
->  .../bindings/display/panel/feiyang,fy07024di26a30d.yaml          | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112a.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112b.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx8394.yaml          | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml       | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9805.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml  | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt35532.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672a.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672e.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt37801.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt51021.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67191.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67200.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm69220.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm692e5.yaml       | 1 -
->  .../devicetree/bindings/display/panel/renesas,r61307.yaml        | 1 -
->  .../devicetree/bindings/display/panel/renesas,r69328.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ronbo,rb070d30.yaml        | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams581vf01.yaml    | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams639rq08.yaml    | 1 -
->  .../bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml       | 1 -
->  .../devicetree/bindings/display/panel/samsung,sofef01-m.yaml     | 1 -
->  .../devicetree/bindings/display/panel/sony,td4353-jdi.yaml       | 1 -
->  .../bindings/display/panel/sony,tulip-truly-nt35521.yaml         | 1 -
->  .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml | 1 -
->  .../devicetree/bindings/display/panel/synaptics,r63353.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,g2647fb105.yaml   | 1 -
->  .../devicetree/bindings/display/panel/visionox,r66451.yaml       | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm69299.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm692e5.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml     | 1 -
->  .../devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml    | 1 -
->  39 files changed, 39 deletions(-)
->
+On Wed, 16 Sep 2026 15:45:41 +0200
+Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
 
-Thanks!
+> Now a panel_bridge is automatically created for every drm_panel and the
+> panel-bridge API is just a deprecated wrapper to access it.
+> 
+> Update and simplify the code by just getting a reference to the
+> already-existing bridge using of_drm_get_bridge_by_endpoint().
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com> # for renesas
-r61307 and r69328
+This breaks the display on GTA04/OMAPDRM.
+
+Panel is panel-tpo-td028ttec1 attached via DPI, controlled
+via spi_gpio.
+
+I get
+[   12.050201] omapdrm omapdrm.0: [drm] No compatible format found
+[   12.050231] omapdrm omapdrm.0: [drm] Cannot find any crtc or sizes
+
+Workaround:
+rmmod omapdrm
+modprobe omapdrm
+
+Regards,
+Andreas
+
+> ---
+>  drivers/gpu/drm/omapdrm/dss/omapdss.h |  1 -
+>  drivers/gpu/drm/omapdrm/dss/output.c  | 42 ++++-------------------------------
+>  2 files changed, 4 insertions(+), 39 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/omapdrm/dss/omapdss.h b/drivers/gpu/drm/omapdrm/dss/omapdss.h
+> index 4c22c09c93d5..e3e685c931f1 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/omapdss.h
+> +++ b/drivers/gpu/drm/omapdrm/dss/omapdss.h
+> @@ -204,7 +204,6 @@ struct omap_dss_device {
+>  	struct dss_device *dss;
+>  	struct drm_bridge *bridge;
+>  	struct drm_bridge *next_bridge;
+> -	struct drm_panel *panel;
+>  
+>  	struct list_head list;
+>  
+> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
+> index 6e9bc605ee22..36d37deac802 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/output.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
+> @@ -12,7 +12,6 @@
+>  #include <linux/of_graph.h>
+>  
+>  #include <drm/drm_bridge.h>
+> -#include <drm/drm_panel.h>
+>  
+>  #include "dss.h"
+>  #include "omapdss.h"
+> @@ -20,40 +19,16 @@
+>  int omapdss_device_init_output(struct omap_dss_device *out,
+>  			       struct drm_bridge *local_bridge)
+>  {
+> -	struct device_node *remote_node;
+> +	struct drm_bridge *bridge;
+>  	int ret;
+>  
+> -	remote_node = of_graph_get_remote_node(out->dev->of_node,
+> -					       out->of_port, 0);
+> -	if (!remote_node) {
+> +	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
+> +	if (IS_ERR(bridge)) {
+>  		dev_dbg(out->dev, "failed to find video sink\n");
+>  		return 0;
+>  	}
+>  
+> -	out->panel = of_drm_find_panel(remote_node);
+> -	if (IS_ERR(out->panel))
+> -		out->panel = NULL;
+> -
+> -	if (!out->panel)
+> -		out->bridge = of_drm_find_and_get_bridge(remote_node);
+> -
+> -	of_node_put(remote_node);
+> -
+> -	if (out->panel) {
+> -		struct drm_bridge *bridge;
+> -
+> -		bridge = drm_panel_bridge_add(out->panel);
+> -		drm_panel_put(out->panel);
+> -		if (IS_ERR(bridge)) {
+> -			dev_err(out->dev,
+> -				"unable to create panel bridge (%ld)\n",
+> -				PTR_ERR(bridge));
+> -			ret = PTR_ERR(bridge);
+> -			goto error;
+> -		}
+> -
+> -		out->bridge = drm_bridge_get(bridge);
+> -	}
+> +	out->bridge = bridge;
+>  
+>  	if (local_bridge) {
+>  		if (!out->bridge) {
+> @@ -65,11 +40,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+>  		out->bridge = drm_bridge_get(local_bridge);
+>  	}
+>  
+> -	if (!out->bridge) {
+> -		ret = -EPROBE_DEFER;
+> -		goto error;
+> -	}
+> -
+>  	return 0;
+>  
+>  error:
+> @@ -79,10 +49,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+>  
+>  void omapdss_device_cleanup_output(struct omap_dss_device *out)
+>  {
+> -	if (out->bridge && out->panel)
+> -		drm_panel_bridge_remove(out->next_bridge ?
+> -					out->next_bridge : out->bridge);
+> -
+>  	drm_bridge_put(out->next_bridge);
+>  	drm_bridge_put(out->bridge);
+>  }
+> 
+
