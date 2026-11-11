@@ -2,91 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36705606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBE3606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AoVmomvi;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OYG041Rp
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CjZeU5PZ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OvTzYtal
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E94710E424;
-	Wed, 11 Nov 2026 14:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 263DB10E40B;
+	Wed, 11 Nov 2026 14:49:22 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1642E10EA40
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:48:10 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 939E210EA4A
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABEKXsS3510940
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:48:09 GMT
+ 6ABEKBQk926470
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=qX3b7mQNELxSpZp5mVmlrq9O
- PoeMPx5UD59wpN8yb6M=; b=AoVmomvizF1l7f377QDbRDNoulbx9eyKJ1YmXZyh
- uvxGsXnNnOu6t78U9/HukjPPHOX54n1EQsc7NM4WPVv7vf3DrpQIDTYKW4lZqSGB
- cP+9wSEL8+muKM83bEKG7MW+ULX3fHhYBJvm4zjjxSFKRMmFx91rRm6PYCD9EPPE
- 64j5L70e52VAHg3+q1kEFsks147c25fBjgvvMJ/noNiXZOUfu9lYJTQwzkEiQpga
- VzOVcM7rebK6Koi/JlsUdVBmYlEi37QcsZGRGp6qO4fT+u5NWYWYDxd8FV3smueR
- elpZHOkF8VuxxJGZY9UKSAHRsyxq2pu01ePf2pMqzD0pzg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u83u2-1
+ :references:subject:to; s=qcppdkim1; bh=qhJ2whnh2ftT/2vZqPRp8bR6
+ iMbwhkvUovT1Mfig/hw=; b=CjZeU5PZOdIkO4DoAP9sLaaNn5bjwdbcNRvH79Yn
+ ZD3XlMsXfX03NcJsfmpTFHvSQjkEell6uXR48rWaV5Iuo2QRhF166/xzlPbb4Nde
+ YgN0B45RpF4wc32tTFVRW/4OY6aDsrKKxPT+FznCIc2MTO9p35ACu7sDkWVoUw94
+ SRbLETysH/wOOk90LhNbBoxsboYRe0kwgZ+OSJjk+FV2kaFUlrwTyz7mUytQHkFy
+ tZycqW5p6Br7KQgFSheKzHMK6f6VjAJPv9BNH+1z08Qi+2ZKOUJqkGJXL8mCYHVP
+ sMpryz8JUB1d46w3xoouvooBPjgTXrKsz0R+7/sZbIwKmA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv9b33yx1-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:48:09 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-91f0f4c70cdso6175846d6.3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:48:09 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:49:10 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-91ea5866643so61993096d6.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:49:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794408488; x=1795013288;
+ d=oss.qualcomm.com; s=google; t=1794408549; x=1795013349;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=qX3b7mQNELxSpZp5mVmlrq9OPoeMPx5UD59wpN8yb6M=;
- b=OYG041RpoOSsNcFGdpy+nBMRAmCV69nTrE/dfa/2k8UN2M6Pc3z+8tX/nfArZwtD5+
- 12dz96bmcnwpEtPIY3h7+JVYOumq0Ln/WSesjzfer/iXVzLuhplXx/j+b6d6DvYm88kF
- dmsGhe9VyZd6JmCeJxxx2NP1e4CBZQPjm1Pt0Vc8UqoB8q83oH6fywa9Ik6g0x+z5iWf
- PMbWDBf+vYANI2ZuhmYQ67pCdAbeOo5tk2PanmogKDoOA13NqReF68dIkqSOM6uZw+ZM
- Fpg2ezoz/QJN87oRRNI3T6M03qGUiwOttKXQBxdm4J0Aq78W53l8nYz7KM6xgiowzfzK
- JSbA==
+ bh=qhJ2whnh2ftT/2vZqPRp8bR6iMbwhkvUovT1Mfig/hw=;
+ b=OvTzYtalOYK9lQDF/kgA4Q/U/5VYSIDFmwtFcnBGs7Vv+Gjyn6/tnsuvwEz0yiJpDb
+ IMEJF01KbrVYwT6GvrGxtLJ9oHppzL/oH4h0EY1EX4ocvAc5hcEzWaJbcbztY03XWTEp
+ MZxE5Clo2Zp1dxk9YaHk/Xw+ZzPf8JlEFzq8EhsxRCOKjZSzejaY0rGOnG/qGtFwlBX/
+ cq90B8TVdtRsCy+iLExPzJ7f+fGfRp4eM3p3sdsGLS9jcri03eoPH2qP8OlYSVRZ9TId
+ 6v3dxTWGGLgqTCBWaSYRA9EMIVRdqmwONNmgv1Em7JQ2VHJw9uad1/y9UyQwczODt1L7
+ wO+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794408488; x=1795013288;
+ d=1e100.net; s=20260707; t=1794408549; x=1795013349;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=qX3b7mQNELxSpZp5mVmlrq9OPoeMPx5UD59wpN8yb6M=;
- b=veQ5h4XOdarVdSDpfFYtzxM+sjNOJPr6Rfng5QMMjCaPfjqfZLDhQ1lJOR/MS32Lls
- d8UZaFcYPgnoHbEXAnP20nGk/qwCeBPomTbrlHaaJwzXXeSArTnkeXL3YnTZ4IwMkhBk
- uGGcujEFyGHjH/c1A/2GxhnRfdB+dF9nHTqeh5M7k7ImKKghrOjAhGTuhFEQyafkHBK3
- C4OYboSHPwoUU/5SfEV0WfHJW1IQPkutpjCh348Bg0eGxiEkdsui3QIICKjg4kyJqttG
- 9jl8IRXTZYrhjNOkkVPCw86ZVPxCrwiXtOEa73gCmKQaB2asfC1OBpkXwEpZzB5i1/Nv
- QzdQ==
+ bh=qhJ2whnh2ftT/2vZqPRp8bR6iMbwhkvUovT1Mfig/hw=;
+ b=BJHkU/W4TedJxmJ8Sb1LjIJZ5GkCVJLDXYXIyn31/RHd35a9V47af5KG38AL0HPkmd
+ Yfit/Fp36Yr6d9bhx+qaZtwjZnB7M3pYTsW3dKw5uHi4HEfgrjsOjdNNn9UQtdhX78n2
+ xrrTuJJUlcnqgxEXK/iT1V/UfWMzF6ffuvsv5qWm2/UFYn+ljFyGFshMzxfuxrQzWGxb
+ wB1wrMym/tijeb5MjnAyyNIgzvBgnRke23abKgURkEcXxC0HLBSlyjl6hgJ+O8vJ277+
+ HHqtChgMWHKNdifxmamFpVLwGWjfqOc7sucuQXruim8wkMKDcS+Kf7n3Ux2IvAwQuoEH
+ 6SPQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEwd+oY6F3ZNhLq7KBVOaoozFe0htbCSXUEvKwUeQHi9eNs2r3ZAp/WIfiUpTvMvS9qJURIpUMuvFk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9gClh75DKdxmQgHKqzVgiw7oOS0L613PlQNNISFsqz7SX1dy81
- gztbjf7J4WN8ZUmwfynHgI29NDq10fnjMtZOZqzV/YA9DSX2CeJQH6B/vxuwffJrpx27PHjH9Ot
- 19jW/zZ1FUK20ZUc3dp+2hW7sPZc5STeriz0X4/8rMoS/nX5gkSd7jNe7NL4iW6WNBHd8HIw=
-X-Gm-Gg: AYBFou0eVj6Rce4cuSx5CO035dyAFi6UrCDaqRIcyGX20LQY+Uy9aB0OpahdSk0XoVQ
- nrU/aZUunyiqdCy6oS8p0PJZkmSE/RXMuGsy2pd8GUPeTiekDH01q16hK/ra/zVLBfq1O7WXJQS
- lSrlNnlxeIsrqtaDQqsAb6kagM+2+xkG/lQm4sF9v30IaVoQB8dU+W7hd+NGFS6ogI+lhMUr0MZ
- O6oI4rWpsfEiyXrBjLqxaSGOqFaLfcQ44HXz3QMd1t2iqcSWWQN/F2xsghPsm+vrAR0R9zGISK7
- rIsTz5TzGdUSLKws3Ba2mZZ9N1SEeL2HKly1jpJ7AWMRRqAcGfR7W1uTtQ++BUBjPi5d7YJlcAn
- xBnSVJl8+FPEfH7NA7mUQc/w0A75AuHTj4FyMiPlWxd3c8RebwSrxlCMJC761qOVQ9gL0vYamU7
- tCiRfZAPSdGgRK4BC+qlB56mvalP95lty4aEyAcy+7yWnaZzScCxEpLKjan9LhGw==
-X-Received: by 2002:a05:620a:1a1f:b0:93c:e83:6ba4 with SMTP id
- af79cd13be357-947afff2be4mr420476585a.25.1794408488450; 
- Wed, 11 Nov 2026 06:48:08 -0800 (PST)
-X-Received: by 2002:a05:620a:1a1f:b0:93c:e83:6ba4 with SMTP id
- af79cd13be357-947afff2be4mr420472385a.25.1794408487992; 
- Wed, 11 Nov 2026 06:48:07 -0800 (PST)
+ AL+hErEpHACtiINHryAqIvFUqzc2EEGuoN7p6WB6SRNwHN5T8xO3mxX6AdJXuYAy6p37AV/+m6YxW2FcCes=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8RNZOVuvmbCRtKKoNc6VS8R9Zcy/FOr/MpfPtypDmrx8oj3wBs
+ lPuf3w7Ody5lBLGaG3y+92eKbabB4OtmfBPaFRLxAb++TNUBhPkLyWT8kH/+yo4wUYKkRzd/sLI
+ QFtN9kfqxtG1G+JyXfUcZZJXT1TKSCWCEJtF1y/sz+SEu88dYSvVrQy4RwPFyUFyiJVaUJWc=
+X-Gm-Gg: AYBFou3zLr3YnfUGjVBiKblMcMVwtAeinCecfQtXlWY2dK0aO7rXaquqYkV6g2A7qDg
+ JkeK40CjlTwDKmkKEWtB2BOWeSF+71nLvdQ3fburtCwFEhElQCrNHatHN//kqdK9Bepg4SyiSL2
+ XQmUarMbnVjZ4xvh3mnlPFra5od747607EMclSjcR1mbNC6i5cLILX+7ON30a+eRwQYgvCjW7qe
+ cc/qG1jp0LWTq30yujDeB/1B/EcApx+arBZhVpfcstnu4gyPIGo8xfrtHDYiYisjfbVSYy6d5uH
+ 0k9EpAeD9/l+SqIl0DriiebhKJCd6+uzxKFpbMynVgALC8ww6XHVht1xSoWVyKHp0BJYaWPY10S
+ Ncl2qNR3VTSgn8LHvIQogrKQkkm/qc0R7lZfxHsLuC1mgIjEhmiEzOqek7YAY+TWsEu1askZmAe
+ xFdin56FETPyTqOzCOe+GsyYDdAXaSgichKYUUw/DMAMKyqmtyE3av/wNBJL2LdA==
+X-Received: by 2002:a05:6214:2028:b0:91c:65d0:1d85 with SMTP id
+ 6a1803df08f44-91f0426ddcbmr48004036d6.53.1794408548821; 
+ Wed, 11 Nov 2026 06:49:08 -0800 (PST)
+X-Received: by 2002:a05:6214:2028:b0:91c:65d0:1d85 with SMTP id
+ 6a1803df08f44-91f0426ddcbmr48003236d6.53.1794408548137; 
+ Wed, 11 Nov 2026 06:49:08 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157b7a63fsm1027158e87.9.2026.11.11.06.48.06
+ 38308e7fff4ca-3ae0923c164sm12141891fa.20.2026.11.11.06.49.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:48:07 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:48:05 +0200
+ Wed, 11 Nov 2026 06:49:07 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:49:05 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -97,44 +97,43 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v8 08/29] drm/msm/dp: replace power_on with
- active_stream_mask
-Message-ID: <yff2ymxuchwtpshwleockscsxerjwuy3zmwm3paspu7rvfoyza@pxarnmxbdidw>
+Subject: Re: [PATCH v8 10/29] drm/msm/dp: add link_ready to manage link-level
+ operations
+Message-ID: <xdahtkmsoxposnxuomytx2wcxthelxjpopecnxjellidqbjq6g@lgmcy4privcj>
 References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-8-d040fb33db5f@oss.qualcomm.com>
+ <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110-msm-dp-mst-v8-8-d040fb33db5f@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX0nWVa6NRmfG/
- XR+07XAUe7EsZ9iqmuSjLdKdjZkuxZpsnhspV7W8yovQwWeJvseDqwHb6zVxbneCvmckKQscoVm
- AHq1ZN6+coNfwCHEjdl5ORN2ONGZvxA=
-X-Proofpoint-GUID: b_APsZHpPNQBSC6f4zGMIY6cA2Kv8aSp
-X-Proofpoint-ORIG-GUID: b_APsZHpPNQBSC6f4zGMIY6cA2Kv8aSp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX48BgBdfhQk/6
- kBBSgornfzAyQiLy0VaGO/sHuOpeDeACq3ry+OcQ3TJVScgZOT75vOHBbHQh/Bw6uuW6UAh2ebb
- 4JICbBWzsn1kwem/W+NZI40WppODk3n0vAQVM35f7hjVpE//ZIkq3zZYGlMW8mwjVqnhfsYuQhs
- 1PHG3PtyV+fJXC4xSxMv+3H+nnaL5fPNUaHXiPWFFo+pQjX1UHp4R/bkGPPHpVwubmI5xouAjht
- Y8heq6p8oszVw6EF7zR9MW4EDEOSLtt/n1oksS3hgHZ5oq3joyKjHBlFTrCYbX6FghbWVLrdP2X
- ybAbXlxnn5RwK8/Vavz5195OtzzteLWrM4f9w9NBCqRPDQdv6PZVz9dGIOvdYdMZrMjtpRZAuFa
- pDNFWHCmSQ26VgbREK960LU/7/qg3ukhB34kogVlWep7pPJjPFBQbEuwmM9flcy4KU4QvgkSFN1
- 4P9rNy93CQLuwyAmTFA==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af48029 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261110-msm-dp-mst-v8-10-d040fb33db5f@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=GKGdgeNK c=1 sm=1 tr=0 ts=6af48066 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=8J1jZnWIjLQ8iHHXRFcA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=9BbQWiF9P2Ean-TlPn4A:9 a=CjuIK1q_8ugA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX0+tvIzR/LJMC
+ 3Y5Z4ptv5Mx0h6/BLbxawDV+rhrgdY/N13Wma5L+8fOEHhETxRpsuSvkSAC2yfbeqXH9uqqilqS
+ lxCef2J1W/JaYkITa6SUuJhk6LpG+u9mmL/DrPZi+q4T7IZaA4CayHsVFOgoAtOe04PQL3Rs2b9
+ m+fR/WqHEziC9papjwmavUwFXVPrC2blItl7CcR64ve/gLKLUk6PB+IEsqI7UUgVn2I6oL2AQTa
+ RzeAib5+uyTZhe4cVY6H22OOizBbppZphsw/FimFJwvbSyFUu4Mh++C1sTszZ42ZfN/elRfrDCS
+ QtahY1wD7bFY4uTbY9qrTJCD/WjDSezDDoa/Rf2VwbCoCxZQSg4kZgt6W5tvrcpdh3Muin5msSt
+ qZ1cH6tM+bx07336zPEvM7cdWWLZPAwNY7umdIx31/sfNbetlMrjh8l9gb0pFdpPvq6jYvX0WeS
+ 4UnlJJuz8n+/AoV8lag==
+X-Proofpoint-GUID: coE87o1IlbIkZWAGjGbSpNZgahWokyV2
+X-Proofpoint-ORIG-GUID: coE87o1IlbIkZWAGjGbSpNZgahWokyV2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX/qE0mQunDCuO
+ 9bFf+dVb7OEaNEF9vgb9Ot8DHu3QGWCC0G9Rie3vs6OiSB3qaCO+ft9HmfXhpgPXWbhpHwC/qbS
+ I3W7HjMiSk10xDi/gr9BlSlglds92LI=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110058
+ adultscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,34 +152,30 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 12:54:29PM +0800, Yongxing Mou wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> The power_on boolean cannot represent DP MST, where multiple streams
-> share a single link and its associated resources.
-> 
-> Replace power_on with active_stream_mask, a bitmask of the streams that
-> have been successfully enabled, and use it to track the lifetime of the
-> shared link. Link initialization is performed when enabling the first
-> stream, while link teardown is deferred until the last stream is
-> disabled.
-> 
-> A per-stream bit rather than a count is needed because two callers ask
-> whether one specific stream is up: msm_dp_display_disable() uses it to
-> stay idempotent, and msm_dp_display_disable_helper() uses it to tell
-> whether that stream ever made it through .atomic_enable().
+On Tue, Nov 10, 2026 at 12:54:31PM +0800, Yongxing Mou wrote:
+> In MST mode, multiple streams share the same DP link. Track a link_ready
+> state so msm_dp_display_prepare_link() runs only once per link and
+> repeated calls are skipped.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_audio.c   |  2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c | 56 ++++++++++++++++++++-----------------
->  drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
->  3 files changed, 32 insertions(+), 28 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++++++++++++++++----------
+>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>  2 files changed, 37 insertions(+), 12 deletions(-)
 > 
+> @@ -1570,6 +1587,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_dp_display)
+>  
+>  	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+>  
+> +	if (!msm_dp_display->link_ready) {
+> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+
+Link already disabled.
+
+With that fixed:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
 
 -- 
 With best wishes
