@@ -2,93 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B925606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F7C606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IRnVvi0y
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=DsS/fXyT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D3B10F956;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C92AE10F929;
 	Wed, 11 Nov 2026 08:23:41 +0000 (UTC)
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6011910E074
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 13:54:55 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-15ea896ddc8so3316363c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 05:54:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794318895; cv=none;
- d=google.com; s=arc-20260327;
- b=eyQblReaNW7j+yKP8MU+ioRP3zbsrKf0qSrx50YIetJVpslQJiK38+7NcrUlw01r6x
- oIZeWRBKqk8WWSG9O+RHgEYnxhZpHC+ztXa2YTA3d7A/44g5AhKRE3hBy7OYS7tcwqmj
- iSAYb+moGVD+noT6IRmTnmNDK1MCJpEpictjk9SwqnfbrwYjfMMiFSk8JpiESKfrQF17
- VOczqK2pKNh+8tl/6ixeIiOJtdku+P18oeUQ0mABSj7rcm1JPvQWo76ixGqShRt5ovoF
- 0slsKQy32e1myoRzRm88FXSko0mCJiacGaW6EnaTA7DFjtQ1zbwzKJ7hI4aC6UuVB2lA
- FmcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- fh=os7xcCHidLIVJBlCJQOV4G0QzivUWam7uLQOabIvNpE=;
- b=ki4HxACh4IRBHJ2/+2fwBpe/6Mr/C6wwtV2Mq929zo0/KhLfckaB6L7OXeJEnZ8jjo
- ixcLYUgj+DZEBHEOT9EulCc+2J2AATZ6ag/og5G77dPJu7welcmDUbd+blYW+AJzE15P
- ICsuRfA96MUxY+U24Rhn0YIoSImKfWtt+Dehc04SNZ5MEC1bMwqVfDyYtl3NS8iBqIiZ
- nK2rCvuo/+CoWuNDsijJ3db/gRj5UQZp4488L9FyadQc+DjYhr2ealmsjlNq2fiZjtvS
- HpndbHIlWVx8PvocWFnoD3sFwS6zMIMAzItWM7zj6nCYNl+oUFgi+ykTbQFkjNIfQejZ
- vJZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794318894; x=1794923694; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- b=IRnVvi0y/C1O438SReMjoCB/hB/6dG8D0mNB+bywOHBRe14T1ZKuEAJ+DKtmoHxriT
- xyOL0OqEZi1np94pKYa7JLKrQncIzPb9uXTUyivp24oAEWomthBUjfAy5yc4QLWD8m8h
- NMGn3zgfYk0ufFlHLpMGQAWinBkmixkQLrd2xObzUNgQfVd/IRjGpiK2ZPUU/ERTRBOe
- lx1ybYog5kkPzIsx32wBZE/YBkj7UlC5tVnxU8tzda0DzfJLtnE+VOCVwSAPDX9cvSxN
- 4cAfzoI8kMlFXguQxNZng37Zw146L4YZ9DH7MwTzyEvEuH8wUQKxr7fZiQlK7XtWMyZu
- ae0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794318895; x=1794923695;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- b=VIJbHqIIAtz9ils7W3JVd6197iR51xcDbj7qc/cLc1mP8IO0C+kIzypDbCVx9T9bwK
- 0mamj8La2akFqkZDatPFZqGXN0EafkPdPPmu7wo5LrLeCmI+rlexFRg6ysOCj0+5CIiH
- jmkIxRTNPydHpFXUa5JiZgTJXM793tvgdM+2GlMTvVZ/Kv64L/OIcRUOxPbAqH6qKSwV
- oOstFzCAURbQfEL/fhgFYpJnntwiTmrjPGNcjzgVeYfTgiccFrQbeDupNCGSGJj07+tB
- yI2cTUYisHOaIa5UXCiLR9MniVBGUiDed8f+l17MxHoPwKDoFWh6nj+ihybR/CntP90z
- g79Q==
-X-Forwarded-Encrypted: i=1;
- AL+hErGZ1V7oNyN29Ep7cWWd10rmz7MKHeXcEuHrsPx0IW4biH1deadVnPbUGSM7hH4aEW69kuiNydwLiI8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8dE6iNnMcDwGuIETUmw25t9PIcAlueTRJK2aX7QEj1DpP9Ld/E
- xrsdRkHSxlqP2OOmCa98PHd1UIry0MTPJ3WGNnz8lCFDuDt/SNpqGHcEi5/BriLMsLRUiFyguv2
- IX1Q/aQDEjFYMHM6eQ0KEfWF1ilYBm1E=
-X-Gm-Gg: AYBFou2ixM8HvHY7FR+oxLqqDvq877eoSLJULFLU8WPOz+zrhzjYHFgZ0rjleZ/VpCy
- jH/akO6NuYF5XrX0/EDB4qWBBEhL144gNRP1b1QBwqsx7zTJe0WXhWaBQgnonK+/Q71snZBNECT
- 2hhbmkBl90+Cni62x/wBIAkCXfLkzm7+tBqtFkVRMumBQvOyf/9FrRPd80KFpRZmpWuZNXaOwRS
- dtXwBN1eQL3hXDwS4r8znk0fF85zKELdG8zx7Js0r0ipbW4894CTdqBBLdk6TM2c2W0a2JLlSp0
- Hj361wyg7wxHlXOFb4kDPRUDgQ0QniGJGaqQbtPE7gebnuSwcMv/NxW3YhOV48c2cgrOYjEzXMI
- rMi4REgL7lGJPb4fyaQ0tmMxqr4SuxosO7utqCw/2ZXTFP95QB/S+/AhHm4raoz3nGs6t9SYe/B
- 9BeFknyJwFHrKe1A/Xl3HjsZ9qU9aVmbktdJJGo65vON7fbHV5liyqCg==
-X-Received: by 2002:a05:7022:f8a:b0:1a7:7160:ffc8 with SMTP id
- a92af1059eb24-1b3b60039e7mr4605593c88.10.1794318894291; Tue, 10 Nov 2026
- 05:54:54 -0800 (PST)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Nov 2026 07:51:25 UTC
+Received: from mail-m158137.netease.com (mail-m158137.netease.com
+ [47.251.158.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8421410F7A1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:51:25 +0000 (UTC)
+Received: from [172.16.12.11] (gyproxy-mailtls0-entmail-virt215.gy.ntes
+ [61.154.14.86]) by smtp.qiye.163.com (Hmail) with ESMTP id 544786367;
+ Wed, 11 Nov 2026 15:46:07 +0800 (GMT+08:00)
+Message-ID: <4043eb42-ce62-41ff-9a7d-d840bb90364d@rock-chips.com>
+Date: Wed, 11 Nov 2026 15:46:07 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261109230147.16302-1-claudioforain@gmail.com>
-In-Reply-To: <20261109230147.16302-1-claudioforain@gmail.com>
-From: =?UTF-8?Q?Cl=C3=A1udio_Forain?= <claudioforain@gmail.com>
-Date: Tue, 10 Nov 2026 07:54:42 -0600
-X-Gm-Features: AclHuK-3CNOIAx6d73x-TgXb1mwKho28x2ys-H0_-pwHs0pp2n1EZgwORe-Jqh0
-Message-ID: <CAOKbSHTuinvW_q-eqCaYeD75t1nLEdxLp5ot5HNkR5SHvUB9eg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Only allow idle optimizations when all
- CRTCs are idle
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
- ray.wu@amd.com, superm1@kernel.org, siqueira@igalia.com, 
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000004eddd4065fec6c36"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 09/16] pmdomain: rockchip: add optional per-domain
+ power-on settle delay
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ shawn.lin@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
+ leonard@lausen.nl, jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261108065917.135194-1-gahing@gahingwoo.com>
+ <20261108065917.135194-10-gahing@gahingwoo.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <20261108065917.135194-10-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c9923f9203a8kunm2dd9fb713a378a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU1IVh9CHRpNQh1NH0pLHVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=DsS/fXyTLnDgYvp4+HkqNssTj/QM61Fo3GnodXNmaCRPr2KWX7UWDRpIfJDDkszxhbuKwJP9MLaKB2+aG2VRLw1doWXQEajCGSYqF1Zu2Ok6Z8JZ2525aVYsklSN7UjrZex71vfnr33sqgYx00j4eu0zWgq2vrGIHnuomDKY/V4=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=c1VSYUCW8DjIZRH9cT9PKM8BeqoT2mVv/wXrHisLhI0=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Wed, 11 Nov 2026 08:22:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,399 +66,173 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	T_KAM_HTML_FONT_INVALID autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000004eddd4065fec6c36
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Please don't apply this version.
-
-
-The automated review at sashiko.dev found three real problems, which I
-have confirmed against the source:
-
-- dm_ism_all_crtcs_idle() reads crtc->state of other CRTCs under only
-  dc_lock. A concurrent atomic commit on another CRTC can swap and free
-  that state, so this can be a use-after-free.
-- A CRTC that is enabled or resumed and stays static without ever taking
-  a vblank reference remains in FULL_POWER_RUNNING, so idle
-  optimizations could never be allowed again (a power regression).
-- It uses adev_to_drm(dm->adev) instead of dm->ddev, which breaks the
-  ISM KUnit commit tests.
-
-The diagnosis in the changelog still stands: a static CRTC's ISM
-enables HW-wide idle optimizations while another CRTC is receiving
-legacy cursor updates. I'll send a v2 with a different approach, tested
-with KUnit and across suspend/resume.
-
-Thanks,
-Claudio
-
-
-On Mon, Nov 9, 2026 at 5:02=E2=80=AFPM Claudio Forain <claudioforain@gmail.=
-com>
-wrote:
-
-> [Why]
-> Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per
-> CRTC. When a CRTC's ISM reaches OPTIMIZED_IDLE it enables idle
-> optimizations globally as long as no CRTC holds a vblank reference
-> (dm->active_vblank_irq_count =3D=3D 0). It does not check whether the ISM=
-s
-> of the other CRTCs are idle.
+在 2026/11/8 14:59, Jiaxing Hu 写道:
+> The RK3576 NPU power domains need some time to settle after the idle
+> request is released.
 >
-> With two displays on X11, one static and one receiving cursor updates,
-> the static CRTC's ISM enables idle optimizations while the cursor CRTC is
-> busy. Legacy cursor updates do not take a vblank reference, so nothing
-> vetoes it. On ASICs that set debug.exit_idle_opt_for_cursor_updates
-> (DCN30x, DCN32x, DCN401, ...), every call to
-> dc_stream_program_cursor_attributes() and
-> dc_stream_program_cursor_position() then exits and re-enters idle
-> optimizations itself. That is up to four synchronous DMUB commands per
-> cursor update, each taking up to ~1.6 ms on DCN401, all under dc_lock in
-> the X server's input thread. The cursor visibly speeds up and slows down
-> while the desktop is otherwise idle.
+> Without that wait, the QoS registers are written while the domain is not
+> fully up, and the first cold power-on raises an SError.
 >
-> Measured on RX 9070 XT (DCN401), 240 Hz + 60 Hz displays, Xorg, cursor
-> moving continuously for 15 s (ftrace, cursor handler entry to
-> dc_stream_program_cursor_position entry):
+> Add an optional delay_us field and wait that long after releasing the
+> idle request and before restoring QoS.
 >
->                                  before      after
->   cursor updates/s                1686        2572
->   latency median / P95 / P99    144/858/927  17/19/87 us
->   samples > 500 us                5460           0
->   idle opt calls from cursor   58093           0
->     programming
->   dcn401_apply_idle_power_
->     optimizations calls          58198           6
+> Rename the DOMAIN_M_O_R_G macro to DOMAIN_M_O_R_G_W.
 >
-> With a single display, or with any vblank requestor active, the issue
-> does not occur. Commit a1fc7bf6677e ("drm/amd/display: Restore 5s vbl
-> offdelay for NV3x+ DGPUs") hid the issue by keeping vblank enabled on the
-> cursor CRTC; it reappeared with commit f39283eab44f ("Revert
-> "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"").
+> The NPU power domain is switched off when the driver probes, so the first
+> power-on goes through this wait even when the bootloader left the NPU on.
 >
-> [How]
-> Before allowing idle optimizations, also require every CRTC with an
-> active stream to be in OPTIMIZED_IDLE or OPTIMIZED_IDLE_SSO. The ISM
-> updates current_state before dispatching, so the last CRTC to go idle
-> still allows idle optimizations and no idle entry is lost. Idle
-> optimizations are still entered on a static desktop (173 entries in a
-> 15 s static capture with the patch applied), idle GPU power is
-> unchanged (25.9 W before, 25.8 W after), and vblank enable/disable is
-> unchanged.
+> With delay_us set to 0, an SError still happens even with the regulator
+> kept always on; with 15 us, 536 cold power-ons in a row are all clean.
 >
-> The problem was found and the fix written with an AI coding assistant,
-> working from ftrace captures taken on the affected system: function
-> tracer counts and caller attribution, and function_graph durations of
-> the cursor, ISM and DMUB paths. The assistant proposed the change and
-> drafted this changelog; the submitter reproduced the issue, built and
-> ran each test kernel, and confirmed the results.
->
-> Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6115
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Claudio Forain <claudioforain@gmail.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 > ---
-> Testing and limitations:
-> - Reproduced and tested on v7.3.3 (Gentoo) with RX 9070 XT (DCN401),
->   Xorg, two DP displays (240 Hz + 60 Hz). The issue reproduces only with
->   both displays active; disabling one makes stock 7.3.3 behave.
-> - Built and booted on v7.3.3. This posting is rebased onto
->   amd-staging-drm-next, where it applies cleanly, but it has not been
->   built or run on that tree.
-> - Not tested: other DCN generations, APUs, PSR/Replay panels (the
->   OPTIMIZED_IDLE_SSO path), Wayland compositors, hotplug and
->   suspend/resume with the patch, and the ISM KUnit tests.
-> - Idle GPU power on a static desktop (hwmon power1_average, 40 x 1 s):
->   25.9 W before, 25.8 W after. Only checked on this setup.
-> - crtc->state is read under dc_lock only, like the existing
->   to_dm_crtc_state(acrtc->base.state) in amdgpu_dm_ism_commit_event().
+>   drivers/pmdomain/rockchip/pm-domains.c | 56 ++++++++++++++++----------
+>   1 file changed, 34 insertions(+), 22 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> index 127eaba..79546ad 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> @@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
->  EXPORT_IF_KUNIT(dm_ism_trigger_event);
->
->
-> +/*
-> + * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only
-> allow
-> + * them once every active CRTC's ISM has reached an optimized idle state=
-,
-> so a
-> + * static CRTC cannot enable idle optimizations while another CRTC is
-> still busy
-> + * (e.g. receiving cursor updates without a vblank reference). Otherwise
-> every
-> + * cursor update on the busy CRTC must exit and re-enter idle through
-> DMUB.
-> + */
-> +static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)
-> +{
-> +       struct drm_crtc *crtc;
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index db3879846db6..e3cc60fa2277 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/of_address.h>
+>   #include <linux/of_clk.h>
+>   #include <linux/clk.h>
+> +#include <linux/delay.h>
+>   #include <linux/regmap.h>
+>   #include <linux/regulator/consumer.h>
+>   #include <linux/mfd/syscon.h>
+> @@ -59,6 +60,7 @@ struct rockchip_domain_info {
+>   	u32 pwr_offset;
+>   	u32 mem_offset;
+>   	u32 req_offset;
+> +	u32 delay_us;
+>   };
+>   
+>   struct rockchip_pmu_info {
+> @@ -185,7 +187,7 @@ struct rockchip_pmu {
+>   	.need_regulator = regulator,			\
+>   }
+>   
+> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
+> +#define DOMAIN_M_O_R_G_W(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, delay, wakeup, regulator)	\
+>   {							\
+>   	.name = _name,					\
+>   	.pwr_offset = p_offset,				\
+> @@ -200,8 +202,10 @@ struct rockchip_pmu {
+>   	.req_mask = (req),				\
+>   	.idle_mask = (idle),				\
+>   	.clk_ungate_mask = (g_mask),			\
+> +	.delay_us = (delay),				\
+>   	.ack_mask = (ack),				\
+>   	.active_wakeup = wakeup,			\
+> +	.need_regulator = regulator,			\
+>   }
+>   
+>   #define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
+> @@ -258,8 +262,11 @@ struct rockchip_pmu {
+>   #define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
+>   	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
+>   
+> -#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
+> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
+> +#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, delay, wakeup)	\
+> +	DOMAIN_M_O_R_G_W(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, delay, wakeup, false)
 > +
-> +       drm_for_each_crtc(crtc, adev_to_drm(dm->adev)) {
-> +               struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
-> +               struct dm_crtc_state *state =3D
-> to_dm_crtc_state(crtc->state);
+> +#define DOMAIN_RK3576_R(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, delay, wakeup)	\
+> +	DOMAIN_M_O_R_G_W(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, delay, wakeup, true)
+>   
+>   /*
+>    * Dynamic Memory Controller may need to coordinate with us -- see
+> @@ -681,6 +688,10 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   		if (ret < 0)
+>   			goto out;
+>   
+> +		/* Some domains need to settle before the QoS registers answer. */
+> +		if (pd->info->delay_us)
+> +			udelay(pd->info->delay_us);
 > +
-> +               if (!state || !state->stream)
-> +                       continue;
-> +
-> +               if (acrtc->ism.current_state !=3D
-> DM_ISM_STATE_OPTIMIZED_IDLE &&
-> +                   acrtc->ism.current_state !=3D
-> DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-> +                       return false;
-> +       }
-> +
-> +       return true;
-> +}
-> +
->  static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism
-> *ism,
->                                              struct dc_stream_state
-> *stream,
->                                              bool vblank_enabled,
-> @@ -326,7 +352,8 @@ static void
-> dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
->          * optimizations at the start of this func -- we should disallow
->          * whenever there's *an* active CRTC.
->          */
-> -       if (!vblank_enabled && dm->active_vblank_irq_count =3D=3D 0) {
-> +       if (!vblank_enabled && dm->active_vblank_irq_count =3D=3D 0 &&
-> +           dm_ism_all_crtcs_idle(dm)) {
->                 dc_post_update_surfaces_to_stream(dm->dc);
->                 dc_allow_idle_optimizations(dm->dc, true);
->         }
-> --
-> 2.x
->
+>   		rockchip_pmu_restore_qos(pd);
+>   	}
+>   
+> @@ -1314,25 +1325,26 @@ static const struct rockchip_domain_info rk3568_pm_domains[] = {
+>   };
+>   
+>   static const struct rockchip_domain_info rk3576_pm_domains[] = {
+> -	[RK3576_PD_NPU]		= DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
+> -	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     false),
+> -	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  false),
+> -	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), false),
+> -	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  false),
+> -	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  false),
+> -	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  false),
+> -	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  true),
+> -	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
+> -	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
+> -	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
+> -	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
+> -	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
+> -	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    false),
+> -	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
+> -	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
+> -	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
+> +	/*                                            name    p_offset pwr      status  r_status r_offset req      idle     g_mask   delay wakeup */
+> +	[RK3576_PD_NPU]		= DOMAIN_RK3576_R("npu",  0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  0,    false),
+> +	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     0,    false),
+> +	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  0,    false),
+> +	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), 0,    false),
+> +	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  0,    false),
+> +	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  0,    false),
+> +	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  0,    false),
+> +	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  0,    true),
+> +	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  0,    false),
+> +	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   0,    false),
+> +	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  0,    false),
+> +	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  0,    false),
+> +	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  0,    false),
+> +	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    15,   false),
+> +	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    15,   false),
+> +	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    15,   false),
+> +	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  0,    false),
+>   };
 
---0000000000004eddd4065fec6c36
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+1. The settle requirement is on the top-level NPUTOP domain only.
+    PD_NPU0 and PD_NPU1 do not need the delay: when a device is attached
+    to npu0/npu1, genpd powers the parent (nputop) first, and by the time
+    the child domain switches on, the settle time has long elapsed. Cold
+    power-on of npu0/npu1 without any delay has been clean in our
+    validation. You can just drop delay_us from both entries; keeping it
+    on nputop is enough.
 
-<div dir=3D"ltr"><span style=3D"background-color:initial;color:inherit;font=
--size:0.9em">Please don&#39;t apply this version.</span><pre style=3D"overf=
-low-x:auto;color:rgb(191,191,191);background:none 0% 0%/auto repeat scroll =
-padding-box border-box rgb(36,37,38);box-sizing:border-box;border-radius:4p=
-x;max-width:100%;margin:0px;padding:8px;font-size:13px"><code style=3D"colo=
-r:inherit;background:0px 0px;padding:0px;border-radius:3px;word-break:break=
--word;font-size:0.9em">
-The automated review at <a href=3D"http://sashiko.dev">sashiko.dev</a> foun=
-d three real problems, which I
-have confirmed against the source:
+2. The same failure mode exists on the display pipeline. PD_VOP needs a
+    15 us settle as well.Please add delay_us = 15 to RK3576_PD_VOP.
 
-- dm_ism_all_crtcs_idle() reads crtc-&gt;state of other CRTCs under only
-  dc_lock. A concurrent atomic commit on another CRTC can swap and free
-  that state, so this can be a use-after-free.
-- A CRTC that is enabled or resumed and stays static without ever taking
-  a vblank reference remains in FULL_POWER_RUNNING, so idle
-  optimizations could never be allowed again (a power regression).
-- It uses adev_to_drm(dm-&gt;adev) instead of dm-&gt;ddev, which breaks the
-  ISM KUnit commit tests.
+>   
+>   static const struct rockchip_domain_info rk3588_pm_domains[] = {
 
-The diagnosis in the changelog still stands: a static CRTC&#39;s ISM
-enables HW-wide idle optimizations while another CRTC is receiving
-legacy cursor updates. I&#39;ll send a v2 with a different approach, tested
-with KUnit and across suspend/resume.
+-- 
+Best regards,
 
-Thanks,
-Claudio</code></pre></div><br><div class=3D"gmail_quote gmail_quote_contain=
-er"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 9, 2026 at 5:02=E2=80=
-=AFPM Claudio Forain &lt;<a href=3D"mailto:claudioforain@gmail.com">claudio=
-forain@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">[Why]<br>
-Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per<b=
-r>
-CRTC. When a CRTC&#39;s ISM reaches OPTIMIZED_IDLE it enables idle<br>
-optimizations globally as long as no CRTC holds a vblank reference<br>
-(dm-&gt;active_vblank_irq_count =3D=3D 0). It does not check whether the IS=
-Ms<br>
-of the other CRTCs are idle.<br>
-<br>
-With two displays on X11, one static and one receiving cursor updates,<br>
-the static CRTC&#39;s ISM enables idle optimizations while the cursor CRTC =
-is<br>
-busy. Legacy cursor updates do not take a vblank reference, so nothing<br>
-vetoes it. On ASICs that set debug.exit_idle_opt_for_cursor_updates<br>
-(DCN30x, DCN32x, DCN401, ...), every call to<br>
-dc_stream_program_cursor_attributes() and<br>
-dc_stream_program_cursor_position() then exits and re-enters idle<br>
-optimizations itself. That is up to four synchronous DMUB commands per<br>
-cursor update, each taking up to ~1.6 ms on DCN401, all under dc_lock in<br=
->
-the X server&#39;s input thread. The cursor visibly speeds up and slows dow=
-n<br>
-while the desktop is otherwise idle.<br>
-<br>
-Measured on RX 9070 XT (DCN401), 240 Hz + 60 Hz displays, Xorg, cursor<br>
-moving continuously for 15 s (ftrace, cursor handler entry to<br>
-dc_stream_program_cursor_position entry):<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0before=C2=A0 =C2=A0 =C2=A0 aft=
-er<br>
-=C2=A0 cursor updates/s=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 1686=C2=A0 =C2=A0 =C2=A0 =C2=A0 2572<br>
-=C2=A0 latency median / P95 / P99=C2=A0 =C2=A0 144/858/927=C2=A0 17/19/87 u=
-s<br>
-=C2=A0 samples &gt; 500 us=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 5460=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00<br>
-=C2=A0 idle opt calls from cursor=C2=A0 =C2=A058093=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00<br>
-=C2=A0 =C2=A0 programming<br>
-=C2=A0 dcn401_apply_idle_power_<br>
-=C2=A0 =C2=A0 optimizations calls=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 58198=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A06<br>
-<br>
-With a single display, or with any vblank requestor active, the issue<br>
-does not occur. Commit a1fc7bf6677e (&quot;drm/amd/display: Restore 5s vbl<=
-br>
-offdelay for NV3x+ DGPUs&quot;) hid the issue by keeping vblank enabled on =
-the<br>
-cursor CRTC; it reappeared with commit f39283eab44f (&quot;Revert<br>
-&quot;drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs&quot;&quot;)=
-.<br>
-<br>
-[How]<br>
-Before allowing idle optimizations, also require every CRTC with an<br>
-active stream to be in OPTIMIZED_IDLE or OPTIMIZED_IDLE_SSO. The ISM<br>
-updates current_state before dispatching, so the last CRTC to go idle<br>
-still allows idle optimizations and no idle entry is lost. Idle<br>
-optimizations are still entered on a static desktop (173 entries in a<br>
-15 s static capture with the patch applied), idle GPU power is<br>
-unchanged (25.9 W before, 25.8 W after), and vblank enable/disable is<br>
-unchanged.<br>
-<br>
-The problem was found and the fix written with an AI coding assistant,<br>
-working from ftrace captures taken on the affected system: function<br>
-tracer counts and caller attribution, and function_graph durations of<br>
-the cursor, ISM and DMUB paths. The assistant proposed the change and<br>
-drafted this changelog; the submitter reproduced the issue, built and<br>
-ran each test kernel, and confirmed the results.<br>
-<br>
-Fixes: 754003486c3c (&quot;drm/amd/display: Add Idle state manager(ISM)&quo=
-t;)<br>
-Closes: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/6115" re=
-l=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/amd/-=
-/issues/6115</a><br>
-Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/4906" rel=
-=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/amd/-/=
-issues/4906</a><br>
-Assisted-by: claude-opus-5-5<br>
-Signed-off-by: Claudio Forain &lt;<a href=3D"mailto:claudioforain@gmail.com=
-" target=3D"_blank">claudioforain@gmail.com</a>&gt;<br>
----<br>
-Testing and limitations:<br>
-- Reproduced and tested on v7.3.3 (Gentoo) with RX 9070 XT (DCN401),<br>
-=C2=A0 Xorg, two DP displays (240 Hz + 60 Hz). The issue reproduces only wi=
-th<br>
-=C2=A0 both displays active; disabling one makes stock 7.3.3 behave.<br>
-- Built and booted on v7.3.3. This posting is rebased onto<br>
-=C2=A0 amd-staging-drm-next, where it applies cleanly, but it has not been<=
-br>
-=C2=A0 built or run on that tree.<br>
-- Not tested: other DCN generations, APUs, PSR/Replay panels (the<br>
-=C2=A0 OPTIMIZED_IDLE_SSO path), Wayland compositors, hotplug and<br>
-=C2=A0 suspend/resume with the patch, and the ISM KUnit tests.<br>
-- Idle GPU power on a static desktop (hwmon power1_average, 40 x 1 s):<br>
-=C2=A0 25.9 W before, 25.8 W after. Only checked on this setup.<br>
-- crtc-&gt;state is read under dc_lock only, like the existing<br>
-=C2=A0 to_dm_crtc_state(acrtc-&gt;base.state) in amdgpu_dm_ism_commit_event=
-().<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-index 127eaba..79546ad 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-@@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,<b=
-r>
-=C2=A0EXPORT_IF_KUNIT(dm_ism_trigger_event);<br>
-<br>
-<br>
-+/*<br>
-+ * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only al=
-low<br>
-+ * them once every active CRTC&#39;s ISM has reached an optimized idle sta=
-te, so a<br>
-+ * static CRTC cannot enable idle optimizations while another CRTC is stil=
-l busy<br>
-+ * (e.g. receiving cursor updates without a vblank reference). Otherwise e=
-very<br>
-+ * cursor update on the busy CRTC must exit and re-enter idle through DMUB=
-.<br>
-+ */<br>
-+static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_crtc *crtc;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_for_each_crtc(crtc, adev_to_drm(dm-&gt;adev=
-)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_crtc =
-*acrtc =3D to_amdgpu_crtc(crtc);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dm_crtc_stat=
-e *state =3D to_dm_crtc_state(crtc-&gt;state);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!state || !stat=
-e-&gt;stream)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0continue;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (acrtc-&gt;ism.c=
-urrent_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc=
--&gt;ism.current_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE_SSO)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return false;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
-+}<br>
-+<br>
-=C2=A0static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_is=
-m *ism,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0struct dc_stream_state *stream,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0bool vblank_enabled,<br>
-@@ -326,7 +352,8 @@ static void dm_ism_commit_idle_optimization_state(struc=
-t amdgpu_dm_ism *ism,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* optimizations at the start of this func=
- -- we should disallow<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* whenever there&#39;s *an* active CRTC.<=
-br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vblank_enabled &amp;&amp; dm-&gt;active_vb=
-lank_irq_count =3D=3D 0) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vblank_enabled &amp;&amp; dm-&gt;active_vb=
-lank_irq_count =3D=3D 0 &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dm_ism_all_crtcs_idle(dm)) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dc_post_update_surf=
-aces_to_stream(dm-&gt;dc);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dc_allow_idle_optim=
-izations(dm-&gt;dc, true);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--- <br>
-2.x<br>
-</blockquote></div>
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
 
---0000000000004eddd4065fec6c36--
