@@ -2,91 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AB4606A338
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A795606A336
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jU+F7Kaa
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrOFs5f5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF91710FC76;
-	Wed, 11 Nov 2026 16:22:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6AEA10FB38;
+	Wed, 11 Nov 2026 16:28:25 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5566910FC70
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:22:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA8810F90C;
+ Wed, 11 Nov 2026 16:28:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E953477A7;
- Wed, 11 Nov 2026 16:22:42 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794414162;
- b=Wc1827rM0dE6gqjVcU5W0JlEUv8F0VWRlE/5bM8vtX0lIyURQITLJoNO56RBW7lJoul6
- AWt04WfZckpTuQJbN6kQY3jIfqXXOkmLPFh6ayYQjKp55WH6fyhfHc9w4DvXS/S33cTBN
- RnCb0T7bZTHwxZZIO+GwAOMw3MfejTlZruBtr61O2mLR4Blw1XcFhdXorZW76EDhGUOVc
- dYToIPTvLvEUYQVcD1uB8w48TssCNjrZqnCqFUMhF4juiTMAF8XkuFuMYpHHEzrDfmnv6
- 9Zg0gOGsTUOtrkbj9qlwuo+CaOopfdVxu5TwGLv6bh6hZRGiLidlaPsfVZgQEK/sjGg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794414162;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
- b=XE2gK+yliRaOvS3BJXGc99zEuLDoCzt2hnx0QNMYb+EzZSvZbemEW+dRtJ6tdZChRcun
- vpo6+7a0DR5grPcldfAAO/uKW73hWFjvi3hropPBL6gspyGBruUwkniqhS/S8JIuHWswc
- qICb9b9dhH162brJG3AR8tDO6fTmJwDLs4+sH6q5CjZ8nRldeLi1wlBHcLMg8wf+Myq2U
- JzUVpxq4WxHmEwDzFq9lqgl27w+KrvfuRlbhbJwOXCDNhAp4AoyMTDFyFsQo56xEeDV2i
- GgB2Fq4ZfOo+ljcg624j3C/y32Uiu/mmNj4mjZdxaLH/BVzuVGV0ecIhYaY74I4+bTw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 4EAEE1F00A08;
- Wed, 11 Nov 2026 16:22:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 053FD42E07;
+ Wed, 11 Nov 2026 16:28:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A429C1F00A05;
+ Wed, 11 Nov 2026 16:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794414162;
- bh=KLNhZsOZO6tTwWVA3EvqxE7uAVIt4SVNmhY1DO4o9K8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=jU+F7KaaRh7E+Cv8AFgcL11n55WHRcQyTjVzt9KhFCxztvLncfpQC2a+q49Z21F2B
- HQCRUsYAMOfg84P+hkEQHPKm9Ws7G5ikIb6vSFZOnIz8agCoiHoKH00d3F5fdcfYE/
- mTXpNplWKNHst9zFmGsJQ3ZwzWwPwzCrjnwgil6rGWlqankG7/II+EP0rJfWsXtVXs
- HJlQmPiRfkTMsT7hGTzQNUBC488mTLo04JvNXXsqUmJsC+Pl/feo9ZjPe1/Whzra5R
- PVpe8UE0UjSH6NndP91xHnAotjObGY+1QiOuN3zeDsiYyGCodOiRoAJGtIGgVT//X8
- NsAbtpvFgnG1w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id CEE3549037;
- Wed, 11 Nov 2026 16:22:40 +0000 (UTC)
-From: Michiel van Beers via B4 Relay
- <devnull+michielvanbeers.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 17:21:42 +0100
-Subject: [PATCH v2 2/2] backlight: lm3630a: Allow setting the full-scale
- current per bank
+ s=k20260515; t=1794414498;
+ bh=F/P7xksbuJ6mdsb06SrrKj8pKQP+jAbMmCMBzirJ3rk=;
+ h=Date:From:To:Cc:Subject;
+ b=QrOFs5f5GvRB0IDh0ZtDRLuEX+hxqyb9OQWFJh9VLjHmEsir76O6ErTD7WqQ0c+0j
+ ImA0rPNk1Fgs3KClrmsAzs1la/lALnwTuCao6uBCMTfwP3hxpXHG5q3VKum+oPbKjH
+ 7gXX7d4X1Z45WE87v8VorGUot64hTCLJNjyWB0nQHuFJbutn2oF2x3PMae11vkJER5
+ ifCBtOBnGpqze9He7HYfPENUXhWfVbf4P1J1ysztEjd7fnL6cJ413T3yYaNaRCttvL
+ W5wUw4i9LCovmSK+Wql0JjKeoetIYZZ9RtFJ0mqkyeTgSk231c2nkjiQ3uN3mtpreE
+ Gi+d8QkWdIbHA==
+Date: Wed, 11 Nov 2026 16:28:14 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: linux-next: manual merge of the drm-intel tree with the
+ drm-intel-fixes tree
+Message-ID: <avSXnsYmYkIrge5W@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-lm3630a-led-max-microamp-v2-2-aff11756e7be@gmail.com>
-References: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
-In-Reply-To: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Michiel van Beers <michielvanbeers@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414160; l=4765;
- i=michielvanbeers@gmail.com; s=20261107; h=from:subject:message-id;
- bh=YrzYv6G6kHsv+ddU+T8TW/TH8CUbRepEUJYvTRcaRMI=;
- b=JVfzfKGbjd7roYgiWd7DpAOH1JdyHKa09w8DtY57g5BGiqeHo0T4K+KllY8o3TX+XGepDjRSV
- ultsVhs2ntNDpOEr2bfDmLKeRGCaBKVCyz7Khhxji248h3hmSyWNWjy
-X-Developer-Key: i=michielvanbeers@gmail.com; a=ed25519;
- pk=C+lOje7u3+2x3o2NLMXrwz2veP2++eXfIi9MtYsUo4k=
-X-Endpoint-Received: by B4 Relay for michielvanbeers@gmail.com/20261107
- with auth_id=1444
-X-Original-From: Michiel van Beers <michielvanbeers@gmail.com>
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9/G13HJc/YtuFupn"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,138 +57,730 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: michielvanbeers@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Michiel van Beers <michielvanbeers@gmail.com>
 
-The driver always programs the full-scale current of both control banks
-to the maximum of 28.25 mA (code 0x1F). Boards whose LED strings are
-rated for less have no way to lower it.
+--9/G13HJc/YtuFupn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Read the optional led-max-microamp property of each led@ node and
-program the full-scale current register of that bank with the matching
-code, I_FS = 5 mA + code * 0.75 mA (datasheet SNVS974B, 7.3.1.11). The
-code is rounded down, so the current never exceeds the requested value.
-Values outside 5000 to 28250 uA are rejected with -EINVAL.
+Hi all,
 
-Without the property the driver still programs 0x1F, so existing boards
-are unaffected.
+Today's linux-next merge of the drm-intel tree got a conflict in:
 
-Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
----
-checkpatch --strict reports errors on the two new kernel-doc lines in
-lm3630a_bl.h; the hunk does not include the comment delimiters. With
--U15 it is clean.
----
- drivers/video/backlight/lm3630a_bl.c     | 40 ++++++++++++++++++++++++++++----
- include/linux/platform_data/lm3630a_bl.h |  4 ++++
- 2 files changed, 40 insertions(+), 4 deletions(-)
+  drivers/gpu/drm/i915/display/intel_psr.c
 
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 8ef8163c7fef..1189011bb89d 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -80,6 +80,25 @@ static int lm3630a_update(struct lm3630a_chip *pchip,
- 	return regmap_update_bits(pchip->regmap, reg, mask, data);
- }
- 
-+/*
-+ * Full-scale current register code: I = 5 mA + code * 0.75 mA, code 0..31
-+ * (datasheet SNVS974B, 7.3.1.11). Rounds down, so the result never exceeds
-+ * the requested current. 0 means "not set" and keeps the chip default 0x1F.
-+ */
-+#define LM3630A_FS_CURRENT_MIN_UA	5000
-+#define LM3630A_FS_CURRENT_STEP_UA	750
-+#define LM3630A_FS_CURRENT_MAX_UA	28250
-+#define LM3630A_FS_CURRENT_MAX_CODE	0x1F
-+
-+static unsigned int lm3630a_fs_current_code(unsigned int microamp)
-+{
-+	if (!microamp)
-+		return LM3630A_FS_CURRENT_MAX_CODE;
-+
-+	return (microamp - LM3630A_FS_CURRENT_MIN_UA) /
-+	       LM3630A_FS_CURRENT_STEP_UA;
-+}
-+
- /* initialize chip */
- static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- {
-@@ -93,10 +112,12 @@ static int lm3630a_chip_init(struct lm3630a_chip *pchip)
- 	rval |= lm3630a_update(pchip, REG_CONFIG, 0x07, pdata->pwm_ctrl);
- 	/* set boost control */
- 	rval |= lm3630a_write(pchip, REG_BOOST, 0x38);
--	/* set current A */
--	rval |= lm3630a_update(pchip, REG_I_A, 0x1F, 0x1F);
--	/* set current B */
--	rval |= lm3630a_write(pchip, REG_I_B, 0x1F);
-+	/* set full-scale current A */
-+	rval |= lm3630a_update(pchip, REG_I_A, 0x1F,
-+			lm3630a_fs_current_code(pdata->leda_max_microamp));
-+	/* set full-scale current B */
-+	rval |= lm3630a_write(pchip, REG_I_B,
-+			lm3630a_fs_current_code(pdata->ledb_max_microamp));
- 	/* set control */
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x14, pdata->leda_ctrl);
- 	rval |= lm3630a_update(pchip, REG_CTRL, 0x0B, pdata->ledb_ctrl);
-@@ -472,6 +493,17 @@ static int lm3630a_parse_bank(struct lm3630a_platform_data *pdata,
- 			pdata->leda_max_brt = val;
- 	}
- 
-+	ret = fwnode_property_read_u32(node, "led-max-microamp", &val);
-+	if (!ret) {
-+		if (val < LM3630A_FS_CURRENT_MIN_UA ||
-+		    val > LM3630A_FS_CURRENT_MAX_UA)
-+			return -EINVAL;
-+		if (bank)
-+			pdata->ledb_max_microamp = val;
-+		else
-+			pdata->leda_max_microamp = val;
-+	}
-+
- 	return 0;
- }
- 
-diff --git a/include/linux/platform_data/lm3630a_bl.h b/include/linux/platform_data/lm3630a_bl.h
-index 530be9318711..43383c476c09 100644
---- a/include/linux/platform_data/lm3630a_bl.h
-+++ b/include/linux/platform_data/lm3630a_bl.h
-@@ -37,10 +37,12 @@ enum lm3630a_ledb_ctrl {
-  *@leda_label    : optional led a label.
-  *@leda_init_brt : led a init brightness. 4~255
-  *@leda_max_brt  : led a max brightness.  4~255
-+ *@leda_max_microamp : led a full-scale current, 5000~28250 uA (0: default)
-  *@leda_ctrl     : led a disable, enable linear, enable exponential
-  *@ledb_label    : optional led b label.
-  *@ledb_init_brt : led b init brightness. 4~255
-  *@ledb_max_brt  : led b max brightness.  4~255
-+ *@ledb_max_microamp : led b full-scale current, 5000~28250 uA (0: default)
-  *@ledb_ctrl     : led b disable, enable linear, enable exponential
-  *@pwm_period    : pwm period
-  *@pwm_ctrl      : pwm disable, bank a or b, active high or low
-@@ -51,11 +53,13 @@ struct lm3630a_platform_data {
- 	const char *leda_label;
- 	int leda_init_brt;
- 	int leda_max_brt;
-+	unsigned int leda_max_microamp;
- 	enum lm3630a_leda_ctrl leda_ctrl;
- 	/* led b config. */
- 	const char *ledb_label;
- 	int ledb_init_brt;
- 	int ledb_max_brt;
-+	unsigned int ledb_max_microamp;
- 	enum lm3630a_ledb_ctrl ledb_ctrl;
- 	/* pwm config. */
- 	unsigned int pwm_period;
+between commits:
 
--- 
-2.43.0
+  9bf9ced37e60a ("drm/i915/psr: Clear CFF state on flip flush")
+  4247f4e2c10ea ("drm/i915/psr: Re-arm PSR after flush")
+  6b3ea5a07eac0 ("drm/i915/psr: Flush on cursor update also when not using =
+Selective Fetch")
+  e30830d21860f ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
+  b56721c32eb3a ("drm/i915/psr: Disable linked plane sel fetch as well")
+  94cb1f08b197d ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  cbe565475988d ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
 
+=66rom the drm-intel-fixes tree and commits:
 
+  233e3453eb705 ("drm/i915/psr: Clear CFF state on flip flush")
+  731ed8af13bde ("drm/i915/psr: Re-arm PSR after flush")
+  043ab39fe2daa ("drm/i915/psr: Flush on cursor update also when not using =
+Selective Fetch")
+  82a273802e29b ("drm/i915/psr: Allow Panel Replay and PSR2 with joiner")
+  81492de01598e ("drm/i915/psr: Resolve the PSR encoders through the joiner=
+ primary")
+  dd038a8d440a9 ("drm/i915/psr: Merge the selective fetch area across joine=
+d pipes")
+  ce234fd7ac01d ("drm/i915/psr: Derive the alignment loop condition from th=
+e SU area")
+  6a33b0c495174 ("drm/i915/psr: Split the selective fetch calculation into =
+helpers")
+  384679cd97c88 ("drm/i915/psr: Take the selective fetch area from pipe_src=
+")
+  e9b810694a5b1 ("drm/i915/psr: Exclude the joiner secondary from active_no=
+n_psr_pipes")
+  20470bb876bcf ("drm/i915/psr: Track all joined pipes for frontbuffer trac=
+king")
+  8621f3bcea6b0 ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
+  8330f2041b95f ("drm/i915/psr: Remove drm_info_once on failed selective fe=
+tch area")
+  1e922ed8c092a ("drm/i915/psr: Skip sel fetch support check for invisible =
+planes")
+  b10c83af60cbc ("drm/i915/psr: Disable linked plane sel fetch as well")
+  0d173898b1115 ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  bd58f0e221386 ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
+
+=66rom the drm-intel tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/i915/display/intel_psr.c
+index 0ae347fe6cd19,bd16563603249..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@@ -36,6 -36,7 +36,7 @@@
+  #include "intel_cursor_regs.h"
+  #include "intel_ddi.h"
+  #include "intel_de.h"
++ #include "intel_display.h"
+  #include "intel_display_irq.h"
+  #include "intel_display_regs.h"
+  #include "intel_display_rpm.h"
+@@@ -1597,6 -1598,13 +1598,13 @@@ static bool intel_sel_update_config_val
+  	struct intel_dp *intel_dp =3D intel_attached_dp(connector);
+  	struct intel_display *display =3D to_intel_display(intel_dp);
+ =20
++ 	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable &&
++ 	    crtc_state->output_format =3D=3D INTEL_OUTPUT_FORMAT_YCBCR420) {
++ 		drm_dbg_kms(display->drm,
++ 			    "Selective update not enabled, uncompressed joiner does not suppor=
+t YUV 4:2:0\n");
++ 		goto unsupported;
++ 	}
++=20
+  	if (HAS_PSR2_SEL_FETCH(display) &&
+  	    !intel_psr2_sel_fetch_config_valid(intel_dp, crtc_state) &&
+  	    !HAS_PSR_HW_TRACKING(display)) {
+@@@ -1744,8 -1752,8 +1752,8 @@@ static bool _panel_replay_compute_confi
+ =20
+  	/* Remaining checks are for eDP only */
+ =20
+- 	if (to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_A &&
+- 	    to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_B)
++ 	/* Every joined pipe needs its own PSR/Panel Replay register block. */
++ 	if (intel_crtc_joined_pipe_mask(crtc_state) & ~(BIT(PIPE_A) | BIT(PIPE_B=
+)))
+  		return false;
+ =20
+  	/* 128b/132b Panel Replay is not supported on eDP */
+@@@ -1802,6 -1810,19 +1810,19 @@@ static void psr2_dc3co_disable_work(str
+  	mutex_unlock(&intel_dp->psr.lock);
+  }
+ =20
++ /* Frontbuffer bits for every pipe driving this PSR/Panel Replay instance=
+=2E */
++ static unsigned int psr_frontbuffer_mask(struct intel_dp *intel_dp)
++ {
++ 	struct intel_display *display =3D to_intel_display(intel_dp);
++ 	unsigned int mask =3D 0;
++ 	enum pipe pipe;
++=20
++ 	for_each_pipe_masked(display, pipe, intel_dp->psr.pipe_mask)
++ 		mask |=3D INTEL_FRONTBUFFER_ALL_MASK(pipe);
++=20
++ 	return mask;
++ }
++=20
+  static void
+  psr2_dc3co_flush_locked(struct intel_dp *intel_dp, unsigned int frontbuff=
+er_bits)
+  {
+@@@ -1817,8 -1838,7 +1838,7 @@@
+  	 * At every frontbuffer flush flip event modified delay of delayed work,
+  	 * when delayed work schedules that means display has been idle.
+  	 */
+- 	if (!(frontbuffer_bits &
+- 	    INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe)))
++ 	if (!(frontbuffer_bits & psr_frontbuffer_mask(intel_dp)))
+  		return;
+ =20
+  	mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
+@@@ -1849,7 -1869,7 +1869,7 @@@ void intel_psr_set_non_psr_pipes(struc
+  	active_pipes =3D intel_calc_active_pipes(state, active_pipes);
+ =20
+  	crtc_state->active_non_psr_pipes =3D active_pipes &
+- 		~BIT(to_intel_crtc(crtc_state->uapi.crtc)->pipe);
++ 		~intel_crtc_joined_pipe_mask(crtc_state);
+  }
+ =20
+  void intel_psr_compute_config(struct intel_dp *intel_dp,
+@@@ -1877,17 -1897,6 +1897,6 @@@
+  		return;
+  	}
+ =20
+- 	/*
+- 	 * FIXME figure out what is wrong with PSR+joiner and
+- 	 * fix it. Presumably something related to the fact that
+- 	 * PSR is a transcoder level feature.
+- 	 */
+- 	if (crtc_state->joiner_pipes) {
+- 		drm_dbg_kms(display->drm,
+- 			    "PSR disabled due to joiner\n");
+- 		return;
+- 	}
+-=20
+  	/* Only used for state verification. */
+  	crtc_state->panel_replay_dsc_support =3D connector->dp.panel_replay_caps=
+=2Edsc_support;
+  	crtc_state->has_panel_replay =3D _panel_replay_compute_config(crtc_state=
+, conn_state);
+@@@ -1899,6 -1908,14 +1908,14 @@@
+  		return;
+ =20
+  	crtc_state->has_sel_update =3D intel_sel_update_config_valid(crtc_state,=
+ conn_state);
++=20
++ 	/* Plain PSR1 is not supported with joiner. */
++ 	if (crtc_state->joiner_pipes && !crtc_state->has_panel_replay &&
++ 	    !crtc_state->has_sel_update) {
++ 		drm_dbg_kms(display->drm,
++ 			    "PSR disabled, PSR1 not supported with joiner\n");
++ 		crtc_state->has_psr =3D false;
++ 	}
+  }
+ =20
+  void intel_psr_get_config(struct intel_encoder *encoder,
+@@@ -2179,6 -2196,7 +2196,7 @@@ static void intel_psr_enable_locked(str
+  	intel_dp->psr.panel_replay_enabled =3D crtc_state->has_panel_replay;
+  	intel_dp->psr.busy_frontbuffer_bits =3D 0;
+  	intel_dp->psr.pipe =3D to_intel_crtc(crtc_state->uapi.crtc)->pipe;
++ 	intel_dp->psr.pipe_mask =3D intel_crtc_joined_pipe_mask(crtc_state);
+  	intel_dp->psr.transcoder =3D crtc_state->cpu_transcoder;
+  	/* DC5/DC6 requires at least 6 idle frames */
+  	val =3D usecs_to_jiffies(intel_get_frame_time_us(crtc_state) * 6);
+@@@ -2398,6 -2416,7 +2416,7 @@@ static void intel_psr_disable_locked(st
+  	intel_dp->psr.psr2_sel_fetch_cff_enabled =3D false;
+  	intel_dp->psr.active_non_psr_pipes =3D 0;
+  	intel_dp->psr.pkg_c_latency_used =3D 0;
++ 	intel_dp->psr.pipe_mask =3D 0;
+  	cancel_delayed_work(&intel_dp->psr.dc3co_work);
+  	intel_dp->psr.dc3co_allowed =3D false;
+  }
+@@@ -2623,6 -2642,24 +2642,24 @@@ static void intel_psr_force_update(stru
+  	intel_de_write(display, CURSURFLIVE(display, intel_dp->psr.pipe), 0);
+  }
+ =20
++ /*
++  * The joiner secondary has no encoders of its own, its uapi.encoder_mask=
+ is
++  * zero. PSR is a transcoder level feature driven by the primary, so take=
+ the
++  * encoders from there. Only valid once the state has been swapped in, i.=
+e.
++  * from the commit phase.
++  */
++ static u32 psr_encoder_mask(const struct intel_crtc_state *crtc_state)
++ {
++ 	struct intel_crtc *primary_crtc;
++=20
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		return crtc_state->uapi.encoder_mask;
++=20
++ 	primary_crtc =3D intel_primary_crtc(crtc_state);
++=20
++ 	return to_intel_crtc_state(primary_crtc->base.state)->uapi.encoder_mask;
++ }
++=20
+  void intel_psr2_program_trans_man_trk_ctl(struct intel_dsb *dsb,
+  					  const struct intel_crtc_state *crtc_state)
+  {
+@@@ -2635,7 -2672,7 +2672,7 @@@
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		if (!dsb)
+@@@ -2646,9 -2683,11 +2683,11 @@@
+  		break;
+  	}
+ =20
+- 	intel_de_write_dsb(display, dsb,
+- 			   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
+- 			   crtc_state->psr2_man_track_ctl);
++ 	/* The joined pipes drive one transcoder, so program it once. */
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		intel_de_write_dsb(display, dsb,
++ 				   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
++ 				   crtc_state->psr2_man_track_ctl);
+ =20
+  	if (!crtc_state->enable_psr2_su_region_et)
+  		return;
+@@@ -2733,12 -2772,11 +2772,11 @@@ static void clip_area_update(struct drm
+  		overlap_damage_area->y2 =3D inter.y2;
+  }
+ =20
+- static bool intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
++ static void intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+  	const struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+  	u16 y_alignment;
+- 	bool su_area_changed =3D false;
+ =20
+  	/* ADLP aligns the SU region to vdsc slice height in case dsc is enabled=
+ */
+  	if (crtc_state->dsc.compression_enable &&
+@@@ -2747,18 -2785,12 +2785,12 @@@
+  	else
+  		y_alignment =3D crtc_state->su_y_granularity;
+ =20
+- 	if (crtc_state->psr2_su_area.y1 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y1 % y_alignment)
+  		crtc_state->psr2_su_area.y1 -=3D crtc_state->psr2_su_area.y1 % y_alignm=
+ent;
+- 		su_area_changed =3D true;
+- 	}
+ =20
+- 	if (crtc_state->psr2_su_area.y2 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y2 % y_alignment)
+  		crtc_state->psr2_su_area.y2 =3D ((crtc_state->psr2_su_area.y2 /
+  						y_alignment) + 1) * y_alignment;
+- 		su_area_changed =3D true;
+- 	}
+-=20
+- 	return su_area_changed;
+  }
+ =20
+  /*
+@@@ -2768,8 -2800,7 +2800,7 @@@
+  static void
+  intel_psr2_sel_fetch_et_alignment(struct intel_atomic_state *state,
+  				  struct intel_crtc *crtc,
+- 				  struct drm_rect *display_area,
+- 				  bool *cursor_in_su_area)
++ 				  struct drm_rect *display_area)
+  {
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state;
+@@@ -2797,7 -2828,6 +2828,6 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &new_plane_state->uapi.dst,
+  				 display_area);
+- 		*cursor_in_su_area =3D true;
+  	}
+  }
+ =20
+@@@ -2874,6 -2904,11 +2904,11 @@@ intel_psr_apply_su_area_workarounds(str
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+ =20
++ 	/*
++ 	 * Called on the merged area, with the joiner primary crtc_state. The
++ 	 * secondary has no encoders of its own and the WAs below have to see
++ 	 * the whole SU region that goes into PSR2_MAN_TRK_CTL.
++ 	 */
+  	/* Wa_14014971492 */
+  	if (!crtc_state->has_panel_replay &&
+  	    ((IS_DISPLAY_VERx100_STEP(display, 1400, STEP_A0, STEP_B0) ||
+@@@ -2891,39 -2926,22 +2926,22 @@@
+  		intel_psr_apply_pr_link_on_su_wa(crtc_state);
+  }
+ =20
+- int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+- 				struct intel_crtc *crtc)
++ static void psr2_sel_fetch_compute_su_area(struct intel_atomic_state *sta=
+te,
++ 					   struct intel_crtc *crtc,
++ 					   bool *full_update)
+  {
+- 	struct intel_display *display =3D to_intel_display(state);
+- 	const struct intel_crtc_state *old_crtc_state =3D
+- 		intel_atomic_get_old_crtc_state(state, crtc);
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state, *old_plane_state;
+  	struct intel_plane *plane;
+  	struct drm_rect display_area =3D {
+  		.x1 =3D 0,
+  		.y1 =3D 0,
+- 		.x2 =3D crtc_state->hw.adjusted_mode.crtc_hdisplay,
+- 		.y2 =3D crtc_state->hw.adjusted_mode.crtc_vdisplay,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
+  	};
+- 	bool full_update =3D false, su_area_changed;
+  	int i;
+ =20
+- 	/*
+- 	 * Selective fetch is not always usable, for instance it is dropped
+- 	 * while pipe CRC is active. The planes keep their selective fetch
+- 	 * enable bit set in hardware over that, and a plane disabled while
+- 	 * selective fetch is off never gets the bit cleared. Once selective
+- 	 * fetch comes back the hardware would resume fetching for a plane that
+- 	 * is no longer enabled and keep its DDB range reserved, so have the
+- 	 * plane update drop the bit for every plane of the pipe as selective
+- 	 * fetch is turned off.
+- 	 */
+- 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
+- 		!crtc_state->enable_psr2_sel_fetch;
+-=20
+- 	if (!crtc_state->enable_psr2_sel_fetch)
+- 		return 0;
++ 	*full_update =3D false;
+ =20
+  	crtc_state->psr2_su_area.x1 =3D 0;
+  	crtc_state->psr2_su_area.y1 =3D -1;
+@@@ -2931,8 -2949,8 +2949,8 @@@
+  	crtc_state->psr2_su_area.y2 =3D -1;
+ =20
+  	if (!psr2_sel_fetch_pipe_state_supported(crtc_state)) {
+- 		full_update =3D true;
+- 		goto skip_su_area_calc;
++ 		*full_update =3D true;
++ 		return;
+  	}
+ =20
+  	/*
+@@@ -2953,8 -2971,9 +2971,9 @@@
+  		    !old_plane_state->uapi.visible)
+  			continue;
+ =20
+- 		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
+- 			full_update =3D true;
++ 		if (new_plane_state->uapi.visible &&
++ 		    !psr2_sel_fetch_plane_state_supported(new_plane_state)) {
++ 			*full_update =3D true;
+  			break;
+  		}
+ =20
+@@@ -3003,58 -3022,117 +3022,122 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &damaged_area, &display_are=
+a);
+  	}
++ }
+ =20
+- 	/*
+- 	 * TODO: For now we are just using full update in case
+- 	 * selective fetch area calculation fails. To optimize this we
+- 	 * should identify cases where this happens and fix the area
+- 	 * calculation for those.
+- 	 */
+- 	if (crtc_state->psr2_su_area.y1 =3D=3D -1) {
+- 		drm_info_once(display->drm,
+- 			      "Selective fetch area calculation failed in pipe %c\n",
+- 			      pipe_name(crtc->pipe));
+- 		full_update =3D true;
++ static void psr2_sel_fetch_set_su_area(struct intel_atomic_state *state,
++ 				       u8 joined_pipes, int y1, int y2)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		struct intel_crtc_state *crtc_state =3D
++ 			intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		crtc_state->psr2_su_area.y1 =3D y1;
++ 		crtc_state->psr2_su_area.y2 =3D y2;
++ 	}
++ }
++=20
++ /*
++  * One transcoder means one SU region. Joining splits the image horizonta=
+lly, so
++  * the pipes share the Y range. Returns false if no joined pipe has any d=
+amage.
++  */
++ static bool psr2_sel_fetch_merge_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc_state *crtc_state;
++ 	struct intel_crtc *crtc;
++ 	int y1 =3D INT_MAX, y2 =3D INT_MIN;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		crtc_state =3D intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		/* An empty area must not drag the merged one down. */
++ 		if (crtc_state->psr2_su_area.y1 =3D=3D -1)
++ 			continue;
++=20
++ 		y1 =3D min(y1, crtc_state->psr2_su_area.y1);
++ 		y2 =3D max(y2, crtc_state->psr2_su_area.y2);
+  	}
+ =20
+- 	if (full_update)
+- 		goto skip_su_area_calc;
++ 	if (y1 =3D=3D INT_MAX)
++ 		return false;
+ =20
+- 	intel_psr_apply_su_area_workarounds(crtc_state);
++ 	psr2_sel_fetch_set_su_area(state, joined_pipes, y1, y2);
++=20
++ 	return true;
++ }
++=20
++ /*
++  * Merging only grows the area, so a cursor that missed its own pipe's ar=
+ea can
++  * end up partially covered. Realign on the merged area until it stops gr=
+owing.
++  */
++ static void psr2_sel_fetch_align_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++ 	bool su_area_changed;
+ =20
+  	do {
+- 		bool cursor_in_su_area =3D false;
++ 		su_area_changed =3D false;
+ =20
+- 		/*
+- 		 * Adjust su area to cover cursor fully as necessary
+- 		 * (early transport). A visible cursor is in the state
+- 		 * even when it is not updated by itself as all planes
+- 		 * of the pipe are added into the state before the plane
+- 		 * checks when selective fetch is enabled.
+- 		 */
+- 		intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area,
+- 						  &cursor_in_su_area);
++ 		for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 			struct intel_crtc_state *crtc_state =3D
++ 				intel_atomic_get_new_crtc_state(state, crtc);
++ 			struct drm_rect display_area =3D {
++ 				.x1 =3D 0,
++ 				.y1 =3D 0,
++ 				.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 				.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 			};
++ 			struct drm_rect old_su_area =3D crtc_state->psr2_su_area;
+ =20
+- 		su_area_changed =3D intel_psr2_sel_fetch_pipe_alignment(crtc_state);
++ 			/* Needs the planes already pulled into the state. */
++ 			intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area);
+ =20
+- 		/*
+- 		 * If the cursor was outside the SU area before
+- 		 * alignment, the alignment step (which only expands
+- 		 * SU) may pull the cursor partially inside, so we
+- 		 * must run ET alignment again to fully cover it. But
+- 		 * if the cursor was already fully inside before
+- 		 * alignment, expanding the SU area won't change that,
+- 		 * so no further work is needed.
+- 		 */
+- 		if (cursor_in_su_area)
+- 			break;
++ 			intel_psr2_sel_fetch_pipe_alignment(crtc_state);
++=20
++ 			su_area_changed |=3D !drm_rect_equals(&crtc_state->psr2_su_area,
++ 							    &old_su_area);
++ 		}
++=20
++ 		if (su_area_changed)
++ 			psr2_sel_fetch_merge_su_area(state, joined_pipes);
+  	} while (su_area_changed);
++ }
++=20
++ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
++ 					struct intel_crtc *crtc,
++ 					bool full_update)
++ {
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_plane_state *new_plane_state, *old_plane_state;
++ 	struct intel_plane *plane;
++ 	struct drm_rect display_area =3D {
++ 		.x1 =3D 0,
++ 		.y1 =3D 0,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 	};
++ 	int i;
++=20
++ 	/*
++ 	 * On full update the whole pipe is fetched, the plane loop below then
++ 	 * gives every visible plane its full area. Plane states come out of
++ 	 * the duplicate with a zero sized area, so this has to run on full
++ 	 * update as well.
++ 	 */
++ 	if (full_update)
++ 		crtc_state->psr2_su_area =3D display_area;
+ =20
+ +skip_su_area_calc:
+ +	if (full_update)
+ +		clip_area_update(&crtc_state->psr2_su_area, &display_area,
+ +				 &display_area);
+ +
+  	/*
+  	 * Now that we have the pipe damaged area check if it intersect with
+  	 * every plane, if it does set the plane selective fetch area.
+@@@ -3107,6 -3185,82 +3190,82 @@@
+  	psr2_man_trk_ctl_calc(crtc_state, full_update);
+  	crtc_state->pipe_srcsz_early_tpt =3D
+  		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
++=20
++ 	return 0;
++ }
++=20
++ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
++ 				struct intel_crtc *crtc)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	const struct intel_crtc_state *old_crtc_state =3D
++ 		intel_atomic_get_old_crtc_state(state, crtc);
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_crtc *joined_crtc;
++ 	bool full_update =3D false;
++ 	u8 joined_pipes;
++ 	int ret;
++=20
++ 	/*
++ 	 * Selective fetch is not always usable, for instance it is dropped
++ 	 * while pipe CRC is active. The planes keep their selective fetch
++ 	 * enable bit set in hardware over that, and a plane disabled while
++ 	 * selective fetch is off never gets the bit cleared. Once selective
++ 	 * fetch comes back the hardware would resume fetching for a plane that
++ 	 * is no longer enabled and keep its DDB range reserved, so have the
++ 	 * plane update drop the bit for every plane of the pipe as selective
++ 	 * fetch is turned off.
++ 	 */
++ 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
++ 		!crtc_state->enable_psr2_sel_fetch;
++=20
++ 	if (!crtc_state->enable_psr2_sel_fetch)
++ 		return 0;
++=20
++ 	/* The joined pipes are handled in one go from the primary. */
++ 	if (intel_crtc_is_joiner_secondary(crtc_state))
++ 		return 0;
++=20
++ 	joined_pipes =3D intel_crtc_joined_pipe_mask(crtc_state);
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		psr2_sel_fetch_compute_su_area(state, joined_crtc, &full_update);
++=20
++ 		/* One pipe falling back takes all of them with it. */
++ 		if (full_update)
++ 			break;
++ 	}
++=20
++ 	/*
++ 	 * TODO: For now we are just using full update in case selective fetch
++ 	 * area calculation fails. To optimize this we should identify cases
++ 	 * where this happens and fix the area calculation for those.
++ 	 */
++ 	if (!full_update && !psr2_sel_fetch_merge_su_area(state, joined_pipes))
++ 		full_update =3D true;
++=20
++ 	if (!full_update) {
++ 		/*
++ 		 * The WAs clamp the SU region that ends up in the per
++ 		 * transcoder PSR2_MAN_TRK_CTL, so they have to run on the
++ 		 * merged area rather than on the per pipe ones. crtc_state is
++ 		 * the joiner primary, the only one carrying the encoders the
++ 		 * WAs look at, and the merge guarantees a non empty area.
++ 		 */
++ 		intel_psr_apply_su_area_workarounds(crtc_state);
++ 		psr2_sel_fetch_set_su_area(state, joined_pipes,
++ 					   crtc_state->psr2_su_area.y1,
++ 					   crtc_state->psr2_su_area.y2);
++=20
++ 		psr2_sel_fetch_align_su_area(state, joined_pipes);
++ 	}
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		ret =3D psr2_sel_fetch_apply_su_area(state, joined_crtc, full_update);
++ 		if (ret)
++ 			return ret;
++ 	}
++=20
+  	return 0;
+  }
+ =20
+@@@ -3332,7 -3486,7 +3491,7 @@@ void intel_psr_wait_for_idle_locked(con
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     new_crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(new_crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+  		int ret;
+ =20
+@@@ -3621,8 -3775,7 +3780,7 @@@ void intel_psr_invalidate(struct intel_
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+  		intel_dp->psr.busy_frontbuffer_bits |=3D pipe_frontbuffer_bits;
+ =20
+  		if (pipe_frontbuffer_bits)
+@@@ -3693,8 -3846,7 +3851,7 @@@ void intel_psr_flush(struct intel_displ
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+ =20
+  		if (pipe_frontbuffer_bits =3D=3D 0)
+  			goto unlock;
+@@@ -3981,7 -4133,7 +4138,7 @@@ void intel_psr_lock(const struct intel_
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_lock(&intel_dp->psr.lock);
+@@@ -4004,7 -4156,7 +4161,7 @@@ void intel_psr_unlock(const struct inte
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_unlock(&intel_dp->psr.lock);
+@@@ -4609,6 -4761,10 +4766,10 @@@ void intel_psr_compute_config_late(stru
+  		crtc_state->has_sel_update =3D false;
+  		crtc_state->enable_psr2_su_region_et =3D false;
+  		crtc_state->enable_psr2_sel_fetch =3D false;
++=20
++ 		/* Plain PSR1 is not supported with joiner. */
++ 		if (crtc_state->joiner_pipes)
++ 			crtc_state->has_psr =3D false;
+  	}
+ =20
+  	/* Wa_18037818876 */
+
+--9/G13HJc/YtuFupn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0l50ACgkQJNaLcl1U
+h9AkwQf/XXDo43RPkKONKU/GDUXtEdXWkV1PKLS3G1FPULOwhA6CTVkN2bSMiL3w
+zv7CKTgtv/bdm9NLowQ/wQLcH+/U2n83gpKJPyvXZjHiAKxJCF01RNXuLGhNHnTu
+jxjC/p0yOWKWjDTjmYkIfNVkqX8tf0UXGo9JhE6TS25HPthrBKeSWVGfJ7H9eHtY
+hAi1ENBbzqNc39v65k74quMRcfO8WvSAQqfR7QNRaNim59MUvpQgHsXmnXSoytxS
+45lgzV9sZIbHhIx7KkkXjNpBmkEJ6i7KfdoXT6ZkWlQC/hC9uyyBYoNdAGcc8R+X
+8IL+tlCEuew1Qc+48nki0KNU5zk5nQ==
+=334l
+-----END PGP SIGNATURE-----
+
+--9/G13HJc/YtuFupn--
