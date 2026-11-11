@@ -2,49 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEC5606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 12:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5318C606A880
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 12:11:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=WkRCID3y
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCPWC5Pq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC7610F752;
-	Wed, 11 Nov 2026 12:10:02 +0000 (UTC)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F2110F752
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 12:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=k1; bh=+EtG
- 8CyQ59kAhcLxDyXRX3sibsUSs2m78jp4eyjdC+8=; b=WkRCID3yVbwXRqKJohqV
- Reen4BzE0JuLOnYgLguV7+HYnRrzpAXfIcBbRX96w++mby2m5tXCx1HDPKfe5h8S
- hYeryuP54O9NrT6zZuJ6doM03pKU63M6lGkx16WzhowviJL3RcZuQuBiQOgBnsC/
- SRGHu1jk8X2SaH888i79a1juIRyiO7+PN/0IOB9GRp9ZJYbrU+906ocm/EwlmOY/
- jgN7rvBoLKMNGifpiOSCBUe/JUyXdQT6fU14rtUCk8Z4IFT2PEToJXjIJQUEQJOc
- mgXe68JCGLRUNnoYHip9McVi4UmUgYXLxCErHQToQ74EMUZzUoqaENnGtaEpx3ya
- jg==
-Received: (qmail 603641 invoked from network); 11 Nov 2026 13:09:52 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 11 Nov 2026 13:09:52 +0100
-X-UD-Smtp-Session: l3s3148p1@fXCIEv9fKq0ujnun
-Date: Wed, 11 Nov 2026 13:09:52 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: phucduc.bui@gmail.com
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm: shmobile: Fix white screen after resume when
- LCDC is stopped
-Message-ID: <avRbEGoPh3bqR93f@ninjato>
-References: <20260707093004.987846-1-phucduc.bui@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F5010FB31;
+	Wed, 11 Nov 2026 12:11:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB2E410FB43
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 12:11:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E4D56600E2;
+ Wed, 11 Nov 2026 12:11:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E562C1F00A05;
+ Wed, 11 Nov 2026 12:11:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794399080;
+ bh=gmPR0FedAKJql2EJ2Bc62+0bi0fawdbdAWLRYaD0g2Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=lCPWC5Pq9tGP1K5OOhOWJqUNfy97tqlliU6Otcd3NMRkYYdgC4+8EyPAbPQ/XaUyb
+ /7CKBi3ORoD9RCr0BO+XFTourHZcbwhgNLROkHFlifvUWVQsz3tHTCeQDJZiKb7EOB
+ 7s9iJggT33t9RfiD0aPhwBjvzLkF8VDptrApobg7FH0Un9dPcWutSGaw5zPl3gsBDO
+ kpXyFaqTu7qEpBFYpXR53vG/jH9NpMbR9QfC0hmU+L/zKftTfPuk4RLd4Tfld9JLyb
+ REDDz9YT00h7in1QvvGySbSccbRf5FlkwnE9YkohiI4RA50UBWpGl09kNcgnBN9/jx
+ dVSnevpw3hlmg==
+Message-ID: <3bbc1c1a-0435-4cde-a1a2-a408bd7a794a@kernel.org>
+Date: Wed, 11 Nov 2026 13:11:13 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707093004.987846-1-phucduc.bui@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
+To: Daniel Thompson <danielt@kernel.org>, Roman Vivchar <rva333@protonmail.com>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
+ <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
+ <aunqGVkX7-Y61iDA@aspen.lan>
+ <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
+ <aunyu4ToQ0T3b2Mj@aspen.lan>
+ <CmvbeteAqxtpenZUmJ4dqRvXYjjDzTTDevRB4NUlN0WGLOUk0jwzt2C3ZtuZ3Eb2UwBDEPUWpu9biU1OOhKGWQITolX96cFXolBTMgSyh1c=@protonmail.com>
+ <auoVaaZjcnRTj1S9@aspen.lan>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <auoVaaZjcnRTj1S9@aspen.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,47 +107,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Jul 07, 2026 at 04:30:04PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
+On 03/11/2026 18:10, Daniel Thompson wrote:
+> On Tue, Nov 03, 2026 at 03:21:45PM +0000, Roman Vivchar wrote:
+>>
+>> In the driver I've used devm_regulator_get_enable(), rather than _optional(),
+>> since my understanding is that the non-optional helper is a standard kernel
+>> API for required supplies (with regulator core warning and fallback to dummy
+>> regulator in case DT omits it).
 > 
-> The LCDC on R8A7740 may show a completely white screen after resuming
-> from suspend (s2idle or s2ram).
-> 
-> After resume, both Set A and Set B registers are reset to 0. As the
-> Frame End interrupt is not generated while the controller is stopped
-> (DO=0), the hardware register switching mechanism is not triggered.
-> Consequently, Set A remains at 0x00000000 even though a valid Start
-> Address is written to Set B, resulting in a white screen.
-> 
-> This is a timing-dependent race condition. In some configurations,
-> debug options slow down the resume path enough for a Frame End
-> interrupt to occur, which can mask the issue.
-> 
-> Fix this by priming both register sets with the Start Address while the
-> controller is stopped, ensuring a valid base address is available
-> immediately after resume.
-> 
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
-> 
-> Note:
-> It was originally posted in March and has already received both 
-> Reviewed-by and Tested-by tags. I'm resending it to bring it back 
-> to attention in case it was overlooked.
-> 
-> Changes in v4:
->  - No functional changes.
->  - Resend.
+> That dummy fallback essentially makes it optional. On a board with an
+> always-on supply then there is no need to include vin-supply in the
+> DTB. The driver will work just fine without it.
 
-Still not upstream? Who is the person to pick this up? This is a
-valuable fix we surely want to have.
+There is a need, because this device needs a supply. How you describe
+that supply in DTS is a different story - can be always-on, can be
+missing etc.
 
+
+
+Best regards,
+Krzysztof
