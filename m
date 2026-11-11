@@ -2,134 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF64F606A332
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 15:33:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD52F606A333
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 15:34:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Gxq2A+gU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529A410E835;
-	Wed, 11 Nov 2026 15:32:58 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0569310E835
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:32:46 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AA9C721EA8;
- Wed, 11 Nov 2026 15:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
- b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
- dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
- ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794411164;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
- b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
- 2y6hNGeoeptzqlBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
- b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
- dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
- ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794411164;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
- b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
- 2y6hNGeoeptzqlBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DB441339F;
- Wed, 11 Nov 2026 15:32:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oBajMZuK9Go7UQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 15:32:43 +0000
-Message-ID: <57163572-846b-476d-9a90-f28d82598eec@suse.de>
-Date: Wed, 11 Nov 2026 16:32:43 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2485210EA86;
+	Wed, 11 Nov 2026 15:34:16 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96FBB10EB49
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:34:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794411245; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=YH4GCyBgSUE4ZWKabNOPkedslFjxEeN2y+ukxGakA+nTWBBltm2ACuFjgZAhuUQTipu/k0RbB80tfJvN8S6sRxp656EDfhDzhNAFmmXoCRmjBs6G5FSi3shPCK6isX1o6IwDEmku5nWcqAut99U7JlydtjyHNmclAZhtiwxdQmk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794411245;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=3d6GwUcI41vPeyH4xF1H67Snjlg/ya1dkGHnX8U2dlU=; 
+ b=AcKJI43GQKyj21gx708w3BVs9FDY87GsU+SlJyfy+C7zpBpMU2mCbc5YnDPs2/sLUNypYTKIG5B5UB8Qv6KRIJc4zz3KBXSYpnIEIaqqXa52NKZWjEV7rJf5D+ZxGWcv4IFtT/cwzyWw9AQNdjhoKVCUgGBnOufpZJLiIUSpOSA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=Gxq2A+gUMWVLn5WHW9l3vwnxQlQIYUqQccBXHbU8H12DDAaAOMmh6r+KWJaTUxaf5EKbaNKh4Iw8OCrcvFEdIx5UgYOxmgLH+KSccnvqk96LmLlzwTSEZUAn6cZ6vRBuklZ+0VTUjKDniwcU+BVWJcPNofa0CIDBh/pzNaUuzfk=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=3d6GwUcI41vPeyH4xF1H67Snjlg/ya1dkGHnX8U2dlU=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794411244551300.58005091833445; 
+ Wed, 11 Nov 2026 07:34:04 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
- simple-framebuffer
-To: Hans de Goede <hansg@kernel.org>, Sebastian Raase <linux@sraa.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
-References: <cover.1793758480.git.linux@sraa.de>
- <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; TAGGED_RCPT(0.00)[dt];
- RCPT_COUNT_TWELVE(0.00)[14]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -11.79
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261111100745.3929894-1-work@onurozkan.dev>
+Date: Wed, 11 Nov 2026 12:33:47 -0300
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org, aliceryhl@google.com,
+ airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, tmgross@umich.edu
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
+References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+ <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
+ <20261111100745.3929894-1-work@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,61 +64,36 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Hi Onur,
 
-Am 11.11.26 um 12:15 schrieb Hans de Goede:
-> Hi Sebastian,
->
-> On 4-Nov-26 03:34, Sebastian Raase wrote:
->> This patch series adds support for monochrome framebuffers (1 bpp, packed-pixel)
->> to simple-framebuffer.
->>
->> Monochrome framebuffers require far less video memory and bandwidth than
->> 16bpp or 32bpp framebuffers, making them useful for small devices or FPGA
->> implementations.
-> Thank you for your patch-series and I see that Helge has just
-> applied this to the fbdev tree.
->
-> Have you considered also extending the simpledrm driver to also
-> support these monochrome formats there ?
->
-> Most Linux distributions now a days have switched from using simplefb
-> to using simpledrm.
->
-> But I must admit I've no idea how well the drm subsys / kernel-mode-
-> setting API handles monochrome formats.
+>=20
+> Any updates on this? I am preparing v2 of the GPU unplug series [1] =
+which
+> depends on this series. The reset patches need rebasing against =
+current
+> drm-rust-next.
+>=20
+> Would you prefer me to send a rebased v8 and base unplug v2 on it or =
+are
+> you planning to pick up v7 and handle the rebase?
+>=20
+> Thanks,
+> Onur
+>=20
+> [1]: =
+https://lore.kernel.org/all/20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@o=
+nurozkan.dev
+>=20
 
-Only kind of. We either support it natively if the compositor can handle 
-it, or we convert from XRGB8888 to the internal pixel format. But our 
-helpers for converting pixel formats expect 8-bit per pixel at a 
-minimum. All the drivers with lower pixel size do some kind of 
-workaround. I'd love to see better support, but had no time to work on it.
+I'm only waiting Alice's R-b before bringing this in. Feel free to send =
+a
+rebased version, since it will probably be needed for the unplug work =
+too.
 
-Best regards
-Thomas
-
-
->
-> Regards,
->
-> Hans
->
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+-- Daniel=
