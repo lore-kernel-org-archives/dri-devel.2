@@ -2,91 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481E8606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CAC606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k3Bdbnfa;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WIsxZBZ0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DGfjdUv4;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RDOVLtv2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7516D10FB7C;
-	Wed, 11 Nov 2026 14:06:24 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C24E910FB7C
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:12 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0082910FB75;
+	Wed, 11 Nov 2026 14:06:58 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4FC010FBD6
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:45 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABCYvYb1359103
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:12 GMT
+ 6ABCZ0AI2338048
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=KXBhJCFqA5bIGvWFtXt6+Gu8
- 6y2tdB1JbBanpyQaxXM=; b=k3BdbnfapFZUICnXw4zScnfcFSOPWBP3oRH1V+Dw
- eg2ahj90B9K7ySGaeK60xw8hqm92X3/AQ6W6/mwTuKiPLsgVVikoyWrlpr6xGWmQ
- L8+jlPtBHQFOWm9vFs/gQIltMeYtd01HYEPFCE8/qCFTVHB4sX790VzH2qer2XNS
- 5f9YiSA4EKbVrxIw5WSGRWYqQDkZ4yyhTUlcgoC9CipCuXTf9XjqXRydX4TyQtYB
- ixkSGXijVhYT5Uf1I55xSIFZCfvWFWeyxjYQRIKUPYLqm6AV2xNlHW1Qhmfq8tGx
- WlLaGsi5227/L89FAhmHv5FGD5et1b60gIIFhLOs9KvIxw==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7psj3y-1
+ :references:subject:to; s=qcppdkim1; bh=VNI21V2lgtz8Hzxic3v5KFi0
+ FrkQQXKocGAVFanNboI=; b=DGfjdUv4+0wwjmeFWoYwb2ro+r/udE3aAA/oqPIw
+ ZKWbQgx2p9MmF/XtqTK8XexmCYHJOR7R/XRdRSTqGcu0HBlrXXXpt3/Nd5VS6/kO
+ lso3tYXcgIEoYmwFeRDrpKM+UQlHiFM1zwieAElsE+Vv5Rc4IwnfgZZpxUtudSin
+ lBcwKuyvjdygaE4mj4rCSyRdR345eGIajAF21QoB8T4C/Kce8aLTEjUnxDmJWlqz
+ WW+3dMRg+8ADOF57x7GKIkKYuspxTxafAMVTkWNATRAyS5cen7N/CbJdz6xOeoKF
+ 1Uihh/sP0TXwyTHX6d6U899uXiR5q5j8kX/SRUFNbU6uMQ==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmaxqf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:11 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id
- 71dfb90a1353d-5ece7f075c4so951486e0c.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:06:11 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:06:44 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-999bc06bfd0so2256739241.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:06:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794405971; x=1795010771;
+ d=oss.qualcomm.com; s=google; t=1794406004; x=1795010804;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=KXBhJCFqA5bIGvWFtXt6+Gu86y2tdB1JbBanpyQaxXM=;
- b=WIsxZBZ005Sz1gl14+oGjJJ1gO3a15crio4s78DCkNbJTqUXrr3CkY0lotFR/HmstS
- cK7UEaeidydjilT7FlqloMuhZFGuAMUfEzX6u4CRM0nxPRQwWY7v77pGg7UnwB+WalEy
- /ALYSLNhzT+DeI5IEeoNWHpCmQWc70F6ci5PJ/YaCEBQgDQrpTBeJGDlBDWfAMytd6PW
- scUK6XzCFGVVdeEtnV5K+EeJ2mMsu0YsEtV2YjVt56JCge0MWBZWKSlzRkfNliKK/C7H
- /kbRJcOHHNMdzz2M87wWsyUJs/ZnPlsyxhWiEJHZM4GgYIgZY+irBtKf7dL5Yt/+rYSC
- KiVg==
+ bh=VNI21V2lgtz8Hzxic3v5KFi0FrkQQXKocGAVFanNboI=;
+ b=RDOVLtv2P93j9O0943sMLAmaPHBqRdKZgL4oZX0zSIfEHPVPB+cMmweIJYGse/vOMI
+ ugjDkxW6R9h2B1tUYEu3+PkLU8djDHURdIKzUre+tbNcWtipaqqIhONNoRVAOHHyPyLI
+ q7ZN6A8e13ruTVHYLWxviMxIjjLgYVi3tuwRMXVoK68UjjhHWMUltJcL+B0Ap1l9BrRj
+ nZTESO0Id0ec9VfuTnjciDmvuCUvNZ5pZo9kAYy7+AZ/H4aiybiqj/8u6ObuvhqjnX/Q
+ mswa+a+74EvH0wKzgTnVwDzwWX1CQONO177PXRD293QRWiaav9QPR1B/mtNmuE+ErTfK
+ Nv8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794405971; x=1795010771;
+ d=1e100.net; s=20260707; t=1794406004; x=1795010804;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=KXBhJCFqA5bIGvWFtXt6+Gu86y2tdB1JbBanpyQaxXM=;
- b=RuaQk6KudhDNyAAsDOt2zCu9sUxnfEEka3ByFbbjriFj8c1Ymvz5+g2Wtrwv6Jn8eN
- Y4ZeifApocW2/Ui1hPamHfww8eeCiPBuLUrIRxXuhsG8KPDyNEqLmpyQ28rNEvUS2U7P
- OdBrH/9R7+0xJ8YDEsAganzRdO9SYrEiwwC2RGuBBH6M1X5TG+4V990fQAJVEiwMnj4o
- hH0gZmIQNdW0FxZhuvr0Mp1GCNE4GT35gN94qN2x2mfPbKAcvQMZeIvZteS50bi6l6x+
- xS/jTKkBiGEqjOI/mvF5lQ19P0fQJe14ONPN1hBe4woD3qLvjWLxYjvNTZUo10UsiD2Q
- ujWw==
+ bh=VNI21V2lgtz8Hzxic3v5KFi0FrkQQXKocGAVFanNboI=;
+ b=w+oEmA7fPzNizV8ILBtUz2wdz7wYoyvhYGxDm1o3Dz2/5eAY+rypB2FExtj6liaW7z
+ MirxG7sINAz55Yafywh58b4xr4Y2Q4E5woo4VqCcQCcEq75nQpLoK85MS6iF9HqrEkEo
+ Oe7SLyplu4/QUVXSsBcWOak0qiJHFwlgMGLklR7Sgs86ZZKn+cFzmHDOOGyBQGPg1yGq
+ FFB5JirdAcJd9kDxPOrcy5f5NjTIXMungoNqpV1paV61+On7upH0a2fw7ssJlzCGoY+7
+ p2u6rvqyO9vo/clBSUmJTbM5jKPbTCvSfC61+A0clhK3R9B6bcw4JlBKBKIZpHmtnIMC
+ P1uw==
 X-Forwarded-Encrypted: i=1;
- AL+hErFptJ4eSFLLc+y7n3lKBxYy7VC7bj37OHj+97l2aqhz9TksLg0lK6Tpvztzln1EFCfBQ2eNLH+g1KI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8OEhp4RNqMNtEF0IdR5e0GYSYgVqA/Y3XSVq76KqwoZgFKmb+t
- JkTCgnX3yv8igs+Zwiww1B3UkDlrAXTGha1hCyo9JPqmgPMIL8d6Gsab+BSD3rLzj94IAcQ94VT
- 9QRQLoYSrN2fmpHvPGEtQyorMvLqIjXXFe0tmBZC7pio5LBsNKU52KuYTZsarxrywFJhB3GU=
-X-Gm-Gg: AYBFou1JdbTH2s2rtFZ/quVEi3Eyu2a08AihZpNi07pgAPZrydLcVPIzttMPdXaGpaV
- vp5nuLvR+aIkKYG8E0y7dcQfv0gd69oDV+efbiUwmYBZh4JGBemODbfbB4HgsZx5XJv2f6DYdmg
- 0CGA6EQWDE1AB3q+psmsMzxTXQwiw+ZNKYNGeFz1UITFvwuAQW6DbPuwpMC7P7hqq7z3tm4/LIh
- HLgOxCdmulet5SZ3XAuokJb8p6mC/kbHOpssQye0nwQn8iDZKtv00HgN9Bejj3d79CgPxEM0ZeM
- q/LSEWk6oPYSFpBDm2FlCIUI/69qtvvxMUVvoSrv/e9x/JXdntnWEJzNeH9l5+w31v/q5VCoA39
- pOned6uXs0kjluc5LH+yXuQVJEy0korxzg4tOBcVuPNVsZDAYq79fJ5y5NINmZ5fuI6ceS0lpZQ
- ZjqP6EoZxigXkKFJVNzJKHhrkTVw0pqFJIha5YiaxBe1ahdXW3YG0DGjl9joKPRA==
-X-Received: by 2002:a05:6122:8f89:b0:5c9:a60d:327a with SMTP id
- 71dfb90a1353d-5ee1c443198mr713189e0c.14.1794405970706; 
- Wed, 11 Nov 2026 06:06:10 -0800 (PST)
-X-Received: by 2002:a05:6122:8f89:b0:5c9:a60d:327a with SMTP id
- 71dfb90a1353d-5ee1c443198mr713132e0c.14.1794405970186; 
- Wed, 11 Nov 2026 06:06:10 -0800 (PST)
+ AL+hErG9O4DyXkCcdaWqhCQeJUSlAe5mla7ZSvK7rlxnA08DhNmWCGZZA1a7Dt6cPj7gefYUN7SGiBdnuCg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Agp4PYS1OTRD3OaJGCZ7u/Igczu1SeRt+boJoD4UjEu20sngv
+ PKZD9IzMEKh9f/Pj+30rD79TTP61nrkWM1CzRgqhpeu2/OTx7VUbl/9m2qafz0xdNlfP1cf7m6N
+ zmecxTMVFI2hu36YUAbiQOeSbc5GMmKahpa9uQdKOD6BBm6264e1R+KYdYHGsZVYm1faA1XY=
+X-Gm-Gg: AYBFou0rsDHJMuVn70B91i1uUdqcSbQb5RVfwyf/wMSOv9QEOzA8uXzsijdiuFln0UQ
+ dPKo/IU+I01F4onVUnJ+NKiqEAd/D8ttRFwbwTUu554DzU0rFhG22EDFr+eOIjsgGWv9spVtzZb
+ YQ4xQlcJtJiWurbhbf6fpYSo3v4UZLc3Iy+gtGny3TN1vstZnWs2w6LiEzEH67IUYglCK9MKx/o
+ /z02LEBjapkcSOa5C/EghCae4oGoG9llj02LsNFaHdgPFvy+gWhjvCs3vYfflLU2eZVRumMls+3
+ l/2IuKgneCTks2Yos4mgUqaQDwG3S8F1swKy2g80+P20pjcaNyDv7PNWvbNQjwjZcXRY+kT1gWk
+ XQN8knlhkyJddoUxQdSI0s5+m3kDovQqrAuIKr2Xh1wqnYfK22+BBgg1N9b9oIS9xu20qfOT6wJ
+ A5dn8dZifFDXmaFcTw5vXUfMOts0GASViv1yc2N9wnduYej0VhW8pKs4Uk9xsxYg==
+X-Received: by 2002:a05:6122:179b:b0:5ea:d10f:2394 with SMTP id
+ 71dfb90a1353d-5ee1c40c764mr813239e0c.10.1794406004212; 
+ Wed, 11 Nov 2026 06:06:44 -0800 (PST)
+X-Received: by 2002:a05:6122:179b:b0:5ea:d10f:2394 with SMTP id
+ 71dfb90a1353d-5ee1c40c764mr813200e0c.10.1794406003823; 
+ Wed, 11 Nov 2026 06:06:43 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c15776f2bbsm966580e87.0.2026.11.11.06.06.08
+ 2adb3069b0e04-5c159702ae0sm815407e87.20.2026.11.11.06.06.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:06:09 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:06:07 +0200
+ Wed, 11 Nov 2026 06:06:42 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:06:39 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: naidu nama <naidu.nama@oss.qualcomm.com>
 Cc: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
@@ -98,40 +98,39 @@ Cc: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  quic_riteshk@quicinc.com, quic_vproddut@quicinc.com,
  quic_mkuntuma@quicinc.com, mahadevan.p@oss.qualcomm.com
-Subject: Re: [PATCH v2 1/3] phy: qcom: qmp-combo: delay Type-C mux switch
- while DP PHY is initializing
-Message-ID: <xby27hg6ajesijmdclu7f2sa2swv4ednmokka2pbn7uaufm3za@czdij7j2qcml>
+Subject: Re: [PATCH v2 2/3] drm/msm/dp: Remove redundant force_link_train flag
+Message-ID: <gfzdwaeouexratptiktpzodi44x6ztsfttqajzr5wxtrluyqjx@axwlv5jlakcc>
 References: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
- <20261111104434.2222182-2-naidu.nama@oss.qualcomm.com>
+ <20261111104434.2222182-3-naidu.nama@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111104434.2222182-2-naidu.nama@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfXwS2HsAK8Z70m
- 9a08o9V2Aucxd8YTUQ+b7IE4vU+pfiN0kGpnrnWAEQSBkeKPFameynoN2Ntsb/K3BQWNs28Qee9
- eAKKN/iS/JpjvajPcM0elJ4SG6jt1JE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX/mX6YxaC9/a3
- PtiDomuEXpYWWWiv9vvTXleHi+bHICBUNqbSClpRyzoEwB75OZkHdQ9Ch7Ns2EnMHmocFcOD6S2
- 2MnkhPS39yvAgJlJNAUNDRiH7TVIuChl6ArmawgKIQEthTLKwuYZ8rh+8h8sW3ubltPH6nIHSoZ
- FR23Kvj30Usl4Y5Ia6vUZ3YcqQo+AgU3O8rwpAiG1zXFtQi7U2JDD/zjez7cqMhP98AxE8Hn2lx
- oLOYnZDXy6/v9+5AZQHkHIGe1Fi4foN5g5DCoX/IRAMFqZjBaSNhk4GRhislUm9htpu3efDtUDu
- DejF+QvuJh0I0Qafiy4sGt1e08IRA3dbEh6dRc69TARfLUM1243Zb5wMt4xsBiS7oY84pvqef7L
- LMo0HKSLEf1cJJVEX98JKXMX825lskJjhSDIJtKFdhADqQsmUVeAtOjTXmDnf9UuGBIoWjEv9SD
- 2amNgT4SAoua4nRGmTA==
-X-Proofpoint-GUID: BAkt6LsCWQSuQc8hXqb50-d5llhyw9R_
-X-Proofpoint-ORIG-GUID: BAkt6LsCWQSuQc8hXqb50-d5llhyw9R_
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af47653 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261111104434.2222182-3-naidu.nama@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 8baRjimApFJn8dipp3nBREi8rFbqUD48
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX6J2ct2/uLygh
+ oR3vuUYftSSbHG3GmbN4sYvm4CmXOkiiZv6bCliNxUtmtcL27+W/VcHbmPlfUgmnvA3FhxAc51y
+ 1zfd5T29xYlG8AzLiVV3xzV9x6hnjG4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX7l49G4mVFNjC
+ bsoBAs8NZ1zERa6Mf5wqLMqeaJCBeh9Mkr3EGvxPx8XJjUR4jU5c0fApPSrkLzEK/SWInugJ/jF
+ 7vAbNk0YjVBKlmiO5EEHo2ZqMJm2S7eC4VCE/pQqOXPuoNcxHsoVs9HKEDTCMSqXZMMvEKtgQF6
+ UsCC6fsfgCJXlCzQOw9jwiWOibMYMQcNQ8TqhV15/hyyBacyveydAVcmEzuBNwrTYyeOZgLofod
+ y/hZawGU5ui1ugIbevg4HbOlXdgv52OgIstcrDTh3G3bB/J8WkFFr0vAZLHyeaTEsZGe2YjfUHM
+ 6Z2QYZ+5aYArBXSqICwDko3cmiOS1vCnZwX7iEbUH13EqeUFoKgMSVAFz7ZemwOjiDsvwNQiM6/
+ i1/sU0BjmQxFgjmoe/PAyC0rsM1NAjTJE/DUcIFNgbjYMkaLAZhzxaVJmyBpHW7/e4Auqqn8Awv
+ ddm/TV2zJ0hrnSweK+A==
+X-Proofpoint-GUID: 8baRjimApFJn8dipp3nBREi8rFbqUD48
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af47674 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=hTi17YcZWSOoB4cLaREA:9 a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=uVK0n7524QBmBBgzDoUA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110056
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -152,51 +151,25 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 04:13:53PM +0530, naidu nama wrote:
+On Wed, Nov 11, 2026 at 04:13:54PM +0530, naidu nama wrote:
 > From: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
 > 
-> The Type-C mux switch guard only checked dp_powered_on, which is set in
-> qmp_combo_dp_power_on(). However there is a race window between
-> qmp_combo_dp_init() and qmp_combo_dp_power_on() during which dp_init_count
-> is non-zero but dp_powered_on is still false. A Type-C orientation change
-> arriving in this window would proceed with the mux switch while the DP PHY
-> is mid-initialization, corrupting the PHY state.
-
-How is going to be handled then?
-
+> force_link_train is always false when passed to
+> msm_dp_ctrl_prepare_stream_on(): the initial link is trained by
+> msm_dp_ctrl_on_link(), and the flag is cleared before stream preparation.
+> For active streams, it is never set.
 > 
-> Extend the guard to also block the mux switch when dp_init_count is
-> non-zero, covering the full period from dp_init through dp_power_on.
+> Remove the dead flag and parameter. Stream preparation still retrains
+> when channel equalization is incomplete.
 > 
 > Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
-
-Naidu, you are resending the other people patches, but the SoB is
-missing.
-
 > ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> index 61d8b7a5ce8f..3f93043f94e5 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -5163,7 +5163,8 @@ static int qmp_combo_typec_mux_set(struct typec_mux_dev *mux, struct typec_mux_s
->  		return 0;
->  	}
->  
-> -	if (qmp->qmpphy_mode != QMPPHY_MODE_USB3_ONLY && qmp->dp_powered_on) {
-> +	if (qmp->qmpphy_mode != QMPPHY_MODE_USB3_ONLY &&
-> +	    (qmp->dp_powered_on || qmp->dp_init_count)) {
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 5 ++---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    | 3 +--
+>  drivers/gpu/drm/msm/dp/dp_display.c | 4 +---
+>  3 files changed, 4 insertions(+), 8 deletions(-)
 
-Can dp_powered_on be dropped then?
-
->  		dev_dbg(qmp->dev, "typec_mux_set: DP PHY is still in use, delaying switch\n");
->  		return 0;
->  	}
-> -- 
-> 2.43.0
-> 
+The same SoB comment.
 
 -- 
 With best wishes
