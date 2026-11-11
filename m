@@ -2,140 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D11606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9676060A2628
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jePkFgnE;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KBeh/nbB
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GKUXh7P0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343E910E413;
-	Wed, 11 Nov 2026 14:25:36 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BEE410E413
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:25:25 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABEKWvG3510916
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:25:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=QHCjyWnjJaKib08TgPofPSfS
- 5d3rT38/26nHs0v//to=; b=jePkFgnEVX0RULsrw7zmearAUw+XslMLC+QTiA2O
- o60WRQj0rvP3SnpnYwb+u0ng7t7hYvWzxKPD/o+kBmTC/A9uTqERoqWqhXnaedWv
- r9vgws8gvjJ8fDVqkcyYlAdg/A57SaHbLAlitobIXU6jQwEubzovDYEb05eGTBg1
- XKEm3Pl1uSUQGtJva7dqwXd+D5syugIMtQrST3tvkxyZCeuNpB8e8r9W0q1neT6o
- 4dsHbdp3vow2qJoGgko3MDouSocPSajvW7k5Lew6FoJOv5YYB3/JUviR9hkP39Ch
- IZhHMLFKeBKURT2hVkWgsxcq9/JHOBkgMRMcveJqouttlA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u80nu-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:25:24 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93cbf2fd504so620157685a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:25:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1D4810E0BA;
+	Wed, 11 Nov 2026 14:32:44 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C4A10E0BA
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:32:37 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4a5087a5348so28319435e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:32:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794407124; x=1795011924;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QHCjyWnjJaKib08TgPofPSfS5d3rT38/26nHs0v//to=;
- b=KBeh/nbB4NMU844ykeCcwRYf/p2VU7mX+UnyZfPdQ+QXqyZTfLKK0o6YriqD0rkwi8
- tsbq4vUb/Ie66cR2LxSxG8iaceUSWlex2/2CINZRsee9yTLUYIVBPMcw/l2q0Ezk58R6
- nIMw7cAnIuid/J23iiL2WyNBuQQEor3Gk6XbtURh5xWrbi+WdJPc0pADSZQA9/2owuap
- jZ5x70YqCpXYELv9j6pdt96sDjpY6sO/SMegleM0zGjzMAoF+d9ORFrBPkWzEzSXBcBr
- kGDGX8X+wxkTLl0m/hI4zzjN7mZzX4ykLgRLknY8nBRJ9MdT5kldCyLmd7UsmDaMxTnV
- APJA==
+ d=gmail.com; s=20260707; t=1794407556; x=1795012356; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
+ b=GKUXh7P0EG0sHP3aXjFlbiMq8OPjab4QbDY7rAji3FKqRCYCtqWtio5ZM5B8sADVH5
+ ALAN2dzIGzKP+jHloD/mN/YhkSQ+04fLlQjmhe7+mHogNcOfN00C67k5Gv8eXeYZ+/K0
+ oB9AlDZa0GDicKaXxbsByDj4R0hBVoj0GG7l6aqn2+lmTuVDLVfG0wWMxcZPt1quGmaO
+ U2y5ha4QrJnChHoR2gLgqXNZym612VfKjeDYbT/GM52zxtG1wz54ER8KYJugWrCHbbkt
+ blXfeKBnNnw8+CeeNdMDwmjAzNp0RmH2ZpXsuSu5sopyx3l2RMvyO4ZcpkI4mhiQyXR+
+ 6Suw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794407124; x=1795011924;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QHCjyWnjJaKib08TgPofPSfS5d3rT38/26nHs0v//to=;
- b=ucZZpR68spV+2wgk5Q58BBosZ9rjGSnJpn/V+DSpUADUfRCbOq72QwUDJzXlWAIjfv
- sNTZoMJyM7jOCM1gEA1RLKhAh91XD2MCKGTt7z328oEfnXYcX+JpVL8RFwkz35KrWvZL
- nOgGwpa/ONmKTfxak+/XeHxBy9n0f72lObQrsq6QImoVWpdYC9BqtVwogrRaPCvWp59q
- 3KIlDDNo6shDgqlH8XGLxIhx2cS1XNQkUMFQtK/hFIMlhF1gNPVrvWDsEV4cO4GTdU+L
- saky0i8HVZ8NUHeYJ5ODEHvn/bLBU2N/r/NLZJ7KWG6w1HI1xnPYMgFl97jF7dFUctuC
- Bp3g==
-X-Forwarded-Encrypted: i=1;
- AL+hErG9lh2GqD3jkpSE7uMs+2OGBs671pJHpbuEGGPQ4TUOq32hC94ABg0TNRh6rUxddNFRcfiIstSgwk8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/wQ20vAEOLirtmEALlx1bi3pvf0qS1zCeVXWj2tZPZUaq/P12f
- D3miCBN7uDp0Tax5OR1KbrkFBkJ+4AsrWqvfzHCb2feNO/K56fWxcO5unCpqeyt28urcqV/g486
- FpYCDHuEV87LP0mZyI6g5YrlxtxHNoq6TngV80hGBQdUmDFazqmPucs5qY8MaxzeGp4QuT6g=
-X-Gm-Gg: AYBFou3itclInQgLjBrRnYvQr7Y834qb3+8umHTz3mI08yyoQ25jebJsWhTNuXYjq9f
- lOCFkmRFliohItCfueDw+HEsdm96vezSZJZZWL32FNPwqnbMM5t8cwCMERNREx2EJJRpA3Mxojm
- 58JBNPlbRxT+vLPPAzeq2MnRLBGN0/xpYl7Da6wc60UilpPaB2yW2yOcWHfiFi4RsTkGMj39lD5
- j/FvoBvpN5YwTYhPIP5AfxwqdtcfBfxhb9BjBEkQSP/cuVihPujsRVWNSGRkzFR0rYJZS6cnQSD
- I7dVbse1YJDEhgHlZUeMSCqCrVgETgNFUmtJY3UHZkb1D0+g5XDEz820EAczGJZxGICXXNucfCh
- LhQ9dXyG6z7TO9mGr2Vk0rlg2ODfx8dvRhSfxsXiQ86tTDOpowuqJ0sCieYYrPINmgcfzbOLt9I
- N2rPdLBb+F/aLs52fjPcMZvuE/2YKMne707NnkARrA+gSlEilOk31lnzl/XkUd+A==
-X-Received: by 2002:a05:620a:4711:b0:93e:5daa:67a4 with SMTP id
- af79cd13be357-947afd6c994mr406652185a.29.1794407123485; 
- Wed, 11 Nov 2026 06:25:23 -0800 (PST)
-X-Received: by 2002:a05:620a:4711:b0:93e:5daa:67a4 with SMTP id
- af79cd13be357-947afd6c994mr406648785a.29.1794407123071; 
- Wed, 11 Nov 2026 06:25:23 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ d=1e100.net; s=20260707; t=1794407556; x=1795012356;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
+ b=sxH/RJKGY3cXKupS4PPlqEi8yezjYbzjvecvZFcGz6w/kWSI+HSuewdXnu/SvjpacD
+ lpg8DDEuR6m1sgQ+X2//K3RyEg7WtCVGrvs+OvNSNtHRNsMMKU+n9fZo+01aUy2ifuXw
+ ecCmrBVPZ64iiXsekfrAeabBQa38h2GxBPaa9jmNFZ78jTc7YwdalbKN5RjWWimMImL/
+ gB7Q0o+CksURNzlYQytGcp/qV8ed2Spjh4Xjn4J6SyyRtuRXX2HJmbS1eeQEsftQGQeA
+ VVpaNsbbX783s3kQ7QAyh+vua1oq2jzQEjoymoJ6f7sdufC/Ew244HO7Kgb/akEWrxId
+ SZaQ==
+X-Gm-Message-State: APuU4Z8EWVdXUHDiZJSeT5WpDQqDXcPoYR7VjmABHcOb4wYl1p3eFUI8
+ R3MzdibCpM2PFRxs3UYswFGj66P87NRPLs0QKhus648MBklzT7vGPomW
+X-Gm-Gg: AYBFou2QGqCKBGo9brB1NUQ16E4ODuUZNh5oAhyHcgstn5XnqVs/DLUJif6wiRDawl3
+ NykN9qOlypT+ApE1rGNDVTlWxXpwLW9gW3bay0yQxlKvisW/a0xb4mciyHAjvX6tyBER2v5+qyb
+ OXlo+XmGukTivSRQ2Cr/69secsJ4PB9C3d9NZ3Dzbp62gBKuTjJU/zZIO2L35pD+I34Dq3ucd3X
+ Pxs2ZPix/Vo+wEWvy+Se8Va2LsvioxTE7QQPD/uVFZGqM1+HvAuOy9UgPkvwOGKxoi7f89J/Ysm
+ dhtasWd2sekEjAPW01OYnnLGUXejDtU+2KO/OAoRIlvMpIn7pdwZyBgN5PPm1272/YH/R6mly9E
+ LK7UA1Q6GFkEfmNlDae68TpT4+/xpN7m1iqqb4dZ/0/u+RsWXV24MdZPyVWFACZICk6RWAs6kj4
+ d79m2KlUN9JGHL3UzsL3PdbW9QbJexCvfGiYtc2rtLILXshBOrSEtW2eYkQU1IHVdQiwbUc7uYp
+ 9RT4PxUHKk6gSFNf5GAeeKNSjkkNdaOcBkOQrM4lyAaK+F76OJjHa0ZWrRVauQxtYpIpTNpg8ll
+ SpakuSyQuAulFA9zNawTfaw1ihrqcEWDl5hWJGBkFWu5lLUeuLB/RnMGH4r0Emo=
+X-Received: by 2002:a05:600c:1d1d:b0:4ab:cc03:7f60 with SMTP id
+ 5b1f17b1804b1-4ba09365d6fmr46922765e9.18.1794407555956; 
+ Wed, 11 Nov 2026 06:32:35 -0800 (PST)
+Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c15bc4a69fsm552820e87.84.2026.11.11.06.25.19
+ 5b1f17b1804b1-4ba08e423dfsm62256485e9.1.2026.11.11.06.32.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:25:22 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:25:18 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Joonhoe Kim <26rote@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v8 01/29] drm/msm/dp: skip sink requests while the
- mainlink clocks are off
-Message-ID: <ldg46pmbkt2ntfpmhdgu7hq6va7ljck7o7pua6rkkkuij5b5c7@dqhf3ozkjoom>
-References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-1-d040fb33db5f@oss.qualcomm.com>
+ Wed, 11 Nov 2026 06:32:35 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+Date: Wed, 11 Nov 2026 14:32:24 +0000
+Subject: [PATCH] drm/vkms: use a bitmask instead of a bool for composer users
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-msm-dp-mst-v8-1-d040fb33db5f@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NyBTYWx0ZWRfX1hDhZMjXv1n+
- cCdhz8H09muU2d2fOggf0BkYMyq1GoEyZaMXcxHm/M+0k5Re8pRf1ZFfUpktzercyFipRlIDrtE
- QwEJQa+XGxzX2K/D8R3MT5TcGjFLLPY=
-X-Proofpoint-GUID: EHw5uqH9nsy7aVlffTGF4AfkMymVDPzf
-X-Proofpoint-ORIG-GUID: EHw5uqH9nsy7aVlffTGF4AfkMymVDPzf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NyBTYWx0ZWRfX2VVRyD70zZoG
- DAkSYGwfdtDVEpQ/4Kp9x7iFbRNW8G0Devz6OLFLb6grreyYiOAEjGZjk3cmFpGyYLKTKZzs1Wz
- YGfDhP+5O6igf3jhiK/Ppw6oRXr+QDh9dYAgS0sosW+3LHPiwVUmZg2rBLHPhGNRXWa/1XIBUjR
- NtiTh7Z3jO8oGmTksHdk22golUpTpz9axFhy6jGedQAIgS6KZEUilMQKCYPdhoYtk2FwMql9rpF
- EaLuQ6YOLMP8XTt8PbOqNyfdsVJhOfLR0/AMnOM6tUJJultXliIv5oOpZlrMVkvwllOdavWlmKR
- w8Lhws018069eG6MkYCQMP1rBGpqBgdi9BI3JLsQ0pHSBgGYoZa6JR3lRxJXbW+B/EJZNsy69H0
- Or9TCGEIGh+aqm7lzfjwE2BbnDzaXVZcKHLKbEKxAujiyp+7S9SNPbXkOlKF8fz7wxNVlPHR03r
- aYvcQD4e25IpU1MhV6w==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af47ad4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=_QjLU-fBZjFD5OgerkcA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110057
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-composer-v1-1-9d5fa94656f8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QpAQBBFf0XzbGt3axW/Ig+MwShWu0hp/93gv
+ p2659wQKTBFqLIbAp0c2a8CJs8Ap3YdSXEvDFbbwsgU+mXzIinEsrDaGddhD3LfAg18fam6+Tk
+ e3Uy4vz6k9ABvGo/TbAAAAA==
+X-Change-ID: 20261111-composer-cc9620515bcd
+To: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,64 +95,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 12:54:22PM +0800, Yongxing Mou wrote:
-> msm_dp_ctrl_handle_sink_request() programs REG_DP_STATE_CTRL from all
-> three of its branches:
-> 
->   DP_TEST_LINK_PHY_TEST_PATTERN -> msm_dp_ctrl_process_phy_test_request()
->                                    -> msm_dp_ctrl_off_link()
->   DP_LINK_STATUS_UPDATED        -> msm_dp_ctrl_link_maintenance()
->                                    -> msm_dp_ctrl_push_idle()
->   DP_TEST_LINK_TRAINING         -> msm_dp_ctrl_link_maintenance()
->                                    -> msm_dp_ctrl_push_idle()
-> 
-> That register lives in the mainlink clock domain, and nothing on the
-> IRQ_HPD path guarantees those clocks are running. Disabling the
-> boot-time mode for the first modeset from userspace turns the link
-> clocks off. The sink answers the link going down with an IRQ_HPD
-> carrying DP_LINK_STATUS_UPDATED (DPCD 0x204 = 0x80), and handling it
-> walks straight into a write to an unclocked register block:
-> 
->   [    4.572532] [drm:msm_dp_ctrl_off_link] disable
->   [    4.573756] [drm:msm_dp_ctrl_link_clk_disable] disabled link clocks
->   [    4.823194] [drm:msm_dp_link_process_request] sink request=0x80
->   [    4.823199] [drm:msm_dp_bridge_hpd_notify] 128
-> 
-> The board hung on 3 of 3 boots with a 5120x2160 SST sink attached over
-> USB-C. On the hung boot captured with drm.debug=0x100 the printk ring
-> ends at that last line, the drm_dbg_dp() immediately before
-> msm_dp_ctrl_handle_sink_request(). In the RAM dumps CPU0 is still
-> running pmic_glink_altmode_worker, holding the bridge chain mutex taken
-> by drm_bridge_connector_hpd_notify(), and ctrl->link_clks_on is false.
-> 
-> Bail out when the mainlink clocks are off. All three branches need them
-> running to do anything useful, so gating the function entry costs
-> nothing: the first one resets the controller, which its own comment
-> notes "will need DP link related clocks to be running", and the other
-> two retrain the link.
-> 
-> Everything else reachable from the IRQ_HPD path - the MST ESI handling,
-> msm_dp_display_process_hpd_high() and the video pattern test response -
-> only talks to the sink over AUX and keeps working as before.
-> 
-> Reported-by: Joonhoe Kim <26rote@gmail.com>
-> Closes: https://lore.kernel.org/all/20261108011501.4466-1-26rote@gmail.com/
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+The composer has a single on/off switch, shared by the CRC reader and the
+writeback job, and no record of who needs it. Either of them turns it off
+for both:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+  - with CRC being captured, cleaning up a writeback job stops the CRC
+    entries;
+  - with a writeback job pending, closing the CRC source leaves the frame
+    uncomposed and its out-fence never signalled.
 
+Replace the switch with a bitmask holding one bit per user, so a user only
+clears its own bit and the composer stays active while any bit is set. The
+vblank reference follows the bitmask: taken when it becomes non-zero and
+dropped when it becomes zero again. vkms_set_composer() becomes
+vkms_composer_get() and vkms_composer_put().
 
--- 
-With best wishes
-Dmitry
+Fixes: dbd9d80c1b2e ("drm/vkms: Add support for writeback")
+
+Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+---
+- Why not use a refcount? Because there are only a few users, and a bit
+  per user shows the working state of each one. A repeated put() from the
+  same user does nothing, and it also helps future work that makes the
+  vblank timeout synchronous.
+
+- Tested with vng: read crc/data and submitted three writeback jobs with a
+  small libdrm helper. The entries kept coming at the full rate of the
+  1024x768@60 mode, 235 to 237 of them over the 3.97 s the three jobs
+  took, where the current code stops at five.
+---
+ Documentation/gpu/vkms.rst            |  5 -----
+ drivers/gpu/drm/vkms/vkms_composer.c  | 34 ++++++++++++++++++++++++++--------
+ drivers/gpu/drm/vkms/vkms_crtc.c      |  2 +-
+ drivers/gpu/drm/vkms/vkms_drv.h       | 27 +++++++++++++++++++++++----
+ drivers/gpu/drm/vkms/vkms_writeback.c |  4 ++--
+ 5 files changed, 52 insertions(+), 20 deletions(-)
+
+diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
+index 1e79e62a6bc4..fe7dc8def44a 100644
+--- a/Documentation/gpu/vkms.rst
++++ b/Documentation/gpu/vkms.rst
+@@ -246,11 +246,6 @@ module through configfs. Use/Test-cases:
+ Writeback support
+ -----------------
+ 
+-- The writeback and CRC capture operations share the use of composer_enabled
+-  boolean to ensure vblanks. Probably, when these operations work together,
+-  composer_enabled needs to refcounting the composer state to proper work.
+-  [Good to get started]
+-
+ - Add support for cloned writeback outputs and related test cases using a
+   cloned output in the IGT kms_writeback.
+ 
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 0fc915a954ba..59f1dd50b5bd 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -711,19 +711,34 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *src_name,
+ 	return 0;
+ }
+ 
+-void vkms_set_composer(struct vkms_output *out, bool enabled)
++void vkms_composer_get(struct vkms_output *out, u8 user)
+ {
+-	bool old_enabled;
++	bool was_enabled;
+ 
+-	if (enabled)
+-		drm_crtc_vblank_get(&out->crtc);
++	if (drm_crtc_vblank_get(&out->crtc))
++		return;
++
++	spin_lock_irq(&out->lock);
++	was_enabled = out->composer_users;
++	out->composer_users |= user;
++	spin_unlock_irq(&out->lock);
++
++	/* Another user already holds the reference for the composer. */
++	if (was_enabled)
++		drm_crtc_vblank_put(&out->crtc);
++}
++
++void vkms_composer_put(struct vkms_output *out, u8 user)
++{
++	bool was_set, enabled;
+ 
+ 	spin_lock_irq(&out->lock);
+-	old_enabled = out->composer_enabled;
+-	out->composer_enabled = enabled;
++	was_set = out->composer_users & user;
++	out->composer_users &= ~user;
++	enabled = out->composer_users;
+ 	spin_unlock_irq(&out->lock);
+ 
+-	if (old_enabled)
++	if (was_set && !enabled)
+ 		drm_crtc_vblank_put(&out->crtc);
+ }
+ 
+@@ -735,7 +750,10 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 
+ 	ret = vkms_crc_parse_source(src_name, &enabled);
+ 
+-	vkms_set_composer(out, enabled);
++	if (enabled)
++		vkms_composer_get(out, VKMS_COMPOSER_CRC);
++	else
++		vkms_composer_put(out, VKMS_COMPOSER_CRC);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+index fe17f49305a9..4e15abfd92a0 100644
+--- a/drivers/gpu/drm/vkms/vkms_crtc.c
++++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+@@ -29,7 +29,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
+ 	state = output->composer_state;
+ 	spin_unlock(&output->lock);
+ 
+-	if (state && output->composer_enabled) {
++	if (state && READ_ONCE(output->composer_users)) {
+ 		u64 frame = drm_crtc_accurate_vblank_count(crtc);
+ 
+ 		/* update frame_start only if a queued vkms_composer_worker()
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index dea6cad3f1b9..c3bb3cd46863 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -27,6 +27,9 @@
+ 
+ #define VKMS_LUT_SIZE 256
+ 
++#define VKMS_COMPOSER_CRC  (1U << 0)
++#define VKMS_COMPOSER_WB   (1U << 1)
++
+ /**
+  * struct vkms_frame_info - Structure to store the state of a frame
+  *
+@@ -210,8 +213,9 @@ struct vkms_crtc_state {
+  *	       vblank timestamps
+  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
+  * @lock: Lock used to protect concurrent access to the composer
+- * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
+- *		      writeback)
++ * @composer_users: Bitmask of the users that need the VKMS composer; the composer is only
++ *		    active when it is non-zero. Updated under @lock, and read with
++ *		    READ_ONCE() from the vblank timeout.
+  * @composer_state: Protected by @lock, current state of this VKMS output
+  * @composer_lock: Lock used internally to protect @composer_state members
+  */
+@@ -222,7 +226,7 @@ struct vkms_output {
+ 	struct workqueue_struct *composer_workq;
+ 	spinlock_t lock;
+ 
+-	bool composer_enabled;
++	u8 composer_users;
+ 	struct vkms_crtc_state *composer_state;
+ 
+ 	spinlock_t composer_lock;
+@@ -317,7 +321,22 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *source_name,
+ 
+ /* Composer Support */
+ void vkms_composer_worker(struct work_struct *work);
+-void vkms_set_composer(struct vkms_output *out, bool enabled);
++
++/**
++ * vkms_composer_get() - Enable the composer for a user
++ * @out: VKMS output
++ * @user: bit of the user that needs the composer (VKMS_COMPOSER_CRC or
++ *	  VKMS_COMPOSER_WB)
++ */
++void vkms_composer_get(struct vkms_output *out, u8 user);
++
++/**
++ * vkms_composer_put() - Disable the composer for a user
++ * @out: VKMS output
++ * @user: bit of the user that no longer needs the composer
++ */
++void vkms_composer_put(struct vkms_output *out, u8 user);
++
+ void vkms_writeback_row(struct vkms_writeback_job *wb, const struct line_buffer *src_buffer, int y);
+ 
+ /* Writeback */
+diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+index 858df1f89f66..7e2f82e44b39 100644
+--- a/drivers/gpu/drm/vkms/vkms_writeback.c
++++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+@@ -118,7 +118,7 @@ static void vkms_wb_cleanup_job(struct drm_writeback_connector *connector,
+ 
+ 	drm_framebuffer_put(vkmsjob->wb_frame_info.fb);
+ 
+-	vkms_set_composer(vkms_output, false);
++	vkms_composer_put(vkms_output, VKMS_COMPOSER_WB);
+ 	kfree(vkmsjob);
+ }
+ 
+@@ -141,7 +141,7 @@ static void vkms_wb_atomic_commit(struct drm_connector *conn,
+ 	if (!conn_state)
+ 		return;
+ 
+-	vkms_set_composer(output, true);
++	vkms_composer_get(output, VKMS_COMPOSER_WB);
+ 
+ 	active_wb = conn_state->writeback_job->priv;
+ 	wb_frame_info = &active_wb->wb_frame_info;
+
+---
+base-commit: 1116f4aee916ca13d3e40ce87e67835f51576fcb
+change-id: 20261111-composer-cc9620515bcd
+
+Best regards,
+--  
+Oarora Etimis <oaroraetimis@gmail.com>
+
