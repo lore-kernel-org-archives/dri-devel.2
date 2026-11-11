@@ -2,45 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE985606A327
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E320F606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=UCdxxd20
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oAzXh4gm;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eBdxPosX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4AA510EA3D;
-	Wed, 11 Nov 2026 14:14:55 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id D8C8C10EA3D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:14:49 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1216)
- id A2FCB20B7166; Wed, 11 Nov 2026 06:14:46 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A2FCB20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1794406486;
- bh=P/JuYqpehQGV1GD46yBgTACeGWv/2B6l2HTTWVScAVE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UCdxxd20Y4dli8DuE8wfzVfKyAPwzFd4gNiClSuIw9Wa1szkfU9rwMdpIMM1EeoaK
- XAe22k44Mk/EdQzJYVg/Cc6IUzWBN4lenQt3/Lwl2KvEQmdFej7CYk6WASm5jfuTyU
- 4QE/ybwcyGgI9N6rMdXbTKyDkL41RD3mV6P2XyUs=
-Date: Wed, 11 Nov 2026 09:14:46 -0500
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, Dexuan Cui <decui@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-hyperv@vger.kernel.org, Lanfeng Wei <xlfylawarthur@gmail.com>
-Subject: Re: [PATCH] drm/hyperv: add cursor plane support
-Message-ID: <avR4VtmyCvhN5Im8@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261020231451.1813472-1-hamzamahfooz@linux.microsoft.com>
- <993a40ec-b8a3-45ac-88e0-4ce5cef78bd1@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2C8E10E219;
+	Wed, 11 Nov 2026 14:18:46 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2BB10E508
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:18:36 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABEHd0H2501543
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:18:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=K8i3rI9wo+/NtzfyXb9aiMzz
+ mODydmkC1k9o/9EVJ44=; b=oAzXh4gmanBkJL+B/vYcRc7TFflYOnikuLodFMi8
+ v0ERCy8aDsQ/7VcVFe6M3bj6Rltxwiyl1tsbjc15YtRQVag4k4zD4DvPQGu4hzAy
+ rZHi9oUViLj3NKZ6OKI68d4IKIHs8PXfztLm7Xqxr1+lSzuvlhyJKuEvANKErEtU
+ t3gKVLnjchmuVbM45yL3FvSa9ujDPu5RFLRb+tX/HpJFdbs+gl6qPz9DIV6u5DVn
+ dlHbIwcvawDMXtSNIghZjf4GbZsfLFs8C3nE0KlBNSeqWhwiVy2ntc84DOdMH2Rc
+ 10ATGrDomBF11qFXVYJqbRxXga6hD4+wUNkUq+HDcNoSiQ==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvksm9h3t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:18:35 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-5ee0977403bso2511721e0c.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:18:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794406714; x=1795011514;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=K8i3rI9wo+/NtzfyXb9aiMzzmODydmkC1k9o/9EVJ44=;
+ b=eBdxPosXdzHshgCOnMoPcw90Sfycz20Ewo9XPuvkYbkG4RIqX4lwCTjg035vaj9oiN
+ y8TwpYNH0DR0DIqd+SWhgA7SRN4Y1LPmlkZqZ2t2xxszfqs89WyR1U4Q5Eg1ce2T7vBE
+ 1yd5JJieBiiYQkh0Wq/Hz7GHxFmYhXrLn1IxpRbhC/jmSCP8fWdwTKo26hoFtO5kFpbM
+ jdHoanCB15ERymXmUz187DN6xAD6ituN/YoswGAqsfcDVpoYH7NO4BmyvRPFTOZuLCUi
+ 0895Q2MMoDwJt5qCbSEOdawwgUpo+Ls2zCzn77NbXdnTzYwLBBkWLuUQc312OK83Jkn3
+ GhlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794406714; x=1795011514;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=K8i3rI9wo+/NtzfyXb9aiMzzmODydmkC1k9o/9EVJ44=;
+ b=yqjcwoqr5KM5h9v0zru91DxTHbrazQLnleKT6ObPF2o7dBWNaXnFdoZzuPAAgbYV3A
+ EUCz0l6SHLSAfJvZ8OnSqpAEiXPFaiUo5yJXuEPene0ero/rOKunY/LYKA2z0H2kLvmA
+ 78jHndM81BYXa/+YHbOQon2HUDHJM+/XxWI1FLF4SaDiMTS+OGflVVEjMlyAwnglK20A
+ DTQ+19YgVCoVIbSToqT6TSDzWWgvCmzmBQ8dbUtlB44mHspwC/sWfHX/3o70V7+yt3Bl
+ LpCkbbFWa7sizt0L4k8BKGesBNbdUlDTteMWD3IZXc3FwZjS+O+E3COpjZjwO6wt6Udc
+ Na9Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGyf13A/7MBXb/QZogMqI66jwNQbmSrNUoGRpuaaLZOInNHK8I1ITQWCCEtj/is58lGYcpOWi34Vgg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8JijjpRUvElBzOdt2Po4+nUC5cuPWcfsYaz6WhDqxgHaA35Mc8
+ Otpv71fYqwcABKWU1+tRiZI/V28BBeJY2u3IrqdS5o66yXghxZjdsD3kIR2OV+JlW3JZNu+5Bzc
+ B+bxgtf3SY1+lfF5OqMd9yKBNNHKPr6lagT0/zrMJx+H/Vid7ZPS8/HV58cK6pvbMDc13I/I=
+X-Gm-Gg: AYBFou0eHUDymffKMoRUYQSbelBfgGB7bnS8eclI2Tlp5x5OPtTSuDZtKlyr/b6SBZW
+ pNRSWG17pIBMvehdZoiJ3V+DwP+KHVMoQhQ3Nd3f904UrYRnHsijic1xx9yAfMh1IN5shlgC69M
+ JIUW5Em/zIXdTpdo6LD2DBMJrv9FxDwfuAiMEzLgXd8dLRy2qUN3RQGcqjejPTXyl+CrbaG+ELA
+ LmhstKGR/GacHF90rf7MrdXbOlYNt+Cc6FlUF59VHXoDMUIJjAwQ/D7rpXSu9wkuXL7nr/ysmFc
+ jdO4uQ5xJRwPX1cPecU6rFyGiYP711c1uu6bg7MP2eEtT4fbd5btgiP+RM3jY/x1Klx3gv4eRLD
+ DEREUaixX9iDE57bpKlO1lsjTCfGIH3lmKANHeHampOpkJVQEVDLmX37YT+rFhlWf8rSFLcTYPR
+ hYMk87kswhlJKYN1aE67WZONH2lNBRyqbtinqLa5cbdTduPZfK198Qd/0Fc45qNQ==
+X-Received: by 2002:a05:6122:1825:b0:5d0:1207:b693 with SMTP id
+ 71dfb90a1353d-5ee1c2c2c00mr973619e0c.1.1794406714480; 
+ Wed, 11 Nov 2026 06:18:34 -0800 (PST)
+X-Received: by 2002:a05:6122:1825:b0:5d0:1207:b693 with SMTP id
+ 71dfb90a1353d-5ee1c2c2c00mr973609e0c.1.1794406713974; 
+ Wed, 11 Nov 2026 06:18:33 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ae09172986sm11882611fa.2.2026.11.11.06.18.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 06:18:32 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:18:31 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8750: describe all MDSS block
+ resets
+Message-ID: <fglkl4ksxin2citf44fvrjrqupz2a7asbuwxmkja6dbgu5stcx@uyjfipsp2njl>
+References: <20261102055026.438521-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261102055026.438521-4-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <993a40ec-b8a3-45ac-88e0-4ce5cef78bd1@suse.de>
+In-Reply-To: <20261102055026.438521-4-xiaqinghuan@mail.ustc.edu.cn>
+X-Proofpoint-GUID: p3XVk1wRekiJICz9lnaBINoc-9_la6dU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX3zBiW9T9OX0M
+ Yr1v8axuNlk3W196xzsFXXFZjJZhgbt8aTlEda8Sxbp3+d+4xv9YjosyCeAz1MUZfaSP8Tg/2bP
+ 4AcJDVKTqFcBtOzV7TXzLPvFVGEEqP+tVh6wS0Axut+pndL7xI0KRBBTyyCW149FnzkE31Shz+2
+ ZO77QOGdS8A7z/R9z24OLxIuN6ewHRlxqsSXKPtjnZMWD57RC0O7nxMZiK8P7GNpHO4/56e2P+y
+ ThugXkCRrbkm8MXwTqukIR4YyhG8S2Y0RoT2u5Mf4JgsYYtW7jEQnZ4H5mKS54B/MCWHhLmwfWD
+ H6H93z8lUVu35l58l7eHdK4OBicuIOLrZ7Ts7OvTIL4QgG3veX1U3QrQMvGoZ9+uspls64efe2+
+ fk4q3NxxXjOQDB7dur6yWoOKo0dsy66D3JmCri9Ieuthc48GvOb9hd00fsvEv0pVPjVY1Oe4u/U
+ yBQEHknv22dfndU0/hQ==
+X-Proofpoint-ORIG-GUID: p3XVk1wRekiJICz9lnaBINoc-9_la6dU
+X-Authority-Analysis: v=2.4 cv=O9isLx9W c=1 sm=1 tr=0 ts=6af4793b cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=NzLwe9Gq4q7PvPqZN-MA:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfXzUC8/2kTOfe1
+ 8oBotDtA5NFKSPCMff27LYga3gt91oF5Msa41PwAU6pcn+/wyKt7DBgOQ4hTF7P9FNAwVi14zvl
+ R4vG13FPl93YJ25VxGtqP7PwBzeUnhA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,665 +151,27 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 12:53:21PM +0100, Thomas Zimmermann wrote:
-> Hi
+On Mon, Nov 02, 2026 at 01:50:26PM +0800, Qianhui Xu wrote:
+> The SM8750 display clock controller provides, beside the MDSS core
+> reset, a block reset for the MDSS core INT2 interrupt controller.  On
+> devices whose bootloader hands over with the display block still active,
+> the kernel so far reset only the MDSS core and left the INT2 block in
+> the state left behind by the bootloader; command-mode panel
+> initialisation then fails with command DMA timeouts and the display
+> comes up as backlight only, without a DRM device.
 > 
-> Am 21.10.26 um 01:14 schrieb Hamza Mahfooz:
-> > The Hyper-V synthetic video device lets the guest set the image and the
-> > position of the mouse pointer, which RDP clients like the VM Connection
-> > window then draw on their own, wherever their local mouse is. The driver
-> > only used this to hide the pointer so far, leaving the cursor to be
-> > drawn into the framebuffer, where it lags behind the mouse.
-> > 
-> > Add a cursor plane that hands its image to the host instead. As the
-> > clients draw the pointer at their mouse position, the hotspot needs to
-> > be known, so set DRIVER_CURSOR_HOTSPOT.
-> > 
-> > The host takes ARGB8888 images of up to 96x96 pixels, stored bottom-up
-> > and sent in parts of at most 8 KiB. Fully transparent columns and rows
-> > at the right and bottom, like the padding of a cursor buffer of the
-> > maximum size, are left out to keep the messages small. RDP clients use
-> > straight alpha for pointer images, so only advertise the "Coverage"
-> > pixel blend mode.
-> > 
-> > The host shows a small dot for a pointer marked invisible, so a hidden
-> > cursor is sent as a single, almost transparent pixel instead, like
-> > hv_drm_hide_hw_ptr() did, which this replaces. An image without any
-> > visible pixel is sent likewise, as clients may draw it as an opaque box
-> > otherwise.
-> > 
-> > Clients connecting to the VM show a default pointer until they are sent
-> > one, so keep a copy of the cursor and send it again when the host
-> > reports a feature change as a client connects, and when the CRTC gets
-> > enabled.
-> > 
-> > NOTE: The predominant client (i.e. VMConnect) draws translucent pixels
-> > as opaque ones blended onto black, this is a limitation of the client.
-> > 
-> > Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> > ---
-> >   drivers/gpu/drm/hyperv/hyperv_drm.h         |  37 +++-
-> >   drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  13 +-
-> >   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 170 +++++++++++++++-
-> >   drivers/gpu/drm/hyperv/hyperv_drm_proto.c   | 211 ++++++++++++++++----
-> >   4 files changed, 381 insertions(+), 50 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm.h b/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > index f4262a37af36..df03185a2e19 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > @@ -13,10 +13,38 @@
-> >   #define VMBUS_MAX_PACKET_SIZE 0x4000
-> > +#define SYNTHVID_CURSOR_MAX_X 96
-> > +#define SYNTHVID_CURSOR_MAX_Y 96
-> > +#define SYNTHVID_CURSOR_ARGB_PIXEL_SIZE 4
-> > +#define SYNTHVID_CURSOR_MAX_SIZE (SYNTHVID_CURSOR_MAX_X * \
-> > +	SYNTHVID_CURSOR_MAX_Y * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE)
-> > +
-> > +/*
-> > + * Copy of the cursor last handed to the host, so that it can be sent again
-> > + * when needed, e.g. after a VM Connection window was opened.
-> > + */
-> > +struct hv_drm_cursor {
-> > +	/* Serializes pointer messages and protects the fields below */
-> > +	struct mutex lock;
-> > +	/* The host may not have the cached shape, e.g. after a failed send */
-> > +	bool shape_stale;
-> > +	u32 width;
-> > +	u32 height;
-> > +	u32 hot_x;
-> > +	u32 hot_y;
-> > +	s32 x;
-> > +	s32 y;
-> > +	/* ARGB8888, rows of width pixels, stored bottom-up as the host wants */
-> > +	u8 image[SYNTHVID_CURSOR_MAX_SIZE];
-> > +	/* Scratch space for building pointer shape messages */
-> > +	u8 msg_buf[VMBUS_MAX_PACKET_SIZE];
-> > +};
-> > +
-> >   struct hv_drm_device {
-> >   	/* drm */
-> >   	struct drm_device dev;
-> >   	struct drm_plane plane;
-> > +	struct drm_plane cursor_plane;
-> >   	struct drm_crtc crtc;
-> >   	struct drm_encoder encoder;
-> >   	struct drm_connector connector;
-> > @@ -40,6 +68,9 @@ struct hv_drm_device {
-> >   	u8 init_buf[VMBUS_MAX_PACKET_SIZE];
-> >   	u8 recv_buf[VMBUS_MAX_PACKET_SIZE];
-> > +	struct hv_drm_cursor *cursor;
-> > +	struct work_struct cursor_work;
+> Describe both block resets so that the MDSS reset returns the MDSS
+> blocks to a known state before any display hardware is programmed.
 > 
-> I didn't really get why this cursor_work is required. Can you elaborate?
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8750.dtsi | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 
-The host sends out a SYNTHVID_FEATURE_CHANGE when a client (e.g.
-VMConnect), connects and the driver answers it by sending the cursor
-again (as hv_drm_hide_hw_ptr() did), otherwise the client can show the
-the host's dot pointer instead of ours. The message arrives in a VMBus
-channel callback (which runs in a tasklet). Also, hv_drm_hide_hw_ptr()
-could be called directly from the callback since it was sending
-relatively small messages.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> > +
-> >   	struct hv_device *hdev;
-> >   };
-> > @@ -52,8 +83,12 @@ int hv_drm_mode_config_init(struct hv_drm_device *hv);
-> >   int hv_drm_update_vram_location(struct hv_device *hdev, phys_addr_t vram_pp);
-> >   int hv_drm_update_situation(struct hv_device *hdev, u8 active, u32 bpp,
-> >   			    u32 w, u32 h, u32 pitch);
-> > -int hv_drm_hide_hw_ptr(struct hv_device *hdev);
-> > +int hv_drm_cursor_init(struct hv_drm_device *hv);
-> > +void hv_drm_cursor_set_hidden(struct hv_drm_cursor *cursor);
-> > +void hv_drm_update_cursor(struct hv_drm_device *hv, bool shape);
-> > +void hv_drm_restore_cursor(struct hv_drm_device *hv);
-> >   int hv_drm_update_dirt(struct hv_device *hdev, struct drm_rect *rect);
-> >   int hv_drm_connect_vsp(struct hv_device *hdev);
-> > +void hv_drm_disconnect_vsp(struct hv_device *hdev);
-> >   #endif
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> > index 031206a5b3d7..21e5fcc3eb68 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> > @@ -26,7 +26,8 @@
-> >   DEFINE_DRM_GEM_FOPS(hv_drm_fops);
-> >   static struct drm_driver hv_drm_driver = {
-> > -	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
-> > +	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC |
-> > +			   DRIVER_CURSOR_HOTSPOT,
-> >   	.name		 = DRIVER_NAME,
-> >   	.desc		 = DRIVER_DESC,
-> > @@ -119,6 +120,10 @@ static int hv_drm_vmbus_probe(struct hv_device *hdev,
-> >   	hv_set_drvdata(hdev, hv);
-> >   	hv->hdev = hdev;
-> > +	ret = hv_drm_cursor_init(hv);
-> > +	if (ret)
-> > +		goto err_hv_set_drv_data;
-> > +
-> >   	ret = hv_drm_connect_vsp(hdev);
-> >   	if (ret) {
-> >   		drm_err(dev, "Failed to connect to vmbus.\n");
-> > @@ -162,7 +167,7 @@ static int hv_drm_vmbus_probe(struct hv_device *hdev,
-> >   	iounmap(hv->vram);
-> >   	vmbus_free_mmio(hv->mem->start, hv->fb_size);
-> >   err_vmbus_close:
-> > -	vmbus_close(hdev->channel);
-> > +	hv_drm_disconnect_vsp(hdev);
-> >   err_hv_set_drv_data:
-> >   	hv_set_drvdata(hdev, NULL);
-> >   	return ret;
-> > @@ -176,7 +181,7 @@ static void hv_drm_vmbus_remove(struct hv_device *hdev)
-> >   	vmbus_set_skip_unload(false);
-> >   	drm_dev_unplug(dev);
-> >   	drm_atomic_helper_shutdown(dev);
-> > -	vmbus_close(hdev->channel);
-> > +	hv_drm_disconnect_vsp(hdev);
-> >   	hv_set_drvdata(hdev, NULL);
-> >   	iounmap(hv->vram);
-> > @@ -197,7 +202,7 @@ static int hv_drm_vmbus_suspend(struct hv_device *hdev)
-> >   	if (ret)
-> >   		return ret;
-> > -	vmbus_close(hdev->channel);
-> > +	hv_drm_disconnect_vsp(hdev);
-> >   	return 0;
-> >   }
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> > index da399cb951a5..c9d02311afb5 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> > @@ -6,6 +6,7 @@
-> >   #include <linux/hyperv.h>
-> >   #include <drm/drm_atomic.h>
-> > +#include <drm/drm_blend.h>
-> >   #include <drm/drm_crtc_helper.h>
-> >   #include <drm/drm_damage_helper.h>
-> >   #include <drm/drm_drv.h>
-> > @@ -110,7 +111,7 @@ static void hv_drm_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-> >   	struct drm_plane_state *plane_state = plane->state;
-> >   	struct drm_crtc_state *crtc_state = crtc->state;
-> > -	hv_drm_hide_hw_ptr(hv->hdev);
-> > +	hv_drm_restore_cursor(hv);
-> >   	hv_drm_update_situation(hv->hdev, 1,  hv->screen_depth,
-> >   				crtc_state->mode.hdisplay,
-> >   				crtc_state->mode.vdisplay,
-> > @@ -241,6 +242,152 @@ static const struct drm_plane_funcs hv_drm_plane_funcs = {
-> >   	DRM_PANIC_PLANE_FUNCS,
-> >   };
-> > +static const u32 hv_drm_cursor_formats[] = {
-> > +	DRM_FORMAT_ARGB8888,
-> > +};
-> > +
-> > +static int hv_drm_cursor_atomic_check(struct drm_plane *plane,
-> > +				      struct drm_atomic_commit *state)
-> > +{
-> > +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-> > +	struct drm_crtc *crtc = plane_state->crtc;
-> > +	struct drm_crtc_state *crtc_state = NULL;
-> > +	int ret;
-> > +
-> > +	if (crtc)
-> > +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> > +
-> > +	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-> > +						  DRM_PLANE_NO_SCALING,
-> > +						  DRM_PLANE_NO_SCALING,
-> > +						  true, true);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	if (!plane_state->fb)
-> > +		return 0;
-> 
-> Please test for !plane_state->visible. This will catch all relevant cases,
-> including !fb.
-> 
-> > +
-> > +	if (!plane_state->crtc_w || plane_state->crtc_w > SYNTHVID_CURSOR_MAX_X ||
-> > +	    !plane_state->crtc_h || plane_state->crtc_h > SYNTHVID_CURSOR_MAX_Y) {
-> > +		drm_dbg_atomic(plane->dev, "Invalid cursor size %ux%u\n",
-> > +			       plane_state->crtc_w, plane_state->crtc_h);
-> 
-> Drivers should only use drm_dbg().
-> 
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +/*
-> > + * Copy the cursor image to the cache, bottom-up as the host wants it. Fully
-> > + * transparent columns and rows at the right and bottom, like the padding of
-> > + * a cursor buffer of the maximum size, are left out.
-> > + */
-> > +static void hv_drm_cursor_load(struct hv_drm_cursor *cursor,
-> > +			       const struct drm_plane_state *state,
-> > +			       const struct iosys_map *map)
-> > +{
-> > +	size_t pitch = state->fb->pitches[0];
-> > +	size_t offset = (state->src_y >> 16) * pitch + (state->src_x >> 16) *
-> > +		SYNTHVID_CURSOR_ARGB_PIXEL_SIZE;
-> > +	u32 hot_x = clamp_t(s32, state->hotspot_x, 0, state->crtc_w - 1);
-> > +	u32 hot_y = clamp_t(s32, state->hotspot_y, 0, state->crtc_h - 1);
-> > +	u32 width = 0, height = 0;
-> > +	u32 x, y;
-> > +
-> > +	for (y = 0; y < state->crtc_h; y++) {
-> > +		for (x = state->crtc_w; x; x--) {
-> > +			if (iosys_map_rd(map,
-> > +					 (offset + y * pitch + x *
-> > +					  SYNTHVID_CURSOR_ARGB_PIXEL_SIZE - 1),
-> > +					 u8))
-> > +				break;
-> > +		}
-> > +
-> > +		if (x) {
-> > +			width = max(width, x);
-> > +			height = y + 1;
-> > +		}
-> > +	}
-> > +
-> > +	if (!width) {
-> > +		hv_drm_cursor_set_hidden(cursor);
-> > +		return;
-> > +	}
-> > +
-> > +	/* Keep the hotspot within the image */
-> > +	width = max(width, hot_x + 1);
-> > +	height = max(height, hot_y + 1);
-> > +
-> > +	for (y = 0; y < height; y++)
-> > +		iosys_map_memcpy_from((cursor->image + (height - 1 - y) *
-> > +				       width * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE),
-> > +				      map, offset + y * pitch,
-> > +				      width * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE);
-> > +
-> > +	cursor->width = width;
-> > +	cursor->height = height;
-> > +	cursor->hot_x = hot_x;
-> > +	cursor->hot_y = hot_y;
-> > +}
-> > +
-> > +static void hv_drm_cursor_hide(struct hv_drm_device *hv)
-> > +{
-> > +	struct hv_drm_cursor *cursor = hv->cursor;
-> > +
-> > +	scoped_guard(mutex, &cursor->lock) {
-> > +		hv_drm_cursor_set_hidden(cursor);
-> > +		hv_drm_update_cursor(hv, true);
-> > +	}
-> > +}
-> > +
-> > +static void hv_drm_cursor_atomic_update(struct drm_plane *plane,
-> > +					struct drm_atomic_commit *state)
-> > +{
-> > +	struct hv_drm_device *hv = to_hv_drm(plane->dev);
-> > +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
-> > +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-> > +	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(new_state);
-> > +	struct hv_drm_cursor *cursor = hv->cursor;
-> > +	bool shape;
-> > +
-> > +	if (!new_state->visible) {
-> > +		if (old_state->visible)
-> > +			hv_drm_cursor_hide(hv);
-> > +		return;
-> > +	}
-> > +
-> > +	shape = !old_state->visible || old_state->fb != new_state->fb ||
-> > +		old_state->src_x != new_state->src_x ||
-> > +		old_state->src_y != new_state->src_y ||
-> > +		old_state->src_w != new_state->src_w ||
-> > +		old_state->src_h != new_state->src_h ||
-> > +		old_state->hotspot_x != new_state->hotspot_x ||
-> > +		old_state->hotspot_y != new_state->hotspot_y;
-> > +
-> > +	scoped_guard(mutex, &cursor->lock) {
-> > +		if (shape)
-> > +			hv_drm_cursor_load(cursor, new_state,
-> > +					   &shadow_plane_state->data[0]);
-> > +
-> > +		cursor->x = new_state->crtc_x;
-> > +		cursor->y = new_state->crtc_y;
-> > +		hv_drm_update_cursor(hv, shape);
-> > +	}
-> > +}
-> > +
-> > +static void hv_drm_cursor_atomic_disable(struct drm_plane *plane,
-> > +					 struct drm_atomic_commit *state)
-> > +{
-> > +	hv_drm_cursor_hide(to_hv_drm(plane->dev));
-> > +}
-> > +
-> > +static const struct drm_plane_helper_funcs hv_drm_cursor_helper_funcs = {
-> > +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-> > +	.atomic_check = hv_drm_cursor_atomic_check,
-> > +	.atomic_update = hv_drm_cursor_atomic_update,
-> > +	.atomic_disable = hv_drm_cursor_atomic_disable,
-> > +};
-> > +
-> >   static const struct drm_encoder_funcs hv_drm_simple_encoder_funcs_cleanup = {
-> >   	.destroy = drm_encoder_cleanup,
-> >   };
-> > @@ -250,6 +397,7 @@ static inline int hv_drm_pipe_init(struct hv_drm_device *hv)
-> >   	struct drm_device *dev = &hv->dev;
-> >   	struct drm_encoder *encoder = &hv->encoder;
-> >   	struct drm_plane *plane = &hv->plane;
-> > +	struct drm_plane *cursor = &hv->cursor_plane;
-> >   	struct drm_crtc *crtc = &hv->crtc;
-> >   	struct drm_connector *connector = &hv->connector;
-> >   	int ret;
-> > @@ -264,7 +412,23 @@ static inline int hv_drm_pipe_init(struct hv_drm_device *hv)
-> >   	drm_plane_helper_add(plane, &hv_drm_plane_helper_funcs);
-> >   	drm_plane_enable_fb_damage_clips(plane);
-> > -	ret = drm_crtc_init_with_planes(dev, crtc, plane, NULL,
-> > +	ret = drm_universal_plane_init(dev, cursor, 0,
-> > +				       &hv_drm_plane_funcs,
-> > +				       hv_drm_cursor_formats,
-> > +				       ARRAY_SIZE(hv_drm_cursor_formats),
-> > +				       hv_drm_modifiers,
-> > +				       DRM_PLANE_TYPE_CURSOR, NULL);
-> > +	if (ret)
-> > +		return ret;
-> > +	drm_plane_helper_add(cursor, &hv_drm_cursor_helper_funcs);
-> > +
-> > +	/* The cursor image reaches the host's clients with straight alpha */
-> > +	ret = drm_plane_create_blend_mode_property(cursor,
-> > +						   BIT(DRM_MODE_BLEND_COVERAGE));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = drm_crtc_init_with_planes(dev, crtc, plane, cursor,
-> >   					&hv_drm_crtc_funcs, NULL);
-> >   	if (ret)
-> >   		return ret;
-> > @@ -320,6 +484,8 @@ int hv_drm_mode_config_init(struct hv_drm_device *hv)
-> >   	dev->mode_config.min_height = 0;
-> >   	dev->mode_config.max_width = hv->screen_width_max;
-> >   	dev->mode_config.max_height = hv->screen_height_max;
-> > +	dev->mode_config.cursor_width = SYNTHVID_CURSOR_MAX_X;
-> > +	dev->mode_config.cursor_height = SYNTHVID_CURSOR_MAX_Y;
-> >   	dev->mode_config.preferred_depth = hv->screen_depth;
-> >   	dev->mode_config.prefer_shadow = 0;
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > index 8ddd34833941..0f3e64fc73ac 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > @@ -5,6 +5,7 @@
-> >   #include <linux/hyperv.h>
-> > +#include <drm/drm_managed.h>
-> >   #include <drm/drm_print.h>
-> >   #include "hyperv_drm.h"
-> > @@ -111,12 +112,9 @@ struct synthvid_pointer_position {
-> >   	s32 image_y;
-> >   } __packed;
-> > -#define SYNTHVID_CURSOR_MAX_X 96
-> > -#define SYNTHVID_CURSOR_MAX_Y 96
-> > -#define SYNTHVID_CURSOR_ARGB_PIXEL_SIZE 4
-> > -#define SYNTHVID_CURSOR_MAX_SIZE (SYNTHVID_CURSOR_MAX_X * \
-> > -	SYNTHVID_CURSOR_MAX_Y * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE)
-> >   #define SYNTHVID_CURSOR_COMPLETE (-1)
-> > +/* Most pixel data the host accepts in one pointer shape message */
-> > +#define SYNTHVID_CURSOR_MAX_PAYLOAD 8192
-> >   struct synthvid_pointer_shape {
-> >   	u8 part_idx;
-> > @@ -286,47 +284,163 @@ int hv_drm_update_situation(struct hv_device *hdev, u8 active, u32 bpp,
-> >   }
-> >   /*
-> > - * Hyper-V supports a hardware cursor feature. It's not used by Linux VM,
-> > - * but the Hyper-V host still draws a point as an extra mouse pointer,
-> > - * which is unwanted, especially when Xorg is running.
-> > - *
-> > - * Hide the unwanted pointer, by setting msg.ptr_pos.is_visible = 1 and setting
-> > - * the msg.ptr_shape.data. Note: setting msg.ptr_pos.is_visible to 0 doesn't
-> > - * work in tests.
-> > - *
-> > - * The hv_drm_hide_hw_ptr() is also called in the handler of the
-> > - * SYNTHVID_FEATURE_CHANGE event, otherwise the host still draws an extra
-> > - * unwanted mouse pointer after the VM Connection window is closed and reopened.
-> > + * The host always shows a mouse pointer: the one set with the pointer shape
-> > + * and position messages, or else a small dot, which is also what it shows
-> > + * for a pointer marked invisible. A hidden cursor is therefore a single,
-> > + * almost transparent pixel.
-> 
-> This policy is mandated by hyperv host itself?
-> 
 
-Yup, when a client connects, the host shows it a small dot as the
-pointer until the guest sets one (this is hardcoded into the host
-implementation).
-
-Hamza
-
-> 
-> >    */
-> > -int hv_drm_hide_hw_ptr(struct hv_device *hdev)
-> > +static const u8 hv_drm_cursor_hidden_pixel[SYNTHVID_CURSOR_ARGB_PIXEL_SIZE] = {
-> > +	0x00, 0x01, 0x01, 0x01
-> > +};
-> 
-> I was wondering about 0x01 until I re-read the commit description. Maybe
-> mention here why it's not all zeros.
-> 
-> Best regards
-> Thomas
-> 
-> > +
-> > +void hv_drm_cursor_set_hidden(struct hv_drm_cursor *cursor)
-> >   {
-> > -	struct synthvid_msg msg;
-> > +	memcpy(cursor->image, hv_drm_cursor_hidden_pixel,
-> > +	       sizeof(hv_drm_cursor_hidden_pixel));
-> > +	cursor->width = 1;
-> > +	cursor->height = 1;
-> > +	cursor->hot_x = 0;
-> > +	cursor->hot_y = 0;
-> > +	cursor->x = 0;
-> > +	cursor->y = 0;
-> > +}
-> > -	memset(&msg, 0, sizeof(struct synthvid_msg));
-> > -	msg.vid_hdr.type = SYNTHVID_POINTER_POSITION;
-> > -	msg.vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
-> > +/*
-> > + * Pointer shapes too large for one message are sent in parts numbered from
-> > + * 0, with SYNTHVID_CURSOR_COMPLETE marking the last part. A shape that fits
-> > + * in one message is sent as a lone SYNTHVID_CURSOR_COMPLETE part.
-> > + */
-> > +static int hv_drm_send_ptr_shape(struct hv_drm_device *hv, u32 width,
-> > +				 u32 height, u32 hot_x, u32 hot_y,
-> > +				 const u8 *image)
-> > +{
-> > +	const size_t data_offset = offsetof(struct synthvid_msg,
-> > +					    ptr_shape.data);
-> > +	size_t size = width * height * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE;
-> > +	u8 *buf = hv->cursor->msg_buf;
-> > +	struct synthvid_msg *msg;
-> > +	size_t offset = 0;
-> > +	u8 part = 0;
-> > +	size_t len;
-> > +	int ret;
-> > +
-> > +	BUILD_BUG_ON((offsetof(struct synthvid_msg, ptr_shape.data) +
-> > +		     SYNTHVID_CURSOR_MAX_PAYLOAD) >
-> > +		     sizeof_field(struct hv_drm_cursor, msg_buf));
-> > +
-> > +	msg = (struct synthvid_msg *)buf;
-> > +
-> > +	do {
-> > +		len = min(size - offset, SYNTHVID_CURSOR_MAX_PAYLOAD);
-> > +
-> > +		memset(buf, 0, data_offset);
-> > +		msg->vid_hdr.type = SYNTHVID_POINTER_SHAPE;
-> > +		msg->vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
-> > +			offsetof(struct synthvid_pointer_shape, data) + len;
-> > +		if (offset + len < size)
-> > +			msg->ptr_shape.part_idx = part++;
-> > +		else
-> > +			msg->ptr_shape.part_idx = SYNTHVID_CURSOR_COMPLETE;
-> > +		msg->ptr_shape.is_argb = 1;
-> > +		msg->ptr_shape.width = width;
-> > +		msg->ptr_shape.height = height;
-> > +		msg->ptr_shape.hot_x = hot_x;
-> > +		msg->ptr_shape.hot_y = hot_y;
-> > +		memcpy(buf + data_offset, image + offset, len);
-> > +
-> > +		ret = hv_drm_sendpacket(hv->hdev, msg);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		offset += len;
-> > +	} while (offset < size);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int hv_drm_send_ptr_position(struct hv_drm_device *hv, s32 x, s32 y)
-> > +{
-> > +	struct synthvid_msg *msg = (struct synthvid_msg *)hv->cursor->msg_buf;
-> > +
-> > +	memset(msg, 0, sizeof(struct synthvid_msg));
-> > +	msg->vid_hdr.type = SYNTHVID_POINTER_POSITION;
-> > +	msg->vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
-> >   		sizeof(struct synthvid_pointer_position);
-> > -	msg.ptr_pos.is_visible = 1;
-> > -	msg.ptr_pos.video_output = 0;
-> > -	msg.ptr_pos.image_x = 0;
-> > -	msg.ptr_pos.image_y = 0;
-> > -	hv_drm_sendpacket(hdev, &msg);
-> > +	msg->ptr_pos.is_visible = 1;
-> > +	msg->ptr_pos.video_output = 0;
-> > +	msg->ptr_pos.image_x = x;
-> > +	msg->ptr_pos.image_y = y;
-> > -	memset(&msg, 0, sizeof(struct synthvid_msg));
-> > -	msg.vid_hdr.type = SYNTHVID_POINTER_SHAPE;
-> > -	msg.vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
-> > -		sizeof(struct synthvid_pointer_shape);
-> > -	msg.ptr_shape.part_idx = SYNTHVID_CURSOR_COMPLETE;
-> > -	msg.ptr_shape.is_argb = 1;
-> > -	msg.ptr_shape.width = 1;
-> > -	msg.ptr_shape.height = 1;
-> > -	msg.ptr_shape.hot_x = 0;
-> > -	msg.ptr_shape.hot_y = 0;
-> > -	msg.ptr_shape.data[0] = 0;
-> > -	msg.ptr_shape.data[1] = 1;
-> > -	msg.ptr_shape.data[2] = 1;
-> > -	msg.ptr_shape.data[3] = 1;
-> > -	hv_drm_sendpacket(hdev, &msg);
-> > +	return hv_drm_sendpacket(hv->hdev, msg);
-> > +}
-> > +
-> > +/*
-> > + * Send the cached cursor to the host: the shape if @shape is set or the host
-> > + * may lack it, then the position. The position goes last as the host applies
-> > + * the hotspot of its current shape to it.
-> > + */
-> > +void hv_drm_update_cursor(struct hv_drm_device *hv, bool shape)
-> > +{
-> > +	struct hv_drm_cursor *cursor = hv->cursor;
-> > +	int ret = 0;
-> > +
-> > +	lockdep_assert_held(&cursor->lock);
-> > +
-> > +	if (shape || cursor->shape_stale) {
-> > +		/*
-> > +		 * The host may still be waiting for the rest of a multi-part
-> > +		 * shape, and rejects new shapes until it gets a final part.
-> > +		 * A one pixel shape completes any such shape, and is a valid
-> > +		 * shape of its own otherwise.
-> > +		 */
-> > +		if (cursor->shape_stale)
-> > +			ret = hv_drm_send_ptr_shape(hv, 1, 1, 0, 0,
-> > +						    hv_drm_cursor_hidden_pixel);
-> > +		if (!ret)
-> > +			ret = hv_drm_send_ptr_shape(hv, cursor->width,
-> > +						    cursor->height,
-> > +						    cursor->hot_x,
-> > +						    cursor->hot_y,
-> > +						    cursor->image);
-> > +		cursor->shape_stale = ret;
-> > +	}
-> > +
-> > +	hv_drm_send_ptr_position(hv, cursor->x, cursor->y);
-> > +}
-> > +
-> > +void hv_drm_restore_cursor(struct hv_drm_device *hv)
-> > +{
-> > +	scoped_guard(mutex, &hv->cursor->lock)
-> > +		hv_drm_update_cursor(hv, true);
-> > +}
-> > +
-> > +static void hv_drm_restore_cursor_work(struct work_struct *work)
-> > +{
-> > +	struct hv_drm_device *hv = container_of(work, struct hv_drm_device,
-> > +						cursor_work);
-> > +
-> > +	hv_drm_restore_cursor(hv);
-> > +}
-> > +
-> > +int hv_drm_cursor_init(struct hv_drm_device *hv)
-> > +{
-> > +	struct hv_drm_cursor *cursor;
-> > +	int ret;
-> > +
-> > +	cursor = drmm_kzalloc(&hv->dev, sizeof(*cursor), GFP_KERNEL);
-> > +	if (!cursor)
-> > +		return -ENOMEM;
-> > +
-> > +	ret = drmm_mutex_init(&hv->dev, &cursor->lock);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	hv_drm_cursor_set_hidden(cursor);
-> > +	cursor->shape_stale = true;
-> > +	hv->cursor = cursor;
-> > +
-> > +	INIT_WORK(&hv->cursor_work, hv_drm_restore_cursor_work);
-> > +	disable_work(&hv->cursor_work);
-> >   	return 0;
-> >   }
-> > @@ -474,7 +588,7 @@ static void hv_drm_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
-> >   		}
-> >   		hv->dirt_needed = msg->feature_chg.is_dirt_needed;
-> >   		if (hv->dirt_needed)
-> > -			hv_drm_hide_hw_ptr(hv->hdev);
-> > +			schedule_work(&hv->cursor_work);
-> >   		return;
-> >   	default:
-> >   		return;
-> > @@ -538,9 +652,11 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
-> >   	struct drm_device *dev = &hv->dev;
-> >   	int ret;
-> > +	enable_work(&hv->cursor_work);
-> >   	ret = vmbus_open(hdev->channel, VMBUS_RING_BUFSIZE, VMBUS_RING_BUFSIZE,
-> >   			 NULL, 0, hv_drm_receive, hdev);
-> >   	if (ret) {
-> > +		disable_work_sync(&hv->cursor_work);
-> >   		drm_err(dev, "Unable to open vmbus channel\n");
-> >   		return ret;
-> >   	}
-> > @@ -574,6 +690,15 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
-> >   	return 0;
-> >   error:
-> > -	vmbus_close(hdev->channel);
-> > +	hv_drm_disconnect_vsp(hdev);
-> >   	return ret;
-> >   }
-> > +
-> > +void hv_drm_disconnect_vsp(struct hv_device *hdev)
-> > +{
-> > +	struct hv_drm_device *hv = hv_get_drvdata(hdev);
-> > +
-> > +	/* Stop the work before vmbus_close() frees the ring buffers */
-> > +	disable_work_sync(&hv->cursor_work);
-> > +	vmbus_close(hdev->channel);
-> > +}
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> 
+-- 
+With best wishes
+Dmitry
