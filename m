@@ -2,137 +2,142 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAFC606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD2F606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JIm/4mWM
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF68C10F97F;
-	Wed, 11 Nov 2026 08:39:42 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012041.outbound.protection.outlook.com [52.101.66.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16B9910F97F
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:39:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vAIn3+r26rQtran6RhqWW7NAQJ8nQEI6oHJzljlk5szs4dBpAHAYmDB0wYcWLxDE10qTpN5Q/y048Uu9InKZPvWF4isG5BdXs+3ygzFC3hMiwES7roNGIbhw62cFWCXXpXcEdqHYEbxBh+r9thFnjF3uEtRSX+WMaAOa/7odoWUqmK4S6HRtDW0Y5iaZwxWbfXhXKmv6akpI63Zx/ma6aMJPDbxXlEoQo/m5VB5lMXsGJmBnkKz/yV9KzyaHaym0WSNRbuMgXeaP2D2vtZdkSb9SfY7xes8pQW5LynSICBaIgvVijnVaIm1F7gp3phTCCJhlwTd0iicQ1Xtin3QBLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a8PvAXFzpnCwhvRkssOOTGa5wN4Gxao/7OPpSVNZcWY=;
- b=xZLMXiHqfjzY1DXPusWFG1SmaPpxMKGxfhgrE27oHjX88wjyDvXbZpcWQ+MVQ69aIUZt2nfbi3XveqGohXdDoWNeJV4xGWaRjOsaxWiWnF7Jzs3C+Em+QNZyA+eabUiiZW/G+mlPS93k8atKkB+2JCWpb4d3fTz08YXDgV6ykFuO0KxUYCwaYhLGdjOaW2qg3eAzFk+SjxdUXmQUs+SpdSW1bhnXKCIUTu4v9NnbRfDiVou3JjT8rMomeExm4R9SfHZexXNaN/Gvvl6LxQwrl2xrKqPMeUidl3s6xZjuFJ+x3X/QCbUt+rtD6Wsbi3eWA/MVOklspWc+s1LCRVBrVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a8PvAXFzpnCwhvRkssOOTGa5wN4Gxao/7OPpSVNZcWY=;
- b=JIm/4mWMZ1Ati5z4i2NgEIuSZbdkSqY+UX0X/WxkquAEAKlQucNnQe/gLNGv37bQCBBjnesnQRsKGyqEvQR8C5FR9+UG3uS3qYMLxksDtrBgqiO2BfUhE80n4p2Qaq1S9ub98zZMhKeyKsxqzJ3/0zY/Rj+rBe3hhe641RH7fMP4qZnTgKljIgOYplQJkEwrxV0gMqCT1mvLMbeJIvRnOzsQWYxgiYzXVGhIbpiBCZ0xmuAk70xKIxrMxRDHtmC91Dz6wva49JnrM3xIyHl0SGt+0UB5C/W0RtwVxGo+i1s53kXoMXPoV8Bn4tCB6kZbPRiJZg58JfMMFVUKo+FdtQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by DUZPR04MB10040.eurprd04.prod.outlook.com (2603:10a6:10:4dd::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 08:39:32 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
- 08:39:31 +0000
-Message-ID: <23bdf173-93ba-428d-8415-107f64e163ba@oss.nxp.com>
-Date: Wed, 11 Nov 2026 10:43:15 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] arm64: dts: freescale: Add support for bytesatwork
- i.MX93
-To: Frank Obergfell <frank.obergfell@bytesatwork.ch>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexander Forsch <alexander.forsch@bytesatwork.ch>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
- <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0378.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::16) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2D2D10F986;
+	Wed, 11 Nov 2026 08:40:18 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A1810F986
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:40:07 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 120261F88B;
+ Wed, 11 Nov 2026 08:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794386406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
+ b=2PtjXHpSGzyt+RJh3YYI2VLzRFSFPTtHkAu9T2q/bmmJ+3ofYcx7y8eijCPu4YZIWaD+Tb
+ 2MbLok3an3xak6lSHesnNMG10+1q1pKtCHmxEyhFZxmgP5N2WNU7GXN0/OhodKXC41MYx6
+ PjNUF5FyIq3b4sFIq51dI4DIOY+JEpQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794386406;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
+ b=Rdb+4QozDqV6QLoCPpKDvOqvJq29+03TPfXfIlEma9kmdSjCAH+KvKc80kOP6IL/cq8ILz
+ BZtTJ9n/xZYLmdAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=2PtjXHpS;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Rdb+4Qoz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794386406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
+ b=2PtjXHpSGzyt+RJh3YYI2VLzRFSFPTtHkAu9T2q/bmmJ+3ofYcx7y8eijCPu4YZIWaD+Tb
+ 2MbLok3an3xak6lSHesnNMG10+1q1pKtCHmxEyhFZxmgP5N2WNU7GXN0/OhodKXC41MYx6
+ PjNUF5FyIq3b4sFIq51dI4DIOY+JEpQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794386406;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
+ b=Rdb+4QozDqV6QLoCPpKDvOqvJq29+03TPfXfIlEma9kmdSjCAH+KvKc80kOP6IL/cq8ILz
+ BZtTJ9n/xZYLmdAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B60B134E5;
+ Wed, 11 Nov 2026 08:40:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ZaXLHOUp9GofIgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 08:40:05 +0000
+Message-ID: <3d67a8ac-58b4-41c3-8359-06ff0a4e2b08@suse.de>
+Date: Wed, 11 Nov 2026 09:40:04 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|DUZPR04MB10040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e58607f-3820-4bdc-9f01-08df3fcf4e02
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|921020|10067099003|4143699003|11063799006|56012099006|261022105027099003|261022075727099003|261026140227099003|261028144727099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vEHU4sSmQRxQvkTHFtOVOqfe3LL8OjOYv/D9Z+rsOFfMh/5PPrM46s4DDPG1LrYFGCTMMmXBQiRa2jvIJb/iqA1QeM2UbHIA/xo5DAP9A91zzXYG+68U8cAjZwRz0zBEqlCdX1Rz7XapRQSsQephsZZNLK686vbuvANnD9X/gHMlQ7NSnUdrwInbULkyBP6YWt2ah2Cm2Oy3RwskmKQ15knR6dq/2yFP9v7TTXdkzV3yZ5Yj4YPz4vwjaa946ETPqbfVYxCWiPOZAagscjDmh3hKgrOm69JRYc56j4xio9ncs/1uwd9QL/Z1kqDNFBzzEH/UqmHlNV8gGYv7BQLFK5GfFJoRA+qTbAfdaaLWXEnJIi3tXi601w3AIfcYYvAHMLL0nnXtUb8y3LJ8IdA1zABXUjAx03Uja8RRoWW8ekeJ9ZSkfP1mAwOetb8TPwiVATdiERPZMxjka1uRO3yyogaCKD/X/U97fkHlAMg8+b9r3G2Yl55UmiryGuxdW2IxPsIPIR99nhvefsDVreWU5jNQr4oVyQWw1dktVDjU7DsY3Kf7OmybG6f0/JZUkUPHzLWPubcHLzP5DAO3obnkHfBKmfeKv6MefxBMhOam0PcjIM/lqvFfaJIKArXi5vMg+xMAxVWyHwyoFRRyL4vs/mst0oMEj18udcRWekzjHKjwayy7cG2rejfJriuP/u/bHlXtuv+984/jJyhzfI8SyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GVXPR04MB12316.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0dFRzRrSEtrVW41VGRTVm9hVHMwWWc4ZzhpSE5KZVJIV3BlNjNOWHpkMHVU?=
- =?utf-8?B?aE1tMG1rcUhPbkxMY3paQ2FQdTlFakp4a3lHYWZYVkdoMnJkV0l4aE5ZYXVj?=
- =?utf-8?B?UkdONWM5a2tENWtKQ2hna0Vqdk4vc3UvTFdwZyt4eER5dXU4eXBaVjkyeXZZ?=
- =?utf-8?B?bkhrb3dUZmk3ZjJqV2VhT29BVSszYTRmTHJUeU54dXp6TGVTakVoVHpMMmx1?=
- =?utf-8?B?MVJ0TkZEUE9HaGtCUEx6bVdhTlhNZjVBMmIwekk0QXQ5Wm9SVUYxNEZYUGZH?=
- =?utf-8?B?ME1Cakp2bm0zdExOVERuekNuWGoxbmp0RnNhMjYra3kzRW43T0IzTWRsUWJL?=
- =?utf-8?B?Y3lNVzdMVzFrelFVTkxxc0NKSENVc0lCdXh3QzM0MFV6eEJra1FTam52b2pP?=
- =?utf-8?B?eWt6U0hSeGt0WVBXeHR4UGxwNnRhNnJ5TjduVFpOa25DUHZ3bTJFRkJya2VN?=
- =?utf-8?B?ODhPRzdtQ2huMmc4ODJzblNmdE1WK0R4VTQ4c3l1WkdYeXZKMWxyaWczZUc4?=
- =?utf-8?B?M21aRGsva3ptSllnUkVTNFRPMGtQZVdlTFM4YjdFLzBTR0FPaTREMnJVMlBI?=
- =?utf-8?B?dFdjNmhaa3Z3bmtnT1ZmcDcrWm96V1o0emNBd28xNDlibXlKMUdac05SSEFk?=
- =?utf-8?B?NSsvaHNWcVR4RFB3Mk43MFRKOXpkSVdzak5BZmdlMzNxdGVsUFFsUnlnR05X?=
- =?utf-8?B?bGtxOWpGZWtSZUZNTU9VR3NyT2hMS0dhRzIxcjlxUm0rV1ZYVkszbUhEbkFo?=
- =?utf-8?B?TEsyTzhFTVJDa2kvdVkyMGlralhmWnhtQUFyQkhHRlBCQml1eUFlbmQ0NmMv?=
- =?utf-8?B?L3lxMUJjeVNtdElOQWJLRUNHWkpuZ05TemsrMVdaNVNLd2tWZVVoVE8wZHBE?=
- =?utf-8?B?U0ZJUUVKYWNKNGZEamtnOXJqVDZtb3dpc2JWOU9kbkJpNkg1MVNOR1RIb21R?=
- =?utf-8?B?N2FYYytDVHE2c2ZHdWo0eFl1RE5pcy9UTEVMVkxsV1lXa1QxdGRYdTRKYkRU?=
- =?utf-8?B?Y0gzcDFpelU2QzNMTHBDT053WC9xengvK2JVeFlXcUtrdnRBbEU4Tm1JWTFX?=
- =?utf-8?B?UDlTbC94SENDZGlFTWFWYS9jQWpveiszQ05jODlyRkVOc3llN0Z2NS9jY24y?=
- =?utf-8?B?TytlMDBqb0hOUUp2N2pERVc5WUZxVStuSkw0OXVaTDhKSlgwVysrUzdVTHVY?=
- =?utf-8?B?NU1RbUw3RHM5dE9RVzNJM3lQbE1rb3FobHBNYXRKWGJYZVQ1ZmJTUlN1aS9Q?=
- =?utf-8?B?NFFEMmd0Y3Q4ck9KM2JKTFQwTWZPbkJjS21pQmh2UGJsNXZsdGNydFgxSnB4?=
- =?utf-8?B?MVZtc2Y1OUZHTXRTbVR3RTdwbmI4dTgyR0c5Z3l4d1QxMHpBaG93eEJETWFW?=
- =?utf-8?B?V3NsSWNaSTBPT2NEMkFFdkV4WXRNY0JUbW5aUTg2ZngyS0UwSDNzOWZBWFVF?=
- =?utf-8?B?UU5jYy91OHRKQmNWZkdQRlp6bysxSlhUSWxYcWtTVmNTamNqMnZveUZVVDNO?=
- =?utf-8?B?cHlkNUhRalBVWjQwNnZKWWFhWGdQYldYeHFPMTBqc1YyMkRjVWF0d3k1ejYx?=
- =?utf-8?B?M09mUjJ0clFSWmZDQWJGdzkxUExaVjhGWHV1Mml0NmJIZ1pLSjMzaitseW9B?=
- =?utf-8?B?N2FvQno4dndIK2dKdFU5Y1FTOVBBMDd4UkhEb3pCTExlNURPOWR6dURjZyt1?=
- =?utf-8?B?OE5HR2UyeWNLWmd0SGdZM3pjTU5UakFCN0NYdVQ1SEVWZzh6dnQ1VlA4cFNn?=
- =?utf-8?B?SXQzK0pzczN3YVgzYTBvUVYwd05pZW9UUFFVeExSQlFYRSs2SFN5ciszU3R6?=
- =?utf-8?B?QndSM2p0d3RsYmxOSHpLZUhSMitkZ2RJMlVPRHZ2bzBOZDNRZFF4ckVSMUFm?=
- =?utf-8?B?NFk4OFZFRGU3RHk0dlBGcVBsRkxJbUdaaTcxcGxYQ3NZZWNaZTFMSEY0M2l4?=
- =?utf-8?B?Z1BtVDhyTFBNTTJ4ai91TlpYaHc1bXVoWWFHSWtaZjF1NDNLTmFuQ0cySVlY?=
- =?utf-8?B?Q3BaR0JYK29scHQ1ZVYyK2c2b0xNUHd5MDd3RjZQcXBMZmpvc0FuSkkxTFdC?=
- =?utf-8?B?c0sxa2UyejhNdHZORVBiN2E4Nm9JUlBVZHZVRHBWVWcyTzF0N0dWMzhIVVFW?=
- =?utf-8?B?UkJ2SFc2RXBYVDhnWFdXdGJtdGNIMUVsOFRKTGFGdEZDRDQrTTE3R25IU1pl?=
- =?utf-8?B?QTJybys3YWgvT2toVDVJKzhJeWZlWW5tYXIyQ0p6Q2E2MGhFYjA0dUkxMmgv?=
- =?utf-8?B?R3lDUjZWYWFFbDNOQjFCQzNMdTNvcUVIV1hwRmRFUnM3WEQvcVVscFViY0Rn?=
- =?utf-8?B?T3p1WFpwbWx1d2w2dFdHSldjV2RJREZ1ZHAvWVFwbXM4TTNpVXBudz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e58607f-3820-4bdc-9f01-08df3fcf4e02
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:39:31.1682 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sNdVmiTrqfmHSWodoQ1KfwhGjKD7fXQqCrHr7PUCpSjUd9J7tTUoTGip+gPr87dyNh1tjsSjfeZhz/1xRy3lxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10040
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm: Drop #include <linux/mod_devicetable.h> from
+ <drm/display/drm_dp_aux_bus.h>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <21c9390024479ec625ca7a2e7a5b959f04d85878.1786032838.git.u.kleine-koenig@baylibre.com>
+ <avQk9v83d-jEGTiX@monoceros>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <avQk9v83d-jEGTiX@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:email, suse.com:url, suse.de:email,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 120261F88B
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,48 +149,93 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Frank,
+Hi
 
-Some comments inline.
+Am 11.11.26 um 09:21 schrieb Uwe Kleine-König (The Capable Hub):
+> Hello,
+>
+> On Thu, Aug 06, 2026 at 06:16:06PM +0200, Uwe Kleine-König (The Capable Hub) wrote:
+>> Only .c files include <drm/display/drm_dp_aux_bus.h> (see
+>>
+>> 	git grep -l drm_dp_aux_bus\\.h
+>>
+>> ). From the device-id structures that <linux/mod_devicetable.h> provides
+>> there are:
+>>
+>>   - 8 files using struct auxiliary_device_id;
+>>   - 2 files using struct i2c_device_id; and
+>>   - 10 files using struct of_device_id
+>>
+>> (and no other usages; see
+>>
+>> 	git grep -l drm_dp_aux_bus\\.h | xargs grep -oh -E "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxiliary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_device_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_service_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vchiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_id|zorro_device_id|cpu_feature)\>" | sort | uniq -c
+>>
+>> ).
+>>
+>> The 8 files using struct auxiliary_device_id already include
+>> <linux/auxiliary_bus.h>, the 2 files using struct i2c_device_id include
+>> <linux/i2c.h> and drm_dp_aux_bus.h itself includes <linux/device.h>
+>> which provide struct auxiliary_device_id, struct i2c_device_id and
+>> struct of_device_id respectively.
+>>
+>> So the include of <linux/mod_devicetable.h> can just be dropped. This
+>> gets one step closer to being able to remove that header.
+>>
+>> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> This is still all true, including the statistics (as of next-20261110)
+> and the patch still applies fine.
+>
+> Can someone get convinced to apply it?
+
+Of course, will be merged soon.
+
+Best regards
+Thomas
 
 
-On 11/11/26 10:11, Frank Obergfell wrote:
-> Add support for the bytesatwork i.MX93 byteENGINE OSM module
-> placed on the byteDEVKIT.
-> 
+>
+> Thanks
+> Uwe Kleine-König
+>
+>> ---
+>>   include/drm/display/drm_dp_aux_bus.h | 1 -
+>>   1 file changed, 1 deletion(-)
+>>
+>> diff --git a/include/drm/display/drm_dp_aux_bus.h b/include/drm/display/drm_dp_aux_bus.h
+>> index 8a0a486383c5..ca8db8ccc1f9 100644
+>> --- a/include/drm/display/drm_dp_aux_bus.h
+>> +++ b/include/drm/display/drm_dp_aux_bus.h
+>> @@ -11,7 +11,6 @@
+>>   #define _DP_AUX_BUS_H_
+>>   
+>>   #include <linux/device.h>
+>> -#include <linux/mod_devicetable.h>
+>>   
+>>   /**
+>>    * struct dp_aux_ep_device - Main dev structure for DP AUX endpoints
+>>
+>> base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
+>> -- 
+>> 2.55.0.11.g153666a7d9bb
+>>
 
-[...]
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-  
-> +BYTESATWORK MODULES AND BOARDS
-> +M:	Alexander Forsch <alexander.forsch@bytesatwork.ch>
-> +M:	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-> +S:	Maintained
-> +F:	arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
-> +F:	arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
 
-Care to add imx list here?
-
-L:»     imx@lists.linux.dev 
-
-[..]
-> +
-> +&mu1 {
-> +	status = "okay";
-> +};
-> +
-
-Should we enable the nodes in imx93-bytedevkit.dts ? Nodes
-are rarely enabled in dtsi files. 
-
-Think if you add another revision of the board with just one MU unit.
-
-Another idea would be to completely remove imx93-bytedevkit.dtsi and directly
-include imx93.dtsi in imx93-bytedevkit.dts
