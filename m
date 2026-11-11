@@ -2,51 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46258606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDDD606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=eder.earth header.i=@eder.earth header.a=rsa-sha256 header.s=default2410 header.b=JTUPk9A9
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=f9NzdRc2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 246521120EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B87CF1120F2;
 	Thu, 12 Nov 2026 12:55:53 +0000 (UTC)
-X-Greylist: delayed 955 seconds by postgrey-1.36 at gabe;
- Wed, 11 Nov 2026 11:29:13 UTC
-Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE31310E9E2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eder.earth; 
- s=default2410;
- h=MIME-Version:Content-Type:Subject:Cc:To:From:Message-ID:Date
- :Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References; bh=KVw4V0BFyKGxlUWfRRyHrdXrNVEmnXUCsWp7xz2NFcU=; b=JT
- UPk9A9u5e0NYzPnUTYYnvab7O7w9Fvb7lz3Xz/rytplTf3OV0L62EAQToyeIw1Ohe0Fl2N/RQ4UAM
- BP/a2h2eet7igVNDbayvPEegcVbkXwLuuskmE8pZJjc0WU3CnPFg4w1JiUcPZqJXAHISk625vTtH4
- 2Y4o95AD7e7zsGKX3k1NWp6M5B648zJhstM2qqQcu8Gql7AsyngrQT9myAr0Vc2PFBOF3cl0bsc7w
- iYlllTi7oC2IxF+8YklwZOqIUHl4BRJ9uSsT91zxfMhJUB2dXuA0w5KTsY0iaqk1tebMPOJPypfKN
- NpSgkjxxvBcATS6A7AKq6MW05U868lqQ==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
- by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <sascha@eder.earth>)
- id 1xR6GS-000Gw1-23; Wed, 11 Nov 2026 12:13:16 +0100
-Received: from [192.168.0.33] (helo=webmail.your-server.de)
- by sslproxy04.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <sascha@eder.earth>) id 1xR6GS-000M86-19;
- Wed, 11 Nov 2026 12:13:16 +0100
-Date: Wed, 11 Nov 2026 12:13:16 +0100
-Message-ID: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
-From: sascha@eder.earth
-To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: drm/hyperv: pointer lag on desktop guests - host cursor is
- supported by the protocol but hidden
-User-Agent: Horde Application Framework 5
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6A010EA1D
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:31:41 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-48e10a70540so1931274f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:31:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403900; x=1795008700;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
+ b=f9NzdRc2FTVDBaQkR781k+Bbfo68lW15mGDbqXmnWRutNCxAVUeLK0nRfBbBKPR0Rm
+ q/UJd8VKGRHL+zA0HaU+usok+UkkXnigA43YodeCBO26nMSQxt4VAM89bc9gg5V7DogJ
+ i/w3LNjDA+HfrhdG5ojvCPw9Lo6MLw2/jcIhHhXzwtxu5rsBlvva0+aGuVuY9aB4RLpX
+ uTcfVxlIDoP0wwahzjyRrndsgp/TEtjZy5OIpSpsQM8C19xmOP7xbRIesoDxGxuLAgSM
+ OQN4LvYkFtcd7GY1zGIrwpeMittl35d4qwWifC1N/KMHICw5xtOrKuaFjTNx2ODNs5j5
+ T7wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794403900; x=1795008700;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
+ b=X0FXVN8Alvr1moabrXIuj1tFA1ZHRqXvGWt9KQo+xCiqYKX2vMkhb+C9YolhoICxv3
+ f27jOrMjZ7EEh5dy1dKibCho8BwssBIe8A6qqVqSxQNOqbKrpjUNYlzL+5rOVR7vhOlB
+ JtttA27UDOsdgndgCbO8y363KRVAeXk34tKhLw2sF4jQ8JbJAqnKvFtZ5aCgS98b//rh
+ K0QL/yu9ysXRDteek6OhD7s4OH2j9arheEvCSe1ToFjX5+7wDvOj3vPsO7biuL4mvlf5
+ /yL6a5WHuNf/a1IAKmZEdmtNsDegusNGG4VfO9WSZBIC7lYjhiSiu55F9f5JFusPOHYu
+ lEpw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEqPsH5Cdy+2RB6Cv6aRhRuFRjPpbLUEhZcyPw4xejuYU2tnZDKiMutERtzVWvN37ZZZlweE7nJiHI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+1qYl/j4FgDvb9A71lShCIoY7XZweLx4rhrt9oeB6edCfpr61v
+ vBDEiuz49ObyniQe/0/qH6Mh3FcFMd8TQachr/dVm9VHVmFnyrYJpSVnBfm1zrvmFRQ=
+X-Gm-Gg: AYBFou1Ssd6C+Uzr/OQPL/ACOfuYlS1Z4PpKmJb1Uv3/XCpfzPq2nN1ie1AuWUx96QI
+ 8UVGTFJSOHF8PfFxz4x8pXIZX61hl+unBRISBTMqrHNVCVWyEkJmbrcjbsuoXFLhY7W2YBWcTYp
+ vidVeKwYf+8GkWrdaxcg4S7ims/nm+B25Xo0co5G3DWFs/5S9xlcC+CcTIAHaIzIyUF3090iXBT
+ a55hgjpR7SPsN7X3cx2iSezvIhyf4qDt4yo4i2Zze2ewAwRCMIscfufDLZstzNvQSa63pI5qMr8
+ knVrsNTGk/gD02FRG1/oeoe/+zw7ePDq8pQASnmSe0rtJqh08PseIGQVuj7a+5XcK8+CtaxieV0
+ Ms+GrgpBbywGd7cg7oSZXr73j2qSURStc693xaP7tnsEppjdIbyoMjd1SkGMoRNKNt+e4yXPW92
+ GNMA9CCtgO6uaico8rDvrcRG1FdegyC803EB4b3pJouPnE0T2JBwozrDl+a0oHFfDl3imbespNy
+ 1GVURQjfo+lldwIrYtVqvA3PTjoWwWUVDdbnPYC2Y2gqFWEbZsEykP3CYptn5Hvr//3Qo4bwH5L
+ CqGNViOxkR8+O3GN/YkfR4qS27Wlh/wqYBzdfFnRT2J0g5nLVQxaXpfV0uf6IdbxxTUZu6ymi1J
+ +zpamVeBojw==
+X-Received: by 2002:a5d:5f47:0:b0:493:690c:8364 with SMTP id
+ ffacd0b85a97d-499c3ba0637mr4190729f8f.3.1794403900138; 
+ Wed, 11 Nov 2026 05:31:40 -0800 (PST)
+Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net.
+ [83.150.40.162]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 05:31:39 -0800 (PST)
+From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+To: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexander Forsch <alexander.forsch@bytesatwork.ch>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Frank Obergfell <frank.obergfell@bytesatwork.ch>
+Subject: [PATCH v3 1/5] dt-bindings: display: panel: ilitek,
+ ili9806e: Add Youritech et050fw01-kt
+Date: Wed, 11 Nov 2026 14:31:15 +0100
+Message-ID: <20261111133119.1063210-2-frank.obergfell@bytesatwork.ch>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
+References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28180/Wed Nov 11 07:24:27 2026)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Nov 2026 12:55:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,99 +100,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Document the vendor prefix for Shenzhen Youritech Co., Ltd. and add the
+compatible string for the Youritech et050fw01-kt panel.
 
-I am a Windows developer porting some of my own desktop tools to  
-Linux, and I use a Debian guest on Hyper-V to judge how they look and  
-feel there.
+The Youritech et050fw01-kt is a 480x854 MIPI-DSI LCD panel with
+physical dimensions of 68 mm x 122 mm, driven by an Ilitek ILI9806E
+display controller.
 
-The static picture is good, the mouse pointer is not, and I think the  
-cause is small and fixable in hyperv_drm. I am writing because this is  
-the first thing a Windows developer notices when trying Linux on their  
-own machine: as long as a Linux VM feels sluggish next to a Windows VM  
-on the same host, few of us will move a repo over and be happy about it.
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+---
+ .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml      | 1 +
+ Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
+ 2 files changed, 3 insertions(+)
 
-Setup
-- Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session  
-(vmconnect), 3840x2160 display
-- Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm (Synthvid  
-3.5), KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
-- 4 vCPUs, about 7 GB RAM
-
-What I saw so far:
-
-- The pointer trails the hand by a small constant delay. Fast, long  
-movements (taskbar to top of the screen) are visibly laggy, not just  
-slightly off.
-
-- A Windows guest on the same host, same viewer, same mouse is smooth  
-- directly, and even when the host itself is reached through RDP. The  
-Debian guest lags in both cases.
-
-- While moving the pointer: kwin_wayland uses 35-50 % of one core, a  
-kworker (events_unbound) 13-21 %, and the VM is about 80 % idle.  
-Adding vCPUs changes nothing, so it is not a lack of CPU.
-
-- A smaller cursor and disabling KDE's shake-to-enlarge effect helped  
-a little. A plain color desktop did not.
-
-What I think the cause is (from reading the driver, I have not patched it)
-
-1. hyperv_drm exposes only the primary plane. There is no cursor  
-plane, so the compositor has to paint the pointer into the  
-framebuffer, and every movement goes through compositing, the "blit to  
-VRAM" and the dirt message.
-
-2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(), so the  
-old and the new pointer position become one bounding rectangle. For a  
-long or diagonal move at 4K that is a large part of the screen per  
-pointer step, which matches the more noticable lag (much worse) on big  
-movements.
-
-3. The protocol already has what is needed. hyperv_hide_hw_ptr()  
-exists because, as its commit message says, "Hyper-V supports a  
-hardware cursor feature. It is not used by Linux VM, but the Hyper-V  
-host still draws" a pointer; the driver hides it by sending a 1x1  
-transparent ARGB shape with SYNTHVID_POINTER_SHAPE. So the host does  
-accept a shape from a Linux guest and does draw the pointer itself.
-
-Proposal:
-
-Add a cursor plane to hyperv_drm (up to SYNTHVID_CURSOR_MAX_X/Y,  
-96x96, ARGB) that sends the compositor's cursor image and hot spot  
-through SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and  
-re-sends it on SYNTHVID_FEATURE_CHANGE where the hide call is made  
-today.
-
-With cursor hot-spot support for virtualized drivers, compositors  
-would then leave the pointer to the host, as Windows guests do, and  
-pointer movement would cause no framebuffer damage at all.
-
-Independently of that, handling damage clips individually instead of  
-merged would reduce the cost of the software-cursor fallback (cursors  
-larger than 96x96).
-
-A second, smaller item found on the way:
-
-With Set-VMVideo set to 3840x2160 (Maximum), the guest offers modes  
-only up to 2560x1600. The connector's modes come from  
-drm_add_modes_noedid(), and 3840x2160 is not in that table, so it only  
-appears with video=Virtual-1:3840x2160 on the kernel command line.  
-Adding the host's maximum (or preferred) resolution as an explicit  
-mode would make 4K hosts work without that step.
-
-I can test patches on this setup and report back. I am not in a  
-position to write the kernel change myself (drivers are not my field  
-of work at all).
-
-Thanks for maintaining the driver.
-
-Sascha Eder
-
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+index 2080d9e0ffac..c2e442c20c0c 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+@@ -19,6 +19,7 @@ properties:
+           - densitron,dmt028vghmcmi-1d
+           - ortustech,com35h3p70ulc
+           - rocktech,rk050hr345-ct106a
++          - youritech,et050fw01-kt
+       - const: ilitek,ili9806e
+ 
+   reg:
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..ac2f54adde73 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1979,6 +1979,8 @@ patternProperties:
+     description: YSH & ATIL
+   "^yones-toptech,.*":
+     description: Yones Toptech Co., Ltd.
++  "^youritech,.*":
++    description: Shenzhen Youritech Co., Ltd.
+   "^youyeetoo,.*":
+     description: Hong Kong Cybodev Tech Limited (youyeetoo)
+   "^ys,.*":
+-- 
+2.47.3
 
