@@ -2,47 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A683606A334
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD98606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBN881Uo
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=fJidFxKT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A55010FAEE;
-	Wed, 11 Nov 2026 11:15:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E239510FAF8
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:15:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E67763C95;
- Wed, 11 Nov 2026 11:15:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23161F00A05;
- Wed, 11 Nov 2026 11:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794395702;
- bh=tAx/ZFlsqXKWFenehZ/MbbfKdZYuT66fnAo6orVBCkk=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=XBN881UoloAl+qdmKmPVrH4Sn4mrZ+nDx2hDHv8pvgq3leTwmjlP2OasxRSnWu6j3
- uHEogUzELOrIsIZghOIZKs4GSyulW+2Vib3GHirLE8fCWtj758itIRfrnuLNvnyoLs
- nq5Bf3G4qrFaKndvZZVT+FHiYQ/FVdQyfCWhnYeCImhzuagHE6tnxBPQxfV/Zc1gfu
- qF4dSMTJrPHA/KKdiAyL9eDe/xhrDf/4/eH09PJ7xsaZvvTUFTwSzo5K6/GhrtmZ4e
- KUXb/5YEClBabd5qR9xw31E3v/SiKbKwxaPazwx4mFeOSPFjrF6hgosYbJYCJjNUbp
- Qw/BuuECr9HXQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6B6E10FAF1;
+	Wed, 11 Nov 2026 11:15:29 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AADB10FAF1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=h6AuWUaGarDctQ5l7dVAUhKlPDbR4Gj0cCKk8wqMzm0=; t=1794395723; x=2109755723; 
+ b=fJidFxKTzpxKRQ+cl1X0Q9v14SbA0q2l8rpPlYQajwWqxhpsi50cAAxL39H3Glt2KT4M2TSL2vg
+ eohNTqsBlg2BFp6Tb08yFKmeEf8x7ffL7DqObJbqFDogL1aD7ZhrmntgCJwxzHse0RXrbDxoHY6i2
+ ozqM11w1mxybdtNtUTVIgfI/ojPqdyG42bIEkBmK4M8gQli8Dde0/rNVkvsri7jQXJWLMyTQQkMCb
+ 5phPPxLahHtc04YdUH33co/teFPtfuKF1bu17ycSvzZBhCSOHPorZV9pxDPjvPN105XkHtQ4YCxcz
+ C5fjRFFna+YlI2qraERpO/SCZoaNijI9WA4g==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xR6IS-008mx4-Ts; Wed, 11 Nov 2026 12:15:20 +0100
+Message-ID: <2d61a52b-74f2-419f-968e-f377d61bf338@igalia.com>
+Date: Wed, 11 Nov 2026 11:15:20 +0000
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 12:14:59 +0100
-Message-Id: <DMSC6S86RQ85.36H8JJYBI79L4@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use pin-init self-referential support
-Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <lossin@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20261110152746.140351-1-dakr@kernel.org>
- <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
-In-Reply-To: <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Switch the default policy to "fair"
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>
+References: <20261110141455.28739-1-tvrtko.ursulin@igalia.com>
+ <30a1da3baf35c7706e2381d9e3bac3e478f64421.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <30a1da3baf35c7706e2381d9e3bac3e478f64421.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,36 +54,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed Nov 11, 2026 at 9:49 AM CET, Gary Guo wrote:
-> On Tue Nov 10, 2026 at 3:27 PM GMT, Danilo Krummrich wrote:
->> Express all self-referential borrows through pin-init's self-referential
->> support [1], replacing unsafely derived references.
+
+On 10/11/2026 14:28, Philipp Stanner wrote:
+> On Tue, 2026-11-10 at 14:14 +0000, Tvrtko Ursulin wrote:
+>> After the last known real fair policy bug was fixed in commit:
+>> 2ab510e63197 ("drm/sched: Fix virtual runtime race")
 >>
->> Cc: Gary Guo <gary@garyguo.net>
->> Link: https://lore.kernel.org/all/20261008-dev-selfref-v2-0-e280b3c8fba5=
-@garyguo.net/ [1]
->> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
->
-> There is already
-> https://lore.kernel.org/nova-gpu/20261019133647.1279779-1-gary@kernel.org=
-/
+>> And two theoretical ones in commits:
+>> cda6f72545f2 ("drm/sched: Fix out of bounds entity priority check"
+>> 75709a35da45 ("drm/sched: Adjust run-queue when changing priority at runtime")
+>>
+>> Lets switch the default policy to fair.
+> 
+> We shall, but first let's get the spsc_queue series in. Considering
+> that the last time we blew up the kernel with CFS was – ultimately –
+> caused by the scheduler's lack of locking, getting rid of a magic
+> lockless queue involved in all entities seems the safest path
+> available.
+> 
+> Christian's recent comments [1] indicate that the complicated AMD fix
+> might be dropped altogether, so we can be positive that spsc can be
+> merged relatively quickly.
 
-Ah, apparently this one has fallen through the cracks on my end, sorry.
+Okay, we are keeping an eye on that and we will see.
 
-> It doesn't include GspSubtree though, I suppose that is relatively new?
+On the topic of the fair policy, with the latest SteamOS update I pulled 
+yesterday, and kwin_wayland moving to high priority gfx context, I've 
+noticed job runtime accounting is a bit off so I will see if I can 
+improve that in the meantime. Problem is when there is no preemption and 
+two gfx rings share the same hardware it overaccounts since wall time != 
+gpu time. I've sent one trivial and unrelated job runtime accounting fix 
+  but for the shared pipes and no preemption it is still in 
+brainstorming stage.
 
-Yes, it is.
+Regards,
 
-Given that this patch already covers it, mind if we just keep going with th=
-is
-one?
+Tvrtko
 
-Thanks,
-Danilo
+> 
+> Philipp
+> 
+> [1] https://lore.kernel.org/dri-devel/52d41d99-90f0-40d1-828e-0456dad433b6@gmail.com/
+> 
+
