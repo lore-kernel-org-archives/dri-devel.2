@@ -2,97 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE07C606A338
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5530A606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Owo7S3hZ
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GdP9hRrD;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kAmxxPPk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2953610E2D8;
-	Wed, 11 Nov 2026 16:47:51 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF75210E2D8
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:47:44 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a9a8d6cea8so238905e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:47:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB0CF10EA88;
+	Wed, 11 Nov 2026 16:49:46 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF8810EA75
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:35 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABF06eA1665625
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=PWoksvMhgq8Q/i4IjWr81D37
+ 9zG5XlS6MeHSuWn+LKc=; b=GdP9hRrDhJwlt6pncn4yrH4QKsDam2bDCxdssInM
+ dDYn6PIXVSZb2oZ6Ac39K/7CddAfDqk3qO04WLaL3f91HNoHCHKqL7UI1cNizWVl
+ rSz3dPCQGRmIt/PlvtpiZ+yQj8VirA5dPtN5Cff3roh8aHkdlri/S7ySOtCqBcIP
+ t6Dys2b2kdGEmxx7VtjaxUFsu423unNPtkpKs0dALtOUoJ2zKuTsfnB7WaIH7Vqu
+ xNIuy8iYUJZgPSQOKgytYwfmo5LVWetPBdlv0c1ajhLRGuPBCGHfSTX1ogQDrNlV
+ Z+mzEdHFNOSSZD2PkKNW/TsdFWtKeVGZP9eAu6gUrNYrHg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7pt99q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:34 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-946038e22f5so799529385a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:49:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794415663; x=1795020463;
+ d=oss.qualcomm.com; s=google; t=1794415774; x=1795020574;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
- b=Owo7S3hZz3yl2ehvqEC65G2PSL6dmxbG1Mtu/HpUFB1sZcVRbBnSSOc7GyfjDhqjUo
- 0foQ/to4//FXOaN0Kn/n+O23ImvtjzRQ0ZWC7XNToNh/v8ZlPCbmIzwdReL97mF3jU8H
- HSeuoyabDp8F2tMHB6YuB2I5vs1LLQatax+CdehoAtNvFlkspR6RXUeGPgL5VzYKLu7Z
- RQTU+5QStf7p8D2LgbbS/nunKhglYB7OJ0JmuQF3UlTzLFV0B53q1h633Vq2e72rdkYh
- lKPgD4A9WY98zRE0/Aagve7bfmMVfcSu717mbJw1cZOl+lVAyi8CZeANQ/uW0xagkaYX
- gT9A==
+ bh=PWoksvMhgq8Q/i4IjWr81D379zG5XlS6MeHSuWn+LKc=;
+ b=kAmxxPPkgX/KA0O7khV260NRlASAWGIIlOjuiZxUFLwNuVb4Nb+hALS82wUUkbrqRg
+ GC+0x5BSi7muupJEGk/NOXxt2bT6Jgjr8676orPgJYX2AiktsjST9Ens/FnbotS4uHxf
+ JjgZe7jS5mfo8J4tEBd/3IsGDTCc1dUyBMTKG9cI4VRN5wfnU2z3HooxPaglog55oHCL
+ VHRk4tZhisip55j8zr7Xrdg+3qg1q0nsMevl3trgJ2/zhrBKPuN2dxZ3X7Zu6taoz0FM
+ SMI0+UU4Ki61uoEOjmep2CEAz95iEbrARWQTsH3oXa7Xz/1WNzwbvbR265d7unNV96Hx
+ kB3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794415663; x=1795020463;
+ d=1e100.net; s=20260707; t=1794415774; x=1795020574;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
- b=ptC+BSDgecnFs75ShI/yQtwINEvq2M56+3hSy0E5++Tv2ptzUenKpMhbFSdLQ/42vE
- qkgYAN8PYCor34I0/8mGhflDBxcbfdyy4HJjzCe+jAQ/G8ppXQVmnDXylk5R2cUmStYn
- 6yHkwHkJgB9Ijt0qWW3IrC29kyRd/jFSR0Zi0xahbfKLj3IkvN0NBxyXZymg0xMwS5oG
- kZpPPV/VoLhRBRooM3XiVSQKCl4/UpulHCNxGUe9nNh9kAKoXD7wVEsxav4SsslYJqUS
- SuUnJB4jiha3RtgVkbPROlSZ7nH+osBEu14X/oB1aAdi46ob8mhX+Kqf+0yWAK4mgunZ
- To3A==
+ bh=PWoksvMhgq8Q/i4IjWr81D379zG5XlS6MeHSuWn+LKc=;
+ b=hdKJWW/FPh+b8wEdEAkvIRiFQ+s64aToRjlknO81Cb/CMowd4PH3V925n9R/wQw4Oz
+ n3CDkgmgie0L4pTUlg9H+JP77ScZW+vy8ZH2AUptC7cGFDQ8f6gxBt4TqhOcIV60yrs6
+ KdBYbhk1TML/zBj8Lf43K9hjC23jWDRvMmLYUzWkhWZE8RwEIWtkNL1koO0Nx43Iw5mG
+ SZ1xgKmtcFv1sagF4i6P4DuZktiksEcU3YQxb1qnUmL1DgTWX2zQZY4kI2SQUiY+FD67
+ UG428ZPl0+FQ5UqZrI8CQjpfU+w095NvunWq7aM0mWd4vRVJZRXCv2najeL7aDimiif/
+ D+0Q==
 X-Forwarded-Encrypted: i=1;
- AL+hErHRuBKM9fQnJoe915qtmqjMsssSvQN0gI+lbw9teWR9xRMg5CoXWv5xj8Sjic4vGpXLPWnLUfBdh8Q=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/PRlIlGeJHd8amaVwAzAPJ/fCkMtNVwhJTQg6Uv3OmEBiP/WfV
- j6LHKsRWPNXYO5Xv8hZ2doXroNIyHnYsDjRJ8c4oTmdn15CCRb4qTwFNj2WgwZDv7Q==
-X-Gm-Gg: AYBFou1PpV0Wsh6USanU83r7DgGZ+cNBdHoUBwFSY1nmyNriEsAHvFQyUrLZWu3UKbc
- BtpKq0n5STpm2k2ml50mUumdEs392bjrpzwPryRSoLaj2VOynxleM1r3yEHWuufZfIBb+80kF14
- dyXgIT5Ha7M7shw3Kj8Ssrc2ZdPfKOoYkcNwkM1kNreIcdpqhloKW5ORwtv7YviY6MJefQda9+5
- hsuhJ6tom4GwcYSLNDyiWCwk2llGHPCzPthnBiPT+QG+7jQBr3DynI1DTyneuIERiZik7MhebtO
- pj5WplSiuq4ASTTSitAWr+19/3BQjkBrOoERGZaUK/KJMilQU2E2Ruz2vTcsvfEuqCGdAemfWHv
- 2PIgpGNyfKA08gdDXtkW0QUcD92mBSoclLIZt+sK4NzuHAWeBMSifQFoD09rSu+HN8H1J2H130e
- aCoINFMghjd9WmD9LJ0WtUVmA/OZHlONoFLrbFwZkaEunxRo1tdjnGDUQ+LLG8lN6ApumpdvgIg
- yRO5MUQor299w2/xD+fYRTPkEGwKijeiK5k5vC16bA1+cemQr4fErxfGH8M2jDwJLljg257DGHN
- WCl96tThIcDdCVwWJ7rkWUKeZgdAQDT16hOtinMV9olsT3Ui6qfWQcDXQzJdRSLfdQ==
-X-Received: by 2002:a05:600c:3f07:b0:4a2:18c4:61a5 with SMTP id
- 5b1f17b1804b1-4bb4e27994emr1100895e9.6.1794415662004; 
- Wed, 11 Nov 2026 08:47:42 -0800 (PST)
-Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+ AL+hErFMSN766LzWlfDHa0qZ2kqDKhOVwRbg2IUnMgFyxqECBgtMBHCwfb2LPQLWyH19lGKawtgjrMYjOFA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9wQP2UesTHzJeCC21FZHt9CzpaLTWLkppeoBamW/ymhkGMWebu
+ t/AxwEhyaEHlYKaS+V3pAmDaljz0oGBBlt7VmcJyJ7OcM+Iplys5M0yNCB6lx18sFi8BCDcITWS
+ ve8FYVwSlhwuaJfuzZkJUIv4DggA5TrA03XYiGvWaRw37GfTU4a24bVlVkLE6DF1Ro+2+Fvg=
+X-Gm-Gg: AYBFou3frCQjyxUKfyaiTmS/rr0gRG4boqDMKOu0/xJequ1gprBX3EPVERW+9TA8jw/
+ DuMp8oPXUTBMl5wmrwHO2NTVu4SCROmnKRLjH+KrynoF/ug/stMs6Hru+Q+yutE3Jz0gkCM76zu
+ NiaV1XMdZSdVCIfTpBgjFthEWvtx/M+AWl89vm9jBuDq8LWPcdPPi/yKT4haHl4hClpt2oCA1Lj
+ 21DoT7R6PYAsoL4aQYtZd0pR9Zqr2gKNC8APcZWt/et9RNa85i9uTyT4U9AO1S8+vMTZlQtRJBG
+ ttkPRypvlzX15croo5h9G+jxaE8StcRyJHPtd8EcSdXzYedRUVSLON6nkr0xpjmaAKTB5xS0db4
+ SAZtHFHsomD+XiT8OCiVlVSN/2loUVzSK8bWUfHDO+bzW5iF0zw/TrW/BdIHediPlT9IntAqfPD
+ AqW5lwCVvbLaHsfONWpW5/ds3euKccEHHuAoMqNlQmhban564nQnNgMG2+RW6mcQ==
+X-Received: by 2002:a05:620a:4409:b0:93f:3391:d5a1 with SMTP id
+ af79cd13be357-947b00cbd05mr507382985a.75.1794415773579; 
+ Wed, 11 Nov 2026 08:49:33 -0800 (PST)
+X-Received: by 2002:a05:620a:4409:b0:93f:3391:d5a1 with SMTP id
+ af79cd13be357-947b00cbd05mr507377285a.75.1794415773092; 
+ Wed, 11 Nov 2026 08:49:33 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-498365cd06fsm11724877f8f.40.2026.11.11.08.47.41
+ 2adb3069b0e04-5c157baf5aasm1038678e87.48.2026.11.11.08.49.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 08:47:41 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:47:38 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
- loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
- vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
- rostedt@goodmis.org, mhiramat@kernel.org, jgg@ziepe.ca,
- kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
- James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
- will@kernel.org, linux-scsi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
- mathieu.desnoyers@efficios.com, robin.murphy@arm.com,
- mason@kernel.org, aesteve@redhat.com, tjmercier@google.com,
- harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
-Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
- metadata to memcg
-Message-ID: <avScKhR22kFOQ1z4@google.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-5-cui.tao@linux.dev>
+ Wed, 11 Nov 2026 08:49:30 -0800 (PST)
+Date: Wed, 11 Nov 2026 18:49:29 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
+Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
+Message-ID: <kncxteaifi4atoodx2wqkbxkwwaw2wttmxtxeh5plbl77idwva@fbknoze4ywbd>
+References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106131829.3228926-5-cui.tao@linux.dev>
+In-Reply-To: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NiBTYWx0ZWRfX64Bj3ovmPZfT
+ Ft1Rl0HezKAQyyHZuqXHhVtRJI1eWOoByIPETtHlyf05nT/H3PovlqOqoo3AIf/5JiDIB/iUH4t
+ u9hctteBWUQfKbpdeugKHUP9mwyHosY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NiBTYWx0ZWRfX/6rm0AeEndke
+ PBFWBaMhyUB9HoKL2Oy89HigyAdy9Sng3TGNyFcf4FGsuTtg11ONH8dXLtBKpWeAYLWmLFF/+9N
+ w7fUVGeYkSDZwwVJ/i7NxXaYdHODPBZ9hi4eoTId8FN9PNn8EDQRkl5YGTuhrPuFjRO9VYIvJAD
+ oKyHPy7PGNsTHz/NGVI3I5OuszTzQd01ciBByGbTqD3USKDXslB5MUgpFhs0r0f8eDBXzSESwKr
+ btEs68O9Orb+e0CvUOPW9IuuXi6F4/VDMouhhic7EdYQJ5qzsbefOHQmJVshNFvbOyPnWdoSTcN
+ 4utROh11YdJWl1SflUpMg32Ucl7VqxKTGYMT4ECH82XuPQPl+WB5VG2QTQh5mZgI4hgh4P2Rlti
+ i2nHiAAddnsDDJrzFFrONQ1gkTZz5iLzE0AwcT6mVjHSzqbbtEb2vBFUlqyRnxlRQ0spzn7otbS
+ QcJ5J9gsTHrKyDMOGxw==
+X-Proofpoint-GUID: jz_aWn3KONQpozc2h--9gYcYpf-ZVtBx
+X-Proofpoint-ORIG-GUID: jz_aWn3KONQpozc2h--9gYcYpf-ZVtBx
+X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af49c9e cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=nLvmRgGJZeXqCf0b28oA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110066
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,97 +143,48 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
+On Tue, Oct 06, 2026 at 06:43:53PM +0530, Arpit Saini wrote:
+> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
+> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
+> reaches 0. The clock (and its source) stays reported as enabled
+> through s2idle suspend even though the display stack is fully
+> suspended:
 > 
-> Creating an instance immediately allocates two full sets of per-cpu
-> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
-> on the default config, plus the trace_array and its name.  None of it
-> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
-> while user_events in the same directory accounts everything it
-> allocates.
+>   disp_cc_mdss_ahb_clk [19200000] ->
+>     disp_cc_mdss_ahb_clk_src [19200000] ->
+>     bi_tcxo [19200000] -> xo-board [76800000]
+>   disp_cc_mdss_ahb_clk_src [19200000] ->
+>     bi_tcxo [19200000] -> xo-board [76800000]
 > 
-> Instance creation is currently gated by tracefs file permissions
-> alone, so a
-> rootful container with the host tracefs bound in can create instances
-> until the host runs out of memory.  Charge the ring buffer pages and
-> the trace_array metadata to the creating cgroup.
+> Calling clk_prepare_enable()/clk_disable_unprepare() directly from the
+> PHY's runtime_suspend/runtime_resume is not safe either, since it can
+> deadlock against the PHY's own PLL clocks taking the global CCF
+> prepare_lock during clk_prepare()/clk_unprepare().
 > 
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> Fix this by moving clk_prepare()/clk_unprepare() out of the runtime PM
+> path. clk_enable()/clk_disable() (spinlock only) stay in
+> runtime_suspend/runtime_resume. clk_prepare()/clk_unprepare() move to
+> suspend_late/resume_early, avoiding the prepare_lock collision and
+> actually dropping prepare_count to 0. DPM_FLAG_NO_DIRECT_COMPLETE
+> ensures these hooks always run on sleep.
+> 
+> Fixes: 0b3ccb76b95b ("drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue")
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
 > ---
->  kernel/trace/ring_buffer.c | 8 +++++++-
->  kernel/trace/trace.c       | 6 +++---
->  2 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 1fd28a72e6ee..676c059c112c 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
->  	 * gracefully without invoking oom-killer and the system is not
->  	 * destabilized.
->  	 */
-> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
-> +	/*
-> +	 * The subbuffers are charged to the memcg of whoever caused the
-> +	 * allocation: the creator of a trace instance, or root at boot for
-> +	 * the global trace.
-> +	 */
-> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
-> +		  __GFP_ACCOUNT;
->  
->  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
->  	if (!page)
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 132 +++++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |   4 ++
+>  2 files changed, 127 insertions(+), 9 deletions(-)
 
-Hum, by default tracefs is root only. 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-And even if made accessible to other users: 
-
-  1. The life span of a trace instance is not tied to the caller.
-  2. The ring buffer is shared by multiple users.
-
-Overall I am not convinced charging the creator makes much sense.
-
-Eventually a few allocations for iterators could be GFP_ACCOUNT.
 
 -- 
-Vincent
-
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index e8c4efa8107b..04b60b9cc4f5 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -8693,11 +8693,11 @@ trace_array_create_systems(const char *name, const char *systems,
->  	int ret;
->  
->  	ret = -ENOMEM;
-> -	tr = kzalloc_obj(*tr);
-> +	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
->  	if (!tr)
->  		return ERR_PTR(ret);
->  
-> -	tr->name = kstrdup(name, GFP_KERNEL);
-> +	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
->  	if (!tr->name)
->  		goto out_free_tr;
->  
-> @@ -8708,7 +8708,7 @@ trace_array_create_systems(const char *name, const char *systems,
->  		goto out_free_tr;
->  
->  	if (systems) {
-> -		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
-> +		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
->  		if (!tr->system_names)
->  			goto out_free_tr;
->  	}
-> -- 
-> 2.43.0
-> 
+With best wishes
+Dmitry
