@@ -2,67 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BBA606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59407606A333
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:38:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=F0JXi3Jk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrLfGZeL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A3D10FC40;
-	Wed, 11 Nov 2026 17:30:38 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98CBA10FC40
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:30:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794418230; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=XQ+4kTy1Sbg+S2qNqks5/t4BdOZlkR2RGbfx3y/El1qrOUQAACXO4gR1elMHCCnS3PfaFn1wyBg9AJ526lxZxpkoyUzWj2PWQBkFIRJEQ+3Te0fLtNfLc0j1S0paBxNAF5Bww5IlcEcXP1LqCG+U279JEiZ1r5cSe6yFngmRcP8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794418230;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
- b=DgKZQP5SIj85Z+b2Ao90Am8f3aCxiUdNAXLepTZn80nMH5elWAeJdpif3MJw/baWpFno75pkfxoJ+tVXfnemyJqpoy80pA7jGfxN3bUTRsNE0gpmHbhFrU+Cn/paHcjy84knPtCp+Ag8JgVyBJgrCgKUfM+NgsWIiZeF/KWjBLQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=F0JXi3Jk1+ckm+EuI/KcTpwx6KLcN8S2S6w05QcozMJ25TNkCNkLdBa8MvUdDiTbqO54Qc9Pxdxo/BkRd9NrBN2MZ2/YT/opWYXHRUTqFeB167MonfJNVH4nFVdRnAbmLKIuqKIWQtpn0z29rV7B/CY1Op1bhd8FU5YgkfLMg6M=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1794418227715371.06425639823635;
- Wed, 11 Nov 2026 09:30:27 -0800 (PST)
-Date: Wed, 11 Nov 2026 14:30:27 -0300
-From: Daniel Almeida <daniel.almeida@collabora.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "aliceryhl" <aliceryhl@google.com>, "acourbot" <acourbot@nvidia.com>,
- "ojeda" <ojeda@kernel.org>, "boqun" <boqun@kernel.org>,
- "gary" <gary@garyguo.net>, "bjorn3_gh" <bjorn3_gh@protonmail.com>,
- "lossin" <lossin@kernel.org>, "a.hindborg" <a.hindborg@kernel.org>,
- "tmgross" <tmgross@umich.edu>, "tamird" <tamird@kernel.org>,
- "work" <work@onurozkan.dev>, "brauner" <brauner@kernel.org>,
- "lyude" <lyude@redhat.com>, "j" <j@jananu.net>,
- "alvin.sun" <alvin.sun@linux.dev>,
- "deborah.brouwer" <deborah.brouwer@collabora.com>,
- "laura.nao" <laura.nao@collabora.com>,
- "beata.michalska" <beata.michalska@arm.com>,
- "nova-gpu" <nova-gpu@lists.linux.dev>,
- "dri-devel" <dri-devel@lists.freedesktop.org>,
- "rust-for-linux" <rust-for-linux@vger.kernel.org>,
- "linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <1a1cba939ec.316e688b263885.5117314523612320809@collabora.com>
-In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
-References: <20261107021427.2105374-1-dakr@kernel.org>
- <20261107021427.2105374-8-dakr@kernel.org>
-Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File lifetime-parameterized
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE7A010E42A;
+	Wed, 11 Nov 2026 17:38:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA3810E42A;
+ Wed, 11 Nov 2026 17:38:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6933F477B3;
+ Wed, 11 Nov 2026 17:38:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D74D1F00A0C;
+ Wed, 11 Nov 2026 17:38:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794418695;
+ bh=JrT72GOAKGZX41rCFG84frGoJIN3oV6Z93un14oz1qs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=GrLfGZeLFf9DKzN7VwR46684I4bCqEjISFS6wM/T28KM6EnUVet7U5qQ0yLGrO0e3
+ oBCYby6QLBnmLc3Rg7hRycKNMHmxZEDtXV/qLiIN4Lfd7jsM4rYJ49fbcj3Lir9lij
+ 6yWj55ybqort2F237teR6GoHfQXeS0M/UmcJTL/aV23FxMON4Ul7DTT6lOHq54FVfD
+ TkHiu5mev6sGIBkleuZHgR2Mz1rrvancXimqfrPJT1j9sQ9aVkcovUZI5i8GccsLmS
+ gUd/SRKoeaWt81SnWLshzp+MOaNr6Q6ZjE6IhiTB6aVGgrkTtGOI9JHlUxfr8bbdfd
+ 8VOFct/FTNPVg==
+Message-ID: <sashiko-outbox-209426@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/15] drm/atomic: duplicate state of all colorops
+To: "Melissa Wen" <mwen@igalia.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111160814.21326-8-mwen@igalia.com>
+References: <20261111160814.21326-1-mwen@igalia.com>
+ <20261111160814.21326-8-mwen@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 17:38:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,13 +49,47 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/atomic: missing Fixes trailer for colorop state duplication
+  fix
+--
 
+commit 65883c26981f13bf34ba82b7178f631ec645b8e7
+Author: Melissa Wen <mwen@igalia.com>
+
+> drm/atomic: duplicate state of all colorops
+>
+> Userspace expects that colorop settings of an inactive color pipeline
+> persist, so that, when the color pipeline is activated again, preserves
+> the values they had when it was deactivated. Colorop setup is expected
+> to persist even during a suspend/resume. To snapshot colorop settings
+> correctly, duplicate state of all colorops in a given plane, regardless
+> of whether color pipeline is active. Depends on skipping
+> drm_atomic_colorop_check() for duplicated state done in previous commit.
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+
+[Severity: Low]
+This fixes the plane_state->color_pipeline condition in
+drm_atomic_helper_duplicate_state() that caused inactive colorop states
+to be lost across suspend and resume.  Should the commit message
+include:
+
+  Fixes: 6bf7969a145e ("drm/drm_atomic: duplicate colorop states if plane c=
+olor pipeline in use")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111160814.2132=
+6-1-mwen@igalia.com?part=3D7
