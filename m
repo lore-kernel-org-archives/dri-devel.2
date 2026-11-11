@@ -2,49 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C06F606A333
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 01:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05EC606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 02:18:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgxs3R8r
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I38io5c7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7FC310F8D4;
-	Wed, 11 Nov 2026 01:43:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4254F10F8D6
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:42:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4D410E9A8;
+	Wed, 11 Nov 2026 02:18:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C44D10E9A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 02:18:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 14A5A43D3D;
- Wed, 11 Nov 2026 01:42:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9BA1F0093C;
- Wed, 11 Nov 2026 01:42:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BD0DB63812;
+ Wed, 11 Nov 2026 02:18:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48CF41F0089F;
+ Wed, 11 Nov 2026 02:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794361379;
- bh=VJx+T+tUk64W22k5TVpjQnYqQRSAfP1LsLu8jCGhpVg=;
+ s=k20260515; t=1794363482;
+ bh=KciehyaHcyjRA/0EwuWkFj2vKpQU1D4YWFxmm7Y+bhA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fgxs3R8rA2QW2z97COb/ctM0zqMAYvm569PfUDzjRe26HmPxJF0vbVogzXsQxdeI8
- ERKbrQqZH8kf0s1gePu7EQ5cHBRXhd/AoZLzIYw8h044JclupnR16YNO/n//lAFVIY
- 4zrCsNq5rW98RHrzt+AGnz/1KAisHO11gLJPrrK3Gu56gapAAn1Px5I8cDxUBSH2sd
- TqkjPh35afXhgIuckhqIGRUgCqekeYWUTssPx41FHwEVZuFl+GWWBsYRXZNo1ixNS8
- QrrFvwDc6qInXgkJQ0zaKzw8PWJJRdOnMhd0C4an8kz34HnppFFI0aHa+FjS8SN8Bk
- /dzhjQivqJiHg==
-Message-ID: <sashiko-outbox-208053@kernel.org>
+ b=I38io5c75yu4iDPNmGhrY6LbFR6DvdXEFuuq7LQArkqnkrx1nbCATeQPqrudmiPWm
+ fnUgOm9udpPYA0b3V2m7t3Wj3lrRpaYRX6GquSv47/267mG1QqAat8KKWvvrPADZk9
+ agbo+NEtZIBEEaXcYIrYWMVF5czxZLqExaescjOee5ah1Q3rIW/wTroEalORq3GCuC
+ AO/wdwKNnH0IG9mmNOg64wWPez15XXM0wKOKsFp46J6/GyhBSYvzRpNRtfseQk887/
+ BYio0Q/1I5XySdr2RTksYWz/YLCLIeiWFpqHPU9HUwu2k8yIiJR6IlcGgaLSGken4M
+ iRT25lavR46iQ==
+Message-ID: <sashiko-outbox-208077@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: cmdq: wrap the sequence number
- on overflow
-To: "Eliot Courtney" <ecourtney@nvidia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
-References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
- <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
+Subject: Re: [PATCH v5 1/3] PCI: Cache bridge firmware secondary bus number
+To: "Mario Limonciello" <mario.limonciello@amd.com>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110-vfct-regression-v5-1-f49fae981bf3@amd.com>
+References: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+ <20261110-vfct-regression-v5-1-f49fae981bf3@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 01:42:57 +0000
+Date: Wed, 11 Nov 2026 02:18:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,70 +58,51 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] nova-core: double fetch in receive_msg() and
-  send_single_command() [1]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] PCI: unconfigured secondary bus 0 cached as valid in
+  pci_scan_bridge_extend()
 --
 
-commit f82fa576ff320e318515a10dc3abe76b072d7cb3
-Author: Eliot Courtney <ecourtney@nvidia.com>
+commit fd23152db632066be6cd9884f50d5722e11a3151
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-gpu: nova-core: gsp: cmdq: wrap the sequence number on overflow
+PCI: Cache bridge firmware secondary bus number
 
-This commit uses wrapping_add(1) when incrementing the command queue
-sequence number so that it wraps around on overflow.
+This commit caches a bridge's firmware-assigned secondary bus number on
+struct pci_dev during pass 0 of bridge scanning so devices enumerated in
+pass 1 can still access the original bus number after renumbering.
 
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index 5f3de456042e4..33074bb53e8c4 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -578,7 +578,7 @@ fn send_command_element<E: CommandElement>(&mut self,=
- command: E) -> Result<u32>
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5afc..14b3dd7dac271 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1418,6 +1418,10 @@ static int pci_scan_bridge_extend(struct pci_bus *=
+bus, struct pci_dev *dev,
 > =20
->          // All set - update the write pointer and inform the GSP of the =
-new command.
->          let elem_count =3D dst.header.element_count();
-> -        self.seq +=3D 1;
-> +        self.seq =3D self.seq.wrapping_add(1);
->          self.gsp_mem.advance_cpu_write_ptr(elem_count);
+>  	pci_dbg(dev, "scanning [bus %02x-%02x] behind bridge, pass %d\n",
+>  		secondary, subordinate, pass);
+> +	if (!pass && !dev->fw_sec_busnr_valid) {
+> +		dev->fw_sec_busnr =3D secondary;
+> +		dev->fw_sec_busnr_valid =3D true;
+> +	}
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can a compromised GSP
-alter dst.header.element_count() or message.header.msg_length() in shared
-DMA memory between checksum calculation and the pointer updates [1]?
+[Severity: Medium]
+Does this mark dev->fw_sec_busnr_valid as true even when secondary is 0
+(unconfigured by firmware or hot-plugged) or 0xff (failed config read)?
 
-In send_command_element(), dst.header lives in coherent DMA memory that
-the GSP can modify concurrently; re-reading dst.header.element_count()
-after computing the checksum lets the GSP supply an out-of-bounds count to
-advance_cpu_write_ptr().  Similarly, in receive_msg(), wait_for_msg()
-checks bounds and validates the checksum using header.msg_length(), and
-receive_msg() then fetches message.header.msg_length() a second time from
-shared memory to compute elem_count for advance_cpu_read_ptr():
+Bus 0 is the root bus and is never a valid secondary bus behind a bridge.
+When firmware leaves a bridge unconfigured for pass 1 to assign, this caches
+dev->fw_sec_busnr =3D 0 with dev->fw_sec_busnr_valid =3D true, so consumers
+checking bridge->fw_sec_busnr_valid will use bus 0 instead of falling back
+to pdev->bus->number.
 
-drivers/gpu/nova-core/gsp/cmdq.rs:receive_msg() {
-    ...
-        let message =3D self.wait_for_msg(timeout)?;
-        let elem_count =3D u32::try_from(message.header.msg_length().div_ce=
-il(GSP_PAGE_SIZE))
-            .map_err(|_| {
-                dev_err!(&self.dev, "GSP receive: message length overflow\n=
-");
-                EIO
-            })?;
-        ...
-        // Advance the read pointer past this message.
-        self.gsp_mem.advance_cpu_read_ptr(elem_count);
-    ...
-}
-
-Either double fetch allows the GSP to desynchronize the ring buffer
-pointers and trigger out-of-bounds reads and writes in shared memory.
-
-[1] https://sashiko.dev/#/bug/linux-a84fa791-1958-42fa-b404-d7ebcb48d6c9
+Note that simply gating this assignment on secondary > 0 && secondary < 0xff
+would leave dev->fw_sec_busnr_valid false on an initially unconfigured
+bridge, allowing a later rescan to cache the runtime-assigned bus number, so
+tracking whether pass 0 has already run may need to be separate from whether
+fw_sec_busnr is valid.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-msgq-64-pa=
-ges-v1-0-d8c56b6fdd6c@nvidia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110-vfct-regre=
+ssion-v5-0-f49fae981bf3@amd.com?part=3D1
