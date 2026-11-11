@@ -2,65 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC42A60A2606
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E33606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jMSzU8lD
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ExzrXnKW;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KR/I4h+R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24A3110F95E;
-	Wed, 11 Nov 2026 08:30:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D2210F95E
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:30:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794385842; x=1825921842;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=H0W8Zz8PVKmFdE5ZMrV+luI9PVA/1Nk64TB2CjqQiwY=;
- b=jMSzU8lDrFsb5ByU+06uKAfaXZt7GtJYMXAksp6Cgq2LzeEXRgePwnP9
- W+jyG52Bnd/o2JMes2ZyjtTQO2sOE6COVhUk+PmcOhA1NCmg5xbbi56YY
- rv3AUI24l/JzHGuJg0eM0YXrNyY/MHX+Ib0rAWOAQmL7hGP1gDlBLSSdO
- 2aF177Ur3Dl7BYg4UUVZHU6pGxKwv2PDaLawI4ei4AKzJLG1oK3Sxx50m
- pvyifwdS5RQCRzIl9z6NynXjVgRXPsUW33+QWB8y/VwKtP6/s133G0Lm3
- Ph1ZFnByFxxfHL2XRViaG/MbChnuz7DU3fZsL9wg/Y24iWxI6d7oDbzBc g==;
-X-CSE-ConnectionGUID: iNHHCaU1QNGQR+zYXXXWHg==
-X-CSE-MsgGUID: V+RqVAdURBmaRKdPeOxW3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3048395"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3048395"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 00:30:42 -0800
-X-CSE-ConnectionGUID: OHTFHgqTQ6e4jUbhOUFXiQ==
-X-CSE-MsgGUID: RyF6L6LNQ7SkOiIf3oliag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8441282"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 11 Nov 2026 00:30:39 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xR3j2-00000000yQt-1Loh;
- Wed, 11 Nov 2026 08:30:36 +0000
-Date: Wed, 11 Nov 2026 16:30:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, nd@arm.com,
- Boris Brezillon <bbrezillon@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8010F95F;
+	Wed, 11 Nov 2026 08:33:39 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B4410F95F
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:33:27 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AB5Kp7W1052622
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:33:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jrBeNlBN5IOvDDr8G0t3/VlYmzMM0aOEx9XgntSJ1GA=; b=ExzrXnKWCIJuRBYW
+ adlPonufNKzumfWmayEMC2ytP0DcBjWY22YFKn4YbEymsgJmsfGf64Z/I99EVESM
+ Iwwh2NEDAYO1fknxf3wpxObrSHiaPMgb0dFAejfkLOjJozEtfs0tP/Roz1hQmT+X
+ KNtOXCwzMXVzmymZPX2+ldNXcDr4IbSK4YAKqiMlVRRBBPYuSJ/b9Onbg0VyWEkZ
+ 5noTWZOHi925H8YZ6P2Y99oaUphEDMhKHnGufPJahXIykXXB56H5oUiV1Y0Ubc8U
+ BMh//eVhierB+74JJRmF2uhNuS3jwvlB+rKcX39D23/HSmhcuTBivBjo2pZVUIOu
+ jAFQ1w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdrh1mq7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:33:26 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-36ecd5db581so5218980eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:33:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794386005; x=1794990805;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jrBeNlBN5IOvDDr8G0t3/VlYmzMM0aOEx9XgntSJ1GA=;
+ b=KR/I4h+RO/GR+1n5DqkrNM5H/Gkaka6Di0HsL++43Ie2trk6HgxBGaPWk7Fv5Tu0RT
+ usykLBbPJT7M8/QbCOvCRyWHQf6Q7ihhCSZ6jIQ0Tw9cikLviiDhhXWC4CajRcc7Iz74
+ OTt5G2iPZLVQPnnSYYKOYe0qRFd3FZSMTEOOIYTSBO1KiwU8t7NoMndw37PsEwfZVkmj
+ dQgdiEymVnmBwxgqG5KiTcMnWiNv3TVX2y78T7ufp2zA2/KY9el7k7Rzs8fW8uPmuzv8
+ R5xuhxKJaqXB0itiFPgEhqN5hReaPGtUOqQSF7i040BAkZs+7RZWu3JGXj04nnIjNg8K
+ opIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794386005; x=1794990805;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jrBeNlBN5IOvDDr8G0t3/VlYmzMM0aOEx9XgntSJ1GA=;
+ b=pVGD+jktIJ0dB6Hg1vIopDPNW7vLHG1P+OXMn3GNMa+wCGINuysX3/PoU22QE+xelM
+ qW9M46RkJJ2sdR4V4zvlFeGUVGS9sgjLbRd0b2ag1yeorSp+Lfknt+MrKYrV35Y842Ix
+ MXmkE02jr5/+LXUeesbTv8zXkjTzNVfaJsm6WpZ6P2xwBfyV0sTdVoAC1zJrzU4ubOQE
+ g/bai1dChtvP9TcthtAExiSJf8bEYbnnPQ5dxW9a+xLXdy17C2dq7m/qmYl3npS3oaUo
+ Wglkdm8mlKUP1l6oa1BTRV2BBZ6pjOg9Dq+ICasf5Vf4IybFKD3X1gs+S5xhx44LS5u3
+ aLmQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEZbYnMVPsF8nOK8YA+f7I+eBI4eqtbKx8NazOykbIXqp77HQQIu/TZN+wq5g12uFNrhADk7gLGBrI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9r/Iy8tSfqVrOiwWsZSqekOmi44Gy1yWx+pB4G8l/n8v+PoEcO
+ /WjuKTbbeHGdMn6/bdjcqx9MxS937uii5NoE7UzTBLUmEnUvjoZBZySABH8vNlK6EuADba6RPzb
+ uJFF0/bHzLSAinfRrYmHhc0PYJFuc2RkD0OVFnucqBSvfPnSVC1imbTvjDBNn+WvZs+WQiNo=
+X-Gm-Gg: AYBFou1E0VvW9ZL+hsmgdnQImQclWol/wWU7rQYxjufaOuJcvJK0YGQ92S6r5+6B+uw
+ TfaXAwUSRYuPdorxUITR6JwS2qYPa0X1lc1sI3P9o5H6EgF121zhx3J0KpbyGBOTbM8RogKrSx3
+ wuD/d9jyRXfnPObTtjJhZsJAryLkBvm9kOdLOUXG4d5o70UDEM4zJ1Jl46ijkkBs8+TD+d8l1l+
+ a8PguglAQgZUhi07OzK3/YNhpg/oNdQLSwpxiZMz79Pp1XaEeiKzD4ZVxK8Y88T4FH4dvfZRFxF
+ dHcPbkR49+kIfZrOSenivWeta+ioiLQhkL3dJptPFwpPZKjYrwoOPVTsXau0AViKgGDspHBtTMM
+ e76xjWTCBzVSOsqmC+r+qeexiHxJ2Woe5R+gbjD9IP5mPhot+KpDDQgOAJLwzCcGWNipOB/TfHN
+ 5feQ==
+X-Received: by 2002:a05:693c:2a17:b0:36d:a465:b38e with SMTP id
+ 5a478bee46e88-3768395f032mr2455995eec.5.1794386005051; 
+ Wed, 11 Nov 2026 00:33:25 -0800 (PST)
+X-Received: by 2002:a05:693c:2a17:b0:36d:a465:b38e with SMTP id
+ 5a478bee46e88-3768395f032mr2455945eec.5.1794386004375; 
+ Wed, 11 Nov 2026 00:33:24 -0800 (PST)
+Received: from [10.219.57.104] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-375218c7c50sm26864637eec.29.2026.11.11.00.33.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Nov 2026 00:33:23 -0800 (PST)
+Message-ID: <811819ae-ebff-49e2-be25-134b58711a5f@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 14:03:13 +0530
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/25] accel/qda: Add initial QDA DRM accelerator driver
+To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Srinivas Kandagatla
+ <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 16/28] drm/panthor: Add AM_RESOURCE_GROUP support
-Message-ID: <202611111629.kkrg6syk-lkp@intel.com>
-References: <20261110153907.3241978-17-karunika.choo@arm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110153907.3241978-17-karunika.choo@arm.com>
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+ <c4f7b153-feb3-472f-b13c-c7fb0a46f9b6@kernel.org>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <c4f7b153-feb3-472f-b13c-c7fb0a46f9b6@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzMyBTYWx0ZWRfX/Us7rJUh93uQ
+ Od4/W4WChU3bTIDR2/AziiCYmTJttqKg0HarjuhVQ10Ori8xVpmwycpx39MkoYaxXCrREuEc7Ep
+ 20Vy2R8PL51yxc4HpZoAiQUfJzH0IDI=
+X-Authority-Analysis: v=2.4 cv=PoQG/AM3 c=1 sm=1 tr=0 ts=6af42856 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=3RgQX8W33KRH0BhMXdoA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: afkK-IbnlIseUIZLAARUJXqMDBTH4jir
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzMyBTYWx0ZWRfXxDWAuETOnWDk
+ oxFvTiwhyuq+neZX8nlwfwz0GR7X8HdSE6F5jnXYtPHacTU1eTgpkC3nvGZr4uhzkvxbA5RpOsM
+ 6kCSrVuAfdWnqlxAeCYhQuxIXR5Zvuz/3xnfJNVXEZUu0K49X/6JDk4SYSZElXaBQAq624kIsSQ
+ vt1xDCJkEKt/upiAWVQAj1PskW/tBnlT4kGq7+7AuMZ1rj5jspjyZguygN0t+p8pTFsLtWRUm5P
+ 2p+pY5+t5r6ZpdHwHQX93n2sDVvod8BxaRtzZCGu7yYiS74VyLGEfESSjhPflGnF8I+rCv5BIvB
+ ed2tseT3CIJ6oPQ1fWAJDbusAbazL4OeAYnIlwmgTMxClacaKt5qssyv4DyN4TlBKOCzwqtRMwF
+ HOKkHDaPo+bcUvm4HEUjkTiug1TLRObP84rYK6orJzfvT2cxa1ZXYpjmKXZvM+kOwyv/UWcrSEJ
+ Wh75q6XlA97D0AEmXJA==
+X-Proofpoint-ORIG-GUID: afkK-IbnlIseUIZLAARUJXqMDBTH4jir
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,134 +159,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Karunika,
+On 02-11-2026 14:12, Krzysztof Kozlowski wrote:
+> On 01/11/2026 23:21, Ekansh Gupta wrote:
+>> +
+>> +#include "qda_drv.h"
+>> +
+>> +/*
+>> + * Both compatibles the binding defines are matched here. The glymur, hawi,
+>> + * maili and nord nodes name "qcom,kaanapali-fastrpc" as their fallback
+>> + * compatible and so are matched by that entry. Per-SoC DSP parameters are
+>> + * attached as match data by a later patch, once there is something that
+> 
+> So you add empty or non-working code. No, add these once you actually
+> have complete and working table.
+agreed, will add this once there is a complete table.
 
-kernel test robot noticed the following build errors:
+> 
+>> + * consumes them.
+>> + */
+> 
+> Drop comment, redundant. Referencing future patches makes no sense in
+> source code, because there is no "patch" when looking at the code.
+ack.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next drm-tip/drm-tip next-20261110]
-[cannot apply to linux-review/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20260922-214455 daeinki-drm-exynos/exynos-drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes linus/master v7.4-rc2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> 
+>> +static const struct of_device_id qda_rpmsg_of_match[] = {
+>> +	{ .compatible = "qcom,kaanapali-fastrpc" },
+>> +	{ .compatible = "qcom,fastrpc" },
+>> +	{ }
+> 
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20261110-153822
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261110153907.3241978-17-karunika.choo%40arm.com
-patch subject: [PATCH v2 16/28] drm/panthor: Add AM_RESOURCE_GROUP support
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261111/202611111629.kkrg6syk-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111629.kkrg6syk-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611111629.kkrg6syk-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:12: error: call to undeclared function 'irq_get_irq_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     341 |         irqdata = irq_get_irq_data(irq);
-         |                   ^
-   drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:12: note: did you mean 'irq_set_irq_wake'?
-   include/linux/interrupt.h:486:12: note: 'irq_set_irq_wake' declared here
-     486 | extern int irq_set_irq_wake(unsigned int irq, unsigned int on);
-         |            ^
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:10: error: incompatible integer to pointer conversion assigning to 'struct irq_data *' from 'int' [-Wint-conversion]
-     341 |         irqdata = irq_get_irq_data(irq);
-         |                 ^ ~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:343:15: error: call to undeclared function 'irqd_get_trigger_type'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     343 |                 irq_flags = irqd_get_trigger_type(irqdata);
-         |                             ^
-   3 errors generated.
-
-
-vim +/irq_get_irq_data +341 drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-
-   284	
-   285	static int resource_group_init(struct panthor_arbitration *adev, int i)
-   286	{
-   287		struct panthor_resource_group *rg;
-   288		struct device *dev = adev->dev;
-   289		struct irq_data *irqdata;
-   290		struct resource *res;
-   291		void __iomem *iomem;
-   292		u32 irq_flags = 0;
-   293		char *name;
-   294		int irq;
-   295		int ret;
-   296	
-   297		if (adev->rg[i])
-   298			return dev_warn_probe(dev, -ENODEV,
-   299					      "resource-group %u already present", i);
-   300	
-   301		rg = devm_kzalloc(dev, sizeof(*rg), GFP_KERNEL);
-   302		if (!rg)
-   303			return -ENOMEM;
-   304	
-   305		name = devm_kasprintf(dev, GFP_KERNEL, "rg%d", i);
-   306		if (!name)
-   307			return -ENOMEM;
-   308	
-   309		res = platform_get_resource_byname(to_platform_device(dev),
-   310						   IORESOURCE_MEM, name);
-   311		if (!res)
-   312			return -ENODEV;
-   313	
-   314		iomem = devm_ioremap_resource(dev, res);
-   315		if (IS_ERR(iomem))
-   316			return dev_err_probe(dev, PTR_ERR(iomem), "%s: Failed to ioremap", name);
-   317	
-   318		rg->name = name;
-   319		rg->dev = dev;
-   320		rg->iomem = iomem;
-   321	
-   322		spin_lock_init(&rg->irq_lock);
-   323		rg->irq_suspended = true;
-   324	
-   325		rg->wq = devm_alloc_ordered_workqueue(dev, "panthor-%s-wq", WQ_FREEZABLE, name);
-   326		if (!rg->wq)
-   327			return -ENOMEM;
-   328	
-   329		INIT_DELAYED_WORK(&rg->msg_retry_work, rg_retry_messages);
-   330	
-   331		for (int i = 0; i < AM_ARB_MAX_AW_COUNT; i++)
-   332			panthor_am_msg_init(&rg->aw_data[i].msg,
-   333					    rg->iomem + AM_RG_AW_MESSAGE(i));
-   334	
-   335		irq = platform_get_irq_byname(to_platform_device(dev), name);
-   336		if (irq < 0)
-   337			return irq;
-   338	
-   339		rg->irq = irq;
-   340	
- > 341		irqdata = irq_get_irq_data(irq);
-   342		if (irqdata)
- > 343			irq_flags = irqd_get_trigger_type(irqdata);
-   344	
-   345		ret = devm_request_irq(
-   346			dev, irq, rg_irq_raw_handler, irq_flags | IRQF_SHARED,
-   347			devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), rg);
-   348		if (ret)
-   349			return ret;
-   350	
-   351		adev->rg[i] = rg;
-   352	
-   353		rg_irq_resume(rg);
-   354	
-   355		rg_handshake_init(rg);
-   356	
-   357		return 0;
-   358	}
-   359	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
