@@ -2,81 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E255606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75265606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PNe5BUeX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0364D89D39;
-	Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A330010F9A3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:55:30 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-89d6bd67045so1626011b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:55:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794387330; x=1794992130;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kDDtfgXUqq2vWe9vI2nmZQX9n8pFv6185nZlpnia/WY=;
- b=h1Q3VfqBZtiJyXKMa3WMYlKU6hRHtuan+eAeffkUTtzbm2pcgjTin8o1PcKtVb7elf
- 5B7M5NCP+XNhEZnwLBxkU8p4Dies2lE5pp5Rx1SNHaUnq4MaIsRK8pz7Q+xk2Hs9j3KY
- 9Quye8LJ+Ti/Xt37qF0/dD4F5brvTeSn1qQr9P9viFsObRNzFjV17Bx+aIiVIL5iEo1m
- j4jTEYjIENN+7ZUzHPRwaoGUewkNxRI/IMkQjyKHyCeEDcqdipK7/IY8r3/7aDp3aR+K
- 73OWgLbmWNNmtzmG0Ij6bLTGUXkx49lxWtFhBZ9qOvzQWgsF0Yaw8wUn1qGw+X8WfpxR
- tpVA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEy+UbsX+aWvTX62QUzLffHPUqsm0Ivr31VKxwJgrZKHxfkS44kBC5nXzg2zCKU89ZXhkek5UGxoKs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+LXg6mv+9vetGq80zXS0lpT8MXwVLug0/N6kgVffdJeCV26F/g
- 3Sz6zIOxowsZVIUS7zyIlvNWjjKYoFYmNjvMBJXm1qEQE1mEj6/TCkRyxzNt3ETd
-X-Gm-Gg: AYBFou1JQMi0E/PxQIIvqlbZRceoYb6dYRr9Y6Sob1WrRvzEPeaSdLeF/edcGmC2ClE
- PCHS6F57H5MsjkmQP6mfu/mA9WR7U86kSjOagPX83qupqtxmvvK3jwqeAX6pzXpjXoNdK4183z7
- 2i9kH5LTKhMJoMlROVVKa+IIdI8ZpjM344pXw5whwkNd9sy4x9YQ2RyodVCFUqhmm/F4xrHJinf
- Gu6BAS63GQoC8Yp1e9PUBhX2cvpxlwrWQbnp4b8SaRbo3meZv/D/Qs/ErMLyaYdvz5Jd5qoW/5o
- rBWMEmcFoODg1SQ2Jl2jYlvhqmnRckPUF9a78x02/dUNRorBMvsViFidkLryfESPek90QCUOVND
- zGn0P3bqG+oSMNih9PgUnUR1aeQZ7JA0ySQjs2C5IaR1HA/wJazqJDRcjnw6B+N3dS3bv3vCMZm
- L1xWmOYs4t2hs8YycFZo2VerSkvqybo9T1MCV0e8O8YJ+glRjoWLRPOwdxO49+bXNpP+WiUv+Ta
- he/5WV+smgBiefOOKbEP6AaMigzCb6/skJwXr0Kwjn8v2ERuOBGgnYLd6n8fF9bmT+FfRNYUjNq
- FWOeGgu7A/n82M3eBXBR6vGZlpWZErhxxuocs3FEzzG0iv8y9z4FnWSiMbLnQbyko9lcqYxvs2P
- Wftm8ht4+eJ4R5pgoA8oSltB0eKIr3H/8ShP40q0vH6J/AXITkWMgMSDx+dJFFtQGxQ==
-X-Received: by 2002:a05:6a00:e16:b0:89e:9d69:c0bc with SMTP id
- d2e1a72fcca58-8bc1d918e6amr1447513b3a.27.1794387330007; 
- Wed, 11 Nov 2026 00:55:30 -0800 (PST)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com.
- [74.125.82.176]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8baaa1b27cdsm1810471b3a.19.2026.11.11.00.55.29
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Nov 2026 00:55:29 -0800 (PST)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-37198ed3727so3669880eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:55:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErF3N9hUuh+vIQWcA4ORRuOvT+lAatuL+V595knyMQXOp1uQ/5NU4obpEdBQwB+YnfWm+H/z88WI3m4=@lists.freedesktop.org
-X-Received: by 2002:a05:7300:bc86:b0:36c:a3ae:936e with SMTP id
- 5a478bee46e88-37669a36d11mr3294547eec.5.1794387328621; Wed, 11 Nov 2026
- 00:55:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8CC110FA3B;
+	Wed, 11 Nov 2026 09:37:13 +0000 (UTC)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Nov 2026 08:29:01 UTC
+Received: from mail-m12892.netease.com (mail-m12892.netease.com
+ [103.209.128.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2C110E1F9
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:29:01 +0000 (UTC)
+Received: from [172.16.12.11] (gyproxy-mailtls1-entmail-virt216.gy.ntes
+ [61.154.14.86]) by smtp.qiye.163.com (Hmail) with ESMTP id 544931115;
+ Wed, 11 Nov 2026 16:23:45 +0800 (GMT+08:00)
+Message-ID: <ca90a994-70cc-410a-902d-5c4c0aacc9b7@rock-chips.com>
+Date: Wed, 11 Nov 2026 16:23:45 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110-sysfb-dirtyfb-v1-1-8571d455ccbe@telaak.dev>
- <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
-In-Reply-To: <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 11 Nov 2026 03:55:16 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
-X-Gm-Features: AclHuK-EsqBIwO9CGtat8AS-89hdImnJzEfTUQNfPyVgSSK9yYlt9MhNn6BdGfE
-Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/sysfb: Copy damage outside the DIRTYFB ioctl
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 10/16] pmdomain: rockchip: cycle an optional
+ power-domain reset on power-on
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ shawn.lin@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
+ leonard@lausen.nl, jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261108065917.135194-1-gahing@gahingwoo.com>
+ <20261108065917.135194-11-gahing@gahingwoo.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <20261108065917.135194-11-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c9b4b55703a8kunm2d5d490d3aa52c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTE5OVh5ITUIdGRoZS05CH1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=PNe5BUeXIVF4MzdxsakPs8/fbX+x0vjN/3ButBeQnwAzztEQ3I7la/27YHllx5kc1gRV4ixYgpoX1S3VjkkRgaqWsU9UlWaVfc3sYg1A0zzfrMFB2c5xo3ARIWcAg+yLjwkUGuiSG43F1a1sPJfl4bh9g4zSQLZugv05/J69mD8=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=HIGazGLFZ+omnPFGXPeDAtvbrPwPKBLIFOy6gFksbCA=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Wed, 11 Nov 2026 09:37:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,18 +66,145 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Thomas,
 
-Thanks for the quick review, and for explaining why the blocking
-commit is required. That makes sense, so I=E2=80=99ll drop this patch and l=
-ook
-at handling it on the X side if it becomes a real problem.
+在 2026/11/8 14:59, Jiaxing Hu 写道:
+> The bus interface of some power domains can be left in an undefined state
+> after power-on.
+>
+> On the RK3576 NPU this shows up as a hang on the first register access
+> after power-on. Resetting the power domain once makes access work again.
+>
+> When the power domain node has a reset, the driver gets it and cycles it
+> after releasing the idle request and before restoring QoS.
+>
+> This is optional. Power domains without a reset are not affected.
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> ---
+>   drivers/pmdomain/rockchip/pm-domains.c | 33 +++++++++++++++++++++++++-
+>   1 file changed, 32 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index e3cc60fa2277..0f4ea5471792 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/of_clk.h>
+>   #include <linux/clk.h>
+>   #include <linux/delay.h>
+> +#include <linux/reset.h>
+>   #include <linux/regmap.h>
+>   #include <linux/regulator/consumer.h>
+>   #include <linux/mfd/syscon.h>
+> @@ -103,6 +104,7 @@ struct rockchip_pm_domain {
+>   	struct clk_bulk_data *clks;
+>   	struct device_node *node;
+>   	struct regulator *supply;
+> +	struct reset_control *reset;
+>   };
+>   
+>   struct rockchip_pmu {
+> @@ -688,6 +690,21 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+>   		if (ret < 0)
+>   			goto out;
+>   
+> +		/*
+> +		 * Optional: some domains need their reset cycled once power
+> +		 * is on. This goes BEFORE the settle delay, not after: a
+> +		 * domain that asks for both is asking to settle before the
+> +		 * QoS registers answer, and a reset deasserted after the
+> +		 * delay would leave nothing between it and the QoS writes.
+> +		 * On RK3576 the reset being cycled is the NPU core's bus
+> +		 * interface, which is what those writes go through.
+> +		 */
+> +		if (pd->reset) {
+> +			reset_control_assert(pd->reset);
+> +			usleep_range(10, 20);
+> +			reset_control_deassert(pd->reset);
+> +		}
+> +
+We have tested this across a large number of RK3576 chips and have
+never seen this problem. From the design side there is no such issue
+either: the bus interface does not come up in an undefined state
+after the power domain switches on, so no reset cycle is needed.
 
+The settle delay, on the other hand, is needed - but as discussed
+earlier in this series, only on NPUTOP, not on PD_NPU0/PD_NPU1 and
+not together with a reset.
+
+If you are seeing a hang on the first register access, could you
+share the exact conditions (which code performs the access and
+whether its clocks are enabled, firmware/boot state)? That would
+help us understand the difference from our testing.
+>   		/* Some domains need to settle before the QoS registers answer. */
+>   		if (pd->info->delay_us)
+>   			udelay(pd->info->delay_us);
+> @@ -873,6 +890,14 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+>   	if (error)
+>   		goto err_put_clocks;
+>   
+> +	pd->reset = of_reset_control_get_optional_exclusive(node, NULL);
+> +	if (IS_ERR(pd->reset)) {
+> +		error = dev_err_probe(pmu->dev, PTR_ERR(pd->reset),
+> +				      "%pOFn: failed to get reset\n", node);
+> +		pd->reset = NULL;
+> +		goto err_unprepare_clocks;
+> +	}
+> +
+>   	pd->num_qos = of_count_phandle_with_args(node, "pm_qos",
+>   						 NULL);
+>   
+> @@ -943,11 +968,13 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+>   	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>   err_put_clocks:
+>   	clk_bulk_put(pd->num_clks, pd->clks);
+> +	reset_control_put(pd->reset);
+>   	return error;
+>   }
+>   
+>   static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
+>   {
+> +	struct reset_control *reset;
+>   	int ret;
+>   
+>   	/*
+> @@ -962,11 +989,15 @@ static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
+>   	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>   	clk_bulk_put(pd->num_clks, pd->clks);
+>   
+> -	/* protect the zeroing of pm->num_clks */
+> +	/* protect the zeroing of pd->num_clks and pd->reset */
+>   	mutex_lock(&pd->pmu->mutex);
+>   	pd->num_clks = 0;
+> +	reset = pd->reset;
+> +	pd->reset = NULL;
+>   	mutex_unlock(&pd->pmu->mutex);
+>   
+> +	reset_control_put(reset);
+> +
+>   	/* devm will free our memory */
+>   }
+>   
+
+-- 
 Best regards,
-Joseph
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
+
