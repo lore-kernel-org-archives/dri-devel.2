@@ -2,104 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946CD606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB23606A335
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 20:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iKXYin1P
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ao6XsX7X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7FC310FDC8;
-	Wed, 11 Nov 2026 20:01:11 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 746D810FD9D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:01:05 +0000 (UTC)
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-5383c97c8cfso30651cf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 12:01:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794427264; cv=none;
- d=google.com; s=arc-20260327;
- b=j/YGdlUPzImDtqHQZuM0Q6oR3V5CmuansYkl7dJOU9+5+krc+EA/M/QE6CqTU8GjiH
- ffRJ2eedYZR5zI4Ubou5CITNm5szaKw8o1Xls/fjQOgjHWeBsBccrncujeRjBeV/MPdl
- nUIdwxUTk1YslHV9v8kW5WCeOg0aFo8KwEV1+w+0AegT8GjgyIEG5+V4dkxM8NsTl7c3
- CmBd1Ei8JWd4eOvoWBoDkEE+4Vv3wUhvbcss2nopYTRXUErIjtZk3LrdxEe4jPEU8Wi/
- 0cCuhC/JV+fkeA09z3SPznckv1tUKd+X9ShuACrOth5nOStfP5mncYLar2cQroq9QU46
- 6E0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=oLVXFVt29dYBkYQT6UIOPSuTbBUgUXoB7bt0qWYFj0Y=;
- fh=1mt0Zew4OAR+Ygdgapy5M8eOArKXMwPLhAbagaVWwEw=;
- b=OnonURMunDfMDpZZF7eGTOeC6FmNdLXLhGQj1Km4Xu16gWWvgNuNcJyBs1rseqHvDf
- G/IiWgOG8Rwx/yKeTJ6z0tqGZiAhhEHkNrVu2P70EOa5d+I4pnh1AWEvy9fGCXsooI3s
- HkDx3IJ1eBOwbSVP1T5nxB92+cEdoqutwdLPDua/YUm5kHln60B31p1s1Gp+5K9tcjyq
- nsS1DOLfk2E/AP8kdSQC4iofZcuaFNJw9RTVelCSMtwuirpe6ljshi7RnD/rEFSzr9a/
- Ggaqxb3rFzy+SnsLfk64aYsy86Xl+f/DjaNRZjuBIVh6/ik3S8wrlGmHjsEwNlsxbQHe
- u/Zw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794427264; x=1795032064;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oLVXFVt29dYBkYQT6UIOPSuTbBUgUXoB7bt0qWYFj0Y=;
- b=iKXYin1PpqTyEUGxGjQ4vIfnNaYKF/W3Q6IwJ3AVyq8iT2bxCBbaBYBSwqSTRGP1iG
- WamGQBA5GMv2sB8nJDQsS3120xcqedHifsBJ9W6nnFukdQhhNiESzXGi172XO0Qr7qd5
- XspofFOkwnQrfgFzqL2cgWPachNknrY3NounXvO+Zu4JTvViaGPvLU+HmFxaNKlLhXSm
- YghVvFiwu/npn/R6Ytzedge6aqjdm7rzeppGHZfFl5+aClIYCf3NjZqnfDspimWigFty
- LqCkPtnzNoagspouydQLdkMuxK5V0g/K+GenN3LIuHwDXAzG4cR9YK/UnhmXCRfdEvUh
- JDGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794427264; x=1795032064;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=oLVXFVt29dYBkYQT6UIOPSuTbBUgUXoB7bt0qWYFj0Y=;
- b=AbRvokGkVWcosMoi5qzxGsBlR+qC+UKJ377gg3g9RC8wn4qt6xiHvVApXYxuZ21Xrg
- m310M2iJCa+oSGAEOPquz2V1U5GPP1rvn6fKNce/AkAB09z1AKlFtXHP5MzfKGghoabr
- gtFFUPxcjTEBtY7goZgYHRWUtt1BA2a9h72Eq+yVwas/7o2rSy9RkdT7QxZDhCE5Sx9F
- bwZlPomiyQwhnsjFuAxkk3Nv6Rnp5RVor/Xklo0TYGKFCAsqsD/CRLJC9qxKBI3CoaFH
- U3SGCdGHJkIU/5qk6OdUjyqhkcd8TtRr+lROCvEcNzfaK6L/rEfh7t8QJxdwCg5XNWej
- 9n1g==
-X-Forwarded-Encrypted: i=1;
- AL+hErGmwCx9bGuf7s/ht5VXrczR7KM7UzqogUPBNv/IJz7bvOHPyi7FFFW7ORIp7ZDvV2FcVUedsVZXYu0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+aalUUo73+4kdk75YfXZic5OKlgogO/OEAln8FVaxOZKgFuIkl
- hvKK0GFnPEcLv4Jq67NKbsGsnrtXDeTXVJogmt+oM0igWoIsfisr4jH2RP7SAuPsWg44nOF+eps
- pRXHsscAWszH+PP8pb/3fl+6hb3fPM8RoAQuC0oj8
-X-Gm-Gg: AYBFou28bL5Av5VRnxc+xWzEC7gNwdSWouC+f2j/DMrVu5qyV1wEZ+BWn2NMpPP7KRB
- kATxZ4PgKxWxp2GnUa1yId1YXxN4NrH+ixtPaLph4tFenWR+686IVTsCT9ODEN2V++3nY9ispgq
- erkZWau2WIUkeNRRFNoMMCADLkVfuwDD85heUf8tZdybeuhU1uBiMoTl7JC1r0TRq2+HIwgiJUO
- z+cGj2WHnGJGj5/M2ql/NZlNPxPq9JCrgwzP081Uum2R0OysXhL1sKdrEh6XtgkQgt1Hv8rBWX/
- DPkXUJJOe82OowWgk7nFqah8ALtrWkEXGs2AWXktfBY9XnTwRaYCmeOgvovw3cO8FE5hYFvyTzL
- B0Id+Yn6XgOuNGjhQZf4bJHCVBaAgJeyMHaU0oCOmsx8mDqdOTarqwRlWbOzSsIrkS9yJHPdXx4
- GnZ8Ax7B1kQzxItNGk2VIKxA==
-X-Received: by 2002:a05:622a:2b4b:b0:535:ce3:ee07 with SMTP id
- d75a77b69052e-559710b30e1mr1999241cf.13.1794427263429; Wed, 11 Nov 2026
- 12:01:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECCAE10E44F;
+	Wed, 11 Nov 2026 20:06:01 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012069.outbound.protection.outlook.com [52.101.43.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7FD10E44F
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 20:05:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WutohYfeqXNcZCg9fGmulII+D/72mEWMBEe0vsvIhkENbvzokGJ4jxpEOkPOHRlGNhgal9kVnuWXNK2tAscQQwdO8oXXvKqztMmCaHTdYhKp0kqZncPpom+/OT30orzYGyzeBwUF623UtZAGjSk0zBnuQelLKri7FoDGS6Y6llm7+GsJbwtHR98W5m/ADsZu6ZdWbmYVCb1JpQNHROEPKtx/XpH/zw4YN1a/RtD4KSTr0x4aaxFIdTl7lLmwHat0M3DKMdPPAIMzqb9z2kddtv1xR5A4Xu1TVzE+qxp8Gj11Jb5Zc2YVJOrOQFWZdBe3nZm3kZRNjbuOSZZwB5KwXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZIKZLgWocaG8ZjPNBuk01dSWqDY7VIQmWruUT0xVnKc=;
+ b=k7Vo58JQn+lgbJldhoP333/VKbXGjgez0mnnVDIrEa22sh+ninOvbxq9HSgTimwik51fOT5bWdg9+TG3ySrUwuXc1U7MwBu7W7FbpinNFnWw7TBSc/qzE3Gyq3cMVQV8ak8BcMv7gA3T44J3/RcyS3KmXgcjAd+zy5CHj36puGFlgA7iP0JWIHUH3Cmf1PuY3Q3AOv+oqvaHOXDF+XHMqeXM0ZwZdUMiwgdQ+apD3QLvNx6ED2I9LlJHhJ2zd1CUveCubbIJu6ga1tLd5mhIj01rDStq5e4JpJ86besIaCOjUy/DTA2YSMDaZTL+lo8pXTUOrmsiOj+MBzd2wDGbZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZIKZLgWocaG8ZjPNBuk01dSWqDY7VIQmWruUT0xVnKc=;
+ b=Ao6XsX7X/0kOaYBLkXS7RyiJJec5GfPKCzvL1n7Xazk8YM18zGSsWc1vqcbd2fIc8U48k8PVAFz1XesNp4MTjtWUo72JqegLlo1RzXM6TPGDOZWSDHr5+7nBEuDj9x0O9WHYUpbxwS8gkXc4iqGa+IWiMy9sRF+zjTri0u9FA/EcPMEHBx4VTEBHUUjEScwSpD/Qbj6TvfeaOZ0G20LRwItgTgycJIHTbDI7lISvvasXavvG2fm7o8F5jBQyobLBQze8rGM+fTb9mPszzOvm3SBLzP8zQVVfpxSk/A6EV8e7kYb7cCp5ew6ehs+GVqEqC47VILr5bH3WdPKk94ASqw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ by LY0PR12MB427268.namprd12.prod.outlook.com (2603:10b6:408:3b9::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 20:05:52 +0000
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 20:05:51 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ LKML <linux-kernel@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH v2 0/1] rust: pci: add a prerequisite for the r000 GSP firmware
+Date: Wed, 11 Nov 2026 12:05:48 -0800
+Message-ID: <20261111200549.160806-1-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.56.1
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SN7PR04CA0113.namprd04.prod.outlook.com
+ (2603:10b6:806:122::28) To SA1PR12MB5614.namprd12.prod.outlook.com
+ (2603:10b6:806:228::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 11 Nov 2026 12:00:49 -0800
-X-Gm-Features: AclHuK81JcIQVOh-tqCQX9JsRqdWOHCGs7dqRFvbpp7CrwexNznx4vXc5gM5Rp0
-Message-ID: <CABdmKX09vLG4U-7FwF-vm_iTy1AjGUPXka08KhWE+qJ0J=XGMA@mail.gmail.com>
-Subject: Re: [PATCH] bpf: make dmabuf iterator stay drained after NULL
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-Cc: Yonghong Song <yonghong.song@linux.dev>,
- Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- Tejun Heo <tj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|LY0PR12MB427268:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1519e1e-0918-4e9f-e73c-08df402f2f82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|10070799003|7416014|366016|18002099003|6133799003|261009223027099003|11063799006|56012099006|10067099003|261028144727099003|261026140227099003|261102123227099003|261026121527099003|261022105027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: 7p3g8zzSj5pYGIp1Zz0De+DFnXISnJKxTLq52r2nVDbTOCudByj66MoZbV+4dRFMIg3kIh9YVP9sFBsnUmBqxhlXPGydCHuQBwm72dERA/tFs7jpzqvYi8s2WMdpMl+0IbddaQgHO2cfirb6GqOejDOYEiKhDTaYVT9RCulowYL/E3/CHKLVj6LI5nWa4xjaZmOEOz2IRVHsyAShpY+ccOJoTflupXUGpr9bzzOM70PCPjIJQMX4msYiDykPu5HtP8VyVS+A5xo7bDH7FXBtoKbfDdekSnFn2IbiBoFTVbWZEvLxeekh7Yk4KVIUkHuVJPn3LvBnZEcdRUBs4IsOcFLqjL3fBehGnEQcugr0O3o9N0VVjKp3XSO5qCTryj68IRM4zr2LI6BbtuCBJ/fSn0Rs9Q2q9W1BK3m+OdkeuqTQBzEIpJy0GUyblRcrIGNBKknSzwFTQ8mGxhGiaB21b9P2xZ08MIEvbIlIkA5dPHRGtoL1K7SCFSM+gDfscKiFiJ2S7gz++kK9dwc/zzCgn29cng1573XqXCCYoNJebwGRIhuMLtPNQCivKIsDU9ggNLELYSKmZ8Ld1uq1r+eBItVCKChtq1DXe8/AscczJg3LjdUWJm+KQJbpGF9j3whKLJTAXiBRp9kY49s8/goMzlkgEvuyQDzcInfDDRGqwaA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB5614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(10070799003)(7416014)(366016)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261028144727099003)(261026140227099003)(261102123227099003)(261026121527099003)(261022105027099003)(261021121427099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?K3a8OVRIrXdwSovRNxx6ockgULZcdHErTw61RFQQtHDeP1Q12Hed4rGAvNos?=
+ =?us-ascii?Q?1v3mRyT9OA/v7mVeMebfrym9Nvm6iypUfo/ihHtq/PIlTGa+HrEaS8zdSpZ1?=
+ =?us-ascii?Q?F3E84e1biutSO4iYoOKUQqyxWnCcG2+7PesfoDLgLqKV0J2pk29ZOL6kKM8f?=
+ =?us-ascii?Q?zbRXXFYU0geIPFCAiwcJlmjU5r+nC0odlVjmEMNKoDiA6t+CCv13tiHjLWDu?=
+ =?us-ascii?Q?P0GHSuSov1dYCwSEFnpZ/cblUsTsdvXGmYBTcZCiB2cIeyvRmB8cqR7lwFf/?=
+ =?us-ascii?Q?Oupd3L2xulnmNX17p2VzYPSnzpf/6iybiuryZGPNJUAGmg3cX8ofLkb+ngZ5?=
+ =?us-ascii?Q?5XRbNXm2+nlzVTwHUytY7CrAL3wIVeE7fPCRllnb42k2Pk+9QE9UD1BUk2Y+?=
+ =?us-ascii?Q?Ya0Jp/e6wi5xThJQQE5Z/5szw8yILTjz2581bdgOpLzVwQ4gkl/EfRKIcF92?=
+ =?us-ascii?Q?emoq3H2pW2oVxH8oiXPXaaEWhBFxwnrvZYvQ84g0zKnv5Tho0vX8YJtDpsGV?=
+ =?us-ascii?Q?tHx+KdiSKviJnSu+82YxamuH+mhoFeH9V+vbCxaoaFxntjYc4hLysqoZtwqx?=
+ =?us-ascii?Q?3YkRqT1oL8m+pi4qXMJOHr1UG4zxeEJk1T/IG2HrZYoGcvkxm1Q78UkrX1lB?=
+ =?us-ascii?Q?wLqr88Gz8KWx/wbbGRWHfER4zIe8bTbLpoDHfHX3ymh82poQbY0xCjyATADz?=
+ =?us-ascii?Q?O23JMxkaaN2cm3Iaf+0N1JPXCabX+hB3nHL5aYrw/s0TxKK0d8PjLNkQcsnx?=
+ =?us-ascii?Q?1G6RlyZWZjTf1DMMRzg4dfwCFabrYExg52svCe7cfZcoOl73GBxxZy+6BnF6?=
+ =?us-ascii?Q?L9UsDzKbo2W31pitv+Mg2XpAo1QP00Qkg7CjD/jZkmBUIfluQgF8OamTuMk3?=
+ =?us-ascii?Q?VBUUWYT3KEmy0vbfLw1HgPJjcKibnc9AXAZiup+F2sHGRv7iTWWG+8xsNWRA?=
+ =?us-ascii?Q?Kwk8IPCz9MJIX2CrhkkkOsgHFFovt/20Fb7mGDjv+Vc81PGTUgf093Cs0rmQ?=
+ =?us-ascii?Q?k/bt4JGHBfThuvJIIJRlKGirhbfvpIACX8exUXnkF60b3agRuRoVH8vfTwU7?=
+ =?us-ascii?Q?KTuN99HCS4DMI9ZgY7eEJaEbYh8k3lRGHT+3FF8FCuLH6NyfRhLCnJbGeXrD?=
+ =?us-ascii?Q?3jKr2u/UrG46O2QdtgUWNKU/F2/JSHSSN0H3dR3P6JmBsi76JBtVpLflfvMi?=
+ =?us-ascii?Q?6csji4XfpsoGcs6i4IZ9nswnNioRi5FBRAx3M+Wk4JU4jPRPLMDGn6FhW9y6?=
+ =?us-ascii?Q?jZM8DNfDIzvJThGSuhbVzJTqOfgxnYfN3qSrN5yuJrhEpHQX5ikZnm9GxmWJ?=
+ =?us-ascii?Q?ayTI3bcB0mjGaY29eM+e9Cb8hgF1y2zA3TI0+feJlnKNu9L8f8HstNdGlPtt?=
+ =?us-ascii?Q?cLwmm/niYYSBz7qHpU3BLwipWKEszUcf4Bwkde6KF6DaWv/H4CU/OiJYLzjx?=
+ =?us-ascii?Q?Skn7llU7C4P0DuZN4Ibdyk/94t9cH9PFJGkhihx5POmMrd1V6c3UtN5926EU?=
+ =?us-ascii?Q?TXDmDrpgQCHQMGTNqG4HIlNcGUqUuXZPghuQAAZEx5V9FVer+oPq3lfaUefD?=
+ =?us-ascii?Q?7FST+wfT0AD+sz+WrTMy69cFcYKHCMeSUNNavN50Dq/bI81UzaNx1JhidQYB?=
+ =?us-ascii?Q?NMavrwACvF7o4eHwuQLzFHmKuf4G8vIADBeKRHD3mYWMMsxA2E5aR2LnJPz8?=
+ =?us-ascii?Q?yEfEkPh9waiixsqNzSeC+adG0ozGuzbonjSa/n/wwnJ8+LMeeyeG3lwu1OML?=
+ =?us-ascii?Q?b+5+0hiLYJrAX4PUf5PghBxZMLHGocw=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1519e1e-0918-4e9f-e73c-08df402f2f82
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:05:51.5853 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AXEADXK7DCNNLwqYtkdGoMuevYCJhmCOLDQ8mj9dfeVNiZSbjDxYXXc7y/YYuFC5ggaV58UM0lEb/JYrfOd9Mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB427268
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,126 +134,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 4:57=E2=80=AFAM Kang Chen <k.chen@smail.nju.edu.cn>=
- wrote:
->
-> bpf_iter_dmabuf_next() uses kit->dmabuf =3D=3D NULL to mean "iteration ha=
-s
-> not started".  dma_buf_iter_next() also returns NULL at the end of the
-> list, so a next() call after exhaustion restarts from the list head.
->
-> The verifier relies on the iterator contract that once next() returns
-> NULL it keeps returning NULL: process_iter_next_call() marks the
-> iterator DRAINED and treats the result of later next() calls as the
-> constant zero.  A restarted dmabuf iteration therefore hands the BPF
-> program a kernel pointer while the verifier believes R0 =3D=3D 0.
->
-> Use an invalid pointer value as the drained sentinel so the iterator
-> state keeps its one-pointer ABI, and skip dma_buf_put() for it.
->
-> Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
-> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+Here is a preparatory change for (or more accurately, from) the r000
+GSP firmware series [1], which enables nova-core to work with the GSP
+firmware for r615+ releases.
 
-Thanks for this fix. The cgroup (bpf_iter_css_next) and scx_dsq
-(bpf_iter_scx_dsq_next) iterators look like they also have this
-problem.
+For the Rust PCI abstraction, add an accessor for the PCI domain
+number. The patch stands on its own, so posting it now helps avoid
+reviewing a huge-er r000 series. :)
 
-> ---
->  kernel/bpf/dmabuf_iter.c | 23 ++++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
-> index cd500248abd9..a2b7c38f9ae6 100644
-> --- a/kernel/bpf/dmabuf_iter.c
-> +++ b/kernel/bpf/dmabuf_iter.c
-> @@ -156,6 +156,13 @@ struct bpf_iter_dmabuf_kern {
->         struct dma_buf *dmabuf;
->  } __aligned(8);
->
-> +/*
-> + * The iterator state is one pointer wide because struct bpf_iter_dmabuf=
- is
-> + * part of the generated vmlinux.h ABI.  Use an invalid pointer value as=
- the
-> + * "drained" sentinel instead of growing the state.
-> + */
+This applies to today's drm-rust-next: commit 6e557330b874 ("gpu:
+nova-core: factor out and expose Falcon::is_processor_suspended()")
 
-This comment explains why this patch uses a sentinel instead of
-growing the state, but that doesn't help anyone reading this code in
-the future. This belongs in the commit message, not a code comment.
-The real constraint is that the size of bpf_iter_dmabuf is
-user-visible API, so it can't grow without breaking backwards
-compatibility.
+Changes since v1 [2]:
 
-> +#define DMABUF_ITER_DONE       ((struct dma_buf *)1L)
+* The helper takes a struct pci_bus pointer and only calls
+  pci_domain_nr(), so that it is a transparent wrapper (Danilo). The v1
+  helper took a struct pci_dev pointer, which broke the powerpc and
+  s390 builds (Sashiko).
 
-I would prefer this to be DMABUF_ITER_START to mirror the kmem_cache
-iterator. Then the second if (!kit->dmabuf) block in
-bpf_iter_dmabuf_next() below could also be removed.
+* The CAST comment is directly above the cast (Danilo).
 
-> +
->  __bpf_kfunc_start_defs();
->
->  __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
-> @@ -173,11 +180,25 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(st=
-ruct bpf_iter_dmabuf *it)
->  {
->         struct bpf_iter_dmabuf_kern *kit =3D (void *)it;
->
-> +       /*
-> +        * The verifier assumes that an iterator which returned NULL keep=
-s
-> +        * returning NULL (see process_iter_next_call()).  Without this c=
-heck
-> +        * the NULL left by the last dma_buf_iter_next() would be interpr=
-eted
-> +        * as "not started" and the iteration would restart from the list=
- head.
-> +        */
+* The CAST comment no longer cites pci_register_host_bridge(), which
+  checks the domain only under CONFIG_PCI_DOMAINS_GENERIC.
 
-Same here, this is commit message material. If you want to add a code
-comment, referencing the rule from bpf_iterators.rst should be enough:
+* v2 has no Suggested-by tag, because Miguel suggested the
+  debug_assert!() and not the accessor (Danilo).
 
-/* Once NULL is returned, subsequent next calls should keep returning NULL.=
- */
+* Patch 2/2 of v1 is in drm-rust-next, so v2 is a single patch.
 
-> +       if (kit->dmabuf =3D=3D DMABUF_ITER_DONE)
-> +               return NULL;
-> +
->         if (kit->dmabuf)
->                 kit->dmabuf =3D dma_buf_iter_next(kit->dmabuf);
->         else
->                 kit->dmabuf =3D dma_buf_iter_begin();
->
-> +       if (!kit->dmabuf) {
-> +               kit->dmabuf =3D DMABUF_ITER_DONE;
-> +               return NULL;
-> +       }
-> +
->         return kit->dmabuf;
->  }
->
-> @@ -185,7 +206,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_i=
-ter_dmabuf *it)
->  {
->         struct bpf_iter_dmabuf_kern *kit =3D (void *)it;
->
-> -       if (kit->dmabuf)
-> +       if (kit->dmabuf && kit->dmabuf !=3D DMABUF_ITER_DONE)
->                 dma_buf_put(kit->dmabuf);
->  }
->
-> --
-> 2.34.1
+An LLM coding assistant (Claude Code) helped write this patch, but I
+have fussed over every line of both the code and the commit message.
 
-I think we should also add a test for this. I've sent one as a reply
-to this thread. It fails without your fix and passes with it. Feel
-free to add it as 2/2 in v2.
+Testing: booted nova-core on my 3-GPU test system (Turing, Ampere and
+Blackwell GPUs) with all KUnit and built-in Nova tests enabled, as
+usual.
+
+[1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia.com/
+[2] https://lore.kernel.org/all/20261110033655.148487-1-jhubbard@nvidia.com/
+
+
+John Hubbard (1):
+  rust: pci: add domain_nr() accessor
+
+ rust/helpers/pci.c |  5 +++++
+ rust/kernel/pci.rs | 16 ++++++++++++++++
+ 2 files changed, 21 insertions(+)
+
+
+base-commit: 6e557330b874b0e1fdd03e8fe4c438f36c93eefa
+-- 
+2.56.1
+
