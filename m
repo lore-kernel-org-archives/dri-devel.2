@@ -2,85 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F78606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06368606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:24:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SyWWJnKd
+	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=L2RSvLDh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E10910F959;
-	Wed, 11 Nov 2026 08:23:47 +0000 (UTC)
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF65B10F2C7
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 18:49:54 +0000 (UTC)
-Received: by mail-wm2-f6.google.com with SMTP id
- 5b1f17b1804b1-4a1d25d7d5dso8456525e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 10:49:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F14910F95D;
+	Wed, 11 Nov 2026 08:24:09 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7AC10F924
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:13:12 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4b7252a32c8so30923655e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:13:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794336593; x=1794941393; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
- b=SyWWJnKdy1naqlFKklERlAcSDZ+S8ReQDAfYsCkvlar9uhKp++meRU/6uAhwaFalao
- sFY/9eHHZIN68HtAceT8UoZyAG6LeSZmHGX2lH70QlWx65eCalRrWhNIGXv4woPHgBMJ
- VmDkWBHaXlDteb5MaJTtrdrXRaHM74zPIr8AoFT0PQvfDu/BZzsIbxknweNcRQRq3xqE
- lhZKO2/NMo02ojTal0cIDYYWLNZNGaaLG607eg+YicbDyAWKxrsxaK4hzzlEVdAb6WPH
- 0sBV8vdfSfT2vSaesgXUxfLRDf/tL5nxh8Sci/j5w6IshSthef0WNPyeGOoX4UWu0+Tg
- Hmpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794336593; x=1794941393;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794384791; x=1794989591;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
- b=eqEOtetYxmJ2q1yDw0RfwgzLZfMu3c1/xgY29txLOrIwupNviiPG4N3UO6GzgcB5b5
- eJMhFfzpE6tDQVlx8ZOR22P29JocFWFcG9CEuBej7EQx2O72kpN0LeQzYoGGZ5rqD114
- kFSC/uLWqqUnYsvfUtU1SZ5NHVcVEyu/9nIu6ABO7BJRBZ9Xf8eGVU2cqjMP6mAiK02N
- v2AirSPLblPA5U4Ww8KxBoubIH9i3oXbLEw5aiF/WFvcQM4gd6lDMD4KAuqvwMbUOlS8
- 31bfGddwRtupoeh2WuxiFzCCk+EelgOh2/Cq9W+lv2d2Y+uFkKyH6/wvGzj/2S2pBT9P
- OLTA==
+ bh=G8qkZnmaQmgcsJmklkVA9+lzZWNtRCGmSFYQH3Mj5xE=;
+ b=L2RSvLDhSsS5QwLkDBIIk2rCLmYGRCIZxYiE8MrMGpcRFJv38V6eQGPqkzxWic0KZ3
+ aVbUx9agIv2v5zsqaaL/PXdOKmxbSP4CocLtIsti0FgGVR635GjD0xIeHPd0ap9s+BL2
+ YDQQHuCKzEKrD8SM8nLKjf7pHH7+qWU/ukvPQzXeWJhCFxDJu79Y5yuIG6mvtAyhzodL
+ oHbOdtLl5lRGsr+3ctn2MGdF+1AgbtKVZ0TxiLglnNpRN9WU2oT1BpdJHK9SfV3ma0Uo
+ exU8uM7o2k4ZorVLokjP2+CrhoywXCLyPtCW3vhOBhQ3ITN+PcfgpGvb4FZ8Gf4VSgqs
+ 5qAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794384791; x=1794989591;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=G8qkZnmaQmgcsJmklkVA9+lzZWNtRCGmSFYQH3Mj5xE=;
+ b=UoZqnuytbcbcl54bo8w/qpYVyVvv4qfKr1T8ii3tRu3k6An0pOsvltwUk0sh1p1amm
+ WcSFRo6bq31xwfL+uHHTZpxVEKtTvn4NRtFtwD8/piDE/Acjyg2vhDdwcWDamc2Dz8jb
+ FTpFxuayHMddqphBzzBvengKzLeUZazb0dq+RuahOO29cvNRrCCD1c6eQIRgDM++aOS3
+ abA6JkvvWk2Ii/5ZYRM3Lp6wV9/QkRvDqfUNVRFqUxveTf5kED0RnrZy1v5IoMvkqkHj
+ javjl0GHssqwSVQdx2IO8AWy4gfUH/3aHalN4x7HFVO3Ws4rPZ7LTvHQQ5TdGSOv6iAt
+ UXLg==
 X-Forwarded-Encrypted: i=1;
- AL+hErF9cOj3XO1LV025LLqHE3rDeVdzdv4HFDTaO0pHVa7Q7FJUXn+4adnuDcW7EgV04KPhtb0zhX9R7dM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/e5pN0Www/cUmv3nXU96hM9vcmqhrfZTj6fdgD9FXZgcGLmI3E
- hk8Z7ywYoraOo3Hk9BrbcKGsP/A8SofobYApP5+dZvr27Swex1lEdBRX
-X-Gm-Gg: AYBFou31sQ/0xoW+9FmpTglBGSLKqsKGszcsO8n/dECZqM9pycYpJgj1IK+G3Rarvyu
- SKACe0uUFcVRhnDWlFgWC0f/DTplx9tY53oLCe9nwcjiS1rvxqdaLSrqPxw5sSgQ7mZ5v/7k5Ad
- LKgFLA9WumC06ItA79U5Tq/FYZoLJz1ZaCYpr60sKvpd7TTjdnLI5db8IV1+n0bOQXMR+DeVfSt
- ZiVgVSC/dOBKWKIJ08ofKsAT7SiEhDmpg4/5Euum9woRAeUs+gegQKsBW/r2FrT85HcJsyyUAZe
- UDnSsBpc5p8jf//g2Y5LPgaCr9E2lfKxxv6gqni7xOVni2hINwt+O0HcX6nKSfaLYbqzAl6PGr/
- 8e0+7q1OBwaGDhw8Ttd88Vky7QDgJAWTtF2BYqcDlirywT6Ks3Ncdi1i8toiXu6CwaGvn2j5GO9
- 4tcPz1h7/kjYb/NN18maVxj6Fgt/lSDJR97Fws9LaSAgTgehV+NRuf1I90NCf/iNHD09ZStmBdv
- x47pwKE0T6MoEmVocmYohjVxgLFgwjsb3JQsMmFFcZLD8KM6Cocd1gOVpGB6QdeRpYAVQrGqG4O
- +LPCbAqHVDu+w85CnXjqbf8gz8nzA/lUMAGyZvZG1wi4zLKU440Ssakh
-X-Received: by 2002:a05:600c:3544:b0:4a2:1655:87e2 with SMTP id
- 5b1f17b1804b1-4ba0938dbf9mr328175e9.19.1794336593063; 
- Tue, 10 Nov 2026 10:49:53 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4ba023a1fcfsm34094085e9.4.2026.11.10.10.49.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2026 10:49:50 -0800 (PST)
-Message-ID: <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
-Date: Tue, 10 Nov 2026 18:49:48 +0000
+ AL+hErG1P1xMptJHeRdebg2dtXS2eihEnNcumyUMo6GQGtol4p9GG+ym9Mm9MPsN7RQdA2mdv6gf168QRjI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/dvVgDTF85FljdgUfzzIL8+8hi2v7GVvLTsB/W8wB/jSceRl/r
+ FNmRe9GgSnhaZ4Z7dVZUU6CbgLElcYbCNxk5v2VLdpB0/0Do2hhsiT8rf3TIX95Yfh1WxvVQNTY
+ OhMiTKJM=
+X-Gm-Gg: AYBFou1IedF6YVdJw3JnFUvPM3xKjmTXA6OasgGzPzTSABVprhXhN9QmtMaoOM4EjLa
+ RCt3wba19Idy9PuMLWdJr03k8IYT+r0OHZbsEOwTTBKli+bnOePwvtUtYouL/CzifwRGz70IvSU
+ uqRxkTsgJzr9NrFcL3qzn9N2Q2+JKJBWn6hqfr+/Xs/BG3zGnwLs+sbTd6nDKNq72u3+1+dvI7S
+ kWGpV7/lmhQIrf+y7yePyTbd1gUh/T818hY8ifVHrKnWjYFzuM7wWGoS+V9TiEXTpUhFt2oVr98
+ doVI7X0KMbVAXKyOk+OutC2DNsjFU/ApSk2ZcKPPcgANuC4XlpqsCZ7qP7yiNdDXltqcOCxWjkC
+ XchdeBR6oPq2AuQa6OiWC9NfmMaZIsUFWtucKYsQOUWBsN49oWeK+bUWqRazMGIN01iURETagoz
+ Pmr/xy2OeRaVqlJqavK5hiM6HDFXSB732/z/GRkrznt0203qqEsV4jh1fjQXqLDtQyGmYXK+VQw
+ ayhjx0aZa4e1yGIYaijsJJ6tnXAQ4VkpwWxF0ubvf60NzuObW9Z/8d5oJc2jDEtQtld1CWlpUF3
+ HbYf678sBG7QCvcAX548CGQ7l3DPap4k9M7wdyzgL9KrchLHyv+++8yGk9/WomlCWLgfVKIiDSY
+ zc5rYKkUvmxo=
+X-Received: by 2002:a05:600c:4704:b0:4b3:8529:eb27 with SMTP id
+ 5b1f17b1804b1-4ba09389f82mr26248335e9.27.1794384790692; 
+ Wed, 11 Nov 2026 00:13:10 -0800 (PST)
+Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net.
+ [83.150.40.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4ba02242bd9sm113233815e9.15.2026.11.11.00.13.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 00:13:10 -0800 (PST)
+From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+To: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexander Forsch <alexander.forsch@bytesatwork.ch>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Frank Obergfell <frank.obergfell@bytesatwork.ch>
+Subject: [PATCH v2 3/5] arm64: dts: freescale: imx93: Add MIPI DSI controller
+ node
+Date: Wed, 11 Nov 2026 09:11:48 +0100
+Message-ID: <20261111081150.950272-4-frank.obergfell@bytesatwork.ch>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 11 Nov 2026 08:22:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,106 +100,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 09/11/2026 20:34, Alex Deucher wrote:
-> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
->>
->> When driving multiple displays or tiled panels with identical timings
->> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
->> Core's program_timing_sync() aligns the CRTCs into a timing sync group
->> in hardware during dc_commit_streams().
->>
->> However, on DCE < 12, Display Core leaves
->> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
->> informed that the streams have synchronized vertical blanking intervals,
->> SMU7 prevents MCLK switching at idle or causes modeset underflows.
->>
->> If all active streams belong to the same timing sync group
->> (timing_sync_info.group_size == params.stream_count), report
->> all_displays_in_sync = true to PowerPlay after committing the streams so
->> SMU7 can safely downclock MCLK at idle.
->>
-> 
-> Looking at this a little deeper, the function bw_calcs() in
-> dce_calcs.c already calculates all_displays_in_sync using the helper
-> all_displays_in_sync().  Can you look into this and figure out why
-> that is not working as expected?  My concern with this patch is that
-> DCE and DCN have different logic for handling mclk switching so I'm
-> not sure it's safe to call dm_pp_apply_display_requirements() directly
-> from common code.
-> 
-> Thanks,
-> 
-> Alex
+Add dsi node to the i.MX93 for support with mipi dsi panels.
 
-Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
+Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+---
+ arch/arm64/boot/dts/freescale/imx93.dtsi | 34 ++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -31,6 +31,7 @@
- #include "dmcu.h"
- #include "core_types.h"
- #include "dal_asic_id.h"
-+#include "resource.h"
+diff --git a/arch/arm64/boot/dts/freescale/imx93.dtsi b/arch/arm64/boot/dts/freescale/imx93.dtsi
+index e926b6360a9d..1123e372eb79 100644
+--- a/arch/arm64/boot/dts/freescale/imx93.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93.dtsi
+@@ -58,6 +58,39 @@ npu@4a900000 {
+ 						 <&clk IMX93_CLK_SYS_PLL_PFD1_DIV2>;
+ 			assigned-clock-rates = <800000000>, <133000000>;
+ 		};
++
++		dsi: dsi@4ae10000 {
++			compatible = "fsl,imx93-mipi-dsi";
++			reg = <0x4ae10000 0x10000>;
++			interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk IMX93_CLK_MIPI_DSI_GATE>,
++				 <&clk IMX93_CLK_MEDIA_DISP_PIX>,
++				 <&clk IMX93_CLK_MIPI_PHY_CFG>,
++				 <&clk IMX93_CLK_24M>;
++			clock-names = "pclk", "pix", "phy_cfg", "phy_ref";
++			fsl,media-blk-ctrl = <&media_blk_ctrl>;
++			power-domains = <&media_blk_ctrl 0>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					dsi_to_lcdif: endpoint {
++						remote-endpoint = <&lcdif_to_dsi>;
++					};
++				};
++
++				dsi_out_port: port@1 {
++					reg = <1>;
++				};
++			};
++		};
+ 	};
  
- /*
-  * Currently the register shifts and masks in this file are used for dce100 and dce80
-@@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
- 	struct dc_state *context)
- {
- 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
-+	int j;
+ 	sram: sram@20480000 {
+@@ -183,6 +216,7 @@ lcdif_to_ldb: endpoint@1 {
  
- 	dce110_fill_display_configs(context, pp_display_cfg);
-+	pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
-+	for (j = 1; j < context->stream_count; j++) {
-+		if (!resource_are_streams_timing_synchronizable(
-+			    context->streams[0], context->streams[j])) {
-+			pp_display_cfg->all_displays_in_sync = false;
-+			break;
-+		}
-+	}
- 
- 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
- 		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
-
-Richard
-
-> 
->> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 74cd88d8d580..b4531383437e 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->>         dc_exit_ips_for_hw_access(dm->dc);
->>         WARN_ON(!dc_commit_streams(dm->dc, &params));
->>
->> +       if (params.stream_count > 1 &&
->> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
->> +           params.stream_count) {
->> +               struct dm_pp_display_configuration *pp_cfg =
->> +                       &dm->dc->current_state->pp_display_cfg;
->> +
->> +               pp_cfg->all_displays_in_sync = true;
->> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
->> +       }
->> +
->>         bool frl_stream_found = false;
->>
->>         for (i = 0; i < params.stream_count; i++) {
->> --
->> 2.55.0
+ 		lcdif_to_dsi: endpoint@2 {
+ 			reg = <2>;
++			remote-endpoint = <&dsi_to_lcdif>;
+ 		};
+ 	};
+ };
+-- 
+2.47.3
 
