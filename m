@@ -2,53 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB4606A32A
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AC5606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=eder.earth header.i=@eder.earth header.a=rsa-sha256 header.s=default2410 header.b=WxcUkUjr
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ikojqqjz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01771120FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B21311120FC;
 	Thu, 12 Nov 2026 12:56:25 +0000 (UTC)
-Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A09C610E459
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 21:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eder.earth; 
- s=default2410;
- h=MIME-Version:Content-Type:In-Reply-To:References:Subject:Cc:
- To:From:Message-ID:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID; bh=hHEDgV/fa4BQ56gOOscGjyGb7lZU1XBFJReEF+WJASA=; b=WxcUkU
- jrQN+pq5e/bzjPF/O5kfpdcxIIf2C0vtJ0/X2sUN4eoR9vsL2MWhO4PEaX0I2a+yVrPTIP27xEVyj
- 48z22jTTHL9NT6b/dbdhHIuDorjr4Xv72R/GC1+4dbOsFPxp2uS8ugKd0fVXDhYNz1Yi4Bh1tNaWh
- fmMJ6kDGzFMdeNH01gpAyrqaLbxR3qNOZAw77PfGU88+AOeM6bcBs6HeVsxZs1JuXvvEm5r6Iguib
- c6sMmZVxQ3yXeapDbKzbg5BuP0dKtXTwCr50vv4qs6EtwWdtSM03nMis7RZXYcPfNpck4OZaypIBl
- pl59+rymyS4KZKqJe9uPdz/6lffw==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <sascha@eder.earth>)
- id 1xRFVC-000DVJ-2v; Wed, 11 Nov 2026 22:05:06 +0100
-Received: from [192.168.0.32] (helo=webmail.your-server.de)
- by sslproxy03.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <sascha@eder.earth>) id 1xRFVC-0009MJ-0j;
- Wed, 11 Nov 2026 22:05:06 +0100
-Date: Wed, 11 Nov 2026 22:05:06 +0100
-Message-ID: <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
-From: sascha@eder.earth
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: drm/hyperv: pointer lag on desktop guests - host cursor is
- supported by the protocol but hidden
-References: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
- <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-User-Agent: Horde Application Framework 5
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5A3710EA8F
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:39:04 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-3700ed8dbe3so5972027eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:39:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794415144; x=1795019944; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+GAFVM+nLFUYlbY24SmfVdNvtcwr0CEHKsDIq3Mqz6E=;
+ b=ikojqqjzmgZOHQyOwrCsKAbOpbw4sTc/eKVSu9Dfp4yIaXNjqeLicCztCrDJYjDTKL
+ +oAyVJkbAJL7+dfGajkIy2OYIKomF+44NudY2wfcyjzr0W9Qd8ECaBD8IPpN55FQa4rL
+ I9oRLBUM5oBo0TjooeLfpiKsjbm0xMkyt9mgBA8nDDmbUPUg0CCDM4wzWrkA9BJ4Gw7K
+ 1ZmtgM0eJY72+ZPkOkX+k2AM1HZN1gt1zK0JubjluTWbLbGdlJ8waR3KIfbNEbR0uELQ
+ L6zerw/BLuWtYxSGPFt2DG+EV13YU0RCcYhrLTFrkhutB594DNo50f3h40tViV1rOHJv
+ WLGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794415144; x=1795019944;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+GAFVM+nLFUYlbY24SmfVdNvtcwr0CEHKsDIq3Mqz6E=;
+ b=og7or9g10togUKZcsBuH9VKyIhdb2K2MdNuZ0Vr5w8hSmylWFkPog09SBS0DN+Tkh4
+ wHo9OFZcJoqbdSikw2q9Ucwfgux4l5Qs7Ssd/B10JD8flc4kNLgwyTTwEBNFCrJG/kFy
+ vfUNNib8li4QsOyMqnZ5/8ESzAkf0iy/G/qa5mqNmg9nlryt3DrMLOQgSHR4BRVHIguk
+ 4qhL1sw9AHCjxGen5PkRodgghmhxnQ4l1FdJnqBUO97UfjDGCl0fXosdOw6Nm15wt/Zs
+ JEWaIsewRwKnrdifltuJgLb67551FX6RexOE/87nCHtKyUHelozGEqELHpL5HENiU0rH
+ ZL9A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGoopn75nR7ujw/X+GDmxbzxyhawCarI/Uyt5JlDibUFXiV5Y1K73LcoRlbjsg23zMknr2vPcMynMI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8fVbj74ljXCfSuAY2Opi+SVCyvSiERuBBNWjOt5AMHupqaEZc/
+ Q/iLFTNDs9ywe69zH2WqNcTR55TA5C9k42Rt0t/eA4SspRAofBWSqoXn
+X-Gm-Gg: AYBFou3PUYiTRegwKTFrKdfUq5JB9nh34RMrIILaifgTr4ZlfcvtVKstRoY4wAvU295
+ dHUGPPpfWrzC0trj3ql8IbD3I9xxCUwg4KQTmsl+PUxOOdQd5gYjDXaAZW3A9cOz7M5Io3GzOG8
+ HQYK5iFE4QlJc+VyZwwqhSm0tss/Y7MNKKrGXvZjBkIusy7rbCh+WYuoHxxvmeObKHICgwDY7e7
+ rnwPF4IbTgb1I3I3ay01TktH5mLkiPQsoFzLpylhY3iBngVWjbWA0O0BNXPL2DHREA4Y7QuSIxK
+ 4oq/53iM1Z1LQLvtlBCfW5zKJq2TuYaekEehnA48Dl3/R8njPZx/RV8Z9b+Jq8L19kieCf/ZFqI
+ Xv/ZBRdMjY6efad5axXU+IWLEuClHlyOWtOf6aLKLdGAMjXB7Ln2O5FbKI8Om8sH+DwMCGRJxmo
+ clhaWI0uX30csBQPjFH11DVV2dcjKqRK3vCfE6bk+aZKqSKtvHWFMm9frBtEm/UU/KA4+ORFVcu
+ TBGLif/mrZw1NScDfCs9y6/+t+9GdHGsNrsgA8/f4MIK7iiPErOs3dZfuKz2pqHdaFWyIL9xCH8
+ 1vmjVxGNWiAiVjC+IgIy4DSjsstBiySQ6nF7b9hC5+pKmDo=
+X-Received: by 2002:a05:693c:8201:b0:376:98e7:eeb0 with SMTP id
+ 5a478bee46e88-37698e7ef92mr3137525eec.7.1794415143641; 
+ Wed, 11 Nov 2026 08:39:03 -0800 (PST)
+Received: from himanshubakshi ([2401:4900:1c2d:8feb:6d7e:ed5:ad5f:62ed])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37520bf3e18sm35046496eec.16.2026.11.11.08.38.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 08:39:03 -0800 (PST)
+From: himanshu bakshi <himanshu.bakshi478@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: andy@kernel.org, error27@gmail.com, cenzhang@linux.microsoft.com,
+ dennylin0707@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ Himanshu Bakshi <himanshu.bakshi478@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: [PATCH v4] staging: fbtft: remove unused fbtft_init_dbg()
+Date: Wed, 11 Nov 2026 22:08:19 +0530
+Message-ID: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28180/Wed Nov 11 07:24:27 2026)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Nov 2026 12:55:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,131 +87,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
 
-thank you for the speedy reply :)
+The fbtft_init_dbg() macro is not being used, so delete it.
 
-> Cursor plane support is a WIP, you can test out [1] on your end.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+---
+Changes in v4:
+- Add Reviewed-by from Andy Shevchenko.
 
-That is exactly the fix I was hoping for.
+Changes in v3:
+- Fix tag formatting as requested by Andy Shevchenko.
+- Add revision history and testing details following review feedback.
 
-Which tree and commit does the patch apply to?
+Testing:
+- Built the fbtft driver successfully.
+- Verified that fbtft_init_dbg() has no call sites in the kernel tree.
+---
+ drivers/staging/fbtft/fbtft.h | 7 -------
+ 1 file changed, 7 deletions(-)
 
-My guest runs Debian 13 with kernel 6.12, where the driver still has  
-the hyperv_ prefix and the simple display pipe,
-so I would build the tree you name with the patch on top and report back.
-
-If you happen to have a version for 6.12, I can test that as well.
-
-regards
-
-Sascha
-
-
-
-Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
-
-> Hi,
->
-> On Wed, Nov 11, 2026 at 12:13:16PM +0100, sascha@eder.earth wrote:
->> Hi,
->>
->> I am a Windows developer porting some of my own desktop tools to Linux, and
->> I use a Debian guest on Hyper-V to judge how they look and feel there.
->>
->> The static picture is good, the mouse pointer is not, and I think the cause
->> is small and fixable in hyperv_drm. I am writing because this is the first
->> thing a Windows developer notices when trying Linux on their own machine: as
->> long as a Linux VM feels sluggish next to a Windows VM on the same host, few
->> of us will move a repo over and be happy about it.
->>
->> Setup
->> - Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session
->> (vmconnect), 3840x2160 display
->> - Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm (Synthvid 3.5),
->> KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
->> - 4 vCPUs, about 7 GB RAM
->>
->> What I saw so far:
->>
->> - The pointer trails the hand by a small constant delay. Fast, long
->> movements (taskbar to top of the screen) are visibly laggy, not just
->> slightly off.
->>
->> - A Windows guest on the same host, same viewer, same mouse is smooth -
->> directly, and even when the host itself is reached through RDP. The Debian
->> guest lags in both cases.
->>
->> - While moving the pointer: kwin_wayland uses 35-50 % of one core, a kworker
->> (events_unbound) 13-21 %, and the VM is about 80 % idle. Adding vCPUs
->> changes nothing, so it is not a lack of CPU.
->>
->> - A smaller cursor and disabling KDE's shake-to-enlarge effect helped a
->> little. A plain color desktop did not.
->>
->> What I think the cause is (from reading the driver, I have not patched it)
->>
->> 1. hyperv_drm exposes only the primary plane. There is no cursor plane, so
->> the compositor has to paint the pointer into the framebuffer, and every
->> movement goes through compositing, the "blit to VRAM" and the dirt message.
->>
->> 2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(), so the old
->> and the new pointer position become one bounding rectangle. For a long or
->> diagonal move at 4K that is a large part of the screen per pointer step,
->> which matches the more noticable lag (much worse) on big movements.
->>
->> 3. The protocol already has what is needed. hyperv_hide_hw_ptr() exists
->> because, as its commit message says, "Hyper-V supports a hardware cursor
->> feature. It is not used by Linux VM, but the Hyper-V host still draws" a
->> pointer; the driver hides it by sending a 1x1 transparent ARGB shape with
->> SYNTHVID_POINTER_SHAPE. So the host does accept a shape from a Linux guest
->> and does draw the pointer itself.
->>
->> Proposal:
->>
->> Add a cursor plane to hyperv_drm (up to SYNTHVID_CURSOR_MAX_X/Y, 96x96,
->> ARGB) that sends the compositor's cursor image and hot spot through
->> SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and re-sends it on
->> SYNTHVID_FEATURE_CHANGE where the hide call is made today.
->>
->
-> Cursor plane support is a WIP, you can test out [1] on your end.
->
-> [1] https://patchwork.freedesktop.org/patch/761562/
->
-> Hamza
->
->> With cursor hot-spot support for virtualized drivers, compositors would then
->> leave the pointer to the host, as Windows guests do, and pointer movement
->> would cause no framebuffer damage at all.
->>
->> Independently of that, handling damage clips individually instead of merged
->> would reduce the cost of the software-cursor fallback (cursors larger than
->> 96x96).
->>
->> A second, smaller item found on the way:
->>
->> With Set-VMVideo set to 3840x2160 (Maximum), the guest offers modes only up
->> to 2560x1600. The connector's modes come from drm_add_modes_noedid(), and
->> 3840x2160 is not in that table, so it only appears with
->> video=Virtual-1:3840x2160 on the kernel command line. Adding the host's
->> maximum (or preferred) resolution as an explicit mode would make 4K hosts
->> work without that step.
->>
->> I can test patches on this setup and report back. I am not in a position to
->> write the kernel change myself (drivers are not my field of work at all).
->>
->> Thanks for maintaining the driver.
->>
->> Sascha Eder
->>
->>
-
-
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index 40a7567df1eb..16459e4e0ba0 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -420,13 +420,6 @@ module_spi_driver(fbtft_driver_spi_driver);
+ #define DEBUG_REQUEST_GPIOS_MATCH   BIT(30)
+ #define DEBUG_VERIFY_GPIOS          BIT(31)
+ 
+-#define fbtft_init_dbg(dev, format, arg...)                  \
+-do {                                                         \
+-	if (unlikely((dev)->platform_data &&                 \
+-	    (((struct fbtft_platform_data *)(dev)->platform_data)->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
+-		dev_info(dev, format, ##arg);                \
+-} while (0)
+-
+ #define fbtft_par_dbg(level, par, format, arg...)            \
+ do {                                                         \
+ 	if (unlikely((par)->debug & (level)))                    \
+-- 
+2.56.0
 
