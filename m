@@ -2,78 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D913F606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:54:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B594606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YrRCI/SC
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d4EZw+gQ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hSzRrSrj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40C2B10F127;
-	Wed, 11 Nov 2026 16:54:16 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8165210F127
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:54:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416045; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MtTGZx4kbRO7jubVIf2+B7jKJWmy8aP1wK1Az6LPjajCTNhMbkLd2PNQiwCvjmGlnzknYrpNeEHEc5du38u8KKGdwpW6CjFFyFPn5qO2oXmaiiVmb271fBaTUVqMoV/n7JEbyc98/PwElPfLfyX0AGWBlGbynLWgPE839jFaF3o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794416045;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=anBX1iahvKt8bwlS8JRUYhxSTZUTNVrvDroUXrWSpb8=; 
- b=bIrPcfQGvmUstLvfOrclgBBgRWPfxLaVD8Gu3ouqkSC7SaumggN/2V0dyH8QeCY3NHw+8FXywTw229MAegdvhYAmTCf/oUjnwcQGHkR8ib5Rt5EhwbGsvlaCYJ1vD5RaNEk3q/80HpqBblqnG4zXAM5cIE/w8ztTG733YYDcx10=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=YrRCI/SCYZnWGK6UWC56IKByqgiyk5EnemJkzINpCd5B08tLFoIuKCQ4HvHJlIywJ3bo9w3FD73tl7qFmbP0rtHWWra6odsIjsk0KLa/caLmx6vXuq4DhElAxyPoPFyWKiSDoNajrGIDJ6XJdNd5zbXjK7HC0Ltv2YDoMnRHQ6I=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=anBX1iahvKt8bwlS8JRUYhxSTZUTNVrvDroUXrWSpb8=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1794416041785477.2653723756649;
- Wed, 11 Nov 2026 08:54:01 -0800 (PST)
-Date: Wed, 11 Nov 2026 13:54:01 -0300
-From: Daniel Almeida <daniel.almeida@collabora.com>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- "Viresh Kumar" <viresh.kumar@linaro.org>,
- "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Michal Wilczynski" <m.wilczynski@samsung.com>,
- "Drew Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>,
- "Fu Wei" <wefu@redhat.com>,
- =?UTF-8?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <ukleinek@kernel.org>,
- "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney+clk@redhat.com>,
- "Jerome Brunet" <jbrunet+clk@baylibre.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?=22Bj=C3=B6rn_Roy_Baron=22?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>,
- "linux-pm" <linux-pm@vger.kernel.org>,
- "linux-kernel" <linux-kernel@vger.kernel.org>,
- "dri-devel" <dri-devel@lists.freedesktop.org>,
- "linux-riscv" <linux-riscv@lists.infradead.org>,
- "linux-pwm" <linux-pwm@vger.kernel.org>,
- "linux-clk" <linux-clk@vger.kernel.org>,
- "rust-for-linux" <rust-for-linux@vger.kernel.org>,
- "Boris Brezillon" <boris.brezillon@collabora.com>,
- =?UTF-8?Q?=22Onur_=C3=96zkan=22?= <work@onurozkan.dev>,
- "Maurice Hieronymus" <mhi@mailbox.org>
-Message-ID: <1a1cb87df11.2c57f9fa237371.844135553238709982@collabora.com>
-In-Reply-To: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
-References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
-Subject: Re: [PATCH v6 0/7] Clk improvements
+	by gabe.freedesktop.org (Postfix) with ESMTP id A558E10FCE9;
+	Wed, 11 Nov 2026 16:55:48 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2484510FC87
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:55:37 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABF0HGX2651040
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:55:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=dtuAsIkr78INIV8Z/BdZHzuI
+ PXa1ZLTXYhrmp5rxHFQ=; b=d4EZw+gQL5DGX2yL82ISR0t9g0drEtP6obCGwdLG
+ kV1OOPl8npl1GABt09UbhmK55gss7ZfLf0ZTcBi6XIRw4OwH+0WM3jlNGw5BCDdL
+ PflQTMNzhigl7sx9rmuIBVIu9bcSeI+YWjyTWPwPDNHCZ+xDmCPDQXnpiD9qCZl2
+ QsIDpT3UdI5FvihPXz042kU81XnnEZSk7rBfKHj0FOVnhvtrMbZShLWmat2f1196
+ hNxDx2zyZUmmEQRek0q3pAAjItYImCB9XekENwJOcQ7cVoPCeKH4zv6H0CkJ65ua
+ v4GRskxC21h44bX24S7RAF8bb4sWUlQ1cbio0pxxgtnQNw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmbrvm-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:55:35 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93f3969a2a7so554433985a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:55:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794416135; x=1795020935;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=dtuAsIkr78INIV8Z/BdZHzuIPXa1ZLTXYhrmp5rxHFQ=;
+ b=hSzRrSrjNu2BJImBAw012pFeFoia5fMfDdq4ty0r42TNn9JTUXeAyd2fEULyAUD+aO
+ lrDmefFwz0BHYiETyxA74d/7qD4m8IgplncXUrohjGtJZKf+5sN5SsuiPD7yDfkBvpct
+ Gs7GqyngJC+L5NTnANU3twt/cr5TJg/I9JyB2bFHcvO+ndGrVIEgeygWKq7vdlqbF2hR
+ 9BXp5qexUdfO9TqYwlAWPLNPft8nPNXn9Tz/FHRdMKKbZXLuxe075Iv8vyGwhuNQv5DD
+ D1U1HGGhDWBvGg3hcUJc6aEkY18s5KAVZdAT6osExlXRsJu74jAjlvQPJ3zV+4ADVD41
+ /oew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794416135; x=1795020935;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dtuAsIkr78INIV8Z/BdZHzuIPXa1ZLTXYhrmp5rxHFQ=;
+ b=Jie/6c42NgOyXV/DoefhuvIkaWYs4766hk4PSpiMMvZ/b1k01UJkDl0ZKHzCCrJ88K
+ +OiAVLt80efXyZSGCX8jn1uzT3FGdYrsJc0VYUtuSWOhBKfz8BpO1CmbwNVMvvp2u0dW
+ 8xmkua2dvNWShczSpvgW4e8zVLwuxMD4LWqAZetfP/jUxK02hhNbkWZLX6OAFQH41Xh+
+ B7EGcq0TeH8hHbMtIQdBSAWKvNhWq5egw9fo2y4mGKFQMNYaLft5xYNaYFfT+CgKtdJu
+ OYu+NvZXc1pH8VVm4KfVdWHtiENybg3nUJZyC4hVlLBZ1vP5PC33oL5/M+hEQ4IyVDD4
+ F4jg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFZokTot0qAGcaxh7NBn+zSZwkq2G3veKpVPFn7XqZ9bIT5JbZl+SV/JdnMQeZeUyCH3/duHnjodQk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/e4QiOQI0yWsx2tRjsVr5i4yZ6SrZRCR5FyipM1APIuxFdW8Xk
+ BppvZSpQBSOQfmY4nzg6oJHrqolY7+r2Rdc72JYkDpR1MPLwzc7pIV3/g797hBgp38nXM65fkq5
+ jySkFEq6WJd0cqjuU0gvVB0rJs3Y6Jj7NQE3UbQEZaulWZMcx/T1YhS5XvAsQMeHJc/NILGY=
+X-Gm-Gg: AYBFou0SmSkTbN5Jm65hSiF6SoZsHwaBD81gDXd/C83WHypgmbum1ZavRlXcNTVKCAI
+ 9YfWYponzqG6sMWS2Worhp1/vfzTt8Fcniobp/knUCWkAL6joMgnxiJhbhyLVsJ7tmWN3PnBlDq
+ 75s+s68Tu7u1YK3PIpOvkFXlA2+YLvXQU9FztTGrinZjTTBzqnoJ/D+Ifvp58Pknq7gkEqSZWSU
+ TedpOqkzz1fL7LPH5TaVq7jIIc2s4bMAElBjkSUmJoWAy7Nvyi++72UDc8c1PQxxOoA6aNjzM6J
+ T0yuLU10q7PnBxvgt7lwzN2SyAy4S57lAq7HGtSN8aEUhiJc4rdHmPk0niztl07qXqKyZfVKVkx
+ nfhrMkYyZLwxGNCJoP+fTIK126G+yuBddp2wo7pKKwZvewYmwvGfVx7WSJwMP6JwrC9I0Mcyxa0
+ A4FYDwF9yjnUVs8qP2j0VPk+46a8lkUeXdstjkg74p07HfmxJ+nIl5Lcc+mzOdFA==
+X-Received: by 2002:a05:620a:710c:b0:93f:2eaf:64cd with SMTP id
+ af79cd13be357-947b004700emr479801585a.50.1794416135119; 
+ Wed, 11 Nov 2026 08:55:35 -0800 (PST)
+X-Received: by 2002:a05:620a:710c:b0:93f:2eaf:64cd with SMTP id
+ af79cd13be357-947b004700emr479796085a.50.1794416134544; 
+ Wed, 11 Nov 2026 08:55:34 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ae0923c164sm12879141fa.20.2026.11.11.08.55.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 08:55:33 -0800 (PST)
+Date: Wed, 11 Nov 2026 18:55:31 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] drm/msm/dpu: program the source split order for
+ split planes
+Message-ID: <fexhbxknsxgpvgtziubvp3ynoomwppzy7fl53ycynskebk6q5h@hxzunshclscj>
+References: <20261010-pipe_order-v1-0-9d8bd29fd78a@oss.qualcomm.com>
+ <20261010-pipe_order-v1-3-9d8bd29fd78a@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010-pipe_order-v1-3-9d8bd29fd78a@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: aQ7zJ0iAJcrqnZHGwOysbwtCxwg7Iv88
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX5EgsZNGL2tlU
+ ue9bkWIlUHA2rT33LCeU8gDxQRNzKesfNVn+QgNwCDGKxEGsNBWC3g8gu+UTEzlhrHhABquVtfP
+ fxnYO+G9AXIOL6irP6lkv5Jf+mVsVQI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX+MJsd4RAsMhQ
+ JenweJ0LUaulsbn/bsMz7jFHEcnTr7H4ej6d9gJIbMkVlmNEbbjgI1jQ0pPboNVKdHY40NtCHIg
+ q4xGuERO41J0p3m30d7dHK462dJErl7/AWFPv+aQoJsKoOvib6lnbJPDC6BMdsQPgyZSIkzPDhF
+ 6UWHKzvFSuGydqq4I2wtDXWdf5z2fxx9oCyK62inIr427MrUxT73P2QRAe7NzcM2N6kvfhxRADx
+ 10E49acmDMkpH2p9E71Zz865xJjmMP53xVp5pnatJdi1L0FESOQnaH+k0tWFyEas3CyvsJYQ99i
+ rY9pFeOXOPxQ6OHLuUkXAZ1fpbXR1bHjLhQ4w7VkxFxU6vH5NK5hzsiaEYA0I5delT8cERuq/pt
+ he1NVdrSZv3+oEZN5IGC+mQ9LDB3mT8md7GToOBld9hIbsHJuVRGC1soGPO9xQ9X0ConR8XdRXj
+ VV72HQcIm2xcdCSBrNA==
+X-Proofpoint-GUID: aQ7zJ0iAJcrqnZHGwOysbwtCxwg7Iv88
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af49e07 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=rjQCQlUSGl8ILNuVy7EA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110067
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,178 +144,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sat, Oct 10, 2026 at 07:08:23PM +0530, Mahadevan P wrote:
+> Virtual planes can use two SSPPs when a plane exceeds the single-pipe
+> width or clock limit and parallel multirect cannot be used.
+> 
+> Program SRC_SPLIT_ORDER during mixer setup from the pipes' destination
+> X positions. Set the bit for the right source and clear it for the
+> left source or a source without a sibling.
+> 
+> Fixes: 8c62a31607f6 ("drm/msm/dpu: allow using two SSPP blocks for a single plane")
+> Assisted-by: LLM
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 77a2d1f6700d..91152d937ba3 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -434,6 +434,18 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+>  		mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl, sspp_idx);
+>  }
+>  
+> +static bool _dpu_crtc_pipe_is_right(const struct dpu_plane_state *pstate,
+> +				    unsigned int pipe_idx)
+> +{
+> +	unsigned int other_idx = pipe_idx ^ 1;
+> +
+> +	if (!pstate->pipe[other_idx].sspp)
+> +		return false;
+> +
+> +	return pstate->pipe_cfg[pipe_idx].dst_rect.x1 >
+> +	       pstate->pipe_cfg[other_idx].dst_rect.x1;
 
-Hi all,
+We know that the right plane has odd index. This is a total overkill.
 
- > This series contains a few improvements that simplify clock handling for
- > drivers.
- > 
- > Patch 1 converts clk.rs to the kernel-vertical style for imports.
- > 
- > Patch 2 replaces OptionalClk with Clk::get_optional(). There is no struct
- > optional_clk in C, and Clk already allows a NULL pointer.
- > 
- > Patch 3 implements the same typestate pattern that has been used
- > successfully for Regulators. This is needed because otherwise drivers
- > will be responsible for unpreparing and disabling clocks themselves and
- > ultimately handling the reference counts on their own. This is
- > undesirable. The patch automatically encodes this information using the
- > type system so that no misuse can occur.
- > 
- > Patch 4 adds guards that prepare and/or enable a clock for the lifetime
- > of the guard without consuming the Clk, so that a driver can keep a
- > long-lived Clk<Prepared> and enable it for scoped sections.
- > 
- > Patch 5 makes things more convenient by offering devres-managed APIs. This
- > lets drivers set clock parameters once and forget about lifetime
- > management.
- > 
- > Patch 6 adds ExclusiveClk<T>, which holds rate exclusivity over a Clk<T>
- > in any state until it is dropped.
- > 
- > Patch 7 uses it in pwm-th1520 to lock the clock rate for the lifetime of
- > the driver data.
- > 
- > ---
- > Changes in v6:
- > - Rebased onto the latest clk-next.
- > - Moved the import style conversion to the front (Alexandre, Onur).
- > - Kept Alexandre's and Onur's Reviewed-by on the imports patch, and
- >   Alexandre's on the devres patch. Dropped Alexandre's Reviewed-by on the
- >   type-state patch, which changed too much since v5.
- > - Split the OptionalClk removal into its own patch (Gary).
- > - Replaced "rust: clk: implement Clone for Clk<T>" with EnabledGuard,
- >   PreparedGuard and PrepareEnabledGuard (Alexandre, Gary). Clones shared
- >   a single struct clk, so per-consumer state such as the rate
- >   exclusivity taken by clk_rate_exclusive_get() was shared between them.
- > - Dropped Clk::<Prepared>::with_enabled(), superseded by EnabledGuard.
- > - Named the ClkState constants ENABLED and PREPARED from the start
- >   (Alexandre).
- > - Implemented Debug for Error<State> (Alexandre).
- > - Documented that dropping a prepared or enabled Clk may sleep
- >   (Alexandre).
- > - Used a different connection id for the second clock in the example
- >   (Alexandre).
- > - Used `?` in the per-state get() and get_optional() shortcuts.
- > - Dropped the trailing `//` from doctest imports (Alexandre).
- > - Removed the intra-doc links from SAFETY comments (Onur) and reworded
- >   the devm_enable_optional() documentation (Alexandre).
- > - Expanded the devres commit message (Gary).
- > - Added ExclusiveClk and its pwm-th1520 user, based on Maurice
- >   Hieronymus's series [1], with ExclusiveClk made generic over the clock
- >   state, ExclusiveClk::new() in place of Clk::rate_exclusive_get(), and
- >   a new ExclusiveClk::into_inner().
- > - Link to v5: https://patch.msgid.link/20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com
- > 
- > [1] https://lore.kernel.org/rust-for-linux/20260711-rate-exclusive-get-th1520-v4-0-8244a0666a71@mailbox.org/
- > 
- > Changes in v5:
- > - Rebased onto the latest clk-next.
- > - New patch: "rust: clk: implement Clone for Clk<T>". Each clone is an
- >   independent view of the same underlying clock, owning its own
- >   prepare/enable counts; the raw pointer is shared through an Arc so
- >   clk_get()/clk_put() stay balanced. Follows the v3 discussion with
- >   Boris Brezillon and Gary Guo.
- > - Moved rate() and set_rate() from Clk<Enabled> to all states; the C API
- >   does not restrict these to enabled clocks, and some clocks can only
- >   change rate before being prepared.
- > - Made Clk::<Enabled>::disable() infallible, matching unprepare() and
- >   the void C API (Onur).
- > - Fixed a typo in the "# Invariants" section, fixed SAFETY comments
- >   that referred to the non-existent `self.0` field, and added missing
- >   INVARIANT comments on the state transitions.
- > - Added the missing rustdoc link definitions for clk_unprepare and
- >   clk_put (Maurice).
- > - Dropped the redundant `Result` import and the `use
- >   kernel::error::Result;` lines from the doctests; the prelude already
- >   provides it (Miguel).
- > - Added #[inline] to the devm_* helpers.
- > - Link to v4: https://patch.msgid.link/20260618-clk-type-state-v4-0-8be082786080@collabora.com
- > 
- > Changes in v4:
- > - Rebased onto clk-next. Alice Ryhl's "rust: clk: implement Send and Sync"
- >   series is now merged upstream, so it is no longer carried as a dependency.
- > - Fixed the build with CONFIG_CPUFREQ_DT_RUST=y. The generic DT cpufreq
- >   driver only has the (unbound) per-CPU device, so it cannot hand a
- >   &Device<Bound> to Policy::set_clk(). Added a pub(crate) Clk::get_unbound()
- >   for the few in-tree abstractions that operate on a device outside a bind
- >   scope; set_clk() now takes &Device and uses it. Clk::get()/get_optional()
- >   and the devm_* helpers still require &Device<Bound>.
- > - Added impl From<Error<State>> for kernel::error::Error, so the fallible
- >   state transitions can be used with `?` (and chained) instead of
- >   .map_err(|e| e.error).
- > - Added Clk::<Prepared>::with_enabled(), which runs a closure with the clock
- >   temporarily enabled, scoping the Enabled state without giving up the
- >   prepared clock.
- > - Documented how to change a clock's state at runtime via an enum, for
- >   drivers that enable/disable across resume/suspend.
- > - Link to v3: https://lore.kernel.org/r/20260107-clk-type-state-v3-0-77d3e3ee59c2@collabora.com
- > 
- > Changes in v3:
- > - Rebased on top of 6.19-rc4
- > - Dropped patch 1 (from Alice), added her series as a dependency instead
- > - Fixed Tyr, PWM_TH1520 drivers
- > - Changed clk.rs imports to kernel-vertical style
- > - Added support get_optional shortcut for Prepared and Enabled (i.e.:
- >   Clk::<Enabled>::get_optional())
- > - Fixed misplaced #[inline] tag
- > 
- > Thanks, Danilo {
- >   - Moved the devres changes into its own patch
- >   - Require &Device<Bound> for all functions where a &Device is used
- >   - Account for con_in in SAFETY comments where applicable
- >   - Added backticks
- > }
- > 
- > - Link to v2: https://lore.kernel.org/r/20250910-clk-type-state-v2-0-1b97c11bb631@collabora.com
- > 
- > Changes in v2:
- > - Added Alice's patch as patch 1, since it is a dependency.
- > - Added devm helpers (like we did for Regulator<T>)
- > - Fixed missing clk_put() call in Drop (Danilo)
- > - Fixed missing parenthesis and wrong docs (Viresh)
- > - Removed extra "dev" parameter from "shutdown" example (Danilo)
- > - Removed useless type annotation from example (Danilo)
- > - Link to v1: https://lore.kernel.org/rust-for-linux/20250729-clk-type-state-v1-1-896b53816f7b@collabora.com/#r
- > 
- > ---
- > Daniel Almeida (6):
- >       rust: clk: use 'kernel vertical style' for imports
- >       rust: clk: replace `OptionalClk` with `Clk::get_optional()`
- >       rust: clk: use the type-state pattern
- >       rust: clk: add guards for scoped prepare and enable
- >       rust: clk: add devres-managed clks
- >       rust: clk: add `ExclusiveClk`
- > 
- > Maurice Hieronymus (1):
- >       pwm: th1520: Lock clock rate with clk_rate_exclusive_get
- > 
- >  drivers/cpufreq/rcpufreq_dt.rs |   7 +-
- >  drivers/gpu/drm/tyr/driver.rs  |  32 +-
- >  drivers/pwm/pwm_th1520.rs      |  25 +-
- >  rust/kernel/clk.rs             | 834 +++++++++++++++++++++++++++++++++++------
- >  rust/kernel/cpufreq.rs         |   8 +-
- >  5 files changed, 748 insertions(+), 158 deletions(-)
- > ---
- > base-commit: d3645b43ad60fe1ab3b4a869f6908414d5831a65
- > change-id: 20250909-clk-type-state-c01aa7dd551d
- > 
- > Best regards,
- > --  
- > Daniel Almeida <daniel.almeida@collabora.com>
- > 
- > 
+> +}
+> +
+>  static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>  	struct dpu_crtc *dpu_crtc, struct dpu_crtc_mixer *mixer,
+>  	struct dpu_hw_stage_cfg *stage_cfg)
+> @@ -443,10 +455,13 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>  	struct drm_plane_state *state;
+>  	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
+>  	struct dpu_plane_state *pstate = NULL;
+> +	struct dpu_sw_pipe *pipe;
+>  	const struct msm_format *format;
+>  	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+>  	u32 lm_idx, stage, i, pipe_idx, head_pipe_in_stage, lms_in_pair;
+>  	bool bg_alpha_enable = false;
+> +	bool src_split = test_bit(DPU_MIXER_SOURCESPLIT,
+> +				  &mixer->hw_lm->cap->features);
+>  	DECLARE_BITMAP(active_fetch, SSPP_MAX);
+>  	DECLARE_BITMAP(active_pipes, SSPP_MAX);
+>  
+> @@ -475,6 +490,10 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>  				pipe_idx = i + head_pipe_in_stage;
+>  				if (!pstate->pipe[pipe_idx].sspp)
+>  					continue;
+> +				pipe = &pstate->pipe[pipe_idx];
+> +				if (src_split && pipe->sspp->ops.setup_src_split_order)
+> +					pipe->sspp->ops.setup_src_split_order(pipe,
+> +						_dpu_crtc_pipe_is_right(pstate, pipe_idx));
+>  				lms_in_pair = min(cstate->num_mixers - (stage * PIPES_PER_STAGE),
+>  						  PIPES_PER_STAGE);
+>  				set_bit(pstate->pipe[pipe_idx].sspp->idx, active_fetch);
+> 
+> -- 
+> 2.34.1
+> 
 
-
-Gentle ping here.
-There's been no further comments, should I assume this is good?
-
--- Daniel
-
+-- 
+With best wishes
+Dmitry
