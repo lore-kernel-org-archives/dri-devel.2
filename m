@@ -2,136 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5530A606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588AB606A33F
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GdP9hRrD;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kAmxxPPk
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jz+/4+YE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0CF10EA88;
-	Wed, 11 Nov 2026 16:49:46 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF8810EA75
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:35 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABF06eA1665625
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=PWoksvMhgq8Q/i4IjWr81D37
- 9zG5XlS6MeHSuWn+LKc=; b=GdP9hRrDhJwlt6pncn4yrH4QKsDam2bDCxdssInM
- dDYn6PIXVSZb2oZ6Ac39K/7CddAfDqk3qO04WLaL3f91HNoHCHKqL7UI1cNizWVl
- rSz3dPCQGRmIt/PlvtpiZ+yQj8VirA5dPtN5Cff3roh8aHkdlri/S7ySOtCqBcIP
- t6Dys2b2kdGEmxx7VtjaxUFsu423unNPtkpKs0dALtOUoJ2zKuTsfnB7WaIH7Vqu
- xNIuy8iYUJZgPSQOKgytYwfmo5LVWetPBdlv0c1ajhLRGuPBCGHfSTX1ogQDrNlV
- Z+mzEdHFNOSSZD2PkKNW/TsdFWtKeVGZP9eAu6gUrNYrHg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7pt99q-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:34 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-946038e22f5so799529385a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:49:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC97F10EA98;
+	Wed, 11 Nov 2026 16:49:55 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F68F10FC2F
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:49 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-36d1b3b9974so80536eec.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:49:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794415789; cv=none;
+ d=google.com; s=arc-20260327;
+ b=cfricdgIBrNQBi7NE12JWCcEWamaguW8axQ941x3W8rfF1SwIV0THnRh5R+Z9pTO+e
+ tcH+baNgqqG5sUol4URKR2UjG487y2WwY4QdP6FAAo5sDa1KwNdlWUlDq4SM21FVFyoR
+ zuZDZlYGUs/NSCVMmdO/7WwONIsc5CEnzPgDPdxQjNKg3qVzwb5A/aj9nIFSzc2ZiQuM
+ 2al+aS5py8E4Tl42mO8lXoPHeQtXBiHhmRbWsCG4gFkQXxvKWUIXZ8xrmsV+iasVCYXt
+ AcAuSas85T/xnCYLA2qBEbvNTcKXESwPq9PVZn2zadQnycpP30RL5fySJ3QJ6AqENt4p
+ doRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ fh=wR1CVfUTuTkdwTgih0OX/QWGfN066zGIFialZSJcDss=;
+ b=ZbavNeGQlz/LyXtCbUa3aL+ezBGjhix9h69v7USySyq/b74/necgqWQfzOCT9zVD8q
+ 4MtmY65yXFJ6tgQmj7o2m9m7JLoiKwicrxn8ommQ+DBmD8uoIQ3A6mZJqL1uIDUVDvcT
+ KIXiItET7tdEqM756c4KszPmXYWXHnJLapmjk1f0Iuws2tLfgc543wT2WjORXZRoR+jA
+ sB+jnaZt3MSyO/+KS+DbG0G4f0xgpkcYeCAkUU6nR1eCG1WNiFhLApn+1AR/4VSf04R5
+ ozaX07ovBNWzozWPOisWvU8WdG4lAApYbrH7PdccX0R0kGeidsCCjcEotVTV405oLT9J
+ m0jw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794415774; x=1795020574;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1794415789; x=1795020589; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PWoksvMhgq8Q/i4IjWr81D379zG5XlS6MeHSuWn+LKc=;
- b=kAmxxPPkgX/KA0O7khV260NRlASAWGIIlOjuiZxUFLwNuVb4Nb+hALS82wUUkbrqRg
- GC+0x5BSi7muupJEGk/NOXxt2bT6Jgjr8676orPgJYX2AiktsjST9Ens/FnbotS4uHxf
- JjgZe7jS5mfo8J4tEBd/3IsGDTCc1dUyBMTKG9cI4VRN5wfnU2z3HooxPaglog55oHCL
- VHRk4tZhisip55j8zr7Xrdg+3qg1q0nsMevl3trgJ2/zhrBKPuN2dxZ3X7Zu6taoz0FM
- SMI0+UU4Ki61uoEOjmep2CEAz95iEbrARWQTsH3oXa7Xz/1WNzwbvbR265d7unNV96Hx
- kB3w==
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ b=jz+/4+YEKdKN68vAsvlrCelY0c0B+zvqJKTgQG3LS1+m7/4Xu9L+D2Mu7bpDuyE5/i
+ rEPnVGJmnqXoymerFQXrn+FiU7PqbopJ0ChkMRmNKsX1v1xr+xJgEWPZUMbG6or/GSHW
+ dXvWs4guNRaNRTk0zlN4EViBLqiNEm0UdmG/Apbv/4hCO5GR8CoNBd2QdsDmdD5w2fKP
+ qV82tYXfswSnt6napNfX2oNUOyGxLPHAXJnVHx2cUn9QkwWN+FoNjvYXcb7LRFopFdZQ
+ Fs03W1B6rd4h0PfjeWmqHMMNy+jnS4C+jqo/58muOILYD3fCegBm5V4als0mgNN13wJE
+ +35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794415774; x=1795020574;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1794415789; x=1795020589;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PWoksvMhgq8Q/i4IjWr81D379zG5XlS6MeHSuWn+LKc=;
- b=hdKJWW/FPh+b8wEdEAkvIRiFQ+s64aToRjlknO81Cb/CMowd4PH3V925n9R/wQw4Oz
- n3CDkgmgie0L4pTUlg9H+JP77ScZW+vy8ZH2AUptC7cGFDQ8f6gxBt4TqhOcIV60yrs6
- KdBYbhk1TML/zBj8Lf43K9hjC23jWDRvMmLYUzWkhWZE8RwEIWtkNL1koO0Nx43Iw5mG
- SZ1xgKmtcFv1sagF4i6P4DuZktiksEcU3YQxb1qnUmL1DgTWX2zQZY4kI2SQUiY+FD67
- UG428ZPl0+FQ5UqZrI8CQjpfU+w095NvunWq7aM0mWd4vRVJZRXCv2najeL7aDimiif/
- D+0Q==
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ b=Hjf/Dk0QDF3S3YKRCt6Sger5MaCOiCt58Uuzq63onj9DKv7ftF8rEmYoLS2BEtwHhh
+ SB7W4qCcBQyIwfZZAifVQRSaCCoH3kRxLKRznbcF1Ha4KVcbG7xqm9chgZSTEtYXzid7
+ rL3BUJUeahppA8iCPZsHfutxbh2Mv9asCNVuQK8H9KBZo9j4PBzZZrvRMini2MiNx8qo
+ aO9Ce04pmrfciD7j9QzK3WkahJvP8r2hychA4ituWn/RNFBpA9rvb95yDZQbjnw8xvHS
+ zHh8ADNOtdPVs+qGKArIehD+88LsQv1HMRwGanznxkLo8n188fC0zUA2j6l/yX7b46YQ
+ a4xw==
 X-Forwarded-Encrypted: i=1;
- AL+hErFMSN766LzWlfDHa0qZ2kqDKhOVwRbg2IUnMgFyxqECBgtMBHCwfb2LPQLWyH19lGKawtgjrMYjOFA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9wQP2UesTHzJeCC21FZHt9CzpaLTWLkppeoBamW/ymhkGMWebu
- t/AxwEhyaEHlYKaS+V3pAmDaljz0oGBBlt7VmcJyJ7OcM+Iplys5M0yNCB6lx18sFi8BCDcITWS
- ve8FYVwSlhwuaJfuzZkJUIv4DggA5TrA03XYiGvWaRw37GfTU4a24bVlVkLE6DF1Ro+2+Fvg=
-X-Gm-Gg: AYBFou3frCQjyxUKfyaiTmS/rr0gRG4boqDMKOu0/xJequ1gprBX3EPVERW+9TA8jw/
- DuMp8oPXUTBMl5wmrwHO2NTVu4SCROmnKRLjH+KrynoF/ug/stMs6Hru+Q+yutE3Jz0gkCM76zu
- NiaV1XMdZSdVCIfTpBgjFthEWvtx/M+AWl89vm9jBuDq8LWPcdPPi/yKT4haHl4hClpt2oCA1Lj
- 21DoT7R6PYAsoL4aQYtZd0pR9Zqr2gKNC8APcZWt/et9RNa85i9uTyT4U9AO1S8+vMTZlQtRJBG
- ttkPRypvlzX15croo5h9G+jxaE8StcRyJHPtd8EcSdXzYedRUVSLON6nkr0xpjmaAKTB5xS0db4
- SAZtHFHsomD+XiT8OCiVlVSN/2loUVzSK8bWUfHDO+bzW5iF0zw/TrW/BdIHediPlT9IntAqfPD
- AqW5lwCVvbLaHsfONWpW5/ds3euKccEHHuAoMqNlQmhban564nQnNgMG2+RW6mcQ==
-X-Received: by 2002:a05:620a:4409:b0:93f:3391:d5a1 with SMTP id
- af79cd13be357-947b00cbd05mr507382985a.75.1794415773579; 
- Wed, 11 Nov 2026 08:49:33 -0800 (PST)
-X-Received: by 2002:a05:620a:4409:b0:93f:3391:d5a1 with SMTP id
- af79cd13be357-947b00cbd05mr507377285a.75.1794415773092; 
- Wed, 11 Nov 2026 08:49:33 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157baf5aasm1038678e87.48.2026.11.11.08.49.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 08:49:30 -0800 (PST)
-Date: Wed, 11 Nov 2026 18:49:29 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
-Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
-Message-ID: <kncxteaifi4atoodx2wqkbxkwwaw2wttmxtxeh5plbl77idwva@fbknoze4ywbd>
-References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
+ AL+hErGoWE+KOeSG+pmq3bwl90nw04GUhV0UogZ1uPAsPP5f53LZn3rdM9YKbWO+pk3OcRyqvgeQeLZmrPA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/5mO0D31DdezoPyT6IPvCzdC7ooiMo+EZsh+T516wdzCKJZ3BW
+ tapxeC+QjD4B88LpKP4u7+5Q3jUTaAC0TIOJJ2X9QL5t7mErd8v3e3QhRsaQT1bXSOuDWQUPZFI
+ uZJ4dx7k54PFunD9FX6Wd4vbzveW1vOk=
+X-Gm-Gg: AYBFou2X+cCUL4pQ+mnp28B81VEn6KKgQy9rWjx5pI7VLigvEFJVIsx4aewXXqnEmZC
+ NcRJ6ySJfm9WPeHy9RyGNdeP/CZynNTlnczbq3ANMwlftzSTZaaE7JHwQCHtURlgKdDsLYiVZjr
+ MgozrmTpMbNBQBw7pNwLVLlIuUrLaXRzh+vyY+30wiR9eYCAeTM3NC08Dv6kHJpz274upwKfa+P
+ /1kdnyQZ0ZI4zkRBnM809yCiWEzJOkLjMMVb8DekqX78eLQQFDrnJB66ir2Hww0bLlCrg4ZZ/cd
+ LYpwvoNlTzdfgPTrHmjJQWKuyFlSqDM0/z0YXNV8zWsVflJY8R7F8+I+sCccd6sHfW/lFTAQtEf
+ RkHI4QuaCk8TsWxY1eR7IDZoF7Xi1prhlXNlEX3JBQOdsI70Gdw7pyouS3UYWc/TR8eiUiow1Jk
+ kLjKoNjw+Twp1WKnR1n/egoEue/OZugok720mEha9yL2XWarvhyswoTCsBsWo=
+X-Received: by 2002:a05:701b:2402:b0:1b3:a881:a67b with SMTP id
+ a92af1059eb24-1b3c02dedc1mr4147363c88.1.1794415788453; Wed, 11 Nov 2026
+ 08:49:48 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NiBTYWx0ZWRfX64Bj3ovmPZfT
- Ft1Rl0HezKAQyyHZuqXHhVtRJI1eWOoByIPETtHlyf05nT/H3PovlqOqoo3AIf/5JiDIB/iUH4t
- u9hctteBWUQfKbpdeugKHUP9mwyHosY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NiBTYWx0ZWRfX/6rm0AeEndke
- PBFWBaMhyUB9HoKL2Oy89HigyAdy9Sng3TGNyFcf4FGsuTtg11ONH8dXLtBKpWeAYLWmLFF/+9N
- w7fUVGeYkSDZwwVJ/i7NxXaYdHODPBZ9hi4eoTId8FN9PNn8EDQRkl5YGTuhrPuFjRO9VYIvJAD
- oKyHPy7PGNsTHz/NGVI3I5OuszTzQd01ciBByGbTqD3USKDXslB5MUgpFhs0r0f8eDBXzSESwKr
- btEs68O9Orb+e0CvUOPW9IuuXi6F4/VDMouhhic7EdYQJ5qzsbefOHQmJVshNFvbOyPnWdoSTcN
- 4utROh11YdJWl1SflUpMg32Ucl7VqxKTGYMT4ECH82XuPQPl+WB5VG2QTQh5mZgI4hgh4P2Rlti
- i2nHiAAddnsDDJrzFFrONQ1gkTZz5iLzE0AwcT6mVjHSzqbbtEb2vBFUlqyRnxlRQ0spzn7otbS
- QcJ5J9gsTHrKyDMOGxw==
-X-Proofpoint-GUID: jz_aWn3KONQpozc2h--9gYcYpf-ZVtBx
-X-Proofpoint-ORIG-GUID: jz_aWn3KONQpozc2h--9gYcYpf-ZVtBx
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af49c9e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=nLvmRgGJZeXqCf0b28oA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110066
+References: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
+In-Reply-To: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 11:49:36 -0500
+X-Gm-Features: AclHuK_GNVp6DqhleU8mNCij6RwE_xjeXa2cpadCyUXA99oBGwkzHbdnsMQTCJY
+Message-ID: <CADnq5_OvGqVWG4BRi64EKO3_qEmS7VJiTuG158Og=XUPhYHJ_Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
+ dumb_map_offset
+To: saad <primecoder8@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,48 +106,168 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 06, 2026 at 06:43:53PM +0530, Arpit Saini wrote:
-> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
-> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
-> reaches 0. The clock (and its source) stays reported as enabled
-> through s2idle suspend even though the display stack is fully
-> suspended:
-> 
->   disp_cc_mdss_ahb_clk [19200000] ->
->     disp_cc_mdss_ahb_clk_src [19200000] ->
->     bi_tcxo [19200000] -> xo-board [76800000]
->   disp_cc_mdss_ahb_clk_src [19200000] ->
->     bi_tcxo [19200000] -> xo-board [76800000]
-> 
-> Calling clk_prepare_enable()/clk_disable_unprepare() directly from the
-> PHY's runtime_suspend/runtime_resume is not safe either, since it can
-> deadlock against the PHY's own PLL clocks taking the global CCF
-> prepare_lock during clk_prepare()/clk_unprepare().
-> 
-> Fix this by moving clk_prepare()/clk_unprepare() out of the runtime PM
-> path. clk_enable()/clk_disable() (spinlock only) stay in
-> runtime_suspend/runtime_resume. clk_prepare()/clk_unprepare() move to
-> suspend_late/resume_early, avoiding the prepare_lock collision and
-> actually dropping prepare_count to 0. DPM_FLAG_NO_DIRECT_COMPLETE
-> ensures these hooks always run on sleep.
-> 
-> Fixes: 0b3ccb76b95b ("drm/msm/dsi: Fix 14nm DSI PHY PLL Lock issue")
-> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Reviewed and applied.  Thanks!
+
+Alex
+
+On Fri, Nov 6, 2026 at 4:56=E2=80=AFAM saad <primecoder8@gmail.com> wrote:
+>
+> As part of the DRM TODO item "Remove custom dumb_map_offset
+> implementations", switch amdgpu's &drm_driver.dumb_map_offset callback
+> from the driver-specific amdgpu_mode_dumb_mmap() to the generic TTM
+> helper drm_gem_ttm_dumb_map_offset(), for both amdgpu_kms_driver and
+> amdgpu_partition_driver.
+>
+> amdgpu_mode_dumb_mmap() additionally rejected userptr BOs and BOs
+> created with AMDGPU_GEM_CREATE_NO_CPU_ACCESS with -EPERM. Dropping
+> those checks from the dumb path does not allow such BOs to be mapped:
+> returning an offset does not create a mapping, and the actual mmap()
+> goes through drm_gem_mmap() -> amdgpu_gem_object_mmap(), which performs
+> the same two checks and still returns -EPERM. The only user-visible
+> difference is that DRM_IOCTL_MODE_MAP_DUMB on such a handle now succeeds
+> and the subsequent mmap() fails, instead of the ioctl failing. Dumb
+> buffers created by amdgpu_mode_dumb_create() are never userptr BOs and
+> always have AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED set, so they are not
+> affected.
+>
+> With that, amdgpu_gem_mmap_ioctl() is the only remaining user of
+> amdgpu_mode_dumb_mmap(), so fold it into the ioctl and drop its
+> prototype from amdgpu_gem.h. DRM_IOCTL_AMDGPU_GEM_MMAP, used by
+> libdrm_amdgpu and Mesa, keeps the userptr and NO_CPU_ACCESS checks
+> and behaves as before.
+>
+> Build-tested with CONFIG_DRM_AMDGPU=3Dm (W=3D1 for amdgpu_drv.o and
+> amdgpu_gem.o), no new warnings. Not runtime tested.
+>
+> The code change was written by hand and reviewed with the help of
+> Claude (AI coding assistant); the commit message was written by Claude.
+>
+> Signed-off-by: saad <primecoder8@gmail.com>
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 132 +++++++++++++++++++++++++++++++---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h |   4 ++
->  2 files changed, 127 insertions(+), 9 deletions(-)
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+> Changes in v2:
+> - Fold amdgpu_mode_dumb_mmap() into amdgpu_gem_mmap_ioctl() and drop its
+>   prototype, as it has no other users (Sashiko)
+> - Link to v1: https://lore.kernel.org/r/20261105-amdgpu-dumb-map-offset-v=
+1-1-7299d94ede11@gmail.com
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 23 +++++++++--------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  3 ---
+>  3 files changed, 12 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 731fe8f9e..134d2fe4b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -27,6 +27,7 @@
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_fbdev_ttm.h>
+>  #include <drm/drm_gem.h>
+> +#include <drm/drm_gem_ttm_helper.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_pciids.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -3151,7 +3152,7 @@ static const struct drm_driver amdgpu_kms_driver =
+=3D {
+>         .ioctls =3D amdgpu_ioctls_kms,
+>         .num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
+>         .dumb_create =3D amdgpu_mode_dumb_create,
+> -       .dumb_map_offset =3D amdgpu_mode_dumb_mmap,
+> +       .dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
+>         DRM_FBDEV_TTM_DRIVER_OPS,
+>         .fops =3D &amdgpu_driver_kms_fops,
+>         .release =3D &amdgpu_driver_release_kms,
+> @@ -3177,7 +3178,7 @@ const struct drm_driver amdgpu_partition_driver =3D=
+ {
+>         .ioctls =3D amdgpu_ioctls_kms,
+>         .num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
+>         .dumb_create =3D amdgpu_mode_dumb_create,
+> -       .dumb_map_offset =3D amdgpu_mode_dumb_mmap,
+> +       .dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
+>         DRM_FBDEV_TTM_DRIVER_OPS,
+>         .fops =3D &amdgpu_driver_kms_fops,
+>         .release =3D &amdgpu_driver_release_kms,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 4ed1706d8..2a72bdf2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -644,13 +644,16 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev=
+, void *data,
+>         return r;
+>  }
+>
+> -int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+> -                         struct drm_device *dev,
+> -                         uint32_t handle, uint64_t *offset_p)
+> +int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+> +                         struct drm_file *filp)
+>  {
+> +       union drm_amdgpu_gem_mmap *args =3D data;
+> +       uint32_t handle =3D args->in.handle;
+>         struct drm_gem_object *gobj;
+>         struct amdgpu_bo *robj;
+>
+> +       memset(args, 0, sizeof(*args));
+> +
+>         gobj =3D drm_gem_object_lookup(filp, handle);
+>         if (!gobj)
+>                 return -ENOENT;
+> @@ -661,19 +664,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+>                 drm_gem_object_put(gobj);
+>                 return -EPERM;
+>         }
+> -       *offset_p =3D amdgpu_bo_mmap_offset(robj);
+> -       drm_gem_object_put(gobj);
+> -       return 0;
+> -}
+>
+> -int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+> -                         struct drm_file *filp)
+> -{
+> -       union drm_amdgpu_gem_mmap *args =3D data;
+> -       uint32_t handle =3D args->in.handle;
+> +       args->out.addr_ptr =3D amdgpu_bo_mmap_offset(robj);
+> +       drm_gem_object_put(gobj);
+>
+> -       memset(args, 0, sizeof(*args));
+> -       return amdgpu_mode_dumb_mmap(filp, dev, handle, &args->out.addr_p=
+tr);
+> +       return 0;
+>  }
+>
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.h
+> index b558336bc..718ffe229 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> @@ -49,9 +49,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev=
+, unsigned long size,
+>  int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+>                             struct drm_device *dev,
+>                             struct drm_mode_create_dumb *args);
+> -int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+> -                         struct drm_device *dev,
+> -                         uint32_t handle, uint64_t *offset_p);
+>
+>  int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>                             struct drm_file *filp);
+>
+> ---
+> base-commit: 279235273fc6c0a33df863b4a1cc52ec1e73aba5
+> change-id: 20261105-amdgpu-dumb-map-offset-6fa41e8d3fb5
+>
+> Best regards,
+> --
+> saad <primecoder8@gmail.com>
+>
