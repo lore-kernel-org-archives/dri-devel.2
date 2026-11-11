@@ -2,134 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299A6606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD28606A881
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:28:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v/2A/JDp;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EgAT+hwj;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v/2A/JDp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZeAi18VV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65E1910FA91;
-	Wed, 11 Nov 2026 10:27:20 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A26BA10E324
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:27:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2F2F11F7C3;
- Wed, 11 Nov 2026 10:27:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794392828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
- b=EgAT+hwjNOsx9MDe7xraetZiI+qq1lg648mKL1JXrck+qckY6QrdB4G1p145Fw1ve7D+59
- EzzK89hmmlOuadCTJzJERyReak4apecW8od+CLNQlZouAOVe7bELtmDfd6L0RRazt2MUU6
- tDO3zQ8c4t8Lm7Hms1gbsUunTvRDgqY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794392828;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
- b=v/2A/JDpOAbQP80BDhC9rP3izdJApRnWEOIGnQmzvChs/ba4EwWfLJRNunmjZcVIlkTTrL
- e3BLe9cftjFrFvCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794392828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
- b=EgAT+hwjNOsx9MDe7xraetZiI+qq1lg648mKL1JXrck+qckY6QrdB4G1p145Fw1ve7D+59
- EzzK89hmmlOuadCTJzJERyReak4apecW8od+CLNQlZouAOVe7bELtmDfd6L0RRazt2MUU6
- tDO3zQ8c4t8Lm7Hms1gbsUunTvRDgqY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794392828;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KtiV62Thw+FKVj+2fH8N2rvAYJ0UufPYwMtls7bTByk=;
- b=v/2A/JDpOAbQP80BDhC9rP3izdJApRnWEOIGnQmzvChs/ba4EwWfLJRNunmjZcVIlkTTrL
- e3BLe9cftjFrFvCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6D31134E5;
- Wed, 11 Nov 2026 10:27:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Zoh0GftC9GpCEwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 10:27:07 +0000
-Message-ID: <cba017db-db33-429f-a837-766200ec16ec@suse.de>
-Date: Wed, 11 Nov 2026 11:27:06 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1316410FA71;
+	Wed, 11 Nov 2026 10:28:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB6C510FA71
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:28:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5327B455AB;
+ Wed, 11 Nov 2026 10:28:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5CC1F00A05;
+ Wed, 11 Nov 2026 10:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794392895;
+ bh=pffzYjLc24zLkwM750JTE8R2tBDNVqjTU9V9Vefp1ME=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ZeAi18VVLJ89QheHEsiQjTnP8iCg6V2rf6LvWg5a0h7xltizH6zWe5sg86ldUby96
+ dIA+Ygwf4Ik4Uj9AGqGdIivaJ4KZeaFIZ6XOt48WTXojFL6vkpJMCJExDlp/IoAMpK
+ E6V0u9tUsJGDBJWo4xyZvsXHb3SZ2wXLE9DyxW10QTozVGGsIKFk/kzmoU/5k0dEHo
+ nnV7kUpe9qLry6Wo1759xeBLlT86qbm2X+nOBHXp6XFRLJrqCa1K7grlJeughGRBic
+ YVReqvSAOf4ENAQRqy3fRFh3C0e8um2R/Md4BjL5NTpJii+DJVUFb3I+v/6cC5iOkL
+ ZforpNeZjRvPA==
+Message-ID: <5398114b-538c-4e7a-9b36-35029f301630@kernel.org>
+Date: Wed, 11 Nov 2026 11:28:06 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP
- GPU)
-To: Leander Kieweg <kieweg.leander@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-References: <20261011154556.155831-1-kieweg.leander@gmail.com>
- <CAMwcS0i-RQgWGHTUTVBwj8_is94siqwLg4mjgbN6qAhvosRb5w@mail.gmail.com>
- <f06459fd-616b-4810-a8f9-cb4df2fcbd8f@suse.de>
- <CAMwcS0ii+=5LvgeFRmMkQKUm9oReQj=-t7vZ5uxCrLGi=jzvnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488: make
+ the port optional
+To: Icenowy Zheng <uwu@icenowy.me>,
+ Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+ <20261109160706.2272332-2-romain.tisserand@gmail.com>
+ <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+ <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMwcS0ii+=5LvgeFRmMkQKUm9oReQj=-t7vZ5uxCrLGi=jzvnQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[dt];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[gmail.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,gmail.com,ffwll.ch,linux.intel.com,kernel.org,baylibre.com];
- RCPT_COUNT_SEVEN(0.00)[11]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -11.79
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,72 +109,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
-
-Am 10.11.26 um 18:28 schrieb Leander Kieweg:
->> Oh, I thought you wanted to send a v7. :)
+On 11/11/2026 11:26, Icenowy Zheng wrote:
+> 在 2026-11-10二的 13:00 +0100，Krzysztof Kozlowski写道：
+>> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
+>>> The panel is a MIPI-DSI peripheral, a child node of its DSI host,
+>>> and the
+>>> driver does not use a graph port. A port is only needed when the
+>>> host
+>>> links its panel through the graph; other DSI hosts, such as the
+>>> Allwinner
+>>> sun6i-a31-mipi-dsi one, link the child node and have no output port
+>>> to
+>>> point at. The PinePhone panel is described that way on the same
+>>> host,
+>>> without a port.
+>>>
+>>> Keep the port allowed (panel-common) but no longer required, as for
+>>> other
+>>> DSI panels such as ilitek,ili9881c.
 >>
->> There's nothing blocking it, I think. I'll merged the driver in soon.
-> Hi Thomas,
->
-> thank you for the review and for merging it!
+>> ilitek,ili7807s and a few others have the same and it is confusing.
+>> The
+>> port should be required when this is connected over SPI or I2C, but
+>> not
+>> for MIPI DSI. I think that for MIPI DSI port is meaningless so
+>> actually
+>> incorrect.
+> 
+> I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
+> dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
+> even if it's the child node of the DSI controller.
+> 
+> Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
+> pro.dts .
+> 
 
-There's was bitrot in there.
+Yes, the same for Qualcomm. So I actually wonder who needs the change here.
 
-   CC [M]  drivers/gpu/drm/tiny/glandagpu.o
-/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:293:10: 
-error: »const struct drm_crtc_funcs« hat kein Element namens »reset«
-   293 |         .reset = drm_atomic_helper_crtc_reset,
-       |          ^~~~~
-/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:293:18: 
-error: »drm_atomic_helper_crtc_reset« ist hier (außerhalb einer 
-Funktion) nicht deklariert; meinten Sie »drm_atomic_helper_check_modeset«?
-   293 |         .reset = drm_atomic_helper_crtc_reset,
-       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       |                  drm_atomic_helper_check_modeset
-/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:317:10: 
-error: »const struct drm_connector_funcs« hat kein Element namens »reset«
-   317 |         .reset = drm_atomic_helper_connector_reset,
-       |          ^~~~~
-/home/tzimmermann/Projekte/drm-upstream/src/drivers/gpu/drm/tiny/glandagpu.c:317:18: 
-error: »drm_atomic_helper_connector_reset« ist hier (außerhalb einer 
-Funktion) nicht deklariert; meinten Sie 
-»drm_atomic_helper_connector_tv_check«?
-   317 |         .reset = drm_atomic_helper_connector_reset,
-       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       |                  drm_atomic_helper_connector_tv_check
-
-
-The reset callbacks got replaced by atomic_create_state plus default 
-implementation. I've fixed the patch before merging it.
-
->
-> After Christmas I will submit the QEMU patch to get the official
-> device ID. Then I will send a follow-up kernel patch to replace the
-> placeholder.
-
-Sure.
-
-Best regards
-Thomas
-
->
-> Best regards,
-> Leander
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Best regards,
+Krzysztof
