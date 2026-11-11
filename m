@@ -2,87 +2,133 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9676060A2628
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF0D606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GKUXh7P0
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=VX7SY373
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1D4810E0BA;
-	Wed, 11 Nov 2026 14:32:44 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C4A10E0BA
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:32:37 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a5087a5348so28319435e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:32:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794407556; x=1795012356; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
- b=GKUXh7P0EG0sHP3aXjFlbiMq8OPjab4QbDY7rAji3FKqRCYCtqWtio5ZM5B8sADVH5
- ALAN2dzIGzKP+jHloD/mN/YhkSQ+04fLlQjmhe7+mHogNcOfN00C67k5Gv8eXeYZ+/K0
- oB9AlDZa0GDicKaXxbsByDj4R0hBVoj0GG7l6aqn2+lmTuVDLVfG0wWMxcZPt1quGmaO
- U2y5ha4QrJnChHoR2gLgqXNZym612VfKjeDYbT/GM52zxtG1wz54ER8KYJugWrCHbbkt
- blXfeKBnNnw8+CeeNdMDwmjAzNp0RmH2ZpXsuSu5sopyx3l2RMvyO4ZcpkI4mhiQyXR+
- 6Suw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794407556; x=1795012356;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
- b=sxH/RJKGY3cXKupS4PPlqEi8yezjYbzjvecvZFcGz6w/kWSI+HSuewdXnu/SvjpacD
- lpg8DDEuR6m1sgQ+X2//K3RyEg7WtCVGrvs+OvNSNtHRNsMMKU+n9fZo+01aUy2ifuXw
- ecCmrBVPZ64iiXsekfrAeabBQa38h2GxBPaa9jmNFZ78jTc7YwdalbKN5RjWWimMImL/
- gB7Q0o+CksURNzlYQytGcp/qV8ed2Spjh4Xjn4J6SyyRtuRXX2HJmbS1eeQEsftQGQeA
- VVpaNsbbX783s3kQ7QAyh+vua1oq2jzQEjoymoJ6f7sdufC/Ew244HO7Kgb/akEWrxId
- SZaQ==
-X-Gm-Message-State: APuU4Z8EWVdXUHDiZJSeT5WpDQqDXcPoYR7VjmABHcOb4wYl1p3eFUI8
- R3MzdibCpM2PFRxs3UYswFGj66P87NRPLs0QKhus648MBklzT7vGPomW
-X-Gm-Gg: AYBFou2QGqCKBGo9brB1NUQ16E4ODuUZNh5oAhyHcgstn5XnqVs/DLUJif6wiRDawl3
- NykN9qOlypT+ApE1rGNDVTlWxXpwLW9gW3bay0yQxlKvisW/a0xb4mciyHAjvX6tyBER2v5+qyb
- OXlo+XmGukTivSRQ2Cr/69secsJ4PB9C3d9NZ3Dzbp62gBKuTjJU/zZIO2L35pD+I34Dq3ucd3X
- Pxs2ZPix/Vo+wEWvy+Se8Va2LsvioxTE7QQPD/uVFZGqM1+HvAuOy9UgPkvwOGKxoi7f89J/Ysm
- dhtasWd2sekEjAPW01OYnnLGUXejDtU+2KO/OAoRIlvMpIn7pdwZyBgN5PPm1272/YH/R6mly9E
- LK7UA1Q6GFkEfmNlDae68TpT4+/xpN7m1iqqb4dZ/0/u+RsWXV24MdZPyVWFACZICk6RWAs6kj4
- d79m2KlUN9JGHL3UzsL3PdbW9QbJexCvfGiYtc2rtLILXshBOrSEtW2eYkQU1IHVdQiwbUc7uYp
- 9RT4PxUHKk6gSFNf5GAeeKNSjkkNdaOcBkOQrM4lyAaK+F76OJjHa0ZWrRVauQxtYpIpTNpg8ll
- SpakuSyQuAulFA9zNawTfaw1ihrqcEWDl5hWJGBkFWu5lLUeuLB/RnMGH4r0Emo=
-X-Received: by 2002:a05:600c:1d1d:b0:4ab:cc03:7f60 with SMTP id
- 5b1f17b1804b1-4ba09365d6fmr46922765e9.18.1794407555956; 
- Wed, 11 Nov 2026 06:32:35 -0800 (PST)
-Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4ba08e423dfsm62256485e9.1.2026.11.11.06.32.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:32:35 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Wed, 11 Nov 2026 14:32:24 +0000
-Subject: [PATCH] drm/vkms: use a bitmask instead of a bool for composer users
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7810810E99A;
+	Wed, 11 Nov 2026 14:39:16 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazolkn19010016.outbound.protection.outlook.com [52.103.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF6610E782
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:39:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tdw697q0DD4hhOTcMNARanj520wOQNMQt3V2Gm6Ze3Ge37fZxPb6zI27neI5oOgMurBBoM1QBIfrYRFQTgUmhOGVEJ+NK3o5cU94i4YBHMW6PpRdbrg5A/He7MUq6Y4UyKH+lRcyEn1Scs2pqjrBKVoDUfraQ5orMWkW+S710SDx9gUWFgqPGwP+K2OHOQzlPaVVE0IHbKXCDXhQqO5PcQnKPJZMKhjMYq8gbPsjKu3eFfeoS/gXDxrdIBV/aysLn4x6iH1mHim3VuFnAIkBi/FgmpCwV2n8mhAwodumB3PhVSPFQ/mA/zfsouDDkrPRYK5kQeumwSwTuUKjt8wGsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iSNDeI5T0bW+QT9Squnh8uc1NN7BxHMp0GMmhkoljfg=;
+ b=x5pKIwTVP6f/1nylvG5pKKWP6sldO+6I7GSePMmTtyUZQQ3FFzNZP/dnvplPVDMgTAlpDxERzdUY4TUh5npnj7V/FAL5ZSgmFI+toxqFNWc7tOxkvSxvXN1+NMejY/rWBM5aNl9P+szFDc/e07/kSTmH7Bwgr9zMFvwsVHRPWb7+viXDfwk1nbfMcwEF1Mphb7KopfgRGPlnLfR0xhPS8tkq51Qm/qVwvqqiUh1s62TP8EU/JK91gxFRbWxpHOxQdrccm72Mt9Hq7IUYjW5VDi48+GdhK7mcz8s5k0syKkb/G4fsOpSsyHlZqSIyC+KMssV8M6MDCw5kzBwqYoiZpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iSNDeI5T0bW+QT9Squnh8uc1NN7BxHMp0GMmhkoljfg=;
+ b=VX7SY373x0gBk+Hd9jPXvVzsK3ApIBIfPuTFxn0dEm7pEcgDzpgkRoX1k/+7KDKbmaMZ+7odPGxZng6rQAbaYPaGiBiq7zqM0w91QROeZvJmA7FujvcCvdJzSNsVAf5MimdAagLxMkPsvOMoJF0tZZMK7tR4Blsz8d7ZYN9/9ys1KapLOTS0ZmqSRjjxgFIopMv6bVLNRuYBauraBuukGKrHig+IARmQ1b7eXwwE/UE91mlHqV593MrZP9XZPxgyrttE+AIHQ2xyNoRUtJNEvyc8wgbjurYBRcpSipXL9u8gp45FQzKPqZs9ZFWnzgcaPQmTpsNCjGi4AekxxL6h7A==
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ (2603:1096:403:403::19) by TYWPR01MB10742.jpnprd01.prod.outlook.com
+ (2603:1096:400:2a6::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 14:39:04 +0000
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61]) by TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61%3]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 14:39:04 +0000
+Message-ID: <TY7PR01MB804852139F8DE700384359B59489712@TY7PR01MB804852.jpnprd01.prod.outlook.com>
+Date: Wed, 11 Nov 2026 22:39:00 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, byu@xidian.edu.cn,
+ 25181214217@stu.xidian.edu.cn
+References: <20261101104107.33909-1-jq.zou@outlook.com>
+From: Jianqiang Zou <jq.zou@outlook.com>
+In-Reply-To: <20261101104107.33909-1-jq.zou@outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SEWP216CA0113.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b9::14) To TY7PR01MB804852.jpnprd01.prod.outlook.com
+ (2603:1096:403:403::19)
+X-Microsoft-Original-Message-ID: <7e4a88b6-9e90-408f-807b-af300a2958fb@outlook.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-composer-v1-1-9d5fa94656f8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QpAQBBFf0XzbGt3axW/Ig+MwShWu0hp/93gv
- p2659wQKTBFqLIbAp0c2a8CJs8Ap3YdSXEvDFbbwsgU+mXzIinEsrDaGddhD3LfAg18fam6+Tk
- e3Uy4vz6k9ABvGo/TbAAAAA==
-X-Change-ID: 20261111-composer-cc9620515bcd
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Liviu Dudau <liviu.dudau@arm.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Oarora Etimis <oaroraetimis@gmail.com>
-X-Mailer: b4 0.15.2
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7PR01MB804852:EE_|TYWPR01MB10742:EE_
+X-MS-Office365-Filtering-Correlation-Id: b26fb997-f444-4495-e67e-08df40018790
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|24021099003|25010399006|8022599003|41001999006|23021999003|6090799003|8060799015|12121999013|15080799012|19110799012|5072599009|3071699003|3412199025|440099028|26104999009;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YVpRVVY2YlR6alljWHJYekVHK2FvZ21KNjVETWQrSXhkL2dxdWxRMXpZQmpK?=
+ =?utf-8?B?ak5jMFhQNjFTV0kvRXBENnhtVFZzcXY4ZXpqR01maC82SldSV3hueVE4RWIr?=
+ =?utf-8?B?c0NlVTdOcnNYaXpHYndGeUFtYng3Q3dSdGF0bGZPSXg4emxmUUt4WERFYXk1?=
+ =?utf-8?B?a0U5Zi9SNWVjcGNaQ1gyQ1RVNGxidkJ1T3I2MXErSU1WbE1Ub1NleVRlLzdq?=
+ =?utf-8?B?SnBjWTVDcWdJWmpmWnhxRnBFU1RsOWE0dERXMFo2REFDOGg1WHppQ1lwYnVT?=
+ =?utf-8?B?dndZZW5JMEpmeHZsK1BNbHNNWXI2Tm5BUGZqTS9nODBJTnlzZlA3OFhwYTI3?=
+ =?utf-8?B?US9zQnFHQk96VWVyZWtSd01VZVZ0VkYyQlM0UXlmeVdXWmsvQTQwQTVSWTlO?=
+ =?utf-8?B?MFdCbW5uUnZuOEhYRFNNbGRRMEZBUURSSmI1UkpwclUxaGI2TEhKUkJ1UmVN?=
+ =?utf-8?B?SmZJRmRRdWpoeXdkOS9Ia2pya2JNMmJ4aElhTnJpVnF4KzRGek1jNXhkMXpx?=
+ =?utf-8?B?bmVGMXh4TzFQT3dCZXgxM1BRRnhKTFhJMTlXdEU3aFZVNlBkTlRIWEM1N3BZ?=
+ =?utf-8?B?VzdsbDQwL2g1N0MxT1JlcjdJNWVueTJQQUphaklpcDYzNXFPdEVYRUU2ZkFJ?=
+ =?utf-8?B?Nk1CMklRREdzdVAxK0Y5ek5JRHJObmJHdDZlaDdhdUhwSzdiS2kyUnRoYUV3?=
+ =?utf-8?B?OTlQUEFWQ2xVdXcwV3lub3ZrMkxlRkJuazJWUzRIbWY3WmZpbVlVOHprVGRS?=
+ =?utf-8?B?TUpyb2RxTXlYdHJzTXN3ZEppcDMvaytzYlpmNWhxNU5OZDc2UHhmWUt2Yjdh?=
+ =?utf-8?B?TEdOa3draWpJZmpvek5ZNnFicForTHhnV1ZCODFNcHVwYVg2azhsQ3ZwWmxa?=
+ =?utf-8?B?TWR1Mmg5RGllbUlZYmh4SEo2Nk94S2Q1TEpXVG1UMUZvaU5rSTJQVmJXNDAr?=
+ =?utf-8?B?SjV0S1o0UTJDZjhlZGpLMmtiZU9Dd3ZMRjJwd0szampGUzh3RnE5bnl3SGF1?=
+ =?utf-8?B?aTB6M3c3eWZ0NnZPMjNKTFQ2b2VyaVNPY0FqNzFnU1ZZODAwOGNMMUN1c1Vk?=
+ =?utf-8?B?cE9sWG8yWnFyWEU5bjdYUnNTL0FGaTd4bjlqTEJ3ZHovYzg0QjBkZ00xZzk4?=
+ =?utf-8?B?MzRHOWJyMWo1WGlia3hLN0ZWNEVjT1MwZjBCUnlYQ3laaEhkbTNKNWxpOGRC?=
+ =?utf-8?B?VTVYMC9GbEE0SWdpVEVIY2taZUYyMThYMm1CL3lXQWlIcTRFbEhjaEx5KzdQ?=
+ =?utf-8?B?a3E3am16QktXNGZockZvd05IUlAwbE12bEVzRXJkcW5MMnZSMStKWE9rQlJL?=
+ =?utf-8?B?SUpEWSt4VTh5N3NLVWRuVzlaVEtLa1ZJWU1nQzFSK0dlVmRnSWFpeWlHUUVH?=
+ =?utf-8?B?MGthZDRCdkI1SWc9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGdrVmQ4U2dJbnFyWnRUdGFkVGVZOGRGL1pmaFR1YUpRbFZVR0JuSDRGN3FO?=
+ =?utf-8?B?eHBEMjVGN3IzZndjSGVSL3E1S0VZTWN3VXRQdnlCcGZOcDEwVzlrcExqV3Q3?=
+ =?utf-8?B?OC9iTWFoTXhoaC9GTkpEQkMxRjl4NWRUbGl4SUkrOTdGMHlXNjBvS0lHNm9p?=
+ =?utf-8?B?Z3plb1ZXQTkzaS9UN3hlckNHSk9mU0lUUzJNL21nK3M1RExnTE16d1hGSDY5?=
+ =?utf-8?B?c21HeWVXMFVtcDVYM3FURlQ2QzB0WlVlRDRJRkxIeDUyK29MaHZGN0ZVcWlt?=
+ =?utf-8?B?eVhsY3pPOGxNZlZqUkVBNUtZeG4zQmsxV1hIajg2SnRRaWZaSnVrTG1jM2lm?=
+ =?utf-8?B?NDlQTVExSlRwVVEzZHAwbXRMYURmQTJyUFBya3J0SnBjQUQ1NWFVR2w0NFY4?=
+ =?utf-8?B?TFpha0xJeTF0UUIwemt4aEVQVUlvaGtJMDNhSW4xWXlpazJnQy9LNk5mUG1J?=
+ =?utf-8?B?YldTdDJOTnhyVzNuOXl6dEY2dHpac2dtdFc2RTVYU05taW1Zd2JmK3dXcFhj?=
+ =?utf-8?B?Uk1kaUJmeGpoY1cvSVhpWlc4UEJaV3ErRTF2U0dpNXNpdGxmM2pMVUpxT0lN?=
+ =?utf-8?B?SEZkRnFJeDNITzZkREQ1cXE5RjdTYkFkM3gzVUNzTWt3Zm83ZEd2Wnc4OUpF?=
+ =?utf-8?B?N1dDQW5WUk1KYlZuUG1zellQR2lzdGdzdWovYU5ydDdPelhPWVVnL0w2U0Jq?=
+ =?utf-8?B?akU1ck1FamNDNFF4MHJDS3BxNmYyTnEwUG1lNk5NUFpVMzRjdUVVTnF6MjdT?=
+ =?utf-8?B?OW40TkxZVWRpTytTMWYxci9sU0NWQnpzR3AxbEVYb29SYkw5QVJsaythODda?=
+ =?utf-8?B?SkFNeHZzSmxyZ2VVQ0Qxc29zT2MzQ1VDZ2hub1ZWOWJaT0FXMGFVVEl1SVFE?=
+ =?utf-8?B?REh4NDBoZ2MremcwSUY3VmNxQjQzR3NxVWFwWUhISDJlWUVaVFlhKzBvbnRS?=
+ =?utf-8?B?czRka21sd05RakJPWWpweDFOWW15Q3A1UjJqemNkSklEa0RHMVU3ZC8xWmlJ?=
+ =?utf-8?B?VFZvM2E0VDYyTWNUVlBqRG1rMGlkZXNJNzZGM3NzaHMvWEN4SlFYSG5STmJt?=
+ =?utf-8?B?UVNWTGplbStSZ1lvVjRVZzJNWHNTNGZ1djQzMU5VMGgrd20rM20vOE9JL3ZW?=
+ =?utf-8?B?NURmeVBVUUhIV3lmenN6NmdXdGltR0J5QWpKNkc1dk5pV3Bybm9oZ1BuV1Bv?=
+ =?utf-8?B?YmJ5YmZGZlJ3b2tqb1k1eDFZeFZoYnAxU0hLdElSZlVKR0pRV0NISXBkQXJH?=
+ =?utf-8?B?TEkwcnc0QTBrL0FjL1VhK1NKTStrc01CaWZKQ0RlYnoreWdFbVk3SmxjbDNj?=
+ =?utf-8?B?aGR3Ymx3M0tnV000NVplUFk5cWdRMjRTT3dRbnNYU2E2TSt3WCtDbzVjU0Rk?=
+ =?utf-8?B?V1BVZlcrNnVvSmF3a1RaN3g4M3VHTGpNRW1YNFVTVFd6Qm5TM3I0OVRlV3pl?=
+ =?utf-8?B?QTVlN0RRVzZRd2JRNkRBaUJaMVlUOEZObWo4RHZldFZPY3NoUlkxMVowL1FD?=
+ =?utf-8?B?WGV6dkhwNTJkK282eTBZcjIyWC9aQU14SFpDREhkSFpIQVhiOUd4UXhXUys3?=
+ =?utf-8?B?cjhpengvT25CbUxlYzBsbDluUXVjSFIrTStyaENGYkVMYkVUeXlETWNJSWYy?=
+ =?utf-8?B?RWhPZnpkQVFvL0FJb2lMWlBCN1lUaXppU3kyQ1E0VzVKbzZZWkhrRU9VMk1I?=
+ =?utf-8?B?TkkrMXhtcmhEM0l1cGxPeGtKNTBRNkd3R1l3eStEUU5ZeEhkajJmUTBsc3lz?=
+ =?utf-8?B?UDlXR2RCWnR3OU45NE96MWpLY3lhSm5SSTJ2TlV5Y0svcU1XSitVQStLaUFy?=
+ =?utf-8?B?NVN0NXhvVjVpbkd2cmFESDNQNm8rRG1QVjhpZGxrTkdxY2ZjeFhnMGEzWDZh?=
+ =?utf-8?Q?IEuCB7OBUC7kZ?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b26fb997-f444-4495-e67e-08df40018790
+X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB804852.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:39:03.5955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10742
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,224 +140,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The composer has a single on/off switch, shared by the CRC reader and the
-writeback job, and no record of who needs it. Either of them turns it off
-for both:
+On November 1, 2026 at 18:40, Jianqiang Zou wrote:
+> From: Jianqiang Zou <jq.zou@outlook.com>
+> 
+> radeonfb_set_par() derives the dot clock from the user supplied
+> struct fb_var_screeninfo:
+> 
+> 	dotClock = 1000000000 / pixClock;
+> 
+> where pixClock is copied from mode->pixclock.  A zero pixclock
+> bypasses the existing validation and makes the kernel divide by zero
+> in radeonfb_set_par().
+> 
+> The driver does have a check for this: fb_validate_mode() returns
+> -EINVAL when pixclock is 0, but radeon_match_mode() only calls it when
+> the output has no scaler and an EDID-derived mode database is
+> available:
+> 
+> 	if (has_rmx == 0 && rinfo->mon1_modedb)
+> 		if (fb_validate_mode(...))
+> 			return -EINVAL;
+> 
+> mon1_modedb is only filled in when an EDID is read, so when no
+> EDID-derived mode database is available the validation is skipped and
+> the invalid mode reaches radeonfb_set_par().
+> 
+> Reject a zero pixclock in radeonfb_check_var() before matching the
+> mode.  fb_set_var() calls it on the FBIOPUT_VSCREENINFO path before
+> ->fb_set_par(), so the invalid value is rejected before the mode is
+> applied.  This is the same check other fbdev drivers use (i740fb,
+> arkfb, s3fb).
+> 
+> Reproduced on Linux 7.3.0 using a custom QEMU PCI stub device with
+> vendor/device ID 1002:5955; no physical Radeon hardware was used.  A
+> single FBIOPUT_VSCREENINFO with pixclock = 0 is enough to trigger the
+> divide error.
+> 
+> Signed-off-by: Jianqiang Zou <jq.zou@outlook.com>
+> ---
+>   drivers/video/fbdev/aty/radeon_base.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/aty/radeon_base.c
+> index b6b058cee..a69e58914 100644
+> --- a/drivers/video/fbdev/aty/radeon_base.c
+> +++ b/drivers/video/fbdev/aty/radeon_base.c
+> @@ -836,6 +836,9 @@ static int radeonfb_check_var (struct fb_var_screeninfo *var, struct fb_info *in
+>           int nom, den;
+>   	unsigned int pitch;
+>   
+> +	if (!var->pixclock)
+> +		return -EINVAL;
+> +
+>   	if (radeon_match_mode(rinfo, &v, var))
+>   		return -EINVAL;
+>   
 
-  - with CRC being captured, cleaning up a writeback job stops the CRC
-    entries;
-  - with a writeback job pending, closing the CRC source leaves the frame
-    uncomposed and its out-fence never signalled.
+Hi Benjamin and Helge,
 
-Replace the switch with a bitmask holding one bit per user, so a user only
-clears its own bit and the composer stays active while any bit is set. The
-vblank reference follows the bitmask: taken when it becomes non-zero and
-dropped when it becomes zero again. vkms_set_composer() becomes
-vkms_composer_get() and vkms_composer_put().
+I'm following up on the radeonfb patch I sent on November 1. It rejects 
+a zero pixclock in radeonfb_check_var() to prevent a divide-by-zero in 
+radeonfb_set_par().
 
-Fixes: dbd9d80c1b2e ("drm/vkms: Add support for writeback")
+Could you review the patch when you have a chance and apply it if it 
+looks good? If any changes or additional testing would help, please let 
+me know.
 
-Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
----
-- Why not use a refcount? Because there are only a few users, and a bit
-  per user shows the working state of each one. A repeated put() from the
-  same user does nothing, and it also helps future work that makes the
-  vblank timeout synchronous.
-
-- Tested with vng: read crc/data and submitted three writeback jobs with a
-  small libdrm helper. The entries kept coming at the full rate of the
-  1024x768@60 mode, 235 to 237 of them over the 3.97 s the three jobs
-  took, where the current code stops at five.
----
- Documentation/gpu/vkms.rst            |  5 -----
- drivers/gpu/drm/vkms/vkms_composer.c  | 34 ++++++++++++++++++++++++++--------
- drivers/gpu/drm/vkms/vkms_crtc.c      |  2 +-
- drivers/gpu/drm/vkms/vkms_drv.h       | 27 +++++++++++++++++++++++----
- drivers/gpu/drm/vkms/vkms_writeback.c |  4 ++--
- 5 files changed, 52 insertions(+), 20 deletions(-)
-
-diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index 1e79e62a6bc4..fe7dc8def44a 100644
---- a/Documentation/gpu/vkms.rst
-+++ b/Documentation/gpu/vkms.rst
-@@ -246,11 +246,6 @@ module through configfs. Use/Test-cases:
- Writeback support
- -----------------
- 
--- The writeback and CRC capture operations share the use of composer_enabled
--  boolean to ensure vblanks. Probably, when these operations work together,
--  composer_enabled needs to refcounting the composer state to proper work.
--  [Good to get started]
--
- - Add support for cloned writeback outputs and related test cases using a
-   cloned output in the IGT kms_writeback.
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 0fc915a954ba..59f1dd50b5bd 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -711,19 +711,34 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *src_name,
- 	return 0;
- }
- 
--void vkms_set_composer(struct vkms_output *out, bool enabled)
-+void vkms_composer_get(struct vkms_output *out, u8 user)
- {
--	bool old_enabled;
-+	bool was_enabled;
- 
--	if (enabled)
--		drm_crtc_vblank_get(&out->crtc);
-+	if (drm_crtc_vblank_get(&out->crtc))
-+		return;
-+
-+	spin_lock_irq(&out->lock);
-+	was_enabled = out->composer_users;
-+	out->composer_users |= user;
-+	spin_unlock_irq(&out->lock);
-+
-+	/* Another user already holds the reference for the composer. */
-+	if (was_enabled)
-+		drm_crtc_vblank_put(&out->crtc);
-+}
-+
-+void vkms_composer_put(struct vkms_output *out, u8 user)
-+{
-+	bool was_set, enabled;
- 
- 	spin_lock_irq(&out->lock);
--	old_enabled = out->composer_enabled;
--	out->composer_enabled = enabled;
-+	was_set = out->composer_users & user;
-+	out->composer_users &= ~user;
-+	enabled = out->composer_users;
- 	spin_unlock_irq(&out->lock);
- 
--	if (old_enabled)
-+	if (was_set && !enabled)
- 		drm_crtc_vblank_put(&out->crtc);
- }
- 
-@@ -735,7 +750,10 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 
- 	ret = vkms_crc_parse_source(src_name, &enabled);
- 
--	vkms_set_composer(out, enabled);
-+	if (enabled)
-+		vkms_composer_get(out, VKMS_COMPOSER_CRC);
-+	else
-+		vkms_composer_put(out, VKMS_COMPOSER_CRC);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index fe17f49305a9..4e15abfd92a0 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -29,7 +29,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
- 	state = output->composer_state;
- 	spin_unlock(&output->lock);
- 
--	if (state && output->composer_enabled) {
-+	if (state && READ_ONCE(output->composer_users)) {
- 		u64 frame = drm_crtc_accurate_vblank_count(crtc);
- 
- 		/* update frame_start only if a queued vkms_composer_worker()
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..c3bb3cd46863 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -27,6 +27,9 @@
- 
- #define VKMS_LUT_SIZE 256
- 
-+#define VKMS_COMPOSER_CRC  (1U << 0)
-+#define VKMS_COMPOSER_WB   (1U << 1)
-+
- /**
-  * struct vkms_frame_info - Structure to store the state of a frame
-  *
-@@ -210,8 +213,9 @@ struct vkms_crtc_state {
-  *	       vblank timestamps
-  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
-  * @lock: Lock used to protect concurrent access to the composer
-- * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
-- *		      writeback)
-+ * @composer_users: Bitmask of the users that need the VKMS composer; the composer is only
-+ *		    active when it is non-zero. Updated under @lock, and read with
-+ *		    READ_ONCE() from the vblank timeout.
-  * @composer_state: Protected by @lock, current state of this VKMS output
-  * @composer_lock: Lock used internally to protect @composer_state members
-  */
-@@ -222,7 +226,7 @@ struct vkms_output {
- 	struct workqueue_struct *composer_workq;
- 	spinlock_t lock;
- 
--	bool composer_enabled;
-+	u8 composer_users;
- 	struct vkms_crtc_state *composer_state;
- 
- 	spinlock_t composer_lock;
-@@ -317,7 +321,22 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *source_name,
- 
- /* Composer Support */
- void vkms_composer_worker(struct work_struct *work);
--void vkms_set_composer(struct vkms_output *out, bool enabled);
-+
-+/**
-+ * vkms_composer_get() - Enable the composer for a user
-+ * @out: VKMS output
-+ * @user: bit of the user that needs the composer (VKMS_COMPOSER_CRC or
-+ *	  VKMS_COMPOSER_WB)
-+ */
-+void vkms_composer_get(struct vkms_output *out, u8 user);
-+
-+/**
-+ * vkms_composer_put() - Disable the composer for a user
-+ * @out: VKMS output
-+ * @user: bit of the user that no longer needs the composer
-+ */
-+void vkms_composer_put(struct vkms_output *out, u8 user);
-+
- void vkms_writeback_row(struct vkms_writeback_job *wb, const struct line_buffer *src_buffer, int y);
- 
- /* Writeback */
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index 858df1f89f66..7e2f82e44b39 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -118,7 +118,7 @@ static void vkms_wb_cleanup_job(struct drm_writeback_connector *connector,
- 
- 	drm_framebuffer_put(vkmsjob->wb_frame_info.fb);
- 
--	vkms_set_composer(vkms_output, false);
-+	vkms_composer_put(vkms_output, VKMS_COMPOSER_WB);
- 	kfree(vkmsjob);
- }
- 
-@@ -141,7 +141,7 @@ static void vkms_wb_atomic_commit(struct drm_connector *conn,
- 	if (!conn_state)
- 		return;
- 
--	vkms_set_composer(output, true);
-+	vkms_composer_get(output, VKMS_COMPOSER_WB);
- 
- 	active_wb = conn_state->writeback_job->priv;
- 	wb_frame_info = &active_wb->wb_frame_info;
-
----
-base-commit: 1116f4aee916ca13d3e40ce87e67835f51576fcb
-change-id: 20261111-composer-cc9620515bcd
-
-Best regards,
---  
-Oarora Etimis <oaroraetimis@gmail.com>
-
+Thanks,
+Jianqiang
