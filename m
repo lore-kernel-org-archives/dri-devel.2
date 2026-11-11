@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32E4606D904
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6F660A5BD7
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BQ4GfNMt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CHiFtZWu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E46010E47F;
-	Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B57AE10EAB8;
+	Wed, 11 Nov 2026 23:48:42 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D9C10E484;
- Wed, 11 Nov 2026 23:48:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93DE210E4B6;
+ Wed, 11 Nov 2026 23:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440908; x=1825976908;
+ t=1794440914; x=1825976914;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q1YR4O6Pn8a/WBsLbrw9tPRH3nJNXpm/xlU+/ogg2iY=;
- b=BQ4GfNMttcAeoC0VG7NCztOU4xqbzRr3/lTWWsfs74GtED7WwEwDlmy2
- /fwKYT4gdnM/M/5zZXQ2kyF5Ko6wc8rbGpjspTeVelJBYxCZWfCA1auan
- CEld6MfUAX1624K0mZaG6IqPErcUPtUDJ+LED36lSeUCMgwPjLrN2XQhl
- PmaH4NDbrC0x1t2k7V/aeXuV9KiG0QB41fMoO2IV0YBw+IDN6qiJU3qCC
- 30QAXSLx4SpwNKLp1gIerFVSOzJR+dXB0HXbJfV1wpIXkgjImcd+3mLzn
- 8eUvI7oFK9QYl8MKBQDVnR+dHkHvmwq1Avt/2fy/w+/vQ0UtVm83mtF/I Q==;
-X-CSE-ConnectionGUID: QDE+2iYGT4S3iEfOE7W2/g==
-X-CSE-MsgGUID: PVkuNmP6S4u3Hob8PKrvqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226575"
+ bh=d/q7ALXLdCkJJkZQuQByGC710SnlqrlqU7uR1PxYHvk=;
+ b=CHiFtZWu6HhsgWUcC4X/jFNfyPXRngSvyRZUqepLBP68WhkMoRUkd5II
+ 0afJi6N+xGKMx1zgnXGOb6zVsMYzsZRn7ZUKnu7t4qT7Mm7MTVvZBP1kk
+ YB6G8UNVShsgo9ptgTtdqKjsMqeDzsHg8ywz0WxPwAkdPaU2BgI23uBOp
+ WxHRbjiH0IveNvmdz2zJAEXBXSp+btqSthRIDaSwz4NJdxtPTxE/8qui5
+ o8c1h3/31NV4calu/cYYlxjWiMyxEd/fFM1MZC1tRI4mD7JQLlHY5s7zq
+ 0Wv1XKwedjTfXhHC2jLkSxq3ZG8+UuCmanDtc/e3Wq4PgO6B7FOs4rfn/ g==;
+X-CSE-ConnectionGUID: IqLPpkcwTb2OnelHJpdsVw==
+X-CSE-MsgGUID: q8kJ5qA6R6OfAIUSzVdaHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226608"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226575"
+   d="scan'208";a="3226608"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:27 -0800
-X-CSE-ConnectionGUID: F05e9Uf3T3Wyn+R/qG/Pzw==
-X-CSE-MsgGUID: Xo/xsAjGQ+KBqS19hoz1WA==
+ 11 Nov 2026 15:48:34 -0800
+X-CSE-ConnectionGUID: djsE3xf9RyyMNtRku7cWRA==
+X-CSE-MsgGUID: 80aUsZCoRNu+l8Tm+TbN1Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512353"
+   d="scan'208";a="8512370"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:24 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:31 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,10 +66,9 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/7] ACPI: mipi-disco-img: Include <asm/cpu_device_id.h>
- unconditionally
-Date: Wed, 11 Nov 2026 16:48:14 -0700
-Message-ID: <20261111234821.4814-2-pavel.e.popov@intel.com>
+Subject: [PATCH 3/7] drm/amdgpu: Include <asm/cpu_device_id.h> unconditionally
+Date: Wed, 11 Nov 2026 16:48:16 -0700
+Message-ID: <20261111234821.4814-4-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -98,8 +97,7 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 <asm/cpu_device_id.h> now has a generic version, so the #ifdef
 CONFIG_X86 around the include is no longer needed.
 
-<asm/intel-family.h> is included by <asm/cpu_device_id.h>. The CPU
-match table still needs CONFIG_X86 for the INTEL_* model defines.
+<asm/intel-family.h> is included by <asm/cpu_device_id.h>.
 
 Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
@@ -108,32 +106,24 @@ it is in mainline.
 
 [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
- drivers/acpi/mipi-disco-img.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/acpi/mipi-disco-img.c b/drivers/acpi/mipi-disco-img.c
-index ea4bffe3c02..3d841d2bdfd 100644
---- a/drivers/acpi/mipi-disco-img.c
-+++ b/drivers/acpi/mipi-disco-img.c
-@@ -30,6 +30,8 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 19a566187df..fc4e7273630 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -88,10 +88,7 @@
  
- #include <media/v4l2-fwnode.h>
+ #include <drm/drm_drv.h>
  
-+#include <asm/cpu_device_id.h>
-+
- #include "internal.h"
- 
- static LIST_HEAD(acpi_mipi_crs_csi2_list);
-@@ -724,9 +726,6 @@ void acpi_mipi_crs_csi2_cleanup(void)
- }
- 
- #ifdef CONFIG_X86
--#include <asm/cpu_device_id.h>
+-#if IS_ENABLED(CONFIG_X86)
 -#include <asm/intel-family.h>
--
- /* CPU matches for Dell generations with broken ACPI MIPI DISCO info */
- static const struct x86_cpu_id dell_broken_mipi_disco_cpu_gens[] = {
- 	X86_MATCH_VFM(INTEL_TIGERLAKE, NULL),
+ #include <asm/cpu_device_id.h>
+-#endif
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
 -- 
 2.54.0
 
