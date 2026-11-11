@@ -2,136 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BD5606A337
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BC2606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:58:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Rdf41SCB;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cDZCw9bh
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BkYZGsDs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267EF10FC6C;
-	Wed, 11 Nov 2026 16:56:38 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36FE10FC6C
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:56:27 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABF040b1665572
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:56:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=6SGhToZVDBAmY0nSnfy1kLVZ
- C6LifvOaMyucd4yV+pw=; b=Rdf41SCBIoPctfV9yhVogRIBhB1lPP41gPT1nb9i
- DQ4s1g2CBe17SzoFCoX8njivuVdDVVwNq0dA8P8Hj2+OM+E7FyHcyXdDVLd5WjYw
- yMGzriAL+eBnsZ2aU+BgmOjBnLkUiQkeU0B36OahrEL9h+LCWItm3uYpemidFq6A
- A01FlQWo/98RUT3/53wN4Bc2j0FxMKlVEtbzH8itRqys7IBPUawypb4sNWWu/6SS
- t0v8jFFI4H1Sgubjs8cA5x8c6QQlwmMRVEFyDbYaXqG9k2PwcKfF5nSJC6gvkgCF
- M7WRnFUH7eva5QPUXhBFst/i0iOsloLb0/vn1tCQnLXbxA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7pta1q-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:56:27 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93f3969a2a7so554600685a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:56:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F3BB10FC9C;
+	Wed, 11 Nov 2026 16:58:05 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 965BF10FCF9
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:57:58 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-36ecc11bd26so92547eec.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:57:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794416278; cv=none;
+ d=google.com; s=arc-20260327;
+ b=TRSyVanYq2SECtAsWcy9fD7ZqvDCpLCB8CSI9lLkbXj7KpGV+exPLttvwR2jh8DLU+
+ +QP7NqwfQ5BEdNaqYO9uBEwvebSbd5I/nzebaLAhYfNTVOPqnaYipAUgJ8eq7hiSQA1x
+ O/jZ7JLuBnGiu1wsoGG2aXqVlVj01RRreiJVEb0q5MQehv2cUM2n3SUpULmMPp4zKTPC
+ xTmruUhMGi0aYIti+n1LXJvOq+V7fhW0HPr9B/0sHIWTUTtHanRLJRH+N9ce+uRr4TDi
+ /1R46V0CIWj7DfLpo7eRemmYwWT5zfSpngJSjNTIG9d86iDUi3PI7+IPwQqWHjYeDPLU
+ n0BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=5NwrvkVcWYRXcvvXDVMbg9XZrRoxtHq7/a0L67gwNMo=;
+ fh=ICxhkdAWfe74jzPXEoL5sWhpHNEzUxmk5DvlCAMcuOM=;
+ b=jExKBPuB0MWNefIkGDZQAon91l4r9nk2Qh7I7Eyo8jszM/z+HeeCx1Kl9oKCpqEsF0
+ AOff8HiHF8ww4WXe99TRkyDD3LKPJpkAYYLNtnBjtZL0MHBOUrj+H1myFn33VHbJtWQx
+ WVEZu+D8zBg3QspUVN//bO6aVFmGneD5F1F89xyuNEcVbZfiideD4I6khIBwZmE+g+Ky
+ KQA661CNCJrk1pEyCz+Iwg7QMUyuGBMO9OqO5fFFmmfzAsoKKKxidY1YsLuEJ4tC+T39
+ uVnnDtgwbCJBuQL5IVehRlXPTqY+2KWbKoPIjafsSrh5kHGDGy5oPyiT9agjf4P3Sf4I
+ RBPA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794416186; x=1795020986;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1794416278; x=1795021078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=6SGhToZVDBAmY0nSnfy1kLVZC6LifvOaMyucd4yV+pw=;
- b=cDZCw9bhX1n/XjI2zdd35Stl13QJIrJb29YYoCYDmEd3KgFS+vIKOHr4oVOmN9zB/s
- rum++s2AjvjEPPTYM2gLG3qnfX3pFyX0zJP0yVclIo59A+JNmugjAOtbIHghQLv6jGoj
- HAFpdZs31euG7O3MY1685Vw/6LzPEJJNDLeX3FfXcv38mT+qOHi4+Pcy7Iyy7cIOahHK
- oUvFOeGDOSikbBVL3mP2Qymqxk+WDxB5mO+s52uOh56NelpLWLl/NseSQMAc54gsHmBI
- MrLmTKXYKP4bTw5XBa6PaK//E0gjDsM74ZJz6ytvT3Ob2Jgzlmg5Mct0sItIyxlmsHD1
- AqHw==
+ bh=5NwrvkVcWYRXcvvXDVMbg9XZrRoxtHq7/a0L67gwNMo=;
+ b=BkYZGsDsJeNvNbDUdnVixaQgNBiKnweNd/tJhV4WKAT6cBrG3C95KW9+EvWdvAF1GA
+ 41kIo/7mya7pvn/UjfN8wJ12lX6qUPmc2HNyVSgVCQwYAZIi0JQm2QABlUaYTj+gET4G
+ VhmuIFjT4CnHBF+7tAubTCVFUE2BOxSsDuFfvqsRdz7yRLJDBlr13ddnK2JKHrfoDKG5
+ 89NgPrBhg2+oIt72PlshkR6dtwWttcH2XXXPQkPL/N1cyCUGL0KMQZPsBt+2G5Ksg61Z
+ ALxS3b+aj534RFbd8F4oTmzuKydtQSyhtZI0NHGwVf0dnil5lynA2/nbqSus8urV6rTa
+ Y8cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794416186; x=1795020986;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1794416278; x=1795021078;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6SGhToZVDBAmY0nSnfy1kLVZC6LifvOaMyucd4yV+pw=;
- b=eWff8Tt3N7tbueOH959RDFoBlAfqzO56IHNoPDxP28URd0ftVIzedzLtmySiCffjWd
- pTUd/jn2/D5flBevXOdBJCllCnjAr8lbRkwSmY6RWYGNlzvol4ADu749eX7U5wkA7buC
- M9mA+0VxHPFSsI3IuUcSrzTTuehVo9QV1vjIRVSitCyaZ7HaeGcw9fY3m/pFG3zWVdHZ
- bjCYO2RNPicTZXVvtZZS22MZXGSr8raytiXaCMDT0zKMH/u2khQOUDzIMd70heyHcat1
- O382DTP4DEW96gxeOkncB0+Jl9w1JxdFH79aDg7MENIAokbmCgGWrqRb9bztBklyDfSy
- XJfw==
+ bh=5NwrvkVcWYRXcvvXDVMbg9XZrRoxtHq7/a0L67gwNMo=;
+ b=sVNDBNHaNd+VnTOvfn0O3mmQjttNmXipvBA1TO+ij+nHBTnABkZvHAGnFMgyF8YPk4
+ RsY91QxegPULwtSv9a6fbQTye6Q9v8ouLU6zM2UT7hdcDSZF8UBHpx14d6rEWrI2Smu4
+ zm+0idWJJOyodAbWh8WGf27RroNQ0m1uGGif0xpmcak3IjIt8n2HEFcnh7vV62dTu5Et
+ iULHFsz/yIGPijmNeTf2pKZEau+79epSUh2CyfC82UaF4zzWRQYCnKMCcn87k+s+lbCE
+ GGklnOWUUUcJukpFQLIg9GuKiBeCK+TCwvRZIA4B0rrqCY158EpeJ4sMj+BwJLaFfEqL
+ vN8g==
 X-Forwarded-Encrypted: i=1;
- AL+hErECkSzKotbx0FRcPpWT3BsVi+ngG260A4xfXqVPfzDGSxUFR8F66FeVdS5z/emtUjg1jxxkm8kH8qQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8xwLUV+B12Gd5U5eWyvVw8zSes/5pXkQ/xvJrs36UlxqOUjsVk
- S2JMeGvgjyjlZdpdP3b0GQ68kGMnKd2kSGLIF/aivmlkoYH3P+GgzFmx8HjHFMqImGL0bTzXe+8
- mrsT3RbTPnSmksU19mOyAXs8bR7kXfsts3vgVddwY3Zrrdw8eIqejRcZEAvXyUbFvjbHpXQg=
-X-Gm-Gg: AYBFou2GU7ZKJjYXh+uwy2Ic/2oUOtwt0L6uBExbbXrv5FtpOOJCGRrX50HpPxvg+rK
- G5tNDRBBLk0RHhwtdXGEjpEWsh6kJgV8OaZomBYwzYnr9z5m1otcrvguJrtT4BbGg40CAHHZ401
- TEFVAA7GY+ZDw918Y8zqlLa08AYJjSH5Fh30vZEnv/QS420syNAHuCyM3MGTVpi4IAQI6fDGck+
- 4jHjQgAxcdMLiHUy7z6LaZYpbeSyT4MlLhcKAGn1yXBtRmRdF+7BPNqYyVrPiRwXDbWRFhoJemo
- 3yCPtP9nfYUlEJVQzqwbOHdOPFGpMSNezOSChIcfhQ1PYVY9OulI292NY1jxsyjH5lRG6fCUBot
- jAS4RX3xAFxu/Y2w3ywP9ghOV/Ai4Zj2F6bGDYyd0/htM0Ut2KQmOXqHu4poTEHVcnBODzckUxb
- ca9HUnaV+oOd3RCnUtyrOf4xzOvaignXnQKlJpMNreqll2wsrfER1HAAnaB29MZw==
-X-Received: by 2002:a05:620a:2890:b0:93c:7a5c:77d8 with SMTP id
- af79cd13be357-947afcd2adbmr501041785a.4.1794416186060; 
- Wed, 11 Nov 2026 08:56:26 -0800 (PST)
-X-Received: by 2002:a05:620a:2890:b0:93c:7a5c:77d8 with SMTP id
- af79cd13be357-947afcd2adbmr501036785a.4.1794416185561; 
- Wed, 11 Nov 2026 08:56:25 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157ba5363sm1085381e87.27.2026.11.11.08.56.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 08:56:24 -0800 (PST)
-Date: Wed, 11 Nov 2026 18:56:21 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] drm/msm/dpu: add source split order op for DPU 13.x
-Message-ID: <scokoairkxrec2i5p2puxjbdkog6p7eo5s7rmx6q74l65rdd2e@c6lgdbvjgam2>
-References: <20261010-pipe_order-v1-0-9d8bd29fd78a@oss.qualcomm.com>
- <20261010-pipe_order-v1-4-9d8bd29fd78a@oss.qualcomm.com>
+ AL+hErFNtgspNHDKp7Z2qHauzIEQ7zepYevkCH6lYwd6AU53c2geEc4EA+nJbclnXj8b5wKI0i0SOtkDMvY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/OMPAtWoDLaFWwX0jNP+u/rbfsmAVhu1IjRagiN4WoB8WhvG1F
+ xmke8dnl6Bm+sKcTDJblsphLHLK/2yMZpsTjdM3TJA/9u/XnCXbtNh1t8UjPPpQGRs/xI+pOAIe
+ KGDrTjMTFUd8YjOu/TJ3CWavjUmDfVS0=
+X-Gm-Gg: AYBFou1gcHCAcelNuh7Z3MQlsi6agPquN4HEWcZH8m0BlCNHkpcKOowe3a6YOII9lGk
+ IJO0pbr47b2K0F24N0VJO1R9RchFRY9q3tNFQDix3yHApYdSZWcwVfFyk0kvlLPlmJn9KqeD51K
+ +GKhvhZbQFQaTjjgvsekUAwOOsYAxnVFjkI+tG/2pDUTcxmUcmCggzTeK2d4JQMIklv+8OrPBYR
+ nuduvjVo/7WZgLJHunpP3NgixHY99H4Y5xzqblEWpjumyP3kb7Y1L6Du/GPtVK5QZtNrjXvdYFE
+ rjgp43m1UymhEUa8aePsuLMGk9QpFXlGSUAWSSzpbubt5XghZKmF8eyDc+GoJx2cEC4uNgiHZqQ
+ FFRnnmaTdqjaNE8+p7ugVYdMZqNcrPRHROaIn1fn9gVEgoXzr5JA3FNviGdE0gbvUSkOhIRUJpZ
+ fyPjuHZESE8sogkPvobHnJzgYKOa7+wss79y4hDz0r+jXHqu96dmDQrJad1jA/HD/mnIzVIkiSZ
+ 53KyBWs
+X-Received: by 2002:a05:701b:450c:20b0:17f:641e:7f6b with SMTP id
+ a92af1059eb24-1b3c02cf135mr4291753c88.1.1794416277403; Wed, 11 Nov 2026
+ 08:57:57 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010-pipe_order-v1-4-9d8bd29fd78a@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX7AI81ECqJSl4
- b8THR8xDF5SGUyS4esl+nSqkFJeFo/DCz5ESc9pctRUcqgs4/DW8skek1JSFIwoz2QIdWVqF5n9
- L7lwqLSSiWiuglak5pKTp4ddhmUQCfc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX9eWNNVuAK/80
- p40X7MahoWb78QcvRq/TOo3YCcQaFmkTwbUt4ie2S+jPeJ33NDuG3AYTMT+FvTX/XZ8sFL50SyK
- hRdi+CTfPb005V9HpEcu4XGDq2bpps+/HzXe+wHJ633lkHXZ5fWYwVEAhjl3jVL/0BwU9vHMSws
- ax1v8ggm5itok4goVzAX0LMZMw/pfXr9ctz1cErutS4q1scp8gVQ7aMWSLpr54JvH9Jarn+NRcW
- HNWV6JSOM2FDlcwvq4jrOpZaM+dOMNtaKSTmwQ6C+HaNnVyC+cq3U2WOxZn6A9cW59WHuuFN0Sh
- nh6a4NsIScioO8nmfK3wCAE6cAELWM4AeyWyNzhLMtqeH/z0Zcnm+ID0Ub0KhQtbMtyyKaM4UWm
- h6ZABCp6hrm792QXC9gX087nsSWEkBJKWT2wS6pIgsPLp3DB6Y0j+9jk+P7FkPLt29PC/fdc/xh
- kHSBr7emKSmpQsKW1tQ==
-X-Proofpoint-GUID: VCUsJ9hFJ8EgzO49jI_P3gtxYsaHnPJ3
-X-Proofpoint-ORIG-GUID: VCUsJ9hFJ8EgzO49jI_P3gtxYsaHnPJ3
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af49e3b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=XSFdTqI9Vx7Z9g5_j8UA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110067
+References: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
+In-Reply-To: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 11:57:43 -0500
+X-Gm-Features: AclHuK-DMzwioV5PBa5WXoevsVpI761BeBU3ynr40SlnxuCKodphabVoHdQR7zc
+Message-ID: <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string
+ pointer
+To: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com" <simona@ffwll.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,27 +109,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Oct 10, 2026 at 07:08:24PM +0530, Mahadevan P wrote:
-> DPU 13.x places the SSPP op-mode register in separate REC0 and REC1
-> banks. Add the source split order operation for this layout, using
-> the shared helper to update SRC_SPLIT_ORDER in the selected bank.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+On Mon, Nov 9, 2026 at 4:41=E2=80=AFAM Noah Weinberger
+<NoahWeinberger2003@proton.me> wrote:
+>
+> Hello,
+>
+> In atom_get_vbios_pn(), when the part-number string is empty and
+> atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
+> computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
+>
+>     vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64=
+);
+>     if (vbios_str =3D=3D NULL)
+>             vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+>
+> The subsequent range check is false for a near-NULL pointer, so the
+> value survives and *vbios_str dereferences address 8 - a NULL-page oops
+> during probe with a malformed VBIOS that passes the magic checks. The
+> recent hardening of the neighboring date/version/build helpers closed
+> their OOB reads; this fallback path was left intact.
+>
+> Simply leave the part number empty when the anchor is not found.
+>
+> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670b=
+d (v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom=
+_get_vbios_pn).
+> Pointer-arithmetic-on-NULL is pre-existing; this window's hardening serie=
+s made it the sole fallback outcome.
+>
+> This was found during an assisted (AI-supported) static source review of
+> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07);=
+ every code path cited below was re-verified by the
+> reporter against that tree. The patch below has NOT been compiled and has
+> NOT been runtime tested, and no reproducer was produced - the triggering
+> conditions are described above instead. Please treat this as a report for
+> verification rather than a battle-tested fix.
+>
+> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
+
+Missing your Signed-off-by.
+
+Alex
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp_v13.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-
-This should come before the last patch. But as the fixes shouldn't
-depend on the non-fixes patches, just squash those three.
-
--- 
-With best wishes
-Dmitry
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
+pu/atom.c
+> index 1a599d5..7598606 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -1493,8 +1493,6 @@ static void atom_get_vbios_pn(struct atom_context *=
+ctx)
+>
+>         if (vbios_str =3D=3D NULL || *vbios_str =3D=3D 0) {
+>                 vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX,=
+ 3, 1024, 64);
+> -               if (vbios_str =3D=3D NULL)
+> -                       vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+>                 if (vbios_str >=3D p_rom + ctx->bios_size)
+>                         vbios_str =3D NULL;
+>         }
+>
