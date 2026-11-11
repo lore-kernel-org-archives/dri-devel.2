@@ -2,64 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1C7606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 21:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5F2606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 21:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=9FEBjT7T
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Usp2HrwT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B58410E46C;
-	Wed, 11 Nov 2026 21:15:45 +0000 (UTC)
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DBED10E46C
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 21:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=YZA0mL/g+XaMvzLe7dWFyFSxxKt5KDjWkQKQzVStFdo=; t=1794431738; x=1795641338; 
- b=9FEBjT7TxexNoS6NZdxx+LkQY9rITK5LC7GQ2sBZ9TDlzJ6nXAiO+ZgLj+vv/ax6UbjyxiDyP3d
- yQ/sYgmJOadncbwwMTrm34oOrYeYk0zzZnCQZwfcY0FTbANRgAa1uRPjcHbIBzP8VTfHZSpAlQEW5
- MFyn2pzWqe5G/Wzc4XkoVVtCVg1jn1cuHRepFvv7kWQB+DVY+9f9qJevSQvJxIOc7gV+NXaD/zwG4
- /zEuk/D/Ys8S1ZBhu0f0kU8puWs2l15l1c/2SJwnQN7yn/cdhCSlUUBOclgp1M9SVtI2pTbyfmqb0
- CamjPJpbhKs5tHorG+XYqMjJkBNTC8NybZ2Q==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Wed, 11 Nov 2026 22:14:02 +0100
-Subject: [PATCH v2] drm/omap: dss: fix handling deferrals
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
-X-B4-Tracking: v=1; b=H4sIAJna9GoC/42NTQ6CMBCFr0Jm7RhaoSSuvIdhUegURmMxUyQaw
- t1t8QLOrL6X97NCJGGKcC5WEFo48hQS6EMB/WjDQMguMehSG5UOh9mWFTp5oNAgFHMAPb/RN+R
- r1RtD7gQp/hRK8l59bX8cX92N+jn3ZcfIcZ7ks28vKvv+mFkUpnekG1d3tjL2cqdHsI6OHPwE7
- bZtXzMUpenVAAAA
-X-Change-ID: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org, 
- hns@goldelico.com, linux-kernel@vger.kernel.org, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1348; i=andreas@kemnade.info; 
- h=from:subject:message-id;
- bh=K1/4nD/blrdt+2IR2NBi2vL6dVXYJQk3uUPTTqOJMN4=; 
- b=kA0DAAoBhGFF+kAo3PEByyZiAGr02pygYASQbIaOAroFim6KIiMDqNJTEu+EB3RlC6JZu8djR
- 4kCMwQAAQoAHRYhBNjrEJkvRMQTVcd8WIRhRfpAKNzxBQJq9NqcAAoJEIRhRfpAKNzxrPEP/1LO
- z9iYICL7nom1ymbXEbuEKu20tqWn7eVXIBr4I+ceFI5mjKUatVEmYmFHWS+J+E0DtU6ls+Ybf1p
- nyVK2W7UACJ2DotrtKLGdphTcyRuyXpzqLdQtviI/fMOTq/VGJr3dsiy45r3JTcx6ezxOEAkW9b
- 5mwQGwtpa4SQYrgBs93DuEb5tOEjLM7Kg9pvqGE39jeUC3K+8wan2YkLR9v4sMiFxKkvM8GGPoY
- hQrZUBmS+luTG6mNMrQfbY6cyOf/s1IFFCZso6441UIj/XF9MSxPS2TR3QFAyLXCSNOYISy4i5T
- MScssy2ZyxFspdtiSQZn/JS0tBHv6JhaxScHbCz8GAwOji0Qxjo0Nqk4UodBn1wt8mcfGyplzLr
- pfIiqqPpeCl8DToFqeuEUEdjxeSHtiT/FEJyUAoCbnv9e8LitSQ5CyPfUynKxH9KOhpEy9eXg8L
- rblKMqyj/Drb3EbUE6XRXr1XJIlRzD1Jq5by+bp3i9hvkGtuCxLPjJ/2fHpmh1iHufrTML4HOPJ
- 1qcccX5fa3QIhh/FHs8XCpI1veksy/BDxVoBDdAb1066gNR00NKsL3YQa5R0IwKXtB/hhBxV3i3
- mjh6brmjri+P5E/AkkLagifMcyTSl0eMJjzcDIx80ByTamb3Rgu/Uhs9TyEPGf42uwOrev3+m7q
- CZGGG
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59BEB10E00E;
+	Wed, 11 Nov 2026 21:30:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D468310E00E
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 21:30:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9A08543811;
+ Wed, 11 Nov 2026 21:30:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F38E1F00A05;
+ Wed, 11 Nov 2026 21:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794432612;
+ bh=kilTdcFHlKTizIuKvbkDsTnd4nBDrXHDz8MXX8QOCww=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Usp2HrwTiZ4nLcQM9cPA95D/F6cxFdbb4jGEmKTgbsjAvzPyohoO1PTvS3Yn5wPwC
+ XISSizzBchSg0oxGnQHYTylnq6Lxw84MmVUcA0qWf8OYrP6EWNtzNKBTFtpXIKhxtW
+ 8/JgUjf1doy41NJP27J7ehPiSBo/9sPpKhG2FFbCyqE2h8JtwQNKeySjK+ge26ds8a
+ dmyvQ3oNoIFAVmNvkcBggAi64YssWhG/5pmJTSOWC1iydCu15mk2bGsM5iAH5x7VIN
+ jhIQ0YzhqS8lcmy72EwDdA/ImJZIpfNptMw9b8RRJK6CDRKhkfIUZrnzFgf9VdOyTb
+ mDc2XXJDNPs/Q==
+Message-ID: <sashiko-outbox-209709@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/omap: dss: fix handling deferrals
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
+References: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 21:30:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,51 +47,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Forward the error given by of_drm_get_bridge_by_endpoint() if it is
-EPROBE_DEFER to ensure output gets initialized later when available.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/omap: dss: unreachable NULL check and error label in
+  omapdss_device_init_output()
+--
 
-On GTA04/OMAP3 no display was found, but it appeared after doing
-rmmod omapdrm ; modprobe omapdrm
+commit f6c9c857e7ddd89b0afd04f9a84b349ebb1ccb32
+Author: Andreas Kemnade <andreas@kemnade.info>
 
-Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
-Changes in v2:
-- do not use the error goto
-- Link to v1: https://patch.msgid.link/20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info
----
- drivers/gpu/drm/omapdrm/dss/output.c | 3 +++
- 1 file changed, 3 insertions(+)
+drm/omap: dss: fix handling deferrals
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index 36d37deac8026..b5cef5093a883 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -24,6 +24,9 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 
- 	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
- 	if (IS_ERR(bridge)) {
-+		if (PTR_ERR(bridge) == -EPROBE_DEFER)
-+			return PTR_ERR(bridge);
-+
- 		dev_dbg(out->dev, "failed to find video sink\n");
- 		return 0;
- 	}
+This commit forwards -EPROBE_DEFER from of_drm_get_bridge_by_endpoint() in
+omapdss_device_init_output() instead of ignoring it as a missing video
+sink.
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
+> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapd=
+rm/dss/output.c
+> index 36d37deac8026..b5cef5093a883 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/output.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
+> @@ -24,6 +24,9 @@ int omapdss_device_init_output(struct omap_dss_device *=
+out,
+> =20
+>  	bridge =3D of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_por=
+t, 0);
+>  	if (IS_ERR(bridge)) {
+> +		if (PTR_ERR(bridge) =3D=3D -EPROBE_DEFER)
+> +			return PTR_ERR(bridge);
+> +
+>  		dev_dbg(out->dev, "failed to find video sink\n");
+>  		return 0;
+>  	}
 
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
+[Severity: Low]
+Can the !out->bridge check, local variable ret, and the error label later
+in omapdss_device_init_output() be removed as well?
 
+of_drm_get_bridge_by_endpoint() returns an error pointer rather than NULL
+when no bridge is found, and the IS_ERR(bridge) branch returns early. With
+-EPROBE_DEFER handled here, out->bridge is never NULL in the local_bridge
+block and the error path left over from b7e9b93fc8ec ("drm/omap: dss:
+don't create a panel_bridge") is unreachable:
+
+drivers/gpu/drm/omapdrm/dss/output.c:omapdss_device_init_output() {
+	...
+	if (local_bridge) {
+		if (!out->bridge) {
+			ret =3D -EPROBE_DEFER;
+			goto error;
+		}
+	...
+error:
+	omapdss_device_cleanup_output(out);
+	return ret;
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-gta04-drm-=
+regression-fix-v2-1-010caf3b08bd@kemnade.info?part=3D1
