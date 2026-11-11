@@ -2,58 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27D3606A8AF
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 22:41:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84104606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZELOpHA
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ydtw7KnN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B83610EACE;
-	Wed, 11 Nov 2026 22:41:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94A310EACE
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6043B40A70;
- Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6CA1F00A0A;
- Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794436898;
- bh=artujVBtkITv0xul/f4LcgQN/4n5We9dzsh5W3Leptw=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=BZELOpHA05LqzQ806/IA3hS/mble4JA4SMN5wo/zZjQaqIWC0OCBlMBDK2sQhvV+n
- dkA7m+l9XAXrrJ1vyvuvsCgDJ/n1YkeFfGi5ibtx5yBDc6YnZBeNneFpO6Am8qxS2m
- UQulPJ79zSsWSZr4aSoYUBmRPIIEF3JPNSnHPhViMlkc4d6j2fkLwElxe1ezZ5JGwy
- ku4SNNqQ4WTMY6p5pFj0Wv+mM+gzbo/k3+40qdSCIAMGoySt1wld4Bdz7vIeKjrwhD
- 1EbT+YjayK34qLqRx9lukCB8yqmedx6P8IsSOoZXBBKuYH/g2B+tmEv2oTzfBfytUd
- /bFe8kKnUK0Vg==
-Date: Wed, 11 Nov 2026 16:41:36 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261111224136.GA754433@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B37E110E4B0;
+	Wed, 11 Nov 2026 23:16:53 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2464710E4C0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 23:16:47 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 44DF422B;
+ Thu, 12 Nov 2026 00:14:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1794438862;
+ bh=z0dg7bwU2AAoMLZ79Myh4uGTQaMh+gcfY67SeB0Tlv4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ydtw7KnN0JpDWFAoRtrJahH5aWkusxuCN0PY/k/3ePCt0lPSp7vPcpbdfpNo022R2
+ fv9gBmDZ83xYbRPNXsDlKt7B01xDdhFW+TnYG9z7BN8PHLWQJucSwDJCn/d1mmqMeE
+ k13Wvp9epVQNLdNwT9hMEzVDcBkto18wJciq3i3A=
+Date: Thu, 12 Nov 2026 01:16:44 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank.Li@oss.nxp.com
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Michal Simek <michal.simek@amd.com>,
+ "open list:DRM DRIVERS FOR XILINX" <dri-devel@lists.freedesktop.org>,
+ "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
+ Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] drm: xlnx: zynqmp_disp: use
+ dmaengine_get_copy_align() accessor
+Message-ID: <20261111231644.GC449775@killaraus.ideasonboard.com>
+References: <20261111200739.3823753-1-Frank.Li@oss.nxp.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111121602.GQ8635@unreal>
+In-Reply-To: <20261111200739.3823753-1-Frank.Li@oss.nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,82 +57,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 02:16:02PM +0200, Leon Romanovsky wrote:
-> On Thu, Nov 05, 2026 at 12:04:31PM +0200, Leon Romanovsky wrote:
-> > Punch line for Linus from Jason:
-> > "Enhance detecting if the PCI fabric can support a peer to peer path
-> > by evaluating the full bi-directional fabric path over each of the
-> > three traffic type ACS controls. Expand the number of fabric
-> > configurations where the P2P algorithm makes the correct determination
-> > of support to include non-uniform ACS and situations where translated
-> > takes different routes from untranslated."
+On Wed, Nov 11, 2026 at 03:07:37PM -0500, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Bjorn,
+> Use the dmaengine_get_copy_align() helper instead of directly accessing
+> the copy_align field from the DMA device structure.
 > 
-> Just a friendly reminder.
+> No functional change and prepare to move struct dma_device to private.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Thanks for the reminder.  I put this on pci/p2pdma for build testing
-(no issues expected; I always try to get build testing before merging
-into linux-next).
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-I'm still struggling to describe this in a way that connects to the
-code changes and is accessible to non-experts, so please correct
-things I get wrong here.
+Tomi, I assume you'll push this to drm-misc. Please let me know if
+that's not correct.
 
-I had the impression that this series helps VMs by making P2PDMA work
-with passthrough devices in cases where it currently doesn't, but
-maybe that's not the case; I don't see any mention of that in the
-series.
+> ---
+>  drivers/gpu/drm/xlnx/zynqmp_disp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+> index e998f22686748..0753236b9546a 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+> @@ -1433,7 +1433,7 @@ int zynqmp_disp_probe(struct zynqmp_dpsub *dpsub)
+>  		struct zynqmp_disp_layer *layer;
+>  
+>  		layer = &disp->layers[ZYNQMP_DPSUB_LAYER_VID];
+> -		dpsub->dma_align = 1 << layer->dmas[0].chan->device->copy_align;
+> +		dpsub->dma_align = 1 << dmaengine_get_copy_align(layer->dmas[0].chan);
+>  	}
+>  
+>  	dpsub->disp = disp;
 
-IIUC the P2PDMA core doesn't actually *control* any TLP routing, i.e.,
-it doesn't change any ACS controls or change any TLP attributes that
-affect how TLPs are routed, so to me, these subject lines suggest more
-than is actually happening:
+-- 
+Regards,
 
-  Route Relaxed Ordering Completions directly
-  Reject Translated Requests blocked by Translation Blocking
-  Route Translated Requests under Direct Translated P2P
-
-It seems like we're just *learning* whether RO Completions will be
-routed directly, whether Translated Requests will be rejected, etc?
-
-I think the core basically looks at the ACS controls on the path
-between two devices and decides whether:
-
-  (a) the devices can do P2P DMA directly (PCI_P2PDMA_MAP_BUS_ADDR),
-
-  (b) they can do P2P DMA but only through host bridges on the
-  allowlist (PCI_P2PDMA_MAP_THRU_HOST_BRIDGE),
-
-  (c) no P2P DMA is possible (PCI_P2PDMA_MAP_NOT_SUPPORTED),
-
-  (d) PCI_P2PDMA_MAP_NONE -- I don't understand this one; the comment
-  says "not a P2PDMA transfer", and pci_p2pdma_state() returns it when
-  the page is not a p2pdma_page, I guess because
-  pci_p2pdma_add_resource() has not set MEMORY_DEVICE_PCI_P2PDMA?
-  Not sure how this is used.
-
-I guess one benefit of this series is that a path where P2P Completion
-Redirect is set used to mean that pci_p2pdma_map_type() would return
-PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
-it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
-Redirect is clear, Requests can be routed directly?
-
-That sounds great as long as the Request uses Relaxed Ordering, so the
-Completion won't be affected by P2P Completion Redirect.  But devices
-aren't *required* to use RO even if enabled, and I'm doubtful that a
-non-RO Completion redirected to the RC is going to work.  So I don't
-understand how p2pdma.c can guarantee safety.
-
-Translated Requests seems similar -- are we assuming that if ACS
-Direct Translated P2P is set and ATS Enable is set, the device
-*always* generates Translated Requests?
-
-Bjorn
+Laurent Pinchart
