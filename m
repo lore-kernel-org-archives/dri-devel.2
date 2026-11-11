@@ -2,98 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D54606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 05:23:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594C2606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 05:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6uNkcyP
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m6KcVsVN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF1510F6FC;
-	Wed, 11 Nov 2026 05:23:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BFEB10E17D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:23:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CD4D947216;
- Wed, 11 Nov 2026 05:23:33 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794374613;
- b=kW9722JXs7klg5SI8d8Rmr1rFBQOXFeP8YMYawNX5unuBhMVkAgD87wKr0wNlPgqRgcp
- g9CY2XfSunvKbLWyufV5lzKZWrqr4dcheeIEqlW/nFcTWcSaxAZsZZVw8/mXARbCGTmct
- 1m7bdmJYqG6SnTTt9fMCotpGOTW2ik1wjaxFK3eaYt2wi1adtH1v/+72CbsQknR/HZ0oW
- F5ncNvsIryzMlzp/ZoL5ToOyxLVP170whmwNJNmAdr7NqNRtPDnRol+Wv2WQBl/8D1LCP
- SHGlvLyUiSKFzKM1UhOAWqQqu14IUd/lUtMKX6Pn86Ej8SyviKzKSnZIt/no6xeKlqA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794374613;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=E1syRLdKotIl4dek2d5nG+SDWcTBT7GHsAGKvveAx5Y=;
- b=tZbuBvVIguPEwg8nOCthDlbw/prSR7erCWzR+xkG/kbLK5RzP2ubHsWGcPylWrET1AjF
- m1weeOmUG1oJWgbCMtIyb/Zsj1AXjPpHoe/DEmikx/e2QHFp5XzuZsTjVkbJODVGOvqcW
- k95VLrmXwxiu5jJU4Fnmuc3kEiMRG0vNsRZ5DUtD7M37ms6y4PnAPITFxCaHAWulX5u8c
- eu9kCYjOZDkYJ5h/ytzIVY5xOM1efD69UAmQ28Xiqgu1eu9jlQV2myHcFNVSB3eH6+WcR
- AAhxLkw8mP+Gi0kdLHVCF5p2FwX96HIb9NAZI8aP24hVy++GBrURMPX+6JFAhayIKtA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D5EC01F0093C;
- Wed, 11 Nov 2026 05:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794374613;
- bh=E1syRLdKotIl4dek2d5nG+SDWcTBT7GHsAGKvveAx5Y=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=F6uNkcyPbiUg7GlVW8bIao+W3xW5MVFr3eL8hEYC6OJtuSn4f3bXlz9BB3d3Snq/r
- CDPl2zL2SlDmwjfPuqNdfRcsq4GFugZ1v/3OIjdmKZfxjoaIOiMjPMM6DLrErmkGSm
- 49LT0ZOVAGfRbg+h84LTXsTVxXAnd3FEaQDHbXgMArS73tI7PyzBX+HXrvK08vruio
- Ku+dCUTI0btie/8vYzAf3rD51dQXdj+27ETDMIKI0xWe2XSmd9B28Dr9HhMniG/1Xf
- Hclv1jh1tFZeWgkXt15gpWq1SRzYclFoolWUBAklt+x+gT+LKbLUGLP3yuexlItECY
- EXG92uxS2wlFw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 66CA448DC4;
- Wed, 11 Nov 2026 05:23:31 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Wed, 11 Nov 2026 15:23:25 +1000
-Subject: [PATCH v7 2/2] gpu: nova-core: add support for GPU timer block. (v7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F09510E197;
+	Wed, 11 Nov 2026 05:44:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F93E10E197
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794375866; x=1825911866;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=N90weQI6DNfG9GLV/hBEqDcGtXwR/CCbY3cT0MFAMJk=;
+ b=m6KcVsVNCa24QEXjRmyhaS9Ce9+MyxOk1NWbM3YaIeQx+jvyYVcjBhOg
+ ypWmnOAM8owwXrFnqddyPy29leyX6LsPAwQVZ+YPyxLZ8ir6IHYUrlo/V
+ hQzjObSgXtLqTz2mo/2esfjQD3K0vQaowv+OmlpWO68S+mLT8mOdUPPgm
+ mbTNBmEU8oAOESzSA35JJd5Gg/bPebl+wIYTT5wCDjMirgADChCWzaV7a
+ 9aHCo80T8pZor/J/0oFzbrkt/0VC7N1kE/sVVk6xEBiFXI8yn93Tebvxs
+ kkqaLsdoWpdhJjaIK1pVnlhzgyYLSgCq8CP+iDVta8iya44XfcPE69wOC A==;
+X-CSE-ConnectionGUID: qX5uBEfcQiuDVKdw/wwnMg==
+X-CSE-MsgGUID: J1rGmdOTTnCTacj6rj1S4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3021391"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3021391"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 21:44:04 -0800
+X-CSE-ConnectionGUID: gxO1fCV/QI6o9nIVSOaVBA==
+X-CSE-MsgGUID: LRDd3qJKSxi/LqUBiyuDug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; d="scan'208";a="10214917"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa013.fm.intel.com with ESMTP; 10 Nov 2026 21:44:01 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xR17l-00000000yDb-2Pp8;
+ Wed, 11 Nov 2026 05:43:57 +0000
+Date: Wed, 11 Nov 2026 13:43:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, nd@arm.com,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v2 14/28] drm/panthor: Add AM_PARTITION_CONTROL support
+Message-ID: <202611111301.KUTVMgUg-lkp@intel.com>
+References: <20261110153907.3241978-15-karunika.choo@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-nova-timer-v7-2-3031c2476551@redhat.com>
-References: <20261111-nova-timer-v7-0-3031c2476551@redhat.com>
-In-Reply-To: <20261111-nova-timer-v7-0-3031c2476551@redhat.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16394;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=B8iemeI0YrTbCavgrBOSvCvemvp02U6Njga8B6gx0f4=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq8/vSSQSBZCh1OKDl1CCj2gJ1hLM7nz4rc13xE
- VAbzblxxomJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavP70gAKCRAMdPNZecSG
- viGFD/9V+7Kbh2dTlkcWvmu3m5XzmTyBMOXkOJz77q7O1t2J2Q6YV8quejQmTHPhcAz5RHCrlrp
- XHKbn4cQcrX9QUJNrNK1UmidR+Wc96Ejkq7QgknVo3SdzruFZ4F2t3aOmzoKGsimvR26Lbexp+e
- yS/bbgAyguJM3/t67SFKhAEKkhSl7vZAoPzB0eFoXX9+vFafe0O2QJDYw02um2TYG8ghykvtevV
- op5kNtVHJSBxpI+/U1mUDNAWHRueq8AsSFMnIr4hvoAv5mrkkjrRysJBDrzi1GB+g7xJbzxQpG1
- XG9ho+Ka2DOl0IS/Ic5ne1VE6cG4jaWxIOLZpoxn/qCCrXUStLosOhFJsZ/St/cSOB/2s62NCvl
- ijYnzeF1rD8KDXU+1H0RR259kiu72bjH3VeWSZn7h3XAY3C1x17AsO245m8UkHkf8eWpPfwytD+
- Ly9nh/WlebufamxgLzQ95dO7Iiykx0ihEjxX5oGJMqcPmCGYoaFuS6ChrIEYMkW6Slp9NbObJnk
- 3ZVPenXMOzPiW8vreac1tpnj9ZRj/jU93X5CaJnt8gz2LBFdddW3WLU599bKqVLVFtjCHaIZjPP
- sPzhK3/GSCmm3LQsVU9mw4LSWCQox8emq7/ruv54593G/yAmBNm/COcImmvLsz8BclFcJGAu6Rj
- VmHxrJ/ZFDL4PKQ==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110153907.3241978-15-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,566 +70,126 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Dave Airlie <airlied@redhat.com>
+Hi Karunika,
 
-This is needed to calculate the system timer offset that is passed
-to GSP init.
+kernel test robot noticed the following build errors:
 
-2 HALs exist:
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-tip/drm-tip next-20261110]
+[cannot apply to linux-review/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20260922-214455 daeinki-drm-exynos/exynos-drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes linus/master v7.4-rc2]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-a) tu102 is the gv100 path from open-gpu, the priv level is checked
-and the cpu time is written to the gpu timer. no offset is used.
+url:    https://github.com/intel-lab-lkp/linux/commits/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20261110-153822
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261110153907.3241978-15-karunika.choo%40arm.com
+patch subject: [PATCH v2 14/28] drm/panthor: Add AM_PARTITION_CONTROL support
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261111/202611111301.KUTVMgUg-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111301.KUTVMgUg-lkp@intel.com/reproduce)
 
-b) gh100 is for hopper+
-This is the gh100 path from open-gpu, where the secure system
-timer is read, the offset is calculated.
-The offset is written to hw offset registers, except on the
-original gh100 where a workaround is needed for older FSP versions.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611111301.KUTVMgUg-lkp@intel.com/
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/nova-core/fsp.rs             |  16 ++++-
- drivers/gpu/nova-core/fsp/hal.rs         |   7 ++-
- drivers/gpu/nova-core/fsp/hal/gh100.rs   |   5 ++
- drivers/gpu/nova-core/fsp/regs.rs        |  31 ++++++++++
- drivers/gpu/nova-core/gpu.rs             |   8 +++
- drivers/gpu/nova-core/nova_core.rs       |   1 +
- drivers/gpu/nova-core/timer.rs           |  40 ++++++++++++
- drivers/gpu/nova-core/timer/hal.rs       |  39 ++++++++++++
- drivers/gpu/nova-core/timer/hal/gh100.rs |  71 +++++++++++++++++++++
- drivers/gpu/nova-core/timer/hal/tu102.rs |  49 +++++++++++++++
- drivers/gpu/nova-core/timer/regs.rs      | 103 +++++++++++++++++++++++++++++++
- 11 files changed, 366 insertions(+), 4 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index 3a4a10487f33..74cbbe3996c6 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -50,10 +50,11 @@
-         NvdmHeader,
-         NvdmType, //
-     },
--    regs, //
-+    regs as bootregs, //
- };
- 
- mod hal;
-+mod regs;
- 
- /// PRC message sub-command.
- #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-@@ -389,6 +390,7 @@ pub(crate) fn boot_params(&self) -> &Coherent<'_, GspFmcBootParams> {
- pub(crate) struct Fsp<'a> {
-     falcon: Falcon<'a, FspEngine>,
-     fmc_fw: GspFmcFirmware<'a>,
-+    hal: &'static dyn hal::FspHal,
- }
- 
- impl<'a> Fsp<'a> {
-@@ -428,7 +430,7 @@ fn wait_secure_boot(
- 
-         read_poll_timeout(
-             || Ok(hal.fsp_boot_status(bar)),
--            |&status| status == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-+            |&status| status == bootregs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-             Delta::from_millis(10),
-             Delta::from_millis(FSP_SECURE_BOOT_TIMEOUT_MS),
-         )
-@@ -436,7 +438,11 @@ fn wait_secure_boot(
-             dev_err!(dev, "FSP secure boot completion error: {:?}\n", e);
-         })?;
- 
--        Ok(Fsp { falcon, fmc_fw })
-+        Ok(Fsp {
-+            falcon,
-+            fmc_fw,
-+            hal,
-+        })
-     }
- 
-     /// Sends a message to FSP and waits for the response.
-@@ -549,4 +555,8 @@ pub(crate) fn boot_fmc(
-         dev_dbg!(dev, "FSP Chain of Trust completed successfully\n");
-         Ok(())
-     }
-+
-+    pub(crate) fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        self.hal.is_bug_3957833_affected(bar)
-+    }
- }
-diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp/hal.rs
-index eaf5837ac5a8..f2de7cc296ce 100644
---- a/drivers/gpu/nova-core/fsp/hal.rs
-+++ b/drivers/gpu/nova-core/fsp/hal.rs
-@@ -13,7 +13,7 @@
- mod gb202;
- mod gh100;
- 
--pub(super) trait FspHal {
-+pub(super) trait FspHal: Sync {
-     /// Returns the secure boot status from the architecture-specific `NV_THERM_I2CS_SCRATCH` register.
-     fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32;
- 
-@@ -23,6 +23,11 @@ pub(super) trait FspHal {
-     // TODO: consider moving this into the TLV firmware metadata when ready
-     /// Returns the size reserved at the end of the framebuffer, in bytes.
-     fn fb_end_reserved_size(&self) -> u64;
-+
-+    /// Return if the bug 3957833 is affected
-+    fn is_bug_3957833_affected(&self, _bar: Bar0<'_>) -> bool {
-+        false
-+    }
- }
- 
- /// Returns the FSP HAL, or `None` if the architecture doesn't support FSP.
-diff --git a/drivers/gpu/nova-core/fsp/hal/gh100.rs b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-index 9a8563799da8..7f6c8e404f30 100644
---- a/drivers/gpu/nova-core/fsp/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-@@ -9,6 +9,7 @@
- use crate::{
-     driver::Bar0,
-     fsp::hal::FspHal,
-+    fsp::regs::*,
-     regs, //
- };
- 
-@@ -33,6 +34,10 @@ fn cot_version(&self) -> u16 {
-     fn fb_end_reserved_size(&self) -> u64 {
-         u64::SZ_2M
-     }
-+
-+    fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        bar.read(NV_GFW_FSP_UCODE_VERSION).is_bug_3957833_affected()
-+    }
- }
- 
- const GH100: Gh100 = Gh100;
-diff --git a/drivers/gpu/nova-core/fsp/regs.rs b/drivers/gpu/nova-core/fsp/regs.rs
-new file mode 100644
-index 000000000000..d04c48ac8e5f
---- /dev/null
-+++ b/drivers/gpu/nova-core/fsp/regs.rs
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::io::register;
-+
-+use crate::driver::NovaRegisters;
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    pub(super) NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3(u32)[4] @ 0x008f0330 {
-+        31:0 val;
-+    }
-+
-+    /// FSP ucode version
-+    pub(super) NV_GFW_FSP_UCODE_VERSION(u32) => NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3[1] {
-+        11:0 full;
-+    }
-+}
-+
-+impl NV_GFW_FSP_UCODE_VERSION {
-+    /// OpenRM kfspRequiresBug3957833WAR_HAL:
-+    /// returns `true` if the FSP ucode predates the fix for
-+    /// bug 3957833 and hence the sys timer offset must not be programmed.
-+    /// Can only be true on GH100 with older FSP.
-+    pub(super) fn is_bug_3957833_affected(self) -> bool {
-+        /// FSP ucode version from which on the fix for bug 3957833 is included.
-+        const FSP_BUG_3957833_FIX_VERSION: u32 = 0x44c;
-+
-+        self.full() < FSP_BUG_3957833_FIX_VERSION
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index ac5305d7ff5e..39dcf28068b7 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -53,6 +53,10 @@
-         GpuMm,
-         VramAddress, //
-     },
-+    timer::{
-+        Timer,
-+        TimerState, //
-+    },
-     vgpu::VgpuManager, //
- };
- 
-@@ -331,6 +335,8 @@ struct GspResources<'gpu> {
-     // TODO: use different resource types for each boot method, and make the relevant Gsp methods
-     // generic against them.
-     fsp: Option<Fsp<'gpu>>,
-+    /// Timer state - contains system timer offset
-+    timer: TimerState,
-     /// vGPU state detected before GSP boot.
-     vgpu: VgpuManager,
-     /// GSP runtime data.
-@@ -497,6 +503,8 @@ pub(crate) fn new<'a>(
- 
-                 fsp: Fsp::try_new(dev, bar, spec.chipset)?,
- 
-+                timer: Timer::setup(dev, bar, spec.chipset, fsp.as_ref())?,
-+
-                 vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
- 
-                 gsp <- Gsp::new(pdev, bar),
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index a8f6dc22057b..ee59d81e5105 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -27,6 +27,7 @@
- mod sbuffer;
- #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
- mod selftest;
-+mod timer;
- mod vbios;
- mod vgpu;
- 
-diff --git a/drivers/gpu/nova-core/timer.rs b/drivers/gpu/nova-core/timer.rs
-new file mode 100644
-index 000000000000..ea751a9578d0
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer.rs
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+mod hal;
-+mod regs;
-+
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::Chipset, //
-+};
-+
-+pub(crate) struct Timer;
-+
-+/// Struct that holds the sys timer offset value
-+/// after initialising the GPU timer block.
-+pub(crate) struct TimerState {
-+    /// This value is to be passed to GspInit SYS_TIMER_OFFSET_NS
-+    /// It is considered an opaque value, passed from timer hal to GSP.
-+    #[expect(dead_code)]
-+    pub(crate) sys_timer_offset_ns: u64,
-+}
-+
-+impl Timer {
-+    /// Setup the GPU timer hardware
-+    pub(crate) fn setup(
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        chipset: Chipset,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<TimerState> {
-+        Ok(TimerState {
-+            sys_timer_offset_ns: hal::timer_hal(chipset).setup(dev, bar, fsp)?,
-+        })
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/timer/hal.rs
-new file mode 100644
-index 000000000000..f036bc5d43bd
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal.rs
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::{
-+        Architecture,
-+        Chipset, //
-+    },
-+};
-+
-+mod gh100;
-+mod tu102;
-+
-+pub(super) trait TimerHal {
-+    /// Setup the GPU's system timer.
-+    ///
-+    /// Returns the value to program into GspInitRequest.
-+    fn setup(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64>;
-+}
-+
-+pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
-+            gh100::GH100_HAL
-+        }
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-core/timer/hal/gh100.rs
-new file mode 100644
-index 000000000000..0f061ce2aa6b
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    device,
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs::gh100::*, //
-+};
-+
-+/// Timer HAL for Hopper and Blackwell.
-+struct Gh100;
-+
-+fn sec_timer_read(bar: Bar0<'_>) -> u64 {
-+    let mut hi2 = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    loop {
-+        let lo = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_0);
-+        let hi = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+        if hi == hi2 {
-+            return u64::from(u32::from(hi)) << 32 | u64::from(u32::from(lo));
-+        }
-+        hi2 = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    }
-+}
-+
-+fn set_sys_timer_offset(bar: Bar0<'_>, fsp: &Fsp<'_>, time_ns: u64) -> u64 {
-+    let sec_timer_ns = sec_timer_read(bar);
-+
-+    // if we wrap after an underflow the SEC_TIMER + OFFSET value
-+    // modulo 61 bits will match the system clock.
-+    let sys_timer_offset_ns = time_ns.wrapping_sub(sec_timer_ns);
-+
-+    // Don't set the timer offset registers on buggy firmware
-+    if !fsp.is_bug_3957833_affected(bar) {
-+        bar.write_reg(NV_PGC6_SCI_SYS_TIMER_OFFSET_1::from_nsec(
-+            sys_timer_offset_ns,
-+        ));
-+        bar.write_reg(
-+            NV_PGC6_SCI_SYS_TIMER_OFFSET_0::from_nsec(sys_timer_offset_ns).with_update(true),
-+        );
-+    }
-+    sys_timer_offset_ns
-+}
-+
-+impl TimerHal for Gh100 {
-+    fn setup(
-+        &self,
-+        _dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64> {
-+        // The OpenRM driver uses wall clock time here not monotonic
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        // fsp is required on gh100 - return error if not available.
-+        let fsp = fsp.ok_or(EINVAL)?;
-+
-+        // CAST: realtime system time can't be negative.
-+        Ok(set_sys_timer_offset(bar, fsp, sys_time_ns as u64))
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn TimerHal = &GH100;
-diff --git a/drivers/gpu/nova-core/timer/hal/tu102.rs b/drivers/gpu/nova-core/timer/hal/tu102.rs
-new file mode 100644
-index 000000000000..93fe17990ec8
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/tu102.rs
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    device,
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs::*, //
-+};
-+
-+/// Timer HAL for Turing, Ampere, Ada
-+struct Tu102;
-+
-+fn set_time(bar: Bar0<'_>, time_ns: u64) -> Result {
-+    if !bar.read(NV_PTIMER_TIME_PRIV_LEVEL_MASK).level0() {
-+        return Err(EINVAL);
-+    }
-+    bar.write_reg(NV_PTIMER_TIME_1::from_nsec(time_ns));
-+    bar.write_reg(NV_PTIMER_TIME_0::from_nsec(time_ns));
-+    Ok(())
-+}
-+
-+impl TimerHal for Tu102 {
-+    fn setup(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        _fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64> {
-+        // The OpenRM driver uses wall clock time here not monotonic
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        // CAST: realtime system time can't be negative.
-+        // not setting the timer isn't fatal, just log.
-+        let _ = set_time(bar, sys_time_ns as u64)
-+            .inspect_err(|e| dev_err!(dev, "timer block failed to initialise: {:?}", e));
-+        Ok(0_u64)
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn TimerHal = &TU102;
-diff --git a/drivers/gpu/nova-core/timer/regs.rs b/drivers/gpu/nova-core/timer/regs.rs
-new file mode 100644
-index 000000000000..789a14c88c55
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/regs.rs
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    bits,
-+    io::register,
-+    num::Bounded, //
-+};
-+
-+use crate::driver::NovaRegisters;
-+use pin_init::Zeroable;
-+
-+/// Field value for the NSEC field (31:5) of the `_0` registers: `nsec[31:5]`.
-+///
-+/// The GPU timer counts nanoseconds with 32 ns granularity, so `nsec[4:0]` is dropped.
-+fn nsec_lo(nsec: u64) -> Bounded<u32, 27> {
-+    // CAST: take the lowest 32-bits of nsec
-+    Bounded::<u32, 32>::from(nsec as u32).shr::<5, _>()
-+}
-+
-+/// Field value for the NSEC field (28:0) of the `_1` registers: `nsec[60:32]`.
-+///
-+/// The GPU timer is 61 bits wide, so `nsec[63:61]` is not representable and is
-+/// truncated - the same bits the hardware discards on a raw register write.
-+fn nsec_hi(nsec: u64) -> Bounded<u32, 29> {
-+    // CAST: shift 64-bits down by 32-bits and take only those 32-bits
-+    Bounded::<u32, 29>::from_expr((nsec >> 32) as u32 & bits::genmask_u32(0..=28))
-+}
-+
-+// PTIMER
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    pub(super) NV_PTIMER_TIME_PRIV_LEVEL_MASK(u32) @ 0x00009430 {
-+        4:4 level0 => bool;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_0(u32) @ 0x00009400 {
-+        31:5 nsec;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_1(u32) @ 0x00009410 {
-+        28:0 nsec;
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_0 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_lo(nsec))
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_1 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_hi(nsec))
-+    }
-+}
-+
-+pub(super) mod gh100 {
-+    use kernel::io::register;
-+
-+    use super::{
-+        nsec_hi,
-+        nsec_lo, //
-+    };
-+    use crate::driver::NovaRegisters;
-+    use pin_init::Zeroable;
-+
-+    // PGC6/TIMER
-+    register! {
-+        base: NovaRegisters;
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_0(u32) @ 0x00118f54 {
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_1(u32) @ 0x00118f58 {
-+            28:0 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_0(u32) @ 0x00118df4 {
-+            0:0 update;
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_1(u32) @ 0x00118df8 {
-+            28:0 nsec;
-+        }
-+
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_0 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_lo(nsec))
-+        }
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_1 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_hi(nsec))
-+        }
-+    }
-+}
-
--- 
-2.56.0
+>> drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:328:12: error: call to undeclared function 'irq_get_irq_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     328 |         irqdata = irq_get_irq_data(irq);
+         |                   ^
+   drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:328:12: note: did you mean 'irq_set_irq_wake'?
+   include/linux/interrupt.h:486:12: note: 'irq_set_irq_wake' declared here
+     486 | extern int irq_set_irq_wake(unsigned int irq, unsigned int on);
+         |            ^
+>> drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:328:10: error: incompatible integer to pointer conversion assigning to 'struct irq_data *' from 'int' [-Wint-conversion]
+     328 |         irqdata = irq_get_irq_data(irq);
+         |                 ^ ~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:330:15: error: call to undeclared function 'irqd_get_trigger_type'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     330 |                 irq_flags = irqd_get_trigger_type(irqdata);
+         |                             ^
+   3 errors generated.
 
 
+vim +/irq_get_irq_data +328 drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+
+   278	
+   279	static int partition_control_init(struct panthor_arbitration *adev, int i)
+   280	{
+   281		struct panthor_partition_control *pc;
+   282		struct device *dev = adev->dev;
+   283		struct irq_data *irqdata;
+   284		struct resource *res;
+   285		void __iomem *iomem;
+   286		u32 irq_flags = 0;
+   287		char *name;
+   288		int irq;
+   289		int ret;
+   290	
+   291		if (adev->pc[i])
+   292			return dev_warn_probe(dev, -ENODEV,
+   293					      "partition %u already present", i);
+   294	
+   295		pc = devm_kzalloc(dev, sizeof(*pc), GFP_KERNEL);
+   296		if (!pc)
+   297			return -ENOMEM;
+   298	
+   299		name = devm_kasprintf(dev, GFP_KERNEL, "pc%d", i);
+   300		if (!name)
+   301			return -ENOMEM;
+   302	
+   303		res = platform_get_resource_byname(to_platform_device(dev),
+   304						   IORESOURCE_MEM, name);
+   305		if (!res)
+   306			return -ENODEV;
+   307	
+   308		iomem = devm_ioremap_resource(dev, res);
+   309		if (IS_ERR(iomem))
+   310			return dev_err_probe(dev, PTR_ERR(iomem), "%s: Failed to ioremap", name);
+   311	
+   312		pc->name = name;
+   313		pc->dev = dev;
+   314		pc->iomem = iomem;
+   315	
+   316		spin_lock_init(&pc->irq_lock);
+   317		pc->irq_suspended = true;
+   318	
+   319		spin_lock_init(&pc->lock);
+   320		pc->current_aw = AW_UNASSIGNED;
+   321	
+   322		irq = platform_get_irq_byname(to_platform_device(dev), name);
+   323		if (irq < 0)
+   324			return irq;
+   325	
+   326		pc->irq = irq;
+   327	
+ > 328		irqdata = irq_get_irq_data(irq);
+   329		if (irqdata)
+ > 330			irq_flags = irqd_get_trigger_type(irqdata);
+   331	
+   332		ret = devm_request_irq(
+   333			dev, irq, partition_irq_raw_handler, irq_flags | IRQF_SHARED,
+   334			devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), pc);
+   335		if (ret)
+   336			return ret;
+   337	
+   338		adev->pc[i] = pc;
+   339	
+   340		partition_irq_resume(pc);
+   341	
+   342		return 0;
+   343	}
+   344	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
