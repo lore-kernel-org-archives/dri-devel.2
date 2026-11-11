@@ -2,59 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8596070043
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 19:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B957C606A339
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 19:24:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jC9UAXGA
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n8O2mIp8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0C7210EF65;
-	Wed, 11 Nov 2026 19:24:22 +0000 (UTC)
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B550D10E32D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:16 +0000 (UTC)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-4c55ba309c2so4313930b6e.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D245410FBB0;
+	Wed, 11 Nov 2026 19:24:27 +0000 (UTC)
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAC410EAA4
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:20 +0000 (UTC)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-4519ef1babeso2057656fac.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794425056; x=1795029856;
+ d=google.com; s=20260707; t=1794425059; x=1795029859;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=J+uUyLbFsNGSkOGPD0jT6rigmy2Vf3Zbwe9gzT+xN/I=;
- b=jC9UAXGA+G2zc8QNOP+jPPresWzyDCJo5oWwwK00JVouR7JAJYb/rftXVgw448Da1e
- ORaHLuCXjH53zqFD9Mx8bjvyLGsEzmk84sp/Rcc2gpe4ideA57AMNthTY97K51ZUwuKT
- d01nOdbsfcbPLdEObAp//mQHAXuW+InpaJidJViWQCZDfHDd/t8/eAjWAb/f02t6PwFn
- yB0a3n5YhjkGFXFEzN0YofqE/fLwvbHzMzhNO+/lvSJB0jK1H2UDqrE379fJ9b2SFUOc
- xZMUimybqTgQng9EXNNdpjxZ63YwXSwkqvhI6XodVb/scQHbO1WcYzhEAclqmNYY01Wu
- weZg==
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jeGS53i3H2ZA/AB75TkRMSZsgx42pQ2yxXWF/NRY1NA=;
+ b=n8O2mIp87U9W+xx8mPwJpPDty+UfIqiHZnFKFthN6n2XNuNOz7TPvtuMP3hvbSPL4f
+ Ic4Ir4U2pnOadK5IfbjACACv68r9jGQFaJcs+kVCPzaug1gE6FtBLm4t2gSiL5XAriRk
+ oMJ5+reGyQYzhO4cWbgxgUtLD+XldRnwBjbm4kBvdh04gcUDlLd9cdwP07lqHGR2gF80
+ 09ylxItAK4pxY7sgbnakDBCg63HlGUT7Rq7EsJHD2Bv12OJ2gajVFKZtoDO28dGloOSO
+ S2dpQqaU+cJQz6Q8gMUZuBCmtc5/mBbYczwXJSvMd2fTItyIOqfIi4G1nVtaiBRFkvS3
+ 22mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794425056; x=1795029856;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=J+uUyLbFsNGSkOGPD0jT6rigmy2Vf3Zbwe9gzT+xN/I=;
- b=sR7TiuCd6qYwj/GD7Yah9G/8mdwWmcdfGjxpaWLegoHHc/6rWh9RQ8CbpMVqNMQUw2
- 6E3UEx1Cu3mGnUpJey++zs2b6vLM9M5H2Zm4lhTRsQm4qwgNmEr0kjHoJRhtDgk/RQDe
- hfiEdYFQ330UbUtn6T4WlxnSu7P2hJPE8cqou85qGGfsZd+zruFFWvuepNy/42qB01Mg
- nVgolJmQVNVMOeApshCKJgOKBAPbMMZuRCueq7dpAzbbC24E7WGSfishtyRaSwGQZV56
- hjJMMe8iLS8KZF/qfUqJ7PT+uEmz9IC76gZcpWf3815jovgRc/SWd3SsvOnP0uC9z/rh
- coww==
-X-Gm-Message-State: APuU4Z9u9PGwu2FekstlInmx7IsFalam8DzmX+aiQeBJh8E+8J5sv+f/
- Ax3zrwPD/tUdZEmMjqyR/ZQGA2zZ7R5+JjuT4BvuKxqucQRZrw2tCOkzD4Uz71SMppvWBdKFWB5
- qVqFFq0+meWO4qlzY6IY8fxoM/GuFIm8XkYgCJGX7Cuaccs7hy/0Mlyk5w671n6IT1zobjkK8H2
- EEKJfgfk1W3o5QmGtOrLMNvPyo391Cdsqe0SUVbzZfuAUMo/Dg45/vwWBBoLI=
-X-Received: from iouw14.prod.google.com ([2002:a05:6602:34e:b0:9e0:ee3f:c3a])
+ d=1e100.net; s=20260707; t=1794425059; x=1795029859;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jeGS53i3H2ZA/AB75TkRMSZsgx42pQ2yxXWF/NRY1NA=;
+ b=lk/EKv/Abcksm+ArK6FD6L70EEmbmR/4/7jPuhmbt3ToQN2gycQDeh9iy9g9ArgxNN
+ 74as+/CjyvL87I2Eex5fEDmUyZu9ZjWC7umqCKcgWbueE0bUNXCjSiqtXwkm+uQEX9/h
+ JgW4lYkMGoT01AFVfRhjGwSXqhc/5C1yVNpYO1X7c+OVb/9Hx7YuLR8pzak/LLAdBesO
+ Tp+6lBn5fikKQrZ3tYte+qNWCWmuyW3nYeyYXfuCW3GmdsG18byf41PCKCIVChha+Izr
+ 3jowK9AIblhgJXjuSywMCVfFhbr96ZuYBrTRnllTrlDMUyGtDaMjFEOsl5V7MbvXsDtt
+ nzGA==
+X-Gm-Message-State: APuU4Z/NCAC4CB8P666yg/Nw7WVtajGrkZwDFy71RInu6YL8R+Vqa/sn
+ 45LBFdoioegDgnvqGTF2wIBMVs+nrGbpBJ+FDmH8jGvCMNKqepnErNk9xy2Yyk5vdyrxs8TaxsE
+ lzD0jGaOx5RjOxifkqV0xPg9Fc5n/MIfBGnJWElY+vw6MDC5EBXUV+ocuJlLZi/OBLZWtbCi6R+
+ R84pGDuEXkXgSxA9Aw2v/kG3nODVxwY8ZUNMq9ArrPnVxac1b6B7hmUqNRqUY=
+X-Received: from jagm2.prod.google.com ([2002:a05:6638:40c2:b0:620:1989:fc1c])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:c1b2:b0:4d6:90f4:48ab with SMTP id
- 5614622812f47-56b97c18413mr3157501b6e.45.1794425055330; 
- Wed, 11 Nov 2026 11:24:15 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:24:04 +0000
+ 2002:a05:6809:19:20b0:567:cbf5:bb96 with SMTP id
+ 5614622812f47-56cc533e313mr527002b6e.44.1794425059253; 
+ Wed, 11 Nov 2026 11:24:19 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:24:07 +0000
+In-Reply-To: <20261111192411.4133780-1-dmatlack@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
+References: <20261111192411.4133780-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111192411.4133780-1-dmatlack@google.com>
-Subject: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
+Message-ID: <20261111192411.4133780-4-dmatlack@google.com>
+Subject: [RFC PATCH 3/7] vfio: selftests: Allow multiple BDFs in
+ VFIO_SELFTESTS_BDF
 From: David Matlack <dmatlack@google.com>
 To: dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, 
  kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
@@ -85,160 +88,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series can be found on GitHub:
+Parse whitespace-separated PCI BDFs from VFIO_SELFTESTS_BDF in
+vfio_selftests_get_bdfs() instead of requiring a single BDF.
 
-  https://github.com/dmatlack/linux/tree/vfio/selftests/p2pdma/rfc/v1
+Multi-device tests such as P2P DMA tests need two or more devices even
+when invoked through run_kselftest.sh without command-line arguments.
+Single-device callers using vfio_selftests_get_bdf() continue to receive
+the first BDF.
 
-This series adds a peer-to-peer (P2P) DMA selftest to the VFIO
-selftests. The test pairs an initiator device supported by the VFIO
-selftests driver framework (dsa, igb, ioat, mlx5, or nv_falcon) with a
-target device that exposes a memory BAR, maps the target's BAR into the
-IOMMU, and uses the initiator to perform DMA reads and writes targeting
-the BAR.
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ tools/testing/selftests/vfio/lib/libvfio.c | 53 ++++++++++++++++------
+ 1 file changed, 39 insertions(+), 14 deletions(-)
 
-No changes to struct vfio_pci_driver_ops are needed. Because
-vfio_pci_driver_memcpy() already takes source and destination IOVAs, any
-existing selftests driver can drive P2P DMA once a peer's BAR is mapped
-into its IOMMU address space.
-
-There are two motivations for adding P2P DMA support to VFIO selftests:
-
-  1. Exercise the P2P DMA paths in VFIO and iommufd end-to-end,
-     including mapping BAR mmaps via VFIO_IOMMU_MAP_DMA in legacy
-     type1/type1v2 modes and exporting BARs via
-     VFIO_DEVICE_FEATURE_DMA_BUF + IOMMU_IOAS_MAP_FILE (and dma-buf
-     revocation) in native iommufd.
-
-  2. Lay the groundwork for testing uninterrupted P2P DMA across a Live
-     Update in the future, building on VFIO PCI Live Update support [1]
-     and the PCI core changes to keep preserved devices accessible
-     across kexec [2].
-
-Patch 1 comes from v3 of Mina's huge_fault series [3] and is included
-here for convenience. It adds vfio_pci_find_mem_bar() to locate a BAR
-range that behaves like ordinary memory, starting with QEMU's
-pci-testdev.
-
-This series applies on top of vfio/next (vfio-v7.4-rc1).
-
-[1] https://lore.kernel.org/kvm/20261102153656.1431701-1-vipinsh@google.com/
-[2] https://lore.kernel.org/linux-pci/20261019213054.3157159-1-dmatlack@google.com/
-[3] https://lore.kernel.org/kvm/20261102230445.3993629-3-almasrymina@google.com/
-
-Series Overview
----------------
-
-This series implements the following:
-
-  1. Add vfio_pci_find_mem_bar() to locate a BAR range that can be
-     safely read and written like memory, starting with QEMU's
-     pci-testdev, and verify that writes stick before returning it so
-     that unbacked pci-testdev BARs are skipped (patches 1-2).
-
-  2. Allow VFIO_SELFTESTS_BDF to contain multiple whitespace-separated
-     BDFs so multi-device tests can run via run_kselftest.sh while
-     single-device tests continue to use the first BDF (patch 3).
-
-  3. Add vfio_pci_dmabuf_create() and iommu_map_file() helpers to export
-     a VFIO PCI region range via VFIO_DEVICE_FEATURE_DMA_BUF and map it
-     into an iommufd IOAS via IOMMU_IOAS_MAP_FILE (patches 4-5).
-
-  4. Add vfio_pci_find_p2p_pair() to find a compatible (initiator,
-     target) pair from an array of VFIO PCI devices, providing a central
-     place to check P2P topology reachability in the future (patch 6).
-
-  5. Add vfio_pci_p2pdma_test, covering RAM-to-BAR, BAR-to-RAM,
-     BAR-to-BAR, and RAM-BAR-RAM roundtrip copies across all supported
-     IOMMU modes, plus iommufd dma-buf revocation when
-     PCI_COMMAND_MEMORY is cleared on the target (patch 7).
-
-Open Questions
---------------
-
-  - Re-mapping after dma-buf revocation: Clearing PCI_COMMAND_MEMORY on
-    the target device calls vfio_pci_dma_buf_move(vdev, true), which
-    notifies iommufd via iopt_revoke_notify() and unmaps the BAR from
-    the IOMMU domain. Re-enabling PCI_COMMAND_MEMORY calls
-    vfio_pci_dma_buf_move(vdev, false), allowing the dma-buf to be
-    mapped again, but dma-buf has no callback to re-populate iommufd, so
-    the existing IOAS mapping stays unmapped until userspace calls
-    IOMMU_IOAS_UNMAP and IOMMU_IOAS_MAP_FILE again.
-
-    Is requiring userspace to re-issue IOMMU_IOAS_MAP_FILE the expected
-    uAPI behavior? VFIO_DEVICE_RESET (and runtime PM transitions) on the
-    target device also bracket the reset with
-    vfio_pci_dma_buf_move(vdev, true) and vfio_pci_dma_buf_move(vdev,
-    false), tearing down any active IOMMU_IOAS_MAP_FILE mapping of that
-    device's BAR even though PCI_COMMAND_MEMORY remains enabled when
-    VFIO_DEVICE_RESET returns.
-
-  - Physical target devices and P2P topology checks: mem_bar_descs[]
-    currently only matches QEMU's pci-testdev, and
-    vfio_pci_has_p2p_path() does not yet check PCI topology or ACS to
-    verify that P2P traffic can flow between two physical endpoints.
-
-    Suggestions on physical target BARs to add to mem_bar_descs[] and on
-    checking P2P reachability from userspace are welcome.
-
-Testing
--------
-
-All patches were build-tested individually. The series was tested on
-x86_64 in QEMU 11.1 (membar-backed=on requires QEMU 10.1+) using an
-emulated Intel 82576 NIC (igb) and a pci-testdev with a 1G RAM-backed
-BAR2 behind an emulated Intel IOMMU:
-
-  qemu-system-x86_64 \
-    -M q35,accel=kvm,kernel-irqchip=split \
-    -device intel-iommu,intremap=on,caching-mode=on,device-iotlb=on \
-    -netdev user,id=net0 \
-    -device pcie-root-port,id=rp0,slot=2 \
-    -device igb,bus=rp0,addr=0.0,netdev=net0 \
-    -device pci-testdev,membar=1G,membar-backed=on \
-    ...
-
-Inside the guest, bind both devices to vfio-pci and run the test (BDF
-order does not matter):
-
-  # tools/testing/selftests/vfio/scripts/setup.sh 0000:01:00.0 0000:00:0d.0
-  # tools/testing/selftests/vfio/scripts/run.sh \
-      tools/testing/selftests/vfio/vfio_pci_p2pdma_test
-
-Or via run_kselftest.sh:
-
-  # VFIO_SELFTESTS_BDF="0000:01:00.0 0000:00:0d.0" \
-      ./run_kselftest.sh -t vfio:vfio_pci_p2pdma_test
-
-
-David Matlack (6):
-  vfio: selftests: Verify memory behavior in vfio_pci_find_mem_bar()
-  vfio: selftests: Allow multiple BDFs in VFIO_SELFTESTS_BDF
-  vfio: selftests: Add vfio_pci_dmabuf_create() helper
-  vfio: selftests: Add iommu_map_file() helper
-  vfio: selftests: Add vfio_pci_find_p2p_pair() helper
-  vfio: selftests: Add P2P DMA selftest
-
-Mina Almasry (1):
-  vfio: selftests: Add vfio_pci_find_mem_bar() helper
-
- tools/testing/selftests/vfio/Makefile         |   1 +
- .../vfio/lib/include/libvfio/iommu.h          |   9 +
- .../lib/include/libvfio/vfio_pci_device.h     |  23 +
- tools/testing/selftests/vfio/lib/iommu.c      |  29 ++
- tools/testing/selftests/vfio/lib/libvfio.c    |  53 ++-
- .../selftests/vfio/lib/vfio_pci_device.c      | 181 ++++++++
- .../selftests/vfio/vfio_pci_p2pdma_test.c     | 435 ++++++++++++++++++
- 7 files changed, 717 insertions(+), 14 deletions(-)
- create mode 100644 tools/testing/selftests/vfio/vfio_pci_p2pdma_test.c
-
-
-base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+diff --git a/tools/testing/selftests/vfio/lib/libvfio.c b/tools/testing/selftests/vfio/lib/libvfio.c
+index 3a3d1ed635c1..448d11442b53 100644
+--- a/tools/testing/selftests/vfio/lib/libvfio.c
++++ b/tools/testing/selftests/vfio/lib/libvfio.c
+@@ -2,6 +2,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <sys/mman.h>
+ 
+ #include <linux/align.h>
+@@ -32,38 +33,62 @@ static char **get_bdfs_cmdline(int *argc, char *argv[], int *nr_bdfs)
+ 	return *nr_bdfs ? &argv[i] : NULL;
+ }
+ 
+-static char *get_bdf_env(void)
++static char **get_bdfs_env(int *nr_bdfs)
+ {
+-	char *bdf;
++	static char **bdfs;
++	static int count;
++	char *env, *tok, *saveptr;
++	int cap = 0;
+ 
+-	bdf = getenv("VFIO_SELFTESTS_BDF");
+-	if (!bdf)
++	if (bdfs) {
++		*nr_bdfs = count;
++		return bdfs;
++	}
++
++	env = getenv("VFIO_SELFTESTS_BDF");
++	if (!env)
+ 		return NULL;
+ 
+-	VFIO_ASSERT_TRUE(is_bdf(bdf), "Invalid BDF: %s\n", bdf);
+-	return bdf;
++	env = strdup(env);
++	VFIO_ASSERT_NOT_NULL(env);
++
++	for (tok = strtok_r(env, " \t\n", &saveptr); tok;
++	     tok = strtok_r(NULL, " \t\n", &saveptr)) {
++		VFIO_ASSERT_TRUE(is_bdf(tok), "Invalid BDF: %s\n", tok);
++		if (count == cap) {
++			cap = cap ? cap * 2 : 4;
++			bdfs = realloc(bdfs, cap * sizeof(*bdfs));
++			VFIO_ASSERT_NOT_NULL(bdfs);
++		}
++		bdfs[count++] = tok;
++	}
++
++	if (!count) {
++		free(env);
++		return NULL;
++	}
++
++	*nr_bdfs = count;
++	return bdfs;
+ }
+ 
+ char **vfio_selftests_get_bdfs(int *argc, char *argv[], int *nr_bdfs)
+ {
+-	static char *env_bdf;
+ 	char **bdfs;
+ 
+ 	bdfs = get_bdfs_cmdline(argc, argv, nr_bdfs);
+ 	if (bdfs)
+ 		return bdfs;
+ 
+-	env_bdf = get_bdf_env();
+-	if (env_bdf) {
+-		*nr_bdfs = 1;
+-		return &env_bdf;
+-	}
++	bdfs = get_bdfs_env(nr_bdfs);
++	if (bdfs)
++		return bdfs;
+ 
+ 	fprintf(stderr, "Unable to determine which device(s) to use, skipping test.\n");
+ 	fprintf(stderr, "\n");
+-	fprintf(stderr, "To pass the device address via environment variable:\n");
++	fprintf(stderr, "To pass the device address(es) via environment variable:\n");
+ 	fprintf(stderr, "\n");
+-	fprintf(stderr, "    export VFIO_SELFTESTS_BDF=\"segment:bus:device.function\"\n");
++	fprintf(stderr, "    export VFIO_SELFTESTS_BDF=\"segment:bus:device.function ...\"\n");
+ 	fprintf(stderr, "    %s [options]\n", argv[0]);
+ 	fprintf(stderr, "\n");
+ 	fprintf(stderr, "To pass the device address(es) via argv:\n");
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
