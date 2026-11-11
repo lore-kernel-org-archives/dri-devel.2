@@ -2,133 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF0D606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:39:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5997606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=VX7SY373
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gkqcOOJG;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BLZHVTy6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7810810E99A;
-	Wed, 11 Nov 2026 14:39:16 +0000 (UTC)
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazolkn19010016.outbound.protection.outlook.com [52.103.43.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF6610E782
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:39:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tdw697q0DD4hhOTcMNARanj520wOQNMQt3V2Gm6Ze3Ge37fZxPb6zI27neI5oOgMurBBoM1QBIfrYRFQTgUmhOGVEJ+NK3o5cU94i4YBHMW6PpRdbrg5A/He7MUq6Y4UyKH+lRcyEn1Scs2pqjrBKVoDUfraQ5orMWkW+S710SDx9gUWFgqPGwP+K2OHOQzlPaVVE0IHbKXCDXhQqO5PcQnKPJZMKhjMYq8gbPsjKu3eFfeoS/gXDxrdIBV/aysLn4x6iH1mHim3VuFnAIkBi/FgmpCwV2n8mhAwodumB3PhVSPFQ/mA/zfsouDDkrPRYK5kQeumwSwTuUKjt8wGsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iSNDeI5T0bW+QT9Squnh8uc1NN7BxHMp0GMmhkoljfg=;
- b=x5pKIwTVP6f/1nylvG5pKKWP6sldO+6I7GSePMmTtyUZQQ3FFzNZP/dnvplPVDMgTAlpDxERzdUY4TUh5npnj7V/FAL5ZSgmFI+toxqFNWc7tOxkvSxvXN1+NMejY/rWBM5aNl9P+szFDc/e07/kSTmH7Bwgr9zMFvwsVHRPWb7+viXDfwk1nbfMcwEF1Mphb7KopfgRGPlnLfR0xhPS8tkq51Qm/qVwvqqiUh1s62TP8EU/JK91gxFRbWxpHOxQdrccm72Mt9Hq7IUYjW5VDi48+GdhK7mcz8s5k0syKkb/G4fsOpSsyHlZqSIyC+KMssV8M6MDCw5kzBwqYoiZpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iSNDeI5T0bW+QT9Squnh8uc1NN7BxHMp0GMmhkoljfg=;
- b=VX7SY373x0gBk+Hd9jPXvVzsK3ApIBIfPuTFxn0dEm7pEcgDzpgkRoX1k/+7KDKbmaMZ+7odPGxZng6rQAbaYPaGiBiq7zqM0w91QROeZvJmA7FujvcCvdJzSNsVAf5MimdAagLxMkPsvOMoJF0tZZMK7tR4Blsz8d7ZYN9/9ys1KapLOTS0ZmqSRjjxgFIopMv6bVLNRuYBauraBuukGKrHig+IARmQ1b7eXwwE/UE91mlHqV593MrZP9XZPxgyrttE+AIHQ2xyNoRUtJNEvyc8wgbjurYBRcpSipXL9u8gp45FQzKPqZs9ZFWnzgcaPQmTpsNCjGi4AekxxL6h7A==
-Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
- (2603:1096:403:403::19) by TYWPR01MB10742.jpnprd01.prod.outlook.com
- (2603:1096:400:2a6::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 14:39:04 +0000
-Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
- ([fe80::4c0d:ea93:5322:ee61]) by TY7PR01MB804852.jpnprd01.prod.outlook.com
- ([fe80::4c0d:ea93:5322:ee61%3]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 14:39:04 +0000
-Message-ID: <TY7PR01MB804852139F8DE700384359B59489712@TY7PR01MB804852.jpnprd01.prod.outlook.com>
-Date: Wed, 11 Nov 2026 22:39:00 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: radeonfb: reject a zero pixclock in
- radeonfb_check_var()
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, byu@xidian.edu.cn,
- 25181214217@stu.xidian.edu.cn
-References: <20261101104107.33909-1-jq.zou@outlook.com>
-From: Jianqiang Zou <jq.zou@outlook.com>
-In-Reply-To: <20261101104107.33909-1-jq.zou@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SEWP216CA0113.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b9::14) To TY7PR01MB804852.jpnprd01.prod.outlook.com
- (2603:1096:403:403::19)
-X-Microsoft-Original-Message-ID: <7e4a88b6-9e90-408f-807b-af300a2958fb@outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5F4910E7BD;
+	Wed, 11 Nov 2026 14:41:52 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6077F10F237
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:41:41 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ABEJ6q3527413
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:41:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=8+OTqyFIZNj/ZWYD70+Pj87l
+ VYrEXWlE6vL0wA6fPK8=; b=gkqcOOJGotekbX5HXwO4LsrSjuKCl2eipTR1QVn/
+ IUnciLmv/akBpXvAMJa96jjJVWZfwxMRAwc71XXQKyGZIiGkfTjLh7+0tAhRt1di
+ jk+WXfzHezA1lL4SHlRbkgbHdxjNf6REBRNrM2zP5D4JTjednuaW/mQwNCYKc9TM
+ oMiit/f6uijQlKgsPymmf/EWPYv4OA6GnBwEEdvT8Dpd92C1iblOLiUr9pC78sO/
+ ZlB2GKN/xW7yRUmIN/Vl9nIZ2St1vq++/BW5aS6FOF2O9V1pkTK99wbq5GChEK4G
+ r4GZ972YegkzaPU3SbZIQ3kQoUnAlZ8btDCtr08Hb0u+Gg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvpjjs0g3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:41:40 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93caf7856ffso732789785a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:41:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794408100; x=1795012900;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=8+OTqyFIZNj/ZWYD70+Pj87lVYrEXWlE6vL0wA6fPK8=;
+ b=BLZHVTy6EeCDYYK18lMUAqh6lYNNhfJ8m9gZz/pX9jtEGmSty1pNohoNVSfm64n8QK
+ ENk3+JbXOp+N/gQQ/3TstI+CnsQ2BKy+R8+XfKDf13iH5LWPgisbPrXrJdoA7m6lj0c9
+ 3soL/DZxoZUcsWfl9WYZ+4eqz4s1QJiaRWTeeH1HE0eFHbVIvDSFNiT3+3Ls7pOXMp2f
+ 5MNIPHYuVxs9Xl98LhcSd8HOXGC78FnGUQ5O8B4/tAVd+D0S2wgZCyAy29B95Uh+TQD6
+ Cle4gHKJlhgJgjQSQTtcJ1n0qonVOFn+wEloiHc2Bks57t2k0Q8gX3H4ZLpI+vUqChrI
+ 7KUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794408100; x=1795012900;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=8+OTqyFIZNj/ZWYD70+Pj87lVYrEXWlE6vL0wA6fPK8=;
+ b=iWHD3TBBhYZyVa9Aurm++gRyvHPuiUy6+xVsV3CGan9tkhEtY7qLbG4QpXEu4awrf/
+ nQmxXu29Srvwv5Rm+0tyxnr0Pi3Tm8Wdwvmi3u0VJ9o4CiDOZNL06FEzcBNgmpoBTlnr
+ rj1IS+JK9S7AuezZLuQZK3h5hAYO7we9LThE47NaudWNv13rjbbEgELupyAMHtYOWHUw
+ JEM5VZvQOAT1MyoG35FM75ZjX1PdK2VA7yxQrATNvwEUsvJqd1YaPdf9i+FxgCFZnTzA
+ KtAIEoCnt/GHotANoE1lsX0efE06qU8Y6Z6mLIQ9Sa7TYrVSwH20cYt09Tad4GHo/HIy
+ +qcg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGvb6yTIBPoRKZnwcq7y2geIbKndoJQZpfWpiuYY8Ol/q/Yrw6jXIeyEy4uckcfg41V6MtMy17HhHg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8E19JATd819RSa+QR95n+7FIhgHqERwNElks6cJWPsuWo1scWp
+ sfPNoZFLSNuEhhfEDrovKWyMDSRKtBP/2KJDmFFbwPYdoaD3hZf8yrJYsy4J4iRFxH1BIwmf9qx
+ zSpN9SWjqoSNjdj7iChdw6sMlrI5m4BmK/+LiaLcn7JE45RZIGhUmCZAqlwdS9IW+n+FGISQ=
+X-Gm-Gg: AYBFou0G4AHuNrEsFDaZn8G+wTQcYl183Uk54DV4GxF+wWWY4gNj3sYj4qW0kGb04h4
+ mLC/095Gp0LUrMc84bnn4AEjljzD9yK6rKxBEDQf54Tmnz2b2EP1M3/96wsbUK00sllUEFtsC0O
+ LhV/U7iqQyL1I8G3vX7drs1piP2/5IAGlJhIejPSTfFEGC0nlQttSkHroGAny0ZOWiXEA0S9PgP
+ SyZRL9aAVpKlwgQWbolXeJj+JesxCkuySTN+NE3HMp19NyXV03rObzNpL5oMzVPuu+xx4C/CAQD
+ /PZTC2LaNoGNLlOexk9Dr00db12GMY9O5r8bvOstC2TmtM/+F885Nix2ISXe+49fmUTkRXlZRnc
+ Fyc+DrVqPJMpNIRcCpdsnRKcckPQ10+QBzkLy8kD/YyCKg+ob4WVDyY9Yx+y2g2/iZWq9VyQQpT
+ xaDorJw6SjJ5guT/HVkx2FHpYuP1uGiVWEDMbPvMGufxcnkM/mNBu1hx26snhPjw==
+X-Received: by 2002:a05:620a:4544:b0:93c:9d56:a860 with SMTP id
+ af79cd13be357-947affe689amr432826285a.19.1794408099517; 
+ Wed, 11 Nov 2026 06:41:39 -0800 (PST)
+X-Received: by 2002:a05:620a:4544:b0:93c:9d56:a860 with SMTP id
+ af79cd13be357-947affe689amr432816385a.19.1794408098527; 
+ Wed, 11 Nov 2026 06:41:38 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ae0926c65fsm11020011fa.28.2026.11.11.06.41.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 06:41:37 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:41:35 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH v8 02/29] drm/msm/dp: add support to send ACT packets for
+ MST
+Message-ID: <ebgbhztbeifcty7tlzwykvwcfrn3bwsktfyy63nu4ocvygnqnm@prggbz5tzmct>
+References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
+ <20261110-msm-dp-mst-v8-2-d040fb33db5f@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7PR01MB804852:EE_|TYWPR01MB10742:EE_
-X-MS-Office365-Filtering-Correlation-Id: b26fb997-f444-4495-e67e-08df40018790
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|24021099003|25010399006|8022599003|41001999006|23021999003|6090799003|8060799015|12121999013|15080799012|19110799012|5072599009|3071699003|3412199025|440099028|26104999009;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YVpRVVY2YlR6alljWHJYekVHK2FvZ21KNjVETWQrSXhkL2dxdWxRMXpZQmpK?=
- =?utf-8?B?ak5jMFhQNjFTV0kvRXBENnhtVFZzcXY4ZXpqR01maC82SldSV3hueVE4RWIr?=
- =?utf-8?B?c0NlVTdOcnNYaXpHYndGeUFtYng3Q3dSdGF0bGZPSXg4emxmUUt4WERFYXk1?=
- =?utf-8?B?a0U5Zi9SNWVjcGNaQ1gyQ1RVNGxidkJ1T3I2MXErSU1WbE1Ub1NleVRlLzdq?=
- =?utf-8?B?SnBjWTVDcWdJWmpmWnhxRnBFU1RsOWE0dERXMFo2REFDOGg1WHppQ1lwYnVT?=
- =?utf-8?B?dndZZW5JMEpmeHZsK1BNbHNNWXI2Tm5BUGZqTS9nODBJTnlzZlA3OFhwYTI3?=
- =?utf-8?B?US9zQnFHQk96VWVyZWtSd01VZVZ0VkYyQlM0UXlmeVdXWmsvQTQwQTVSWTlO?=
- =?utf-8?B?MFdCbW5uUnZuOEhYRFNNbGRRMEZBUURSSmI1UkpwclUxaGI2TEhKUkJ1UmVN?=
- =?utf-8?B?SmZJRmRRdWpoeXdkOS9Ia2pya2JNMmJ4aElhTnJpVnF4KzRGek1jNXhkMXpx?=
- =?utf-8?B?bmVGMXh4TzFQT3dCZXgxM1BRRnhKTFhJMTlXdEU3aFZVNlBkTlRIWEM1N3BZ?=
- =?utf-8?B?VzdsbDQwL2g1N0MxT1JlcjdJNWVueTJQQUphaklpcDYzNXFPdEVYRUU2ZkFJ?=
- =?utf-8?B?Nk1CMklRREdzdVAxK0Y5ek5JRHJObmJHdDZlaDdhdUhwSzdiS2kyUnRoYUV3?=
- =?utf-8?B?OTlQUEFWQ2xVdXcwV3lub3ZrMkxlRkJuazJWUzRIbWY3WmZpbVlVOHprVGRS?=
- =?utf-8?B?TUpyb2RxTXlYdHJzTXN3ZEppcDMvaytzYlpmNWhxNU5OZDc2UHhmWUt2Yjdh?=
- =?utf-8?B?TEdOa3draWpJZmpvek5ZNnFicForTHhnV1ZCODFNcHVwYVg2azhsQ3ZwWmxa?=
- =?utf-8?B?TWR1Mmg5RGllbUlZYmh4SEo2Nk94S2Q1TEpXVG1UMUZvaU5rSTJQVmJXNDAr?=
- =?utf-8?B?SjV0S1o0UTJDZjhlZGpLMmtiZU9Dd3ZMRjJwd0szampGUzh3RnE5bnl3SGF1?=
- =?utf-8?B?aTB6M3c3eWZ0NnZPMjNKTFQ2b2VyaVNPY0FqNzFnU1ZZODAwOGNMMUN1c1Vk?=
- =?utf-8?B?cE9sWG8yWnFyWEU5bjdYUnNTL0FGaTd4bjlqTEJ3ZHovYzg0QjBkZ00xZzk4?=
- =?utf-8?B?MzRHOWJyMWo1WGlia3hLN0ZWNEVjT1MwZjBCUnlYQ3laaEhkbTNKNWxpOGRC?=
- =?utf-8?B?VTVYMC9GbEE0SWdpVEVIY2taZUYyMThYMm1CL3lXQWlIcTRFbEhjaEx5KzdQ?=
- =?utf-8?B?a3E3am16QktXNGZockZvd05IUlAwbE12bEVzRXJkcW5MMnZSMStKWE9rQlJL?=
- =?utf-8?B?SUpEWSt4VTh5N3NLVWRuVzlaVEtLa1ZJWU1nQzFSK0dlVmRnSWFpeWlHUUVH?=
- =?utf-8?B?MGthZDRCdkI1SWc9PQ==?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGdrVmQ4U2dJbnFyWnRUdGFkVGVZOGRGL1pmaFR1YUpRbFZVR0JuSDRGN3FO?=
- =?utf-8?B?eHBEMjVGN3IzZndjSGVSL3E1S0VZTWN3VXRQdnlCcGZOcDEwVzlrcExqV3Q3?=
- =?utf-8?B?OC9iTWFoTXhoaC9GTkpEQkMxRjl4NWRUbGl4SUkrOTdGMHlXNjBvS0lHNm9p?=
- =?utf-8?B?Z3plb1ZXQTkzaS9UN3hlckNHSk9mU0lUUzJNL21nK3M1RExnTE16d1hGSDY5?=
- =?utf-8?B?c21HeWVXMFVtcDVYM3FURlQ2QzB0WlVlRDRJRkxIeDUyK29MaHZGN0ZVcWlt?=
- =?utf-8?B?eVhsY3pPOGxNZlZqUkVBNUtZeG4zQmsxV1hIajg2SnRRaWZaSnVrTG1jM2lm?=
- =?utf-8?B?NDlQTVExSlRwVVEzZHAwbXRMYURmQTJyUFBya3J0SnBjQUQ1NWFVR2w0NFY4?=
- =?utf-8?B?TFpha0xJeTF0UUIwemt4aEVQVUlvaGtJMDNhSW4xWXlpazJnQy9LNk5mUG1J?=
- =?utf-8?B?YldTdDJOTnhyVzNuOXl6dEY2dHpac2dtdFc2RTVYU05taW1Zd2JmK3dXcFhj?=
- =?utf-8?B?Uk1kaUJmeGpoY1cvSVhpWlc4UEJaV3ErRTF2U0dpNXNpdGxmM2pMVUpxT0lN?=
- =?utf-8?B?SEZkRnFJeDNITzZkREQ1cXE5RjdTYkFkM3gzVUNzTWt3Zm83ZEd2Wnc4OUpF?=
- =?utf-8?B?N1dDQW5WUk1KYlZuUG1zellQR2lzdGdzdWovYU5ydDdPelhPWVVnL0w2U0Jq?=
- =?utf-8?B?akU1ck1FamNDNFF4MHJDS3BxNmYyTnEwUG1lNk5NUFpVMzRjdUVVTnF6MjdT?=
- =?utf-8?B?OW40TkxZVWRpTytTMWYxci9sU0NWQnpzR3AxbEVYb29SYkw5QVJsaythODda?=
- =?utf-8?B?SkFNeHZzSmxyZ2VVQ0Qxc29zT2MzQ1VDZ2hub1ZWOWJaT0FXMGFVVEl1SVFE?=
- =?utf-8?B?REh4NDBoZ2MremcwSUY3VmNxQjQzR3NxVWFwWUhISDJlWUVaVFlhKzBvbnRS?=
- =?utf-8?B?czRka21sd05RakJPWWpweDFOWW15Q3A1UjJqemNkSklEa0RHMVU3ZC8xWmlJ?=
- =?utf-8?B?VFZvM2E0VDYyTWNUVlBqRG1rMGlkZXNJNzZGM3NzaHMvWEN4SlFYSG5STmJt?=
- =?utf-8?B?UVNWTGplbStSZ1lvVjRVZzJNWHNTNGZ1djQzMU5VMGgrd20rM20vOE9JL3ZW?=
- =?utf-8?B?NURmeVBVUUhIV3lmenN6NmdXdGltR0J5QWpKNkc1dk5pV3Bybm9oZ1BuV1Bv?=
- =?utf-8?B?YmJ5YmZGZlJ3b2tqb1k1eDFZeFZoYnAxU0hLdElSZlVKR0pRV0NISXBkQXJH?=
- =?utf-8?B?TEkwcnc0QTBrL0FjL1VhK1NKTStrc01CaWZKQ0RlYnoreWdFbVk3SmxjbDNj?=
- =?utf-8?B?aGR3Ymx3M0tnV000NVplUFk5cWdRMjRTT3dRbnNYU2E2TSt3WCtDbzVjU0Rk?=
- =?utf-8?B?V1BVZlcrNnVvSmF3a1RaN3g4M3VHTGpNRW1YNFVTVFd6Qm5TM3I0OVRlV3pl?=
- =?utf-8?B?QTVlN0RRVzZRd2JRNkRBaUJaMVlUOEZObWo4RHZldFZPY3NoUlkxMVowL1FD?=
- =?utf-8?B?WGV6dkhwNTJkK282eTBZcjIyWC9aQU14SFpDREhkSFpIQVhiOUd4UXhXUys3?=
- =?utf-8?B?cjhpengvT25CbUxlYzBsbDluUXVjSFIrTStyaENGYkVMYkVUeXlETWNJSWYy?=
- =?utf-8?B?RWhPZnpkQVFvL0FJb2lMWlBCN1lUaXppU3kyQ1E0VzVKbzZZWkhrRU9VMk1I?=
- =?utf-8?B?TkkrMXhtcmhEM0l1cGxPeGtKNTBRNkd3R1l3eStEUU5ZeEhkajJmUTBsc3lz?=
- =?utf-8?B?UDlXR2RCWnR3OU45NE96MWpLY3lhSm5SSTJ2TlV5Y0svcU1XSitVQStLaUFy?=
- =?utf-8?B?NVN0NXhvVjVpbkd2cmFESDNQNm8rRG1QVjhpZGxrTkdxY2ZjeFhnMGEzWDZh?=
- =?utf-8?Q?IEuCB7OBUC7kZ?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b26fb997-f444-4495-e67e-08df40018790
-X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB804852.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:39:03.5955 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10742
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-msm-dp-mst-v8-2-d040fb33db5f@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfX7Qo8lLkqQ8VA
+ 6WknHT2jVhH7RzqgjrW0ZPJ+3l7DGthPwFN5JBg9e7R80xv+xoPe6Tq1Y0jXA9Qjt0rrOF5y/Ku
+ eHGpMOYSUTc1tqAt2d8/8xySQuqyNWa2uAY/KYFQmJRlIxdORP2nPF3PcdeVpqfV8MjfFi2XcVC
+ V4hxSUCuUSnNVLcskynvf7VfBFW42vyLXl634/yE5Une7j3vogeZu2HL3ZrHNrEmvqtma96j1MV
+ /7G+Pk3XNR9wi7c9mEQs8NGuSxO5tPnUAv77uiREYKBIcNdqavSoGGqu6ynRjCDGjIZRL20XJZc
+ BFTIYXSf5UweZk14u1rPNbPfqiUfqjN9/n3KRcbxuo+ceaGAMzrm6vOPJeURyqqokRJWTVg8nxI
+ DVR/iUJ0RBey15DmOrCNHDBImsG53y5WCCXeV1tfDf+3BPUb3n12cVCanr1VdhDDaU+F8NiIoYo
+ OVaf2H893k2VaGK3URw==
+X-Proofpoint-ORIG-GUID: ENEYmBjoHFljdtFvWMQcx9MQ4v5DMVsR
+X-Authority-Analysis: v=2.4 cv=FeuiV5+6 c=1 sm=1 tr=0 ts=6af47ea4 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=CXPGfuEPe1jOflqu_poA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: ENEYmBjoHFljdtFvWMQcx9MQ4v5DMVsR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1OCBTYWx0ZWRfXyZGDTwZtxERq
+ 4ApNn5CsemKjdzD8kvqihNsxAf7lKm1Mfetv3zoH+XHNT5918G3HGYvPFj/IK7evPIeSuDJKaws
+ h13h74IMBLpbYv0WC6lUEImHWq8E7Ow=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,79 +145,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On November 1, 2026 at 18:40, Jianqiang Zou wrote:
-> From: Jianqiang Zou <jq.zou@outlook.com>
+On Tue, Nov 10, 2026 at 12:54:23PM +0800, Yongxing Mou wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> radeonfb_set_par() derives the dot clock from the user supplied
-> struct fb_var_screeninfo:
+> Whenever virtual channel slot allocation changes, the DP
+> source must send the action control trigger sequence to notify
+> the sink about the same. This would be applicable during the
+> start and stop of the pixel stream. Add the infrastructure
+> to be able to send ACT packets for the DP controller when
+> operating in MST mode.
 > 
-> 	dotClock = 1000000000 / pixClock;
+> Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
 > 
-> where pixClock is copied from mode->pixclock.  A zero pixclock
-> bypasses the existing validation and makes the kernel divide by zero
-> in radeonfb_set_par().
-> 
-> The driver does have a check for this: fb_validate_mode() returns
-> -EINVAL when pixclock is 0, but radeon_match_mode() only calls it when
-> the output has no scaler and an EDID-derived mode database is
-> available:
-> 
-> 	if (has_rmx == 0 && rinfo->mon1_modedb)
-> 		if (fb_validate_mode(...))
-> 			return -EINVAL;
-> 
-> mon1_modedb is only filled in when an EDID is read, so when no
-> EDID-derived mode database is available the validation is skipped and
-> the invalid mode reaches radeonfb_set_par().
-> 
-> Reject a zero pixclock in radeonfb_check_var() before matching the
-> mode.  fb_set_var() calls it on the FBIOPUT_VSCREENINFO path before
-> ->fb_set_par(), so the invalid value is rejected before the mode is
-> applied.  This is the same check other fbdev drivers use (i740fb,
-> arkfb, s3fb).
-> 
-> Reproduced on Linux 7.3.0 using a custom QEMU PCI stub device with
-> vendor/device ID 1002:5955; no physical Radeon hardware was used.  A
-> single FBIOPUT_VSCREENINFO with pixclock = 0 is enough to trigger the
-> divide error.
-> 
-> Signed-off-by: Jianqiang Zou <jq.zou@outlook.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > ---
->   drivers/video/fbdev/aty/radeon_base.c | 3 +++
->   1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 44 ++++++++++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++++-
+>  drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
+>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>  drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
+>  5 files changed, 51 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/aty/radeon_base.c
-> index b6b058cee..a69e58914 100644
-> --- a/drivers/video/fbdev/aty/radeon_base.c
-> +++ b/drivers/video/fbdev/aty/radeon_base.c
-> @@ -836,6 +836,9 @@ static int radeonfb_check_var (struct fb_var_screeninfo *var, struct fb_info *in
->           int nom, den;
->   	unsigned int pitch;
->   
-> +	if (!var->pixclock)
-> +		return -EINVAL;
-> +
->   	if (radeon_match_mode(rinfo, &v, var))
->   		return -EINVAL;
->   
 
-Hi Benjamin and Helge,
+Is Sashiko comment valid? Otherwise LGTM.
 
-I'm following up on the radeonfb patch I sent on November 1. It rejects 
-a zero pixclock in radeonfb_check_var() to prevent a divide-by-zero in 
-radeonfb_set_par().
-
-Could you review the patch when you have a chance and apply it if it 
-looks good? If any changes or additional testing would help, please let 
-me know.
-
-Thanks,
-Jianqiang
+-- 
+With best wishes
+Dmitry
