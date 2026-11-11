@@ -2,107 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73427606A327
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33199606A327
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=hQD9mPgX
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fnq77L87
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3728810F964;
-	Wed, 11 Nov 2026 08:22:48 +0000 (UTC)
-X-Greylist: delayed 377 seconds by postgrey-1.36 at gabe;
- Tue, 10 Nov 2026 17:09:04 UTC
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5E410E070
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 17:09:04 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4ABC84029D
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 17:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1794330166;
- bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
- h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
- In-Reply-To:Content-Type;
- b=hQD9mPgXugfhtIhDcvsq4SZThekNRzFT3sMIjicEtPufbY6ARxAAxLQP9WwXgY4CC
- aR/wvfhIAOuf3xGqJZo7ygWk+aKNtZBVp7lmCnO9LJjMhM5KrxcmeB8bpIIiHRMrzY
- PrQkHf/lANfXuOSU36xUjcvWW5YuG7yc9cPxFeqpveHCwXebfEbaeOUTnysB/U1Bfa
- CPGExOBT+QlJol/ka/7z/wx722r0mcwCR5XGgD0Q5CsXjt2jIbL03XUfyNoMmsSoTh
- azWcf7ngIBV/oFBaUnd03Yo25hSnHRyOScMrPajLZzJy5tRQmcPlyGJChgcodsy58N
- FmaWQlVn+De1Ouo/qWit8uxUXwv+CoTiMTgzmtBj9+o9QGitYLGM8c7Q/jbx1Yas5Y
- Y/48ZWEGk1Yw3ZMsowhzD+KSuKGreYgOQSxMwuhcsT8w3gjGieQ12dOUI6ZXkWpzhG
- 8sMIACnv7Y4gRSVmbu8/sq3RVbNdvF6kvTeBTqiOTSECV65jVm7E9GQMzEHXuE4I6+
- 4yxISxem7RcOd1JlrFHtBjJWAIfBc13cDpxb24Pe6pnOiyz2sJ0yOQF8Nn30Xsj4Se
- 9g6K+eeCapUKBWNEHlb7hd/cxrT1Mr+c02r8iPBVBUvKS9yvI67OBzeGZE5fHy1WgH
- wOfMNs7ArNDVqstymZ1zmUTA=
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-49323e268aeso1770742f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 09:02:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0717010F969;
+	Wed, 11 Nov 2026 08:22:49 +0000 (UTC)
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB48610F88D
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:36:58 +0000 (UTC)
+Received: by mail-oo2-f8.google.com with SMTP id
+ 006d021491bc7-71702e8143cso960476eaf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 17:36:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794361018; x=1794965818; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=fmd8pZhTX1jp07WLrA39wwhl3cP5kgTKffdM12tuCUI=;
+ b=fnq77L87XG6zHLVbkMmeoyS4d/jNqjc9hoxv+a4MQD4VlnqwVZrBfdvFCs7+B0pd30
+ sgO5Bd29DLUT1yofXC9k7ZBuBF+Kb5xhcH87r48T3etPSCKbwwjHNQ4yjznN5/G19aqu
+ /PyKGTGNISQvd/BC4zMAnc8JcreBk0+14a7+zkDY9GNmhZ7TvxiVA4T5L4cW8dCb4MWS
+ 4kME0gylMDz/Gb82cBP0XoTy0ZuFfsHcRdPYsVXaQTzUVKTzm2ftpYqsDvfSTphbvJgb
+ oH8ugO757su3XEyqfI77/9dA7GjbrYeTa9rzBDctQ9UUcp8qmvwlvWwNSwAYY+VrBQi+
+ 5YEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794330166; x=1794934966;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:subject:references:cc:to:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
- b=cy6ODCZ+iUt/YwiKaxlVv2AEZ6xV/xe4/jHnOJc3wkzS04pWrutRc9O9AcoDXiqe7X
- 7bMVwhbV6QOneG830KWVNpwrVlCQ2o7/YeFW9w/HayDQcbvyGxT2NPz4gjIqhNOY8B+D
- Iu2ol61BCVDxoJo0DOvxkocdYX9l6zRu49rQBHbexWWVK0YrcssG2q6b28nsHd9oJ0qN
- WrOGekaFjoswydDDEowOcQ9wZUt9YZIum0IwOUBq8FzrMcHJTPnQh7pjjnYFEjUvwxYq
- 1PkggcR+1Sr8/dePlGaQSTOrO+fcQ/1jDhwwXLVo7/EECdLbFen3FKd4Hl6I0Yeifo+6
- bhiw==
+ d=1e100.net; s=20260707; t=1794361018; x=1794965818;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=fmd8pZhTX1jp07WLrA39wwhl3cP5kgTKffdM12tuCUI=;
+ b=SRpoFQfhGs54uDwOeo5SF+rSxvmutJ+KkoYIT9drtleIrBC0wTkGE8u8XpzqlIpnkb
+ oM2ML7osQ1zMq1adBKxM8FYT9CxaSl4VlJtAFpLLBiXzHQCevxIF5x5C7H9GBHWlJfcY
+ 8M54sSoy2ZFheHpeAz9tsFeKq7PQ7veJUYvvcE1jpfNZKRTvMPy9zlSLie+D5wawbz40
+ 05pgtB/lmMkWz907QqvVytO2AGKxCRZzH285Vnp59MQUEZ/MgkwoejpDSrvODlbRbCNL
+ sqKbsllXwaTMeJNdqSJ1EZTHcIuoneHHnsMFFUy8BolKTnawlgItwBcXSqagA2aLmr4r
+ hrxQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFeEu+gNNQATfpvOi7y3phhuEzz1qguVuO9wtcaq0YLIDFD+W+1sN+jHlVageDAt1C1tSzGJ7cY2g4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9zjJ/sWbm8SDLtS6ubsHj8BVnlB/lxHVZ6nAfFptuo/0NaaTpr
- VZfCUWDwdu66cPlYW9621H/kOT11BoX/Os//bQ0pP9dbE6eDjsJ/nAThBS3HmQyY6meNtgRL8KJ
- m2BqEvkZ3nD9tkOU7RKzSV6y8qdbhvyGkVyMlhcisFIvb+AfTohRNqN7Zb4zr8mftAU9oWW5n9h
- 1sCisjTkCbXw==
-X-Gm-Gg: AYBFou38ND0X6yf9xHHklfsI2O+urwsSQitNi+iUrO9gcBXY8p2D8kjTJ1xft4SujPn
- fHR4/X+ilWz4VzcX8894Z47+qMVNhF9vnp83d9Ok9mZpletKGyK8NQPd84ewZVqtSkMhL2WkIUK
- WSpJw5yF9aEP1S6qS4NV84j5ZzTc8e0tHB7vduA1jMT/eMQ8pP1AGt0dVZftC08Pt00W7xe86Lf
- beXAA6SIFoXqJf1S0uek6b9S5Nu66f4c/Y5pKq31ux9zueK9YAjWpbRtytV3M9aRP/IKzm8bC95
- gx97A83CB4Nd8GHQvDRDhUHLOk2TVLgScWB22ZSLvwy0bdEj8sMaI3cXKbegbeRjy3C1g4BZHjj
- tkrnohTiKk15vGh/pPGmxAJULIfrJDuywYHCNIUdntGEiLIdqIBzdHxCJywFjLCpbuDIoXFmpCD
- CZkPzbby3eLKBncj3GsTEvS/gRFbsD+QetJKg+gDjyv657E/X6no3r
-X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id
- ffacd0b85a97d-49992cc6a24mr288614f8f.8.1794330165622; 
- Tue, 10 Nov 2026 09:02:45 -0800 (PST)
-X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id
- ffacd0b85a97d-49992cc6a24mr288536f8f.8.1794330165190; 
- Tue, 10 Nov 2026 09:02:45 -0800 (PST)
-Received: from ?IPV6:2a01:cb19:9432:11ec::c98?
- (2a01cb19943211ec0000000000000c98.ipv6.abo.wanadoo.fr.
- [2a01:cb19:9432:11ec::c98]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49836c83432sm5386247f8f.58.2026.11.10.09.02.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2026 09:02:44 -0800 (PST)
-Message-ID: <546efd00-ddaf-47f4-9387-2635785a1bf5@canonical.com>
-Date: Tue, 10 Nov 2026 18:02:42 +0100
+ AL+hErGxY6B5n3NoU+dDqE9urCCsggnE70T4tKJ9PKx67ObLVpdFkkSbFBzQAWAou7V3lc6mXSLuLAGa+Jk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+/WAbcwK9BFYBgmThKjvBU+NbnxZYNHP8GPNdISn6hGulr/k+g
+ zAElcS/PJLy1UhaWIH/kGx8IkKoTjV3FuVEJiBH52s2q12MIFaX69mu4
+X-Gm-Gg: AYBFou27ey00RtcYINUacp9CFrEv/515Ue9X9FJ4NKNK2Sts5xaiXNJJx3BeHZjsCoQ
+ ztahYArtV4281dEHeEFgu5R+RklDq8+P89uFG4+PQJUbROaNC7w1tkjGwQtNVIIr/1bChr04BFd
+ nmhL6vUl6Vml+yn8BPKvaQbQwoBbfcHlONwjMgKg8MotSeq015FO1lBpuQcggrXytSH23Rb238s
+ OuEUBwcRgITZVUjHfrogObOQy3IILejwX4MIcM4jNYc+g68ivWiWzwLmQi+JK93KHD9uDkuFnI3
+ zPa0unQMq5uIImhiLH1t3fYCopMpZseTjSHN01Vmz3v2GsBK6NbBqOFb48X36zb1kHgNv0z19cK
+ TleZ4gDC3i0vIfDkZt7EIuWxWe00Nma0YpPtZrpH1hAC27ZhKlzHzWeV4adGhnB1bulQTxne1a2
+ DlWqjguhofEGjX9xWgtzFLiBDzQKzYcGuxYnP1SpuXJHabf2zfSn8iJ0Y5c3FvmOEU8b1XYxdMQ
+ SoR+ZX3OPiFSMmDBU85HIqQI+E35ijhD/KobkrXm/uqzlBHTDfhzqTKIe5oz3xh1PhpqR2LqgwI
+ s478WyIQ3AKwa1oG1oCxONZW
+X-Received: by 2002:a05:6820:c0d4:20b0:6d7:a325:35f7 with SMTP id
+ 006d021491bc7-71917963ac3mr467673eaf.81.1794361017863; 
+ Tue, 10 Nov 2026 17:36:57 -0800 (PST)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::f01a])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4ae22f6a1c7sm2462267fac.6.2026.11.10.17.36.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2026 17:36:57 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 10 Nov 2026 19:36:48 -0600
+Subject: [PATCH] drm/imagination: Wait for the firmware's interrupts before
+ stopping it
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: devnull+codykang.hk.gmail.com@kernel.org
-Cc: airlied@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
- bmasney@redhat.com, codykang.hk@gmail.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dlan@kernel.org, docular.xu@gmail.com,
- dri-devel@lists.freedesktop.org, heylenay@4d2.org, krzk+dt@kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
- maarten.lankhorst@linux.intel.com, me@ziyao.cc, mripard@kernel.org,
- mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
- palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org, sboyd@kernel.org,
- simona@ffwll.ch, spacemit@lists.linux.dev, tzimmermann@suse.de,
- u.kleine-koenig@baylibre.com, vkoul@kernel.org
-References: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
-Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
-Content-Language: en-US
-From: Sarah Emery <sarah.emery@canonical.com>
-In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-rbrue-suez-upstreaming-pvr-fw-irq-handshake-v1-1-8872686d14d0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQ6CMAwA0Kss/aZJQTSyqxg+NimsMc7ZOjQS7
+ m7iu8DbwFiFDbzbQHkVk0cG79rGwTWFvDDKBN5BR92pJepRo1ZGq/zFWuylHO6SFyyr4vxG0Se
+ mkCdL4cYYzzQcDxwH6iM0DoryLJ//dhn3/QeQ1M4/fQAAAA==
+X-Change-ID: 20261004-rbrue-suez-upstreaming-pvr-fw-irq-handshake-b80953eb904b
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361016; l=6676;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=UU+/DlUPZcdKbo5wZeicD1NjDIpa69zyRxMNYLyF5Rk=;
+ b=iCYmXiI6nZQFvfT/rzhvhgqrx7Fg/JKpqoCaCXsfk5SCXdvphmefsouyNfMit0Ogz6jxhqSHu
+ p2CYksSC3DUA4lVjalQ41zdZMeRelKO55wgvMDWkcmWujrBtnqCk+8T
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 X-Mailman-Approved-At: Wed, 11 Nov 2026 08:22:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,91 +102,169 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Once the firmware has acknowledged the POW_OFF request, a runtime suspend
+disables the IRQ and stops the firmware straight away, even if the
+firmware has raised an interrupt the host has not taken yet. On an
+MT8173 (GX6250, META firmware), the SIDEKICK_IDLE.GARTEN poll at the end
+of pvr_fw_stop() can then time out. The suspend fails with -ETIMEDOUT,
+runtime PM latches the error, and every later pvr_power_get() returns
+-EINVAL. The recovery reset that follows can fail the same way and lose
+the device.
 
-We have incorporated this patchset into the Ubuntu kernel for display 
-support on the K3 platforms.
+The firmware counts the interrupts it raises in its OS data. Sample that
+count in the IRQ thread after clearing the interrupt, and before
+disabling the IRQ for a runtime suspend, wait until the host has seen
+every interrupt the firmware counted, as Imagination's DDK does. Clear
+the host's copy when a hard reset clears the firmware's.
 
-During testing, we found an issue: the screen would display artifacts 
-all over, kind of like black lines blinking.
-
-I have implemented the following patch to fix the issue:
-
-drm/spacemit: map scanout buffers write-combining
-
-The K3 display controller is not DMA-coherent: the DPU fetches scanout
-buffers straight from memory while fbcon and userspace write them through
-a cached CPU mapping. The shmem helpers clean the buffer only once, when
-the sg table is first built, so nothing flushes later CPU writes. Dirty
-cache lines shadow what the DPU scans out, and erased fbcon text lingers
-on screen until the lines are evicted by chance.
-
-Add a gem_create_object() hook that sets map_wc on the shmem objects.
-The K3 harts implement Svpbmt, so the CPU mapping becomes genuinely
-non-cacheable and writes reach memory immediately; the one-time clean in
-dma_map_sgtable() still covers the initial contents.
-
+Fixes: 727538a4bbff ("drm/imagination: Implement power management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-  drivers/gpu/drm/spacemit/spacemit_drm.c | 16 ++++++++++++++++
-  1 file changed, 16 insertions(+)
+Found on an Amazon Fire HD 10 (2017), an MT8173 tablet that's not upstream
+yet. Its GX6250 (4.40.2.51) is not on the driver's list and runs with
+exp_hw_support. With a compositor running, about one desktop start in five
+hit this before the patch. A debug build that logs timed-out register polls
+named the poll, SIDEKICK_IDLE read 0x7a, GARTEN not idle.
 
-diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c 
-b/drivers/gpu/drm/spacemit/spacemit_drm.c
-index 12b2fe8b6fc99..fe354219b996d 100644
---- a/drivers/gpu/drm/spacemit/spacemit_drm.c
-+++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
-@@ -12,6 +12,7 @@
-  #include <drm/drm_fbdev_shmem.h>
-  #include <linux/component.h>
-  #include <linux/of_graph.h>
-+#include <linux/slab.h>
+Only META firmware on this one GPU was tested. Each failing suspend in the
+instrumented runs was off by exactly one interrupt (for example firmware
+14320, host 14319). Why the META core then can't go idle is inferred from
+the DDK, which waits at this point; a fixed 1s delay in the same place
+also stopped the failures here.
 
-  #include "spacemit_drm.h"
-  #include "spacemit_crtc.h"
-@@ -75,6 +76,20 @@ int spacemit_drm_mode_config_init(struct drm_device *drm)
-         return 0;
-  }
+The hard-reset part is untested at runtime. A forced hard reset of this GPU
+times out before the firmware objects are cleared, so the stale copy it
+guards against can't arise here.
 
-+static struct drm_gem_object *spacemit_gem_create_object(struct 
-drm_device *drm,
-+                                                        size_t size)
+It reproduces within a minute with vkcube --present_mode 1 on the
+compositor's display and the GPU's power/autosuspend_delay_ms set to 1.
+---
+This patch was developed with the help of an LLM. I know there's a Mesa
+policy against LLM use for the powervr driver there, so if there's a policy
+for drm/imagination too, let me know.
+---
+With continuous rendering and a 1 ms autosuspend delay, a suspend failed
+this way within 22 seconds in 7 of 7 unpatched runs. Three of them were
+instrumented: between them they made 2711 suspends, and the three that
+failed were the only ones with an interrupt still outstanding after
+disable_irq(). With this patch, 8 of 8 runs lasted 60 seconds without a
+failure, and in a further run the wait was needed in 15 of 6925
+suspends, for at most 6.1 ms.
+---
+ drivers/gpu/drm/imagination/pvr_device.c |  6 ++++++
+ drivers/gpu/drm/imagination/pvr_device.h |  6 ++++++
+ drivers/gpu/drm/imagination/pvr_fw.c     |  3 +++
+ drivers/gpu/drm/imagination/pvr_power.c  | 27 +++++++++++++++++++++++++++
+ 4 files changed, 42 insertions(+)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index 992509d95d28..99a3842c2783 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -215,6 +215,12 @@ static irqreturn_t pvr_device_irq_thread_handler(int irq, void *data)
+ 		pvr_fw_irq_clear(pvr_dev);
+ 
+ 		if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
++			struct rogue_fwif_osdata *osdata = pvr_dev->fw_dev.fwif_osdata;
++
++			for (u32 i = 0; i < MAX_THREAD_NUM; i++)
++				WRITE_ONCE(pvr_dev->fw_irq_count[i],
++					   READ_ONCE(osdata->interrupt_count[i]));
++
+ 			pvr_fwccb_process(pvr_dev);
+ 			pvr_kccb_wake_up_waiters(pvr_dev);
+ 			pvr_device_process_active_queues(pvr_dev);
+diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
+index c246122b4caf..91cf2bde589f 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.h
++++ b/drivers/gpu/drm/imagination/pvr_device.h
+@@ -176,6 +176,12 @@ struct pvr_device {
+ 	/** @irq: IRQ number. */
+ 	int irq;
+ 
++	/**
++	 * @fw_irq_count: Firmware interrupt counts, as last sampled by the IRQ
++	 *                thread after clearing the interrupt.
++	 */
++	u32 fw_irq_count[MAX_THREAD_NUM];
++
+ 	/** @fwccb: Firmware CCB. */
+ 	struct pvr_ccb fwccb;
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c7988278df3f..7b42a898aa00 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -315,6 +315,9 @@ fw_osdata_init(void *cpu_ptr, void *priv)
+ 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
+ 
+ 	pvr_fw_object_get_fw_addr(fw_mem->power_sync_obj, &fwif_osdata->power_sync_fw_addr);
++
++	/* The firmware's interrupt counts restart from zero, and so must the host's copy. */
++	memset(pvr_dev->fw_irq_count, 0, sizeof(pvr_dev->fw_irq_count));
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index eb4b6ecdf4f4..2d0fbcf457f6 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -89,6 +89,26 @@ pvr_power_request_pwr_off(struct pvr_device *pvr_dev)
+ 	return pvr_power_send_command(pvr_dev, &pow_cmd);
+ }
+ 
++static bool
++pvr_power_fw_irqs_taken(struct pvr_device *pvr_dev, u32 thread)
 +{
-+       struct drm_gem_shmem_object *shmem;
-+
-+       shmem = kzalloc_obj(*shmem);
-+       if (!shmem)
-+               return ERR_PTR(-ENOMEM);
-+
-+       shmem->map_wc = true;
-+
-+       return &shmem->base;
++	return READ_ONCE(pvr_dev->fw_dev.fwif_osdata->interrupt_count[thread]) ==
++	       READ_ONCE(pvr_dev->fw_irq_count[thread]);
 +}
 +
-  DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
++static void
++pvr_power_wait_for_fw_irqs(struct pvr_device *pvr_dev)
++{
++	bool taken;
++
++	for (u32 i = 0; i < MAX_THREAD_NUM; i++) {
++		if (read_poll_timeout(pvr_power_fw_irqs_taken, taken, taken, 100,
++				      POWER_SYNC_TIMEOUT_US, false, pvr_dev, i))
++			drm_warn(from_pvr_device(pvr_dev),
++				 "FW thread %u has IRQs the host has not taken\n", i);
++	}
++}
++
+ static int
+ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspend)
+ {
+@@ -107,6 +127,13 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspe
+ 	}
+ 
+ 	if (rpm_suspend) {
++		/*
++		 * Let the IRQ thread take every interrupt the firmware has raised
++		 * before stopping it, as the vendor driver does. Without this, the
++		 * META firmware processor can fail to go idle in pvr_fw_stop().
++		 */
++		pvr_power_wait_for_fw_irqs(pvr_dev);
++
+ 		/* This also waits for late processing of GPU or firmware IRQs in other cores */
+ 		disable_irq(pvr_dev->irq);
+ 	}
 
-  struct drm_driver spacemit_drm_drv = {
-@@ -82,6 +97,7 @@ struct drm_driver spacemit_drm_drv = {
-         .fops = &spacemit_drm_fops,
+---
+base-commit: 476d658928af91f5ccb455957be60763d8b00fd3
+change-id: 20261004-rbrue-suez-upstreaming-pvr-fw-irq-handshake-b80953eb904b
 
-         DRM_GEM_SHMEM_DRIVER_OPS,
-+       .gem_create_object = spacemit_gem_create_object,
-         DRM_FBDEV_SHMEM_DRIVER_OPS,
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-         .name           = DRIVER_NAME,
---
-
-I'm sending this here in the hope that it will be useful for a future 
-revision.
-Is there a v3 in preparation?
-
-Thanks,
-
-Sarah
