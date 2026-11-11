@@ -2,120 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889B6606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF603606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=td12n49U
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JR4mHy9h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7312C10FA43;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA5010FA4F;
 	Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD74710F99A;
- Wed, 11 Nov 2026 08:53:42 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jPckV706vzKsYn;
- Wed, 11 Nov 2026 09:53:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794387219; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VRiZhzrsDkrLspAml0XRBl5rak3lI4bTzhSsupMJ/y8=;
- b=td12n49UKDo56vCxSTn09U/FbdYGCk/hjrgkPwsYYmfR0Gs5QBppPCBDtVxxLchIEUwdQb
- qOgaQ7bu4TKe2ydp1VVhzS3MjouOIvhK3svhqAqL4/zeXX6snq3K7vPx9e14jLpaWSPfrN
- CC8kqaWegcbNN3dhGKGxAUSh8tFn4cT6u0zUeVOhFHv7yRgcI2X3Hx2TJKeot6Qlqt1EwC
- lXHAwJBaYus+xC2WzZaQgsfOSySsNxfufDkkyksnvgI5eJB6EDfy5i8Q8e6p4IJt1EIvEW
- KDNGmFpUTrOi351V8lzioglBOuHpSOovM/WIAIwzWjYiS+xktKSPpS25dn1MEg==
-Message-ID: <a2e7519ab463dec876aa806d91961456f31a725a.camel@mailbox.org>
-Subject: Re: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Philipp Stanner <phasta@kernel.org>, Min Ma <mamin506@gmail.com>, Lizhi
- Hou	 <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, "Rob Herring
- (Arm)"	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol
- Wachowski	 <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
- <andrzej.kacprowski@linux.intel.com>, Heiko Stuebner <heiko@sntech.de>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King	 <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle	
- <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov	 <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang	 <jesszhan0024@gmail.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten	 <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris
- Brezillon <boris.brezillon@collabora.com>, Steven Price	
- <steven.price@arm.com>, =?ISO-8859-1?Q?Adri=E1n?= Larumbe	
- <adrian.larumbe@collabora.com>, Liviu Dudau <liviu.dudau@arm.com>, Dave
- Airlie	 <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Matthew
- Brost	 <matthew.brost@intel.com>, Natalie Vock <nat@pixelcluster.dev>, Arun
- Pravin	 <arunpravin.paneerselvam@amd.com>, Matthew Auld
- <matthew.auld@intel.com>,  Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	
- <thomas.hellstrom@linux.intel.com>, Melissa Wen <mwen@igalia.com>, 
- =?ISO-8859-1?Q?Ma=EDra?= Canal	 <mcanal@igalia.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>,  Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Neill Kapron	 <nkapron@google.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron <bjorn3_gh@protonmail.com>,  Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot	 <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,  Sunil Khatri
- <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>, Vitaly Prosyak	
- <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>, Timur
- =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>,  David Rosca <david.rosca@amd.com>, Marco
- Crivellari <marco.crivellari@suse.com>, Krzysztof Karas	
- <krzysztof.karas@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Shixiong Ou
- <oushixiong@kylinos.cn>, Jouni =?ISO-8859-1?Q?H=F6gander?=	
- <jouni.hogander@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>, Thadeu
- Lima de Souza Cascardo	 <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer	
- <pierre-eric.pelloux-prayer@amd.com>, Al Viro <viro@zeniv.linux.org.uk>, 
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis	 <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org
-Date: Wed, 11 Nov 2026 09:53:25 +0100
-In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
-References: <20261105113529.1989375-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C5910F9EB
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:17:46 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-36fc0a3fe93so5832473eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:17:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794388665; x=1794993465; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aPNp2WgpgPHRfZu0DFCm+CGOWcM+7olBPXi5wHu617Q=;
+ b=JR4mHy9hoMQM3B50NMnum89AWFpJn5eoXljZdCNIYCTB8a2nlv7X8CYT4m4PG27xJ6
+ dI9kCmiz58G7fYOZC7AL19lxfcjnGX88Atq70mjBNnMVCvV5oUHG51gKc4nomg/ad+ew
+ m2Z3gKdBB2JCk01pOZtmVXl/OldYfflrYiCDff63ExtiuDpq1UE5FyP1FnTipdG+N0mu
+ s5wgRAf61ganD9DoTcl4ICK6GCGGsZq/P9vs2aR4TZs4K4hygzhEQQim7JPnyfovJFdk
+ C6sptyiaIPxyJUxnczGiw7DZCmh+QHlJ5Ufq9Gr4zfA7epJDRGlwdnQLzZx5MRvNF09p
+ 2o7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794388665; x=1794993465;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aPNp2WgpgPHRfZu0DFCm+CGOWcM+7olBPXi5wHu617Q=;
+ b=qKdUOEcmozEnf79H9bXCfv/VfDmtc30Kwi6R6nmXhMnB5oveqbcQ3SgWoLfCjH3slD
+ WgXX98FpDnvAxZggcTtDcHA88mYV+szcXe7HgGWvecez7qN5R3DANUT+makoAV1G3Yc0
+ jx9N2+qTJILzbYeQf9kogbdj6l3Gro3JuoZ5QLmfw4T8IfIOP0jA+lC/RmNKIiSzjkz3
+ mZDMtL7XJdBlt6RVvtedLZppacz4D51Laz5aZpntecdKsOfAwuvVqWz9KvNerOclm9ES
+ 0V9Jfc5BOfyLWnGrAYv2CYhK/JIXpLSjannY7zg7twkeFsvAPGCTeGkUh9YhCXTj19Fj
+ xinw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHSpKqUtPv4ntm2b4CasvQNLZT+TAM6T6YhGqJk+tIoVrSj0PtEb94+npYq69RoXb4O74PpB3xsblw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z90CWqmDEoiRi8saW3DYIZUP+tEjH0/qq1AQlIzEFuLp6lFKhV2
+ kMGX3Cq2o3NrBRTic4tyNDaafK2Aa8RnmnsDbluG6wMeo2w3wyU1f0wn
+X-Gm-Gg: AYBFou0oz7t1V59kYKuGLpeR2z+pyYzX+RodMqM6grZWtM4hI/vwq1mqyTftmFE9zAU
+ VOUP5Hhq/w16+jj0nRVfvey71L567eIog6H7nfvaid4hfvv3d3ayobg13usNXcrmPaeciEV7lj8
+ AXf6QNFJwpEx5SfXYlrgmrvrU+tBImM1EWDhkeebvU627d4ABrbFNoTe5/B1529V5rvLyOW1jqM
+ YnpEcQrYa0kye7K4P3wcSztFX86SMwxc4Q7FZVAaM93ER0LUbgRno7+LF5IsDDF/+wWkewmDvoy
+ 8RLWFSyUvyyeSPRE/CMcxDvY+6DdZ9IaJav864KDLJH5gd5t/UiVZBIkPc/hLncCh0n3GNgiXNh
+ MhRHI2Z7OkFYW0MhngLsVSGxybJAzGjLQj3fOs/pyXwNtG9qzU9xZU43PdIpSEkQQ2rPrZcgwAX
+ xEaS7xVoTter/1WfbjVIWrbRDniql7eyEuGseGKKuNT0HH6WdHkFHl4MJt1iwqe1cxOH71+5IhR
+ Q4Kv3fkhyduKLb8Z8O/0FJqBBg/Mk3LXIr1/X3Nq2HlVQE9jV5kIdfp8iAmXRGFkAVu59d2jMwn
+ QkAaYN6xCzL0pOvuLmAdzLB5JFXlXw03g7rRiQ5mt/Z0zxNcX+l04YGRGOhCG/3Q+HJPN62QQ8F
+ ME5oDPkx6PGVtotEqAJG9enyMk9Ayi8lkmLdx4NCk2v3YTtvg
+X-Received: by 2002:a05:7300:d94a:b0:36d:4135:cd7 with SMTP id
+ 5a478bee46e88-3768617ce1bmr2715415eec.18.1794388665237; 
+ Wed, 11 Nov 2026 01:17:45 -0800 (PST)
+Received: from DESKTOP-DIIS71I ([5.18.141.223])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37520512ec1sm13540869eec.12.2026.11.11.01.17.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 01:17:44 -0800 (PST)
+From: Rand Deeb <rand.sec96@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Nicolas Belin <nbelin@baylibre.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ deeb.rand@confident.ru, shda@confident.ru, lvc-project@linuxtesting.org,
+ Rand Deeb <rand.sec96@gmail.com>
+Subject: [PATCH] drm/meson: fix NULL pointer dereference in
+ meson_drv_bind_master()
+Date: Wed, 11 Nov 2026 12:16:57 +0300
+Message-ID: <20261111091657.598-1-rand.sec96@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bc6accce8d8b9e73737
-X-MBO-RS-META: pdph9mgme6uj6kihqyt55uq9zqcpmeni
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 11 Nov 2026 09:37:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,44 +92,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-05 at 12:35 +0100, Philipp Stanner wrote:
-> We recently had a discussion about reworking dma_fence init to close a
-> race-window [1].
->=20
-> The community agreement seems to have been that we can get rid of
-> dma_fence_init64(), so let's do that already. In the meantime we can
-> continue our discussions regarding the race in [1].
->=20
-> This also touches the Rust dma_fence, which actually should use 64-bit
-> seqnos (was forgotten so far). Rust fence has no users currently, so
-> needs no backporting, so I would like to address that in a distinct
-> patch.
->=20
-> Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
-> the USER flag, so I hope we're fine.
->=20
->=20
-> P.
->=20
-> [1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@ker=
-nel.org/
->=20
->=20
-> Philipp Stanner (3):
-> =C2=A0 dma-buf: dma-fence: Add flags parameter to dma_fence_init()
-> =C2=A0 dma-buf: Port users of dma_fence_init64()
-> =C2=A0 dma-buf: dma-fence: Remove dma_fence_init64()
+If the allocation of priv fails, meson_drv_bind_master() jumps to the
+free_drm label, which calls meson_encoder_{dsi,hdmi,cvbs}_remove() with
+a NULL priv. These functions dereference priv, so the error path oopses
+instead of returning -ENOMEM.
 
-@Christian, what do you think, shall we go on with this one?
+Only the drm device has been allocated at that point, so put it and
+return directly.
 
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Compile tested only.
 
-P.
+Fixes: 6a044642988b ("drm/meson: fix unbind path if HDMI fails to bind")
+Signed-off-by: Rand Deeb <rand.sec96@gmail.com>
+---
+ drivers/gpu/drm/meson/meson_drv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
+index 38bf2811d..a9b707062 100644
+--- a/drivers/gpu/drm/meson/meson_drv.c
++++ b/drivers/gpu/drm/meson/meson_drv.c
+@@ -204,8 +204,8 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
+ 
+ 	priv = devm_kzalloc_obj(dev, *priv);
+ 	if (!priv) {
+-		ret = -ENOMEM;
+-		goto free_drm;
++		drm_dev_put(drm);
++		return -ENOMEM;
+ 	}
+ 	drm->dev_private = priv;
+ 	priv->drm = drm;
+
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+-- 
+2.39.5
+
