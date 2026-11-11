@@ -2,54 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B115606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53FD606A32E
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QsUaCyk8
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gZe3/K9t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEDCB10E9E1;
-	Wed, 11 Nov 2026 10:48:43 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E10D610E0A9
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:48:37 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 25B591A1609;
- Wed, 11 Nov 2026 10:48:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DC46B6017E;
- Wed, 11 Nov 2026 10:48:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 12B4511BC0CA6; Wed, 11 Nov 2026 11:48:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794394115; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ad6FU7Y+CZOMr0uGpGArGMy8cMkHauN05AxVml3ZXXU=;
- b=QsUaCyk8oHaVG6a7PrFLh8ya9RivlvgLKDf2efvlwxiDM1cbG8CQ+35C+E/kufAQl4XO2s
- nlcq15mOHMHECSLLYyB2L6jpB5UoRNZ3+KNo42DvuJDHWA5hmVVeiBVLNXQ5aJdfoiPJ72
- rVCAjN6lsZ61ELKlbHCfD2Cyj5Y+WzklegU7MG+8M77lDG0kq2okUjWrK67kQVRBqMZtw8
- Ggx5NTO8vIeJ3Iv79nOqdIOB7U4Lsrcyh5FHRUH5dPeFPpmiawX6bvf+uoNjg8SgFoVtfO
- 5SCCo08BdRPi72MeUsdc3u9RGj1VLc4dr5FF3Xjv6G2/3xxYF5YrjkRg7iMUFQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261025133636.253505-1-clamor95@gmail.com>
-References: <20261025133636.253505-1-clamor95@gmail.com>
-Subject: Re: [PATCH v1] drm/bridge: ssd2825: Fix panel enable sequence
-Message-Id: <179439411041.1683659.16967386126317635129.b4-ty@b4>
-Date: Wed, 11 Nov 2026 11:48:30 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E900310E0A9;
+	Wed, 11 Nov 2026 10:48:55 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C303210E0A9
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:48:49 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-4910b863b84so1945678f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 02:48:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1794394128; x=1794998928; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=SJE8c/dZm+CWhQbZBqBGTdaX2jwL8ZWmvduRU6X8Ew0=;
+ b=gZe3/K9tSgB7/f0A2pGJeCwqk9yjC7EIJLFn/SOeQ1UnCzHct3mq6RyVdKyBrH6an3
+ P+YePzaj0exGH7Dt5sGd6SU7n2UHHaTMXTTLqOUVkn/NPoKnBbMqX2s2KO8tCws+JHS3
+ d0MokAQDVVK3Zf6n31z8mQT8GnQed1qQE9pJ9DS34ayAMlgCDYuEE6dTa14fhwDuEfF/
+ nUBC+OEVLarmawKPMJrb/axQUmPmg9i+YrF//6G6cMv8Pe6zt/AzGT27c1/lYdHk2jsm
+ YSJvl9yHg9sprGt8W9fHyOayhRHjAbdcQL423v9nPne51VeGmqobBqwJ2Fw9E9wmIHIz
+ ZvoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794394128; x=1794998928;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SJE8c/dZm+CWhQbZBqBGTdaX2jwL8ZWmvduRU6X8Ew0=;
+ b=mxblD69v60Ra/a/7C2un/lrObYMFO9thtnOwq+hvHMnD4PiM9ig74JiSuTP88xQH+G
+ cEeg9jUJHHIWU7b+S5Cw2Sy9Qwp2J22c8MEJOeiXLcnyHeTAZUYkzGa9+pI7uiVAzF5j
+ 2OJG4f5SuaIIyr8Ye6ssfA0eNePI3JYmoJD3lJ7/aM0mSjytpGGa/5scsxaOYXZ779BT
+ iHkIHrxNdJmSN1ieQvS+FWwwxJCC00XQf+YVZoqz00q5QIncZG8pPLNAcg3DlK7lPnMq
+ CwaftF2Wa0tGRxkn4qRaX3y3xhTVI/slb1yKdNJdsNaXwGvNobBldrpxomiuZEWwXZFn
+ 3Nuw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH4BMeOUcz+iAe9aqpb3BMt6eT7R9qHw/VNW6wygNeQxUEjL6bPS6uUTYMQkqp5BeZSwo7ic0XmWR4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/FIMqtLEWhDnKpG3kZ5B9V1LSV1XdVXPvMAz4xf2OSb1PTaPa5
+ kBjO5vdPtyjysP2rUHUjqCElDkDyR6dJYlIzEXjQRKBjgEqL5bW6rwWofq6UFCtwuMs=
+X-Gm-Gg: AYBFou2BsqjSMUzhlHQfGNISlHf9swedv2UmQsrD4VCzBGD1VptuR0+Wi42KLmELbpp
+ v6PjDx/By0W6FNxdKxyuAM7dhNUnvbZ+x0vqEaW+P9UzVg5mpS47yDRzOOonWVf766rXJG/7ttJ
+ g8QInoOqABLRPodUw55HA0udmo0IEh0OhFOyHn/qGwtIbwrGuCWRQgM86V9XogXyRTCqPZRkTs0
+ PIJ5RPm2vUV6knJjOwI2Hn6/pcoq+q6TFNrc579SMzPWxO4ndBHmzXy+AhDCi04jTd7UPu0QzI7
+ h02Pyjtt07WLASYAOzr8xH/u4oazTYM3Up26QVUYuj0+VhxCLSNnutW/ruJbbeit7qdZmccvYcw
+ pCp3spyO0uvRVHpQAN57EKIJL3Y4EgRNG/CB4vr98zOjBKxgKprf8i9LD+ThYMMPFAh9lFsz6Oo
+ e7N7NfeQgOVc+/XeFgZNtditq8pA2gmT0RJvLjIKZdKK0EpMZBXpIVJS7NQoK2cgqDt9SN04e2Z
+ XC1W9OqZXF/IBn7F2Q3xYQnJB++KT9YWLvraTSDqBwlNM3cEmN3QyOIqvQfh2CNAoJcPj8QNLZE
+ mN0hoSCPtgh3wlvdA8mMugV75fEHEB0E/zL5dBs0UAQ73Na4OMT/juXYLt+XsLYWmw==
+X-Received: by 2002:a05:600c:1f93:b0:4a0:20b4:ba93 with SMTP id
+ 5b1f17b1804b1-4ba0938124fmr41926975e9.16.1794394127955; 
+ Wed, 11 Nov 2026 02:48:47 -0800 (PST)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53?
+ ([2001:af0:8000:1409:193:86:92:181])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4ba0951fe22sm54693255e9.3.2026.11.11.02.48.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Nov 2026 02:48:47 -0800 (PST)
+Message-ID: <2e392c2b-3fde-42fd-82e0-8130d2de48d2@suse.com>
+Date: Wed, 11 Nov 2026 11:48:45 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] Remove obsolete __MODULE_STRING()
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
+ Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+ <2e88806e-57dd-47e0-a9ef-a8507d22aa3e@suse.com>
+ <a190f981-d668-4208-8148-f4e50adb31a6@suse.com>
+ <6c00fc009f4e61e87895eb2dd3d77c5dfb28183d@intel.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <6c00fc009f4e61e87895eb2dd3d77c5dfb28183d@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,34 +118,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On Sun, 25 Oct 2026 15:36:36 +0200, Svyatoslav Ryhel wrote:
-> Currently, in the case of a single bridge and a single panel, the DRM
-> framework calls panel prepare() > bridge pre_enable() > bridge enable() >
-> panel enable(). While this is fine for most cases, the SSD2825 requires
-> the last two steps to be swapped. There is no meaningful way to achieve
-> this using standard bridge chain configuration, so the bridge previously
-> called panel_enable() directly at the end of its pre_enable() hook to
-> gain fine-grained control over the sequence.
+On 11/9/26 7:07 PM, Jani Nikula wrote:
+> On Mon, 09 Nov 2026, Petr Pavlu <petr.pavlu@suse.com> wrote:
+>> On 10/14/26 11:36 AM, Petr Pavlu wrote:
+>>> On 10/2/26 10:31 AM, Petr Pavlu wrote:
+>>>> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+>>>> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+>>>> moved it to the graveyard section at the end of linux/module.h
+>>>>
+>>>> Replace the remaining uses of __MODULE_STRING() with __stringify() and
+>>>> remove the macro.
+>>>>
+>>>> Apologies for the wide distribution. Acked-bys are appreciated.
+>>>>
+>>>> [1] https://git.kernel.org/tglx/history/c/136839a1b4
+>>>
+>>> I've queued the second patch ("drivers: Replace __MODULE_STRING() with
+>>> __stringify()") on modules-next for v7.4-rc1. Thanks for the Acked-byes
+>>> and reviews.
+>>>
+>>> The first patch ("hwmon: Replace __MODULE_STRING() with __stringify()")
+>>> should go through the hwmon tree. Once these changes are in mainline,
+>>> I plan to pick up the final patch ("module: Remove obsolete
+>>> __MODULE_STRING()").
+>>
+>> v7.4-rc1 no longer contains any __MODULE_STRING() calls, so I've queued
+>> the final removal in patch 3 on modules-next for 7.5-rc1.
 > 
-> [...]
+> Perhaps send it for v7.4-rc3 to prevent *new* __MODULE_STRING() users
+> from cropping up between now and v7.5-rc1?
+If I need to send an earlier pull request for the module loader, I'll
+include this patch as well.
 
-Applied, thanks!
-
-[1/1] drm/bridge: ssd2825: Fix panel enable sequence
-      commit: 8bf8cda54c08ee3693f4dd1e2b7607fe5e466c79
-
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+-- Petr
