@@ -2,88 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C53606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E66606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N8mUH/0W
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LVuh6mi4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE7B112100;
-	Thu, 12 Nov 2026 12:56:26 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75FA910EA1D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:31:47 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-48fd2e38825so1918570f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:31:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30105112102;
+	Thu, 12 Nov 2026 12:56:27 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEEF10E409
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:02:26 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-4922523d1afso1960224f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:02:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403906; x=1795008706;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gDkCPzQ/fTCTlPmLlCXyz89P1VioVc68pLa4Q0ahyVc=;
- b=N8mUH/0WWUA5/u9rpffSD7mUjuKjlYy8M5BtPlH1lryqFd8crvY7YNeWj7qKGiZSTf
- RiLRFR2g+lOefVvnYhKZANRWtuHhHTQZmZtLaPEtwW8BebRgixX4wzbcp+oNDA5LRTZp
- wq1QRa94K9+BxrxXgIgDGN4cSBE0NPTMbwT5td6fQ66oiLZR71FXj2goqD1SxxOYpRI4
- mcUf5tnTXIZkqU4FlFhYQ4V4Jz/l6fsWA+LxDJWPCJU6IHWdjfscWf/4Xp34Fo7TBpMc
- MqSMnFNZjwfF7X6iwPi9Zh1jbROPR1l3H10oE1gZMZdkw9hiDliTry88jM15yKg7qwgT
- UZNg==
+ d=gmail.com; s=20260707; t=1794409344; x=1795014144; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=meWNXvMASPE39vwE27i8e5aNRxxg/xlneQl/BaplwNw=;
+ b=LVuh6mi4rpSQQDd32qHuXn+ehL3uBK2udzZk+2HR62381Yf5haLZpGM+m0k21tUicl
+ kB2Vnt1dZPHvqkC2ErATsjvMmDqyX2VJeNsLMZMdbzIOvLDwIfURY+HsQ/Qa2mZAZBYE
+ J4CCvmCb+9gZjYGc7qclAMs7GJvqreAqy650MOEtLYsOaXeUh6JuFRy2f5kQiYwuIHCz
+ 7BjV6eSgTo4/N4YvVrC4DlRtrFyXrr2FIZ3iXHcn8UHmLebcboUlJnGiv/DaGW7hw6kf
+ r1Mv7XHyydovLJbxSl1BsfjXZ4MrHaQotuyebbCLAUx1emktnoDAxTM8n+3tukZV6Ii0
+ UfFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794403906; x=1795008706;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gDkCPzQ/fTCTlPmLlCXyz89P1VioVc68pLa4Q0ahyVc=;
- b=2rRFGKPJIR3zlnaM1nfIDz50gE7GG78o6lkyNYZSmCkJr9rF9QFSNg7aNsjY1ep2Ge
- No0z64qkVGwiy0ZrtEuUgpy4An52Pz6re9cywaECD8A0kls8IFlojGKL8P17O54+p0OA
- WLYMOFLW2QlQ99oKmXWYGk/AHGeaFpEOl6jp0v002/XVALUg5ZstKZUIRADs96xyAux5
- 9dWPXSRp1L6ghCOLgnbU4Nw2mjBauPbgBLIbuk99J8G/Xf55WyhiulHjwoiGwXCV1bOo
- Qm1hzrdzIacDR9uy1vEHkNDjlFARoZn+pBkXTrWwdlyn4l0ktguYXqUCh0YlccckhAPs
- 6Mkw==
+ d=1e100.net; s=20260707; t=1794409344; x=1795014144;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=meWNXvMASPE39vwE27i8e5aNRxxg/xlneQl/BaplwNw=;
+ b=btJd2jKgK3DUAHaYzXcAkkUjTH/1uORW7vHVXedBw1Ok4WQz5crV1HbPrYWeXliwUv
+ nr8wXRSxQTTa7cOZCe8bqAHTJfEM3Xilam+xJ1kpCXXM8iCFc8jcEwE+dKXNiiYB8iBc
+ nwXQK6G5CuB3hCs7tk8gB3AcZMl/U30nmQ/Dy0saejl2Yzpf8/+epyiVW6IW7nOtUKJJ
+ qatmXf38E/Si3bnVeRYZb+cpfASwoid4kxpweNxeWoEMQXEySNxj0V2koWdjkpr2Eqz3
+ gQj2H7KRouIYagrfWwGxfQzdgHRBknnWBseDU+D+KsmvF2mht6s/0ScRWzgLhAGgM5tC
+ j/xw==
 X-Forwarded-Encrypted: i=1;
- AL+hErECV0gWopSLVUyv0UYIuZMnrh8xF6YDzi8Vbs9kYDbQ769EQ6NWlWkr6xRv4k/IFSU+QWp357UPeIA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z//3J6dk+Ff4FSDX0BwYQ4B+USuTs0LjU8bt/8gr3H38oOrk/IH
- DwYDuCW7S30shb6CSuxi604hlPc/Iwtc+qaR7/NVfx1DvlLVqX6axEVklyKxLXxWtjU=
-X-Gm-Gg: AYBFou2yEJxAgL/+i54OiFikt6MGynVNYHFvJ4cikQrmScuZaxWz7b2PvgOvEjpoKo0
- hMMSWokuNgHd1qwECgwv8gxMwjOKmICzX/8+5X0bUjWEKGQdopH9FWWJD5rTPRhlN70gkEfa1Qe
- CJuyrjPpTMAs11wVpmI8wh3+B6SSZscw8qzb2nQtZanKMPedUoOpyOUXJu3FnoX4o3DAb9qdHN1
- Ga8TYtyYH5niPigVU3ylS1VHpzqR5IeNMucp5Vslz5h1mPjCSkBb2klpD22A+b20Ki7gh62ylbg
- cg7jFCpEcvT/ZVPvit0yx5vZjWATR260rseh4nAoUND8NWi8W3mnEKygzZyN+qf+ZTFckwA5mGE
- qzL655Tn124Jwqn/8LiiamfolVkTLCp+4M/+zzUIQJz+BnBeyjRbDCSLwNK9NhWHkKZrJ8jG2uo
- B5HSd4NzMXvGHqL4WGXb1mbONr1DGfsmU874VEKmatL8nb/6Fq3bb9+hYAiz8Rj5vgbNV3VWkGP
- TtxB5p4vxR631tdGGUwCETfigTPXy+NR7E58/cuY3pA9YgCEfmM27QQ6AHGF4UzUuzrR5U4J3YI
- R/I1pbtu9dAXwNOPjO031+W0l20Iuo7LXErSi5vx6kNURVACKr3UwMJb9s1aEOk7974iyyN+wGX
- n0qIrHfyYjQ==
-X-Received: by 2002:a05:6000:4688:b0:493:8704:ad42 with SMTP id
- ffacd0b85a97d-49a90b3a0d6mr1095762f8f.7.1794403905804; 
- Wed, 11 Nov 2026 05:31:45 -0800 (PST)
-Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net.
- [83.150.40.162]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.44
+ AL+hErHXkuSbPNuw8hO8O99wruMPzgH4eA/TkKCMnXEDt4wjSuhr7fgecGdo6QbMHH5kMdsMUtsj+ZrdmCY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/U3dNphfjX/3BZ5QYhVkUemG/byJpZum0ZlAXP/rNEJ2/Yk4yb
+ 0oUbKWDpR21y/GA2Ij09QUOnknd7wwtwT11f/r6XHj/TRJQEQ+4VTwA8
+X-Gm-Gg: AYBFou2rQQwryDjtJQDC6YW/H6g15rynzo/K8weGQxB03d6l3WAw7nDvxAbDGGvzkLf
+ oIGgI61RlPXz0yluRtGZBWyWBa3YlJXhnT+cRTICnrDJKudTOjunbkiCnR3+qoIoRihW6PJHaLp
+ xUXbWsgMa3oa/TxPXGCrnN3lkfure+oHB3dKSt7rDbLlfzToP/ngDDPjRQwhdLjzra213uY7vGa
+ MhDdtlw9Agtfrs7v/uTXw81TYkMTTq6zHTNeF7LX6+Euwehre2mBCeU1+EQi1aHBwby9ruKBI50
+ 0BEAfILqwUKKuxPzkVlO+klLrQzoUt0cGR8MECVIpqiNRO010a/6U/AF4m0CxTXCfIJCzDS75He
+ UNF1zodf6WnyL4GED0xqREoSnWNOG/bd1XywrRLbz1EoORYp1tpUHxsbCYZqFDwqrL/3P2A6mmE
+ YJDwwdqed6ItZAZZG76qRV9R203UfulrnHMvyc6rgpNt0R6ZEgLa0bvlJDtex65dscsYLO8ZRdh
+ s9K1Wk1IFjBMAxGa7r59fm3KjGmtDALTxEP2BdoQPwalmow1uNLQllz6qJyc8HjKVRglARv1Hcm
+ QXIIwSoV4Ebsqfcc3AMIr/zh04cgK1cN3QOjxcj/HTyh6NcEeCA7ELs=
+X-Received: by 2002:a05:6000:40c8:b0:488:8ab9:f74c with SMTP id
+ ffacd0b85a97d-499c425746dmr5287776f8f.3.1794409344157; 
+ Wed, 11 Nov 2026 07:02:24 -0800 (PST)
+Received: from localhost ([82.77.126.113]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49835e20327sm12054259f8f.26.2026.11.11.07.02.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 05:31:44 -0800 (PST)
-From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
-To: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexander Forsch <alexander.forsch@bytesatwork.ch>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH v3 4/5] dt-bindings: arm: fsl: Add byteENGINE i.MX93 platforms
-Date: Wed, 11 Nov 2026 14:31:18 +0100
-Message-ID: <20261111133119.1063210-5-frank.obergfell@bytesatwork.ch>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
-References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
+ Wed, 11 Nov 2026 07:02:23 -0800 (PST)
+From: Daniel Matyas <matyasdaniel006@gmail.com>
+To: Jaya Kumar <jayalk@intworks.biz>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Matyas <matyasdaniel006@gmail.com>
+Subject: [PATCH] video: fbdev: Request IO ports
+Date: Wed, 11 Nov 2026 17:02:17 +0200
+Message-ID: <20261111150219.239706-1-matyasdaniel006@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -99,55 +83,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the vendor prefix for bytesatwork AG and add the compatible
-strings for the byteENGINE i.MX93 System on Module (SoM) on the
-byteDEVKIT carrier board.
+Some fbdev drivers do not request their memory correctly. Request the IO
+ports' memory so no other driver may access them. Only request 1 byte,
+because the inb() and out() are used for reading and writing.
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
+Did not test on hardware.
+
+Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml         | 7 +++++++
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 2 files changed, 9 insertions(+)
+ drivers/video/fbdev/arcfb.c | 8 ++++++++
+ drivers/video/fbdev/n411.c  | 5 +++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index c8290a83205b..e4be6fdb5808 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1555,6 +1555,13 @@ properties:
-               - fsl,imx93-wireless-frdm   # i.MX93 and IW610G WLCSP (Wi-Fi + BLE + 802.15.4) SiP FRDM Board
-           - const: fsl,imx93
- 
-+      - description: i.MX93 boards with bytesatwork byteENGINE and byteDEVKIT
-+        items:
-+          - enum:
-+              - bytesatwork,bytedevkit-imx93
-+          - const: bytesatwork,byteengine-imx93
-+          - const: fsl,imx93
+diff --git a/drivers/video/fbdev/arcfb.c b/drivers/video/fbdev/arcfb.c
+index b807cf07522d..6771a7409cde 100644
+--- a/drivers/video/fbdev/arcfb.c
++++ b/drivers/video/fbdev/arcfb.c
+@@ -481,6 +481,14 @@ static int arcfb_probe(struct platform_device *dev)
+ 		printk(KERN_WARNING "no IO addresses supplied\n");
+ 		goto err_addr;
+ 	}
 +
-       - description: i.MX93 boards with Toradex Lino Modules and Verdin Adapter
-         items:
-           - enum:
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ac2f54adde73..95f386db1d01 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -285,6 +285,8 @@ patternProperties:
-     description: B&R Industrial Automation GmbH
-   "^bytedance,.*":
-     description: ByteDance Ltd.
-+  "^bytesatwork,.*":
-+    description: bytesatwork AG
-   "^calamp,.*":
-     description: CalAmp Corp.
-   "^calao,.*":
++	if (!devm_request_region(&dev->dev, dio_addr, 1, "arcfb") ||
++		!devm_request_region(&dev->dev, cio_addr, 1, "arcfb") ||
++		!devm_request_region(&dev->dev, c2io_addr, 1, "arcfb")) {
++		retval = -EBUSY;
++		goto err_addr;
++	}
++
+ 	par->dio_addr = dio_addr;
+ 	par->cio_addr = cio_addr;
+ 	par->c2io_addr = c2io_addr;
+diff --git a/drivers/video/fbdev/n411.c b/drivers/video/fbdev/n411.c
+index a3677313396e..ed0281939d37 100644
+--- a/drivers/video/fbdev/n411.c
++++ b/drivers/video/fbdev/n411.c
+@@ -165,6 +165,11 @@ static int __init n411_init(void)
+ 	if (!n411_device)
+ 		return -ENOMEM;
+ 
++	if (!devm_request_region(&n411_device->dev, dio_addr, 1, "n411") ||
++		!devm_request_region(&n411_device->dev, cio_addr, 1, "n411") ||
++		!devm_request_region(&n411_device->dev, c2io_addr, 1, "n411"))
++		return -EBUSY;
++
+ 	ret = platform_device_add_data(n411_device, &n411_board,
+ 				       sizeof(n411_board));
+ 	if (ret)
 -- 
-2.47.3
+2.55.0
 
