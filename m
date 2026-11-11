@@ -2,81 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271E2606A337
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 15:57:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA75B606A333
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=QpOOdE6D
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Q2JoTB4J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFE010EA9F;
-	Wed, 11 Nov 2026 15:57:02 +0000 (UTC)
-Received: from sender5-pp-e106.zoho.com (sender5-pp-e106.zoho.com
- [165.173.182.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 533F310FBF3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 15:56:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794412614; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DpqVUxcyN1oKz/4Wlh8tsoVR0bAE6bReI9Jai+qNkbUnnEsMyKovKk/xar2GGx0MH550F5mSARW2iYju0iJsE+vQ1beT/SVjqNC5lvHDmFAOZXXxz/g+utHNMbptAgC528xT7bbvE/tW4VsMYZd8q9uUYFDsP6BWjgd8GFowm1w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794412614;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=xDRi6AptpCzfUFXVJSMOxBZIzihFxm0gmUYR69jcYuo=; 
- b=IIL0iAVpgiBnabj1P6b2jm4yNcUq8aOBb3gP6YV7oHDHP/x0OFsunVqa7MPL7hoq+7laPpeEbIOyzN0akkqkFnU4CJSm4qJcHkdL/4tCAQHXseCPPsXAC4SXYebJD26+SkFdMABPfo5CnIBpzssVtOZVPjJb2QxSqL3bvLJ0CDk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256;
- b=QpOOdE6DzjcGGF0K/MH11GxBJTVqdcFSiLtp4w3KfVvfaK9NXjKLLwDKFn4pQ91LxGHxxYSfFk0f1jaXMirT86zbEklY9obLVYVMDYXQEnu9IgnY7QKZw/dsustnv6bsL70POsKeCY2hhL2LU4kCiwTsq5XmAUMKcemF4CsZQ1vMI+A8wfsNJV+LPL0ecMCEe2SMnSLZs47WK4+YfFUj6udB0BcHyZKH1uengeqFqF/y6PXn9FJkwVjIW+TqdbvyEdoqivvRZmTydJEOaO4RbRXP9bDgSmpjC0xflgB2Ns7JqJmNZYfJg6TZGnw9gyD9f6nS0VHf1mBXVWP4Yvzdzw==;
- c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
- bh=xDRi6AptpCzfUFXVJSMOxBZIzihFxm0gmUYR69jcYuo=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794412612231901.0262834416521;
- Wed, 11 Nov 2026 07:56:52 -0800 (PST)
-Message-ID: <968c395a22016056a29255d3a123eea8bd5c5c13.camel@icenowy.me>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Maxime Ripard <mripard@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Joel Selvaraj
- <jo@jsfamily.in>, Jagan Teki	 <jagan@amarulasolutions.com>, Ondrej Jirman
- <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>, Michael
- Trimarchi <michael@amarulasolutions.com>, Michael Tretter	
- <m.tretter@pengutronix.de>, Cristian Cozzolino
- <cristian_ci@protonmail.com>,  Sumit Semwal <sumit.semwal@linaro.org>, Ryan
- Brue <ryanbrue.dev@gmail.com>, Nickolay Goppen	 <setotau@mainlining.org>,
- Robert Chiras <robert.chiras@nxp.com>, Alexander Koskovich
- <akoskovich@pm.me>, Marijn Suijten <marijn.suijten@somainline.org>, Geert
- Uytterhoeven	 <geert+renesas@glider.be>, Magnus Damm
- <magnus.damm@gmail.com>, Chris Morgan	 <macromorgan@hotmail.com>, Barnabas
- Czeman <barnabas.czeman@mainlining.org>,  Heiko Stuebner	
- <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>, Arpit Saini	
- <arpit.saini@oss.qualcomm.com>, Michael Walle <mwalle@kernel.org>, Ritesh
- Kumar	 <quic_riteshk@quicinc.com>, Sebastian Reichel
- <sebastian.reichel@collabora.com>,  Konrad Dybcio <konradybcio@kernel.org>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Danila Tikhonov	
- <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>, Michael Srba	
- <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>, Alexandre
- Mergnat	 <amergnat@baylibre.com>, Alexander Baransky
- <sanyapilot496@gmail.com>,  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, Romain
- TISSERAND <romain.tisserand@gmail.com>
-Date: Wed, 11 Nov 2026 23:55:54 +0800
-In-Reply-To: <avRM_GhtR8vMdTO4@houat>
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
- <avRM_GhtR8vMdTO4@houat>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F7710FD78;
+	Wed, 11 Nov 2026 16:08:56 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF4210FD40;
+ Wed, 11 Nov 2026 16:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=RO865FpgI8SUnM8VBsvjl2ol1ZFGSrSMCGa3F96x8cU=;
+ t=1794413330; x=2109773330; b=Q2JoTB4JFjne4RBGp6MlN4MiPGD0fHlLNFFaYXVznUzRoa2
+ Fm3vlO5Vg4N+77On1VeYf8kvY968QL1TbbbBLUwnPyANE4c68TMCUUHE6jhDFQez2CAwV2mZ8+wS8
+ pQTdjQ5Oc5V0HThBCxyoi0LMK8EeTbv18PFiMUX+RRj9AEdzrBkgjLIXavYZWxV3L8kVSgnfwsxY4
+ qfGKyRSAev7L2kzl1jqUG4AAh4Lgq46/jcgVuXLsv1AIxi8fZFwSThSPy29YrFbwgce7wAjHOcFpc
+ Ca1/Z9lnZwQ7cDoa8pKMZV1faYOMxeiEHElXJ4OMuZKuPC6d6iiOrCerU0szmrTg==;
+Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
+ helo=killbill) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xRArz-008u8Y-RS; Wed, 11 Nov 2026 17:08:19 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
+ daniels@collabora.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
+ sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
+ John Harrison <John.Harrison@igalia.com>
+Subject: [PATCH v5 00/15] drm/atomic: only add states of active or transient
+ active colorops 
+Date: Wed, 11 Nov 2026 17:05:13 +0100
+Message-ID: <20261111160814.21326-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,53 +64,138 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-11=E4=B8=89=E7=9A=84 12:13 +0100=EF=BC=8CMaxime Ripard=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
-> > DSI panels can be placed under DSI bus directly and many Linux DRM
-> > drivers will work fine with it: mipi_dsi_host_register() adds
-> > device for
-> > such panel and DRM driver does not use OF graph to configure lanes.
->=20
-> That's not true. We do use the endpoints to configure the lanes
-> through
-> the data-lanes property. See drm_of_get_data_lanes*
->=20
-> > The affected here Linux panel drivers do not use OF graph, either.
-> >=20
-> > Requiring graph port for such panels is tying the binding to one
-> > specific implementation of Linux DRM drivers, e.g. Qualcomm DRM
-> > which
-> > requires the port.=C2=A0 The port is not needed for the hardware to
-> > operate
-> > and for some of the Linux drivers, so it should be optional.
-> >=20
-> > Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> > Signed-off-by: Krzysztof Kozlowski
-> > <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> DSI busses can handle multiple devices, and multiple data types. If
-> we
-> were to drop the port node, how does the upstream video device know
-> which device it should send its video output to?
+This series is a follow-up of what was discussed in [1] and on #wayland
+IRC channel regarding policy and userspace expectations on changes in
+colorop properties and the current status of the color pipeline in which
+the colorop is part of. In short, we agreed that userspace can change
+properties of colorops that are currently part of an active color
+pipeline or when the pipeline is switching status in the same commit.
+However, userspace cannot change colorop properties of inactive color
+pipeline in the expactation that it will be activated at some point in
+the future.
 
-BTW I checked sun6i-mipi-dsi (which is the driver cared in the other
-thread), and it assumes the first DSI device attached is the panel.
+Userspace also expects persistence of color pipeline already set, even
+if it becomes inactive for a while, when activated, colorop settings
+previouly set should be preserved.
 
-Maybe this is some kind of overfit, assuming a 1-to-1 connection?
+This series uncovered some bugs on IGT tests that were already fixed [2]
+and applied. The bad merge conflict resolution mentioned in the previous
+version [v3] is already resolved. On the other hand, when rebasing this
+series on drm-misc, other issues on AMD KUnit tests appeared due to the
+introduction of the new FIXED_MATRIX colorop type. As a result, the
+first two new patches address them.
 
-(And I wonder if anyone attached a bridge instead of a panel to a sunXi
-device.)
+I also tried to address some Sashiko's complaints on pre-existent issues
+that affects the stability of this series, but not all since I want to
+keep a healthy scope for reviews. Now some AMD fixes in this series are
+attached to the DRM changes, so better apply the whole serie in a single
+branch and hope that this doesn't get deleted in the event of a merge
+conflict.
 
-Thanks,
-Icenowy
+[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
+Changes:
+- define a macro to walk in the color pipeline (Alex H.)
+- fix checkpatch warning (Alex H.)
 
->=20
-> Maxime
+[v2] https://lore.kernel.org/dri-devel/20260604180457.1110110-1-mwen@igalia.com/
+Changes:
+- [Drop] drm/atomic: duplicate state of all colorops
+  If inactive colorops state are duplicated on resume, the commit will be
+  rejected. 
+- [New] Four new patches to make AMD driver match the policy of colorop
+  updates only for colorops in active color pipelines plus individual
+  colorop updates. It also tries to untangle COLOR_PIPELINE = Bypass from
+  colorop BYPASS prop = true. I think patches 3-5 can be cherry-picked and
+  applied if it looks correct for AMD, I just included them here for
+  context (for example, Sashiko reported an issue in the previous version
+  of this series).
+
+[v3] https://lore.kernel.org/dri-devel/20260609121230.1358786-1-mwen@igalia.com/
+Changes:
+- make drm_atomic_add_affected_colorops static and move to
+  drm_atomic_helper.c (John H.)
+- skip check when just duplicating state for suspend/resume persistence.
+- [re-add] drm/atomic: duplicate state of all colorops to preserve all
+  colorop status in a suspend/resume
+- rewite commit message and better explain what's considered an active
+  colorop (John H.)
+- [new] drm/atomic: check if an active colorop has a blob if its type
+  requires one
+- drop the ternary and add just a warn_on since both current callers
+  iterate planes already in the atomic state in AMD's active pipeline
+  check (John H.)
+- explain the reason to use commited colorop in AMD's active pipeline
+  check (John H.)
+- [new] drm/amd/display: don't ignore failure on blend colorop setup
+- [new] drm/amd/display: distinguish colorop setup error from no colorop support
+
+[v4] https://lore.kernel.org/dri-devel/20260811171011.184964-1-mwen@igalia.com/
+Changes:
+- Fixes for Kunit tests related to FIXED_MATRIX type
+  - [new] drm/amd/display: Update colorop pipeline tests for new fixed matrix op
+  - [new] drm/amd/display: add missing FIXED_MATRIX colorop to AMD KUnit tests
+- Fixes for KUnit tests with the new policy in place:
+  - [new] drm/amd/display: add plane to commit on KUnit cursor mode tests
+- post-pone making drm_atomic_add_affected_colorops static to a point in this
+  series in which this is not needed by AMD anymore (Harry):
+  - In drm/amd/display: allow individual colorop change, drop the
+    drm_atomic_add_affected_colorops() call from dm_update_plane_state(),
+    since the colorop helpers now fall back to the committed state
+  - [new] drm/atomic: make drm_atomic_add_affected_colorops() static
+- check colorop type when allowing individual changes (Harry)
+- update __set_dm_plane_colorop_fixed_matrix to get the commited state if no
+  new state as for other colorop individual changes (Harry)
+- update KUnit tests accordingly (Harry)
+- [moved] drm/amd/display: only check colorops of an active color pipeline
+
+[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
+[2] https://lore.kernel.org/igt-dev/20261021151929.62529-1-mwen@igalia.com/
+
+Best Regards,
+
+Melissa
+
+John Harrison (1):
+  drm/amd/display: Update colorop pipeline tests for new fixed matrix op
+
+Melissa Wen (14):
+  drm/amd/display: add missing FIXED_MATRIX colorop to AMD KUnit tests
+  drm/atomic: only add states of active or transient active colorops
+  drm/amd/display: add plane to commit on KUnit cursor mode tests
+  drm/amd/display: only check colorops of an active color pipeline
+  drm/atomic: reject colorop update from inactive color pipeline
+  drm/atomic: duplicate state of all colorops
+  drm/atomic: check if an active colorop has a blob if its type requires
+    one
+  drm/amd/display: truly bypass plane colorop 3x4 matrix and hdr mult
+  drm/amd/display: make shaper bypass mode cleaner
+  drm/amd/display: make blnd bypass mode clearer
+  drm/amd/display: don't ignore failure on blend colorop setup
+  drm/amd/display: allow individual colorop changes
+  drm/atomic: make drm_atomic_add_affected_colorops() static
+  drm/amd/display: distinguish colorop setup error from no colorop
+    support
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  13 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 236 ++++++++----------
+ .../amd/display/amdgpu_dm/amdgpu_dm_cursor.c  |  26 +-
+ .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 118 +++++----
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |   4 +
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c   |  49 ++++
+ drivers/gpu/drm/drm_atomic.c                  | 199 +++++++++++----
+ drivers/gpu/drm/drm_atomic_helper.c           |  59 ++++-
+ drivers/gpu/drm/drm_colorop.c                 |   5 +-
+ include/drm/drm_atomic.h                      |   4 -
+ include/drm/drm_colorop.h                     |   9 +-
+ 11 files changed, 456 insertions(+), 266 deletions(-)
+
+-- 
+2.53.0
+
