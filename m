@@ -2,158 +2,175 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604CF606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 00:40:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1F8606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 00:43:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mNT3YIAy
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cEsksMOt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GdGllp9a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7283710F690;
-	Wed, 11 Nov 2026 00:39:58 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD6C410E02E;
- Wed, 11 Nov 2026 00:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794357591; x=1825893591;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=SuBAgtKwlhunRBT5kF2i+p3wHQjcMZAQHkpfwzefYnA=;
- b=mNT3YIAyEytuMnjD3yzl6Ox/En7dd7yTx3bYhWS1DkMwb0YymzHBfxFa
- GaQzJC/ZqR0nRz8wxxt3KDjcrV4nQxewBprI0t8UqeuYcG/xtZUliHXO4
- PM3xwL095q2OLiv23mtYYm7VTUqDR26c+NW8EMyOA0BrynxFBhLd7Uehq
- s93ex+FiBHJpnip6teIm2Rtb8U66AWi292j+jziYSi4NesfCA3rrBiHl7
- N02kalFw4BD73JD7hem18qqJqAbRfFQ05cRwy4B2TkbWglCU94JFRHFXm
- 3TNupOV01boTHdzwCNjI1aNNvYjmZB408rbOrnHksWDzz+YWhhIAkbT9P g==;
-X-CSE-ConnectionGUID: kMQk9xnYSOGFZXNYKNOd1Q==
-X-CSE-MsgGUID: GhqmYH6vSE2G/4hPoP2VjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3038558"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3038558"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 16:39:50 -0800
-X-CSE-ConnectionGUID: H3k+uiEtSryO0OeS9/Vghg==
-X-CSE-MsgGUID: vsjsfVjTTayj9B2/gRHRbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8859668"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 16:39:51 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 16:39:50 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 16:39:50 -0800
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.67) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 16:39:50 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZoHGJ9QBGIFFCsfqJoHk7eDSGiX1TSbPLVT2NXro8OyPEwBFo+v/hOSBQZSHVK5u3OUyIYJZ5unpQ1Qi4GrwlDS3phINPhq7u7g5eRTrSlMWquLbsW9Sgv9gZTcB4Iber4kGpQ1aAZ/TbmQwKqOX8AQC2gf57a+08hh3vdRWplYvfN0B21ti7EB+vkH0mk3DeC7HiGQccf/vQAriHmV6kzYsMCauRUpi04d/HZeGQfjKHCm3XLfPQRXMw1UIq4K1nfd7J5APnQlbq3hwChh7gZEilQvUP3n0FISEWSrJWpxzIUw6lU7YW1oNmv7BSwx7p/MkayEP9h76hH/1fs9LzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J2dkOZIrFaNiz9+ipqR7DUjhr4MZ762asWSniGBhi1Y=;
- b=AwMhAzRNG7EnunJ3yscgyLz+FwT1qM6TobbmxfFsarGHHZb6tfDDcR7v2ECMui91qNRga74Ar33ZeIavO3nS/ru69g30bwvtLIwgIriSObYbSSjEccNZVFKsOue5+Qra2lU8sEocNzAW3gHF4XxgQQOk+m0MFwb99rnZMah+maucDjLX0wtQXnkjQtL0V7ucrHbQHZFsLz3TJWxbSvWtePuo6moWQLA/yNYYlCr+uWuJYeWxlyZMmb6dHsMjcWpJW6es1BadEtMW8kd8x1cxxXjadE5Rb/uCc0D28YhmVqGJLoImNRdkxifhjAhniId/oJbRi/2NUGB0DDJ5AKgw8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by PH8PR11MB9608.namprd11.prod.outlook.com (2603:10b6:510:3a0::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 00:39:42 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 00:39:42 +0000
-Date: Tue, 10 Nov 2026 16:39:39 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 23/33] drm/xe: Defrag using out-of-lock page
- preallocation
-Message-ID: <avO5S8WLjcUSGF0f@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-24-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-24-matthew.brost@intel.com>
-X-ClientProxiedBy: BY5PR04CA0017.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::27) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 935B310F870;
+	Wed, 11 Nov 2026 00:43:19 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45D1E10E0C9
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:08 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AAMKeQA3715098
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Tg4X3cdll5T1S7kugUAtHU
+ 1yiOSVpqm9E/2y7Atjkho=; b=cEsksMOttxjAKuSzdboUbArSKwAsz/CF3eqM/9
+ 9jFuS7edg3Ynh7bPrA1UE7NFTHKIxC1U9GNFh2o7CGvroD2GJagqeZdKDGxZPrAt
+ 4OHM2hI5GSzHrjPmkpAytvP6s25PnL9J+ohO01joGrADV1EoV6GgBgoVMTokgdYi
+ dVOrHPTE8urO75toSDGj0rN37AVEB6N3Hn0XtZPnVB7D1BhafCZOiF0mDByZCEaY
+ AxaY2i+86Ij/YZNaVaRrtIG/jAld4Wbh1eXeyJn+lJ0oj7cN5x0UaaSGjRrXOxFh
+ fGfWArXj3aTVsnqXjF2KdyLuWFML+3Ru+gvg3hx9o1Kbv3Jg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4bjsh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:07 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-91c8a517107so74860536d6.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 16:43:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794357787; x=1794962587;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=Tg4X3cdll5T1S7kugUAtHU1yiOSVpqm9E/2y7Atjkho=;
+ b=GdGllp9ajIocEMS6NVepWuZcqWOtU8YEyZYTQ0BCIi66HrNbz14BdhrFpJU4RE9HeI
+ KGp+D2e3EMXf+6imgwOxZTTUZLj+u5m/KTt+lCiMBznelKMG0EM3hpYQvR7RCO4wk5Bg
+ 9xdAOetM3m1t5/RBlAxbFJdhLkBupkK9sSMxuI8AB8Z+gn8j2JQJu+6sCkpF2ERbpSNX
+ 3WCxxpqtZ3Sty/M3gbacp8Tg0YCYLRDvwnGA6qqeb9o7mr4IjhdyeD+D1rJzu4zAWlPs
+ Wobyy3qQ/JgF8JixF0Kkf8TRK6z6MaTuG3IazbSQD7oxU74NOR+qR8kV8j/0yTc9RJPk
+ 5hoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794357787; x=1794962587;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Tg4X3cdll5T1S7kugUAtHU1yiOSVpqm9E/2y7Atjkho=;
+ b=1bV30u4h4OlpCwoDpfeAt7vNKMVsMYkLV9ypER3IHD31eC/S6qKo3xdpGNfoPR9EE+
+ DaJWwMW5cP+//IWyTq9weBWfW48KKBXm7BZa6yUkjApSYfwkixPHwr/8heDo8BuZnjlW
+ xlyOOTx4xz3aq1WIOZDB8ifRcdgRf1AlPaguYdP4OlhWjnGePHy7eiDbf1adS66Bbme5
+ 7exkDDUKRNEWbw+S1V5kTG8UWsMfNmMRiDacZuBtZdliibeGj4PQxfgHackB9aRNjyzv
+ EBMLf1ARkrgH+xenqQ/wjTF33bRJY4Z/DHYwyeX7DzkWTiuncj488E+BmlOdH3NvNXMF
+ 24cg==
+X-Gm-Message-State: APuU4Z/X5wv1VrQbIa6hSa22ILBOCADDG1FaSoiQjWbRBIivIoazv0zl
+ N2+CzHF1XZha1OgDMoWMFTEH4X2YyQvzXvRhyDfxa3pTiFx+l7k6IfGTBa4hvQrCutrkYSg4mD6
+ REcIQxs/o4Sp0461CHl7sutmbK+nhJlbVX7dMHEoDOTSSyJWb66qYHn9GlbLClcBiDHELDT0=
+X-Gm-Gg: AYBFou3IPbNpqmkQmgQ20jzpX7xkwlpH/pnHCOtExd2sGXpQBK32gyGIX18VFTsBI+P
+ S7k4ceoK0jKDqXhhdsZ+AN1D7uvyMdKaKEZeeB1bSiugwi8hn5zD1WEB04ZOwK7nBlK50NrVHbB
+ OmSx8jpQORj0H1Y80SGQp2dUF9CHUvikWNU41jJEQTYEeUl5W96zAQWEsM4SJ8zlo6j07cJ9K4a
+ C9+m8yVEVxYNmTomR5wGnqznJ95ysF/7YByBeS49rZO8UNphQF+J60I+Fs2XP7FJydoY1bSZp4e
+ Isi1rEVZ3rb5h7/7c8mlMS7eWYlYb6nuoGhJa7oFb6KHjaIMXDotFscFN0AB8v2w06QlJsBuSC5
+ S++xkmiZThtiADqgdVPiLHXPzViqO6GLswKcbcedKQfgYT4JCpbScM7g0g5GxeIRnCTXD0I+9Ap
+ W6Y3qtJL64l1ChyMphexC9stKCXaSpfBptwa2wWt1br9nDe6WsGMEPJqmQ6V2wcQ==
+X-Received: by 2002:a05:6214:4109:b0:91e:8cb1:b842 with SMTP id
+ 6a1803df08f44-91f0416afc3mr18101356d6.49.1794357786453; 
+ Tue, 10 Nov 2026 16:43:06 -0800 (PST)
+X-Received: by 2002:a05:6214:4109:b0:91e:8cb1:b842 with SMTP id
+ 6a1803df08f44-91f0416afc3mr18100956d6.49.1794357785839; 
+ Tue, 10 Nov 2026 16:43:05 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ae092896d8sm7499011fa.32.2026.11.10.16.43.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2026 16:43:04 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v8 00/10] drm: writeback: clean up writeback connector
+ initialization
+Date: Wed, 11 Nov 2026 02:42:29 +0200
+Message-Id: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|PH8PR11MB9608:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4ac7c09-1741-4206-8622-08df3f8c4695
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|1800799024|366016|11063799006|4143699003|56012099006|261022105027099003|261021121427099003|261021123027099003|261026140227099003|261009223027099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: JgGWY6kbKEk4IPqqUWc3UkIlfkzaKzw58S90IWL3xhLaLI77cLZgaosMrtnNBbWap3FKMv3vzdkJa/eU/ARa+mZQWu2DtjmRB9fjbbD327N7wkQXjKzGUwFiqdtAY42ZcjrjnPy+BxvLm4L3437tRT1pT5vKZmBAQ3N8vJwecvFxoSq5T4znkiirDpwFl18IeTo9VBtYE4NF84twlvXhw2/IDLc+2FCn7Bbqq3gIYNaznM2wAYOLtsS5cSR+oo2C+V/B857CI2w72YjwPZQM7fDYCBZJklO2MS0SYd5dV/CKpFYGV0jvMQMdHu3aDfRSghQPPjSToEkwO4VnjpeHpE8RJOPyA8KCeSLyPE8+6WG6fu5Sj/qGFU062/IRZYlehh8WKUvJquegOnrkxx927qkr2ZTcA49vQxE1n4g4vw0A2tDiHeV8BeElEWIOgR3VfWPvtBOXyklNN+2u3/Yc/dfpkunihAORBvq/Kj6/T2EXeqSiR0TfJW74h/BW8F+U+WoPkEfs0jNRWqYJB27kNFZZrm9YsahTKni2CQaohGZAbLvxK/wvuajwqU+iBAlv9A4Tgzf2UCKPMyoJvMy8fq8CiUDDTrlQRJ43cPz6IO1l2Hb2WpOHzpVfOGUU4IeUHFMcZwFy2ICt9qBMWKA3I/q9tZyo3X1qkAZD7axT884=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261009223027099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?uoHL+KSgwp02PmNw/d4DEJHrtrE1V6qL99Q6vA2bYq217/alowBB2/AOvj?=
- =?iso-8859-1?Q?aM2sAljDN7zQ+B++EaSQqX1jggTk6jHNfVBNdQobB+D8cKXedtqMPA+8wh?=
- =?iso-8859-1?Q?Q0FUyFUgD7zuMwcb36jfYakn8M9/YG8KMLxAs0b/vRzM+DC4xQvFnHlonF?=
- =?iso-8859-1?Q?ProQK5WE0dj/npXF7IqQcOvDjbPxyPruvCk0X5Cygca0k8kdQaGR2RMcaS?=
- =?iso-8859-1?Q?xPpO9yVvzL9fwSkWbDb74N0dulU0XEB8ZQq4JhsN1x1y60NhiuALpVYy9W?=
- =?iso-8859-1?Q?QbUsoaT7+FAhONrx/UBtjxW3ercUdHoQ1wyTthOoGtbihJTkoR5ZIW0R00?=
- =?iso-8859-1?Q?Gyi4Tb1o7qx34BmKtC5D1lnRX/TDyDlSaAOduGesOhWl84TWbzbxPFBY5B?=
- =?iso-8859-1?Q?0tzur82iAJ0qipzH12KmFMWUDNgU6waYshy0z7bR83GRBpZN5WzGUaVLPu?=
- =?iso-8859-1?Q?FUlN0M6ppHsvAbvYNh/rieJeaoFbZK9i4nCd7D/EUisI2gCZZmmIG/J2Wf?=
- =?iso-8859-1?Q?Qhg7oWogeHaitIot6DIemPJXVdb7WzMEFLql7RPPenhuvheQi1LO/JZWlz?=
- =?iso-8859-1?Q?3oevh/k67ZBV1TgKL34znj+1Z7FSZUzRf91Uz1Jf8ntWciOy6xcWt4uHvA?=
- =?iso-8859-1?Q?q7Pcu182lU3+xqd82YAEEAh7H8geWgy+N/x7hABjIuOti5QKUWnMnarOzV?=
- =?iso-8859-1?Q?K8WobQIebHrZpco8UbHGh7KTW6JYtbXWvnNKu9qMfAX1/bN846XV16tZ3I?=
- =?iso-8859-1?Q?9zGA5JXmU/RzSkJ6yl0df7ktOce6QQWtmiaFUOnRRr8ZiZ7sgPhil+0W/z?=
- =?iso-8859-1?Q?Kfmv446shlLYU2b4ggi/7KMZd/XRDQ1ZHWE6iPXG0atbWdPqzmj0Tpf+6r?=
- =?iso-8859-1?Q?FDEGJu1KjpRPBfxcwC8dvZ0BrVvt4dSkq6vYHHQMNhIbzUhjO+6b1DFwyN?=
- =?iso-8859-1?Q?aEFAtLM89DTb/F+LAW11awVilHxzWjJ/haUC5nzLshfQGjUNCkyr5AH902?=
- =?iso-8859-1?Q?IZkV/oPEGAQul1JH7jvWNFdefQ/46Rj5kis/P27tTlOMtcqOuuLyLWAtk0?=
- =?iso-8859-1?Q?05LX+nMHlfJ2gI0dd1rfGKoRIOzbAhfNufcuSD3gaYabJXLtuUsBDy7IM4?=
- =?iso-8859-1?Q?VvfN3w9kd2IPTM77Yoc/N7sGwCKfkUpiEc0Bn/AqruSpaK5uH6Ds4yGCNk?=
- =?iso-8859-1?Q?ZOnXRILHSmmrkgB9SJo0u5KaYUp+dhhplI+rDVxAPZLwTwhVGMMoWK6Xgr?=
- =?iso-8859-1?Q?5UK+d0AgFhiWoKs8nwEGmvg9o46kLlDmJKKjhPNRM/urzw19KJdbC4ji/+?=
- =?iso-8859-1?Q?F2eAndX20q+ol0cnGHGv7wC9pRw8ljZnb85jMQaIzHy/XY5pU0GRR2SEGp?=
- =?iso-8859-1?Q?KlJ9l1ngTbGHHjZWLWT7bVlVBEl9CGiLXahVnmGdIU4+EKcyepKXZeNEKX?=
- =?iso-8859-1?Q?uMW4E/iXegNmXtkv0OzWrC8RG//BIcmTjp40uPoTHf/AlllSIkssQjJEP0?=
- =?iso-8859-1?Q?IHnAE+e2fOGEMDa8G/TVUjYkKdLoXwKixFRXR4bolW60zwJXGODr/LK5Bq?=
- =?iso-8859-1?Q?QWp3quJgWck46PW0Me2AguYZWuq2NzVpGmQXyj4Cu+QHhRl0quepTwTlUl?=
- =?iso-8859-1?Q?osMjxVhUraXNo+G1PcffZ4l9md0t4AoH2FnLmw8+NLduio0V/f0zvh8Cuf?=
- =?iso-8859-1?Q?Yzf8VXrM54j/enRSC2mkMVXUYAG57XivSusO6EwdC40xXAr7Ign8X8VSRJ?=
- =?iso-8859-1?Q?rukixC3nNsaI/TanvY8f1vGZsxKLhkmz7dzNS1OLfkw7YSMKH0vZCnYIIR?=
- =?iso-8859-1?Q?AtAgFbilzvqcKgQyzI48CBQflgdfttjtRZObYVFQTVTGpT1NQRFj?=
-X-Exchange-RoutingPolicyChecked: KZ+HNZjuCjNaAc/+dAjsu53Zw73hD4N221lOMUP0lAOHjL3MRGwQinKoUeumXzx7w+5xybd8VQaHyBiIeqfvZY9U3HEjPFyfcH/Aa9mun3OgpjPUbL1btbsi+MGZJO4X+Z6QwpMF3V+pHPKKuhOYi5KLSHCDPzV1nDljbBoqQGiQjfbZnRZv+0BBfQc1UR1JAH+aKBOTDZc3RodWolw8uHSg147zpBx6+7OiMd/5tgfVgSiqOLZEpE4OcU3i4Ph+pzoK+n+CYDPiKMJBFbUpFQWPuETnI8vbYJeeXvmw3yj8JUcNZblp09RgvzdZGyxMp6wXsa6kO4KNGHvOOuKl5A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4ac7c09-1741-4206-8622-08df3f8c4695
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 00:39:42.3524 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LhyGTuMjU1USwJW8YMrXBJedD0jDXPf+9xWvsPXn3mj9dmRr3/XicOQQDhbRBnc6BWE0W50U7YKbxNdH1QTHNk+IV/g3QKEDaucsGxp+PfwVVZGBTI1tvHfvR13rt8xF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9608
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAPW582oC/3XS327CIBQG8FcxXA93OOWvV3uPZRdQYCNZW4Xau
+ RjffajRmdTeED7C+ZGQ70hKyCkUslkdSQ5TKmnoa9AvK9J+2f4z0ORrJggoQAOjP476PGxp6Nv
+ Bh0yNstAq4bzwitSpbQ4xHS7i+0fNX6mMQ/69PDCx8+myNTEKVCOXXALHqPzbUMp6t7ff7dB16
+ 7qQMznhA8PknMHKRCOYD8Ajj2aBaR4ZM2eayjiurbRRGWjcAsPvDEPUc4ZXRmiPOkipDbAFRtw
+ YCQLEnBGV4SikcqpVNuICI/8ZyXDOyMqY2FjBo2YNgwVG3RkGz/5GVcZz1NqiDE7wJ8zp2oYcd
+ vtaq/FaCeJsCfR8KY2blc8d7VJpX28b2ofDWEdPf380LrSZAgAA
+X-Change-ID: 20250801-wb-drop-encoder-97a0c75bd5d7
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Harrison <John.Harrison@igalia.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ John Harrison <John.Harrison@Igalia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6121;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=eaXxqDG4WrpTkfdaiMoy+rNXi5klWk6+CeDvCurUMK0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq87n6hOU2QvpLiPujdsHCYHYfu8QrSQipqUVwh
+ rP0H5Xo42CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCavO5+gAKCRCLPIo+Aiko
+ 1YvTB/0a9YP74Woyq7Tx/JgbG6dxAN/qjgPFsMEZehC+9i3MVe4qiudQeHjHIGfJQvTduTO9Xqk
+ tdFImxF3Hgmud1zSHt2T9loQX8oTx1pNCacq6kCaciiI64Y6SJ+d/N0vUyVVUpH77b0Nqw12ESP
+ kl/TbEJKOBH8xPUzhMrDp8T/Pc7d3r64JpEgNO8lHLEU6Ts1z+j8neRmLLYq5T9Fb9iE0gaW3kI
+ GfP9BXJtkeRj5M23Zcn3EyEa/S3EJqpa0deIEt/yaP+JFeGtn5+NZAwlYlDobyduHTYEIcIoXJ+
+ WhoS8YRnyTSA1orhhwRUBgKDvvyat0rVOikzuzu5bOQkV4Em
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfX13HVXpzP5QCI
+ IktQs+v5Gv6o3l8fcS96LiIyQIjnlSB6iQSwTImhReMBWAo20RvYrsIt3WDE0Rr6mwigpvNgddd
+ Z1pyaOOUVGTCR/aFb94679oFD3c/y0/IkAXdEDr70Sti+qy4YRfnTOdNzb2V0ZCC/ZBfa/o17+H
+ AJppWejkamlST3RNyJ17Gx6n1LW/8jrgbc7Pk/fK2nCiV72IczHoZMvsdB4tZQxOz6AmncZNoBh
+ 1cliJznNBDIhhKqAenlnHoKw8vp218r3n22Ec9o+LiZzZ3rg7VpULimahrk0pSkXoeWIK24Nuws
+ wuKC6wCzEubX1Pv1zCQoUbveAzq4AoXQ2vBde5GTlF62MDyVMofbZxfZXCnvnvWZhP2bbzQcmtQ
+ CNke0anw95LcW2eCgeJZiS6Jwqo0R9JXan4bsNEVEC60tBGcHWyxbuykkk0XrtPtVUsQ6ZuZhQl
+ pBBKB361Frk2Txp+KkA==
+X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af3ba1b cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8
+ a=V2sgnzSHAAAA:8 a=zd2uoN0lAAAA:8 a=7CQSdrXTAAAA:8 a=P1BnusSwAAAA:8
+ a=RF00TdSWAAAA:8 a=P-IC7800AAAA:8 a=-VAfIpHNAAAA:8 a=e5mUnYsNAAAA:8
+ a=wUE-LUHtHEr0u8wc4aUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=FO4_E8m0qiDe52t0p3_H:22 a=Z31ocT7rh6aUJxSkT1EX:22
+ a=a-qgeE7W1pNrGK8U0ZQC:22 a=D0XLA9XvdZm18NrgonBM:22 a=_nx8FpPT0le-2JWwMI5O:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=srlwD-8ojaedGGhPAyx8:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfX9NSx7zdMd/DD
+ Gy1L4JgNGWHWi8Z66m6nStHpEuM7FSon7MZoQs4+Wv6VRGHZ1hSMFNvdgHYZHxwCqS2A7ZLcti5
+ SoS504jh9epFx0UK5eVtaq84Ve6vK3k=
+X-Proofpoint-GUID: WLZfRW1PWQJ0aZwG4cDu2_ib1PnS40ry
+X-Proofpoint-ORIG-GUID: WLZfRW1PWQJ0aZwG4cDu2_ib1PnS40ry
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110001
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,154 +182,135 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Jul 10, 2026 at 07:56:09PM -0700, Matthew Brost wrote:
->Convert xe_bo_defrag_one() to a three-phase scheme that moves the
->expensive beneficial-order allocations out of the BO dma-resv lock:
->
-> 1. Under the lock, re-check eligibility, capture the tt cpu-caching and
->    read the exact sub-optimal page count (ttm_tt_suboptimal_pages()),
->    bounded by the run budget.
-> 2. Drop the lock and preallocate that many beneficial-order chunks via
->    ttm_pool_prealloc_fill(); reclaim/compaction stalls and the cpu
->    cache mode change both happen here, outside the lock.
-> 3. Re-take the lock, re-check, and validate consuming the prealloc bag.
->    Any shortfall harvests the old backing instead of reclaiming, so the
->    move never stalls under the lock; the BO re-queues for a later pass.
->
+Drivers using drm_writeback_connector_init() / _with_encoder() don't
+perform cleanup in a manner similar to drmm_writeback_connector_init()
+(see drm_writeback_connector_cleanup()). Enough of the drivers don't use
+the encoder embedded into the drm_writeback connector.  In preparation
+to further rework of the WB connectors (as planned to enable WB for i915
+/ xe drivers, which would move drm_writeback_connector to be a field
+inside drm_connector instead of subclassing it) remove the drm_encoder
+wrapped in struct drm_writeback_connector. Rename the
+drm_writeback_connector_init_with_encoder() to
+drm_writeback_connector_init()
+and copy drmm_writeback_connector_init() interface. Then, with the
+encoder being gone, handle proper cleanup of writeback data in
+drm_connector_cleanup().
 
-Assisted-by: LLM
+---
+Changes in v8:
+- Fix the out-of-bounds access Sashiko reported on v7: track writeback
+  initialization with a new drm_connector::wb_initialized flag and key the
+  cleanup in drm_connector_cleanup() off it rather than the connector type,
+  since a plain drm_connector may use DRM_MODE_CONNECTOR_WRITEBACK.
+- Clean up the writeback jobs outside job_lock so the sleeping teardown no
+  longer runs under the spinlock (new patch).
+- Link to v7: https://patch.msgid.link/20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com
 
-But as lock is released between phase 1 and 3, there can be BO mismatch
-between phase-3 and phase-1. More below.
+Changes in v7:
+- Significantly reworked series, no longer insisting on using drmm.
+- Link to v6: https://patch.msgid.link/20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com
 
->With both allocation and caching hoisted out, the BO-lock held time
->drops to copy-bound (median ~0.27ms, p95 ~2ms); the remaining tail is
->lock-wait behind active rendering, as intended.
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-opus-4.8
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->
->---
->
->v3:
-> - Use DIV_ROUND_UP_ULL() for the 64-bit preallocation chunk count
->   (Sashiko)
->---
-> drivers/gpu/drm/xe/xe_bo.c | 46 +++++++++++++++++++++++++++++++++++++-
-> 1 file changed, 45 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index 0bdd1c920404..8b89d34f37d4 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -1258,16 +1258,56 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
-> 		.defrag_bytes_remaining = budget,
-> 	};
-> 	struct ttm_buffer_object *ttm_bo = &bo->ttm;
->+	struct ttm_pool *pool = &ttm_bo->bdev->pool;
->+	struct ttm_pool_prealloc pp = {};
-> 	struct ttm_placement placement;
-> 	struct ttm_place place;
->+	enum ttm_caching tt_caching;
->+	unsigned int order, want = 0;
-> 	int ret = 0;
->
-> 	*consumed = 0;
-> 	*needs_more = false;
->
->+	/*
->+	 * Phase 1: under the BO lock, re-check eligibility and estimate how
->+	 * many beneficial-order chunks the move will (re)allocate, bounded by
->+	 * the run's byte budget. Then drop the lock so the high-order, possibly
->+	 * reclaim/compaction stalling allocations happen unlocked.
->+	 */
->+	xe_bo_lock(bo, false);
->+	if (!xe_bo_needs_defrag(bo)) {
->+		xe_bo_defrag_remove(bo);
->+		xe_bo_unlock(bo);
->+		goto out;
->+	}
->+	tt_caching = bo->ttm.ttm->caching;
->+	order = ttm_pool_prealloc_order(pool);
->+	if (order && ttm_bo->ttm) {
->+		u32 suboptimal = ttm_tt_suboptimal_pages(ttm_bo->ttm);
->+		u64 cap = min_t(u64, budget, xe_bo_size(bo)) >> PAGE_SHIFT;
->+
->+		/* Prealloc only the beneficial-order chunks the move replaces. */
->+		want = DIV_ROUND_UP_ULL(min_t(u64, suboptimal, cap), 1UL << order);
->+	}
->+	xe_bo_unlock(bo);
+Changes in v6:
+- Dropped applied patch
+- Implemented suggestion by Alex to use drmm allocation for the
+  writeback connector.
+- Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
 
-As mentioned above, BO can change after we release the lock here.
-So, 'want' can be less than what BO needs. This is probably ok, as if fetching
-from prealloc fails, TTM will fall back to fresh alloc.
-But if tt_caching changes after releaseing the lock here, it is never checked
-in phase-3 and page cache setting will be different than that of the BO.
+Changes in v5:
+- Rebased on top of drm-misc-next
+- Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
+- Expanded commit messages, describing why the drivers are converted to
+  drmm_writeback_connector_init() (Laurent)
+- Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
 
->+
->+	/* Phase 2: preallocate outside the lock; */
->+	if (want) {
->+		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
->+		if (ret || !pp.count) {
+Changes in v4:
+- Rebase on top of drm-misc-next, dropping applied patch.
+- Added a note regarding memory leak in the AMDGPU driver.
+- Fixed a devm vs drmm issue in the msm/dpu driver.
+- Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
 
-'!pp.count' is treated as error but 'pp.count < want' is not. Should we?
+Changes in v3:
+- Fixed subject prefix for the rcar-du patch (Jessica Zhang)
+- Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
 
-Niranjana
+Changes in v2:
+- Switched to drm_crtc_mask() where applicable (Louis Chauvet)
+- Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
 
->+			ret = ret ?: -ENOMEM;
->+			xe_gt_stats_incr(xe_root_mmio_gt(xe),
->+					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
->+			goto out_err;
->+		}
->+	}
->+
->+	/*
->+	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
->+	 */
-> 	xe_bo_lock(bo, false);
->
->-	/* Re-check eligibility under the BO lock. */
-> 	if (!xe_bo_needs_defrag(bo)) {
-> 		xe_bo_defrag_remove(bo);
-> 		goto unlock;
->@@ -1277,6 +1317,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
-> 	place.flags |= TTM_PL_FLAG_TEMPORARY;
-> 	placement.num_placement = 1;
-> 	placement.placement = &place;
->+	ctx.prealloc = &pp;
->
-> 	/*
-> 	 * On success the move reallocates the backing at beneficial order and
->@@ -1321,6 +1362,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
->
-> unlock:
-> 	xe_bo_unlock(bo);
->+out_err:
->+	ttm_pool_prealloc_fini(pool, &pp);
->+out:
-> 	return ret;
-> }
->
->-- 
->2.34.1
->
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: John Harrison <John.Harrison@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Magnus Damm <magnus.damm@gmail.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Mihail Atanassov <mihail.atanassov@arm.com>
+To: Eric Anholt <eric@anholt.net>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+---
+Dmitry Baryshkov (10):
+      drm/amd/display: embed the writeback encoder in amdgpu_dm_wb_connector
+      drm/komeda: embed the writeback encoder in komeda_wb_connector
+      drm/mali: embed the writeback encoder in malidp_drm
+      drm: renesas: rcar-du: embed the writeback encoder in rcar_du_crtc
+      drm: writeback: drop excess connector initialization functions
+      drm: writeback: rename drm_writeback_connector_init_with_encoder()
+      drm: writeback: don't destroy the shared writeback properties
+      drm: writeback: clean up writeback jobs outside the job_lock
+      drm: writeback: clean up writeback connectors in drm_connector_cleanup()
+      drm: writeback: drop the drmm writeback cleanup action
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  27 +++-
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   4 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   4 +-
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |   3 +
+ .../drm/arm/display/komeda/komeda_wb_connector.c   |  24 +++-
+ drivers/gpu/drm/arm/malidp_drv.h                   |   1 +
+ drivers/gpu/drm/arm/malidp_mw.c                    |  25 +++-
+ drivers/gpu/drm/drm_connector.c                    |   3 +
+ drivers/gpu/drm/drm_crtc_internal.h                |   3 +
+ drivers/gpu/drm/drm_writeback.c                    | 156 ++++++---------------
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |   2 +
+ .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |  29 +++-
+ drivers/gpu/drm/vc4/vc4_txp.c                      |   8 +-
+ include/drm/drm_connector.h                        |  12 ++
+ include/drm/drm_writeback.h                        |  22 +--
+ 17 files changed, 159 insertions(+), 167 deletions(-)
+---
+base-commit: 41b5458595c60143d0ebaa1e032c9cda5d764dff
+change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+
+Best regards,
+--  
+With best wishes
+Dmitry
+
