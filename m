@@ -2,92 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B95F606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B2A606A33B
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:05:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mXUKobdr
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=eQIgQn/B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC86610E117;
-	Wed, 11 Nov 2026 09:00:54 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C148710E117
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:00:48 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-48e10a70540so1769744f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:00:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9BE10E9B3;
+	Wed, 11 Nov 2026 09:04:55 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7BA10E9B3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:04:49 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4a35d5d4a20so34895285e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:04:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794387647; x=1794992447;
+ d=baylibre.com; s=google; t=1794387887; x=1794992687;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=YwnkBq/sQXzLyTa3e267V+Hfsvd2DxUq3BpvzIujRj0=;
- b=mXUKobdr8nwmKpzkDHO1h2XKXTMc91QogytMW0F/7117CjabdDDh3E9sgO1YyWjBBz
- c7b5EuSE7fdFuIeK3BhphZZWBhZ5Ok/YhcbpjKB1e6ToWPOBQtSfzSlsKc7rzXsn/wss
- 1bjVL6KeJZyA5Vy8QjSZ6krNxlxenVODrWtycKfEgcVOdtYxYsoAjhkv8C5Fd2gE2Y1f
- dX8jZC7Y81qVr2yFKGh+z4SMqhqb0id/ikfmkDLYilyEld/wF5Bfx+pRznPye0L0lxWH
- 6nHe0TkvTtAjsLfLZYe8tHxx0sF0rRZLzEnXvK7+UJgy12t/LnKjG0+PgbzsJbYogYEW
- 2hvw==
+ bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+ b=eQIgQn/BEHgv1PIxN/oPQH+GEMlJj8Ic1Qly6o2qIW5ZA6OFX0i1+Wb09yfE4JTXa3
+ iwHv6HO6jukke0JK4qskPzi/03ek3vYFjgYzZqCgGqQmghb9LUx/gP6IbNzkycVnq1Lc
+ ZFs+8P1FwKr3uCXQYRQ+eapHHF2h0KhHIC5hMEXxOlCqcXo9d4CX2LQZbMaLnQL+w74d
+ qSZzF9z4q7XhxJi4YNbX3wm7Te/kPnxesk8fG4Cye4H97JUoP3BieAYvy/L0pSX7NYlN
+ hLMBuDBOGOeOvPU2IjPjyzvV2A15QWp31lSajjtfB2roR+42zYItBtz0HTp/GGCpVPKq
+ q1DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794387647; x=1794992447;
+ d=1e100.net; s=20260707; t=1794387887; x=1794992687;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=YwnkBq/sQXzLyTa3e267V+Hfsvd2DxUq3BpvzIujRj0=;
- b=iZ+6uVoO5R6BWGR7nY39ohKJR0vMOWryJxptPJ9swUciycG8mquPW50bW3HqqEL0C4
- Q2zkIltUSa4wNNjxNMfybDRJwB4SskZOUA0fiObU2bvaEIMthXyweTU6gd0AS6aKIu+u
- KX6WQJ//04kd0EMxicaNo7BtYdNcfy5wpE3Jj8yXnGjj1gbkZ9wJhGdIPpZRdmZoiiYA
- 0EWcBDfSKzrShNPJCBX6DqYJlk9D9w//ytf1XnizOm58Um7Q5IMcAx1NDqPzQ/qVZKqC
- 7DjwxSAs6HKC3uvptuiK8O9DZHlcdo2ULeESCrnZOdBA/nrteoITqIxkOaEvSYW3Naqk
- cQFg==
+ bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+ b=JZ3VxY6bJUvZuuvtZxVJEL06KiuW7JFNtk0O9L7s3NeYgbRHyb0N5cKcFsvf+Tot6R
+ 9T/Pfp1Tel2fRsWHmtArDBUAlUARHRwBA80ebUBqR3aoYgysgZy+z4lhSV6aYS2jFtyy
+ UmCxvDAo70ZaN6AZrZP5R5Q5lWw5oEd9tDNPi02AX1SAivzPGd7vDBoK6kqsObCSi4TK
+ IwzFMKdvhAff//iXvs/edddBB0jD6xqv3ZCF02u4efqu6RE2IOaGTbyFHo3bOUegH3gj
+ 94R9zm9hBZ/IGOfRGzAgpTNqWI8clyb+Nb8KfQHr8C0ckayGTh4kMYcQ+bZKA8SGWYTy
+ rumA==
 X-Forwarded-Encrypted: i=1;
- AL+hErG4GsC5bneCxPIJLYrCXWQmF3LRxn4316KWh2clgOMEcbvY5DNWwH6oJPsiMh40+d9uzdEdrtELd28=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9UbZkrWkcIXEUtjeyTQZSxF2aMrI6Y6hPufskj4hI8bmHh6JLB
- JFq82iOODrbfu6anluyW5F0Ab135y6lc7QL91XnfVnuohjNRcnjnTLHhsl+23nCLkbAqmv+5Q4o
- /GJJBzF0=
-X-Gm-Gg: AYBFou3f1+Ka/KL9rfSGV1BSGBAlqqR/ZqYtwukoGswksDVM9DE7Z2UXoofokuIX4fM
- ZQN2nhYifNCXMkpqQvRALtob9s6fMC85wwFiMTVitwtfjQHEb1I9VB3l/wMZ00XpDp6y985Ki32
- q/bSI9qCrUPppk1yE/FjLNCmTEwxvoGv+Mpo5tSMPxHGa5GhgcUtzZpnU3NyqTAV7W/7ySRT21x
- mG9+dlnEemDFGZtHHNt1mkGNiO+s1V8rgA4hjF/YQRa2FMeuKRPkfoKi8qavmLSqdU+RxDKdkYl
- wsel1cQmITV19o0mgygtNEfmtLr8aQIAZlmrAEcjMGoC+STbdAObOZmxgv6lvhyTghd9i5xuS2O
- vhXTV+J8sWCfFjCoXgf9LMPjFiQL340JU2LKr4QgEob9famz4WN4xnDN/KbdrlKkcOoK/YtcvOM
- pemuiNZZPf9SGKEfeKHvuPeMRHZ0l0QQweeYwsi15pFizyxTVPEnIQYE2OHTvJzM3QNijJw+JYi
- QXdX870BOvalynA6sxGx/hW744fqGdgXbdAwahqECRm8imm91WJ8Zfzu/0fAOeu+h4q8+9VVv5b
- Ns45ouzV4Pp74hmaZyMZVwSifRrOMjETY+A2LaxxJGuJw/yvvYS/eS4zSG5hEBwQHwYP0UjBK0p
- ZwNOMKSyE9Ve1nw==
-X-Received: by 2002:a05:6000:1a8d:b0:490:369b:f50e with SMTP id
- ffacd0b85a97d-499c5e3c18emr2760492f8f.19.1794387646810; 
- Wed, 11 Nov 2026 01:00:46 -0800 (PST)
+ AL+hErE0MAHR8Mg5vF7obIEkahr51Urt+eMPRDD76kAqLuTTkSSCRVTNF5ow6ycJs3GmmX5V9aaAKmDsajU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8LxtPwICGi2WH73gH3NqmhnEHrX7Za68m/DhW53dtph3R6JyQt
+ hzsL0uC2UxC1lhszVw0yG1LPAAKwwRqQuU7qLxXJ4qRTcPA61E8Hh/TgKT3BzvPzgx4RJ7kcNMT
+ Yj5r6iRQ=
+X-Gm-Gg: AYBFou1oxfLsc0HichhJOPzx0fx4zt+ogY7/ARgv/I9/abIKUyKTQ3TnGFCD3bpwXxf
+ Jvy5i5Pz35NWNhAMfViNGDwmcP9dB3xDA2qPZsmhL9FXybm2ecYpcBRfOWv9sL3ueY5qd+f5/E1
+ RgIRVA5lc4tDBXZ9h66p/LagyGtY8IcjgDLd6JtEkbiVoqxcNJPivCeUJbTNmUycVbRXLD9kwNR
+ 7Msa5ajNGu1IUdDLZQZe0ZFEfXO0pem2T3pkLEJNRKAjDbaAjRL3+YXUkV/Sb0Vef81xtBTKJDY
+ aOVlW4F96HWgsEEhjSL8/YvzeODm40L7hloaxrKw5GTugvTI4+NeTzh3nnp8ncBiurp6Ldglh0c
+ KrUPCb8jB03evu0ZC8x7ky5yoII3DxEKJ9b1hd5AESGHUAWEV9AMc21UcAw0a4zuSPkQQFYgnPL
+ mMWsurX5rzV2Ndmxl7rmV8zb2cdr1B72OpgHl/dBjnnwtkIqGZkFjDkW7mlnPsBQVDCKhwQlRo8
+ te3OknxakgAFdgsrId2X0I7aae4/Ra/O0o/M5iDuj3UP8Vyx869la1QJlD1uWtMnrFgvIrY/Gx3
+ 8J6Y5oWvzI5EavzJQWSF6xR7ItQSNm936XRaq3iYtyd0/lL9trdo28/3FmRySW7z2JAeNRRgF6w
+ X1XjOePNzo4Ye2vNQmHyq2teoVzk7rHCQxg8=
+X-Received: by 2002:a05:600c:4e87:b0:49f:e772:6ddf with SMTP id
+ 5b1f17b1804b1-4ba0938ae31mr28591735e9.32.1794387887546; 
+ Wed, 11 Nov 2026 01:04:47 -0800 (PST)
 Received: from localhost
  (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de.
  [2003:f6:5f19:a904:6051:dd5:6fc:51af])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-49835858f26sm10111142f8f.18.2026.11.11.01.00.45
+ 5b1f17b1804b1-4ba09509c74sm24119845e9.2.2026.11.11.01.04.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 01:00:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:00:45 +0100
+ Wed, 11 Nov 2026 01:04:46 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:04:44 +0100
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
  <u.kleine-koenig@baylibre.com>
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Markus Schneider-Pargmann <msp@baylibre.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: Don't use UTS_RELEASE directly
-Message-ID: <avQufBv3rTXt6Qvj@monoceros>
-References: <20260504073422.1130008-2-u.kleine-koenig@baylibre.com>
- <de7acf2e-e07c-4a94-92c7-ae0c9311c8a5@broadcom.com>
- <al0N1wqMD-_z8Uf1@monoceros>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
+Message-ID: <avQvaiaEyWDUQsZz@monoceros>
+References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
+ <aimXCmtgcejwInNg@monoceros>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jhq54vmbt223qxdp"
+ protocol="application/pgp-signature"; boundary="pma5azs7fhrm2bnu"
 Content-Disposition: inline
-In-Reply-To: <al0N1wqMD-_z8Uf1@monoceros>
+In-Reply-To: <aimXCmtgcejwInNg@monoceros>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,44 +104,64 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
---jhq54vmbt223qxdp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--pma5azs7fhrm2bnu
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/vmwgfx: Don't use UTS_RELEASE directly
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
 MIME-Version: 1.0
 
-Hello Maaz,
-
-On Sun, Jul 19, 2026 at 07:49:26PM +0200, Uwe Kleine-K=C3=B6nig (The Capabl=
-e Hub) wrote:
-> On Wed, Jun 10, 2026 at 03:04:07PM -0700, Maaz Mombasawala wrote:
-> > Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-> >=20
-> > Sorry for missing this patch earlier. Unfortunately our maintainer Zack
-> > is out for two weeks so we'll merge this patch at that time.
+On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> Hello,
 >=20
-> You're saying I can expect this patch to land in next around end of
-> June?
+> On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > ... and PCI device helpers.
+> >=20
+> > The struct pci_device_id array of supported device was initialized
+> > by list expressions. This isn't easily readable if you're not into PCI.
+> >=20
+> > Use PCI_DEVICE* helper macros and named initializers which is more
+> > explicit and thus easier to parse. Also skip explicit assignments of 0
+> > (which the compiler then takes care of).
+> >=20
+> > The secret plan is to make struct pci_device_id::driver_data an
+> > anonymous union (similar to
+> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
+re.com/)
+> > and that requires named initializers. But it's also a nice cleanup on
+> > its own.
+> >=20
+> > This change doesn't introduce changes to the compiled pci_device_id
+> > array. Tested on x86 and arm64.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
+ylibre.com>
+>=20
+> Similar to the amdgpu driver patch I just pinged, this patch would also
+> be great if it made it in for 7.2-rc1. Please?
 
-It seems I could not. This patch is still unapplied =F0=9F=A5=B2
+That didn't work and it failed to go into 7.4-rc1 either :-\ It still
+applies to next-20261110, is it still on your radar?
 
 Best regards
 Uwe
 
---jhq54vmbt223qxdp
+--pma5azs7fhrm2bnu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0LrkACgkQj4D7WH0S
-/k7xywgAoFiBZrmixZt1cJntBcFzf6F7Y/OG9W2YC9N7bnNGlDP/9xzRto6i/vTd
-D16ck2HLeqNQSwjlGmhoeFysUbRopzDBcbl5PLPJZRvU2rVgc7jeR9MlV455Q211
-BOLga84ViCisAH9T0WQbUGK5tNxJKZaHRqHfowHKGKWaZYPKKOH2QJx9mtq/rgAl
-glVTyV1nrCNE+JeUUgNcxGQqfJykfPCbZAGbvtfSzJSwt1l8FWOIhLUclh66QeGU
-s9BUgiJ/4eVEjMDdpMQ3hWB1JM9hDjASjHSGwF2GhdC0EfvWfJ2QJM/C/be1Cgcu
-tUt7R+jebfIPYdqIslBq3AE0o3lSRw==
-=0ZT8
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0L6kACgkQj4D7WH0S
+/k4KfAf/f5q3Vl7EnPVZaB/M3tX4n0SFtnKOCJkLtj4107/VpJ+jLb3mrCXFulXy
+Z1rgfK86pXvaFuknlwOCHRZ6mpoZCgbp7YQYcc1+hWncLfLYFcnGvQKoZLKP8RK6
+yHLzpWaGzaZvH7Q6DBQurfqIwGwTNRrFyZzi4ILzOS2nIhFGSsDwCxKAlkX1OrEp
+d1wJQgg7dLK5dcHAoejIUCKED5kOVs+Sh81KFrkkgvyDB6FunShTz3T3Q0BhTALD
+c1MP6XcJaHm5IpB4yWysfiiuKeYcO45KZSSKa0XoBjpmhXooicsJk6ggWaQbxElk
+MUXB5eCUZ9TeWy82BMLT7UZrHZzvRA==
+=gtpi
 -----END PGP SIGNATURE-----
 
---jhq54vmbt223qxdp--
+--pma5azs7fhrm2bnu--
