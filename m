@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06A5606EDD1
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC591606AE71
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MyDwC8CY
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gyAGYXu0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA4810EAC3;
-	Wed, 11 Nov 2026 23:48:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1E7A10EAC5;
+	Wed, 11 Nov 2026 23:48:55 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFDFE10EAC1;
- Wed, 11 Nov 2026 23:48:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D34F610E4C0;
+ Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440928; x=1825976928;
+ t=1794440918; x=1825976918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nn492t9vwWyNrSlbHv+ImXuNJXcsvtoFtn2kqzaYrJE=;
- b=MyDwC8CYx58Gq1PPnGXos1jG0sRdsLBAZkO4R6vtLizUvYgnf+cBUBc3
- iime9MArLvER9vGVqyWYWf14A2ZaQs4FPUFGUvasqPLNy4F++bb2zsOXP
- vZ6BMaicqrY2qPOnavtZO+dZxmU8qTFtSZiAfaMZqa1iVgkXVnh8Zemym
- xqq+4DxxDyOm61u8DDb/2Zt2pNn7+9C8Xw9jg0VzoIwb/hfRUQGVDkSp9
- fPrR28e8LkPb17HhzvI/d9IhCNHLfqUkI8PoLMnRk2s/rTzmmFH1/eAFG
- 5Sz4b/gQrcWo6+O85yx+bNU9fwLotYyUqpkM4hna+Wku7usmfPeWXgAcD g==;
-X-CSE-ConnectionGUID: cykHXQgrSdi0CRgyW8pq4A==
-X-CSE-MsgGUID: SWwFr7mdSLiKQjYWxHBWqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226682"
+ bh=qiTprQcvixtyWKG6YcvfO8nQP3PU4VUrniMboE6NSkI=;
+ b=gyAGYXu0++GouxpOqlvz4AE0UESwZiHddy1GtCYInd4ZlrehbkYhRlUS
+ 6e8Hz+pLp5W/fJ0NWTiK65HE6GIAwM+0my0QS1OF8JzK44J4ot8aBYyb7
+ i+9SWp2KFqMCwzNFDgR5HpO8wntHWySXxhDftp7AFRBzXi4JzSmu0FFyS
+ oHsM8lPMo4g81t6nzOB3Pmg8mJIrPwn0LnJ1oHHp+2HDWskrfoGr9dm5y
+ 0+0jdhqTvxnTEyLyEssOJ7pa7dcljB2d1gqYbY8TR/aXHxfWzgrRFowpQ
+ RcqorQm77jx+WDNuJsF1sesslbNczN3ECI+rn+Il94jv94TGlZZua77fi A==;
+X-CSE-ConnectionGUID: cpNKlzRGSuKr5BbO1WHA+g==
+X-CSE-MsgGUID: 4HmpEg5HRv2dG7CjLscvMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226625"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226682"
+   d="scan'208";a="3226625"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:47 -0800
-X-CSE-ConnectionGUID: meJAifVaQEOpz/aGc9pt4Q==
-X-CSE-MsgGUID: YrrcqYuLTPOSRGb2SidOoA==
+ 11 Nov 2026 15:48:37 -0800
+X-CSE-ConnectionGUID: VLtbyyzhTuu5gT0SuDLr3w==
+X-CSE-MsgGUID: LreG1qb0TWiBf5byqg7Q0g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512421"
+   d="scan'208";a="8512387"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:44 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:34 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,9 +66,10 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 7/7] crypto: ccp - Drop unused <asm/cpu_device_id.h> include
-Date: Wed, 11 Nov 2026 16:48:20 -0700
-Message-ID: <20261111234821.4814-8-pavel.e.popov@intel.com>
+Subject: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
+ unconditionally
+Date: Wed, 11 Nov 2026 16:48:17 -0700
+Message-ID: <20261111234821.4814-5-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -94,29 +95,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Nothing in ccp-dev.c uses <asm/cpu_device_id.h>; the CPU match table
-it was included for is long gone. Drop the include and the #ifdef
-CONFIG_X86 around it.
+<asm/cpu_device_id.h> now has a generic version, so the #ifdef
+CONFIG_X86 around the include is no longer needed.
+
+od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
 
 Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
- drivers/crypto/ccp/ccp-dev.c | 3 ---
- 1 file changed, 3 deletions(-)
+Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+it is in mainline.
 
-diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
-index 41d9bdac95d..017e7a6551f 100644
---- a/drivers/crypto/ccp/ccp-dev.c
-+++ b/drivers/crypto/ccp/ccp-dev.c
-@@ -21,9 +21,6 @@
- #include <linux/hw_random.h>
- #include <linux/cpu.h>
- #include <linux/atomic.h>
--#ifdef CONFIG_X86
--#include <asm/cpu_device_id.h>
--#endif
- #include <linux/ccp.h>
+[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+
+ drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
+index 2ca8f1aaf2e..0e33865f9d3 100644
+--- a/drivers/cpufreq/cpufreq_ondemand.h
++++ b/drivers/cpufreq/cpufreq_ondemand.h
+@@ -6,6 +6,8 @@
+  * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  */
  
- #include "ccp-dev.h"
++#include <asm/cpu_device_id.h>
++
+ #include "cpufreq_governor.h"
+ 
+ struct od_policy_dbs_info {
+@@ -26,8 +28,6 @@ struct od_dbs_tuners {
+ };
+ 
+ #ifdef CONFIG_X86
+-#include <asm/cpu_device_id.h>
+-
+ /*
+  * Not all CPUs want IO time to be accounted as busy; this depends on
+  * how efficient idling at a higher frequency/voltage is.
 -- 
 2.54.0
 
