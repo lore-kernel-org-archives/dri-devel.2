@@ -2,82 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF603606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAC4606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JR4mHy9h
+	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=c72IFeGC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA5010FA4F;
-	Wed, 11 Nov 2026 09:37:18 +0000 (UTC)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C5910F9EB
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:17:46 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-36fc0a3fe93so5832473eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 01:17:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B322A10FA28;
+	Wed, 11 Nov 2026 09:37:32 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BFEB10E1F9
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:28:20 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6b70880c0a4so3223137a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:28:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794388665; x=1794993465; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=aPNp2WgpgPHRfZu0DFCm+CGOWcM+7olBPXi5wHu617Q=;
- b=JR4mHy9hoMQM3B50NMnum89AWFpJn5eoXljZdCNIYCTB8a2nlv7X8CYT4m4PG27xJ6
- dI9kCmiz58G7fYOZC7AL19lxfcjnGX88Atq70mjBNnMVCvV5oUHG51gKc4nomg/ad+ew
- m2Z3gKdBB2JCk01pOZtmVXl/OldYfflrYiCDff63ExtiuDpq1UE5FyP1FnTipdG+N0mu
- s5wgRAf61ganD9DoTcl4ICK6GCGGsZq/P9vs2aR4TZs4K4hygzhEQQim7JPnyfovJFdk
- C6sptyiaIPxyJUxnczGiw7DZCmh+QHlJ5Ufq9Gr4zfA7epJDRGlwdnQLzZx5MRvNF09p
- 2o7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794388665; x=1794993465;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=bairaktaris.de; s=google; t=1794385699; x=1794990499;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=aPNp2WgpgPHRfZu0DFCm+CGOWcM+7olBPXi5wHu617Q=;
- b=qKdUOEcmozEnf79H9bXCfv/VfDmtc30Kwi6R6nmXhMnB5oveqbcQ3SgWoLfCjH3slD
- WgXX98FpDnvAxZggcTtDcHA88mYV+szcXe7HgGWvecez7qN5R3DANUT+makoAV1G3Yc0
- jx9N2+qTJILzbYeQf9kogbdj6l3Gro3JuoZ5QLmfw4T8IfIOP0jA+lC/RmNKIiSzjkz3
- mZDMtL7XJdBlt6RVvtedLZppacz4D51Laz5aZpntecdKsOfAwuvVqWz9KvNerOclm9ES
- 0V9Jfc5BOfyLWnGrAYv2CYhK/JIXpLSjannY7zg7twkeFsvAPGCTeGkUh9YhCXTj19Fj
- xinw==
+ bh=qa1uanI9XzLjlceRbN1zd3/NaVhLEad9qrM0rPdFptI=;
+ b=c72IFeGC6j6g/cEsCPceztyjdPvGKzrS4MDz9oVFYaIkzplp4DnQg8zmkzOwmiV6ac
+ yPJv1zyIMH0cmStP5/YRYQpZ7h081MeHnpbPZJuE1TfB/HJqESBkQ7WFc6ubjg9tlJFI
+ MqvCZIpnPtahUdmz+Io7cy5Ycj7uYgByY1EmTtw8EDV3hWMqOy9gD7VlV3AQh6OiW6xr
+ BEevzyseTmfDRsJLyU2F7O/gdGoEt7pJCwVNe/ewgqFdaw06MSjJYQTCKIBn707X5sjv
+ vQ6mTKoz2z2gHEigx2bW6+U8y/1x7znhOwkCIoHZqLF4j78p+B8901Bn9nKirapDISu5
+ +xFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794385699; x=1794990499;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qa1uanI9XzLjlceRbN1zd3/NaVhLEad9qrM0rPdFptI=;
+ b=RpxrLFHXHVKRBWEbIBlMH3ZnmSaRz8tW2HwPXQTbtDlPvSLfw4sCB9pG2R3Zgjixye
+ RHVazxGuf9Abzpe6/9eWwg/FGPqdKO+v+Znzf53S1tSbbVveU7KRq9rMiQBL5uuz+xrr
+ X9hZ1Gnrj4HXeYNN7aNvFey2jZ3/GniB01zAAe95YBdaCyl8KK2bP4BPPlqewO68YfQm
+ YVHRXviEL2roPkV0SFWWypGjzo/zJGq9WXBn+YApWiOHAOVck7eIEAoh+DPfpdeZ19OG
+ psoIkgbKCzYiU/5C3Grnblc9tJlEetoJPqQ9ANZK1B5vQS6L44EJZReUR4s9nLK3NBA+
+ rfBQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErHSpKqUtPv4ntm2b4CasvQNLZT+TAM6T6YhGqJk+tIoVrSj0PtEb94+npYq69RoXb4O74PpB3xsblw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z90CWqmDEoiRi8saW3DYIZUP+tEjH0/qq1AQlIzEFuLp6lFKhV2
- kMGX3Cq2o3NrBRTic4tyNDaafK2Aa8RnmnsDbluG6wMeo2w3wyU1f0wn
-X-Gm-Gg: AYBFou0oz7t1V59kYKuGLpeR2z+pyYzX+RodMqM6grZWtM4hI/vwq1mqyTftmFE9zAU
- VOUP5Hhq/w16+jj0nRVfvey71L567eIog6H7nfvaid4hfvv3d3ayobg13usNXcrmPaeciEV7lj8
- AXf6QNFJwpEx5SfXYlrgmrvrU+tBImM1EWDhkeebvU627d4ABrbFNoTe5/B1529V5rvLyOW1jqM
- YnpEcQrYa0kye7K4P3wcSztFX86SMwxc4Q7FZVAaM93ER0LUbgRno7+LF5IsDDF/+wWkewmDvoy
- 8RLWFSyUvyyeSPRE/CMcxDvY+6DdZ9IaJav864KDLJH5gd5t/UiVZBIkPc/hLncCh0n3GNgiXNh
- MhRHI2Z7OkFYW0MhngLsVSGxybJAzGjLQj3fOs/pyXwNtG9qzU9xZU43PdIpSEkQQ2rPrZcgwAX
- xEaS7xVoTter/1WfbjVIWrbRDniql7eyEuGseGKKuNT0HH6WdHkFHl4MJt1iwqe1cxOH71+5IhR
- Q4Kv3fkhyduKLb8Z8O/0FJqBBg/Mk3LXIr1/X3Nq2HlVQE9jV5kIdfp8iAmXRGFkAVu59d2jMwn
- QkAaYN6xCzL0pOvuLmAdzLB5JFXlXw03g7rRiQ5mt/Z0zxNcX+l04YGRGOhCG/3Q+HJPN62QQ8F
- ME5oDPkx6PGVtotEqAJG9enyMk9Ayi8lkmLdx4NCk2v3YTtvg
-X-Received: by 2002:a05:7300:d94a:b0:36d:4135:cd7 with SMTP id
- 5a478bee46e88-3768617ce1bmr2715415eec.18.1794388665237; 
- Wed, 11 Nov 2026 01:17:45 -0800 (PST)
-Received: from DESKTOP-DIIS71I ([5.18.141.223])
+ AL+hErFovxUuhtVpRjQgDLkPQ/5FulS6/jErbA/Z5TECHbUqTX+Koi0eejg6SuNtFzIvI1Vn+vEZ7sjbHQ0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+2qq1J8HsuWvTIa7agH/yRhjRyad+6FESizG3eF9U4NBiSET20
+ 6rw0mleoycQwkRbPvGEkzJH8Uqt9IAoqyL1I+WTVWWxSoxJhG/pt8N/j8pim6UZuCVCYhgMQzYn
+ ZsUbEgFgB
+X-Gm-Gg: AYBFou1LqjT5MgUb4l5YmPuEkih/HPKa7mLG17IaMZmVYZIqSWwaWUqBmY/LLKqh/fB
+ NkBiEfeHDkAv7swvwqPaOwp7BehhWEdAOCiYrtGx1Uy+mwDve7jBJhi0mmYyflDJs6EvZuYezmO
+ oWcScr5Qv5WfLgJq7GawH+TMH/ca7wuk0YXMNjvDOFNxNXFyLxmds7gdJlkxv8Nh/8nO7o+91Al
+ OOYXuSlB+jxJQ6WkR+MwJgjwyg5AQsm7J0HuKXKquGZLJU+Re1VEnwS0NgiLE3DW5EUkfdrQQ+8
+ rqp/89ky5SWd0gy0uyn6lYgyi94LEyTNWduMnsfFG651Jf8zHXy0O1xEhDsA97dAP6LZVfs/7Uf
+ GeTWYrS/EYqVh3yGoKSKW/qyzEb7xvYTPRACUUM+lX6mkYDeQZguqZgrvrgbfNzCmYxEmFhbCuM
+ WTeL8oMeAZQ+h5aN7azbYbHSt6MC5ioa+znEFA+wLj7tagW3jSqnpNmYsCe+4ZI274cvG3oOQwc
+ xghXweA6NDBgDEv9iV/Yt0YTZQlEOC/Be+oyHpG8JIUeapnw5ij/HrPoY0slt1JjQxf1J1hiWf1
+ Ewqxw6xyuVYp1ztip92Q9xECdERQvQpSW+d6YV05NmC+ioISBrk3dJFFkmtYactUQLpppagHWWK
+ 46GDZA0bRRqANYps5AWx4t7XIcpgVVwH4CPbHlfpi6frNG46ncbx+EucULxeut4AluUa3n6NdM5
+ LibicV7EmL9WDr4ayw+vEWXQ+cA17dCI9+gCrh3Azq6I1CVdaRNT8cVqHI/U5uY20a78P6zEm+r
+ FIuOjfQCoquS7ChFVxE4zJs5TgNknACYKpWTsPSuVwhojjN4h9CHSd0thys8UyO6fr4HEuBCGpv
+ 0ekJB2NcSaizLGCVdGI=
+X-Received: by 2002:a05:6402:913:b0:6b5:5fc8:9ca2 with SMTP id
+ 4fb4d7f45d1cf-6b77780e04amr1206149a12.34.1794385698810; 
+ Wed, 11 Nov 2026 00:28:18 -0800 (PST)
+Received: from Desktop (p54aff574.dip0.t-ipconnect.de. [84.175.245.116])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37520512ec1sm13540869eec.12.2026.11.11.01.17.39
+ 4fb4d7f45d1cf-6b75775fcf0sm2305457a12.0.2026.11.11.00.28.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 01:17:44 -0800 (PST)
-From: Rand Deeb <rand.sec96@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Nicolas Belin <nbelin@baylibre.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- deeb.rand@confident.ru, shda@confident.ru, lvc-project@linuxtesting.org,
- Rand Deeb <rand.sec96@gmail.com>
-Subject: [PATCH] drm/meson: fix NULL pointer dereference in
- meson_drv_bind_master()
-Date: Wed, 11 Nov 2026 12:16:57 +0300
-Message-ID: <20261111091657.598-1-rand.sec96@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+ Wed, 11 Nov 2026 00:28:17 -0800 (PST)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: yaoyiqi3@huawei.com
+Cc: srini@kernel.org, gregkh@linuxfoundation.org, arnd@arndb.de,
+ ekansh.gupta@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] misc: fastrpc: Fix double free and races in
+ fastrpc_req_mmap() error path
+Date: Wed, 11 Nov 2026 09:28:14 +0100
+Message-ID: <20261111082814.248812-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
+References: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -93,48 +94,23 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If the allocation of priv fails, meson_drv_bind_master() jumps to the
-free_drm label, which calls meson_encoder_{dsi,hdmi,cvbs}_remove() with
-a NULL priv. These functions dereference priv, so the error path oopses
-instead of returning -ENOMEM.
+On Wed, 30 Sep 2026 07:13:40 +0000, Yao Yiqi wrote:
+> Fix this by adding the buffer to fl->mmaps only after copy_to_user() has
+> succeeded, so the buffer is not visible to a concurrent unmap while the
+> response is still being copied.
 
-Only the drm device has been allocated at that point, so put it and
-return directly.
+The double free is still in mainline at 067c5c24cef2 and in
+char-misc-next at 37a87cdaa3e2, and v3 no longer applies to either:
+9e47ad9c562e ("misc: fastrpc: Allocate entire reserved memory for Audio
+PD in probe") removed the remote heap block above the first hunk.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-Compile tested only.
+Could you rebase it onto char-misc-next and send a v4?
 
-Fixes: 6a044642988b ("drm/meson: fix unbind path if HDMI fails to bind")
-Signed-off-by: Rand Deeb <rand.sec96@gmail.com>
----
- drivers/gpu/drm/meson/meson_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-index 38bf2811d..a9b707062 100644
---- a/drivers/gpu/drm/meson/meson_drv.c
-+++ b/drivers/gpu/drm/meson/meson_drv.c
-@@ -204,8 +204,8 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
- 
- 	priv = devm_kzalloc_obj(dev, *priv);
- 	if (!priv) {
--		ret = -ENOMEM;
--		goto free_drm;
-+		drm_dev_put(drm);
-+		return -ENOMEM;
- 	}
- 	drm->dev_private = priv;
- 	priv->drm = drm;
-
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
--- 
-2.39.5
-
+Reviewed-by: Julius Bairaktaris <julius@bairaktaris.de>
