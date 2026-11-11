@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC591606AE71
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E79606AE60
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gyAGYXu0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E2QiMpt5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1E7A10EAC5;
-	Wed, 11 Nov 2026 23:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 652CD10EADE;
+	Wed, 11 Nov 2026 23:49:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D34F610E4C0;
- Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A3E10E4C0;
+ Wed, 11 Nov 2026 23:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440918; x=1825976918;
+ t=1794440925; x=1825976925;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qiTprQcvixtyWKG6YcvfO8nQP3PU4VUrniMboE6NSkI=;
- b=gyAGYXu0++GouxpOqlvz4AE0UESwZiHddy1GtCYInd4ZlrehbkYhRlUS
- 6e8Hz+pLp5W/fJ0NWTiK65HE6GIAwM+0my0QS1OF8JzK44J4ot8aBYyb7
- i+9SWp2KFqMCwzNFDgR5HpO8wntHWySXxhDftp7AFRBzXi4JzSmu0FFyS
- oHsM8lPMo4g81t6nzOB3Pmg8mJIrPwn0LnJ1oHHp+2HDWskrfoGr9dm5y
- 0+0jdhqTvxnTEyLyEssOJ7pa7dcljB2d1gqYbY8TR/aXHxfWzgrRFowpQ
- RcqorQm77jx+WDNuJsF1sesslbNczN3ECI+rn+Il94jv94TGlZZua77fi A==;
-X-CSE-ConnectionGUID: cpNKlzRGSuKr5BbO1WHA+g==
-X-CSE-MsgGUID: 4HmpEg5HRv2dG7CjLscvMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226625"
+ bh=u5AVXTElJz7EZV2h5YwoTsJFHDCSeIjHVrhKH9eyfwI=;
+ b=E2QiMpt5MfsPpHXSQPG5TZn+rJlTRWvUM4K5ky6tXx/I0iEjnhOgOS2G
+ nxmlZF3+/u+mqIAb59MNyY7mcD30KviPBQ6TsbDBSO+mJIE9tirUDvURv
+ pV4S/4oTU5HiISeNALAXNZA0UhBp89N0doGqyarllCqrtVOuMoz+jlx8X
+ pvsltLHQvW65pHnHC3eEVwJJS814rHXnCUsab60rWdMukeOUSEtkfZ3Ml
+ g6wVdNJGed3bTFYQIKV9b3lwSL5HXDp8bKK6X6ii3OP4k9gQ9njNftHPb
+ N5/xLvwXs24XZ6muMaXE14nEpuHx2ogudzNDiPTQE8pcVUUGVKfd5uJWJ w==;
+X-CSE-ConnectionGUID: vd0tOiCYTo+CpYtc7iql8A==
+X-CSE-MsgGUID: 73iT4SS7RWGdW8SGjqnQmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226664"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226625"
+   d="scan'208";a="3226664"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:37 -0800
-X-CSE-ConnectionGUID: VLtbyyzhTuu5gT0SuDLr3w==
-X-CSE-MsgGUID: LreG1qb0TWiBf5byqg7Q0g==
+ 11 Nov 2026 15:48:44 -0800
+X-CSE-ConnectionGUID: o71bEf/wRTCxDbrm4F0BNA==
+X-CSE-MsgGUID: YEu72Nx6Sn6B9UBCg1VsnA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512387"
+   d="scan'208";a="8512405"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:34 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:41 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,10 +66,9 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
- unconditionally
-Date: Wed, 11 Nov 2026 16:48:17 -0700
-Message-ID: <20261111234821.4814-5-pavel.e.popov@intel.com>
+Subject: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
+Date: Wed, 11 Nov 2026 16:48:19 -0700
+Message-ID: <20261111234821.4814-7-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -98,8 +97,6 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 <asm/cpu_device_id.h> now has a generic version, so the #ifdef
 CONFIG_X86 around the include is no longer needed.
 
-od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
-
 Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
 Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
@@ -107,31 +104,23 @@ it is in mainline.
 
 [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
- drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/char/tpm/tpm.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
-index 2ca8f1aaf2e..0e33865f9d3 100644
---- a/drivers/cpufreq/cpufreq_ondemand.h
-+++ b/drivers/cpufreq/cpufreq_ondemand.h
-@@ -6,6 +6,8 @@
-  * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  */
+diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
+index fa554c5ad80..ad1534aa00c 100644
+--- a/drivers/char/tpm/tpm.h
++++ b/drivers/char/tpm/tpm.h
+@@ -28,9 +28,7 @@
+ #include <linux/tpm.h>
+ #include <linux/tpm_eventlog.h>
  
-+#include <asm/cpu_device_id.h>
-+
- #include "cpufreq_governor.h"
+-#ifdef CONFIG_X86
+ #include <asm/cpu_device_id.h>
+-#endif
  
- struct od_policy_dbs_info {
-@@ -26,8 +28,6 @@ struct od_dbs_tuners {
- };
- 
- #ifdef CONFIG_X86
--#include <asm/cpu_device_id.h>
--
- /*
-  * Not all CPUs want IO time to be accounted as busy; this depends on
-  * how efficient idling at a higher frequency/voltage is.
+ #define TPM_MINOR		224	/* officially assigned */
+ #define TPM_NUM_DEVICES		65536
 -- 
 2.54.0
 
