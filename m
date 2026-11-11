@@ -2,210 +2,158 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D8D606A320
-	for <dri-devel@archiver.kernel.org>; Tue, 10 Nov 2026 23:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3A9606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 00:29:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=DneqA5f1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NIm0Nq7b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2578010E9A6;
-	Tue, 10 Nov 2026 23:26:02 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1883410E9A6
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 23:25:55 +0000 (UTC)
-DKIM2-Signature: i=1; m=1; t=1794353154; mf=PGRlbGxlckBnbXguZGU+;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+; d=gmx.de;
- s=s31663417:rsa-sha256:JW1wk08NdD1xOn/tH7Cjaw7YYc44
- lVG0JD20T974MrViaKrTQf7WwW0WesIKiu6c82WglMj9I1M/ZcQIoD0lzcje+L2sC7+J7TyWRcX
- E3AEiyPty4F54iIIwF+cDv9yl8no8TrZck4o3St/YfT1TCCG8/UMbvzihw0XlJzUAkrkK+Usy8K
- sS+aM2OvZTka7j2uhDzDwe5UDkMok2qgIuglzIPVhZBCA+5OItlUeQG/ewktmPRN4QwfSjn1cM6
- 5KsQiks/H/FvZXx9yPJ1RTm1YDx88ou1ytl1NNLSpFw2t6Vx0peRTei8Mu7raL/4QW0nPRnGE8+
- 5/RmFi2GzDnFfw==;
-Message-Instance: m=1; h=sha256: 2knI2DMm2Au90LOUjIDDyFuseLYGF1U6o+rE1pEST5s=:
- AXE3aRuP2GTjyoHEXcCH4mJpybncyaF3j/HbC+VTl84=, sha512:
- 0GlVN7Ru85lvL4Bm8bxAFu+9pCt2udfzsxEwXOJhhDhZqe/q33pGps8ttxX9+2ao+2LyehKyxxGYHB7pxfqUVQ==:
- n0cg1bgOenoWeFi66q7f9PT3XKY/Ys5HePKhZMVst8cWYaBrYD5N3IcKjPCyRNqT93j4ve/7yBdu/pGTrBemEA==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1794353154; x=1794957954; i=deller@gmx.de;
- bh=ot4bM++AZAe01UoYyChThNyXoXgWtsDIovxJLVTOOz8=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=DneqA5f1Gqca3rJfi/vWvCqzG2Tyfme6NYAf2V5rPL75Qllh6jp7UtQRC94cRSYV
- dYup9AFKp5qkWHE+3XaEUDcUZhT3Cc+HZMlxCJ2qNweJk1K9BZ0Z8xpDv6kifnJHg
- d2XcYfO0lwrNdYFLmeWbe4wjVI3r82/YEwcSYk4AgWUgc7xvXJVdO7SiGPNOFkiv7
- SZKmv2C3Wxynk7OYyIbUL5GRP3ogzyogRK1Y27uX6tX24yQNtNj/Y5RFjqSB8ebQG
- mur6Cs215ocfXGX1aR0bugwgYcxzjM3MTIwxiPVeFbkryI7w7qT+ZbVxknHdG8E9y
- ARHdiwfHcZM9HfZyWw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MIMbU-1xEoHm109E-002axS; Wed, 11
- Nov 2026 00:25:54 +0100
-Message-ID: <16220356-767a-4f1d-9b24-5b1f960e04cb@gmx.de>
-Date: Wed, 11 Nov 2026 00:25:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2A0C10E3A9;
+	Wed, 11 Nov 2026 00:29:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADD1310E02E;
+ Wed, 11 Nov 2026 00:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794356958; x=1825892958;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=wSuzEkeIaKC9wLCt4B7EplZE6JMeIgYLw+o38Psp5/Y=;
+ b=NIm0Nq7bXLje5CkyTMScMKkICgg1EpiKTEzFtUWI9Lw0x1LKYxMbgPoH
+ gvwqBK7MfJ0p/pg+XoZnPB38qJ8VGj8FAImoMlB3MZ5mU7KIZ0tqSw2/K
+ X675PGobfvGABLQ669nwJv7tXhr5KVNAZidhQ/tdY6Dv8nxuP5baZ+h44
+ CG3EKY4KpFY4hzWC0YJG0zz2uYYZHdz4gD9js3z90Spr9ZkQtTvm/l/dR
+ 5PqFr7AsvhqwawQX0qQ/3y/ZgYOFN2JSsQo8AueyA4lqMqy2Iya/diMsu
+ Z2usc9c3lIY1dWSWqyjvavb+893CaHLYqiUYLE1oji4h0LqqHUABIjqEs Q==;
+X-CSE-ConnectionGUID: bZaj+SEERDmElpokGEEKFQ==
+X-CSE-MsgGUID: vA6ZLQOARsCcQ2J6ENZxxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3124138"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3124138"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 16:29:17 -0800
+X-CSE-ConnectionGUID: X81uEXQBR/mYdj0uQDHWdA==
+X-CSE-MsgGUID: ZubT4X1zS3OLq4/fjSInWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8453027"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 16:29:17 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 16:29:16 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 16:29:16 -0800
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.35) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 16:29:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yj1JG7YmQJwl4/54x3V8BlU1ikK/Vvc/TpBxS0Od34WmMzJz8br5YrCudltoQrKJ9XjV8EC7dlll6K0Zq1f2kLPjZfWrB8AlI6e4LqSLKkETTJ3lB7XH9syEE+kM5N6OUYXQXizdkvrQUlj9Mixe4DN81OvPEF4+ZubGY+rFm991YT8K6yH9VgZLJ+2p9OSlrylLkFJrdBGWte8eEpneniovwxZUzpbSkgEHtF4GzN5ZQIdaHNk7BpMIzvdZbmLZADgBxcIKkFXd7d3u9z/5lvUPFcUKz65AVYL/5dsNVCMtKi2HDv4Qqw1CYZzo5rD94RMzSG+lWAR2613MuMxWXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GVf5eVchTBhOZBpUEcUHHHDrsmCwfx2OAO+h/x99Klo=;
+ b=wtHzrmLrmD1oxfzwxVPcumMsrVap/7M7vud9rIFMmFmGnuz1MYbpgSOrugMvQshaH+sHxqNVN2QCMEBGHGg37Qk1zJH/THCNVHSRUzvlMrMIeDMRpooDp9IXEVQdmqYS5c3IGajyxFuI2lIpF7J88CiNonNhBXQCoNZYZWN3ysFfBDcjFOLUQGnq3KJk6qBjng5F5A7FoxUGVjo3m4+i+eu8oh9zH08bN0CpK6IncZUfCcel7I6iH6epLp/bRPmUHq7gKsWc0R/LOieZE21cwow3cVYjQjXW5y/2ixM5nK7Do2JoNtbHHZCJ3ozryEQaZ42eXAH4YWDMFqFdhgtcxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by IA3PR11MB9205.namprd11.prod.outlook.com (2603:10b6:208:573::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Wed, 11 Nov
+ 2026 00:29:13 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 00:29:12 +0000
+Date: Tue, 10 Nov 2026 16:29:09 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 09/33] drm/ttm: Preallocate beneficial-order defrag
+ pages outside the lock
+Message-ID: <avO21YykLwQbPbZx@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-10-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-10-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0037.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::12) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] fbdev: simplefb: Add mono framebuffer format
-To: Sebastian Raase <linux@sraa.de>
-Cc: Hans de Goede <hansg@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793758480.git.linux@sraa.de>
- <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:OIaIexKO5Zmlj7Em8/vSNnVPBZPgcNKzkLp2cCoVtMUimM6xyZ7
- 6hyt3VfqezzNoQZfXBDoMOf6+ytepPqkbS42hcX19HvQqEf3+CJRFtBf4Fmk/ZV+hjjUlnd
- Go1jNfHaSJ/0v/jaL+Q22JLpdg+VZHXf6odbiZF/IUkllTtzEoV6UwcLZ9RKmKjyP1Uwsl3
- mmOcHdaK8O3+8PHetQOEg==
-UI-OutboundReport: notjunk:1;M01:P0:qWQPCJJHRjM=;84aSH2JxiKqeZ259Q6o/KFrFTp9
- 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
- jrr+IXA32qb1YpncbIo9Mr2hfGDH+iLz
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|IA3PR11MB9205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a143901-c52d-44b3-b069-08df3f8acf3b
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|23010399003|1800799024|366016|5023799004|18002099003|22082099003|56012099006|11063799006|261009223327099003|261009221727099003|261102130727099003|261026121527099003|261022113327099003|261022105027099003|261021121427099003|261022075727099003|261026140227099003|261021123027099003|261009221227099003|261028144727099003|261009220027099003|261102123227099003|261009223027099003|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: DAwSvSvPnZPK8ehCmxgHDFN1JU/mHrJiv7OgX5sjRX2KiwkGueUsR9BWJ+Mg9oTmz48UgoQp/1/qnk1IZxV+wnbGe02YRV6nebhx6huopa3ZwGV0u6czedekIq/qvjRfbkPt7ZSaaoFpG5yvdPDAJbkE/TvmyAvQd+S9mmqB980mZxuuF3AP3pnM/JBeUIzEm5zYww7hVnzxBG23LmkmPE6S1fnjj7zyh54Q+o5zhorsq/1aoPuCPBUzjeGrUgM73UZYy+GAhcFXCH4SpOTgWAoJkMaen8az2Le5M/Q9ziFbSV7AqMLQIYJ3bWeACQmEFNAT6bYrcV+wVIRx9gKMWMppmEK8z+pyb70ii/S3jwmaqJCKmK4NTynP5BRwf6SvUclqBdr3lImH6TNnZRlIu7HkEKA1/EPjz5HI+MNJjgxO6H/iE6qV44HXF00Mf6fLuiWXVPcwO1LTTvsr6RSRvfIQT1EU0/F9WEHw27MA0veMAmDm6fI+eXWloy9xHlxTNSTgMgTjk9dP+Ic2Dz1GeAZdwJI/knv8SSWf+ih7O2OvXV6w43waMGVSpQmzxt8xrLFEq7MIn8sbOs9u5xH/xvXNo+frT+N2a6CYhnTdg3L/i09bVyo4nHh6qnB+d3BmkXNg9vhfMOyVPHHb1s+9D6pW3V5EC57Tsga2FZpN1kI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(5023799004)(18002099003)(22082099003)(56012099006)(11063799006)(261009223327099003)(261009221727099003)(261102130727099003)(261026121527099003)(261022113327099003)(261022105027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261021123027099003)(261009221227099003)(261028144727099003)(261009220027099003)(261102123227099003)(261009223027099003)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?lyGjMRrRA43MCsJNkXzbLJawxlxJp7CsDuOVnf6hwtufd81wi6yo6wF3mw?=
+ =?iso-8859-1?Q?jMUWJkweP/+MYxYrErcIPH/XeXykfyY5TVPotMSjdJJa7ChWeIMLkQXJOi?=
+ =?iso-8859-1?Q?XkIpD8PvcBTfoa6mIhDCKaWeMo1ElQdJhBX2XkbfJ+Px3/5MQoVlmJnV+S?=
+ =?iso-8859-1?Q?L+R51vLW45u99o8/gJo4N0fn3W+LdaacmxmS9RvYcsytRCgfB+33/YQC1S?=
+ =?iso-8859-1?Q?/M+2XeIaxKPRl7HfOZAesiTg0njP0bGkcDo0g6be8kNSwHn438kt8/rulB?=
+ =?iso-8859-1?Q?EwZUeb7NtOwRfX+fnusmjsohLtEyDTRmt2ltMc+0xjkqpriRBYTL/t+nVL?=
+ =?iso-8859-1?Q?kd1gWl+fqKCnDjXxhoEd856SPZ6rAadgPE7jCGU+9+A/KSJ/j6PhE9pCSM?=
+ =?iso-8859-1?Q?/ZI3lDTzvvv2TzJ188mBtQGcFsdaFs4slDZixjEYnewROLeNDFcSCairuR?=
+ =?iso-8859-1?Q?9wbs/YCtcDtBEwsGKNlXE8fyGuav7jwnzyoayd1oVF6zxA3NBwm1aU2Qms?=
+ =?iso-8859-1?Q?tEZcb5T59Wh0f1DsyX4g/wTp1es2kUMqGSDEzGYmnOxSYNipGfolHTADT6?=
+ =?iso-8859-1?Q?i04ii9b2Ldzl4AtFp9ZglqthW6zdkQLOPfDthp4F4kltqUebYOPzoYyUBu?=
+ =?iso-8859-1?Q?x7OY47scoq/IrZQ05Bcog6w8J7atVT1hbbpNTLbIiY2jteWc60cpCwJekW?=
+ =?iso-8859-1?Q?0YnbXNEaw756pc6G9PZtOatcZkltHw4NmJGN5CxFUtiJqLtfAWafds10ra?=
+ =?iso-8859-1?Q?6095H7ApaQQVkSuKag/s1Jx/KDHxLMpH40GeFoxpcXtQKL14X+qdH6O6kK?=
+ =?iso-8859-1?Q?Vl8g/F0uGknUNiqLpbVrkdVfXwQ1I0vjovTSMsmlhtysXe9BMeU+Pgg752?=
+ =?iso-8859-1?Q?43FWMPrJZfzquAY+vNheWPDmnklZM3mpljOAPniKLjkX5eliscjGI8Wksd?=
+ =?iso-8859-1?Q?sULRUMQdmk5ziFjKrGjLGn7wnvzyA/M7We1omgIsewXuiHawK71I243zGN?=
+ =?iso-8859-1?Q?FKygl14gbQEBtxo7YP+fh8IkP+5ccBH3yrNd6AZy+QZiz0XSh71LJDdsHV?=
+ =?iso-8859-1?Q?lI3zxCCJVy+q3fCiqvTXzL9nWRvPKCnDz178hIhvT+Nq9D4EsiNbGfkcPY?=
+ =?iso-8859-1?Q?YgKkn3GNmyJsh/ArFqrne5Y0fn4cZVqSxTSZjUlC5wNdBI/fed0JULhJ7O?=
+ =?iso-8859-1?Q?XnWYNuty0hcBVtpFdItjQ5Rd0xwwh95BlH31Ge0IE2LR1ywNlYdVtO3bxx?=
+ =?iso-8859-1?Q?d1SmmnSOs9Xr0KA4pJiX6Gi+DPa/AosUlBlRq6X+IWNbjfrs+F+L+EwaI7?=
+ =?iso-8859-1?Q?xspcStTawzhAu7P4D7VdCWr4+QMOFqpyitmK/QBqi3ung5c6VOB+zPJyZl?=
+ =?iso-8859-1?Q?QMWW8Hpwm67ybb7f7PdWbsm9RpwajO3G+1QpLndRF4xxsDblD6El+/YfFz?=
+ =?iso-8859-1?Q?SzjbNHZI33IPTmw8cEqcFTuwaHqNKl1XKy0rZxZd4vWpCzy4o24h5AfYdO?=
+ =?iso-8859-1?Q?z6p077M9gcxHGAJhrYqNGpFu2gPK7B4m9mtwx++OODUvZ+SI0H+loynECV?=
+ =?iso-8859-1?Q?CtpRVUuXPY9vpBlKL7WTfbI70iWOVrSTOtqdMnrxHDEN+j2yb/mn5ENEjF?=
+ =?iso-8859-1?Q?YcwOE3DjOSRDp+GTXfwuIB5MGXD37sfZ9OMIvzL9QX3WUnOe+TF8Q7N+zi?=
+ =?iso-8859-1?Q?0nBVbwvm6JmNdA8ouN266qodcyg3CCrzVpYupZ7NjdZg7CjwzbaP625Lqp?=
+ =?iso-8859-1?Q?BY0QA2PZH9bvZcH5wLaQ+BYtSD62lE3MHXaf3WjrNHFA2Heua/nqp52O4H?=
+ =?iso-8859-1?Q?ImSSGJZiJNGPAI86g/BV1k4Fzu3f4rhWOXz8/9vR8EntiTCodli+?=
+X-Exchange-RoutingPolicyChecked: GU+PkhEJwXZRroDtpXCUsQzvLtJPmaoIpgKcKSCUoVfC+Ds0oPXsPVbluJuNEygMgmzgi6nEt5IZM9MU+j3hsjSGdwO/olnsrgCg9gu0Recw1mUrSZiaJy9CIa4LLN+ctXAIJfk+ke9CTbsyiYpO9ssDKwz9tX80piPVkY5csvYO8QvpEHybYEkAj4VOzV/FXRGWac4+5nSSSZw/IO3j0VmAflJxxqJkJD9gLg6mdVucad1nFOpX64PKbY7cUEqLwl/OwyFh1XNYRvhR5sNfXhWeyNy39eFY3cy+/oxXF/jBb9JbTCfjiu4QHzslGr/bqvnerCOW3+WtsoChe9vO7Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a143901-c52d-44b3-b069-08df3f8acf3b
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 00:29:12.6645 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /VRJ5rx8v6fnm2SzTnRUzAWs9okXgMPHw/2uNcWDB2lfKK19NdoDbQ5BxRJtTddebIvheoXGNxk/Kn0LDj2ic+BTv81994Bk/LG+WHiBD7PNjaGf2oUCqYlQf+0SBieT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9205
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -217,25 +165,576 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/4/26 03:34, Sebastian Raase wrote:
-> Add a new simple-framebuffer format for monochrome 1 bit-per-pixel
-> framebuffers. Monochrome framebuffers are not true color, so their
-> visual is set to FB_VISUAL_MONO10 (set pixels are bright).
->=20
-> Signed-off-by: Sebastian Raase <linux@sraa.de>
-> ---
->   drivers/video/fbdev/simplefb.c         | 2 ++
->   include/linux/platform_data/simplefb.h | 1 +
->   2 files changed, 3 insertions(+)
-series applied to fbdev git tree.
+On Fri, Jul 10, 2026 at 07:55:55PM -0700, Matthew Brost wrote:
+>Defragmentation moves reallocate a BO's backing at the pool's beneficial
+>order. On a fragmented system those high-order allocations frequently
+>stall in direct reclaim/compaction, and they run under the BO dma-resv
+>lock, holding up concurrent rendering. The defrag worker does not care
+>how long the work takes; it only cares about minimizing locked time.
+>
+>Add a preallocation bag so the expensive allocations can be hoisted out
+>of the lock:
+>
+> - struct ttm_pool_prealloc carries beneficial-order pages preallocated
+>   outside the lock; ttm_pool_prealloc_fill()/_fini() allocate and
+>   release them. __ttm_pool_alloc() consumes them via ctx->prealloc.
+> - Apply the requested cpu-caching to the bag pages during fill, so the
+>   set_memory_*() cost is paid outside the lock too; consumed pages are
+>   already cache-consistent and leftovers are restored to write-back on
+>   free. Bag pages are never highmem so the kernel mapping is always
+>   valid for set_memory_*().
+> - Record the exact number of sub-optimal pages on the tt
+>   (nr_suboptimal_pages) at populate time so a defrag pass can size its
+>   prealloc precisely instead of guessing.
+> - Once a defrag move exhausts the prealloc bag, harvest the remainder
+>   of the old tt rather than entering reclaim under the lock, and flag
+>   the tt sub-optimal so the driver re-queues it for a later pass.
+>
+>This keeps all reclaim/compaction stalls and cache mode changes out of
+>the dma-resv critical section: lock-held time then tracks only the bytes
+>actually copied.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 244 +++++++++++++++++++++++++++++++--
+> include/drm/ttm/ttm_bo.h       |  11 ++
+> include/drm/ttm/ttm_pool.h     |  29 ++++
+> include/drm/ttm/ttm_tt.h       |  17 +++
+> 4 files changed, 287 insertions(+), 14 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index 1673e81b8df8..da7d132c8297 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -82,6 +82,9 @@ struct ttm_pool_dma {
+>  * Pages harvested (borrowed) from the old tt are free and do not count; once
+>  * this drops to zero the allocator stops upgrading and harvests the remainder.
+>  * On completion it holds the unused budget. 0 means unlimited (no defrag cap).
+>+ * @nr_suboptimal_pages: Number of pages backed below the pool's beneficial
+>+ * order. Recorded by the pool allocator after populate; a defrag pass reads it
+>+ * to size its out-of-lock preallocation exactly.
+>  */
+> struct ttm_pool_alloc_state {
+> 	struct page **pages;
+>@@ -90,6 +93,7 @@ struct ttm_pool_alloc_state {
+> 	pgoff_t remaining_pages;
+> 	enum ttm_caching tt_caching;
+> 	s64 defrag_bytes_remaining;
+>+	u32 nr_suboptimal_pages;
+> };
+>
+> /**
+>@@ -787,6 +791,7 @@ static void ttm_pool_alloc_state_init(const struct ttm_tt *tt,
+> 	alloc->remaining_pages = tt->num_pages;
+> 	alloc->tt_caching = tt->caching;
+> 	alloc->defrag_bytes_remaining = 0;
+>+	alloc->nr_suboptimal_pages = 0;
+> }
+>
+> /*
+>@@ -852,7 +857,8 @@ static unsigned int ttm_pool_defrag_old_order(struct ttm_pool *pool,
+>  * pages stay owned by the old tt until the move commits.
+>  */
+> static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
+>-				 pgoff_t off, struct ttm_pool_alloc_state *alloc)
+>+				 unsigned int beneficial_order, pgoff_t off,
+>+				 struct ttm_pool_alloc_state *alloc)
+> {
+> 	pgoff_t nr = 1UL << order;
+> 	int r;
+>@@ -887,6 +893,9 @@ static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
+>
+> 	alloc->caching_divide = alloc->pages;
+>
+>+	if (order < beneficial_order)
+>+		alloc->nr_suboptimal_pages += 0x1 << order;
+>+
+> 	return 0;
+> }
+>
+>@@ -934,7 +943,8 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+> 		    round_down(off, bnr) + bnr <= num_pages)
+> 			*suboptimal = true;
+>
+>-		r = ttm_pool_harvest_page(old_tt, order, off, alloc);
+>+		r = ttm_pool_harvest_page(old_tt, order, beneficial, off,
+>+					  alloc);
+> 		if (r)
+> 			return r;
+>
+>@@ -944,6 +954,173 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+> 	return 0;
+> }
+>
+>+unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool)
+>+{
+>+	return ttm_pool_beneficial_order(pool);
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_order);
+>+
+>+/*
+>+ * Build the gfp flags used for the high-order, possibly reclaiming, beneficial
+>+ * order page allocations, matching the in-line defrag alloc path.
+>+ */
+>+static gfp_t ttm_pool_prealloc_gfp(struct ttm_pool *pool)
+>+{
+>+	gfp_t gfp = GFP_USER;
+>+
+>+	/*
+>+	 * No highmem: prealloc applies caching in bulk via set_pages_array_*()
+>+	 * on the kernel mapping, so the pages must be permanently mapped.
+>+	 */
+>+	if (ttm_pool_uses_dma32(pool))
+>+		gfp |= GFP_DMA32;
+>+
+>+	return gfp;
+>+}
+>+
+>+/*
+>+ * Apply a tt's cpu-caching to a batch of freshly system-allocated (write-back)
+>+ * prealloc pages in one shot. @cpages is an unpacked array of @ncpages
+>+ * individual 4K pages (the constituent pages of the mixed-order chunks, expanded
+>+ * so set_pages_array_*() sees one entry per page), since the packed prealloc bag
+>+ * holds multi-order chunks. Prealloc pages are never highmem (see
+>+ * ttm_pool_prealloc_gfp), so their kernel mapping is valid. No-op for cached
+>+ * pages and on non-x86. Returns non-zero if the caching change failed (the
+>+ * caller drops the whole bag and falls back to in-line allocation).
+>+ */
+>+static int ttm_pool_prealloc_apply_caching(enum ttm_caching caching,
+>+					   struct page **cpages,
+>+					   unsigned int ncpages)
+>+{
+>+#ifdef CONFIG_X86
+>+	if (!ncpages)
+>+		return 0;
+>+
+>+	switch (caching) {
+>+	case ttm_cached:
+>+		break;
+>+	case ttm_write_combined:
+>+		return set_pages_array_wc(cpages, ncpages);
+>+	case ttm_uncached:
+>+		return set_pages_array_uc(cpages, ncpages);
+>+	}
+>+#endif
+>+	return 0;
+>+}
+>+
+>+/* Expand an @order chunk into its constituent 4K pages for bulk caching. */
+>+static void ttm_pool_prealloc_stage_caching(struct page **cpages,
+>+					    unsigned int *ncpages,
+>+					    struct page *p, unsigned int order)
+>+{
+>+	unsigned int i, nr = 1u << order;
+>+
+>+	for (i = 0; i < nr; i++)
+>+		cpages[(*ncpages)++] = p + i;
+>+}
+>+
+>+/**
+>+ * ttm_pool_prealloc_fill() - Preallocate beneficial-order pages outside any lock
+>+ * @pool: The pool to allocate from.
+>+ * @tt_caching: The requested cpu-caching for the pages allocated.
+>+ * @pp: Prealloc bag to fill; @pp->order is set to the beneficial order.
+>+ * @count: Number of beneficial-order chunks to attempt.
+>+ *
+>+ * Allocate up to @count beneficial-order chunks, parking them in @pp for a
+>+ * later __ttm_pool_alloc() defrag move to consume under the dma-resv lock. May
+>+ * sleep/reclaim freely as it runs unlocked. A short fill is fine: the pool
+>+ * falls back to in-line allocation for the shortfall. DMA-alloc pools are not
+>+ * supported (count stays 0). Returns 0 (release with ttm_pool_prealloc_fini()).
+>+ */
+>+int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+>+			   struct ttm_pool_prealloc *pp, unsigned int count)
+>+{
+>+	unsigned int order = ttm_pool_beneficial_order(pool);
+>+	gfp_t gfp = ttm_pool_prealloc_gfp(pool);
+>+	struct page **cpages = NULL;
+>+	unsigned int ncpages = 0;
+>+	int r;
+>+
+>+	pp->pages = NULL;
+>+	pp->order = order;
+>+	pp->caching = tt_caching;
+>+	pp->count = 0;
+>+	pp->used = 0;
+>+
+>+	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
+>+	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
+>+		return 0;
+>+
+>+	pp->pages = kvzalloc_objs(*pp->pages, count);
+>+	if (!pp->pages)
+>+		return 0;
+>+
+>+	/*
+>+	 * Every chunk is a fresh write-back system page of @order that needs a
+>+	 * caching change; collect their constituent pages into an unpacked
+>+	 * scratch array and issue a single set_pages_array_*() after the fill.
+>+	 * Cached tts need no change (and non-x86 handles caching at map time).
+>+	 */
+>+	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
+>+		cpages = kvzalloc_objs(*cpages, (size_t)count << order);
 
-Thanks!
-Helge
+Assisted-by: LLM
+
+NIT..cpages is tansient memory. Though it is bounded here by 'budget',
+may be it can be avoided altogether by using a one static 4k page in the
+pool and flush it with set_pages_array*() as and when it fill up?
+
+>+		if (!cpages) {
+>+			kvfree(pp->pages);
+>+			pp->pages = NULL;
+>+			return 0;
+>+		}
+>+	}
+>+
+>+	while (pp->count < count) {
+>+		struct page *p = ttm_pool_alloc_page(pool, gfp, order, false);
+>+
+>+		if (!p)
+>+			break;
+>+
+>+		pp->pages[pp->count++] = p;
+>+		if (cpages)
+>+			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
+>+							order);
+>+	}
+>+
+>+	/*
+>+	 * Apply the requested caching to every collected page in one shot. On
+>+	 * failure the pages' caching is indeterminate, so drop the whole bag
+>+	 * (freeing restores write-back) and let the consumer allocate in-line.
+>+	 */
+>+	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
+>+	kvfree(cpages);
+>+	if (r) {
+>+		unsigned int i;
+>+
+>+		for (i = 0; i < pp->count; i++)
+>+			ttm_pool_free_page(pool, tt_caching, order,
+>+					   pp->pages[i], false);
+>+		pp->count = 0;
+>+	}
+>+
+>+	return 0;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_fill);
+>+
+>+/**
+>+ * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
+>+ * @pool: The pool the pages came from.
+>+ * @pp: Prealloc bag to drain. Consumed pages (< @used) are now owned by the tt.
+>+ */
+>+void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
+>+{
+>+	unsigned int i;
+>+
+>+	for (i = pp->used; i < pp->count; ++i)
+>+		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
+>+				   false);
+>+	kvfree(pp->pages);
+>+	pp->pages = NULL;
+>+	pp->count = 0;
+>+	pp->used = 0;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_fini);
+>+
+> /**
+>  * enum ttm_pool_iter_action - Outcome of a per-order allocation phase
+>  * @TTM_POOL_ITER_FILL: A page (@it->p) was acquired; proceed to fill it in.
+>@@ -975,6 +1152,7 @@ struct ttm_pool_alloc_iter {
+> 	struct ttm_pool_alloc_state *alloc;
+> 	struct ttm_pool_tt_restore *restore;
+> 	struct ttm_tt *defrag_old_tt;
+>+	struct ttm_pool_prealloc *prealloc;
+> 	unsigned int beneficial_order;
+> 	gfp_t gfp_flags;
+> 	bool defrag_capped;
+>@@ -990,16 +1168,20 @@ struct ttm_pool_alloc_iter {
+> };
+>
+> /*
+>- * Defrag move budget exhausted: the upgrade can make no further progress this
+>- * pass. Snapshot @defrag_capped is set only when a byte budget was in force at
+>- * entry.
+>+ * Defrag move budget exhausted, or the out-of-lock prealloc bag ran dry: the
+>+ * upgrade can make no further progress this pass. Snapshot @defrag_capped is
+>+ * set only when a byte budget was in force at entry.
+>  */
+> static bool ttm_pool_iter_defrag_exhausted(const struct ttm_pool_alloc_iter *it)
+> {
+>+	const struct ttm_pool_prealloc *pp = it->prealloc;
+>+
+> 	if (!it->defrag_old_tt)
+> 		return false;
+>+	if (it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0)
+>+		return true;
+>
+>-	return it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0;
+>+	return pp && pp->count && pp->used >= pp->count;
+> }
+>
+> /*
+>@@ -1056,7 +1238,8 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+> 		return TTM_POOL_ITER_FILL;
+>
+> 	it->order = harvest_order;
+>-	r = ttm_pool_harvest_page(it->defrag_old_tt, it->order, off, it->alloc);
+>+	r = ttm_pool_harvest_page(it->defrag_old_tt, it->order,
+>+				  it->beneficial_order, off, it->alloc);
+> 	if (r)
+> 		return r;
+>
+>@@ -1068,11 +1251,13 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+>
+> /*
+>  * Acquire a single page for the current order, leaving it in @it->p (NULL on
+>- * failure). Tries a same-order pool page, then a fresh system allocation. Fault
+>- * injection can force the beneficial-order paths to "fail".
+>+ * failure). Tries, in order: a beneficial-order page preallocated outside the
+>+ * dma-resv lock (defrag), a same-order pool page, then a fresh system
+>+ * allocation. Fault injection can force the beneficial-order paths to "fail".
+>  */
+> static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> {
+>+	struct ttm_pool_prealloc *pp = it->prealloc;
+> 	struct ttm_pool_type *pt;
+>
+> 	it->p = NULL;
+>@@ -1087,7 +1272,18 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> 		it->beneficial_order && it->order >= it->beneficial_order &&
+> 		should_fail(&beneficial_order_fault_inject, 1);
+>
+>-	/* First, try to allocate a page from a pool if one exists. */
+>+	/*
+>+	 * Defrag move: consume a beneficial-order page preallocated outside the
+>+	 * dma-resv lock instead of allocating one in-line (which may stall in
+>+	 * reclaim/compaction). Falls through once the bag is empty.
+>+	 */
+>+	if (pp && !it->fail_beneficial && it->order >= it->beneficial_order &&
+>+	    pp->used < pp->count) {
+>+		it->order = it->beneficial_order;
+>+		it->p = pp->pages[pp->used++];
+>+		it->page_caching = it->tt->caching;
+>+	}
+>+
+> 	pt = ttm_pool_select_type(it->pool, it->page_caching, it->order);
+> 	if (!it->p && pt && it->allow_pools && !it->fail_beneficial)
+> 		it->p = ttm_pool_type_take(pt, ttm_pool_nid(it->pool));
+>@@ -1164,6 +1360,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		.alloc = alloc,
+> 		.restore = restore,
+> 		.defrag_old_tt = restore ? NULL : ctx->defrag_old_tt,
+>+		.prealloc = restore ? NULL : ctx->prealloc,
+> 		.beneficial_order = ttm_pool_beneficial_order(pool),
+> 		.page_caching = tt->caching,
+> 		.allow_pools = true,
+>@@ -1193,8 +1390,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	     alloc->remaining_pages;
+> 	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
+> 		/*
+>-		 * Out of defrag budget: harvest the rest of the old tt as-is and
+>-		 * stop (the tt is re-queued if the remainder is still
+>+		 * Out of defrag budget/prealloc: harvest the rest of the old tt
+>+		 * as-is and stop (the tt is re-queued if the remainder is still
+> 		 * sub-optimal).
+> 		 */
+> 		if (ttm_pool_iter_defrag_exhausted(&it)) {
+>@@ -1211,7 +1408,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		if (r == TTM_POOL_ITER_RETRY)
+> 			continue;
+>
+>-		/* Acquire a page (pool / system) for this order. */
+>+		/* Acquire a page (prealloc / pool / system) for this order. */
+> 		ttm_pool_iter_acquire_page(&it);
+> 		if (!it.p) {
+> 			r = ttm_pool_iter_lower_order(&it);
+>@@ -1243,6 +1440,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			alloc->defrag_bytes_remaining -=
+> 				(s64)(1UL << it.order) << PAGE_SHIFT;
+>
+>+		if (it.order < it.beneficial_order)
+>+			alloc->nr_suboptimal_pages += 0x1 << it.order;
+
+NIT..This counts any tail bytes also as suboptimal. Should be fine as it only leads
+to extra prealloc, but just noticing that TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED
+is not flagged for tail bytes.
+
+> 		it.alloc_count++;
+> 	}
+>
+>@@ -1306,6 +1505,9 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	/* Report the unused defrag budget back to the caller. */
+> 	ctx->defrag_bytes_remaining = alloc.defrag_bytes_remaining;
+>
+>+	if (!ret)
+>+		tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+>+
+> 	return ret;
+> }
+> EXPORT_SYMBOL(ttm_pool_alloc);
+>@@ -1358,6 +1560,15 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>
+> 			if (ret)
+> 				return ret;
+>+
+>+			/*
+>+			 * __ttm_pool_alloc() counts each freshly (re)allocated
+>+			 * chunk against nr_suboptimal_pages, but a chunk whose
+>+			 * backup copy was interrupted and is finished here
+>+			 * resumes past that loop, so account for it directly.
+>+			 */
+>+			if (restore->order < ttm_pool_beneficial_order(pool))
+>+				alloc.nr_suboptimal_pages += 1U << restore->order;
+
+NIT...'1U << order' vs '0x1 << order' in other places. Should be fine, probably
+good to be consistent.
+
+> 		}
+> 		if (!alloc.remaining_pages) {
+> 			ret = ttm_pool_apply_caching(&alloc);
+>@@ -1367,11 +1578,16 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			kfree(tt->restore);
+> 			tt->restore = NULL;
+>
+>+			tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+> 			return 0;
+> 		}
+> 	}
+>
+>-	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+>+	ret = __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+>+	if (!ret)
+>+		tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+>+
+>+	return ret;
+> }
+>
+> /**
+>diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>index 6124d2627b47..a80304f179ba 100644
+>--- a/include/drm/ttm/ttm_bo.h
+>+++ b/include/drm/ttm/ttm_bo.h
+>@@ -237,6 +237,17 @@ struct ttm_operation_ctx {
+> 	 * @defrag_old_tt is set.
+> 	 */
+> 	s64 defrag_bytes_remaining;
+>+	/**
+>+	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
+>+	 * move. The pool allocator consumes these instead of allocating fresh
+>+	 * beneficial-order pages under the lock, moving the (potentially
+>+	 * reclaim/compaction stalling) high-order allocations out of the
+>+	 * critical section. NULL means allocate in-line as usual. The pool
+>+	 * silently falls back to in-line allocation for any shortfall. The
+>+	 * allocator consumes it for beneficial-order chunks of any populate;
+>+	 * drivers only set it for a defrag move.
+>+	 */
+>+	struct ttm_pool_prealloc *prealloc;
+> 	/**
+> 	 * @resv: Reservation object to be used together with
+> 	 * @allow_res_evict.
+>diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+>index 753203980e2c..71670350eb15 100644
+>--- a/include/drm/ttm/ttm_pool.h
+>+++ b/include/drm/ttm/ttm_pool.h
+>@@ -81,6 +81,35 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		   struct ttm_operation_ctx *ctx);
+> void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>
+>+/**
+>+ * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
+>+ * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
+>+ *         short); each entry is the head page of a 1 << @order chunk.
+>+ * @order: Page order of every preallocated chunk.
+>+ * @caching: CPU caching applied to the pages, so leftovers can be restored
+>+ *           to write-back before being freed.
+>+ * @count: Number of valid entries in @pages.
+>+ * @used: Number of entries already consumed by the pool allocator.
+>+ *
+>+ * Defrag pages are interchangeable, so only a count of beneficial-order chunks
+>+ * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
+>+ * __ttm_pool_alloc() drains it; any unused tail is released by
+>+ * ttm_pool_prealloc_fini().
+>+ */
+>+struct ttm_pool_prealloc {
+>+	struct page **pages;
+>+	unsigned int order;
+>+	enum ttm_caching caching;
+>+	unsigned int count;
+>+	unsigned int used;
+>+};
+>+
+>+int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+>+			   struct ttm_pool_prealloc *pp, unsigned int count);
+>+void ttm_pool_prealloc_fini(struct ttm_pool *pool,
+>+			    struct ttm_pool_prealloc *pp);
+>+unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
+>+
+> void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> 		   int nid, unsigned int alloc_flags);
+> void ttm_pool_fini(struct ttm_pool *pool);
+>diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+>index 55c35bcf134d..81a5446ca693 100644
+>--- a/include/drm/ttm/ttm_tt.h
+>+++ b/include/drm/ttm/ttm_tt.h
+>@@ -135,6 +135,12 @@ struct ttm_tt {
+> 	enum ttm_caching caching;
+> 	/** @restore: Partial restoration from backup state. TTM private */
+> 	struct ttm_pool_tt_restore *restore;
+>+	/**
+>+	 * @nr_suboptimal_pages: Number of pages backed below the pool's
+>+	 * beneficial order. Recorded by the pool allocator after populate; a
+>+	 * defrag pass reads it to size its out-of-lock preallocation exactly.
+>+	 */
+
+NIT...may be not 'exactly' as patch 23 rounds it up.
+
+Niranjana
+
+>+	u32 nr_suboptimal_pages;
+> };
+>
+> /**
+>@@ -201,6 +207,17 @@ static inline bool ttm_tt_is_beneficial_order_failed(const struct ttm_tt *tt)
+> 	return tt->page_flags & TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+> }
+>
+>+/**
+>+ * ttm_tt_suboptimal_pages() - Pages backed below the pool's beneficial order
+>+ * @tt: The struct ttm_tt.
+>+ *
+>+ * Return: Number of pages a defrag move would (re)allocate at beneficial order.
+>+ */
+>+static inline u32 ttm_tt_suboptimal_pages(const struct ttm_tt *tt)
+>+{
+>+	return tt->nr_suboptimal_pages;
+>+}
+>+
+> /**
+>  * ttm_tt_create
+>  *
+>-- 
+>2.34.1
+>
