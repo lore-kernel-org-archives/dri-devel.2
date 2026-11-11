@@ -2,130 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AAD606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F41E606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 09:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=aykb3gun
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bC9WR99l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A1A10FA0C;
-	Wed, 11 Nov 2026 09:25:35 +0000 (UTC)
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021115.outbound.protection.outlook.com [52.101.100.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECF910FA0C
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:25:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mRENqY3eErrBTjKllvH/X7nFaMTz/r+LGS6lc/KEDS/zsGndHe0d8HYy+8xs3kHbj7onYN35oMXAc84lCXDkJXEwHMjH+AH4DXd4aR5cjKQQUQmGaW4Tggh2ImfpQbepPwz2vOLDAXvyJePR9lH7WOmq3PcoPPXFPmtqx0eIF87ERnKGJuhqFWkzGMOsv7DdxlmdA6La3KnciTLXb2tu/XF9qh+1iUjP1wJ98YaDh8FTo9rcqdAt9GStV3eYJh8xKxhTiJ42QvvbcMfv1JwiiehNoflvDNyKlVAkmKd6g9I6XBXaX3we+XqRmzwt0pDIkq2IZYXKjwb5udSitNDQcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/5LQM1KI6QmdweywW/sidoo22rxRYAyvGMYul4zAO3k=;
- b=VsZGhMsFU4lkasxrpWufs2vOlhT7Q95YgxMpAi2LEmA4x0aL3fcMI9qU/SUM2TIGGwS81sWZ2tO7bT3R9D+GeOAnVgBSR8Qf+uyBp2bvja3R1q9FfFfTr41Z7uid4dxdTv/VVT6WzJdPr5AmPUJKWN4d10pFZxHzzMxGRe49cRe6GdHBMNAaINLo9j39YZIonNUqF9vifNLow+yDtrKGi0LUt2fqCMAI3rV+TzxGnqgrrp3blnuqzglVFJXAQ1D8fKllYVK9DFRQRKowTxkyizgANVNH69jYcWw4ebWieNLtuLi7XurUlfyxemLgl0k1ERP7ijrYBgN39nUZENjP/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/5LQM1KI6QmdweywW/sidoo22rxRYAyvGMYul4zAO3k=;
- b=aykb3gun8v/zH5tcQiM2ZN3d22I2ZRRi7pVXSzxVJdUJ4nEjZVUUcBJOBGORLcARbMCNhm0m03XE9p8C1zdxbbTvTvSQmRvMuDFqxmMzH6GzmYZZSt4gFRxhswWcK2Y+w4Z4iSlcpT9fUl5RY44Jx83fxS3CrjdTqmgmwQNeUTo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by CW1P265MB8830.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:25:26 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 09:25:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41ACF10FA0F;
+	Wed, 11 Nov 2026 09:28:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4DFC10FA0D
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:28:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F19240287;
+ Wed, 11 Nov 2026 09:28:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BEE1F00A06;
+ Wed, 11 Nov 2026 09:28:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794389310;
+ bh=9xs3t2w5c8v0QL/UGf3ITtSxA4c691Drv1qqziAEOXA=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=bC9WR99l8gxlNKAlZowklynbr6vl/TXy02P4FCpN0tEoManeiLFec7idXuq+DV0YS
+ CqY8ilD3PKYJ7m9n71E5RnwMJPhFbZ5ejU+/jCmAmdw1TDmR5WqWFIHazAA591YdjU
+ wRhhrQwri0UUYgkGEXXDJ5yrUDI/D/x8tpxluPkMlniNlxRlPsNvFhjh+jIlXLT0Lf
+ jWA92yvKy6g2JmZGsSya2nXxguFmTBGRBKraPsevHdWPjp/oXEeqossn8zrgq1ZgIN
+ jd3yXcvcQE1HjhjAGP8JmLe7yXnH+sQOyJa78hGdZ9KYDlo1AfN1/1bkcdJsqodf1P
+ 3p/UvmWbmT0WQ==
+Message-ID: <sashiko-outbox-208694@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND 5/5] drm/amdgpu: keep reading the vblank counter
+ in IRQ context during reset
+To: "Prike Liang" <Prike.Liang@amd.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111085534.514957-5-Prike.Liang@amd.com>
+References: <20261111085534.514957-1-Prike.Liang@amd.com>
+ <20261111085534.514957-5-Prike.Liang@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 09:25:25 +0000
-Message-Id: <DMS9UW3YHO12.L5G6JDIYPAJE@garyguo.net>
-Subject: Re: [PATCH v2 5/7] rust: drm: wrap fops open with RegistrationGuard
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <daniel.almeida@collabora.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <brauner@kernel.org>,
- <lyude@redhat.com>, <j@jananu.net>, <alvin.sun@linux.dev>,
- <deborah.brouwer@collabora.com>, <laura.nao@collabora.com>,
- <beata.michalska@arm.com>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261107021427.2105374-1-dakr@kernel.org>
- <20261107021427.2105374-6-dakr@kernel.org>
-In-Reply-To: <20261107021427.2105374-6-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0492.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1ab::11) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|CW1P265MB8830:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32ae7050-5e48-4549-f89a-08df3fd5b81c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|23010399003|376014|1800799024|366016|261026140227099003|261028144727099003|261009223027099003|261021123027099003|261021121427099003|261022105027099003|10067099003|261102123227099003|4143699003|56012099006|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: LGG1iEP5vdtZfz/01LiO9UUO3HlA6wepoDeY/CJgvYuRFpv3Wk7wmCYpCdDeh16B9XjJhz/S1TvMupRrz5+JAMukvO7jNnUg8T50jUYB1NpuJNxbobgkAfwnTMfy4bBv2r5UvMIl53Qrtdv+uhFGh8FoQ6rTrrFrixhmnd0I1Z5V71c5pfmdXmjztNdjSn/YySlVTiq2S9JcM5pL7W/+PmxOz56iOyO0d03Ca6uYwSrHOCizaFTYVeYPgT5pvUePbcVgaWduSK4NnMxh3CtJPm4+WlEEw82SB9iCEpaaykJUyPL2pj6589zxfm/0nYGrdN/pcFM710543QaKLzgg41bZvxSI3C4oD7ydh78SHSQ/D/LvVWgaaw5YHGJSVNY5gKA04cxmDs839uTaFmuVATnCInEinbJ/PPINrnDTXiI/CXWhNICnIF8fo5VSUmMm3wNqC+cFHBhBqsleyof5VeVAgjjbo1y4EaXih5DGPSIHr5zq5cXMMEjx0ehzvkk6lJrTmYtbHlHN7pLWcAhE1wCOd6HZqBn738WuycKb0Bspqjoe/W2IK8wP1/S1+KZDLRaxcFautyotZZ1hvcVZgF1LH2j4z+gir5mwW/LXwJHiqOn3jzUN35xPazqOcFOAtAYw2nWmxjM2wGeCO+mR6UahY/znI2lhd2A3EV2b4aabMt24z18ZBNllwjqicUouftGKdRgZO8oBhuoXn57OoA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(23010399003)(376014)(1800799024)(366016)(261026140227099003)(261028144727099003)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(261102123227099003)(4143699003)(56012099006)(921020)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1RUWmxVZ1RxTCtPVENNL3BVdDZUTEF2NVEweXNodzZTTktzWUlMZTNLMXZF?=
- =?utf-8?B?NmZwVVJ1Ulk3NjFkKzBBam10aW9nUll6M0ViSlNkUGZORERmUEpTWkRsdXRW?=
- =?utf-8?B?UTF5d2VHYWZaQzlIL2RpY2lKRTBkQUxJbWV2M2xMU3pTV2U0dGN2OVVUUFo1?=
- =?utf-8?B?K2JWczFBeDlwb3NycmFDYVhiSGp5ZmwveXpZUEp3TGxnMEZ1a0N4ZXBqbWZT?=
- =?utf-8?B?K1JqUm9OcUhaQXU3VnI1dWp0blJrZ283RHhuZzYzSWhYZytCK2RwSWI2V2NC?=
- =?utf-8?B?VGpYOWlQcEhyZ0Rsd1d6UE9zZTZscmxlbkx5NGNSR3BqNi9hdHprTjc0TVFn?=
- =?utf-8?B?TC96RjNzUzBRV3psN1BDRXBYT3NMenI2MWNGWGRZTkQ2ZzA1S3FmdlJ4bGp2?=
- =?utf-8?B?bTZwN25YQ0ZSWHBaZEJpdkpoc1RvMnhHL0NOb010cjkydk54WWsrcSs2YlhQ?=
- =?utf-8?B?SWNEaWJXYjBrWVdIRm9YRGovVjVlT3dqSTNpdVdFOW5qc25nZnpBL0tSM0hy?=
- =?utf-8?B?YzF5VmVZRmlxWWJUYm5vM1FFTzlWRlVoQU1sSzBWaEVzYmF5R1BiVGJVVW9m?=
- =?utf-8?B?SkZPaWpaMWxaVGRDKzdTVGRZZjNRNTZrNk84QThNckord3QrZ0tjSjZmTXRa?=
- =?utf-8?B?am1tY2puWnJKbFlRbFVCMTY0eWlpVDBYd1o0NU1nT2d1dkdTSzdONW95UUJn?=
- =?utf-8?B?QlJ6bWoxMmVvcE1uN1RhbGV0NjVlSVU3ZjUwbUxNWUtUUDhXbUpoOHFUc1VD?=
- =?utf-8?B?ZjlBWlBaY0prOG5yUlprU2RMVWJHbHoycGJCS2d6blBseUZUQmF0QlRqOW1S?=
- =?utf-8?B?Wm9BdzQzV1FqUi9NR3g3eXplQ1dkUGNJTnp3UDNDU0loU2ZTYkt6TlMrb3ps?=
- =?utf-8?B?T0dCUzNuZjRnczJmcTYzRi9Udmlsb2Qxd2UxdFVTU0RzclREaGVRdzhidThp?=
- =?utf-8?B?YU5hOWQ2UkZkNlhqcWlLeDN4NEk0aitHaGthclFEUkQxOUlMTG5qMWFCTG5D?=
- =?utf-8?B?UEUydDVVQ2FVa2MwTUVvcmV2TmNTVkptTEMyZ0dkMFZxOHd6S1JqY25JenUy?=
- =?utf-8?B?NFlZc3dOKy9zVjduclNuOVpMMTBLSGpJU04vdUZlZDZJT0hrWUNkRGhGblVX?=
- =?utf-8?B?V1pqNVJ6LytUZnZGZnFRaHBjcnFKYllaZGJpV05CdG95cndkWFVxN28xdk5i?=
- =?utf-8?B?UmtyMW9sVDkwT3JEV0xpd3drdWE1MVhSa3JTc253N0Zod0ZOeWFKWDRCdUZp?=
- =?utf-8?B?WkZrTVdmRThCQ1ZLSG9BL2I4eURGaFNzOCtaSjg0Ry9OVmVocXJnSVBTQXBY?=
- =?utf-8?B?Y3RueE9mRUMza1BObDVIYThiZkxJK3BibWZvWUZ3S2VSQVFSbmNYUVkxQUNr?=
- =?utf-8?B?QUFYWm9zZWlnS0xranFPcHliZUZtSmtIR1RWa3p3RXJwM2c3a0VSRmtocS81?=
- =?utf-8?B?dTMybW1JVmY4K045VkFNZmdqYkN6VlJGdFp3VGtQbDBmWXRjMlVLSnZSK2x5?=
- =?utf-8?B?NjZtMldUZGo5OGpVUUhZYUdWanU0enBkN3MrYlQ1MnYwWEhTZ1FUOEo2NGxo?=
- =?utf-8?B?cWtCWG9icWpieXZmN0UzNVRya0pLZ3A3UG1XUDJ6dTFpMGpDNE5JZnpMYnp2?=
- =?utf-8?B?QW90OERubDhxV2hHU1JXYzRIWTNib1MveTRCdDdjWlVYdy9YVDl0eXRzVjA1?=
- =?utf-8?B?TXA1ZlVjT1ZoTkFZc1J1NFNBOHRjbWpHZmt6RGJDVGJybCt6cVpGMldIdU8r?=
- =?utf-8?B?L0U0SUpKcitla0ZJcDFYVU16ekNtVEVvb1Ira0c0cGxQZVQzWGVuZG5jNnBX?=
- =?utf-8?B?R1JBMFBvSm0xdFAyeXZKRDdLak1vTzVESll6bWMxUzgvdXJYa2dSR0s5ZXJL?=
- =?utf-8?B?TGZoeGg3dEcwWlVUbVhMNG1zYmlQS2JtSkhtay8xQkdZQjFlZHE1R1h3QnN3?=
- =?utf-8?B?enUvbTJSNEdRYXFDenJTcTFvWXYwZFUwWlV4Njd6c2diUVlMRjhqRy9CSjVV?=
- =?utf-8?B?TnZQL2NQTmVEQ3N5UmYvUzdpZDZDczMwNFhmYlVtZlFHVEVOaHRjK2NTVWJz?=
- =?utf-8?B?NGh2aFVlRWJHTDJ3UFFrcFFzWlhYM1BCdm12Yi9DWUtyaldMNEt4MXhhOU4v?=
- =?utf-8?B?NERBMlRVdjRIY0dFUkE5OEZPdktJbXVLdG8wQ3pROVU1T1hSUk9aWjdZREFy?=
- =?utf-8?B?M1l5ck5yWVZSdHNBcGRLb21MM1Y5TVRzZnExL0pPWm1QRFMwYkJuTTBoMG10?=
- =?utf-8?B?c29GM0VIblcwUlRSVVIxOUdERzBXeFFvMU9SWEM2UXZQVElTYXMyRW5Id0Yy?=
- =?utf-8?B?dWZDWURZRXpXR1dkWmxITXpxbVp5YTBPekVUTkQrcXZSVVFXMi85Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32ae7050-5e48-4549-f89a-08df3fd5b81c
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:25:26.0349 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N/vdVUMAbBwJODNDVo+LO5rTHCC4U3lFLBGr6BIOfu/KDRYjZPh/+q8Scko7YuLluNycDC4+3jmWWUj2yr5/Dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8830
+Date: Wed, 11 Nov 2026 09:28:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,34 +48,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Sat Nov 7, 2026 at 2:03 AM GMT, Danilo Krummrich wrote:
-> Add a Minor abstraction with RAII release and a fops_open() wrapper that
-> holds a RegistrationGuard (drm_dev_enter / drm_dev_exit) across the
-> entire drm_open() call.
->=20
-> This guarantees that drm_dev_unplug() in Registration::drop() waits for
-> the full open sequence to complete, so all files are visible in the
-> filelist when iterating for cleanup.
->=20
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/amdgpu: vblank counter jump after reset in
+  amdgpu_get_vblank_counter_kms()
+- [Low] drm/amdgpu: commit message and Fixes SHA mismatch in
+  amdgpu_get_vblank_counter_kms()
+--
 
-I wonder if the logic can be implemented in drm_open instead?
+commit 6af07d5a30227ace169063264412acdd7272d49f
+Author: Prike Liang <Prike.Liang@amd.com>
 
-Regardless:
+> drm/amdgpu: keep reading the vblank counter in IRQ context during reset
+>
+> amdgpu_get_vblank_counter_kms() returns the cached vblank->last instead
+> of reading the hardware counter whenever it can't take
+> reset_domain->sem for reading. The vblank interrupt reads the counter
+> through the same callback via drm_crtc_handle_vblank(), so once GPU
+> recovery holds the semaphore for writing, every vblank interrupt sees
+> diff =3D=3D 0 and the DRM vblank count stops advancing. The CRTCs keep
+> scanning out until dm_suspend() turns vblank off and stops the streams,
+> though, which only happens after the rest of the recovery preparation.
+>
+> Vblank waits in that window don't see a vblank anymore. They only end
+> when dm_suspend() turns vblank off, or after a second with the
+> "vblank wait timed out" warning if that takes longer. The fbdev damage
+> worker is likely to be waiting already, because recovery prints
+> "GPU reset begin!" right before it takes the semaphore.
+>
+> Vblank interrupts only arrive while a CRTC is scanning out, so the
+> interrupt path can read the hardware counter.
+> amdgpu_device_skip_hw_access() likewise only checks the reset semaphore
+> in task context. Only back off in task context, so the interrupt path
+> keeps the count moving until DM turns vblank off.
+>
+> Fixes: f2bc71d16e73 ("drm/amdgpu: serialize vblank counter reads against =
+GPU reset")
+> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Cc: James Lin <pinglei.lin@amd.com>
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Assisted-by: Copilot:claude-opus-5.5
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+[Severity: Low]
+Prior to this patch, amdgpu_get_vblank_counter_kms() returned
+drm_crtc_vblank_count(crtc) rather than drm_crtc_vblank_crtc(crtc)->last
+when down_read_trylock() failed.  Should the commit message mention
+changing that fallback from the software counter to vblank->last?
 
-> ---
->  rust/kernel/drm/device.rs | 63 ++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 62 insertions(+), 1 deletion(-)
+Also, f2bc71d16e73 ("drm/amdgpu: serialize vblank counter reads against
+GPU reset") is not an ancestor in this tree's history, where that commit
+is 51a4359f7431 ("drm/amdgpu: serialize vblank counter reads against GPU
+reset").
 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 8e7e522a89e42..07d178031abb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1691,6 +1691,7 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *=
+crtc)
+>  	struct drm_device *dev =3D crtc->dev;
+>  	unsigned int pipe =3D crtc->index;
+>  	struct amdgpu_device *adev =3D drm_to_adev(dev);
+> +	bool locked =3D false;
+>  	int vpos, hpos, stat;
+>  	u32 count;
+> =20
+> @@ -1698,9 +1699,26 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc =
+*crtc)
+>  		DRM_ERROR("Invalid crtc %u\n", pipe);
+>  		return -EINVAL;
+>  	}
+> -	if (!down_read_trylock(&adev->reset_domain->sem))
+> -		return drm_crtc_vblank_count(crtc);
+> =20
+> +	/*
+> +	 * A GPU reset is in progress and the display hardware cannot be read
+> +	 * safely. Return the hardware counter value DRM already cached rather
+> +	 * than the software vblank count: the core feeds this callback's
+> +	 * result back into vblank->last, and a software count lives in a
+> +	 * different numeric domain, which later trips
+> +	 * drm_WARN_ON_ONCE(cur_vblank !=3D vblank->last) in
+> +	 * drm_update_vblank_count().
+> +	 *
+> +	 * Only task context has to back off. Vblank interrupts only arrive
+> +	 * while a CRTC is scanning out, so the interrupt path can read the
+> +	 * hardware, and it has to keep counting: vblank waits that already
+> +	 * sleep when a reset takes the semaphore never complete otherwise.
+> +	 */
+> +	if (in_task()) {
+> +		if (!down_read_trylock(&adev->reset_domain->sem))
+> +			return drm_crtc_vblank_crtc(crtc)->last;
+> +		locked =3D true;
+> +	}
+
+[Severity: Medium]
+Does returning vblank->last here prevent dm_resume() from re-baselining
+vblank->last after an ASIC reset, causing vblank->count to jump forward by
+up to ~16.7 million frames?
+
+During GPU recovery, amdgpu_device_gpu_recover() holds reset_domain->sem
+for writing on the recovery worker thread (where in_task() is true) across
+amdgpu_device_asic_reset().  The ASIC reset zeroes the 24-bit hardware
+frame counter, and dm_resume() then runs:
+
+  dm_resume()
+    -> dm_gpureset_toggle_vblank()
+      -> drm_crtc_vblank_on_config()
+        -> drm_reset_vblank_timestamp()
+          -> get_vblank_counter_and_timestamp()
+            -> amdgpu_get_vblank_counter_kms()
+
+Because the recovery thread itself holds the write lock on
+reset_domain->sem, down_read_trylock() fails and returns the stale
+pre-reset vblank->last instead of reading the reset hardware counter (0).
+drm_reset_vblank_timestamp() stores that stale pre-reset value back into
+vblank->last.  On the first post-reset vblank interrupt,
+drm_update_vblank_count() computes:
+
+  diff =3D (cur_vblank - vblank->last) & max_vblank_count;
+
+With cur_vblank near 0 and vblank->last still holding the pre-reset count,
+this wraps modulo max_vblank_count (0x00ffffff) and advances the DRM
+vblank counter by millions of bogus frames (and similarly stops
+dm_suspend() -> drm_crtc_vblank_off() from sampling the final pre-reset
+hardware counter).  Unlike amdgpu_device_skip_hw_access(), which allows
+access when the current task holds the write lock on reset_domain->sem,
+down_read_trylock() also rejects the reset thread itself.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111085534.5149=
+57-1-Prike.Liang@amd.com?part=3D5
