@@ -2,159 +2,158 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860E7606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 07:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39554606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 07:32:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ct+tEHLc;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=atS5ulgc
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GmdNidIf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC15010E26C;
-	Wed, 11 Nov 2026 07:24:36 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7590E10EE5A
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:24:25 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AB5KKhI2017370
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:24:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=; b=ct+tEHLc1bLztlOA
- 7Nte8SPyllFfvGgbTINjrBO/npdO1dTNxAfSaXVUAMjIVJe/PV6PIfmJDq7KS4Rb
- GAuU9ZGtwUOc/K18T0g6m70Zt+O6/hi59f2umL3wFZJ1uCdD5v7iJbTHqM1hItNG
- 6vtE9BC7afMP3qMc6Q1QAROO2tykB0b0e0LiWaLY1S7p3spiosyk4bCnh7dqtWay
- NJ2pD6NA3WhiktTEMxf2nattfyUSWTxLFG0jUIyq/9A9r4RjUSjPU3FD2795BZ0i
- 59krfHwklKMMGuxhjcLZG+JYwBrnTT+F9NzYcXSftughWX7h7eb1nT74lRPLi0Ll
- lGcShQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97cafx5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 07:24:24 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3b18741aaf8so246795a91.2
- for <dri-devel@lists.freedesktop.org>; Tue, 10 Nov 2026 23:24:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794381863; x=1794986663;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=;
- b=atS5ulgck498LcJkh74XV5wxspCsFw3pGg2Gn3AT4Ps8kGFb8r7HehS3v5rZyRKYEK
- H5cyKaeUfci5STMk7RQ/GMALkGscU/TpLCW95TSiuBxIssIZPNiiBN52GZ+79fLXN698
- VQUryp8cXh7b7P4fpj3fh9pWcO/d1+P1jFyIcFr3+u2dFuXLpeYUkqebUvjeJkz60nQG
- /of4Cc+k8Su7m6oBYC8Cf1XtQGimHs2iIpOhVAdoSfM8/b7yUA0csnULGMBieAMjmRP4
- 2z5X8WOjjAO6ka1WsbRJ4RhznqNOyuhq5WMqk90ILDbGP34PkUxqN2giTbOKo2aPQZ0E
- kyTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794381863; x=1794986663;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=;
- b=Ub+l2OP2O4DHJpDpXylSrW8nQGj7Y6uwZKv/3azMrmi2fY3b7gCnWZ9+Kz9LtrdcND
- 5k+qpwSlvk6oXt9W2RINLSbMywf9kpzqagkSrcdAMwVyPnK8ZoLgnKNr8BxhI6fZW/4M
- 1glEkJDzIcLIWDZS/ERtJ51Ct2m5bKsUHy5OD9zxe9pOZP5CxUmII2k3VigwThmXlxRI
- ApZzyxtZgBEwDFDwkDAzoSFntLKE91+RX9qrGgT8AjYaXcxddoCuVqsv5Ig/3WQPoa2V
- 6GoP/kumRY3EwFRlk6DAhJFodbPttTGUs9CJ1g9nIbFQBVZMQ0tdJ55DgIatiIwDXKAA
- K6LQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGIFSDwWFDBKOaspVbTm60ndf1Z8XOYwuhWU9K0k5Q+c7NFrhbcmS6VLJ4TTPtX3LrIVBXoMUm8ZsE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9VbG531xRGv2RgnIUm/Jocaq6YoqcHlD9l5AUlZqS+SEL01dGI
- xM2mtwozjuprpCDyANEE5c3YcVHIZQL2Fx/jmytj68+q0ZQ8QM4T3ugaeqx572DHO8XuIifTs+E
- ct/D8FDu2vmKvdAhoX2v709EhPc1tWxUhiN4+qUd4jD7x7kpIIZwLmg9T2dFQsuAoNGPxVEc=
-X-Gm-Gg: AYBFou1nC0gtuRCMqb4VJ7O3I6fPAVFbOYSJwr6KLhWqRbnIH2+p9Oe9rRe/NOwqy1P
- v32CaB7qoe3qFIzmK6AW8pujiSNx6suundSo0VBbnxELo9kHCG/A/1De5nF2wWf6KvkpL+CjZGH
- 2SMQ3zQMd5uzdCQaUAAMSnCqkaSIsR+KzQCa0To2ew8G/XYgJybXmLQEnV850OkNc3ubqxa6YNE
- 1CRrh+gJIfCyAFF8H1y+Errv7eN/7+dba+3r1Q+dTw7zZRuPur2IfsnEcltq3vyg7baHQRvH7w3
- odt+x6DPNETXY0x61t2ktzJ/23V2hAlI21h6RSmWMOmVFpkZiKaa5WbpD8AJsNQE5YaeHGt8quS
- mAno+cfcVn9Gq6o48Ts1NYmASVMglzW0xvOISyG9g5EVu0wsqyVflC+U68TS3nLeBRERoNydRgl
- 7SQcrU6kM=
-X-Received: by 2002:a17:90a:da8b:b0:3b0:9e2c:9b57 with SMTP id
- 98e67ed59e1d1-3b182df3037mr1802835a91.4.1794381862949; 
- Tue, 10 Nov 2026 23:24:22 -0800 (PST)
-X-Received: by 2002:a17:90a:da8b:b0:3b0:9e2c:9b57 with SMTP id
- 98e67ed59e1d1-3b182df3037mr1802795a91.4.1794381862393; 
- Tue, 10 Nov 2026 23:24:22 -0800 (PST)
-Received: from [10.204.79.28] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b17dba5ed0sm3269267a91.17.2026.11.10.23.24.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2026 23:24:21 -0800 (PST)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <9e17c97d-0596-430b-87c7-63099174128d@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 12:54:09 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C49610F6A0;
+	Wed, 11 Nov 2026 07:32:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE6D10EE77;
+ Wed, 11 Nov 2026 07:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794382330; x=1825918330;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=5BjkJrXnW3ndlg8S9HTyoxQ2H91c+oW+T0fypYVv/c8=;
+ b=GmdNidIfvjnJETVp4+RAvY2dfuBKIndqw5jAFg0lxCYPNzxnKMykwehg
+ sdM8PBehs81sS6+T14zoY7GmasoXp3D7UeiInfFG9pD+2NkT9T7TKjMox
+ 3GCqsvmQrKs1wal5wepuTHFRWE+Y+WQgu1C/iXkj8KJdspMkIFzGba4n/
+ wKlS8h8sTuPzNjRVsPyDV/1s1NH3NqV7XfnaMzo+eRGX21dCAu82PI70G
+ gTR5kffXBaHujkyIx5ez1Po1tHoCtgUcDJNjl+wA/MJkCJz4rnJnWorpS
+ eM6HnVHU3Z4jL0Culu0MEO9iB3pKwWnfnHSWoATt6PaLcbEZSdjG8kTim g==;
+X-CSE-ConnectionGUID: H2oT7kXUQAKsHvLTNyUIUA==
+X-CSE-MsgGUID: 9n7r6a2QTAOu5AXQU98Gcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3154422"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3154422"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 23:32:03 -0800
+X-CSE-ConnectionGUID: BoWNBE27Qx2kU8jSpLyqDA==
+X-CSE-MsgGUID: g90RGX2dTJSDKeCnsE6nIw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8393329"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 23:32:02 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 23:32:00 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 23:32:00 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.17)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 23:32:00 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JZMdltaGHL50W3O1/hS3RKHeERFQmgV4QdtJVuNO/1CoAmNEx3RGf7eYswf8XofSZkSQCnKBu7lEXBhEtdV8ACWP8gqG6qeMpPNuVvrnhCy3nEMgFK0fLBJru9HBirSFhId3S8lIEkrgDHt2F3b86fdYESlH4JqA2uBtlvr2YWRW5WaDJ9qeRgQAq7Dt4ZOdrpQJEKXyLh/ynqoU2TXsaiFQDpHXqTXzY6wWRCGWfXWIlsJ6EhEFy9ITBioQzDp6r+wfYP517Vv5RIKWm0TWqxCIoZOwfyYC9eb/2XQcFgsmWMna1PQ1X1KMA0ahDH8GjIIbHcmD7mNdamJImCptlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XVEc+2VW/DYSATb4QB1eCAgqWagAchG+3WjtbF+C+fs=;
+ b=EZKI0ppR8TQf8h+Q2eb11WWm/IF3A6QlIgrAWaAM6B7ProLCjGHUOBiw4R/JD4LnTNCdcoVSbSYgBwfO/v3wLSdm/MC/p1rVoVU4kltzaZq4woD4dSHJhPhyflCDGOcVOpUWv8QIyHtbZ3g/OQQcTC75vQQnWkFEIQ4LqSFwxGdeX+sSLC6+Xvkpf74Go5sROVnepumdehu68rz1kCi4PbYT9UjFeSeCx+lewmHtWWIGV904b5nr1RvRtgTHGlSfOoiiuM2ekmW3K+g7AvccSaHdKdmDXa+ARDlFaIcqg1EIW8jcYxPkUy/SMU1eRHu0mql6nX1IeQcYB63W5B5h6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by BY1PR11MB8125.namprd11.prod.outlook.com (2603:10b6:a03:528::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 07:31:56 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 07:31:56 +0000
+Date: Tue, 10 Nov 2026 23:31:53 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 10/33] drm/ttm: Add full out-of-lock preallocation for
+ ttm_pool_alloc()
+Message-ID: <avQZ6cCNt2H8vBtG@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-11-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-11-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0114.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::29) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 20/23] drm/msm/dcp: Add DCP VirtIO driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowangio@gmail.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Flemin Jose <flemin.jose@oss.qualcomm.com>,
- Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-20-7cf014efdee1@oss.qualcomm.com>
- <lruitisknk6mnkqxa7dxzib4cw3uh3ts2gypetiek4eu6muebd@rl5oyi4kfali>
-Content-Language: en-US
-In-Reply-To: <lruitisknk6mnkqxa7dxzib4cw3uh3ts2gypetiek4eu6muebd@rl5oyi4kfali>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX4DD8Bc/1WpD5
- 5DSXLjebMS3VcF240+cQZvRPxl5Sv/mnWleZN17/C4F+hLFF3GzkceNe8Q4F5qxEEnajeIAUKLO
- jVufw0GLuFskjBDeE/tAVm2BhzO+xO0fu5O0+LVcp8rLAwyexxJcxdXjvfhyX9P1KsDiw4Zw6Na
- /OTM/wb0/o+JLEF2GulN/yLPvAHTRB74aElPCcx8k2qIm/uwa/9qqlDaT1f63zq5wcRJ51+CHe8
- A+7SY+iWG4myqhcrOJ+je5xj1vtaFQ4SDWbODJLFy8+nW1onja7WDB0umPSFOpwf99whQLQoeW4
- sRq856ET8GMo61sCLfctZYd5bCuK7P/ySGvQVNH60LugAUaa9ybzn+Hy52k9dEduYNgrgaw6awG
- vBiU9tRMGDz06JwG3FWC1D0MXccUwyxjZ6xrNmN8h6tdalrqqarwvBAgv0oY1KLoTzrP66Trm1v
- EcfDWOp6vV2xxulJKmw==
-X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af41828 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=j3k-TtDDKKjoNXzRS48A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: _fwephSnAE8KhivQB5YtvUZScJWRJ_t1
-X-Proofpoint-ORIG-GUID: _fwephSnAE8KhivQB5YtvUZScJWRJ_t1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfXzJEr4dl+w1Hy
- Q8w0KMTsAwLEjV0f3yf5wNSXPpF72ra223Ut9kOhHzdSfpfLgoxWXIUfwLKoeSZq+WDHSsU8ITU
- bekk5z2CXTwi43bq4IzFEEZoLTwmVEU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110029
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|BY1PR11MB8125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9139f771-6f48-4c78-f6da-08df3fc5dd18
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261102130727099003|261009223327099003|261009221727099003|261009221227099003|261009220027099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: r+BvDJ1N5NRFURlFnBATxv+b1L53F3hT3mLVMutZqcpwp7Gk3xwj9Pg+CoNvcPi6Xe0I1ujnXnacBcoCp0t9QKb7tSNeh5vLNxybFD1zgnNAWFrIRQoVXVFyZ0elDFMqRvePrXZm0oDX6Ukcus7OYHYOCrLnB5q+/vQz1oLAe02matgejJGLNqAQSR/aEo4bDSFXWI2rsccCG2iSDVW/B3mio5wvGAxPj7G/3GfSBH3RN6z0Q2Zcqzfnvp8FjG2oh1F93V9KO/dLHY0Zc1wN6qxrsyvcK/k6jSkEZvMkIunJ3hAwj1fjETa/1p3jkqUkodDMCecCLkdZPjavM83zCZrRW/yTPmbqNhL6ob53L2WmcZr+o2bE0GwZrDKfTJe7Ig8YKYKI1d/V0JJsELkxCB9O529see5MNJP3hBpk5hfiDVwkhdLAfKfVvpPhVH1xI2oVCDAd4Oybnrnpir7wGSENSpDec2bubsfecAobgtfk5OH/Oh+23Jy0GqytrLPSqdcMnYg8mn4fSHXkbuWkY1RQLA1WNiZYKFo26Vu5NX2Pl7+xRHRumWLoGGQ2wUaCiQDubUbJMhmGmpgDB86eOITe4IpxrHlzY3HNyibEvqPjzg56pHGhCUByRIwyGi2GiL0DvuczK1JHYTj7VW0E/QDlNDker2+GRKFVM+ejNUQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261102130727099003)(261009223327099003)(261009221727099003)(261009221227099003)(261009220027099003)(261009223027099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?zeZF9zUE9NPmYup3gkU6IpxW9LS8HLdAZVK5OXQ847pOv9OQHNAmC7bgqw?=
+ =?iso-8859-1?Q?CxfR/OcIJ7j0pBgadnmjq6WZCx+kaQqLS/yk+0OjDiKEIBwlTe8dy6JHpm?=
+ =?iso-8859-1?Q?T00LeGGcLfaCgOZXQXaRZ8nRyKTSnQ3ZuU/MgtwOYr1aMCEJGmjr4NLgUy?=
+ =?iso-8859-1?Q?YDglTj5xr1kkqsoiJ/qNXIjNtHrMlj6YJdfkFYBMBII5j92WqqwVYLZCTR?=
+ =?iso-8859-1?Q?Thg9h9sc5InaDO5yQr4D8ZE5vtsLLa9AFC60Rdj87y2j3hLjmWF8czYOSl?=
+ =?iso-8859-1?Q?kb6wFRfbbpMy/zWZgIn/ulZqHuKbk9z6T5IsrYwa+iNhwSBQkb86LqyPfy?=
+ =?iso-8859-1?Q?Jfr9MVoEsNBNfsTjPHLJevZ/8/N2cEQzewiKQTzDaRfjsgNrPejwzipJdm?=
+ =?iso-8859-1?Q?R/I3NWiZVPfJXLFCNEw1h+iP1RA8pak35LWF9DlwYldq1/CjTGiG2nmFPk?=
+ =?iso-8859-1?Q?Hl4sTbsEMnCzCw2IQjPJM7bSf/eAKwdHuHg00nOIITRYhPzgavldzVioxo?=
+ =?iso-8859-1?Q?NZ3NTlN4hz6KKeTAALpgIeGbiSxnRYYHbJ39YnGkNSgnUPpGt0ghqUDb24?=
+ =?iso-8859-1?Q?0FkZVQb8bpv8Kf/t3CCR+EPYqee9AwbgnitNK8i34HXV/7GZI7KhbJnL6C?=
+ =?iso-8859-1?Q?ScSTAa54vFih/XoJkZjOaXdklcgqp+qU+LRr/ovj8hlbwzo9dcVlzmxjHP?=
+ =?iso-8859-1?Q?Cy2gJZhN+nbRoeSIJbo4x550zKIwLVPkauzA2cUflgmnRyYFuTA0v9rGW0?=
+ =?iso-8859-1?Q?YwI2HW1OIjwa6cGVYkMPIW6qzm2IowtzWlUgdVrkBCkjGjCfel1U7eRJGo?=
+ =?iso-8859-1?Q?7UlV7i4zrQAoOK8phS+utb0F2Nyv5rm/xJf1E42LwvRHI3b/IKH9CWkuLv?=
+ =?iso-8859-1?Q?pJVk4OIBsCpnWAvXuXd1dHzOyD5WwjwgVn6ITuHuNF292+JjT2K28ov9ap?=
+ =?iso-8859-1?Q?i7fZdFtRK2/nTzeEYuHKdDkey9odVI2VXEcRUwbz9QBY2e8DOc38fzc9Zm?=
+ =?iso-8859-1?Q?DAi7w3/mMq+RJ71sJ0dUzvH0GMwoLhD5eeuSSTsbD+yTI4o4vncMhxEKCk?=
+ =?iso-8859-1?Q?WSzZ2P8xLKOW1mH2v25hThkpWvAZhHkc9LtD/tgw1GyP8FJ+Wu3lAd0YAy?=
+ =?iso-8859-1?Q?USzFKzW2nTp23cMeRrkYIfsq9rRMX5w/eEd6EhutHn7kTFscEfcYzNWN0z?=
+ =?iso-8859-1?Q?//FEPfsaO9FRMSBAYhJJ3mTGfhMaElSOOcQYP6TBdrFIUrcAcDoB3OkDVn?=
+ =?iso-8859-1?Q?4cGDG2QSzFoLh8JkcchsxwJuqTMeweJTtQowRlSfD5z3pp+R0dGR7eyF4g?=
+ =?iso-8859-1?Q?VmedVfV+Lxq37HRan21HPUCGH5fa6g5oa4/glPQfSR9fMQtJqIs/KXPD8Q?=
+ =?iso-8859-1?Q?6LLVYNgobqm9fMKWhuWIrr9frDfxSaPjdQYHyQ4wzVkbel+t/r2XZXn1v/?=
+ =?iso-8859-1?Q?3XboOXXsilH4l99EtVom/QOjkEpLiNC2TDHRfc/T+biO1/O3Db4Y9BhxRF?=
+ =?iso-8859-1?Q?oHOQgblru/3DrbZ+qWnKpHGi7IYibP3HKYlMtBi5QYknSyAUk4IMiKYqa3?=
+ =?iso-8859-1?Q?UCj18P0sY/Nbek2Lryf/6p1SBnIfFXrjWZQy9ehG3zw1rZmK+xqyCDJjUL?=
+ =?iso-8859-1?Q?Ozh3k1le1rM+88mRzjgABt+k/6EFPKVjbF5qHFVTYaxFIIQX369VWtRI+k?=
+ =?iso-8859-1?Q?Pi+eG165ZDcU3GRiYMtAzcQnp3JiPjZ+Kzj22gshJCVvcF4RJjrY6fBlVj?=
+ =?iso-8859-1?Q?JKhXV9BUlYkqBqrBjDrL6qkkssQlQfb2q0QdldnYRHvFHLFeCPeQUqeUSn?=
+ =?iso-8859-1?Q?U2ogXVxRQ7A5HUcbbXiANpD9A45/mPVfcgisMTHK4570dxAvxhdS?=
+X-Exchange-RoutingPolicyChecked: bIcMs0AGCA1rDQb55TSH6+iCw+reoRQhScOTkCoCRMqlp5UA4bIFRQ0jl976dZr3G00d0+fSr39+BuXYu/97OrfbtvS3whNdYzWXxhUUgSlelLlhmhViDRpV7fAlFbu81Fsw3VrihybomQd8sgZiKQraP6nDD2u6ymTCY2jBXAglyttSnJF+ehMCU/Ta4L0F3wStTbm1tg21yxV37vxKqT3H/cTsxOYuYJZyT8yC03oCFn56qSSBwr8qzac+16pYpt36ywELNECsjEym5Qu41yKfah+Y0/1NHthoMp+wzvUxbk7qSF50n/vBXX5rA3j+ZgZOPqWRew1FcYLjCcflzw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9139f771-6f48-4c78-f6da-08df3fc5dd18
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 07:31:56.3102 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zRfoaZJW8CXG/tYbzaltwXEWK9StBMmXBjHbeOrMQjKaALT7OLs6VPqysddpGYEA6GF1vFneEWslKxWul6YG7lsktFwaQ6cPtX7+ddQkO+jndMEiDpxwgdOWe0DIrgYN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB8125
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,627 +165,466 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 26-10-2026 15:45, Dmitry Baryshkov wrote:
-> On Mon, Oct 26, 2026 at 11:51:30AM +0530, Jayant Shekhar wrote:
->> Add the DCP function driver that binds the VirtIO device to MSM
->> DRM. Without a function driver, Linux cannot establish HFI queues,
->> discover firmware capabilities, or register the firmware-owned
->> display backend.
->>
->> Set up the DCP DMA and IOMMU identity, initialize VirtIO and HFI
->> transport, register the MSM DRM component, and synchronize suspend,
->> resume, remove, and shutdown with in-flight HFI activity.
->>
->> Assisted-by: LLM
->> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/Makefile         |   2 +
->>   drivers/gpu/drm/msm/dcp/dcp_drv.c    | 191 ++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dcp/dcp_drv.h    |  17 +++
->>   drivers/gpu/drm/msm/dcp/dcp_virtio.c | 258 +++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dcp/dcp_virtio.h |   2 +
->>   drivers/gpu/drm/msm/msm_drv.c        |   6 +-
->>   drivers/gpu/drm/msm/msm_drv.h        |   2 +
->>   7 files changed, 475 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
->> index e1a995a8c980..ffdb159dd9ad 100644
->> --- a/drivers/gpu/drm/msm/Makefile
->> +++ b/drivers/gpu/drm/msm/Makefile
->> @@ -85,6 +85,8 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->>   	dcp/dcp_hfi_plane.o \
->>   	dcp/dcp_ipcc.o \
->>   	dcp/dcp_encoder.o \
->> +	dcp/dcp_drv.o \
->> +	dcp/dcp_virtio.o \
->>   	dcp/dcp_virtio_transport.o \
->>   	dcp/hfi/hfi_packer.o \
->>   	dcp/hfi/hfi_unpacker.o \
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.c b/drivers/gpu/drm/msm/dcp/dcp_drv.c
->> new file mode 100644
->> index 000000000000..8c38de883bf6
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.c
->> @@ -0,0 +1,191 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + * DCP VirtIO driver.
->> + */
->> +
->> +#include <linux/component.h>
->> +#include <linux/device.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/of.h>
->> +#include <linux/of_platform.h>
->> +#include <linux/panic_notifier.h>
->> +#include <linux/pm_runtime.h>
->> +
->> +#define DCP_DPU_AUTOSUSPEND_DELAY_MS	5000
->> +
->> +#include "dcp_drv.h"
->> +#include "dcp_dpu_kms.h"
->> +#include "dcp_hfi.h"
->> +#include "dcp_ipcc.h"
->> +#include "dcp_virtio.h"
->> +#include "msm_drv.h"
->> +#include "msm_kms.h"
->> +
->> +int dcp_subsystem_dev_init(struct dcp_drv *drv)
->> +{
->> +	struct virtio_device *vdev = drv->vdev;
->> +	struct device_node *dcp_subsystem_node;
->> +	struct platform_device *pdev;
->> +	struct device *dev;
->> +	char busid[32];
->> +	bool iommu_mapped;
->> +	int ret;
->> +
->> +	dcp_subsystem_node = of_node_get(vdev->dev.of_node);
->> +	if (!dcp_subsystem_node) {
->> +		dev_err(&vdev->dev, "no DCP subsystem DT node\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	snprintf(busid, sizeof(busid), "dcp-subsystem.%s", dev_name(vdev->dev.parent));
->> +
->> +	/*
->> +	 * DCP is discovered through VirtIO, but display/HFI buffers must be
->> +	 * mapped through the dcp-subsystem node's DMA/IOMMU identity. Create a
->> +	 * platform device for that DT node so DMA API and msm_kms_init_vm() use
-> Does DMA API require platform_device or would it work with the generic
-> struct device? In the latter case, should the MSM layer be changed to
-> pass struct device instead of struct platform_device?
+On Fri, Jul 10, 2026 at 07:55:56PM -0700, Matthew Brost wrote:
+>ttm_pool_prealloc_fill() lets a driver preallocate beneficial-order pages
+>outside the dma-resv lock for a defragmentation move, so the high-order
+>allocations that may stall in reclaim/compaction happen off the critical
+>section.  That bag is deliberately partial: it holds only interchangeable
+>beneficial-order chunks and the allocator consumes it opportunistically,
+>falling back to in-line allocation for everything else.
 >
->> +	 * the display function's IOMMU domain.
->> +	 */
->> +	pdev = of_platform_device_create(dcp_subsystem_node, busid, vdev->dev.parent);
->> +	if (!pdev) {
->> +		dev_err(&vdev->dev, "dcp_subsystem_dev creation failed\n");
->> +		of_node_put(dcp_subsystem_node);
->> +		return -ENODEV;
->> +	}
->> +	dev = &pdev->dev;
->> +
->> +	dev->dma_parms = &drv->dcp_subsystem_dma_parms;
->> +	dma_set_max_seg_size(dev, UINT_MAX);
->> +
->> +	ret = of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
->> +	if (ret) {
->> +		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
->> +		goto err_destroy;
->> +	}
->> +
->> +	iommu_mapped = device_iommu_mapped(dev);
->> +	if (!iommu_mapped) {
->> +		dev_err(dev, "no IOMMU group attached\n");
->> +		ret = -ENODEV;
->> +		goto err_destroy;
->> +	}
->> +
->> +	dev_dbg(dev, "dcp-subsystem: iommu_mapped=%d iommu_group=%d\n",
->> +		iommu_mapped,
->> +		dev->iommu_group ? iommu_group_id(dev->iommu_group) : -1);
->> +
->> +	pm_runtime_set_active(dev);
->> +	pm_runtime_enable(dev);
->> +	pm_runtime_set_autosuspend_delay(dev, DCP_DPU_AUTOSUSPEND_DELAY_MS);
->> +	pm_runtime_use_autosuspend(dev);
->> +
->> +	drv->dcp_subsystem_dev = pdev;
->> +	drv->dcp_subsystem_node = dcp_subsystem_node;
->> +
->> +	return 0;
->> +
->> +err_destroy:
->> +	of_platform_device_destroy(dev, NULL);
->> +	of_node_put(dcp_subsystem_node);
->> +	return ret;
->> +}
->> +
->> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv)
->> +{
->> +	if (!drv->dcp_subsystem_dev)
->> +		return;
->> +
->> +	pm_runtime_disable(&drv->dcp_subsystem_dev->dev);
->> +	of_platform_device_destroy(&drv->dcp_subsystem_dev->dev, NULL);
->> +	of_node_put(drv->dcp_subsystem_node);
->> +	drv->dcp_subsystem_dev = NULL;
->> +}
->> +
->> +int dcp_pm_prepare(struct device *vdev_dev)
->> +{
->> +	struct dcp_drv *drv = vdev_dev ?
->> +		dev_to_virtio(vdev_dev)->priv : NULL;
->> +
->> +	if (!drv || !drv->dcp_subsystem_dev)
->> +		return 0;
->> +
->> +	return msm_kms_pm_prepare(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +void dcp_pm_complete(struct device *vdev_dev)
->> +{
->> +	struct dcp_drv *drv = vdev_dev ?
->> +		dev_to_virtio(vdev_dev)->priv : NULL;
->> +
->> +	if (!drv || !drv->dcp_subsystem_dev)
->> +		return;
->> +
->> +	msm_kms_pm_complete(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +int dcp_component_register(struct dcp_drv *drv)
->> +{
->> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
->> +	struct component_match *match = NULL;
->> +	int ret;
->> +
->> +	ret = dcp_dpu_kms_init_dsi_bridges(drv->kms, &match);
->> +	if (ret) {
->> +		dev_err(dev, "DSI host initialization failed: %d\n", ret);
->> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +		return ret;
->> +	}
->> +
->> +	/* A GPU is optional for the DCP display-only DRM device. */
->> +	msm_add_gpu_components(dev, &match);
-> Missign error handling.
+>An ordinary populate of a system-memory buffer object has the same
+>problem - the whole backing is allocated under the dma-resv lock - but no
+>way to move it out of the critical section, because the existing bag does
+>not cover sub-beneficial orders and does not describe a full tt.
 >
->> +
->> +	ret = component_master_add_with_match(dev, &msm_drm_ops, match);
->> +	if (ret) {
->> +		dev_err(dev, "component_master_add_with_match failed: %d\n",
->> +			ret);
->> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +void dcp_component_unregister(struct dcp_drv *drv)
->> +{
->> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
->> +
->> +	component_master_del(dev, &msm_drm_ops);
->> +	dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +}
->> +
->> +static int dcp_panic_notifier_cb(struct notifier_block *nb,
->> +				 unsigned long action, void *data)
->> +{
->> +	struct dcp_drv *drv = container_of(nb, struct dcp_drv, panic_notifier);
->> +
->> +	if (drv->hfi)
->> +		atomic_set(&drv->hfi->shutdown_in_progress, 1);
->> +
->> +	return NOTIFY_OK;
->> +}
->> +
->> +void dcp_panic_notifier_register(struct dcp_drv *drv)
->> +{
->> +	drv->panic_notifier.notifier_call = dcp_panic_notifier_cb;
->> +	atomic_notifier_chain_register(&panic_notifier_list, &drv->panic_notifier);
->> +}
->> +
->> +void dcp_panic_notifier_unregister(struct dcp_drv *drv)
->> +{
->> +	atomic_notifier_chain_unregister(&panic_notifier_list, &drv->panic_notifier);
->> +}
->> +
->> +void __init msm_dcp_register(void)
->> +{
->> +	dcp_virtio_register();
->> +}
->> +
->> +void __exit msm_dcp_unregister(void)
->> +{
->> +	dcp_virtio_unregister();
->> +}
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> index 16f87035cb9a..3adc5855a9a2 100644
->> --- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> @@ -14,6 +14,7 @@
->>   #include "dcp_ipcc.h"
->>   
->>   struct dcp_dpu_kms;
->> +struct component_match;
->>   
->>   struct dcp_drv {
->>   	struct virtio_device	*vdev;
->> @@ -24,6 +25,22 @@ struct dcp_drv {
->>   	struct dcp_dpu_kms	*kms;
->>   	struct dcp_caps		 caps;
->>   	struct notifier_block	 panic_notifier;
->> +	struct dcp_ipcc		*ipcc;
->>   };
->>   
->> +int dcp_subsystem_dev_init(struct dcp_drv *drv);
->> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv);
->> +
->> +int dcp_component_register(struct dcp_drv *drv);
->> +void dcp_component_unregister(struct dcp_drv *drv);
->> +
->> +int dcp_pm_prepare(struct device *vdev_dev);
->> +void dcp_pm_complete(struct device *vdev_dev);
->> +
->> +void dcp_panic_notifier_register(struct dcp_drv *drv);
->> +void dcp_panic_notifier_unregister(struct dcp_drv *drv);
->> +
->> +void __init msm_dcp_register(void);
->> +void __exit msm_dcp_unregister(void);
->> +
->>   #endif /* __DCP_DRV_H__ */
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.c b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
->> new file mode 100644
->> index 000000000000..15d5caf02ff5
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
->> @@ -0,0 +1,258 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + * DCP VirtIO device driver.
->> + */
->> +
->> +#include <linux/module.h>
->> +#include <linux/err.h>
->> +#include <linux/pm_runtime.h>
->> +#include <linux/virtio.h>
->> +#include <linux/virtio_config.h>
->> +#include <linux/slab.h>
->> +
->> +#include "dcp_drv.h"
->> +#include "dcp_dpu_kms.h"
->> +#include "dcp_hfi.h"
->> +#include "dcp_ipcc.h"
->> +#include "dcp_virtio.h"
->> +#include "msm_drv.h"
->> +#include "msm_kms.h"
->> +
->> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv);
->> +
->> +static const unsigned int dcp_virtio_features[] = {
->> +	VIRTIO_F_VERSION_1,
->> +	VIRTIO_F_NOTIFICATION_DATA,
->> +	VIRTIO_F_RING_RESET,
->> +	VIRTIO_F_ACCESS_PLATFORM,
->> +};
->> +
->> +/*
->> + * The VirtIO core owns transport discovery. This driver owns HFI setup and
->> + * creates the DRM component only after firmware capabilities are available.
->> + */
->> +static int dcp_virtio_probe(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv;
->> +	struct virtqueue *vqs[DCP_NUM_VQS];
->> +	struct virtqueue_info vqs_info[DCP_NUM_VQS] = {
->> +		[DCP_VQ_CMD]  = { .name = "cmd",  .callback = dcp_hfi_cmd_callback },
->> +		[DCP_VQ_RESP] = { .name = "resp", .callback = dcp_hfi_resp_callback },
->> +	};
->> +	struct dcp_dpu_kms *dcp_kms;
->> +	struct msm_drm_private *priv;
->> +	int ret;
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO probe started\n");
->> +
->> +	drv = devm_kzalloc(&vdev->dev, sizeof(*drv), GFP_KERNEL);
->> +	if (!drv)
->> +		return -ENOMEM;
->> +
->> +	drv->vdev = vdev;
->> +	vdev->priv = drv;
->> +
->> +	if (!virtio_has_feature(vdev, VIRTIO_F_VERSION_1)) {
->> +		dev_err(&vdev->dev, "VIRTIO_F_VERSION_1 not negotiated\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	drv->ipcc = dcp_virtio_get_ipcc(vdev);
-> Here you are breaking the abstraction boundary. The DCP is a VirtIO
-> device. You should not use IPCC to communicate with it.
+>Add a "full" flavour of the same preallocation mechanism:
 >
-
-Will be addressed in v3.
-
-
->> +	/* Access-platform is required for the firmware-visible IOVA mappings. */
->> +	if (!virtio_has_feature(vdev, VIRTIO_F_ACCESS_PLATFORM)) {
->> +		dev_err(&vdev->dev, "VIRTIO_F_ACCESS_PLATFORM not negotiated\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	ret = dcp_subsystem_dev_init(drv);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = virtio_find_vqs(vdev, DCP_NUM_VQS, vqs, vqs_info, NULL);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "virtqueue allocation failed: %d\n", ret);
->> +		goto err_fn_dev;
->> +	}
->> +
->> +	ret = dcp_hfi_init(drv, vdev, vqs[DCP_VQ_CMD], vqs[DCP_VQ_RESP],
->> +			   vdev->dev.parent);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI init failed: %d\n", ret);
->> +		goto err_del_vqs;
->> +	}
->> +
->> +	dcp_ipcc_set_resp_vq(drv->ipcc, vqs[DCP_VQ_RESP]);
->> +
->> +	/*
->> +	 * Keep the device unready until HFI state and virtqueues are initialized.
->> +	 * KMS registration below depends on synchronous firmware initialization.
->> +	 */
->> +	virtio_device_ready(vdev);
->> +	virtqueue_kick(drv->hfi->resp_vq);
->> +
->> +	ret = dcp_hfi_send_device_init(drv->hfi);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI DEVICE_INIT failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	ret = dcp_hfi_get_capabilities(drv->hfi, &drv->caps);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI GET_CAPS failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	/* Register the display resources before exposing the DRM component. */
->> +	ret = dcp_hfi_send_resource_register(drv->hfi);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI RESOURCE_REGISTER failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dev_dbg(&vdev->dev,
->> +		"DCP caps: %u displays, max %ux%u, %u planes\n",
->> +		drv->caps.num_displays, drv->caps.max_width, drv->caps.max_height,
->> +		drv->caps.max_planes);
->> +
->> +	dcp_kms = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*dcp_kms), GFP_KERNEL);
->> +	if (!dcp_kms) {
->> +		ret = -ENOMEM;
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dcp_kms->drv       = drv;
->> +	dcp_kms->pm_dev    = &drv->dcp_subsystem_dev->dev;
->> +	dcp_kms->hfi       = drv->hfi;
->> +	dcp_kms->caps      = &drv->caps;
->> +	dcp_kms->dpus_np   = drv->dcp_subsystem_node;
->> +	dcp_kms->iommu_dev = &drv->dcp_subsystem_dev->dev;
->> +	drv->kms        = dcp_kms;
->> +
->> +	ret = msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "msm_kms_init failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	priv = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv) {
->> +		ret = -ENOMEM;
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	priv->kms      = &dcp_kms->base;
->> +	priv->kms_init = dcp_kms_init;
->> +	dev_set_drvdata(&drv->dcp_subsystem_dev->dev, priv);
->> +	dcp_kms->rpm_enabled = true;
->> +
->> +	/* Component binding now sees initialized HFI, capabilities, and IOMMU state. */
->> +	ret = dcp_component_register(drv);
->> +	if (ret) {
->> +		dev_err_probe(&vdev->dev, ret, "component register failed\n");
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dcp_panic_notifier_register(drv);
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO probe complete\n");
->> +	return 0;
->> +
->> +err_hfi_deinit:
->> +	dcp_virtio_hfi_cleanup(drv);
->> +	goto err_fn_dev;
->> +err_del_vqs:
->> +	virtio_reset_device(vdev);
->> +	vdev->config->del_vqs(vdev);
->> +err_fn_dev:
->> +	dcp_subsystem_dev_deinit(drv);
->> +	return ret;
->> +}
->> +
->> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv)
->> +{
->> +	struct virtio_device *vdev = drv->vdev;
->> +
->> +	if (!drv->hfi)
->> +		return;
->> +
->> +	dcp_ipcc_set_resp_vq(drv->ipcc, NULL);
->> +
->> +	dcp_hfi_stop(drv->hfi);
->> +	virtio_reset_device(vdev);
->> +	virtio_synchronize_cbs(vdev);
->> +	dcp_hfi_quiesce_queues(drv->hfi);
->> +	vdev->config->del_vqs(vdev);
->> +	dcp_hfi_deinit(drv->hfi);
->> +}
->> +
->> +/* Remove DRM users before tearing down HFI, IPCC, or the VirtIO queues. */
->> +static void dcp_virtio_remove(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv = vdev->priv;
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO remove\n");
->> +
->> +	dcp_component_unregister(drv);
->> +	dcp_panic_notifier_unregister(drv);
->> +
->> +	dcp_virtio_hfi_cleanup(drv);
->> +
->> +	dcp_subsystem_dev_deinit(drv);
->> +}
->> +
->> +/* KMS shutdown must complete while the firmware transport is available. */
->> +static void dcp_virtio_shutdown(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv = vdev->priv;
->> +
->> +	pm_runtime_get_sync(&drv->dcp_subsystem_dev->dev);
->> +	msm_kms_shutdown(drv->dcp_subsystem_dev);
->> +	pm_runtime_put_noidle(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +static const struct virtio_device_id dcp_virtio_id_table[] = {
->> +	{ VIRTIO_ID_QPSFI, VIRTIO_VENDOR_ID_DCP_HFI },
-> What exactly does it mean? Are you using Vendor ID (which should be
-> Qualcomm) to distinguish between possible QPSFI devices?
+>  - struct ttm_pool_prealloc gains a @full flag.  In full mode the bag is
+>    an ordered tiling of an entire tt at mixed orders (pool pages
+>    included), rather than a set of interchangeable beneficial-order
+>    chunks.  The per-chunk order is recorded on the page itself and read
+>    back at consume time, so no parallel order array is needed.
 >
->> +	{ 0 },
->> +};
->> +MODULE_DEVICE_TABLE(virtio, dcp_virtio_id_table);
->> +
->> +static const struct dev_pm_ops dcp_virtio_pm_ops = {
->> +	.prepare = dcp_pm_prepare,
->> +	.complete = dcp_pm_complete,
->> +};
->> +
->> +static struct virtio_driver dcp_virtio_driver = {
->> +	.driver = {
->> +		.name  = "qcom-dcp-hfi",
->> +		.owner = THIS_MODULE,
->> +		.pm    = &dcp_virtio_pm_ops,
->> +	},
->> +	.id_table           = dcp_virtio_id_table,
->> +	.feature_table      = dcp_virtio_features,
->> +	.feature_table_size = ARRAY_SIZE(dcp_virtio_features),
->> +	.probe              = dcp_virtio_probe,
->> +	.remove             = dcp_virtio_remove,
->> +	.shutdown           = dcp_virtio_shutdown,
->> +};
->> +
->> +int dcp_virtio_register(void)
->> +{
->> +	int ret;
->> +
->> +	ret = dcp_virtio_transport_register();
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = register_virtio_driver(&dcp_virtio_driver);
->> +	if (ret)
->> +		dcp_virtio_transport_unregister();
->> +
->> +	return ret;
->> +}
->> +
->> +void dcp_virtio_unregister(void)
->> +{
->> +	unregister_virtio_driver(&dcp_virtio_driver);
->> +	dcp_virtio_transport_unregister();
->> +}
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> index a9c3b9aff61d..3ded8293ab18 100644
->> --- a/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> @@ -8,9 +8,11 @@
->>   
->>   #include <linux/device.h>
->>   #include <linux/virtio.h>
->> +#include <linux/virtio_ids.h>
->>   
->>   struct dcp_drv;
->>   struct dcp_ipcc;
->> +#define VIRTIO_VENDOR_ID_DCP_HFI		1
-> Squatting the ID?
+>  - ttm_pool_prealloc_fill_full() allocates the whole backing for a tt of
+>    @num_pages pages up front, mirroring the in-line allocator's order
+>    walk (highest order first, capped by the remaining page count).  It
+>    reuses the existing unlocked helpers (ttm_pool_prealloc_gfp(),
+>    ttm_pool_set_caching()) via a new ttm_pool_take_page() helper that
+>    tries a same-order pool page before a fresh system allocation.
 >
->>   
->>   struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
->>   
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 5e8f3ce26b32..5816c64d7ce7 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -1093,8 +1093,8 @@ static const struct of_device_id msm_gpu_match[] = {
->>   	{ },
->>   };
->>   
->> -static int add_gpu_components(struct device *dev,
->> -			      struct component_match **matchptr)
->> +int msm_add_gpu_components(struct device *dev,
->> +			   struct component_match **matchptr)
-> Separate commit.
+>  - ttm_pool_prealloc_fini() frees any unconsumed tail at each chunk's own
+>    order when @full.
 >
->>   
+>  - ttm_pool_prealloc_fill_full() takes a @beneficial_reclaim_backoff
+>    argument, plumbed to ttm_pool_alloc_page(), that lets the caller
+>    allocate higher-order chunks without aggressive reclaim/compaction.
+>    This suits a driver that upgrades suboptimal pages to beneficial order
+>    in place later (e.g. via a background defragmenter) and so has no need
+>    to stall the user context reclaiming for contiguity up front.
+>
+>  - __ttm_pool_alloc() consumes a full bag with a single early branch in
+>    ttm_pool_iter_acquire_page(): install the next chunk as-is (order
+>    taken from the page) and return; once the best-effort bag is drained
+>    the loop falls through to normal in-line allocation.  The defrag
+>    harvest and reuse-old phases are inert here as there is no
+>    defrag_old_tt.
+>
+>Like the defrag bag, this is best-effort: a short fill is fine (the pool
+>allocates the shortfall in-line) and DMA-alloc pools are unsupported
+>(caching is applied on the kernel mapping).  No functional change for
+>existing users; the new fill routine has no in-tree caller yet.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 232 ++++++++++++++++++++++++++++++++-
+> include/drm/ttm/ttm_bo.h       |  19 +--
+> include/drm/ttm/ttm_pool.h     |  27 +++-
+> 3 files changed, 258 insertions(+), 20 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index da7d132c8297..4746f5d8cd7e 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -1046,6 +1046,7 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+> 	pp->caching = tt_caching;
+> 	pp->count = 0;
+> 	pp->used = 0;
+>+	pp->full = false;
+>
+> 	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
+> 	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
+>@@ -1102,6 +1103,187 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+> }
+> EXPORT_SYMBOL(ttm_pool_prealloc_fill);
+>
+>+/*
+>+ * Acquire a single *@order chunk, trying a same-order pool page first (already
+>+ * carries @caching) then a fresh system allocation (write-back). Runs unlocked.
+>+ * When @beneficial_reclaim_backoff is set, higher-order system allocations skip
+>+ * aggressive reclaim/compaction (see ttm_pool_alloc_page()).
+>+ *
+>+ * A fresh system page is write-back and needs the tt's caching applied later in
+>+ * bulk; *@need_caching is set true for it and false for a (pre-cached) pool
+>+ * page.
+>+ *
+>+ * On a genuine failure *@order is left untouched (the caller lowers it by one
+>+ * and retries). Fault injection instead pretends allocation at (or above) the
+>+ * beneficial order failed and lowers *@order to the beneficial order, so the
+>+ * caller's next attempt lands below it - mirroring the in-line acquire path's
+>+ * fail_beneficial jump and exercising the beneficial_order_failed tracking
+>+ * without driving the system into real fragmentation.
+>+ *
+>+ * Returns NULL if no page of *@order could be obtained.
+>+ */
+>+static struct page *ttm_pool_take_page(struct ttm_pool *pool,
+>+				       enum ttm_caching caching,
+>+				       unsigned int *order, gfp_t gfp,
+>+				       bool *need_caching,
+>+				       bool beneficial_reclaim_backoff)
+>+{
+>+	unsigned int beneficial = ttm_pool_beneficial_order(pool);
+>+	struct ttm_pool_type *pt;
+>+	struct page *p;
+>+
+>+	*need_caching = false;
+>+
+>+	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && beneficial &&
+>+	    *order >= beneficial &&
+>+	    should_fail(&beneficial_order_fault_inject, 1)) {
+>+		*order = beneficial;
+>+		return NULL;
+>+	}
+>+
+>+	pt = ttm_pool_select_type(pool, caching, *order);
+>+	if (pt) {
+>+		p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
+>+		if (p)
+>+			return p;	/* pool page already carries @caching */
+>+	}
+>+
+>+	p = ttm_pool_alloc_page(pool, gfp, *order, beneficial_reclaim_backoff);
+>+	if (!p)
+>+		return NULL;
+>+
+>+	/* Fresh system page is write-back; caller applies @caching in bulk. */
+>+	*need_caching = true;
+>+	return p;
+>+}
+>+
+>+/**
+>+ * ttm_pool_prealloc_fill_full() - Preallocate a whole tt's backing outside any
+>+ * lock
+>+ * @pool: The pool to allocate from.
+>+ * @tt_caching: The requested cpu-caching for the pages allocated.
+>+ * @pp: Prealloc bag to fill; marked @full and tiled with mixed-order chunks.
+>+ * @num_pages: Number of 4K pages the tt needs backed.
+>+ *
+>+ * Unlike ttm_pool_prealloc_fill() (which parks a bag of interchangeable
+>+ * beneficial-order defrag chunks), this allocates the ENTIRE backing for a tt
+>+ * of @num_pages pages up front, at whatever mix of orders is available (pool
+>+ * pages included), so that the subsequent __ttm_pool_alloc() under the dma-resv
+>+ * lock merely installs the pages without stalling in reclaim/compaction. The
+>+ * chunk orders mirror the in-line allocator's order walk; each chunk's order is
+>+ * recorded on the page itself and read back at consume time.
+>+ *
+>+ * May sleep/reclaim freely as it runs unlocked. When
+>+ * @beneficial_reclaim_backoff is set, higher-order chunks are taken without
+>+ * aggressive reclaim/compaction: the caller relies on a background
+>+ * defragmenter to upgrade to beneficial-order pages in place later, so there
+>+ * is no need to stall the user context reclaiming for contiguity here. A short
+>+ * fill is fine: the pool falls back to in-line allocation for the shortfall.
+>+ * DMA-alloc pools are not supported (the bag stays empty). Returns 0 (release
+>+ * with ttm_pool_prealloc_fini()).
+>+ */
+>+int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
+>+				enum ttm_caching tt_caching,
+>+				struct ttm_pool_prealloc *pp,
+>+				unsigned int num_pages,
+>+				bool beneficial_reclaim_backoff)
+>+{
+>+	gfp_t gfp = ttm_pool_prealloc_gfp(pool) | __GFP_ZERO |
+>+		__GFP_RETRY_MAYFAIL | __GFP_NOWARN;
 
+Assisted-by: LLM
 
-Comments to be addressed in v3.
+__GFP_RETRY_MAYFAIL is bit confusing here as as ttm_pool_alloc_page()
+is expected to suppy it (patch 1). I see that only applies to
+beneficial order, but here we have mixed-order and hence it is set
+here. May be add some documentation to clarify it?
 
+>+	unsigned int highest = MAX_PAGE_ORDER;
+>+	unsigned int remaining = num_pages;
+>+	struct page **cpages = NULL;
+>+	unsigned int ncpages = 0;
+>+	int r;
+>+
+>+	pp->pages = NULL;
+>+	pp->order = 0;
+>+	pp->caching = tt_caching;
+>+	pp->count = 0;
+>+	pp->used = 0;
+>+	pp->full = true;
+>+
+>+	/* Caching is applied on the kernel mapping, so DMA-alloc is unsupported. */
+>+	if (!num_pages || ttm_pool_uses_dma_alloc(pool))
+>+		return 0;
+>+
+>+	/* Worst case is one order-0 chunk per page. */
+>+	pp->pages = kvzalloc_objs(*pp->pages, num_pages);
+>+	if (!pp->pages)
+>+		return 0;
+>+
+>+	/*
+>+	 * Fresh write-back chunks get their caching changed in a single
+>+	 * set_pages_array_*() after the fill; collect their constituent pages
+>+	 * into an unpacked scratch array (one entry per 4K page) since the
+>+	 * packed bag holds mixed-order chunks. Cached tts and pool pages need
+>+	 * no change (and non-x86 handles caching at map time).
+>+	 */
+>+	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
+>+		cpages = kvzalloc_objs(*cpages, num_pages);
 
->> {
->>   	struct device_node *np;
->>   
->> @@ -1153,7 +1153,7 @@ int msm_drv_probe(struct device *master_dev,
->>   	}
->>   
->>   	if (!msm_separate_gpu_kms_components()) {
->> -		ret = add_gpu_components(master_dev, &match);
->> +		ret = msm_add_gpu_components(master_dev, &match);
->>   		if (ret)
->>   			return ret;
->>   	}
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->> index 2840e8a5052d..aa5dfd82ac6f 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -523,6 +523,8 @@ static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
->>   /* Driver helpers */
->>   
->>   extern const struct component_master_ops msm_drm_ops;
->> +int msm_add_gpu_components(struct device *dev,
->> +			   struct component_match **matchptr);
->>   
->>   int msm_kms_pm_prepare(struct device *dev);
->>   void msm_kms_pm_complete(struct device *dev);
->>
->> -- 
->> 2.43.0
->>
+Same comment as in patch 9.
+cpages is tansient memory and unlike patch 9, it is not bounded by 'budget' here.
+may be it can be avoided altogether by using a one static 4k page in the
+pool and flush it with set_pages_array*() as and when it fills up?
+
+>+		if (!cpages) {
+>+			kvfree(pp->pages);
+>+			pp->pages = NULL;
+>+			return 0;
+>+		}
+>+	}
+>+
+>+	while (remaining) {
+>+		unsigned int order = min_t(unsigned int, highest,
+>+					   __fls(remaining));
+>+		bool need_caching;
+>+		struct page *p;
+>+
+>+		for (;;) {
+>+			p = ttm_pool_take_page(pool, tt_caching, &order, gfp,
+>+					       &need_caching,
+>+					       beneficial_reclaim_backoff);
+>+			if (p)
+>+				break;
+>+			if (!order)
+>+				goto apply_caching;	/* short fill */
+>+			/*
+>+			 * Genuine failure: retry one order down. A fault
+>+			 * injection lowered @order to the beneficial order
+>+			 * above, so this drops it below - landing on a
+>+			 * sub-optimal (defrag-worthy) chunk.
+>+			 */
+>+			order--;
+>+		}
+>+
+>+		pp->pages[pp->count++] = p;
+>+		if (cpages && need_caching)
+>+			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
+>+							order);
+>+		remaining -= 1u << order;
+>+		highest = order;
+>+	}
+>+
+>+apply_caching:
+>+	/*
+>+	 * Apply the requested caching to every collected page in one shot. On
+>+	 * failure the pages' caching is indeterminate, so drop the whole bag
+>+	 * (freeing restores write-back) and let the consumer allocate in-line.
+>+	 */
+>+	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
+>+	kvfree(cpages);
+>+	if (r) {
+>+		unsigned int i;
+>+
+>+		for (i = 0; i < pp->count; i++) {
+>+			struct page *p = pp->pages[i];
+>+
+>+			ttm_pool_free_page(pool, tt_caching,
+>+					   ttm_pool_page_order_nodma(p), p,
+>+					   false);
+>+		}
+>+		pp->count = 0;
+>+	}
+>+
+>+	return 0;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_fill_full);
+
+It has lot of code common with ttm_pool_prealloc_fill(). May be extract common
+code to separate function/s?
+
+>+
+> /**
+>  * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
+>  * @pool: The pool the pages came from.
+>@@ -1111,9 +1293,13 @@ void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
+> {
+> 	unsigned int i;
+>
+>-	for (i = pp->used; i < pp->count; ++i)
+>-		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
+>-				   false);
+>+	for (i = pp->used; i < pp->count; ++i) {
+>+		struct page *p = pp->pages[i];
+>+		unsigned int order = pp->full ?
+>+			ttm_pool_page_order_nodma(p) : pp->order;
+>+
+>+		ttm_pool_free_page(pool, pp->caching, order, p, false);
+>+	}
+> 	kvfree(pp->pages);
+> 	pp->pages = NULL;
+> 	pp->count = 0;
+>@@ -1251,9 +1437,10 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+>
+> /*
+>  * Acquire a single page for the current order, leaving it in @it->p (NULL on
+>- * failure). Tries, in order: a beneficial-order page preallocated outside the
+>- * dma-resv lock (defrag), a same-order pool page, then a fresh system
+>- * allocation. Fault injection can force the beneficial-order paths to "fail".
+>+ * failure). Tries, in order: a chunk from a full out-of-lock prealloc (populate
+>+ * of the whole tt), a beneficial-order page preallocated outside the dma-resv
+>+ * lock (defrag), a same-order pool page, then a fresh system allocation. Fault
+>+ * injection can force the beneficial-order paths to "fail".
+>  */
+> static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> {
+>@@ -1262,6 +1449,39 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+>
+> 	it->p = NULL;
+>
+>+	/*
+>+	 * Full prealloc: the entire backing was allocated (pool + system, at
+>+	 * mixed orders) outside the dma-resv lock. Install the next chunk as-is,
+>+	 * taking its order from the page. Falls through to in-line allocation
+>+	 * once the best-effort bag is drained.
+>+	 */
+>+	if (pp && pp->full && pp->used < pp->count) {
+>+		it->fail_beneficial = false;
+>+		it->p = pp->pages[pp->used++];
+>+		it->order = ttm_pool_page_order_nodma(it->p);
+>+		it->page_caching = it->tt->caching;
+
+Same comment as in 23.
+We should ensure caching has not changed here after prefill
+(ie., pp->caching == it->tt->caching). Though it is not expected to change
+in gem_create_ioctl call (unlike defragmentation case of patch 23),
+probably it is still better to check to ensure TTM prealloc() and
+pool_alloc_page() interfaces work correctly together?
+
+>+
+>+		/*
+>+		 * The full prealloc tiles at whatever orders were available
+>+		 * without stalling in reclaim. A sub-beneficial chunk only
+>+		 * means a sub-optimal backing (defrag-worthy) when it sits in a
+>+		 * beneficial-order aligned region that fully fits in the tt -
+>+		 * that region could have been a beneficial-order page. A low
+>+		 * order in the unaligned trailing tail is expected and must not
+>+		 * flag the tt (mirrors ttm_pool_harvest_remaining()).
+>+		 */
+>+		if (it->beneficial_order && it->order < it->beneficial_order) {
+>+			pgoff_t bnr = 1UL << it->beneficial_order;
+>+			pgoff_t off = it->tt->num_pages -
+>+				      it->alloc->remaining_pages;
+>+
+>+			if (round_down(off, bnr) + bnr <= it->tt->num_pages)
+>+				it->tt->page_flags |=
+>+					TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+>+		}
+>+		return;
+>+	}
+>+
+> 	/*
+> 	 * Fault injection: pretend allocation at (or above) the device's
+> 	 * beneficial order failed, forcing a sub-optimal backing. Exercises the
+>diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>index a80304f179ba..52ec7e5c0d2d 100644
+>--- a/include/drm/ttm/ttm_bo.h
+>+++ b/include/drm/ttm/ttm_bo.h
+>@@ -238,14 +238,17 @@ struct ttm_operation_ctx {
+> 	 */
+> 	s64 defrag_bytes_remaining;
+> 	/**
+>-	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
+>-	 * move. The pool allocator consumes these instead of allocating fresh
+>-	 * beneficial-order pages under the lock, moving the (potentially
+>-	 * reclaim/compaction stalling) high-order allocations out of the
+>-	 * critical section. NULL means allocate in-line as usual. The pool
+>-	 * silently falls back to in-line allocation for any shortfall. The
+>-	 * allocator consumes it for beneficial-order chunks of any populate;
+>-	 * drivers only set it for a defrag move.
+>+	 * @prealloc: Pages preallocated outside the dma-resv lock. The pool
+>+	 * allocator consumes these instead of allocating under the lock, moving
+>+	 * the (potentially reclaim/compaction stalling) allocations out of the
+>+	 * critical section. NULL means allocate in-line as usual. Two flavours,
+>+	 * distinguished by ttm_pool_prealloc::full:
+>+	 *   - defrag bag (full=false): a bag of interchangeable beneficial-order
+>+	 *     chunks consumed only for beneficial-order chunks of a defrag move.
+>+	 *   - full tiling (full=true): the entire backing of the tt, at mixed
+>+	 *     orders, consumed for every chunk of an ordinary populate.
+>+	 * The allocator silently falls back to in-line allocation for any
+>+	 * shortfall.
+> 	 */
+> 	struct ttm_pool_prealloc *prealloc;
+> 	/**
+>diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+>index 71670350eb15..777d5aa08f6a 100644
+>--- a/include/drm/ttm/ttm_pool.h
+>+++ b/include/drm/ttm/ttm_pool.h
+>@@ -83,18 +83,27 @@ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>
+> /**
+>  * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
+>- * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
+>- *         short); each entry is the head page of a 1 << @order chunk.
+>- * @order: Page order of every preallocated chunk.
+>+ * @pages: Array of @count preallocated chunks; each entry is the head page of a
+>+ *         chunk. In defrag mode every chunk is @order pages; in @full mode the
+>+ *         chunks tile a whole tt at mixed orders and the per-chunk order is read
+>+ *         back from the page itself.
+>+ * @order: Page order of every preallocated chunk (defrag mode only; 0 in @full
+>+ *         mode where each chunk carries its own order).
+>  * @caching: CPU caching applied to the pages, so leftovers can be restored
+>  *           to write-back before being freed.
+>  * @count: Number of valid entries in @pages.
+>  * @used: Number of entries already consumed by the pool allocator.
+>+ * @full: When set the bag holds a full, mixed-order tiling of an entire tt
+>+ *        (produced by ttm_pool_prealloc_fill_full()) rather than a bag of
+>+ *        interchangeable beneficial-order defrag chunks. The pool allocator
+>+ *        then drains the bag in order for every populate, taking each chunk's
+>+ *        order from the page, and falls back to in-line allocation only for any
+>+ *        shortfall.
+>  *
+>  * Defrag pages are interchangeable, so only a count of beneficial-order chunks
+>- * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
+>- * __ttm_pool_alloc() drains it; any unused tail is released by
+>- * ttm_pool_prealloc_fini().
+>+ * is needed. ttm_pool_prealloc_fill() / ttm_pool_prealloc_fill_full() populate
+>+ * this outside the lock and __ttm_pool_alloc() drains it; any unused tail is
+>+ * released by ttm_pool_prealloc_fini().
+>  */
+> struct ttm_pool_prealloc {
+> 	struct page **pages;
+>@@ -102,10 +111,16 @@ struct ttm_pool_prealloc {
+> 	enum ttm_caching caching;
+> 	unsigned int count;
+> 	unsigned int used;
+>+	bool full;
+> };
+>
+> int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+> 			   struct ttm_pool_prealloc *pp, unsigned int count);
+>+int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
+>+				enum ttm_caching tt_caching,
+>+				struct ttm_pool_prealloc *pp,
+>+				unsigned int num_pages,
+>+				bool beneficial_reclaim_backoff);
+> void ttm_pool_prealloc_fini(struct ttm_pool *pool,
+> 			    struct ttm_pool_prealloc *pp);
+> unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
+>-- 
+>2.34.1
+>
