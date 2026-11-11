@@ -2,136 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CAF606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:09:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C74606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 14:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UUp3Ssbp;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NYjLIOEQ
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZCbj/bq/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W5iU4h2G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E373110FBCF;
-	Wed, 11 Nov 2026 14:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D0110EA0E;
+	Wed, 11 Nov 2026 14:13:21 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFAF210FBCF
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:09:19 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6F710EA1C
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:13:10 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABCZ1GJ2338053
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:09:19 GMT
+ 6ABDIFAP1343647
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:13:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=QPstyFoqSPmuHiNdLUorh+Rr
- f2UfIpcMs4IumwAd9y4=; b=UUp3SsbpMCxDkmG8IVteiSnCXOXpT8PaZqwzPyzO
- DHGJrREKLf/xq8zpVZgXdboYDqvD3DvFlaDEE7BzXgLiSUbNo4eAyUjMAdsNJW7Y
- gP97dCBnH3+ykf0gYuvz8RczrG1rXDSZMUs85q+f76ua6PA5G0snPAMRUW4H4IXA
- 6p0C9Lb8Ic4iHXE6qvkWvFVABLAa0vrxlgnux/K0pkA/wSNFHIuCtVO8BGhvlMx5
- cMoO28JHX1QrYl3fKAJCzhYlb81VqqItDUTLDhpMoK+N6+VuxxZ5RX34LCxyPU+d
- UZxiP2QIYua22z53/B+CpmdaaNoXSv6j8/JG5yrWa3ec7w==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
- [209.85.221.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmay43-1
+ :references:subject:to; s=qcppdkim1; bh=llfh8etuwqMEBoatS7BG9atT
+ A4vpv1pJNPCbkPuzpyI=; b=ZCbj/bq/7etR5mduMsXYp0jpAwQ/AZdMzdYdASci
+ VmMJONZ+iJEIUbANBiDjtZphcWabwse7wGo9h645cixX6XcXKZ/uGGfPLJ4JCERB
+ e8I7/d5uvjtX6Fw9P/v8ncTMUJg6MECCmrpbVV9qB8RiuOe8CAEq5tV0DSgzvrXS
+ ey5Gg1BPNsa8KT+NcxPxPlnh+AJcYxc7TyWgZXzrM+P5SfYUHqybWuG1ftpAHVZW
+ 5w25MerOy+XYX+KP/GioZbvtfeBkosizv8g9POZL/G7BWgPNt+jueA+IlNyGQM38
+ I9qm7lpjucG7INeL2Za54FsOjajj4386I+7u307pJIeOXw==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m07e8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:09:18 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id
- 71dfb90a1353d-5eacd2f2229so3608181e0c.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:09:18 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:13:09 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-9907de400a6so517385241.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:13:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794406143; x=1795010943;
+ d=oss.qualcomm.com; s=google; t=1794406389; x=1795011189;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=QPstyFoqSPmuHiNdLUorh+Rrf2UfIpcMs4IumwAd9y4=;
- b=NYjLIOEQcfc4bLHC06uOaQedOCr0YfUQxpfTxyB3zIx5Ae4KmJRSS27nrR65MbFvcf
- AAPU5/g8y2ODITlD4kSrw7OGuVcJTxy4YWh7jVu5SFxrUm+riHKl/jKvb4KCRfsCnbgP
- 29sgpHEFgvSWD6jQOzUy5LRIIkbhFTuu0wUI9srqGgXFDZn1/THv5tWC6O1QYt2DA63X
- 7ezK+Dv2TGuD6Vk9xUpj8fI4EURnCtupawnQFqK9LKS47PzNTb3ce8oVWJXZMgXm/DY9
- DqpwoOgp5hhTi176kM0VoQG3upj/0noQcSf4R/LqgrRPKkjXml4dT6s59//Vfnm2N6RA
- dA/g==
+ bh=llfh8etuwqMEBoatS7BG9atTA4vpv1pJNPCbkPuzpyI=;
+ b=W5iU4h2GIl1oi37JLS4hNV6SDiCVTvaDdfXilgkrgFSoFvadNXJ1IThXWsXymzIJZF
+ b3qbZp/G34I/BDx69jiLffHnZyRpC/y2o8oSveuQUzA6Nulz6f48QCsCdEcFTbhS/ZbU
+ jkcLRHiijdXr83D3dlJupHOsAxQLPNQQS2nP4aqmJM0j9p+9/iSfCNga4o7t80BLA3Ca
+ +bBiTSDUJA3LKinu9cBp8DYmy7HIdeI2GbYqz8CRtSyYKToPUdSshYlQs+upzsSLskS6
+ KMUwgaC0eVMBpvQihpBIOFxxT1ynt5WseXl2i1JYvwv35LzNYsNqfb1SSTiQWrpJSVJP
+ d8Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794406143; x=1795010943;
+ d=1e100.net; s=20260707; t=1794406389; x=1795011189;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=QPstyFoqSPmuHiNdLUorh+Rrf2UfIpcMs4IumwAd9y4=;
- b=sjV3KRZpwpixSQZu2RDKNsXslIJIckrkgsW1drpB+2PyG2lnZdnSxZo4rP+gjRPTts
- aAm7d/BW3EY4osnBSb7L2YnQfXOsGJvm8ifeQ41idp+v5HzP8ZkElmAB/BvAnAgAfnUl
- izRh4bziOKtzm5OGdVLrMMGbeKsjQaxRifGPZYUWzsYTP5q63HdZWlxz/s0ClUyLNfzr
- HjiPA7DaxG9WZpCo3D2JRiuUJGSi06rGpanFkJ+sjGhZmsuUaj7YuHrD4rAQzmfq5I69
- Q3D2FO6dg53LpySA8qvEcA0vkEcV8mOPwX8ZZ6wRQnd9nktsuXXi44anCdYJZ/6CdeF1
- b6bg==
+ bh=llfh8etuwqMEBoatS7BG9atTA4vpv1pJNPCbkPuzpyI=;
+ b=sWLm/i+mA0RkBA6KuRc8/PQoW45Zcb4PHiV31MZPpjyIBELxkY05x351kgV0MX71Aw
+ ckiYBV1lREyXKcdVh0ix3Lpj/h8uxxn86hlkZ9e49EJyxkvn3UXlHGhUG8c2wpQwsT2n
+ KSV9OiYVdIVT5WXEnymCAy5vLHvxA0/yMt3a7B38fzOS3VngH78pkMvmgPdHjJs712A9
+ WqZAS1rPgWWnwsi7WacZm10TkO/oLBjoc6Mw9RnmPfv6RoARXU+tVh+LsM+2RZDtjbXa
+ 7w/tkS6FL1zB95Q2twlAxAuJSyvwv1PfJpS7eybmTZwjPZkAzUrbqbilnDZApb27F3nv
+ iJ1A==
 X-Forwarded-Encrypted: i=1;
- AL+hErFMEmhm353r5Uyk/qYd0EPGfoe/oVHESOzGGBuDN5tUlNv4CJ3Ng2WKUs5q7ORCvzg05s5EIyUqkW0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+q2XmjhIkTpdvGssq4ngJEoTAuic1G0D/lpSSmFVxFwQj2l9RQ
- m36h5+RTnxn7/H/yHMnVcTXuJTd9m4uKnFSAtZje3KA04hUV5u7bxTAjzK/4esDYukisWp7UrDo
- PgRZT5UCv5c8KVAzOTf0IukLGcA8VSzLjaCau6noRCsqRVrXmfA0rCPn/xbM+DH7La72PMy0=
-X-Gm-Gg: AYBFou09DPq4gvpv8JXgYBDEWjJ+41m3vrpMRY+3E8bIAumzBwC4El8/JnPLZkRAO/K
- oAbbtMPKcUFMCJn5A5G6Lwwuvrfpbx8S0P3APfuP49wzpvmSmulMJDPBbd1RcwENTARguNxqMfE
- xD6wKxCzGV+LERgO2wDMYL/EYmtjkkaIB4vrlh0hpJJqCjx1EB3E5nFlV/oVFZfTGphmGUGk/HA
- BOoEErsnNOoadjNbHTgm5PdvdWQ3D3+W/pPuWrKTaC2rT2Lzz6fN154TtUiYPN5tbeYyi5BGzdi
- Wks5ZzdG9R6hz59GbpxW8I6P3PSmXeyF+UDVkvjqv/PecfOq4HZIa8qMKulV4syw+LVFqWSwe/J
- qAYcmSz0vbl5yGPnljKx8K7GZXLxFOs45RKskrOf/+6oXeXqAWbIbml0rCJZuwzEAJ1+r9CKtL5
- GFpXJhhVoES4F6s7v0ZSIOOM2PQC4msdyWuoHbvfDC3JoNAvkf7CzwvXpI4JTxdw==
-X-Received: by 2002:a05:6122:4f98:b0:5ea:c722:b3a with SMTP id
- 71dfb90a1353d-5ee1c3b5490mr777642e0c.7.1794406143347; 
- Wed, 11 Nov 2026 06:09:03 -0800 (PST)
-X-Received: by 2002:a05:6122:4f98:b0:5ea:c722:b3a with SMTP id
- 71dfb90a1353d-5ee1c3b5490mr777546e0c.7.1794406142456; 
- Wed, 11 Nov 2026 06:09:02 -0800 (PST)
+ AL+hErHAchdyVJCbnJsodb4XF4sTnrRXbsXGoyURbM/T7BqFxKpMwGQCLXf0pmZ11VX37EQJ/eGBqCCbo8o=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+2iF+rOgGySGzGLieekvJa9peoFWWMKl7JH/MKeuxsxObcuf0w
+ Qluu8tq49kBchc7lRoNWuGwl45X4ka5W2N9rdzX3NHsG1GXOWfFc+EEerfiln+alxSsaWktXXvN
+ D1wi0xJRcvuvuj+x8nVwip1sPWhmnTMWBJ463KlUKHVhoKWETxfZAEFkW4aQ+tcAoBQCYoQM=
+X-Gm-Gg: AYBFou3QtdpwJhWdJBnwf15PM2Z6z03cZW3/kGsc7S04e80wiYKCRlyFI6aAuNjrvFl
+ spPGL9ubuJT4O8qdk1xKtVhHtISzZ/DtLqW2YXnrHU81gnUNSU1M3VgFCL0O937MwTFcwu6pUMu
+ 7VmFv8FAkDv+WnJJM49l/0ww5dVjIhahN9zPsJpDEZFzhyEtX1sX0H0V/x/tAm6VMFKy2R98CtK
+ jeGn77uEtk47zvCakuSsYC7DQgee01iHvoqr9LfT2o56NdpgV9lKN+4+l748cOmqqQGoKgwaC8T
+ jkkZv/Be1eZrIYuUjTN88bm3oJ7bjVOpGMSHD2lODov0mukXXJMMGnsjv7PPDQUkr+rZ70GO/qF
+ 1XO++J62y9HdSuoY2RwbG2JtYg3phT958TcpcjeYNAr/WE0Ew30PSNVf8XEMxYzeZrwZLwoy4oC
+ sn7dY0A0EEINKwkRX+TN8bT/PoOLFMTqIef+bkY+DKQ3vzI7uT9JkAi6lAIEtClA==
+X-Received: by 2002:a05:6122:1b09:b0:5ea:94cd:c5d7 with SMTP id
+ 71dfb90a1353d-5ee1c462ffdmr791581e0c.16.1794406388851; 
+ Wed, 11 Nov 2026 06:13:08 -0800 (PST)
+X-Received: by 2002:a05:6122:1b09:b0:5ea:94cd:c5d7 with SMTP id
+ 71dfb90a1353d-5ee1c462ffdmr791529e0c.16.1794406388144; 
+ Wed, 11 Nov 2026 06:13:08 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157bb87c6sm972630e87.78.2026.11.11.06.09.01
+ 2adb3069b0e04-5c157bb7839sm956114e87.74.2026.11.11.06.13.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 06:09:01 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:08:59 +0200
+ Wed, 11 Nov 2026 06:13:07 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:13:05 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: naidu nama <naidu.nama@oss.qualcomm.com>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, irlied@gmail.com, simona@ffwll.ch,
- Saurabh Anand <saurabh.anand@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_riteshk@quicinc.com, quic_vproddut@quicinc.com,
- quic_mkuntuma@quicinc.com, mahadevan.p@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] drm/msm/dp: continue link training downgrade when
- cable is still plugged
-Message-ID: <x74bp2hkm4r2qz7oelhwpgexd3tslsxgc67pu22kmlo5yjy33z@v5ka23e5aqqi>
-References: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
- <20261111104434.2222182-4-naidu.nama@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowangio@gmail.com>,
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Flemin Jose <flemin.jose@oss.qualcomm.com>,
+ Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
+Message-ID: <34hgm3yw4z4kbulvgpg7c2iunyui5ljn2l6fqq47prc7s6hycn@c2rnwvhcn5x6>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+ <fzchmbho74ii6d2zhzni4qy4g74hiwv4fwf5xudrqdrstt6klm@7wdoo4acr6fm>
+ <0bf2075b-e507-4b81-a563-f7b4e7e2cbc1@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111104434.2222182-4-naidu.nama@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: kl2pf5bm0RAh-n2QhqSJ62aVg5fVYpu3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX27MImfekMDJe
- iS8jHCiRhwzxPN8pfkZTRrpN2tb5/NTcONNdguDS6EOaZqmD9VUw60CF8zHovg11+FF0YJ4ss/G
- XPWnp7jnAr8zPT4ZJQ0m4B7/rhe8rRc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX2JXWLgNetyHi
- +dTnBWnl3bEq98VILxSu9zS2Ub4WNxJfmXBrNXTW6Op5+aAaFBdmzTYwF9DhNH6iH/Cj0M4xtD6
- u9EbXkJPRePHrZd8ef7OgZGSJgmdgnbMoH5q4IbAXuqN4EgIYDViR9RyHPxesLs0sj5yf1o6nrb
- 7Jy4eMyPSS6ummC/7N7QUVAmz+P+hz/HAWlAUq+HTXprtHjGE2Prel0ffwK8zbrQ84cOxXaK4bP
- 7j7evNXNZUYM43ZcL8vLIL5CkOawvuxGIX2/JTWPqQQaFNMNwOTk5AquL0wmo+vc4gI5dvHGV5m
- bf3YJP85TZ8c46DVzPxNkwyLnkqkAAwEMhNacaPUUwUaTd9Ax+LXyQE7l4ir8KA92XK2IzLE4B6
- P3Y+YQUrYwbel3X7FOx1tpmr4qvbEDYgUx5sgiJZ8shORiVVN8sFHKdiFbaSvoli0wXkjiTJ2ln
- v6yaW9Hg9pSGmyb7CUA==
-X-Proofpoint-GUID: kl2pf5bm0RAh-n2QhqSJ62aVg5fVYpu3
-X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af4770e cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <0bf2075b-e507-4b81-a563-f7b4e7e2cbc1@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: Rjf39L28Q-X5XBfgXQUBYMS4bL18FEY3
+X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af477f5 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=uXSOaOdxFjozXxwA47UA:9 a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=XCsYekLr3cgse1I9aysA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-GUID: Rjf39L28Q-X5XBfgXQUBYMS4bL18FEY3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX/VQoF7t1OHXI
+ JI3P2bokwTDM/2to1iT2xIywJrMmdPO+1ADLBMPwROSAOVOAfpYcqTZVctoVfI2QN1kBhWm3zF+
+ Ftsfv/ne7YQib/HbqVLoIjXBUYI1s9wTAT2/Jo5Yav6p/GwmKQDzvamkNben1+gwo3EqNPtSrge
+ GY9cTMxokgIPfISu8u/PBfK2/u1C/lFVvjUw4L856sCC1XxzWjW/es0p23T+iE5ZawlwMT8nkfh
+ KnTbe4Q3UIzYXsdwOK7+FZaIXQcCNja1nRtDZAW49Uy+iHtC+wH3SRg7FozBBsWmdVFBh7drJoi
+ fOPkPA+zUlxu+tDWGGMNm5WTBuu5ikVoZtwliEKrHSCUITrAOI6AIS3zlJaxJPD1vY1tCwzbZJ0
+ vnrKNILEHm1FpM5oyXInQWsZQSTDIWZHVpudQFlJI5g2+1DGayvN/4+NNjI1OIRWBmVu6RUKb9f
+ Yv8kFh2zExz9gyGFQrg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX4qUuLHlm1yQp
+ HqYgXoJUhbNeJr/yxrrbZvtu8FsX/8LCdaQBh7O//PeN2IE5/8x98ZLDYnP/vXRJxIjBw2z9lJ7
+ pvZ5Nb/uYdm7BgVXGNUgQOrM44dz0XI=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110056
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -152,159 +171,51 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 04:13:55PM +0530, naidu nama wrote:
-> From: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+On Wed, Nov 11, 2026 at 12:38:54PM +0530, Jayant Shekhar wrote:
 > 
-> During a Type-C reconnect the AUX channel may report link-disconnected
-> transiently while the physical cable is still present. The link training
-> retry loop in msm_dp_ctrl_on_link() was aborting immediately on any
-> msm_dp_aux_is_link_connected() failure, preventing the rate/lane downgrade
-> path from running.
+> On 26-10-2026 15:27, Dmitry Baryshkov wrote:
+> > On Mon, Oct 26, 2026 at 11:51:11AM +0530, Jayant Shekhar wrote:
+> > > DCP platforms place the display pipeline under firmware control, so Linux
+> > > cannot discover display resources through direct register access. The DRM
+> > > driver therefore needs device-tree descriptions of the Qualcomm transport
+> > > wrapper, display topology, IOMMU contexts, and panel connections.
+> > > 
+> > > Add bindings for the Qualcomm DCP transport wrapper and VirtIO display
+> > > subsystem. Document the IPCC power-notify resources, transport and
+> > > framebuffer IOMMU contexts, firmware-visible IOVA range, INTF graph, and
+> > > DSI panel connections. The wrapper creates a standard VirtIO-MMIO child
+> > > after the IPCC power-notify sequence has completed.
+> > > 
+> > > Assisted-by: LLM
+> > > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > ---
+> > >   .../bindings/display/msm/qcom,dcp-dsi.yaml         |  79 ++++++++++++
+> > >   .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 123 +++++++++++++++++++
+> > >   .../bindings/virtio/qcom,dcp-virtio.yaml           | 132 +++++++++++++++++++++
+> > >   3 files changed, 334 insertions(+)
+> > > 
+
+
+
+> > > +
+> > > +patternProperties:
+> > > +  "^dsi@[0-9a-f]+$":
+> > > +    $ref: qcom,dcp-dsi.yaml#
+> > When adding DP support, would you add more devices at the same level? If
+> > so, we risk getting a warning about multiple devices using the same
+> > address.
+> > 
 > 
-> When the display is known to be plugged (msm_dp_ctrl->plugged), an AUX
-> link-disconnected status is likely a transient glitch rather than a true
-> unplug. Allow the downgrade loop to continue in that case by requiring both
-> conditions before breaking out of the retry loop: AUX reports disconnected
-> and the display is not plugged.
+> Is it good to model each firmware INTF as a single interface@N node carrying
+> the INTF reg, with the protocol-specific DSI or DP description nested
+> beneath it?
+> The driver can then obtain the INTF index from the common parent, avoiding
+> duplicate addresses across protocol types.
 
-Is there a reason to assume that DP is not plugged at this point? I
-guess not. But the other issue is: what if the DP gets unplugged in the
-middle of link training.
+Yes, it might be good, but it's not what is happening here. You are
+adding dsi@0, although, I guess, INTF is 1.
 
-> 
-> Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
-
-SoB
-
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 ++++++++-------
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  4 ++--
->  drivers/gpu/drm/msm/dp/dp_display.c |  7 +++----
->  3 files changed, 13 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 6b9d9a76ba05..f8a6bd7b0d10 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -2274,7 +2274,8 @@ void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl, enum msm_dp_stre
->  }
->  
->  static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl,
-> -						struct msm_dp_panel *panel)
-> +						struct msm_dp_panel *panel,
-> +						bool plugged)
-
-Can it ever be false here with your patch in place?
-
->  {
->  	int ret;
->  	unsigned long pixel_rate;
-> @@ -2293,7 +2294,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
->  	msm_dp_ctrl_off_pixel_clk(&ctrl->msm_dp_ctrl, panel->stream_id);
->  	msm_dp_ctrl_off_link(&ctrl->msm_dp_ctrl, panel);
->  
-> -	ret = msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl, panel);
-> +	ret = msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl, panel, plugged);
->  	if (ret) {
->  		DRM_ERROR("failed to enable DP link controller\n");
->  		return ret;
-> @@ -2310,7 +2311,7 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
->  }
->  
->  void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
-> -				     struct msm_dp_panel *panel)
-> +				     struct msm_dp_panel *panel, bool plugged)
->  {
->  	struct msm_dp_ctrl_private *ctrl;
->  	u32 sink_request = 0x0;
-> @@ -2325,7 +2326,7 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
->  
->  	if (sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
->  		drm_dbg_dp(ctrl->drm_dev, "PHY_TEST_PATTERN request\n");
-> -		if (msm_dp_ctrl_process_phy_test_request(ctrl, panel)) {
-> +		if (msm_dp_ctrl_process_phy_test_request(ctrl, panel, plugged)) {
->  			DRM_ERROR("process phy_test_req failed\n");
->  			return;
->  		}
-> @@ -2377,7 +2378,7 @@ static bool msm_dp_ctrl_channel_eq_ok(struct msm_dp_ctrl_private *ctrl)
->  }
->  
->  int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
-> -			struct msm_dp_panel *panel)
-> +			struct msm_dp_panel *panel, bool plugged)
->  {
->  	int rc = 0;
->  	struct msm_dp_ctrl_private *ctrl;
-> @@ -2427,7 +2428,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
->  			break;
->  		} else if (training_step == DP_TRAINING_1) {
->  			/* link train_1 failed */
-> -			if (!msm_dp_aux_is_link_connected(ctrl->aux))
-> +			if (!msm_dp_aux_is_link_connected(ctrl->aux) && !plugged)
->  				break;
->  
->  			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-> @@ -2452,7 +2453,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
->  			}
->  		} else if (training_step == DP_TRAINING_2) {
->  			/* link train_2 failed */
-> -			if (!msm_dp_aux_is_link_connected(ctrl->aux))
-> +			if (!msm_dp_aux_is_link_connected(ctrl->aux) && !plugged)
->  				break;
->  
->  			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> index fc884038182f..3edf954cc805 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> @@ -17,7 +17,7 @@ struct msm_dp_ctrl {
->  struct phy;
->  
->  int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
-> -			struct msm_dp_panel *panel);
-> +			struct msm_dp_panel *panel, bool plugged);
->  int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel);
->  int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
->  				  struct msm_dp_panel *panel);
-> @@ -28,7 +28,7 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl);
->  irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
->  			    struct msm_dp_panel *panel);
->  void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
-> -				     struct msm_dp_panel *panel);
-> +				     struct msm_dp_panel *panel, bool plugged);
->  struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev,
->  				    struct msm_dp_link *link,
->  				    struct drm_dp_aux *aux,
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 169938ba515e..551d2c63ef8e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -399,7 +399,7 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
->  
->  	drm_dbg_dp(dp->drm_dev, "%d\n", sink_request);
->  
-> -	msm_dp_ctrl_handle_sink_request(dp->ctrl, dp->panel);
-> +	msm_dp_ctrl_handle_sink_request(dp->ctrl, dp->panel, dp->plugged);
->  
->  	if (sink_request & DP_TEST_LINK_VIDEO_PATTERN)
->  		msm_dp_display_handle_video_request(dp);
-> @@ -648,11 +648,10 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
->  	if (dp->link->sink_count == 0)
->  		return -ENOTCONN;
->  
-> -	if (!msm_dp_display->power_on) {
-> +	if (!msm_dp_display->power_on)
->  		msm_dp_display_host_phy_init(dp);
-> -	}
->  
-> -	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
-> +	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel, dp->plugged);
->  	if (rc) {
->  		DRM_ERROR("Failed link training (rc=%d)\n", rc);
->  		// TODO: schedule drm_connector_set_link_status_property()
-> -- 
-> 2.43.0
-> 
+> > > 
 
 -- 
 With best wishes
