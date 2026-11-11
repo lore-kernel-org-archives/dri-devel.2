@@ -2,100 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892BC606A8A4
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E75D606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EQlhtLxQ
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=iCJTJm3K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F1310FC53;
-	Wed, 11 Nov 2026 17:04:27 +0000 (UTC)
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE79610F380
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:04:21 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-36e2b1db9bfso92207eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:04:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416661; cv=none;
- d=google.com; s=arc-20260327;
- b=JRFougSIAvfdnHMGrO13CL+OZFjRdMINITqw5aoZrf9d5M6/Ev/W9XO2gASEU+9mlE
- ifuc9HEALE9jcw4hgAEZp2tgoBIFyy6YbHykhjQcMsfvY+WamF/x4UtVlC2f1zF/jpN2
- o9x5IJv/pZxXNto2DFEA61G3ljI8oEjWT+6fC3c3GcnAQls1geDW8hIakxh7gCMdws3E
- zPjcgw4G9mY/xALuvCybSDJ3HtziVxjsnWrChslXr3y8De01uD2DHZYnN9q0LjiJ8lUj
- PRQGEe1OFwh1NdDWY2dcg+GUj4plF40MbxZY8NtpLKVzf40EXzGbN3+by49KGLNIT8iH
- 1mbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
- fh=1rtAFPFbDhrz3ovVZja2aqiV01qWC3Jt4X3eT6gwWy8=;
- b=Ip5Hfq9HddAyT5e0qWaac3hhIdCyqpPYLmmXAMs2vk/Bmiob/unrwhZROHH9diVzSD
- UIGBNwK/UtrU4OA59+Yf90hh33jArTFhumRV7kfVS10ODYVjyakCFWay/mTSn4hrtgwT
- NBDOncvf7t7TdlqgyyZ1/htycqdHiONpzCoeMogYuUkwhV0wo/bYtfrhsPc89ZTIKUVk
- 972vTIYgKbwycpmH3q1vzQTk9QUOlzAPaKDjXxHqkww1pNDRPNkb9FPpQ9+jNhL5astJ
- UlPUJlyIE/1wJBNwuLXZrgqbA7rxCBmqtZGyP0Ms5Pu5QZntoIdOSv63INcfWLbUt/5V
- vdsQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794416661; x=1795021461; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
- b=EQlhtLxQSin6//nTzSHvKKY5YcuhW1e8fjwzw1V0FKtlTp7Eec8ryYO7lxKOxc7Dm4
- ZQ1xIUwnK6sQKlbZtoy++AjRAmwbl9vlZmWPgPN55O9qpup8rnD2+/t0KZq4Wmgqobkq
- 4PvNnofqvfj771jyVHp0R/3s9b0s+POElIdmFGmtk206AEnB2ETCxbWmFjBuN2BO5z5G
- jOk4c5nCGHlPE1R3011NMH9W3lsYOlbZ0ce47tTKsZO/9K6CHIfCqpLOxR2zaEEpAe3D
- ncactd/ITkua/x0yGX1pdeRlOkdgdfkNhznYa/ITM0t0bn2n7pFpcXqgSuHdK31Nwbfw
- bm0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794416661; x=1795021461;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
- b=UPmP/fHTsKFlITgv6t+iuT7qc5Ur7d7RCV+eWnGlTGLy5BK7VwG/bsQO+mj6+0noRo
- PvTfmZiQaBnEKyBs+rUhVawzily37vprfOHKJB/spFL8QKgrw0JP/3lbthzhhsdPRFJz
- BzvG02GEZaci6R40mQ1e3C3d+WBIgsmAzqP5UjCs1N7QbjG6OC7IP7AUeCxQlxNnNl4o
- Li74wK5jZSaTp79ncT8KR+Niu+eGGqZtWHnvV5ALllgvML6S0n02bAHU/GAQLDGqbXyn
- jQKzUcFEss/4yj+Mjim5l4jnKWtbQ1kTNQL6gYNDjGdIZ405Onv5EmEEEFA/lx0FBtUk
- qfvg==
-X-Forwarded-Encrypted: i=1;
- AL+hErElA/NM756DMCTEbmJ9HKi1OzELLx9Mg1Gk9rgylEZG+W6TH3b0a15LHb+zpBXtldja4fuIYbyrUUk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9/WJ5gOtl2cLVrPXV8BmwULcEQVfvMFlJcV3WcNMdzEmx54sVy
- Icls6L/KchKIT5zdPV5oSDDErOC6JIuOUu5QvBA+sMmQIvXfNkFlt4IS0F0MQgx+MrTWTWqv6E+
- b4Xhix4UGucagVVFZLDie+IKdYQ0jmsM=
-X-Gm-Gg: AYBFou3gkWB37TYCKBxwpT2OFInPcwmbsz8Cjvd+XGscB3TLtt+pbKzMm/UuejgVIsl
- k3EOfoCa8TtK6coIxO7Me+TiYO3uUU7G6gppyQ/1lFutGJd1+lHY7O28hGZWK67Gj89UnJd9yf6
- 7/mACcpbqldfBXMw5gDHxEiU5CTaD1mpS+AzFLNfF4qqCRsVQBAdFAz7FqyJlxuoRbGQ/mfriY7
- yzvEGOzQ+rc8EOjv/PyFrVL+rBN8n3u9GbZ6JdAjuKuCSGzTP/9hPyzSf4otLGSjMwwO+PwvTdg
- h/G1Y0IrAkwUa0oD9YQv+MeXNLGv73pCLYJCHK0r9RJYlo5wjQrvGLk3ofMMceJXehuNppbofTH
- 8FSo597X66Ay0a1enqAKZ1aokxki55Ix5RBXKJ0+17/OW9eavAIZ0t6oPQFFt0dhfNU+MHj6+h7
- eckNk8qF6usZ2r8EsTh9z5kuYY/WmJsEfer0IM9nIqEB8M1ABoQ5wUHCD8KJk=
-X-Received: by 2002:a05:701b:450c:20b0:17f:641e:7f6b with SMTP id
- a92af1059eb24-1b3c02cf135mr4314767c88.1.1794416660805; Wed, 11 Nov 2026
- 09:04:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6750310FC81;
+	Wed, 11 Nov 2026 17:05:37 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010039.outbound.protection.outlook.com [52.101.229.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C49F10FC67
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:05:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U9xJYart8TsDBmd099ozm5n9mqYOoTiCKxdQ2g35qeyKvsk8DUo3IE7jv3DFBI9VMKN/GS3VDpEzuiIUDY0VsC1ZD7sqnuCBzoAmgxUUS+YOqztI1eAWgW1GeMyvLhfNobShv4PsLqEZZv3TmE/enpDq0sjduu4ZExcSxrIAkwyygP3hw3XrqmAr65Z1Zn6q88LDYcaVf0q1lnZVBn6kO1DIFdNHTOJoLazJWXOo/Ivt86GZN5vK92kb7jDQuhiwIfmz3TG8smmELIFmUmwkZLCVfSkwKl+yCKDYythh6XDoNQbwJyNZCn1g6Mmvdz4oBNMFxiq+RNCzlOP/6a/R7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7H20tjvXNBe4siCZGdnGFCcxctRcWBrpzAUWZVw3WlE=;
+ b=iOo33EjapdFCYBKYtmXC3kmmfvQWRqNi18ZXsrSKU40zts9w6Q35whOZovDEv6YKO7CVzM/0XtlEmvl6hnrFnf/PaMIzgvSULpwlcHIlloMrHBXagm4ZWirj48Y8xtk3rhBNLxXerFlkX4SLFqjK1iTBJ7GILsC1ONVVRdZ+dOwJN2XNbsSc69A95Ul9bGGvy+su6ffIbCbe+RLZ4kXTCF+NE3Sv2/lhs4DphcJGVAzedS8oQ02WcRlZocKl5TVvl2OqpxouRkGox6a5qz0bCtCeN3GEpOzC9xpvOKFYwK1D/ZUMAZgrRTtTunoG4YqnHqEk3sognu5/UgdcHRhFyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7H20tjvXNBe4siCZGdnGFCcxctRcWBrpzAUWZVw3WlE=;
+ b=iCJTJm3KdTfsQz8BZkQB1rDdyzsaEZApih4YFL+4QHmOnq4Bx9QVxkBeo7m/2+n60Sr3naTiXTguQZfjJUny6E2MSHr7a7zCh+1VH+tI7BfPjlcmeI/urj/2qrKAFkdxF4Jz6Atmso2d6M1hcE8rf50vPiQTPUK0h6CxXNHaP/8=
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
+ by TY7PR01MB14325.jpnprd01.prod.outlook.com (2603:1096:405:244::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 17:05:27 +0000
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 17:05:27 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ <prabhakar.csengg+renesas@gmail.com>, Fabrizio Castro
+ <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver
+ data assignment
+Thread-Topic: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver
+ data assignment
+Thread-Index: AQHdcdBrFezFhKtrAk+SFSHFEH4RkbcpGdVg
+Date: Wed, 11 Nov 2026 17:05:27 +0000
+Message-ID: <TYYPR01MB6603C08C1A6C4753A184CFA986712@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <20261111113259.3334619-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261111113259.3334619-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TY7PR01MB14325:EE_
+x-ms-office365-filtering-correlation-id: 63135db0-bae5-4444-4aa6-08df4015fbd8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|10067099003|11063799006|261022105027099003|261021123027099003|56012099006|261022075727099003|261026140227099003|261009223027099003|38070700021|261028144727099003;
+x-microsoft-antispam-message-info: ypdVkI4yyiSaw/XE4oSuLJgJAw0j7cN90cKYY2gvsXMUtZzgVcUAAjV37dFxO4E5Iu/AwZEoKIUf02LHLDs/aoDxHaG0LTjBttMFcw5Tb0phTQ1enwQTkLIeoRGwPKr1u4U8l5d7IJcSNg38NzRSlfRnNlJ1Cpy8sRYPHpY2s21BOw0VnjoNT64H+KyfU+6tMLGwIkNSNNyJ7fKimdQkxkXAAx48cMtusE6JvDMUkVL6xAJqorPmMdZapdPoXl1sZy9UGJML8is3AXAIm044k3iUm5+6XeNoXd5JTN+GxhjmS2YHq4pV+qbGGkGjVoeRHs8TzIQtvQRhvdhryso9Mwk4rO0zIi05Xjt8/OAKIl6RAMJVdMnvXfQZg+EnJ0rhtxpW7lCK8QrwHrHh0RHbk7pHc0VWWuikb2V+4QDXeCT0/h9w9zKsx8hcb379Ka4kodbhBTCdoCyCGe4wmSI/qyWw4+f8wQtSrrM6a8MiaSVhyrBIBoEy/6veXH9TshoyjbTzjQiRDKbau1ERWJAGYyYU8jJf9NUbYZZ8JzuYKySQgLKhYQBf2AfXWry/CI0cRN3PZQAU6Tzep5ojnbcE3s+uGrCJZdcmFUwKJ3gSfEs7VUxy86SNFNEXULd7TQAjpeWZOpcctS8/eB9nExLOI9j46Ks398JCAKcppKzwV5Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYYPR01MB6603.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(261022105027099003)(261021123027099003)(56012099006)(261022075727099003)(261026140227099003)(261009223027099003)(38070700021)(261028144727099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6OWCfHXqsyU32jJwEANGD5YNqh/y6g1rvfN5o827SXz9M75lPWP+7auVsxHb?=
+ =?us-ascii?Q?cL7Gn00pkcGE4gTi5HYhmx8Io3Tc+BK8qde9ZYdILByeqXBhGgfjTrKQqxCL?=
+ =?us-ascii?Q?2MzBMmEBNZdNvhMxPVDdlF9TPK34WF983V1JTyTW0DVSu0Nqw3QGw6kMuv7b?=
+ =?us-ascii?Q?7M9wHh6z9EeaVhU803Lz+uPkC3k+MMYHUZWdPME7cRzA7AQfdIDjGi8GPW71?=
+ =?us-ascii?Q?tKIjZxnjy8caB+mAAKji/TAD0nTABVBb0mzFJUQHaithIomSPA82HSw1ozKr?=
+ =?us-ascii?Q?j1otH89zRIrMGvsWFkrBAXFnLJzMsd3YAL0uPwnC2oBeDGzOCbABfAlR8Zgw?=
+ =?us-ascii?Q?5BiXveJpHMoebD57b9H5df0P8p4Tod0LEp16nijBz+0S3IV935cD/bq0Ny5J?=
+ =?us-ascii?Q?A5ZO58dcFLXRSrUlJ5AFJjFjbcKmYEeAGd0sp8r/+iGavDqmI+ft81MXU2Zs?=
+ =?us-ascii?Q?sW+NIj+hRH71CWSqh+luTxZqSQ6AQu5HnsQrttTJmHkEbriZyJtjBYvGIy0k?=
+ =?us-ascii?Q?fEIaR2Xb/pC+ghfGR4/K/9lm8Q7dHoM6tGINbf03sHXv2ynlyD5YhH/uOvKY?=
+ =?us-ascii?Q?CZB1y6zWjUxI9Qn+MPjjI9O42KiS04bnR0qSjVc2u6abVN/UNbpW0Py6ij6M?=
+ =?us-ascii?Q?KtbevRz19JwoglXr+sB1HFItZ1pOyPIyAoQXr/INzuuDrdimUIZJbXSfwePr?=
+ =?us-ascii?Q?dJOiOilRCdxdb0jeQxSn0AkSb2CwdyfEuI3bqsTv0dmMAxkAa8n3IsggO8nA?=
+ =?us-ascii?Q?3bJfnxJxta4p6rFgcPZ4QB9oYSZJHwvm+/FK+xq7kaQIr++1xP498LfcQRWA?=
+ =?us-ascii?Q?leWFzxoTGif4qc5HCRmsR/5fAQBn1zRJo4ayN8oqjKQhhkU67VYSXCHXsk4w?=
+ =?us-ascii?Q?qFQ9LlYK3oMVChUCQkbrYBnz0p0WlFtNc8KCgU3Y4CQI5B84rJOHO3Pm9Twi?=
+ =?us-ascii?Q?cLj4FDCM2RcdclBripy6hiHlyRcxV/eWEgUhlD+/kI1brBaR2hcKP6R/XcrH?=
+ =?us-ascii?Q?qM4gTY/x7l7W3EmrzG1tgMAaND4gUW95iEsETcsU4EyY80rE/+e5b21jn7mp?=
+ =?us-ascii?Q?BcHdHhsv/GTxzdy1cFdkra0CpvxCqiUXqxtPyIABHsmtpMjrQrN49W2Iufgk?=
+ =?us-ascii?Q?idBzW9qsT+oWo23c5Z93gDbDyjFXJbcCXyk2BQE8xLzua7mJ1KZT2klVu9FQ?=
+ =?us-ascii?Q?Gi85gX5giyue/FuIsh/D1PVQz/NlPyVrs8a08XhqStnH5VM52qNIhjq+DK84?=
+ =?us-ascii?Q?PAm0JmQ5ad5WprYJejJxt9d9rk5VGM1HjJcr/JukTrmbCm6kULT0I+NVey9j?=
+ =?us-ascii?Q?yMOFmraSCsuwIfIM7KpFYuneQxTb6018XWVubBRHTGYjCmTWIgQ3lf98qQoP?=
+ =?us-ascii?Q?oNS8wzgRP+mp2fExHwrNzwqezBaBMgzxCO3f5XvP9S/3bGbsNgwiziYVVmH/?=
+ =?us-ascii?Q?XQvJw3Pb73lQLWskKbFClO7ZXXKbxu+NIsGVLbe2LR/k0sBjyxUGnPA3EOIz?=
+ =?us-ascii?Q?l15KDcRR9NCfccdVU3/kBzzZfJrIAly4Llp+HbYWIzy391Fjk2URhailQ6Ak?=
+ =?us-ascii?Q?hML2ctlSZxsMPOEonHPsDbARNVUFQyHc2tdKkt+OYnSvJhICBMTqBW922j/Q?=
+ =?us-ascii?Q?rIow2eqSK3ShUPbDPZVz0gr7fl/TQpLJCg4CzfUFqel+mn3l8D91VCxEuL0s?=
+ =?us-ascii?Q?gITPYpOyXlk0G2yE/WzjlWkB+1sK8GuhGicncBWy4QLqJvRjWw23QjqCZ0OT?=
+ =?us-ascii?Q?bc4DiamKgA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
-In-Reply-To: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:04:09 -0500
-X-Gm-Features: AclHuK-qUsJmbGMoQgyzTNraWEn4fQl-1Spvcdq8IIpAnzBeguVmCP2_i5NrNHY
-Message-ID: <CADnq5_OQfN6fqdW8OzhPAE=iOmy7OtH9VV=6-dxfwT5=R39OPA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: send smu8 sclk level indices,
- not the level mask
-To: hornejd@etsu.edu
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Eric Huang <JinHuiEric.Huang@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63135db0-bae5-4444-4aa6-08df4015fbd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 17:05:27.2583 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: A28e3MES9AbtCFe2miYG3QLRXxduGFi2YO6tEvHnG4/UzBw3QkXETZbHlXt2P8/kejD9vslg4RYXIwxz6jIOtG44vqXj4XeqjxoQyEwmpmg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14325
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,103 +131,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed and applied.  Thanks!
+Hi Prabhakar,
 
-Alex
+> -----Original Message-----
+> From: Prabhakar <prabhakar.csengg@gmail.com>
+> Sent: 11 November 2026 11:33
+> Subject: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver=
+ data assignment
+>=20
+> From: John Madieu <john.madieu.xa@bp.renesas.com>
+>=20
+> rzg2l_mipi_dsi_probe() calls platform_set_drvdata() twice with the same
+> arguments: once immediately after devm_drm_bridge_alloc() succeeds and ag=
+ain after the DCS buffer has
+> been allocated.
+>=20
+> Drop the first call and keep the second one, as it is closer to where the=
+ platform data is actually
+> used.
+>=20
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Mon, Nov 9, 2026 at 9:21=E2=80=AFPM Joshua Horne via B4 Relay
-<devnull+hornejd.etsu.edu@kernel.org> wrote:
->
-> From: Joshua Horne <hornejd@etsu.edu>
->
-> smu8_force_clock_level() passes the pp_dpm_sclk level mask straight to
-> PPSMC_MSG_SetSclkSoftMin and PPSMC_MSG_SetSclkSoftMax, which take a
-> level index, as the other smu8 callers do through smu8_get_sclk_level().
-> In manual mode, "echo 0 > pp_dpm_sclk" thus selects level 1, "echo 2"
-> selects level 4, and masks above the highest level index are out of
-> range for the SMU, so e.g. "echo 3", "echo 7" or "echo 0 1 2 3 4 5 6 7"
-> do not select the requested levels. The original single level version
-> sent 1 << level and had the same problem.
->
-> Send the lowest and highest level in the mask, as smu10 does, and reject
-> levels above those the SMU has enabled, as smu10 and vega20 do.
->
-> Fixes: d7341ef66870 ("drm/amd/powerplay: add some hwmgr functions for sys=
-fs interface on Carrizo")
-> Signed-off-by: Joshua Horne <hornejd@etsu.edu>
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+
+Cheers,
+Biju
+
 > ---
-> I found this while working on overdrive support for Carrizo/Stoney on my
-> laptop (ASUS X555DA, A10-8700P); that series will follow separately.
->
-> Tested on that laptop, 7.3.1 with this patch applied to amdgpu. In manual
-> mode:
-> - "echo N > pp_dpm_sclk" for each N from 0 to 7 moves the current level
->   marker to N
-> - under GPU load, "echo 2 3 4 5" keeps the clock between levels 2 and 5,
->   and "echo 0 1 2 3 4 5 6 7" lets it reach level 7 again
-> - "echo 8" and "echo 0 8" fail with -EINVAL and leave the level unchanged
-> Without the patch, "echo 0" selected level 1, "echo 3" and "echo 7" did n=
-ot
-> select the requested level, and "echo 8" was accepted.
-> On amd-staging-drm-next the patch applies unchanged and builds without ne=
-w
-> warnings with W=3D1, sparse and smatch.
->
-> I used an AI coding assistant (Claude Code) while working on this. It
-> found the bug, wrote the change and a draft of the changelog, and wrote
-> and ran the build checks and test scripts. I reviewed the change and the
-> changelog, ran the tests on my hardware, and I am responsible for the
-> patch.
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> index 8f82d7c07e8c..5a3f697a37a2 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> @@ -1483,15 +1483,25 @@ static int smu8_store_cc6_data(struct pp_hwmgr *h=
-wmgr, uint32_t separation_time,
->  static int smu8_force_clock_level(struct pp_hwmgr *hwmgr,
->                 enum pp_clock_type type, uint32_t mask)
->  {
-> +       struct phm_clock_voltage_dependency_table *table =3D
-> +                               hwmgr->dyn_state.vddc_dependency_on_sclk;
-> +       uint32_t low, high;
-> +
->         switch (type) {
->         case PP_SCLK:
-> +               /* the SMU takes level indices, not a mask of levels */
-> +               low =3D mask ? (ffs(mask) - 1) : 0;
-> +               high =3D mask ? (fls(mask) - 1) : 0;
-> +               if (high >=3D min(table->count, smu8_get_max_sclk_level(h=
-wmgr)))
-> +                       return -EINVAL;
-> +
->                 smum_send_msg_to_smc_with_parameter(hwmgr,
->                                 PPSMC_MSG_SetSclkSoftMin,
-> -                               mask,
-> +                               low,
->                                 NULL);
->                 smum_send_msg_to_smc_with_parameter(hwmgr,
->                                 PPSMC_MSG_SetSclkSoftMax,
-> -                               mask,
-> +                               high,
->                                 NULL);
->                 break;
->         default:
->
-> ---
-> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-> change-id: 20261109-smu8-sclk-fix-2eacba2cbfc0
->
->
+> v3->v4:
+>  - Updated commit message
+>  - Dropped the first driver data assignment in rzg2l_mipi_dsi_probe()
+>  v3: https://lore.kernel.org/all/20261110114622.229608-1-prabhakar.mahade=
+v-lad.rj@bp.renesas.com/
+>  v2: https://lore.kernel.org/all/20260501080818.955914-1-john.madieu.xa@b=
+p.renesas.com/
+>  v1: https://lore.kernel.org/all/20260425022857.2382603-1-john.madieu.xa@=
+bp.renesas.com/
+>  ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
+/drm/renesas/rz-
+> du/rzg2l_mipi_dsi.c
+> index 5b257f5adf06..65f26f889a67 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -1532,7 +1532,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_dev=
+ice *pdev)
+>  	if (IS_ERR(dsi))
+>  		return PTR_ERR(dsi);
+>=20
+> -	platform_set_drvdata(pdev, dsi);
+>  	dsi->dev =3D &pdev->dev;
+>=20
+>  	dsi->info =3D of_device_get_match_data(&pdev->dev);
+> --
+> 2.56.1
+
