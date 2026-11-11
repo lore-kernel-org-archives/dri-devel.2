@@ -2,74 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24350606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A683606A334
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 11:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkSBiodO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBN881Uo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8949810E2D3;
-	Wed, 11 Nov 2026 11:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A55010FAEE;
+	Wed, 11 Nov 2026 11:15:09 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79B8510E2D3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:13:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E239510FAF8
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:15:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9B7B263C86;
- Wed, 11 Nov 2026 11:13:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965981F00A05;
- Wed, 11 Nov 2026 11:13:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0E67763C95;
+ Wed, 11 Nov 2026 11:15:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23161F00A05;
+ Wed, 11 Nov 2026 11:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794395620;
- bh=36EWbltYP1E9t7Yv3ApaDJEPV9SCfDDIWUtGCljX8yg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=RkSBiodOgR4Vu3WoOamr63RiGELqBdARbGedG+t/PZFNJ1wURAsulgYkgjo6Hhp7o
- n46m3vAu39vQNRhG/chrRTaHfHnwG2/oEdt6h9z5OUFKABcyAMWHBg3UGEEp9JGMbV
- m4YTC24KWs9dYPwJoaQOkj6jvX/8/n8J6Kre+2HCN0Ln2gKIAXcbV3m6tLyyw54KVB
- 151tpV9b+zxFfBCF1fpDGsymzjpD9DHgICSS9xfP+o6pGmt6s3FXxUqLbBXbgMa5d6
- Uz17XUv2nAqGV+8RKeQQ3KgKMzjigERffx3ZJNNVRwaof7iqSbCNhVt26lYw1PMDrV
- /RAeTCzc1TQVg==
-Date: Wed, 11 Nov 2026 12:13:37 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Joel Selvaraj <jo@jsfamily.in>, Jagan Teki <jagan@amarulasolutions.com>, 
- Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>, 
- Michael Trimarchi <michael@amarulasolutions.com>,
- Michael Tretter <m.tretter@pengutronix.de>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Ryan Brue <ryanbrue.dev@gmail.com>, Nickolay Goppen <setotau@mainlining.org>, 
- Robert Chiras <robert.chiras@nxp.com>, Alexander Koskovich <akoskovich@pm.me>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Chris Morgan <macromorgan@hotmail.com>, 
- Barnabas Czeman <barnabas.czeman@mainlining.org>,
- Heiko Stuebner <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>,
- Arpit Saini <arpit.saini@oss.qualcomm.com>, 
- Michael Walle <mwalle@kernel.org>, Ritesh Kumar <quic_riteshk@quicinc.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, Danila Tikhonov <danila@mainlining.org>,
- Jens Reidel <adrian@travitia.xyz>, Michael Srba <Michael.Srba@seznam.cz>, 
- Shawn Guo <shawn.guo@linaro.org>, Alexandre Mergnat <amergnat@baylibre.com>, 
- Alexander Baransky <sanyapilot496@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Romain TISSERAND <romain.tisserand@gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
-Message-ID: <avRM_GhtR8vMdTO4@houat>
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+ s=k20260515; t=1794395702;
+ bh=tAx/ZFlsqXKWFenehZ/MbbfKdZYuT66fnAo6orVBCkk=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To;
+ b=XBN881UoloAl+qdmKmPVrH4Sn4mrZ+nDx2hDHv8pvgq3leTwmjlP2OasxRSnWu6j3
+ uHEogUzELOrIsIZghOIZKs4GSyulW+2Vib3GHirLE8fCWtj758itIRfrnuLNvnyoLs
+ nq5Bf3G4qrFaKndvZZVT+FHiYQ/FVdQyfCWhnYeCImhzuagHE6tnxBPQxfV/Zc1gfu
+ qF4dSMTJrPHA/KKdiAyL9eDe/xhrDf/4/eH09PJ7xsaZvvTUFTwSzo5K6/GhrtmZ4e
+ KUXb/5YEClBabd5qR9xw31E3v/SiKbKwxaPazwx4mFeOSPFjrF6hgosYbJYCJjNUbp
+ Qw/BuuECr9HXQ==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="nbzsbrbfjlpcpmzq"
-Content-Disposition: inline
-In-Reply-To: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 12:14:59 +0100
+Message-Id: <DMSC6S86RQ85.36H8JJYBI79L4@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: use pin-init self-referential support
+Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <lossin@kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20261110152746.140351-1-dakr@kernel.org>
+ <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
+In-Reply-To: <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,49 +61,29 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Wed Nov 11, 2026 at 9:49 AM CET, Gary Guo wrote:
+> On Tue Nov 10, 2026 at 3:27 PM GMT, Danilo Krummrich wrote:
+>> Express all self-referential borrows through pin-init's self-referential
+>> support [1], replacing unsafely derived references.
+>>
+>> Cc: Gary Guo <gary@garyguo.net>
+>> Link: https://lore.kernel.org/all/20261008-dev-selfref-v2-0-e280b3c8fba5=
+@garyguo.net/ [1]
+>> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+>
+> There is already
+> https://lore.kernel.org/nova-gpu/20261019133647.1279779-1-gary@kernel.org=
+/
 
---nbzsbrbfjlpcpmzq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
- optional
-MIME-Version: 1.0
+Ah, apparently this one has fallen through the cracks on my end, sorry.
 
-On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
-> DSI panels can be placed under DSI bus directly and many Linux DRM
-> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> such panel and DRM driver does not use OF graph to configure lanes.
+> It doesn't include GspSubtree though, I suppose that is relatively new?
 
-That's not true. We do use the endpoints to configure the lanes through
-the data-lanes property. See drm_of_get_data_lanes*
+Yes, it is.
 
-> The affected here Linux panel drivers do not use OF graph, either.
->=20
-> Requiring graph port for such panels is tying the binding to one
-> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
-> requires the port.  The port is not needed for the hardware to operate
-> and for some of the Linux drivers, so it should be optional.
->=20
-> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Given that this patch already covers it, mind if we just keep going with th=
+is
+one?
 
-DSI busses can handle multiple devices, and multiple data types. If we
-were to drop the port node, how does the upstream video device know
-which device it should send its video output to?
-
-Maxime
-
---nbzsbrbfjlpcpmzq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavRN4AAKCRAnX84Zoj2+
-drBoAYCgtYU8iP34m/O3qAL8jHZ6w3VHZjiW2G37PLPh+1PFoVvjBC5GoEu8ff00
-+lWRtM4BgMgudwnDPpuPHEgx+ZAkUZcDuzAaKvmq6V8XHDLf+ZJORjMRqukb+pNm
-/OfusQSCIw==
-=MTke
------END PGP SIGNATURE-----
-
---nbzsbrbfjlpcpmzq--
+Thanks,
+Danilo
