@@ -2,63 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF96606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976B4606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 10:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Z8MH9Za4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94C2210E194;
-	Wed, 11 Nov 2026 10:42:16 +0000 (UTC)
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com
- [165.173.182.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF4710E194
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:42:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794392820; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=X/HX67F92GhFRj7qyinZmwx/H96yrqVKh3qzZ20sgUcU7Bq1EzlL4LwKbanj16DaHIeAsfl1B+qcOUKXcizeVDto7mVnyPeb9dgTMese2SySaXW1ka1t9lhlN5Y+3CSRxekdfQgYz+oHyMlLSu0jRqR//hXS8AZbXWHAvWjoI0M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794392820;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; 
- b=fwDqvphywJ3uYhLeRoF5hlcNDhVwtmYKj+nvlJei0yPlkZDg9A4tiAZKXH69aS5hneBpcZfV9cMpkqr9nOp23zSTyrLLRrN8YEby+YjzvNa3APgIz0pqTH/UC1hjuQV87+GimXIrKW594bKrR5Vbi3pkoloHftpi0cIplmKMhfc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256;
- b=J9OSvhXiOr8lL3EQgkc/e/NNi3TnxQ3XlcIW5iQ8G8O4YIpzmpfsofd64NZF96sK6sewXhziyjoWP4mrKydKsJxgtjUpg2plbX4qatreUxLCiOELTmxBkVvc01H9QyYa6GM54yi/P/dU+zcWbFQIIN633UnCFgJ4GRxBmIgIc3mpxEXXdNxdsf74Nvk+CH7nUy6EL5EwtTsi9ih7WxFgsjBDvLUaN3jnfb+Vxy/NmmLDgKgqeJEk11+N8VYRGRJRlQMUh/809aREBoWNb3QBbvydxClqopz9L0FHDHbTFBwP/IGHUIFYf/LnxVdk2xdAxDAeih67xe8Q+Pa5XczMgw==;
- c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
- bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794392818762580.4241612026577;
- Wed, 11 Nov 2026 02:26:58 -0800 (PST)
-Message-ID: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488:
- make the port optional
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Romain TISSERAND
- <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-Date: Wed, 11 Nov 2026 18:26:51 +0800
-In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
- <20261109160706.2272332-2-romain.tisserand@gmail.com>
- <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D4C10FA9B;
+	Wed, 11 Nov 2026 10:44:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B600610FA9B;
+ Wed, 11 Nov 2026 10:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794393879; x=1825929879;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=HiXQ/g3azUEcfe8dzHmd0ZaFrmddY0ixVLKKKhNMeBQ=;
+ b=Z8MH9Za4TSJWbaLGIF7lMvjzq38PJ76w6Xx16GSZqiHCqMIIjUCchkdK
+ SUVQt7H9pFcwK5EyhxmII/Wc6nTqrDyGmKm7MQ/WO4r1Shp+GORFuNtdp
+ fqjRulpqR5LjYbzQmcwinJb1lTJsUpwSsLQlpeT/kzCcnrAMK1yT0VSnF
+ S5I6oO4GOOmG735d9tJK45qP0UxUXoyeYfo4fD7PY5A43/MD6ETaPNhcp
+ mZcdj3eXhdm12SLTijM8ZPAJ1mdfecDkeDxpEgmbIBgzUaic4+/D3fr92
+ ho84lnpVim44voydf4zjWi1e3pT9ujBD49MkvI6t4E2HQEJoN5kyUB8Ib w==;
+X-CSE-ConnectionGUID: qAAamDCrQ/izPd+y73UiCA==
+X-CSE-MsgGUID: qpO+QwAWTKCRSrZbiUQysg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3184233"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3184233"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 02:44:39 -0800
+X-CSE-ConnectionGUID: S3pxDSsHQ6GZL1WCGyS7XQ==
+X-CSE-MsgGUID: ihG1NXRFSrG71rdmLCuD0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8721487"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.125])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 02:44:36 -0800
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+Subject: Re: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, tursulin@ursulin.net,
+ matthew.auld@intel.com, thomas.hellstrom@linux.intel.com,
+ dri-devel@lists.freedesktop.org,
+ Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+To: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Wed, 11 Nov 2026 12:44:33 +0200
+Message-ID: <179439387311.199148.11937438921736048164@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,64 +69,63 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-10=E4=BA=8C=E7=9A=84 13:00 +0100=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
-> > The panel is a MIPI-DSI peripheral, a child node of its DSI host,
-> > and the
-> > driver does not use a graph port. A port is only needed when the
-> > host
-> > links its panel through the graph; other DSI hosts, such as the
-> > Allwinner
-> > sun6i-a31-mipi-dsi one, link the child node and have no output port
-> > to
-> > point at. The PinePhone panel is described that way on the same
-> > host,
-> > without a port.
-> >=20
-> > Keep the port allowed (panel-common) but no longer required, as for
-> > other
-> > DSI panels such as ilitek,ili9881c.
+Quoting Prabhakaran, Krishna (2026-08-16 04:45:52)
+> From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
 >=20
-> ilitek,ili7807s and a few others have the same and it is confusing.
-> The
-> port should be required when this is connected over SPI or I2C, but
-> not
-> for MIPI DSI. I think that for MIPI DSI port is meaningless so
-> actually
-> incorrect.
+> When i915 needs to make an imported dma-buf coherent for GPU access on
+> non-LLC platforms, or for objects that bypass LLC, it currently calls
+> wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
+> pinned, so this triggers a whole-cache write-back and invalidate,
+> broadcast by IPI to every CPU, on every execbuf submission involving an
+> imported dma-buf. That stalls the entire machine for milliseconds and
+> starves latency-sensitive work on unrelated cores (e.g. USB isochronous
+> audio serviced on the VMM's main thread).
 
-I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
-dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
-even if it's the child node of the DSI controller.
+No bug opened for issue, no exact hardware config described, no dmesg logs.
 
-Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
-pro.dts .
+Also, if you import a new dma-buf too frequently, probably shouldn't do
+that.
 
-Thanks,
-Icenowy
+> Flush only the pages that actually need it instead:
+>=20
+>  - If we imported one of our own dma-bufs, the backing object is
+>    struct-page backed once migrated to SMEM, so flush it directly with
+>    drm_clflush_sg(), exactly as we flush our other objects. This also
+>    avoids re-entering the exporter through dma_buf_vmap(), which would
+>    recurse into i915_gem_object_pin_map() on the source object we
+>    already hold locked (and fails the igt_dmabuf_import_same_driver
+>    selftest with -EBUSY).
+>=20
+>  - For a foreign dma-buf the sg_table is not guaranteed to be backed by
+>    struct pages, and the importer has no way to tell, so drm_clflush_sg()
+>    cannot be used. vmap the buffer and flush that virtual range with
+>    drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
+>    one virtual alias evicts the cache lines for every alias of the same
+>    physical pages. The dma_resv lock required by dma_buf_vmap() is
+>    already held here via the imported object.
 
+You're literally echoing what code does or has in comments here. We can
+see the code by looking at the code.
+
+Please try to use less LLMs and use more of your own words for describing t=
+he
+changes or writing comments.
+
+Patch description could literally have been around two sentences about
+reducing the amount of unnecessary flushing.
+
+> Fall back to wbinvd only when the buffer cannot be vmapped or is backed
+> by I/O memory, where there is no CPU-side range to clflush.
 >=20
-> Why was it added in the first place?
->=20
-> >=20
-> > Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
-> > Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> > ---
-> > =C2=A0.../devicetree/bindings/display/panel/ilitek,ili9488.yaml=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
-> > 1 -
-> > =C2=A01 file changed, 1 deletion(-)
->=20
-> Reviewed-by: Krzysztof Kozlowski
-> <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> Best regards,
-> Krzysztof
+> Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
+
+Definitely no Fixes tag for what is essentially an optimization.
+
+Regards, Joonas
