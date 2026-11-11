@@ -2,43 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E41606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 22:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670EC606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 22:34:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=I/45b0sT
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=loLurpr+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B6110E3D9;
-	Wed, 11 Nov 2026 22:23:34 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5437A10E3D9
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 22:23:28 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1216)
- id AEEC820B7166; Wed, 11 Nov 2026 14:23:24 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AEEC820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1794435804;
- bh=hvquHGNKpZYfNxNT5iFeEwYz9fPyaoA22FVHTaUGTG4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=I/45b0sT+f3CpRcZ69BhwRgNTQZb7Eec337vNPbndQRHZX/FCLuNEicDzqpWw6bs8
- OTacXMsc0MfvZnFmCtZwlenF1oS85ebs20BKLr8wC9i4Hoqyf208wWlcd/zMdKIcyV
- 1RCTStcfN4eWHmax+wP5pY6lgwHPdMw0MPYsBfDc=
-Date: Wed, 11 Nov 2026 17:23:24 -0500
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: sascha@eder.earth
-Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: drm/hyperv: pointer lag on desktop guests - host cursor is
- supported by the protocol but hidden
-Message-ID: <avTq3OCNdDeyn/La@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
- <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A64E10E1C4;
+	Wed, 11 Nov 2026 22:34:20 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012061.outbound.protection.outlook.com [52.101.53.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1BA10E480
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 22:34:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uU4etceiPSRV5iA2hnTw6n/RkuH4zMirKzQ5yChKxDmGOTTnPq9UTukcr/+xcfX2eoz1ZFYSId5aFpi7mouEphGFQf80bgIcKEVw8O3NBh//dzViGphPPYw7oN9HFbHDNIq/2Pr4jrKHdkGvwN9F2KoYJrOPBwKlIpjQhlLLXrhw/93Wj53i4eQ8Zr9v12kh2zyedyjXhUZdL2KJ0osOwWRq5vIKZrka/lItk6ILuCM1v2zlS3s+HKXWXH4JYDGhVLXTrq8UrYekyTCZjutDuNeGT3gCO2S1v8nwvfhoLgIdiqnhrIizmPXn7MMFPswnbZRI9YKMbY+8p7Q/Qf0njQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K2Mz+UN2UD6wil+qjAA653i8OuGmJW/ddS2+haOoEvA=;
+ b=bnGYxIQ/1A6zfhg8w4paXhcsAOAxRsv1tuKlFVueYbEVsf7a+QTbjvy9H9gGMfeaaT5VBeLUm8fiB1sJ7Phh9y7FzLtMZzZeU1dKVTkp+Bfk25WFxs8QGS4zAv0Q48dFRptAEIvPYhoNp5yUcYuI3tSebfWhkzSKUZsDBEIVirwLtUM3sROzZ1EF8aDr2A/4Y9v9ch7Wu4VW0SwTg52a5Ev5bmPFGMMNotPwDmmufhfzAa4jQmAtunzNg73C8VzRBr+/eHDXjQyDJLixrOJui76XuDj9+YHxEhjxNfcY5e+AJHpnpYUtmuYxAXM+eB9KzBGNtn2TytkZtK+Uy9Tr7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K2Mz+UN2UD6wil+qjAA653i8OuGmJW/ddS2+haOoEvA=;
+ b=loLurpr+lakoWZpRlMaFXR4US1or1x4u+4Sjys7KJ7GXkN/rkP3SLH2fsKeiTvc/dWVwgIHMSVRGyWwkzrnt4/HJA0zs+09Nq6BtBqbDnQG55uMD7K985O/Zx21gMB+Ztb1QYDLz+22SZf4oLiD8FTBXwn49yozelx1xhV6YRJcbwzuw1XXG6NpYJvJCEwOrivLYvzNRv0cCTGFmp8BQKB7InZ/LMSs1csbBkBktjlKNIEr1j7itIbBup98HM5RebobgeHTYl65qpnYcTGo5BsVp5sw7W0U4r/HujM4xd97V84g2o/bfHDajCqFezjRYBVpbd1UjHdvxfJjbTXzS2A==
+Received: from BY1P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::6)
+ by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 22:34:08 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::7e) by BY1P220CA0048.outlook.office365.com
+ (2603:10b6:a03:59e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 22:34:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:34:07 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
+ 2026 14:33:58 -0800
+Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 14:33:55 -0800
+From: Simon Song <xinmengs@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
+ <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH v6 01/11] rust: pci: add internal SR-IOV enable and disable
+ helpers
+Date: Wed, 11 Nov 2026 14:33:26 -0800
+Message-ID: <20261111223337.508989-2-xinmengs@nvidia.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261111223337.508989-1-xinmengs@nvidia.com>
+References: <20261111223337.508989-1-xinmengs@nvidia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|IA1PR12MB8191:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbc5314e-d5d6-4d35-9196-08df4043e628
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|36860700016|1800799024|82310400026|261022115727099003|10067099003|11063799006|261021123027099003|56012099006|261021121427099003|261021130227099003|261102123227099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261022105027099003|261022113327099003|261028144727099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Vl/AgalSOa15lBD0xp6qrdbIdiMm/T8/Rxk40TM/8OwENEN1DBIPL2JQWshXlPOYbOQgo6hBxc0W7W9MME65Y2gLtmYEiGWOGS2OttEyNt/pGNUw+AfGDZIBM6S6VBJai2JVYIbII5Mf3Te2j62/7xVtcPAjBdFE357vwLi2BSiwd9HG30wAU94SBZ4+2KMgLC5u9tfgQP1PQASsNUPAjkpfUp/b+j6S1935nbI0uKf6Uj+6P3EMYw8T0K1wHHNf4h1uKF4AnTCadbeLFpun3Qr3cMTkHTH4vmwhMqARmlJtDzL/9uUAjvddCjw0gBFXY5MIcS7ZFGByzrT9wgxfLb35H9lmUzZi+/+t/bXI2BuQZ3i00cVctetgNaM1P8p2v+GkE5MydYb49BGmegpn8eCuT6VzxYQPDzds9vVf37So6nXsIiC3akbWj4c655OGdp6RmETKMb44h2S4DJsE9mWTi8aAdCx2MdaQyhkN5hoJQsQi01UaaKJeKYPs9Nym7wySeXhJy4fSj9rvLc82P3RxRRZxoBydXt8T3c31li2/L+EEv5id8b1nhXsVOp5Hve+TKozo1hpnWpORE76ASjNZFd9h/whBsN0VHdrJSkvDEcQW4Vud6MAICyqg2U4Q2JDTJss8u7jma+CITmnioCHnh7jUQhobrJZoD6DPjT30NpxfljXt6dOGViQQbJCIkCz5J1BW5/JXXufXS4Pitg==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(36860700016)(1800799024)(82310400026)(261022115727099003)(10067099003)(11063799006)(261021123027099003)(56012099006)(261021121427099003)(261021130227099003)(261102123227099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022113327099003)(261028144727099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: UCJiXcRLFyIEdJB2VIVx4z4UlC2cHPAhzWk8J+ou9KKJoP0CBjKPqbDLvBHyBya8VviueIpUgUP1/Jd9Dl9gk/X1yruHUVu7MQgYYKFVWCD7yOdp+2Z6twG5WmOxPwXqRvcjFVbECfVJr5LLpf+tuygorey8kcCALlgvv77gvoACnRbaIwci944zibjMIZ4P2CRX8wIRDxxnJc3UDDRKYTTVohmD75Xd3BQTjzy2YR9E4Ab6qacpfPNSfDtPUO1b87PKLQtlYg4/dNjKfSQMvo7H+jlUG945hRmesg/N2L5DFwZFKVeOHi17dH8o32bh9S6qo8qdEP8CJpTYwf14SvYvoQs4FGiH0h7AfH/8sfXy/7G+5mbNJKK7ggZzCFEkxa9ZlNhAMeDoUlyV9w8zRFA6ElyXRhOOSaUM2lKlooqHswB09FucShP6j1WvVTsH
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:34:07.8045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbc5314e-d5d6-4d35-9196-08df4043e628
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,144 +126,124 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 10:05:06PM +0100, sascha@eder.earth wrote:
-> Hi,
-> 
-> thank you for the speedy reply :)
-> 
-> > Cursor plane support is a WIP, you can test out [1] on your end.
-> 
-> That is exactly the fix I was hoping for.
-> 
-> Which tree and commit does the patch apply to?
-> 
-> My guest runs Debian 13 with kernel 6.12, where the driver still has the
-> hyperv_ prefix and the simple display pipe,
-> so I would build the tree you name with the patch on top and report back.
-> 
+From: Peter Colberg <peter@colberg.org>
 
-Development for the driver is done on drm-misc-next[1], so I would
-suggest testing it on there.
+Wrap pci_enable_sriov() and pci_disable_sriov() on Device<CoreInternal>
+for use by the SR-IOV callback tokens and their rollback guard.
+Keep these operations internal so drivers can only enable or disable
+VFs through the callback-scoped API introduced later in this series.
 
-[1] https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-misc-next
+Stub both helpers when CONFIG_PCI_IOV is disabled, so the SR-IOV API
+builds regardless and drivers need no configuration guards.
 
-> If you happen to have a version for 6.12, I can test that as well.
-> 
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Peter Colberg <peter@colberg.org>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Simon Song <xinmengs@nvidia.com>
+---
+ rust/helpers/pci.c     | 11 ++++++++++
+ rust/kernel/pci.rs     |  1 +
+ rust/kernel/pci/iov.rs | 48 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 60 insertions(+)
+ create mode 100644 rust/kernel/pci/iov.rs
 
-Quite a lot has changed in the DRM subsystem since then so I doubt my patch
-applies cleanly there or works as expected.
+diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
+index a8540f90b13c..a87b5a77efef 100644
+--- a/rust/helpers/pci.c
++++ b/rust/helpers/pci.c
+@@ -41,6 +41,17 @@ __rust_helper u32 rust_helper_pci_ext_cap_next(u32 header)
+ }
+ 
+ #ifndef CONFIG_PCI_IOV
++__rust_helper int rust_helper_pci_enable_sriov(struct pci_dev *pdev,
++					       int nr_virtfn)
++{
++	return pci_enable_sriov(pdev, nr_virtfn);
++}
++
++__rust_helper void rust_helper_pci_disable_sriov(struct pci_dev *pdev)
++{
++	pci_disable_sriov(pdev);
++}
++
+ __rust_helper unsigned int
+ rust_helper_pci_sriov_get_totalvfs(struct pci_dev *pdev)
+ {
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 769d01d23429..8a4af261d1d4 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -36,6 +36,7 @@
+ mod cap;
+ mod id;
+ mod io;
++mod iov;
+ mod irq;
+ 
+ pub use self::cap::{
+diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
+new file mode 100644
+index 000000000000..18e42b2d3965
+--- /dev/null
++++ b/rust/kernel/pci/iov.rs
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Abstractions for PCI Single Root I/O Virtualization (SR-IOV) drivers.
++
++use super::Device;
++
++use crate::{
++    bindings,
++    device,
++    error::to_result,
++    prelude::*, //
++};
++
++impl Device<device::CoreInternal<'_>> {
++    /// Enable the Single Root I/O Virtualization (SR-IOV) capability for this device,
++    /// where `nr_virtfn` is number of Virtual Functions (VF) to enable.
++    #[inline]
++    #[expect(dead_code)]
++    pub(crate) fn enable_sriov(&self, nr_virtfn: u16) -> Result {
++        // SAFETY:
++        // - `self.as_raw` returns a valid pointer to a `struct pci_dev`.
++        //
++        // - `pci_enable_sriov()` checks that the enable operation is valid:
++        //   - the device is a Physical Function (PF),
++        //   - SR-IOV is currently disabled, and
++        //   - `nr_virtfn` does not exceed the total number of supported VFs.
++        //
++        // - The `CoreInternal` device context inherits from the `Bound` device context,
++        //   which guarantees that the PF device is bound to a driver.
++        to_result(unsafe { bindings::pci_enable_sriov(self.as_raw(), nr_virtfn.into()) })
++    }
++
++    /// Disable the Single Root I/O Virtualization (SR-IOV) capability for this device.
++    #[inline]
++    #[expect(dead_code)]
++    pub(crate) fn disable_sriov(&self) {
++        // SAFETY:
++        // - `self.as_raw` returns a valid pointer to a `struct pci_dev`.
++        //
++        // - `pci_disable_sriov()` checks that the disable operation is valid:
++        //   - the device is a Physical Function (PF), and
++        //   - SR-IOV is currently enabled.
++        //
++        // - The `CoreInternal` device context inherits from the `Bound` device context,
++        //   which guarantees that the PF device is bound to a driver.
++        unsafe { bindings::pci_disable_sriov(self.as_raw()) };
++    }
++}
+-- 
+2.43.7
 
-Hamza
-
-> regards
-> 
-> Sascha
-> 
-> 
-> 
-> Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
-> 
-> > Hi,
-> > 
-> > On Wed, Nov 11, 2026 at 12:13:16PM +0100, sascha@eder.earth wrote:
-> > > Hi,
-> > > 
-> > > I am a Windows developer porting some of my own desktop tools to Linux, and
-> > > I use a Debian guest on Hyper-V to judge how they look and feel there.
-> > > 
-> > > The static picture is good, the mouse pointer is not, and I think the cause
-> > > is small and fixable in hyperv_drm. I am writing because this is the first
-> > > thing a Windows developer notices when trying Linux on their own machine: as
-> > > long as a Linux VM feels sluggish next to a Windows VM on the same host, few
-> > > of us will move a repo over and be happy about it.
-> > > 
-> > > Setup
-> > > - Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session
-> > > (vmconnect), 3840x2160 display
-> > > - Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm (Synthvid 3.5),
-> > > KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
-> > > - 4 vCPUs, about 7 GB RAM
-> > > 
-> > > What I saw so far:
-> > > 
-> > > - The pointer trails the hand by a small constant delay. Fast, long
-> > > movements (taskbar to top of the screen) are visibly laggy, not just
-> > > slightly off.
-> > > 
-> > > - A Windows guest on the same host, same viewer, same mouse is smooth -
-> > > directly, and even when the host itself is reached through RDP. The Debian
-> > > guest lags in both cases.
-> > > 
-> > > - While moving the pointer: kwin_wayland uses 35-50 % of one core, a kworker
-> > > (events_unbound) 13-21 %, and the VM is about 80 % idle. Adding vCPUs
-> > > changes nothing, so it is not a lack of CPU.
-> > > 
-> > > - A smaller cursor and disabling KDE's shake-to-enlarge effect helped a
-> > > little. A plain color desktop did not.
-> > > 
-> > > What I think the cause is (from reading the driver, I have not patched it)
-> > > 
-> > > 1. hyperv_drm exposes only the primary plane. There is no cursor plane, so
-> > > the compositor has to paint the pointer into the framebuffer, and every
-> > > movement goes through compositing, the "blit to VRAM" and the dirt message.
-> > > 
-> > > 2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(), so the old
-> > > and the new pointer position become one bounding rectangle. For a long or
-> > > diagonal move at 4K that is a large part of the screen per pointer step,
-> > > which matches the more noticable lag (much worse) on big movements.
-> > > 
-> > > 3. The protocol already has what is needed. hyperv_hide_hw_ptr() exists
-> > > because, as its commit message says, "Hyper-V supports a hardware cursor
-> > > feature. It is not used by Linux VM, but the Hyper-V host still draws" a
-> > > pointer; the driver hides it by sending a 1x1 transparent ARGB shape with
-> > > SYNTHVID_POINTER_SHAPE. So the host does accept a shape from a Linux guest
-> > > and does draw the pointer itself.
-> > > 
-> > > Proposal:
-> > > 
-> > > Add a cursor plane to hyperv_drm (up to SYNTHVID_CURSOR_MAX_X/Y, 96x96,
-> > > ARGB) that sends the compositor's cursor image and hot spot through
-> > > SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and re-sends it on
-> > > SYNTHVID_FEATURE_CHANGE where the hide call is made today.
-> > > 
-> > 
-> > Cursor plane support is a WIP, you can test out [1] on your end.
-> > 
-> > [1] https://patchwork.freedesktop.org/patch/761562/
-> > 
-> > Hamza
-> > 
-> > > With cursor hot-spot support for virtualized drivers, compositors would then
-> > > leave the pointer to the host, as Windows guests do, and pointer movement
-> > > would cause no framebuffer damage at all.
-> > > 
-> > > Independently of that, handling damage clips individually instead of merged
-> > > would reduce the cost of the software-cursor fallback (cursors larger than
-> > > 96x96).
-> > > 
-> > > A second, smaller item found on the way:
-> > > 
-> > > With Set-VMVideo set to 3840x2160 (Maximum), the guest offers modes only up
-> > > to 2560x1600. The connector's modes come from drm_add_modes_noedid(), and
-> > > 3840x2160 is not in that table, so it only appears with
-> > > video=Virtual-1:3840x2160 on the kernel command line. Adding the host's
-> > > maximum (or preferred) resolution as an explicit mode would make 4K hosts
-> > > work without that step.
-> > > 
-> > > I can test patches on this setup and report back. I am not in a position to
-> > > write the kernel change myself (drivers are not my field of work at all).
-> > > 
-> > > Thanks for maintaining the driver.
-> > > 
-> > > Sascha Eder
-> > > 
-> > > 
-> 
-> 
