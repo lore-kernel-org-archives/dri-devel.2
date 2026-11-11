@@ -2,36 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F85606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 21:40:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2A1606A893
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 22:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=zFcd0/Cb
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PQ+yCv+h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E70110FE77;
-	Wed, 11 Nov 2026 21:40:25 +0000 (UTC)
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6943910FE77
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 21:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=Subject:To:From:Reply-To:Cc:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=Pk1d4FIc1e+8jPoKAjk96xMQdhYfXOh9uAYt7f04oRE=; t=1794433219; x=1795642819; 
- b=zFcd0/CbwR4BFzJvMCRGwIvXsFxZXXypeQEFwwHI6jULi/XQ/ZvP9wtew34OSsyBreEXyJOaeuA
- LrhLqbgVup+HTrV5Lc6L4fLSeHqAGPyAdINenz/jBUGanWT8+AAE9FeMv+LqqnpyD27zGCSYBbAsL
- oyU8cc6oKBF0USDRR9b0qSWY8uLH9YblpILYlW3gbRueUfYzhaXPg612pxJQzjUkYWkhM9rCArBpM
- M/salqRBZxb8rpKqTHqPAsYcurU0fu/nnOzTh9wvf0uMQMkDq+atbaWE++lkrMU0faj/szpiHjo0C
- N64+xwjNpTzT8N9XLKV4eATrBmqIqvdeUOsw==;
-Date: Wed, 11 Nov 2026 22:40:15 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org, Tomi
- Valkeinen <tomi.valkeinen@ideasonboard.com>, bparrot@ti.com
-Subject: [BUG] WARN() after second suspend on omapdrm
-Message-ID: <20261111224015.2003c9ba@kemnade.info>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0DE10E3FF;
+	Wed, 11 Nov 2026 22:01:53 +0000 (UTC)
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com
+ [209.85.161.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF9E10E208
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 22:01:47 +0000 (UTC)
+Received: by mail-oo1-f45.google.com with SMTP id
+ 006d021491bc7-6ddef424972so3050634eaf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 14:01:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794434506; x=1795039306; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
+ b=PQ+yCv+hSqZCZO7ucUwD/TSplWH1JpjFlDY/Hr8ffST9gL0ZWHFKNdajoviLKBYN8a
+ 4wwPEtfX7YbKw7asiY+9T8D2a08V4eDbo/q/2WNVNgS+PVut2FWb47SpLri0Zw10yq6n
+ wGm7mEx8AmS/cHGCGYADE711gukNd/HyYtsmcs9Um1MI+CwbzA4NnhgIX71ZiKgaZfEv
+ bkmiGq/n+u6K1j2JdiIpYiSQ3HizlVeGRXJqHZhqmIDFAshBkIHutDCRRPKSMqTl+2o7
+ xyysk5vUYSSEgZCkLon4Tb/ZKxMRHgFOoCyu/PvnsU+YXAJJcPhCe0SGn1un+LSMtpz5
+ Nh3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794434506; x=1795039306;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
+ b=JZrIRnr5ZMTTuQm8gaqwlLXgHRxqZNxs9h7oouviCCCFIj8TnTkjD0MRda3gZXocAh
+ eaPsc9+0zFVEkLGvIyEqFoks+ESmRxcpC3r+HLyy+tCWLZUOzbci9a0hPke/2CR+7GkI
+ 5XCHRAB+VxJFg6Gp/aul0vfDrDwU3QIDm0h2AyQnYWfaE9FWddbw+EXbrgeNh0uZmmmh
+ S0cSpwfs3EujismtY5VWBfrlOhGlJbr90HlMHPR8/4gvwnNjaCi3UEmkLKRGZXb1iRx3
+ coq9Ysi71eWUuHvL+8m3nFmO/NAhDItnCZCUSc8YwvZMKfhNZboLSWTra2FZPUvbLLQA
+ xUaQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGmMNnYc2Xj3iQovXYBkWzBJXh+tNYsi6v+V3hOjGZ80e3kZi1LW3EIxEtoIT0JwIR2oj2hyXMQF5g=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+/p0YViUEPV+NqH2dLAHJw3MRHhyjIRgqFTvBriUy/0cHzLQ2S
+ 4ClVH6uQxvBc41Or0f3L1dDOZl7KtuWlabYeqL1Ybdr7qMlvtqDIySM2
+X-Gm-Gg: AYBFou0jilbDojst+EbZ/O+5lf32YeBgo7U2ky25qBUuGLOT+WAt74jRFi0opTYKX6r
+ 6LqkVfag/SHgwS4z5ynLVBWu6AcoXAIeeUB+7fxdtH+GD9B6yf3CjC4r8q57dPJnZE2TM0LOyaE
+ ZvTG6xprtFEY46femAHKFC3zLi4KGMgEjKe9vY3sn8hDlUgaxYKTE/TOZAQq8migZTLAndRti7e
+ AJv0zAVZqMgIEsoYAC9RhnMlUXIA3hLW3H1mPGzR3g7AVvqD4QYHah52eqKqunLJfOmb3d01/jO
+ gRZQz6QzL1isWGeVjgbSAzahgQ0KWBACqFYS/VTRHZgaBlJmC8RfMj1egxsm5bFgorWVRtxgi/G
+ kI/p9ovKpuJ2fBowMOYuDc5dVMojXpwwFZgzoMOY25AhX3+N+sJpoKBk73uYsDt8/KoZHSzl8/s
+ J0k/rc9rRolLIm9c/tyV3Iw9zQFftfAJv4RhRO+QGEvpJiwyptMnysK/SBqUGxlnMFq3F1IHQJm
+ yQT9VPqDWnGonv4zDTOcl+gwV0JFQBtfIQy9+GIxe0b0B/yuGi4hbk34MkAvbJCYPyEPcADzGGy
+ PL/FTcV8ACQrtdPbQjJkZCPX15vTU2wf5NfxbENxskFbFFidaoRmMH1frZme9nOcQzqqplGvXHR
+ qlxN8THTfJwQB6O9FnZ4luN4Fby3kmZFtJkGq27ZAIpatJ1XNeu5IQWhsJKe9ZBl9TPnBTAr/gp
+ pJfw==
+X-Received: by 2002:a05:6820:1ca8:b0:717:866:abef with SMTP id
+ 006d021491bc7-7191789058bmr2582841eaf.34.1794434501099; 
+ Wed, 11 Nov 2026 14:01:41 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4ae23095c5csm4206140fac.16.2026.11.11.14.01.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 14:01:39 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>, Kees Cook <kees@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH v2] drm/exynos: fimc: allocate formats as a flexible array
+ member
+Date: Wed, 11 Nov 2026 14:01:29 -0800
+Message-ID: <20261111220129.12128-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,107 +92,81 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+The formats array is allocated separately with devm_kcalloc() and only
+referenced through the fimc_context. Make it a flexible array member at
+the end of the context and allocate both in one go.
 
-This is an older bug, no idea what strange side effects it might have:
+Annotate it with __counted_by(num_formats) so the array accesses can be
+bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
 
-[ 1841.775390] PM: suspend entry (deep)
-[ 1841.775726] Filesystems sync: 0.000 seconds
-[ 1841.776824] Freezing user space processes
-[ 1841.778594] Freezing user space processes completed (elapsed 0.001 secon=
-ds)
-[ 1841.778625] OOM killer disabled.
-[ 1841.778625] Freezing remaining freezable tasks
-[ 1841.806243] Freezing remaining freezable tasks completed (elapsed 0.027 =
-seconds)
-[ 1841.806274] printk: Suspending console(s) (use no_console_suspend to deb=
-ug)
-[ 1841.833557] ------------[ cut here ]------------
-[ 1841.833587] WARNING: drivers/gpu/drm/omapdrm/omap_overlay.c:123 at omap_=
-plane_atomic_check+0x1ec/0x438 [omapdrm], CPU#0: rtcwake/813
-[ 1841.833740] Modules linked in: omapdrm wl18xx wlcore mac80211 libarc4 us=
-b_f_mass_storage panel_tpo_td028ttec1 usb_f_ncm u_ether libcomposite cfg802=
-11 joydev mousedev evdev snd_soc_simple_card spi_gpio spi_bitbang snd_soc_s=
-imple_card_utils snd_soc_omap_twl4030 pwm_omap_dmtimer simple_bridge phy_ge=
-neric display_connector cpufreq_dt pwm_bl gpio_keys omap_wdt bmg160_spi bmp=
-280_spi bq27xxx_battery_hdq bq27xxx_battery omap_sham wlcore_sdio omap_rng =
-omap_aes_driver crypto_engine rng_core omap_crypto ledtrig_default_on omap2=
-430 phy_twl4030_usb musb_hdrc omap_hdq wire cn hwmon bmp280_i2c udc_core bm=
-g160_i2c bmg160_core bmp280 usbcore twl4030_wdt bno055_i2c leds_tca6507 wat=
-chdog at24 tsc2007 usb_common bno055 rtc_twl led_class hci_uart btbcm snd_s=
-oc_twl4030 snd_soc_omap_mcbsp snd_soc_ti_sdma twl4030_pwrbutton bluetooth s=
-nd_soc_core twl4030_madc pwm_twl_led pwm_twl snd_pcm_dmaengine twl4030_char=
-ger snd_pcm bmc150_accel_i2c bmc150_accel_core bmc150_magn_i2c bmc150_magn =
-industrialio_triggered_buffer kfifo_buf snd_timer
-[ 1841.834350]  industrialio ecdh_generic ecc crc_ccitt snd soundcore omap_=
-mailbox rfkill drm_client_lib drm_display_helper cec drm_panel drm_kms_help=
-er drm omap_ssi hsi drm_panel_orientation_quirks [last unloaded: omapdrm]
-[ 1841.834503] CPU: 0 UID: 0 PID: 813 Comm: rtcwake Not tainted 7.4.0-rc2-0=
-0005-g105c1f8efb05 #213 VOLUNTARY=20
-[ 1841.834533] Hardware name: Generic OMAP36xx (Flattened Device Tree)
-[ 1841.834533] Call trace:=20
-[ 1841.834564]  unwind_backtrace from show_stack+0x28/0x2c
-[ 1841.834594]  show_stack from dump_stack_lvl+0x34/0x70
-[ 1841.834655]  dump_stack_lvl from __warn+0xf0/0x1fc
-[ 1841.834686]  __warn from warn_slowpath_fmt+0x124/0x17c
-[ 1841.834716]  warn_slowpath_fmt from omap_plane_atomic_check+0x1ec/0x438 =
-[omapdrm]
-[ 1841.834838]  omap_plane_atomic_check [omapdrm] from drm_atomic_helper_ch=
-eck_planes+0x104/0x230 [drm_kms_helper]
-[ 1841.834991]  drm_atomic_helper_check_planes [drm_kms_helper] from drm_at=
-omic_helper_check+0x58/0xa0 [drm_kms_helper]
-[ 1841.835052]  drm_atomic_helper_check [drm_kms_helper] from omap_atomic_c=
-heck+0x28/0x20c [omapdrm]
-[ 1841.835144]  omap_atomic_check [omapdrm] from drm_atomic_check_only+0x5d=
-0/0x9fc [drm]
-[ 1841.835449]  drm_atomic_check_only [drm] from drm_atomic_commit+0x78/0xe=
-4 [drm]
-[ 1841.835693]  drm_atomic_commit [drm] from drm_atomic_helper_disable_all+=
-0x170/0x1cc [drm_kms_helper]
-[ 1841.835845]  drm_atomic_helper_disable_all [drm_kms_helper] from drm_ato=
-mic_helper_suspend+0xb8/0x1b4 [drm_kms_helper]
-[ 1841.835937]  drm_atomic_helper_suspend [drm_kms_helper] from drm_mode_co=
-nfig_helper_suspend+0x44/0x80 [drm_kms_helper]
-[ 1841.835998]  drm_mode_config_helper_suspend [drm_kms_helper] from dpm_ru=
-n_callback+0x5c/0x1fc
-[ 1841.836059]  dpm_run_callback from device_suspend+0x2cc/0x728
-[ 1841.836090]  device_suspend from dpm_suspend+0x1d8/0x34c
-[ 1841.836120]  dpm_suspend from dpm_suspend_start+0x50/0x80
-[ 1841.836151]  dpm_suspend_start from suspend_devices_and_enter+0x70/0x894
-[ 1841.836181]  suspend_devices_and_enter from pm_suspend+0x264/0x3f4
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: use devm_kzalloc_flex().
+ drivers/gpu/drm/exynos/exynos_drm_fimc.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-The system is the GTA04 with DPI panel attached.
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+index 9c2ad95799ee..9233cd3b2f04 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+@@ -99,7 +99,6 @@ struct fimc_context {
+ 	void		*dma_priv;
+ 	struct device	*dev;
+ 	struct exynos_drm_ipp_task	*task;
+-	struct exynos_drm_ipp_formats	*formats;
+ 	unsigned int			num_formats;
+ 
+ 	void __iomem	*regs;
+@@ -108,6 +107,7 @@ struct fimc_context {
+ 	struct fimc_scaler	sc;
+ 	int	id;
+ 	int	irq;
++	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
+ };
+ 
+ static u32 fimc_read(struct fimc_context *ctx, u32 reg)
+@@ -1273,19 +1273,16 @@ static int fimc_probe(struct platform_device *pdev)
+ 	if (exynos_drm_check_fimc_device(dev) != 0)
+ 		return -ENODEV;
+ 
+-	ctx = devm_kzalloc_obj(dev, *ctx);
++	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
++	ctx = devm_kzalloc_flex(dev,*ctx, formats, num_formats);
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 
++	ctx->num_formats = num_formats;
++	formats = ctx->formats;
+ 	ctx->dev = dev;
+ 	ctx->id = of_alias_get_id(dev->of_node, "fimc");
+ 
+-	/* construct formats/limits array */
+-	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
+-	formats = devm_kzalloc_objs(dev, *formats, num_formats);
+-	if (!formats)
+-		return -ENOMEM;
+-
+ 	/* linear formats */
+ 	if (ctx->id < 3) {
+ 		limits = fimc_4210_limits_v1;
+@@ -1319,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
+ 		formats[j].num_limits = num_limits;
+ 	}
+ 
+-	ctx->formats = formats;
+-	ctx->num_formats = num_formats;
+-
+ 	/* resource memory */
+ 	ctx->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(ctx->regs))
+-- 
+2.56.1
 
-How to reproduce: boot to console, suspend twice.
-
-The waring is from omap_overlay_release()
-        if (WARN_ON(!overlay_map[overlay->idx]))
-
-Observations: omap_overlay_assign() only get called initially.
-omap_overlay_release() gets called on first suspend without
-errors. No omap_overlay_assign() call after that.=20
-
-Then on second suspend, the WARN() comes. After resume the display
-comes up back again. But that all feels not healthy.
-
-Verdict:
-
-omap_plane_atomic_check() releases overlay and zeros the pointer when suspn=
-ed
-going from visible -> invisible. On resume when going from invisible -> vis=
-ible somehow
-an old state pops up with that old overlay pointer.
-
-commit
-2e54ff0e54308 ("drm/omap: dynamically assign hw overlays to planes")
-is probably involved.
-
-Regards,
-Andreas
