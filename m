@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E37606A338
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05DF606A337
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=lzjeIqu+
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=so4YXkvF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49AD10FDC2;
-	Wed, 11 Nov 2026 16:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 862EB10FDDF;
+	Wed, 11 Nov 2026 16:09:21 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C769010FD62;
- Wed, 11 Nov 2026 16:09:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F12BB10FD40;
+ Wed, 11 Nov 2026 16:09:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=IH1IrCh1AI5My9yEGrI2C/SDhX0IyneiDvEbL4p4nLg=;
- t=1794413342; x=2109773342; b=lzjeIqu+dRTexTYq9BVvjii6GF5RHnEDBqs1lAU8qREtYCG
- btb/VE+9vc/AYyy0IDtYEXzbVQdz6sXDrwVPxXXBl6Sbt6b52CymeYI3QkcDHefx4yl9FVDuMDzEU
- EmyB95EyyNus8mJU9GQ8IM8b7coahBuuhnw7e9dCS6R3xzfbiREwkqHmrrkt4b8i0LppOkD1sEyvV
- AEAaeZMYbIyfVOKrgham6mOmRg2Qc60fJ6vhE7RmmZJfpSkcDgwTO/hSUN9+tQurJziSwv87low/l
- Aj+71ACVJZxdHFqxmfHY7YyM81NHoOTCPJJoHqd8ZyW3HCzhZq5f/l4nxbfadmbQ==;
+ Cc:To:From:From:Reply-To; bh=/y5qYFZc99vTFQFHCcGT764DjvoopXBmEK09vTZo0IY=;
+ t=1794413340; x=2109773340; b=so4YXkvFWmWNf2gV40cp06gV/k3bRlaDadkLRoKv6ep60Fn
+ MQ8/cu+TicuK/ngM5IR1l2rpEYiBk186JoYwrlCAvV0R5Inyh+zHWBSELiw17dZEXYnM6RJ1o2+gz
+ O2Q9xTlpmrYwoy0g1N9fWDyksBXe8TSoCFf7Q1Sdp8Zp2jL0Qs+HzcrR6AAeaaC3/IgXr/jTwNslN
+ xMn9IhZbgo3i6xGhN1PMhvMLydPyTq46dHCWCGTUImz1dAzgHsl6Wa4QL48smGpuvghdfo1HwJd/7
+ hR+IKoUkJfjxF9cudgwi+HZLqlYUWPv+uPICBy2CLSfuByzBPEUCYHaZkckUcayg==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsK-008u8Y-AZ; Wed, 11 Nov 2026 17:08:40 +0100
+ id 1xRAsJ-008u8Y-9m; Wed, 11 Nov 2026 17:08:39 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,9 +45,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 10/15] drm/amd/display: make shaper bypass mode cleaner
-Date: Wed, 11 Nov 2026 17:05:23 +0100
-Message-ID: <20261111160814.21326-11-mwen@igalia.com>
+Subject: [PATCH v5 09/15] drm/amd/display: truly bypass plane colorop 3x4
+ matrix and hdr mult
+Date: Wed, 11 Nov 2026 17:05:22 +0100
+Message-ID: <20261111160814.21326-10-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -73,62 +74,54 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Start shaper transfer function setup in bypass mode, i.e. tf->type ==
-TF_TYPE_BYPASS and let the helper checks set it to a different mode
-according to userspace request. It's aligned with current blend setup.
+Latent issue as the driver is currently just skipping programming 3x4
+matrix and hdr multiplier blocks on bypass. Reset to default values if
+the bypass property is set true.
 
+Fixes: 16e0f785b87f ("drm/amd/display: add 3x4 matrix colorop")
+Fixes: de0b0eb2e045 ("drm/amd/display: add multiplier colorop")
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c    | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 59dfae5a4a26..6455898e2da9 100644
+index ebb05a20aa0c..59dfae5a4a26 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1766,10 +1766,12 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	const struct drm_color_lut32 *shaper_lut;
- 	struct drm_device *dev = colorop->dev;
--	bool enabled = false;
- 	u32 shaper_size;
- 	int i = 0, ret = 0;
- 
-+	tf->type = TF_TYPE_BYPASS;
-+	dc_plane_state->cm.flags.bits.shaper_enable = 0;
-+
- 	/* 1D Curve - SHAPER TF: find state */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-@@ -1803,7 +1805,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 		ret = __set_output_tf(tf, 0, 0, false);
- 		if (ret)
- 			return ret;
--		enabled = true;
-+		dc_plane_state->cm.flags.bits.shaper_enable = 1;
- 	}
- 
- 	if (lut_state && !lut_state->bypass) {
-@@ -1819,17 +1821,10 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 			ret = __set_output_tf_32(tf, shaper_lut, shaper_size, false);
- 			if (ret)
- 				return ret;
--			enabled = true;
-+			dc_plane_state->cm.flags.bits.shaper_enable = 1;
+@@ -1693,7 +1693,13 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
  		}
  	}
  
--	if (!enabled) {
--		tf->type = TF_TYPE_BYPASS;
--		dc_plane_state->cm.flags.bits.shaper_enable = 0;
--	} else {
--		dc_plane_state->cm.flags.bits.shaper_enable = 1;
--	}
--
- 	return 0;
- }
+-	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_CTM_3X4) {
++	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
++		if (colorop_state->bypass) {
++			dc_plane_state->gamut_remap_matrix.enable_remap = false;
++			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
++			return 0;
++		}
++
+ 		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
+ 		blob = colorop_state->data;
+ 		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
+@@ -1733,9 +1739,13 @@ __set_dm_plane_colorop_multiplier(struct drm_plane_state *plane_state,
+ 		}
+ 	}
  
+-	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_MULTIPLIER) {
+-		drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
+-		dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
++	if (colorop_state && colorop->type == DRM_COLOROP_MULTIPLIER) {
++		if (colorop_state->bypass) {
++			dc_plane_state->hdr_mult = dc_fixpt_one;
++		} else {
++			drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
++			dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
++		}
+ 	}
+ 
+ 	return 0;
 -- 
 2.53.0
 
