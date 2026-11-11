@@ -2,68 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C299606A335
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:03:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F66606A895
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 13:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=iUCXqri5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bY88ne8f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A54A10E6F0;
-	Wed, 11 Nov 2026 13:03:53 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A556610E2FC
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:03:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794402226; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Zh2WZxtb83wiwRb55pRxREL5E1WrfyKssqgEz5SCi92CW7JIemCmbhV1yFx0zfNB4HLzo8ucwBbftVkLr8vLtgD56heloJGjJgeTIpoKIPN1wz78hTT3/+TZi/eb1dMj5ClJklA/Z3JK5IrLbAAdGPnlaYaxMvu3CE0W/NlAuPM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794402226;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YNKbqnPxAy2kyKtQIxYMphXXlBnE1sy3rQHY1OtNP0o=; 
- b=X1e+dM4k5IyuX5JjIXL+KLKDEqYIKs41O9z/fGRRTjynLSKGIxsjl0FssYE1L2yN4mZ6C0KDur/CqyYGa4rAeDAGaEr2b8LIJjlp2ZbsbM2m+8y0EBxqmeyK9HgEK0giPBHk+l4MiP/OJBe/tyuxs1850SNCYWoK9GOqkB97Dcg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=iUCXqri5yD3OP75C+gC4ZVBcwt7hvAazBVIpSV6pFx/07tOgbLBtVVSxIUNAv/0n4+eU7RBrPLRQWqStItspt3s+uOKz6SL0SV8ozwbF2aTNZSYNI0Y2jfpU6onvXsM1UoXvLro64Lc8Ml6TkQkxTKCa8wdofnk8RVLnsSU5kzQ=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=YNKbqnPxAy2kyKtQIxYMphXXlBnE1sy3rQHY1OtNP0o=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794402223658550.9611442995573;
- Wed, 11 Nov 2026 05:03:43 -0800 (PST)
-Content-Type: text/plain;
-	charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9D310E2D6;
+	Wed, 11 Nov 2026 13:04:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE75C10EBED
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:03:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E6C3438B4;
+ Wed, 11 Nov 2026 13:03:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B07C1F00A05;
+ Wed, 11 Nov 2026 13:03:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794402238;
+ bh=AWaIRPGVBwDKyVXL8rFvxOr7TIsCYjaMi2R2yUDvOKI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bY88ne8fKH+AMIpDjGgLPKo2tQ3gBNt/paxmaTdDQeVQ9jEMzkXYg0fc6aof9e3cj
+ +EL8B7FEAS7BYmklA4wBXRvGufXIl+4383D4TJznpHT8v/vh7XnIIHfw52NMLud/Hf
+ BY9iJWiDXU1ZIXK8iFaRtcG30l7q0cJpAUA/sFeisFkFs5XsIcB41DFYXWNjHedPui
+ DCH57s3lM2cHITACQwufd/q6xziE6/X5QBouCIQkjCkxWYMssR7RMiKKK11PgXzwVW
+ 11bIbTeGD+XulA/fHEmYWO17PgqnlOTLjZyJgmUDH0YjVD2kWQrrVru4kDW+uIYHhY
+ xqbonlRzll3bw==
+Date: Wed, 11 Nov 2026 14:03:54 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michiel van Beers <michielvanbeers@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Helge Deller <deller@gmx.de>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: backlight: lm3630a: Add led-max-microamp
+Message-ID: <20261111-cute-impetuous-otter-0d70c2@quoll>
+References: <20261107-lm3630a-led-max-microamp-v1-0-ec9e441d9b2c@gmail.com>
+ <20261107-lm3630a-led-max-microamp-v1-1-ec9e441d9b2c@gmail.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 0/7] rust: io: add read-only and write-only views and
- registers
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20261020080147.1743459-1-aliceryhl@google.com>
-Date: Wed, 11 Nov 2026 10:03:25 -0300
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <D2C021BF-4C1D-46B7-A6CF-9C76C56805B0@collabora.com>
-References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
- <20261020080147.1743459-1-aliceryhl@google.com>
-To: Alice Ryhl <aliceryhl@google.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261107-lm3630a-led-max-microamp-v1-1-ec9e441d9b2c@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,30 +58,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sat, Nov 07, 2026 at 01:13:54PM +0100, Michiel van Beers wrote:
+> The LM3630A has a full-scale current setting per control bank, from
+> 5 mA to 28.25 mA in steps of 750 uA. Boards whose LED strings are rated
+> for less than the chip default of 28.25 mA have no way to describe that
+> limit.
+> 
+> Add the common led-max-microamp property to the led@0 and led@1 nodes.
+> The property is optional, so existing devicetrees remain valid.
+> 
+> Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
+> ---
+>  .../devicetree/bindings/leds/backlight/lm3630a-backlight.yaml    | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> index 6393cbf3afdf..a031679d5468 100644
+> --- a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> +++ b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+> @@ -77,6 +77,14 @@ patternProperties:
+>          minimum: 0
+>          maximum: 255
+>  
 
-Gary,
+I do not see in this node reference to LEDs common.yaml. You need it for
+any common properties.
 
-> On 20 Oct 2026, at 05:01, Alice Ryhl <aliceryhl@google.com> wrote:
-> 
-> On Thu, Oct 15, 2026 at 04:19:40PM -0300, Daniel Almeida wrote:
->> This series adds read-only and write-only I/O views, and the #[ro]
->> and #[wo] attributes to register!. An access in the wrong direction
->> then does not compile.
-> 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> 
-> I heard a suggestion that it'd be better to drop the Io from these trait
-> names so they are just Readable and Writable, because not all
-> implementations do IO (i.e. if it's SysMem it's arguably not IO). Not
-> super important to me, though.
-> 
+Best regards,
+Krzysztof
 
-Any further thoughts on this series other than the feedback you have
-already shared?
