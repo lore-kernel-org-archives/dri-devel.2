@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B957C606A339
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 19:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45D26070066
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 19:24:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n8O2mIp8
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MEIVm5xo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D245410FBB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF0710E32D;
 	Wed, 11 Nov 2026 19:24:27 +0000 (UTC)
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAC410EAA4
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:20 +0000 (UTC)
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-4519ef1babeso2057656fac.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:20 -0800 (PST)
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3076910E456
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:18 +0000 (UTC)
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-4e937c5bd4fso2650750b6e.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794425059; x=1795029859;
+ d=google.com; s=20260707; t=1794425057; x=1795029857;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jeGS53i3H2ZA/AB75TkRMSZsgx42pQ2yxXWF/NRY1NA=;
- b=n8O2mIp87U9W+xx8mPwJpPDty+UfIqiHZnFKFthN6n2XNuNOz7TPvtuMP3hvbSPL4f
- Ic4Ir4U2pnOadK5IfbjACACv68r9jGQFaJcs+kVCPzaug1gE6FtBLm4t2gSiL5XAriRk
- oMJ5+reGyQYzhO4cWbgxgUtLD+XldRnwBjbm4kBvdh04gcUDlLd9cdwP07lqHGR2gF80
- 09ylxItAK4pxY7sgbnakDBCg63HlGUT7Rq7EsJHD2Bv12OJ2gajVFKZtoDO28dGloOSO
- S2dpQqaU+cJQz6Q8gMUZuBCmtc5/mBbYczwXJSvMd2fTItyIOqfIi4G1nVtaiBRFkvS3
- 22mw==
+ :content-type; bh=c1gmqyzGXPZYxPfKkRYqwd2gnFVkzUbXgN8JNV1Au+8=;
+ b=MEIVm5xogkTJ5iU25Gz01c+bAuWtOwQ52rGOI2y1MZ6jWQ8koXzy05t8WX5FaV7js0
+ g1TwWY2hgtqcfve1SydZuQTBaL7JhXlWOTPEbKzrHLbZTV0dbkfiUdJOv2P++BoROJQc
+ sAG85oDOXzOXIJiMyvm3jawmw7EKQ+p6+6kaG1BYkUU66ayrdfWfC4jkpWMSQdeKyi5V
+ Nxj2yerkyTEqbu1iiBZ2uTh7zB42jXWe3YBFY9ZPyMwzVc7aXfOdiHcb89SsuCD7RpoP
+ TzJEPUsjCGvHpUBqNmkyAVE/KU3OKGrGl3UvAVBMygna/BCv9xnxEZvubuxwnvkvn4xD
+ +uYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794425059; x=1795029859;
+ d=1e100.net; s=20260707; t=1794425057; x=1795029857;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=jeGS53i3H2ZA/AB75TkRMSZsgx42pQ2yxXWF/NRY1NA=;
- b=lk/EKv/Abcksm+ArK6FD6L70EEmbmR/4/7jPuhmbt3ToQN2gycQDeh9iy9g9ArgxNN
- 74as+/CjyvL87I2Eex5fEDmUyZu9ZjWC7umqCKcgWbueE0bUNXCjSiqtXwkm+uQEX9/h
- JgW4lYkMGoT01AFVfRhjGwSXqhc/5C1yVNpYO1X7c+OVb/9Hx7YuLR8pzak/LLAdBesO
- Tp+6lBn5fikKQrZ3tYte+qNWCWmuyW3nYeyYXfuCW3GmdsG18byf41PCKCIVChha+Izr
- 3jowK9AIblhgJXjuSywMCVfFhbr96ZuYBrTRnllTrlDMUyGtDaMjFEOsl5V7MbvXsDtt
- nzGA==
-X-Gm-Message-State: APuU4Z/NCAC4CB8P666yg/Nw7WVtajGrkZwDFy71RInu6YL8R+Vqa/sn
- 45LBFdoioegDgnvqGTF2wIBMVs+nrGbpBJ+FDmH8jGvCMNKqepnErNk9xy2Yyk5vdyrxs8TaxsE
- lzD0jGaOx5RjOxifkqV0xPg9Fc5n/MIfBGnJWElY+vw6MDC5EBXUV+ocuJlLZi/OBLZWtbCi6R+
- R84pGDuEXkXgSxA9Aw2v/kG3nODVxwY8ZUNMq9ArrPnVxac1b6B7hmUqNRqUY=
-X-Received: from jagm2.prod.google.com ([2002:a05:6638:40c2:b0:620:1989:fc1c])
+ bh=c1gmqyzGXPZYxPfKkRYqwd2gnFVkzUbXgN8JNV1Au+8=;
+ b=AEOpZnoenY+/+/XQXa6ZMdQbUmhn43/kxxrS1U/BfN+ivi2WlnhcAPamIp/sRAieAj
+ D2Xkq8h7oPud2iEnzmEZ4K/PCzS2dlhJQvCJg4Gg/zCV3SKdQI6lnV/KRmREFXZX4jHO
+ lt2oCgvZbLA8LE6Qd1gOBnJaKqNsbj7/C8k9OtEizatOurvwECqDN58I4bgHWpNujnCy
+ 6Js0iAFAK4aNkPKjrIbY6j/gpSlHamX81Cnfr6VaPclIySgW5K8S7vhNGz/mWuE+AlRZ
+ 8JIfu38dvfoJ3tsbJV+N4fdzo6TtgI6C11C0yHvAdZD7H7auL2rlhoTsP5cyViqp4ZAr
+ auIA==
+X-Gm-Message-State: APuU4Z++bDNpOfMIU/n67QkylFqOQG1mTwKcRAqj/vecfi/Ppw22uUrz
+ e92ZQUnDHV1rm3B3aOHR47XArrG/jNnBxTGRO/fBmB91Dr4GXQppWFCk1VjG7kj+4Mj073c+SO1
+ C1pV5L67IG1eqmzIqd3/8ETkk/F51zuQEORVCIeoMb7FYBaZF2c+7i8HKHgQOj7gW5OjCfwGTg0
+ TRtInVjptenA5LLnFe9Kt+6e0YTXfmiztp75PTqZ8B0lwyXfYh3XJ4f6KnFOc=
+X-Received: from ilbdx27-n1.prod.google.com
+ ([2002:a05:6e02:421b:10b0:53d:3ab5:58fa])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6809:19:20b0:567:cbf5:bb96 with SMTP id
- 5614622812f47-56cc533e313mr527002b6e.44.1794425059253; 
- Wed, 11 Nov 2026 11:24:19 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:24:07 +0000
+ 2002:a05:6808:1382:b0:567:f784:f939 with SMTP id
+ 5614622812f47-56b9791019amr2605655b6e.51.1794425056843; 
+ Wed, 11 Nov 2026 11:24:16 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:24:05 +0000
 In-Reply-To: <20261111192411.4133780-1-dmatlack@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261111192411.4133780-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111192411.4133780-4-dmatlack@google.com>
-Subject: [RFC PATCH 3/7] vfio: selftests: Allow multiple BDFs in
- VFIO_SELFTESTS_BDF
+Message-ID: <20261111192411.4133780-2-dmatlack@google.com>
+Subject: [RFC PATCH 1/7] vfio: selftests: Add vfio_pci_find_mem_bar() helper
 From: David Matlack <dmatlack@google.com>
 To: dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, 
  kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
@@ -94,108 +94,141 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Parse whitespace-separated PCI BDFs from VFIO_SELFTESTS_BDF in
-vfio_selftests_get_bdfs() instead of requiring a single BDF.
+From: Mina Almasry <almasrymina@google.com>
 
-Multi-device tests such as P2P DMA tests need two or more devices even
-when invoked through run_kselftest.sh without command-line arguments.
-Single-device callers using vfio_selftests_get_bdf() continue to receive
-the first BDF.
+Add vfio_pci_find_mem_bar() to libvfio to locate a BAR (or range within
+a BAR) of at least min_size bytes that behaves like ordinary memory and
+can be safely read and written without device-specific side effects.
 
+Detection is backed by a table of known devices, starting with QEMU's
+pci-testdev (1b36:0005) BAR 2 when configured with membar=<size> and
+membar-backed=on.
+
+Suggested-by: David Matlack <dmatlack@google.com>
+Cc: David Matlack <dmatlack@google.com>
+Cc: Matt Evans <matt@ozlabs.org>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+
+Reviewed-by: David Matlack <dmatlack@google.com>
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- tools/testing/selftests/vfio/lib/libvfio.c | 53 ++++++++++++++++------
- 1 file changed, 39 insertions(+), 14 deletions(-)
+ .../lib/include/libvfio/vfio_pci_device.h     | 10 +++
+ .../selftests/vfio/lib/vfio_pci_device.c      | 67 +++++++++++++++++++
+ 2 files changed, 77 insertions(+)
 
-diff --git a/tools/testing/selftests/vfio/lib/libvfio.c b/tools/testing/selftests/vfio/lib/libvfio.c
-index 3a3d1ed635c1..448d11442b53 100644
---- a/tools/testing/selftests/vfio/lib/libvfio.c
-+++ b/tools/testing/selftests/vfio/lib/libvfio.c
-@@ -2,6 +2,7 @@
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
+index 007adc322c1e..19d458adba1a 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
+@@ -15,6 +15,13 @@ struct vfio_pci_bar {
+ 	void *vaddr;
+ };
  
- #include <stdio.h>
- #include <stdlib.h>
-+#include <string.h>
- #include <sys/mman.h>
- 
- #include <linux/align.h>
-@@ -32,38 +33,62 @@ static char **get_bdfs_cmdline(int *argc, char *argv[], int *nr_bdfs)
- 	return *nr_bdfs ? &argv[i] : NULL;
++struct vfio_pci_mem_bar {
++	struct vfio_pci_bar *bar;
++	void *vaddr;
++	u64 offset;
++	u64 size;
++};
++
+ struct vfio_pci_device {
+ 	const char *bdf;
+ 	int fd;
+@@ -162,6 +169,9 @@ static inline bool vfio_pci_device_match(struct vfio_pci_device *device,
+ 		(device_id == vfio_pci_config_readw(device, PCI_DEVICE_ID));
  }
  
--static char *get_bdf_env(void)
-+static char **get_bdfs_env(int *nr_bdfs)
- {
--	char *bdf;
-+	static char **bdfs;
-+	static int count;
-+	char *env, *tok, *saveptr;
-+	int cap = 0;
++bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
++			   struct vfio_pci_mem_bar *mem_bar);
++
+ const char *vfio_pci_get_cdev_path(const char *bdf);
  
--	bdf = getenv("VFIO_SELFTESTS_BDF");
--	if (!bdf)
-+	if (bdfs) {
-+		*nr_bdfs = count;
-+		return bdfs;
-+	}
-+
-+	env = getenv("VFIO_SELFTESTS_BDF");
-+	if (!env)
- 		return NULL;
- 
--	VFIO_ASSERT_TRUE(is_bdf(bdf), "Invalid BDF: %s\n", bdf);
--	return bdf;
-+	env = strdup(env);
-+	VFIO_ASSERT_NOT_NULL(env);
-+
-+	for (tok = strtok_r(env, " \t\n", &saveptr); tok;
-+	     tok = strtok_r(NULL, " \t\n", &saveptr)) {
-+		VFIO_ASSERT_TRUE(is_bdf(tok), "Invalid BDF: %s\n", tok);
-+		if (count == cap) {
-+			cap = cap ? cap * 2 : 4;
-+			bdfs = realloc(bdfs, cap * sizeof(*bdfs));
-+			VFIO_ASSERT_NOT_NULL(bdfs);
-+		}
-+		bdfs[count++] = tok;
-+	}
-+
-+	if (!count) {
-+		free(env);
-+		return NULL;
-+	}
-+
-+	*nr_bdfs = count;
-+	return bdfs;
+ void vfio_pci_group_setup(struct vfio_pci_device *device, const char *bdf);
+diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+index 4063a0e2b3df..d5308fe61490 100644
+--- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
++++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+@@ -19,6 +19,7 @@
+ #include <linux/log2.h>
+ #include <linux/mman.h>
+ #include <linux/overflow.h>
++#include <linux/pci_ids.h>
+ #include <linux/sizes.h>
+ #include <linux/types.h>
+ #include <linux/vfio.h>
+@@ -245,6 +246,72 @@ static void vfio_pci_bar_unmap_all(struct vfio_pci_device *device)
+ 	}
  }
  
- char **vfio_selftests_get_bdfs(int *argc, char *argv[], int *nr_bdfs)
++#define PCI_DEVICE_ID_REDHAT_TEST	0x0005
++
++struct vfio_pci_mem_bar_desc {
++	u16 vendor_id;
++	u16 device_id;
++	u8 bar_index;
++	u64 offset;
++	u64 size;
++};
++
++static const struct vfio_pci_mem_bar_desc mem_bar_descs[] = {
++	/* QEMU pci-testdev with membar=<size>,membar-backed=on */
++	{
++		.vendor_id = PCI_VENDOR_ID_REDHAT,
++		.device_id = PCI_DEVICE_ID_REDHAT_TEST,
++		.bar_index = 2,
++	},
++};
++
++bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
++			   struct vfio_pci_mem_bar *mem_bar)
++{
++	const u32 rw_mmap_flags = VFIO_REGION_INFO_FLAG_MMAP |
++				  VFIO_REGION_INFO_FLAG_READ |
++				  VFIO_REGION_INFO_FLAG_WRITE;
++	size_t i;
++
++	for (i = 0; i < ARRAY_SIZE(mem_bar_descs); i++) {
++		const struct vfio_pci_mem_bar_desc *desc = &mem_bar_descs[i];
++		struct vfio_pci_bar *bar;
++		u64 size;
++
++		if (!vfio_pci_device_match(device, desc->vendor_id,
++					   desc->device_id))
++			continue;
++
++		VFIO_ASSERT_LT(desc->bar_index, PCI_STD_NUM_BARS);
++		bar = &device->bars[desc->bar_index];
++
++		if ((bar->info.flags & rw_mmap_flags) != rw_mmap_flags)
++			continue;
++
++		VFIO_ASSERT_NOT_NULL(bar->vaddr);
++
++		if (bar->info.size <= desc->offset)
++			continue;
++
++		size = bar->info.size - desc->offset;
++		if (desc->size)
++			size = min(size, desc->size);
++
++		if (size < min_size)
++			continue;
++
++		*mem_bar = (struct vfio_pci_mem_bar){
++			.bar = bar,
++			.vaddr = bar->vaddr + desc->offset,
++			.offset = desc->offset,
++			.size = size,
++		};
++		return true;
++	}
++
++	return false;
++}
++
+ void vfio_pci_config_access(struct vfio_pci_device *device, bool write,
+ 			    size_t config, size_t size, void *data)
  {
--	static char *env_bdf;
- 	char **bdfs;
- 
- 	bdfs = get_bdfs_cmdline(argc, argv, nr_bdfs);
- 	if (bdfs)
- 		return bdfs;
- 
--	env_bdf = get_bdf_env();
--	if (env_bdf) {
--		*nr_bdfs = 1;
--		return &env_bdf;
--	}
-+	bdfs = get_bdfs_env(nr_bdfs);
-+	if (bdfs)
-+		return bdfs;
- 
- 	fprintf(stderr, "Unable to determine which device(s) to use, skipping test.\n");
- 	fprintf(stderr, "\n");
--	fprintf(stderr, "To pass the device address via environment variable:\n");
-+	fprintf(stderr, "To pass the device address(es) via environment variable:\n");
- 	fprintf(stderr, "\n");
--	fprintf(stderr, "    export VFIO_SELFTESTS_BDF=\"segment:bus:device.function\"\n");
-+	fprintf(stderr, "    export VFIO_SELFTESTS_BDF=\"segment:bus:device.function ...\"\n");
- 	fprintf(stderr, "    %s [options]\n", argv[0]);
- 	fprintf(stderr, "\n");
- 	fprintf(stderr, "To pass the device address(es) via argv:\n");
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
