@@ -2,136 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590F9606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:09:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2E5606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S1djNy02;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T2M1q3vT
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tsziDafB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8CAC10FC9E;
-	Wed, 11 Nov 2026 17:09:23 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0FB10FC75
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:09:11 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABF04xB3597129
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:09:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=tVcctW/oKDuxTt7DrKIQJLMM
- mlpeEMy6Mr9dwtxp8WY=; b=S1djNy02soVsnM6zgLcxLwbTC4mKwOQot0aMq5SJ
- svQ58fBgLts9WD/bnLtpmQBZaz+5SN+YHJVUWm5vGbCtlDNA2lEN0awRmnJfT/Ek
- qmaqwyfT2sbuGxL+alvXmY73mfehcdLC7CclqIBeqnZ2U81QKb7bjrEnqfjAGBRp
- 7nDfGjbUAQ9a6QpHSrNryZ0wUnmzOT6/ivbJc7Is/qesQ6AUTgU8afQFHSmZZXtQ
- ueu4z4Rz2aHdnEPHY/roYhHbNiOz1wiHrkVJUulvtamN5Z4IHM42eBBNh0QcRc42
- Y5e8zvnbJsZRBdwYGODw9uVDY7BhdxAjucBsntxv+AiDnQ==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u8qs2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:09:11 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id
- 71dfb90a1353d-5ece7f075c4so1015995e0c.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:09:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794416950; x=1795021750;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=tVcctW/oKDuxTt7DrKIQJLMMmlpeEMy6Mr9dwtxp8WY=;
- b=T2M1q3vTQWJQ444ObYcrZkPYo8/jttFJkjyjQVD0gbepvZT+wIWHPvoyFu0IMJ83C0
- vdReH3ZEIgO8jHxQzS0mIGoCCJTLHKQ0wc69+uVI4w7OLe5WjZKipCMYzGkA0ZItGy8X
- +9sQtghW0ohPWngshehbuzm4FlnIMpxArKu4vE7f1XcDzeCZvcPP5msFAMBlvbPCuUYH
- 1uYUJCcViKnZUAyC0HmyHylDCUuChVNDqxHEZTZTzFhTgDgtr/Q/Z6HWfZHrK8mxbyh+
- R+1Hm7W0DOTotIRKdPMOJeeRBWBnflsqTptksU/7akuLc/dL9muKnHb32YJ6Vh5y7sDs
- dUWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794416950; x=1795021750;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=tVcctW/oKDuxTt7DrKIQJLMMmlpeEMy6Mr9dwtxp8WY=;
- b=cho/u39UoQzVgnOcQGlOtDwREfA7+Hkv8dKkiwMeB6kbATmVOw2UC1By+aTaQ0/m9g
- z043yePfO1G9/9/xplloE4H8OK8BYd6iWe7sCdNstE15kOQjRcNil64QXKPIYiGJYaQO
- sml44140GxGciNJW20ebXpTY03VThCnHqFT8lsEluK+XMNtBaImvagWLFONhMnkhpowI
- Ps0EDurz36ISiY5jv01WW/7ImxmbTr/G8+Zzty7wecdMvRVlmEyWwjzeDCFb26TkXKQ1
- qNOLHjnxHnnuW3vsYODUwe09z5usnfhPyFVK21Xg9YArkkTHyD1vTu067SiakT13NtXy
- ZP8g==
-X-Forwarded-Encrypted: i=1;
- AL+hErF/elox9awPkIhJsXa0dH5Y+mbWOzfVYfcr0sUk/p3PvvifvT0hqFNZ5r9KpwC9FZm6lFrzUtEdr0k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+MnLz6UQpn3OP9pob2zAm9qvGklSQfywQupgV0eKQ/5AEY7d7J
- tu+UvKELCB0fLnpMGnFr4sY2BirmaqKoHKB+kzbxqrCSWWDYZ+rfi1bhOKulPZQP/uojGvgvIqY
- +1XDNTDMfwAmpg2tQvV3SG1LPOpy1kHWb4KwMy/PaMqaGiKp91/5Dtn9JuC5k4k6EwzWuALI=
-X-Gm-Gg: AYBFou1p0yg6FftYlH7x1+bgWvAylF1faKg7hYW9hqjsV+jNWlCYbBuOOqCU+ndjeNI
- JxyKTiTrAKecOA3Gm/dWeyqPqo0ZyNtrGNTcDArf2Po7oudNnhxHMmi7g85ksunhgbJUW+HCx7w
- deKMPTAMkyUpvroUHifhCdadnStLycnBiat9osS7CJSmvSc2UTCf92CJI4MqStmkgrLv9PdQ+ZI
- hY0Eh7hXBsTmPeGubIKf7b/jWFBQwBAHcCceO1j4jMGBFj9D4k+gIen+2+Ozuv3qXsVEZ6eit4E
- 0geFXNxC9+YkZJ6dTPwcsRyAoX4r3ixhus/Nat4upSsuTc/Z0UcDEYURKbOZBP8RzK+YVhlpHUs
- uU43kORbMnB5AvW7ZdFLOd88i9uXovBygcHB5R2O1/YQ19NtBwS2SQVnOXypXz8vxQo27KAejCt
- aith4uOuqGp3vlekNGKknqQHyUeTE9W3VJAGa5RDs+yQTce/xV/Tt19VBaCLsIeA==
-X-Received: by 2002:a05:6122:4b16:b0:5ea:b9b5:8c43 with SMTP id
- 71dfb90a1353d-5ee1c480a5emr1354765e0c.18.1794416950237; 
- Wed, 11 Nov 2026 09:09:10 -0800 (PST)
-X-Received: by 2002:a05:6122:4b16:b0:5ea:b9b5:8c43 with SMTP id
- 71dfb90a1353d-5ee1c480a5emr1354753e0c.18.1794416949763; 
- Wed, 11 Nov 2026 09:09:09 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157b7a0dcsm1105809e87.5.2026.11.11.09.09.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 09:09:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:09:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dsi/phy: program PLL_SYSTEM_MUXES on the first
- PHY enable
-Message-ID: <e4ul4zxjta4oyo5fpjjzwkykb4gicztcn7yrgjw7aer6bqowkw@6nx2arhvmyca>
-References: <20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFDE10FC71;
+	Wed, 11 Nov 2026 17:10:28 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013009.outbound.protection.outlook.com
+ [40.107.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6D710FC71;
+ Wed, 11 Nov 2026 17:10:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gD0hWWhO9C1DpJ/FrSA9/MIfGbc943JIxWUwN/fsS3xKXPqZMV674F7B/NfXKfkh0unh7EcYv87qe7MhiO4yDxBmbKv8uxgGqf8tWmCyquUkRmTtFs3Dg7XGGB6m/JwahJQ+sTQlT2gizPLk4MlS08dGadJDlr1SXVjcuA2VDP6Zju+GfjM3mC+0sHDJfrOR2iptf+kWraILuI8jqexMGatkXIZsMZfVTXMBaWsPrMoSIZJajA4n3MH5xVKMfh0xJRaYLnZDk1+FZfGVJJDWDouTmte0JEJfuu549wi7qhcSHOhVs+zVPr2L/jTyKrWYNTkvWMivVLIW2GESsyNruQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i9uyzYOsKSWL8nda0trx7hUSH0pbxRL3k184tQVm6Go=;
+ b=EzRnq/9lbPhSJ9nmzAowaNAGjePS79sIOYUhlltS8nYUJ0aTqqicudnStO1A+qOt0EEfoH6F7aycs5fdAGgSQPQ4IH3N7p9+ciwsD/y+S1R7IVbYXqI5vicDd+Bp/QuumCg92yNYE4O8ripvnC857pR5uK3DzJ6/mfvWPacLpqsV/Qvn1JJmuUEqZM2hsOkeZDLqk873NZ4ZpV0DaHFz2ASevm/eZyCOt7ta+sAwCC7g/9If0Ru7rmXGxmA+fW45xfrJmQgoXSFciAWwPTDsJILseO6Z8p+PQFMs9iOGGQdfZ3qvoLW1CZq/+TOE+WZZZ0iXRy8TkLvsopnIvKvPgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i9uyzYOsKSWL8nda0trx7hUSH0pbxRL3k184tQVm6Go=;
+ b=tsziDafB/NFo6mrhoEL5pUrXGwwOfBYrvtO28yPq+1ugjNOs99E8rmJUMwbNFIxbXsuL01QoSgP/Z/nAYYU662M3T7s/dvRJJBn8Ql/BbD4pZ/vHVm2cshogsTZDmUWCQozfocs31q8ZjYD604LxSm605bqQkJMERS81Y0vsr98=
+Received: from PH7PR12MB6812.namprd12.prod.outlook.com (2603:10b6:510:1b6::15)
+ by CH9PR12MB987669.namprd12.prod.outlook.com (2603:10b6:610:312::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 17:10:18 +0000
+Received: from PH7PR12MB6812.namprd12.prod.outlook.com
+ ([fe80::a6a8:1bde:c3fb:1069]) by PH7PR12MB6812.namprd12.prod.outlook.com
+ ([fe80::a6a8:1bde:c3fb:1069%4]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 17:10:17 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "jiangwang@kylinos.cn" <jiangwang@kylinos.cn>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+ 318F
+Thread-Topic: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+ 318F
+Thread-Index: AQHdcO5qImP/P7aB6Ueq8Af3p5CPT7cpHRfw
+Date: Wed, 11 Nov 2026 17:10:17 +0000
+Message-ID: <PH7PR12MB68127DC58AC94207ED76ACB6F7712@PH7PR12MB6812.namprd12.prod.outlook.com>
+References: <20261110083453.1008827-1-jiangwang@kylinos.cn>
+In-Reply-To: <20261110083453.1008827-1-jiangwang@kylinos.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-11T17:10:02.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB6812:EE_|CH9PR12MB987669:EE_
+x-ms-office365-filtering-correlation-id: 4b73a3a2-455b-4100-93b8-08df4016a8ff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|38070700021|260925021311599003|260925021911599003|260925022911599003|10067099003|11063799006|56012099006|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: v6hLZxYqEq1LPDP4KGtknDdlDA8vqRCBOKIYazLbqSyEKz2VdYHQHzXiGvcMBQ3YM+l0IbVHU8pUREmZYk2PmdLITshOykRS8NaiXVNlUBloKYEdPj85F/A5Ff5kO63w6KTTberUetLb3JFIEOgQ6ZMpiHjLZIo2RObPzckS7f58fNT/pE2dp5jncABV/qqlwnhrz2cf3gQaXbbsHU+4iw4QDaSy0iTGQs/GiOyryEyu/sXkQj660qfKBsa/rNbQwtVr45+bN1T/mHzkDSH8vrG3fvCoWfVwE6fMTukyQ9kuSlRF0j6tKIzIf8RCz81xZ5/6f21GDYZNVboGubrN8hH+Fca8J/kTqsXav0c4QuSx+C1H1GVS752efRQwBMu8QmGDJi7uQmw/zl+coNLrj+jxG8MR9EKyYX9CdcMgq1rHCIbQ0OK33ob9vXtspBm9VizQyweDH2BIFO+f7r5Vxxd4Jk457NfH7NCyvirU5K4Bne9wTOKQ870s/jcNi6tsdg5GnqtVrqwhX/mnY3bz4BJbvpC4zBhXnMyZZtP2667wiKL0UZKuOgzeOYHH5HNGCmqNaRQPGFkN5HNMN+SFMpGM8f4U9ShFxareKz3iVI/gAv567QUvhOinLW6xq+TGcp0r6iq9KcrBfiS14SmSLxFQmdfQu/kByEHlLP0DKeg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6812.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u5/ZdspY5hsPGpPflxlUVkmCqRSRi8T/DeyG5UkX5JYqIWUiP4I6/i02Ar/a?=
+ =?us-ascii?Q?MUeSoSlsvu8zijKUTicemi/H5dALnxbo0PDod5ai6tvuqQ1hwxAkz/SlDc0S?=
+ =?us-ascii?Q?twFiIM8x2FVhluoEGKhFf7VZGoP5Y+zPWnT24K2FCCyGcnaIUidbNdfV/GIO?=
+ =?us-ascii?Q?AFjkVQbxgKBZYl7FLqpadooCou0QKjKSf1wKrSIj0aarQSSXpA3GhGdt5bPN?=
+ =?us-ascii?Q?AnHXg3nzgO0rkBU8PARvPpFlUC6xjG0fNMUX/FDDUvCga6NYMX23chBBggJl?=
+ =?us-ascii?Q?ulVXGKaggMrNh7QCApop7vYniGvE0aktS6QdVIKrWrjPbf5eHQv1l3cHIut1?=
+ =?us-ascii?Q?Dq/v9bn+NzbTG2Ka4Z8RYk23W1dB4B6Xoq4yXUqtFHu6fpQFldBFUqqUfDDL?=
+ =?us-ascii?Q?IIcqAOP/qys4EQdglkr7yWL4xaPtRL7UDIPBxEXpgL3HF25HcvYGNwPpc2Uv?=
+ =?us-ascii?Q?LFd15n+BlHBm+Htn8KZdj1J362hleBDdiWodSAO9IWF1UpaXk0m9oAU8+mA6?=
+ =?us-ascii?Q?PFQMjnCqByFGGMvSyeWxVggsFIeal1Xx2ZRVG7pv5Ykzv0HaXdm0vx6wuJlQ?=
+ =?us-ascii?Q?/g6S39hS9WOByWqnXY5vDEv70nMpFxui5f8rIKH6jYDv3fHgcSjuR3Y0uPLM?=
+ =?us-ascii?Q?AronAqyrPXSh+Ja6w+2rF5flgw3hW7YiNLFIoMp6Fbk0jttbg6RryZJF2Kog?=
+ =?us-ascii?Q?nFC1+3Qibf67gBWWFZgqIhwci1bCMNkVwH83a8GxSD6EAyiHhytjwepRKI/4?=
+ =?us-ascii?Q?MZHfggNjb1CDCMWUCC90OLKuKqz0CoRCXHoxawYba4vxWgLpkMzxt0G9Wv/l?=
+ =?us-ascii?Q?2v16JFTzzvdjR1jGYKYwDazIJ9dHs5bUyI79UNJQmS5PuUNBRq6KBaZohd89?=
+ =?us-ascii?Q?EJrAV5pxIKBh9t3theQJrsfmubVy/t0FrO0TOuuv5KX8woDD+bjsxID216jP?=
+ =?us-ascii?Q?8LC4YBDqbYQvWf1AhMy+6h5w+wY4fsIKniK2ln+JeaIo+xJ3Tpa/7PMLpQv0?=
+ =?us-ascii?Q?BvS2LOLXTn4qmxsPVZ1/xj6nI4pXtr4rxsR1uWcYfPia/hpsIKUU8zV9G0zx?=
+ =?us-ascii?Q?lp9gK70WiSto5clZdhT4t8uXYSyd2pkwg1gVNgoxZlosez8D2wup69frnZoA?=
+ =?us-ascii?Q?5eJuiQwdTCY0zt9wNhjKbkve5BSgUW/on7OKmrTdTR979papF8YvDvngjyEm?=
+ =?us-ascii?Q?cr3l9yzgbAfLO6T4aC45kviRzx9A7rxCz7Fnha82UqqhSPdgxbNaKoWIf3zq?=
+ =?us-ascii?Q?sq5vRRACWGU1Gem5zxtlLiNTaWA9t8FSh2LvlgzAfH9Dg48GzsC1tIPNP/o2?=
+ =?us-ascii?Q?2Au3kVxj2cvLGt2DJ/GzTYnBekdmTjW7n9TyMdlDQuOICf3jcS5sCnfjcN+g?=
+ =?us-ascii?Q?IfCy08SmBKC392aVdOKLqgqYuz+ZhqJlU8DCTedl/UAxwv9qaDd25WmYA5wi?=
+ =?us-ascii?Q?R7Q45OetncLO/YWbHXLN04RaScw2kyexI0E1lyWwesGjwgBJ/LPY8FuP+XRI?=
+ =?us-ascii?Q?uyqUMOFIfSqIj7XcrSMOS67E/JjRFo0Fgh2MVRTFQ9lzHO0KlH0bUxdCrYm1?=
+ =?us-ascii?Q?zE8uap25WyzDHRUiNQnKlY6qjrzbFKhMHQLZi11JodSUn+ppba7m/fTZkIOi?=
+ =?us-ascii?Q?MdIY/AWxwQgp8XQYDirsK6SSWKU3cre1JkgJR97jY8mz0vbJnu537y5lL4Ji?=
+ =?us-ascii?Q?iBwJ472nO1EVBlSaUj1Ew3L/Dltlo5q4UObzgZTMYBtinNAQ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX9XyfmkxeQYZY
- 7v4CZasxRrzao9cmJqrB1L9urgakFDjaTPEP15mC1OGwZnCOxI3Rm9hgJCILFrcRFPh1hqklcUn
- Je7Uxc4WlS7px11tchrE4yxtO/pQFDs=
-X-Proofpoint-GUID: J9rDTrp_bNVJ7BARqXwzAuOGrB6AS4wu
-X-Proofpoint-ORIG-GUID: J9rDTrp_bNVJ7BARqXwzAuOGrB6AS4wu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX5wvLdX5FM0Qt
- 9RdNDILolx7yAvbgignsLfOt8jpAbiA09gdHfNxqCMsOeeJU9uGi4/E+41E36FZoWrdd8R3DD3V
- AMTnBvrahem5mZQm+4j1B2sW5XEDBcgG3laHn9kQzX41OOZJC4z/iKSleHcVxr65wRFAPR8YevB
- aCVOgVwQdbtaAGIOlNbIIjRZ5YdjqgVXYSAJ9Enz5Vy1T8m4VUIgoxa70N9UPbV9HyNPLLWYLaY
- eEW1YYUWbNR2Bktfpcj6+Mns7mqpPcK+DwvpBEuDhEu7uVz3MmTkx7NLrhojm8IMBRoL2RI+FaK
- HBl7AfWejNa8M0glZSpSkDHp+6/BPrejDssKGHtJwyCwAip5oX31w4ETrJei0FTCuQNW2Pzqt+8
- NpNVwLH6D4yWuuey5k5t7ZG7Yz5HpDX4VwN2vPj3UeUcRUQo0Ciqh9641Y0yFTrFWEbmO9Cmji2
- MedQSgS1gzjS0eq3kjA==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af4a137 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=InjWm6lT3iDBAsjdKxMA:9
- a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110068
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6812.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b73a3a2-455b-4100-93b8-08df4016a8ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 17:10:17.8308 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: auGR3ys3dwuXVbqwWsmuQ9K9ikHjowEXoXToiy6hPqdJwg1DEBKX/dGinFVQCG3o95axsl8DTR3I3F+/MkIO+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB987669
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,59 +133,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,T_PDS_OTHER_BAD_TLD autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 09:00:41PM +0800, Qianhui Xu wrote:
-> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-> 
-> dsi_7nm_phy_enable() pre-seeds pll_enable_cnt = 1 before calling
-> dsi_pll_enable_pll_bias().  That makes the bias helper take its
-> early-return path, so its PLL_SYSTEM_MUXES = 0xc0 write is skipped on the
-> first (bonded) bring-up and the register is left at 0x0.  Panels wired
-> for bonded DSI then come up with a blank display.
-> 
-> Write PLL_SYSTEM_MUXES in dsi_7nm_phy_enable() as well.  The write in
-> dsi_pll_enable_pll_bias() is kept for the warm re-enable path where
-> pll_enable_cnt is 0.
-> 
-> Fixes: 44784327815b ("drm/msm/dsi: phy: rework PLL bias enable/disable")
-> Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Public
+
+> -----Original Message-----
+> From: jiangwang@kylinos.cn <jiangwang@kylinos.cn>
+> Sent: Tuesday, November 10, 2026 3:35 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>
+> Cc: airlied@gmail.com; simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dr=
+i-
+> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Wang Jiang
+> <jiangwang@kylinos.cn>
+> Subject: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+> 318F
+>
+> From: Wang Jiang <jiangwang@kylinos.cn>
+>
+> GFXOFF causes gfx ring timeout and desktop freeze on Lenovo 90NYA05DCD
+> (Ryzen 5 3400G, Picasso). Add a quirk entry with ANY_REV marker to disabl=
+e
+> gfxoff for subsystem 17aa:318f regardless of chip revision.
+>
+> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+
+Reviewed and applied.
+
+Thanks,
+
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> index 1fc3b4f0c..5dd4830a1 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -1144,6 +1144,15 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
->  	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
->  	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
->  	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-> +	/*
-> +	 * Program the PLL output muxes here as well.  The pll_enable_cnt
-> +	 * pre-seed above makes dsi_pll_enable_pll_bias() take its early-return
-> +	 * path, so on the first (bonded) bring-up PLL_SYSTEM_MUXES would
-> +	 * otherwise never be written and the panel would stay dark.  The bias
-> +	 * function keeps its own write for the warm re-enable path
-> +	 * (pll_enable_cnt == 0).
-> +	 */
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index c3322058720f..0cec645710b6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1365,6 +1365,9 @@ struct amdgpu_gfxoff_quirk {
+>       u8 revision;
+>  };
+>
+> +/* Match any chip revision in amdgpu_gfxoff_quirk.revision */
+> +#define AMDGPU_GFXOFF_QUIRK_ANY_REV  0xff
+> +
+>  static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] =3D {
+>       /* https://bugzilla.kernel.org/show_bug.cgi?id=3D204689 */
+>       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 }, @@ -1374,6 +1377,7 @@
+> static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] =3D {
+>       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+>       /* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+>       { 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
+> +     { 0x1002, 0x15d8, 0x17aa, 0x318f, AMDGPU_GFXOFF_QUIRK_ANY_REV
+> },
+>       /* https://bbs.openkylin.top/t/topic/171497 */
+>       { 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2 },
+>       /* HP 705G4 DM with R5 2400G */
+> @@ -1390,7 +1394,8 @@ static bool gfx_v9_0_should_disable_gfxoff(struct
+> pci_dev *pdev)
+>                   pdev->device =3D=3D p->chip_device &&
+>                   pdev->subsystem_vendor =3D=3D p->subsys_vendor &&
+>                   pdev->subsystem_device =3D=3D p->subsys_device &&
+> -                 pdev->revision =3D=3D p->revision) {
+> +                 (p->revision =3D=3D AMDGPU_GFXOFF_QUIRK_ANY_REV ||
+> +                  pdev->revision =3D=3D p->revision)) {
+>                       return true;
+>               }
+>               ++p;
+> --
+> 2.25.1
 
-This belongs to the commit message rather than the code.
-
-> +	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
->  	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
->  
->  	/* Assert PLL core reset */
-> -- 
-> 2.53.0
-> 
-
--- 
-With best wishes
-Dmitry
