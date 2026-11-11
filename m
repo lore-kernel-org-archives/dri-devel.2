@@ -2,91 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3475C606A886
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 18:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF908606A886
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 18:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=glISu5jm;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UhSY2Gjd
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OOWsr2Vn;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SfMD3NqQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF8F10FD2A;
-	Wed, 11 Nov 2026 18:16:34 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBFB10FD2A
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:23 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 415D910FD2F;
+	Wed, 11 Nov 2026 18:16:51 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D032610FD2C
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:39 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ABHtTJp2980855
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:22 GMT
+ 6ABHtEKm2705656
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=REvih3wAsG/3Y8nmSLavA6sF
- WJivHfgQW3aPqY6xVOc=; b=glISu5jmcoB4td6nZz5qG/2jm/qi4dD5Rm/9nSsa
- /I0Gl1GenJw0gJ0xFGG58LM2hwKHwHJYnsp1mOl7Imy5Wmr5+Sj3759L7ygtlwP1
- kKiIHi/sWbDtQz/DNgL9bnNJlOQWYwZQYUTix+NhFXbkDl5d7MLlNPku/BSlpKHw
- vvEvz8erB0bQP5V+CVfQIbrJ2ChUzhYDQE6SqVkGCRNGt3tQ577rEL1GABb3rc0u
- Y9OgQkxts7fON1oYYDRihHuGEGPb0E4ER1zYUCcXE+Lj027hU0I/ksXWRSH0XyCw
- 8/DYX8de6VRdE7t1U0ztcqK+WKh8V2VGqOFG6HLzkXNJBg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
- [209.85.221.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvksmakbs-1
+ :references:subject:to; s=qcppdkim1; bh=TLvjr13IKJDJEa9JzlYzaF9C
+ td9oFkXJXsX5JfawbUo=; b=OOWsr2VnYk++zL7ab+bpCiDSHWgjPYre8odEWsJj
+ 0D/jrVA8HnVJu6uTeKMEUgoR/SoiiXCzyExVur1XTLBu+S8/HsBzIZ2IZGJxKXjc
+ 3J1LAummLuql+ejpzrm0Mh3Wfu3CTQi5Cnz4tnAFsMHPrBivdIIgCX5aN4XF/X2F
+ Msfgoe/fdaJiJ0VorMmqZkjXxqfZeFF/o40MhKpc+nw/EhMB5aV90OyojMTiS0fA
+ wa7lPpLrNidjO/LhqX/pAKrGrcJUs3s8G5VXQn8ml08PpSHniHFhydHvfBAppix9
+ nG8y8sS7EKIzgxhiYJpSKRkCjSJ4SWCJ4J9Mh+UBCoV0hQ==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvvw0g66k-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:22 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id
- 71dfb90a1353d-5ead18311ebso1055850e0c.3
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:16:22 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:16:38 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-5ead18311ebso1056152e0c.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:16:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794420981; x=1795025781;
+ d=oss.qualcomm.com; s=google; t=1794420998; x=1795025798;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=REvih3wAsG/3Y8nmSLavA6sFWJivHfgQW3aPqY6xVOc=;
- b=UhSY2GjdYdFNsLCcOYSN8+05OJH3nLOV80Ind1g21n+jltJteJE2jewia+57BlM0vC
- uSAOoVG7+EmoHMc0FBWJUlbgiCirz1lkvAuuKVraJXwMR74+Pu8QprvdhpD+WJFW9r/S
- 3bBmLnvX+LUKdtTqag6SlvnjxPWVMDZPpXYXeXoB2wjZA99g+LuJIrUTmET94TfpGQBq
- rDikBVZ+Et7oZ8k0Jy5U+rMZu1eYRwqg90RR2TWyubVTfIP8eq/rmY7wtBQQA2NAS5E9
- BKiLhuYEYJ+AVUex4GK4RGFCBaJUOeU3TD1u1YJCkvFbExnsq81wX9fUQEz2FbfV9sUT
- VxPA==
+ bh=TLvjr13IKJDJEa9JzlYzaF9Ctd9oFkXJXsX5JfawbUo=;
+ b=SfMD3NqQKbqRZ7Zrn617etJCB6oi3am1pd0kfCVjAfezPMIQ5oVf1/6l9ifZWejGHs
+ h3RyzztqznQDy0A2ynPDBQ6/2R8lHvXo5g82KsPTrxeLEgF0H1ugp25tylNsonL0RHAR
+ wUH7zHgp+8XO87NFgjB7uXnQUmp4BcrTA9q2tsIcOkeo1QxTs/TCjkR5ANiVPdbzYnHJ
+ BfqcKmxYKn3RSR8utvtzSKmyc81tuwg/wQw6VMQi3B9IMvKo387udEUQDL2tEa3SUzf9
+ vwxA5UAbWc41JdO1DPMArlvo5iHBUv2OKpK6lkjBSfEG6BambLCMiXlfijPNYVpD3sor
+ EG3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794420981; x=1795025781;
+ d=1e100.net; s=20260707; t=1794420998; x=1795025798;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=REvih3wAsG/3Y8nmSLavA6sFWJivHfgQW3aPqY6xVOc=;
- b=HngvPvRWlvzWFn+fR5ckBfWYA6YZMaQ33LpVn/sXpU0+X8Ey6RS8gxmAiui6qH0S7H
- D8dY49VNYIbdD4NelKruHFUeZ6SULSw5BLcxrY+l07kt6skkftUqWUk/QL7nblEgFtvj
- a9H+52apiOc08a3S7jy37YUd2h6tGMN4uOIMyF8m8TrPGC5YzHdryAYga72AXJvI2wYZ
- ynsDAgX9qA+KMgRmQHQltzpdWNTEHhVBqA1l8K5/XIDqkttjX1HGulD4YB9xVxhEMKwv
- /UrNR6EQi2iVUnhDtmtm6K8Jw0ngf5PsSMb4NiHScdlhJ5rONBHEGJLZNxIqYETqU0FP
- Pv8Q==
+ bh=TLvjr13IKJDJEa9JzlYzaF9Ctd9oFkXJXsX5JfawbUo=;
+ b=MrGbwmHYHj/rlZXNzxgX9FQNLYeCfI11M6id6anL25BCjId58b4UH7qf9u+vZLxzJ+
+ KDc7tdgNaMR089m8r9B3WM+S/0rZQrqNPMMQuIec8RDOKyCFTrhL8n602b7TCHbohQul
+ mipe/Th+P1llY9MMni8nUd5qyMPpEtVHVTcLyzmax80rhooY8kq6VzGHiOQMk3R2JZdU
+ W7jjd/SzKU1oA6R61MkI2rCPoCIJGUJs+KtwJ2rWcjUyE25dwkB85z6K/ROa2Clq4pUL
+ KXOb8nkYlVwaV38Iv6j123nHUdJUIQMP/GhhGYtKysU2axW07sBVv7c8C6PgYTL11pla
+ o1YQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEWjyZm4W4n5X3dMsZ7mdcInhr8Abl2N+SxB7MoqsNoN0joN71xm5tOQU3FvuWS/1f94GzNxeg9sAw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+rj1S7jAL5lUx9aNwkgpRNPnpB+8fXS+mt5w0ppsi7goy0kgiT
- h4GUP+jNLMaDjQ0gG4p8Jk4Fd+mFjKocOIG92NHSxDfGCkCjjz4ILfqpbRpXPiVdETWnhIAWH9c
- 7WcRKXm0XHPFnihkeJe/OiEukK/PO+H6t9m9tg52EClOSBG4z9g1icPvXEIiWEJIJyYde7CA=
-X-Gm-Gg: AYBFou0KE5qYRsMzxUTiaNOgNq2/bLOU4T/31+Z7oGPx9lIMbhpXLrU0SjKGMbvRqEY
- HXmtq5TlUTw5g/0XZycn0t0Eb9kkEDmS1b7cUr6LUuzc5rXjr2abJVKPqTRvGUu960weNNCDLOX
- PiUrCru9A9MM8zDeBTPzN5HD+7awWDRhXXEiE/N1/Gt8CdQl/0AcPHo4Rhg/VhGIoYZ803cx7JV
- yxDvQRXvip1e6oW+Yy2Dj1U8iIy1M7KOFVl7JBlSSOaD3cVtt2ne3qsrULk9JRXCEbNAO6p35yk
- dzwarFZh1thl72K0JawCH9IZ0tGs0J9pF6xxn0yzUoJKY0oizJfYPQrmAmmHJZbv3dZhyWHZU9P
- 60Eu+raHDr+9uIQZEz/lMQ/XsU0bP2iBUHxO1KMyhSjnkBxKmV7ISuu3srPnVVPe/0cWEZmn+Yh
- cVWH/cJzhPOmH+1fh7JD2OQnTzUUi/oM3+IwuXF5zEnZxC/e/fPH8rn2uIB1bLdA==
-X-Received: by 2002:a05:6122:e253:b0:5e9:7a1a:5ad5 with SMTP id
- 71dfb90a1353d-5ee1c46bab6mr1148666e0c.20.1794420981198; 
- Wed, 11 Nov 2026 10:16:21 -0800 (PST)
-X-Received: by 2002:a05:6122:e253:b0:5e9:7a1a:5ad5 with SMTP id
- 71dfb90a1353d-5ee1c46bab6mr1148604e0c.20.1794420980694; 
- Wed, 11 Nov 2026 10:16:20 -0800 (PST)
+ AL+hErHH1jK76a2YvG45xIfNV9EHUEJnIGjqwxtAw6SWX5Yu4FJ0EvHaNyNByW6+iLKSzye9kKQt2tofZ0o=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+uUjuVYRCWIr8+5xd28Qb7PyfVckj6sYUzo+Z5TmO02Lu2cX20
+ NwQfEfNYI7lv6YY2L1oAtHly9PH4jVJmZjeHQ3oEzUBkEvm7IZp7/Qcnwkr5NQHxCECx9+OgzS3
+ JVKanBZQHdgQez/ZPw/2eUJScaOSBQlUspwmLmlThXsw8VWcZ5VmyZAqGeiO9/CEwyJ5+sz4=
+X-Gm-Gg: AYBFou18M/qiJdm7nOMH+ltmLpGArwUv2C2XZoRy032n/gQSdRIGf9FLADYwjQQ2cLr
+ P2OX/yIYmS5shEURZGEp2JuQ1yMiDwCp9WzTSZftPd/da0BfV1blOvvBMAZKgVbqhmuxSmEEnUl
+ GORI9EEPM4sO1ObmAvJoyyp9NuzTN5J4BhxNcbijunYohkat5po7CCR24Dfzl6w1WimGAPRGaz1
+ dM7zmvn9eH3ZdoonunPVd0igNn4HQbwKynOXGOTwQSLiflFKdHeWOMc3LlPl1rGZbG1U0xRCYyU
+ aXcetTLdBYmEAZPqu9FQCxEy4lFoo+BB6j0hIt8RWalkOOsSTUmecco7/wQLsTFltt8va2++/Ph
+ 34ZgzdF0nYxWJI7KbTMdWDB8sWHUyYD2tCeC2yaII/0yl8rAn2a5bLGYprWakoEYibYB83IVSh+
+ KN4jGuBbfVFPhLQBiar1jNXvewy43FEPtgyKKyqhvVLIPAIuGY8MqkOVcy6UjQ4Q==
+X-Received: by 2002:a05:6122:1d12:b0:5ea:bfba:f540 with SMTP id
+ 71dfb90a1353d-5ee1c2a6763mr1196117e0c.1.1794420997900; 
+ Wed, 11 Nov 2026 10:16:37 -0800 (PST)
+X-Received: by 2002:a05:6122:1d12:b0:5ea:bfba:f540 with SMTP id
+ 71dfb90a1353d-5ee1c2a6763mr1196076e0c.1.1794420997470; 
+ Wed, 11 Nov 2026 10:16:37 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae1bdb2c94sm625101fa.26.2026.11.11.10.16.18
+ 38308e7fff4ca-3ae092053cfsm12797171fa.8.2026.11.11.10.16.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 10:16:19 -0800 (PST)
-Date: Wed, 11 Nov 2026 20:16:16 +0200
+ Wed, 11 Nov 2026 10:16:36 -0800 (PST)
+Date: Wed, 11 Nov 2026 20:16:34 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -115,42 +115,44 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: msm8996-oneplus: Disable
- disconnected DSI
-Message-ID: <7gqjjq7v5krgibjxqelyjwmrfygfnbsvyfubgbpkshkvgdftxr@dwm3rdpoqbnb>
+Subject: Re: [PATCH v2 3/3] dt-bindings: display/msm: Require DSI graph
+ endpoint
+Message-ID: <bxmfcl2naw645t643b5c5lomlruhpv73reawmxzgmzn7jvazkv@fkodaq2ga4hx>
 References: <20261111-display-msm-of-graph-v2-0-fdf8fd97f49d@oss.qualcomm.com>
- <20261111-display-msm-of-graph-v2-2-fdf8fd97f49d@oss.qualcomm.com>
+ <20261111-display-msm-of-graph-v2-3-fdf8fd97f49d@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111-display-msm-of-graph-v2-2-fdf8fd97f49d@oss.qualcomm.com>
-X-Proofpoint-GUID: -FHpvnxNyC0K9qVIOapWFpRusBcezEPU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MiBTYWx0ZWRfX9SqPvCeYn11c
- fWCsdL/WycZHvNRO8bsX+1XBw/816xNkjKiMQ+0wowkPVQXTDcy0bPTv8qfIAYWoLyPhNQQT4U4
- M4AhimeCFBp/owunns6d9sL/5Jn5vm5sT18COPLMMReWux454+mvHuyFgudYEuEiP0J2PqRC31g
- EvSOYF1C/l7fI87pEZbcKw6eMbD+dz411r97CPlosGX7orxacL6GohNKm8bwz0Ud1nE9oSxC6Ne
- dPCgSmVMHr3waQPwhz5Wr7GfKzRiitftdoQav9wBppeSsL31Yz75paNQj6LWhmczy+XAMrL/nex
- hM9lWGjede8VpKFZOM0m6naGE3VXDKSKPvXbZgE/m4khMMuRm+4aWXNZd68RP4Pq+u5+Wm3KW7F
- 7WfdWJEQBtZ0eVycENB7JnS9cssOORpCj2Q0tfN9+iJA9nym3lbPmivCUCXD6oSkhloVgkcTkoK
- YQb5AhNJy/aoKptk/bw==
-X-Proofpoint-ORIG-GUID: -FHpvnxNyC0K9qVIOapWFpRusBcezEPU
-X-Authority-Analysis: v=2.4 cv=O9isLx9W c=1 sm=1 tr=0 ts=6af4b0f6 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261111-display-msm-of-graph-v2-3-fdf8fd97f49d@oss.qualcomm.com>
+X-Proofpoint-GUID: 4egsREohA3hPWMWaca5GH_kQR1KVxXfe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MiBTYWx0ZWRfX77lbEvyxAPab
+ OD8s9zrgAVpuW/cX/rDiC7Xh2Mf1VG2g+EmN5iL49AaUanM9ZKDs7PVOm/B3NhV55+U6bYCtpX1
+ xoyjUCVnuw1u7U9fA1fRMWv5tdUpEmkvQpdQwtTFZL6RVjcrdwkjheV/b90EeaGAQRhrC6cIOHe
+ KkBksnEJFbkULcJc4rcshqiBKw7LqBTZciyd9vp8rQJM1QKYhxoqq0pJfQJN6+/Gh/o8HiNjQnv
+ pJGxEeWA6+wLoTl+GQ0VYoSrswBTU/TcHMNd5fnbpJB7zSOHnQr1eINV9bnQdsFEuO0WAjs0E2K
+ RZ4Q3DWVCAZ89BWkVzNx+89y/48BVnIKPw57c5cNWaB+jlSv2WHc8rMnMlwKSjWOtoMUSECtSpT
+ Xrypbvk5hgz+d03Lp/5TxCFpY+oUHBTY1l4YMrQuvacFqFlWMgkoj0p/SrkvQiJ7+AhX9L5uhyx
+ rZB4iLMgkVxi0osIrRA==
+X-Proofpoint-ORIG-GUID: 4egsREohA3hPWMWaca5GH_kQR1KVxXfe
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MiBTYWx0ZWRfX5u26fgXf8LqY
+ IPl1Yklo89oO5bNcJ+caydLhjEpo9U2Cid4Z8TNBb+j1PqcPIceV9rHath8QJpeQM3CdFsJHENF
+ UKBpKsIXNltRNcyj8kxXR95t1DZP7oM=
+X-Authority-Analysis: v=2.4 cv=ct8OAF4i c=1 sm=1 tr=0 ts=6af4b106 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=PrdBiiE1VpZ4eXJVCeEA:9 a=CjuIK1q_8ugA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MiBTYWx0ZWRfX1VDhvGOaW84r
- OavkZy8Fg/r/Vj/Oido0OQ05UwpGqfWjd2r5KaBfjjDueg0nJhbljevJoEuiGV/5sGxjnRqGkJa
- C0VbzhoqOM6MUCIhEmPp1nQyV/MOZj8=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=lYOVpaM7r1jpJQzodxMA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_04,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110072
+ adultscore=0 suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110072
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,52 +164,36 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 06:45:01PM +0100, Krzysztof Kozlowski wrote:
-> MDSS DSI and DSI PHY are useless, when nothing is attached (no panel
-> description in DTS), thus should be disabled in DTS.  Linux MSM DRM
-> drivers will also fail the probe.
-
-I don't think they will fail the probe. Nothing will be registered, no
-bridge will be attached to the DSI host, which means that the component
-device will not be constructed / bound.
-
+On Wed, Nov 11, 2026 at 06:45:02PM +0100, Krzysztof Kozlowski wrote:
+> Technically, DSI controllers do not need OF graphs with endpoint to the
+> panel and could rely directly on their child node (when panel is the
+> child of DSI).
 > 
+> However Linux Qualcomm MSM DRM DSI driver never implemented such
+> approach and it requires a valid graph endpoint pointing to the panel.
+> If it is missing, the drivers will silently accept such DTS in
+> dsi_host_parse_dt(), but later fail on dsi_host_attach() because number
+> of lanes is not initialized.  The number of lanes is initialized to safe
+> default only when there is a valid endpoint which is missing data-lanes.
+> 
+> Extend the bindings to validate existing DTS to match expected ABI.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
 > ---
->  arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi | 2 --
->  1 file changed, 2 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-> index 7a3f8afae22d..9c2cef11e7a9 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-> @@ -189,7 +189,6 @@ &mdss {
->  &mdss_dsi0 {
->  	vdda-supply = <&vreg_l2a_1p25>;
->  	vcca-supply = <&vreg_l22a_3p0>;
-> -	status = "okay";
->  };
->  
->  &mdss_dsi0_out {
-> @@ -198,7 +197,6 @@ &mdss_dsi0_out {
->  
->  &mdss_dsi0_phy {
->  	vcca-supply = <&vreg_l28a_0p925>;
-> -	status = "okay";
->  };
->  
->  &mmcc {
-> 
-> -- 
-> 2.53.0
-> 
+> Please apply after Qualcomm Soc takes DTS changes to next.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
 
 -- 
 With best wishes
