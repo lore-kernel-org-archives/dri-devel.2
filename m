@@ -2,80 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68CF606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rX3oCf0r
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACAD606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7D81120EA;
-	Thu, 12 Nov 2026 12:55:21 +0000 (UTC)
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B2C110E323
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:23:11 +0000 (UTC)
-Received: by mail-oo2-f4.google.com with SMTP id
- 006d021491bc7-70399d7f076so1363997eaf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 10:23:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794421390; x=1795026190; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=bvg45x/n+Rzi5fKhi8+zOb3+1W6kRDRHRptiIt9H8zc=;
- b=rX3oCf0ru+zBtcAIdIU3pN8OH7b8lJ897fnR81/DwAlHjyXigAg7FQJgTG75Ep5Jdd
- Cph3VxsasFUZMdPa1v0GTDPKcetzmzIzKhFcZPV45aOB2OdDT/aFHE6ofiURH9qljR/R
- g2lcCv7dzks06aicGLvZ9Z8qlXX4BAUMUPJcBD19qdNP5kogUFW+o2Rwg7fyMsd3KK1o
- 4yjRCXr6ImgTU6oy+DK5FhZx/az0HL3QvjOo5MixSNmQaf/MKwQgaOR113mbK+qx6FJP
- +alUhGwSlqRWg8dgc1I9Lg6rAighvF2Lbt2CFycKMMxnuKffqJgl+rFZZw8yRBSimsoF
- Db/g==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 704611120EB;
+	Thu, 12 Nov 2026 12:55:52 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3DCD10EA75
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:48:55 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-498f5fa5103so1019162f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:48:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794421390; x=1795026190;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bvg45x/n+Rzi5fKhi8+zOb3+1W6kRDRHRptiIt9H8zc=;
- b=axqfHpH1KIO6knS73nwu4SQMXoUeGyYa4Y+JJCjikmReCLH3MXl2IP8fuULNnmIo3+
- usqsLvV5WtDBWw1NPgk1XUn2bxvgEm11yul4udgOeM2QDZtnwDhBPum05HF+eZyaWUyV
- tZYjstzk1HN4T10Tcs0s0h0CWABUIwKxNo+EZBqKkuHcRfgQG7gSLfqCoiIqsjlvKSML
- q9xSjA1CHn8kmkIIA0v1GJWkn9hVcNd2IB5v6Xc+7KH1Q3rr1SOhXt6WO6da6mqhSXNt
- nSr9RZDpnfZyex5ymbyQND7LRYqLL+Sqw3Pz5CA86WMZTJoOwfmWYqGvzJT8TYB9b3Zf
- cyXA==
-X-Gm-Message-State: APuU4Z/JYU7bR3hCB5RnWEar5KEYJY6NpV6jNZv4CJTZ8yt7ThCWJmFK
- 54lfFGuGm7frQsdAWEMhMl+N1kKOxjrahcE3gIT6GzVfmMGADNoh+0zmjmlP6VBSWyQ=
-X-Gm-Gg: AYBFou34xJ7qCzKScXDIlKQwiIpRLWiwxjwk8v7mKV1cnXh6mGln6a52alQtYdlQ+N6
- yEv01iKOinSj7/Ya+DnPDqsvKO+gXxsbfXJ0t14OCZsueIXUw1mFKpBBVNDyYEe782Bryg/5ac8
- QX4pzg462Ex7t2Xodr+gRfXkJCxR/BZDPzMbT1wd8yTD36lbnLnCrbLY3m88/BkNDDiwkyGj8Fs
- mtbKsMv7YLA2cbvKuOalhJvxdiBR07hqr9CwHJUsoZ+pA0NBkzD8pn28dUQ7yQbnXrh4ThZMIyq
- 22VgYpfVuV4Mjd3FNYThXH/GXVfA/D0zTf4xDE0Y1oTb/ubFEXG0nJGJD9GVMfNqSevwj8bC8RI
- AqFe0hDUT7RtT0yek01b2OXVHoxyCu6u5eN6qIenv3EsHcvC/1CGs4iojIHIc+Hri8yuObYC0GY
- 0ZTS2HUP3T5s+S80a0HRqnEvgZqE54BCfnwj9FfxIK8NzY4K2E/3kEfo+3t2qNIciXIOUA0ft1n
- LbnmmVvi2APXZdfPcWWvzKxcQilofBFYLwPkmtuq7omVcOKwE/T6M+Xv9KpPmWTWwDw4T0pf5GE
- EyXZ43byvYO7WbQbpUdwNN51o+ANX+U9ewD1d8BDjCMMDt6QWpvFPyk5PuugopIPTVuT5Lt0E3U
- oqxl/ymPnqpAAvCnixYqP
-X-Received: by 2002:a05:6820:1629:b0:70d:9be9:5351 with SMTP id
- 006d021491bc7-71917892b23mr1816153eaf.36.1794421390391; 
- Wed, 11 Nov 2026 10:23:10 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net.
- [64.207.253.118]) by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-718a6f2a264sm4474546eaf.1.2026.11.11.10.23.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Nov 2026 10:23:09 -0800 (PST)
-Message-ID: <4d50f769-07a7-4990-9158-f508a6e53c38@gmail.com>
-Date: Wed, 11 Nov 2026 12:23:09 -0600
+ d=1e100.net; s=20260707; t=1794415734; x=1795020534;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hIh1oJXmPJn8/bufJnOWwv255cbPbO6RJV8+iEpFNQw=;
+ b=QwrHxpCgaD6ttTL6oR2F+jlkAUWH7CeLAaEs2aVQV+5ERDl+NLHEespRLagX26/4G3
+ yHstbVWQm944EG3JS27Ko2qvWQ6S9wmkrrxvAhlo0pGjUwsTN4PWBkuyC+U+3bCIMEED
+ lLldQBJFE3tvG62FOmgJGmyGOD6wIUoOUwN+/8WqTWXmW1p/0Ehv8SOy9+V2+ImZeJbS
+ ILscN39z8N2H3yCaa5ArKrVdyoivXByhXKkU9NZhmxeDxHTKTOAH5ghM0N7bycqB9eqP
+ 9cBqQNTu/jOy46pzs4NvSoJgCk+8ZIc4jBy1QLCbDmdtuUql6Jzm3bhV06E5zD9mZpcd
+ KngQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFyoATtYPaQyRFhc8P2R522nzPqqN83BuMOXHenboZDgktblC+yHNn7a/cCx+oXubNA/Hh89RYIhk8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8QPu1p1sWwwoQxgw1KB0HwnSYW/PhFdPCQ/WoHulwF6UkqX+X0
+ CW5mTG/aFMHm+SRKdRQ+AC/4K5PMRovV63OwaTKmaAh/HfClA291GyuU
+X-Gm-Gg: AYBFou0gG7rngZ6+X2b39uwtJxpy64HwA9oeiVoC54EmmfQO0MO324snlJAURssXUkm
+ m7t5tbW3yTa7PcnEWGvc6pVd3WEnjXpJvr4XNA6qhc+D6eaKrMq9RGB5Hz2elM1zqHZSNuG8mF5
+ DHKCYxH/0Hl5sps0XblFJfqSr5D9lQQuc5PapVN+7XvIMVPJQ8tYpPFRpjLE5cnc4DEO2Tc1CCk
+ qL5ST+Ag8ZF5nmHvcZ4x0l3hNZVQy8VH0lEb+7HFq3/8twWK7Zplm37Z8Ys2poBF2326kK4FlAV
+ q1zV1r7CMDYGYVInqxTccm9Q1mCmgiIZRwcPmYhY6gHMmezHa5TDJIBsBLi6KPqgLU9qLmH4YFl
+ 5Gu23OEEOwf74U07ysrybUNpYjsMivVToVdTeHOxDm0mBk/NrU0HaTpwZSX+nrHZarrql2a2yky
+ joMn+X5Nzl2fLF/LpN1gekvxYUMvVKry+ts1KfFyl1Xv5qJ9vsG6D+1x7hUdGpeOY/RcYeDk1/3
+ pF+626ek9/A0f4ZV8kiQiHSjLpzR+7Ms9TDVZKDBgQ0aanQXTNECxSPVZWmQ2J02uvcZsv2HkM3
+ jSqH1no3/kQsrdPfU3W+DQ74xWh74dTOGChPSSWz6dwbxRAwcbDch8vIoxXQs6PaTWk6ue7vYzq
+ qWI3nesOQok+ltvbD/PgBSOn4B8wrRsk1BoSubYR1+H85iP6BoWrLLrW/1mq9
+X-Received: by 2002:a5d:588c:0:b0:499:53b3:39be with SMTP id
+ ffacd0b85a97d-499c8d5bdfdmr5249070f8f.51.1794415733801; 
+ Wed, 11 Nov 2026 08:48:53 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49944d646f9sm8244842f8f.32.2026.11.11.08.48.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 08:48:52 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:48:49 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Cc: gregkh@linuxfoundation.org, andy@kernel.org, error27@gmail.com,
+ cenzhang@linux.microsoft.com, dennylin0707@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v4] staging: fbtft: remove unused fbtft_init_dbg()
+Message-ID: <avSccSGIsu1EbwnN@stanley.mountain>
+References: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/imagination: Wait for the firmware's interrupts
- before stopping it
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20261110-rbrue-suez-upstreaming-pvr-fw-irq-handshake-v1-1-8872686d14d0@gmail.com>
- <sashiko-outbox-208095@kernel.org>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <sashiko-outbox-208095@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
 X-Mailman-Approved-At: Thu, 12 Nov 2026 12:55:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,74 +77,29 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/10/26 8:33 PM, sashiko-bot@kernel.org wrote:
-> [Severity: Low]
-> In 727538a4bbff ("drm/imagination: Implement power management"),
-> pvr_power_fw_disable() was an unimplemented stub returning -ENODEV and
-> pvr_power_device_suspend() only disabled clocks.  Should the Fixes: tag
-> point to cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure
-> and META FW support"), which introduced pvr_fw_stop() and wired up
-> pvr_power_fw_disable() in runtime suspend (or 74ef7844dd8c
-> ("drm/imagination: Disable interrupts before suspending the GPU"), which
-> added the disable_irq() call before pvr_fw_stop())?
->
->
-> [Severity: Medium]
-> Can pvr_dev->fw_irq_count fall behind osdata->interrupt_count when
-> pvr_fw_irq_clear() is called outside pvr_device_irq_thread_handler(), such
-> as during a soft reset in pvr_power_reset()?
->
-> drivers/gpu/drm/imagination/pvr_power.c:pvr_power_reset() {
->      ...
-> 		err = pvr_power_fw_disable(pvr_dev, hard_reset, false);
-> 		if (!err) {
-> 			if (hard_reset) {
->      ...
-> 			} else {
-> 				/* Clear the FW faulted flags. */
-> 				pvr_dev->fw_dev.fwif_sysdata->hwr_state_flags &=
-> 					~(ROGUE_FWIF_HWR_FW_FAULT |
-> 					  ROGUE_FWIF_HWR_RESTART_REQUESTED);
-> 			}
->
-> 			pvr_fw_irq_clear(pvr_dev);
->
-> 			err = pvr_power_fw_enable(pvr_dev, false);
-> 		}
->      ...
-> }
->
-> On a soft reset (hard_reset == false), pvr_fw_hard_reset() is not called,
-> so osdata->interrupt_count keeps its non-zero values while
-> disable_irq_nosync() is in effect.  If the firmware raises another
-> interrupt after pvr_device_irq_thread_handler() sampled
-> osdata->interrupt_count (or while pvr_power_fw_disable() sends the idle
-> and power-off requests), pvr_fw_irq_clear() in pvr_power_reset() clears
-> the pending hardware interrupt without updating pvr_dev->fw_irq_count.
-> Because the hardware status bit is cleared, pvr_device_irq_thread_handler()
-> will not run for that interrupt, and the next runtime suspend will see
-> osdata->interrupt_count[i] != pvr_dev->fw_irq_count[i] in
-> pvr_power_wait_for_fw_irqs(), stalling for the full 1-second
-> POWER_SYNC_TIMEOUT_US and logging a false warning.  The same can happen at
-> boot when pvr_device_irq_init() calls pvr_fw_irq_clear() after
-> pvr_device_gpu_init() has already started the firmware.
->
+On Wed, Nov 11, 2026 at 10:08:19PM +0530, himanshu bakshi wrote:
+> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> 
+> The fbtft_init_dbg() macro is not being used, so delete it.
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Reviewed-by: Dan Carpenter <error27@gmail.com>
+> Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> ---
+> Changes in v4:
+> - Add Reviewed-by from Andy Shevchenko.
+> 
 
-I always manage to trigger Sashiko bot with drm/imagination changes :D
+Collecting the tags is unnecessary.  Maintainers handle it.  You should
+do it if you have to resend for a different reason but otherwise just
+leave it.
 
-Both of these are correct. I'll fix in v2 -- the host's copy of the 
-firmware interrupt count will be taken inside pvr_fw_irq_clear(), so 
-every clear updates it (IRQ thread, probe, pvr_power_reset()).
+regards,
+dan carpenter
 
-I'll wait a little bit for human review if there's anything else I missed.
-
-Thanks,
-Ryan Brue
