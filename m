@@ -2,73 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13546606A884
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0212606D916
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7BpeV/CN
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YKkCWlIq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A04F10E2FE;
-	Wed, 11 Nov 2026 23:21:08 +0000 (UTC)
-X-Greylist: delayed 341 seconds by postgrey-1.36 at gabe;
- Wed, 11 Nov 2026 23:21:02 UTC
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com
- [216.40.44.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99DE710E2FE
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 23:21:02 +0000 (UTC)
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
- by unirelay05.hostedemail.com (Postfix) with ESMTP id 42BF340216;
- Wed, 11 Nov 2026 23:15:15 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf12.hostedemail.com (Postfix) with ESMTPA id 7DEE41A; 
- Wed, 11 Nov 2026 23:14:54 +0000 (UTC)
-Date: Wed, 11 Nov 2026 18:14:47 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Tao Cui <cui.tao@linux.dev>, akpm@linux-foundation.org,
- dgilbert@interlog.com, mkp@kernel.org, loberman@redhat.com,
- jmeneghi@redhat.com, kraxel@redhat.com, vivek.kasireddy@intel.com,
- mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
- stefanha@redhat.com, sgarzare@redhat.com, mhiramat@kernel.org,
- jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
- James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
- will@kernel.org, linux-scsi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
- mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
- aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
- cuitao@kylinos.cn
-Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
- metadata to memcg
-Message-ID: <20261111181447.3c483a50@fedora>
-In-Reply-To: <avScKhR22kFOQ1z4@google.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-5-cui.tao@linux.dev>
- <avScKhR22kFOQ1z4@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05ED10E49A;
+	Wed, 11 Nov 2026 23:48:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 532BC10E47F;
+ Wed, 11 Nov 2026 23:48:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794440905; x=1825976905;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9Cuegc/MuoDCo4oN8xNnf/pcpxsFdQP4keN2fSB0lfE=;
+ b=YKkCWlIqbv+MntrVW1kAk69u3zKeJW/GD1CSSwTDnD0Ob5D5SSbeHTyk
+ sn4s6B0i5m3smTrzwoOWuw267qBIEuwr6p478RQ98VMyz4jaTZMRqa8OI
+ Mp21r62yVLog0SEOLH8g9oiiS+XJw8tIDfKJLWcW1+WPpeAw7Cp5eQZYK
+ VUs4fCT9XSPPNw8Gz3Q+/XOcj+Zu8+5r8UpZ/bTqN71fy78UofwJ3iQkr
+ kIUQnTrIexfFu5g6wwamCCXnSwSedS8eioqwBWo9afJjbK3YH1HEW9vGu
+ ncLWDOk5VcDaCWPjN3+VQ7Q1bvv0OXHnM/7WRmlUPz3VLUvNTmBaQVuq2 g==;
+X-CSE-ConnectionGUID: 8wuA8lVOSRGp3NDEc8FgNw==
+X-CSE-MsgGUID: rfGeikJBQaOtIETc7n05Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226555"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3226555"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 15:48:24 -0800
+X-CSE-ConnectionGUID: OBrl5lPZQVGsO4ZZ0YyItw==
+X-CSE-MsgGUID: Wdq4BZXQSVqd2thien9rrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8512350"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
+ ([10.3.206.11])
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:21 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, "David S . Miller" <davem@davemloft.net>,
+ x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/7] Include <asm/cpu_device_id.h> without #ifdef CONFIG_X86
+Date: Wed, 11 Nov 2026 16:48:13 -0700
+Message-ID: <20261111234821.4814-1-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 7DEE41A
-X-Stat-Signature: d4cfzmoxk13pg5m5ihp4akmy4hyu64j7
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_SANE_2 autolearn=unavailable
-	autolearn_force=no version=4.0.1
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18kGGg1w/ZySP1UptBt2yyJGC8WbNBioPU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org;
- h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding;
- s=dkim1; bh=gmDNsQ8h2wciKasKQCbqVP3maaL4qbrw5sZmT7BnjeA=;
- b=7BpeV/CNBK0xn7L5qTZRDTfRvQV7U2cQp/mCdojV1+x96AlRZ9rtulOhbTPnbSonEkl9dmgz3eGjHb8p+E0h3XDjeebpimn+FH/g477dsAXlpcaBL9IKpa4sWBqls3LUz3Nl8QeSDhvVfF3uaAU+FhhTMPtyWJPI5tA4IvX91lQ=
-X-HE-Tag: 1794438894-129449
-X-HE-Meta: U2FsdGVkX1+FAoSScfo676HReBJlhh89iBeR1SRWVaCqtKRtwKahRcTeRtp0PW6X+8tP0+cIcuPmi2dveZHq+M/PfpnjBQfOKdRrGrE6L6XJMKcHrkYMPwWfT5W0HZpH0ZA4Tjcgp99PZuSv7mPL4a7u5MFDGa5PSeaKjEeGZ88gtDz4qBX9Zmj8tooxKlDTcIzzVtZdHTNqYaysHU8krqFFZhQV25li+r73imgz99krf7wx8TB68OGyy17GR6OQunJdYHkV2EjKXilR7+DL4H7NvH48tc6IGNBrCqnO6wIQzDRZ3F+KJfPb6Hec+mdDc+COvRxaHejVamxGg/o8L4iQ0lpkg48J
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,80 +84,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 11 Nov 2026 16:47:38 +0000
-Vincent Donnefort <vdonnefort@google.com> wrote:
+<asm/cpu_device_id.h> exists only on x86, so generic code that uses it
+wraps the include in #ifdef CONFIG_X86. The P2PDMA series [1] adds a
+generic version of the header, so the include can be unconditional.
 
-> On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
-> > From: Tao Cui <cuitao@kylinos.cn>
-> > 
-> > Creating an instance immediately allocates two full sets of per-cpu
-> > ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
-> > on the default config, plus the trace_array and its name.  None of it
-> > is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
-> > while user_events in the same directory accounts everything it
-> > allocates.
+This series drops the #ifdef around the include in the remaining
+users, and in ccp, which does not use the header, the include itself.
+Some of them also include <asm/intel-family.h>, which has no
+generic version. That include is removed: on x86 it is already pulled
+in by <asm/cpu_device_id.h>, and on other architectures the INTEL_*
+model defines are not used. The #ifdef stays around code that needs
+x86 for other reasons: CPU match tables using the INTEL_* model
+defines and boot_cpu_data accesses.
 
-As the name suggests, "user_events" are for users and are special.
+Patches 1-6 are independent of each other and can go through the
+respective trees once [1] has landed. Patch 7 does not depend on [1].
 
-> > 
-> > Instance creation is currently gated by tracefs file permissions
-> > alone, so a
-> > rootful container with the host tracefs bound in can create instances
-> > until the host runs out of memory.
+Based on mainline (7.4-rc2+) plus [1]. Built with x86_64 and arm64
+allmodconfig, each patch separately.
 
-You mean, "works as expected"?
+[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
->  Charge the ring buffer pages and
-> > the trace_array metadata to the creating cgroup.
-> > 
-> > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> > ---
-> >  kernel/trace/ring_buffer.c | 8 +++++++-
-> >  kernel/trace/trace.c       | 6 +++---
-> >  2 files changed, 10 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 1fd28a72e6ee..676c059c112c 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
-> >  	 * gracefully without invoking oom-killer and the system is not
-> >  	 * destabilized.
-> >  	 */
-> > -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
-> > +	/*
-> > +	 * The subbuffers are charged to the memcg of whoever caused the
-> > +	 * allocation: the creator of a trace instance, or root at boot for
-> > +	 * the global trace.
-> > +	 */
-> > +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
-> > +		  __GFP_ACCOUNT;
-> >  
-> >  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
-> >  	if (!page)  
-> 
-> Hum, by default tracefs is root only. 
-> 
-> And even if made accessible to other users: 
-> 
->   1. The life span of a trace instance is not tied to the caller.
->   2. The ring buffer is shared by multiple users.
+Pavel Popov (7):
+  ACPI: mipi-disco-img: Include <asm/cpu_device_id.h> unconditionally
+  drm/i915: Include <asm/cpu_device_id.h> unconditionally
+  drm/amdgpu: Include <asm/cpu_device_id.h> unconditionally
+  cpufreq: ondemand: Include <asm/cpu_device_id.h> unconditionally
+  platform/x86: Include <asm/cpu_device_id.h> unconditionally in soc.h
+  tpm: Include <asm/cpu_device_id.h> unconditionally
+  crypto: ccp - Drop unused <asm/cpu_device_id.h> include
 
-Right. Is there a use case out there that allows non-admin to create an
-instance? Tracing ring buffers can expose a lot and should not be given
-to unprivileged users.
-
-What exactly is this trying to achieve?
-
--- Steve
+ drivers/acpi/mipi-disco-img.c              | 5 ++---
+ drivers/char/tpm/tpm.h                     | 2 --
+ drivers/cpufreq/cpufreq_ondemand.h         | 4 ++--
+ drivers/crypto/ccp/ccp-dev.c               | 3 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+ drivers/gpu/drm/i915/intel_cpu_info.c      | 5 ++---
+ include/linux/platform_data/x86/soc.h      | 5 ++---
+ 7 files changed, 8 insertions(+), 19 deletions(-)
 
 
-> 
-> Overall I am not convinced charging the creator makes much sense.
-> 
-> Eventually a few allocations for iterators could be GFP_ACCOUNT.
-> 
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+prerequisite-patch-id: 2a8952c8b8b6b019585a8bc449db628f458658cb
+prerequisite-patch-id: 6b1715c7e4f230fedfcadf38303ce5966922caff
+prerequisite-patch-id: 88872ad297c6b8ec80cb4ec4057ab281e10c148d
+-- 
+2.54.0
 
