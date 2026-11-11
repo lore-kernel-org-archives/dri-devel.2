@@ -2,61 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE17606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66276606A886
 	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 19:25:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DnQMeCXp
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=beNoZRA0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA6D10E456;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EEDF10EA89;
 	Wed, 11 Nov 2026 19:25:23 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A562510EA89
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:24 +0000 (UTC)
-Received: by mail-ot1-f69.google.com with SMTP id
- 46e09a7af769-8490253aeb6so3309456a34.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:24 -0800 (PST)
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0274D10E32D
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:24:22 +0000 (UTC)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-45e83fd0663so3378532fac.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 11:24:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794425064; x=1795029864;
+ d=google.com; s=20260707; t=1794425061; x=1795029861;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=S4+DQ/5hS2/5UfXO0mi1ZgFeMRsr05x8y1FYZlBsi/k=;
- b=DnQMeCXp0nOF3JiQmfIpNllenrczPkowCHQFY3zJnzLauk58aYFV66ZPMCUbXJWrzB
- +kGW3lrzzurPZdtDmbmvGdG6q+9Vk6Cs235BCNPrb9UCuviqHvWBP+SJhgH5bULBkW/s
- Ad5T2sUlK9u4PaTrK6sc7sl+7xcWmno02K9LF4Coowp0LupZji9xjhuDDHJxpqHcQl5B
- dGNfBkM1240AZzaoU/MolxiUvJtXeJgENao9sOwwFfH1IdnUpaQ0kQ50OZ3bYT5sPyrh
- mJ/OIIGs227jp5SYMXZ4Ar2f8qFy7AYV023aSUkmf1qH1CUtRRw+hHE+/he3VeHCoN/C
- FtCg==
+ :content-type; bh=9sL5fqWbHi6g8R+z+W0YnlVdwW61K08vu/pGLyPlBpM=;
+ b=beNoZRA0aiGVYTkOnZJhBd+TvvXNw1/cWOWteDiPaIpldwK04+w4PPnkfQaxE6GBQL
+ u2rW1x68VJi1qrMZplBSznYNMiPdsmQ0gZY3iTxgFVN9QE4ouxaFSLryuwxWto8YsENn
+ DcT7Jr0J5cz0/kjx6wcV0w/z4J3I6bL+pxao9Xpj3fvezXellHtmP7GiFwElhUt6/4Y6
+ 76uJdY8z1Bpks9wpAnMQNQDxuydEdNMpodhrNf62JK4oVsQ3FC9f4/sIT8eYbZgQUc1G
+ TfntR1suhtJU/G9fkMqRG0cLfALqZGBRuYYbP7h6SkcxS5MGqOFly6mol/pdlfNEbseL
+ NTIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794425064; x=1795029864;
+ d=1e100.net; s=20260707; t=1794425061; x=1795029861;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=S4+DQ/5hS2/5UfXO0mi1ZgFeMRsr05x8y1FYZlBsi/k=;
- b=ecrezrBAIlKayOZz/P+X5hKUWuQsBsZW+jHHqfVX1QxFuRGAU2fiVjMEfimb5oc5XV
- ZRzyo8ptad+xv4XzIrBN3UFppyDjpkptp57K7/DkId5n78PQOHlKeW7LYjbG44LnX/Kf
- +/Sxg+EkhRi2o4fk1+KdN5b/XUUWUN4Mm07vpePEmzXyLIHiGz670xjyELqNdAodrIH/
- miOeRWcrzshfPOuWICZXkE/IqM/Cc84Xb9Lvbvpl8gubaq9dIJjVjvf7up4MB2TvCjhc
- af57DXx4oTH3Q6VssQ5UmiSHyLSr7vJtCPwovs6RMjWoSbIOfjg34HvRzEQuig8E8Dwl
- MCng==
-X-Gm-Message-State: APuU4Z+aH1izIQRiodjxSnAvRp8XmpWqVUmWi9ICfXPpObboAHVo/JVe
- x/1nU4LM93mqrUP0URZYop0UNMBPdEJhJytBUzSQyhm5KxzWA16hz199xrLAoC+SpEbfJD9y8TH
- qQWvV6iXLFJRHhmFRg0asBbfN5T779cwxQiacVFNQXn/1SjAwZiGKAMDMe2zGbp7UHbOxYzNwwg
- ZUERiX6+YnVvJCru5uO7dhSdeZ0e5c05YkLT80mHAxAMmIENHeiwskJ3tzGHE=
-X-Received: from jabll4.prod.google.com ([2002:a05:6638:9804:b0:61f:e4cd:8716])
+ bh=9sL5fqWbHi6g8R+z+W0YnlVdwW61K08vu/pGLyPlBpM=;
+ b=qvYcRr9DA9eraNjlr3gmBAdlBR0qjJNz9D6vBTRbBZjBT4QWRGBMw/kpKOy6XIDOgT
+ uAf7ZIBj5SKz3eGhmSf2ZuN62sVTsjphrJVVXNS2ub8ZIdoDLxONgKty98oottkvdV3l
+ VbZcBDgBq1yI68aFm7QGLRc9qvVk9VahjBYGIcKrOG30tJozDzJ7FW15eU4I1oe3qOYc
+ u/4+4KwEGHP73fYrubNILokwZ9aAyjVFzHnys0TtLR7dTFqJhH9q4MVjewj4BewviXj1
+ c75wijLxAenjs1BJKTxa/VrckRGHeQOOCl27kP3HXXD4lKMHA+eMZisWVSJaE9Ni53wx
+ oTEA==
+X-Gm-Message-State: APuU4Z/XYnDrdG6xnObZIdcUdo6ExltifMJPlRF0nAdwSAD5Fd6Yn54m
+ I84VU/PYpI7s5WnMk7W8j+HKTvxNrkSjx0DKECU5jag/Hrom/gRGHmRXjjbYuR0Je61KQH+n+XG
+ X8wnddrpeZedGSF6wSFWrU0UqWm5IVvvAqibqiXpDlk1zSsPh9EiePG3Q2npR7tCBuC6rX9bKV1
+ 9myTQq1T710dQKe8hdt+mGHPiaqN2OsJMJkQIin8wOQmn5EX5PNw4D2XJNmZw=
+X-Received: from oabus13.prod.google.com
+ ([2002:a05:6870:df8d:b0:4ad:8f23:4d1b])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:318a:b0:4af:5d69:1cb4 with SMTP id
- 5614622812f47-56b96ad0615mr3028788b6e.15.1794425063307; 
- Wed, 11 Nov 2026 11:24:23 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:24:10 +0000
+ 2002:a05:6870:1644:b0:49e:f7c:fa52 with SMTP id
+ 586e51a60fabf-4ae46ba7423mr2997611fac.36.1794425060739; 
+ Wed, 11 Nov 2026 11:24:20 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:24:08 +0000
 In-Reply-To: <20261111192411.4133780-1-dmatlack@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261111192411.4133780-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111192411.4133780-7-dmatlack@google.com>
-Subject: [RFC PATCH 6/7] vfio: selftests: Add vfio_pci_find_p2p_pair() helper
+Message-ID: <20261111192411.4133780-5-dmatlack@google.com>
+Subject: [RFC PATCH 4/7] vfio: selftests: Add vfio_pci_dmabuf_create() helper
 From: David Matlack <dmatlack@google.com>
 To: dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, 
  kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
@@ -93,104 +94,84 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add vfio_pci_find_p2p_pair() to locate an initiator device with memcpy
-driver support and a distinct target device with a memory BAR of at
-least min_bar_size bytes from an array of VFIO PCI devices.
+Add vfio_pci_dmabuf_create() and __vfio_pci_dmabuf_create() to export a
+VFIO PCI region range as a dma-buf fd via VFIO_DEVICE_FEATURE_DMA_BUF,
+and preserve -errno on failure in vfio_device_feature_ioctl().
 
-Factor out vfio_pci_has_p2p_path() as the central place to validate PCI
-topology and P2P DMA reachability between the two devices in the future.
+Native iommufd maps device MMIO BARs for peer-to-peer DMA via dma-buf
+file descriptors rather than VM_PFNMAP virtual addresses.
 
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- .../lib/include/libvfio/vfio_pci_device.h     |  8 ++++
- .../selftests/vfio/lib/vfio_pci_device.c      | 48 +++++++++++++++++++
- 2 files changed, 56 insertions(+)
+ .../lib/include/libvfio/vfio_pci_device.h     |  5 +++
+ .../selftests/vfio/lib/vfio_pci_device.c      | 33 +++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
 diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-index fd130f680a2d..9bda93712859 100644
+index 19d458adba1a..fd130f680a2d 100644
 --- a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
 +++ b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-@@ -42,6 +42,12 @@ struct vfio_pci_device {
- 	struct vfio_pci_driver driver;
- };
- 
-+struct vfio_pci_p2p_pair {
-+	struct vfio_pci_device *initiator;
-+	struct vfio_pci_device *target;
-+	struct vfio_pci_mem_bar mem_bar;
-+};
-+
- #define dev_info(_dev, _fmt, ...) printf("%s: " _fmt, (_dev)->bdf, ##__VA_ARGS__)
- #define dev_err(_dev, _fmt, ...) fprintf(stderr, "%s: " _fmt, (_dev)->bdf, ##__VA_ARGS__)
- 
-@@ -171,6 +177,8 @@ static inline bool vfio_pci_device_match(struct vfio_pci_device *device,
- 
+@@ -172,6 +172,11 @@ static inline bool vfio_pci_device_match(struct vfio_pci_device *device,
  bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
  			   struct vfio_pci_mem_bar *mem_bar);
-+bool vfio_pci_find_p2p_pair(struct vfio_pci_device **devices, int nr_devices,
-+			    u64 min_bar_size, struct vfio_pci_p2p_pair *pair);
  
- int __vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
- 			     u64 offset, u64 length, u32 open_flags);
++int __vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
++			     u64 offset, u64 length, u32 open_flags);
++int vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
++			   u64 offset, u64 length, u32 open_flags);
++
+ const char *vfio_pci_get_cdev_path(const char *bdf);
+ 
+ void vfio_pci_group_setup(struct vfio_pci_device *device, const char *bdf);
 diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-index eca6eb13d7f0..16fc98ed170b 100644
+index 9840463594ab..eca6eb13d7f0 100644
 --- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
 +++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-@@ -378,6 +378,54 @@ bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
- 	return false;
+@@ -153,11 +153,44 @@ static int vfio_device_feature_ioctl(int fd, u32 flags, void *data,
+ 	feature->flags = flags;
+ 
+ 	ret = ioctl(fd, VFIO_DEVICE_FEATURE, feature);
++	if (ret < 0)
++		ret = -errno;
+ 	free(feature);
+ 
+ 	return ret;
  }
  
-+static bool vfio_pci_has_p2p_path(struct vfio_pci_device *initiator,
-+				  struct vfio_pci_device *target)
++int __vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
++			     u64 offset, u64 length, u32 open_flags)
 +{
-+	/*
-+	 * TODO: Check PCI topology / ACS / host bridge support to verify that
-+	 * P2P DMA transactions from @initiator can reach @target.
-+	 */
-+	return initiator != target;
++	u8 buf[sizeof(struct vfio_device_feature_dma_buf) +
++	       sizeof(struct vfio_region_dma_range)] = {};
++	struct vfio_device_feature_dma_buf *dma_buf = (void *)buf;
++
++	dma_buf->region_index = region_index;
++	dma_buf->open_flags = open_flags;
++	dma_buf->nr_ranges = 1;
++	dma_buf->dma_ranges[0].offset = offset;
++	dma_buf->dma_ranges[0].length = length;
++
++	return vfio_device_feature_ioctl(device->fd,
++					 VFIO_DEVICE_FEATURE_GET |
++					 VFIO_DEVICE_FEATURE_DMA_BUF,
++					 buf, sizeof(buf));
 +}
 +
-+bool vfio_pci_find_p2p_pair(struct vfio_pci_device **devices, int nr_devices,
-+			    u64 min_bar_size, struct vfio_pci_p2p_pair *pair)
++int vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
++			   u64 offset, u64 length, u32 open_flags)
 +{
-+	struct vfio_pci_mem_bar mem_bar;
-+	int i, j;
++	int fd;
 +
-+	for (i = 0; i < nr_devices; i++) {
-+		struct vfio_pci_device *initiator = devices[i];
-+		const struct vfio_pci_driver_ops *ops = initiator->driver.ops;
++	fd = __vfio_pci_dmabuf_create(device, region_index, offset, length,
++				      open_flags);
++	VFIO_ASSERT_GE(fd, 0, "VFIO_DEVICE_FEATURE_DMA_BUF failed: %d\n", fd);
 +
-+		if (!ops || !ops->memcpy_start || !ops->memcpy_wait)
-+			continue;
-+
-+		for (j = 0; j < nr_devices; j++) {
-+			struct vfio_pci_device *target = devices[j];
-+
-+			if (i == j)
-+				continue;
-+
-+			if (!vfio_pci_has_p2p_path(initiator, target))
-+				continue;
-+
-+			if (!vfio_pci_find_mem_bar(target, min_bar_size,
-+						   &mem_bar))
-+				continue;
-+
-+			*pair = (struct vfio_pci_p2p_pair){
-+				.initiator = initiator,
-+				.target = target,
-+				.mem_bar = mem_bar,
-+			};
-+			return true;
-+		}
-+	}
-+
-+	return false;
++	return fd;
 +}
 +
- void vfio_pci_config_access(struct vfio_pci_device *device, bool write,
- 			    size_t config, size_t size, void *data)
+ static void vfio_device_feature_set(int fd, u16 feature, void *data, size_t data_size)
  {
+ 	u32 flags = VFIO_DEVICE_FEATURE_SET | feature;
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
