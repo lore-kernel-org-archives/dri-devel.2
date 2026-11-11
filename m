@@ -2,171 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC12606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 06:11:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37CF606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 06:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=bHae4VOn;
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=Y1cvZL07
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCU6c0Ug
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F3710E33E;
-	Wed, 11 Nov 2026 06:11:45 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A878710E27B
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:11:32 +0000 (UTC)
-X-UUID: ba8465e4dd9611f18dc8c9802ae25ab1-20261111
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=MRi6Z2MynfC98mJXp2oM4bhjOtPXVQh9vgmCrfHJQ+c=; 
- b=bHae4VOnzsvlUJVVDylb9TF+V0AgYYdUEOral6UsZnjWopYbNtk285VV++O0Ppkljul3n/Q9l5J5MSux6Ae5WdttuaTy9pF//e2mqLenTFimZ/fuKcdBOuJj1arY6g11UaIFwazAbfoPg4474VOqadFctOAurocPIW2kNyzr9h8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21, REQID:22a02740-c48e-4463-a920-07f654f752d8, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:b0318ac, CLOUDID:6db1b130-f289-4656-bb36-27baf4489f11,
- B
- ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
- Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:n
- il,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ba8465e4dd9611f18dc8c9802ae25ab1-20261111
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 698419024; Wed, 11 Nov 2026 14:11:26 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 11 Nov 2026 14:11:25 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 11 Nov 2026 14:11:25 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ogu4S9QqzjqCWyMPaH75o1cRRSo7aNoWzjLLpZHSwknLBQHSoaaCve+sqv/Swhsc4aNEeZGcWIF4I2pb4PMUOQMNbQzahOkHsZ4rzT/iGR1Z/K3xnEKCrSBbDTEZTay+VZsAd5qusvcvW7QyaIh1PIFCvCV2rVuGm08Ejn+4SEuffqLj/FU3R2Q21aA+6LChT7bwN0fZakfX0SWBG4sk1Hw+l2AmcE/WwPUI2uuUMXMUBhc3BbL5hA9Z6eRnAr+xyRDUU18nZSvSwVz5x7vx30O+VgVZlBzzmXv3pPexZqnoXeJn1G3uU0uNIQnzKwzLnQxJ/g3FFDxlIz2dOE7DJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MRi6Z2MynfC98mJXp2oM4bhjOtPXVQh9vgmCrfHJQ+c=;
- b=PkSdyk7aKsQ6mYv1SWpQzVbzd3gYpA2Xuc1h2W+vQKijMj/Ai/vEc8l0ksBu5bzzSnyjYxu6jomzMrTEEPz5iamewKRAMWslU1jjj3Fie5CwDLhZVWOZ5EJNirirlpXlbQ24TfmS/7g+Wi5K/3HhaERYR1dAaCfZ0Fu1locUYlOj7ssBlTJjBznAu6w6UMRbl+VwqplL/JB5CCX1K5MmYEhRCF0Gx2DYbkf8NpOzKEszfz6/pvB3Jt1K/7ifTsOgDcsD6PtOCr2/SqnjaaBeQt3Qxil1sjxYosP1G3q0GtE7lnGTszRimZCu7qb4BRlYYSRwWC9A5NumC74ClFhEtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MRi6Z2MynfC98mJXp2oM4bhjOtPXVQh9vgmCrfHJQ+c=;
- b=Y1cvZL07Pordhuar/M3nHf85KOhOgPLnINZZ+Qnnl5oCNz6KNphIaxmZO4fhlrlY0vdL9pV/cQqr0ZxeHXHyhxNW1KT/wyOJW9Kz0HdvWOu7/Urc3XUTYdB9FHAGdVOOJQurzvHQyQpyTMi5TkXlyPAbbubBcYk/MWk7114HHN8=
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
- by PUZPR03MB7159.apcprd03.prod.outlook.com (2603:1096:301:111::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 06:11:20 +0000
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 06:11:20 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "AngeloGioacchino Del
- Regno" <angelogioacchino.delregno@collabora.com>, "chunkuang.hu@kernel.org"
- <chunkuang.hu@kernel.org>, "tangbin@cmss.chinamobile.com"
- <tangbin@cmss.chinamobile.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/mediatek: mtk_hdmi_v2: NULL check curr_conn in
- pre_enable
-Thread-Topic: [PATCH] drm/mediatek: mtk_hdmi_v2: NULL check curr_conn in
- pre_enable
-Thread-Index: AQHdZfig5rie6B29DECSbw2L5GkfKbcoev8A
-Date: Wed, 11 Nov 2026 06:11:20 +0000
-Message-ID: <b2fbd2478bfbf056f8e0d21d7fd280abbdaf9c4b.camel@mediatek.com>
-References: <20261027094941.1862-1-tangbin@cmss.chinamobile.com>
-In-Reply-To: <20261027094941.1862-1-tangbin@cmss.chinamobile.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|PUZPR03MB7159:EE_
-x-ms-office365-filtering-correlation-id: 0f9b835c-5777-486e-f3b4-08df3fba9af8
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|366016|1800799024|42112799006|38070700021|10067099003|11063799006|56012099006|261022105027099003|261026140227099003|261022075727099003|261026121527099003|261021121427099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: VqB0lSHUR96YJzgW63Q0YmOE7BStNCoVVYtOFkQbtLirPOG7mdONl4ynT/aVSV3RzKf4DMEX2G+MqtLiwUscYN0c0JmVuXRPQoGn82gVwFUT2kf8Vs1UbDT8nQFC/aTzK5nTa/BU0EF2ysiJK6oDvtn8mCoOjDvD2kKlv3XVbaxHFR9yILAXdtjDKiiZuHJDLB1vhq5R757VSzejkSC87XlcaqY9ZVnzENl+L8rlly81dB0eb4Glymz1gvyiLrjtgOIz4u4WqRZraepGmRXLjo/isw4VyluMJkUTSyRMQN7E74NHjYzu3UWF81rk9ozqjzp803LQS90c/sroqn33Zs9xJumdLoX1FbGPqO3oOSUNxj/i1rsvUlbhhlIrD8bWBC1ejCejQq1x782w5ThjXPtYzwUjpsqVgmd2aTjP8EZ4PN5OKNdfyQFFRMFR7syws9Kk25IAuHqXfU4KNHFSixQjZ0DBpPGUO1xjqRTNq3T8zYySR/Gb0UoWf07G/2hgJdDJPyuxHpNMqoO4kZqqO9kPznZqipDc7X6ZNmcMCM6ReJe2//mPUwYgsuqbABHI/6wv+LyE0AmisglebMhD2wH9z3AVsbWaL+QN6/jPFIqHvtrWxx1DgsLbgw+1f1piQeXiymGi/PtVOV859dlWUg/AUIK3VGzxUIq9AUUAIcsL6Yrq9AA7Rm9/h0+1gWFY+AwEnYNeERHQ0Wy0OU8E4w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KUYPR03MB9902.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(42112799006)(38070700021)(10067099003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003)(261021121427099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?c1pDSjYxY05idXdwcnFZQ2tMNkMydWJpWk8wK0JYakJJV0VIVmdvbHNuampr?=
- =?utf-8?B?N1FUN2w4K1pPa0NKT2FMSSt2TVdiSkVCMUNBdEFZZFZwdlhJL3B0NDkvN3JD?=
- =?utf-8?B?ZzJieWRya05NaEppSU5LbDRlODM4YTJCZHA3eVpybzZPUjVKZ0s5c1VnYWx4?=
- =?utf-8?B?aUpkWkNySGVVZEI4dG95VzJRV3VQcFIva1BrWkdhY0VxNjZGcUhWRTVpUDNl?=
- =?utf-8?B?SmdXeTBjVU84d1VzOVJzSmY0WUFCS1Npck5Ka1NNTlZacit0R0tTSUNEc0hJ?=
- =?utf-8?B?WDFoRk5ET3htcDNXWThXOU5XeXZSUW9RdEh4WStIQWdqYlFYRjZPTm1VYkNO?=
- =?utf-8?B?UXBuRjkyUXVzQkFMUWN3UTE4WGlJK2RSL1lWZSsxbTRMTGl5aWcwV1Q3VDVy?=
- =?utf-8?B?OE1PR1gydGlsNXczY1ZodytTRS82WXdha2RuSURnckdLTGVzOW01QmNzVXZH?=
- =?utf-8?B?bGlqblZ3aUZGMjFnWjNoakJNMEJsU2NTQVBocEdoYU55OWJaV0dzNDZoSnRT?=
- =?utf-8?B?T0ZOV0xjY3pHTHVWMlBqYjZWSWs4dWpYdlRaK3V4VHB3ZnV3Uml3OExuYzBE?=
- =?utf-8?B?dHRXenRMMEZVdHpQaUhNamRQblhGemtZMmtWZW56ZUplMUlHTklrL1k4YXBz?=
- =?utf-8?B?N3hlQXZOdUZCbmRQdVdLR0wwbjR0ZHNNUXhZQ05OT0xFbW9nZGtVZFlFbzI4?=
- =?utf-8?B?czZ1MDl0VXpkYjhvQ2d2a3JlWHhRd28wblB2RTNaMWEza2F5eU5VNklub3Vo?=
- =?utf-8?B?ZFlqTE51UjBkQVpSbWs2cENsb3hJc0J4MWV6SWdFSUdSWTN5V1ZRdHRlOVlY?=
- =?utf-8?B?R2RpcEJwcTlJclE5d3dhMzBFZ1FWUWR4NTZmemxEL1ozbGpZazdzTkEzZjR0?=
- =?utf-8?B?U3ViS3lzNWJucUFLK3BPeVhCS0ltTExjeHlWS0NTekdQVWpRdyt3RTluN3Vw?=
- =?utf-8?B?c1VteEpYVko5SjdySFRsWWRiK1FpR2FyeDE0eVAzdHFoYnU4Q0RsWUJmbExF?=
- =?utf-8?B?SGRMMy92MTZ3RDNjeUFpcUliMEd3TExsQTkvNHNDcklKVjFibm05TEp0UEJL?=
- =?utf-8?B?NU9yemVJQUw0VDZnMkx3Q2FhNGlsUWlVdHkwZmVEVWxIZldMdEs4NTV4djlo?=
- =?utf-8?B?RkxOZzVpa3ZxL3hCeEhnd3JCK0JxNkVrZlhiQitvY2h0bDBhUUdGMWZFanVy?=
- =?utf-8?B?VlRMeVBQZVhIN2I4Zmd6bTJURzA1UUJ6TCtiOHY4Tlo1czQrR0JnNnNpN0dE?=
- =?utf-8?B?R0hPK0R1MzJaenplR29EaFpvb05FYnNQbFhDTEdGZUhCUHhHWEZKYkdwOXE3?=
- =?utf-8?B?K0tPaHN1VGlYYk04bC9OMWVzazE2R3Q2YTZnUjRkeFZMMjN2aXpzTTRNcWgy?=
- =?utf-8?B?dkUvMklhdVJVRm9NWUdkYlU5c01RUlEvVnpRd0plSDNQNnd2Z3lIZUt3Q2do?=
- =?utf-8?B?eTJabFhDNGJhRlgzdWZEZUx6QTNmbnhzZzZaWU4rVWZhbXM4ZUordnhlZ25G?=
- =?utf-8?B?WHBJZEZDOXpsK3pKWFNDZWc2eXM2Wll6M3hHN0hIVlg2bElmNHZoRjFEZ29r?=
- =?utf-8?B?V08yVlhoeEczUFBkVGpDVkdTUEE5MnV0MmJIaGU0TjdScW82Ukt6Q1RLcUFo?=
- =?utf-8?B?czIxUXNJWFN2bkh6RERJaGQ2Nk04TjhBVGpYK0ZTeUJnWERCelZZMUliZktH?=
- =?utf-8?B?bFhDc2d5anA1Y3NxR0dmMENrbkJoN3B2cm85UUdRc2JpbC9SU3FRVmdoTEQ4?=
- =?utf-8?B?ZHBpWVRQNFU5SlJITitaOWVZVWZ0VFladnNuZUxzRHg1czhRVzBqYXh3ZWoy?=
- =?utf-8?B?eCtNeWdsYllsUlBlaVRRTGU3K0YxRFdPNVhZcS9IeXZKYmdmaGwvc3A1QkY2?=
- =?utf-8?B?TmhpWWxwYlp0azdHdkVQcDl2UHF0dnhGTXNzTllwRDI5dUJKNU9CcUZZb0VX?=
- =?utf-8?B?Vzl1eVY5Vm13a05YQ2JlUlNoUXJlSHQydVZJSmhrTmdidmc3MkRDSHpCSm9E?=
- =?utf-8?B?RzdtUWM4cXVobDZFWncyNi91RjZKRm1sZkFvM0xkZVg1dXA0S0Z1K2VkZ0hm?=
- =?utf-8?B?UXlWRTVQUVBoRXhqaUpRcnM0MjJ3SHdKWnQxTGNJNTNTajdXbEh6bS9Ua0lV?=
- =?utf-8?B?T2l6bWNLOUVvbWRFN3BzbzJqcWdQczFwN0p2bHZQMXR3amZpNVZtaTFTV1Nr?=
- =?utf-8?B?WFMvakc2WVpCMkdReDcwR3l1VVZJVk1pVEVOYmQwM0xZL00wam0yemQ3MytZ?=
- =?utf-8?B?WTlpMXNMeVhTcUVIYTNFMk1wY2N2SnFCQmw4dDBBM1UvUkJ5VktEbDgyekNo?=
- =?utf-8?B?cWpsWVFUd09WWnhiNDRqbFFHRG1aS1ZOVWhPUXdzWWdBUGR5dE1lQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C4CF7672C9A86447ADAA5211DFE4C107@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: fnUumeMej3+xyRWZwwn2escOIjH5cqYwJn5wuszFtm8nH8NAaiihnV3mRHhzo8D+BnYreXIx1Fr6qeCxQacMVJPSLyAO1bHG9Q5Ei19Gqn2H4bC8Vcu29DLL/AuiNaPMYklm5xnON9FdLnFxBEc780vV955m6LZ67lnBi3ZnmDxnPjOJUdpTt1uXXvo/zJ7RgSyUv45RhY2Wkl2A2Ct/v7wiBq0aFAXHn24WFU7rHJ75+0EhnQ2/PNYvSHieG4SNNJNFhjrqxldZjAvYFBLcrCHVH5cN1Kme2eWHprSRiSNUXOqsOWPZMwlKbqRN0xpStom8x3n6NDru6Jr16H85EQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f9b835c-5777-486e-f3b4-08df3fba9af8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 06:11:20.6112 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1yiPrM+iJUHQcb247HmQ2i0OmK74Qkm6BnUXgKJG8LXL+jeOmIsnGg3N5s7MrayEfdpVfNlhqRxZTh4SzBkTwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR03MB7159
-X-MTK: N
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF57710E35F;
+	Wed, 11 Nov 2026 06:14:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0188410E39A
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 06:14:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D251414E1;
+ Wed, 11 Nov 2026 06:14:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDED1F00A05;
+ Wed, 11 Nov 2026 06:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794377650;
+ bh=7l98wBRsNl/j44YWc8X9SzvCW4SEEOFrYYyvduEdD3Y=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mCU6c0UgXNoMrUlQHRHGkDwstHP6xRCp43aazbkLWrr1rUaLOx0GwC5F4RycnN5ok
+ zZ7/dEkx/x+yVCcyAUA5Rc5y2Zbtl6+Iedzp9iAS7TLyiyToZR4/NbovbuAcFz/t3g
+ mgEypxoiFiVb5u75UmgaRWuvk2B5WuDRcYEL/FAwlG9W1sv4FAA0seaOGBN/9ogHAi
+ qdEdbFRsKc7kUb45LrkeML5T4QhbvdIRerkktYTEHdj/ORj3LxC4yPFHCA0+cN+s73
+ PjpOnIr8vO+qhkadnmodGnycvlGnkmH7IWHn470gD21vnJLz0Yzbutqo89ZpXmPQbB
+ OZhFzpLBivhYg==
+Message-ID: <sashiko-outbox-208400@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/nouveau/disp: Set
+ drm_mode_config_funcs.atomic_(check|commit) (attempt 2)
+To: "Dave Airlie" <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
+References: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 06:14:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,42 +48,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-T24gVHVlLCAyMDI2LTEwLTI3IGF0IDE3OjQ5ICswODAwLCBUYW5nIEJpbiB3cm90ZToNCj4gRXh0
-ZXJuYWwgZW1haWwgOiBQbGVhc2UgZG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVu
-dHMgdW50aWwgeW91IGhhdmUgdmVyaWZpZWQgdGhlIHNlbmRlciBvciB0aGUgY29udGVudC4NCj4g
-DQo+IA0KPiBtdGtfaGRtaV92Ml9icmlkZ2VfcHJlX2VuYWJsZSgpIGNhbGxzDQo+IGRybV9hdG9t
-aWNfZ2V0X25ld19jb25uZWN0b3Jfc3RhdGUoc3RhdGUsIGhkbWktPmN1cnJfY29ubikgd2hpY2gN
-Cj4gZGVyZWZlcmVuY2VzIGhkbWktPmN1cnJfY29ubiAodmlhIGRybV9jb25uZWN0b3JfaW5kZXgp
-IGJlZm9yZSB0aGUgZXhpc3RpbmcNCj4gV0FSTl9PTighY29ubl9zdGF0ZSkgY2hlY2suIEFkZCBX
-QVJOX09OKCFoZG1pLT5jdXJyX2Nvbm4pIGZpcnN0Lg0KPiANCj4gRml4ZXM6IDhkMGY3OTg4NjI3
-MyAoImRybS9tZWRpYXRlazogSW50cm9kdWNlIEhETUkvRERDIHYyIGZvciBNVDgxOTUvTVQ4MTg4
-IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogVGFuZyBC
-aW4gPHRhbmdiaW5AY21zcy5jaGluYW1vYmlsZS5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUv
-ZHJtL21lZGlhdGVrL210a19oZG1pX3YyLmMgfCAyICsrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBp
-bnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVr
-L210a19oZG1pX3YyLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2hkbWlfdjIuYw0K
-PiBpbmRleCBmMDI3N2ZjZjMuLmM5NGQyMjA0MiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL21lZGlhdGVrL210a19oZG1pX3YyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlh
-dGVrL210a19oZG1pX3YyLmMNCj4gQEAgLTEwMjYsNiArMTAyNiw4IEBAIHN0YXRpYyB2b2lkIG10
-a19oZG1pX3YyX2JyaWRnZV9wcmVfZW5hYmxlKHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2UsDQo+
-IA0KPiAgICAgICAgIC8qIFJldHJpZXZlIHRoZSBjb25uZWN0b3IgdGhyb3VnaCB0aGUgYXRvbWlj
-IHN0YXRlICovDQo+ICAgICAgICAgaGRtaS0+Y3Vycl9jb25uID0gZHJtX2F0b21pY19nZXRfbmV3
-X2Nvbm5lY3Rvcl9mb3JfZW5jb2RlcihzdGF0ZSwgYnJpZGdlLT5lbmNvZGVyKTsNCj4gKyAgICAg
-ICBpZiAoV0FSTl9PTighaGRtaS0+Y3Vycl9jb25uKSkNCj4gKyAgICAgICAgICAgICAgIHJldHVy
-bjsNCg0KSW4gZHJtX2F0b21pY19oZWxwZXJfY29tbWl0X2VuY29kZXJfYnJpZGdlX3ByZV9lbmFi
-bGUoKSwNCml0IGFscmVhZHkgZW5zdXJlIGRybV9hdG9taWNfZ2V0X25ld19jb25uZWN0b3JfZm9y
-X2VuY29kZXIoKSB3b3VsZCBub3QgcmV0dXJuIE5VTEwsDQpzbyBJIHdvdWxkIGxpa2Ugbm90IHRv
-IGNoZWNrIGhlcmUgdG8gcHJldmVudCBudW1lcm91cyBjaGVja2luZy4NCg0KUmVnYXJkcywNCkNL
-DQoNCj4gDQo+ICAgICAgICAgY29ubl9zdGF0ZSA9IGRybV9hdG9taWNfZ2V0X25ld19jb25uZWN0
-b3Jfc3RhdGUoc3RhdGUsIGhkbWktPmN1cnJfY29ubik7DQo+ICAgICAgICAgaWYgKFdBUk5fT04o
-IWNvbm5fc3RhdGUpKQ0KPiAtLQ0KPiAyLjUyLjAud2luZG93cy4xDQo+IA0KPiANCj4gDQo+IA0K
-DQo=
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/nouveau/disp: missing closing quote in Fixes: trailer
+  subject
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [High] drm/nouveau: wrong dtor order and disp leak in
+  nouveau_display_create() [1]
+--
+
+commit cf4b32d591c8a8a0033562aad54661c60e5b35bf
+Author: Dave Airlie <airlied@redhat.com>
+
+> drm/nouveau/disp: Set drm_mode_config_funcs.atomic_(check|commit) (attemp=
+t 2)
+>=20
+> commit 604826acb3f5 attempted to add these flags but
+> commit 6c65db809796 reverted it due to it
+> failing on hw from pre-atomic times.
+>=20
+> So use a second set of functions.
+>=20
+> original commit msg from Lyude:
+> "Apparently we never actually filled these in, despite the fact that we do
+> in fact technically support atomic modesetting.
+>=20
+> Since not having these filled in causes us to potentially forget to disab=
+le
+> fbdev and friends during suspend/resume, let's fix it."
+>=20
+> Reported-by: Ruben Wauters <rubenru09@aol.com>
+> Closes: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/517
+> Fixes: 6c65db809796 ("Revert "drm/nouveau/disp: Set drm_mode_config_funcs=
+.atomic_(check|commit)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
+
+[Severity: Low]
+The Fixes: trailer is missing the closing quote from the reverted commit's
+subject:
+
+  Fixes: 6c65db809796 ("Revert "drm/nouveau/disp: Set drm_mode_config_funcs=
+.atomic_(check|commit)"")
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/=
+nouveau/nouveau_display.c
+> index d71dcfc6ee66b..07882624a7f6f 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+[ ... ]
+> @@ -654,7 +659,11 @@ nouveau_display_create(struct drm_device *dev)
+>  	drm_mode_create_scaling_mode_property(dev);
+>  	drm_mode_create_dvi_i_properties(dev);
+> =20
+> -	dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
+> +	/* this only gets set if the driver has the ATOMIC flag */
+> +	if (drm_drv_uses_atomic_modeset(dev))
+> +		dev->mode_config.funcs =3D &nouveau_mode_config_funcs_atomic;
+> +	else
+> +		dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
+> =20
+>  	dev->mode_config.min_width =3D 0;
+>  	dev->mode_config.min_height =3D 0;
+
+[Severity: High]
+This problem wasn't introduced by this patch, but can the error unwind paths
+in nouveau_display_create() cause a NULL pointer dereference and leak
+disp [1]?
+
+drivers/gpu/drm/nouveau/nouveau_display.c:nouveau_display_create() {
+	...
+vblank_err:
+	disp->dtor(dev);
+disp_create_err:
+	drm_kms_helper_poll_fini(dev);
+	drm_mode_config_cleanup(dev);
+	return ret;
+}
+
+When drm_vblank_init() fails, vblank_err calls disp->dtor(dev) before
+drm_mode_config_cleanup(dev), which is the opposite of the order in
+nouveau_display_destroy().  On pre-NV50 hardware, nv04_display_destroy()
+clears nouveau_display(dev)->priv to NULL and frees struct nv04_display; wh=
+en
+drm_mode_config_cleanup() then runs nv_crtc_destroy(), nv04_display(crtc->d=
+ev)
+returns NULL and dereferencing disp->image[nv_crtc->index] crashes.
+
+In addition, neither error path calls nvif_disp_dtor(&disp->disp) or
+kfree(disp), and nouveau_drm_device_init() skips nouveau_display_destroy() =
+on
+failure, leaking both objects and leaving drm->display dangling.
+
+[1] https://sashiko.dev/#/bug/linux-dd1d9372-c030-413b-9ce8-94b2029fab64
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-nouveau-at=
+omic-fix-v1-1-118e65d3a2f5@redhat.com?part=3D1
