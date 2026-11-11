@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC4F606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA72606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tMQL6Fto
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xsEApE82
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F3F10F9A1;
-	Wed, 11 Nov 2026 08:55:58 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012036.outbound.protection.outlook.com
- [40.107.200.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39A1E10F9A1;
- Wed, 11 Nov 2026 08:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2476510F9C1;
+	Wed, 11 Nov 2026 08:56:03 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012005.outbound.protection.outlook.com
+ [40.93.195.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB7710F9B0;
+ Wed, 11 Nov 2026 08:55:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=irxqMZMiVpK5a7qnL1Fa/N6W8ciGBDvnF5wmYdor0jSghPidC76YHYialtm8Wcv/VfwiAix+8A1jW7J8Urz0BDyT0WKPyLbCn8PeN2wL0keJPeKeYBDhKRZsa6550RWuGOiCw2TxQg5DWKe2B4sHG3qTpGU6JE3g30QIlRqwhcswfLlL3dppgkcwkfQkAw9jlO/KSZxZESu+MvY7c0TmyM+kioAHkQ+QbC0fhOps9lZVp4Z72vyGpVDsV2+9dcPe4lhdksfr6/7d4NQq+Cz77AAjyDtGFNEOl3sYAb3ahNGvai19uxerS+Op7LqPgXvm4oM/i03KzwAooXDcKB4PPw==
+ b=TSv5RBl1QkUMHdBXKVBndz5x1HNF8eEvj01oSzjYQhtEGSYsHVr4zRyQUteAmfvIckn+mhQx/gfb9zbJbkyuXUD37r1aujHZ/7OqEUcxkh8bRc0wKQ8jc1FCn0HVd38Iu+ZVw0YR3lM2OmJ2MqQNz0d7E89XFrdAtdEnMFrncXSOa1ovd4DzTK07X00jvrPlFVS2hT/Rrk/FncUTvXiw+vNg8m8YwQslZN84/vfYnmQnQN+B8BX1GNCqab2aqfTRn2Wxc1Y/6Q9lAukR16XzzjI/v5WIamb03Jc/4YPI7llchHrXNdahge8vJg8S9muvvGJ/HKU9Jmw2QB66GZz9SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lrKJLBnwJZvN7p9IbiYzBxGx3w3p4Sgzu5Qbv3vJhkE=;
- b=ib+97hBFPpMsHxAmSQy0oihbCtUeGkHvMcGac5pa26KotxBs1vVGco3/LJJzPrkSK2cx6HwU7WiQ9+XTHw33uGq0urEbMNmGDw0fxURPmaGhpnln8r+MAAIJl3U3/UyIzxmYWgJdCnBsx2TpDsQCRTpL0ddb+PqD6c6uK+JXUMByr+2AoKg0Dz8w/eEwqAEfghOb+k3vIKW72sq71GZUwEypKFzz0c1lP/xYVPN8ptF83LKJYJgsTQKICKDAbJoDqQRYNeecDnZmDuNNRYVeHxnM2Sk1nLMjwGu78YVEHxjOufPs/VVY92ppCC+F6FXjknDjeDKcZl13S+QhR5bxXg==
+ bh=a4tr5Q86YLIsGVPzrF0pOpSffOyk7+SBi6GblPpZ9Aw=;
+ b=b4+9mlkw7ZhuDykNMX57TwXfwxSbmAn/b1adWFgFi0hkOqTcZDVGKSa1y+IsV1tGk11vgBLvK+rl/Y1pYlL6PtoArHOVytdQI25WSO1N6HmuA86nqVgNLNkEkR+gGBC5QKaFOSb/fSdl7t+eo9b411d874E+tet9BSJG5d7J5ZJZcE0Kl+Uu1hwkWPqsy8sG5WWnYgj1nf0yvKR0/2YpIDgnIhY1rymJLD7B5zoCUPfDNea4sNYf+n9ORYxTos5LVF9sMFqDkuZjTKAGux+r5We/vlUVRM+5mdn00M8G4SwwpJV4EEkS+v5ipsNrPf7HjIlvIJ4D1a6WlBMqS/n4zQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lrKJLBnwJZvN7p9IbiYzBxGx3w3p4Sgzu5Qbv3vJhkE=;
- b=tMQL6FtoTiiCeNAwoVv9jPSZbctjEv02HmM8zt7YZQZ/Dcc9AnqH5CfIbsNawupp7l2zoF8mQhuWxWjsLnp7EntAh7Cfzn+mp5DgjZQXhd1KBxo87JoZlrHOC3ED3tdBTRscZPa5a0BWk34qbmtA6Sw1OdtHYmghKQDXKNS/Cz8=
-Received: from DS7PR06CA0050.namprd06.prod.outlook.com (2603:10b6:8:54::32) by
- CH9PR12MB987669.namprd12.prod.outlook.com (2603:10b6:610:312::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=a4tr5Q86YLIsGVPzrF0pOpSffOyk7+SBi6GblPpZ9Aw=;
+ b=xsEApE82Mi3mDL0De4lzt7cM1S19zhslIhFn6/RUvw2I2cN3Nkg+kBRJqxgJeAZ4Jg1yTgnRfY7F+b914P9tSRl7EVraI1NBsRVfSrL3wr7hRrmnwvx1YSgmAE6OxWsVVR4SQOz9czCyHMZeZPIEPPD6AdYZ0mpbC0ePDiylinU=
+Received: from CH2PR15CA0018.namprd15.prod.outlook.com (2603:10b6:610:51::28)
+ by DS0PR12MB7899.namprd12.prod.outlook.com (2603:10b6:8:149::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 08:55:49 +0000
-Received: from DM3PEPF000265B8.namprd04.prod.outlook.com
- (2603:10b6:8:54:cafe::37) by DS7PR06CA0050.outlook.office365.com
- (2603:10b6:8:54::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 08:55:49 +0000
+ 2026 08:55:51 +0000
+Received: from DM3PEPF000265BB.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::c) by CH2PR15CA0018.outlook.office365.com
+ (2603:10b6:610:51::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 08:55:51 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,22 +47,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265B8.mail.protection.outlook.com (10.167.23.245) with Microsoft
+ DM3PEPF000265BB.mail.protection.outlook.com (10.167.23.248) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 08:55:48 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 08:55:51 +0000
 Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 02:55:46 -0600
+ 2026 02:55:48 -0600
 From: Prike Liang <Prike.Liang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>, <tzimmermann@suse.de>, "Prike
- Liang" <Prike.Liang@amd.com>
-Subject: [PATCH RESEND 2/5] drm/vblank: Stop drm_crtc_wait_one_vblank() when
- vblank is turned off
-Date: Wed, 11 Nov 2026 16:55:31 +0800
-Message-ID: <20261111085534.514957-2-Prike.Liang@amd.com>
+ Liang" <Prike.Liang@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>
+Subject: [PATCH RESEND 3/5] drm/amd/display: send the flip event right away if
+ vblank is off
+Date: Wed, 11 Nov 2026 16:55:32 +0800
+Message-ID: <20261111085534.514957-3-Prike.Liang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261111085534.514957-1-Prike.Liang@amd.com>
 References: <20261111085534.514957-1-Prike.Liang@amd.com>
@@ -74,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265B8:EE_|CH9PR12MB987669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1461a546-1367-4602-64ba-08df3fd194eb
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265BB:EE_|DS0PR12MB7899:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30bbea3d-aa2b-4c6e-8e54-08df3fd19693
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|11063799006|56012099006|261022115727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009221227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 5+a0VzydNWAl/005uRjQiQ+/LoSbs6hHVK6Wd92B/sBzhD7ORnRZGTPm8L5zbrhRLlaOlZYmJfaqIghHvxm1Pr1bJEtBaZr2tZszU3gAYzJmoBTXhsK78NiVHirAvpwK6Muxyqum4ln2PgdR1VCk7WInkTKu/0GK3CQqUY9LY7nwtLtoEVj65PUosRYORmzIbWZgsgsit/J6dZGvbBpTk6KiSuVS5M88KEJ0B0BJNHrrithk99RRVMWlzG3KxSP1P0gPPwa6erVVkeYq4HjtR5zDjTQY19nZ2eQL3vgw2gbYHCJTtd+ldtSsV0CGfSCoYX35/0v7N971hFOF8b3jP8JvDMBxxGL8GyriFIdl8TeiFJoWQbKvlvKSZ2lANDqjmlRx2OneZ/6sgiGjyRkcBP92DS+ehDeP3vL2zkcnU7Jdu8299eFIIBNvBzQjEzHCBVrd+lwY+7RgdspaQdd5aC9U8MQdZK9apu0sU2jKFAXjuqFhMXxltlng4MdcWdRQ26t4Rzz66ay0uhOQjLzOUdYRlfN9GHG6wIN+bIQzADTWHWe9rwTje6oloyZdIkw6OO5Pjhh5OQUv6sZWeHH1Kkaccz6+5slZ1P07bl2KcVuoujzHUMwLRERp784HmNqUQtyQlHQs89LQEGuk61jBjbOri3mzhFCDjG4vnuyKSN0vl5OihmNKRHZRJ5khVvE44mkC2cT9ksBTkRCiQUFgGA==
+ ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|56012099006|11063799006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261102130727099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: z78La4e8G2+i5CyhzYoS4RphVYtx/6JnarZ7zB2qSH7WHjCUqvp4gQNyM3lLaAQBc51D5JUjPFpxXciJ7rk7wr45I68sDhAsxIjmUGQNfG7iwcGmqNfw2PrBIUFy+xjbwyIzsioP2EgOqqBUpo9WmphO7CyYIZR+AOEOokTR2gCfyFnZoWbp34MfxpoRzvOCdQmy9iebeDGb1P04yyNINwyaSimUiJ1/HTiGF8pfloIm9iyATW7qZvB2q4IJ/QZQcs6tyyuGFqpsOx+NBFma7XKSjEvC8QXJ+sCVfW2fRJFoMwlBCikclI3IralteEKT6pEc6IdQ6GlQb1dmrCzSnCYQsVsIjskBWVBtSD3vlZGqyULaKwJLxBennnsskRS1MlEgoJHupx1U2u41e/6p3JeeGCgHJGxbXy5YGedHEFGH084WfTqSAAoaHuFjJKjLjinc2Fe4QB2NaTVlFBXuRzsKiD4lnn5HWhONp3Or0Ejy69phOidBW2fatqJos9SZt6sazp+dDS3RYdKhMjWWQ/5QyRtwhW1nYAUD81mqnP2ykYQh+g1WXHgV3dF0B0ISBcQ+yyESD4hMWBcuLmtjVgTu+4vGADsnOc/jqcBfgj0kG6HDTlJLCcsvOCUrOFL5CGIJOjvhxc5rrhTGJjRWRTY407wQWRn0RrMkrbPAZ7ENV8+pEtckTNsTxbt33pqXd8nHZhVsVBMZ0B2712MwbA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261022115727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261102130727099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AjfFx6A4u5k9KkSMgxF2SBkCFglWxnrh7sE3p359sGgvMK6Zd6WJr6uH4gH11HDEURnda8ggXkQBvCcb84UMOJs+a+oE8Cq5SUpuKbVqjOYeB9P4YquLzanwn09IOGWbqCU4xEb3m46kHUzEVAXkBaQANKh4UzYenfjLM4oz5llF3YOXUxTyOkbC9DNY8qa33QL285pJ+cdan6dkrwcyGOuEp7j8aHVy5yNjm3R+M+TqGd2sH3vPzyj7G8eO4CtUodfwTCqYtTyU4kTuEp8WCjasSeOfletukQpDXUMZVymmrVuT89fePrb56I6HSWtmra62YJbt8CTTplNlcvqJJxGuMzt1k0qqr7a7/uOZoRtSKbK/pSn5CtR7NWxMm7ndK7OAm7yUC3mVTFQ49zK8u8G0yOoKIBFowUYzjhh+fBfJOc7kzbW8iayW76eQwWna
+X-MS-Exchange-AntiSpam-MessageData-0: MPzQC7RSi5N66zDsXueE5hzKV7Po2ansJb2bAzKKUXKnUWctnGba+B442CobKHvp+tsQ0h0UNzX7x9zjFP6CCKkoVuQhBqIeMOP/LV7Azq7fvqJ2AQzn2vFvZe7TDy19IsHX2N1ws6OeYkLjpKITT0Gv3Amlt5GknmTTWd7cRyEczvdkNUnlD8ucElUg3TTKCLE0MrLxMbSK2EDZrrUlJ2i3+SxbTjYk1vMUw4rlA+JNM2OksCx1ShQXVT+N1rsZB91lKqkzntZnazZPbUkapmvV5+SxrD0MBa5qpygPzZAm/lETpvQu+ihHZ9jSL59U1P8Aqq8QUOkupNgFdeoTijpou04n0lvSSqv39UxQWBDEjN50eGlrUPO1uFZV0cjQscRHm1JXp+ob3rZEssBr0G6EVjSC29cWb3uB1NenMZDaLyBaHe1M54Tc3cMVMXvN
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:55:48.8334 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1461a546-1367-4602-64ba-08df3fd194eb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:55:51.6112 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30bbea3d-aa2b-4c6e-8e54-08df3fd19693
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265B8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265BB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB987669
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7899
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,84 +116,115 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_crtc_vblank_off() turns off the vblank interrupt even while someone
-holds a vblank reference and waits for a vblank. It then wakes up the
-vblank wait queue. DRM_IOCTL_WAIT_VBLANK stops waiting at this point,
-because its wait condition also checks whether vblank is still enabled.
+dm_arm_vblank_event_pre_programming() takes a vblank reference for a
+page flip or cursor update that carries an event, and the handler that
+later sends the event drops that reference again. The return value of
+drm_crtc_vblank_get() is ignored, though. If vblank is off, the event
+is armed anyway, and the handler that eventually sends it drops a
+reference that was never taken, which unbalances the vblank refcount.
 
-drm_crtc_wait_one_vblank() and drm_crtc_wait_one_vblank_interruptible()
-only check whether the vblank count has changed. Once vblank is off, the
-count doesn't change, so the woken waiter sleeps again until the wait
-times out after one second and warns "vblank wait timed out". This
-happens, for example, when the fbdev damage worker or FBIO_WAITFORVSYNC
-waits for a vblank while the driver turns the CRTC off for suspend or a
-GPU reset.
+That can't happen today: DM only turns vblank off for a CRTC that it
+disables, and a disabled CRTC has no active planes. The next patch also
+turns vblank off while a GPU reset has the streams stopped, though.
+Page flips that don't modify the DC state skip
+amdgpu_dm_commit_streams() and only take dc_lock after this point, so
+they still get here while the reset holds it.
 
-Make __drm_crtc_wait_one_vblank(), which implements both functions, also
-stop waiting when vblank is turned off, and return -EINVAL if no vblank
-passed, the same error that drm_vblank_get() returns when vblank is off.
-The wait condition is checked before going to sleep, so this also covers
-vblank being turned off between drm_vblank_get() and the wait. Waits
-that see a vblank, time out or are interrupted behave as before.
+Send the event right away when no vblank reference can be taken, like
+drm_crtc_vblank_off() does for queued vblank events. No vblank interrupt
+could deliver it in that case anyway.
 
-Fixes: e8450f51a4b3 ("drm/irq: Implement a generic vblank_wait function")
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Add a KUnit test for it.
+
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
 Assisted-by: Copilot:claude-opus-5.5
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/drm_vblank.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 29 +++++++++++++++++++
+ 2 files changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index c3c9afc08ed2..5e247663978a 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -1315,21 +1315,29 @@ static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool interruptible)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 33c73ca9cff1..d3882ffcb5d4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3825,6 +3825,11 @@ EXPORT_IF_KUNIT(dm_arm_vblank_event);
+  * Grab a reference on the vblank counter if a page flip or cursor update is to
+  * be programmed. Do this before programming so the HW is not in any
+  * idle-optimized state (such as PSR).
++ *
++ * If vblank is off, no vblank interrupt can deliver the event, and the
++ * handlers that send it would drop a reference that was never taken. Send
++ * the event right away instead, like drm_crtc_vblank_off() does for queued
++ * vblank events.
+  */
+ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
+ 							  struct dm_crtc_state *acrtc_state,
+@@ -3836,8 +3841,14 @@ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *ac
+ 	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
+ 		return;
  
- 	if (interruptible)
- 		timeout = wait_event_interruptible_timeout(vblank->queue,
--							   last != drm_vblank_count(dev, pipe),
-+							   last != drm_vblank_count(dev, pipe) ||
-+							   !READ_ONCE(vblank->enabled),
- 							   timeout);
- 	else
- 		timeout = wait_event_timeout(vblank->queue,
--					     last != drm_vblank_count(dev, pipe),
-+					     last != drm_vblank_count(dev, pipe) ||
-+					     !READ_ONCE(vblank->enabled),
- 					     timeout);
- 
- 	drm_WARN(dev, timeout == 0, "vblank wait timed out on crtc %i\n", pipe);
- 
--	drm_vblank_put(dev, pipe);
--
- 	if (timeout < 0)
--		return timeout;
-+		ret = timeout;
-+	else if (!timeout)
-+		ret = -ETIMEDOUT;
-+	else if (last == drm_vblank_count(dev, pipe))
-+		ret = -EINVAL; /* drm_crtc_vblank_off() ended the wait */
-+	else
-+		ret = 0;
- 
--	return timeout ? 0 : -ETIMEDOUT;
-+	drm_vblank_put(dev, pipe);
+-	if (pflip_update || cursor_update)
+-		drm_crtc_vblank_get(&acrtc->base);
++	if (!pflip_update && !cursor_update)
++		return;
 +
-+	return ret;
++	if (drm_crtc_vblank_get(&acrtc->base)) {
++		drm_crtc_send_vblank_event(&acrtc->base,
++					   acrtc->base.state->event);
++		acrtc->base.state->event = NULL;
++	}
+ }
+ EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index b9272b28f53c..ebec1260c510 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -1812,6 +1812,34 @@ static void dm_test_arm_vblank_pre_programming_update(struct kunit *test)
+ 	drm_crtc_vblank_put(&ctx->acrtc->base);
  }
  
++/**
++ * dm_test_arm_vblank_pre_programming_vblank_off - Test the event is sent with vblank off
++ * @test: The KUnit test context
++ *
++ * No vblank interrupt can deliver the event, and the handlers that send it
++ * must not drop a vblank reference that was never taken.
++ */
++static void dm_test_arm_vblank_pre_programming_vblank_off(struct kunit *test)
++{
++	struct dm_test_vblank_ctx *ctx = dm_test_vblank_ctx_alloc(test);
++	struct drm_vblank_crtc *vblank;
++
++	KUNIT_ASSERT_EQ(test, drm_vblank_init(&ctx->adev->ddev, 1), 0);
++	vblank = drm_crtc_vblank_crtc(&ctx->acrtc->base);
++	drm_crtc_vblank_off(&ctx->acrtc->base);
++
++	/* Sending an event that has no file frees it. */
++	ctx->acrtc_state->base.event = kzalloc_obj(*ctx->event, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->acrtc_state->base.event);
++
++	dm_test_arm_vblank_pre_programming(ctx, true, false);
++
++	KUNIT_EXPECT_NULL(test, ctx->acrtc_state->base.event);
++	/* Only drm_crtc_vblank_off() holds a reference. */
++	KUNIT_EXPECT_EQ(test, atomic_read(&vblank->refcount), 1);
++	kfree(ctx->acrtc_state->base.event);
++}
++
  /**
-@@ -1338,7 +1346,8 @@ static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool interruptible)
-  *
-  * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
-  * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
-- * due to lack of driver support or because the crtc is off.
-+ * due to lack of driver support or because the crtc is off. The wait also fails
-+ * if drm_crtc_vblank_off() disables the vblank irq before a vblank passes.
-  *
-  * Returns: 0 on success, negative error on failures.
-  */
+  * dm_test_arm_vblank_event_no_event - Test a commit without an event is a no-op
+  * @test: The KUnit test context
+@@ -5298,6 +5326,7 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_event),
+ 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_planes),
+ 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_update),
++	KUNIT_CASE(dm_test_arm_vblank_pre_programming_vblank_off),
+ 	/* dm_update_pflip_irq_state */
+ 	KUNIT_CASE(dm_test_update_pflip_irq_state_dcn),
+ 	KUNIT_CASE(dm_test_update_pflip_irq_state_dce),
 -- 
 2.34.1
 
