@@ -2,98 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF90A606A327
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A903B606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 08:50:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QNsb9ozs
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=kZ0X45s7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFE910F9AA;
-	Wed, 11 Nov 2026 08:50:06 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1A610F99C
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:50:00 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a207b02a2cso20144305e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:50:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC32110F9AC;
+	Wed, 11 Nov 2026 08:50:11 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A140D10F9A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:50:02 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-491f34b4e0fso1285458f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 00:50:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794386999; x=1794991799;
+ d=baylibre.com; s=google; t=1794387001; x=1794991801;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=DAjH7rhz1z4KSbnwHBvTiPD/Y54KnFcA/42ynmyzXDs=;
- b=QNsb9ozs24hLNiFjxX5EobFHHBVRLKCuUuCmwOMKN84Lp6IZzSpTZR3kbRjtnuWa3G
- rUv2UResy3If2fBNTTxqP/GfBi6WuSFItCl5WQicB8IEVnfxZxXlhht8ho3tyyKtE1yt
- x8il+W3BVjOi8GYzS/If1gqm+o9DPrZG9uUCMbrB0hywujCGiyKkQowYNPLxJ7BoGUlD
- F7KW0gfliJIwdPYbikjz9N/DgNzgq0cBP+3eUmrCr6Wsd9OR8vWfRw+odPjM/iZeOpTw
- 3udHjLRPJspXjww+pnmMS9q0KtqJp4sbIdxkv1+wlXiYpEfDsUbGx80rr4l8djcA6Ivg
- AJGQ==
+ bh=Mcw8tiKH/WX7VEn2tZaWKJlFFwouAMdTGd/w0+U3Fi0=;
+ b=kZ0X45s7YZAeveGJ1ijZYfE4YT7gpMqGBSI/VEMMHOKOMexBaTTU1wLdrA/7uE9yRg
+ 6bZ94oupjRtpxrfdG7hBSmMAZaiLk+Az9SAOubFOJXeKHoudqiM3DRl8GzK3NGTzCUYq
+ 1TL1iw0BSwZy8Am9fGwUcv2J+SNaBclD+5ZUtkW+/vmxtb7ub3AusDb2vmck4s6QXgms
+ 7stPwpjWXP4uo1wdbPkuZTuBDSQo/mUV4G0eq14yijWyKp5aLMWg+AVw1WwJSQiSXZuS
+ B4o3JuNC8MLDcHQIj79tMm7ZC0LbVGrtX41A0HlkLlHN56OGAegSlcO2V0H294MlB+U+
+ M0Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794386999; x=1794991799;
+ d=1e100.net; s=20260707; t=1794387001; x=1794991801;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=DAjH7rhz1z4KSbnwHBvTiPD/Y54KnFcA/42ynmyzXDs=;
- b=iIriEiPyKgOsAbmYPF443CzHk2zyd2zXGo6wKZOev9JRrjIJsz5tOXnk/NEvqSkJ50
- hM2pRO2zZN90jsqy6C7Ic6d7sSsNlTYhf0mmS5Dqcg3o7t4HPEVdavSQ926P7LuOAwVM
- w1/6j9Fe6IZ/BBQKr9pdvNK0izm9bO3ZSbvEc7amAilOcWN7hljK32o3DuC7gXvyTjT0
- 9BuIy75XEAh8BSYwFF+OvD86VhVy7tGqxd3g7CbJ6/OdrRnbDsSa6E0EPNMZN/22baHf
- elrER0TVObX4lFCIEizLD9i7KZ+BbZB2tsy597A8wJapSg/wMeYu7fqCd4zlLJZXFrPH
- dY9Q==
+ bh=Mcw8tiKH/WX7VEn2tZaWKJlFFwouAMdTGd/w0+U3Fi0=;
+ b=R4Ivs2NqkgApWLMvy7TP/Qa2F103hr6Rua4cgl5l3t/dqfE7Cp+/0Tvqu3k2Ty3T0o
+ ixqWPcN+cpiTqcyHZb2kzraihcPnE2Anm1sNS3i6k5rgIksKIwSak584HTYamkIKL5vJ
+ +z5BYKgT2SChR7N3bu08/dpJPqPqmnrJhjZZAZgbdqMJwF7HpVYNqor6kOLLBSpPc4Fm
+ dTCTN4ZKb+vcsIww39f/7SaeV2gDs3BIrQ9XFq/i3rfbR5Rs8ORqAeIApmwCoevOo1U2
+ y3gINLztxAJcH4lO4uAyCAfnS99/EmWyuycJ35bMNoTpziVC6pgdA0iCpXkKpDPlUoH8
+ WUSw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHtSttoK+sHE62J0hXHQfO6wFmJuWVnWgP8AchgLkMaFfHNh9ijw7FXELlBkTlvX0wQVMmNq2XUvZ8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z86QmDS4mo1Gcqnj1TjJOno3R2Tz3E4fZInsvAK0g02nYaZopxD
- uiXkXTedp0U0wXRYr6nOPL5TZz+FuPLTr0l6/bmh29HaCv64aNvRWDXdmBs19DMNSTM=
-X-Gm-Gg: AYBFou0h199BfTKTKZyBXBjQTxX5QghZ6NOMxbpTU9JrLKlRCJnl/ECygV1T0UMxpmV
- nEw7OcGLTOifdd9kVhSoWlBNaUhjSWhBgBOlWuoxXHHOB1tQwrgQWxggmkb1uhYTQboDSOu9PJO
- 8e8u1TFsvL4lAxmVLEBk3/GCsr5BQCoYMEPR+KFFdSrn72Alzd5bmfLHuWGBfMryW0RcxgMDCyJ
- Ypqzu8xDcq953DZcB+Sa3XnYnzfYmGcvMfTLPjLYKHHPuoqJbMAN/bdO0giz+LLnny4gzkJ7+GH
- W4mpnHQ2y3LO1IQqagSQXA+zYpSLADeQ6uDd5MjWlkf52FGV8bvcnk5Ap6QzmURIockZeOBwBGZ
- 2Sc4xfzlle40lysdvY/hNVsH0VTyQQ3qITlQWEB+3WHM6zXhcT/3IldDB6lU9RrInfqP5TJvDY6
- hbhM61cjkfbQqkAoW1WcfzXict96ehBjqKMqokTk+S35V5GsQGEC8gpH/RAkBKp95s0xUGm+kAl
- hVX6Qmzay8IaM8ET1zJkKuM6ty43+Nq0MUmiE2l3+pTFB/TMAU8feZ+4zbx/wM1vQ7Azod6rHQt
- 1EjRKxqKoC2eBZc2Pw5B/j/2O2kh5LZetJ03BOdJXe0ky+3ZY2LMG9cih4UsRGPQmI/AUGUITvU
- xKMBucaZGJJvP5g==
-X-Received: by 2002:a05:600c:8b31:b0:4a1:dadf:9876 with SMTP id
- 5b1f17b1804b1-4ba0938e3aamr26912035e9.23.1794386998742; 
- Wed, 11 Nov 2026 00:49:58 -0800 (PST)
+ AL+hErG/w7M2vydZEuxgoALHOD0eH/kitoMntjck5M5uuB74Weft3c6GSwAGZ83GCigiH7Xl0vlto/Gv+e4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/FD92sYbFm1cTSe44klDkWMQJOSq+hibSCCPqpPg4+9b1vTJEw
+ +blYM46783VRQGPvK6YqByftZEvLEIllzcqkbE/qcG6SFrxXPtyZQ5Lk15XMf0SEiQL8CH4y98O
+ f5j4VZEg=
+X-Gm-Gg: AYBFou3F3cu4DNa484sL6SUuX1lZfTCIBcJmi9pnvB8wG4OhZCOH7iqCyxrBg+rgktp
+ uEb7rQtqj9SBEZNIUKWSS3RpSW9sDk/1GqUgK1Cc/zpCJnrGqnAn6qmmfEqWLGgSiXkpTDJueR4
+ DCHCuflMf+L6k5hOidYn8TuL1CFxyZD2kueTMnsuWTAGifEEobu4kFBHs0n0JlYqghaFwR5jVFN
+ 6fG4dukqIJx6lKyI2xSslRHx+bRI4GjrDudZzySFuj5lNWkrnKyJIbmu99soPA0ibFjUbK8m2/z
+ gEvtt6Z0hsyRE45qmtunLf46HxocJIK6wu2679CmptzQoJXAH09Y6CeEa7NdjhFpMDQfQr+vQ1r
+ i72K1FjvpG8dP9Uv0Dn3AMzYURNL2k//XtYANhrYHQ650c8HDZ8nR0wOWaRk28pPI8yoj1jqBM5
+ rksLcJsXrmy1qepweIFe0YZMdc3BnqLyrhFyKZqiVhlZ4gp3zpHVdy8k3cXh3fSxIh/AQ8ps58e
+ B/9wGxTIbsENGKmBqLCcYADn32pa15oTnOFAp1yS9pNPrLdx/GYMcfgEFLdMTgh6DPADbRNDoIq
+ 6Bcfj5sUV04NjUyQg35VovmMdP07VzlkVjmpQo8gSlkVCJosEVxvGmVs5UApzJXdEdcSDD8ffUY
+ +ackSG75LBc37Ng==
+X-Received: by 2002:a05:600c:1d28:b0:4a1:e6c8:ff74 with SMTP id
+ 5b1f17b1804b1-4ba0939db75mr30427005e9.29.1794387001054; 
+ Wed, 11 Nov 2026 00:50:01 -0800 (PST)
 Received: from localhost
  (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de.
  [2003:f6:5f19:a904:6051:dd5:6fc:51af])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4ba020485bcsm116471585e9.11.2026.11.11.00.49.58
+ 5b1f17b1804b1-4ba01ff3428sm142236795e9.15.2026.11.11.00.49.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 00:49:58 -0800 (PST)
+ Wed, 11 Nov 2026 00:50:00 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
  <u.kleine-koenig@baylibre.com>
-To: Marcus Folkesson <marcus.folkesson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH v3 1/2] drm/sitronix/st7571-i2c: Drop unused assignment of
- i2c_device_id driver data
-Date: Wed, 11 Nov 2026 09:49:44 +0100
-Message-ID: <f83da708ef041941601961d0016c5313e97f110b.1794386771.git.u.kleine-koenig@baylibre.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/2] drm/nouveau: Use named initializers for i2c_device_id
+ arrays
+Date: Wed, 11 Nov 2026 09:49:45 +0100
+Message-ID: <3dd75434da3c0e4b5ade3b802b4ab00a404e8bba.1794386771.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1794386771.git.u.kleine-koenig@baylibre.com>
 References: <cover.1794386771.git.u.kleine-koenig@baylibre.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1012;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1714;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=fg2QklYtm/9gXlEzyJ8j9Z7yTECu6swZ3dSAWb+zMrI=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9CwtlavBHc3+gfrAfS+A5Z9uBMlkdiYKbks+G
- ss6woPjcgGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavQsLQAKCRCPgPtYfRL+
- TrOdB/0eHbAOSDst1e5C3c/X85agF6KTSm6bDzf2JtV3R+CeVU3Zj/X4KJH6oRSoQCY43Ars6vL
- MBmbW5JvCnJKQqJurY6au0cFhtVJJWFMS1jHFDfLTaam+nsA7PJpu8f+6P9FXRRYG5isRPwYhxt
- RpklF64MRFVxr5/Mo/1JKjHdLf5MH767jHRZNs4P60pjYE/u/BYxKwyyd2gviKX3yZ4g5HSE1vO
- 8TWZhgBpNm9Nxwnp5svVP66uN8/5E9I4ZM0ffv4WtC/nPbSjBKoqG3c44Z8AwzGv5OzZdzdTzGr
- Aqq4f0D25zd7Lgd3HpYyGbMGKjQrg7dyx+QmzeLbOiw8z9UP
+ bh=L8VndumebZ2MRoqro0RnaUijRD3vijSdtnwN+w0pZyc=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9Cwv5LPQnzIxzz7hUpMPuIVPQccUHI3t5AUhf
+ LUDPxo2ybGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavQsLwAKCRCPgPtYfRL+
+ Tkl9B/4tAll/ivGhonm0x9hqXABDz27C1LzXwKQ99PbJYQrZBYY+O5PpHY1m1fFVrWzFGedo6Yk
+ vDO7Up0laCDvG4i2E38rwthFyFcoYsodI0MyYiHrxekWaiOO3klqdFkhUdwZq5f2MDuibrXoIf8
+ AeP0wNKhbojgXXe3ZP9MB6HugJr+1doDFSrs1wRPHewnh6pZoyww2mhXKwWyTXgv43vvRj8rEHz
+ cWyarlxT7ZQT8MaLjkYzS/F68BnIcYoUaKiTJazI1g6s4G3su8PDhFAP5h4tndnxvLJ/OjOmYhZ
+ kH+cA4S+D7FFwqJTuWKVmNQChQwkbcuI86iBs5x5T8BIyn2Z
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -116,33 +119,46 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The driver explicitly set the .driver_data member of struct
-i2c_device_id to zero without relying on that value. Drop this unused
-assignment.
-
-While touching this array use a named initializer for .name.
+Named initializers are better readable and more robust to changes of the
+struct definition. This robustness is relevant for a planned change to
+struct platform_device_id replacing .driver_data by an anonymous union.
+(Though these drivers don't use .driver_data, so this patch isn't
+strictly needed, but still good for consistency.)
 
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpu/drm/sitronix/st7571-i2c.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c | 2 +-
+ drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/sitronix/st7571-i2c.c b/drivers/gpu/drm/sitronix/st7571-i2c.c
-index 44bc94be33d6..be6fbed8adaa 100644
---- a/drivers/gpu/drm/sitronix/st7571-i2c.c
-+++ b/drivers/gpu/drm/sitronix/st7571-i2c.c
-@@ -134,8 +134,8 @@ static const struct of_device_id st7571_of_match[] = {
- MODULE_DEVICE_TABLE(of, st7571_of_match);
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c b/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
+index 976ed59a86e4..96dabdb38c4b 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
+@@ -486,7 +486,7 @@ static int ch7006_encoder_init(struct i2c_client *client,
+ }
  
- static const struct i2c_device_id st7571_id[] = {
--	{ "st7567", 0 },
--	{ "st7571", 0 },
-+	{ .name = "st7567" },
-+	{ .name = "st7571" },
+ static const struct i2c_device_id ch7006_ids[] = {
+-	{ "ch7006" },
++	{ .name = "ch7006" },
  	{ }
  };
- MODULE_DEVICE_TABLE(i2c, st7571_id);
+ MODULE_DEVICE_TABLE(i2c, ch7006_ids);
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c b/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
+index 7f402b901977..2324507eb5f3 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
+@@ -414,7 +414,7 @@ sil164_encoder_init(struct i2c_client *client,
+ }
+ 
+ static const struct i2c_device_id sil164_ids[] = {
+-	{ "sil164" },
++	{ .name = "sil164" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, sil164_ids);
 -- 
 2.56.0.rc1
 
