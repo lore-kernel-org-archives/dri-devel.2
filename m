@@ -2,102 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4119C606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C51606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 11 Nov 2026 17:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PYKl5tOU
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JM14IQul
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4F1010FD09;
-	Wed, 11 Nov 2026 17:19:38 +0000 (UTC)
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB55D10FD01
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:19:32 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-372cba0ecf9so86709eec.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:19:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794417572; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E69C10FD10;
+	Wed, 11 Nov 2026 17:20:49 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7834010E431
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 17:20:37 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-36e2b1db9bfso94227eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 09:20:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794417637; cv=none;
  d=google.com; s=arc-20260327;
- b=KF+8lKUE/TsGlA2fl2NLZocl3qRlFwNy3rE1zEiIPKIdg+IebQEIOn6P7es1D8Cgp+
- 12SESBwGX45aKNP4ORRy7dicgmv7iS652muEY1bvFjNpYv1VuQHUrExMudvHzzAgV981
- coXbSqkwCEQpIq3sFJ/wvG5zq0nOJd1mkdV9jXi61GvbFOgBIh+NKgRkgCaxlSqZyS5g
- /KgrB7vcu4NXq+35Q94SoSr/IOItM0iqQ4H/s+XAGEVe6drEbcPwIKQJs6AvdoePm8HP
- f63N0VbTVVvlgHg64wI7yiw/rcslVALszVRKqmHWSrDkleuaBJCqPKlRZLL7H3U8He4p
- itMA==
+ b=TvuUuTgZWlv0pyEllCLFzDVZF4LZjWfOK+cq+ukOqBXJ0wx9cHjnD9StTjeLPwfIcn
+ a0y8+NXFSnCEgVEbwwLxbfsLu7/s9H/GoK1R1reFZxUInntyr0W0rFJElV1+FQBBsha4
+ zvmfR75mcOyqTNVbl4Wq0JOkqSEp2qDw6lt4f1G1Opfms4nhukcRC5Z79xTieHgOf7aY
+ 3lTXec1JeBcNFDMzZDJIlVbgd2C6F/Ed2ZHGn2Q4c5z6DehBDbTv1HOBaqRHdk0ZPU2W
+ aq1jYTKnNq8FTgGiU5zw4jin3rd6pw8TjB1NT1a348oBipwZV5kz7dWndIwQIqpdcVPe
+ C1kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
- fh=yy92Q6y1x8IARPUrNaTzHDCPqPrwShpb0WpNV/kzivM=;
- b=kyQjgl457tF6O/eubuKsO1Iag9cW3r1g5WeTWPu6ASbmZymgzEaiEWyqupskikZn+f
- ajEWM+uecwPoprCtZ7D7cFUW3B6HLBy2jOkD+sqQQx/+OtbTpgknppVbkQFp2gh5SLCR
- 25dHWPb+25krw7EclZ97EyzXDDk4gO9o5ZGS890ZIyCtRnLAN1Bi4TNz7cLzirCak9+y
- 6Mw5WpfXGP6EpW3C87dI6t3ykj4Xh7oCH8Ubb2rqODFUYa4zvCBn+g5nLT/MGB9VQVOz
- WtMvYOBxFmnPCR/lcgSER1hXLlV2tRQq4FUL8nEswC9rmsAXVmNIJmcYQx1Vhyt67dVy
- 7pSg==; darn=lists.freedesktop.org
+ bh=pxB40q79An19C6sh7p3I+5Mbwo7e0V/V+8imyCMYB8o=;
+ fh=Ek0yIhlQOTwBqoC8bGunAV0s31qqptEWx9vT/HPo8RY=;
+ b=Eyf/7ZoTxHiqxU2mAQWiStqbAogXweh6kCbd86XekkMIrthQA1RaDHRRbdffVlVN4/
+ nn9Hbp4mIa6xgBe9b3/cH5+VfOIW0fUJzUh05Irv0Jg0f4/4ywOlcNkGQzWW5uXZO4eV
+ znp4K8ITfzyl9l9KyTKepJBZnKJz6K4TXI8I2tB14y50YVCxE8O3o3jH/5BJSIZeb8sd
+ RQg2eaI/R0p6FLcOiu3C2hOCH2pZGpqG8XbIbSPLqnLGzV1h6PaJ99Z1qvwT/zhilJSy
+ xUpyeR+pWDQhIQla4DZ9KtcoO5i70VkaBlunQ0mnHS7L+9MBfBQp+jzIGG6mFA9euWU5
+ Lv+g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794417572; x=1795022372; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794417637; x=1795022437; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
- b=PYKl5tOUE0BJabRDqvQv2Y/QIsGMiiIVqFIBOMdnnnrwqUaY03dHtP3ELPpzxDFI3i
- Pt0m6LMz+PJui5rXv3m6W1iYHm8b+bGp4AdXwJrl2Af0uR2DV8FrZ10P/Gsen0vQA3io
- ABc3/3xqHlE16commgyN2I3q7T1/r7ApluMEMuABwGJb66nDK1QSxH8zlp/lFUGz1mRn
- LS0gTMa4tCM5v0jFdJ021M3BkHCOoRfAlU9h6IQWAKetVkxRd96p8dzb1xB/vK+ab41z
- t0RJrP1g3nVRD5E8cVYTFgoqsExF/lv9pVTgryfckLMXN5aF/PDZ2jE3efrMUYWOYfQq
- NIBQ==
+ bh=pxB40q79An19C6sh7p3I+5Mbwo7e0V/V+8imyCMYB8o=;
+ b=JM14IQulQOEEz5Spj6cxdLOfLouQLxXmmlq0xiej2qfldOVxCI5EGXcYY5Ric/YKFs
+ dCEqfzWlMJJKSmUaRu39WNwu0nW+LqkM/0nTBPj9owqpqgsm4FCYEBfkdg6CqOYlEZdW
+ iOSHnRwR7JHfjxCp2ZInp326yS50sexirBLW5aWanxnKZ5nXLu6qZBei1t0w5JjfpBmR
+ mX71IVclbjCyLcEj+eY5LWQX/+9kYWRyFVhOQDTON6sbNeRZx87RDQutgPzE8qVVQrSV
+ RRP3zVmnsGwboPY4BpI/QtaZBNfL7L0p8J2onJXZR6t4xTV6CXR94PllJMiTgug83cIs
+ rQ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794417572; x=1795022372;
+ d=1e100.net; s=20260707; t=1794417637; x=1795022437;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
- b=Kj3rXtEUnaobN3LFFzjvuL6QXjHrO1OGn/RgJTM0qpoE6bTqqGOEjm08ksSYsSMlG1
- ovHgg6SPFNvxA2GM+3+TKPWGy0aEhri3wRz454u5hw2fYJpx4LcCROPkmpeN5hm2gIl0
- CRtVrlIRhoVOI0ZJDhz/Nk5i8+7X1iNIBen4gt2UN2OxytdZdwn4GDX9QdAOS20Lx2Kt
- tHakBUjf1rN5rcU+tQjY3WkDXbqem9/aaumV4+B6qJwuyd7Z62N3muwK54ovq4j4j3Pn
- Dawz546fUWcAB7EOdjkf+NieWjw8MvSgA2YL/6GMtdZ5v4RLGEICyyKk+335qY0uxpII
- wnog==
+ bh=pxB40q79An19C6sh7p3I+5Mbwo7e0V/V+8imyCMYB8o=;
+ b=bNidS2WGFsMsUqDxNMKMtabd/nxXeeqvTzC3HyAwz0sVA62ImIs+5he9IpzeMLHmfQ
+ yp6HrjPt0rP49Xi2j7B4CKlzQgKk+zqJfnXhDf5ZWazEvW17RgsuP7xvawXBIXxwtunF
+ ZTlO+0d5XQH1olI0CkkABz1Yg6X0qJUefS1x8TeTffyAoNKdvI1MPgpAD5QGbXFdL3CR
+ nN/CTJ8YuPVIUqwk2T/ErDz0XM3GCXZCJ0CMIwmk4njmKk4eYkAMKKWHV4LxIZxdj12G
+ 9Ls4MnfW1IvWabu4NGhjs45yfgKdB14lAr4sUq9ZWZzqCvsYYCGDBBPn9wvAwnzs3pxx
+ ma/g==
 X-Forwarded-Encrypted: i=1;
- AL+hErFZq1EN7yPdjUvaT++XAyPcELL4IKnmK04Fdbuxxau6gERQ4AbMIdUHl6yuTdZB4AIYXyirxNTXrb8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8FdRFMB/hFM/fblsjaY26yMaFtfKRNGyb7b5IEk3CVHLuYDP0R
- 9mXkNfBGyRQSherkKM5iGw/XcNpEs8rAQ9HwGh81r7M4hLvaWnbvgNt4cla6aJ0aL+qRrT9JJrr
- F3xUNnXo3rsvj6EISthaUosarCKwEFH4=
-X-Gm-Gg: AYBFou3X7ACKseMla4anf9brmRSYdRzWzrRRAHcdHKL56mWcJnfCH0UU9d6tdgMheqH
- b/G6pXuDwc7wDTLLIOmDQhkAIVdV0/5aPoELspt/Agy2nl10ZwvB0zhomUgr4t1nbFcPwUeZOpB
- ASi1piP9qU36XfwtkH4j/IX3DjPP0X+c7G0mJLSGm1IHNA4GWOlweW1xD/SqX0UnFmRr3kg3kLl
- Rord9px8xu62IHh5nUMuRAQF2CTp7I8INXurXEb5FRigviJ+LnYUTB1/x36uIoeInbLY5QI1EbT
- AMA1PF8PTecMkAy5eLM0TXwlTO83L1dJZFOAt8HH2KPpiCVb66DHd6Ak53YqFCgCb537HPjl0A9
- 9f5Pz2pLlDfLcsXRN6NFZb6sa4TOplmLLmgB5aKwEr0KLMwxzS2QaT9gEVChXYh6czSQAQSaIZ6
- OLcdPtHs+YOF1b+iz1pOT008/0Mg7zEzVfY3nspHd7kJuIHwsVColmN9sKfkY=
-X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id
- a92af1059eb24-1b3c01600d4mr4568870c88.0.1794417571814; Wed, 11 Nov 2026
- 09:19:31 -0800 (PST)
+ AL+hErFvELktlTZE2iYSt+tkOIuwTuF3ol98Omw/g9bVjbZSY68/u1n5BkXWZ+usfQ6aACRlBDX6MGmhinc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z82vcKfAEr1AHk5VOAUsouSK07xCD+9HFxp86Ss98gfWNU9o6i2
+ btZJMKR3bQXB3PbIcjuL8EJczX5E+EHy5nGFWONNZir6qm/n4Z7le46Y+SDVhR3pCHKNZnQdJg2
+ aqAHlII6dLSKIODJ1oTm2B5MPnSjLFbc=
+X-Gm-Gg: AYBFou3Tsy1mFwW0hXKUlwka4bG6taXcUHE5tNZm3pPJIAPkUG4f5ceW4gEW9zzwkii
+ W8Eg1tkdI/Ywy7EhFRrarHwM+U8ZCJcLxi3FNjJQiB8viHevGX8Xv4z/L//Anr1b4iTScGZxKIT
+ C0C5yrhZ5vNHJ19X+RhiGzx5t3kZPSuMg+cM3jeQQmKJPrdRaCJyxBgphp+8jnQ1w93kDe2bM3n
+ ZXM+5eu7cKbqfgO4finkImgQn+PaG3Gm2Q6Wl5Urds11rJeagvpGf9lao/sQou/2tYOAQn5kLUn
+ /rjcFADVmPltzkD8G1zsfymZQ+LV1zy4SdfNbX0SQsPMOwNF6kx/8bigT2uck1KDfE3weHlLe9R
+ I3hY5V76JYP73jgAIS3y44sRB4uBuw/IRRcuuG6Bo0Qxxmn4aur8xbcf7UgzWVIJgP5ktYpi5Oo
+ cfZvnW46kE+1m6EJSocApAqZUv6oluI9uy9Q/IYfHoji42R0ucr/UwrFVOc4I=
+X-Received: by 2002:a05:701b:450c:20b0:17f:641e:7f6b with SMTP id
+ a92af1059eb24-1b3c02cf135mr4365930c88.1.1794417636541; Wed, 11 Nov 2026
+ 09:20:36 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110215334.947250-1-colin.i.king@gmail.com>
-In-Reply-To: <20261110215334.947250-1-colin.i.king@gmail.com>
+References: <20261110160429.892673-1-colin.i.king@gmail.com>
+In-Reply-To: <20261110160429.892673-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:19:19 -0500
-X-Gm-Features: AclHuK9Ltzz1VkoOh3Aq7MLGRPgESiTW_dVehgDaxaFmKVDwtYC6QW68oRx-BvE
-Message-ID: <CADnq5_PSk1mPj0t24ZjQfR5STAnVFvsB9wz-K6PqHjeWzoTS-Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: remove extra trailing semicolon from a
- couple of statements
+Date: Wed, 11 Nov 2026 12:20:24 -0500
+X-Gm-Features: AclHuK96pzFNcsCpriytYsF_JfHFuBx3rYaQSacUjjgQ682B45jmkk_N34BB_lU
+Message-ID: <CADnq5_OWtqzN9VDK7F6F_FBy9XkDmk_1jAMR6bivEsJABe1rag@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amdgpu: make the read-only const array
+ fw_err_code_msg static
 To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dillon Varone <Dillon.Varone@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+ Felix Kuehling <felix.kuehling@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, 
+ Philip Yang <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,51 +119,33 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Reviewed and applied.  Thanks!
 
-On Tue, Nov 10, 2026 at 5:11=E2=80=AFPM Colin Ian King <colin.i.king@gmail.=
-com> wrote:
+On Tue, Nov 10, 2026 at 11:31=E2=80=AFAM Colin Ian King <colin.i.king@gmail=
+.com> wrote:
 >
-> There are a couple of statements that are terminated with ;; - fix this
-> by removing the extra redundant semicolon.
+> Don't populate the read-only const array fw_err_code_msg on the stack
+> at run time, instead make it static
 >
 > Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 > ---
->  .../dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c   | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dm=
-l2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/d=
-ml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-> index 71d14fb8c830..5dd22003f165 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
-_dcn6_funcs_mode_support.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
-_dcn6_funcs_mode_support.c
-> @@ -328,7 +328,7 @@ void dcn6_ms_calculate_writeback_bandwidth(
->                 }
->         }
->
-> -       DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cf=
-g->num_planes, DML2_MAX_WRITEBACK);;
-> +       DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cf=
-g->num_planes, DML2_MAX_WRITEBACK);
->         DML_LOG_FUNC_EXIT();
->  }
->
-> @@ -4255,7 +4255,7 @@ enum dml2_status dml2_core_dcn6_funcs_validate_solu=
-tion(struct dml2_core_instanc
->         enum dml2_status status =3D DML2_STATUS_OK;
->         struct dml2_core_calculate_ms_context *calc_ms_ctx =3D &core->scr=
-atch.mode_support_locals.calc_ms_ctx;
->         struct dml2_calculate_mcache_allocation_in_out *calc_mcache_alloc=
-ation_params =3D
-> -                       &core->scratch.mode_support_locals.calc_mcache_al=
-location_params;;
-> +                       &core->scratch.mode_support_locals.calc_mcache_al=
-location_params;
->         struct dml2_core_internal_display_mode_lib *mode_lib =3D &core->c=
-lean_me_up.mode_lib;
->         unsigned int i;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ualink.c
+> index d025b4183b29..91c863649972 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -5427,7 +5427,7 @@ static int amdgpu_ualink_metadata_init(struct amdgp=
+u_device *adev)
+>   */
+>  static void amdgpu_ualink_remote_error(struct amdgpu_device *adev, u32 s=
+tatus)
+>  {
+> -       const char *fw_err_code_msg[] =3D {
+> +       static const char * const fw_err_code_msg[] =3D {
+>                 "Unknown FW error status",
+>                 "FIFO overflow",                /* error code 1 */
+>                 "Invalid RB command",
 > --
 > 2.55.0
 >
