@@ -2,90 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303DB606A33A
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CE3606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ma5SSkSS
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LOpIkJFk;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FL5zutK+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD1D10E3E4;
-	Thu, 12 Nov 2026 03:16:30 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97C2310E3E4
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:16:23 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-48e10a70540so2288031f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:16:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF1910E4CA;
+	Thu, 12 Nov 2026 03:22:44 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C01B810E4F2
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:32 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AC2Zkp12136002
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=; b=LOpIkJFk1qcw9dNR
+ IGn4sA5UCOtmAyOLiqsLJomBSihf4tRG/wVsCktehqAKlkuNZgtYphQhJjW6Y110
+ kTG5YWTTru2Y4kr1/8Qaz2fJNsQUA5m5Ka/oMwTdFZcaTTHwgtDbyWShJX3YM2kD
+ EmjFp/er0dKt0SxCLGtWua47LlVvaLI2blykILXXkO3UwS+VXzUWZRxAMyr0kUAL
+ D2ZraxIHHVBA5T54djHiEvNFaJ4a29MejhkgHnvgHbDKd2hHf1ktkpCFc9c1JW8w
+ HlSYTbk1ggYxW2ytlV2rCexQSaEEvjbUKJ7IAbCnqhsZMIW4j1I8fuadDWk7094Z
+ MUoEtQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvpjjus6a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:31 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2eaf8ea208bso34103105ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:22:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794453382; x=1795058182; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
- b=ma5SSkSSJNo+LGWNkr5vFUecMRdqZ4x55R7ZWkYg54XiFnGBdNaphsiBR14pJrCCi9
- PG5V+QZZixoAU62dWijhyXZF5zcUYFEATaWDxST9FE5nzU+8hREF6r1yVmYBdx7X0tkP
- kzKY5UhFh310OC+JPnw1sxqgRc1n9FKXFMyhydJP1pUlz7pUyXGVvbKyuuHDFwHcjqhv
- lhEMrcHkrpzl0/mellmsmaXUMGV2l1fDjaCqLsHZDz8zaQGoe3aqjhr/lG17Cj49wkIK
- dbi61XINiGb6ZKxt+KekDZpG9Nfbb6ouwjXIBqvHrvzJpP6b4+nnAJSckYmPwGxapqTQ
- HMxQ==
+ d=oss.qualcomm.com; s=google; t=1794453751; x=1795058551;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=;
+ b=FL5zutK+7CDqgKu8493RnAoEosak9AhhFWguK02YDIOGDF3RxsvYRMJFY9fHat7y/P
+ wopEXdxfs8H++yaNxNYNddNLHwS0u1As0yJJIqXSZsHrgMWE2KasqYqezGlQ1SDnDTeZ
+ 1k/kSsk2yqgbgCzL3DoTXc/yZFXgL407JRbro9FnjAi6Vn/vu8K5CAIz/5E/q5U6mRU4
+ EsPz9ZBbHcGrf280ixKPLj2gCesPIfsYJylOZ8etHaSk4fObN3OJMLKPp0vwyr6yTlVP
+ iMktn6q+ZTs9m2JLn0iCeZ3Ius0mTWpGGcI/IHMs8nNE5o1mulruO9inwuZFudIuDE/0
+ 0tGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794453382; x=1795058182;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
- b=h1uSe62uaQySHihvYBpqT4TLAFhaSoHvzY3YVdRhoES3+du54dTQC/DCCQKvOnfoMI
- cO0Q450d5+f/QwGyBxq7qk1/Yzmm4UoqQsLAd7ZJYA9ZD21Ird8EAgnNUUcrIrCMlaXW
- VnJZzxAQJtK/fblTtWeaM+iZrWU8nVCYTlZF/WNLRZNL050/T81zcusiOgo8I+3wwREK
- iKj/LneURhAGJ4CrS4MziZE6iUbzYbDK3bbMK2x9XRD9QH3jSTxPGTskUsdhGNOX41GH
- FKPgR8x0mzvMBCawLlCBsqPUu8lC/f1urCdL/5NeZVg+BvA2i6b+vWVunBysGnfzyj+N
- W5rQ==
+ d=1e100.net; s=20260707; t=1794453751; x=1795058551;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=;
+ b=JEaeiFgKybhx3KlbmaRFLjFBotYzPrzg2t0LDvQWL4OYPZvFibAtRFOnvT7WtjeQjp
+ 5Qzb5CBpOgvJXsHed2IaO7fexrn3qEYKUynjReqz3AJO1NeqUdxgR+fmC3fKi8ElBFXO
+ 9CfH/qCBvml3vMae5EIjzIKUIPx2xe9+aXPys98ehXxrTJxwOZ5QqPdjjWF6p5JlAIUD
+ m/xQB456Y0iAW+G4p3JxWBVJ2Wbpr49bkACoL60el0TkxqA0CCaK4ibL+63hG9Gfqd3f
+ ZL/4x4JpqJ+mge72OsV39wRWKrk7UjOY4XKPttpv8i49p6/OA7ATA4Pt7gOIvbog+Ms1
+ 4tMA==
 X-Forwarded-Encrypted: i=1;
- AL+hErFjmknjov48+JBHkHv0xWsq4AhhGrL3l1IJ3NBhSd4goufaMPEEvuRNY96RYtP06Ob2JaWaO/eCn4A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9fT6SqDZ46SPi/dDVGIVuthr8Yl2/GK03+xPtD8nEm5e316PKi
- 3pl6c7+2QG9c3OfO9TOMfx0YPnW+xTg+BfUIKLs5qmM2czNLaWTN8Ap7
-X-Gm-Gg: AYBFou0dybQH9M2uQy9OfRXjtPMLpR6zw5OZe0hhO1Xww8K7fK8ZwDYn28io0oGlWqb
- UUaE57SbqvB42Hh/PIsxW+q8YvZLm6GXaOZhDl0T0/Tg5LsH7msScXqrRSD8yxyn5/S1B3h2GOv
- qMrO83qPO826k27Lro2uXEuhW16zNFYq8qVm3KpES2HztRNoFQUwKJeyYodAauIWRD5rR6ltZ7k
- MnSK+uWnYj9Pp6I9jInk20weuE2ArDdKfKDOIPVTwQXQLtJLhopJyDddXksXqNsawEBtut34p0d
- RN3kxkqIQ+XyAlXJ81qa3QJZ1cm37+ZbYowaxRuqoPpFq9HqKjr7FfHGQNRlsa9tSk1qetiMoXx
- 5DEqv2eAWRASO1pVUySd2yKs6SSlPCxw6n58eHIiLZityXoTJ7tX0+3j59JMoMMyDqhQYMB7gFJ
- Q9XWRgs9OupqSIMDQCQ7f097jaYsg491eLmMgWserXDn/EkxiW1Ni8zAWKpDc0EmkeCCQ522DQk
- zCA9AJuGg60Foc631qyynJxt9zYJ5KmB7RordxIEdF0WcP4ojvjEzNi3Q3Pc9ocWRh+QU5LYBqL
- hgphMscPhR6vJm1p2YpA747tJbVVp3EIn9p8apCrwyT7caQlWkUuOkTBSNlqXg1AVWWR+z7dq6k
- z9FafjDwPUaAd9Ni2SGbezweBVQranv1kJpjpW/oH98ARX3n5FAYlMErFCPxYbrPYXyFSts9v78
- W4C6nR2bVbRl9/fdpuPiI94BrG0/2fqQ==
-X-Received: by 2002:a05:6000:401e:b0:495:5c83:51bc with SMTP id
- ffacd0b85a97d-499c3b9ff3emr7370230f8f.5.1794453381449; 
- Wed, 11 Nov 2026 19:16:21 -0800 (PST)
-Received: from unknown748F3CBA5068
- (dynamic-2a02-3100-a181-4b01-25fa-1a8a-4f45-ba49.310.pool.telefonica.de.
- [2a02:3100:a181:4b01:25fa:1a8a:4f45:ba49])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-498363dffa1sm13523836f8f.39.2026.11.11.19.16.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 19:16:20 -0800 (PST)
-Date: Thu, 12 Nov 2026 04:16:19 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomasz Figa <tfiga@chromium.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Hans de Goede <hansg@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>, 
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <avUvHGb4talXW7qS@gmail.com>
-References: <20261107104703.44111-1-kmehltretter@gmail.com>
- <20261107105946.GA96745@killaraus.ideasonboard.com>
+ AL+hErGjuJR7Q7s+lgXdhxQWTNAvAPBnSoxdQlwQBDQBhxwqKh+3CRhKZb/YtxXhPt9JnfO672d6+eM/rlY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+WZf84MjAjnC3anM0/1UyijFUNTiVs2UjIiaQBVGENsV4a+Oih
+ 9hpZ8A2ucEqSqp6Loexa4tmtpD6BsoDfBHmEQtRHJl75PKskSBqq81QXHuQQVZ6fKfgkC5DfSXs
+ 6mKQXU4LHAlOlIHqnLOqnUevbnZqhG5pJ6rLjY1PDQ5y2Lt69ov9yuG9EzpciThtm6HKvC1Q=
+X-Gm-Gg: AYBFou10ACQzyWUL8Cs3wKBnrXLTnuQ0KBmH22sj8hB3EzL1lFOxcMefFUJkpCqlTIT
+ a0JD5GHvAuIol1Pzb3xExsYdL+kIgsg52tildmkwIHhNfnx4H+A5WFL196KMRHt7xTKcgXP8mTG
+ tbYR0sdpk9nz0B9lCD+AAAhm1+6vpDsPgKBLPXKhXkqaJNI8of2XNPCvlH3JqZUUI/LQj5tj3j4
+ nGNIOL+hg7GOrkq7CfDKG1Ws5neBf3R7mprWMQM8Z81RERT80ucnyz1RGci3A+uLajvpi0Nf4CB
+ E69GV5q05DAlPf0QoPKLRsSfVJ/PgELTxYGUyWlPSyKrMhGiVetguVUDcdbvM6fCwPqjmSyFbMF
+ 1DkWoEiQBLYS87LyGPsU31h4W+X2T0qc2gUXo0YeJItALoEnt1O3t1K6X/2uiaKsRkhnjROPmz8
+ rypb85LNpNzwGBpPRPmigfTPgHyTKniadsdjCJFFKr1Zi6dw==
+X-Received: by 2002:a17:903:2ad0:b0:2e9:58c5:8c68 with SMTP id
+ d9443c01a7336-2edd7acfcd0mr38208935ad.54.1794453750527; 
+ Wed, 11 Nov 2026 19:22:30 -0800 (PST)
+X-Received: by 2002:a17:903:2ad0:b0:2e9:58c5:8c68 with SMTP id
+ d9443c01a7336-2edd7acfcd0mr38208695ad.54.1794453750048; 
+ Wed, 11 Nov 2026 19:22:30 -0800 (PST)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2edb6dfb58dsm26134275ad.66.2026.11.11.19.22.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Nov 2026 19:22:29 -0800 (PST)
+Message-ID: <acd476e0-fb24-4f11-b917-c4e86f86171a@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 11:22:16 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107105946.GA96745@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
+ unconditionally
+To: Pavel Popov <pavel.e.popov@intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Arnd Bergmann <arnd@arndb.de>,
+ Len Brown <lenb@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-5-pavel.e.popov@intel.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261111234821.4814-5-pavel.e.popov@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxMyBTYWx0ZWRfX9wTzbk2mhBnd
+ nM2cDBIvLhZYngiwQVyLRqX5nMKEHKwLkKa1L4EzXHKfV5AmJSXV0wREgaQB5fLA9ZbRafV0OxV
+ QXRXFIzH15Y6I7LtEey4rjBlQklN5NtRqWxwpXmA8LfIAZ8gb5/iR7VIr6++Pacw32a66QwBAjO
+ XuNtdTqbCEJm/vVvBF9FMK6GYI2ZW7IOrjT0wh2Z58d5ITdsGQK237wYewniIVxfk2iq0uUM7oY
+ wAKveVOqfla5Hz18NCtx+peZoqy9pFi2mHGNB+WOKX5ao8VnrVgbqhCZf4U1xb4kpDHHA3NlVaA
+ 7Q12UqPqQBg8TxZs4W0FKUKYgSAXpwFQpTYFgtKCTCaN+r2b/MykTgK56YPK6Lfuohjcw/3+Qv6
+ fkgPRmZe4wTL6HW+1UvflUDxHZram8+XfkXrIiyvQH0QD4jWX8t6PHTODfQFMskDJ9TrEIYYCZn
+ mVphR26+3eGMi2aNSFQ==
+X-Proofpoint-ORIG-GUID: -g2mujRGL8l6PrVN_2D2tOp9XqMCYMkf
+X-Authority-Analysis: v=2.4 cv=FeuiV5+6 c=1 sm=1 tr=0 ts=6af530f7 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=L27Nr_72VT4YvYD4_PkA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: -g2mujRGL8l6PrVN_2D2tOp9XqMCYMkf
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxMyBTYWx0ZWRfXxDNbErhIKApo
+ LrMvU8As8aZeesOLWpRDpXLMbhiqLEV5ThRYZb/FlUqT8y2cUG/nxiq9LlCtIfD8eYfXCrna0NH
+ 9PNVPStI9u+9Gf0TBLTNCvk8Cn7u6S4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120013
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,51 +162,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 07, 2026 at 12:59:46PM +0100, Laurent Pinchart wrote:
-> Hi Karl,
+On 11/12/2026 7:48 AM, Pavel Popov wrote:
+> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
+> CONFIG_X86 around the include is no longer needed.
 > 
-> We discussed in v1 how this is not the right approach. Why are you
-> posting a v2 without addressing that ? You need to go back to the design
-> table.
+> od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
 > 
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+> ---
+> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+> it is in mainline.
 
-v1 ended with two conflicting positions on non-coherent DMA-BUFs:
 
-- Laurent [1] and Nicolas [2]: end_cpu_access(WRITE) only marks the CPU
-  cache dirty, and non-coherent DMA importers clean before starting DMA.
-  Persistent DRM/KMS imports then need a sync call on each submission.
-- Christian [3]: devices must access DMA-BUFs coherently with the CPU,
-  using begin/end_cpu_access() around CPU accesses. Importing a buffer
-  with dirty CPU caches onto a non-coherent device is intentionally
-  unsupported. Today cma_heap and system_heap sync all mapped
-  attachments inside begin/end_cpu_access().
+Yeah, this patch strictly depends on [1] (series patch 1/3) being in
+mainline first; otherwise non-x86 builds break.
 
-On my Pi 500+ with a USB UVC camera (640x480 YUYV) and V3D on CMA
-DMA-BUFs:
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 
-- Without vb2 CPU sync, V3D reads stale data on 8/8 zero-copy frames.
-- With vb2 begin/end_cpu_access() on cma_heap, zero-copy V3D is clean
-  (0/8 stale). CPU capture takes 91 us/frame without a V3D import, and
-  144 us/frame when an idle V3D PRIME import is attached.
-- With a test heap that tracks CPU cache state and syncs imported BOs
-  at V3D job submission, zero-copy V3D stays clean (0/8 stale) and the
-  idle-V3D CPU read drops back to 89 us/frame.
+> 
+> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+> 
+>   drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
+> index 2ca8f1aaf2e..0e33865f9d3 100644
+> --- a/drivers/cpufreq/cpufreq_ondemand.h
+> +++ b/drivers/cpufreq/cpufreq_ondemand.h
+> @@ -6,6 +6,8 @@
+>    * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>    */
+>   
+> +#include <asm/cpu_device_id.h>
+> +
+>   #include "cpufreq_governor.h"
+>   
+>   struct od_policy_dbs_info {
+> @@ -26,8 +28,6 @@ struct od_dbs_tuners {
+>   };
+>   
+>   #ifdef CONFIG_X86
+> -#include <asm/cpu_device_id.h>
+> -
+>   /*
+>    * Not all CPUs want IO time to be accounted as busy; this depends on
+>    * how efficient idling at a higher frequency/voltage is.
 
-Question to all: should I look at opt-in cache-state tracking in
-dma-buf (with a sync call before DMA submission), or keep
-begin/end_cpu_access() as is and handle CPU consumers via V4L2 cache
-hints?
 
-[1] https://lore.kernel.org/r/20261021175900.GG15441@killaraus.ideasonboard.com/
-[2] https://lore.kernel.org/r/7e4c7707880e9092180d28484ecf674be29b40a0.camel@ndufresne.ca/
-[3] https://lore.kernel.org/r/1e798600-5a76-412a-959c-94313629baf4@amd.com/
-
-Thanks,
-Karl
+-- 
+Thx and BRs,
+Zhongqiu Han
