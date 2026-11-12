@@ -2,57 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A9460A3827
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:23:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBE1606A333
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:34:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=f+HhI8VP
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dXXu9RMD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE1410E5EF;
-	Thu, 12 Nov 2026 15:23:53 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E98D510E5EF
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 15:23:47 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8CD9F1A1632;
- Thu, 12 Nov 2026 15:23:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6058B5FF85;
- Thu, 12 Nov 2026 15:23:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9C6CD11BC07CF; Thu, 12 Nov 2026 16:23:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794497025; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=4cdhS9H/Scvqwuce1Cg7h8YKsQsIO3wekg4L5Z7bkvw=;
- b=f+HhI8VPkOBIjANjnGDhGowwywBgE+KjjI34rpXWHGwPYpj3DVKYp4PPKjSmy1ajfDFpNC
- rVI5E2XPc8Vs3eu1qNaBXU1Ox6qME9KJX/zN+oMkYWCzqJMFnQn84CguQAdUyqNU8A+eeH
- UznEayOaNkXiVUZAplZffPzN5tHuIQgO2D5Q7H7xAD2H3AIeYC+D7X3NUVPpRBfGRCXlPn
- oAL3ae+pj/4I8HPAP54uKyiR7QuXYgMWmNvS66Z1y7UWNi0FUOkW1BC1M6EyBptInvgLZ1
- n7l1GXatBWVjwgds9I8PEmjCVUMRm5KKx7WK5kMxpj+uvWU1IJu7i2D0AoCguA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CCDE10E618;
+	Thu, 12 Nov 2026 15:34:25 +0000 (UTC)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9875B10E618;
+ Thu, 12 Nov 2026 15:34:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794497650; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Kq9864SPyKvjjMeRkdipd1E35RQlhbP0ilf6aRZxwioSOZqJRi4hUgIpli49TkACpJs+Y+kjV6OsGiZxnOZqzJermko4nVXap6/lqVSYHa2aNJw6g0Y3tpGksvDE4DkMYnrAfxunpoEEzUVTaolJTZO8gQJBTUMKJoi57CBjCzw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794497650;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=; 
+ b=jL5Z6j3nO2eolGSsRFZwEnO/838+wTgReS9TqAHhUAFdXOgBTW7XKnEbORC6W1mUieN9qv06Pt5BNh7oW24fhayZSLAz6BGrt7LWsS2M6thyaMb9UjUhFZjVOa2fynYf6xhhtGDtD9Bz/wduku52/5YHoX1lJDB+kQ5uqvbN8og=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=dXXu9RMDE0xezo6kZ18H2VSiccbq6FlBnZmCo/DcR2ZMbbhHVHrljwAtBAOFm859uXeyyFX/pUyOZhP/wCxZjlKTahs83Fb6HxhROSkyXKsfHvpVpiRwl+92SWmr9RTRScyeK+9IbHmEctP9m3I0//4XQtkGXz38uRPAqK1914E=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794497647702543.2304470024969;
+ Thu, 12 Nov 2026 07:34:07 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Vidith Madhu <vmadhu@nvidia.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andyshrk@163.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 09/27] drm: Add VRR target frame rate properties
+Date: Thu, 12 Nov 2026 16:33:58 +0100
+Message-ID: <6MnpleYQQheiUMA8VObDVg@collabora.com>
+In-Reply-To: <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
+ <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 4/7] drm/imx: Add support for i.MX94 DCIF
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-clk@vger.kernel.org, 
- imx@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
-References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
- <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
-Date: Thu, 12 Nov 2026 16:23:36 +0100
-Message-Id: <179449701677.2030221.6593749298448668349.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,130 +76,117 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Laurentiu,
+On Thursday, 12 November 2026 06:24:50 Central European Standard Time Vidith Madhu wrote:
+> 
+> On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
+> 
+> > Userspace may wish to set a target frame rate for the Variable Refresh
+> > Rate mechanism. There are multiple possible ways such a target could be
+> > communicated.
+> > 
+> > It's desirable for userspace to not only set a fixed target, but a
+> > target range within which VRR may operate. This is because even if a
+> > sink advertises a certain range as supported, said range may not be the
+> > ideal range to use, as numbers on the extreme end of the range may
+> > induce flickering or other glitches.
+> > 
+> > There's four choices to how one bracketing value for the target range
+> > could be communicated:
+> > 1. Target frame rate in something like millihertz
+> > 2. Target frame period in something like usecs
+> > 3. Target vtotal value
+> > 4. Target frame rate as a fraction expressed by two integers
+> > 
+> > Choice 1 is unpleasant as it would introduce some amount of rounding to
+> > common broadcast framerates like 24/1.001, which seems minor except that
+> > exact matches to standard framerates would rely on making all userspace
+> > and kernel agree on a specific method of rounding. This is sure to go
+> > wrong, so is disqualified.
+> > 
+> > Choice 2 has the same problem as 1, with the added complication that
+> > the EDID's VRR range is expressed in frames per second, and other HDMI
+> > features express things in frames per second as well, which would
+> > require possibly imprecise computations.
+> > 
+> > Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
+> > also modify the vtotal value. Additionally, it has the same drawbacks of
+> > choice 2 and 1.
+> > 
+> > Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
+> > example, is expressed as nominator=24000 and denominator=1001. As there
+> > is both a minimum and a maximum, there are 4 properties in total: two
+> > numerators, and two denominators. A fixed rate with no variability is
+> > expressed by setting the minimum fractional and the maximum fractional
+> > properties to the same value.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic.c      | 14 ++++++++++++
+> >  drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++
+> >  drivers/gpu/drm/drm_connector.c   | 48 +++++++++++++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_crtc.c        | 34 +++++++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_mode_config.c | 20 ++++++++++++++++
+> >  include/drm/drm_crtc.h            |  6 +++++
+> >  include/drm/drm_mode_config.h     | 45 ++++++++++++++++++++++++++++++++++++
+> >  7 files changed, 191 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> > index 9bb761eda59f..da5c6925c349 100644
+> > --- a/drivers/gpu/drm/drm_atomic.c
+> > +++ b/drivers/gpu/drm/drm_atomic.c
+> > @@ -489,6 +489,7 @@ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
+> >  static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+> >  				 const struct drm_crtc_state *new_crtc_state)
+> >  {
+> > +	const struct drm_crtc_vrr_state *vrr = &new_crtc_state->vrr_state;
+> >  	struct drm_crtc *crtc = new_crtc_state->crtc;
+> >  
+> >  	/* NOTE: we explicitly don't enforce constraints such as primary
+> > @@ -544,6 +545,19 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Reject VRR limiter ranges that only specify one end of the limit, or
+> I think specifying just one end of the limit should still be a valid case, 
+> the client may want to use the default bound on one side implied by the 
+> base timings/min. refresh rate and constrain the other.
 
-> The i.MX94 Display Control Interface features:
->  * Up to maximum 3 layers of alpha blending:
->     - 1 background layer(Layer 0);
->     - 1 foreground layer(Layer 1);
->     - A programmable constant color behind the background layer;
->  * Each layer supports:
->     - programmable plane size;
->     - programmable background color;
->     - embedded alpha and global alpha;
->  * Data output with CRC checksum for 4 programmable regions;
->
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # bridge refcounting
-> Signed-off-by: Sandor Yu <sandor.yu@nxp.com>
-> Co-developed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+That is what the RFC did, but unfortunately this leads to problems for
+the kernel and non-obvious behaviour for userspace. Specifically, userspace
+may set what is a fixed rate without intending to do so, and the kernel needs
+to do a chicken-and-egg dance to determine whether something could be a fixed
+rate to see if CinemaVRR lowering the minimum rate applies at which point it
+may no longer be a fixed rate.
 
-Looks OK, I just have a small remark and a few minor nitpicks, see below.
+The new display-min/max properties are so that userspace knows what limits the
+kernel is using (so that it factors in quirks applied outside of what's in the
+EDID) and get to essentially specify one end that way.
 
-> +++ b/drivers/gpu/drm/imx/dcif/Kconfig
-> @@ -0,0 +1,16 @@
-> +config DRM_IMX_DCIF
-> +	tristate "DRM support for NXP i.MX94 DCIF"
-> +	select DRM_KMS_HELPER
-> +	select DRM_GEM_DMA_HELPER
-> +	select DRM_DISPLAY_HELPER
-> +	select DRM_PANEL_BRIDGE
+> 
+> > +	 * specify a numerator > 0 with a denominator that is 0.
+> > +	 */
+> > +	if ((!vrr->vrr_min_n || !vrr->vrr_min_d ||
+> > +	     !vrr->vrr_max_n || !vrr->vrr_max_d) &&
+> > +	    (vrr->vrr_min_n > 0 || vrr->vrr_max_n > 0)) {
+> > +		drm_dbg_atomic(crtc->dev,
+> > +			       "[CRTC:%d:%s] incomplete VRR limiter range\n",
+> > +			       crtc->base.id, crtc->name);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> >  	return 0;
+> >  }
+> >  
+>> [snip]
 
-This should be unneeded now. As o fnow it is basically a complicated way to
-say 'select DRM_PANEL'. And you are (rightfully) not using the panel API,
-so this line should probably just be removed. Please double check by
-building multiple configs, including an allmodconfig.
 
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
-> @@ -0,0 +1,221 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Copyright 2025 NXP
 
-2026 I guess... v11, a long journey, hopefully it won't slip to 2027! :)
-
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
-...
-> +static int dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
-> +					     struct drm_crtc_state *crtc_state)
-> +{
-> +	struct dcif_crtc_state *dcif_state = to_dcif_crtc_state(crtc_state);
-> +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-
-While this is OK, there is generally a preference to declare and assign in
-the same statement when using cleanup actions, so...
-
-> +	struct drm_bridge_state *bridge_state;
-> +	u32 bus_format;
-> +
-> +	dcif_state->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> +	dcif_state->bus_flags = 0;
-> +
-> +	bridge = dcif_crtc_get_bridge(crtc, crtc_state);
-
-...it should all happen here, as:
-
-	struct drm_bridge *bridge __free(drm_bridge_put) =
-		dcif_crtc_get_bridge(crtc, crtc_state);
-
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-kms.c
-> @@ -0,0 +1,168 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Copyright 2025 NXP
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/of.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_bridge_connector.h>
-> +#include <drm/drm_gem_framebuffer_helper.h>
-> +#include <drm/drm_panel.h>
-
-Unused include?
-
-> +static int dcif_kms_init(struct dcif_dev *dcif)
-> +{
-> +	struct drm_device *drm = &dcif->drm;
-> +	struct device_node *np = drm->dev->of_node;
-> +	struct drm_connector *connector;
-> +	struct drm_bridge *bridge;
-> +	int ret;
-> +
-> +	ret = dcif_crtc_init(dcif);
-> +	if (ret)
-> +		return ret;
-> +
-> +	bridge = devm_drm_of_get_bridge(drm->dev, np, 0, 0);
-
-This function is deprecated. You can use of_drm_get_bridge_by_endpoint()
-instead, which returns a refcounted bridge pointer. And since the bridge
-pointer is a local variable you can just use a cleanup action to put it
-easily:
-
-  struct drm_bridge *bridge __free(drm_bridge_put) = of_drm_get_bridge_by_endpoint(...);
-
-Otherwise LGTM.
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
