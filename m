@@ -2,63 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4EE606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 11:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6556606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 11:52:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AYNPE4VD
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cniGzmE+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAE4011203D;
-	Thu, 12 Nov 2026 11:48:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F5A511203D
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 11:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794484113; x=1826020113;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=vo27qnizSaWoeng/wgI+cUcoe+VkKt4vRpNAtaN69Pw=;
- b=AYNPE4VDSA5x1RNq5ne9No37aMF0ASG3Jai7NNLlIRRNAY8cuprLLFHL
- 3+j/4Jn6Ix35qy6VglHqspkD7JW0qYz9+qKu8BPxxfUBRkasZy+0tMTLP
- YUMr8deFsSG2piUxK22xVrQ3JjV0xqpGG1D0AsLzcuUrzy5C7uPojupw5
- YhQqc/tUDcXFXjMT+2fB2ShSboAzOBjPHKI9qupqfyWgjARMFg0KTYOAw
- KDa6J1YwKkq4mvXHxsUA4+oxCEcvdPSzB+Y2CM0iaiT5T95AFQ8CqtM08
- j+ARmDLpZ0fB1EBpb5364LUd+7EZR3qOwxMu1RgV1/7REGhdD6PnO2cvK A==;
-X-CSE-ConnectionGUID: 6Mwo1zzzSF+2kktU+s5lzg==
-X-CSE-MsgGUID: iCs29ou9SXmatRQyU7Q/6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3185863"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3185863"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 03:48:32 -0800
-X-CSE-ConnectionGUID: +UP8GAYDQJynOakSbn4Hew==
-X-CSE-MsgGUID: xSrzvlxZQFKkvS49/NzKTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8526038"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.61])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 03:48:29 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Arun
- Iyengar <aiyengar1990@gmail.com>
-Subject: Re: [PATCH] drm/debugfs: Accept "reset" with a trailing newline in
- edid_override
-In-Reply-To: <20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com>
-Date: Thu, 12 Nov 2026 13:48:26 +0200
-Message-ID: <eead642a87b1916414972dd346a4be9195020541@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF4A11204E;
+	Thu, 12 Nov 2026 11:52:00 +0000 (UTC)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B66A11204E
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 11:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=6R6toNBIUivUY49SbPVzsOWR13YYc6Q05DyfYkrwtKU=; t=1794484313; x=1795693913; 
+ b=cniGzmE+25N9X2sA/uYDlYLwz/EWH+6FGO6plR0+hN2mjiUg+0mMokWdjYlyKJUQ8xKkKju0Oqc
+ BKSYyP95uJGJvmeARf6uzNxTE4PVQJz7hbo5SPeBp8NKlDvMf7pgbSe1q/uasZJ6NTL6WiAO/+5FU
+ fhUL7Y/bG/tzPXPqQj610IIbgXumbblTRPdKKQ2GTqMjDzmqLtMG+LVJJ35biunxKwzy1J6S9A4QN
+ ptpiIFGX2tw7rJakG1CBdcIhMADvuvFR6FUu3Lv5nySgCekcokBcXVrNtEX50VT1fqr/yBg0yDjue
+ cXoEhtPhknkYzZ47pYKsm5JTexN4Ry/WNONA==;
+Date: Thu, 12 Nov 2026 12:51:48 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-omap@vger.kernel.org>,
+ <hns@goldelico.com>, <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/omap: dss: fix handling deferrals
+Message-ID: <20261112125148.23235dec@kemnade.info>
+In-Reply-To: <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
+References: <20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info>
+ <33f63eaf-42a0-4b3f-a21c-3752436d07b4@ideasonboard.com>
+ <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,86 +52,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 12 Nov 2026, Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> Writing "reset" to a connector's edid_override debugfs file removes the
-> override, but only when exactly those five bytes are written. The
-> obvious
->
->   echo reset > /sys/kernel/debug/dri/0/HDMI-A-1/edid_override
->
-> writes "reset\n", which is handed to drm_edid_override_set() as an EDID
-> and rejected with -EINVAL, leaving the override in place. A test
-> harness that cleared its override this way kept running on the
-> overridden EDID until the next reboot.
->
-> Accept a single trailing newline as well. An EDID is at least 128
-> bytes, so a six-byte "reset\n" can't be a valid override.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Found and tested on an Orange Pi 5 (RK3588S), with this change on a 7.3
-> based kernel: with the HDMI connector's own EDID written to
-> edid_override, "echo reset > edid_override" succeeds and edid_override
-> reads back empty, and "printf reset" (no newline) still succeeds. On
-> drm-misc-next the patch is build-tested only (arm64 and x86_64, W=1).
->
-> This patch was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit message, and I reviewed and tested it
-> as described above.
-> ---
->  drivers/gpu/drm/drm_debugfs.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index a72f9723d3a9..3c6290457fa3 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -569,7 +569,12 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
->  	if (IS_ERR(buf))
->  		return PTR_ERR(buf);
->  
-> -	if (len == 5 && !strncmp(buf, "reset", 5))
-> +	/*
-> +	 * An EDID is at least 128 bytes, so "reset" with the trailing newline
-> +	 * that "echo reset" adds can't be mistaken for one.
-> +	 */
-> +	if ((len == 5 || (len == 6 && buf[5] == '\n')) &&
-> +	    !strncmp(buf, "reset", 5))
+On Wed, 11 Nov 2026 16:46:51 +0100
+"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
 
-Feels like a more robust option would be to allocate buf with
-memdup_user_nul() and do a simple sysfs_streq() that handles newlines in
-a generic fashion.
+> Hello Andreas,
+> 
+> On Wed Nov 11, 2026 at 3:56 PM CET, Tomi Valkeinen wrote:
+> > Hi,
+> >
+> > On 11/11/2026 14:22, Andreas Kemnade wrote:  
+> >> Forward the error given by of_drm_get_bridge_by_endpoint() if it is
+> >> EPROBE_DEFER to ensure output gets initialized later when available.
+> >>
+> >> On GTA04/OMAP3 no display was found, but it appeared after doing
+> >> rmmod omapdrm ; modprobe omapdrm
+> >>
+> >> Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")  
+> 
+> Ouch, sorry about breaking this driver. To my excuse the old code removed
+> by b7e9b93fc8ecf was (ans still is) pretty obscure.
+> 
+> >> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> >> ---
+> >>   drivers/gpu/drm/omapdrm/dss/output.c | 5 +++++
+> >>   1 file changed, 5 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
+> >> index 36d37deac8026..220ed7e003080 100644
+> >> --- a/drivers/gpu/drm/omapdrm/dss/output.c
+> >> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
+> >> @@ -24,6 +24,11 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+> >>
+> >>   	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
+> >>   	if (IS_ERR(bridge)) {
+> >> +		if (PTR_ERR(bridge) == -EPROBE_DEFER) {
+> >> +			ret = PTR_ERR(bridge);
+> >> +			goto error;
+> >> +		}
+> >> +  
+> > Shouldn't we just return PTR_ERR(bridge) here? The error label will call
+> > omapdss_device_cleanup_output(), which cleans up things set up later in
+> > this function.  
+> 
+> Indeed.
+> 
+> 
+> Additionally, by looking at the omapdss_device_init_output() code right
+> now, the goto-based error management appears:
+> 
+>  1. unnecessarily complicated: only one goto for only one line of rollback
+>     code
+> 
+>  2. potentially wrong, or at least doing too much, because
+>     omapdss_device_cleanup_output() does two things:
+> 
+>       a. drm_bridge_put(out->next_bridge): but when goto is invoked the
+>          out->next_bridge pointer has not been touched yet
+>          (I assume we should not touch the refcount in this case)
+> 
+>       b. drm_bridge_put(out->bridge): unneeded because the goto is inside
+>          an 'if (!out->bridge)', thus there is no reference at all to put
+> 
+> Do you agree with these findings?
+> 
+of_drm_get_bridge_by_endpoint never returns NULL (indicated by Sashiko).
+So we have dead code there anyways. So the patch is dead code elimination
+and not fixing bugs.
 
-The corner case downside is that it'll also match "reset\0" followed by
-a bunch of arbitrary data, but then an EDID like that wouldn't pass
-anyway.
-
-BR,
-Jani.
-
-
->  		ret = drm_edid_override_reset(connector);
->  	else
->  		ret = drm_edid_override_set(connector, buf, len);
->
-> ---
-> base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-> change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
->
-> Best regards,
-> --  
-> Arun Iyengar <aiyengar1990@gmail.com>
->
->
-
--- 
-Jani Nikula, Intel
+Regards,
+Andreas
