@@ -2,67 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A459E606A33E
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4F9606A88D
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFhGGHpA
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DYrhNfoM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0707112201;
-	Thu, 12 Nov 2026 16:32:39 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E87371121EF
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:32:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5561D6234B;
- Thu, 12 Nov 2026 16:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45FA1F000C8;
- Thu, 12 Nov 2026 16:32:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794501153;
- bh=hxkD/APlz4ZE9WZTrHrnMSE/qJyH/QHAerVotltNtS0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QFhGGHpAoBWJpbd/2ciLB6POl6nXRb1X9MlKjTQk+6FqgbxZMsLRY6Fa6Kt9hhQoW
- u+PCyWVcyMye7wSFJLc6W2Cc45CYv5ccyb1KuVYV8D1UbUcZ00WDTQoEDJSkMiXE9w
- A2trOvqDlpD4ZV/CSZiGC7NDR0Dd2/JKaaZPI0XBvPgi0LySKB7j7RMT0ZpZkDnIiM
- 8qGto9xPjEoZzNRLiiU/Xx7+FArfRnPIJSwyGvmXTdQ+0EclbVANnzkFtQfnFth8eZ
- 1ePUFBK8uf5badGmf9BOqR+yB/0+iYS01UDBTiCSXH34kZw0jUZYYhkNVPf33e95pP
- A3QiqZR98eWuQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 12 Nov 2026 17:31:58 +0100
-Subject: [PATCH v10 9/9] drm/vkms: Add driver-specific plane property for
- testing
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B7D1121FA;
+	Thu, 12 Nov 2026 16:33:33 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A06B010EBAF;
+ Thu, 12 Nov 2026 16:33:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IgV5CyFnl6OsuxAuoa+AdmgaTPTkaNSrRRa5aA6KywU1+C7IuaKoC5eaYMVTOoJEWxEyx7vPz+RXrzXUjaDeodNAvnXJrCaSj9pdcBXWMEah9hiG9OAjSJiTLVXF1EhYS4OO1ozfMGo39G+siNYkV7dYqYss9v9t+4m8z+XhsMQPPCcJUsPO8p3IggPBakGbKjbDy/wuzObItohCoIwqsEMhaXID8+srfo5avmd3UbTIGLzTssDi8H92YnyCg4mVRut5KXVsJQxSNgOtkogqswDon0rhYUyfuFEOY7+TZ5/uR2YSaIrC4Jyohib6Vf4lj2y2xwG453pRGZt6wb7vtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
+ b=mUwCkqPUmWXRNFAwSlQasdGthT1DEDh2ZxAMHWS+i2t4DhtPFWJWaL6q37YEtyuR4HGrDsPJYYpbbmsP/iR6eWkRK6yXhu9LqTtPJaGDKFlTQ8TrVc//tJ68szOLSSkuBUVmGWrtP6kLAtTyt7Aqr71vZeRxNq4++T73LIt0vlRMRT8UG6mgd/ICYVEWdlzKdKDSpv6B8202f0FgmQmNjznnCLPNZ4UmXHGxAmwaYfRMkyYdG0ZD1J4TwRAng6Nj30+AyRUrR+ldA3mBIk7RDRYd6W5ii2tRhxVUE4eUM+dQqOqcRx6/lFwkSf/Xiy9CqwSr+i35/PDYopuRf4XMFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
+ b=DYrhNfoMX4UxoZD5LGPLrMlI1jdnMTnQ+l5Z7rk290ThVwAOaLuCxEyrt+/hoNhNv0YBWpiUP8G4aeXySVdvqN8tOiTBdUIAyfPo5vqTdg4E7SnrYEmCZFhVdhwQsQReyAkcbD01Ip1gmf+i3jdKMchGI3pWrr/cZuggaJ9ItpOvIjT/8h40I3DkVMRIGBJRyaPwXrRahQp+o9N9y9hdoLlA5LdyqJBRbMqodWPe9/rD4k7A6vWOIe/oWDJ4oPtesPn9L9TEH9bDsIaGSVufoD+G3qLw2RZphD9iA8Q3DAdvjFWHWxO14NK93vVPMMBaCxCbXXOKJhrylAYWE5VNuw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 16:33:20 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 16:33:20 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Alexandru Elisei <alexandru.elisei@arm.com>,
+ =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+Date: Thu, 12 Nov 2026 11:33:17 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
+In-Reply-To: <avXoJSGh5xjGFgod@raptor>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
+ <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
+ <avXoJSGh5xjGFgod@raptor>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0391.namprd03.prod.outlook.com
+ (2603:10b6:408:111::6) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-drm-reset-state-flag-v10-9-cefaa1ed056d@kernel.org>
-References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
-In-Reply-To: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Oarora Etimis <oaroraetimis@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6559; i=mripard@kernel.org;
- h=from:subject:message-id; bh=sZsUVPFgkQHbeGEHeaHzcf7EglZcsfxqosKgEZf95L8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlfXzEK7q1a3iee8OjJBJ0dvpkRj7ZEPI5jbPRP0V9pt
- d6//ENkx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiI5WnGhjt8t4U/BiXeLZti
- 0f6jcYW9a0H9JOvWU1tfOklkFN6bvWutJePs5bsWvk711OdRnr1XkLFhc0tp87roxnDxYIeddVu
- d553iPnJu9pfSjz8tts4JXb7+qPA6Ta+INTW8evtd7tYwNX0HAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA0PR12MB4399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022105027099003|261026140227099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: NnDtCHCpEicAV3xc0o49gyGRL+w5WKfVCQfSSKc4+rjCbznun6rk4kjwgNxkXJwadM+eIG/LrmHdS+VS4uuV3eYyopBM9JoQpnzx9PSOIy2jhYwEq8SdicuJuAphpYEeGj88vi69y9slbyXriPSFkqnjxzLxlcVcDHSCma75/XKeVx4CotGtcWUE9DYh2l9QO2kACCT3U7wDsyrBo8Brc1CpIoyMn8FDaPjsin4lpmN2uiItvz6kiciNHmy3vzbcRpbHPYg2E1klxXWqiMjwSo9w2omms/ootA+gwnsONptB6Bc7tc/bhnG36zYLEOdRuGCGw2XmpQbSUA/LqP+6tazqL6xn5zT5ZTkD1+u7KsOtJHhYF8bgKtNmeDtuiZHXYXeGkBViYFEvtyxdYTt7ZKm9nw9g4nYRP6I2eWFK6/DqHxCOjtovssbSxdSuQzplc3sKXXsFnerU2tlTYljtRuykJNegig7x465DXBWVUfOTJSDyrXHxtTdCq0TM3z0wugXRnjNtF5AT8MJBrQAGmhHI0JHl3l+nS8zZ+H5AISzA096DCllQPfAIpglqpYQAYf8Ev5S6+eLIB4KyDgeAq+dPMlw1z/CStOxvlj6M2Av7gGpeAAhhr4cXUEp4WqYd4ey15QSf8PUjr9t0CYcRddIrOeDT4C5cEHkPBYf208U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEpXN3JHZG10UFJjckhWWWpMZEV6NmJWNlRqelZlYy9IUTBuaitIREtuK1F0?=
+ =?utf-8?B?Y3oxYUQ1UTZQQ2R2RmxCUSswTUI4Z3Z6TENDWDMxQ3ArZUV5aEErdW8vSEdl?=
+ =?utf-8?B?MXFnYkVUdWFGdnB5YVQwS3U0OXgzVEkxd01VZUUyVHNsWGl0R0ErTlBtbzE0?=
+ =?utf-8?B?SVdET3FoMnF4alkveExoZEsrd05KZFd3TVE0SzJRY05IN0ZLY2ZubGp6M0o5?=
+ =?utf-8?B?cE9jN3U2emxzTWxkREdmUnJxQnd1aU9hV01SREZBVXk3SndpRDVodkpKektk?=
+ =?utf-8?B?U29wVWRCMXpjdTBUY0pqT0VMcHZYUURVQUJPeWNHUzBsY01nNkNaUk5wSGRR?=
+ =?utf-8?B?TENWSXo4U2JYNWFMTUdJaUpPN1FKMGhYdWR6OWJDb3d1TnMxZjcyUkNncXdl?=
+ =?utf-8?B?dW5pODdxWVRMRnRxVjhzOUlkWlZpU3BYZFMrUUpwOGZlbFlVelE5WEpINVAy?=
+ =?utf-8?B?Z29VVmNDY2NKN3FvUmEvdTdJRmM3em9zV2l1K05YUWl3a1kzd0ZoRERON2xr?=
+ =?utf-8?B?OFhYblB1TkxGR3RSVVlhWVczcmhxaHplN0hqdk82MDNrWjAzMW83Y3E3UEFR?=
+ =?utf-8?B?dEMySGJXRzIvWU9acGlyREQ5VHpIaERXdE1hS3RRajJXTERXSWR4Q0UrYVFN?=
+ =?utf-8?B?QkYwSmVObTBUa2QvcGZaVGNNL0lRSytRa3hublp3MTJZaUUweE1NZ1JhcS9J?=
+ =?utf-8?B?YU5XS0NTcUhLTjdueE1ES3JqOXA1WGNFYmpkaE16NGtGelUzYkk1Rk9lMGJj?=
+ =?utf-8?B?cTJmaUMrK1JYbzM4akxhMkF5V25mN0Z1eXVZL2ZVZUZ3YVBmcUlPclU4KzJP?=
+ =?utf-8?B?NUc0OEhITnRZQ0tQK2d0elFTNUFTRmExRGIrV0JzUDNkQW5Vd1FDZGZHZzhY?=
+ =?utf-8?B?NS9TSDEvSVRhZEdCRVZTTXRJRVE3SmZnZjEvQS9wOWlFOWRoTStPMlZMd1dJ?=
+ =?utf-8?B?RHR6MysrUUJpa082TURaNHdzSWUvaEJNR0lqOFVyWEpEL3M2SHRWNGRETEZL?=
+ =?utf-8?B?emhlOSt0QWVOazVSYlFBejlHZUxuaHlwQU83VGlMMGVhakhNUkwxN3U3akQz?=
+ =?utf-8?B?OW4vcVBiTUs1RFZTTnh4VEhObU5GL3FmdGRFU3EySjBDQUp0bVVNSjhXYWV5?=
+ =?utf-8?B?Y2xmanYxQmMvNXhSQjN6ait5YitPZTh5TlZxbVM4aW1RRS81bFF3NzZ1MnNo?=
+ =?utf-8?B?QTNsWkVlVlp3QlF5cmpyc0JaU2ZTMUxCd05NOVFwKzRFd0JEaTBQdGNlaEM4?=
+ =?utf-8?B?Y0gxVnI1b1A4NWcxSVdhVEZDNjhzUlFRc2daWWM5dW13MldWVUpvWCsyd1d0?=
+ =?utf-8?B?ZWV5NXZEemVBajZDMHdOVmpKNnd6YzZtNE8yVGM4cXB0d3ZWZTRsS3RVM05l?=
+ =?utf-8?B?Rk9xWUdkTlUvRW5ZQ1lkdFdyTFJsN3lNM2x4eVlvTUttL2M3dXpCelFxdTQ0?=
+ =?utf-8?B?NXNoTVVEYkdQWExabHZTbTJlK3JMVExBZDlJcE9QUFpTN0x5UmVmZ0Z3UjMx?=
+ =?utf-8?B?VlJ6S201MHE5cXh6ckxoYTNxWTRRUzNXcHZQTkZpdGdsUWw1ZmFydUhvRXdi?=
+ =?utf-8?B?QVhacnUwcTV2U3FRU08zWWZ1V1lPRnBiTm9UYnNGYzJLOWlyb0Qxc0t0Y21U?=
+ =?utf-8?B?TERPSkVxWkpqQ3J4c0lRMHRMSnJSN0tPUEFpV1NOV05UUzJmdDNjeUpzcUZH?=
+ =?utf-8?B?WTBkWEdtanhWdldTOVUvMnhzNHhMeGs3L0lkY3krZmJib29mOExRUzhtbDRt?=
+ =?utf-8?B?RWJVR3A1S1h1ZVhNdHNnb3lkaFJGdHNNbUdJS1d6bGxsdTQvRHBlYlNLdGRH?=
+ =?utf-8?B?QVA2a3VJb293TnRCRnF1a3VLY29iZHNYZXJNWFFRa01BeklPTjFtYytFSUp3?=
+ =?utf-8?B?ZnhnelBUbi8zN05ySkdacW1QYWIrRmdFYXZteWlFTitBZGlsY0F6a2ZmWE9U?=
+ =?utf-8?B?REsrcUZUYzF3cC9WK2FWUytGNUZKVWFzWTZuRlY0RFUyOHdkRVJIVURMQUhK?=
+ =?utf-8?B?YUh0UlM5eTgvWSt3WVpaZTM1bWUxVkRXaFVPNzRlK1BodDByWVZzVnRlN3NB?=
+ =?utf-8?B?OG10VzUzOEliaXNtay9mWC8yQU43eWxEUldYdDIrUmxIdmJqMTJ0WHB0Rkwy?=
+ =?utf-8?B?eE9GUkxYYUlOaWdwWGlVb3VPaDNHWGdGSldBWEV1aHVZUmluNUtJY2NhNEUw?=
+ =?utf-8?B?K2lMRFZwcmhqS0Q2NGk1Y0ZtSVRMbGx2TW1GQmp4VGxpL01RYmI5cTl6UDFt?=
+ =?utf-8?B?Vk5DSUhUa0M1NVdHSEJWTStCaUpXWEpsQXJzcDBzN1F0MGcwY3RveGdqUk9W?=
+ =?utf-8?Q?MRyJ7I4Ebde0GQZBLA?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:33:20.7046 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5OY8h6VTj3qiF2LQcfEQCmqOSlbNnsU/44aRMVZ98E2SfH8UIVBSMlLIjAvA/WgF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,202 +141,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+> Hi Mika,
+>
+> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
+>> Hi Alexandru!
+>>
+>> On 11/12/26 13:56, Alexandru Elisei wrote:
+>>> Hi Mika,
+>>>
+>>> I want to help getting this series merged, and I've been familiarizing myself
+>>> with hmm and device migration, please bare with me if the questions I'm asking
+>>> are obvious or downright silly.
+>>
+>> Thanks for the interest and willing to help! I am preparing a v18 of the
+>> series and plan to post it early next week.
+>
+> The series is big, and as far as I can tell the MM people are hard at work
+> reviewing bug fixes. It might be better to wait a while, to give people a
+> chance to have a look? I know that if I see a series being reposted often,
+> I am less inclined to review the patches since probably a new iteration
+> will be posted soon. But I can only speak for myself, you know best.
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
+Totally agree. It is better to wait until MM people finish the bug fixes.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 64 insertions(+), 2 deletions(-)
+Thanks.
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -144,20 +144,23 @@ struct conversion_matrix {
-  * @base: base plane state
-  * @frame_info: data required for composing computation
-  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
- 	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
- 
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
- struct vkms_color_lut {
- 	struct drm_color_lut *base;
- 	size_t lut_length;
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..42513cb462ac 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -9,14 +9,18 @@
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_ABGR8888,
- 	DRM_FORMAT_BGRA8888,
- 	DRM_FORMAT_RGBA8888,
-@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
- };
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
- }
- 
-@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 	kfree(vkms_state);
- }
- 
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
- 
- static void vkms_plane_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
-@@ -281,10 +329,21 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 					  DRM_COLOR_YCBCR_BT601,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
- 
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (!plane->vkms_test_do_not_use_property)
-+		return ERR_PTR(-ENOMEM);
-+
-+	drm_object_attach_property(&plane->base.base,
-+				   plane->vkms_test_do_not_use_property,
-+				   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
- 
- 	return plane;
- }
 
--- 
-2.56.0
-
+Best Regards,
+Yan, Zi
