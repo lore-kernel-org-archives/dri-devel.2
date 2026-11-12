@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E176F606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:17:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38FC606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOZ41S3C
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEGx/I0u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28CF310E09C;
-	Thu, 12 Nov 2026 13:17:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D87D411211D;
+	Thu, 12 Nov 2026 13:21:21 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 209BF11211D
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 13:17:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B5B10E849;
+ Thu, 12 Nov 2026 13:21:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A62D2470BB;
- Thu, 12 Nov 2026 13:17:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5641F00A05;
- Thu, 12 Nov 2026 13:17:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 70A2A43879;
+ Thu, 12 Nov 2026 13:21:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B801F00A05;
+ Thu, 12 Nov 2026 13:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794489425;
- bh=ozFLT3NuimNqyGCMesmqkyiRpMwm4IvI5DwhpyOVBPM=;
+ s=k20260515; t=1794489675;
+ bh=BEGvSbz1Vo8YKRgli4Dcrnoesq6QMELiVHHXuy3CrdM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XOZ41S3CvKgQ/1n8os/lqLku/MOROTPOctM98X4l2U4sU7ICUJr3fBqndihsR/C3C
- zFgcAQH8n+6jJdR1eEEBAjQeHAwJB25yg3yXJtmm+wZnMR8D8DWRAfFX84VXRUZwlT
- SHbl6T4rv3uN+1kV1xJ0/LvJYDiTWQ1yEt6jQ1zIDOSw2tVnYFsCj8wIMPGjxPzLTX
- jMP39uI0XKm6I+aH7yo4U4NGQPWUBWFcNot0Uz21Q/QUF+V+9FSYdkObjcOA5ZN5Wu
- /7eLit9v2QqqOx4tyMHo6rso8FHr90nEq58hCpZTf5afk+Z6KCnyiAiVqKFTqZHnza
- l4f9AwZQxRehg==
-Message-ID: <sashiko-outbox-211159@kernel.org>
+ b=JEGx/I0uyLmLrMVeDi/OVeJnqRrPq21QScSbv/rhK6qMb4e2BMHvyVMk6m4fgA5A0
+ b+8Alg+15JoVyFmQ6AFsqOFwfwOHwjuxpD7TkkbHVDw9dRpZxMNWVvQ8E1rFKiRYCR
+ CDNRfuGYqUdk0Yzyt6DPwdavLegXZMOtzN5n7K3ydmks5vuLbRwGfsNqxntlzi0Vc4
+ mimpgFu4J2qIpa7OhvnPV3DrMj1WOiVfyWb+A5cUgKoVfWxHuoh50UhRC3BktWi/M+
+ iV5xrDhJNBvSbtOf6DfFew91J1NDesDvMc6B6lS1aYJRum++G3+BDdoSShwbePqJEE
+ mtlOt5WbAFsHA==
+Message-ID: <sashiko-outbox-211164@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/vc4: Complete async page flips from an ordered
- workqueue
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-vc4-async-flip-fixes-v1-2-42449a703840@igalia.com>
-References: <20261112-vc4-async-flip-fixes-v1-0-42449a703840@igalia.com>
- <20261112-vc4-async-flip-fixes-v1-2-42449a703840@igalia.com>
+Subject: Re: [PATCH v2 1/2] drm/radeon: Inline drm_crtc_init()
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112125039.66082-2-tzimmermann@suse.de>
+References: <20261112125039.66082-1-tzimmermann@suse.de>
+ <20261112125039.66082-2-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 13:17:05 +0000
+Date: Thu, 12 Nov 2026 13:21:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,191 +52,138 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/vc4: inline flip in vc4_async_set_fence_cb() overtakes
-  pending flips
-- [Medium] drm/vc4: NULL data->name and inverted drmm order in
-  __vc4_crtc_init()
+- [High] drm/radeon: radeon_crtc_init() registers DCE4 plane formats on
+  all ASICs
+- [Low] drm/radeon: commit message inaccurately claims drm_crtc_init()
+  formats are used
 --
 
-commit 350614eb18304f31f6b7fcd5f4826c9bda20f32b
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+commit 7f6e83326a814c1dd5b8538076f37ab12152984e
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-drm/vc4: Complete async page flips from an ordered workqueue
+drm/radeon: Inline drm_crtc_init()
 
-This commit defers async page flip completion from the dma_fence callback to
-a per-CRTC ordered workqueue so that sleeping operations do not run in
-atomic context.
+This commit inlines drm_crtc_init() into radeon_crtc_init(), allocating
+a primary plane with an explicit format list and initializing the CRTC via
+drm_crtc_init_with_planes().
 
-> diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crt=
-c.c
-> index c558b527c7e60..623b636a03652 100644
-> --- a/drivers/gpu/drm/vc4/vc4_crtc.c
-> +++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-> @@ -884,15 +884,18 @@ struct vc4_async_flip_state {
->  	struct drm_framebuffer *fb;
->  	struct drm_framebuffer *old_fb;
->  	struct drm_pending_vblank_event *event;
-> +	struct dma_fence *fence;
->  	struct dma_fence_cb cb;
-> +	struct work_struct work;
->  };
-> =20
-> -/* Called when the V3D execution for the BO being flipped to is done, so=
- that
-> - * we can actually update the plane's address to point to it.
-> +/* Executed when the V3D execution for the BO being flipped to is done, =
-so
-> + * that we can actually update the plane's address to point to it.
->   */
-> -static void
-> -vc4_async_page_flip_complete(struct vc4_async_flip_state *flip_state)
-> +static void vc4_async_page_flip_work(struct work_struct *work)
->  {
-> +	struct vc4_async_flip_state *flip_state =3D
-> +		container_of(work, struct vc4_async_flip_state, work);
->  	struct drm_crtc *crtc =3D flip_state->crtc;
->  	struct drm_device *dev =3D crtc->dev;
->  	struct vc4_dev *vc4 =3D to_vc4_dev(dev);
-> @@ -930,17 +933,19 @@ vc4_async_page_flip_complete(struct vc4_async_flip_=
-state *flip_state)
->  		drm_framebuffer_put(flip_state->old_fb);
->  	}
-> =20
-> +	dma_fence_put(flip_state->fence);
->  	kfree(flip_state);
->  }
-> =20
-> -static void vc4_async_page_flip_fence_complete(struct dma_fence *fence,
-> -					       struct dma_fence_cb *cb)
-> +static void vc4_async_page_flip_fence_cb(struct dma_fence *fence,
-> +					 struct dma_fence_cb *cb)
->  {
->  	struct vc4_async_flip_state *flip_state =3D
->  		container_of(cb, struct vc4_async_flip_state, cb);
-> +	struct vc4_crtc *vc4_crtc =3D to_vc4_crtc(flip_state->crtc);
-> =20
-> -	vc4_async_page_flip_complete(flip_state);
-> -	dma_fence_put(fence);
-> +	/* Completing the flip may sleep, so defer it to a worker. */
-> +	queue_work(vc4_crtc->async_flip_wq, &flip_state->work);
->  }
-> =20
->  static int vc4_async_set_fence_cb(struct drm_device *dev,
-> @@ -948,23 +953,26 @@ static int vc4_async_set_fence_cb(struct drm_device=
- *dev,
->  {
->  	struct drm_framebuffer *fb =3D flip_state->fb;
->  	struct drm_gem_dma_object *dma_bo =3D drm_fb_dma_get_gem_obj(fb, 0);
-> -	struct dma_fence *fence;
-> +	struct vc4_crtc *vc4_crtc =3D to_vc4_crtc(flip_state->crtc);
->  	int ret;
-> =20
-> -	ret =3D dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ, =
-&fence);
-> +	INIT_WORK(&flip_state->work, vc4_async_page_flip_work);
-> +
-> +	ret =3D dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ,
-> +				     &flip_state->fence);
->  	if (ret)
->  		return ret;
-> =20
-> -	/* If there's no fence, complete the page flip immediately */
-> -	if (!fence) {
-> -		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
-> +	if (flip_state->fence &&
-> +	    !dma_fence_add_callback(flip_state->fence, &flip_state->cb,
-> +				    vc4_async_page_flip_fence_cb))
->  		return 0;
-> -	}
-> =20
-> -	/* If the fence has already been completed, complete the page flip */
-> -	if (dma_fence_add_callback(fence, &flip_state->cb,
-> -				   vc4_async_page_flip_fence_complete))
-> -		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
-> +	/* No fence or the fence has already signaled. Complete the flip
-> +	 * immediately, after earlier queued flips.
-> +	 */
-> +	flush_workqueue(vc4_crtc->async_flip_wq);
-> +	vc4_async_page_flip_work(&flip_state->work);
+> As in drm_crtc_init(), create a primary plane for the CRTC. Use the same
+> formats as with drm_crtc_init().
 
-[Severity: High]
-Can an inline flip in vc4_async_set_fence_cb() overtake or race with an
-earlier flip whose fence has not yet queued its work item?
+[Severity: Low]
+Is the commit message still accurate here after v2?  drm_crtc_init() uses
+safe_modeset_formats, which only contains DRM_FORMAT_XRGB8888 and
+DRM_FORMAT_ARGB8888, whereas v2 expanded radeon_primary_plane_formats[]
+to 16 formats.
 
-flush_workqueue() only waits for work items already on async_flip_wq.  If
-flip 1 (to fb1) is still waiting on an unsignaled fence when flip 2 (to fb2,
-with no fence or an already-signaled fence) runs, flip 2 completes inline
-first:
-
-CPU0 (ioctl)                              CPU1 (kworker)
-vc4_async_page_flip_common() [flip 1, fb1]
-  plane->state->fb =3D fb1
-  dma_fence_add_callback(fence1, ...)
-
-vc4_async_page_flip_common() [flip 2, fb2]
-  flip2->old_fb =3D fb1
-  plane->state->fb =3D fb2
-  flush_workqueue(async_flip_wq)
-  vc4_async_page_flip_work(flip2)
-    vc4_plane_async_set_fb(plane, fb2)
-    vc4_bo_dec_usecnt(fb1)
-    drm_framebuffer_put(fb1)
-                                          <fence1 signals, queues work>
-                                          vc4_async_page_flip_work(flip1)
-                                            vc4_plane_async_set_fb(plane, f=
-b1)
-                                            drm_framebuffer_put(fb1)
-                                              <-- HVS scans out unreference=
-d fb1
-
-If fence1 signals around the time of flip 2, both vc4_async_page_flip_work()
-calls can also run concurrently and race in vc4_plane_async_set_fb() on
-vc4_state->dlist and vc4_state->hw_dlist without locking.  When flip 1
-finishes after flip 2, it overwrites the display list with the older fb1 and
-drops flip 1's reference to fb1 after flip 2 already dropped fb1's old_fb
-reference and BO usecnt, leaving the HVS scanning out a framebuffer whose
-references and usecnt have been released.
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
+deon/radeon_display.c
+> index aac6733ddd82c..1a03c641d72fe 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -38,6 +38,7 @@
+>  #include <drm/drm_framebuffer.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_modeset_helper.h>
+> +#include <drm/drm_plane_helper.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
+>  #include <drm/radeon_drm.h>
+> @@ -47,6 +48,31 @@
+>  #include "radeon.h"
+>  #include "radeon_kms.h"
+> =20
+> +static const u32 radeon_primary_plane_formats[] =3D {
+> +	DRM_FORMAT_XRGB8888,
+> +	DRM_FORMAT_ARGB8888,
+> +	DRM_FORMAT_XBGR8888,
+> +	DRM_FORMAT_ABGR8888,
+> +	DRM_FORMAT_XRGB2101010,
+> +	DRM_FORMAT_ARGB2101010,
+> +	DRM_FORMAT_BGRX1010102,
+> +	DRM_FORMAT_BGRA1010102,
+> +	DRM_FORMAT_RGB565,
+> +	DRM_FORMAT_XRGB1555,
+> +	DRM_FORMAT_ARGB1555,
+> +	DRM_FORMAT_BGRX5551,
+> +	DRM_FORMAT_BGRA5551,
+> +	DRM_FORMAT_XRGB4444,
+> +	DRM_FORMAT_ARGB4444,
+> +	DRM_FORMAT_C8,
+> +};
 
 [ ... ]
 
-> @@ -1387,7 +1395,13 @@ int __vc4_crtc_init(struct drm_device *drm,
->  	vc4_crtc->data =3D data;
->  	vc4_crtc->pdev =3D pdev;
->  	vc4_crtc->feeds_txp =3D feeds_txp;
-> +	vc4_crtc->async_flip_wq =3D drmm_alloc_ordered_workqueue(drm, "%s-async=
--flip",
-> +							       0, data->name);
-> +	if (IS_ERR(vc4_crtc->async_flip_wq))
-> +		return PTR_ERR(vc4_crtc->async_flip_wq);
-> +
->  	spin_lock_init(&vc4_crtc->irq_lock);
-> +
->  	ret =3D drmm_crtc_init_with_planes(drm, crtc, primary_plane, NULL,
->  					 crtc_funcs, data->name);
+> @@ -680,20 +706,31 @@ static const struct drm_crtc_funcs radeon_crtc_func=
+s =3D {
+>  static void radeon_crtc_init(struct drm_device *dev, int index)
+>  {
+>  	struct radeon_device *rdev =3D dev->dev_private;
+> +	struct drm_plane *primary;
+>  	struct radeon_crtc *radeon_crtc;
+> +	int ret;
+> =20
+> -	radeon_crtc =3D kzalloc_obj(*radeon_crtc);
+> -	if (radeon_crtc =3D=3D NULL)
+> +	primary =3D __drm_universal_plane_alloc(dev, sizeof(*primary), 0, 0,
+> +					      &radeon_primary_plane_funcs,
+> +					      radeon_primary_plane_formats,
+> +					      ARRAY_SIZE(radeon_primary_plane_formats),
+> +					      NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
 
-[Severity: Medium]
-Does allocating async_flip_wq before drmm_crtc_init_with_planes() pass a
-NULL data->name on BCM2712 and invert the drmm teardown order?
+[Severity: High]
+Does registering radeon_primary_plane_formats unconditionally on all
+ASICs cause regressions on AVIVO (DCE1-DCE3) and pre-AVIVO hardware?
 
-bcm2712_pv0_data and bcm2712_pv1_data leave .base.name as NULL and rely on
-drmm_crtc_init_with_planes() to assign a default crtc->name, so data->name
-formats the workqueue name as "(null)-async-flip" on Raspberry Pi 5.
+radeon_primary_plane_formats[] matches dce4_crtc_do_set_base(), whereas
+drm_crtc_init() previously advertised only XRGB8888 and ARGB8888 on the
+plane and set primary->format_default =3D true.
 
-In addition, drmm actions run in reverse registration order, so
-drmm_crtc_init_with_planes_cleanup() calls drm_crtc_cleanup() and zeroes
-*crtc (including crtc->dev and crtc->primary) before
-__drmm_workqueue_release() drains and destroys async_flip_wq.  Allocating
-the workqueue after drmm_crtc_init_with_planes() using crtc->name avoids
-both issues.
+On AVIVO hardware (!ASIC_IS_DCE4(rdev)), avivo_crtc_do_set_base() does
+not support DRM_FORMAT_ARGB1555, DRM_FORMAT_BGRX5551,
+DRM_FORMAT_BGRA5551, DRM_FORMAT_BGRX1010102, or DRM_FORMAT_BGRA1010102.
+When userspace selects one of these newly advertised formats,
+avivo_crtc_do_set_base() pins target_fb's BO in VRAM before rejecting the
+format and returning -EINVAL without unpinning rbo or old_fb:
+
+drivers/gpu/drm/radeon/atombios_crtc.c:avivo_crtc_do_set_base() {
+    ...
+	r =3D radeon_bo_pin(rbo, RADEON_GEM_DOMAIN_VRAM, &fb_location);
+	if (unlikely(r !=3D 0)) {
+		radeon_bo_unreserve(rbo);
+		return -EINVAL;
+	}
+	radeon_bo_get_tiling_flags(rbo, &tiling_flags, NULL);
+	radeon_bo_unreserve(rbo);
+
+	switch (target_fb->format->format) {
+    ...
+	default:
+		DRM_ERROR("Unsupported screen format %p4cc\n",
+			  &target_fb->format->format);
+		return -EINVAL;
+	}
+}
+
+This permanently leaks the VRAM pin reference (and leaves scanout
+unprogrammed during full modesets because atombios_crtc_mode_set()
+ignores the return value of atombios_crtc_set_base()).
+
+On pre-AVIVO hardware (!ASIC_IS_AVIVO(rdev)), radeon_crtc_do_set_base()
+only switches on target_fb->format->cpp[0] * 8.  Advertising the 10-bpc,
+BGR, 4444, and 5551 formats causes them to be misprogrammed as RGB565 or
+XRGB8888, while omitting DRM_FORMAT_RGB888 (24-bpp) causes
+drm_mode_setcrtc() to reject a format that pre-AVIVO CRTCs support now
+that primary->format_default is false.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vc4-async-=
-flip-fixes-v1-0-42449a703840@igalia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112125039.6608=
+2-1-tzimmermann@suse.de?part=3D1
