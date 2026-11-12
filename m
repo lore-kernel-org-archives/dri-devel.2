@@ -2,100 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37EF606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E60606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:55:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=epD/pGIB
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SFWqRC37
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16F0C897F0;
-	Thu, 12 Nov 2026 14:47:57 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 484D4897F0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794494869;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zZkO3ck5ylqqxi0UIrlQRRScttZ5TDTGZ/TrwmDCCvM=;
- b=epD/pGIBUMPS8zjQ/M9OFPEoR70UQWV1Jl1vOdWBlhxmNGwSSK0KptMXZrYtIzz9nK+BO+
- gSCadsu9XoX71K9bLl2sE8PsMayLri5T8mW5xljmCsOTp7wPuPkQeVMzvNPwoekjxZeDj+
- jH5a5s1HSSxsxzAXjEyBXJLAmTIxzGM=
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-558-mnY_v9Y1NwCmUimd1NnN9A-1; Thu, 12 Nov 2026 09:47:47 -0500
-X-MC-Unique: mnY_v9Y1NwCmUimd1NnN9A-1
-X-Mimecast-MFC-AGG-ID: mnY_v9Y1NwCmUimd1NnN9A_1794494866
-Received: by mail-lj1-f197.google.com with SMTP id
- 38308e7fff4ca-3adfb79d9acso26608721fa.3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 06:47:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794494866; x=1795099666;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zZkO3ck5ylqqxi0UIrlQRRScttZ5TDTGZ/TrwmDCCvM=;
- b=dXp3Mc4MKduw5cQrKgQ/7c34eOO8bkJCG7UCDkZE4G+M8G9NXIa1X/h+maESH/uRP/
- hM8JiNjEy4/EUjAZOOlnlu2c2uVn9sC/V7GkT22SjPh480mqoO227NcCVQo78uiBXW8R
- d9uB9odGTc94z6liLBno9BBWPwjgALUYx6+soNTgNxCOgAeLYt9Pkesf4+1BH/+wB6Ld
- 3PPwFpjrsWC7E7exvGrODKMAGRwWmkMUvPRIw3nkOb4xALPcQfG4/7KComXAe8M04WDB
- p9vnwxDUh1i/sLskrrtavIcLkdYgLsiA698TuBGGSTbG0Xb0MGhwHTRihXtjbKWr++er
- N0Ng==
-X-Forwarded-Encrypted: i=1;
- AL+hErEb6sycXT0V7beDd2ubD758Hfs7PnWVNNvzJfX7eD2t1v5QME8lYWv2EoNl1vQhMu2UCgOAfBm7U0A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9SaAz5BKbfzxAqyQvd7//mbdnAk62mTg4kG3zLRfV1mVFf8zGY
- tEOixy/K+6iwsaHM7za7NGu/KxL/5n5pgeXOLojg4EXqEyx3+qV0W/dHz9iRobTwVR3ggB41T43
- j9LrCZbUp3NDcyHnt/YyNVULNb8hjyUdpyZu1/l3TOH/gj50G3YB+f1xr50tLOUEJNLtb
-X-Gm-Gg: AYBFou2o9tMDyVUsshcYCP+9yQ9GKxiN93CCQhSS/eYxOxsn1yFujuTEvAuUJoUcOLU
- whzw9fUL1D0Ocf4yUmOC8xgd56tK3UvZfLqNlbnqxnKsHKRQbnfv3d8sIdetlN2Es53kKfVulik
- CTIvcWmA6E3ePZaW+QIZloP1XIidvvJJS/ovl2puEuKRkav/iBZSrCQNrgwuEsu7hZPrk+kbb6i
- hJ3s1DaJhK+1sOD7ORsVE0C3utgIKoIJPEqivdZK3YLkoxBTApS88FFTGGXSoKrXjLLLv3JVaNz
- +JDPuy3DFti+Nj6pXkMArLLH9IuGC/Z8Er6jDTuFf3VclSyLukIihYP7rRXwsUqJzlVQK+HUwVd
- eB0OF6XPg56hMfFC+NaMbXjCjr5ok/CYjaG6OGvONdFg53rWVKWAGLfAlEkpWnepuwon8+2c+5Z
- 4D5rkI
-X-Received: by 2002:a05:6512:2524:b0:5c1:57ee:1887 with SMTP id
- 2adb3069b0e04-5c15d62c702mr2219389e87.13.1794494866130; 
- Thu, 12 Nov 2026 06:47:46 -0800 (PST)
-X-Received: by 2002:a05:6512:2524:b0:5c1:57ee:1887 with SMTP id
- 2adb3069b0e04-5c15d62c702mr2219357e87.13.1794494865616; 
- Thu, 12 Nov 2026 06:47:45 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157bab834sm1698450e87.45.2026.11.12.06.47.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Nov 2026 06:47:44 -0800 (PST)
-Message-ID: <b3689045-d735-451b-8cda-a29d7e79fe63@redhat.com>
-Date: Thu, 12 Nov 2026 16:47:43 +0200
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB3F310E60C;
+	Thu, 12 Nov 2026 14:55:32 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010027.outbound.protection.outlook.com
+ [52.101.193.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6B710E60C
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:55:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rfYE1uPS8mOjok0J4uKFaMWyxJu2VbZbKbgthTuz/m76V5dl0cWKcaWtXRWHML9/afZo/MDA0jCsCaqpTMep0qt3z7OaHh0cK8w52NOPFvQoMmtBvsQMy5mEAa9iUtcxELRjPA1LoZ+NDveAMaudKqC2+qjyWFlzoG2e0pnWVr4LqAF5SzzB/uJeQQhfQYDxdgtVn5yH6elDg61LCVcMoc2jE4xHqap8X+5BYCZ7g1aNzpgZNfLm0dayb5H9Y+CTckt2DAp2LJ4kR0Cw/l8LQmKpzPgolqOUlfpzmQfreQAafce0C5TiAt/Q0BTUfH0m0y3HC+8QrrULgeGEEU4IMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZVoCgB13YYiMtWpV93mxx28UAaFd3uN5svw9dgkNGUg=;
+ b=Y0d/NwBgB3iy+Xrfxg4JEucBatr43hT43wdnZt8aYrXkx+FjgN6GyWVPsSyj78rKAMjtonOptUNzWcsb2F0Pr6US5lN3XjIeLasyNaJXsCA6YfDMWkZyG3/v0lTKII9EB4XlaqkyStuQJy5WTeKI6DVU/NUh59sdKYlul4AmVVRTmKBGwznrTmsvS2PkaKl+xbMe9wnPDPohE+Ei3ahVKa0iO21empo8cjnSG9phyLrEXmHEhFNyz0oEEujN21WpjFFnxO51dFK3JebvGRUeVvyUiF7hWkR8Bnzz91ayqN0euEqf+VlapCIAw4B3/hN96QTo7bmdLB31Es/PFP26YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZVoCgB13YYiMtWpV93mxx28UAaFd3uN5svw9dgkNGUg=;
+ b=SFWqRC37e2RdW5Shc3GeD3T8Qp0H0zjehmYK52tVLXLtf6BPp0Fak1754IEQK28UUHoFI4qOE0OY8lIP96HlUl1A3NyksR86ZsUVabTL3qCYX4utSU2mPipJSgAkEP5dGh9Fdq6BE3aPEF2uSQus0U29kzM3Gb36rcMlF8Ivyz4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB7378.namprd12.prod.outlook.com (2603:10b6:510:20d::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 14:51:09 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 14:51:09 +0000
+Message-ID: <c956cf4e-96a5-475d-b12c-406c5e008b54@amd.com>
+Date: Thu, 12 Nov 2026 15:51:05 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-To: Alexandru Elisei <alexandru.elisei@arm.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
- <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
-In-Reply-To: <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dzJam2lGWkSp2kmjwdP8q1FKTtcvTlYo22DUrFd7GU8_1794494866
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH] drm/sched: Do not overaccount job runtime
+To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Gary Guo <gary@garyguo.net>,
+ "Paul E. McKenney" <paulmck@kernel.org>
+References: <20261111105921.38710-1-tvrtko.ursulin@igalia.com>
+ <71ad23bcb3d48f771ce74270dbe4dfcf39827031.camel@mailbox.org>
+ <0ff2a53b-377e-4839-88da-1c2b3c25b3eb@igalia.com>
+ <6f2f8ff3738152b50521e0cad88978e2ffdb5feb.camel@mailbox.org>
+ <4606cd56-f1c5-4a00-b9ba-fdbf2206681d@amd.com>
+ <1f2143d213d22dec427ae1bcfc7cbfe2d34ab83a.camel@mailbox.org>
 Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <1f2143d213d22dec427ae1bcfc7cbfe2d34ab83a.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0192.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7378:EE_
+X-MS-Office365-Filtering-Correlation-Id: a98cafed-d436-4976-97d1-08df40cc630a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|22082099003|18002099003|261026121527099003|4143699003|261022105027099003|11063799006|261028144727099003|56012099006|261009223027099003|261021121427099003|261102123227099003|261026140227099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info: sNb7GLkO4Wd61bhpeXri8om03hnzv2MY0UedT/iMN4I+1i/ruJPaMndJPFi71awUpVpW0wBB/GhfEb/GY+LC1wOiPkdaZrm52c3oKAGjDKJyzT55ML9DGANLEVG2NOkFEdB940GvskoI9i2EguPJT8+9dBj3WvXS/Oi5Zq8taTS1AE3ZqfWKBfSCMjmjgj6MgqE3+LP7dXYMRZQPsmfb966DCztKdq8DEwTva1ShoGdJhGt+ryd5qUJYxyU8ORW7iexGRfM8g9CbCcBNQxIfI3mro5zyJY4h9hgKRwUFX+zbTPEhkak1sYr/qpOqZcdxgNMKhHg4oi8/7J8+RH4ks35yrHfrLTRc0GLk3xN6nbz3d9LUFUgvSEjBWjI+I2YN2d2DUMZ23NgE9t55qz4tGPOySYcQ+XE7YBnzRSjTjq3yC/8VLpxwbFEaJHbODZcm5Cmuff+nJ03vlvekeWwscpmdzccjsehCx44t0hIPSAd3cCFGUli2i7Dx4NWk5E1lS/0Pq67DFlPEemi9Pd93Z5VJzWumjoR3BCRjZgmVgK7+T7Br/2a7pYPlb6LgbnYCRkLCQB88MQFfIXss2j72t2bxdel9R4wU6/2VWlzGuLOKwBAfz9zt2nJAE5UGML22w0qb0kxzjCQmusscpXmGQ3pzmrzYMiQxyUqR/6hOEy8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(261026121527099003)(4143699003)(261022105027099003)(11063799006)(261028144727099003)(56012099006)(261009223027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261022075727099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUhvM1g5U3NuS1AxanYyalVtMkk2YmY4cU9YaTVDSFV0WlM4bTc3b2pqWFlG?=
+ =?utf-8?B?eVFMNG9Pcm1tR1JuWXRac0Y3RzR4SDFEQ0d0MldWdDJtaS9sWndKaFVYbWlH?=
+ =?utf-8?B?QVhKcGZpR1RRUzkvWkFldUFrd1JCMEJGZi9GYitMTEhIcFIveVhUc3JzbmRO?=
+ =?utf-8?B?WFJzNkhWZ3ZNN2s3bDNrOWhDTVljalpsMXdHSmJkQWZwOHFGbnlzRlBpQnNk?=
+ =?utf-8?B?REJPWjh2NVpjWnRFYWZBci9hNU5aQk14VHFkQnA3OUp6MWhmcUdSeHZTRHpj?=
+ =?utf-8?B?RjNzRzVBWXVwdjBwMDFsenNMYXU3YTVEeDEvN3J6cEhWdWNCejgyUk1hTnRM?=
+ =?utf-8?B?ZDlpNUswd0VTcDV5MWRyTnhzRjhNeXVseDhWL0ZQNno1M2NxbVExaDEzMG9y?=
+ =?utf-8?B?VU9XanVveTFPVWROZW1lUnFydVU4ZmpzV2Vqdm1GeVNNMnNHdUc0eWpDRG1a?=
+ =?utf-8?B?Ym1rWHZqV0F3WlVFbEFTRC9LMGYwOWtCRUtaMFFrZXNOVHNQVzJwb0l5Z1Zu?=
+ =?utf-8?B?ZER4eXUzTjIzRHVVK3Z1c0FsTER3Mk1FTE1qNUFzSnFlUnBxeHpHWmZEUk9r?=
+ =?utf-8?B?ank0Z2E1UGljZHBJekNkRHhPUlRzK1FaUVBYYm5oL2sydlhQaUpScWhuQUlr?=
+ =?utf-8?B?RTBGY3dZYUlRdXd4Mkg4REJyZXZTUkE2N3NxT0J6SjQxS2lsNzc5QUZUWDMw?=
+ =?utf-8?B?OEU3VjBJdExyL1R5c0FFT1R5UmZkWjFkN0JzMlhXY3pzNVJjSXMzeWdkRGtl?=
+ =?utf-8?B?V2VhM2VZSHU1SW03NGhLNUdyQW1memVKd2pZUjNDQTRPdUpEd0N6WUZWa0hZ?=
+ =?utf-8?B?UlhZTFdjNVg1czR6WW9raDQ3dmlVOU5tc1FDNkhldVVsR1lnUHdmdlZ0N0pQ?=
+ =?utf-8?B?YTBhZ2NicGJUc1lQMzNzUjVuSVNWaXF2OVBEMUNrQ0tJSVN0VEpMRVVOeVBu?=
+ =?utf-8?B?TGRZY3VTL24xb1FES3pSdGJnU1FvV0NpVE9NamdiOG41UllIOHMwWGZCL3Mv?=
+ =?utf-8?B?aE5ZOStlR1Z4WmhtYlJpOWJjdVFVVXVHUC81WWczSU0ydm1zZXJuOWttL1ZW?=
+ =?utf-8?B?RjM3SDN1K2trSXVwRUZGalQ1ZUdRVnpxd1lLcGZWOVpoeFpBcWhFTUpBRlFx?=
+ =?utf-8?B?VDE2YzF0dk9uaEFRK3VlTDdiZkFqczBPMk9ZVXNzTDBKaXpjNGROVXVHVTgv?=
+ =?utf-8?B?VmpreW9oOWcvWi93UVJTYlR0blBZQm4xNUl6bE5DZ2NXenlMZ3p1VWRaNlpV?=
+ =?utf-8?B?MEpIMkRKaWRVMURVVFNEVUhnWkxQQXQ4UGp4SXMzUTZlTGtmVHNvKytTV282?=
+ =?utf-8?B?ZTltRC92bXhEeHlQZUpKdkhwVXl3d2RhZU50L0c2REcwV2V1VEpWa3FneVcz?=
+ =?utf-8?B?bG0xbithTUc0cnBwZEgxT3puRk5ZQk1aZVRibUtHQjgzbDAwc0lIcVJhS3g2?=
+ =?utf-8?B?T1FqUXdNNEcxUk8yMkllRXVaTnlGQTFBK2F4amdkWHVOakZvYlkxQXdkdEc3?=
+ =?utf-8?B?U2Uzd08zaVNHdjJZR2xlQ25vdWZ4RTZsQU5Ua1c4Qy9EalhPSWZxQnl2Yllt?=
+ =?utf-8?B?QVluTXBRMjZnRW84WUQxS1ZFcjJuWUtac2p2YWRSN05EcFRhcUpIVHVVbkxP?=
+ =?utf-8?B?djRCK0EvcDVXUDN4NmhCaTBFcFVlOEc4L2luQkpTa1U1aWhSZGFXb2k1c2VV?=
+ =?utf-8?B?QkVNS3BDdUJGYXl5WDg1T1VReUlwdURvQXV1V3JvTVlnRXlKRHNjUGFEekw1?=
+ =?utf-8?B?NVZSOTRlR2NPbzlIdlhBek1NbFljcjdwMy85SzJCS1ptZHZFSWdrK2lnSzA2?=
+ =?utf-8?B?RTg4MVJEeUJWRHpGejd0TGlXYkV4VC8rbXRpWWh0dUFraFRoUVJrMGNBNFNj?=
+ =?utf-8?B?Qk5lNWFrc0VrWXdzVzZSeWJwZzlvZmhiMG5XRnRqY3pmcTdSaVN0eGZmUUxH?=
+ =?utf-8?B?MnlzWVI0RzlIdGNWTkJhNmFqUnoxZWhvY0FGd2Y0REVaMnVSK0NGc0l6NEUx?=
+ =?utf-8?B?MWRCcU1BT0IyL1NmWGt2ZWVxUGlFeGZaTjFYcjdiUkFuY3IxWEE2MHJsZlFD?=
+ =?utf-8?B?VzdrSDMzeURQWDZic1AzQi9rM0p2dDE2UUF6UDdZSzk0SWVkRnZ6bVplSmU1?=
+ =?utf-8?B?MSs3LzNyNGpGSUUwTW1ERUZodmlkc0cvUXkwWXBUYXQyNmRtVWM2YmRvdUdL?=
+ =?utf-8?B?MTFhRGQybW55Q1NrUjFrcG5wYk9VWVJwdlB6TjJNZnphdjNWZTdrUk1Xa095?=
+ =?utf-8?B?eHlhZC9BM09OVEZzTHlIYS93N0twMWh4ZnR2TVJpd2ZJQjhrZkMyRzRSaW5W?=
+ =?utf-8?Q?cnXAdn0Pbqtia11r6n?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a98cafed-d436-4976-97d1-08df40cc630a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:51:09.1132 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m3spaXBHC8WPb1st7bbfJEZtzKWlWcd3b9XKeYp6k/lt9oJsPrQSvFYoTma4SswA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7378
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,91 +144,76 @@ X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 11/12/26 15:27, Philipp Stanner wrote:
+> On Thu, 2026-11-12 at 15:15 +0100, Christian König wrote:
+>>
+>> To allow drivers to more accurately calculate how much time the job spend on the HW.
+> 
+> It's still just not a very good idea to randomly overwrite a fence's
+> internal value without a formal API contract. This should have done
+> through a dma_fence_overwrite_timestamp() which is responsible
+> centrally for the ordering, or, even better, through a separate
+> timestamp in drm_sched_fence.
 
-On 11/12/26 16:00, Mika Penttilä wrote:
-> Hi Alexandru!
->
-> On 11/12/26 13:56, Alexandru Elisei wrote:
->> Hi Mika,
->>
->> I want to help getting this series merged, and I've been familiarizing myself
->> with hmm and device migration, please bare with me if the questions I'm asking
->> are obvious or downright silly.
-> Thanks for the interest and willing to help! I am preparing a v18 of the
-> series and plan to post it early next week.
->
-> I try to answer your questions, there are quite a bunch of them!
->
->> On Tue, Nov 03, 2026 at 08:16:17AM +0200, mpenttil@redhat.com wrote:
->>> From: Mika Penttilä <mpenttil@redhat.com>
->>>
->>> Currently, the way device page faulting and migration works
->>> is not optimal, if you want to do both fault handling and
->>> migration at once.
->>>
->>> Being able to migrate not present pages (or pages mapped with incorrect
->>> permissions, eg. COW) to the GPU requires doing either of the
->>> following sequences:
->>>
->>> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
->>> 2. migrate_vma_*() - migrate the pages
->>>
->>> Or:
->>>
->>> 1. migrate_vma_*() - migrate present pages
->>> 2. If non-present pages detected by migrate_vma_*():
->>>    a) call hmm_range_fault() to fault pages in
->>>    b) call migrate_vma_*() again to migrate now present pages
->> Regarding both sequences, I'm trying to get a better understanding of what
->> the issue is. I assume the caller wants to fault in system memory, and then
->> migrate it to the device. Is that correct?
-> Yes that's the common thing to do.
->
->
->> In my analysis I'm also not going to refer to THPs, since that would make
->> things even more complicated than they are. I think we can come back to
->> THPs later if we think it would be useful.
->>
->> For the !pte_present() case:
->>
->> Sequence 1: hmm_range_fault() -> .. -> hmm_vma_handle_pte() handles
->> !pte_present() pages in two ways: faults in swap pages and device private
->> pages belonging to a different device, and waits on migration entries. Then
->> the migrate_vma_*() flow is used to migrate the range.
->>
->> Sequence 2: migrate_vma_setup() ignores !pte_present() page table entries
->> After this, the caller follows the same steps as in sequence 1 -
->> hmm_range_fault() faults in !pte_present() pages, and migrate_vma_*() is
->> called again to migrate the pages that were faulted in/waited on by
->> hmm_range_fault().
->>
->> Now, for the CoW case that you mentioned, I'm going to assume that the
->> caller wants write permissions otherwise nothing needs to be done:
->>
->> Sequence 1: hmm_range_fault() -> hmm_vma_handle_pte() records a fault
->> (hmm_pte_need_fault() returns HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT),
->> handle_mm_fault() -> .. -> do_wp_page() breaks CoW and maps an exclusive
->> folio with write permissions, then the migrate_vma_* flow will take care of
->>
->> Sequence 2, migrate_vma_setup() installs migration entries for the page,
->> then migrate_vma_finalize() replaces the migration entries with device
->> private entries.
->>
->> Looks to me that for CoW pages, all that's needed is migrate_vma_*(), and
->> the subsequent calls to hmm_range_fault() and migrate_vma_*() are not
->> necessary. Is that your conclusion too?
-> For  a device fault: the driver want the data in device memory with the
-> permissions the device asked for. Your !pte_present() analysis matches;
-> note that pte_none() in anonymous vmas and the zero page don't need
-> hmm_range_fault() at all, migrate_vma_*() populates them directly.
-> That's why the common case is cheap with sequence 2, and only swap
-> entries, other devices private pages and migration entries need the
-> extra walks.
-> For cow with write intent migrate_vma_*() alone is enough.
+In general a good idea, but if I'm not completely mistaken Tvrko came up with a complete framework to track the time each entity spend on the HW based on both scheduled and finished timestamps.
 
-Is *not* enough meant to say
+We should probably make sure that this framework doesn't depend on such hacks, then switch amdgpu and others to using that instead and drop that hack.
 
+> Why do they care btw? As far as I have ever seen only amdgpu uses the
+> scheduled fence. What do you do with it?
 
---Mika
+It is used for the gputop information. E.g. an estimation how much each submission uses the HW.
 
+> 
+> I see why Tvrtko needs it, to do the fairness algorithm.
+> 
+>> The time it was pushed the to HW queue is pretty uninteresting for the time spend on the HW.
+>>
+>> What you need is the time it started running and that is when a the previous fence completes.
+> 
+> OK, I see.
+> 
+>>> Is it guaranteed that this fence is signaled and, thus, has a
+>>> timestamp, or is it not? If it's guaranteed, the test_bit() is actually
+>>> unnecessary. If it is not guaranteed, then there can be misordering
+>>> between the two operations and it's UB and, thus, a bug.
+>>>
+>>> That said, I'm OK with your patch here being merged since you did not
+>>> cause that chaos / problem, but a second patch with a FIXME about the
+>>> issue that links this mail-thread would be good.
+>>
+>> I've considered this approach as well when we originally merged the
+>> change, but the timestamps are only like 90% accurate anyway so to be
+>> honest I don't think it really matters.
+> 
+> You have considered which approach?
+
+What Tvrtko is suggesting with this patch.
+
+> What do you think of the memory ordering problem I point out?
+
+Not much of an issue, the timestamp is really only used opportunistically. 
+
+> And btw above you said that this is done so that drivers can do
+> something "accurately" :)
+
+Well "more accurately", e.g. the accuracy increases from completely off to only slightly off :)
+
+Because of the interrupt latency and everything involved a submission which takes 3ms can report in anything from 3ms to 6ms runtime from my experience.
+
+If somebody wants this to be really accurate we would need to record the HW timestamps. That is possible, Intel does that for example, but for AMD HW nobody really cared enough so far to requests this.
+
+> 
+> But as I said to Tvrtko, we are where we are. This here is no big deal,
+> but I really want to get the dma_fence memory ordering set straight and
+> well-documented. The usage patterns have fragmented. It's completely
+> unclear whether what drm_sched does here is actually legal.
+Mhm, Tvrtko's work might be a good reason to get the job runtime accurate at least.
+
+Regards,
+Christian.
+
+> 
+> 
+> P.
 
