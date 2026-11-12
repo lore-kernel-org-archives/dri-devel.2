@@ -2,92 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDDD606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD6B606A337
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=bytesatwork-ch.20260707.gappssmtp.com header.i=@bytesatwork-ch.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=f9NzdRc2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EfSEqkvm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B87CF1120F2;
-	Thu, 12 Nov 2026 12:55:53 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC6A010EA1D
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 13:31:41 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-48e10a70540so1931274f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 05:31:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00BD1120F5;
+	Thu, 12 Nov 2026 12:55:59 +0000 (UTC)
+Received: from mail-oa2-f8.google.com (mail-oa2-f8.google.com [74.125.231.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8B511204E
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 11:50:09 +0000 (UTC)
+Received: by mail-oa2-f8.google.com with SMTP id
+ 586e51a60fabf-4adade2ee63so906793fac.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:50:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794484208; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fpCeSKloh5iFvd3Ya7fZcNBtZDVBC+tWY5WpoJORvulihJ/yvpiB0LkLjAC2A3XLQK
+ kFDzT5s36aEml+1+H6NdkalsoiCz7FMSLq/YRlusVs8xzDrg+NS5R07DbF/xtT6K56h0
+ ITt13oXwUVO1G6CurwrgwQGQwEOaBTaSIWxg4X5XHdHtb2AFhxyDwRKDEqtyWID1e97R
+ M+A33viA+c0WvktjwjWSUM2Mt79JZcUfvgO7jwO9wpX0G6tBncXk/kyS5Nab8ev3oP7g
+ nQBHLLQgSiRXlPwtB/YUg8MEhxMYue4aEnkXU2iF+OFww0wB+ARPRaKHz4Z2kI6hIxD2
+ E1AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=PW0k9eDKFqfRkgSsOSdWK+l0uZcCJyw9dSbPkXAxN3s=;
+ fh=luCwvBZXBksZ+aRDJUhZ1vSvq+9PgMMW2oK0zKVELtk=;
+ b=F00xM2LnxL3KTD74uOhL2Z9KBJWzoldkNKS9v51xlsfVbtFaiPRykOcQqM11VwL3fv
+ OilCbDUPWc0UY3npaXvlb1cVl3951DTQ/+0lis00+wXi2O9owbvifkkcYg3MyE9y6n3W
+ FRw0GG2KoIZ8Elxo4uhlqxadGf1eiFzMx5pHK7uLdhplO/rcOnUaIuYa50t8Y/J8T1h7
+ cA2zjupMxhXb3v4QdHbJs9uSvejIrXA9TFRHdpeTEP+aPkveme6v7FW7nG5F7GfJa+W8
+ MZxX8mJK4lVK9w8BRz9ov6bDK7gJsjUxuhIPqQQvtGVAymgAXJDh6TsJEzt0cWvB9KxH
+ DVWw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytesatwork-ch.20260707.gappssmtp.com; s=20260707; t=1794403900; x=1795008700;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
- b=f9NzdRc2FTVDBaQkR781k+Bbfo68lW15mGDbqXmnWRutNCxAVUeLK0nRfBbBKPR0Rm
- q/UJd8VKGRHL+zA0HaU+usok+UkkXnigA43YodeCBO26nMSQxt4VAM89bc9gg5V7DogJ
- i/w3LNjDA+HfrhdG5ojvCPw9Lo6MLw2/jcIhHhXzwtxu5rsBlvva0+aGuVuY9aB4RLpX
- uTcfVxlIDoP0wwahzjyRrndsgp/TEtjZy5OIpSpsQM8C19xmOP7xbRIesoDxGxuLAgSM
- OQN4LvYkFtcd7GY1zGIrwpeMittl35d4qwWifC1N/KMHICw5xtOrKuaFjTNx2ODNs5j5
- T7wA==
+ d=gmail.com; s=20260707; t=1794484208; x=1795089008; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=PW0k9eDKFqfRkgSsOSdWK+l0uZcCJyw9dSbPkXAxN3s=;
+ b=EfSEqkvmFFVGPvQH2yD1xM1gTh0qI9umN5kIObNhAPLOsrQUHmsYcql2zsIpvZT4Ug
+ gY2heIObXW4fn4wcPA1ygp/z4mj4TNdsKsD9/+6w+xNa9dsqt1Y0ILMjNo1Ed3uESPmA
+ 9CtXI7bh0iUi1Xw5IFCvYTMoZx48hXfmsFjNJnFLfs/S+jyFLiu5ImN71xF7zh6qFwc/
+ TKrDfIqref3qlOb2W/G6cACTlBSJNsRYaxPl0oVsOyo/HwgPLFMuQc+fSW69SxfL76Yv
+ 592n0Luml8GF+HJ3H7IqAnnLhGdYyTaLyBS51eNsMx9kFm6oDWxmyJ0Dl824TIJcjLdH
+ 3aMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794403900; x=1795008700;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=MqrvWQFAmvLweRdhffijQ7Kj1AgA2ef8bviYk4Ix9o0=;
- b=X0FXVN8Alvr1moabrXIuj1tFA1ZHRqXvGWt9KQo+xCiqYKX2vMkhb+C9YolhoICxv3
- f27jOrMjZ7EEh5dy1dKibCho8BwssBIe8A6qqVqSxQNOqbKrpjUNYlzL+5rOVR7vhOlB
- JtttA27UDOsdgndgCbO8y363KRVAeXk34tKhLw2sF4jQ8JbJAqnKvFtZ5aCgS98b//rh
- K0QL/yu9ysXRDteek6OhD7s4OH2j9arheEvCSe1ToFjX5+7wDvOj3vPsO7biuL4mvlf5
- /yL6a5WHuNf/a1IAKmZEdmtNsDegusNGG4VfO9WSZBIC7lYjhiSiu55F9f5JFusPOHYu
- lEpw==
+ d=1e100.net; s=20260707; t=1794484208; x=1795089008;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=PW0k9eDKFqfRkgSsOSdWK+l0uZcCJyw9dSbPkXAxN3s=;
+ b=vEBVO4QKlX9Wc0rt9yEFjr4pdfY0xZ7hn1Sr36mh8QR4CKL6Sb8KgDgkPc1a+Svu1N
+ L8Ay72xifU86aIrBKEvRXEer3qVE8mahXl8cLuX5ProdzX/fgn9YE9of2/UUh8gt/X9F
+ RrAcZNzuv2XHTbWBfjOr2PUzTXJaHCE2cjvOpKFJOaCejXQc5r5Bfm6v1W9nIi+BQ4te
+ Z+8saw2FmajvPOUaeJ4XB6WkqKH0c5i4btvHzm6rmD/Ks7VHrt7/ZSuE6Z5ynOErgky6
+ cd+R0cPvtx9tPhjDEzve0tFf0+GVnsrkvSCAl5/IVtavGFMFzYA/P9Zj3hX8HC0Sc9Lt
+ DU0Q==
 X-Forwarded-Encrypted: i=1;
- AL+hErEqPsH5Cdy+2RB6Cv6aRhRuFRjPpbLUEhZcyPw4xejuYU2tnZDKiMutERtzVWvN37ZZZlweE7nJiHI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+1qYl/j4FgDvb9A71lShCIoY7XZweLx4rhrt9oeB6edCfpr61v
- vBDEiuz49ObyniQe/0/qH6Mh3FcFMd8TQachr/dVm9VHVmFnyrYJpSVnBfm1zrvmFRQ=
-X-Gm-Gg: AYBFou1Ssd6C+Uzr/OQPL/ACOfuYlS1Z4PpKmJb1Uv3/XCpfzPq2nN1ie1AuWUx96QI
- 8UVGTFJSOHF8PfFxz4x8pXIZX61hl+unBRISBTMqrHNVCVWyEkJmbrcjbsuoXFLhY7W2YBWcTYp
- vidVeKwYf+8GkWrdaxcg4S7ims/nm+B25Xo0co5G3DWFs/5S9xlcC+CcTIAHaIzIyUF3090iXBT
- a55hgjpR7SPsN7X3cx2iSezvIhyf4qDt4yo4i2Zze2ewAwRCMIscfufDLZstzNvQSa63pI5qMr8
- knVrsNTGk/gD02FRG1/oeoe/+zw7ePDq8pQASnmSe0rtJqh08PseIGQVuj7a+5XcK8+CtaxieV0
- Ms+GrgpBbywGd7cg7oSZXr73j2qSURStc693xaP7tnsEppjdIbyoMjd1SkGMoRNKNt+e4yXPW92
- GNMA9CCtgO6uaico8rDvrcRG1FdegyC803EB4b3pJouPnE0T2JBwozrDl+a0oHFfDl3imbespNy
- 1GVURQjfo+lldwIrYtVqvA3PTjoWwWUVDdbnPYC2Y2gqFWEbZsEykP3CYptn5Hvr//3Qo4bwH5L
- CqGNViOxkR8+O3GN/YkfR4qS27Wlh/wqYBzdfFnRT2J0g5nLVQxaXpfV0uf6IdbxxTUZu6ymi1J
- +zpamVeBojw==
-X-Received: by 2002:a5d:5f47:0:b0:493:690c:8364 with SMTP id
- ffacd0b85a97d-499c3ba0637mr4190729f8f.3.1794403900138; 
- Wed, 11 Nov 2026 05:31:40 -0800 (PST)
-Received: from frobdeb.bytesatwork.ch (162.40.150.83.ftth.as8758.net.
- [83.150.40.162]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-498363df7a5sm11089358f8f.37.2026.11.11.05.31.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 05:31:39 -0800 (PST)
-From: Frank Obergfell <frank.obergfell@bytesatwork.ch>
-To: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexander Forsch <alexander.forsch@bytesatwork.ch>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Frank Obergfell <frank.obergfell@bytesatwork.ch>
-Subject: [PATCH v3 1/5] dt-bindings: display: panel: ilitek,
- ili9806e: Add Youritech et050fw01-kt
-Date: Wed, 11 Nov 2026 14:31:15 +0100
-Message-ID: <20261111133119.1063210-2-frank.obergfell@bytesatwork.ch>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
-References: <20261111133119.1063210-1-frank.obergfell@bytesatwork.ch>
+ AL+hErGgHBMp33pL35qQ1jaYAEbu/qCnRREofiPCHYlOLNa/Vw0t7GT7SLPA5wikllnHOgtiTnfxlGNUpNI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9JACQDHy/nmXLv0Vam1Ga+VTSmz+EQvFBOgUyGVPOnur+DkvDY
+ osLHLj4HDLGfsyXal7+wDV8xZWQOGmfQEHucDnrRzOgiFcC5+l1Pf6zNqRGI8gPxQSdsUL6FlBy
+ mNM6uMLcHjByN0xym4fjD7fB6OTwsC2E=
+X-Gm-Gg: AYBFou1RzGQloufrq9YjAoqrxb9LhVLpq8SltJCWFAUgwejLsNxYit85adCyFqlBty7
+ /FXtzDE3QG4uhj1Kgl6W5xpXG6jrPHaC3EX8bgtXULMHHNG3mKmytuzlSsRWuTh7NnheklVxKKJ
+ 6XtexPkU/B8+U2KHh5Qtbo14uKGR8ajv6Cvm5+Kv0DTjrX4+SR7MWcj9dN1X89SJr7YI0nTuUIJ
+ 5LRpctFQQtsIBluOlHd71bQLz9t3XaFoCKXEGbXAOwaoTqbPX2pzHso3I9uE9V2L7ttzqZsdi8Q
+ wyuhXcQddn2ekMECavo/DEDlfCHRXA3yJYE0kwIhpyR7bikMTdf4JNu2JUwTvA0DVZQ0b9M7WtY
+ IijXvIg7RCNXJfHASC09PJ3WVtt49gk9U5LAtZhXE+X6oFqwwd0ct1NJ4YhG78HlnMidWyLGE36
+ v2VtuTMx55/2W7XMK3xcoz1YHrPUnLTBHzMUb/QmFABif+PbHS6BwNyOANcDjEkLFNKgaUSAKU5
+ Jg=
+X-Received: by 2002:a05:6808:250d:b0:539:dfe8:9960 with SMTP id
+ 5614622812f47-56b97d2052cmr4847599b6e.56.1794484208172; Thu, 12 Nov 2026
+ 03:50:08 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
+In-Reply-To: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 12 Nov 2026 03:49:56 -0800
+X-Gm-Features: AclHuK99jfCHnUnNfvAVzgTNdsDa1C0fS3B-XZ44SaSca81MyWnGtLd2YK_PCFw
+Message-ID: <CAGEkeHdBri8mbX9zctroRZeoMb=u6mYSn4xAum1x_UkyUZKRdg@mail.gmail.com>
+Subject: Re: [PATCH v4] staging: fbtft: remove unused fbtft_init_dbg()
+To: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Cc: gregkh@linuxfoundation.org, andy@kernel.org, error27@gmail.com, 
+ cenzhang@linux.microsoft.com, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 12 Nov 2026 12:55:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,52 +102,15 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the vendor prefix for Shenzhen Youritech Co., Ltd. and add the
-compatible string for the Youritech et050fw01-kt panel.
+On Wed, Nov 11, 2026 at 8:39 AM himanshu bakshi
+<himanshu.bakshi478@gmail.com> wrote:
+> - Verified that fbtft_init_dbg() has no call sites in the kernel tree.
 
-The Youritech et050fw01-kt is a 480x854 MIPI-DSI LCD panel with
-physical dimensions of 68 mm x 122 mm, driven by an Ilitek ILI9806E
-display controller.
-
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
----
- .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml      | 1 +
- Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-index 2080d9e0ffac..c2e442c20c0c 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
-@@ -19,6 +19,7 @@ properties:
-           - densitron,dmt028vghmcmi-1d
-           - ortustech,com35h3p70ulc
-           - rocktech,rk050hr345-ct106a
-+          - youritech,et050fw01-kt
-       - const: ilitek,ili9806e
- 
-   reg:
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..ac2f54adde73 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1979,6 +1979,8 @@ patternProperties:
-     description: YSH & ATIL
-   "^yones-toptech,.*":
-     description: Yones Toptech Co., Ltd.
-+  "^youritech,.*":
-+    description: Shenzhen Youritech Co., Ltd.
-   "^youyeetoo,.*":
-     description: Hong Kong Cybodev Tech Limited (youyeetoo)
-   "^ys,.*":
--- 
-2.47.3
-
+Reviewed-by: Hungyu Lin <dennylin0707@gmail.com>
