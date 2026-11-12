@@ -2,57 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE2E606B24F
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208A4606B24F
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:49:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=HuQYRPR7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZjA4biY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E56BA10FDF3;
-	Thu, 12 Nov 2026 08:49:20 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530DF10FDF3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:49:03 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jQDZd66t2zKnTT;
- Thu, 12 Nov 2026 09:48:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794473337; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=alzMJs4adjqBFbZrKkqV3hABIS76fUp64iOReTaXvdw=;
- b=HuQYRPR79kzM4pxp1DAKAhI+qzIVO03SaVrCpQs/p1sIUutV8tRte4kGTbeJhpapt8u4xA
- LK83bWDHIoEyyhI3D0uEd7NfVICXoin4oe2gpOrjEUyIj4dQ0JQZ/AI5MAR+rw6krjpXQu
- Ms1B8PsZITfQXCczVdD6xXiSjwoKlxZfiHz3nieuH6vSI5bOmKg978Ig3LTrOTOAwXC6ZK
- +w3Z7m4UwO51nsTsPnHE7X0e7xv48RC0/hVqE9Nb9eBxwoN1LpSIvkWPkx1UBXPX0pJKmE
- cNnHNlxaEWV92xAG+YRgaKUz5BljPbeh/eK3oS1rCJzuBFBknj7eX3oArt3THQ==
-Message-ID: <6f2f8ff3738152b50521e0cad88978e2ffdb5feb.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not overaccount job runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>, Gary Guo <gary@garyguo.net>, "Paul E.
- McKenney"	 <paulmck@kernel.org>
-Date: Thu, 12 Nov 2026 09:48:49 +0100
-In-Reply-To: <0ff2a53b-377e-4839-88da-1c2b3c25b3eb@igalia.com>
-References: <20261111105921.38710-1-tvrtko.ursulin@igalia.com>
- <71ad23bcb3d48f771ce74270dbe4dfcf39827031.camel@mailbox.org>
- <0ff2a53b-377e-4839-88da-1c2b3c25b3eb@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEAC10E5C0;
+	Thu, 12 Nov 2026 08:49:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5748910FE94
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:49:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CE9FA61DD9;
+ Thu, 12 Nov 2026 08:49:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3B51F00A05;
+ Thu, 12 Nov 2026 08:49:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794473375;
+ bh=ifzbClsSYz5JCzH7Y/Xz3Aoz89yqXuOk4m4tIdGla08=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MZjA4biYIgcY7nGC+MZWrbmfrt8TGEbXVKu0G/U4HSDD3LmeqmXZzahJ7EJZ8ioCZ
+ d5GFQbDYN0Vbkr6ztqu3fdaZdEbe6Ls1voZrhNlFEgTN1C+JBo8I9cBpMOhdX2oebO
+ LVxgJiVbXaqYIqtl9XVs8Fcs90wEBgyTzIp2lSbdT44+srB4vWOvHvk4/XlIk3R/Wu
+ zX12k3CzXfxhafC0mw/nSWmc2fnRo6ziW3ni3tURegJ7wsQCuslAjjR+va1XDmQ89I
+ PosvbQcX1nJdNiW1GhO0IPJTma1lIF3IKht+1y6T788pvB4mPYNV9HT9JpOf5gNctg
+ Qef54f3wctf/A==
+Message-ID: <sashiko-outbox-210788@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/9] drm/rockchip: vop2: Report POST_BUF_EMPTY at
+ most once per frame
+To: "Arun Iyengar" <aiyengar1990@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112-vop2-fixes-v2-6-8218c1cf8ac8@gmail.com>
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-6-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MBO-RS-META: k1deue8az9fyiy7ea4hsrsw7m3d5hein
-X-MBO-RS-ID: d740cfd46c66c6e4555
+Date: Thu, 12 Nov 2026 08:49:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +49,143 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Wed, 2026-11-11 at 15:05 +0000, Tvrtko Ursulin wrote:
-> jobs. It did not feel worth explicitly putting cc: stable on the patch.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/rockchip: vop2: race in vop2_crtc_handle_post_buf_empty()
+  on disable
+--
 
-OK.
+commit 06ecad385f4f1417ba151eac3f81400c9be27660
+Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-> > This is the *next* job's scheduled fence, so this sounds suspiciously
-> > racy. Testing the bit and overwriting the timestamp, can't that race?
->=20
-> I have a feeling the code was assuming the default ordered workqueue=20
-> ensures either run_job or free_job runs at a time. So seeing timestamped=
-=20
-> next fence guarantees free_job has exclusive right to the timestamp write=
-.
->=20
-> That is not true though for the three drivers which use own unordered
-> workqueues - pvr, nouveau and panthor.
->=20
-> If we look at the drm_sched_run_job_work():
-> ...
-> 	drm_sched_job_begin(sched_job);
-> =C2=A0 -> puts on a pending_list for free job to find
-> ...
-> drm_sched_fence_scheduled(s_fence, fence);
-> =C2=A0 -> signals the scheduled fence
-> ...
->=20
-> If free_job interleaves in the middle, so it sees the next job but it
-> looks unscheduled it will skip the correction.
+drm/rockchip: vop2: Report POST_BUF_EMPTY at most once per frame
 
-I'm not even sure why this is done here. We just overwrite the fence's
-timestamp. Why?
+This commit masks the POST_BUF_EMPTY interrupt when it fires and re-arms
+it on the next frame start interrupt to avoid interrupt storms during
+video port underflows.
 
-The fence gets marked (signaled) as scheduled in
-drm_sched_run_job_work(). Hence, that should be the relevant point in
-time. Why should free_job() have anything to do with that?
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index 684fa46924e7f..c59e270739b66 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -842,6 +842,70 @@ static void vop2_crtc_disable_irq(struct vop2_video_=
+port *vp, u32 irq)
+>  	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id), irq << 16);
+>  }
+> =20
+> +/*
+> + * POST_BUF_EMPTY is raised for every line the post processing stage fin=
+ds
+> + * no data for, so an underflowing video port can raise it 100000 times =
+per
+> + * second. Report it at most once per frame: mask it when it fires and
+> + * unmask it at the next frame start, using the FS interrupt even when
+> + * vblank reporting is off.
+> + */
+> +/* Forget a pending re-arm, called with vp->irq_lock held */
+> +static void vop2_crtc_unmask_post_buf_empty(struct vop2_video_port *vp)
+> +{
+> +	if (vp->post_buf_empty_masked && !vp->vblank_enabled)
+> +		vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
+> +	vp->post_buf_empty_masked =3D false;
+> +}
+> +
+> +static void vop2_crtc_enable_post_buf_empty_irq(struct vop2_video_port *=
+vp)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&vp->irq_lock, flags);
+> +	vop2_crtc_unmask_post_buf_empty(vp);
+> +	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
+> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
+> +}
+> +
+> +static void vop2_crtc_disable_post_buf_empty_irq(struct vop2_video_port =
+*vp)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&vp->irq_lock, flags);
+> +	vop2_crtc_disable_irq(vp, VP_INT_POST_BUF_EMPTY);
+> +	vop2_crtc_unmask_post_buf_empty(vp);
+> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
+> +}
+> +
+> +static void vop2_crtc_handle_post_buf_empty(struct vop2_video_port *vp)
+> +{
+> +	spin_lock(&vp->irq_lock);
+> +	vop2_crtc_disable_irq(vp, VP_INT_POST_BUF_EMPTY);
+> +	vp->post_buf_empty_masked =3D true;
+> +	/*
+> +	 * POST_BUF_EMPTY is unmasked again by the FS interrupt at the next
+> +	 * frame start, so FS must be enabled. With vblank reporting on it
+> +	 * is already, and a pending FS may carry a vblank event. Otherwise
+> +	 * enable it here, clearing the FS status of the current frame so
+> +	 * that FS fires at the next frame start only.
+> +	 */
+> +	if (!vp->vblank_enabled)
+> +		vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD);
+> +	spin_unlock(&vp->irq_lock);
+> +}
 
-Looks very suspicious. As if there are two redundant mechanisms here.
+[Severity: Medium]
+Can vop2_crtc_handle_post_buf_empty() run after
+vop2_crtc_disable_post_buf_empty_irq() during CRTC disable and re-enable
+VP_INT_FS_FIELD while VOP2 clocks are being turned off?
 
-> Yes I think you are right. As said I think there is no real bug due race=
-=20
-> with unordered workqueues, but for formal correctness it would require a=
-=20
-> memory barrier after test_bit, or full blown locking.
+In vop2_crtc_atomic_disable(), VP_INT_POST_BUF_EMPTY stays enabled while
+waiting on vp->dsp_hold_completion.  In both rk3576_vp_isr() and
+vop2_isr(), VP_INT_STATUS is read once and complete(&vp->dsp_hold_completio=
+n)
+runs before vop2_crtc_handle_post_buf_empty():
 
-Is it guaranteed that this fence is signaled and, thus, has a
-timestamp, or is it not? If it's guaranteed, the test_bit() is actually
-unnecessary. If it is not guaranteed, then there can be misordering
-between the two operations and it's UB and, thus, a bug.
+CPU0                                  CPU1 (<hardirq>)
+vop2_crtc_atomic_disable()
+  wait_for_completion_timeout(...)
+                                      vop2_isr() / rk3576_vp_isr()
+                                        irqs =3D vop2_readl(...);
+                                        /* DSP_HOLD_VALID | POST_BUF_EMPTY =
+*/
+                                        complete(&vp->dsp_hold_completion);
+  vop2_crtc_disable_post_buf_empty_irq()
+    spin_lock_irqsave(&vp->irq_lock)
+    /* disables POST_BUF_EMPTY & FS */
+    vp->post_buf_empty_masked =3D false;
+    spin_unlock_irqrestore(&vp->irq_lock)
+  vop2_disable()
+    vop2_core_clks_disable_unprepare()
+                                        vop2_crtc_handle_post_buf_empty()
+                                          spin_lock(&vp->irq_lock)
+                                          vp->post_buf_empty_masked =3D tru=
+e;
+                                          vop2_crtc_enable_irq(...,
+                                                               VP_INT_FS_FI=
+ELD);
+                                            <-- MMIO write with clocks off
 
+Unlike vop2_crtc_rearm_post_buf_empty(), vop2_crtc_handle_post_buf_empty()
+does not check whether POST_BUF_EMPTY reporting is still enabled on the
+video port, so it leaves vp->post_buf_empty_masked set and VP_INT_FS_FIELD
+enabled on a disabled CRTC, or performs unclocked MMIO writes if the last
+CRTC disables VOP2 core clocks concurrently.
 
-That said, I'm OK with your patch here being merged since you did not
-cause that chaos / problem, but a second patch with a FIXME about the
-issue that links this mail-thread would be good.
+Disabling POST_BUF_EMPTY before waiting for dsp_hold_completion, or
+tracking under vp->irq_lock whether POST_BUF_EMPTY is enabled so
+vop2_crtc_handle_post_buf_empty() becomes a no-op once disabled, would
+avoid this race.
 
-
-P.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vop2-fixes=
+-v2-0-8218c1cf8ac8@gmail.com?part=3D6
