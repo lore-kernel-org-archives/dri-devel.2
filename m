@@ -2,84 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82AD7606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EE8606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W/9czcKj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i3Q4fQzM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A722410E499;
-	Thu, 12 Nov 2026 16:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4D7B11222F;
+	Thu, 12 Nov 2026 16:55:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815B910E499
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:50:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E32B11222F
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:54:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D2CD40060;
- Thu, 12 Nov 2026 16:50:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1661F000C4;
- Thu, 12 Nov 2026 16:49:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C42243C32
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:54:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157911F000C4;
+ Thu, 12 Nov 2026 16:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794502205;
- bh=AcN09gsgAs2Ff3t7W84Nu6Qih9q/psMVcrup6/u4Mb8=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=W/9czcKjc212sPdhIyrx1NDyBKYyPPRS27FVKM/1YECl6e+INBhZ8lwiXJw/0PD0C
- yvm9HXsHdRjXkX9jxfHpSGpkQLE4ZHcUSVMisCsBBtrAhip7HSmlWRU6SkJk1tZauH
- vckQ8/eh3RZyd3mD9o9PbLleTigE7S33mitpROx+eYBbjeK6o+wS/OJ/Ap2ypHXB3Z
- fCaDj4oC4JFFSUy6kIY4loUbWtVDYSgPXYyWsB18EaNkcc43JJQDp5dVi1NCaPnlWW
- ycuPRKf6HDqbrcEyvmAiJ09mRF1hLuZcy5Tko/7PNAiAyhZORNcHT7iJ5+PVmKaIBB
- kubrpP4ayRa6Q==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- kvmarm@lists.linux.dev, Oliver Upton <oupton@kernel.org>,
- media-ci@linuxtv.org
-Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
-In-Reply-To: <sashiko-outbox-199539@kernel.org>
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-2-aneesh.kumar@kernel.org>
- <sashiko-outbox-199539@kernel.org>
-Date: Thu, 12 Nov 2026 22:19:41 +0530
-Message-ID: <yq5ay0aygfkq.fsf@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+ s=k20260515; t=1794502496;
+ bh=qYkVhpkzR3/FmguEY45YONKnO00Xyx8nJsVZplW/4Jw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=i3Q4fQzMXMI5n/eCnSon4DJLOb4ZCJ3ghQEFdP/+cnUMEhKzUM8AzDvNDtXZ0bScq
+ acGKw0L9vkz12KtuCv9SgLQPV1d4TorRSe8a6y5tvabT03k1mKFwZIHZg+xPE6Zhx3
+ UKrlpthL4wfN2FWphQE5sEEjdo4rll9NYa/CQ7WGHlIhfTV5aFH0JHI/8MCKCLCDBD
+ 4DbprmljEp63IG1J6zbN0eC/BJmyZOx0Q050KUluTrXX66T4g/EyNNuqha6LCs7vR1
+ HkK2upyBWlfnI16I2xixVgwvaOiLgCuLoBfXtRjj6hYQRWG1m+4Hgu5kqUVlPbpf0I
+ gpua72tF5t0YQ==
+Message-ID: <sashiko-outbox-211548@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 8/9] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112-drm-reset-state-flag-v10-8-cefaa1ed056d@kernel.org>
+References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
+ <20261112-drm-reset-state-flag-v10-8-cefaa1ed056d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 16:54:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,6 +48,7 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -97,180 +56,93 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-sashiko-bot@kernel.org writes:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/atomic: lease revocation race in
+  drm_atomic_commit_fill_with_defaults()
+--
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] mm: invalid cc_make_private() call on cc_make_shared() failure
-> --
->
-> commit 8a434c0ee7399613dbf060530383d80bbc1ab7af
-> Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->
-> mm: Add an allocator for CoCo shared memory
->
-> This commit introduces a common allocator and transition helpers for
-> confidential-computing shared memory, including alloc_cc_shared_pages(),
-> alloc_cc_shared_pages_node(), and free_cc_shared_pages().
->
->> diff --git a/mm/cc_shared.c b/mm/cc_shared.c
->> new file mode 100644
->> index 0000000000000..5c4c971cfb7b2
->> --- /dev/null
->> +++ b/mm/cc_shared.c
->> @@ -0,0 +1,233 @@
->
-> [ ... ]
->
->> +static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
->> +					size_t requested,
->> +					struct cc_shared_pages *mem)
->> +{
->> +	struct cc_shared_layout layout;
->> +	struct page *page;
->> +	unsigned int order;
->> +	bool zero = gfp & __GFP_ZERO;
->> +	int ret;
->> +
->> +	ret = cc_shared_calc_layout(requested, &layout);
->> +	if (ret)
->> +		return ret;
->> +
->> +	order = get_order(layout.shared_size);
->> +	if (order > MAX_PAGE_ORDER)
->> +		return -EINVAL;
->> +	/*
->> +	 * State transitions require a linear-map address and may modify memory.
->> +	 * Allocate from low memory and defer requested zeroing until afterwards.
->> +	 * Shared allocations have no migration support, so they must not
->> +	 * be allocated with __GFP_MOVABLE.
->> +	 */
->> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO | __GFP_MOVABLE);
->> +	if (nid == NUMA_NO_NODE)
->> +		page = alloc_pages(gfp, order);
->> +	else
->> +		page = alloc_pages_node(nid, gfp, order);
->> +	if (!page)
->> +		return -ENOMEM;
->> +
->> +	ret = cc_make_shared(page_address(page), layout.shared_size);
->> +	if (ret) {
->> +		if (!cc_make_private(page_address(page), layout.shared_size))
->> +			__free_pages(page, order);
->> +		else
->> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
->> +					    layout.shared_size);
->> +		return ret;
->> +	}
->
-> [Severity: High]
-> Is it safe to call cc_make_private() across the entire layout.shared_size
-> range when cc_make_shared() fails in __alloc_cc_shared_pages_node()?
->
-> When cc_make_shared() fails via set_memory_decrypted(), the pages in the
-> range may not have been transitioned to shared state at all, or only a prefix
-> of the range may have been transitioned.
->
-> For example, on x86 TDX in arch/x86/mm/pat/set_memory.c and
-> arch/x86/coco/tdx/tdx.c:
->
-> __set_memory_enc_pgtable() {
-> 	ret = x86_platform.guest.enc_status_change_prepare(addr, numpages, enc);
-> 	if (ret)
-> 		goto vmm_fail;
->
-> 	ret = __change_page_attr_set_clr(&cpa, 1);
-> 	...
-> 	if (ret)
-> 		return ret;
->
-> 	ret = x86_platform.guest.enc_status_change_finish(addr, numpages, enc);
-> 	if (ret)
-> 		goto vmm_fail;
-> }
->
-> tdx_enc_status_change_finish() {
-> 	if (!enc && !tdx_enc_status_changed(vaddr, numpages, enc))
-> 		return -EIO;
->
-> 	if (enc)
-> 		atomic_long_sub(numpages, &nr_shared);
-> 	else
-> 		atomic_long_add(numpages, &nr_shared);
->
-> 	return 0;
-> }
->
-> If set_memory_decrypted() (enc = false) fails with -EBUSY on mem_enc_lock or
-> with -ENOMEM in __change_page_attr_set_clr() before
-> tdx_enc_status_change_finish() is reached, the pages remain private and
-> accepted in the TDX module, and nr_shared is not incremented. Calling
-> cc_make_private() (set_memory_encrypted(), enc = true) then invokes
-> tdx_enc_status_change_prepare() -> tdx_accept_memory() -> try_accept_one() on
-> already-accepted private memory, which fails and jumps to vmm_fail in
-> __set_memory_enc_pgtable(), triggering a spurious WARN_ONCE and leaking memory
-> that was never shared.
->
-> Conversely, if tdx_enc_status_change_finish() fails during cc_make_shared()
-> before atomic_long_add(numpages, &nr_shared), and the subsequent
-> cc_make_private() call succeeds, tdx_enc_status_change_finish() will execute
-> atomic_long_sub(numpages, &nr_shared), underflowing nr_shared and corrupting
-> the accounting checked in tdx_kexec_finish().
->
-> Similarly, on arm64 pKVM in drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c,
-> pkvm_set_memory_decrypted() shares pages one by one and stops at the first
-> failing page, leaving the remaining pages private. Calling cc_make_private()
-> across the full range then invokes KVM_MEM_UNSHARE on private pages, which
-> fails with -EPERM.
->
-> Other callers in the kernel (such as dma_direct_alloc_pages(),
-> atomic_pool_expand(), and swiotlb_init_late()) do not call
-> set_memory_encrypted() when set_memory_decrypted() fails, and instead leak the
-> pages directly because the transition state of the range is unknown. Should
-> __alloc_cc_shared_pages_node() do the same here instead of calling
-> cc_make_private()?
->
+commit b8c56650ab4657eb654cfbc63cf4622958dcbfc9
+Author: Sebastian Wick <sebastian.wick@redhat.com>
 
-Yes, I agree that we should do this. Something like:
+drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 
-modified   kernel/dma/swiotlb.c
-@@ -748,14 +748,9 @@ static struct page *alloc_dma_pages(gfp_t gfp, size_t bytes,
- 
- 	vaddr = phys_to_virt(paddr);
- 	if (cc_shared && cc_make_shared(vaddr, bytes))
--		goto error;
-+		/* leak pages on error */
-+		return NULL;
- 	return page;
--
--error:
--	/* Intentional leak if pages cannot be encrypted again. */
--	if (cc_shared && !cc_make_private(vaddr, bytes))
--		__free_pages(page, order);
--	return NULL;
- }
- 
- /**
-modified   mm/cc_shared.c
-@@ -133,11 +133,16 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 
- 	ret = cc_make_shared(page_address(page), layout.shared_size);
- 	if (ret) {
--		if (!cc_make_private(page_address(page), layout.shared_size))
--			__free_pages(page, order);
--		else
--			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
--					    layout.shared_size);
-+		/*
-+		 * A failed transition may leave the range partially
-+		 * shared, with no indication of which pages changed state.
-+		 * Converting the whole range back to private is not safe
-+		 * on architectures that cannot handle pages which are
-+		 * already private. Leak the allocation rather than return
-+		 * pages with uncertain state to the allocator.
-+		 */
-+		pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
-+				    layout.shared_size);
- 		return ret;
- 	}
- 
+This commit introduces the DRM_MODE_ATOMIC_RESET flag and the
+DRM_CAP_ATOMIC_RESET capability to reset all KMS object states to their
+defaults before applying the properties supplied in an atomic commit.
+
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 1eebcf6f5e05b..fe6d8cc533bc9 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+[ ... ]
+> @@ -1688,6 +1715,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  	fence_state =3D NULL;
+>  	num_fences =3D 0;
+> =20
+> +	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
+> +		if (!drm_atomic_implements_create_state(dev)) {
+> +			ret =3D -EOPNOTSUPP;
+> +			goto out;
+> +		}
+> +
+> +		ret =3D drm_atomic_commit_fill_with_defaults(file_priv, state);
+> +		if (ret)
+> +			goto out;
+> +	}
+
+[Severity: Medium]
+Can concurrent lease revocation during drm_atomic_commit_fill_with_defaults=
+()
+populate a partial pipeline into state and cause a NULL pointer dereference=
+ in
+crtc_or_fake_commit()?
+
+Each drm_lease_held() call in drm_atomic_commit_fill_with_defaults() acquir=
+es
+and drops dev->mode_config.idr_mutex on its own, while _drm_lease_revoke()
+empties master->leases under idr_mutex without taking modeset locks.  If a
+lessor revokes the lease between the plane loop and the CRTC loop, an active
+plane is added to the commit with a reset state (new_plane_state->crtc =3D=
+=3D NULL,
+old_plane_state->crtc =3D=3D crtc) without adding its CRTC:
+
+CPU0 (lessee)                               CPU1 (lessor)
+drm_mode_atomic_ioctl()
+  drm_atomic_commit_fill_with_defaults()
+    drm_for_each_plane()
+      drm_lease_held(..., plane) -> true
+      drm_lease_held(..., crtc) -> true
+      drm_atomic_commit_set_plane_state()
+                                            drm_mode_revoke_lease_ioctl()
+                                              _drm_lease_revoke()
+                                                idr_destroy(&master->leases)
+    drm_for_each_crtc()
+      drm_lease_held(..., crtc) -> false
+    drm_for_each_connector_iter()
+      drm_lease_held(...) -> false
+  drm_atomic_commit()
+    ...
+      drm_atomic_helper_plane_changed()
+        crtc_state =3D drm_atomic_get_new_crtc_state(state,
+                                                   old_plane_state->crtc)
+        WARN_ON(!crtc_state)
+      ...
+      drm_atomic_helper_setup_commit()
+        crtc_or_fake_commit(state, old_plane_state->crtc)
+          new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc)
+          new_crtc_state->commit  <-- NULL pointer dereference
+
+Unlike drm_atomic_get_plane_state(), the plane loop in
+drm_atomic_commit_fill_with_defaults() relies on the subsequent CRTC loop to
+add old_plane_state->crtc to the commit, and the connector loop's -ENOENT
+partial-pipeline guard is also bypassed once drm_lease_held() returns false=
+ for
+the CRTC.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-drm-reset-=
+state-flag-v10-0-cefaa1ed056d@kernel.org?part=3D8
