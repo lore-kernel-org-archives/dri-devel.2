@@ -2,43 +2,144 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484AA606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:36:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA74606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5Owlxsb
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H3apqZVV;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hkawu31V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0C410FF77;
-	Thu, 12 Nov 2026 09:36:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F23410FF81
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:36:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 72130630AB;
- Thu, 12 Nov 2026 09:36:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1631F00A05;
- Thu, 12 Nov 2026 09:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794476184;
- bh=jMsfj264bRuWErFV7rEIyeJPHWoEUd0b5B2SmV/oolY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=m5OwlxsbcMeYlWEG73eVfqbIG05C3HTn6t8JvVlu3NxlnOzheyLFQxYnfNXJvaIW9
- W1+WPLSR51lMkXSgEQYmehF1S74ONBEinMZ2mvCShgZiwxH/9gEdWaNPB58N1mHCb2
- ecXsVuy1cIShQgMaGrN4RuSJmTV5MhWArUP85X2XE2tdGg0PabePXD9F++UNrSMYc+
- +z1d6b3Rr/n1g1K/vIPXuWsfgRVS9ybZDlSDnV12Wz+vHZXP3/xcqwnee1Iya+EIxB
- Ly8zGBeOHKfGGsIlhlzY/Qtx2AgM9W5nOEPwtKHg7JIEsddfbViEtrfSvAT01HPkMH
- ZU2uF3hGQ3fPQ==
-Message-ID: <sashiko-outbox-210891@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/11] drm/panfrost: Soft-stop and resume a job that
- outlives the timeout
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-panfrost-long-jobs-v2-10-a06830da3d99@gmail.com>
-References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
- <20261112-panfrost-long-jobs-v2-10-a06830da3d99@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 09:36:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 884D310FF56;
+	Thu, 12 Nov 2026 09:37:47 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500A310FF4D
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:37:36 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AC9CXUj4092381
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:37:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 0C4VCPOf2XQTwUREky8icGWL7YCz198hjE5AQAs6rkQ=; b=H3apqZVVjjVPAEjl
+ cN2Cq6WnQgu82yoBdhcSfDWr/trszx65NmUBb1sj36/gsMjViqa1kMPyawRmJTPh
+ J5kJz3KHXLt31PdG+BUb2dXRCFQphRDLPTY8aHR47Pb0BT7m6E/ouT3WBpWr3/9M
+ EucYbXufySicB3u1Y1WSCK3vL4ubXLyamSK9yPmVL8g2LtZNhwkgndRBFPe5Xj88
+ 7spNDVV2ZTlc93g+rdkSRxZI7ou6EmwZCty/Hu+CaCdtJJCND2cms/MROOp7ylA5
+ oYMz+C0bW1i9HpZNbD4/B75A6YO03cD3+SeHt+jPugAXuX02VOiOn3/2XlTmHu9S
+ C7L/wg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8j77a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:37:34 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-89e96c03cd0so3726053b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 01:37:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794476254; x=1795081054;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0C4VCPOf2XQTwUREky8icGWL7YCz198hjE5AQAs6rkQ=;
+ b=Hkawu31VdcjWcIYv1KlRkO0M5F3QmFPT/HEuqOd+XhaCQc/r1FHDGHnbqTERqgYY+b
+ eVhojNfRlj1k4z96ZJa7HE3seOueJzAIDmpWN4kXgXuRgn9lsqOAm2ArHbZ7hWLQbDv2
+ WMbIe9YfOVZTdCSabQhiZH1j+FvawjKwozRoJV/bpc/hO/4IzcKJI40faEzsZ64e1C+k
+ k7sZOz6O04TqnNTn5L0Vsyj6aOM9HkJ9Gj+F3WtPxiQoxbDCFZ9YMgD+/VcVrEERVfal
+ rVFKNAfJtqOZFcMxwOrTSYv+mRUAxjD+95wXrbh3mUZ6K4dICezEzLjWLlTVqMko8W9/
+ 00xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794476254; x=1795081054;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=0C4VCPOf2XQTwUREky8icGWL7YCz198hjE5AQAs6rkQ=;
+ b=n5oJ4SPyznA+fCfs+jewpZJoysJ2p9fEyCvPZi30zYUrO0ggDxUxKj8A9O5qlTGxRc
+ 6i+UI0iGzbF8i9hl9SuEotcyaPCOb7dxuuIYqW9RRCA+HqfagqPRo5JE3pquh4xAJ7bW
+ n1ox/GDj4AaB0xn5FvNjmcr106n15zwelGXaOtV1Sy8u8+ze2jYsZ7m5QjR7ihV9YljO
+ Dl2EyjjXelpXRYtLaXBem1n/Kk74evmMwZOvRMGDk6H5bfdj3p0CPdHp58B4CHMsrvoE
+ D3ftF8h+g6/0M6YH+gtzjVcUjaTtrlhB9IFoPpsvseqbp+OkMAzhr39P8fBtOv2zC4Uf
+ Iicg==
+X-Gm-Message-State: APuU4Z8pXMsleMzuJRRli1qwGymQz4+TG3qqXdgbI86rq7ZrV+MgCKmV
+ R2ymMbQvj/HGrtr8zDFfN/ZrlTL3Z9aeAtX75ekDpX6q2zCWmBkuGKrWHp2bc1HkmerG4pNAP56
+ e+5R2gmo/REPWeUJYT+Ln1HOndU8XgOy62uO/MlyaACo/CN4LMx5ssiiFY4kdYlLuKYnt6g8=
+X-Gm-Gg: AYBFou1NIL7SFHI4KfLeWW7I4kMMJF6RKnTj88vL6UUdWe1Atl7eW0CpCHtrzUM9Czn
+ A5qgG2YyZYJap7gmJYcot1CHhCcEjpXYax8uEt44KNXgFXV2cxl1xZ4HvQe/8jgHfM1fS4sgbVb
+ t7F2v4v8X1aIOQXOQ4t7jspNszoprKMS1TCUVNLZyCJXUwKUtjCmt5pblHv6esMFosEuXPtLLiI
+ jnbMQB6XwKJLOZkCD65rDq9wDb+XEAQH/SBz64VeRTdkOtocOIrX2UIRQ5VNP4ghk41tCYaj2dW
+ tpudXTTH8UHczk1oDgyFuhqDLlHVNEMm2fpIx+eeRMLjSaeUONkVaHzlts6CXUBb3Qn5rG9N1ze
+ DZPEwX3iLftsITUwr1pc3Rtj8LQDId4OPKNFRrzSoSUhkk2nK6m4S3R1NFnTYBfISsBVi8a3WgL
+ +xh0m74PE=
+X-Received: by 2002:a05:6a00:22c5:b0:8a0:4807:457c with SMTP id
+ d2e1a72fcca58-8bc1d332510mr4962206b3a.39.1794476254216; 
+ Thu, 12 Nov 2026 01:37:34 -0800 (PST)
+X-Received: by 2002:a05:6a00:22c5:b0:8a0:4807:457c with SMTP id
+ d2e1a72fcca58-8bc1d332510mr4962180b3a.39.1794476253726; 
+ Thu, 12 Nov 2026 01:37:33 -0800 (PST)
+Received: from [10.204.79.28] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8baaa1b1bf1sm3225569b3a.12.2026.11.12.01.37.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Nov 2026 01:37:33 -0800 (PST)
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
+Message-ID: <c19f662d-8d04-47c9-a458-838e46521f2d@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 15:07:27 +0530
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT37802
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Jayant Shekhar <jshekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109-jshekhar-nt37802-v2-0-a8e9efdcabd7@oss.qualcomm.com>
+ <20261109-jshekhar-nt37802-v2-1-a8e9efdcabd7@oss.qualcomm.com>
+ <9b05fd08-7bfc-462b-81b8-a560350f4235@kernel.org>
+Content-Language: en-US
+In-Reply-To: <9b05fd08-7bfc-462b-81b8-a560350f4235@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfX2WgiVAZEQZwe
+ lxewaGu29EZShj25MoHq9BPg2AEc1F5Bw5cCbhgfql41F3nulGU5T/UXDnPnUtN4jxqOvDwvwwQ
+ 1qD1mrlp6viI+23bsFjK8AqTmPRiRdE=
+X-Proofpoint-GUID: mWyLAnguy0KvZF6WjjSJ9Gu3BQcGZ1jJ
+X-Proofpoint-ORIG-GUID: mWyLAnguy0KvZF6WjjSJ9Gu3BQcGZ1jJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfX0cghrk//bfTt
+ uMqAMzltHxtNmQoEiStyUiw5bjkkixvmNugJMOm+q6skpjOJv9C2Y+ACeh3Hbe4hWep3WRhV3ey
+ EG+trA3HDV840M+UivnVC2ex3PiNM2+cfnjd9vWQPmIawDxzT6DWk9F/IbSlEe95e911nx57afY
+ m9ADMoewCzC02DB+iDG3DS36zEVNGIeIhuAmY9YXE0lKwIPPYegKVQFDn2c7lcE6sp6BnVnpf7z
+ eQPhl6jYel0rMKe6WQGzS67YHJP3GhiJ2Z2NZAFC7e4BzsWDv+PzkjpOvMVM3zl0op/ln2Iu760
+ x7fiAStZQxfzqHOt8jL4BVSBCcdLlIuJmZy+g+2DhTA0nQXZq4FyYFHc+JeWadDmnHDf1caRlTM
+ rxFB/9DklwuQlUjAdVIv9BcX2qCclfHxvM7ACFyNbSWb+FEXDRhS7VkvZYwkOdGlkqnsrm2Jx9a
+ ptC0n2JHgOZ1vAHPnSQ==
+X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af588de cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=sM0BxRoSGqECXxgCHJEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120038
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,252 +150,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/panfrost: cycle counter refcount underflow in
-  panfrost_reset()
-- [High] drm/panfrost: unstarted _NEXT job marked done in
-  panfrost_jm_handle_irq()
---
 
-commit 8e3c3b18f9b16cbaedc76fbae266b58fbe0f8950
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+On 09-11-2026 18:48, Krzysztof Kozlowski wrote:
+> On 09/11/2026 07:27, Jayant Shekhar wrote:
+>> Document the Novatek NT37802 AMOLED DSI command-mode panel.
+>>
+>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> ---
+>>   .../bindings/display/panel/novatek,nt37801.yaml    | 49 ++++++++++++++++++++--
+>>   1 file changed, 45 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>> index 1b38c1d0af68..be318cc84d52 100644
+>> --- a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>> @@ -4,26 +4,30 @@
+>>   $id: http://devicetree.org/schemas/display/panel/novatek,nt37801.yaml#
+>>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>   
+>> -title: Novatek NT37801 AMOLED DSI Panel
+>> +title: Novatek NT37801 and NT37802 AMOLED DSI Panels
+>>   
+>>   maintainers:
+>>     - Krzysztof Kozlowski <krzk@kernel.org>
+>>   
+>>   description:
+>> -  Naming is inconclusive and different sources claim this is either Novatek
+>> -  NT37801 or NT37810 AMOLED DSI Panel.
+>> +  Naming is inconclusive and different sources claim the NT37801 panel is
+>> +  either Novatek NT37801 or NT37810. The NT37802 panel uses the same common
+>> +  DSI interface and regulator supplies, and additionally requires EXVDD.
+> What is EXVDD supply? The example DTS suggests it is something fake.
 
-drm/panfrost: Soft-stop and resume a job that outlives the timeout
 
-This commit soft-stops and resumes jobs that are still active when the
-scheduler timeout fires, escalating to a hard-stop after 5 seconds and a
-full GPU reset only if the hard-stop fails or another reset was requested.
+Its not fake, it would be something like below:
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 28842c5724868..a920d112a67dd 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+     display_panel_vdd: regulator-display-panel-vdd {
+         compatible = "regulator-fixed";
+         regulator-name = "display-panel-vdd";
+         regulator-min-microvolt = <1100000>;
+         regulator-max-microvolt = <1100000>;
+         startup-delay-us = <233>;
+         gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
+         enable-active-high;
+         regulator-boot-on;
+         pinctrl-0 = <&sde_disp0_vdd_active>;
+         pinctrl-names = "default";
+};
 
-[ ... ]
 
-> @@ -752,21 +858,53 @@ panfrost_reset(struct panfrost_device *pfdev,
->  			pfdev->jobs[i][pfdev->jobs[i][0] ? 1 : 0] =3D evicted[i];
-> =20
->  		for (j =3D 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++=
-) {
-> -			if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
-> -			    pfdev->jobs[i][j]->is_profiled)
-> -				panfrost_cycle_counter_put(pfdev->jobs[i][j]->pfdev);
-> +			struct panfrost_job *job =3D pfdev->jobs[i][j];
-> +
-> +			if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
-> +			    job->is_profiled)
-> +				panfrost_cycle_counter_put(job->pfdev);
->  			pm_runtime_put_noidle(pfdev->base.dev);
->  			panfrost_devfreq_record_idle(&pfdev->pfdevfreq);
-> +
-> +			/* The GPU reset wipes the address space assignments;
-> +			 * without one, release the reference the submission
-> +			 * took, or the address space can never be reassigned.
-> +			 */
-> +			if (!reset_gpu)
-> +				panfrost_mmu_as_put(pfdev, job->mmu);
-> +
-> +			/* The job still running on a slot that neither stop
-> +			 * took effect on is what forces the reset. Fail it,
-> +			 * as the Arm driver fails every atom on the hardware
-> +			 * at a reset: restarted from scratch it would hit the
-> +			 * timeout and the reset again. A job that was only
-> +			 * given the 10 ms is restarted, as before.
-> +			 */
-> +			if (stop_failed && job =3D=3D hung[i])
-> +				dma_fence_set_error(&job->base.s_fence->finished,
-> +						    -ECANCELED);
->  		}
->  	}
->  	memset(pfdev->jobs, 0, sizeof(pfdev->jobs));
->  	spin_unlock(&pfdev->js->job_lock);
-> =20
-> -	/* Proceed with reset now. */
-> -	panfrost_device_reset(pfdev, false);
-> +	/* Proceed with reset now, unless the slots were simply busy with long
-> +	 * jobs that stopped at a task boundary (or a hard stop ended the one
-> +	 * that did not). The stopped jobs will be resumed from JS_TAIL (see
-> +	 * panfrost_job_handle_err()).
-> +	 */
-> +	if (reset_gpu) {
-> +		panfrost_device_reset(pfdev, false);
-> =20
-> -	/* GPU has been reset, we can clear the reset pending bit. */
-> -	atomic_set(&pfdev->reset.pending, 0);
-> +		/* GPU has been reset, we can clear the reset pending bit. */
-> +		atomic_set(&pfdev->reset.pending, 0);
-> +	} else {
-> +		/* Leave a reset that was asked for since we looked to the
-> +		 * reset work or timeout handler that asked for it.
-> +		 */
-> +		atomic_cmpxchg(&pfdev->reset.pending,
-> +			       PANFROST_RESET_STOP_ONLY, 0);
-> +	}
-> =20
->  	/* Now resubmit jobs that were previously queued but didn't have a
->  	 * chance to finish.
+Thanks, Jayant
 
-[Severity: High]
-Can this underflow pfdev->cycle_counter.use_count when a job is submitted
-while pfdev->reset.pending is non-zero?
-
-In panfrost_job_hw_submit(), panfrost_enqueue_job() records the job in
-pfdev->jobs[js][subslot] unconditionally, but updating job->is_profiled and
-calling panfrost_cycle_counter_get() are skipped when pfdev->reset.pending
-is set:
-
-drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_job_hw_submit() {
-    ...
-	subslot =3D panfrost_enqueue_job(pfdev, js, job);
-	/* Don't queue the job if a reset is in progress */
-	if (!atomic_read(&pfdev->reset.pending)) {
-		job->is_profiled =3D pfdev->profile_mode;
-
-		if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
-		    job->is_profiled)
-			panfrost_cycle_counter_get(pfdev);
-    ...
-}
-
-If a reset is requested after reset_gpu is evaluated as false,
-atomic_cmpxchg() leaves pfdev->reset.pending set to 1 while
-drm_sched_resubmit_jobs() runs (or another slot's scheduler submits a job
-after panfrost_job_timedout() sets PANFROST_RESET_STOP_ONLY and before
-drm_sched_stop()).  A job with PANFROST_JD_REQ_CYCLE_COUNT, or a
-soft-stopped job whose job->is_profiled stayed true after
-panfrost_dequeue_job() already dropped its reference, is then queued in
-pfdev->jobs[js][subslot] without a matching panfrost_cycle_counter_get().
-
-When panfrost_reset() subsequently drains pfdev->jobs[i][j], it calls
-panfrost_cycle_counter_put() for that job and decrements use_count below 0.
-Without a GPU reset to reinitialize use_count, the underflowed counter stops
-panfrost_cycle_counter_get() from starting the hardware cycle counter and
-triggers the drm_WARN_ON() in panfrost_gpu_soft_reset() on the next reset.
-
-[ ... ]
-
-> @@ -820,18 +962,51 @@ static enum drm_gpu_sched_stat panfrost_job_timedou=
-t(struct drm_sched_job
->  		return DRM_GPU_SCHED_STAT_NO_HANG;
->  	}
-> =20
-> -	dev_err(pfdev->base.dev, "gpu sched timeout, js=3D%d, config=3D0x%x, st=
-atus=3D0x%x, head=3D0x%x, tail=3D0x%x, sched_job=3D%p",
-> -		js,
-> -		job_read(pfdev, JS_CONFIG(js)),
-> -		job_read(pfdev, JS_STATUS(js)),
-> -		job_read(pfdev, JS_HEAD_LO(js)),
-> -		job_read(pfdev, JS_TAIL_LO(js)),
-> -		sched_job);
-> +	/*
-> +	 * A slot that is still ACTIVE is not hung, it is running a job that
-> +	 * takes longer than JOB_TIMEOUT_MS. Compute kernels legitimately do.
-> +	 * Soft-stop such a job and resume it, the way the Arm driver
-> +	 * time-slices jobs, instead of resetting the GPU under it; the reset
-> +	 * stays for faults and for jobs that do not stop.
-> +	 */
-> +	js_status =3D job_read(pfdev, JS_STATUS(js));
-> +	job_active =3D js_status =3D=3D DRM_PANFROST_EXCEPTION_ACTIVE;
-> +
-> +	/* A job that completed after the checks above is not active either:
-> +	 * its interrupt is then pending, or being handled.
-> +	 */
-> +	if (!job_active) {
-> +		if (job_read(pfdev, JOB_INT_RAWSTAT) & JOB_INT_MASK_DONE(js))
-> +			return DRM_GPU_SCHED_STAT_NO_HANG;
-> +
-> +		synchronize_irq(pfdev->js->irq);
-> +		if (dma_fence_is_signaled(job->done_fence))
-> +			return DRM_GPU_SCHED_STAT_NO_HANG;
-> +	}
-> +
-> +	if (job_active) {
-> +		dev_dbg(pfdev->base.dev, "job still active after %u ms, js=3D%d, head=
-=3D0x%x, sched_job=3D%p: soft-stopping it to resume",
-> +			JOB_TIMEOUT_MS, js, job_read(pfdev, JS_HEAD_LO(js)),
-> +			sched_job);
-> +	} else {
-> +		dev_err(pfdev->base.dev, "gpu sched timeout, js=3D%d, config=3D0x%x, s=
-tatus=3D0x%x, head=3D0x%x, tail=3D0x%x, sched_job=3D%p",
-> +			js,
-> +			job_read(pfdev, JS_CONFIG(js)),
-> +			js_status,
-> +			job_read(pfdev, JS_HEAD_LO(js)),
-> +			job_read(pfdev, JS_TAIL_LO(js)),
-> +			sched_job);
-> =20
-> -	panfrost_core_dump(job);
-> +		panfrost_core_dump(job);
-> +	}
-> =20
-> -	atomic_set(&pfdev->reset.pending, 1);
-> -	panfrost_reset(pfdev, sched_job);
-> +	/* Ask for a reset, or only for the stop if no reset is pending. */
-> +	if (job_active)
-> +		atomic_cmpxchg(&pfdev->reset.pending, 0,
-> +			       PANFROST_RESET_STOP_ONLY);
-> +	else
-> +		atomic_set(&pfdev->reset.pending, 1);
-> +	panfrost_reset(pfdev, sched_job, job_active);
-> =20
->  	return DRM_GPU_SCHED_STAT_RESET;
->  }
-
-[Severity: High]
-Can setting pfdev->reset.pending before stopping the schedulers and masking
-interrupts cause a second job queued on another slot to be signaled as done
-without ever running on the GPU?
-
-CPU0                              CPU1
-panfrost_job_timedout()
-  atomic_cmpxchg(&pfdev->reset.pending,
-                 0, PANFROST_RESET_STOP_ONLY)
-                                  panfrost_job_hw_submit() [job1]
-                                    panfrost_enqueue_job()
-                                      pfdev->jobs[j][1] =3D job1
-                                    if (!atomic_read(&pfdev->reset.pending))
-                                      /* skipped: _NEXT not started */
-                                  panfrost_jm_irq_handler_thread()
-                                    panfrost_jm_handle_irq()
-                                      /* job0 finishes; job1 moves to [0] */
-                                      done[j][0] =3D panfrost_dequeue_job()
-                                      if (pfdev->jobs[j][0] &&
-                                          !(js_state & MK_JS_MASK(j)))
-                                        done[j][1] =3D panfrost_dequeue_job=
-()
-                                      panfrost_jm_handle_done(..., job1)
-                                        <-- signals fence without running
-  panfrost_reset()
-    drm_sched_stop()
-    job_write(pfdev, JOB_INT_MASK, 0)
-
-When a 500 ms time-slice timeout fires on one slot, pfdev->reset.pending is
-set to PANFROST_RESET_STOP_ONLY before panfrost_reset() stops the schedulers
-and masks job interrupts.  If another slot is running job0 and submits job1
-in that window, panfrost_job_hw_submit() puts job1 into pfdev->jobs[j][1]
-but skips writing JS_COMMAND_START to JS_COMMAND_NEXT(j).
-
-If job0 finishes before JOB_INT_MASK is cleared, panfrost_jm_handle_irq()
-shifts job1 into pfdev->jobs[j][0], sees both hardware subslots inactive in
-js_state, and dequeues job1 into done[j][1] as if the hardware had
-auto-started and completed it.  panfrost_jm_handle_done() then sets
-job1->jc =3D 0 and signals job1->done_fence, causing drm_sched_resubmit_job=
-s()
-to treat job1 as finished even though it never ran on the GPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-panfrost-l=
-ong-jobs-v2-0-a06830da3d99@gmail.com?part=3D10
+> Best regards,
+> Krzysztof
