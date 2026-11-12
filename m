@@ -2,58 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFE6606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:09:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A212D606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=eU7tMJiT
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ItWQFAgQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6906112159;
-	Thu, 12 Nov 2026 14:09:52 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C953D11217B;
- Thu, 12 Nov 2026 14:09:46 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jQMhl5r53zMlL5;
- Thu, 12 Nov 2026 15:09:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794492583; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NmpbvxhqufdtRVMryu+ho3EOV8ZMnvgHsUDI7nScZBI=;
- b=eU7tMJiT2PsaJpqB0lERUx10JPv7uTONSwlRiDXXMCqKzgPK024hhOao//ZldwYIdOZaDi
- sEeE9BX7HjMAMDQev7rFymFMo2JAz8sWY5rcnaUZvLK8DHT1aNXPAXnFKDbXCPQ0+vyFhQ
- 0KY0YZyZ+C71aBRUb7oKPm0DGxPSd/wetulFmqXJaymSWGGVl7kUvS1g85t0H3z9bSM1t8
- afxQY8+TbojtMarx0ami2PiETZeOkVChuN/5Ptc8z3dR7f7sLbsKM9ib9JSKq/mmpafft8
- Upnk9mgrcEvpP6MliVfzGW6agdXxNqlglll3bAXVxc4aKcHCZxV2ifl9LU+Lyg==
-Message-ID: <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
-Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
- spinlock
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>
-Date: Thu, 12 Nov 2026 15:09:41 +0100
-In-Reply-To: <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
- <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
- <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
- <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 057C8112170;
+	Thu, 12 Nov 2026 14:10:00 +0000 (UTC)
+X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Nov 2026 14:09:48 UTC
+Received: from sender5-op-o10.zoho.com (sender5-op-o10.zoho.com
+ [165.173.182.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C04A112180
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:09:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794491678; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Gp7SrFjl7MscpoikZVAkuCpxLakHQLoOnGw6RhTrlweEyKD6Z0+JQ/GqVw47a4Aq6rziH9mnT0FppzveY08CM4JcRECh2amf3SeFS8Y2WFvCOPoXHrNFJTNV+vvvn0aWju1ETAYIxG+XBUKANQ/GCrlm3q3haM0xO1Iliu4oOaU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794491678;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=UKYlfbG6CgzKvDwLNG8b4MFdQP96xPA09AwV3u035cc=; 
+ b=V3TSWL/5L7BqCHTnE3NuHKWFTynK3cFAUlTwEcP1jEOJUJsLPWRQpi1F8tw3HJglsiX/Oe34760XDZoZEiUwA07BIuifT0AmOaXehBL/E+zEtCY1HpN34m3tJ5MhcvxivRzMtYU21lYJzIVDfuOn7teknv55+v+vWOQVGqnuy90=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=faith.ekstrand@collabora.com;
+ dmarc=pass header.from=<faith.ekstrand@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=ItWQFAgQ6SgLLowDNd9GelHwh0Evs/C004ImYWViFF9FbYDNH+Afjquudso7UpSoJKbDQlP6YRQdILBCO3R4QlL6Qg8qFMVuabPNgyC95B/K8iAoDOkd7j2BtDtfugRP+M3A3fXkxhhBSN1qqEpVg/5lB3TaMb+S93ZM/10aUwk=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=UKYlfbG6CgzKvDwLNG8b4MFdQP96xPA09AwV3u035cc=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1794491670217282.0441901979831;
+ Thu, 12 Nov 2026 05:54:30 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:54:29 -0500
+From: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: =?UTF-8?Q?=22Ma=C3=ADra_Canal=22?= <mcanal@igalia.com>
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Boris Brezillon" <boris.brezillon@collabora.com>,
+ "Rob Herring" <robh@kernel.org>, "Steven Price" <steven.price@arm.com>,
+ =?UTF-8?Q?=22Adri=C3=A1n_Larumbe=22?= <adrian.larumbe@collabora.com>,
+ "Liviu Dudau" <liviu.dudau@arm.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?=22Christian_K=C3=B6nig=22?= <ckoenig.leichtzumerken@gmail.com>,
+ "Melissa Wen" <mwen@igalia.com>, "Iago Toral" <itoral@igalia.com>,
+ "JaeHoon Lee" <dlwognsdc610@gmail.com>,
+ "kernel-dev" <kernel-dev@igalia.com>,
+ "dri-devel" <dri-devel@lists.freedesktop.org>
+Message-ID: <1a1d009dddd.60725d0c103197.2638865837867497355@collabora.com>
+In-Reply-To: <20261030-v3d-cached-maps-v1-0-0a6a6b363382@igalia.com>
+References: <20261030-v3d-cached-maps-v1-0-0a6a6b363382@igalia.com>
+Subject: Re: [PATCH RFC 00/12] drm/v3d: Add support for write-back cacheable
+ BOs
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bff49bcf0a05f426723
-X-MBO-RS-META: 3bqe4er3tp8p8hiqjgypk8rd9b46fmkz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,134 +74,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-12 at 12:59 +0000, Tvrtko Ursulin wrote:
-> Since this is a lock inversion site we cannot lock
+From: Ma=C3=ADra Canal <mcanal@igalia.com>
+To: "Maarten Lankhorst"<maarten.lankhorst@linux.intel.com>, "Maxime Ripard"=
+<mripard@kernel.org>, "Thomas Zimmermann"<tzimmermann@suse.de>, "David Airl=
+ie"<airlied@gmail.com>, "Simona Vetter"<simona@ffwll.ch>, "Faith Ekstrand"<=
+faith.ekstrand@collabora.com>, "Boris Brezillon"<boris.brezillon@collabora.=
+com>, "Rob Herring"<robh@kernel.org>, "Steven Price"<steven.price@arm.com>,=
+ "Adri=C3=A1n Larumbe"<adrian.larumbe@collabora.com>, "Liviu Dudau"<liviu.d=
+udau@arm.com>, "Alex Deucher"<alexander.deucher@amd.com>, "Christian K=C3=
+=B6nig"<ckoenig.leichtzumerken@gmail.com>, "Melissa Wen"<mwen@igalia.com>, =
+"Iago Toral"<itoral@igalia.com>, "JaeHoon Lee"<dlwognsdc610@gmail.com>
+Cc: <kernel-dev@igalia.com>, <dri-devel@lists.freedesktop.org>, "Ma=C3=ADra=
+ Canal"<mcanal@igalia.com>
+Date: Fri., 30 Oct. 2026 16:50:18 -0400
+Subject: [PATCH RFC 00/12] drm/v3d: Add support for write-back cacheable BO=
+s
 
-Which deadlock-circumvention strategies have you tried?
-
-Pseudocode:
-
-bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-			 struct drm_sched_entity *entity)
-{
-	struct drm_sched_job *s_job;
-
-+	lockdep_assert_held(&entity->lock)
-
-	s_job =3D drm_sched_entity_queue_peek(entity);
-
-
-drm_sched_rq_select_entity(=E2=80=A6)
-{
-retry:
-	spin_lock(&rq->lock);
-=09
-	walk_tree(=E2=80=A6) {
-		if (!spin_trylock(&entity->lock) {
-			spin_unlock(&rq-lock);
-			udelay(20);
-			goto retry;
-		}
-		ready =3D !list_empty(&entity->job_list);
-	}
-}
-
-
-It appears very undesirable for someone to re-walk that tree, I get
-that. But do we even know whether that would be a measurable problem in
-practice? How often would it occur?
-
-
-Alternatively, all the other paths that do entity_lock -> rq_lock could
-be tested with trylock-patterns. They might be less impacted.
-
-In drm_sched_entity_push_job(), for example, only occasionally are both
-locks actually needed, when a job is the first job.
-
->  but truly have to have an unlocked solution.
-
-How do you know that?
-
-
-> This is effectively replacing one unlocked read (spsc_queue_peek) with a=
+ > This series aims to implement cached maps and explicit flushing for the=
 =20
-> different one (READ_ONCE(entity->job_credits)). Something unlocked is
-> unavoidable here and I think this is more elegant and simple.
-
-Code full of ACCESS_ONCE and RCU that is not RCU is most certainly not
-elegant.
-
-This is elegant:
-
-spin_lock()
-list_del()
-spin_unlock()
-
-
-With ACCESS_ONCE, manual barriers etc. pp. no one ever knows what's
-accessed where with what ordering and why. It would then be better to
-have the problem remain centralized in spsc_queue.h
-
-As you say yourself, this here replaces the half-locked hard to reason
-about spsc queue (we don't even know whether that thing is formally
-correct) with a half-locked "locked" linked list.
-
-It's no improvement in any way regarding our shared goal, which is a=20
-consistently locked codebase that finally rids us of the race
-conditions which are plagueing this system for >10 years
-
-
-There is really no other way than either redesigning drm_sched so that
-the lock inversion disappears altogether, or to address the inversion
-with strategies well established in CS.
-
->=20
-> And because it is an unlocked read it has to be annotated with=20
-> READ_ONCE(). Which means the write side, even though it is done under
-> the lock, is paired up and marked with WRITE_ONCE().
->=20
-> 2. drm_sched_entity_pop_job()
->=20
-> This is not a lock inversion site but needs to call sleepable things=20
-> while considering the head of the job queue (->prepare_job()).
->=20
-> This one is the only remaining reason I used list_add_tail_rcu and=20
-> list_del_rcu, just so from here we can safely touch the first entry=20
-> while elsewhere more are being added.
->=20
-> It is possible to do it, as you suggest, by dropping and re-acquiring
-> the lock. Note however that too would need a big fat comment why it is=
+ > V3D driver, which is mostly motivated by Vulkan's host cached memory.=20
+ > =20
+ > V3D's implementation of cached maps is quite similar to Panfrost's and=
 =20
-> safe.
-
-Sure, one can write code comments. No big deal. The job is not in the
-list anymore. The list is lock-protected. No one can race it.
-
-There's only one worker popping. This must always be that way, the
-entire drm_sched design is founded on that principle.
-
->  At which point, since both cases have a big fat comment explaining=20
-> the same thing apart from the implementation details, I do not see the=
+ > therefore, I decided to revamp Panthor/Panfrost's efforts [1] to impleme=
+nt=20
+ > common shmem helpers for CPU cache maintenance. The other option would b=
+e=20
+ > copying the same code in V3D, so I preferred to retake the discussion=20
+ > and see if we can reach some consensus.=20
+ > =20
+ > The most controversial part of this series are the first three patches,=
 =20
-> advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you=20
-> dislike would still remain.
->=20
-> As a side note it would be really good to eliminate the prepare_job=20
-> callback
+ > which were extensively discussed in Boris' series.=20
+ > =20
+ > Patch 1 lets the PRIME helpers work with custom dma_buf_ops, following=
+=20
+ > Thomas' feedback on [1]: drm_gem_prime_export_with_ops() exports with=20
+ > driver-provided ops, and gem_prime_is_exporter() lets a driver recognize=
+=20
+ > its own DMA-BUFs on import, without adding buffer callbacks to struct=20
+ > drm_driver, as requested by Thomas.=20
+ >
+ > Patches 2-3 are taken from [1], rebased on top of drm-misc-next with som=
+e
+ > minor kernel-doc fixes.=20
 
-Yes, the user should prepare everything needed before even submitting a
-job. Maybe we can begin by marking it as deprecated.
+Not entirely included in the mailing list discussion was why we abandon thi=
+s approach for panfrost/panthor:  CPU mapping shared dma-bufs is tricky, es=
+pecialy with non-coherent caching.  Gone are the days when we dma-buf had a=
+n ownership concept and clients properly bookended usage with begin/end.  W=
+ith explicit cache management, there are too many ways that one client can =
+screw up another if the BO is shared.
+
+The solution was to disallow BO sharing for any BOs that weren't mapped wri=
+te-combined or uncached.  A number of DRM drivers already have a concept of=
+ non-sharable BOs for locking reasons.  We simply required that for write-b=
+ack caching.
+
+This doesn't mean that the common SHMEM helper isn't useful.  I still think=
+ that patch is fine.  Just that plugging it all into PRIME is fraught.
+
+This wasn't obvious from the ML discussions because a lot of the back-and-f=
+orth happened in chat or in meetings inside Collabora.
+
+~Faith Ekstrand
 
 
-
-
-P.
