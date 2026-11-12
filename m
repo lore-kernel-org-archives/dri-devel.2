@@ -2,102 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313C9606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 22:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KuJX87An
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A18F606A88B
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 22:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 681E010E5F1;
-	Thu, 12 Nov 2026 22:51:45 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAB610E506;
- Thu, 12 Nov 2026 22:51:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MKl/DfzsFjmI7BevQFjg+19BR7ly95upNdGVyQ0/kmx7BheGRf1d24Y9BXl1BJw+ARe5ysBy70YwePYJdQbG/DncPCaxBkJ1YruYTjEa2LvwylXCG+r0fcuIe8ya7XUmrDGp39PXaUJMAo471UJTQRMnnI9yfrxEtkR3kSK7WsKyuj22TD/jI979LWHv/r3n6gWUHuE7CPD2qWAfbgidftXMVnFqjR0xLcaCi3HCOYDkpKDiWwClyYUPo8NhobXZwp8LxOpqXeGI4F3JvcbHKUdZi29E5Ck3wa+zxQfaUzMaAETFj+BB9bg1AtZNUcn+/RkBwCI1ZAOa4+eD2Fog2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JrdbG21TrC2ruikwQnjN/ntxDrsdas74fpkNWbA9mvE=;
- b=apwz5MN6POxVV7Nx/a/CTKfgsALSwsQxKPsweQvwDL39zN0e3XzyU0WIZfHPDqosHihlS8a2hpDQthV/1m1FY8Kb+so703X8G1s+BdY2C5SNo8X+eceJ4Ktq61dHU8b/1mUdPrI7TR8Rj2EiLc+h4gWInp0Asbvpac9oXHZjNdPC1OucCzWRB6ZbIAc+DVpXsmzRLQ9OTb6Zbm/itz+gQ8LYhElrsUeBqcaEMphBOrgbFdDzaBPJCLJsgX7FNhS6BT1y00mx/k7RETyaS1/A2VAS2/iGfYUk+HP3zMS1Fc9DSlyX4/KaTo542JtQHlhHxnn0SKc8Y3LZcXaVlSf6cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JrdbG21TrC2ruikwQnjN/ntxDrsdas74fpkNWbA9mvE=;
- b=KuJX87AnUXHVXRSCubXyPudvt2X5i/LyoyQ3V8S5vc1cHiMOAp9JuTfVRLJ3oDX5wdon4Fv3S0nsAVbLFRIuwGB4O3jTJvLIt6cDMYBHDfEP8NVsCesaiXTOHhisWHQ3sib2rHezfVpWpC8L3cydLqsCtWMDVxgZ2vsOZvIxQyA=
-Received: from DS1PR05CA0018.namprd05.prod.outlook.com (2603:10b6:8:23f::14)
- by DM6PR12MB4332.namprd12.prod.outlook.com (2603:10b6:5:21e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 22:50:14 +0000
-Received: from BN2PEPF0000A990.namprd04.prod.outlook.com
- (2603:10b6:8:23f:cafe::57) by DS1PR05CA0018.outlook.office365.com
- (2603:10b6:8:23f::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 12
- Nov 2026 22:50:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A990.mail.protection.outlook.com (10.167.248.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 22:49:27 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 15:55:00 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Thu, 12 Nov 2026 15:54:53 -0600
-Subject: [PATCH v7 1/3] PCI: Cache bridge firmware secondary bus number
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99DB610E0DF;
+	Thu, 12 Nov 2026 22:59:08 +0000 (UTC)
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F2E10E104
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 22:59:07 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-67bf3c6654fso389268d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:59:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794524346; x=1795129146;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=blshDriFn5UbMDKS3q3Vd5jruWnlAyFKn7ja3qEeVzY=;
+ b=rljy/lAhSRNLrsOiD3P7RtK+Pg2WLyCI8YEv7h9SEm96zrkBaeUBwliLvOcbAfcOBO
+ +kENLy6TYQ7Dvw+McVHujzPwzSJjQYy3g9NUvwwMnepuw4IPezCtpmFRJLyblIzdpXPM
+ rsajqkPAs+uelCPq1vWXDkv3MV6fYDxF8tr7Vgr/OdYhKgEzQ7alsa1noTOdHpuEexpf
+ QEPeH7PhvQ9IGP6VgUVZYpc0uVjoRQ8Tn+Vpaez1u/kpSsbKRTGRpDPwrFADyDj1MFdK
+ 7DIL/fFVXoD0T7TTPRZy8Hppai94ehZphkBJWP14FBX3LIDjvcDR3cJbW9Pp3gkDWi+F
+ Lf5A==
+X-Gm-Message-State: APuU4Z8xNQFhxuq31kjP8Nj32tViSRz2zmzl+1lx/ZaGL7ENsJqDLnG4
+ L3G78jwDi6QrVVduDoEWdLFYaVwQSoovxtnTx4NUNcSe+v3y1ZORdD/t
+X-Gm-Gg: AYBFou3vRfIy50OKIHlu6C+3/s6XuKPng/zOJmKE5Z78TcajNlD/ydXas9tVTOnBrlc
+ QTpKyz62Pi9hmsOL6tmWxeWIjjs2YlxApphurGSY/6Tifv+sO1xDEg/NaFrswc2OxJCz7JBibUt
+ c4HzRnwSoCAh9CyajA3Zn34QTagvQZ6pSVfVQXznTRjYoWeldxS+YsEcXtW09br3sIT37ZRRw6Z
+ Cc1iCecb+j/qUXkYHKWjpHvJzCVfh+3HNrjj2V7Jw3BBAacNAMADayBTsukDtQUX0EtwcJDEXb8
+ CYmhhZ9N/baBMHp9J+4qwYL9+fZognChN54lQq3NDERzTkymLh1tgTR9b+ftYYtW834OphQ7W+8
+ cbFz8QwEvMqzUFDzl2mJk8Hm9h1qHIJULt3Or1jkepPBmjgyBAmkCNuxBRzli0hmmGbTLpmH9Ji
+ 1voQwLsngkO+KuoH+HtK7sSKzF1jY7gtBWQ99OQXnUPjTKvOcvg5PliryKi6jvFyDcvyBSK50DJ
+ WFvPhTbnfC1Fe2C4eWebAs6A+BFb4ztX3A+8Fz5P2upCphW1fsUHR2bYw3m/rEfxzEXqTyt9zaC
+ m4012Mt0mkASqpmE8xOTJq1S1c/YASnDLhefIe/+BgI9cIJU+dP6U/aqGaldD+WPw7yxc1SB/Am
+ C03SVhQRBEYnqWgoQQrdL3Yp5fxTnw/6StpQFTTJbWNhO1irIiGo8BvAvZAu1wLIlQRCmOy0ufs
+ wxy7NoRc2/VfIowPwHgL/s1EAU
+X-Received: by 2002:a05:690e:12c7:b0:67c:4b6e:1119 with SMTP id
+ 956f58d0204a3-67d89738ccbmr443575d50.128.1794524346057; 
+ Thu, 12 Nov 2026 14:59:06 -0800 (PST)
+Received: from
+ 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
+ ([71.68.170.161]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 14:59:05 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+Subject: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR
+ SGX5xx GPUs
+Date: Thu, 12 Nov 2026 17:58:50 -0500
+Message-Id: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
-References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-In-Reply-To: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mj3YL88tSisiLd4vQK3WTDJDPzFNPUtMREIyWgjoKi1LTMCrBp0Up
+ Bbs5KsRDB4tKkrNTkEpA5SrW1AOkCaHl0AAAA
+X-Change-ID: 20261112-powervr-sgx-c1b67d5efaa2
+To: dri-devel@lists.freedesktop.org, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>, 
+ Gabriel Gama <operatingsystemsdepression@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ linux-media@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A990:EE_|DM6PR12MB4332:EE_
-X-MS-Office365-Filtering-Correlation-Id: f011a005-de83-447b-d8da-08df410f34af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|18002099003|22082099003|3023799007|11063799006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261022105027099003|261021121427099003|56012099006|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: XKUyPri5aaTvT94ZHpcIDHlbzoVkBGrPwRh6ohSdH9eTVRDRraSFzJKPQx/68Vilf6hS3BvgIk07XEkgGPBxCffDb7zIUhwdpr4idn6jgLZ4O4aFduMIiBCcvxVUmO2moZpitL0e12uLh9nknpeq1zClNEtDfTXjTHqWcJhFMMLRjUusmqOQBel00qi5GQTz3kMHg6J4MbzP8pTF2uqQcc9Zj9TdDVhjM10Lskb8e+li5l9Yq8eOWqhroXJ2TuIll06dhY3RE6gxsbRSTvI3Ne024XeQbJLVOVdr1N4TNaM3ULzpZd45cD5ysvlxfgxhaODua5rW62ppo6HxiR1tbNq4JzlvKWcwmP1laUUeIkBKVFyruA4WbabEzH89Tn7ZMub2g+wO9qdBKbdxQwMvx4cljfi5VuN61EuhkfoEmGU0I5EdVDhlE0LlnzAKCBr+r3tJokaLrwXCJFXJyBCW6zWv6XJps/waGzLmulSBXas2p9fe7Ii+eIfZsuFuI0rFDk6SUdfrKbAhwQkm+dFulFfWHgyaG1DcU4BoRN9wqQl6TRmcrfTTfzkeEGqe8YJvvDCmq7TotcOSLv7Fg65foKRge8O2n5cBQkT83IFObVlATgxjeusv3AsrPTlyqAY/kofLhy0zgtc9uXH7mz2NWPIZvbafafLaBtsIY9WCOV7H73/WVX4JTZoJiIqKEhkAeFtZEZPpcTMn23K/vAlqhQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(18002099003)(22082099003)(3023799007)(11063799006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261022105027099003)(261021121427099003)(56012099006)(261021123027099003)(261009223027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jQo5w2S8UBDvnAkfUKA70XNQX1F99p6AEgsa6kEb3ByPuLji0oBDD1+GPAWgoBWXssGbOBMY3fjlRjybaKWjjg4lGeqyjXwlCjzNJwlmn6nFyNaNCiJvhuAN3cuJd5H7aQZenrFJmoi2KMVRvx/JQo1csMNfH8Q8VWZaSfjRobsZVJvhZug+CoGKrrPLHnujHKQg+G8npXaTTxeGLzz7OIvywyjo2zdgVM1Vmfc1iczLfrJsMdUrEm8SN9nbx5AfZ36upjJNrq4xLN5V3NvTgGEOZlrGOnHbUMC9xEHNjkvzsFZxZfO4kFKj2QjkRbhH1A34P+lj7GrbuCZTdYqTTyexcwmuMX5TBnqW0c6zRP/u4nINK4OBzIcNh2loYNkqNrM5QceInRyHZmCnc5KTfD6XdCgu6M0rcqFs6uf/2l6RNBHKcrq7iKxEV2tnT2BN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 22:49:27.3809 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f011a005-de83-447b-d8da-08df410f34af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A990.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4332
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,92 +90,201 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Drivers such as amdgpu and radeon need the bus number firmware assigned
-to a device to match it against firmware tables like VFCT. The PCI core
-may renumber buses (e.g. with pci=realloc), after which the runtime
-number no longer reflects what firmware programmed.
+This RFC asks for design review of a render-only DRM driver for the
+PowerVR SGX5xx (Series5) GPUs. It is not for merging: the Mesa driver
+isn't in Mesa yet, the firmware isn't in linux-firmware, and until each
+client has its own parameter buffer it isn't safe to expose to
+untrusted clients.
 
-Record the firmware secondary bus number on the bridge's struct pci_dev
-the first time pci_read_bridge_windows() reads the bridge's bus numbers,
-which happens before any renumbering. Devices behind the bridge can then
-retrieve the original bus number via their upstream bridge.
+The first platform is the SGX545 of the Intel Atom CE5300 (PCI
+8086:089b). The second is Cedarview, where gma500 publishes the SGX as
+an auxiliary device (patches 2 and 3). The OMAP3630's SGX530 is there
+for bring-up only: it has one memory context, so the driver refuses it
+without powervr_sgx.allow_unisolated=1, which drops client isolation and
+isn't for general use.
 
-Only store the value if it is usable: ignore unconfigured (0) and 0xff
-secondaries. Use a separate "sampled" flag so that later rescans, which
-would read the renumbered runtime value, never overwrite the cached
-number, and a "valid" flag so users can tell whether anything was
-recorded.
+Design
+- drm_sched, one job on the GPU at a time; drm_gpuvm, a page directory
+  per VM; GEM shmem; explicit sync only. A core table; an unknown core
+  is refused before any register write.
+- An open microkernel (MIT OR Apache-2.0) [4], loaded only in secure
+  mode, where no client maps the firmware's memory.
+- Commands are plain structs, checked field by field; uploaded shader
+  code is checked instruction by instruction.
+- The GPU doesn't snoop: a job lists the imported ranges it touches,
+  and the kernel flushes them around it.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Known limits, to fix before a v1:
+- One parameter buffer serves every client, so one client's GPU work
+  can read and write another's binned geometry.
+- Kernel objects and page tables use CPU physical addresses (x86
+  without an IOMMU), imports keep the exporter's vmap, and cache flushes
+  run uncapped in the fence-signaling path. All three move to the DMA
+  API.
+- Some firmware words are still written by index or named unk_*.
+- Transfer and NULL jobs have no Mesa user, and a client's first
+  transfer can fault after another client's transfers.
+
+Userspace is a Gallium driver with a NIR compiler [3]. On this tree, a
+2,146-case sample of dEQP-GLES2 on the CE5300 gives the same results as
+before the last uAPI revision (2,082 pass, 7 fail, 56 not supported, 1
+warning), with no GPU resets; it is a sample, not the full suite.
+
+Questions
+1. Imagination said in 2023 that SGX should have its own driver [1].
+   Alessio, Luigi: beside drivers/gpu/drm/imagination, or under it?
+2. gma500 publishes the SGX as an auxiliary device, as nova-core does
+   for nova-drm, and forwards its interrupt through a callback, because
+   CE5300 kernels have no gma500 to link against. Gabriel Gama is
+   preparing gma500's SGX535 code [2]. Is a separate driver the right
+   split?
+3. Is cache maintenance in SUBMIT_JOBS, as per-job ranges, acceptable,
+   or should it be a BO_SYNC-style ioctl?
+4. On x86, shmem flips every map_wc object's pages to write-combined
+   and back. Is TTM, cached pages with flushes, or a GFP_WC allocator
+   the way?
+
+I maintain this alone for now and would welcome a reviewer.
+
+Most of this series was written using the assistance of an AI coding
+assistant, Claude Code (Anthropic), working under my direction over many
+sessions: the kernel driver, the open microkernel, the Mesa driver and
+most of the documentation. I set the design and the uAPI decisions,
+chose what to fix or disclose, and reviewed the changes; before posting,
+the series also had an independent automated review whose findings are
+fixed or listed above. All the testing described here ran on my own
+hardware. I'm responsible for every line and will answer review
+questions myself.
+
+Testing: on the CE5300, 7.3.3 kernels with this series plus board
+patches outside it: the uAPI, frame, hang, PRIME and unbind tests [5]
+and a three-client soak, also under lockdep, KASAN, UBSAN, kmemleak and
+DMA-API debugging. Testers ran an earlier version of the import path on
+four Cedarview machines; this posting's path isn't retested there.
+Suspend is tested with pm_test only. CI applies each patch to
+drm-misc-next and runs checkpatch --strict and kernel-doc on it, and gcc
+and clang W=1, sparse and smatch on what it builds (the driver builds
+from patch 12).
+
+[1] https://lore.kernel.org/r/ccfae572cb6a5ba70eea273e641b66cd7f6fe58b.camel@imgtec.com
+[2] https://lore.kernel.org/r/20261109063303.32658-1-operatingsystemsdepression@gmail.com
+[3] https://github.com/The1TrueJoe/powervr_sgx/tree/525bdadb0e088bd3f64f0407b8cb0a16c6c03a2d/mesa
+[4] https://github.com/The1TrueJoe/powervr_sgx/tree/525bdadb0e088bd3f64f0407b8cb0a16c6c03a2d/ukernel
+[5] https://github.com/The1TrueJoe/powervr_sgx/tree/525bdadb0e088bd3f64f0407b8cb0a16c6c03a2d/drm/tests
+
 ---
- drivers/pci/probe.c | 16 ++++++++++++++--
- include/linux/pci.h |  4 ++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+Joseph Telaak (13):
+      drm/gem-shmem: Map pages for the DMA device
+      drm/gma500: Publish the Cedarview SGX as an auxiliary device
+      drm/gma500: Export GEM objects as dma-bufs
+      drm/powervr_sgx: Add the uAPI header and its documentation
+      drm/powervr_sgx: Add the core table, registers and device bring-up
+      drm/powervr_sgx: Load and start the microkernel
+      drm/powervr_sgx: Add GEM objects, VMs and dma-buf sharing
+      drm/powervr_sgx: Add contexts, the scheduler and SUBMIT_JOBS
+      drm/powervr_sgx: Add the client command checks
+      drm/powervr_sgx: Add render jobs
+      drm/powervr_sgx: Validate shader code in the kernel
+      drm/powervr_sgx: Add the DRM driver, power management and debugging
+      drm/powervr_sgx: Add KUnit tests
 
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 27008e2ea5afc..f20a4b8f7a23b 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_dev *dev, struct resource *res,
- static void pci_read_bridge_windows(struct pci_dev *bridge)
- {
- 	u32 buses;
-+	u8 secondary;
-+	u8 subordinate;
- 	u16 io;
- 	u32 pmem, tmp;
- 	struct resource res;
- 
- 	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
- 	res.flags = IORESOURCE_BUS;
--	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
--	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	secondary = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-+	subordinate = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	res.start = secondary;
-+	res.end = subordinate;
-+
-+	if (!bridge->fw_sec_bus_sampled) {
-+		bridge->fw_sec_bus_sampled = true;
-+		if (secondary > 0 && secondary < 0xff) {
-+			bridge->fw_sec_busnr = secondary;
-+			bridge->fw_sec_bus_valid = true;
-+		}
-+	}
- 	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
- 		 bridge->transparent ? " (subtractive decode)" : "");
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 5ffcf5ce8c966..045157488b8e7 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -363,6 +363,8 @@ struct pci_dev {
- 	struct pci_slot	*slot;		/* Physical slot this device is in */
- 
- 	unsigned int	devfn;		/* Encoded device & function index */
-+	/* Firmware secondary bus number saved across bridge scan passes */
-+	unsigned char	fw_sec_busnr;
- 	unsigned short	vendor;
- 	unsigned short	device;
- 	unsigned short	subsystem_vendor;
-@@ -414,6 +416,8 @@ struct pci_dev {
- 	unsigned int	pme_poll:1;	/* Poll device's PME status bit */
- 	unsigned int	pinned:1;	/* Whether this dev is pinned */
- 	unsigned int	config_rrs_sv:1; /* Config RRS software visibility */
-+	unsigned int	fw_sec_bus_valid:1; /* Firmware secondary bus number usable */
-+	unsigned int	fw_sec_bus_sampled:1; /* Firmware secondary bus number captured */
- 	unsigned int	imm_ready:1;	/* Supports Immediate Readiness */
- 	unsigned int	d1_support:1;	/* Low power state D1 is supported */
- 	unsigned int	d2_support:1;	/* Low power state D2 is supported */
+ Documentation/gpu/drivers.rst                      |    1 +
+ Documentation/gpu/powervr_sgx/index.rst            |  201 ++++
+ Documentation/gpu/powervr_sgx/uapi.rst             |  133 +++
+ MAINTAINERS                                        |   11 +
+ drivers/gpu/drm/Kconfig                            |    1 +
+ drivers/gpu/drm/Makefile                           |    1 +
+ drivers/gpu/drm/drm_gem_shmem_helper.c             |    8 +-
+ drivers/gpu/drm/gma500/Kconfig                     |    1 +
+ drivers/gpu/drm/gma500/Makefile                    |    3 +-
+ drivers/gpu/drm/gma500/cdv_device.c                |    5 +
+ drivers/gpu/drm/gma500/gem.c                       |  192 +++-
+ drivers/gpu/drm/gma500/gem.h                       |    1 +
+ drivers/gpu/drm/gma500/psb_drv.c                   |   42 +-
+ drivers/gpu/drm/gma500/psb_drv.h                   |   26 +
+ drivers/gpu/drm/gma500/psb_irq.c                   |   32 +-
+ drivers/gpu/drm/gma500/sgx_aux.c                   |  102 ++
+ drivers/gpu/drm/powervr_sgx/Kconfig                |   65 ++
+ drivers/gpu/drm/powervr_sgx/Makefile               |   34 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_aux.c           |   83 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cache.h         |   66 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c           |  208 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.h           |   52 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.c           |  234 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd.h           |  132 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.c    |   62 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_checks.h    |   13 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.c      |  353 ++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_cmd_defs.h      |   43 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_core.c          |  300 +++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_core.h          |  196 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_debugfs.c       |   78 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_debugfs.h       |   13 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_device.c        |  461 ++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_device.h        |  354 ++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_drv.c           |  378 +++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_drv.h           |   52 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_dump.c          |  227 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_dump.h          |   16 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c            |  736 ++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_fw.h            |   77 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_fwif.h          |  519 +++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c           |  120 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_gem.h           |   46 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_hw.h            |   55 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_job.c           | 1028 +++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_job.h           |  143 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c          |  285 +++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.h          |   82 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_mmu.c           |  281 +++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_mmu.h           |   28 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_of.c            |  119 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_pds.c           |   97 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_pds.h           |   37 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_pm.c            |  138 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_pm.h            |   30 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c         |  207 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_prime.h         |   26 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_regs.h          |   79 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_render.c        |  957 ++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_render.h        |  122 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c         |    5 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h         |  134 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.c      |  175 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_transfer.h      |   38 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse.c          |  240 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse.h          |   45 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_usse_table.h    |  342 ++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c      |  192 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_validate.h      |   25 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c            |  799 +++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_vm.h            |   69 ++
+ drivers/gpu/drm/powervr_sgx/tests/.kunitconfig     |    5 +
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_ccb_test.c    |  111 ++
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_core_test.c   |  119 ++
+ .../drm/powervr_sgx/tests/pvrsgx_equiv_golden.h    |   32 +
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_equiv_test.c  |  555 +++++++++
+ drivers/gpu/drm/powervr_sgx/tests/pvrsgx_fw_test.c |  168 +++
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_kobj_test.c   |  203 ++++
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_prime_test.c  |  125 +++
+ drivers/gpu/drm/powervr_sgx/tests/pvrsgx_rt_test.c |   63 ++
+ .../gpu/drm/powervr_sgx/tests/pvrsgx_usse_test.c   |  145 +++
+ .../drm/powervr_sgx/tests/pvrsgx_validate_test.c   |   32 +
+ include/drm/gma500_sgx.h                           |   52 +
+ include/uapi/drm/powervr_sgx_drm.h                 | 1175 ++++++++++++++++++++
+ 84 files changed, 14178 insertions(+), 63 deletions(-)
+---
+base-commit: c88084027d0e922dd925b96e5a0d184ba04a8f43
+change-id: 20261112-powervr-sgx-c1b67d5efaa2
 
--- 
-2.43.0
+Best regards,
+--  
+Joseph Telaak <joseph@telaak.dev>
 
