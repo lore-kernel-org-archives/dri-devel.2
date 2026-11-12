@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65373606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B69F606A8A4
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 02:01:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acNwuxVF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCBoQR6s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8421B10FF0E;
-	Thu, 12 Nov 2026 01:59:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA2610FF0E;
- Thu, 12 Nov 2026 01:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F43910E36C;
+	Thu, 12 Nov 2026 02:01:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1062910FF14;
+ Thu, 12 Nov 2026 02:01:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 30F0C412E7;
- Thu, 12 Nov 2026 01:59:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8BC1F00A07;
- Thu, 12 Nov 2026 01:59:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 32C8C614A1;
+ Thu, 12 Nov 2026 02:01:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53641F00A05;
+ Thu, 12 Nov 2026 02:01:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794448778;
- bh=1797Hpx9XaIlv48ViwjDqvIVjSI1RRnqGpuk0+m34TY=;
+ s=k20260515; t=1794448899;
+ bh=6LqtdZIUauJFFwXkth9uK/99vO4VQKkwoGAcOqY/eK4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=acNwuxVF9TbmC/kKAXWMkpkm4kRThRu7Co+MsuRFSPPrlvO5iVqiH6D4c22crRGCm
- SbmklMgZowEG/2/rjKRONMa0v0YsNcr0bQ2tgZ/VN6CRiQ/ZAB44V57jkjP/msQDDX
- Bae7D2CdEKvgWkJoGQD81a78x60jGuodal7a1Vb+NDkdpb2ov/dhFaABJxSn9qJ+gn
- sGbsdvXZA0NGVSpajuHzzvTNmblbNqdGJ3CCkBrquwikuHNj0ZuTjxlSEagLFq36od
- ZPsOFZF1C3n1ddsILoqyfzwrrAJ+XC4ianWK1m+JKLK4HMadNxk31SVKUrwW6Mjzig
- 4sw5jafVOgJtA==
-Message-ID: <sashiko-outbox-210129@kernel.org>
+ b=HCBoQR6sjIbI7uRrQsQwHydP88w80jelqIcQHkU/g/HykpwVk0Wx7iJQ+GsbtRs3x
+ Ig45cCfk3VxMFsCSq+ca8AgjrhihIPq5iBG+40aVkazAbXaOAJuidvgWEuF4SmSrOb
+ suevn/RE2rmI+FlAyys/sesD9sy0kbEJPdF8N98zHd8SXI8Dg5Dmu9U256dGtazw1/
+ SMMPGGDrGsEI9fWYFR6G5SCoTA1Ol241RaKKDPykfD1XbcQTTyk7FuW7GeUpXBAQOe
+ x5PL/gHrUTfQ0Su4dBKZkqR6VjH2QNc9MNYrGY2gEvkGBJDxM5Al+H0mv4VQ7W2foe
+ nkVfsxd9rH1Ww==
+Message-ID: <sashiko-outbox-210136@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/19] drm/amd/display: Migrate amdgpu_dm KUnit tests
- off struct dc internals
+Subject: Re: [PATCH 16/19] drm/amd/display: Add DC primitives for ABM
+ hardware programming
 To: "Dave Airlie" <airlied@redhat.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-12-0fae41718ad2@redhat.com>
+In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-16-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
- <20261112-amdgpu-dc-cleanup-v1-12-0fae41718ad2@redhat.com>
+ <20261112-amdgpu-dc-cleanup-v1-16-0fae41718ad2@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 01:59:37 +0000
+Date: Thu, 12 Nov 2026 02:01:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,47 +61,55 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/amd/display: CFI violation and unchecked kunit_add_action()
-  in dm_kunit_alloc_dc()
+- [Low] drm/amd/display: dc_dmcu_is_initialized() duplicates
+  dc_is_dmcu_initialized()
 --
 
-commit 3e7024f14775977bb5d35f97fcb673f3cd943908
+commit 73f1ba49a5d9e363674e88529801b1a9200d901c
 Author: Dave Airlie <airlied@redhat.com>
 
-drm/amd/display: Migrate amdgpu_dm KUnit tests off struct dc internals
+drm/amd/display: Add DC primitives for ABM hardware programming
 
-This commit adds a KUnit test double API for struct dc and converts the
-amdgpu_dm KUnit tests to use it instead of accessing struct dc fields
-directly.
+This commit adds DC-side hardware primitives for DMCU iRAM loading and ABM
+configuration and event programming so that modules/power and amdgpu_dm no
+longer access struct resource_pool directly.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_=
-helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_hel=
-pers.c
-> index f844b644bb776..9954cbab65416 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers=
-.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers=
-.c
-> @@ -47,18 +48,29 @@ struct dc_link *dm_kunit_alloc_link(struct kunit *tes=
-t)
->  }
->  EXPORT_SYMBOL(dm_kunit_alloc_link);
-> =20
-> +struct dc *dm_kunit_alloc_dc(struct kunit *test)
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_abm.c b/drivers/gpu/d=
+rm/amd/display/dc/core/dc_abm.c
+> new file mode 100644
+> index 0000000000000..1ed4b5fb6f937
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_abm.c
+> @@ -0,0 +1,121 @@
+
+[ ... ]
+
+> +bool dc_dmcu_is_initialized(struct dc *dc)
 > +{
-> +	struct dc *dc;
+> +	if (!dc->res_pool || !dc->res_pool->dmcu)
+> +		return false;
 > +
-> +	dc =3D dc_test_create();
-> +	KUNIT_ASSERT_NOT_NULL(test, dc);
-> +	kunit_add_action(test, (kunit_action_t *)dc_test_destroy, dc);
+> +	return dc->res_pool->dmcu->funcs->is_dmcu_initialized(
+> +			dc->res_pool->dmcu);
+> +}
 
 [Severity: Low]
-Does casting dc_test_destroy() (which takes struct dc *) to kunit_action_t *
-(void (*)(void *)) trigger a KCFI failure on test teardown when built with
-CONFIG_CFI_CLANG?  Also, kunit_add_action() can fail and leak dc if its
-return value is not checked, whereas KUNIT_DEFINE_ACTION_WRAPPER() with
-kunit_add_action_or_reset() avoids both issues.
+Does dc_dmcu_is_initialized() duplicate the existing dc_is_dmcu_initialized=
+()
+helper?
+
+drivers/gpu/drm/amd/display/dc/core/dc.c:dc_is_dmcu_initialized() {
+	struct dmcu *dmcu =3D dc->res_pool->dmcu;
+
+	if (dmcu)
+		return dmcu->funcs->is_dmcu_initialized(dmcu);
+	return false;
+}
+
+dc_is_dmcu_initialized() is already declared in dc.h and has no other calle=
+rs
+in the tree, so these two public helpers could be consolidated.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-amdgpu-dc-=
-cleanup-v1-0-0fae41718ad2@redhat.com?part=3D12
+cleanup-v1-0-0fae41718ad2@redhat.com?part=3D16
