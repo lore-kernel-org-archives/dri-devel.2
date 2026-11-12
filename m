@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D84606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:54:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A84606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M67Dsl6b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HFlXZJlQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A21B10E2C8;
-	Thu, 12 Nov 2026 03:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A7110E40D;
+	Thu, 12 Nov 2026 03:58:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF7A10E2C8
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:54:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E07A10E40D
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:58:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D5FCA4170B;
- Thu, 12 Nov 2026 03:54:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0CA1F00A05;
- Thu, 12 Nov 2026 03:54:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C8C64050C;
+ Thu, 12 Nov 2026 03:58:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D761F00A05;
+ Thu, 12 Nov 2026 03:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794455677;
- bh=6OTphds3n7+ikjh/NyOCeJYkKdI0DBYPrjOiZwmZxVo=;
+ s=k20260515; t=1794455902;
+ bh=HlWDqEj4R8nJjL8od1fWZ9tszL5o1gOqhYRAiKGBth4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M67Dsl6bPkJ//RCTQdtNK0838HaPe6P3LBH2oqu7BfiqsguBHIELLH1u5ztQ3nK+v
- c0BkH/rYoacoFbmz6aiK7gDL9biSYEleo/XHScKM0TUQW5Z26GrUa9vNNWLpdWss0c
- yMInmFcoZ7hxkruIpWjj68WxaAEzhEBrBlhepkyipWORkjf1mgp6gg1fco0p0Se8bM
- 7jlb3srlS6egtnk5RvdOdD0z0ncPFVPVbYuNdd/Y7xWK+NKywqJidtN4QPLR2Vv3zQ
- gQ9uSK7M+hppQQwEsOSkC9BbSINbVvhPOqiVg2ONWcQpwy85FCSUK/7D6Sz5t8iDON
- UMtm50ncnYvfA==
-Message-ID: <sashiko-outbox-210300@kernel.org>
+ b=HFlXZJlQRjquc5/yWrtGqNq8Xqm2CCfDPHzm7oQQE1esZSK8jDwuPIFgYmNkqWBFo
+ MtZvWpkgUjDrzoLWQFohZ3fXJWQFOaxip6jHCyRYxXH6f3W46u3mriT526knwxgPUM
+ 6iizbDldIsVpdkb4KSOsjMjL3oO3slhxigVdOtVTLZ5f2g7qJ3y48hAbFE+mVh+AiM
+ /jLbdPSP6kjBbY4KRnL8PMB6HkjMc5dlQO0XB43Dw/60MpOdWAfnlqCa97SQQ8Ox/K
+ VqOVweq58dcwhsHzBcWRRTqiS97VSe4x+miWLjHvZCVj3tJH9pdkLDdOmB3W8GoAOC
+ P1lITGJx04wMg==
+Message-ID: <sashiko-outbox-210304@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] drm/fl2000: Add frame streaming
+Subject: Re: [PATCH v2 1/4] drm/fl2000: Add USB driver with register and I2C
+ access
 To: "Angel Gabriel Crispin Valdivia" <angelcrispinvaldivia@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261111-fl2000-upstream-v2-3-201f87708cb0@gmail.com>
+In-Reply-To: <20261111-fl2000-upstream-v2-1-201f87708cb0@gmail.com>
 References: <20261111-fl2000-upstream-v2-0-201f87708cb0@gmail.com>
- <20261111-fl2000-upstream-v2-3-201f87708cb0@gmail.com>
+ <20261111-fl2000-upstream-v2-1-201f87708cb0@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 03:54:37 +0000
+Date: Thu, 12 Nov 2026 03:58:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,128 +61,169 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/fl2000: stale damage replay on same-size mode set in
-  fl2000_stream_mode_set()
+- [Medium] drm/fl2000: unchecked regmap writes in int register helpers
 --
 
-commit fb468144aa76017b626067d45248552b6ec6cb90
+commit 1083af596ecfae2d3d352f9d352bcede51d3408e
 Author: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
 
-drm/fl2000: Add frame streaming
+drm/fl2000: Add USB driver with register and I2C access
 
-This commit adds frame streaming support for the FL2000 USB display
-adapter, converting damaged framebuffer rectangles into a shadow buffer and
-sending frames over bulk USB transfers from a pool of scatter-gather
-buffers.
+This commit adds the initial USB driver for Fresco Logic FL2000 display
+adapters, including regmap-backed register helpers and an I2C adapter.
 
-> diff --git a/drivers/gpu/drm/fl2000/fl2000_streaming.c b/drivers/gpu/drm/=
-fl2000/fl2000_streaming.c
+> diff --git a/drivers/gpu/drm/fl2000/fl2000_registers.c b/drivers/gpu/drm/=
+fl2000/fl2000_registers.c
 > new file mode 100644
-> index 0000000000000..dad640de5ec1a
+> index 0000000000000..f1cd28434a520
 > --- /dev/null
-> +++ b/drivers/gpu/drm/fl2000/fl2000_streaming.c
+> +++ b/drivers/gpu/drm/fl2000/fl2000_registers.c
 
 [ ... ]
 
-> +static void fl2000_copy_rect(struct fl2000_stream *stream, void *dst, co=
-nst struct drm_rect *r)
+> +int fl2000_set_pll(struct regmap *regmap, struct fl2000_pll *pll)
 > +{
-> +	u32 line_len =3D stream->width * stream->bytes_pix;
-> +	size_t off, span;
-> +	int x1, x2, y1, y2;
+> +	u32 val;
 > +
-> +	/*
-> +	 * A rectangle can outlive the geometry it was recorded under: a mode
-> +	 * change that keeps the buffer size keeps the buffers too.
-> +	 */
-> +	x1 =3D clamp(r->x1, 0, (int)stream->width);
-> +	x2 =3D clamp(r->x2, 0, (int)stream->width);
-> +	y1 =3D clamp(r->y1, 0, (int)stream->height);
-> +	y2 =3D clamp(r->y2, 0, (int)stream->height);
-> +	if (x1 >=3D x2 || y1 >=3D y2)
-> +		return;
+> +	val =3D FIELD_PREP(FL2000_VGA_PLL_PRESCALER, pll->prescaler) |
+> +	      FIELD_PREP(FL2000_VGA_PLL_MULTIPLIER, pll->multiplier) |
+> +	      FIELD_PREP(FL2000_VGA_PLL_DIVISOR, pll->divisor) |
+> +	      FIELD_PREP(FL2000_VGA_PLL_FUNCTION, pll->function);
+> +	regmap_write(regmap, FL2000_VGA_PLL_REG, val);
 > +
-> +	off =3D (size_t)x1 * stream->bytes_pix;
-> +	span =3D (size_t)(x2 - x1) * stream->bytes_pix;
+> +	val =3D FL2000_VGA_CTRL_ACLK_FORCE_PLL_UP;
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, val, val);
 > +
-> +	for (int y =3D y1; y < y2; y++) {
-> +		size_t start =3D round_down((size_t)y * line_len + off, 8);
-> +		size_t end =3D min_t(size_t, round_up((size_t)y * line_len + off + spa=
-n, 8),
-> +				   stream->buf_size);
-> +
-> +		memcpy(dst + start, stream->shadow + start, end - start);
-> +	}
+> +	return 0;
 > +}
 
 [ ... ]
 
-> +int fl2000_stream_mode_set(struct fl2000_stream *stream, unsigned int wi=
-dth,
-> +			   unsigned int height, u32 bytes_pix)
+> +int fl2000_set_timings(struct regmap *regmap, struct fl2000_timings *tim=
+ings)
 > +{
-> +	int ret;
-> +	unsigned int size;
+> +	regmap_write(regmap, FL2000_VGA_HSYNC_REG1,
+> +		     FIELD_PREP(FL2000_VGA_HSYNC1_HACTIVE, timings->hactive) |
+> +		     FIELD_PREP(FL2000_VGA_HSYNC1_HTOTAL, timings->htotal));
 > +
-> +	/* Round buffer size up to multiple of 8 to meet HW expectations */
-> +	size =3D ALIGN(width * height * bytes_pix, 8);
+> +	regmap_write(regmap, FL2000_VGA_HSYNC_REG2,
+> +		     FIELD_PREP(FL2000_VGA_HSYNC2_HSYNC_WIDTH, timings->hsync_width) |
+> +		     FIELD_PREP(FL2000_VGA_HSYNC2_HSTART, timings->hstart));
 > +
-> +	guard(mutex)(&stream->shadow_lock);
+> +	regmap_write(regmap, FL2000_VGA_VSYNC_REG1,
+> +		     FIELD_PREP(FL2000_VGA_VSYNC1_VACTIVE, timings->vactive) |
+> +		     FIELD_PREP(FL2000_VGA_VSYNC1_VTOTAL, timings->vtotal));
 > +
-> +	/* If there are buffers with same size - keep them */
-> +	if (stream->buf_size !=3D size) {
-> +		/*
-> +		 * Without a shadow nothing writes a frame, and an allocation that fai=
-ls below
-> +		 * must not leave the old, smaller one to be written with the new geom=
-etry.
-> +		 */
-> +		fl2000_stream_put_buffers(stream);
-> +		vfree(stream->shadow);
-> +		stream->shadow =3D NULL;
-> +		stream->buf_size =3D 0;
+> +	regmap_write(regmap, FL2000_VGA_VSYNC_REG2,
+> +		     FIELD_PREP(FL2000_VGA_VSYNC2_VSYNC_WIDTH, timings->vsync_width) |
+> +		     FIELD_PREP(FL2000_VGA_VSYNC2_VSTART, timings->vstart) |
+> +		     FIELD_PREP(FL2000_VGA_VSYNC2_START_LATENCY, timings->vstart));
 > +
-> +		ret =3D fl2000_stream_get_buffers(stream, size);
-> +		if (ret)
-> +			return ret;
+> +	return 0;
+> +}
 > +
-> +		/* One full frame in the device format; only the CPU ever reads it */
-> +		stream->shadow =3D vzalloc(size);
-> +		if (!stream->shadow) {
-> +			fl2000_stream_put_buffers(stream);
-> +			return -ENOMEM;
-> +		}
+> +int fl2000_set_pixfmt(struct regmap *regmap, u32 bytes_pix)
+> +{
+> +	u32 mask, val;
 > +
-> +		/* A buffer carrying zero has never been built and takes the full-copy=
- path */
-> +		stream->shadow_seq++;
+> +	mask =3D FL2000_VGA_CTRL_PXCLK_DAC_OUTPUT_EN | FL2000_VGA_CTRL_PXCLK_DR=
+OP_CNT |
+> +	       FL2000_VGA_CTRL_PXCLK_VGA565_MODE | FL2000_VGA_CTRL_PXCLK_VGA332=
+_MODE |
+> +	       FL2000_VGA_CTRL_PXCLK_VGA555_MODE | FL2000_VGA_CTRL_PXCLK_VGA_CO=
+MPRESS |
+> +	       FL2000_VGA_CTRL_PXCLK_CLEAR_WATERMARK;
+> +	val =3D FL2000_VGA_CTRL_PXCLK_DAC_OUTPUT_EN | FL2000_VGA_CTRL_PXCLK_CLE=
+AR_WATERMARK;
+> +	if (bytes_pix =3D=3D 2)
+> +		val |=3D FL2000_VGA_CTRL_PXCLK_VGA565_MODE;
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_PXCLK, mask, val);
 > +
-> +		stream->buf_size =3D size;
-> +	}
+> +	return 0;
+> +}
 > +
-> +	stream->bytes_pix =3D bytes_pix;
-> +	stream->width =3D width;
-> +	stream->height =3D height;
+> +int fl2000_set_transfers(struct regmap *regmap)
+> +{
+> +	u32 mask;
+> +
+> +	mask =3D FL2000_VGA_CTRL_ACLK_USE_PKT_PENDING | FL2000_VGA_CTRL_ACLK_US=
+E_ZERO_TD |
+> +	       FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN;
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, mask,
+> +			  FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN);
+> +
+> +	regmap_write_bits(regmap, FL2000_VGA_ISOCH_REG, FL2000_VGA_ISOCH_MFRAME=
+_CNT, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +int fl2000_reset(struct regmap *regmap)
+> +{
+> +	regmap_write_bits(regmap, FL2000_RST_CTRL_REG, FL2000_RST_CTRL_SW_RESET,
+> +			  FL2000_RST_CTRL_SW_RESET);
+> +
+> +	msleep(FL2000_HW_RST_MDELAY);
+> +
+> +	return 0;
+> +}
+> +
+> +int fl2000_afe_magic(struct regmap *regmap)
+> +{
+> +	regmap_write_bits(regmap, FL2000_USB_LPM_REG, FL2000_USB_LPM_MAGIC, FL2=
+000_USB_LPM_MAGIC);
+> +
+> +	return 0;
+> +}
+> +
+> +int fl2000_usb_magic(struct regmap *regmap)
+> +{
+> +	u32 val;
+> +
+> +	/* Writing DONE as 0 would start an I2C operation, see fl2000_i2c_dword=
+() */
+> +	val =3D FL2000_VGA_I2C_SC_MONITOR_DETECT | FL2000_VGA_I2C_SC_EDID_DETEC=
+T |
+> +	      FL2000_VGA_I2C_SC_DONE;
+> +	regmap_write_bits(regmap, FL2000_VGA_I2C_SC_REG, val, val);
+> +
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_3, FL2000_VGA_CTRL3_WAKEU=
+P_CLR_EN, 0);
+> +
+> +	val =3D FL2000_USB_LPM_U1_REJECT | FL2000_USB_LPM_U2_REJECT;
+> +	regmap_write_bits(regmap, FL2000_USB_LPM_REG, val, val);
+> +
+> +	regmap_write_bits(regmap, FL2000_USB_CTRL_REG, FL2000_USB_CTRL_WAKE_NRD=
+Y, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +/* The interrupts about monitors: they matter from the moment the device=
+ is up, mode or no mode */
+> +int fl2000_enable_sink_interrupts(struct regmap *regmap)
+> +{
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, FL2000_VGA_CTRL_ACL=
+K_EDID_MON_INT_EN,
+> +			  FL2000_VGA_CTRL_ACLK_EDID_MON_INT_EN);
+> +
+> +	regmap_write_bits(regmap, FL2000_VGA_CTRL2_REG_ACLK, FL2000_VGA_CTRL2_A=
+CLK_HDMI_INT_EN,
+> +			  FL2000_VGA_CTRL2_ACLK_HDMI_INT_EN);
 > +
 > +	return 0;
 > +}
 
 [Severity: Medium]
-When a mode change keeps the same aligned buffer size (for example,
-800x600 at 3 bytes/pixel to 1200x600 at 2 bytes/pixel, or a 90-degree
-rotation), can fl2000_stream_build() corrupt outgoing buffers by replaying
-old damage rectangles under the new geometry?
+Should these int-returning register helpers check and propagate errors from
+regmap_write() and regmap_write_bits(), like fl2000_force_connect() and
+fl2000_stream_interrupts() do?
 
-When stream->buf_size =3D=3D size, fl2000_stream_mode_set() keeps stream->s=
-hadow
-and the existing buffers with their current sb->seq values.  Rectangles in
-stream->damage_log from before the mode change were written using the old
-stride and pixel size, but fl2000_copy_rect() replays them using the new
-width and bytes_pix, copying the wrong byte ranges from stream->shadow
-while marking sb->seq caught up.  Advancing stream->shadow_seq by
-FL2000_DAMAGE_LOG (and clearing stream->shadow) when the geometry or format
-changes would force retained buffers onto the full-copy path.
+Each regmap access runs a synchronous USB control transfer via
+usb_control_msg_recv() or usb_control_msg_send().  When a transfer fails or
+times out, these helpers still return 0 and continue issuing further USB
+control transfers, hiding initialization or modeset failures from callers.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-fl2000-ups=
-tream-v2-0-201f87708cb0@gmail.com?part=3D3
+tream-v2-0-201f87708cb0@gmail.com?part=3D1
