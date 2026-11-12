@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66569606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8769B606A32E
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VF63g/4e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwpBOVSC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 955B81122ED;
-	Thu, 12 Nov 2026 23:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29631123E3;
+	Thu, 12 Nov 2026 23:34:32 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3831C10EBC9
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:28:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5216C1123E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:34:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 553BF624AB;
- Thu, 12 Nov 2026 23:28:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0ED81F000C7;
- Thu, 12 Nov 2026 23:28:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C16561284;
+ Thu, 12 Nov 2026 23:34:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997FA1F000C9;
+ Thu, 12 Nov 2026 23:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794526126;
- bh=ZAMK+7jiJkzCsCGZhhkbbdgevys+lauzLtPj/YcPTBQ=;
+ s=k20260515; t=1794526465;
+ bh=O1sJ44DczLtN0BNadQZUYOcqj0jE+7+ttS4KYxv2FBI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VF63g/4e4CK2f3A9B2cvKXpyWKFb13+xEBPTko9pDnQ/5v75keeMrWXowEWbzxt4a
- /eBcUQAZme3yl0+D6J26UnnjleXDlyOYKpNpDZStwFPk3joaHIPLoT2PU2k6AaazLk
- gIB6qSwo+iwKTXjTZNAVWMH1AkY8lYa3SJAfqU8vDq4tCq2EMnsgCEabDYfn6wTGcL
- xHcgBYFH5jquPoveuQrsjA1zsSqovKm/8ManzGRUiomx03Jsg4bWxE7svXcYqfTYQj
- cdk4yjXJWA7Jt+NCIkdIn9L7s+0rgALVf7CvF1ocA371KYLd7t67OsUD8IHHG/byo4
- 7CRtvssCvqXxw==
-Message-ID: <sashiko-outbox-211952@kernel.org>
+ b=KwpBOVSCUW2N1YkoOno0LaPqffNgGLADhDkgloVRqcCdW0oAIrvqYsd9FYc8U1GOj
+ w3MvoJaBAjBA5qVHWdXyV3P4p9Qd0g66LBnJtSd1KhSFTcNnsh+aOE9jCPbNT+CeP2
+ zmCIF3fI42PPVR8zMNBZmFyJx7iqG06eM9EyNW/G9s0Ob6oBnzncxjEgez2yejo3e8
+ 4FL3YPpELK9655zT8ts5imFIXFDWCI6VYOBuVHnDVwbzuurCqVrqG/o6exBL77f0MF
+ eNKZE0sIf5n9SlfT/G1uj+jb7hvBypJw/PtcDJ9Nhh5hvoPJTAFABpgL9euwUsAWW8
+ lSqiKUHU05G/g==
+Message-ID: <sashiko-outbox-211956@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 07/13] drm/powervr_sgx: Add GEM objects, VMs and
- dma-buf sharing
+Subject: Re: [PATCH RFC 10/13] drm/powervr_sgx: Add render jobs
 To: "Joseph Telaak" <joseph@telaak.dev>, dri-devel@lists.freedesktop.org
 Cc: media-ci@linuxtv.org
-In-Reply-To: <20261112-powervr-sgx-v1-7-c69b84bac011@telaak.dev>
+In-Reply-To: <20261112-powervr-sgx-v1-10-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
- <20261112-powervr-sgx-v1-7-c69b84bac011@telaak.dev>
+ <20261112-powervr-sgx-v1-10-c69b84bac011@telaak.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 23:28:45 +0000
+Date: Thu, 12 Nov 2026 23:34:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,488 +58,199 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] drm/powervr_sgx: unreaped objects across restarts in
-  pvrsgx_kobj_reap()
-- [High] drm/powervr_sgx: refcount cycle in pvrsgx_kobj_create() and
-  pvrsgx_vm_create()
-- [High] drm/powervr_sgx: unbounded row loop in range_flush() via
-  cache_range_check()
-- [High] drm/powervr_sgx: stranded pvrsgx_vm_free items on
-  sdev->inval_waits leak drm_device
-- [High] drm/powervr_sgx: race between pvrsgx_vm_lookup() and VM context
-  teardown
-- [Medium] drm/powervr_sgx: imported BOs rejected in
-  pvrsgx_ioctl_get_bo_mmap_offset()
-- [Medium] drm/powervr_sgx: missing cache flush and GFP flags in
-  pvrsgx_ioctl_create_bo()
-- [Medium] drm/powervr_sgx: unconditional EDMPROTECT on KDATA in
-  krange() faults SGX530
-- [Low] drm/powervr_sgx: stale sync_ops comment above
-  pvrsgx_ioctl_vm_bind()
+- [Medium] drm/powervr_sgx: unclamped default PB page count in
+  pb_create()
+- [Medium] drm/powervr_sgx: premature sdev->pb publish and PB
+  displacement on error
+- [Medium] drm/powervr_sgx: graveyard deferral of unused kobjs exhausts
+  krange space
 --
 
-commit 296c713c959dc9c9e5a4a2d89cd48e4f92b9f9e5
+commit c2a5d476f9621e03f6e1668986df566b2eded3be
 Author: Joseph Telaak <joseph@telaak.dev>
 
-drm/powervr_sgx: Add GEM objects, VMs and dma-buf sharing
+drm/powervr_sgx: Add render jobs
 
-This commit adds GEM shmem buffer objects, drm_gpuvm-based VM context and
-VM_BIND management, kernel-owned GPU objects with deferred reaping, and
-dma-buf export and import support for PowerVR SGX GPUs.
+This commit adds render contexts, parameter buffer management, render target
+datasets, and render and transfer job submission and command building for
+PowerVR SGX GPUs.
 
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c b/drivers/gpu/drm/p=
-owervr_sgx/pvrsgx_gem.c
+> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_render.c b/drivers/gpu/dr=
+m/powervr_sgx/pvrsgx_render.c
 > new file mode 100644
-> index 0000000000000..b22b819b01fd8
+> index 0000000000000..00b444d05a605
 > --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c
-> @@ -0,0 +1,120 @@
-
+> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_render.c
 [ ... ]
-
-> +/* Every CPU mapping, the dma-buf's included, needs ALLOW_CPU_ACCESS. */
-> +static int pvrsgx_gem_mmap(struct drm_gem_object *obj, struct vm_area_st=
-ruct *vma)
+> +static struct pvrsgx_pb *pb_create(struct pvrsgx_device *sdev, u32 req_p=
+ages)
 > +{
-> +	if (!drm_gem_is_imported(obj) &&
-> +	    !(to_pvrsgx_bo(obj)->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS))
-> +		return -EINVAL;
-> +	return drm_gem_shmem_object_mmap(obj, vma);
-> +}
-
-[ ... ]
-
-> +int pvrsgx_ioctl_create_bo(struct drm_device *drm, void *data, struct dr=
-m_file *file)
-> +{
-> +	struct drm_powervr_sgx_ioctl_create_bo_args *args =3D data;
-> +	struct drm_gem_shmem_object *shmem;
+> +	struct pvrsgx_pb *pb =3D kzalloc_obj(*pb);
+> +	u32 pages =3D (req_pages ?: PVRSGX_PB_DEFAULT_PAGES) + PB_EXTRA_PAGES;
 > +	int err;
-> +
-> +	if (args->_padding_c || (args->flags & ~PVRSGX_BO_FLAGS_MASK) ||
-> +	    !args->size || !PAGE_ALIGNED(args->size) || args->size > PVRSGX_BO_=
-MAX_SIZE)
-> +		return -EINVAL;
-> +	if ((args->flags & DRM_POWERVR_SGX_BO_CODE) &&
-> +	    (args->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS))
-> +		return -EINVAL;
-> +
-> +	shmem =3D drm_gem_shmem_create(drm, args->size);
-> +	if (IS_ERR(shmem))
-> +		return PTR_ERR(shmem);
-> +	to_pvrsgx_bo(&shmem->base)->flags =3D args->flags;
-> +	/* Pages the GPU can address. */
-> +	mapping_set_gfp_mask(shmem->base.filp->f_mapping,
-> +			     (GFP_HIGHUSER & ~__GFP_HIGHMEM) | __GFP_DMA32);
 
 [Severity: Medium]
-On ARM, can dirty cache lines from shmem page zeroing overwrite data written
-to a BO before its first VM_BIND?
+Can pb_create() allocate a parameter buffer larger than the core's
+pb_max_pages when req_pages is 0?
 
-When shmem allocates backing pages, the kernel zeroes them through the
-cacheable linear mapping, leaving dirty zero cache lines in the CPU data
-cache.  Unlike x86, drm_gem_shmem_get_pages_locked() does not call
-set_pages_array_wc() on ARM, so writing to a BO via mmap() or UPLOAD_CODE
-before VM_BIND writes through a write-combined mapping to DRAM while those
-dirty zero lines remain cached.  When bind_op_check() later calls
-drm_gem_shmem_get_pages_sgt() -> dma_map_sgtable(), those dirty zero lines
-are flushed to DRAM over the earlier writes.
-
-Also, mapping_set_gfp_mask() replaces the mask set by __drm_gem_shmem_init()
-and drops __GFP_RETRY_MAYFAIL | __GFP_NOWARN, so large DMA32 BO allocations
-up to PVRSGX_BO_MAX_SIZE (1 GiB) can trigger page allocation failure warnin=
-gs
-in dmesg under memory pressure.
+PVRSGX_PB_DEFAULT_PAGES is 0x1000, whereas sgx530_heaps sets pb_max_pages to
+0x800.  When the first render context on SGX530 passes param_buffer_pages =
+=3D=3D 0,
+sdev->pb is created with 0x1000 + PB_EXTRA_PAGES pages, which both exceeds =
+the
+core limit and causes dev_pb_get() to reject any later CREATE_CONTEXT call =
+that
+passes a valid non-zero param_buffer_pages (<=3D 0x800).  Clamping
+PVRSGX_PB_DEFAULT_PAGES to pvrsgx_heaps(sdev)->pb_max_pages would avoid thi=
+s.
 
 > +
-> +	err =3D drm_gem_handle_create(file, &shmem->base, &args->handle);
-> +	drm_gem_object_put(&shmem->base);
-> +	return err;
+> +	if (!pb)
+> +		return ERR_PTR(-ENOMEM);
+> +	kref_init(&pb->ref);
+> +	pb->sdev =3D sdev;
+> +
+> +	/* The PB, and what is addressed from its 1 MiB-aligned base, in the VM=
+. */
+> +	err =3D pvrsgx_kobj_new(sdev, &pb->buf, PVRSGX_KRANGE_3DPARAMS, pages <=
+< PAGE_SHIFT, 0, NULL);
+> +	if (err)
+> +		goto fail;
+> +	pb->base =3D kobj_va(pb->buf) & 0xfff00000;
+> +	err =3D pvrsgx_kobj_new(sdev, &pb->freelist, PVRSGX_KRANGE_3DPARAMS, FR=
+EELIST_BYTES, pb->base,
+> +			      NULL);
+> +	err =3D err ?: pvrsgx_kobj_new(sdev, &pb->desc, PVRSGX_KRANGE_KDATA,
+> +				     sizeof(struct pvrsgx_fw_pb_desc), 0, NULL);
+> +	if (pb->desc)
+> +		pb->desc->until_restart =3D true;
+> +	err =3D err ?: pvrsgx_kobj_new(sdev, &pb->blocks, PVRSGX_KRANGE_KDATA, =
+0x10, 0, NULL);
+> +	if (err)
+> +		goto fail;
+> +
+> +	pb->pages =3D pages;
+> +	pb_init(pb);
+> +	pb->fw_gen =3D sdev->fw_gen;
+> +	return pb;
+> +
+> +fail:
+> +	pvrsgx_pb_put(pb);
+> +	return ERR_PTR(err);
 > +}
+[ ... ]
+> +/* The device's PB, created by the first render context; the device keep=
+s one reference. */
+> +static struct pvrsgx_pb *dev_pb_get(struct pvrsgx_device *sdev, u32 req_=
+pages)
+> +{
+> +	struct pvrsgx_pb *pb;
 > +
-> +int pvrsgx_ioctl_get_bo_mmap_offset(struct drm_device *drm, void *data, =
+> +	mutex_lock(&sdev->pb_lock);
+> +	if (!sdev->pb) {
+> +		pb =3D pb_create(sdev, req_pages);
+> +		if (IS_ERR(pb)) {
+> +			mutex_unlock(&sdev->pb_lock);
+> +			return pb;
+> +		}
+> +		sdev->pb =3D pb;
+> +		drm_info(&sdev->base, "parameter buffer: %#x pages\n", pb->pages);
+> +	} else if (req_pages && req_pages !=3D sdev->pb->pages - PB_EXTRA_PAGES=
+) {
+> +		/* A size the live buffer doesn't have is refused, not ignored. */
+> +		mutex_unlock(&sdev->pb_lock);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +	pb =3D sdev->pb;
+> +	kref_get(&pb->ref);
+> +	mutex_unlock(&sdev->pb_lock);
+> +	return pb;
+> +}
+
+[Severity: Medium]
+What happens if pb_create() fails after allocating pb->buf, or if
+pvrsgx_render_ctx_init() fails after dev_pb_get() publishes sdev->pb?
+
+If pb->freelist, pb->desc, or pb->blocks fails to allocate, pvrsgx_pb_put()
+drops pb->buf into sdev->graveyard while no render context exists to run a
+render job and reap it.  A retry of pb_create() then allocates the new pb->=
+buf
+after the unreaped one in PVRSGX_KRANGE_3DPARAMS, so pb->base
+(kobj_va(pb->buf) & 0xfff00000) no longer matches params_3d.base, which
+pb_init() uses to index free-list page numbers.
+
+Similarly, dev_pb_get() assigns sdev->pb with the device's permanent refere=
+nce
+before pvrsgx_pb_map() and the remaining allocations in
+pvrsgx_render_ctx_init() succeed, so a failure there leaves sdev->pb
+permanently locked to the failed context's requested page count.
+
+[ ... ]
+> +static void rtds_release(struct kref *ref)
+> +{
+> +	struct pvrsgx_rt_dataset *s =3D container_of(ref, struct pvrsgx_rt_data=
+set, ref);
+> +	struct pvrsgx_device *sdev =3D s->ctx->sdev;
+> +
+> +	pvrsgx_kobj_drop(sdev, &s->rtword);
+> +	pvrsgx_kobj_drop(sdev, &s->rtdata);
+> +	pvrsgx_kobj_drop(sdev, &s->done);
+> +	pvrsgx_kobj_drop(sdev, &s->tailptr);
+> +	pvrsgx_kobj_drop(sdev, &s->ta40);
+> +	pvrsgx_kobj_drop(sdev, &s->ta50);
+> +	for (int i =3D 0; i < 2; i++) {
+> +		pvrsgx_kobj_drop(sdev, &s->bgblock[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->rd[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->rd_w8[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->rd_w4[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->hwsync[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->rd_sync[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->hwsync_access[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->entword[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->rgn[i]);
+> +		pvrsgx_kobj_drop(sdev, &s->ta88[i]);
+> +	}
+> +	pvrsgx_context_put(s->ctx);
+> +	kfree(s);
+> +}
+[ ... ]
+> +int pvrsgx_ioctl_destroy_rt_dataset(struct drm_device *drm, void *data, =
 struct drm_file *file)
 > +{
-> +	struct drm_powervr_sgx_ioctl_get_bo_mmap_offset_args *args =3D data;
-> +	struct drm_gem_object *obj;
-> +	int err;
+> +	struct drm_powervr_sgx_ioctl_destroy_rt_dataset_args *args =3D data;
+> +	struct pvrsgx_rt_dataset *s;
 > +
 > +	if (args->_padding_4)
 > +		return -EINVAL;
-> +
-> +	obj =3D drm_gem_object_lookup(file, args->handle);
-> +	if (!obj)
+> +	s =3D xa_erase(&to_pvrsgx_file(file)->rtds, args->handle);
+> +	if (!s)
 > +		return -ENOENT;
-> +	if (!(to_pvrsgx_bo(obj)->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS)) {
-> +		err =3D -EINVAL;
-> +		goto out;
-> +	}
-
-[Severity: Medium]
-Does pvrsgx_ioctl_get_bo_mmap_offset() reject every PRIME-imported dma-buf
-with -EINVAL?
-
-Imported objects are created via pvrsgx_prime_import_sg_table() with
-bo->flags =3D=3D 0.  pvrsgx_gem_mmap() checks !drm_gem_is_imported(obj) bef=
-ore
-requiring DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS, but
-pvrsgx_ioctl_get_bo_mmap_offset() does not, so userspace can never obtain t=
-he
-mmap offset to reach pvrsgx_gem_mmap() on an imported BO.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c b/drivers/gpu/drm/=
-powervr_sgx/pvrsgx_kobj.c
-> new file mode 100644
-> index 0000000000000..8b21315e9a135
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c
-> @@ -0,0 +1,285 @@
-
-[ ... ]
-
-> +/* Each range in the core's layout (pvrsgx_core.c). */
-> +static struct krange krange(const struct pvrsgx_device *sdev, enum pvrsg=
-x_krange r)
-> +{
-> +	const struct pvrsgx_heap_layout *h =3D pvrsgx_heaps(sdev);
-> +
-> +	switch (r) {
-> +	case PVRSGX_KRANGE_KDATA:	/* past the firmware's own arenas (pvrsgx_fw.=
-c) */
-> +		return (struct krange){ h->kernel_data.base + 0x10000, h->kernel_data.=
-end,
-> +					SGX_MMU_PTE_CACHECONSISTENT | SGX_MMU_PTE_EDMPROTECT };
-
-[Severity: Medium]
-Should PVRSGX_KRANGE_KDATA omit SGX_MMU_PTE_EDMPROTECT when
-sdev->family->data_no_edmprotect is set, the way fw_arenas() does in
-pvrsgx_fw.c?
-
-On SGX530 (data_no_edmprotect =3D true), microkernel stores to pages mapped
-with SGX_MMU_PTE_EDMPROTECT trigger BIF page faults, so microkernel writes =
-to
-context CCB control words, RT dataset status words, and render details in
-PVRSGX_KRANGE_KDATA will fault and reset the GPU.
-
-[ ... ]
-
-> +	if (per_vm) {
-> +		o->vm =3D pvrsgx_vm_get(vm);
-> +	} else if (vm) {
-> +		err =3D pvrsgx_mmu_map_pages(vm->mmu, o->node.start, o->km.pages, o->k=
-m.npages, 0);
-> +		if (err)
-> +			goto err_kmem;
-> +		o->vm =3D pvrsgx_vm_get(vm);
-> +	}
-
-[Severity: High]
-Does holding o->vm on graveyard objects create a reference cycle with
-sdev->base that prevents pvrsgx_device_release() and pvrsgx_kobj_fini() from
-ever running?
-
-In pvrsgx_vm_create(), drm_gpuvm_init() takes a drm_dev_get(&sdev->base)
-reference that is only dropped in vm_release() -> drm_gpuvm_put().  Each
-VM-associated pvrsgx_kobj holds pvrsgx_vm_get(vm) until kobj_free(), while
-pvrsgx_kobj_fini() is only called from the drmm callback
-pvrsgx_device_release() when sdev->base.ref reaches 0.  If any VM-associated
-kobj is sitting in sdev->graveyard or sdev->kobj_unmapped when the device is
-unplugged (or is released when a DRM fd closes after unplug), o->vm keeps
-vm->ref > 0, which keeps sdev->base.ref > 0 so pvrsgx_device_release() never
-runs to reap the graveyard.
-
-[ ... ]
-
-> +void pvrsgx_kobj_reap(struct pvrsgx_device *sdev, u64 renders_done)
-> +{
-> +	struct pvrsgx_kobj *o, *tmp;
-> +	bool all =3D renders_done =3D=3D U64_MAX;
-> +	u32 restarts =3D READ_ONCE(sdev->restarts);
-> +	u64 seq =3D 0, consumed;
-> +	LIST_HEAD(dead);
-> +
-> +	mutex_lock(&sdev->kobj_lock);
-> +	list_for_each_entry_safe(o, tmp, &sdev->graveyard, grave) {\n> +		/* A =
-restart forgets everything the old run pointed at. */
-> +		if (all || o->grave_restarts !=3D restarts ||
-> +		    (o->grave_seq < renders_done && !o->until_restart))
-> +			list_move_tail(&o->grave, &dead);
-> +	}
-> +	mutex_unlock(&sdev->kobj_lock);
-> +
-> +	if (!list_empty(&dead)) {
-> +		list_for_each_entry(o, &dead, grave)
-> +			kobj_unmap(o);
-> +		/* The next command carries the invalidate. */
-> +		mutex_lock(&sdev->ccb_lock);
-> +		sdev->fw.cache_control |=3D PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_B=
-IF_PD;
-> +		seq =3D sdev->ccb_issued + 1;
-> +		mutex_unlock(&sdev->ccb_lock);
-> +	}
-> +
-> +	mutex_lock(&sdev->kobj_lock);
-> +	list_for_each_entry(o, &dead, grave)
-> +		o->flush_seq =3D seq;
-> +	list_splice_tail_init(&dead, &sdev->kobj_unmapped);
-> +	/*
-> +	 * After a restart the ring starts over empty, so everything sent befor=
-e it
-> +	 * counts as consumed: the GPU was reset, and the first command after t=
-he
-> +	 * microkernel's start carries an invalidate of its own.
-> +	 */
-> +	consumed =3D all ? U64_MAX : pvrsgx_ccb_consumed(sdev);
-> +	list_for_each_entry_safe(o, tmp, &sdev->kobj_unmapped, grave) {
-> +		if (o->flush_seq <=3D consumed)
-> +			list_move_tail(&o->grave, &dead);
-> +	}
-
-[Severity: High]
-Does assigning o->flush_seq =3D sdev->ccb_issued + 1 leave objects reaped
-across a microkernel restart stranded in sdev->kobj_unmapped?
-
-When pvrsgx_fw_start() restarts the microkernel, it resets the CCB ring
-offsets to 0 without advancing sdev->ccb_issued and queues sdev->reap_work.
-pvrsgx_kobj_reap() moves graveyard objects with o->grave_restarts !=3D rest=
-arts
-(including until_restart parameter buffer descriptors) to dead, sets
-o->flush_seq =3D sdev->ccb_issued + 1, and compares it against
-pvrsgx_ccb_consumed(sdev), which returns sdev->ccb_issued.  Because
-o->flush_seq > consumed, neither those objects nor any objects already in
-sdev->kobj_unmapped waiting for sdev->ccb_issued + 1 before the reset are
-freed until another CCB command is issued and reaped.
-
-Also, unlike pvrsgx_ccb_inval_reap(), consumed does not check
-READ_ONCE(sdev->lost), so objects in sdev->kobj_unmapped remain unfreed when
-the device is marked lost.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c b/drivers/gpu/drm=
-/powervr_sgx/pvrsgx_prime.c
-> new file mode 100644
-> index 0000000000000..e6aca114515dd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c
-> @@ -0,0 +1,203 @@
-
-[ ... ]
-
-> +/* A range's flags, and its rows inside an object of obj_size bytes. */
-> +static int cache_range_check(const struct drm_powervr_sgx_cache_range *r=
-, u64 obj_size)
-> +{
-> +	u32 rows =3D max(r->rows, 1u);
-> +	u64 span, end;
-> +
-> +	if (!r->flags || (r->flags & ~CACHE_RANGE_FLAGS) || !r->size)
-> +		return -EINVAL;
-> +	if (rows > 1 && r->stride < r->size)
-> +		return -EINVAL;
-> +	if (check_mul_overflow((u64)(rows - 1), (u64)r->stride, &span) ||
-> +	    check_add_overflow(span, r->size, &span) ||
-> +	    check_add_overflow(r->offset, span, &end) || end > obj_size)
-> +		return -EINVAL;
+> +	pvrsgx_rtds_put(s);
 > +	return 0;
 > +}
 
-[ ... ]
+[Severity: Medium]
+Can a client exhaust the device-wide krange allocators by repeatedly creati=
+ng
+and destroying RT datasets or contexts without submitting a render job?
 
-> +static u64 range_flush(const struct pvrsgx_cache_range *r)
-> +{
-> +	const struct iosys_map *map =3D &to_pvrsgx_bo(r->obj)->import_map;
-> +
-> +	/* I/O memory isn't cached. */
-> +	if (!r->import || map->is_iomem)
-> +		return 0;
-> +	if (r->rows =3D=3D 1 || r->stride =3D=3D r->size) {
-> +		drm_clflush_virt_range(map->vaddr + r->offset, r->size * r->rows);
-> +	} else {
-> +		for (u32 y =3D 0; y < r->rows; y++)
-> +			drm_clflush_virt_range(map->vaddr + r->offset + (u64)y * r->stride,
-> +					       r->size);
-> +	}
-> +	return r->size * r->rows;
-> +}
-
-[Severity: High]
-Can a user submit cache ranges with a tiny size and stride (such as size =
-=3D 1,
-stride =3D 2, and rows =3D obj_size / 2) to stall the CPU in range_flush()?
-
-On a 1 GiB imported dma-buf, cache_range_check() allows up to 2^29 rows per
-range across 64 ranges.  Because r->stride !=3D r->size, range_flush() calls
-drm_clflush_virt_range() in a tight non-preemptible loop hundreds of millio=
-ns
-of times=E2=80=94each issuing two full memory barriers and two clflushopt
-instructions=E2=80=94both in pvrsgx_run_job() and inside the fence-signalin=
-g section
-in pvrsgx_job_process_done().
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c b/drivers/gpu/drm/po=
-wervr_sgx/pvrsgx_vm.c
-> new file mode 100644
-> index 0000000000000..b12d390622cfc
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c
-> @@ -0,0 +1,799 @@
-
-[ ... ]
-
-> +static void vm_free_work(struct work_struct *work)
-> +{
-> +	struct pvrsgx_vm_free *f =3D container_of(work, struct pvrsgx_vm_free, =
-work);
-> +	struct pvrsgx_device *sdev =3D to_pvrsgx_device(f->drm);
-> +
-> +	f->inval.done =3D vm_free_done;
-> +	if (f->teardown) {
-> +		mutex_lock(&f->vm->lock);
-> +		vm_unmap_all(f->vm, &f->vas);
-> +		mutex_unlock(&f->vm->lock);
-> +	}
-> +	/*
-> +	 * The BIF caches walks only of a directory a job ran on, and a restart=
- or
-> +	 * power-off drops them: then there is nothing to wait for.
-> +	 */
-> +	if (!READ_ONCE(sdev->powered) ||
-> +	    READ_ONCE(f->vm->ran_gen) !=3D READ_ONCE(sdev->fw_gen) + 1) {
-> +		vm_free_done(&f->inval);
-> +		return;
-> +	}
-> +	pvrsgx_ccb_after_invalidate(sdev, &f->inval, PVRSGX_CC_INVAL_BIF_PT |
-> +				    PVRSGX_CC_INVAL_BIF_PD | PVRSGX_CC_INVAL_DATA);
-> +}
-
-[Severity: High]
-Can f->inval be queued onto sdev->inval_waits and never reaped across power=
--off
-or unplug, leaking f->drm and deadlocking drmm teardown?
-
-CPU0 (vm_free_work)               CPU1 (unplug or CCB completion)
-vm_free_work()
-  READ_ONCE(sdev->powered) =3D=3D true
-  pvrsgx_ccb_after_invalidate()
-    mutex_lock(&sdev->ccb_lock)
-    w->seq =3D sdev->ccb_issued + 1
-    mutex_unlock(&sdev->ccb_lock)
-                                  pvrsgx_job_unplug()
-                                    sdev->lost =3D true
-                                    pvrsgx_fw_stop()
-                                    pvrsgx_ccb_inval_reap(sdev, true)
-    spin_lock_irqsave(&sdev->inval_lock)
-    list_add_tail(&w->node, &sdev->inval_waits)  <-- never reaped
-
-In pvrsgx_ccb.c, pvrsgx_ccb_after_invalidate() drops sdev->ccb_lock before
-taking sdev->inval_lock, and checks sdev->powered / sdev->lost without
-holding sdev->inval_lock:
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c:pvrsgx_ccb_after_invalidate() {
-	if (READ_ONCE(sdev->lost)) {
-		w->done(w);
-		return;
-	}
-	mutex_lock(&sdev->ccb_lock);
-	sdev->fw.cache_control |=3D cache_control;
-	w->seq =3D sdev->ccb_issued + 1;
-	mutex_unlock(&sdev->ccb_lock);
-	spin_lock_irqsave(&sdev->inval_lock, flags);
-	list_add_tail(&w->node, &sdev->inval_waits);
-	spin_unlock_irqrestore(&sdev->inval_lock, flags);
-	pvrsgx_ccb_inval_reap(sdev, false);
-}
-
-If pvrsgx_job_unplug() (or another CPU completing command w->seq) runs
-pvrsgx_ccb_inval_reap() in that window, w->node is queued after the reap has
-already finished.  Likewise, if vm_free_work() queues f->inval while the GPU
-is idle before runtime suspend, pvrsgx_fw_stop() powers off the GPU without
-calling pvrsgx_ccb_inval_reap().  Because vm_free_after_jobs() holds
-drm_dev_get(f->drm) until vm_free_done(), a stranded entry on
-sdev->inval_waits prevents sdev->base.ref from reaching 0, so the drmm
-callback pvrsgx_device_release() never runs.
-
-[ ... ]
-
-> +void pvrsgx_vm_user_get(struct pvrsgx_vm *vm)
-> +{
-> +	atomic_inc(&vm->users);
-> +}
-
-[ ... ]
-
-> +struct pvrsgx_vm *pvrsgx_vm_lookup(struct pvrsgx_file *sfile, u32 handle)
-> +{
-> +	struct pvrsgx_vm *vm;
-> +
-> +	xa_lock(&sfile->vms);
-> +	vm =3D xa_load(&sfile->vms, handle);
-> +	if (vm)
-> +		pvrsgx_vm_get(vm);
-> +	xa_unlock(&sfile->vms);
-> +	return vm;
-> +}
-
-[Severity: High]
-Can pvrsgx_ioctl_destroy_vm_context() race with a concurrent
-pvrsgx_vm_lookup() user to map objects into an already torn-down VM or
-resurrect vm->users from 0?
-
-CPU0                              CPU1
-pvrsgx_ioctl_vm_bind()
-  vm =3D pvrsgx_vm_lookup()
-                                  pvrsgx_ioctl_destroy_vm_context()
-                                    xa_erase(&sfile->vms, handle)
-                                    pvrsgx_vm_user_put(vm)
-                                      atomic_dec_and_test(&vm->users)
-                                      vm_free_work()
-                                        vm_unmap_all(vm, ...)
-  mutex_lock(&vm->lock)
-  bind_apply(vm, ...)             <-- maps BOs into torn-down VM
-
-pvrsgx_vm_lookup() only increments vm->ref under xa_lock(&sfile->vms),
-without checking or incrementing vm->users, and pvrsgx_ioctl_vm_bind() never
-checks whether vm->users has already dropped to 0 after acquiring vm->lock.
-New mappings added after vm_unmap_all() stay pinned until vm_release() (and=
- if
-a context creation path calls pvrsgx_vm_user_get() after lookup, atomic_inc=
-()
-resurrects vm->users from 0 to 1 and triggers a second teardown when that
-context is destroyed).
-
-[ ... ]
-
-> +/* Wait, interruptibly, for every wait op; find every signal op's syncob=
-j. */
-> +int pvrsgx_ioctl_vm_bind(struct drm_device *drm, void *data, struct drm_=
-file *file)
-> +{
-> +	struct drm_powervr_sgx_ioctl_vm_bind_args *args =3D data;
-> +	struct pvrsgx_vm_free *f =3D NULL;
-> +	struct bind_op *ops =3D NULL;
-> +	struct drm_powervr_sgx_vm_bind_op *in;
-> +	struct pvrsgx_vm *vm;
-> +	struct drm_exec exec;
-> +	u32 n =3D args->ops.count;
-> +	int err;
-> +
-> +	/* A synchronous bind takes no fences (drm-vm-bind-async.rst). */
-> +	if (args->flags !=3D DRM_POWERVR_SGX_VM_BIND_FLAG_SYNC || !n || args->s=
-ync_ops.count)
-> +		return -EINVAL;
-
-[Severity: Low]
-This isn't a bug, but the comment above pvrsgx_ioctl_vm_bind() describes
-waiting on and signaling sync_ops, whereas pvrsgx_ioctl_vm_bind() only
-supports synchronous binds and rejects non-zero args->sync_ops.count.
+pvrsgx_ioctl_destroy_rt_dataset() erases the handle from sfile->rtds
+immediately, allowing the client to allocate new datasets past
+PVRSGX_MAX_FILE_RTDS, while rtds_release() (and similarly
+pvrsgx_render_ctx_fini() and pvrsgx_transfer_ctx_fini()) places all kernel
+objects onto sdev->graveyard via pvrsgx_kobj_drop() even when no render job=
+ has
+ever used them.  Because pvrsgx_kobj_reap() only frees graveyard objects on=
+ce
+sdev->renders_done advances past o->grave_seq or the GPU resets, creating a=
+nd
+destroying unused datasets or contexts in a loop fills PVRSGX_KRANGE_TADATA=
+ and
+PVRSGX_KRANGE_KDATA with unreaped objects and causes -ENOSPC for all client=
+s.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-powervr-sg=
-x-v1-0-c69b84bac011@telaak.dev?part=3D7
+x-v1-0-c69b84bac011@telaak.dev?part=3D10
