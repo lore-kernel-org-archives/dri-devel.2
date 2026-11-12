@@ -2,45 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6556606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 11:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497D7606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:04:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cniGzmE+
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=PV6VNt2a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF4A11204E;
-	Thu, 12 Nov 2026 11:52:00 +0000 (UTC)
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B66A11204E
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 11:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=6R6toNBIUivUY49SbPVzsOWR13YYc6Q05DyfYkrwtKU=; t=1794484313; x=1795693913; 
- b=cniGzmE+25N9X2sA/uYDlYLwz/EWH+6FGO6plR0+hN2mjiUg+0mMokWdjYlyKJUQ8xKkKju0Oqc
- BKSYyP95uJGJvmeARf6uzNxTE4PVQJz7hbo5SPeBp8NKlDvMf7pgbSe1q/uasZJ6NTL6WiAO/+5FU
- fhUL7Y/bG/tzPXPqQj610IIbgXumbblTRPdKKQ2GTqMjDzmqLtMG+LVJJ35biunxKwzy1J6S9A4QN
- ptpiIFGX2tw7rJakG1CBdcIhMADvuvFR6FUu3Lv5nySgCekcokBcXVrNtEX50VT1fqr/yBg0yDjue
- cXoEhtPhknkYzZ47pYKsm5JTexN4Ry/WNONA==;
-Date: Thu, 12 Nov 2026 12:51:48 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>,
- <dri-devel@lists.freedesktop.org>, <linux-omap@vger.kernel.org>,
- <hns@goldelico.com>, <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/omap: dss: fix handling deferrals
-Message-ID: <20261112125148.23235dec@kemnade.info>
-In-Reply-To: <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
-References: <20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info>
- <33f63eaf-42a0-4b3f-a21c-3752436d07b4@ideasonboard.com>
- <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF369112058;
+	Thu, 12 Nov 2026 12:04:01 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8352112058
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 12:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=zWLvL8hCNk4n1t4WnPw1bmTrLLF97umb5lXwgrvFwZM=; t=1794485035; x=2109845035; 
+ b=PV6VNt2av8/XRELpElsS44JnuOLo2Tv4HubhxXM+lM5frzBPfDk3W9lsFO93i1bg4OjnSGiTZsm
+ zhj5c76jUik8LFBQDTlJI/kmB7uIkZLCXuRCW0+u60aW+a4UynHiX5jUWEV3v6Voggsd+lrY9auRF
+ RARfqymL3JKc9w65J6lShTUWsPet3nZnsWTcTjyRvXUd0sg0s/Vb6ePkS7c5U9KwPbgUYmqCAJCHp
+ fH6kxM0G1IHizjUCaVlJhHlnCCovAw1KrULg1VtFdXdi8DjNHnMrqhio9fBP2GJTS8BfUK7Qa4pAs
+ VfQQTn9cXKp0ACi5wOWlCEq0mYgCL+qYl/uA==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xRTWx-009WQr-7i; Thu, 12 Nov 2026 13:03:51 +0100
+Message-ID: <027b11eb-abf3-4397-8f46-fb6fcddfde26@igalia.com>
+Date: Thu, 12 Nov 2026 09:03:46 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] drm/vc4: Fix the V3D interrupt state across power
+ transitions
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Iago Toral <itoral@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20261111-vc4-irq-cleanup-v2-0-aa757bb742f2@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261111-vc4-irq-cleanup-v2-0-aa757bb742f2@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,80 +79,24 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 11 Nov 2026 16:46:51 +0100
-"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
 
-> Hello Andreas,
-> 
-> On Wed Nov 11, 2026 at 3:56 PM CET, Tomi Valkeinen wrote:
-> > Hi,
-> >
-> > On 11/11/2026 14:22, Andreas Kemnade wrote:  
-> >> Forward the error given by of_drm_get_bridge_by_endpoint() if it is
-> >> EPROBE_DEFER to ensure output gets initialized later when available.
-> >>
-> >> On GTA04/OMAP3 no display was found, but it appeared after doing
-> >> rmmod omapdrm ; modprobe omapdrm
-> >>
-> >> Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")  
-> 
-> Ouch, sorry about breaking this driver. To my excuse the old code removed
-> by b7e9b93fc8ecf was (ans still is) pretty obscure.
-> 
-> >> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> >> ---
-> >>   drivers/gpu/drm/omapdrm/dss/output.c | 5 +++++
-> >>   1 file changed, 5 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-> >> index 36d37deac8026..220ed7e003080 100644
-> >> --- a/drivers/gpu/drm/omapdrm/dss/output.c
-> >> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
-> >> @@ -24,6 +24,11 @@ int omapdss_device_init_output(struct omap_dss_device *out,
-> >>
-> >>   	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
-> >>   	if (IS_ERR(bridge)) {
-> >> +		if (PTR_ERR(bridge) == -EPROBE_DEFER) {
-> >> +			ret = PTR_ERR(bridge);
-> >> +			goto error;
-> >> +		}
-> >> +  
-> > Shouldn't we just return PTR_ERR(bridge) here? The error label will call
-> > omapdss_device_cleanup_output(), which cleans up things set up later in
-> > this function.  
-> 
-> Indeed.
-> 
-> 
-> Additionally, by looking at the omapdss_device_init_output() code right
-> now, the goto-based error management appears:
-> 
->  1. unnecessarily complicated: only one goto for only one line of rollback
->     code
-> 
->  2. potentially wrong, or at least doing too much, because
->     omapdss_device_cleanup_output() does two things:
-> 
->       a. drm_bridge_put(out->next_bridge): but when goto is invoked the
->          out->next_bridge pointer has not been touched yet
->          (I assume we should not touch the refcount in this case)
-> 
->       b. drm_bridge_put(out->bridge): unneeded because the goto is inside
->          an 'if (!out->bridge)', thus there is no reference at all to put
-> 
-> Do you agree with these findings?
-> 
-of_drm_get_bridge_by_endpoint never returns NULL (indicated by Sashiko).
-So we have dead code there anyways. So the patch is dead code elimination
-and not fixing bugs.
 
-Regards,
-Andreas
+On 11/11/26 12:05, Maíra Canal wrote:
+> The V3D block is runtime suspended whenever it goes idle, and the driver
+> does not fully restore its interrupt state on the way back up. This series
+> fixes the paths that lose that state, or that touch V3D registers while
+> the block is powered down.
+> 
+> [...]
+Pushed the first three patches to drm-misc-fixes and the last one to
+drm-misc-next. Thanks!
+
+Best regards,
+- Maíra
