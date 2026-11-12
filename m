@@ -2,79 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2711606A32D
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35235606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=k6DVWet1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0T7yCwg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF79112248;
-	Thu, 12 Nov 2026 17:12:28 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66EA9112248
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:12:22 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-3b155f50c24so3249788a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:12:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1794503542; x=1795108342; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=khMH15UrWwDPVaDjMg8F/SoPd4LjFp0hVV0BhxLmj3M=;
- b=k6DVWet15rMqKlZmtOUJUlpS0pszOUyYDaNJg6ziZEEmau7XHdD5mgp9mO67kVD2F2
- jy+2YQv41IAd3JgX2ONfCDSnYwBRMzTIt+IutfJWAO6EXeJ2d66JwtaIJAQmvpYlknZu
- RptQyoYhM90ep7a7yPskIqz/xIzfSUZiosZ7U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794503542; x=1795108342;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=khMH15UrWwDPVaDjMg8F/SoPd4LjFp0hVV0BhxLmj3M=;
- b=vQNaAT3p3Ovv2SXQp/GajXQjuujjmF2fIJlmy9M22oJwKIoUB5ZGiw+dKOlCgCFvp7
- vvuUhHrq8DJwtFpZsnYFfyMLfOYnLjeGJilG6m3+lIZg3GAtfvkYoOVuOnqQt0CodAtZ
- a1ZMU/MNVAnBMrRwRusI208FaToJcWP5itQOziAOB+4Dw/iSh9PflGT6JLpw/ffGEM96
- Lp2KAW1QC5Z4p3nykPXHvGaCNBT3NzgUh1u5eJKKTfLUXdzkuB7PB91WlPbfA/R5ssfD
- Bkwuy64CM1VekUSTbSdAruC8NVBuXuJgcp1zs87jsFvVv+8q2ta3OPGQAIdS5EymFTz5
- UkLg==
-X-Forwarded-Encrypted: i=1;
- AL+hErEyj25Y14zC93FY6ZeM5Mlg2p8Emilgii1IQj2TuxydgojIRRgEAL7irchXpGf42qtmMqOKO13DFDs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9pRpiym1HpBtKuy5pFbnaDfvhTZJgmRyw5nYt65c7AUOD41Ceg
- HfEetfUpiQtl1TqIP+sdswp0/aZx4bKtPxTtAHmwikybdy5yKexng/RDkopfruzC0bA=
-X-Gm-Gg: AYBFou1c8vxotDaaPpZsHPv/T4a0vfCxIKE78L7ZcwETOgOkpFG7WM3KFZpz0GKuc6c
- j5qTQo6r5VUU4wZPDWLU0Iq8Fdwb2v6vsi6zwhkent15jMIDPWFPv14MLLpCu0+OmkS7Zfyjqi/
- cYmjtw3J3Ez02570IJFsOYEyY22USxwbCc+F1oQxBrDoMxG9VRdycrhCiVCSlEx3pgglcndicer
- OgVfpOR5kr2X9SCCc5Hwl3PHNhadDmgq2n23eBtyi46BEoaxestcyntRBKHh8ocla2z2QkZo7/g
- 5xCkEflmd3GM+fVCLDm621P/ap2iBlPlqMAuN3AG7k1A/p5JhllE0sZxoNAZ1YBZ5lPc8iFuJQ7
- 7GVFN14Akjly8ZK2xM8f54qhUoRE1vICYG6n6ZcVgPq4kQeiPmXObd4/1/uF1XEFczSL88HQetu
- dCmnKR8DtNd5XPAT7F18ixmO27OxCs5PlqeCfjZO5zv6M7CRfXiTab9a6qZDTcUshPXGwV1uweR
- ViNkiIyrEd+7OTBa5UdyExbkzSBUGKgTy0yH4dCFa4TgIyxnsfQVGU7hy5+P6dilBaodofFvr9g
- ttvt0HqnXrP245coyCFudZoC6hQAvXtsn+Mxb1rZ2FL8YvIeDHPjXLT49UuU+3STgknenqyeK/T
- QTODkbV+bjA8p
-X-Received: by 2002:a17:90b:3e8e:b0:3ac:9d83:885e with SMTP id
- 98e67ed59e1d1-3b182f3e594mr7100466a91.52.1794503541921; 
- Thu, 12 Nov 2026 09:12:21 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b1ae981c55sm263682a91.1.2026.11.12.09.12.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Nov 2026 09:12:21 -0800 (PST)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, ckoenig.leichtzumerken@gmail.com
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, mcanal@igalia.com,
- Heiko Stuebner <heiko@sntech.de>, Gyeyoung Baek <gye976@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sidong Yang <sidong.yang@furiosa.ai>
-Subject: [PATCH v5 2/2] accel/rocket: Report NPU usage through fdinfo
-Date: Fri, 13 Nov 2026 02:11:44 +0900
-Message-ID: <20261112171144.3151554-3-sidong.yang@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112171144.3151554-1-sidong.yang@furiosa.ai>
-References: <20261112171144.3151554-1-sidong.yang@furiosa.ai>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92355112256;
+	Thu, 12 Nov 2026 17:16:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C1A112256
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:16:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF63461D4F
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:16:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DEC1F000C6;
+ Thu, 12 Nov 2026 17:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794503775;
+ bh=WC/klGoPzQuyDpdRaW0lt6Lwcew5b2xI59mfI1qu9y4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=U0T7yCwgkFj0sKNw2dbyxr7MzbogxgSXp32e5v5sxHgvmO6Ql2N8L7fcaqPBwzuWB
+ C5KxfYUqfAiHg+OhEwAMOE/eupNnOasCLG2RBl3hhdFTx68wmck+OIgMrpjN209DKj
+ oFTyhEm1eByUbfX4WZttRWfo8iQBIsW44tJWPeiAgNU2+fpdKPAfbTzq7FDP9NmOUw
+ g+/CkbE20eFMTxUV4vYL7byageH6O+WhWT1LOl1+o6VzBi58IwJHWG+z38PFC3iDI7
+ FRcPE2UIZNSMliC4w2FXlP5cMAH7nk9iYGWXyFFHN7Or2dhLjxXo0Qt0vrT5P76VTO
+ BMxPjoV028e+Q==
+Message-ID: <sashiko-outbox-211576@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/9] drm/atomic: Allow filling a commit with
+ pristine object states
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112-drm-reset-state-flag-v10-3-cefaa1ed056d@kernel.org>
+References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
+ <20261112-drm-reset-state-flag-v10-3-cefaa1ed056d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 17:16:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,125 +49,213 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-There is no way to tell how much of the NPU a client uses. Implement the
-DRM usage stats: report the runtime of the client's scheduler entity as
-drm-engine-npu, along with drm_show_memory_stats() for the BOs.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/atomic: lost driver state in
+  drm_atomic_commit_fill_with_defaults()
+- [Medium] drm/atomic: race with lease revoke in
+  drm_atomic_commit_fill_with_defaults()
+--
 
-The cores are identical, so they are reported as a single engine with
-drm-engine-capacity-npu set to rdev->max_cores, the number of core
-slots.
+commit 5078d7ac25f2348a94f9d3158195c6d51b1f515d
+Author: Maxime Ripard <mripard@kernel.org>
 
-Document the keys in the rocket driver documentation.
+drm/atomic: Allow filling a commit with pristine object states
 
-Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
----
- Documentation/accel/rocket/index.rst  | 28 +++++++++++++++++++++++++++
- Documentation/gpu/drm-usage-stats.rst |  1 +
- drivers/accel/rocket/rocket_drv.c     | 21 +++++++++++++++++++-
- 3 files changed, 49 insertions(+), 1 deletion(-)
+This commit adds drm_atomic_commit_fill_with_defaults() to populate an atom=
+ic
+commit with pristine object states created via atomic_create_state() for all
+leased CRTCs, planes, connectors, and colorops.
 
-diff --git a/Documentation/accel/rocket/index.rst b/Documentation/accel/rocket/index.rst
-index 70f97bccf100..8ae785b65a53 100644
---- a/Documentation/accel/rocket/index.rst
-+++ b/Documentation/accel/rocket/index.rst
-@@ -17,3 +17,31 @@ project.
- Hardware currently supported:
- 
- * RK3588
-+
-+.. _rocket-usage-stats:
-+
-+Rocket DRM client usage stats implementation
-+============================================
-+
-+The accel/rocket driver implements the DRM client usage stats specification as
-+documented in :ref:`drm-client-usage-stats`.
-+
-+The NPU cores are reported as a single engine, npu, with a capacity equal to the
-+number of cores. The time is summed over all cores and is accounted by the DRM
-+GPU scheduler, from when a job is handed to a core until its fence signals.
-+
-+Example of the output showing the implemented key value pairs:
-+
-+::
-+
-+        pos:	0
-+        flags:	02400002
-+        mnt_id:	33
-+        ino:	755
-+        drm-driver:	rocket
-+        drm-client-id:	263
-+        drm-engine-npu:	2384122043 ns
-+        drm-engine-capacity-npu:	3
-+        drm-total-memory:	24216 KiB
-+        drm-shared-memory:	0
-+        drm-active-memory:	3000 KiB
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 70b7cfcc194f..288764730d23 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -218,3 +218,4 @@ Driver specific implementations
- * :ref:`panthor-usage-stats`
- * :ref:`xe-usage-stats`
- * :ref:`amdxdna-usage-stats`
-+* :ref:`rocket-usage-stats`
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 5d7805c41dc3..351be60b1228 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -3,8 +3,10 @@
- 
- #include <drm/drm_accel.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_print.h>
- #include <drm/rocket_accel.h>
- #include <linux/clk.h>
- #include <linux/err.h>
-@@ -139,7 +141,23 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
- 	ROCKET_IOCTL(FINI_BO, fini_bo),
- };
- 
--DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-+static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+{
-+	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
-+	struct rocket_file_priv *rocket_priv = file->driver_priv;
-+
-+	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-+		   drm_sched_entity_get_runtime(&rocket_priv->sched_entity));
-+	drm_printf(p, "drm-engine-capacity-npu:\t%u\n", rdev->max_cores);
-+
-+	drm_show_memory_stats(p, file);
-+}
-+
-+static const struct file_operations rocket_accel_driver_fops = {
-+	.owner = THIS_MODULE,
-+	DRM_ACCEL_FOPS,
-+	.show_fdinfo = drm_show_fdinfo,
-+};
- 
- /*
-  * Rocket driver version:
-@@ -150,6 +168,7 @@ static const struct drm_driver rocket_drm_driver = {
- 	.open			= rocket_open,
- 	.postclose		= rocket_postclose,
- 	.gem_create_object	= rocket_gem_create_object,
-+	.show_fdinfo		= rocket_show_fdinfo,
- 	.ioctls			= rocket_drm_driver_ioctls,
- 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
- 	.fops			= &rocket_accel_driver_fops,
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 7a77051096c91..4fcce3bb0aa11 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1649,6 +1649,291 @@ bool drm_atomic_implements_create_state(struct dr=
+m_device *dev)
 
+[ ... ]
+
+> +int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
+> +					 struct drm_atomic_commit *commit)
+> +{
+
+[ ... ]
+
+> +	drm_for_each_plane(plane, dev) {
+> +		struct drm_plane_state *plane_state;
+> +
+> +		if (!drm_lease_held(file_priv, plane->base.id))
+> +			continue;
+> +
+> +		ret =3D drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/*
+> +		 * The pristine state detaches the plane from the CRTC it
+> +		 * is enabled on, which the atomic helpers can only sort
+> +		 * out with that CRTC in the commit. Resetting a plane
+> +		 * enabled on a CRTC that isn't leased would thus require
+> +		 * touching an object the lease doesn't cover, so report it
+> +		 * like any other access outside of the lease.
+> +		 */
+> +		if (plane->state->crtc &&
+> +		    !drm_lease_held(file_priv, plane->state->crtc->base.id)) {
+> +			drm_dbg_atomic(dev,
+> +				       "[PLANE:%d:%s] is enabled on [CRTC:%d:%s], which isn't leased=
+\n",
+> +				       plane->base.id, plane->name,
+> +				       plane->state->crtc->base.id,
+> +				       plane->state->crtc->name);
+> +			return -ENOENT;
+> +		}
+> +
+> +		plane_state =3D plane->funcs->atomic_create_state(plane);
+> +		if (IS_ERR(plane_state))
+> +			return PTR_ERR(plane_state);
+> +
+> +		/*
+> +		 * Same thing for the planes: report a color pipeline change
+> +		 * compared to the current state.
+> +		 */
+> +		plane_state->color_mgmt_changed =3D
+> +			plane->state->color_pipeline !=3D plane_state->color_pipeline;
+> +
+> +		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
+> +	}
+> +
+> +	drm_for_each_crtc(crtc, dev) {
+> +		struct drm_crtc_state *crtc_state;
+> +
+> +		if (!drm_lease_held(file_priv, crtc->base.id))
+> +			continue;
+
+[Severity: Medium]
+Can a concurrent lease revocation between the plane, CRTC, and connector
+loops leave a split pipeline in commit and cause a NULL pointer dereference?
+
+drm_lease_held() takes and drops mode_config.idr_mutex on each call, while
+drm_lease_revoke() clears master->leases under idr_mutex without holding any
+modeset locks:
+
+CPU0 (lessee atomic reset)        CPU1 (lessor revoke)
+drm_atomic_commit_fill_with_defaults()
+  drm_for_each_plane()
+    drm_lease_held(plane) -> true
+    drm_lease_held(plane->state->crtc) -> true
+    drm_atomic_commit_set_plane_state()
+      /* old->crtc =3D crtc, new->crtc =3D NULL */
+                                  drm_mode_revoke_lease_ioctl()
+                                    drm_lease_revoke()
+                                      idr_destroy(&master->leases)
+  drm_for_each_crtc()
+    drm_lease_held(crtc) -> false (skipped)
+  drm_for_each_connector_iter()
+    drm_lease_held(conn) -> false
+    drm_lease_held(conn->state->crtc) -> false
+  return 0
+...
+drm_atomic_helper_setup_commit()
+  crtc_or_fake_commit(state, old_plane_state->crtc)
+    new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc)
+    return new_crtc_state->commit;  <-- NULL pointer dereference
+
+Similarly, if the lease is revoked between the CRTC loop and the connector
+loop, a leased CRTC is added to commit with a disabled pristine state while
+the connector bound to it is skipped because drm_lease_held() returns false
+for both the connector and connector->state->crtc, leaving the connector
+bound to a disabled CRTC.
+
+> +		ret =3D drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+
+[ ... ]
+
+> +		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
+> +		if (IS_ERR(crtc_state))
+> +			return PTR_ERR(crtc_state);
+
+[ ... ]
+
+> +		drm_mode_copy(&crtc_state->adjusted_mode,
+> +			      &crtc->state->adjusted_mode);
+
+[ ... ]
+
+> +		connector_state =3D connector->funcs->atomic_create_state(connector);
+> +		if (IS_ERR(connector_state)) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			ret =3D PTR_ERR(connector_state);
+> +			return ret;
+> +		}
+> +
+> +		/*
+> +		 * best_encoder is a routing information maintained by the
+> +		 * atomic helpers rather than a userspace property, and it
+> +		 * is only carried over to a new state when that state is a
+> +		 * duplicate of the current one. Since
+> +		 * update_connector_routing() uses it to detect the commits
+> +		 * that keep the connector routing unchanged, carry the
+> +		 * encoder currently in use over so that a reset on which
+> +		 * userspace re-applies the exact same configuration doesn't
+> +		 * require a modeset.
+> +		 */
+> +		connector_state->best_encoder =3D connector->state->best_encoder;
+
+[Severity: High]
+Does carrying over adjusted_mode and best_encoder onto pristine states crea=
+ted
+via atomic_create_state() break drivers that rely on persistent driver-priv=
+ate
+state when a commit does not trigger a modeset?
+
+When userspace re-applies the active mode and connector routing on top of a
+reset, mode_changed and connectors_changed remain false, so drivers skip
+modeset recomputation even though atomic_create_state() zeroed their private
+state subclass fields and drm_private_obj states were not reset.  For drive=
+rs
+where drm_atomic_implements_create_state() returns true without dedicated
+state carry-over handling:
+
+- In msm/mdp5, mdp5_plane_create_state() zeroes mdp5_state->hwpipe, so
+  mdp5_plane_atomic_check_with_state() never releases the previous hwpipe in
+  mdp5_global_state->hwpipe.hwpipe_to_plane[], permanently leaking hardware
+  pipes.  If a CRTC stays active with no visible planes,
+  mdp5_crtc_atomic_check() returns early before mdp5_crtc_setup_pipeline(),
+  leaving mdp5_cstate->pipeline.mixer NULL while mdp5_cstate->ctl is set and
+  causing a NULL pointer dereference in blend_setup() during
+  mdp5_crtc_atomic_flush():
+
+drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c:blend_setup() {
+    ...
+	struct mdp5_hw_mixer *mixer =3D mdp5_cstate->pipeline.mixer;
+	uint32_t lm =3D mixer->lm;
+    ...
+}
+
+- In nouveau dispnv50, nv50_wndw_atomic_check_acquire() skips rebuilding
+  asyw->image when the framebuffer is unchanged and no modeset is requested,
+  so curs507a_acquire() sees a zeroed asyw->image.w and rejects cursor
+  commits with -EINVAL, while primary/overlay planes lose asyw->ntfy.handle
+  and asyw->xlut.handle.  nv50_head_atomic_check() also skips
+  nv50_head_atomic_check_mode() when mode_changed and connectors_changed are
+  false, leaving asyh->mode, asyh->view, and asyh->or zeroed, and resetting
+  connector properties via nouveau_conn_atomic_create_state() leaves
+  asyc->set.mask at 0 so scaler, dither, and procamp hardware state is not
+  reprogrammed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-drm-reset-=
+state-flag-v10-0-cefaa1ed056d@kernel.org?part=3D3
