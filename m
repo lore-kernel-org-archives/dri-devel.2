@@ -2,103 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFFD606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:37:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A0F606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:39:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=x4OK2jq+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrTyGKp3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A5A112341;
-	Thu, 12 Nov 2026 23:37:30 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013054.outbound.protection.outlook.com
- [40.107.201.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1EE10E6FF;
- Thu, 12 Nov 2026 23:37:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rB+UXbdlTSraG13XdijvU8srLWSjrOX6GS5JrVpxFCKYX5p347dQgwBxhFISBl00m7baz2rGEgSx1vKPIZxsgMiLszJFLmiGyKALAvlShiZAMLKG9H8KZAzfTRcPYIDpfA+Bmf2Fc8zQ/lFNFLmNAcJmFkQwzfqvrJ0DfntBzn/uWMhVVKy7i/1QK0Y03VG1I3FcmzWca/g9f+f6IBd9Ig3KMrvHOl2K/wKbw1fSZfecfyRO+MIBtM9goILeLiCukzpwGNIr09CrZqLy1mpKZmc5OELs/MOxdSW8apP8V4suUsDwIBZ4bJpWRhPNF5uXOjYWdWzXGgul+7Afdv6ukw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GvEtPhKA0/v32b7y2MVPCN7d/SVffvp7nqYfKBD80us=;
- b=ePsJW3vZq2A79gKYItyxrQdAyplwlYkyL7lZKBS8FqgiilqSkYTokVF+dQ3z4gOkkcT6X7PQHYyG8XE0cgE+nvp75lCHbx6FlsBd7mwWSRifivzjjsK2BUmTbrvOhpkyTEmArMi10xbTqMfOdVvLv2Jj9ZMM6SgEiuVer3Q4/cG67+V9wrMttA0RNz6BynVrGdjLlEqoBPCW4OEZjWYs5Rzd1KLl95qIU8jFPGyY6Y783qZDSq00oENyHMtFRJxMrNkESHCp+D/9s3cqXKFHVkvZBrAmv9LlZ3TlunKpGY/Lnv1UheiiTTMT8p2KEUDaUim9N/f3UEqJ1AU9JU499g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GvEtPhKA0/v32b7y2MVPCN7d/SVffvp7nqYfKBD80us=;
- b=x4OK2jq+1RpX/jsRvxec1joL6TifFc6/czECYBjH46uPG0V4w1bp5f7bR8jB9nGTrVIOMWQ/Yi4sjgJGJNvgV5DWrCVzmbrMrtXfYzWUWPka2tmW38K5Zqvx0wGn+1TUCVbybNST7H0/d9kTCcULhavU7ji3cJ0RFzmnvC2TxMQ=
-Received: from CYXPR03CA0029.namprd03.prod.outlook.com (2603:10b6:930:d2::13)
- by MN2PR12MB4189.namprd12.prod.outlook.com (2603:10b6:208:1d8::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 23:33:56 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:930:d2:cafe::75) by CYXPR03CA0029.outlook.office365.com
- (2603:10b6:930:d2::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 23:33:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Thu, 12 Nov 2026 23:33:08 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 15:55:00 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Thu, 12 Nov 2026 15:54:54 -0600
-Subject: [PATCH v7 2/3] drm/amdgpu: Match VFCT using initial PCI bus number
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261112-vfct-regression-v7-2-69b1e0cf45c2@amd.com>
-References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-In-Reply-To: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|MN2PR12MB4189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54b1c996-93ff-4a8a-0e96-08df41154edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|18002099003|22082099003|261009223027099003|11063799006|56012099006|261102123227099003|261022105027099003|261028144727099003|261026140227099003|261022075727099003|261022115727099003|261026121527099003|261021123027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 64/V2YNpjyy4jeE2UMjl+KwVCQB1WCWvFgXPBRKyLB3Jz0wYD33x0dbX4VuO3wqok/+rIEhR4bFcw1C/lWv6IrqIdQjOfeifMFMjcup1Xk9uw7+2y9uKIznvRhShsV/J/atzKSQsFOR/chwxVARNdNt93MpSSK8tRiYRl0VnBhZWzsVYwUGy9VQz5aKygCGJxhlwOAA/X8dTrjjpx/LlL8iBTwk0PzPRbdwXWpYwBtJsd1apKLipCBUmU38gL65bEkvH3NhtjvD1kz5uMElfDePN9fZd4x71mxLC/8uU1X54hJVr4S6417o0OSOLQRqglvnqnqJB04dsP8VDRIKodnoUyc6wRgd0aAPRNTgPQQKLT/Ut4g3x3N+69dDPkwkkhogclzHclhfoBgRCOmB8rWPXhBfwh9sdVvQA6MVIEfjXwD9ra3rkPSaDfoPpDk7FhN/zGdnuhYs8BHbL/UifcPUXlsiR5CrN1sXEBA+AJeKDqOgL3HDFWAlB304kxa77DEzF1MWOO+CrAlmAns2+TKUI7rJAmdRWsySbX/Nk+gpD8cLJvfiOnvnMgqIRW/WxauLlCP9tCCVGy8QR7ZVDlT4hmNlzqhMqDf9Zp4+oa+EYRC7CHl7DIIElv7UoIisaabi6x36VvbemuXcOwMxrLaMRWAvFQ13T7KbmCwlNlKI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261022105027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261022115727099003)(261026121527099003)(261021123027099003)(261021121427099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: b/g927Sg7K5cL3PF/3MeJTxMdJlpPadmlbNEBE5enrP7glHXc9nE1v8nU4pVobk02OqRxcApHIzfJ9R2rx+iIsydD1N2zFojPDn8wHcg1emuSvQMDx/IjmwihqHAz+jvas2m/BFXO1KRds/kQJTXZ7bd/+8Qv6h3FsxN7Z5XDyRahshTjHSgSRYzcLaOtmMIy8YlA5w0c2t3QwcpgvIlBbzFqPc7DlPybqXA7q5xoYAjYqP+CxmfhJ6e41uBtRursB3oSE0LZyR/1X8o6NBmCcBf/Mk/Hz75+bczClpIvWwFvz0Tdfh0iZ41KNXyzikqFTsqsj2ATbpgI763XoXbkX3u1M5kZf5H3zQkqwt8YZwy0uv+P7/CZJfMwkiJd0DKNjf+ZoH9gBjxmSDNHFBHRiVILKBwn98OJWBrHn/cvk9lmIGjP9DKL36nKyU1mXEM
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:33:08.2694 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54b1c996-93ff-4a8a-0e96-08df41154edd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4189
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3491E1123FB;
+	Thu, 12 Nov 2026 23:38:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526CA1123FB
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:38:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 84E14605F9;
+ Thu, 12 Nov 2026 23:38:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203AF1F000C4;
+ Thu, 12 Nov 2026 23:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794526728;
+ bh=ylszA9npUtMu3F/08wPxGJEajwtNR5qtlHwBWRd6q0A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NrTyGKp3MFgfXO4QCOq5yqCezDcvfjG+8N5JlI04grj3A/cClVRMWAentMwfwynG4
+ 4KyyTOAcAfqSi/5iSZxOyDW+9xEImni4i7r4FIGUIMyHAIVbGRX/ZEqfFSdS61D7Ox
+ VBZU2pkg/5F6M1bmLN/UULsTf2ln4+o8DhmlhINWeTpuIfIfZ5dZp1Hlbrud0gsB6E
+ 2eGVAlZqYCeFpr/BYDiDPtZj1EUnZV+QBc2fQG3AEH5x5GMwta9QReUyNK69KH1UXo
+ eTo4Py2r+8ufaEhrnvl9WIQygqnhkTV+N6P2eUZG6JZIl89bypnEY8nuiaJUV3Qz2x
+ 8HZ8UXCSlVnkQ==
+Message-ID: <sashiko-outbox-211959@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 11/13] drm/powervr_sgx: Validate shader code in the
+ kernel
+To: "Joseph Telaak" <joseph@telaak.dev>, dri-devel@lists.freedesktop.org
+Cc: media-ci@linuxtv.org
+In-Reply-To: <20261112-powervr-sgx-v1-11-c69b84bac011@telaak.dev>
+References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+ <20261112-powervr-sgx-v1-11-c69b84bac011@telaak.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 23:38:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,78 +49,298 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-VFCT records the PCI bus number from BIOS POST. The current bus number
-can change after PCI core renumbers the bus, while accepting a mismatch
-based only on device identity can select the wrong VFCT image when
-matching devices are present. Compare against the bus number captured
-from the firmware bus assignment before bridge renumbering.
+Thank you for your contribution! Sashiko AI review found 7 potential
+issues to consider:
+- [High] drm/powervr_sgx: partial code BO mappings bypass branch and
+  phase checks
+- [High] drm/powervr_sgx: torn GPU instruction fetch in
+  pvrsgx_ioctl_upload_code() at offset >=3D code_end
+- [High] drm/powervr_sgx: missing cache maintenance in
+  pvrsgx_ioctl_upload_code()
+- [Medium] drm/powervr_sgx: code_place_mapped() ignores earlier invalid
+  mappings
+- [Medium] drm/powervr_sgx: monotonic code_end and code_abs in
+  pvrsgx_ioctl_upload_code()
+- [Medium] drm/powervr_sgx: code_place_mapped() ignores unmapping BOs in
+  UPLOAD_CODE
+- [Low] drm/powervr_sgx: spurious -EBUSY in pvrsgx_ioctl_upload_code()
+  during VM_BIND error cleanup
+--
 
-Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
-Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+commit 3c08e583541e226f931172772a47e077e959d3ed
+Author: Joseph Telaak <joseph@telaak.dev>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 08ed1eb695586..0ee4c6462c4d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -386,16 +386,17 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
-  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
-  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
-  * resource conflicts), the runtime bus number may differ from the POST
-- * value.  Match by device identity (vendor + device + function) and use
-- * the bus number as a preference: exact bus match is preferred, but when
-- * the bus numbers disagree we accept the entry if the device identity
-- * matches.
-+ * value.  Match using the bus number captured when the device was
-+ * discovered, before any bus renumbering.
-  *
-  * Returns: 0 on match, -ENODEV on no match
-  */
- static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
- 				  VFCT_IMAGE_HEADER *vhdr)
- {
-+	struct pci_dev *bridge = adev->pdev->bus->self;
-+	unsigned char initial_bus;
-+
- 	/* Vendor and device IDs must always match */
- 	if (vhdr->VendorID != adev->pdev->vendor ||
- 	    vhdr->DeviceID != adev->pdev->device)
-@@ -405,16 +406,12 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
- 	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
- 		return -ENODEV;
- 
--	/* Exact bus number match - preferred */
--	if (vhdr->PCIBus == adev->pdev->bus->number)
--		return 0;
-+	if (bridge && bridge->fw_sec_bus_valid)
-+		initial_bus = bridge->fw_sec_busnr;
-+	else
-+		initial_bus = adev->pdev->bus->number;
- 
--	/* Bus mismatch but device identity matches (PCI renumbering case) */
--	dev_notice(adev->dev,
--		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
--		   vhdr->PCIBus, adev->pdev->bus->number,
--		   adev->pdev->vendor, adev->pdev->device);
--	return 0;
-+	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
- }
- 
- static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+drm/powervr_sgx: Validate shader code in the kernel
 
--- 
-2.43.0
+This commit adds USSE shader instruction validation, code object mapping
+restrictions, and the UPLOAD_CODE ioctl for PowerVR SGX GPUs.
 
+> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c b/drivers/gpu/=
+drm/powervr_sgx/pvrsgx_validate.c
+> new file mode 100644
+> index 0000000000000..cf9cfcf87fdac
+> --- /dev/null
+> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_validate.c
+
+[ ... ]
+
+> +/* Code objects, and only they, go into the USSE heaps, read-only. */
+> +int pvrsgx_validate_vm_map(struct pvrsgx_device *sdev, struct pvrsgx_vm =
+*vm,
+> +			   unsigned int heap, struct pvrsgx_bo *bo, u64 offset, u64 size)
+> +{
+> +	return heap_is_usse(heap) =3D=3D bo_is_code(bo) ? 0 : -EINVAL;
+> +}
+> +
+> +static_assert(PVRSGX_USSE_WINDOW_INSTS * 8 =3D=3D 1u << PVRSGX_USSE_WIND=
+OW_LOG2);
+> +
+> +/*
+> + * Where a mapping at addr of the object from offset puts the object's s=
+tart,
+> + * in instructions from the start of its code base window: what phas.i's
+> + * targets count from when the task's PDS program names the window its f=
+irst
+> + * word is in. One window per object makes that base the same for every =
+entry.
+> + */
+> +static s64 code_place(const struct pvrsgx_heap_layout *h, u64 addr, u64 =
+offset)
+> +{
+> +	u64 base =3D addr >=3D h->usse_vertex.base ? h->usse_vertex.base : h->u=
+sse_pixel.base;
+> +	s64 start =3D (s64)(addr - base) - (s64)offset;
+> +
+> +	if (start < 0)
+> +		return PVRSGX_USSE_PLACE_NONE;
+> +	return (start / 8) & (PVRSGX_USSE_WINDOW_INSTS - 1);
+> +}
+
+[Severity: High]
+Can a partial mapping of a code object let br or phas.i jump outside the
+mapped range and the USSE heap?
+
+pvrsgx_ioctl_upload_code() passes obj->size / 8 to pvrsgx_usse_scan(),
+which checks br targets against [0, obj_insts) and phas.i targets against
+[place, place + obj_insts).  However, pvrsgx_validate_vm_map() ignores
+offset and size, and DRM_POWERVR_SGX_VM_BIND_OP_UNMAP can also split or
+partially unmap an existing code mapping.
+
+If userspace creates a 1 MiB + 4 KiB code BO, uploads a br at offset
+1 MiB with displacement -131072 instructions (target 0), and maps only
+the last 4 KiB page at h->usse_pixel.base, executing that instruction
+branches to h->usse_pixel.base - 1 MiB (which lands in kernel_data on
+single-context SGX530 with allow_unisolated=3D1).  For phas.i, partial
+mappings likewise let targets in [0, obj_insts) jump past the mapped
+subrange, and code_place() wraps modulo 512 KiB when addr and
+addr - offset fall in different windows.
+
+> +/*
+> + * Once code with absolute targets is in an object, every mapping of it =
+puts it
+> + * where those targets were checked. Called with the object's reservatio=
+n held.
+> + */
+> +int pvrsgx_validate_vm_link(struct pvrsgx_bo *bo, u64 addr, u64 offset)
+> +{
+> +	if (!bo_is_code(bo) || !bo->code_abs)
+> +		return 0;
+> +	const struct pvrsgx_heap_layout *h =3D pvrsgx_heaps(to_pvrsgx_device(bo=
+->base.base.dev));
+> +
+> +	return code_place(h, addr, offset) =3D=3D bo->code_place ? 0 : -EINVAL;
+> +}
+> +
+> +/* The one place every mapping of obj puts it, or PVRSGX_USSE_PLACE_NONE=
+. */
+> +static s64 code_place_mapped(struct drm_gem_object *obj)
+> +{
+> +	const struct pvrsgx_heap_layout *h =3D pvrsgx_heaps(to_pvrsgx_device(ob=
+j->dev));
+> +	struct drm_gpuvm_bo *vm_bo;
+> +	struct drm_gpuva *va;
+> +	s64 place =3D PVRSGX_USSE_PLACE_NONE;
+> +
+> +	drm_gem_for_each_gpuvm_bo(vm_bo, obj) {
+> +		drm_gpuvm_bo_for_each_va(va, vm_bo) {
+> +			s64 p =3D code_place(h, va->va.addr, va->gem.offset);
+> +
+> +			if (place !=3D PVRSGX_USSE_PLACE_NONE && p !=3D place)
+> +				return PVRSGX_USSE_PLACE_NONE;
+> +			place =3D p;
+> +		}
+> +	}
+> +	return place;
+> +}
+
+[Severity: Medium]
+Does code_place_mapped() ignore an invalid mapping when it comes before a
+valid one in obj->gpuva.list?
+
+PVRSGX_USSE_PLACE_NONE is used both as the initial value of place and as
+the failure return of code_place() when va->gem.offset > va->va.addr -
+base.  If the first mapping visited returns PVRSGX_USSE_PLACE_NONE, place
+stays PVRSGX_USSE_PLACE_NONE, and the next iteration overwrites it with
+the second mapping's p, allowing pvrsgx_ioctl_upload_code() to accept
+phas.i instructions on an object mapped at conflicting locations.
+
+[ ... ]
+
+> +	/* VM_BIND links a mapping under the same lock. */
+> +	err =3D dma_resv_lock_interruptible(obj->resv, NULL);
+> +	if (err)
+> +		goto out_buf;
+> +	/* An unmapped mapping counts until its jobs and the BIF invalidate are=
+ done. */
+> +	if ((!list_empty(&obj->gpuva.list) || atomic_read(&bo->code_unmapping))=
+ &&
+> +	    args->offset < bo->code_end) {
+> +		err =3D -EBUSY;
+> +		goto out_unlock;
+> +	}
+
+[Severity: Low]
+Can pvrsgx_ioctl_upload_code() spuriously return -EBUSY when racing with
+a failed VM_BIND?
+
+In pvrsgx_vm.c, bind_prepare() calls drm_gpuvm_bo_obtain_locked(), which
+adds an empty vm_bo to obj->gpuva.list under obj->resv.  If bind_prepare()
+later fails, pvrsgx_ioctl_vm_bind() drops obj->resv via drm_exec_fini()
+before re-locking it at out: to call drm_gpuvm_bo_put():
+
+CPU0                                   CPU1
+pvrsgx_ioctl_vm_bind()
+  bind_prepare()
+    drm_gpuvm_bo_obtain_locked()
+      /* adds empty vm_bo */
+  drm_exec_fini(&exec)
+                                       pvrsgx_ioctl_upload_code()
+                                         dma_resv_lock_interruptible()
+                                         !list_empty(&obj->gpuva.list)
+                                           <-- returns -EBUSY
+  dma_resv_lock(ops[i].obj->resv)
+  drm_gpuvm_bo_put(ops[i].vm_bo)
+
+Checking whether any vm_bo on obj->gpuva.list has a linked drm_gpuva
+avoids failing on an unmapped BO.
+
+> +	place =3D code_place_mapped(obj);
+
+[Severity: Medium]
+Can pvrsgx_ioctl_upload_code() validate phas.i targets against a single
+mapping while an earlier unlinked mapping is still in flight on the GPU?
+
+When a mapping is unmapped, va_unlink_locked() increments
+bo->code_unmapping and removes the va from obj->gpuva.list before
+in-flight jobs and the BIF TLB invalidation finish:
+
+CPU0                                   CPU1
+pvrsgx_ioctl_vm_bind()
+  /* BO mapped at P1 and P2;
+     job using P1 is running */
+  bind_step_unmap(P1)
+    va_unlink_locked()
+      atomic_inc(&bo->code_unmapping)
+      drm_gpuva_unlink(va)
+                                       pvrsgx_ioctl_upload_code()
+                                         /* args->offset >=3D bo->code_end =
+*/
+                                         place =3D code_place_mapped(obj)
+                                           /* sees only P2, returns P2 */
+                                         pvrsgx_usse_scan(..., P2, ...)
+                                           <-- accepts phas.i for P2 while
+                                               job still fetches from P1
+
+Because atomic_read(&bo->code_unmapping) is only checked when
+args->offset < bo->code_end and code_place_mapped() only walks
+obj->gpuva.list, uploading phas.i at args->offset >=3D bo->code_end allows
+the running job at P1 to jump outside the object's bounds at P1.
+
+> +	bad =3D pvrsgx_usse_scan(sdev->family->isa, buf, args->size / 8, args->=
+offset / 8,
+> +			       obj->size / 8, place, &abs, &why);
+> +	if (bad >=3D 0) {
+> +		args->bad_offset =3D args->offset + bad * 8;
+> +		drm_dbg_driver(drm, "UPLOAD_CODE: word at 0x%llx refused: %s\n",
+> +			       args->bad_offset, pvrsgx_usse_refusal_name(why));
+> +		err =3D -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +	err =3D drm_gem_shmem_vmap_locked(&bo->base, &map);
+> +	if (err)
+> +		goto out_unlock;
+> +	iosys_map_memcpy_to(&map, args->offset, buf, args->size);
+> +	drm_gem_shmem_vunmap_locked(&bo->base, &map);
+
+[Severity: High]
+Can a running GPU job fetch a torn 64-bit instruction during
+iosys_map_memcpy_to() when uploading at args->offset >=3D bo->code_end?
+
+When a code BO is mapped in a VM, bind_step_map() maps the entire range
+up to obj->size into the GPU MMU, and a running task can reach offsets
+at or above bo->code_end via its PDS DOUTU entry, a branch validated
+against obj_insts, or fallthrough across zero words (fmad r0, r0, r0, r0).
+Because uploads at args->offset >=3D bo->code_end are allowed while the BO
+is mapped, iosys_map_memcpy_to() can race with GPU instruction fetches:
+
+CPU0                                   GPU (USSE)
+pvrsgx_ioctl_upload_code()
+  /* args->offset >=3D bo->code_end */
+  iosys_map_memcpy_to()
+    /* writes upper 32 bits of
+       setfc #0, #1 (0xfd100000)
+       before lower 32 bits (0x100) */
+                                       fetches 0xfd10000000000000
+                                         <-- executes setfc #0, #0
+
+Executing setfc #0, #0 disables C10 format control, allowing subsequent
+instructions to access internal registers i64..i67 beyond USSE_I_LAST.
+
+> +	bo->code_end =3D max(bo->code_end, end);
+
+[Severity: High]
+Does pvrsgx_ioctl_upload_code() miss CPU and GPU cache maintenance for
+uploaded instructions?
+
+First, when appending at args->offset >=3D bo->code_end to an already-mapped
+code BO, the new instructions can share a GPU cache line with an earlier
+shader in [0, bo->code_end) whose trailing zeroes were already cached by a
+previous job, but pvrsgx_ioctl_upload_code() never sets
+PVRSGX_CC_INVAL_DATA in sdev->fw.cache_control.  Second, on non-x86
+platforms, uploading before VM_BIND allocates zeroed shmem pages in
+drm_gem_shmem_vmap_locked() with dirty zero lines in the CPU D-cache,
+writes through a write-combined vmap directly to RAM, and unpins the pages
+in drm_gem_shmem_vunmap_locked(); when VM_BIND later calls
+drm_gem_shmem_get_pages_sgt() -> dma_map_sgtable(), cleaning the CPU
+D-cache overwrites the WC-written instructions in RAM with zeroes.
+
+> +	if (abs) {
+> +		bo->code_abs =3D true;
+> +		bo->code_place =3D place;
+> +	}
+
+[Severity: Medium]
+Can an unmapped, idle code BO be reused once bo->code_end and
+bo->code_abs have been set?
+
+bo->code_end only grows via max(bo->code_end, end), and bo->code_abs is
+never cleared when a BO is unmapped or overwritten.  If userspace unmaps
+an idle code BO to reuse it, mapping it at a new location and uploading a
+shader with phas.i at offset 0 fails with -EBUSY because args->offset <
+bo->code_end, and overwriting it while unmapped with code that has no
+phas.i leaves bo->code_abs set so pvrsgx_validate_vm_link() rejects
+mapping it anywhere other than the stale bo->code_place.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-powervr-sg=
+x-v1-0-c69b84bac011@telaak.dev?part=3D11
