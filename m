@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6E7606B24C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011FE606B599
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhNAbTtr
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MYiwuPNB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F33E10FD82;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24A110FDA1;
 	Thu, 12 Nov 2026 08:49:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F4B10FDDE
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B58EB10FD52
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5790F47967;
- Thu, 12 Nov 2026 08:48:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 196F16399D;
+ Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794473319;
- b=UwSREd6dqFHRFB91Gwa4pfrFCEHjgrf/kTttVnzcsj2uOMxldHFH9cm4ZRAcbPIK6jgt
- b6utaZiCe1yEWqb7Zdj15N6rE/4JUPDdtro+KF9lHBTz4/JgKUzxuA3lRqHDgtphAPq7G
- TzZC6HLNVlHOi75M7rKQCgYgyiaH5MwZcRIQySB3e9NwmR52M3YuW72ZfEDI9K3gPTMyI
- FEF3rKYDO9k+oWNuF9NVInyZ3QsfFlMY9waxk4tIlS3s/19YG27RIMdd/fbzkHPlFGgGn
- Rw3EG12ZiwPy5EY80W6HwIref7OijzEtqKT0HNChEs4rjVXTsAG3EqoNHX+Jmgx+WsQ==
+ t=1794473316;
+ b=pcdr1G2a3dsVVjlymrMYdIU/68HYfIzrXqXzetHYxpXFd8Dx9rxiLmcUzgcTw5ZTQA8X
+ R/LvS+Sm4/CcUXrwFirUQv0BuSz5zX+Lvis65d4w/87AHKLV/1/Lt5oUaysBZOkNzgWMF
+ 7wHa9+F0EPHy0X5B0oF+Td+8oh9TjEw0bRWufvEKxkN6S1d/BOJOomtL3uL8nKk8XNWYm
+ GidDuVUEXVGoSZerxDD9XSzyqIR6955yDgFj7uo9/iV4kVC6oZ12TMptMrR+gVlpoznO+
+ KE/AMtbPuITxJVa9p4RUxJkr8assvPxNWI03F+mIdPCh40M3XEmrhYKKPLzY0w1AErg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794473319;
+ c=relaxed/relaxed; t=1794473316;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=+ewL5KkfQtMsttYd5RiJoqScdchsS/glgtbNvz9UNuo=;
- b=J167gisNFbPMZKCTep+AXb6g/RNTxKxzy81jZ5KSNiNl4Tpm17jON4U+uS7X9qKb1q/u
- yYwhITuWYV0+aKWGpUge3BvcK2fdxPuRs5h173wnWDYckI0AWwdF6+aEs88K+1wAro1Nf
- 621Rum3C8IcAe/TpVsG6VxsJo/NW+McwjXNIRXizLa+Y+iAeOqmO+eIxCq3jGT/mBhxb9
- Wx3/fxH8vI4z0q3SnPA6BD1tRTDs7M+P6CUiZYuL2KtRb+5nrr1Y1Km4cj0Ts7y3Ct+Df
- fEkdcW4JYWPgmwooAFjr0+TonNUaDRR+0j51kEWnKy9t9NRrplf+u8CPfTQOt4WJYsA==
+ bh=SybEBamRVhhWKZBpvZM7kEpzIKLm/33VXIk0s84Bm/g=;
+ b=e7pHWlNxBbTsqhECiuGtfg+0Q7A8V59lvX0Auf/W3Kq07ozz1vlHRoFYh7U8H5QZOtEd
+ z7iZHnpAyRHdWtqLgRVgpGzyBlbUnj6JA17vRN9DYQW/1EDm/X7M7Edg5trdpK2TpAg+Z
+ iIE8YcfM6oQFHoIxYrHwXO7iX4w8ttw3GpK1PwLJ36OEpOM0uuaLoQrk3HG22X21FgJvf
+ 6+VqwmUs2pH4BesuXaGwWGGFwSVX3x1E3adJfqNWHG8celT237VamI5g4M0kXVXa2+x+4
+ Tc/SRrluC5qt0VTA8L7osFiSIHpiuG3aaCxBuwLiCbixAHYvcezruRHho7cLYHDpPkQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 27D951F00A0D;
- Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id AED021F00A08;
+ Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794473319;
- bh=+ewL5KkfQtMsttYd5RiJoqScdchsS/glgtbNvz9UNuo=;
+ s=k20260515; t=1794473316;
+ bh=SybEBamRVhhWKZBpvZM7kEpzIKLm/33VXIk0s84Bm/g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=OhNAbTtrkufYAGsm1CHPD1xnF2irqcbMnxtluTsAMcV9Mo57TI2jlAGAah30xaSuQ
- RcezsIhrtx3v1ntDYG3mcexXUQmVQNsoo8PnRjRSe6Z0PX9ENS+H3UFrBE4xJdOpV2
- BtArtm2v/jBQOozD8YeXWWZGVcVAUxWQRaSbkpA4wEACoR2Izn1SrZG+lHdnh3vz5j
- /Yhm3upqHbRjAM5uwX3sCRID5xD5MHKVXdGAt0cbsrMnk2/tHx3+ZXjUq3OWX0XDt0
- TRsa0bzk3PdxrlJ+Wl1eIR9pBmUG9o9O3tELJ+Phs6NItC8yZ0+57yNwTxz/hbMgD9
- L+6dUNtRK5KBg==
+ b=MYiwuPNBqSAAMbxrxrO/QV9n9f/gRFyvZ4R6dVtckLkBZ64jg/f5y+swgRukZorDn
+ oLSTr7o0AK5EN5GKLCDnyJgGd4SGykdsNnfsuadPbWdvOUP3V7QKIrZKHTW+VT3OfA
+ YM1K9JsFgZafszgXbvG70c+ZpDzZzkuHSaOrKcX8krEna0JR7ohC/Yw5R7/zPqgmZW
+ b/2lgiYHFbgk4Fydhs45iCcuh1kG3L3FJ/ocJvbwByVz7Xxa6onXEOnSsaftEsikc5
+ 0+KbwWX+oZVHXwzMTIupw2zjeOrWsnd6EPtK10fx00wm8zvb+45+JWCjmOBvp1uUH/
+ +AR5nyY69hJMA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A4583493F9;
+ by lkml.kernel.org (Postfix) with ESMTP id 3EC70493E5;
  Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:48:41 +0000
-Subject: [PATCH v2 08/11] drm/panfrost: Don't cancel a job that completed
- during a reset
+Date: Thu, 12 Nov 2026 08:48:36 +0000
+Subject: [PATCH v2 03/11] drm/panfrost: Don't take a reference on a mapping
+ that is being freed
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panfrost-long-jobs-v2-8-a06830da3d99@gmail.com>
+Message-Id: <20261112-panfrost-long-jobs-v2-3-a06830da3d99@gmail.com>
 References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2617;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2240;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=iMJelzj8KqIiUIEwuJi9ZCg/13D5VG22D+zXxoQOWxs=;
- b=+h01gW76bjx47nnrrwEyagNXsWayE1TGc1O/lWLhxtLBC5hOMJixs/5We18jeovD/WDoz6EYs
- NPwcKrnIEYZC/MYMsA74BPpy+w3omlmmrO+2ox6l1OAG0PNLGSH+SkM
+ bh=rqdqg/OAAoy83+50ChQ3aQoU7NkR4pnj4DQAb5ccFxY=;
+ b=Oyzab45fRaSg0gCSQpPedyAhPZ8VSqJ25maLTpFnmx5Sm1cIpV2KK+zz9i9BzB0yVnH1IDLF8
+ yc4H6gxvNvOAAyev8HEdZIcS8xMq+JnKj0NcBoeE8duLrwihorKerVC
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,60 +108,54 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_reset() stops the schedulers, which detaches them from the done
-fences of the jobs on the GPU, then soft-stops the slots and handles the
-interrupts that are still pending. A job that finishes in that window
-instead of stopping is completed by panfrost_jm_handle_done(): its done
-fence is signalled and its jc cleared. drm_sched_resubmit_jobs() then
-calls panfrost_job_run(), which returns NULL for a job with no jc, and
-since commit 03877d621db0 ("drm/scheduler: mark jobs without fence as
-canceled") drm_sched_start() completes a pending job without a hardware
-fence with -ECANCELED. The job did complete, but userspace is told it
-did not.
+addr_to_mapping() looks up the mapping that contains a faulting GPU
+address in the address space's drm_mm and takes a reference on it with
+kref_get(). But panfrost_gem_mapping_put() drops the last reference
+before panfrost_gem_mapping_release() -> panfrost_gem_teardown_mapping()
+unmaps the BO and removes its node from the drm_mm under mm_lock, so the
+lookup can find a mapping whose refcount is already zero. kref_get()
+then revives it (refcount_t warns about the addition on zero), the
+release goes on and frees the mapping and drops the BO, and the fault
+handler maps pages into a BO that is being freed.
 
-Return the job's done fence instead: drm_sched_start() finds it
-signalled and completes the job with the fence's status, which is 0 for
-a job that finished and the error panfrost_job_handle_err() set for one
-that was hard-stopped or faulted.
+This takes a GPU fault on a heap BO's address while the last handle and
+the last job reference to that BO go away. Jobs hold a reference on the
+mappings of the BOs they list, so it takes a job that uses a heap BO it
+does not list; userspace on the render node can submit that.
 
-This depends on the previous patch: before it, a job cancelled from
-_NEXT could be taken for done in the same window, and would now be
-reported as completed without having run.
+Use kref_get_unless_zero() and treat a mapping that is being freed as
+absent: the fault is then reported as unhandled.
 
-Found by code review (Sashiko) of the next patches, which make the
-soft-stop wait longer and the window wider. Not reproduced.
+Found by code review: the same pattern in new code of this series was
+reported by Sashiko. Not reproduced.
 
-Fixes: 03877d621db0 ("drm/scheduler: mark jobs without fence as canceled")
+Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206581@kernel.org/
+Link: https://lore.kernel.org/all/sashiko-outbox-206570@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 418a91a31..7561de67c 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -409,11 +409,14 @@ static struct dma_fence *panfrost_job_run(struct drm_sched_job *sched_job)
- 	if (unlikely(job->base.s_fence->finished.error))
- 		return NULL;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index faa62643c..eaf94d47d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -576,7 +576,13 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+ 		    offset < (node->start + node->size)) {
+ 			mapping = drm_mm_node_to_panfrost_mapping(node);
  
--	/* Nothing to execute: can happen if the job has finished while
--	 * we were resetting the GPU.
-+	/* Nothing to execute: the job has finished (or failed) on the GPU
-+	 * while we were resetting it, after drm_sched_stop() had detached the
-+	 * scheduler from its done fence. Hand that fence back, so that the job
-+	 * completes with the status the GPU gave it: with no fence,
-+	 * drm_sched_start() would complete it as cancelled.
- 	 */
- 	if (!job->jc)
--		return NULL;
-+		return dma_fence_get(job->done_fence);
- 
- 	fence = panfrost_fence_create(pfdev, slot);
- 	if (IS_ERR(fence))
+-			kref_get(&mapping->refcount);
++			/* The last reference to a mapping is dropped before
++			 * panfrost_gem_teardown_mapping() takes its node out
++			 * of the address space: don't revive one that is
++			 * being freed.
++			 */
++			if (!kref_get_unless_zero(&mapping->refcount))
++				mapping = NULL;
+ 			break;
+ 		}
+ 	}
 
 -- 
 2.55.0
