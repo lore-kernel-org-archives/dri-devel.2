@@ -2,92 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15269606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D28606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xi1M0Wrq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfke2sL/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BED811227B;
-	Thu, 12 Nov 2026 17:18:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9475F11225B;
- Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA60610E614;
+	Thu, 12 Nov 2026 17:21:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0179011225B
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:21:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 441464233C;
- Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179EA1F000C4;
- Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 29D836236B;
+ Thu, 12 Nov 2026 17:21:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27BA1F000C4;
+ Thu, 12 Nov 2026 17:21:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794503876;
- bh=VMi+hIkLWXT7siLEN9ATyCll+A1V4GrHFAEeCBcDPio=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Xi1M0WrqH5bMvx0n0pi4w5v7a8qJzrxjW4xzgjyJBTk4w5Ha9LDFHd8Q2SIO4bI0/
- R1AH44wKcxNJXbaWLeAun1BY623lBE7mWeM8MlocaX0VT4oGCtm1o/G3AsbPIXS1Ln
- HAfe4Gi1tJJQuDHDrzTAcmJcvP7xkP9KNg6uFt8kIbAQS0k0mQOiMe1zrTRcGbMEAP
- QjV4y8GkI+IFa+IR6J9g75IGth5ijUGZ2Wd4tjx81In8/mDCI0Hl19n37GOo0mpyES
- RMm1owYYSjXmybNXysJzMRsSMwbMIAEWBzrarLAWP33yYlnJBqzwDlRjfOGVF8svjx
- eUQ0ymv8EqhZg==
-Date: Thu, 12 Nov 2026 09:17:55 -0800
-From: Kees Cook <kees@kernel.org>
-To: Bence Csokas <bence.csokas@arm.com>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Selvin Xavier <selvin.xavier@broadcom.com>,
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Chengchang Tang <tangchengchang@huawei.com>,
- Junxian Huang <huangjunxian6@hisilicon.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>,
- GR-QLogic-Storage-Upstream@marvell.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add struct_offsetofend() for pointer arithmetic
-Message-ID: <202611120916.3619B95@keescook>
-References: <20261112-offsetof-v2-0-276ede839967@arm.com>
+ s=k20260515; t=1794504078;
+ bh=eXdLq4VpQrc3pLNlS0vz0mjfNa2LKyEz8zqt+39dnpA=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=Nfke2sL/sXeXWgIPPISdEdw7sGin5a53bUK+xzslYxXJR8Tg627nY3WJIABgaNWPL
+ w8zG2LCYd4bNIlUQ3kZMoQDOvih/c48INhQ/T/rkT7SCqoQg47iBwFezynk9plkpSU
+ cEixol31RYjGYIcQkK3ZcLBQEGnO7KDDL8mZJN+/FY2viUkvLoEbiTC90iKvBbXVdg
+ jQPhSS1WVZvlAshJ7PRvufjMAa+dQ9dnR1ICF+j0EYTEElM3j2vCtBsT345WiUR1ah
+ Trpk0bf2Y27/gKgcemJUuZhgG0zjmXStvRRryH4Y4Crq9XuWgpiZQYl4KNKmRc+U9K
+ 5aCfwZy0GaI5g==
+Message-ID: <c4bcc25b-636c-4eb9-ad04-3c267af877ce@kernel.org>
+Date: Thu, 12 Nov 2026 18:21:09 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112-offsetof-v2-0-276ede839967@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: defconfig: Enable the Parade PS195 bridge
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+ <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
+ <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,152 +110,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 10:29:32AM +0100, Bence Csokas wrote:
-> A common usage pattern for offsetof() is the following:
+On 12/11/2026 17:14, Krzysztof Kozlowski wrote:
+> On 12/11/2026 11:15, Nabige Aala wrote:
+>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>
+>> Enable the PS195 bridge driver as a module for HDMI output on Glymur,
+>> Mahua and Kalambo CRDs.
 > 
->   offsetof(typeof(*ptr), member)
+> Same comments as previous patches from you. Don't send Qualcomm internal
+> stuff, that's defconfig for all SoC platforms so you need to properly
+> describe it. What is Glymur? Samsung Glymur? It's impossible to get what
+> you are referring here to.
 > 
-> This is exactly the definition of struct_offset(). Some call sites use
-> offsetofend() instead of offsetof(). Add this variant, then replace all
-> call sites with the corresponding macros.
+> By coincidence I know what is Glymur, but how Glymur could have Parade
+> chip? It's not possible.
 
-Yeah, I think this is reasonable. I'd prefer to see the Coccinelle
-script explicitly added to tools/coccinelle/api/ though, so it can be
-trivially re-run as needed.
+And good examples:
+8b8d8aa9d482b08d5315e4d26631b9891c90e02e
+6f422914412bde4c431706079525c581bf439e03
 
-Also, while Alejandro is right about the needless outer parens, I think
-I'd like to keep them just to match the other define, and they do no
-harm.
-
--Kees
-
-> 
-> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
-> ---
-> Changes in v2:
-> - Use struct_offset() instead of reinventing it
-> - Rename offsetofendp() to struct_offsetofend()
-> - Merge the two treewide patches
-> - Link to v1: https://patch.msgid.link/20261105-offsetof-v1-0-4153f5c10edc@arm.com
-> 
-> To: Kees Cook <kees@kernel.org>
-> To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> To: Marcel Holtmann <marcel@holtmann.org>
-> To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-> To: Sumit Semwal <sumit.semwal@linaro.org>
-> To: Christian König <christian.koenig@amd.com>
-> To: Philipp Stanner <phasta@kernel.org>
-> To: Sudeep Holla <sudeep.holla@kernel.org>
-> To: Cristian Marussi <cristian.marussi@arm.com>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Jani Nikula <jani.nikula@linux.intel.com>
-> To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> To: Tvrtko Ursulin <tursulin@ursulin.net>
-> To: Lyude Paul <lyude@redhat.com>
-> To: Danilo Krummrich <dakr@kernel.org>
-> To: Zack Rusin <zack.rusin@broadcom.com>
-> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> To: Selvin Xavier <selvin.xavier@broadcom.com>
-> To: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-> To: Jason Gunthorpe <jgg@ziepe.ca>
-> To: Leon Romanovsky <leon@kernel.org>
-> To: Chengchang Tang <tangchengchang@huawei.com>
-> To: Junxian Huang <huangjunxian6@hisilicon.com>
-> To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> To: Hans de Goede <hansg@kernel.org>
-> To: Mauro Carvalho Chehab <mchehab@kernel.org>
-> To: Haiyang Zhang <haiyangz@microsoft.com>
-> To: Wei Liu <wei.liu@kernel.org>
-> To: Dexuan Cui <decui@microsoft.com>
-> To: Andrew Lunn <andrew+netdev@lunn.ch>
-> To: "David S. Miller" <davem@davemloft.net>
-> To: Eric Dumazet <edumazet@kernel.org>
-> To: Jakub Kicinski <kuba@kernel.org>
-> To: Paolo Abeni <pabeni@redhat.com>
-> To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-> To: Jes Sorensen <Jes.Sorensen@gmail.com>
-> To: Ping-Ke Shih <pkshih@realtek.com>
-> To: Johannes Berg <johannes@sipsolutions.net>
-> To: Benson Leung <bleung@chromium.org>
-> To: Tzung-Bi Shih <tzungbi@kernel.org>
-> To: Guenter Roeck <groeck@chromium.org>
-> To: Nilesh Javali <njavali@marvell.com>
-> To: GR-QLogic-Storage-Upstream@marvell.com
-> To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-> To: "Martin K. Petersen" <mkp@kernel.org>
-> Cc: linux-hardening@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-bluetooth@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: arm-scmi@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: linux-rdma@vger.kernel.org
-> Cc: linux-hyperv@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-wireless@vger.kernel.org
-> Cc: chrome-platform@lists.linux.dev
-> Cc: linux-scsi@vger.kernel.org
-> 
-> ---
-> Bence Csokas (2):
->       stddef: Add offsetofend() variant of struct_offset()
->       treewide: Use struct_offset()
-> 
->  drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
->  drivers/dma-buf/dma-resv.c                         |  2 +-
->  drivers/firmware/arm_scmi/base.c                   |  2 +-
->  drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
->  drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
->  drivers/gpu/drm/i915/i915_active.c                 |  2 +-
->  drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
->  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
->  drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
->  drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
->  drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
->  drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
->  drivers/net/hyperv/rndis_filter.c                  |  2 +-
->  drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
->  drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
->  drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
->  .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
->  drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
->  drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
->  drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
->  drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
->  drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
->  drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
->  drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
->  drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
->  drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
->  drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
->  drivers/scsi/scsi_transport_fc.c                   |  2 +-
->  include/linux/overflow.h                           | 12 ++++++++++
->  30 files changed, 75 insertions(+), 64 deletions(-)
-> ---
-> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
-> change-id: 20261105-offsetof-f62aa6348f0d
-> 
-> Best regards,
-> --  
-> Bence Csokas <bence.csokas@arm.com>
-> 
-
--- 
-Kees Cook
+Best regards,
+Krzysztof
