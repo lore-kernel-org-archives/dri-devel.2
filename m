@@ -2,74 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78A4606B599
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0977606B24C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:48:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ga/TKVgh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfbpIhet
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F8510E4D8;
-	Thu, 12 Nov 2026 08:48:47 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 997AC10FD45
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1960D10FD84;
+	Thu, 12 Nov 2026 08:48:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3555610FDBF
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C9AC47986;
- Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A83B163DED;
+ Thu, 12 Nov 2026 08:48:38 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794473317;
- b=YU0N/elzGK1rLOE8CVhlpzT9CEK9LQ1q7TBseMbwUTVN7/6w60NR2iRG0ZTWvFgJ3e9E
- mxquVRfDuESLvWyVxCSRDlR/69U1RtFmTSenwA3MKoJQvjCHPnII6P0LORXlR+kuXkN0y
- 8lEY7qACntgmOoS86NeStmGQBXMF8W4wptWB+npyxMsUavSV800/c3Q+COOL8NFUKFfZ+
- xF9uAUecSuD8hM1Y1M/eiUQKkHcpmppAMTn/RDdRtt5bwa/UNjdSR7I3TMvssVV4bmL2R
- Mhivfxn/PFbvLse8dc11gU2pJ1YU3WJcva25nsmFnm82f4eIBU0ZVLXqqaDBfctE5vw==
+ t=1794473318;
+ b=iWv2KZtPFF+O51UMIgy3FtxzDcw9/u+caQWpv/1lTcCBRCgmrE+MFyXfRCl2WECb0vXE
+ z6/6TsVCpW9wPrY3jGz9SrrWqGVF0ayGDQuy0MVCFrUk+HaDBUtHLUUGymRNGt+FbaBdw
+ C+DMIRFoKmN/7FdHXRWJNBDU9+6udlKsK/+OrzzRwGyJMQp9HvTVmIek19Iw84VOxQp96
+ ga8z1WsBpL865DNYnv6Le5BelKkmcKBkxy9iS5h5h0/NRiU6khL45QGL4RSqt7ZQVi4kB
+ bRpZ1bgqqWo2l6hd2UsAnwn7UD0Y6khEkIUxLJnOOznNBZA9cyhKV42AvMDA473brBw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794473317;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=iGHInhu/It9blNol97iiNzQrcFC/LFVj1VPjIGoVSvM=;
- b=cXJesJ82h0SMJVL24GtjzERoIkm72cDRcebbM/JE5E+sOiEldqSF5eJa0I8Yh+4yoUHI
- TAnFBjHAtFBk1nGvtBTjRqfUy7JiTFUlUDoqffqx+EEZpl+vuRauDj1uLHzeusyfkMWgY
- LSiAt0KlyllJz28EW8ZjyEvrOwfa+HaC3tmNLeEHDTVRnzRFdCbhv8zyHCTuYCXY5jw+C
- nrv5vYUTvrtW3cNXVAtC1sKOuTUP0NdvMoEDTRqxX2PtglrCVvQjx96hWws7/u47FBbz3
- NIR7IdCawYYxOKaOWkvIw/bMPJ+/IpQ4I/5yQsnu0+D1jf0nstwD8Oocxco6wRBOM7w==
+ c=relaxed/relaxed; t=1794473318;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=ziXFFYPLQvWFmN181rHfSXwimvjejnaTztC8l9DXINY=;
+ b=OjKT/pMEQo8b0LUjWGHXBKb823G5vg8SCfH0SPhDaOlCbAJLnq9d6pbeSS820zzLaWRY
+ EwgMwqAs7EAm8C4oPmT+5d5LhR2jhH0maUdhvy7PmBiW+tg/aSdOpaMRqk04L+ZSrVlAQ
+ hIUlWzdMKn8J7Ko/3Au6p6tYLHhHYLwt6wRPPuEubFDhTb5GE2f39z5AcMKrH22ZVN2wZ
+ 3ao+5kHIY6QIwM9pxaezAFvs5HsHg/u6b63VCYkd9JMx51X/NuQjs4LM84ED5VCzLf7ot
+ qi7oHBmKt4VzSXm5wNesXJTdlDMETaD/gdI4mqQEiW0sJxyVqdMGxnx0fpUvKDofa4w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 9D0DA1F00A05;
- Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id C1E161F00A0C;
+ Thu, 12 Nov 2026 08:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794473317;
- bh=iGHInhu/It9blNol97iiNzQrcFC/LFVj1VPjIGoVSvM=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=ga/TKVgh5QeJrdJChnyXOqNBUdmvtjZM/KxbBnwUhWGllxj9qgjm8HWqy09Pwwpb0
- fQGRfDH2Mu3qnBgTAtYN71TSP4Mog6tvNl235LnTba3yo6Jd89p4L1eiWLUOSoQX1P
- JIXb2y2gtnBtSYIVgBxTOHKtTG0mNyNXLPcrP/cwvW/pRki4nnbxq6yjGUU1ZUR6FZ
- Ixq613zTarI6iY+KNvu+kFJZ02YBIwVXc70Ri7x/WNiRucKNFOtSYqKy1qdQu1H2ZX
- CNsd8HuDENaXKo3tf2HfJONy+QrflcnAmLOMYI+bC+jFwqeVQtjarvIPtV9nBFTA1M
- jrxzPY6RKgWpA==
+ s=k20260515; t=1794473318;
+ bh=ziXFFYPLQvWFmN181rHfSXwimvjejnaTztC8l9DXINY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=cfbpIhet6HYPVFltQJG51hHK/vmHDGFlbxn878aVIdvO5kWJmtvyhrHcb8RVNzYjW
+ u96tZAQLTR23zXfk7EtZGkpEJ+rTKeroJ6egszPNoNCgIACPuVpxmOHMoNEGc5/XRG
+ JJzqCqJmlHd+qrJATylDIPrV8D5qz4+mXkTKAGbER5D/qbQ+df6ROO25AhewVBTf9x
+ IPGfWef9DSI3qE/HFCaw1lLA96Yi+jvSoVKxrYA4f5zc09JB0f+4K43PDTB0Qfgb2G
+ nWptLq5g0jJ1mq9mz+bE9jlODoXJ07i8s5t6GfBYaFYk2aFU5zOBgGqX9V0i3Y0skK
+ JiEAMX5CQyQVg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 00116493D9;
- Thu, 12 Nov 2026 08:48:34 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 7B63F493F1;
+ Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 00/11] drm/panfrost: Resume long jobs instead of
- resetting, and mapping error path fixes
-Date: Thu, 12 Nov 2026 08:48:33 +0000
-Message-Id: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
+Date: Thu, 12 Nov 2026 08:48:39 +0000
+Subject: [PATCH v2 06/11] drm/panfrost: Give back the pages of a heap chunk
+ that failed to map
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0K6dkynIAIr72FYlDLAEGhJi0RDu
- LuAe5cvef/9VQTyTEEU0So8LRzY2R3UJRKm07Yl4HpnoaRKEVHCpG3jXZhhcLaF3lUBME1ild2
- 10gbFPpw8Nfw+o8/yx+FV9WTmo3QYHYfZ+c/5uuDh/T1YECSo5CazPM41ZfWjHTUPV+NGUW7b9
- gW3Dxj2xgAAAA==
-X-Change-ID: 20261110-panfrost-long-jobs-1643287a2ac1
+Message-Id: <20261112-panfrost-long-jobs-v2-6-a06830da3d99@gmail.com>
+References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
+In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
@@ -79,16 +75,17 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=9538;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=5223;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=mJjrSXChj8hiozxDNnHErnSYufbbEW4Z6NG3wERgC5s=;
- b=Y9zlQhchj2navN4rLe/JJS2hL2/1iv9zJ2p52ZRnkPUhtunv8ykqitzPkOrmFl1/N17wKgmKM
- 5APTcha0at8DA2suWWoWD2PA5s+UkwRliTKXef0WfITELveoSil9Rm/
+ bh=GiYBojJEk+AerOOD5A3CeTX5sdW5+aVhVP91wLrsHZ0=;
+ b=SqmKe/QDpdPcA2LHOYhq+Qw2NBDL+UFa9BasxWAG4b6ow0ePlb0TBj4RPgef8f/Av2MMot4r4
+ n1zBWxzq4CqCjdf7NAtl5Kes67FpT8IxF5ZqigR8pcyFIoNGo24KxT6
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,179 +98,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series fixes problems found running the GLES, Vulkan and OpenCL
-conformance tests with Mesa on an Orange Pi Zero2 (Allwinner H616,
-Mali-G31 MP2, one shader core, 1 GB of RAM), and problems the Sashiko
-review of v1 found in the code around them.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Patches 1-3 are fixes from the v1 review for problems that were already
-there: the reset work touching the GPU while it is runtime suspended, a
-CPU cache sync of a heap BO walking its sparse page array, and the GPU
-fault handler reviving a mapping that is being freed.
+panfrost_mmu_map_fault_addr() grows a heap BO by one 2 MB chunk per
+fault. If reading the chunk's folios, building its sg table, DMA mapping
+it or mapping it on the GPU fails, the folios that were already read stay
+in bo->base.pages, while the chunk's sg table stays empty. The next fault
+in that chunk reads the same folios again and finds their pages already
+owned:
 
-Patches 4-6 fix the error paths of BO mapping under memory pressure: a
-WARN on an ordinary allocation failure, pages dropped while the cached
-sg table still maps them, PTEs left behind by a partial map_pages(),
-and the folios of a heap chunk kept after a failed fault, which makes
-the next fault in that chunk WARN.
+  if (drm_WARN_ON(&pfdev->base, already_owned))
+          folio_put(folio);
 
-Patches 7 and 8 fix two races in panfrost_reset(): a job waiting in
-_NEXT that the reset cancels is taken for done when the running job
-completes instead of stopping, and a job that completes while the GPU
-is being reset is reported as cancelled. Patch 10 makes both windows
-much wider.
+Before commit b49c35ba0ce1 ("drm/panfrost: Fix a page leak in
+panfrost_mmu_map_fault_addr() when THP is on") the fault path skipped
+pages that were already filled in; since then the array is filled a
+folio at a time and an already filled page is treated as a bug.
 
-Patches 9 and 10 change what happens when a job runs into the 500 ms job
-timeout. On a small GPU OpenCL kernels and heavy fragment jobs
-legitimately run longer, and resetting the GPU loses their work: the
-OpenCL CTS Integer Ops long math and Thread Dimensions tests, the
-KHR-GLES31 advanced blend mixedSequence test and several dEQP-VK
-spirv_assembly fragment cases fail that way. Following the Arm driver's
-job scheduling, a job whose slot is still active is soft-stopped and
-resumed from JS_TAIL without a reset, hard-stopped if it does not reach
-a task boundary within 5 s, and the GPU is reset only if the hard stop
-does not take effect either. Patch 9 makes panfrost_reset() actually
-wait for the soft-stops (JOB_INT_JS_STATE is a snapshot, not the live
-state); patch 10 needs it, and it fixes the reset path on its own.
+On those error paths, put the folios read for the chunk and clear their
+entries, so that a later fault in it starts from an empty range. The
+range to clear is the one the fill loop wrote, which is not always the
+chunk: the loop aligns down to the start of each folio and fills the
+whole folio, so a folio larger than 2 MB (PMD-sized folios with 16K or
+64K pages) also fills entries of the neighbouring chunks, and a folio
+whose pages the loop found already owned (by such a neighbour) is not
+ours to put.
 
-Patch 11 adds the BOs around an unhandled page fault to the fault
-report, which told a texture over-read apart from a kernel problem.
+Tested with 4K pages, where the folios are at most 2 MB and never cross
+a chunk; the larger-folio case is from reading the code.
 
-A job that keeps reaching task boundaries is resumed after every
-timeout and is never killed. If a limit on the total run time of a job
-is wanted, I can add one.
-
-While a job that outlived the timeout is being stopped, patch 10 keeps
-the job interrupts masked and the schedulers of all slots stopped, as
-panfrost_reset() does today around a reset, but now for as long as the
-job needs to reach a task boundary, 5.5 s at worst (the Arm driver's
-JS_HARD_STOP_TICKS_SS and JS_RESET_TICKS_SS). The slot of the long job
-is busy with that job either way. What the wait costs is the other slot
-(panfrost uses two, one for fragment jobs and one for vertex, tiler and
-compute jobs): it starts no new job, and a job that finishes on it is
-signalled only when the wait is over. In two runs of the tests below,
-the time from stopping the schedulers to starting them again was at
-most 85 ms for a compute job (median 0.3 ms, 206 timeouts) and at most
-349 ms for a fragment job (6 timeouts). Stopping only the slot that
-timed out would avoid that cost, but reset.pending, the interrupt mask
-and the scheduler stop are all per device, so that is a larger rework
-than I wanted in this series. Mainline resets the GPU at that point,
-under the jobs on both slots. I can do the per-slot stop as a follow-up
-if you want it.
-
-If you would rather take the independent fixes (1-8, 11) first and look
-at the soft-stop rework (9, 10) separately, I can split the series.
-
-Testing: Orange Pi Zero2 (H616, Mali-G31), Mesa 26.2, with this series
-backported to v7.3.3:
-- OpenCL CTS Integer Ops quick_long_math/quick_ulong_math and Thread
-  Dimensions quick_2d_explicit_local pass (they failed before); dEQP-VK
-  spirv_assembly vec4 i8/u64 bit_field_insert count64 fragment cases
-  pass in 5 s (timed out before); KHR-GLES31 blend_equation_advanced
-  test_coherency.mixedSequence passes (failed before); 107 job timeouts
-  in these tests, all soft-stopped and resumed, none resets the GPU;
-- a never-ending OpenCL kernel is hard-stopped after 5 s, a devcoredump
-  of it is taken, and the GPU keeps working;
-- with a test-only switch that withholds the hard stop, the GPU is reset
-  under that kernel instead: the job ends, a devcoredump of it is taken,
-  and the GPU keeps working;
-- the reset work, queued with a test-only switch the way the MMU code
-  queues it while the GPU is runtime suspended, resumes the GPU before
-  it resets it (patch 1), and the GPU keeps working;
-- the reset work queued the same way five times while Integer Ops and
-  Thread Dimensions run side by side: both pass, and the GPU keeps
-  working. Most of these resets found the GPU suspended between two
-  jobs; the trace does not show whether a job was on a slot at any of
-  them;
-- dEQP-GLES31 draw_indirect compute_interop large cases in memory
-  cgroups of 450-600 MB: the processes get allocation errors or are
-  OOM-killed, without a WARN, and the GPU keeps working;
-- a forced page fault prints the fault BO report;
-- PANFROST_SYNC_BO fails with -EINVAL on a heap BO and succeeds on a
-  plain one;
-- no regressions in dEQP-GLES3 draw/occlusion_query/shaders.loops (964
-  cases), dEQP-GLES31 compute (195), KHR-GLES31 compute_shader (37, two
-  not supported) and 9 OpenCL CTS groups.
-The two test-only switches are module parameters on the test kernel,
-not part of this series. The problems patches 1-3, 7 and 8 fix were not
-reproduced. The fixed paths of patches 1 and 2 run in the tests above;
-patches 3, 7 and 8, the larger-folio case of patch 6 and the races
-patch 10 now handles rest on code review, as their windows cannot be
-forced here.
-Each patch builds without warnings with W=1 for arm64 and arm.
-
-These patches were developed with Claude (Anthropic) as a coding assistant:
-it investigated the problems, wrote the code and the commit messages. I
-reviewed them, and they were tested on an Orange Pi Zero2 (Allwinner H616,
-Mali-G31) as described above.
-
+Fixes: b49c35ba0ce1 ("drm/panfrost: Fix a page leak in panfrost_mmu_map_fault_addr() when THP is on")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v2:
-- New patches 1-3, 7 and 8, for problems the Sashiko review of v1 found
-  in the code around the series (1, 2, 7, 8) or by analogy with a
-  finding (3):
-  https://lore.kernel.org/all/sashiko-outbox-206548@kernel.org/
-  https://lore.kernel.org/all/sashiko-outbox-206561@kernel.org/
-  https://lore.kernel.org/all/sashiko-outbox-206570@kernel.org/
-  https://lore.kernel.org/all/sashiko-outbox-206581@kernel.org/
-- Patch 6 (v1 3/7): clear the page array range the fault filled, whole
-  folios, which differs from the 2 MB chunk for folios larger than 2 MB,
-  and leave folios owned by a neighbouring chunk alone (Sashiko).
-- Patch 10 (v1 6/7), after the Sashiko review: a job that does not stop
-  within 5 s gets its karma raised and a devcoredump; a reset asked for
-  while the slots are being stopped is done instead of dropped; jobs on
-  other slots that only had the 10 ms of an ordinary reset are restarted
-  as before instead of failed; a job that completes just as its timeout
-  fires no longer triggers a reset.
-- Patch 11 (v1 7/7): skip mappings whose last reference is gone instead
-  of reviving them, drop the "mapped" flag, which said nothing useful,
-  and describe what the report can tell apart (Sashiko).
-- Dropped v1 4/7 ("Don't resume a soft-stopped job after a GPU reset"),
-  and the comments of v1 6/7 that said the same. It assumed that a
-  soft-stopped job leaves results in the L2 that a GPU reset then loses.
-  I have no evidence of that: it was never observed here, and the Arm
-  driver resumes soft-stopped atoms without such a check (its comment in
-  kbase_gpu_complete_hw() says the cache is not flushed after a failed
-  job chain only on a T60x or with BASE_JD_REQ_SKIP_CACHE_END).
-- Cover letter: say which paths the tests did not run, and what stopping
-  a long job costs the other slot, with the times measured here; tests
-  of the GPU reset path added.
-- Patches renumbered: v1 1-3 are now 4-6, v1 5-7 are now 9-11.
-- Rebased onto the current drm-misc-next (no conflicts, no code change).
-- Link to v1: https://lore.kernel.org/r/20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 51 ++++++++++++++++++++++++++++++---
+ 1 file changed, 47 insertions(+), 4 deletions(-)
 
----
-Arun Iyengar (11):
-      drm/panfrost: Power the GPU up for a reset queued from the MMU code
-      drm/panfrost: Refuse to sync the CPU caches of a heap BO
-      drm/panfrost: Don't take a reference on a mapping that is being freed
-      drm/panfrost: Don't WARN when a GEM mapping cannot get its pages
-      drm/panfrost: Unwind a failed GPU mapping without dropping its pages
-      drm/panfrost: Give back the pages of a heap chunk that failed to map
-      drm/panfrost: Don't signal a job cancelled from _NEXT at a reset as done
-      drm/panfrost: Don't cancel a job that completed during a reset
-      drm/panfrost: Wait for the soft-stopped slots with the live slot status
-      drm/panfrost: Soft-stop and resume a job that outlives the timeout
-      drm/panfrost: Name the BOs around an unhandled page fault
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 35fb86b6b..684735937 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -603,6 +603,32 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+ 
+ #define NUM_FAULT_PAGES (SZ_2M / PAGE_SIZE)
+ 
++/*
++ * Put the folios that a failed heap fault took and clear the page array
++ * entries it filled for them. [start, end) is what the fault filled: whole
++ * folios, since it fills the array a folio at a time, which can reach past
++ * the 2 MB chunk when a folio is larger than the chunk.
++ */
++static void panfrost_heap_put_pages(struct page **pages, pgoff_t start,
++				    pgoff_t end)
++{
++	while (start < end) {
++		struct folio *folio;
++
++		if (!pages[start]) {
++			start++;
++			continue;
++		}
++
++		folio = page_folio(pages[start]);
++		do {
++			pages[start++] = NULL;
++		} while (start < end && pages[start] &&
++			 page_folio(pages[start]) == folio);
++		folio_put(folio);
++	}
++}
++
+ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 				       u64 addr)
+ {
+@@ -611,7 +637,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 	struct panfrost_gem_object *bo;
+ 	struct address_space *mapping;
+ 	struct drm_gem_object *obj;
+-	pgoff_t page_offset, nr_pages;
++	pgoff_t page_offset, nr_pages, got_start, got_end;
+ 	struct sg_table *sgt;
+ 	struct page **pages;
+ 
+@@ -670,17 +696,23 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 	mapping = bo->base.base.filp->f_mapping;
+ 	mapping_set_unevictable(mapping);
+ 
++	/* The page array range whose folio references this fault takes. */
++	got_start = page_offset;
++	got_end = page_offset;
++
+ 	for (pgoff_t pg = page_offset; pg < page_offset + NUM_FAULT_PAGES;) {
+ 		bool already_owned = false;
+ 		struct folio *folio;
++		pgoff_t first;
+ 
+ 		folio = shmem_read_folio(mapping, pg);
+ 		if (IS_ERR(folio)) {
+ 			ret = PTR_ERR(folio);
+-			goto err_unlock;
++			goto err_put_chunk;
+ 		}
+ 
+ 		pg &= ~(folio_nr_pages(folio) - 1);
++		first = pg;
+ 		for (u32 i = 0; i < folio_nr_pages(folio) && pg < nr_pages; i++) {
+ 			if (pages[pg])
+ 				already_owned = true;
+@@ -692,14 +724,18 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 		 * there's no valid reason for a folio range to be partially
+ 		 * populated.
+ 		 */
+-		if (drm_WARN_ON(&pfdev->base, already_owned))
++		if (drm_WARN_ON(&pfdev->base, already_owned)) {
+ 			folio_put(folio);
++		} else {
++			got_start = min(got_start, first);
++			got_end = max(got_end, pg);
++		}
+ 	}
+ 
+ 	ret = sg_alloc_table_from_pages(sgt, pages + page_offset,
+ 					NUM_FAULT_PAGES, 0, SZ_2M, GFP_KERNEL);
+ 	if (ret)
+-		goto err_unlock;
++		goto err_put_chunk;
+ 
+ 	ret = dma_map_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
+ 	if (ret)
+@@ -726,6 +762,13 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 	dma_unmap_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
+ err_map:
+ 	sg_free_table(sgt);
++err_put_chunk:
++	/*
++	 * Give back the folios read for this chunk, so that the next fault in
++	 * it (the chunk has no sg table yet) starts from an empty page range
++	 * instead of finding it partly owned.
++	 */
++	panfrost_heap_put_pages(pages, got_start, got_end);
+ err_unlock:
+ 	dma_resv_unlock(obj->resv);
+ err_bo:
 
- drivers/gpu/drm/panfrost/panfrost_gem.c |   8 +
- drivers/gpu/drm/panfrost/panfrost_job.c | 316 +++++++++++++++++++++++++++-----
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 171 +++++++++++++++--
- 3 files changed, 434 insertions(+), 61 deletions(-)
----
-base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-change-id: 20261110-panfrost-long-jobs-1643287a2ac1
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
