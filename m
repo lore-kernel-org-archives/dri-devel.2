@@ -2,67 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE55606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3BB606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oLd16vvZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abAMSEd4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 805F810FEDC;
-	Thu, 12 Nov 2026 01:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE2610EAF3;
+	Thu, 12 Nov 2026 01:44:09 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88FFD10EAF3;
- Thu, 12 Nov 2026 01:43:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E395910EB06;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A31D63A13;
- Thu, 12 Nov 2026 01:43:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5AB7163670;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447836;
- b=ezAKebgPjSq44RSGecPUmjCN9cMgt+ae0QZwoL+WB3/a79H/sUOx3l9Nba/6TVtxkhNQ
- 56ekIAupS8PF6sA496E/P4N+JvPTUx7aIrkSx3kMMjLmvh2NBXn6OIUKhoqtzfjQHhQhw
- Bsx48mQbuF/FB5LWtTePUBJKNBc/B0UatakLNE7NxpmYtqxViov/WFsCKG2NDUJwir+jc
- IB6GR1K4k5NvjTYlQ58vVfFM6tesOwTeGTLA1hI21H2G15VuQ09vYDnpVF6UWKzg86oR+
- o8d/gSHg01ODjTAcMu4fUyALxMSCKhZit2G2Q+13qilABNlTFw6NtZ04OTGNHgRSIOw==
+ t=1794447832;
+ b=a8X2FOxgRFUEFdm+nC+qlA368QMbq2jo3M1iU3UqY4y5CGqVblOJIKQ9VB/cDyEubtU5
+ BUB5pRpWf8v5cq8vGynLYaSeIBs6H4c9Fxv2Aj4Q7fE8ictVKQN/Dgev7G2il7Tfr4KsR
+ WJL/y4PVMryuohOU0laM+b5t814EO3sKdhma6Sq1f/IS99iTt1PuCValqms2l7AjNyv7h
+ 1D70Fbte9fxk5s6XVle9ffpCEHDAhUaGKYaM1fDFALKmPiWQCXGg3rh5E0NhfHxAvfZ/b
+ qhhY3sFiyESeEd5pToybFGXBtJrFRA6FgaqkI80msKHPxaWjGjvFP8q0o8uIhfQ/tqg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447836;
+ c=relaxed/relaxed; t=1794447832;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=Ch2HbmAeQP1sZ+/cX9MLdnU3iWUpC0Sxhke5eDwhn1Y=;
- b=cOrdOYrsj9AusIxe3wr3Q2gN/Vb0TkGnY3NNZ4kWTMEJKbVFjcOyVwfAbkLBeGuOMwfR
- +ztEJSZXn5X76cHwUmPl6rtadxlXQHtC9IpgRcZedV7AhRTRxUmWvKJ6PSZ/oFCSQOx5h
- DAQJCJYsfoKxzhjEue9ZbITGMU4EZ3Q1NggzTcQK1xW/nIuo+R7WpTLT7Ht9pfNgQXOlD
- 7F8B34WOHHtyYFT62ONbnsTnt0/78QRLNm+ZQyL58bFrpgGJ8q0AO3KyLE8lxtKaqvrpG
- jBFuiGRy/fvgxcOHRGrP9Ipfo5N9kVluAlVyqxYghlfp7UoLVpmuBeixNUmJO9E7Iag==
+ bh=VHJMRbDHKLGBTXqMFGFkbDCdFhKENxdSGxxvuB947IQ=;
+ b=Af8DbgxVZvkRl9WyRfjUAwoF/NdEIt25rQ1XVYV7DJMjChdnNFlSonw2ltzc0D60Rkv7
+ 5+/bKiJ+2XDsGgJoWFT7lOn6pEDFBOdgz4RS+nDGK0Nv1kNra5++p1m8iBa3bRdeNXG1r
+ CjqUIoUFNVWPaxHlNYJMVdXIlzzpTs9ffc7lazs7efEQXuniEsctFMoEJZhXC20XALIXT
+ 41Wqtm4Lg6JfVHCY/zIB66X0Cq5vEh3uWV+u6Yx6sataVvKUcoo04+SXWMWrK/LT/i8CD
+ DlMLY7qn+g26Hna81iJi1u7Xpe9q668DmXBE6KvLJd7OGPdBKUJ8P/d5ZsrRk9L/ILA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 769041F00A0F;
- Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id BC1F11F00A0E;
+ Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447836;
- bh=Ch2HbmAeQP1sZ+/cX9MLdnU3iWUpC0Sxhke5eDwhn1Y=;
+ s=k20260515; t=1794447832;
+ bh=VHJMRbDHKLGBTXqMFGFkbDCdFhKENxdSGxxvuB947IQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=oLd16vvZWdsFtBHW9TY43t+i18sOM6xSuSiLpW5Ha8ZLhjqIb0rXca7h/OvvjXN9B
- 6jexT+WXCzC6uhwYxkuE3WLWoTERguG9+VfxFExK+YqYFBaO/UmgQBiFKiX94U2SHb
- g18OLCwYIDtbzx1DopPPWsP/8S8ttgWyl06Kj/9iSLbL0aT5431Kpu4sqPZsSVB81Q
- 0hxZ4Xl+vQUPq+IcpqE/ZBx7BUAelEBkXHffPFj77J0hX9Z408UlWMlGTI2U1imunC
- 0jjiAUtHS+Kf963UoDw6oTsnWemDDaLD7gyz7lfoGCjX9eePS2g/koEM9Hbt+Ezy3q
- iMuEEE0nAyjeg==
+ b=abAMSEd43GI5k1paPl64UtW+emj9y1IitdIjjU6j5MuNyCKMKsZmm7rV6p4EnNlF6
+ 9xNlVyNUsprXlfRlNGXVSwDu/wC21e41FicGlc+4bBVQD7EP1pjF9qCLGTya1jUjLC
+ FKg7Lt1HZCewwfxEEPdHnvyE7PFrMbF76LZzk1CcmIMWnIp3EqYoXxhWb3yeLHxxoa
+ daNh4sX/5AffTNqVFppp2rujZgBGWWk4K8AddgYz7Nb0k9iJgJkJcbbL8a52rSgDgx
+ QG4qZHkTMgfj9Sl5zzdJhj3I3xf7SRAFehS8/wvwC3IvQQxO8WVOqt4wCzkK5oc+8Y
+ bbi11YXCnIwJQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 91DE1491E2;
+ by lkml.kernel.org (Postfix) with ESMTP id 43852491D2;
  Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:43 +1000
-Subject: [PATCH 08/19] drm/amd/display: Use DC accessors in DAL modules
+Date: Thu, 12 Nov 2026 11:43:39 +1000
+Subject: [PATCH 04/19] drm/amd/display/amdgpu_dm: Use DC accessors in
+ audio/color/backlight paths
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-8-0fae41718ad2@redhat.com>
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-4-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -74,21 +75,21 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15562;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11767;
  i=airlied@redhat.com; h=from:subject:message-id;
- bh=O/Iqs39phUOXlAMC4Cq20ZYMq8qiGohAdKjmkGz/5Fc=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnPgnQYHLb/7DJc8EesyMhwcKLvy0Cr1X8Ik
- MpeuU2GnziJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzwAKCRAMdPNZecSG
- vpOtD/45Dl1HT0eAj50tC69boedTorErp+ZtXAUoHbQXSkNxa3kmrfTuXlf/PJxrDFnoGilkWnE
- wLOmstOChJ4mpMDCoPvDTf0MQRmCO+MWJ285UlXo78rMioAXqdf3Tf6sTNEnWcvYZfvkhxGpeA2
- vnp2N9nizAbrbT5NVhAiukFtfvztnm0O4M2U8/Rif+uHJNoi7f/mXzBdX+Y8PePx8J02qVY78Xm
- aVQIFHq0SbBWNTAXrywG8GpL7lunmzBrP64XRwgrHaOL8y3fT+Ps4/sKV8pJqXmh53hHLkwk7mq
- lsFSmvSOVm99Jt2b6k14bT+RawJP2nN6vr2WeVxQZJokTF6l4PX+dlGCyMJjew7wQnx1FYIr/AW
- Q8a5q+vhfEJzTDX6BCqcWiHSVxU7vsZ3Kt/tnmfYTjvdD2xbTFAzW4tAGtEKypM26bPrDD09ECG
- F9sewjvkpUFhZ3b4i/hOn8v26kkvi1R99/I5Gvfmc73eKZVsCJJhoVlmWBglL2fXTdOa6PVnmdK
- p21h5Y6m3m2ss0Eqws+2i539/uoWCp4Iq/60iwL9MpFCG3y5cqlNEJ75wDCuo15cq/SndIza0Xm
- I7t0dgYaLQVRM4Kxjf/7MHlvBVgeqbQdIN/LUUE8BVMTZ6XoTt6IRXIVVt+OHXXIt7b4SmsGZnf
- gjsW8yA0Vzt/FEg==
+ bh=TY/q0gWJFs33PtJy4UkFf+VC4XGPXUVbIXrTRglHCl8=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnOSMKNTCMYMukUJzh9MNnzp3z0vhLZK6m4/
+ zSOywv7VBKJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzgAKCRAMdPNZecSG
+ vnGED/4oRyfS3FklG+ceX+x2xLDVuiz9i3HmCTgAZ2tVmxVFJbMjIxJOEwELd5LKMnGOQcfwtjc
+ vtntcMmToNfq31eYgqUdeuq1bo3/gh1rBz2mASU1vRw29ZhQNZOxuaBFu+jtYPAv/aeUu5xiBsS
+ tNvXNkQUAdmRkPSXBIsT79ytYQIjqvT6vOV5gF3uON3GRxFeUshT2Pq1GJmalVHoKQ5XfIXX1gq
+ 1gSSAXJtU96JPg1oBYxDRHuBtLg4XM99eZvXGOWPuwI2M0AeIWmeUvEvOGNa7uvYFuhptQVo19R
+ SULcTeLkxpAG3E5N4qGy9iu8EX297LjWhdrJVTusBBgMLtTbtbU+9pVvy0E/QHRitx3c0GFvpVd
+ /cgoQzYC7TN8niPMqbTSIIWMzNBjlXmosrSHjYsqMrMJJYo7hmXvNBOcWEEJZ55YFNWzemIfMXd
+ 6X/NMDEiVMoQ8b+RsYLbYqqCJwqbUElO/+4nwKU/kcFzVMVZdiQDCDKdgmauhaDdsjz3zrpNdTK
+ sgsfKcIAcevv44MmwLU6zTPPlNHTzQtBNgWn70sPclojv2Q2JqZ94hVW34YwpMsaL6NXmwsRKSC
+ hQ8/QJfVZQ6fGTvdPnfPmG0iJRaBtZsVyzcta1qlCFo2Yf6WUUaKv9MhmaqOhJrlqBYfZ4Y8c1s
+ lRu+niKflWHAYFw==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
@@ -110,364 +111,252 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Dave Airlie <airlied@redhat.com>
 
-Migrate modules/freesync, modules/power and the remaining module
-users of struct dc members to the DC accessor layer, replacing the
-direct link_service calls (edp_get_psr_residency, edp_send_replay_cmd,
-edp_set_coasting_vtotal, dp_setup_replay, get_ddc_aux_inst, ...) with
-the dc_link_* wrappers.
-
-Add missing struct dc forward declarations to logger_interface.h and
-mod_freesync.h.
+Replace direct struct dc member dereferences with the DC accessor
+layer in amdgpu_dm_audio.c, amdgpu_dm_color.c, amdgpu_dm_colorop.c
+and amdgpu_dm_backlight.c.
 
 Part of making struct dc private to DC.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- .../gpu/drm/amd/display/include/logger_interface.h |  1 +
- .../drm/amd/display/modules/freesync/freesync.c    | 14 +++++------
- .../gpu/drm/amd/display/modules/inc/mod_freesync.h |  2 ++
- drivers/gpu/drm/amd/display/modules/power/power.c  |  5 ++--
- .../gpu/drm/amd/display/modules/power/power_abm.c  | 29 +++++++++++-----------
- .../gpu/drm/amd/display/modules/power/power_psr.c  | 10 ++++----
- .../drm/amd/display/modules/power/power_replay.c   | 25 ++++++++-----------
- 7 files changed, 44 insertions(+), 42 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  6 +++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  6 ++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 28 +++++++++++++---------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |  4 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  4 ++--
+ .../drm/amd/display/modules/color/color_gamma.c    |  2 +-
+ .../drm/amd/display/modules/color/color_gamma.h    |  2 +-
+ 7 files changed, 30 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/include/logger_interface.h b/drivers/gpu/drm/amd/display/include/logger_interface.h
-index 4c01514b926c..7dc738b60162 100644
---- a/drivers/gpu/drm/amd/display/include/logger_interface.h
-+++ b/drivers/gpu/drm/amd/display/include/logger_interface.h
-@@ -28,6 +28,7 @@
- 
- #include "logger_types.h"
- 
-+struct dc;
- struct dc_context;
- struct dc_link;
- struct dc_surface_update;
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index f154a619b533..dafcb42504f8 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -125,11 +125,10 @@ static unsigned int calc_duration_in_us_from_v_total(
- 
- static unsigned int calc_max_hardware_v_total(const struct dc_stream_state *stream)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+index 199f339839b2..97cc52f45a2e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+@@ -140,6 +140,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_audio_init_pins);
+ int amdgpu_dm_audio_init(struct amdgpu_device *adev)
  {
--	unsigned int max_hw_v_total = stream->ctx->dc->caps.max_v_total;
-+	unsigned int max_hw_v_total = dc_get_caps(stream->ctx->dc)->max_v_total;
+ 	unsigned int inst_array[MAX_AUDIOS];
++	struct resource_pool *res_pool;
+ 	int audio_count;
+ 	int i, ret;
  
--	if (stream->ctx->dc->caps.vtotal_limited_by_fp2) {
-+	if (dc_get_caps(stream->ctx->dc)->vtotal_limited_by_fp2)
- 		max_hw_v_total -= stream->timing.v_front_porch + 1;
--	}
+@@ -148,9 +149,10 @@ int amdgpu_dm_audio_init(struct amdgpu_device *adev)
  
- 	return max_hw_v_total;
- }
-@@ -1008,7 +1007,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 	nominal_field_rate_in_uhz =
- 			mod_freesync_calc_nominal_field_rate(stream);
+ 	adev->mode_info.audio.enabled = true;
  
--	if (stream->ctx->dc->caps.max_v_total != 0 && stream->timing.h_total != 0) {
-+	if (dc_get_caps(stream->ctx->dc)->max_v_total != 0 && stream->timing.h_total != 0) {
- 		min_hardware_refresh_in_uhz = div64_u64((stream->timing.pix_clk_100hz * 100000000ULL),
- 			(stream->timing.h_total * (long long)calc_max_hardware_v_total(stream)));
- 	}
-@@ -1196,9 +1195,10 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
- 	if (in_out_vrr->supported == false)
- 		return;
+-	audio_count = adev->dm.dc->res_pool->audio_count;
++	res_pool = dc_get_res_pool(adev->dm.dc);
++	audio_count = res_pool->audio_count;
+ 	for (i = 0; i < audio_count; i++)
+-		inst_array[i] = adev->dm.dc->res_pool->audios[i]->inst;
++		inst_array[i] = res_pool->audios[i]->inst;
+ 	amdgpu_dm_audio_init_pins(adev, audio_count, inst_array);
  
--	cur_tick = dm_get_timestamp(core_freesync->dc->ctx);
--	cur_timestamp_in_us = (unsigned int)
--			div_u64(dm_get_elapse_time_in_ns(core_freesync->dc->ctx, cur_tick, 0), 1000);
-+	cur_tick = dm_get_timestamp(dc_get_ctx(core_freesync->dc));
-+	cur_timestamp_in_us = (unsigned int)div_u64(
-+			dm_get_elapse_time_in_ns(dc_get_ctx(core_freesync->dc), cur_tick, 0),
-+			1000);
- 
- 	in_out_vrr->flip_interval.vsyncs_between_flip++;
- 	in_out_vrr->flip_interval.v_update_timestamp_in_us = cur_timestamp_in_us;
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-index c042fb1bf49c..1cf88adb3163 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-@@ -28,6 +28,8 @@
- 
- #include "mod_shared.h"
- 
-+struct dc;
-+
- // Access structures
- struct mod_freesync {
- 	int dummy;
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index d900be8cb5fc..884279696a2d 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -192,7 +192,8 @@ struct mod_power *mod_power_create(struct dc *dc,
- 	}
- 
- 	// ABM used to contain 4 different configs. There is only 3 since ABM 2.3.
--	if ((dc->res_pool->dmcu != NULL) && (dc->res_pool->dmcu->dmcu_version.abm_version < 0x23))
-+	if (dc_get_res_pool(dc)->dmcu != NULL &&
-+	    dc_get_res_pool(dc)->dmcu->dmcu_version.abm_version < 0x23)
- 		abm_max_config = 4;
- 	else
- 		abm_max_config = 3;
-@@ -480,7 +481,7 @@ bool mod_power_notify_mode_change(struct mod_power *mod_power,
- 	link = dc_stream_get_link(stream);
- 
- 	if (link != NULL && dc_get_edp_link_panel_inst(dc, link, &panel_inst)) {
--		aux_inst = link->dc->link_srv->get_ddc_aux_inst(link);
-+		aux_inst = dc_link_get_ddc_aux_inst(link);
- 
- 		mod_power_update_backlight_on_mode_change(core_power, link, panel_inst, aux_inst, is_hdr);
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index 5f27dea4aa0a..2b420eac5c56 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -712,7 +712,7 @@ void initialize_backlight_caps(struct core_power *core_power, unsigned int inst)
- 
- 	/* Retrieve ACPI extended brightness caps */
- 	if (dm_query_extended_brightness_caps
--		(dc->ctx, acpi_display_type, ext_backlight_caps)) {
-+		(dc_get_ctx(dc), acpi_display_type, ext_backlight_caps)) {
- 		custom_curve_present = validate_ext_backlight_caps(ext_backlight_caps);
- 	}
- 
-@@ -868,7 +868,7 @@ bool mod_power_hw_init_backlight(struct mod_power *mod_power)
- 		params.backlight_lut_array_size = core_power->bl_prop[i].num_backlight_levels;
- 		params.min_abm_backlight = core_power->bl_prop[i].min_abm_backlight;
- 
--		dmcu = dc->res_pool->dmcu;
-+		dmcu = dc_get_res_pool(dc)->dmcu;
- 
- 		// In the case where abm is implemented on dmcub,
- 		// dmcu object will be null.
-@@ -876,8 +876,8 @@ bool mod_power_hw_init_backlight(struct mod_power *mod_power)
- 		if (dmcu) {
- 			//DMCU does not support multiple eDP
- 			return dmcu_load_iram(dmcu, params);
--		} else if (dc->ctx->dmub_srv) {
--			if (!dmub_init_abm_config(dc->res_pool, params, i))
-+		} else if (dc_get_ctx(dc)->dmub_srv) {
-+			if (!dmub_init_abm_config(dc_get_res_pool(dc), params, i))
- 				return false;
- 		} else
- 			return false;
-@@ -935,7 +935,7 @@ static bool set_backlight_millinits_aux(struct core_power *core_power,
- 
- 	// only use internal backlight control if dmub capabilities are not present
- 	if (link->backlight_control_type == BACKLIGHT_CONTROL_VESA_AUX &&
--		link->dc->caps.dmub_caps.aux_backlight_support)
-+		dc_get_caps(link->dc)->dmub_caps.aux_backlight_support)
- 		return true;
- 
- 	return dc_link_set_backlight_level_nits(link, core_power->bl_state[inst].isHDR,
-@@ -1041,7 +1041,7 @@ bool mod_power_set_backlight_nits(struct mod_power *mod_power,
- 	core_power = MOD_POWER_TO_CORE(mod_power);
- 	link = dc_stream_get_link(stream);
- 
--	aux_inst = link->dc->link_srv->get_ddc_aux_inst(link);
-+	aux_inst = dc_link_get_ddc_aux_inst(link);
- 
- 	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &panel_inst))
- 		return false;
-@@ -1128,7 +1128,7 @@ bool mod_power_set_backlight_percent(struct mod_power *mod_power,
- 
- 	core_power = MOD_POWER_TO_CORE(mod_power);
- 	link = dc_stream_get_link(stream);
--	aux_inst = link->dc->link_srv->get_ddc_aux_inst(link);
-+	aux_inst = dc_link_get_ddc_aux_inst(link);
- 
- 	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &panel_inst))
- 		return false;
-@@ -1658,8 +1658,8 @@ bool mod_power_is_abm_supported(struct mod_power *mod_power,
- 	dc = core_power->dc;
- 
- 	// It's only implemented on dmcub.
--	if (dc->ctx->dmub_srv) {
--		if (!dmub_is_abm_supported(dc->res_pool, inst))
-+	if (dc_get_ctx(dc)->dmub_srv) {
-+		if (!dmub_is_abm_supported(dc_get_res_pool(dc), inst))
- 			return false;
- 	} else
- 		return false;
-@@ -1682,9 +1682,10 @@ bool mod_power_abm_set_event(struct mod_power *mod_power,
- 	dc = core_power->dc;
- 
- 	// It's only implemented on dmcub.
--	if (dc->ctx->dmub_srv) {
--		if (!dmub_set_abm_event(dc->res_pool, full_screen, trans_info,
--				hdr_mode, scaling_enable, scaling_strength_map, inst))
-+	if (dc_get_ctx(dc)->dmub_srv) {
-+		if (!dmub_set_abm_event(dc_get_res_pool(dc), full_screen,
-+				trans_info, hdr_mode, scaling_enable,
-+				scaling_strength_map, inst))
- 			return false;
- 	} else
- 		return false;
-@@ -1706,8 +1707,8 @@ bool mod_power_abm_set_strength(struct mod_power *mod_power,
- 	dc = core_power->dc;
- 
- 	// It's only implemented on dmcub.
--	if (dc->ctx->dmub_srv) {
--		if (!dmub_set_abm_strength(dc->res_pool, strength, inst))
-+	if (dc_get_ctx(dc)->dmub_srv) {
-+		if (!dmub_set_abm_strength(dc_get_res_pool(dc), strength, inst))
- 			return false;
- 	} else
- 		return false;
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-index 96bb77fff05b..af59cf502297 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-@@ -70,13 +70,13 @@ bool mod_power_psr_notify_mode_change(struct mod_power *mod_power,
- 
- 	psr_config.psr_exit_link_training_required =
- 			core_power->map[stream_index].caps->psr_exit_link_training_required;
--	if (dc->ctx->asic_id.chip_family >= AMDGPU_FAMILY_GC_11_0_1)
-+	if (dc_get_ctx(dc)->asic_id.chip_family >= AMDGPU_FAMILY_GC_11_0_1)
- 		psr_config.allow_smu_optimizations =
- 				core_power->psr_smu_optimizations_support && dc_is_embedded_signal(stream->signal);
- 	else
- 		psr_config.allow_smu_optimizations =
- 				core_power->psr_smu_optimizations_support &&
--				mod_power_only_edp(dc->current_state, stream);
-+				mod_power_only_edp(dc_get_current_state(dc), stream);
- 
- 	psr_config.allow_multi_disp_optimizations = core_power->multi_disp_optimizations_support;
- 
-@@ -455,7 +455,7 @@ void mod_power_psr_residency(struct mod_power *mod_power,
- 	link = dc_stream_get_link(stream);
- 
- 	if (link != NULL)
--		link->dc->link_srv->edp_get_psr_residency(link, residency, mode);
-+		dc_link_edp_get_psr_residency(link, residency, mode);
- }
- bool mod_power_psr_get_active_psr_events(struct mod_power *mod_power,
- 		const struct dc_stream_state *stream, unsigned int *active_psr_events)
-@@ -510,7 +510,7 @@ bool mod_power_psr_set_sink_vtotal_in_psr_active(struct mod_power *mod_power,
- 
- 	link = dc_stream_get_link(stream);
- 
--	return link->dc->link_srv->edp_set_sink_vtotal_in_psr_active(
-+	return dc_link_edp_set_sink_vtotal_in_psr_active(
- 			link, psr_vtotal_idle, psr_vtotal_su);
- }
- /*
-@@ -645,7 +645,7 @@ bool psr_su_set_dsc_slice_height(struct dc *dc, struct dc_link *link,
- 
- 	config->dsc_slice_height = 0;
- 	if (!(link->connector_signal & SIGNAL_TYPE_EDP) ||
--	    !dc->caps.edp_dsc_support ||
-+	    !dc_get_caps(dc)->edp_dsc_support ||
- 	    link->panel_config.dsc.disable_dsc_edp ||
- 	    !link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_SUPPORT ||
- 	    !stream->timing.dsc_cfg.num_slices_v)
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_replay.c b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-index 666585b7e00c..d68f14b18179 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-@@ -372,7 +372,7 @@ bool mod_power_replay_set_coasting_vtotal(struct mod_power *mod_power,
- 	if (core_power->num_entities == 0)
- 		return false;
- 
--	return link->dc->link_srv->edp_set_coasting_vtotal(link, coasting_vtotal, frame_skip_number);
-+	return dc_link_edp_set_coasting_vtotal(link, coasting_vtotal, frame_skip_number);
- }
- 
- void mod_power_replay_set_timing_sync_supported(struct mod_power *mod_power,
-@@ -400,7 +400,7 @@ void mod_power_replay_set_timing_sync_supported(struct mod_power *mod_power,
- 
- 	cmd_data.sync_data.timing_sync_supported = link->replay_settings.config.replay_timing_sync_supported;
- 
--	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_Timing_Sync_Supported,
-+	dc_link_edp_send_replay_cmd(link, Replay_Set_Timing_Sync_Supported,
- 		&cmd_data);
- }
- 
-@@ -429,7 +429,7 @@ void mod_power_replay_disabled_adaptive_sync_sdp(struct mod_power *mod_power,
- 
- 	cmd_data.disabled_adaptive_sync_sdp_data.force_disabled = force_disabled;
- 
--	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Disabled_Adaptive_Sync_SDP,
-+	dc_link_edp_send_replay_cmd(link, Replay_Disabled_Adaptive_Sync_SDP,
- 		&cmd_data);
- }
- 
-@@ -461,7 +461,7 @@ static void mod_power_replay_set_general_cmd(struct mod_power *mod_power,
- 	cmd_data.set_general_cmd_data.subtype = general_cmd_type;
- 	cmd_data.set_general_cmd_data.param1 = param1;
- 	cmd_data.set_general_cmd_data.param2 = param2;
--	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_General_Cmd,
-+	dc_link_edp_send_replay_cmd(link, Replay_Set_General_Cmd,
- 		&cmd_data);
- }
- 
-@@ -500,7 +500,7 @@ static void mod_power_replay_set_pseudo_vtotal(struct mod_power *mod_power,
- 
- 	if (link->replay_settings.last_pseudo_vtotal != vtotal) {
- 		link->replay_settings.last_pseudo_vtotal = vtotal;
--		link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_Pseudo_VTotal, &cmd_data);
-+		dc_link_edp_send_replay_cmd(link, Replay_Set_Pseudo_VTotal, &cmd_data);
- 	}
- }
- 
-@@ -759,8 +759,7 @@ void mod_power_replay_residency(const struct dc_stream_state *stream,
- 	else
- 		mode = PR_RESIDENCY_MODE_PHY;
- 
--	if (link && link->dc && link->dc->link_srv)
--		link->dc->link_srv->edp_replay_residency(link, residency, is_start, mode);
-+	dc_link_edp_replay_residency(link, residency, is_start, mode);
- }
- 
- bool mod_power_replay_get_cumulative_residency(const struct dc_stream_state *stream,
-@@ -768,10 +767,7 @@ bool mod_power_replay_get_cumulative_residency(const struct dc_stream_state *str
+ 	ret = component_add(adev->dev, &amdgpu_dm_audio_component_bind_ops);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index cb74b00723fd..3d268703c551 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -296,7 +296,7 @@ struct dc_stream_state *dm_find_stream_with_link(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dc_link *link)
  {
- 	const struct dc_link *link = dc_stream_get_link(stream);
+-	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_state *cur_dc_state = dc_get_current_state(dm->dc);
+ 	struct dc_stream_state *stream = NULL;
+ 	int i;
  
--	if (!link || !link->dc || !link->dc->link_srv)
--		return false;
--
--	return link->dc->link_srv->edp_replay_get_cumulative_residency(
-+	return dc_link_edp_replay_get_cumulative_residency(
- 		link, residency_milli_pct);
- }
- 
-@@ -802,7 +798,8 @@ bool mod_power_replay_set_power_opt_and_coasting_vtotal(struct mod_power *mod_po
- 
- 	power_opt = mod_power_replay_setup_power_opt(link, active_replay_events, is_ultra_sleep_mode);
- 
--	return link->dc->link_srv->edp_set_replay_power_opt_and_coasting_vtotal(link, &power_opt, coasting_vtotal, frame_skip_number);
-+	return dc_link_edp_set_replay_power_opt_and_coasting_vtotal(
-+			link, &power_opt, coasting_vtotal, frame_skip_number);
- }
- 
- void mod_power_replay_notify_mode_change(struct mod_power *mod_power,
-@@ -829,14 +826,14 @@ void mod_power_replay_notify_mode_change(struct mod_power *mod_power,
- 
- 	link->replay_settings.replay_smu_opt_enable =
- 		(link->replay_settings.config.replay_smu_opt_supported &&
--		mod_power_only_edp(dc->current_state, stream));
-+		mod_power_only_edp(dc_get_current_state(dc), stream));
- 
- 	if (active_replay_events & replay_event_os_request_force_ffu) {
- 		link->replay_settings.config.os_request_force_ffu = true;
+@@ -383,7 +383,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
  	}
  
- 	if (dc_is_embedded_signal(stream->signal))
--		dc->link_srv->dp_setup_replay(link, stream);
-+		dc_link_dp_setup_replay(link, stream);
- }
+ 	mutex_lock(&dm->dc_lock);
+-	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
++	if (dc_get_caps(dm->dc)->ips_support && dc_get_ctx(dm->dc)->dmub_srv->idle_allowed) {
+ 		dc_allow_idle_optimizations(dm->dc, false);
+ 		reallow_idle = true;
+ 	}
+@@ -415,7 +415,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	amdgpu_dm_replay_set_event(dm, stream, true,
+ 		replay_event_hw_programming, true);
  
- void init_replay_config(struct dc_link *link, struct replay_config *pr_config)
+-	if (dm->dc->caps.ips_support && reallow_idle)
++	if (dc_get_caps(dm->dc)->ips_support && reallow_idle)
+ 		dc_allow_idle_optimizations(dm->dc, true);
+ 
+ 	mutex_unlock(&dm->dc_lock);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index f9dc9f46a446..d86b9611568b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -832,7 +832,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_set_atomic_regamma);
+  * Returns:
+  * 0 in case of success. -ENOMEM if fails.
+  */
+-STATIC_IFN_KUNIT int __set_input_tf(struct dc_color_caps *caps,
++STATIC_IFN_KUNIT int __set_input_tf(const struct dc_color_caps *caps,
+ 				    struct dc_transfer_func *func,
+ 				    const struct drm_color_lut *lut, uint32_t lut_size)
+ {
+@@ -870,7 +870,7 @@ EXPORT_IF_KUNIT(__set_input_tf);
+  * Returns:
+  * 0 in case of success. -ENOMEM if fails.
+  */
+-STATIC_IFN_KUNIT int __set_input_tf_32(struct dc_color_caps *caps,
++STATIC_IFN_KUNIT int __set_input_tf_32(const struct dc_color_caps *caps,
+ 				       struct dc_transfer_func *func,
+ 				       const struct drm_color_lut32 *lut, uint32_t lut_size)
+ {
+@@ -1168,7 +1168,9 @@ int amdgpu_dm_verify_lut3d_size(struct amdgpu_device *adev,
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	const struct drm_color_lut *shaper = NULL, *lut3d = NULL;
+ 	uint32_t exp_size, size, dim_size = MAX_COLOR_3DLUT_SIZE;
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 
+ 	/* shaper LUT is only available if 3D LUT color caps */
+ 	exp_size = has_3dlut ? MAX_COLOR_LUT_ENTRIES : 0;
+@@ -1403,7 +1405,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_update_crtc_color_mgmt);
+ static int
+ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+ 			     struct dc_plane_state *dc_plane_state,
+-			     struct dc_color_caps *caps)
++			     const struct dc_color_caps *caps)
+ {
+ 	const struct drm_color_lut *degamma_lut;
+ 	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
+@@ -1483,7 +1485,7 @@ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+ static int
+ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 		       struct dc_plane_state *dc_plane_state,
+-		       struct dc_color_caps *color_caps)
++		       const struct dc_color_caps *color_caps)
+ {
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	const struct drm_color_lut *degamma_lut;
+@@ -1551,7 +1553,7 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->in_transfer_func;
+ 	struct drm_colorop *colorop = colorop_state->colorop;
+ 	struct drm_device *drm = colorop->dev;
+-	struct dc_color_caps *color_caps = NULL;
++	const struct dc_color_caps *color_caps = NULL;
+ 	bool is_subsampled_format;
+ 
+ 	if (colorop->type != DRM_COLOROP_1D_CURVE)
+@@ -1575,7 +1577,7 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+ 
+ 	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+-		color_caps = &dc_plane_state->ctx->dc->caps.color;
++		color_caps = &dc_get_caps(dc_plane_state->ctx->dc)->color;
+ 
+ 	if (!mod_color_calculate_degamma_params(color_caps, tf, NULL,
+ 						is_subsampled_format)) {
+@@ -1865,7 +1867,9 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
+ 	struct drm_atomic_commit *state = plane_state->state;
+ 	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 	const struct drm_device *dev = colorop->dev;
+ 	const struct drm_color_lut32 *lut3d;
+ 	uint32_t lut3d_size;
+@@ -2044,7 +2048,9 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+ 	struct drm_colorop *colorop = plane_state->color_pipeline;
+ 	struct drm_device *dev = plane_state->plane->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 	int ret;
+ 
+ 	/* Fixed Matrix (YUV to RGB) */
+@@ -2156,7 +2162,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	struct drm_color_ctm_3x4 *ctm = NULL;
+-	struct dc_color_caps *color_caps = NULL;
++	const struct dc_color_caps *color_caps = NULL;
+ 	bool has_crtc_cm_degamma;
+ 	int ret;
+ 
+@@ -2167,7 +2173,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 	}
+ 
+ 	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+-		color_caps = &dc_plane_state->ctx->dc->caps.color;
++		color_caps = &dc_get_caps(dc_plane_state->ctx->dc)->color;
+ 
+ 	/* Initially, we can just bypass the DGM block. */
+ 	dc_plane_state->in_transfer_func.type = TF_TYPE_BYPASS;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+index 3e8a3d3fc855..4bda8c47ae09 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+@@ -74,9 +74,9 @@ int __set_output_tf_32(struct dc_transfer_func *func,
+ 		       const struct drm_color_lut32 *lut, uint32_t lut_size,
+ 		       bool has_rom);
+ struct dc_color_caps;
+-int __set_input_tf(struct dc_color_caps *caps, struct dc_transfer_func *func,
++int __set_input_tf(const struct dc_color_caps *caps, struct dc_transfer_func *func,
+ 		   const struct drm_color_lut *lut, uint32_t lut_size);
+-int __set_input_tf_32(struct dc_color_caps *caps, struct dc_transfer_func *func,
++int __set_input_tf_32(const struct dc_color_caps *caps, struct dc_transfer_func *func,
+ 		      const struct drm_color_lut32 *lut, uint32_t lut_size);
+ enum dc_transfer_func_predefined
+ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+index c6bb9fec9217..e912256eebb3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+@@ -299,8 +299,8 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+ {
+ 	struct drm_device *dev = plane->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	bool hw_3d_lut = adev->dm.dc->caps.color.dpp.hw_3d_lut ||
+-			 adev->dm.dc->caps.color.mpc.preblend;
++	bool hw_3d_lut = dc_get_caps(adev->dm.dc)->color.dpp.hw_3d_lut ||
++			 dc_get_caps(adev->dm.dc)->color.mpc.preblend;
+ 
+ 	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, list);
+ }
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 5786ef5787ac..f654003e3191 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1669,7 +1669,7 @@ static bool map_regamma_hw_to_x_user(
+ 
+ #define _EXTRA_POINTS 3
+ 
+-bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
++bool mod_color_calculate_degamma_params(const struct dc_color_caps *dc_caps,
+ 		struct dc_transfer_func *input_tf,
+ 		const struct dc_gamma *ramp, bool map_user_ramp)
+ {
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+index 97e55278940e..8b7bc41c87df 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+@@ -111,7 +111,7 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
+ 		const struct hdr_tm_params *fs_params,
+ 		struct calculate_buffer *cal_buffer);
+ 
+-bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
++bool mod_color_calculate_degamma_params(const struct dc_color_caps *dc_caps,
+ 		struct dc_transfer_func *output_tf,
+ 		const struct dc_gamma *ramp, bool mapUserRamp);
+ 
 
 -- 
 2.56.0
