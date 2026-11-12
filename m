@@ -2,48 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8075D606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAC8606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou8Ls/u0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mqPcwE7x
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD11A10E5DF;
-	Thu, 12 Nov 2026 13:51:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 589A610E5DF
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 13:50:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 149DC43C07;
- Thu, 12 Nov 2026 13:50:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02EFF1F00A05;
- Thu, 12 Nov 2026 13:50:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794491458;
- bh=b2rTD3RNw/wmfQmagbMmHdQ+mRLznGGUNUzFgFRsNVM=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=ou8Ls/u0SV/9IsDV8EHksS4J/VjPYYOXNnydIW3tI8ilMfGYgY6oNJjiRD1fcQJkA
- vbV+gRMyBwaXmf8CJaP2VQRcQ6RDmfabBNpgNUE2a5/62VWrsU9XDpkNiY3umiZ+sz
- /RaUGoWF20VS85myoaH3EPKZ/meNWorZOhGxD9v3Y9hSKGRc1ZQTW1WREFyzRPAB/h
- YTX18PMsE4XOdPHcNbO7Tx1+SlayX0YrFrOtpeMoap1Uzbx0VuEgzhCn9siS6U7kPb
- ELGePdQsPxrVkCPUIwoeCTAxrAy9N2um/VbEd3zienj3lyof4ig1wlXUC9JYMJDnDF
- MgJoNZADZfY8Q==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo
- <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Dave Airlie <airlied@redhat.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v7 1/2] rust: time: expose as_nanos for clock sources.
-In-Reply-To: <DMT91N7BGPUU.17BEZWQDLH3CC@kernel.org>
-References: <20261111-nova-timer-v7-1-3031c2476551@redhat.com>
- <179448764517.621816.16006004780926601543.b4-ty@b4>
- <DMT91N7BGPUU.17BEZWQDLH3CC@kernel.org>
-Date: Thu, 12 Nov 2026 14:50:45 +0100
-Message-ID: <87tslmupje.fsf@t14s.mail-host-address-is-not-set>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB5910E06A;
+	Thu, 12 Nov 2026 13:55:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8305310E06A;
+ Thu, 12 Nov 2026 13:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794491699; x=1826027699;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=ARC6hjaa9t8Sqjo/FmTSceXdQ3UM/JMTlSfA9qolCqw=;
+ b=mqPcwE7xC07/eiKuDaJpfehbNoQyZVKYqe9sEd7D+wGZHv5QcNwboDPF
+ TtTwZYvsMNkdJwn/z8in6fbJB3pjbBlwuMhtP8fuAizHJnvmPluI0XsZ0
+ +5qVgRRfz3qPeEd+ANq+wbCtha8E8vaAjAJQmHD9ULtHbnpz+OPkDq7+8
+ zQifIP0l59WXHY8Wrzo8wCFi56NpxTgpuR2Tr5oRVkF1Mt37d4P/ijSYy
+ 1oAo4GQ2DrD1SE6mmEj0jtPZrWRfjLNiJvikm/8azUNqBtO1Hqy3ATXQh
+ 9QvE2nXRMYfYIiExX73Nq/jot09MtPV/xorNt/29RA/hNYEgMXuiDRgNR w==;
+X-CSE-ConnectionGUID: 3oXENGn9QJG9fF/zTNMPnQ==
+X-CSE-MsgGUID: YmsoHfODQW27XlzimKVi0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3269608"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3269608"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2026 05:54:59 -0800
+X-CSE-ConnectionGUID: KRgcd2rISQ+fa79JHUIurQ==
+X-CSE-MsgGUID: BTi+uURfSjiz7euKAolK0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="9097875"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.169])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2026 05:54:56 -0800
+Message-ID: <2bcbf647f19be5441a816a02fe891079a9e88434.camel@linux.intel.com>
+Subject: Re: [PATCH v4 2/2] drm/i915: Remove drm_dev_unregister() from the
+ error path during i915_driver_register()
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, David Airlie	
+ <airlied@gmail.com>, Krzysztof Karas <krzysztof.karas@intel.com>, Sebastian
+ Brzezinka <sebastian.brzezinka@intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>
+Date: Thu, 12 Nov 2026 14:54:53 +0100
+In-Reply-To: <20261104230555.71107-3-krzysztof.niemiec@intel.com>
+References: <20261104230555.71107-1-krzysztof.niemiec@intel.com>
+ <20261104230555.71107-3-krzysztof.niemiec@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +72,64 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-"Danilo Krummrich" <dakr@kernel.org> writes:
+On Thu, 2026-11-05 at 00:05 +0100, Krzysztof Niemiec wrote:
+> During driver probe, in i915_driver_register(), if drm_dev_register()
+> fails, the code enters into an error path. In it, a call to
+> drm_dev_unregister() is made as part of cleanup in case drm_dev_register(=
+)
+> returns an error. However, this is unnecessary, as in case of an error
+> drm_dev_register() undoes its own setup in its own error path.
+>=20
+> Calling drm_dev_unregister() after a failed drm_dev_register() also
+> generates a superfluous WARN_ON() from drm_client_sysrq_unregister().
+> drm_client_sysrq_register() is only called in drm_dev_register() if
+> there was no error in the latter. drm_dev_unregister() calls
+> drm_client_sysrq_unregister() as it expects to be called after a successf=
+ul
+> drm_dev_register(), in which case the _sysrq_register() counterpart is
+> called. However, if the call to drm_dev_register() failed,
+> _sysrq_register() is never called; calling drm_dev_unregister() will
+> cause _sysrq_unregister() to be called (unconditionally) with no
+> corresponding _sysrq_register() call before it, which is caught in the
+> aforementioned WARN_ON().
+>=20
+> Remove the redundant call to drm_dev_unregister() in case
+> drm_dev_register() returns an error.
+>=20
+> Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 
-> On Thu Nov 12, 2026 at 1:47 PM CET, Andreas Hindborg wrote:
->>
->> On Wed, 11 Nov 2026 15:23:24 +1000, Dave Airlie wrote:
->>> The nouveau C driver does ktime_to_ns(ktime_get()) to program
->>> the cpu ns into some hw/fw, so allow this method for rust drivers.
->>> 
->>> This is needed for following nova patch.
->>
->> Applied, thanks!
->
-> Do you mind if we take this through the DRM tree? Otherwise the subsequent patch
-> in this series has to wait for a cycle.
+Reviewed-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 
-No it is fine, I can drop it from my tree. I asked on v6 what you
-wanted, either way is fine :)
-
-
-Best regards,
-Andreas Hindborg
-
-
+> ---
+> Changelog:
+>=20
+> RFC -> ... -> v3:
+>   no functional changes
+>=20
+> v3 -> v4:
+>  * rebased
+>=20
+>  drivers/gpu/drm/i915/i915_driver.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i9=
+15_driver.c
+> index 5787f40ac62e..d25145b33db4 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -618,7 +618,6 @@ static int i915_driver_register(struct drm_i915_priva=
+te *dev_priv)
+>  	if (ret) {
+>  		i915_probe_error(dev_priv,
+>  				 "Failed to register driver for userspace access!\n");
+> -		drm_dev_unregister(&dev_priv->drm);
+>  		i915_pmu_unregister(dev_priv);
+>  		i915_gem_driver_unregister(dev_priv);
+>  		return ret;
