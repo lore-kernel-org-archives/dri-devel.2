@@ -2,102 +2,133 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852E0606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86348606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN0eUdU4
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ots14Rbp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 319A910EB17;
-	Thu, 12 Nov 2026 01:43:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B417010EAF6;
- Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A89962CCE;
- Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447831;
- b=mTClu7NxsaShaw+38KErEoPi+mOfkQqn7xI69xkyO0g/3St0uAT5pxRa9dGssTcpPE8n
- 8ggvDvvBynzj3MSdoevbnhaSSdStnc/658zo6FTh+ImgWOwjh6Ea4EEF7HPDtj4SEVk75
- r098HnrlFuhdgFxdmTEm/ydqbOtyykUZ9mFUtv4a1S/Jwy6Ns8IwroZMVN1Z1CtpIi7kr
- RjR5raNpDwIqPpaDU5YpxT8UFaV7+5S0W36Op1KuQuz4ZbcY2vr6ydNI5CLzNusLgbkRp
- nSIRlYF71lV4UoKNZ7g657VjxizTdftXHNYJRJwlESJXdG7uLJS0RsUOwAEwU/85iMA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447831;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=KgdEWMaaokVMPsOUbpi30JvX+zu3YYlWw0Wpq+qlP6g=;
- b=uVJX8HDCu0Ymj9oxK2F6myS8TOKn8i4chwwv0QUgEKQ1ap64kHz7R6e8ueVaDwkoCx34
- t8Zig9M2TteJzPrRtK+mJ/cJ+ISaSdpBizBCZtYVxWl/0U8LWpP12YT0ko1C3WTwvBCRX
- jJ8ZWm67xwLXUp1+Fv0VrJ7mLivoikJg287DeLYjQypCko8KYUJARCOrD2qtPJSS5ZKmX
- lyq0EdHct0tyDkX4FCYxzmxGvaNQP0yPv+z9VorB3sCpQmucE852PjkaIHVmKVL8BDITc
- a1zHR60U0T+lfW0bIkjmWJywU/UstLbML+kmq1FMu5puSYmi5j/RF4pp8mHT6FYgDQQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 979BA1F00A0A;
- Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447831;
- bh=KgdEWMaaokVMPsOUbpi30JvX+zu3YYlWw0Wpq+qlP6g=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=YN0eUdU4w4o2Dtb2cYARQxZioc+fi+vFIHrSRCub102/F4jwhMkHPup1RlJSlaTxX
- csWvOj/jpLH7fAoMxvbfzNYO0FbS7bjIGQcptoat+c7O9bOxOOsTDh6MDEzgcSdzol
- r2RK7wjG+fvyXnZRKNh6ahM88WlmPRLVLi7EcOAmADeBsgm2MBI2rB+z1fZs8TPzMW
- cN+TThG/xH+QhhPxVpu3EFpFaeOBC33odoNh5IMEF709vL5wdeT+juRIJoU0qUWZPT
- BDZubPdD2pqmU2Eiqk7KYqETuD38N8pfwReuU3qpTQLjPBcj0Sn1SeCrvCYYdtobl2
- 4WUWe9yrq4tUg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id E7207491BF;
- Thu, 12 Nov 2026 01:43:48 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Subject: [PATCH 00/19] drm/amd/display: refactor DC interfaces to abstract
- it better.
-Date: Thu, 12 Nov 2026 11:43:35 +1000
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B6A10E497;
+	Thu, 12 Nov 2026 01:44:06 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011022.outbound.protection.outlook.com [52.101.62.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D577510FECD;
+ Thu, 12 Nov 2026 01:43:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q8uomSnx+lGgxYy6kuy/nWMucf1iOyNygia3ocd27J9ffGLSPZxGU+t7b5Yl30MSwQWA/Fv9KwEWVbPh/sv1GnAU6vKkXUFCUtvu/IEBkSxcaJCSCLFwMKffPCsI09VWOJmXCq8/LLAQ5zh6F5fflykKPnJ0fsIpyKBeDl7jEe77L9ys1fSlSGXYIk/Z1OH7kaRgBGBsO9M9RpaNntq61rZN/4WS7R5cDmyXSwkwPMj2MpQVleozZ5x9r7N+Vtfxk8THk4SdkCkHC38vSHGwLxp69sQhZoHV59BcoiZ673saG9gqbAItgHXLPMsBAdtY6q+SAMt8Ez/zc855GgHjJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yT7pzRpHPiL+E2wuffxx5jRI3ca2DklLZ+5LDXfbEQo=;
+ b=Q+12MsokrzhDgiOsrbWHkRG9aDxfYMwvk2jlCwU7jn14Dj8Q3ayp9icCnIGOd8GsqAUwgTCcabRp7cX4o6bg1wnM2tHOOqZ/8fYuZpo/sphqf9U00OTpRv0z8PM3LJSxw8nOc8mgryoNRYbKTEVRZsPvy4FMmybYaM+/odFn6QaPNGSYYKX+thE0s4zD/OlsZZEDyrDq6LJXi5vP9dTalLJ1AUr6nDcTYdt1H6deBV8mUr2inD0OdkMoanxnWjMsQpB3kfaVzzKvS/C9JbdqkHsSkfp+nl6SG5AAGhwy3XRy5Rf/LmPjcpqDlvs/CnxNkh/3T83IrYUbWHBXMZUxlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yT7pzRpHPiL+E2wuffxx5jRI3ca2DklLZ+5LDXfbEQo=;
+ b=Ots14Rbp2BBHDc3AOFuFCtvTY2+VlQWDcgtrMaybWYzEbrD+MLlaMmtGuC66dvS08drqYPK3gfyAkSm1E9U2lW9m0tfxS+amy5Cw9v8vaDwLioKwiutUi5R9NgtueejY3jL1dgHDEYl/NKdiuzGoVI1X2z9nXFXW2NJDpN0KLVDGYPUFjUdxIF5PFNhp/2xizDYk+x0KxovaHMusuzt/E2w6aONyoZyx7Zew3sL8AYaoGOl5X+F/l0yt4jBzxbzZFbClVUWLg6qxNCX/wrofyrBSQWsPhMr8En1+dm8DtmlvTagSpX3p285494cZCZwInUprZsI+CBDdAuZC9FnkAQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ IA5PR12MB999324.namprd12.prod.outlook.com (2603:10b6:208:609::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 01:43:05 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 01:43:05 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 10:43:01 +0900
+Message-Id: <DMSUNELHV29J.3P27BLAEVKTAV@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES
+ to 64
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
+ <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
+ <DMSGRDMGTD4J.30PUSSFQMZ4YO@nvidia.com>
+In-Reply-To: <DMSGRDMGTD4J.30PUSSFQMZ4YO@nvidia.com>
+X-ClientProxiedBy: TYWP286CA0031.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262::19) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZMQUGvIi76iRrQWloqQvHuF
- pdvMVMgcRROMDUFIt+S5PIV1DZgd+03RnHVoDo1EJFCfbotZHQW7cHa54DG9oZHGjtHBLULkVd
- 5/ue8vO8HMb4rZGMAAAA=
-X-Change-ID: 20261112-amdgpu-dc-cleanup-bc5be9190d11
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Austin Zheng <austin.zheng@amd.com>, 
- Jun Lei <jun.lei@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=25013;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=EhUeBsCO+cU1/rVHwXnz9Mnn1sI2JdDlW/XL/ajVbpA=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnKy9GZVpPclBMO7zvQOZW3HOC0ele9cEP4w
- BnJ1ok+NdWJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZygAKCRAMdPNZecSG
- vjUHEACpwsE09mlhmhcmTDXN8jlOkZqVnQSq1rYxXWJYdK9enQoD+l4v1WDX9UZW2m2pY2rFWfg
- cqYFUZepAHxvujitITp5svD0hTuTgUXccJxMM8UuI4Jn7G6qopdSmWHC+sfxGh0ObycyXq8HGka
- EIy/4rct4qsGdrivG/iM+nhh+2ZJ291UbcGr03QeY/sq1eEbQxHZS6cZpbcy6UlkQqKrIjzH+4+
- 2gK6uxzuwg70W0tWiTBWMTfmv38HZfxjx3zTBH9n9+x2UJTuP2Lwlw/SuIvT0f74txd6hmE7k1g
- UwwptCOba/OfzWHv1TwN4624w6U+0rljoAN+zEq4KlGyJHMByCxseITNSZG7lwn1AsFTPyomeKF
- xxV2xIDUmgAiMkBTS2xZ3nIVCQNkD7Z8iWtow2QpCXvivn7JZ6T6byJF4zkbdkQYEDarW57424B
- Qe78Mh7TafHBDtMCmosVxcloeRXMjavfTye+3lCxY7R/HVbo82GH+oaJdA0Cawwe8TO2fZph9XE
- 6mW3WTfox2IkfSm18mMzh/BvT8TVWuVdZsp3Gk/R+ddhUcRlSQ2Qf1EyJFOp3IoOhY3XIownWol
- AzeP5ehHJN63/fvKzRTh6j+iz/HAsYVlA6/k6c2fMkDh7jQb0Gf0vpn035jiKk16uoFAmxPH118
- ZSe73BAkr+54SVw==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|IA5PR12MB999324:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6cd5f77-22c6-45fd-edec-08df405e4bcc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|366016|376014|1800799024|22082099003|18002099003|261009223027099003|3023799007|4143699003|11063799006|56012099006|261028144727099003|261021121427099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info: PfAMEAlMTXzx+HxEq1zLnZVbAcfoqXpsyOf3ppbKjo5qS94lk99gRfRDisDI4aXDRnUT3a3PveqBZLJDnn+z4iVobC4DR258ucNxdAcuJs0LVQ62y1fjIX2WYaBrO8zl6EN48NyfpyLiV7chQIcOp/vsQ//Von5b4yd5CI46GCTF8SwaR7Or4xqJdnV5rY+GGa+R6tPRIwZBGqon14ochn919+5s0cigWkbk6Z6FAwTv80ylOELc7/exXlVkvRBicPbrfCqXwohG1I673Ofwv3YJY9G28XyDIzCyaEYyQr1Bogo6FLpLba0Cj5rIxIxGOZOSDlEkjWfyy2V9vXH16watHJhM4NU/+A8OXzsG4IP+9017LV5cwSVgH8U2/sAgWa1gjQq1LG37q5YrUCOlBOv6un8b0T1BUA5GmYJS6yZqgcWLcQk15J2nJZ2sT63DnPp5IzqU9/FJW8GJK1tewJd/wcp2zgtnODdmJwUD+O/Acr16qzKQ++DfQAi4oGzP+Pb/A4j2sjN5riVrUjjVoCst6IDZVZOA4/BpkjUbiOHR/WlD3W9w6AMFx0pCMiX++FwOY8C/7BKcOZhdkdQnk6+TGbuukzPUgR9cwZ3SOMMf0/0ahs7MlZRg+BzSnNf3n0hFIovcR9J6ocieX4q8q8GuZck5l2vE3+fInyvaosY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(3023799007)(4143699003)(11063799006)(56012099006)(261028144727099003)(261021121427099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021135927099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkNlRWxodUdrV0JCN29QMlZlN3YyYmNBUzRkOUNvMjJnalJjZ0RCR01KTjBF?=
+ =?utf-8?B?OWtWYmNYamVjeS9sYnNNWnFMZHg3NkpuT1R6NmF2bzlIMkNQcXpOWm5Zbllv?=
+ =?utf-8?B?bDJGMWduYVN0UE5SSXBlUGRFTXpqSmZtbXMySE5iNFR4MDIzd0ppVnBwVVY5?=
+ =?utf-8?B?RFhIU3phc2NDVTBsWlJUSUdJdjlabFZRY3ZKNWdJbldrbFVlSHluZ1VWZEEr?=
+ =?utf-8?B?M1dtLzcxb3JrRnNsYWd4Q01lRUJ5WnBWbVFyRjFvMWRFc1ZzeEhQVFFNbTJr?=
+ =?utf-8?B?ZUgyaW5aT00reTJoMWF1VUo1RjJUbUd0OXR3cWx6QXBKd3h1aGlKeU1vOENl?=
+ =?utf-8?B?ZDRKbVpzczZiRlpLenRmODV4Z01WMzQrc2R4WmxDSDlPNGhaOXY2MnpveHV2?=
+ =?utf-8?B?eU52ZENLWG9LZUo3bkQ0eXFNMEJhUGJLOEkxVHRlR0ozeWFUYXg2K01DRCtX?=
+ =?utf-8?B?K0xka2JnaFRDRUQxc3RZYlFaV3V2NHcvRnBVWGREWUw0RXN6dEJUYnlkN0pt?=
+ =?utf-8?B?UCtQRU9VWGNyR01JL3dDdklkSE5NWjVDUFFZYW03cjJ5TlJNM2w3eUdHanR3?=
+ =?utf-8?B?MFJSUmVTeHovSDcvdkg5QlJvZ3ZUTWlvY2x4L0hIUDNNN2swUHVXSGRsVExQ?=
+ =?utf-8?B?ekhsSDBCSmpLdHZ0SlVhQUZ4Z2Q3SEk4Ukl0bVpFaUYyb1N5NDZ4cTkrUmxN?=
+ =?utf-8?B?NS8vUGo5WXFENSszejJoN2RDV3ZvUDNTWUcvTEtHUWs5NTBwZFdETWk2MDVS?=
+ =?utf-8?B?UXYwbm5oNzllUDFjREVFczBpbVRLRzJCN1IrMGVwRS9rMC80cVZFWmczd1pM?=
+ =?utf-8?B?RiswMGs1eHFhQkFNaXE3NkR3SnJOTk5yenB2Y1o5ZFhMWnlqYUhiUUJYUGFv?=
+ =?utf-8?B?U3cxbm0vckFFK0hJYWltVndraENncUIvS3poL0JoYWZSRkZpcHBhMy9YRjFj?=
+ =?utf-8?B?T2xtTEY5cDVIOVlqWnpXSUlPNExFWTNSM3F0dE1BaXhNSDRvZ3o2ZTN2RE1z?=
+ =?utf-8?B?bFBnRGJtN1cwYTBYYTBuZzdlKzNMeWZsRHl0Qi94SU9LSFNFdzM0WG55bWRC?=
+ =?utf-8?B?b3M2ZGFEb08xdEt6QkNvZGhyd0xvOW1wTDcwR1J6djdGejZNUGZvcjd1ZXVk?=
+ =?utf-8?B?RERmdUdNaUxuQ1N2Q0M5ZGRuODYzOWRTTWd3eTA5MFZFRzk5aGNVaEVaTGVp?=
+ =?utf-8?B?ZE43bnI1VFBScUNRaXFMS1FyOXl4ZUJuSStvUzlJRUpsZkFBRFp1dDZ2bzJL?=
+ =?utf-8?B?T09MQU5HOE9lYnQ1UTEyTy96eXB1WDE0bWFyWlZzbjB4bmJrcitLbkpDZDU0?=
+ =?utf-8?B?dTI4MTQ5MkdOc1p4RU9XeFJkaVBtV3M3ZWlPQTVxZHVLSDBodFQwNitFSVMx?=
+ =?utf-8?B?ZFJEWmJvZDlmQ1pMMGFXYlBaeUxGN2hvMnhKNzhEZkdtb0RZbkdhcjVFbEVW?=
+ =?utf-8?B?K3hiZVhjQld1YTlrVTkyMUtDTm5SZEVwVTBuWG1ETVFmSHI0MzFTSUpoMUtk?=
+ =?utf-8?B?dXRiWTZ0ZFpjMTZHeExGRzJEajN2UjZwellsUW5HMnh2YS9WUUlUVUdZN0V5?=
+ =?utf-8?B?cXRUeHpUcWdFc2JFMHBjL0JvOUhGNllhQnQ0NnRLK0xYZTh5dDJ1MVRoa3ZT?=
+ =?utf-8?B?ZlhwTTY2M0lWZGtDQTJnMXF2M0RMNENLUHdBSUR4M3VWaUhZRDdadHBEVTZr?=
+ =?utf-8?B?ZDNldzdMeDhOSElTVlhqMkhyUTQxYnhIQldaOG5Fa0dUSGxGdmdzKzJTQ1Fq?=
+ =?utf-8?B?SjN6L0taTmpMSUVnbXJ6Q2pyZkt0dXpRWGNzU3JBSS9kcERaY3FlSm12OHFO?=
+ =?utf-8?B?ZnlDSmd2K2tibGFMbXpsNmxhazcwT2dIWURmY3dhR2lUKytOczRIRmh5cmpT?=
+ =?utf-8?B?V3Y1YzJnNlhkaytCUnBGSWM5NEJSY2ZQYy8xTm4rUEpnOTZOazA4THg1bkNi?=
+ =?utf-8?B?TkI5dnpKREplUzhTcjVBYTdYZXRONjBOaU84RWJVUWcrcmhWQ0lkSlYvVVFj?=
+ =?utf-8?B?c1IzcG1oK2J1L1lISDhkeEtzUThWdGJYTUpZVWlBaDAwRTRTTVlEaGdpd0RJ?=
+ =?utf-8?B?dkNxRE9XWHo4NE1pYzlZRDBMZ00yRWRCSTNZTXlKSEJTTFQ0VW5xZlFIdDdh?=
+ =?utf-8?B?V252b2FIRThWTHJ0NHIzRlF0dzZYM2RoTklaT1hNejRYZlIwNExRbmVCeWV6?=
+ =?utf-8?B?VzNtR3A0VitSVjlma21rdktMWEVBVEdZVll4eTRqTFkzbVl3N3RSVFRUWFZO?=
+ =?utf-8?B?d2RQSHNkeU9Vd1QxMTZJZTlHN0tCNGs2N0ltU1RyeFZ6WDFvLzllMytMRTJD?=
+ =?utf-8?B?bGhBUDBaYUtJb1FqclV4UStBUkJIcWw2VFZic2JUaXJhTW1MWGtKbnExUWVZ?=
+ =?utf-8?Q?P5NUGv2gLjltmVGT2DJTGZ2BN73FskWFS9O6gKfW9cS6X?=
+X-MS-Exchange-AntiSpam-MessageData-1: PSYpdWecOs+5rw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6cd5f77-22c6-45fd-edec-08df405e4bcc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 01:43:05.5571 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +UikDwvS57nnm3M6eLUKDi1UfWPRT6KzpdH3ZmOfJSrjx/aZVvTugPJUOxlBeqDlHz5LYUBR0yB6qw3wDrIC0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,433 +139,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I recently was looking into refactoring some things and noticed
-that "struct dc" leaks outside of dc a lot, and this is a large
-messy struct and if say someone wanted to use bindgen anywhere
-near this code it would be a nightmare.
+On Wed Nov 11, 2026 at 11:49 PM JST, Alexandre Courbot wrote:
+> On Wed Nov 11, 2026 at 10:37 AM JST, Eliot Courtney wrote:
+>> In the msgq v2 protocol, which the r000 firmware uses, the queue
+>> pointers are kept in u32 registers and increase monotonically until they
+>> wrap at 2^32.
+>>
+>> `MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
+>> that on msgq v2, the slot can jump backwards when the counters wrap.
+>> For example:
+>>
+>>     (2^32 - 2) % 63 =3D=3D 2
+>>     (2^32 - 1) % 63 =3D=3D 3
+>>              0 % 63 =3D=3D 0    (slot 0 instead of slot 4)
+>>
+>> The writer can then overwrite slots before the reader has read them.
+>>
+>> Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
+>> `MSGQ_NUM_PAGES` divides 2^32.
+>
+> Have we tested that this was also working on msgq v0?
 
-Then I thought, struct dc isn't meant to be like this, so I spent
-some time with an LLM refactoring it so that it's hidden again.
+Yerp I tested boot on turing, ampere, ada, blackwell.
 
-This series does that, it starts by dropping some dead code,
-adding some DC accessors, using them in various places.
+>
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/cmdq.rs | 10 +++++++++-
+>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
+sp/cmdq.rs
+>> index 33074bb53e8c..240ab42db557 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>> @@ -84,7 +84,15 @@ trait CommandElement {
+>>  }
+>> =20
+>>  /// Number of GSP pages making the [`Msgq`].
+>> -pub(crate) const MSGQ_NUM_PAGES: u32 =3D 0x3f;
+>> +pub(crate) const MSGQ_NUM_PAGES: u32 =3D 64;
+>> +
+>> +// From version 2 of the msgq protocol, the queue pointers increase
+>> +// monotonically in `u32` counters until they wrap. If `MSGQ_NUM_PAGES`=
+ does not
+>> +// divide `1 << 32`, then the slot, `counter % MSGQ_NUM_PAGES`, can jum=
+p
+>> +// backwards when wrapping, which could overwrite slots that still need=
+ to be
+>> +// read. So, require that the last counter value, `u32::MAX`, maps to t=
+he last
+>> +// slot.
+>
+> That's a pretty convoluted way to say the number of slots must be a
+> power of 2 representable as a u32. :)
+>
+>> +static_assert!(u32::MAX % MSGQ_NUM_PAGES =3D=3D MSGQ_NUM_PAGES - 1);
+>
+> Same here, can't we use `MSGQ_NUM_PAGES.is_power_of_two()`?
 
-It then moves dc.h and then a hacky patch to stop dc includes from leaking
-out again.
+I actually had this originally but I think that this form expresses the
+condition more directly. The condition/issue is what happens when you
+wrap the counter - it should go to the next slot (which necessarily
+needs to be zero since a wrapped counter is 0). So you want
+MSGQ_NUM_PAGES to divide 2^32. So if you write
+MSGQ_NUM_PAGES.is_power_of_two() you are implicitly relying on all
+divisors being a power of two, which is an extra logical step.
 
-Then it does it all again for some other dc structs that are private.
-
-Some things are a bit messy, especially the ABM calculations, and things
-in modules not being quite separated enough, but I've tried to keep the
-solutions sane.
-
-Dave.
-
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
-Dave Airlie (19):
-      drm/amd/display: Drop the dead vmid module
-      drm/amd/display: Add DC accessors as the first step to opaque struct dc
-      drm/amd/display: Take struct dc in public DSC compute helpers
-      drm/amd/display/amdgpu_dm: Use DC accessors in audio/color/backlight paths
-      drm/amd/display/amdgpu_dm: Use DC accessors in psr/replay/dmub/hdcp/irq paths
-      drm/amd/display/amdgpu_dm: Use DC accessors in plane/crtc/helpers paths
-      drm/amd/display/amdgpu_dm: Use DC accessors in connector paths
-      drm/amd/display: Use DC accessors in DAL modules
-      drm/amd/display/amdgpu_dm: Use DC accessors in debugfs paths
-      drm/amd/display/amdgpu_dm: Use DC accessors in the DM core paths
-      drm/amd/display/amdgpu_dm: Finish DC accessor migration for non-test code
-      drm/amd/display: Migrate amdgpu_dm KUnit tests off struct dc internals
-      drm/amd/display: Move struct dc out of the public dc.h
-      drm/amd/display: Restrict the dc directory root to DC-internal builds
-      drm/amd/display: Add dc_force_max_dramclk for the DP compliance workaround
-      drm/amd/display: Add DC primitives for ABM hardware programming
-      drm/amd/display: Replace the dc_get_res_pool accessor with purpose APIs
-      drm/amd/display: Replace dc_get_config with per-option config reads
-      drm/amd/display: Replace dc_get_caps with purpose-built capability queries
-
- drivers/gpu/drm/amd/amdgpu/Makefile                |   1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 172 ++++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |   8 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  12 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |  40 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   4 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |   7 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  49 +--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  25 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 132 +++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  61 +--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |  39 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  30 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  30 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  44 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |  33 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  10 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  12 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h    |   4 +-
- .../gpu/drm/amd/display/amdgpu_dm/tests/Makefile   |   1 -
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |  51 +--
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  73 ++--
- .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |  25 +-
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   8 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |  80 ++--
- .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   7 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |  66 +--
- .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |  86 ++--
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   7 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |  23 +-
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |  74 ++--
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 201 +++++-----
- .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |  31 +-
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |  39 +-
- .../amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h |   3 +
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  90 +++--
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |  75 ++--
- .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  21 +-
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  55 ++-
- .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   6 +-
- drivers/gpu/drm/amd/display/dc/Makefile            |  16 +
- drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c  |   1 +
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   1 +
- .../gpu/drm/amd/display/dc/bios/command_table2.c   |   1 +
- .../drm/amd/display/dc/bls_builder/bls_builder.c   |   1 +
- .../dc/bls_builder/bls_builder_legacy_init.h       |   2 +-
- .../display/dc/bls_builder/dcn401_init_builder.c   |   1 +
- .../dc/bls_builder/dcn401_init_builder_legacy.c    |   1 +
- .../drm/amd/display/dc/bls_executor/bls_executor.c |   1 +
- drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |   1 +
- .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |   1 +
- .../amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dcn10/dcn10_clk_mgr.c   |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c |   1 +
- .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c       |   1 +
- .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   |   1 +
- .../amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  |   1 +
- .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        |   1 +
- .../amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c   |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c   |   1 +
- .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c |   1 +
- .../amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c |   1 +
- .../amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c |   1 +
- .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   |   1 +
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c   |   1 +
- .../amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c   |   1 +
- .../drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c   |   1 +
- .../amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c |   1 +
- .../amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c   |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  23 ++
- drivers/gpu/drm/amd/display/dc/core/dc_abm.c       | 132 ++++++
- drivers/gpu/drm/amd/display/dc/core/dc_accessors.c | 313 +++++++++++++++
- drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |   1 +
- .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  |   1 +
- .../gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c  |   1 +
- .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |  86 ++++
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  11 +
- drivers/gpu/drm/amd/display/dc/core/dc_stat.c      |   3 +-
- drivers/gpu/drm/amd/display/dc/core/dc_state.c     |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc_surface.c   |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc_test.c      | 155 +++++++
- drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c |   1 +
- drivers/gpu/drm/amd/display/dc/core2/dc_core2.h    |   2 +-
- .../drm/amd/display/dc/dc_api_dispatch/api_shim.c  |   2 +-
- .../drm/amd/display/dc/dc_api_dispatch/api_shim.h  |   3 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   1 +
- drivers/gpu/drm/amd/display/dc/dc_priv.h           | 186 +++++++++
- drivers/gpu/drm/amd/display/dc/dc_spl_translate.c  |   1 +
- .../gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c |   1 +
- .../drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c   |   1 +
- .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c |   1 +
- .../drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c   |   1 +
- .../gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.h       |   2 +-
- .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c      |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c       |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h       |   2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c    |   1 +
- .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c      |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.c |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c  |   1 +
- .../gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c  |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |   1 +
- .../drm/amd/display/dc/dce110/dce110_mem_input_v.c |   3 +-
- .../drm/amd/display/dc/dce110/dce110_transform_v.c |   1 +
- .../display/dc/dcn10/dcn10_hw_sequencer_debug.c    |   1 +
- .../amd/display/dc/dcn201/dcn201_link_encoder.c    |   1 +
- .../drm/amd/display/dc/dcn21/dcn21_link_encoder.c  |   1 +
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c  |   3 +-
- .../drm/amd/display/dc/dcn31/dcn31_panel_cntl.c    |   1 +
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c   |   3 +-
- .../amd/display/dc/dio/dcn10/dcn10_link_encoder.c  |   1 +
- .../display/dc/dio/dcn10/dcn10_stream_encoder.c    |   1 +
- .../amd/display/dc/dio/dcn20/dcn20_link_encoder.c  |   1 +
- .../display/dc/dio/dcn20/dcn20_stream_encoder.c    |   1 +
- .../display/dc/dio/dcn30/dcn30_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn30/dcn30_dio_stream_encoder.c        |   1 +
- .../dc/dio/dcn301/dcn301_dio_link_encoder.c        |   1 +
- .../display/dc/dio/dcn31/dcn31_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn314/dcn314_dio_stream_encoder.c      |   1 +
- .../display/dc/dio/dcn32/dcn32_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn32/dcn32_dio_stream_encoder.c        |   1 +
- .../dc/dio/dcn321/dcn321_dio_link_encoder.c        |   1 +
- .../display/dc/dio/dcn35/dcn35_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn35/dcn35_dio_stream_encoder.c        |   1 +
- .../dc/dio/dcn401/dcn401_dio_link_encoder.c        |   1 +
- .../dc/dio/dcn401/dcn401_dio_stream_encoder.c      |   1 +
- .../display/dc/dio/dcn42/dcn42_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn42/dcn42_dio_stream_encoder.c        |   1 +
- .../display/dc/dio/dcn60/dcn60_dio_link_encoder.c  |   1 +
- .../dc/dio/dcn60/dcn60_dio_stream_encoder.c        |   1 +
- .../gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c   |   1 +
- .../gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c |   1 +
- .../dml21_wrapper/dml21_translation_helper.c       |   1 +
- .../dc/dml2_wrapper/dml21_wrapper/dml21_utils.c    |   1 +
- .../dml2_wrapper/dml21_wrapper/dml21_wrapper_fpu.c |   1 +
- .../dc/dml2_wrapper/dml2_dc_resource_mgmt.c        |   1 +
- .../display/dc/dml2_wrapper/dml2_mall_phantom.c    |   1 +
- .../dc/dml2_wrapper/dml2_translation_helper.c      |   1 +
- .../drm/amd/display/dc/dml2_wrapper/dml2_utils.c   |   1 +
- .../drm/amd/display/dc/dml2_wrapper/dml2_wrapper.c |   1 +
- .../amd/display/dc/dml2_wrapper/dml2_wrapper_fpu.c |   1 +
- .../gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |   1 +
- .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c  |   1 +
- .../drm/amd/display/dc/dpp/dcn20/dcn20_dpp_cm.c    |   1 +
- .../gpu/drm/amd/display/dc/dpp/dcn201/dcn201_dpp.c |   1 +
- .../gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c   |   1 +
- .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c    |   1 +
- .../amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c    |   1 +
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp_cm.c    |   1 +
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c  |   1 +
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c        |  18 +-
- drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c     |   1 +
- .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c      |   1 +
- .../drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.c |   1 +
- .../amd/display/dc/hubbub/dcn201/dcn201_hubbub.c   |   1 +
- .../drm/amd/display/dc/hubbub/dcn21/dcn21_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c |   1 +
- .../amd/display/dc/hubbub/dcn401/dcn401_hubbub.c   |   1 +
- .../drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c |   1 +
- .../drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c |   1 +
- .../gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c |   1 +
- .../gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c |   1 +
- .../gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c |   1 +
- .../gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dce100/dce100_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dce112/dce112_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dce120/dce120_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dce60/dce60_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dce80/dce80_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   1 +
- .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c |   3 +-
- .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |   3 +-
- .../gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn201/dcn201_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c    |   1 +
- .../gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    |   1 +
- .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn301/dcn301_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn302/dcn302_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn302/dcn302_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn303/dcn303_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c    |   3 +-
- .../gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c  |   3 +-
- .../drm/amd/display/dc/hwss/dcn314/dcn314_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c    |   1 +
- .../gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   3 +-
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h    |   2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn351/dcn351_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h  |   2 +-
- .../drm/amd/display/dc/hwss/dcn401/dcn401_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c    |   1 +
- .../gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c |   1 +
- .../drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn42b/dcn42b_init.c   |   1 +
- .../drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h    |   2 +-
- .../drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h    |   2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c |   1 +
- drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h |  16 +-
- drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   8 +-
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc.h      | 446 ++++++++++++++-------
- .../drm/amd/display/dc/{ => inc}/dc_bios_types.h   |   0
- .../drm/amd/display/dc/{ => inc}/dc_ddc_types.h    |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_dmub_srv.h |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_dp_types.h |   0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_dsc.h  |   4 +-
- .../gpu/drm/amd/display/dc/{ => inc}/dc_fused_io.h |   0
- .../drm/amd/display/dc/{ => inc}/dc_hdmi_types.h   |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_hw_types.h |   0
- .../drm/amd/display/dc/{ => inc}/dc_memory_pool.h  |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_plane.h    |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_probe.h    |   0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_stat.h |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_state.h    |   2 +-
- .../gpu/drm/amd/display/dc/{ => inc}/dc_stream.h   |   0
- drivers/gpu/drm/amd/display/dc/inc/dc_test.h       |  85 ++++
- .../gpu/drm/amd/display/dc/{ => inc}/dc_trace.h    |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_types.h    |   0
- drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h     |   2 +-
- .../gpu/drm/amd/display/dc/{ => inc}/dm_cp_psp.h   |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dm_helpers.h  |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dm_pp_smu.h   |   0
- .../gpu/drm/amd/display/dc/{ => inc}/dm_services.h |  16 +
- .../amd/display/dc/{ => inc}/dm_services_types.h   |   0
- drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   4 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h    |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h  |   4 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/transform.h  |   2 +-
- .../gpu/drm/amd/display/dc/{ => inc}/irq_types.h   |   0
- .../gpu/drm/amd/display/dc/{ => inc}/os_types.h    |   0
- .../amd/display/dc/irq/dce110/irq_service_dce110.c |   1 +
- .../amd/display/dc/link/accessories/link_dp_cts.c  |   1 +
- .../display/dc/link/accessories/link_dp_trace.c    |   1 +
- .../drm/amd/display/dc/link/hwss/link_hwss_dio.c   |   1 +
- .../link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |   1 +
- .../drm/amd/display/dc/link/hwss/link_hwss_dpia.c  |   1 +
- .../amd/display/dc/link/hwss/link_hwss_hpo_dp.c    |   1 +
- .../hwss/link_hwss_hpo_fixed_vs_pe_retimer_dp.c    |   1 +
- .../amd/display/dc/link/hwss/link_hwss_hpo_frl.c   |   1 +
- .../gpu/drm/amd/display/dc/link/link_detection.c   |   1 +
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   1 +
- drivers/gpu/drm/amd/display/dc/link/link_factory.c |   1 +
- .../gpu/drm/amd/display/dc/link/link_resource.c    |   1 +
- .../gpu/drm/amd/display/dc/link/link_validation.c  |   1 +
- .../drm/amd/display/dc/link/protocols/link_ddc.c   |   1 +
- .../display/dc/link/protocols/link_dp_capability.c |   1 +
- .../amd/display/dc/link/protocols/link_dp_dpia.c   |   2 +-
- .../display/dc/link/protocols/link_dp_dpia_bw.c    |   1 +
- .../dc/link/protocols/link_dp_irq_handler.c        |   1 +
- .../dc/link/protocols/link_dp_panel_replay.c       |   3 +-
- .../amd/display/dc/link/protocols/link_dp_phy.c    |   1 +
- .../display/dc/link/protocols/link_dp_training.c   |   1 +
- .../dc/link/protocols/link_dp_training_128b_132b.c |   1 +
- .../dc/link/protocols/link_dp_training_8b_10b.c    |   1 +
- .../dc/link/protocols/link_dp_training_dpia.c      |   3 +-
- .../link_dp_training_fixed_vs_pe_retimer.c         |   1 +
- .../dc/link/protocols/link_edp_panel_control.c     |   3 +-
- .../amd/display/dc/link/protocols/link_hdmi_frl.c  |   1 +
- .../gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c   |   1 +
- .../gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c   |   1 +
- .../gpu/drm/amd/display/dc/mpc/dcn32/dcn32_mpc.c   |   1 +
- .../gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c |   1 +
- .../gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c   |   1 +
- .../gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c   |   1 +
- .../gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c   |   1 +
- .../gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c |   1 +
- .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c |   1 +
- .../gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c |   1 +
- .../drm/amd/display/dc/optc/dcn401/dcn401_optc.c   |   1 +
- .../gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c |   1 +
- .../drm/amd/display/dc/pg/dcn35/dcn35_pg_cntl.c    |   1 +
- .../drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c    |   1 +
- .../display/dc/resource/dce100/dce100_resource.c   |   1 +
- .../display/dc/resource/dce110/dce110_resource.c   |   1 +
- .../display/dc/resource/dce112/dce112_resource.c   |   1 +
- .../display/dc/resource/dce120/dce120_resource.c   |   1 +
- .../amd/display/dc/resource/dce60/dce60_resource.c |   1 +
- .../amd/display/dc/resource/dce80/dce80_resource.c |   1 +
- .../amd/display/dc/resource/dcn10/dcn10_resource.c |   1 +
- .../amd/display/dc/resource/dcn20/dcn20_resource.c |   1 +
- .../display/dc/resource/dcn201/dcn201_resource.c   |   1 +
- .../amd/display/dc/resource/dcn21/dcn21_resource.c |   1 +
- .../amd/display/dc/resource/dcn30/dcn30_resource.c |   1 +
- .../display/dc/resource/dcn301/dcn301_resource.c   |   1 +
- .../display/dc/resource/dcn302/dcn302_resource.c   |   1 +
- .../display/dc/resource/dcn303/dcn303_resource.c   |   1 +
- .../amd/display/dc/resource/dcn31/dcn31_resource.c |   1 +
- .../display/dc/resource/dcn314/dcn314_resource.c   |   1 +
- .../display/dc/resource/dcn315/dcn315_resource.c   |   1 +
- .../display/dc/resource/dcn316/dcn316_resource.c   |   1 +
- .../amd/display/dc/resource/dcn32/dcn32_resource.c |   1 +
- .../dc/resource/dcn32/dcn32_resource_helpers.c     |   1 +
- .../display/dc/resource/dcn321/dcn321_resource.c   |   1 +
- .../amd/display/dc/resource/dcn35/dcn35_resource.c |   1 +
- .../display/dc/resource/dcn351/dcn351_resource.c   |   1 +
- .../amd/display/dc/resource/dcn36/dcn36_resource.c |   1 +
- .../display/dc/resource/dcn401/dcn401_resource.c   |   1 +
- .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
- .../display/dc/resource/dcn42/dcn42_resource_fpu.c |   1 +
- .../display/dc/resource/dcn42b/dcn42b_resource.c   |   1 +
- .../amd/display/dc/resource/dcn60/dcn60_resource.c |   1 +
- .../gpu/drm/amd/display/dc/rmcm/dcn42/dcn42_rmcm.c |   1 +
- .../gpu/drm/amd/display/dc/rmcm/dcn60/dcn60_rmcm.c |   1 +
- .../dcn401/dcn401_soc_and_ip_translator.c          |   1 +
- .../dcn42/dcn42_soc_and_ip_translator.c            |   1 +
- .../dcn60/dcn60_soc_and_ip_translator.c            |   1 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h        |   2 +-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c  |   2 +-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c  |   2 +-
- .../gpu/drm/amd/display/include/logger_interface.h |  13 +-
- .../drm/amd/display/modules/color/color_gamma.c    |   2 +-
- .../drm/amd/display/modules/color/color_gamma.h    |   2 +-
- .../drm/amd/display/modules/freesync/freesync.c    |  14 +-
- .../gpu/drm/amd/display/modules/inc/mod_freesync.h |   2 +
- .../gpu/drm/amd/display/modules/inc/mod_stats.h    |  75 ----
- drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h |  46 ---
- drivers/gpu/drm/amd/display/modules/power/power.c  |   6 +-
- .../gpu/drm/amd/display/modules/power/power_abm.c  | 168 +++-----
- .../drm/amd/display/modules/power/power_helpers.h  |  17 +-
- .../gpu/drm/amd/display/modules/power/power_psr.c  |  12 +-
- .../drm/amd/display/modules/power/power_replay.c   |  27 +-
- drivers/gpu/drm/amd/display/modules/vmid/vmid.c    | 178 --------
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   2 +-
- 366 files changed, 2633 insertions(+), 1508 deletions(-)
----
-base-commit: a6836fcbb5b22968019256025321d655b78bc49c
-change-id: 20261112-amdgpu-dc-cleanup-bc5be9190d11
-
-Best regards,
--- 
-Dave Airlie <airlied@redhat.com>
-
-
+But in the end I don't really mind, so lmk wdyt.
