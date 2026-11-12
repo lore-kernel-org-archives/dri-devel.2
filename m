@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CC860A3825
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:32:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F8560A3828
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:32:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D/cle2e9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpWOFN1v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0101910EBAD;
-	Thu, 12 Nov 2026 16:32:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E00C1121E5;
+	Thu, 12 Nov 2026 16:32:19 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A093710EBAD
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:32:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58A510EBAA;
+ Thu, 12 Nov 2026 16:32:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 866584114C;
- Thu, 12 Nov 2026 16:32:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E11DE1F000C6;
- Thu, 12 Nov 2026 16:32:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62D2F461BC;
+ Thu, 12 Nov 2026 16:32:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C574F1F000C5;
+ Thu, 12 Nov 2026 16:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794501131;
- bh=UIwZGk1fss5VEwFZyoqOH1fKZV4VjLTrLWw0MlUbRbs=;
+ s=k20260515; t=1794501128;
+ bh=UkOSdliZy5NcC9iMihtdWt/3rQm4DJPq0I8hePeq5xk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=D/cle2e9SG5lMoCcUjpF9FSEa5U8kpuq2YvYEw1Io7ZcdEK602O+cQl2DrrQIEuSX
- vhj6+8n7154Ue3Xh3588igxHPU7zGh/o+/A9jGeak/U+gisHnErFbJ8HmONnCbP/M0
- xBKY1EnnsORyIo7Gexp9FpLaYQaLBMmmsVes6J974ND/2OZRG69ZRMjJEdISTGntl6
- ycyL4+HwnGmyeT5DnpJ8rUGJxLKYqNQJJIiKKBApD67+y0lAZvx/Xr/mam9EFc1qph
- 6fX23Z7Q+//viq4vDkOSZsOqEcV7FTmEZrzFShC4Jdw6saJw8VqjUqE6+5bawZG5Ui
- R09LYqYTN9ekw==
+ b=fpWOFN1vavLYXGNl9+6FwowcA1CoHeVTNRdO/Flzlii1VupvIBoQD95a4D1IF9KBT
+ V4gLsORdmifhocB5l8rL79Tck/cnTgqXtHTMKGJtomQLCKFBz2H0j7j8xaXSvKJTaS
+ SxKgY3/1Fl3i28r9DqSk0hwmU21Dxad3UINn7bp0nhucwWhklhOhmxr6qCcd68lDEn
+ RcG2KAFfGKUa8yPxY00rnom+xwTbo4PuUUsgTbivSb7whSBYpt4INApBnV5LOi/Uhe
+ Lb13lXBz+if24JROr2cQcP8Z8UWiFP7XA5MXklRU0l4syUZwS7gTvhuyqPmgPEP+n7
+ /MOwjDwYGNymQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 12 Nov 2026 17:31:51 +0100
-Subject: [PATCH v10 2/9] drm/atomic: Add
- drm_atomic_implements_create_state() helper
+Date: Thu, 12 Nov 2026 17:31:50 +0100
+Subject: [PATCH v10 1/9] drm/amd/display: Fix planes atomic_create_state
+ implementation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-drm-reset-state-flag-v10-2-cefaa1ed056d@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261112-drm-reset-state-flag-v10-1-cefaa1ed056d@kernel.org>
 References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
 In-Reply-To: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,14 +52,18 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3638; i=mripard@kernel.org;
- h=from:subject:message-id; bh=t+dM6RtwOtArpaJ7UnLd4NKGqXFn+ejP/ReNUhyWUcU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlfX/77fFzr2gehxBUH5llG2MyaKHquYFOYg+6X+kd9q
- h8aLmurdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJzFzEWCvwWyuZ9Y3yuV+P
- TzkqP328690871zLA1cPOK44kLFg1hFzY1GLbb3T5l1jeGc/cxKj4nHGOsVKzp/B4u37ryxc3v9
- hR7Pt3JV/tXMrGxsYJc7+nl4fvvJZeZ9Kgs6VqnW8Z47NaGXiAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1941; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zI+tdKHs08TxNrStUefce1G/xTYeY9pNWe0/0yA5fbQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlfX/67xxYR495kVH7++ueDJ0qOL7iy1V/Fo6hYYmnn4
+ i9XBSsOd0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ/M9nbLgdWBO0/Ghhm6uo
+ +vclFYu27U1t+ta0zmz2sU+WfBGvLnFUJu+aveOSZVaU2kFmQ83zixnrCx+J2iS4JDosOyg682n
+ 6k5O8e9c/Xf1DRVRlwfV2K6NUtbsVlR/mpW592bOVP7WQf0U4AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,110 +80,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The atomic reset path will need to create pristine default states from
-scratch for every plane, CRTC, and connector. This requires all of them
-to implement the atomic_create_state hook.
+Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+converted the amdgpu planes to use atomic_create_state instead of reset.
 
-Introduce a drm_atomic_implements_create_state() helper that iterates
-over all planes, CRTCs, and connectors and returns whether they all
-provide the hook. Color operations are excluded since they always use
-drm_atomic_helper_colorop_create_state() directly.
+Unlike reset, atomic_create_state is meant to allocate a new default
+state without any side effect on the hardware or software state.
 
-This will be used both as a precondition before filling a commit with
-default states, and to report the device capability to userspace.
+However, during the conversion we forgot to remove the call to destroy
+the existing plane state if any. While this was expected from a reset
+implementation, it's not for an atomic_create_state one. Remove it.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |  2 ++
- 2 files changed, 51 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..7a77051096c9 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1598,10 +1598,59 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
+---
+
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 91398230d408..31101c810bac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1801,13 +1801,10 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
+ 		kfree(amdgpu_state->plane_info);
+ 		kfree(amdgpu_state);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
  
- 	return drm_priv_to_bridge_state(obj_state);
- }
- EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
- 
-+/**
-+ * drm_atomic_implements_create_state - check if a device supports creating pristine states
-+ * @dev: DRM device
-+ *
-+ * Check whether every plane, CRTC, and connector in @dev implements the
-+ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
-+ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
-+ * are required to create default states from scratch rather than duplicating
-+ * the current state.
-+ *
-+ * Color operations are not checked because they always use
-+ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-+ *
-+ * Returns:
-+ * True if all objects implement atomic_create_state, false otherwise.
-+ */
-+bool drm_atomic_implements_create_state(struct drm_device *dev)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	struct drm_plane *plane;
-+	struct drm_crtc *crtc;
-+
-+	/*
-+	 * colorops don't have an atomic_create_state hook but
-+	 * drm_atomic_helper_colorop_create_state()
-+	 */
-+
-+	drm_for_each_plane(plane, dev)
-+		if (!plane->funcs->atomic_create_state)
-+			return false;
-+
-+	drm_for_each_crtc(crtc, dev)
-+		if (!crtc->funcs->atomic_create_state)
-+			return false;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->funcs->atomic_create_state) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return false;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_atomic_implements_create_state);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..72c3d420f40c 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -700,10 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
- 
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
-+
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
-  *
-  * Returns a new reference to the @state
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
+-
+ 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+ 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
 
 -- 
 2.56.0
