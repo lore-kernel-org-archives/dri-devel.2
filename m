@@ -2,74 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3D2606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDFB606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iDLDYrm1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q1dUZ/vZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15C5510E43A;
-	Thu, 12 Nov 2026 16:17:42 +0000 (UTC)
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F90E10E653
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:17:35 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-36e2b1db9bfso4310eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:17:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794500254; x=1795105054; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=mhDKZlMmEHbGmu6pIHBH40sOK6sOrzWpjW9y7ZH4h68=;
- b=iDLDYrm10gzxiJZYiFFkzUqhPceivm8rE4Ry8JKlJVlUAJueDdMxBljUJQoMohmYJj
- wTjjspnD5nGpimb1g8UnZQMUan7ZNm60cCUSikiT+btgjKx8hF8jQ7/QuOauBGJ9zASF
- 3jEggjUr94fasryRaRXdb7atbAIUYnXSKZ2TSwg1/hByjyQ0ng6tdNftCOOBoTqpCbL1
- GxI+lKO/ebM/mpyrFz1m384nuC+mL3V4SeLk7NfSPckigk/PorZxkq4ymkuyCr0bQhIR
- /SR4JSHQvQkRDGHTPf1flG66iTzxSo587geeStNiT3DG+II+n9gKdvEnZNCukhSX8u1G
- cIzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794500254; x=1795105054;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=mhDKZlMmEHbGmu6pIHBH40sOK6sOrzWpjW9y7ZH4h68=;
- b=0V3y+1o/EgEfpKWWLhB0HGYiUZIdb8EaxIV5cxGUGBAMIu6uaGXsioy0lm4ZRf1DQ9
- qUaWo9plQUZNv9dfR2uDhUK1AS5oSbGIoZ18O1ZZoupoh3quJJh1p1j1EFR3A0/Bqe3g
- H7KZ/C/IIX52HXgZFE3X1dNFG0xliWIHRJUAfqgCKKrOc43XMpoxFaRe38/QVwuokr1u
- UU1oo5GMfPstoi5LroDs0qyFgr+UPV1R/w4S0Cc1XCSM5MK2/SWgvY98RRi3iDAsYnNd
- NziqBo5ktrn/somkCvE+jDSDesHUfspYI03ubm9njaf/eK6q5XH8Ec0IrLlSfu7t6GCD
- z5jg==
-X-Gm-Message-State: APuU4Z8AWUMPsV8TeRla1v+cc0SxbItIPLLQ/vXsHf9ETKT78+o4VB3w
- 1wZk5m3FT2Ee4leFGN6EBuddELS/F67TIssMG2XiqXh2MTH0L2wXfJuy50KVjvAQBWk=
-X-Gm-Gg: AYBFou1xWjFplPYNJkB2Xi9wJd0Aa20xMrnGzFD5KLSuYUgkGa7C3BUkgcBMGUfnDew
- DdCMZR+V7OrqPOMMGcnzxyIDdY7guuhrZ56d0WO7OYspiCGACrZSSBeUMDvyPu1diYCg90bK8Uv
- kzwRrYHh6bSF6XclDjFwQIyTXqDLp9olCS7qA4rddxh0DYeVbuPI45gP8WW/npN5U+dC95FNhvE
- I6Gux13gcRUhiofZcVGx1wLNJvg0gIdP+2MOI3oO6aqm/x9VxhdfIhfTb0n5KsG+n1k+mIT878l
- dfjPUR5yoMUeikDEOI0Jvql6qvyDhaY5V/3LZVcFXjywlgySafb2oY80fs9aG82Cj4jZknQNLFk
- fjC7SHsL/riSdNfNBvwq392n6wQEPJ7b0ZhQ30oyHtbBVLXg9mW+lilFyUoS3bm5QnyermlZPnM
- 5XxFLCEbzL6YZ7yaQsIMUejW1k8uQj868JXCMbns5RJN8PaYnK1gkXVOe17gf1xlwiPcjOjAjEh
- OEZ9j41x2keyd9JhPgyiiCDAJHY4ViBs9IgygeeHKT4uOzTNQJktcSBCg/12JJv91W0n4DtWpjT
- 44hrlo7VpTHuhdrXbYrM/8PXdcQO3HRDTzEgLY6xzA==
-X-Received: by 2002:a05:701b:2810:b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-1b502f8bcd7mr134216c88.0.1794500254118; 
- Thu, 12 Nov 2026 08:17:34 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5031b2519sm22781c88.13.2026.11.12.08.17.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Nov 2026 08:17:33 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v2] drm/gem-atomic-helper: fix fence leak on
- dma_fence_chain_alloc() failure
-Date: Fri, 13 Nov 2026 00:17:25 +0800
-Message-Id: <20261112161725.41955-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E78510E638;
+	Thu, 12 Nov 2026 16:18:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E37310E638
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:18:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 78D236231B;
+ Thu, 12 Nov 2026 16:18:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6091F000C6;
+ Thu, 12 Nov 2026 16:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794500297;
+ bh=GlhAJxdjsilOMplMZBepY5pTHMdFvqpv20xIyas7qpQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Q1dUZ/vZkw5jo1HcJmKSN2GgbzK6zoZIlBfbEdDX7bWQlMjEkG4WUmHRFHCxJ/KFB
+ brOcgOVfWUgs9sAB6Mxg8YPPakUyvUiSpWaoUQuNEWD08Rz6YtkVEzIPPgjwJ86m3V
+ e9fheRcmDDowBJaweiiEjrsOrIrHyatma2jtHUqEm4n1kLRZM3TVolJJN9L7s9p9rT
+ RNIVK6sRzXkxU3vRM24tMwgC8q98VMBlYYufwzN8qnCCtfAvWR3V8TNHv1P5ypV61e
+ BT8GtzljLh+WSFsjd0gWCMRrrykOrZ+cTmbUjF8N6PzqDDOY37yWxy8NYh6znpj33G
+ D6L5/qO1IbdaQ==
+Message-ID: <1eddac06-1a89-4e71-a38f-ceafeb9128c1@kernel.org>
+Date: Thu, 12 Nov 2026 17:18:07 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] drm/bridge: Add a driver for the Parade PS195
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+ <20261112-mahua-hdmi-v1-2-b463d7b1dd7e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261112-mahua-hdmi-v1-2-b463d7b1dd7e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,49 +109,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In drm_gem_plane_helper_prepare_fb(), when both "new" (the plane's GEM
-singleton fence) and "fence" (explicit or previous plane's) exist, they
-are wrapped in a freshly allocated chain.  If dma_fence_chain_alloc()
-fails, the error path runs before dma_fence_chain_init() adopts "new",
-and error: only puts "fence" - leaking one fence reference per failure.
+On 12/11/2026 11:15, Nabige Aala wrote:
+> +	ret = devm_add_action_or_reset(dev, ps195_power_off_action, ps195);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Firmware drives DP HPD and services AUX, including EDID reads,
+> +	 * before a modeset. Keep the bridge powered while the system is
+> +	 * awake, including when no monitor is connected.
+> +	 */
+> +	ret = ps195_power_on(ps195);
 
-Put "new" in the allocation-failure branch.
+First you power on, then you add reset action.
 
-Found by static analysis.
+> +	if (ret)
+> +		return ret;
+> +
+> +	ps195->bridge.of_node = dev->of_node;
+> +	ps195->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+> +
+> +	return devm_drm_bridge_add(dev, &ps195->bridge);
+> +}
 
-Fixes: 1ea28bc5542d ("drm: handle kernel fences in drm_gem_plane_helper_prepare_fb v2")
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
-v2: add the Fixes trailer for 1ea28bc5542d
 
-v1: https://lore.kernel.org/dri-devel/20261107165303.13508-1-lui2012qwq@gmail.com/
 
-Build-tested on x86_64: drm_gem_atomic_helper.o compiles clean.  Fix
-written with AI assistance.
-
- drivers/gpu/drm/drm_gem_atomic_helper.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-index abef865c5f2c..1e484f26ab31 100644
---- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-@@ -153,6 +153,7 @@
- 		if (new && fence) {
- 			struct dma_fence_chain *chain = dma_fence_chain_alloc();
- 
- 			if (!chain) {
-+				dma_fence_put(new);
- 				ret = -ENOMEM;
- 				goto error;
- 			}
--- 
-2.25.1
+Best regards,
+Krzysztof
