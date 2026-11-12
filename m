@@ -2,99 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A68960A6F4C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF106070799
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr1Wwv/B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvpYQmxc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 824ED10EB55;
-	Thu, 12 Nov 2026 08:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76CF310FC8D;
+	Thu, 12 Nov 2026 08:33:13 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4869C10EB55
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:32:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99CCB10EB68
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:33:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E4E49478E8;
- Thu, 12 Nov 2026 08:32:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355B61F00A05;
- Thu, 12 Nov 2026 08:32:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7AE364791A;
+ Thu, 12 Nov 2026 08:33:07 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794472387;
+ b=midOdj1lEXBligdJ8Q5mhxR8xgtQUBpLR5XeWnezNplrsewJsrMkWu9Uz9IsNFzEBiTX
+ dghw3N1REs3JXL9OCiQ+U1a1vuJGjRl5rdDZtDJNEbIzcsaBvqSMDiVFGFa4v+xJU88Vb
+ LuVyRIKaJ74kYHPPV9eI7l3QzknLlVTvRZ8xBYRGnhIOAYJ1zsdsQMSirTrofloGt2drG
+ m0nfpvZ4+HY6jehXPKlkLrdVtrLdbJcrilJqvNNGssKgIPUWUNV/YsFV3r5zZp2c3fKDF
+ V4EnIbOP9p0+T239G2MpnhAU/oghJxfKdfE5L12u9AOcZ/8EqGb2R1Q8Eh1C3ky6ToQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794472387;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=RhdgniR7Xv7Tq5+THcnfG7FzL9goeLQzbhmqdAGPw54=;
+ b=Wc/ocfOBGFXP2Vth0rkJ3HEIyZ7obUuWXlkH0hD4pLokDdE4m2ZGwx8sG4k5BedtSHrm
+ 1HT1y1Bdi+S0mAhlsD4EkVmWtDy3f5dElU9GyEv/y5rfdXxqrGF8PPCEwNn7bRaaG7ZLu
+ 2iletN1dKbGDLjrHXbjNdMZaXA9dYoUuoHe/lqSH2JlISofUfVT8n0u9cVqed1oZFEWiE
+ ZS22sjzLnwXJnhO/nVkqicGaExJK1ZKXBkziBX7oDApsjLJg3TMR4+8/hS7AG45VX8rUi
+ r8i6OD/6BP7SAl1T3+d1tdOGDocNtj4i9TROCmJyNIw2kzEbMEKo0f8TrtR3lzQc3aA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id CB6CC1F00A0C;
+ Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794472356;
- bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=fr1Wwv/BrXzj64byfXP+wi/q7J8Ic+yvuVCa7DL01i5CP9FiwrJP0C0kIMzIsd5kG
- bg0Y2dhVW/msaXhNH6nGRtql7prJ6Taz9/A8ZnGNPAe7ZPEO47cA9BLgd99Kc/Y49M
- iHsrQo4gQWYLkMuCMU/O5oINvGG96EWnkGxw42KFw8t4MELXgTG/yvIVPccYBKpq+4
- 8YFJucjcj3LzLyQyUht1aI1GUsc0tWWET/PVTY72LbZHnoP/xHEragG25uo3HBBzKs
- 1rIN36widjK1U9+MzLLwsSepSWPR4DuUP0Tj3vDDi4EoRNoT/kRt1fRWoQiRUPvCNe
- OOxejcXQaaXvg==
-Message-ID: <3c6fd46a-8666-408d-8866-f2bb1f293c05@kernel.org>
-Date: Thu, 12 Nov 2026 09:32:29 +0100
+ s=k20260515; t=1794472387;
+ bh=RhdgniR7Xv7Tq5+THcnfG7FzL9goeLQzbhmqdAGPw54=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=VvpYQmxc83SJbPJeKVGeQ3hXL7ZpBI5Zq2825/p9PKTn4YzzkHZdbWYdO6h8n4qUd
+ 8itrjuwEFHQRS7N9qW89WyBh86imBWjHkGkm4NH+LX7enJMkH21tFE46G0PtP5f6oH
+ eQg3fHFVCvxxhnORn4gFhvYy6P3ZH7dHFNUzx2isTILER2JFxNyMy+zLw1OmaKOVIw
+ cLoLUV8T50Jklv/k5dR3/04Q2+x4jFyWue2YfVwkFsTVc0kIyrBGw8LJehd5Crn5gx
+ ZMlOmeqJHsJ2vK4+B8tn9PqzeShi+wFBUWK91wVcRSXXAY3tBS2MpK8enSuGXiRYbO
+ Ufpu3qu7jAm/A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 4FB9B4939E;
+ Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 08:33:05 +0000
+Subject: [PATCH v2 1/9] drm/rockchip: vop2: Take the UV plane address from
+ the second GEM object
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/28] dt-bindings: gpu: panthor: Document AM system
- bindings
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261110153907.3241978-1-karunika.choo@arm.com>
- <20261110153907.3241978-12-karunika.choo@arm.com>
- <20261111-grumpy-carp-of-superiority-eddeb9@quoll>
- <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-vop2-fixes-v2-1-8218c1cf8ac8@gmail.com>
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+In-Reply-To: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=1838;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=c6L45VmSkCBmk0ERX5lNSIXdj9a2eckfk+73qA8sDb8=;
+ b=bNeTudL523j6Oh7G+s25KWoAvRH5h9NVLNWYV+GSaMqLiTaDWtX4j2lI+02qf8Y5TtY6yHfN3
+ 3AEArtFHBkpAOJZNZx6SmuxwHhXYzW9/VSt7E2jNe1ayGQUaGNQSjax
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,218 +100,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/11/2026 11:43, Karunika Choo wrote:
-> On 11/11/2026 08:29, Krzysztof Kozlowski wrote:
->> On Tue, Nov 10, 2026 at 03:38:32PM +0000, Karunika Choo wrote:
->>> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control and
->>> the AM_ASSIGN block for HW resource assignment outside the GPU
->>> job submission register window.
->>>
->>> Document the system node compatible, register and interrupt resources,
->>> GPU clock, and assignment properties for HW resource assignment.
->>>
->>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
->>> ---
->>> v2:
->>> - Add an optional AM_ASSIGN register range. Require this range when the
->>>   assignments node is present.
->>> - Describe resource-group assignments for AXI buses, partitions, slices
->>>   and access windows on partition-capable GPUs.
->>> - Allow gpu-arbitration child nodes and the #address-cells, #size-cells
->>>   and ranges properties.
->>> - Remove the panthor-system node-name restriction.
->>> - Remove gpu-supply from the schema and example.
->>> - Add an example with assignments for partition-capable GPU with four
->>>   resource groups.
->>> - Move the MAINTAINERS update to the GPU schema patch.
->>>
->>>  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 196 ++++++++++++++++++
->>>  1 file changed, 196 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>> new file mode 100644
->>> index 0000000000000..9e0477b8b723a
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
->>> @@ -0,0 +1,196 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +# Copyright 2026 ARM Limited. All rights reserved.
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: ARM Mali 5th-Gen GPU System Device
->>> +
->>> +maintainers:
->>> +  - Liviu Dudau <liviu.dudau@arm.com>
->>> +  - Boris Brezillon <boris.brezillon@collabora.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - const: arm,mali-gen5-am-system
->>> +
->>> +  reg:
->>> +    minItems: 1
->>> +    maxItems: 2
->>
->> Why is this flexible? There is no description in the binding which would
->> explain oddities in choices of hardware representation.
-> 
-> I will restore the description that was previously asked to be dropped.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Hm, let me open the cover letter to find lore link to previous
-discussion and check... ah wait, no cover letter!
+vop2_plane_atomic_update() computes the address of the chroma plane of a
+multi-planar YUV framebuffer from fb->obj[0], the object of the luma
+plane, plus the offset of the chroma plane. A framebuffer may have its
+planes in different GEM objects though (DRM_IOCTL_MODE_ADDFB2 with two
+handles, as with an NV12M buffer from a V4L2 decoder imported as two
+DMA-BUFs). The window then fetches the chroma plane from the luma buffer,
+at an offset meant for another buffer, which shows a wrong picture or
+reads past the end of the luma buffer.
 
-> 
->>> +
->>> +  reg-names:
->>> +    minItems: 1
->>> +    items:
->>> +      - const: system
->>> +      - const: assign
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  clocks:
->>> +    maxItems: 1
->>> +
->>> +  dma-coherent: true
->>> +
->>> +  "#address-cells": true
->>> +
->>> +  "#size-cells": true
->>
->> Both need to be const or enum.
->>
->>> +
->>> +  ranges: true
->>> +
->>> +  assignments:
->>
->> Do not mix nodes with and without bus addressing. That's mess.
-> 
-> Hi, I was asked to use a more generic DT such that should the
+Use fb->obj[1] for the chroma plane. Single plane YUV formats like
+DRM_FORMAT_YUV420_8BIT have no second object and keep using fb->obj[0].
+This is also what the vendor kernel does.
 
-By whom?
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-206550@kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> hardware registers change in the future we can still retain
-> some compatibility. Is it necessarily a problem?
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 76d151b8bc52..ea8d837d661f 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1369,7 +1369,9 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
+ 			offset += fb->pitches[1] * ((pstate->src_h >> 16) - 2) / vsub;
+ 
+-		rk_obj = to_rockchip_obj(fb->obj[0]);
++		/* Single plane formats like YUV420_8BIT have no second object */
++		if (fb->format->num_planes > 1)
++			rk_obj = to_rockchip_obj(fb->obj[1]);
+ 		uv_mst = rk_obj->dma_addr + offset + fb->offsets[1];
+ 	}
+ 
 
-Bindings are not generic, but specific.
+-- 
+2.55.0
 
-...
 
->>> +patternProperties:
->>> +  '^gpu-arbitration@[a-f0-9]+$':
->>> +    $ref: arm,mali-gen5-am-arbitration.yaml#
->>
->> There is no such file. You did not really test it.
-> 
-> Sorry, this was included from a later patch that
-> introduces this file. I will move it there in v3.
-> 
->>
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - reg-names
->>> +  - interrupts
->>> +  - clocks
->>> +
->>> +additionalProperties: false
->>
->> This goes after allOf: block.
->>
->>> +
->>> +allOf:
->>> +  - if:
->>> +      required:
->>> +        - assignments
->>> +    then:
->>> +      properties:
->>> +        reg:
->>> +          minItems: 2
->>> +        reg-names:
->>> +          minItems: 2
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +
->>> +    gpu-system@68000000 {
->>> +      compatible = "arm,mali-gen5-am-system";
->>> +      reg = <0x68000000 0x10000>;
->>> +      reg-names = "system";
->>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
->>> +      clocks = <&mali_gpu_clk>;
->>> +    };
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +
->>> +    gpu-system@68000000 {
->>> +      compatible = "arm,mali-gen5-am-system";
->>> +      reg = <0x68000000 0x10000>, <0x68010000 0x10000>;
->>> +      reg-names = "system", "assign";
->>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
->>> +      clocks = <&mali_gpu_clk>;
->>> +
->>> +      assignments {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +
->>> +        resource-group@0 {
->>> +          reg = <0>;
->>> +          arm,axi-bus = <0>;
->>> +          arm,partition-mask = <0x1>;
->>> +          arm,slice-mask = <0x3>;
->>> +          arm,access-window-mask = <0xf>;
->>> +        };
->>> +
->>> +        resource-group@1 {
->>> +          reg = <1>;
->>> +          arm,axi-bus = <0>;
->>> +          arm,partition-mask = <0x2>;
->>> +          arm,slice-mask = <0xc>;
->>> +          arm,access-window-mask = <0xf0>;
->>> +        };
->>> +
->>> +        resource-group@2 {
->>> +          reg = <2>;
->>> +          arm,axi-bus = <1>;
->>> +          arm,partition-mask = <0x4>;
->>> +          arm,slice-mask = <0x30>;
->>> +          arm,access-window-mask = <0xf00>;
->>> +        };
->>> +
->>> +        resource-group@3 {
->>> +          reg = <3>;
->>> +          arm,axi-bus = <1>;
->>> +          arm,partition-mask = <0x8>;
->>> +          arm,slice-mask = <0xc0>;
->>> +          arm,access-window-mask = <0xf000>;
->>> +        };
->>
->> Your example is incomplete.
-> 
-> Could you clarify what specifically is missing?
-
-ll the properties you added in the binding.
-
-Best regards,
-Krzysztof
