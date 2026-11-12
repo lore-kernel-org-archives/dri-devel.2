@@ -2,43 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAFB606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 02:02:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A56606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 02:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xfgr29rW
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XdMOiNNw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1D110EAEA;
-	Thu, 12 Nov 2026 02:02:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE7A010EAEA;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6D11344F13;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7C21F00A05;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794448955;
- bh=Hl9FfWZxSN47ZaDl1iP+gCK2yL870GPt+1Xq06zTmn8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xfgr29rWYYFUPaAuuPm5LSq18Pe67v1Bry5lUxzIVvQq/xyMBaIWf5j4WaOrwHmiI
- Pqk8HzKov4meDtPH6Z2Nz1VO0U2wMEEQL2wKVOAqgs6Ja34VRwr5VBADTK2ifectrX
- APTGin5xpjaXaBy54Ie6rsSYajcw9ok98LzeGbym/HzCDWT1Y2p3Txaz9l/6LM4c2k
- W3Lz+yicDVw73QBUdqYNIqNqe2GL0i6sgxOPw8naS6yS3b5gIfYfkE6xFliUR7GT6w
- OCkamuoSh+fHUZQ9PGcSrqYFRg5XhFMLbdBD19FbRaaApkd3GBfcIpDJIVFLViYhgu
- i6wui2wDLdXBA==
-Message-ID: <sashiko-outbox-210138@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 15/19] drm/amd/display: Add dc_force_max_dramclk for the
- DP compliance workaround
-To: "Dave Airlie" <airlied@redhat.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-15-0fae41718ad2@redhat.com>
-References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
- <20261112-amdgpu-dc-cleanup-v1-15-0fae41718ad2@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 02:02:34 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5278410FF17;
+	Thu, 12 Nov 2026 02:05:29 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDFC10FF17
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 02:05:23 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3b0d09df973so2943474a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 18:05:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1794449122; x=1795053922;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=qKzq1YaHaTK/cMOsuVlloBBGSRBcO+4dM5JD9G9qTYM=;
+ b=XdMOiNNw1YQ2C7bCFkqnLr38QELTwFiNgXs99LYqp/KbiHRst7/iMDYQcnFizA2X/H
+ s4zunRE4ANY4hKZ53+xFWYWxfgpH3IWRWV2teRdveLpoKv4B52tmYCcIOZ7bjszaacwK
+ Qg5KNgPU+TvblsWGs++GFPDFdzsf7p+6Q7SpA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794449122; x=1795053922;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qKzq1YaHaTK/cMOsuVlloBBGSRBcO+4dM5JD9G9qTYM=;
+ b=FirU25c5KEr+y/F7jWu9qfpz9PVDx71794reDiIZ0fNnSX3jXXD2pDfqOybXx7Ss9w
+ 18Dv5ZdewLU+yHpq7uHK5Dw0Ya9fp5rshx/XteZkU6oTD00RQTD0WyUi4bszXWy2R1PM
+ L5EguaRG5paIv08P+1+KlZIrHAoVHSGiryripCLcDlYRtjZ5M/NrkjpAeiGqJSfMLXm8
+ 0K0j2K4DjayDeh3+avxKFvkR1iXzu7Qn7rW+2mtIQlvHB7U6oU5lXaKKzxiL57dV8ftD
+ LTuXRhNSPK3tYKJfqhJ5QCREgZk8GvI+ser32yF0NLWxUZ+145ZV0XQSXeRXmx8+or58
+ KdwQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHfRemV2bV5amSpjep0ifvVDBBDj6/dEcHqe3TUJdb+hcIVtee/PHhJHis1hnFBOUoAvnb7jl+WygI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8l/dnGFyEtXP7pWRtvEP6hXoJg7GeRjW6Zbtf24sXzxrcGW2EM
+ fLnIwx0E+CccdDGmS8k/4G+GHhb5IT6zKGvoJ2SQeiiTUDRy/XJtHH7cO9jklMq/3Q==
+X-Gm-Gg: AYBFou1rMCCA2qPxsIK4ovX70h/O1CxV0gSsPaT1JMNAL8yVhWwaLgVQVcXPMTogStc
+ BrX5hq7yKWNwKza0COaO17Jo2bbik0LcL9gDYDl88CGcPkjpZ/o2OGn0fNaWWgxefNOFwJ8NRP7
+ lNDlI7snT35tu6qHciuzPX0V/530avW6zqaAV40pH6fpv1OGtHbG63x2RmjBOvPwnlOwFHACVR7
+ 8+RPf6E087vBriYYXvxoTrHVtFZF8K+sUU/L/ubHUszNf3SdpXZu7bjZYzoZrP9jTquYozrRw4E
+ 3mR3q+hQ0oYGGUakdC4g+HFTBQUtOXOKMMN5YFeAAs/ZPBYBuglVUPu6hXbC627sXWWQyTQxnmM
+ guA9I0TCwOS4jRHef4g4vNibjKN6j8zuJNOqIiYJFxp7jmhVmFKooDK0zIwyHB9eD3YQQWq8T/j
+ Pf9bNlLPGb/n/ECdBJeSLWMes5MwTxwDk7NN+ryASqLtV6TyVUAZKimFGcrl6H56nVH1sWUMjpr
+ GI/QugXGpsE8XBWtYtl1ijTp3x9GbNrEXvCpzs4ac9nbgZ6JSXCRK7MoYpPhabaHByp/Zruymlb
+ 2fzdvgkWshMsw+VS/fI8JLkZi0vYlyNtYSux11Z5d219zxoXKzKabnL98DTaw9FYh1f7Xw==
+X-Received: by 2002:a17:90b:4ad0:b0:3a7:3474:b1ee with SMTP id
+ 98e67ed59e1d1-3b182f1adcdmr4140105a91.60.1794449122530; 
+ Wed, 11 Nov 2026 18:05:22 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:ace7:ac44:3dca:1bb4])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b197c6c9c5sm1832060a91.1.2026.11.11.18.05.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 18:05:21 -0800 (PST)
+Date: Thu, 12 Nov 2026 11:05:13 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+ Dongliang Mu <dzm91@hust.edu.cn>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Nhat Pham <nphamcs@gmail.com>
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+Message-ID: <avUet_6jVqlWSP00@google.com>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,78 +102,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amd/display: NULL pointer dereference in
-  dc_force_max_dramclk()
---
+On (26/11/11 20:41), Xueyuan Chen wrote:
+> CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> counters are updated regardless of this option.
+> 
+> Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> debugfs is unavailable.
+> 
+> Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
+> settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
+> documentation to match, and clarify the pool name in the debugfs path.
+> 
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 
-commit b8f4fd55c6e73f430098a070c075751210c4007a
-Author: Dave Airlie <airlied@redhat.com>
-
-drm/amd/display: Add dc_force_max_dramclk for the DP compliance workaround
-
-This commit moves the DP compliance test pattern memory clock workaround fr=
-om
-dm_helpers_dp_handle_test_pattern_request() into a new dc_force_max_dramclk=
-()
-helper in DC and removes the dc_get_clk_mgr() accessor.
-
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
-md/display/dc/core/dc.c
-> index 8344d821d2e87..15379b186a91f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -7357,6 +7357,29 @@ void dc_set_edp_power(const struct dc *dc, struct =
-dc_link *edp_link,
->  	edp_link->dc->link_srv->edp_set_panel_power(edp_link, powerOn);
->  }
-> =20
-> +/**
-> + * dc_force_max_dramclk() - raise the memory clock for DP compliance tes=
-ts
-> + * @dc: Current DC state
-> + * @context: The state whose clocks are programmed
-> + *
-> + * Temporary workaround for DP compliance test failures: disallow p-state
-> + * switching for the given state, raise the memory clock to the maximum
-> + * supported level and apply the resulting clocks immediately.
-> + */
-> +void dc_force_max_dramclk(struct dc *dc, struct dc_state *context)
-> +{
-> +	context->bw_ctx.bw.dcn.clk.p_state_change_support =3D false;
-> +	context->bw_ctx.bw.dcn.clk.dramclk_khz =3D
-> +			dc->clk_mgr->dc_mode_softmax_enabled ?
-> +			dc->clk_mgr->bw_params->dc_mode_softmax_memclk :
-> +			dc->clk_mgr->bw_params->max_memclk_mhz;
-> +	context->bw_ctx.bw.dcn.clk.idle_dramclk_khz =3D
-> +			context->bw_ctx.bw.dcn.clk.dramclk_khz;
-> +
-> +	if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
-> +		dc->clk_mgr->funcs->update_clocks(dc->clk_mgr, context, false);
-> +}
-
-[Severity: High]
-Can this dereference a NULL dc->clk_mgr or dc->clk_mgr->bw_params?
-
-dc->clk_mgr is dereferenced before the NULL check on dc->clk_mgr below, and
-dc->clk_mgr->bw_params is not checked at all.  In dc_clk_mgr_create(),
-bw_params is only populated on DCN 2.1 and DCN 3.0+ and remains NULL on DCE,
-DCN 1.0, and DCN 2.0/2.01 (which is why dc_refresh_memclk_states() in this
-file checks both !dc->clk_mgr and !dc->clk_mgr->bw_params).  A DP link test
-pattern request via dm_helpers_dp_handle_test_pattern_request() on those
-ASICs will crash with a NULL pointer dereference.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-amdgpu-dc-=
-cleanup-v1-0-0fae41718ad2@redhat.com?part=3D15
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
