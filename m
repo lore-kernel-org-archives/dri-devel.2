@@ -2,123 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41026606A330
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33109606A897
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sMLw28aE
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F0a/wLBZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7293B112119;
-	Thu, 12 Nov 2026 12:59:23 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010056.outbound.protection.outlook.com [52.101.61.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8928E11210D;
- Thu, 12 Nov 2026 12:59:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yO4QZfNwecywWYAX9IO5fTTrKe+xlECSKFvpdc9hUviCSbdCWE4QLRVLCF/hzDuqV21YFXa51H44U0rdylayCZZRCmswSo4ATXddxFBPYxGP5iFAK/+PABaqdIwbdhFaziKsxn70h0a+YMwUl/e23G6C8tqZq0h4YJLJm99oLyy4ynkPsogjvg3fh1sQ6QUS5f/+TfLsCjiBj95+whjrgajdedEROPywLOMJdpEg25JY/i+X8c4kI+pLkieNsgpYLX46hFHSory23bbK1Frja1bRFbEogLlw/GH6bTCpCgOOWtFQ16bKQ3sOX57Y6TP5duzo4YcP5VcQiKMoh+TLWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HFslsDgRwmBp86bYFvapdkEadzdtuev1jB06ZxRfm+Q=;
- b=qubeDc3NFcyNKNacsFLNYmFpjAt5muuSV+aRTQmsins3kObivk5eNFH8iBZcIdPqZJ+Asvs3tKTUOvAas+dEf2NP7Xl4S4fy9y7hvfk7Dj2tWQLnQP2FZXn9eZR3AW3RNf6eY8T3jWE+iEfdSMNPoll71dNbUe73Duk7icdSZqyAVMs+azpnqbmoQCGH1S/K8gYu7/xK+EwfSLYrfDPdte5ao15aTLVmylPgJ71JRT0PK1f98xGg4Uyhi/sT70wOeKeZyykX9YppXKp15DQV/aEcOKiT9PpVbV79Audwb8W55XLWwW6aJOnWnZbD89DzegQprytK9NlTrfUXnYoqcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFslsDgRwmBp86bYFvapdkEadzdtuev1jB06ZxRfm+Q=;
- b=sMLw28aEVa4buyHOlScKC1rPHpW8FqZuFBoPNjt7SM6qMFow/82nApkq3QGru1fcqAQ3SBORHY+NiO0kpjCnjX76jL+0sd4Pkhv0EMs4tJ6FZMC9uICKoO+uSI/Y4lskZbJyum344bLQ+QZOp0bbkfyNThSbHKuBafHSqoSTFis=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB7974.namprd12.prod.outlook.com (2603:10b6:806:307::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 12:58:25 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 12:58:25 +0000
-Message-ID: <007c58e6-9af5-4d42-b307-0827df55fbb4@amd.com>
-Date: Thu, 12 Nov 2026 13:58:22 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: increase 64-bit mmap_range size to 8TB
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-References: <20261112122049.1990826-2-matthew.auld@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261112122049.1990826-2-matthew.auld@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0269.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6081811210D;
+	Thu, 12 Nov 2026 13:00:00 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6541211210D;
+ Thu, 12 Nov 2026 12:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=AWXOHB4eq07srq9BA8SlrXqaufF/LfzAKHpn7R5j6K4=; t=1794488394; x=2109848394; 
+ b=F0a/wLBZklfnSbAXtgR7stklIjueVqTeMwB6kYk9kmrweSQLC0yZHPofGu9tkHVJd+r1tiQrffB
+ A7uuVtYEQF8MAqJEwP8BYRRPIUe+UlKJV2eZC+GaIalpHbKqFQcaWt1cSAteYtZ42jlCe+4gkpnjQ
+ GXTHCNAN91hXESoE9A+QZ3PaLrBHg8/fOlUPkShaLu8p9A0xgMSGNRH7aWmxMHsxlD4eJc9YQtN8c
+ al0tkAuzvi3MxWXeFxF1roNXiSON4rhXrv/AoDW3qV7EoyfEpi5qzD1B4UA7iSzxvQl4Y5jJkqsDI
+ ziW1MbHMRqo7hJlHPz3j8WcodAhIMRshsKNQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xRUPA-009Y5y-19; Thu, 12 Nov 2026 13:59:52 +0100
+Message-ID: <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
+Date: Thu, 12 Nov 2026 12:59:51 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB7974:EE_
-X-MS-Office365-Filtering-Correlation-Id: f128cf95-73bc-483d-072b-08df40bca384
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|261009221227099003|261009223027099003|56012099006|11063799006|261028144727099003|261102123227099003|261021121427099003|261026140227099003|261022105027099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: LJhc/+JsOtzNYJjJCS50hca7FNNhn9BtBSTrUAPnbYOWbaY3ETA2JrCc7B0dHQIA4pqcTyuqGp98QtPNzOoA6xyGY45pXYY1+i3Est8JhCzt8NDWQk30LkT3Cw7mZhPXhK2FfsCdHS/HIQGxer/ZmaXdza51v58pBoG0yrNvUM/RYLKXwZbss9RHfpidx4cDHA9x4bfQCRiTygQt1Dc8UBIPTE7frEXfM//yGSErzFwC64S/T6VbujQHFqZVtgDdA+7Z61srQ7W4wOupZ/7Z/qbKfdKmHhENp0tNugpe8BdHrRkqRrx+kwjSyQAnRIdm1EmDDPgKajGg7gMh6fDSsO7DjQuWSPD7WfIoIF67YYIhqDUUenhtSBBCaqEkji/qw3t9iyUw48U/9E44jxxEN+TMdiZ5d5tACQvTHh+Lm/P3/cbgljrszKYsNp8u5LNO6sS8la+5JAlfgP00XBrEC/9dhnHArPgAa8vU3jMfd9t4MzdxdK/ofP/zzmgGk3sU6lYnHfeqG92QlcFWapp/i8nu/cehFmEF4uYFygdGLrRytJymPTVAlENwV/zJGo6Ulh3oXW2XjQQpiz9q9X79392en01d7XPYKsHBudMYcD4gJIMGime+vbXbtt6RBUgXncS1efhjXA1EMeEyJwqAAV9gEIWgbB4M4B+abw4/M80=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(261009221227099003)(261009223027099003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261021121427099003)(261026140227099003)(261022105027099003)(261021123027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QnBkUmtGb2FMd05xNHdRNHJmZ0k4dEFSUlk0WTZyNEhkOGRJaitYTHZ3VGNm?=
- =?utf-8?B?S3ZGdnRCMzdoWWR3UXdLTlAwVngzMGpqN09WVTRMb01DVmVDdWdPVGVZc1FJ?=
- =?utf-8?B?U1RpT0h5T2dqMHhneHpVd2lLR2g0Y08wNENlVDhvdmVOWWMzMCtrL3VtY2Nr?=
- =?utf-8?B?V1N0dWQxcVJJcStHT2NpSExIaE4zSW9BZWtWZjF0TlBFUWV6Vjg2aytTMHJK?=
- =?utf-8?B?b25ta1VqUWNSd2FhUmlFTjJucGJFMGlzTExyUm84V1AvNTN2cllOT2s3Q2xW?=
- =?utf-8?B?S3l4eTFyMW5lNjgyckdUT2RuYnRKTkh2M3FxQ2VPUmtqU1RzVDN6NnRCWStm?=
- =?utf-8?B?VHJiaFBUKzR1ZnY2UElhR3k0Q3BBOEZWbFZPcERjczNhRGdVQXBKcDdwQ2pL?=
- =?utf-8?B?Yk5ISU1LYkNWYUY1RVlQdFlJMytmWlNPbTZmWndlV0F1SDBKK3V0NjUwM3Fw?=
- =?utf-8?B?Vk1TNzlSZmVTTXR5NTkwMmpqYllXSlZpb2ExZ2F6Si9lTG4wbEVoUVd5NFVw?=
- =?utf-8?B?VjJPNHlTaEhvT2F0MHZ1N0VqR0ZpcnV4VzF4UFM3bW43b3hnQ3NPcnFtanBN?=
- =?utf-8?B?U0Fuc2FPSlhCMFB2b2ZvNjMveUE4OHljRmNsL3NyVWFVOExQZGgyOE8xL3o0?=
- =?utf-8?B?cmFGa3pBbzJCeXR5dGliaXdITnVWV3dYMzFKQ2lPMUhPWG8wUnl2WnFNRXZW?=
- =?utf-8?B?ZUV1WUtiQ1NoMTk0NmpDWmlJWE1QWDlOa1UwYUpacWZHa3h3SStvb2ZsMFQ0?=
- =?utf-8?B?SkdLVWNoeGtoSWJpLytFaDJ1dzlHdXJGZzVQQ01hTWwxbkI3MmI3U1VmZEw2?=
- =?utf-8?B?TlVOVWxaUGxiaXNHVVRVNDhtbktxWWJubUFCMmZVMGJ2S1lmWHNtMUVtd244?=
- =?utf-8?B?bWtsaTVXU2gvbGdkSERBUmpWeENrTnluaEZFVmxLNlBtb05tZTlxcWZjWTkw?=
- =?utf-8?B?bFJZUGZOeVdrWWgyUGRQbVEva3Y1eGc5TGtyd1FyS0xBN3YwQThPczY4ZWds?=
- =?utf-8?B?eDJFS2Z6OGhwS3BnYkZZV2hLb29vcHJCWHNBUnMzeS9ucjVHeHNuT2gyUThs?=
- =?utf-8?B?OXhsb1UvQlZWOWRiMGxSMllVR3lYR2RmamFqaSszdDJaK29UWWV0N1N2MGIy?=
- =?utf-8?B?YUNxU0h5SGc0NFVZVCtHdk5Vb05SUkVQUXVyVjkvdjFoYi9sYjBjaXB5Y0tE?=
- =?utf-8?B?blM1TzVybWQ1V2xnbXNvdzFtYytjOUlYZVdjWVlrQWUyOG9QRnlvQ25DbGtq?=
- =?utf-8?B?dkJZUlBob3h1dEFCcVkzTDk2Mm4wM3o0SVBBaEUxQmY4K0VyWmxiaDlob1Rk?=
- =?utf-8?B?QVFYR0R6bWpvcHYweWIvRHdOdmMyVlROWXY0K2pkbm1PdzNCUklFdHh3dy9N?=
- =?utf-8?B?aDFRbmIxZ25COHFuenVaZGxHNldqWVQ5QVVCNEVqcjljQTB1YXNnZzBtVkdI?=
- =?utf-8?B?czZDNkJzanNjR1pmeXFkZW1tM29GTFpLNi9NcFdTUWp6ajd4cHc5K2FLUVVP?=
- =?utf-8?B?TFhsTWRIdmtCS2xaNzNqK1lOV1lGSUtLYU9rcmhvRXU3eHNNNEtrb242VXZr?=
- =?utf-8?B?RWwyRFcvVVRiYlVJQmMranVpVk5EekM1R0VJdzl2c1lpck5LbHVDdjB6aVkw?=
- =?utf-8?B?eG1FYWtmeExzVXBNMlpSVUJFa3FsbXdLcXNDMmJRVEx0bm1DUXV0ZmRuaFg3?=
- =?utf-8?B?ZXlPcldyNWVBU1RxR3ljS0xPd1cyWXFwSENMRWN6Q2kralppNm56MmNpNlh5?=
- =?utf-8?B?eTR6bjVMc2JraE5wRWpId1JtMityN1RYMm9YeDR6WGpUS1M5ZW1LR01pdEhJ?=
- =?utf-8?B?b25HdVVqZlY3OUxKWXFrUHhKbHRSQXp6V0J3dHlnc2czaDRDZkdCZG1xd3Zo?=
- =?utf-8?B?dnByMjhWVGtzNlJ3UkRwQWVKVkx5UFRzaHNYb2hOaVdydFB6dERHN2I5YzBK?=
- =?utf-8?B?Q1dIMWkwWjArWE8zYkI1VzkranB3R0xVZWVzSm1jSWtRYXlpUXpKeHVaNUZH?=
- =?utf-8?B?SmVCUjJJREdpTTFFb1dYZzc2OE5vNHhrU3JxT1c3SmdIajl6MDArMmxpRmt2?=
- =?utf-8?B?Ynp3U0NtZURmZjZrNEVqSUFGR2dNV2FXWHRCa3lsdk80WXV3cFRWbXZGVVNh?=
- =?utf-8?B?UzRFbGRmc0krL21tb3FidGgybE5mak9va3M4L1grUVZVSVExa25WOWlncjRk?=
- =?utf-8?B?WDVpUFJJYnBkZnk3K1ZvdTlRVHI5dmIzOXpVTUlwVFpvaTQrc29CZEh4azdt?=
- =?utf-8?B?ZGpSeVBzZytTdHY0V0k3UG0ySVE2Lzk4bkdJVGdNSC9oUUZFaUxzeUo5T3Fa?=
- =?utf-8?Q?wG+fJ0GqC3iRNV6Q5o?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f128cf95-73bc-483d-072b-08df40bca384
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:58:25.3968 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i/Mm6OSbWplfXl2YMgFsV7HJycOe41FxJnQBrdY0rSgMVXUCmHjAKw5Yh6mQ5wpY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7974
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
+ spinlock
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+ <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
+ <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,72 +57,194 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/12/26 13:20, Matthew Auld wrote:
-> Every GEM/TTM buffer object, including imported dma-bufs, allocates a
-> fake mmap offset from the per-device drm_vma_offset_manager. On multi-GPU
-> systems with large VRAM, peer-to-peer dma-buf imports across devices and
-> processes can exhaust the current 1 TiB 64-bit range and fail BO creation
-> or PRIME import with -ENOSPC. Skipping mmap offset allocation for
-> imported sg buffers is not straightforward without risking userspace
-> regressions, as existing userspace (such as Intel compute-runtime) still
-> queries mmap_offset on imported host dma-bufs even when mapping the
-> dma-buf fd directly.
 
-I was just about to ask why the heck we grab mmap offsets for imported DMA-bufs :)
-
-> Increase DRM_FILE_PAGE_OFFSET_SIZE on 64-bit kernels so the fake offset
-> range spans up to 8 TiB (SZ_8T). This stays strictly below panthor's
-> DRM_PANTHOR_USER_MMIO_OFFSET_32BIT (1ULL << 43) carveout and within
-> 32-bit compat mmap2's pgoff limit (16 TiB with 4K pages).
+On 10/11/2026 15:49, Philipp Stanner wrote:
+> Just taking a closer look now since I assumed this is some sort of RFC
+> for AMD to look first.
 > 
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->  include/drm/drm_vma_manager.h | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+> On Fri, 2026-11-06 at 14:57 +0000, Tvrtko Ursulin wrote:
+>> Migrate the entity job queue from the single user SPSC queue (single
+>> producer, single consumer) to the standard list_head plus a spinlock in
+>> order to make it easier to argue about correctnes and bring the code base
+>> close to the usual kernel patterns.
+>>
+>> The main thing which needs to be mentioned is the seeming usage of RCU,
+>> which isn't really so, but only for two trivial reasons:
 > 
-> diff --git a/include/drm/drm_vma_manager.h b/include/drm/drm_vma_manager.h
-> index 6c2a2f21dbf0..2c3233f9dec4 100644
-> --- a/include/drm/drm_vma_manager.h
-> +++ b/include/drm/drm_vma_manager.h
-> @@ -26,16 +26,23 @@
->  #include <drm/drm_mm.h>
->  #include <linux/mm.h>
->  #include <linux/rbtree.h>
-> +#include <linux/sizes.h>
->  #include <linux/spinlock.h>
->  #include <linux/types.h>
->  
-> -/* We make up offsets for buffer objects so we can recognize them at
-> +/*
-> + * We make up offsets for buffer objects so we can recognize them at
->   * mmap time. pgoff in mmap is an unsigned long, so we need to make sure
-> - * that the faked up offset will fit
-> + * that the faked up offset will fit.
-> + *
-> + * On 64-bit, cap the range at 8 TiB (SZ_8T) so offsets remain below both
-> + * panthor's DRM_PANTHOR_USER_MMIO_OFFSET_32BIT (1ULL << 43) and 32-bit
-> + * compat mmap2's pgoff ceiling (16 TiB with 4K pages).
->   */
->  #if BITS_PER_LONG == 64
->  #define DRM_FILE_PAGE_OFFSET_START ((0xFFFFFFFFUL >> PAGE_SHIFT) + 1)
-> -#define DRM_FILE_PAGE_OFFSET_SIZE ((0xFFFFFFFFUL >> PAGE_SHIFT) * 256)
-> +#define DRM_FILE_PAGE_OFFSET_SIZE ((SZ_8T >> PAGE_SHIFT) - \
-> +				   DRM_FILE_PAGE_OFFSET_START)
->  #else
->  #define DRM_FILE_PAGE_OFFSET_START ((0xFFFFFFFUL >> PAGE_SHIFT) + 1)
->  #define DRM_FILE_PAGE_OFFSET_SIZE ((0xFFFFFFFUL >> PAGE_SHIFT) * 16)
+> If that were really the only way then we would, unfortunately, not at
+> all end up with "usual kernel patterns" :(
+> 
+>>
+>> 1.
+>> We need to use the list operations which are safe for unlocked access to
+>> the list head, while parallel (locked) threads can be appending other
+>> jobs.
+>>
+>> This so the run job worker is able to process the job dependencies which
+>> includes it calling a potentially sleeping prepare_job() callback. Hence
+>> it is not possible to hold the entity->lock during that stage.
+> 
+> Why can't it pull a job from the list, release the lock and then do
+> that? There is only ever 1 worker at a time.
+> 
+>> 2.
+>> We need to work around the infamous entity<->rq locking inversion which
+>> would now trigger slightly earlier in the run job worker, from the entity
+>> selection stage, where there was previosuly the other "spsc queue peek"
+>> call site.
+> 
+> Is spsc_queue_peek() the only place where an inversion would occur?
+
+Ignoring amdgpu yes.
+
+Regarding spsc_queue_peek(), the current code has three of those:
+
+1. drm_sched_rq_pop_entity()
+
+This call site is not a lock inversion site.
+
+Instead of the peek, the next job now gets passed in by the caller, 
+drm_sched_entity_pop_job(), which is correctly holding entity->lock.
+
+2. drm_sched_can_queue()
+
+This is a lock inversion site since it runs under the rq->lock during 
+entity selection phase of drm_sched_run_job_work().
+
+The purpose of the peek is to answer "does the first queued job for this 
+entity required less or equal to credits than this scheduler instance 
+can queue".
+
+Since this is a lock inversion site we cannot lock but truly have to 
+have an unlocked solution. In this patch I removed the requirement to 
+look at the job queue by tracking the credits requirement of the first 
+job in the entity itself (entity->job_credits).
+
+This is effectively replacing one unlocked read (spsc_queue_peek) with a 
+different one (READ_ONCE(entity->job_credits)). Something unlocked is 
+unavoidable here and I think this is more elegant and simple.
+
+And because it is an unlocked read it has to be annotated with 
+READ_ONCE(). Which means the write side, even though it is done under 
+the lock, is paired up and marked with WRITE_ONCE().
+
+2. drm_sched_entity_pop_job()
+
+This is not a lock inversion site but needs to call sleepable things 
+while considering the head of the job queue (->prepare_job()).
+
+This one is the only remaining reason I used list_add_tail_rcu and 
+list_del_rcu, just so from here we can safely touch the first entry 
+while elsewhere more are being added.
+
+It is possible to do it, as you suggest, by dropping and re-acquiring 
+the lock. Note however that too would need a big fat comment why it is 
+safe. At which point, since both cases have a big fat comment explaining 
+the same thing apart from the implementation details, I do not see the 
+advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you 
+dislike would still remain.
+
+As a side note it would be really good to eliminate the prepare_job 
+callback but I haven't look how feasible that would be troughout the 
+tree in around two years. Back then I tried to call it earlier, and put 
+the fence in the normal dependency array, but that did not work at least 
+for amdgpu.
+
+>> All the list_*_rcu usage stem from those two requirements and there are no
+>> actual RCU requirements.
+> 
+> IDK, having RCU functions (and all those ACCESS_ONCEs!) in the code
+> base that is now supposed to be a simple lock + list does not sound
+> like a good idea for maintainability at all, especially if it's RCU
+> that is no actual RCU.
+
+For this and the following questions, I've tried to explain everything 
+in the consolidated paragraph just above.
+
+Regards,
+
+Tvrtko
+
+> 
+> […]
+> 
+> 
+>>   static struct drm_sched_job *
+>>   drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>>   {
+>> -	struct spsc_node *node;
+>> +	struct drm_sched_job *next_job, *sched_job;
+>>   
+>> -	node = spsc_queue_pop(&entity->job_queue);
+>> -	if (!node)
+>> +	lockdep_assert_held(&entity->lock);
+>> +
+>> +	sched_job = list_first_entry_or_null(&entity->job_queue,
+>> +					     typeof(*sched_job), queue_link);
+>> +	if (!sched_job)
+>>   		return NULL;
+>>   
+>> -	return container_of(node, struct drm_sched_job, queue_node);
+>> +	list_del_rcu(&sched_job->queue_link);
+>> +
+>> +#if IS_ENABLED(CONFIG_TRACEPOINTS) || IS_ENABLED(CONFIG_DRM_SCHED_KUNIT_TEST)
+>> +	WRITE_ONCE(entity->job_count, entity->job_count - 1);
+> 
+> You're literally holding the entity->lock, what do you need read once
+> for?
+> 
+>> +#endif
+>> +
+>> +	next_job = list_first_entry_or_null(&entity->job_queue,
+>> +					    typeof(*next_job), queue_link);
+>> +	if (next_job)
+>> +		WRITE_ONCE(entity->job_credits, next_job->credits);
+>> +	else
+>> +		WRITE_ONCE(entity->job_credits, 0);
+> 
+> Same.
+> 
+>> +
+>> +	return sched_job;
+>>   }
+>>   
+>>
+> 
+> […]
+> 
+> 
+>>   EXPORT_SYMBOL(drm_sched_entity_kill);
+>> @@ -557,10 +556,20 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>   	/* Helper to avoid dropping the reference while the entity lock is held,
+>>   	 * just to have some more robustness.
+>>   	 */
+>> +	struct drm_sched_job *sched_job, *next_job;
+>>   	struct dma_fence *prev_last_scheduled;
+>> -	struct drm_sched_job *sched_job;
+>>   
+>> -	sched_job = drm_sched_entity_queue_peek(entity);
+>> +	/*
+>> +	 * We cannot lock the entity at this point since processing dependencies
+>> +	 * needs to be able to call a sleeping ops->prepare_job(). Note that RCU
+>> +	 * lock is not stricly required since single workqueue is the only
+>> +	 * caller and that guarantees a single consumer. Ie. the job cannot
+>> +	 * disappear on us.
+>> +	 */
+>> +	rcu_read_lock();
+>> +	sched_job = list_first_or_null_rcu(&entity->job_queue,
+>> +					   typeof(*sched_job), queue_link);
+>> +	rcu_read_unlock();
+> 
+> You can take the lock, take the job, release the lock, do your sleeping
+> actions, and then take the lock again, can't you?
+> 
+> 
+> P.
 
