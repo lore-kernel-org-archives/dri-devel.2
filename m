@@ -2,134 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4F9606A88D
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C70A606AB1B
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DYrhNfoM
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=etbSi3Ma
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B7D1121FA;
-	Thu, 12 Nov 2026 16:33:33 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A06B010EBAF;
- Thu, 12 Nov 2026 16:33:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IgV5CyFnl6OsuxAuoa+AdmgaTPTkaNSrRRa5aA6KywU1+C7IuaKoC5eaYMVTOoJEWxEyx7vPz+RXrzXUjaDeodNAvnXJrCaSj9pdcBXWMEah9hiG9OAjSJiTLVXF1EhYS4OO1ozfMGo39G+siNYkV7dYqYss9v9t+4m8z+XhsMQPPCcJUsPO8p3IggPBakGbKjbDy/wuzObItohCoIwqsEMhaXID8+srfo5avmd3UbTIGLzTssDi8H92YnyCg4mVRut5KXVsJQxSNgOtkogqswDon0rhYUyfuFEOY7+TZ5/uR2YSaIrC4Jyohib6Vf4lj2y2xwG453pRGZt6wb7vtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
- b=mUwCkqPUmWXRNFAwSlQasdGthT1DEDh2ZxAMHWS+i2t4DhtPFWJWaL6q37YEtyuR4HGrDsPJYYpbbmsP/iR6eWkRK6yXhu9LqTtPJaGDKFlTQ8TrVc//tJ68szOLSSkuBUVmGWrtP6kLAtTyt7Aqr71vZeRxNq4++T73LIt0vlRMRT8UG6mgd/ICYVEWdlzKdKDSpv6B8202f0FgmQmNjznnCLPNZ4UmXHGxAmwaYfRMkyYdG0ZD1J4TwRAng6Nj30+AyRUrR+ldA3mBIk7RDRYd6W5ii2tRhxVUE4eUM+dQqOqcRx6/lFwkSf/Xiy9CqwSr+i35/PDYopuRf4XMFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2KYMCk5KXldDP8Pn2ubwgmOHu9jpVvXGouBmsN2LCA=;
- b=DYrhNfoMX4UxoZD5LGPLrMlI1jdnMTnQ+l5Z7rk290ThVwAOaLuCxEyrt+/hoNhNv0YBWpiUP8G4aeXySVdvqN8tOiTBdUIAyfPo5vqTdg4E7SnrYEmCZFhVdhwQsQReyAkcbD01Ip1gmf+i3jdKMchGI3pWrr/cZuggaJ9ItpOvIjT/8h40I3DkVMRIGBJRyaPwXrRahQp+o9N9y9hdoLlA5LdyqJBRbMqodWPe9/rD4k7A6vWOIe/oWDJ4oPtesPn9L9TEH9bDsIaGSVufoD+G3qLw2RZphD9iA8Q3DAdvjFWHWxO14NK93vVPMMBaCxCbXXOKJhrylAYWE5VNuw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 16:33:20 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 16:33:20 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Alexandru Elisei <alexandru.elisei@arm.com>,
- =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BEC112204;
+	Thu, 12 Nov 2026 16:35:40 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6193112208
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794501332;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zidr50P/tGTG0fyue72d2UJbI2Rv5djOGtCARdBGkgo=;
+ b=etbSi3MaBKlhM2H6U1bFd6byZAOcdmMUnrFPq/YTRuWRbxQgFEFw4G1zldn7iLorC2LLfy
+ BIk8t3PLGvMI1XjiP82BuHFwk8qb7Di7i+lR8CD1pASAvI6x2+xnX8UAPSOmZbzCrEJbHz
+ uiTS2dxAW7S42S0y4bkf9X/IoghziW0=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-523-nsZFgOuXM5ifaPwZC10OmA-1; Thu, 12 Nov 2026 11:35:29 -0500
+X-MC-Unique: nsZFgOuXM5ifaPwZC10OmA-1
+X-Mimecast-MFC-AGG-ID: nsZFgOuXM5ifaPwZC10OmA_1794501328
+Received: by mail-lf1-f70.google.com with SMTP id
+ 2adb3069b0e04-5c159755becso1604299e87.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:35:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794501328; x=1795106128;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zidr50P/tGTG0fyue72d2UJbI2Rv5djOGtCARdBGkgo=;
+ b=BxvW61++QF57uFBVkcnofm1b5Zb9JyV9eYnaM6RNgeRBmvkfhtschFIfo5OogVGu9h
+ WzSuvBTXULR6ZC5hm8PtF5FNxOUSrml7ldJDOwD0it7X/nFgmKhm3RzTLgNZd/mcWKrY
+ +WUaMqvSaQVoqewghrkfZ3bILDAbApLODLiubVnGAizJI5Zx8Mf8WxN/HwkOrj14c+4G
+ wi685lBqO/q66bqiRjZPm/nFZx3W7tsORH+56ViSA/ibCE14TsdgodGKZGULCns4C+kd
+ liAhGzPm+13ksQs34BjHqUbzfMV3g//mx9IIItkT4qRPOsPhclY4xve3OFSvc7vriHgQ
+ 1LnA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFQDM9LzcJu5xZd5sN+XqwV2UuiHWC90pN+hauXmx35GhCCsP4ufx2uc11JOWJvl6WUZvCni35DOb4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+dWBumBHUKELAK1xlsiNQRDV9pxqyW/A16KETrHyZuwOWy2Doz
+ JWTHGJPDlg8CoAtA8OwCeSYxA+IhOQaOZIiPPvENu04O99RFKdXjsewO5tMqtgRzECyvJBpeHPw
+ CYU2u6f4Hb+bG3bXD5GCpSstP0NX3p1OX+IItYAjjE0HTzdgI0m/i10mAQQuoZ/bQ3MbyKBStq6
+ YlUkk=
+X-Gm-Gg: AYBFou1WaF93HZbiV/hdIIoHNWvhRlYr3oaTAX3tUE6kxa0u/9Tlzzs89CknGVbaTR4
+ q9bJP/qE/tihqbgW9R53geKWjLN5ADzit6N7foLReHyEAhgw9m7gIo2IlXbKwqP3o1/XoBge7aT
+ juljyoUGreXj+owCJ0aluQge79nNohC7jRQIqhzirKGo11ceT1idKOKH3UTUTQfIlOI2wCdHbyU
+ apUBZuQPKQEFHKCMAxM30XiQK1kS6yg495DxZDcgu5c3lQl0HWgLMQjwXQgiq3MWlC3q4jtp9kv
+ iNgqvj/AE3n86B5WSWTeQQhyrEhTYBvvsUMtWnCm082cH8NjtVgV3ts2qa1Bp+dSIwkVhoQ/+5i
+ 9NLSWt4jYqKUiQ77piESbCdMql5eROj9i6X9oxTMJqaiNVtTp/WfDcpnDCqUd8VvRx/yBHA+2kD
+ OuCb8f
+X-Received: by 2002:a05:6512:402a:b0:5c1:5be5:a543 with SMTP id
+ 2adb3069b0e04-5c15d5a80b2mr2335288e87.9.1794501327761; 
+ Thu, 12 Nov 2026 08:35:27 -0800 (PST)
+X-Received: by 2002:a05:6512:402a:b0:5c1:5be5:a543 with SMTP id
+ 2adb3069b0e04-5c15d5a80b2mr2335272e87.9.1794501327252; 
+ Thu, 12 Nov 2026 08:35:27 -0800 (PST)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c157bab721sm1785202e87.40.2026.11.12.08.35.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Nov 2026 08:35:26 -0800 (PST)
+Message-ID: <968f4667-ace0-49bf-a628-845c5fd577e4@redhat.com>
+Date: Thu, 12 Nov 2026 18:35:25 +0200
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+To: Alexandru Elisei <alexandru.elisei@arm.com>
 Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
  Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-Date: Thu, 12 Nov 2026 11:33:17 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
-In-Reply-To: <avXoJSGh5xjGFgod@raptor>
 References: <20261103061629.972669-1-mpenttil@redhat.com>
  <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
  <avXoJSGh5xjGFgod@raptor>
-Content-Type: text/plain; charset="UTF-8"
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <avXoJSGh5xjGFgod@raptor>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: -DLxHyBLEno-7WkEs0eDyrAiYPJWne3H7lzvEtAKv2Y_1794501328
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0391.namprd03.prod.outlook.com
- (2603:10b6:408:111::6) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA0PR12MB4399:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022105027099003|261026140227099003|261028144727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: NnDtCHCpEicAV3xc0o49gyGRL+w5WKfVCQfSSKc4+rjCbznun6rk4kjwgNxkXJwadM+eIG/LrmHdS+VS4uuV3eYyopBM9JoQpnzx9PSOIy2jhYwEq8SdicuJuAphpYEeGj88vi69y9slbyXriPSFkqnjxzLxlcVcDHSCma75/XKeVx4CotGtcWUE9DYh2l9QO2kACCT3U7wDsyrBo8Brc1CpIoyMn8FDaPjsin4lpmN2uiItvz6kiciNHmy3vzbcRpbHPYg2E1klxXWqiMjwSo9w2omms/ootA+gwnsONptB6Bc7tc/bhnG36zYLEOdRuGCGw2XmpQbSUA/LqP+6tazqL6xn5zT5ZTkD1+u7KsOtJHhYF8bgKtNmeDtuiZHXYXeGkBViYFEvtyxdYTt7ZKm9nw9g4nYRP6I2eWFK6/DqHxCOjtovssbSxdSuQzplc3sKXXsFnerU2tlTYljtRuykJNegig7x465DXBWVUfOTJSDyrXHxtTdCq0TM3z0wugXRnjNtF5AT8MJBrQAGmhHI0JHl3l+nS8zZ+H5AISzA096DCllQPfAIpglqpYQAYf8Ev5S6+eLIB4KyDgeAq+dPMlw1z/CStOxvlj6M2Av7gGpeAAhhr4cXUEp4WqYd4ey15QSf8PUjr9t0CYcRddIrOeDT4C5cEHkPBYf208U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEpXN3JHZG10UFJjckhWWWpMZEV6NmJWNlRqelZlYy9IUTBuaitIREtuK1F0?=
- =?utf-8?B?Y3oxYUQ1UTZQQ2R2RmxCUSswTUI4Z3Z6TENDWDMxQ3ArZUV5aEErdW8vSEdl?=
- =?utf-8?B?MXFnYkVUdWFGdnB5YVQwS3U0OXgzVEkxd01VZUUyVHNsWGl0R0ErTlBtbzE0?=
- =?utf-8?B?SVdET3FoMnF4alkveExoZEsrd05KZFd3TVE0SzJRY05IN0ZLY2ZubGp6M0o5?=
- =?utf-8?B?cE9jN3U2emxzTWxkREdmUnJxQnd1aU9hV01SREZBVXk3SndpRDVodkpKektk?=
- =?utf-8?B?U29wVWRCMXpjdTBUY0pqT0VMcHZYUURVQUJPeWNHUzBsY01nNkNaUk5wSGRR?=
- =?utf-8?B?TENWSXo4U2JYNWFMTUdJaUpPN1FKMGhYdWR6OWJDb3d1TnMxZjcyUkNncXdl?=
- =?utf-8?B?dW5pODdxWVRMRnRxVjhzOUlkWlZpU3BYZFMrUUpwOGZlbFlVelE5WEpINVAy?=
- =?utf-8?B?Z29VVmNDY2NKN3FvUmEvdTdJRmM3em9zV2l1K05YUWl3a1kzd0ZoRERON2xr?=
- =?utf-8?B?OFhYblB1TkxGR3RSVVlhWVczcmhxaHplN0hqdk82MDNrWjAzMW83Y3E3UEFR?=
- =?utf-8?B?dEMySGJXRzIvWU9acGlyREQ5VHpIaERXdE1hS3RRajJXTERXSWR4Q0UrYVFN?=
- =?utf-8?B?QkYwSmVObTBUa2QvcGZaVGNNL0lRSytRa3hublp3MTJZaUUweE1NZ1JhcS9J?=
- =?utf-8?B?YU5XS0NTcUhLTjdueE1ES3JqOXA1WGNFYmpkaE16NGtGelUzYkk1Rk9lMGJj?=
- =?utf-8?B?cTJmaUMrK1JYbzM4akxhMkF5V25mN0Z1eXVZL2ZVZUZ3YVBmcUlPclU4KzJP?=
- =?utf-8?B?NUc0OEhITnRZQ0tQK2d0elFTNUFTRmExRGIrV0JzUDNkQW5Vd1FDZGZHZzhY?=
- =?utf-8?B?NS9TSDEvSVRhZEdCRVZTTXRJRVE3SmZnZjEvQS9wOWlFOWRoTStPMlZMd1dJ?=
- =?utf-8?B?RHR6MysrUUJpa082TURaNHdzSWUvaEJNR0lqOFVyWEpEL3M2SHRWNGRETEZL?=
- =?utf-8?B?emhlOSt0QWVOazVSYlFBejlHZUxuaHlwQU83VGlMMGVhakhNUkwxN3U3akQz?=
- =?utf-8?B?OW4vcVBiTUs1RFZTTnh4VEhObU5GL3FmdGRFU3EySjBDQUp0bVVNSjhXYWV5?=
- =?utf-8?B?Y2xmanYxQmMvNXhSQjN6ait5YitPZTh5TlZxbVM4aW1RRS81bFF3NzZ1MnNo?=
- =?utf-8?B?QTNsWkVlVlp3QlF5cmpyc0JaU2ZTMUxCd05NOVFwKzRFd0JEaTBQdGNlaEM4?=
- =?utf-8?B?Y0gxVnI1b1A4NWcxSVdhVEZDNjhzUlFRc2daWWM5dW13MldWVUpvWCsyd1d0?=
- =?utf-8?B?ZWV5NXZEemVBajZDMHdOVmpKNnd6YzZtNE8yVGM4cXB0d3ZWZTRsS3RVM05l?=
- =?utf-8?B?Rk9xWUdkTlUvRW5ZQ1lkdFdyTFJsN3lNM2x4eVlvTUttL2M3dXpCelFxdTQ0?=
- =?utf-8?B?NXNoTVVEYkdQWExabHZTbTJlK3JMVExBZDlJcE9QUFpTN0x5UmVmZ0Z3UjMx?=
- =?utf-8?B?VlJ6S201MHE5cXh6ckxoYTNxWTRRUzNXcHZQTkZpdGdsUWw1ZmFydUhvRXdi?=
- =?utf-8?B?QVhacnUwcTV2U3FRU08zWWZ1V1lPRnBiTm9UYnNGYzJLOWlyb0Qxc0t0Y21U?=
- =?utf-8?B?TERPSkVxWkpqQ3J4c0lRMHRMSnJSN0tPUEFpV1NOV05UUzJmdDNjeUpzcUZH?=
- =?utf-8?B?WTBkWEdtanhWdldTOVUvMnhzNHhMeGs3L0lkY3krZmJib29mOExRUzhtbDRt?=
- =?utf-8?B?RWJVR3A1S1h1ZVhNdHNnb3lkaFJGdHNNbUdJS1d6bGxsdTQvRHBlYlNLdGRH?=
- =?utf-8?B?QVA2a3VJb293TnRCRnF1a3VLY29iZHNYZXJNWFFRa01BeklPTjFtYytFSUp3?=
- =?utf-8?B?ZnhnelBUbi8zN05ySkdacW1QYWIrRmdFYXZteWlFTitBZGlsY0F6a2ZmWE9U?=
- =?utf-8?B?REsrcUZUYzF3cC9WK2FWUytGNUZKVWFzWTZuRlY0RFUyOHdkRVJIVURMQUhK?=
- =?utf-8?B?YUh0UlM5eTgvWSt3WVpaZTM1bWUxVkRXaFVPNzRlK1BodDByWVZzVnRlN3NB?=
- =?utf-8?B?OG10VzUzOEliaXNtay9mWC8yQU43eWxEUldYdDIrUmxIdmJqMTJ0WHB0Rkwy?=
- =?utf-8?B?eE9GUkxYYUlOaWdwWGlVb3VPaDNHWGdGSldBWEV1aHVZUmluNUtJY2NhNEUw?=
- =?utf-8?B?K2lMRFZwcmhqS0Q2NGk1Y0ZtSVRMbGx2TW1GQmp4VGxpL01RYmI5cTl6UDFt?=
- =?utf-8?B?Vk5DSUhUa0M1NVdHSEJWTStCaUpXWEpsQXJzcDBzN1F0MGcwY3RveGdqUk9W?=
- =?utf-8?Q?MRyJ7I4Ebde0GQZBLA?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09256116-69b4-46e0-69e2-08df40daa9ce
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:33:20.7046 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5OY8h6VTj3qiF2LQcfEQCmqOSlbNnsU/44aRMVZ98E2SfH8UIVBSMlLIjAvA/WgF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,15 +109,15 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
 
+On 11/12/26 18:24, Alexandru Elisei wrote:
 > Hi Mika,
 >
 > On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
@@ -161,20 +129,28 @@ On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
 >>> I want to help getting this series merged, and I've been familiarizing myself
 >>> with hmm and device migration, please bare with me if the questions I'm asking
 >>> are obvious or downright silly.
->>
 >> Thanks for the interest and willing to help! I am preparing a v18 of the
 >> series and plan to post it early next week.
->
 > The series is big, and as far as I can tell the MM people are hard at work
 > reviewing bug fixes. It might be better to wait a while, to give people a
 > chance to have a look? I know that if I see a series being reposted often,
 > I am less inclined to review the patches since probably a new iteration
 > will be posted soon. But I can only speak for myself, you know best.
+True, my motivation for quickish repost is to address sashiko concerns,
+and after that give time to reviewers.
+>
+>> I try to answer your questions, there are quite a bunch of them!
+> Thanks for your replies, it's going to take me a while to digest them.
+> Despite the silence, I'm working on it!
+Appreciate it!
+>
+> Thanks,
 
-Totally agree. It is better to wait until MM people finish the bug fixes.
 
-Thanks.
+Thanks,
+--Mika
 
 
-Best Regards,
-Yan, Zi
+> Alex
+>
+
