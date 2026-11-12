@@ -2,102 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C42606A888
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604A6606A32D
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhesNISn
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ms0Tcri/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10B4310E61C;
-	Thu, 12 Nov 2026 16:23:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE6010E61C
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:23:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 33AC560A4E;
- Thu, 12 Nov 2026 16:23:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD23F1F000C4;
- Thu, 12 Nov 2026 16:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794500602;
- bh=bsHjPOn7EQIvjeBJsa/4uXXhWDfByDTlEDjI43xq1Rg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=UhesNISnz1XXxAnSYD8cJ2LAInSMyJdo93FnmHXmAeAytdHghUo2RCOVedONnMfCa
- wiGelD/aZ53X6EYQ4RxHSHD4AdnIVDRoG15RL/o6vmZGqbsqAXTDBqIKHRcCyFKMme
- VKHf0W4tSN9I+fX/k7nxYItp1BnDzkUJe93p5v6zLnaBAvSPQGZQyjsTg0TTwVbhno
- 3daJoP8JecyYB3723QifpZbwB1NOo9MFJAEFENH05DGEcdznMDDvGIK7PoJVT0QUPY
- bixEHNHkI+wIDgIeEf1T9uVXn0kQ53CO5JnAAg+Bhl9e2D20wkmGnnUvofNCwPf4oi
- EfNZpbkBxwlUw==
-Message-ID: <96e6d746-a14f-448d-a2b5-4e94d27aa4ec@kernel.org>
-Date: Thu, 12 Nov 2026 17:23:14 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66DE589CD3;
+	Thu, 12 Nov 2026 16:27:35 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73EEB10E356
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:27:29 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a206f0b95bso61445e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:27:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794500848; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JpjtdircQzZCC3YYHn1eiBWWa0fsrjM4pYGG61ECgEKFgH6xiA9+4gn7YUyvqpsvvn
+ YmTgHmHXAg/GpXfV5ID1xevkfApO8nZ+pK1GtmAMZO6Q/MV+XPhDqhZAj7j+TnMg/tFo
+ YIlF0u4ncfnR2J3olO6IayYlG0+ztFWXsgYQmHCSB/rf0N03DoZCimLgAAJ9Wig3shJq
+ 4YdeCaIfBTbQ3WTaDfdYEQ76hWuBBHjxGe8j71925BZRErPNi+oaMJqa7RM5T0C0bRSH
+ Lk60SD8Siecn2VaBHvmkJW7dfcQPpk+tb2zCVpDFHYQUxoPsnxrOn9oMI7M855yjfDTD
+ 7ECQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
+ fh=lkp8nG80d+4f8poX9ktYnKS9mPVigm09HbvN5trO6ME=;
+ b=Qo8TDOwD4XoN54Ud+pgaTPp3r7VkJOQ17cNsNOwhpvBu608qbTNzz/vCDiUDKRTvq0
+ 6YbCwc9UmRHFVwh4KHZ3zM+Pk5b9+AcA16y1bhDb9Dxb6fPScKfDV3FiFT8Ci7iSxnqH
+ hujXMnvefTj2U7AvXtTxPcGrEiLyXWij6lmp42O0UAEXYar3dq1r1crO90Qpdm687oVd
+ FRBXBeI+96LQIgOUuVftwgog7WHvs8ADMEkawhYsSLwGjY+FILyZzV6xkEmeAHjwIKGl
+ yB+h/MjUL1VN6onKqnOo/2/73LmN1H21AXJb4ZU1gCN1Y6mxhYHj/Bs12k3eOqA/I9BG
+ JbzA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1794500848; x=1795105648;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
+ b=ms0Tcri/MkbKfVoE2QIuIoRVEPAHvmHPC/G+Ppg7H5sjRYPLhO/lj1EnhLvTxW1MbZ
+ Wme5G0FrsR2TptWkOMRSsDH7CvcC7Rc4q0TwreqOmiLvkccMC6k537kWp4VGnbVgFoaI
+ dA9MKSW16CEOQVybCZLMLdJJxxxFT1CfQILlHYx4eiGc1UP+NmWopu1FnM34qZ6YD1ea
+ jgRnUnzVIivJvQHTDsXrwufr3CrWS5IYtnAuwXELY1FW/JKXfDR7R5GLFyIQsSeqjbB7
+ pVnemQrcg5XDxb+VXrD+T2QFFZWjBKeslJhLv9J9skCIJ4figi4SSs0aodCi2gWe3wTT
+ 3Rrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794500848; x=1795105648;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
+ b=lF6ydpGBnu+ZVZNR03ALUjHAkVqKl2bPdYmXkdfVazwZQJoGiWNKpuIwxlkTPw/pus
+ vci31iAQPr8CDixBLY/thZKeQw5iDBGc2siiflQdTBW81OnZe8hVywN0IRcoaVjRo3zd
+ 7C4lC+zIb3wKOBPJ2n0S86nKvsCubW9ZkBayToSJHch2Jfb9e9RtcNjGKPrurFgDv32n
+ 0wseiHHhiEmVRBEfrUOh+3Z3uYhFRu1orSNDjfv6XgyJv+ZlqCiGYndnL+D1Pbr8tHkQ
+ 4b/O+oxmCkJStnfo9PzB3uqnTYUtXUbmtncYmoBcL84waDFRuIpvwgVglzvyco0Z6/AP
+ LG9g==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGas8NzYjhBnt6KYXcuwhy3y9KbC5EipKolx2dHt4JTgeRGOWU+jBAu7lNzLKL4FdDjG8G4MoPzPCA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/T0AqgLyNC6803E6FLaSuBlDq+4ADyE4CueM0s4YAFMsiOMjxO
+ dnOLLEWVkdnMeTJyPIP15hi3YFNeZD4nNV+wOJ8zm9aQtbQi/dH1arlk9R6ky3SC7yUk0VA/YT8
+ RVJWq3H27prQpYnDPiMEiLbyamr/Q8AmZd6Upr8o9
+X-Gm-Gg: AYBFou0v+j2sgJ+B9muau+39hNXGZYJMHk6J2fYHLWS2650v63+4B8VITFFRJJGxjc6
+ +Ce5n3MRiTKB/Dy7FGibPp7nSDx4cyflBb8iJY7ASaGXdUppDBwv6in8BO6ju9XgIFR6r+3dnoO
+ YpUIh4URC5rVXK50SNHWF4oTSWdMNXifwMGu9YXGQ8qtiD7UYqgY2/PyO7EWgIgVUUz49MLNmoe
+ lJcNYATA8oRQn52JMJVrYjCxXLBai/o8reEqxToJaJB5H/TeTDjlrmWTyteDP6151fitTLgEJ+3
+ rtwI1QokESa+SKmXxjh0pqb5AADyah3thShW1G6Kq2eGw9llHMk5bHtrrM12nWOuktn37XVaRYU
+ wW00Ds7I2X5V+vur3ZTYP/AeVU+iYKJHqJb5Km96gGegoms6Kyk+Eng8/NvdWNiYN+w1OXkixiu
+ M3Qz79ISzQNxdA9uMifkBV
+X-Received: by 2002:a05:600c:3484:b0:4a1:d7fa:ae36 with SMTP id
+ 5b1f17b1804b1-4bb4f596156mr1132755e9.4.1794500847262; Thu, 12 Nov 2026
+ 08:27:27 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: bridge: Add Parade PS195
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
- <20261112-mahua-hdmi-v1-1-b463d7b1dd7e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261112-mahua-hdmi-v1-1-b463d7b1dd7e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+ <20261111195942.1283060-1-tjmercier@google.com>
+ <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
+In-Reply-To: <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Thu, 12 Nov 2026 08:27:15 -0800
+X-Gm-Features: AclHuK-uQbQFbW5RNXEONirv5hUwyDZLZazYVkX411MRAANXcv3dooeKp4V1qsc
+Message-ID: <CABdmKX3rqcf-U7W7E+d79dM9H3VnwUjAH3Hv92MczMSmQauC3w@mail.gmail.com>
+Subject: Re: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator
+ keeps returning NULL
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: k.chen@smail.nju.edu.cn, ast@kernel.org, daniel@iogearbox.net, 
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, shuah@kernel.org, 
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+ sumit.semwal@linaro.org, phasta@kernel.org, tj@kernel.org, 
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,57 +112,120 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 12/11/2026 11:15, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Add bindings for the Parade PS195 DisplayPort to HDMI bridge, describing
-> its power supplies, optional reset GPIO and display ports.
-> 
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  .../bindings/display/bridge/parade,ps195.yaml      | 98 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 ++
->  2 files changed, 104 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
-> new file mode 100644
-> index 000000000000..089191570ef0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
-> @@ -0,0 +1,98 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/bridge/parade,ps195.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Parade PS195 DisplayPort to HDMI protocol converter
-> +
-> +maintainers:
-> +  - Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> +
-> +description:
-> +  The PS195 converts DisplayPort input to HDMI output. Firmware loaded from
-> +  an external SPI flash handles link training, EDID access and hotplug
-> +  detection. This binding describes operation without host control of
+On Thu, Nov 12, 2026 at 1:35=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 11/11/26 20:59, T.J. Mercier wrote:
+> > The BPF iterator docs in bpf_iterators.rst specify that the next
+> > function of an open-coded iterator should keep returning NULL after it
+> > has been returned once.
+> >
+> > Add a subtest that checks this for the dmabuf iterator. It drains an
+> > iterator, calls bpf_iter_dmabuf_next() once more and checks that the
+> > result is NULL. The dma-bufs the test creates keep the list from being
+> > empty, so an iterator that starts over would return one of them.
+> >
+> > The existing open_coded subtest uses bpf_for_each(), which stops at the
+> > first NULL and never calls next() on a drained iterator.
+> >
+> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Let me know if you already have drm-misc commit rights.
+>
+> Regards,
+> Christian.
 
-Please post complete binding.
+Thanks! Still waiting but no rush.
 
-> +  the device registers. The optional I2C control port is not required for
-> +  display operation. Reset may be controlled by a GPIO or released by a
-
-So this can does not have to be connected to I2C bus at all? I checked
-datasheet and it does not really mention having SDA/SCL floating
-(disconnected).
-
-Best regards,
-Krzysztof
+> > ---
+> > This depends on Kang Chen's fix and fails without it:
+> > https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.e=
+du.cn/
+> > Kang, feel free to carry it as 2/2 in your v2.
+> >
+> >  .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
+> >  .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
+> >  2 files changed, 38 insertions(+)
+> >
+> > diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/too=
+ls/testing/selftests/bpf/prog_tests/dmabuf_iter.c
+> > index 1a5dc1adae73..c1f81b5dccdc 100644
+> > --- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
+> > +++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
+> > @@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(s=
+truct dmabuf_iter *skel, int m
+> >       } while (bpf_map_get_next_key(map_fd, key, key));
+> >  }
+> >
+> > +static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_i=
+ter *skel)
+> > +{
+> > +     LIBBPF_OPTS(bpf_test_run_opts, topts);
+> > +     int err, fd;
+> > +
+> > +     fd =3D bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
+> > +
+> > +     err =3D bpf_prog_test_run_opts(fd, &topts);
+> > +     if (!ASSERT_OK(err, "test_run_opts err"))
+> > +             return;
+> > +     if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
+> > +             return;
+> > +
+> > +     /* The test buffers exist, so a restarted iteration would find on=
+e */
+> > +     ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
+> > +}
+> > +
+> >  void test_dmabuf_iter(void)
+> >  {
+> >       struct dmabuf_iter *skel =3D NULL;
+> > @@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
+> >       }
+> >       if (test__start_subtest("open_coded"))
+> >               subtest_dmabuf_iter_check_open_coded(skel, map_fd);
+> > +     if (test__start_subtest("next_after_drain"))
+> > +             subtest_dmabuf_iter_check_next_after_drain(skel);
+> >
+> >  destroy:
+> >       destroy_test_buffers();
+> > diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/te=
+sting/selftests/bpf/progs/dmabuf_iter.c
+> > index 9cbb7442646e..d5421b75c39c 100644
+> > --- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
+> > +++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
+> > @@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
+> >
+> >       return 0;
+> >  }
+> > +
+> > +/* Result of a bpf_iter_dmabuf_next() call after the iterator was drai=
+ned */
+> > +__u64 next_after_drain =3D -1;
+> > +
+> > +SEC("syscall")
+> > +int iter_dmabuf_next_after_drain(const void *ctx)
+> > +{
+> > +     struct bpf_iter_dmabuf it;
+> > +
+> > +     bpf_iter_dmabuf_new(&it);
+> > +     while (bpf_iter_dmabuf_next(&it))
+> > +             ;
+> > +
+> > +     /* Store the raw value; the verifier would remove a branch on it =
+*/
+> > +     next_after_drain =3D (__u64)bpf_iter_dmabuf_next(&it);
+> > +     bpf_iter_dmabuf_destroy(&it);
+> > +
+> > +     return 0;
+> > +}
+>
