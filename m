@@ -2,43 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35235606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15269606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 17:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0T7yCwg
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xi1M0Wrq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92355112256;
-	Thu, 12 Nov 2026 17:16:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C1A112256
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BED811227B;
+	Thu, 12 Nov 2026 17:18:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9475F11225B;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF63461D4F
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:16:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DEC1F000C6;
- Thu, 12 Nov 2026 17:16:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 441464233C;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179EA1F000C4;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794503775;
- bh=WC/klGoPzQuyDpdRaW0lt6Lwcew5b2xI59mfI1qu9y4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U0T7yCwgkFj0sKNw2dbyxr7MzbogxgSXp32e5v5sxHgvmO6Ql2N8L7fcaqPBwzuWB
- C5KxfYUqfAiHg+OhEwAMOE/eupNnOasCLG2RBl3hhdFTx68wmck+OIgMrpjN209DKj
- oFTyhEm1eByUbfX4WZttRWfo8iQBIsW44tJWPeiAgNU2+fpdKPAfbTzq7FDP9NmOUw
- g+/CkbE20eFMTxUV4vYL7byageH6O+WhWT1LOl1+o6VzBi58IwJHWG+z38PFC3iDI7
- FRcPE2UIZNSMliC4w2FXlP5cMAH7nk9iYGWXyFFHN7Or2dhLjxXo0Qt0vrT5P76VTO
- BMxPjoV028e+Q==
-Message-ID: <sashiko-outbox-211576@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/9] drm/atomic: Allow filling a commit with
- pristine object states
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-drm-reset-state-flag-v10-3-cefaa1ed056d@kernel.org>
-References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
- <20261112-drm-reset-state-flag-v10-3-cefaa1ed056d@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 17:16:14 +0000
+ s=k20260515; t=1794503876;
+ bh=VMi+hIkLWXT7siLEN9ATyCll+A1V4GrHFAEeCBcDPio=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Xi1M0WrqH5bMvx0n0pi4w5v7a8qJzrxjW4xzgjyJBTk4w5Ha9LDFHd8Q2SIO4bI0/
+ R1AH44wKcxNJXbaWLeAun1BY623lBE7mWeM8MlocaX0VT4oGCtm1o/G3AsbPIXS1Ln
+ HAfe4Gi1tJJQuDHDrzTAcmJcvP7xkP9KNg6uFt8kIbAQS0k0mQOiMe1zrTRcGbMEAP
+ QjV4y8GkI+IFa+IR6J9g75IGth5ijUGZ2Wd4tjx81In8/mDCI0Hl19n37GOo0mpyES
+ RMm1owYYSjXmybNXysJzMRsSMwbMIAEWBzrarLAWP33yYlnJBqzwDlRjfOGVF8svjx
+ eUQ0ymv8EqhZg==
+Date: Thu, 12 Nov 2026 09:17:55 -0800
+From: Kees Cook <kees@kernel.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Selvin Xavier <selvin.xavier@broadcom.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Add struct_offsetofend() for pointer arithmetic
+Message-ID: <202611120916.3619B95@keescook>
+References: <20261112-offsetof-v2-0-276ede839967@arm.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112-offsetof-v2-0-276ede839967@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,213 +98,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/atomic: lost driver state in
-  drm_atomic_commit_fill_with_defaults()
-- [Medium] drm/atomic: race with lease revoke in
-  drm_atomic_commit_fill_with_defaults()
---
+On Thu, Nov 12, 2026 at 10:29:32AM +0100, Bence Csokas wrote:
+> A common usage pattern for offsetof() is the following:
+> 
+>   offsetof(typeof(*ptr), member)
+> 
+> This is exactly the definition of struct_offset(). Some call sites use
+> offsetofend() instead of offsetof(). Add this variant, then replace all
+> call sites with the corresponding macros.
 
-commit 5078d7ac25f2348a94f9d3158195c6d51b1f515d
-Author: Maxime Ripard <mripard@kernel.org>
+Yeah, I think this is reasonable. I'd prefer to see the Coccinelle
+script explicitly added to tools/coccinelle/api/ though, so it can be
+trivially re-run as needed.
 
-drm/atomic: Allow filling a commit with pristine object states
+Also, while Alejandro is right about the needless outer parens, I think
+I'd like to keep them just to match the other define, and they do no
+harm.
 
-This commit adds drm_atomic_commit_fill_with_defaults() to populate an atom=
-ic
-commit with pristine object states created via atomic_create_state() for all
-leased CRTCs, planes, connectors, and colorops.
+-Kees
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 7a77051096c91..4fcce3bb0aa11 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1649,6 +1649,291 @@ bool drm_atomic_implements_create_state(struct dr=
-m_device *dev)
+> 
+> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+> ---
+> Changes in v2:
+> - Use struct_offset() instead of reinventing it
+> - Rename offsetofendp() to struct_offsetofend()
+> - Merge the two treewide patches
+> - Link to v1: https://patch.msgid.link/20261105-offsetof-v1-0-4153f5c10edc@arm.com
+> 
+> To: Kees Cook <kees@kernel.org>
+> To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> To: Marcel Holtmann <marcel@holtmann.org>
+> To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+> To: Sumit Semwal <sumit.semwal@linaro.org>
+> To: Christian König <christian.koenig@amd.com>
+> To: Philipp Stanner <phasta@kernel.org>
+> To: Sudeep Holla <sudeep.holla@kernel.org>
+> To: Cristian Marussi <cristian.marussi@arm.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Jani Nikula <jani.nikula@linux.intel.com>
+> To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> To: Tvrtko Ursulin <tursulin@ursulin.net>
+> To: Lyude Paul <lyude@redhat.com>
+> To: Danilo Krummrich <dakr@kernel.org>
+> To: Zack Rusin <zack.rusin@broadcom.com>
+> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> To: Selvin Xavier <selvin.xavier@broadcom.com>
+> To: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
+> To: Jason Gunthorpe <jgg@ziepe.ca>
+> To: Leon Romanovsky <leon@kernel.org>
+> To: Chengchang Tang <tangchengchang@huawei.com>
+> To: Junxian Huang <huangjunxian6@hisilicon.com>
+> To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> To: Hans de Goede <hansg@kernel.org>
+> To: Mauro Carvalho Chehab <mchehab@kernel.org>
+> To: Haiyang Zhang <haiyangz@microsoft.com>
+> To: Wei Liu <wei.liu@kernel.org>
+> To: Dexuan Cui <decui@microsoft.com>
+> To: Andrew Lunn <andrew+netdev@lunn.ch>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Eric Dumazet <edumazet@kernel.org>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+> To: Jes Sorensen <Jes.Sorensen@gmail.com>
+> To: Ping-Ke Shih <pkshih@realtek.com>
+> To: Johannes Berg <johannes@sipsolutions.net>
+> To: Benson Leung <bleung@chromium.org>
+> To: Tzung-Bi Shih <tzungbi@kernel.org>
+> To: Guenter Roeck <groeck@chromium.org>
+> To: Nilesh Javali <njavali@marvell.com>
+> To: GR-QLogic-Storage-Upstream@marvell.com
+> To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+> To: "Martin K. Petersen" <mkp@kernel.org>
+> Cc: linux-hardening@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-bluetooth@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: arm-scmi@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: linux-rdma@vger.kernel.org
+> Cc: linux-hyperv@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-wireless@vger.kernel.org
+> Cc: chrome-platform@lists.linux.dev
+> Cc: linux-scsi@vger.kernel.org
+> 
+> ---
+> Bence Csokas (2):
+>       stddef: Add offsetofend() variant of struct_offset()
+>       treewide: Use struct_offset()
+> 
+>  drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
+>  drivers/dma-buf/dma-resv.c                         |  2 +-
+>  drivers/firmware/arm_scmi/base.c                   |  2 +-
+>  drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
+>  drivers/gpu/drm/i915/i915_active.c                 |  2 +-
+>  drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
+>  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
+>  drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
+>  drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
+>  drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
+>  drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
+>  drivers/net/hyperv/rndis_filter.c                  |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
+>  .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
+>  drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
+>  drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
+>  drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
+>  drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
+>  drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
+>  drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
+>  drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
+>  drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
+>  drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
+>  drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
+>  drivers/scsi/scsi_transport_fc.c                   |  2 +-
+>  include/linux/overflow.h                           | 12 ++++++++++
+>  30 files changed, 75 insertions(+), 64 deletions(-)
+> ---
+> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+> change-id: 20261105-offsetof-f62aa6348f0d
+> 
+> Best regards,
+> --  
+> Bence Csokas <bence.csokas@arm.com>
+> 
 
-[ ... ]
-
-> +int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
-> +					 struct drm_atomic_commit *commit)
-> +{
-
-[ ... ]
-
-> +	drm_for_each_plane(plane, dev) {
-> +		struct drm_plane_state *plane_state;
-> +
-> +		if (!drm_lease_held(file_priv, plane->base.id))
-> +			continue;
-> +
-> +		ret =3D drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/*
-> +		 * The pristine state detaches the plane from the CRTC it
-> +		 * is enabled on, which the atomic helpers can only sort
-> +		 * out with that CRTC in the commit. Resetting a plane
-> +		 * enabled on a CRTC that isn't leased would thus require
-> +		 * touching an object the lease doesn't cover, so report it
-> +		 * like any other access outside of the lease.
-> +		 */
-> +		if (plane->state->crtc &&
-> +		    !drm_lease_held(file_priv, plane->state->crtc->base.id)) {
-> +			drm_dbg_atomic(dev,
-> +				       "[PLANE:%d:%s] is enabled on [CRTC:%d:%s], which isn't leased=
-\n",
-> +				       plane->base.id, plane->name,
-> +				       plane->state->crtc->base.id,
-> +				       plane->state->crtc->name);
-> +			return -ENOENT;
-> +		}
-> +
-> +		plane_state =3D plane->funcs->atomic_create_state(plane);
-> +		if (IS_ERR(plane_state))
-> +			return PTR_ERR(plane_state);
-> +
-> +		/*
-> +		 * Same thing for the planes: report a color pipeline change
-> +		 * compared to the current state.
-> +		 */
-> +		plane_state->color_mgmt_changed =3D
-> +			plane->state->color_pipeline !=3D plane_state->color_pipeline;
-> +
-> +		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-> +	}
-> +
-> +	drm_for_each_crtc(crtc, dev) {
-> +		struct drm_crtc_state *crtc_state;
-> +
-> +		if (!drm_lease_held(file_priv, crtc->base.id))
-> +			continue;
-
-[Severity: Medium]
-Can a concurrent lease revocation between the plane, CRTC, and connector
-loops leave a split pipeline in commit and cause a NULL pointer dereference?
-
-drm_lease_held() takes and drops mode_config.idr_mutex on each call, while
-drm_lease_revoke() clears master->leases under idr_mutex without holding any
-modeset locks:
-
-CPU0 (lessee atomic reset)        CPU1 (lessor revoke)
-drm_atomic_commit_fill_with_defaults()
-  drm_for_each_plane()
-    drm_lease_held(plane) -> true
-    drm_lease_held(plane->state->crtc) -> true
-    drm_atomic_commit_set_plane_state()
-      /* old->crtc =3D crtc, new->crtc =3D NULL */
-                                  drm_mode_revoke_lease_ioctl()
-                                    drm_lease_revoke()
-                                      idr_destroy(&master->leases)
-  drm_for_each_crtc()
-    drm_lease_held(crtc) -> false (skipped)
-  drm_for_each_connector_iter()
-    drm_lease_held(conn) -> false
-    drm_lease_held(conn->state->crtc) -> false
-  return 0
-...
-drm_atomic_helper_setup_commit()
-  crtc_or_fake_commit(state, old_plane_state->crtc)
-    new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc)
-    return new_crtc_state->commit;  <-- NULL pointer dereference
-
-Similarly, if the lease is revoked between the CRTC loop and the connector
-loop, a leased CRTC is added to commit with a disabled pristine state while
-the connector bound to it is skipped because drm_lease_held() returns false
-for both the connector and connector->state->crtc, leaving the connector
-bound to a disabled CRTC.
-
-> +		ret =3D drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-> +		if (ret)
-> +			return ret;
-
-[ ... ]
-
-> +		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
-> +		if (IS_ERR(crtc_state))
-> +			return PTR_ERR(crtc_state);
-
-[ ... ]
-
-> +		drm_mode_copy(&crtc_state->adjusted_mode,
-> +			      &crtc->state->adjusted_mode);
-
-[ ... ]
-
-> +		connector_state =3D connector->funcs->atomic_create_state(connector);
-> +		if (IS_ERR(connector_state)) {
-> +			drm_connector_list_iter_end(&conn_iter);
-> +			ret =3D PTR_ERR(connector_state);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * best_encoder is a routing information maintained by the
-> +		 * atomic helpers rather than a userspace property, and it
-> +		 * is only carried over to a new state when that state is a
-> +		 * duplicate of the current one. Since
-> +		 * update_connector_routing() uses it to detect the commits
-> +		 * that keep the connector routing unchanged, carry the
-> +		 * encoder currently in use over so that a reset on which
-> +		 * userspace re-applies the exact same configuration doesn't
-> +		 * require a modeset.
-> +		 */
-> +		connector_state->best_encoder =3D connector->state->best_encoder;
-
-[Severity: High]
-Does carrying over adjusted_mode and best_encoder onto pristine states crea=
-ted
-via atomic_create_state() break drivers that rely on persistent driver-priv=
-ate
-state when a commit does not trigger a modeset?
-
-When userspace re-applies the active mode and connector routing on top of a
-reset, mode_changed and connectors_changed remain false, so drivers skip
-modeset recomputation even though atomic_create_state() zeroed their private
-state subclass fields and drm_private_obj states were not reset.  For drive=
-rs
-where drm_atomic_implements_create_state() returns true without dedicated
-state carry-over handling:
-
-- In msm/mdp5, mdp5_plane_create_state() zeroes mdp5_state->hwpipe, so
-  mdp5_plane_atomic_check_with_state() never releases the previous hwpipe in
-  mdp5_global_state->hwpipe.hwpipe_to_plane[], permanently leaking hardware
-  pipes.  If a CRTC stays active with no visible planes,
-  mdp5_crtc_atomic_check() returns early before mdp5_crtc_setup_pipeline(),
-  leaving mdp5_cstate->pipeline.mixer NULL while mdp5_cstate->ctl is set and
-  causing a NULL pointer dereference in blend_setup() during
-  mdp5_crtc_atomic_flush():
-
-drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c:blend_setup() {
-    ...
-	struct mdp5_hw_mixer *mixer =3D mdp5_cstate->pipeline.mixer;
-	uint32_t lm =3D mixer->lm;
-    ...
-}
-
-- In nouveau dispnv50, nv50_wndw_atomic_check_acquire() skips rebuilding
-  asyw->image when the framebuffer is unchanged and no modeset is requested,
-  so curs507a_acquire() sees a zeroed asyw->image.w and rejects cursor
-  commits with -EINVAL, while primary/overlay planes lose asyw->ntfy.handle
-  and asyw->xlut.handle.  nv50_head_atomic_check() also skips
-  nv50_head_atomic_check_mode() when mode_changed and connectors_changed are
-  false, leaving asyh->mode, asyh->view, and asyh->or zeroed, and resetting
-  connector properties via nouveau_conn_atomic_create_state() leaves
-  asyc->set.mask at 0 so scaler, dither, and procamp hardware state is not
-  reprogrammed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-drm-reset-=
-state-flag-v10-0-cefaa1ed056d@kernel.org?part=3D3
+-- 
+Kees Cook
