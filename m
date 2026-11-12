@@ -2,132 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E660606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77863606A32D
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:57:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=usOOyN6M
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I90VmOnN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DCD10E274;
-	Thu, 12 Nov 2026 09:52:28 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010016.outbound.protection.outlook.com
- [40.93.198.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ABD010E3EB
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:52:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b26Y/4KQr1m1hOtVHRuDe0v6JGyqOypvNlvkX8pzJDQQJXLH+P3+bxSDFirl/T/JO/z6nz08dZBiv6VTMMJ8UG/e3oWNwFBGVqT5ulQVxJMX9mniIpGvRAo0E5++WFkEjLyTgqDPK1MQHuiHUATjI+0Z5ktmBGKYin1JNmEr46SuTGrjQX5BLmqYVS9HHm2kavWW2yh1RGLhWJjl+IVcz+lwdFGhU0P6ZKKS6zLmhZeQzn/Ghd5/B1xLM6odwqvsLjHpmSKvyjRs6V0QxU08Nnc8UAJQRK9clE7a8kIbWGGP9NbtT30jSATeKwcDm4Lil485ZOYqh9aA7IxhtxcfgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eICWT9mOH9GYKNEuFVRfcXk8QFDAoSIkQV/mIuYhqNE=;
- b=S8W7/Whn4IO3IoTmUZJ6lm4dWk1J2yFVqBj5AewPrADdjKc20P7eV/OpOtsU6Lg65nF5gNkyvXjtFX1BrxWghpb14nArVP0XMNEOGCSRDLwZ678PCGq/yg5XepZeMTFx0JfSO7frwf7VTjj81Jlfkx05aMoqqpe9Nq86wB+XGB+yw8/L8EBDxHXl1GbIbefgMP4LVWt+Toi+0Eel9l32tNERGgPvHIkAoqylHOIopWfXX2ykq75t+OQKsOJ1wVw2PZbUXwuhjt1QU9iJOQLzkrZCsdIDKTaF3Pec8KM/eJ1xlk0wiCRwQ6E+S1DZFUs/Tc9Kss2Xci35A9CONh2BAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eICWT9mOH9GYKNEuFVRfcXk8QFDAoSIkQV/mIuYhqNE=;
- b=usOOyN6MIeuMuQcUV2e/y4jqgXOVx6DiNbS3GV9OTevYY1XN6pvrp69R2MS85kVpP8ngVExX4EOBNdqtRU4vXxgFHwPdFwgvbFgOcXwiYwuOyQxaNU0Km0W4d4N6vJeeBTpK80LFufgzMq5pfoj2Hoa8z1jbeEuQvnXntk3603s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB8291.namprd12.prod.outlook.com (2603:10b6:8:e6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Thu, 12 Nov
- 2026 09:52:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 09:52:19 +0000
-Message-ID: <698c5faa-609f-405e-a33a-a48fefd8d411@amd.com>
-Date: Thu, 12 Nov 2026 10:52:14 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Hans de Goede
- <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20261107104703.44111-1-kmehltretter@gmail.com>
- <20261107105946.GA96745@killaraus.ideasonboard.com>
- <avUvHGb4talXW7qS@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <avUvHGb4talXW7qS@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0447.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4DFD10FF68;
+	Thu, 12 Nov 2026 09:56:55 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC4810FF68
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794477409;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=USgqRYo1pzMpiu0iJQxs9uW5L1POEPPKTWq3pDYoKws=;
+ b=I90VmOnNP5/hvc4UKScfTIKkXgsJj0goSn1m2qZpK1bxiMa8Jg5OAQ4u/OWH3yehcCgwzr
+ 7MDdiWuAPPyw+eL8e6HMIIxCiqwIVjgWFpWqIWnAf5xDdGbrJbOxuf5IY8Un7H+TjPhWuG
+ e/uwNY7X6eZH6VR9hIiN7Vf5hhylqE4=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-624-TOaJqwg6POWs9N2xBvZPBg-1; Thu, 12 Nov 2026 04:56:45 -0500
+X-MC-Unique: TOaJqwg6POWs9N2xBvZPBg-1
+X-Mimecast-MFC-AGG-ID: TOaJqwg6POWs9N2xBvZPBg_1794477404
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-48fcb657f32so2812319f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 01:56:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794477404; x=1795082204;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=USgqRYo1pzMpiu0iJQxs9uW5L1POEPPKTWq3pDYoKws=;
+ b=tjMbEhnxVhpAZIG2NdMCS6K2EMkuBRBm2qM27x5CO/6SpkLMQlPPpYk+3NpBpuhS5Z
+ fGANxh9j5FmxnoQbpjc5eex3TAlZss2lLiQ3HG1k1pZuxEhLclQTCNnaQ4Bd1UNEKWLw
+ mjEYOQp/5kK3Xzz8gmuM/WBTbHCzOrs7z+SRiqByaEHKK0SUvY6BsTYJ1ZU2d6Jz9Uq5
+ 28Pej7fKyXD9RU8Depbit+ojXbwdLKo5CC6kINlOHQsBjSZ++iUxqgpCe8wE2CWojJPB
+ ve61djBjQDdz85PDFlEAX4bpxoSv91xfBsMV004jBKqh8EjhEzEyANQ1jZAEkOkiSjD2
+ igkA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEq3Swnst7P5nD5hh1H/Ui0S3sdRA8hcmxjbP5N/E3PvRoD3RA4qwwtZFdpwimP5rrxfv9to403I14=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+aPfUmJ3vtNX4LMFIRBDFF6AcAHle7xURKbUwPCFfH8OBcci2X
+ fCij7PL4cDao6zNPSR/q7s6KWkh9GE+K1J5oqYYlsepcL72LhTJQtUNsWX4sQEgTVKyXIApvb5l
+ eYF4cPpz0L2T6wIm3M7j/NvE1PHxA7AR8FvW1jsN1iHotIIpHv2iYZ62qc5UYsma1BhWn/Q==
+X-Gm-Gg: AYBFou2UJBkIbe1nnRD9iEPcBDmf/FeiCTBW2+fCpYUxLN68IyLj1OYJaVXcGO0nbmB
+ IyJ2hUzWrQG+LYFCpCCcbxELGwqOBe9LYv1ZfqGJgXY/jQgsmhMULfpQffZSNsnIeXSnpdSJJes
+ pA9WDCy+zUDWsLapmOdgMvAXyV56+KLyO5xcPrzjwVIxfX4huljG3HBaPB1H64YTzoOHn7r6Vj8
+ BkQ93b2O+1aJMBnmq3P5+qn0YYR48hZP+Li02EeSsRpPQw/TqqnJfIJvBqb2tcC5GNHVkQW2T6L
+ /ZiXX9PNciHm6xvkx1rolS9ICYYEx/COaJgGzYtwXbiozVK9o34oiW/0jflR52uTr9NCyXf8aK0
+ 83HsGlqQiackMzQC8sFJV6ifKL8bCTa3pRvZtv9UfGEo=
+X-Received: by 2002:a05:6000:4210:b0:48d:ff0d:cfa5 with SMTP id
+ ffacd0b85a97d-499c8a7b6aamr8720983f8f.47.1794477404159; 
+ Thu, 12 Nov 2026 01:56:44 -0800 (PST)
+X-Received: by 2002:a05:6000:4210:b0:48d:ff0d:cfa5 with SMTP id
+ ffacd0b85a97d-499c8a7b6aamr8720905f8f.47.1794477403631; 
+ Thu, 12 Nov 2026 01:56:43 -0800 (PST)
+Received: from localhost ([139.47.30.142]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498362eb158sm15464916f8f.36.2026.11.12.01.56.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 01:56:43 -0800 (PST)
+Date: Thu, 12 Nov 2026 10:56:42 +0100
+From: Albert Esteve <aesteve@redhat.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+ Jens Wiklander <jenswi@kernel.org>,
+ Sumit Garg <sumit.garg@kernel.org>, cgroups@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org
+Subject: Re: [Linaro-mm-sig] [PATCH v4 2/8] dma-heap: charge dma-buf memory
+ via explicit memcg
+Message-ID: <avWNWnXCXm1sUYch@aesteve-thinkpadp1gen8.rmtes.csb>
+References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
+ <20261104-v2_20230123_tjmercier_google_com-v4-2-1819a017000b@redhat.com>
+ <3fdad4e17008cd59bc528ab22e34c0c913a6d50f.camel@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8291:EE_
-X-MS-Office365-Filtering-Correlation-Id: adb1ef29-20b0-4d2f-99d7-08df40a2a3a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|23010399003|376014|18002099003|22082099003|6133799003|10067099003|11063799006|4143699003|261009223027099003|56012099006|261102130727099003|261026121527099003|261022075727099003|261021121427099003|261021135927099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: /lnZGPgeo1HEhOBtZpRHj+rcGRPF4eUbfNC8ESJNX2D1GKCj4ta0/DhXHi+t51g4HaNCpJqlSNDOoaSC33ZJ9mU6gqWaSkNtsMYZZHE6CjLf5HMJvDH82++nBOhDx5pZhv+XBxfie2H2oVeikUQr5OiioJLYB8xWppfsK9aGtNqf9BYvwroYuCyyyu72iUH00Tcf0kCM4ELCmnpCoMlnvCP4cHB0T9Hz5yvOyczBkLEYa8pFtjqaMmaro9tAnRGBYftkVThBnDKQMM3mBxngHIfKN3TY9+xtFfd3v5W5GDVnes5Vq0Ws2onxjiHWu1Oh8czTvZa6/lsIHLJmKIQ0t01984SALzK+lzADPlHOuSMLFXYb+Kr8BPqTve4caSPsa5JETurmirlvDOsxk6uGkIRb+iu5yFpwibUc8Fjaf0pADSEUwUieqUVH+gEbw43md6SpXS2ZHrZwoPoTQ968J4LlwMfTjRNLUUc2HCx+fPz4tWWV3caN1HHtDwXYQv4D5QBWdH1AcUCHzf605lQKpHk4J2rZZ05G7a/+Z6LFX5fQLqTPNnf2zXejC7rxe0ogJhaR46uRAfN5WYDMpL05ZBKqEHW3P50qjm+swC9fO3fP3axyKFC7cCh6JoFdNToM
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006)(261102130727099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021135927099003)(261102123227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3gybUIzanV0OWJFbnIzVGdKQWZUbjI3KzdZNEVsYVpxRmhncHB1SDVOc3dx?=
- =?utf-8?B?bVF6VVUwUzhKOW1ZeEVwQXBoTWswSUxYelJVcVRuMG5iWE82SVZ6eDg1aC9n?=
- =?utf-8?B?dGFaTTVnSjNQZy9NNzVjTjYyaEJlT1RWejltTWQ2eDU0Ri92eitXby8rNnpR?=
- =?utf-8?B?eDZNNkk2aGRRUXRJUkorZitBeG51czc5NGxpM0pyYjlBVkZOZGJ5TEc3cTZU?=
- =?utf-8?B?YlB5VXh2UXEvc0REK2ViRXoxWnVCNUs2WjFiZy9zMzBkaGlzc1JadVRYMTBi?=
- =?utf-8?B?RVNWZExYMnpJTjVzNlFocVdnMW9qS3FubHArOURpbVpGMUNpdHVzNDl6Rndz?=
- =?utf-8?B?Q09mck5rSmVYZ1VTRFFGdkg4MTBYa04vcW4wNEIyREhpdHB4eFM2cUV6K01w?=
- =?utf-8?B?RGh3QXhjMm52bVVwTTBYaWRENzA0UGdoZjNXWkJrcWNPbUk1UTNJOWd4ZFZk?=
- =?utf-8?B?UHhKbnowbzAwSm5wc2NWdHRIM1ozREhTU0J5STJXQWRWREx2MmZaVWE0ZXVq?=
- =?utf-8?B?SzZwNUd4ZzJlcXJqL3F5eUV5MUFFNzB0U1ErWjB6bnduS1lWLzN0RDROUGYx?=
- =?utf-8?B?Q3E1c21ZbitXOXRHb1JOcEVOeEhrSmF0SUd6V0NHdmVIOU43LzZNckpPTHZx?=
- =?utf-8?B?VlhVSGRwZFJydVQybkp4VWVrTHBHcW8yZVR5Mkg1LzVTYkpCdERtQVh0eFVv?=
- =?utf-8?B?UHJuWmQxVW9EclJVdGJpSEV5bGUxN3FZM2pmSVlNUkcwNmFONkFWcVlURXpp?=
- =?utf-8?B?cXo4bGI4QjJmRFFhS0pBQWNvdVNwc2t1d3RzS3ZjVUhCS2JaMG00Z01OaFlR?=
- =?utf-8?B?SUxRVzlUNXZTdHY5bmxFTHErUHpodGR3c3JTT0tZUER3eGp2aEZ1NVdaQ2l3?=
- =?utf-8?B?emZQQXJLalBvSWJkS0ljWEtsdjF1ZFcvTGx0c0tFd2hxb1dWQ3ZLY00yVnhx?=
- =?utf-8?B?eTJoeTh3Y0tac2hWSWJCWDltOEZOeWhEZ3hlQSt0S3J2dzFHektVbzByY2hE?=
- =?utf-8?B?RUhnQWNrMUZsQ1I0NHpPaUthamtkMGJsQUp3cE5TTXB1dXlIdzJCSkxja3dh?=
- =?utf-8?B?ZEVMdlUydlZxdkVGdnkrbjMvdkhaZHY1N29kb3JTVnVJWUttM0hCTGI3dUxS?=
- =?utf-8?B?a1dWYWRCckNRaU14RXBWekZXbEt3ODA4eEZVanltQmhMR1pQdVpzRmJzbXdw?=
- =?utf-8?B?T2JsUU9oOFp0VU1vaFlsZzZ2UXRDcVFhUkx6THgyS05vQU95b0U2NWFDVncz?=
- =?utf-8?B?VStnek5KNDVNb0M3NGRzVGdpQ1hnaDRwWThBTXh0aUxLcU1zZndOSjBwL25t?=
- =?utf-8?B?Y09QRDhGR25kY2tKZG9TSDRER1ZmNHdxazVMZ2xPNWlIdElER2FqZ2JkL3FX?=
- =?utf-8?B?M1FQaEZGdkhRREYxaXhzckd0WGpXNy9YY1Nsd2JIejUrMERSMG9BQVBmYlVO?=
- =?utf-8?B?VFBxUkpNWHRGVWJHZTZoMlR2SEhWNTFtOXU4M2ZqNXRFb2MyWlphUkFMNVRN?=
- =?utf-8?B?T3o5STlRV2tOVGs5cGNRVEEvNXNGNE9YQ3RjV3dMYThSZkdrZVZxSDh1YXRj?=
- =?utf-8?B?QUd2Vkl1Z09rbTNtU3NtNDZMd2VzNkZtd1c1MGpjZU1BS2hnYmFyelB1bUMw?=
- =?utf-8?B?ZjdYY29FTTRUNUNNS09tSGVhM0w1OTdmSVExU0R3QWJWOEhvbjdXbmgwanZz?=
- =?utf-8?B?U3BxTjdiMmViNmZuTFF3cFVOdy9hbnd6T3V5THpoVm5wTU0wUDRvV1plN2h5?=
- =?utf-8?B?ZEpmcXlCV0gyT1k2cENtU0g4bUcvdG1ZeDBnS3hQdTNFZjBqTXp4Qk1lb1dT?=
- =?utf-8?B?UlFJQkREekdTaDY5SHk0TWV0Q04vTmRydytjZTdzRHdsNERwUERNTkhOQmxX?=
- =?utf-8?B?UnJMbWNDd21sQnVOOUUrYldqeG5nL201YXJuMTJuK2JTOFBycktKL3QwUXNi?=
- =?utf-8?B?UXJWTGIrUi9WUEdKNHFCVXpqWncrSWZvb29ES2d4OXN0WFdiSmN6emZMVnQw?=
- =?utf-8?B?VW5uR2pVWjd4QW9OcVlwcTQxajZOaDRWa3RkOWNhdHJYM0xTVncvTXdZa1Bo?=
- =?utf-8?B?akJ4bnRSR0sxYjFjVzIxTUtTbWJUMWFRb0FoZWFLUHlFTHkvaWM0R2NrZTN5?=
- =?utf-8?B?TmduWFZiRnhSQy9qT3lxWHhFT3lUdVlFUU8wZGdiaXVxTUoxQVNEbWVicWti?=
- =?utf-8?B?RitFQ2dSbHFaaVp4Nm5LcDZ4VkR3SHhlMW9zVm43Z2Yrc3ovKzlTZzJ3bEwx?=
- =?utf-8?B?dURYOXIvZGMwUDVjYll1WUZwMjlXV29nSjFidEd6TmlOYnFUVEJSWllidktl?=
- =?utf-8?Q?w0j6kFvlk3OKDmpwdi?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adb1ef29-20b0-4d2f-99d7-08df40a2a3a1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:52:18.9439 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: srqAgoRqYJz5Pe+u/UJ6Jw6xdlhQV/nLp1UKWSbiZCJgVoLwwyaDyKE4AD5ZpMkj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8291
+In-Reply-To: <3fdad4e17008cd59bc528ab22e34c0c913a6d50f.camel@linux.intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RQQ_eM-DnrbhxrlaQKQkUiam-Nul26WkbDdDRwCs4mo_1794477404
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,63 +120,522 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/12/26 04:16, Karl Mehltretter wrote:
-> On Sat, Nov 07, 2026 at 12:59:46PM +0100, Laurent Pinchart wrote:
->> Hi Karl,
->>
->> We discussed in v1 how this is not the right approach. Why are you
->> posting a v2 without addressing that ? You need to go back to the design
->> table.
->>
+On Thu, Nov 12, 2026 at 08:42:18AM +0100, Thomas Hellström wrote:
+> On Wed, 2026-11-04 at 12:09 +0100, Albert Esteve wrote:
+> > On embedded platforms a central process often allocates dma-buf
+> > memory on behalf of client applications. Without a way to
+> > attribute the charge to the requesting client's cgroup, the
+> > cost lands on the allocator, making per-cgroup memory limits
+> > ineffective for the actual consumers.
+> > 
+> > Add charge_fd to struct dma_heap_allocation_data. When set to
+> > a valid pidfd or cgroupfd, DMA_HEAP_IOCTL_ALLOC resolves the target
+> > task's or cgroup's memcg and charges the buffer there via
+> > mem_cgroup_reserve_dmabuf() inside dma_heap_ioctl_allocate(). The
+> > resolved memcg is passed through dma_buf_export_info so that
+> > dma_buf_export() stores it and updates the MEMCG_DMABUF stat.
+> > Without charge_fd, and with the mem_accounting module parameter
+> > enabled, the buffer is charged to the allocator's own cgroup.
+> > The __GPF_ACCOUNT flag is removed from system heap allocations
+> > to avoid double counting.
+> > 
+> > Usage examples:
+> > 
+> >   1. Central allocator charging to a client at allocation time.
+> >      The allocator knows the client's PID (e.g., from binder's
+> >      sender_pid) and uses pidfd to attribute the charge:
+> > 
+> >        pid_t client_pid = txn->sender_pid;
+> >        int pidfd = pidfd_open(client_pid, 0);
+> > 
+> >        struct dma_heap_allocation_data alloc = {
+> >            .len         = buffer_size,
+> >            .fd_flags    = O_RDWR | O_CLOEXEC,
+> >            .charge_fd   = pidfd,
+> >        };
+> >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+> >        close(pidfd);
+> >        /* alloc.fd is now charged to client's cgroup */
+> > 
+> >   2. Default allocation (no pidfd, mem_accounting=1).
+> >      When charge_fd is not set and the mem_accounting module
+> >      parameter is enabled, the buffer is charged to the allocator's
+> >      own cgroup:
+> > 
+> >        struct dma_heap_allocation_data alloc = {
+> >            .len      = buffer_size,
+> >            .fd_flags = O_RDWR | O_CLOEXEC,
+> >        };
+> >        ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+> >        /* charged to current process's cgroup */
+> > 
+> > Current limitations:
+> > 
+> >  - Single-owner model: a dma-buf carries one memcg charge regardless
+> > of
+> >    how many processes share it. Means only the first owner (and
+> > exporter)
+> >    of the shared buffer bears the charge.
+> >  - Only memcg accounting supported. While this makes sense for system
+> >    heap buffers, other heaps (e.g., CMA heaps) will require
+> > selectively
+> >    charging also for the dmem controller.
+> > 
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  Documentation/admin-guide/cgroup-v2.rst |  5 ++--
+> >  drivers/dma-buf/dma-buf.c               |  5 ++++
+> >  drivers/dma-buf/dma-heap.c              | 28 +++++++++++++++++---
+> >  drivers/dma-buf/heaps/cma_heap.c        |  3 ++-
+> >  drivers/dma-buf/heaps/system_heap.c     | 21 +++++++++++----
+> >  drivers/tee/tee_heap.c                  |  3 ++-
+> >  include/linux/dma-buf.h                 |  4 +++
+> >  include/linux/dma-heap.h                |  3 ++-
+> >  include/linux/memcontrol.h              |  7 +++++
+> >  include/uapi/linux/dma-heap.h           |  7 +++++
+> >  mm/memcontrol.c                         | 47
+> > +++++++++++++++++++++++++++++++++
+> >  11 files changed, 120 insertions(+), 13 deletions(-)
+> > 
+> > diff --git a/Documentation/admin-guide/cgroup-v2.rst
+> > b/Documentation/admin-guide/cgroup-v2.rst
+> > index a3265a4a953e..66ddba678784 100644
+> > --- a/Documentation/admin-guide/cgroup-v2.rst
+> > +++ b/Documentation/admin-guide/cgroup-v2.rst
+> > @@ -1663,8 +1663,9 @@ The following nested keys are defined.
+> >  		structures.
+> >  
+> >  	  dmabuf (npn)
+> > -		Amount of memory used for exported DMA buffers
+> > allocated by the cgroup.
+> > -		Stays with the allocating cgroup regardless of how
+> > the buffer is shared.
+> > +		Amount of memory used for exported DMA buffers
+> > allocated by or on
+> > +		behalf of the cgroup. Stays with the allocating
+> > cgroup regardless
+> > +		of how the buffer is shared.
 > 
-> v1 ended with two conflicting positions on non-coherent DMA-BUFs:
-> 
-> - Laurent [1] and Nicolas [2]: end_cpu_access(WRITE) only marks the CPU
->   cache dirty, and non-coherent DMA importers clean before starting DMA.
->   Persistent DRM/KMS imports then need a sync call on each submission.
-> - Christian [3]: devices must access DMA-BUFs coherently with the CPU,
->   using begin/end_cpu_access() around CPU accesses. Importing a buffer
->   with dirty CPU caches onto a non-coherent device is intentionally
->   unsupported. Today cma_heap and system_heap sync all mapped
->   attachments inside begin/end_cpu_access().
-> 
-> On my Pi 500+ with a USB UVC camera (640x480 YUYV) and V3D on CMA
-> DMA-BUFs:
-> 
-> - Without vb2 CPU sync, V3D reads stale data on 8/8 zero-copy frames.
-> - With vb2 begin/end_cpu_access() on cma_heap, zero-copy V3D is clean
->   (0/8 stale). CPU capture takes 91 us/frame without a V3D import, and
->   144 us/frame when an idle V3D PRIME import is attached.
-> - With a test heap that tracks CPU cache state and syncs imported BOs
->   at V3D job submission, zero-copy V3D stays clean (0/8 stale) and the
->   idle-V3D CPU read drops back to 89 us/frame.
-> 
-> Question to all: should I look at opt-in cache-state tracking in
-> dma-buf (with a sync call before DMA submission), or keep
-> begin/end_cpu_access() as is and handle CPU consumers via V4L2 cache
-> hints?
+> This doesn't sound right. Graphics buffers exported as DMA buffers are
+> typically charged elsewhere, like gpu_active, and a transfer of their
+> charge would likely stay in that key? To be consistent, shouldn't this
+> be related to dma-heap memory and called dmaheap or something similar.
 
-A sync call before DMA operation is something we intentionally rejected.
+Although this work initially targeted dma heaps only, in its current
+form is meant to stay generic (while solving the central allocator
+problem). The memory exported as dma-bufs has no memory.stat of its
+own, and an exporter allocating plain pages (e.g., V4L2) has nowhere
+else to report it.
 
-Background is that exporters should export the buffers as they need/use it and not have specialized handling just to serve importers which would be not testable without the importer etc...
+> We should have a tighter definition of exactly what memory is to be
+> registered here.
 
-What we could do is to consistently use begin/end_cpu_access() and/or let exporters expose if their buffers might be dirty in the CPU cache so that importers can properly reject them.
-
-Regards,
-Christian.
+Yes, I will be more specific and clearly state that an exporter
+whose memory is already accounted must not opt in. That also
+naturally disallows transfers.
 
 > 
-> [1] https://lore.kernel.org/r/20261021175900.GG15441@killaraus.ideasonboard.com/
-> [2] https://lore.kernel.org/r/7e4c7707880e9092180d28484ecf674be29b40a0.camel@ndufresne.ca/
-> [3] https://lore.kernel.org/r/1e798600-5a76-412a-959c-94313629baf4@amd.com/
+> Also says "Stays with the allocating cgroup regardless of how the
+> buffer is shared", which isn't correct after the series? Perhaps that's
+> changed in a later patch.
+
+I missed updating the text after having added XFER_CHARGE to the
+series. I'll fix the wording in this patch and mention the transfer
+in the next one.
+
+BR,
+Albert
+
 > 
 > Thanks,
-> Karl
+> Thomas
+> 
+> 
+> 
+> 
+> >  
+> >  	  workingset_refault_anon
+> >  		Number of refaults of previously evicted anonymous
+> > pages.
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 1c6b9cee7ac2..837666273550 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -714,6 +714,7 @@ struct dma_buf *dma_buf_export(const struct
+> > dma_buf_export_info *exp_info)
+> >  	struct dma_resv *resv = exp_info->resv;
+> >  	struct file *file;
+> >  	size_t alloc_size = sizeof(struct dma_buf);
+> > +	unsigned int nr_pages = PAGE_ALIGN(exp_info->size) >>
+> > PAGE_SHIFT;
+> >  	int ret;
+> >  
+> >  	if (WARN_ON(!exp_info->priv || !exp_info->ops
+> > @@ -750,6 +751,7 @@ struct dma_buf *dma_buf_export(const struct
+> > dma_buf_export_info *exp_info)
+> >  	dmabuf->size = exp_info->size;
+> >  	dmabuf->exp_name = exp_info->exp_name;
+> >  	dmabuf->owner = exp_info->owner;
+> > +	dmabuf->memcg = exp_info->memcg;
+> >  	spin_lock_init(&dmabuf->name_lock);
+> >  	init_waitqueue_head(&dmabuf->poll);
+> >  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
+> > @@ -771,6 +773,9 @@ struct dma_buf *dma_buf_export(const struct
+> > dma_buf_export_info *exp_info)
+> >  
+> >  	DMA_BUF_TRACE(trace_dma_buf_export, dmabuf);
+> >  
+> > +	if (dmabuf->memcg)
+> > +		mod_memcg_state(dmabuf->memcg, MEMCG_DMABUF,
+> > nr_pages);
+> > +
+> >  	return dmabuf;
+> >  
+> >  err_file:
+> > diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> > index 8a6c2b6e0cc6..7bd416ae2c23 100644
+> > --- a/drivers/dma-buf/dma-heap.c
+> > +++ b/drivers/dma-buf/dma-heap.c
+> > @@ -10,6 +10,8 @@
+> >  #include <linux/device.h>
+> >  #include <linux/dma-buf.h>
+> >  #include <linux/dma-heap.h>
+> > +#include <linux/memcontrol.h>
+> > +#include <linux/sched/mm.h>
+> >  #include <linux/err.h>
+> >  #include <linux/export.h>
+> >  #include <linux/list.h>
+> > @@ -78,6 +80,7 @@ static struct dma_buf
+> > *dma_heap_ioctl_allocate(struct file *file, void *data)
+> >  	struct dma_heap_allocation_data *heap_allocation = data;
+> >  	struct dma_heap *heap = file->private_data;
+> >  	struct dma_buf *dmabuf;
+> > +	struct mem_cgroup *memcg = NULL;
+> >  	int fd;
+> >  	size_t len;
+> >  
+> > @@ -90,15 +93,34 @@ static struct dma_buf
+> > *dma_heap_ioctl_allocate(struct file *file, void *data)
+> >  	if (heap_allocation->heap_flags &
+> > ~DMA_HEAP_VALID_HEAP_FLAGS)
+> >  		return ERR_PTR(-EINVAL);
+> >  
+> > +	if (heap_allocation->__padding != 0)
+> > +		return ERR_PTR(-EINVAL);
+> > +
+> > +	if (heap_allocation->charge_fd) {
+> > +		memcg = mem_cgroup_get_from_fd(heap_allocation-
+> > >charge_fd);
+> > +		if (IS_ERR(memcg))
+> > +			return ERR_CAST(memcg);
+> > +	}
+> > +
+> > +	if (!memcg && mem_accounting)
+> > +		memcg = get_mem_cgroup_from_mm(current->mm);
+> > +
+> >  	len = PAGE_ALIGN(heap_allocation->len);
+> > -	if (!len)
+> > +	if (!len) {
+> > +		mem_cgroup_put(memcg);
+> >  		return ERR_PTR(-EINVAL);
+> > +	}
+> >  
+> >  	dmabuf = heap->ops->allocate(heap, len, heap_allocation-
+> > >fd_flags,
+> > -				     heap_allocation->heap_flags);
+> > +				     heap_allocation->heap_flags,
+> > memcg);
+> >  
+> > -	if (IS_ERR(dmabuf))
+> > +	if (IS_ERR(dmabuf)) {
+> > +		mem_cgroup_put(memcg);
+> >  		return dmabuf;
+> > +	}
+> > +
+> > +	if (memcg && !dmabuf->memcg)
+> > +		mem_cgroup_put(memcg);
+> >  
+> >  	fd = get_unused_fd_flags(heap_allocation->fd_flags);
+> >  	if (fd < 0) {
+> > diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-
+> > buf/heaps/cma_heap.c
+> > index 3fb4b946c91a..04de88b468a8 100644
+> > --- a/drivers/dma-buf/heaps/cma_heap.c
+> > +++ b/drivers/dma-buf/heaps/cma_heap.c
+> > @@ -281,7 +281,8 @@ static const struct dma_buf_ops cma_heap_buf_ops
+> > = {
+> >  static struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
+> >  					 unsigned long len,
+> >  					 u32 fd_flags,
+> > -					 u64 heap_flags)
+> > +					 u64 heap_flags,
+> > +					 struct mem_cgroup *memcg)
+> >  {
+> >  	struct cma_heap *cma_heap = dma_heap_get_drvdata(heap);
+> >  	struct cma_heap_buffer *buffer;
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-
+> > buf/heaps/system_heap.c
+> > index c8959eadc71d..2bd245e1eab8 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -17,6 +17,7 @@
+> >  #include <linux/err.h>
+> >  #include <linux/highmem.h>
+> >  #include <linux/mem_encrypt.h>
+> > +#include <linux/memcontrol.h>
+> >  #include <linux/mm.h>
+> >  #include <linux/set_memory.h>
+> >  #include <linux/module.h>
+> > @@ -388,8 +389,6 @@ static struct page
+> > *alloc_largest_available(unsigned long size,
+> >  		if (max_order < orders[i])
+> >  			continue;
+> >  		flags = order_flags[i];
+> > -		if (mem_accounting)
+> > -			flags |= __GFP_ACCOUNT;
+> >  		page = alloc_pages(flags, orders[i]);
+> >  		if (!page)
+> >  			continue;
+> > @@ -401,11 +400,13 @@ static struct page
+> > *alloc_largest_available(unsigned long size,
+> >  static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+> >  					    unsigned long len,
+> >  					    u32 fd_flags,
+> > -					    u64 heap_flags)
+> > +					    u64 heap_flags,
+> > +					    struct mem_cgroup
+> > *memcg)
+> >  {
+> >  	struct system_heap_buffer *buffer;
+> >  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+> >  	unsigned long size_remaining = len;
+> > +	unsigned int nr_pages = PAGE_ALIGN(len) >> PAGE_SHIFT;
+> >  	unsigned int max_order = orders[0];
+> >  	struct system_heap_priv *priv = dma_heap_get_drvdata(heap);
+> >  	bool cc_shared = priv->cc_shared;
+> > @@ -416,10 +417,15 @@ static struct dma_buf
+> > *system_heap_allocate(struct dma_heap *heap,
+> >  	struct page *page, *tmp_page;
+> >  	int i, ret = -ENOMEM;
+> >  
+> > -	buffer = kzalloc_obj(*buffer);
+> > -	if (!buffer)
+> > +	if (!mem_cgroup_reserve_dmabuf(memcg, GFP_KERNEL, nr_pages))
+> >  		return ERR_PTR(-ENOMEM);
+> >  
+> > +	buffer = kzalloc_obj(*buffer);
+> > +	if (!buffer) {
+> > +		ret = -ENOMEM;
+> > +		goto cancel_charge;
+> > +	}
+> > +
+> >  	INIT_LIST_HEAD(&buffer->attachments);
+> >  	mutex_init(&buffer->lock);
+> >  	buffer->heap = heap;
+> > @@ -473,11 +479,14 @@ static struct dma_buf
+> > *system_heap_allocate(struct dma_heap *heap,
+> >  	exp_info.size = buffer->len;
+> >  	exp_info.flags = fd_flags;
+> >  	exp_info.priv = buffer;
+> > +	if (memcg)
+> > +		exp_info.memcg = memcg;
+> >  	dmabuf = dma_buf_export(&exp_info);
+> >  	if (IS_ERR(dmabuf)) {
+> >  		ret = PTR_ERR(dmabuf);
+> >  		goto free_pages;
+> >  	}
+> > +
+> >  	return dmabuf;
+> >  
+> >  free_pages:
+> > @@ -498,6 +507,8 @@ static struct dma_buf
+> > *system_heap_allocate(struct dma_heap *heap,
+> >  	list_for_each_entry_safe(page, tmp_page, &pages, lru)
+> >  		__free_pages(page, compound_order(page));
+> >  	kfree(buffer);
+> > +cancel_charge:
+> > +	mem_cgroup_cancel_dmabuf(memcg, nr_pages);
+> >  
+> >  	return ERR_PTR(ret);
+> >  }
+> > diff --git a/drivers/tee/tee_heap.c b/drivers/tee/tee_heap.c
+> > index 007c00156520..83e2fbd6960b 100644
+> > --- a/drivers/tee/tee_heap.c
+> > +++ b/drivers/tee/tee_heap.c
+> > @@ -167,7 +167,8 @@ static const struct dma_buf_ops tee_heap_buf_ops
+> > = {
+> >  
+> >  static struct dma_buf *tee_dma_heap_alloc(struct dma_heap *heap,
+> >  					  unsigned long len, u32
+> > fd_flags,
+> > -					  u64 heap_flags)
+> > +					  u64 heap_flags,
+> > +					  struct mem_cgroup *memcg)
+> >  {
+> >  	struct tee_dma_heap *h = dma_heap_get_drvdata(heap);
+> >  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index 23ec0ff23fba..85dd747c9b36 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -505,6 +505,9 @@ struct dma_buf_attachment {
+> >   * @flags:	mode flags for the file
+> >   * @resv:	reservation-object, NULL to allocate default one
+> >   * @priv:	Attach private data of allocator to this buffer
+> > + * @memcg:	memcg to charge for this buffer's memory. Set only
+> > for
+> > + *		buffers backed by system memory where @size reflects
+> > the
+> > + *		actual allocation in bytes.
+> >   *
+> >   * This structure holds the information required to export the
+> > buffer. Used
+> >   * with dma_buf_export() only.
+> > @@ -517,6 +520,7 @@ struct dma_buf_export_info {
+> >  	int flags;
+> >  	struct dma_resv *resv;
+> >  	void *priv;
+> > +	struct mem_cgroup *memcg;
+> >  };
+> >  
+> >  /**
+> > diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
+> > index 648328a64b27..2d69f8432bd2 100644
+> > --- a/include/linux/dma-heap.h
+> > +++ b/include/linux/dma-heap.h
+> > @@ -23,7 +23,8 @@ struct dma_heap_ops {
+> >  	struct dma_buf *(*allocate)(struct dma_heap *heap,
+> >  				    unsigned long len,
+> >  				    u32 fd_flags,
+> > -				    u64 heap_flags);
+> > +				    u64 heap_flags,
+> > +				    struct mem_cgroup *memcg);
+> >  };
+> >  
+> >  /**
+> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > index 4d1e82cf0833..f8ec751b7d7b 100644
+> > --- a/include/linux/memcontrol.h
+> > +++ b/include/linux/memcontrol.h
+> > @@ -671,6 +671,8 @@ int mem_cgroup_charge_hugetlb(struct folio*
+> > folio, gfp_t gfp);
+> >  int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned
+> > short id,
+> >  				   struct mm_struct *mm, gfp_t gfp);
+> >  
+> > +struct mem_cgroup *mem_cgroup_get_from_fd(int fd);
+> > +
+> >  bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
+> >  			       unsigned int nr_pages);
+> >  
+> > @@ -1178,6 +1180,11 @@ static inline int
+> > mem_cgroup_swapin_charge_folio(struct folio *folio,
+> >  	return 0;
+> >  }
+> >  
+> > +static inline struct mem_cgroup *mem_cgroup_get_from_fd(int fd)
+> > +{
+> > +	return ERR_PTR(-EOPNOTSUPP);
+> > +}
+> > +
+> >  static inline bool mem_cgroup_reserve_dmabuf(struct mem_cgroup
+> > *memcg,
+> >  					     gfp_t gfp,
+> >  					     unsigned int nr_pages)
+> > diff --git a/include/uapi/linux/dma-heap.h b/include/uapi/linux/dma-
+> > heap.h
+> > index a4cf716a49fa..bfcd1c25bc7e 100644
+> > --- a/include/uapi/linux/dma-heap.h
+> > +++ b/include/uapi/linux/dma-heap.h
+> > @@ -29,6 +29,11 @@
+> >   *			handle to the allocated dma-buf
+> >   * @fd_flags:		file descriptor flags used when allocating
+> >   * @heap_flags:		flags passed to heap
+> > + * @charge_fd:		optional pidfd or cgroupfd whose cgroup
+> > should be
+> > + *			charged for this allocation; 0 means charge
+> > the calling
+> > + *			process's cgroup when the mem_accounting
+> > module parameter
+> > + *			is enabled, or skip charging otherwise
+> > + * @__padding:		reserved, must be zero
+> >   *
+> >   * Provided by userspace as an argument to the ioctl
+> >   */
+> > @@ -37,6 +42,8 @@ struct dma_heap_allocation_data {
+> >  	__u32 fd;
+> >  	__u32 fd_flags;
+> >  	__u64 heap_flags;
+> > +	__u32 charge_fd;
+> > +	__u32 __padding;
+> >  };
+> >  
+> >  #define DMA_HEAP_IOC_MAGIC		'H'
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index e53dd7eebc3b..17fdefc56b97 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -5661,6 +5661,53 @@ void mem_cgroup_flush_workqueue(void)
+> >  	flush_workqueue(memcg_wq);
+> >  }
+> >  
+> > +/**
+> > + * mem_cgroup_get_from_fd - resolve a memcg from a cgroupfd or pidfd
+> > + * @fd: file descriptor (cgroupfd or pidfd)
+> > + *
+> > + * Tries @fd as a cgroupfd first; if that fails, tries it as a
+> > pidfd.
+> > + * On success returns a referenced memcg pointer. On failure returns
+> > + * an ERR_PTR.
+> > + */
+> > +struct mem_cgroup *mem_cgroup_get_from_fd(int fd)
+> > +{
+> > +	struct cgroup_subsys_state *css;
+> > +	struct mem_cgroup *memcg;
+> > +	struct cgroup *cgrp;
+> > +	struct task_struct *task;
+> > +	struct mm_struct *mm;
+> > +	unsigned int pidfd_flags;
+> > +
+> > +	cgrp = cgroup_get_from_fd(fd);
+> > +	if (!IS_ERR(cgrp)) {
+> > +		rcu_read_lock();
+> > +		css = cgroup_css(cgrp, &memory_cgrp_subsys);
+> > +		if (!css || !css_tryget_online(css)) {
+> > +			rcu_read_unlock();
+> > +			cgroup_put(cgrp);
+> > +			return ERR_PTR(-ENOENT);
+> > +		}
+> > +
+> > +		memcg = mem_cgroup_from_css(css);
+> > +		rcu_read_unlock();
+> > +		cgroup_put(cgrp);
+> > +		return memcg;
+> > +	}
+> > +
+> > +	task = pidfd_get_task(fd, &pidfd_flags);
+> > +	if (IS_ERR(task))
+> > +		return ERR_CAST(task);
+> > +
+> > +	mm = get_task_mm(task);
+> > +	put_task_struct(task);
+> > +	if (!mm)
+> > +		return ERR_PTR(-ESRCH);
+> > +
+> > +	memcg = get_mem_cgroup_from_mm(mm);
+> > +	mmput(mm);
+> > +	return memcg ?: ERR_PTR(-ENOENT);
+> > +}
+> > +
+> >  /**
+> >   * mem_cgroup_reserve_dmabuf - charge a memcg for a dma-buf
+> > allocation
+> >   * @memcg: memcg to charge (may be %NULL)
 
