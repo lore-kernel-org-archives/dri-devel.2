@@ -2,58 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B661460A3832
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 22:32:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313C9606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 22:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahcqJ7mg
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KuJX87An
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28238112374;
-	Thu, 12 Nov 2026 22:32:15 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB7610FAD8;
- Thu, 12 Nov 2026 22:32:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 45EC262477;
- Thu, 12 Nov 2026 22:32:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C681F000C7;
- Thu, 12 Nov 2026 22:32:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794522727;
- bh=mvElZZI+CeG4IxR+qpAqQMv0MhCUAS7GHtlXGfa/VvA=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=ahcqJ7mgpLGd3tjUQBdsp8VTv/TxUUsB2E2bLAtRNlTuad3FwsMdiKHay0jU+gGlS
- o9hljcPepbUxV2iRROh67JMIHrudz1iFu0DDGcdnFA9hbbqBWQAGMS2kL0iqs20UFM
- 1CaD9+MFyTndbUlCJxMAuWe8T600gdAwhuJu29MX/eg1xs8kU41CJ9EeYhUXVBM919
- PV0LxGAHOvq1eW1+uVniZ2KZjXnEHc7fuRi+VvhFwpCfayNJQXNwXYEoD9+xY6P+wg
- OEmuj+cVTXvIJ1weuj/q/XTR6+AfX/FFHoQxyY/3aoNyw70qlfejswaGwzR5XIc12a
- toSgegG7hQJVQ==
-Date: Thu, 12 Nov 2026 16:32:05 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-pci@vger.kernel.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
- pci_ids.h
-Message-ID: <20261112223205.GA919701@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 681E010E5F1;
+	Thu, 12 Nov 2026 22:51:45 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAB610E506;
+ Thu, 12 Nov 2026 22:51:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MKl/DfzsFjmI7BevQFjg+19BR7ly95upNdGVyQ0/kmx7BheGRf1d24Y9BXl1BJw+ARe5ysBy70YwePYJdQbG/DncPCaxBkJ1YruYTjEa2LvwylXCG+r0fcuIe8ya7XUmrDGp39PXaUJMAo471UJTQRMnnI9yfrxEtkR3kSK7WsKyuj22TD/jI979LWHv/r3n6gWUHuE7CPD2qWAfbgidftXMVnFqjR0xLcaCi3HCOYDkpKDiWwClyYUPo8NhobXZwp8LxOpqXeGI4F3JvcbHKUdZi29E5Ck3wa+zxQfaUzMaAETFj+BB9bg1AtZNUcn+/RkBwCI1ZAOa4+eD2Fog2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JrdbG21TrC2ruikwQnjN/ntxDrsdas74fpkNWbA9mvE=;
+ b=apwz5MN6POxVV7Nx/a/CTKfgsALSwsQxKPsweQvwDL39zN0e3XzyU0WIZfHPDqosHihlS8a2hpDQthV/1m1FY8Kb+so703X8G1s+BdY2C5SNo8X+eceJ4Ktq61dHU8b/1mUdPrI7TR8Rj2EiLc+h4gWInp0Asbvpac9oXHZjNdPC1OucCzWRB6ZbIAc+DVpXsmzRLQ9OTb6Zbm/itz+gQ8LYhElrsUeBqcaEMphBOrgbFdDzaBPJCLJsgX7FNhS6BT1y00mx/k7RETyaS1/A2VAS2/iGfYUk+HP3zMS1Fc9DSlyX4/KaTo542JtQHlhHxnn0SKc8Y3LZcXaVlSf6cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JrdbG21TrC2ruikwQnjN/ntxDrsdas74fpkNWbA9mvE=;
+ b=KuJX87AnUXHVXRSCubXyPudvt2X5i/LyoyQ3V8S5vc1cHiMOAp9JuTfVRLJ3oDX5wdon4Fv3S0nsAVbLFRIuwGB4O3jTJvLIt6cDMYBHDfEP8NVsCesaiXTOHhisWHQ3sib2rHezfVpWpC8L3cydLqsCtWMDVxgZ2vsOZvIxQyA=
+Received: from DS1PR05CA0018.namprd05.prod.outlook.com (2603:10b6:8:23f::14)
+ by DM6PR12MB4332.namprd12.prod.outlook.com (2603:10b6:5:21e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 22:50:14 +0000
+Received: from BN2PEPF0000A990.namprd04.prod.outlook.com
+ (2603:10b6:8:23f:cafe::57) by DS1PR05CA0018.outlook.office365.com
+ (2603:10b6:8:23f::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 12
+ Nov 2026 22:50:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A990.mail.protection.outlook.com (10.167.248.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 22:49:27 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 15:55:00 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 12 Nov 2026 15:54:53 -0600
+Subject: [PATCH v7 1/3] PCI: Cache bridge firmware secondary bus number
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
+References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+In-Reply-To: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A990:EE_|DM6PR12MB4332:EE_
+X-MS-Office365-Filtering-Correlation-Id: f011a005-de83-447b-d8da-08df410f34af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|18002099003|22082099003|3023799007|11063799006|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261022105027099003|261021121427099003|56012099006|261021123027099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: XKUyPri5aaTvT94ZHpcIDHlbzoVkBGrPwRh6ohSdH9eTVRDRraSFzJKPQx/68Vilf6hS3BvgIk07XEkgGPBxCffDb7zIUhwdpr4idn6jgLZ4O4aFduMIiBCcvxVUmO2moZpitL0e12uLh9nknpeq1zClNEtDfTXjTHqWcJhFMMLRjUusmqOQBel00qi5GQTz3kMHg6J4MbzP8pTF2uqQcc9Zj9TdDVhjM10Lskb8e+li5l9Yq8eOWqhroXJ2TuIll06dhY3RE6gxsbRSTvI3Ne024XeQbJLVOVdr1N4TNaM3ULzpZd45cD5ysvlxfgxhaODua5rW62ppo6HxiR1tbNq4JzlvKWcwmP1laUUeIkBKVFyruA4WbabEzH89Tn7ZMub2g+wO9qdBKbdxQwMvx4cljfi5VuN61EuhkfoEmGU0I5EdVDhlE0LlnzAKCBr+r3tJokaLrwXCJFXJyBCW6zWv6XJps/waGzLmulSBXas2p9fe7Ii+eIfZsuFuI0rFDk6SUdfrKbAhwQkm+dFulFfWHgyaG1DcU4BoRN9wqQl6TRmcrfTTfzkeEGqe8YJvvDCmq7TotcOSLv7Fg65foKRge8O2n5cBQkT83IFObVlATgxjeusv3AsrPTlyqAY/kofLhy0zgtc9uXH7mz2NWPIZvbafafLaBtsIY9WCOV7H73/WVX4JTZoJiIqKEhkAeFtZEZPpcTMn23K/vAlqhQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(18002099003)(22082099003)(3023799007)(11063799006)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261022105027099003)(261021121427099003)(56012099006)(261021123027099003)(261009223027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jQo5w2S8UBDvnAkfUKA70XNQX1F99p6AEgsa6kEb3ByPuLji0oBDD1+GPAWgoBWXssGbOBMY3fjlRjybaKWjjg4lGeqyjXwlCjzNJwlmn6nFyNaNCiJvhuAN3cuJd5H7aQZenrFJmoi2KMVRvx/JQo1csMNfH8Q8VWZaSfjRobsZVJvhZug+CoGKrrPLHnujHKQg+G8npXaTTxeGLzz7OIvywyjo2zdgVM1Vmfc1iczLfrJsMdUrEm8SN9nbx5AfZ36upjJNrq4xLN5V3NvTgGEOZlrGOnHbUMC9xEHNjkvzsFZxZfO4kFKj2QjkRbhH1A34P+lj7GrbuCZTdYqTTyexcwmuMX5TBnqW0c6zRP/u4nINK4OBzIcNh2loYNkqNrM5QceInRyHZmCnc5KTfD6XdCgu6M0rcqFs6uf/2l6RNBHKcrq7iKxEV2tnT2BN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 22:49:27.3809 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f011a005-de83-447b-d8da-08df410f34af
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A990.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4332
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,146 +109,92 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 02, 2026 at 11:43:43AM +0200, Andy Shevchenko wrote:
-> We have a few drivers using same pair of the PCI IDs across the kernel and
-> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Drivers such as amdgpu and radeon need the bus number firmware assigned
+to a device to match it against firmware tables like VFCT. The PCI core
+may renumber buses (e.g. with pci=realloc), after which the runtime
+number no longer reflects what firmware programmed.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci_ids.h
+Record the firmware secondary bus number on the bridge's struct pci_dev
+the first time pci_read_bridge_windows() reads the bridge's bus numbers,
+which happens before any renumbering. Devices behind the bridge can then
+retrieve the original bus number via their upstream bridge.
 
-> ---
-> 
-> Assuming that media subsystem is the main beneficiary I think it is the best
-> to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
-> are agree.
-> 
->  drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
->  drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
->  drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
->  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
->  include/linux/pci_ids.h                              |  2 ++
->  5 files changed, 13 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index 2e534ddb7347..ee2c59b72b4a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
->  static void assert_isp_power_gated(struct intel_display *display)
->  {
->  	static const struct pci_device_id isp_ids[] = {
-> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
-> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
-> -		{}
-> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +		{ }
->  	};
->  
->  	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
-> diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
-> index ad1f99140962..f3dee0e58f62 100644
-> --- a/drivers/platform/x86/intel/atomisp2/pm.c
-> +++ b/drivers/platform/x86/intel/atomisp2/pm.c
-> @@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
->  			    isp_pci_resume, NULL);
->  
->  static const struct pci_device_id isp_id_table[] = {
-> -	{ PCI_VDEVICE(INTEL, 0x0f38), },
-> -	{ PCI_VDEVICE(INTEL, 0x22b8), },
-> -	{ 0, }
-> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +	{ }
->  };
->  MODULE_DEVICE_TABLE(pci, isp_id_table);
->  
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> index 5a69580b8251..1a05fc331557 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> @@ -37,7 +37,6 @@
->  	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
->  	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
->  
-> -#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
->  /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
->  #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
->  /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
-> @@ -45,7 +44,6 @@
->  /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
->  #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
->  #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
-> -#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
->  
->  #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
->  #define ATOMISP_PCI_REV_BYT_A0_MAX	4
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> index 476fe143a591..ab8727a806bf 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> @@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  		}
->  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
->  		break;
-> -	case ATOMISP_PCI_DEVICE_SOC_BYT:
-> +	case PCI_DEVICE_ID_INTEL_ISP_BYT:
->  		isp->media_dev.hw_revision =
->  		    (ATOMISP_HW_REVISION_ISP2400
->  		     << ATOMISP_HW_REVISION_SHIFT) |
-> @@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  		isp->dfs = &dfs_config_merr;
->  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
->  		break;
-> -	case ATOMISP_PCI_DEVICE_SOC_CHT:
-> +	case PCI_DEVICE_ID_INTEL_ISP_BSW:
->  		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
->  						 << ATOMISP_HW_REVISION_SHIFT);
->  		isp->media_dev.hw_revision |= pdev->revision < 2 ?
-> @@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
->  	/* Baytrail */
-> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
->  	/* Anniedale (Merrifield+ / Moorefield) */
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
->  	/* Cherrytrail */
-> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
-> -	{0,}
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +	{ }
->  };
->  MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
->  
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 63774ae2bf71..0693e4532a68 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -2732,6 +2732,7 @@
->  #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
->  #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
->  #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
-> +#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
->  #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
->  #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
->  #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
-> @@ -2787,6 +2788,7 @@
->  #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
->  #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
->  #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
-> +#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
->  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
->  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
->  #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
-> -- 
-> 2.50.1
-> 
+Only store the value if it is usable: ignore unconfigured (0) and 0xff
+secondaries. Use a separate "sampled" flag so that later rescans, which
+would read the renumbered runtime value, never overwrite the cached
+number, and a "valid" flag so users can tell whether anything was
+recorded.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/pci/probe.c | 16 ++++++++++++++--
+ include/linux/pci.h |  4 ++++
+ 2 files changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..f20a4b8f7a23b 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_dev *dev, struct resource *res,
+ static void pci_read_bridge_windows(struct pci_dev *bridge)
+ {
+ 	u32 buses;
++	u8 secondary;
++	u8 subordinate;
+ 	u16 io;
+ 	u32 pmem, tmp;
+ 	struct resource res;
+ 
+ 	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
+ 	res.flags = IORESOURCE_BUS;
+-	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
+-	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
++	secondary = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
++	subordinate = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
++	res.start = secondary;
++	res.end = subordinate;
++
++	if (!bridge->fw_sec_bus_sampled) {
++		bridge->fw_sec_bus_sampled = true;
++		if (secondary > 0 && secondary < 0xff) {
++			bridge->fw_sec_busnr = secondary;
++			bridge->fw_sec_bus_valid = true;
++		}
++	}
+ 	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
+ 		 bridge->transparent ? " (subtractive decode)" : "");
+ 
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 5ffcf5ce8c966..045157488b8e7 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -363,6 +363,8 @@ struct pci_dev {
+ 	struct pci_slot	*slot;		/* Physical slot this device is in */
+ 
+ 	unsigned int	devfn;		/* Encoded device & function index */
++	/* Firmware secondary bus number saved across bridge scan passes */
++	unsigned char	fw_sec_busnr;
+ 	unsigned short	vendor;
+ 	unsigned short	device;
+ 	unsigned short	subsystem_vendor;
+@@ -414,6 +416,8 @@ struct pci_dev {
+ 	unsigned int	pme_poll:1;	/* Poll device's PME status bit */
+ 	unsigned int	pinned:1;	/* Whether this dev is pinned */
+ 	unsigned int	config_rrs_sv:1; /* Config RRS software visibility */
++	unsigned int	fw_sec_bus_valid:1; /* Firmware secondary bus number usable */
++	unsigned int	fw_sec_bus_sampled:1; /* Firmware secondary bus number captured */
+ 	unsigned int	imm_ready:1;	/* Supports Immediate Readiness */
+ 	unsigned int	d1_support:1;	/* Low power state D1 is supported */
+ 	unsigned int	d2_support:1;	/* Low power state D2 is supported */
+
+-- 
+2.43.0
+
