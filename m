@@ -2,96 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E31606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A68960A6F4C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=katy9RYF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr1Wwv/B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3DE10EB3E;
-	Thu, 12 Nov 2026 08:31:52 +0000 (UTC)
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
- [74.125.224.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 535AF10FC18
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:31:46 +0000 (UTC)
-Received: by mail-yx1-f45.google.com with SMTP id
- 956f58d0204a3-679aeeddc6bso4889155d50.2
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 00:31:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794472305; cv=none;
- d=google.com; s=arc-20260327;
- b=igOQGJx/vn6XVrk+sX5G15IeQoXRxHjhmZyGgX6GEFlsvyfJsFvfKxl6tfZkNmEeJv
- /Z8YJ5JqyQFj1GvGsuzHbPzd+hhjWlmpIxdRGejNlcxwEg0Zaa8xibl+LH2iNlgVYbPh
- HxmKg5XYP1MMv1fnpbTEClCcdwBdCEVOx58oi/taf9OdxYWA/liVfFf3OoTlF1v0QmT6
- Afb+2K8/OMu55aEF6bVmV/zHrY99DKdiWKCQGsOQ8pd8o60O1pEGPo9HCTaCNQNtNUu3
- O5L7Ly0UXJ4YGkQA1cqaPhdKNoEikAHKK5UHSYBQOKlg+CFB9euby1p8LVTYsiXj5P3T
- DnXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=dDoN/lAt0XISVjDE3JROfi6pDhcTMzVIBmoJNktRod0=;
- fh=USpnT1rN25DTIo7+3eL3dqo/F4NAQXN892fpZC8mAuQ=;
- b=iCwF2UCzBuJmL8NwrK+I2AE2KIoWho06DLQKHI2ETJ4teOmIlFm2XkmUh10wIHxU9Z
- c8MW2mfdT0amzI+VmNMjm7W+d3S8WZHN/yu+B6DcvP8O95Xf3dN8KtCovr5GhMI3Y09v
- 8XaKSo15QgAc6hesa6JbVSkDoGzL/VT6+eGfQi4v1+BTnY+li+wXIXThz2pP783fMMlL
- +9tiCAaCa/3f1dkB0mRg4PwtDkpyU7egMku98tZy/YlXKhD4XkUBsVO2XiEIYJfbU9xs
- UlyvLvar/hPcDQLZVejqm3ttEEesL7r/4vJmQ3TcLo/8/DkyT+OnP/uCCzfTq1kMPKkJ
- 3mYg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1794472305; x=1795077105; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=dDoN/lAt0XISVjDE3JROfi6pDhcTMzVIBmoJNktRod0=;
- b=katy9RYF+L4i80jW4r2Vvse/zi3se357PPMUVbBd7IopLieaEf+lTuCAnLL54yriVW
- 2UAFWxpHkME03HKYjDt6Acav6JOD1Pys3n5h2PEpb3VmyFpSFWgvfpkIZvXDOD3CFBTD
- ZUggzuorG1ew8AKLVUTgKUnV/5i4dtmRFbJbpzZ2R+Aeo6y7Az2gfNd7u6KUrsXH5Huo
- jCNZd64tMt7n78g2m4B01fYCIJmYbxTRv1VFFn1FEkYETmEetQw7rpepYBzCIp5p8jdp
- 8Pjfjh2FimIE6PgayQs3ggCWJX0fRB09tKtxw+ldKt9nvxcrCR0kgs+GmMTSz0oezVt4
- xsMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794472305; x=1795077105;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=dDoN/lAt0XISVjDE3JROfi6pDhcTMzVIBmoJNktRod0=;
- b=gmOJ8NvrAyX6KwKz34OS2SZKRRjuKOlCDCWHJsR0Xsy+JucH2JcIQ7+na7fztw9s6+
- vphqSCVMqMvRrrlwJStEPOLQWmuWlNAHbIgaQyJvnbDgRT7IJI27c0af471HPZ301aI8
- 084mpG0Pmc55qy72qyvZf3Tej+SOYccoCuz8YPGaPcaU8KJ1x6Opdah7/tdSXQJjFpXF
- yK69E5V6yA++OE0B23DELpoV9ccdtVpVRxvVkR41MNJzafSBQcws1I+d4CRwdtqE53W3
- eiJwAs7M1Txwz51S+e/GBoDxglQK3jd2mBRC2pbUnFJ8qos7qgHrOoqrlpp2zimOgt6n
- 0EkA==
-X-Forwarded-Encrypted: i=1;
- AL+hErE79oyw/VtVr2Eg/MFWMx+8CmNNvWkF8IsGVWstKjO4KLX2RNlDyqjvtxe23YjfAxTb4wa2lYwFkR4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+Z0qST6atwV930lrXxiRIUj+A0SSN2sSPhCjCpoAkSJ9Ux5eqO
- jRgB0oS7hjfp3T7hMCqbjgHV6dvUhHXgiTOGRd063VpNlyFYHkJgV+u3jAYfgZFlcZDTTu3Uhto
- wl8AkhQeaYkzKiKHrLxxIBRQPTeUpT/TWiUhATNFFYNkgZMSDUao9upTN8w==
-X-Gm-Gg: AYBFou3ExwvvYZXVD3OlhnyBkhwoevI180gtbFhPeGy6XgwYxnmHR0odDCinK1tW2jE
- P2UnQIqa0Ub4FY15myhZ6sdkri4x8O0eL72y9hYkhabUREwJEoLhmj/GanIlTn8NyoEcE7WBEYW
- jm5Mf5EIvPQglyIzStCfEckFrjwOAtcxWmxXdrfhHJrWh6mENFybN+/naXNIeUTD3cDHIfL+GVo
- 7B5G3TEro6m/g9uxiPoTJxCnr8w51B6KphsLMtQFy6yr+BswErlquG9F+S9wE7aHSlpvjsVyVug
- XMPPUxTWGPHr0cDJqqqr5W9Mu2V6SfJ7IchECiuKQ7ozEOrBQSGoqUeil8Tp0E1tpE4bb3wK0nc
- vP2v0gio8vL/O8kWE0qja0Le7loee9Xrq6BNyoxZdmQ==
-X-Received: by 2002:a05:690e:4854:10b0:67a:3a11:cf1e with SMTP id
- 956f58d0204a3-67c67dd23a6mr2010175d50.7.1794472305113; Thu, 12 Nov 2026
- 00:31:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 824ED10EB55;
+	Thu, 12 Nov 2026 08:32:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4869C10EB55
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:32:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E4E49478E8;
+ Thu, 12 Nov 2026 08:32:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355B61F00A05;
+ Thu, 12 Nov 2026 08:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794472356;
+ bh=ufWZis3EGqkdSN4VSNsZPHtwom5XkDipXVyVOPQcZLM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=fr1Wwv/BrXzj64byfXP+wi/q7J8Ic+yvuVCa7DL01i5CP9FiwrJP0C0kIMzIsd5kG
+ bg0Y2dhVW/msaXhNH6nGRtql7prJ6Taz9/A8ZnGNPAe7ZPEO47cA9BLgd99Kc/Y49M
+ iHsrQo4gQWYLkMuCMU/O5oINvGG96EWnkGxw42KFw8t4MELXgTG/yvIVPccYBKpq+4
+ 8YFJucjcj3LzLyQyUht1aI1GUsc0tWWET/PVTY72LbZHnoP/xHEragG25uo3HBBzKs
+ 1rIN36widjK1U9+MzLLwsSepSWPR4DuUP0Tj3vDDi4EoRNoT/kRt1fRWoQiRUPvCNe
+ OOxejcXQaaXvg==
+Message-ID: <3c6fd46a-8666-408d-8866-f2bb1f293c05@kernel.org>
+Date: Thu, 12 Nov 2026 09:32:29 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-In-Reply-To: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 12 Nov 2026 16:31:33 +0800
-X-Gm-Features: AclHuK_yCgsU2Q3_YXqrKmP99Rsllhkisqq8LiDMqSYcA-wB-d8VrImq6J8CDlA
-Message-ID: <CABymUCNmJa+9tvTtnJ1jP8=_sFYKJ33ZkowjMwmLUYOsG4GKdg@mail.gmail.com>
-Subject: Re: [PATCH 0/8] drm/msm/dpu: Support dual writeback for quad-pipe case
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/28] dt-bindings: gpu: panthor: Document AM system
+ bindings
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+ <20261110153907.3241978-12-karunika.choo@arm.com>
+ <20261111-grumpy-carp-of-superiority-eddeb9@quoll>
+ <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d74eb465-554b-43d6-bbfa-3fb671931462@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,14 +107,217 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Missed to add:
+On 11/11/2026 11:43, Karunika Choo wrote:
+> On 11/11/2026 08:29, Krzysztof Kozlowski wrote:
+>> On Tue, Nov 10, 2026 at 03:38:32PM +0000, Karunika Choo wrote:
+>>> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control and
+>>> the AM_ASSIGN block for HW resource assignment outside the GPU
+>>> job submission register window.
+>>>
+>>> Document the system node compatible, register and interrupt resources,
+>>> GPU clock, and assignment properties for HW resource assignment.
+>>>
+>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>> ---
+>>> v2:
+>>> - Add an optional AM_ASSIGN register range. Require this range when the
+>>>   assignments node is present.
+>>> - Describe resource-group assignments for AXI buses, partitions, slices
+>>>   and access windows on partition-capable GPUs.
+>>> - Allow gpu-arbitration child nodes and the #address-cells, #size-cells
+>>>   and ranges properties.
+>>> - Remove the panthor-system node-name restriction.
+>>> - Remove gpu-supply from the schema and example.
+>>> - Add an example with assignments for partition-capable GPU with four
+>>>   resource groups.
+>>> - Move the MAINTAINERS update to the GPU schema patch.
+>>>
+>>>  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 196 ++++++++++++++++++
+>>>  1 file changed, 196 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>> new file mode 100644
+>>> index 0000000000000..9e0477b8b723a
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+>>> @@ -0,0 +1,196 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +# Copyright 2026 ARM Limited. All rights reserved.
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: ARM Mali 5th-Gen GPU System Device
+>>> +
+>>> +maintainers:
+>>> +  - Liviu Dudau <liviu.dudau@arm.com>
+>>> +  - Boris Brezillon <boris.brezillon@collabora.com>
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    items:
+>>> +      - const: arm,mali-gen5-am-system
+>>> +
+>>> +  reg:
+>>> +    minItems: 1
+>>> +    maxItems: 2
+>>
+>> Why is this flexible? There is no description in the binding which would
+>> explain oddities in choices of hardware representation.
+> 
+> I will restore the description that was previously asked to be dropped.
 
-This patch set is prepared based on quad-pipe patch set:
-https://www.mail-archive.com/freedreno@lists.freedesktop.org/msg47513.html
+Hm, let me open the cover letter to find lore link to previous
+discussion and check... ah wait, no cover letter!
+
+> 
+>>> +
+>>> +  reg-names:
+>>> +    minItems: 1
+>>> +    items:
+>>> +      - const: system
+>>> +      - const: assign
+>>> +
+>>> +  interrupts:
+>>> +    maxItems: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +
+>>> +  dma-coherent: true
+>>> +
+>>> +  "#address-cells": true
+>>> +
+>>> +  "#size-cells": true
+>>
+>> Both need to be const or enum.
+>>
+>>> +
+>>> +  ranges: true
+>>> +
+>>> +  assignments:
+>>
+>> Do not mix nodes with and without bus addressing. That's mess.
+> 
+> Hi, I was asked to use a more generic DT such that should the
+
+By whom?
+
+> hardware registers change in the future we can still retain
+> some compatibility. Is it necessarily a problem?
+
+Bindings are not generic, but specific.
+
+...
+
+>>> +patternProperties:
+>>> +  '^gpu-arbitration@[a-f0-9]+$':
+>>> +    $ref: arm,mali-gen5-am-arbitration.yaml#
+>>
+>> There is no such file. You did not really test it.
+> 
+> Sorry, this was included from a later patch that
+> introduces this file. I will move it there in v3.
+> 
+>>
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - reg-names
+>>> +  - interrupts
+>>> +  - clocks
+>>> +
+>>> +additionalProperties: false
+>>
+>> This goes after allOf: block.
+>>
+>>> +
+>>> +allOf:
+>>> +  - if:
+>>> +      required:
+>>> +        - assignments
+>>> +    then:
+>>> +      properties:
+>>> +        reg:
+>>> +          minItems: 2
+>>> +        reg-names:
+>>> +          minItems: 2
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +
+>>> +    gpu-system@68000000 {
+>>> +      compatible = "arm,mali-gen5-am-system";
+>>> +      reg = <0x68000000 0x10000>;
+>>> +      reg-names = "system";
+>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>> +      clocks = <&mali_gpu_clk>;
+>>> +    };
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +
+>>> +    gpu-system@68000000 {
+>>> +      compatible = "arm,mali-gen5-am-system";
+>>> +      reg = <0x68000000 0x10000>, <0x68010000 0x10000>;
+>>> +      reg-names = "system", "assign";
+>>> +      interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+>>> +      clocks = <&mali_gpu_clk>;
+>>> +
+>>> +      assignments {
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +
+>>> +        resource-group@0 {
+>>> +          reg = <0>;
+>>> +          arm,axi-bus = <0>;
+>>> +          arm,partition-mask = <0x1>;
+>>> +          arm,slice-mask = <0x3>;
+>>> +          arm,access-window-mask = <0xf>;
+>>> +        };
+>>> +
+>>> +        resource-group@1 {
+>>> +          reg = <1>;
+>>> +          arm,axi-bus = <0>;
+>>> +          arm,partition-mask = <0x2>;
+>>> +          arm,slice-mask = <0xc>;
+>>> +          arm,access-window-mask = <0xf0>;
+>>> +        };
+>>> +
+>>> +        resource-group@2 {
+>>> +          reg = <2>;
+>>> +          arm,axi-bus = <1>;
+>>> +          arm,partition-mask = <0x4>;
+>>> +          arm,slice-mask = <0x30>;
+>>> +          arm,access-window-mask = <0xf00>;
+>>> +        };
+>>> +
+>>> +        resource-group@3 {
+>>> +          reg = <3>;
+>>> +          arm,axi-bus = <1>;
+>>> +          arm,partition-mask = <0x8>;
+>>> +          arm,slice-mask = <0xc0>;
+>>> +          arm,access-window-mask = <0xf000>;
+>>> +        };
+>>
+>> Your example is incomplete.
+> 
+> Could you clarify what specifically is missing?
+
+ll the properties you added in the binding.
+
+Best regards,
+Krzysztof
