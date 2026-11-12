@@ -2,95 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418A460A381D
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 04:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B94C606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 04:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1GjAXZL
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j0HYexEU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C82010E4AD;
-	Thu, 12 Nov 2026 04:36:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 503B510E24A;
- Thu, 12 Nov 2026 04:36:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A55F630CF;
- Thu, 12 Nov 2026 04:36:38 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794458198;
- b=s3i3z3YMeiukBQGmhoisDEq0O3AMVtiaK2uePT2UMCwbMci3G8yI9LGyv9ERhnYTSD59
- URy9aOM7urctTdlqjU11yxXltDj+CHQ+nqQcWv/4cj68mVJ797g4WVtFer+UkWKzUunVH
- 9UEHrphmedPgHgGok0FpmjtHcaa+3/wPIdlGqjcYgTWLGwHScTr4jp1odbqLOpQ8RMvFr
- bKyIlSiylSEx3zVr5xyarkxYH7npnsdtFAifwhQEh12SOMvG6SC62od3xMxUdBL9kxtQi
- CddA4AxgBri3s61N5dVR5M5/dTD5CBV+5rJOZ6vhmcqWa+BQ7CgHDSeegJaZ6joM8Pg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794458198;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=YmUuivT0EMX67lgBQmx7GF/aHT+tj/D59DmrbUzvoZo=;
- b=D1zpaFJSLCA9v17QpwVpjJmfn1lmiUNk4ybhsJ9CPaPwUHK2iuqUQBMmT87M4LTIGizS
- HKdiL/OyJaNOpYOaAW/Q9wql8GpsREmwANUsIB6aGn/axnwvQPJIsAK/5nmL2ocG/LDpu
- Bk7c8AHbhjr80OVT60gU7SpzlBA5Tg/+4Y51Q+s1afNWtGKkyXxUrKxI3b7yP1Yh4BdbQ
- Q2BgG+hTZawUsCMAGoJ9WPiE2DIP0Mv1LKDMg016WOMTrHLmcPL89OOw73WryiLcYReRa
- cCXTbDUOgZq5y2MBLU3DMCP4gAU+5nDoUn8NQaK7d6xiRhUFZFGKN5ItpJFfjdn65rw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 970C01F00A0A;
- Thu, 12 Nov 2026 04:36:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794458198;
- bh=YmUuivT0EMX67lgBQmx7GF/aHT+tj/D59DmrbUzvoZo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=S1GjAXZLPbvGjn4n36A4xWfLWG0s4BuzgzVB8006z4NjpolpK8Sr20HoU6boXHXnd
- jshvxhpekGOhoRzaBUpdXNOwBJkP3ZDZ213X1761g2SuO8ENAtoQsOl/8zXRv+yNrp
- 0jegKQaVrwm7NoAI03C2ZcepQSKh8U2QgYY+g7yWJ956koGKkCpNVX0yZ+mIST+qlB
- IA1Y78M0ab9wxp6EZG/f3UB3OltxgrktHg9tZ2XdvKQcWAA+QaJA9F+ZdDDH3UJEcV
- YGuycaV4Oe05YIb0cbIzm7EGdsSSG15BVnq86BIDEThDtvFE9ZDz6zHhh+XgxPkw7L
- sVTGgD/k0Ca+Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 26303492A8;
- Thu, 12 Nov 2026 04:36:34 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Thu, 12 Nov 2026 10:06:31 +0530
-Subject: [PATCH v2 3/6] dt-bindings: display/msm: dp-controller: Add SM7250
+	by gabe.freedesktop.org (Postfix) with ESMTP id C561A10E453;
+	Thu, 12 Nov 2026 04:42:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1866C10EA5A;
+ Thu, 12 Nov 2026 04:41:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794458519; x=1825994519;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=to9WP0yYAsg2FwMUJoPAJl9KXn//Llym/25xqUG9m3o=;
+ b=j0HYexEUv97gtHZ64HDRAPDkdXQSrCwRqokDMo4PofFUgp0aGVabSlR5
+ FpHoBadUy7O2D3nY9+lMQo1ZDdydZjKs0BcTj5lB1Roe5Xgs1F64/3YDS
+ yLosYWMo7SUad6SxxMCgoq9INuA1fWfIxkEjDt1sfNYlIsgOU2l+BrHMY
+ fc1Z1qFPhRWld1yFH/oYJjmXk9ab+jqrB+Ysb2AExkPWZvhwsMaDKq9qJ
+ rX0aPbqRaHFC9CYZDh8LADPMQArxF3PeRPvDrr7XKtUXG+BZq33cy30Uo
+ XVFzHsBjPstV2oRL82QurujZsRR61qLMuXfm8enXEA//KFeQGj5uip2QA g==;
+X-CSE-ConnectionGUID: +9s4O1T6SRervPfbLOWBiQ==
+X-CSE-MsgGUID: FVcy2mHZSOOA0i+RWjNwBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3112113"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3112113"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 20:41:58 -0800
+X-CSE-ConnectionGUID: +omkRXtHQhGqp8nFWjl2Wg==
+X-CSE-MsgGUID: PkOyTieZTVC7Yy4/j9hDKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; d="scan'208";a="10451688"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 20:41:51 -0800
+Date: Thu, 12 Nov 2026 05:41:48 +0100
+From: Raag Jadav <raag.jadav@intel.com>
+To: Pavel Popov <pavel.e.popov@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andriy.shevchenko@linux.intel.com
+Subject: Re: [PATCH 2/7] drm/i915: Include <asm/cpu_device_id.h>
+ unconditionally
+Message-ID: <avVDjIW5jd4rHw11@black.igk.intel.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-3-pavel.e.popov@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-dpu-sm7250-v2-3-8e925a3a8a7d@brar.si>
-References: <20261112-dpu-sm7250-v2-0-8e925a3a8a7d@brar.si>
-In-Reply-To: <20261112-dpu-sm7250-v2-0-8e925a3a8a7d@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Ishu Brar <patches@brar.si>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794458192; l=893;
- i=patches@brar.si; h=from:subject:message-id;
- bh=fk9Wge3pIFZLtITAxHYwxjW6mCu3Vw/5lCV6h5Kj994=;
- b=lFiFzJzuq5yboIkJUyzITfFHnIqDtDJUcnkrunQwSvBe6hYP9DW/DKAy0hYAsOQTftpAxBTjj
- MF3mNaDU2hIBQ6GcZwmNy8U5XpVz4V3eQ8VUd3xZiZNxMTAQhC/csAs
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111234821.4814-3-pavel.e.popov@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,39 +88,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: patches@brar.si
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ishu Brar <patches@brar.si>
+Cc: Andy
 
-The SM7250 has a single DisplayPort controller, the same as the one on
-SM8250, so add its compatible with the qcom,sm8350-dp fallback.
+On Wed, Nov 11, 2026 at 04:48:15PM -0700, Pavel Popov wrote:
+> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
+> CONFIG_X86 around the include is no longer needed.
+> 
+> <asm/intel-family.h> is included by <asm/cpu_device_id.h>. The CPU
+> match table still needs CONFIG_X86 for the INTEL_* model defines.
+> 
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 094a6383bb77..d535e090ea2e 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -53,6 +53,7 @@ properties:
-           - enum:
-               - qcom,sar2130p-dp
-               - qcom,sm7150-dp
-+              - qcom,sm7250-dp
-               - qcom,sm8150-dp
-               - qcom,sm8250-dp
-               - qcom,sm8450-dp
-
--- 
-2.56.1
-
-
+> ---
+> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+> it is in mainline.
+> 
+> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+> 
+>  drivers/gpu/drm/i915/intel_cpu_info.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/intel_cpu_info.c b/drivers/gpu/drm/i915/intel_cpu_info.c
+> index e52d0ac713a..a6b46cc841a 100644
+> --- a/drivers/gpu/drm/i915/intel_cpu_info.c
+> +++ b/drivers/gpu/drm/i915/intel_cpu_info.c
+> @@ -6,12 +6,11 @@
+>   * intel_device_info.h by having a separate file.
+>   */
+>  
+> +#include <asm/cpu_device_id.h>
+> +
+>  #include "intel_cpu_info.h"
+>  
+>  #ifdef CONFIG_X86
+> -#include <asm/cpu_device_id.h>
+> -#include <asm/intel-family.h>
+> -
+>  static const struct x86_cpu_id g8_cpu_ids[] = {
+>  	X86_MATCH_VFM(INTEL_ALDERLAKE,		NULL),
+>  	X86_MATCH_VFM(INTEL_ALDERLAKE_L,	NULL),
+> -- 
+> 2.54.0
+> 
