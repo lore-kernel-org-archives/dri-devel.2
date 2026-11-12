@@ -2,69 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACAD606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945E2606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 12:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=orcon.net.nz header.i=@orcon.net.nz header.a=rsa-sha256 header.s=s1 header.b=H+Ntv/v9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704611120EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F10DD1120ED;
 	Thu, 12 Nov 2026 12:55:52 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3DCD10EA75
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 16:48:55 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-498f5fa5103so1019162f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 08:48:55 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794415734; x=1795020534;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hIh1oJXmPJn8/bufJnOWwv255cbPbO6RJV8+iEpFNQw=;
- b=QwrHxpCgaD6ttTL6oR2F+jlkAUWH7CeLAaEs2aVQV+5ERDl+NLHEespRLagX26/4G3
- yHstbVWQm944EG3JS27Ko2qvWQ6S9wmkrrxvAhlo0pGjUwsTN4PWBkuyC+U+3bCIMEED
- lLldQBJFE3tvG62FOmgJGmyGOD6wIUoOUwN+/8WqTWXmW1p/0Ehv8SOy9+V2+ImZeJbS
- ILscN39z8N2H3yCaa5ArKrVdyoivXByhXKkU9NZhmxeDxHTKTOAH5ghM0N7bycqB9eqP
- 9cBqQNTu/jOy46pzs4NvSoJgCk+8ZIc4jBy1QLCbDmdtuUql6Jzm3bhV06E5zD9mZpcd
- KngQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErFyoATtYPaQyRFhc8P2R522nzPqqN83BuMOXHenboZDgktblC+yHNn7a/cCx+oXubNA/Hh89RYIhk8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8QPu1p1sWwwoQxgw1KB0HwnSYW/PhFdPCQ/WoHulwF6UkqX+X0
- CW5mTG/aFMHm+SRKdRQ+AC/4K5PMRovV63OwaTKmaAh/HfClA291GyuU
-X-Gm-Gg: AYBFou0gG7rngZ6+X2b39uwtJxpy64HwA9oeiVoC54EmmfQO0MO324snlJAURssXUkm
- m7t5tbW3yTa7PcnEWGvc6pVd3WEnjXpJvr4XNA6qhc+D6eaKrMq9RGB5Hz2elM1zqHZSNuG8mF5
- DHKCYxH/0Hl5sps0XblFJfqSr5D9lQQuc5PapVN+7XvIMVPJQ8tYpPFRpjLE5cnc4DEO2Tc1CCk
- qL5ST+Ag8ZF5nmHvcZ4x0l3hNZVQy8VH0lEb+7HFq3/8twWK7Zplm37Z8Ys2poBF2326kK4FlAV
- q1zV1r7CMDYGYVInqxTccm9Q1mCmgiIZRwcPmYhY6gHMmezHa5TDJIBsBLi6KPqgLU9qLmH4YFl
- 5Gu23OEEOwf74U07ysrybUNpYjsMivVToVdTeHOxDm0mBk/NrU0HaTpwZSX+nrHZarrql2a2yky
- joMn+X5Nzl2fLF/LpN1gekvxYUMvVKry+ts1KfFyl1Xv5qJ9vsG6D+1x7hUdGpeOY/RcYeDk1/3
- pF+626ek9/A0f4ZV8kiQiHSjLpzR+7Ms9TDVZKDBgQ0aanQXTNECxSPVZWmQ2J02uvcZsv2HkM3
- jSqH1no3/kQsrdPfU3W+DQ74xWh74dTOGChPSSWz6dwbxRAwcbDch8vIoxXQs6PaTWk6ue7vYzq
- qWI3nesOQok+ltvbD/PgBSOn4B8wrRsk1BoSubYR1+H85iP6BoWrLLrW/1mq9
-X-Received: by 2002:a5d:588c:0:b0:499:53b3:39be with SMTP id
- ffacd0b85a97d-499c8d5bdfdmr5249070f8f.51.1794415733801; 
- Wed, 11 Nov 2026 08:48:53 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49944d646f9sm8244842f8f.32.2026.11.11.08.48.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 08:48:52 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:48:49 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: himanshu bakshi <himanshu.bakshi478@gmail.com>
-Cc: gregkh@linuxfoundation.org, andy@kernel.org, error27@gmail.com,
- cenzhang@linux.microsoft.com, dennylin0707@gmail.com,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v4] staging: fbtft: remove unused fbtft_init_dbg()
-Message-ID: <avSccSGIsu1EbwnN@stanley.mountain>
-References: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
+X-Greylist: delayed 1590 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Nov 2026 09:50:13 UTC
+Received: from smtp-1.orcon.net.nz (smtp-1.orcon.net.nz [60.234.4.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F09810E1AF
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=orcon.net.nz; s=s1; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wvP1IpdD/AteWXcjJU0nzeoI5hxjbUtZch5zGuNerP8=; b=H+Ntv/v9QVBOsz9oTSYZMoX+9M
+ JvGFe0NQdExOREjXfWYswUeXGdmMeK6KLw0nStVcHCePJiOUNQRKLHDk8M8BOUt2N+YaYuMNnsbwL
+ Npzx7m5G6iH+aY18SCsbKKqYg2T0uTksVBQJ67mp9hTI6BKuI0OS+5QoZhkrnUxV+GNrtXBDM39S/
+ AXbKDAqbF3hr/oqjemzKG6Qzslw6r26cbF+v7IIiOxvEogwl2s7oBu7tFHlsDsVdxv5chCkiSo1xO
+ kvuIqZgLc+AIqlIUNZ7N9EQdglMec6xtIJFvaKxeNi49M+6cYpeGiyuSVz0GAak9+WeabAbHM0o/x
+ VdZPGsQw==;
+Received: from [121.99.247.178] (port=59701 helo=creeky)
+ by smtp-1.orcon.net.nz with esmtpa (Exim 4.90_1)
+ (envelope-from <mcree@orcon.net.nz>)
+ id 1xRR1q-00019G-MK; Thu, 12 Nov 2026 22:23:34 +1300
+Date: Thu, 12 Nov 2026 22:23:33 +1300
+From: Michael Cree <mcree@orcon.net.nz>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: Matt Turner <mattst88@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vgacon: Fall back to the dummy console if mapping VGA
+ memory fails
+Message-ID: <avWFlTsLx28YI70L@creeky>
+Mail-Followup-To: Michael Cree <mcree@orcon.net.nz>,
+ Magnus Lindholm <linmag7@gmail.com>,
+ Matt Turner <mattst88@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, stable@vger.kernel.org
+References: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
+ <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111163819.143147-1-himanshu.bakshi478@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
+X-GeoIP: NZ
+X-Spam_score: -2.9
+X-Spam_score_int: -28
+X-Spam_bar: --
 X-Mailman-Approved-At: Thu, 12 Nov 2026 12:55:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,29 +72,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 10:08:19PM +0530, himanshu bakshi wrote:
-> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+On Thu, Nov 12, 2026 at 09:47:05AM +0100, Magnus Lindholm wrote:
+> Hi Matt,
 > 
-> The fbtft_init_dbg() macro is not being used, so delete it.
+> On Thu, Nov 12, 2026 at 1:30 AM Matt Turner <mattst88@gmail.com> wrote:
+> >
+> > On Alpha, setup_arch() registers vgacon whenever CONFIG_VGA_CONSOLE is
+> > enabled. On Marvel (EV7) systems whose SRM console is serial, no VGA
+> > hose is set, so marvel_ioremap() finds no hose for 0xb8000 and returns
+> > NULL. vgacon_startup() then probes video memory through that NULL
+> > pointer and oopses in console_init():
+> >
+> >   Unable to handle kernel paging request at virtual address 0000000000000000
+> >   pc is at vgacon_startup+0x174/0x910
+> >
+> > VGA_MAP_MEM() is ioremap() on Alpha and powerpc and can fail. Treat
+> > failure like a failed probe and fall back to the dummy console. If a
+> > VGA card is present, locate_and_init_vga() still switches to vgacon
+> > once PCI is up.
+> >
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Matt Turner <mattst88@gmail.com>
+> > ---
+> >  drivers/video/console/vgacon.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
+> > index e7e6750f1f87..09f7c376b468 100644
+> > --- a/drivers/video/console/vgacon.c
+> > +++ b/drivers/video/console/vgacon.c
+> > @@ -324,6 +324,8 @@ static const char *vgacon_startup(void)
+> >         }
+> >
+> >         vga_vram_base = VGA_MAP_MEM(vga_vram_base, vga_vram_size);
+> > +       if (!vga_vram_base)
+> > +               goto no_vga;
+> >         vga_vram_end = vga_vram_base + vga_vram_size;
+> >
+> >         /*
+> >
+> > ---
+> > base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+> > change-id: 20261111-vgacon-ioremap-null-ad4c7184b807
+> >
+> > Best regards,
+> > --
+> > Matt Turner <mattst88@gmail.com>
+> >
+> >
 > 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Reviewed-by: Dan Carpenter <error27@gmail.com>
-> Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-> ---
-> Changes in v4:
-> - Add Reviewed-by from Andy Shevchenko.
-> 
+> Nice fix! this must have been lingering here for a long time?
+> Cross-builds passed for generic Alpha, including Marvel. The shared
+> vgacon code also compiled successfully for x86-64.
 
-Collecting the tags is unnecessary.  Maintainers handle it.  You should
-do it if you have to resend for a different reason but otherwise just
-leave it.
+I wonder whether this is the reason why my ES45 would never boot with
+an AGP video card.  SRM could bring up the console but I recall the
+kernel crashed early on.  In contrast, it boots fine with a PCI radeon
+card. Not sure if I am going to get a chance to test it out in the
+near future though ...
 
-regards,
-dan carpenter
-
+Cheers,
+Michael.
