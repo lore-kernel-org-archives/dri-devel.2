@@ -2,72 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CE7606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 06:17:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5576F606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 06:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PTV1Wv5L
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dR9VBBX7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8CD10E531;
-	Thu, 12 Nov 2026 06:17:49 +0000 (UTC)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D593910E531
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 06:17:43 +0000 (UTC)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-3ae1d132d52so3529327a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 22:17:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794464263; x=1795069063;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=njjyBXz9L58T+lg+LdB1WaYpD3pBpeVCDltq1wefIsE=;
- b=PTV1Wv5L0Ho3zVH/veUWbkLqGk5dNuOqc+dGYj/UJQnr4n8Z7bpUP7yWoGiI33fE30
- MQzF4dxecKxnm+d6iir/9qk0W7Qs1hRR+EAob/KKPhFeABB7hzBSQ8pra+mCCuAajyqV
- Z1BBCou9IaV74hwE1LVpfaltyXv+sdO0t+vBh/BIS+pbSyjt/YjTnNH9TsMT3IAzUKrx
- +jgomnbJt3uy8Gk0nCIP+tfviycFqeuhtSSRyE5ty/QVqKUe713WoChHjUwdJYyKW7W8
- 9L8CXwakce86mQAxFERqTXHZyfR5C/Z3tqhGgvvN5cNhPdqZg/Kt8C4c87pCyG7eOuc6
- Nenw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794464263; x=1795069063;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=njjyBXz9L58T+lg+LdB1WaYpD3pBpeVCDltq1wefIsE=;
- b=qHZOekMkxk492Y0XFVtJbRavWvv1upTDcbyItPlFdSoqXH00D9Of6M21DPzhdcsyVJ
- OmHC9ERNDHE+r76b68vhiwFgszC09mV40JPc8RK0N4AoyuuOnxEpltUEN6p5SvAFrnl3
- BqVJ+fox58TFOpF59wSdxkn6u4waXaF5yBz+/90Pkn+bdHYhgjmI2o5ffv9TGoJ8rR8p
- bGznR9YNpDw93VQp43/OoyFSUjI2rhYZJi/7DUsTqo/Fy8bTfF/BqAc42pq1mHprxYkj
- PztQJG7qT48OA0qrg7kwt4GTaCeBbKHziCpEeS6g4ct9quSu37fZPpNUfZLaNE5+Si6g
- r5rA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEk7vmyUNk1u5zZpElDTxZiaXhYb26jnlnVkf8c5xJqzr72MA4J5RDS6lmJn+ecS8sIPsMsow/G5oo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8cVq42deaYuwnLO8Wgm/a0rTMTTV1T+biWNOJ/sUhLXi6NTq66
- jZj//SOCJUfU9J/qyJXrt4IvS4Iei8oOt2v8g8AfzTzW/fjQ9mkj/bMEQhw0gQacBSwIeVaj88A
- 34SX5wx625w==
-X-Received: from pjbga7.prod.google.com ([2002:a17:90b:387:b0:3ab:3979:1be4])
- (user=yidilin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2584:b0:3ac:7556:8eed
- with SMTP id 98e67ed59e1d1-3b182f8532dmr4081954a91.44.1794464263018; Wed, 11
- Nov 2026 22:17:43 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:17:36 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD54F10E4D9;
+	Thu, 12 Nov 2026 06:18:39 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012009.outbound.protection.outlook.com [52.101.53.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01D7B10E4D9;
+ Thu, 12 Nov 2026 06:18:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=twN1qiGmhTKcRdK14xaii7vjLpn5dgWxrtFzq+4AVxtTGz5HYiE4pthVRZISwHFF81SkLUwgMDlSGeZWE91YCucOFkn45hSH8QCWWL2aYBTwj4iNXChz4Omlw5kmbtEqlk32GddczijcdvhNdvHa0Jvd8+e6BcqbmmX8hGxCfu/m/T/RLH9uwCeyX73TbO7Aq+5LwuGtDc5IGR7/2HWZSjStkg2L5JdpUfi84Paa7mUSjDqa/r9o6/dmFywz+XvTBv13lurOc2aNlO0U7x/Re6VnCyHYfMyykfR8nS/1j+DugNU/aO77EwOM1K6rwItawCTjOB+itKZn7/ad+EQtbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZQE4wH07HskksBy081BLQaHeHPxim4J9SFvGunClQ0Y=;
+ b=MRnXScW6mPKbFIzgSFV/cXS5kQB1QMw9irpNj+7NNTrT17VkmsBqrUQr3frn4ma7t88MTUqCYzQHxTN5J+6oYR0zF7uZywUcBeQbjmUxkxi4cMq4qxsR0BkXAvHsr1lM6Mj/Sgwy6Ea5DQGAiBtxA+ZwPkQNrDWvlvU7WZYo1oTT0Ayb3nYswag4ADtb0rrDwJ/TpDLtN0LDYUr0S0vaAue5IJPhjqVlejcs1It8Z+xAjXERSZfMdBIZ4xAvXtWoAcLL1ivSb23XCmdA1ilmKJtdZJ+jNS3AQo+OkkfkVRmNRgJqis/wjDbxwBDFJHYfqMMSY5g/kbcM+m0hD7+I1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZQE4wH07HskksBy081BLQaHeHPxim4J9SFvGunClQ0Y=;
+ b=dR9VBBX7mRwx1MP721tQC3kEQJrAguuugeEmaGwArivsBf7ZhGUandfkA64RGDkrT7QTsc3iRyaPVdH8Sc7o/Et0WCWwKg84chXAugmctJTSWiJHYr5laxZemIL3noYi6TCOeECoWXW0NPqpj5Kk8z9YYa8iqBRAjODYWEq7jqutH5zjfiNFqW1l2ebTxbC9yd0xW6Gqlxh3xEFZAX0qT6+65eM+vg1D907O67jCphhjEP4QpQ8xehu1HlYc573wl62b+jqwzBKJyInEFq8O8ojvKqXpP68DvcoRUgo0SV9LhG60TgvzG4NFCdkbEgE6spQf2DdT/bvOYsMmluBmtQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com (2603:10b6:208:1c4::16)
+ by CY1PR12MB9604.namprd12.prod.outlook.com (2603:10b6:930:108::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 12 Nov
+ 2026 06:18:28 +0000
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445]) by BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445%4]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 06:18:27 +0000
+Date: Thu, 12 Nov 2026 00:18:21 -0600 (CST)
+From: Vidith Madhu <vmadhu@nvidia.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+cc: Xaver Hugl <xaver.hugl@gmail.com>, 
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ =?ISO-8859-15?Q?Michel_D=E4nzer?= <michel.daenzer@mailbox.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 17/27] drm/connector: Add "Media" VRR display mode
+ for QMS
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-17-55f4215be2c2@collabora.com>
+Message-ID: <3e4c8552-5dc0-f189-dee8-2ca0ebe01629@nvidia.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-17-55f4215be2c2@collabora.com>
+Content-Type: text/plain; charset=US-ASCII
+X-ClientProxiedBy: SJ2P221CA0010.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5db::19) To BL0PR12MB4914.namprd12.prod.outlook.com
+ (2603:10b6:208:1c4::16)
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261112061736.4014993-1-yidilin@google.com>
-Subject: [PATCH] drm/mediatek: dp: Wait for the complete AUX reply before
- reading it
-From: Yidi Lin <yidilin@google.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Fei Shao <fshao@chromium.org>, 
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Yidi Lin <yidilin@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4914:EE_|CY1PR12MB9604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00ecfe5f-0317-458c-7b36-08df4084c373
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|7416014|376014|1800799024|22082099003|18002099003|261021135927099003|3023799007|261022105027099003|56012099006|10067099003|261009223027099003|261028144727099003|261026140227099003|261021123027099003|261102130727099003|261022113327099003|261009221227099003|261021121427099003|261026121527099003|261102123227099003|261022075727099003|11063799006|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info: 7ap2RKfZ2jcc2TKYc74ETJo5FWJy7Ez5VkBrUV47LZyJLPolXpYt0MNL41Q3GrAFWPPlhoSOXxRoBX3xHHWy64zretiEGQnFaZX5GEwSU+ci3GpoEeVUYQKfMf7vwV43wSlNyaOJ2+2g7dwoMyrO2SkRzwtHp2HEk0Gk0wmIB0QBglQe1q6lSdxeBnLNwnqCDYZgM1YLADnb8Xyw+NMXcQMRppPjH0aeNHFKUg6ALgvr0wJt809yKGGi93X3oWB+0evf/r+CCLVjsEJ9H1xOwbGHvG4bu9FIoEkMYuTpxlwF3uzVoCE+gH9YH/9amt5vewtVmbHEkMmZrJutZDDAJhC97DoKLPaOT+hu6qxKGhfAlg+EGiclk9c4qKmyYi3pkDI9DzsLuDByrLDUH9mUG3Gk+aTUYyLz6teLEZZ3NUfagvLFPw5zIEowCSiRj0A8XU6uYsHTnTY2j27Sq7VJKK6NVNsEtctYtCKro3dGuLpNQsffA65QWI0lDLUBrdb3OecQixF33A2rOg7y/jn7GoziX3brhUk+YaCcJb6RoUxK2x8Bon5Fg8JiPSMvwvxA68LNDw9fOh5P8u6J+YT1X0jeFDCcQiRsvB16swGDPU0T7EEvIrE/RRfcZmj8/TNnl6AT9fCgnJ52AYdKSGwF47vAJwsK5W8IbstP5l3BEKY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(261021135927099003)(3023799007)(261022105027099003)(56012099006)(10067099003)(261009223027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261102130727099003)(261022113327099003)(261009221227099003)(261021121427099003)(261026121527099003)(261102123227099003)(261022075727099003)(11063799006)(4143699003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Rs1j8hAfNwBmcKnIXuQbZ9L9SrX3EUhKTzgXBp20Narsv/4SeSgkKiZXG+5A?=
+ =?us-ascii?Q?cUq72M4/TXnmCBXNMsnRSL4bEUwtRVugS0EnbaOMMSZrc97L80ytDtKTq8rW?=
+ =?us-ascii?Q?WjF2q99YyQuMIe3VCTDNlTAU9fMn+QFnG59OshmKifnC/5OooIUSPKPTb9eQ?=
+ =?us-ascii?Q?xo2TADD5z4Dmsa6pRawvJgu88g7ixDPcKdj6yQ6JahMkXEBFW4EsfServuez?=
+ =?us-ascii?Q?aYHtLSREE1KbEy1HbLS5izLM4+hqqQTYwAP/KymHzco4r3t0yUh5JfPpcOlv?=
+ =?us-ascii?Q?hGP9p1PAs2Awfx/e8SpTXgQuiGXdxuEPfmJ+wB1KBGGOspWVChwKdKpSbpYr?=
+ =?us-ascii?Q?ZfvkIKUucumNh+cMsvIJOcje3gqutjyCFj+VBa8DoaykwMrEUyk/7ymPmm02?=
+ =?us-ascii?Q?Yq9MkzkZUkifo6mrFJAwPcavXQZ1GKs5VEMvmIeCO7f315xvVICqlJimJRPJ?=
+ =?us-ascii?Q?dDF6lMSTonGYVdrneBiD7D9Wb8HXvmiJwZalgpk4ytOyQjR+JZbz5pymGmcJ?=
+ =?us-ascii?Q?zFu4DoL9Ej3UA9MTlOOJYDcFmLkcXnKbpm2Eet7ZclZ9W1d8WyyGvHs3AP6N?=
+ =?us-ascii?Q?hQ9899JFbnYHfsZAPbwwUALni2TPx1vWcsTfldB0xOsGqMhpSf4KaNyFLJvW?=
+ =?us-ascii?Q?h1p+xfnGN/DQN6LnI91s8vj/Aps8MWAMCq7Rf4bNVaOVBA+4SrETxS5nNQ6u?=
+ =?us-ascii?Q?hfNjVyJ6P6mkpRjGZO3cPMvgsemshzU+weL6gqg0h9nUR+X7fPDZHusNG0t4?=
+ =?us-ascii?Q?CMXc9931078YHXu1Q7Wo8lkUKyALGIHvXxfa+8Dm6lH56ELBzzCFB8DQgLpj?=
+ =?us-ascii?Q?HwwMYljpbnLtxh2SjeUAALkXj2RorpygCDaZGh6Rr3fjiKHlVC/GkcD1y9V7?=
+ =?us-ascii?Q?PO+dUWHWpsWeJyfJjSVihQ9vq840SKNVyXl0EsOLlUxnE0BLQKSXhYwguZiN?=
+ =?us-ascii?Q?JgGHSKa7CRZpBsZSaW8/a3jJJ1zKIMnddwUCYGyBsgEJxHCjvzN3dVKYahhs?=
+ =?us-ascii?Q?8xgiEHVRsjLbwuls1/XGKQHBIMMIXiKQZv8qhZZ5PsgPLYknUZ0fQ0gdCsfc?=
+ =?us-ascii?Q?uVwns7Uxm6MfKkp2muj5O02TCNQca5XDhuEdK4xqCvDQ7yXw+yq/Z0kSoqZ1?=
+ =?us-ascii?Q?OYSJn+NnqYTEqjpc9sCdDL1wXHAP/pDsHfoDXnPkehG6A41sXVw6VffK6qM0?=
+ =?us-ascii?Q?X+hVqkZC12QYbXahxI1eQFL+4HolfB5+iwRgs8DPGORPs6cej76bGQ+Lwmbf?=
+ =?us-ascii?Q?MyB2/QgMj4uBsrPIibmQVYlPbiszL1vdhSreycNk5Rdib/JeYftyVDFS/a5a?=
+ =?us-ascii?Q?Df9wt0ZWgB2U9vQAY1HT8eawC8i5pgWDqsddXt4c3HXYzvwwJ4zo1pAdafV7?=
+ =?us-ascii?Q?U+13UTpfIk293Nv53oiCH7DZvFVnEcNy/pJGATUS+mdScJS7TALGqyiK+XvY?=
+ =?us-ascii?Q?xF8YQQ4qxnYe60rSjX86LjHe+8MwnPmhzk+u+XgJrKkdPpntBOUYsFfSsvCe?=
+ =?us-ascii?Q?IkOj1Mswxt7gpL6jjDpLHCuoO6DyFvXyRfi8DebNfJ2wtwQbAkwHzDupQesE?=
+ =?us-ascii?Q?eIDFo+Cj1391tacjX8gLa9+A84cvpd5U5xmJqyO0VvQq5n6PQuI4tin2/D2+?=
+ =?us-ascii?Q?2jWARmvgLqlO3JQAS+p0uV+UhAl195T/1GKkFeLPBbWSQ+Oh3rr/HpeklaV8?=
+ =?us-ascii?Q?nv2FKiJjcgPyNl0yR7yRYwko4BzfXCW2BOPMku+x7tRAfifD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00ecfe5f-0317-458c-7b36-08df4084c373
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 06:18:27.0615 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4/8BAtq163Nr/aODFj8mnjYBYgPcKBqI7V2bVt/iZeh+2mBzt7XrjbIUjQDlscBZmwA08CsZBqBmL5mefkhXxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9604
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,155 +139,109 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-mtk_dp_aux_wait_for_completion() returns for a read as soon as the RX
-FIFO write pointer is non-zero, i.e. when the first byte of the reply
-has arrived. The rest of the reply is still on the AUX line, so
-mtk_dp_aux_read_rx_fifo() sleeps 500-1000 us before reading each byte
-of an I2C-over-AUX reply and 100-200 us before each byte of a native
-reply. The FIFO is drained this way even for DEFER replies, which carry
-no data.
 
-A 16-byte EDID read therefore takes about 16 ms, although the reply is
-complete within about 300 us of the request.
 
-Wait for the AUX receive-complete (or 400 us timeout) interrupt status
-instead, which the write path already relies on, and drain the RX FIFO
-without delays. Poll every 20 us instead of every 100-500 us.
+On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
 
-Reading the 256-byte EDID through the DP AUX DDC adapter drops from 266
-to 6.5 ms on an MT8189 Chromebook, and from 547 to 23 ms on an MT8196
-Chromebook whose panel defers every 16-byte read once. A 16-byte DPCD
-read drops from about 4.7 to 0.5 ms.
+> HDMI includes a feature called "Quick Media Switching", or QMS for
+> short, which builds upon the existing VRR to allow for quick switching
+> between a select few common frame rates.
+> 
+> Add a new VRR display mode, "VRR_DISPLAY_MODE_MEDIA", to the
+> vrr_display_mode connector property, in order to expose support for
+> this.
+> 
+> Additionally, add a boolean flag to the connector's HDMI sub-struct with
+> which source-side support for QMS can be indicated, as well as the QMS
+> tfr byte to the HDMI state sub-struct.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c |  6 ++++++
+>  include/drm/drm_connector.h     | 14 ++++++++++++++
+>  2 files changed, 20 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 21222214a843..f7d619926e2d 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1456,6 +1456,7 @@ DRM_ENUM_NAME_FN(drm_get_tv_mode_name, drm_tv_mode_enum_list)
+>  static const struct drm_prop_enum_list drm_vrr_mode_enum_list[] = {
+>  	{ VRR_DISPLAY_MODE_GAME,   "Game" },
+>  	{ VRR_DISPLAY_MODE_OFF,    "Off" },
+> +	{ VRR_DISPLAY_MODE_MEDIA,  "Media" },
+>  };
+>  DRM_ENUM_NAME_FN(drm_get_vrr_mode_name, drm_vrr_mode_enum_list)
+>  
+> @@ -2593,6 +2594,11 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
+>   *	    - Game - set display to game mode if display supports it,
+>   *	      regardless of CRTC state
+>   *	    - Off - set display to VRR disabled mode, regardless of CRTC state
+> + *	    - Media - a "media" VRR mode that only supports a select number of
+> + *	      common media refresh rates as fixed targets, but does so with
+> + *	      possibly better display-side processing. In the HDMI display
+> + *	      protocol, this is QMS (Quick Media Switching), though the mode
+> + *	      enum itself is vendor-agnostic
+>   *
+>   * VRR Limiter/Target Properties
+>   * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 4801bb2769e1..41f272afbb1e 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -829,6 +829,8 @@ enum vrr_display_mode {
+>  	VRR_DISPLAY_MODE_GAME = 0,
+>  	/** @VRR_DISPLAY_MODE_OFF: Turn off VRR on the display */
+>  	VRR_DISPLAY_MODE_OFF,
+> +	/** @VRR_DISPLAY_MODE_MEDIA: Protocol-agnostic fixed rate media mode */
+> +	VRR_DISPLAY_MODE_MEDIA,
+>  	/** @VRR_DISPLAY_MODE_COUNT: Sentinel, not a valid mode, keep last */
+>  	VRR_DISPLAY_MODE_COUNT
+>  };
+> @@ -1241,6 +1243,12 @@ struct drm_connector_hdmi_state {
+>  	 * deliberately not requested by the helper.
+>  	 */
+>  	bool scrambler_needed;
+> +
+> +	/**
+> +	 * @qms_tfr_byte: Target frame rate byte for HDMI QMS, or 0 if QMS is
+> +	 * not in use.
+> +	 */
+> +	u8 qms_tfr_byte;
+>  };
+>  
+>  /**
+> @@ -2270,6 +2278,12 @@ struct drm_connector_hdmi {
+>  	 */
+>  	bool scrambler_enabled;
+>  
+> +	/**
+> +	 * @qms_supported: Whether the connector supports HDMI Quick Media
+> +	 * Switching (QMS) on the source side, irrespective of display support.
+> +	 */
+> +	bool qms_supported;
+I'm not really understanding why a source-side capability is being 
+captured at the connector level. The way I envisioned this is that
+source-side Media-VRR support can be determined by whether the driver
+attaches the CRTC frame limit properties. The ability to maintain an
+arbitrary fixed refresh rate (implied by attaching the properties) should
+be the only QMS-specific requirement the source needs to support.
 
-Signed-off-by: Yidi Lin <yidilin@google.com>
----
- drivers/gpu/drm/mediatek/mtk_dp.c | 64 ++++++++++++-------------------
- 1 file changed, 25 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index f656b85b84212..b2f7f42cbe715 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -45,7 +45,8 @@
- #define MTK_DP_4P1T 4
- #define MTK_DP_HDE 2
- #define MTK_DP_PIX_PER_ADDR 2
--#define MTK_DP_AUX_WAIT_REPLY_COUNT 20
-+#define MTK_DP_AUX_POLL_US 20
-+#define MTK_DP_AUX_TIMEOUT_US 10000
- #define MTK_DP_TBC_BUF_READ_START_ADDR 0x8
- #define MTK_DP_TRAIN_VOLTAGE_LEVEL_RETRY 5
- #define MTK_DP_TRAIN_DOWNSCALE_RETRY 10
-@@ -825,20 +826,18 @@ static void mtk_dp_aux_fill_write_fifo(struct mtk_dp *mtk_dp, u8 *buf,
- }
- 
- static void mtk_dp_aux_read_rx_fifo(struct mtk_dp *mtk_dp, u8 *buf,
--				    size_t length, int read_delay)
-+				    size_t length)
- {
- 	int read_pos;
- 
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_P0_3620,
- 			   0, AUX_RD_MODE_AUX_TX_P0_MASK);
- 
-+	/* The complete reply is in the RX FIFO, so read it without delays. */
- 	for (read_pos = 0; read_pos < length; read_pos++) {
- 		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_P0_3620,
- 				   AUX_RX_FIFO_READ_PULSE_TX_P0,
- 				   AUX_RX_FIFO_READ_PULSE_TX_P0);
--
--		/* Hardware needs time to update the data */
--		usleep_range(read_delay, read_delay * 2);
- 		buf[read_pos] = (u8)(mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3620) &
- 				     AUX_RX_FIFO_READ_DATA_AUX_TX_P0_MASK);
- 	}
-@@ -864,33 +863,28 @@ static void mtk_dp_aux_set_length(struct mtk_dp *mtk_dp, size_t length)
- 	}
- }
- 
--static int mtk_dp_aux_wait_for_completion(struct mtk_dp *mtk_dp, bool is_read)
-+static int mtk_dp_aux_wait_for_completion(struct mtk_dp *mtk_dp)
- {
--	int wait_reply = MTK_DP_AUX_WAIT_REPLY_COUNT;
--
--	while (--wait_reply) {
--		u32 aux_irq_status;
--
--		if (is_read) {
--			u32 fifo_status = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3618);
--
--			if (fifo_status &
--			    (AUX_RX_FIFO_WRITE_POINTER_AUX_TX_P0_MASK |
--			     AUX_RX_FIFO_FULL_AUX_TX_P0_MASK)) {
--				return 0;
--			}
--		}
--
--		aux_irq_status = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3640);
--		if (aux_irq_status & AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0)
--			return 0;
-+	u32 aux_irq_status;
-+	int ret;
- 
--		if (aux_irq_status & AUX_400US_TIMEOUT_IRQ_AUX_TX_P0)
--			return -ETIMEDOUT;
-+	/*
-+	 * Wait until the whole reply has been received. The RX FIFO write
-+	 * pointer becomes non-zero as soon as the first byte of the reply
-+	 * arrives, while the rest of the reply is still on the AUX line, so
-+	 * it cannot be used to tell that the reply is complete.
-+	 */
-+	ret = regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_3640,
-+				       aux_irq_status,
-+				       aux_irq_status &
-+				       (AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0 |
-+					AUX_400US_TIMEOUT_IRQ_AUX_TX_P0),
-+				       MTK_DP_AUX_POLL_US, MTK_DP_AUX_TIMEOUT_US);
-+	if (ret)
-+		return ret;
- 
--		/* Give the hardware a chance to reach completion before retrying */
--		usleep_range(100, 500);
--	}
-+	if (aux_irq_status & AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0)
-+		return 0;
- 
- 	return -ETIMEDOUT;
- }
-@@ -928,7 +922,7 @@ static int mtk_dp_aux_do_transfer(struct mtk_dp *mtk_dp, bool is_read, u8 cmd,
- 	mtk_dp_aux_request_ready(mtk_dp);
- 
- 	/* Wait for feedback from sink device. */
--	ret = mtk_dp_aux_wait_for_completion(mtk_dp, is_read);
-+	ret = mtk_dp_aux_wait_for_completion(mtk_dp);
- 
- 	*reply_cmd = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3624) &
- 		     AUX_RX_REPLY_COMMAND_AUX_TX_P0_MASK;
-@@ -952,15 +946,7 @@ static int mtk_dp_aux_do_transfer(struct mtk_dp *mtk_dp, bool is_read, u8 cmd,
- 				   AUX_TX_AUXTX_OV_EN_AUX_TX_P0_MASK |
- 				   AUX_RESERVED_RW_0_AUX_TX_P0_MASK);
- 	} else if (is_read) {
--		int read_delay;
--
--		if (cmd == (DP_AUX_I2C_READ | DP_AUX_I2C_MOT) ||
--		    cmd == DP_AUX_I2C_READ)
--			read_delay = 500;
--		else
--			read_delay = 100;
--
--		mtk_dp_aux_read_rx_fifo(mtk_dp, buf, length, read_delay);
-+		mtk_dp_aux_read_rx_fifo(mtk_dp, buf, length);
- 	}
- 
- 	return 0;
--- 
-2.56.0.611.g1030f0b940-goog
-
+Thanks,
+Vidith 
+> +
+>  	/**
+>  	 * @scdc_work: Work item currently used to monitor sink-side scrambling
+>  	 * status and retry setup if the sink resets it.
+> 
+> -- 
+> 2.56.0
+> 
+> 
