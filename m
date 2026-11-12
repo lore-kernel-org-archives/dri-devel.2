@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FFE606C821
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:33:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5BA6071A56
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvRoKTUe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JipJScFP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C82A10FC6B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7306010FC56;
 	Thu, 12 Nov 2026 08:33:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC0F910EB68
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:33:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A097D10EB6B
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:33:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C7AA447914;
- Thu, 12 Nov 2026 08:33:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7F8FB412C2;
+ Thu, 12 Nov 2026 08:33:08 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794472390;
- b=waCX05Diok23MLZF/zLOIQ52uvRtHzsQjFes/WBkDtDfzNuh+TriRJIZo17CePoZGK6v
- ZLmRDFrTyINR4LW8/G/cgtImmex3RtV5RLhGLoaHsvQgIYjIKB9OLmRhE5248LLV9oShz
- u7xDPVIxtLpxqyMKNfXZpSb74KOEwlHO66vLuxdgOiThXjHnWN7HJ/GMrjD9UsqH9vYgX
- oOO2qcyfjZQToXDI2Qz2Dlwt9X0itedi5UM5UG5AKb7ERrcJvakcki6xgn39mKWWwCXad
- frm29jH1JAVBGutPxLOK8VyZZ7IV3XdAePzpAlGN/RaOC2Qphvj3VWy4IOoY0XqaGkQ==
+ t=1794472388;
+ b=ADOxuUHJiS2833FkGWhrZzhbfdRf/FwunAjtnH9lKej/8hfFSPD0XqozMO4ECdtpV81j
+ 11eGRpTo3NlqbxjBr0Cp7podZyzaYGSTnUE9DKu9ZgrQbMfAIm6RLTFQSqlZh4AeA4vlK
+ 5o69851CLQTGyEkVo8R0nbLUykplFK18gli1Kg4Nzk+85rC2X7XYlQemsCncwFKDHghSU
+ WmQV0DE/zs6llHUlDYAYfpg/dL0Rmma4UMFX2VbZodBtOeLBbzrpS0SlFRgPCsrV66oj/
+ 1IgkV61KnTkSyAIdbVgACpeaz9BvyLBYfLwMeHiEBNCG2PKWwD7cfM0jjbD+nwnB/+Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794472390;
+ c=relaxed/relaxed; t=1794472388;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=1XKbNH2/KH99YbWTOs529XIXwoRw5zG3NS6qzqt74p8=;
- b=osh3AJtbSd2jdnf/krpwJM4JHOsxKWklkahrXlmHPipWMoTWt49h6H5ns+3uQyJIah0v
- 7gpS1TcVseQCmD8l9aeJLbvzGTVDxhXp/MKD3TMW1FjRSr6UkPC5li27mCbO4HSW5zUeb
- R2rANnaz5K3RRfev9f8Dp4IqWlq2SiPMGD30o0uejBtcBTif3ANcyvYjZWwXc5uXkeMT/
- fEhDeXIBWMGL+yYgfD+IAetTLAoAwUtvI6D6D3F5trcBnpvDLNUs9d47qC5o8dDx8ZCOr
- jP76Go4U/fE5qRc+oH8cng0ffqsAEA8aRKxzYJo8A4yphjv7BBs7Ne/omFGNDUpJVsg==
+ bh=xf9jjECCHCJTLAEiaGfeK99eKdy6RyIXv+cYpPJ4C2s=;
+ b=sp2gaftxWfRccWr2ajtvsc0age++QXjsDRkRY1gGCW1co46mRQ7k9olZN0ulvAlG7lKD
+ 1JEFMypmv1hUXK9RJPudqcQKjFGwg9Xbd5DwK7aD1F/fYdkqYbGnzbGroHeal4/WOsC0r
+ Oq6137WOY40Uh+a04M8u34CAtIarpG5Vs04uQ+W6DFasb7FHgg2ws0wkYZCzPgHUqga9U
+ E/kSIwgiDU5gQ+oDBbix2Dku+F0eXjWrZ9vFFMkZJ6vvFUwgGaxqNI2MkHhRliXECPdle
+ nM1DIqOKK1/70S6e6KmD4kdaRX3BjhP66OvfMGXrEJQvhn6WbYZxKYni/dW9d0anxPg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id F2C7D1F00A0E;
- Thu, 12 Nov 2026 08:33:08 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id DB48D1F00A0D;
+ Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794472390;
- bh=1XKbNH2/KH99YbWTOs529XIXwoRw5zG3NS6qzqt74p8=;
+ s=k20260515; t=1794472388;
+ bh=xf9jjECCHCJTLAEiaGfeK99eKdy6RyIXv+cYpPJ4C2s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=dvRoKTUe5c0tIh5y3rUyPYZVEdpcAMzud+1SnMbRvG2AAmBeDsf5rTMCi8jwkiNHW
- 9/LzT0jwXry8lokd0uxJo7vtApVzw/c/CF9IhN5ddPqU12W2VuuwrpDGHSy/feS9pQ
- mR11l2iStfaRaqgbyB0NxEgnu9M672jK7dDEW7RKqm/uP4ynznRhHNVELvAUok9EoD
- 7d92mxN4bkfooFrzYJ2Eq+KeklZK94PWlW3XM20pDUGAIkROI/r9pEaT09ie5f2BOJ
- O4lnJJn6spd6h42qQCjVvCV9O2bEJvS/wNCDBjb2vcDGGoRYumEp31mJTAD09OpXWS
- OAqBQ6dd35Q8A==
+ b=JipJScFPgpR4hdxObvBklY9uDoUPxoX/jR3WObv7/NhRHEdUfktK3qOerIUMxNuct
+ B2cmZJC8KhmTHFTN5Alv5yz7rBOsL4zYEXtEkIfQ23EK+pEXJjYJIm1p5N1lIXgxmR
+ vxFPEL/03G2KsFp1VRasvv4zcxYfvJuvz83BUzGKonWoyAyFnu4Lalgwv7T4mBGAj8
+ jUlJ8S4+KukkShvhC3NDcNf7VIQUGHpTG687Hnk6pf1CCGfFm/CKKfuOx7GLwZ81yQ
+ 0onKKndO2dRrryBH87Nn3ZPvpaMUqKCbgfu1Cm0tFue/EMfOjaSX3lGswwcxft6s8m
+ oOqi1cwGV3NJw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D9CC9493C2;
+ by lkml.kernel.org (Postfix) with ESMTP id 645F04939A;
  Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:33:12 +0000
-Subject: [PATCH v2 8/9] drm/rockchip: vop2: Keep the other LUT_PORT_SEL
- fields on gamma LUT updates
+Date: Thu, 12 Nov 2026 08:33:06 +0000
+Subject: [PATCH v2 2/9] drm/rockchip: vop2: Don't use uninitialised
+ dividers on RK3588
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-vop2-fixes-v2-8-8218c1cf8ac8@gmail.com>
+Message-Id: <20261112-vop2-fixes-v2-2-8218c1cf8ac8@gmail.com>
 References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
 In-Reply-To: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -78,11 +78,11 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=1484;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=2150;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=WoObJhqQCguUZVQZS4V4CMddVbsfxO9PvoIdXFATrrs=;
- b=v7uDMm0D5IZjEF8Q5Kr1g/6NEsROZFDbJNyG8T4DzjiDBiH8wCp30u+EhYBiyuDF763+7vlzQ
- bJgLrzzMHGNCZcwDdpAx1LSPmEsbt8swnR9cpsqp3RGWTLsr2tvXF0n
+ bh=+pfuSp1M99YrjvoyOVjakpSrJdneJ0OxzWPX/oIDiA8=;
+ b=0BgDQWF1kBoGdrpcP5kaQ6tsQPCIUaT39TeoawJASLmg159mIIeOABJjhO2G+1Cjo09Y14D6r
+ 3uEyW7rU/13Az+oPwNYDFyYRkgHyggR5gOwfp+vo/xQGD3/UFy3jKLi
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,37 +111,54 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On RK3588 the gamma LUT of a video port is written through a window that
-GAMMA_AHB_WRITE_SEL in SYS_CTRL_LUT_PORT_SEL selects. The register also
-holds the dclk source selection of video ports 0 and 2 and the enable of
-the video port 0/1 merge for modes wider than 4096 pixels, which writing
-the whole register clears.
+rk3588_calc_cru_cfg() converts all four dividers to their register
+encoding with ilog2(), but only sets the ones the interface uses:
+dclk_out_div is left uninitialised for HDMI, eDP and DPI, and
+if_pixclk_div/if_dclk_div for DP and DPI. The garbage is then written to
+RK3588_VP_CLK_CTRL; on an Orange Pi 5 the dclk_out divider of the HDMI
+video port reads back as 3 (/8) in every mode.
 
-Only update the write select field.
+Start all dividers at 1. dclk_out only feeds DP and MIPI (and HDMI with
+DSC, which is not supported), so for the other interfaces keep it at the
+dclk_core rate, as the vendor kernel does for HDMI with DSC, instead of
+letting it run at the full DCLK rate.
 
-Fixes: 4f537776340d ("rockchip/drm: vop2: add support for gamma LUT")
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index c59e270739b6..259e30ebb9cb 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -2015,8 +2015,9 @@ static void vop2_crtc_atomic_set_gamma_seamless(struct vop2 *vop2,
- 						struct vop2_video_port *vp,
- 						struct drm_crtc *crtc)
- {
--	vop2_writel(vop2, RK3568_LUT_PORT_SEL,
--		    FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
-+	regmap_update_bits(vop2->map, RK3568_LUT_PORT_SEL,
-+			   RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL,
-+			   FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
- 	vop2_vp_dsp_lut_enable(vp);
- 	vop2_crtc_write_gamma_lut(vop2, crtc);
- 	vop2_vp_dsp_lut_update_enable(vp);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index c44648e1bc0d..659fd0a3ab63 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1579,6 +1579,15 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 	unsigned long if_pixclk_rate;
+ 	int K = 1;
+ 
++	/*
++	 * Not every interface uses every divider: dclk_out only feeds DP and
++	 * MIPI, the interface dividers are unused for DP. Start from 1 so that
++	 * no divider is left uninitialised when its value is converted below.
++	 */
++	*dclk_out_div = 1;
++	*if_pixclk_div = 1;
++	*if_dclk_div = 1;
++
+ 	if (vop2_output_if_is_hdmi(id)) {
+ 		/*
+ 		 * K = 2: dclk_core = if_pixclk_rate > if_dclk_rate
+@@ -1648,6 +1657,9 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 	}
+ 
+ 	*dclk_core_div = dclk_rate / dclk_core_rate;
++	/* An unused dclk_out must not run faster than dclk_core */
++	if (!vop2_output_if_is_dp(id) && !vop2_output_if_is_mipi(id))
++		*dclk_out_div = *dclk_core_div;
+ 	*if_pixclk_div = ilog2(*if_pixclk_div);
+ 	*if_dclk_div = ilog2(*if_dclk_div);
+ 	*dclk_core_div = ilog2(*dclk_core_div);
 
 -- 
 2.55.0
