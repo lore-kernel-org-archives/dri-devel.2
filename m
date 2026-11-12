@@ -2,137 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFA8606DDCF
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:29:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF6F606AD66
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kK6RIKZj
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pCEFkGoh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06C6610E507;
-	Thu, 12 Nov 2026 01:29:02 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7B510E507
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 01:28:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NIJ4tTmArEZaMBnwVd98vgPbqPH8mZR2X2beXu1V42iuLKZBr9JUTaFX2R6a1NpUXn+dGU6iGdRFLB2HERa1rJ6DncG7xVSDt1rrMyaeJLB6NKzLryYnFXaPMac77ud4qnclXaSICSQv1qWS0jp0sK9kow4dBzaTRDFaYXGhLEeY8OgMEles9Li+fYO2ZYQvjxJPtTVOwxyGia59a5hONt9pmXSM3QBbQnu/gyZ5sbnCedPaY+PbXot7KU+jPVZNdWGoPA3jK2vQYmq2grLT+On9gdR7Y5VPP4WWTL9FhdGirS/qX8bVhGT7WOK8l6KtwbRqRMcw2NzQ23KkGx8/HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5QT4EvniR3uKlQ5VCj6SkbHLcRDV3VjZA1rynJzvH2E=;
- b=plI2pjgs1MD90aups4tXaZOaAeqbXoYc4+3/9eUqkqbLyGiHi09EthasKlaFudhFAus/52SUGAIwbIkinrwKwlcZGAcniTP8yJC/DABOyUhdBIZ9675BQGvI6F38FHAk9VbQd+e4/rTvL5qcHyB8otQzqkXcE8Yrz6luo2y6w862V14+0Gy2W+aoKpkV6tPJp8j44yD8++HB3gkcv52IEWvE6N+BBo7SCOg0vxEayAhQT2I3VOf2p+UyJwQKaJMzu8zTJ/VVXPJdBwv0Y13STHatSuRMP6MskXvzHSdAW1FfESKK8qAi4ojOYapS5rMS2Hjy2uPx/7e60E+9lnHbzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5QT4EvniR3uKlQ5VCj6SkbHLcRDV3VjZA1rynJzvH2E=;
- b=kK6RIKZj+ld5KLYGLSyEYZwBglXaOnuKtyq9vGSC3ixov6cIqCAd/KFtJR+/X7E0JXD1iJ0X9oFxIMROWVE/K/CFgPu0zBEZyUVL6sga165eU+0GmjoDPdztXpKIyHiuOhlWYxXrEEiRanDHgAzKH8pNDHlvqidR9ReBWs8HRQLciw8HwPsA+0UZmVGOBQLk8Z1v6o5Tqpps7DPTPJTwGum96Z7wjCgcLf/JHU3mxkIsMVZ5sP8FH4atVr1Wjvvma6tLMADFXHl1JryZDWRiR4wsVL557uZEtqgjZ7esWjyF7Kx/AJwSVRA7P+uLBz7uGW6VeViP3DM9cYN6WK2cIw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by LY0PR12MB782425.namprd12.prod.outlook.com (2603:10b6:404:22d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 01:28:53 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Thu, 12 Nov 2026
- 01:28:51 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 10:28:47 +0900
-Message-Id: <DMSUCI9KUSGF.2L3H9TW3JAY5O@nvidia.com>
-Subject: Re: [PATCH v2 1/1] rust: pci: add domain_nr() accessor
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "LKML"
- <linux-kernel@vger.kernel.org>
-References: <20261111200549.160806-1-jhubbard@nvidia.com>
- <20261111200549.160806-2-jhubbard@nvidia.com>
-In-Reply-To: <20261111200549.160806-2-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0374.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:79::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDD110E4EC;
+	Thu, 12 Nov 2026 01:32:46 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7673410E4EC;
+ Thu, 12 Nov 2026 01:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=StFp1g4ubx1WuclDmg58dMlRXvni7TqI4/w/yKHNuxg=; t=1794447160; x=2109807160; 
+ b=pCEFkGohaCJyKgy3bJZiCUrJ2Y2scXWbeWQcYZGG41snZBj2s4CsEXw7s6vUikVvRbwZ3H3/dMl
+ ucpsbYj9AHVtjpVeBVYBkVlY/WRl1pG5A7c2FdZHw29TTfn+erlgECG+v0AsiDB6WvLzfZOrte3Jy
+ 6iAYUPifDO8mKYPA9/xYfKIPU7Ho20YnrgXXawPzglBWibtpcpZjfM5gOneytA+IfLCvJ9PGpHs2F
+ cAJSi99H8ySWzHGGNG3mku50gwMM5DNIS2gwi0lOa7lqSLJgJPcKj17e/f1MQ46sJfrar/k124IjR
+ hAhCvP1JRXnF70dHKC2JaR9gX446DFFqUYig==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xRJfi-009F3i-Aj; Thu, 12 Nov 2026 02:32:14 +0100
+Message-ID: <ee8a57d3-d290-4a20-a3ca-ac8e17a7561c@Igalia.com>
+Date: Wed, 11 Nov 2026 17:32:05 -0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LY0PR12MB782425:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6955cdd-4312-4e67-f491-08df405c4e96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|23010399003|10070799003|376014|22082099003|18002099003|11063799006|56012099006|4143699003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: ESwJOoXgokRzCjShHp17//gwk8Q7nvs4W3fkGJfIMCnN2pOk04JJ8BrOrHZrYhhuq/b1Xmwa09RJHBF4qWJ/qFScSZdPvXWJ68zfhXNMLM1qQoOKyuymiQ1k3GG2ATVPFvbKRc3LYUUhqfbo2enCHXTMA6sSReGqQEQ6PcQBuWZr2IoxlWbQBEP5iZCbq+vwaTtCFmOtNzqgUhy1j1g9cn8Grunpugodq9D6uyfhQTXzJ3m7arGgg6+pGqKD9Xs1OedW4zrwH0TyVLTinWqQjgIhUSYsxJRvAKA2UMOmWczMJj3rGIaOdqY+uyCeLZl963vJTCYy+1h9Oj9QmJaUnCA9s9qYUdMeIBjWZE9E/0k+KC+krQjJI5J0QH4u38gl5A6WS8FRdvCrWUubq7h5Wj0ME897TOa9WoPmb/9YtB4SpwdWOEl1F/4yEnu6ymseiboNx1iANSiDfytow62Hi9fVsVC8cL2u+7JNs/tJsxwJPNHb5D+y8W7YepXbNvhCt/y7ozRjfHs7fp3v99OfWo55snH2/Pl8k8n6mbO7SLf1AJ+ceczH+Zk/jHArlSj7WlFsqTjon7Lr2ErznAgzkk3I9VYgDnADUnmsU6FPuGa8oyYcIFJnGoBuhnU4OGSQxOpUaO6WNZqFsJuuzi0bjFlsCellM4U0BPA8/joSGSU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(10070799003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3U3WGV6Y05mdlMvWXREazBjSlh4bUUrQnhkUGRIM0xwUDNqVjdGaUc2d3l1?=
- =?utf-8?B?VTc5a2swSGVPM1FmSE04emtDU2xYQjNhc3M4ekFmS1d3dkF4NGRhWTZFeGhu?=
- =?utf-8?B?SzF5dndCNFVGMHREZkxFOWFwdGVpUFJnSTVjUzFHRXlwdDE1S0RrZC80U1Mr?=
- =?utf-8?B?UHliLzUySTJjSmVlT0lsdmNFZGRyN1RtSXZXN1VkWDduc0N2c1JwRTlSMHpn?=
- =?utf-8?B?R2pBN1ArS09xbmJ3WkRlQ0wrRkRZRC9uLzV1NHJUTFh3djM1TjR3dkxRQWZX?=
- =?utf-8?B?a3hXK1ZxRkEvN09iMVpya0VHdlk5UldPdXlrcU5xWGl0dXBXY3NQN0FLZWE0?=
- =?utf-8?B?RHZ2bTR4MXFaWms0SnVRcm5RUk9XS3JVSUZkb3RJSUNaWVBYTW0ydGkzMGlv?=
- =?utf-8?B?alZiQi9HcU5qTnJHdlk1OG9tcktMT29JSVcvcmdRckVWNDYrWmt3TENXY2pB?=
- =?utf-8?B?MzdLaE1ONGtSQUFRMURRdWFPWXJPREcrK0lROFE5YWE5QnZBZDN4REJkL0Fj?=
- =?utf-8?B?OFVDL3hSNjUxZWl2dFBNTDlGaW5vbGM1TVpZc0hINS8zbEk2VEFoNjgyL1U2?=
- =?utf-8?B?MEpYQUJGYlZCa3ZlTXppU0FVNWJkamJwalVrOE1McXNtaE5vT01nRXVPRlZw?=
- =?utf-8?B?NGsvQWErMUxnSGVLNjRLM3VyaUZaRDd3Q2ZDd2tBZG9FY2VEUU5yZmplTFdx?=
- =?utf-8?B?RjZPWENRWHh2QUg1c3JPRXYzb01CSnRvVUtzV0I3SmFkMlpwclM4L1V4RjUv?=
- =?utf-8?B?N1lrVkY5U1J5YU1BVVEyQXllS2M1bU1xYTl3SFQvM2ROZ2EyL2ljVFROcUlC?=
- =?utf-8?B?ejcyaU4wbXNyMWxGaExienZkUTk4K2lWUUVaUnNHSlR6T1diRzFPaUptNUw4?=
- =?utf-8?B?K0V5dXlCVmtnQkYrclhoYjRKRTZzUm04VE1BY1FUSm5KWHNVRXhMUEUvNkVR?=
- =?utf-8?B?eWxPelVOYWJxSlpXdFprcW5WYjFsTjNRWGlPYUcyeU42NHc5N1FFVElYdlVR?=
- =?utf-8?B?L0JWL3RWS3Q4RVhhS3lUdHlzbm1GeldkMVhoWllpMmMyZDNPY29ySnZKTEZE?=
- =?utf-8?B?aGZsd2NQcGd1VE1jUUhEcThYYlVwcUg5dy92L3VFUFNuNmtJdkR0Y1ZaUDNw?=
- =?utf-8?B?QUpickRLdlNTN1NoSVZ4ZEdMMlA1REFnOWg4UjJENXhPR3VPa3R5YU9rcEVH?=
- =?utf-8?B?K25saEpCSjhxVEtzMEF1ZGxyelZVdGQ5TVRkaGg0WjRwajBFajVvbG5VSWlG?=
- =?utf-8?B?cHV5UmMvVmpZRVdQZXgxQUVCSU9WTE1pNjd4MkR1ZTF3Yy9xN002NU5Cbmpk?=
- =?utf-8?B?OTdFTUNPb0NRL2JQRVBxUFllajRITHE1cEZjNlRDT2tSSTh1YTBzN3lhSHRF?=
- =?utf-8?B?cTJ1czVrTVAyODZDZXBqTTJlMU1WK1F4Zkc5Tzd4bnZTRGF6R245VkhpZDVp?=
- =?utf-8?B?anhLMnphTFFJSnNZdm55UTFUQ1lacXY0QUtCM0tIWXlLVXpXMEFCNWZUdzU4?=
- =?utf-8?B?L3hCaXQxenNQL20rN0lscm9jcnVNOW9nZGk4Z1ZQUHpBRkQxSTdyS1EwdCt6?=
- =?utf-8?B?NnpqTUdMeXNDK2hLeGQ5cWtUd2MwMEk5SmhwbnNuYXU0T2NpMytHbXNOOFpT?=
- =?utf-8?B?eFAzSmljZXpPbEVmeUt3VGt0WnI0c096dEIwb2R2L2d4UmxFZm9oWGhOTmdr?=
- =?utf-8?B?Vll2TDYzTWpQRVRKNWF6QlRVMTd3enVmTXl5bjNRcmNQWnpQcXNKaDlzR0kv?=
- =?utf-8?B?K0lXRDZybHRrdGpDdHM0Z1hDb3BLWFlNV2ppRldiVTFnUWFqWkRCRDdpRFd3?=
- =?utf-8?B?dTN3bVFGMVgvUW5TMWhScFJYYW4xaHdjMHVYMFNuZTZFWVJlNkwyRUg5emRN?=
- =?utf-8?B?cGtPSTkzZ0l0cndWUi9DZ2pidE1taEQzU2lrbkZXQlFMbk0yZ29NampQSSsx?=
- =?utf-8?B?NG9ScUdtbGNKZk9peG9GS1RFYWVEUVd2eVg4NDhEOWZOTmZpOEp4YWVHV2hC?=
- =?utf-8?B?RFNxUG8xeGNISlh0MGhkRiszaS84ODFhbmhMLys0WFN4WWJZbUtxODQzc1pa?=
- =?utf-8?B?b2lneUIrZEZZdnMxQVF4STYzdzFyYXlWRjk2TCswSHcvV1M5cHRyd0NuV0VG?=
- =?utf-8?B?OEJHelJBeXQ5VjhDc05lZEpDbzZ0QmZpZk15NGpFU0lLU3FhYTQ4dG1PQWFw?=
- =?utf-8?B?U1NGNVh4Yy90dzd3UFoxMy9oR0lGYW9Db3E2ZUZvM3IyaVV5dFRSdUJjbnBT?=
- =?utf-8?B?cmdxUk4xV21QcXladDVxR2hnbmhHQ2RIOFhsekpJRDVNRUMybWhaaUZvRG51?=
- =?utf-8?B?L0p0VkNqVkRVaTBMaWtqSlBMVDdLaTQ3N2E0YmZwR3R2WDZpcWpMQUVFYi9E?=
- =?utf-8?Q?T/Qop0Df4huitKfS537LaapU0ZSssMJwYbCHe/2MRbMQ1?=
-X-MS-Exchange-AntiSpam-MessageData-1: h5tPUqJ8ombPBg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6955cdd-4312-4e67-f491-08df405c4e96
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 01:28:51.2538 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tvCWSzIUemXyQCb4/GUtwl6tsjGcICIqhZ+8IgIjj3082AANd+I1E8zN/qlG8VzbDLcJhTTLyZaKq1Jp2XvddQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB782425
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 07/10] drm: writeback: don't destroy the shared
+ writeback properties
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
+ <20261111-wb-drop-encoder-v8-7-62948ed87d13@oss.qualcomm.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20261111-wb-drop-encoder-v8-7-62948ed87d13@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,23 +74,118 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 12, 2026 at 5:05 AM JST, John Hubbard wrote:
-> The nova-core driver has to send the GPU's PCI location to the GPU's
-> firmware as one word that holds the domain, the bus and the device
-> number.
+On 11/10/26 16:42, Dmitry Baryshkov wrote:
+> The writeback properties are created once per device and attached to
+> every writeback connector. Nevertheless, a failing
+> __drm_writeback_connector_init() destroys all three of them. If an
+> earlier writeback connector has already been registered (komeda and
+> rcar-du create one per CRTC), it is left holding stale property
+> pointers. The drmm cleanup action likewise destroys them as soon as the
+> first connector goes away.
 >
-> The PCI abstraction has dev_id(), which packs the bus, the device and
-> the function into one value. It has no accessor that reports the domain.
->
-> Add an accessor for the domain number.
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> Leave the properties alone. They are on the device's property list, so
+> drm_mode_config_cleanup() destroys them together with all other
+> properties.
+This does appear to be the actual behaviour. More importantly, it is 
+also the intended behaviour according to various comments sprinkled 
+around the property creation functions.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+
+> Fixes: 2f3f4a73631b ("drm: writeback: Add missing cleanup in case of initialization failure")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/drm_writeback.c | 34 ++++++----------------------------
+>   1 file changed, 6 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index 89c36f1414ce..2f6a7b50336c 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -148,22 +148,6 @@ static int create_writeback_properties(struct drm_device *dev)
+>   	return 0;
+>   }
+>   
+> -static void delete_writeback_properties(struct drm_device *dev)
+> -{
+> -	if (dev->mode_config.writeback_pixel_formats_property) {
+> -		drm_property_destroy(dev, dev->mode_config.writeback_pixel_formats_property);
+> -		dev->mode_config.writeback_pixel_formats_property = NULL;
+> -	}
+> -	if (dev->mode_config.writeback_out_fence_ptr_property) {
+> -		drm_property_destroy(dev, dev->mode_config.writeback_out_fence_ptr_property);
+> -		dev->mode_config.writeback_out_fence_ptr_property = NULL;
+> -	}
+> -	if (dev->mode_config.writeback_fb_id_property) {
+> -		drm_property_destroy(dev, dev->mode_config.writeback_fb_id_property);
+> -		dev->mode_config.writeback_fb_id_property = NULL;
+> -	}
+> -}
+> -
+>   /**
+>    * __drm_writeback_connector_init - Initialize a writeback connector
+>    *
+> @@ -198,20 +182,18 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
+>   	int ret = create_writeback_properties(dev);
+>   
+>   	if (ret != 0)
+> -		goto failed_properties;
+> +		return ret;
+>   
+>   	connector->interlace_allowed = 0;
+>   
+>   	ret = drm_connector_attach_encoder(connector, enc);
+>   	if (ret)
+> -		goto failed_properties;
+> +		return ret;
+>   
+>   	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
+>   					formats);
+> -	if (IS_ERR(blob)) {
+> -		ret = PTR_ERR(blob);
+> -		goto failed_properties;
+> -	}
+> +	if (IS_ERR(blob))
+> +		return PTR_ERR(blob);
+>   
+>   	INIT_LIST_HEAD(&wb_connector->job_queue);
+>   	spin_lock_init(&wb_connector->job_lock);
+> @@ -234,9 +216,6 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
+>   	wb_connector->pixel_formats_blob_ptr = blob;
+>   
+>   	return 0;
+> -failed_properties:
+> -	delete_writeback_properties(dev);
+> -	return ret;
+>   }
+>   
+>   /**
+> @@ -295,8 +274,8 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
+>    * @dev: DRM device
+>    * @data: Pointer to the writeback connector to clean up
+>    *
+> - * This will decrement the reference counter of blobs and destroy properties. It
+> - * will also clean the remaining jobs in this writeback connector. Caution: This helper will not
+> + * This will decrement the reference counter of blobs. It will also clean the
+> + * remaining jobs in this writeback connector. Caution: This helper will not
+>    * clean up the attached encoder and the drm_connector.
+>    */
+>   static void drm_writeback_connector_cleanup(struct drm_device *dev,
+> @@ -306,7 +285,6 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
+>   	struct drm_writeback_job *pos, *n;
+>   	struct drm_writeback_connector *wb_connector = data;
+>   
+> -	delete_writeback_properties(dev);
+>   	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
+>   
+>   	spin_lock_irqsave(&wb_connector->job_lock, flags);
+>
+
