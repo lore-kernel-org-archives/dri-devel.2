@@ -2,102 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C70A606AB1B
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F81A606A330
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=etbSi3Ma
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kvxWfuZ8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BEC112204;
-	Thu, 12 Nov 2026 16:35:40 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6193112208
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794501332;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zidr50P/tGTG0fyue72d2UJbI2Rv5djOGtCARdBGkgo=;
- b=etbSi3MaBKlhM2H6U1bFd6byZAOcdmMUnrFPq/YTRuWRbxQgFEFw4G1zldn7iLorC2LLfy
- BIk8t3PLGvMI1XjiP82BuHFwk8qb7Di7i+lR8CD1pASAvI6x2+xnX8UAPSOmZbzCrEJbHz
- uiTS2dxAW7S42S0y4bkf9X/IoghziW0=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-523-nsZFgOuXM5ifaPwZC10OmA-1; Thu, 12 Nov 2026 11:35:29 -0500
-X-MC-Unique: nsZFgOuXM5ifaPwZC10OmA-1
-X-Mimecast-MFC-AGG-ID: nsZFgOuXM5ifaPwZC10OmA_1794501328
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-5c159755becso1604299e87.3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:35:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794501328; x=1795106128;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zidr50P/tGTG0fyue72d2UJbI2Rv5djOGtCARdBGkgo=;
- b=BxvW61++QF57uFBVkcnofm1b5Zb9JyV9eYnaM6RNgeRBmvkfhtschFIfo5OogVGu9h
- WzSuvBTXULR6ZC5hm8PtF5FNxOUSrml7ldJDOwD0it7X/nFgmKhm3RzTLgNZd/mcWKrY
- +WUaMqvSaQVoqewghrkfZ3bILDAbApLODLiubVnGAizJI5Zx8Mf8WxN/HwkOrj14c+4G
- wi685lBqO/q66bqiRjZPm/nFZx3W7tsORH+56ViSA/ibCE14TsdgodGKZGULCns4C+kd
- liAhGzPm+13ksQs34BjHqUbzfMV3g//mx9IIItkT4qRPOsPhclY4xve3OFSvc7vriHgQ
- 1LnA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFQDM9LzcJu5xZd5sN+XqwV2UuiHWC90pN+hauXmx35GhCCsP4ufx2uc11JOWJvl6WUZvCni35DOb4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+dWBumBHUKELAK1xlsiNQRDV9pxqyW/A16KETrHyZuwOWy2Doz
- JWTHGJPDlg8CoAtA8OwCeSYxA+IhOQaOZIiPPvENu04O99RFKdXjsewO5tMqtgRzECyvJBpeHPw
- CYU2u6f4Hb+bG3bXD5GCpSstP0NX3p1OX+IItYAjjE0HTzdgI0m/i10mAQQuoZ/bQ3MbyKBStq6
- YlUkk=
-X-Gm-Gg: AYBFou1WaF93HZbiV/hdIIoHNWvhRlYr3oaTAX3tUE6kxa0u/9Tlzzs89CknGVbaTR4
- q9bJP/qE/tihqbgW9R53geKWjLN5ADzit6N7foLReHyEAhgw9m7gIo2IlXbKwqP3o1/XoBge7aT
- juljyoUGreXj+owCJ0aluQge79nNohC7jRQIqhzirKGo11ceT1idKOKH3UTUTQfIlOI2wCdHbyU
- apUBZuQPKQEFHKCMAxM30XiQK1kS6yg495DxZDcgu5c3lQl0HWgLMQjwXQgiq3MWlC3q4jtp9kv
- iNgqvj/AE3n86B5WSWTeQQhyrEhTYBvvsUMtWnCm082cH8NjtVgV3ts2qa1Bp+dSIwkVhoQ/+5i
- 9NLSWt4jYqKUiQ77piESbCdMql5eROj9i6X9oxTMJqaiNVtTp/WfDcpnDCqUd8VvRx/yBHA+2kD
- OuCb8f
-X-Received: by 2002:a05:6512:402a:b0:5c1:5be5:a543 with SMTP id
- 2adb3069b0e04-5c15d5a80b2mr2335288e87.9.1794501327761; 
- Thu, 12 Nov 2026 08:35:27 -0800 (PST)
-X-Received: by 2002:a05:6512:402a:b0:5c1:5be5:a543 with SMTP id
- 2adb3069b0e04-5c15d5a80b2mr2335272e87.9.1794501327252; 
- Thu, 12 Nov 2026 08:35:27 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c157bab721sm1785202e87.40.2026.11.12.08.35.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Nov 2026 08:35:26 -0800 (PST)
-Message-ID: <968f4667-ace0-49bf-a628-845c5fd577e4@redhat.com>
-Date: Thu, 12 Nov 2026 18:35:25 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1E50112208;
+	Thu, 12 Nov 2026 16:36:01 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B99DA112202;
+ Thu, 12 Nov 2026 16:35:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZvlJDIc6ktcN83mtydjAJFUvDsnyWIizeir8gFe/Zn+8cWXS9WRvDVqXNupVPWOwnIyOermDILIYbEKB9KMnTdx3dIVlSp/Y2G2w/OqZL3FxG+Thl4LJ6qh/WnTBh4+5PqDEXbBZq7tOztpbzSVRKwP60Eye7vLgnka3eKFY1sE44Y+TaMpJVVJ7fiiIrrQ9PSQ+z/CtGFTjV61ETQhdxx8+5Ah/FA39mvAIZnlTQXWlUUjyTFSB9GQ3qHdYHe5Up7+7xzrkOHZIjV1/5jGBwHlb15W2rStHd1DegXxxVeGXDxe6nvPyElCo2pIpXeZ1Az8rK0NRK0BZzcRql5Htag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Iy2PXKc7wsKYwSfhbulpZ/s9r6VqPchQyWGYNxMvSgw=;
+ b=iV9Uk+/iKPnqN7El8KcvFF+yZuSD/IOkJNbYofCQBIQnCgvvg88gJ/p/yNfJ3svsmBjQD/PzWXQcOqeS2Y85DvAIzlJDP2asaToVspPka8RAq7I3YDTSCWbc7i/5TxB1Z8U4cvf3U7IlpnRqYbQpdDsr3j8SODAucnwM6WJ9vRU7DVxdyZJLBm2Qdy5tBQ1egOLWLKbqhlcgfMOdHpr53nQ2YF8pysdH8Ac2x3VB4oTB0zeB8GsIqZDuMknowEurCFSaN8TShtzZSYONSTXeyuaQDfv0tzEeiZm6u0LF6MuepNWophZStLlj6ZDRSe1TggHPzMZNnwOGLouR9jqpsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iy2PXKc7wsKYwSfhbulpZ/s9r6VqPchQyWGYNxMvSgw=;
+ b=kvxWfuZ8OnynxHu7tfyu4NonwN8gBjouOwM5gjxU5oM2whSXqcUFSOGfn329G6PdW7sGvTYkNOEhIsLCfum+GD3LjJX2geGSYqlz9+BZmjmeagupjAWnhe7lcOKHOKgRXYWGEW4IthxEnKFdB8KLxaZBRDJupZ9jz90DfR0LQCY=
+Received: from CY8PR10CA0004.namprd10.prod.outlook.com (2603:10b6:930:4f::25)
+ by PH7PR12MB5807.namprd12.prod.outlook.com (2603:10b6:510:1d3::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 16:35:50 +0000
+Received: from DS4PEPF000001C4.namprd21.prod.outlook.com
+ (2603:10b6:930:4f:cafe::6f) by CY8PR10CA0004.outlook.office365.com
+ (2603:10b6:930:4f::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 16:35:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS4PEPF000001C4.mail.protection.outlook.com (10.167.23.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.0 via Frontend Transport; Thu, 12 Nov 2026 16:35:48 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 10:35:47 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 10:35:47 -0600
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 10:35:46 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.4
+Date: Thu, 12 Nov 2026 11:35:39 -0500
+Message-ID: <20261112163539.1265175-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-To: Alexandru Elisei <alexandru.elisei@arm.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
- <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
- <avXoJSGh5xjGFgod@raptor>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <avXoJSGh5xjGFgod@raptor>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -DLxHyBLEno-7WkEs0eDyrAiYPJWne3H7lzvEtAKv2Y_1794501328
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PEPF000001C4:EE_|PH7PR12MB5807:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78e103bb-53ab-45a4-691e-08df40db01f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|6133799003|261009223027099003|10067099003|261021123027099003|261022105027099003|261021121427099003|261026140227099003|261028144727099003|261022075727099003|261026121527099003|261102123227099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 2yBG9EPXtTAUsZzT80RXiKAonql/9cmrYkybo444TRlTlvFs8dOhqamjqUoXq8Qt++yVUIq3IXNZscYV2ZRCMe2tGRF1PChPcKpfyCEqHgR4Mob6CKlrgwENbt68hFLKt0Iw3UfAfJfQa7vE6F4V9D5JSPg5kgWBnDuvDkxP/aUw0y4PFxIyc4KaYFY9xU08ud2Xda3/JJhtkhIYEra1JC31Oc/WX2PUNlWD0CbUX+8x2oXzBL3ObOft4J22I4uCIZJr5xx20tBezzWI7+a7nkp9jtaWHdxrlCDHWGpQCXUJhk19HXu39aodAMzrrgXGTJd8WUADZuknMFWfVHsj5FVYj3yC4NpE9sf6SxIHlsHCAxNEbKoNaBQJONQsBBcxe1Jdu2QwbOauWbJn13PYRCZdFbR9BQyE27+pxEoPOkSQW6lgeDhyth9oIDL853D9IyLLprVvNkhhLNbcZxvHl+k378L9kZ0Dbkai051aZDwfE5bBvs16VFuWv8UkcW8hTfH3AVKR3KIS38FDcVBVdTM4bpOayCp3T6vCul1tLNmuJBwoXnixK16g6vT2j8BrzT1JCNpmbcZwqVPi0ya/vvag91dPyo4NWh/hxhNvfWpn3NE9zxvyucBwyDdmyM1ZUw36WlEKiLiHswpg9In7hA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(261009223027099003)(10067099003)(261021123027099003)(261022105027099003)(261021121427099003)(261026140227099003)(261028144727099003)(261022075727099003)(261026121527099003)(261102123227099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +EEH/34o5asl9jVoR+84Pdh+SfCyxDA0y8bnil7Flxx06UXGDr545RoxfeBedgA6UccR2jYGDdjZDwnKnpxA8hg03ykIsUB8UYq+5wV7Oim3PwQOaEURGH8Pu8/EDJhEst161g1hzq9jP3rnuOVEYCpYhk5xezTbFo48KGxaxQo3chXiUIP7O1zFPFIVtRyQpXPYe0eBFZReh6T/eEM+jnOKKumLKWJr1/NNniGHLFjciqWJVXrHshlBdA+WoKbDkpLy15bGS5LvYKcAlpPXwWOn1DFPkmMWSaYNuJMSjPcfaTckMZyIulpGzzAYWih9IKIjDfk/GzVSS2NfbGUxA1l+y86uoAmV9DMoFAZR+JK7G7BS3RXlxeKv2IeEl11lXUnh39mBrZimn4S/iuyHBVCjgD/l5c+A4jJ648Z+sKPHHIoSKDTUa8r2NNnYY9Pu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:35:48.4089 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78e103bb-53ab-45a4-691e-08df40db01f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS4PEPF000001C4.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5807
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,48 +108,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Dave, Simona,
 
-On 11/12/26 18:24, Alexandru Elisei wrote:
-> Hi Mika,
->
-> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
->> Hi Alexandru!
->>
->> On 11/12/26 13:56, Alexandru Elisei wrote:
->>> Hi Mika,
->>>
->>> I want to help getting this series merged, and I've been familiarizing myself
->>> with hmm and device migration, please bare with me if the questions I'm asking
->>> are obvious or downright silly.
->> Thanks for the interest and willing to help! I am preparing a v18 of the
->> series and plan to post it early next week.
-> The series is big, and as far as I can tell the MM people are hard at work
-> reviewing bug fixes. It might be better to wait a while, to give people a
-> chance to have a look? I know that if I see a series being reposted often,
-> I am less inclined to review the patches since probably a new iteration
-> will be posted soon. But I can only speak for myself, you know best.
-True, my motivation for quickish repost is to address sashiko concerns,
-and after that give time to reviewers.
->
->> I try to answer your questions, there are quite a bunch of them!
-> Thanks for your replies, it's going to take me a while to digest them.
-> Despite the silence, I'm working on it!
-Appreciate it!
->
-> Thanks,
+Fixes for 7.4.
 
+The following changes since commit 7475ea8b58616b33c04afb976cf0fbaad9dd63fb:
 
-Thanks,
---Mika
+  Linux 7.4-rc2 (2026-11-08 16:22:20 -0800)
 
+are available in the Git repository at:
 
-> Alex
->
+  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-fixes-7.4-2026-11-12
 
+for you to fetch changes up to 566ed98e48be75a76eea34745815a51ba36687a8:
+
+  drm/amdgpu: fix TLB invalidation fence handling v4 (2026-11-11 15:56:58 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.4-2026-11-12:
+
+amdgpu:
+- DCN 6 DML2 fix
+- VCE fixes
+- GC 11.0.2 fix
+- SMU 15 fix
+- Error handling fixes
+- Partition fix
+- IMU firmware clean up fix
+- TLB fence handling fix
+
+amdkfd:
+- SVM fixes
+- CRIU fixes
+
+----------------------------------------------------------------
+Andrei Krautsou (1):
+      drm/amdgpu: enable MGCG/FGCG/PERF_CLK for GC 11.0.2
+
+Apurv Mishra (1):
+      drm/amdkfd: Don't reuse a VRAM page that is still referenced
+
+Christian König (1):
+      drm/amdgpu: fix TLB invalidation fence handling v4
+
+David Francis (2):
+      drm/amdkfd: Acquire buffers in CRIU queue restore (again)
+      drm/amdkfd: Acquire cwsr buffer during CRIU resume
+
+David Rosca (1):
+      drm/amdgpu: Fix VCE buffer size check for DPB and input surface
+
+Ivan Lipski (1):
+      drm/amd/display: Fix __udivdi3 link error in DCN6 DML2
+
+Jesse Zhang (3):
+      drm/amdkfd: skip GPUs without a VM when checkpointing the BO mappings
+      drm/amdgpu: fix the error handling of amdgpu_vm_init_entities()
+      drm/amdgpu: release the IMU firmware with the other GFX microcode
+
+Kanala Ramalingeswara Reddy (1):
+      drm/amdgpu: use supported SMU clock messages on SMU 15.0.0
+
+Lijo Lazar (1):
+      drm/amdgpu: Allow cancelling a requested NPS mode
+
+Perry Yuan (1):
+      drm/amdkfd: check CRIU SVM priv data bounds before allocating
+
+Timur Kristóf (1):
+      drm/amdgpu/vce1: Fix checking whether VCE1 is idle
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 32 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            | 52 ++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |  4 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 33 +++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 49 ++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             | 13 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c   | 22 ++++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              | 13 ++++++
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |  3 ++
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c              | 25 ++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 10 +++--
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           | 20 ++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  7 ++-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 44 +++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             | 17 ++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  7 ++-
+ .../inc/bounding_boxes/utm_qos_model_dchub_v2.h    | 32 ++++++-------
+ .../inc/bounding_boxes/utm_qos_model_dchub_v3.h    |  2 +-
+ .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |  2 -
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |  2 +-
+ 23 files changed, 273 insertions(+), 119 deletions(-)
