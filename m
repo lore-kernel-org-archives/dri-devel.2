@@ -2,126 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA081606A327
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E176F606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 13:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=c4oBYiRq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOZ41S3C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9FEB10E605;
-	Thu, 12 Nov 2026 13:12:28 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010008.outbound.protection.outlook.com [52.101.201.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68A6B10E605
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 13:12:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K7vnzo83exPKmKbAyxuhK3XkgBd5PR72bTa0ubae7qsqxwD9cng2f+F9cUEXLYDXSCVSaq7aw/zlwPUpkZxBpIPWwE3rfAGVQlZU9X4epVhGM+lYBsx8DnBds5EUjYmlfFVIUmCVU3tXkbOHBqcAfAu3gx4w43oUSLssl0gcTpYvvCwPSsMhrk3B4uh0wyQefwWZ1w7LeHOAnbRHvR5k4PWbHVsMaR+QJYYZelbXtNtBIIwZkCJ9QlFHcp5Mz/xD5euoYcTSg1ICYzKCis9lyWXQ/52u0hweOVCYYdd8YrsQFKCaIw8XQ5mEA/Z+LdINnpRZgj2SAgZcfYQDXtwvnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gIPKa+rnVbXWfXcagFPPXqR1Z+z/g+/v8fb/mOBzu+s=;
- b=KWers/eO/EWmbJlKQWXFI//JWS4Vts36L7ORkARXtfc3mJYHg4eG8cG9ywXm8/0kyYQKzntcgOTkXoAztDFwvfXe7IcRbhzLSczktcX31OB3I9FZyYaiJyym8OeMrxhAL/IxhRDGMZf3N+aSgdk/SRzgLIeKIH3UaxldHPYhg+LLa06w+KBvPkNJVRkMZucOujvGc5/tN8UDHTKBQurs38/6nrWOT2tIzFBhXAhSRN4jCh/iUpeU0ZAK8ijvR1JBE+jmBc8iWgHX78g4Apcfkakw9vvIXkbk2dWWwOsGw18yDVmS37bO3l3d05sq+aj1IC/Dbfvl+N2wtxGJR438/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gIPKa+rnVbXWfXcagFPPXqR1Z+z/g+/v8fb/mOBzu+s=;
- b=c4oBYiRqINfEpfCn+vLCISFr2Tq2SlTWiflkJ6aVN8OriVGeTHWuJ8T4Cp/HSs02buszsbd0zwcJyTU+oXeHlU33zoJy1DnP85E119ImLXy2qt1t2WEZNYcbJo3mo2obdD4uB95X8rjrn5BQLxOMDoV9EGp4hqEmjaXEL8P7Rg8rLqbciUgDZ0hxV6FeV2OD7yRwfPZBkKZMoJpUtPgeUfxMekRpxqdvOpqAoqoXGI+yNTYTbWCioWycKYEZMWHtpRK1wusKkzDwYe862hZurxGE6nzAOqW4GxvEAIjUdLeJeBEMcNFl6LNIv30pK8GhJUklOzcH2b/kxkC9dVy7QA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CYYPR12MB8869.namprd12.prod.outlook.com (2603:10b6:930:bf::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 13:12:18 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Thu, 12 Nov 2026
- 13:12:11 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Eliot Courtney <ecourtney@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261112-msgq-64-pages-v2-0-bc1e6f7301ca@nvidia.com>
-References: <20261112-msgq-64-pages-v2-0-bc1e6f7301ca@nvidia.com>
-Subject: Re: [PATCH v2 0/2] gpu: nova-core: gsp: fix misc cmdq issues
-Message-Id: <179448889802.1805213.17351857583595993113.b4-ty@b4>
-Date: Thu, 12 Nov 2026 22:08:18 +0900
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4P301CA0039.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2be::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CYYPR12MB8869:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2809ed9c-fc2f-4d19-d6ad-08df40be9008
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|366016|376014|23010399003|22082099003|18002099003|261009223027099003|11063799006|56012099006|260925021911599003|260925021311599003|260925022911599003|10067099003;
-X-Microsoft-Antispam-Message-Info: 8BShU/IILnegkkJy7DcuA4Wc/Wf/6EgfetGXgQgfdypekajS7Va5oWupA6dpVrOBP8Mfek/UVCpbJfdfRKM41wdR6oRLGqLWsWcHmUr/tAfcoz7woZAHzBmhfA7tep99GA4udywnyD0/HIhjA36suRxK2vuUjtWnm3r2ualxopuP4Av1wFmmq9vOjzdW7ts926zqb6eiK+XgOJ7T9FD7I/Dtnc4WZkTgb9J/jAdfEXDbw0zbU3SN4pHfa1oaDKhGuDslqhGrI6Fk7wh1qudSfrAmZiF9Nhj3jhTQN5MTrGDzF7EhK5qfxBAwScqi7ruVcRRJfe2oWFaidVoruZXULX8KOeaeeqwIAxYZd8D4VFbr9s2MVRodU8snQIF6OgxgInLMYrWLU7+oDL/HFpRkyLPnPJ691yWqR/I9dqAIf98YPXFj+K532tkGWwGqVI5kT2rB0WG2LNoMNlh/KjQPGXkdvapgjKzPkFGMgnBDWuiSxC8tWk+GHlB4YzjlTOfH/rYaY66cE8tW9ppeEIKYNEDe67DukhA0qrdcRtZuoEcYHs4VvkGBwBYnh1bhsbp0JrJ2gRCLuZKgH1ck/LsDdRMxogGUvq8fw3riTZ9kkftM0ZUF+xOSS/Zpn3+EM/FaEo7hVNcP23pmO1iwSSoQSlF1wQApiD5mvZZK7rZCd1Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(23010399003)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YS9IU3BmSnZ4eFhack9vK3ZRdTRVY1ZUVXZldUJaSGZBd0YyTjRxL0FrZ243?=
- =?utf-8?B?MUhZaVVQS2ZyL2swQjRiWmNqTk9pZkR5M3YzcnpiQnl5akZHRGVIL04ySi9p?=
- =?utf-8?B?ZTVmUEx5RU5xRGRNZ3VIOTYreXp1bCtWN1RMNHRaZzN4Q2pNOUJKaE9XdVZO?=
- =?utf-8?B?TnkxNDZYNDl2c1laSnZ4bE1ycEcwbU9BZEhKSmUyWEF6citDaDBUV3NXSDBL?=
- =?utf-8?B?ekxyQ2p5ekJJZlRpQzJKUTZjVHR4empGSURZSkxYS0RwNFBFaU9JR2RPU3BZ?=
- =?utf-8?B?Um9hYzZyc1ZUbkIwVmh6R0pOZWFmZGdqc2ZpVHZONVJWeFg2M1JTdzZ4OGlL?=
- =?utf-8?B?bXR2S2tyaVdjcUt4UDFUaGJZSVFVS05VVEkxTVk1VVdyLzRuaHlxZHBHR1Ja?=
- =?utf-8?B?SktnV1dySjdwcllGR29KTnAvRzIzajFNOVBwbEVhWS9MQjlUV3VxRnlIL0Zp?=
- =?utf-8?B?MXNmRUFieEdTYWhKcDFyelhhU3ZmcFRDTnJFZGdIWkc3eXVCQ1VhSm9ydTVD?=
- =?utf-8?B?MkkrdzhsKzhRM2FMMys1QWVUWjF6QVlVL3hISURsaDB4UndtVnl1WHdBVGV6?=
- =?utf-8?B?QmdhZ3FiTXhEbnRwZmdKWlpkdUxPSk5mNmIwSzI5L3g5ckJVN1J2R3dYL2Za?=
- =?utf-8?B?cThIQjZmWWxmMC9SQzcwMGY0MytEeGVRTFhWeWFIRklJaXY4c3NCZ2ZLdmQr?=
- =?utf-8?B?NlEwd2REbzNxK0VscFBKNGt3SWpoWGxpTERRTTQyK0s2YUZJeThBRHdLN1JK?=
- =?utf-8?B?Wldub1BoVlRyTktkTTlLQVI0SGk3TGp6WHRGQ2VpMGo1cWEyeHpWSWNJSG1H?=
- =?utf-8?B?VVc1c2xQSXIzUWlEcFV4RCttbHJ1ZlNKVHhmWldxcFdWQjNPcEJ1ZXNwYStp?=
- =?utf-8?B?RU91S0ErWjZWbHlnMUtWeEVBd2pBRmhFVDhMWlU0UXkyOWh1OHhicmZpL3Bk?=
- =?utf-8?B?M1dON2xzSDhtSFZsdHkraytON2I4bE8zNnZrb2tKTHpmK2FNOFIrMEppY0d5?=
- =?utf-8?B?MERQV0ZsRTJuWHhraFQ1a1E4ZlE5OUdmbUViMEIwRDBPdk45YnQvT1JhNW9H?=
- =?utf-8?B?UTRKOHRxaVdvMWMwQmJCL3p2T0xYaG56V3JVY0Qxa0haZmZnVWQ3VjhUQlBR?=
- =?utf-8?B?azB6b1FaVjJZUU5kR050elRoc3ZJNU16YkM0ZkJHWVF4RzhKYVk0TmIvYXVa?=
- =?utf-8?B?K0FuRG9Nd2Z5QlJvWWdrTkcrK01hQ3ZPdlM4YzgxbHV2YTdZZWZkT0l2Kzlu?=
- =?utf-8?B?dzNYdjFjRVNqVVVsYlBMVkdWQ1FZSU11WHR0OS9yNWpCYnZrTVNFRTl1cjE3?=
- =?utf-8?B?R3crNE9LYjFmRCtETlc2M2N5ZE5Jc3IwMHl5NWpvRlhRbXpZdTlPaHZLeW9D?=
- =?utf-8?B?SVFCUVNpbm9iUmpBNUVERHpScW5lQzB2d2pybGVlUXRHNStPMG8rNkNSN1ZB?=
- =?utf-8?B?QVNQazFFc00xbU9kWWpLdVF0cTN1NUxsK2JGQ0p1MExmOFdrQUU3bHdiUkxm?=
- =?utf-8?B?NWYwWGMyTngzMkc1aE5iK2t0dk1KdEVIVGhYZkJUOU1QQ0xZT21oVkx4aEZ1?=
- =?utf-8?B?Skd1dlhIcU9XdTJmMjJBdEtnY3VxUXRGUGxzWnBoWVFFOTdKQllOQzJNNVFm?=
- =?utf-8?B?Q2hVcDU5QmExd1RuZEh2d3NyclFZUHVNbFgwTjIyRTFtbVFhMXJOK0VoLzNY?=
- =?utf-8?B?VEJoOGUyVUNKZW9LTVc4cnB1YzU3cFR6N3dRTEFESnBIaUZMZnAvYkxLMmhq?=
- =?utf-8?B?K2tzNWVKRWFEczA0c2l2cTVqcWJDSXJ1Q1BhcEl4R2Y2S0tkYi9NQSszVzZs?=
- =?utf-8?B?R2RGZFY4aDR5UDI5L25GWE14SVFFTmM5TU9BL2MzZWdVeE4vTGthczB4RklH?=
- =?utf-8?B?RjFsOVBDTk5RVDdmK3dENEhqb21vR3NDYkFpd0t6QmlPNWlTaDIxVTdsbmpq?=
- =?utf-8?B?UjJGdXpjaG9Xc2ovWFhNQ3hOMUFMMzFXM2FjajE4VGl4MnczR1BXS0V0RHJq?=
- =?utf-8?B?TjFKNVdBQmJLTUd6bStSU2JjYkRSVGptL2FWM2ZCWWNJRk1oUlQ3UGlKcXpT?=
- =?utf-8?B?RWlqQ05VK3IwSFo1Q0s0eHJXaFNRbUFvZDVJTGI1V2x0SFJFWGY4RkNoZElD?=
- =?utf-8?B?TXRoUy9JcUFlZVpwTmE2SSs5Y1BucWFjTENQWlExaHB1eTgyR1gydjNkMFly?=
- =?utf-8?B?QWs0SWdLUHNOWUY4K0JSeGtNYzdFZmdkcDU0RG40ZGcwZGpuQ0VJbldKTWht?=
- =?utf-8?B?cXZBZjl1TFJhY2RCVXROU1hyRDdYNUZXZTB6V3kyc25TTWtnS0FEUzBCUmlx?=
- =?utf-8?B?TWlRTjRsYmNydUdBS251WDBHYVlSRXBCVEg2cytvdy9qOWlYZWhKUkJETGNp?=
- =?utf-8?Q?m33/bWO1GwrkGrjRtP6JwueE/BtEzRR6A/dFY6yABHSUN?=
-X-MS-Exchange-AntiSpam-MessageData-1: OAweDB2Sq4ko+w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2809ed9c-fc2f-4d19-d6ad-08df40be9008
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 13:12:11.6296 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9JiBtA63RzV5xRa92UlCswfu6/I3lo5/Kk7MXMteQwIjDHlyRlClb/K//DR214JIyW3jBrABbN+AzhhGX96n+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8869
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CF310E09C;
+	Thu, 12 Nov 2026 13:17:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 209BF11211D
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 13:17:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A62D2470BB;
+ Thu, 12 Nov 2026 13:17:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5641F00A05;
+ Thu, 12 Nov 2026 13:17:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794489425;
+ bh=ozFLT3NuimNqyGCMesmqkyiRpMwm4IvI5DwhpyOVBPM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XOZ41S3CvKgQ/1n8os/lqLku/MOROTPOctM98X4l2U4sU7ICUJr3fBqndihsR/C3C
+ zFgcAQH8n+6jJdR1eEEBAjQeHAwJB25yg3yXJtmm+wZnMR8D8DWRAfFX84VXRUZwlT
+ SHbl6T4rv3uN+1kV1xJ0/LvJYDiTWQ1yEt6jQ1zIDOSw2tVnYFsCj8wIMPGjxPzLTX
+ jMP39uI0XKm6I+aH7yo4U4NGQPWUBWFcNot0Uz21Q/QUF+V+9FSYdkObjcOA5ZN5Wu
+ /7eLit9v2QqqOx4tyMHo6rso8FHr90nEq58hCpZTf5afk+Z6KCnyiAiVqKFTqZHnza
+ l4f9AwZQxRehg==
+Message-ID: <sashiko-outbox-211159@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/vc4: Complete async page flips from an ordered
+ workqueue
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112-vc4-async-flip-fixes-v1-2-42449a703840@igalia.com>
+References: <20261112-vc4-async-flip-fixes-v1-0-42449a703840@igalia.com>
+ <20261112-vc4-async-flip-fixes-v1-2-42449a703840@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 13:17:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,22 +49,195 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, 12 Nov 2026 15:14:52 +0900, Eliot Courtney wrote:
-> Fix two cmdq issues.
-> 
-> This is based on drm-rust-next.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/vc4: inline flip in vc4_async_set_fence_cb() overtakes
+  pending flips
+- [Medium] drm/vc4: NULL data->name and inverted drmm order in
+  __vc4_crtc_init()
+--
 
-Applied to drm-rust-next, thanks!
+commit 350614eb18304f31f6b7fcd5f4826c9bda20f32b
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-[1/2] gpu: nova-core: gsp: cmdq: wrap the sequence number on overflow
-      commit: 75c25f42536d91fcabd6042dd8872400601f4f7c
-[2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES to 64
-      commit: 0ff9e5b9ff6736c37593cd7db89f4593ec4f8e86
+drm/vc4: Complete async page flips from an ordered workqueue
+
+This commit defers async page flip completion from the dma_fence callback to
+a per-CRTC ordered workqueue so that sleeping operations do not run in
+atomic context.
+
+> diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crt=
+c.c
+> index c558b527c7e60..623b636a03652 100644
+> --- a/drivers/gpu/drm/vc4/vc4_crtc.c
+> +++ b/drivers/gpu/drm/vc4/vc4_crtc.c
+> @@ -884,15 +884,18 @@ struct vc4_async_flip_state {
+>  	struct drm_framebuffer *fb;
+>  	struct drm_framebuffer *old_fb;
+>  	struct drm_pending_vblank_event *event;
+> +	struct dma_fence *fence;
+>  	struct dma_fence_cb cb;
+> +	struct work_struct work;
+>  };
+> =20
+> -/* Called when the V3D execution for the BO being flipped to is done, so=
+ that
+> - * we can actually update the plane's address to point to it.
+> +/* Executed when the V3D execution for the BO being flipped to is done, =
+so
+> + * that we can actually update the plane's address to point to it.
+>   */
+> -static void
+> -vc4_async_page_flip_complete(struct vc4_async_flip_state *flip_state)
+> +static void vc4_async_page_flip_work(struct work_struct *work)
+>  {
+> +	struct vc4_async_flip_state *flip_state =3D
+> +		container_of(work, struct vc4_async_flip_state, work);
+>  	struct drm_crtc *crtc =3D flip_state->crtc;
+>  	struct drm_device *dev =3D crtc->dev;
+>  	struct vc4_dev *vc4 =3D to_vc4_dev(dev);
+> @@ -930,17 +933,19 @@ vc4_async_page_flip_complete(struct vc4_async_flip_=
+state *flip_state)
+>  		drm_framebuffer_put(flip_state->old_fb);
+>  	}
+> =20
+> +	dma_fence_put(flip_state->fence);
+>  	kfree(flip_state);
+>  }
+> =20
+> -static void vc4_async_page_flip_fence_complete(struct dma_fence *fence,
+> -					       struct dma_fence_cb *cb)
+> +static void vc4_async_page_flip_fence_cb(struct dma_fence *fence,
+> +					 struct dma_fence_cb *cb)
+>  {
+>  	struct vc4_async_flip_state *flip_state =3D
+>  		container_of(cb, struct vc4_async_flip_state, cb);
+> +	struct vc4_crtc *vc4_crtc =3D to_vc4_crtc(flip_state->crtc);
+> =20
+> -	vc4_async_page_flip_complete(flip_state);
+> -	dma_fence_put(fence);
+> +	/* Completing the flip may sleep, so defer it to a worker. */
+> +	queue_work(vc4_crtc->async_flip_wq, &flip_state->work);
+>  }
+> =20
+>  static int vc4_async_set_fence_cb(struct drm_device *dev,
+> @@ -948,23 +953,26 @@ static int vc4_async_set_fence_cb(struct drm_device=
+ *dev,
+>  {
+>  	struct drm_framebuffer *fb =3D flip_state->fb;
+>  	struct drm_gem_dma_object *dma_bo =3D drm_fb_dma_get_gem_obj(fb, 0);
+> -	struct dma_fence *fence;
+> +	struct vc4_crtc *vc4_crtc =3D to_vc4_crtc(flip_state->crtc);
+>  	int ret;
+> =20
+> -	ret =3D dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ, =
+&fence);
+> +	INIT_WORK(&flip_state->work, vc4_async_page_flip_work);
+> +
+> +	ret =3D dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ,
+> +				     &flip_state->fence);
+>  	if (ret)
+>  		return ret;
+> =20
+> -	/* If there's no fence, complete the page flip immediately */
+> -	if (!fence) {
+> -		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
+> +	if (flip_state->fence &&
+> +	    !dma_fence_add_callback(flip_state->fence, &flip_state->cb,
+> +				    vc4_async_page_flip_fence_cb))
+>  		return 0;
+> -	}
+> =20
+> -	/* If the fence has already been completed, complete the page flip */
+> -	if (dma_fence_add_callback(fence, &flip_state->cb,
+> -				   vc4_async_page_flip_fence_complete))
+> -		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
+> +	/* No fence or the fence has already signaled. Complete the flip
+> +	 * immediately, after earlier queued flips.
+> +	 */
+> +	flush_workqueue(vc4_crtc->async_flip_wq);
+> +	vc4_async_page_flip_work(&flip_state->work);
+
+[Severity: High]
+Can an inline flip in vc4_async_set_fence_cb() overtake or race with an
+earlier flip whose fence has not yet queued its work item?
+
+flush_workqueue() only waits for work items already on async_flip_wq.  If
+flip 1 (to fb1) is still waiting on an unsignaled fence when flip 2 (to fb2,
+with no fence or an already-signaled fence) runs, flip 2 completes inline
+first:
+
+CPU0 (ioctl)                              CPU1 (kworker)
+vc4_async_page_flip_common() [flip 1, fb1]
+  plane->state->fb =3D fb1
+  dma_fence_add_callback(fence1, ...)
+
+vc4_async_page_flip_common() [flip 2, fb2]
+  flip2->old_fb =3D fb1
+  plane->state->fb =3D fb2
+  flush_workqueue(async_flip_wq)
+  vc4_async_page_flip_work(flip2)
+    vc4_plane_async_set_fb(plane, fb2)
+    vc4_bo_dec_usecnt(fb1)
+    drm_framebuffer_put(fb1)
+                                          <fence1 signals, queues work>
+                                          vc4_async_page_flip_work(flip1)
+                                            vc4_plane_async_set_fb(plane, f=
+b1)
+                                            drm_framebuffer_put(fb1)
+                                              <-- HVS scans out unreference=
+d fb1
+
+If fence1 signals around the time of flip 2, both vc4_async_page_flip_work()
+calls can also run concurrently and race in vc4_plane_async_set_fb() on
+vc4_state->dlist and vc4_state->hw_dlist without locking.  When flip 1
+finishes after flip 2, it overwrites the display list with the older fb1 and
+drops flip 1's reference to fb1 after flip 2 already dropped fb1's old_fb
+reference and BO usecnt, leaving the HVS scanning out a framebuffer whose
+references and usecnt have been released.
+
+[ ... ]
+
+> @@ -1387,7 +1395,13 @@ int __vc4_crtc_init(struct drm_device *drm,
+>  	vc4_crtc->data =3D data;
+>  	vc4_crtc->pdev =3D pdev;
+>  	vc4_crtc->feeds_txp =3D feeds_txp;
+> +	vc4_crtc->async_flip_wq =3D drmm_alloc_ordered_workqueue(drm, "%s-async=
+-flip",
+> +							       0, data->name);
+> +	if (IS_ERR(vc4_crtc->async_flip_wq))
+> +		return PTR_ERR(vc4_crtc->async_flip_wq);
+> +
+>  	spin_lock_init(&vc4_crtc->irq_lock);
+> +
+>  	ret =3D drmm_crtc_init_with_planes(drm, crtc, primary_plane, NULL,
+>  					 crtc_funcs, data->name);
+
+[Severity: Medium]
+Does allocating async_flip_wq before drmm_crtc_init_with_planes() pass a
+NULL data->name on BCM2712 and invert the drmm teardown order?
+
+bcm2712_pv0_data and bcm2712_pv1_data leave .base.name as NULL and rely on
+drmm_crtc_init_with_planes() to assign a default crtc->name, so data->name
+formats the workqueue name as "(null)-async-flip" on Raspberry Pi 5.
+
+In addition, drmm actions run in reverse registration order, so
+drmm_crtc_init_with_planes_cleanup() calls drm_crtc_cleanup() and zeroes
+*crtc (including crtc->dev and crtc->primary) before
+__drmm_workqueue_release() drains and destroys async_flip_wq.  Allocating
+the workqueue after drmm_crtc_init_with_planes() using crtc->name avoids
+both issues.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vc4-async-=
+flip-fixes-v1-0-42449a703840@igalia.com?part=3D2
