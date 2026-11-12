@@ -2,99 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AFC606A32A
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 18:58:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938F1606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 19:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=NrXZMPPA
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RrQyEIhv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 437B810E658;
-	Thu, 12 Nov 2026 18:58:24 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33E8D1122C8
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 18:58:18 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c4322d310e7so14729666b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 10:58:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0AF610E645;
+	Thu, 12 Nov 2026 19:17:04 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332B410E656
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 19:16:58 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4a2d6d01ecbso1124355e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 11:16:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1794509896; x=1795114696;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Z0LqVPtG90eWIMD2SZHKU3bFXknR8F28KDHs5gdoi8g=;
- b=NrXZMPPAhe7v9DeFD4Kmip1RKE8xokZiC4eHRigozK0J/diY1qz+EpZ5gXcpu8fbfL
- e6igaHZy3VF1e2ThFT7oes13kHuNRl74pzQBlPQ1sYElKoi6smR7u9YMMBKBuchAsaqS
- uYpcBRrKg+Mm3AcGgGfFmL6l1uTYoiRCZ/Psg=
+ d=gmail.com; s=20260707; t=1794511016; x=1795115816; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QifT63FLPlBaRBfMwdlPD9GRxtpIvQpF5WAaBnQtQ4E=;
+ b=RrQyEIhvUfqJaWHE0lKO9XZiAmDou8MdssKv7hGXfmXybSztqoIpIVg5lkoyeoyGHC
+ 11sZwxhoiMvgcRX1VCBFpchIBeZxCz8BrgGhEqnmlSIUewMDvsyO1+j5BsL/HNQJnNBg
+ PPFtWDh2iBO2ExJNj8b0AvOsg04YI7xowBN+C7qbQIZb1GLwMsqJc/elreA2ZUV5rQ+E
+ aV8SPOJCkyZzDnoeD5FgEePI2No/+yeiUmwLQh+rextmnxzfBniCbiz2lvoO7Whn2g8f
+ X0Ka5iWlx3o1lTqt4lfDeVHOzAjFscpO11j7Dm05kTPAGJRYNOn+xVBS0y3ND7/XK98K
+ pPAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794509896; x=1795114696;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Z0LqVPtG90eWIMD2SZHKU3bFXknR8F28KDHs5gdoi8g=;
- b=CDQEX0avi3u6xdsqNf2Va7bGXE1mGEdo8QJe21jAaFSArl3CGwdT3LMOgKRfJVMT6F
- VXdN4TEMKXBGn1zYRNtIEQbM0yP/mtvxZAccJjgQE6szPtUA0FPW0tIwiQYBztR5Qpmp
- yzqh/93S++7YeUFFL6P0yseWlEcuhjvXWzZ2FdKup9/5FFhndLPRq/hrneuHX8BdHHIn
- EZa13iqLj6ZNvL2OKQ4bVfhZpDQDo1bDjYWr5u3g7oX9tG3bMtbb5+zDbsqi/MLUGCOe
- x5vtsNShOodAZcG3Qln6oRvgThZWByGFOUNLcPxGEtlc6NSf4lyaJEkTnGb7oU4V1f/2
- k5Yw==
+ d=1e100.net; s=20260707; t=1794511016; x=1795115816;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QifT63FLPlBaRBfMwdlPD9GRxtpIvQpF5WAaBnQtQ4E=;
+ b=jm6OLbmlCscQH2p4zpF18+8xDPPMbTcbZONe/U6FVbMARhzy64mlHvO8zg8cGRRzZL
+ Lf4aLXRs9j/h/9GBuuHINxCNes39AtFxlQIiJkskI54RaBzWKYf4EKMckPtW6lQpPzaP
+ 6wuHHDKO/OsBBBm0cLapM1phCftkqC91WsaovlQ5aMNLL6IybmGZ+L3AGCmO9ttOTqUZ
+ 7lQXTBVGHvRDNgDLF/X8pygEGtGYKabvEeRESs7VF7s4FCOZGdidtbBOslCtHhrZDfiO
+ kdH6q0TC/3CV364YmeEhz1fhhcwM3VJ4DHe3WzS89+OvwHtsakIcyhDEBwgAsBd9vuYR
+ 4PHw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGI9ilO5RR+pbTZsLqud8thPT0cGAwsori8AFTFMQsohiNOW+L4Hqb7wyfcGILcibgT8cQpOF3zFFs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ZquprYd5kW5QcrBDh7cXz00oyIszks/MHRq4MzEUsa3ZOWuwI
- uuG+mmFBzz4UXLjemRa4Wiv6VzT4QhKOg1W/RQH/xJwHFidQ7eFoAkjrXyxZ1M+32lyTS+4vinf
- rWeBy4w==
-X-Gm-Gg: AYBFou1FVHuhO9203vZerYKIMndqJdPC3bzplta5dnuGuefV0Hba5r5HYjRAsutsKTw
- dDKkZBHG4usXIkgrL5IEWc8ssEnJ+t5Yw74vcFtLFRTna+A+xdpWGxoERT1373uuZ8a5e9EAOuU
- vY5yiGm6IXjqzE/FMen5wtFnqX4w624MCiX325QATNBBoqb3rxOulrC/rEG7Xx69rosatMjxQ3N
- BLpReRKuCzzAJu9c+C0S3b/X2aUoLC8srS6HuDZi8rSe3lq0xmYuPP1YHFRkpm3YALug5DIS5L4
- 1hQgK8kyC7WzK+tMzWo29MYA+LtFqAqcAZ1/mXteab8fTnbcOzvBD8K4fQhiWnRCwuB9JBM0Tno
- 1dMFUZS4FmHVznSyzSWHHHhq5EX/O+AC376Q8ZNWkIG51uR5YZ6se16mZvSdVWHi59Pev0qg1fC
- 0bIa4dBxorgDOyQ5LWbCVnqXQkq6Ii7e4iWtH0/6P6N2XTx0TCU6M96H4NLR2Zo1hRGFQiRumdn
- 3XoYkpuS/xsWVTY8xBkku0N7CvMrIjQL0hJ3a2bd2q0jsrnTjUPyb3aveSc6tUavIiviTx4Fn+8
- 0WiCNBfo5bdvSESAJc0cV8qneQYVhjb9dwSejwdTO64mrmo3FUV0JPIgtH6qcDGtGbfD
-X-Received: by 2002:a05:6402:460d:10b0:6b3:f692:985c with SMTP id
- 4fb4d7f45d1cf-6b7c0d16099mr386312a12.44.1794509896494; 
- Thu, 12 Nov 2026 10:58:16 -0800 (PST)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com.
- [209.85.128.41]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b6091dsm7876866b.57.2026.11.12.10.58.13
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Nov 2026 10:58:15 -0800 (PST)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a35db1f202so1055595e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 10:58:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErE/kP2mlkWYw/OsD9MeBmRfNMQaiCJfZdBu9F2qno8tPpGAdpgL+lVDKNLUAMXCZmRr2wxKAmiTWTs=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:1c18:b0:4a7:9044:a87 with SMTP id
- 5b1f17b1804b1-4bb55ac0e34mr2161075e9.27.1794509892596; Thu, 12 Nov 2026
- 10:58:12 -0800 (PST)
+ AL+hErHV/hXyeQu6yeX7qlTaarw3BzKrkadW6jb/ZCCCAE3nA9ecYC0pDlbNFHuxJXnUQFlJQ08IshgHIZ4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9g6L0cRG/GjVLv1dk1s4Mxu5TodoYwMMBen/IkzMxtw9zycFwN
+ fn5D4v5qKbO5X1hAmHFQBiULuiZBOOshVY1EhQgYSqVTNwFNSmUawRZZ
+X-Gm-Gg: AYBFou0kV83htVfChf1XFeOWNztXGnragXJ4f+U550qLJc5DBJ7rw3fLV/ubMqoKx08
+ 96Hia7eop2dI0wdYl5MbduSYL8Pukhxtksz2R1mo/IgQlL0Mi+Nazcxb0UjlGem1aM9ZqRx6dIk
+ OklERHBYFoeKKF4WMwxAitkQHH5oqNe/DvF6WfZmfZIk2f7GCzpPD9JaCq51wRJ4KCnapUEJU7z
+ HUWi1/Xq3/sJJCijDs/wRZETEnfHCXdPukHSJGsit6JTMK7JHcW97v8flu4q9Evnk4xiY0TdpNh
+ gOS2PcX8v2COf14aD4yjA33Hkdh4ph/puUbM001aZ2r0bWOWCa9C8vzIQIBudlFL8ejjG9x2jyK
+ 3uq11DQIi5sKHYoza+mmrJfzLvHjQBSOgu3wVfqrZ8cpi5NBrX1YaviE6Hh1oGQYRWVGB2irUMw
+ qo0uFqyRkdWNQ39pfAl39WNiOPdF8ByBvzRznEGShhfekGTsFtrhENEOrCT89mYazLdWLNDgcaS
+ ANAnD5Kwgv7op26/2wSGW2pTeI/SrZxTaOAotuAEOPLSOE7Q+ZIN/gbqxop00rI1OgBrpKpNNi0
+ 2bmijQBtV8tImUWoMxcPodepVHGMz9poVl8yQcyd+2CgWBlm+CxkHtBurMtNgkA=
+X-Received: by 2002:a05:600c:1d03:b0:4b1:4017:c4f4 with SMTP id
+ 5b1f17b1804b1-4bb55a58e1amr4456295e9.20.1794511016325; 
+ Thu, 12 Nov 2026 11:16:56 -0800 (PST)
+Received: from osama ([2a02:908:186:df80:da60:20d5:2c9a:fdcd])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb55afb6absm2821045e9.15.2026.11.12.11.16.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 11:16:55 -0800 (PST)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Fix race when retrieving the new chunk in
+ panthor_heap_grow()
+Date: Thu, 12 Nov 2026 20:16:50 +0100
+Message-ID: <20261112191650.735850-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261006231900.3230373-1-briannorris@chromium.org>
- <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
-In-Reply-To: <20261006161337.2.If1822f9a34be06cf5939be44ac6465c543087c75@changeid>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 12 Nov 2026 10:58:00 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VbcYGJP6ag_pxwNB3s2iedeF8rey9QUZo3B2YQm25diw@mail.gmail.com>
-X-Gm-Features: AclHuK_PiPmNrCWJDrFpHZHvHvTj2hKqQgB_JTPOXCKXOf56_rtdlcICXQ5xuAY
-Message-ID: <CAD=FV=VbcYGJP6ag_pxwNB3s2iedeF8rey9QUZo3B2YQm25diw@mail.gmail.com>
-Subject: Re: [PATCH 02/13] drm: Discard pm_runtime_put_autosuspend() return
- values
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, 
- Ulf Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Melissa Wen <mwen@igalia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,60 +92,115 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
+which adds the chunk at the head of heap->chunks under heap->lock, and
+then drops the lock. panthor_heap_grow() then assumes the head of the
+list is the chunk it just added, and reads its GPU VA through
+list_first_entry() without holding heap->lock.
 
-On Tue, Oct 6, 2026 at 4:19=E2=80=AFPM Brian Norris <briannorris@chromium.o=
-rg> wrote:
->
-> Several DRM drivers use or propagate the pm_runtime_put_autosuspend()
-> return value, which is not particularly useful.
->
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
->
-> For this reason, modify these drivers to simply discard the
-> pm_runtime_put_autosuspend() return value, and change the return type of
-> v3d_pm_runtime_put() (whose return value is never used) to void.  Also
-> drop the redundant pm_runtime_mark_last_busy() calls right before
-> pm_runtime_put_autosuspend().
->
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
->
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
-> This patch is independent of the rest of the series, except for the end
-> (changing the return type). I expect it can be applied by individual
-> maintainers, and we pick up the end once the dust is settled.
->
->  drivers/gpu/drm/panel/panel-simple.c | 8 +-------
->  drivers/gpu/drm/tidss/tidss_drv.c    | 7 +------
->  drivers/gpu/drm/v3d/v3d_drv.h        | 4 ++--
->  3 files changed, 4 insertions(+), 15 deletions(-)
+panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
+in read mode, and tiler OOM events of different groups are processed in
+parallel on the unbound heap_alloc_wq. If two groups use the same heap
+context, they can modify the chunk list concurrently:
 
-FWIW, the hunk against tidss_drv.c goes away on the top of
-drm-misc-next, since it's 100% identical to what landed in commit
-2cc797f73768 ("drm/tidss: Drop WARN_ON() from tidss_runtime_put()").
+  group A OOM work                     group B OOM work
+  alloc C_A, list_add()
+                                       alloc C_B, list_add()
+  list_first_entry() -> C_B
+                                       group scheduled out:
+                                       panthor_heap_return_chunk(C_B)
+                                         list_del(), destroy BO, kfree()
+  C_B->bo                              <- use-after-free
 
-The changes to the other two files look fine to me.
+Even without the free, both groups end up being handed the same chunk,
+and the chunk allocated by group A is never linked to the heap context.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
+chunk it allocated, retrieved before the chunk is published in the list,
+instead of looking it up afterwards.
 
-Pushed to drm-misc-next.
+Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_heap.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-[02/13] drm: Discard pm_runtime_put_autosuspend() return values
-        commit: c88084027d0e922dd925b96e5a0d184ba04a8f43
+diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+index 99311abdf1e9..d80f514366fd 100644
+--- a/drivers/gpu/drm/panthor/panthor_heap.c
++++ b/drivers/gpu/drm/panthor/panthor_heap.c
+@@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
+ 
+ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+ 				    struct panthor_heap *heap,
+-				    bool initial_chunk)
++				    bool initial_chunk,
++				    u64 *chunk_gpu_va)
+ {
+ 	struct panthor_heap_chunk *chunk;
+ 	struct panthor_heap_chunk_header *hdr;
+@@ -181,6 +182,15 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+ 
+ 	panthor_kernel_bo_vunmap(chunk->bo);
+ 
++	/*
++	 * Retrieve the GPU VA before the chunk becomes visible in the heap
++	 * chunk list: once heap->lock is released, a concurrent grow or
++	 * return_chunk on the same heap can modify the list, and the chunk
++	 * can be freed.
++	 */
++	if (chunk_gpu_va)
++		*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
++
+ 	mutex_lock(&heap->lock);
+ 	list_add(&chunk->node, &heap->chunks);
+ 	heap->chunk_count++;
+@@ -216,7 +226,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+ 	u32 i;
+ 
+ 	for (i = 0; i < chunk_count; i++) {
+-		ret = panthor_alloc_heap_chunk(pool, heap, true);
++		ret = panthor_alloc_heap_chunk(pool, heap, true, NULL);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -437,8 +447,8 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+ {
+ 	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+ 	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+-	struct panthor_heap_chunk *chunk;
+ 	struct panthor_heap *heap;
++	u64 chunk_gpu_va;
+ 	int ret;
+ 
+ 	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+@@ -473,14 +483,11 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+ 	 * further jobs in this queue fail immediately instead of having to
+ 	 * wait for the job timeout.
+ 	 */
+-	ret = panthor_alloc_heap_chunk(pool, heap, false);
++	ret = panthor_alloc_heap_chunk(pool, heap, false, &chunk_gpu_va);
+ 	if (ret)
+ 		goto out_unlock;
+ 
+-	chunk = list_first_entry(&heap->chunks,
+-				 struct panthor_heap_chunk,
+-				 node);
+-	*new_chunk_gpu_va = (panthor_kernel_bo_gpuva(chunk->bo) & GENMASK_ULL(63, 12)) |
++	*new_chunk_gpu_va = (chunk_gpu_va & GENMASK_ULL(63, 12)) |
+ 			    (heap->chunk_size >> 12);
+ 	ret = 0;
+ 
+-- 
+2.53.0
 
--Doug
