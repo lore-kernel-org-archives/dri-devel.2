@@ -2,60 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA5D606A8AE
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274A2606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Al8XrrSs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOx9NI9I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9826E10E4C4;
-	Thu, 12 Nov 2026 09:23:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 808B410FF36;
+	Thu, 12 Nov 2026 09:26:03 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C9410E4C4
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:23:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C461010E59B;
+ Thu, 12 Nov 2026 09:25:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1762C61827;
- Thu, 12 Nov 2026 09:23:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11CC1F00A05;
- Thu, 12 Nov 2026 09:23:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 01F6B62D82;
+ Thu, 12 Nov 2026 09:25:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BF11F00A05;
+ Thu, 12 Nov 2026 09:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794475411;
- bh=Yt4A8NZadS0W5LYvptZOhNRvoJ7zuxm37iF0wtrvYzQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Al8XrrSs8SlF0Ee63VyaB5C5G3Uo5XX4ccMBtcpNj1/nlgPcep7aeKERTSWgnucOp
- MfDI/asrfWa/3CEmg6pEOW0iwUBXTbrstHK+aT1k/N2rH9Ze++0BQyE3m5E+Bsvhla
- Li75qTYXiN8XuLzDwXR8iTaIguGAuDTQE2CzXwvzHiWzxEQE/Ee8NN8ZEee7hLNl61
- N4HHHSK9uoj65Dbf4ioWvuiLsqurNOmaBgvsD1iZXXvUzX8srVURqbXYCpIx3J/ZGz
- +ThyHkvnZ3z8Ki/YNSmcFC2kOCj7mKH9R4pbLysLKP+MoYmyyEJ9f00YCJEhD/InKP
- yDI53+WDSqvfg==
-Date: Thu, 12 Nov 2026 11:23:26 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261112092326.GU8635@unreal>
-References: <20261111121602.GQ8635@unreal> <20261111224136.GA754433@bhelgaas>
+ s=k20260515; t=1794475555;
+ bh=EZx8Jw7PIP5EkW4qNXiCINH2MnOdwdHG8FWpIk2/UBs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=DOx9NI9I4ddcEPPQnoAjTiQ22Ws+dQcJWle2kV0VS546QDyGUjb4PiC3qylGxT2ZB
+ wfCOaapLfkWztw6H9dqA8Z5QmEgCbEQi9MjmcU51sVi1IfN/0YhNJL43dHgnOFaO1W
+ QWoVUfNWMDSL1WiWJEpNouHq3fadIwXYp4FqthBNBpAzIhFZ48q3P32/HimqGmhTpK
+ Gi+q9Z0h+TFtaptREw30JVyIhscF4Atx6Ferp4kLGmdEE4zvUnrEdCmm+oN7LJ9jVi
+ KBJCBKLDslSbxGxYHFcEmhtPbysdHJQNGkju1T5PjLKjTDoztFpJHuH+NOPGg9VNdm
+ 3cHDDC6rD9dQw==
+Message-ID: <131ad9de-a475-4848-978d-08cc98c26013@kernel.org>
+Date: Thu, 12 Nov 2026 10:25:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string
+ pointer
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com"
+ <simona@ffwll.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
+ <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261111224136.GA754433@bhelgaas>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,134 +105,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 04:41:36PM -0600, Bjorn Helgaas wrote:
-> On Wed, Nov 11, 2026 at 02:16:02PM +0200, Leon Romanovsky wrote:
-> > On Thu, Nov 05, 2026 at 12:04:31PM +0200, Leon Romanovsky wrote:
-> > > Punch line for Linus from Jason:
-> > > "Enhance detecting if the PCI fabric can support a peer to peer path
-> > > by evaluating the full bi-directional fabric path over each of the
-> > > three traffic type ACS controls. Expand the number of fabric
-> > > configurations where the P2P algorithm makes the correct determination
-> > > of support to include non-uniform ACS and situations where translated
-> > > takes different routes from untranslated."
-> > 
-> > Bjorn,
-> > 
-> > Just a friendly reminder.
+On 11/11/2026 17:57, Alex Deucher wrote:
+> On Mon, Nov 9, 2026 at 4:41 AM Noah Weinberger
+> <NoahWeinberger2003@proton.me> wrote:
+>>
+>> Hello,
+>>
+>> In atom_get_vbios_pn(), when the part-number string is empty and
+>> atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
+>> computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
+>>
+>>     vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+>>     if (vbios_str == NULL)
+>>             vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
+>>
+>> The subsequent range check is false for a near-NULL pointer, so the
+>> value survives and *vbios_str dereferences address 8 - a NULL-page oops
+>> during probe with a malformed VBIOS that passes the magic checks. The
+>> recent hardening of the neighboring date/version/build helpers closed
+>> their OOB reads; this fallback path was left intact.
+>>
+>> Simply leave the part number empty when the anchor is not found.
+>>
+>> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_get_vbios_pn).
+>> Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series made it the sole fallback outcome.
+>>
+>> This was found during an assisted (AI-supported) static source review of
+>> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
+>> reporter against that tree. The patch below has NOT been compiled and has
+>> NOT been runtime tested, and no reproducer was produced - the triggering
+>> conditions are described above instead. Please treat this as a report for
+>> verification rather than a battle-tested fix.
+>>
+>> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 > 
-> Thanks for the reminder.  I put this on pci/p2pdma for build testing
-> (no issues expected; I always try to get build testing before merging
-> into linux-next).
-> 
-> I'm still struggling to describe this in a way that connects to the
-> code changes and is accessible to non-experts, so please correct
-> things I get wrong here.
+> Missing your Signed-off-by.
 
-When asked to explain what I’m working on during hallway conversations, I usually
-start with a top-down view:
+That is not a patch, but a report. It wasn't tested, wasn't even
+verified and is possible that it is LLM slop like the rest.
 
-“In order to support P2P in VMs, the virtual PCI topology needs to know whether
-P2P is possible. However, the guest OS cannot see the physical topology because
-it is hidden by the hypervisor. Since the VM and hypervisor run the same OS, we
-need a generic way to report whether P2P is supported, rather than relying on a
-CPU-supported whitelist. This is why we need ACPI HMAT [1].
-
-However, HMAT alone is not enough: it is static and comes from firmware, the
-BIOS, or the platform. We also need to account for ACS registers and different
-traffic types.
-
-This series provides the ACS, traffic piece of the puzzle.”
-
-[1] https://lore.kernel.org/linux-pci/20260812-hmat-p2p-v1-0-75ac41380585@nvidia.com/
-
-> 
-> I had the impression that this series helps VMs by making P2PDMA work
-> with passthrough devices in cases where it currently doesn't, but
-> maybe that's not the case; I don't see any mention of that in the
-> series.
-
-It is a fundamental building block (see my explanation above), but it is also
-useful on its own. Even without VMs or HMAT, ACS and routing are important
-(see the removed patch [2]): they allow us to dynamically enable or disable
-ATS for each DMA mapping, support asymmetric PCI topologies, and more broadly
-enable P2P by checking every PCI route.
-
-This is why I didn't mention VM to the cover letter.
-
-[2] https://lore.kernel.org/all/20260920-fix-p2p-acs-v4-0-v7-19-ca0828ab697c@nvidia.com/
-
-> 
-> IIUC the P2PDMA core doesn't actually *control* any TLP routing, i.e.,
-> it doesn't change any ACS controls or change any TLP attributes that
-> affect how TLPs are routed, so to me, these subject lines suggest more
-> than is actually happening:
-> 
->   Route Relaxed Ordering Completions directly
->   Reject Translated Requests blocked by Translation Blocking
->   Route Translated Requests under Direct Translated P2P
-> 
-> It seems like we're just *learning* whether RO Completions will be
-> routed directly, whether Translated Requests will be rejected, etc?
-
-Right, the path and these bits are static.
-
-> 
-> I think the core basically looks at the ACS controls on the path
-> between two devices and decides whether:
-> 
->   (a) the devices can do P2P DMA directly (PCI_P2PDMA_MAP_BUS_ADDR),
-> 
->   (b) they can do P2P DMA but only through host bridges on the
->   allowlist (PCI_P2PDMA_MAP_THRU_HOST_BRIDGE),
-> 
->   (c) no P2P DMA is possible (PCI_P2PDMA_MAP_NOT_SUPPORTED),
-
-This is equivalent to returning -EOPNOTSUPP when the functionality is
-unavailable.
-
-> 
->   (d) PCI_P2PDMA_MAP_NONE -- I don't understand this one; the comment
->   says "not a P2PDMA transfer", and pci_p2pdma_state() returns it when
->   the page is not a p2pdma_page, I guess because
->   pci_p2pdma_add_resource() has not set MEMORY_DEVICE_PCI_P2PDMA?
->   Not sure how this is used.
-
-This means that this is regular DMA transfer which involves CPU.
-
-> 
-> I guess one benefit of this series is that a path where P2P Completion
-> Redirect is set used to mean that pci_p2pdma_map_type() would return
-> PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
-> it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
-> Redirect is clear, Requests can be routed directly?
-
-I'm not sure the first part (return PCI_P2PDMA_MAP_NOT_SUPPORTED) is correct,
-since callers have so far ensured that P2P is supported before calling this
-function. The second part is correct.
-
-> 
-> That sounds great as long as the Request uses Relaxed Ordering, so the
-> Completion won't be affected by P2P Completion Redirect.  But devices
-> aren't *required* to use RO even if enabled, and I'm doubtful that a
-> non-RO Completion redirected to the RC is going to work.  So I don't
-> understand how p2pdma.c can guarantee safety.
-> 
-> Translated Requests seems similar -- are we assuming that if ACS
-> Direct Translated P2P is set and ATS Enable is set, the device
-> *always* generates Translated Requests?
-
-PCI spec allows "A Function is permitted to intermix translated
-and untranslated requests" and p2p doesn't decide anything except
-if routing is possible or not.
-
-Thanks
-
-> 
-> Bjorn
+Best regards,
+Krzysztof
