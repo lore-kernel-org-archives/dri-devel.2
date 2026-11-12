@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1AF606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B55606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIWzG14g
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jGiHyeyL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCEEF112372;
-	Thu, 12 Nov 2026 23:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7994D10E1ED;
+	Thu, 12 Nov 2026 23:26:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5426112372
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:20:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE811123DE
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:26:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 74C3644801;
- Thu, 12 Nov 2026 23:20:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FE131F000C4;
- Thu, 12 Nov 2026 23:20:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7AF1343714;
+ Thu, 12 Nov 2026 23:26:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BB31F000C5;
+ Thu, 12 Nov 2026 23:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794525657;
- bh=aSh8cUhPu2eJjwVUvjrVp5lI+mTwzGKKWhb4U4T+Nas=;
+ s=k20260515; t=1794526005;
+ bh=/2iZyvu5nnNT1qhW02gosScCtdtiSCf7+Rz/gPQTZoU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JIWzG14g0eX40BQan7ecvJAJAJTQwmEeZDxPdPjY4g/HdtiEDrmGiUahf0ijso2fm
- E0HYoWo0rpFGgXVTixDvPkQuwK90rQzCAXiQ7WpC/6DnB60OR2qEzKFV7y1zs08WvP
- XO2TTm8yhGjbnJUcUtYs7llQvUq+mSIf7xertfXLXBFzCsdaAGePn84FqYW1/q0gkN
- Im+pLV7whBv/oiwGbF7s5vXbQFZG5LZypEWXchu8naKTOfx0FKc4qwcOUZEKpZCbX0
- BVwfBf0TnBg9V2HFAehxrU4xDwKIiY5PiCbAeMvedvhD51fnqjz5dKfeyYzQpYpHgU
- g1MYvaFzVOVew==
-Message-ID: <sashiko-outbox-211949@kernel.org>
+ b=jGiHyeyLDL8wVUbwusnr1nSMo60GwEiQ8Apf0zjJ9QSzCsSBSrQKIJEXVBQaXxfS1
+ 1gO6vFkSV8XfyxHSA0xF1zJJRW+NTjlYxRTmsKUHGirjAJW5ffsWeYGe0QeypEJuR6
+ yJYNZri6/Aj0zz+D3ZLuyq0adRJDt+E18vts76lgAM+54tYpixiAuv7m9SpJltzN9Q
+ v3Z3Of63WP4eCUpAt8nrN153UKTXbOr6FmQHFhS1mili/8cYL1qblPz/gLjwzTNpPU
+ FMJt6xZSw/QFL0f1iES8O1KHuLTvCQ19bQN3NSTtDHq0XvVXGuscQtARTdQAmyunky
+ yR5r8Foyx7qCg==
+Message-ID: <sashiko-outbox-211951@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 06/13] drm/powervr_sgx: Load and start the microkernel
+Subject: Re: [PATCH RFC 08/13] drm/powervr_sgx: Add contexts, the scheduler
+ and SUBMIT_JOBS
 To: "Joseph Telaak" <joseph@telaak.dev>, dri-devel@lists.freedesktop.org
 Cc: media-ci@linuxtv.org
-In-Reply-To: <20261112-powervr-sgx-v1-6-c69b84bac011@telaak.dev>
+In-Reply-To: <20261112-powervr-sgx-v1-8-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
- <20261112-powervr-sgx-v1-6-c69b84bac011@telaak.dev>
+ <20261112-powervr-sgx-v1-8-c69b84bac011@telaak.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 23:20:56 +0000
+Date: Thu, 12 Nov 2026 23:26:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,460 +59,749 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 10 potential
+Thank you for your contribution! Sashiko AI review found 12 potential
 issues to consider:
-- [High] drm/powervr_sgx: unlocked CCB offset access and u64 underflow
-  in pvrsgx_ccb_consumed()
-- [High] drm/powervr_sgx: race between ccb_lock and inval_lock in
-  pvrsgx_ccb_after_invalidate()
-- [High] drm/powervr_sgx: sdev->powered set while clocks are gated in
-  pvrsgx_fw_start()
-- [Medium] drm/powervr_sgx: unlocked sdev->fw.cache_control update in
-  pvrsgx_fw_start()
-- [Medium] drm/powervr_sgx: stale fw_running state across
-  pvrsgx_fw_halt() and restarts
-- [Medium] drm/powervr_sgx: missing deinit_script() on failed-start path
-  in pvrsgx_fw_stop()
-- [Medium] drm/powervr_sgx: premature timeout calculation in
-  ccb_split_inval()
-- [Medium] drm/powervr_sgx: missing flush of sdev->irq_work in
-  pvrsgx_fw_stop()
-- [Medium] drm/powervr_sgx: PAGE_SIZE used instead of SGX_MMU_PAGE_SIZE
-  for pdtable
-- [Medium] drm/powervr_sgx: map f->pdtable with
-  SGX_MMU_PTE_CACHECONSISTENT
+- [Critical] drm/powervr_sgx: UAF and hung jobs racing context_destroy()
+  and submit
+- [High] drm/powervr_sgx: reset race and unreferenced fence in
+  pvrsgx_job_quiesce()
+- [High] drm/powervr_sgx: unplug race with pvrsgx_timedout_job() and
+  poll_work
+- [High] drm/powervr_sgx: unsynchronized pvrsgx_job_fault_check() during
+  GPU reset
+- [High] drm/powervr_sgx: premature fence signal and kobj leak in
+  pvrsgx_run_job()
+- [High] drm/powervr_sgx: NULL job and split-inval conflict under
+  PVRSGX_UKFW_DONE_SEQ
+- [High] drm/powervr_sgx: GFP_KERNEL allocation in fence signalling path
+  on reset
+- [High] drm/powervr_sgx: circular refcount leak on unbind in
+  pvrsgx_job_unplug()
+- [Medium] drm/powervr_sgx: VM user refcount race in
+  pvrsgx_ioctl_create_context()
+- [Medium] drm/powervr_sgx: broken intra-submit timeline syncobj waits
+  in job_sync_ops()
+- [Medium] drm/powervr_sgx: lost hardware fence error code in
+  pvrsgx_timedout_job()
+- [Low] drm/powervr_sgx: unused signals fields and misplaced comment in
+  pvrsgx_job
 --
 
-commit bc7aa5d8fb93051c08d3332346834aa8dbfc0eb6
+commit ededc4928ab614ae6dedb811977080403c02305f
 Author: Joseph Telaak <joseph@telaak.dev>
 
-drm/powervr_sgx: Load and start the microkernel
+drm/powervr_sgx: Add contexts, the scheduler and SUBMIT_JOBS
 
-This commit adds support for loading, validating, patching, and starting
-the SGX microkernel, along with PDS entry program assembly and the kernel
-CCB command ring.
+This commit adds render and transfer contexts, the DRM GPU scheduler
+integration, timeout recovery, and the SUBMIT_JOBS ioctl with syncobj
+synchronization and tracepoints.
 
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c b/drivers/gpu/drm/p=
-owervr_sgx/pvrsgx_ccb.c
+> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c b/drivers/gpu/drm/p=
+owervr_sgx/pvrsgx_job.c
 > new file mode 100644
-> index 0000000000000..351a7f930a08d
+> index 0000000000000..bc1e8ea282d80
 > --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c
+> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c
 
 [ ... ]
 
-> +void pvrsgx_ccb_reset(struct pvrsgx_device *sdev)
+> +/* Whether the oldest job on the GPU is done; for the hard IRQ handler. =
+*/
+> +bool pvrsgx_job_oldest_done(struct pvrsgx_device *sdev)
 > +{
-> +	memset(sdev->fw.cpu[PVRSGX_FW_CCB], 0, PVRSGX_CCB_SLOTS * PVRSGX_CCB_CM=
-D_WORDS * 4);
-> +	ccbctl(sdev)[CCB_WO] =3D 0;
-> +	ccbctl(sdev)[CCB_RO] =3D 0;
-> +	*(u32 *)sdev->fw.cpu[PVRSGX_FW_KICKER] =3D 0;
-> +	/*
-> +	 * @ccb_issued carries on: a job sent after a restart has a higher sequ=
-ence
-> +	 * than any count read before it, so a stale count can't complete it.
-> +	 */
+> +	struct pvrsgx_job *job;
+> +	unsigned long flags;
+> +	bool done;
+> +
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	job =3D list_first_entry_or_null(&sdev->active, struct pvrsgx_job, node=
+);
+> +	done =3D job && (sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? jobs_finish=
+ed(sdev) > 0 :
+> +		       job_done(job, pvrsgx_ccb_consumed(sdev)));
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +	return done;
 > +}
 > +
-> +/* Commands the microkernel has taken off the ring since the driver load=
-ed. */
-> +u64 pvrsgx_ccb_consumed(struct pvrsgx_device *sdev)
+> +/*
+> + * A page fault stalls the faulting requestor, and the SGX545 raises no =
+host
+> + * event for it: check the BIF here, and end the job at once rather than=
+ at its
+> + * timeout. Only while jobs are out, so the core is powered.
+> + */
+> +static bool pvrsgx_job_fault_check(struct pvrsgx_device *sdev)
 > +{
-> +	u32 ro =3D READ_ONCE(ccbctl(sdev)[CCB_RO]);
-> +	unsigned long flags;
-> +	u64 consumed;
+> +	bool fault;
+> +	int idx;
 > +
-> +	/* The read offset is GPU-written: trust it only as an index. */
-> +	spin_lock_irqsave(&sdev->ccb_spin, flags);
-> +	consumed =3D sdev->ccb_issued - ((ccbctl(sdev)[CCB_WO] - ro) & (PVRSGX_=
-CCB_SLOTS - 1));
-> +	spin_unlock_irqrestore(&sdev->ccb_spin, flags);
-> +	return consumed;
+> +	if (READ_ONCE(sdev->faulted) || READ_ONCE(sdev->lost) || !READ_ONCE(sde=
+v->powered) ||
+> +	    !drm_dev_enter(&sdev->base, &idx))
+> +		return false;
+> +	fault =3D sgx_rd(sdev, SGX_CR_BIF_INT_STAT) & sdev->cr->bif_int_stat_fa=
+ult_req;
+> +	drm_dev_exit(idx);
+> +	if (!fault)
+> +		return false;
+> +	WRITE_ONCE(sdev->faulted, true);
+> +	drm_sched_fault(&sdev->sched);
+> +	return true;
+> +}
+> +
+> +/* Signal every job the firmware has finished. Runs in the IRQ thread an=
+d the poll work. */
+> +void pvrsgx_job_process_done(struct pvrsgx_device *sdev)
+> +{
+> +	struct pvrsgx_job *job, *tmp;
+> +	unsigned long flags;
+> +	bool more, reap =3D false;
+> +	LIST_HEAD(finished);
+> +	bool cookie;
+> +	u64 consumed;
+> +	s64 n;
+> +
+> +	mutex_lock(&sdev->done_lock);
+> +	/* Under the lock a reset fails the old jobs under: no count from befor=
+e it. */
+> +	consumed =3D pvrsgx_ccb_consumed(sdev);
+> +	cookie =3D dma_fence_begin_signalling();
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	n =3D jobs_finished(sdev);
+> +	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
+> +		if (n >=3D 0 ? !n : !job_done(job, consumed))
+> +			break;
+> +		if (n > 0) {
+> +			n--;
+> +			sdev->done_seq++;
+> +		}
+> +		list_move_tail(&job->node, &finished);
+
+[Severity: High]
+How do DRM_POWERVR_SGX_JOB_TYPE_NULL jobs complete when PVRSGX_UKFW_DONE_SEQ
+is enabled?
+
+When PVRSGX_UKFW_DONE_SEQ is set, jobs_finished() returns a non-negative
+count, so pvrsgx_job_oldest_done() and pvrsgx_job_process_done() never call
+job_done(job, consumed) even though job->done_cpu is NULL.  Both a NULL job
+in pvrsgx_run_job() and ccb_split_inval() emit an identical
+PVRSGX_KCMD_PROCESS_QUEUES command with six zero data words, while only the
+NULL job is added to sdev->active.  If the microkernel does not increment
+t->done_seq for PVRSGX_KCMD_PROCESS_QUEUES, NULL jobs never finish and
+always time out; if it does increment t->done_seq, ccb_split_inval()
+advances t->done_seq without an entry on sdev->active and prematurely
+signals the next active job's fence.
+
+> +		if (job->type =3D=3D DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
+> +			sdev->renders_done++;
+> +			reap =3D true;
+> +		}
+> +	}
+> +	more =3D !list_empty(&sdev->active);
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +
+> +	list_for_each_entry(job, &finished, node)
+> +		pvrsgx_prime_flush(job, true);
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	list_for_each_entry_safe(job, tmp, &finished, node) {
+> +		list_del_init(&job->node);
+> +		if (job->type =3D=3D DRM_POWERVR_SGX_JOB_TYPE_RENDER)
+> +			atomic64_add(ktime_get_ns() - job->start_ns, &job->ctx->usage->render=
+_ns);
+> +		trace_pvrsgx_job_done(job->type, job->hw_fence->seqno);
+> +		dma_fence_signal_locked(job->hw_fence);
+> +	}
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +	dma_fence_end_signalling(cookie);
+> +	mutex_unlock(&sdev->done_lock);
+> +
+> +	if (reap || !list_empty_careful(&sdev->inval_waits))
+> +		queue_work(sdev->free_wq, &sdev->reap_work);
+> +	if (more && pvrsgx_job_fault_check(sdev))
+> +		return;
+> +	/* With a count the interrupt does it, and the poll is only a backstop.=
+ */
+> +	if (more)
+> +		mod_delayed_work(sdev->wq, &sdev->poll_work,
+> +				 sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? HZ / 10 : 1);
 > +}
 
 [Severity: High]
-Can pvrsgx_ccb_consumed() underflow consumed to near U64_MAX?
+Can pvrsgx_job_fault_check() run concurrently with pvrsgx_fw_start() during
+a GPU reset?
 
-ro is read outside sdev->ccb_spin, while pvrsgx_ccb_reset() and the arena
-memset() in pvrsgx_fw_start() zero CCB_WO and CCB_RO without holding
-sdev->ccb_spin (and pvrsgx_fw_start() queues sdev->reap_work before
-pvrsgx_ccb_reset() runs):
+CPU0 (poll_work / IRQ thread)     CPU1 (work_tdr)
+pvrsgx_job_process_done()         pvrsgx_timedout_job()
+  more =3D !list_empty(&active)
+  mutex_unlock(&sdev->done_lock)
+                                    ...
+                                    list_del_init(&job->node)
+                                    WRITE_ONCE(sdev->faulted, false)
+                                    pvrsgx_fw_start(sdev)
+                                      deinit_script(sdev)
+                                        sgx_wr(SGX_CR_CLKGATECTL, 0)
+                                        fsleep(10000)
+  pvrsgx_job_fault_check(sdev)
+    sgx_rd(SGX_CR_BIF_INT_STAT)  <-- clocks gated / stale fault bit
 
-CPU0 (pvrsgx_fw_start)            CPU1 (reap_work)
-                                  pvrsgx_ccb_consumed()
-                                    ro =3D READ_ONCE(ccbctl[CCB_RO]) (1)
-pvrsgx_ccb_reset()
-  ccbctl[CCB_WO] =3D 0
-  ccbctl[CCB_RO] =3D 0
-                                    spin_lock_irqsave(&sdev->ccb_spin)
-                                    delta =3D (0 - 1) & 255          (255)
-                                    consumed =3D ccb_issued - 255
-                                      <-- u64 underflow if ccb_issued < 255
-
-An out-of-sync GPU-written CCB_RO while sdev->ccb_issued < 255 hits the
-same subtraction underflow.  Once consumed wraps to near U64_MAX,
-pvrsgx_ccb_inval_reap() and pvrsgx_kobj_reap() treat all pending and
-future CCB sequence numbers as consumed, freeing unmapped pages and kernel
-objects before the microkernel has taken the BIF TLB invalidate.
+Because more is evaluated before dropping done_lock and pvrsgx_timedout_job=
+()
+neither cancels poll_work nor holds reset_lock until after the reset clears
+the BIF state, pvrsgx_job_fault_check() can also keep poll_work armed when
+sdev->faulted is already true.  Reading SGX_CR_BIF_INT_STAT while
+deinit_script() has gated the clocks can hang the bus, or observe the old
+pre-reset fault bit before pvrsgx_reset() clears it and fault the next
+innocent job.
 
 [ ... ]
 
-> +static int ccb_split_inval(struct pvrsgx_device *sdev, u32 *cache_contro=
-l)
-> +{
-> +	static const u32 none[6];
-> +	unsigned long timeout =3D jiffies + msecs_to_jiffies(500);
-> +	u64 seq;
-> +	int err;
-> +
-> +	if (!(sdev->family->quirks & PVRSGX_QUIRK_BRN_28889) ||
-> +	    !(*cache_control & PVRSGX_CC_INVAL_DATA) ||
-> +	    !(*cache_control & ~PVRSGX_CC_INVAL_DATA))
-> +		return 0;
-> +	err =3D ccb_write(sdev, PVRSGX_KCMD_PROCESS_QUEUES, *cache_control & ~P=
-VRSGX_CC_INVAL_DATA,
-> +			none, &seq);
-> +	if (err)
-> +		return err;
-> +	while (pvrsgx_ccb_consumed(sdev) < seq) {
-> +		if (time_after(jiffies, timeout)) {
-> +			drm_err(&sdev->base, "BIF invalidate not taken (BRN_28889)\n");
-> +			return -ETIMEDOUT;
+> +	pvrsgx_prime_flush(job, false);
+> +	WRITE_ONCE(job->ctx->vm->ran_gen, sdev->fw_gen + 1);
+> +	if (job->type =3D=3D DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
+> +		mutex_lock(&sdev->kobj_lock);
+> +		sdev->renders_submitted++;
+> +		mutex_unlock(&sdev->kobj_lock);
+> +		err =3D 0;
+> +		for (u32 k =3D 0; k < job->render.nkicks && !err; k++) {
+> +			pvrsgx_render_job_build(job, k, data);
+> +			err =3D pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TA, data, &job->ccb_seq);
 > +		}
-> +		usleep_range(100, 200);
+> +	} else if (job->type =3D=3D DRM_POWERVR_SGX_JOB_TYPE_TRANSFER) {
+> +		pvrsgx_transfer_job_build(job, data);
+> +		err =3D pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TRANSFER, data, &job->ccb_se=
+q);
+> +	} else {
+> +		/* A NULL job is a no-op command: done when the microkernel has taken =
+it. */
+> +		err =3D pvrsgx_ccb_send(sdev, PVRSGX_KCMD_PROCESS_QUEUES, data, &job->=
+ccb_seq);
 > +	}
-> +	*cache_control =3D PVRSGX_CC_INVAL_DATA;
-> +	return 0;
+> +	if (err) {
+> +		drm_err_ratelimited(&sdev->base, "job not sent to the microkernel (%d)=
+\n", err);
+> +		goto fail_exit;
+> +	}
+> +
+> +	job->start_ns =3D ktime_get_ns();
+> +	trace_pvrsgx_kick(job->type, job->ccb_seq, fence->seqno);
+> +	dma_fence_put(sdev->last_fence);
+> +	sdev->last_fence =3D dma_fence_get(fence);
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	list_add_tail(&job->node, &sdev->active);
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +	mod_delayed_work(sdev->wq, &sdev->poll_work, 0);
+> +	drm_dev_exit(idx);
+> +	return fence;
+> +
+> +fail_exit:
+> +	drm_dev_exit(idx);
+> +fail:
+> +	cookie =3D dma_fence_begin_signalling();
+> +	dma_fence_set_error(fence, err);
+> +	dma_fence_signal(fence);
+> +	dma_fence_end_signalling(cookie);
+> +	return fence;
+> +}
+
+[Severity: High]
+What happens in pvrsgx_run_job() if kick 0 of a multi-kick render job
+succeeds in pvrsgx_ccb_send() and kick 1 fails?
+
+Kick 0 is already queued in the kernel CCB with the doorbell rung, but the
+error path immediately signals fence without halting the GPU or putting the
+job on sdev->active, allowing the job's buffers, VM mappings, and runtime PM
+reference to be released while the GPU is executing kick 0.  In addition,
+because sdev->renders_submitted is incremented before pvrsgx_ccb_send() and
+never rolled back on failure, sdev->renders_submitted stays ahead of
+sdev->renders_done and prevents pvrsgx_kobj_reap() from reaping later
+graveyard objects.
+
+> +/*
+> + * A job ran too long. Blame its context, fail what was on the GPU, and =
+start
+> + * the microkernel again from a clean control block and an empty CCB, ra=
+ther
+> + * than rescan the old one.
+> + */
+> +static enum drm_gpu_sched_stat pvrsgx_timedout_job(struct drm_sched_job =
+*sched_job)
+> +{
+> +	struct pvrsgx_job *bad =3D to_pvrsgx_job(sched_job), *job, *tmp;
+> +	struct pvrsgx_device *sdev =3D bad->ctx->sdev;
+> +	bool fault =3D READ_ONCE(sdev->faulted), lost, cookie;
+> +	unsigned long flags;
+> +	int idx;
+> +
+> +	drm_sched_stop(&sdev->sched, sched_job);
+> +	/* Every fence on the GPU and in the queue waits on what follows. */
+> +	cookie =3D dma_fence_begin_signalling();
+> +	/* After unbind (pvrsgx_job_unplug) the hardware is gone: fail, touch n=
+othing. */
+> +	mutex_lock(&sdev->reset_lock);
+> +	lost =3D READ_ONCE(sdev->lost) || !drm_dev_enter(&sdev->base, &idx);
+> +	if (lost)
+> +		goto fail;
+> +	if (fault)
+> +		drm_err(&sdev->base, "job page fault at 0x%08x (BIF status 0x%08x); re=
+setting\n",
+> +			sgx_rd(sdev, SGX_CR_BIF_FAULT) & sdev->cr->bif_fault_addr,
+> +			sgx_rd(sdev, SGX_CR_BIF_INT_STAT));
+> +	else
+> +		drm_err(&sdev->base, "job timed out (ccb %llu, consumed %llu); resetti=
+ng\n",
+> +			bad->ccb_seq, pvrsgx_ccb_consumed(sdev));
+> +	WRITE_ONCE(bad->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_GUILTY);
+> +	pvrsgx_coredump(sdev, bad);
+> +	/* Stopped before any fence signals: userspace may free the jobs' memor=
+y then. */
+> +	pvrsgx_fw_halt(sdev);
+> +
+> +fail:
+> +	mutex_lock(&sdev->done_lock);
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
+> +		list_del_init(&job->node);
+> +		if (job->ctx !=3D bad->ctx)
+> +			WRITE_ONCE(job->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_INNOCENT);
+> +		dma_fence_set_error(job->hw_fence, lost ? -ENODEV : job !=3D bad ? -EC=
+ANCELED :
+> +				    fault ? -EFAULT : -ETIME);
+> +		dma_fence_signal_locked(job->hw_fence);
+> +	}
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +	mutex_unlock(&sdev->done_lock);
+> +	if (lost)
+> +		goto out;
+> +
+> +	/*
+> +	 * No power-off handshake with a hung microkernel, which cannot answer:
+> +	 * straight into the full start (clocks, scripts, a reset that drains
+> +	 * pending faults, the first kick).
+> +	 */
+> +	sdev->reset_count++;
+> +	sdev->fw_running =3D false;
+> +	/* The restart's reset clears the BIF's fault state. */
+> +	WRITE_ONCE(sdev->faulted, false);
+> +	if (pvrsgx_fw_start(sdev)) {
+> +		drm_err(&sdev->base, "microkernel did not restart: device lost\n");
+> +		/* Lost: the cores stay in reset, and run_job fails every job. */
+> +		pvrsgx_fw_halt(sdev);
+> +		WRITE_ONCE(sdev->lost, true);
+> +		/* DMA is off and the fences are signaled: tell userspace to rebind. */
+> +		drm_dev_wedged_event(&sdev->base, DRM_WEDGE_RECOVERY_REBIND, NULL);
+> +	}
+> +	drm_dev_exit(idx);
+> +out:
+> +	mutex_unlock(&sdev->reset_lock);
+> +	dma_fence_end_signalling(cookie);
+> +	drm_sched_start(&sdev->sched, 0);
+> +	return DRM_GPU_SCHED_STAT_RESET;
 > +}
 
 [Severity: Medium]
-Can ccb_split_inval() return a false -ETIMEDOUT before waiting for the
-microkernel?
+Does the error set on job->hw_fence here ever reach
+sched_job->s_fence->finished?
 
-timeout is computed before ccb_write(), which has its own 500 ms wait
-loop, and the loop checks time_after(jiffies, timeout) before sleeping or
-re-checking pvrsgx_ccb_consumed(sdev) < seq.  If ccb_write() had to wait
-or the task was preempted, ccb_split_inval() fails on the first iteration
-after already queuing PVRSGX_KCMD_PROCESS_QUEUES.  ccb_write() has the
-same missing re-check of ctl[CCB_RO] after time_after() when preempted.
+drm_sched_stop() at the top of pvrsgx_timedout_job() removes sched_job->cb
+from job->hw_fence while job->hw_fence is still unsignaled and clears
+sched_job->s_fence->parent =3D NULL.  When drm_sched_start(&sdev->sched, 0)
+runs at the end, it sees parent =3D=3D NULL and completes s_fence->finished=
+ with
+-ECANCELED instead of -ETIME, -EFAULT, or -ENODEV.
 
 [ ... ]
 
-> +void pvrsgx_ccb_after_invalidate(struct pvrsgx_device *sdev, struct pvrs=
-gx_inval_wait *w,
-> +				 u32 cache_control)
+> +static void lockdep_prime(struct pvrsgx_device *sdev)
 > +{
-> +	unsigned long flags;
-> +
-> +	if (READ_ONCE(sdev->lost)) {
-> +		w->done(w);
+> +	if (!IS_ENABLED(CONFIG_LOCKDEP))
 > +		return;
-> +	}
-> +	mutex_lock(&sdev->ccb_lock);
-> +	sdev->fw.cache_control |=3D cache_control;
-> +	w->seq =3D sdev->ccb_issued + 1;
-> +	mutex_unlock(&sdev->ccb_lock);
-> +	spin_lock_irqsave(&sdev->inval_lock, flags);
-> +	list_add_tail(&w->node, &sdev->inval_waits);
-> +	spin_unlock_irqrestore(&sdev->inval_lock, flags);
+> +	fs_reclaim_acquire(GFP_KERNEL);
+> +	might_lock(&sdev->reset_lock);
+> +	might_lock(&sdev->done_lock);
+> +	might_lock(&sdev->ccb_lock);
+> +	might_lock(&sdev->kobj_lock);
+> +	fs_reclaim_release(GFP_KERNEL);
 > +}
 
 [Severity: High]
-Can w be stranded on sdev->inval_waits if the invalidate command is sent
-and reaped between mutex_unlock(&sdev->ccb_lock) and
-spin_lock_irqsave(&sdev->inval_lock, flags)?
+Doesn't pvrsgx_timedout_job() perform GFP_KERNEL allocations while holding
+sdev->reset_lock and inside dma_fence_begin_signalling()?
+
+In pvrsgx_timedout_job(), pvrsgx_fw_start() -> pvrsgx_reset() ->
+pvrsgx_mmu_map_pages(sdev->reset_mmu, ...) -> pte_get() allocates page
+tables with GFP_KERNEL when draining a fault in an unpopulated PDE slot, and
+drm_dev_wedged_event() -> kobject_uevent_env() also allocates with
+GFP_KERNEL.  Both run under sdev->reset_lock and before
+dma_fence_end_signalling(cookie), which triggers a lockdep splat against the
+fs_reclaim priming here and can deadlock if reclaim waits on GPU fences.
+
+[ ... ]
+
+> +void pvrsgx_job_unplug(struct pvrsgx_device *sdev)
+> +{
+> +	struct pvrsgx_job *job, *tmp;
+> +	unsigned long flags;
+> +	bool cookie;
+> +
+> +	drm_sched_wqueue_stop(&sdev->sched);
+> +	/* A reset under way finishes first; one after this sees @lost. */
+> +	mutex_lock(&sdev->reset_lock);
+> +	WRITE_ONCE(sdev->lost, true);
+> +	pvrsgx_fw_stop(sdev);
+> +	mutex_unlock(&sdev->reset_lock);
+> +	cancel_delayed_work_sync(&sdev->poll_work);
+> +	/* Stopped: nothing translates any more, so unmapped memory can go. */
+> +	pvrsgx_ccb_inval_reap(sdev, true);
+
+[Severity: High]
+Should pvrsgx_job_unplug() also call pvrsgx_kobj_reap(sdev, U64_MAX)?
+
+Each per-VM struct pvrsgx_kobj holds a reference to its pvrsgx_vm, which
+holds a reference to sdev->base via drm_gpuvm.  Without reaping sdev->grave=
+yard
+and sdev->kobj_unmapped on unbind, kernel objects released by earlier render
+contexts keep sdev->base alive forever, so the drmm release callback
+pvrsgx_device_release() -> pvrsgx_kobj_fini() never runs.
+
+> +
+> +	mutex_lock(&sdev->done_lock);
+> +	cookie =3D dma_fence_begin_signalling();
+> +	spin_lock_irqsave(&sdev->fence_lock, flags);
+> +	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
+> +		list_del_init(&job->node);
+> +		dma_fence_set_error(job->hw_fence, -ENODEV);
+> +		dma_fence_signal_locked(job->hw_fence);
+> +	}
+> +	spin_unlock_irqrestore(&sdev->fence_lock, flags);
+> +	dma_fence_end_signalling(cookie);
+> +	mutex_unlock(&sdev->done_lock);
+> +	drm_sched_wqueue_start(&sdev->sched);
+> +}
+
+[Severity: High]
+Can pvrsgx_job_unplug() race with pvrsgx_timedout_job() and
+pvrsgx_job_process_done()?
+
+CPU0                              CPU1 (work_tdr)
+pvrsgx_job_unplug()               pvrsgx_timedout_job()
+  drm_sched_wqueue_stop()
+                                    drm_sched_stop(&sdev->sched, ...)
+  mutex_lock(&sdev->reset_lock)
+  WRITE_ONCE(sdev->lost, true)
+  mutex_unlock(&sdev->reset_lock)
+  ...
+  drm_sched_wqueue_start()
+                                    mutex_lock(&sdev->reset_lock)
+                                    ...
+                                    drm_sched_start(&sdev->sched, 0)
+                                      <-- pending_list walked while
+                                          scheduler workqueues run
+
+drm_sched_wqueue_stop() does not stop work_tdr, and pvrsgx_timedout_job()
+calls drm_sched_stop() and drm_sched_start() outside sdev->reset_lock, so
+pvrsgx_job_unplug() can restart the scheduler workqueues while
+pvrsgx_timedout_job() is in the middle of a reset.  In addition,
+cancel_delayed_work_sync(&sdev->poll_work) runs before sdev->active is
+emptied under done_lock and before IRQs are torn down, allowing a concurrent
+pvrsgx_job_process_done() to see more =3D=3D true and re-arm poll_work.
+
+> +
+> +/*
+> + * System sleep: no new job reaches the GPU, and the jobs on it finish, =
+or the
+> + * timeout's reset ends them, within a job timeout. -EBUSY aborts the su=
+spend.
+> + */
+> +int pvrsgx_job_quiesce(struct pvrsgx_device *sdev)
+> +{
+> +	long left =3D msecs_to_jiffies(job_timeout_ms) + HZ;
+> +
+> +	/* A reset restarts submission; stop it again after one. */
+> +	for (int i =3D 0; i < 2; i++) {
+> +		struct dma_fence *last;
+> +
+> +		drm_sched_wqueue_stop(&sdev->sched);
+> +		/* Set only by run_job, which is stopped. Jobs finish in order. */
+> +		last =3D sdev->last_fence;
+> +		if (!last || dma_fence_is_signaled(last)) {
+> +			flush_work(&sdev->reap_work);
+> +			return 0;
+> +		}
+> +		left =3D dma_fence_wait_timeout(last, false, left);
+> +		if (left <=3D 0)
+> +			break;
+> +	}
+> +	drm_err(&sdev->base, "GPU still busy: not suspending\n");
+> +	drm_sched_wqueue_start(&sdev->sched);
+> +	return -EBUSY;
+> +}
+
+[Severity: High]
+Can pvrsgx_job_quiesce() return 0 while pvrsgx_timedout_job() is still
+resetting the GPU?
+
+CPU0 (suspend)                    CPU1 (work_tdr)
+pvrsgx_job_quiesce()              pvrsgx_timedout_job()
+  drm_sched_wqueue_stop()
+  last =3D sdev->last_fence
+  dma_fence_wait_timeout(last)
+                                    dma_fence_signal_locked(job->hw_fence)
+  /* i =3D 1 */
+  drm_sched_wqueue_stop()
+  dma_fence_is_signaled(last) -> true
+  return 0
+                                    pvrsgx_fw_start(sdev)
+                                    drm_sched_start(&sdev->sched, 0)
+                                      <-- restarts scheduler during suspend
+
+Because pvrsgx_timedout_job() signals job->hw_fence before calling
+pvrsgx_fw_start() and drm_sched_start(), pvrsgx_job_quiesce() wakes up, sees
+last signaled on the second pass, and lets system suspend proceed into
+pvrsgx_fw_stop() concurrently with pvrsgx_fw_start() and drm_sched_start().
+Moreover, last is used without dma_fence_get(), so if drm_sched_start()
+runs before dma_fence_wait_timeout() returns, a newly started job can
+replace and free sdev->last_fence while pvrsgx_job_quiesce() is still using
+it; and on normal completion in pvrsgx_job_process_done(), job->hw_fence is
+signaled before queue_work(&sdev->reap_work), so flush_work(&sdev->reap_wor=
+k)
+can run before reap_work is queued.
+
+[ ... ]
+
+> +	ctx =3D kzalloc_obj(*ctx);
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +	ctx->vm =3D pvrsgx_vm_lookup(sfile, args->vm_context_handle);
+> +	if (!ctx->vm) {
+> +		kfree(ctx);
+> +		return -ENOENT;
+> +	}
+> +	ctx->sdev =3D sdev;
+> +	ctx->type =3D args->type;
+> +	ctx->usage =3D pvrsgx_usage_get(sfile->usage);
+> +	kref_init(&ctx->ref);
+> +	err =3D ctx->type =3D=3D DRM_POWERVR_SGX_CTX_TYPE_RENDER ?
+> +	      pvrsgx_render_ctx_init(sdev, ctx, args->param_buffer_pages) :
+> +	      pvrsgx_transfer_ctx_init(sdev, ctx);
+> +	if (err)
+> +		goto err_put;
+> +	err =3D drm_sched_entity_init(&ctx->entity, sched_priority(args->priori=
+ty), &sched, 1, NULL);
+> +	if (err)
+> +		goto err_put;
+> +	pvrsgx_vm_user_get(ctx->vm);
+
+[Severity: Medium]
+Can pvrsgx_ioctl_destroy_vm_context() drop ctx->vm->users to 0 before
+pvrsgx_ioctl_create_context() calls pvrsgx_vm_user_get()?
 
 CPU0                              CPU1
-pvrsgx_ccb_after_invalidate()
-  mutex_lock(&sdev->ccb_lock)
-  w->seq =3D sdev->ccb_issued + 1
-  mutex_unlock(&sdev->ccb_lock)
-                                  pvrsgx_ccb_send()
-                                    /* issues command w->seq */
-                                  /* GPU consumes w->seq */
-                                  pvrsgx_ccb_inval_reap()
-                                    spin_lock_irqsave(&sdev->inval_lock)
-                                    /* sdev->inval_waits is empty */
-                                    spin_unlock_irqrestore(&sdev->inval_loc=
-k)
-  spin_lock_irqsave(&sdev->inval_lock)
-  list_add_tail(&w->node, &sdev->inval_waits)
-    <-- missed reap
+pvrsgx_ioctl_create_context()     pvrsgx_ioctl_destroy_vm_context()
+  ctx->vm =3D pvrsgx_vm_lookup()
+  ...
+                                    xa_erase(&sfile->vms, handle)
+                                    pvrsgx_vm_user_put(vm)
+                                      /* users: 1 -> 0 */
+                                      vm_unmap_all(vm)
+  pvrsgx_vm_user_get(ctx->vm)
+    /* users: 0 -> 1 on torn-down VM */
 
-The same window against sdev->lost =3D true and pvrsgx_ccb_inval_reap(sdev,
-true) queues w->node after the final drain has finished, leaking the
-waiting VM, GEM objects, and drm_device reference.  Acquiring
-sdev->inval_lock (and re-checking sdev->lost) before releasing
-sdev->ccb_lock would close both races.
-
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c b/drivers/gpu/drm/po=
-wervr_sgx/pvrsgx_fw.c
-> new file mode 100644
-> index 0000000000000..b3c0d18912190
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c
+pvrsgx_vm_lookup() only takes ctx->vm->ref under xa_lock(&sfile->vms), so a
+concurrent DESTROY_VM_CONTEXT can drop vm->users to 0 and unmap the VM befo=
+re
+pvrsgx_vm_user_get() increments vm->users back to 1.
 
 [ ... ]
 
-> +#define PDTABLE_OFFSET	0xf000
-> +#define PDTABLE_SLOTS	(PAGE_SIZE / sizeof(u32))
-> +
-> +/* The PD table sits past the code arena, inside the kernel code heap's =
-first 64 KiB. */
-> +static_assert(PDTABLE_OFFSET >=3D CODE_ARENA_SIZE);
-> +static_assert(SZ_64K - PAGE_SIZE >=3D PDTABLE_OFFSET);
-> +
-> +static int pdtable_init(struct pvrsgx_device *sdev)
+> +static void context_destroy(struct pvrsgx_context *ctx)
 > +{
-> +	struct pvrsgx_fw *f =3D &sdev->fw;
-> +	int err;
+> +	/* Its queued jobs are on the GPU or cancelled before its VM's mappings=
+ may go. */
+> +	drm_sched_entity_destroy(&ctx->entity);
+> +	pvrsgx_vm_user_put(ctx->vm);
+> +	context_put(ctx);
+> +}
 > +
-> +	if (!pvrsgx_core_single_context(sdev->family))
-> +		return 0;
-> +	err =3D pvrsgx_kmem_alloc(sdev, &f->pdtable,
-> +				pvrsgx_heaps(sdev)->kernel_code.base + PDTABLE_OFFSET, PAGE_SIZE,
-> +				SGX_MMU_PTE_READONLY, 0);
-> +	if (err)
-> +		return err;
-> +	memset32(f->pdtable.cpu, pvrsgx_mmu_pd_addr(sdev->kernel_mmu), PDTABLE_=
-SLOTS);
+> +void pvrsgx_context_destroy_all(struct pvrsgx_file *sfile)
+> +{
+> +	struct pvrsgx_context *ctx;
+> +	unsigned long handle;
+> +
+> +	xa_for_each(&sfile->contexts, handle, ctx) {
+> +		xa_erase(&sfile->contexts, handle);
+> +		context_destroy(ctx);
+> +	}
+> +}
+> +
+> +int pvrsgx_ioctl_destroy_context(struct drm_device *drm, void *data, str=
+uct drm_file *file)
+> +{
+> +	struct drm_powervr_sgx_ioctl_destroy_context_args *args =3D data;
+> +	struct pvrsgx_context *ctx;
+> +
+> +	if (args->_padding_4)
+> +		return -EINVAL;
+> +	ctx =3D xa_erase(&to_pvrsgx_file(file)->contexts, args->handle);
+> +	if (!ctx)
+> +		return -ENOENT;
+> +	context_destroy(ctx);
 > +	return 0;
 > +}
 > +
-> +/* A slot naming directory pd, for a new VM; its HW contexts carry the s=
-lot. */
-> +int pvrsgx_fw_pd_slot_get(struct pvrsgx_device *sdev, u32 pd)
+> +struct pvrsgx_context *pvrsgx_context_lookup(struct pvrsgx_file *sfile, =
+u32 handle)
 > +{
-> +	int slot =3D ida_alloc_range(&sdev->fw.pd_slots, 1, PDTABLE_SLOTS - 1, =
-GFP_KERNEL);
+> +	struct pvrsgx_context *ctx;
 > +
-> +	if (slot < 0)
-> +		return slot;
-> +	WRITE_ONCE(((u32 *)sdev->fw.pdtable.cpu)[slot], pd);
-> +	/* In memory before any command names the slot. */
-> +	wmb();
-> +	return slot;
+> +	xa_lock(&sfile->contexts);
+> +	ctx =3D xa_load(&sfile->contexts, handle);
+> +	if (ctx)
+> +		kref_get(&ctx->ref);
+> +	xa_unlock(&sfile->contexts);
+> +	return ctx;
 > +}
 
-[Severity: Medium]
-Should PDTABLE_SLOTS and pdtable_init() use SGX_MMU_PAGE_SIZE instead of
-PAGE_SIZE?  On architectures with 16 KiB or 64 KiB pages (reachable via
-CONFIG_COMPILE_TEST), static_assert(SZ_64K - PAGE_SIZE >=3D PDTABLE_OFFSET)
-fails to build because PDTABLE_OFFSET is 0xf000.
+[Severity: Critical]
+What stops pvrsgx_ioctl_destroy_context() from running context_destroy()
+while pvrsgx_ioctl_submit_jobs() is still using ctx->entity?
 
-[Severity: Medium]
-Also in pdtable_init(), does f->pdtable need SGX_MMU_PTE_CACHECONSISTENT?
-pvrsgx_fw_pd_slot_get() and pvrsgx_fw_pd_slot_put() update slots in
-f->pdtable while the microkernel is running without queuing
-PVRSGX_CC_INVAL_DATA, so without SGX_MMU_PTE_CACHECONSISTENT the GPU can
-read a stale cached directory address from the same cacheline and fault.
+CPU0                              CPU1
+pvrsgx_ioctl_submit_jobs()        pvrsgx_ioctl_destroy_context()
+  job_create()
+    ctx =3D pvrsgx_context_lookup()
+    drm_sched_job_init(&job->base,
+                       &ctx->entity, ...)
+                                    ctx =3D xa_erase(&sfile->contexts, ...)
+                                    context_destroy(ctx)
+                                      drm_sched_entity_destroy(&ctx->entity)
+                                        /* frees entity->stats,
+                                           sets entity->stopped =3D true */
+                                      pvrsgx_vm_user_put(ctx->vm)
+  drm_sched_job_arm(&job->base)
+    /* UAF on entity->stats */
+  drm_sched_entity_push_job(&job->base)
+    /* stranded on stopped entity */
+
+Because pvrsgx_context_lookup() only takes ctx->ref and context_destroy()
+immediately destroys ctx->entity and drops ctx->vm's user count upon
+xa_erase(), drm_sched_job_arm() dereferences freed entity->stats, and
+drm_sched_entity_push_job() queues the job onto an already-killed entity
+where its fence never signals and its job, VM, and runtime PM references
+leak forever.
 
 [ ... ]
 
-> +int pvrsgx_fw_start(struct pvrsgx_device *sdev)
+> +/* The latest earlier job of this submit that signals handle at point, o=
+r -1. */
+> +static int intra_signaller(const struct job_args *prev, u32 nprev, u32 h=
+andle, u64 point)
 > +{
-> +	const struct pvrsgx_core_regs *cr =3D sdev->cr;
-> +	u32 *hc =3D fw_words(sdev, PVRSGX_FW_HOSTCTL);
-> +	bool first =3D !sdev->fw_started, was_powered =3D READ_ONCE(sdev->power=
-ed);
-> +	int err;
-> +
-> +	WRITE_ONCE(sdev->powered, true);
-> +
-> +	/*
-> +	 * A restart starts from a fresh image and empty arenas: the microkernel
-> +	 * changes both as it runs, and a module reload (which recovers) is
-> +	 * exactly this.
-> +	 */
-> +	if (!first) {
-> +		sdev->fw_gen++;
-> +		/*
-> +		 * After a hang the clocks are on and the cores may be busy. After a
-> +		 * clean stop (runtime suspend) they are gated and quiet already, and
-> +		 * a register read there can hang the SoC.
-> +		 */
-> +		if (was_powered) {
-> +			/* What an unload and reload (which recovers) does in between. */
-> +			deinit_script(sdev);
-> +			sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_c=
-ores);
-> +			sgx_rd(sdev, SGX_CR_SOFT_RESET);
-> +			/* Behind gma500 bus mastering is the display's too: leave it. */
-> +			if (sdev->pdev)
-> +				pci_clear_master(sdev->pdev);
-> +			fsleep(10000);
-> +			if (sdev->pdev)
-> +				pci_set_master(sdev->pdev);
+> +	for (int k =3D nprev - 1; k >=3D 0; k--) {
+> +		for (u32 s =3D 0; s < prev[k].nsignals; s++) {
+> +			if (prev[k].signals[s].handle =3D=3D handle &&
+> +			    prev[k].signals[s].point =3D=3D point)
+> +				return k;
 > +		}
-> +		memset(sdev->fw.data.cpu, 0, sdev->fw.data.size);
-> +		memset(sdev->fw.code.cpu, 0, sdev->fw.code.size);
-> +		err =3D fw_build(sdev, sdev->fw.image);
-> +		if (err)
-> +			return err;
-> +		/*
-> +		 * Nothing the old run pointed at matters any more. Freeing can take
-> +		 * locks a fence waiter holds, so the reap work does it, not a reset.
-> +		 */
-> +		WRITE_ONCE(sdev->restarts, sdev->restarts + 1);
-> +		queue_work(sdev->free_wq, &sdev->reap_work);
 > +	}
-> +	memset(hc, 0, layout[PVRSGX_FW_HOSTCTL].size);
-> +	hc[HOSTCTL_UK_TIMER_CLOCK] =3D sdev->core->clock_hz / UKERNEL_TIMER_HZ;
-> +	hc[HOSTCTL_FLAGS] =3D HOSTCTL_HOST_BGBLOCK;
-> +	/* The power status starts clear at every start. */
-> +	hc[HOSTCTL_POWER_STATUS] =3D 0;
-> +	pvrsgx_ccb_reset(sdev);
-> +	ta3dctl_fill(sdev);
-> +	/* The first command invalidates the directory cache, keeping what a re=
-ap queued. */
-> +	sdev->fw.cache_control |=3D PVRSGX_CC_INVAL_BIF_PD;
+> +	return -1;
+> +}
 > +
-> +	/* Every unit's clock gated automatically, but the DPM's: it stays on. =
-*/
-> +	sgx_wr(sdev, SGX_CR_CLKGATECTL,
-> +	       (SGX_CLKG_ALL(cr->clkgatectl_units, SGX_CLKG_AUTO) & ~cr->clkgat=
-ectl_dpm) |
-> +	       field_prep(cr->clkgatectl_dpm, SGX_CLKG_ON));
-
-[Severity: High]
-Does setting sdev->powered =3D true at the start of pvrsgx_fw_start() allow
-pvrsgx_irq() to read SGX registers while the clocks are gated?
-
-sdev->irq is shared, and pvrsgx_irq() checks only READ_ONCE(sdev->powered)
-before reading SGX_CR_EVENT_STATUS:
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_device.c:pvrsgx_irq() {
-	if (!READ_ONCE(sdev->powered))
-		return IRQ_NONE;
-	status =3D sgx_rd(sdev, SGX_CR_EVENT_STATUS) & sgx_rd(sdev, SGX_CR_EVENT_H=
-OST_ENABLE);
-    ...
-}
-
-On resume from pvrsgx_fw_stop(), the clocks are gated until
-SGX_CR_CLKGATECTL is written below, and on hang recovery (was_powered =3D=3D
-true), deinit_script() gates the clocks before sleeping 10 ms in
-fsleep(10000) and zeroing the arenas.
-
-CPU0 (pvrsgx_fw_start)            CPU1 (<hardirq> on shared IRQ)
-WRITE_ONCE(sdev->powered, true)
-deinit_script()
-  sgx_wr(SGX_CR_CLKGATECTL, 0)
-fsleep(10000)
-                                  pvrsgx_irq()
-                                    if (!READ_ONCE(sdev->powered))
-                                    sgx_rd(SGX_CR_EVENT_STATUS)
-                                      <-- reads unclocked SGX, bus hang
-
-Also, if fw_build() fails on a restart when was_powered was false,
-pvrsgx_fw_start() returns with sdev->powered left true while the hardware
-is unclocked.
+> +static int job_sync_ops(struct drm_file *file, struct job_args *ja,
+> +			const struct drm_powervr_sgx_obj_array *arr,
+> +			const struct job_args *prev, u32 nprev)
+> +{
+> +	struct drm_powervr_sgx_sync_op *ops;
+> +	int err =3D 0;
+> +
+> +	ops =3D pvrsgx_obj_array_get(arr, sizeof(*ops), PVRSGX_MAX_SYNC_OPS);
+> +	if (IS_ERR_OR_NULL(ops))
+> +		return PTR_ERR_OR_ZERO(ops);
+> +
+> +	ja->signals =3D kvcalloc(arr->count, sizeof(*ja->signals), GFP_KERNEL);
+> +	ja->intra =3D kvcalloc(arr->count, sizeof(*ja->intra), GFP_KERNEL);
+> +	if (!ja->signals || !ja->intra) {
+> +		err =3D -ENOMEM;
+> +		goto out;
+> +	}
+> +	for (u32 i =3D 0; i < arr->count && !err; i++) {
+> +		u32 type =3D ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_M=
+ASK;
+> +		bool timeline =3D type =3D=3D DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE=
+_TIMELINE_SYNCOBJ;
+> +		struct dma_fence *fence;
+> +
+> +		if ((ops[i].flags & ~PVRSGX_SYNC_OP_FLAGS_MASK) ||
+> +		    (type !=3D DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_SYNCOBJ && !ti=
+meline) ||
+> +		    (!timeline && ops[i].value)) {
+> +			err =3D -EINVAL;
+> +			break;
+> +		}
+> +
+> +		if (!(ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_SIGNAL)) {
+> +			int k =3D intra_signaller(prev, nprev, ops[i].handle, ops[i].value);
+> +
+> +			/* Its fence exists once that job is armed: added then. */
+> +			if (k >=3D 0) {
+> +				ja->intra[ja->nintra++] =3D k;
+> +				continue;
+> +			}
+> +			err =3D drm_syncobj_find_fence(file, ops[i].handle, ops[i].value, 0, =
+&fence);
 
 [Severity: Medium]
-Just above SGX_CR_CLKGATECTL, can sdev->fw.cache_control |=3D
-PVRSGX_CC_INVAL_BIF_PD race with sdev->reap_work?
+Does intra_signaller() preserve timeline syncobj semantics when jobs in the
+same submission signal and wait on a timeline syncobj?
 
-queue_work(sdev->free_wq, &sdev->reap_work) is called a few lines earlier,
-and pvrsgx_kobj_reap() updates sdev->fw.cache_control under
-sdev->ccb_lock.  Updating sdev->fw.cache_control here without
-sdev->ccb_lock can clobber the flags set by reap_work (or by concurrent VM
-unmaps) and drop a required BIF TLB invalidate.
+When intra_signaller() matches job k, job_sync_ops() skips
+drm_syncobj_find_fence() and pvrsgx_ioctl_submit_jobs() only adds ja[k].done
+as a dependency instead of the dma_fence_chain node later installed by
+drm_syncobj_add_point(), dropping dependencies on any unsignaled fences
+already in the timeline syncobj as well as earlier points signaled by jobs
+before k on other contexts.  Furthermore, intra_signaller() checks for exact
+point equality (prev[k].signals[s].point =3D=3D point) rather than >=3D poi=
+nt (or
+point =3D=3D 0 for the latest signaled point), so waiting on a smaller time=
+line
+point or point 0 misses the earlier job in the batch.
+
+> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h b/drivers/gpu/drm/p=
+owervr_sgx/pvrsgx_job.h
+> new file mode 100644
+> index 0000000000000..87d3744c79eba
+> --- /dev/null
+> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h
 
 [ ... ]
 
-> +void pvrsgx_fw_halt(struct pvrsgx_device *sdev)
-> +{
-> +	const struct pvrsgx_core_regs *cr =3D sdev->cr;
-> +
-> +	sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_cor=
-es);
-> +	sgx_rd(sdev, SGX_CR_SOFT_RESET);
-> +	if (sdev->pdev)
-> +		pci_clear_master(sdev->pdev);
-> +}
-> +
-> +/* Ask the microkernel to power off, then hold the cores in reset. */
-> +void pvrsgx_fw_stop(struct pvrsgx_device *sdev)
-> +{
-> +	const struct pvrsgx_core_regs *cr =3D sdev->cr;
-> +	u32 *hc =3D fw_words(sdev, PVRSGX_FW_HOSTCTL);
-> +	u32 data[6] =3D { 0, POWER_OFF };
-> +
-> +	if (sdev->fw_running) {
-> +		if (pvrsgx_ccb_send(sdev, PVRSGX_KCMD_POWER, data, NULL) ||
-> +		    pvrsgx_poll(sdev, &hc[HOSTCTL_POWER_STATUS], HOSTCTL_POWMAN_POWERO=
-FF_COMPLETE,
-> +				HOSTCTL_POWMAN_POWEROFF_COMPLETE, 500000))
-> +			drm_warn(&sdev->base, "microkernel did not power off\n");
-> +		/* Wait for the clocks to gate; the DPM's stays on. */
-> +		for (int i =3D 0; i < 500; i++) {
-> +			if (!(sgx_rd(sdev, cr->clkgatestatus) & ~cr->clkgatestatus_dpm))
-> +				break;
-> +			usleep_range(100, 200);
-> +		}
-> +		WRITE_ONCE(sdev->powered, false);
-> +		synchronize_irq(sdev->irq);
-> +		deinit_script(sdev);
-> +		sdev->fw_running =3D false;
-> +		sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_co=
-res);
-> +		sgx_rd(sdev, SGX_CR_SOFT_RESET);
-> +	} else if (READ_ONCE(sdev->powered)) {
-> +		/* A failed start: the clocks are on, the microkernel isn't. */
-> +		WRITE_ONCE(sdev->powered, false);
-> +		synchronize_irq(sdev->irq);
-> +		sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_co=
-res);
-> +		sgx_rd(sdev, SGX_CR_SOFT_RESET);
-> +	}
-> +}
+> +	/** @hw_fence: Signalled when the firmware has finished the job. */
+> +	struct dma_fence *hw_fence;
+> +	/** @hw_fence_mem: @hw_fence's memory from submit until run_job initial=
+izes it. */
+> +	struct dma_fence *hw_fence_mem;
+> +	/** @ccb_seq: Kernel CCB command that carries the job. */
+> +	/** @start_ns: When run_job sent it to the microkernel. */
+> +	u64 start_ns;
+> +	u64 ccb_seq;
 
-[Severity: Medium]
-Should pvrsgx_fw_halt() and the restart path of pvrsgx_fw_start() clear
-sdev->fw_running?
+[ ... ]
 
-Neither sets sdev->fw_running =3D false when holding the GPU in reset or
-rebuilding the arenas.  If pvrsgx_fw_halt() is called (or a restart in
-pvrsgx_fw_start() fails) and pvrsgx_fw_stop() runs afterwards,
-pvrsgx_fw_stop() sees sdev->fw_running =3D=3D true and sends PVRSGX_KCMD_PO=
-WER
-with a 500 ms poll to a halted microkernel, while interrupt handlers can
-observe sdev->fw_running =3D=3D true while control blocks are zeroed.
+> +	/** @ranges: The bytes of imports the job reads or writes, flushed arou=
+nd it. */
+> +	struct pvrsgx_cache_range *ranges;
+> +	/** @nranges: Number of @ranges. */
+> +	u32 nranges;
+> +	/** @signals: Syncobjs to signal with the job's fence. */
+> +	struct pvrsgx_signal *signals;
+> +	/** @nsignals: Number of @signals. */
+> +	u32 nsignals;
+> +};
 
-[Severity: Medium]
-In pvrsgx_fw_stop(), does synchronize_irq(sdev->irq) wait for the
-interrupt bottom half when running behind gma500?
-
-When sdev->gma_sgx is used, pvrsgx_gma_irq() schedules sdev->irq_work on
-system_highpri_wq rather than waking a threaded IRQ handler on sdev->irq:
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_device.c:pvrsgx_gma_irq() {
-    ...
-	if (ret =3D=3D IRQ_WAKE_THREAD) {
-		queue_work(system_highpri_wq, &sdev->irq_work);
-		return IRQ_HANDLED;
-	}
-    ...
-}
-
-Without flushing or canceling sdev->irq_work after synchronize_irq(),
-pvrsgx_irq_thread() can run concurrently with deinit_script(),
-sdev->fw_running =3D false, soft reset, and arena zeroing on the next start.
-
-[Severity: Medium]
-Finally, in the else if (READ_ONCE(sdev->powered)) branch of
-pvrsgx_fw_stop(), should deinit_script(sdev) be called before asserting
-soft reset?
-
-When pvrsgx_fw_start() fails in check_event_pds() or times out polling
-HOSTCTL_INIT_STATUS, SGX_CR_CLKGATECTL (including the forced-on DPM
-clock), SGX_CR_EVENT_HOST_ENABLE, use_code_base(15), and event_pds_* have
-already been programmed.  Skipping deinit_script(sdev) leaves those
-registers and clocks enabled while marking sdev->powered false, so a later
-pvrsgx_fw_start() also sees was_powered =3D=3D false and skips
-deinit_script().
+[Severity: Low]
+In struct pvrsgx_job, signals and nsignals are unused (syncobj signals are
+kept in struct job_args), and the @ccb_seq kernel-doc comment is placed
+above start_ns instead of ccb_seq.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-powervr-sg=
-x-v1-0-c69b84bac011@telaak.dev?part=3D6
+x-v1-0-c69b84bac011@telaak.dev?part=3D8
