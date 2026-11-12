@@ -2,100 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7EC606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AAA606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 01:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AmQ6yqPG
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xrwr6XVN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D38F10FEFC;
-	Thu, 12 Nov 2026 01:44:27 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7567910EB18;
- Thu, 12 Nov 2026 01:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8840410E4E8;
+	Thu, 12 Nov 2026 01:51:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5F310E4E8;
+ Thu, 12 Nov 2026 01:50:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DFD3B62CCE;
- Thu, 12 Nov 2026 01:43:58 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447838;
- b=vHgwYbKFlWa/IzbsJC+AWWXgcrtKIdwExhQfFBEFFyy9/hqYXuIQIS9jWsNLmw3oer4Z
- sOwCmfsJ5SmR7Ns/8wV1D17PigNtFY/2UcSdsGfthmVeO+3uhvlgk3IPs2SdFCV/ZUaPS
- VZaNNGhV29xqgzAUsfFSMddkOZXM4jJzxXHIzjE3i5vz4d3zJTycCdjLpEYqWsP96aee/
- /gO2SgzXq6pltvI7t+fbfuPNOrm1LjtsaVzpjn04n0pmgLjuy9R5QMI+pi5iptQd0n3sd
- VmOrwWEP8UXbH6OnWDUlUp/91ngsIIhdu92aft/MtE3GWHq6x0TTQT24DcHEC2ee2Yw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447838;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=XJOMUd5sHXLtIXmVM9ZHqQJlIizbU5vAYAq8FW2tvAE=;
- b=X2amVWfGEgZeQP/7v8KdZJd2yQoo12cbCwF4ievw/nOSYcPXA2foMYbcMZerUb4mXPsP
- CphfA5pLBBFmFkb0QIInfakcxy9gnH1xLSu0DLlZF+FyZoOAWpZPC0W4qqt0lh7wLZg+x
- u7SqZLELYXHppJcOj94ojmlJlwNu0cfwUYdmKokxluYKOiq6Cp31DaNuuUBF4sh61UJO4
- 225lFw2W4UYwudK7oKz44wKZ61mKncmd9QAX7adOXPWB0GUfE72RVhHTXRZd4i+WdYgFD
- oGVSruhiu8eNs7bOcvv1hcmhJEX9nqjm6pBW9UaBPZ7awNSRvuzhmTHwFanuPSodJ1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 886731F00A12;
- Thu, 12 Nov 2026 01:43:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DF99542E90;
+ Thu, 12 Nov 2026 01:50:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0F01F00A06;
+ Thu, 12 Nov 2026 01:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447838;
- bh=XJOMUd5sHXLtIXmVM9ZHqQJlIizbU5vAYAq8FW2tvAE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=AmQ6yqPGIPuAnLTvo/hxLZDZdPJgkwspzpy3ZL17ntIxh47M6X1T9Bc83rOcJQO9k
- /+FIXhmrsRGG//eZKVWGxxtwUN+ND5qx6QjcSb85spYNUUXCmPC9eWWCDOLbty5MOV
- MkCGEW1uVWFwVQNCsjLj/GYPL58yOZ1B+ftGidFESxqx/U736pt26mCOsV4IXe4pCv
- ZFHB96ynptnRHY0aihAutuv3dIVwOREUCB2JKtyPErUGbVNu2COdSkxbXvyTo1/chF
- mPywM/lD/5HALsrblzY6RECQeP7Fam/g+BLpdmsknVetTOPxkDzZDHua7WVZ039pwE
- phji/SpC/+ZKg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 5089A49206;
- Thu, 12 Nov 2026 01:43:50 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:52 +1000
-Subject: [PATCH 17/19] drm/amd/display: Replace the dc_get_res_pool
- accessor with purpose APIs
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-17-0fae41718ad2@redhat.com>
+ s=k20260515; t=1794448258;
+ bh=TT8Le7wY1HqMjC4eg7/4lsHCTUN7+7/R/A+Eh1e3YDk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Xrwr6XVN+/BhBJVRBeWPI6nnNJO+fmw+++0douVxSTXVLkkJzUg4ydJA4UKnQndg6
+ XUifhERPOwknzD9USEOzaesByIkSxCJzsXMRvgnoJ642IOtGLPTeQ3Vr8U2gCPFsns
+ qZOJ07YQHYA3Eoi03OjVxvA2PntRyZxMgRFhQznMSiKDW+QedoOaXdQUxhOlUGZywO
+ eXVltU4mmLkYvU5YqvyMHLPeB91/vHETdvQcy9lZQ8nQqVTIZ+Kuz+zdegjBKQmGe6
+ Ke/u7hjZmotl3HyLzLfSvDk2EY3OhVBiZtP6VwXanksGDpKbessNmGslFl5R2x3Sbw
+ R1+1J2auCdpMg==
+Message-ID: <sashiko-outbox-210103@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 04/19] drm/amd/display/amdgpu_dm: Use DC accessors in
+ audio/color/backlight paths
+To: "Dave Airlie" <airlied@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-4-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Austin Zheng <austin.zheng@amd.com>, 
- Jun Lei <jun.lei@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19395;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=aLrjfmRuVNABR0G+4/pR/qWC5Ff9G9CEUgqRMbt0D4Q=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnQJE0nmBARJKeuxT2u28SbN1za/x9cqBpk3
- Xs641E9fgaJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZ0AAKCRAMdPNZecSG
- vpbiD/443Ea3wzTXr3STlsRm7KCIZpBPzHixgBc8aNR5jxVxDu+LVX7N5wIqijxMlmiwv82bUPL
- fO7RiOkkqjegFvS0YvOZKHzB2+q0cfOzBEq5xUyJ+iPAbxyuxmx6drL6cnMWybtxeuFATuvGScd
- mR6akTmO3dgJFmjpChnXDWbkxk68Y6FinwjxrUZqQsOoG7vX1X6Il4DABe4gjIjRQSKdoEi8XLz
- Q34LVDU8NaH6H8rPdjBzX/tS/j9G6Xac15T+5QPjx/eVjwlK3bx4kva11UjyYrzfr0EiiflcciH
- H6UL2Yoa12rIc053j3hcxO320C2JXOxYtksRBHzbrjsTN3dlXoOqz/QrJ5/CQ/DahzY3XSK2eIe
- 1/TrnBPh9Mrnn33Q53j+DlxV7XMKlxT2dEtUjjorm93pT1ALJhvvdcY3YLi79/QoE44LqqB3RqZ
- h1+QNKoR1MXw80wr+Tbbxs1zmDigk3ckcQH+r31DYiRAEmzq3UOUOmkOAbF5aldjQLBiM7ZbKJu
- QyIZ5QUzaA04RlBexpGpB32/jisR8W8IT9qIeLiPs/46uN02YeCv2zxrsDDTelQHxnUF/7s2e5v
- z+JAV3WV6j0AKWZK8RGrB2s/BSqAQ5eBkVqHR/gMMDjKhvD0ehnwJ85FDoTExblUl0n7OR0FcTF
- SBG9V53fOuXvmuQ==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
-Content-Transfer-Encoding: 7bit
+ <20261112-amdgpu-dc-cleanup-v1-4-0fae41718ad2@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 01:50:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,477 +49,169 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Dave Airlie <airlied@redhat.com>
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 2 related pre-existing issues it does not
+introduce:
+- [Critical] drm/amd/display: race and invalid downcast in
+  amdgpu_dm_backlight_set_level() [1]
+- [Medium] drm/amd/display: swallowed error in
+  amdgpu_dm_update_plane_color_mgmt() [2]
+--
 
-Add the last purpose-built interfaces for the data DM was reading
-through dc_get_res_pool() and drop the accessor entirely:
+commit c710d624f30d7a2d26cb80389657ac035d1c1f5e
+Author: Dave Airlie <airlied@redhat.com>
 
-- dc_get_audio_instances() fills the audio instance id array for
-  amdgpu_dm_audio_init()
-- dc_get_pipe_count() for the debugfs DCC bits dump
-- dc_get_usb4_dpia_count() for the DMUB DPIA enablement
-- dc_get_dmcu_psp_version() and dc_dmcu_init_abm() for the DMUB
-  hardware init path
-- dc_get_mall_en() for the debugfs capabilities dump
-- dc_remove_stream_from_ctx() for the MST DSC recomputation
+drm/amd/display/amdgpu_dm: Use DC accessors in audio/color/backlight paths
 
-No code outside the dc directory references struct resource_pool in
-production anymore; only the KUnit tests keep installing fake pools
-through dc_test_set_res_pool() / dm_kunit_alloc_res_pool().
+This commit replaces direct struct dc member accesses with DC accessor
+calls in the audio, backlight, and color management paths.
 
-Part of making the struct dc sub-structures opaque outside DC.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index cb74b00723fda..3d268703c5514 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -296,7 +296,7 @@ struct dc_stream_state *dm_find_stream_with_link(
+>  	struct amdgpu_display_manager *dm,
+>  	struct dc_link *link)
+>  {
+> -	struct dc_state *cur_dc_state =3D dm->dc->current_state;
+> +	struct dc_state *cur_dc_state =3D dc_get_current_state(dm->dc);
+>  	struct dc_stream_state *stream =3D NULL;
+>  	int i;
+> =20
+> @@ -383,7 +383,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_disp=
+lay_manager *dm,
+>  	}
+> =20
+>  	mutex_lock(&dm->dc_lock);
+> -	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+> +	if (dc_get_caps(dm->dc)->ips_support && dc_get_ctx(dm->dc)->dmub_srv->i=
+dle_allowed) {
+>  		dc_allow_idle_optimizations(dm->dc, false);
+>  		reallow_idle =3D true;
+>  	}
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  8 +---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  |  7 +---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c | 14 ++-----
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  6 +--
- .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  | 12 ++++--
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      | 13 +++++++
- .../amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h |  2 +
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  5 ++-
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  6 +--
- drivers/gpu/drm/amd/display/dc/core/dc_abm.c       | 11 ++++++
- drivers/gpu/drm/amd/display/dc/core/dc_accessors.c | 44 ++++++++++++++++++++--
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  | 10 +++++
- drivers/gpu/drm/amd/display/dc/inc/dc.h            | 38 ++++++++++++++++---
- 14 files changed, 135 insertions(+), 43 deletions(-)
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can
+amdgpu_dm_backlight_set_level() race with a concurrent atomic commit and
+use cur_dc_state or stream after it has been freed [1]?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-index 23392b229679..0301081e040e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-@@ -140,19 +140,15 @@ EXPORT_IF_KUNIT(amdgpu_dm_audio_init_pins);
- int amdgpu_dm_audio_init(struct amdgpu_device *adev)
- {
- 	unsigned int inst_array[MAX_AUDIOS];
--	struct resource_pool *res_pool;
- 	int audio_count;
--	int i, ret;
-+	int ret;
- 
- 	if (!amdgpu_audio)
- 		return 0;
- 
- 	adev->mode_info.audio.enabled = true;
- 
--	res_pool = dc_get_res_pool(adev->dm.dc);
--	audio_count = res_pool->audio_count;
--	for (i = 0; i < audio_count; i++)
--		inst_array[i] = res_pool->audios[i]->inst;
-+	audio_count = dc_get_audio_instances(adev->dm.dc, inst_array);
- 	amdgpu_dm_audio_init_pins(adev, audio_count, inst_array);
- 
- 	ret = component_add(adev->dev, &amdgpu_dm_audio_component_bind_ops);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 8d7ebb636554..8bc737117db9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -4464,10 +4464,7 @@ static int capabilities_show(struct seq_file *m, void *unused)
- 	unsigned int mall_in_use = false;
- 	unsigned int subvp_in_use = false;
- 
--	struct hubbub *hubbub = dc_get_res_pool(dc)->hubbub;
--
--	if (hubbub && hubbub->funcs->get_mall_en)
--		hubbub->funcs->get_mall_en(hubbub, &mall_in_use);
-+	dc_get_mall_en(dc, &mall_in_use);
- 
- 	subvp_in_use = dc_get_subvp_en(dc, dc_get_current_state(dc));
- 
-@@ -4609,7 +4606,7 @@ static ssize_t dcc_en_bits_read(
- 	const uint32_t rd_buf_size = 32;
- 	uint32_t result = 0;
- 	int offset = 0;
--	int num_pipes = dc_get_res_pool(dc)->pipe_count;
-+	int num_pipes = dc_get_pipe_count(dc);
- 	int *dcc_en_bits;
- 	int i, r;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index ffe561da24d6..3ed6a9318931 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -232,9 +232,6 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
- 	const struct firmware *dmub_fw = adev->dm.dmub_fw;
- 	struct dc *dc = adev->dm.dc;
--	struct resource_pool *res_pool = dc_get_res_pool(dc);
--	struct dmcu *dmcu = res_pool->dmcu;
--	struct abm *abm = res_pool->abm;
- 	struct dc_context *ctx = dc_get_ctx(adev->dm.dc);
- 	struct dmub_srv_hw_params hw_params;
- 	enum dmub_status status;
-@@ -333,14 +330,14 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
- 		hw_params.load_inst_const = true;
- 
--	if (dmcu)
--		hw_params.psp_version = dmcu->psp_version;
-+	if (dc_has_dmcu(dc))
-+		hw_params.psp_version = dc_get_dmcu_psp_version(dc);
- 
- 	hw_params.fb_info = fb_info;
- 
- 	/* Enable usb4 dpia in the FW APU */
- 	if (dc_get_caps(dc)->is_apu &&
--		dc_get_res_pool(dc)->usb4_dpia_count != 0 &&
-+		dc_get_usb4_dpia_count(dc) != 0 &&
- 		!dc_get_debug_options(dc)->dpia_debug.bits.disable_dpia) {
- 		hw_params.dpia_supported = true;
- 		hw_params.disable_dpia = dc_get_debug_options(dc)->dpia_debug.bits.disable_dpia;
-@@ -375,10 +372,7 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 		drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
- 
- 	/* Init DMCU and ABM if available. */
--	if (dmcu && abm) {
--		dmcu->funcs->dmcu_init(dmcu);
--		abm->dmcu_is_running = dmcu->funcs->is_dmcu_initialized(dmcu);
--	}
-+	dc_dmcu_init_abm(dc);
- 
- 	if (!dc_get_ctx(adev->dm.dc)->dmub_srv)
- 		dc_get_ctx(adev->dm.dc)->dmub_srv = dc_dmub_srv_create(adev->dm.dc, dmub_srv);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 4f9070579916..d533b72f1861 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1643,7 +1643,6 @@ int compute_mst_dsc_configs_for_state(struct drm_atomic_commit *state,
- 	bool computed_streams[MAX_PIPES];
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_dp_mst_topology_mgr *mst_mgr;
--	struct resource_pool *res_pool;
- 	int link_vars_start_index = 0;
- 	int ret = 0;
- 
-@@ -1652,7 +1651,7 @@ int compute_mst_dsc_configs_for_state(struct drm_atomic_commit *state,
- 
- 	for (i = 0; i < dc_state->stream_count; i++) {
- 		stream = dc_state->streams[i];
--		res_pool = dc_get_res_pool(stream->ctx->dc);
-+
- 
- 		if (stream->signal != SIGNAL_TYPE_DISPLAY_PORT_MST)
- 			continue;
-@@ -1671,8 +1670,7 @@ int compute_mst_dsc_configs_for_state(struct drm_atomic_commit *state,
- 		if (computed_streams[i])
- 			continue;
- 
--		if (res_pool->funcs->remove_stream_from_ctx &&
--		    res_pool->funcs->remove_stream_from_ctx(stream->ctx->dc, dc_state, stream) != DC_OK)
-+		if (dc_remove_stream_from_ctx(stream->ctx->dc, dc_state, stream) != DC_OK)
- 			return -EINVAL;
- 
- 		if (!is_dsc_need_re_compute(state, dc_state, stream->link))
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-index b71e1e11e85a..e1360a97ec26 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -731,11 +731,14 @@ static void dm_test_dmub_hw_init_auto_load_timeout(struct kunit *test)
-  */
- static void dm_test_dmub_hw_init_apu_dpia_dcn35(struct kunit *test)
- {
-+	struct resource_pool *res_pool;
-+
- 	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
- 
- 	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 5, 0);
- 	dc_test_caps(adev->dm.dc)->is_apu = true;
--	dc_get_res_pool(adev->dm.dc)->usb4_dpia_count = 1;
-+	res_pool = dm_kunit_alloc_res_pool(test, adev->dm.dc);
-+	res_pool->usb4_dpia_count = 1;
- 
- 	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), 0);
- 	KUNIT_EXPECT_TRUE(test, adev->dm.dmub_srv->hw_init);
-@@ -787,6 +790,8 @@ static void dm_test_dmub_hw_init_sanity_checks_dcn314(struct kunit *test)
-  */
- static void dm_test_dmub_hw_init_dmcu_abm(struct kunit *test)
- {
-+	struct resource_pool *res_pool;
-+
- 	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
- 	struct dmcu *dmcu;
- 	struct abm *abm;
-@@ -799,8 +804,9 @@ static void dm_test_dmub_hw_init_dmcu_abm(struct kunit *test)
- 
- 	dmcu->funcs = &dm_test_dmcu_funcs;
- 	dmcu->psp_version = 0x12345678;
--	dc_get_res_pool(adev->dm.dc)->dmcu = dmcu;
--	dc_get_res_pool(adev->dm.dc)->abm = abm;
-+	res_pool = dm_kunit_alloc_res_pool(test, adev->dm.dc);
-+	res_pool->dmcu = dmcu;
-+	res_pool->abm = abm;
- 
- 	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), 0);
- 	KUNIT_EXPECT_TRUE(test, abm->dmcu_is_running);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index ea467ca45af8..2ae534c4c252 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -4188,7 +4188,7 @@ static void dm_test_crtc_high_irq_writeback_disables(struct kunit *test)
- 	adev = dm_kunit_alloc_adev(test);
- 	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
- 
--	/* dc_stream_fc_disable_writeback() dereferences dc_get_res_pool(dc). */
-+	/* dc_stream_fc_disable_writeback() dereferences the DC resource pool. */
- 	dc = dm_test_alloc_dc_with_irq_service(test,
- 					       &dm_test_irq_service_funcs_dcn10);
- 	adev->dm.dc = dc;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-index 9954cbab6541..e4bea9fbad52 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-@@ -136,6 +136,19 @@ struct dc_state *dm_kunit_alloc_dc_state(struct kunit *test)
- }
- EXPORT_SYMBOL(dm_kunit_alloc_dc_state);
- 
-+struct resource_pool *dm_kunit_alloc_res_pool(struct kunit *test, struct dc *dc)
-+{
-+	struct resource_pool *res_pool;
-+
-+	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, res_pool);
-+
-+	dc_test_set_res_pool(dc, res_pool);
-+
-+	return res_pool;
-+}
-+EXPORT_SYMBOL(dm_kunit_alloc_res_pool);
-+
- struct clk_mgr *dm_kunit_alloc_clk_mgr(struct kunit *test)
- {
- 	struct clk_mgr *clk_mgr;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h
-index b4bbf4a3750d..279d6eb79ad5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h
-@@ -28,6 +28,8 @@ struct dc_link *dm_kunit_alloc_link_with_ctx(struct kunit *test);
- struct amdgpu_display_manager *dm_kunit_alloc_dm(struct kunit *test);
- struct drm_device *dm_kunit_alloc_drm_with_connector_list(struct kunit *test);
- struct dc_state *dm_kunit_alloc_dc_state(struct kunit *test);
-+struct resource_pool;
-+struct resource_pool *dm_kunit_alloc_res_pool(struct kunit *test, struct dc *dc);
- struct clk_mgr *dm_kunit_alloc_clk_mgr(struct kunit *test);
- struct dc_stream_state *dm_kunit_alloc_stream(struct kunit *test,
- 					      struct dc_link *link);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index 144cb03f504a..da5c2f958bf1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -2783,6 +2783,8 @@ static const struct dsc_funcs dm_mst_test_dsc_funcs = {
- /* Install the DSC encoder fake and matching sink decoder capabilities. */
- static void dm_mst_test_setup_dsc_caps(struct kunit *test, struct dc *dc, struct dc_sink *sink)
- {
-+	struct resource_pool *res_pool;
-+
- 	struct dsc_dec_dpcd_caps *dec = &sink->dsc_caps.dsc_dec_caps;
- 	struct display_stream_compressor *dsc;
- 
-@@ -2791,7 +2793,8 @@ static void dm_mst_test_setup_dsc_caps(struct kunit *test, struct dc *dc, struct
- 
- 	dsc->funcs = &dm_mst_test_dsc_funcs;
- 	dsc->ctx = dc_get_ctx(dc);
--	dc_get_res_pool(dc)->dscs[0] = dsc;
-+	res_pool = dm_kunit_alloc_res_pool(test, dc);
-+	res_pool->dscs[0] = dsc;
- 
- 	dec->is_dsc_supported = true;
- 	dec->dsc_version = 0x21;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 8cf460a4cb9f..0c27422cb8cf 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -3388,8 +3388,7 @@ static void dm_test_oem_i2c_hw_init_no_device(struct kunit *test)
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
- 
--	dc_test_set_res_pool(dc, kunit_kzalloc(test, sizeof(*dc_get_res_pool(dc)), GFP_KERNEL));
--	KUNIT_ASSERT_NOT_NULL(test, dc_get_res_pool(dc));
-+	dm_kunit_alloc_res_pool(test, dc);
- 	adev->dm.dc = dc;
- 
- 	KUNIT_EXPECT_EQ(test, dm_oem_i2c_hw_init(adev), 0);
-@@ -4981,8 +4980,7 @@ static struct amdgpu_device *dm_test_late_init_adev(struct kunit *test)
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
- 
--	dc_test_set_res_pool(dc, kunit_kzalloc(test, sizeof(*dc_get_res_pool(dc)), GFP_KERNEL));
--	KUNIT_ASSERT_NOT_NULL(test, dc_get_res_pool(dc));
-+	dm_kunit_alloc_res_pool(test, dc);
- 	adev->dm.dc = dc;
- 
- 	return adev;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_abm.c b/drivers/gpu/drm/amd/display/dc/core/dc_abm.c
-index 1ed4b5fb6f93..28427e03289b 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_abm.c
-@@ -119,3 +119,14 @@ unsigned int dc_get_dmcu_abm_version(const struct dc *dc)
- 
- 	return dc->res_pool->dmcu->dmcu_version.abm_version;
- }
-+
-+void dc_dmcu_init_abm(struct dc *dc)
-+{
-+	struct dmcu *dmcu = dc->res_pool ? dc->res_pool->dmcu : NULL;
-+	struct abm *abm = dc->res_pool ? dc->res_pool->abm : NULL;
-+
-+	if (dmcu && abm) {
-+		dmcu->funcs->dmcu_init(dmcu);
-+		abm->dmcu_is_running = dmcu->funcs->is_dmcu_initialized(dmcu);
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-index 9e8dffadfaec..163884db0294 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-@@ -32,6 +32,8 @@
-  */
- #include "dc.h"
- #include "dc_priv.h"
-+#include "core_types.h"
-+#include "hw/dchubbub.h"
- #include "dm_helpers.h"	/* EXPORT_IF_KUNIT */
- 
- uint8_t dc_get_link_count(const struct dc *dc)
-@@ -88,11 +90,47 @@ bool dc_is_idle_optimizations_allowed(const struct dc *dc)
- }
- EXPORT_IF_KUNIT(dc_is_idle_optimizations_allowed);
- 
--struct resource_pool *dc_get_res_pool(const struct dc *dc)
-+unsigned int dc_get_audio_instances(const struct dc *dc,
-+		unsigned int *inst_array)
- {
--	return dc->res_pool;
-+	unsigned int i;
-+
-+	for (i = 0; i < dc->res_pool->audio_count; i++)
-+		inst_array[i] = dc->res_pool->audios[i]->inst;
-+
-+	return dc->res_pool->audio_count;
-+}
-+EXPORT_IF_KUNIT(dc_get_audio_instances);
-+
-+unsigned int dc_get_pipe_count(const struct dc *dc)
-+{
-+	return dc->res_pool->pipe_count;
-+}
-+EXPORT_IF_KUNIT(dc_get_pipe_count);
-+
-+unsigned int dc_get_usb4_dpia_count(const struct dc *dc)
-+{
-+	return dc->res_pool->usb4_dpia_count;
-+}
-+EXPORT_IF_KUNIT(dc_get_usb4_dpia_count);
-+
-+unsigned int dc_get_dmcu_psp_version(const struct dc *dc)
-+{
-+	if (!dc->res_pool || !dc->res_pool->dmcu)
-+		return 0;
-+
-+	return dc->res_pool->dmcu->psp_version;
-+}
-+
-+void dc_get_mall_en(struct dc *dc, unsigned int *mall_in_use)
-+{
-+	struct hubbub *hubbub = dc->res_pool ? dc->res_pool->hubbub : NULL;
-+
-+	*mall_in_use = false;
-+
-+	if (hubbub && hubbub->funcs->get_mall_en)
-+		hubbub->funcs->get_mall_en(hubbub, mall_in_use);
- }
--EXPORT_IF_KUNIT(dc_get_res_pool);
- 
- 
- bool dc_get_dcc_compression_cap(const struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index d5d53491e91c..11b5647ca032 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -6349,3 +6349,13 @@ bool resource_is_hpo_acquired(struct dc_state *context)
- 
- 	return false;
- }
-+
-+enum dc_status dc_remove_stream_from_ctx(struct dc *dc,
-+		struct dc_state *context, struct dc_stream_state *stream)
-+{
-+	if (dc->res_pool->funcs->remove_stream_from_ctx)
-+		return dc->res_pool->funcs->remove_stream_from_ctx(
-+				dc, context, stream);
-+
-+	return DC_OK;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc.h b/drivers/gpu/drm/amd/display/dc/inc/dc.h
-index 28cd052e0727..65705f4941c1 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc.h
-@@ -2376,12 +2376,6 @@ struct dc_state *dc_get_current_state(const struct dc *dc);
- /* Whether DC may enter idle power optimizations right now. */
- bool dc_is_idle_optimizations_allowed(const struct dc *dc);
- 
--/*
-- * The hardware resource pool (DSC engines, audio instances, DMCU/ABM...).
-- * Interim accessor; prefer purpose-built DC interfaces where available.
-- */
--struct resource_pool *dc_get_res_pool(const struct dc *dc);
--
- /*
-  * Temporary workaround for DP compliance test failures: disallow p-state
-  * switching for the given state, raise the memory clock to the maximum
-@@ -2431,6 +2425,38 @@ bool dc_abm_set_event(struct dc *dc, unsigned int full_screen,
- bool dc_abm_set_strength(struct dc *dc, unsigned int strength,
- 		unsigned int panel_inst);
- 
-+/*
-+ * Fill inst_array with the instance ids of the DIO audio blocks and
-+ * return their count. inst_array must have room for MAX_AUDIOS entries.
-+ */
-+unsigned int dc_get_audio_instances(const struct dc *dc,
-+		unsigned int *inst_array);
-+
-+/* Number of pipes available for rendering. */
-+unsigned int dc_get_pipe_count(const struct dc *dc);
-+
-+/* Number of USB4 DPIA endpoints. */
-+unsigned int dc_get_usb4_dpia_count(const struct dc *dc);
-+
-+/* Read the DMCU PSP version; 0 when there is no DMCU. */
-+unsigned int dc_get_dmcu_psp_version(const struct dc *dc);
-+
-+/*
-+ * Initialize the DMCU and update the ABM "DMCU running" state.
-+ * No-op when the ASIC has no DMCU or ABM.
-+ */
-+void dc_dmcu_init_abm(struct dc *dc);
-+
-+/* Whether MALL is currently enabled. */
-+void dc_get_mall_en(struct dc *dc, unsigned int *mall_in_use);
-+
-+/*
-+ * Remove the resources assigned to a stream in the given state.
-+ * Returns DC_OK when the ASIC does not implement the removal.
-+ */
-+enum dc_status dc_remove_stream_from_ctx(struct dc *dc,
-+		struct dc_state *context, struct dc_stream_state *stream);
-+
- /*
-  * Query DCC compression support for a surface.
-  * return false - when the asic does not implement the query.
+amdgpu_dm_backlight_set_level() calls dm_find_stream_with_link() before
+acquiring dm->dc_lock:
 
--- 
-2.56.0
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:amdgpu_dm_backl=
+ight_set_level() {
+	...
+	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head=
+) {
+		struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector(connect=
+or);
+		...
+	}
+	...
+	link =3D (struct dc_link *)dm->backlight_link[bl_idx];
+	stream =3D dm_find_stream_with_link(dm, link);
+	if (!stream)
+		return;
+	...
+	mutex_lock(&dm->dc_lock);
+}
 
+A concurrent commit can replace current_state and release the old state
+and its streams while dm_find_stream_with_link() is walking it or before
+dm->dc_lock is taken:
 
+CPU0                                  CPU1
+amdgpu_dm_backlight_set_level()
+  dm_find_stream_with_link()
+    cur_dc_state =3D
+      dc_get_current_state(dm->dc)
+    stream =3D cur_dc_state->streams[i]
+                                      amdgpu_dm_commit_streams()
+                                        mutex_lock(&dm->dc_lock)
+                                        dc_commit_streams()
+                                          /* replaces current_state,
+                                             releases old state/streams */
+                                        mutex_unlock(&dm->dc_lock)
+  mutex_lock(&dm->dc_lock)
+  mod_power_set_backlight_nits(...,
+    stream, ...)                      <-- use-after-free
+
+In addition, the loop at the start of amdgpu_dm_backlight_set_level()
+walks mode_config.connector_list with list_for_each_entry() instead of
+drm_connector_list_iter_begin()/end(), which can race with DP MST
+connector removal, and unconditionally calls to_amdgpu_dm_connector() on
+every entry, which causes type confusion on DRM_MODE_CONNECTOR_WRITEBACK
+connectors (allocated as struct amdgpu_dm_wb_connector).
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index f9dc9f46a4460..d86b9611568b8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+
+[ ... ]
+
+> @@ -2156,7 +2162,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
+c_state *crtc,
+>  	struct amdgpu_device *adev =3D drm_to_adev(crtc->base.state->dev);
+>  	struct dm_plane_state *dm_plane_state =3D to_dm_plane_state(plane_state=
+);
+>  	struct drm_color_ctm_3x4 *ctm =3D NULL;
+> -	struct dc_color_caps *color_caps =3D NULL;
+> +	const struct dc_color_caps *color_caps =3D NULL;
+>  	bool has_crtc_cm_degamma;
+>  	int ret;
+> =20
+> @@ -2167,7 +2173,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
+c_state *crtc,
+>  	}
+> =20
+>  	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+> -		color_caps =3D &dc_plane_state->ctx->dc->caps.color;
+> +		color_caps =3D &dc_get_caps(dc_plane_state->ctx->dc)->color;
+> =20
+>  	/* Initially, we can just bypass the DGM block. */
+>  	dc_plane_state->in_transfer_func.type =3D TF_TYPE_BYPASS;
+
+[Severity: Medium]
+This problem wasn't introduced by this patch, but does
+amdgpu_dm_update_plane_color_mgmt() swallow errors from
+amdgpu_dm_plane_set_colorop_properties() [2]?
+
+At the end of amdgpu_dm_update_plane_color_mgmt():
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c:amdgpu_dm_update_pl=
+ane_color_mgmt() {
+	...
+	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
+		return 0;
+
+	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+}
+
+When plane_state->color_pipeline is set and
+amdgpu_dm_plane_set_colorop_properties() fails with a negative error code
+(such as -EINVAL or -ENOMEM), the ! check evaluates to false and execution
+falls through to amdgpu_dm_plane_set_color_properties(). Because no legacy
+color properties are set on a colorop commit, the fallback bypasses the
+color blocks and returns 0, causing the atomic commit to succeed with
+plane color management silently disabled.
+
+[1] https://sashiko.dev/#/bug/linux-d25140b3-5901-4689-81c3-c3890f66e5a2
+[2] https://sashiko.dev/#/bug/linux-2356891c-983c-48f7-a656-56667766fead
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-amdgpu-dc-=
+cleanup-v1-0-0fae41718ad2@redhat.com?part=3D4
