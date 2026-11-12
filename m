@@ -2,155 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CE3606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:22:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA72F606A882
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 03:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LOpIkJFk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FL5zutK+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnfxiyu1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF1910E4CA;
-	Thu, 12 Nov 2026 03:22:44 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C01B810E4F2
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:32 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AC2Zkp12136002
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=; b=LOpIkJFk1qcw9dNR
- IGn4sA5UCOtmAyOLiqsLJomBSihf4tRG/wVsCktehqAKlkuNZgtYphQhJjW6Y110
- kTG5YWTTru2Y4kr1/8Qaz2fJNsQUA5m5Ka/oMwTdFZcaTTHwgtDbyWShJX3YM2kD
- EmjFp/er0dKt0SxCLGtWua47LlVvaLI2blykILXXkO3UwS+VXzUWZRxAMyr0kUAL
- D2ZraxIHHVBA5T54djHiEvNFaJ4a29MejhkgHnvgHbDKd2hHf1ktkpCFc9c1JW8w
- HlSYTbk1ggYxW2ytlV2rCexQSaEEvjbUKJ7IAbCnqhsZMIW4j1I8fuadDWk7094Z
- MUoEtQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvpjjus6a-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:22:31 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2eaf8ea208bso34103105ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 19:22:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794453751; x=1795058551;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=;
- b=FL5zutK+7CDqgKu8493RnAoEosak9AhhFWguK02YDIOGDF3RxsvYRMJFY9fHat7y/P
- wopEXdxfs8H++yaNxNYNddNLHwS0u1As0yJJIqXSZsHrgMWE2KasqYqezGlQ1SDnDTeZ
- 1k/kSsk2yqgbgCzL3DoTXc/yZFXgL407JRbro9FnjAi6Vn/vu8K5CAIz/5E/q5U6mRU4
- EsPz9ZBbHcGrf280ixKPLj2gCesPIfsYJylOZ8etHaSk4fObN3OJMLKPp0vwyr6yTlVP
- iMktn6q+ZTs9m2JLn0iCeZ3Ius0mTWpGGcI/IHMs8nNE5o1mulruO9inwuZFudIuDE/0
- 0tGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794453751; x=1795058551;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Nia/3Fejzq/8pwGFpOYXDtAfbAIiNtIbDIVtuujz/Q0=;
- b=JEaeiFgKybhx3KlbmaRFLjFBotYzPrzg2t0LDvQWL4OYPZvFibAtRFOnvT7WtjeQjp
- 5Qzb5CBpOgvJXsHed2IaO7fexrn3qEYKUynjReqz3AJO1NeqUdxgR+fmC3fKi8ElBFXO
- 9CfH/qCBvml3vMae5EIjzIKUIPx2xe9+aXPys98ehXxrTJxwOZ5QqPdjjWF6p5JlAIUD
- m/xQB456Y0iAW+G4p3JxWBVJ2Wbpr49bkACoL60el0TkxqA0CCaK4ibL+63hG9Gfqd3f
- ZL/4x4JpqJ+mge72OsV39wRWKrk7UjOY4XKPttpv8i49p6/OA7ATA4Pt7gOIvbog+Ms1
- 4tMA==
-X-Forwarded-Encrypted: i=1;
- AL+hErGjuJR7Q7s+lgXdhxQWTNAvAPBnSoxdQlwQBDQBhxwqKh+3CRhKZb/YtxXhPt9JnfO672d6+eM/rlY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+WZf84MjAjnC3anM0/1UyijFUNTiVs2UjIiaQBVGENsV4a+Oih
- 9hpZ8A2ucEqSqp6Loexa4tmtpD6BsoDfBHmEQtRHJl75PKskSBqq81QXHuQQVZ6fKfgkC5DfSXs
- 6mKQXU4LHAlOlIHqnLOqnUevbnZqhG5pJ6rLjY1PDQ5y2Lt69ov9yuG9EzpciThtm6HKvC1Q=
-X-Gm-Gg: AYBFou10ACQzyWUL8Cs3wKBnrXLTnuQ0KBmH22sj8hB3EzL1lFOxcMefFUJkpCqlTIT
- a0JD5GHvAuIol1Pzb3xExsYdL+kIgsg52tildmkwIHhNfnx4H+A5WFL196KMRHt7xTKcgXP8mTG
- tbYR0sdpk9nz0B9lCD+AAAhm1+6vpDsPgKBLPXKhXkqaJNI8of2XNPCvlH3JqZUUI/LQj5tj3j4
- nGNIOL+hg7GOrkq7CfDKG1Ws5neBf3R7mprWMQM8Z81RERT80ucnyz1RGci3A+uLajvpi0Nf4CB
- E69GV5q05DAlPf0QoPKLRsSfVJ/PgELTxYGUyWlPSyKrMhGiVetguVUDcdbvM6fCwPqjmSyFbMF
- 1DkWoEiQBLYS87LyGPsU31h4W+X2T0qc2gUXo0YeJItALoEnt1O3t1K6X/2uiaKsRkhnjROPmz8
- rypb85LNpNzwGBpPRPmigfTPgHyTKniadsdjCJFFKr1Zi6dw==
-X-Received: by 2002:a17:903:2ad0:b0:2e9:58c5:8c68 with SMTP id
- d9443c01a7336-2edd7acfcd0mr38208935ad.54.1794453750527; 
- Wed, 11 Nov 2026 19:22:30 -0800 (PST)
-X-Received: by 2002:a17:903:2ad0:b0:2e9:58c5:8c68 with SMTP id
- d9443c01a7336-2edd7acfcd0mr38208695ad.54.1794453750048; 
- Wed, 11 Nov 2026 19:22:30 -0800 (PST)
-Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2edb6dfb58dsm26134275ad.66.2026.11.11.19.22.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Nov 2026 19:22:29 -0800 (PST)
-Message-ID: <acd476e0-fb24-4f11-b917-c4e86f86171a@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 11:22:16 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB23610E46A;
+	Thu, 12 Nov 2026 03:34:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 076BF10E50C
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 03:34:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1CD3360E0F;
+ Thu, 12 Nov 2026 03:34:13 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794454452;
+ b=TlOXl2lsSoInmY+UYbhYuRG3lZOHQMs8uF33FmqjeOcMxQ4cv7jPVwhvX/fRRzzNoVcY
+ DmvVkaJwZ5hwPhhm0CVZghMLHh4/d79/WGifQQkuEFRJefaoqpc0Ok3kB7HpRJh4cLw9Q
+ g6rH6pNi7V9orRfRFlbVrN3y+2WAlZz+OFsIbEibpB2MxFDDWGVEKCKWJIN999zXlh71w
+ YYMwVYft+RNeUaT0tOHyjNQVrnopzoqdQgx/d4RvMaRRPYs6QbVf5nSPs2xSuLcb/sUjd
+ r+QHJ44ukPDiKEYFQeq6du9JLN8u6v0t91VOuTw6jq8tjgyw6jxna5ivMIrM7PL5D8w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794454452;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=Gm55iSOTgbLwtkYj3NPyG7MZXw07pKTsLRlpf/fNTZw=;
+ b=I9g1oE93MDLs9laF4i9QvCZDsZ8j8Kk6yYUFEkmibmte4+nghqSmBUZ25s6e9sbJf+TS
+ rK4dLXsPbbJM9pNPAQ6v+H6PD9APghqiY4xf2jRtwlGfBePeJKtLKM1CLhCM6/n7XHvF8
+ OXsS3T1br1U9EcbTH7MjtOcNtMVZbpShoCzoZT2Hhp8FWc2SadsHCyekH0Oa3rbOvqRIH
+ XmB00t7SGuFX8/BH0aD4nSRl3U6EHzLneMfLofr6LmnD37r0dCXwq29HHfjBILslJALi+
+ Zx6GP4WrXZvOL8kMSKCCfZ2xOS/DSwQ93oKy5rZFj0W1k6CTQencchoY56TcyZWRxVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id BE7CF1F00A05;
+ Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794454452;
+ bh=Gm55iSOTgbLwtkYj3NPyG7MZXw07pKTsLRlpf/fNTZw=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=gnfxiyu1FYIAXaDL28CzC1kh5FqACxU8GGUGcA/ndZmaQayceDD+tF07AedUmtCVX
+ TVUvFV91tJ8VeMh60PA5XgkLWCyFSTMFBihiE7+k4fZKSguD1QbC3jz5s6XS++xjzS
+ SrJ2ee7pGHjJiXCMUUHUNqOVHIajfrjYXn5G0Q/HR7c11WitUj/pBGLqp8QFb+zDUy
+ b0OjuwyMvzNDnNcmPv/v6MTCptmq5QIolHZ/Eubu6q44JaUfdQkVfBP0KmaE7XR+D1
+ oTrMEI/BiYIqPFKZ2W3KI15FCdFHLwCwlOA+cUZ4nRrhG/U3Hyb63xSHe7fFEjDb7E
+ WPvyhy1hUs4jg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 2C6CF49252;
+ Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
+From: Angel Gabriel Crispin Valdivia via B4 Relay
+ <devnull+angelcrispinvaldivia.gmail.com@kernel.org>
+Subject: [PATCH v2 0/4] drm: Add Fresco Logic FL2000 USB display driver
+Date: Wed, 11 Nov 2026 22:34:07 -0500
+Message-Id: <20261111-fl2000-upstream-v2-0-201f87708cb0@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
- unconditionally
-To: Pavel Popov <pavel.e.popov@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Arnd Bergmann <arnd@arndb.de>,
- Len Brown <lenb@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
- <20261111234821.4814-5-pavel.e.popov@intel.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261111234821.4814-5-pavel.e.popov@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxMyBTYWx0ZWRfX9wTzbk2mhBnd
- nM2cDBIvLhZYngiwQVyLRqX5nMKEHKwLkKa1L4EzXHKfV5AmJSXV0wREgaQB5fLA9ZbRafV0OxV
- QXRXFIzH15Y6I7LtEey4rjBlQklN5NtRqWxwpXmA8LfIAZ8gb5/iR7VIr6++Pacw32a66QwBAjO
- XuNtdTqbCEJm/vVvBF9FMK6GYI2ZW7IOrjT0wh2Z58d5ITdsGQK237wYewniIVxfk2iq0uUM7oY
- wAKveVOqfla5Hz18NCtx+peZoqy9pFi2mHGNB+WOKX5ao8VnrVgbqhCZf4U1xb4kpDHHA3NlVaA
- 7Q12UqPqQBg8TxZs4W0FKUKYgSAXpwFQpTYFgtKCTCaN+r2b/MykTgK56YPK6Lfuohjcw/3+Qv6
- fkgPRmZe4wTL6HW+1UvflUDxHZram8+XfkXrIiyvQH0QD4jWX8t6PHTODfQFMskDJ9TrEIYYCZn
- mVphR26+3eGMi2aNSFQ==
-X-Proofpoint-ORIG-GUID: -g2mujRGL8l6PrVN_2D2tOp9XqMCYMkf
-X-Authority-Analysis: v=2.4 cv=FeuiV5+6 c=1 sm=1 tr=0 ts=6af530f7 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=L27Nr_72VT4YvYD4_PkA:9
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: -g2mujRGL8l6PrVN_2D2tOp9XqMCYMkf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxMyBTYWx0ZWRfXxDNbErhIKApo
- LrMvU8As8aZeesOLWpRDpXLMbhiqLEV5ThRYZb/FlUqT8y2cUG/nxiq9LlCtIfD8eYfXCrna0NH
- 9PNVPStI9u+9Gf0TBLTNCvk8Cn7u6S4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120013
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2prpoCS68j8MC1qmMIZX2kI0h
+ H+34NrlSc49d4XAXjjAPVvB8yJBxiEBnTKwbTU0rKRODIRUaI1X5TpCRDVPIXquepU7S6wdYk0
+ XSKvJs5P3UXyWPw6zebGNe2Y3Wglx9J/jctG797++aIXKGF3kbA3leHs0fSXd2Y49lNu2fQHeN
+ hYQwAAAAA==
+X-Change-ID: 20261105-fl2000-upstream-3fc2e1f00d24
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794454449; l=11996;
+ i=angelcrispinvaldivia@gmail.com; s=20261106; h=from:subject:message-id;
+ bh=43XFtzRhNur/WmEhZyMLx1W6oUchF58B4Xxb7Xh6Oew=;
+ b=6eS/0cY+n6GgAFIAeTl4cTS1SX+Q+YmchIP4g7VWVNef0XgvbyxNdwmzvMhzgw8O2Tmnkg0HB
+ ZkJlqdWodaoDFY4FMHd2+GagVdjrD10kl7TbwZGEjvgCuULgFZZLY44
+X-Developer-Key: i=angelcrispinvaldivia@gmail.com; a=ed25519;
+ pk=80bQU/p2R0pLIfdfJaB5I/2obI+RxQHondq5DEM0tbg=
+X-Endpoint-Received: by B4 Relay for
+ angelcrispinvaldivia@gmail.com/20261106 with auth_id=1425
+X-Original-From: Angel Gabriel Crispin Valdivia
+ <angelcrispinvaldivia@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,62 +97,231 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: angelcrispinvaldivia@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/12/2026 7:48 AM, Pavel Popov wrote:
-> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
-> CONFIG_X86 around the include is no longer needed.
-> 
-> od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
-> 
-> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-> ---
-> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
-> it is in mainline.
+Hi,
+
+This series adds a DRM driver for USB display adapters built around the
+Fresco Logic FL2000DX (USB ID 1d5c:2000). These are sold under many
+brands as cheap USB 3.0 to VGA/HDMI dongles; the HDMI variants pair the
+FL2000 with an ITE IT66121 HDMI transmitter on the FL2000's I2C bus.
+Today these adapters only work on Linux with out-of-tree drivers.
+
+The driver started as Artem Mygaiev's out-of-tree fl2000_drm driver,
+itself partly based on Fresco Logic's reference driver; their copyright
+lines are kept. I ported it to current kernels, fixed the problems found
+on real hardware (EDID, crashes on disconnect, frames that were never
+terminated, imported buffers read from the wrong VRAM), added the analog
+VGA output and cleaned it up for submission.
+
+I intend to maintain this driver for the long term: patch 1 adds a
+MAINTAINERS entry with me as maintainer, I have the hardware to test
+on, and I will keep following review and bug reports on dri-devel.
+
+The series builds the driver up in four steps, each of which compiles
+on its own:
+
+  1. USB driver, FL2000 register access (regmap) and I2C adapter
+  2. IT66121 HDMI transmitter bridge
+  3. frame streaming over bulk URBs
+  4. the KMS pipeline, which makes the display usable, including the
+     analog VGA output of adapters that have both connectors
+
+v1 was an RFC. This version answers its review and is meant to be
+applied, but some design points are still open and I would like your
+view on them; the first one could change the series:
+
+1. IT66121 support. The series carries its own small IT66121 bridge
+   (fl2000_it66121.c) instead of reusing drivers/gpu/drm/bridge/
+   ite-it66121.c, because I could not find a way to use the in-tree
+   driver on a PC: it depends on OF (x86 distribution kernels have no
+   CONFIG_OF), reads bus-width and its next bridge through of_graph,
+   requires a reset GPIO the FL2000 boards do not have, and DRM has no
+   bridge lookup without OF. It also reads the EDID through its DDC
+   engine, which on these boards is not connected to the monitor (the
+   EDID is read with the FL2000 I2C engine instead).
+   Reusing it would take converting ite-it66121 to the fwnode API with an
+   optional reset GPIO, a fwnode-based bridge lookup in drm_bridge.c, and
+   a small bridge of this driver providing the EDID. Is that the direction
+   you would like, or is a private IT66121 bridge acceptable for a USB
+   device like this one?
+
+2. Hotplug. The bridge attaches with DRM_BRIDGE_ATTACH_NO_CONNECTOR and
+   the HDMI connector comes from drm_bridge_connector. The bridge
+   reports DETECT and EDID only: the IT66121 interrupt reaches the host
+   through the FL2000 interrupt endpoint, which makes the driver send a
+   hotplug event for the device, so there is no DRM_BRIDGE_OP_HPD and
+   the connector is also polled. Would reporting HPD with
+   drm_bridge_hpd_notify() from that path be preferred?
+
+3. Pixel conversion. The stream converts with its own small line
+   converters instead of drm_fb_xrgb8888_to_*(). The framebuffer is
+   usually imported from the primary GPU and sits in write-combined
+   VRAM; the format helpers read such I/O memory with memcpy_fromio(),
+   which takes ~88 ms per 1080p frame, while drm_memcpy_from_wc() into a
+   cached line buffer takes ~8 ms. The converters also apply the
+   FL2000's 32-bit word swap and only touch the damaged rectangle of a
+   shadow frame. Would a helper that reads its source through
+   drm_memcpy_from_wc() be welcome, so this could go away?
+
+4. VGA detection. The chip has a single monitor sense input, which on
+   the adapter I have follows whichever monitor is plugged in, HDMI or
+   VGA. The VGA connector therefore reports a monitor when the chip
+   senses one and the IT66121 hot plug line is low, which means a
+   monitor on VGA is not reported while one is on HDMI (clone mode
+   needs video=VGA-1:e). Is this an acceptable way to do it, and is
+   there a better signal I should look for in the chip?
+
+The rest of the pipeline follows the current helpers: regular atomic
+plane/CRTC/encoder objects with managed initialisation, GEM SHMEM with
+shadow-plane access and fbdev emulation through drm_client_setup().
+There is no cursor plane and no vblank support. On the USB side the
+driver matches interface 0 and claims the other two, everything hangs
+off that binding, and resets and system sleep do not unbind it.
+
+Other known limitations: XRGB8888 goes out as RGB888, and modes the USB
+link can only carry in RGB565 (2560x1080 on USB 3.0, 640x480 on USB 2.0,
+as there is no compression) need a framebuffer in that format. RGB565
+was seen working at 1280x720 on HDMI and 1024x768 on VGA, but those
+larger modes have not been tried; and adapters with a VGA connector
+only, without an IT66121, are not supported: the analog output is only
+added next to the HDMI one.
+
+Tested on x86_64 (amdgpu laptop, GNOME Wayland) with a UGREEN USB 3.0
+adapter with HDMI and VGA connectors: a 1920x1080 monitor on HDMI, and
+an old 1366x768 monitor without a usable EDID on VGA. EDID, mode
+setting in XRGB8888 and RGB565, plugging and unplugging monitors,
+system sleep, USB resets and the desktop work, with one frame per
+refresh on the link. With Mutter 51.1, which renders in XRGB2101010
+when it can, the missing 10-bit formats make it copy the frames on the
+GPU instead, and that copy path leaks a framebuffer per frame (Mutter
+issue #5101; the fix is on Mutter's stable branch for its next release,
+51.2).
+The unplug, unbind, module removal and USB reset paths were also run
+under KASAN and lockdep against an emulated FL2000 on raw_gadget and
+dummy_hcd. Every patch builds without warnings with W=1 on top of
+drm-misc-next, sparse is clean, and the series passes checkpatch
+--strict.
+
+Tool use, as described in Documentation/process/generated-content.rst: I
+used an AI coding assistant (Claude Code with Anthropic Claude models)
+extensively while preparing this series. It helped port the driver to the
+current APIs, clean it up to kernel style, write the shadow-frame
+streaming, track down and fix the hangs on unplug,
+and draft the commit messages and this letter. I reviewed the result and
+tested it on the hardware described above; the Signed-off-by lines are
+mine. The series was generated and checked (per-patch builds, checkpatch)
+by scripts in the out-of-tree repository this driver is developed in.
+
+---
+Changes in v2:
+- Sent as a regular series: v1 was an RFC.
+- From the review of Thomas Zimmermann:
+  - No cursor plane, and no blending in the driver.
+  - No vblank timer, and so no vblank support.
+  - The EDID is not kept: it is read from the monitor on every probe.
+  - The formats are XRGB8888, converted to RGB888, and RGB565, sent as
+    it is. The 10-bit ones went: they are not native (the device takes
+    RGB888 or RGB565), and they were only converted down. What the USB
+    link cannot carry at a mode fails in the atomic check of the plane;
+    the CRTC no longer picks a format. (This makes Mutter 51.1 copy its
+    frames through a path that leaks, as said above.)
+  - The limits are what the timing registers hold, 12 bits (4095).
+  - mode_fixup adjusts the clock, mode_valid returns MODE_* codes, the
+    helpers are used as drop-ins, and the plane helper goes first in the
+    plane check.
+  - The interrupt endpoint is only polled once the device is registered,
+    and after system sleep once the state is restored, so no state about
+    that in the driver. The chips themselves are still set up before
+    restoring the state, as restoring it writes to them.
+  - Forcing the monitor sense went to the HDMI encoder, and the CRTC
+    only enables the interrupts about frames.
+  - struct fl2000_device, sorted driver flags, drm_dbg(), fewer
+    comments.
+- Convert each damage rectangle of the plane instead of their bounding
+  box. A compositor that copies into a rotation of buffers only keeps
+  the damage current, and the pixels between the rectangles could bring
+  back older content.
+- Bind through interface 0 and claim the other two with
+  usb_driver_claim_interface(), with everything hanging off that
+  binding, instead of keeping shared state on the usb_device: unloading
+  the module or unbinding the driver left it all behind, pointing into
+  freed memory. This answers question 3 of v1, which is gone. There is
+  no component framework any more, the bridge is attached directly, and
+  the DRM device hangs off the interface.
+- USB resets no longer unbind the driver (.pre_reset/.post_reset).
+- Keep the stream as long as the DRM device, and guard everything that
+  reaches a register with drm_dev_enter() or drm_bridge_enter().
+- Really probe for the IT66121: the detection had its return values
+  inverted and always "found" the chip at the first address, without any
+  transfer.
+- Reject modes larger than the limits in the CRTC check. The core only
+  applies max_width/max_height to probed modes, and a mode with an off-
+  screen primary plane could wrap the 32-bit buffer size.
+- Do not write the old shadow frame with a new geometry after a failed
+  mode set.
+- Remove the EDID read through the IT66121 DDC engine, which never
+  completes on these boards and cannot work behind an I2C engine that
+  reads whole dwords (each read of the DDC status pops the DDC FIFO).
+  The DDC bus release stays.
+- Honour the plane's source rectangle: a framebuffer larger than the
+  mode froze the output.
+- No phantom VGA monitor from the forced monitor sense when HDMI is
+  unplugged.
+- Acknowledge the IT66121 from the FL2000 interrupt and unmask its hot
+  plug, instead of polling it over USB ten times a second. Enable the
+  monitor interrupts at probe, not at the first mode set.
+- Keep FL2000 resets and I2C control register writes out of running I2C
+  operations.
+- Smaller fixes: URB submission retries bounded (-EAGAIN looped
+  forever), no pointer in urb->transfer_buffer,
+  flush_kernel_vmap_range() before sending a frame, I2C message
+  validation through the adapter quirks, a lost status event when
+  clearing the LBUF flags, interrupt URB interval and endpoint, a NULL
+  dereference on allocation failure, suspend error handling.
+
+Most of these come from the Sashiko review of v1.
+
+- Link to v1: https://patch.msgid.link/20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com
+
+---
+Angel Gabriel Crispin Valdivia (4):
+      drm/fl2000: Add USB driver with register and I2C access
+      drm/fl2000: Add ITE IT66121 HDMI transmitter support
+      drm/fl2000: Add frame streaming
+      drm/fl2000: Add KMS display pipeline
+
+ MAINTAINERS                                  |   7 +
+ drivers/gpu/drm/Kconfig                      |   1 +
+ drivers/gpu/drm/Makefile                     |   1 +
+ drivers/gpu/drm/fl2000/Kconfig               |  19 +
+ drivers/gpu/drm/fl2000/Makefile              |  13 +
+ drivers/gpu/drm/fl2000/fl2000.h              | 159 +++++
+ drivers/gpu/drm/fl2000/fl2000_drm.c          | 902 +++++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_drv.c          | 222 +++++++
+ drivers/gpu/drm/fl2000/fl2000_i2c.c          | 179 ++++++
+ drivers/gpu/drm/fl2000/fl2000_interrupt.c    | 226 +++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.c      | 799 ++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.h      |  18 +
+ drivers/gpu/drm/fl2000/fl2000_it66121_regs.h | 284 +++++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.c    | 315 ++++++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.h    | 276 ++++++++
+ drivers/gpu/drm/fl2000/fl2000_streaming.c    | 807 ++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_vga.c          | 223 +++++++
+ 17 files changed, 4451 insertions(+)
+---
+base-commit: 41ecf852c07391687beb129e12a231760b5d783f
+change-id: 20261105-fl2000-upstream-3fc2e1f00d24
+
+Best regards,
+--  
+Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
 
 
-Yeah, this patch strictly depends on [1] (series patch 1/3) being in
-mainline first; otherwise non-x86 builds break.
-
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-
-> 
-> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
-> 
->   drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
-> index 2ca8f1aaf2e..0e33865f9d3 100644
-> --- a/drivers/cpufreq/cpufreq_ondemand.h
-> +++ b/drivers/cpufreq/cpufreq_ondemand.h
-> @@ -6,6 +6,8 @@
->    * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->    */
->   
-> +#include <asm/cpu_device_id.h>
-> +
->   #include "cpufreq_governor.h"
->   
->   struct od_policy_dbs_info {
-> @@ -26,8 +28,6 @@ struct od_dbs_tuners {
->   };
->   
->   #ifdef CONFIG_X86
-> -#include <asm/cpu_device_id.h>
-> -
->   /*
->    * Not all CPUs want IO time to be accounted as busy; this depends on
->    * how efficient idling at a higher frequency/voltage is.
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
