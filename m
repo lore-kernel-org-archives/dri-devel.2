@@ -2,105 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604A6606A32D
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:27:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F1D60A3815
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 16:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ms0Tcri/
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PIuygEsE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66DE589CD3;
-	Thu, 12 Nov 2026 16:27:35 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73EEB10E356
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:27:29 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4a206f0b95bso61445e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:27:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794500848; cv=none;
- d=google.com; s=arc-20260327;
- b=JpjtdircQzZCC3YYHn1eiBWWa0fsrjM4pYGG61ECgEKFgH6xiA9+4gn7YUyvqpsvvn
- YmTgHmHXAg/GpXfV5ID1xevkfApO8nZ+pK1GtmAMZO6Q/MV+XPhDqhZAj7j+TnMg/tFo
- YIlF0u4ncfnR2J3olO6IayYlG0+ztFWXsgYQmHCSB/rf0N03DoZCimLgAAJ9Wig3shJq
- 4YdeCaIfBTbQ3WTaDfdYEQ76hWuBBHjxGe8j71925BZRErPNi+oaMJqa7RM5T0C0bRSH
- Lk60SD8Siecn2VaBHvmkJW7dfcQPpk+tb2zCVpDFHYQUxoPsnxrOn9oMI7M855yjfDTD
- 7ECQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
- fh=lkp8nG80d+4f8poX9ktYnKS9mPVigm09HbvN5trO6ME=;
- b=Qo8TDOwD4XoN54Ud+pgaTPp3r7VkJOQ17cNsNOwhpvBu608qbTNzz/vCDiUDKRTvq0
- 6YbCwc9UmRHFVwh4KHZ3zM+Pk5b9+AcA16y1bhDb9Dxb6fPScKfDV3FiFT8Ci7iSxnqH
- hujXMnvefTj2U7AvXtTxPcGrEiLyXWij6lmp42O0UAEXYar3dq1r1crO90Qpdm687oVd
- FRBXBeI+96LQIgOUuVftwgog7WHvs8ADMEkawhYsSLwGjY+FILyZzV6xkEmeAHjwIKGl
- yB+h/MjUL1VN6onKqnOo/2/73LmN1H21AXJb4ZU1gCN1Y6mxhYHj/Bs12k3eOqA/I9BG
- JbzA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794500848; x=1795105648;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
- b=ms0Tcri/MkbKfVoE2QIuIoRVEPAHvmHPC/G+Ppg7H5sjRYPLhO/lj1EnhLvTxW1MbZ
- Wme5G0FrsR2TptWkOMRSsDH7CvcC7Rc4q0TwreqOmiLvkccMC6k537kWp4VGnbVgFoaI
- dA9MKSW16CEOQVybCZLMLdJJxxxFT1CfQILlHYx4eiGc1UP+NmWopu1FnM34qZ6YD1ea
- jgRnUnzVIivJvQHTDsXrwufr3CrWS5IYtnAuwXELY1FW/JKXfDR7R5GLFyIQsSeqjbB7
- pVnemQrcg5XDxb+VXrD+T2QFFZWjBKeslJhLv9J9skCIJ4figi4SSs0aodCi2gWe3wTT
- 3Rrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794500848; x=1795105648;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
- b=lF6ydpGBnu+ZVZNR03ALUjHAkVqKl2bPdYmXkdfVazwZQJoGiWNKpuIwxlkTPw/pus
- vci31iAQPr8CDixBLY/thZKeQw5iDBGc2siiflQdTBW81OnZe8hVywN0IRcoaVjRo3zd
- 7C4lC+zIb3wKOBPJ2n0S86nKvsCubW9ZkBayToSJHch2Jfb9e9RtcNjGKPrurFgDv32n
- 0wseiHHhiEmVRBEfrUOh+3Z3uYhFRu1orSNDjfv6XgyJv+ZlqCiGYndnL+D1Pbr8tHkQ
- 4b/O+oxmCkJStnfo9PzB3uqnTYUtXUbmtncYmoBcL84waDFRuIpvwgVglzvyco0Z6/AP
- LG9g==
-X-Forwarded-Encrypted: i=1;
- AL+hErGas8NzYjhBnt6KYXcuwhy3y9KbC5EipKolx2dHt4JTgeRGOWU+jBAu7lNzLKL4FdDjG8G4MoPzPCA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/T0AqgLyNC6803E6FLaSuBlDq+4ADyE4CueM0s4YAFMsiOMjxO
- dnOLLEWVkdnMeTJyPIP15hi3YFNeZD4nNV+wOJ8zm9aQtbQi/dH1arlk9R6ky3SC7yUk0VA/YT8
- RVJWq3H27prQpYnDPiMEiLbyamr/Q8AmZd6Upr8o9
-X-Gm-Gg: AYBFou0v+j2sgJ+B9muau+39hNXGZYJMHk6J2fYHLWS2650v63+4B8VITFFRJJGxjc6
- +Ce5n3MRiTKB/Dy7FGibPp7nSDx4cyflBb8iJY7ASaGXdUppDBwv6in8BO6ju9XgIFR6r+3dnoO
- YpUIh4URC5rVXK50SNHWF4oTSWdMNXifwMGu9YXGQ8qtiD7UYqgY2/PyO7EWgIgVUUz49MLNmoe
- lJcNYATA8oRQn52JMJVrYjCxXLBai/o8reEqxToJaJB5H/TeTDjlrmWTyteDP6151fitTLgEJ+3
- rtwI1QokESa+SKmXxjh0pqb5AADyah3thShW1G6Kq2eGw9llHMk5bHtrrM12nWOuktn37XVaRYU
- wW00Ds7I2X5V+vur3ZTYP/AeVU+iYKJHqJb5Km96gGegoms6Kyk+Eng8/NvdWNiYN+w1OXkixiu
- M3Qz79ISzQNxdA9uMifkBV
-X-Received: by 2002:a05:600c:3484:b0:4a1:d7fa:ae36 with SMTP id
- 5b1f17b1804b1-4bb4f596156mr1132755e9.4.1794500847262; Thu, 12 Nov 2026
- 08:27:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0144810EBB1;
+	Thu, 12 Nov 2026 16:32:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74ABF10EBA1;
+ Thu, 12 Nov 2026 16:32:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 97C446232D;
+ Thu, 12 Nov 2026 16:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960FC1F000C4;
+ Thu, 12 Nov 2026 16:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794501125;
+ bh=6K4hT+jPGed+pnulpF1nT8q2qX2nK3v6UKMk0/YPnOU=;
+ h=From:Subject:Date:To:Cc;
+ b=PIuygEsEnSUxctCH9fcljf2ud2iq8Zuj6bs7uDC225V+lG93vz5ZqPKU1ZvtY+uzW
+ 4+Y1TuHCwi9PxrmhRqIIPfB2TFTsd1BJ64O97oLs+XPAMKjNduG6Rc+NhhAInMmY36
+ R35SEjFm0zcTtv7Dayq73J1JuRxvIfH+KJaDs7JFPwazi9otN/PRzYzXXhtOFdRvqc
+ WBnHMLn3EcO0nEsC1URKay+K5sidyxC8f+gYq7GcxkidWjgjEK7b1xXMihkd3bOypV
+ ZyWJkjgpa8+y3L9uDrrHajkwmaepLPP8JkHh7ONkyN3TAN5DrQz0AZYLw94nJln+7Q
+ rZTv3efteGJPQ==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v10 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Thu, 12 Nov 2026 17:31:49 +0100
+Message-Id: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
- <20261111195942.1283060-1-tjmercier@google.com>
- <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
-In-Reply-To: <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Thu, 12 Nov 2026 08:27:15 -0800
-X-Gm-Features: AclHuK-uQbQFbW5RNXEONirv5hUwyDZLZazYVkX411MRAANXcv3dooeKp4V1qsc
-Message-ID: <CABdmKX3rqcf-U7W7E+d79dM9H3VnwUjAH3Hv92MczMSmQauC3w@mail.gmail.com>
-Subject: Re: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator
- keeps returning NULL
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: k.chen@smail.nju.edu.cn, ast@kernel.org, daniel@iogearbox.net, 
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, shuah@kernel.org, 
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
- sumit.semwal@linaro.org, phasta@kernel.org, tj@kernel.org, 
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSTU7DMBAF4KtEXnfQ+N/OinugLux43FrQBpwQg
+ areHaWVaFAUsZ3FN2+e5sIGqoUG1jYXVmkqQ+nPrG047hrWHcP5QFASaxsmUBi06CDVE1QaaIR
+ hDCNBfgsHEDmKqC3n2Vu2a9h7pVy+bu7LftewYxnGvn7f1kx8nv4DThwQOmlT551WTqfnV6pne
+ nvq64HN4iQeiuNiQxGAQN50xKXkNq0V+VD8ZhYJCB61tpils0GtFLVQ+JaiAEGHxNFIixn1StG
+ /CkduNhQNCCkkkYyKxsu4UsxCEVu9GEDI0iSjMFqyZqXYhSJxQ7GAoEhrChTIOLlS3EPhuHWRm
+ 3vBnFCZaFHnleIXCt/K4udeUkQSRgoV8I9yvb9kpY/PMpTx/pcshoGg60+nMrZNEsF1RJ7HHNj
+ +ev0BRklquhoDAAA=
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6301; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=yFUI28/KQzIod1ZO3EwGt8fAsj8Y7KwGIU7bhHx5l3M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlfX/69GJvBu3pJ3mdzYYtDKruL9jGp5f3es4E7tJj9u
+ Z3Rg+7GjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARb17GhhmybdtuWX04eWFZ
+ 6KKTVs/M6vndCzjE37oudH+559pLac/nfddnfNz0/uvU1y/6lp1nZ2JsmB8WyiOrvCzxZjtf/fb
+ GxuQfxX/Cvm5N5b9Vfm/NE6Ur9ipKK64HXmPZe7+lMVj20swQAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,120 +90,151 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 1:35=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 11/11/26 20:59, T.J. Mercier wrote:
-> > The BPF iterator docs in bpf_iterators.rst specify that the next
-> > function of an open-coded iterator should keep returning NULL after it
-> > has been returned once.
-> >
-> > Add a subtest that checks this for the dmabuf iterator. It drains an
-> > iterator, calls bpf_iter_dmabuf_next() once more and checks that the
-> > result is NULL. The dma-bufs the test creates keep the list from being
-> > empty, so an iterator that starts over would return one of them.
-> >
-> > The existing open_coded subtest uses bpf_for_each(), which stops at the
-> > first NULL and never calls next() on a drained iterator.
-> >
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Let me know if you already have drm-misc commit rights.
->
-> Regards,
-> Christian.
+Hi,
 
-Thanks! Still waiting but no rush.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-> > ---
-> > This depends on Kang Chen's fix and fails without it:
-> > https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.e=
-du.cn/
-> > Kang, feel free to carry it as 2/2 in your v2.
-> >
-> >  .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
-> >  .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
-> >  2 files changed, 38 insertions(+)
-> >
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/too=
-ls/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > index 1a5dc1adae73..c1f81b5dccdc 100644
-> > --- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > +++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > @@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(s=
-truct dmabuf_iter *skel, int m
-> >       } while (bpf_map_get_next_key(map_fd, key, key));
-> >  }
-> >
-> > +static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_i=
-ter *skel)
-> > +{
-> > +     LIBBPF_OPTS(bpf_test_run_opts, topts);
-> > +     int err, fd;
-> > +
-> > +     fd =3D bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
-> > +
-> > +     err =3D bpf_prog_test_run_opts(fd, &topts);
-> > +     if (!ASSERT_OK(err, "test_run_opts err"))
-> > +             return;
-> > +     if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
-> > +             return;
-> > +
-> > +     /* The test buffers exist, so a restarted iteration would find on=
-e */
-> > +     ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
-> > +}
-> > +
-> >  void test_dmabuf_iter(void)
-> >  {
-> >       struct dmabuf_iter *skel =3D NULL;
-> > @@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
-> >       }
-> >       if (test__start_subtest("open_coded"))
-> >               subtest_dmabuf_iter_check_open_coded(skel, map_fd);
-> > +     if (test__start_subtest("next_after_drain"))
-> > +             subtest_dmabuf_iter_check_next_after_drain(skel);
-> >
-> >  destroy:
-> >       destroy_test_buffers();
-> > diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/te=
-sting/selftests/bpf/progs/dmabuf_iter.c
-> > index 9cbb7442646e..d5421b75c39c 100644
-> > --- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> > +++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> > @@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
-> >
-> >       return 0;
-> >  }
-> > +
-> > +/* Result of a bpf_iter_dmabuf_next() call after the iterator was drai=
-ned */
-> > +__u64 next_after_drain =3D -1;
-> > +
-> > +SEC("syscall")
-> > +int iter_dmabuf_next_after_drain(const void *ctx)
-> > +{
-> > +     struct bpf_iter_dmabuf it;
-> > +
-> > +     bpf_iter_dmabuf_new(&it);
-> > +     while (bpf_iter_dmabuf_next(&it))
-> > +             ;
-> > +
-> > +     /* Store the raw value; the verifier would remove a branch on it =
-*/
-> > +     next_after_drain =3D (__u64)bpf_iter_dmabuf_next(&it);
-> > +     bpf_iter_dmabuf_destroy(&it);
-> > +
-> > +     return 0;
-> > +}
->
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
+
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
+
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
+
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v10:
+- Stop trying to make partial lease work, they aren't meant to exist, so
+  we can simply error out when they happen
+- More tests for zpos and color management
+- Fix DPU1 issues reported by sashiko
+- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
+
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
+
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
+
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (8):
+      drm/amd/display: Fix planes atomic_create_state implementation
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  50 +++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
+ drivers/gpu/drm/drm_atomic.c                       | 337 ++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                        |   5 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  23 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c            | 435 ++++++++++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c     | 105 +++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                    |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                  |  63 ++-
+ include/drm/drm_atomic.h                           |   4 +
+ include/uapi/drm/drm.h                             |  10 +
+ include/uapi/drm/drm_mode.h                        |  22 +-
+ 14 files changed, 1107 insertions(+), 13 deletions(-)
+---
+base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
