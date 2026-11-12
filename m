@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530C6606B24C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776EF606B59A
 	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 08:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNy0EA1q
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJldOmxu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A109410FD52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A486810FD73;
 	Thu, 12 Nov 2026 08:49:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B603D10FD82
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F38E910FDA1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 08:48:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D69C663516;
- Thu, 12 Nov 2026 08:48:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D770D46B19;
+ Thu, 12 Nov 2026 08:48:38 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794473316;
- b=zysBscoLatRr/+xoVTX6Rl4kCD5PKeMM4QrKo5M1Tl9tTLu+ttLxuWYf0EfpFTFZxIBJ
- 9GrCaFz9D7Ghd6sOZX1QjY2s7hppcqsyYDC1gJkq2IclHRFMo9IIjiS3ueStpSjkP/P9q
- FldzpJ+VsfNJbvHLVkHeC3aOWTGueMJvptsIx0PO0adMIITrZpcDVylxUABBPUJ0sJeFI
- kDy5ydHrA3zAw4cAaYb1f3IKllfzIoWvrCQVNT4dIqscm/YVjt4hzDXiHqMziut+w6xli
- 7Ag6avzNtNFcJjykRXoWuDVwS19Xq1IccyHZcTtw7ZovgBDDmjuxSeutP3i8UofuoHg==
+ t=1794473318;
+ b=rBfjRqBwAUzAHW2nC7uMyCT7HlZUR9hflN8+X2pq3ef1YFdONkjnriTccP3ZjUGi7zUh
+ 4cTXDT1vrXqdHAJSwjFFG1I3qvO173Sbm93xbFxjr8bDRR9S1TyjMqAeVMu3/YCMixGRt
+ i9EzUdbYEp7JvGtr1kFejt//K09sd6UBeKaBVRWB7gMvR5LLZKgM/62Mk+vrnLYwVy5wQ
+ PIz33SGe9eRvTAjGakbg+ZdzbQmtN97+RyJgpSCJDHrNQiaclyC4CxyIbNZ4HHmhsRMGm
+ 6eiCy0i2i4EP5I51toa5p8ImnGo2GcrYQH314XryEpS+pU68jb/UEZVps1hpQ+4bvhw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794473316;
+ c=relaxed/relaxed; t=1794473318;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
- b=Yn74STF+2G1F2jMeVHxgwmMjf857rcSeCHVMArVEeQQEUDyswuQQhuIr0yOYFuJ2nl2v
- 7pfvf0NPUFfPKXxkO1pGvHVT3zexLnK8CnFeiiUiurXPWxWuX/V8iqgMpow1BJSnTZT+X
- CKE1y7sk86q44P2PopVA0qfmvuzuhZuXM8dQ/gplpGx8i3+N7/L6r1hBXSVEsA/I4wz/R
- thZjVWT8qFylhkFzr40S3In9nFsmeJXahchz7/xkE18Bs7pcv3YiW0OK+sQURujJlqJIY
- d55q573cGfyYDEM/w7zpJxXgwFDPT/XA6fTALdztfW9OmL8yQAu5NR7nz8llswImpZg==
+ bh=ZhYWuY2I9f3k8MEPhJu0jy4jXtUTdjf/cX15Y4bmCrc=;
+ b=yxuZgSSGZA2eTUH6VOTocDOgzytzTEGY2LGSMFs8MHDucErmeTTTqUXvNaHPoOc1Sgo4
+ reKTGgDPIO3NM8mZwVDaYP9M4EZWKx9T9MoLQx8qENjcy6pWlag7kiIxUM3PF6O04ibF5
+ 5Qw9lrDYtyKt1rUQ0JnEuVR2uMEad7fDW5f6zaGN6MftFBBT5lomk3zN6qOEIS5lmpSQL
+ 9h1+EpecCmttx31dNncwR0jMFFblGeYowXQXCRVahAMSG4NeorRpxihDhP9du2ceTkjZC
+ I0tlVR3cj4ygKiLinfwVChQeyrzL0QikCqo56sjRmQO+l/uH9iKgxjdtbo5M81j6jJw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 9D1AE1F00A06;
- Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 237241F00A12;
+ Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794473316;
- bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
+ s=k20260515; t=1794473318;
+ bh=ZhYWuY2I9f3k8MEPhJu0jy4jXtUTdjf/cX15Y4bmCrc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=LNy0EA1qWiptCnzix/+IsiQnfU7t+llJX/1LKe1COFyLNYOgd+nIZM5Ziz3Z0Q4RG
- dMnDeidhSkzP6gBWhbrvvjW72tMWvMz/rw9j1567lMMa/RhjwG9EDvl2Q6B4394vPu
- Y8KMJo8CPFsY8edWjR3LaoJA8xQT6CrKBtrIHsOvS15YludjtcFq0qEQxRbH6pNVxN
- JxwN8jJ0D4PrNYMJfoKL3uRC53PiMwmjnLDnxmzDiXmXKk/qeb35O7eM7nwu6FwMP1
- xduF3BZ7bsoUwyZtuqqP3NR2GnjmHhLHT4RqU5xJPxTNHI+zMgxYajCTiBmTrvWq8h
- aMx1cb6TeYwag==
+ b=AJldOmxuvKBYuBrXwnGLJM08ZX0y7gg/IHrrDln5GUoM1IRCR/wYCIF8uxAebkVAn
+ RCGsgI3gEnS6Ir6iJDXu5IFBQ9+yfRLN9RnJgX80lnrMemryBp5AA4d+KpdnTcDusm
+ r/hXxE2hKdGYWEpFSeqoB3lWJLYjtQPysodmoE+lv6nZonknV+taBw0J4kzRMMyIiD
+ zXq9aVSU4Q1nwDKx1abZ65eeNlRIKa6pm34fojMaAJMSwMlF0eyAivqvYmP4qeF7oW
+ 4k9Bs6dMPbNtHZuOjPEDU4TpmmpbBAW1Af/HWg1phfOCjOt5hVHtts2dROQnJCasso
+ V5dB1N1F4stgg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 16E63493DD;
+ by lkml.kernel.org (Postfix) with ESMTP id 90461493F5;
  Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:48:34 +0000
-Subject: [PATCH v2 01/11] drm/panfrost: Power the GPU up for a reset queued
- from the MMU code
+Date: Thu, 12 Nov 2026 08:48:40 +0000
+Subject: [PATCH v2 07/11] drm/panfrost: Don't signal a job cancelled from
+ _NEXT at a reset as done
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panfrost-long-jobs-v2-1-a06830da3d99@gmail.com>
+Message-Id: <20261112-panfrost-long-jobs-v2-7-a06830da3d99@gmail.com>
 References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2612;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=3871;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=3Nwfj5PjtSEDNrdV40YewE7S010LHXjG4GEcXIttwyU=;
- b=0ryBwxlYAwCmZkVAh7K+YyhyJgkV5eo4lx5zT8nt16/VZPa84kdzHsOr1c/ufAt9CWA/boFco
- dNMp9BI+aEeDpLRe9IHtJnI1DlLh5dvyibxixzOEuNV0jLs5xz9Xlka
+ bh=gJ9MHP9WJHKJVhxNHkpa2xRnP84nJEjxexYJc8IDTCc=;
+ b=/0fxxlblZoUiR4o6g+r0j1xdsNquO7AyYG5+0CkKLlg9l6VkQLdYMgP9kX4WmfXMyGCnCqZYP
+ ZfYIRi5gS0zAmUapDsC5dZi46wUH5kUTnBn2w2047wppqlOfRsNlECJ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,61 +108,92 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_reset_work() calls panfrost_reset() without a runtime PM
-reference. The work is queued by panfrost_device_schedule_reset(), which
-wait_ready() calls when the AS_ACTIVE bit is stuck, from MMU operations
-whose callers drop their own runtime PM reference right after. The work
-shares the ordered reset workqueue with the scheduler timeout handlers, so
-it can run well after it was queued. If the GPU has gone idle and been
-runtime suspended in between, panfrost_reset() writes JOB_INT_MASK and the
-job slot registers of a powered-off GPU, which is a synchronous external
-abort on arm64.
+panfrost_reset() cancels the job waiting in each slot's _NEXT registers
+with JS_COMMAND_NOP and soft-stops the running one. If the running job
+finishes instead of stopping, its DONE interrupt is handled by
+panfrost_jm_handle_irqs() before the reset. panfrost_jm_handle_irq()
+dequeues it, which moves the cancelled job to the head of the slot, then
+finds both subslots inactive and takes that job for done as well: when
+a job completes, the job manager starts the _NEXT one without waiting
+for the interrupt, so a job left on an inactive slot is normally one
+that has finished too. The cancelled job gets its jc cleared and its
+done fence signalled without having run: drm_sched_resubmit_jobs() does
+not run it again, and it completes with -ECANCELED although nothing was
+wrong with it.
 
-Take a runtime PM reference in the work, resuming the GPU if needed, and
-drop it after the reset. If the GPU cannot be resumed (runtime PM is
-disabled during system sleep), no job is running on it and
-panfrost_device_runtime_resume() resets it on the way back up, so just
-clear the pending flag. Resuming instead of skipping the reset when the
-GPU is suspended keeps jobs that a concurrent resume queued behind the
-pending flag from waiting for a reset that never comes.
+The Arm driver checks JS_HEAD_NEXT after writing the NOP: if it still
+holds the job, the job has not started and is evicted; if it reads zero,
+the job manager had already moved the job to the running subslot. Do the
+same: take an evicted job off the slot while the remaining interrupts
+are handled, and put it back afterwards, so that it is restarted with
+the other jobs.
 
-Found by code review only (Sashiko); not reproduced.
+Found by code review (Sashiko) of the next patches, which make the
+soft-stop wait longer and the window wider. Not reproduced.
 
-Fixes: f9ab9c66f080 ("drm/panfrost: Reset the GPU when the AS_ACTIVE bit is stuck")
+Fixes: 030761e097b4 ("drm/panfrost: Queue jobs on the hardware")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206548@kernel.org/
+Closes: https://lore.kernel.org/all/sashiko-outbox-206581@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 3a46dd61c..0c2fda80c 100644
+index 0c2fda80c..418a91a31 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_job.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -810,7 +810,21 @@ static void panfrost_reset_work(struct work_struct *work)
- 	struct panfrost_device *pfdev;
+@@ -659,6 +659,7 @@ static void
+ panfrost_reset(struct panfrost_device *pfdev,
+ 	       struct drm_sched_job *bad)
+ {
++	struct panfrost_job *evicted[NUM_JOB_SLOTS] = {};
+ 	u32 js_state, js_state_mask = 0xffffffff;
+ 	unsigned int i, j;
+ 	bool cookie;
+@@ -694,11 +695,28 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	job_write(pfdev, JOB_INT_MASK, 0);
+ 	synchronize_irq(pfdev->js->irq);
  
- 	pfdev = container_of(work, struct panfrost_device, reset.work);
++	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
+ 		/* Cancel the next job and soft-stop the running job. */
+ 		job_write(pfdev, JS_COMMAND_NEXT(i), JS_COMMAND_NOP);
 +
-+	/* The work can run long after it was queued, when the GPU has gone
-+	 * idle and been runtime suspended. Power it up for the reset: its
-+	 * registers are not accessible while it is suspended. If it cannot
-+	 * be resumed (runtime PM is disabled during system sleep), there is
-+	 * no job on it, and panfrost_device_runtime_resume() resets it when
-+	 * it comes back up.
-+	 */
-+	if (pm_runtime_resume_and_get(pfdev->base.dev)) {
-+		atomic_set(&pfdev->reset.pending, 0);
-+		return;
-+	}
++		/* A job still in the _NEXT registers after the NOP has not
++		 * started and will not. Take it off the slot until the
++		 * remaining interrupts are handled: if the running job
++		 * finishes instead of stopping, panfrost_jm_handle_irq() finds
++		 * both subslots inactive and takes the job left on the slot
++		 * for done too, and it would be signalled without having run.
++		 */
++		if (pfdev->jobs[i][1] &&
++		    (job_read(pfdev, JS_HEAD_NEXT_LO(i)) ||
++		     job_read(pfdev, JS_HEAD_NEXT_HI(i)))) {
++			evicted[i] = pfdev->jobs[i][1];
++			pfdev->jobs[i][1] = NULL;
++		}
 +
- 	panfrost_reset(pfdev, NULL);
-+	pm_runtime_put_autosuspend(pfdev->base.dev);
- }
+ 		job_write(pfdev, JS_COMMAND(i), JS_COMMAND_SOFT_STOP);
+ 	}
++	spin_unlock(&pfdev->js->job_lock);
  
- static const struct drm_sched_backend_ops panfrost_sched_ops = {
+ 	/* Wait at most 10ms for soft-stops to complete */
+ 	ret = readl_poll_timeout(pfdev->iomem + JOB_INT_JS_STATE, js_state,
+@@ -720,6 +738,12 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	 */
+ 	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
++		/* Put the evicted jobs back, they are restarted like the
++		 * others.
++		 */
++		if (evicted[i])
++			pfdev->jobs[i][pfdev->jobs[i][0] ? 1 : 0] = evicted[i];
++
+ 		for (j = 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++) {
+ 			if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
+ 			    pfdev->jobs[i][j]->is_profiled)
 
 -- 
 2.55.0
