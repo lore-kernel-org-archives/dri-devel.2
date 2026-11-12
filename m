@@ -2,64 +2,149 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE512606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4042606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xZOnmuUN;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=LvR/BsuD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy8GlGPy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B9C112524;
-	Fri, 13 Nov 2026 13:43:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="xZOnmuUN";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="LvR/BsuD";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96CC510E6DE
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533094; bh=+4P4Dm+xK1c98QYgMrw5Fig
- S7aFhLx8xQAD0TH21CzY=; b=xZOnmuUNMrn4uYebfUJwAshahpli7K+B9saQ2G00sOwFIb17xI
- 5sEGnhfoyr4JOKfItQmB4A6Z9++bVPs4ZPAw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533094; bh=+4P4Dm+xK1c98QYgMrw5Fig
- S7aFhLx8xQAD0TH21CzY=; b=LvR/BsuDP4eAY/Q+fYIrenVHSsG4NbdPPePawJQcJGxWQ2yHus
- J4PQ71T1Hsgb0blw/huosASDuBQz4IvItaxRoq0eAcWc+zJjU43stJV5aXOZ4N3gdGPmbAvfj1B
- xH+2ju0Ty/dOXExVXX9tIXX/YJFil6+NCXKfyqBENiTiIowo+7lDiZR/QxOJyNza44DJ0LkqTe7
- TZksjq23ddBIOqCcksXnwB1YUv4Jl5+wHHRKy8OOnBKV9BLTjesk79goo2KZR5oZTRorHZikR+6
- vCzc6tL9yy2AjPZY5ayO8DnOeWQpZ7CiwVkI7cFIy+tRSa6lbPzYBFuPlALynBTwGrA==;
-From: erebion <erebion@erebion.eu>
-Date: Fri, 13 Nov 2026 02:24:45 +0100
-Subject: [PATCH v4 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92487112528;
+	Fri, 13 Nov 2026 13:43:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1557710E28D;
+ Thu, 12 Nov 2026 13:32:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AA2B861333;
+ Thu, 12 Nov 2026 13:32:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227E61F00A06;
+ Thu, 12 Nov 2026 13:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794490338;
+ bh=r6ZiRY3FXltBOTurpbapfkXrVhZHo2axQtDyRtG/+Kg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Wy8GlGPynbdgDuFWN722xaQwNevNtmZMEu0BUn6KzojIS2khSDKExmF3/xNVEdtLl
+ eg+MrKwjSLQKSwX6KGIm3YdAvMrdpehkw2SEwXk5ITkqGQcbqHO3TpHS2uV2Am897/
+ 10/dPietBwB77+JGc07RnvIwJDQCioeWxjJS5APKr5zv02KG/1GvxTvI2xPg8l2nj9
+ 8rVb9kzBJiR4zpdkhL90XWtOFJlNgS29gDuGDeXDl5g8bz1BkEPEanNxu3FAmYKlIF
+ uvbMxLrCr7ffOATZvlIHAx+q1QfPvgRNTBbsvWHfJ7CKtkZD92nfbknljW1KTrGL27
+ 2KvO5+WPab9Vw==
+From: Maxime Ripard <mripard@kernel.org>
+To: David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aun-Ali Zaidi <admin@kodeit.net>, Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, John Stultz <jstultz@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Liu Ying <victor.liu@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Linus Walleij <linusw@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ David Lechner <david@lechnology.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Michal Simek <michal.simek@amd.com>, Aditya Garg <aditya.garg@linux.dev>,
+ Andy Yan <andyshrk@163.com>
+Subject: Re: (subset) [PATCH RESEND 00/83] drm: Switch drivers to
+ drm_mode_config_create_initial_state
+Date: Thu, 12 Nov 2026 14:32:12 +0100
+Message-ID: <179449030440.677082.2648325087165275258.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pdx213-upstream-3-v4-1-4b01c50a821c@erebion.eu>
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=1275;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=2S3plW7dluTLpAtgNGakeiDdnyfiuLDdowoj7EPiQuQ=;
- b=3wD0rgI3zhmA/zKkeecaAkKpCPJ1NWlMFnLshmcUIqbOTrWHD0ApmLIpxaI6rTquxNtJbYB0F
- KzHLNrA3pXdBSgwpK34uLHYbiqO5uUxcBmmhkQ5BuKC+CoR6HWfrK1Y
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:43:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,59 +157,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a node for the camera flash LED found on the Xperia 10 III
+On Thu, 05 Nov 2026 16:29:09 +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles. However, the two roles need different
+> behaviors, notably for objects like drm_private_obj that must persist
+> across suspend/resume and are excluded from drm_mode_config_reset()
+> by design.
+> 
+> [...]
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Applied to misc/kernel.git (drm-misc-next)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 6e2bbf4f060ac..4d78c500d00d3 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,9 +4,11 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include "sm6350.dtsi"
-+#include "pm6150l.dtsi"
- #include "pm6350.dtsi"
- 
- / {
-@@ -302,6 +304,19 @@ touchscreen@48 {
- 	};
- };
- 
-+&pm6150l_flash {
-+	status = "okay";
-+
-+	led-0 {
-+		function = LED_FUNCTION_FLASH;
-+		color = <LED_COLOR_ID_WHITE>;
-+		led-sources = <1>;
-+		led-max-microamp = <150000>;
-+		flash-max-microamp = <1000000>;
-+		flash-max-timeout-us = <1280000>;
-+	};
-+};
-+
- &pm6350_gpios {
- 	vol_down_n: vol-down-n-state {
- 		pins = "gpio2";
+[03/83] drm/appletbdrm: Switch to drm_mode_config_create_initial_state
+        commit: 24f5141d0266b391fda87dd3458aad31c26e28df
+[04/83] drm/komeda: Switch to drm_mode_config_create_initial_state
+        commit: 95b07f6f1f820601f9bc4f9dd8cb01e008c4441d
+[06/83] drm/malidp: Switch to drm_mode_config_create_initial_state
+        commit: b0507da85fdd7060decd29d35f5819259718f741
+[08/83] drm/aspeed: Switch to drm_mode_config_create_initial_state
+        commit: fe87bfb1dfa04dd73bb89e60820ced02967faee8
+[10/83] drm/atmel-hlcdc: Switch to drm_mode_config_create_initial_state
+        commit: b36f26eb85d8032b458fab7c6912650c0e5b5561
+[13/83] drm/gud: Switch to drm_mode_config_create_initial_state
+        commit: a53dc66784822a101541c54e1e7e471bbad3e8ee
+[15/83] drm/hisilicon/kirin: Switch to drm_mode_config_create_initial_state
+        commit: 1e8db0d2a2383ce3fb96ea1db26180350d972786
+[17/83] drm/imx/dc: Switch to drm_mode_config_create_initial_state
+        commit: 39283d6d8fbaca8d7bb7e98f7406dad5286bfc6e
+[18/83] drm/imx/dcss: Switch to drm_mode_config_create_initial_state
+        commit: dc54c1bc909873caf0f910677f3de899cdf3b62d
+[24/83] drm/mcde: Switch to drm_mode_config_create_initial_state
+        commit: 046b692dc7d3910b6a85d71e5e941c712bad30ee
+[26/83] drm/meson: Switch to drm_mode_config_create_initial_state
+        commit: a26760da1f8bebdcc7fe6fdcb5df5c6ca007e4cc
+[29/83] drm/lcdif: Switch to drm_mode_config_create_initial_state
+        commit: 0f3e257909538e9cce0213c2d1b9d3a7edf8f348
+[30/83] drm/mxsfb: Switch to drm_mode_config_create_initial_state
+        commit: 99da25e15ccbfb1d0717de28d3b6f45f72958127
+[33/83] drm/pl111: Switch to drm_mode_config_create_initial_state
+        commit: 4b9008133a7b14dbb1eeab84266926062d126ba7
+[38/83] drm/rockchip: Switch to drm_mode_config_create_initial_state
+        commit: c07d0dfba08808c90ab8ccc23a1f0ce9aafae536
+[43/83] drm/ssd130x: Switch to drm_mode_config_create_initial_state
+        commit: d7938a168f56608626d62a7015b448da1cee4dba
+[48/83] drm/corebootdrm: Switch to drm_mode_config_create_initial_state
+        commit: 207a0f90ce3953131806ead64bb512364de260c4
+[49/83] drm/efidrm: Switch to drm_mode_config_create_initial_state
+        commit: 8fa2e7e1b3642113677a6a77f81aa186f3b16293
+[50/83] drm/ofdrm: Switch to drm_mode_config_create_initial_state
+        commit: 1fd3ed4c330b8f56bbcd7d2684e1dae5961ee8ab
+[51/83] drm/simpledrm: Switch to drm_mode_config_create_initial_state
+        commit: cde728838797cdce3bc488acb1338c1dc20c24d2
+[52/83] drm/vesadrm: Switch to drm_mode_config_create_initial_state
+        commit: 705557cddfcbea6c6ee2e50057394c6c6fc2ab8b
+[74/83] drm/tve200: Switch to drm_mode_config_create_initial_state
+        commit: 4b40cfa3178f00188314a1da55dd899e635d2d73
+[77/83] drm/vc4: Switch to drm_mode_config_create_initial_state
+        commit: 6d8d9311bc9daac0e5acc3e5d34ca067abdd1fe4
+[80/83] drm/vkms: Switch to drm_mode_config_create_initial_state
+        commit: 63a80293361bc276fb07cd68511b5f887ff5fa41
 
--- 
-2.53.0
-
+Thanks!
+Maxime
