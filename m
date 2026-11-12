@@ -2,59 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E58606A884
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:27:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0453606A896
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 14:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TBIMCm+q
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Szw5ztA+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FC810E29F;
-	Thu, 12 Nov 2026 14:27:24 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693E010E29F
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:27:18 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jQN4z1kTxz8snG;
- Thu, 12 Nov 2026 15:27:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794493635; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pFar2GgmS4QV/Ptvj3CgdIR9gIlj58NOlAIQYrUBxnU=;
- b=TBIMCm+qT6Xs/zYUHf8V2rh4tw5M5aNBNRtnvevLBBO3SOq++6LtOm/IisJErSJOW/W13+
- tnTDa0zStcxQoolllYFkujX3Y2uR+J+LWNFnsH8HMZvT36hJcXBVopJFSPjIGHsyxxovYZ
- z8rENLn90YX9147w9c6CR7VG1L5ejwKvFK9QCGt4M+UfM3wcfzCa8R/4IuAkm96oB9Vo4h
- 1zvqXVHi0lY74EIH5RDYunuIffST8jMpSJafkZTK/6QXePNqMdkVBNH1N+cF0IFF/AC0vn
- s17uoKh4OJzTRXTUmRuEhXzAntjoWrNy95wOpxD9MMWaveVBh9xPWHyQzc1Uxg==
-Message-ID: <1f2143d213d22dec427ae1bcfc7cbfe2d34ab83a.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not overaccount job runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, Gary Guo <gary@garyguo.net>, "Paul E. McKenney"
- <paulmck@kernel.org>
-Date: Thu, 12 Nov 2026 15:27:13 +0100
-In-Reply-To: <4606cd56-f1c5-4a00-b9ba-fdbf2206681d@amd.com>
-References: <20261111105921.38710-1-tvrtko.ursulin@igalia.com>
- <71ad23bcb3d48f771ce74270dbe4dfcf39827031.camel@mailbox.org>
- <0ff2a53b-377e-4839-88da-1c2b3c25b3eb@igalia.com>
- <6f2f8ff3738152b50521e0cad88978e2ffdb5feb.camel@mailbox.org>
- <4606cd56-f1c5-4a00-b9ba-fdbf2206681d@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA7B10F439;
+	Thu, 12 Nov 2026 14:33:39 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55BF710E628
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 14:33:33 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a60f9474c4so54165785e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 06:33:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794494012; x=1795098812; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZvWhfh0tjT8b9eS/+ePbZ/29reieprsJmIKfK0jNE/I=;
+ b=Szw5ztA+17vmqjTjYjmDOIe1VJEwJ7xxY7CzEjzIlMnHtBAQWx1xYfNeg8Hl2EB5n8
+ LHCIdkKn25a4w9k5nQV0EVaqEQbFNaYzzPTHH5/WExj4fr/5T8p4UIedXgCDGIw0goBd
+ 3jFUkPzoTlycMaEDVIGZzH93BEkRz/5PwnbBZSbG0xFHtv/jadA5R1MEfRB6wDeVj5am
+ ISH4Zg4KN/5wCMV6NQWIFvCyYFwUHh4oiImIA+bhWegOcTVPe1Y//mfZZeDXqOXVELtZ
+ 08Qwtsxgu+ZAIZ8D4F2aqkNLusa6LIkEFOkE0TwYEhpKb7W25Kz1ZLALnUFTc27cBuIf
+ Z3OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794494012; x=1795098812;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZvWhfh0tjT8b9eS/+ePbZ/29reieprsJmIKfK0jNE/I=;
+ b=UYLzHhUhORE9fXal9WhKwSQYSHaBBiqYHwc8hpGn/dI7fG6QhBpHsevkooBLGsvpmp
+ XnT89PGGbBAGQLzBp5nKVpzVoZrgDr71+GTqpPZqN+XCKqnjUvbzy3AVzoW24aAT3f2b
+ PFt55XkrxuH3e1WNyjLwLwC3oGh2Z/SO9mkAY+KraZIX8T9FZ2pHDs2bgtRrY+m4y3y5
+ UHZCPcINp9xufOhfE9/QzgNgycVKNK/9EDOvqxGMQxNmu/IsFUuEZGJRQD3a/NVM6slr
+ d4mcv5zVD0DVHbwulN+9pZv2f8emcYKCPhrFuQtBzr4S4xJutF+rf+F5SwoWcQs0cXZR
+ dVdw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFYDPhJCmg4ROQstONJyAzpv85LAlbN7j5oRlqPLdzF/ZxUryStbGreMxa+7GgvL19Wu5//1LYYsdo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/HKDh5bexQV6siATzo60fJAfmqn/K0e0xaYuov3PAKWc4+6uxp
+ 7gEF+ggODW7k8kA2xszsTEAnTDRcxbjypZo7T5k4xHlERTTeQsGksI9e
+X-Gm-Gg: AYBFou0eI1s2hyZ7bUwcUoXzhzTwZ7/ag89UzMdcuKtJtbiMMyEQf55vvpE+iw3DXi0
+ XjOG9bZ/L9NO4RmeRU4aAyR7tdsvwKJknr3aDJFdD1eVS2GGo2WHcEQ34QCvUo4J1hAmXuVJae3
+ GxKk60aJsEoF5fTktLpvN5ycIKLAuYgf1DGXSMugjeIQVE3NoPuo6D8gKAts/loOIQGSd+EedaY
+ To38noSAV9xdKVq7d6+Z8OhpBmjw7rEgzzyrwjEvBuXUWG/wLgXMb9W7oU08IGQIxRTrhCXN2wD
+ aJiIWoeKRs2AV3g/W47kcSueg12XCy9qejusYcTxJNoF9zczyKbmCRiyKW2sNNnaS2QX3XlqTCV
+ JT/sF08U61cioWghUtzYfvISkEdFtQCOwbWQoFxOdrweh5D7+AEi8u33jXVt9F+RH+QaBT8ur51
+ g3NE6/oznqni5iZHpVgK4uxsjvj+qk9WvC468Z9CYwF0w7JPmOSe5j9O9plzumSQ/DeLWgUzGe6
+ J7x5LDWavICduwxYFmawHBQEVHiSmGbTuw7r1TlftA5/3+JaMxVu5Wt4VUaqMlH/kT6CWd8bNCA
+ sYXXu5lpN+EjiFsqzNWR1kcKBFhkAyJJVPRhU3OkWgu068dpaL64sunhr8XuEOL+J8ON8+dnr3D
+ gRZPnxi22em7dH3Hykufg4fM+
+X-Received: by 2002:a05:6000:2008:b0:493:8847:841e with SMTP id
+ ffacd0b85a97d-499c8982608mr10751462f8f.16.1794494011369; 
+ Thu, 12 Nov 2026 06:33:31 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.lan
+ ([2001:861:39c2:e340:7c57:d4:a443:9a65])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4988f5b1ce3sm15590804f8f.14.2026.11.12.06.33.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 06:33:31 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 22/35] drm/panel: drop the orientation workaround from
+ get_modes()
+Date: Thu, 12 Nov 2026 15:33:30 +0100
+Message-ID: <20261112143330.2576419-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026-drm-panel-funcs-v1-22-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-22-5e3070a3478f@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: b027d31a49d435f3553
-X-MBO-RS-META: ffy9ow4md97w99o3y5j6ab7xe6yqo5jz
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,62 +94,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-12 at 15:15 +0100, Christian K=C3=B6nig wrote:
->=20
-> To allow drivers to more accurately calculate how much time the job spend=
- on the HW.
+On Mon, Oct 26, 2026, Dmitry Baryshkov wrote:
+> The exceptions are sun6i_mipi_dsi, sti_dvo and the Tegra DSI, which get
+> the panel only after the DRM device has been registered.
+> None of the in-tree boards using them has a rotated panel.
 
-It's still just not a very good idea to randomly overwrite a fence's
-internal value without a formal API contract. This should have done
-through a dma_fence_overwrite_timestamp() which is responsible
-centrally for the ordering, or, even better, through a separate
-timestamp in drm_sched_fence.
+Two are on their way for sun6i_mipi_dsi, both A33 handhelds with the
+panel mounted for landscape use, rotation = <270>: the Miyoo PocketGo S30
+(ILI9488, panel series at [1]) and the Miyoo A30 (ST7701, not posted yet).
 
-Why do they care btw? As far as I have ever seen only amdgpu uses the
-scheduled fence. What do you do with it?
+I sent a fix for this gap on 1 November [2]: sun6i_dsi_bind() reads the
+rotation from the panel node, a child of the DSI node, and sets the
+orientation on the connector before the DRM device is registered. It
+does not rely on the panel driver, so it keeps working once the
+get_modes() workaround is gone, and it skips port/ports nodes, so it
+does not mind whether the board also links the panel through the graph.
+Tested on the S30; it still applies to drm-misc-next as of 12 November.
 
-I see why Tvrtko needs it, to do the fairness algorithm.
+Could your repost of 15+ take it, or point at it for sun6i_mipi_dsi? It
+reads the DT itself rather than panel->orientation from your 23/35,
+because the panel is not there yet at bind time. I am happy to rebase it
+on top of your series if you prefer.
 
-> The time it was pushed the to HW queue is pretty uninteresting for the ti=
-me spend on the HW.
->=20
-> What you need is the time it started running and that is when a the previ=
-ous fence completes.
+[1] https://lore.kernel.org/all/20261109160706.2272332-1-romain.tisserand@gmail.com/
+[2] https://lore.kernel.org/all/20261101203406.1360656-1-romain.tisserand@gmail.com/
 
-OK, I see.
-
-> > Is it guaranteed that this fence is signaled and, thus, has a
-> > timestamp, or is it not? If it's guaranteed, the test_bit() is actually
-> > unnecessary. If it is not guaranteed, then there can be misordering
-> > between the two operations and it's UB and, thus, a bug.
-> >=20
-> > That said, I'm OK with your patch here being merged since you did not
-> > cause that chaos / problem, but a second patch with a FIXME about the
-> > issue that links this mail-thread would be good.
->=20
-> I've considered this approach as well when we originally merged the
-> change, but the timestamps are only like 90% accurate anyway so to be
-> honest I don't think it really matters.
-
-You have considered which approach?
-What do you think of the memory ordering problem I point out?
-
-And btw above you said that this is done so that drivers can do
-something "accurately" :)
-
-But as I said to Tvrtko, we are where we are. This here is no big deal,
-but I really want to get the dma_fence memory ordering set straight and
-well-documented. The usage patterns have fragmented. It's completely
-unclear whether what drm_sched does here is actually legal.
-
-
-P.
+Romain
