@@ -2,94 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F1A606A885
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 07:53:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDB5606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 07:57:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fr2aSa27
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MOcq+jSD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36FD510F712;
-	Thu, 12 Nov 2026 07:53:09 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B71BA10F72D
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 07:53:02 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-cc147d86bebso344571a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 11 Nov 2026 23:53:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1794469982; x=1795074782; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=M7aNgwut6Pkc4vihJRTUegbGMo517hIzijJR1eDiHBI=;
- b=fr2aSa27ZE3guhBSMPR9O5l9QGrGa6qjcGJw/tXdxeLJ4tKAPfHpFrd9D1dF5NGrnG
- Sne2bQNQ2PeaEYhRY/URY+/AKVfqlSL+YLNZWhNvLJBZQNmXErMPpcqk/7+SEGFzUUgD
- QzIT+s6XGg1g5g4lQoaxVAUgKOsfGGMdJviNNgE5v38OnHuKjROdtrHtn1aBnp9RrkGK
- psaROy/w/azl48Y1Db1o6Aj1ANTi+FO03ook60GdXPaXFMpcwpq3iEjq1QW0FMEFDAwe
- HwzdTwrqjspfqA9BhdHEajx+tFPxcvbTASkiceRDBkKen1jdkdkspidWyAcSTfC374Vp
- AiGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794469982; x=1795074782;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=M7aNgwut6Pkc4vihJRTUegbGMo517hIzijJR1eDiHBI=;
- b=cHZkDJNoP7M7LnJibcCJIcUDVyNUSJmdZlQZ4OGqEcwDTfNr4Ll9V5nyqTphzFOWC/
- IZns4zgn1jzwMAk9Es4UYj6L7nd/yaEJyR8hcIbgA3tWLdNeWqr5LKVaH9H/s93EpPtX
- NGTKpOCPhul3YBcPWuQ/R5LSycCC5MBx+VQ+6cDxcTzmGr0mbMoz9/ncFUjr+xaq+riB
- 74UiFv0xST2u+CuKSfDcjqq/hfWVpo6e7Y3xJxZFp6iCJGBMAp0nNueNnPHO/guWuhzY
- dC4RLtK4IdYvVp91a8hur9Jj6n524o+HC5lkQr3qxco4MBSxdv+BBymgagHngcisemfh
- cn2g==
-X-Forwarded-Encrypted: i=1;
- AL+hErFRvs3uFOupYJt0K615+DJq8qSEMA8tjZ32fE9rwsZwOd2V2GOPIgTEN3f9fdWqVlAHdBg9V4Rn0OI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9QTlkD6hNfc07cLQhTtpOjMF+BjowtyNpfxJvG/AqsvcQDqu9E
- SM/ir+Sm/64yIQzINhQUB5KfuGyrWS7xjCYeVNUD615Tw5RNwb/o7+YzZTHApy1ioSg=
-X-Gm-Gg: AYBFou1bJxSlzdC7/HCf1esFRjxMJXqgobV6Y2ad96capx8HbWzNPXREZXUcTq/JRlS
- YPWWY12LNMoDoeNTwXQArpCDdiPAYWoZE/R3pPhasZoL5jcJuURK415yTR5FeziE8w50EAdawlS
- 0DI2Sh3wpxDel/JzgjrHYk1UUJap+/2GRyf4ZQF2abJt5crOk5a0GbukvvNE5vLZQKirE708sQM
- VbiE/6TzHD58nLtD+mwD53Z7iy2S02/B90sl5s8y9sY6DgUVCYcfXCnC+3i5foJ+KmK5J9YU3WZ
- YrY5mDnIlEA2gMSzeGoos6HMFR9/kSzx9x1GtVMhJ+XON7ZsVE2gxanbyYfTiP/LHskWfslQ2Rx
- nEomYanLddXnglxMsBrTxgZZWkmVcGyjea1V9pBGEhoi6mYADOUeNrdnO+ioUAi4ewpWEbnBqVQ
- ybWshwGJtbtHBkt6bxjzWq5cqXfNumuQmtV0LTA8FqfClTq9/S3Kqo7BIVfoueq70bb9/ASRIkO
- JtHju30TOe+Tf5D3Tht4tZEeHLSh4wPXFT4M4C6DnZQJR7kEClwAWLV4vwp5YtGsEFBNUGM9d3R
- L4/onJkpNI77OjHtXg6zlTrGWUfvTrB1FNJ64La40IUrzIJ6Atc=
-X-Received: by 2002:a05:6a21:3e0b:b0:3de:57da:7fa6 with SMTP id
- adf61e73a8af0-3f631b8bac5mr1129232637.39.1794469982178; 
- Wed, 11 Nov 2026 23:53:02 -0800 (PST)
-Received: from [127.0.1.1] ([116.237.168.131])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8baab5f3f99sm3131256b3a.51.2026.11.11.23.52.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 23:53:01 -0800 (PST)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 12 Nov 2026 15:52:09 +0800
-Subject: [PATCH 8/8] drm/msm/dpu: Add the all WB interfaces for sm8650
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA3E10F838;
+	Thu, 12 Nov 2026 07:57:50 +0000 (UTC)
+Received: from mail-m8114.xmail.ntesmail.com (mail-m8114.xmail.ntesmail.com
+ [156.224.81.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD2410F838
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 07:57:44 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 546cef110;
+ Thu, 12 Nov 2026 15:57:40 +0800 (GMT+08:00)
+Message-ID: <2807a167-0dab-4732-82e0-a3b5ebcabb15@rock-chips.com>
+Date: Thu, 12 Nov 2026 15:57:39 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] drm/bridge: analogix_dp: Use
+ str_supported_unsupported() helper
+To: Thorsten Blum <blum@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261111164243.77775-2-blum@kernel.org>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261111164243.77775-2-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-cwb-upstream-v1-8-a6a88d928aa4@linaro.org>
-References: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-In-Reply-To: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794469928; l=1060;
- i=jun.nie@linaro.org; h=from:subject:message-id;
- bh=b7WDt00uQDDX1aGwCR8y+UiMnK66w5MHAcAsR5IgoCY=;
- b=JFbfRJDpW8UqYouqr6SrrMmcYZaVK8J9uqILmonXoCX21jGi5cYcWkFvkU7POyec+KG+7HOU0
- HPjiFBu634wAJqeSBX2CGYMriG/EIPVgTAnM6RKH6qIDj+heWRXaub2
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=O9aRQ3+xXWihQiRRgStCET+eFXx1EZs43Fh0Xh+8Bu4=
+X-HM-Tid: 0aa1cec32ebc03a8kunm267e7e3944dc00
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTR5CVkxJGkJPQk1JQkJOGlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=MOcq+jSDGGNBYVT+/mW4+Q3Aa/pYQ+X2jK/EoP5YAL1/WKPP8vTzHomzLDTanMzevw+vCPow3y1ugMqOT9nytLk53BmHmtTxViHcvMZWyFJnG79KwUgiDJzepDg5iWCovHd4nbdLv0glrXp3+PZNwDmlNb98nUuNmsBmjBDUohc=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=NEKjIJAa/BSs/0v1WVFEUUAthlW5GEQY1FS7GPyIJQ4=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +62,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There are 2 WB interfaces in sm8650. Add all of them to support
-quad-pipe topology.
+Hi Thorsten,
 
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+On 11/12/2026 12:42 AM, Thorsten Blum wrote:
+> Replace hard-coded strings with the str_supported_unsupported() helper.
+> This unifies the output and helps the linker with deduplication, which
+> can result in a smaller binary.
+> 
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 6df6963740d2..59d3ff9bcde4 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/of.h>
+>   #include <linux/phy/phy.h>
+>   #include <linux/platform_device.h>
+> +#include <linux/string_choices.h>
+>   
+>   #include <drm/bridge/analogix_dp.h>
+>   #include <drm/display/drm_dp_aux_bus.h>
+> @@ -745,7 +746,7 @@ static int analogix_dp_fast_link_train_detection(struct analogix_dp_device *dp)
+>   	}
+>   	dp->fast_train_enable = !!(spread & DP_NO_AUX_HANDSHAKE_LINK_TRAINING);
+>   	dev_dbg(dp->dev, "fast link training %s\n",
+> -		dp->fast_train_enable ? "supported" : "unsupported");
+> +		str_supported_unsupported(dp->fast_train_enable));
+>   	return 0;
+>   }
+>   
+> 
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h
-index 2eef5f69832f..e9fcb402a34c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h
-@@ -315,6 +315,16 @@ static const struct dpu_dsc_cfg sm8650_dsc[] = {
- };
- 
- static const struct dpu_wb_cfg sm8650_wb[] = {
-+	{
-+		.name = "wb_1", .id = WB_1,
-+		.base = 0x64000, .len = 0x2c8,
-+		.features = WB_SDM845_MASK,
-+		.format_list = wb2_formats_rgb_yuv,
-+		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-+		.xin_id = 2,
-+		.maxlinewidth = 4096,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 1),
-+	},
- 	{
- 		.name = "wb_2", .id = WB_2,
- 		.base = 0x65000, .len = 0x2c8,
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 
--- 
-2.53.0
+Best regards,
+Damon
 
