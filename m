@@ -2,98 +2,182 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274A2606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95936606A337
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOx9NI9I
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Ez6XqCrV;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=Ez6XqCrV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808B410FF36;
-	Thu, 12 Nov 2026 09:26:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C461010E59B;
- Thu, 12 Nov 2026 09:25:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 01F6B62D82;
- Thu, 12 Nov 2026 09:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BF11F00A05;
- Thu, 12 Nov 2026 09:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794475555;
- bh=EZx8Jw7PIP5EkW4qNXiCINH2MnOdwdHG8FWpIk2/UBs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=DOx9NI9I4ddcEPPQnoAjTiQ22Ws+dQcJWle2kV0VS546QDyGUjb4PiC3qylGxT2ZB
- wfCOaapLfkWztw6H9dqA8Z5QmEgCbEQi9MjmcU51sVi1IfN/0YhNJL43dHgnOFaO1W
- QWoVUfNWMDSL1WiWJEpNouHq3fadIwXYp4FqthBNBpAzIhFZ48q3P32/HimqGmhTpK
- Gi+q9Z0h+TFtaptREw30JVyIhscF4Atx6Ferp4kLGmdEE4zvUnrEdCmm+oN7LJ9jVi
- KBJCBKLDslSbxGxYHFcEmhtPbysdHJQNGkju1T5PjLKjTDoztFpJHuH+NOPGg9VNdm
- 3cHDDC6rD9dQw==
-Message-ID: <131ad9de-a475-4848-978d-08cc98c26013@kernel.org>
-Date: Thu, 12 Nov 2026 10:25:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0551F10FF72;
+	Thu, 12 Nov 2026 09:31:10 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013055.outbound.protection.outlook.com [52.101.72.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 858E410FF6E;
+ Thu, 12 Nov 2026 09:30:58 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=TvOwNqFpRRPCiD8tX69pr41Wfa6NaQHesLhh8/x0GBH+jGztrsTPmuAU2S+s901QqTqO3YVIQu2ukBd9Catu0svgwIWxlSGnM/Qvv5+rVBferqVQNRDR7U57IOoh85RcsKfYE1ptO/HNef0lTZb/BtNRIkj6crN6xIWnIUcX46wlIifaJKCwPsWBcC5/QsOG47LAYDfgv9zsb0KK6qaAd1J3SfCCYJB2LiclTEGgw0ZUQJEDZP+b5Toz/zEyvBwOI/9oWbO5qtQQwHP6DNVu0NbFftw0ioI9ucsG6PaQXE1eUHZqSl2zINW0eZ4X5Yri7nReUCGo7M7WWs0JjwmYdg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jZE7IhtX1NmUiFMMT6bvC9A/apAk2w/Gp6I00CiyWq0=;
+ b=GBykGHRuRi1WGOUvImgchNb3AdrzKUSYfDg7Ak82MSOGcJnoT6vTRmcFcIRe13KKzskI+AKpmf+roRN+sAWqL8EOQ5Fl5hnKrYwp5yc/U9COVEmgoVfSd31x4hSFXuCJOmZnHALSQHXtfk6fGyhxNsbRGdiPFi5NTa/VJSy62aRvCrG7UPtXcT9uH880L/OIEntFmzX1COjmFmtFhwkUpGQlc2cPMDJLsvKal0gb85aG/24MwLff5lHVNvYhZrkZsjD4m+uwdKI0HLZ2WaXOHq391Ad1i0pumlsQVMZ43e72KGIqAtdUiqmVx7sD3lSmRsnEWJQgmC9FjdJ/YEZ4AA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=davemloft.net smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jZE7IhtX1NmUiFMMT6bvC9A/apAk2w/Gp6I00CiyWq0=;
+ b=Ez6XqCrVkAIrs3uf/Pvphnn80ty437AGFP0mArLZLa7WvoiPlPadRJ3yvQc100KNfCA4UljxBVKbMNLDOJdNNfNJUnI/3afHQC4vNImwu0AHKLqocTTRx2l8IdkZKPObdJv0cne3NMQMOciePvzh+hJyIhuQfKGZY6Y1bmn9awo=
+Received: from DU6P191CA0016.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::10)
+ by AMDPR08MB999845.eurprd08.prod.outlook.com (2603:10a6:20b:70c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 09:30:52 +0000
+Received: from DB3PEPF0000885B.eurprd02.prod.outlook.com
+ (2603:10a6:10:540:cafe::7c) by DU6P191CA0016.outlook.office365.com
+ (2603:10a6:10:540::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
+ 12 Nov 2026 09:30:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com;
+ dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB3PEPF0000885B.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Thu, 12 Nov 2026 09:30:50 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YAMNLFUf51JW1Pr8evq98Jpt/X0t5lmajKOVqo77sabRBdepWj7409IvXxLc2RSXBN8lC0PS1s57yFzU0p0RJv/QgvDTdWKPk63VfFeEk+Q6/vK0wGj27EiUlRw6TEJWITnvalmx3bVcVqML/EgxfGg6DyY56UiaFjOWq2zcEl1FhkOXQbMiei4xf8Cj0AEIN+nKEZ57Aj5dZcsD6ROp2Ah86771vNeouYtqZUYIOWEjZPCSAXPOhVQjpTEm/n1pMetL/zV5v2OU5/OcaHgnWzrC5wcgW8Q5ochAL5biTBQiWl2k6BuAfmcNIk5yT+NiJSTtRYrBZJ2eO1SgZKppvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jZE7IhtX1NmUiFMMT6bvC9A/apAk2w/Gp6I00CiyWq0=;
+ b=eRGA+XXe7aCNm4fArp6lYrQ7QxjQW2DwT31Vw7pXkV2UoxI+OzuEhy7MsNblIaCKT3k+HodTy0n0vRWWecOaxDKVHXVesOxMFGpkdN+6VzvrenOiFCmN8f5TEAgMhyia/JjFji0y2pZp1TVnWq9zYeZHBxZVAVpi5zlNLvy8g7YbJC31R6IuRPhtxWR2EAItD7lBsLhDUJLdqhZxOL9ldS4exMARA3qiPPAwTDGjbQx7lZyQGFVyIHmxm+MjP2Q9r1KL8FIWLK32A8YwPwxNAKl+mKRnyKlQ8jmcSuBXaYzCwmngv9xxNOGSULKRYwBTq4T6I4mS3CNVk8Mc81G7sQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jZE7IhtX1NmUiFMMT6bvC9A/apAk2w/Gp6I00CiyWq0=;
+ b=Ez6XqCrVkAIrs3uf/Pvphnn80ty437AGFP0mArLZLa7WvoiPlPadRJ3yvQc100KNfCA4UljxBVKbMNLDOJdNNfNJUnI/3afHQC4vNImwu0AHKLqocTTRx2l8IdkZKPObdJv0cne3NMQMOciePvzh+hJyIhuQfKGZY6Y1bmn9awo=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
+ (2603:10a6:20b:629::15) by GV1PR08MB10402.eurprd08.prod.outlook.com
+ (2603:10a6:150:15d::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 12 Nov
+ 2026 09:30:16 +0000
+Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
+ ([fe80::9f01:508:17aa:279c]) by AS8PR08MB10291.eurprd08.prod.outlook.com
+ ([fe80::9f01:508:17aa:279c%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 09:30:15 +0000
+From: Bence Csokas <bence.csokas@arm.com>
+Date: Thu, 12 Nov 2026 10:29:33 +0100
+Subject: [PATCH v2 1/2] stddef: Add offsetofend() variant of
+ struct_offset()
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-offsetof-v2-1-276ede839967@arm.com>
+References: <20261112-offsetof-v2-0-276ede839967@arm.com>
+In-Reply-To: <20261112-offsetof-v2-0-276ede839967@arm.com>
+To: Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Cristian Marussi <cristian.marussi@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Selvin Xavier <selvin.xavier@broadcom.com>, 
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Chengchang Tang <tangchengchang@huawei.com>, 
+ Junxian Huang <huangjunxian6@hisilicon.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+ Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>, 
+ GR-QLogic-Storage-Upstream@marvell.com, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: Bence Csokas <bence.csokas@arm.com>, linux-hardening@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, chrome-platform@lists.linux.dev, 
+ linux-scsi@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: PR1P264CA0162.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:347::16) To AS8PR08MB10291.eurprd08.prod.outlook.com
+ (2603:10a6:20b:629::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string
- pointer
-To: Alex Deucher <alexdeucher@gmail.com>,
- Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com"
- <simona@ffwll.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
- <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic: AS8PR08MB10291:EE_|GV1PR08MB10402:EE_|DB3PEPF0000885B:EE_|AMDPR08MB999845:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae20ab5a-52ec-49b3-1d47-08df409fa438
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022105027099003|261026140227099003|261028144727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original: LYrzVCPn8lc0cEz0ZiK1qU8q5Fm7Terg3KHUapkHS3OcyhinZhvC5qly16dLoJ6tll/GU3mQIGyHrm4UEH+G+NnA5mhS+URwDRJSWAv6yWBZJ61q8oa+w+qMWMlRgvnaP/CsipLHMBCKF38X2HBAxaAJ2EouAmgjKRMQ1PagdixempUC8NEoeZx3pmguAss3Fx6nnhp1pBUlDP58RMSQUg9L99SfNZQV1bxDfO1jyYapb7Khwif400DjsrYX+vuIVQ+QW59F8ZJCfsY9sRkNpDTh9TM3HH8ts8MpAGtA3Ch3QwnyOqb6ZjYe58G+LSowOhR/nGIYB6o+DOUwschlUKP4q92zUtRfIX7ox9v4KD/VtrYv7dcK0BZhGfMpyOyBTEcsM5jofJNJU1XrjylfhP/5ePVcWQsz86vXvXR2y565adBt6ojq4tap3FRKd2Jhbq2wKFpD5wOAXE3LV8EhnEFzhld/Fe1S+Af9AgE7zz8b+1ygmF9Ht4aZa2gnjRoA9Nd7uxifeoyVhxcGHHcSjbgqQr9kE0Mc7HNBQ6rJCkMQWT2hfqZudYe9niZ3i2hi5Ot7fpKfQBWhjmAZ8QGd7K/59ZlU7T6srPgKVP84/a6oBG8q77mA3xhHJBKh8xSYCmYIzWFxpVIspANW1UwAM3Mf9Usra0pOwq8m8GEHvPJ+uLaJlt4P5LLAB7ZU78rna8Hi7VGpZy4qWwqyIUIIzQ==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AS8PR08MB10291.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: R/rlwNVpSEeJejiroqsZAyJowDGmRSfl1BEpUU8snN4aklEhgAFEWXUI+5XRZwcv6SA/hnas+52SOpCoweJJwsCpvFsyX9IlbVFcyZkJOk1AFg6QFLPJMToP/KIp8YAMkIFLg00lVKn7147Mwar3R7IPNEQXee9jEH/4GvWCguOWcK0fjHwoELkkbSWz5BJ8V2uLHkHVdTNBZFDLp/wI65B7MvdG94k5bbaRoSDGdevz4gQBKe9E7hXN/PTwQubn1OlphMDwljo9UW/arA5vxMKHVvTdA59Q+hpk1d2pTDJ4QIILbs94/NkZKgrrlHmWa5jKiLZwmTIG1BMPYZGHeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10402
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB3PEPF0000885B.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 3cf24f41-17f3-434b-b2c1-08df409f8f06
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|14060799003|7416014|376014|36860700016|35042699022|23010399003|1800799024|22082099003|18002099003|921020|261026140227099003|11063799006|261028144727099003|261021121427099003|261022105027099003|261009223027099003|261102123227099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: Mi41iVFS42Y4ijkOcEdLtduh04au3Ctaa8x11V1VAXo32pknKPcTPMXzQN/o4py2b56J567tAvY36cKtKiSNKmw1eQAxzXh80NyTLMkY7f3vTtM+KQtBzVeq3bs8ZV6Tvkkx2pOBBmqkKr3pffW0nCNarP1oKy9OPO3Cx0OQUHdn1Sa2YWwuEq0+NQVD2uQtaD3ANeAIRVAQwrH3gex+vnpMjZSC0aTC20d7tyXTZ5iGV6Ui3mKVhSv1jQ8XsPDDnE9L2vBxMZs6RixJJkW9nNUehwmoxSKx1WrUtqgslZ85TETQBPUZAMpLYnL+DEI5z9V3FZOhMNA4gvd+LhPY7w3MF4KWKEegAwq46G9JbnUz+Dbr8L40kwb0LNY8LNTk/PzHETrUPgYCw6OQfmIgj8I0UjZEUj5n2nxdygwiMmrY4lFvmph+msDELQH2uVAK0lOiSGlU7ErNvbgj56MPB7XjGWZYLoDTMAbfiWNoeW6jDlz5C5xktqhyO9WCbsHzcQXnzCuwHc639HiwrGelyia7jV85VvGEt0gaIYiAqnQdI6Oygr5ioZq3+pcv1mXxF1aV+NG9Cl+Q3k/i3Ki03cHOTVAFWY3G9vu+s4rLFIKdbgpGwlQIgV4wjToBGrLmyrXcMqx2y5O9maAdDDXd/WzgC9aPbRxn2nSaCpGaYOk6arD6tK8p117qDScXXeK/gN0Wtjk74Ktr3yKJ09G50vs5GvDDaFee30P2qopyx7MCTUG/kKjrItPLjuoIkgOZ
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(14060799003)(7416014)(376014)(36860700016)(35042699022)(23010399003)(1800799024)(22082099003)(18002099003)(921020)(261026140227099003)(11063799006)(261028144727099003)(261021121427099003)(261022105027099003)(261009223027099003)(261102123227099003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: yGup8012UgHlLQucFmNHZW0exhtlj1DSp5MlK8/Ce4QkOttAbtsrlBHoV8+WhYgIbjBvYmBXJNrfw9lBh3KQPoKtJbp17e2D65f/Gh3wjPlOn+E0vZxD8Kq1LRVfpihWQwMF/4gHPlg1j/hE/MSZS+odm/N6AtpkTQC9IELnSQDu7TvQ7L2PuOdihLbaGO4XRMxB2aKcywhG2KlwZsn8vZ8Z17E+Bivtlxq8aYuhSTCvWOoUnsqUqG3VVB3aZUFrTzbJ6mzP2laDoRU7ycUgx5/hy2TT+mxdm26r8/EQz0u80qMQusMcyC/w6XRhAP1xbRtjyMtkS3LT/8b2UOTnYDjw6MgBAtYcP1ENnCn+U1QjADggbHsEh7S32MFxGO5QvQAOzd8CzTypAZRqEwE0INSbJEcwvADf7nbiuX152tn7WPHSiAQp4AxIXWQjPfXw
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:30:50.8346 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae20ab5a-52ec-49b3-1d47-08df409fa438
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB3PEPF0000885B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR08MB999845
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,51 +189,55 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/11/2026 17:57, Alex Deucher wrote:
-> On Mon, Nov 9, 2026 at 4:41 AM Noah Weinberger
-> <NoahWeinberger2003@proton.me> wrote:
->>
->> Hello,
->>
->> In atom_get_vbios_pn(), when the part-number string is empty and
->> atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
->> computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
->>
->>     vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
->>     if (vbios_str == NULL)
->>             vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
->>
->> The subsequent range check is false for a near-NULL pointer, so the
->> value survives and *vbios_str dereferences address 8 - a NULL-page oops
->> during probe with a malformed VBIOS that passes the magic checks. The
->> recent hardening of the neighboring date/version/build helpers closed
->> their OOB reads; this fallback path was left intact.
->>
->> Simply leave the part number empty when the anchor is not found.
->>
->> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_get_vbios_pn).
->> Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series made it the sole fallback outcome.
->>
->> This was found during an assisted (AI-supported) static source review of
->> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
->> reporter against that tree. The patch below has NOT been compiled and has
->> NOT been runtime tested, and no reproducer was produced - the triggering
->> conditions are described above instead. Please treat this as a report for
->> verification rather than a battle-tested fix.
->>
->> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
-> 
-> Missing your Signed-off-by.
+Many call sites of offsetofend() use it for the purpose of pointer
+artihmetic. Thus, a common usage pattern is:
 
-That is not a patch, but a report. It wasn't tested, wasn't even
-verified and is possible that it is LLM slop like the rest.
+  offsetofend(typeof(*ptr), member)
 
-Best regards,
-Krzysztof
+Capturing this in one macro helps keep lines short and terse, while
+still making the purpose clear. It also helps discourage spelling out
+the type name on every callsite, leading to more maintainable code.
+
+A similar struct_offset() macro already exists, so add an offsetof()
+variant in the same spirit.
+
+Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+---
+ include/linux/overflow.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/include/linux/overflow.h b/include/linux/overflow.h
+index d0f04436343e..060dad4b6f3e 100644
+--- a/include/linux/overflow.h
++++ b/include/linux/overflow.h
+@@ -464,6 +464,18 @@ static __always_inline size_t __must_check size_sub(size_t minuend, size_t subtr
+  */
+ #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
+ 
++/**
++ * struct_offsetofend() - Calculate the end of a member within a struct
++ * @p: Pointer to the struct
++ * @member: Name of the member to get the end offset of
++ *
++ * Calculates the offset of the end of a particular @member of the structure
++ * pointed to by @p.
++ *
++ * Return: number of bytes to the location of @member.
++ */
++#define struct_offsetofend(p, member) (offsetofend(typeof(*(p)), member))
++
+ /**
+  * __DEFINE_FLEX() - helper macro for DEFINE_FLEX() family.
+  * Enables caller macro to pass arbitrary trailing expressions
+
+-- 
+2.56.1
+
