@@ -2,43 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AB1606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573B2606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS8eCm7z
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lBkjfJYX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E61B112402;
-	Thu, 12 Nov 2026 23:39:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CAEB112402
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 23:38:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D9BB142E16;
- Thu, 12 Nov 2026 23:38:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CDC1F000C4;
- Thu, 12 Nov 2026 23:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794526738;
- bh=nP5K03VatiObXIjOOxI9DdwMA4flri/rrGuIMLEp6lM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bS8eCm7zMBteD7ln772ATL/X4xRMQApPaq+mEyJkF42KO6CWFAQsuSndfaSHT3N/w
- oZ9UtjMP017DkWIFNJMsRrCgvPxPABcZyCNpnYx6qGlepiJ6rrxs6i1eo45xb5DqE6
- SHlt5VlglKhO/tFlyriltOwTA26yZjFjBeuMV8gEHevQy1istpiUmkvijGXk4k0Myq
- H/c2zMW7vpruU39Egj4z55afWf6vEW5b1kUtl8ARlLB6wQ5QpCg2LdW8lNkxrvSsIF
- 3qEKCF0e0jC3a6BQ0poAI3hzkQomkQ8Ov8a60i/3NnPf/gxyX0C9CVrV+l7nqvY3BQ
- 3QiZh3JdzP/cg==
-Message-ID: <sashiko-outbox-211960@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 12/13] drm/powervr_sgx: Add the DRM driver, power
- management and debugging
-To: "Joseph Telaak" <joseph@telaak.dev>, dri-devel@lists.freedesktop.org
-Cc: media-ci@linuxtv.org
-In-Reply-To: <20261112-powervr-sgx-v1-12-c69b84bac011@telaak.dev>
-References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
- <20261112-powervr-sgx-v1-12-c69b84bac011@telaak.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 23:38:58 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0CF112413;
+	Thu, 12 Nov 2026 23:44:28 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2BD11239B;
+ Thu, 12 Nov 2026 23:44:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A2tOnhL0J5wL2gGwGizEXvNcfdCGxjnVzp46/qhONztRgpWj92G/DqIeA/6DrEUo7cpys13YZDBLpO1l1kpoVwyfINHZpSXSDGyQb/SgO96GOx2EGKmZRdw8+ux4ePPWLYgf5I2me0g0VggNRek4Um6qmbtOHW0k3dK89vwtRKhwjOteuy+mhX6Q+pnK0strDJ/mi5/UdyVtM40ELxRDnLc4GR6nkHLZ0pTRJbPaNqSQdJ3nIiWsR/qgEYjjAWr2dMdzkT9ZnKdFF+7+0aE+7Nt619FHXQuV4BO/xdcAYOot0BpMSOgoqTWeapknFIgTecAl3rKVoMASc/2YPoiLRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=J/3gHgK7D6NrODYolxf2HPJGOTRRcOJYuDDH8CCGtIdJezWu9Nq5TUtNHSofPSu2LQwwmJJeGYx0l6kTwix81JIYVAUdW2nvBkfJ+izrmFIuW1Q15N5N08lSTyTpSAglvu89YxqUXKJpzFivd6NeDDhU8Vfqeicq4vQJWpVPJ5rcPJuETfjDofBYs4ZzKr84O6ftU8RNYSiOVmIv34otCPx/rxYZ3VhT5BwPnXZzb56g1E2yzmZBa3wp268swpW1HGx8n72XYKQEySssE5CMkuNe/Lai4yizGDxVbJ2UQf9xY6IBGrOOn2Rv7j+DcomeV5b0B+ulCCh1geYbel3/Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=lBkjfJYXg3Z/BFWAXzJnkRxz8EPOv3MpFMjqjEAsI4jQDznrR6KnIsAetwRUIoH43fnFivXRA0q5Pl5FiuHbxOLTRobbL74OrWpcBJhomDbF2N+igiEN7SrQEx57tnMfxyk0uxRxfd/Aeg54mTXDZL/g+7GVQ1+Q8/2KHC5jots=
+Received: from PH8P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::21)
+ by SA3PR12MB9132.namprd12.prod.outlook.com (2603:10b6:806:394::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 23:40:32 +0000
+Received: from DSM2EPF0000000C.namprd02.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::ad) by PH8P221CA0025.outlook.office365.com
+ (2603:10b6:510:2d8::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 23:40:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DSM2EPF0000000C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 23:39:55 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 15:54:59 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v7 0/3] Fix VFCT matching after PCI bus renumbering
+Date: Thu, 12 Nov 2026 15:54:52 -0600
+Message-ID: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKw19moC/3XOTU7DMBAF4KtUXmPkGf/FrLgHYuHY49ZIbZAdI
+ lDVu2OXBYkCyye9781cWaWSqbKnw5UVWnLN06UF+3Bg4eQvR+I5tsxQoAEBji8pzLzQsVDtXY6
+ gMAWNg0bPmnovlPLnffHl9SfXj/GNwtxneuOU6zyVr/vJBXrv//UFuODaGxljlHaI8dmf42OYz
+ qxvL7jSKPYam44onYoASgu/1XKtzV7LphM5PRiKxtlhq9Va271WTQuy4ARJFzBstf7VAH98rvt
+ t5ZInN8CY5FabtYa9Nk1LJ62z4zgaWunb7fYNCMBl+fQBAAA=
+X-Change-ID: 20261019-vfct-regression-2142fc52852a
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSM2EPF0000000C:EE_|SA3PR12MB9132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|18002099003|261026140227099003|11063799006|56012099006|261022105027099003|10067099003|261021121427099003|261102123227099003|261009223027099003|261028144727099003|261022075727099003|261021123027099003|261026121527099003|261022115727099003;
+X-Microsoft-Antispam-Message-Info: fQTZe5j/awDfbk5PGZ/GwUJJrXWXKjpaUK6+im+4nrfjn4C8l1Lgz3MOClmyPRvMXJ3wdKi9XKjgpCs9oQc7SIKqwVr5JE685FEnwFr0dqkFsw/GAjwej8klJ+dWKquHufLzQ4lfICozX+R2ZWhc42v6m9Tp7Eem+27sZR+60l+/ErFtRN8JOX2fOUFJWBAab4xTmvKpgqtIW9dCDVWoGDPdto4t6iQjodbUTVxhNOT/9BJordm4tql1dJMDlmV+BBL0HcXC2lRfy64imjl0vtEbkij5IaGDTrlL3ySK6Kg17hHN1Nn4e+1YGf4v14t0KKfXLT/ZG7hFU0V7/OWSRchH2m2jtAPtQPolsxR1ehPHT1f8UfRdsUUH+Y4Ybrq8Kqk6v4kfsROnbXjuSWJy5cQHDYDaRgPd6DKp32AwHQQzcOUhGE/loT9c5P+KfycmLh5pYKKZ0tAfZ05O0zzJSJxqgiFF05NnkE2Iytd+eL9AWlEIgmrtj1KkyL/j3lOSnrmpXkzd+E2FRekrH8ZZ9GxUzQruP3JbzevSxOMFfuPWZ8KPL22+A8YG8YvwvredRDMWrLrHwCaVcLnLZYaBchsKRK+AwlRx5twzJg5n9aTGzC3ZDl23oyivfxGcmuPNJDnuzdT1+SqcKmyc+XGMiDIKud1fISd+eKDr5Q2RxUM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(18002099003)(261026140227099003)(11063799006)(56012099006)(261022105027099003)(10067099003)(261021121427099003)(261102123227099003)(261009223027099003)(261028144727099003)(261022075727099003)(261021123027099003)(261026121527099003)(261022115727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: GA1p11qcOizRmaoNvd8MFxZNaoY5EJnKYr6a8MfzN3+S6uqetKzvRClyRFVfFvRIBORitzu9uTwc5oTyDYULpx74wkfCWbs/tKyhsElwNYC/ab9wNVOOSx97st6rxFrkdQu62I9J4Lwe2Ka32NuBqgWEPvFlsAPiVrnTiM8OGn8aCw2Z3cqDtuNEHYVL1KUiJJ65U1uU17EvhxuponJ+S0xjziYanS45aO0a+8bp25a/sJNeJJxiQooQ037q3+CMZCMimiE/FJJd8nDLx1mnrn9Jd7MlISFhn9ECHAUqSZvCMgQlH7Dy8Bs+18VWnWuIjzKGtIb/jDFnJwsMLLPz/wju+crD4LyGQ/u+27qNM2gkQeoxl7AnQIlAcNTvglKuYlrApU8xK/+coBKSgtZRRhBfh5hJSSwoKat79ucdGRZpgHeCOhgIT4Tw3JZXd9Po
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:39:55.1744 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DSM2EPF0000000C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9132
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,414 +112,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [High] drm/powervr_sgx: premature PM teardown in
-  pvrsgx_remove_common()
-- [High] drm/powervr_sgx: unsynchronized pvrsgx_fw_stop() in shutdown
-  callbacks
-- [High] drm/powervr_sgx: drm_device ref cycle leak via unreaped
-  pvrsgx_kobj
-- [High] drm/powervr_sgx: pvrsgx_suspend() races with in-flight reset in
-  pvrsgx_timedout_job()
-- [Medium] drm/powervr_sgx: unclocked register reads in debugfs
-  status_show()
-- [Medium] drm/powervr_sgx: pb_default_pages exceeds pb_max_pages on
-  SGX530
-- [Medium] drm/powervr_sgx: missing GPU stop on resume failure and when
-  lost on suspend
---
+amdgpu and radeon pick the VFCT image for a GPU by comparing the PCI bus
+number recorded by the BIOS at POST with the device's bus number. When
+the kernel renumbers buses (e.g. pci=realloc), the runtime number no
+longer matches the one in VFCT.
 
-commit 2e8bb00c340e90f94be8141151b69913ad1bd3f0
-Author: Joseph Telaak <joseph@telaak.dev>
+commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft
+filter") and its radeon counterpart worked around this by accepting an
+entry whenever everything but the bus number matched. That picks the
+wrong image when a system has two identical GPUs.
 
-drm/powervr_sgx: Add the DRM driver, power management and debugging
+Instead, have the PCI core remember the secondary bus number the
+firmware assigned to each bridge, and make amdgpu and radeon match the
+VFCT bus number against it again, using the bridge above the GPU. The
+value is captured once, when the bridge windows are first read, so
+renumbering and later rescans don't overwrite it.
 
-This commit adds the DRM driver, PCI/auxiliary/OF bus bindings, runtime
-and system sleep power management, debugfs entries, devcoredump support,
-and Kconfig/Makefile wiring for PowerVR SGX5xx GPUs.
+Patch 1 adds the cached firmware secondary bus number to struct pci_dev.
+Patches 2 and 3 convert amdgpu and radeon to use it and drop the soft
+filter.
 
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_debugfs.c b/drivers/gpu/d=
-rm/powervr_sgx/pvrsgx_debugfs.c
-> new file mode 100644
-> index 0000000000000..99f1b7a8c84ae
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_debugfs.c
+Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
+Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+Changes in v7:
+- Reword the cover letter and the PCI patch to describe the current design:
+  the firmware secondary bus number is cached on the bridge pci_dev when its
+  bridge windows are first read, and amdgpu/radeon match VFCT against it.
+- No code changes.
+- Link to v6: https://patch.msgid.link/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com
 
-[ ... ]
+Changes in v6:
+- Capture the firmware secondary bus number when reading bridge windows and
+  ignore unconfigured values so rescans cannot replace it with runtime data
+  (Sashiko).
+- No change needed in the VFCT consumers; they continue to read the cached
+  value from the upstream bridge.
+- Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
 
-> +static int status_show(struct seq_file *m, void *unused)
-> +{
-> +	struct drm_debugfs_entry *entry =3D m->private;
-> +	struct pvrsgx_device *sdev =3D to_pvrsgx_device(entry->dev);
-> +	struct seq_buf sb;
-> +	char *buf =3D kmalloc(SZ_4K, GFP_KERNEL);
-> +	int idx, awake;
-> +
-> +	if (!buf)
-> +		return -ENOMEM;
-> +	if (!drm_dev_enter(entry->dev, &idx)) {
-> +		kfree(buf);
-> +		return -ENODEV;
-> +	}
-> +	/* -EINVAL: runtime PM is off and the device always on. */
-> +	awake =3D pm_runtime_get_if_active(sdev->base.dev);
-> +	seq_buf_init(&sb, buf, SZ_4K);
-> +	pvrsgx_dump_status(&sb, sdev, awake > 0 || awake =3D=3D -EINVAL);
-> +	if (awake > 0)
-> +		pm_runtime_put(sdev->base.dev);
-> +	drm_dev_exit(idx);
-> +	seq_puts(m, seq_buf_str(&sb));
-> +	kfree(buf);
-> +	return 0;
-> +}
+Changes in v5:
+- Record the firmware secondary bus number only on the bridge struct pci_dev,
+  guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
+- Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
+  number when matching VFCT entries.
 
-[Severity: Medium]
-Can status_show() read SGX registers while the core clocks are gated off?
+Changes in v4:
+- Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
+  from it during allocation, before registration callbacks run. (Sashiko)
+- Rename variable to clarify it's for bridges (Lijo)
+- Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
 
-CPU0                              CPU1
-pvrsgx_timedout_job()
-  mutex_lock(&sdev->reset_lock)
-  pvrsgx_fw_start()
-    deinit_script()  /* gates clocks */
-    fsleep(10000)
-                                  status_show()
-                                    pm_runtime_get_if_active() > 0
-                                    pvrsgx_dump_status(..., true)
-                                      if (!READ_ONCE(sdev->powered))
-                                      dump_regs()
-                                        sgx_rd()  <-- unclocked MMIO read
+Changes in v3:
+- Preserve the firmware bus number across bridge renumbering, capturing the
+  secondary bus number before pci_scan_bridge_extend() clears it.
+- Adjust member name in all patches
+- Add tags
+- Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
 
-status_show() does not take sdev->reset_lock, and pvrsgx_fw_start() keeps
-sdev->powered set to true while deinit_script() gates SGX_CR_CLKGATECTL and
-sleeps for 10 ms during a reset (as well as before SGX_CR_CLKGATECTL is
-enabled on runtime resume):
+Changes in v2:
+- pci_alloc_dev(NULL) remains safe.
+- For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
+  number before clearing the bridge configuration and carries it into the newly allocated bus.
+  Devices discovered there inherit that original number.
+- Add changes for radeon too.
+- Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
 
-drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c:pvrsgx_fw_start() {
-    ...
-	WRITE_ONCE(sdev->powered, true);
-    ...
-		if (was_powered) {
-			/* What an unload and reload (which recovers) does in between. */
-			deinit_script(sdev);
-			sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_core=
-s);
-			sgx_rd(sdev, SGX_CR_SOFT_RESET);
-			/* Behind gma500 bus mastering is the display's too: leave it. */
-			if (sdev->pdev)
-				pci_clear_master(sdev->pdev);
-			fsleep(10000);
-    ...
-}
+---
+Mario Limonciello (3):
+      PCI: Cache bridge firmware secondary bus number
+      drm/amdgpu: Match VFCT using initial PCI bus number
+      drm/radeon: Match VFCT using initial PCI bus number
 
-In addition, when CONFIG_PM is enabled, pm_runtime_get_if_active() returns
--EINVAL whenever dev->power.disable_depth > 0, which happens during
-pm_runtime_force_suspend() and pvrsgx_power_fini().  Treating -EINVAL as
-awake lets status_show() read registers concurrently with pvrsgx_fw_stop()
-without holding a runtime PM reference, which can hang the bus on CE5300
-or OMAP3630.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+ drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
+ drivers/pci/probe.c                      | 16 ++++++++++++++--
+ include/linux/pci.h                      |  4 ++++
+ 4 files changed, 39 insertions(+), 29 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-vfct-regression-2142fc52852a
 
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_drv.c b/drivers/gpu/drm/p=
-owervr_sgx/pvrsgx_drv.c
-> new file mode 100644
-> index 0000000000000..fe996a17f61a5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_drv.c
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
 
-[ ... ]
-
-> +	case DRM_POWERVR_SGX_DEV_QUERY_LIMITS_GET: {
-> +		/*
-> +		 * Render-target limits are not documented: these are the sizes
-> +		 * known to work, to be raised when larger targets are tested.
-> +		 */
-> +		struct drm_powervr_sgx_dev_query_limits lim =3D {
-> +			.rt_max_width =3D 2048,
-> +			.rt_max_height =3D 2048,
-> +			.rt_max_samples =3D sdev->family->cmds->max_samples,
-> +			.pb_min_pages =3D 0x100,
-> +			.pb_default_pages =3D PVRSGX_PB_DEFAULT_PAGES,
-> +			.pb_max_pages =3D pvrsgx_heaps(sdev)->pb_max_pages,
-
-[Severity: Medium]
-On SGX530, does reporting PVRSGX_PB_DEFAULT_PAGES (0x1000) for
-pb_default_pages exceed pb_max_pages (0x800 in sgx530_heaps)?  Any client
-that passes lim.pb_default_pages to DRM_IOCTL_POWERVR_SGX_CREATE_CONTEXT
-is rejected with -EINVAL by pvrsgx_ioctl_create_context() because
-param_buffer_pages > pvrsgx_heaps(sdev)->pb_max_pages.
-
-[ ... ]
-
-> +static void pvrsgx_postclose(struct drm_device *drm, struct drm_file *fi=
-le)
-> +{
-> +	struct pvrsgx_file *sfile =3D to_pvrsgx_file(file);
-> +
-> +	pvrsgx_rtds_destroy_all(sfile);
-> +	pvrsgx_context_destroy_all(sfile);
-> +	pvrsgx_vm_destroy_all(sfile);
-> +	xa_destroy(&sfile->rtds);
-> +	xa_destroy(&sfile->contexts);
-> +	xa_destroy(&sfile->vms);
-> +	pvrsgx_usage_put(sfile->usage);
-> +	kfree(sfile);
-> +	file->driver_priv =3D NULL;
-> +}
-
-[ ... ]
-
-> +int pvrsgx_probe_common(struct pvrsgx_device *sdev)
-> +{
-> +	int err;
-> +
-> +	err =3D pvrsgx_device_init(sdev);
-> +	if (err)
-> +		return err;
-> +
-> +	/* Runtime PM is set up before userspace can reach the device. */
-> +	pvrsgx_power_init(sdev);
-> +	err =3D drm_dev_register(&sdev->base, 0);
-> +	if (err) {
-> +		pvrsgx_power_fini(sdev);
-> +		pvrsgx_device_unplug(sdev);
-> +	}
-> +	return err;
-> +}
-> +
-> +void pvrsgx_remove_common(struct pvrsgx_device *sdev)
-> +{
-> +	/* No new ioctl, and the running ones done, before the hardware goes. */
-> +	drm_dev_unplug(&sdev->base);
-> +	pvrsgx_power_fini(sdev);
-> +	pvrsgx_device_unplug(sdev);
-> +}
-
-[Severity: High]
-Does calling pvrsgx_power_fini() before pvrsgx_device_unplug() allow the
-parent device to runtime-suspend while pvrsgx_fw_stop() is still accessing
-SGX registers?
-
-CPU0                              CPU1 (pm_wq)
-pvrsgx_of_remove()
-  pvrsgx_remove_common()
-    pvrsgx_power_fini()
-      pm_runtime_disable(dev)
-      pm_runtime_set_suspended(dev)
-        /* child_count -> 0 */
-        pm_request_idle(parent)
-                                  rpm_idle(parent)
-                                    rpm_suspend(parent)
-                                      /* gates SGX clocks */
-    pvrsgx_device_unplug()
-      pvrsgx_job_unplug()
-        pvrsgx_fw_stop()
-          sgx_wr() / sgx_rd()  <-- unclocked MMIO access
-
-Unlike pvrsgx_of_probe() and pvrsgx_aux_probe(), pvrsgx_of_remove() and
-pvrsgx_aux_remove() do not hold a runtime PM reference on dev->parent.
-On non-PCI devices, pvrsgx_power_fini() marks dev RPM_SUSPENDED, which
-decrements dev->parent->power.child_count to 0 and schedules
-pm_request_idle(dev->parent) before pvrsgx_device_unplug() ->
-pvrsgx_job_unplug() -> pvrsgx_fw_stop() runs up to 600 ms of MMIO register
-accesses, hanging the SoC or bus if the parent gates the clocks.
-
-In addition, jobs cancelled in pvrsgx_job_unplug() later call
-pvrsgx_free_job() -> pvrsgx_power_put() after pvrsgx_power_fini() has
-already disabled runtime PM and autosuspend.  Should pvrsgx_device_unplug()
-run before pvrsgx_power_fini() in both pvrsgx_remove_common() and the
-error path of pvrsgx_probe_common()?
-
-[Severity: High]
-Can unreaped per-VM pvrsgx_kobj objects in sdev->graveyard and
-sdev->kobj_unmapped create a reference cycle that prevents sdev->base from
-ever being freed on device unbind?
-
-Each per-VM pvrsgx_kobj (such as a render context's scratch object or an
-RT dataset's objects) holds a reference to struct pvrsgx_vm via
-pvrsgx_vm_get(), and vm->gpuvm holds a reference to &sdev->base via
-drm_gpuvm_init().  When a client destroys its last render context or
-closes its fd, pvrsgx_kobj_release() queues those objects onto
-sdev->graveyard, where they stay until a subsequent render and CCB command
-reap them:
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c:pvrsgx_kobj_release() {
-	if (!o)
-		return;
-	mutex_lock(&o->sdev->kobj_lock);
-	o->grave_seq =3D o->sdev->renders_submitted;
-	list_add_tail(&o->link, &o->sdev->graveyard);
-	mutex_unlock(&o->sdev->kobj_lock);
-}
-
-Because pvrsgx_device_unplug() does not call pvrsgx_kobj_reap(sdev,
-U64_MAX) (and pvrsgx_kobj_release() still queues onto sdev->graveyard if a
-file is closed after unbind), while pvrsgx_kobj_fini() only runs from the
-drmm release callback pvrsgx_device_release() once sdev->base's refcount
-reaches 0, sdev->base's refcount never drops to 0 and leaks the device,
-workqueues, and 16 MiB parameter buffer.
-
-[ ... ]
-
-> +static void pvrsgx_shutdown(struct pci_dev *pdev)
-> +{
-> +	struct pvrsgx_device *sdev =3D pci_get_drvdata(pdev);
-> +
-> +	/* Leave the GPU quiet for whatever runs next. */
-> +	pvrsgx_fw_stop(sdev);
-> +}
-
-[Severity: High]
-Can pvrsgx_shutdown() and pvrsgx_of_shutdown() race with pvrsgx_run_job()
-or pvrsgx_timedout_job() when stopping the microkernel?
-
-CPU0                              CPU1
-pvrsgx_shutdown()
-  pvrsgx_fw_stop(sdev)
-    /* gates clocks, resets SGX */
-                                  pvrsgx_timedout_job()
-                                    pvrsgx_coredump()
-                                      dump_bif()
-                                        sgx_rd()  <-- unclocked MMIO read
-                                    pvrsgx_fw_start()
-                                      /* re-enables bus master & FW */
-
-Unlike pvrsgx_job_unplug(), which stops sdev->sched, takes
-sdev->reset_lock, sets sdev->lost, and cancels sdev->poll_work around
-pvrsgx_fw_stop(), pvrsgx_shutdown() and pvrsgx_of_shutdown() call
-pvrsgx_fw_stop() directly.  An in-flight or queued job can then access
-unclocked registers in pvrsgx_run_job() or pvrsgx_timedout_job(), and a
-timeout reset will restart the microkernel and PCI bus mastering after
-shutdown.  Also, pvrsgx_aux_driver has no .shutdown callback, leaving the
-SGX running across shutdown or kexec on Cedarview.
-
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_pm.c b/drivers/gpu/drm/po=
-wervr_sgx/pvrsgx_pm.c
-> new file mode 100644
-> index 0000000000000..24c93a91b649d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_pm.c
-
-[ ... ]
-
-> +static int pvrsgx_runtime_suspend(struct device *dev)
-> +{
-> +	struct pvrsgx_device *sdev =3D dev_get_drvdata(dev);
-> +
-> +	if (!sdev->lost)
-> +		pvrsgx_fw_stop(sdev);
-> +	return 0;
-> +}
-> +
-> +static int pvrsgx_runtime_resume(struct device *dev)
-> +{
-> +	struct pvrsgx_device *sdev =3D dev_get_drvdata(dev);
-> +
-> +	/* A failed start loses the device: run_job then fails every job with -=
-EIO. */
-> +	if (!sdev->lost && pvrsgx_fw_start(sdev)) {
-> +		drm_err(&sdev->base, "microkernel did not start on resume: device lost=
-\n");
-> +		sdev->lost =3D true;
-> +	}
-> +	return 0;
-> +}
-
-[Severity: Medium]
-When pvrsgx_fw_start() fails in pvrsgx_runtime_resume(), or when
-pvrsgx_runtime_suspend() runs after sdev->lost is set, does sdev->powered
-stay true while the hardware is left unstopped or unclocked?
-
-pvrsgx_fw_start() sets sdev->powered =3D true and releases SGX_CR_SOFT_RESET
-before kicking the microkernel.  If pvrsgx_fw_start() fails in
-pvrsgx_runtime_resume(), setting sdev->lost =3D true without calling
-pvrsgx_fw_stop() leaves the GPU and PCI bus mastering out of reset while
-pvrsgx_ccb_after_invalidate() immediately frees unmapped GEM pages upon
-seeing sdev->lost.  Then, when pvrsgx_runtime_suspend() runs (after a
-failed resume or a failed reset in pvrsgx_timedout_job()), skipping
-pvrsgx_fw_stop() when sdev->lost is true leaves sdev->powered set to true
-after the parent suspends and gates the clocks, so any shared interrupt in
-pvrsgx_irq() will read SGX_CR_EVENT_STATUS from an unclocked GPU:
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_device.c:pvrsgx_irq() {
-	struct pvrsgx_device *sdev =3D arg;
-	u32 status;
-
-	if (!READ_ONCE(sdev->powered))
-		return IRQ_NONE;
-	status =3D sgx_rd(sdev, SGX_CR_EVENT_STATUS);
-    ...
-}
-
-> +static int pvrsgx_suspend(struct device *dev)
-> +{
-> +	struct pvrsgx_device *sdev =3D dev_get_drvdata(dev);
-> +	int err =3D pvrsgx_job_quiesce(sdev);
-> +
-> +	if (err)
-> +		return err;
-> +	err =3D pm_runtime_force_suspend(dev);
-> +	if (err)
-> +		pvrsgx_job_unquiesce(sdev);
-> +	return err;
-> +}
-
-[Severity: High]
-Can pvrsgx_suspend() race with an in-progress reset in
-pvrsgx_timedout_job()?
-
-CPU0                              CPU1
-pvrsgx_suspend()
-  pvrsgx_job_quiesce()
-    dma_fence_wait_timeout(last)
-                                  pvrsgx_timedout_job()
-                                    mutex_lock(&sdev->reset_lock)
-                                    dma_fence_signal(job->hw_fence)
-    /* loop i=3D1: last signaled */
-    return 0
-  pm_runtime_force_suspend()
-    pvrsgx_runtime_suspend()
-      pvrsgx_fw_stop()            pvrsgx_fw_start()  <-- concurrent stop/st=
-art
-                                  drm_sched_start()  <-- restarts sched whi=
-le suspended
-
-pvrsgx_timedout_job() signals all active jobs' hw_fence (including
-sdev->last_fence) before calling pvrsgx_fw_start() and drm_sched_start():
-
-drivers/gpu/drm/powervr_sgx/pvrsgx_job.c:pvrsgx_timedout_job() {
-    ...
-		dma_fence_set_error(job->hw_fence, -ECANCELED);
-		dma_fence_signal(job->hw_fence);
-	}
-    ...
-	if (pvrsgx_fw_start(sdev)) {
-    ...
-	}
-	mutex_unlock(&sdev->reset_lock);
-	pvrsgx_kobj_reap(sdev, sdev->renders_submitted);
-	pvrsgx_ccb_inval_reap(sdev, true);
-	drm_sched_start(&sdev->sched, 0);
-    ...
-}
-
-As soon as sdev->last_fence is signaled, pvrsgx_job_quiesce() wakes up,
-sees dma_fence_is_signaled(last) on its second iteration without taking
-sdev->reset_lock, and returns 0 while pvrsgx_timedout_job() is still
-inside pvrsgx_fw_start().  pm_runtime_force_suspend() then runs
-pvrsgx_fw_stop() concurrently with pvrsgx_fw_start(), and
-pvrsgx_timedout_job() calls drm_sched_start() after the device is
-suspended.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-powervr-sg=
-x-v1-0-c69b84bac011@telaak.dev?part=3D12
