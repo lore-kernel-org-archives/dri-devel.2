@@ -2,56 +2,173 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2D8606A327
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846A6606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P5cmMcMJ
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PvIFPMvY;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LMonklnK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01761112157;
-	Thu, 12 Nov 2026 15:03:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8239D112157;
- Thu, 12 Nov 2026 15:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794495810; x=1826031810;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=j6WAwCJTG9ufa2wVYkdYc2slGg3Mud8aW1YxVGHqQWs=;
- b=P5cmMcMJzTMdpQ2cFbmmKX7fEWjZZF0G0k5YjW77ZOSQRVWsken+SATd
- A5cFCor4OfOn9CpqVcv7g56r6liG+1vqVpCnG16PlwwhfE/nm8C1EkFe1
- DVxodgj2fUj0pgTPPCxaw5vrulCZ2KGjgJFUQxzSYWHzzIUOTMjEBQsKb
- FhJELeGa6Q1ioK1Q+stej8RNjlgY4xFbmANVaHQSVi3ToX7BIGdlF3wyX
- TTS79hbTrlBERUgdg9+cMoGES2IZX3BS90HuaM5Hu2o9feQdaFwmJVufR
- sRwHZ7khY0sAxhz3PJ0sAzQJ3hRrAGjtHUDjKd82uI2Vbk8llScRStHJ9 Q==;
-X-CSE-ConnectionGUID: PTy79ydzTv681fd6WAAqNA==
-X-CSE-MsgGUID: ntVLpnRXR3++5MkqHmyIyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3308466"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3308466"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 07:03:16 -0800
-X-CSE-ConnectionGUID: eE7S9VblQtavaedL/vUuqw==
-X-CSE-MsgGUID: HaflbMhrTxu9laEcik4TCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8766932"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 07:03:14 -0800
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/3] CI-ONLY:Defer VM teardown until exec queue cleanup
-Date: Thu, 12 Nov 2026 20:33:02 +0530
-Message-ID: <20261112150302.3837896-4-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112150302.3837896-1-arvind.yadav@intel.com>
-References: <20261112150302.3837896-1-arvind.yadav@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD5D10EB82;
+	Thu, 12 Nov 2026 15:07:10 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7ECC10EB82
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 15:06:59 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ACEWZ7l126929
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 15:06:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=fnFzrMim3PDRjGWuhWaZm46ozSVNqIG/Ol5
+ S91LrZcs=; b=PvIFPMvYjd26rsXy+/7UbGlnQXhFmwDL4Am1KwYdbqrwASYC6YO
+ FcPqngxlSTQ64y5dv7jXoe6GWecHUSvFKDX26HlG5QkXO2LCsTJwP4zjYyRzCrVT
+ 9zTivjlzjPP1kaf4EMSlxIWpcS5LT549OPapyF5RSMRoWbj8m3kicaRQD90UebD+
+ lYqOXnsnrl3l+4+gn+PoLloZdF1XAz8TQ4xZnmC1G1emTQFksjE6nGKthQlz+vXH
+ QyPISJK/wU0OJV3SAHj79kYjzQ+26oc92mjn6EiWbyppD3ImxrLx/laY2ryg4rQd
+ Y0CxVoaNK7sCTX1Azc6ko99LzYKVZm55acg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
+ [209.85.221.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9a09jp9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 15:06:58 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id
+ 71dfb90a1353d-5eab0467c89so5718912e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 07:06:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794496018; x=1795100818;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fnFzrMim3PDRjGWuhWaZm46ozSVNqIG/Ol5S91LrZcs=;
+ b=LMonklnKIct/ac9hUj5LxxiL/053+Fh22bnWQTZviMn/umZjAVy2rn5wyDC6dl7Xsg
+ kva72cp0mc7/2Dvur1IeqyJlr8ioFXANGp6tdTSUvlHz3CR/HMjliehDAJKrycuUYKf8
+ YXqwJuJyQu4okCWui8bCSdE1xPI4fvozDjkXcu9RvFKXl3JZygo1PBnlZiJdYHHVnF/Y
+ 6yzkRZh75yvSdGQlHCpEFeYhWLy1Gg88abheZN9thFfcwsa7gih5GlA1voaV18t71RCq
+ va0kDnEdRcTFsCkTxgJOJdJya4gks/AaXci4yOmFnYFBwvb3vuoimo5iBVleYqPKm3yg
+ c+Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794496018; x=1795100818;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fnFzrMim3PDRjGWuhWaZm46ozSVNqIG/Ol5S91LrZcs=;
+ b=FABl3NQ7TrYTObyAP0ZYS+dCnCecyzEKMDCxVZf6VEhRbHO45Dh/jOR/wEs8WUqCW7
+ N813DuV0aUVfqsK12Ek9/gGnlsiHvK2sKhqJcNBw2p3NzFwRo1nq7MSTyhXE5Nhgk4LS
+ YYgskF4nhrpr4hlcp9A193wBU+kQNdgridmjJZJUO5f2l20pdfAwmIVqo3CUO0vP/zec
+ iz0dauERumjCC7zIw66OJFwkeZUk+3nT7O8FtjoDz0B4D2Y9NNtf1McNDLxdgflBz9KT
+ jtHzrr5gLkRV9joXXxtwyWvM3qQxXjHiPmiV98g0cIDHNLuqKAjfMN224x6umUnujZSf
+ LwaQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGrD4Chg8NQd1Tz0rCILwJ9iyUYbEouXA/UCM0LtfSbtxWJIxGuv/mcSXaXJmoRGe5c8T2AKHYrIrY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z84xZncbvr/QJoAKPiDGuxXAaSBt+hPGB1aKyi5YWjv8RswTGIb
+ kj150E4Sqo0QISANRKClwoeehGCegGUUVSkekYZI5H98UomWWTtu0tZye6OImV6dE1V9lWxJ0hw
+ 7bmetMp1Yw5rj4TacaYNJHD+2Jj6j1bCp1zOZWKpq4TlNXyXnLMwpKNzI+8wIoOoyZiaXbf4=
+X-Gm-Gg: AYBFou2JRL0sUbOugfkPROc/r0RAzJK8htTBkkkeak3jZBBRE4PPIQDovbqnpDS/PUa
+ SD5TwAMNvsv/uz/2CK/X4ZnDfUgTKpl6JQgDliQRnfshnPJKcbS4Hgiw5L9sBs5K3w5X4Ml8/qz
+ QjBWm318W4nwZCj2P6ho1Eep9+scdRtPpEBPohZQ9er/4ZcJCy8qUgkB+pHk2+H9ln8vHrG7+2B
+ hSZxHqaibuiHtbQbn/rhEZ0dq2e4cvta+Z5gBtliENZU7fi77+1rzvPRWWVuGloJbJcFLPKs/s2
+ hkWmGi7qau6ndw8M6rVlSVOCBv2u+Ty9QfygzC28qcOTKCGGx0HUNyVq+ZQA9wdR9klki7ZB+mH
+ RBjUlGB4rUggqSgulYPyHNI7bNMW0TileX+YcKX2AjFExIKve1jtO7l8Ns4Mx8A==
+X-Received: by 2002:a05:6122:ca0:b0:5c9:a60b:e5a6 with SMTP id
+ 71dfb90a1353d-5ee1c476f52mr2711092e0c.17.1794496017764; 
+ Thu, 12 Nov 2026 07:06:57 -0800 (PST)
+X-Received: by 2002:a05:6122:ca0:b0:5c9:a60b:e5a6 with SMTP id
+ 71dfb90a1353d-5ee1c476f52mr2711004e0c.17.1794496016979; 
+ Thu, 12 Nov 2026 07:06:56 -0800 (PST)
+Received: from quoll ([178.197.218.7]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-498369a3fd2sm17919272f8f.52.2026.11.12.07.06.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 07:06:55 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Cristian Cozzolino <cristian_ci@protonmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ryan Brue <ryanbrue.dev@gmail.com>,
+ Nickolay Goppen <setotau@mainlining.org>,
+ Robert Chiras <robert.chiras@nxp.com>,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>,
+ Barnabas Czeman <barnabas.czeman@mainlining.org>,
+ Heiko Stuebner <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Michael Walle <mwalle@kernel.org>, Ritesh Kumar <quic_riteshk@quicinc.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>,
+ Danila Tikhonov <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>,
+ Michael Srba <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>,
+ Alexandre Mergnat <amergnat@baylibre.com>,
+ Alexander Baransky <sanyapilot496@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Romain TISSERAND <romain.tisserand@gmail.com>
+Subject: [PATCH v2] dt-bindings: display: panel: Make DSI panels port optional
+Date: Thu, 12 Nov 2026 16:06:51 +0100
+Message-ID: <20261112150650.137216-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=22776;
+ i=krzysztof.kozlowski@oss.qualcomm.com; 
+ h=from:subject; bh=ZKLb5vyJxJkcc9MHPukILqFjzOnaQcQBF8fgwCbqjMs=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9dYKHx2XEjfhh/l23iQT8eE5/woxO54UbShX2
+ 0IM6sScSXiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavXWCgAKCRDBN2bmhouD
+ 13PxD/9ge/spf3r1E9i1Rm8l7UWuc3lu8uXHpkkqtW7XVBfmjBClbIJZ7zKQmioXPq+eZKAf0uw
+ L+0P9o7rA69s8jmwW8B6BEiMZIjAyFeyzpopL5gYY18Fvym63o6ehIMZLGBWbjH2G6AhFLUyx3v
+ p+r/YPXCXaY1FoSmmmTjeD/KADZgB2q2X9z5wNbI985ltOJOZT5y8bcrSivz10NS8nhl5W/FABb
+ 4YT42vSveKniTg7Zgx6ipMB+TCg+51veG379nokYJnxf37yIxi9yMPp1OXpLBeaDb9jiFueYnnt
+ cWaoxGUpVxdxmaVMYNI9S5CSVP/je/dWwwu4/UMHQqvKcfrulXSnt3nAzzJIqPj3xdzw2QgXkXK
+ G6ldC4/XNvlsemv4QHl3sJqmaMjgFf+h6VAw0caEth6uF+Ugxofa8sBBVeC3DwCXM4JzoZ1m1v+
+ cl5Mn6gvwtL1JqkMrLVGUeFZ06Jz1QPBjbjL5fPmRmrAPUVf0nfN4a5XTZh6tLLAXLUfCGfkvu+
+ 9LnBj77J7+BJwPP6i1stc6h0Kx9uit3h8IxlfLeG3sAtAH/9FjJiR+tKB7e42F/8I3wUkf+Sj0/
+ jXQx0Nzqng83YFzVAbTEJNXlPOGyGzlI0maQ0xh+Blp3HQFGUb8WufFzg7OcVN0N45kfOK172O/
+ 42/NtXoEztupnkA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: MnayCe-rtxYuZS5r5HtrtiSTVCnogbWd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2MCBTYWx0ZWRfXxnyru+8ofHZJ
+ QUySufeIRZAuCCjK6mxOAGewgg5OfUpQWZVujsVVgAeCpkPOJzxkO8vOuYb3do4geMXpDMnREbW
+ j9hMCAWLXY4crrH1EAzVDVE9FEXBVc0GFjXHnnVgMesdp0NN51RxjAWmgnv0pfHMZfI16L6A4fJ
+ g1YaOL82h70sMWNCvbAbGXa29ynkBMTEWEP1ov1S7AiGjXN3Dm3ZWXVPk8OPHVBRuqReY8XQhMS
+ Dbn7g7vpPckNspcemhweqo69peU2q9ePiC22SBk17BMm3BxX8RVMF4YZ3SBT5uhYhpEVvBP0vDR
+ Z9wJudUo3ax0UaOwP+VqaHzgjtb2MyfUQM3fO3Q87NrLUpPik8oWXl92ZG9gJyTgDgBqNDsDzTl
+ yfmI63rEF/zs1Rkq6ZFlYadXKhDM3Fj7mncMryh9Fa8QAeZC88d+glvX1H3meLQX3HS8gnAEVRC
+ WpUZS7e+GdNz5HM5mgQ==
+X-Proofpoint-ORIG-GUID: MnayCe-rtxYuZS5r5HtrtiSTVCnogbWd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2MCBTYWx0ZWRfX0AbNBE0+BP6i
+ ekVovdXRz6hJOhRxmYss5hqoWXWHwtikBEQUNuRqsDVWRGYFWFQ7l7PF4/1bjfFrqpkFXVxZNgU
+ zlzZjRuv5FhQHRJSaPl+gt1SfhAY4/E=
+X-Authority-Analysis: v=2.4 cv=COG/zhrD c=1 sm=1 tr=0 ts=6af5d612 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=r20e0feN5VoI4vvULvEA:9
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120060
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,410 +180,552 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Exec queue destruction is asynchronous. Closing a VM immediately after
-killing its queues can remove mappings before GuC cleanup has finished.
+DSI panels can be placed under DSI bus directly and some of the Linux DRM
+drivers will work fine with it: mipi_dsi_host_register() adds device for
+such panel and DRM driver does not use OF graph to configure lanes.
+Examples are Samsung Exynos and Allwinner DRM drivers.
 
-Track the queues using each VM and keep the bind queue's user_vm
-reference until final queue destruction. Start queue cleanup before
-removing the VM mappings.
+The Linux panel drivers affected here do not use OF graph, either.
 
-The count includes VM-owned bind queues. Release the VM's references
-to these queues before waiting for their asynchronous cleanup.
+Requiring graph port for such panels is tying the binding to one
+specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
+requires the port.  That's a mistake, because:
+1. It prevents usage of such panel in DTS for other platforms,
+2. Places the constraint (port requirement) in wrong domain - the DSI
+   host needs the port, not the panel.
 
-During file close, use one five-second wait budget across all VMs.
-If queues remain, defer VM close until the last queue is removed.
-The existing runtime-PM reference remains held during this wait.
+The port is not needed for the panel hardware to operate thus it should
+be optional.
 
-VM destroy does not wait for queue cleanup. If user exec queues still
-reference the VM, its mappings remain after the ioctl returns until
-those queues finish cleanup. Userspace must destroy the remaining queue
-handles or close the DRM file to release them.
+Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
+Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com> # renesas r61307 and r69328
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The five-second budget limits the new queue wait, not the lifetime of
-the retained mappings. Recovery continues through the existing GuC
-reset and teardown paths.
-
-Run deferred close and final VM destruction on the module-lifetime
-destroy workqueue. Hold an extra VM reference until the close worker
-has released its PM and unplug guards. Final VM destruction retains
-the device reference until cleanup finishes.
-
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_device.c     |  19 +++-
- drivers/gpu/drm/xe/xe_exec_queue.c |  22 ++--
- drivers/gpu/drm/xe/xe_vm.c         | 162 ++++++++++++++++++++++++++---
- drivers/gpu/drm/xe/xe_vm.h         |   5 +
- drivers/gpu/drm/xe/xe_vm_types.h   |  15 +++
- 5 files changed, 200 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 1ef9e276bbca..675226bd72ff 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -8,6 +8,7 @@
- #include <linux/aperture.h>
- #include <linux/delay.h>
- #include <linux/error-injection.h>
-+#include <linux/jiffies.h>
- #include <linux/units.h>
+Change in v2:
+1. Rephrase commit msg
+2. Tag
+
+Remaining one Ilitek is fixed in:
+https://lore.kernel.org/all/20261109160706.2272332-2-romain.tisserand@gmail.com/
+---
+ .../devicetree/bindings/display/panel/anbernic,td4310.yaml       | 1 -
+ Documentation/devicetree/bindings/display/panel/boe,td4320.yaml  | 1 -
+ .../devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml      | 1 -
+ Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml | 1 -
+ .../devicetree/bindings/display/panel/elida,kd35t133.yaml        | 1 -
+ .../bindings/display/panel/feiyang,fy07024di26a30d.yaml          | 1 -
+ .../devicetree/bindings/display/panel/himax,hx83112a.yaml        | 1 -
+ .../devicetree/bindings/display/panel/himax,hx83112b.yaml        | 1 -
+ .../devicetree/bindings/display/panel/himax,hx8394.yaml          | 1 -
+ .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml       | 1 -
+ .../devicetree/bindings/display/panel/ilitek,ili9805.yaml        | 1 -
+ .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml       | 1 -
+ Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml  | 1 -
+ .../devicetree/bindings/display/panel/novatek,nt35532.yaml       | 1 -
+ .../devicetree/bindings/display/panel/novatek,nt36672a.yaml      | 1 -
+ .../devicetree/bindings/display/panel/novatek,nt36672e.yaml      | 1 -
+ .../devicetree/bindings/display/panel/novatek,nt37801.yaml       | 1 -
+ .../devicetree/bindings/display/panel/novatek,nt51021.yaml       | 1 -
+ .../devicetree/bindings/display/panel/raydium,rm67191.yaml       | 1 -
+ .../devicetree/bindings/display/panel/raydium,rm67200.yaml       | 1 -
+ .../devicetree/bindings/display/panel/raydium,rm69220.yaml       | 1 -
+ .../devicetree/bindings/display/panel/raydium,rm692e5.yaml       | 1 -
+ .../devicetree/bindings/display/panel/renesas,r61307.yaml        | 1 -
+ .../devicetree/bindings/display/panel/renesas,r69328.yaml        | 1 -
+ .../devicetree/bindings/display/panel/ronbo,rb070d30.yaml        | 1 -
+ .../devicetree/bindings/display/panel/samsung,ams581vf01.yaml    | 1 -
+ .../devicetree/bindings/display/panel/samsung,ams639rq08.yaml    | 1 -
+ .../bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml       | 1 -
+ .../devicetree/bindings/display/panel/samsung,sofef01-m.yaml     | 1 -
+ .../devicetree/bindings/display/panel/sony,td4353-jdi.yaml       | 1 -
+ .../bindings/display/panel/sony,tulip-truly-nt35521.yaml         | 1 -
+ .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml | 1 -
+ .../devicetree/bindings/display/panel/synaptics,r63353.yaml      | 1 -
+ .../devicetree/bindings/display/panel/visionox,g2647fb105.yaml   | 1 -
+ .../devicetree/bindings/display/panel/visionox,r66451.yaml       | 1 -
+ .../devicetree/bindings/display/panel/visionox,rm69299.yaml      | 1 -
+ .../devicetree/bindings/display/panel/visionox,rm692e5.yaml      | 1 -
+ .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml     | 1 -
+ .../devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml    | 1 -
+ 39 files changed, 39 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+index f820dc2f732b..1d6bf6da2ca8 100644
+--- a/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
++++ b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+@@ -31,7 +31,6 @@ properties:
  
- #include <drm/drm_client.h>
-@@ -177,6 +178,8 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
- 	struct xe_file *xef = file->driver_priv;
- 	struct xe_vm *vm;
- 	struct xe_exec_queue *q;
-+	bool close_deferred = false;
-+	unsigned long deadline;
- 	unsigned long idx;
+ required:
+   - compatible
+-  - port
+   - reg
+   - reset-gpios
+   - vdd-supply
+diff --git a/Documentation/devicetree/bindings/display/panel/boe,td4320.yaml b/Documentation/devicetree/bindings/display/panel/boe,td4320.yaml
+index c6bff0ece360..90f0d0bbe91e 100644
+--- a/Documentation/devicetree/bindings/display/panel/boe,td4320.yaml
++++ b/Documentation/devicetree/bindings/display/panel/boe,td4320.yaml
+@@ -36,7 +36,6 @@ required:
+   - compatible
+   - reg
+   - reset-gpios
+-  - port
  
- 	guard(xe_pm_runtime)(xe);
-@@ -198,7 +201,21 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
- 		xe_exec_queue_put(q);
- 	}
- 	xa_for_each(&xef->vm.xa, idx, vm)
--		xe_vm_close_and_put(vm);
-+		 xe_vm_kill_bind_queues(vm);
-+
-+	deadline = jiffies;
-+	xa_for_each(&xef->vm.xa, idx, vm) {
-+		unsigned long now = jiffies;
-+		unsigned long timeout =
-+			time_before(now, deadline) ? deadline - now : 0;
-+
-+			close_deferred |=
-+			xe_vm_close_and_put_deferred(vm, timeout);
-+	}
-+
-+	if (close_deferred)
-+		drm_dbg(&xe->drm,
-+			"VM teardown deferred while exec queues are being stopped\n");
+ unevaluatedProperties: false
  
- 	scoped_guard(mutex, &xef->mmio_gem.lock) {
- 		if (xef->mmio_gem.pci_barrier) {
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-index 7ade915c59a8..1ee727c485fb 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.c
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-@@ -155,9 +155,16 @@ static void __xe_exec_queue_free(struct xe_exec_queue *q)
+diff --git a/Documentation/devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml b/Documentation/devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml
+index dced98e1c69a..45f3205ed952 100644
+--- a/Documentation/devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml
++++ b/Documentation/devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml
+@@ -33,7 +33,6 @@ required:
+   - reset-gpios
+   - vsp-supply
+   - vsn-supply
+-  - port
  
- 	if (q->vm) {
- 		xe_vm_remove_exec_queue(q->vm, q);
-+		if (q->vm->xef)
-+			xe_vm_remove_close_queue(q->vm);
- 		xe_vm_put(q->vm);
- 	}
+ additionalProperties: false
  
-+	if (q->user_vm) {
-+		xe_vm_remove_close_queue(q->user_vm);
-+		xe_vm_put(q->user_vm);
-+	}
-+
- 	if (q->xef)
- 		xe_file_put(q->xef);
+diff --git a/Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml b/Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml
+index 80deedc01c7c..9c6a4d5e9f5b 100644
+--- a/Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml
+@@ -41,7 +41,6 @@ required:
+   - vddpos-supply
+   - vddneg-supply
+   - reset-gpios
+-  - port
  
-@@ -253,8 +260,12 @@ static struct xe_exec_queue *__xe_exec_queue_alloc(struct xe_device *xe,
- 		}
- 	}
+ unevaluatedProperties: false
  
--	if (vm)
-+	if (vm) {
- 		q->vm = xe_vm_get(vm);
-+		/* vm->xef stays unchanged until final VM destruction. */
-+		if (vm->xef)
-+			xe_vm_add_close_queue(vm);
-+	}
+diff --git a/Documentation/devicetree/bindings/display/panel/elida,kd35t133.yaml b/Documentation/devicetree/bindings/display/panel/elida,kd35t133.yaml
+index f4cb825d1e96..d04ffbba359a 100644
+--- a/Documentation/devicetree/bindings/display/panel/elida,kd35t133.yaml
++++ b/Documentation/devicetree/bindings/display/panel/elida,kd35t133.yaml
+@@ -32,7 +32,6 @@ required:
+   - compatible
+   - reg
+   - backlight
+-  - port
+   - iovcc-supply
+   - vdd-supply
  
- 	if (extensions) {
- 		/*
-@@ -620,8 +631,10 @@ struct xe_exec_queue *xe_exec_queue_create_bind(struct xe_device *xe,
- 			return ERR_PTR(err);
- 		}
+diff --git a/Documentation/devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml b/Documentation/devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml
+index f288fa2390c9..f36e866a1325 100644
+--- a/Documentation/devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml
++++ b/Documentation/devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml
+@@ -35,7 +35,6 @@ required:
+   - reg
+   - avdd-supply
+   - dvdd-supply
+-  - port
  
--		if (user_vm)
-+		if (user_vm) {
- 			q->user_vm = xe_vm_get(user_vm);
-+			xe_vm_add_close_queue(user_vm);
-+		}
- 	}
+ additionalProperties: false
  
- 	return q;
-@@ -653,11 +666,6 @@ void xe_exec_queue_destroy(struct kref *ref)
- 	for_each_tlb_inval(q, i)
- 		xe_exec_queue_tlb_inval_last_fence_put_unlocked(q, i);
+diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+index 2c60d0cd704e..008a94608c42 100644
+--- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+@@ -40,7 +40,6 @@ required:
+   - vdd1-supply
+   - vsn-supply
+   - vsp-supply
+-  - port
  
--	if (q->user_vm) {
--		xe_vm_put(q->user_vm);
--		q->user_vm = NULL;
--	}
--
- 	q->ops->destroy(q);
- }
+ unevaluatedProperties: false
  
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 903ec8e7c5e6..feb6c5ef5663 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1623,6 +1623,7 @@ static const struct xe_pt_ops xelp_pt_ops = {
- 	.pde_encode_bo = xelp_pde_encode_bo,
- };
+diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
+index e58bb3d45331..bc1771efb6e9 100644
+--- a/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
++++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
+@@ -40,7 +40,6 @@ required:
+   - iovcc-supply
+   - vsn-supply
+   - vsp-supply
+-  - port
  
-+static void vm_close_work_func(struct work_struct *w);
- static void vm_destroy_work_func(struct work_struct *w);
+ unevaluatedProperties: false
  
- /**
-@@ -1766,6 +1767,10 @@ struct xe_vm *xe_vm_create(struct xe_device *xe, u32 flags, struct xe_file *xef)
- 	ttm_lru_bulk_move_init(&vm->lru_bulk_move);
+diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml
+index 83c343b02835..41dc3f39f42a 100644
+--- a/Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml
++++ b/Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml
+@@ -49,7 +49,6 @@ required:
+   - compatible
+   - reg
+   - backlight
+-  - port
+   - vcc-supply
+   - iovcc-supply
  
- 	INIT_WORK(&vm->destroy_work, vm_destroy_work_func);
-+	atomic_set(&vm->close.num_exec_queues, 0);
-+	init_waitqueue_head(&vm->close.wq);
-+	spin_lock_init(&vm->close.lock);
-+	INIT_WORK(&vm->close.work, vm_close_work_func);
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+index ba8c5bbf8ffc..3bace821bc8e 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+@@ -41,7 +41,6 @@ required:
+   - vddi-supply
+   - avdd-supply
+   - avee-supply
+-  - port
  
- 	INIT_LIST_HEAD(&vm->preempt.exec_queues);
- 	for (id = 0; id < XE_MAX_TILES_PER_DEVICE * XE_MAX_GT_PER_TILE; ++id)
-@@ -2011,19 +2016,7 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 	if (xe_vm_in_fault_mode(vm))
- 		xe_svm_close(vm);
+ unevaluatedProperties: false
  
--	if (vm->q) {
--		int i;
--
--		down_write(&vm->lock);
--		xe_exec_queue_last_fence_put(vm->q, vm);
--		for_each_tlb_inval(vm->q, i)
--			xe_exec_queue_tlb_inval_last_fence_put(vm->q, vm, i);
--		up_write(&vm->lock);
--
--		xe_exec_queue_kill(vm->q);
--		xe_exec_queue_put(vm->q);
--		vm->q = NULL;
--	}
-+	xe_vm_kill_bind_queues(vm);
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9805.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9805.yaml
+index ff67129c9466..4bd76a411639 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9805.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9805.yaml
+@@ -32,7 +32,6 @@ required:
+   - dvdd-supply
+   - reg
+   - reset-gpios
+-  - port
+   - backlight
  
- 	down_write(&vm->lock);
- 	xe_vm_lock(vm, false);
-@@ -2093,6 +2086,140 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 	xe_vm_put(vm);
- }
+ unevaluatedProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+index 2080d9e0ffac..9a2602ddd906 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9806e.yaml
+@@ -33,7 +33,6 @@ required:
+   - vdd-supply
+   - reset-gpios
+   - backlight
+-  - port
  
-+static void vm_close_work_func(struct work_struct *w)
-+{
-+	struct xe_vm *vm = container_of(w, struct xe_vm, close.work);
-+	struct xe_device *xe = vm->xe;
-+	int idx;
-+
-+	/* Keep the VM and device alive until the PM and unplug guards unwind. */
-+	xe_vm_get(vm);
-+
-+	if (drm_dev_enter(&xe->drm, &idx)) {
-+		xe_pm_runtime_get(xe);
-+		xe_vm_close_and_put(vm);
-+		xe_pm_runtime_put(xe);
-+		drm_dev_exit(idx);
-+	} else {
-+		/*
-+		 * The device is gone. Drop the VM without a runtime PM reference.
-+		 * xe_vm_close() guards its own register access.
-+		 */
-+		xe_vm_close_and_put(vm);
-+	}
-+
-+	xe_vm_put(vm);
-+}
-+
-+/**
-+ * xe_vm_kill_bind_queues() - Kill and release the VM bind queue
-+ * @vm: The VM whose bind queue should be stopped
-+ *
-+ * Callers must serialize teardown of @vm. Later calls are harmless because
-+ * the first call clears the VM bind queue pointer.
-+ */
-+void xe_vm_kill_bind_queues(struct xe_vm *vm)
-+{
-+	struct xe_exec_queue *q;
-+	int i;
-+
-+	if (!vm->q)
-+		return;
-+
-+	down_write(&vm->lock);
-+	q = vm->q;
-+	vm->q = NULL;
-+	xe_exec_queue_last_fence_put(q, vm);
-+	for_each_tlb_inval(q, i)
-+		xe_exec_queue_tlb_inval_last_fence_put(q, vm, i);
-+	up_write(&vm->lock);
-+
-+	xe_exec_queue_kill(q);
-+	xe_exec_queue_put(q);
-+}
-+
-+/**
-+ * xe_vm_add_close_queue() - Track an exec queue using the VM
-+ * @vm: The VM used by the exec queue
-+ *
-+ * The queue is tracked until its asynchronous destruction completes.
-+ */
-+void xe_vm_add_close_queue(struct xe_vm *vm)
-+{
-+	atomic_inc(&vm->close.num_exec_queues);
-+}
-+
-+/**
-+ * xe_vm_remove_close_queue() - Stop tracking an exec queue
-+ * @vm: The VM used by the exec queue
-+ *
-+ * If this is the last tracked queue and VM close was deferred, schedule
-+ * the deferred VM close.
-+ */
-+void xe_vm_remove_close_queue(struct xe_vm *vm)
-+{
-+	bool queue_close = false;
-+
-+	if (!atomic_dec_and_test(&vm->close.num_exec_queues))
-+		return;
-+
-+	wake_up_all(&vm->close.wq);
-+
-+	spin_lock(&vm->close.lock);
-+	if (vm->close.deferred) {
-+		vm->close.deferred = false;
-+		queue_close = true;
-+	}
-+	spin_unlock(&vm->close.lock);
-+
-+	if (queue_close)
-+		xe_destroy_wq_queue(&vm->close.work);
-+}
-+
-+/**
-+ * xe_vm_close_and_put_deferred() - Close a VM immediately or defer the close
-+ * @vm: The VM reference to consume
-+ * @timeout: Maximum time to wait for VM queues, in jiffies
-+ *
-+ * The VM must already be marked closing, and callers must serialize teardown.
-+ * Release the VM-owned bind queues before waiting for queue cleanup. Callers
-+ * may release them earlier to start cleanup for several VMs before waiting.
-+ *
-+ * If queues remain after @timeout, keep the mappings and finish VM close
-+ * after the last tracked queue is freed. This consumes the caller's VM
-+ * reference on both the immediate and deferred paths.
-+ *
-+ * Return: %true if VM close was deferred, or %false if it completed now.
-+ */
-+bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout)
-+{
-+	bool queue_close = false;
-+
-+	/* Drop VM-owned queue references before waiting for their final free. */
-+	xe_vm_kill_bind_queues(vm);
-+
-+	if (!atomic_read(&vm->close.num_exec_queues) ||
-+	    wait_event_timeout(vm->close.wq,
-+			       !atomic_read(&vm->close.num_exec_queues),
-+			       timeout)) {
-+		xe_vm_close_and_put(vm);
-+		return false;
-+	}
-+
-+	spin_lock(&vm->close.lock);
-+	vm->close.deferred = true;
-+	if (!atomic_read(&vm->close.num_exec_queues)) {
-+		vm->close.deferred = false;
-+		queue_close = true;
-+	}
-+	spin_unlock(&vm->close.lock);
-+
-+	if (queue_close)
-+		xe_destroy_wq_queue(&vm->close.work);
-+
-+	return true;
-+}
-+
- static void vm_destroy_work_func(struct work_struct *w)
- {
- 	struct xe_vm *vm =
-@@ -2139,7 +2266,7 @@ static void xe_vm_free(struct drm_gpuvm *gpuvm)
- 	drm_dev_get(&vm->xe->drm);
+ if:
+   properties:
+diff --git a/Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml b/Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml
+index 226974a4077f..70243c087410 100644
+--- a/Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml
+@@ -35,7 +35,6 @@ required:
+   - reset-gpios
+   - power-supply
+   - backlight
+-  - port
  
- 	/* To destroy the VM we need to be able to sleep */
--	queue_work(vm->xe->destroy_wq, &vm->destroy_work);
-+	xe_destroy_wq_queue(&vm->destroy_work);
- }
+ additionalProperties: false
  
- struct xe_vm *xe_vm_lookup(struct xe_file *xef, u32 id)
-@@ -2285,7 +2412,12 @@ int xe_vm_destroy_ioctl(struct drm_device *dev, void *data,
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
+index ff6fdad7febf..a00aabc7f583 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
+@@ -47,7 +47,6 @@ required:
+   - reg
+   - reset-gpios
+   - vddi-supply
+-  - port
  
- 	if (!err) {
- 		xe_vm_close_start(vm);
--		xe_vm_close_and_put(vm);
-+
-+		/*
-+		 * User exec queues can outlive the VM handle. Do not wait for
-+		 * queues which this ioctl does not destroy.
-+		 */
-+		xe_vm_close_and_put_deferred(vm, 0);
- 	}
+ additionalProperties: false
  
- 	return err;
-diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-index c90c9dc1351c..72978a99f389 100644
---- a/drivers/gpu/drm/xe/xe_vm.h
-+++ b/drivers/gpu/drm/xe/xe_vm.h
-@@ -221,6 +221,11 @@ int xe_vm_get_property_ioctl(struct drm_device *dev, void *data,
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+index 5d16d8511725..3263e21bf72e 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+@@ -54,7 +54,6 @@ required:
+   - vddpos-supply
+   - vddneg-supply
+   - reset-gpios
+-  - port
  
- void xe_vm_close_and_put(struct xe_vm *vm);
- void xe_vm_close_start(struct xe_vm *vm);
-+bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout);
-+void xe_vm_kill_bind_queues(struct xe_vm *vm);
-+
-+void xe_vm_add_close_queue(struct xe_vm *vm);
-+void xe_vm_remove_close_queue(struct xe_vm *vm);
+ unevaluatedProperties: false
  
- static inline bool xe_vm_in_fault_mode(struct xe_vm *vm)
- {
-diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-index 6ca9ef9d0c0b..6ebc6714534b 100644
---- a/drivers/gpu/drm/xe/xe_vm_types.h
-+++ b/drivers/gpu/drm/xe/xe_vm_types.h
-@@ -14,6 +14,7 @@
- #include <linux/kref.h>
- #include <linux/mmu_notifier.h>
- #include <linux/scatterlist.h>
-+#include <linux/wait.h>
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
+index dc4672f3d01d..bb10d62ac2e4 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
+@@ -34,7 +34,6 @@ required:
+   - avdd-supply
+   - avee-supply
+   - reset-gpios
+-  - port
  
- #include "xe_device_types.h"
- #include "xe_pt_types.h"
-@@ -314,6 +315,20 @@ struct xe_vm {
- 	 */
- 	struct work_struct destroy_work;
+ additionalProperties: false
  
-+	/** @close: State used to defer VM teardown until exec queues are gone. */
-+	struct {
-+		/** @close.num_exec_queues: Queues which can access this VM. */
-+		atomic_t num_exec_queues;
-+		/** @close.wq: Waitqueue for exec queue teardown. */
-+		wait_queue_head_t wq;
-+		/** @close.lock: Protects deferred and work scheduling. */
-+		spinlock_t lock;
-+		/** @close.deferred: VM close is waiting for queue teardown. */
-+		bool deferred;
-+		/** @close.work: Completes a deferred VM close. */
-+		struct work_struct work;
-+	} close;
-+
- 	/**
- 	 * @rftree: range fence tree to track updates to page table structure.
- 	 * Used to implement conflict tracking between independent bind engines.
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+index 1b38c1d0af68..ff7afe5467b6 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+@@ -36,7 +36,6 @@ required:
+   - vci-supply
+   - vdd-supply
+   - vddio-supply
+-  - port
+   - reset-gpios
+ 
+ additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+index 7754a8cb1e5c..a50f241e0186 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+@@ -54,7 +54,6 @@ required:
+   - avdd-supply
+   - havdd-supply
+   - reset-gpios
+-  - port
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
+index 4825792bf712..511cd2b64fe7 100644
+--- a/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
++++ b/Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
+@@ -47,7 +47,6 @@ required:
+   - compatible
+   - reg
+   - dsi-lanes
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm67200.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm67200.yaml
+index 97b7fbe05c07..cefb5fdee826 100644
+--- a/Documentation/devicetree/bindings/display/panel/raydium,rm67200.yaml
++++ b/Documentation/devicetree/bindings/display/panel/raydium,rm67200.yaml
+@@ -40,7 +40,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - port
+   - reg
+ 
+ additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+index 3c94db88f797..44b416260f20 100644
+--- a/Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
++++ b/Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+@@ -42,7 +42,6 @@ required:
+   - vci-supply
+   - vddio-supply
+   - reset-gpios
+-  - port
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml b/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml
+index 616a5f3ec9fc..91336e17a059 100644
+--- a/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml
++++ b/Documentation/devicetree/bindings/display/panel/raydium,rm692e5.yaml
+@@ -41,7 +41,6 @@ required:
+   - dvdd-supply
+   - vci-supply
+   - vddio-supply
+-  - port
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r61307.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r61307.yaml
+index 3d7761717b74..aff691fdb771 100644
+--- a/Documentation/devicetree/bindings/display/panel/renesas,r61307.yaml
++++ b/Documentation/devicetree/bindings/display/panel/renesas,r61307.yaml
+@@ -55,7 +55,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - port
+   - backlight
+ 
+ additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r69328.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r69328.yaml
+index 740185f778a1..c28b671d8721 100644
+--- a/Documentation/devicetree/bindings/display/panel/renesas,r69328.yaml
++++ b/Documentation/devicetree/bindings/display/panel/renesas,r69328.yaml
+@@ -38,7 +38,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - port
+   - backlight
+ 
+ additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/ronbo,rb070d30.yaml b/Documentation/devicetree/bindings/display/panel/ronbo,rb070d30.yaml
+index 694037301583..b17b7ce2b29e 100644
+--- a/Documentation/devicetree/bindings/display/panel/ronbo,rb070d30.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ronbo,rb070d30.yaml
+@@ -42,6 +42,5 @@ required:
+   - shlr-gpios
+   - updn-gpios
+   - vcc-lcd-supply
+-  - port
+ 
+ unevaluatedProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,ams581vf01.yaml b/Documentation/devicetree/bindings/display/panel/samsung,ams581vf01.yaml
+index 70dff9c0ef2b..5e1fb1edb3e0 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,ams581vf01.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,ams581vf01.yaml
+@@ -45,7 +45,6 @@ required:
+   - vsn-supply
+   - vsp-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,ams639rq08.yaml b/Documentation/devicetree/bindings/display/panel/samsung,ams639rq08.yaml
+index f5b6ecb96f99..3a68324a2b69 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,ams639rq08.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,ams639rq08.yaml
+@@ -46,7 +46,6 @@ required:
+   - vsn-supply
+   - vsp-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml
+index 42634fc3b5b2..25eadff02816 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml
+@@ -29,7 +29,6 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - port
+   - vdd3-supply
+   - vci-supply
+   - reset-gpios
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,sofef01-m.yaml b/Documentation/devicetree/bindings/display/panel/samsung,sofef01-m.yaml
+index bccc667aa072..c0a44e69b37e 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,sofef01-m.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,sofef01-m.yaml
+@@ -47,7 +47,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - port
+   - reg
+   - reset-gpios
+   - vddio-supply
+diff --git a/Documentation/devicetree/bindings/display/panel/sony,td4353-jdi.yaml b/Documentation/devicetree/bindings/display/panel/sony,td4353-jdi.yaml
+index 032a989184ff..ccfc0513eb4a 100644
+--- a/Documentation/devicetree/bindings/display/panel/sony,td4353-jdi.yaml
++++ b/Documentation/devicetree/bindings/display/panel/sony,td4353-jdi.yaml
+@@ -52,7 +52,6 @@ required:
+   - vsn-supply
+   - panel-reset-gpios
+   - touch-reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/sony,tulip-truly-nt35521.yaml b/Documentation/devicetree/bindings/display/panel/sony,tulip-truly-nt35521.yaml
+index 85c5dee65383..85977dfe8b72 100644
+--- a/Documentation/devicetree/bindings/display/panel/sony,tulip-truly-nt35521.yaml
++++ b/Documentation/devicetree/bindings/display/panel/sony,tulip-truly-nt35521.yaml
+@@ -41,7 +41,6 @@ required:
+   - negative5-supply
+   - reset-gpios
+   - enable-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/startek,kd070fhfid015.yaml b/Documentation/devicetree/bindings/display/panel/startek,kd070fhfid015.yaml
+index 7fd9364fa385..4c7677f6b154 100644
+--- a/Documentation/devicetree/bindings/display/panel/startek,kd070fhfid015.yaml
++++ b/Documentation/devicetree/bindings/display/panel/startek,kd070fhfid015.yaml
+@@ -34,7 +34,6 @@ required:
+   - iovcc-supply
+   - reg
+   - reset-gpios
+-  - port
+   - power-supply
+ 
+ additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r63353.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r63353.yaml
+index 2fd6e0ec3682..6a0c7518531a 100644
+--- a/Documentation/devicetree/bindings/display/panel/synaptics,r63353.yaml
++++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63353.yaml
+@@ -31,7 +31,6 @@ required:
+   - avdd-supply
+   - dvdd-supply
+   - reset-gpios
+-  - port
+   - backlight
+ 
+ unevaluatedProperties: false
+diff --git a/Documentation/devicetree/bindings/display/panel/visionox,g2647fb105.yaml b/Documentation/devicetree/bindings/display/panel/visionox,g2647fb105.yaml
+index 49dcd9b8f670..ea79ea070adc 100644
+--- a/Documentation/devicetree/bindings/display/panel/visionox,g2647fb105.yaml
++++ b/Documentation/devicetree/bindings/display/panel/visionox,g2647fb105.yaml
+@@ -45,7 +45,6 @@ required:
+   - vsn-supply
+   - vsp-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/visionox,r66451.yaml b/Documentation/devicetree/bindings/display/panel/visionox,r66451.yaml
+index 49ef45c03593..281333b781ba 100644
+--- a/Documentation/devicetree/bindings/display/panel/visionox,r66451.yaml
++++ b/Documentation/devicetree/bindings/display/panel/visionox,r66451.yaml
+@@ -31,7 +31,6 @@ required:
+   - vddio-supply
+   - vdd-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+index f61a528c0413..bcde74217e1b 100644
+--- a/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
++++ b/Documentation/devicetree/bindings/display/panel/visionox,rm69299.yaml
+@@ -42,7 +42,6 @@ required:
+   - vdda-supply
+   - vdd3p3-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/visionox,rm692e5.yaml b/Documentation/devicetree/bindings/display/panel/visionox,rm692e5.yaml
+index d4b4672815fe..ec393d15423f 100644
+--- a/Documentation/devicetree/bindings/display/panel/visionox,rm692e5.yaml
++++ b/Documentation/devicetree/bindings/display/panel/visionox,rm692e5.yaml
+@@ -44,7 +44,6 @@ required:
+   - reset-gpios
+   - vdd-supply
+   - vddio-supply
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
+index 682f30dc9ee4..979c5b95fac9 100644
+--- a/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
++++ b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
+@@ -37,7 +37,6 @@ required:
+   - vddio-supply
+   - vci-supply
+   - reset-gpios
+-  - port
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml b/Documentation/devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml
+index 9c9743a23500..13ff075bd2a6 100644
+--- a/Documentation/devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml
++++ b/Documentation/devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml
+@@ -31,7 +31,6 @@ required:
+   - compatible
+   - reg
+   - backlight
+-  - port
+   - iovcc-supply
+   - vci-supply
+ 
 -- 
-2.43.0
+2.53.0
 
