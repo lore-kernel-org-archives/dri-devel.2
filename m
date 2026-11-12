@@ -2,81 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CECB606A327
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 07:26:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAEE606A33B
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 07:36:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SHLfxrRs
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sa/bc71A;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SWfGlL5S;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sa/bc71A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B2910EA73;
-	Thu, 12 Nov 2026 07:26:52 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD1710EA73
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 07:26:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794468406; x=1826004406;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=Gat36huUNsEN06TZlUZ1hiMmeuKxIm4q/qQBfo2zJ8I=;
- b=SHLfxrRsys+6jvut9uMDI1+DP29cBNlNX3r8y+N2aLjyZ0vMOszztIOU
- n9lT2DG+rm6kH9bT2W6ZWn22cMizRZ8+ToR6aNE5yB3SQiEuqY59VQNIC
- XkdA6ioGmxcLxBUTKJ27szx8WiVvt4rVmoQLlxBcXCqifHAV/UU2hLtK+
- DwF+A6JftaznuCMBaTxkf0M3r6yDSDSXsYA8X4+JgtkbSmVUeNbROjfwF
- AuV71231wa9j6r2K+q84lBz4MSjs5REcBHojnNWn93PvYk85K3Cyhvpy2
- hN/ak8ElZ6glLbQ7flyMJ+L3ndTKBxB8ckIwHg4uhXYOFgGcICBUVc88I Q==;
-X-CSE-ConnectionGUID: UerPi73AQKG/sLOHTNLIvg==
-X-CSE-MsgGUID: GbnasLY6TouPGQJYiXwldQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3271486"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3271486"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 23:26:45 -0800
-X-CSE-ConnectionGUID: UMsvMJhrT2+EYePEPqUtsQ==
-X-CSE-MsgGUID: hNVyi5YeQcyWIpAckxSPEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="9024485"
-Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.244.5])
- ([10.245.244.5])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 23:26:38 -0800
-Message-ID: <96d6a6e828310738c0cb4550752a0b5808a81ef9.camel@linux.intel.com>
-Subject: Re: [Linaro-mm-sig] [PATCH v4 1/8] memcg: Add MEMCG_DMABUF
- accounting infrastructure
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, Johannes
- Weiner <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=
- <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Michal
- Hocko <mhocko@kernel.org>, Roman Gushchin	 <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song	
- <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
- <Brian.Starkey@arm.com>, John Stultz	 <jstultz@google.com>, "T.J. Mercier"
- <tjmercier@google.com>, Christian Brauner	 <brauner@kernel.org>, Paul Moore
- <paul@paul-moore.com>, James Morris	 <jmorris@namei.org>, "Serge E. Hallyn"
- <serge@hallyn.com>, Stephen Smalley	 <stephen.smalley.work@gmail.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap	 <rdunlap@infradead.org>,
- Ondrej =?UTF-8?Q?Mosn=C3=A1=C4=8Dek?=	 <omosnacek@gmail.com>, Jens
- Wiklander <jenswi@kernel.org>, Sumit Garg	 <sumit.garg@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org
-Date: Thu, 12 Nov 2026 08:26:35 +0100
-In-Reply-To: <20261104-v2_20230123_tjmercier_google_com-v4-1-1819a017000b@redhat.com>
-References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
- <20261104-v2_20230123_tjmercier_google_com-v4-1-1819a017000b@redhat.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id C163110E523;
+	Thu, 12 Nov 2026 07:36:12 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959CA10E523
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 07:36:01 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2BC5421E2E;
+ Thu, 12 Nov 2026 07:36:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794468960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+ b=SWfGlL5SP9QxUigmvUkfyufsOScTBkV0SKYv4XyB00QDFc56vIRgnLoooVn4Kfz5I6sU8G
+ 2TK/UiWAb60R81XNi8V6KibQBmpzUHvjBvSdB5YOMNrZCh/UDV61tfqznjFnZFjuE5zMid
+ PhpBGV6jwyk26HJYE9lmUNvnG+oeKj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794468960;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+ b=Sa/bc71AVe/647ejfmkcDQX8ZQ9mMjzepp6L1XlFCiZXlLt06zcX3shwy7VBKqckpNTto4
+ sg0Ykd6hzc53DsAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794468960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+ b=SWfGlL5SP9QxUigmvUkfyufsOScTBkV0SKYv4XyB00QDFc56vIRgnLoooVn4Kfz5I6sU8G
+ 2TK/UiWAb60R81XNi8V6KibQBmpzUHvjBvSdB5YOMNrZCh/UDV61tfqznjFnZFjuE5zMid
+ PhpBGV6jwyk26HJYE9lmUNvnG+oeKj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794468960;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eLrr8pKqqR7ShkRhC77eJ4XB0RZSE5KVokQnCulB2o4=;
+ b=Sa/bc71AVe/647ejfmkcDQX8ZQ9mMjzepp6L1XlFCiZXlLt06zcX3shwy7VBKqckpNTto4
+ sg0Ykd6hzc53DsAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC663134A0;
+ Thu, 12 Nov 2026 07:35:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WBbQIF9s9WrAEAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 12 Nov 2026 07:35:59 +0000
+Message-ID: <8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
+Date: Thu, 12 Nov 2026 08:35:59 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
+ mono format
+To: Sebastian Raase <linux@sraa.de>
+Cc: Hans de Goede <hansg@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
+References: <cover.1793758480.git.linux@sraa.de>
+ <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; TAGGED_RCPT(0.00)[dt];
+ RCPT_COUNT_TWELVE(0.00)[14]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]; TO_DN_SOME(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ sraa.de:email]
+X-Spam-Score: -11.79
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,314 +143,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-11-04 at 12:09 +0100, Albert Esteve wrote:
-> From: "T.J. Mercier" <tjmercier@google.com>
->=20
-> Introduce a MEMCG_DMABUF stat counter and helpers for charging,
-> cancelling, and uncharging dma-buf memory against a memory cgroup.
->=20
-> The charge is tracked on struct dma_buf via a new memcg pointer.
-> The memcg reference is stored into (or cleared from) dmabuf->memcg
-> by the helpers, removing the need for callers to manage those
-> details. The release path in dma_buf_release() is reduced to a
-> single mem_cgroup_uncharge_dmabuf() call.
->=20
-> Rather than charging at the page level via __GFP_ACCOUNT, which
-> would require exporters to expose their backing pages for
-> cross-cgroup transfer via new dma_buf_ops, charges are tracked
-> externally on struct dma_buf through a single accounting path.
->=20
-> The next patch wires up the charging policy in the dma-heap ioctl.
->=20
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+Hi
+
+Am 04.11.26 um 03:34 schrieb Sebastian Raase:
+> This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
+>
+> Signed-off-by: Sebastian Raase <linux@sraa.de>
 > ---
-> =C2=A0Documentation/admin-guide/cgroup-v2.rst |=C2=A0 4 ++
-> =C2=A0drivers/dma-buf/dma-buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> =C2=A0include/linux/dma-buf.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++
-> =C2=A0include/linux/memcontrol.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 27 +++++++++++++
-> =C2=A0mm/memcontrol.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 70
-> +++++++++++++++++++++++++++++++++
-> =C2=A05 files changed, 108 insertions(+)
->=20
-> diff --git a/Documentation/admin-guide/cgroup-v2.rst
-> b/Documentation/admin-guide/cgroup-v2.rst
-> index 86a2a0099178..a3265a4a953e 100644
-> --- a/Documentation/admin-guide/cgroup-v2.rst
-> +++ b/Documentation/admin-guide/cgroup-v2.rst
-> @@ -1662,6 +1662,10 @@ The following nested keys are defined.
-> =C2=A0		Amount of memory used for storing in-kernel data
-> =C2=A0		structures.
-> =C2=A0
-> +	=C2=A0 dmabuf (npn)
-> +		Amount of memory used for exported DMA buffers
-> allocated by the cgroup.
-> +		Stays with the allocating cgroup regardless of how
-> the buffer is shared.
-> +
-> =C2=A0	=C2=A0 workingset_refault_anon
-> =C2=A0		Number of refaults of previously evicted anonymous
-> pages.
-> =C2=A0
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..1c6b9cee7ac2 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -14,6 +14,7 @@
-> =C2=A0#include <linux/fs.h>
-> =C2=A0#include <linux/slab.h>
-> =C2=A0#include <linux/dma-buf.h>
-> +#include <linux/memcontrol.h>
-> =C2=A0#include <linux/dma-fence.h>
-> =C2=A0#include <linux/dma-fence-unwrap.h>
-> =C2=A0#include <linux/anon_inodes.h>
-> @@ -182,6 +183,8 @@ static void dma_buf_release(struct dentry
-> *dentry)
-> =C2=A0
-> =C2=A0	dmabuf->ops->release(dmabuf);
-> =C2=A0
-> +	mem_cgroup_uncharge_dmabuf(dmabuf);
-> +
-> =C2=A0	if (dmabuf->resv =3D=3D (struct dma_resv *)&dmabuf[1])
-> =C2=A0		dma_resv_fini(dmabuf->resv);
-> =C2=A0
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..23ec0ff23fba 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -27,6 +27,7 @@
-> =C2=A0struct device;
-> =C2=A0struct dma_buf;
-> =C2=A0struct dma_buf_attachment;
-> +struct mem_cgroup;
-> =C2=A0
-> =C2=A0/**
-> =C2=A0 * struct dma_buf_ops - operations possible on struct dma_buf
-> @@ -429,6 +430,9 @@ struct dma_buf {
-> =C2=A0
-> =C2=A0		__poll_t active;
-> =C2=A0	} cb_in, cb_out;
-> +
-> +	/** @memcg: the cgroup to which this buffer is currently
-> attributed */
-> +	struct mem_cgroup *memcg;
-> =C2=A0};
-> =C2=A0
-> =C2=A0/**
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 7d1c0ce189a8..4d1e82cf0833 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -10,6 +10,9 @@
-> =C2=A0
-> =C2=A0#ifndef _LINUX_MEMCONTROL_H
-> =C2=A0#define _LINUX_MEMCONTROL_H
-> +
-> +struct dma_buf;
-> +
-> =C2=A0#include <linux/cgroup.h>
-> =C2=A0#include <linux/vm_event_item.h>
-> =C2=A0#include <linux/hardirq.h>
-> @@ -40,6 +43,7 @@ enum memcg_stat_item {
-> =C2=A0	MEMCG_ZSWAP_B,
-> =C2=A0	MEMCG_ZSWAPPED,
-> =C2=A0	MEMCG_ZSWAP_INCOMP,
-> +	MEMCG_DMABUF,
-> =C2=A0	MEMCG_NR_STAT,
-> =C2=A0};
-> =C2=A0
-> @@ -667,6 +671,9 @@ int mem_cgroup_charge_hugetlb(struct folio*
-> folio, gfp_t gfp);
-> =C2=A0int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned
-> short id,
-> =C2=A0				=C2=A0=C2=A0 struct mm_struct *mm, gfp_t gfp);
-> =C2=A0
-> +bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_pages);
-> +
-> =C2=A0void __mem_cgroup_uncharge(struct folio *folio);
-> =C2=A0
-> =C2=A0/**
-> @@ -682,6 +689,10 @@ static inline void mem_cgroup_uncharge(struct
-> folio *folio)
-> =C2=A0	__mem_cgroup_uncharge(folio);
-> =C2=A0}
-> =C2=A0
-> +void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int
-> nr_pages);
-> +
-> +void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf);
-> +
-> =C2=A0void __mem_cgroup_uncharge_folios(struct folio_batch *folios);
-> =C2=A0static inline void mem_cgroup_uncharge_folios(struct folio_batch
-> *folios)
-> =C2=A0{
-> @@ -1167,10 +1178,26 @@ static inline int
-> mem_cgroup_swapin_charge_folio(struct folio *folio,
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> +static inline bool mem_cgroup_reserve_dmabuf(struct mem_cgroup
-> *memcg,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 gfp_t gfp,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_pages)
-> +{
-> +	return true;
-> +}
-> +
-> +static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup
-> *memcg,
-> +					=C2=A0=C2=A0=C2=A0 unsigned int nr_pages)
-> +{
-> +}
-> +
-> =C2=A0static inline void mem_cgroup_uncharge(struct folio *folio)
-> =C2=A0{
-> =C2=A0}
-> =C2=A0
-> +static inline void mem_cgroup_uncharge_dmabuf(struct dma_buf
-> *dmabuf)
-> +{
-> +}
-> +
-> =C2=A0static inline void mem_cgroup_uncharge_folios(struct folio_batch
-> *folios)
-> =C2=A0{
-> =C2=A0}
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 856a7d07586c..e53dd7eebc3b 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -69,6 +69,7 @@
-> =C2=A0#include <net/ip.h>
-> =C2=A0#include "slab.h"
-> =C2=A0#include "memcontrol-v1.h"
-> +#include <linux/dma-buf.h>
-> =C2=A0
-> =C2=A0#include <linux/uaccess.h>
-> =C2=A0
-> @@ -442,6 +443,7 @@ static const unsigned int memcg_stat_items[] =3D {
-> =C2=A0	MEMCG_ZSWAP_B,
-> =C2=A0	MEMCG_ZSWAPPED,
-> =C2=A0	MEMCG_ZSWAP_INCOMP,
-> +	MEMCG_DMABUF,
-> =C2=A0};
-> =C2=A0
-> =C2=A0#define NR_MEMCG_NODE_STAT_ITEMS ARRAY_SIZE(memcg_node_stat_items)
-> @@ -1625,6 +1627,7 @@ static const struct memory_stat memory_stats[]
-> =3D {
-> =C2=A0#ifdef CONFIG_HUGETLB_PAGE
-> =C2=A0	{
-> "hugetlb",			NR_HUGETLB			},
-> =C2=A0#endif
-> +	{
-> "dmabuf",			MEMCG_DMABUF			},
-> =C2=A0
-> =C2=A0	/* The memory events */
-> =C2=A0	{
-> "workingset_refault_anon",	WORKINGSET_REFAULT_ANON		},
-> @@ -5658,6 +5661,73 @@ void mem_cgroup_flush_workqueue(void)
-> =C2=A0	flush_workqueue(memcg_wq);
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * mem_cgroup_reserve_dmabuf - charge a memcg for a dma-buf
-> allocation
-> + * @memcg: memcg to charge (may be %NULL)
-> + * @gfp_mask: reclaim mode
-> + * @nr_pages: number of pages to charge
-> + *
-> + * Charges @nr_pages against @memcg. Call this before allocating
-> pages so
-> + * the cgroup limit is enforced up front. On success the caller must
-> + * finalize the charge with the MEMCG_DMABUF stat update, or call
-> + * mem_cgroup_cancel_dmabuf() to undo it.
-> + *
-> + * Returns %true on success, %false if the charge would exceed the
-> limit.
-> + */
-> +bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t
-> gfp_mask,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_pages)
-> +{
-> +	if (!memcg || mem_cgroup_disabled())
-> +		return true;
-> +
-> +	if (try_charge(memcg, gfp_mask, nr_pages))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +EXPORT_SYMBOL_GPL(mem_cgroup_reserve_dmabuf);
-> +
-> +/**
-> + * mem_cgroup_cancel_dmabuf - undo a dma-buf charge
-> + * @memcg: memcg to uncharge (may be %NULL)
-> + * @nr_pages: same value passed to mem_cgroup_reserve_dmabuf()
-> + *
-> + * Returns @nr_pages of charge to @memcg. Use when the allocation
-> fails
-> + * after mem_cgroup_reserve_dmabuf().
-> + */
-> +void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int
-> nr_pages)
-> +{
-> +	if (!memcg)
-> +		return;
-> +
-> +	if (!mem_cgroup_is_root(memcg))
-> +		refill_stock(memcg, nr_pages);
-> +}
-> +EXPORT_SYMBOL_GPL(mem_cgroup_cancel_dmabuf);
-> +
-> +/**
-> + * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-> + * @dmabuf: buffer to uncharge
-> + *
-> + * Reverses a finalized dma-buf charge. Drops the memcg
-> + * reference stored in @dmabuf->memcg and clears the pointer.
-> + * Safe to call when @dmabuf->memcg is %NULL.
-> + */
-> +void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
-> +{
-> +	unsigned int nr_pages;
-> +	struct mem_cgroup *memcg =3D dmabuf->memcg;
-> +
-> +	if (!memcg)
-> +		return;
-> +
-> +	nr_pages =3D PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> +	mod_memcg_state(memcg, MEMCG_DMABUF, -nr_pages);
-> +	mem_cgroup_cancel_dmabuf(memcg, nr_pages);
-> +	mem_cgroup_put(memcg);
-> +	dmabuf->memcg =3D NULL;
-> +}
+>   .../devicetree/bindings/display/simple-framebuffer.yaml         | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> index 45ffdebc9d86..c627ec088434 100644
+> --- a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> +++ b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> @@ -94,6 +94,7 @@ properties:
+>     format:
+>       description: >
+>         Format of the framebuffer:
+> +        * `mono` - 1-bit packed pixels, 8 pixels/byte
 
-Instead of keeping a reference on the memcg for the buffer's whole
-lifetime, shouldn't an obj_cgroup be used, which is reparented when the
-memcg goes offline? Like in Dave's series here:
+I don't object the change, but I really object the naming.
 
-https://lore.kernel.org/all/20260706052330.1110909-1-airlied@gmail.com/
+Mono is not a good name because it doesn't describe the format's pixel 
+layout. For example, RGB with only 2 colors is also mono in some sense.
 
-Thanks,
+The common names used in the Linux kernel for this type of color format 
+are C1 and R1. More generally speaking,
+
+  - Cn describes an n-bit format with a palette. The pixel bits index 
+into the palette.  Pixels are packed.
+  - Rn describes an n-bit format with a single color channel. The 
+channel has linear color gradient. Pixels are packed.
+
+In your case, you'd define 'r1'. While at it, we can also define r2, r4, 
+and r8.  The terminal supports up to 16 colors, so implementing r4 might 
+be of interest to some simple hardware.
+
+Best regards
 Thomas
 
 
+>           * `a1r5g5b5` - 16-bit pixels, d[15]=a, d[14:10]=r, d[9:5]=g, d[4:0]=b
+>           * `a2r10g10b10` - 32-bit pixels, d[31:30]=a, d[29:20]=r, d[19:10]=g, d[9:0]=b
+>           * `a8b8g8r8` - 32-bit pixels, d[31:24]=a, d[23:16]=b, d[15:8]=g, d[7:0]=r
+> @@ -106,6 +107,7 @@ properties:
+>           * `x8r8g8b8` - 32-bit pixels, d[23:16]=r, d[15:8]=g, d[7:0]=b
+>           * `x8b8g8r8` - 32-bit pixels, d[23:16]=b, d[15:8]=g, d[7:0]=r
+>       enum:
+> +      - mono
+>         - a1r5g5b5
+>         - a2r10g10b10
+>         - a8b8g8r8
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
 
-> +
-> =C2=A0static int __init cgroup_memory(char *s)
-> =C2=A0{
-> =C2=A0	char *token;
