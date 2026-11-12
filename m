@@ -2,69 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBE1606A333
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:34:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDF4606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 15:38:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dXXu9RMD
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=cwT8wYSK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CCDE10E618;
-	Thu, 12 Nov 2026 15:34:25 +0000 (UTC)
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9875B10E618;
- Thu, 12 Nov 2026 15:34:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794497650; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Kq9864SPyKvjjMeRkdipd1E35RQlhbP0ilf6aRZxwioSOZqJRi4hUgIpli49TkACpJs+Y+kjV6OsGiZxnOZqzJermko4nVXap6/lqVSYHa2aNJw6g0Y3tpGksvDE4DkMYnrAfxunpoEEzUVTaolJTZO8gQJBTUMKJoi57CBjCzw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794497650;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=; 
- b=jL5Z6j3nO2eolGSsRFZwEnO/838+wTgReS9TqAHhUAFdXOgBTW7XKnEbORC6W1mUieN9qv06Pt5BNh7oW24fhayZSLAz6BGrt7LWsS2M6thyaMb9UjUhFZjVOa2fynYf6xhhtGDtD9Bz/wduku52/5YHoX1lJDB+kQ5uqvbN8og=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=dXXu9RMDE0xezo6kZ18H2VSiccbq6FlBnZmCo/DcR2ZMbbhHVHrljwAtBAOFm859uXeyyFX/pUyOZhP/wCxZjlKTahs83Fb6HxhROSkyXKsfHvpVpiRwl+92SWmr9RTRScyeK+9IbHmEctP9m3I0//4XQtkGXz38uRPAqK1914E=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794497647702543.2304470024969;
- Thu, 12 Nov 2026 07:34:07 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Vidith Madhu <vmadhu@nvidia.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andyshrk@163.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 09/27] drm: Add VRR target frame rate properties
-Date: Thu, 12 Nov 2026 16:33:58 +0100
-Message-ID: <6MnpleYQQheiUMA8VObDVg@collabora.com>
-In-Reply-To: <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
-References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
- <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
- <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 777D2112195;
+	Thu, 12 Nov 2026 15:38:00 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20BB2112162;
+ Thu, 12 Nov 2026 15:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=IyenNfTn35QAlDuaurUhdJEkInjbRyAHP3Qk1Ps3q+Q=; t=1794497874; x=2109857874; 
+ b=cwT8wYSKuGRUrpqao3zaY2XhU6opTgqcD9VwL6BbwKWvebsZMKJX/ZvXtjw4kOCYQdpVBd8aKXz
+ Z956/ddytI63YJ6u51DcZDbUSfPohfuK3yG4yPSbNJvufJ6rDV9Yu35a6d7NKUxBE/mti+maVxTsF
+ BEUwCoq2xbnl9MB+mlOhoghUdxC62Usi3EmwaNf1Q5ZoY6LY+I/PeNZgb+5j5Ryt2c+LNxeoLl5u0
+ dNgwHYXRV/z8bIbQWXMEiNtR9iSZ7jtY+m+AL6Qd8WxcH+R/3Z4F5lRs5wTJwoDrH0o/vvYjMUWJg
+ mdFU75YnvfZGU7TN5PohdRw6jq06Rvj7yjgg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xRWs3-009bk7-D5; Thu, 12 Nov 2026 16:37:51 +0100
+Message-ID: <6d89e4a9-ce29-4c8f-80c8-75b713b3ac61@igalia.com>
+Date: Thu, 12 Nov 2026 15:37:50 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
+ spinlock
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+ <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
+ <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+ <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
+ <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,117 +59,160 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thursday, 12 November 2026 06:24:50 Central European Standard Time Vidith Madhu wrote:
+
+On 12/11/2026 14:09, Philipp Stanner wrote:
+> On Thu, 2026-11-12 at 12:59 +0000, Tvrtko Ursulin wrote:
+>> Since this is a lock inversion site we cannot lock
 > 
-> On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
+> Which deadlock-circumvention strategies have you tried?
 > 
-> > Userspace may wish to set a target frame rate for the Variable Refresh
-> > Rate mechanism. There are multiple possible ways such a target could be
-> > communicated.
-> > 
-> > It's desirable for userspace to not only set a fixed target, but a
-> > target range within which VRR may operate. This is because even if a
-> > sink advertises a certain range as supported, said range may not be the
-> > ideal range to use, as numbers on the extreme end of the range may
-> > induce flickering or other glitches.
-> > 
-> > There's four choices to how one bracketing value for the target range
-> > could be communicated:
-> > 1. Target frame rate in something like millihertz
-> > 2. Target frame period in something like usecs
-> > 3. Target vtotal value
-> > 4. Target frame rate as a fraction expressed by two integers
-> > 
-> > Choice 1 is unpleasant as it would introduce some amount of rounding to
-> > common broadcast framerates like 24/1.001, which seems minor except that
-> > exact matches to standard framerates would rely on making all userspace
-> > and kernel agree on a specific method of rounding. This is sure to go
-> > wrong, so is disqualified.
-> > 
-> > Choice 2 has the same problem as 1, with the added complication that
-> > the EDID's VRR range is expressed in frames per second, and other HDMI
-> > features express things in frames per second as well, which would
-> > require possibly imprecise computations.
-> > 
-> > Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
-> > also modify the vtotal value. Additionally, it has the same drawbacks of
-> > choice 2 and 1.
-> > 
-> > Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
-> > example, is expressed as nominator=24000 and denominator=1001. As there
-> > is both a minimum and a maximum, there are 4 properties in total: two
-> > numerators, and two denominators. A fixed rate with no variability is
-> > expressed by setting the minimum fractional and the maximum fractional
-> > properties to the same value.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/drm_atomic.c      | 14 ++++++++++++
-> >  drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++
-> >  drivers/gpu/drm/drm_connector.c   | 48 +++++++++++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_crtc.c        | 34 +++++++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_mode_config.c | 20 ++++++++++++++++
-> >  include/drm/drm_crtc.h            |  6 +++++
-> >  include/drm/drm_mode_config.h     | 45 ++++++++++++++++++++++++++++++++++++
-> >  7 files changed, 191 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> > index 9bb761eda59f..da5c6925c349 100644
-> > --- a/drivers/gpu/drm/drm_atomic.c
-> > +++ b/drivers/gpu/drm/drm_atomic.c
-> > @@ -489,6 +489,7 @@ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
-> >  static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
-> >  				 const struct drm_crtc_state *new_crtc_state)
-> >  {
-> > +	const struct drm_crtc_vrr_state *vrr = &new_crtc_state->vrr_state;
-> >  	struct drm_crtc *crtc = new_crtc_state->crtc;
-> >  
-> >  	/* NOTE: we explicitly don't enforce constraints such as primary
-> > @@ -544,6 +545,19 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
-> >  		return -EINVAL;
-> >  	}
-> >  
-> > +	/*
-> > +	 * Reject VRR limiter ranges that only specify one end of the limit, or
-> I think specifying just one end of the limit should still be a valid case, 
-> the client may want to use the default bound on one side implied by the 
-> base timings/min. refresh rate and constrain the other.
+> Pseudocode:
+> 
+> bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+> 			 struct drm_sched_entity *entity)
+> {
+> 	struct drm_sched_job *s_job;
+> 
+> +	lockdep_assert_held(&entity->lock)
+> 
+> 	s_job = drm_sched_entity_queue_peek(entity);
+> 
+> 
+> drm_sched_rq_select_entity(…)
+> {
+> retry:
+> 	spin_lock(&rq->lock);
+> 	
+> 	walk_tree(…) {
+> 		if (!spin_trylock(&entity->lock) {
+> 			spin_unlock(&rq-lock);
+> 			udelay(20);
+> 			goto retry;
+> 		}
+> 		ready = !list_empty(&entity->job_list);
+> 	}
+> }
+> 
+> 
+> It appears very undesirable for someone to re-walk that tree, I get
+> that. But do we even know whether that would be a measurable problem in
+> practice? How often would it occur?
 
-That is what the RFC did, but unfortunately this leads to problems for
-the kernel and non-obvious behaviour for userspace. Specifically, userspace
-may set what is a fixed rate without intending to do so, and the kernel needs
-to do a chicken-and-egg dance to determine whether something could be a fixed
-rate to see if CinemaVRR lowering the minimum rate applies at which point it
-may no longer be a fixed rate.
+Problem there is adding trylock+backoff to achieve MPMC which the 
+scheduler is designed not to be. Without changing the whole design to 
+truly be MPMC, making the locking MPMC is just overhead. Do you see a 
+route to achieve full MPMC? Do you plan to pursue it?
 
-The new display-min/max properties are so that userspace knows what limits the
-kernel is using (so that it factors in quirks applied outside of what's in the
-EDID) and get to essentially specify one end that way.
+> Alternatively, all the other paths that do entity_lock -> rq_lock could
+> be tested with trylock-patterns. They might be less impacted.
+> 
+> In drm_sched_entity_push_job(), for example, only occasionally are both
+> locks actually needed, when a job is the first job.
+> 
+>>   but truly have to have an unlocked solution.
+> 
+> How do you know that?
+
+Please don't cut too much context. I guess you were in a way alluding 
+again to your trylock proposal.
+
+>> This is effectively replacing one unlocked read (spsc_queue_peek) with a
+>> different one (READ_ONCE(entity->job_credits)). Something unlocked is
+>> unavoidable here and I think this is more elegant and simple.
+> 
+> Code full of ACCESS_ONCE and RCU that is not RCU is most certainly not
+> elegant.
+> 
+> This is elegant:
+> 
+> spin_lock()
+> list_del()
+> spin_unlock()
+> 
+> 
+> With ACCESS_ONCE, manual barriers etc. pp. no one ever knows what's
+> accessed where with what ordering and why. It would then be better to
+> have the problem remain centralized in spsc_queue.h
+> 
+> As you say yourself, this here replaces the half-locked hard to reason
+> about spsc queue (we don't even know whether that thing is formally
+> correct) with a half-locked "locked" linked list.
+> 
+> It's no improvement in any way regarding our shared goal, which is a
+> consistently locked codebase that finally rids us of the race
+> conditions which are plagueing this system for >10 years
+
+How it is not an improvement in _any_ way if in your own words we can 
+remove the hand rolled single kernel user spsc which we don't even know 
+is formally correct?
+
+> There is really no other way than either redesigning drm_sched so that
+> the lock inversion disappears altogether, or to address the inversion
+> with strategies well established in CS.
+> 
+>>
+>> And because it is an unlocked read it has to be annotated with
+>> READ_ONCE(). Which means the write side, even though it is done under
+>> the lock, is paired up and marked with WRITE_ONCE().
+>>
+>> 2. drm_sched_entity_pop_job()
+>>
+>> This is not a lock inversion site but needs to call sleepable things
+>> while considering the head of the job queue (->prepare_job()).
+>>
+>> This one is the only remaining reason I used list_add_tail_rcu and
+>> list_del_rcu, just so from here we can safely touch the first entry
+>> while elsewhere more are being added.
+>>
+>> It is possible to do it, as you suggest, by dropping and re-acquiring
+>> the lock. Note however that too would need a big fat comment why it is
+>> safe.
+> 
+> Sure, one can write code comments. No big deal. The job is not in the
+> list anymore. The list is lock-protected. No one can race it.
+> 
+> There's only one worker popping. This must always be that way, the
+> entire drm_sched design is founded on that principle.
+
+That was my point. :) Same comment applies to both patterns. The rest is 
+just implementation details. Then what remains is the question of what 
+is the least bad pattern, is it trylock+back-off & re-locking, or is it 
+list_add_tail_rcu & remove the need to access the queue in most places 
+to begin with.
+
+Anyway, it seems to two main points of view you expressed is to either 
+do it with trylock+backoff or to redesign the whole scheduler to 
+eliminate entity and run-queue locking need/order. Latter I thought it 
+was agreed is not feasible and that instead a new scheduler will be 
+written for new and firmware drivers so they can migrate to it. Equally 
+as attempts to split the current one into frontend/backend parts was 
+rejected. So I honestly don't know what is the plan any more.
+
+Regards,
+
+Tvrtko
 
 > 
-> > +	 * specify a numerator > 0 with a denominator that is 0.
-> > +	 */
-> > +	if ((!vrr->vrr_min_n || !vrr->vrr_min_d ||
-> > +	     !vrr->vrr_max_n || !vrr->vrr_max_d) &&
-> > +	    (vrr->vrr_min_n > 0 || vrr->vrr_max_n > 0)) {
-> > +		drm_dbg_atomic(crtc->dev,
-> > +			       "[CRTC:%d:%s] incomplete VRR limiter range\n",
-> > +			       crtc->base.id, crtc->name);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	return 0;
-> >  }
-> >  
->> [snip]
-
-
-
+>>   At which point, since both cases have a big fat comment explaining
+>> the same thing apart from the implementation details, I do not see the
+>> advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you
+>> dislike would still remain.
+>>
+>> As a side note it would be really good to eliminate the prepare_job
+>> callback
+> 
+> Yes, the user should prepare everything needed before even submitting a
+> job. Maybe we can begin by marking it as deprecated.
+> 
+> 
+> 
+> 
+> P.
 
