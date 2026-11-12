@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84BF606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FB3606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 09:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkEOQexL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BjrINAiz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E09210E592;
-	Thu, 12 Nov 2026 09:01:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E3410E592
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD5D10EB6E;
+	Thu, 12 Nov 2026 09:09:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B3A10E59B
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 09:09:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A597360DEA;
- Thu, 12 Nov 2026 09:01:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4E41F00A0E;
- Thu, 12 Nov 2026 09:01:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CD25143790;
+ Thu, 12 Nov 2026 09:09:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4851F00A0A;
+ Thu, 12 Nov 2026 09:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794474068;
- bh=ccNNZeCgsD/T3P3XZjToEhS82dcX1+5omntB+GjmWZw=;
+ s=k20260515; t=1794474574;
+ bh=3mQehppUHHAJeTyUQ0vUHOAy2sbUk9EN9zUy/eEW218=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WkEOQexL97lIiw2qe/I37oGUqY9hJT8W4FVWaEb9GdUj59+CoeHPRgyMpJK0KbJw9
- YdXQUVAvsSngGCW9LPZrrlyBV6GINnCaBKbVYOKQ8hrUbFrVPG/M7uI8T5qrDMjjjg
- C3Ux+7afgICIALWtfne1OiYalcAOqqhs9iKl2SaXFdYqXqizGwXOm8zzma/cxNxAGA
- cnPz581OevWi5Z8KngstIP4kDoa1ewpz526vZK/dkQUGXEafrm5z89RfwqYzDHcBYq
- S4W0UaQVbPy0wpfU7D0qpsfcB3JJacpQPtXK/0eaebiHu/1INejiopiZwB4tzISW5m
- vNtDKbqmbQWDQ==
-Message-ID: <sashiko-outbox-210814@kernel.org>
+ b=BjrINAiz7NpHcxsUmxsHmnqX8bcKqTlY7i+DZA7HcFkO6Ccd2bwmLmhjMwqszCoTD
+ d67lcqgu+Z2LSmrkURYwgGLtd0WufjuV3k3B7nCFhJ2BDRtIfa9bexpK+Pgy+zIIfU
+ TipevoAX85ac9D2Ktgc6UrNTDpIkkX6GXPKleJaTpG5fMxF7AQlTbO1ykZSB13rL5q
+ Gtu0hCqPBRQDxVxGVIWoL9jvybm/x5/Bh0sSQWLopszNzZnejkx/nfxaAITo2AJ+hb
+ U2dX3ouE6SWXRFgfO5fDVazIO/dDSw3iz5EHy6dtEztZYfVOXcYMoQnfpy9kQNz1G7
+ GFJNmbjjJbQow==
+Message-ID: <sashiko-outbox-210830@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/9] drm/rockchip: vop2: Balance window fetches
- across both AXI ports on RK3588
+Subject: Re: [PATCH v2 01/11] drm/panfrost: Power the GPU up for a reset
+ queued from the MMU code
 To: "Arun Iyengar" <aiyengar1990@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
+In-Reply-To: <20261112-panfrost-long-jobs-v2-1-a06830da3d99@gmail.com>
+References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
+ <20261112-panfrost-long-jobs-v2-1-a06830da3d99@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 09:01:07 +0000
+Date: Thu, 12 Nov 2026 09:09:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,105 +51,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	T_PDS_OTHER_BAD_TLD autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/rockchip: vop2: wrong AXI clash checks in
-  vop2_win_may_fetch()
+- [Medium] drm/panfrost: race with system suspend in
+  panfrost_reset_work()
 --
 
-commit 73d9c526a345979a18aa8e0e398a482c59cd3a4f
+commit 4c2188106dfefcf238af31be2bfb9e60d51e0307
 Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-drm/rockchip: vop2: Balance window fetches across both AXI ports on RK3588
+drm/panfrost: Power the GPU up for a reset queued from the MMU code
 
-This commit dynamically assigns AXI read ports to VOP2 windows on RK3588
-during atomic check to balance memory bandwidth across both ports while
-avoiding AXI read ID collisions.
+This commit acquires a runtime PM reference in panfrost_reset_work() before
+calling panfrost_reset(), and clears reset.pending if
+pm_runtime_resume_and_get() fails.
 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 7c157f5c17346..684fa46924e7f 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-[ ... ]
-> +/*
-> + * Whether a window that doesn't fetch in the new state may still fetch =
-while
-> + * a window starts on @crtc. The window registers are latched at the fra=
-me
-> + * start of their video port: a window switched off in this commit stops
-> + * together with the new one only on the same video port, and one switch=
-ed
-> + * off in an earlier commit once that commit is done.
-> + */
-> +static int vop2_win_may_fetch(struct drm_atomic_commit *state,
-> +			      struct vop2_win *win, const struct drm_crtc *crtc,
-> +			      bool *fetching)
-> +{
-> +	const struct drm_plane_state *old =3D drm_atomic_get_old_plane_state(st=
-ate, &win->base);
-> +	struct drm_crtc_commit *commit;
-> +	int ret;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.c
+> index 3a46dd61cf87f..0c2fda80c51ef 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -810,7 +810,21 @@ static void panfrost_reset_work(struct work_struct *=
+work)
+>  	struct panfrost_device *pfdev;
+> =20
+>  	pfdev =3D container_of(work, struct panfrost_device, reset.work);
 > +
-> +	if (old) {
-> +		*fetching =3D old->crtc && old->crtc !=3D crtc;
-> +		return 0;
+> +	/* The work can run long after it was queued, when the GPU has gone
+> +	 * idle and been runtime suspended. Power it up for the reset: its
+> +	 * registers are not accessible while it is suspended. If it cannot
+> +	 * be resumed (runtime PM is disabled during system sleep), there is
+> +	 * no job on it, and panfrost_device_runtime_resume() resets it when
+> +	 * it comes back up.
+> +	 */
+> +	if (pm_runtime_resume_and_get(pfdev->base.dev)) {
+> +		atomic_set(&pfdev->reset.pending, 0);
+> +		return;
 > +	}
 > +
-> +	ret =3D drm_modeset_lock(&win->base.mutex, state->acquire_ctx);
-> +	if (ret)
-> +		return ret;
-> +
-> +	commit =3D win->base.state->commit;
-> +	*fetching =3D commit && !try_wait_for_completion(&commit->flip_done);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +			if (!fetching) {
-> +				ret =3D vop2_win_may_fetch(state, w, pstate->crtc, &fetching);
-> +				if (ret)
-> +					return ret;
-> +			}
-> +
-> +			if (fetching)
-> +				clash[new->win[j].bus] =3D true;
+>  	panfrost_reset(pfdev, NULL);
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+>  }
 
 [Severity: Medium]
-Does vop2_win_may_fetch() misidentify whether a clashing window w is still
-fetching by branching on whether w is in @state (old !=3D NULL) instead of
-whether w was active in the old AXI state (old->win[j].active)?
+Can panfrost_reset_work() still race with panfrost_device_suspend() and
+access GPU registers while the GPU is powered off?
 
-When old !=3D NULL, *fetching is set to old->crtc && old->crtc !=3D crtc wi=
-thout
-checking old->win[j].active. If w is attached to another CRTC that is in
-DPMS off, or w is clipped off-screen (!old->visible), w is already disabled
-in hardware, yet pulling w into @state (for instance via
-drm_atomic_normalize_zpos()) marks its AXI port as clashing and forces the
-new window onto the other, potentially saturated port. Conversely, if w was
-disabled in an earlier non-blocking commit that has not completed flip_done
-and w is included in @state with old->crtc =3D=3D NULL, the old !=3D NULL b=
-ranch
-returns *fetching =3D false without checking old->commit->flip_done.
+pfdev->reset.wq is allocated without WQ_FREEZABLE and
+panfrost_device_suspend() does not flush or cancel pfdev->reset.work.
+Holding a runtime PM usage reference does not block
+pm_runtime_force_suspend(), which ignores usage_count and calls
+panfrost_device_runtime_suspend() directly:
 
-When old =3D=3D NULL, the fallback checks win->base.state->commit->flip_done
-without checking commit->crtc !=3D crtc, so an earlier non-blocking disable=
- on
-the same video port is treated as clashing even though its registers latch =
-at
-the same frame start. In addition, drm_atomic_helper_setup_commit() sets
-plane_state->commit on every plane in a commit's state, so an in-flight
-commit on another CRTC that included an already-inactive plane w causes
-vop2_win_may_fetch() to report w as fetching.
+kworker                               CPU0
+panfrost_reset_work()
+  pm_runtime_resume_and_get()
+                                      panfrost_device_suspend()
+                                        pm_runtime_force_suspend()
+                                          panfrost_device_runtime_suspend()
+                                            panfrost_jm_is_idle() -> true
+                                            panfrost_gpu_power_off()
+                                        panfrost_clks_disable()
+  panfrost_reset()
+    job_write(pfdev, JOB_INT_MASK, 0) <-- external abort (GPU powered off)
+
+In addition, if the GPU is RPM_ACTIVE when pm_runtime_force_suspend()
+disables runtime PM and usage_count > 1 (for example if
+__pm_runtime_resume() incremented usage_count while
+panfrost_device_runtime_suspend() was running, or perfcnt is enabled),
+pm_runtime_force_suspend() sets needs_force_resume and leaves both
+runtime_status and last_status set to RPM_ACTIVE.  rpm_resume() then
+returns 1 even with disable_depth > 0, so pm_runtime_resume_and_get()
+returns 0 while the GPU is suspended.
+
+Finally, when pm_runtime_resume_and_get() fails, clearing
+pfdev->reset.pending is not serialized against panfrost_device_resume().
+If the device resumes concurrently and panfrost_job_hw_submit() observes
+reset.pending =3D=3D 1, it places the job in pfdev->jobs without writing
+JS_COMMAND_START, and panfrost_reset_work() then clears reset.pending and
+returns without resetting or starting that job.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vop2-fixes=
--v2-0-8218c1cf8ac8@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-panfrost-l=
+ong-jobs-v2-0-a06830da3d99@gmail.com?part=3D1
