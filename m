@@ -2,85 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3282B606A331
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5020606A33A
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=boXXImep
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4IDXTsb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9181411247F;
-	Fri, 13 Nov 2026 13:13:05 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F05851123FC
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:12:59 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-3b094e649d3so1128670a91.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 05:12:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794575579; x=1795180379; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fMa45R+tCxZf7NGiJEXnK9MPuFreV0vlZ1o7pYt/ZYA=;
- b=boXXImepUcMIontJ8z2eGnSGfdEtGoQl26PwwsZP1qD/I3RBBnHYGvIMVKKOrchh2B
- gWKOJdlRaao9jMmMsUZJt4qj7/xjU79uY6lxugxRI7n01l8L78sk/2H/Be7FxNCgLVlJ
- a4PvsDeQLxS5D8ni7RKz0b3yd5NR+kVQV0C/Pcts0qLmF5fqTpQPikIQqRna++oNZZgT
- K9lKyqZaU3WlHbfvvGA5DMEO1CMGQxIEqJpmhOEfYub+I7WcHmb4xaIT68GD8EVhw14W
- zZTbW/XD9AvZpVk5FmDfwK0A25/Ya9vQoEWDs5/kU2eq8LGb+fS+OxWbD+162TL/Sg3L
- VHnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794575579; x=1795180379;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=fMa45R+tCxZf7NGiJEXnK9MPuFreV0vlZ1o7pYt/ZYA=;
- b=VqKpEqGCI6DzjDGizX5G5uFEhpQH8KAzo001xpp+ucqSiyJXYMVmZ2NNsTGKUYzZkv
- k6Fi2HBBG4cuji/WPBoQZJXdbLu38r8OAdvZfR1CxCY0X3weD7sFmnRGSxGB2SBiPvbV
- vYwKo12zhEXbw7D/wJScuKDnZOduNbkEDEhcpFl/20uN4VFeGVwnFSUa3KTBG+5fYZkL
- 8xbuAkmS5jvaTErmfPQ2/rqFgorIYJpfF79sALUW+9Gg4CGF/oGy7daBWSPizg0MFHdS
- rjPGgkyUuPS2X0qO6K/O87Jlkl03DSyU9n1FcoipGF1fMeo6+JAvezlJ7LKppPlriNUB
- Vxlw==
-X-Forwarded-Encrypted: i=1;
- AL+hErG75LGQuwBLWLF09TZDA56uY8KEAxpO28PB6dzZKy7HEQxOfE8M7v+hcDZNHnQPyzAhbBcVdVP1eWs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9k9ZcpB05mMXtp7CvPqkOOUKlhJ/DuLAWz9VGSK//TbNPBmose
- 26eLg+WfV+uO0I/f9xaDofxn49qeNFoiYZMRqBtqjwrhlGWaokrYWY4k
-X-Gm-Gg: AYBFou1nWNJ7pLA7I7QDrvoEec9h9pwkbNd8akEvZHvYyi32Znzxium+8NhuRikdfWj
- RbKDooWkDeniLM3HgwqpbVZHdZjOOx3/Buk+wjEu4ZEumcEdXVZzxBM9cHgj0aC8OVR+3FSbB1B
- AAD2vF3s5BqJX0iBIdw6+hhXiSHLasZVcUYv/qUgxnSIopNWhlFBBVzbGCX6cVoqbHYu6vpd2qa
- x33hmxFK7ex0Y52g+kRB9AWyaNkFRSe1VwSZngfpfVPBgQuOLoLJ4eJUzklLKx4mXZ6nKe9WodC
- MOSF8iCszHPv6yQ107XiiDp+SM5vC9NAMHCAwPpR9sYRuXch/g+7G3gt9VvLE1P3D9W3Q6PVdVH
- YP+UN3ay4z/bgjTfn96c3InZu7wo5+B5HmrvMCYjX3S1QggvgY1wvzJvumbllJNGNvoebOtlbym
- kZF+YCL/vwRCYsDAFJTh4A4UPZUxAAp96mzTimdh57VrLExDZ9oPbnl7kLCQk6pZh6kd4vf+Pwr
- +XUYK0CEumtBAuretifiOExiEEidjtp67ytEe3NnqlOqexPUICYABaI4GTMWyKcFQzhYzi+R0um
- hzxnsA7WSccFhqMgix57FpkpJgnmb2hOzLMUj3w=
-X-Received: by 2002:a17:90b:2642:b0:3b0:9162:948e with SMTP id
- 98e67ed59e1d1-3b1b0ba0a60mr1992696a91.27.1794575579407; 
- Fri, 13 Nov 2026 05:12:59 -0800 (PST)
-Received: from arch.localdomain ([152.175.35.19])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b1aec622b6sm4931622a91.11.2026.11.13.05.12.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 05:12:58 -0800 (PST)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: damon.ding@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com,
- andrzej.hajda@intel.com, dri-devel@lists.freedesktop.org, heiko@sntech.de,
- jernej.skrabec@gmail.com, jerrysteve1101@gmail.com, jonas@kwiboo.se,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de
-Subject: Re: [PATCH v3] drm/bridge: analogix_dp: use devm_phy_optional_get()
- for the DP PHY
-Date: Fri, 13 Nov 2026 21:12:48 +0800
-Message-ID: <20261113131248.2804840-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <385a67f0-e5cd-4dba-9b9c-5b766462c6c0@rock-chips.com>
-References: <385a67f0-e5cd-4dba-9b9c-5b766462c6c0@rock-chips.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3B91123FC;
+	Fri, 13 Nov 2026 13:15:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF04F1123FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:15:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 918FB43DB6;
+ Fri, 13 Nov 2026 13:15:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B961F000C4;
+ Fri, 13 Nov 2026 13:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794575727;
+ bh=8Um/wRtJ61vyX9tnzXtlftcOZcq6BKKMsu9xqpI5NL8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=P4IDXTsbEtw27yHgKxvjOLhm+9bR5+o6CkBGsLzKjQFdk+BZpEL6+EkHFt4Sy/XvY
+ JRZvLxryeT1cxJO4WM6o8p+y8OtD9zXKGdaKuSINweJsE9SgIUwF00TjSN6UjANisL
+ mfhdKJ3kzRRQPbv0RV4t51fnT7XLDzWB/C29694KcKDWyT926kNwpstPtOXkRsVH56
+ pn6iGvg7McyMJpIzTMP6bMKrCVg/B1nUFOyl76fAH8azMMbay2FE5Ie5XONFwMuIrl
+ p8x95tibKUVZNrf3qEZ9ENd1OfUm0KT4vWfhBzCMAyNnl8N1iH2PU716npyXoloTBJ
+ gVZTxYa9kR1Sw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Fri, 13 Nov 2026 14:15:08 +0100
+Subject: [PATCH v6 1/4] rust: io: forbid plain accesses racing with
+ `SysMem`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-page-volatile-io-v6-1-5603e527c919@kernel.org>
+References: <20261113-page-volatile-io-v6-0-5603e527c919@kernel.org>
+In-Reply-To: <20261113-page-volatile-io-v6-0-5603e527c919@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9126; i=a.hindborg@kernel.org; 
+ h=from:subject:message-id;
+ bh=Nc98J2rlEGFl+Qq2T601DfIEX/49/J0gHxiK4Vv1pDM=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq9w1fNsY2SFtctfToxiCffHOxVZSzNMckcTfOV
+ 0mhF/m1ox2JAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCavcNXwAKCRD6UCkIqsW9
+ 0E9iD/9NwJ1UQrjW++nH4MULFRFqcVt4Sc/Z53priRz7k6GNztS/VaoHSSS/POZbC3JSMAkhBXj
+ 5JUnz9ugkajyJN0xIgHS6In8bnutJ+juhLqmT23rU0zyt3y/y4uUc1lo3vVk9WFPsAlLRDRFnhf
+ RGXRX3fZ5NL3kNZL2v011pr1VMnZtVNM2RGnyC1C2G0BFzDOjK0asfpmMz8Pzc1pbl+43NClsDa
+ 99N7vT8yxQPb57WI4bMqNHoFwSF+x6MuAuz8eBB2Nj2FzcH0b4p2+cNSxoHurRiwqgS5WZaQ5LL
+ xcrHzyx4ooEKPMnsm1aUTdgJN8eR4o9j6Cb4mPkkuy7tkOEg0q9HHA/LZ93v8Ppk8QBAu/AIyUz
+ fcmAoTjLy/2mi8npe8Uh2lzBCoiwA+8Uo3L+PqzUxKiYK6/0A8fdiBbOZxdBzqSq36B5iwj0aZF
+ 0yBVHjv5ILaz58W3mJikhCPXGfR4jY0zzhCxBRl84gJKdoX9NpJD3W26pZdWStcNb+AJWjSGgKp
+ u5fHBPcPXY+R0mryCZ25hL4zTazNM6SRoWJlOzqHrrrB8RJ2cjLD3WO9fscG7fSr3Er3BZBMGfm
+ yCpCzy+0K44RIBn1xKo9xF5TefleKsCCtdf0SIVR9Ofc+kDxnyvN3qFtjOE7NbJcgNx/C2IepaU
+ 9JQtq7/oZeZLCnw==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +84,175 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Damon,
+`SysMem` accesses memory with volatile loads and stores and with the
+kernel's `memcpy()`. Both are well-defined when racing with hardware or
+user space, and when racing with atomic or volatile accesses from other
+kernel code. However, if they race with plain, non-atomic accesses from
+kernel code, they are considered a data race, and therefore undefined
+behavior.
 
-> You are right, this is really a valid concern.
->
-> If CONFIG_GENERIC_PHY is disabled, the old code could still proceed and
-> keep the driver probing, while the new version would return an error
-> directly.
+The invariants of `SysMem` only require the region to be valid and
+aligned kernel accessible memory. Nothing stops a caller from creating
+a `SysMem` over memory that other kernel code accesses with plain loads
+and stores at the same time.
 
--ENOSYS can only come from the !CONFIG_GENERIC_PHY stubs in
-include/linux/phy/phy.h; the real implementation in drivers/phy/phy-core.c
-never returns it. And the stub for the optional variant returns NULL, not
--ENOSYS:
+Make the requirement explicit. Require that no plain access to the
+region races with an access performed through the view, define what a
+plain access and a race is, and update the safety comments on the
+backend implementation and on the existing callers of `SysMem::new` to
+rely on the new invariant.
 
-    static inline struct phy *devm_phy_optional_get(struct device *dev,
-                                                    const char *string)
-    {
-            return NULL;
-    }
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ rust/kernel/dma.rs           |  8 +++++++-
+ rust/kernel/drm/gem/shmem.rs |  2 ++
+ rust/kernel/io.rs            | 48 +++++++++++++++++++++++++++++---------------
+ 3 files changed, 41 insertions(+), 17 deletions(-)
 
-So with CONFIG_GENERIC_PHY disabled the PHY is still treated as absent
-(NULL), exactly as the old -ENOSYS branch did. With CONFIG_GENERIC_PHY
-enabled, -ENOSYS cannot occur, devm_phy_optional_get() turns -ENODEV into
-NULL, and any other error is still propagated - same as the open-coded
-check.
+diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+index 580e1c3427bc..445b5859c60b 100644
+--- a/rust/kernel/dma.rs
++++ b/rust/kernel/dma.rs
+@@ -1237,7 +1237,13 @@ impl<'a, T: ?Sized + KnownSize> IoBase<'a> for &'a Coherent<'_, T> {
+     #[inline]
+     fn as_view(self) -> CoherentView<'a, Self::Target> {
+         CoherentView {
+-            // SAFETY: `cpu_addr` is valid and aligned kernel accessible memory.
++            // SAFETY:
++            // - Per type invariant, `cpu_addr` is valid and aligned kernel accessible memory.
++            // - Plain accesses to the region are only possible through `unsafe` APIs, that is
++            //   `Coherent::{as_ref,as_mut}`, `CoherentView::{as_ref,as_mut}` and dereferencing
++            //   the raw pointers returned by `Coherent::{as_ptr,as_mut_ptr}`, all of which require
++            //   the caller to avoid racing with other accesses to the region, including accesses
++            //   through this view.
+             cpu_addr: unsafe { SysMem::new(self.cpu_addr.as_ptr()) },
+             dma_addr: self.dma_addr,
+         }
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 24cb5343e0db..e55c3d16729d 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -471,6 +471,8 @@ fn as_view(self) -> SysMem<'a, Region<SIZE>> {
+         // - `addr` is page-aligned, which satisfies `Region`'s 4-byte alignment requirement.
+         // - The memory remains valid until this `VMap` is dropped; since `self` is `&'a VMap`,
+         //   the borrow prevents the `VMap` from being dropped for the lifetime `'a`.
++        // - `VMap` does not expose the mapping in any other way, so all accesses to the region
++        //   from Rust go through views created here, and those are never plain accesses.
+         unsafe { SysMem::new(ptr) }
+     }
+ }
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index a877df11a03e..00bab24d613c 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -1452,7 +1452,8 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+         ptr: *mut U,
+     ) -> Self::View<'a, U> {
+         // INVARIANT: Per safety requirement, `ptr` is projection from `view`, so it is also a valid
+-        // kernel accessible memory region.
++        // kernel accessible memory region. Accesses through the new view are accesses through
++        // `view`, which no plain access races with per the invariants of `view`.
+         SysMem {
+             ptr,
+             phantom: PhantomData,
+@@ -1470,8 +1471,9 @@ fn io_read(view: SysMem<'_, $ty>) -> $ty {
+                 // SAFETY:
+                 // - Per type invariant, `ptr` is valid and aligned.
+                 // - Using read_volatile() here so that race with hardware is well-defined.
+-                // - Using read_volatile() here is not sound if it races with other CPU per Rust
+-                //   rules, but this is allowed per LKMM.
++                // - Per type invariant, no plain access races with this read. Racing with atomic
++                //   or volatile accesses from other CPUs is not sound per Rust rules, but this is
++                //   allowed per LKMM.
+                 // - The macro is only used on primitives so all bit patterns are valid.
+                 unsafe { view.ptr.read_volatile() }
+             }
+@@ -1481,8 +1483,9 @@ fn io_write(view: SysMem<'_, $ty>, value: $ty) {
+                 // SAFETY:
+                 // - Per type invariant, `ptr` is valid and aligned.
+                 // - Using write_volatile() here so that race with hardware is well-defined.
+-                // - Using write_volatile() here is not sound if it races with other CPU per Rust
+-                //   rules, but this is allowed per LKMM.
++                // - Per type invariant, no plain access races with this write. Racing with atomic
++                //   or volatile accesses from other CPUs is not sound per Rust rules, but this is
++                //   allowed per LKMM.
+                 unsafe { view.ptr.write_volatile(value) }
+             }
+         }
+@@ -1519,8 +1522,9 @@ fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
+         // SAFETY:
+         // - Per type invariant, `ptr` is valid and aligned.
+         // - Using read_volatile() here so that race with hardware is well-defined.
+-        // - Using read_volatile() here is not sound if it races with other CPU per Rust
+-        //   rules, but this is allowed per LKMM.
++        // - Per type invariant, no plain access races with this read. Racing with atomic or
++        //   volatile accesses from other CPUs is not sound per Rust rules, but this is allowed
++        //   per LKMM.
+         // - `T: FromBytes` so all bit patterns are valid.
+         unsafe { view.ptr.read_volatile() }
+     }
+@@ -1530,22 +1534,32 @@ fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
+         // SAFETY:
+         // - Per type invariant, `ptr` is valid and aligned.
+         // - Using write_volatile() here so that race with hardware is well-defined.
+-        // - Using write_volatile() here is not sound if it races with other CPU per Rust
+-        //   rules, but this is allowed per LKMM.
++        // - Per type invariant, no plain access races with this write. Racing with atomic or
++        //   volatile accesses from other CPUs is not sound per Rust rules, but this is allowed
++        //   per LKMM.
+         unsafe { view.ptr.write_volatile(value) }
+     }
+ }
+ 
+ /// A view of a system memory region.
+ ///
+-/// Provides `Io` trait implementation for kernel virtual address ranges,
+-/// using volatile read/write to safely access shared memory that may be
+-/// concurrently accessed by external hardware.
++/// Provides `Io` trait implementation for kernel virtual address ranges, using volatile or
++/// byte-wise atomic accesses to safely access shared memory that may be concurrently accessed by
++/// external actors, such as hardware or user space threads, or by other kernel code using atomic or
++/// volatile accesses.
++///
++/// Accesses through a `SysMem` are never plain accesses. A plain access is a non-atomic,
++/// non-volatile access performed by kernel code, whether in C or in Rust. Two accesses to the same
++/// memory race if at least one of them is a write and they are not ordered by synchronization. A
++/// plain access that races with another access is a data race, and therefore undefined behavior.
++/// Accesses performed by hardware or by user space are not plain accesses in this sense. Racing
++/// with them is well-defined, but the data observed may be arbitrary.
+ ///
+ /// # Invariants
+ ///
+-/// `self.ptr.addr() .. self.ptr.addr() + KnownSize::size(self.ptr)` is valid and aligned kernel
+-/// accessible memory region for the lifetime `'a`.
++/// - `self.ptr.addr() .. self.ptr.addr() + KnownSize::size(self.ptr)` is valid and aligned kernel
++///   accessible memory region for the lifetime `'a`.
++/// - No plain access to that memory region races with an access performed through this view.
+ pub struct SysMem<'a, T: ?Sized> {
+     ptr: *mut T,
+     phantom: PhantomData<&'a ()>,
+@@ -1570,8 +1584,10 @@ impl<'a, T: ?Sized> SysMem<'a, T> {
+     ///
+     /// # Safety
+     ///
+-    /// `ptr.addr() .. ptr.addr() + KnownSize::size(ptr)` must be valid and aligned kernel
+-    /// accessible memory region for the lifetime `'a`.
++    /// - `ptr.addr() .. ptr.addr() + KnownSize::size(ptr)` must be valid and aligned kernel
++    ///   accessible memory region for the lifetime `'a`.
++    /// - No plain access (see [`SysMem`]) to that memory region may race with an access performed
++    ///   through the returned view.
+     #[inline]
+     pub unsafe fn new(ptr: *mut T) -> Self {
+         // INVARIANT: Per safety requirement.
 
-> It should be better to keep the -ENOSYS handling to preserve the
-> original behavior.
+-- 
+2.54.0
 
-Overall the behaviour is unchanged in both configurations, so no separate
-handling is needed.
 
-Best regards,
-Jun Yan
