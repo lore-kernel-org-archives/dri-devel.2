@@ -2,97 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8C2606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 02:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B029606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 02:19:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PI5/IVfI
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VVKDCu9m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0044E10E743;
-	Fri, 13 Nov 2026 02:17:35 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD57110E2B9
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 02:17:29 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-6a642495d81so423600a12.2
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 18:17:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794536248; cv=none;
- d=google.com; s=arc-20260327;
- b=cmZ7eHfXFpsUKzCswK+lpv6D+1xgd9CPPuA7fkeVFLiX/tik7jOWoYbRU2zkSBjGAt
- 5b9F50Hk+plQJ6rpKjOZeEgu+O0JBPdWbFwijKtzeaSzjMS58YSuYyF+rxpjvvodTnAG
- yRi9CP796zhZWXRARdZ2pJhyN4YiflTssO7XMhHv6m8z0JkqW0pO+bmfbcco2QtovklU
- PnMcQ0b/RRjCFkPEwbXLFK4RQydm3NJW6ns8MmTBP04fbCm9Gi7WDmLi597wUoQvKciu
- ZOa7StsxN8kPMEYd4El8YqG9wVkANCUw+t+PRFgsV0SdbV31+rW/vzjEoVzSucHFJQrs
- tZnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QnD+ySvHUO58cxjpkDP3a052kfKgub2WKAAH4qvj1u8=;
- fh=zl8v3Qx0EqWCT8MVVUtM+Ait7pqB3bi42CPh3uJqS5A=;
- b=n0xDHl69JFd4jtav5oC2sY5ElciQ9vIlzSZnBEuGBHzrses/pQmieFV24j0B+E9+M6
- jAr71VrwuZwLugULQGNm4xXWMKUlWPw0RIDs4mNW0b9JbxErNnd4l1DOHa9xlgh2tnhk
- 1DDsD55IXMyP8tgWmOviNjPUlK3+1X6vzZu2bBpUQp0UPOd/4EPbobdxYyidxl2LWtAP
- Ypv9SaJwonQLPQp4RXu++0oHGOGwlFLbR/23h+IFvFjnKIdEEmKHZAvQ+kTMPZI3qZsJ
- Nxzk4mcokO+R1vRfppqfT/BLZ1GOsQLPRpqTAQBehjNxmx+L5122TE61HjsaFm4todzz
- zlKQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE6FA10E2B9;
+	Fri, 13 Nov 2026 02:19:41 +0000 (UTC)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E655110E2B9
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 02:19:35 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-14394530ec6so545616c88.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 18:19:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794536248; x=1795141048; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=chromium.org; s=google; t=1794536375; x=1795141175;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=QnD+ySvHUO58cxjpkDP3a052kfKgub2WKAAH4qvj1u8=;
- b=PI5/IVfIl8jvKv2I3OprwAFVG013sQZTpiluho3mst1+yYXNhnBP0ExaYpgB2yz2Dc
- csTpGC7AcUj1sONgaEFAYDKzHmmrZBHczCu0Zc+oAlIhM+oAOaw2X9Uotaz67hRhytSx
- MR4Vk0hLQzp3GwCBFgYxt7+3CDiNK3XnVMXyrzKmme3W5YDeQWNFso9tnEzBgXTZWkZr
- zUgidWY3q44bHkkydN8Q0MtdXUYaoPezUrgMdVHUuqGuwDIm20MQtnIKA8sYCELKZtJO
- X5ZdFTk9AWgNjF1634AtAXyDtovy+ASdi1dOPSZ93rAGsekW8QRARMpQC7+ncqOCj3/p
- Ib9A==
+ bh=ebdv6ZUT/HH0C8QcvPGAmiBNBGZr0ii2abVsK2I4hFY=;
+ b=VVKDCu9mmyqjvHvYpKNV7iFadZoWskyTTSsCH8e9z4AlaYpi/iEXHWVUr/++UqpsGM
+ VsJyLh9ai53XcnkZVp924ojnMLn/th6npXDCbfwh0qslwBzKW3SNP4UX+6o214CsvlDv
+ gKHpW0hB5XaNuPyP6zF5VqoyGBqX2nPZ/NB+c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794536248; x=1795141048;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20260707; t=1794536375; x=1795141175;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=QnD+ySvHUO58cxjpkDP3a052kfKgub2WKAAH4qvj1u8=;
- b=lv+NU/AnUHccK4HMd4xp2Q2Yp1m7/kMNNPmmw4VL+8LXkDWPj5hM+u8hTMj0DbmujG
- I1YjK+b+GZKM1A13xPXUb5kMH8tRG7iQZbgQeUM4g76oQ2H0j6SilPNHPFXjCgoMR/Af
- uuW8AkHADp/byEJhcifCq//i11tURetvAnJkfD3X1YAwz+bdkILHJNHByt9u76RVFaYl
- 32BjVG96D8YEUUlsoe7Cz0RP0LI8bT/x6Q2QRYH3HjaUkEImxJPvo7vXJMOHJDFCeqVc
- 9urKPByA96WfixZ5C361xW561gOadjeDp+cqSyxBWuYbwhtDSM+Ojb9OgCdmY1HWJPZ+
- LCQQ==
+ bh=ebdv6ZUT/HH0C8QcvPGAmiBNBGZr0ii2abVsK2I4hFY=;
+ b=IMA3l26bM5pFVwuMqrNKN8Nbm/6moFIFjQq9Q9cj/bUCLIEZqqR4A5Pe5CQmgfGwzG
+ IJjuCbMl9ax+w0JyKfeGpvU5hdXRvbnsYIC3Ht+Qdwfs7GYCCC3xo5jyZQA+pZJ2HxRr
+ 8vD3v5a2HhujBr4thxOsCi+WWyV+ezM6W7t4SJloL6mfNXfWsSQuIQAFrcJe3nKjP8p9
+ K1iFivcOxkFU90yrkg1CjwnD8TrKppQzKLN4x9r6G4LxCnxi31y/xCPgGVgTSp2G66DR
+ tKpXiOUslCh/JD8yIbDkJhagt4pynPVRHd2o4m4668tU1CDtOFOoOrb5efFpquTmX0yR
+ pGOg==
 X-Forwarded-Encrypted: i=1;
- AL+hErEC4tS1Rsg9Z83SwN6Jufrx8kHUBDMynPldYLQLSteYr37DsDGvTRqi9I1kgje/Y1E/Ie3jqENzDhM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/5jAxePGyFDLKHlZqNZjG3wKR7r1aD7LWOXsNPpvHducozs18O
- 4WZWJzF2fCSuVN0wCZ73MWuC2j3UeJdnP1w2brGQcTsZ1twrH1T2SZEu0FYJqH5TKZGD6FfhWj8
- WFZCDN/4EeKRCw8IM0x7VXh2UQ0UUfP4=
-X-Gm-Gg: AYBFou2OOzejsrBqA9XqIZFyoypvSAtDrt32U0NewK62evqjWio1mhx/K6MxOPfwVEa
- MO+9BKdA6ziWDeEHyBX1R5OPVCTcoU/xjj+YG/PI4Bx9zFE/osq8xYeD8vUVBumTt4NgcSEbNSk
- xug/CE09XCKHlN8rYlrG3pxCJD6K7PNsEJ6BAuV+vvxxo34ehsLmiEeyjs2yFIgOchwkMJoFe3/
- QppDRPN1n0S2QD2YJiwqV6EYLhlJ3Betp6ljGVbyxXquI0EUE7AQSH/EtZjwCCM+KjTHvHw6QCV
- SZKm/6mbZN8yHuURE5EmifbZOKVvAGpNBI9Ngrm0FRX574/uEr9yQZKpGHZef94NkiS1K7M5NJG
- cgkgxj++mhDOhGoV7Kst6zLm4zZH4zhcGFNyZmU06VYMBOYYLjzck8Gk1tBUyLENtZ+kM3SU=
-X-Received: by 2002:a05:6402:548c:b0:6b4:bd6d:2eef with SMTP id
- 4fb4d7f45d1cf-6b7c05c02f4mr975856a12.0.1794536248094; Thu, 12 Nov 2026
- 18:17:28 -0800 (PST)
+ AL+hErGYEq3d1XJ10bNSe+5DpLNaMX2Tx1dUfRyP7eE+H1tEVBXs31QC63i835OR6v/lTEpVo8kmkuQVUeU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8O+DRm9zd+ktu4CQIIe/Yj7umV0D8cz+qu6b3TyVoogbRY6Z4B
+ nHQaBCrmIcTUbh32ws92iVjlfcHU2kadYbgTsuJlLg145EurDUi0ODoUDLQUXDQL4w==
+X-Gm-Gg: AYBFou1cLZMm1wett7a+NCsfaectSN/G25tU8VvIWp2LBrgfA7IdeVkVCXz87cqUU2Q
+ /Ccu4p9Dv2zWNhHGqa+iMmlFdvIoCEbEvptMWJz1/TGhD+1hsONem0ddsv0W7nBOAIE6VspVeYO
+ xIH66HqDLb838QNZqwzWGvHXlazyZEm55O+hCRFKe6MeGFizBkxey4Hfv0sxTbIKPNRt+M1STdn
+ I0MxBTsn4D6xa7Wj2JT5b1tebG2uz9DvtiIaUoMI2otNOtl0AxHrIBNc+lnPH85oRyGU5Wbbn8f
+ P4ngQJtbc/1z1GXrfkH6XKxr4JbhTTC5mIzR2YXiPd+ajA1Q9RpvyHFSu+7/cDGhKdJ/y8ILvSj
+ 6NJ3+7OUEMIFNEqHzAmEvAoDQkJDm0d0E64qSUVpHfRskQeO4NicksZukM9Gh+3F8DqsFFiyLUT
+ sC5tDSDqWj2rioPxeYvXWStB+lAORKDD8W3kK5MCTzHZIO4UdEfeIDzZAdTmTZtYENjTOPapeiY
+ JdSjtWuDob7ct/dGThg5OLD3wO3HhPN0rCnoiX/R8po3nWmif0dVDjVFfA/sJcTUORpr2EEgjJA
+ GJQoOQjBkh3LDNZnzdKogp5U1B8IF5iHa1SwyvzwAUwiV/mYqf8x3+lFvLuhrYwqTKaHSg==
+X-Received: by 2002:a05:7022:3a03:b0:1a4:9eaa:d01d with SMTP id
+ a92af1059eb24-1b50315d8e2mr1234175c88.45.1794536375046; 
+ Thu, 12 Nov 2026 18:19:35 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:3f2c:d0f6:e2f1:e609])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-379565d269asm2477887eec.23.2026.11.12.18.19.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 18:19:31 -0800 (PST)
+Date: Fri, 13 Nov 2026 11:19:23 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+ Dongliang Mu <dzm91@hust.edu.cn>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Nhat Pham <nphamcs@gmail.com>
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+Message-ID: <avZyo_hCRonuhXW6@google.com>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261109063303.32658-1-operatingsystemsdepression@gmail.com>
- <20261109063303.32658-6-operatingsystemsdepression@gmail.com>
- <20261112212032.10576-2-joseph@telaak.dev>
-In-Reply-To: <20261112212032.10576-2-joseph@telaak.dev>
-From: Gabriel Gama <operatingsystemsdepression@gmail.com>
-Date: Thu, 12 Nov 2026 23:17:15 -0300
-X-Gm-Features: AclHuK_QYczYyjw7Av3aKqozd60_7RgOFOA0MeBbV4AVanwXZfcu0ZN4U5f9y80
-Message-ID: <CAFGNeagTMVdVPUxf_-uovQ1q=+=SM1PBuvSHR294pFu4ezzNsA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 5/6] drm/gma500: Propagate SGX MMU setup and GEM
- pin failures
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,25 +102,33 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 6:20=E2=80=AFPM Joseph Telaak <joseph@telaak.dev> w=
-rote:
->
-> On Mon, Nov 09, 2026 at 03:33:02AM -0300, Gabriel Gama wrote:
-> > Fixes: ae012bdc5799 ("drm/gma500: Hook up the MMU")
->
-> The code looks right to me, and ae012bdc5799 is where the ignored returns
-> came from.
->
-> My concern is that this patch has a Fixes tag and 4/6 doesn't. If stable
-> takes this one alone, the old insert still leaves partial PTEs on
-> -ENOMEM, and this patch then frees the pages under them. I'd either drop
-> the tag or give 4/6 (or its rollback part) a Fixes tag too, with a stable
-> dependency note.
-makes sense, i'm working on v3, thanks
+On (26/11/11 20:41), Xueyuan Chen wrote:
+[..]
+> diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
+> index d2bbecd78e14..4c0786378dc3 100644
+> --- a/Documentation/mm/zsmalloc.rst
+> +++ b/Documentation/mm/zsmalloc.rst
+> @@ -33,8 +33,8 @@ proper handle-based APIs.
+>  stat
+>  ====
+>  
+> -With CONFIG_ZSMALLOC_STAT, we could see zsmalloc internal information via
+> -``/sys/kernel/debug/zsmalloc/<user name>``. Here is a sample of stat output::
+> +With CONFIG_DEBUG_FS, we could see zsmalloc internal information via
+> +``/sys/kernel/debug/zsmalloc/<pool-name>``. Here is a sample of stat output::
+
+While we are at it,
+We use zramX throughout Documentation/admin-guide/blockdev/zram.rst
+and in some other files as well.  So let's just replace user/pool name
+with
+
+	/sys/kernel/debug/zsmalloc/zramX/classes
+
+Here and in the Chinese translation.
