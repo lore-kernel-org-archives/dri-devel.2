@@ -2,95 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B39606A8AB
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 11:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4735E606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 11:17:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xXmohKPG
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D62lie1t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4333A11251E;
-	Fri, 13 Nov 2026 11:03:50 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5412711251E
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 11:03:44 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-6b5973a4b4cso1585616a12.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 03:03:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794567823; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0A2B112540;
+	Fri, 13 Nov 2026 11:16:56 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9C1710E4BC
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 11:16:50 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6b6f42095bcso1571921a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 03:16:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794568609; cv=none;
  d=google.com; s=arc-20260327;
- b=UxPAsCb15MKHe8GqCI7VTJJdpqUjzv2nv7zcmO0v3ADdcHHe1TRE8Hlcb+O5e9Q88k
- OSJNrpOsqdR3nUHKfY7gq0rLqKEsAjtGzGPvgQCo1bG42RvCmTOZ1gqdo3Yl4FiGQ+7E
- HLI8tiwzBqZQ3AGdLov4DSizGvWmlyQFQHvELHoWnH5LkV/yJkLOxZ+BDfBkuxVAw5hJ
- 9MktMIXUoh6h9lOUDwhVfsp7taVrgtwit9Zt1XcBZQvbvR3cV2eSpsFhJZ3fj6eQg05N
- z2ADSJJyTnsdoY6THqvZvsAJtmFOncJOlsBFI67DJVXZnSxjq6296fGONlkUfqm4412P
- D/eg==
+ b=G4ORw1J7mo/IUGEUL0a1ALVhIRJ0KCYyypwMlfCcB2hpF9ie1IikMRmo1A+cN+Rfzv
+ ScN1tj5pIhAlAZtqBHfV0VZC5oQ9hx86JiC4ue3Xps+0oD5W8OUA4EwenwgVBOClUpAW
+ D3EPDf6N91PrkOC8lRrQ2vOMjlnlGkf1mcs2Arfg5j8BXm610GbPKMsUjQ+wneFVW8iM
+ ghTpLeyLDphf0l7bNHrBbZOcRL+7xZBg3E99pJ0R1fssGKiQxnQO+jCcsHMXh1Z+04It
+ EbN3RN0wKjFLg0ZMhVFNYi9R1dBrEHb5aZAfOWZ+YrKLLxo8KSDjJr5wXqeekxAIHo5Z
+ I4IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=+XFgRA/qctOq8KxdJ898btv3m6eGy5oWLsFTgKLCv74=;
- fh=NuXnrqMrLeu0UVpma1mhOJvCwBikHgavuXTfipAW8Uo=;
- b=r4UP/SmpEym2EDNBNd2oT2fFuZyPDa0H00dLvxsnsAzX0jbtUXyKL8LjF7hOaXW3hd
- qTFkeswzfBfkkPs3p+3r+OMNq6fxxDGQmvAr/vC7VBTuPgZdEAWtviTf8YQ9RC/iuxZ2
- F+pec4fZ02K+kPaGCljHH+wja7Qz0ta/voKAd/Chbwm+hr7Po7LoxTwAPIpg9iZ67ufy
- Y4gyt/UUpIKI8gO3Xh6n/ELAb4TyB+GVW40ZEulx8UqlEpn57jb7jLqh2GBn6tKcQON6
- IyL38QgkNId12xHcjDe+vmuMgBydLDIulEeGDfM2Q+8mylh/A/8FvwVSDZR/Jwe7szY6
- PZdQ==; darn=lists.freedesktop.org
+ bh=x+dL/pUR4F4FQVytUdUQ75lGkzx/qCuTpi3tX44aRZ4=;
+ fh=f4KGYPz6fRMe3vPb7VyaC2s7+zzlNJoF8bZeRJXR+Y8=;
+ b=DqimJ6GCiFv8v/+ZGeWr5xiVrLKocBMLrqblYtnY8Gq3/F19mD5UxDKPRlubZJfWAz
+ aMaJKYeEGxdJq+0nklbR84OVrggczYaKqQJ7xdmxkVnTi0FErWm4U0RRuvIownWgcjxO
+ hGnt9GyNxsm4g8ZHPEWdFM2fqom/bRaLI65cX5Gr0UdGpYbL1FfpmxmX4n6ELrCMfT1+
+ uO6cQuUTJ3ldASfP4LTuZswswhzKZ7BYQbov40YCa8k3ftNIgwQHl1vF316tZWYHSoZb
+ gaFd/qy4DlcxvqYQOUAO9g/OqHvk31zO6yuvn/tjdDnV28wE3ah5+csGpXZ9z/BJgWda
+ 4Lcw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794567823; x=1795172623; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794568609; x=1795173409; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=+XFgRA/qctOq8KxdJ898btv3m6eGy5oWLsFTgKLCv74=;
- b=xXmohKPGrCdhV9Qk/2qfMi9MytQQFT94u8tHQ/JfsF6XSJZSPg8CV4bjkarAvhjJko
- wlfbJRJG0Tq+iZtwZ8r0D98Ypi+DHTcpwLtvnw9dG7wZ7HcmNCZ01qoDzE12BR95u2vK
- MANwl2gxamnamMpU+Q9LIyNx3O1+JDO/WFk2S3T26SNzK234tKmcWQr+NsOA3cVJkxGT
- 7ErnTccD7bCaNuhq5eARn3NmhTJ4Yqk/WQ7Xn5btezMlDczYO1SzjWkET+I8kBQYSh2c
- aNkCFrR/Oe1R404sK/OTw1wwaq4iIPY1WMgfQYUq7QpXCE8X13rbVRa6tTfxLHZRp7y6
- IpPA==
+ :content-type; bh=x+dL/pUR4F4FQVytUdUQ75lGkzx/qCuTpi3tX44aRZ4=;
+ b=D62lie1tc0TyI2+8hRpVNLso9kh2tqIhNi1qkMFp/kIqq/0sL1YIeEU0V+OU1ZYyj1
+ 0BaEcjQzhZJIDXKI2yzS1pdKcBoCAqqjDwVnB/jd1mnUe1e2eOXsm7ktFh721PjACyqp
+ LWQ4oBYYIwQoy2ynEpf3pP3LNCkjhmtuAOSrxWO7z2/RCz6DST4Ik6sWG/MRmgKempSK
+ w6qH3kSXKZqLAnXubBHG/TBkmDk5ORHL/KN0/qNBm2pvWlrLhNX9cWG200rTNJ38oVQ8
+ A02VXrnBgBf/20zpyNAVdNWCLFU5CIynQLp2ItFGT5Uq67ZUkmarlEdzVOashvUX2wOQ
+ oNHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794567823; x=1795172623;
+ d=1e100.net; s=20260707; t=1794568609; x=1795173409;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=+XFgRA/qctOq8KxdJ898btv3m6eGy5oWLsFTgKLCv74=;
- b=Dxgf/p8fj7lBvtPOsLjmS1MKnz0cr96Njbat+qOhpNszWHVlGzlotBApgurmQq3NVv
- hz7lqRoKKJdP4/3UppMz4+NSB6G/PfSJnbUUhP8fexMzRNjZZNuEOgo1vmq9iu2O9Ncg
- O89GxKhGLT7ZVXC+m5aM7YnneXxu1k4vO7nTm4RviIA2lJVCFjzhkj8+fWf9j7SjY9ct
- 8nHuT0GN2GEPTTTMeeh17MGr8ZGO6N4g6uwSnqwneG7O91NtMqNOS/iDzAylKzR/iVJB
- 2lcrDA0goRbCMmpiuq+eVRgd2JujSVB8++pdRBDD/PBYUdYj8H5Cn3YPGEsoW9s1uM6l
- x+Uw==
+ bh=x+dL/pUR4F4FQVytUdUQ75lGkzx/qCuTpi3tX44aRZ4=;
+ b=s/ETEt8lNdKC1zHYJrGfOXbMSXmF9kyCcc9BY8I4rGS/4KhOV3ZoPElnljnMMvLt89
+ mNyd/uO96fUiGO9Ng5H+ld/YwMnuQyen0O7t0P7yGZvekTrRoHDacoEJdnMM4d6xcPsh
+ gpsQYt6M86SN8SaPBB8K39gHD8+JlotgI1j/nQb+J/Yuzao/fcLxo20m37RZY9QBJIZM
+ Tc/xjzV52ORLFVmJcCxZyWlKHBKAK6z0AfJzpI1AASjwNYfYCze9PtP3UxHMyKir5PbL
+ NWisH1Oyqpyp+uHeBcVe31XpGdTFq4jVe4nVDkVadYC/g8iAjYz4StBhnphidsJIIKiy
+ Bu9w==
 X-Forwarded-Encrypted: i=1;
- AL+hErHsXY5gpElqSHzAT8NF06AuCwBOH74Mxp1L2x4pSkw1ke7cCKf8t4iwCbHI7GpLmQGZJGo7g3gd2yc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ML7rlL9jHmEIxnmvYhDK23Z/5MAYVC6cnW1c+AAtWv9P0kDxp
- 7PM8aXnCN1MnE5d8vnifsc4i0OUQ7rj9P5m5xTcnfL6ba+Ok2BGgqpaAxrImkDscLTrDlRoUC2s
- x1+g5X+ryDXthP/e9WlsVpKuvk0jdRPo=
-X-Gm-Gg: AYBFou29xUmZZZKvpgSctYmzPrFHbTnDtMrQd/+2uz6vrNU01141SI6OBAJo8Qu5BQB
- eaBBfPp1ZCUBiSRGKapfoMKQ6PlKVcE3v67PxqwXBFa3ovyf2amrq4wyPdfSIA5w2qlgMZc3477
- +o8sghu/sIDnDuVE7M0zHbyo5uTiZn87B0qJUhQfhGyBNgPzxX9q7FVefB2c1Qzyz9gb4boi/+S
- xPYz/QIStQxtGhSYSgWHAKCkj9KJanvdO6WhKrSA4NiGirmKYg6l5/VKhyQ0yyOCwSAvF/TlIR3
- loWPDZluU+nyE4/nBomFDO4+2F7WMSL3JuQuoFr/NbpIpoVC27cNetEB92bGHnvgVrK7kO0b8or
- z4vXiW0i+WU0zAqJZSbP9T/qRzxNNe2QAMNPpcHALRX3oxut/S1lNwIZ0I2ZM01l27n3DsJ4=
-X-Received: by 2002:a05:6402:2109:b0:6b6:f3ca:94c7 with SMTP id
- 4fb4d7f45d1cf-6b7c0bbc6b3mr2149392a12.12.1794567822515; Fri, 13 Nov 2026
- 03:03:42 -0800 (PST)
+ AL+hErHNSWiu5X9b3gy92Yff5Ey+uJusoKZ27oOxiN7xDzuxupwID3LtHpyNlngiqe33DnhcTw0VAEq+kpY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8dzlB9DoQnnDKLDwE2CePQucQL7HL9cR8TOqWokJ6Un0dYwkQS
+ fOEPOwHchz0wCf4IOY/ap41JptbVPdNm/q222nMMMMmd3A0BoyP1pqG4uQe4A1uWKnkv4lSknlj
+ hXA/hxnRidgCdExy6iFfMYYVGeuLomLk=
+X-Gm-Gg: AYBFou2A6o7IQc6kLZ0xgV9Z45hntz3SptOmBNkwG5JI3s3zUBaJ3zUsUyQTTo/e8rQ
+ /cgnQgqoXPXMp+hR+dsQgaqyVotzBqgMdFCFdH+0+Mj9HhRTaXdztPa1bNCsfcQJGQsqRD+mVIx
+ kTzcbfo3wwurpc3trA+KsUzrkN9N7gDZg0lNC2CqAMH9Sp3h6TUXE6fQDJS8L3hmSLCsL/VRVZS
+ nvlxKVQKGkx16VCn1POmD9+aJSsGtyaMO43+5odCMQIxo9AkdVwVbIyWm9bXcSmtpBbSqkJhzn0
+ Nk8Pg7eW5qN6l5x8nX4hZxuKpOQRIDM6ag57dTrdRte3CjM9GcMcE/meuVpusnhhEeDxCG+vyL1
+ zo8CL8qPrMqGBnIWZIlac/Mv8Pnl4Hj3yJc6TIJwdlQdLTuTFk7IVO3XIGkP9scnlR/Y3328=
+X-Received: by 2002:a05:6402:42cb:b0:6b7:8591:4824 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d02591mr1780882a12.37.1794568608969; Fri, 13 Nov 2026
+ 03:16:48 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
  <20261113085341.61992-1-jttelaak@hotmail.com>
  <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
-In-Reply-To: <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
+ <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
+In-Reply-To: <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
 From: Gabriel Gama <operatingsystemsdepression@gmail.com>
-Date: Fri, 13 Nov 2026 08:03:30 -0300
-X-Gm-Features: AclHuK_-rUbrVMnuoLFJYOCKlETg6rn8GK9cAmGlyB9wed9wpYm-CIfhIxx8z1I
-Message-ID: <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
+Date: Fri, 13 Nov 2026 08:16:36 -0300
+X-Gm-Features: AclHuK-sgiJfOe_aa1gMorIQEzhhJIDpc2gzRfdf_b5jPlP4iRad4Uop4eDvftg
+Message-ID: <CAFGNeahrgeXe870i50nq8DRsqqEyUEwaVCoz_-iEUias4E31=g@mail.gmail.com>
 Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
  MMU and failure handling
 To: Joseph Telaak <jttelaak04@gmail.com>
 Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, 
  dri-devel@lists.freedesktop.org, Joseph Telaak <joseph@telaak.dev>
-Content-Type: multipart/alternative; boundary="0000000000009623b006602661d1"
+Content-Type: multipart/alternative; boundary="000000000000767d220660269033"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,64 +110,26 @@ X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000009623b006602661d1
+--000000000000767d220660269033
 Content-Type: text/plain; charset="UTF-8"
 
->
-> I would say that Poulsbo, even being a pvr SGX, wouldn't be considered a
-> generic sgx535; it has features that generic sgx535 don't have, as well as
-> 1080p video acceleration while generic products in the same line are
-> 720p-1080i
-
-
-GT, MMU, power-management and video encoding, These are also peculiarities
-of the poulsbo, We shouldn't treat it as a PVR SGX535, at least not just in
-name, because even though the 3D version is a PVR, Intel had a large and
-active role in it
-Moving now would bring more bureaucracy than benefits to Poulsbo; there are
-benefits to the SGX544MP2, but to Poulsbo? There are almost none
-
-The DRM itself is named DRM/GMA500; it had a 2D accel in the past, so
-that's another thing to mention
-
-I would say that for the GMA500 and GMA600, it's like changing the engine
-while the car is running, There is also the question of an old kernel
-
-I would say it's worthwhile for CedarView and SGX544MP2, which don't have
-2D drivers or viable acceleration on older kernels, but in itself, I would
-say that in Poulsbo, it's more worthwhile to continue with GMA500; and
-fresh news: my investigation of SGX544MP2 is yielding good results
+I would put something like this: Poulsbo driver in the drm GMA500, and
+generic SGX535 drivers in powervr_sgx
 
 >
 
---0000000000009623b006602661d1
+--000000000000767d220660269033
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container" dir=3D"a=
-uto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">I would say that Poulsbo, even being a =
-pvr SGX, wouldn&#39;t be considered a generic sgx535; it has features that =
-generic sgx535 don&#39;t have, as well as 1080p video acceleration while ge=
-neric products in the same line are 720p-1080i</blockquote></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">GT, MMU, power-management and video e=
-ncoding, These are also peculiarities of the poulsbo, We shouldn&#39;t trea=
-t it as a PVR SGX535, at least not just in name, because even though the 3D=
- version is a PVR, Intel had a large and active role in it</div><div dir=3D=
-"auto">Moving now would bring more bureaucracy than benefits to Poulsbo; th=
-ere are benefits to the SGX544MP2, but to Poulsbo? There are almost none</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto">The DRM itself is named DR=
-M/GMA500; it had a 2D accel in the past, so that&#39;s another thing to men=
-tion</div><div dir=3D"auto"><br></div><div dir=3D"auto">I would say that fo=
-r the GMA500 and GMA600, it&#39;s like changing the engine while the car is=
- running, There is also the question of an old kernel</div><div dir=3D"auto=
-"><br></div><div dir=3D"auto">I would say it&#39;s worthwhile for CedarView=
- and SGX544MP2, which don&#39;t have 2D drivers or viable acceleration on o=
-lder kernels, but in itself, I would say that in Poulsbo, it&#39;s more wor=
-thwhile to continue with GMA500; and fresh news: my investigation of SGX544=
-MP2 is yielding good results</div><div class=3D"gmail_quote gmail_quote_con=
-tainer" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
-0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<div dir=3D"auto">I would put something like this: Poulsbo driver in the dr=
+m GMA500, and generic SGX535 drivers in powervr_sgx<div class=3D"gmail_quot=
+e gmail_quote_container" dir=3D"auto"><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div d=
+ir=3D"auto"><div class=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex">
+</blockquote></div></div>
 </blockquote></div></div>
 
---0000000000009623b006602661d1--
+--000000000000767d220660269033--
