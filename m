@@ -2,98 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910F6606A8B9
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 19:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bD9Q0W5p
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC1B606A33A
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 20:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C00FF10E19D;
-	Fri, 13 Nov 2026 19:59:44 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 335A810E43C
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 19:59:38 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-91f0c4f7a8fso23968806d6.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 11:59:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1794599977; x=1795204777; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
- b=bD9Q0W5pKpk/l30UApGzwem5h23kCTRP77QKy2i5F0tzxFmxlo2XYPxXmrZVwZE9ot
- 01HUiJxqLmMYlDHxtdqXU/7pXYOd+z45rhoptIziYomeBYra+PQlgOQ3u2B1xo2TYT7v
- j/jRHaS7lcM31IPcE30f3VcmJylAh/OYac2aRBBEb9T3jJjkCmZC18ex/CnbL+0ZLnL+
- myn0iIpN3xY9+2LZuOAN/GJcdSasDB7ivByopO5y9vIYrpKkK4ZKGZJFP94tksOoC4Aj
- 4cy80AJXO6G5FSoi52FH9cIFhQ7A6ge8MsS4OWWBjzEMEVoBX87Oar2IYWv9DcH2Z1dU
- Fcgg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B466C10E301;
+	Fri, 13 Nov 2026 20:02:20 +0000 (UTC)
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D263410E301
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:02:19 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-8b335eeb340so13461427b3.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:02:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794599977; x=1795204777;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
- b=JBj1TASVuR6lP/Xr/5Et7Qv6KV2dYE567uUBNvbSfov3RSMM35x0v7qBC4vvIypYAj
- GctchrLso07q8QWYsl29osyJPMHBAIFc5JJeAY4pGCvRqkpKFqrLALlrSE2uiMbCf5Gd
- nHSd8taXVd0dHazUEQ1cEndqlgKyL0NGA1OBFT17PHg0LgiUycQZyHmC2DTXLm08t6W+
- SZmORH5r9GekEiW6TMegXduFuW33ke5QZM7RONNhgIRYik0kvlvxKWcLW/VzMtVorUcF
- 19fGe2J2Tl32c0NzhdlRuo3tDXmzaIdFmMQgEzPLjulnroNc6iSTEluCh3KHbsLdI54g
- 3FlA==
-X-Forwarded-Encrypted: i=1;
- AL+hErE+WuQtH5VZeXAlJS+SKSUIUR5SebHmzkl4zJkowTeVCgwmYCo6o7lNlhdYyoE/NGrmcAYBzLpgGME=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+zQyQaNA97gf/4sMjp1a9BfQvk2kj9on700awsu790K5VGsvVc
- l15poKsxJQtS8kVIeg5s+gW9+6lXrg2OgRuCVu94KND4BadahqI6vm8kb8WcbE9Ev2Q=
-X-Gm-Gg: AYBFou1RFHW1QOe7vk75jueDGFRitYnKXqwJ50WYr5BZSlMmtLRjjnHzaE5Zzv8wl9F
- l5i0nEi3Q+kxHroAx5fldKHwSorDY8+eKAyPnMN4XoaK8VbyER6x5xogm4xMHvOg8PeqnwrdfQF
- cfkmG4uKxkUfr3aFra/TGA3Zs+4FeFyZJFFaQc/4WVmDuOf1kLqgxdPRyPBGwTi4pociboLehha
- wFpHZzMBzJq4UMQQiLd1XGGlWSL29LqE9r0O0l4j0TLTUGY99cVtmmL0JV7BeTe/edyJNQu5H2l
- pSGz83fmrx6L3487YzNfe0XAf8s/KOkuqihv/CbksMCNnrI/jJRV+eTwjLIylXe3yNrCXY3VpHw
- Qns7/Fk4yLb8JnhTrOIKKFA9iw9MScXz1kezGdm1yGSkHYb1GRucHYZ4E8j9Kz93U1+s+4r7e9f
- aRWvMLYht4z5lcqE0O6YcPeJlhhkST+6XSehuiPrqeLlXc/TvY5iiBBUWSocwAYmA0dTyQB5slP
- IS3NNas7fSE2yala0enQa6tNAdI+2OFDwEmLQWEZ7qVyyIh0lA8iveXRHRA2zkesNRficlJquAu
- KZ6fAw==
-X-Received: by 2002:a05:6214:451e:b0:91e:8d6d:21c8 with SMTP id
- 6a1803df08f44-91f2423e922mr59090456d6.54.1794599976764; 
- Fri, 13 Nov 2026 11:59:36 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91f23db49c5sm27322246d6.41.2026.11.13.11.59.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 11:59:35 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xRxQs-00000001ekG-3813;
- Fri, 13 Nov 2026 15:59:34 -0400
-Date: Fri, 13 Nov 2026 15:59:34 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261113195934.GD2532299@ziepe.ca>
-References: <20261111121602.GQ8635@unreal> <20261111224136.GA754433@bhelgaas>
- <20261112092326.GU8635@unreal>
+ d=1e100.net; s=20260707; t=1794600139; x=1795204939;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ftLGNIEMed5JUTDYLuZhEChOGJfoU58LD9PZZL0hGOE=;
+ b=p+SJyBiVi0isZ6WRZL52ZqRX3fROKLLPkI0r6DSPNT5FGG5MlAYk/tLOkpCzoA3z4p
+ kDUEAtFo2TgycWe4VUtYSDyTJ/Q7lZKmZzot5P31OmuwHvKJy6eFQ1RDQJ70EGuZyhhw
+ O7ER3AX6LdKMHnPWkaFGqwDL/MeOKUu7XZJDe3JsWoITS+7k2BCiW5lBHMzX8KBO1Kky
+ szyKDNj84LlGAniFm0Qtp0tSM8OMfbptRqxpNTp8kVzTWOxZqKQQsGZhYrkCEG0OHopd
+ oiJrIxYyeBuPZFHOJUtER1lpd2uomLChpw9I6fLHgVYKoGyyJW3phmI8aF5GdZ/pvZs7
+ h0sQ==
+X-Gm-Message-State: APuU4Z8zFksyyINlRhk34yyR3q9aVd9S8U+C4R7/gkB3QplMDF2S3uFB
+ vdxWDJAcqaTkGf0Qh9S0sQJT/dCTc7Kf5eMXbrlaYFZfSGKSdqrtQCmWj64TLttfaps=
+X-Gm-Gg: AYBFou0aTwZDZmq6/D7AuFuE36EANknRTaH2LU3vGlAnD1x9Ww0EYVjxTzfGLU6anAz
+ lAM4ZnZ73w5Gd3Y3j4RGDbrhc3M4xacE4Hfi/VcPVYVwtEfsDvuO7aYEn5fZ3LpcNjDm7TrUZUi
+ hJrbdTFKSdUNOq2VBM7/SXZiKAtPPWUqqwRKmCYvUo5YNUSCUL+dif3Wh3zcQxAH9rNzfCkPI3k
+ IY+8bo1Nl2nQ//vF5EEAkLHtT2Odg5sxFb4yEppHN2GtMv++QWwvKZNgjM7g06atvrODpcx8IyM
+ GdDFPGsZpm5ZZ8mZg5KhSPC/C4reCG36pzUqZCLo9E1sr/cxg47o+YnliYtaIiuJiuee+3NgPS+
+ RqMf4Qo+sg4QRP7dSI+m886AVE6v3DQWgcbymglnW1Oz9L6IZYDJO1xWPjWrOntAPnSGRiKJuZS
+ vi+HPLoh4a97UO05qUYMQGNC1YjLwU4ibF2IDQ62B5By49NXOJs+JLCoeWtVz0sxK0e8RvaerCz
+ 7bstEp6R+HJiwYa05jUcOgfD58uSGoEuQmOmYK0FxfApc9uwQX2z23M4nwNbQq9GojiH15ifkZ1
+ 9Rff5G0pF/pCjLm+a+k/85VEHj0GXGSY+eZW+q6D9qeKrgqzBEWmhoyDKQCGdBHw7cAedG+CQt8
+ fm7uy2bse/sSe8WIbDbwr9Il1x0+r9Fw=
+X-Received: by 2002:a05:690c:a:b0:8b1:70be:d4d0 with SMTP id
+ 00721157ae682-8b4aa25cd42mr23621487b3.48.1794600138833; 
+ Fri, 13 Nov 2026 12:02:18 -0800 (PST)
+Received: from localhost.localdomain ([71.68.170.161])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b4aa9da90bsm28205227b3.37.2026.11.13.12.02.17
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 13 Nov 2026 12:02:18 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+To: dri-devel@lists.freedesktop.org
+Cc: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ frank.binns@imgtec.com, imagination@lists.freedesktop.org,
+ operatingsystemsdepression@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR
+ SGX5xx GPUs
+Date: Fri, 13 Nov 2026 15:02:16 -0500
+Message-ID: <20261113200216.82392-1-joseph@telaak.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112092326.GU8635@unreal>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,56 +74,15 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 11:23:26AM +0200, Leon Romanovsky wrote:
+The Mesa side is now up as a draft merge request, for review alongside
+this series:
 
-> > I guess one benefit of this series is that a path where P2P Completion
-> > Redirect is set used to mean that pci_p2pdma_map_type() would return
-> > PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
-> > it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
-> > Redirect is clear, Requests can be routed directly?
-> 
-> I'm not sure the first part (return PCI_P2PDMA_MAP_NOT_SUPPORTED) is correct,
-> since callers have so far ensured that P2P is supported before calling this
-> function. The second part is correct.
-> 
-> > 
-> > That sounds great as long as the Request uses Relaxed Ordering, so the
-> > Completion won't be affected by P2P Completion Redirect.  But devices
-> > aren't *required* to use RO even if enabled, and I'm doubtful that a
-> > non-RO Completion redirected to the RC is going to work.  So I don't
-> > understand how p2pdma.c can guarantee safety.
-> > 
-> > Translated Requests seems similar -- are we assuming that if ACS
-> > Direct Translated P2P is set and ATS Enable is set, the device
-> > *always* generates Translated Requests?
-> 
-> PCI spec allows "A Function is permitted to intermix translated
-> and untranslated requests" and p2p doesn't decide anything except
-> if routing is possible or not.
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/46286
 
-Both of these are basically the question we left open in the
-discussion with Christian.
-
-To use this new TLP specific API correctly the initiator needs to tell
-the API what kinds of TLPs it intends to generate, and ask if that set
-is OK.
-
-So you need to say 'I will use translated, I will use RO, I will use
-untranslated' because each of them can have different routing.
-
-NOT_SUPPORTED has to be returned if the modes the driver asks for
-don't have identical routing.
-
-I forget how this ended up when that got deferred, but that missing
-driver input is an important part of the puzzle.
-
-eg mlx5 knows exactly which of the three TLPs it is going to generate.
-
-Jason
+Joseph
