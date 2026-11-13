@@ -2,95 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B029606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 02:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VVKDCu9m
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA65606A33F
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 02:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE6FA10E2B9;
-	Fri, 13 Nov 2026 02:19:41 +0000 (UTC)
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E655110E2B9
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 02:19:35 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-14394530ec6so545616c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 18:19:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1794536375; x=1795141175;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ebdv6ZUT/HH0C8QcvPGAmiBNBGZr0ii2abVsK2I4hFY=;
- b=VVKDCu9mmyqjvHvYpKNV7iFadZoWskyTTSsCH8e9z4AlaYpi/iEXHWVUr/++UqpsGM
- VsJyLh9ai53XcnkZVp924ojnMLn/th6npXDCbfwh0qslwBzKW3SNP4UX+6o214CsvlDv
- gKHpW0hB5XaNuPyP6zF5VqoyGBqX2nPZ/NB+c=
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C6410E2FF;
+	Fri, 13 Nov 2026 02:21:06 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C388B10E2FF
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 02:21:05 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-8b331cad3cfso3981387b3.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 18:21:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794536375; x=1795141175;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ebdv6ZUT/HH0C8QcvPGAmiBNBGZr0ii2abVsK2I4hFY=;
- b=IMA3l26bM5pFVwuMqrNKN8Nbm/6moFIFjQq9Q9cj/bUCLIEZqqR4A5Pe5CQmgfGwzG
- IJjuCbMl9ax+w0JyKfeGpvU5hdXRvbnsYIC3Ht+Qdwfs7GYCCC3xo5jyZQA+pZJ2HxRr
- 8vD3v5a2HhujBr4thxOsCi+WWyV+ezM6W7t4SJloL6mfNXfWsSQuIQAFrcJe3nKjP8p9
- K1iFivcOxkFU90yrkg1CjwnD8TrKppQzKLN4x9r6G4LxCnxi31y/xCPgGVgTSp2G66DR
- tKpXiOUslCh/JD8yIbDkJhagt4pynPVRHd2o4m4668tU1CDtOFOoOrb5efFpquTmX0yR
- pGOg==
-X-Forwarded-Encrypted: i=1;
- AL+hErGYEq3d1XJ10bNSe+5DpLNaMX2Tx1dUfRyP7eE+H1tEVBXs31QC63i835OR6v/lTEpVo8kmkuQVUeU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8O+DRm9zd+ktu4CQIIe/Yj7umV0D8cz+qu6b3TyVoogbRY6Z4B
- nHQaBCrmIcTUbh32ws92iVjlfcHU2kadYbgTsuJlLg145EurDUi0ODoUDLQUXDQL4w==
-X-Gm-Gg: AYBFou1cLZMm1wett7a+NCsfaectSN/G25tU8VvIWp2LBrgfA7IdeVkVCXz87cqUU2Q
- /Ccu4p9Dv2zWNhHGqa+iMmlFdvIoCEbEvptMWJz1/TGhD+1hsONem0ddsv0W7nBOAIE6VspVeYO
- xIH66HqDLb838QNZqwzWGvHXlazyZEm55O+hCRFKe6MeGFizBkxey4Hfv0sxTbIKPNRt+M1STdn
- I0MxBTsn4D6xa7Wj2JT5b1tebG2uz9DvtiIaUoMI2otNOtl0AxHrIBNc+lnPH85oRyGU5Wbbn8f
- P4ngQJtbc/1z1GXrfkH6XKxr4JbhTTC5mIzR2YXiPd+ajA1Q9RpvyHFSu+7/cDGhKdJ/y8ILvSj
- 6NJ3+7OUEMIFNEqHzAmEvAoDQkJDm0d0E64qSUVpHfRskQeO4NicksZukM9Gh+3F8DqsFFiyLUT
- sC5tDSDqWj2rioPxeYvXWStB+lAORKDD8W3kK5MCTzHZIO4UdEfeIDzZAdTmTZtYENjTOPapeiY
- JdSjtWuDob7ct/dGThg5OLD3wO3HhPN0rCnoiX/R8po3nWmif0dVDjVFfA/sJcTUORpr2EEgjJA
- GJQoOQjBkh3LDNZnzdKogp5U1B8IF5iHa1SwyvzwAUwiV/mYqf8x3+lFvLuhrYwqTKaHSg==
-X-Received: by 2002:a05:7022:3a03:b0:1a4:9eaa:d01d with SMTP id
- a92af1059eb24-1b50315d8e2mr1234175c88.45.1794536375046; 
- Thu, 12 Nov 2026 18:19:35 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:3f2c:d0f6:e2f1:e609])
+ d=1e100.net; s=20260707; t=1794536464; x=1795141264;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Uei3X7eaYXoUGpiETn67YwHGgpXCnW4kjNL27gbEkSI=;
+ b=y78tMvNYCCp2K+t+EzALlk43T1iN7gaw4odvashcqHc+LZpO+3ph455D0zQH80qCdj
+ JKyhdp94806vQGHG6MTOsAeX0E8hjzUSJiaJ6dKHFU8+63xkgdacw37rfzXAlqtUmAsT
+ Qx2o3RE1qGbXdVewyusThEV2RmMQaAa0Opuyrv4xAonQN+UYqFgbC1t5yqtjsD825KDo
+ RwABaz05ZkkNcvPRLL/XbUAxF5tvVqAmu4WGbeXVl7E8d7lh2HajhSvX7qwvdhBbc6r/
+ H5f2jCHO/Vaou34LbERqPu5Cb1LMH/rDyUZNEU78HGo6s59eQGl2FPzb6qiI7ZhbTXWI
+ QTJQ==
+X-Gm-Message-State: APuU4Z/0NwszB+YYj4k+miWZlmeCWElwwtM4DU6dN5fKlIZU/gnef6di
+ rHUqtsXJqflTVR4ilMR04c+KTgzkKqxv+nPTi7toB4md4jAJ9lD2R9HH
+X-Gm-Gg: AYBFou3CLdg3zz5D5zuMu8tZ35vts5zrjDRmTXe9YIZcn1BB3dQ2m6x76izZAyUi1en
+ DpgjYw365MCDrAx7WIoSDiFR/UMIpdWPPalo3OkJgOf3/1J7t7eRzlTS5v3odgzPU9QMCINaqsu
+ K8iU8vo5w66nABd5/G7ir+Z+vOZxmHhmAYr19Vo9TczK3hhbc4nEm6yOe8lJQCbKGnbeT8VJ8Au
+ 50HAM7ZQkQQjYOi6Eb3CoH577i9UePYKeoXuWt74u1PNiDitL+q8YLG5yQbze9MvZSO9TuEx5GS
+ DyrOOi5QEVXUr6U+NzjAO5buhH1KH1w630AkzbNa2E7dSOtdqKTeH/14sc9gYd26WeY5xnK5C/A
+ ykrshRNyqQIQd4QqxpG8vBAGYwxhq0bUHELobDSidpQxf2lodKSapfDne3d33Oiv+TLKKCR1k+E
+ 0S+AoUHi5b61ltAPMzcwdb6mhkJNJ7mjh4vcitT7sO1xwqrggRPrt3Y7SnIJRaPjq03OfdLZnQo
+ nQlYFcSYGlNKMCEknGcgCvfNQV3LJix++Ytc8r7v7/5FptV5A2JY9t5SWNjeDlWuvEQVQ/Q7Rq4
+ 2EOF0SXxw47kIybuhQ2sLpeyInRZ4Y8RCgnJMFC2IhrvsPTet/yiWhFTUvgtzzYKJ/cdR/Vrli+
+ U8krVMhFVsrn7HGuUsdhYlRKD0cTa3aqC
+X-Received: by 2002:a05:690e:168d:b0:67b:ffed:e1c9 with SMTP id
+ 956f58d0204a3-67d896a37b2mr912238d50.37.1794536464486; 
+ Thu, 12 Nov 2026 18:21:04 -0800 (PST)
+Received: from localhost.localdomain ([71.68.170.161])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-379565d269asm2477887eec.23.2026.11.12.18.19.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Nov 2026 18:19:31 -0800 (PST)
-Date: Fri, 13 Nov 2026 11:19:23 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Minchan Kim <minchan@kernel.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
- Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
- Dongliang Mu <dzm91@hust.edu.cn>, Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Nhat Pham <nphamcs@gmail.com>
-Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
-Message-ID: <avZyo_hCRonuhXW6@google.com>
-References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+ 956f58d0204a3-67d8a4339c3sm890660d50.3.2026.11.12.18.21.02
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 12 Nov 2026 18:21:04 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+To: operatingsystemsdepression@gmail.com
+Cc: dri-devel@lists.freedesktop.org, patrik.r.jakobsson@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, alessio.belle@imgtec.com,
+ luigi.santivetti@imgtec.com, christian.koenig@amd.com,
+ thomas.hellstrom@linux.intel.com, imagination@lists.freedesktop.org,
+ frank.binns@imgtec.com, matthew.brost@intel.com, dakr@kernel.org,
+ phasta@kernel.org, sumit.semwal@linaro.org, linux-media@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Joseph Telaak <joseph@telaak.dev>
+Subject: Re: [PATCH RFC 02/13] drm/gma500: Publish the Cedarview SGX as an
+ auxiliary device
+Date: Thu, 12 Nov 2026 21:20:41 -0500
+Message-ID: <20261113022041.74295-1-joseph@telaak.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <CAFGNeagBWpdG7a9A-c6WRiPsd4oPXcWai9o=xnkZDyY+axcniw@mail.gmail.com>
+References: <CAFGNeagBWpdG7a9A-c6WRiPsd4oPXcWai9o=xnkZDyY+axcniw@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,33 +79,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On (26/11/11 20:41), Xueyuan Chen wrote:
-[..]
-> diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
-> index d2bbecd78e14..4c0786378dc3 100644
-> --- a/Documentation/mm/zsmalloc.rst
-> +++ b/Documentation/mm/zsmalloc.rst
-> @@ -33,8 +33,8 @@ proper handle-based APIs.
->  stat
->  ====
->  
-> -With CONFIG_ZSMALLOC_STAT, we could see zsmalloc internal information via
-> -``/sys/kernel/debug/zsmalloc/<user name>``. Here is a sample of stat output::
-> +With CONFIG_DEBUG_FS, we could see zsmalloc internal information via
-> +``/sys/kernel/debug/zsmalloc/<pool-name>``. Here is a sample of stat output::
+On Thu, Nov 12, 2026 at 11:08 PM Gabriel Gama wrote:
+> Hi Joseph, I noticed that gma_sgx_set_irq_handler() updates sgx_data
+> before publishing the new handler pointer.
+> During unregister, could an in-flight IRQ still be using the previous
+> handler while sgx_data is being changed?
+> Would it make sense to clear the handler first, call
+> synchronize_irq(), and only then clear sgx_data?
 
-While we are at it,
-We use zramX throughout Documentation/admin-guide/blockdev/zram.rst
-and in some other files as well.  So let's just replace user/pool name
-with
+Yes, good catch. On unregister the data was cleared before the handler,
+so a handler already running on another CPU could see NULL. For v2 it
+does what you describe: the handler is cleared first, then
+synchronize_irq(), and only then sgx_data. On register, sgx_data is set
+before the handler is published, with a release/acquire pair against
+the IRQ handler.
 
-	/sys/kernel/debug/zsmalloc/zramX/classes
+> Otherwise, the auxiliary-device approach looks interesting, especially
+> for keeping the display and render responsibilities separate
 
-Here and in the Chinese translation.
+Thanks, that was the main reason for it: gma500 keeps the display, and
+the GPU driver doesn't need to know anything about it. The same SGX
+cores sit next to quite different display hardware (gma500 on
+Cedarview, simpledrm on the CE5300, omapdrm on OMAP3), so keeping the
+render driver independent of the display side lets one driver cover
+all of them.
+
+Joseph
