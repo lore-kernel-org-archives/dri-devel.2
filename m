@@ -2,76 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E085A606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6E4606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:18:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoCuh1Nq
+	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=oKeHPNNo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA8411249E;
-	Fri, 13 Nov 2026 13:15:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE6511249E
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:15:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 85A7E43D43;
- Fri, 13 Nov 2026 13:15:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AC31F000C6;
- Fri, 13 Nov 2026 13:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794575750;
- bh=sNs9dw0Nqnz0km07lR3zmY7OWw3VLUamfMydRJ6ooco=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XoCuh1NqReZMqjey+GrCXaEVV4Nv2H7hbTMiOCaBmj3GmT7pX5LJxaZrzIAtLFdVu
- hu0uWOARjZeaLAqRrqMPMRa2MQAnwvY5gQx50p838auRLqMPkdDp7Nc0E+NJ/EjXnD
- OwFDEeYNM5hDUpsv7Bht3pSPSKZ2onEbn1QX6hi7ITzg9u+ivQ/RgYI100wSnc5JEe
- EmXraWGKgPYH9HRXeAxwfHjkYp2dgrQMPJA4/Jxi4Y33GyIejkQYYXBC9Ko9KZHh4p
- zOS57ioFbJYcPh8f9WoQ40mQPU05G6Wp0ZkWabvMe+UJ/oZi7Vgxoj5SjSthiIY2Lv
- V1hwS050nqltw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Fri, 13 Nov 2026 14:15:09 +0100
-Subject: [PATCH v6 2/4] rust: sync: atomic: add memcpy
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0001124AD;
+	Fri, 13 Nov 2026 13:18:13 +0000 (UTC)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC45010E7CC
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:18:06 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-3b155f50c24so1894218a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 05:18:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794575886; cv=none;
+ d=google.com; s=arc-20260327;
+ b=lZvx8OyOTrNxe5nDbavc1T/IP74KqKlsOZwiBqyk87h0k5bIAsRDZgJXHw8tC588qX
+ GnLC5D5Rq8sFRxCtGO1sIlB4V8q6JKNWbQFXdOjAnqGoKPR7c3hrh5bUK+nEn3DsQ2Fr
+ 3cdwrro/w3dNrU/pI4X9ATzes/mtHP8cvzXrpqfT0ale8+MZu6lGapcPVabDE0d5T54n
+ GwFrWRTSi6pn6Czi1r5wj7v4umJjUaNF46Q3xhKcye6kwWRVs1Xkcl4EEIycowa+ssmo
+ Jbl9gSy70+83Di9FfkHJY9SgHV65VavLcqI8qRGBAbMlodOirwsG8PRljsEACWfsqxeS
+ UBoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2V9pKXfHF5wPvuKsUvUZ8j5JmgMsAXvasgkSG59qlpU=;
+ fh=Wp15HV9gGYjlhkc7MXDqspwDaCFNPUWrR8ewMsnoZuA=;
+ b=GNBfNo0y//rdADcpxDW2bwF4JCPNpUxTx2Qu5eDI1XOLOqsxO7ERDtVJu5LBwLTTcs
+ 1c5+bqpetWtyJa62T48slnoI3mcN2O36WbXh6iv2y3urHj/b6g0UTCYKjhyq7JROEMkb
+ X9axbMQ32O+9GZyiSIrEvjiQmX1kQoaudLnk/C1QAX949+ETkO9IHR5T2VhYq+BLMx5X
+ L7K66s2j7cR5PzWkLdSuiU+KEhh95iGRNWASlLxL6Y3g/LQKlsOoUFzAy/nlg9Z6J7k3
+ +ciHvMBrwYDUxDuR8mLkiJsJiAQmEUaz7fAR9z/bFyrU1cFYIMw3sQ+osBSzWEIQrxMT
+ mGLw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1794575886; x=1795180686;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2V9pKXfHF5wPvuKsUvUZ8j5JmgMsAXvasgkSG59qlpU=;
+ b=oKeHPNNoTCUvKmOPe53Rnc4y+u6dcSP/bP2pGGnBqwsbxcYbcPt4RROqnJ0jpzwshZ
+ BLdJtFX0rVKUT4iUdUzriomOWxfQj+bxQoHCrI97Jtw3AuC9bZUbifK3nJ47uoDIY49U
+ 7W/ARJRCBo/JtUTt4Cf3p4Wssn9JFgSIIIg5Q3gQydzakNm8lvirTo0L0U+kivMljtN8
+ xXR6ppOswRncaTezSZUQgwQRcsruFlCQWQtufB5xoOxMHnLhAwdVS8YTXziHbOPjbDld
+ DLxfhBOvEDD0vkpJjX8b5k3q75y7tirEerRECnx5yS50ebg4NrlP7hLDUJ7KpsnalE1O
+ n7QA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794575886; x=1795180686;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2V9pKXfHF5wPvuKsUvUZ8j5JmgMsAXvasgkSG59qlpU=;
+ b=lNMcCy1v3gcO5YcLR5ssdWVVcY6lQlkqhkLFaIDFBubVq9hu9WvjtblFvI9p0hdSC2
+ qtN0Tko1nSV/E21Vcxq3Q6GBLbI5HkJda6yzSS4S6Hu1bcNuLVagtVvrROjiRCAOFmNq
+ +jcDG3vy6oScxy0qLGvk2nyTUgzC8MbzizxBAWANKh4D/sisRRhYErubODPDzOmCOnNe
+ 795K/CLHOTPPeu/fZ1nNxWuhGOCDg4p3qY0BaE3iwSvK3+2bsuyRwWxfefMriABYD3TV
+ P8G+v7iyV++6TDBqz2y4LFTbHpht83sX2Dnzdfx2RayzNtxdtuT41cOqZBwaSgXfe44U
+ 2Ofw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGyR7ry2gAxW4uHSB6tuVNjXz8ghP7Et+bRhFbQF8ZN/n01vJUf1oYO+Bk6NZPLX9NrysUZACwHFpU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8HkDQwzE2ESH8yBIV9LendOHBOemPQWPZl4Yl4apcIAJlxOxNL
+ pX5apGMd+/MToYiw3TOu281C0awaRAlCrsv16ra3QXwQ/DtKzqRtQOfDTfpQOwkv9Prp43T3oCv
+ eVSRIJ2DcO5X4f1yZ6x7Zbg7JgEY6yqutUyQ+oqeZEA==
+X-Gm-Gg: AYBFou3WAwvtHLK0zEFBuWF7wIV6dfLNPTk7ggvRw78Cf/FndlGEhAc3ORUfG1cNwks
+ cGeBAFaBVn47FEYuMZD8EAwCJFfdmd2Tory8hx5CRvJjCjjtHbFI/wSDcj7LiG4vcsdjrFdeasq
+ L0Umy0DoIu9WBlf6lFY9m6Umpy2UCrzXJhi/SINXFhP/sOt9K+l42CiJf42OZhVuV2wu10cYL09
+ 7amsMGRRUUGQvFdZgFgm4efLNTLd6cWcaPe90H8lLllTzDiIit17m7N0t9jf0fcZft3UgC5ZL7v
+ SqKxBZsVip7C0qwLDap9RN1v6hzp3tNOyNw1ktQJRQw+z/g2EnYiYWMUCJ1RVcxD7BUD/eGMVv2
+ vpwzPyndKlPK2/a7koR/qh+sW/r7VfXaeBLLvSdFUtoeSmDz7+SO4EYGTbwnt2zxkczV7sEE=
+X-Received: by 2002:a05:6300:95:b0:3e2:10c4:a5a1 with SMTP id
+ adf61e73a8af0-3f7a7ccd2d3mr1944572637.30.1794575886152; Fri, 13 Nov 2026
+ 05:18:06 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-page-volatile-io-v6-2-5603e527c919@kernel.org>
-References: <20261113-page-volatile-io-v6-0-5603e527c919@kernel.org>
-In-Reply-To: <20261113-page-volatile-io-v6-0-5603e527c919@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3231; i=a.hindborg@kernel.org; 
- h=from:subject:message-id;
- bh=DSGQymeDaea3kRkiaM87A7fK2NEYs8mzxM5Kac6zHvs=; 
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq9w1gZrqtPndda5c6hmyhLNbXu27i8QRfJbWRW
- MFne6F112uJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCavcNYAAKCRD6UCkIqsW9
- 0Pf/D/wOBz4O/7yniG2g93HD5S7Pzc0N7KIJ9yetlKf7ttB8N8LdP5ytENVKyvWgoipsdR6bcqh
- XX92iOmGMfk7LOcpaaZ3DAMTiErKGKvf2XDJDSSTuT3lOAnEURSZolnZ4PHcMyacN/mKVObM6Rg
- VLx0VcQ6goHYkXzL5XAdipLm7rcDXLIDrfxh1q34qzY5TNtIwNEhmqwoSYgNMz6G0p6XUFpLZv+
- mJkEFylqLFWuh4L6b/9n2yvP91+7q77CNUdWkTqs3rc7/YlzYjEb1PoateSjsa9Wfsxa4D/LXOB
- S3V3Sf2+uIS+XwSenWFvqXNycT9QRIDbrkReHqHfzBxMs2dQUv60MD/wSH5CgD/71d7SFOpJC+k
- 5r/8zUkSPjI9u9LK3I4cYkzYNjjkHzLEK7WClQP6U0iOCw3pGzOHly+zKXQvguwY5MPfs6dMQ1m
- MIZkLTSD7bhISMWc9wwThGuFPE7aEpwhLTYlf0P0N5eOrpBgYZ0Z0aYBa657RF+hxsjSMWXMH7U
- HByp3tJa0TyNoASoRHsiS9W/YyX4jdQdkYT92ySmQ2fhGN4Ck9nmcuggSwJ/bt6INGKb2XbOIcs
- 7sAycD5KIvsvQZ93nIFGRAJHiu9l81gH3FAhVo55ngSQ+u+h7EsZBKeOIr+hxH3GqwPUjcUtWIY
- tGt1ORNKwkeKkNA==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+References: <20261109105652.7114-1-igor.torrente@collabora.com>
+ <CAPj87rM3_MCFMGSAL1P6hBzLsLNP0hNL58whe1AeegtxMvgBhA@mail.gmail.com>
+ <1a1c54dc9d7.326328084617249.176092468769907716@collabora.com>
+In-Reply-To: <1a1c54dc9d7.326328084617249.176092468769907716@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 13 Nov 2026 13:17:54 +0000
+X-Gm-Features: AclHuK_c5CEAuB2eiFb0Y50oZOIXOdHlWyiKp11ys7KDwXVxB4P5MSG6jFK0nAo
+Message-ID: <CAPj87rMXqszfmW1M7MygmGfS71fo1Q=fcdW_N9-PTvfw1W7wdg@mail.gmail.com>
+Subject: Re: [PATCH] drm/panthor: Allow exporting BOs with an exclusive VM
+To: Igor Torrente <igor.torrente@collabora.com>
+Cc: "boris.brezillon" <boris.brezillon@collabora.com>,
+ "steven.price" <steven.price@arm.com>, 
+ "liviu.dudau" <liviu.dudau@arm.com>, 
+ "maarten.lankhorst" <maarten.lankhorst@linux.intel.com>,
+ mripard <mripard@kernel.org>, 
+ tzimmermann <tzimmermann@suse.de>, airlied <airlied@gmail.com>,
+ simona <simona@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,82 +109,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a helper to copy `len` bytes from `src` to `dst` using byte-wise atomic
-memory operations. This is the concurrent-safe counterpart of
-`core::ptr::copy_nonoverlapping()` (the equivalent of standard C's
-`memcpy()`). Because of the atomicity at byte level, when the copy races
-with another concurrent atomic access (or when a normal read races with an
-atomic read), or with an external access (from DMA or userspace), the
-behavior of this function is defined: the memory is copied at (at least)
-byte granularity.
+Hi,
 
-The helper is the building block for higher-level copy operations that need
-to remain defined under racing accesses, such as the `SysMem` I/O backend,
-which copies to and from memory that may be shared with hardware or user
-space.
+On Tue, 10 Nov 2026 at 11:53, Igor Torrente <igor.torrente@collabora.com> w=
+rote:
+>  > Is the problem that:
+>  > - the guest requests allocation of a BO with exclusive_vm_root_gem =3D=
+ guest_vm
+>  > - the host passes that allocation through
+>  > - the host exports a dmabuf from the allocation (which fails)
+>  > - the host imports a dmabuf from the allocation (?)
+>  > - the guest requests the BO be attached to guest_vm
+>  >
+>  > i.e. is the problem that some host implementations (virglrenderer)
+>  > handle BO allocation exclusively via an export/import interface?
+>
+> I was testing and checking a few things. This patch needs at least a
+> rewording, but maybe we can drop it entirely.
+>
+> The virtio_gpu part of Virglrenderer used to create a transitory export
+> to mmap the BO and attach it to the guest VM (not import, as I previously=
+ wrote).
+> With resource_map, this transitory mapping is now obsolete.
+>
+> Vpipe still shares buffers with the client through FDs (even non-shareabl=
+e BOs).
+> It seems that this is an expectation of the protocol. I will check to see=
+ if we
+> can avoid this for non-shareable (exclusive-VM) cases.
 
-The implementation forwards to the kernel's `memcpy()`, which is
-implemented in a way that byte-wise atomic memory load/store instructions
-are used.
+Yeah. If we can/should extend vpipe to not do this, that seems like a
+better path forward.
 
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
- rust/kernel/sync/atomic.rs | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+> Lastly, if I=E2=80=99m not mistaken, CrosVM=E2=80=99s sandbox separates t=
+he GPU device into another
+> process, making the export necessary (possibly even for non-shareable BOs=
+). This may
+> or may not be an issue.
 
-diff --git a/rust/kernel/sync/atomic.rs b/rust/kernel/sync/atomic.rs
-index 6d27898add42..d25627fa6557 100644
---- a/rust/kernel/sync/atomic.rs
-+++ b/rust/kernel/sync/atomic.rs
-@@ -848,3 +848,39 @@ pub unsafe fn cmpxchg<T: AtomicType, Ordering: ordering::Ordering>(
-     // per LKMM.
-     unsafe { Atomic::from_ptr(ptr) }.cmpxchg(old, new, o)
- }
-+
-+/// Copy `len` bytes from `src` to `dst` using byte-wise atomic operations.
-+///
-+/// This is the concurrent-safe counterpart of `core::ptr::copy_nonoverlapping()` (the equivalent
-+/// of standard C's `memcpy()`). Because of the atomicity at byte level, when racing with another
-+/// concurrent atomic access (or when a normal read races with an atomic read), or with an external
-+/// access (from DMA or userspace), the behavior of this function is defined: the memory is copied
-+/// at (at least) byte granularity.
-+///
-+/// Implementation note: this is currently implemented by the kernel's `memcpy()`, which is
-+/// implemented in a way such that byte-wise atomic memory load/store instructions are used.
-+///
-+/// # Safety
-+///
-+/// Callers must ensure that:
-+///
-+/// - `src` is valid for atomic reads for `len` bytes for the duration of the call.
-+/// - `dst` is valid for atomic writes for `len` bytes for the duration of the call.
-+/// - The memory regions `src .. src + len` and `dst .. dst + len` do not overlap.
-+#[inline]
-+pub unsafe fn memcpy(src: *const u8, dst: *mut u8, len: usize) {
-+    // SAFETY: By the safety requirements of this function, the following operation will not:
-+    //  - Trap.
-+    //  - Invalidate any reference invariants.
-+    //  - Race with any operation by the Rust AM, as `bindings::memcpy` is a byte-wise atomic
-+    //    operation and all operations by the Rust AM to the involved memory areas use byte-wise
-+    //    atomic semantics.
-+    //  - Copy between overlapping regions, which `memcpy()` does not support.
-+    unsafe {
-+        bindings::memcpy(
-+            dst.cast::<kernel::ffi::c_void>(),
-+            src.cast::<kernel::ffi::c_void>(),
-+            len,
-+        )
-+    };
-+}
+If allocation and rendering are performed by two separate processes,
+then either they share a VM, in which case they can pass GEM handles
+rather than FDs - or they don't share a VM, in which case the buffer
+isn't exclusive to a single VM.
 
--- 
-2.54.0
+In either case, I'm glad the performance delta is pretty small. I
+would be in favour of masking it out from userspace: when we get to
+the point where we need to improve performance, we can look at doing
+something structurally different. Allowing exports of 'private' BOs
+from the kernel feels like opening a door we'll regret later.
 
-
+Cheers,
+Daniel
