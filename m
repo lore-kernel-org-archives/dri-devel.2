@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA6B607CD30
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBF6606C566
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEgcTbPo
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wR6Nuj+k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E5A10EC5F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C8011269C;
 	Fri, 13 Nov 2026 16:19:05 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E66A71126A0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:18:58 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c40f29667e6so273690366b.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:18:58 -0800 (PST)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9004311269C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:18:55 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c445c95d553so218645666b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:18:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794586737; x=1795191537; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794586734; x=1795191534; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=HMJ+dwPb/3PV0iTHWqAgN85Hf/aWfKjSW+f/zVf9g0U=;
- b=sEgcTbPoeCnC1aL2BDOQ7i9pxBgr/sdFcrejYOpDrH0eGRCGQWcbEUO6xGzKtQtM2Z
- REFjC8X5gq08QhqBUhYNtEMjCe9cosD6EgPdTTj5//8btQClAAc+xNl9vOgKdqHEWew0
- 7DljlPTRF4BXxTtpEMHBB7hCysCgHG2xctxxoCm8fNhO+UcuyyyJ5En+jymDCwPc99A0
- OPBPkRyhqjuCCKzt6TXov54suA2vcJc193fIfBGJfmUjL6ScfYuHtTeFIHl7rf9D3G4m
- 8Fr6e+sr9N2I2IzJyWPXdZ9DsYFHrkNziXDl6YTslxySFxroHKH0cEtlPjoeFEYpvEyC
- iccw==
+ bh=fvB29j5CecJ6jZKtZEMGpW6S1Git4SOKTeuMF3fwTjM=;
+ b=wR6Nuj+kDE14/UC66V0ArQYYqXMNmEXmxo4ntZbFiP5ktw1ZM1+qILp+CiE+h/9M6E
+ 2pwgxaEmsBVR7WUuPv91/OBWFuSPP1yCNlRqCD0ThWmi+pA8oroYOpao+SU0fTPsma5t
+ SWWxZUExOjjCn/+Rpakd9ocIFpvxQ+KJSYMI5+Y8t1EfiXpSzkviNGzOGtjqXvPofHmM
+ t3Q+tLZXfTsW5C9GnX++8JKGOf/nenbQGjEecSZwr9Gg8bjp2Y4fi8NxvDe8/nFuJ2nd
+ iiHTrWRB1veQcWBywJxw9qTNV+mFpgNhfynlfwWWt12PIu15L8lZLUOuLzmT6X/fRMNT
+ 3UWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794586737; x=1795191537;
+ d=1e100.net; s=20260707; t=1794586734; x=1795191534;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=HMJ+dwPb/3PV0iTHWqAgN85Hf/aWfKjSW+f/zVf9g0U=;
- b=SAUxIWoJ3iJDQEau6X2T9pmtADJ5dSnxNbWYzQHXROXx5xjbuHSt79hLkdYjTCfCOS
- nk20RKs6/XkAf8E+hAcN6MmPipQNu2uzzErwUGSrFqOHCve0ZVSYwAfayudbziJrYOcH
- 3YGCXvQ0ML9rMHcdADP9j+HREY/m2eM2PdUXb0rQoyZ6iTq0RwdhA/fIueselaLbMZAz
- Y9YpIFc5icdQ8BAuyV6yKMUvddEF79V7jzP+DrHh40RQCyig55u4fglnS/hCMsn22m8w
- TGc7sn1YdhqFrH4ws5pvVogOToVAKwdHxSvD3mp/paOBtgmc9KXrK6IFZttJVAGYlkZE
- 2uzg==
+ bh=fvB29j5CecJ6jZKtZEMGpW6S1Git4SOKTeuMF3fwTjM=;
+ b=VyGtLapJh24fmrV866rl9RqYJgFeq1/YF5WqdD0QkSDuU9R9KOXCQI4szkLSgd18Bv
+ RZ3X4or6DTqn6GczdTIs5SmhFyvYL8K67uxOGsGbert77A3af/pj52AyAEtNTEQ80gE9
+ xIrUG4eud29XAgwwTAC2sF6fPJQU6fzysQoOqY4vebDudzAnSNls1nJDdhtd/WAc1nB1
+ 8tpTV2DVnoRpuiqt0Ow2tDUqCwIQga/SffJzcglssrOBKkDpNpzC8GDkgVcJKxfuMfJH
+ GrSUQaYO/G19fEk5yAo0qxWW4bNVsYwdNdlj/UtbhAB45HnOjcKKrJTRrZ+dDKhdRmwr
+ YrrQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErG7Q1ZCMWv5fr3JAK9PNFNPhhTaZuVMVJiw3SeizlPPIrz4Q2udaJ9RNaMFEABwmdlaVDchytnit6M=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/gBUvh5lLYXV0EaRsX+NFETAhI2gijvLhE0HqpqlbYpuA9Bh8i
- +TF3diZgGRe6fbwKMkeGpL06KJk3JHxkU+9en7Dx8zoKni8Ox5T5TqF5enaGSA==
-X-Gm-Gg: AYBFou3MfuO/7ZaT2P4FU2p704M+i9KHZIsDM5BD9IBYSagsFIkG51kHVyq7eADj1R7
- iZuyZjl3LSQs/Q1iiAINA2mebk7/N+5akg7y5faBuoP6+8EETZiRyr1ZIUx4AYkD/7DvsIZl3ga
- cuqmq6qVTA7rO53fVdpRxiZFIc3njlvo1kO8829mdZqH1d+GCvLr+RHVxqm5TZ1ZvXYHbMU4Qhc
- GIgzGxOjDgoCw4xTEDVmtXfztFDDsbvbe/8RguV4JG129kvclmKcPtyJ6iSz8H1q1VArYFidzsA
- K+5gQT2hsAlAN9lXFfkTZJDpAqfQGTkhinVdoY1ufyVsJWWWAD1Q6QhtRj1Z2LTnTbhLCkrUikV
- fS3Fw6AcYGLiGMJfaf5XQ5KgaR2BBfjxO9FPlszg09HB6yzNEVn5PRizPenXgTFT65QkmKl+QBN
- vwAzO9bXNdwzXZqqmY0MYP31xpuNQdeRKpSLuxMpiplAxw9flHFyg4FQbQDJtNUYN9AJqRp09+r
- Fjhm4j4FMygpagg1Rcxp+39+gjQ0r4escvE72Uo65zhAHHh/wSfly50zGfXFE408kiV8uYhAnFj
- QsFhE7IjMXYcl8g/xhBsCwRN1/n2bQ0iHAsPxLJUWRWozSFGaoHBvSf2HPfrMa9LBj6OGXSZeov
- JEMnI430m/sb4YksgIovvZfuWoCmvVdg=
-X-Received: by 2002:a17:907:3f20:b0:c46:c3ad:e1ca with SMTP id
- a640c23a62f3a-c5096396effmr277155866b.9.1794586737209; 
- Fri, 13 Nov 2026 08:18:57 -0800 (PST)
+ AL+hErFo2LVKPI9a9shyAvJxm1Nmx7CUvElig4+RZQ+JvM6QPTicxuOMMyF/xLLK5wuMshfQPeTgMUYQ770=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+k1W/V0K9lOwS0PY3ZbvOLttrxR3y7XUrStDmEhtQRqExV97o9
+ k+fRh1PmH6uAAmxTxqtsK1/zHTMvAeVhxxlMJX32hWiz6/sHBbyEHL2t
+X-Gm-Gg: AYBFou2lqGMjdb6lz+HBzwhxmezmS6iKLEfYJCteWAbq0UJJuSArmDlRL8kBSRfE/4a
+ ODv5c0VDrHIYM5RJG3VQXVgvE7hy3+XXSUT9LMeYHh7H+rJDZSCRLXb5MCAbEEqeormzP6Y+rEN
+ MHBaZN/VTHX1EyL0fraczEFdw2ZdB3xtktQjDWbyLePmkFKh393hyH/gOjAzbvyVNd1zG/JdMvc
+ xa0jrSKUMTzDI/RYX2Vm/8FGUBQgkQ+Bi2O3pEfdt4MFrdSb4iLcOLUAT1yOseK4NWQIiZD2d7u
+ fKL+8W8zmkr/CI6h4tXJllCk3rn7aW8nlwNEXGp/fZWf1DExI+r+lFE2ebRcU+o9BULdxBF7oo0
+ UdAkZUOV8W33ZLyepLv1x3icseMnt8WAwSb1LSlETYDFSE0m1Fh6/qiEVSxfSqB+wH88fe7glWg
+ QuWtGv7f5Cji/7dmyl3SFMKlfLd3wuTLCxsnXpsfNz0B9wdBVBOPZp0xT5dscbXvxXAsSCzdg0W
+ qgPHGIv5zwPqvJ0uy6kAok20Fsa35gO2glDJwYmIxnpgUk6cjWIaERLosaNAC0LOry4CxqQCeVT
+ U8NCCxPdHmITvVZ7ReDgqh1xME9oHuLOzqrfwFW0Ia9kOhqkS7G2da+OPTeax70IE306VF+A6p3
+ OM4MKkqkfPw==
+X-Received: by 2002:a17:907:3e9d:b0:c33:ca5e:8ddb with SMTP id
+ a640c23a62f3a-c5096396e4fmr271748466b.28.1794586733814; 
+ Fri, 13 Nov 2026 08:18:53 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.55
+ a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 08:18:56 -0800 (PST)
+ Fri, 13 Nov 2026 08:18:53 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Thierry Reding <thierry.reding@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>,
@@ -82,10 +82,9 @@ To: Thierry Reding <thierry.reding@kernel.org>,
 Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from Tegra30
- VI node
-Date: Fri, 13 Nov 2026 18:18:18 +0200
-Message-ID: <20261113161819.36847-10-clamor95@gmail.com>
+Subject: [PATCH v1 07/10] dt-bindings: display: tegra: Document Tegra114 CSI
+Date: Fri, 13 Nov 2026 18:18:16 +0200
+Message-ID: <20261113161819.36847-8-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113161819.36847-1-clamor95@gmail.com>
 References: <20261113161819.36847-1-clamor95@gmail.com>
@@ -111,28 +110,69 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Tegra30 now has its own specific compatible string for the VI. Remove the
-Tegra20 fallback, as it may interfere with the correct configuration of
-the device.
+Add a separate compatible string for the Tegra114 CSI, as it has a
+different programming model, uses three additional clocks, and does not
+contain MIPI calibration logic.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra30.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../display/tegra/nvidia,tegra20-csi.yaml     | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30.dtsi b/arch/arm/boot/dts/nvidia/tegra30.dtsi
-index 1e51da329f310..e1f66240ae552 100644
---- a/arch/arm/boot/dts/nvidia/tegra30.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra30.dtsi
-@@ -150,7 +150,7 @@ mpe@54040000 {
- 		};
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
+index a1aea9590769f..0c18ac81c6d6f 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
+@@ -14,6 +14,7 @@ properties:
+     enum:
+       - nvidia,tegra20-csi
+       - nvidia,tegra30-csi
++      - nvidia,tegra114-csi
  
- 		vi@54080000 {
--			compatible = "nvidia,tegra30-vi", "nvidia,tegra20-vi";
-+			compatible = "nvidia,tegra30-vi";
- 			reg = <0x54080000 0x00000800>;
- 			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&tegra_car TEGRA30_CLK_VI>;
+   reg:
+     maxItems: 1
+@@ -24,12 +25,18 @@ properties:
+       - description: module clock
+       - description: PAD A clock
+       - description: PAD B clock
++      - description: A/B lanes clock
++      - description: C/D lanes clock
++      - description: E lane clock
+ 
+   clock-names:
+     items:
+       - const: csi
+       - const: csia-pad
+       - const: csib-pad
++      - const: cilab
++      - const: cilcd
++      - const: cile
+ 
+   avdd-dsi-csi-supply:
+     description: DSI/CSI power supply. Must supply 1.2 V.
+@@ -125,6 +132,22 @@ allOf:
+         clock-names:
+           minItems: 3
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - nvidia,tegra114-csi
++    then:
++      properties:
++        "#nvidia,mipi-calibrate-cells": false
++
++        clocks:
++          minItems: 6
++
++        clock-names:
++          minItems: 6
++
+ additionalProperties: false
+ 
+ required:
 -- 
 2.53.0
 
