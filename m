@@ -2,43 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35345606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D1F606A332
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqhssK/G
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dwDJ1OE4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5653810E7BF;
-	Fri, 13 Nov 2026 09:36:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA97910E7BF
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:36:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 49968463CE;
- Fri, 13 Nov 2026 09:36:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030401F000D1;
- Fri, 13 Nov 2026 09:36:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794562605;
- bh=FkCAL6aqDwXijotLXYO5NGe+1AcTt/AeYCsB9gc3nWU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kqhssK/GC/HPnPgBzVhpyhwC4i1JczHDYQfbxBOhcpCI9sAdn1rkKQ75hz/1DPgSP
- zJj6qfay3KLZ7rJ2xWRKT1u+Iiu8ks79JSwIy3ik8pMUUAzVZBYP9+zLJjVrSKolYX
- uLniYR2ya+ClLxPyyuHxffJXGtYS4Ty5R+5SvACL29kNl2UfLq6oJJTdu8ZA7HOYVu
- xZnaHcr/bJc/7N68XtBAek7eX1J0oI88S1ipmYLk6x9RVNw3m/mXC1MOc5Ty4I4FNj
- uEKEvYaDTvf3UvRdSzZgwwtb0GmUhMTu0FNQjWE9T9Y2qb2P/8ojB6HbPx/E0pYqQj
- Y40AFIa+4Aijw==
-Message-ID: <sashiko-outbox-212557@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/14] drm/panfrost: Power the GPU up for a reset
- queued from the MMU code
-To: "Arun Iyengar" <aiyengar1990@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261113-panfrost-long-jobs-v3-1-80ae78d38f6e@gmail.com>
-References: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
- <20261113-panfrost-long-jobs-v3-1-80ae78d38f6e@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 09:36:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 201CC10E118;
+	Fri, 13 Nov 2026 09:45:23 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB4110E118
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:45:16 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-8b5c3288e6cso287522b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:45:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794563116; x=1795167916; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8hYidytS7YK6Ok3u3Q5rgMe4l1KnCmLsvRq9ljIhQUY=;
+ b=dwDJ1OE4Pkh5yEFyMRvWwQkglq0DLkBtCvGyMzbZHK3YIkq+JT/lBXBpfebjpapNta
+ 9CMkBgZ+agU1B3ESOx6eCgz+JVEJ+jwMnU2gLHdaX4Jqkrbs4BQZzH5CLz6DkFhSPqGQ
+ eQ4xrTuyYGr3axOuXkrYK/f7qUe6yoIVCzG3Pd7a2H7/rGDa1vWV6SilAbUOIBH2oCw5
+ UKhr2bfKxFurHqw68v7iEtfYR6cslNZPOClcQFvdrXeUTFHc0HnTwBLyk1BTS+7ckT0f
+ XKHTTMHSj9OS7Lt1HLWVJVqTw5FEXZlaxYea6vL70c4+AaQntwtWweAVn8zkAkdYRds7
+ T55w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794563116; x=1795167916;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8hYidytS7YK6Ok3u3Q5rgMe4l1KnCmLsvRq9ljIhQUY=;
+ b=S7clExxY1qxtPU3HEeUR5gWyCpAhB8RVdee6505rucDPkn8JY/s6aW1m0B8XUUT4c0
+ QBN0Ww/MWJNkrOMcgGOh4eFpYoo3TloPJbODmiY8z9eZbBmiwCDIt6nZ6pxk5SUCINC5
+ CNJYCR3tVSejL22oQjnsgxEE6g3rPF56+Tx4lijcGKidQ2Q5Ga0D1d4npvve6aKxpgzQ
+ J8pBOg0nYP299fbjIdsizSCF3Q7XdDbP/FmNY6swA5b0RxkXfWYsWiYXZn2ZkDiQS7YE
+ RViYkzhGrCLSCas7xLwXNPj7shszh/uPEtqi79gpy+qGf6Ecyfovseplp+PZa2iRiHRu
+ 9N/g==
+X-Gm-Message-State: APuU4Z8LsTnMqcPT/IP3drhUujMfPHHJ2urHCzlZ4/A3X+Kb4P5bfF0V
+ 9Viphy90huUa/sUhD4WJ2ItwNmPujXU3WK2ngG9TEZGmrYHdnYJu1+bz
+X-Gm-Gg: AYBFou2iWZdrdewMF75PmBLrw6XFjExj03pmlG9JJvpo1JHN2SeeYl3pjnc30pNkuiR
+ dKpVpEMMwj9eIcW1dM9sg+NSqTrS/5Y0csqv14XsezlF29sq29QuRZei3jBUrKS7CCRuTWPWtKZ
+ JGKd23aLs9BGEYRjeV5eGmUdXlDRM6+P6oFq5qcyNZgb/ygHqCLzaSLOJ0eHfNmxmQ//BaVLVpi
+ +dkOOYvJ57AOu1n5Ii7OrqomIrmTr+Laa6o0ZYC3BHzpDTuyLwqoiG6WekhkA8sPODZ1riT7lkb
+ 0pJB9R9c/TxYyj2Tp8dBr4HHjnMGgio7X7GK0G5kuTHghv1VFavQKaah3UkV5z+ibi1PXMvAe7i
+ OaXEjLaF+kooH/WQ89xuanKbWVDqHOLkQFoskYS3ilf/eFebu3jxHPzLe2WtOckl+A+ApEMOcjD
+ /je8/OVtZl40uLARobrs+eJoEmtwMx3wKp5uzmImSnoQV6g7vuN1TAbvVRutgqGvS5RAsmaoyta
+ 7oMV/Cuh+ywUi2Uep+F2WRshQMmeVUWFgdsBmogSbrRfSFOIuN4qabGP5kgLq8OBrNidLi2NRbD
+ ekrSpRq9t/8ES0MSPpaLwK2BjviCtZLfhMnz3w58
+X-Received: by 2002:a05:6a00:4b53:b0:89f:4cd9:241a with SMTP id
+ d2e1a72fcca58-8beb724ceb4mr2078645b3a.41.1794563115702; 
+ Fri, 13 Nov 2026 01:45:15 -0800 (PST)
+Received: from oslab.. ([101.6.42.129]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8bed2d11ac8sm804533b3a.55.2026.11.13.01.45.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 01:45:15 -0800 (PST)
+From: Tuo Li <islituo@gmail.com>
+To: boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tuo Li <islituo@gmail.com>
+Subject: [PATCH] drm/panthor: Fix NULL pointer dereference in sync signal
+ cleanup
+Date: Fri, 13 Nov 2026 17:44:56 +0800
+Message-ID: <20261113094456.5000-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,121 +81,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	T_PDS_OTHER_BAD_TLD autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/panfrost: unclocked MMIO access in
-  panfrost_device_resume() on error
-- [Low] drm/panfrost: race when clearing reset.pending in
-  panfrost_reset_work()
---
+In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
+NULL. The function then jumps to err_free_sig_sync, where
+panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
+the NULL pointer, causing a NULL pointer dereference.
 
-commit 7ec017c5585451d1f5d87f4425f33e0c841194f8
-Author: Arun Iyengar <aiyengar1990@gmail.com>
+Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
+NULL pointer dereference.
 
-drm/panfrost: Power the GPU up for a reset queued from the MMU code
+Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
+Signed-off-by: Tuo Li <islituo@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-This commit takes a runtime PM reference in panfrost_reset_work() and
-disables the reset work across system suspend and resume so GPU registers
-are not accessed while the GPU is powered off.
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index dc8d0191aef4..8d73956530a8 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
+ 	if (!sig_sync)
+ 		return;
+ 
+-	drm_syncobj_put(sig_sync->syncobj);
++	if (sig_sync->syncobj)
++		drm_syncobj_put(sig_sync->syncobj);
++
+ 	dma_fence_chain_free(sig_sync->chain);
+ 	dma_fence_put(sig_sync->fence);
+ 	kfree(sig_sync);
+-- 
+2.43.0
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 40eda3612f849..2c11a67216e0f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-
-[ ... ]
-
-> @@ -604,14 +604,36 @@ static int panfrost_device_resume(struct device *de=
-v)
->  	return ret;
->  }
-> =20
-> +static void panfrost_device_enable_reset(struct panfrost_device *pfdev)
-> +{
-> +	enable_work(&pfdev->reset.work);
-> +	if (atomic_read(&pfdev->reset.pending))
-> +		queue_work(pfdev->reset.wq, &pfdev->reset.work);
-> +}
-> +
-> +static int panfrost_device_resume(struct device *dev)
-> +{
-> +	int ret =3D panfrost_device_power_up(dev);
-> +
-> +	panfrost_device_enable_reset(dev_get_drvdata(dev));
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Can panfrost_device_resume() queue pfdev->reset.work onto an unclocked GPU
-when panfrost_device_power_up() fails?
-
-If pm_runtime_force_resume() fails in panfrost_device_power_up(), it has
-already called pm_runtime_set_suspended() and pm_runtime_enable(), and the
-err_resume path disables the GPU_PM_CLK_DIS clocks and GPU_PM_VREG_OFF
-regulator.  Calling panfrost_device_enable_reset() unconditionally then
-queues panfrost_reset_work(), where pm_runtime_resume_and_get() runs
-panfrost_device_runtime_resume() -> panfrost_device_reset() without
-re-enabling those clocks or regulators, causing an unclocked MMIO access
-and synchronous external abort on arm64.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 3a46dd61cf87f..7319511db19f5 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -810,7 +810,18 @@ static void panfrost_reset_work(struct work_struct *=
-work)
->  	struct panfrost_device *pfdev;
-> =20
->  	pfdev =3D container_of(work, struct panfrost_device, reset.work);
-> +
-> +	/* The GPU may have been runtime suspended since the work was queued.
-> +	 * If it cannot be resumed, no job is on it, and
-> +	 * panfrost_device_runtime_resume() resets it later.
-> +	 */
-> +	if (pm_runtime_resume_and_get(pfdev->base.dev)) {
-> +		atomic_set(&pfdev->reset.pending, 0);
-> +		return;
-> +	}
-
-[Severity: Low]
-Can clearing pfdev->reset.pending after pm_runtime_resume_and_get() fails
-race with a concurrent job submission and leave the job unstarted?
-
-kworker                                 CPU1
-panfrost_reset_work()
-  pm_runtime_resume_and_get() -> fails
-                                        panfrost_job_run()
-                                          pm_runtime_get_sync() -> succeeds
-                                          panfrost_job_hw_submit()
-                                            panfrost_enqueue_job()
-                                            if (!atomic_read(&reset.pending=
-))
-                                              /* sees 1, skips JS_COMMAND_S=
-TART */
-  atomic_set(&pfdev->reset.pending, 0);
-  return;                               <-- job left unstarted until timeout
-
-rpm_resume() does not latch runtime_error on callback or supplier failure,
-so a concurrent panfrost_job_run() can resume the GPU after
-pm_runtime_resume_and_get() drops dev->power.lock.  Because
-panfrost_device_runtime_resume() resets the GPU without clearing
-pfdev->reset.pending, panfrost_job_hw_submit() sees reset.pending =3D=3D 1 =
-and
-relies on panfrost_reset() to resubmit the job, which never happens once
-panfrost_reset_work() clears reset.pending and returns.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-panfrost-l=
-ong-jobs-v3-0-80ae78d38f6e@gmail.com?part=3D1
