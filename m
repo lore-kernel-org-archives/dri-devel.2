@@ -2,65 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A02606A32D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B685F606A330
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xfb7VfCh;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=b856NOS0
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=eder.earth header.i=@eder.earth header.a=rsa-sha256 header.s=default2410 header.b=P3GrrqdF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1405011254A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 396C2112538;
 	Fri, 13 Nov 2026 13:43:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="xfb7VfCh";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="b856NOS0";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB3D310E6F8
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533095; bh=u4p5bylx/tgUz5l7NLz60TH
- e1CpAntXjpezc0SG+fuo=; b=xfb7VfCheXgQIiXGwDsPEpLN1sgejBCDyrsD3HEUqIh8TD1xOh
- VHxwZorv/aVV5qWxoGBSkDjrfkLbLqLVp6AA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533095; bh=u4p5bylx/tgUz5l7NLz60TH
- e1CpAntXjpezc0SG+fuo=; b=b856NOS0clylANjqUfXdUBeDRzAKYo3WOnlMluJv+XhZSLxLat
- BfjTZIYlItZEgix8nVuYzoyZoKAAoqu7ksYNJ5ZXhueQQ5PgPTin2qWwcAEXu1lWN24V5GXOAzn
- O3Wig7yv9y9hDGuqfJadpqqBe6Wi62C5Bq8qQWGE/X+ppJxq0VCDeV1GFw0ZJFyjPbusGvwSIp5
- C1LkXfSqEppEbpmH3wqhwD8Km0N3ueFrttr0h4nKTaO275K7gT853y6l9UVDsf189Nne6Eiak5+
- ml4ownTN5jS7dnXCqTzFbO9OyfcpAEEeoJLfWhZwkr2v7VUMBdqYQ1wlgb83dLQvJgQ==;
-From: erebion <erebion@erebion.eu>
-Date: Fri, 13 Nov 2026 02:24:48 +0100
-Subject: [PATCH v4 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP,
- IPA & MPSS
+Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2556F10E13F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:18:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eder.earth; 
+ s=default2410;
+ h=MIME-Version:Content-Type:In-Reply-To:References:Subject:Cc:
+ To:From:Message-ID:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID; bh=1Lw/Kzjiv0IN55Jlqr16UXw1b64lX/C/R/gduT4UeyE=; b=P3Grrq
+ dF2U2uxMia6KeJ6mCn+VtKS938xPtUhoH8eLeG4Z9HZIUqMLIZl36pHm/6QooAAa70G46EAb8jMoH
+ Bfaw7LFg/6+P8g1F/YJjzv8ifguiz8U335yZIQQzSjgc3lmyQtrg+t3yKFWbwXh/8Pq0P8v6Al6oL
+ Fudhh0isETfjdn/ajyzwGQYdTfxChKfv6AAAp16aEMtDNxwgkJQ1Z1HnfXMzZ4tQCJ3tOl5YaJZLu
+ tGra4gcPxWhz7i7kHoITV8vfBvLMHkqOSF4jF5tLDvSS9v9fBqlGqxai8ixc0g8CsM1K8cny+i/KR
+ 9oMyR5pRwT/SkJRhmVpE1zz7ouZg==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+ by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <sascha@eder.earth>)
+ id 1xRfwM-00065g-2t; Fri, 13 Nov 2026 02:18:54 +0100
+Received: from [192.168.0.33] (helo=webmail.your-server.de)
+ by sslproxy04.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <sascha@eder.earth>) id 1xRfwM-0004YX-1k;
+ Fri, 13 Nov 2026 02:18:54 +0100
+Date: Fri, 13 Nov 2026 02:18:54 +0100
+Message-ID: <20261113021854.Horde.oyp74rgk0-Wh2hQXybP5yVq@webmail.your-server.de>
+From: sascha@eder.earth
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: drm/hyperv: pointer lag on desktop guests - host cursor is
+ supported by the protocol but hidden
+References: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
+ <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
+ <avTq3OCNdDeyn/La@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <avTq3OCNdDeyn/La@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+User-Agent: Horde Application Framework 5
+Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pdx213-upstream-3-v4-4-4b01c50a821c@erebion.eu>
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=1280;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=p7IGpE4GSfbTPqOkJvsD/WcIlRbHfevxeKq472wglug=;
- b=2nog4EF91YRxMCs4cp3SMBPgnEmm0xA8qos/X5KbynLLY+wxr3RgDslj/vxX6N8yAcgmULUid
- /cYUftSqFyJAnyACNxskI04VhJY4NwY+YKeV2UGc2vVhZVh77s8rg24
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+Content-Disposition: inline
+X-Virus-Scanned: Clear (ClamAV 1.4.6/28181/Thu Nov 12 07:27:14 2026)
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:43:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,71 +63,245 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Enable the ADSP, CDSP, IPA and MPSS (Modem) nodes for the Xperia 10 III.
+Hi,
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+> Development for the driver is done on drm-misc-next[1], so I would
+> suggest testing it on there.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index a393b7533ccbf..4066de20ea23a 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -68,6 +68,12 @@ memory@fe901000 {
- 	};
- };
- 
-+&adsp {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/adsp.mbn";
-+
-+	status = "okay";
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm6350-rpmh-regulators";
-@@ -291,6 +297,12 @@ pm6150l_bob: bob {
- 	};
- };
- 
-+&cdsp {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/cdsp.mbn";
-+
-+	status = "okay";
-+};
-+
- &gpi_dma0 {
- 	status = "okay";
- };
-@@ -316,6 +328,18 @@ touchscreen@48 {
- 	};
- };
- 
-+&ipa {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/ipa_fws.mbn";
-+
-+	status = "okay";
-+};
-+
-+&mpss {
-+	firmware-name = "qcom/sm6350/Sony/pdx213/modem.mbn";
-+
-+	status = "okay";
-+};
-+
- &pm6150l_flash {
- 	status = "okay";
- 
+Done. Short version: the pointer is smooth now, the lag is gone,
+but the host-drawn pointer shows up three times side by side.
 
--- 
-2.53.0
+What I built
+- drm-misc-next at c88084027d0e ("drm: Discard
+   pm_runtime_put_autosuspend() return values"), 7.4.0-rc2
+
+- The tree already contains the cursor plane code: git am of your
+   patch failed and patch(1) reported it as previously applied, so I
+   built the tree as it is. Please tell me if that is not the version
+   you want tested.
+
+- Config: Debian 13's 6.12 config through localmodconfig, with
+   HYPERV=y, HYPERV_VMBUS=m, DRM_HYPERV=m
+
+
+Setup
+- Host: Windows 11 Pro 26H2 (build 26300.9711), Hyper-V, Generation 2
+   VM, basic session (vmconnect), 3840x2160
+- Guest: Debian 13 userland, KDE Plasma 6.3.6 on Wayland (KWin 6.3.6),
+   3840x2160 at 200 % scale, 4 vCPUs
+
+
+What works
+- The pointer follows the hand without delay, also on long fast moves.
+   KWin picked up the cursor plane without any configuration.
+
+- Cursors too large for the plane fall back to the software cursor
+   correctly: one pointer, drawn right, with the old lag.
+
+
+What does not
+- Whenever the host draws the pointer, I see it three times: the real
+   pointer, and two extra copies of it to its right. All three have the
+   same shape, are evenly spaced in a row and move together. Clicks land
+   under the leftmost one; the other two are only images. In phone
+   photos of the screen the three look striped, as if only some of
+   their lines were drawn or those "ghosts" were meant to render as one pointer
+
+- This is the same for every size that uses the plane and for every  
+theme I tried:
+
+     Breeze, 200 % scale   size 12, 18, 24, 30, 36   plane, three pointers
+                           size 42 and larger        software, one pointer
+
+     Breeze Light          same as Breeze
+
+     DMZ White, DMZ Black  three pointers
+
+- The count is always the same: one real pointer plus two copies,
+   whatever the cursor size.
+
+- Host is on build 26300.9711 (the 2026-10 security update);
+   the November update is not offered for this edition yet, so I could not
+   check whether a newer host build behaves differently.
+   I will retest when it arrives.
+
+I have photos of the screen and could send them off-list or put them
+somewhere, since the list likely does not take jpg attachments.
+
+Tested on the setup above; I would hold a Tested-by until the copies are gone.
+
+regards
+Sascha
+
+
+
+Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
+
+> On Wed, Nov 11, 2026 at 10:05:06PM +0100, sascha@eder.earth wrote:
+>> Hi,
+>>
+>> thank you for the speedy reply :)
+>>
+>> > Cursor plane support is a WIP, you can test out [1] on your end.
+>>
+>> That is exactly the fix I was hoping for.
+>>
+>> Which tree and commit does the patch apply to?
+>>
+>> My guest runs Debian 13 with kernel 6.12, where the driver still has the
+>> hyperv_ prefix and the simple display pipe,
+>> so I would build the tree you name with the patch on top and report back.
+>>
+>
+> Development for the driver is done on drm-misc-next[1], so I would
+> suggest testing it on there.
+>
+> [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-misc-next
+>
+>> If you happen to have a version for 6.12, I can test that as well.
+>>
+>
+> Quite a lot has changed in the DRM subsystem since then so I doubt my patch
+> applies cleanly there or works as expected.
+>
+> Hamza
+>
+>> regards
+>>
+>> Sascha
+>>
+>>
+>>
+>> Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
+>>
+>> > Hi,
+>> >
+>> > On Wed, Nov 11, 2026 at 12:13:16PM +0100, sascha@eder.earth wrote:
+>> > > Hi,
+>> > >
+>> > > I am a Windows developer porting some of my own desktop tools  
+>> to Linux, and
+>> > > I use a Debian guest on Hyper-V to judge how they look and feel there.
+>> > >
+>> > > The static picture is good, the mouse pointer is not, and I  
+>> think the cause
+>> > > is small and fixable in hyperv_drm. I am writing because this  
+>> is the first
+>> > > thing a Windows developer notices when trying Linux on their  
+>> own machine: as
+>> > > long as a Linux VM feels sluggish next to a Windows VM on the  
+>> same host, few
+>> > > of us will move a repo over and be happy about it.
+>> > >
+>> > > Setup
+>> > > - Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session
+>> > > (vmconnect), 3840x2160 display
+>> > > - Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm  
+>> (Synthvid 3.5),
+>> > > KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
+>> > > - 4 vCPUs, about 7 GB RAM
+>> > >
+>> > > What I saw so far:
+>> > >
+>> > > - The pointer trails the hand by a small constant delay. Fast, long
+>> > > movements (taskbar to top of the screen) are visibly laggy, not just
+>> > > slightly off.
+>> > >
+>> > > - A Windows guest on the same host, same viewer, same mouse is smooth -
+>> > > directly, and even when the host itself is reached through RDP.  
+>> The Debian
+>> > > guest lags in both cases.
+>> > >
+>> > > - While moving the pointer: kwin_wayland uses 35-50 % of one  
+>> core, a kworker
+>> > > (events_unbound) 13-21 %, and the VM is about 80 % idle. Adding vCPUs
+>> > > changes nothing, so it is not a lack of CPU.
+>> > >
+>> > > - A smaller cursor and disabling KDE's shake-to-enlarge effect helped a
+>> > > little. A plain color desktop did not.
+>> > >
+>> > > What I think the cause is (from reading the driver, I have not  
+>> patched it)
+>> > >
+>> > > 1. hyperv_drm exposes only the primary plane. There is no  
+>> cursor plane, so
+>> > > the compositor has to paint the pointer into the framebuffer, and every
+>> > > movement goes through compositing, the "blit to VRAM" and the  
+>> dirt message.
+>> > >
+>> > > 2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(),  
+>> so the old
+>> > > and the new pointer position become one bounding rectangle. For  
+>> a long or
+>> > > diagonal move at 4K that is a large part of the screen per pointer step,
+>> > > which matches the more noticable lag (much worse) on big movements.
+>> > >
+>> > > 3. The protocol already has what is needed. hyperv_hide_hw_ptr() exists
+>> > > because, as its commit message says, "Hyper-V supports a hardware cursor
+>> > > feature. It is not used by Linux VM, but the Hyper-V host still draws" a
+>> > > pointer; the driver hides it by sending a 1x1 transparent ARGB  
+>> shape with
+>> > > SYNTHVID_POINTER_SHAPE. So the host does accept a shape from a  
+>> Linux guest
+>> > > and does draw the pointer itself.
+>> > >
+>> > > Proposal:
+>> > >
+>> > > Add a cursor plane to hyperv_drm (up to SYNTHVID_CURSOR_MAX_X/Y, 96x96,
+>> > > ARGB) that sends the compositor's cursor image and hot spot through
+>> > > SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and  
+>> re-sends it on
+>> > > SYNTHVID_FEATURE_CHANGE where the hide call is made today.
+>> > >
+>> >
+>> > Cursor plane support is a WIP, you can test out [1] on your end.
+>> >
+>> > [1] https://patchwork.freedesktop.org/patch/761562/
+>> >
+>> > Hamza
+>> >
+>> > > With cursor hot-spot support for virtualized drivers,  
+>> compositors would then
+>> > > leave the pointer to the host, as Windows guests do, and  
+>> pointer movement
+>> > > would cause no framebuffer damage at all.
+>> > >
+>> > > Independently of that, handling damage clips individually  
+>> instead of merged
+>> > > would reduce the cost of the software-cursor fallback (cursors  
+>> larger than
+>> > > 96x96).
+>> > >
+>> > > A second, smaller item found on the way:
+>> > >
+>> > > With Set-VMVideo set to 3840x2160 (Maximum), the guest offers  
+>> modes only up
+>> > > to 2560x1600. The connector's modes come from  
+>> drm_add_modes_noedid(), and
+>> > > 3840x2160 is not in that table, so it only appears with
+>> > > video=Virtual-1:3840x2160 on the kernel command line. Adding the host's
+>> > > maximum (or preferred) resolution as an explicit mode would  
+>> make 4K hosts
+>> > > work without that step.
+>> > >
+>> > > I can test patches on this setup and report back. I am not in a  
+>> position to
+>> > > write the kernel change myself (drivers are not my field of  
+>> work at all).
+>> > >
+>> > > Thanks for maintaining the driver.
+>> > >
+>> > > Sascha Eder
+>> > >
+>> > >
+>>
+>>
+
+
 
