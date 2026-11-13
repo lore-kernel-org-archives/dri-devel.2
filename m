@@ -2,126 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02D5606A8B1
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 23:22:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50C606A32D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 23:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0kX/qgey
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fb97Y8kS;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Li1zaMMK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B59A210E5CB;
-	Fri, 13 Nov 2026 23:22:39 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012024.outbound.protection.outlook.com [40.107.209.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF4F10E47C;
- Fri, 13 Nov 2026 23:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B454B10E391;
+	Fri, 13 Nov 2026 23:37:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5445110E159;
+ Fri, 13 Nov 2026 23:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794613020; x=1826149020;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Mnsykt9VipQNgvJyO6p0oZWZAv0HPqShE1gyqu+qqyA=;
+ b=fb97Y8kS2RAaZEVPDzft/89RweVVHhqH2er0cRLjMVGvxaoqMHf3X70D
+ JZjfboPmSqe88dTiQiFkZqgL8/IV2FvG/BltFCOdPcxVoFfAVTG+5aL94
+ vP/fsRHL5o1u/W3a/x+tT1yFgdXtsSf8KUBgZIRsaDEGiXtkahfrzQ5YC
+ xyrhxuFm+MnwNSCKdjL7mAhuUuzUqP2TdKKZ3xgI/j1rw1Fs4WdUgTGUE
+ kbnvJIeE4RELmhzsfCgLaylrAE2fIrxTes06lYScx63vEUFPvmG7joA4e
+ DLMkler1svGS06KHp52vWWLzUePbs+8FYk2jrqzqMFXNCxXZ+1AVBnzU6 g==;
+X-CSE-ConnectionGUID: 63xbjVLDRhqB7+AqAtrksQ==
+X-CSE-MsgGUID: Qn52/z72SmWoLIkK4I+FYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3470699"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3470699"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 15:36:59 -0800
+X-CSE-ConnectionGUID: oBhzryvnT/2R4t1MOckawQ==
+X-CSE-MsgGUID: 7X6mod5FQUOL+pyu6699kA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9365210"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 15:36:59 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 15:36:58 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 15:36:58 -0800
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.44) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 15:36:58 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pmZNSTtouHW3rS258+0nf0Mwkup8DcTHtpXXoIEUQ26qx0Hrum9HqenCu8o1s52kRXD/iiGrhm5KSglfDmdiNyIGDJyiPhffT1QTxGKJ904ftWfvGUjsTM9H5RS9yG4sBaZ2uSp51vxDU2t59ME2QJJBMKJ1yyymrcr4dqa7cppFiyrVh/nD2eAg0zRH4tEhYScLD/sBFeoSyxGYFUoWjJ/53wo8s5V6EbV+Fz1bv08/C653NT9Rzxxbc/wqFkQRwxdYuI8hYSespuXGAHT4N7UlYCzJOxEdiOLOEmCL6yOrGpaXXIcyCULRlOhsMChMMiljD9K3y8s5LvLmavD7Ag==
+ b=hqSPkpI9xDyYlnFbvg2dIWxGdjIrYj4YtR3pWH5PH4RHLlQG1u0Szq+GHieeFcIOIKfEUFkVRLdwuhy0UhyBaH9RxpvlhSuZ4P8+OilUoxPAxYkdwZlGM7wzwqHwIrJi2dfN85fRa7LDkf2sljq4z+cwKcsFNXgF4HfiH8moicwanrey5EGghGko9XMgIKy30p998mcFBKuyO+AncQIlkzfWuCP/jcUJPr4NXBmbfp9fZxKEMFrFdC64twoxYomTKXDDB8fFIFzUZFq8olWVvaylH1cpAi7m70HiksgUuzJmVHuxJ/iRuloeU/VBK5V+StIchzfBo92LfmJgmVatOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZsejWeu9THgrJxOVchF9elewIGJCMrXuPvoZNud0bZc=;
- b=Fq+ptg64lBuFZJzDmZgD/t3j4LQ5U7L2Tpwmna/2tMoBP9qxRpE/WK/6lv+eeLOb2Ss/0bVaRrmKDMWtoklG4xHKz+ewV7LhvPslGt2UAU4kA9gJWo0lrN22FCM/12Ccz5jVIC9xgCHIwVzSvPGhAnN4xGTntlK+n5GtxOMF+ov9Ymj5EjN6Vl8eFMLcKvxmk9EGhkYNOjHmmlw3QvzEUHFeEW3vOYnnlP9DW2LhT4fvxkdOJN91N/q8RcCKDSTU66iSlZyL2t/eO3yZ9sFnT/l4IcPzb6OQbUlL/PyXF2hn1FEQ062IpPbh6sdaEHIdk5SXLBW2ByB5opY9VF/mUw==
+ bh=8wXy+gi6O7EnYbVJbt5hcAHbMqB9p3ag5es5PQwL6Ps=;
+ b=QICzic30ggLm/99zZfy4szkq2LQDz6QxUHjgYTuaQT/4lYLYOL7rRakkFzcnxIIkX7WmwB6DDA1eXDqQNvya+YI1pjWFHsstV2/mYxJ71nDBJA34gotU7MCgMkPuQm8/2B5bGk5Pb2+yC4YaIZ4bTGgupwC6USEikAOlO4sxiePKrfpCTmArOGxqbmaIFcpuDKhRXBgFBwHk9wNJMavGCOoj6funfMU+GXRnOc9mmYa4xICFwLHZ6wm3hPkGtbX+/wyREFSJoamhmRHMYSl45oM08kwNjtQYpTLMKzfZBSiP5V0uWVBmcR9ltS9g9cN3R7xeoEltGMsDvaLxSxi41A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZsejWeu9THgrJxOVchF9elewIGJCMrXuPvoZNud0bZc=;
- b=0kX/qgeys13BcdDCcmmI0Adp/IdxVlxAmtrXX39Cf88M4eZ+uYk7Yws9vXPDlWBDHDsS9VrwL/Bw/0Gp6aVZldEJkZk+TEbxQ20OrkqFwk30IZ7ZxeprbPItuZWuHjbtNJ59cWhhMvyED2nv0MHLzOI0+iJ5VWAMJkDcHUezo1w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5) by CY8PR12MB8193.namprd12.prod.outlook.com
- (2603:10b6:930:71::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 23:20:29 +0000
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::fd82:d106:2d09:2dcc]) by SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::fd82:d106:2d09:2dcc%5]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
- 23:20:28 +0000
-Message-ID: <4c4894ce-b7a5-4824-b5b9-5f45a8901ad8@amd.com>
-Date: Fri, 13 Nov 2026 18:20:26 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: fix use-after-free in create_process() error
- path
-To: Hongyan Xu <getshell@seu.edu.cn>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261108105617.1309-1-getshell@seu.edu.cn>
+ bh=8wXy+gi6O7EnYbVJbt5hcAHbMqB9p3ag5es5PQwL6Ps=;
+ b=Li1zaMMK5PptfxPBCtVoVg7ZT8fPRI+SIq4bNahY2YdxEKzsedzZ1BFRMICCpmof5XTgoWlAtsxgg0YhKgXSRzhQVR+baUNDNS52wMyYQMUhs5Yt49yhtIGB6m5PczpY7988yh8vOEjCLvIrcF2bTTLNd+trJ2MyAXqswM2h8HE=
+Received: from IA1PR11MB6418.namprd11.prod.outlook.com (2603:10b6:208:3aa::18)
+ by IA1PR11MB6492.namprd11.prod.outlook.com (2603:10b6:208:3a4::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Fri, 13 Nov
+ 2026 23:36:42 +0000
+Received: from IA1PR11MB6418.namprd11.prod.outlook.com
+ ([fe80::b831:13bc:a1c9:2628]) by IA1PR11MB6418.namprd11.prod.outlook.com
+ ([fe80::b831:13bc:a1c9:2628%3]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 23:36:41 +0000
+From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>, "Vivi,
+ Rodrigo" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
+ <tursulin@ursulin.net>, "Auld, Matthew" <matthew.auld@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Thread-Topic: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Thread-Index: AQHdLSEDAM+rltzTuEeLf4YUWeJViLcpOQSAgACcCJyAANZzgIACTEcA
+Date: Fri, 13 Nov 2026 23:36:40 +0000
+Message-ID: <DS0PR11MB64231486880CB5D0458C19BFFA7F2@DS0PR11MB6423.namprd11.prod.outlook.com>
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+ <179439387311.199148.11937438921736048164@jlahtine-mobl>
+ <IA1PR11MB641869284E0505A68FF8E8E5FA712@IA1PR11MB6418.namprd11.prod.outlook.com>
+ <179447343321.19032.17914586221108159466@jlahtine-mobl>
+In-Reply-To: <179447343321.19032.17914586221108159466@jlahtine-mobl>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20261108105617.1309-1-getshell@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0199.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ad::23) To SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR11MB6418:EE_|IA1PR11MB6492:EE_
+x-ms-office365-filtering-correlation-id: 14be2ff6-aa29-4695-357f-08df41def81d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|4143699003|10067099003|38070700021|11063799006|261009223027099003|261026121527099003|56012099006|261022075727099003;
+x-microsoft-antispam-message-info: ZQ4FxV6hZvwhk0kvXAuBYJMnTs8K6CCYmMtzIAJ0VPclKPoyE1DaktyQg51fIjgFOHvvH37pdqiedJWyH/cUO8Z5dsc/dUPDS4oKTK9qkA+LhhRXx4JVbXN9B0rQTpPqo/VdONO7FKToetBbu28ecmgrwPzFW3fgUT4HzJfu40sILbBh1Y8RUG0q/JwzXwZbtPSujI0vjJ1DXTLBIymoH0Do9Wy8x7W1nCP2rR5K+4hg0jfWHPI+NA+loikdhqXWkI2UvqLHugrf4ijjARq5cbMDu3tUbe2ZvHfNbJd80v92azrB/Nc7uryNh2cz81trja3aYC2yCKz1U7+hJgdYWQhZAfrp7e6agbnwDaS/6zbwB7AKeGXHLNr+WcYNutZlIYgb4urM+MWhj8bh69X1MIQDPku0xUhfP8ymCeR8AypS01px1mFxt6W3/pWzG4+ymXisqszyXETW1j9ufhN76bsDmmxoQc4hD7NJUOPsLm0/P6zJUniViGrOXDOnLD0U/qzTy6kcvYyPOXjKAWn453btlDYyWi3Bljnj+aAnGvYxjMsope2JiM2zcW/KxDTBxbpnVSIEj9uneiYJ94pPaBc225x8ot7Ytw4B0dZkp0gg+lVCejft3xmfQwPUPcaVDZYeMSV4BEsYY3h3ja7wcr4rQQdgY+NM7HfQBl0KnaLcHtP7JqP6vhL1f4h1HcCnIoZkyqPAm+kF6ym75A689QJO/0JtjrybIo2OUqhRwBc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR11MB6418.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(10067099003)(38070700021)(11063799006)(261009223027099003)(261026121527099003)(56012099006)(261022075727099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?qlhFAuquX0p2BkPCKmUoRSoB26XqW8nSbe9cbZHq3G4GwHbavWCXPML4n2?=
+ =?iso-8859-1?Q?7gzgbKLN4HTTssoKBCgGbGjmdJrkWN3JcoENNDpDy4F9/xP9H+yyq0hZZ+?=
+ =?iso-8859-1?Q?qGu8UBkXkXN//xqwnzwk4dlrH4lFTqjszZ64rFZe25+rtMVN+IMa3cqUva?=
+ =?iso-8859-1?Q?I3BlyssFHJMM8umop7mS2YcXHuuETNCO8lkjrp+As6El2zKp1hzSzBtT+f?=
+ =?iso-8859-1?Q?uyygpnou7M5mcqa/g39GQodQBw1h6rRWs2JwTvfquFmMOkXEpqosJYTEPU?=
+ =?iso-8859-1?Q?AcfX7Xr4Jud2/2nMnFaZTWM76dQFh/QZzae2/KI3AzjMCuE8K9CDkL1D7R?=
+ =?iso-8859-1?Q?OgBJN+eZfTTJ1M8Ouaa50yZRdursqotH1kQMXCphZO+48YM98cZw6vrmJ2?=
+ =?iso-8859-1?Q?NrX/7tDTMr03dQCw29TJwWdIZRWedJCwSvg8pbOjR+5J5ST+AZlyPCxCAU?=
+ =?iso-8859-1?Q?MAY4PB12k3QjOqOG+Tt6BEQ0V+ssFyv4UZWIy+6N3pZYPOildDuzcUePZG?=
+ =?iso-8859-1?Q?why+VZWmdzbPvu27VPrzEyVuXa3meEoenE4mHo9bxFlMEM10ZQLOGcz0UE?=
+ =?iso-8859-1?Q?vJjJ5zCMl2HiEXNIRdqNyjOkiAEPAcp26KoPManXFBnVwto1W5LzQQr/HD?=
+ =?iso-8859-1?Q?OioWfD9RmYW2fPXCqN4r+WWzrkOmXu4rUUZ/TJ/ZOQDOFcBay0rTx/Qmpu?=
+ =?iso-8859-1?Q?OZ15DvDDQ/3vKXTlfIfQ4RXoTVfhzktGgDCHac7DVihLG7ufsTYjyprIYO?=
+ =?iso-8859-1?Q?kNvB+oiDMxoCpJnHcLQ0tL5D26FvkBjT0qKQP2RBOLXGoWS1tz3x6fG6n5?=
+ =?iso-8859-1?Q?iRpk/vs+TE3aeeXClrqFXpupzSpMzq0/6BEu0avFFni03wFFh2BajIRfol?=
+ =?iso-8859-1?Q?r3kA7+njnmqaoKCF5tGuwxAmngMCJUiQIX8WbqwQItSm33MnxarEIyIwFQ?=
+ =?iso-8859-1?Q?0lPjnbhfQ4gyJumfds2TmDk+K/C/Lq1c5Y35shtTLAWUwY0rCuOVBdPOFO?=
+ =?iso-8859-1?Q?qtJeKxq/9vQrLtA10Qfbmui91YVvDbzLLeep5N+vSBh302H5gQg0oOZdXF?=
+ =?iso-8859-1?Q?EoQC9phaqeTqEtc4P8lIPbNLNVzwOUd+f+OihST7KnukQEKwGx8On1vSKO?=
+ =?iso-8859-1?Q?6rumS/3TRk56NcMq7wvudL//+/EipcfQxuX0jW406S/+Ljxo9XHQyqtc80?=
+ =?iso-8859-1?Q?ZeIOAv1tFi7WuQpMdnybUotD/o6j1PTBo9kgmwkTRM2USB7/75OhaVUtuw?=
+ =?iso-8859-1?Q?GFEwXmDWNbOoxV9NkLkJ7K2jEjXbxCv3zDKtscojUZEXafmkYLAw1AEtdI?=
+ =?iso-8859-1?Q?yDwKmidXOELxjiD3Oo45N4DSRedxTWT2pZPgvNC+EDJAHs78qMjs1Z4w71?=
+ =?iso-8859-1?Q?/l4bzwzPLdVo9mXd21PrBG89caRKrpEDf6XshoVnvDGcczQbAxNBash5Cj?=
+ =?iso-8859-1?Q?QPFostYCuK59fw0hV+DBSj+3WcPIwpVeNNtfYkxrSAz6tiOVb/hJH8Y1hc?=
+ =?iso-8859-1?Q?nLMMa2Fq2S7n4H6mxGcmeOZ4IZTKbNbaACw3oU3fqO4tH338qk0pOF9tm6?=
+ =?iso-8859-1?Q?lP+he+jOrV46qmRlJeM5sjZdAHa3K3UBAyStRyP3oPTZrBXwYbDl0yAHeA?=
+ =?iso-8859-1?Q?9psq7x1hfsdRpmx1Mte7YUtnkchjs922uOVOCZc4fL1QSyfD94HVHdN4Y0?=
+ =?iso-8859-1?Q?ySjy3A78TfYW22ewJSQPsQWkO32EBStBMtow8g97mlBKx8Pkk9f4ar/BpB?=
+ =?iso-8859-1?Q?QYpCLcadYd9BfULNmyriZ2cMAKCqTWIb2MIEAly8ffXQ5RYgI4tEnIirM7?=
+ =?iso-8859-1?Q?r4SweZBHrdJnnUqtIy7oDeMOhU6IEDk=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA5PPF8ECEC29A9:EE_|CY8PR12MB8193:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d093eb5-4a7a-4e5c-5ab3-08df41dcb462
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|261009223027099003|18002099003|22082099003|6133799003|261022075727099003|56012099006|5023799004|11063799006|261102123227099003|261021121427099003|261026140227099003|261026121527099003|261022105027099003|261021123027099003|261028144727099003|10067099003;
-X-Microsoft-Antispam-Message-Info: a1gT6ePw5t/Ig7SPezztKuvNycANKo+WAnMltBAnOFZeHMkUQ2fEdDlryLl+8jzSu/fmQDQjROn1+ENwgVBACRxoHqtZyk07ApPytuWouqmvJ5lmS1OktYVlIIR8FoE/G1SD5vR8fZUpFR0aM3ooKts8j0RmP29y2oiccR7q1PgNPct7F6ozyCdvFe5gafiFjdR5yxMOH8IyZ9AJ8NQovdQq+mzyMA/gbARo+hSd6vYmTYtA8F7UkEwocTIfVCTFczumYGuR+oZhGWM2fFraIhR6tznwbpoyKq8ElIbNfCx9X4dxqck3KtG9WjsIHCXYM5Aq63KADBYXOcH59YNboqErRLZV5Up1hMafsC7hYt9kz1R6Sj3GHmf6ukpye715cAqTbvkiXhR3jqbm72/hJHQ5n4U60Fx3DDetOBH4XiVbZbFLz1Lqu3Wrby+xU5CQUsQJpBCaYDgyGkAc3iD+smLR/ttRKciQh85m/ES9GtR8FIEuDKmntfuKuX2sZuXlnmXSO/zm2lC+/uzqJridnmrVYzJOZVxiS+vPWuaqNnd2cjV2SjGy4DOWNJhTS7EwwzH9DWv/ru6sNYgUxMaBlhAHDAhEzOcN9+hyuz0J7BX50W5aXAvsuPqwYrZ+TLYGH+NTZ4TQTv2RKC0YUXx/qMbXdieJp5SoMreHev7mjr0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA5PPF8ECEC29A9.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(261009223027099003)(18002099003)(22082099003)(6133799003)(261022075727099003)(56012099006)(5023799004)(11063799006)(261102123227099003)(261021121427099003)(261026140227099003)(261026121527099003)(261022105027099003)(261021123027099003)(261028144727099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yi9ub09NUnFRekMxMnA0bi90cXhNMCtHUnYvZXhid1VoL1BHRm1XaDE3MVZh?=
- =?utf-8?B?d2VxTW9HTlU4TE12akFwNHlZSmZCc2d0K2hxMDFRRnRYdlRNSG9aaWM4U1pV?=
- =?utf-8?B?TzMzUkVzSTVPeVdpVE91L3FpMU9MT1kyZGlVKzhJWUdPQkFpR3M0aEtGcUdm?=
- =?utf-8?B?L0Z0azRVcUNZR0lRcVJDQm1ObmNORUpleUtzKzJ5QUlyWC9KTkZ1UUFSNXZS?=
- =?utf-8?B?MkxRbnhhOGJISkIrcjR3S0xqL1NsZVloN3pkc0FTVXhMaytXTGF3cUdubWpv?=
- =?utf-8?B?a0NxWDNzV3VIbDVVbzI0dzQ3OEowQVRPYVh1WDhCVVByalg2WDV4QjhXMzVa?=
- =?utf-8?B?VTJsb1N6b3dBQnYrRHJUTzc0dU9LSklpTjlCOUw1UllRcTRObTVzSnhiZVVY?=
- =?utf-8?B?ZVlFeTF2QW4rZmtUS201RjVKdmI4U0IrcS9RSHhITU8zUlF0T09LckxrS1VU?=
- =?utf-8?B?aDB1VGFnbDV2OWxlK0RrY0syaW9lWlN2dTZrNDFQR2NRWU5XMnNkVzRhK3Ji?=
- =?utf-8?B?dDcyaEFXVkNOb1E4R3h2a0tWL1RUaS9sc3JQcEtZQTJsZjdiUDhPaHVCSmhF?=
- =?utf-8?B?akJqYkdsbVI5OTdvM3FVLzJQbmsveXd4TmFYekxFOFY4L3YvOEFqOVhNckFN?=
- =?utf-8?B?RkxWeXd6NG9IaExmQXZQWUsxSlhNa0ZzdGozL1NEM3c4SlVRYk5xMXEvZXZY?=
- =?utf-8?B?ZUhkK3A3dXV3Z2l0dTczdi9kbDFaKzFSWW80dVNiM1IwSmpzSk5CUG9WbHFZ?=
- =?utf-8?B?S1llUHhnd1RvcktqN2ZtMnN2dURHc3FhN29TVUxVb3JtYkFTait5RmpHV3V2?=
- =?utf-8?B?SzVpVVFBS1hEVk13SkFtajBNMjRtYW1pQUpWK0h5MWh2YTVoYmErSkRibCsv?=
- =?utf-8?B?TmxGRVlSdWpoVGZ5Mk1JUThacHJLUGR3c1BZaUpOTm1vOE1Ya25BYzk3MXNE?=
- =?utf-8?B?U09RUG0zWkZ5ZUIrR0wvWGM4akthU01FRUNqWi9HWVdvMmNjSUpmREkvV2FX?=
- =?utf-8?B?LzkyUHFsSWo3OWNPWmtqNEltUGZHbERVcUo5U1NuOW9rZEJsdm5MQ01DWmRq?=
- =?utf-8?B?Wmlkc1hvZlFsUC9CNFBrRys5c2hPY1BOMFFNbGJwUlR1OXlkbUQyM0NsbmFM?=
- =?utf-8?B?MWJDL3hFVmtvRU4vdUsxWnROYW5INmlaOVJkdnhLd3pYdW81RFoyL1lJK1Nn?=
- =?utf-8?B?ZThXVEdxM2ljYTZDS3dyZW8zNE9nMG5HTEh6UEh1K3R4Q3ZhVVBFV0Rwd25W?=
- =?utf-8?B?Z245NXlON21VUm05VWNZcFM4T3h5WDNQL2F6dUIvTzdMNkN4bVd1bThCVkVJ?=
- =?utf-8?B?bEFiVlJncUpkUHgzdUk1aThmUXV4bFFiRVFCekNsMGxSdmdzSHZYamJYREts?=
- =?utf-8?B?WHd1ZmFXZktCUVNUTzRFWDNSa3Nxbnhyd2Rna0FFV0I1d1JBZEN5eEI2a2ZJ?=
- =?utf-8?B?OFo2Wk9XcFEyUjNsUWN5ZXlyT1ZrM200L25aZG5jNGlIb2x1akV2RXV0K1Zj?=
- =?utf-8?B?T1BpT2JlWS9uZFQ0UjRGeGxLRzRJTlFBZGZuK1ZnUCtqTCtDcUc2dDRHcG04?=
- =?utf-8?B?TFozdXpkVXk4b2tPRkFNdjBucm15ZnNYejlkL1F1dHZaZTgrdmthRGFmMjc4?=
- =?utf-8?B?QmFKVE1TRDZKZlJ3bWc3Tyt2aFBTVDZhU2ZMVG9yeldRQUxCaWdpMEZqTDVI?=
- =?utf-8?B?QXZsWlFMcVlpM0ZYd3c4bnFjekdPNFRjSEZHMTJUQ0lXc0NLV25wdUJrTk85?=
- =?utf-8?B?eThLenc4RUxpSFJqdHVrZUxscDF3WjcrTTZQMTFOT00yN3EzLzBpd1RxeDly?=
- =?utf-8?B?cHhsbTR0Z0FXVjRNWENNWVFYUThGdENJRENKR1hkSnJhYjNiMVlkOXlXczdO?=
- =?utf-8?B?bFFadzdhUEdhRDF0K3AwNkFxOUN3UnZDMjEzMVZ5N25hKzBpTVZ2QmZITmxz?=
- =?utf-8?B?TkIrT1JyVnc3ZUNlK2FTWDFBWXNzL2hRbTd2dVZ5NVNNOCtoUGc0Q05Za1JS?=
- =?utf-8?B?elNsT1lPa0xkckRadjdjZ1IvelNQbEFVd285REtPWmNFTkpsTzhWZlp4WWtI?=
- =?utf-8?B?ajQrMEcwamlvVUVDNTlNc04zRkE1QmlQWlBuMjdCVkR3U2FKMXhQMm94b3RN?=
- =?utf-8?B?Qk9oQVd0K1RGY1JtS2QzQzJpYVB0WEVLcGd4bXZ3M3p2dDNKS3FmNHJtV2h6?=
- =?utf-8?B?Um9XRkdWc3lrTTBHNUtIbXVwbWtLbkdhZCt3QlE2TGQ4ZDhIdTdsMUZsVlph?=
- =?utf-8?B?Z1hKczEraFFXZnl3WWUxa21PTldIRFM0OFBOTGxWdUxRY1QzUHN6ZVRQc3dt?=
- =?utf-8?B?ZjVlV1JzVUVma2xlQk4zekhxelZ5MjBoZXhsV0ljUVc4elpsM3F1Zz09?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d093eb5-4a7a-4e5c-5ab3-08df41dcb462
-X-MS-Exchange-CrossTenant-AuthSource: SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+X-Exchange-RoutingPolicyChecked: pgd5te6QEH+WxPR/3euPjtjZge9GMw5bDgOtWdkZ6GRmoUnDBeJSecIQ0xp18uG+qIOrcPkk5pzRAGNYw0KRuBY2ABwg8qCO2t0wYF7jWEhFuiRD2zwuE1pr8HPiMZMCZmXOUI7daHWeYN++Qd2qBVXFs8q7UkLcFwG6Lm2pYw8pt9aucxWIBQB0TN3UKNjBkzu4Pjxdr4nlLPc9Xz7NuO8oC7hx3k+aukm3W4HN6SviZ2gVrKIaMyJ2fpP3EhdP5cMlGcej4+AkvJc7BozgHchWMbfyIc2uXOSM7CB+gQBOJO+5TSD3WMi9joNwlyfTyOM3qcsLuZEVX8Ifwk2H1Q==
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 23:20:28.7303 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lYFuDlfwcZVLPUSDhcT2b7jRQxgE9+WN6AwAezcfRx/tPEAzcQpke5A89p6ROg7nJ3lgGQrfuEXQ0KsHdabeKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8193
-X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6418.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14be2ff6-aa29-4695-357f-08df41def81d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 23:36:40.9340 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fZZIrUMhDRoNnEApE37iJVi2Qdw15o4O04yvKv+wbnHY6FnbzJBG+0xA1k2YJWXpJ7PfkVm+8haDKjWkACPHMvvi9gehGRdU9Fw4nbq/NJ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6492
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,222 +171,42 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 2026-11-08 05:56, Hongyan Xu wrote:
-> create_process() publishes the process in kfd_processes_table before its
-> last failing call (alloc_notifier() must find it there), and its error path
-> frees it with a bare kfree(), ignoring the refcount.  find_process() takes
-> its reference inside the sRCU critical section but callers use the process
-> after leaving it, so synchronize_srcu() misses them, and the error path
-> cannot unref once either: it holds two (kref_init() and the one keeping
-> free_notifier() from starting kfd_process_wq_release()).
->
-> Release the process as soon as it is visible: take the lead thread
-> reference right after lead_thread is assigned, run ida_init() before
-> mmu_notifier_get(), so the release work is safe on a half-built object.
-> The published error paths unlink with hash_del_rcu(), synchronize_srcu()
-> and drop both references, so the last one runs kfd_process_wq_release().
-> Both labels hold exactly two references, so nothing is freed early and no
-> path falls into the unwind the unpublished labels keep, now with
-> put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
-> pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
-> kfd_debugfs_remove_process() by process, not pid.
->
-> Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
->   2 files changed, 54 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> index 7d4e07452cdb..a17a3a307266 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> @@ -33,6 +33,7 @@ static struct list_head procs;
->   struct debugfs_proc_entry {
->   	struct list_head list;
->   	struct dentry *proc_dentry;
-> +	struct kfd_process *process;
-
-Hi Hongyan,
-
-Thank you for working on this. It looks like your patch is based on an 
-outdated version of the branch. Current master branch already has a fix 
-for this part of your patch:
-
-commit 325de6bf3328efd5acf5072337fc196928753de8
-Author: Zhu Lingshan <lingshan.zhu@amd.com>
-Date:   Wed Jul 1 11:03:09 2026 +0800
-
-     drm/amdkfd: expose pasid of secondary contexts by debugfs
-
-     Current kfd debugfs interfaces only expose pasid
-     of the primary process, this commit exposes
-     pasid of secondary contexts by debugfs
-
-     Just like entries under sysfs,
-     the secondary contexts are named as
-     context_<id> under its primary kfd process.
-
-     The layout:
-     /sys/kernel/debug/kfd/proc# tree
-     .
-     └── 5802
-         ├── context_0
-         │   ├── pasid_1025
-         │   └── pasid_63266
-         ├── context_1
-         │   ├── pasid_1025
-         │   └── pasid_63266
-         ├── pasid_1025
-         └── pasid_63266
-
-     Another fix is, kfd_debugfs_add_process may fail,
-     this commit change it to return a meaningful
-     value other than void
-
-     Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-     Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-
->   	pid_t pid;
->   };
->   
-> @@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
->   		return;
->   
->   	list_add(&entry->list, &procs);
-> +	entry->process = p;
->   	entry->pid = p->lead_thread->pid;
->   	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
->   		 (int)entry->pid);
-> @@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
->   {
->   	struct debugfs_proc_entry *entry, *next;
->   
-> +	/*
-> +	 * Match the entry that was added for this process and not one that
-> +	 * merely has the same pid: kfd_process_wq_release() also runs for a
-> +	 * process that failed in create_process() and never got an entry,
-> +	 * and after an exec(3) the old and the new primary kfd_process of a
-> +	 * process have the same lead thread while a file descriptor keeps
-> +	 * the old one alive.
-> +	 */
->   	mutex_lock(&kfd_processes_mutex);
->   	list_for_each_entry_safe(entry, next, &procs, list) {
-> -		if (entry->pid != p->lead_thread->pid)
-> +		if (entry->process != p)
->   			continue;
->   
->   		debugfs_remove_recursive(entry->proc_dentry);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 12e24fbf8c46..f118f7f03de7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->   	mutex_init(&process->mutex);
->   	process->mm = thread->mm;
->   	process->lead_thread = thread->group_leader;
-> +	/*
-> +	 * Take the reference on the lead thread before the process can be
-> +	 * released through kfd_process_wq_release(), which drops it again.
-> +	 */
-> +	get_task_struct(process->lead_thread);
->   	process->n_pdds = 0;
->   	process->queues_paused = false;
->   
-> @@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->   	 */
->   	if (primary) {
->   		process->context_id = KFD_CONTEXT_ID_PRIMARY;
-> +		/*
-> +		 * Must be initialized before the process can be given to
-> +		 * kfd_process_wq_release(), which destroys it.
-> +		 */
-> +		ida_init(&process->id_table);
->   		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
->   		if (IS_ERR(mn)) {
->   			err = PTR_ERR(mn);
->   			goto err_register_notifier;
->   		}
->   		BUG_ON(mn != &process->mmu_notifier);
-> -		ida_init(&process->id_table);
->   	}
->   
->   	err = kfd_process_alloc_id(process);
-> @@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->   	}
->   
->   	kfd_unref_process(process);
-> -	get_task_struct(process->lead_thread);
->   
->   	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
->   
-> @@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->   err_alloc_id:
->   	kfd_process_free_id(process);
->   err_register_notifier:
-> +	/*
-> +	 * The process is already in kfd_processes_table, so find_process()
-> +	 * may have handed it out with a reference taken on it.  Unlink it
-> +	 * and wait for the readers that are still walking the table before
-> +	 * dropping the references held here: afterwards no new reference
-> +	 * can be taken and the ones already taken keep the process alive.
-> +	 * The memory is then freed by kfd_process_wq_release() when the
-> +	 * last reference is dropped.
-> +	 */
->   	hash_del_rcu(&process->kfd_processes);
-> -	svm_range_list_fini(process);
-> +	synchronize_srcu(&kfd_processes_srcu);
-> +
-> +	/*
-> +	 * kfd_process_wq_release() frees the memory, but it does not
-> +	 * destroy the queue manager: on the normal path that is done by
-> +	 * kfd_process_notifier_release_internal(), which neither of these
-> +	 * two error paths can reach, because no mmu notifier was
-> +	 * registered for the process.  The process is unlinked and no
-> +	 * reader can reach the pqm any more, so destroy it here, before
-> +	 * the references are dropped.
-> +	 */
-> +	pqm_uninit(&process->pqm);
-> +
-> +	/*
-> +	 * Drop the reference that keeps a failing free_notifier() from
-> +	 * starting kfd_process_wq_release() and the one taken by
-> +	 * kref_init().
-> +	 */
-> +	kfd_unref_process(process);
-> +	kfd_unref_process(process);
-> +
-> +	return ERR_PTR(err);
-> +
->   err_init_svm_range_list:
->   	kfd_process_free_outstanding_kfd_bos(process);
->   	kfd_process_destroy_pdds(process);
-> @@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->   	kfd_event_free_process(process);
->   err_event_init:
->   	mutex_destroy(&process->mutex);
-> +	put_task_struct(process->lead_thread);
-
-The changes in kfd_process.c look reasonable. I'll try to apply them 
-without the changes in kfd_debugfs.c.
-
-Regards,
-   Felix
-
-
->   	kfree(process);
->   err_alloc_process:
->   	return ERR_PTR(err);
+> This is already a point where you have fallen off the hot path and you=0A=
+> should really look into your application code or virtio gpu code to=0A=
+> optimize it to stay on the hot path (try_qad_pin succeeds).=0A=
+> =0A=
+> You should not be importing a new DMA-BUF per frame, but should instead=
+=0A=
+> keep recycling existing ones. If you keep using new buffers, you will be=
+=0A=
+> finding more and more hot spots in the code as a fresh BO (DMA-BUF or=0A=
+> not) each frame is going to take a hit on the performance no matter=0A=
+> what. It's not how you're supposed to write applications.=0A=
+=0A=
+On the per-frame churn: agreed, and that side has since been fixed separate=
+ly in virtio-gpu's driver. That reduces how often this path is hit.=0A=
+=0A=
+> How do the numbers look like after the patch applied? It's the=0A=
+> relative improvement of i915_gem_object_get_pages_dmabuf()=0A=
+> that is of interest between baseline and this patch applied.=0A=
+=0A=
+Before/after on i915_gem_object_get_pages_dmabuf(), same ARL-S/multi-VM set=
+up as the earlier trace:=0A=
+=0A=
+Baseline:=0A=
+  i915_gem_object_get_pages_dmabuf   36.65%=0A=
+      wbinvd_on_all_cpus               35.95%=0A=
+=0A=
+Patched:=0A=
+  i915_gem_object_get_pages_dmabuf    5.38%=0A=
+      drm_clflush_virt_range            5.37% (5.35% self)=0A=
+This patch optimizes that import path.=0A=
+=0A=
+Krishna=
