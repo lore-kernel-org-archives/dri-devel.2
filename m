@@ -2,68 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BAF606A333
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 15:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A1A606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 15:31:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LTAy6NSl
+	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=cMQuDfCL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8881011264B;
-	Fri, 13 Nov 2026 15:28:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA8C10E4BE;
- Fri, 13 Nov 2026 15:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794583693; x=1826119693;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7WrI4I1e6AA0i/3C39c8w4Prml7K97duiiPrHEPwGGk=;
- b=LTAy6NSlpgiw77Zs/fJ9+ZMb3loC4fZY/7cDwhDzmx5sd9UYnlV3/p00
- BDdz5ucC2Y8bzRyMbj3fe4vDmDZN7LWA/7hEkUJ+wcSs8wTT1QynvJbcS
- mUT7o+dHeDtExl9PZ/oelLaZSmhkvTvtKgI1BHQ36p3XkCo785o0VNfAU
- 38dZwswUMFVU76v5QrhBRKdnO2lIxSgvASwlrqhayuoXbCtpx5Ny8WFLW
- 9VbJlDSvbwtRHQwbrKC/OfSPY8Pa3u6d03HILTZKzIyAemzQ3gW3gBVKo
- tIHxmmFelUWONO8GEocDrJpZo0v0T2VQ06EDH0sULwKpXBFtQ1+JrSxZZ A==;
-X-CSE-ConnectionGUID: cuuYJmdbTiaIDikeZUDLKA==
-X-CSE-MsgGUID: UihUy3FNRJGe10AOf/kREg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3395678"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3395678"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 07:28:13 -0800
-X-CSE-ConnectionGUID: S3qdHoYiQbCcBmAD1HnGKw==
-X-CSE-MsgGUID: s7r55L+SR9a3/QHm3xhOWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9492044"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.126])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 07:28:09 -0800
-Date: Fri, 13 Nov 2026 17:28:06 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hanson Wang <hanson.wang@ugreen.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Animesh Manna <animesh.manna@intel.com>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7
-Message-ID: <avcshtsLJ1_ugiaW@intel.com>
-References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
- <20261106102315.1361645-1-hanson.wang@ugreen.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3766F11265A;
+	Fri, 13 Nov 2026 15:31:30 +0000 (UTC)
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22AD410E642
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 15:31:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail2; t=1794580415; x=1794839615;
+ bh=u9IuEf6rp7xFv52Negp9qgPJMgK728e5qtDT6H/5DDw=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=cMQuDfCLMPojTaZmy7BIYBjTNVrEZs6+wy7Fr916opB1SsSuURQc9ATDEfrq1+JUj
+ OiUlmn6AqD0hN9NSF82gqR+4MvmvDPh3CC4hrTfDFyymSjBdC2zYONM9GIp91zYX4K
+ mrJLL67h2a5aJXQCYcUwTC07qQ4KXoq8O6/UnqwTkBf3+VzJXktds9G/lm9hRWZvZP
+ bW5/8l8NtcMmfd77seLtPuRnkNnZijsI3k4Kipe8H69dp80t2VJPfeAzc7KbZUeQDO
+ /ZILxsY3JRp7NFwW0gEDq9ATxGAtxavycEB5j6CAzL32COqgnKBzesLSPA4NO6XbgV
+ 8Vy5N1RCzhOvg==
+X-Pm-Submission-Id: 4jR09l0nhMz1DDXX
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, tmgross@umich.edu, work@onurozkan.dev,
+ boris.brezillon@collabora.com
+Subject: [PATCH v8 0/3] drm/tyr: GPU reset infrastructure
+Date: Fri, 13 Nov 2026 17:32:25 +0300
+Message-ID: <20261113-tyr-reset-impl-v8-0-2ee298ac9808@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260813-tyr-reset-impl-93e951f996b4
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106102315.1361645-1-hanson.wang@ugreen.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,90 +52,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 06, 2026 at 06:23:15PM +0800, Hanson Wang wrote:
-> intel_dsb_gosub_align() moves free_pos to the next cacheline
-> unconditionally, but only clears the skipped bytes when at most two
-> QW slots remain. Wa_16024917128 forbids GOSUB in slots 6 and 7 only.
-> A larger gap is still executed. A Panther Lake DSB dump showed
-> nonzero data in that gap, with the tail at 0x58 and GOSUB at 0x80.
-> 
-> Advance free_pos only when the instruction would land in slot 6 or 7,
-> and fill that gap with NOPs. Emit GOSUB in place for every other slot.
-> intel_dsb_align_tail() still clears the rest of the cacheline.
-> 
-> Update free_pos inside the existing gap check in intel_dsb_align_tail()
-> as well, so the two helpers keep the same shape.
-> 
-> Fixes: 2c41d62f6fb1 ("drm/i915/dsb: Implement intel_dsb_gosub()")
-> Cc: stable@vger.kernel.org # v6.17+
-> Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+Add support for scheduling GPU resets on a dedicated workqueue. Track
+the reset state to avoid queueing another reset while one is already
+pending or in progress.
 
-Thanks. Pushed to drm-intel-next.
+Use an SRCU based gate with mutex-protected reader admission to block
+hardware accesses while reset work runs and wait for current users
+before resetting.
 
-> ---
-> v2:
-> - Advance free_pos only for QW slots 6 and 7, and NOP-fill that gap
->   (Ville)
-> - Update free_pos inside the existing check in intel_dsb_align_tail()
->   so the two helpers stay in the same shape
-> 
-> Hardware: Intel Core Ultra 5 336H (Panther Lake), 6.18-based kernel
-> Build:    6.18 backport; both xe and i915 intel_dsb.o
-> Upstream: not built or booted
-> Reboots:  7/100 DSB idle timeouts before either fix
->           v1 (always align): 0/200
->           v2 (this patch):   0/200
-> 
->  drivers/gpu/drm/i915/display/intel_dsb.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-> index d9a270362a82..07d864039e82 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> @@ -589,10 +589,10 @@ static void intel_dsb_align_tail(struct intel_dsb *dsb)
->  	tail = dsb->free_pos * 4;
->  	aligned_tail = ALIGN(tail, CACHELINE_BYTES);
->  
-> -	if (aligned_tail > tail)
-> +	if (aligned_tail > tail) {
->  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
-> -
-> -	dsb->free_pos = aligned_tail / 4;
-> +		dsb->free_pos = aligned_tail / 4;
-> +	}
->  }
->  
->  static void intel_dsb_gosub_align(struct intel_dsb *dsb)
-> @@ -607,11 +607,15 @@ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
->  	/*
->  	 * Wa_16024917128
->  	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-7)"
-> +	 *
-> +	 * Move to the next cacheline only for those two slots. The skipped
-> +	 * bytes stay in the programmed range, so fill them with NOPs. Any
-> +	 * other slot can take the GOSUB directly.
->  	 */
-> -	if (aligned_tail - tail <= 2 * 8)
-> +	if (aligned_tail - tail <= 2 * 8) {
->  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
-> -
-> -	dsb->free_pos = aligned_tail / 4;
-> +		dsb->free_pos = aligned_tail / 4;
-> +	}
->  }
->  
->  void intel_dsb_gosub(struct intel_dsb *dsb,
-> -- 
-> 2.34.1
+Stop new reset requests during teardown and drain any queued or running
+reset work before releasing the device resources.
 
--- 
-Ville Syrjälä
-Intel
+This is the initial reset infrastructure only. It is not wired to a reset
+source yet as those will follow in separate work.
+
+This version is based on drm-rust-next commit
+cc0e99fad239 ("gpu: nova-core: add support for GPU timer block. (v7)"),
+with v3 of "workqueue: OwnedQueue and ScopedWork" [1].
+
+Changes since v7:
+  - Rebase against drm-rust-next and workqueue v3.
+  - Add a TODO to consider embedding HwGate in platform data.
+
+V7: https://lore.kernel.org/all/20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev/
+Link: https://lore.kernel.org/all/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/ [1]
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
+Signed-off-by: Onur Ã–zkan <work@onurozkan.dev>
+---
+Onur Ã–zkan (3):
+      drm/tyr: clear stale IRQ state before soft reset
+      drm/tyr: add GPU reset infrastructure
+      drm/tyr: put iomem behind the hardware gate
+
+ drivers/gpu/drm/tyr/driver.rs            |  63 ++++----
+ drivers/gpu/drm/tyr/fw.rs                |  16 +-
+ drivers/gpu/drm/tyr/mmu.rs               |   6 +-
+ drivers/gpu/drm/tyr/mmu/address_space.rs |  87 ++++++-----
+ drivers/gpu/drm/tyr/reset.rs             | 244 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/reset/hw_gate.rs     | 106 ++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |   1 +
+ 7 files changed, 441 insertions(+), 82 deletions(-)
+---
+base-commit: cc0e99fad2392ac479e2594b88fd947a2f2d9c33
+change-id: 20260813-tyr-reset-impl-93e951f996b4
+prerequisite-change-id: 20261012-rust-workqueue-658cd0fbe770:v3
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
+prerequisite-patch-id: e19d2e11fc6c6fc121d65c8502bfa557e1dfc5ec
+prerequisite-patch-id: 89eb57a43e71850c447ea7cb7051fb36066ca329
