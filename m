@@ -2,94 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC005606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCD3606A32E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DDsrFlcJ
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=nI9WpNPf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCAD10E79D;
-	Fri, 13 Nov 2026 13:02:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 160BC10E79D
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794574972;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
- b=DDsrFlcJG+gDEGo0hCv+zYpCVVkpluqhlaUQLUtVCTMUYVhVQ/nv5QsE8ob5pLdu2kzE5T
- /hv0LgqNOJnFLkkgOUKGYDVp9rvtGsQiKfj0x0oj00JrBs892Io5fEs/lv3hmWhK5aRKh9
- pXTskTJ5WMOCilOjfQz0xyOieKsmIco=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-418-zOgso56vNwCqYacGtd1gbg-1; Fri, 13 Nov 2026 08:02:47 -0500
-X-MC-Unique: zOgso56vNwCqYacGtd1gbg-1
-X-Mimecast-MFC-AGG-ID: zOgso56vNwCqYacGtd1gbg_1794574967
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-c505ee610feso93078966b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 05:02:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794574966; x=1795179766;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
- b=bebMaMK/iQA/JiZlox6kgtAS5oOG7p30PoueDRbDlXjiOeekjmWsDYKi5M/fVYAswI
- 43Uaqtc08uEvue1Sz//vJecDdaYpPXdiEeiIRrQx6dH7Wamy2ZHElRQwmZ/G46rKvB9N
- FZB8K25sV6Fnyw37HedTnNVV3zvyXciTMHoRF08AB2kIX2AAB9z1EC/qr8U1WVCvBfqd
- cEQb5Zr0N163doWzcf7bpM2dE4qPbv+kBnAx7K0VUXk2U2rU2pXfL+3CBdVGr+dNIT0l
- wDYHbFzbf9RxRDi/BQZobSmdyAo7vHm5+Yd8sWUfVJ7QiX1QZjMkr69Hv9rgAEgqnTMh
- HO6A==
-X-Forwarded-Encrypted: i=1;
- AL+hErHhS/UevVSDOx9DI3VolRNjwJWpxuZResnIgBXmtWlZxIZ4qCDxj6w7TAlWaPwYZm1BqljQYehFKnQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9HRKKNXf2qtU2CO+WLNDxs7Ve0O5cuG3lRG/IZnk0B0d/EmqYW
- MbvskPRCPL8V5T8mgX3nMcg1eoWbeObqT5VV7a3Y6GOHlyw21rK5yZZxnbRU7361PWj9rzih4di
- HA/3uf+FwHtOwaP81VR2TZAtxwGO23ezfdJsGSak7owJAt0sZbscXyqOQF0ZIzGktb4UTiw==
-X-Gm-Gg: AYBFou3XxAaEyppGvYRk3iz4B335qsTig7Xr4QhZVv4yTywlDhKlofUxoDcCZQhhKhk
- MK9XSm4traF+n9njDY6QcT3lRB6/JzitMFYNf9luFnEOtZXqNMBD4EcJq3N3l496SST1BtS1pKX
- tSoYvJli0MWIjcEhET6dgKq5KHUr+iAJo8uC63IJbVgRs1G/eqFnDkY18fxmPtfsPGIOgoIWtT0
- TlEghDfsUjCxUYXNtLH5/q0RPzDjnfAOc477m2I/0R52WA9tnMWh5IsI/D888omfb0eCUPW/O57
- YJ0gme7JveA3kq8hU/rH4OUnrstnDdh+Tf+REqM2dKmCOGIgfdcNRuWjRtIokXivgpGCVe8vVcA
- DPnoAKFEHPHlBULPXoOPqwaGV+l9wwDgAimZ4R7LNCCr+sWrnGEioJsFZUY36SGiUHg1MtroX86
- xMWAWDwouB8Gpnn5C1t1MynVOetLZXO5+IC6neTJo=
-X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id
- a640c23a62f3a-c50963ced7cmr207753166b.38.1794574966282; 
- Fri, 13 Nov 2026 05:02:46 -0800 (PST)
-X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id
- a640c23a62f3a-c50963ced7cmr207744866b.38.1794574965555; 
- Fri, 13 Nov 2026 05:02:45 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c6020bb0fsm4784229f8f.34.2026.11.13.05.02.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 05:02:44 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Fabio Piparo <holofermes@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Amit Barzilai <amit.barzilai22@gmail.com>, Mario
- Limonciello <mario.limonciello@amd.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: solomon,ssd132x: Add
- col-offset and dclk properties for the SSD1322
-In-Reply-To: <CAB3Lz5a67uvP3+1fXd8iUeJWzH8wUoPdauu8zVW4t4KXMbTN8A@mail.gmail.com>
-References: <20261029205751.3513474-1-holofermes@gmail.com>
- <20261029205751.3513474-2-holofermes@gmail.com>
- <20261030-dynamic-oarfish-of-dignity-feaef6@quoll>
- <CAB3Lz5a67uvP3+1fXd8iUeJWzH8wUoPdauu8zVW4t4KXMbTN8A@mail.gmail.com>
-Date: Fri, 13 Nov 2026 14:02:43 +0100
-Message-ID: <xlv1wlqgsx3g.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5DE10E7D3;
+	Fri, 13 Nov 2026 13:03:31 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AD55710E7DD
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:03:24 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id 16D1A20B7166; Fri, 13 Nov 2026 05:03:20 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 16D1A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1794575000;
+ bh=CZfrB28noCKrynN8sjAuUhowFeJ+ztoGVKLKgDROBJg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nI9WpNPfVBd5dz0ZbBzL0kcLAIsoNXpnoJQ3o0e3J5dq5D/oeZkpxnbPibyWSn7Xq
+ iTVeOL1EgF5HUp8sy6j69AOu1kDTVihm0xqUFs+5keXjF6RmUQXPhi4cxtOipm2JmR
+ 5MEecFrDJ8zeJ3J1eVTqg5mIolbUD5jywyhiPN4s=
+Date: Fri, 13 Nov 2026 08:03:20 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: sascha@eder.earth
+Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: drm/hyperv: pointer lag on desktop guests - host cursor is
+ supported by the protocol but hidden
+Message-ID: <avcKmFO2yzYIzbpF@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
+ <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
+ <avTq3OCNdDeyn/La@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <20261113021854.Horde.oyp74rgk0-Wh2hQXybP5yVq@webmail.your-server.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JA9AWBU2j31GlCzY2dCSwG-PphToyG4XMlf87m-wXGE_1794574967
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113021854.Horde.oyp74rgk0-Wh2hQXybP5yVq@webmail.your-server.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,88 +52,256 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fabio Piparo <holofermes@gmail.com> writes:
+On Fri, Nov 13, 2026 at 02:18:54AM +0100, sascha@eder.earth wrote:
+> Hi,
+> 
+> > Development for the driver is done on drm-misc-next[1], so I would
+> > suggest testing it on there.
+> 
+> Done. Short version: the pointer is smooth now, the lag is gone,
+> but the host-drawn pointer shows up three times side by side.
+> 
 
-> On Fri, Oct 30, 2026 at 8:06 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On Thu, Oct 29, 2026 at 04:57:50PM -0400, Fabio Piparo wrote:
->> > +  solomon,dclk-div:
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->> > +    enum: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
->> > +    default: 2
->> > +    description:
->> > +      Clock divisor.
->>
->> Why this cannot be deduced from clock frequency?
->
-> On this module the SSD1322 runs from its internal oscillator, and the
-> external clock pin is not on the ribbon. These two values only set how
-> often the panel redraws.
->
+> What I built
+> - drm-misc-next at c88084027d0e ("drm: Discard
+>   pm_runtime_put_autosuspend() return values"), 7.4.0-rc2
+> 
+> - The tree already contains the cursor plane code: git am of your
+>   patch failed and patch(1) reported it as previously applied, so I
+>   built the tree as it is. Please tell me if that is not the version
+>   you want tested.
+> 
+> - Config: Debian 13's 6.12 config through localmodconfig, with
+>   HYPERV=y, HYPERV_VMBUS=m, DRM_HYPERV=m
+> 
+> 
+> Setup
+> - Host: Windows 11 Pro 26H2 (build 26300.9711), Hyper-V, Generation 2
+>   VM, basic session (vmconnect), 3840x2160
+> - Guest: Debian 13 userland, KDE Plasma 6.3.6 on Wayland (KWin 6.3.6),
+>   3840x2160 at 200 % scale, 4 vCPUs
+> 
+> 
+> What works
+> - The pointer follows the hand without delay, also on long fast moves.
+>   KWin picked up the cursor plane without any configuration.
+> 
+> - Cursors too large for the plane fall back to the software cursor
+>   correctly: one pointer, drawn right, with the old lag.
+> 
+> 
+> What does not
+> - Whenever the host draws the pointer, I see it three times: the real
+>   pointer, and two extra copies of it to its right. All three have the
+>   same shape, are evenly spaced in a row and move together. Clicks land
+>   under the leftmost one; the other two are only images. In phone
+>   photos of the screen the three look striped, as if only some of
+>   their lines were drawn or those "ghosts" were meant to render as one pointer
+> 
+> - This is the same for every size that uses the plane and for every theme I
+> tried:
+> 
+>     Breeze, 200 % scale   size 12, 18, 24, 30, 36   plane, three pointers
+>                           size 42 and larger        software, one pointer
+> 
+>     Breeze Light          same as Breeze
+> 
+>     DMZ White, DMZ Black  three pointers
+> 
+> - The count is always the same: one real pointer plus two copies,
+>   whatever the cursor size.
+> 
 
-Yeah, the property name is misleading. Note that properies Fabio is adding
-are from Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml,
-which is for another family of controllers supported by the same driver.
+I wasn't able to repro that issue but it seems like KWin maintains a
+hardcoded list of driver names [1] which it uses to determine if it
+should enable hotspot support on it's atomic path. Seems like you can
+use KWIN_DRM_NO_AMS=1 as a workaround in the meantime until they add
+hyperv_drm support on their end.
 
-The ssd132x, ssd133x and ssd135x families don't make use of them. That's
-why they are not defined in the DT binding schemas of these controllers.
+[1] https://invent.kde.org/plasma/kwin/-/blob/75175b104504748aacd3d6a955a79d19751f8310/src/core/drmdevice.cpp#L48
 
->> > +  solomon,dclk-frq:
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->>
->> Use either existing properties or - if there aren't such - existing unit
->> suffixes.
->>
-
-Again Fabio just took what currently exists in solomon,ssd1307fb.yaml, I
-agree with Krzysztof though that these properties are not nice and don't
-really describe the hardware...
-
-The ssd1307fb is pretty old and was originally for a fbdev driver, then
-a DRM driver was written based on that for ssd130x, and finally the DRM
-driver extended to support othere families, which had newer DT bindings.
-
->> > +    minimum: 0
->> > +    maximum: 15
->> > +    default: 9
->> > +    description:
->> > +      Clock frequency, higher value means higher frequency.
->>
->> Why would the frequency be fixed/static?
->
-> Right, it doesn't need to be, and I'll drop both properties in v2.
->
-> I still need the redraw rate to be adjustable. I drive this panel at
-> about 200 FPS, and at the default clock it redraws at about
-> 115 times a second. One way would be to offer the 256x64 mode
-> at a few refresh rates and set the clock divider from the mode
-> userspace picks, the way panel-newvision-nv3051d offers
-> 640x480 at 60, 100 and 120 Hz. The rates would be approximate
-> since the panel's oscillator is not exact, is this a good way to do it
-> here?
->
-
-Fabio, I suggest to just drop this patch and as a first step just
-set a default_dclk_{div,freq} in the SSD1322 struct deviceinfo.
-
-That way, your driver changes won't be blocked by the DT binding
-schema changes. Later, once your driver changes land, we can figure
-out what to do to make all this configurable from DT.
-
-But Krzysztof is correct here that these properties don't seem the
-correct way to do it. They are just exposing raw register values
-in the DT, which is not the proper approach.
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+> - Host is on build 26300.9711 (the 2026-10 security update);
+>   the November update is not offered for this edition yet, so I could not
+>   check whether a newer host build behaves differently.
+>   I will retest when it arrives.
+> 
+> I have photos of the screen and could send them off-list or put them
+> somewhere, since the list likely does not take jpg attachments.
+> 
+> Tested on the setup above; I would hold a Tested-by until the copies are gone.
+> 
+> regards
+> Sascha
+> 
+> 
+> 
+> Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
+> 
+> > On Wed, Nov 11, 2026 at 10:05:06PM +0100, sascha@eder.earth wrote:
+> > > Hi,
+> > > 
+> > > thank you for the speedy reply :)
+> > > 
+> > > > Cursor plane support is a WIP, you can test out [1] on your end.
+> > > 
+> > > That is exactly the fix I was hoping for.
+> > > 
+> > > Which tree and commit does the patch apply to?
+> > > 
+> > > My guest runs Debian 13 with kernel 6.12, where the driver still has the
+> > > hyperv_ prefix and the simple display pipe,
+> > > so I would build the tree you name with the patch on top and report back.
+> > > 
+> > 
+> > Development for the driver is done on drm-misc-next[1], so I would
+> > suggest testing it on there.
+> > 
+> > [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-misc-next
+> > 
+> > > If you happen to have a version for 6.12, I can test that as well.
+> > > 
+> > 
+> > Quite a lot has changed in the DRM subsystem since then so I doubt my patch
+> > applies cleanly there or works as expected.
+> > 
+> > Hamza
+> > 
+> > > regards
+> > > 
+> > > Sascha
+> > > 
+> > > 
+> > > 
+> > > Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
+> > > 
+> > > > Hi,
+> > > >
+> > > > On Wed, Nov 11, 2026 at 12:13:16PM +0100, sascha@eder.earth wrote:
+> > > > > Hi,
+> > > > >
+> > > > > I am a Windows developer porting some of my own desktop tools to
+> > > Linux, and
+> > > > > I use a Debian guest on Hyper-V to judge how they look and feel there.
+> > > > >
+> > > > > The static picture is good, the mouse pointer is not, and I
+> > > think the cause
+> > > > > is small and fixable in hyperv_drm. I am writing because this is
+> > > the first
+> > > > > thing a Windows developer notices when trying Linux on their own
+> > > machine: as
+> > > > > long as a Linux VM feels sluggish next to a Windows VM on the
+> > > same host, few
+> > > > > of us will move a repo over and be happy about it.
+> > > > >
+> > > > > Setup
+> > > > > - Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session
+> > > > > (vmconnect), 3840x2160 display
+> > > > > - Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm
+> > > (Synthvid 3.5),
+> > > > > KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
+> > > > > - 4 vCPUs, about 7 GB RAM
+> > > > >
+> > > > > What I saw so far:
+> > > > >
+> > > > > - The pointer trails the hand by a small constant delay. Fast, long
+> > > > > movements (taskbar to top of the screen) are visibly laggy, not just
+> > > > > slightly off.
+> > > > >
+> > > > > - A Windows guest on the same host, same viewer, same mouse is smooth -
+> > > > > directly, and even when the host itself is reached through RDP.
+> > > The Debian
+> > > > > guest lags in both cases.
+> > > > >
+> > > > > - While moving the pointer: kwin_wayland uses 35-50 % of one
+> > > core, a kworker
+> > > > > (events_unbound) 13-21 %, and the VM is about 80 % idle. Adding vCPUs
+> > > > > changes nothing, so it is not a lack of CPU.
+> > > > >
+> > > > > - A smaller cursor and disabling KDE's shake-to-enlarge effect helped a
+> > > > > little. A plain color desktop did not.
+> > > > >
+> > > > > What I think the cause is (from reading the driver, I have not
+> > > patched it)
+> > > > >
+> > > > > 1. hyperv_drm exposes only the primary plane. There is no cursor
+> > > plane, so
+> > > > > the compositor has to paint the pointer into the framebuffer, and every
+> > > > > movement goes through compositing, the "blit to VRAM" and the
+> > > dirt message.
+> > > > >
+> > > > > 2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(),
+> > > so the old
+> > > > > and the new pointer position become one bounding rectangle. For
+> > > a long or
+> > > > > diagonal move at 4K that is a large part of the screen per pointer step,
+> > > > > which matches the more noticable lag (much worse) on big movements.
+> > > > >
+> > > > > 3. The protocol already has what is needed. hyperv_hide_hw_ptr() exists
+> > > > > because, as its commit message says, "Hyper-V supports a hardware cursor
+> > > > > feature. It is not used by Linux VM, but the Hyper-V host still draws" a
+> > > > > pointer; the driver hides it by sending a 1x1 transparent ARGB
+> > > shape with
+> > > > > SYNTHVID_POINTER_SHAPE. So the host does accept a shape from a
+> > > Linux guest
+> > > > > and does draw the pointer itself.
+> > > > >
+> > > > > Proposal:
+> > > > >
+> > > > > Add a cursor plane to hyperv_drm (up to SYNTHVID_CURSOR_MAX_X/Y, 96x96,
+> > > > > ARGB) that sends the compositor's cursor image and hot spot through
+> > > > > SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and
+> > > re-sends it on
+> > > > > SYNTHVID_FEATURE_CHANGE where the hide call is made today.
+> > > > >
+> > > >
+> > > > Cursor plane support is a WIP, you can test out [1] on your end.
+> > > >
+> > > > [1] https://patchwork.freedesktop.org/patch/761562/
+> > > >
+> > > > Hamza
+> > > >
+> > > > > With cursor hot-spot support for virtualized drivers,
+> > > compositors would then
+> > > > > leave the pointer to the host, as Windows guests do, and pointer
+> > > movement
+> > > > > would cause no framebuffer damage at all.
+> > > > >
+> > > > > Independently of that, handling damage clips individually
+> > > instead of merged
+> > > > > would reduce the cost of the software-cursor fallback (cursors
+> > > larger than
+> > > > > 96x96).
+> > > > >
+> > > > > A second, smaller item found on the way:
+> > > > >
+> > > > > With Set-VMVideo set to 3840x2160 (Maximum), the guest offers
+> > > modes only up
+> > > > > to 2560x1600. The connector's modes come from
+> > > drm_add_modes_noedid(), and
+> > > > > 3840x2160 is not in that table, so it only appears with
+> > > > > video=Virtual-1:3840x2160 on the kernel command line. Adding the host's
+> > > > > maximum (or preferred) resolution as an explicit mode would make
+> > > 4K hosts
+> > > > > work without that step.
+> > > > >
+> > > > > I can test patches on this setup and report back. I am not in a
+> > > position to
+> > > > > write the kernel change myself (drivers are not my field of work
+> > > at all).
+> > > > >
+> > > > > Thanks for maintaining the driver.
+> > > > >
+> > > > > Sascha Eder
+> > > > >
+> > > > >
+> > > 
+> > > 
+> 
+> 
