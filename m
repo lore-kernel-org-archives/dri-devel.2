@@ -2,86 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F86606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCE6606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUe4snAL
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wWblnJrN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D0110E7F3;
-	Fri, 13 Nov 2026 13:43:28 +0000 (UTC)
-Received: from mail-wm2-f5.google.com (mail-wm2-f5.google.com [74.125.225.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0AA10EBEE
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:15:39 +0000 (UTC)
-Received: by mail-wm2-f5.google.com with SMTP id
- 5b1f17b1804b1-4a35e178418so1425095e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:15:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC0C10E803;
+	Fri, 13 Nov 2026 13:43:29 +0000 (UTC)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5FC10E663
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:56:24 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3b1535be329so354830a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:56:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794528938; x=1795133738; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
- b=mUe4snALMNDdRctpiJYsSSXiZ5pf2c/XfO4IZdJ/Y6xgMen+eBDVDVDl5RpC8J5tko
- 3AVpWkAmAOaaghcDfuzca9FXGVU/kTmbKXBmAMCYjYJfl8uy0GwH+J4rnOmWzpk9v0rQ
- GZMT77Kku/eheEG2WH/bNZMNi4EEyjyWzz2HenlZh3Z2kpwCAwJTSbL54yijiL9sj3i0
- e1qjvSpwOXc4uPfNIc7Bbkm+rG4jD04cyrZeBfquFxMkBMXkxFvgnHfNbwmUFNol2VH4
- gs9euvG5jHpCusQ/9z2Gv6n3fWxr9MtYFm5uRBOm3wjUGIZLKVmmYkNiKx8kw+Ep9e9w
- ylhw==
+ d=gmail.com; s=20260707; t=1794531383; x=1795136183; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
+ b=wWblnJrNCG7r/p9/NkUxPfdQtX3rjGSMdvIoHKICo/e452RUhc1RWTBxLpYt8pzuHI
+ vAbZfHgnfmfxNVBJ31b8SKct2buv8ftUzRtoA5fBP9qo31GHynzRBkG92k4Z8HoOsTBy
+ LPq/2KDfNjoGvzvPZJlYzjY2taeewoY3Gk7MnHQVinn6bkG6SKpGGUQ8ZotHp640z9HP
+ iyXqE0MJRscFuW61aYXO/pHwvr0ojKDmZjkgK998AoIVIFe+2adiyUnzbYc7e2La4SGH
+ cgAnnwRw6juCYN9glC9+cPRFPmgBfnSJVI2o1qQAWMks/VOHPBi9w+MXUyO6+pxaKk3Q
+ rrig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794528938; x=1795133738;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
- b=HPlv7jeoBCSXHxBzEUy45n8QdMMGHYZDqYqN6YOUSLAagFMzPstYQk2tD56PA3Uaqq
- fRHwL23qaHVLG7igkTH1jYoXyJSpNxxoOoKiihIrCOu8ocROEw30Em6znoZALhi7+pPV
- sUW8Y0O6/5RyIhUGfZFSirei1GxNf15LBE/FYiERtbEOlHcyTHyKmLNwUfMJsIi+MIuc
- MFbu1AtWPLL+bjqGP0gCljElWtC120ff1Id6FIcF0Cot7xup6a6TQ7s0+lpq4AL/kohR
- DqM3TJ0pIktj3K/YRbQY04Q7vSLHEXBY9ODe0wKJ/YKsU+Ow9J7uA6Wi1maCKh6UETxC
- T4sA==
+ d=1e100.net; s=20260707; t=1794531383; x=1795136183;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
+ b=KB1X5vVLwWQI0h9FfF/BrHGOvRg0GdVBJ7elui+F8MhFc0rGtltFFTOHWxHkhXLkvT
+ lbdVFDszzMKmybRth2/VuYJCFiu50ABG6JY7pdXRnyhRSiG9zfaNcxeU4C1BiY39upJI
+ pjv56LbuUh23QBLx1V7dmfGdMAqMAgWcF33ozUYN2MKtBTWzDkT6VGOAF7KWYDli8Yt0
+ Uh64/u4UOXxWMxAYfGDSpxyT4YC3jW7sLmxdQeDOeQMaz9K8UYrK803za/LvhTZC/5et
+ lKMFiOlBaEhfT+cHoe9XTuQBDmP4gTczIkcbuF3qmX3Gcar20tXVQiijM3XENckvSkIR
+ YDPA==
 X-Forwarded-Encrypted: i=1;
- AL+hErE0li/k6hZNHRimVMmeS66cYOnQfX2B5vx7hwwyA7es1DXPZFD4xK6VT170oR+5i1ZHkfAT25jkJnQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/+FB6izxEXeWeisKbS7j7w3we0xUW//IdBxfLeWBKqJKoblUtx
- t12BtiXYm7ymUm1Sj8keDJvedcEuKhD1VYFjb2To2XQNwu0UbZpPiyxj
-X-Gm-Gg: AYBFou03sDz7eI1Nr3Db639gRaj7O3LOAuf7MdgYeZo115BghIoEly2AEb0Jx1sAXFh
- BlF2uWjbzkd/x78CT4gGw9BP6XesRua52P4LtQAAkfsTvuKnDO3FtXEr/bAZ2ns90qVSjLsFBD8
- 4wAK8zgQhMp9QkyxuBMCvQ7+JtbNnZyCco3wNPMzBFkueDTkUrdl/5Q8cSTR3xnpxln4dTd3DmY
- H19kANV9BJklr3ANJgFNAvih4bg4s44wGbR919o7IMU5uE2AowupEV/5qymUVIXBSVdhFdd4o4j
- dpCP//MQTRcInNmcja7WO8UJjje0ZDlBqN7aBIIt1+bC3sxZo3f+UDs745G2SxMdohsCCGBvMwx
- eism09bivtYQnSD2eFbyrFgary45L9ZJ6h2juOgpWw5XCqRMQl8otneCTLFhfWSG4IwI26Ar+fG
- xZskPBHphPK2aW2gY4vnG5/OHsoZ8mD0oobf7MI/vlt/QiIPZ1hSAVwWM5EJh2v1G4RGUS2K6vo
- Mk/VXl89bylLEjAaQ/ZhhnBu+Qqb9/6qhiXp0DMScKU/ZEjU5rD9pu6WjOXfLUEbUFhHoJtlDBK
- +mfELKBmYa3Ce/e37UBmqaX+o37050MUYZJ4
-X-Received: by 2002:a05:600c:8b66:b0:4a4:7a8d:c436 with SMTP id
- 5b1f17b1804b1-4bb55c5f567mr16787315e9.11.1794528937859; 
- Thu, 12 Nov 2026 16:15:37 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb52bab8bbsm52641475e9.13.2026.11.12.16.15.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Nov 2026 16:15:35 -0800 (PST)
-Message-ID: <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
-Date: Fri, 13 Nov 2026 00:15:33 +0000
+ AL+hErGJNXPlE9BZqASftHO1xqIr/0acoa+nEFICuq6q+fgQnOR18GaTvVgXORG0KG0pcJ7GRc0SyR/4f+I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/smkkv44vptnXMUjlpuK/sG9KruooZ/vytf1q8wIHoKjHfLbD6
+ NKfW3pW4Wkt4eJcrrhNf/tMkRLqq9D37X74kEr82ppuhYomAFxSb2uxr
+X-Gm-Gg: AYBFou2WuJsJikvULIgePdaKiqo+yuwPXAUl39MO7kjujLqFg1qvc9isobn26PQTQhQ
+ PLR/tlzFYTa9lRtUh/SKgZOIcT61db+VA/UDVKctgNL6wtIgaWxUMnyBaqhnzV+1aEJ2Qyb1NYC
+ 5zpciEmLgl6xJaQL8NDa0FNLD2UEOA0Q3DKAyAupreXHw2lQ7a1Ke4abJ5bspwX4ljEejB1e9AT
+ ETkFNk62tVyxjJPAGr/5v3IlPb2MEZquK1XxJxWFt6DR7SicQX49jzWkp9eu3N4fdW8w65cXYW6
+ 46dZpPY2Js4sgTS0za3iG1z/OI+qsh+omrGeYKPDRs00TVieP/imQnMaj+4UsPOFOJH3O3+sYfv
+ UUsGJS9tpmEFfvHGDPWmUgcugBoOZ0lRisoU2kGFznMzeimmrR0HlskYqeXCULWQ/v8zrynSNyD
+ q4I8fZHyUMxvudBIahkCS1srFHtmcMK2xx9LqXgWbBnUh7FfYi33jrVt4gkFFppnRB2xVaRfzDf
+ wTR2Oe2fRyA6++a3HeHNKQm01HjXuEzV4LY/o+lYTrXAnHxPREzGbnsaSFJ/xR36rOL5sMDABk5
+ NILWTgqAfFkFab3nlWDjrcaMxT74sqTlU8+Rs5KOjdDnUQ5COWtlzayEWZNyp8ECawp8RaeA/Fd
+ CNWx/psMdy0lX0vEpV3tIx1J24CM7m6HUbIddueOpext+cwAOAaH3roDNewz21pyk3nUd5SJ0AF
+ t376Zya47eCqrA/5T2wzdANjCWZA9yX3l14TLxq5u+a77izGn1+C1CMDztK1ukkLSjh8AnVTmH6
+ ssmKIvqQHDVoqw3J6XESgsF
+X-Received: by 2002:a17:90a:d883:b0:3a4:b74a:795c with SMTP id
+ 98e67ed59e1d1-3b1b09f3b50mr619305a91.16.1794531383375; 
+ Thu, 12 Nov 2026 16:56:23 -0800 (PST)
+Received: from lenovo.localdomain (42-155-215-210.ipv4.nexon.net.au.
+ [210.215.155.42]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ee0f75c86asm2351735ad.23.2026.11.12.16.56.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 16:56:22 -0800 (PST)
+From: Miro Kropacek <miro.kropacek@gmail.com>
+To: deller@gmx.de
+Cc: geert@linux-m68k.org, schmitzmic@gmail.com, lilinmao@kylinos.cn,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
+ Miro Kropacek <miro.kropacek@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH] fbdev: atafb: Restrict SuperVidel handling to the Falcon
+Date: Fri, 13 Nov 2026 10:56:16 +1000
+Message-ID: <20261113005616.402721-1-miro.kropacek@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
- <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:43:28 +0000
@@ -96,129 +89,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/11/2026 19:59, Alex Deucher wrote:
-> On Tue, Nov 10, 2026 at 1:49 PM Richard Lane <richardlanedev@gmail.com> wrote:
->>
->> On 09/11/2026 20:34, Alex Deucher wrote:
->>> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
->>>>
->>>> When driving multiple displays or tiled panels with identical timings
->>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
->>>> Core's program_timing_sync() aligns the CRTCs into a timing sync group
->>>> in hardware during dc_commit_streams().
->>>>
->>>> However, on DCE < 12, Display Core leaves
->>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
->>>> informed that the streams have synchronized vertical blanking intervals,
->>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
->>>>
->>>> If all active streams belong to the same timing sync group
->>>> (timing_sync_info.group_size == params.stream_count), report
->>>> all_displays_in_sync = true to PowerPlay after committing the streams so
->>>> SMU7 can safely downclock MCLK at idle.
->>>>
->>>
->>> Looking at this a little deeper, the function bw_calcs() in
->>> dce_calcs.c already calculates all_displays_in_sync using the helper
->>> all_displays_in_sync().  Can you look into this and figure out why
->>> that is not working as expected?  My concern with this patch is that
->>> DCE and DCN have different logic for handling mclk switching so I'm
->>> not sure it's safe to call dm_pp_apply_display_requirements() directly
->>> from common code.
->>>
->>> Thanks,
->>>
->>> Alex
->>
->> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
-> 
-> I think that would be preferred, but in general, why doesn't the
-> current flow I described work?  The function bw_calcs() dce_calcs.c
-> already calculates the all_displays_in_sync flag using the helper
-> all_displays_in_sync().  Is all_displays_in_sync() not checking
-> something properly or is the overall call timing wrong such that
-> all_displays_in_sync() can't properly calculate whether all of the
-> displays are synced at the point that it gets called?
-> 
-> Alex
-> 
+A framebuffer at 0xa0000000 or above is taken as being in SuperVidel
+RAM. A TT with a VME graphics card such as the Nova has its framebuffer
+there too, so in 8bpp it gets the Falcon palette registers instead of
+the card's VGA DAC, and in 8, 16 and 32bpp the SuperBlitter, which it
+does not have.
 
-I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in these
-cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs() and
-dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
-pp_display_cfg->all_displays_in_sync is unset.
+The SuperVidel exists only for the Falcon, so check for the Falcon video
+hardware as well.
 
-Richard
+Fixes: 51df976c3268 ("fbdev: atafb: Add support for further video bit depths on atafb:external")
+Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
+Cc: stable@vger.kernel.org
+Reported-by: Christian Zietz <czietz@gmx.net>
+Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
+---
+ drivers/video/fbdev/atafb.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> @@ -31,6 +31,7 @@
->>  #include "dmcu.h"
->>  #include "core_types.h"
->>  #include "dal_asic_id.h"
->> +#include "resource.h"
->>
->>  /*
->>   * Currently the register shifts and masks in this file are used for dce100 and dce80
->> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
->>         struct dc_state *context)
->>  {
->>         struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
->> +       int j;
->>
->>         dce110_fill_display_configs(context, pp_display_cfg);
->> +       pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
->> +       for (j = 1; j < context->stream_count; j++) {
->> +               if (!resource_are_streams_timing_synchronizable(
->> +                           context->streams[0], context->streams[j])) {
->> +                       pp_display_cfg->all_displays_in_sync = false;
->> +                       break;
->> +               }
->> +       }
->>
->>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
->>                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
->>
->> Richard
->>
->>>
->>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->>>> ---
->>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
->>>>  1 file changed, 10 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> index 74cd88d8d580..b4531383437e 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->>>>         dc_exit_ips_for_hw_access(dm->dc);
->>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
->>>>
->>>> +       if (params.stream_count > 1 &&
->>>> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
->>>> +           params.stream_count) {
->>>> +               struct dm_pp_display_configuration *pp_cfg =
->>>> +                       &dm->dc->current_state->pp_display_cfg;
->>>> +
->>>> +               pp_cfg->all_displays_in_sync = true;
->>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
->>>> +       }
->>>> +
->>>>         bool frl_stream_found = false;
->>>>
->>>>         for (i = 0; i < params.stream_count; i++) {
->>>> --
->>>> 2.55.0
->>
+diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
+index c32576cb1720..5d9265caa9ab 100644
+--- a/drivers/video/fbdev/atafb.c
++++ b/drivers/video/fbdev/atafb.c
+@@ -2065,6 +2065,15 @@ static void st_ovsc_switch(void)
+ 
+ #ifdef ATAFB_EXT
+ 
++/*
++ * Only a Falcon can have a SuperVidel; a TT with a VME graphics card can
++ * have its framebuffer in the same address range.
++ */
++static bool ext_is_supervidel(void)
++{
++	return ATARIHW_PRESENT(VIDEL_SHIFTER) && external_addr >= 0xa0000000;
++}
++
+ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ {
+ 	strcpy(fix->id, "Unknown Extern");
+@@ -2083,8 +2092,7 @@ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ 		 * SuperVidel 8bpp chunky (fb in SV RAM) uses the Falcon palette
+ 		 */
+ 		int visual = (external_vgaiobase ||
+-			      (external_depth == 8 &&
+-			       external_addr >= 0xa0000000)) ?
++			      (external_depth == 8 && ext_is_supervidel())) ?
+ 					 FB_VISUAL_PSEUDOCOLOR :
+ 					 FB_VISUAL_STATIC_PSEUDOCOLOR;
+ 		switch (external_pmode) {
+@@ -2181,7 +2189,7 @@ static int ext_encode_var(struct fb_var_screeninfo *var, struct atafb_par *par)
+ 		var->transp.offset = 24;
+ 		var->transp.length = 8;
+ 	} else if (external_pmode == FB_TYPE_PACKED_PIXELS &&
+-		   external_depth == 8 && external_addr >= 0xa0000000) {
++		   external_depth == 8 && ext_is_supervidel()) {
+ 		/* SuperVidel 8bpp chunky: palette has 8 bits per channel.
+ 		 * Without this, fb_get_color_depth() sees length 0 and
+ 		 * fbcon falls back to its 2-color palette — the console
+@@ -2245,7 +2253,7 @@ static int ext_setcolreg(unsigned int regno, unsigned int red,
+ 		return 0;
+ 	}
+ 	if (external_pmode == FB_TYPE_PACKED_PIXELS && external_depth == 8 &&
+-	    external_addr >= 0xa0000000) {
++	    ext_is_supervidel()) {
+ 		/* SuperVidel native 8bpp chunky scans out via the Falcon
+ 		 * palette registers, honoring all 8 bits per channel
+ 		 */
+@@ -3336,7 +3344,7 @@ static int __init atafb_probe(struct platform_device *pdev)
+ 		memset (screen_base, 0, external_len);
+ 
+ 		/* framebuffer in SV RAM: enable the SuperBlitter */
+-		if (external_addr >= 0xa0000000 &&
++		if (ext_is_supervidel() &&
+ 		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
+ 		      external_depth == 8) ||
+ 		     (external_pmode == -1 &&
+-- 
+2.43.0
 
