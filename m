@@ -2,55 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83753606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80997606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:24:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=C8zGvDYD
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=4+QetiTn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD9010E84F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B31A10E328;
 	Sat, 14 Nov 2026 16:24:48 +0000 (UTC)
-X-Greylist: delayed 583 seconds by postgrey-1.36 at gabe;
- Fri, 13 Nov 2026 11:16:58 UTC
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0AB10E4BC;
- Fri, 13 Nov 2026 11:16:58 +0000 (UTC)
-Received: from [169.254.254.254] (localhost [127.0.0.1])
- by smtp.ideco.ru (Postfix) with ESMTP id 4845C26BC5;
- Fri, 13 Nov 2026 16:07:13 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp.ideco.ru (Postfix) with ESMTPSA id BC9A326BC3;
- Fri, 13 Nov 2026 16:07:08 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru BC9A326BC3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
- t=1794568032; bh=0u4I5WkyGxxjmS7tCo9l1n8+vnW6qTUBkG9tKJuJIv0=;
- h=From:To:Cc:Subject:Date;
- b=C8zGvDYDGBmVj+gaJSFjQmmG3YDxG0/mhlULOXAGGi0w6lBvfA9RmSOJAYDc3jwkx
- QzB8T8kzciyduOcqE1r3E+nOcdNv0tiBg59K43eMwXvoPHAoQ6IHu9GuiGs9oRGarA
- IAulTjfECLBW/01dDRuQ5N0U4P3BAzZ9mG2RsYMwxCLCHOseblX/4j7LuX5NL7Hf/B
- 7/ZgBV4wHml/6kM9fZ3TMvahyEPEwLvvT0TS6Jm3l/OE6cMha9fQpDHW8YODOvWkJI
- LyggwSP6NCZvtepBvEGUy3KS29eDw0xyH5HHLdquBdxf4EqDrKNhinATiznqp6TP8D
- PLD0eypz+JMDw==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Dave Airlie <airlied@redhat.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>, Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- stable@vger.kernel.org
-Subject: [PATCH] drm/qxl: Handle failure to reference the surface release
- buffer
-Date: Fri, 13 Nov 2026 15:06:56 +0400
-Message-ID: <20261113110658.4188477-1-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
+ [79.135.106.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B0410E176;
+ Fri, 13 Nov 2026 17:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=michaelmcallister.org; s=protonmail2; t=1794590635; x=1794849835;
+ bh=NMDZysfT7XZcy4Vr7EExZgccS2DkId56v85Kwhm7tdY=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=4+QetiTnG+aX2TZxE6bU9DMiGMtNKo/HdPNtutcXNz4P6tFfGIAyjhy1BB2KUcGc4
+ hegf7JEySkjUyXagYmUxQOqjvjKXfaAJFIEjd8iIV75xeeqQT6JzBk5+wEHyTTHA2G
+ 9J8tNrGtr6Nc+d+CtgWm3aOqHQq6iPIy5AWCZiJGEowxWRoPd5fz7CRuVAQeoPS7dX
+ c6d4x6S8v1qokmxvWr/NYloOZwwenDLVzGy52ecaZB5ZYyommQKTvwYeF875ycHTmC
+ 3MW3BceSK2IgkE5OzRKw/siR6uWEriVNcxJR3vtzmLryDEqdWnieYhQdDiHjQyAvDk
+ IEsgfwaVfAm0g==
+X-Pm-Submission-Id: 4jR3yJ2ND0z2ScX9
+From: Michael McAllister <me@michaelmcallister.org>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dmitry.baryshkov@oss.qualcomm.com
+Subject: [PATCH v3] drm/msm: release the fbdev IOVA pin on teardown
+Date: Fri, 13 Nov 2026 17:23:44 +0000
+Message-ID: <179459062437.56042.7618212515796640496.msm-fbdev-pin-leak-v3@michaelmcallister.org>
+In-Reply-To: <179425722110.3461.10554987541005946397.msm-fbdev-pin-leak-v2@michaelmcallister.org>
+References: <179424371125.96483.2462884435294600442.msm-fbdev-pin-leak@michaelmcallister.org>
+ <179425722110.3461.10554987541005946397.msm-fbdev-pin-leak-v2@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 16:24:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,71 +54,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When allocating a surface destroy release, qxl_release_list_add()
-takes a reference to the buffer shared with the create release.
-If allocation of the list entry fails, the error is ignored and
-the destroy command is submitted without holding that reference.
+The fbdev probe pins its buffer, but normal teardown never drops that
+pin. This produces a pin-count warning when the framebuffer is freed.
 
-Once the current release buffer has changed and the create release
-has been freed, the buffer may be freed while the destroy release
-still points to it. Garbage collection can then access the freed
-buffer through qxl_release_map().
+Keep the setup pin and release it in fb_destroy. Drop the object pin
+under its reservation lock, since fbdev destruction can be delayed until
+after the KMS VM has been torn down.
 
-Check the return value, free the new release and propagate the error
-before submitting the command. Increment release_count after successful
-release allocation to balance the decrement in qxl_release_free() on
-both the error and normal completion paths.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE static
-analysis tool.
-
-Fixes: 8002db6336dd ("qxl: convert qxl driver to proper use for reservations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Fixes: 7ad0e8cf6317 ("drm/msm: Count how many times iova memory is pinned")
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
 ---
- drivers/gpu/drm/qxl/qxl_release.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Hi Dmitry, thanks for the feedback. This keeps the setup pin and drops
+it when fbdev is destroyed.
 
-diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
-index 06979d0e8a9f..342c3600d425 100644
---- a/drivers/gpu/drm/qxl/qxl_release.c
-+++ b/drivers/gpu/drm/qxl/qxl_release.c
-@@ -262,6 +262,7 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
- {
- 	if (surface_cmd_type == QXL_SURFACE_CMD_DESTROY && create_rel) {
- 		int idr_ret;
-+		int ret;
- 		struct qxl_bo *bo;
- 		union qxl_release_info *info;
+Changes in v3:
+- Release the pin during teardown instead of removing it from probe.
+- Unpin under the object lock so delayed destruction does not need the
+  KMS VM.
+- Keep this patch focused on the pin leak; leave the mapping and probe
+  error-path changes for separate follow-ups.
+
+Thanks,
+Michael
+
+ drivers/gpu/drm/msm/msm_fbdev.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index dd6d6c507d..29f5dcabc5 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -47,7 +47,11 @@ static void msm_fbdev_fb_destroy(struct fb_info *info)
  
-@@ -269,12 +270,17 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
- 		idr_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
- 		if (idr_ret < 0)
- 			return idr_ret;
-+		atomic_inc(&qdev->release_count);
- 		bo = create_rel->release_bo;
+ 	drm_fb_helper_fini(helper);
  
- 		(*release)->release_bo = bo;
- 		(*release)->release_offset = create_rel->release_offset + 64;
+-	msm_gem_put_vaddr(bo);
++	/* fbdev can outlive the KMS VM; release the object pins directly. */
++	msm_gem_lock(bo);
++	msm_gem_put_vaddr_locked(bo);
++	msm_gem_unpin_locked(bo);
++	msm_gem_unlock(bo);
  
--		qxl_release_list_add(*release, bo);
-+		ret = qxl_release_list_add(*release, bo);
-+		if (ret) {
-+			qxl_release_free(qdev, *release);
-+			return ret;
-+		}
- 
- 		info = qxl_release_map(qdev, *release);
- 		info->id = idr_ret;
+ 	drm_client_buffer_delete(helper->buffer);
+ 	drm_client_release(&helper->client);
 -- 
-2.56.0
-
+2.39.5
 
