@@ -2,89 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE89606A32D
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BB8606A335
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IK/e+JaP
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=JUQcF7Gc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C78E310F04B;
-	Sat, 14 Nov 2026 16:25:35 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7721F1127C4
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:53:20 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-91ebf4cd218so24526106d6.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:53:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A788110F056;
+	Sat, 14 Nov 2026 16:25:41 +0000 (UTC)
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2942A10EC77
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 19:54:41 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-9495f083657so99224885a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 11:54:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1794603199; x=1795207999; darn=lists.freedesktop.org;
- h=message-id:date:references:in-reply-to:cc:to:from:subject
- :content-transfer-encoding:content-type:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=MSDd0mIYLOoBidzRJM/vL/FHkNZCGR1RZTFok+0qNYU=;
- b=IK/e+JaP2/7WMnxx2y5d84Oa3HLNc7m+zjeEykruOfX22tv7ShPVnl07MSugiXw9aK
- 9w2sWFxI8a77KDRXYTuS9+frpkU1OkpazLnIiNbXaDDVK9tlUb9IBAlC2eKyUt3SLLa4
- sQrRc+SkAIAtRGyMWJcorbZhA4API8giAIOHD26ksAdfv3MdC/g+sKUIf/GtKePQAJLr
- xSxvTYQBVQ+j9hk2TRIC1zSEwMn/Sj4n+SfzuPcsEUrRUylK5Uia5a+suZ+DylARPpeG
- GqpsJCJv38ShLS8KiU7kGmh3L6hNrYpzrhiolHBrnUQjyA+FCdvdvjOH0JDVrAeHgHmY
- H1Mw==
+ d=gourry.net; s=google; t=1794599679; x=1795204479; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IM+AY411aupxDfXW3rYEXZkT1F3AQsoQqb9ny080FQ8=;
+ b=JUQcF7GcaorDL3mIi2wu4G7mtzkHbWJiBBDPcfdCDM8GpubtUhRVnyPAJV71Sn+llV
+ cQrwNQFzBbCKA13zRbHj97Fqd3oyWU3KJ/BznZQFeJn1DS31piwBme7gk6uiTp0jGhR0
+ 5BwJYciyewa7g1ZZSYGA8hVXjCnutNxU00mkoBEKvFD6Wo3KKF1EpcURTlMhcnXnu0xW
+ hF4VBiksSPc3R33DGwyupCZu4fwOmIBS1X8lMpEifi4BrJekhoQ5PIuX1Khh75CYCRwr
+ bSdUV1cs22oh1b5Wmgy+5A8WaJQrKdkMIOc/3y/vnlvL6Wr+xlZZIC5qIKqNfsps/v7R
+ 4rcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794603199; x=1795207999;
- h=message-id:date:references:in-reply-to:cc:to:from:subject
- :content-transfer-encoding:content-type:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=MSDd0mIYLOoBidzRJM/vL/FHkNZCGR1RZTFok+0qNYU=;
- b=xAKBthGLZHFGundWBBCQt6vvtfnffHk8WdwIjO2GHFlnhmL21+aGTryl8yYuaHOavm
- aI2zgB2ptZxsXblMIHsbASExn0Vke821NuI065ZvC6MWn6WELV+/nEgR16nKQ3um5TPr
- p+UjujI7mASSJtmIsc8MKriJPLjziuA6z6TjUtJgi6QCoVTbPnXXQIOMX0CiB9ZOZlo4
- MkC7q3AfZpTMGCnMKePWxsMy6VQTfjvtTanWNNgWM2gmSxo8//ArIq+TH6XHq8a1qUY1
- PZILm/bbt//vOeFH6H09CZfHCii2GDOxcFr0M30y9jEZ7o/o7az54E5qxVCQjmWl1ZDp
- ZTDw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHEyDxZ68Ip2ghzffrPVFAc5SFP80qoCUHt7ZhaJEIxen2C5CqccZmoXgci/PbPEuk/FiI+/mQCgQ8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/55BgMy5VKdA/sThpzTu/x2zu3iAdnQsFUCEMRDxl8MjykrKiQ
- gHBezAC2TY4Hq0jfr7up0mUvzaGwr13/m0f+xnu6qOSmkggVVh9FvvPJ7Xt08XCq7KU=
-X-Gm-Gg: AYBFou2U+uCngd/KNRuub7BihyUjkAnzhEwIpx4rYJnOIvEzvZZBajwDBe5TLh5zZCm
- AhAmFecDhtkrlrnAbQ9AWD+s613q+rXPCY3/UECpI/SAnymk+iscNt1uOPUiurtbzFbeBWA1mGX
- TN+sXAWUiMS3LJfiwFkqnlT910JVwJ0UPoz1eJrza23Cu0w7CNG623X9AcYcltNXC83zdNG8bV3
- DpbkShWxmkTgImRwkVOZL7YQc9xMmZsiKkdqcfPPoHqkDH7bs+HDXzOzqiJ4+k1K33t2ALG/ekb
- cSZNc4QKeVbY0qsMeeMqCbByvT/7HRoYsCV8BRVnSpyJrDW9A4E3MYarPY507FQqKRSVIsU935+
- lERLc6XjhvlG8xPvklPjzJ/d+XabfJgB3Fzn9t9SldY0gJjB09RtaZfhkogNGGibf+fjZXvkCMT
- +Edfe0b1QjB4U5+0FKWCoC9xvRnUL4tvPgMwEP6lH8jjwPDHn4kYciUCBhHlANzWbjooSq/HKlP
- QiKo6Xkp9SNQPYBF4AwKd8nu6wLXkgRm8F8FcHVv16Jdhd/znqYcJTQiR3uZvrRR9yQtXO4gc2V
- n96d0qnWVbrumhYg4wREMmoEZe4LwCBpOggeO6cS2XzX+MDfS7DgDglp7yz90VCcH7G3iEqCyng
- VgNyIPWU=
-X-Received: by 2002:a05:6214:8583:10b0:91e:a6a7:73a9 with SMTP id
- 6a1803df08f44-91f24193e70mr44399636d6.15.1794603198962; 
- Fri, 13 Nov 2026 12:53:18 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net.
- [71.191.145.202]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91f23d453casm28237866d6.10.2026.11.13.12.53.18
+ d=1e100.net; s=20260707; t=1794599679; x=1795204479;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IM+AY411aupxDfXW3rYEXZkT1F3AQsoQqb9ny080FQ8=;
+ b=kC7JRPQ8qXmcd+QcT3pFfDPNcI58B+8/HhV4yQucGzz7xcV304502SQFNWP6VrwO+w
+ 10waInRSTS7i6UhzCoc93gzZnosmrWCUy8eynhQUP60AhZvCxNLNCVh95lTvX/XUTOXc
+ NLEv9B6NyW0Ib6i21NdHja+ZERBLJH0UzsgxUbZby5oxYaD8VNS4xPghVPUAS1tRS+zT
+ ukQiuMIECc2rx5OFLykuntH1d+ZWnECn7T8S5AoscHZM+CcBjuqYLziXRKAM1OFoITOp
+ am/uXxR4diUVb0rqdLiK0vZB/mpvKb5UqtqCqYmoik2HPYAL0/LDpUycz6szC8xut/SB
+ HCZg==
+X-Gm-Message-State: APuU4Z9yOjjDJus/d6uKRAO7TIKzM2er+5bLJ5C849cp4B7jnfdoO9pS
+ BKHrQK7IgCl8a68K5ehS4x2hU3g0R40S2YuyJD8imqUvzHA5BQ839hWyJJYmxJ5hRQA=
+X-Gm-Gg: AYBFou0/zc6FibVesEc9Y7+4/N5CkKGxjsUzS/B+TvKeCKCLRG5zYAn4ud8aL7x908D
+ /SBTaCrvCh2hzdMjJoMx3KBpoy586XkYg+EXahq9/xF4EXpeyJ635YlDDIgNCBiMmtmZfoFpjvv
+ 8S17nioipFVB6k6/Y+FVeXIn21rKBg8fgroyvxQdvEjnH9xTziPVWiEbqtpZG/vb5xKpA/BE7Kz
+ mTtojOsAhx3Qs13BIwtXrt1yUYxROxhBT8wOauzF5gRmqzVMeL/0CQjkwSplgHotCk46Ju5Fkdj
+ 2tY8MsLOX5Sc1ik4jg5ALyGT+y/vR1+i3RL5pNLXAqiChBAX+PUVwtUSabCHObJjHG24zybM31l
+ fZVBgC9LYjQdMnXyHt5+MCd0IFOnr3OhFk9Jqp+TixHNV89RUNKOqSmLu5eK4Nl6slosWZHBrnC
+ dp32C+4zkyw0sJtAiGzTj1FNlsvABgtEOtXrx8ZZXU+y95UgbB0R2AIpwNBZUjoiOoDguRAnIDK
+ PzQiR649Ji/AXBiBlb/2ybQG8QJFkTIQGOAiTddX/85enMtmmYWRomwc6uxUmpQuYFnpCcTQTee
+ 49nlp5t5DgkyxfUcxs5+SM+3JqBke2cpbl/FAYIuA9jkq71iK4Y0nZwp9BiliogKoHDNujOGJL4
+ x2d4wHgNswswYPl8=
+X-Received: by 2002:a05:620a:414c:b0:947:84e7:f617 with SMTP id
+ af79cd13be357-9494bbcc0f7mr614745985a.64.1794599679506; 
+ Fri, 13 Nov 2026 11:54:39 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9494c870ad4sm252867985a.26.2026.11.13.11.54.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 12:53:18 -0800 (PST)
+ Fri, 13 Nov 2026 11:54:39 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, lyude@redhat.com, dakr@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, balbirs@nvidia.com,
+ akpm@linux-foundation.org, stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau/dmem: free migration arrays on early fault returns
+Date: Fri, 13 Nov 2026 14:54:36 -0500
+Message-ID: <20261113195436.2659094-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>, 
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
-References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
- <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
- <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
- <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
-Date: Fri, 13 Nov 2026 15:53:18 -0500
-Message-Id: <179460319801.482102.15329919214055018110.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 X-Mailman-Approved-At: Sat, 14 Nov 2026 16:25:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,60 +86,50 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-13 21:43 +0100, David Hildenbrand (Arm) wrote:
-> On 11/13/26 21:34, Thomas Hellström wrote:
-> > 
-> > There are two major problems with the current behaviour.
-> > 
-> > 1) The work item executing hmm_range_fault() might have no affinity at
-> > all to the GPU about to access the memory.
-> > 
-> > 2) If migration happens, then hmm_range_fault() will stop and retry
-> > leading to excessive execution time.
-> > 
-> > While perhaps Matt's commit message doesn't correctly describe the GUP
-> > behaviour, do you have any alternative suggestion than to avoid
-> > migration in this case? I think it's a reasonable idea given the
-> > problems with the current code?
-> 
-> Adding fault reasons that hack around NUMA hinting such that a actual CPU
-> accessing it later will not trigger ... NUMA hinting?
-> 
-> I might be missing the "reasonable" in here :P
-> 
+nouveau_dmem_migrate_to_ram() leaks its source and destination PFN
+arrays when migrate_vma_setup() fails or collects no migratable pages.
 
-Ehhh... I think the hint faulting code is already very tenuous, so yeah,
-lets maybe not try to go down that route.
+The arrays used to be local variables, but THP support changed them to
+kcalloc() allocations without updating these returns.
 
-> I recall that John (cc) kept saying "GPUs and NUMA balancing is inherently
-> incompatible, you have to disable NUMA balancing".
-> 
+Route both exits through the existing array cleanup. Preserve
+VM_FAULT_SIGBUS for a setup error and zero for an empty migration.
 
-If this is a NUMA-hotplugged GPU, then this is resolved by a private
-node, because this:
+Fixes: c32287471077 ("gpu/drm/nouveau: enable THP support for GPU memory migration")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ drivers/gpu/drm/nouveau/nouveau_dmem.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-@@ -6404,6 +6404,9 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
-        if (!folio || folio_is_zone_device(folio))
-
-
-changes to
-
-        if (!folio || folio_is_common_memory(folio))
-
-And all folios on the GPU node are never subject to NUMA Balancing
-
-so balancing can stay enabled while the GPU memory is not subject to
-PROT_NONE spew.
-
-~Gregory
-
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+index e74d7bb975a8..4cfc7b16d445 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+@@ -233,10 +233,12 @@ static vm_fault_t nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
+ 	 * than just one page on CPU fault. When such fault happens it is very
+ 	 * likely that more surrounding page will CPU fault too.
+ 	 */
+-	if (migrate_vma_setup(&args) < 0)
+-		return VM_FAULT_SIGBUS;
++	if (migrate_vma_setup(&args) < 0) {
++		ret = VM_FAULT_SIGBUS;
++		goto err;
++	}
+ 	if (!args.cpages)
+-		return 0;
++		goto err;
+ 
+ 	if (order)
+ 		dpage = folio_page(vma_alloc_folio(GFP_HIGHUSER | __GFP_ZERO,
 -- 
-~Gregory
+2.56.0
 
