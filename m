@@ -2,62 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E0B60A383C
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 15:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB67A60A2608
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=kHvqUyof
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4AH2Vh/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0453511267A;
-	Fri, 13 Nov 2026 15:57:01 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id DE96B11267B
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 15:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:In-Reply-To:References:MIME-Version:
- Content-Transfer-Encoding; bh=essLqwzEoNtV95IkKs+aOj/xFoD0x8dpaz
- OkHhZwxBY=; b=kHvqUyofsIxIYeimj9DClMfFb728PvV0jzNFQEElPehCepBrr+
- Mb5eQKfSXMwh8cP/7fsrteMIMgx8jqOlHFVECB/ckrR7UAT00LSIn6HGfsaJJNn3
- QxTPeJCYpoXa6WnNRgIu7NfOhk5LA9PCH/cHylIsjH1gOtbfpOE7U4jpo=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgA3rDAzM_dqxQ66AA--.1851S3;
- Fri, 13 Nov 2026 23:56:38 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH 1/3] dt-bindings: display: msm: mdss-common: describe
- additional block resets
-Date: Fri, 13 Nov 2026 23:56:33 +0800
-Message-ID: <20261113155635.1677541-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: 3pYKCgA3rDAzM_dqxQ66AA--.1851S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFyDAw1fWw1DJF1fAw15twb_yoW8CF4Upa
- s7CFsrX3W0gFyag3ykWa48urW3XF9Yy3W5uFsIvw17ta1UAw4Fqw43Kr1qqF4UAFWxZayr
- uF4xuayYvFyvyr7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBvb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
- 8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
- 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
- CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
- 6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
- 02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
- 4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
- IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
- 0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
- IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
- 42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z2
- 80aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeFALUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F0610E064;
+	Fri, 13 Nov 2026 16:03:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7909410E064
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:03:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 76FFB61206;
+ Fri, 13 Nov 2026 16:03:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB03C1F000C7;
+ Fri, 13 Nov 2026 16:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794585786;
+ bh=NbihbEQJPVQoQOFmz3p3syO0iZBpjiwZ0+6YQ9VA/GE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=d4AH2Vh/N/1kVaG/dw24WvUr3s5DOrK8JTCWKGheE5sGE10Cni13+LCGzHWOvVjmI
+ SPsYfLeIy6IUEdJshtZ3Rx7KOltNXUdF4i46GRpr5amISrcisgvRGOrktDwb6p7kE/
+ smGumJudcAD3A/NZ1QYIfQ0Dl7gdcC88uSTVcQ0P1sjFoDwp7mrzi5n3cl/vHd+/Gi
+ sdBDoxzn9eFirFlDQoYklxvkmMfYvylh+sim6/1OuZ0rQs5Y4novl1gAaKIBWRjjhy
+ afHCiOlYXtRFUuO2g4KYPzGsQvtT01sF75A4EXDH7GVf23Wdz+AIUCuW69Hi4TG3Hj
+ coyUpuOrGivqg==
+Message-ID: <sashiko-outbox-213145@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: describe the second MDSS
+ block reset
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>,
+ dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113155606.1677313-4-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261113155606.1677313-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261113155606.1677313-4-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 16:03:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,59 +50,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Some platforms provide more than one reset for the MDSS hardware block:
-beside the MDSS core reset, the SM8750 display clock controller also
-exposes a block reset for the MDSS core INT2 interrupt controller.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: sm8750: unattached
+  DISP_CC_MDSS_CORE_INT2_BCR reset on mdss
+--
 
-Allow the resets property to list one or two resets, keeping the MDSS
-core reset as the first entry so that existing device trees describing
-a single reset remain valid.
+commit 048c5dc3c561337c4cf2b84db1d42eb1d5cdd378
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../devicetree/bindings/display/msm/mdss-common.yaml          | 4 +++-
- .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml     | 3 ++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+arm64: dts: qcom: sm8750: describe the second MDSS block reset
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-index c6305a6e03..51ef4cc74e 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-@@ -84,8 +84,10 @@ properties:
-           - const: cpu-cfg
- 
-   resets:
-+    minItems: 1
-     items:
--      - description: MDSS_CORE reset
-+      - description: MDSS core reset
-+      - description: MDSS core INT2 interrupt controller reset
- 
-   memory-region:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-index 46dc0d28da..729de45ec8 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-@@ -101,7 +101,8 @@ examples:
-             interconnect-names = "mdp0-mem",
-                                  "cpu-cfg";
- 
--            resets = <&disp_cc_mdss_core_bcr>;
-+            resets = <&disp_cc_mdss_core_bcr>,
-+                     <&disp_cc_mdss_core_int2_bcr>;
- 
-             power-domains = <&mdss_gdsc>;
- 
--- 
-2.53.0
+This commit adds DISP_CC_MDSS_CORE_INT2_BCR as a second reset to the
+SM8750 MDSS device tree node.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
+com/sm8750.dtsi
+> index cf947acc57602..0f3e649787315 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -3359,7 +3359,8 @@ mdss: display-subsystem@ae00000 {
+>  				 <&gcc GCC_DISP_HF_AXI_CLK>,
+>  				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> =20
+> -			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>;
+> +			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>,
+> +				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>;
+
+[Severity: Medium]
+Should the mdss node assert and deassert DISP_CC_MDSS_CORE_INT2_BCR when its
+corresponding power domain and clocks are not attached to the device?
+
+In drivers/clk/qcom/dispcc-sm8750.c, DISP_CC_MDSS_CORE_INT2_BCR at 0xa000 is
+the block reset for a separate secondary domain with its own power domain
+(MDSS_INT2_GDSC at 0xb000) and clock branches (disp_cc_mdss_mdp1_clk,
+disp_cc_mdss_mdp_lut1_clk, disp_cc_mdss_vsync1_clk, and
+disp_cc_mdss_ahb1_clk).  The mdss and mdss_mdp nodes in sm8750.dtsi only
+attach MDSS_GDSC and the primary MDP0 clocks, so msm_mdss_reset() toggles a
+reset for a domain whose GDSC and clocks are neither attached nor enabled.
+
+In addition, while the commit message notes that DISP_CC_MDSS_CORE_INT2_BCR
+belongs to the mdss_int2_gdsc domain and that this two-reset configuration
+has not been tested on hardware, the companion binding in
+Documentation/devicetree/bindings/display/msm/mdss-common.yaml still
+describes the second reset as an MDSS core INT2 interrupt controller reset.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113155606.1677=
+313-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
