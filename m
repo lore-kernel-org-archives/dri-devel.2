@@ -2,87 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803FC60A263B
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:53:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8D8606A8B0
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HkPJt1Mn;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MqSi51iG
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bFgODGB3;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eoaF0kgP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB7BD112747;
-	Fri, 13 Nov 2026 18:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 414D9112759;
+	Fri, 13 Nov 2026 18:53:42 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2969F112598
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:22 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B2111273F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:31 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ADFRE4u1190175
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:21 GMT
+ 6ADFQp2N074615
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=Kz3mFGDHm3Y
- L3jNa7eKBXnIcdFzL2ogUPI5D76TH/G0=; b=HkPJt1Mnex7OSeyub8dctliLFSn
- urMff/xho4+9KuVSN2Bo+BeIoscTfRbdl9rpqLpsaeHb+gQ6IvqcFvUOAdD9mM3S
- dQSIXqAfcnTtLccXZz63HzodmTRDoMvuLDElNxh25ME5na/vFTfEm+PiSDmMFXFl
- doT07fDHnAEC+0dUKnq4D/AFKZ46uJQis49y35PuJyDKpgtbuH5BhTfMcGXNHd+v
- lyDVfQky/EpgemZtLok45+BYeqfExpyEeP+UzDB45iogzvx5G53QzM6d3tD32bU6
- /aSkyLD3Qg0ZSPFwCt9jUDxnWL/nkGkd1bcHx/bN8LOPK31STXQiBacWdng==
+ :mime-version:references:subject:to; s=qcppdkim1; bh=BXGZv2S+cck
+ oJfc7J6GbRVXNyPJ++e4ifm1HrPgIkWI=; b=bFgODGB3qZZaGg2fPtcRPUcqtQt
+ +GEz8GgP7H0F1BFrwXRVppu7n/FTwcBZqwfYr6zB3uvrNxz884R0cVOp2J4piCAf
+ 2tyVO4tdyERuy1DeTxx9BptUJiXYUSDmTvTb5YS40gJJr4qVVWB2O3u67J5D1Mm1
+ rNvKNnxq3d+IjL7iXxpC+VisJ/xUj51wJ5+VEgGMaR59bFnXjtm9/o2RtkN3hAtE
+ 9A+OJO9me4U7LzHkHYI49EetYOHZviEHhX3V5nfUhKHn/ZB3iqfK7X2IWWnMgSM2
+ GgylAL4FWPY/GjFCuXV3E2d3CcnP6heEPiQNnzzEvAx1Mk5Xeo5AyrokvSA==
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
  [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwqufkr6r-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwu2mu3u9-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:21 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:53:30 +0000 (GMT)
 Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-36f26e6abe9so1566938eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:53:21 -0800 (PST)
+ 5a478bee46e88-36d1353fdcdso5682241eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:53:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794596000; x=1795200800;
+ d=oss.qualcomm.com; s=google; t=1794596010; x=1795200810;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Kz3mFGDHm3YL3jNa7eKBXnIcdFzL2ogUPI5D76TH/G0=;
- b=MqSi51iGxG0RqrNX7rqYKUBMnSq1l5E8eR0iWyjV5cQHQM7Ed503iVJG7DmFQnTHN5
- JXUBnpCNVApnR2lH//6x7LF9+PURG+7mH7fmEe2m+eHysmd6rlUZRVnmeEZwALKfy1Aw
- BFMcII7tZB3giAoUW10h672DX3cMD6M0r7FRGyPdyurkrbLi5zwwL5d9ZYqxY3g/RtZ9
- EVEtWytZO6Wt9yfBvnIy8fQ4ohhJPBLvVUEExONoKhgop2PRrXxTnrWFa5UKPt+J5goG
- Ar9tvUg+D+SML0sBj8s7DHp179eKSGzUICF1SejpCl1+XsUiITJy7D2LD1wUyUYGdtsV
- 694g==
+ bh=BXGZv2S+cckoJfc7J6GbRVXNyPJ++e4ifm1HrPgIkWI=;
+ b=eoaF0kgP1EzBOSkKnyrafyvo4H6UaQYs97XnqGT6+lfmzHyUro9LchyRLUw77YI093
+ 3LurCxClcugNkcM3UxMuEWUyyHSZ92EhfyK/5bz/FxLvbPAfHliMpc5kgQfKgIIx/WEU
+ u93oftikd2NoLifLanQeVPgyqCi+bV3RLjURW3WlQkAQBoDBrVFmTza0/1We0yNpGR3y
+ RjozSjb4YtpbUedSuk1bqpYN55P8iAefkNjgHC54ZpNZUEKeUOjChdB5EtFjeQCvlDR3
+ PJoNjojRUX8qJFCNs0P4MBotnt021odvEg/kkA9kO5xLw67Rgu7IeveIEAJFsI6s/ZSR
+ Cgow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794596000; x=1795200800;
+ d=1e100.net; s=20260707; t=1794596010; x=1795200810;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Kz3mFGDHm3YL3jNa7eKBXnIcdFzL2ogUPI5D76TH/G0=;
- b=zObDjyaD9FJSHsSGeLabFP4/hN4/QJ/5TppKda+B/jZgUDRxUf9ofLxyB2cWSZeOBX
- yuLaFuXGSA4TNaB00SkyG6My1ZEXFKGeUCPkNrJIcBrj0pCKadvMB3yKDfYFrLU/Ozuw
- IWyGU2Ilit8qoYDiqbii9lsXWuP0eirTpParpoc3E/A6KInJgaOIGOjKK0Isk3Bmao5r
- aTmHKM+aVRpPrdF3J2UFgZwupWQuwrVtQ+ucTHChn6wNL555T6rMnTutrQxMnKb55qRk
- 5wkKbfKHCX76Ztc+fYsR6E7jmMZxYuj8V+WcontsM2gWk3Z3Qe9SX1sh378c7HQVvl/1
- sjYA==
+ bh=BXGZv2S+cckoJfc7J6GbRVXNyPJ++e4ifm1HrPgIkWI=;
+ b=PEZjphVd9qpqgXjRfjoxPctB3+amYwdVQiD68BZOSPzG8WY7H3LDCgVbUPdre0UHg5
+ ctBhOxV4EoQmgIHQ9IIoC5YYGZRQ/bD5e+5vxowupun2ISbIahYnbuaftEaIPVAITBbP
+ HXOYrPhB3soGSD/f3kGDp+KXMCNozTRRqtVt2Xgrq/dInQGpYnzhhq6Fb4PiO/lAhc6X
+ PwTh7yD83fHWLGkh1hUJ9MITCXCJo23JihRCGRvnluvsH3pvglifcu01ZZB3GoVyyKLC
+ 0bLix4bK3euL5o7YeSK+zG/eOfKRBiWBbnkWh7jjCDinXXxAJZg+oCxaqm39oTiQZLQO
+ 66wA==
 X-Forwarded-Encrypted: i=1;
- AL+hErGUEZ8TtdBFknGmJBDb/dvNQovMUUb/TEpQF6nRg9vlawpf+04Y8/M2363Yv0LsqoxLLEVRZAsVEDM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9yuZUHfyJFLXl8Att/aUZ6Xx21sLMYJKTl79OtB6tQOxLx8Ix3
- ZwY9ivGrD4fNn6hdr81ZEZZ5kElYmGZKQP/WOKISfI4JHVL0ouMHGxQaXgiF8AWjf3OMp3QATax
- C76b8FIREAvTGUQD28qa9jV5+qAS8L09tp92S32zNF5k/eWnTRBKSFsHtfKKNfoC4pd6XXSg=
-X-Gm-Gg: AYBFou2KzriCdWDjEXPv37/nVYCVU+OUvvwKHmclq8ZPJE7IjaoehfyjMu8Lru9ZKjb
- Hc3MCPlqnKDBOfczhJ90pvJFR1Fg1LcaWdc1NCooWucbnWziPfURHTc96ktgsMTCHNsUW2McoLM
- mX5F3C8GhvGR0IfJjuIagRWzCoePv47EoowP7wZLK63Isvoisj+2LWXBKO5MdGmCUKio+jXMwZ7
- FIiEH4g/HJ8tuu3FrGewQ8ezBB5G7hyTmOo3GfLwVKJOFYCIWW5dGgpv/i1Tzl7XumyfKWIF+p7
- RzzHyom6SXk1vC7rjiPtKa3BTXGPEY7lE0PpZiAkTYfMP5Fe6Dp5cBEjdc33CabSOH4CBczQR+9
- a23Em0xzhjWKMhU6aS9/fqCo5N7FRE/FK8K/wJpjfThh9wafWu0qR8Dl+SF92N9DgxZouefJlJc
- Q=
-X-Received: by 2002:a05:701b:4504:10b0:15c:1679:1cc7 with SMTP id
- a92af1059eb24-1b50313d80bmr2955474c88.37.1794595999661; 
- Fri, 13 Nov 2026 10:53:19 -0800 (PST)
-X-Received: by 2002:a05:701b:4504:10b0:15c:1679:1cc7 with SMTP id
- a92af1059eb24-1b50313d80bmr2955427c88.37.1794595998965; 
- Fri, 13 Nov 2026 10:53:18 -0800 (PST)
+ AL+hErGHCtEiLF/7UjHRfd3/MFCgJT0N/FCezuetGUF024yfihqlaX2+5TamOlggkOyPfA156RPZaOM7fUA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+I1osxj92mQu0GytvQVcVvXX+/7j6YnkKDOu6INhZiaTn07N4b
+ p+4dO/YpRmtKBZL89SSfI6zZhs35ecS/GEg4be/8zMHW+O0r22f7BnT7k93lY4THijx/atC0yH+
+ LMwvva1Fa+BT3LkxfIcTwzgBfrS4awVo8JkX5tvV+WFEW+yi7tiIPlhK0OK2ggDBqdllMMvk=
+X-Gm-Gg: AYBFou3+Aa66LCSLtP0v//ShPJwL9FgBFyMm4tGSK8dVKLpibK2jNBgADrgcoOmq72E
+ KPgZcyM2pBji2U7Sf1gqmyjsrdKrQKXXh5FfdH05u88jVEQtmdSvrDqdTTv3OdrRfIerLl9fjYt
+ G80km6gUEPk/sNNgJc+vhpQSWTmbsyZOE9hUzuk+tnHZN0Oy0m1+cGXuZZFPIKEDRtMLAIbU/xG
+ ks1KouwAlMjaBemD8YEUFgPROrxhEGSwf3G9VUOkrfewSmtL2/u9jgN+B8P0n5pMruVHKxYo9AB
+ /wCOvKmX55It3jqOH7b2xkaZdW7tQ+QsmHy+ZwjTNQH86JLub5YAwTTU8G0BIWH6kMY1i+FQ/xf
+ z1iiaC5jDtE5q9BfvUT12jV0mQlwOAi2RFF8S7APQp5mWIIzImsQWBXF7oT/qHGLlN4P/neS/l7
+ k=
+X-Received: by 2002:a05:7300:478d:b0:369:fc93:eda5 with SMTP id
+ 5a478bee46e88-379681c6a08mr4176078eec.39.1794596009963; 
+ Fri, 13 Nov 2026 10:53:29 -0800 (PST)
+X-Received: by 2002:a05:7300:478d:b0:369:fc93:eda5 with SMTP id
+ 5a478bee46e88-379681c6a08mr4176014eec.39.1794596009138; 
+ Fri, 13 Nov 2026 10:53:29 -0800 (PST)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-379563e6b6dsm15547667eec.21.2026.11.13.10.53.09
+ 5a478bee46e88-379563e6b6dsm15547667eec.21.2026.11.13.10.53.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 10:53:18 -0800 (PST)
+ Fri, 13 Nov 2026 10:53:28 -0800 (PST)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -110,40 +110,40 @@ Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
  linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
  linux-remoteproc@vger.kernel.org,
  Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v2 1/9] firmware: qcom: pas: add qcom_pas_context_init() for
- pre-allocated context
-Date: Sat, 14 Nov 2026 00:20:01 +0530
-Message-ID: <20261113185009.157893-2-mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH v2 2/9] remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load()
+ and qcom_pas_prepare_and_auth_reset()
+Date: Sat, 14 Nov 2026 00:20:02 +0530
+Message-ID: <20261113185009.157893-3-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
 References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: bmc1rpiVfWUHjG3XAliBq6lmfvIwzFDA
-X-Proofpoint-ORIG-GUID: bmc1rpiVfWUHjG3XAliBq6lmfvIwzFDA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX7uN+iSBP+0v8
- 1/g0aPFiixxuwiwI9E5EkX7ov/Minv9/1ALWmIxUdPbVeUUsG7Mxv/yo14/FoDNz0BW0Lh3h7SN
- 22pMdkBHUWDO/FdeuA74fU4njuVJZ5sfKoNSInzwjmGt4uBKZn+k5eabduakuvDQ5AcSvCTvAvv
- E2WAZ/MBua6JBi30AO5yVOI1XYlGjRK5yYtmQGAz5OP+/exGGA/RS9jXQigTOH/qlYGBobqhuHU
- 7rNOu26Gpdx0ZukjTaVcdjKoDAKEc054HGPDuvbEtQwebf1wn+pc41jWc+HwJlRsfMcJc4x/8kz
- ofTXlGUoZ1I+/vtXRhpf2vSJ2vTWasfVLEhYXRdQ/fB6OCq34W34bP3jzVT1rayR2FT0jjfq1o3
- e2PWioxXVCn3iv+8HvFgXPcKjmBfa4MGa2r8OiAdgXfBGIc+bt+ys8W6+t8FMip9GKkJ6wVFF2a
- 1WvVWqzd1Oq6NofteCQ==
-X-Authority-Analysis: v=2.4 cv=XZocX455 c=1 sm=1 tr=0 ts=6af75ca1 cx=c_pps
+X-Proofpoint-ORIG-GUID: ZGBKB6sJHuH8T2Z5PtAYmkr7yEgJJjgX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXx13RoF+DdlCM
+ 8boXiGZ7KVAWk1zWlRUBBPviJgLHdhcAGgeWZpdzxOYbiFcQwobbEIuiIcVWUxjqDfeuPtajlLy
+ Y6QbP0JhuEv4WklygxmKeb2LMbK2xlj5LEX79e8HhVR9PpqDRWYt1tVWDEDj0VipjkjYVS7wv9q
+ yeAs4+1SZNn4V5BW/03kyaaILSWBQJPQKN2uAR/Icq8kmZIUjRCvXjwV2wBmojEiIpItt7UwtWV
+ sQdm0qOxLElO4LGtYSGS9bwcj+YfK1Jqe+gQPXstg+uHuusd85iPs9dP1bqLbqKapZaA4UGYMFa
+ OmkLwIhey0YJWVcaoJ2xRcecnphJI8vZNx18EUqhR95nLDiQsmMo7A1ONbKLt1flngRPnw5Zx+E
+ Z+2sy3pp1UoMCLj4czjp09p24BOqD9ccB1fOGQEODzTe/R98WXiWJhOyz+HnmjP8Wizju13Dg/g
+ FSScc7ZTpZSoLAxs8YQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXzBkjtpZZUTXr
+ WeW1u382WQzn4jauVyNMgXc33iSF+id4Nle4vnur9E/14knj9t9KCzDuQnc08z7H2sxD1hl1qgV
+ X2jlSg81MeCWFssYNmMLu2wNceHvAWA=
+X-Authority-Analysis: v=2.4 cv=ddQVTnXe c=1 sm=1 tr=0 ts=6af75caa cx=c_pps
  a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=O747SXQATtv6IwqlEkcA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX7Oe9bD+Df5Sz
- DUvxQZ7JgMp0Md6oKiWn23b42948LiLyKtCk9WfWP+Vwt8Nayr/VdhJt8g2S4VTODxMK3aLX7T+
- +z4LYHU92UDbGtUB381LaucdzXr6miw=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=BENypEIf3hN4rM3MEzYA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: ZGBKB6sJHuH8T2Z5PtAYmkr7yEgJJjgX
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 suspectscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 priorityscore=1501 phishscore=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130075
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -165,103 +165,74 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-devm_qcom_pas_context_alloc() allocates and initializes a struct
-qcom_pas_context using devres.  Several callers, however, either live
-entirely on the stack (short-lived helper functions) or embed the
-context in a larger structure that is already managed by other means.
-Forcing those callers through the devm allocation path is wasteful and,
-in the case of functions called on every power cycle, causes a devres
-entry to accumulate on every invocation.
+wcnss_load() calls qcom_mdt_load(), which bundles metadata init,
+memory setup, and segment loading into a single API that does not
+expose a PAS context, and wcnss_start() calls
+qcom_pas_auth_and_reset() for TrustZone authentication, which is
+the intended behaviour. However, a new qcom_mdt_pas_load() has
+recently been introduced that works with a PAS context and can
+handle everything qcom_mdt_load() provides, along with additional
+functionality such as shmbridge creation and retrieving memory
+from the shmbridge buffer when the same remote processor needs to
+run while Linux runs at EL2.
 
-Add qcom_pas_context_init() that initializes a caller-supplied struct
-qcom_pas_context in place using memset + field assignment, with no
-allocation at all.  Rework devm_qcom_pas_context_alloc() to delegate
-to qcom_pas_context_init() after the kzalloc, so both helpers share
-the same initialization logic.
-
-Update the kernel-doc for qcom_mdt_pas_load() to reflect that the PAS
-context may now be initialized by either qcom_pas_context_init() or
-devm_qcom_pas_context_alloc().
+Allocate a qcom_pas_context in wcnss_probe() via
+devm_qcom_pas_context_alloc() and store it in struct qcom_wcnss.
+Replace qcom_mdt_load() with qcom_mdt_pas_load() in wcnss_load()
+and replace qcom_pas_auth_and_reset() with
+qcom_pas_prepare_and_auth_reset() in wcnss_start(). The existing
+devm_ioremap_wc() mapping is retained for wcnss_da_to_va()
+address translation.
 
 Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
- drivers/firmware/qcom/qcom_pas.c       | 26 ++++++++++++++++++++++----
- drivers/soc/qcom/mdt_loader.c          |  4 ++--
- include/linux/firmware/qcom/qcom_pas.h |  2 ++
- 3 files changed, 26 insertions(+), 6 deletions(-)
+ drivers/remoteproc/qcom_wcnss.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-index d74dd7b4f332..fdf62003fbf1 100644
---- a/drivers/firmware/qcom/qcom_pas.c
-+++ b/drivers/firmware/qcom/qcom_pas.c
-@@ -14,6 +14,27 @@
+diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
+index 02f38fe29f20..f377ce6d324f 100644
+--- a/drivers/remoteproc/qcom_wcnss.c
++++ b/drivers/remoteproc/qcom_wcnss.c
+@@ -96,6 +96,7 @@ struct qcom_wcnss {
+ 	phys_addr_t mem_reloc;
+ 	void __iomem *mem_region;
+ 	size_t mem_size;
++	struct qcom_pas_context *pas_ctx;
  
- static struct qcom_pas_ops *ops_ptr;
+ 	struct qcom_rproc_subdev smd_subdev;
+ 	struct qcom_sysmon *sysmon;
+@@ -157,9 +158,7 @@ static int wcnss_load(struct rproc *rproc, const struct firmware *fw)
+ 	struct qcom_wcnss *wcnss = rproc->priv;
+ 	int ret;
  
-+/**
-+ * qcom_pas_context_init() - Initialize a peripheral authentication service
-+ *			     context for a given peripheral
-+ *
-+ * @ctx:	  Caller-provided PAS context to initialize
-+ * @dev:	  PAS firmware device
-+ * @pas_id:	  peripheral authentication service id
-+ * @mem_phys:	  Subsystem reserve memory start address
-+ * @mem_size:	  Subsystem reserve memory size
-+ */
-+void qcom_pas_context_init(struct qcom_pas_context *ctx, struct device *dev,
-+			   u32 pas_id, phys_addr_t mem_phys, size_t mem_size)
-+{
-+	memset(ctx, 0, sizeof(*ctx));
-+	ctx->dev = dev;
-+	ctx->pas_id = pas_id;
-+	ctx->mem_phys = mem_phys;
-+	ctx->mem_size = mem_size;
-+}
-+EXPORT_SYMBOL_GPL(qcom_pas_context_init);
+-	ret = qcom_mdt_load(wcnss->dev, fw, rproc->firmware, WCNSS_PAS_ID,
+-			    (__force void *)wcnss->mem_region, wcnss->mem_phys,
+-			    wcnss->mem_size, &wcnss->mem_reloc);
++	ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -257,7 +256,7 @@ static int wcnss_start(struct rproc *rproc)
+ 	wcnss_indicate_nv_download(wcnss);
+ 	wcnss_configure_iris(wcnss);
+ 
+-	ret = qcom_pas_auth_and_reset(WCNSS_PAS_ID);
++	ret = qcom_pas_prepare_and_auth_reset(wcnss->pas_ctx);
+ 	if (ret) {
+ 		dev_err(wcnss->dev,
+ 			"failed to authenticate image and release reset\n");
+@@ -599,6 +598,11 @@ static int wcnss_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	wcnss->pas_ctx = devm_qcom_pas_context_alloc(wcnss->dev, WCNSS_PAS_ID,
++						     wcnss->mem_phys, wcnss->mem_size);
++	if (IS_ERR(wcnss->pas_ctx))
++		return PTR_ERR(wcnss->pas_ctx);
 +
- /**
-  * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
-  *				   context for a given peripheral
-@@ -39,10 +60,7 @@ struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
- 	if (!ctx)
- 		return ERR_PTR(-ENOMEM);
+ 	wcnss->pmu_cfg = mmio + data->pmu_offset;
+ 	wcnss->spare_out = mmio + data->spare_offset;
  
--	ctx->dev = dev;
--	ctx->pas_id = pas_id;
--	ctx->mem_phys = mem_phys;
--	ctx->mem_size = mem_size;
-+	qcom_pas_context_init(ctx, dev, pas_id, mem_phys, mem_size);
- 
- 	return ctx;
- }
-diff --git a/drivers/soc/qcom/mdt_loader.c b/drivers/soc/qcom/mdt_loader.c
-index 0d55e9e0af3f..c6ec67e1da09 100644
---- a/drivers/soc/qcom/mdt_loader.c
-+++ b/drivers/soc/qcom/mdt_loader.c
-@@ -476,8 +476,8 @@ EXPORT_SYMBOL_GPL(qcom_mdt_load);
-  * firmware segments (e.g., .bXX files). Authentication of the segments done
-  * by a separate call.
-  *
-- * The PAS context must be initialized using devm_qcom_pas_context_alloc()
-- * prior to invoking this function.
-+ * The PAS context must be initialized using qcom_pas_context_init() or
-+ * devm_qcom_pas_context_alloc() prior to invoking this function.
-  *
-  * @ctx:        Pointer to the PAS (Peripheral Authentication Service) context
-  * @fw:         Firmware object representing the .mdt file
-diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
-index 1d132e89536e..458075868bf5 100644
---- a/include/linux/firmware/qcom/qcom_pas.h
-+++ b/include/linux/firmware/qcom/qcom_pas.h
-@@ -36,6 +36,8 @@ static inline void __iomem *qcom_pas_ctx_map(struct qcom_pas_context *ctx)
- }
- 
- bool qcom_pas_is_available(void);
-+void qcom_pas_context_init(struct qcom_pas_context *ctx, struct device *dev,
-+			   u32 pas_id, phys_addr_t mem_phys, size_t mem_size);
- struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
- 						     u32 pas_id,
- 						     phys_addr_t mem_phys,
 -- 
 2.55.0
 
