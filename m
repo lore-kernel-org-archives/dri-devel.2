@@ -2,67 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA698606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3029D60A382E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=G4WiEn+p
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=gGY4e6ni
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 075A810E758;
-	Fri, 13 Nov 2026 08:15:48 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC2F10E758
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:15:41 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 44C581A138F;
- Fri, 13 Nov 2026 08:15:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 18260601D5;
- Fri, 13 Nov 2026 08:15:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3D76211BC1163; Fri, 13 Nov 2026 09:15:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794557737; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ChSZe9dWQG2rTZceNI3AoXdcsbHWLSpanJhGWsIdQk0=;
- b=G4WiEn+pmfOBwJs65vqSsvkhqD62IUCPiYZL2GOCFj5XsJV7LQ2DTeVYkYESfPf3pMqFIz
- FjOWkYdMi5tRKeYwy9huxoEU/Jesf31q2d4bRqYo5cRnNXEoTvnoxKTNODSVrTnSmM8KM2
- m5xDwoK5twjVlIyzhaoe2Xofiw+WWgNlBYJLsyLD+S2e6xBcm6ZuXZgx2cDOLWHZeYJ7v5
- FoPhn0PA55DE9DvNuRQ5p0SI/3+tkYWFgjkSnqMtX2q2F6TDkLkz4iEwZTucoDJx/tdYKZ
- iKRzL5hdZhpXA80F6nw7TZlao5i9jHi5t0mtoRn7sbc32OIAP9ZkBlGlrDWYzA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57EA210FA36;
+	Fri, 13 Nov 2026 08:23:26 +0000 (UTC)
+Received: from mail-m837.xmail.ntesmail.com (mail-m837.xmail.ntesmail.com
+ [156.224.83.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2675B10FBC2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:23:19 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 54921bdf3;
+ Fri, 13 Nov 2026 16:23:15 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jingoo Han <jingoohan1@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v6 00/18] Add HPD support for Rockchip Analogix DP
+Date: Fri, 13 Nov 2026 16:22:47 +0800
+Message-Id: <20261113082305.541652-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 09:15:30 +0100
-Message-Id: <DMTXMG427D7Z.MVUAQQE9B08W@bootlin.com>
-Cc: <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <marex@denx.de>, <valentin@compulab.co.il>,
- <philippe.schenker@toradex.com>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Francesco Dolcini" <francesco@dolcini.it>, "Ernest Van Hoecke"
- <ernestvanhoecke@gmail.com>, <regressions@lists.linux.dev>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags
- for stable LVDS output
-X-Mailer: aerc 0.22.0
-References: <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
- <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
- <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
- <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
- <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
- <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
- <DLATMIFKDMHV.24XNMCRI2ZKBI@bootlin.com>
- <20261024095405.GA5692@francesco-nb>
- <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
- <20261113073658.GA12065@francesco-nb>
-In-Reply-To: <20261113073658.GA12065@francesco-nb>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1d400f7da03a8kunm073aab0481a03
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0xLVh1JQk1JTBgfTENKQ1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=gGY4e6ni2ST1MKOrLcxi84bKOy5/UNfwSP6EkMend17pe9JCIEOQLWVEr1RywI3bN52ALHTBntBReRRHLWVjtgg+kIHeJF9kFWN48xspFq90AbDBh8P+lXGrWIyTEFY35RbmD72J/AIV7xIqlqcEwEcwegM51/Yq0YM0BJ6yLhc=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=JDZJ+NMwIwUGC602lCfaufcSwJjSF6pmuvFIO46mZtw=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,93 +66,229 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Francesco, Ernest,
+This series improves the HPD (Hotplug Detect) interrupt handling in
+the Analogix DP driver to enable reliable native HPD pin detection on
+Rockchip platforms, and introduces platform-specific HPD detection
+schemes with fine-grained interrupt control.
 
-On Fri Nov 13, 2026 at 8:36 AM CET, Francesco Dolcini wrote:
-> +regression list
->
-> Hello all,
->
-> On Thu, Oct 29, 2026 at 04:50:39PM +0100, Ernest Van Hoecke wrote:
->> On Sat, Oct 24, 2026 at 11:54:05AM +0200, Francesco Dolcini wrote:
->> > On Wed, Sep 09, 2026 at 03:30:53PM +0200, Luca Ceresoli wrote:
->> > > On Fri Sep 4, 2026 at 2:02 PM CEST, Ernest Van Hoecke wrote:
->> > > >> > Also, from our testing, when using:
->> > > >> >
->> > > >> > dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_B=
-URST |
->> > > >> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PAC=
-KET;
->> > > >> >
->> > > >> > we are not able to get display output.
->> > > >>
->> > > >> This is the case for the panel I worked on as well. In the practi=
-ce we both
->> > > >> observe that non-burst mode is what fixes the panel, but there is=
- no clear
->> > > >> explanation of the reason in the docs (that's what I hope to disc=
-over from
->> > > >> TI).
->> > > >>
->> > > > I am testing a DSI panel on our Verdin iMX8MP module, and noticed =
-that
->> > > > this caused a regression.
->> >
->> > [...]
->> >
->> > > > I think we'll need to either revert this and later apply both toge=
-ther
->> > > > when ready, or apply the second patch now as well. Right now, it b=
-roke
->> > > > the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
->> > >
->> > > Reverting is surely the last resort. If you can answer the above que=
-stions
->> > > it would be good, maybe we find out reverting is not necessary, and =
-worst
->> > > case we'll revert with better understanding on what went wrong, and =
-maybe
->> > > come up with a new fix that doesn't regress.
->> >
->> > What's the status of this regression?
->>
->> I still need to test and look into this, that will happen either in
->> December as I'm off in November, or by someone else in the team. Sorry
->> for the delay.
->
-> Luca: I think we should revert this for the moment, the regression is
-> real, and I do not see an immediate way forward.
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered, clocked and initialized to generate
+plug/unplug interrupts. The previous driver enabled/disabled IRQ during
+bridge enable/disable, which left no HPD detection when the display
+pipeline was inactive. Additionally, the interrupt mute/unmute/clear
+routines operated on all HPD interrupt bits unconditionally, lacking
+the granularity needed for per-event control.
 
-I hoped to get better info from Ernest. The commit looks correct so chances
-are that regression is caused but other bugs (incorrect timings, inaccurate
-clocks, etc).
+The series reorganizes IRQ and pm_runtime management into bind/unbind,
+adds IRQF_ONESHOT to eliminate read-modify-write races on interrupt
+mask registers between hardirq and threaded handlers, converts the
+interrupt type detection to a bitmask-based scheme for fine-grained
+mute/unmute/clear operations, and configures Rockchip platforms to use
+the HOTPLUG_CHG interrupt with a 2ms HPD deglitch setting for better
+stability.
 
-That said, why don't you just send a revert patch?
+Furthermore, the next bridge is now resolved into bridge->next_bridge
+instead of the platform data field, the forced connected-status logic
+is restricted to panel endpoints based on the bridge chain, and HPD
+events from downstream bridges (e.g. display-connector with hpd-gpios)
+are handled through the .hpd_notify callback. The DRM_BRIDGE_OP_HPD
+capability and the hotplug IRQ are only enabled for the platforms
+which actually support hotplug detection, and the fixed panels are
+excluded from the hotplug reporting.
 
-Don't forget to add to the commit message:
+Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
 
- * accurate description of what hardware breaks, with pipeline components
- * panel timings (or, better, panel datasheet URL with that info)
- * exact kernel version (upstream kernel tag or SHA-1)
- * clocks used and measured on the lines
- * difference observed before/after the patch on the cables and in software
- * any other detail of your investigation
+Native HPD pin mode:
 
-I understand some of these info might need time to gather. But right now
-every patch fixes some panels and breaks others. If we want this driver to
-work with all hardware at some point we have to start doing some
-investigation.
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp_txm0_pins>;
+  };
 
-Luca
+GPIO HPD mode:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp0_hpd>;
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+  };
+
+  &pinctrl {
+      edp {
+          edp0_hpd: edp0-hpd {
+              rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector without HPD GPIO):
+
+  &edp_out_conn {
+      remote-endpoint = <&dp_con_in>;
+  };
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector with HPD GPIO):
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+      pinctrl-0 = <&edp0_hpd>;
+      pinctrl-names = "default";
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+All four configurations detect cable plug/unplug events correctly.
+
+Damon Ding (18):
+  drm/bridge: Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE
+  drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data
+    field
+  drm/bridge: analogix_dp: Restrict forced connected status to panel
+    endpoints
+  drm/bridge: analogix_dp: Return bitmask from
+    analogix_dp_get_irq_type()
+  drm/bridge: analogix_dp: Check all negative return values for
+    &analogix_dp_device.irq
+  drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+  drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
+    bitmask
+  drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
+    irq bitmask
+  drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+  drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+  drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+  drm/rockchip: analogix_dp: Unbind bridge when connector init fails
+  drm/exynos: exynos_dp: Unbind bridge when connector init fails
+  drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+  drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
+    detection
+  drm/bridge: analogix_dp: Declare DRM_BRIDGE_OP_HPD for hotplug
+    reporting
+  drm/bridge: analogix_dp: Handle HPD notification from downstream
+    bridge
+  MAINTAINERS: Add entry for Analogix DP controller bridge
+
+ MAINTAINERS                                   |  11 +
+ drivers/gpu/drm/bridge/Kconfig                |   1 +
+ drivers/gpu/drm/bridge/analogix/Kconfig       |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 240 ++++++++++++++----
+ .../drm/bridge/analogix/analogix_dp_core.h    |  15 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 153 +++++++----
+ drivers/gpu/drm/exynos/Kconfig                |   1 -
+ drivers/gpu/drm/exynos/exynos_dp.c            |  16 +-
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |   1 +
+ include/drm/bridge/analogix_dp.h              |   1 -
+ 10 files changed, 313 insertions(+), 127 deletions(-)
+
+---
+
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls. (Sashiko)
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption. (Sashiko)
+- Update commit messages to align with newly added IRQF_ONESHOT related
+  commit.
+- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+  analogix_dp_reset().
+- Add new patch to restrict the forced connected-status shortcut to
+  panel endpoints only, allowing DP connector bridges to rely on HPD
+  detection. (Reported by Heiko Stuebner)
+- Add new patch to handle HPD notification from downstream bridges
+  (e.g., display-connector with hpd-gpios).
+
+Changes in v3:
+- Reorder the series: convert the IRQ handling to a bitmask and add
+  IRQF_ONESHOT before moving IRQ enable/disable to bind/unbind.
+- Add new patch to check all negative return values for
+  &analogix_dp_device.irq and propagate the actual error code. (Sashiko)
+- Rename macro HPD_IRQ to HPD_IRQ_ALL to avoid confusion with the
+  DP specification IRQ_HPD, extract the irq_type-to-register bit
+  mapping into a shared helper, and drop the unused
+  COMMON_INT_4_HPD_IRQ macro.
+- Simplify commit messages across the series.
+- Add new patch to use bridge->next_bridge instead of the plat_data
+  field, resolving the next bridge in
+  analogix_dp_aux_done_probing(). (Suggested by Heiko Stuebner)
+- Report panel endpoints as always connected from
+  analogix_dp_get_plug_in_status() via force_connected_mode, computed
+  from the bridge chain at attach time.
+- Determine the hpd notify mode from DRM_BRIDGE_OP_HPD on downstream
+  bridges that lack DRM_BRIDGE_OP_DETECT.
+- Add a MAINTAINERS entry for the Analogix DP controller bridge.
+
+Changes in v4:
+- Add Tested-by tag from Heiko.
+- Rebase onto latest tree, picking up the two related patch series [0][1].
+
+[0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
+[1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com/
+
+Changes in v5:
+- Add four new patches:
+  - Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE to fix
+    the undefined references for non-Exynos users.
+  - Unbind the bridge when drm_bridge_connector_init() fails on the
+    Rockchip and Exynos platforms.
+  - Declare DRM_BRIDGE_OP_HPD on the Analogix DP bridge and report
+    the hotplug events via drm_bridge_hpd_notify().
+- Move the next_bridge resolving patch and the forced connected
+  status restriction to the front of the series.
+- Use a pure threaded IRQ handler and hold runtime PM references in
+  the IRQ thread and the detect paths. (Sashiko)
+- Limit the runtime PM holding to the RK3576/RK3588 platforms and
+  exclude the boards with a fixed panel. (Sashiko)
+- Fix the display timings leak in analogix_dp_aux_done_probing().
+  (Sashiko)
+- Change the type of &analogix_dp_device.irq to int to fix the dead
+  dp->irq < 0 check. (Sashiko)
+- Rebase onto the latest drm-misc-next.
+
+Changes in v6:
+- Skip the runtime PM reference in the IRQ thread for the GPIO HPD
+  mode, since it only reads the GPIO level. (Sashiko)
+- Enable the hotplug IRQ only for the platforms which support hotplug
+  detection (the GPIO HPD mode, or the native HPD mode on RK3576 and
+  RK3588). (Sashiko)
+- Exclude the force-connected and force-HPD modes from the hotplug
+  detection support check. (Sashiko)
+- Declare DRM_BRIDGE_OP_HPD only for the platforms which support
+  hotplug detection, since the drm core stops polling the connector
+  once DRM_BRIDGE_OP_HPD is declared. (Sashiko)
+- Return the cached connection status instead of connector->status
+  from analogix_dp_bridge_detect(), as connector->status may still be
+  unknown before the first HPD notification or stale after the sysfs
+  state forcing. (Sashiko)
+- Add Tested-by tags from Heiko and Marek.
+
+-- 
+2.34.1
