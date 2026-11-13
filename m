@@ -2,48 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAE2606A330
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 21:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F5606A331
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 21:38:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjUoT5vX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8iDfR4F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE341127FE;
-	Fri, 13 Nov 2026 21:37:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2635112770;
- Fri, 13 Nov 2026 21:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA42112802;
+	Fri, 13 Nov 2026 21:37:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85805112802;
+ Fri, 13 Nov 2026 21:37:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 68FA842BA2;
- Fri, 13 Nov 2026 21:37:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707251F000C4;
- Fri, 13 Nov 2026 21:37:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7FFF063201;
+ Fri, 13 Nov 2026 21:37:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A744E1F000C8;
+ Fri, 13 Nov 2026 21:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794605840;
- bh=wuYdlDuceEy0lQozl99KmLtBB3feMdBndJ4Ls8W3oKI=;
+ s=k20260515; t=1794605869;
+ bh=PLiqukr56C60XaYU/sHWlWdxScdz3EOuf+dLUbwdnhA=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=kjUoT5vXT2NL0LoTh4rtmtDlgNjMKMglFr+pelw8nEU24U/LnUfYcWpmJjFbgvinP
- tETw/tCT0SErNu1AVwdAegocp3PSugCORvgifIzUFjGofcgw4a5tcZUU3a4mY5IjME
- 3xI7hBH9r2aVHck4Xx1gy+uyM3J6fe27rU67/zxZ3MzXhjmegXyoTbeNHHxbthBWPK
- gGyaQfEHDQ9bbW0BVTdaqY8xltRSXyGnGzvEXKn1o62Gtrr8j3MS5gXnR2UOjMuwsv
- Mrz3skjo6avqhJ1ZL94WLds06/sq3/cLuhScvpK8k4ozDerZPZNih61hsb6iJOoXbZ
- U57Jr9KyyD7Og==
-Message-ID: <6af3d5d2-4fab-4a3f-85d9-34564fca8ffe@kernel.org>
-Date: Fri, 13 Nov 2026 22:19:06 +0100
+ b=l8iDfR4Fn+bZOr3+4kgWweW+qnLrj4VKaTg7QNEbpGu/bEFZFs5nxDoj/kJFmkOuy
+ EswQFyeO0xhnKCfhg9Fxv8R+Ji1avzOxEhknOfUoFWfFiXvnBRtnwyyyT1s1E5sLGu
+ rIPhwMSSDY/K7NBkMePLqfgNHfXEju4yXrJZUlkEDDfvGmMgZ+2xSUi5eCDJEAeMnq
+ WMzbhlrefYk1jGACsD+PV+Ez4GFWp47Mw/5VoaKhHD++z7JVYv/6kJRB9nIiu2zwJO
+ GmY07jFS33ITqgEDCXs0F5jYryk6WirTuUlUhlluTjjhZp/zdu9BtuPbQv8qObwJJe
+ 2RxDNmut2VdaQ==
+Message-ID: <b290d347-1cd3-4ff1-b303-3cc074667689@kernel.org>
+Date: Fri, 13 Nov 2026 22:37:14 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>, =?UTF-8?Q?Mika_Penttil=C3=A4?=
- <mpenttil@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>
-References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
- <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
- <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
- <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
- <0b794f803517c27ea818a2e894761095300b4da4.camel@linux.intel.com>
+Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Chris Mason <mason@kernel.org>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+ <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+ <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -90,7 +104,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <0b794f803517c27ea818a2e894761095300b4da4.camel@linux.intel.com>
+In-Reply-To: <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,70 +118,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/13/26 21:56, Thomas Hellström wrote:
-> On Fri, 2026-11-13 at 21:43 +0100, David Hildenbrand (Arm) wrote:
->> On 11/13/26 21:34, Thomas Hellström wrote:
->>> Hi, David
->>>
->>>
->>> There are two major problems with the current behaviour.
->>>
->>> 1) The work item executing hmm_range_fault() might have no affinity
->>> at
->>> all to the GPU about to access the memory.
->>>
->>> 2) If migration happens, then hmm_range_fault() will stop and retry
->>> leading to excessive execution time.
->>>
->>> While perhaps Matt's commit message doesn't correctly describe the
->>> GUP
->>> behaviour, do you have any alternative suggestion than to avoid
->>> migration in this case? I think it's a reasonable idea given the
->>> problems with the current code?
+On 11/13/26 21:25, Kuehling, Felix wrote:
+> 
+> On 2026-11-12 17:09, David Hildenbrand (Arm) wrote:
+>> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
+>> falls back to vm_ops->access without checking VMA permissions and without
+>> limiting the request to the VMA size.
 >>
->> Adding fault reasons that hack around NUMA hinting such that a actual
->> CPU
->> accessing it later will not trigger ... NUMA hinting?
+>> Consequently, /proc/<pid>/mem can bypass protections even without
+>> FOLL_FORCE, or cross into another mapping without checking its
+>> permissions.
 >>
->> I might be missing the "reasonable" in here :P
-> 
-> Wouldn't the net effect be that content stays put instead of being
-> migrated? In both cases a later CPU access will not trigger NUMA
-> hinting except that the proposed change doesn't send content to an
-> irrelevant node?
-
-My point is that you are essentially disabling NUMA hinting because the CPU will
-no longer trigger NUMA hinting faults.
-
-But then, just disable it entirely. Maybe John knows what to do.
-
-> 
+>> Check VMA permissions before calling ->access and limit each request to
+>> the current VMA. Implement similar access permission checks as GUP,
+>> however:
+>>   (1) Reject writes to CoW mappings because the callbacks access backing
+>>       memory directly and cannot handle CoW.
+>>   (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
 >>
->> I recall that John (cc) kept saying "GPUs and NUMA balancing is
->> inherently
->> incompatible, you have to disable NUMA balancing".
+>> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
+>> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
+>> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
+>> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
+>> exploiting the missing access-permission checks fixed here. Reads remain
+>> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
+>> in May 2023, already does so.
 > 
-> Perhaps we could force hmm_range_fault() to run on the node closest to
-> the GPU. Then at least the migration might be beneficial.
+> Thank you for considering this use case and checking the ROCm history. The patch is
+> 
+> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
 
-That's also true.
-
-> 
->>
->> You could likely implement something similar to GUP, where you would
->> allow for
->> bypassing protnone for reading.
-> 
-> We could ofc look at that. Might help in some cases.
-Would be interesting if that already solves most of your problem. Apparently for
-KVM it did, but not sure why the write side was never that important.
+Thanks a lot for the confirmation, appreciated!
 
 -- 
 Cheers,
