@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5DD606A32D
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 07:14:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22305606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 07:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=udMlGsSp
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A68os7Ys
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E1B10E7B1;
-	Fri, 13 Nov 2026 07:14:38 +0000 (UTC)
-Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892A810E770
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 07:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DAF10E9F3;
+	Fri, 13 Nov 2026 07:14:53 +0000 (UTC)
+Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 806F810E9F3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 07:14:47 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=h0psyJSsZc6uejB5ctZO4cfJpptBMMcNxc+MzOps6DE=; 
+DKIM-Signature: a=rsa-sha256; bh=CjYG6lLCB1BYJrLcL7BR63FCu2vQ5oxiLdcSaVMwGGM=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794554069; v=1; x=1795158869;
- b=udMlGsSpH7X73dA61my++iwqdBxTX8Kk+wt0qnG6VgF76qW7uF44IdPgQln3nkY5cRKCzdze
- eIt3A8IkP+bfXRh6wok6RVggroOnE2aJgd6mC4nhwEYVw3tyE0BW88rtL2fD+50m0kHs6uDpan1
- y3UV85dQoEm5UZ5lHN5pnSFM=
+ t=1794554085; v=1; x=1795158885;
+ b=A68os7YsMGssYaepCC+JJlSEp3TNbFbJk6AQqqLQufQDGK6MZJqInnG7ASf8Hw7fmpwFDosT
+ o3PfjHgadLkIEEhmkSPSYbsT4hRuBm3Pp9Z1vxs0LSnTWaHXu2eCGlCQ09/nwba9+wPgtBbqMJi
+ dglcmAgoQaygSYECqLDq17dM=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id c50c61e7e1cb5563;
- Fri, 13 Nov 2026 07:08:25 +0000
-X-Mizu-Trace-ID: c50c61e7e1cb5563
+Received: by smtp.migadu.com with ESMTPS id 0eecb32ce231a7d3;
+ Fri, 13 Nov 2026 07:08:41 +0000
+X-Mizu-Trace-ID: 0eecb32ce231a7d3
 X-Migadu-Flow: FLOW_OUT
 From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
 To: Christoph Hellwig <hch@lst.de>, Anuj Gupta <anuj1072538@gmail.com>,
@@ -46,10 +46,9 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  Li Wang <liwang@kylinos.cn>, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: [RFC PATCH v2 6/8] fs: add FMODE_CAN_DMABUF_IO and require it for
- dma-buf I/O contexts
-Date: Fri, 13 Nov 2026 15:06:19 +0800
-Message-ID: <20261113070621.273953-7-mengmeng.zhao@linux.dev>
+Subject: [RFC PATCH v2 7/8] dax: refuse dma-buf iterators in dax_iomap_rw()
+Date: Fri, 13 Nov 2026 15:06:20 +0800
+Message-ID: <20261113070621.273953-8-mengmeng.zhao@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
 References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
@@ -76,143 +75,32 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 
-Add a file mode bit for files that can be the target of dma-buf I/O and
-require it when a buffer is registered.  Block device files set it when
-the backing disk supports dma-buf I/O, and filesystems can set it for
-inodes whose data can be reached without the page cache.  The bit is
-coarse: a driver that installs ->init_dma_buf_io_ctx for every
-namespace, like nvme, still decides per device at registration.
-
-dma_buf_io_ctx_create() is the only caller of ->init_dma_buf_io_ctx, so
-the capability and the O_DIRECT requirement are checked there for every
-file type rather than in each helper; O_DIRECT belongs at registration
-because F_SETFL can change it afterwards.  Add bdev_can_dmabuf_io() so
-the open-time and registration checks share one predicate.
+DAX copies data through the CPU, so a dma-buf iterator has no meaning
+in the DAX I/O path and must be refused.  A DAX inode does not get
+FMODE_CAN_DMABUF_IO at open time, but DAX can be enabled later, so
+check per I/O.
 
 Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 Signed-off-by: Li Wang <liwang@kylinos.cn>
 ---
- block/bdev.c                 |  8 ++++----
- block/fops.c                 |  2 +-
- drivers/dma-buf/dma-buf-io.c | 13 +++++++++----
- include/linux/blkdev.h       |  7 ++++++-
- include/linux/fs.h           |  8 +++++++-
- 5 files changed, 27 insertions(+), 11 deletions(-)
+ fs/dax.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/block/bdev.c b/block/bdev.c
-index 88e3f552f5d4..4e7a7f7e1e8b 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -61,14 +61,12 @@ struct block_device *file_bdev(struct file *bdev_file)
- }
- EXPORT_SYMBOL(file_bdev);
+diff --git a/fs/dax.c b/fs/dax.c
+index 94ba41273347..84d24db5ed35 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -1752,6 +1752,10 @@ dax_iomap_rw(struct kiocb *iocb, struct iov_iter *iter,
+ 	if (!iomi.len)
+ 		return 0;
  
--int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
-+int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
- 			     struct dma_buf_io_ctx *ctx)
- {
--	if (!(file->f_flags & O_DIRECT))
--		return -EINVAL;
- 	if (ctx->dmabuf->size > UINT_MAX)
- 		return -EINVAL;
--	if (!bdev->bd_disk->fops->init_dma_buf_io_ctx)
-+	if (!bdev_can_dmabuf_io(bdev))
- 		return -EOPNOTSUPP;
- 	return bdev->bd_disk->fops->init_dma_buf_io_ctx(bdev, ctx);
- }
-@@ -1041,6 +1039,8 @@ int bdev_open(struct block_device *bdev, blk_mode_t mode, void *holder,
- 
- 	bdev_file->f_flags |= O_LARGEFILE;
- 	bdev_file->f_mode |= FMODE_CAN_ODIRECT;
-+	if (bdev_can_dmabuf_io(bdev))
-+		bdev_file->f_mode |= FMODE_CAN_DMABUF_IO;
- 	if (bdev_nowait(bdev))
- 		bdev_file->f_mode |= FMODE_NOWAIT;
- 	if (mode & BLK_OPEN_RESTRICT_WRITES)
-diff --git a/block/fops.c b/block/fops.c
-index 86bf1f298b79..7e5702e047a2 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -1008,7 +1008,7 @@ static int blkdev_mmap_prepare(struct vm_area_desc *desc)
- static int blkdev_init_dma_buf_io_ctx(struct file *file,
- 				      struct dma_buf_io_ctx *ctx)
- {
--	return bdev_init_dma_buf_io_ctx(file, file_bdev(file), ctx);
-+	return bdev_init_dma_buf_io_ctx(file_bdev(file), ctx);
- }
- 
- const struct file_operations def_blk_fops = {
-diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-index 8440151de860..9575b7d65ec5 100644
---- a/drivers/dma-buf/dma-buf-io.c
-+++ b/drivers/dma-buf/dma-buf-io.c
-@@ -152,9 +152,11 @@ static void dma_buf_io_ctx_shutdown(struct dma_buf_io_ctx *ctx)
-  * @out_ctx:	[out]	resulting ctx
-  *
-  * Create a new I/O context from the given DMA buffer for the given file.
-- * It only works with files implementing ->init_dma_buf_io_ctx and fails
-- * with -EOPNOTSUPP otherwise. Once created, the user can create a map
-- * and use it to issue I/O, such as read/write requests, to @file.
-+ * It only works with files implementing ->init_dma_buf_io_ctx,
-+ * advertising FMODE_CAN_DMABUF_IO and currently opened for direct I/O,
-+ * and fails with -EOPNOTSUPP or -EINVAL otherwise. Once created, the
-+ * user can create a map and use it to issue I/O, such as read/write
-+ * requests, to @file.
-  */
- int dma_buf_io_ctx_create(struct file *file,
- 			   struct dma_buf *dmabuf,
-@@ -164,8 +166,11 @@ int dma_buf_io_ctx_create(struct file *file,
- 	struct dma_buf_io_ctx *ctx;
- 	int ret;
- 
--	if (!file->f_op->init_dma_buf_io_ctx)
-+	if (!file->f_op->init_dma_buf_io_ctx ||
-+	    !(file->f_mode & FMODE_CAN_DMABUF_IO))
- 		return -EOPNOTSUPP;
-+	if (!(file->f_flags & O_DIRECT))
-+		return -EINVAL;
- 
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index b98f43478cc0..0cfb6fb6b4e2 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1610,9 +1610,14 @@ struct block_device_operations {
- 	int (*alternative_gpt_sector)(struct gendisk *disk, sector_t *sector);
- };
- 
--int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
-+int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
- 			     struct dma_buf_io_ctx *ctx);
- 
-+static inline bool bdev_can_dmabuf_io(struct block_device *bdev)
-+{
-+	return !!bdev->bd_disk->fops->init_dma_buf_io_ctx;
-+}
++	/* a dma-buf iterator has no CPU-visible pages to copy through */
++	if (iov_iter_is_dmabuf_map(iter))
++		return -EOPNOTSUPP;
 +
- #ifdef CONFIG_COMPAT
- extern int blkdev_compat_ptr_ioctl(struct block_device *, blk_mode_t,
- 				      unsigned int, unsigned long);
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 99caef43ff3c..f5524fc770d4 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -121,7 +121,13 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
- /* File supports atomic writes */
- #define FMODE_CAN_ATOMIC_WRITE	((__force fmode_t)(1 << 7))
- 
--/* FMODE_* bit 8 */
-+/*
-+ * File can be the target of dma-buf I/O.  Set it for files whose data can be
-+ * reached with direct I/O without the page cache: a dma-buf iterator has no
-+ * pages to copy, so a buffered path cannot serve it.  The bit is coarse; both
-+ * the device behind it and O_DIRECT are checked when a buffer is registered.
-+ */
-+#define FMODE_CAN_DMABUF_IO	((__force fmode_t)(1 << 8))
- 
- /* 32bit hashes as llseek() offset (for directories) */
- #define FMODE_32BITHASH         ((__force fmode_t)(1 << 9))
+ 	if (iov_iter_rw(iter) == WRITE) {
+ 		lockdep_assert_held_write(&iomi.inode->i_rwsem);
+ 		iomi.flags |= IOMAP_WRITE;
 -- 
 2.43.0
 
