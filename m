@@ -2,50 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8ED7606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F9D606A335
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 02:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=sf+EaGfX
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=cux/RLhd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 272FE10E6DF;
-	Fri, 13 Nov 2026 01:51:56 +0000 (UTC)
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9FDE10E6DF
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:51:49 +0000 (UTC)
-Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
- by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 89D76120351;
- Thu, 12 Nov 2026 22:51:44 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
- s=dkim2026; t=1794534706;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VCakxFlvNf3r4xnqgVMZN0r27Eu0M3U7AunJ84kfgbE=;
- b=sf+EaGfX37dcNR3I0sGYwVUnbdihTv66gpXJwcfpYPbpMz4h/1vcxSieHEcXzP5egnDEnF
- rijjeU5zytFrIp3ZRNXWq0VQpbKj9+pyOvC1+7ELIFyE6iNJp9uYNQOQ7SsTok+MvW3QV8
- gfJbfYOpfplkXjsz8HKDoyuYH6Rv0bUpgxkZQUBMB0bZw17jDRVyfmBM2mXSl7/lAgB/v2
- VxkUAOsGsNwTISN+7co4ThSohguiV0Y2Tbj+ZGupgFY2e0rZV89BurTqqRn/NM8u3IYK46
- yDnB4KYWwq4zLuWGZQREn/Us0bBEJRM+g/gwCw5uQsoJ9TcpDOxcSuWmDSr2sw==
-Date: Thu, 12 Nov 2026 22:51:41 -0300
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Sidharth Saha <ssaha2000@gmail.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] drm/vkms: support more formats and fix RGB565
- regression
-Message-ID: <avZsvJCsjIck1MRd@DESKTOP-PJTTJ93.localdomain>
-References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
- <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C0310E15E;
+	Fri, 13 Nov 2026 02:03:13 +0000 (UTC)
+Received: from mail-m128123.netease.com (mail-m128123.netease.com
+ [103.209.128.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2460C10E15E
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 02:03:06 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 5484f6ba6;
+ Fri, 13 Nov 2026 10:03:03 +0800 (GMT+08:00)
+Message-ID: <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
+Date: Fri, 13 Nov 2026 10:03:01 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
+ RK3588
+To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d2a4e0a503a8kunm80fbc02f473c1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTEgZVktPSUtOHktJHUkeHlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=cux/RLhdEL9vzjCYZTxGA7XZvFMhySw1imRGjuTXATiePVhVQlIg6iqCsMd2ya3Ce40+JGvTvb6GcwHJprfLAmmcqepp/gpQu3glqJRd9eOvuUXOFZKrNE0NuHSnPUYPB//LAmjkdaURy8uevm+sR9XEbyAYolryMwDneUGHmjY=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=2yRMouvHM4a05izOhD8UAJhMpR/Nv3hy0kmuRjqTsS0=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,51 +62,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 05:18:56PM -0700, Sidharth Saha wrote:
->Hi Matheus,
->
->Following up on my earlier report: I've now written KUnit tests for
->the conversions in this series - argb_u16_to_RGB565(),
->argb_u16_to_BGR565(), the RGB565/BGR565 read paths, and both the read
->and write paths for RGB332 and BGR233 - against hand-computed values:
->zero, max, single channels, the midpoint, values either side of each
->rounding step, distinct per-channel values, and a read/write round
->trip.
->
->All pass with the series applied. Without it, the RGB565 writeback
->midpoint and rounding-step cases fail (truncated instead of rounded),
->and the RGB565/BGR565 read tests give identical results with and
->without the series, so the helper conversion in 3/5 doesn't change
->behavior.
->
->For the series:
->
->Tested-by: Sidharth Saha ssaha2000@gmail.com
->
->I'm happy to send the tests as a follow-up series once this lands, or
->you're welcome to fold them into a v2.
->
->Thanks,
->Sidharth
->
->On 9/27/2026 5:52 PM, Matheus Alves de Almeida wrote:
->> Hi,
->> 
->> This series adds support for RGB332, BGR233 and BGR565 writeback. This
->> is done with new helpers added to make conversion easier. It also fixes
->> a regression in the RGB565 write conversion.
->
+Hi Arun,
 
-Thanks for testing!
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
+> rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
+> VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
+> for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
+> every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
+> and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
+> positive.
 
-I would be happy to add your patches in case I need to send a v2.
+The commit msg confuses me. POLFLAG_DCLK_INV has no relation to 
+DRM_MODE_FLAG_NVSYNC.
 
-Thanks,
-Matheus
+For the RK3588, the polarity relationship is:
+
+DRM_MODE_FLAG_NHSYNC -> Set HDMI hsync polarity bit
+DRM_MODE_FLAG_NVSYNC -> Set HDMI vsync polarity bit
+DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE -> No valid HDMI dclk polarity bit
+
+> 
+> The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
+> vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
+> flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
+> POLFLAG bits accordingly.
+> 
+> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index 659fd0a3ab63..7c48b440cb29 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
+>   		return 0;
+>   }
+>   
+> -static u32 rk3588_get_hdmi_pol(u32 flags)
+> +/*
+> + * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
+> + * (negative) sync.
+> + */
+> +static u32 rk3588_get_hdmi_pol(u32 polflags)
+>   {
+>   	u32 val;
+>   
+> -	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
+> -	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
+> +	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
+> +	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
+>   
+>   	return val;
+>   }
+> 
+
+With the commit msg modification:
+
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+
+Best regards,
+Damon
+
