@@ -2,98 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8FB60A3813
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26B260A3830
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DyEdU7f7;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SiaPXUOn
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WIbPYjf5;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S4jMOK5a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E0C10E776;
-	Fri, 13 Nov 2026 08:29:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 159F411205F;
+	Fri, 13 Nov 2026 08:29:32 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 859EB10FFF8
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:12 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFBE311205F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:20 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AD57Ek63616117
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:11 GMT
+ 6AD57BD83283384
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gdIKtbmtt6X34cnhTlk+wlpmiV3qhuoe2c6i221ujkM=; b=DyEdU7f7GlyDYh+a
- O8BQtxysEHUEcsn2AqqSQ/xcpB93svGlwd62z8i4FLWJBIR5oyKOz0TCrtbbSkZk
- +nMtFrdTsE7t8cwCHuWOTe0b+R866kT6i0sHGXqEhjCHOhxJEtQqMOF7wH6slbGh
- Mo5g8XitnqdN15BugPpkkfYUFVyYnvtX6zp/185UIjeSvSfFvhbDjhm9WXnL/UAm
- fMYbF03B5wN8c2iZnFzBfSgyMqKkkQ1sO4Q3PA74Yw4iHJRdtL2Uxjege1mlvMho
- W2IB+nScQIgWCYsHKXadHiVcCdMfZUm6eIngWEkwA7l/nKa77w/ZnJ9IBQC9dV8S
- WenGWA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwh0ajvx7-1
+ G7cK0ZBgqXGKQz57bcv4YJRSGS3cGEHifmH2X+pL/NY=; b=WIbPYjf5j1Iu33J2
+ duxfRNQsNY81YwiWRjtDeg1WmrvcI/8QN9HlBsgx9NZQXSR78tsFuksat1nwK+q6
+ 8hOzezkg3uX10jOXCI7pUhf6yAxYnQG18XD5yfvcljBMjouqlEcERvWQA+BFvEJn
+ eAOrp/xg8E4y+rsLxGieFoMn6P71VPEkgiY7v48hhKiJEEw92nRwCwE2XQ7TgVdl
+ yuGWVDBXN15EBOWk3emfax2PgK8BOZPH06LrMbXKDzRe9WVdfEWO37ix1sY0iwfw
+ AJY4TjklzwzTVR5fdDPm90Bj8X8g9VKagSp7uE6506L5jZ4x9Hd7Bqf4/mTmqqje
+ rGcVOw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwv37gpsq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:11 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-533928ef33aso7616461cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:29:11 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:29:19 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-5364f562140so16593461cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:29:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794558551; x=1795163351;
+ d=oss.qualcomm.com; s=google; t=1794558559; x=1795163359;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gdIKtbmtt6X34cnhTlk+wlpmiV3qhuoe2c6i221ujkM=;
- b=SiaPXUOnN7V8RYbgPs+fcDgbqkoxt6J3q+IJSBKZkAnSIh+aC0DPfMERF7gvgff4y4
- IL4K6piOW6TgPpqPp5dJ0RSQTFMhF6yeZheH7zV5K7Fwv6SCq0gk7UPW2dtfK4ZD2X6I
- 1BZVLpBjeRUFo8aMIbX5OtJgGDgZUYxVYGNcQ+axhwNWGtRUbCAdE6iCxLuKFiraNZw+
- F699OwKbbv298JRnc2sTCd6L9pXvaYmVMkQN1v1oNTkQ/DtfF12RpjS4YRhreBLPeiHC
- NgY8jtBW+rmIkoY2rr0xmmCJUYu1BoM9HFCekO+ZKNZkRdskYh+mfF5Wu8DEtzsitg/y
- qZiQ==
+ bh=G7cK0ZBgqXGKQz57bcv4YJRSGS3cGEHifmH2X+pL/NY=;
+ b=S4jMOK5aDLkypT66QIjvxcRUcW2Fuv6GGHGsSTk/N3X4Ykzr97/STOE/5gAkRCgVPA
+ BYpJ55zg4wWMljT6VxO5hBOy64Q/SzoZlJ3hqvjgYKsUsqvNxRajIg/KaQqMkQNVXIjQ
+ Q6qnemGV80RA6PKaQW4VRdFmEGslsf6lmlKqTjHQO5JMuQIcRPwrAsRUHcFXIyphINPG
+ dymQqIR4iFFE6uT+yg+FAAvpGWN7UraJzSpSpibgsyv18MYa2J+3fmAwKMrSHuXeWiiW
+ OJFrkUppQDhgY83UU8gt8eA8cRuz0RJdiWz23oIicJ0UvoxuBxcUpLyah9IAfUYZTzOc
+ jnJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794558551; x=1795163351;
+ d=1e100.net; s=20260707; t=1794558559; x=1795163359;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=gdIKtbmtt6X34cnhTlk+wlpmiV3qhuoe2c6i221ujkM=;
- b=aYYOADRH9VD/RqyyBPv8cxtS0n9cLQ3MkklY/cR5eXsJA5PqzB5ODnD+O3T41oWqcj
- qCBqyEsxuZzJDmhlnkpUkmTTw8UQ5tzG/y3X0A6fLGK22qF8Lm8sDbuuL3g2HQzuKgoo
- UnjEmK3yhNiIl8ChZvMDnOFWX1TR1TuyiBeCn8HFgj2o9bYQ+ZuCNnXb4FkZ96Kpu8h3
- 5axz2uBcBwsqPfLKQ/noBVjo6QrurMZW64ijLSmNTcr+10L77HSeAQtGIQlo9K3YelH9
- NEemf1uFp1mMpaqiaSGWE3iYBltpyQSrldz8XEhiR7hVLD9DJxqHGZfXzrny/nQy4MNN
- Ddfg==
+ bh=G7cK0ZBgqXGKQz57bcv4YJRSGS3cGEHifmH2X+pL/NY=;
+ b=DPTuyBhPDTMy8EY3CHhyt8GhqyqIi+zTICr3gt142ShS+bg6Z41DL3vE8zfK0C9hCp
+ 7K6Q8Xx59lbjh0L3PAIq9wQR4r2Xv7Jm125rz4d/Ouje5zE0iuQ2tOcTo96sFDkG6Qbj
+ UCXIPQuiXH6ZLOpEwKpGXxwKEzLYu4hOYqIZZ0mMPn2EzxNMbt2q9fzsqIRW1EVLFmF2
+ uJYJZLwK/ac4xoM5qjAf1X9SIbItJ96qU7IncBBoxQ+2Jnu3vEYNpcmqQ/wU8t6WpZwE
+ LFunIihB58GqkRxJ4e7dFqF4WXmuYNj8aLrJk3vdA5s21XdV77myHC4PJIy0MZjVlUW3
+ c//w==
 X-Forwarded-Encrypted: i=1;
- AL+hErG3ZM7ds0ki+FoyY0G/smzMnna625PUvMkrrVKa31ThjkrkNqTYG5tFWD5O5QeKClJhH00BT+eqmJQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/iF2jiq1IUDUDTDqVBJRtmAjFlxQ0Wxo4UqiacSTDeS8THgck4
- MZVheJzuqT7OqdLmRSnpJ1ZgZNYFclTMx9cSIxgi0kDM5UxsH4BnDM+YDteSbKVZPq4shRmR5In
- 1yhkabcOzW7gT3TocdWrCwvUfhS3fZBn/0KUa16CRu2eoYC+WU+GpMUgHiF6V/Qz9xpTPOLA=
-X-Gm-Gg: AYBFou15v+uiYYQPuXchTT9rB8jzX+mncDxgTFyuDwxauzcRSxfcohv1BJmxnsVGdrr
- K1rzUiY2cXwz429oY9f9N04aAZ6dv670jOPztjhAJfTVgTy0MI+rDbCj53LIN0h9/3O4zahK+p2
- ZAY7Rl1g6GLfspFysXavjFmO06aRBptWqoBaK9UDWPHGNjcS2N3H9Jb6d++LfY+p/uUr8wEFg4s
- mlLx12NboGOOM8bpfTXSA37x+Ha134pZQbo/Lq1pY9gQ715JHp7kP6/tIjLik5Rwy0KVcxfA7L+
- eqQgIQmFbMwurIut35VW0KrhW8F4DvCGd9zNfEQHcOLnEK8ZpfqshGbBIwZdky3EnwT/40usERo
- ryFnkRzYVuYho2ckWkw3bz/M0TJlxvonaLYgedkogqwc8jasstL5CmVSrgRl0ZJdsL9lmk2VlVi
- qq61OhfRDn8zi4sVAD1G78O777DkxqNqkiAlTQ
-X-Received: by 2002:ac8:5dcb:0:b0:535:b506:11e8 with SMTP id
- d75a77b69052e-55ac1331525mr31454401cf.0.1794558550524; 
- Fri, 13 Nov 2026 00:29:10 -0800 (PST)
-X-Received: by 2002:ac8:5dcb:0:b0:535:b506:11e8 with SMTP id
- d75a77b69052e-55ac1331525mr31454101cf.0.1794558550017; 
- Fri, 13 Nov 2026 00:29:10 -0800 (PST)
+ AL+hErH4BZd41RAPSpEhx26iF0aRoqv331IMHRwvOnHYWMDSG8BRIEmYbkItmm7Y+/xUmOfzGAc5Wi77+7A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9nTbwi2UgOCPl8U8Drj+HimXUSgjBFJsh+Mj6xYQVQshCWTZNG
+ wQax5V4UAlp8XDhSiyURYSb1b8fH7+xMGHMFJuEXcjn5Nn9oD83R73gFrz8I4GprhwcoexTIfh0
+ YuQDtDHXou6obdsj6vxmI4bWTcjED2p/gqgFtA6euqSVI/O5XX56x8BiGclkSpihMHGADEQs=
+X-Gm-Gg: AYBFou2DxM9Ybg3YnelDHXmUB38Gc7Yd47UKi+On1cGp2PUHqSJ3XkpSG2HjHkYK4BJ
+ A6BFpvi6sRUHPT8IcmL6EaKPUrkwdWMZkhfbLr9IMXYCrGplK8T6lT65IrXCQ5kL1siPCoBGk12
+ RPP9BwbVuao8rAQhgQoERRMrSH3UiKiLB1OrryI88LQ+Dpc4ZPE/y17St4CV22y2oXgeB4EoaQt
+ 5r+9JXxp6RAA+Q8VtukmKl77UC0l60WoMfIRT3OGQQAQg+ZYR25H7Oi5aiv/BVqfgRe4rzEHPqs
+ 2Kx7HYMA3s5CmlrClzvfAlQevcGARrXRcEzriN1fgwK9th8n4FNEEt2nB7HQeucBf62C3RaJMci
+ FFEQv9zbLJ17yqonWSCMduhLA2zLMPeo3r9fiX9FMdu1YRw9omsIfhRA1EtIFHJlxQxv5UfP07/
+ o4/8V5vlx1nv0+mmO0j75hT0pP0qSQwsKDRec8
+X-Received: by 2002:a05:622a:5ca:b0:536:6013:be95 with SMTP id
+ d75a77b69052e-5595644e72amr84314071cf.16.1794558559148; 
+ Fri, 13 Nov 2026 00:29:19 -0800 (PST)
+X-Received: by 2002:a05:622a:5ca:b0:536:6013:be95 with SMTP id
+ d75a77b69052e-5595644e72amr84313661cf.16.1794558558503; 
+ Fri, 13 Nov 2026 00:29:18 -0800 (PST)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-55ad1b13917sm13524491cf.29.2026.11.13.00.29.02
+ d75a77b69052e-55ad1b13917sm13524491cf.29.2026.11.13.00.29.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 00:29:09 -0800 (PST)
+ Fri, 13 Nov 2026 00:29:18 -0800 (PST)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 16:28:51 +0800
-Subject: [PATCH v6 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
+Date: Fri, 13 Nov 2026 16:28:52 +0800
+Subject: [PATCH v6 2/3] drm/msm/dpu: Attach CORE and INT2 power domains on
+ Kaanapali
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
+Message-Id: <20261113-msm_gdsc2-v6-2-17adbce47220@oss.qualcomm.com>
 References: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
 In-Reply-To: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -118,42 +118,44 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Danila Tikhonov <danila@mainlining.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794558532; l=9575;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794558532; l=2645;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=cyZkjCOBijSm7S/CvS/j8M3k40zS+ATYoCyKx4MzWdU=;
- b=jZE/XfoPpWsMgCJBUkQ+f0VREypGPXnvj4gU/SkNdUdDjefLxOw4uKGttbH5hqZKFBohRXRg/
- MLMqxt8Y19+ABQahskwTozUpXBmhOjfSbmpfwSsUnFwGXiWJq0wjltE
+ bh=VB9FmrjQ44Q9qoohUmrOvqxRlHApd+R+blJvgNZ34tc=;
+ b=46Av5g6VzcUfFjfsoz5zTzkfm4h+tFp2LHO1XA2cbXDpVJFeB5TVUPBKq2eyRMkKMS/ty2StM
+ BzXUlmiaElYAVWkfcUNhpvYe8JzFN9lo8wc4zd3xmPKnAWUtRBqbHYL
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfX4X1NhuXXXPGy
- uVINQHdmSUBqwMNaWvDfFmLz4czIEwnrJyBS4bSNVgcum/ENJtZ688jFweQOAmO9+jgVTfVR9Vm
- /UPNPOVHf0RLZcVEgm8yhMiwg53I8K8=
-X-Proofpoint-GUID: ndlgrVG7uwUS6WNnv1Q2mpGqMFpqec8W
-X-Authority-Analysis: v=2.4 cv=N+e8hG9B c=1 sm=1 tr=0 ts=6af6ca57 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfXxCshu/KzKkGA
+ gSI0EmC45Looc9+vqgKOTEDZDNro9z4se1E8SzIZAZcYAvxXetxRIs/rkiYlAVaDZVYmwRtpw14
+ TJmnys0QH1VK3JpOtcT+fjcubot4MuQ=
+X-Proofpoint-ORIG-GUID: tGNx22Ur_Khur4d_Ky1ZXjfaPT0yIlCW
+X-Proofpoint-GUID: tGNx22Ur_Khur4d_Ky1ZXjfaPT0yIlCW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfX3V+t2qNcPGss
+ qTFvsgmi5Jg7LHnJGeoMUwDYc61fJfXl3FG2/p39SjRptMcryTDv1haQ1RirZSoxqVZytw/UOtY
+ fuQ4gqV99TsYIK72vy3cp5inqCYST4A+nAB6tP99K80FRJGaNuQyja7dG9WKGLtsuDv5s5g+MkV
+ w4Hu6451t8baX3h03WpC5D0N1tYHRQBfI78jjbMNudL7vKN2EHbmIvXU8wxWB2DHWlarLp9jzxg
+ +oXGuUIVdRRfflIJ1s8ITH/l4m5gKUglIfoJ9QC9XhV+6x9gwwNK+d1XYHzIim8soL+qH3V67W9
+ 0w93SuPttphs5YowVCbjKtNy9HgX3UPNFiitTrcCuSN5wNin5/hCKBBQwq8odjfVykJVh5QaAuF
+ Edm/ZITXVC/kw7dSI2SKXcyaPc/OpsIrhkzzH0Gbq+k3sEgAmk+CvfAa2l9caJ5xTpRR6fSH9jo
+ ladPA/SjmXwPAXflvBg==
+X-Authority-Analysis: v=2.4 cv=ZeeIpcVA c=1 sm=1 tr=0 ts=6af6ca5f cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Ghaf3IcVr8FXk-v7bh4A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfX2R4A/8uYcdGJ
- US9t2DuPszc9JzB6aHMWau4qFJZ5xeJ2/xHAlJlzonVt0Xp7im8hnk1hpdOe79oH1skKOGg+4SX
- P4joKlcKSGODf/1UxrSYzpC2n1fN3BS4LBba0cVO179Tdm6SlB7yjJjO8bz0pqTFx33h27WozTf
- JwMvi1S0bO0LRboW9r6aMPsnyZyEaBn0Pm/1tJmlI1GlmSSbc0rl8YyTGlgBPYFL9d4SaQ/DOe+
- xCPUQkAYXNkVZ0oepfuqPK/DDghaaL/jtdzhBpGs0eF+tdBY9rLapYzfClrgJQTgSGpj6DsZU8s
- kOn8PX0TWo7Z/wJk0zgP+hkZ3M5i5ibsN/93bmHbiR0FYQze8AAcr1aKRH2y9+LCYsnd9d7Zqv4
- NdZluoca4ebtO/jwsIafeyE6Kc2kx+LFoqxkPU/jQ+bcVQweOMcmzN0jz/tUrbLVL0c1mo6ZuUt
- DshZNq6GJVgfj5Iuzzw==
-X-Proofpoint-ORIG-GUID: ndlgrVG7uwUS6WNnv1Q2mpGqMFpqec8W
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=hNyr2f_ZztDnRCZExOcA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130033
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ phishscore=0 impostorscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611130033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,249 +175,82 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
-MDSS hardware and most of the DPU, while INT2 GDSC supplies the
-VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
-remain inaccessible.
+Kaanapali's DPU is supplied by both CORE and INT2 GDSCs. The
+power-domain core only auto-attaches a single domain; with multiple
+domains the device is left unattached, so both domains must be attached
+explicitly.
 
-Describe CORE and INT2 as power domains of the DPU device, matching
-the hardware partitioning. INT2 only supplies DPU-local source pipes,
-while CORE also remains attached to the parent MDSS device because it
-supplies shared MDSS hardware. DPU performance-state votes on CORE are
-propagated through the genpd hierarchy to its parent MMCX domain.
+The DPU OPP table also needs to continue controlling the MMCX
+performance state. Mark CORE as the required OPP domain so its vote is
+propagated through the genpd hierarchy to MMCX. INT2 has no OPP of its
+own and is attached as a regular runtime-PM supplier.
 
-Keep the widest valid constraints in dpu-common.yaml, including the
-power-domain-names definition, and narrow them in the platform-specific
-bindings. Require two domains and their names for Kaanapali, while
-retaining the existing single-domain constraint for all other DPU
-platforms.
+Platforms with a single power domain remain unaffected and continue to
+use the existing automatic attachment.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- .../bindings/display/msm/dpu-common.yaml           |  9 ++++++++-
- .../bindings/display/msm/qcom,kaanapali-mdss.yaml  |  4 +++-
- .../bindings/display/msm/qcom,msm8998-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,qcm2290-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sc7280-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sc8180x-dpu.yaml     |  3 +++
- .../bindings/display/msm/qcom,sdm845-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm6115-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm6150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm7150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm8150-dpu.yaml      |  3 +++
- .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++++++++
- 13 files changed, 64 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-index 3f953aa5e6949..d2a2ffa043ed8 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-@@ -26,7 +26,14 @@ properties:
-     maxItems: 1
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 1b6286dccfc0..4efcfb559d53 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -12,6 +12,7 @@
+ #include <linux/debugfs.h>
+ #include <linux/dma-buf.h>
+ #include <linux/of_irq.h>
++#include <linux/pm_domain.h>
+ #include <linux/pm_opp.h>
  
-   power-domains:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
+ #include <drm/drm_crtc.h>
+@@ -1376,6 +1377,33 @@ static int dpu_kms_mmap_dpu(struct dpu_kms *dpu_kms)
+ 	return 0;
+ }
+ 
++static int dpu_kms_attach_power_domains(struct device *dev)
++{
++	static const char * const core_names[] = { "core" };
++	static const char * const int2_names[] = { "int2" };
++	const struct dev_pm_domain_attach_data core_pd = {
++		.pd_names = core_names,
++		.num_pd_names = ARRAY_SIZE(core_names),
++		.pd_flags = PD_FLAG_REQUIRED_OPP,
++	};
++	const struct dev_pm_domain_attach_data int2_pd = {
++		.pd_names = int2_names,
++		.num_pd_names = ARRAY_SIZE(int2_names),
++	};
++	struct dev_pm_domain_list *core_list, *int2_list;
++	int ret;
 +
-+  power-domain-names:
-+    minItems: 1
-+    items:
-+      - const: core
-+      - const: int2
- 
-   operating-points-v2: true
-   opp-table:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-index 9f935defd6b12..6d6391970d6b6 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-@@ -125,7 +125,9 @@ examples:
- 
-             operating-points-v2 = <&mdp_opp_table>;
- 
--            power-domains = <&rpmhpd RPMHPD_MMCX>;
-+            power-domains = <&mdss_gdsc>,
-+                            <&mdss_int2_gdsc>;
-+            power-domain-names = "core", "int2";
- 
-             ports {
-                 #address-cells = <1>;
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-index d5a64c8a921f1..bded43a34b87d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,msm8998-dpu
- 
-+  power-domains:
-+    maxItems: 1
++	if (of_count_phandle_with_args(dev->of_node, "power-domains",
++				       "#power-domain-cells") <= 1)
++		return 0;
 +
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-index 034d3df8d2470..6c1476a0faaf5 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-@@ -19,6 +19,9 @@ properties:
-           - const: qcom,shikra-dpu
-           - const: qcom,qcm2290-dpu
++	ret = devm_pm_domain_attach_list(dev, &core_pd, &core_list);
++	if (ret < 0)
++		return ret;
++
++	return devm_pm_domain_attach_list(dev, &int2_pd, &int2_list);
++}
++
+ static int dpu_dev_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1392,6 +1420,10 @@ static int dpu_dev_probe(struct platform_device *pdev)
  
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-index 8137618237ce7..3fa0f02f44892 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-@@ -19,6 +19,9 @@ properties:
-       - qcom,sm6350-dpu
-       - qcom,sm6375-dpu
+ 	dpu_kms->pdev = pdev;
  
-+  power-domains:
-+    maxItems: 1
++	ret = dpu_kms_attach_power_domains(dev);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to attach power domains\n");
 +
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-index df9ec15ad6c3c..7703d9b017cfc 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
-@@ -24,6 +24,9 @@ properties:
-       - qcom,sm8450-dpu
-       - qcom,sm8550-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-index a411126708b80..8e10f9e0d1769 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sc8180x-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-index dc11fd421a27f..9dafe1d827e13 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-@@ -17,6 +17,9 @@ properties:
-       - qcom,sdm670-dpu
-       - qcom,sdm845-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-index 510eb6c193649..173c2f034241c 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sm6115-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: MDP register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-index 8cbf99f9fcba5..b8344ff8895ac 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-dpu.yaml
-@@ -16,6 +16,9 @@ properties:
-   compatible:
-     const: qcom,sm6150-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-index c79b2d4428003..8e50942f3e1f2 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-@@ -15,6 +15,9 @@ properties:
-   compatible:
-     const: qcom,sm7150-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-index a88d22f30a602..b407bc3994620 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
-@@ -17,6 +17,9 @@ properties:
-       - qcom,sm8150-dpu
-       - qcom,sm8250-dpu
- 
-+  power-domains:
-+    maxItems: 1
-+
-   reg:
-     items:
-       - description: Address offset and size for mdp register set
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-index aa0cf0ec5b93f..fc19bedfbc0af 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-@@ -61,6 +61,29 @@ required:
-   - clocks
-   - clock-names
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,kaanapali-dpu
-+    then:
-+      properties:
-+        power-domains:
-+          minItems: 2
-+
-+        power-domain-names:
-+          minItems: 2
-+
-+      required:
-+        - power-domain-names
-+    else:
-+      properties:
-+        power-domains:
-+          maxItems: 1
-+
-+        power-domain-names: false
-+
- unevaluatedProperties: false
- 
- examples:
+ 	ret = devm_pm_opp_set_clkname(dev, "core");
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.43.0
