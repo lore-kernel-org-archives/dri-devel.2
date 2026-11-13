@@ -2,70 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA134606D840
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 17:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA498606E22E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 17:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EZnoo3NZ
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V9eK6vLR;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HqJBYcCd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43266112731;
-	Fri, 13 Nov 2026 17:51:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A875A10E533;
- Fri, 13 Nov 2026 17:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794592304; x=1826128304;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ot8aUgvttzN3zhP6CmenM57WhZx/wtpRsYm0cuIyEHE=;
- b=EZnoo3NZvmcGgFi7IcJyP/rwtnkdlDaQW+LwCM4/YQcTOmJgwO6Nupa+
- qC07ooTjBVhDBHIv6gJAJkbYWsxMXQ+rEeBQGQJWhCZYuP+TH2hs521UX
- Q3EtH9OipKHa8CMkDM1wYKt5RHuyjMANaOtif/f/qiSqfk92b0c6FC799
- E+xMS7DEuCR+WHRI5riTys2W2EtTYjD0cC03wXQtHzDO2LN3LYaZ6/L46
- OQqDeGs/UWpYjZfeCSQFoRjUvf2L9On1I/Tw36pOF2ZFMD58aR79/atqD
- AF55cL/gHMIYZRuhLjInL+Ny2rAOoW3tfpzTBXk7TTHexzHSdRdC2pRL9 A==;
-X-CSE-ConnectionGUID: W/qHUSPyQH+46l1jG1yTBg==
-X-CSE-MsgGUID: iC1Hiae/QF2ABz49BW0D/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3396822"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3396822"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 09:51:43 -0800
-X-CSE-ConnectionGUID: RWBCcPdcRdOXUO4f8jkJ1g==
-X-CSE-MsgGUID: PepsrX++TK6EbR3/6QVo0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="9410690"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 09:51:40 -0800
-Date: Fri, 13 Nov 2026 18:51:36 +0100
-From: Raag Jadav <raag.jadav@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Arnd Bergmann <arnd@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas De Marchi <demarchi@kernel.org>,
- Riana Tauro <riana.tauro@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Matthew Auld <matthew.auld@intel.com>,
- Shuicheng Lin <shuicheng.lin@intel.com>,
- Armin Wolf <W_Armin@gmx.de>, Zhanjun Dong <zhanjun.dong@intel.com>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>,
- Tejas Upadhyay <tejas.upadhyay@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm: xe: select configfs
-Message-ID: <avdOKFx63ZPNTTJ2@black.igk.intel.com>
-References: <20261026102603.2045493-1-arnd@kernel.org>
- <avS7mZMrS7nQv_RK@intel.com> <20261113162212.GB7214@mdroper-desk1>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4925A10E17A;
+	Fri, 13 Nov 2026 17:57:12 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C015112737
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:57:00 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ADFR5dB1189947
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:57:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Fmd2nLf0haoA7oj6MYXU0Aj+BE1OMnK66p9tj6naNLk=; b=V9eK6vLRMDxX19xu
+ zh6dkBNlmB0VfENHBMWLEszHKvX9eri9Gla26kaKQCnZF7TV8NsH+ktWsWeaa81P
+ JqQstJD676vyyiC5LAqgy16Lfvf2JrqQWeTxXAEwSSNrtYXaiDn9nZmAT59piAl9
+ v8KJWWwHMjjaxxMOISTeorSRAshUrE1tvG7XRrNZyXFxoHAZUlbeFIPdBv4mASvT
+ waHKsmBj55YHJw4Una/nap7+lnifacWLjA4k3Q075k3ncuWhPjQJHQ3UfpLiklGW
+ pXxLbhccY3S2QKnzZzRZtXO5ZocAZF7ZaA+25j71/m2fYOYCaRq9+DhVoYRxC1gk
+ uPOk2Q==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwqufkgs2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:56:59 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-1b3b5b49cabso1142408c88.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:56:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794592619; x=1795197419;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Fmd2nLf0haoA7oj6MYXU0Aj+BE1OMnK66p9tj6naNLk=;
+ b=HqJBYcCdnFmL89kbaxfpVUkDNAsfurrVJF1KZht8DE1rm5acfxp3vp5AAckmH23jXT
+ sTGOHj3su6PrmC2q1TwpW4vxEG2fiOO5mRsWi1CWJbKD/muWVaWNzS/nk02jYzYqjha/
+ 3G4wuPNrJ+9zyiIRK6CE9aVN81ux6Zj/Pp7skimJmLervlaqPDg0dzeQwnQ/E9dmMiO6
+ C28fLVQCUB64D9TRzIyMTzH3dnQvbqVhqUYiAvZvFHjsdmd44faC9SavZVBlCgkgMDPy
+ rR4fe7L6VcMJ/fhpOhTISTDzH0x0AlkNq9skjktccb5b/v+AD4ndB2XCprGvYIkjcbwG
+ a2OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794592619; x=1795197419;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Fmd2nLf0haoA7oj6MYXU0Aj+BE1OMnK66p9tj6naNLk=;
+ b=YKaaFKGfb9G44OnPrVndKlZEewgUGlu69RgY3Qt1LVurSsM3Lks7rzjlFCaHpa9DlG
+ z8FQ0CFDqjnTy44lbcBPdaKeBNLiBjEuNnQiSVTTEnRruiCCn3MIJM6OmUOAPO0dRJOj
+ AMH0mzC/svRT7wJuEQFLcrAIw3XM6gzXpZnS52jHXo8qgHdtJX1cX9k4Ixfd/cOiVG9C
+ rNJfBDhJskkniEUfGX1FmiCZelZT1wk65yk+NDnJzt76I7+LGz7hJlPhfmTb5khf8ZGd
+ hWO4FdhMHO78pLFm2d8DdxyGRWJvQsG2N8d5ASSXOkYqz+j23wsLvwobcmOBmoqfuUXy
+ fHwA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEZMByBAItlpyNu5p32uNtuykom6a4uqIQati/uo7sk91G+ezU4hRxQn52cfe5dqF8jhNh5zLVTyVM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9PuxfDICZ1KhMqSA4YhAKkLjs8FeR7xVGB7eOvYpVzt28PfL0G
+ TfWTnJM7BQ/QB+AuJPyROR7ypfy9syH4AV3xytpK/aZ9LTEC5XfdH90wOlqUflGCmaFjskZVO1r
+ xkdQGEYJYRj46wBW/0AD9hXkDFLJuMZh7gKTiT7c/5ogbKhDddkVf8pEuXV+mMtjeuav9/oA=
+X-Gm-Gg: AYBFou21LJ+lW66OYHSBDirGDULyjUKnVl+j4o9Ok0lsDPH+8MmN9st2W5k+P0+kKA8
+ PmtNellE9rCNjbmLWFvK4QG1O2uhJHVjh/N51PVP48V0XDUhYD6y8/Jn/LC0Elm2bML2Hejfoky
+ 3b75zx1dreq1lKeaZnzIWNtFQ0nzIXThRgGKwi2RpbIuI2lRC6Zl7GFA9jobnl+hs7PL6VEtvcL
+ 8keQRXE00r8QmvSadV2f8m4EXAvkNfKx69QgOxbVFjS/3gacc/zAVlXaYy65C8UO9zwfMydQ700
+ svxT4oqIs8+YL5UcYzykxOydMk8lTCPz6h40inTSHafkuKEocPFxlg7kqpCwDqFzPSPp7laUxfu
+ Wh98fsWB7m2sCHi0xSxhJE1+nVr2DDSiL6IFEnZKeVvAk6aIZwUD0b72wi8ZOZzDdFl31le7Eh/
+ Uusvhpp6yIDqyCb5h7T7UlXK8=
+X-Received: by 2002:a05:7022:ec86:b0:16a:c6f2:60c2 with SMTP id
+ a92af1059eb24-1b5030d709amr3499635c88.12.1794592619179; 
+ Fri, 13 Nov 2026 09:56:59 -0800 (PST)
+X-Received: by 2002:a05:7022:ec86:b0:16a:c6f2:60c2 with SMTP id
+ a92af1059eb24-1b5030d709amr3499614c88.12.1794592618530; 
+ Fri, 13 Nov 2026 09:56:58 -0800 (PST)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37956bb0919sm8891447eec.29.2026.11.13.09.56.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Nov 2026 09:56:57 -0800 (PST)
+Message-ID: <df3a9511-a17b-45d6-b048-9cceaffe6a8b@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 10:56:56 -0700
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113162212.GB7214@mdroper-desk1>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] accel/qaic: Add callbacks for DRM RAS netlink
+ telemetry
+To: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
+ rodrigo.vivi@intel.com, raag.jadav@intel.com, simona.vetter@ffwll.ch,
+ airlied@gmail.com, kuba@kernel.org, ogabbay@kernel.org,
+ lizhi.hou@amd.com, karol.wachowski@linux.intel.com
+Cc: carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
+ youssef.abdulrahman@oss.qualcomm.com
+References: <20261106181225.3333260-1-zachary.mckevitt@oss.qualcomm.com>
+ <20261106181225.3333260-4-zachary.mckevitt@oss.qualcomm.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20261106181225.3333260-4-zachary.mckevitt@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 4odi73iufmBT8hGC9gqMCn9Y7xW6gkSZ
+X-Proofpoint-ORIG-GUID: 4odi73iufmBT8hGC9gqMCn9Y7xW6gkSZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MSBTYWx0ZWRfXzZqG4i36+/Yl
+ WE/JDirwb+euC5RdKlrWdHKXDK/VzN9CVb930dkoPiZNWnRKon3KY/fUCiLQmMIgDjcD4zNGL3D
+ OPkixqCoHwm3UGJFKjVQbnZQj3aWWnTehvgFWXRi2l/VMr3Ni2EZQNKm3tX/GhOkAwqhcCW9HEJ
+ A2SvVxaARQe1l3/zA1ksqCeVeKDK0Me9OSJGp2jWjkRmGJ97+pW362lxLkEorKgawLgdks4r7bQ
+ Wer6cB7b+yWNlFvmvNvQdicTUUf1XcJh/W/ErNnq6q38PkmJ2RRypIhjBK/5A3fMSjXdN22QbN7
+ R5K4iUtlUE3CLnxqq0fMxf76DMch78AK2mCuHBoBLhxEI6Xm7kNlMdL7KTNHUWzOrwsngTZmw2H
+ Suu9G2wXMLRB004HPPdP6TE2vrFyqd/nQgry4E38C87GMgJXuDcjXZQJxbn6c8bQ1/JY8QV8xFj
+ bkanIRD3vkqHnf4+aQg==
+X-Authority-Analysis: v=2.4 cv=XZocX455 c=1 sm=1 tr=0 ts=6af74f6b cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=CNMjiE_s7LF6lbcXpzMA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MSBTYWx0ZWRfX0Gxtj1aZB+dN
+ /kyD/ItEW6fYzfzt+sexA5QqnGKLfYtbnfvYsUwWw+z/AYF/QaarEHe5OPfUaLMU0mZNG2n+GSM
+ hvei2cwrJCO9w2ZBAASOhE390QQRJc8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130071
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,82 +144,20 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 08:22:12AM -0800, Matt Roper wrote:
-> On Wed, Nov 11, 2026 at 02:01:45PM -0500, Rodrigo Vivi wrote:
-> > On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
-> > > From: Arnd Bergmann <arnd@arndb.de>
-> > > 
-> > > The original addition of configfs to xe missed a compile-time dependency,
-> > > which leads to a link failure when configfs is enabled as a loadable module:
-> > > 
-> > > ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
-> > > >>> referenced by xe_survivability_mode.c:224
-> > > >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
-> > > 
-> > > A recent workaround added a 'IS_REACHABLE()' check around the calls into
-> > > configfs, which makes it link in this configuration, but this is generally
-> > > a bad idea because it makes the actual behavior inconsistent and confusing
-> > > to users that expect configfs to work if both xe and configfs are enabled.
-> > > 
-> > > Use 'select CONFIGFS_FS' instead, like every other configfs user does,
-> > > and remove the unnecessary stub functions. There is little practical
-> > > difference here as anyone using XE graphics is likely to have a complex
-> > > configuration that already selects configfs anyway, and the link error
-> > > or the IS_REACHABLE() would only manifest during randconfig testing.
-> > > 
-> > > Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
-> > > Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
-> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > > ---
-> > >  drivers/gpu/drm/xe/Kconfig       |  1 +
-> > >  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
-> > >  2 files changed, 1 insertion(+), 30 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-> > > index 4fc8abdc5cb6..b52a8dc28f97 100644
-> > > --- a/drivers/gpu/drm/xe/Kconfig
-> > > +++ b/drivers/gpu/drm/xe/Kconfig
-> > > @@ -11,6 +11,7 @@ config DRM_XE
-> > >  	# the shmem_readpage() which depends upon tmpfs
-> > >  	select SHMEM
-> > >  	select TMPFS
-> > > +	select CONFIGFS_FS
-> > 
-> > Perhaps another option would be what Jani had suggested:
-> > 
-> > config DRM_XE_CONFIGFS
-> > 	def_bool y
-> > 	depends on DRM_XE && CONFIGFS_FS
-> > 	depends on CONFIGFS_FS=y || DRM_XE=m
-> > 
-> > But anyway, we are depending more and more on the configfs for
-> > production choices. So, let's go with you select and close this
-> > for good.
+On 11/6/2026 11:12 AM, Zack McKevitt wrote:
+> Use the DRM RAS netlink infrastructure to perform device telemetry.
+> During PCI probe, create a DRM RAS node with DRM_RAS_NODE_TYPE_TELEMETRY
+> type and add callbacks to telemetry_request for read and write operations.
 > 
-> I really don't think this patch was the way we wanted to go.
-> IS_REACHABLE was giving us exactly the behavior that we wanted, but now
-> we're getting behavior that we did not want.  Xe absolutely does not
-> depend on configfs in any way.  _If_ configfs is there we'll enable some
-> config options in it, but none of those are mandatory for our driver as
-> a whole.  We're perfectly happy to build and run without configfs if
-> it's not selected in the config.  We're also happy to build and run
-> without configfs functionality if the user wanted Xe built directly into
-> the kernel, but configfs was built as an unreachable module solely for
-> other non-Xe purposes.
-> 
-> While this change won't matter to 99% of the cases where someone is
-> running with a typical distro kernel, this is the kind of thing that
-> makes embedded users unhappy since they're very carefully managing their
-> configurations and we've taken away their ability to avoid configfs now.
-
-+1'ing on this. People go to great lengths to save a few bytes, only to
-be undone by a non-essential config.
-
-Raag
+> Co-developed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+> Signed-off-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+> Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
