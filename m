@@ -2,51 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C02606B1EC
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB51606B1D4
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jCkrKTkJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LZpwYu2f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D83B10E5EB;
-	Fri, 13 Nov 2026 08:34:51 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD83D10E774
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:34:44 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 087824E415A4;
- Fri, 13 Nov 2026 08:34:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C8B28601D5;
- Fri, 13 Nov 2026 08:34:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6D95C11BC06F0; Fri, 13 Nov 2026 09:34:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794558882; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=nLcP4qFeNLouEfcFHqryAopJvdLx1pDFyoiPx7iQi5s=;
- b=jCkrKTkJ6QntopfsCVx823gb7wx1QWSubytve2jZR5DHrBI86oUpTLuYKxTJcyOckDIn8Q
- hqgT0HrVRA8aF33hwVhKx9bEnJVwBm3JeV5zNlcSSur/y+LTadEhSR0RFX92RHAUgiOZdP
- L1WMeUYmc5CuO6R70gWZwGvtr672ys3rO5jewh1rk/E9I+K8Hk1sq146EGEnaOVnP54zvu
- EbAXMMD3j1EOmhqA+E4rje/6WcR5uT2EglFv65T5WQjOqzU6r1a2V3KJHp+imahldsxXG/
- WdiJyhA+zX0X35beD1SFoa4eT3te76FuG6568Kelqjz7cwy+Y+xEhGpG7mYXxA==
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] backlight: Fix kernel-doc
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Thomas Richard <thomas.richard@bootlin.com>, Lee Jones <lee@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Helge Deller <deller@gmx.de>, Petri Karhula <petri.karhula@novatron.fi>, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261112192744.850142-1-manuelebnerli@mailbox.org>
-References: <20261112192744.850142-1-manuelebnerli@mailbox.org>
-Date: Fri, 13 Nov 2026 09:34:18 +0100
-Message-Id: <179455885818.1992209.12136301208667386859.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59B1310EAE0;
+	Fri, 13 Nov 2026 08:36:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 038DE10E7A4
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:36:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 661F1625CE;
+ Fri, 13 Nov 2026 08:36:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23141F000C4;
+ Fri, 13 Nov 2026 08:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794558977;
+ bh=fD+W7UJow9Lz+hHbsvHSJloBNgDmeOApu8hbyEQiIv0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LZpwYu2fr7JyUScAwScBkTz9JvS7yoNbn6CiCE1ZbzkubLRPK+YbGb05h/WsTabj0
+ qNs8s7BP1SJ7iCpZs1kAbbEd1qVVCBHmTk9ZxXGQT5CZ3NYxxNl4fJUI/uBciotXwu
+ S3dUQ0wnSru2nyyn0xw+hYC90QJGAAA/U5Aq5n3mSLZ+dc1pJqUqkyDNfHDimkIL2f
+ rgJuqszGv4KyPJt6MJVFcPoxsSGdehfcNEw2c3OB8LkysKVeNYTd1a6YDLVl0Qqk4A
+ BbBJkUlGe893aNIWnN0ugp4P/OP1BqmOohBxZD+AKI28Fwb6xFxSeFxDJBryGn9JMP
+ 8g1AYyaROyKhQ==
+Message-ID: <sashiko-outbox-212421@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 12/18] drm/rockchip: analogix_dp: Unbind bridge when
+ connector init fails
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261113082305.541652-13-damon.ding@rock-chips.com>
+References: <20261113082305.541652-1-damon.ding@rock-chips.com>
+ <20261113082305.541652-13-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 08:36:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,24 +49,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-> This comment describes a struct as a kernel-doc. Format as such, fixing:
->   $ ./scripts/kernel-doc --none drivers/video/backlight/cgbc_bl.c
->   Warning: drivers/video/backlight/cgbc_bl.c:29 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
->    * CGBC backlight driver data
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/rockchip: analogix_dp: missing Fixes trailer for commit
+  99a49ff5ef7a
+--
 
-Please add driver name in commit title:
+commit cd9aa2dbf07af695fa219b5368a3d508991e9c28
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-backlight: cgbc_bl: Fix kernel-doc
+> drm/rockchip: analogix_dp: Unbind bridge when connector init fails
+>
+> The rockchip_dp_bind() returns without unwinding analogix_dp_bind()
+> when drm_bridge_connector_init() fails.  The aux device registered by
+> analogix_dp_bind() is then left behind with a dangling drm_dev
+> pointer, which could be accessed on later AUX transfers.
+>
+> Call analogix_dp_unbind() in the error path to release the aux device.
+>
+> Tested-by: Heiko Stuebner <heiko@sntech.de>
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
--- 
-Best Regards,
-Thomas Richard
+[Severity: Low]
+This fixes the error path introduced by commit 99a49ff5ef7a ("drm/bridge:
+analogix_dp: Apply drm_bridge_connector helper").  Should this include:
 
+  Fixes: 99a49ff5ef7a ("drm/bridge: analogix_dp: Apply drm_bridge_connector=
+ helper")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113082305.5416=
+52-1-damon.ding@rock-chips.com?part=3D12
