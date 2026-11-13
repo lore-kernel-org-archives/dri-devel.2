@@ -2,93 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902FD606A331
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 19:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0003606A32E
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 19:41:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0flahbq
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VMoSIXkc;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=iBFTIUax
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBBC10E768;
-	Fri, 13 Nov 2026 19:40:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF9310E768;
- Fri, 13 Nov 2026 19:40:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E2A8F6263B;
- Fri, 13 Nov 2026 19:40:40 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794598840;
- b=xckd6qHOK/uGBnlJxlxmNf4e2nSqeuDkO23RnUPDWu7Wak39w4eHZjetE5MwXzt8X1kj
- 9J1sLiZoUWiXNFBQO3r2lBTEz1xQH/+Kfl8D4VI+CsJGMoZoHNuDjZ/YkqV4zuvD1It2i
- gLdkkeMxRSL8RwCJ2AzOG9FqLwwWnJG7TinveyakAiz2Yj3KqkrS0gXbEsbY3f9HPQKeF
- ocawO+AnMXjTlRWWhiEYA0ynbbLTOsBRkCATANoQQE/BV57uqFbi2THgm2ear/JMJoj4j
- oDzpOHKQmASYDhFe+t0H5d73ijt0vE8RNK/qfAEtYI9+FZPWg33e2gXwAZBCJMD0XKQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794598840;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=qrk9fKm+b1kNDtPLA6VtXnU0ubuHPuCETIzFTgwq880=;
- b=gIEQZe2F87hTgWoIEdRbw7hqaUecoSYlGSqwANQoZTR7G9BjgfC1nF0TGZngLSeXA9U0
- 4arTyZJxDWudZNqQDawmVizEotjCIqnMepwb3lO2D2kHxPttMWzZQ553+n6+Xgebid5F9
- /BVcJjJFZ9ARNlJHQ1zTBLOcsOJm5r3Hzgf94cUG1UrTNfZMoXtLdAnxbVtHbgoClyASY
- xb6kOSFdv1epafGL6DPH9aJWnBW73BmoYSGzxmpjnLMgbRqHzi1o1giiKci6VEhFJcQ0U
- 2wU2Wf0QeA5B/x3WDF9xXtHmhJMaEtGuBhLv0BmZyzPsPa1N7hjoNKGYWVpS0d7bw6Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 7D1FA1F000C4;
- Fri, 13 Nov 2026 19:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794598840;
- bh=qrk9fKm+b1kNDtPLA6VtXnU0ubuHPuCETIzFTgwq880=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=W0flahbqhVm0p/gv+o0EmwlNdVOGTjH7DWtcDGeZxqeWVhPgpCiR/jev06zsbKcWM
- 3QKDJ0NoO2jWQOrH3wcQ5f+96VhCbjkFRhD8WrvnOf/xTnbp5qSbS6wcDKGrvg7yBu
- pIb4uSznE+OmgtRDNf1NuDGEYpoJIFWVFuv/PBd3KgF+ti6fJoYLlbMMYMpaq72cWC
- /oyCFldcdH3KpJ3WdfOSm0pIbjRm/mZenVyXTFQiCPxXXNJZdN682/pinmaVUQwrpf
- rFwtXU3DGEGxBA6+bjXcVJmVLNK4a+aadIrDoEDRI9CtZ1G2/oDADRkP7DGjgY7C26
- D9Q70yLVo4b4Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id F090549A97;
- Fri, 13 Nov 2026 19:40:38 +0000 (UTC)
-From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Fri, 13 Nov 2026 19:40:38 +0000
-Subject: [PATCH v2 1/3] drm/amd/display: Add helpers to check PSR and
- Replay events
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFBF11278B;
+	Fri, 13 Nov 2026 19:40:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9653910EC99;
+ Fri, 13 Nov 2026 19:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794598844; x=1826134844;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=vUPs58DfyjQYFy1bWvTtozjqk9ETkhm4iZ9UXg6iaYo=;
+ b=VMoSIXkcL4yrRa2XeO1+fX3JARN65ZrVARKi+OqSc65MqPOSX9Ur4GDx
+ odcC5xPshqXCunqCKK4gJgb9U91SQEJNn0BHMBrO2K4qaFJwrs0bddRJO
+ 7kDoAj6nBoHj8JMyHJvUvXhIBvnD3Yo/wdgkgIKMALrAnItFkosQbDkL8
+ UQR0+cRAS316Mwj4jOY5m8KO6RZflKgd6xz7wg4rFd1xip721y9v3N3LP
+ iS+Z+Bapa4MRFRBB/J7HPSqBCJ1FEhw8Kw//VHjYTnC1Jjsb3QbhoOMBZ
+ MVZ+kELQlIq34fdPdT6t4GKdairsAE71zIvN1tkdIGEOh/0dzKD47SYu9 w==;
+X-CSE-ConnectionGUID: 1pQ+sxg6QbynjeMkQkpkWQ==
+X-CSE-MsgGUID: KjWF3r2qSgGoUl71BdESBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3446309"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3446309"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 11:40:43 -0800
+X-CSE-ConnectionGUID: ovgZV24nTMCuXl94tRWHqQ==
+X-CSE-MsgGUID: tPzqz198Rr2Tu8s0QT7Upw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; d="scan'208";a="10905076"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 11:40:43 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 11:40:42 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 11:40:42 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.58) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 11:40:42 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mD/QBf1qDKWtmmUZdXeoeSL9lNbxg6k7K5qOz4L3wE3wuLYDvMFzz7rl158xdVjPach+Hcg7ODciNSbzd+bYnrM/cRgD5F30XRH+mq3AmLcah9tnLLWkv6m24VJdAkfNXqZzwKcvCMIoP2IF2J+Lk732haK3JKUIwrohTuqlAhqUvIbi8pGxKHBucMJfjcMfvJaBUwl5xhqUG1Usx5T1Mygmwi8+TdRSLfjFtazfcJ2Jf8KFBW+zHUSzF6ROmjwm5T4wel7mqJBD3dw/2zMH4Yk8KEDgxLFvyIrrP9ASlCVHGHtKuAylqWzINDAUlmTyxMUBVujKLQAXyh97Frh6yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EpkeBKfMpGptehQlaBU39k6ADTheNOc1MqDAojLNgtc=;
+ b=VC0H7PDhygRDMpym+39NOmvVVBbcV6aOXrQUlQoTgr7kIUmM5R/G3u+4ViIdthXTdi1BBufItQwfuovk6yAJZoYXpBJ9c0CPoBK02kahUWe7xrkE/Tk76z0bixgLJM8WUA9p8thL9dBkBhWJ0722HVuzomcF+1MbvT0NaxSTsM5pCOnqdgCHjKiNp4vZ5rAuWQN8x4n/uzaDIC6UXVbyKkVpHVQ5IIAkDyc9cgMIh0+BhFoOP7gZipW+C4WurMWysbok31/sDsStPuiFV9MdkqgkKmP+oS0MSxn2H8qqxjLJw0Lz7cEsYN7MwYx3U4x8I9rUJMJ2WO1HiTeMDz4l7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EpkeBKfMpGptehQlaBU39k6ADTheNOc1MqDAojLNgtc=;
+ b=iBFTIUaxFVZKMLND0LybtohfPxPSmA4IUxvguZXKVMB6yUuDARlRY7g5vLxM7ByDS5geH3t3su7U+DJfVpbJyD7u8rsaRYgxp8AW89NjlyRV7nBariUff72TwD8CquP6QA3ZT5BoBINQ8cieIZ521qnAydkRdM977b+gIyH1S44=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by SA3PR11MB245380.namprd11.prod.outlook.com (2603:10b6:806:52d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 19:37:35 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 19:37:35 +0000
+Date: Fri, 13 Nov 2026 11:37:33 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: "Yadav, Arvind" <arvind.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <himal.prasad.ghimiray@intel.com>, <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH] drm/xe/svm: Take write access only for GC attribute resets
+Message-ID: <avdm/ajA/I0rwQ5a@gsse-cloud1.jf.intel.com>
+References: <20261026122045.2709500-1-arvind.yadav@intel.com>
+ <auENFUKFEcjZorM6@gsse-cloud1.jf.intel.com>
+ <6b8b81b5-0da8-4f02-acc0-5de6a89ec88f@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6b8b81b5-0da8-4f02-acc0-5de6a89ec88f@intel.com>
+X-ClientProxiedBy: MW4PR03CA0268.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::33) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-amdgpu-psr-abm-update-next-v2-1-27ce790856ea@hsal.es>
-References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
-In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Roman Li <Roman.Li@amd.com>, 
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, 
- Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Hugo Sales <hugo@hsal.es>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14271; i=hugo@hsal.es;
- h=from:subject:message-id;
- bh=MfVTCLx/oMjGtOBIEiL+NW97vKMUKzElNui5Z1Lcp90=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsr6nb/t1q0va7GeX+8Wvx45y3M6snV566FDCL7uJH
- FtXnn8lGlPSUcrCIMbFICumyKJ7w5OBZeLkmTlFz5fAzGFlAhnCwMUpABN5KsXIcEhQdrO7GJeo
- 4r+++Bci/212u2mfWCstqnf15d0K4WVB3xj++1icyN0ZvcSclSM4eVqRzdvQ/6dFxVfN+dG0ndu
- mt/M5PwC9g0wl
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
-X-Original-From: Hugo Sales <hugo@hsal.es>
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SA3PR11MB245380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9355dc5e-f771-436b-d869-08df41bd9145
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|261009223027099003|10067099003|261026140227099003|11063799006|4143699003|261021121427099003|56012099006|261021123027099003|261009221227099003|261022105027099003|261022075727099003|261009220027099003|261009223327099003|261009221727099003|261102123227099003|261028144727099003|261026121527099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: leVlHIeySTetcGlB7UrX7SuHjZEIG51YpRBI11E5ZNTC94xtJnrzPglfb8eEB+yhyiJw/ezCFAtg1r1vcR6MQYttXBoALua+S1JD/8PWcsjO1lucUSuUTQQRs+h+6jQ9tjm6Xsrt7PaimHnnd1FUtAb9pWlMKQGYXalK9pdy8RVCpD1Y4H7y1i0PL36nWuzBifudDMkVcxXbFKyyPTWUrZ/rZUmbYfJRWBvEQhhBAe4IqGYxV30rpQUe20LH7kW4nbFE3QgQSWh3JFIvEBFH2j+ILIpF5Jt/A+Ovr8GF2Nd0qOzmX4HOJq/hhvdNRHOAL025CIClBfgALMNQtZgv+3T9OdzFCmmF14xajE6NqadtvyRrKwOT+ehstl+7z49VD/rrWSBkBpAYhi7bA8Y70cIekX0PJIV5q5C95kUEiKPtvGzqRdOWOvh2tD8AS/kQm4p/abTCGwzv3pLl82Cnwk44yOaAAKjt6c4wOI9tt1qnbSZjUHIeWqCy2sPDoN0Uw8GFkGyiYpgOcZRa3dUFdBBBrqTcbBcPq3AvmMFPq+d2r+v1AUQ+svFUJ1D8m7iLDLcU56L4AbshJw/F73LX9/aszXkAozO1yzHczIU7VCmTwRSHa3d9yMASvHONNNbju3M7Ktk2z6SHke1M0f0f1AgHZCWlXjt/s7VAVVRNrSw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(261009223027099003)(10067099003)(261026140227099003)(11063799006)(4143699003)(261021121427099003)(56012099006)(261021123027099003)(261009221227099003)(261022105027099003)(261022075727099003)(261009220027099003)(261009223327099003)(261009221727099003)(261102123227099003)(261028144727099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?t8glUGWGD1hq1gNjrYmrDVHfqP/SSE2Y48r+8LofzoaIUzWCnDWfpSo1wE?=
+ =?iso-8859-1?Q?GDRmI+wiY4fdeM36eOS1ha4xYdl3hUfz99fIF37lEGvyf8UR3CVPdquCyt?=
+ =?iso-8859-1?Q?nmrHLhXMirO6KTqsZVb8m9tZfEHDr3SJn5mZnN2dCDvnFdplkj9GpkS4hN?=
+ =?iso-8859-1?Q?AJo/43ZA2wT0kvt50R85YNnmo9w7ueCc7qqYcu5F6qJqFTRFZwaOMOwlIB?=
+ =?iso-8859-1?Q?31o/VArFmSsqUZliVeEVTvxJI//2D2EaKOUe1ebAkIH4J9+ozhFGh4xysz?=
+ =?iso-8859-1?Q?hwSmwYmzGDcZS34FPYbFupqVhIApQgEuXio5CFO/IIRl9qRJq1H+z4ecKi?=
+ =?iso-8859-1?Q?98buKdPcCranvuLg0vo9zNHz484iiZFz2APeWBmMaFyQJmY+Rza0CaqHvJ?=
+ =?iso-8859-1?Q?9jxKvKtpVUQO2/aHR4oBm2ip///e08IQvrH3z28IlM5WFk+KEn/uU5nGCs?=
+ =?iso-8859-1?Q?fbQjr5sNMQDHQbUu/SDuOOHSO1gNJ/3VaBSK26fbrKghABmLwhdcFnSPyl?=
+ =?iso-8859-1?Q?J0UrT2/Pqw4sEfb1VtD0f/fWkI6pWbTq4TNfdYqY80bfgvyYyzcHV3+nSG?=
+ =?iso-8859-1?Q?t63NaFaF+Y7OfwSQGBg4Pt8Ia6HAJ7EKQjJERONaZy2HRkaY3hanYSkhuD?=
+ =?iso-8859-1?Q?7/Z+NtNKwDhIUIiw4v+pPncC4wki0NUwwttRzpEA/KukdvuQqqvU+2kaBv?=
+ =?iso-8859-1?Q?javbHnWWUrNI6bm3fJgBlDBFEtMlGPGXrJ1CWP8kCLsuAFKB/Ih2kXd3IF?=
+ =?iso-8859-1?Q?GSqPqvkk+Ri85NrEqFSKKcMxUm/nzejwiVL1d4Af+teHtVVVxrifb48u8n?=
+ =?iso-8859-1?Q?I0M5KzkTlT6B7E4dnHt8ZU1Qf01uqCRhtP9NwOWVpJ95K+bFgy4kspCJYn?=
+ =?iso-8859-1?Q?/ck1tGwBEAxJrO63rPYRh7AYzoNhb0A1LE53sFctFRw4hmyf8RA4X0GjUC?=
+ =?iso-8859-1?Q?quLN7gYsu8qb0L00MBiHQ10zZZTIxjxn7LMrs3IykKmn639L3UJG4cmT4r?=
+ =?iso-8859-1?Q?eiCkikJuZdjo8FqQ9lNTYx2Xws9nGJ8kubF9NnrNhfUVN3NYj/pNe5+LBU?=
+ =?iso-8859-1?Q?H0T3XajFCfaiTzZjZCKfMV55djT66F1Z4GkZs3O8eRtPTmK4rEln8KT3vo?=
+ =?iso-8859-1?Q?+rgzZAswEfzoQnN3tfQhyqzyLUcNi7Ackq3+EMYVwzVLa1qnW2K2ZbSrSO?=
+ =?iso-8859-1?Q?fdWBXMBkrggFGcddZhMFsNciNfP5MgV0SQRQ04DgquJsEZBrxe/mlsiFfX?=
+ =?iso-8859-1?Q?+YlJGhi5zsmqUnzIVeaY4GG8s//nFrdFWp65RaV5KlF8UD04OCn0Zk05Rl?=
+ =?iso-8859-1?Q?6wwRZXNok2p4kdrV4/OLdKiM0DRl03LM0tjXLxzEs+PkdgpnmBEpbW9SE/?=
+ =?iso-8859-1?Q?D80HxtKurcJoM0qcJDC/tl6omg4W8dQV5bI3fkLeH1p5mfaLcz1nn414FP?=
+ =?iso-8859-1?Q?+Sl5DmF/+7VxQG2vR5dEMjvxzIe21TaORKbWDGtqGKABP5y7DJ/SnNBfjS?=
+ =?iso-8859-1?Q?sJy7R2WDh1z7NjM2QPxttYBZcRGQdGjhCn7RlE7KmGtkPqEcjjosL+QI0/?=
+ =?iso-8859-1?Q?Y28QeUxnIW9bfa/5LcRX0vg0AXMOCPD5SD/i5SInO/zJgOWLTMHNQ/1eKg?=
+ =?iso-8859-1?Q?FQe4TM9c01MHht+8W19YOnWkApVh5i3cUIjxlkxKxA8p/BlkwAZqAxiJak?=
+ =?iso-8859-1?Q?Ojso/NU0rrgNhLpmzTiXIZfBYeGEuxwfwRrkME0ihedH6qw7kbJa5L845V?=
+ =?iso-8859-1?Q?scmvpLC0MxYpmTkQoB6kfr+6fBAPu9PpS/eN9/ZzzGoazIzon0WkTerMAp?=
+ =?iso-8859-1?Q?MhSb/1Z5CQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: NOWLSX8dTYiilLPHV14bnkTSaugYv8mZWKFE3dlsp7ftoAocFoEwkWMeEXYjFCKmtoq1ZWqgAIgUeB91R2YvV3TN1Adx6qf733Y8Ohd6c9NY4oCmMIKfCiLqT2QuiBOj7rTTDcP+uIeiSivUHRW3TY6NeqGhTDRdPq13XaQ6SanZKjSsPPRTrppE2AsPLGQXp+W5Ejc0GDru/PRW5FqCqWLplNTJeh/AEoDE89ECSpiHKER/V8DHY60ywZICHcrgclXCu3AsT+Vxb7s53/c6j4Qc3dvf75SouxQiKTbMVaphtFWocHI7vxqxZyF9+fyoY9tp22oTcuPBgMv74v9rMQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9355dc5e-f771-436b-d869-08df41bd9145
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 19:37:35.3767 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W6L8FGDgnG6SCWDPKF39r3Nr+V9VmpCIFt8jRUfBszCqKAJxMTTo/ER5uG92UxvUwQKbM0ln6kMK1kcIEwf9xw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB245380
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,360 +161,694 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hugo@hsal.es
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Hugo Sales <hugo@hsal.es>
+On Thu, Oct 29, 2026 at 09:20:33AM +0530, Yadav, Arvind wrote:
+> 
+> On 28-10-2026 02:14, Matthew Brost wrote:
+> > On Mon, Oct 26, 2026 at 05:50:45PM +0530, Arvind Yadav wrote:
+> > > Fault service holds vm->lock for read while using a VMA. SVM garbage
+> > > collection also runs under the read lock and can reset AUTORESET
+> > > attributes. The reset can split or merge VMAs and immediately free a
+> > > VMA that another fault worker is still using. The GC mutex serializes
+> > I'll have to think about this one for a bit but quick thought:
+> > 
+> > Can we use some ref counting (e.g., add a VMA ref count) rather than
+> > changing the locking?
+> 
+> 
+> A VMA ref count would keep it alive while the fault worker uses it. But the
+> reset also changes "vma->attr" which the fault worker reads. The ref count
+> would not protect those updates.
+> 
 
-amdgpu_dm can set and clear a PSR or Replay event on a stream, but has no
-way to ask whether one is already set. An upcoming patch sets the
-hw_programming events around an ABM level update. When one was already
-set before the update, something else set it and will clear it, so the
-patch has to leave it alone
+Can't this race only happen if say a fault starts (A), an unmap occurs
+on A's fault, and different fault starts (B) and see A's unmap and blows
+away A's VMA? This is memory unsafe as A can currently UAF but ref
+counting could make this memory safe.
 
-Add amdgpu_dm_psr_event_is_set() and amdgpu_dm_replay_event_is_set(),
-with KUnit tests. The Replay tests get an alloc_replay_dm() helper for
-the power module setup that the existing tests repeated
+Now to the attribute race - wouldn't A fail somewhere on a notifier
+retry if its attributes actually change? I guess we don't always lookup
+on a retry but we could.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  24 +++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  25 +++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   3 +
- .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  60 ++++++++++++
- .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        | 102 +++++++++++++++------
- 6 files changed, 188 insertions(+), 28 deletions(-)
+Matt
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index dbad0a6d3a2b4..181ddf36dde0e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -194,6 +194,30 @@ bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm, struct dc_stream
- }
- EXPORT_IF_KUNIT(amdgpu_dm_psr_set_event);
- 
-+/**
-+ * amdgpu_dm_psr_event_is_set() - check whether a PSR event is set for a stream
-+ * @dm: pointer to amdgpu_display_manager
-+ * @stream: pointer to dc_stream_state
-+ * @event: PSR event type
-+ *
-+ * Return: true if PSR is enabled on @stream and @event is set, false otherwise
-+ */
-+bool amdgpu_dm_psr_event_is_set(struct amdgpu_display_manager *dm,
-+				struct dc_stream_state *stream, enum psr_event event)
-+{
-+	unsigned int psr_events;
-+
-+	if (!stream || !stream->link ||
-+	    !stream->link->psr_settings.psr_feature_enabled)
-+		return false;
-+
-+	if (!mod_power_get_psr_event(dm->power_module, stream, &psr_events))
-+		return false;
-+
-+	return psr_events & event;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_psr_event_is_set);
-+
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- /**
-  * amdgpu_dm_psr_get_dc_feature_mask() - Get DC feature mask for KUnit tests.
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-index e442e7ed82ec1..b777bc9cda1df 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-@@ -41,6 +41,8 @@ bool amdgpu_dm_psr_is_active_allowed(struct amdgpu_display_manager *dm);
- bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm,
- 		struct dc_stream_state *stream, bool set_event,	enum psr_event event,
- 		bool wait_for_disable);
-+bool amdgpu_dm_psr_event_is_set(struct amdgpu_display_manager *dm,
-+				struct dc_stream_state *stream, enum psr_event event);
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- bool link_supports_psrsu(struct dc_link *link);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-index ee2e4754b0894..3ed4b4fce50f2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-@@ -208,3 +208,28 @@ bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
- 					 set_event, event, wait_for_disable);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_replay_set_event);
-+
-+/**
-+ * amdgpu_dm_replay_event_is_set() - check whether a replay event is set for a stream
-+ * @dm: pointer to amdgpu_display_manager
-+ * @stream: pointer to dc_stream_state
-+ * @event: replay event type
-+ *
-+ * Return: true if replay is enabled on @stream and @event is set, false otherwise
-+ */
-+bool amdgpu_dm_replay_event_is_set(struct amdgpu_display_manager *dm,
-+				   struct dc_stream_state *stream,
-+				   enum replay_event event)
-+{
-+	unsigned int replay_events;
-+
-+	if (!stream || !stream->link ||
-+	    !stream->link->replay_settings.replay_feature_enabled)
-+		return false;
-+
-+	if (!mod_power_get_replay_event(dm->power_module, stream, &replay_events))
-+		return false;
-+
-+	return replay_events & event;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_replay_event_is_set);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-index 021bf02555166..4970911d55954 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
-@@ -40,4 +40,7 @@ bool amdgpu_dm_link_setup_replay(struct dc_stream_state *stream,
- bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
- 		struct dc_stream_state *stream, bool set_event,
- 		enum replay_event event, bool wait_for_disable);
-+bool amdgpu_dm_replay_event_is_set(struct amdgpu_display_manager *dm,
-+				   struct dc_stream_state *stream,
-+				   enum replay_event event);
- #endif /* AMDGPU_DM_AMDGPU_DM_REPLAY_H_ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-index 0a484ea7c0e8e..19c6792b1bed5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
-@@ -627,6 +627,62 @@ static void dm_test_psr_set_event_updates_event(struct kunit *test)
- }
- /* End of tests for amdgpu_dm_psr_set_event() */
- 
-+/* Tests for amdgpu_dm_psr_event_is_set() */
-+
-+/**
-+ * dm_test_psr_event_is_set_psr_not_enabled() - Disabled PSR reports no event.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_psr_not_enabled(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+	struct psr_caps caps = {0};
-+	struct core_power *core_power;
-+
-+	caps.psr_version = 1;
-+	core_power = create_test_power_module(test, stream, &caps);
-+	dm->power_module = &core_power->mod_public;
-+	stream->link->psr_settings.psr_feature_enabled = false;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+}
-+
-+/**
-+ * dm_test_psr_event_is_set_get_event_fails() - Failed power event read reports no event.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_get_event_fails(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+
-+	dm->power_module = NULL;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+}
-+
-+/**
-+ * dm_test_psr_event_is_set_reports_events() - Only events in mod_power are set.
-+ * @test: KUnit test context.
-+ */
-+static void dm_test_psr_event_is_set_reports_events(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_stream_state *stream = alloc_test_psr_stream(test);
-+	struct psr_caps caps = {0};
-+	struct core_power *core_power;
-+
-+	caps.psr_version = 1;
-+	core_power = create_test_power_module(test, stream, &caps);
-+	dm->power_module = &core_power->mod_public;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_psr_event_is_set(dm, stream, psr_event_vsync));
-+	KUNIT_EXPECT_FALSE(test,
-+			   amdgpu_dm_psr_event_is_set(dm, stream, psr_event_hw_programming));
-+}
-+/* End of tests for amdgpu_dm_psr_event_is_set() */
-+
- /* Tests for amdgpu_dm_psr_is_active_allowed() */
- 
- /**
-@@ -738,6 +794,10 @@ static struct kunit_case dm_psr_test_cases[] = {
- 	KUNIT_CASE(dm_test_psr_set_event_get_event_fails),
- 	KUNIT_CASE(dm_test_psr_set_event_already_set),
- 	KUNIT_CASE(dm_test_psr_set_event_updates_event),
-+	/* amdgpu_dm_psr_event_is_set */
-+	KUNIT_CASE(dm_test_psr_event_is_set_psr_not_enabled),
-+	KUNIT_CASE(dm_test_psr_event_is_set_get_event_fails),
-+	KUNIT_CASE(dm_test_psr_event_is_set_reports_events),
- 	/* amdgpu_dm_psr_is_active_allowed */
- 	KUNIT_CASE(dm_test_psr_is_active_allowed_no_streams),
- 	KUNIT_CASE(dm_test_psr_is_active_allowed_null_link),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-index 6f633b1bbaca9..1849e2b6022e0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
-@@ -505,17 +505,11 @@ static void dm_test_replay_set_event_missing_power_module(struct kunit *test)
- 							    replay_event_vsync, false));
- }
- 
--/**
-- * dm_test_replay_set_event_already_set - Verify no-op when event already active
-- * @test: KUnit test context
-- *
-- * When the requested event is already in the desired state, the function should
-- * return true without calling mod_power_set_replay_event().
-- */
--static void dm_test_replay_set_event_already_set(struct kunit *test)
-+static struct amdgpu_display_manager *alloc_replay_dm(struct kunit *test,
-+						      struct dc_stream_state *stream,
-+						      unsigned int replay_events)
- {
- 	struct amdgpu_display_manager *dm;
--	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
- 	struct core_power *core_power;
- 	struct power_entity *map;
- 
-@@ -528,13 +522,27 @@ static void dm_test_replay_set_event_already_set(struct kunit *test)
- 	map = kunit_kzalloc(test, sizeof(*map), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, map);
- 
--	/* Wire the power module so mod_power_get_replay_event() succeeds */
--	map->stream = ctx->stream;
--	map->replay_events = replay_event_vsync;
-+	map->stream = stream;
-+	map->replay_events = replay_events;
- 	core_power->map = map;
- 	core_power->num_entities = 1;
- 	dm->power_module = &core_power->mod_public;
- 
-+	return dm;
-+}
-+
-+/**
-+ * dm_test_replay_set_event_already_set - Verify no-op when event already active
-+ * @test: KUnit test context
-+ *
-+ * When the requested event is already in the desired state, the function should
-+ * return true without calling mod_power_set_replay_event().
-+ */
-+static void dm_test_replay_set_event_already_set(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
-+
- 	ctx->link->replay_settings.replay_feature_enabled = true;
- 
- 	/* Event already set — should return true without calling set */
-@@ -551,32 +559,66 @@ static void dm_test_replay_set_event_already_set(struct kunit *test)
-  */
- static void dm_test_replay_set_event_already_clear(struct kunit *test)
- {
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm = alloc_replay_dm(test, ctx->stream, 0);
-+
-+	ctx->link->replay_settings.replay_feature_enabled = true;
-+
-+	/* Clearing an event that's already clear — should return true */
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_set_event(dm, ctx->stream, false,
-+							   replay_event_vsync, false));
-+}
-+
-+/* Tests for amdgpu_dm_replay_event_is_set() */
-+
-+/**
-+ * dm_test_replay_event_is_set_feature_disabled - Disabled Replay reports no event
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_feature_disabled(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
- 	struct amdgpu_display_manager *dm;
-+
-+	dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_vsync));
-+}
-+
-+/**
-+ * dm_test_replay_event_is_set_missing_power_module - Missing power module reports no event
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_missing_power_module(struct kunit *test)
-+{
- 	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
--	struct core_power *core_power;
--	struct power_entity *map;
-+	struct amdgpu_display_manager *dm;
- 
- 	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, dm);
-+	ctx->link->replay_settings.replay_feature_enabled = true;
- 
--	core_power = kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, core_power);
--
--	map = kunit_kzalloc(test, sizeof(*map), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, map);
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_vsync));
-+}
- 
--	/* Wire the power module — replay_events has NO vsync bit */
--	map->stream = ctx->stream;
--	map->replay_events = 0;
--	core_power->map = map;
--	core_power->num_entities = 1;
--	dm->power_module = &core_power->mod_public;
-+/**
-+ * dm_test_replay_event_is_set_reports_events - Only events in mod_power are set
-+ * @test: KUnit test context
-+ */
-+static void dm_test_replay_event_is_set_reports_events(struct kunit *test)
-+{
-+	struct replay_test_ctx *ctx = alloc_replay_ctx(test);
-+	struct amdgpu_display_manager *dm;
- 
-+	dm = alloc_replay_dm(test, ctx->stream, replay_event_vsync);
- 	ctx->link->replay_settings.replay_feature_enabled = true;
- 
--	/* Clearing an event that's already clear — should return true */
--	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_set_event(dm, ctx->stream, false,
--							   replay_event_vsync, false));
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							      replay_event_vsync));
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_replay_event_is_set(dm, ctx->stream,
-+							       replay_event_hw_programming));
- }
- 
- static struct kunit_case dm_replay_test_cases[] = {
-@@ -611,6 +653,10 @@ static struct kunit_case dm_replay_test_cases[] = {
- 	KUNIT_CASE(dm_test_replay_set_event_missing_power_module),
- 	KUNIT_CASE(dm_test_replay_set_event_already_set),
- 	KUNIT_CASE(dm_test_replay_set_event_already_clear),
-+	/* amdgpu_dm_replay_event_is_set */
-+	KUNIT_CASE(dm_test_replay_event_is_set_feature_disabled),
-+	KUNIT_CASE(dm_test_replay_event_is_set_missing_power_module),
-+	KUNIT_CASE(dm_test_replay_event_is_set_reports_events),
- 	{}
- };
- 
-
--- 
-2.56.0
-
-
+> I will check if we can avoid changing the attributes in place and retry the
+> fault when the VMA is replaced, keeping the current locking. If You have any
+> other suggestion please let me know.
+> 
+> Thanks,
+> Arvind
+> 
+> > Matt
+> > 
+> > > collectors but does not protect VMA readers.
+> > > 
+> > > Keep backing collection under read access when no attribute change is
+> > > needed. Defer ranges requiring a reset and return -EAGAIN so the caller
+> > > can release its read-side state and collect with write access.
+> > > 
+> > > In fault service, discard the old VMA pointer before releasing the read
+> > > lock. After acquiring write access, recheck VM state and collect the
+> > > queued ranges. Downgrade to read and repeat VMA lookup, permission checks
+> > > and advice-dependent setup.
+> > > 
+> > > Drain GC under the existing write lock before madvise, bind and attribute
+> > > query. Require write access for VMA changes while retaining parallel
+> > > fault service when no reset is needed.
+> > > 
+> > > [ 2163.042338] ==================================================================
+> > > [ 2163.042353] BUG: KASAN: slab-use-after-free in __xe_svm_handle_pagefault+0x297/0x1460 [xe]
+> > > [ 2163.042815] Read of size 8 at addr ffff88813f879b70 by task kworker/u65:3/3115
+> > > 
+> > > [ 2163.042834] CPU: 0 UID: 0 PID: 3115 Comm: kworker/u65:3 Kdump: loaded Tainted: G S      W  O        7.3.0-lgci-xe-svm-22oct #16 PREEMPT(full)
+> > > [ 2163.042841] Tainted: [S]=CPU_OUT_OF_SPEC, [W]=WARN, [O]=OOT_MODULE
+> > > [ 2163.042842] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 1002 03/31/2023
+> > > [ 2163.042845] Workqueue: xe_page_fault_work_queue xe_pagefault_queue_work [xe]
+> > > [ 2163.043326] Call Trace:
+> > > [ 2163.043327]  <TASK>
+> > > [ 2163.043330]  dump_stack_lvl+0x91/0xf0
+> > > [ 2163.043336]  print_report+0xd1/0x610
+> > > [ 2163.043340]  ? __xe_svm_handle_pagefault+0x297/0x1460 [xe]
+> > > [ 2163.043825]  ? __virt_addr_valid+0x1b2/0x350
+> > > [ 2163.043831]  ? kasan_complete_mode_report_info+0x6a/0x210
+> > > [ 2163.043836]  ? __xe_svm_handle_pagefault+0x297/0x1460 [xe]
+> > > [ 2163.044340]  kasan_report+0xa3/0xe0
+> > > [ 2163.044344]  ? __xe_svm_handle_pagefault+0x297/0x1460 [xe]
+> > > [ 2163.044881]  __asan_load8+0x8b/0xe0
+> > > [ 2163.044885]  __xe_svm_handle_pagefault+0x297/0x1460 [xe]
+> > > [ 2163.045456]  ? lock_acquire+0x1b0/0x320
+> > > [ 2163.045461]  ? xe_vm_find_overlapping_vma+0x88/0x310 [xe]
+> > > [ 2163.046072]  ? __pfx___xe_svm_handle_pagefault+0x10/0x10 [xe]
+> > > [ 2163.046679]  ? rcu_is_watching+0x21/0x60
+> > > [ 2163.046684]  ? __mutex_lock+0x1172/0x18b0
+> > > [ 2163.046690]  ? find_held_lock+0x31/0x90
+> > > [ 2163.046696]  ? xe_vm_find_overlapping_vma+0xa1/0x310 [xe]
+> > > [ 2163.047273]  ? __kasan_check_write+0x14/0x30
+> > > [ 2163.047278]  ? __mutex_unlock_slowpath+0x10f/0x660
+> > > [ 2163.047285]  ? __pfx___mutex_unlock_slowpath+0x10/0x10
+> > > [ 2163.047295]  ? mutex_unlock+0x12/0x20
+> > > [ 2163.047299]  ? xe_vm_find_overlapping_vma+0xa1/0x310 [xe]
+> > > [ 2163.047844]  xe_svm_handle_pagefault+0x5c/0x140 [xe]
+> > > [ 2163.048355]  xe_pagefault_queue_work+0x19ad/0x2450 [xe]
+> > > [ 2163.048843]  process_one_work+0x5ae/0xdd0
+> > > [ 2163.048847]  ? __lock_acquire+0x58a/0x2820
+> > > [ 2163.048850]  ? __schedule+0x22a6/0x3670
+> > > [ 2163.048858]  ? __pfx_process_one_work+0x10/0x10
+> > > [ 2163.048866]  ? __pfx_xe_pagefault_queue_work+0x10/0x10 [xe]
+> > > [ 2163.049345]  ? assign_work+0xe4/0x1d0
+> > > [ 2163.049350]  worker_thread+0x3b4/0x6a0
+> > > [ 2163.049357]  ? __pfx_worker_thread+0x10/0x10
+> > > [ 2163.049361]  kthread+0x204/0x250
+> > > [ 2163.049364]  ? kthread+0xf1/0x250
+> > > [ 2163.049369]  ? __pfx_kthread+0x10/0x10
+> > > [ 2163.049372]  ret_from_fork+0x465/0x6a0
+> > > [ 2163.049377]  ? __pfx_ret_from_fork+0x10/0x10
+> > > [ 2163.049381]  ? __switch_to+0x26f/0x740
+> > > [ 2163.049386]  ? __pfx_kthread+0x10/0x10
+> > > [ 2163.049390]  ret_from_fork_asm+0x1a/0x30
+> > > [ 2163.049399]  </TASK>
+> > > 
+> > > [ 2163.049654] Allocated by task 522570:
+> > > [ 2163.049662]  kasan_save_stack+0x26/0x60
+> > > [ 2163.049668]  kasan_save_track+0x14/0x40
+> > > [ 2163.049672]  kasan_save_alloc_info+0x37/0x60
+> > > [ 2163.049677]  __kasan_kmalloc+0xc3/0xd0
+> > > [ 2163.049681]  __kmalloc_cache_noprof+0x2b4/0x6c0
+> > > [ 2163.049686]  xe_vma_create+0xe3/0xe60 [xe]
+> > > [ 2163.050170]  new_vma+0x416/0x540 [xe]
+> > > [ 2163.050654]  vm_bind_ioctl_ops_parse+0xc3e/0x1110 [xe]
+> > > [ 2163.051139]  xe_vm_alloc_vma+0x243/0xd60 [xe]
+> > > [ 2163.051623]  xe_vm_alloc_madvise_vma+0x92/0xd0 [xe]
+> > > [ 2163.052107]  xe_vm_madvise_ioctl+0x783/0x14f0 [xe]
+> > > [ 2163.052591]  drm_ioctl_kernel+0x143/0x200
+> > > [ 2163.052597]  drm_ioctl+0x419/0x790
+> > > [ 2163.052600]  xe_drm_ioctl+0x9e/0xf0 [xe]
+> > > [ 2163.053074]  __x64_sys_ioctl+0xd5/0x130
+> > > [ 2163.053079]  x64_sys_call+0x2b5/0x27e0
+> > > [ 2163.053084]  do_syscall_64+0xef/0x6c0
+> > > [ 2163.053088]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> > > 
+> > > [ 2163.053098] Freed by task 17929:
+> > > [ 2163.053105]  kasan_save_stack+0x26/0x60
+> > > [ 2163.053110]  kasan_save_track+0x14/0x40
+> > > [ 2163.053114]  kasan_save_free_info+0x3b/0x60
+> > > [ 2163.053118]  __kasan_slab_free+0x6f/0xa0
+> > > [ 2163.053123]  kfree+0x2bb/0x600
+> > > [ 2163.053127]  xe_vma_free+0x5a/0x70 [xe]
+> > > [ 2163.053610]  xe_vma_destroy_late+0xae/0xf0 [xe]
+> > > [ 2163.054093]  xe_vma_destroy+0xda/0xf20 [xe]
+> > > [ 2163.054576]  xe_vm_alloc_vma+0x304/0xd60 [xe]
+> > > [ 2163.055059]  xe_vm_alloc_cpu_addr_mirror_vma+0x8f/0xd0 [xe]
+> > > [ 2163.055543]  xe_svm_garbage_collector+0x388/0x5d0 [xe]
+> > > [ 2163.056028]  xe_svm_garbage_collector_work_func+0x2a/0x40 [xe]
+> > > [ 2163.056512]  process_one_work+0x5ae/0xdd0
+> > > [ 2163.056517]  worker_thread+0x3b4/0x6a0
+> > > [ 2163.056521]  kthread+0x204/0x250
+> > > [ 2163.056525]  ret_from_fork+0x465/0x6a0
+> > > [ 2163.056530]  ret_from_fork_asm+0x1a/0x30
+> > > 
+> > > Fixes: 941bcc1a4bbf ("drm/xe: Fine grained page fault locking")
+> > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > Cc: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
+> > > Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> > > Assisted-by: LLM
+> > > Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> > > ---
+> > >   drivers/gpu/drm/xe/xe_pagefault.c  |  37 +++++-
+> > >   drivers/gpu/drm/xe/xe_svm.c        | 179 ++++++++++++++++++++++-------
+> > >   drivers/gpu/drm/xe/xe_svm.h        |   8 ++
+> > >   drivers/gpu/drm/xe/xe_vm.c         |  54 +++++----
+> > >   drivers/gpu/drm/xe/xe_vm_madvise.c |   5 +
+> > >   5 files changed, 212 insertions(+), 71 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+> > > index 5247321c805e..9e1377df9d01 100644
+> > > --- a/drivers/gpu/drm/xe/xe_pagefault.c
+> > > +++ b/drivers/gpu/drm/xe/xe_pagefault.c
+> > > @@ -270,8 +270,9 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
+> > >   	struct xe_device *xe = gt_to_xe(gt);
+> > >   	struct xe_vm *vm;
+> > >   	struct xe_vma *vma = NULL;
+> > > +	enum xe_pagefault_error error;
+> > >   	int err;
+> > > -	bool atomic;
+> > > +	bool atomic, svm_relookup = false;
+> > >   	u32 asid = FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id);
+> > >   	/* Producer flagged this fault to be nacked */
+> > > @@ -297,10 +298,13 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
+> > >   		goto unlock_vm;
+> > >   	}
+> > > +lookup_vma:
+> > >   	vma = xe_vm_find_vma_by_addr(vm, xe_pagefault_addr(pf));
+> > >   	if (!vma) {
+> > >   		err = -EINVAL;
+> > > -		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_VMA_NOT_FOUND);
+> > > +		xe_pagefault_set_error(pf, svm_relookup ?
+> > > +				       XE_PAGEFAULT_ERROR_SVM_VMA_NOT_FOUND :
+> > > +				       XE_PAGEFAULT_ERROR_VMA_NOT_FOUND);
+> > >   		goto unlock_vm;
+> > >   	}
+> > > @@ -313,11 +317,36 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
+> > >   	atomic = xe_pagefault_access_is_atomic(pf->consumer.access_type);
+> > > -	if (xe_vma_is_cpu_addr_mirror(vma))
+> > > +	if (xe_vma_is_cpu_addr_mirror(vma)) {
+> > >   		err = xe_svm_handle_pagefault(vm, vma, pf, gt,
+> > >   					      xe_pagefault_addr(pf), atomic);
+> > > -	else
+> > > +		if (err == -EAGAIN) {
+> > > +			/* GC needs to change VMAs. Drop all read-side state. */
+> > > +			vma = NULL;
+> > > +			up_read(&vm->lock);
+> > > +			down_write(&vm->lock);
+> > > +
+> > > +			if (xe_vm_is_closed(vm)) {
+> > > +				err = -ENOENT;
+> > > +				error = XE_PAGEFAULT_ERROR_VM_CLOSED;
+> > > +			} else {
+> > > +				err = xe_svm_garbage_collect(vm);
+> > > +				error = XE_PAGEFAULT_ERROR_SVM_GARBAGE_COLLECTOR;
+> > > +			}
+> > > +
+> > > +			downgrade_write(&vm->lock);
+> > > +			if (err) {
+> > > +				xe_pagefault_set_error(pf, error);
+> > > +				goto unlock_vm;
+> > > +			}
+> > > +
+> > > +			xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_NONE);
+> > > +			svm_relookup = true;
+> > > +			goto lookup_vma;
+> > > +		}
+> > > +	} else {
+> > >   		err = xe_pagefault_handle_vma(gt, vma, pf, atomic);
+> > > +	}
+> > >   unlock_vm:
+> > >   	if (err)
+> > > diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+> > > index bc6902b5bf57..d19cb0c4b154 100644
+> > > --- a/drivers/gpu/drm/xe/xe_svm.c
+> > > +++ b/drivers/gpu/drm/xe/xe_svm.c
+> > > @@ -356,12 +356,36 @@ static void xe_vma_set_default_attributes(struct xe_vma *vma)
+> > >   	xe_vma_mem_attr_copy(&vma->attr, &default_attr);
+> > >   }
+> > > +/* vm->lock keeps the VMA and its attributes stable during this check. */
+> > > +static bool xe_svm_range_needs_attr_reset(struct xe_vm *vm, u64 start)
+> > > +{
+> > > +	struct xe_vma *vma;
+> > > +	u64 end;
+> > > +
+> > > +	lockdep_assert_held(&vm->lock);
+> > > +
+> > > +	vma = xe_vm_find_vma_by_addr(vm, start);
+> > > +	if (!vma || !(vma->gpuva.flags & XE_VMA_MADV_AUTORESET))
+> > > +		return false;
+> > > +
+> > > +	if (!xe_vma_has_default_mem_attrs(vma))
+> > > +		return true;
+> > > +
+> > > +	start = xe_vma_start(vma);
+> > > +	end = xe_vma_end(vma);
+> > > +	xe_vm_find_cpu_addr_mirror_vma_range(vm, &start, &end);
+> > > +
+> > > +	return start != xe_vma_start(vma) || end != xe_vma_end(vma);
+> > > +}
+> > > +
+> > >   static int xe_svm_range_set_default_attr(struct xe_vm *vm, u64 start, u64 end)
+> > >   {
+> > >   	struct xe_vma *vma;
+> > >   	bool has_default_attr;
+> > >   	int err;
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > > +
+> > >   	vma = xe_vm_find_vma_by_addr(vm, start);
+> > >   	if (!vma)
+> > >   		return -EINVAL;
+> > > @@ -397,70 +421,134 @@ static int xe_svm_range_set_default_attr(struct xe_vm *vm, u64 start, u64 end)
+> > >   		return err;
+> > >   	}
+> > > -	/*
+> > > -	 * On call from xe_svm_handle_pagefault original VMA might be changed
+> > > -	 * signal this to lookup for VMA again.
+> > > -	 */
+> > > -	return -EAGAIN;
+> > > +	return 0;
+> > >   }
+> > > -static int xe_svm_garbage_collector(struct xe_vm *vm)
+> > > +/*
+> > > + * With reset_attrs false, defer ranges requiring a VMA change and return
+> > > + * -EAGAIN after collecting the remaining ready ranges in the batch. The
+> > > + * caller must release all read-side state before collecting them with
+> > > + * vm->lock held for write.
+> > > + */
+> > > +static int xe_svm_garbage_collector(struct xe_vm *vm, bool reset_attrs)
+> > >   {
+> > >   	struct xe_svm_range *range;
+> > > -	u64 range_start;
+> > > -	u64 range_end;
+> > > -	int err, ret = 0;
+> > > +	LIST_HEAD(pending);
+> > > +	LIST_HEAD(deferred);
+> > > +	u64 range_start, range_end;
+> > > +	bool needs_reset;
+> > > +	int err = 0, ret = 0;
+> > >   	lockdep_assert_held(&vm->lock);
+> > > +	if (reset_attrs)
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   	if (xe_vm_is_closed_or_banned(vm))
+> > >   		return -ENOENT;
+> > >   	guard(mutex)(&vm->svm.garbage_collector.lock);
+> > > +	/* Process a finite batch, excluding events queued during this pass. */
+> > > +	spin_lock(&vm->svm.garbage_collector.list_lock);
+> > > +	if (list_empty(&vm->svm.garbage_collector.range_list)) {
+> > > +		spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > > +		return 0;
+> > > +	}
+> > > +	list_splice_init(&vm->svm.garbage_collector.range_list, &pending);
+> > > +	spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > > +
+> > >   	for (;;) {
+> > >   		spin_lock(&vm->svm.garbage_collector.list_lock);
+> > > -		range = list_first_entry_or_null(&vm->svm.garbage_collector.range_list,
+> > > -						 typeof(*range),
+> > > +		range = list_first_entry_or_null(&pending, typeof(*range),
+> > >   						 garbage_collector_link);
+> > > -		if (!range)
+> > > +		if (!range) {
+> > > +			spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > >   			break;
+> > > +		}
+> > >   		range_start = xe_svm_range_start(range);
+> > >   		range_end = xe_svm_range_end(range);
+> > > -
+> > >   		list_del(&range->garbage_collector_link);
+> > >   		spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > > +		/*
+> > > +		 * Keep the backing range alive until its attributes can be
+> > > +		 * reset. The GC mutex excludes other collectors and explicit
+> > > +		 * range removal requires vm->lock for write.
+> > > +		 */
+> > > +		needs_reset = xe_svm_range_needs_attr_reset(vm, range_start);
+> > > +		if (needs_reset && !reset_attrs) {
+> > > +			spin_lock(&vm->svm.garbage_collector.list_lock);
+> > > +			list_add_tail(&range->garbage_collector_link, &deferred);
+> > > +			spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > > +			ret = -EAGAIN;
+> > > +			continue;
+> > > +		}
+> > > +
+> > >   		err = __xe_svm_garbage_collector(vm, range);
+> > >   		if (err) {
+> > >   			drm_warn(&vm->xe->drm,
+> > >   				 "Garbage collection failed: %pe\n",
+> > >   				 ERR_PTR(err));
+> > > +			/* Leave the failed range in the tree for VM teardown. */
+> > >   			xe_vm_kill(vm, true);
+> > > -			return err;
+> > > +			goto out;
+> > >   		}
+> > > -		err = xe_svm_range_set_default_attr(vm, range_start, range_end);
+> > > -		if (err) {
+> > > -			if (err == -EAGAIN)
+> > > -				ret = -EAGAIN;
+> > > -			else
+> > > -				return err;
+> > > +		if (needs_reset) {
+> > > +			err = xe_svm_range_set_default_attr(vm, range_start, range_end);
+> > > +			if (err)
+> > > +				goto out;
+> > >   		}
+> > >   	}
+> > > +
+> > > +out:
+> > > +	/* Restore ranges not yet processed, including deferred resets. */
+> > > +	spin_lock(&vm->svm.garbage_collector.list_lock);
+> > > +	list_splice_tail_init(&pending, &vm->svm.garbage_collector.range_list);
+> > > +	list_splice_tail_init(&deferred, &vm->svm.garbage_collector.range_list);
+> > >   	spin_unlock(&vm->svm.garbage_collector.list_lock);
+> > > -	return ret;
+> > > +	return err ?: ret;
+> > > +}
+> > > +
+> > > +/**
+> > > + * xe_svm_garbage_collect() - Collect SVM ranges and reset their attributes
+> > > + * @vm: The VM, with vm->lock held for write.
+> > > + *
+> > > + * Process one batch of queued ranges, including attribute resets. Ranges
+> > > + * queued during this pass are left for a later collection.
+> > > + *
+> > > + * Call before changing advice or bindings, or querying attributes, so the
+> > > + * batch is reset before applying new advice or reporting attributes.
+> > > + * No VMA pointer may be retained across this call.
+> > > + *
+> > > + * Return: 0 on success, negative error code on error.
+> > > + */
+> > > +int xe_svm_garbage_collect(struct xe_vm *vm)
+> > > +{
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > > +
+> > > +	if (!xe_vm_in_fault_mode(vm))
+> > > +		return 0;
+> > > +
+> > > +	return xe_svm_garbage_collector(vm, true);
+> > >   }
+> > >   static void xe_svm_garbage_collector_work_func(struct work_struct *w)
+> > >   {
+> > >   	struct xe_vm *vm = container_of(w, struct xe_vm,
+> > >   					svm.garbage_collector.work);
+> > > +	int err = 0;
+> > > -	guard(rwsem_read)(&vm->lock);
+> > > -	xe_svm_garbage_collector(vm);
+> > > +	scoped_guard(rwsem_read, &vm->lock)
+> > > +		err = xe_svm_garbage_collector(vm, false);
+> > > +
+> > > +	if (err != -EAGAIN)
+> > > +		return;
+> > > +
+> > > +	guard(rwsem_write)(&vm->lock);
+> > > +	xe_svm_garbage_collect(vm);
+> > >   }
+> > >   #if IS_ENABLED(CONFIG_DRM_XE_PAGEMAP)
+> > > @@ -1302,13 +1390,15 @@ static int __xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >   	if (range) {
+> > >   		mutex_unlock(&range->lock);
+> > >   		drm_gpusvm_range_put(&range->base);
+> > > -	}
+> > > -	/* Always process UNMAPs first so view SVM ranges is current */
+> > > -	err = xe_svm_garbage_collector(vm);
+> > > -	if (err) {
+> > > -		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_SVM_GARBAGE_COLLECTOR);
+> > > -		return err;
+> > > +		/* The caller collected before the initial service attempt. */
+> > > +		err = xe_svm_garbage_collector(vm, false);
+> > > +		if (err) {
+> > > +			if (err != -EAGAIN)
+> > > +				xe_pagefault_set_error(pf,
+> > > +						      XE_PAGEFAULT_ERROR_SVM_GARBAGE_COLLECTOR);
+> > > +			return err;
+> > > +		}
+> > >   	}
+> > >   	dpagemap = ctx.devmem_only ? xe_tile_local_pagemap(tile) :
+> > > @@ -1468,14 +1558,28 @@ static int __xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >    * Create GPU bindings for a SVM page fault. Optionally migrate to device
+> > >    * memory.
+> > >    *
+> > > - * Return: 0 on success, negative error code on error.
+> > > + * The caller must hold vm->lock for read. On -EAGAIN, discard @vma before
+> > > + * releasing that lock. Collect with write access, then repeat VMA lookup
+> > > + * and permission checks before retrying.
+> > > + *
+> > > + * Return: 0 on success, -EAGAIN if the caller must collect with write
+> > > + * access and repeat VMA lookup, or another negative error code on error.
+> > >    */
+> > >   int xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >   			    struct xe_pagefault *pf, struct xe_gt *gt,
+> > >   			    u64 fault_addr, bool atomic)
+> > >   {
+> > >   	int need_vram, ret;
+> > > -retry:
+> > > +
+> > > +	/* Consume older UNMAPs before reading advice or building the context. */
+> > > +	ret = xe_svm_garbage_collector(vm, false);
+> > > +	if (ret) {
+> > > +		if (ret != -EAGAIN)
+> > > +			xe_pagefault_set_error(pf,
+> > > +					       XE_PAGEFAULT_ERROR_SVM_GARBAGE_COLLECTOR);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > >   	need_vram = xe_vma_need_vram_for_atomic(vm->xe, vma, atomic);
+> > >   	if (need_vram < 0) {
+> > >   		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_SVM_NEEDS_VRAM_CHECK);
+> > > @@ -1485,18 +1589,9 @@ int xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >   	ret =  __xe_svm_handle_pagefault(vm, vma, pf, gt, fault_addr,
+> > >   					 need_vram ? true : false);
+> > >   	if (ret == -EAGAIN) {
+> > > -		/*
+> > > -		 * Retry once on -EAGAIN to re-lookup the VMA, as the original VMA
+> > > -		 * may have been split by xe_svm_range_set_default_attr.
+> > > -		 */
+> > > -		vma = xe_vm_find_vma_by_addr(vm, fault_addr);
+> > > -		if (!vma) {
+> > > -			xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_SVM_VMA_NOT_FOUND);
+> > > -			return -EINVAL;
+> > > -		}
+> > > -
+> > > +		/* Retry from the caller after collecting with write access. */
+> > >   		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_NONE);
+> > > -		goto retry;
+> > > +		return ret;
+> > >   	}
+> > >   	if (ret && xe_pagefault_get_error(pf) == XE_PAGEFAULT_ERROR_NONE)
+> > >   		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_SVM_SERVICE_FAILED);
+> > > diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
+> > > index ffc1cc808102..523213a8cd26 100644
+> > > --- a/drivers/gpu/drm/xe/xe_svm.h
+> > > +++ b/drivers/gpu/drm/xe/xe_svm.h
+> > > @@ -109,6 +109,8 @@ void xe_svm_fini(struct xe_vm *vm);
+> > >   void xe_svm_close(struct xe_vm *vm);
+> > > +int xe_svm_garbage_collect(struct xe_vm *vm);
+> > > +
+> > >   int xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >   			    struct xe_pagefault *pf, struct xe_gt *gt,
+> > >   			    u64 fault_addr, bool atomic);
+> > > @@ -316,6 +318,12 @@ void xe_svm_close(struct xe_vm *vm)
+> > >   {
+> > >   }
+> > > +static inline
+> > > +int xe_svm_garbage_collect(struct xe_vm *vm)
+> > > +{
+> > > +	return 0;
+> > > +}
+> > > +
+> > >   static inline
+> > >   int xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
+> > >   			    struct xe_pagefault *pf, struct xe_gt *gt,
+> > > diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> > > index d12365b11186..6afe6f1be1d4 100644
+> > > --- a/drivers/gpu/drm/xe/xe_vm.c
+> > > +++ b/drivers/gpu/drm/xe/xe_vm.c
+> > > @@ -1308,19 +1308,12 @@ static void vma_destroy_cb(struct dma_fence *fence,
+> > >   	xe_destroy_wq_queue(&vma->destroy_work);
+> > >   }
+> > > -static void xe_vm_assert_write_mode_or_garbage_collector(struct xe_vm *vm)
+> > > -{
+> > > -	lockdep_assert(lockdep_is_held_type(&vm->lock, 0) ||
+> > > -		       (lockdep_is_held_type(&vm->lock, 1) &&
+> > > -			lockdep_is_held_type(&vm->svm.garbage_collector.lock, 0)));
+> > > -}
+> > > -
+> > >   static void xe_vma_destroy(struct xe_vma *vma, struct dma_fence *fence)
+> > >   {
+> > >   	struct xe_vm *vm = xe_vma_vm(vma);
+> > >   	struct xe_bo *bo = xe_vma_bo(vma);
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	xe_assert(vm->xe, list_empty(&vma->combined_links.destroy));
+> > >   	if (xe_vma_is_userptr(vma)) {
+> > > @@ -1416,7 +1409,7 @@ static int xe_vm_insert_vma(struct xe_vm *vm, struct xe_vma *vma)
+> > >   	int err;
+> > >   	xe_assert(vm->xe, xe_vma_vm(vma) == vm);
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	mutex_lock(&vm->snap_mutex);
+> > >   	err = drm_gpuva_insert(&vm->gpuvm, &vma->gpuva);
+> > > @@ -1429,7 +1422,7 @@ static int xe_vm_insert_vma(struct xe_vm *vm, struct xe_vma *vma)
+> > >   static void xe_vm_remove_vma(struct xe_vm *vm, struct xe_vma *vma)
+> > >   {
+> > >   	xe_assert(vm->xe, xe_vma_vm(vma) == vm);
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	mutex_lock(&vm->snap_mutex);
+> > >   	drm_gpuva_remove(&vma->gpuva);
+> > > @@ -2267,7 +2260,7 @@ static int xe_vm_query_vmas(struct xe_vm *vm, u64 start, u64 end)
+> > >   	struct drm_gpuva *gpuva;
+> > >   	u32 num_vmas = 0;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held(&vm->lock);
+> > >   	drm_gpuvm_for_each_va_range(gpuva, &vm->gpuvm, start, end)
+> > >   		num_vmas++;
+> > > @@ -2280,7 +2273,7 @@ static int get_mem_attrs(struct xe_vm *vm, u32 *num_vmas, u64 start,
+> > >   	struct drm_gpuva *gpuva;
+> > >   	int i = 0;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held(&vm->lock);
+> > >   	drm_gpuvm_for_each_va_range(gpuva, &vm->gpuvm, start, end) {
+> > >   		struct xe_vma *vma = gpuva_to_vma(gpuva);
+> > > @@ -2330,6 +2323,12 @@ int xe_vm_query_vmas_attrs_ioctl(struct drm_device *dev, void *data, struct drm_
+> > >   	if (err)
+> > >   		goto put_vm;
+> > > +	if (!xe_vm_is_closed_or_banned(vm)) {
+> > > +		err = xe_svm_garbage_collect(vm);
+> > > +		if (err)
+> > > +			goto unlock_vm;
+> > > +	}
+> > > +
+> > >   	attrs_user = u64_to_user_ptr(args->vector_of_mem_attr);
+> > >   	if (args->num_mem_ranges == 0 && !attrs_user) {
+> > > @@ -2487,7 +2486,7 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
+> > >   	u64 range_end = addr + range;
+> > >   	int err;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	vm_dbg(&vm->xe->drm,
+> > >   	       "op=%d, addr=0x%016llx, range=0x%016llx, bo_offset_or_userptr=0x%016llx",
+> > > @@ -2694,7 +2693,7 @@ static struct xe_vma *new_vma(struct xe_vm *vm, struct drm_gpuva_op_map *op,
+> > >   	struct xe_vma *vma;
+> > >   	int err = 0;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	if (bo) {
+> > >   		err = 0;
+> > > @@ -2795,7 +2794,7 @@ static int xe_vma_op_commit(struct xe_vm *vm, struct xe_vma_op *op)
+> > >   	switch (op->base.op) {
+> > >   	case DRM_GPUVA_OP_MAP:
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		err |= xe_vm_insert_vma(vm, op->map.vma);
+> > >   		if (!err)
+> > > @@ -2806,7 +2805,7 @@ static int xe_vma_op_commit(struct xe_vm *vm, struct xe_vma_op *op)
+> > >   		u8 tile_present =
+> > >   			gpuva_to_vma(op->base.remap.unmap->va)->tile_present;
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		prep_vma_destroy(vm, gpuva_to_vma(op->base.remap.unmap->va),
+> > >   				 true);
+> > > @@ -2842,7 +2841,7 @@ static int xe_vma_op_commit(struct xe_vm *vm, struct xe_vma_op *op)
+> > >   		break;
+> > >   	}
+> > >   	case DRM_GPUVA_OP_UNMAP:
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		prep_vma_destroy(vm, gpuva_to_vma(op->base.unmap.va), true);
+> > >   		op->flags |= XE_VMA_OP_COMMITTED;
+> > > @@ -2889,7 +2888,7 @@ static int vm_bind_ioctl_ops_parse(struct xe_vm *vm, struct drm_gpuva_ops *ops,
+> > >   	u8 id, tile_mask = 0;
+> > >   	int err = 0;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	for_each_tile(tile, vm->xe, id)
+> > >   		tile_mask |= 0x1 << id;
+> > > @@ -3072,7 +3071,7 @@ static void xe_vma_op_unwind(struct xe_vm *vm, struct xe_vma_op *op,
+> > >   	switch (op->base.op) {
+> > >   	case DRM_GPUVA_OP_MAP:
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		if (op->map.vma) {
+> > >   			prep_vma_destroy(vm, op->map.vma, post_commit);
+> > > @@ -3083,7 +3082,7 @@ static void xe_vma_op_unwind(struct xe_vm *vm, struct xe_vma_op *op,
+> > >   	{
+> > >   		struct xe_vma *vma = gpuva_to_vma(op->base.unmap.va);
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		if (vma) {
+> > >   			xe_svm_notifier_lock(vm);
+> > > @@ -3098,7 +3097,7 @@ static void xe_vma_op_unwind(struct xe_vm *vm, struct xe_vma_op *op,
+> > >   	{
+> > >   		struct xe_vma *vma = gpuva_to_vma(op->base.remap.unmap->va);
+> > > -		xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +		lockdep_assert_held_write(&vm->lock);
+> > >   		if (op->remap.prev) {
+> > >   			prep_vma_destroy(vm, op->remap.prev, prev_post_commit);
+> > > @@ -4092,6 +4091,11 @@ int xe_vm_bind_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+> > >   		goto release_vm_lock;
+> > >   	}
+> > > +	/* Consume queued resets before replacing VMAs. */
+> > > +	err = xe_svm_garbage_collect(vm);
+> > > +	if (err)
+> > > +		goto release_vm_lock;
+> > > +
+> > >   	for (i = 0; i < args->num_binds; ++i) {
+> > >   		u64 range = bind_ops[i].range;
+> > >   		u64 addr = bind_ops[i].addr;
+> > > @@ -4907,7 +4911,7 @@ static int xe_vm_alloc_vma(struct xe_vm *vm,
+> > >   	u16 default_pat;
+> > >   	int err;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	if (is_madvise)
+> > >   		ops = drm_gpuvm_madvise_ops_create(&vm->gpuvm, map_req);
+> > > @@ -5041,7 +5045,7 @@ int xe_vm_alloc_madvise_vma(struct xe_vm *vm, uint64_t start, uint64_t range)
+> > >   		.map.va.range = range,
+> > >   	};
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	vm_dbg(&vm->xe->drm, "MADVISE_OPS_CREATE: addr=0x%016llx, size=0x%016llx", start, range);
+> > > @@ -5073,7 +5077,7 @@ void xe_vm_find_cpu_addr_mirror_vma_range(struct xe_vm *vm, u64 *start, u64 *end
+> > >   {
+> > >   	struct xe_vma *prev, *next;
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held(&vm->lock);
+> > >   	if (*start >= SZ_4K) {
+> > >   		prev = xe_vm_find_vma_by_addr(vm, *start - SZ_4K);
+> > > @@ -5105,7 +5109,7 @@ int xe_vm_alloc_cpu_addr_mirror_vma(struct xe_vm *vm, uint64_t start, uint64_t r
+> > >   		.map.va.range = range,
+> > >   	};
+> > > -	xe_vm_assert_write_mode_or_garbage_collector(vm);
+> > > +	lockdep_assert_held_write(&vm->lock);
+> > >   	vm_dbg(&vm->xe->drm, "CPU_ADDR_MIRROR_VMA_OPS_CREATE: addr=0x%016llx, size=0x%016llx",
+> > >   	       start, range);
+> > > diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_vm_madvise.c
+> > > index 5c7aefc641ee..1af5e79bbfd3 100644
+> > > --- a/drivers/gpu/drm/xe/xe_vm_madvise.c
+> > > +++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
+> > > @@ -638,6 +638,11 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
+> > >   		goto unlock_vm;
+> > >   	}
+> > > +	/* Consume queued resets before publishing new advice. */
+> > > +	err = xe_svm_garbage_collect(vm);
+> > > +	if (err)
+> > > +		goto unlock_vm;
+> > > +
+> > >   	err = xe_madvise_details_init(vm, args, &details);
+> > >   	if (err)
+> > >   		goto unlock_vm;
+> > > -- 
+> > > 2.43.0
+> > > 
