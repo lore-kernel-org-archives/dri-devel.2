@@ -2,51 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F567606A333
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 10:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51918606A88B
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 10:06:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jZic3ilP
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rq9zWNFm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C5A10E3F5;
-	Fri, 13 Nov 2026 10:02:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D11D1124A0;
+	Fri, 13 Nov 2026 10:06:04 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 575E510E3F5
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:02:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67CDC112481
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794564140;
- bh=X1jLNoDnjVgubMenvrcefOxSRaNk8escCylD62v2PbU=;
+ s=mail; t=1794564357;
+ bh=P43MkHAOPRyb7oE/61ejrj/2m7wH0ZiP/q5aYWffMco=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jZic3ilPtAE7ff/SF1XrbewKiLagOOuvHNJs+2SHa7/LBcokuCDwPex7rbv6pXr8d
- gk356trxUyyGPqFPgbvIpc0Qj2x0k1A2wEcIPt94Cbeztmriquyvmcsp/Yfqeb5qsQ
- KJAYRNTvDkXwLLBxpSuZUyraF+qKwXRfxeTgIqJXhckEIt7/h4nnyRFIFCoFtIs1Qj
- mko06yp2b7iRT1IjEo2AwxDEkdrABhFM5NcVh0ykjSF/sRk1dNBSg/WpYSKndxvVRX
- inaIxEMRt/yRHhm4nTmexgPjjvqoxu4wohGFyb5HiICNLIZ8uB01UmQ5M0Q8archyW
- T/47QOroubjzw==
+ b=Rq9zWNFm8PPHZVAxYcvxmC4Zv5KbP9FNqJK9dsCUYmRgN2jZQB7voEG22+pbCXctr
+ jDLZ9H9CDHnPkfkVN7BISlvZCNmwFE0MUDweh/MgNnD5XXWikqRosETec1PkD+VDPa
+ Bsfjn0GxfeV/2n23vs+DnV1Rqg7e6f01kqgFRa4pBSiCMeh5hnDY8moz1WJGdZAwvr
+ kswNch6ZElbuCDvIzB5BDmZFmsxoBT6ALyeCBw0iVGdabKEnhb3KGfsCMGydjwE4wU
+ Uvz1RzNdvXWw1q1Vghdatf2se4m7149SDcimNuULc/M6UgSUuthTBLJ5/Vprht6OSG
+ 4smksaLWTwYlw==
 Received: from fedora1.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5113417E09C6;
- Fri, 13 Nov 2026 11:02:20 +0100 (CET)
-Date: Fri, 13 Nov 2026 11:02:17 +0100
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A8CC017E0A27;
+ Fri, 13 Nov 2026 11:05:56 +0100 (CET)
+Date: Fri, 13 Nov 2026 11:05:52 +0100
 From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand
- <chris.diamand@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix race when retrieving the new chunk in
- panthor_heap_grow()
-Message-ID: <20261113110217.6c1513be@fedora1.home>
-In-Reply-To: <20261112191650.735850-1-osama.abdelkader@gmail.com>
-References: <20261112191650.735850-1-osama.abdelkader@gmail.com>
+To: Tuo Li <islituo@gmail.com>
+Cc: steven.price@arm.com, liviu.dudau@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix NULL pointer dereference in sync
+ signal cleanup
+Message-ID: <20261113110552.034cec24@fedora1.home>
+In-Reply-To: <20261113094456.5000-1-islituo@gmail.com>
+References: <20261113094456.5000-1-islituo@gmail.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
@@ -72,88 +67,44 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Osama,
+On Fri, 13 Nov 2026 17:44:56 +0800
+Tuo Li <islituo@gmail.com> wrote:
 
-On Thu, 12 Nov 2026 20:16:50 +0100
-Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
+> In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
+> NULL. The function then jumps to err_free_sig_sync, where
+> panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
+> the NULL pointer, causing a NULL pointer dereference.
+> 
+> Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
+> NULL pointer dereference.
 
-> panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
-> which adds the chunk at the head of heap->chunks under heap->lock, and
-> then drops the lock. panthor_heap_grow() then assumes the head of the
-> list is the chunk it just added, and reads its GPU VA through
-> list_first_entry() without holding heap->lock.
+I really wish we had consistent behavior on those _put() helpers. Most
+of them check for NULL before calling kref_put(), but some don't,
+unfortunately...
+
 > 
-> panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
-> in read mode, and tiler OOM events of different groups are processed in
-> parallel on the unbound heap_alloc_wq. If two groups use the same heap
-> context, they can modify the chunk list concurrently:
-> 
->   group A OOM work                     group B OOM work
->   alloc C_A, list_add()
->                                        alloc C_B, list_add()
->   list_first_entry() -> C_B
->                                        group scheduled out:
->                                        panthor_heap_return_chunk(C_B)
->                                          list_del(), destroy BO, kfree()
->   C_B->bo                              <- use-after-free
-> 
-> Even without the free, both groups end up being handed the same chunk,
-> and the chunk allocated by group A is never linked to the heap context.
-> 
-> Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
-> chunk it allocated, retrieved before the chunk is published in the list,
-> instead of looking it up afterwards.
-> 
-> Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5.5
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
+> Signed-off-by: Tuo Li <islituo@gmail.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
->  drivers/gpu/drm/panthor/panthor_heap.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-> index 99311abdf1e9..d80f514366fd 100644
-> --- a/drivers/gpu/drm/panthor/panthor_heap.c
-> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
-> @@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..8d73956530a8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
+>  	if (!sig_sync)
+>  		return;
 >  
->  static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  				    struct panthor_heap *heap,
-> -				    bool initial_chunk)
-> +				    bool initial_chunk,
-> +				    u64 *chunk_gpu_va)
->  {
->  	struct panthor_heap_chunk *chunk;
->  	struct panthor_heap_chunk_header *hdr;
-> @@ -181,6 +182,15 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  
->  	panthor_kernel_bo_vunmap(chunk->bo);
->  
-> +	/*
-> +	 * Retrieve the GPU VA before the chunk becomes visible in the heap
-> +	 * chunk list: once heap->lock is released, a concurrent grow or
-> +	 * return_chunk on the same heap can modify the list, and the chunk
-> +	 * can be freed.
-> +	 */
-> +	if (chunk_gpu_va)
-> +		*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
-
-Let's make this unconditional and force the user to pass a non-NULL
-chunk_gpu_va.
-
+> -	drm_syncobj_put(sig_sync->syncobj);
+> +	if (sig_sync->syncobj)
+> +		drm_syncobj_put(sig_sync->syncobj);
 > +
->  	mutex_lock(&heap->lock);
->  	list_add(&chunk->node, &heap->chunks);
->  	heap->chunk_count++;
-> @@ -216,7 +226,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+>  	dma_fence_chain_free(sig_sync->chain);
+>  	dma_fence_put(sig_sync->fence);
+>  	kfree(sig_sync);
 
-Let's have panthor_alloc_heap_chunks() retrieve the first chunk GPU VA
-to simplify panthor_heap_create(). The first_chunk_gpu_va pointer can
-be passed directly to panthor_alloc_heap_chunk().
-
-The rest looks good to me.
-
-Thanks,
-
-Boris
