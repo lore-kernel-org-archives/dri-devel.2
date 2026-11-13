@@ -2,44 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83D96070235
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063FD607233D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:06:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6em482u
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=edsGFvGt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E91A810E7A6;
-	Fri, 13 Nov 2026 16:05:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E7710E7A6
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:05:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 65F31628E8;
- Fri, 13 Nov 2026 16:05:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33931F000C5;
- Fri, 13 Nov 2026 16:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794585915;
- bh=zDDhxeiq4AimuU9FB2NEBaVGfhWia5vA4S5VTaY0WE0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V6em482utP9GKUhzxT9JherybdfYjin3Vm0VzAfIeSQqtkQhwxNGw/cFZwD2i2WES
- XQHxQlaiNBGOWe7VBVwf/AGPr4BCvmjW+arh9iV/9tYqRrVnvqGtL/MFiOFxW/LrHp
- j5RrkE4G1SFrz17Sv3nOj8mj9t6xldMsNIYTGb1GlriJIEtwgbs9SzRmG9wsmvsp0M
- Az9x+cTUA6W4gOS+USxveV8H9atuaJkszJl9ldQmkW8qEZCdP1SyRg4ocNde+0pZ7z
- RGBdvByxsnXKnomZRK9OrxyA8tFUJDCSuqzWHaEKKlCG1Y2IP5O3w1SONf+y3dKjrz
- AFtsUnQESDtiQ==
-Message-ID: <sashiko-outbox-213154@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: describe the second MDSS
- block reset
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>,
- dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113155635.1677541-4-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261113155635.1677541-4-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 16:05:14 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4511710E81F;
+	Fri, 13 Nov 2026 16:06:26 +0000 (UTC)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6389410E81F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:06:20 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-376a4059061so126248eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:06:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794585979; x=1795190779; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wUwtsQ3N40287aIsw4DkULjhgKBahJqAdXPD93dhPZQ=;
+ b=edsGFvGtqtwAqIsoDnFliLYMzwQWu36NX09rTmtlv1n9YAodJd1tU1rPLvc+GkuxqP
+ bkimF0ktWSzQZbc55wXHWZ4iMlAGPKYGRqcN8CwwTPgv6dPkWa5PNVMxYvnN6PmscvUB
+ 1hJwQqrKErMs+POvZWE2o2p1bb4C89kniGzt5NYGiMvAvJc3uWqbOYwnLwTovmhZxUhF
+ S+jh9u9tkZHsXhWNf5Rd4hdse6+I2fr17ri2acI48uMhM2fzN6KDZHdNsSk3Sm8o9spN
+ MFF1pcv57kIOngd1F4RolFqyyjRzlmOq3yVLfIuGInxNV6ogFyT8Ta2WMA0ornM8Qcmi
+ 0nVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794585979; x=1795190779;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wUwtsQ3N40287aIsw4DkULjhgKBahJqAdXPD93dhPZQ=;
+ b=jRwbHwi4R5JLS16grDZMGfMzHDhPmlSQnYLcqfYJUDpaxeZonGGQsGFxI2EPFUgt+i
+ WT+vmQLnzeQWfQvrlM0BZCiJLtBRQIjzeUSki3XOonOGhNKb5rGnhDl8PZd3UBoL/Mwz
+ rjHNSi/LVwIRnb+noeJcZs5WKmU2DdaUgC6AHlolprW6BIcqZbLK9IAURG1wXqKoT5f1
+ 3lwKSwEeMoTzOaiO4Z3MJYhWRo2ycG+kYLa6qOg8iMFC5+O0gyOWZHPz3sTKlTkyANEn
+ JdtWd9lJsbfdJHlFdwJRGcWuFS6YRQIi9mHe27ldyX6jsrE1zBuStLz+Sgpl/YOr+i7m
+ 7Owg==
+X-Gm-Message-State: APuU4Z/YwkvomkLJ8fmSxR+sGPR5nCoNEbpTbANAUERDZes826efZPHm
+ ky7oMZSE1nsBw/9NiT3mAEQ+fHVhfbUAwPJr6iSFQzphaeB0pM2W++7Lg6Bo74IGjk8=
+X-Gm-Gg: AYBFou14NNV1tXe+xHiIX6sgW+adw9cwEbCLV1vDcPJmI3EoqbahwN8ddkPTOyXuRxo
+ ePey44/mzBBtJomk8b0Vi9Ab7O2gZCsn4DWIz1qaqzzSJLjc9yXJ36VgZWT++ASQrE99KXgIadp
+ OjSnHB6JzEcrzrQC22ni93tAyhnv46xTmU6dxBxBcOBUNHszULWONqzdgg70u6jzgPeicA12p8G
+ 34cxSBc/ZMiv/dO3C6+zu4NuGYSYg4EwXl/pQ8eINAafn+Hv06IQSTGcWr5GoGjLPI7u9ElzFim
+ RxsanAJUpYvBMRKOBeYIkPh5aof0kfYJdITtSxoXEv4/KARsLWMmLYeBex6LG/YQvFyH2GbKov5
+ wpDs1kDJCHGnO0rnG6Hgc93HDLKzRXfZs9iC59UZEVp0rovq20kjfHGsBcyNJ57L+8RpzQgH4AN
+ OBX+gQxvXAICkv8wXDHy/jPt+job6P+fVjBqTV5hQ/hnyO7z7HyyxoK6hejc2BJoFOz55zwzvAv
+ RN0B89AbOmX32Ov1JLQ+rsML8t9zndHhGClF1L4nA1GsMFTZQcVVJtygR0+9WX+UbjBxpZXB1zz
+ oeF3HJQyCN/7ZKFLmpjCsc/0hVzE3MsYTHJQ6E6a4RNfFE2YJDzuTKDa03ZA36I=
+X-Received: by 2002:a05:693c:8204:b0:372:c0ee:875b with SMTP id
+ 5a478bee46e88-3796057b529mr3832724eec.0.1794585979141; 
+ Fri, 13 Nov 2026 08:06:19 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-379565d3e37sm9078296eec.24.2026.11.13.08.06.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 08:06:18 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH v3] drm/gem-atomic-helper: fix fence leak on
+ dma_fence_chain_alloc() failure
+Date: Sat, 14 Nov 2026 00:04:58 +0800
+Message-Id: <20261113160458.179741-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,60 +80,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: sm8750: unattached INT2 domain reset on
-  mdss
---
+In drm_gem_plane_helper_prepare_fb(), when both "new" (the plane's GEM
+singleton fence) and "fence" (explicit or previous plane's) exist, they
+are wrapped in a freshly allocated chain.  If dma_fence_chain_alloc()
+fails, the error path runs before dma_fence_chain_init() adopts "new",
+and error: only puts "fence" - leaking one fence reference per failure.
 
-commit b3b8b6c811f21fdd572edc7ec2e32709cdaa973b
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Put "new" in the allocation-failure branch.
 
-arm64: dts: qcom: sm8750: describe the second MDSS block reset
+Found by static analysis.
 
-This commit adds DISP_CC_MDSS_CORE_INT2_BCR to the resets property of the
-mdss display-subsystem node in the SM8750 device tree.
+Fixes: 1ea28bc5542d ("drm: handle kernel fences in drm_gem_plane_helper_prepare_fb v2")
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+v3: regenerate with git format-patch so the hunk header carries the
+function context.  No code change.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index cf947acc57602..0f3e649787315 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -3359,7 +3359,8 @@ mdss: display-subsystem@ae00000 {
->  				 <&gcc GCC_DISP_HF_AXI_CLK>,
->  				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> =20
-> -			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>;
-> +			resets =3D <&dispcc DISP_CC_MDSS_CORE_BCR>,
-> +				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>;
+v2: add the Fixes trailer for 1ea28bc5542d
+https://lore.kernel.org/dri-devel/20261112161725.41955-1-lui2012qwq@gmail.com/
 
-[Severity: Medium]
-Should the mdss node assert DISP_CC_MDSS_CORE_INT2_BCR when it does not
-attach the corresponding MDSS_INT2_GDSC power domain or clocks?
+v1: https://lore.kernel.org/dri-devel/20261107165303.13508-1-lui2012qwq@gmail.com/
 
-In drivers/clk/qcom/dispcc-sm8750.c, DISP_CC_MDSS_CORE_INT2_BCR (at 0xa000)
-is the block reset for the secondary MDSS_CORE_INT2 domain governed by
-mdss_int2_gdsc (at 0xb000) and the disp_cc_mdss_*1_clk branches.  Here,
-mdss only attaches MDSS_GDSC and the primary MDSS_CORE clocks, so
-mdss_probe() -> msm_mdss_init() -> msm_mdss_reset() will reset an
-unattached power and clock domain.
+Build-tested on x86_64: drm_gem_atomic_helper.o compiles clean.  Fix
+written with AI assistance.
 
-In addition, commit "dt-bindings: display: msm: mdss-common: describe
-additional block resets" in this series still documents this second reset
-entry in Documentation/devicetree/bindings/display/msm/mdss-common.yaml as
-"MDSS core INT2 interrupt controller reset", which contradicts the commit
-message here describing it as a separate GDSC and clock domain.
+ drivers/gpu/drm/drm_gem_atomic_helper.c | 1 +
+ 1 file changed, 1 insertion(+)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113155635.1677=
-541-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
+diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
+index dd9efa7e3216..5d5bc0d1495c 100644
+--- a/drivers/gpu/drm/drm_gem_atomic_helper.c
++++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+@@ -154,6 +154,7 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
+ 			struct dma_fence_chain *chain = dma_fence_chain_alloc();
+ 
+ 			if (!chain) {
++				dma_fence_put(new);
+ 				ret = -ENOMEM;
+ 				goto error;
+ 			}
+-- 
+2.25.1
+
