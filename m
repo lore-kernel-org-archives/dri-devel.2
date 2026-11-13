@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90651606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:35:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCBE606A338
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k00eSQ26
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BsOjIGaW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5F31112645;
-	Fri, 13 Nov 2026 16:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31CB1126B7;
+	Fri, 13 Nov 2026 16:37:57 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF31112645
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:35:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7681E1126B7
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:37:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 429F061406;
- Fri, 13 Nov 2026 16:35:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870141F000C4;
- Fri, 13 Nov 2026 16:35:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B7F36274E;
+ Fri, 13 Nov 2026 16:37:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54FD1F000C4;
+ Fri, 13 Nov 2026 16:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794587717;
- bh=Io3LbBzAum205PwdBFQoAh4sWtN9t475JlKUGXJBp4Q=;
+ s=k20260515; t=1794587870;
+ bh=4GYsJjeVwNvoTdnxgd8HArSGDa2MXloHlDbq3rrEYf0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k00eSQ26Im9Cz1wumZlPqxD+IFJ+ZLRxg+Htjth7VJ1vsV2AK2DG2TWcsoGb8VdsT
- dW+qT/PULzAibZl8jLhBpCVMw5nwIHoAyQbB163qVcRKIhhrSPniNVY+YOwnx6PIb1
- i+FNg1JbDbT0AGmVlFzrm127ffxUTwLIqDOTG2AQ7GnQ2aXyjt6vHVOOKfj+bpyBmm
- GWt9Tzu5sD0kpFVPCB+Ile2J4WoRXaH7EffLmAqqzhvIGbNm4jl1Wk8oHt/qEmoAWk
- a/9noTiP+bII2DisIat4PbOGmvgFyA2dUyx1DMlVrxOm4v8PmLrJGuzoXF5WWGjyyM
- +2PdKJiTUKo/w==
-Message-ID: <sashiko-outbox-213206@kernel.org>
+ b=BsOjIGaWtTyEwE0lYoy5qXp8NBes/ZLNqmLtCPQ5k8mkMfEAB5tBg1RuFCNsfTcWU
+ K8fA1Ue4akPXZG4AdjTkHwqMyA60AlVWe8ZgN0lx5MT0unPnKlbAKRg5yhIW5Gewy0
+ 1VjlVVUy5fwak4WJa5KnLbaOOlL1gzv31rVHqZI6JO2QOQsLrWYG1iitb/0UhqqNtk
+ R7xrYR8jP1TvB/JWz4A/zIZsui13AdMN7nSeolSnkYrieTpSiyqHdmTAb1jThf/YnS
+ URwMdEQ37lGAhsdRQAXqy7RAgQX7d/niYMHrt4vj/yiLWaiaoRRdUIzUjiZBxgwm+6
+ QWoH570cUVs/w==
+Message-ID: <sashiko-outbox-213213@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 07/10] dt-bindings: display: tegra: Document Tegra114
- CSI
+Subject: Re: [PATCH v1 05/10] media: tegra-video: vi: Use entity function to
+ check subdev type
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261113161819.36847-8-clamor95@gmail.com>
+In-Reply-To: <20261113161819.36847-6-clamor95@gmail.com>
 References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-8-clamor95@gmail.com>
+ <20261113161819.36847-6-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 16:35:16 +0000
+Date: Fri, 13 Nov 2026 16:37:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,102 +60,59 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: display: tegra: broken clock-names and clocks
-  bounds for Tegra30
-- [Low] dt-bindings: display: tegra: unwieldy conditionals for Tegra114
-  CSI variant
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] media: tegra-video: ERR_PTR deref in
+  tegra_channel_get_remote_source_subdev()
 --
 
-commit bc3414960c2f3dc8bae0883c0237f89de055bb7d
+commit a0a0dd1c4d66f50cccd70079714c29c0b22431b6
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-dt-bindings: display: tegra: Document Tegra114 CSI
+media: tegra-video: vi: Use entity function to check subdev type
 
-This commit adds the nvidia,tegra114-csi compatible string and its clock and
-calibration constraints to the Tegra20 CSI binding schema.
+This commit updates tegra_channel_get_remote_source_subdev() to stop
+walking upstream subdevices when it reaches an entity with function
+MEDIA_ENT_F_PROC_VIDEO_ISP or MEDIA_ENT_F_CAM_SENSOR instead of checking
+pad flags.
 
-> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
-20-csi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra2=
-0-csi.yaml
-> index a1aea9590769f..0c18ac81c6d6f 100644
-> --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.=
-yaml
-> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.=
-yaml
-> @@ -14,6 +14,7 @@ properties:
->      enum:
->        - nvidia,tegra20-csi
->        - nvidia,tegra30-csi
-> +      - nvidia,tegra114-csi
+> diff --git a/drivers/media/platform/nvidia/tegra-video/vi.c b/drivers/med=
+ia/platform/nvidia/tegra-video/vi.c
+> index a96ef26af89eb..139e3ff0faaed 100644
+> --- a/drivers/media/platform/nvidia/tegra-video/vi.c
+> +++ b/drivers/media/platform/nvidia/tegra-video/vi.c
+> @@ -189,13 +189,12 @@ tegra_channel_get_remote_source_subdev(struct tegra=
+_vi_channel *chan)
 > =20
->    reg:
->      maxItems: 1
-> @@ -24,12 +25,18 @@ properties:
->        - description: module clock
->        - description: PAD A clock
->        - description: PAD B clock
-> +      - description: A/B lanes clock
-> +      - description: C/D lanes clock
-> +      - description: E lane clock
+>  	entity =3D &subdev->entity;
 > =20
->    clock-names:
->      items:
->        - const: csi
->        - const: csia-pad
->        - const: csib-pad
-> +      - const: cilab
-> +      - const: cilcd
-> +      - const: cile
+> -	pad =3D &subdev->entity.pads[0];
+> -	while (!(pad->flags & MEDIA_PAD_FL_SOURCE)) {
+> +	while (entity->function !=3D MEDIA_ENT_F_PROC_VIDEO_ISP &&
+> +	       entity->function !=3D MEDIA_ENT_F_CAM_SENSOR) {
+>  		pad =3D media_entity_remote_source_pad_unique(entity);
+>  		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
+>  			break;
 
-[Severity: Medium]
-Does extending the top-level clock-names items list to 6 entries without
-setting minItems: 3 cause dtbs_check to fail on Tegra30 device trees?
+[Severity: High]
+Can this dereference an error pointer at pad->entity when a pipeline
+ends at a non-sensor, non-ISP source?
 
-Without an explicit minItems at the top level, dtschema defaults clock-names
-to minItems: 6, which cannot be relaxed by the minItems: 3 rule in the
-nvidia,tegra30-csi allOf branch and causes csi@800 in
-arch/arm/boot/dts/nvidia/tegra30.dtsi to fail validation.  In addition,
-expanding the top-level clocks and clock-names lists to 6 items leaves
-nvidia,tegra30-csi without an upper bound unless maxItems: 3 is added to its
-conditional block.
+media_entity_remote_source_pad_unique() calls
+media_entity_remote_pad_unique(), which returns ERR_PTR(-ENOLINK) rather
+than NULL when an entity has no enabled upstream source link.  Previously,
+the loop condition !(pad->flags & MEDIA_PAD_FL_SOURCE) exited before
+calling media_entity_remote_source_pad_unique() on a single-pad source
+subdev.  With the new condition, a terminal source whose function is
+neither MEDIA_ENT_F_PROC_VIDEO_ISP nor MEDIA_ENT_F_CAM_SENSOR (such as the
+CSI subdev in TPG mode or an HDMI/TV decoder with
+MEDIA_ENT_F_VID_IF_BRIDGE, MEDIA_ENT_F_DV_DECODER, or
+MEDIA_ENT_F_ATV_DECODER) enters the loop, receives ERR_PTR(-ENOLINK) in
+pad, passes !pad, and crashes when is_media_entity_v4l2_subdev(pad->entity)
+dereferences pad.
 
-> @@ -125,6 +132,22 @@ allOf:
->          clock-names:
->            minItems: 3
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - nvidia,tegra114-csi
-> +    then:
-> +      properties:
-> +        "#nvidia,mipi-calibrate-cells": false
-> +
-> +        clocks:
-> +          minItems: 6
-> +
-> +        clock-names:
-> +          minItems: 6
-> +
->  additionalProperties: false
-> =20
->  required:
-
-[Severity: Low]
-Would nvidia,tegra114-csi fit better in a separate binding schema document?
-
-With this addition, every compatible string in nvidia,tegra20-csi.yaml needs
-its own if/then block to override clocks, clock-names, and
-#nvidia,mipi-calibrate-cells.  Tegra114 CSI also differs in its hardware
-layout: it adds CIL C/D and E lane clocks for a third port while the shared
-schema restricts patternProperties to ^channel@[0-1]$, and
-include/dt-bindings/clock/tegra114-car.h does not define the csia-pad or
-csib-pad clocks required here.
+Checking IS_ERR(pad) instead of !pad would avoid the bad dereference.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113161819.3684=
-7-1-clamor95@gmail.com?part=3D7
+7-1-clamor95@gmail.com?part=3D5
